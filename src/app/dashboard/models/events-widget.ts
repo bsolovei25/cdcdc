@@ -22,6 +22,7 @@ export interface EventsWidgetNotificationPreview {
 
 export interface EventsWidgetNotification {
     id?: number;
+    parentId?: number;
     itemNumber: number;
     organization: string;
     branch: string;
@@ -47,7 +48,7 @@ export interface EventsWidgetNotification {
     statusName?: string;
     positionNumber?: string;
     severity: string;
-    retrievalEvents: IRetrievalEvents[];
+    retrievalEvents: IRetrievalEventDto[];
     equipmentCategory: { id: number; name: string; code: string };
     deadline?: Date;
     graphValues: LineChartData;
@@ -77,6 +78,16 @@ export interface IEventAsus {
     datetimeStart?: Date;
     datetimeEnd?: Date;
     datetimeDeadline?: Date;
+}
+
+export interface IRetrievalEventDto {
+    innerNotificationId: number;
+    description: string;
+    isAcknowledged: boolean;
+    status: IStatus;
+    deadline: Date;
+    fixedByName: string;
+    timerPercentage: number;
 }
 
 export interface IEventDeviationData {
@@ -139,6 +150,13 @@ export interface IUser {
     department?: string;
 }
 
+export interface ISaveMethodEvent {
+    data: {
+        url: string;
+        authenticationType: AuthenticationType;
+    };
+}
+
 export type WorkerPositionType = 'common' | 'responsible';
 
 export type EventsWidgetNotificationPriority = 'danger' | 'warning' | 'standard';
@@ -154,6 +172,8 @@ export type EventsWidgetCategoryCode =
     | 'equipmentStatus'
     | 'drops'
     | 'asus';
+
+export type AuthenticationType = 'bearer' | 'windows';
 
 export type EventAction = 'add' | 'edit' | 'delete';
 

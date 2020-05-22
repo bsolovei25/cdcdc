@@ -6,6 +6,7 @@ import { fillDataShape } from '../../../../@shared/common-functions';
 import { IUser } from '../../../models/events-widget';
 import { Subscription } from 'rxjs';
 import { SnackBarService } from '../../../services/snack-bar.service';
+import { IInputOptions } from '../../../../@shared/models/input.model';
 
 @Component({
     selector: 'evj-admin-ad-import',
@@ -19,7 +20,19 @@ export class AdminAdImportComponent implements OnInit, OnDestroy {
 
     public workersLdap: IUserLdapDto[] = [];
 
-    private searchedWorker: string = '';
+    public inputOptions: IInputOptions = {
+        type: 'text',
+        state: 'normal',
+        placeholder: 'Введите ФИО или логин пользователя',
+        isMovingPlaceholder: true,
+        icon: {
+            src: 'assets/icons/search-icon.svg',
+            svgStyle: { 'width.px': 17, 'height.px': 17 },
+            isClickable: false,
+        },
+    };
+
+    public searchedWorker: string = '';
 
     public searchIcon: string = 'assets/icons/search-icon.svg';
 
@@ -69,10 +82,6 @@ export class AdminAdImportComponent implements OnInit, OnDestroy {
         );
     }
 
-    public onSearchWorker(inputedValue: string): void {
-        this.searchedWorker = inputedValue.trim();
-    }
-
     public onSelectWorker(worker: IUserLdapDto): void {
         if (!worker.isUserImported) {
             this.workerSelect.select(worker);
@@ -85,6 +94,7 @@ export class AdminAdImportComponent implements OnInit, OnDestroy {
 
     public onClickSearch(): void {
         const regexp: RegExp = /^[a-zA-Zа-яА-Я\.\s]{2,}/;
+        this.searchedWorker.trim().toLowerCase();
         if (regexp.test(this.searchedWorker)) {
             this.getLdapWorkersList(this.searchedWorker);
         } else {

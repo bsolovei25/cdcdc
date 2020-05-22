@@ -1,8 +1,4 @@
-<div
-  class="indicator-selector"
-  (mouseenter)="ScreenActive()"
-  (mouseleave)="ScreenDisable()"
->
+<div class="indicator-selector" (mouseenter)="ScreenActive()" (mouseleave)="ScreenDisable()">
   <svg-icon class="indicator-selector__icon" src="./assets/icons/screen.svg"></svg-icon>
 
   <span class="indicator-selector__name">
@@ -12,13 +8,10 @@
   <div class="dropdown-container" [class.dropdown-container_active]="isShowScreens">
     <div class="dropdown-component create-screen">
       <div class="dropdown-component_search">
-<!--        ngIf для затирания строки и переоткрытия компонента-->
         <evj-input
-          *ngIf="isShowScreens"
-          [placeholder]="'Поиск экрана'"
-          [iconSrc]="'assets/icons/search-icon.svg'"
-          (inputedValue)="screensFilter($event)"
-          [appearance]="'none'"
+          [options]="inputOptions"
+          [ngModel]="searchScreen"
+          (ngModelChange)="screensFilter($event)"
         ></evj-input>
       </div>
     </div>
@@ -26,22 +19,25 @@
       <div class="dropdown-content__list">
         <ng-container *ngFor="let screen of dataScreen">
           <ng-container *ngIf="screen.isFilter">
-            <div
-              [id]="'screen_'+screen.id"
-              class="dropdown-component"
-            >
+            <div [id]="'screen_'+screen.id" class="dropdown-component">
               <div class="screen_block">
                 <div class="screen_blocks">
-                  <div class="screen-card"  *ngIf="!screen.updateScreen"
-                       (click)="this.setActiveScreen(screen)"
-                       (click)="LoadScreen(idScreen)">
+                  <div
+                    class="screen-card"
+                    *ngIf="!screen.updateScreen"
+                    (click)="this.setActiveScreen(screen)"
+                    (click)="LoadScreen(idScreen)"
+                  >
                     <div class="screen_name">
                       {{ screen.screenName }}
                     </div>
                   </div>
-                  <div class="screen-card" *ngIf="!!screen.updateScreen"
-                       (click)="this.setActiveScreen(screen)"
-                       (click)="LoadScreen(idScreen)">
+                  <div
+                    class="screen-card"
+                    *ngIf="!!screen.updateScreen"
+                    (click)="this.setActiveScreen(screen)"
+                    (click)="LoadScreen(idScreen)"
+                  >
                     <input class="update_input" [(ngModel)]="newNameScreen" />
                   </div>
                   <div class="hover-button" *ngIf="!screen.updateScreen">

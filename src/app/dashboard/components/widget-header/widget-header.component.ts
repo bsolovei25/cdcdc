@@ -38,12 +38,13 @@ export class WidgetHeaderComponent implements OnInit, OnChanges, OnDestroy {
             this.selected.emit(this.selectValue);
         }
     }
-    @Output() eventCreated = new EventEmitter<boolean>();
-    @Output() public selected = new EventEmitter<any>();
+    @Output() eventCreated: EventEmitter<boolean> = new EventEmitter<boolean>();
+    @Output() eventBack: EventEmitter<null> = new EventEmitter<null>();
+    @Output() public selected: EventEmitter<any> = new EventEmitter<any>();
     public readonly iconRoute: string = './assets/icons/widget-title-icons/';
     private subscriptions: Subscription[] = [];
     claimWidgets: EnumClaimWidgets[] = [];
-    EnumClaimWidgets = EnumClaimWidgets;
+    EnumClaimWidgets: typeof EnumClaimWidgets = EnumClaimWidgets;
 
     public selectValue: { name: string; id: number };
 
@@ -88,6 +89,10 @@ export class WidgetHeaderComponent implements OnInit, OnChanges, OnDestroy {
         this.CreateIcon = false;
         this.blockWorkspaceButton = true;
         this.eventCreated.emit(event);
+    }
+
+    public backEvent(): void {
+        this.eventBack.emit();
     }
 
     public onSelected(event): void {

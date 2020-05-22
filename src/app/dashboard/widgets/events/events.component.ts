@@ -185,6 +185,9 @@ export class EventsComponent extends WidgetPlatform implements OnInit, OnDestroy
             this.widgetService.currentDates$.subscribe((ref) => {
                 this.getData();
                 this.getStats();
+            }),
+            this.eventService.currentEventId$.subscribe((ref) => {
+                this.selectedId = ref;
             })
         );
     }
@@ -288,7 +291,6 @@ export class EventsComponent extends WidgetPlatform implements OnInit, OnDestroy
                     const statusName = this.statuses[n.status.name]; // TODO check
                     return { ...n, iconUrl, statusName, iconUrlStatus };
                 });
-
             this.notifications = this.notifications.concat(notifications);
         }
     }
@@ -317,7 +319,7 @@ export class EventsComponent extends WidgetPlatform implements OnInit, OnDestroy
             try {
                 if (this.eventOverlayId >= 0) {
                     await this.eventService.deleteEvent(this.eventOverlayId);
-                    this.eventService.event$.next(null);
+                    this.ewService.event = null;
                 }
                 this.overlayConfirmationClose();
                 this.materialService.openSnackBar('Событие удалено');
@@ -327,9 +329,7 @@ export class EventsComponent extends WidgetPlatform implements OnInit, OnDestroy
             }
         } else {
             this.selectedId = eventId;
-            await this.ewService.loadItem(eventId);
-            // const eventGet = await this.eventService.getEvent(eventId);
-            // this.eventService.event$.next(eventGet);
+            await this.ewService.editEvent(eventId);
         }
         this.eventOverlayId = undefined;
     }

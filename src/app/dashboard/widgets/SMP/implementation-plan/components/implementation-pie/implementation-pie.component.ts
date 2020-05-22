@@ -81,7 +81,7 @@ export class ImplementationPieComponent implements OnInit, OnChanges {
     group = group
       .append('text')
       .attr('text-anchor', 'middle')
-      .attr('font-size', '12px')
+      .attr('font-size', '10px')
       .attr('fill', 'var(--color-text-main)')
       .attr('dominant-baseline', 'middle')
       .text(pipeValue);

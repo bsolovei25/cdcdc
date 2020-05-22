@@ -104,28 +104,28 @@ export class ProductGroupsRightComponent implements OnInit, OnChanges {
 
         const topLabel = el
             .append('text')
-            .attr('fill', 'white')
-            .attr('font-size', '15px')
-            .attr('x', '30')
-            .attr('y', '20')
+            .attr('fill', 'var(--color-text-main)')
+            .attr('font-size', '18px')
+            .attr('x', '10')
+            .attr('y', '16')
             .attr('text-anchor', 'left')
             .attr('font-family', "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
             .text('Оформлено');
 
         const bottomLabel = el
             .append('text')
-            .attr('fill', 'white')
-            .attr('font-size', '15px')
-            .attr('x', '30')
-            .attr('y', '40')
+            .attr('fill', 'var(--color-text-main)')
+            .attr('font-size', '18px')
+            .attr('x', '10')
+            .attr('y', '55')
             .attr('text-anchor', 'left')
             .attr('font-family', "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
             .text('Не оформлено');
 
         const value = el
             .append('text')
-            .attr('fill', 'white')
-            .attr('font-size', '15px')
+            .attr('fill', 'var(--color-text-main)')
+            .attr('font-size', '19px')
             .attr('x', '-59')
             .attr('y', '33')
             .attr('text-anchor', 'middle')
@@ -158,8 +158,8 @@ export class ProductGroupsRightComponent implements OnInit, OnChanges {
 
         const groupDeviationValue = el
             .append('text')
-            .attr('fill', 'white')
-            .attr('font-size', '15px')
+            .attr('fill', 'var(--color-text-main)')
+            .attr('font-size', '19px')
             .attr('x', '210')
             .attr('y', '12')
             .attr('text-anchor', 'middle')
@@ -168,8 +168,8 @@ export class ProductGroupsRightComponent implements OnInit, OnChanges {
 
         const groupDeviationNotValue = el
             .append('text')
-            .attr('fill', 'white')
-            .attr('font-size', '15px')
+            .attr('fill', 'var(--color-text-main)')
+            .attr('font-size', '19px')
             .attr('x', '210')
             .attr('y', '54')
             .attr('text-anchor', 'middle')

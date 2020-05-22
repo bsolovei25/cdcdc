@@ -90,7 +90,7 @@ export class AwsFieldsComponent implements OnInit {
     }
 
     public isValidFieldName(fieldName: string): boolean {
-        return fieldName.toLowerCase().includes(this.searchingFieldName);
+        return fieldName.toLowerCase().includes(this.searchingFieldName.toLowerCase());
     }
 
     public isDisabledField(fieldKey: string): boolean {

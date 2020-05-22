@@ -74,19 +74,27 @@
   </div>
 
   <div class="header-workspace__button">
-    <div class="header-workspace__container" (click)="createEvent(true)">
-      <div class="title">Создать событие</div>
+    <div class="header-workspace__container"
+         (click)="backEvent()">
+      <div class="title">Назад</div>
       <div class="icon-wrapper">
-        <svg-icon src="assets/icons/add_button.svg" class="icon__add-button"
-          [svgStyle]="{ 'width.px':20, 'height.px':20 }"></svg-icon>
+        <svg-icon src="assets/icons/arrow-back.svg" class="icon__add-button"
+                  [svgStyle]="{ 'width.px':17, 'height.px':17 }"></svg-icon>
       </div>
     </div>
     <div class="header-workspace__container" *ngIf="CreateIcon === false && blockWorkspaceButton"
-      (click)="createEvent(false)">
+         (click)="createEvent(false)">
       <div class="title">Сохранить</div>
       <div class="icon-wrapper">
         <svg-icon src="assets/icons/widgets/widget-header/checkmark.svg" class="icon__add-button"
-          [svgStyle]="{ 'width.px':20, 'height.px':20 }"></svg-icon>
+                  [svgStyle]="{ 'width.px':20, 'height.px':20 }"></svg-icon>
+      </div>
+    </div>
+    <div class="header-workspace__container" (click)="createEvent(true)">
+      <div class="title">Создать</div>
+      <div class="icon-wrapper">
+        <svg-icon src="assets/icons/add_button.svg" class="icon__add-button"
+          [svgStyle]="{ 'width.px':14, 'height.px':16 }"></svg-icon>
       </div>
     </div>
   </div>

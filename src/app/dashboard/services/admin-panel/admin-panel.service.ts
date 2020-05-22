@@ -183,7 +183,7 @@ export class AdminPanelService {
     }
 
     public getUnitBrigades(unitId: number): Observable<IBrigadeAdminPanel[]> {
-        const url: string = `${this.restUrl}/brigades/unit/${unitId}`;
+        const url: string = `${this.restUrl}/brigades/all/unit/${unitId}`;
         return this.http.get<IBrigadeAdminPanel[]>(url);
     }
     //#endregion

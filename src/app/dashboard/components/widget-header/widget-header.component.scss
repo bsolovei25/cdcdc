@@ -102,12 +102,13 @@
     pointer-events: fill;
     cursor: pointer;
     display: flex;
+    width: 130px;
     .title {
-      padding-left: 10px;
+      padding-left: 15px;
       position: relative;
       font-size: 0.875rem;
       width: 130px;
-      text-align: center;
+      text-align: left;
       line-height: 35px;
 
       &:before {
@@ -133,10 +134,10 @@
       pointer-events: fill;
       cursor: pointer !important;
       display: flex;
-      min-width: 44px;
+      min-width: 35px;
       height: 100%;
-      padding: 9px 15px;
-      margin-right: 10px;
+      padding: 9px 5px;
+      //margin-right: 10px;
       box-sizing: border-box;
       line-height: 25px;
 
@@ -668,7 +669,6 @@
       margin-right: 10px;
       box-sizing: border-box;
       line-height: 25px;
-
       &:hover svg-icon {
         ::ng-deep .cls-1 {
           fill: white !important;
