@@ -482,7 +482,7 @@ export class WorkflowComponent extends WidgetPlatform implements OnInit, OnDestr
                     const removable = true; // TODO заменить на реальзый флаг
                     if (removable) {
                         this.removableLeaderLineIds.set(
-                            item.scenarioAction + item.nextScenarioAction,
+                            'line-' + item.scenarioAction + item.nextScenarioAction,
                             leaderLine
                         );
                     }
@@ -516,7 +516,7 @@ export class WorkflowComponent extends WidgetPlatform implements OnInit, OnDestr
 
     private addRemoveIconToLine(lineId: string): void {
         // формируем id для будущего элемента с иконкой
-        const iconId = lineId + '-cross';
+        const iconId = 'cross-' + lineId;
 
         if (document.getElementById(iconId) || !document.getElementById(lineId)) {
             return;
