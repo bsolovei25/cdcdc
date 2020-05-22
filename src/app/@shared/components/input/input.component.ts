@@ -12,6 +12,8 @@ import {
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { IInputOptions } from '../../models/input.model';
 
+type formFieldAppearance = 'legacy' | 'standard' | 'fill' | 'outline' | 'none';
+
 @Component({
     selector: 'evj-input',
     templateUrl: './input.component.html',
