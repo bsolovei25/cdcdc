@@ -322,6 +322,10 @@ export class WorkflowComponent extends WidgetPlatform implements OnInit, OnDestr
     }
 
     resetScenario(isDeleteLeaderLine: boolean = true): void {
+        if (isDeleteLeaderLine) {
+            this.removeIconsAndLineLeaderLine();
+            this.removableLeaderLineIds.clear();
+        }
         this.emailPropActionUI = {
             emailSubject: '',
             emailTo: new FormControl(''),
@@ -334,9 +338,6 @@ export class WorkflowComponent extends WidgetPlatform implements OnInit, OnDestr
         this.emailAction = [];
         this.emailPropAction = [];
         this.activeActions = null;
-        if (isDeleteLeaderLine) {
-            this.removeIconsAndLineLeaderLine();
-        }
     }
 
     // #region SLIDER
@@ -473,8 +474,8 @@ export class WorkflowComponent extends WidgetPlatform implements OnInit, OnDestr
             if (item?.scenarioAction && item?.nextScenarioAction) {
                 setTimeout(() => {
                     const leaderLine = new LeaderLine(
-                        document.getElementById(item.scenarioAction),
-                        document.getElementById(item.nextScenarioAction),
+                        document?.getElementById(item.scenarioAction),
+                        document?.getElementById(item.nextScenarioAction),
                         this.LEADER_LINE_HOST_CONTAINER,
                         this.LEADER_LINE_PARENT_CONTAINER,
                         {
@@ -483,7 +484,6 @@ export class WorkflowComponent extends WidgetPlatform implements OnInit, OnDestr
                         }
                     );
                     this.leaderLine.push(leaderLine);
-                    // if (!isResize) {
                     const removable = true; // TODO заменить на реальзый флаг
                     if (removable) {
                         this.removableLeaderLineIds.set(
@@ -491,7 +491,6 @@ export class WorkflowComponent extends WidgetPlatform implements OnInit, OnDestr
                             leaderLine
                         );
                     }
-                    // }
 
                     // this.leaderLine.forEach((value) => {
                     //     value.setInterval = setInterval(() => {
@@ -501,12 +500,12 @@ export class WorkflowComponent extends WidgetPlatform implements OnInit, OnDestr
                     //         }
                     //     }, 100);
                     // });
-                }, 100);
+                }, 300);
             }
         });
         setTimeout(() => {
             this.drawRemoveIcons();
-        }, 200);
+        }, 500);
     }
 
     private drawRemoveIcons(): void {
@@ -743,8 +742,10 @@ export class WorkflowComponent extends WidgetPlatform implements OnInit, OnDestr
         if (!this.timerHwnd) {
             this.timerHwnd = window.setTimeout(() => {
                 console.log('update');
-                this.removeIconsAndLineLeaderLine();
-                this.drawLeaderLine(true);
+                if (this.removableLeaderLineIds.size > 0) {
+                    this.removeIconsAndLineLeaderLine();
+                    this.drawLeaderLine(true);
+                }
                 this.timerHwnd = 0;
             }, 300);
         }
