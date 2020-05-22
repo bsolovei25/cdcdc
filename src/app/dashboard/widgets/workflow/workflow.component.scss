@@ -443,6 +443,12 @@
   }
 }
 
+::ng-deep .mat-tooltip {
+  font-size: 12px;
+  background-color: var(--color-bg-main);
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.349);
+}
+
 .remove-line__icon {
   position: absolute;
   z-index: 10;

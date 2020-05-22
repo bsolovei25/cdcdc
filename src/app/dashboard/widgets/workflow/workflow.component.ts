@@ -334,6 +334,7 @@ export class WorkflowComponent extends WidgetPlatform implements OnInit, OnDestr
         this.emailAction = [];
         this.emailPropAction = [];
         this.activeActions = null;
+        this.removeLeaderLine();
     }
 
     // #region SLIDER
@@ -464,12 +465,6 @@ export class WorkflowComponent extends WidgetPlatform implements OnInit, OnDestr
     }
 
     drawLeaderLine(): void {
-        if (this.leaderLine.length > 0) {
-            this.leaderLine.forEach((value) => {
-                clearInterval(value.setInterval);
-                value.remove();
-            });
-        }
         this.leaderLine = [];
         this.items.forEach((item) => {
             if (item?.scenarioAction && item?.nextScenarioAction) {
@@ -491,18 +486,6 @@ export class WorkflowComponent extends WidgetPlatform implements OnInit, OnDestr
                             leaderLine
                         );
                     }
-                    // this.leaderLine.push(
-                    //     new LeaderLine(
-                    //         document.getElementById(item.scenarioAction),
-                    //         document.getElementById(item.nextScenarioAction),
-                    //         'leader-line-host',
-                    //         'gridContainer',
-                    //         {
-                    //             size: 2,
-                    //             color: 'white',
-                    //         }
-                    //     )
-                    // );
                     // this.leaderLine.forEach((value) => {
                     //     value.setInterval = setInterval(() => {
                     //         if (value?.options) {
@@ -514,11 +497,20 @@ export class WorkflowComponent extends WidgetPlatform implements OnInit, OnDestr
                 }, 100);
             }
         });
+        setTimeout(() => {
+            this.drawRemoveIcons();
+        }, 1000);
     }
 
     private drawRemoveIcons(): void {
         this.removableLeaderLineIds.forEach((value: any, key: string) => {
             this.addRemoveIconToLine(key);
+        });
+    }
+
+    private removeLeaderLine(): void {
+        this.removableLeaderLineIds.forEach((value, key) => {
+            this.onRemoveIconClick(key, `${key}-cross`);
         });
     }
 
@@ -562,8 +554,8 @@ export class WorkflowComponent extends WidgetPlatform implements OnInit, OnDestr
     }
 
     private onRemoveIconClick(lineId: string, iconId: string): void {
-        document.getElementById(lineId).remove();
-        document.getElementById(iconId).remove();
+        document.getElementById(lineId)?.remove();
+        document.getElementById(iconId)?.remove();
     }
 
     putConnect(previousScenarioAction: string, id: string): void {
