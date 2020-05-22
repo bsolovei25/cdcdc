@@ -134,11 +134,15 @@ export class EventsWorkspaceService {
         }
         this.isCreateNewEvent = true;
         await this.loadItem();
-        const tempCategory: ICategory = this.event?.category ?? this.defaultEvent.category;
+        // const tempCategory: ICategory = this.event?.category ?? this.defaultEvent.category;
         this.event = {...this.defaultEvent};
         if (idParent) {
             this.event.parentId = idParent;
-            this.event.category = {...tempCategory};
+            this.event.category = {
+                id: null,
+                name: null,
+                code: null,
+            };
         }
     }
 
@@ -159,18 +163,6 @@ export class EventsWorkspaceService {
         return true;
     }
 
-    public async saveEvent(): Promise<void> {
-        this.isLoading = true;
-        const saveMethod: ISaveMethodEvent = await this.eventService.getSaveMethod(this.event);
-        console.log(saveMethod);
-        if (this.isCreateNewEvent) {
-            this.saveCreatedEvent(saveMethod);
-        } else {
-            this.saveEditedEvent(saveMethod);
-        }
-        this.isLoading = false;
-    }
-
     // TODO разделить методы сохранения
     private async saveCreatedEvent(saveMethod: ISaveMethodEvent): Promise<void> {
         try {
@@ -187,6 +179,20 @@ export class EventsWorkspaceService {
         } catch (err) {
             console.error(err);
         }
+    }
+
+    public async saveEvent(): Promise<void> {
+        this.isLoading = true;
+        try {
+            const saveMethod: ISaveMethodEvent = await this.eventService.getSaveMethod(this.event);
+            console.log(saveMethod);
+            if (this.isCreateNewEvent) {
+                this.saveCreatedEvent(saveMethod);
+            } else {
+                this.saveEditedEvent(saveMethod);
+            }
+        } catch {}
+        this.isLoading = false;
     }
 
     private async saveEditedEvent(saveMethod: ISaveMethodEvent): Promise<void> {

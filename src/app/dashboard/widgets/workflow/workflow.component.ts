@@ -552,20 +552,27 @@ export class WorkflowComponent extends WidgetPlatform implements OnInit, OnDestr
         console.log(
             document.getElementById(divArr[0]).getBoundingClientRect().y,
             document.getElementById(divArr[1]).getBoundingClientRect().y,
-            arrowNode.getBoundingClientRect().y,
+            arrowNode.getBoundingClientRect().y
         );
 
-        const pos = document.getElementById(divArr[0]).getBoundingClientRect().y <= document.getElementById(divArr[1]).getBoundingClientRect().y;
+        const pos =
+            document.getElementById(divArr[0]).getBoundingClientRect().y <=
+            document.getElementById(divArr[1]).getBoundingClientRect().y;
 
         if (pos) {
-            verticalOffset = arrowNode.getBoundingClientRect().y - lineNode.getBoundingClientRect().y;
+            verticalOffset =
+                arrowNode.getBoundingClientRect().y - lineNode.getBoundingClientRect().y;
 
-            verticalOffset = parseInt(lineNode.style.top.slice(0, -2), 10) -
+            verticalOffset =
+                parseInt(lineNode.style.top.slice(0, -2), 10) -
                 verticalOffset -
                 this.LEADER_LINE_HEIGHT / 2;
         } else {
-            verticalOffset = parseInt(lineNode.style.top.slice(0, -2), 10) + lineNode.getBoundingClientRect().height -
-                iconNode.getBoundingClientRect().height / 2 - 3;
+            verticalOffset =
+                parseInt(lineNode.style.top.slice(0, -2), 10) +
+                lineNode.getBoundingClientRect().height -
+                iconNode.getBoundingClientRect().height / 2 -
+                3;
         }
         // рассчитываем смещение позиции стрелки внутри viewBox svg
         // вертикальное смещение так же зависит от высоты самих элементов
@@ -577,7 +584,7 @@ export class WorkflowComponent extends WidgetPlatform implements OnInit, OnDestr
 
         iconNode.style.left =
             (parseInt(lineNode.style.left.slice(0, -2), 10) + horizontalOffset).toString() + 'px';
-        iconNode.style.top = (verticalOffset).toString() + 'px';
+        iconNode.style.top = verticalOffset.toString() + 'px';
         iconNode.addEventListener('click', ($event: Event) => {
             this.onRemoveIconClick(iconId, lineId);
         });

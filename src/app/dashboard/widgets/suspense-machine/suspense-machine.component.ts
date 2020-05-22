@@ -26,8 +26,10 @@ export class SuspenseMachineComponent extends WidgetPlatform implements OnInit, 
     data: ITableData;
     displayedColumns: { id: number; caption: string }[] = [];
 
-    public static itemCols: number = 20;
-    public static itemRows: number = 5;
+    public static itemCols: number = 64;
+    public static itemRows: number = 15;
+    public static minItemCols: number = 14;
+    public static minItemRows: number = 10;
 
     constructor(
         public widgetService: WidgetService,

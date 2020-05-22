@@ -9,8 +9,8 @@ import { IWidgets } from '../../../models/widget.model';
 import { SelectionModel } from '@angular/cdk/collections';
 import { SnackBarService } from '../../../services/snack-bar.service';
 import { IAlertWindowModel } from '../../../../@shared/models/alert-window.model';
-import { async } from '@angular/core/testing';
 import { IInputOptions } from '../../../../@shared/models/input.model';
+import { IAlertPasswordModel } from '../../../../@shared/models/alert-password.model';
 
 @Component({
     selector: 'evj-admin-worker-settings',
@@ -33,7 +33,6 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
     public isPopUpShowing: boolean = false;
     public isAvatarButtonShowing: boolean = false;
 
-    public isPasswordAlertShowing: boolean = false;
     private isResetPassword: boolean = false;
 
     public isCreateClaim: boolean = false;
@@ -52,6 +51,15 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
     };
 
     public searchingFieldName: string = '';
+    //#endregion
+
+    //#region PASSWORD_OPTIONS
+    public passwordOptions: IAlertPasswordModel = {
+        isShow: false,
+        isCreatePassword: true,
+        acceptFunction: this.onSetWorkerPassword.bind(this),
+        closeFunction: () => (this.passwordOptions.isShow = false),
+    };
     //#endregion
 
     public worker: IUser = null;
@@ -153,7 +161,7 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
 
     public onChangePassword(isResetPassword: boolean): void {
         if (!isResetPassword) {
-            this.isPasswordAlertShowing = true;
+            this.passwordOptions.isShow = true;
         } else {
             this.alert.questionText = `Вы действительно хотите сбросить пароль для пользователя
              ${this.worker.lastName} ${this.worker.firstName} ${this.worker.middleName}?`;
@@ -168,10 +176,9 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
 
     public onChangeWorkspacesData(): void {}
 
-    public onSetWorkerPassword(event: string): void {
-        this.isPasswordAlertShowing = false;
-        if (event && this.isCreateNewUser) {
-            this.worker.password = event;
+    public onSetWorkerPassword(password: string): void {
+        if (password && this.isCreateNewUser) {
+            this.worker.password = password;
             this.isDataChanged = true;
         }
     }

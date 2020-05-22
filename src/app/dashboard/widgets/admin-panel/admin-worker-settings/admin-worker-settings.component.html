@@ -132,10 +132,7 @@
     *ngIf="isPopUpShowing"
     (closePopUp)="onClosePopUp($event)"
   ></evj-aws-avatar>
-  <evj-aws-password-alert
-    [isShow]="isPasswordAlertShowing"
-    (confirmed)="onSetWorkerPassword($event)"
-  ></evj-aws-password-alert>
+  <evj-alert-password [options]="passwordOptions"></evj-alert-password>
   <evj-aws-create-claim
     class="admin__popup"
     [ngClass]="{'admin__popup_active':isCreateClaim}"

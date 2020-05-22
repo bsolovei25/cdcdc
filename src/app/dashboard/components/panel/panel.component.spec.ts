@@ -1,19 +1,19 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { NewWidgetsPanelComponent } from './new-widgets-panel.component';
+import { PanelComponent } from './panel.component';
 
-describe('NewWidgetsPanelComponent', () => {
-    let component: NewWidgetsPanelComponent;
-    let fixture: ComponentFixture<NewWidgetsPanelComponent>;
+describe('PanelComponent', () => {
+    let component: PanelComponent;
+    let fixture: ComponentFixture<PanelComponent>;
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            declarations: [NewWidgetsPanelComponent],
+            declarations: [PanelComponent],
         }).compileComponents();
     }));
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(NewWidgetsPanelComponent);
+        fixture = TestBed.createComponent(PanelComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
     });

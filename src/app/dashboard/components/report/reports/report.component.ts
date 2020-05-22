@@ -10,7 +10,7 @@ import * as _moment from 'moment';
 import { trigger, transition, style, animate } from '@angular/animations';
 import {
     NGX_MAT_DATE_FORMATS,
-    NgxMatDateFormats
+    NgxMatDateFormats,
 } from '@angular-material-components/datetime-picker';
 import { SelectionModel } from '@angular/cdk/collections';
 const moment = _moment;
@@ -35,45 +35,41 @@ interface IReportFormGroup {
 
 interface IResponse {
     type: 'xlsx' | 'pdf' | 'html';
-    reportOptions: { value: string | Date, baseOptionId: number }[];
+    reportOptions: { value: string | Date; baseOptionId: number }[];
     period: {
-        periodType: 'year' | 'month'
-        | 'day' | 'timePeriod' |
-        'datePeriod' | 'exactTime' | 'none';
+        periodType: 'year' | 'month' | 'day' | 'timePeriod' | 'datePeriod' | 'exactTime' | 'none';
         startDateTime: Date;
         endDateTime?: Date;
     };
 }
 
 interface IReportPeriodType {
-    periodType: 'year' | 'month'
-    | 'day' | 'timePeriod' |
-    'datePeriod' | 'exactTime' | 'none';
+    periodType: 'year' | 'month' | 'day' | 'timePeriod' | 'datePeriod' | 'exactTime' | 'none';
     startDateTime?: Date;
     endDateTime?: Date;
 }
 
 const CUSTOM_DATE_FORMATS: NgxMatDateFormats = {
     parse: {
-        dateInput: 'L | LT'
+        dateInput: 'L | LT',
     },
     display: {
         dateInput: 'L | LT',
         monthYearLabel: 'MMM YYYY',
         dateA11yLabel: 'LL',
-        monthYearA11yLabel: 'MMMM YYYY'
-    }
+        monthYearA11yLabel: 'MMMM YYYY',
+    },
 };
 
 export const fadeAnimation = trigger('fadeAnimation', [
     transition(':enter', [
         style({ opacity: 0, height: 0 }),
-        animate('100ms', style({ opacity: 1, height: 50 }))
+        animate('100ms', style({ opacity: 1, height: 50 })),
     ]),
     transition(':leave', [
         style({ opacity: 1, height: 50 }),
-        animate('100ms', style({ opacity: 0, height: 0 }))
-    ])
+        animate('100ms', style({ opacity: 0, height: 0 })),
+    ]),
 ]);
 
 @Component({
@@ -81,12 +77,9 @@ export const fadeAnimation = trigger('fadeAnimation', [
     templateUrl: './report.component.html',
     styleUrls: ['./report.component.scss'],
     animations: [fadeAnimation],
-    providers: [
-        { provide: NGX_MAT_DATE_FORMATS, useValue: CUSTOM_DATE_FORMATS },
-    ]
+    providers: [{ provide: NGX_MAT_DATE_FORMATS, useValue: CUSTOM_DATE_FORMATS }],
 })
 export class ReportComponent implements OnInit {
-
     isLoading: boolean = false;
 
     private readonly restUrl: string;
@@ -104,7 +97,6 @@ export class ReportComponent implements OnInit {
     @Input() data: IReportTemplate;
     @Input() activeElements: SelectionModel<number>;
     @Input() set search(data: string) {
-
         if (data && this.data?.name) {
             this.activeSearch = this.data.name.toLowerCase().includes(data.toLowerCase());
         }
@@ -126,11 +118,11 @@ export class ReportComponent implements OnInit {
     constructor(
         private reportsService: ReportsService,
         private snackBar: SnackBarService,
-        configService: AppConfigService) {
+        configService: AppConfigService
+    ) {
         this.restUrl = configService.restUrl;
     }
-    ngOnInit(): void {
-    }
+    ngOnInit(): void {}
 
     toggle(id: number): void {
         this.active = !this.active;
@@ -159,9 +151,9 @@ export class ReportComponent implements OnInit {
             this.template = await this.reportsService.getTemplate(id);
             this.periodTime = {
                 periodType: this.template.periodType,
-                startDateTime: new Date()
+                startDateTime: new Date(),
             };
-            this.template.customOptions.forEach(option => {
+            this.template.customOptions.forEach((option) => {
                 const value = option.type === 'dateTime' ? new Date() : '';
                 this.formGroup.push({
                     id: option.id,
@@ -190,8 +182,8 @@ export class ReportComponent implements OnInit {
             period: {
                 periodType: this.periodTime.periodType,
                 startDateTime: this.periodTime.startDateTime ? this.periodTime.startDateTime : null,
-                endDateTime: this.periodTime.endDateTime ? this.periodTime.endDateTime : null
-            }
+                endDateTime: this.periodTime.endDateTime ? this.periodTime.endDateTime : null,
+            },
         };
         try {
             const a = await this.reportsService.postTemplate(template.id, body);
@@ -203,7 +195,6 @@ export class ReportComponent implements OnInit {
         }
     }
 
-
     chosenDayHandler(normalizedDay: Moment, datepicker: MatDatepicker<Moment>) {
         const ctrlValue = this.date.value;
         ctrlValue.day(normalizedDay.day());
@@ -211,13 +202,13 @@ export class ReportComponent implements OnInit {
         datepicker.close();
     }
 
-
     dateTimePicker(event: Moment, value: 'day' | 'month' | 'year') {
         if (value === 'month') {
-            this.periodTime.startDateTime = moment(event).add(1, 'months').toDate();
+            this.periodTime.startDateTime = moment(event)
+                .add(1, 'months')
+                .toDate();
         } else {
             this.periodTime.startDateTime = event.toDate();
         }
     }
-
 }

@@ -16,8 +16,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LineDiagramComponent } from './widgets/line-diagram/line-diagram.component';
 import { LineDatetimeComponent } from './components/line-datetime/line-datetime.component';
 import { ShiftPersonComponent } from './widgets/change-shift/shift-person/shift-person.component';
-import { NewWidgetsPanelComponent } from './components/new-widgets-panel/new-widgets-panel.component';
-import { NewWidgetsGridComponent } from './components/new-widgets-grid/new-widgets-grid.component';
+import { PanelComponent } from './components/panel/panel.component';
+import { WidgetsGridComponent } from './components/widgets-grid/widgets-grid.component';
 import { GridsterModule } from 'angular-gridster2';
 import { UserInfoComponent } from './components/user-info/user-info.component';
 import { WidgetPiesComponent } from './widgets/widgets-pie/widget-pies/widget-pies.component';
@@ -129,7 +129,6 @@ import { AwsWorkspacesComponent } from './widgets/admin-panel/admin-worker-setti
 import { AdminGroupsComponent } from './widgets/admin-panel/admin-groups/admin-groups.component';
 import { AgGroupCardComponent } from './widgets/admin-panel/admin-groups/ag-group-card/ag-group-card.component';
 import { AgGroupWorkerCardComponent } from './widgets/admin-panel/admin-groups/ag-group-worker-card/ag-group-worker-card.component';
-import { AwsPasswordAlertComponent } from './widgets/admin-panel/admin-worker-settings/aws-password-alert/aws-password-alert.component';
 import { ReferenceComponent } from './widgets/reference/reference.component';
 import { ReportServerConfiguratorComponent } from './widgets/report-server-configurator/report-server-configurator.component';
 import { DragDropModule } from '@angular/cdk/drag-drop';
@@ -142,7 +141,6 @@ import {
 import { MatButtonModule } from '@angular/material/button';
 import { NgxMatMomentModule } from '@angular-material-components/moment-adapter';
 
-import { OverlayModule } from '@angular/cdk/overlay';
 import { AdminAdImportComponent } from './widgets/admin-panel/admin-ad-import/admin-ad-import.component';
 import { AddReportFileComponent } from './widgets/report-server-configurator/add-report-file/add-report-file.component';
 import { TankCalibrationTableComponent } from './widgets/tank-calibration-table/tank-calibration-table.component';
@@ -274,6 +272,7 @@ import { ProductionTrendInstallationsComponent } from './widgets/production-tren
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { OilControlTableComponent } from './widgets/oil-control/components/oil-control-table/oil-control-table.component';
 import { OilControlTowerComponent } from './widgets/oil-control/components/oil-control-tower/oil-control-tower.component';
+import { WidgetPanelComponent } from './components/widget-panel/widget-panel.component';
 
 @NgModule({
     declarations: [
@@ -288,8 +287,8 @@ import { OilControlTowerComponent } from './widgets/oil-control/components/oil-c
         ChangeShiftComponent,
         LineDiagramComponent,
         ShiftPersonComponent,
-        NewWidgetsPanelComponent,
-        NewWidgetsGridComponent,
+        PanelComponent,
+        WidgetsGridComponent,
         UserInfoComponent,
         WidgetPiesComponent,
         WidgetsPieComponent,
@@ -388,7 +387,6 @@ import { OilControlTowerComponent } from './widgets/oil-control/components/oil-c
         AdminGroupsComponent,
         AgGroupCardComponent,
         AgGroupWorkerCardComponent,
-        AwsPasswordAlertComponent,
         ReferenceComponent,
         ReportServerConfiguratorComponent,
         AwsCreateClaimComponent,
@@ -516,6 +514,7 @@ import { OilControlTowerComponent } from './widgets/oil-control/components/oil-c
         EventsReasonsSingleComponent,
         OilControlTableComponent,
         OilControlTowerComponent,
+        WidgetPanelComponent
     ],
     entryComponents: [
         LineChartComponent,
@@ -590,6 +589,7 @@ import { OilControlTowerComponent } from './widgets/oil-control/components/oil-c
         ProductGroupsComponent,
         ProductGroupsShortComponent,
         SmpEventsWorkspaceComponent,
+        PanelComponent
     ],
     exports: [HomeComponent],
     imports: [
@@ -620,7 +620,6 @@ import { OilControlTowerComponent } from './widgets/oil-control/components/oil-c
         NgxMatTimepickerModule,
         NgxMatNativeDateModule,
         NgxMatMomentModule,
-        OverlayModule,
         MatDialogModule,
         MatChipsModule,
         MatIconModule,
