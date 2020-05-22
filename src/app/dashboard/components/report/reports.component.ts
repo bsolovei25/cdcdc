@@ -29,7 +29,6 @@ interface ITemplateFolderLocal {
     styleUrls: ['./reports.component.scss'],
 })
 export class ReportsComponent implements OnInit {
-
     public active: boolean = false;
 
     public datePicker: boolean = false;
@@ -47,13 +46,7 @@ export class ReportsComponent implements OnInit {
 
     search: string = '';
 
-    isReport: boolean = true;
-
-    constructor(
-        public widgetService: WidgetService,
-        private reportsService: ReportsService,
-    ) {
-    }
+    constructor(public widgetService: WidgetService, private reportsService: ReportsService) {}
 
     ngOnInit(): void {
         this.loadItem();
@@ -66,7 +59,7 @@ export class ReportsComponent implements OnInit {
     }
 
     searchTemplate(data: ITemplateFolderLocal, search: string): void {
-        data.templates.forEach(temp => {
+        data.templates.forEach((temp) => {
             if (temp.name.toLowerCase().includes(search)) {
                 this.selectedFolders.select(data.id);
                 this.activeElements.deselect(data.id);
@@ -81,7 +74,7 @@ export class ReportsComponent implements OnInit {
         }
         this.searchTemplate(data, search);
 
-        data.childFolders.forEach(childFolder => {
+        data.childFolders.forEach((childFolder) => {
             const count = this.selectedFolders.selected.length;
             this.searchChildren(childFolder, search);
             if (this.selectedFolders.selected.length > count) {
@@ -105,8 +98,6 @@ export class ReportsComponent implements OnInit {
             }
             this.searchTemplate(item, search);
         });
-
-
     }
 
     searchReports(event: KeyboardEvent): void {
@@ -122,7 +113,7 @@ export class ReportsComponent implements OnInit {
                     this.activeElements.clear();
                     this.selectedFolders.clear();
                     this.searchTree(this.folders, this.search);
-                    this.templates.forEach(val => {
+                    this.templates.forEach((val) => {
                         if (!val.name.toLowerCase().includes(this.search)) {
                             this.activeElements.select(val.id);
                         }
@@ -131,5 +122,4 @@ export class ReportsComponent implements OnInit {
             }
         }
     }
-
 }
