@@ -269,6 +269,7 @@ import { ProductGroupsShortComponent } from './widgets/SMP/product-groups-short/
 import { ProductGroupsComponent } from './widgets/SMP/product-groups/product-groups.component';
 import { SmpEventsWorkspaceComponent } from './widgets/SMP/smp-events-workspace/smp-events-workspace.component';
 import { ProductionTrendInstallationsComponent } from './widgets/production-trend/components/production-trend-installations/production-trend-installations.component';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { OilControlTableComponent } from './widgets/oil-control/components/oil-control-table/oil-control-table.component';
 import { OilControlTowerComponent } from './widgets/oil-control/components/oil-control-tower/oil-control-tower.component';
 import { WidgetPanelComponent } from './components/widget-panel/widget-panel.component';
@@ -626,6 +627,7 @@ import { WidgetPanelComponent } from './components/widget-panel/widget-panel.com
         TreeModule,
         NgxMaskModule.forChild(),
         PdfViewerModule,
+        MatTooltipModule,
     ],
     bootstrap: [],
     providers: [

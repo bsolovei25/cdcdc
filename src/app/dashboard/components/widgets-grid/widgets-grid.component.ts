@@ -70,7 +70,6 @@ export class WidgetsGridComponent implements OnInit, OnDestroy {
         });
         this.subscriptions.push(
             this.claimService.claimWidgets$.subscribe((value) => {
-                console.log('widget-grid sub init');
                 if (value) {
                     this.claimSettings = value;
                     this.options = null;

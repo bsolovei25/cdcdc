@@ -154,6 +154,16 @@
 
           border-top-right-radius: 25px;
           border-bottom-right-radius: 25px;
+
+          fill: #6ba4ef;
+
+          &__error {
+            fill: var(--color-text-main);
+          }
+        }
+        &__error {
+          background-color: #ff0106;
+          color: var(--color-text-main);
         }
       }
     }

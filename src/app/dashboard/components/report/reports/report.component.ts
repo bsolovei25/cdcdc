@@ -98,7 +98,6 @@ export class ReportComponent implements OnInit {
     @Input() activeElements: SelectionModel<number>;
     @Input() set search(data: string) {
         if (data && this.data?.name) {
-            console.log(data, this.data?.name);
             this.activeSearch = this.data.name.toLowerCase().includes(data.toLowerCase());
         }
         if (data === '') {

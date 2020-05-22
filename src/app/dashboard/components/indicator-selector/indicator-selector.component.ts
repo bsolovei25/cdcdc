@@ -61,7 +61,6 @@ export class IndicatorSelectorComponent implements OnInit, OnDestroy {
         this.userSettings.GetScreens();
         this.subscriptions.push(
             this.userSettings.screens$.subscribe((screens) => {
-                console.log(screens);
                 this.dataScreen = screens;
                 this.idScreen = this.userSettings.ScreenId;
                 this.LoadScreen(this.idScreen);
@@ -70,7 +69,6 @@ export class IndicatorSelectorComponent implements OnInit, OnDestroy {
                     item.updateScreen = false;
                     item.isFilter = true;
                 }
-                console.log('update');
                 this.scrollToScreenById(this.idScreen);
             }),
             this.claimService.claimScreens$.subscribe((w) => {
@@ -240,8 +238,6 @@ export class IndicatorSelectorComponent implements OnInit, OnDestroy {
     private scrollToScreenById(idScreen: number): void {
         if (idScreen) {
             setTimeout(() => {
-                console.log('scroll');
-                console.log(this.idScreen);
                 const el = document.getElementById('screen_' + this.idScreen);
                 el.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'end' });
                 // this.viewportScroller.scrollToAnchor('screen_' + this.idScreen);
