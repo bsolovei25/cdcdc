@@ -68,6 +68,7 @@ export class TankCalibrationTableComponent extends WidgetPlatform implements OnI
         state: 'normal',
         placeholder: 'Напишите свой комментарий',
         isMovingPlaceholder: false,
+        withoutUnderline: true,
     };
 
     comment: FormControl = new FormControl('', Validators.required);
@@ -297,6 +298,7 @@ export class TankCalibrationTableComponent extends WidgetPlatform implements OnI
         this.showComment.clear();
         this.postDate = null;
         this.comment.setValue('');
+        this.comment.markAsUntouched();
         this.loadItem();
     }
 
@@ -310,6 +312,7 @@ export class TankCalibrationTableComponent extends WidgetPlatform implements OnI
         this.showComment.clear();
         this.postDate = null;
         this.comment.setValue('');
+        this.comment.markAsUntouched();
         this.loadItem();
     }
 

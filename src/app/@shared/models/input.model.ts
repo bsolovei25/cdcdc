@@ -17,6 +17,7 @@ export interface IInputOptions {
     state: InputStatesType;
     placeholder: string;
     isMovingPlaceholder: boolean;
+    withoutUnderline?: boolean;
     icon?: IInputIcon;
     mask?: IInputMask;
 }

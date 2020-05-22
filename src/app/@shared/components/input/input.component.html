@@ -1,6 +1,9 @@
 <div
   class="input-container input-container_{{options.state}}"
-  [ngClass]="{'input-container_icon':!!options.icon, 'input-container_disabled':isDisabled,'input-container_focus':isInput}"
+  [class.input-container_underlined]="!options.withoutUnderline"
+  [class.input-container_icon]="!!options.icon"
+  [class.input-container_disabled]="isDisabled"
+  [class.input-container_focus]="isInput"
 >
   <div
     class="placeholder"

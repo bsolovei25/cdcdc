@@ -38,7 +38,7 @@
   color: var(--input-text-color);
 
   padding: 0px var(--padding-sides);
-  border-bottom: 1px solid var(--input-additional-color);
+  border: none;
 
   transition: 0.3s;
 
@@ -54,6 +54,10 @@
     .placeholder {
       transform: translateY(-100%) scale(0.8);
     }
+  }
+
+  &_underlined {
+    border-bottom: 1px solid var(--input-additional-color);
   }
 
   // STATES
