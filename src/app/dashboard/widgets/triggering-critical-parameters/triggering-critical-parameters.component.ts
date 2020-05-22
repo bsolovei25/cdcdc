@@ -359,8 +359,10 @@ export class TriggeringCriticalParametersComponent implements OnInit, OnDestroy 
         },
     ];
 
-    static itemCols = 15;
-    static itemRows = 18;
+    public static itemCols: number = 18;
+    public static itemRows: number = 30;
+    public static minItemCols: number = 15;
+    public static minItemRows: number = 30;
 
     public previewTitle: string;
 
@@ -378,12 +380,7 @@ export class TriggeringCriticalParametersComponent implements OnInit, OnDestroy 
     }
 
     ngOnInit() {
-        if (!this.isMock) {
-            this.subscription = this.eventService.event$.subscribe((value) => {
-                if (value) {
-                }
-            });
-        }
+
     }
 
     ngOnDestroy() {

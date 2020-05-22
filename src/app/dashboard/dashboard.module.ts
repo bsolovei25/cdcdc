@@ -16,8 +16,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LineDiagramComponent } from './widgets/line-diagram/line-diagram.component';
 import { LineDatetimeComponent } from './components/line-datetime/line-datetime.component';
 import { ShiftPersonComponent } from './widgets/change-shift/shift-person/shift-person.component';
-import { NewWidgetsPanelComponent } from './components/new-widgets-panel/new-widgets-panel.component';
-import { NewWidgetsGridComponent } from './components/new-widgets-grid/new-widgets-grid.component';
+import { PanelComponent } from './components/panel/panel.component';
+import { WidgetsGridComponent } from './components/widgets-grid/widgets-grid.component';
 import { GridsterModule } from 'angular-gridster2';
 import { UserInfoComponent } from './components/user-info/user-info.component';
 import { WidgetPiesComponent } from './widgets/widgets-pie/widget-pies/widget-pies.component';
@@ -129,7 +129,6 @@ import { AwsWorkspacesComponent } from './widgets/admin-panel/admin-worker-setti
 import { AdminGroupsComponent } from './widgets/admin-panel/admin-groups/admin-groups.component';
 import { AgGroupCardComponent } from './widgets/admin-panel/admin-groups/ag-group-card/ag-group-card.component';
 import { AgGroupWorkerCardComponent } from './widgets/admin-panel/admin-groups/ag-group-worker-card/ag-group-worker-card.component';
-import { AwsPasswordAlertComponent } from './widgets/admin-panel/admin-worker-settings/aws-password-alert/aws-password-alert.component';
 import { ReferenceComponent } from './widgets/reference/reference.component';
 import { ReportServerConfiguratorComponent } from './widgets/report-server-configurator/report-server-configurator.component';
 import { DragDropModule } from '@angular/cdk/drag-drop';
@@ -142,8 +141,6 @@ import {
 import { MatButtonModule } from '@angular/material/button';
 import { NgxMatMomentModule } from '@angular-material-components/moment-adapter';
 
-import { AgNewGroupComponent } from './widgets/admin-panel/admin-groups/ag-new-group/ag-new-group.component';
-import { OverlayModule } from '@angular/cdk/overlay';
 import { AdminAdImportComponent } from './widgets/admin-panel/admin-ad-import/admin-ad-import.component';
 import { AddReportFileComponent } from './widgets/report-server-configurator/add-report-file/add-report-file.component';
 import { TankCalibrationTableComponent } from './widgets/tank-calibration-table/tank-calibration-table.component';
@@ -154,7 +151,6 @@ import { TanksTableComponent } from './widgets/tank-calibration-table/tanks-tabl
 import { UploadFormComponent } from './widgets/tank-calibration-table/upload-form/upload-form.component';
 import { SmotrEventComponent } from './widgets/workspace/smotr-event/smotr-event.component';
 import { UsualEventComponent } from './widgets/workspace/usual-event/usual-event.component';
-import { RetrievalWindowComponent } from './widgets/workspace/components/retrieval-window/retrieval-window.component';
 import { EventDescriptionComponent } from './widgets/workspace/components/event-description/event-description.component';
 import { ChatComponent } from './widgets/workspace/components/chat/chat.component';
 import { CustomReportPropertiesReferenceComponent } from './widgets/custom-report-properties-reference/custom-report-properties-reference.component';
@@ -228,6 +224,7 @@ import { OilOperationsComponent } from './widgets/oil-operations/oil-operations.
 import { TableGridInputComponent } from './components/table-grid/components/table-grid-input/table-grid-input.component';
 import { TableGridFilterComponent } from './components/table-grid/components/table-grid-filter/table-grid-filter.component';
 import { TableGridSaveButtonComponent } from './components/table-grid/components/table-grid-save-button/table-grid-save-button.component';
+import { WorkflowComponent } from './widgets/workflow/workflow.component';
 import { OilOperationsReceivedOperationsComponent } from './widgets/oil-operations/components/oil-operations-received-operations/oil-operations-received-operations.component';
 import { OilOperationsShipmentFormationComponent } from './widgets/oil-operations/components/oil-operations-shipment-formation/oil-operations-shipment-formation.component';
 import { OilOperationsFilterComponent } from './widgets/oil-operations/components/oil-operations-filter/oil-operations-filter.component';
@@ -241,6 +238,7 @@ import { OilOperationsAdjustmentComponent } from './widgets/oil-operations/compo
 import { OilOperationsFreeShipmentComponent } from './widgets/oil-operations/components/oil-operations-free-shipment/oil-operations-free-shipment.component';
 import { DocumentViewerFullscreenComponent } from './widgets/document-viewer/document-viewer-fullscreen/document-viewer-fullscreen.component';
 import { CdCriticalComponent } from './widgets/cd-critical/cd-critical.component';
+import { WorkflowTableComponent } from './widgets/workflow/workflow-table/workflow-table.component';
 import { ImplementationPlanComponent } from './widgets/SMP/implementation-plan/implementation-plan.component';
 import { ImplementationPieComponent } from './widgets/SMP/implementation-plan/components/implementation-pie/implementation-pie.component';
 import { ImplementationTankComponent } from './widgets/SMP/implementation-plan/components/implementation-tank/implementation-tank.component';
@@ -261,6 +259,8 @@ import { AsusEventComponent } from './widgets/workspace/asus-event/asus-event.co
 import { ProductGroupsLeftComponent } from './widgets/SMP/product-groups/components/product-groups-left/product-groups-left.component';
 import { ProductGroupsMiddleComponent } from './widgets/SMP/product-groups/components/product-groups-middle/product-groups-middle.component';
 import { ProductGroupsRightComponent } from './widgets/SMP/product-groups/components/product-groups-right/product-groups-right.component';
+import { EventsReasonsSingleComponent } from './widgets/workspace/components/events-reasons-single/events-reasons-single.component';
+import { WorkflowListComponent } from './widgets/workflow/workflow-list/workflow-list.component';
 import { ProductionDeviationsComponent } from './widgets/SMP/production-deviations/production-deviations.component';
 import { ProductionDeviationsDiagramComponent } from './widgets/SMP/production-deviations/components/production-deviations-diagram/production-deviations-diagram.component';
 import { ProductionDeviationsColumnComponent } from './widgets/SMP/production-deviations/components/production-deviations-column/production-deviations-column.component';
@@ -268,6 +268,11 @@ import { ProductGroupsTableComponent } from './widgets/SMP/product-groups/compon
 import { ProductGroupsShortComponent } from './widgets/SMP/product-groups-short/product-groups-short.component';
 import { ProductGroupsComponent } from './widgets/SMP/product-groups/product-groups.component';
 import { SmpEventsWorkspaceComponent } from './widgets/SMP/smp-events-workspace/smp-events-workspace.component';
+import { ProductionTrendInstallationsComponent } from './widgets/production-trend/components/production-trend-installations/production-trend-installations.component';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { OilControlTableComponent } from './widgets/oil-control/components/oil-control-table/oil-control-table.component';
+import { OilControlTowerComponent } from './widgets/oil-control/components/oil-control-tower/oil-control-tower.component';
+import { WidgetPanelComponent } from './components/widget-panel/widget-panel.component';
 
 @NgModule({
     declarations: [
@@ -282,8 +287,8 @@ import { SmpEventsWorkspaceComponent } from './widgets/SMP/smp-events-workspace/
         ChangeShiftComponent,
         LineDiagramComponent,
         ShiftPersonComponent,
-        NewWidgetsPanelComponent,
-        NewWidgetsGridComponent,
+        PanelComponent,
+        WidgetsGridComponent,
         UserInfoComponent,
         WidgetPiesComponent,
         WidgetsPieComponent,
@@ -382,11 +387,9 @@ import { SmpEventsWorkspaceComponent } from './widgets/SMP/smp-events-workspace/
         AdminGroupsComponent,
         AgGroupCardComponent,
         AgGroupWorkerCardComponent,
-        AwsPasswordAlertComponent,
         ReferenceComponent,
         ReportServerConfiguratorComponent,
         AwsCreateClaimComponent,
-        AgNewGroupComponent,
         AdminAdImportComponent,
         AddReportFileComponent,
         TankCalibrationTableComponent,
@@ -396,7 +399,6 @@ import { SmpEventsWorkspaceComponent } from './widgets/SMP/smp-events-workspace/
         TanksTableComponent,
         SmotrEventComponent,
         UsualEventComponent,
-        RetrievalWindowComponent,
         EventDescriptionComponent,
         ChatComponent,
         CustomReportPropertiesReferenceComponent,
@@ -464,6 +466,7 @@ import { SmpEventsWorkspaceComponent } from './widgets/SMP/smp-events-workspace/
         TableGridInputComponent,
         TableGridFilterComponent,
         TableGridSaveButtonComponent,
+        WorkflowComponent,
         OilOperationsReceivedOperationsComponent,
         OilOperationsShipmentFormationComponent,
         OilOperationsFilterComponent,
@@ -478,6 +481,7 @@ import { SmpEventsWorkspaceComponent } from './widgets/SMP/smp-events-workspace/
         OilOperationsFreeShipmentComponent,
         DocumentViewerFullscreenComponent,
         CdCriticalComponent,
+        WorkflowTableComponent,
         ImplementationPlanComponent,
         ImplementationPieComponent,
         ImplementationTankComponent,
@@ -499,12 +503,18 @@ import { SmpEventsWorkspaceComponent } from './widgets/SMP/smp-events-workspace/
         ProductGroupsLeftComponent,
         ProductGroupsMiddleComponent,
         ProductGroupsRightComponent,
+        WorkflowListComponent,
         ProductionDeviationsComponent,
         ProductionDeviationsDiagramComponent,
         ProductionDeviationsColumnComponent,
         ProductGroupsTableComponent,
         ProductGroupsShortComponent,
         SmpEventsWorkspaceComponent,
+        ProductionTrendInstallationsComponent,
+        EventsReasonsSingleComponent,
+        OilControlTableComponent,
+        OilControlTowerComponent,
+        WidgetPanelComponent
     ],
     entryComponents: [
         LineChartComponent,
@@ -570,6 +580,7 @@ import { SmpEventsWorkspaceComponent } from './widgets/SMP/smp-events-workspace/
         DocumentCodingComponent,
         ReportTreeComponent,
         OilOperationsComponent,
+        WorkflowComponent,
         ImplementationPlanComponent,
         PerformanceProgressIndicatorsComponent,
         QualityStockComponent,
@@ -578,6 +589,7 @@ import { SmpEventsWorkspaceComponent } from './widgets/SMP/smp-events-workspace/
         ProductGroupsComponent,
         ProductGroupsShortComponent,
         SmpEventsWorkspaceComponent,
+        PanelComponent
     ],
     exports: [HomeComponent],
     imports: [
@@ -608,7 +620,6 @@ import { SmpEventsWorkspaceComponent } from './widgets/SMP/smp-events-workspace/
         NgxMatTimepickerModule,
         NgxMatNativeDateModule,
         NgxMatMomentModule,
-        OverlayModule,
         MatDialogModule,
         MatChipsModule,
         MatIconModule,
@@ -616,8 +627,8 @@ import { SmpEventsWorkspaceComponent } from './widgets/SMP/smp-events-workspace/
         TreeModule,
         NgxMaskModule.forChild(),
         PdfViewerModule,
+        MatTooltipModule,
     ],
-
     bootstrap: [],
     providers: [
         { provide: LOCALE_ID, useValue: 'ru-RU' },

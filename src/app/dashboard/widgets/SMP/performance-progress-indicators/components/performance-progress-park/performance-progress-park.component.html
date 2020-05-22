@@ -7,15 +7,15 @@
         <div class="value">
             <div class="value-block">
                 <div class="value-block__title">Вместимость всего</div>
-                <div class="value-block__value">{{ data.capacity | spaceNumber}}</div>
+                <div class="value-block__value">{{ data?.capacity | spaceNumber}}</div>
             </div>
             <div class="value-block">
                 <div class="value-block__title">Остаток</div>
-                <div class="value-block__value">{{ data.balance | spaceNumber}}</div>
+                <div class="value-block__value">{{ data?.balance | spaceNumber}}</div>
             </div>
             <div class="value-block">
                 <div class="value-block__title">Паспортизировано</div>
-                <div class="value-block__value">{{ data.certified | spaceNumber}}</div>
+                <div class="value-block__value">{{ data?.certified | spaceNumber}}</div>
             </div>
         </div>
     </div>

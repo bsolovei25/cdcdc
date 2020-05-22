@@ -9,6 +9,11 @@ import { WidgetService } from '../../services/widget.service';
 })
 export class ReasonsDeviationsComponent extends WidgetPlatform implements OnInit, OnDestroy {
 
+  public static itemCols: number = 28;
+  public static itemRows: number = 14;
+  public static minItemCols: number = 26;
+  public static minItemRows: number = 14;
+
   constructor(
     public widgetService: WidgetService,
     @Inject('isMock') public isMock: boolean,

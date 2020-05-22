@@ -21,7 +21,15 @@
         <evj-ui-block status="normal">
           <mat-form-field class="status">
             <mat-label>АСУС категория</mat-label>
-            <mat-select panelClass="mat-select-custom"> </mat-select>
+            <mat-select
+              panelClass="mat-select-custom"
+              [value]="ewService.event.asusEvent.category"
+              [disabled]="true"
+            >
+              <mat-option *ngFor="let category of ewService.asusCategories" [value]="category?.name">
+                {{ category?.name }}
+              </mat-option>
+            </mat-select>
           </mat-form-field>
         </evj-ui-block>
       </div>
@@ -35,6 +43,7 @@
               panelClass="mat-select-custom"
               [(ngModel)]="ewService.event.status"
               [compareWith]="compareFn"
+              [disabled]="true"
             >
               <mat-option *ngFor="let p of ewService.status" [value]="p"
                 >{{ ewService.statuses[p.name] }}
@@ -51,6 +60,7 @@
               panelClass="mat-select-custom"
               [(ngModel)]="ewService.event.unit"
               [compareWith]="compareFn"
+              [disabled]="true"
             >
               <mat-option *ngFor="let p of ewService.units" [value]="p">{{ p.name }} </mat-option>
             </mat-select>
@@ -71,11 +81,12 @@
         <div class="row__cell cell cell_left">
           <evj-ui-block status="normal">
             <div class="date">
-              <div class="date__name">Срок реализации</div>
+              <div class="date__name">Срок реакции</div>
               <evj-time-data-picker
                 class="date__date"
-                [data]="ewService.event.deadline"
+                [data]="ewService.event.asusEvent?.datetimeReaction"
                 (dateTimePicker)="dateTimePicker($event)"
+                [disabled]="true"
               ></evj-time-data-picker>
             </div>
           </evj-ui-block>
@@ -86,8 +97,9 @@
               <div class="date__name">Крайний срок</div>
               <evj-time-data-picker
                 class="date__date"
-                [data]="ewService.event.deadline"
+                [data]="ewService.event.asusEvent?.datetimeDeadline"
                 (dateTimePicker)="dateTimePicker($event)"
+                [disabled]="true"
               ></evj-time-data-picker>
             </div>
           </evj-ui-block>
@@ -103,8 +115,9 @@
               <div class="date__name">Дата начала работ</div>
               <evj-time-data-picker
                 class="date__date"
-                [data]="ewService.event.deadline"
+                [data]="ewService.event.asusEvent?.datetimeStart"
                 (dateTimePicker)="dateTimePicker($event)"
+                [disabled]="true"
               ></evj-time-data-picker>
             </div>
           </evj-ui-block>
@@ -115,28 +128,14 @@
               <div class="date__name">Дата завершения</div>
               <evj-time-data-picker
                 class="date__date"
-                [data]="ewService.event.deadline"
+                [data]="ewService.event.asusEvent?.datetimeEnd"
                 (dateTimePicker)="dateTimePicker($event)"
+                [disabled]="true"
               ></evj-time-data-picker>
             </div>
           </evj-ui-block>
         </div>
       </div>
-    </div>
-    <div class="column__row row reasons">
-      <evj-events-reasons
-        title="Причины"
-        [reasons]="reasons"
-        (addReason)="isReasonsPopupOpen=true"
-      ></evj-events-reasons>
-    </div>
-    <div class="column__row row chat">
-      <evj-chat
-        [messages]="ewService.event.comments"
-        title="Комментарии"
-        placeholder="Напишите свой комментарий..."
-        (addingMessage)="onSendMessage($event,'comments')"
-      ></evj-chat>
     </div>
   </div>
   <div class="asus__column column column_right">
@@ -145,7 +144,15 @@
         <evj-ui-block status="normal">
           <mat-form-field class="status">
             <mat-label>Услуга</mat-label>
-            <mat-select panelClass="mat-select-custom"> </mat-select>
+            <mat-select
+              panelClass="mat-select-custom"
+              [(ngModel)]="ewService.event.asusEvent.service"
+              [disabled]="!ewService.isCreateNewEvent"
+            >
+              <mat-option *ngFor="let service of ewService.asusServices" [value]="service.name"
+              >{{ service.name }}
+              </mat-option>
+            </mat-select>
           </mat-form-field>
         </evj-ui-block>
       </div>
@@ -157,6 +164,7 @@
               panelClass="mat-select-custom"
               [(ngModel)]="ewService.event.priority"
               [compareWith]="compareFn"
+              [disabled]="true"
             >
               <mat-option *ngFor="let p of ewService.priority" [value]="p"
                 >{{ ewService.priorities[p.name] }}
@@ -171,7 +179,10 @@
         <evj-ui-block status="normal">
           <mat-form-field class="status">
             <mat-label>Оборудование</mat-label>
-            <mat-select panelClass="mat-select-custom"> </mat-select>
+            <mat-select
+              panelClass="mat-select-custom"
+              [disabled]="true">
+            </mat-select>
           </mat-form-field>
         </evj-ui-block>
       </div>
@@ -179,7 +190,15 @@
         <evj-ui-block status="normal">
           <mat-form-field class="status">
             <mat-label>Единица обслуживания</mat-label>
-            <mat-select panelClass="mat-select-custom"> </mat-select>
+            <mat-select
+              panelClass="mat-select-custom"
+              [value]="ewService.event.asusEvent.eoService"
+              [disabled]="true"
+            >
+              <mat-option *ngFor="let eoService of ewService.asusEOServices" [value]="eoService.codeSap"
+              >{{ eoService.name }}
+              </mat-option>
+            </mat-select>
           </mat-form-field>
         </evj-ui-block>
       </div>
@@ -188,14 +207,22 @@
       <div class="row__cell cell cell_left information">
         <div class="label">
           <div class="label__title">Автор</div>
-          <div class="label__text">Иванов И.И.</div>
+          <div class="label__text">{{this.ewService.event.fixedBy?.displayName}}</div>
         </div>
       </div>
       <div class="row__cell cell cell_right">
         <evj-ui-block status="normal">
           <mat-form-field class="status">
             <mat-label>Рабочая группа</mat-label>
-            <mat-select panelClass="mat-select-custom"> </mat-select>
+            <mat-select
+              panelClass="mat-select-custom"
+              [(ngModel)]="ewService.event.asusEvent.workGroup"
+              [disabled]="!ewService.isCreateNewEvent"
+            >
+              <mat-option *ngFor="let workgroup of ewService.asusWorkgroup" [value]="workgroup.name"
+              >{{ workgroup.name }}
+              </mat-option>
+            </mat-select>
           </mat-form-field>
         </evj-ui-block>
       </div>
@@ -203,8 +230,13 @@
     <div class="column__row row responsible">
       <evj-events-responsible-select></evj-events-responsible-select>
     </div>
-    <div class="column__row row events-correct">
-      <evj-events-correct></evj-events-correct>
+    <div class="column__row row reasons">
+      <evj-events-reasons-single
+        title="Причины"
+        [isAdder]="false"
+        [reason]="ewService?.event?.directReasons"
+        (addReason)="isReasonsPopupOpen=true"
+      ></evj-events-reasons-single>
     </div>
   </div>
 

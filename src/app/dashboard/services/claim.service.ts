@@ -71,13 +71,13 @@ export class ClaimService {
                     break;
             }
         });
-        console.log(claimsWidget);
+        // console.log(claimsWidget);
         this.claimWidgets$.next(claimsWidget);
     }
 
     public async getClaim(): Promise<void> {
         const allUserClaims = await this.getClaimAll();
-        console.log(allUserClaims);
+        // console.log(allUserClaims);
         const claimsScreen: EnumClaimScreens[] = [];
         allUserClaims.data.forEach((claim) => {
             switch (claim.claimType) {
@@ -90,7 +90,7 @@ export class ClaimService {
                     break;
             }
         });
-        console.log(claimsScreen);
+        // console.log(claimsScreen);
         this.claimScreens$.next(claimsScreen);
     }
 

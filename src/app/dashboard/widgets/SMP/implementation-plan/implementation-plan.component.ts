@@ -19,26 +19,7 @@ export interface IImplementationPlan {
 })
 export class ImplementationPlanComponent extends WidgetPlatform implements OnInit, OnDestroy {
 
-  public data: IImplementationPlan[] = [
-    {
-      id: 1,
-      title: 'Нефть',
-      value: 1232421,
-      deviation: '+0,2',
-      deviationPercent: 10,
-      factTankLevel: 10,
-      planTankLevel: 40,
-    },
-    {
-      id: 2,
-      title: 'КГС',
-      value: 1232421,
-      deviation: '+0,2',
-      deviationPercent: 10,
-      factTankLevel: 10,
-      planTankLevel: 40,
-    }
-  ];
+  public data: IImplementationPlan[] = [];
 
   public data2: IImplementationPlan[] = [
     {
@@ -68,7 +49,6 @@ export class ImplementationPlanComponent extends WidgetPlatform implements OnIni
     @Inject('uniqId') public uniqId: string
   ) {
     super(widgetService, isMock, id, uniqId);
-    this.isRealtimeData = false;
   }
 
   public ngOnInit(): void {
@@ -83,6 +63,7 @@ export class ImplementationPlanComponent extends WidgetPlatform implements OnIni
   }
 
   protected dataHandler(ref: any): void {
+    this.data = ref.items;
   }
 
 }

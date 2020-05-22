@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef, HostListener } from '@angular/core';
-import { IUser, EventsWidgetNotification } from '../../../models/events-widget';
 import { EventsWorkspaceService } from '../../../services/widgets/events-workspace.service';
+import { IInputOptions } from '../../../../@shared/models/input.model';
 
 @Component({
     selector: 'evj-usual-event',
@@ -10,17 +10,24 @@ import { EventsWorkspaceService } from '../../../services/widgets/events-workspa
 export class UsualEventComponent implements OnInit {
     @ViewChild('progress') progress: ElementRef;
 
+    public inputOptions: IInputOptions = {
+        type: 'text',
+        state: 'normal',
+        placeholder: 'Номер позиции',
+        isMovingPlaceholder: true,
+    };
+
     progressLineHeight: number;
 
-    constructor(public ewService: EventsWorkspaceService) { }
+    constructor(public ewService: EventsWorkspaceService) {}
 
-    ngOnInit(): void { }
+    ngOnInit(): void {}
 
     @HostListener('document:resize', ['$event'])
     OnResize(event): void {
         try {
             // this.progressLine();
-        } catch (error) { }
+        } catch (error) {}
     }
 
     public compareFn(a, b): boolean {
@@ -28,7 +35,7 @@ export class UsualEventComponent implements OnInit {
     }
 
     public onSendMessage(message: string, msgType: 'comments' | 'facts'): void {
-        this.ewService.sendMessageToEvent(message, msgType, false);
+        this.ewService.sendMessageToEvent(message, msgType);
     }
 
     public onChangeEventDescription(description: string): void {
@@ -37,32 +44,6 @@ export class UsualEventComponent implements OnInit {
 
     public dateTimePicker(date: Date): void {
         this.ewService.setDeadlineToEvent(date);
-    }
-
-    public chooseRespons(data: IUser): void {
-        this.ewService.event.fixedBy = data;
-    }
-
-    public onLoadEvent(id: number): void {
-        this.setEventByInfo(id);
-    }
-
-    private async setEventByInfo(value: EventsWidgetNotification | number): Promise<void> {
-        this.ewService.isLoading = true;
-
-        this.ewService.setEventByInfo(value);
-
-        setTimeout(() => (this.ewService.isLoading = false), 500);
-
-        // this.progressLine();
-    }
-
-    public overlayConfirmationOpen(): void {
-        this.ewService.isOverlayConfirmOpen = true;
-    }
-
-    public overlayConfirmationClose(): void {
-        this.ewService.isOverlayConfirmOpen = false;
     }
 
     public openLineChart(): void {
@@ -75,25 +56,13 @@ export class UsualEventComponent implements OnInit {
         this.ewService.isOverlayChartOpen = false;
     }
 
-    public onEditRetrieval(retNotid: EventsWidgetNotification): void {
-        this.ewService.isEditRetrievalEvent = true;
-        this.ewService.retrievalEvent = retNotid;
-        this.ewService.isOverlayRetrivealOpen = true;
-    }
-
-    public addRetrieval(): void {
-        this.ewService.createNewEvent(true);
-
-        this.ewService.isOverlayRetrivealOpen = true;
-    }
-
     // TODO
     public progressLine(): void {
         const heightMiddle = this.progress.nativeElement.offsetParent.offsetHeight - 103;
         const countRetAll = this.ewService.event.retrievalEvents.length;
         let countRetComplete = 0;
-        for (let i of this.ewService.event.retrievalEvents) {
-            if (i.innerNotification.status.name === 'closed') {
+        for (const i of this.ewService.event.retrievalEvents) {
+            if (i.status.name === 'closed') {
                 countRetComplete++;
             }
         }

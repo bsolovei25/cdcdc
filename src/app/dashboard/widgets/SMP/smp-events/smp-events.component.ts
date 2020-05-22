@@ -9,8 +9,8 @@ import { WidgetPlatform } from '../../../models/widget-platform';
 })
 export class SmpEventsComponent extends WidgetPlatform implements OnInit, OnDestroy {
 
-    static itemCols = 14;
-    static itemRows = 20;
+    static itemCols: number = 14;
+    static itemRows: number = 20;
 
     constructor(
         protected widgetService: WidgetService,

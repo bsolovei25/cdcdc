@@ -1,9 +1,10 @@
-import { Component, OnInit, Input, OnChanges } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, ChangeDetectionStrategy } from '@angular/core';
 import { IPerfProgPark } from '../../performance-progress-indicators.component';
 
 
 @Component({
   selector: 'evj-performance-progress-bar',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './performance-progress-bar.component.html',
   styleUrls: ['./performance-progress-bar.component.scss']
 })
@@ -16,29 +17,31 @@ export class PerformanceProgressBarComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(): void {
-    this.mapLevel();
+    if (this.data) {
+      this.mapLevel();
+    }
   }
 
   mapLevel(): void {
-    if (this.data.planLevel > 100) {
+    if (this.data?.planLevel > 100) {
       this.data.planLevel = 100;
-    } else if (this.data.planLevel < 0) {
+    } else if (this.data?.planLevel < 0) {
       this.data.planLevel = 0;
     }
 
-    if (this.data.factLevel > 100) {
+    if (this.data?.factLevel > 100) {
       this.data.factLevel = 100;
-    } else if (this.data.factLevel < 0) {
+    } else if (this.data?.factLevel < 0) {
       this.data.factLevel = 0;
     }
 
-    this.data.factLevel = this.percent(this.data.factLevel);
-    this.data.planLevel = this.percent(this.data.planLevel);
+    this.data.factLevel = this.percent(this.data?.factLevel);
+    this.data.planLevel = this.percent(this.data?.planLevel);
   }
 
   percent(value: number): number {
     const levelBakPercent = 85;
-    return (levelBakPercent * value) / 100;
+    return (value === 0) ? 0 : (levelBakPercent * value) / 100;
   }
 
 }

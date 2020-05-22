@@ -18,6 +18,7 @@ import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
 import { WidgetPlatform } from '../../models/widget-platform';
 import { throttle } from 'rxjs/operators';
 import { SnackBarService } from '../../services/snack-bar.service';
+import { EventsWorkspaceService } from '../../services/widgets/events-workspace.service';
 
 @Component({
     selector: 'evj-events',
@@ -150,11 +151,14 @@ export class EventsComponent extends WidgetPlatform implements OnInit, OnDestroy
 
     private readonly defaultIconPath: string = './assets/icons/widgets/events/smotr.svg';
 
-    public static itemCols: number = 30;
-    public static itemRows: number = 20;
+    public static itemCols: number = 32;
+    public static itemRows: number = 30;
+    public static minItemCols: number = 32;
+    public static minItemRows: number = 30;
 
     constructor(
         private eventService: EventService,
+        private ewService: EventsWorkspaceService,
         private materialService: SnackBarService,
         public userSettings: UserSettingsService,
         public widgetService: WidgetService,
@@ -181,6 +185,9 @@ export class EventsComponent extends WidgetPlatform implements OnInit, OnDestroy
             this.widgetService.currentDates$.subscribe((ref) => {
                 this.getData();
                 this.getStats();
+            }),
+            this.eventService.currentEventId$.subscribe((ref) => {
+                this.selectedId = ref;
             })
         );
     }
@@ -202,23 +209,6 @@ export class EventsComponent extends WidgetPlatform implements OnInit, OnDestroy
                 break;
         }
     }
-
-    // private async wsConnect(): Promise<void> {
-    //     this.placeNames = await this.eventService.getPlaces(this.id);
-    //     this.subscriptions.push(
-    //         this.widgetService
-    //             .getWidgetLiveDataFromWS(this.id, 'events')
-    //             .subscribe((ref: EventsWidgetDataPreview) => {
-    //                 this.wsHandler(ref);
-    //             })
-    //     );
-    //     this.subscriptions.push(
-    //         this.widgetService.currentDatesObservable.subscribe((ref) => {
-    //             this.getData();
-    //             this.getStats();
-    //         })
-    //     );
-    // }
 
     public onCategoryClick(category: EventsWidgetCategory): void {
         category.isActive = !category.isActive;
@@ -246,8 +236,6 @@ export class EventsComponent extends WidgetPlatform implements OnInit, OnDestroy
     private clearNotifications(): void {
         this.notifications = [];
     }
-
-    private wsHandler(data: EventsWidgetDataPreview): void {}
 
     private addWsElement(notification: EventsWidgetNotificationPreview): void {
         const idx = this.notifications.findIndex((n) => notification.sortIndex <= n.sortIndex);
@@ -303,7 +291,6 @@ export class EventsComponent extends WidgetPlatform implements OnInit, OnDestroy
                     const statusName = this.statuses[n.status.name]; // TODO check
                     return { ...n, iconUrl, statusName, iconUrlStatus };
                 });
-
             this.notifications = this.notifications.concat(notifications);
         }
     }
@@ -332,7 +319,7 @@ export class EventsComponent extends WidgetPlatform implements OnInit, OnDestroy
             try {
                 if (this.eventOverlayId >= 0) {
                     await this.eventService.deleteEvent(this.eventOverlayId);
-                    this.eventService.event$.next(null);
+                    this.ewService.event = null;
                 }
                 this.overlayConfirmationClose();
                 this.materialService.openSnackBar('Событие удалено');
@@ -342,8 +329,7 @@ export class EventsComponent extends WidgetPlatform implements OnInit, OnDestroy
             }
         } else {
             this.selectedId = eventId;
-            const eventGet = await this.eventService.getEvent(eventId);
-            this.eventService.event$.next(eventGet);
+            await this.ewService.editEvent(eventId);
         }
         this.eventOverlayId = undefined;
     }

@@ -9,7 +9,8 @@ import { IWidgets } from '../../../models/widget.model';
 import { SelectionModel } from '@angular/cdk/collections';
 import { SnackBarService } from '../../../services/snack-bar.service';
 import { IAlertWindowModel } from '../../../../@shared/models/alert-window.model';
-import { async } from '@angular/core/testing';
+import { IInputOptions } from '../../../../@shared/models/input.model';
+import { IAlertPasswordModel } from '../../../../@shared/models/alert-password.model';
 
 @Component({
     selector: 'evj-admin-worker-settings',
@@ -25,20 +26,41 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
     public toggleClaim: boolean = false;
 
     public alert: IAlertWindowModel = null;
+    public isDataChanged: boolean = false;
 
     public isClaimsShowing: boolean = true;
 
     public isPopUpShowing: boolean = false;
     public isAvatarButtonShowing: boolean = false;
 
-    public isPasswordAlertShowing: boolean = false;
     private isResetPassword: boolean = false;
 
     public isCreateClaim: boolean = false;
 
-    public searchingFieldName: string = '';
+    //#region SEARCH_INPUT_OPTIONS
+    public inputOptions: IInputOptions = {
+        type: 'text',
+        state: 'normal',
+        placeholder: 'Введите название пункта',
+        isMovingPlaceholder: true,
+        icon: {
+            src: 'assets/icons/search-icon.svg',
+            svgStyle: { 'width.px': 17, 'height.px': 17 },
+            isClickable: false,
+        },
+    };
 
-    public searchIcon: string = 'assets/icons/search-icon.svg';
+    public searchingFieldName: string = '';
+    //#endregion
+
+    //#region PASSWORD_OPTIONS
+    public passwordOptions: IAlertPasswordModel = {
+        isShow: false,
+        isCreatePassword: true,
+        acceptFunction: this.onSetWorkerPassword.bind(this),
+        closeFunction: () => (this.passwordOptions.isShow = false),
+    };
+    //#endregion
 
     public worker: IUser = null;
     public workerUnit: IUnitEvents = null;
@@ -103,16 +125,9 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
         this.subscriptions.forEach((subs: Subscription) => subs.unsubscribe());
     }
 
-    //#region SEARCH
-
-    public onSearchField(searchedField: string): void {
-        this.searchingFieldName = searchedField.toLowerCase();
-    }
-
-    //#endregion
-
     public onChangeWorkerData(data: IUnitEvents): void {
         this.workerUnit = data;
+        this.isDataChanged = true;
     }
 
     public onSetResponsible(event: boolean): void {
@@ -137,28 +152,34 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
              в Бригаде ${this.worker.brigade.number}?`;
         }
         this.alert.acceptText = 'Подтвердить';
-        this.alert.acceptFunction = () => (this.worker.position = position);
+        this.alert.acceptFunction = () => {
+            this.worker.position = position;
+            this.isDataChanged = true;
+        };
         this.alert.isShow = true;
     }
 
     public onChangePassword(isResetPassword: boolean): void {
         if (!isResetPassword) {
-            this.isPasswordAlertShowing = true;
+            this.passwordOptions.isShow = true;
         } else {
             this.alert.questionText = `Вы действительно хотите сбросить пароль для пользователя
              ${this.worker.lastName} ${this.worker.firstName} ${this.worker.middleName}?`;
             this.alert.acceptText = 'Подтвердить';
-            this.alert.acceptFunction = () => (this.isResetPassword = true);
+            this.alert.acceptFunction = () => {
+                this.isResetPassword = true;
+                this.isDataChanged = true;
+            };
             this.alert.isShow = true;
         }
     }
 
     public onChangeWorkspacesData(): void {}
 
-    public onSetWorkerPassword(event: string): void {
-        this.isPasswordAlertShowing = false;
-        if (event && this.isCreateNewUser) {
-            this.worker.password = event;
+    public onSetWorkerPassword(password: string): void {
+        if (password && this.isCreateNewUser) {
+            this.worker.password = password;
+            this.isDataChanged = true;
         }
     }
 
@@ -166,6 +187,7 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
         this.isPopUpShowing = false;
         if (event) {
             this.workerPhoto = event;
+            this.isDataChanged = true;
         }
     }
 
@@ -228,6 +250,7 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
         }
 
         this.isCreateClaim = false;
+        this.isDataChanged = true;
     }
 
     public onRemoveSpecialClaim(claim: IGlobalClaim): void {
@@ -235,6 +258,7 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
             (item) => item.claimType === claim.claimType
         );
         this.workerSpecialClaims.splice(index, 1);
+        this.isDataChanged = true;
     }
 
     public onSelectGeneralClaim(claim: IGlobalClaim): void {
@@ -246,10 +270,12 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
         } else {
             this.workerGeneralClaims.splice(index, 1);
         }
+        this.isDataChanged = true;
     }
 
     public onChangeLockWorker(): void {
         console.log('CHANGE LOCK STATUS');
+        this.isDataChanged = true;
     }
 
     public onRemoveWorker(): void {
@@ -294,17 +320,19 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
     }
 
     public onClickButton(isSaveClicked: boolean): void {
-        if (isSaveClicked) {
+        if (isSaveClicked && this.isDataChanged) {
             this.alert.questionText = 'Сохранить внесенные изменения?';
             this.alert.acceptText = 'Сохранить';
             this.alert.acceptFunction = this.onSave.bind(this);
-        } else {
+        } else if (this.isDataChanged) {
             this.alert.questionText = `Вы действительно хотите вернуться?
                 Все внесенные изменения будут утрачены!`;
             this.alert.acceptText = 'Подтвердить';
             this.alert.acceptFunction = this.onReturn.bind(this);
+        } else {
+            this.onReturn();
         }
-        this.alert.isShow = true;
+        this.alert.isShow = this.isDataChanged;
     }
 
     private checkForRequiredFields(): boolean {
@@ -394,6 +422,7 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
                 this.adminService.activeWorkerUnit$.next(this.workerUnit);
 
                 this.materialController.openSnackBar('Данные сохранены');
+                this.isDataChanged = false;
             } catch (error) {
                 console.log(error.error);
             } finally {

@@ -6,9 +6,8 @@
       <div class="search">
         <evj-input
           class="insert-component"
-          [placeholder]="'Введите название пункта'"
-          [iconSrc]="searchIcon"
-          (inputedValue)="onSearchField($event)"
+          [options]="inputOptions"
+          [(ngModel)]="searchingFieldName"
         ></evj-input>
       </div>
     </div>
@@ -18,7 +17,12 @@
       <div class="line"></div>
     </div>
     <div class="header__buttons">
-      <evj-button class="button" textButton="Сохранить" (click)="onClickButton(true)"></evj-button>
+      <evj-button
+        class="button"
+        textButton="Сохранить"
+        [disabled]="!isDataChanged"
+        (click)="onClickButton(true)"
+      ></evj-button>
       <evj-button class="button" textButton="Вернуться" (click)="onClickButton(false)"></evj-button>
     </div>
   </div>
@@ -128,12 +132,7 @@
     *ngIf="isPopUpShowing"
     (closePopUp)="onClosePopUp($event)"
   ></evj-aws-avatar>
-  <evj-aws-password-alert
-    class="admin__popup"
-    [ngClass]="{'admin__popup_active':isPasswordAlertShowing}"
-    *ngIf="isPasswordAlertShowing"
-    (confirmed)="onSetWorkerPassword($event)"
-  ></evj-aws-password-alert>
+  <evj-alert-password [options]="passwordOptions"></evj-alert-password>
   <evj-aws-create-claim
     class="admin__popup"
     [ngClass]="{'admin__popup_active':isCreateClaim}"

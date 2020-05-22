@@ -17,9 +17,9 @@ import { WidgetPlatform } from '../../models/widget-platform';
 })
 export class EnergeticsComponent extends WidgetPlatform implements OnInit, OnDestroy {
     public static itemCols: number = 24;
-    public static itemRows: number = 14;
+    public static itemRows: number = 18;
     public static minItemCols: number = 24;
-    public static minItemRows: number = 14;
+    public static minItemRows: number = 18;
 
     /* Приблизительная структура, получаемая с бека */
 

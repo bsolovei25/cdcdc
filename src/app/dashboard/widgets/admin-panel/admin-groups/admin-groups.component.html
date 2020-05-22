@@ -10,9 +10,8 @@
       <div class="search">
         <evj-input
           class="insert-component"
-          [placeholder]="'Введите наименование группы'"
-          [iconSrc]="searchIcon"
-          (inputedValue)="onSearchGroup($event)"
+          [options]="inputGroupOptions"
+          [(ngModel)]="searchingGroupString"
         ></evj-input>
       </div>
       <div class="button__small">
@@ -21,7 +20,7 @@
           [isSmallButton]="true"
           [imgSrc]="plusIcon"
           [isChangingState]="false"
-          (click)="isCreateNewGroup=true"
+          (click)="onChangeGroupName()"
         ></evj-button>
       </div>
     </div>
@@ -32,8 +31,8 @@
           [group]="group"
           [isCardActive]="groupSelection.isSelected(group)"
           (click)="onSelectGroup(group)"
-          (editGroup)="onEditGroupName(group)"
-          (deleteGroup)="onDeleteGroup()"
+          (editGroup)="onChangeGroupName(group)"
+          (deleteGroup)="onClickDeleteGroup()"
         ></evj-ag-group-card>
       </ng-container>
       <ng-container *ngFor="let group of groups">
@@ -42,8 +41,8 @@
           [group]="group"
           [isCardActive]="groupSelection.isSelected(group)"
           (click)="onSelectGroup(group)"
-          (editGroup)="onEditGroupName(group)"
-          (deleteGroup)="onDeleteGroup()"
+          (editGroup)="onChangeGroupName(group)"
+          (deleteGroup)="onClickDeleteGroup()"
         ></evj-ag-group-card>
       </ng-container>
     </div>
@@ -53,9 +52,8 @@
       <div class="search">
         <evj-input
           class="insert-component"
-          [placeholder]="'Введите ФИО'"
-          [iconSrc]="searchIcon"
-          (inputedValue)="onSearchUser($event)"
+          [options]="inputWorkerOptions"
+          [(ngModel)]="searchingWorkerString"
         ></evj-input>
       </div>
     </div>
@@ -77,6 +75,7 @@
           class="insert-component"
           [isSmallButton]="false"
           textButton="Сохранить"
+          [disabled]="!isDataChanged"
           [isChangingState]="false"
           (click)="onClickButton(true)"
         ></evj-button>
@@ -174,14 +173,6 @@
       </div>
     </div>
   </div>
-
-  <evj-ag-new-group
-    class="popup"
-    [ngClass]="{'popup_active':isCreateNewGroup}"
-    *ngIf="isCreateNewGroup"
-    [editingGroup]="editingGroup"
-    (newGroup)="onCreateNewGroup($event)"
-  ></evj-ag-new-group>
 
   <evj-aws-create-claim
     class="popup"

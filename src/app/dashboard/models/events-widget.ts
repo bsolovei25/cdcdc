@@ -22,6 +22,7 @@ export interface EventsWidgetNotificationPreview {
 
 export interface EventsWidgetNotification {
     id?: number;
+    parentId?: number;
     itemNumber: number;
     organization: string;
     branch: string;
@@ -47,7 +48,7 @@ export interface EventsWidgetNotification {
     statusName?: string;
     positionNumber?: string;
     severity: string;
-    retrievalEvents: IRetrievalEvents[];
+    retrievalEvents: IRetrievalEventDto[];
     equipmentCategory: { id: number; name: string; code: string };
     deadline?: Date;
     graphValues: LineChartData;
@@ -56,6 +57,37 @@ export interface EventsWidgetNotification {
     unit?: IUnitEvents;
     unitName?: string;
     deviationData?: IEventDeviationData;
+    asusEvent: IEventAsus;
+}
+
+export interface IEventAsus {
+    id?: number;
+    notificationId?: number;
+    codeAsus?: string;
+    codeAsusGuid?: string;
+    state?: string;
+    consumer?: string;
+
+    category: string;
+    workGroup: string;
+    service: string;
+    eoService: string;
+    equipment: string; // ? Оборудование
+
+    datetimeReaction?: Date;
+    datetimeStart?: Date;
+    datetimeEnd?: Date;
+    datetimeDeadline?: Date;
+}
+
+export interface IRetrievalEventDto {
+    innerNotificationId: number;
+    description: string;
+    isAcknowledged: boolean;
+    status: IStatus;
+    deadline: Date;
+    fixedByName: string;
+    timerPercentage: number;
 }
 
 export interface IEventDeviationData {
@@ -118,6 +150,13 @@ export interface IUser {
     department?: string;
 }
 
+export interface ISaveMethodEvent {
+    data: {
+        url: string;
+        authenticationType: AuthenticationType;
+    };
+}
+
 export type WorkerPositionType = 'common' | 'responsible';
 
 export type EventsWidgetNotificationPriority = 'danger' | 'warning' | 'standard';
@@ -133,6 +172,8 @@ export type EventsWidgetCategoryCode =
     | 'equipmentStatus'
     | 'drops'
     | 'asus';
+
+export type AuthenticationType = 'bearer' | 'windows';
 
 export type EventAction = 'add' | 'edit' | 'delete';
 
@@ -152,6 +193,50 @@ export interface IPriority {
     id: number;
     name: EventsWidgetNotificationPriority;
     code: string;
+}
+
+export interface ISmotrReference {
+    messages: {
+        type: string;
+        message: string;
+        httpCode: number;
+    }[];
+    data: {
+        reasons: {
+            id: string,
+            name: string;
+        }[];
+        actions: {
+            id: string,
+            name: string;
+        }[];
+    };
+}
+
+export interface IAsusService {
+    parent: string;
+    code: string;
+    name: string;
+    parentCod: string;
+}
+
+export interface IAsusEOService {
+    codeSap: string;
+    code: string;
+    name: string;
+    parentCod: string;
+}
+
+export interface IAsusWorkgroup {
+    name: string;
+    code: string;
+    organizationCode: string;
+    parent: string;
+    parentCode: string;
+}
+
+export interface IAsusCategories {
+    name: string;
 }
 
 export interface EventsWidgetFilter {

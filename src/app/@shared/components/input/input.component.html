@@ -1,18 +1,32 @@
-<div class="input">
-  <mat-form-field
-    class="input__search"
-    [appearance]="appearance"
+<div
+  class="input-container input-container_{{options.state}}"
+  [class.input-container_underlined]="!options.withoutUnderline"
+  [class.input-container_icon]="!!options.icon"
+  [class.input-container_disabled]="isDisabled"
+  [class.input-container_focus]="isInput"
+>
+  <div
+    class="placeholder"
+    [ngClass]="{'placeholder_focus':isInput}"
+    *ngIf="options.isMovingPlaceholder"
   >
-    <mat-label>{{ placeholder }}</mat-label>
-    <input
-      type="search"
-      matInput
-      #input
-      [value]="value"
-      [disabled]="isDisabled"
-      (input)="onInput()"
-      (blur)="onBlur()"
-    />
-    <mat-icon matSuffix *ngIf="!!iconSrc"><img class="icon" [src]="iconSrc"/></mat-icon>
-  </mat-form-field>
+    {{options.placeholder}}
+  </div>
+  <input
+    class="input"
+    [type]="options.type"
+    [placeholder]="options.placeholder"
+    (focus)="isInput=true"
+    (input)="onInput($event.target.value)"
+    (blur)="onBlur($event.target.value)"
+    #input
+  />
+  <svg-icon
+    class="icon"
+    [ngClass]="{'icon_clickable':options.icon.isClickable}"
+    [src]="options.icon.src"
+    [svgStyle]="options.icon.svgStyle"
+    (click)="onClickIcon()"
+    *ngIf="!!options.icon"
+  ></svg-icon>
 </div>

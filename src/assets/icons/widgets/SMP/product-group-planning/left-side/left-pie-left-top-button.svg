@@ -1,1 +1,8 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 26.82 14.69"><defs><style>.a0b87cd4-2066-4285-a34e-05420cfc7ab3{fill:#1b1f2c;stroke:#5b607d;opacity:0.5;}.a05fe2ee-dc51-4b41-981b-2ed2c4d52c53,.a0b87cd4-2066-4285-a34e-05420cfc7ab3{stroke-miterlimit:10;stroke-width:0.5px;}.a05fe2ee-dc51-4b41-981b-2ed2c4d52c53{fill:none;stroke:#5f6580;}</style></defs><title>left-pie-left-top-button</title><g id="bd02591b-8c69-475f-86e9-3f33b6769ea6" data-name="Слой 2"><g id="a3ad4ff0-e863-4ec6-bb3b-e6deb68c289a" data-name="Layer 1"><polyline class="a0b87cd4-2066-4285-a34e-05420cfc7ab3" points="26.58 14.44 5.75 14.44 5.75 5.28 0.61 0.25 15.88 0.25 21.43 0.25 26.57 5.28 26.57 14.44"/><polyline class="a05fe2ee-dc51-4b41-981b-2ed2c4d52c53" points="13.58 12.4 10.97 12.4 10.97 2.4 15.68 2.4 18.75 5.47 18.75 7.36 18.75 5.47 15.67 5.47 15.68 2.4"/></g></g></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 26.82 14.69"><defs>
+<style>.a0b87cd4-2066-4285-a34e-05420cfc7ab3{fill:#1b1f2c;stroke:#5b607d;opacity:0.5;}.a05fe2ee-dc51-4b41-981b-2ed2c4d52c53,.a0b87cd4-2066-4285-a34e-05420cfc7ab3{stroke-miterlimit:10;stroke-width:0.5px;}.a05fe2ee-dc51-4b41-981b-2ed2c4d52c53{fill:none;stroke:#5f6580;}</style>
+</defs><title>left-pie-left-top-button</title>
+<g id="bd02591b-8c69-475f-86e9-3f33b6769ea6" data-name="Слой 2">
+<g id="a3ad4ff0-e863-4ec6-bb3b-e6deb68c289a" data-name="Layer 1">
+<polyline class="a0b87cd4-2066-4285-a34e-05420cfc7ab3" points="26.58 14.44 5.75 14.44 5.75 5.28 0.61 0.25 15.88 0.25 21.43 0.25 26.57 5.28 26.57 14.44"/>
+<polyline class="a05fe2ee-dc51-4b41-981b-2ed2c4d52c53" points="13.58 12.4 10.97 12.4 10.97 2.4 15.68 2.4 18.75 5.47 18.75 7.36 18.75 5.47 15.67 5.47 15.68 2.4"/>
+</g></g></svg>

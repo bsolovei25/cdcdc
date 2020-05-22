@@ -3,10 +3,10 @@
     <div class="card__hidden-layout" (click)="onClickCard()"></div>
     <div class="card__description description">
       <div class="description__title">Краткое описание</div>
-      <div class="description__text">{{event.innerNotification.description}}</div>
+      <div class="description__text">{{event.description}}</div>
       <div
         class="card__check"
-        *ngIf="event.innerNotification.isAcknowledged && ewService.event.category.code!=='0'"
+        *ngIf="event.isAcknowledged && ewService.event.category.code!=='0'"
       >
         <svg-icon
           src="assets/icons/widgets/workspace/accept.svg"
@@ -16,16 +16,16 @@
       </div>
     </div>
     <div class="card__info info">
-      <div ngClass="info__status_{{statusesColors[event.innerNotification.status.name]}}">
-        {{ewService.statuses[event.innerNotification.status.name]}}
+      <div *ngIf="event.status?.name" ngClass="info__status_{{statusesColors[event.status.name]}}">
+        {{ewService.statuses[event.status.name]}}
       </div>
-      <div class="info__due-date" *ngIf="event.innerNotification.deadline">
+      <div class="info__due-date" *ngIf="event.deadline">
         <div class="info__title">Срок исполнения</div>
-        <div class="info__text">{{event?.innerNotification?.deadline|date:'dd-MM-yyyy HH:mm'}}</div>
+        <div class="info__text">{{event?.deadline|date:'dd-MM-yyyy HH:mm'}}</div>
       </div>
-      <div class="info__responsible" *ngIf="event.innerNotification.fixedBy">
+      <div class="info__responsible" *ngIf="event.fixedByName">
         <div class="info__title">Ответственный</div>
-        <div class="info__text">{{event.innerNotification.fixedBy.displayName}}</div>
+        <div class="info__text">{{event.fixedByName}}</div>
       </div>
       <div class="info__buttons">
         <div class="button button__delete" (click)="onClickDelete()">
@@ -42,10 +42,10 @@
         </div>
       </div>
     </div>
-    <div class="card__progress">
+    <div class="card__progress" *ngIf="event.status?.name">
       <div
         class="line"
-        ngClass="line_{{statusesColors[event.innerNotification.status.name]}}"
+        ngClass="line_{{statusesColors[event.status.name]}}"
         [style.width.%]="event.timerPercentage"
       ></div>
     </div>

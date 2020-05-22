@@ -55,13 +55,11 @@ export class ShiftService {
                 return this.http
                     .get(`${this.restUrl}/api/shift/users/free-users/${idShift}`)
                     .toPromise();
-                break;
             default:
                 console.log('not all');
                 return this.http
                     .get(`${this.restUrl}/api/shift/users/free-brigade/${idShift}`)
                     .toPromise();
-                break;
         }
     }
 
@@ -278,22 +276,22 @@ export class ShiftService {
     }
 
     public actionVerifyWindow(
-        _action: VerifyWindowActions,
-        _type: VerifyWindowType,
-        _widgetId: string,
-        _message: string = null,
-        _result: boolean = null,
-        _verifyId: number = null,
-        _user: IUser = null
+        action: VerifyWindowActions,
+        type: VerifyWindowType,
+        widgetId: string,
+        message: string = null,
+        result: boolean = null,
+        verifyId: number = null,
+        user: IUser = null
     ): void {
         const obj: IVerifyWindow = {
-            action: _action,
-            type: _type,
-            widgetId: _widgetId,
-            message: _message,
-            verifyId: _verifyId,
-            user: _user,
-            result: _result,
+            action,
+            type,
+            widgetId,
+            message,
+            verifyId,
+            user,
+            result,
         };
         this.verifyWindowSubject.next(obj);
     }

@@ -2,7 +2,7 @@
   Доступные отчеты
 </h4>
 <div class="search_block">
-  <evj-search [isReport]="isReport" (searchReport)="searchReports($event)"></evj-search>
+  <evj-search isReport="true" (search)="searchReports($event)"></evj-search>
 </div>
 <div class="reports-panel__list scroll-bar">
   <div class="options-header">

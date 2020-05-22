@@ -1,12 +1,16 @@
 import {
     Component,
     OnInit,
+    Renderer2,
+    ViewChild,
+    ElementRef,
+    forwardRef,
     Input,
     Output,
     EventEmitter,
-    ViewChild,
-    ElementRef,
 } from '@angular/core';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { IInputOptions } from '../../models/input.model';
 
 type formFieldAppearance = 'legacy' | 'standard' | 'fill' | 'outline' | 'none';
 
@@ -14,29 +18,83 @@ type formFieldAppearance = 'legacy' | 'standard' | 'fill' | 'outline' | 'none';
     selector: 'evj-input',
     templateUrl: './input.component.html',
     styleUrls: ['./input.component.scss'],
+    providers: [
+        {
+            provide: NG_VALUE_ACCESSOR,
+            useExisting: forwardRef(() => InputComponent),
+            multi: true,
+        },
+    ],
 })
-export class InputComponent implements OnInit {
-    @Input() public placeholder: string = '';
-    @Input() public iconSrc: string = '';
-    @Input() public value: string = '';
-    @Input() public isDisabled: boolean = false;
-    @Input() public focused: boolean = false;
-    @Input() public appearance: formFieldAppearance = 'standard';
-    @Output() public inputedValue: EventEmitter<string> = new EventEmitter<string>();
-    @Output() public unfocus: EventEmitter<string> = new EventEmitter<string>();
-    @ViewChild('input') public input: ElementRef;
+export class InputComponent implements OnInit, ControlValueAccessor {
+    // tslint:disable-next-line: no-output-native
+    @Output() blur: EventEmitter<void> = new EventEmitter<void>();
 
-    public isFocused: boolean = false;
+    @Input() public options: IInputOptions = {
+        type: 'text',
+        state: 'normal',
+        placeholder: 'Введите текст',
+        isMovingPlaceholder: true,
+        icon: {
+            src: 'assets/icons/login/visibility.svg',
+            svgStyle: { 'width.px': 20, 'height.px': 20 },
+            isClickable: true,
+            onClick: () => {
+                [this.options.icon.src, this.options.icon.secState] = [
+                    this.options.icon.secState,
+                    this.options.icon.src,
+                ];
+            },
+            secState: 'assets/icons/login/visibility_off.svg',
+        },
+    };
+    @ViewChild('input', { static: true }) public input: ElementRef;
 
-    constructor() {}
+    public isInput: boolean = false;
+    public isDisabled: boolean = false;
+
+    constructor(private renderer: Renderer2) {}
 
     public ngOnInit(): void {}
 
-    public onInput(): void {
-        this.inputedValue.emit(this.input.nativeElement.value);
+    public onClickIcon(): void {
+        if (this.options.icon.isClickable && !!this.options.icon.onClick) {
+            this.options.icon.onClick();
+        }
     }
 
-    public onBlur(): void {
-        this.unfocus.emit(this.input.nativeElement.value);
+    public onInput(value: string): void {
+        this.writeValue(value);
     }
+
+    public onBlur(value: string): void {
+        this.isInput = !!value;
+        this.onTouched();
+        this.blur.emit();
+    }
+
+    private onChange: (_: any) => void = () => null;
+    private onTouched: () => void = () => null;
+
+    // #region ControlValueAccessor
+    public writeValue(value: string): void {
+        const inputValue: string = typeof value === 'string' ? value : '';
+        this.renderer.setProperty(this.input.nativeElement, 'value', inputValue);
+        this.isInput = !!value;
+        this.onChange(value);
+    }
+
+    public registerOnChange(fn: (_: any) => void): void {
+        this.onChange = fn;
+    }
+
+    public registerOnTouched(fn: any): void {
+        this.onTouched = fn;
+    }
+
+    public setDisabledState(isDisabled: boolean): void {
+        this.renderer.setProperty(this.input.nativeElement, 'disabled', isDisabled);
+        this.isDisabled = isDisabled;
+    }
+    //#endregion ControlValueAccessor
 }

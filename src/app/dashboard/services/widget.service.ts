@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Observable, BehaviorSubject, Subject, of } from 'rxjs';
-import { filter, map, tap, debounceTime, switchMap } from 'rxjs/operators';
+import { Observable, BehaviorSubject } from 'rxjs';
+import { filter, map } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 import { GridsterItem } from 'angular-gridster2';
 import { IWidgets } from '../models/widget.model';
@@ -39,7 +39,8 @@ export class WidgetService {
 
     public draggingItem: GridsterItem;
     public dashboard: GridsterItem[] = [];
-    private _widgets$: BehaviorSubject<IWidgets[]> = new BehaviorSubject(null);
+
+    private _widgets$: BehaviorSubject<IWidgets[]> = new BehaviorSubject([]);
     public widgets$: Observable<IWidgets[]> = this._widgets$
         .asObservable()
         .pipe(filter((item) => item !== null));
@@ -47,21 +48,12 @@ export class WidgetService {
     private reconnectWsTimer: any;
     private reconnectRestTimer: any;
 
-    private _lastSearchValue: string;
-    public searchValue: string;
-    public searchType;
-    public searchWidget$: Subject<any> = new Subject<any>();
-    public searchWidgetT: Observable<any> = this.searchWidget$.pipe(
-        tap((val) => {
-            this._lastSearchValue = val;
-        }),
-        switchMap(this.Search.bind(this))
+    private currentDates: IDatesInterval = null;
+    public currentDates$: BehaviorSubject<IDatesInterval> = new BehaviorSubject<IDatesInterval>(
+        null
     );
 
-    private currentDates: IDatesInterval = null;
-    public currentDates$: BehaviorSubject<IDatesInterval> = new BehaviorSubject<
-        IDatesInterval
-    >(null);
+    filterWidgets$: BehaviorSubject<string[]> = new BehaviorSubject<string[]>([]);
 
     constructor(
         public http: HttpClient,
@@ -84,7 +76,7 @@ export class WidgetService {
         return this.http
             .get(this.restUrl + `/api/user-management/Claim/user/GetAvailableWidgets`)
             .pipe(
-                map((ans: {data: IWidgets[]}) => {
+                map((ans: { data: IWidgets[] }) => {
                     return this.mapData(ans.data);
                 })
             );
@@ -96,15 +88,17 @@ export class WidgetService {
         for (let i = 0; i < 10; i++) {
             const start = new Date().getTime();
             await this.http.get(this.restUrl + `/api/af-service/GetAvailableWidgets`).toPromise();
-            await this.http.get(this.restUrl + `/api/user-management/Claim/user/GetAvailableWidgets`).toPromise();
+            await this.http
+                .get(this.restUrl + `/api/user-management/Claim/user/GetAvailableWidgets`)
+                .toPromise();
             const end = new Date().getTime();
             arr.push(end - start);
         }
         let summ = 0;
-        arr.forEach(el => summ += el);
-        console.log('averageTime: ' + (summ / arr.length));
-        console.log('maxTime: ' + (Math.max.apply(null, arr)));
-        console.log('minTime: ' + (Math.min.apply(null, arr)));
+        arr.forEach((el) => (summ += el));
+        console.log('averageTime: ' + summ / arr.length);
+        console.log('maxTime: ' + Math.max.apply(null, arr));
+        console.log('minTime: ' + Math.min.apply(null, arr));
     }
 
     mapData(data: IWidgets[]): IWidgets[] {
@@ -216,6 +210,11 @@ export class WidgetService {
             case 'shift-accept':
             case 'column-chart-stacked':
             case 'events-workspace':
+            case 'implementation-plan':
+            case 'performance-progress-indicators':
+            case 'quality-stock':
+            case 'product-groups':
+            case 'product-groups-short':
             case 'tank-information':
             case 'table-data':
                 return data;
@@ -278,7 +277,7 @@ export class WidgetService {
         this.ws.next({
             actionType: 'authenticate',
             channelId: null,
-            token: this.authService.userSessionToken
+            token: this.authService.userSessionToken,
         });
         this.ws.subscribe(
             (msg) => {
@@ -299,7 +298,7 @@ export class WidgetService {
         this.ws.asObservable().subscribe((data) => {
             if (data?.data && this.isMatchingPeriod(data?.data?.selectedPeriod)) {
                 this.widgetsSocketObservable.next(data);
-                console.log('data ws');
+                // console.log('data ws');ƒ
             }
         });
     }
@@ -326,57 +325,6 @@ export class WidgetService {
             this.initWS();
             this.dashboard.forEach((el) => this.wsConnect(el.id));
         }, this.reconnectInterval);
-    }
-
-    public searchItems(value, type): void {
-        this.searchType = type;
-        try {
-            this.searchWidget$.next(value);
-        } catch (error) {
-            return console.error('Поиск пуст');
-        }
-    }
-
-    public Search(record: string): Observable<IWidgets[]> {
-        try {
-            const point = this._widgets$.getValue();
-            let pointFilter;
-            let arrFilter: any = [];
-            let arrFilterButton: any = [];
-            let resultObject: any = [];
-            if (this.searchType === 'input') {
-                let undefinedFilter = point.filter((point) => point.title !== undefined);
-                const filter = of(
-                    undefinedFilter.filter(
-                        (point) => point.title.toLowerCase().indexOf(record.toLowerCase()) > -1
-                    )
-                );
-                pointFilter = filter;
-                this.searchValue = record;
-                return pointFilter;
-            } else {
-                for (const i of record) {
-                    const filter = point.filter((point) => point.categories.indexOf(i) > -1);
-                    arrFilter.push(filter);
-                }
-                for (const i of arrFilter) {
-                    for (const j of i) {
-                        arrFilterButton.push(j);
-                    }
-                }
-                const newFilterArray: any = [...new Set(arrFilterButton)];
-                resultObject.push(newFilterArray);
-                this.searchValue = record;
-                return resultObject;
-            }
-        } catch (error) {
-            console.log('Ошбика', error);
-        }
-    }
-
-    public reEmitList(): void {
-        this._widgets$.next(this._widgets$.getValue());
-        this.searchValue = null;
     }
 
     public wsSetParams(Dates: IDatesInterval = null): void {

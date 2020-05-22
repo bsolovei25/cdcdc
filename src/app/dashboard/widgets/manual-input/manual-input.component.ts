@@ -54,8 +54,10 @@ export class ManualInputComponent extends WidgetPlatform
 
     widthTruckScroll: number;
 
-    static itemCols: number = 30;
-    static itemRows: number = 20;
+    public static itemCols: number = 45;
+    public static itemRows: number = 20;
+    public static minItemCols: number = 35;
+    public static minItemRows: number = 13;
 
     public title: string;
     public previewTitle: string;

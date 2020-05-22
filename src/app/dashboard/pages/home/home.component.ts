@@ -3,6 +3,7 @@ import { WidgetService } from '../../services/widget.service';
 import { UserSettingsService } from '../../services/user-settings.service';
 import { ClaimService } from '../../services/claim.service';
 import { OverlayService } from '../../services/overlay.service';
+import { IAlertPasswordModel } from '../../../@shared/models/alert-password.model';
 
 @Component({
     selector: 'evj-home',
@@ -16,7 +17,7 @@ export class HomeComponent implements OnInit, OnDestroy {
         private widgetService: WidgetService,
         private userSettings: UserSettingsService,
         private claimService: ClaimService,
-        public overlayService: OverlayService,
+        public overlayService: OverlayService
     ) {}
 
     ngOnInit(): void {

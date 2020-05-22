@@ -16,65 +16,71 @@
   &__left {
     width: 35%;
     min-width: 170px;
-    
-    .frame-top {
-      height: 10px;
-      border: 1px solid var(--color-smp-border);
-      border-bottom: none;
+    border: 0.8px solid var(--color-smp-border);
+    border-left: none;
+    border-right: none;
+
+    .b-a {
       position: relative;
-      box-shadow: inset 0px 10px 9px -10px var(--color-border-box-shadow);
 
       &:before {
         content: "";
-        width: 14px;
-        height: 8px;
+        z-index: 999;
+        width: 22px;
+        height: 10px;
         position: absolute;
-        left: -6px;
-        top: -3px;
-        border-top: 1px solid var(--color-smp-border);
+        left: -7px;
+        top: -2px;
+        border-top: 0.8px solid var(--color-smp-border);
         background: var(--color-bg-main);
         transform: rotate(-225deg);
       }
 
       &:after {
         content: "";
-        width: 14px;
-        height: 8px;
+        z-index: 999;
+        width: 22px;
+        height: 10px;
         position: absolute;
-        right: -5px;
-        top: 3px;
-        border-top: 1px solid var(--color-smp-border);
+        right: -7px;
+        top: 5px;
+        border-top: 0.8px solid var(--color-smp-border);
         background: var(--color-bg-main);
         transform: rotate(-45deg);
       }
     }
 
+    .frame-top {
+      height: 15px;
+      background: linear-gradient(180deg, #5b607d 0%, rgba(91, 96, 125, 0) 100%);
+      opacity: 0.2;
+    }
+
     .frame-bottom {
-      height: 10px;
-      border: 1px solid var(--color-smp-border);
-      border-top: none;
+      height: 15px;
       position: relative;
+      background: var(--color-bg-header-table);
 
       &:before {
         content: "";
-        width: 14px;
-        height: 8px;
+        width: 24px;
+        height: 12px;
         position: absolute;
-        left: -6px;
-        top: 4px;
-        border-top: 1px solid var(--color-smp-border);
+        left: -8px;
+        top: 7px;
+        border-top: 0.8px solid var(--color-smp-border);
         background: var(--color-bg-main);
         transform: rotate(45deg);
       }
 
       &:after {
         content: "";
-        width: 14px;
-        height: 8px;
+        width: 24px;
+        height: 10px;
         position: absolute;
-        right: -6px;
-        top: -2px;
-        border-top: 1px solid var(--color-smp-border);
+        right: -8px;
+        top: 0px;
+        border-top: 0.8px solid var(--color-smp-border);
         background: var(--color-bg-main);
         transform: rotate(-135deg);
       }
@@ -88,73 +94,79 @@
   &__right {
     width: 35%;
     min-width: 170px;
+    border: 0.8px solid var(--color-smp-border);
+    border-left: none;
+    border-right: none;
 
-
-    .frame-top {
-      height: 10px;
-      border: 1px solid var(--color-smp-border);
-      border-bottom: none;
+    .b-a {
       position: relative;
-      box-shadow: inset 0px 10px 9px -10px var(--color-border-box-shadow);
 
       &:before {
         content: "";
-        width: 14px;
-        height: 8px;
+        width: 22px;
+        height: 10px;
         position: absolute;
-        left: -5px;
-        top: 3px;
-        border-top: 1px solid var(--color-smp-border);
+        left: -7px;
+        top: 5px;
+        z-index: 999;
+        border-top: 0.8px solid var(--color-smp-border);
         background: var(--color-bg-main);
         transform: rotate(45deg);
       }
 
       &:after {
         content: "";
-        width: 14px;
-        height: 8px;
+        width: 22px;
+        height: 12px;
         position: absolute;
-        right: -6px;
-        top: -3px;
-        border-top: 1px solid var(--color-smp-border);
+        right: -7px;
+        top: -4px;
+        border-top: 0.8px solid var(--color-smp-border);
         background: var(--color-bg-main);
         transform: rotate(-135deg);
       }
     }
 
-    .frame-bottom {
-      height: 10px;
-      border: 1px solid var(--color-smp-border);
-      border-top: none;
+    .frame-top {
+      height: 15px;
+      border-bottom: none;
       position: relative;
+      background: linear-gradient(180deg, #5b607d 0%, rgba(91, 96, 125, 0) 100%);
+      opacity: 0.2;
+    }
+
+    .frame-bottom {
+      height: 15px;
+      position: relative;
+      background: var(--color-bg-header-table);
 
       &:before {
         content: "";
-        width: 14px;
-        height: 8px;
+        width: 24px;
+        height: 10px;
         position: absolute;
-        left: -6px;
-        top: -2px;
-        border-top: 1px solid var(--color-smp-border);
+        left: -8px;
+        top: 0px;
+        border-top: 0.8px solid var(--color-smp-border);
         background: var(--color-bg-main);
         transform: rotate(135deg);
       }
 
       &:after {
         content: "";
-        width: 14px;
-        height: 8px;
+        width: 24px;
+        height: 12px;
         position: absolute;
-        right: -6px;
-        top: 4px;
-        border-top: 1px solid var(--color-smp-border);
+        right: -7px;
+        top: 7px;
+        border-top: 0.8px solid var(--color-smp-border);
         background: var(--color-bg-main);
         transform: rotate(-45deg);
       }
     }
 
-    ::ng-deep{
-      .container-park{
+    ::ng-deep {
+      .container-park {
         margin: 0 auto;
         margin-right: 0px;
       }

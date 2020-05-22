@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'evj-main-icon',
@@ -6,6 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./main-icon.component.scss']
 })
 export class MainIconComponent implements OnInit {
+  @Input() systemIcon: string;
 
   constructor() { }
 

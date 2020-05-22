@@ -129,7 +129,7 @@ export class PerformanceProgressCircleComponent implements OnInit, OnChanges {
     const value = this.svgCircle
       .append('text')
       .attr('text-anchor', 'middle')
-      .attr('font-size', '9px')
+      .attr('font-size', '10px')
       .attr('fill', 'var(--color-text-main)')
       .attr('font-family', "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
       .attr('y', '57')
@@ -139,7 +139,7 @@ export class PerformanceProgressCircleComponent implements OnInit, OnChanges {
     const title = this.svgCircle
       .append('text')
       .attr('text-anchor', 'middle')
-      .attr('font-size', '7px')
+      .attr('font-size', '8px')
       .attr('font-family', "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
       .attr('y', '46')
       .attr('x', '52')
@@ -216,7 +216,7 @@ export class PerformanceProgressCircleComponent implements OnInit, OnChanges {
       .attr('transform', centerTx);
 
     const reverseData = [].concat(data.days).reverse();
-    const pointPie = reverseData.find(e => e.state !== 'disabled').day;
+    const pointPie = reverseData.find(e => e.state !== 'disable').day;
 
 
     this.pointId = arcs.selectAll('path')
@@ -232,7 +232,7 @@ export class PerformanceProgressCircleComponent implements OnInit, OnChanges {
         }
       })
       .attr('fill', (d, i) => {
-        const status = this.data.days.find(e => e.day - 1 === i).state;
+        const status = this.data?.days.find(e => e.day - 1 === i)?.state;
         if (status === 'normal') {
           return 'var(--color-active)';
         } else if (status === 'warning') {
@@ -269,8 +269,8 @@ export class PerformanceProgressCircleComponent implements OnInit, OnChanges {
       } else if (this.piePointNumber > 17 && this.piePointNumber < 25) {
         defaultY = defaultY - 22;
         defaultX = coordsPoint.x + 131 + 5 * (8 - (25 - this.piePointNumber));
-      } else if (this.piePointNumber > 24 && this.piePointNumber <= 30) {
-        defaultY = defaultY - 3.5 * (29 - this.piePointNumber);
+      } else if (this.piePointNumber > 24 && this.piePointNumber < 30) {
+        defaultY = defaultY - 2 * (29 - this.piePointNumber);
         defaultX = defaultX + 4 * (8 - (29 - this.piePointNumber));
       }
       const point = this.svg

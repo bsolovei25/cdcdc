@@ -20,6 +20,7 @@
       [uniqId]="widgetUniqId"
       [widgetType]="widgetType"
       (eventCreated)="createdEvent($event)"
+      (eventBack)="backEvent()"
       [isEventOpen]="!ewService.isEditEvent"
       [blockWorkspaceButton]="canShowSaveButton()"
     >
@@ -51,15 +52,5 @@
 
     <evj-frame-bottom></evj-frame-bottom>
 
-    <!-- RETRIEVAL EVENT POPUP -->
-    <evj-retrieval-window
-      id="overlay-retrieval"
-      (mousedown)="$event.stopPropagation()"
-      (touchstart)="$event.stopPropagation()"
-      *ngIf="ewService.isOverlayRetrivealOpen"
-      (click)="overlayClose()"
-    ></evj-retrieval-window>
-
-    <!---->
   </div>
 </ng-container>

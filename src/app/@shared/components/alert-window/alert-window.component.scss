@@ -59,8 +59,9 @@ $font-size: 14px;
     height: 178px;
 
     display: flex;
-    align-items: center;
+    flex-direction: column;
     justify-content: center;
+    align-items: center;
     text-align: center;
     overflow: hidden;
 
@@ -69,6 +70,12 @@ $font-size: 14px;
       font-size: $font-size;
       line-height: 17px;
       margin: auto;
+    }
+
+    &_prompt {
+      p {
+        margin: 0 auto;
+      }
     }
   }
 
@@ -84,6 +91,20 @@ $font-size: 14px;
     img {
       margin: 9px 5px 0 5px;
     }
+
+    &_input {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      background: var(--color-active);
+
+      img {
+        width: 15px;
+        height: 15px;
+        margin: 0;
+      }
+    }
   }
 
   &__footer {
@@ -95,6 +116,36 @@ $font-size: 14px;
       width: 168px;
       height: 44px;
       margin: auto;
+    }
+  }
+
+  .input {
+    width: 80%;
+    height: 45px;
+    box-sizing: border-box;
+    border: 1px solid var(--color-border-unactive);
+    border-radius: 33px;
+    padding: 0 20px;
+    margin: 0;
+    margin-top: 20px;
+    outline: none;
+
+    text-align: center;
+    font-size: 14px;
+    color: var(--color-text-main);
+
+    background: transparent;
+
+    &::placeholder {
+      color: var(--color-text-sub);
+    }
+
+    &_dirty {
+      border-color: var(--color-border-active);
+    }
+
+    &_invalid {
+      border-color: var(--color-danger);
     }
   }
 }

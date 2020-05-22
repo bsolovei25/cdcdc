@@ -1,14 +1,15 @@
 <div class="blocks">
   <div class="container" [class.container-short]="widgetType === 'product-groups-short'">
     <div class="top_background">
-      <div class="left_table_top">
-
+      <div class="b-a-left">
+        <div class="left_table_top"></div>
       </div>
-      <div class="middle_table_top" [class.middle_header]="widgetType === 'product-groups-short'">
-
+      <div class="b-a-middle" [class.middle_header]="widgetType === 'product-groups-short'">
+        <div class="middle_table_top"></div>
       </div>
-      <div class="right_table_top" [class.displayOFF]="widgetType === 'product-groups-short'">
 
+      <div class="b-a-left" [class.displayOFF]="widgetType === 'product-groups-short'">
+        <div class="right_table_top"></div>
       </div>
     </div>
     <div class="test">
@@ -46,17 +47,19 @@
         </table>
         <div class="line__bottom_scroll" *ngIf="scrollLine"></div>
       </div>
-      <div class="right_line_widget" [class.displayOFF]="widgetType === 'product-groups-short'"></div>
-      <div class="right_line_widget2"></div>
-      <div class="right_line_widget3" [class.displayOFF]="widgetType === 'product-groups-short'"></div>
     </div>
     <div id="topscroll" class="topscroll" [class.scroll]="widgetType === 'product-groups-short'"
       (scroll)="onTopScroll($event)">
       <div class="fake" [style.width.px]="botScrollWidth"></div>
     </div>
+    <div class="left-background"></div>
+    <div class="right-background" [class.displayOFF]="widgetType === 'product-groups-short'"></div>
     <div class="right_left_line_widget"></div>
     <div class="middle_line_left" [class.middle_line-left]="widgetType === 'product-groups-short'"></div>
     <div class="middle_line_right" [class.middle_line-right]="widgetType === 'product-groups-short'"></div>
+    <div class="right_line_widget" [class.displayOFF]="widgetType === 'product-groups-short'"></div>
+    <div class="right_line_widget2"></div>
+    <div class="right_line_widget3" [class.displayOFF]="widgetType === 'product-groups-short'"></div>
     <div class="bottom_background">
       <div class="left_table_bottom"></div>
       <div class="middle_table_bottom" [class.middle_bottom-short]="widgetType === 'product-groups-short'"></div>

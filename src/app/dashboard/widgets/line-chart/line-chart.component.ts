@@ -2,10 +2,10 @@ import {
     Component,
     ElementRef,
     OnDestroy,
-    AfterViewInit,
     ViewChild,
     Inject,
     HostListener,
+    OnInit,
 } from '@angular/core';
 
 import * as d3Selection from 'd3-selection';
@@ -26,13 +26,15 @@ import { WidgetPlatform } from '../../models/widget-platform';
     templateUrl: './line-chart.component.html',
     styleUrls: ['./line-chart.component.scss'],
 })
-export class LineChartComponent extends WidgetPlatform implements AfterViewInit, OnDestroy {
+export class LineChartComponent extends WidgetPlatform implements OnInit, OnDestroy {
     position?: string = 'default';
 
     data: LineChartData;
 
     public static itemCols: number = 20;
-    public static itemRows: number = 12;
+    public static itemRows: number = 13;
+    public static minItemCols: number = 17;
+    public static minItemRows: number = 7;
 
     @ViewChild('chart', { static: true }) private chartContainer: ElementRef;
 
@@ -123,7 +125,7 @@ export class LineChartComponent extends WidgetPlatform implements AfterViewInit,
         super(widgetService, isMock, id, uniqId);
     }
 
-    ngAfterViewInit(): void {
+    ngOnInit(): void {
         super.widgetInit();
     }
 

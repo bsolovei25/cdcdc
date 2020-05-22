@@ -11,8 +11,11 @@ import { WidgetPlatform } from '../../models/widget-platform';
 export class ColumnChartStackedComponent extends WidgetPlatform implements OnInit, OnDestroy {
     public cols: IColumnChartStacked[] = [];
 
-    public static itemCols: number = 26;
-    public static itemRows: number = 20;
+    public static itemCols: number = 24;
+    public static itemRows: number = 12;
+
+    public static minItemCols: number = 16;
+    public static minItemRows: number = 9;
 
     constructor(
         protected widgetService: WidgetService,

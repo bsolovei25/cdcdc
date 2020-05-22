@@ -53,7 +53,6 @@ export class LineDatetimeComponent implements OnInit, AfterViewInit, OnDestroy {
     ngAfterViewInit(): void {
         this.subscription = this.headerData.date$.subscribe((data) => {
             this.dateFromSelector = data;
-            console.log(data);
             if (this.dateFromSelector.status === false) {
                 setTimeout(() => {
                     this.searchDate(this.dateFromSelector, this.lightBlock);

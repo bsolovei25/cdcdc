@@ -1,4 +1,4 @@
-import { Component, Inject, ElementRef, ViewChild, AfterViewInit, OnDestroy } from '@angular/core';
+import { Component, Inject, ElementRef, ViewChild, OnDestroy, OnInit, AfterViewInit } from '@angular/core';
 import { WidgetService } from '../../services/widget.service';
 import { WidgetPlatform } from '../../models/widget-platform';
 
@@ -10,13 +10,16 @@ declare var d3: any;
     styleUrls: ['./circle-factory-diagram.component.scss'],
 })
 export class CircleFactoryDiagramComponent extends WidgetPlatform
-    implements AfterViewInit, OnDestroy {
-    @ViewChild('circleFactory') CircleFactory: ElementRef;
+    implements OnInit, AfterViewInit, OnDestroy {
+    @ViewChild('circleFactory') circleFactory: ElementRef;
 
     public readonly RADIUS: number = 42;
 
-    public static itemCols: number = 12;
+    public static itemCols: number = 14;
     public static itemRows: number = 8;
+
+    public static minItemCols: number = 14;
+    public static minItemRows: number = 8;
 
     public clicked: boolean = false;
 
@@ -46,7 +49,7 @@ export class CircleFactoryDiagramComponent extends WidgetPlatform
         this.widgetIcon = 'unit';
     }
 
-    ngAfterViewInit(): void {
+    ngOnInit(): void {
         super.widgetInit();
     }
 
@@ -54,11 +57,14 @@ export class CircleFactoryDiagramComponent extends WidgetPlatform
         super.ngOnDestroy();
     }
 
-    protected dataConnect(): void {
-        this.d3Circle(this.data, this.CircleFactory.nativeElement);
+    ngAfterViewInit(): void {
+        this.d3Circle(this.data, this.circleFactory.nativeElement);
     }
 
-    protected dataHandler(ref: any): void {}
+    protected dataConnect(): void {
+    }
+
+    protected dataHandler(ref: any): void { }
 
     public onChangeBackground(): void {
         if (!this.isMock) {

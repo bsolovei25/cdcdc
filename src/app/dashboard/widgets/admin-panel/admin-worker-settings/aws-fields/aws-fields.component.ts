@@ -90,7 +90,7 @@ export class AwsFieldsComponent implements OnInit {
     }
 
     public isValidFieldName(fieldName: string): boolean {
-        return fieldName.toLowerCase().includes(this.searchingFieldName);
+        return fieldName.toLowerCase().includes(this.searchingFieldName.toLowerCase());
     }
 
     public isDisabledField(fieldKey: string): boolean {
@@ -139,10 +139,7 @@ export class AwsFieldsComponent implements OnInit {
     public onSelectBrigade(brigade: IBrigade): void {
         if (brigade) {
             this.worker.brigade = { id: brigade.id, number: brigade.number.toString() };
-            return;
-        }
-
-        if (this.worker.hasOwnProperty('brigade')) {
+        } else if (this.worker.hasOwnProperty('brigade')) {
             delete this.worker.brigade;
             this.worker.position = 'common';
         }

@@ -1,6 +1,32 @@
 <div class="cb">
-    <div #circle class="item-b"></div>
-    <div class="point_right"></div>
-    <div class="point_left"></div>
+  <div #circle class="item-b"></div>
+  <!--LEFT-BUTTON-->
+  <div class="left-top-button {{data.productFiling}}">
+    <svg-icon src="./assets/icons/widgets/SMP/product-group-planning/middle-side/middle-left-top-button.svg"
+      [svgStyle]="{ 'width.px':24, 'height.px':20 }"></svg-icon>
   </div>
-  
+  <div class="left-bottom-button {{data.productUpdate}}">
+    <svg-icon src="./assets/icons/widgets/SMP/product-group-planning/middle-side/middle-left-bottom-button.svg"
+      [svgStyle]="{ 'width.px':24, 'height.px':20 }"></svg-icon>
+  </div>
+  <div class="left-button {{data.productCrowded}}">
+    <svg-icon src="./assets/icons/widgets/SMP/product-group-planning/middle-side/middle-left-big-button.svg"
+      [svgStyle]="{ 'width.px':24, 'height.px':42 }"></svg-icon>
+  </div>
+  <!--RIGHT-BUTTON-->
+  <div class="right-top-button {{data.productFlask}}">
+    <svg-icon src="./assets/icons/widgets/SMP/product-group-planning/middle-side/middle-right-top-button.svg"
+      [svgStyle]="{ 'width.px':24, 'height.px':20 }"></svg-icon>
+  </div>
+  <div class="right-bottom-button {{data.productList}}">
+    <svg-icon src="./assets/icons/widgets/SMP/product-group-planning/middle-side/middle-right-bottom-button.svg"
+      [svgStyle]="{ 'width.px':24, 'height.px':20 }"></svg-icon>
+  </div>
+  <div class="right-button {{data.productBuild}}">
+    <svg-icon src="./assets/icons/widgets/SMP/product-group-planning/middle-side/middle-right-big-button.svg"
+      [svgStyle]="{ 'width.px':24, 'height.px':42 }"></svg-icon>
+  </div>
+  <!--circle-->
+  <div class="point_right"></div>
+  <div class="point_left"></div>
+</div>

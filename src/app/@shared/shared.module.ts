@@ -7,7 +7,6 @@ import { DateFormatPipe } from './pipes/data-format.pipe';
 import { PreLoaderComponent } from './preloader/preloader.component';
 import { UiElementsComponent } from './layout/ui-elements.component';
 import { ButtonComponent } from './components/button/button.component';
-import { InputComponent } from './components/input/input.component';
 import { WorkerCardComponent } from './components/worker-card/worker-card.component';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
@@ -22,19 +21,22 @@ import { LineChartComponent } from './components/line-chart/line-chart.component
 import { LineChartPickerDirective } from './directives/line-chart-picker.directive';
 import { EmailEditorComponent } from './components/email-editor/email-editor.component';
 import { CKEditorModule } from 'ng2-ckeditor';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { UploadDropZoneComponent } from './components/upload-drop-zone/upload-drop-zone.component';
 import { AngularSvgIconModule } from 'angular-svg-icon';
 import { CircleInputComponent } from './components/circle-input/circle-input.component';
 import { LineChartTanksDirective } from './directives/line-chart-tanks.directive';
 import { LineChartPickerTankDirective } from './directives/line-chart-picker-tank.directive';
 import { SpaceNumber } from './pipes/number_space.pipe';
+import { AlertInputComponent } from './components/alert-input/alert-input.component';
 import { TooltipComponent } from './components/tooltip/tooltip.component';
 import { TooltipDirective } from './components/tooltip/directives/tooltip.directive';
 import { LineBreakPipe } from './pipes/line-break.pipe';
 import { SelectComponent } from './components/select/select.component';
 import { MatSelectModule } from '@angular/material/select';
 import { EventsChatComponent } from './components/events-chat/events-chat.component';
+import { InputComponent } from './components/input/input.component';
+import { AlertPasswordComponent } from './components/alert-password/alert-password.component';
 
 @NgModule({
     declarations: [
@@ -45,7 +47,6 @@ import { EventsChatComponent } from './components/events-chat/events-chat.compon
         PreLoaderComponent,
         UiElementsComponent,
         ButtonComponent,
-        InputComponent,
         WorkerCardComponent,
         UiBlockComponent,
         LoadingShadeComponent,
@@ -59,6 +60,8 @@ import { EventsChatComponent } from './components/events-chat/events-chat.compon
         UploadDropZoneComponent,
         CircleInputComponent,
         LineChartTanksDirective,
+        SpaceNumber,
+        AlertInputComponent,
         LineChartPickerTankDirective,
         SpaceNumber,
         TooltipComponent,
@@ -66,6 +69,8 @@ import { EventsChatComponent } from './components/events-chat/events-chat.compon
         LineBreakPipe,
         SelectComponent,
         EventsChatComponent,
+        InputComponent,
+        AlertPasswordComponent,
     ],
     exports: [
         HeaderComponent,
@@ -73,7 +78,6 @@ import { EventsChatComponent } from './components/events-chat/events-chat.compon
         FnPipe,
         PreLoaderComponent,
         ButtonComponent,
-        InputComponent,
         WorkerCardComponent,
         DateFormatPipe,
         PreLoaderComponent,
@@ -88,11 +92,14 @@ import { EventsChatComponent } from './components/events-chat/events-chat.compon
         EmailEditorComponent,
         CircleInputComponent,
         SpaceNumber,
+        AlertInputComponent,
         TooltipComponent,
         TooltipDirective,
         LineBreakPipe,
         SelectComponent,
         EventsChatComponent,
+        InputComponent,
+        AlertPasswordComponent,
     ],
     imports: [
         CommonModule,
@@ -104,10 +111,8 @@ import { EventsChatComponent } from './components/events-chat/events-chat.compon
         AngularSvgIconModule,
         AngularSvgIconModule,
         MatSelectModule,
+        ReactiveFormsModule,
     ],
-    providers: [
-        SpaceNumber,
-        LineBreakPipe,
-    ],
+    providers: [SpaceNumber, LineBreakPipe],
 })
-export class SharedModule { }
+export class SharedModule {}
