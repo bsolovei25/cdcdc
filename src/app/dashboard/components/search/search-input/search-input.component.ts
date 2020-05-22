@@ -6,45 +6,25 @@ import { WidgetService } from '../../../services/widget.service';
     templateUrl: './search-input.component.html',
     styleUrls: ['./search-input.component.scss'],
 })
-export class SearchInputComponent implements OnInit {
-    @Input() public data;
-    @Input() public dataWidget;
+export class SearchInputComponent {
+    public isVisibleFilter: boolean = false;
+
     @Input() isReport: boolean = false;
 
-    @Output() searchReport = new EventEmitter<KeyboardEvent>();
+    @Output() search: EventEmitter<KeyboardEvent> = new EventEmitter<KeyboardEvent>();
+    @Output() visibleFilter: EventEmitter<boolean> = new EventEmitter<boolean>();
 
-    @Output() onCheck = new EventEmitter<boolean>();
+    constructor(private widgetService: WidgetService) {}
 
-    public checkClick: boolean = false;
-
-    itemChoose: boolean = false;
-    valueInput: string = '';
-
-    constructor(public widgetService: WidgetService) {
-        if (this.data) {
-            this.itemChoose = true;
-        }
+    searchInput(event: KeyboardEvent): void {
+        this.search.emit(event);
     }
 
-    ngOnInit() { }
-
-    searchRecords(e: any) {
-        this.onCheck.emit(this.checkClick);
-        let type = 'input';
-        this.widgetService.searchItems(e.currentTarget.value, type);
-        if (!e.currentTarget.value) {
-            this.widgetService.reEmitList();
+    public openFilter(): void {
+        this.isVisibleFilter = !this.isVisibleFilter;
+        if (!this.isVisibleFilter) {
+            this.widgetService.filterWidgets$.next([]);
         }
-    }
-
-    searchReports(event: KeyboardEvent) {
-        this.searchReport.emit(event);
-    }
-
-    public openFilter(event: any) {
-        if (event) {
-            this.checkClick = !this.checkClick;
-        }
-        this.onCheck.emit(this.checkClick);
+        this.visibleFilter.emit(this.isVisibleFilter);
     }
 }

@@ -41,7 +41,6 @@ export class PetroleumUnityInfoComponent implements OnInit, AfterViewInit, OnDes
     }
 
     ngOnDestroy(): void {
-        console.log('destroy_unity');
         if (this.subscriptions) {
             for (const subscription of this.subscriptions) {
                 subscription.unsubscribe();

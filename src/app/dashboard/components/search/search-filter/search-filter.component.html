@@ -1,9 +1,9 @@
 <div class="result_filter">
-  <ng-container *ngFor="let item of data; let i = index">
+  <ng-container *ngFor="let item of data">
     <div
       class="result_search"
-      [class.activeFilter]="arrayClick.indexOf(i) !== -1"
-      (click)="choosenType(item, i)"
+      [class.activeFilter]="selectedFilters.isSelected(item)"
+      (click)="choosenType(item)"
     >
       {{item}}
     </div>

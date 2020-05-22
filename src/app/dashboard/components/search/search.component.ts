@@ -9,72 +9,45 @@ import { WidgetService } from '../../services/widget.service';
     styleUrls: ['./search.component.scss'],
 })
 export class SearchComponent implements OnInit, OnDestroy {
-    public checkClick = true;
+    public isVisibleFilter: boolean = false;
 
-    public typeWidgetChoose = [];
+    private subscriptions: Subscription[] = [];
 
-    private subscription: Subscription;
+    public arrayType: string[] = [];
 
-    widgets: IWidgets[];
-
-    public newArrayType = [];
-    public newArrayClick = [];
-
-    @Output() searchReport = new EventEmitter<KeyboardEvent>();
-
+    @Output() search: EventEmitter<KeyboardEvent> = new EventEmitter<KeyboardEvent>();
     @Input() isReport: boolean = false;
+    @Input() isWidgets: boolean = false;
 
-    constructor(public widgetService: WidgetService) {
-        this.subscription = this.widgetService.widgets$.subscribe((dataW) => {
-            this.widgets = dataW;
-            this.newArrayType = this.filterData(this.widgets);
-        });
+    constructor(public widgetService: WidgetService) {}
+
+    ngOnInit(): void {
+        this.subscriptions.push(
+            this.widgetService.widgets$.subscribe((dataW) => {
+                this.arrayType = this.filterData(dataW);
+            })
+        );
     }
-
-    ngOnInit(): void { }
 
     ngOnDestroy(): void {
-        if (this.subscription) {
-            this.subscription.unsubscribe();
-        }
+        this.subscriptions.forEach((subs: Subscription) => subs.unsubscribe());
     }
 
-    public onCheck(data: any): void {
-        if (data === true) {
-            this.checkClick = false;
-        } else {
-            this.checkClick = true;
-        }
+    public onVisibleFilter(data: boolean): void {
+        this.isVisibleFilter = data;
     }
 
-    public onFilterMass(data: any) {
-        this.newArrayClick = data;
-    }
-
-    public filterData(data) {
-        try {
-            let newArray = [];
-            let newCategoryArray = [];
-            for (let i of data) {
-                if (i.categories || i.categories.length !== 0) {
-                    newArray.push(i.categories);
-                }
+    public filterData(data: IWidgets[]): string[] {
+        let newCategoryArray = [];
+        data.forEach((value) => {
+            if (value?.categories?.length > 0) {
+                newCategoryArray = [...newCategoryArray, ...value?.categories];
             }
-            let newWidgetCategory = [...new Set(newArray)];
-            for (let i of newWidgetCategory) {
-                for (let j of i) {
-                    newCategoryArray.push(j);
-                }
-            }
-            let newFilterArray = [...new Set(newCategoryArray)];
-
-            return newFilterArray;
-        } catch (error) {
-            console.log('Ошибка:', error);
-        }
+        });
+        return [...new Set(newCategoryArray)];
     }
 
-    searchReports(event: KeyboardEvent): void {
-        this.searchReport.emit(event);
+    searchInput(event: KeyboardEvent): void {
+        this.search.emit(event);
     }
 }

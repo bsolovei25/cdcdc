@@ -134,6 +134,10 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
 
     ngOnInit(): void {
         super.widgetInit();
+    }
+
+    protected async dataConnect(): Promise<void> {
+        super.dataConnect();
         this.subscriptions.push(
             this.getReportFolder(),
             this.getRecordFile(),

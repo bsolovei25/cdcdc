@@ -20,7 +20,7 @@ export class ReasonsDeviationsPicTankComponent implements OnInit, AfterViewInit 
   }
 
   ngAfterViewInit(): void {
-    this.drawPicture(this.oilIcon.nativeElement);
+    this.drawPicture(this.oilIcon?.nativeElement);
   }
 
   public drawPicture(el): void {

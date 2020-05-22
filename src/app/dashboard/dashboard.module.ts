@@ -16,8 +16,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LineDiagramComponent } from './widgets/line-diagram/line-diagram.component';
 import { LineDatetimeComponent } from './components/line-datetime/line-datetime.component';
 import { ShiftPersonComponent } from './widgets/change-shift/shift-person/shift-person.component';
-import { NewWidgetsPanelComponent } from './components/new-widgets-panel/new-widgets-panel.component';
-import { NewWidgetsGridComponent } from './components/new-widgets-grid/new-widgets-grid.component';
+import { PanelComponent } from './components/panel/panel.component';
+import { WidgetsGridComponent } from './components/widgets-grid/widgets-grid.component';
 import { GridsterModule } from 'angular-gridster2';
 import { UserInfoComponent } from './components/user-info/user-info.component';
 import { WidgetPiesComponent } from './widgets/widgets-pie/widget-pies/widget-pies.component';
@@ -271,6 +271,7 @@ import { SmpEventsWorkspaceComponent } from './widgets/SMP/smp-events-workspace/
 import { ProductionTrendInstallationsComponent } from './widgets/production-trend/components/production-trend-installations/production-trend-installations.component';
 import { OilControlTableComponent } from './widgets/oil-control/components/oil-control-table/oil-control-table.component';
 import { OilControlTowerComponent } from './widgets/oil-control/components/oil-control-tower/oil-control-tower.component';
+import { WidgetPanelComponent } from './components/widget-panel/widget-panel.component';
 
 @NgModule({
     declarations: [
@@ -285,8 +286,8 @@ import { OilControlTowerComponent } from './widgets/oil-control/components/oil-c
         ChangeShiftComponent,
         LineDiagramComponent,
         ShiftPersonComponent,
-        NewWidgetsPanelComponent,
-        NewWidgetsGridComponent,
+        PanelComponent,
+        WidgetsGridComponent,
         UserInfoComponent,
         WidgetPiesComponent,
         WidgetsPieComponent,
@@ -512,6 +513,7 @@ import { OilControlTowerComponent } from './widgets/oil-control/components/oil-c
         EventsReasonsSingleComponent,
         OilControlTableComponent,
         OilControlTowerComponent,
+        WidgetPanelComponent
     ],
     entryComponents: [
         LineChartComponent,
@@ -586,6 +588,7 @@ import { OilControlTowerComponent } from './widgets/oil-control/components/oil-c
         ProductGroupsComponent,
         ProductGroupsShortComponent,
         SmpEventsWorkspaceComponent,
+        PanelComponent
     ],
     exports: [HomeComponent],
     imports: [
