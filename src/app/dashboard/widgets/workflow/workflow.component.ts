@@ -487,7 +487,7 @@ export class WorkflowComponent extends WidgetPlatform implements OnInit, OnDestr
                     const removable = true; // TODO заменить на реальзый флаг
                     if (removable) {
                         this.removableLeaderLineIds.set(
-                            'line-' + item.scenarioAction + item.nextScenarioAction,
+                            'line-' + item.scenarioAction + '-s-' + item.nextScenarioAction,
                             leaderLine
                         );
                     }
@@ -510,6 +510,7 @@ export class WorkflowComponent extends WidgetPlatform implements OnInit, OnDestr
     }
 
     private drawRemoveIcons(): void {
+        console.log(this.removableLeaderLineIds, 'Map');
         this.removableLeaderLineIds.forEach((value: any, key: string) => {
             this.addRemoveIconToLine(key);
         });
@@ -545,13 +546,30 @@ export class WorkflowComponent extends WidgetPlatform implements OnInit, OnDestr
         const lineNode = document.getElementById(lineId);
         const arrowNode = document.querySelector('#' + lineId + ' g use');
 
+        let verticalOffset = 0;
+
+        const divArr = lineId.substr(5).split('-s-');
+        console.log(divArr);
+        console.log(
+            document.getElementById(divArr[0]).getBoundingClientRect().y,
+            document.getElementById(divArr[1]).getBoundingClientRect().y,
+            arrowNode.getBoundingClientRect().y,
+        );
+
+        const pos = document.getElementById(divArr[0]).getBoundingClientRect().y <= document.getElementById(divArr[1]).getBoundingClientRect().y;
+
+        if (pos) {
+            verticalOffset = arrowNode.getBoundingClientRect().y - lineNode.getBoundingClientRect().y;
+        } else {
+            verticalOffset = -arrowNode.getBoundingClientRect().y;
+        }
         // рассчитываем смещение позиции стрелки внутри viewBox svg
-        // вертикальное смещение так же зависит от высоты самиз элементов
+        // вертикальное смещение так же зависит от высоты самих элементов
         const horizontalOffset =
             arrowNode.getBoundingClientRect().x - lineNode.getBoundingClientRect().x;
-        const verticalOffset =
-            parseInt(iconNode.style.height.slice(0, -2), 10) / 2 -
-            lineNode.getBoundingClientRect().height / 2;
+        // const verticalOffset = arrowNode.getBoundingClientRect().y - lineNode.getBoundingClientRect().y;
+        // parseInt(iconNode.style.height.slice(0, -2), 10) / 2 -
+        // lineNode.getBoundingClientRect().height / 2;
 
         iconNode.style.left =
             (parseInt(lineNode.style.left.slice(0, -2), 10) + horizontalOffset).toString() + 'px';
