@@ -4,6 +4,7 @@ import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/fo
 import { IAlertPasswordModel } from '../../models/alert-password.model';
 import { SnackBarService } from '../../../dashboard/services/snack-bar.service';
 import { AuthService } from '../../../@core/service/auth.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
     selector: 'evj-alert-password',
@@ -171,12 +172,15 @@ export class AlertPasswordComponent implements OnInit {
                 this.formGroup.get('oldPassword').value
             );
             this.snackBar.openSnackBar('Пароль успешно изменен');
-            setTimeout(() => {
-                this.options.closeFunction();
-                this.formGroup.reset();
-            }, 3000);
+
+            this.options.closeFunction();
+            this.formGroup.reset();
         } catch (err) {
             this.snackBar.openSnackBar('Пароль не изменен', 'snackbar-red');
+            if (err.status === 477) {
+                const control = this.formGroup.get('oldPassword');
+                control.setErrors({ notOldPassword: true });
+            }
         }
     }
 }
