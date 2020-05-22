@@ -11,7 +11,7 @@ export class WidgetPiesComponent extends WidgetPlatform implements OnInit, OnDes
     public datas = [];
 
     public static itemCols: number = 31;
-    public static itemRows: number = 15;
+    public static itemRows: number = 10;
     public static minItemCols: number = 9;
     public static minItemRows: number = 10;
 
