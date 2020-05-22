@@ -1,18 +1,20 @@
-import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
-import { Validators, FormBuilder, FormGroup, AbstractControl } from '@angular/forms';
-import { IInputOptions } from '../../../../../@shared/models/input.model';
+import { Component, OnInit, Input } from '@angular/core';
+import { IInputOptions } from '../../models/input.model';
+import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
+import { IAlertPasswordModel } from '../../models/alert-password.model';
 
 @Component({
-    selector: 'evj-aws-password-alert',
-    templateUrl: './aws-password-alert.component.html',
-    styleUrls: ['./aws-password-alert.component.scss'],
+    selector: 'evj-alert-password',
+    templateUrl: './alert-password.component.html',
+    styleUrls: ['./alert-password.component.scss'],
 })
-export class AwsPasswordAlertComponent implements OnInit {
-    @Input() public isShow: boolean = false;
-    @Output() private confirmed: EventEmitter<string> = new EventEmitter<string>();
-
-    public hidePass: boolean = true;
-    public hideConf: boolean = true;
+export class AlertPasswordComponent implements OnInit {
+    @Input() public options: IAlertPasswordModel = {
+        isShow: false,
+        isCreatePassword: true,
+        acceptFunction: () => null,
+        closeFunction: () => null,
+    };
 
     public readonly minLength: number = 6;
     public readonly maxLength: number = 25;
@@ -118,12 +120,13 @@ export class AwsPasswordAlertComponent implements OnInit {
 
     public onClickBack(): void {
         this.formGroup.reset();
-        this.confirmed.emit(null);
+        this.options.closeFunction();
     }
 
     public onClickConfirm(): void {
         if (this.formGroup.valid) {
-            this.confirmed.emit(this.formGroup.controls.password.value);
+            this.options.acceptFunction(this.formGroup.controls.password.value);
+            this.options.closeFunction();
             this.formGroup.reset();
         } else {
             this.formGroup.markAllAsTouched();

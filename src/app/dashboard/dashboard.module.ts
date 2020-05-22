@@ -129,7 +129,6 @@ import { AwsWorkspacesComponent } from './widgets/admin-panel/admin-worker-setti
 import { AdminGroupsComponent } from './widgets/admin-panel/admin-groups/admin-groups.component';
 import { AgGroupCardComponent } from './widgets/admin-panel/admin-groups/ag-group-card/ag-group-card.component';
 import { AgGroupWorkerCardComponent } from './widgets/admin-panel/admin-groups/ag-group-worker-card/ag-group-worker-card.component';
-import { AwsPasswordAlertComponent } from './widgets/admin-panel/admin-worker-settings/aws-password-alert/aws-password-alert.component';
 import { ReferenceComponent } from './widgets/reference/reference.component';
 import { ReportServerConfiguratorComponent } from './widgets/report-server-configurator/report-server-configurator.component';
 import { DragDropModule } from '@angular/cdk/drag-drop';
@@ -387,7 +386,6 @@ import { OilControlTowerComponent } from './widgets/oil-control/components/oil-c
         AdminGroupsComponent,
         AgGroupCardComponent,
         AgGroupWorkerCardComponent,
-        AwsPasswordAlertComponent,
         ReferenceComponent,
         ReportServerConfiguratorComponent,
         AwsCreateClaimComponent,

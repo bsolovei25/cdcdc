@@ -36,6 +36,7 @@ import { SelectComponent } from './components/select/select.component';
 import { MatSelectModule } from '@angular/material/select';
 import { EventsChatComponent } from './components/events-chat/events-chat.component';
 import { InputComponent } from './components/input/input.component';
+import { AlertPasswordComponent } from './components/alert-password/alert-password.component';
 
 @NgModule({
     declarations: [
@@ -69,6 +70,7 @@ import { InputComponent } from './components/input/input.component';
         SelectComponent,
         EventsChatComponent,
         InputComponent,
+        AlertPasswordComponent,
     ],
     exports: [
         HeaderComponent,
@@ -96,7 +98,8 @@ import { InputComponent } from './components/input/input.component';
         LineBreakPipe,
         SelectComponent,
         EventsChatComponent,
-        InputComponent
+        InputComponent,
+        AlertPasswordComponent,
     ],
     imports: [
         CommonModule,
@@ -108,7 +111,7 @@ import { InputComponent } from './components/input/input.component';
         AngularSvgIconModule,
         AngularSvgIconModule,
         MatSelectModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
     ],
     providers: [SpaceNumber, LineBreakPipe],
 })
