@@ -187,7 +187,7 @@ export class ProductGroupsLeftComponent implements OnInit, OnChanges {
         const value = this.svg
             .append('text')
             .attr('font-size', '20px')
-            .attr('x', '260')
+            .attr('x', '265')
             .attr('y', '45')
             .attr('fill', 'white')
             .text(newValue);
@@ -195,7 +195,7 @@ export class ProductGroupsLeftComponent implements OnInit, OnChanges {
         const criticalValue = this.svg
             .append('text')
             .attr('font-size', '20px')
-            .attr('x', '260')
+            .attr('x', '265')
             .attr('y', '65')
             .attr('fill', 'white')
             .text(criticalNewValue);

@@ -32,7 +32,7 @@ export class ImplementationTankComponent implements OnInit, AfterViewInit {
       .attr('height', '100%')
       .attr('width', '100%')
       .attr('class', 'textProduct')
-      .attr('viewBox', '0 40 350 380');
+      .attr('viewBox', '0 40 300 380');
 
     const pictureContainer = this.tankPicture
       .append('image')
@@ -64,7 +64,7 @@ export class ImplementationTankComponent implements OnInit, AfterViewInit {
     const title = this.tankPicture
       .append('text')
       .attr('fill', 'var(--color-text-main)')
-      .attr('font-size', '44px')
+      .attr('font-size', '46px')
       .attr('font-family', "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
       .attr('text-anchor', 'middle')
       .attr('y', '110')

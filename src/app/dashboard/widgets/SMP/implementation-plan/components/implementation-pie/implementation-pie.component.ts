@@ -50,7 +50,7 @@ export class ImplementationPieComponent implements OnInit, OnChanges {
       .select(el)
       .append('svg')
       .attr('min-width', '100px')
-      .attr('viewBox', '0 0 100 100');
+      .attr('viewBox', '0 0 95 100');
 
     let group = this.svg.append('g').attr('transform', 'translate(50 ,50)');
 
@@ -81,7 +81,7 @@ export class ImplementationPieComponent implements OnInit, OnChanges {
     group = group
       .append('text')
       .attr('text-anchor', 'middle')
-      .attr('font-size', '10px')
+      .attr('font-size', '13px')
       .attr('fill', 'var(--color-text-main)')
       .attr('dominant-baseline', 'middle')
       .text(pipeValue);
@@ -89,10 +89,10 @@ export class ImplementationPieComponent implements OnInit, OnChanges {
     const text = this.svg
       .append('text')
       .attr('fill', 'rgb(140,153,178)')
-      .attr('font-size', '10px')
+      .attr('font-size', '13px')
       .attr('font-family', "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
-      .attr('y', '65')
-      .attr('x', '38')
+      .attr('y', '68')
+      .attr('x', '35')
       .attr('fill', 'green')
       .text(data.deviation);
   }

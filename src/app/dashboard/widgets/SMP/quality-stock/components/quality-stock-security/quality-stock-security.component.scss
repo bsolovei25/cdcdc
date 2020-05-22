@@ -23,7 +23,7 @@
         justify-content: space-evenly;
 
         .block {
-            border-left: 2px solid var(--color-active);
+            border-left: 2px solid var(--color-standard);
             font-size: 11px;
 
             &__title {
@@ -35,18 +35,7 @@
                 align-items: center;
                 padding-left: 10px;
                 display: flex;
-                background: linear-gradient(
-                    to right,
-                    rgba(20, 54, 77, 0.7) 2%,
-                    rgba(20, 54, 77, 0.63) 6%,
-                    rgba(20, 54, 77, 0.46) 16%,
-                    rgba(20, 54, 77, 0.32) 26%,
-                    rgba(20, 54, 77, 0.2) 38%,
-                    rgba(20, 54, 77, 0.11) 50%,
-                    rgba(20, 54, 77, 0.05) 63%,
-                    rgba(20, 54, 77, 0.01) 79%,
-                    rgba(20, 54, 77, 0) 102%
-                );
+                background: linear-gradient(90deg, rgba(0, 169, 157, 0.2) 0%, rgba(0, 169, 157, 0.0001) 83.8%);
             }
         }
     }
