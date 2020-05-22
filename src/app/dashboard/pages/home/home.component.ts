@@ -3,6 +3,7 @@ import { WidgetService } from '../../services/widget.service';
 import { UserSettingsService } from '../../services/user-settings.service';
 import { ClaimService } from '../../services/claim.service';
 import { OverlayService } from '../../services/overlay.service';
+import { IAlertPasswordModel } from '../../../@shared/models/alert-password.model';
 
 @Component({
     selector: 'evj-home',

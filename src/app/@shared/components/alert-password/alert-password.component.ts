@@ -2,6 +2,8 @@ import { Component, OnInit, Input } from '@angular/core';
 import { IInputOptions } from '../../models/input.model';
 import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
 import { IAlertPasswordModel } from '../../models/alert-password.model';
+import { SnackBarService } from '../../../dashboard/services/snack-bar.service';
+import { AuthService } from '../../../@core/service/auth.service';
 
 @Component({
     selector: 'evj-alert-password',
@@ -20,6 +22,27 @@ export class AlertPasswordComponent implements OnInit {
     public readonly maxLength: number = 25;
 
     //#region INPUTS_OPTIONS
+    public oldPasswordOptions: IInputOptions = {
+        type: 'password',
+        state: 'rounded',
+        placeholder: 'Введите текущий пароль',
+        isMovingPlaceholder: false,
+        icon: {
+            src: 'assets/icons/login/visibility_off.svg',
+            svgStyle: { 'width.px': 20, 'height.px': 20 },
+            isClickable: true,
+            onClick: () => {
+                [this.oldPasswordOptions.icon.src, this.oldPasswordOptions.icon.secState] = [
+                    this.oldPasswordOptions.icon.secState,
+                    this.oldPasswordOptions.icon.src,
+                ];
+                this.oldPasswordOptions.type =
+                    this.oldPasswordOptions.type === 'text' ? 'password' : 'text';
+            },
+            secState: 'assets/icons/login/visibility.svg',
+        },
+    };
+
     public passwordOptions: IInputOptions = {
         type: 'password',
         state: 'rounded',
@@ -65,12 +88,17 @@ export class AlertPasswordComponent implements OnInit {
 
     public formGroup: FormGroup;
 
-    constructor(private formBuilder: FormBuilder) {
+    constructor(
+        private formBuilder: FormBuilder,
+        private snackBar: SnackBarService,
+        private authService: AuthService
+    ) {
         const regExpConditions = '(?=.*[0-9])(?=.*[?!._*#$@-])(?=.*[a-zа-яA-ZА-Я])';
         const regExp = `[0-9a-zA-Zа-яА-Я?!._*#$@-]{${this.minLength},${this.maxLength}}`;
 
         this.formGroup = this.formBuilder.group(
             {
+                oldPassword: ['', [Validators.required]],
                 password: [
                     '',
                     [
@@ -123,14 +151,32 @@ export class AlertPasswordComponent implements OnInit {
         this.options.closeFunction();
     }
 
-    public onClickConfirm(): void {
-        if (this.formGroup.valid) {
+    public async onClickConfirm(): Promise<void> {
+        if (this.formGroup.valid && this.options.isCreatePassword) {
             this.options.acceptFunction(this.formGroup.controls.password.value);
             this.options.closeFunction();
             this.formGroup.reset();
+        } else if (this.formGroup.valid) {
+            await this.onResetPassword();
         } else {
             this.formGroup.markAllAsTouched();
             this.formGroup.markAsDirty();
+        }
+    }
+
+    public async onResetPassword(): Promise<void> {
+        try {
+            await this.authService.resetPassword(
+                this.formGroup.get('password').value,
+                this.formGroup.get('oldPassword').value
+            );
+            this.snackBar.openSnackBar('Пароль успешно изменен');
+            setTimeout(() => {
+                this.options.closeFunction();
+                this.formGroup.reset();
+            }, 3000);
+        } catch (err) {
+            this.snackBar.openSnackBar('Пароль не изменен', 'snackbar-red');
         }
     }
 }
