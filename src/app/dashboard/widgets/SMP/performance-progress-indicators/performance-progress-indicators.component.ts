@@ -54,9 +54,6 @@ export class PerformanceProgressIndicatorsComponent extends WidgetPlatform imple
 
   public ngOnInit(): void {
     super.widgetInit();
-    setTimeout(() => {
-      this.data = this.data2
-    }, 3000)
   }
 
   public ngOnDestroy(): void {
