@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef, HostListener } from '@angular/core';
-import { IUser, EventsWidgetNotification } from '../../../models/events-widget';
 import { EventsWorkspaceService } from '../../../services/widgets/events-workspace.service';
+import { IInputOptions } from '../../../../@shared/models/input.model';
 
 @Component({
     selector: 'evj-usual-event',
@@ -10,17 +10,24 @@ import { EventsWorkspaceService } from '../../../services/widgets/events-workspa
 export class UsualEventComponent implements OnInit {
     @ViewChild('progress') progress: ElementRef;
 
+    public inputOptions: IInputOptions = {
+        type: 'text',
+        state: 'normal',
+        placeholder: 'Номер позиции',
+        isMovingPlaceholder: true,
+    };
+
     progressLineHeight: number;
 
-    constructor(public ewService: EventsWorkspaceService) { }
+    constructor(public ewService: EventsWorkspaceService) {}
 
-    ngOnInit(): void { }
+    ngOnInit(): void {}
 
     @HostListener('document:resize', ['$event'])
     OnResize(event): void {
         try {
             // this.progressLine();
-        } catch (error) { }
+        } catch (error) {}
     }
 
     public compareFn(a, b): boolean {
