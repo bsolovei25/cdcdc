@@ -222,7 +222,7 @@ export class WorkflowComponent extends WidgetPlatform implements OnInit, OnDestr
         emptyCellDragMaxRows: 100000,
         itemResizeCallback: this.resizeGridsterElement.bind(this),
         gridSizeChangedCallback: this.resizeGridsterElement.bind(this),
-        // itemValidateCallback: this.valid.bind(this),
+        itemValidateCallback: this.validatePosition.bind(this),
         pushItems: false,
         minCols: 15,
         maxCols: 100,
@@ -239,8 +239,8 @@ export class WorkflowComponent extends WidgetPlatform implements OnInit, OnDestr
         fixedRowHeight: this.RowHeight,
         draggable: {
             enabled: true,
-            // start: this.startDrag.bind(this),
-            // stop: this.stopDrag.bind(this),
+            start: this.startDrag.bind(this),
+            stop: this.stopDrag.bind(this),
             dropOverItems: true,
             dropOverItemsCallback: this.overItems.bind(this),
         },
@@ -321,7 +321,7 @@ export class WorkflowComponent extends WidgetPlatform implements OnInit, OnDestr
         }
     }
 
-    resetScenario(): void {
+    resetScenario(isDeleteLeaderLine: boolean = true): void {
         this.emailPropActionUI = {
             emailSubject: '',
             emailTo: new FormControl(''),
@@ -334,7 +334,9 @@ export class WorkflowComponent extends WidgetPlatform implements OnInit, OnDestr
         this.emailAction = [];
         this.emailPropAction = [];
         this.activeActions = null;
-        this.removeLeaderLine();
+        if (isDeleteLeaderLine) {
+            this.removeIconsAndLineLeaderLine();
+        }
     }
 
     // #region SLIDER
@@ -464,8 +466,9 @@ export class WorkflowComponent extends WidgetPlatform implements OnInit, OnDestr
         this.drawLeaderLine();
     }
 
-    drawLeaderLine(): void {
+    drawLeaderLine(isResize: boolean = false): void {
         this.leaderLine = [];
+        this.removableLeaderLineIds.clear();
         this.items.forEach((item) => {
             if (item?.scenarioAction && item?.nextScenarioAction) {
                 setTimeout(() => {
@@ -479,6 +482,8 @@ export class WorkflowComponent extends WidgetPlatform implements OnInit, OnDestr
                             color: 'white',
                         }
                     );
+                    this.leaderLine.push(leaderLine);
+                    // if (!isResize) {
                     const removable = true; // TODO заменить на реальзый флаг
                     if (removable) {
                         this.removableLeaderLineIds.set(
@@ -486,6 +491,8 @@ export class WorkflowComponent extends WidgetPlatform implements OnInit, OnDestr
                             leaderLine
                         );
                     }
+                    // }
+
                     // this.leaderLine.forEach((value) => {
                     //     value.setInterval = setInterval(() => {
                     //         if (value?.options) {
@@ -499,7 +506,7 @@ export class WorkflowComponent extends WidgetPlatform implements OnInit, OnDestr
         });
         setTimeout(() => {
             this.drawRemoveIcons();
-        }, 1000);
+        }, 200);
     }
 
     private drawRemoveIcons(): void {
@@ -508,9 +515,15 @@ export class WorkflowComponent extends WidgetPlatform implements OnInit, OnDestr
         });
     }
 
-    private removeLeaderLine(): void {
+    private removeIconsLeaderLine(): void {
         this.removableLeaderLineIds.forEach((value, key) => {
-            this.onRemoveIconClick(key, `${key}-cross`);
+            this.onRemoveIconClick(`cross-${key}`);
+        });
+    }
+
+    private removeIconsAndLineLeaderLine(): void {
+        this.removableLeaderLineIds.forEach((value, key) => {
+            this.onRemoveIconClick(`cross-${key}`, key);
         });
     }
 
@@ -549,13 +562,13 @@ export class WorkflowComponent extends WidgetPlatform implements OnInit, OnDestr
                 this.LEADER_LINE_HEIGHT / 2
             ).toString() + 'px';
         iconNode.addEventListener('click', ($event: Event) => {
-            this.onRemoveIconClick(lineId, iconId);
+            this.onRemoveIconClick(iconId, lineId);
         });
     }
 
-    private onRemoveIconClick(lineId: string, iconId: string): void {
-        document.getElementById(lineId)?.remove();
+    private onRemoveIconClick(iconId: string, lineId?: string): void {
         document.getElementById(iconId)?.remove();
+        document.getElementById(lineId)?.remove();
     }
 
     putConnect(previousScenarioAction: string, id: string): void {
@@ -689,6 +702,24 @@ export class WorkflowComponent extends WidgetPlatform implements OnInit, OnDestr
         this.changedOptions();
     }
 
+    leaderLineUpdatePosition(): void {
+        this.leaderLine.forEach((val) => {
+            val.position();
+        });
+    }
+
+    validatePosition(item: GridsterItem): boolean {
+        this.leaderLineUpdatePosition();
+        return true;
+    }
+
+    startDrag(): void {
+        this.removeIconsLeaderLine();
+    }
+    stopDrag(): void {
+        this.drawRemoveIcons();
+    }
+
     public onResize(): void {
         this.sizeGrid();
         this.resizeGridsterElement();
@@ -697,13 +728,27 @@ export class WorkflowComponent extends WidgetPlatform implements OnInit, OnDestr
     public resizeGridsterElement(): void {
         setTimeout(() => {
             this.changedOptions();
-        }, 1000);
+        }, 300);
         // this.items.setSize();
         const event = new CustomEvent('resize');
         document.dispatchEvent(event);
     }
 
     public changedOptions(): void {
+        // if (this.leaderLine.length > 0) {
+        //     this.leaderLine.forEach((val) => {
+        //         val?.remove();
+        //     });
+        // }
+        if (!this.timerHwnd) {
+            this.timerHwnd = window.setTimeout(() => {
+                console.log('update');
+                this.removeIconsAndLineLeaderLine();
+                this.drawLeaderLine(true);
+                this.timerHwnd = 0;
+            }, 300);
+        }
+
         if (this.options.api && this.options.api.optionsChanged) {
             this.options.api.optionsChanged();
         }
@@ -783,7 +828,7 @@ export class WorkflowComponent extends WidgetPlatform implements OnInit, OnDestr
         event.stopPropagation();
         if (!item) {
             this.activeActions = null;
-            this.resetScenario();
+            this.resetScenario(false);
         } else {
             if (this.activeActions !== item) {
                 if (this.activeActions) {
