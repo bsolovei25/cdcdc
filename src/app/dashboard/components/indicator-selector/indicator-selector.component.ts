@@ -7,6 +7,7 @@ import { ViewportScroller } from '@angular/common';
 import { OverlayService } from '../../services/overlay.service';
 import { SnackBarService } from '../../services/snack-bar.service';
 import { IAlertWindowModel } from '@shared/models/alert-window.model';
+import { IInputOptions } from '../../../@shared/models/input.model';
 
 @Component({
     selector: 'evj-indicator-selector',
@@ -23,6 +24,22 @@ export class IndicatorSelectorComponent implements OnInit, OnDestroy {
 
     isReadyAdd: boolean = false;
 
+    //#region SEARCH_OPTIONS
+    public inputOptions: IInputOptions = {
+        type: 'text',
+        state: 'normal',
+        placeholder: 'Поиск экрана',
+        isMovingPlaceholder: false,
+        icon: {
+            src: 'assets/icons/search-icon.svg',
+            svgStyle: { 'width.px': 17, 'height.px': 17 },
+            isClickable: false,
+        },
+    };
+
+    public searchScreen: string = '';
+    //#endregion
+
     tempScreen: string = '';
     newNameScreen: string = '';
     public idScreen: number;
@@ -36,7 +53,7 @@ export class IndicatorSelectorComponent implements OnInit, OnDestroy {
         private userSettings: UserSettingsService,
         private claimService: ClaimService,
         public overlayService: OverlayService,
-        private snackBar: SnackBarService,
+        private snackBar: SnackBarService
     ) {}
 
     ngOnInit(): void {
@@ -88,6 +105,7 @@ export class IndicatorSelectorComponent implements OnInit, OnDestroy {
                 screen.updateScreen = false;
             });
             this.isShowScreens = false;
+            this.searchScreen = '';
         }, 300);
     }
 
@@ -98,7 +116,9 @@ export class IndicatorSelectorComponent implements OnInit, OnDestroy {
                 return currentScreen.screenName;
             }
         }
-        if (this.dataScreen[0]) { return this.dataScreen[0].screenName; }
+        if (this.dataScreen[0]) {
+            return this.dataScreen[0].screenName;
+        }
     };
 
     setActiveScreen(screen: IScreenSettings): void {
@@ -123,7 +143,10 @@ export class IndicatorSelectorComponent implements OnInit, OnDestroy {
             cancelText: 'Отменить',
             acceptFunction: () => this.deleteScreen(screen.id),
             closeFunction: () => this.overlayService.closeDashboardAlert(),
-            cancelFunction: () => this.snackBar.openSnackBar(`Экран "${screen.screenName}" не удален и доступен для работы`)
+            cancelFunction: () =>
+                this.snackBar.openSnackBar(
+                    `Экран "${screen.screenName}" не удален и доступен для работы`
+                ),
         };
         this.overlayService.dashboardAlert$.next(windowsParam);
     }
@@ -150,7 +173,10 @@ export class IndicatorSelectorComponent implements OnInit, OnDestroy {
             cancelText: 'Отменить',
             acceptFunction: () => this.updateScreen(screen, newName),
             closeFunction: () => this.overlayService.closeDashboardAlert(),
-            cancelFunction: () => this.snackBar.openSnackBar(`Внесенные изменения для экрана "${screen.screenName}" не сохранены`),
+            cancelFunction: () =>
+                this.snackBar.openSnackBar(
+                    `Внесенные изменения для экрана "${screen.screenName}" не сохранены`
+                ),
         };
         this.overlayService.dashboardAlert$.next(windowsParam);
     }
@@ -185,18 +211,25 @@ export class IndicatorSelectorComponent implements OnInit, OnDestroy {
     }
 
     public isScreenDelete(screen: IScreenSettings): boolean {
-        return !!(screen.claims.find((claim) => claim.claimType === 'screenDel' ||
-            claim.claimType === 'screensDel' ||
-            claim.claimType === 'screenAdmin'));
+        return !!screen.claims.find(
+            (claim) =>
+                claim.claimType === 'screenDel' ||
+                claim.claimType === 'screensDel' ||
+                claim.claimType === 'screenAdmin'
+        );
     }
 
     public isScreenEdit(screen: IScreenSettings): boolean {
-        return !!(screen.claims.find((claim) => claim.claimType === 'screensEdit' ||
-            claim.claimType === 'screenEdit' ||
-            claim.claimType === 'screenAdmin'));
+        return !!screen.claims.find(
+            (claim) =>
+                claim.claimType === 'screensEdit' ||
+                claim.claimType === 'screenEdit' ||
+                claim.claimType === 'screenAdmin'
+        );
     }
 
     public screensFilter(filter: string): void {
+        this.searchScreen = filter;
         this.dataScreen.forEach((screen) => {
             screen.isFilter = screen.screenName.toLowerCase().includes(filter.toLowerCase());
         });

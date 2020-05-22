@@ -6,9 +6,8 @@
       <div class="search">
         <evj-input
           class="insert-component"
-          [placeholder]="'Введите название пункта'"
-          [iconSrc]="searchIcon"
-          (inputedValue)="onSearchField($event)"
+          [options]="inputOptions"
+          [(ngModel)]="searchingFieldName"
         ></evj-input>
       </div>
     </div>

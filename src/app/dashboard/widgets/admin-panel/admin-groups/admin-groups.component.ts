@@ -8,6 +8,7 @@ import { IWidgets } from '../../../models/widget.model';
 import { IAlertWindowModel } from '../../../../@shared/models/alert-window.model';
 import { FormControl, Validators } from '@angular/forms';
 import { SnackBarService } from '../../../services/snack-bar.service';
+import { IInputOptions } from '../../../../@shared/models/input.model';
 
 @Component({
     selector: 'evj-admin-groups',
@@ -42,8 +43,36 @@ export class AdminGroupsComponent implements OnInit, OnDestroy {
     public generalClaims: IGlobalClaim[] = [];
     public specialClaims: IGlobalClaim[] = [];
 
-    private searchingGroupString: string = '';
-    private searchingWorkerString: string = '';
+    //#region SEARCH_INPUT
+
+    public inputGroupOptions: IInputOptions = {
+        type: 'text',
+        state: 'normal',
+        placeholder: 'Введите наименование группы',
+        isMovingPlaceholder: true,
+        icon: {
+            src: 'assets/icons/search-icon.svg',
+            svgStyle: { 'width.px': 17, 'height.px': 17 },
+            isClickable: false,
+        },
+    };
+
+    public searchingGroupString: string = '';
+
+    public inputWorkerOptions: IInputOptions = {
+        type: 'text',
+        state: 'normal',
+        placeholder: 'Введите ФИО сотрудника',
+        isMovingPlaceholder: true,
+        icon: {
+            src: 'assets/icons/search-icon.svg',
+            svgStyle: { 'width.px': 17, 'height.px': 17 },
+            isClickable: false,
+        },
+    };
+
+    public searchingWorkerString: string = '';
+    //#endregion
 
     public groupSelection: SelectionModel<IGroup> = new SelectionModel<IGroup>();
     public blockSelection: SelectionModel<void> = new SelectionModel<void>();
@@ -97,21 +126,13 @@ export class AdminGroupsComponent implements OnInit, OnDestroy {
         }
     }
 
-    public onSearchGroup(event: string): void {
-        this.searchingGroupString = event.toLowerCase();
-    }
-
-    public onSearchUser(event: string): void {
-        this.searchingWorkerString = event.toLowerCase();
-    }
-
     public displaySearchedWorker(worker: IUser): boolean {
         const fullName: string = `${worker.lastName} ${worker.firstName} ${worker.middleName}`;
-        return fullName.toLowerCase().includes(this.searchingWorkerString);
+        return fullName.toLowerCase().includes(this.searchingWorkerString.toLowerCase());
     }
 
     public displaySearchedGroup(group: IGroup): boolean {
-        return group.name.toLowerCase().includes(this.searchingGroupString);
+        return group.name.toLowerCase().includes(this.searchingGroupString.toLowerCase());
     }
 
     public defineIsUserInGroup(worker: IUser): boolean {

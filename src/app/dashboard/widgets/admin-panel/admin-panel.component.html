@@ -29,9 +29,8 @@
             <div class="search">
               <evj-input
                 class="insert-component"
-                [placeholder]="searchPlaceholder"
-                [iconSrc]="searchIcon"
-                (inputedValue)="onSearchWorker($event)"
+                [options]="inputOptions"
+                [(ngModel)]="searchedWorker"
               ></evj-input>
             </div>
             <div class="brigades__button">

@@ -1,5 +1,6 @@
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { Validators, FormBuilder, FormGroup, AbstractControl } from '@angular/forms';
+import { IInputOptions } from '../../../../../@shared/models/input.model';
 
 @Component({
     selector: 'evj-aws-password-alert',
@@ -16,14 +17,54 @@ export class AwsPasswordAlertComponent implements OnInit {
     public readonly minLength: number = 6;
     public readonly maxLength: number = 25;
 
+    //#region INPUTS_OPTIONS
+    public passwordOptions: IInputOptions = {
+        type: 'password',
+        state: 'rounded',
+        placeholder: 'Введите пароль',
+        isMovingPlaceholder: false,
+        icon: {
+            src: 'assets/icons/login/visibility_off.svg',
+            svgStyle: { 'width.px': 20, 'height.px': 20 },
+            isClickable: true,
+            onClick: () => {
+                [this.passwordOptions.icon.src, this.passwordOptions.icon.secState] = [
+                    this.passwordOptions.icon.secState,
+                    this.passwordOptions.icon.src,
+                ];
+                this.passwordOptions.type =
+                    this.passwordOptions.type === 'text' ? 'password' : 'text';
+            },
+            secState: 'assets/icons/login/visibility.svg',
+        },
+    };
+
+    public confirmOptions: IInputOptions = {
+        type: 'password',
+        state: 'rounded',
+        placeholder: 'Подтвердите пароль',
+        isMovingPlaceholder: false,
+        icon: {
+            src: 'assets/icons/login/visibility_off.svg',
+            svgStyle: { 'width.px': 20, 'height.px': 20 },
+            isClickable: true,
+            onClick: () => {
+                [this.confirmOptions.icon.src, this.confirmOptions.icon.secState] = [
+                    this.confirmOptions.icon.secState,
+                    this.confirmOptions.icon.src,
+                ];
+                this.confirmOptions.type =
+                    this.confirmOptions.type === 'text' ? 'password' : 'text';
+            },
+            secState: 'assets/icons/login/visibility.svg',
+        },
+    };
+    //#endregion
+
     public formGroup: FormGroup;
 
-    public readonly visibleIcon: string = 'assets/icons/components/alert-password/visibility.svg';
-    public readonly invisibleIcon: string =
-        'assets/icons/components/alert-password/visibility_off.svg';
-
     constructor(private formBuilder: FormBuilder) {
-        const regExpConditions = '(?=.*[0-9])(?=.*[?!._*#$@-])(?=.*[a-zа-я])(?=.*[A-ZА-Я])';
+        const regExpConditions = '(?=.*[0-9])(?=.*[?!._*#$@-])(?=.*[a-zа-яA-ZА-Я])';
         const regExp = `[0-9a-zA-Zа-яА-Я?!._*#$@-]{${this.minLength},${this.maxLength}}`;
 
         this.formGroup = this.formBuilder.group(

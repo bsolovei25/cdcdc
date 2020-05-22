@@ -17,7 +17,6 @@ import {
     GridsterItemComponentInterface,
 } from 'angular-gridster2';
 import { WorkflowService } from '../../services/widgets/workflow.service';
-import 'leader-line';
 import { IAlertWindowModel } from '../../../@shared/models/alert-window.model';
 import { SnackBarService } from '../../services/snack-bar.service';
 import { IAlertInputModel } from '../../../@shared/models/alert-input.model';

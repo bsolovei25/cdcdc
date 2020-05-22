@@ -1,69 +1,166 @@
-.input {
-  height: 100%;
-  width: 100%;
-  position: relative;
-  box-sizing: border-box;
+:host {
+  min-width: 100px;
+  min-height: 16px;
 
-  &__search {
-    width: 100%;
-    height: 100%;
+  * {
+    box-sizing: border-box;
   }
 
-  ::ng-deep {
-    .mat-form-field-wrapper {
-      width: 100%;
-      height: 100%;
-      padding-bottom: 10px !important;
+  &.ng-dirty {
+    .input-container_focus:not(.input-container_warning):not(.input-container_danger) {
+      --input-text-color: var(--color-text-main);
+      --input-additional-color: var(--color-active);
     }
 
-    .mat-form-field-flex {
-      width: 100%;
-      height: 100%;
-
-      * {
-        width: 100%;
-        height: 100%;
+    &.ng-touched.ng-invalid {
+      .input-container:not(.input-container_warning):not(.input-container_danger) {
+        --input-text-color: var(--color-text-main);
+        --input-additional-color: var(--color-danger);
       }
     }
+  }
+}
 
-    .mat-form-field-infix {
-      padding: 0 0 5px 0;
-      margin: 0;
-      border: none;
+.input-container {
+  // VARIABLES
+  --padding-sides: 5px;
+  --input-text-color: var(--color-text-main);
+  --input-additional-color: var(--color-text-sub);
+
+  position: relative;
+  z-index: 2;
+
+  width: inherit;
+  height: inherit;
+
+  font-size: inherit;
+  text-align: inherit;
+  color: var(--input-text-color);
+
+  padding: 0px var(--padding-sides);
+  border-bottom: 1px solid var(--input-additional-color);
+
+  transition: 0.3s;
+
+  &_icon {
+    padding-right: 30px;
+  }
+
+  &_disabled {
+    opacity: 0.5;
+  }
+
+  &_focus {
+    .placeholder {
+      transform: translateY(-100%) scale(0.8);
+    }
+  }
+
+  // STATES
+  &_normal {
+    &.input-container {
+      --input-text-color: var(--color-text-main);
+      --input-additional-color: var(--color-text-sub);
+    }
+  }
+
+  &_warning {
+    &.input-container {
+      --input-text-color: var(--color-text-main);
+      --input-additional-color: var(--color-warning);
+    }
+  }
+
+  &_danger {
+    &.input-container {
+      --input-text-color: var(--color-text-main);
+      --input-additional-color: var(--color-danger);
+    }
+  }
+
+  &_rounded {
+    border: 1px solid var(--input-additional-color);
+    border-radius: 50px;
+    padding: 0px 5%;
+
+    &.input-container_icon {
+      padding-right: 10%;
     }
 
-    & .mat-form-field-appearance-legacy {
-      & .mat-form-field-underline {
-        background-color: var(--color-button-border);
-        margin-bottom: -10px;
-      }
+    .placeholder {
+      visibility: hidden;
     }
 
-    .mat-form-field-label {
-      color: var(--color-button-border);
-      font-style: italic;
-      font-size: 12px;
-      top: 15px;
+    .icon {
+      right: 5%;
     }
+  }
+}
 
-    .mat-form-field-suffix {
-      height: 16px;
-      width: 16px;
+.input {
+  width: 100%;
+  height: 100%;
 
-      * {
-        height: 16px;
-        width: 16px;
-      }
+  padding: 0;
+  margin: 0;
+  outline: none;
+  border: none;
 
-      img {
-        margin-bottom: 3px;
-      }
+  font-size: inherit;
+  text-align: inherit;
+  color: var(--input-text-color);
+  caret-color: var(--input-additional-color);
+
+  background: transparent;
+
+  &::placeholder {
+    color: var(--input-additional-color);
+  }
+}
+
+.placeholder {
+  position: absolute;
+  z-index: -1;
+
+  width: max-content;
+  height: max-content;
+
+  left: var(--padding-sides);
+  top: 0;
+  bottom: 0;
+  margin: auto;
+
+  font-size: inherit;
+  color: var(--input-additional-color);
+
+  transition: inherit;
+  transform-origin: left top;
+
+  & + .input {
+    &::placeholder {
+      visibility: hidden;
     }
+  }
+}
 
-    &.mat-form-field-disabled {
-      & .mat-form-field-underline {
-        display: none !important;
-      }
+.icon {
+  position: absolute;
+
+  width: max-content;
+  height: max-content;
+
+  top: 0;
+  bottom: 0;
+  right: 5px;
+  margin: auto;
+
+  color: var(--input-additional-color);
+
+  transition: inherit;
+
+  &_clickable {
+    &:hover {
+      cursor: pointer;
     }
   }
 }

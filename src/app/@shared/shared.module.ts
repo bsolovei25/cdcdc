@@ -7,7 +7,6 @@ import { DateFormatPipe } from './pipes/data-format.pipe';
 import { PreLoaderComponent } from './preloader/preloader.component';
 import { UiElementsComponent } from './layout/ui-elements.component';
 import { ButtonComponent } from './components/button/button.component';
-import { InputComponent } from './components/input/input.component';
 import { WorkerCardComponent } from './components/worker-card/worker-card.component';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
@@ -36,6 +35,7 @@ import { LineBreakPipe } from './pipes/line-break.pipe';
 import { SelectComponent } from './components/select/select.component';
 import { MatSelectModule } from '@angular/material/select';
 import { EventsChatComponent } from './components/events-chat/events-chat.component';
+import { InputComponent } from './components/input/input.component';
 
 @NgModule({
     declarations: [
@@ -46,7 +46,6 @@ import { EventsChatComponent } from './components/events-chat/events-chat.compon
         PreLoaderComponent,
         UiElementsComponent,
         ButtonComponent,
-        InputComponent,
         WorkerCardComponent,
         UiBlockComponent,
         LoadingShadeComponent,
@@ -69,6 +68,7 @@ import { EventsChatComponent } from './components/events-chat/events-chat.compon
         LineBreakPipe,
         SelectComponent,
         EventsChatComponent,
+        InputComponent,
     ],
     exports: [
         HeaderComponent,
@@ -76,7 +76,6 @@ import { EventsChatComponent } from './components/events-chat/events-chat.compon
         FnPipe,
         PreLoaderComponent,
         ButtonComponent,
-        InputComponent,
         WorkerCardComponent,
         DateFormatPipe,
         PreLoaderComponent,
@@ -97,6 +96,7 @@ import { EventsChatComponent } from './components/events-chat/events-chat.compon
         LineBreakPipe,
         SelectComponent,
         EventsChatComponent,
+        InputComponent
     ],
     imports: [
         CommonModule,

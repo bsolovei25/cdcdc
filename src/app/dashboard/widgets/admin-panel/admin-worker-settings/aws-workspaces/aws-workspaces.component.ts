@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { IWorkspace, IGlobalClaim } from '../../../../models/admin-panel';
 import { AdminPanelService } from '../../../../services/admin-panel/admin-panel.service';
+import { IInputOptions } from '../../../../../@shared/models/input.model';
 
 @Component({
     selector: 'evj-aws-workspaces',
@@ -15,9 +16,21 @@ export class AwsWorkspacesComponent implements OnInit {
 
     public allWorkspaces: IWorkspace[] = null;
 
-    public searchIcon: string = 'assets/icons/search-icon.svg';
+    //#region SEARCH_INPUT_OPTIONS
+    public inputOptions: IInputOptions = {
+        type: 'text',
+        state: 'normal',
+        placeholder: 'Введите ФИО сотрудника',
+        isMovingPlaceholder: true,
+        icon: {
+            src: 'assets/icons/search-icon.svg',
+            svgStyle: { 'width.px': 17, 'height.px': 17 },
+            isClickable: false,
+        },
+    };
 
-    private searchingWorkspaceValue: string = '';
+    public searchingWorkspaceValue: string = '';
+    //#endregion
 
     constructor(private adminService: AdminPanelService) {}
 
@@ -25,12 +38,8 @@ export class AwsWorkspacesComponent implements OnInit {
         this.allWorkspaces = this.adminService.allScreens;
     }
 
-    public onSearchWorkspace(searchedWorkspace: string): void {
-        this.searchingWorkspaceValue = searchedWorkspace.toLowerCase();
-    }
-
     public isValidWorkspaceName(workspaceName: string): boolean {
-        return workspaceName.toLowerCase().includes(this.searchingWorkspaceValue);
+        return workspaceName.toLowerCase().includes(this.searchingWorkspaceValue.toLowerCase());
     }
 
     public defineIsWorkspaceActive(workspace: IWorkspace): boolean {

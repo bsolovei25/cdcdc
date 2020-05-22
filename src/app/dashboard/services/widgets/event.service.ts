@@ -11,7 +11,13 @@ import {
     IRetrievalEvents,
     IUnitEvents,
     IUser,
-    IPriority, IAsusService, IAsusEOService, IAsusCategories, IAsusWorkgroup, ISmotrReference
+    IPriority,
+    IAsusService,
+    IAsusEOService,
+    IAsusCategories,
+    IAsusWorkgroup,
+    ISmotrReference,
+    ISaveMethodEvent, IRetrievalEventDto
 } from '../../models/events-widget';
 import { AppConfigService } from 'src/app/services/appConfigService';
 
@@ -24,8 +30,7 @@ export class EventService {
     private readonly isDomenAuth: boolean;
     private readonly batchSize: number = 50;
 
-    event$: BehaviorSubject<any | null> = new BehaviorSubject<any | null>(null);
-    updateEvent$: BehaviorSubject<any | null> = new BehaviorSubject<any | null>(null);
+    public currentEventId$: BehaviorSubject<number> = new BehaviorSubject<number>(null);
 
     constructor(public http: HttpClient, configService: AppConfigService) {
         this.restUrl = configService.restUrl;
@@ -82,9 +87,27 @@ export class EventService {
         }
     }
 
+    getSaveMethod(event: EventsWidgetNotification): Promise<ISaveMethodEvent> {
+        try {
+            return this.http
+                .post<ISaveMethodEvent>(`${this.restUrl}/api/notifications/save-method`, event)
+                .toPromise();
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
     async postEvent(body: EventsWidgetNotification): Promise<any> {
         try {
-            return this.http.post(this.restUrl + '/api/notifications/', body).toPromise();
+            return this.http.post(this.restUrl + '/api/notifications', body).toPromise();
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+    async postEventRetrieval(body: EventsWidgetNotification): Promise<any> {
+        try {
+            return this.http.post(`${this.restUrl}/api/notification-retrieval/${body.parentId}/RetrievalEvents`, body).toPromise();
         } catch (error) {
             console.error(error);
         }
@@ -207,7 +230,7 @@ export class EventService {
                     .toPromise();
             }
             return this.http
-                .get<IAsusWorkgroup[]>(this.restUrl + '/api/asus-events//api/References/workgroup')
+                .get<IAsusWorkgroup[]>(this.restUrl + '/api/asus-events/api/References/workgroup')
                 .toPromise();
         } catch (error) {
             console.error(error);
@@ -253,20 +276,6 @@ export class EventService {
                     // .get<IAsusEOService[]>(this.restUrl + '/api/notification-reference/eoservice')
                     .toPromise();
             }
-        } catch (error) {
-            console.error(error);
-        }
-    }
-
-    async editRetrievalEvents(retrievalEvents: IRetrievalEvents): Promise<any> {
-        try {
-            return this.http
-                .put(
-                    this.restUrl +
-                        `/api/notification-retrieval/retrievalevents/${retrievalEvents.innerNotification.id}`,
-                    retrievalEvents
-                )
-                .toPromise();
         } catch (error) {
             console.error(error);
         }

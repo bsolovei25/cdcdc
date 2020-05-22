@@ -162,7 +162,7 @@
         justify-content: flex-start;
         align-items: center;
 
-        &_workspaces{
+        &_workspaces {
           height: 100%;
         }
 
@@ -511,6 +511,7 @@
 .insert-component {
   width: 100%;
   height: 100%;
+  font-size: 14px;
 }
 
 ::-webkit-scrollbar {

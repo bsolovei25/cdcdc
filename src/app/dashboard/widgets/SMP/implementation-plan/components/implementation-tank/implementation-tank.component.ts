@@ -64,7 +64,7 @@ export class ImplementationTankComponent implements OnInit, AfterViewInit {
     const title = this.tankPicture
       .append('text')
       .attr('fill', 'var(--color-text-main)')
-      .attr('font-size', '36px')
+      .attr('font-size', '44px')
       .attr('font-family', "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
       .attr('text-anchor', 'middle')
       .attr('y', '110')

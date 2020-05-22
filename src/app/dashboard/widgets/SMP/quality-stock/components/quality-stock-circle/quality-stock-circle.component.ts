@@ -33,7 +33,7 @@ export class QualityStockCircleComponent implements OnInit, OnChanges {
 
 
   public d3Circle(data, el): void {
-    const summ = this.defaultPercent - (data?.factPercent - data?.deviationPercent);
+    const summ = this.defaultPercent - (data?.factPercent ?? 0 - data?.deviationPercent ?? 0);
     const mass = [data?.factPercent, data?.deviationPercent, summ];
     let color: any;
 
@@ -77,7 +77,7 @@ export class QualityStockCircleComponent implements OnInit, OnChanges {
     group = group
       .append('text')
       .attr('text-anchor', 'middle')
-      .attr('font-size', '10px')
+      .attr('font-size', '8px')
       .attr('fill', 'var(--color-plan)')
       .attr('dominant-baseline', 'middle')
       .text(data?.value + '%');
@@ -103,11 +103,11 @@ export class QualityStockCircleComponent implements OnInit, OnChanges {
 
     const title = this.svg
       .append('text')
-      .attr('font-size', '8px')
+      .attr('font-size', '6.5px')
       .attr('text-anchor', 'middle')
       .attr('font-family', "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
       .attr('y', '87')
-      .attr('x', '48')
+      .attr('x', '50')
       .attr('fill', 'var(--color-text-main')
       .text('Отклонение');
 
