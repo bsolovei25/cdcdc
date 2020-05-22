@@ -27,6 +27,21 @@ export class QualityStockComponent extends WidgetPlatform implements OnInit, OnD
   public dataSecurity: IQualityStockSecurity;
   public dataCircle: IQualityStockCircle;
 
+  public data2: IQualityStock = {
+    security: {
+      allValue: 45321,
+      filed: 45321,
+      notFiled: 45321,
+    },
+    circle: {
+      factPercent: 45,
+      deviationPercent: 2,
+      value: 0.2,
+      deviation: 0.18,
+      deviationStatus: true,
+    }
+  };
+
   constructor(
     protected widgetService: WidgetService,
     @Inject('isMock') public isMock: boolean,
@@ -38,6 +53,9 @@ export class QualityStockComponent extends WidgetPlatform implements OnInit, OnD
 
   public ngOnInit(): void {
     super.widgetInit();
+    setTimeout(() => {
+      this.data = this.data2;
+    }, 3000);
   }
 
   public ngOnDestroy(): void {
