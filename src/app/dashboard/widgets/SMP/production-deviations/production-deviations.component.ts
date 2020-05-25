@@ -806,9 +806,9 @@ export class ProductionDeviationsComponent extends WidgetPlatform implements OnI
         },
     ];
 
-    public static itemCols: number = 35;
+    public static itemCols: number = 37;
     public static itemRows: number = 27;
-    public static minItemCols: number = 35;
+    public static minItemCols: number = 37;
     public static minItemRows: number = 27;
 
     constructor(

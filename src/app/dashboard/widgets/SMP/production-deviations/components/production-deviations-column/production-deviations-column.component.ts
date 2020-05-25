@@ -41,9 +41,9 @@ export class ProductionDeviationsColumnComponent implements OnChanges {
 
     private readonly colors: { [key: string]: string } = {
         fact: '#ffffff',
-        plan: '#3fa9f5',
-        warning: '#f4a321',
-        danger: '#eb5757',
+        plan: '#6ba4ef',
+        warning: '#ff9700',
+        danger: '#d00100',
     };
 
     constructor() {
