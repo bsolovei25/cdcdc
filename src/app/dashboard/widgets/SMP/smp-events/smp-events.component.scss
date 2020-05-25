@@ -97,7 +97,7 @@
   &__title {
     color: var(--color-smp-text-sub);
     font-size: 12px;
-    margin-left: 20px;
+    margin-left: 25px;
   }
 
   &__fabric {
@@ -122,12 +122,15 @@
         color: var(--color-bg-header-table);
       }
     }
-
-    ::ng-deep path {
-      fill: #00a99d;
-    }
   }
 }
+
+.active-icon {
+  ::ng-deep path {
+    fill: #00a99d;
+  }
+}
+
 
 .smp-events {
   display: flex;
