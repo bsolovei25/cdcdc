@@ -19,31 +19,36 @@ export class ITankInformationRef {
 export interface ITankCardValue {
     absolutValue: number;
     currentValue: number;
-    dieValue: number;
     maxValue: number;
-    measuredVolume: number;
     minValue: number;
     objectStatus: string;
     passportState: string;
     tankTitle: string;
     tankType: string;
     fillLevelPercentage: number;
-    temperature: number;
+    values: ICardValues[];
+}
+
+export interface ICardValues {
+    value: number;
+    unit: string;
+    description: string;
 }
 
 export class ITankCardValueRef {
     public absolutValue: number;
     public currentValue: number;
-    public dieValue: number;
+    //  public dieValue: number;
     public maxValue: number;
-    public measuredVolume: number;
+    //    public measuredVolume: number;
     public minValue: number;
     public objectStatus: string;
     public passportState: string;
     public tankTitle: string;
     public tankType: string;
-    public temperature: number;
+    //    public temperature: number;
     public fillLevelPercentage: number;
+    public values: ICardValues[];
 
     constructor(data: ITankCardValue) {
         Object.assign<ITankCardValueRef, ITankCardValue, Partial<ITankCardValueRef>>(this, data, {});
@@ -54,16 +59,17 @@ export const ITankValueDtoFn = (data: any): any => {
     return new ITankCardValueRef({
         absolutValue: data.absolutValue,
         currentValue: data.currentValue,
-        dieValue: data.dieValue,
+        //   dieValue: data.dieValue,
         maxValue: data.maxValue,
-        measuredVolume: data.measuredVolume,
+        //   measuredVolume: data.measuredVolume,
         minValue: data.minValue,
         objectStatus: data.objectStatus,
         passportState: data.passportState,
         tankTitle: data.tankTitle,
         tankType: data.tankType,
         fillLevelPercentage: data.fillLevelPercentage,
-        temperature: data.temperature,
+        //  temperature: data.temperature,
+        values: data.values
     });
 };
 
