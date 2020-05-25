@@ -91,7 +91,7 @@ export class ProductGroupsMiddleComponent implements OnInit, OnChanges {
         } else if (data.pieStatus === 'warning') {
             color = d3.scaleOrdinal().range(['var(--color-oil-danger)', 'var(--color-oil-circle-disable)']);
         } else if (data.pieStatus === 'normal') {
-            color = d3.scaleOrdinal().range(['var(--color-text-main)', 'var(--color-oil-circle-disable)']);
+            color = d3.scaleOrdinal().range(['var(--color-smp-pie-normal)', 'var(--color-oil-circle-disable)']);
         }
 
         this.svgCircle = d3

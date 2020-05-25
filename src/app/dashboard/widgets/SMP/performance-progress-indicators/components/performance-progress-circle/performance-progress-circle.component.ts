@@ -92,7 +92,7 @@ export class PerformanceProgressCircleComponent implements OnInit, OnChanges {
     } else if (data.isCritical) {
       color = d3.scaleOrdinal().range(['var(--color-oil-danger)', 'var(--color-oil-circle-disable)']);
     } else {
-      color = d3.scaleOrdinal().range(['var(--color-text-main)', 'var(--color-oil-circle-disable)']);
+      color = d3.scaleOrdinal().range(['var(--color-smp-pie-normal)', 'var(--color-oil-circle-disable)']);
     }
 
     this.svgCircle = d3
