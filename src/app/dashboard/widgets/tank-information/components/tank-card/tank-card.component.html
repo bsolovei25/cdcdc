@@ -1,12 +1,17 @@
-<div appTooltip textTooltip='{{  operation[this.data.objectStatus] }}' class="container-card">
+<div appTooltip textTooltip='{{  operation[this.data.objectStatus] }}' class="container-card"
+    [style.height.px]="heightCard">
     <div class="container-card__title">
         {{ data.tankTitle }}
     </div>
     <div class="container-card__content">
         <div class="value">
-            <div> {{ data.measuredVolume }} СМ</div>
-            <div> {{ data.temperature }} C</div>
-            <div> {{ data.dieValue }}</div>
+            <ng-container *ngFor="let item of data.attributes">
+                <div appTooltip textTooltip='{{  item.description }}' class="att-block">
+                    <div class="att-block__value">{{item.value}}</div>
+                    <div class="att-block__unit">{{item.unit}}</div>
+                </div>
+            </ng-container>
+
         </div>
         <div class="tank">
             <evj-tank-filling [data]="data.fillLevelPercentage"></evj-tank-filling>
