@@ -5,7 +5,7 @@
 
 .left-title {
   position: absolute;
-  left: 30px;
+  left: 45px;
   top: 5px;
 }
 
@@ -108,6 +108,33 @@
         &::before,
         &::after {
           background: var(--color-text-main);
+        }
+      }
+
+      &_bottom {
+        top: 5px;
+        left: 18px;
+        right: auto;
+      }
+    }
+
+    &__search {
+      position: absolute;
+      z-index: 2;
+
+      width: 26px;
+      height: 26px;
+
+      top: 0px;
+      bottom: 0px;
+      right: 20px;
+      margin: auto;
+
+      svg-icon {
+        cursor: pointer;
+
+        &:hover ::ng-deep path {
+          fill: var(--color-text-main);
         }
       }
 

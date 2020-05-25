@@ -11,7 +11,7 @@ import { ReportsService } from '../../services/widgets/reports.service';
 export class CustomReportPropertiesReferenceComponent extends WidgetPlatform implements OnInit, OnDestroy {
   @ViewChild('propertiesRefereneTable') public testBlock: ElementRef;
   @ViewChild('customOptions') public testBlock2: ElementRef;
-  
+
   public static itemCols: number = 32;
   public static itemRows: number = 15;
 
@@ -53,22 +53,25 @@ export class CustomReportPropertiesReferenceComponent extends WidgetPlatform imp
 
   ngOnInit(): void {
     super.widgetInit();
-    this.subscriptions.push(
-      this.getReference(),
-    );
   }
 
   @HostListener('document:resize', ['$event'])
-  OnResize(event) {
-    this.blockNeed();
+  OnResize(event): void {
     this.setStyleScroll();
+  }
+
+  protected dataConnect(): void {
+    super.dataConnect();
+    this.subscriptions.push(
+      this.getReference(),
+    );
   }
 
   ngOnDestroy(): void {
     super.ngOnDestroy();
   }
 
-  setStyleScroll() {
+  setStyleScroll(): void {
     const rightScroll = document.getElementById('rightScrollReportRef');
     const leftScroll = document.getElementById('leftScrollReportRef');
 
@@ -94,18 +97,7 @@ export class CustomReportPropertiesReferenceComponent extends WidgetPlatform imp
     //this.data = ref.chartItems;
   }
 
-  blockNeed(): void {
-    // this.blockOut = [];
-    // if (this.testBlock2.nativeElement !== undefined) {
-    //   const heihtOut = (this.testBlock.nativeElement.clientHeight - this.testBlock2.nativeElement.clientHeight) / 40;
-    //   for (let i = 0; i < heihtOut - 1; i++) {
-    //     this.blockOut.push(i);
-    //   }
-    // }
-  }
-
-
-  getReference() {
+  getReference(): any {
     return this.reportService.getCustomOptions().subscribe((data) => {
       this.datas = data;
       this.data = this.datas;
@@ -113,16 +105,10 @@ export class CustomReportPropertiesReferenceComponent extends WidgetPlatform imp
     });
   }
 
-  onClickReference(data, index) {
+  onClickReference(data, index): void {
     this.idReferenceClick = data.id;
     this.indexColumn = index;
-    this.blockNeed();
     this.setStyleScroll();
-
-    // this.reportService.getColumns(this.idReferenceClick).subscribe((datas) => {
-    //   data.columns = datas;
-    //
-    // });
   }
 
   onPushReference(): void {
