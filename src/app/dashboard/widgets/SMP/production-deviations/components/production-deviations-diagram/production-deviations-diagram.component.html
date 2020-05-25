@@ -38,6 +38,7 @@
             style.--limit-color="var(--color-smp-{{data.limits.upType}})"
             [style.bottom]="limits.up"
           >
+            <div class="limit"></div>
             <div
               class="limit__label"
               *ngIf="selection.selected[0].fact > selection.selected[0].limit.value && selection.selected[0].direction==='up'"
@@ -64,6 +65,7 @@
             style.--limit-color="var(--color-smp-{{data.limits.downType}})"
             [style.bottom]="limits.down"
           >
+            <div class="limit"></div>
             <div
               class="limit__label"
               *ngIf="selection.selected[0].fact > selection.selected[0].limit.value && selection.selected[0].direction==='down'"
@@ -91,6 +93,7 @@
             style.--limit-color="var(--color-smp-{{data.limits.upType}})"
             [style.bottom]="limits.up"
           >
+            <div class="limit"></div>
             <div
               class="limit__label"
               *ngIf="selection.selected[0].fact > selection.selected[0].limit.value"
