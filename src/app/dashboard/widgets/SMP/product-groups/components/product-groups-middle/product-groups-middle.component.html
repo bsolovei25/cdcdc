@@ -1,5 +1,11 @@
 <div class="cb">
   <div #circle class="item-b"></div>
+
+  <div class="back-image" [class.back-image__warning]="data.pieStatus === 'warning'"
+    [class.back-image__danger]="data.pieStatus === 'danger'">
+    <svg-icon src="./assets/icons/widgets/SMP/circle-back.svg" [svgStyle]="{ 'width.px':69, 'height.px':69 }">
+    </svg-icon>
+  </div>
   <!--LEFT-BUTTON-->
 
   <div class="scale__top">

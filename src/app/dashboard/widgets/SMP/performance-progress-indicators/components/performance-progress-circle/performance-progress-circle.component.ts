@@ -168,7 +168,7 @@ export class PerformanceProgressCircleComponent implements OnInit, OnChanges {
       .attr('y', '46')
       .attr('width', '3px')
       .attr('height', '11px')
-      .attr('fill', 'var(--color-text-sub)');
+      .attr('fill', 'var(--color-smp-text-sub)');
 
 
     const scaleBottom = this.svgCircle

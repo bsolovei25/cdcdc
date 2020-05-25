@@ -243,14 +243,6 @@ export class ProductGroupsMiddleComponent implements OnInit, OnChanges {
 
         }
 
-        const aroundGauge = this.svg
-            .append('image')
-            .attr('xlink:href', '/assets/icons/widgets/SMP/circle-back.svg')
-            .attr('height', '100%')
-            .attr('width', '100%')
-            .attr('x', '-15')
-            .attr('y', '5');
-
         if (coordsPoint) {
             let defaultX = coordsPoint.x + 146;
             let defaultY = coordsPoint.y + 151;

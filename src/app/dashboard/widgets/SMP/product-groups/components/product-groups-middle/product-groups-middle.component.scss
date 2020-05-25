@@ -221,3 +221,26 @@
     z-index: 999;
   }
 }
+
+.back-image {
+  position: absolute;
+  margin-left: 88px;
+  z-index: 1001;
+  margin-top: 5px;
+
+  &__warning {
+    ::ng-deep {
+      .fb0d19dd-cfba-4ec5-8801-081f1b56374c {
+        fill: var(--color-warning);
+      }
+    }
+  }
+
+  &__danger {
+    ::ng-deep {
+      .fb0d19dd-cfba-4ec5-8801-081f1b56374c {
+        fill: var(--color-danger);
+      }
+    }
+  }
+}

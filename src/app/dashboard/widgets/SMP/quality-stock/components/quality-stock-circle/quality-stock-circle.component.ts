@@ -42,43 +42,12 @@ export class QualityStockCircleComponent implements OnInit, OnChanges {
   public termoRadius: string = (15.91549430918954 + 6).toString();
   public radPoint: string = '0.8';
 
-  public dataN = {
-    circleDiagram: { lowerLimit: 80, upperLimit: 90, termo: 102, electro: 0, fuel: 0 },
-    curValue: 10000,
-    currentValue: 10000,
-    electroCard: {
-      cardType: "electro",
-      curValue: 3000,
-      currentValue: 3000,
-      deviation1: 142.1,
-      deviation2: 0.1,
-      plan: 1000,
-    },
-    fuelCard: {
-      cardType: "fuel",
-      curValue: 620,
-      currentValue: 620,
-      deviation1: 142.1,
-      deviation2: 0.1,
-      plan: 1000,
-    },
-    higherBorder: 0.1,
-    higherValue: 1100,
-    lowerBorder: 0.2,
-    lowerValue: 800,
-    maxValue: 1500,
-    plan: 1000,
-    termoCard: {
-      cardType: "termo",
-      curValue: 1900,
-      currentValue: 1900,
-      deviation1: 142.1,
-      deviation2: 0.1,
-      plan: 1000
-    },
-    title: "Энергетика",
-    unitsOfMeasure: "индекс",
-    widgetType: "energetics",
+  public dataN: IQualityStockCircle = {
+    lowerLimit: 80,
+    upperLimit: 90,
+    termo: 94,
+    electro: 0,
+    fuel: 0
   }
 
 
@@ -88,13 +57,7 @@ export class QualityStockCircleComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(): void {
-    this.dataN.lowerBorder =
-      Math.abs(this.dataN.lowerBorder - this.dataN.plan) / this.dataN.plan;
-    this.dataN.higherBorder =
-      Math.abs(this.dataN.higherBorder - this.dataN.plan) / this.dataN.plan;
-    this.dataN.lowerValue = this.dataN.plan * (1 - this.dataN.lowerBorder);
-    this.dataN.higherValue = this.dataN.plan * (1 + this.dataN.higherBorder);
-    this.energyCircleDiagram = this.dataN.circleDiagram;
+    this.energyCircleDiagram = this.dataN;
   }
 
   /* Отрисовка дуговых диаграмм */
@@ -107,7 +70,7 @@ export class QualityStockCircleComponent implements OnInit, OnChanges {
   diaLine(r: string, line: number): string {
     const c: number = 2 * Math.PI * +r;
     const percent: number = line / 100;
-    let lineLength: number = percent * 0.5 * c;
+    let lineLength: number = percent * 0.75 * c;
     if (lineLength > 0.75 * c) {
       lineLength = 0.75 * c;
     }
@@ -117,7 +80,7 @@ export class QualityStockCircleComponent implements OnInit, OnChanges {
   diaOffset(r: string, line: number): string {
     const c: number = 2 * Math.PI * +r;
     const percent: number = line / 100;
-    let lineLength: number = percent * 0.5 * c;
+    let lineLength: number = percent * 0.75 * c;
     if (lineLength > 0.75 * c) {
       lineLength = 0.75 * c;
     }
@@ -126,7 +89,7 @@ export class QualityStockCircleComponent implements OnInit, OnChanges {
 
   diaLimits(line: number): IEnergeticsLimits {
     const newLine = 100 - line; // отсчет угла от 100%
-    const t = (Math.PI * newLine) / 100 + Math.PI / 2;
+    const t = (Math.PI * newLine) / 67 + Math.PI / 240;
     const rMin = 13;
     const rMax = 25;
     const limitLine: IEnergeticsLimits = {
@@ -176,9 +139,9 @@ export class QualityStockCircleComponent implements OnInit, OnChanges {
   diaEndsLine(line: number, rad: string): IEnergeticsEndsLine {
     let newLine = 100 - line + +this.radPoint; // отсчет угла от 100%
     if (newLine < -50) {
-      newLine = -50 + +this.radPoint * 2;
+      newLine = +this.radPoint * 2;
     }
-    const t = (Math.PI * newLine) / 100 + Math.PI / 2;
+    const t = (Math.PI * newLine) / 67 + Math.PI / 240;
     const r = +rad;
     const limitLine: IEnergeticsEndsLine = {
       xCen: (r * Math.cos(t) + +this.centerX).toString(),

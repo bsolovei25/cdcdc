@@ -541,16 +541,16 @@ table {
 }
 
 .middle_bottom-short {
-  width: calc(100% - 375px) !important;
+  width: calc(100% - 370px) !important;
   &:after {
     content: "";
     position: absolute;
-    width: 23px;
-    height: 6px;
+    width: 24px;
+    height: 11px;
     background: var(--color-bg-main);
     border-top: 1px dashed var(--color-smp-border);
     transform: rotate(-45deg);
-    right: -8px;
+    right: -10px;
     top: 4px;
   }
 }
