@@ -128,7 +128,7 @@ export class ProductGroupsLeftComponent implements OnInit, OnChanges {
         if (filterName.length !== 1) {
             const name1 = this.svg
                 .append('text')
-                .attr('font-size', '18px')
+                .attr('font-size', '20px')
                 .attr('x', '30')
                 .attr('y', '50')
                 .attr('fill', 'white')
@@ -136,7 +136,7 @@ export class ProductGroupsLeftComponent implements OnInit, OnChanges {
 
             const name2 = this.svg
                 .append('text')
-                .attr('font-size', '18px')
+                .attr('font-size', '20px')
                 .attr('x', '30')
                 .attr('y', '70')
                 .attr('fill', 'white')
@@ -144,7 +144,7 @@ export class ProductGroupsLeftComponent implements OnInit, OnChanges {
         } else {
             const name = this.svg
                 .append('text')
-                .attr('font-size', '18px')
+                .attr('font-size', '20px')
                 .attr('x', '50')
                 .attr('y', '55')
                 .attr('fill', 'white')
@@ -165,16 +165,16 @@ export class ProductGroupsLeftComponent implements OnInit, OnChanges {
                     }
                 }
             )
-            .attr('height', '19px')
+            .attr('height', '15px')
             .attr('width', () => {
                 if (data.pointStatus === 'normal') {
-                    return '12px';
+                    return '8px';
                 } else {
                     return '32px';
                 }
             })
             .attr('x', '20')
-            .attr('y', '40');
+            .attr('y', '42');
 
         const icon = this.svg
             .append('image')
