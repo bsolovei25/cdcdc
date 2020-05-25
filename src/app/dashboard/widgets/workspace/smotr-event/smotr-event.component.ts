@@ -48,11 +48,4 @@ export class SmotrEventComponent implements OnInit {
             this.ewService.escalateEvent();
         }
     }
-
-    public onCloseEvent(event: boolean): void {
-        this.isEscalatePopupOpen = false;
-        if (event) {
-            this.ewService.closeEvent();
-        }
-    }
 }

@@ -85,7 +85,7 @@ export class PetroleumScreenService {
 
     public openScreen(screen: string): void {
         this.localScreenState$.next(screen);
-        console.log(screen);
+        // console.log(screen);
     }
 
     public async chooseTransfer(uid: string, toFirst: boolean = false): Promise<void> {
@@ -190,7 +190,7 @@ export class PetroleumScreenService {
         this.isLoad$.next(false);
         currentTransfer.isActive = true;
         this.currentTransfer$.next(currentTransfer);
-        console.log(currentTransfer);
+        // console.log(currentTransfer);
     }
 
     public setTime(isSource: boolean, dateTime: Date): void {
@@ -215,7 +215,7 @@ export class PetroleumScreenService {
 
     public async setClient(widgetId: string): Promise<void> {
         this.client = (await this.getClientAsync(widgetId))?.data ?? null;
-        console.log(this.client);
+        // console.log(this.client);
     }
 
     private async getClientAsync(widgetId: string): Promise<{ data: string }> {
@@ -283,7 +283,7 @@ export class PetroleumScreenService {
 
     public async saveTransfer(): Promise<void> {
         const currentTransfer = this.currentTransfer$.getValue();
-        console.log(currentTransfer);
+        // console.log(currentTransfer);
         let uid: string;
         try {
             if (currentTransfer.operationType === 'Exist') {
@@ -312,7 +312,7 @@ export class PetroleumScreenService {
             if (!object && !direction) {
                 return await this.getObjectsAsync(client);
             } else if (!direction) {
-                console.log('getObject');
+                // console.log('getObject');
                 return [await this.getObjectAsync(client, object)];
             }
             const allObjects = [
@@ -392,8 +392,8 @@ export class PetroleumScreenService {
                 `${this.restUrl}/api/petroleum-flow-clients/objects/${objectName}/products`
             )
             .toPromise();
-        console.log(objectName);
-        console.log(ans);
+        // console.log(objectName);
+        // console.log(ans);
         return ans;
     }
 

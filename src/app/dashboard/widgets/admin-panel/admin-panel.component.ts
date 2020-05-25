@@ -2,16 +2,17 @@ import { Component, OnInit, OnDestroy, Inject } from '@angular/core';
 import { IButtonImgSrc, IBrigadeAdminPanel, IWorkspace } from '../../models/admin-panel';
 import { AdminPanelService } from '../../services/admin-panel/admin-panel.service';
 import { IUser, IUnitEvents } from '../../models/events-widget';
-import { Subscription, combineLatest } from 'rxjs';
+import {combineLatest } from 'rxjs';
 import { WidgetService } from '../../services/widget.service';
 import { IInputOptions } from '../../../@shared/models/input.model';
+import { WidgetPlatform } from '../../models/widget-platform';
 
 @Component({
     selector: 'evj-admin-panel',
     templateUrl: './admin-panel.component.html',
     styleUrls: ['./admin-panel.component.scss'],
 })
-export class AdminPanelComponent implements OnInit, OnDestroy {
+export class AdminPanelComponent extends WidgetPlatform implements OnInit, OnDestroy {
     //#region WIDGET_PROPS
     public title: string = 'Панель администратора';
     public previewTitle: string = 'admin-panel';
@@ -78,17 +79,27 @@ export class AdminPanelComponent implements OnInit, OnDestroy {
     public static minItemCols: number = 43;
     public static minItemRows: number = 28;
 
-    private subscriptions: Subscription[] = [];
-
     constructor(
-        private widgetService: WidgetService,
+        protected widgetService: WidgetService,
+        private adminService: AdminPanelService,
         @Inject('isMock') public isMock: boolean,
         @Inject('widgetId') public id: string,
-        @Inject('uniqId') public uniqId: string,
-        private adminService: AdminPanelService
-    ) {}
+        @Inject('uniqId') public uniqId: string
+    ) {
+        super(widgetService, isMock, id, uniqId);
+    }
 
     public ngOnInit(): void {
+        super.widgetInit();
+    }
+
+    public ngOnDestroy(): void {
+        super.ngOnDestroy();
+        this.adminService.setDefaultActiveWorker();
+    }
+
+    protected async dataConnect(): Promise<void> {
+        super.dataConnect();
         this.isDataLoading = true;
         this.adminService.updateAllWorkers().then();
         this.adminService.updateAllBrigades().then();
@@ -134,9 +145,7 @@ export class AdminPanelComponent implements OnInit, OnDestroy {
         );
     }
 
-    public ngOnDestroy(): void {
-        this.subscriptions.forEach((subs: Subscription) => subs.unsubscribe());
-        this.adminService.setDefaultActiveWorker();
+    protected dataHandler(ref: any): void {
     }
 
     public createNewWorker(): void {

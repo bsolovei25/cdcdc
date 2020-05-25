@@ -3,12 +3,10 @@ import { AuthService } from '@core/service/auth.service';
 import { Router } from '@angular/router';
 import { IUser } from '../../models/events-widget';
 import { Subscription } from 'rxjs';
-import { Overlay, OverlayConfig, OverlayRef } from '@angular/cdk/overlay';
-import { ComponentPortal } from '@angular/cdk/portal';
-import { PasswordResetComponent } from '../../../@core/pages/reset-password/password-reset.component';
 import { AppConfigService } from '../../../services/appConfigService';
 import { OverlayService } from '../../services/overlay.service';
 import { AvatarConfiguratorService } from '../../services/avatar-configurator.service';
+import { IAlertPasswordModel } from '../../../@shared/models/alert-password.model';
 
 @Component({
     selector: 'evj-user-info',
@@ -28,24 +26,20 @@ export class UserInfoComponent implements OnInit, OnDestroy {
 
     public photoPath: string = 'assets/icons/widgets/admin/default_avatar2.svg';
 
-    private overlayRef: OverlayRef | null;
-
     isShowScreens: boolean = false;
     subscription: Subscription;
 
     constructor(
         private authService: AuthService,
         private router: Router,
-        public overlay: Overlay,
         public viewContainerRef: ViewContainerRef,
         private configService: AppConfigService,
-        public myOverlayService: OverlayService,
-        private avatarConfiguratorService: AvatarConfiguratorService,
-    ) { }
+        public overlayService: OverlayService,
+        private avatarConfiguratorService: AvatarConfiguratorService
+    ) {}
 
     ngOnInit(): void {
         this.loadData();
-        this.myOverlayService.closed$.subscribe((val) => this.closeOverlay(val));
     }
 
     ngOnDestroy(): void {
@@ -65,23 +59,13 @@ export class UserInfoComponent implements OnInit, OnDestroy {
     }
 
     resetPassword(): void {
-        const config = new OverlayConfig();
-        config.positionStrategy = this.overlay.position()
-            .global()
-            .centerHorizontally()
-            .centerVertically();
-        config.hasBackdrop = true;
-        this.overlayRef = this.overlay.create(config);
-        this.overlayRef.backdropClick().subscribe(() => {
-            this.overlayRef.dispose();
-        });
-        this.overlayRef.attach(new ComponentPortal(PasswordResetComponent, this.viewContainerRef));
+        const passwordOptions: IAlertPasswordModel = {
+            isShow: true,
+            isCreatePassword: false,
+            closeFunction: () => this.overlayService.dashboardAlertPassword$.next(null),
+        };
+        this.overlayService.dashboardAlertPassword$.next(passwordOptions);
     }
-
-    closeOverlay(value): void {
-        value ? this.overlayRef.dispose() : null;
-    }
-
 
     async logOut(): Promise<void> {
         await this.authService.logOut();

@@ -284,6 +284,35 @@
             }
           }
         }
+        .combo-box {
+          background-color: var(--color-bg-main);
+          border-radius: 25px;
+          margin: 10px;
+
+          &_selectbox {
+            width: 100%;
+            max-height: 36px;
+            ::ng-deep {
+              .mat-form-field-infix {
+                border-top: 5px solid transparent;
+              }
+
+              .mat-form-field-underline {
+                display: none;
+              }
+              .mat-form-field-infix {
+                padding-top: 0 !important;
+              }
+              .mat-form-field-flex {
+                padding-top: 4px !important;
+                padding-left: 20px !important;
+              }
+              .mat-select-arrow-wrapper {
+                transform: translateY(9%);
+              }
+            }
+          }
+        }
 
         .email {
           height: 100%;
@@ -296,8 +325,6 @@
               font-size: 12px;
               display: flex;
               align-items: center;
-            }
-            &__value {
             }
           }
 
@@ -327,8 +354,6 @@
                 }
               }
             }
-            &__value {
-            }
           }
 
           &__copy {
@@ -356,8 +381,6 @@
                   background-image: url(../../../../assets/icons/widgets/workflow/add_user-active_w.svg);
                 }
               }
-            }
-            &__value {
             }
           }
 
@@ -407,6 +430,23 @@
       }
     }
   }
+}
+
+::ng-deep .combo-box_selectbox {
+  mat-option {
+    &.mat-option.mat-selected:not(.mat-option-disabled) {
+      color: var(--color-active) !important;
+    }
+    &:hover {
+      background-color: var(--color-bg-card-workflow) !important;
+    }
+  }
+}
+
+::ng-deep .mat-tooltip {
+  font-size: 12px;
+  background-color: var(--color-bg-main);
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.349);
 }
 
 .remove-line__icon {

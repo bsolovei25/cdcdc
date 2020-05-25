@@ -5,7 +5,7 @@ import {
     Inject,
     OnDestroy,
 } from '@angular/core';
-import { WIDGETS } from '../new-widgets-grid/widget-map';
+import { WIDGETS } from './widget-map';
 import { WidgetModel } from '../../models/widget.model';
 import {
     GridsterConfig,
@@ -28,11 +28,11 @@ export interface IParamWidgetsGrid {
 }
 
 @Component({
-    selector: 'evj-new-widgets-grid',
-    templateUrl: './new-widgets-grid.component.html',
-    styleUrls: ['./new-widgets-grid.component.scss'],
+    selector: 'evj-widgets-grid',
+    templateUrl: './widgets-grid.component.html',
+    styleUrls: ['./widgets-grid.component.scss'],
 })
-export class NewWidgetsGridComponent implements OnInit, OnDestroy {
+export class WidgetsGridComponent implements OnInit, OnDestroy {
     public readonly WIDGETS = WIDGETS;
 
     private subscriptions: Subscription[] = [];
@@ -70,7 +70,6 @@ export class NewWidgetsGridComponent implements OnInit, OnDestroy {
         });
         this.subscriptions.push(
             this.claimService.claimWidgets$.subscribe((value) => {
-                console.log('widget-grid sub init');
                 if (value) {
                     this.claimSettings = value;
                     this.options = null;
