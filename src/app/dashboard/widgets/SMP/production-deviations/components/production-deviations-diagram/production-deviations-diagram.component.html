@@ -23,7 +23,7 @@
           <div
             class="axis-x__item"
             *ngFor="let col of data.columns"
-            [ngClass]="{'graph__col_active':selection.isSelected(col)}"
+            [ngClass]="{'axis-x__item_active':selection.isSelected(col)}"
           >
             {{col.date|date:"dd"}}
           </div>
@@ -50,7 +50,7 @@
           <div
             class="graph__col"
             *ngFor="let col of data.columns"
-            [ngClass]="{'graph__col_active':selection.isSelected(col)}"
+            [ngClass]="{'graph__col_active graph__col_active-baseline':selection.isSelected(col)}"
           >
             <evj-production-deviations-column
               *ngIf="col.direction==='up'"
@@ -74,11 +74,7 @@
               -{{(selection.selected[0].fact - selection.selected[0].limit.value).toFixed(0)}}
             </div>
           </div>
-          <div
-            class="graph__col"
-            *ngFor="let col of data.columns"
-            [ngClass]="{'graph__col_active':selection.isSelected(col)}"
-          >
+          <div class="graph__col" *ngFor="let col of data.columns">
             <evj-production-deviations-column
               *ngIf="col.direction==='down'"
               [data]="col"

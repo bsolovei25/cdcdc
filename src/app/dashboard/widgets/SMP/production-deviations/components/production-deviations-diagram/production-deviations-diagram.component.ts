@@ -30,7 +30,7 @@ export class ProductionDeviationsDiagramComponent implements OnChanges {
 
     public ngOnChanges(): void {
         this.transformData();
-        const today: Date = new Date();
+        const today: Date = new Date(2020, 4, 15);
         const col = this.data.columns.find((column) => column.date.getDate() === today.getDate());
         this.selection.select(col);
     }
