@@ -18,7 +18,6 @@
   position: relative;
   width: 100%;
   height: calc(100% - 20px);
-  display: flex;
   border-left: 1px solid var(--color-smp-border);
   border-right: 1px solid var(--color-smp-border);
   box-sizing: border-box;
@@ -29,7 +28,8 @@
   border: 1px solid var(--color-smp-border);
   border-bottom: none;
   position: relative;
-  box-shadow: inset 0px 10px 9px -10px var(--color-border-box-shadow);
+  // box-shadow: inset 0px 10px 9px -10px var(--color-border-box-shadow);
+  background: var(--color-smp-events-header);
 
   &:before {
     content: "";
@@ -87,20 +87,57 @@
   }
 }
 
+.header {
+  padding-left: 1px;
+  height: 40px;
+  display: flex;
+  background: var(--color-smp-events-header);
+  justify-content: space-between;
+
+  &__title {
+    color: var(--color-smp-text-sub);
+    font-size: 12px;
+    margin-left: 20px;
+  }
+
+  &__fabric {
+    height: 100%;
+    margin-right: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .icon {
+      position: relative;
+      width: 50px;
+      height: 30px;
+      margin-top: 10px;
+      margin-bottom: 10px;
+
+      &__text {
+        position: absolute;
+        bottom: 0;
+        font-size: 7px;
+        left: 16px;
+        color: var(--color-bg-header-table);
+      }
+    }
+
+    ::ng-deep path {
+      fill: #00a99d;
+    }
+  }
+}
+
 .smp-events {
   display: flex;
   flex-flow: column;
   position: relative;
   width: 100%;
-  height: 100%;
+  height: calc(100% - 40px);
   border-radius: 10px;
   padding: 5px 20px 5px 30px;
   box-sizing: border-box;
-  .header {
-    padding-left: 1px;
-    color: var(--color-smp-text-sub);
-    font-size: 10px;
-  }
   .cards {
     position: relative;
     margin: 15px 0 0 2px;
@@ -111,5 +148,3 @@
     }
   }
 }
-
-
