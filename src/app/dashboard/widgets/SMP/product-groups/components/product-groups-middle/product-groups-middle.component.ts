@@ -91,7 +91,7 @@ export class ProductGroupsMiddleComponent implements OnInit, OnChanges {
         } else if (data.pieStatus === 'warning') {
             color = d3.scaleOrdinal().range(['var(--color-oil-danger)', 'var(--color-oil-circle-disable)']);
         } else if (data.pieStatus === 'normal') {
-            color = d3.scaleOrdinal().range(['var(--color-text-main)', 'var(--color-oil-circle-disable)']);
+            color = d3.scaleOrdinal().range(['var(--color-smp-pie-normal)', 'var(--color-oil-circle-disable)']);
         }
 
         this.svgCircle = d3
@@ -100,7 +100,7 @@ export class ProductGroupsMiddleComponent implements OnInit, OnChanges {
             .attr('min-width', '100px')
             .attr('viewBox', '0 0 100 100');
 
-        const group = this.svgCircle.append('g').attr('transform', 'translate(52 ,52)');
+        const group = this.svgCircle.append('g').attr('transform', 'translate(45 ,52)');
 
         const arc = d3
             .arc()
@@ -129,7 +129,7 @@ export class ProductGroupsMiddleComponent implements OnInit, OnChanges {
             .append('foreignObject')
             .attr('height', 62)
             .attr('width', 62)
-            .attr('x', 20)
+            .attr('x', 14)
             .attr('y', 20);
 
         const div = this.svgCircle
@@ -183,7 +183,7 @@ export class ProductGroupsMiddleComponent implements OnInit, OnChanges {
     }
 
     centerTranslation(r: number): string {
-        return 'translate(' + r + ',' + r + ')';
+        return 'translate(' + (r - 20) + ',' + r + ')';
     }
 
     isRendered(svg): boolean {
@@ -242,14 +242,6 @@ export class ProductGroupsMiddleComponent implements OnInit, OnChanges {
             coordsPoint = pointid.getPointAtLength(pointidLength);
 
         }
-
-        const aroundGauge = this.svg
-            .append('image')
-            .attr('xlink:href', '/assets/icons/widgets/SMP/circle-back.svg')
-            .attr('height', '100%')
-            .attr('width', '100%')
-            .attr('x', '5')
-            .attr('y', '5');
 
         if (coordsPoint) {
             let defaultX = coordsPoint.x + 146;
