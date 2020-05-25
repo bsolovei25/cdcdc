@@ -26,11 +26,14 @@ export interface ITankCardValue {
     tankTitle: string;
     tankType: string;
     fillLevelPercentage: number;
-    values: ICardValues[];
+    measuredVolume: number;
+    temperature: number;
+    dieValue: number;
+    attributes: ICardAttributes[];
 }
 
-export interface ICardValues {
-    value: number;
+export interface ICardAttributes {
+    value: string;
     unit: string;
     description: string;
 }
@@ -38,17 +41,17 @@ export interface ICardValues {
 export class ITankCardValueRef {
     public absolutValue: number;
     public currentValue: number;
-    //  public dieValue: number;
+    public dieValue: number;
     public maxValue: number;
-    //    public measuredVolume: number;
+    public measuredVolume: number;
     public minValue: number;
     public objectStatus: string;
     public passportState: string;
     public tankTitle: string;
     public tankType: string;
-    //    public temperature: number;
+    public temperature: number;
     public fillLevelPercentage: number;
-    public values: ICardValues[];
+    public attributes: ICardAttributes[];
 
     constructor(data: ITankCardValue) {
         Object.assign<ITankCardValueRef, ITankCardValue, Partial<ITankCardValueRef>>(this, data, {});
@@ -59,17 +62,17 @@ export const ITankValueDtoFn = (data: any): any => {
     return new ITankCardValueRef({
         absolutValue: data.absolutValue,
         currentValue: data.currentValue,
-        //   dieValue: data.dieValue,
+        dieValue: data.dieValue,
         maxValue: data.maxValue,
-        //   measuredVolume: data.measuredVolume,
+        measuredVolume: data.measuredVolume,
         minValue: data.minValue,
         objectStatus: data.objectStatus,
         passportState: data.passportState,
         tankTitle: data.tankTitle,
         tankType: data.tankType,
         fillLevelPercentage: data.fillLevelPercentage,
-        //  temperature: data.temperature,
-        values: data.values
+        temperature: data.temperature,
+        attributes: data.attributes,
     });
 };
 

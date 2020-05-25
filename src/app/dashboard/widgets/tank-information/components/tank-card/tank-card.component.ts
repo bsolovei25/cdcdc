@@ -1,15 +1,19 @@
-import { Component, OnInit, Input, AfterViewInit } from '@angular/core';
+import { Component, OnInit, Input, AfterViewInit, ChangeDetectionStrategy, OnChanges } from '@angular/core';
 import { ITankCardValue } from 'src/app/dashboard/models/tank-information';
 import { TooltipService } from '@shared/components/tooltip/service/tooltip.service';
 
 @Component({
   selector: 'evj-tank-card',
   templateUrl: './tank-card.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrls: ['./tank-card.component.scss']
 })
-export class TankCardComponent implements OnInit {
+export class TankCardComponent implements OnInit, OnChanges {
   @Input() public data: ITankCardValue;
   @Input() public idLine: ITankCardValue;
+
+  public heightCard: number;
+  public heightValue: number = 20;
 
   operation = {
     filling: "Заполнение",
@@ -26,8 +30,12 @@ export class TankCardComponent implements OnInit {
 
   constructor(private tooltipService: TooltipService) { }
 
-  ngOnInit(): void {
+  ngOnChanges(): void {
+    this.heightCard = (this.data.attributes.length) * this.heightValue + 40;
     this.tooltipService.close();
+  }
+
+  ngOnInit(): void {
   }
 
 }

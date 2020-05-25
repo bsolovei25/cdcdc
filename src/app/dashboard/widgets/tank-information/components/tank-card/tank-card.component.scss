@@ -1,6 +1,6 @@
 .container-card {
     cursor: pointer;
-    height: 100px;
+    min-height: 100px;
     width: 170px;
     padding-left: 15px;
     border-radius: 15px;
@@ -28,11 +28,14 @@
 
         .tank {
             width: 35%;
+            display: flex;
+            align-items: center;
         }
 
         .status {
-            line-height: 85px;
-            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
             width: 25%;
         }
     }
@@ -135,6 +138,29 @@
             background-color: var(--color-axis);
             opacity: 0.5;
         }
+    }
+}
+
+.att-block {
+    display: flex;
+    height: 20px;
+    font-size: 10px;
+    align-items: center;
+
+    &__value {
+        width: auto;
+        white-space: nowrap;
+    }
+
+    &__unit {
+        margin-left: 2px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    &:hover {
+        color: var(--color-active);
     }
 }
 
