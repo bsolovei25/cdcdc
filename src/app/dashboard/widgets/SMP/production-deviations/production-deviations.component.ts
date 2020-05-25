@@ -9,6 +9,8 @@ import { IProductionDeviationsGraph } from '../../../models/SMP/production-devia
     styleUrls: ['./production-deviations.component.scss'],
 })
 export class ProductionDeviationsComponent extends WidgetPlatform implements OnInit, OnDestroy {
+    public isDataLoading: boolean = true;
+
     public data: IProductionDeviationsGraph[] = [
         {
             graphType: 'baseline',
@@ -821,6 +823,13 @@ export class ProductionDeviationsComponent extends WidgetPlatform implements OnI
 
     public ngOnInit(): void {
         super.widgetInit();
+        this.showLoader();
+    }
+
+    public showLoader(): void {
+        this.isDataLoading = true;
+
+        setTimeout(() => (this.isDataLoading = false), 1500);
     }
 
     public ngOnDestroy(): void {

@@ -5,6 +5,8 @@
   *ngIf="isMock; else noMock"
 ></evj-widget-preview>
 <ng-template #noMock>
+  <evj-loading-shade [isLoading]="isDataLoading"></evj-loading-shade>
+
   <div class="container">
     <evj-widget-header-smp
       [uniqId]="uniqId"
