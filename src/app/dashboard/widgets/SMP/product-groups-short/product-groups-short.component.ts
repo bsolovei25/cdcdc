@@ -26,6 +26,8 @@ export class ProductGroupsShortComponent extends WidgetPlatform implements OnIni
     groupDeviationNotValue: 142543,
     groupDeviationAllValue: 321234,
     gaugePercent: 60,
+    framedPecent: 20,
+    notFramedPercent: 70,
     products: [
       {
         title: 'АИ-92 RERETESTST',
