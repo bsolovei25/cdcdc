@@ -481,6 +481,7 @@ export class WorkflowComponent extends WidgetPlatform implements OnInit, OnDestr
                         {
                             size: this.LEADER_LINE_HEIGHT,
                             color: 'white',
+                            startSocket: 'auto',
                         }
                     );
                     this.leaderLine.push(leaderLine);
@@ -545,15 +546,9 @@ export class WorkflowComponent extends WidgetPlatform implements OnInit, OnDestr
         const lineNode = document.getElementById(lineId);
         const arrowNode = document.querySelector('#' + lineId + ' g use');
 
-        let verticalOffset = 0;
+        let verticalOffset = parseInt(lineNode.style.top.slice(0, -2), 10);
 
         const divArr = lineId.substr(5).split('-s-');
-        console.log(divArr);
-        console.log(
-            document.getElementById(divArr[0]).getBoundingClientRect().y,
-            document.getElementById(divArr[1]).getBoundingClientRect().y,
-            arrowNode.getBoundingClientRect().y
-        );
 
         const pos =
             document.getElementById(divArr[0]).getBoundingClientRect().y <=
@@ -561,26 +556,20 @@ export class WorkflowComponent extends WidgetPlatform implements OnInit, OnDestr
 
         if (pos) {
             verticalOffset =
-                arrowNode.getBoundingClientRect().y - lineNode.getBoundingClientRect().y;
-
-            verticalOffset =
-                parseInt(lineNode.style.top.slice(0, -2), 10) -
                 verticalOffset -
+                arrowNode.getBoundingClientRect().y +
+                lineNode.getBoundingClientRect().y -
                 this.LEADER_LINE_HEIGHT / 2;
         } else {
             verticalOffset =
-                parseInt(lineNode.style.top.slice(0, -2), 10) +
+                verticalOffset +
                 lineNode.getBoundingClientRect().height -
-                iconNode.getBoundingClientRect().height / 2 -
-                3;
+                iconNode.getBoundingClientRect().height / 2 - 3;
         }
         // рассчитываем смещение позиции стрелки внутри viewBox svg
         // вертикальное смещение так же зависит от высоты самих элементов
         const horizontalOffset =
             arrowNode.getBoundingClientRect().x - lineNode.getBoundingClientRect().x;
-        // const verticalOffset = arrowNode.getBoundingClientRect().y - lineNode.getBoundingClientRect().y;
-        // parseInt(iconNode.style.height.slice(0, -2), 10) / 2 -
-        // lineNode.getBoundingClientRect().height / 2;
 
         iconNode.style.left =
             (parseInt(lineNode.style.left.slice(0, -2), 10) + horizontalOffset).toString() + 'px';
