@@ -15,12 +15,13 @@ import {
     IAsusWorkgroup,
     IAsusCategories,
     ISmotrReference,
-    ISaveMethodEvent, IRetrievalEventDto
+    ISaveMethodEvent, IRetrievalEventDto, ISearchRetrievalWindow
 } from '../../models/events-widget';
 import { EventService } from '../widgets/event.service';
 import { SnackBarService } from '../snack-bar.service';
 import { fillDataShape } from '../../../@shared/common-functions';
 import { AvatarConfiguratorService } from '../avatar-configurator.service';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
     providedIn: 'root',
@@ -76,6 +77,8 @@ export class EventsWorkspaceService {
 
     private defaultEvent: EventsWidgetNotification = null;
 
+    public searchWindow$: BehaviorSubject<ISearchRetrievalWindow> = new BehaviorSubject<ISearchRetrievalWindow>(null);
+
     constructor(
         private eventService: EventService,
         private snackBarService: SnackBarService,
@@ -87,7 +90,7 @@ export class EventsWorkspaceService {
         try {
             if (id) {
                 this.event = await this.eventService.getEvent(id);
-                this.event = {...this.defaultEvent, ...this.event};
+                this.event = { ...this.defaultEvent, ...this.event };
             }
             this.eventService.currentEventId$.next(id);
             this.loadReferences();
@@ -161,6 +164,32 @@ export class EventsWorkspaceService {
                 return false;
         }
         return true;
+    }
+
+    public async createRetrievalLink(idRetrieval: number): Promise<void> {
+        const idEvent = this.event.id;
+        console.log('add retrieval: ' + idEvent + idRetrieval);
+        try {
+            await this.eventService.addLink(idEvent, idRetrieval);
+            this.snackBarService.openSnackBar('События успешно связаны!');
+        } catch (err) {
+            console.log(err);
+        } finally {
+            this.editEvent(this.event.id, true);
+        }
+    }
+
+    public async deleteRetrievalLink(idRetrieval: number): Promise<void> {
+        const idEvent = this.event.id;
+        console.log('delete retrieval: ' + idEvent + idRetrieval);
+        try {
+            await this.eventService.deleteLink(idEvent, idRetrieval);
+            this.snackBarService.openSnackBar('Связь между событиями успешно удалена!');
+        } catch (err) {
+            console.log(err);
+        } finally {
+            this.editEvent(this.event.id, true);
+        }
     }
 
     // TODO разделить методы сохранения
@@ -346,5 +375,9 @@ export class EventsWorkspaceService {
             }),
         );
         await Promise.all(dataLoadQueue);
+    }
+
+    public closeSearchWindow(): void {
+        this.searchWindow$.next(null);
     }
 }

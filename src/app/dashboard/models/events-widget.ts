@@ -275,10 +275,11 @@ export interface EventsWidgetData {
 }
 
 export interface EventsWidgetOptions {
-    categories: number[];
-    filter: EventsWidgetFilterCode;
-    dates: { fromDateTime: Date; toDateTime: Date };
-    placeNames: string[];
+    categories?: number[];
+    filter?: EventsWidgetFilterCode;
+    dates?: { fromDateTime: Date; toDateTime: Date };
+    placeNames?: string[];
+    description?: string;
 }
 
 export interface EventsWidgetsStats {
@@ -295,4 +296,11 @@ export interface EventsWidgetsStatsCategory {
 export interface EventsWidgetsStatsStatus {
     status: { id: number };
     count: number;
+}
+
+export interface ISearchRetrievalWindow {
+    isShow: boolean;
+    idEvent: number;
+    acceptFunction?: () => void;
+    closeFunction?: () => void;
 }

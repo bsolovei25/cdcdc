@@ -273,6 +273,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { OilControlTableComponent } from './widgets/oil-control/components/oil-control-table/oil-control-table.component';
 import { OilControlTowerComponent } from './widgets/oil-control/components/oil-control-tower/oil-control-tower.component';
 import { WidgetPanelComponent } from './components/widget-panel/widget-panel.component';
+import { EventSearchWindowComponent } from './widgets/workspace/components/event-search-window/event-search-window.component';
 
 @NgModule({
     declarations: [
@@ -514,7 +515,8 @@ import { WidgetPanelComponent } from './components/widget-panel/widget-panel.com
         EventsReasonsSingleComponent,
         OilControlTableComponent,
         OilControlTowerComponent,
-        WidgetPanelComponent
+        WidgetPanelComponent,
+        EventSearchWindowComponent,
     ],
     entryComponents: [
         LineChartComponent,
