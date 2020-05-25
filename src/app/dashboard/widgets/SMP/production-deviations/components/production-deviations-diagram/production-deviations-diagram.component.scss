@@ -133,7 +133,7 @@
         height: max-content;
 
         &:first-child {
-          color: var(--color-active);
+          color: var(--color--active);
         }
       }
     }
@@ -206,7 +206,7 @@
         }
 
         &:last-child {
-          color: var(--color-active);
+          color: var(--color-smp-active);
         }
       }
     }
@@ -252,7 +252,7 @@
     }
 
     &__limit {
-      --limit-color: var(--color-danger);
+      --limit-color: var(--color-smp-danger);
 
       position: absolute;
       z-index: 5;
@@ -267,7 +267,7 @@
       border-bottom: 1px dashed var(--limit-color);
 
       background: linear-gradient(to top, var(--limit-color) 0%, transparent 100%);
-      opacity: 0.7;
+      opacity: 0.5;
 
       .limit {
         &__label {
@@ -291,7 +291,7 @@
     &__baseline {
       width: 100%;
       height: var(--baseline-height);
-      background: var(--color-active);
+      background: var(--color-smp-active);
     }
 
     &__col {
@@ -316,7 +316,7 @@
           top: 0;
           left: 0;
 
-          background: var(--color-active);
+          background: var(--color-smp-active);
           opacity: 0.3;
         }
       }
