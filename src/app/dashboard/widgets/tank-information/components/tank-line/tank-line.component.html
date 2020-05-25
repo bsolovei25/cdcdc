@@ -1,5 +1,5 @@
 <div class="container-line">
-    <div class="container-line__title">
+    <div class="container-line__title" [style.height.px]="heightCard">
         {{ data.name }}
     </div>
     <div class="container-line__content" *ngFor="let item of data.tank; let i = index">
