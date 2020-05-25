@@ -28,6 +28,12 @@
         <div class="info__text">{{event.fixedByName}}</div>
       </div>
       <div class="info__buttons">
+        <div class="button button__link" (click)="onClickUnlink()">
+          <svg-icon
+            src="./assets/icons/chain-break.svg"
+            [svgStyle]="{ 'width.px':18, 'height.px':18}">
+          </svg-icon>
+        </div>
         <div class="button button__delete" (click)="onClickDelete()">
           <svg-icon
             src="assets/icons/widgets/workspace/delete.svg"
@@ -37,7 +43,7 @@
         <div class="button button__edit" (click)="onClickEdit()">
           <svg-icon
             src="assets/icons/widgets/workspace/edit.svg"
-            [svgStyle]="{ 'width.px':20, 'height.px':20 }"
+            [svgStyle]="{ 'position': 'absolute', 'width.px':25, 'height.px':25, 'left.px':-3, 'top.px':-3 }"
           ></svg-icon>
         </div>
       </div>

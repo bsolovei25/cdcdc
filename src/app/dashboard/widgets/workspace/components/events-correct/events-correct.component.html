@@ -1,9 +1,11 @@
 <div class="events-correct">
   <div class="events-correct__header">
     <div [class.left-title]="!isSmotr">Корректирующие мероприятия</div>
-    <div class="button__add"
-         [class.button__add_bottom]="!isSmotr"
-         (click)="addRetrieval()">
+    <div class="button__search" (click)="openSearchRetrieval()" [class.button__search_bottom]="!isSmotr">
+      <svg-icon src="./assets/icons/widgets/workspace/searchWindow.svg"
+        [svgStyle]="{ 'width.px':20, 'height.px':20, 'margin-top.px': 3}"></svg-icon>
+    </div>
+    <div class="button__add" [class.button__add_bottom]="!isSmotr" (click)="addRetrieval()">
     </div>
     <div class="date" *ngIf="!isSmotr">
       <div class="date__title">Начало события</div>
@@ -14,13 +16,13 @@
     <div class="cards-list">
       <ng-container *ngFor="let retrieval of ewService.event.retrievalEvents">
         <div class="card">
-          <evj-events-correct-card [event]="retrieval"></evj-events-correct-card>
+          <evj-events-correct-card [event]="retrieval" [isClickable]="true"></evj-events-correct-card>
         </div>
       </ng-container>
     </div>
   </div>
   <div class="events-correct__footer">
-<!--    <div class="button__add button__add_bottom" *ngIf="!isSmotr" (click)="addRetrieval()"></div>-->
+    <!--    <div class="button__add button__add_bottom" *ngIf="!isSmotr" (click)="addRetrieval()"></div>-->
     <div class="date" *ngIf="!isSmotr && ewService.event.eventEndDateTime">
       <div class="date__title">Завершение события</div>
       <div class="date__info">{{ewService.event.eventEndDateTime | date:'dd-MM-yyyy HH:mm'}}</div>

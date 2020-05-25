@@ -129,6 +129,18 @@ export class EventService {
         }
     }
 
+    async addLink(idEvent: number, idRetrieval: number): Promise<any> {
+        return this.http
+            .post(`${this.restUrl}/api/notification-retrieval/${idEvent}/RetrievalEvents/${idRetrieval}`, null)
+            .toPromise();
+    }
+
+    async deleteLink(idEvent: number, idRetrieval: number): Promise<any> {
+        return this.http
+            .delete(`${this.restUrl}/api/notification-retrieval/${idEvent}/RetrievalEvents/${idRetrieval}`)
+            .toPromise();
+    }
+
     async getStatus(): Promise<IStatus[]> {
         try {
             return this.http
@@ -341,22 +353,31 @@ export class EventService {
                 `fromDateTime=${options.dates?.fromDateTime.toISOString()}&` +
                 `toDateTime=${options.dates?.toDateTime.toISOString()}`;
         }
-        for (const category of options.categories) {
-            res += `&categoryIds=${category}`;
+        if (options.categories?.length > 0) {
+            for (const category of options.categories) {
+                res += `&categoryIds=${category}`;
+            }
         }
-        for (const place of options.placeNames) {
-            res += `&placeNames=${place}`;
+        if (options.placeNames?.length > 0) {
+            for (const place of options.placeNames) {
+                res += `&placeNames=${place}`;
+            }
         }
-        switch (options.filter) {
-            case 'all':
-                res += '&statusIds=3001&statusIds=3002';
-                break;
-            case 'closed':
-                res += '&statusIds=3003';
-                break;
-            case 'inWork':
-                res += '&statusIds=3002';
-                break;
+        if (options.filter) {
+            switch (options.filter) {
+                case 'all':
+                    res += '&statusIds=3001&statusIds=3002';
+                    break;
+                case 'closed':
+                    res += '&statusIds=3003';
+                    break;
+                case 'inWork':
+                    res += '&statusIds=3002';
+                    break;
+            }
+        }
+        if (options.description) {
+            res += `&description=${options.description}`;
         }
         return res;
     }
