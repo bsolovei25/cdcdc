@@ -149,17 +149,19 @@
     }
 
     .info__buttons {
-      width: 50px;
+      width: 75px;
       height: 20px;
 
       display: flex;
       flex-direction: row;
-      justify-content: space-around;
+      justify-content: space-between;
       align-items: center;
     }
   }
 
   .button {
+    position: relative;
+
     width: 20px;
     height: 20px;
 
