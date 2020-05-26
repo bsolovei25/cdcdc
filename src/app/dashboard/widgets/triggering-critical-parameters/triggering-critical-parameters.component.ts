@@ -2,6 +2,7 @@ import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { EventService } from '../../services/widgets/event.service';
 import { WidgetService } from '../../services/widget.service';
+import { WidgetPlatform } from '../../models/widget-platform';
 
 export interface ITriggeringCriticalParameters {
     equipment: string;
@@ -20,11 +21,9 @@ export interface ITriggeringCriticalParameters {
     templateUrl: './triggering-critical-parameters.component.html',
     styleUrls: ['./triggering-critical-parameters.component.scss'],
 })
-export class TriggeringCriticalParametersComponent implements OnInit, OnDestroy {
+export class TriggeringCriticalParametersComponent extends WidgetPlatform
+    implements OnInit, OnDestroy {
     isLoading: boolean = false;
-
-    public title = '';
-    private subscription: Subscription;
 
     data: ITriggeringCriticalParameters[] = [
         {
@@ -364,8 +363,6 @@ export class TriggeringCriticalParametersComponent implements OnInit, OnDestroy 
     public static minItemCols: number = 15;
     public static minItemRows: number = 30;
 
-    public previewTitle: string;
-
     constructor(
         private eventService: EventService,
         public widgetService: WidgetService,
@@ -373,19 +370,20 @@ export class TriggeringCriticalParametersComponent implements OnInit, OnDestroy 
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string
     ) {
-        this.subscription = this.widgetService.getWidgetChannel(this.id).subscribe((data) => {
-            this.title = data.title;
-            this.previewTitle = data.widgetType;
+        super(widgetService, isMock, id, uniqId);
+    }
+
+    public ngOnInit(): void {
+        super.widgetInit();
+    }
+
+    public ngOnDestroy(): void {
+        super.ngOnDestroy();
+    }
+
+    protected dataHandler(ref: ITriggeringCriticalParameters[]): void {
+        this.data = ref.map((item) => {
+            return { ...item };
         });
-    }
-
-    ngOnInit() {
-
-    }
-
-    ngOnDestroy() {
-        if (this.subscription) {
-            this.subscription.unsubscribe();
-        }
     }
 }

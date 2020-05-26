@@ -83,7 +83,7 @@
                 {{ item.energy }}
               </td>
               <td class="item item__energy_procent" [ngClass]="{'open-procent': item.nonCritical}">
-                -3.9
+                {{ item.energyPercentage }}
               </td>
               <td class="item item__consumption">
                 {{ item.consumption }}
@@ -92,13 +92,13 @@
                 class="item item__consumption_procent"
                 [ngClass]="{'open-procent': item.nonCritical}"
               >
-                0
+                {{item.consumptionPercentage}}
               </td>
               <td class="item item__fuel">
                 {{ item.fuel }}
               </td>
               <td class="item item__fuel_procent" [ngClass]="{'open-procent': item.nonCritical}">
-                0
+                {{item.fuelPercentage}}
               </td>
             </tr>
           </tbody>
