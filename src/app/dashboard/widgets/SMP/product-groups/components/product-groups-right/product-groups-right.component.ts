@@ -178,8 +178,8 @@ export class ProductGroupsRightComponent implements OnInit, OnChanges {
             .attr('font-family', "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
             .text(deviationNotValue);
 
-        const procentPrgoress1 = 60; //PROCENT PROGRESSS FROM BACK
-        const procentPrgoress2 = 20;
+        const procentPrgoress1 = data.framedPecent;
+        const procentPrgoress2 = data.notFramedPercent;
 
         const progressLine1 = el
             .append('rect')

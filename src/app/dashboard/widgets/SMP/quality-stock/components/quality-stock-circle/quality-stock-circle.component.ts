@@ -42,6 +42,7 @@ export class QualityStockCircleComponent implements OnInit, OnChanges {
   public termoRadius: string = (15.91549430918954 + 6).toString();
   public radPoint: string = '0.8';
 
+  /// TEST MOCK
   public dataN: IQualityStockCircle = {
     lowerLimit: 80,
     upperLimit: 90,
@@ -50,14 +51,15 @@ export class QualityStockCircleComponent implements OnInit, OnChanges {
     fuel: 0
   }
 
-
   constructor() { }
 
   ngOnInit(): void {
   }
 
   ngOnChanges(): void {
-    this.energyCircleDiagram = this.dataN;
+    if (this.data) {
+      this.energyCircleDiagram = this.data;
+    }
   }
 
   /* Отрисовка дуговых диаграмм */
@@ -68,28 +70,47 @@ export class QualityStockCircleComponent implements OnInit, OnChanges {
   }
 
   diaLine(r: string, line: number): string {
-    const c: number = 2 * Math.PI * +r;
-    const percent: number = line / 100;
-    let lineLength: number = percent * 0.75 * c;
-    if (lineLength > 0.75 * c) {
-      lineLength = 0.75 * c;
+    if (line > 50) {
+      const c: number = 2 * Math.PI * +r;
+      const percent: number = (line - 52) / 50;
+      let lineLength: number = percent * 0.75 * c;
+      if (lineLength > 0.75 * c) {
+        lineLength = 0.75 * c;
+      }
+      return lineLength + ' ' + (c - lineLength);
+    } else {
+      const c: number = 2 * Math.PI * +r;
+      const percent: number = 0 / 100;
+      let lineLength: number = percent * 0.75 * c;
+      return lineLength + ' ' + (c - lineLength);
     }
-    return lineLength + ' ' + (c - lineLength);
   }
 
   diaOffset(r: string, line: number): string {
-    const c: number = 2 * Math.PI * +r;
-    const percent: number = line / 100;
-    let lineLength: number = percent * 0.75 * c;
-    if (lineLength > 0.75 * c) {
-      lineLength = 0.75 * c;
+    if (line > 50) {
+      const c: number = 2 * Math.PI * +r;
+      const percent: number = (line - 52) / 50;
+      let lineLength: number = percent * 0.75 * c;
+      if (lineLength > 0.75 * c) {
+        lineLength = 0.75 * c;
+      }
+      return (-0.75 * c + lineLength).toString();
+    } else {
+      const c: number = 2 * Math.PI * +r;
+      const percent: number = 0 / 50;
+      let lineLength: number = percent * 0.75 * c;
+      return (-0.75 * c + lineLength).toString();
     }
-    return (-0.75 * c + lineLength).toString();
   }
 
   diaLimits(line: number): IEnergeticsLimits {
     const newLine = 100 - line; // отсчет угла от 100%
-    const t = (Math.PI * newLine) / 67 + Math.PI / 240;
+    let t;
+    if (line < 50) {
+      t = (Math.PI * newLine) / 100 + Math.PI / 2;
+    } else {
+      t = (Math.PI * newLine) / 32 + Math.PI / 32;
+    }
     const rMin = 13;
     const rMax = 25;
     const limitLine: IEnergeticsLimits = {
@@ -141,7 +162,14 @@ export class QualityStockCircleComponent implements OnInit, OnChanges {
     if (newLine < -50) {
       newLine = +this.radPoint * 2;
     }
-    const t = (Math.PI * newLine) / 67 + Math.PI / 240;
+
+    let t;
+
+    if (line < 50) {
+      t = (Math.PI * newLine) / 100 + Math.PI / 2;
+    } else {
+      t = (Math.PI * newLine) / 32 + Math.PI / 32;
+    }
     const r = +rad;
     const limitLine: IEnergeticsEndsLine = {
       xCen: (r * Math.cos(t) + +this.centerX).toString(),
