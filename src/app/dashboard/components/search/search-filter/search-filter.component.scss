@@ -15,9 +15,10 @@
   font-size: 14px;
   text-align: center;
   line-height: 35px;
+  user-select: none;
 
   &:hover {
-    background-color: var(--color-border-active);
+    background-color: var(--color-bg-active-gradient1);
     cursor: pointer;
   }
 }
