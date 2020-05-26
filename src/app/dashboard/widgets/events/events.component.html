@@ -56,7 +56,7 @@
               <div
                 class="notification__block notifications__block__item"
                 *ngFor="let n of notifications"
-                (click)="eventClick(false, n?.id, $event)"
+                (click)="eventClick(n?.id)"
                 [ngClass]="{'selected-block': selectedId === n?.id || eventOverlayId === n?.id}"
               >
                 <div class="notification__block__header">
@@ -90,9 +90,7 @@
                         class="notification__block__icon notification__block__icon_delete"
                         [applyCss]="true"
                         src="./assets/garbage_bad_pic.svg"
-                        (click)="overlayConfirmationOpen(n)"
-                        (mousedown)="$event.stopPropagation()"
-                        (touchstart)="$event.stopPropagation()"
+                        (click)="deleteClick(n)"
                       >
                       </svg-icon>
                     </span>
@@ -114,43 +112,6 @@
                   <span class="notification__block__description">
                     {{n?.description}}
                   </span>
-                </div>
-              </div>
-            </div>
-            <div
-              (mousedown)="$event.stopPropagation()"
-              (touchstart)="$event.stopPropagation()"
-              (click)="overlayConfirmationClose()"
-              id="overlay-confirmation-event"
-            >
-              <div class="overlay-confirmation__body">
-                <span *ngIf="!isDeleteRetrieval"
-                  >Вы действительно хотите удалить выбранное Событие?</span
-                >
-                <span *ngIf="isDeleteRetrieval"
-                  >Вы действительно хотите удалить выбранное Событие и связанные Мероприятия?</span
-                >
-                <div style="display: flex;">
-                  <div class="workspace__submit">
-                    <div class="submit__frame submit__frame-left"></div>
-                    <div class="submit__frame submit__frame-right"></div>
-                    <button
-                      type="submit gridster-item-content"
-                      (click)="eventClick(true, undefined, $event)"
-                    >
-                      Удалить
-                    </button>
-                  </div>
-                  <div class="workspace__submit">
-                    <div class="submit__frame submit__frame-left"></div>
-                    <div class="submit__frame submit__frame-right"></div>
-                    <button
-                      type="submit gridster-item-content"
-                      (click)="overlayConfirmationClose()"
-                    >
-                      Отменить
-                    </button>
-                  </div>
                 </div>
               </div>
             </div>
@@ -241,6 +202,7 @@
         (mousedown)="$event.stopPropagation()"
         (touchstart)="$event.stopPropagation()"
       >
+        <evj-alert-window [info]="eventAlertInfo$ | async"></evj-alert-window>
         <div class="events">
           <div class="notifications">
             <ng-container>
@@ -252,7 +214,7 @@
                 <div
                   class="notification notifications__item"
                   *cdkVirtualFor="let n of notifications"
-                  (click)="eventClick(false, n?.id, $event)"
+                  (click)="eventClick(n?.id)"
                   [ngClass]="{'selected': selectedId === n?.id || eventOverlayId === n.id }"
                 >
                   <div class="notification__header">
@@ -301,7 +263,7 @@
                         class="notification__icon_delete"
                         [applyCss]="true"
                         src="./assets/garbage_bad_pic.svg"
-                        (click)="overlayConfirmationOpen(n)"
+                        (click)="deleteClick(n)"
                         (mousedown)="$event.stopPropagation()"
                         (touchstart)="$event.stopPropagation()"
                       >
@@ -316,43 +278,6 @@
                 </div>
               </cdk-virtual-scroll-viewport>
             </ng-container>
-            <div
-              (mousedown)="$event.stopPropagation()"
-              (touchstart)="$event.stopPropagation()"
-              (click)="overlayConfirmationClose()"
-              id="overlay-confirmation-event"
-            >
-              <div class="overlay-confirmation__body">
-                <span *ngIf="!isDeleteRetrieval"
-                  >Вы действительно хотите удалить выбранное Событие?</span
-                >
-                <span *ngIf="isDeleteRetrieval"
-                  >Вы действительно хотите удалить выбранное Событие и связанные Мероприятия?</span
-                >
-                <div style="display: flex;">
-                  <div class="event-confirm__submit">
-                    <div class="submit__frame submit__frame-left"></div>
-                    <div class="submit__frame submit__frame-right"></div>
-                    <button
-                      type="submit gridster-item-content"
-                      (click)="eventClick(true, undefined, $event)"
-                    >
-                      Удалить
-                    </button>
-                  </div>
-                  <div class="event-confirm__submit">
-                    <div class="submit__frame submit__frame-left"></div>
-                    <div class="submit__frame submit__frame-right"></div>
-                    <button
-                      type="submit gridster-item-content"
-                      (click)="overlayConfirmationClose()"
-                    >
-                      Отменить
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
           </div>
 
           <div class="controls">
