@@ -32,7 +32,7 @@ export class ImplementationTankComponent implements OnInit, AfterViewInit {
       .attr('height', '100%')
       .attr('width', '100%')
       .attr('class', 'textProduct')
-      .attr('viewBox', '0 40 300 380');
+      .attr('viewBox', '10 40 300 380');
 
     const pictureContainer = this.tankPicture
       .append('image')
