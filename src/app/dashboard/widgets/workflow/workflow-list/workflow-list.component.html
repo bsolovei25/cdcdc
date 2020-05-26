@@ -1,4 +1,3 @@
-<evj-alert-input [info]="alertInput"></evj-alert-input>
 <evj-alert-window [info]="alertWindow"></evj-alert-window>
 <evj-loading-shade [isLoading]="isLoading"></evj-loading-shade>
 <div class="choose-system">
@@ -20,6 +19,7 @@
     src="./assets/icons/widgets/workflow/add_btn.svg"
     (click)="chooseModules ? postScenarios() : null"
     [svgStyle]="{ 'width.px': 30, 'height.px': 30 }"
+    matTooltip="Создать сценарий"
   ></svg-icon>
   <div class="available-scenario__body">
     <div class="available-scenario__body__items">
@@ -44,10 +44,12 @@
               class="available-scenario__body__item__container__edit-block__edit"
               src="./assets/icons/widgets/workflow/edit_w.svg"
               [svgStyle]="{ 'width.px':30, 'height.px':30 }"
+              matTooltip="Редактировать сценарий"
             ></svg-icon>
             <div
               class="available-scenario__body__item__container__edit-block__delete-block"
               (click)="deleteScenario($event, scen.uid)"
+              matTooltip="Удалить сценарий"
             >
               <div
                 class="available-scenario__body__item__container__edit-block__delete-block__delete"
@@ -64,12 +66,14 @@
               src="./assets/icons/widgets/workflow/play_w.svg"
               [svgStyle]="{ 'width.px':15, 'height.px':15 }"
               [class.available-scenario__body__item__container__icon__error]="scen?.errorMessage"
+              matTooltip="Запустить сценарий"
             ></svg-icon>
             <svg-icon
               *ngIf="scen.status === 'active'"
               src="./assets/icons/widgets/workflow/stop_w.svg"
               [svgStyle]="{ 'width.px':14, 'height.px':13 }"
               [class.available-scenario__body__item__container__icon__error]="scen?.errorMessage"
+              matTooltip="Остановить сценарий"
             ></svg-icon>
           </div>
         </div>

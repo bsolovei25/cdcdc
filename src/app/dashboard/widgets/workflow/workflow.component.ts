@@ -29,6 +29,7 @@ import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 import { IWorkspaceTable } from './workflow-table/workflow-table.component';
 import { IModules, IScenarios } from './workflow-list/workflow-list.component';
 import { MatSelectChange } from '@angular/material/select';
+import { WorkflowActions, WorkflowActionsNameMap } from '../../models/workflow.model';
 import { trigger, transition, style, animate } from '@angular/animations';
 
 declare let LeaderLine: any;
@@ -138,6 +139,9 @@ export class WorkflowComponent extends WidgetPlatform implements OnInit, OnDestr
 
     public items: IGridsterItemLocal[] = [];
 
+    public workflowActionsNameMap = WorkflowActionsNameMap;
+    public workflowActions = WorkflowActions;
+
     private itemCol: number = 3;
     private itemRow: number = 3;
 
@@ -224,9 +228,9 @@ export class WorkflowComponent extends WidgetPlatform implements OnInit, OnDestr
         gridSizeChangedCallback: this.resizeGridsterElement.bind(this),
         itemValidateCallback: this.validatePosition.bind(this),
         pushItems: false,
-        minCols: 15,
+        minCols: 8,
         maxCols: 100,
-        minRows: 15,
+        minRows: 8,
         maxRows: 100,
         margin: 20,
         outerMarginTop: 10,

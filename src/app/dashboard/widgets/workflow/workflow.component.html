@@ -110,13 +110,15 @@
                   >
                     <ng-container [ngSwitch]="i.type">
                       <svg-icon
-                        *ngSwitchCase="'GraduationTableEvent'"
+                        *ngSwitchCase="workflowActions.GRADUATION_TABLE_EVENT"
+                        [matTooltip]="workflowActionsNameMap[workflowActions.GRADUATION_TABLE_EVENT]"
                         class="workflow__action__body__item__icon"
                         src="./assets/icons/widgets/workflow/action-other.svg"
                         [svgStyle]="{ 'width.px':widthSvgIconGrid, 'height.px':heightSvgIconGrid }"
                       ></svg-icon>
                       <svg-icon
-                        *ngSwitchCase="'SendEmail'"
+                        *ngSwitchCase="workflowActions.SEND_EMAIL"
+                        [matTooltip]="workflowActionsNameMap[workflowActions.SEND_EMAIL]"
                         class="workflow__action__body__item__icon"
                         src="./assets/icons/widgets/workflow/message_w.svg"
                         [svgStyle]="{ 'width.px':widthSvgIconGrid, 'height.px':heightSvgIconGrid }"

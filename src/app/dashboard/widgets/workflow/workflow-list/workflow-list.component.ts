@@ -1,11 +1,11 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { IAlertInputModel } from '../../../../@shared/models/alert-input.model';
 import { IAlertWindowModel } from '../../../../@shared/models/alert-window.model';
 import { WorkflowService } from '../../../services/widgets/workflow.service';
 import { SnackBarService } from '../../../services/snack-bar.service';
 import { MatSelectChange } from '@angular/material/select';
 import { ICreateConnection } from '../workflow.component';
 import { Subscription } from 'rxjs';
+import { FormControl } from '@angular/forms';
 
 export interface IModules {
     createdAt: Date;
@@ -32,14 +32,15 @@ export class WorkflowListComponent implements OnInit, OnDestroy {
 
     private subscriptions: Subscription[] = [];
 
-    alertInput: IAlertInputModel;
-    alertWindow: IAlertWindowModel;
+    public alertWindow: IAlertWindowModel;
 
     modules: IModules[];
     chooseModules: IModules;
 
     scenarios: IScenarios[];
     chooseScenarios: IScenarios;
+
+    public inputControl: FormControl = new FormControl('');
 
     constructor(private workflowService: WorkflowService, private snackBar: SnackBarService) {}
 
@@ -87,20 +88,24 @@ export class WorkflowListComponent implements OnInit, OnDestroy {
     }
 
     async postScenarios(): Promise<void> {
-        const inputParam: IAlertInputModel = {
-            title: 'Создание нового сценария',
-            placeholder: 'Введите название',
+        this.inputControl.setValue(null);
+        this.alertWindow = {
+            isShow: true,
+            questionText: 'Создание нового сценария',
             acceptText: 'Добавить',
             cancelText: 'Отмена',
-            value: '',
-            acceptFunction: async (name): Promise<void> => {
-                this.alertInput = null;
+            input: {
+                formControl: this.inputControl,
+                placeholder: 'Введите название',
+            },
+            acceptFunction: async (): Promise<void> => {
+                this.alertWindow = null;
                 this.isLoading = true;
                 try {
                     this.isLoading = true;
-                    const ans = await this.workflowService.postScenarios(this.chooseModules.uid, {
-                        name,
-                    });
+                    const ans = await this.workflowService.postScenarios(this.chooseModules.uid,
+                        {name: this.inputControl.value}
+                    );
                     this.scenarios.push(ans);
                     this.snackBar.openSnackBar(`Сценарий ${ans.name} добавлен`);
                     this.isLoading = false;
@@ -108,11 +113,10 @@ export class WorkflowListComponent implements OnInit, OnDestroy {
                     this.isLoading = false;
                 }
             },
-            cancelFunction: () => {
-                this.alertInput = null;
+            cancelFunction: (): void => {
+                this.alertWindow = null;
             },
         };
-        this.alertInput = inputParam;
     }
 
     chooseScen(scen: IScenarios): void {
@@ -121,14 +125,19 @@ export class WorkflowListComponent implements OnInit, OnDestroy {
 
     async editScenario(event: MouseEvent, scen: IScenarios): Promise<void> {
         event.stopPropagation();
-        const inputParam: IAlertInputModel = {
-            title: 'Изменение имени сценария',
-            placeholder: 'Введите название',
+        this.inputControl.setValue(scen.name);
+        this.alertWindow = {
+            isShow: true,
+            questionText: 'Изменение имени сценария',
             acceptText: 'Изменить',
             cancelText: 'Отмена',
-            value: scen.name,
-            acceptFunction: async (name: string): Promise<void> => {
-                this.alertInput = null;
+            input: {
+                formControl: this.inputControl,
+                placeholder: 'Введите название',
+            },
+            acceptFunction: async (): Promise<void> => {
+                const name = this.inputControl.value;
+                this.alertWindow = null;
                 this.isLoading = true;
                 try {
                     this.isLoading = true;
@@ -147,10 +156,9 @@ export class WorkflowListComponent implements OnInit, OnDestroy {
                 }
             },
             cancelFunction: () => {
-                this.alertInput = null;
+                this.alertWindow = null;
             },
         };
-        this.alertInput = inputParam;
     }
 
     async createСonnection(body: ICreateConnection): Promise<void> {
