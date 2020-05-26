@@ -46,10 +46,11 @@ input {
 
   &:hover {
     background: var(--color-border-active);
-  }
 
-  &:hover .button_filter_icon {
-    fill: white;
+    .button_filter_icon,
+    .button_close_icon {
+      fill: white;
+    }
   }
 }
 
@@ -60,7 +61,7 @@ input {
 }
 
 .button_close_icon {
-  fill: white;
+  fill: #8c99b2;
   width: 26px;
   height: 26px;
 }

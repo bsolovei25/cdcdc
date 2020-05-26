@@ -22,6 +22,7 @@ import { SnackBarService } from '../snack-bar.service';
 import { fillDataShape } from '../../../@shared/common-functions';
 import { AvatarConfiguratorService } from '../avatar-configurator.service';
 import { BehaviorSubject } from 'rxjs';
+import { IAlertWindowModel } from '@shared/models/alert-window.model';
 
 @Injectable({
     providedIn: 'root',
@@ -77,7 +78,10 @@ export class EventsWorkspaceService {
 
     private defaultEvent: EventsWidgetNotification = null;
 
-    public searchWindow$: BehaviorSubject<ISearchRetrievalWindow> = new BehaviorSubject<ISearchRetrievalWindow>(null);
+    public searchWindow$: BehaviorSubject<ISearchRetrievalWindow> =
+        new BehaviorSubject<ISearchRetrievalWindow>(null);
+    public ewAlertInfo$: BehaviorSubject<IAlertWindowModel> =
+        new BehaviorSubject<IAlertWindowModel>(null);
 
     constructor(
         private eventService: EventService,

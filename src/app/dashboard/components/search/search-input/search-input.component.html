@@ -7,12 +7,12 @@
     <input type="text" placeholder="Введите название виджета" (keyup)="searchInput($event)" />
   </ng-container>
 
-  <div *ngIf="!isReport" class="button" (click)="openFilter()" [class.active]="isVisibleFilter">
+  <div *ngIf="!isReport" class="button" (click)="openFilter()">
     <ng-container *ngIf="!isVisibleFilter">
-      <svg-icon class="button_filter_icon" src="./assets/icons/SearchFilter.svg"></svg-icon>
+      <svg-icon class="button_filter_icon" src="assets/icons/SearchFilter.svg"></svg-icon>
     </ng-container>
     <ng-container *ngIf="isVisibleFilter">
-      <svg-icon class="button_close_icon" src="./assets/icons/close_filter.svg"></svg-icon>
+      <svg-icon class="button_close_icon" src="assets/icons/close_filter.svg"></svg-icon>
     </ng-container>
   </div>
 </div>

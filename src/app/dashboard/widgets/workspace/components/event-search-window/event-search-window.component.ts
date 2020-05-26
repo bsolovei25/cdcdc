@@ -15,6 +15,7 @@ import { EventService } from 'src/app/dashboard/services/widgets/event.service';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { EventsWorkspaceService } from '../../../../services/widgets/events-workspace.service';
+import { IAlertWindowModel } from '@shared/models/alert-window.model';
 
 @Component({
   selector: 'evj-event-search-window',

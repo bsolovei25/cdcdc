@@ -6,6 +6,7 @@ import { DateAdapter } from '@angular/material/core';
 import { AuthService } from '@core/service/auth.service';
 import { WidgetPlatform } from '../../models/widget-platform';
 import { EventsWorkspaceService } from '../../services/widgets/events-workspace.service';
+import { IAlertWindowModel } from '@shared/models/alert-window.model';
 
 @Component({
     selector: 'evj-events-workspace',
@@ -82,15 +83,27 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
 
     // нажатие на кнопку в хэдере
     createdEvent(isEdit: boolean): void {
+        const tempInfo: IAlertWindowModel = {
+            isShow: true,
+            questionText: 'Вы уверены, что хотите перейти к созданию новго события? Все несохраненные изменения будут потеряны.',
+            acceptText: 'Да, создать событие',
+            cancelText: 'Отмена',
+            closeFunction: () => this.ewService.ewAlertInfo$.next(null),
+        };
         if (isEdit) {
             if (this.ewService.isCreateNewEvent) {
-                this.ewService.refreshEvent();
+                tempInfo.acceptFunction = () => this.ewService.refreshEvent();
+                this.ewService.ewAlertInfo$.next(tempInfo);
                 return;
             }
-            this.ewService.createEvent();
+            tempInfo.acceptFunction = () => this.ewService.createEvent();
+            this.ewService.ewAlertInfo$.next(tempInfo);
             return;
         }
-        this.ewService.saveEvent();
+        tempInfo.questionText = 'Вы уверены, что хотите сохранить изменения?';
+        tempInfo.acceptText = 'Да, создать событие';
+        tempInfo.acceptFunction = () => this.ewService.saveEvent();
+        this.ewService.ewAlertInfo$.next(tempInfo);
     }
 
     public backEvent(): void {

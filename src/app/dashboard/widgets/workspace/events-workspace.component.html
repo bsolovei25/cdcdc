@@ -2,11 +2,15 @@
 </evj-widget-preview>
 
 <ng-container *ngIf="!isMock">
-  <div class="container pointer-event events-workspace__scroll">
+  <div
+    class="container pointer-event events-workspace__scroll"
+    (mousedown)="$event.stopPropagation()"
+    (touchstart)="$event.stopPropagation()"
+  >
     <!-- loading data -->
     <evj-loading-shade [isLoading]="ewService.isLoading"></evj-loading-shade>
-
     <evj-event-search-window [info]="ewService.searchWindow$ | async"></evj-event-search-window>
+    <evj-alert-window [info]="this.ewService.ewAlertInfo$ | async"></evj-alert-window>
 
     <evj-widget-header
       [title]="widgetTitle"
