@@ -2,7 +2,6 @@ import { Component, OnDestroy, OnInit, Inject, ViewChild } from '@angular/core';
 import {
     EventsWidgetCategory,
     EventsWidgetCategoryCode,
-    EventsWidgetDataPreview,
     EventsWidgetNotificationPreview,
     EventsWidgetOptions,
 } from '../../models/events-widget';
@@ -19,6 +18,8 @@ import { WidgetPlatform } from '../../models/widget-platform';
 import { throttle } from 'rxjs/operators';
 import { SnackBarService } from '../../services/snack-bar.service';
 import { EventsWorkspaceService } from '../../services/widgets/events-workspace.service';
+import { IAlertWindowModel } from '@shared/models/alert-window.model';
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
     selector: 'evj-events',
@@ -29,9 +30,11 @@ export class EventsComponent extends WidgetPlatform implements OnInit, OnDestroy
     @ViewChild(CdkVirtualScrollViewport) viewport: CdkVirtualScrollViewport;
 
     isList: boolean = false;
-    isDeleteRetrieval: boolean = false;
     selectedId: number = 0;
     eventOverlayId: number;
+
+    public eventAlertInfo$: BehaviorSubject<IAlertWindowModel> =
+        new BehaviorSubject<IAlertWindowModel>(null);
 
     private isAllowScrollLoading: boolean = true;
 
@@ -159,7 +162,7 @@ export class EventsComponent extends WidgetPlatform implements OnInit, OnDestroy
     constructor(
         private eventService: EventService,
         private ewService: EventsWorkspaceService,
-        private materialService: SnackBarService,
+        private snackBarService: SnackBarService,
         public userSettings: UserSettingsService,
         public widgetService: WidgetService,
         @Inject('isMock') public isMock: boolean,
@@ -313,40 +316,28 @@ export class EventsComponent extends WidgetPlatform implements OnInit, OnDestroy
         this.widgetService.removeItemService(this.uniqId);
     }
 
-    public async eventClick(deleteItem: boolean, eventId?: number, event?: Event): Promise<void> {
-        event.stopPropagation();
-        if (deleteItem) {
-            try {
-                if (this.eventOverlayId >= 0) {
-                    await this.eventService.deleteEvent(this.eventOverlayId);
-                    this.ewService.event = null;
-                }
-                this.overlayConfirmationClose();
-                this.materialService.openSnackBar('Событие удалено');
-            } catch (error) {
-                this.overlayConfirmationClose();
-                this.materialService.openSnackBar('Ошибка');
-            }
-        } else {
-            this.selectedId = eventId;
-            await this.ewService.editEvent(eventId);
-        }
-        this.eventOverlayId = undefined;
+    public async eventClick(eventId?: number): Promise<void> {
+        this.selectedId = eventId;
+        await this.ewService.editEvent(eventId);
     }
 
-    public overlayConfirmationOpen(notification: EventsWidgetNotification): void {
-        event.stopPropagation();
-        this.eventOverlayId = notification.id;
-        // TODO ждать от бэка флага
-        // notification.retrievalEvents.length
-        //     ? (this.isDeleteRetrieval = true)
-        //     : (this.isDeleteRetrieval = false);
-        document.getElementById('overlay-confirmation-event').style.display = 'block';
+    public deleteClick(notification: EventsWidgetNotification): void {
+        const info: IAlertWindowModel = {
+            isShow: true,
+            questionText: 'Вы уверены что хотите удалить событие?',
+            acceptText: 'Да',
+            cancelText: 'Нет',
+            acceptFunction: () => this.deleteNotification(notification.id),
+            closeFunction: () => this.eventAlertInfo$.next(null),
+            cancelFunction: () => this.snackBarService.openSnackBar(`Удаление отменено!`),
+        };
+        this.eventAlertInfo$.next(info);
     }
 
-    public overlayConfirmationClose(): void {
-        document.getElementById('overlay-confirmation-event').style.display = 'none';
-        this.eventOverlayId = undefined;
+    private async deleteNotification(id: number): Promise<void> {
+        await this.eventService.deleteEvent(id);
+        this.ewService.event = null;
+        this.snackBarService.openSnackBar(`Событие id: ${id} успешно удалено!`);
     }
 
     // Переход в систему источник
