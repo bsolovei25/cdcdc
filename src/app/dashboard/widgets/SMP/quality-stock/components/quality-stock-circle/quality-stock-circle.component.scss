@@ -17,8 +17,11 @@
     }
 
     &__content {
-        height: 100%;
-        width: 100%;
+        height: calc(100% - 17px);
+        width: calc(50% - 10px);
+        position: absolute;
+        top: 17px;
+        z-index: 999;
     }
 }
 
@@ -55,7 +58,7 @@
 
         svg {
             text {
-                font-size: 3px;
+                font-size: 3.5px;
                 fill: var(--color-text-main);
             }
 

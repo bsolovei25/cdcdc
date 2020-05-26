@@ -50,7 +50,7 @@ export class ImplementationPieComponent implements OnInit, OnChanges {
       .select(el)
       .append('svg')
       .attr('min-width', '100px')
-      .attr('viewBox', '0 0 95 100');
+      .attr('viewBox', '5 0 86 100');
 
     let group = this.svg.append('g').attr('transform', 'translate(50 ,50)');
 
