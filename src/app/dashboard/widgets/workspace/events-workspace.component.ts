@@ -101,7 +101,7 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
             return;
         }
         tempInfo.questionText = 'Вы уверены, что хотите сохранить изменения?';
-        tempInfo.acceptText = 'Да, создать событие';
+        tempInfo.acceptText = 'Да, сохранить событие';
         tempInfo.acceptFunction = () => this.ewService.saveEvent();
         this.ewService.ewAlertInfo$.next(tempInfo);
     }

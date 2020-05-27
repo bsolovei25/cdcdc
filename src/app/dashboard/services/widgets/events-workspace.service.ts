@@ -9,13 +9,12 @@ import {
     EventsWidgetNotificationStatus,
     EventsWidgetNotificationPriority,
     EventsWidgetCategoryCode,
-    IRetrievalEvents,
     IAsusService,
     IAsusEOService,
     IAsusWorkgroup,
     IAsusCategories,
     ISmotrReference,
-    ISaveMethodEvent, IRetrievalEventDto, ISearchRetrievalWindow
+    ISaveMethodEvent, IRetrievalEventDto, ISearchRetrievalWindow, IAsusTpPlace, IAsusTmPlace
 } from '../../models/events-widget';
 import { EventService } from '../widgets/event.service';
 import { SnackBarService } from '../snack-bar.service';
@@ -50,6 +49,8 @@ export class EventsWorkspaceService {
     public asusWorkgroup: IAsusWorkgroup[] = [];
     public asusServices: IAsusService[] = [];
     public asusEOServices: IAsusEOService[] = [];
+    public asusEquipments: IAsusTpPlace[] = [];
+    public asusUnits: IAsusTmPlace[] = [];
     public smotrReference: ISmotrReference = null;
     //#endregion
 
@@ -93,8 +94,7 @@ export class EventsWorkspaceService {
         this.isLoading = true;
         try {
             if (id) {
-                this.event = await this.eventService.getEvent(id);
-                this.event = { ...this.defaultEvent, ...this.event };
+                await this.getEvent(id);
             }
             this.eventService.currentEventId$.next(id);
             this.loadReferences();
@@ -106,12 +106,31 @@ export class EventsWorkspaceService {
         }
     }
 
-    public async goBackEvent(): Promise<void> {
+    private async getEvent(id: number): Promise<void> {
+        this.event = await this.eventService.getEvent(id);
+        this.event = { ...this.defaultEvent, ...this.event };
+        const dataLoadQueue: Promise<void>[] = [];
+        if (this.event.category.name === 'asus') {
+            dataLoadQueue.push(
+                this.eventService.getAsusEquipments(this.event.asusEvent.tmPlace).then((data) => {
+                    this.asusEquipments = data;
+                }),
+                this.eventService.getAsusEOServices(this.event.asusEvent.equipment).then((data) => {
+                    this.asusEOServices = data;
+                }),
+            );
+        }
+        await Promise.all(dataLoadQueue);
+    }
+
+    public async goBackEvent(isContinue: boolean = false): Promise<void> {
         if (!(this.eventHistory?.length > 0)) {
+            this.event = null;
             return;
         }
-        if (this.eventHistory.length > 1 && !this.isCreateNewEvent) {
+        if (!this.isCreateNewEvent && !isContinue) {
             this.eventHistory.pop();
+            this.goBackEvent(true);
         }
         await this.editEvent(this.eventHistory[this.eventHistory.length - 1], true);
     }
@@ -126,12 +145,14 @@ export class EventsWorkspaceService {
     }
 
     public async refreshEvent(): Promise<void> {
+        this.isEditEvent = true;
         this.isCreateNewEvent = true;
         await this.loadItem();
         this.event = fillDataShape(this.defaultEvent);
     }
 
     public async createEvent(idParent: number = null): Promise<void> {
+        this.isEditEvent = true;
         if (this.isCreateNewEvent) {
             this.snackBarService.openSnackBar('Для создания нового события, сохраните текущее!', 'snackbar-red');
             return;
@@ -141,7 +162,6 @@ export class EventsWorkspaceService {
         }
         this.isCreateNewEvent = true;
         await this.loadItem();
-        // const tempCategory: ICategory = this.event?.category ?? this.defaultEvent.category;
         this.event = {...this.defaultEvent};
         if (idParent) {
             this.event.parentId = idParent;
@@ -196,7 +216,6 @@ export class EventsWorkspaceService {
         }
     }
 
-    // TODO разделить методы сохранения
     private async saveCreatedEvent(saveMethod: ISaveMethodEvent): Promise<void> {
         try {
             if (this.event.parentId) {
@@ -241,7 +260,6 @@ export class EventsWorkspaceService {
         }
     }
 
-    // TODO подумать над реализацией удаления
     public async deleteRetrievalEvent(retrieval: IRetrievalEventDto): Promise<void> {
         try {
             await this.eventService.deleteRetrievalEvents(
@@ -332,8 +350,9 @@ export class EventsWorkspaceService {
                 category: '',
                 workGroup: '',
                 service: '',
-                eoService: '',
-                equipment: '',
+                eoService: null,
+                equipment: null,
+                tmPlace: null,
             }
         };
     }
@@ -371,11 +390,11 @@ export class EventsWorkspaceService {
             this.eventService.getAsusServices().then((data) => {
                 this.asusServices = data;
             }),
-            this.eventService.getAsusEOServices().then((data) => {
-                this.asusEOServices = data;
-            }),
             this.eventService.getSmotrReference().then((data) => {
                 this.smotrReference = data;
+            }),
+            this.eventService.getAsusUnits().then((data) => {
+                this.asusUnits = data;
             }),
         );
         await Promise.all(dataLoadQueue);
