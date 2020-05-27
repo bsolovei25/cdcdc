@@ -62,9 +62,7 @@ export class DeviationsTableComponent extends WidgetPlatform implements OnInit, 
             setTimeout(() => (this.isDataLoading = false), 500);
         }
 
-        this.data = ref.items.map((item) => {
-            return { ...item };
-        });
+        this.data = ref.items;
         this.consumptionUnitsOfMeasure = ref.consumptionUnitsOfMeasure;
         this.energyUnitsOfMeasure = ref.energyUnitsOfMeasure;
         this.fuelUnitsOfMeasure = ref.fuelUnitsOfMeasure;

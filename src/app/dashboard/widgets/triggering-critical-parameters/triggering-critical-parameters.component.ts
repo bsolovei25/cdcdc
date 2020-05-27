@@ -55,8 +55,6 @@ export class TriggeringCriticalParametersComponent extends WidgetPlatform
             setTimeout(() => (this.isLoading = false), 500);
         }
 
-        this.data = ref.items.map((item) => {
-            return { ...item };
-        });
+        this.data = ref.items;
     }
 }
