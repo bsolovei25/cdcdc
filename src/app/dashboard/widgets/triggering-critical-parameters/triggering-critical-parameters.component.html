@@ -18,6 +18,8 @@
   <evj-frame-top></evj-frame-top>
 
   <ng-container>
+    <evj-loading-shade [isLoading]="isLoading"></evj-loading-shade>
+
     <section
       class="table"
       (mousedown)="$event.stopPropagation()"

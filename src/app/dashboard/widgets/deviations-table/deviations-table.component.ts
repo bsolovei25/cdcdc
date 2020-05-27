@@ -13,164 +13,26 @@ export interface IDeviationsTable {
     nonCritical: boolean;
 }
 
+export interface IDeviationsTableDto {
+    items: IDeviationsTable[];
+    consumptionUnitsOfMeasure: string;
+    energyUnitsOfMeasure: string;
+    fuelUnitsOfMeasure: string;
+}
+
 @Component({
     selector: 'evj-deviations-table',
     templateUrl: './deviations-table.component.html',
     styleUrls: ['./deviations-table.component.scss'],
 })
 export class DeviationsTableComponent extends WidgetPlatform implements OnInit, OnDestroy {
-    data: IDeviationsTable[] = [
-        {
-            equipment: 'ЭЛОУ-АВТ-6',
-            energy: 103,
-            energyPercentage: 3,
-            consumption: -150,
-            consumptionPercentage: -50,
-            fuel: 11,
-            fuelPercentage: -1,
-            nonCritical: true,
-        },
-        {
-            equipment: 'ЭЛОУ-АВТ-6',
-            energy: 103,
-            energyPercentage: 3,
-            consumption: -150,
-            consumptionPercentage: -50,
-            fuel: 11,
-            fuelPercentage: -1,
-            nonCritical: true,
-        },
-        {
-            equipment: 'ЭЛОУ-АВТ-6',
-            energy: 103,
-            energyPercentage: 3,
-            consumption: -150,
-            consumptionPercentage: -50,
-            fuel: 11,
-            fuelPercentage: -1,
-            nonCritical: true,
-        },
-        {
-            equipment: 'ЭЛОУ-АВТ-6',
-            energy: 103,
-            energyPercentage: 3,
-            consumption: -150,
-            consumptionPercentage: -50,
-            fuel: 11,
-            fuelPercentage: -1,
-            nonCritical: true,
-        },
-        {
-            equipment: 'ЭЛОУ-АВТ-6',
-            energy: 103,
-            energyPercentage: 3,
-            consumption: -150,
-            consumptionPercentage: -50,
-            fuel: 11,
-            fuelPercentage: -1,
-            nonCritical: true,
-        },
-        {
-            equipment: 'ЭЛОУ-АВТ-6',
-            energy: 103,
-            energyPercentage: 3,
-            consumption: -150,
-            consumptionPercentage: -50,
-            fuel: 11,
-            fuelPercentage: -1,
-            nonCritical: true,
-        },
-        {
-            equipment: 'ЭЛОУ-АВТ-6',
-            energy: 103,
-            energyPercentage: 3,
-            consumption: -150,
-            consumptionPercentage: -50,
-            fuel: 11,
-            fuelPercentage: -1,
-            nonCritical: true,
-        },
-        {
-            equipment: 'ЭЛОУ-АВТ-6',
-            energy: 103,
-            energyPercentage: 3,
-            consumption: -150,
-            consumptionPercentage: -50,
-            fuel: 11,
-            fuelPercentage: -1,
-            nonCritical: true,
-        },
-        {
-            equipment: 'ЭЛОУ-АВТ-6',
-            energy: 103,
-            energyPercentage: 3,
-            consumption: -150,
-            consumptionPercentage: -50,
-            fuel: 11,
-            fuelPercentage: -1,
-            nonCritical: true,
-        },
-        {
-            equipment: 'ЭЛОУ-АВТ-6',
-            energy: 103,
-            energyPercentage: 3,
-            consumption: -150,
-            consumptionPercentage: -50,
-            fuel: 11,
-            fuelPercentage: -1,
-            nonCritical: true,
-        },
-        {
-            equipment: 'ЭЛОУ-АВТ-6',
-            energy: 103,
-            energyPercentage: 3,
-            consumption: -150,
-            consumptionPercentage: -50,
-            fuel: 11,
-            fuelPercentage: -1,
-            nonCritical: true,
-        },
-        {
-            equipment: 'ЭЛОУ-АВТ-6',
-            energy: 103,
-            energyPercentage: 3,
-            consumption: -150,
-            consumptionPercentage: -50,
-            fuel: 11,
-            fuelPercentage: -1,
-            nonCritical: true,
-        },
-        {
-            equipment: 'ЭЛОУ-АВТ-6',
-            energy: 103,
-            energyPercentage: 3,
-            consumption: -150,
-            consumptionPercentage: -50,
-            fuel: 11,
-            fuelPercentage: -1,
-            nonCritical: true,
-        },
-        {
-            equipment: 'ЭЛОУ-АВТ-6',
-            energy: 103,
-            energyPercentage: 3,
-            consumption: -150,
-            consumptionPercentage: -50,
-            fuel: 11,
-            fuelPercentage: -1,
-            nonCritical: true,
-        },
-        {
-            equipment: 'ЭЛОУ-АВТ-6',
-            energy: 103,
-            energyPercentage: 3,
-            consumption: -150,
-            consumptionPercentage: -50,
-            fuel: 11,
-            fuelPercentage: -1,
-            nonCritical: true,
-        },
-    ];
+    data: IDeviationsTable[] = [];
+
+    public consumptionUnitsOfMeasure: string = '';
+    public energyUnitsOfMeasure: string = '';
+    public fuelUnitsOfMeasure: string = '';
+
+    public isDataLoading: boolean = true;
 
     public static itemCols: number = 20;
     public static itemRows: number = 30;
@@ -195,9 +57,16 @@ export class DeviationsTableComponent extends WidgetPlatform implements OnInit, 
         super.ngOnDestroy();
     }
 
-    protected dataHandler(ref: IDeviationsTable[]): void {
-        this.data = ref.map((item) => {
+    protected dataHandler(ref: IDeviationsTableDto): void {
+        if (this.isDataLoading) {
+            setTimeout(() => (this.isDataLoading = false), 500);
+        }
+
+        this.data = ref.items.map((item) => {
             return { ...item };
         });
+        this.consumptionUnitsOfMeasure = ref.consumptionUnitsOfMeasure;
+        this.energyUnitsOfMeasure = ref.energyUnitsOfMeasure;
+        this.fuelUnitsOfMeasure = ref.fuelUnitsOfMeasure;
     }
 }
