@@ -217,6 +217,8 @@ export class WidgetService {
             case 'product-groups-short':
             case 'tank-information':
             case 'table-data':
+            case 'deviations-table':
+            case 'triggering-critical-parameters':
                 return data;
         }
         console.warn(`unknown widget type ${widgetType}`);
