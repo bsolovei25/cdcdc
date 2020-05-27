@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { EventsWorkspaceService } from '../../../services/widgets/events-workspace.service';
+import { SnackBarService } from '../../../services/snack-bar.service';
+import { IAsusTmPlace, IAsusTpPlace } from '../../../models/events-widget';
+import { EventService } from '../../../services/widgets/event.service';
 
 @Component({
     selector: 'evj-asus-event',
@@ -18,7 +21,11 @@ export class AsusEventComponent implements OnInit {
 
     public isReasonsPopupOpen: boolean = false;
 
-    constructor(public ewService: EventsWorkspaceService) {}
+    constructor(
+        public ewService: EventsWorkspaceService,
+        public eventService: EventService,
+        public snackBarService: SnackBarService,
+    ) {}
 
     ngOnInit(): void {}
 
@@ -36,5 +43,59 @@ export class AsusEventComponent implements OnInit {
 
     public dateTimePicker(date: Date): void {
         this.ewService.setDeadlineToEvent(date);
+    }
+
+    public async setUnit(event: IAsusTmPlace): Promise<void> {
+        this.ewService.isLoading = true;
+        try {
+            this.ewService.asusEquipments = await this.eventService.getAsusEquipments(event.codeSap);
+            this.ewService.event.asusEvent.equipment = null;
+            this.ewService.event.asusEvent.eoService = null;
+        } catch (e) {
+            console.error(e);
+        } finally {
+            this.ewService.isLoading = false;
+        }
+    }
+
+    public async setEquipment(event: IAsusTpPlace): Promise<void> {
+        this.ewService.isLoading = true;
+        try {
+            this.ewService.asusEOServices = await this.eventService.getAsusEOServices(event.codeSap);
+            this.ewService.event.asusEvent.eoService = null;
+        } catch (e) {
+            console.error(e);
+        } finally {
+            this.ewService.isLoading = false;
+        }
+    }
+
+    public isCreateEvent(): boolean {
+        return !this.ewService.isCreateNewEvent;
+    }
+
+    public isAvailableOption(type: string): boolean {
+        switch (type) {
+            case 'eoService':
+                return !!(this.ewService.event.asusEvent.tmPlace && this.ewService.event.asusEvent.equipment);
+            case 'equipment':
+                return !!this.ewService.event.asusEvent.tmPlace;
+        }
+    }
+
+    optionClick(type: string): void {
+        if (this.isAvailableOption(type)) {
+            return;
+        }
+        switch (type) {
+            case 'equipment':
+                this.snackBarService
+                    .openSnackBar('Сперва заполните поле Установка!', 'snackbar-red');
+                break;
+            case 'eoService':
+                this.snackBarService
+                    .openSnackBar('Сперва заполните поля Установка и Оборудование!', 'snackbar-red');
+                break;
+        }
     }
 }

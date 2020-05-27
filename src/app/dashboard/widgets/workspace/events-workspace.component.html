@@ -4,8 +4,6 @@
 <ng-container *ngIf="!isMock">
   <div
     class="container pointer-event events-workspace__scroll"
-    (mousedown)="$event.stopPropagation()"
-    (touchstart)="$event.stopPropagation()"
   >
     <!-- loading data -->
     <evj-loading-shade [isLoading]="ewService.isLoading"></evj-loading-shade>
@@ -30,7 +28,10 @@
     <evj-frame-top></evj-frame-top>
 
     <!-- EVENT -->
-    <div class="container-widget">
+    <div class="container-widget"
+     (mousedown)="$event.stopPropagation()"
+     (touchstart)="$event.stopPropagation()"
+    >
       <ng-container *ngIf="ewService.event" [ngSwitch]="ewService.event.category.code">
         <evj-smotr-event *ngSwitchCase="0"></evj-smotr-event>
         <evj-asus-event *ngSwitchCase="5"></evj-asus-event>
