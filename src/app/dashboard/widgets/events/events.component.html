@@ -45,6 +45,7 @@
 
   <ng-container>
     <ng-container *ngIf="isList">
+      <evj-alert-window [info]="eventAlertInfo$ | async"></evj-alert-window>
       <div
         class="pointer-events"
         (mousedown)="$event.stopPropagation()"
