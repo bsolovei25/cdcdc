@@ -55,21 +55,27 @@ $font-size: 14px;
 
     .block {
       height: 100%;
-      width: 100%;
+      width: calc(100% - 10px);
       overflow: auto;
       overflow-x: hidden;
     }
 
     /// Styling CARD-RETRIEVAL
     .card {
-      padding: 5px;
+      padding-top: 5px;
+      padding-left: 25px;
+      padding-right: 15px;
       padding-bottom: 0;
+
       ::ng-deep {
         .card {
-          font-size: 11px;
+          font-size: 10px;
+          .info {
+            line-height: 0 !important;
+          }
         }
         .card-normal {
-          border-radius: $border-radius;
+          border-radius: 12px;
           height: 100px;
           cursor: pointer;
           border: solid 1px transparent;
@@ -98,6 +104,14 @@ $font-size: 14px;
 
         .info__buttons {
           display: none !important;
+        }
+
+        .description__title {
+          line-height: 20px;
+        }
+
+        .description__text {
+          line-height: 15px;
         }
       }
     }
@@ -162,12 +176,10 @@ $font-size: 14px;
   height: 4px;
 }
 
-::-webkit-scrollbar-track:horizontal {
+::-webkit-scrollbar-track:vertical {
   width: 4px;
   height: 4px;
   border-radius: 25px;
-  margin-left: 10px;
-  margin-right: 10px;
 }
 
 :hover::-webkit-scrollbar-thumb {

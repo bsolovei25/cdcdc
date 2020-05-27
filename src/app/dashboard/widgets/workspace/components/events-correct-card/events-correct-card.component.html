@@ -21,7 +21,7 @@
       </div>
       <div class="info__due-date" *ngIf="event.deadline">
         <div class="info__title">Срок исполнения</div>
-        <div class="info__text">{{event?.deadline|date:'dd-MM-yyyy HH:mm'}}</div>
+        <div class="info__text">{{event?.deadline|date:'dd.MM.yyyy | HH:mm'}}</div>
       </div>
       <div class="info__responsible" *ngIf="event.fixedByName">
         <div class="info__title">Ответственный</div>
