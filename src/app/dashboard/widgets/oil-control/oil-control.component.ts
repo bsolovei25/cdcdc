@@ -4,6 +4,12 @@ import { EventEmitter } from '@angular/core';
 import { OilControls } from '../../models/oil-control';
 import { WidgetPlatform } from '../../models/widget-platform';
 
+export interface IOilControlCoords {
+    x: number;
+    y: number;
+    point?: number;
+}
+
 declare var d3: any;
 
 @Component({
@@ -41,6 +47,26 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, After
                         status: 'critical',
                         valueStorage: 10253,
                         tankLevel: 10,
+                        tankers: [
+                            {
+                                nameTanker: 'Tug',
+                                shipped: true,
+                                value: 528,
+                                title: 'Авто ( AУТН-2 )',
+                            },
+                            {
+                                nameTanker: 'Tube',
+                                shipped: true,
+                                value: 528,
+                                title: 'Ж/Д ( AУТН-2 )',
+                            },
+                            {
+                                nameTanker: 'Cistern',
+                                shipped: true,
+                                value: 528,
+                                title: 'Труба ( AУТН-2 )',
+                            },
+                        ],
                         operations: [
                             {
                                 timeStart: '02:03:20',
@@ -75,26 +101,6 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, After
                                         valueFirst: 15,
                                         valueSecond: 103.23,
                                         status: 'normal',
-                                    },
-                                ],
-                                tankers: [
-                                    {
-                                        nameTanker: 'Tug',
-                                        shipped: true,
-                                        value: 528,
-                                        title: 'Авто ( AУТН-2 )',
-                                    },
-                                    {
-                                        nameTanker: 'Tube',
-                                        shipped: true,
-                                        value: 528,
-                                        title: 'Ж/Д ( AУТН-2 )',
-                                    },
-                                    {
-                                        nameTanker: 'Cistern',
-                                        shipped: true,
-                                        value: 528,
-                                        title: 'Труба ( AУТН-2 )',
                                     },
                                 ],
                             },
@@ -106,6 +112,26 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, After
                         valueStorage: 10253,
                         status: 'normal',
                         tankLevel: 10,
+                        tankers: [
+                            {
+                                nameTanker: 'Tug',
+                                shipped: true,
+                                value: 528,
+                                title: 'Авто ( AУТН-2 )',
+                            },
+                            {
+                                nameTanker: 'Tube',
+                                shipped: true,
+                                value: 528,
+                                title: 'Ж/Д ( AУТН-2 )',
+                            },
+                            {
+                                nameTanker: 'Cistern',
+                                shipped: false,
+                                value: 528,
+                                title: 'Труба ( AУТН-2 )',
+                            },
+                        ],
                         operations: [
                             {
                                 timeStart: '02:03:20',
@@ -140,26 +166,6 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, After
                                         valueFirst: 15,
                                         valueSecond: 103.23,
                                         status: 'normal',
-                                    },
-                                ],
-                                tankers: [
-                                    {
-                                        nameTanker: 'Tug',
-                                        shipped: true,
-                                        value: 528,
-                                        title: 'Авто ( AУТН-2 )',
-                                    },
-                                    {
-                                        nameTanker: 'Tube',
-                                        shipped: true,
-                                        value: 528,
-                                        title: 'Ж/Д ( AУТН-2 )',
-                                    },
-                                    {
-                                        nameTanker: 'Cistern',
-                                        shipped: false,
-                                        value: 528,
-                                        title: 'Труба ( AУТН-2 )',
                                     },
                                 ],
                             },
@@ -171,6 +177,26 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, After
                         valueStorage: 10253,
                         status: 'normal',
                         tankLevel: 10,
+                        tankers: [
+                            {
+                                nameTanker: 'bus',
+                                shipped: true,
+                                value: 528,
+                                title: 'Авто ( AУТН-2 )',
+                            },
+                            {
+                                nameTanker: 'pipe',
+                                shipped: false,
+                                value: 528,
+                                title: 'Авто ( AУТН-2 )',
+                            },
+                            {
+                                nameTanker: 'train',
+                                shipped: false,
+                                value: 528,
+                                title: 'Авто ( AУТН-2 )',
+                            },
+                        ],
                         operations: [
                             {
                                 timeStart: '02:03:20',
@@ -205,26 +231,6 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, After
                                         valueFirst: 15,
                                         valueSecond: 103.23,
                                         status: 'normal',
-                                    },
-                                ],
-                                tankers: [
-                                    {
-                                        nameTanker: 'bus',
-                                        shipped: true,
-                                        value: 528,
-                                        title: 'Авто ( AУТН-2 )',
-                                    },
-                                    {
-                                        nameTanker: 'pipe',
-                                        shipped: false,
-                                        value: 528,
-                                        title: 'Авто ( AУТН-2 )',
-                                    },
-                                    {
-                                        nameTanker: 'train',
-                                        shipped: false,
-                                        value: 528,
-                                        title: 'Авто ( AУТН-2 )',
                                     },
                                 ],
                             },
@@ -243,6 +249,26 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, After
                         status: 'critical',
                         valueStorage: 10253,
                         tankLevel: 10,
+                        tankers: [
+                            {
+                                nameTanker: 'Tug',
+                                shipped: true,
+                                value: 528,
+                                title: 'Авто ( AУТН-2 )',
+                            },
+                            {
+                                nameTanker: 'Tube',
+                                shipped: true,
+                                value: 528,
+                                title: 'Ж/Д ( AУТН-2 )',
+                            },
+                            {
+                                nameTanker: 'Cistern',
+                                shipped: true,
+                                value: 528,
+                                title: 'Труба ( AУТН-2 )',
+                            },
+                        ],
                         operations: [
                             {
                                 timeStart: '02:03:20',
@@ -279,26 +305,6 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, After
                                         status: 'normal',
                                     },
                                 ],
-                                tankers: [
-                                    {
-                                        nameTanker: 'Tug',
-                                        shipped: true,
-                                        value: 528,
-                                        title: 'Авто ( AУТН-2 )',
-                                    },
-                                    {
-                                        nameTanker: 'Tube',
-                                        shipped: true,
-                                        value: 528,
-                                        title: 'Ж/Д ( AУТН-2 )',
-                                    },
-                                    {
-                                        nameTanker: 'Cistern',
-                                        shipped: true,
-                                        value: 528,
-                                        title: 'Труба ( AУТН-2 )',
-                                    },
-                                ],
                             },
                             {
                                 timeStart: '02:03:20',
@@ -333,26 +339,6 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, After
                                         valueFirst: 15,
                                         valueSecond: 103.23,
                                         status: 'normal',
-                                    },
-                                ],
-                                tankers: [
-                                    {
-                                        nameTanker: 'Tug',
-                                        shipped: true,
-                                        value: 528,
-                                        title: 'Авто ( AУТН-2 )',
-                                    },
-                                    {
-                                        nameTanker: 'Tube',
-                                        shipped: true,
-                                        value: 528,
-                                        title: 'Ж/Д ( AУТН-2 )',
-                                    },
-                                    {
-                                        nameTanker: 'Cistern',
-                                        shipped: true,
-                                        value: 528,
-                                        title: 'Труба ( AУТН-2 )',
                                     },
                                 ],
                             },
@@ -364,6 +350,26 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, After
                         valueStorage: 10253,
                         status: 'normal',
                         tankLevel: 10,
+                        tankers: [
+                            {
+                                nameTanker: 'Tug',
+                                shipped: true,
+                                value: 528,
+                                title: 'Авто ( AУТН-2 )',
+                            },
+                            {
+                                nameTanker: 'Tube',
+                                shipped: true,
+                                value: 528,
+                                title: 'Ж/Д ( AУТН-2 )',
+                            },
+                            {
+                                nameTanker: 'Cistern',
+                                shipped: false,
+                                value: 528,
+                                title: 'Труба ( AУТН-2 )',
+                            },
+                        ],
                         operations: [
                             {
                                 timeStart: '02:03:20',
@@ -400,26 +406,7 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, After
                                         status: 'normal',
                                     },
                                 ],
-                                tankers: [
-                                    {
-                                        nameTanker: 'Tug',
-                                        shipped: true,
-                                        value: 528,
-                                        title: 'Авто ( AУТН-2 )',
-                                    },
-                                    {
-                                        nameTanker: 'Tube',
-                                        shipped: true,
-                                        value: 528,
-                                        title: 'Ж/Д ( AУТН-2 )',
-                                    },
-                                    {
-                                        nameTanker: 'Cistern',
-                                        shipped: false,
-                                        value: 528,
-                                        title: 'Труба ( AУТН-2 )',
-                                    },
-                                ],
+
                             },
                         ],
                     },
@@ -429,6 +416,26 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, After
                         valueStorage: 10253,
                         status: 'normal',
                         tankLevel: 10,
+                        tankers: [
+                            {
+                                nameTanker: 'bus',
+                                shipped: true,
+                                value: 528,
+                                title: 'Авто ( AУТН-2 )',
+                            },
+                            {
+                                nameTanker: 'pipe',
+                                shipped: false,
+                                value: 528,
+                                title: 'Авто ( AУТН-2 )',
+                            },
+                            {
+                                nameTanker: 'train',
+                                shipped: false,
+                                value: 528,
+                                title: 'Авто ( AУТН-2 )',
+                            },
+                        ],
                         operations: [
                             {
                                 timeStart: '02:03:20',
@@ -463,26 +470,6 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, After
                                         valueFirst: 15,
                                         valueSecond: 103.23,
                                         status: 'normal',
-                                    },
-                                ],
-                                tankers: [
-                                    {
-                                        nameTanker: 'bus',
-                                        shipped: true,
-                                        value: 528,
-                                        title: 'Авто ( AУТН-2 )',
-                                    },
-                                    {
-                                        nameTanker: 'pipe',
-                                        shipped: false,
-                                        value: 528,
-                                        title: 'Авто ( AУТН-2 )',
-                                    },
-                                    {
-                                        nameTanker: 'train',
-                                        shipped: false,
-                                        value: 528,
-                                        title: 'Авто ( AУТН-2 )',
                                     },
                                 ],
                             },
@@ -501,6 +488,26 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, After
                         status: 'critical',
                         valueStorage: 10253,
                         tankLevel: 10,
+                        tankers: [
+                            {
+                                nameTanker: 'Tug',
+                                shipped: true,
+                                value: 528,
+                                title: 'Авто ( AУТН-2 )',
+                            },
+                            {
+                                nameTanker: 'Tube',
+                                shipped: true,
+                                value: 528,
+                                title: 'Ж/Д ( AУТН-2 )',
+                            },
+                            {
+                                nameTanker: 'Cistern',
+                                shipped: true,
+                                value: 528,
+                                title: 'Труба ( AУТН-2 )',
+                            },
+                        ],
                         operations: [
                             {
                                 timeStart: '05:03:20',
@@ -537,26 +544,6 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, After
                                         status: 'normal',
                                     },
                                 ],
-                                tankers: [
-                                    {
-                                        nameTanker: 'Tug',
-                                        shipped: true,
-                                        value: 528,
-                                        title: 'Авто ( AУТН-2 )',
-                                    },
-                                    {
-                                        nameTanker: 'Tube',
-                                        shipped: true,
-                                        value: 528,
-                                        title: 'Ж/Д ( AУТН-2 )',
-                                    },
-                                    {
-                                        nameTanker: 'Cistern',
-                                        shipped: true,
-                                        value: 528,
-                                        title: 'Труба ( AУТН-2 )',
-                                    },
-                                ],
                             },
                             {
                                 timeStart: '02:03:20',
@@ -591,26 +578,6 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, After
                                         valueFirst: 15,
                                         valueSecond: 103.23,
                                         status: 'normal',
-                                    },
-                                ],
-                                tankers: [
-                                    {
-                                        nameTanker: 'Tug',
-                                        shipped: true,
-                                        value: 528,
-                                        title: 'Авто ( AУТН-2 )',
-                                    },
-                                    {
-                                        nameTanker: 'Tube',
-                                        shipped: true,
-                                        value: 528,
-                                        title: 'Ж/Д ( AУТН-2 )',
-                                    },
-                                    {
-                                        nameTanker: 'Cistern',
-                                        shipped: true,
-                                        value: 528,
-                                        title: 'Труба ( AУТН-2 )',
                                     },
                                 ],
                             },
@@ -622,6 +589,26 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, After
                         valueStorage: 10253,
                         status: 'normal',
                         tankLevel: 10,
+                        tankers: [
+                            {
+                                nameTanker: 'Tug',
+                                shipped: true,
+                                value: 528,
+                                title: 'Авто ( AУТН-2 )',
+                            },
+                            {
+                                nameTanker: 'Tube',
+                                shipped: true,
+                                value: 528,
+                                title: 'Ж/Д ( AУТН-2 )',
+                            },
+                            {
+                                nameTanker: 'Cistern',
+                                shipped: false,
+                                value: 528,
+                                title: 'Труба ( AУТН-2 )',
+                            },
+                        ],
                         operations: [
                             {
                                 timeStart: '02:03:20',
@@ -656,26 +643,6 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, After
                                         valueFirst: 15,
                                         valueSecond: 103.23,
                                         status: 'normal',
-                                    },
-                                ],
-                                tankers: [
-                                    {
-                                        nameTanker: 'Tug',
-                                        shipped: true,
-                                        value: 528,
-                                        title: 'Авто ( AУТН-2 )',
-                                    },
-                                    {
-                                        nameTanker: 'Tube',
-                                        shipped: true,
-                                        value: 528,
-                                        title: 'Ж/Д ( AУТН-2 )',
-                                    },
-                                    {
-                                        nameTanker: 'Cistern',
-                                        shipped: false,
-                                        value: 528,
-                                        title: 'Труба ( AУТН-2 )',
                                     },
                                 ],
                             },
@@ -687,6 +654,26 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, After
                         valueStorage: 10253,
                         status: 'normal',
                         tankLevel: 10,
+                        tankers: [
+                            {
+                                nameTanker: 'bus',
+                                shipped: true,
+                                value: 528,
+                                title: 'Авто ( AУТН-2 )',
+                            },
+                            {
+                                nameTanker: 'pipe',
+                                shipped: false,
+                                value: 528,
+                                title: 'Авто ( AУТН-2 )',
+                            },
+                            {
+                                nameTanker: 'train',
+                                shipped: false,
+                                value: 528,
+                                title: 'Авто ( AУТН-2 )',
+                            },
+                        ],
                         operations: [
                             {
                                 timeStart: '02:03:20',
@@ -723,26 +710,7 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, After
                                         status: 'normal',
                                     },
                                 ],
-                                tankers: [
-                                    {
-                                        nameTanker: 'bus',
-                                        shipped: true,
-                                        value: 528,
-                                        title: 'Авто ( AУТН-2 )',
-                                    },
-                                    {
-                                        nameTanker: 'pipe',
-                                        shipped: false,
-                                        value: 528,
-                                        title: 'Авто ( AУТН-2 )',
-                                    },
-                                    {
-                                        nameTanker: 'train',
-                                        shipped: false,
-                                        value: 528,
-                                        title: 'Авто ( AУТН-2 )',
-                                    },
-                                ],
+
                             },
                         ],
                     },
@@ -759,6 +727,26 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, After
                         status: 'critical',
                         valueStorage: 10253,
                         tankLevel: 10,
+                        tankers: [
+                            {
+                                nameTanker: 'Tug',
+                                shipped: true,
+                                value: 528,
+                                title: 'Авто ( AУТН-2 )',
+                            },
+                            {
+                                nameTanker: 'Tube',
+                                shipped: true,
+                                value: 528,
+                                title: 'Ж/Д ( AУТН-2 )',
+                            },
+                            {
+                                nameTanker: 'Cistern',
+                                shipped: true,
+                                value: 528,
+                                title: 'Труба ( AУТН-2 )',
+                            },
+                        ],
                         operations: [
                             {
                                 timeStart: '02:03:20',
@@ -795,26 +783,6 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, After
                                         status: 'normal',
                                     },
                                 ],
-                                tankers: [
-                                    {
-                                        nameTanker: 'Tug',
-                                        shipped: true,
-                                        value: 528,
-                                        title: 'Авто ( AУТН-2 )',
-                                    },
-                                    {
-                                        nameTanker: 'Tube',
-                                        shipped: true,
-                                        value: 528,
-                                        title: 'Ж/Д ( AУТН-2 )',
-                                    },
-                                    {
-                                        nameTanker: 'Cistern',
-                                        shipped: true,
-                                        value: 528,
-                                        title: 'Труба ( AУТН-2 )',
-                                    },
-                                ],
                             },
                             {
                                 timeStart: '02:03:20',
@@ -849,26 +817,6 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, After
                                         valueFirst: 15,
                                         valueSecond: 103.23,
                                         status: 'normal',
-                                    },
-                                ],
-                                tankers: [
-                                    {
-                                        nameTanker: 'Tug',
-                                        shipped: true,
-                                        value: 528,
-                                        title: 'Авто ( AУТН-2 )',
-                                    },
-                                    {
-                                        nameTanker: 'Tube',
-                                        shipped: true,
-                                        value: 528,
-                                        title: 'Ж/Д ( AУТН-2 )',
-                                    },
-                                    {
-                                        nameTanker: 'Cistern',
-                                        shipped: true,
-                                        value: 528,
-                                        title: 'Труба ( AУТН-2 )',
                                     },
                                 ],
                             },
@@ -880,6 +828,26 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, After
                         valueStorage: 10253,
                         status: 'normal',
                         tankLevel: 10,
+                        tankers: [
+                            {
+                                nameTanker: 'Tug',
+                                shipped: true,
+                                value: 528,
+                                title: 'Авто ( AУТН-2 )',
+                            },
+                            {
+                                nameTanker: 'Tube',
+                                shipped: true,
+                                value: 528,
+                                title: 'Ж/Д ( AУТН-2 )',
+                            },
+                            {
+                                nameTanker: 'Cistern',
+                                shipped: false,
+                                value: 528,
+                                title: 'Труба ( AУТН-2 )',
+                            },
+                        ],
                         operations: [
                             {
                                 timeStart: '02:03:20',
@@ -914,26 +882,6 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, After
                                         valueFirst: 15,
                                         valueSecond: 103.23,
                                         status: 'normal',
-                                    },
-                                ],
-                                tankers: [
-                                    {
-                                        nameTanker: 'Tug',
-                                        shipped: true,
-                                        value: 528,
-                                        title: 'Авто ( AУТН-2 )',
-                                    },
-                                    {
-                                        nameTanker: 'Tube',
-                                        shipped: true,
-                                        value: 528,
-                                        title: 'Ж/Д ( AУТН-2 )',
-                                    },
-                                    {
-                                        nameTanker: 'Cistern',
-                                        shipped: false,
-                                        value: 528,
-                                        title: 'Труба ( AУТН-2 )',
                                     },
                                 ],
                             },
@@ -945,6 +893,26 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, After
                         valueStorage: 10253,
                         status: 'normal',
                         tankLevel: 10,
+                        tankers: [
+                            {
+                                nameTanker: 'bus',
+                                shipped: true,
+                                value: 528,
+                                title: 'Авто ( AУТН-2 )',
+                            },
+                            {
+                                nameTanker: 'pipe',
+                                shipped: false,
+                                value: 528,
+                                title: 'Авто ( AУТН-2 )',
+                            },
+                            {
+                                nameTanker: 'train',
+                                shipped: false,
+                                value: 528,
+                                title: 'Авто ( AУТН-2 )',
+                            },
+                        ],
                         operations: [
                             {
                                 timeStart: '02:03:20',
@@ -979,26 +947,6 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, After
                                         valueFirst: 15,
                                         valueSecond: 103.23,
                                         status: 'normal',
-                                    },
-                                ],
-                                tankers: [
-                                    {
-                                        nameTanker: 'bus',
-                                        shipped: true,
-                                        value: 528,
-                                        title: 'Авто ( AУТН-2 )',
-                                    },
-                                    {
-                                        nameTanker: 'pipe',
-                                        shipped: false,
-                                        value: 528,
-                                        title: 'Авто ( AУТН-2 )',
-                                    },
-                                    {
-                                        nameTanker: 'train',
-                                        shipped: false,
-                                        value: 528,
-                                        title: 'Авто ( AУТН-2 )',
                                     },
                                 ],
                             },
@@ -1017,6 +965,26 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, After
                         status: 'critical',
                         valueStorage: 10253,
                         tankLevel: 10,
+                        tankers: [
+                            {
+                                nameTanker: 'Tug',
+                                shipped: true,
+                                value: 528,
+                                title: 'Авто ( AУТН-2 )',
+                            },
+                            {
+                                nameTanker: 'Tube',
+                                shipped: true,
+                                value: 528,
+                                title: 'Ж/Д ( AУТН-2 )',
+                            },
+                            {
+                                nameTanker: 'Cistern',
+                                shipped: true,
+                                value: 528,
+                                title: 'Труба ( AУТН-2 )',
+                            },
+                        ],
                         operations: [
                             {
                                 timeStart: '02:03:20',
@@ -1053,26 +1021,7 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, After
                                         status: 'normal',
                                     },
                                 ],
-                                tankers: [
-                                    {
-                                        nameTanker: 'Tug',
-                                        shipped: true,
-                                        value: 528,
-                                        title: 'Авто ( AУТН-2 )',
-                                    },
-                                    {
-                                        nameTanker: 'Tube',
-                                        shipped: true,
-                                        value: 528,
-                                        title: 'Ж/Д ( AУТН-2 )',
-                                    },
-                                    {
-                                        nameTanker: 'Cistern',
-                                        shipped: true,
-                                        value: 528,
-                                        title: 'Труба ( AУТН-2 )',
-                                    },
-                                ],
+
                             },
                             {
                                 timeStart: '02:03:20',
@@ -1109,26 +1058,7 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, After
                                         status: 'normal',
                                     },
                                 ],
-                                tankers: [
-                                    {
-                                        nameTanker: 'Tug',
-                                        shipped: true,
-                                        value: 528,
-                                        title: 'Авто ( AУТН-2 )',
-                                    },
-                                    {
-                                        nameTanker: 'Tube',
-                                        shipped: true,
-                                        value: 528,
-                                        title: 'Ж/Д ( AУТН-2 )',
-                                    },
-                                    {
-                                        nameTanker: 'Cistern',
-                                        shipped: true,
-                                        value: 528,
-                                        title: 'Труба ( AУТН-2 )',
-                                    },
-                                ],
+
                             },
                         ],
                     },
@@ -1138,6 +1068,26 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, After
                         valueStorage: 10253,
                         status: 'normal',
                         tankLevel: 10,
+                        tankers: [
+                            {
+                                nameTanker: 'Tug',
+                                shipped: true,
+                                value: 528,
+                                title: 'Авто ( AУТН-2 )',
+                            },
+                            {
+                                nameTanker: 'Tube',
+                                shipped: true,
+                                value: 528,
+                                title: 'Ж/Д ( AУТН-2 )',
+                            },
+                            {
+                                nameTanker: 'Cistern',
+                                shipped: false,
+                                value: 528,
+                                title: 'Труба ( AУТН-2 )',
+                            },
+                        ],
                         operations: [
                             {
                                 timeStart: '02:03:20',
@@ -1174,26 +1124,7 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, After
                                         status: 'normal',
                                     },
                                 ],
-                                tankers: [
-                                    {
-                                        nameTanker: 'Tug',
-                                        shipped: true,
-                                        value: 528,
-                                        title: 'Авто ( AУТН-2 )',
-                                    },
-                                    {
-                                        nameTanker: 'Tube',
-                                        shipped: true,
-                                        value: 528,
-                                        title: 'Ж/Д ( AУТН-2 )',
-                                    },
-                                    {
-                                        nameTanker: 'Cistern',
-                                        shipped: false,
-                                        value: 528,
-                                        title: 'Труба ( AУТН-2 )',
-                                    },
-                                ],
+
                             },
                         ],
                     },
@@ -1203,6 +1134,26 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, After
                         valueStorage: 10253,
                         status: 'normal',
                         tankLevel: 10,
+                        tankers: [
+                            {
+                                nameTanker: 'bus',
+                                shipped: true,
+                                value: 528,
+                                title: 'Авто ( AУТН-2 )',
+                            },
+                            {
+                                nameTanker: 'pipe',
+                                shipped: false,
+                                value: 528,
+                                title: 'Авто ( AУТН-2 )',
+                            },
+                            {
+                                nameTanker: 'train',
+                                shipped: false,
+                                value: 528,
+                                title: 'Авто ( AУТН-2 )',
+                            },
+                        ],
                         operations: [
                             {
                                 timeStart: '02:03:20',
@@ -1239,26 +1190,7 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, After
                                         status: 'normal',
                                     },
                                 ],
-                                tankers: [
-                                    {
-                                        nameTanker: 'bus',
-                                        shipped: true,
-                                        value: 528,
-                                        title: 'Авто ( AУТН-2 )',
-                                    },
-                                    {
-                                        nameTanker: 'pipe',
-                                        shipped: false,
-                                        value: 528,
-                                        title: 'Авто ( AУТН-2 )',
-                                    },
-                                    {
-                                        nameTanker: 'train',
-                                        shipped: false,
-                                        value: 528,
-                                        title: 'Авто ( AУТН-2 )',
-                                    },
-                                ],
+
                             },
                         ],
                     },
@@ -1275,6 +1207,26 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, After
                         status: 'critical',
                         valueStorage: 10253,
                         tankLevel: 10,
+                        tankers: [
+                            {
+                                nameTanker: 'Tug',
+                                shipped: true,
+                                value: 528,
+                                title: 'Авто ( AУТН-2 )',
+                            },
+                            {
+                                nameTanker: 'Tube',
+                                shipped: true,
+                                value: 528,
+                                title: 'Ж/Д ( AУТН-2 )',
+                            },
+                            {
+                                nameTanker: 'Cistern',
+                                shipped: true,
+                                value: 528,
+                                title: 'Труба ( AУТН-2 )',
+                            },
+                        ],
                         operations: [
                             {
                                 timeStart: '02:03:20',
@@ -1311,26 +1263,7 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, After
                                         status: 'normal',
                                     },
                                 ],
-                                tankers: [
-                                    {
-                                        nameTanker: 'Tug',
-                                        shipped: true,
-                                        value: 528,
-                                        title: 'Авто ( AУТН-2 )',
-                                    },
-                                    {
-                                        nameTanker: 'Tube',
-                                        shipped: true,
-                                        value: 528,
-                                        title: 'Ж/Д ( AУТН-2 )',
-                                    },
-                                    {
-                                        nameTanker: 'Cistern',
-                                        shipped: true,
-                                        value: 528,
-                                        title: 'Труба ( AУТН-2 )',
-                                    },
-                                ],
+
                             },
                             {
                                 timeStart: '02:03:20',
@@ -1367,26 +1300,7 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, After
                                         status: 'normal',
                                     },
                                 ],
-                                tankers: [
-                                    {
-                                        nameTanker: 'Tug',
-                                        shipped: true,
-                                        value: 528,
-                                        title: 'Авто ( AУТН-2 )',
-                                    },
-                                    {
-                                        nameTanker: 'Tube',
-                                        shipped: true,
-                                        value: 528,
-                                        title: 'Ж/Д ( AУТН-2 )',
-                                    },
-                                    {
-                                        nameTanker: 'Cistern',
-                                        shipped: true,
-                                        value: 528,
-                                        title: 'Труба ( AУТН-2 )',
-                                    },
-                                ],
+
                             },
                         ],
                     },
@@ -1396,6 +1310,27 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, After
                         valueStorage: 10253,
                         status: 'normal',
                         tankLevel: 10,
+
+                        tankers: [
+                            {
+                                nameTanker: 'Tug',
+                                shipped: true,
+                                value: 528,
+                                title: 'Авто ( AУТН-2 )',
+                            },
+                            {
+                                nameTanker: 'Tube',
+                                shipped: true,
+                                value: 528,
+                                title: 'Ж/Д ( AУТН-2 )',
+                            },
+                            {
+                                nameTanker: 'Cistern',
+                                shipped: false,
+                                value: 528,
+                                title: 'Труба ( AУТН-2 )',
+                            },
+                        ],
                         operations: [
                             {
                                 timeStart: '02:03:20',
@@ -1430,26 +1365,6 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, After
                                         valueFirst: 15,
                                         valueSecond: 103.23,
                                         status: 'normal',
-                                    },
-                                ],
-                                tankers: [
-                                    {
-                                        nameTanker: 'Tug',
-                                        shipped: true,
-                                        value: 528,
-                                        title: 'Авто ( AУТН-2 )',
-                                    },
-                                    {
-                                        nameTanker: 'Tube',
-                                        shipped: true,
-                                        value: 528,
-                                        title: 'Ж/Д ( AУТН-2 )',
-                                    },
-                                    {
-                                        nameTanker: 'Cistern',
-                                        shipped: false,
-                                        value: 528,
-                                        title: 'Труба ( AУТН-2 )',
                                     },
                                 ],
                             },
@@ -1461,6 +1376,26 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, After
                         valueStorage: 10253,
                         status: 'normal',
                         tankLevel: 10,
+                        tankers: [
+                            {
+                                nameTanker: 'bus',
+                                shipped: true,
+                                value: 528,
+                                title: 'Авто ( AУТН-2 )',
+                            },
+                            {
+                                nameTanker: 'pipe',
+                                shipped: false,
+                                value: 528,
+                                title: 'Авто ( AУТН-2 )',
+                            },
+                            {
+                                nameTanker: 'train',
+                                shipped: false,
+                                value: 528,
+                                title: 'Авто ( AУТН-2 )',
+                            },
+                        ],
                         operations: [
                             {
                                 timeStart: '02:03:20',
@@ -1497,26 +1432,7 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, After
                                         status: 'normal',
                                     },
                                 ],
-                                tankers: [
-                                    {
-                                        nameTanker: 'bus',
-                                        shipped: true,
-                                        value: 528,
-                                        title: 'Авто ( AУТН-2 )',
-                                    },
-                                    {
-                                        nameTanker: 'pipe',
-                                        shipped: false,
-                                        value: 528,
-                                        title: 'Авто ( AУТН-2 )',
-                                    },
-                                    {
-                                        nameTanker: 'train',
-                                        shipped: false,
-                                        value: 528,
-                                        title: 'Авто ( AУТН-2 )',
-                                    },
-                                ],
+
                             },
                         ],
                     },
@@ -1525,7 +1441,7 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, After
         ],
     };
 
-    storageXY: any = [
+    storageXY: IOilControlCoords[] = [
         {
             x: 400,
             y: 220,
@@ -1549,7 +1465,7 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, After
         },
     ];
 
-    productXY: any = [
+    productXY: IOilControlCoords[] = [
         {
             point: 1,
             x: 200,
@@ -1656,7 +1572,7 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, After
     }
 
     ngAfterViewInit(): void {
-        if(!this.isMock) {
+        if (!this.isMock) {
             this.drawOilControlSocket(this.data);
         }
     }
@@ -1741,7 +1657,7 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, After
 
         let countPicture = 0;
 
-        for (const i of this.activeStorage.operations[0].tankers) {
+        for (const i of this.activeStorage.tankers) {
             if (i.shipped === true) {
                 countPicture++;
             }
@@ -1765,7 +1681,7 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, After
             x4 = -48;
         }
 
-        for (const item of this.activeStorage.operations[0].tankers) {
+        for (const item of this.activeStorage.tankers) {
             if (item.shipped === true) {
                 let pictureContainer = this.tankersPicture
                     .append('image')
