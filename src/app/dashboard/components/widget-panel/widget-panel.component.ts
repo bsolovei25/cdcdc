@@ -37,6 +37,9 @@ export class WidgetPanelComponent implements OnInit {
     search: string = '';
     filters: string[] = [];
 
+    @Input()
+    public panelActive: boolean = false;
+
     @Input() set SearchInput(input: KeyboardEvent) {
         this.searchWidgetsInput(input);
     }
