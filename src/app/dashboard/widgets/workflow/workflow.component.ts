@@ -251,6 +251,8 @@ export class WorkflowComponent extends WidgetPlatform implements OnInit, OnDestr
         swap: false,
     };
 
+    resize: boolean = true;
+
     @ViewChild('content') content: ElementRef<HTMLInputElement>;
 
     @ViewChild('valueInputChips') valueInputChips: ElementRef<HTMLInputElement>;
@@ -568,7 +570,8 @@ export class WorkflowComponent extends WidgetPlatform implements OnInit, OnDestr
             verticalOffset =
                 verticalOffset +
                 lineNode.getBoundingClientRect().height -
-                iconNode.getBoundingClientRect().height / 2 - 3;
+                iconNode.getBoundingClientRect().height / 2 -
+                3;
         }
         // рассчитываем смещение позиции стрелки внутри viewBox svg
         // вертикальное смещение так же зависит от высоты самих элементов
@@ -732,9 +735,12 @@ export class WorkflowComponent extends WidgetPlatform implements OnInit, OnDestr
 
     startDrag(): void {
         this.removeIconsLeaderLine();
+        this.resize = false;
     }
+
     stopDrag(): void {
         this.drawRemoveIcons();
+        this.resize = true;
     }
 
     public onResize(): void {
@@ -744,8 +750,10 @@ export class WorkflowComponent extends WidgetPlatform implements OnInit, OnDestr
 
     public resizeGridsterElement(): void {
         setTimeout(() => {
-            this.changedOptions();
-        }, 300);
+            if (this.resize) {
+                this.changedOptions();
+            }
+        }, 1000);
         // this.items.setSize();
         const event = new CustomEvent('resize');
         document.dispatchEvent(event);
