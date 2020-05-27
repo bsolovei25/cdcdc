@@ -1,13 +1,13 @@
 .container {
-   position: relative;
-   height: 100%;
-   box-sizing: border-box;
-   padding: 0;
-   display: flex;
-   flex-direction: column;
-   justify-content: flex-start;
-   min-width: 430px;
- }
+  position: relative;
+  height: 100%;
+  box-sizing: border-box;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  min-width: 430px;
+}
 
 .content {
   height: 100%;
@@ -17,6 +17,56 @@
   display: flex;
   overflow: auto;
   flex-direction: column;
+}
+
+.control-block {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  &__left-side {
+    width: 70%;
+    padding: 10px;
+    height: calc(100% - 20px);
+
+    .content-menu {
+      font-size: 14px;
+      height: 40px;
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: var(--color-aw-header-bg);
+      box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+      border-radius: 12px;
+
+      &__icon {
+        cursor: pointer;
+        position: absolute;
+        right: 20px;
+
+        ::ng-deep .cls-1 {
+          fill: var(--color-text-main);
+        }
+
+        &:hover {
+          ::ng-deep .cls-1 {
+            fill: var(--color-active);
+          }
+        }
+      }
+    }
+
+    .content-brigade {
+      display: flex;
+      flex-wrap: wrap;
+    }
+  }
+
+  &__right-side {
+    width: 30%;
+    padding: 10px;
+    height: calc(100% - 20px);
+  }
 }
 
 .mock {
@@ -131,12 +181,10 @@ p {
         }
       }
       &--active {
-        background: url("./../../../../../assets/icons/widgets/admin-shift-schedule/border-shift.svg")
-          no-repeat;
+        background: url("./../../../../../assets/icons/widgets/admin-shift-schedule/border-shift.svg") no-repeat;
       }
       &:hover {
-        background: url("./../../../../../assets/icons/widgets/admin-shift-schedule/border-shift.svg")
-          no-repeat;
+        background: url("./../../../../../assets/icons/widgets/admin-shift-schedule/border-shift.svg") no-repeat;
       }
     }
 

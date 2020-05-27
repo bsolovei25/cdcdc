@@ -1,0 +1,63 @@
+.employee-container {
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    height: 45px;
+    width: calc(100% - 10px);
+    background-color: var(--color-aw-header-bg);
+    border-top: 1px solid var(--color-bg-main);
+    padding-left: 5px;
+    padding-right: 5px;
+
+    &__avatar {
+        width: 40px;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        .icon {
+            height: 40px;
+            width: 35px;
+            //border: 0.5px solid var(--color-text-main);
+            clip-path: circle(45%);
+
+            ::ng-deep {
+                svg {
+                    height: 100%;
+                    width: 100%;
+                }
+            }
+        }
+    }
+
+    &__info {
+        width: calc(100% - 120px);
+
+        .fio {
+        }
+
+        .specialty {
+            color: var(--color-text-sub);
+        }
+    }
+
+    &__brigade {
+        width: 80px;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 10px;
+
+        .brigade {
+            height: 20px;
+            background: #003b64;
+            border-radius: 19px;
+            width: auto;
+            line-height: 20px;
+            padding-left: 5px;
+            padding-right: 5px;
+        }
+    }
+}

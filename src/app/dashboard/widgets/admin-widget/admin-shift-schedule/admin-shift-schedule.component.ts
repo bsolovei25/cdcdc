@@ -37,6 +37,8 @@ export class AdminShiftScheduleComponent extends WidgetPlatform
 
     isLoading: boolean = true;
 
+    isSelectMenu: boolean = true;
+
     public static itemCols: number = 38;
     public static itemRows: number = 25;
 
@@ -338,6 +340,10 @@ export class AdminShiftScheduleComponent extends WidgetPlatform
             this.dateNow = this.calendar.activeDate;
             this.reLoadDataMonth();
         }
+    }
+
+    public selectedMenu(event: boolean): void {
+        this.isSelectMenu = event;
     }
 
     public dateChanged(event: Date): void {
