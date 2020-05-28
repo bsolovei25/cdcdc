@@ -524,13 +524,9 @@ export class WorkflowComponent extends WidgetPlatform implements OnInit, OnDestr
 
     drawLeaderLine(): void {
         if (this.lines.length > 0) {
-            console.log('Линии есть');
-
             this.drawLeaderLines();
         } else {
-            console.log('Линии нет');
             const subsr = this.lines.changes.subscribe((val) => {
-                console.log('Линии изменились');
                 this.drawLeaderLines();
                 subsr.unsubscribe();
             });
@@ -591,21 +587,19 @@ export class WorkflowComponent extends WidgetPlatform implements OnInit, OnDestr
         const xPos = startNode.getBoundingClientRect().x <= endNode.getBoundingClientRect().x;
 
         if (yPos) {
-            verticalOffset =
-                verticalOffset
-                - iconNode.getBoundingClientRect().height / 2;
+            verticalOffset = verticalOffset - iconNode.getBoundingClientRect().height / 2;
         } else {
             verticalOffset =
-                verticalOffset
-                + arrowNode.getBoundingClientRect().height
-                - iconNode.getBoundingClientRect().height / 2;
+                verticalOffset +
+                arrowNode.getBoundingClientRect().height -
+                iconNode.getBoundingClientRect().height / 2;
         }
 
         if (!xPos) {
             horizontalOffset =
-                + horizontalOffset
-                + arrowNode.getBoundingClientRect().width
-                - iconNode.getBoundingClientRect().width / 2;
+                +horizontalOffset +
+                arrowNode.getBoundingClientRect().width -
+                iconNode.getBoundingClientRect().width / 2;
         }
 
         iconNode.style.left = horizontalOffset.toString() + 'px';
@@ -794,7 +788,6 @@ export class WorkflowComponent extends WidgetPlatform implements OnInit, OnDestr
         if (!this.timerHwnd) {
             if (this.removableLeaderLineIds.size > 0 && this.leaderLine.length > 0) {
                 this.drawLeaderLine();
-                console.log('update');
             }
             this.timerHwnd = window.setTimeout(() => {
                 this.timerHwnd = 0;
