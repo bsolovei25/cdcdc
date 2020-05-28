@@ -26,7 +26,7 @@
   </div>
 </div>
 
-<div class="header-schedule" *ngIf="widgetType === 'admin-shift-schedule' || widgetType === 'production-trend'">
+<div class="header-schedule" *ngIf="widgetType === 'admin-shift-schedule'">
   <!--<div class="header-schedule">-->
   <div class="header-schedule__content">
     <div class="header-schedule__icon-wrapper">
@@ -54,6 +54,43 @@
       <svg-icon style="width: 100%; height: 100%; fill: #8C99B2" src="./assets/icons/close_bad.svg"></svg-icon>
     </div>
   </div>
+  <div class="header-schedule__admin-button" (mousedown)="$event.stopPropagation()"
+    (touchstart)="$event.stopPropagation()">
+    <div class="button text-overflow" [class.active]="isEventOpen === true" (click)="onSelectedMenu(true)">Назначение
+      дежурства</div>
+    <div class="button text-overflow" [class.active]="isEventOpen === false" (click)="onSelectedMenu(false)">Управление
+      бригадами
+    </div>
+  </div>
+</div>
+
+<div class="header-trend" *ngIf="widgetType === 'production-trend'">
+  <div class="header-trend__content">
+    <div class="header-trend__icon-wrapper">
+      <img src="{{iconRoute}}{{icon}}.png" *ngIf="(!code && icon)" />
+      <img src="{{iconRoute}}shedule.png" *ngIf="(!code && !icon)" />
+      {{code}}
+    </div>
+    <span class="header-trend__name text-overflow">
+      {{title}}
+    </span>
+    <div class="header-trend__button" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
+      <div class="header-schedule__container">
+        <mat-form-field>
+          <mat-select [compareWith]="compareFn" (selectionChange)="onSelected($event)" [(ngModel)]="selectValue">
+            <mat-option *ngFor="let value of localeSelect" [value]="value">
+              {{value.name}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+    <span class="header-trend__units">{{units}}</span>
+    <div *ngIf="!isPreview && claimWidgets.includes(EnumClaimWidgets.delete)" class="delete_widget"
+      (click)="onRemoveButton()" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
+      <svg-icon style="width: 100%; height: 100%; fill: #8C99B2" src="./assets/icons/close_bad.svg"></svg-icon>
+    </div>
+  </div>
 </div>
 
 <div class="header-workspace" *ngIf="widgetType === 'events-workspace'">
@@ -73,22 +110,20 @@
     </div>
   </div>
 
-  <div class="header-workspace__button"
-       (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
-    <div class="header-workspace__container"
-         (click)="backEvent()">
+  <div class="header-workspace__button" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
+    <div class="header-workspace__container" (click)="backEvent()">
       <div class="title">Назад</div>
       <div class="icon-wrapper">
         <svg-icon src="assets/icons/arrow-back.svg" class="icon__add-button"
-                  [svgStyle]="{ 'width.px':17, 'height.px':17 }"></svg-icon>
+          [svgStyle]="{ 'width.px':17, 'height.px':17 }"></svg-icon>
       </div>
     </div>
     <div class="header-workspace__container" *ngIf="CreateIcon === false && blockWorkspaceButton"
-         (click)="createEvent(false)">
+      (click)="createEvent(false)">
       <div class="title">Сохранить</div>
       <div class="icon-wrapper">
         <svg-icon src="assets/icons/widgets/widget-header/checkmark.svg" class="icon__add-button"
-                  [svgStyle]="{ 'width.px':20, 'height.px':20 }"></svg-icon>
+          [svgStyle]="{ 'width.px':20, 'height.px':20 }"></svg-icon>
       </div>
     </div>
     <div class="header-workspace__container" (click)="createEvent(true)">

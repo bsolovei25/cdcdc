@@ -2,12 +2,16 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { AppConfigService } from 'src/app/services/appConfigService';
 import { IScheduleShiftDay, IScheduleShift, IBrigadeWithUsersDto, IUnits } from '../../models/admin-shift-schedule';
+import { IAlertWindowModel } from '@shared/models/alert-window.model';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
     providedIn: 'root',
 })
 export class AdminShiftScheduleService {
     private readonly restUrl: string;
+
+    public alertWindow$: BehaviorSubject<IAlertWindowModel> = new BehaviorSubject<IAlertWindowModel>(null);
 
     constructor(public http: HttpClient, configService: AppConfigService) {
         this.restUrl = configService.restUrl;
@@ -121,5 +125,9 @@ export class AdminShiftScheduleService {
         } catch (error) {
             console.error(error);
         }
+    }
+
+    public closeAlert(): void {
+        this.alertWindow$.next(null);
     }
 }
