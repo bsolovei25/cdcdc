@@ -7,6 +7,16 @@
   justify-content: space-between;
   align-items: center;
 
+  &__disable-overlay {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: var(--color-bg-main-opacity);
+    cursor: default;
+  }
+
   &__text {
     height: inherit;
     width: calc(100% - 35px);

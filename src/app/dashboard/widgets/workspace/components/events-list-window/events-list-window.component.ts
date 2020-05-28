@@ -13,9 +13,10 @@ export class EventsListWindowComponent implements OnInit, OnChanges {
     @Input() public reasonsList: { id: string; name: string; isActive?: boolean }[] = [];
 
     public searchText: string = '';
-    public tempReason: string;
+    public tempReason: {id: string, name: string} = {id: null, name: null};
 
-    @Output() private closeWindow: EventEmitter<string> = new EventEmitter<string>();
+    @Output() private closeWindow: EventEmitter<{id: string, name: string}>
+        = new EventEmitter<{id: string, name: string}>();
 
     public readonly closeIconSrc: string = 'assets/icons/widgets/workspace/smotr/close-icon.svg';
 
@@ -24,7 +25,10 @@ export class EventsListWindowComponent implements OnInit, OnChanges {
     ) {}
 
     public ngOnInit(): void {
-        this.tempReason = this.ewService.event?.directReasons ?? '';
+        this.tempReason.name = this.ewService.event?.directReasons ?? null;
+        this.tempReason.id = this.ewService.event?.deviationData?.availableReasons
+            ?.find((reason) => (reason?.name ?? null) === this.tempReason.name)?.id
+            ?? null;
     }
 
     public ngOnChanges(): void {
@@ -36,7 +40,7 @@ export class EventsListWindowComponent implements OnInit, OnChanges {
     }
 
     public onClose(): void {
-        this.closeWindow.emit();
+        this.closeWindow.emit(null);
     }
 
     public onSave(): void {
@@ -44,7 +48,7 @@ export class EventsListWindowComponent implements OnInit, OnChanges {
     }
 
     public setReason(reason: { id: string; name: string }): void {
-        this.tempReason = reason.name;
+        this.tempReason = {...reason};
     }
 
     private filterList(search: string = this.searchText): void {
@@ -52,11 +56,11 @@ export class EventsListWindowComponent implements OnInit, OnChanges {
             this.reasonsList?.forEach((reason) => reason.isActive = true);
             return;
         }
-        this.reasonsList?.forEach((reason) => reason.isActive = reason.name.toLowerCase().includes(search.toLowerCase()));
+        this.reasonsList?.forEach((reason) => reason.isActive =
+            reason.name.toLowerCase().includes(search.toLowerCase()));
     }
 
     public isActiveCompare(reason: {id: string; name: string}): boolean {
-        return this.tempReason.trim().toLowerCase()
-            === reason.name.trim().toLowerCase();
+        return (this.tempReason?.id ?? null) === reason.id;
     }
 }

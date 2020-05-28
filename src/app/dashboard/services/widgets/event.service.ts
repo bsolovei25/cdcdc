@@ -79,7 +79,7 @@ export class EventService {
     async getEvent(id: number): Promise<EventsWidgetNotification> {
         try {
             return this.http
-                // .get<EventsWidgetNotification>('assets/mock/AsusEventsMock/event.json')
+                // .get<EventsWidgetNotification>('assets/mock/SmotrEventsMock/event.json')
                 .get<EventsWidgetNotification>(this.restUrl + '/api/notifications/' + id)
                 .toPromise();
         } catch (error) {
@@ -351,20 +351,12 @@ export class EventService {
 
     public async escalateSmotrEvent(id: string): Promise<any> {
         const url: string = `${this.smotrUrl}/api/monitoring/escalatedeviation/${id}`;
-        try {
-            return await this.http.put(url, null).toPromise();
-        } catch (error) {
-            console.error(error);
-        }
+        return await this.http.put(url, null).toPromise();
     }
 
     public async closeSmotrEvent(id: string): Promise<any> {
         const url: string = `${this.smotrUrl}/api/monitoring/closedeviation/${id}`;
-        try {
-            return await this.http.put(url, null).toPromise();
-        } catch (error) {
-            console.error(error);
-        }
+        return await this.http.put(url, null).toPromise();
     }
 
     public async updateSmotrEvent(id: string): Promise<any> {
