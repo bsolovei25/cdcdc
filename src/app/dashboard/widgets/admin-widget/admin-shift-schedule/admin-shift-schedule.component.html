@@ -136,7 +136,7 @@
           </div>
         </div>
         <div class="control-block__right-side">
-          <div cdkDropList id="0" [cdkDropListConnectedTo]="list">
+          <div cdkDropList id="0" [cdkDropListConnectedTo]="list" style="height: 100%;">
             <evj-admin-shift-list-employees [data]="arrayUserBrigade" [template]="employeesAll">
               <ng-template #employeesAll let-data="data">
                 <div cdkDrag (cdkDragStarted)="dragStart($event, i.id);" *ngFor="let i of arrayUserBrigade">
