@@ -101,6 +101,7 @@
               >
                 <ng-container *ngFor="let i of items">
                   <gridster-item
+                    #line
                     [item]="i"
                     (click)="chooseGridItem($event, i)"
                     style="height: 1600px; overflow: visible !important;"
@@ -156,7 +157,7 @@
               <div>Сообщение</div>
             </div>
             <div class="workflow__scenario__body__bottom" #splitBottom>
-              <!-- Table -->
+              <!-- Combo -->
               <div class="combo-box" *ngIf="comboAction">
                 <mat-form-field class="combo-box_selectbox">
                   <mat-select
@@ -168,17 +169,6 @@
                   </mat-select>
                 </mat-form-field>
               </div>
-              <!-- <div class="table" *ngIf="tableAction.length > 0">
-                <table>
-                  <tbody>
-                    <tr>
-                      <td *ngFor="let table of tableActionProp">
-                        <input [(ngModel)]="table.value" />
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div> -->
               <!-- Email -->
               <div class="email" *ngIf="emailAction.length > 0">
                 <ng-container *ngFor="let email of emailAction">
