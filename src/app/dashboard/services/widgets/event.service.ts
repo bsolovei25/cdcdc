@@ -17,7 +17,7 @@ import {
     IAsusCategories,
     IAsusWorkgroup,
     ISmotrReference,
-    ISaveMethodEvent, IRetrievalEventDto
+    ISaveMethodEvent, IRetrievalEventDto, IAsusTmPlace, IAsusTpPlace
 } from '../../models/events-widget';
 import { AppConfigService } from 'src/app/services/appConfigService';
 
@@ -264,15 +264,45 @@ export class EventService {
         }
     }
 
-    async getAsusEOServices(): Promise<IAsusEOService[]> {
+    async getAsusUnits(): Promise<IAsusTmPlace[]> {
         try {
             if (!this.isDomenAuth) {
                 return this.http
-                    .get<IAsusEOService[]>('assets/mock/AsusEventsMock/eoservice.json')
+                    .get<IAsusTmPlace[]>('assets/mock/AsusEventsMock/tmplace.json')
                     .toPromise();
             }
             return this.http
-                .get<IAsusEOService[]>(this.restUrl + '/api/notification-reference/eoservice')
+                .get<IAsusTmPlace[]>(this.restUrl + 'api/references/tmplaces')
+                .toPromise();
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+    async getAsusEquipments(codeSap: string): Promise<IAsusTpPlace[]> {
+        try {
+            if (!this.isDomenAuth) {
+                return this.http
+                    .get<IAsusTpPlace[]>('assets/mock/AsusEventsMock/tpplace.json')
+                    .toPromise();
+            }
+            return this.http
+                .get<IAsusTpPlace[]>(this.restUrl + `api/references/tplaces?tmSapCode=${codeSap}`)
+                .toPromise();
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+    async getAsusEOServices(codeSap: string): Promise<IAsusEOService[]> {
+        try {
+            if (!this.isDomenAuth) {
+                return this.http
+                    .get<IAsusEOService[]>('assets/mock/AsusEventsMock/eoplace.json')
+                    .toPromise();
+            }
+            return this.http
+                .get<IAsusEOService[]>(this.restUrl + `api/references/eoservice?tpSapCode=${codeSap}`)
                 .toPromise();
         } catch (error) {
             console.error(error);
