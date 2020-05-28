@@ -57,10 +57,57 @@
     }
 
     .list-employee {
-        height: calc(100% - 40px);
+        height: calc(100% - 61px);
+        overflow: auto;
 
         ::ng-deep .employee-container {
             cursor: move;
         }
     }
+
+    &__bottom {
+        height: 11px;
+        background: var(--color-aw-container-body-transparent);
+        border-radius: 0px 0px 12px 12px;
+    }
 }
+
+::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+    border-radius: 25px;
+    z-index: 999;
+  }
+  :hover::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+    border-radius: 25px;
+    z-index: 999;
+  }
+  ::-webkit-scrollbar-track {
+    border-radius: 25px;
+    margin: 2px;
+  }
+  ::-webkit-scrollbar-track-piece {
+    border: solid 0.5px var(--color-border-main);
+    border-radius: 25px;
+  }
+  :hover::-webkit-scrollbar-track-piece {
+    border: solid 0.5px var(--color-border-active);
+    border-radius: 25px;
+  }
+  ::-webkit-scrollbar-thumb {
+    background-color: var(--color-border-main);
+    border-radius: 25px;
+  }
+  :hover::-webkit-scrollbar-thumb {
+    background-color: var(--color-border-active);
+    border-radius: 25px;
+  }
+  ::-webkit-scrollbar-corner {
+    border-radius: 25px;
+  }
+  ::-webkit-resizer {
+    background-color: var(--color-border-active);
+    border-radius: 25px;
+  }

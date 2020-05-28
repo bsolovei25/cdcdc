@@ -1,6 +1,7 @@
 .container-employees {
     height: 100%;
     width: 100%;
+
     &__title {
         font-size: 14px;
         height: 40px;
@@ -91,28 +92,11 @@
     }
 
     .list-employee {
-        height: calc(100% - 40px);
+        max-height: 235px;
+        overflow: auto;
 
         ::ng-deep .employee-container {
             cursor: move;
-
-            // &:hover {
-            //     ::ng-deep .employee-container__star {
-            //         display: block;
-            //         cursor: pointer;
-            //         position: absolute;
-            //         right: 55px;
-            //         ::ng-deep svg {
-            //             fill: var(--color-text-main);
-            //         }
-
-            //         &:hover {
-            //             ::ng-deep svg {
-            //                 fill: var(--color-active) !important;
-            //             }
-            //         }
-            //     }
-            // }
         }
     }
 }
@@ -121,4 +105,44 @@
     ::ng-deep svg {
         transform: scale(-1);
     }
+}
+
+::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+    border-radius: 25px;
+    z-index: 999;
+}
+:hover::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+    border-radius: 25px;
+    z-index: 999;
+}
+::-webkit-scrollbar-track {
+    border-radius: 25px;
+    margin: 2px;
+}
+::-webkit-scrollbar-track-piece {
+    border: solid 0.5px var(--color-border-main);
+    border-radius: 25px;
+}
+:hover::-webkit-scrollbar-track-piece {
+    border: solid 0.5px var(--color-border-active);
+    border-radius: 25px;
+}
+::-webkit-scrollbar-thumb {
+    background-color: var(--color-border-main);
+    border-radius: 25px;
+}
+:hover::-webkit-scrollbar-thumb {
+    background-color: var(--color-border-active);
+    border-radius: 25px;
+}
+::-webkit-scrollbar-corner {
+    border-radius: 25px;
+}
+::-webkit-resizer {
+    background-color: var(--color-border-active);
+    border-radius: 25px;
 }

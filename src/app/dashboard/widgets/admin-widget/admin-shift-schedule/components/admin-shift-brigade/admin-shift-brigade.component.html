@@ -21,7 +21,7 @@
             <div class="employees__title">
                 Главный в бригаде
             </div>
-            <div class="list-employee">
+            <div class="list-employee" style="height: 50px;">
                 <ng-container *ngFor="let item of data">
                     <evj-admin-shift-info-employee [data]="item" type="garbage" [star]="true">
                     </evj-admin-shift-info-employee>
@@ -30,7 +30,7 @@
             <div class="employees__title">
                 Основной состав бригады
             </div>
-            <div class="list-employee">
+            <div class="list-employee" style="height: calc(100% - 200px);">
                 <ng-container *ngTemplateOutlet="template">
                 </ng-container>
             </div>

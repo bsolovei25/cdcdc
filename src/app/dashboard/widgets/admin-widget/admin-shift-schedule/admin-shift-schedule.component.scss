@@ -10,22 +10,26 @@
 }
 
 .content {
-  height: 100%;
+  height: calc(100% - 57px);
+
   border-left: dashed 0.5px var(--color-border-main);
   border-right: dashed 0.5px var(--color-border-main);
 
   display: flex;
-  overflow: auto;
+  // overflow: auto;
   flex-direction: column;
 }
 
 .control-block {
+  height: 100%;
   width: 100%;
   display: flex;
+
   &__left-side {
     width: 70%;
     padding: 10px;
-    height: calc(100% - 20px);
+    padding-right: 5px;
+    height: calc(100% - 10px);
 
     .content-menu {
       font-size: 14px;
@@ -37,6 +41,10 @@
       background-color: var(--color-aw-header-bg);
       box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
       border-radius: 12px;
+
+      width: calc(100% - 9px);
+      margin: auto;
+      margin-right: 0;
 
       &__icon {
         cursor: pointer;
@@ -56,9 +64,10 @@
     }
 
     .content-brigade {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
+      overflow: auto;
+      overflow-x: hidden;
+      height: calc(100% - 40px);
+      direction: rtl;
 
       &__left {
         display: flex;
@@ -96,13 +105,23 @@
           }
         }
       }
+
+      &__scroll {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        width: calc(100% - 5px);
+        //  max-width: 1052px;
+        height: 100%;
+        direction: ltr;
+      }
     }
   }
 
   &__right-side {
     width: 30%;
     padding: 10px;
-    height: calc(100% - 20px);
+    height: calc(100% - 10px);
   }
 }
 
@@ -341,7 +360,7 @@ p {
   z-index: 999;
 }
 :hover::-webkit-scrollbar {
-  width: 8px;
+  width: 5px;
   height: 5px;
   border-radius: 25px;
   z-index: 999;
