@@ -215,7 +215,7 @@ export class AdminShiftScheduleComponent extends WidgetPlatform
             ]
         },
     ]
-    public dragUniqElem: IAdminShiftUserBrigade; 
+    public dragUniqElem: IAdminShiftUserBrigade;
     public list: number[] = [];
     public dataBrigLeft: IAdminShiftBrigade[] = [];
     public dataBrigRight: IAdminShiftBrigade[] = [];
@@ -224,7 +224,7 @@ export class AdminShiftScheduleComponent extends WidgetPlatform
     constructor(
         private dateAdapter: DateAdapter<Date>,
         private renderer: Renderer2,
-        private adminShiftScheduleService: AdminShiftScheduleService,
+        public adminShiftScheduleService: AdminShiftScheduleService,
         private materialController: SnackBarService,
         protected widgetService: WidgetService,
         @Inject('isMock') public isMock: boolean,
