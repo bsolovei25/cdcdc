@@ -8,26 +8,16 @@ import { EventService } from '../../../services/widgets/event.service';
     styleUrls: ['./smotr-event.component.scss'],
 })
 export class SmotrEventComponent implements OnInit {
-    public reasons: string[] = [
-        'Причина 1',
-        'Причина 2',
-        'Причина 3',
-        'Причина 4',
-        'Причина 5',
-        'Причина 6',
-    ];
-
     public isEscalatePopupOpen: boolean = false;
     public isClosePopupOpen: boolean = false;
     public isReasonsPopupOpen: boolean = false;
 
     constructor(public ewService: EventsWorkspaceService, private eventService: EventService) {}
 
-    public ngOnInit(): void {
-        // this.eventService.getEvent(47147).then((res) => {
-        //     console.log('imported event: ', res);
-        //     this.ewService.event = res;
-        // });
+    public ngOnInit(): void { }
+
+    public isDisabledCloseButton(): boolean {
+        return this.ewService.event.status.name === 'closed';
     }
 
     public compareFn(a, b): boolean {
@@ -42,10 +32,33 @@ export class SmotrEventComponent implements OnInit {
         this.ewService.sendMessageToEvent(message, msgType);
     }
 
-    public onEscalateEvent(event: boolean): void {
+    public onEscalateEvent(message: string): void {
         this.isEscalatePopupOpen = false;
-        if (event) {
-            this.ewService.escalateEvent();
+        console.log(message);
+        if (message) {
+            this.ewService.escalateEvent(message);
         }
+    }
+
+    public onCloseCard(message: string): void {
+        this.isClosePopupOpen = false;
+        console.log(message);
+        if (message) {
+            this.ewService.closeEvent(message);
+        }
+    }
+
+    setReason(reason: {id: string, name: string}): void {
+        this.isReasonsPopupOpen = false;
+        if (reason === null) {
+            return;
+        }
+        this.ewService.event.directReasons = reason.name;
+    }
+
+    // TODO add real url
+    public onClickUrl(): void {
+        console.log('go to smotr');
+        window.open('http://www.example.com/');
     }
 }

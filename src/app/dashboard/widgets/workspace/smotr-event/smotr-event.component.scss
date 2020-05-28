@@ -242,11 +242,13 @@
     transform: scale(0);
     transform-origin: center;
 
-    transition: 0.5s;
+    opacity: 0;
+    transition: opacity 0.5s;
 
     background: var(--color-bg-main-opacity);
 
     &_active {
+      opacity: 1;
       transform: scale(1);
     }
   }
