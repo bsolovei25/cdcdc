@@ -10,33 +10,7 @@ import { IAdminShiftUserBrigade } from '../../admin-shift-schedule.component';
 })
 export class AdminShiftListEmployeesComponent implements OnInit {
   @Input() template: TemplateRef<any>;
-  @Input() public data: IAdminShiftUserBrigade[]
-
-  // public data = [
-  //   {
-  //     fio: 'Иванов Иван Иванович',
-  //     specialty: 'Слесарь АСУ ТП',
-  //     avatar: 'slesar',
-  //     brigade: 1,
-  //   },
-  //   {
-  //     fio: 'Иванов Иван Иванович',
-  //     specialty: 'Слесарь АСУ ТП',
-  //     avatar: 'slesar',
-  //     brigade: 2,
-  //   }, {
-  //     fio: 'Иванов Иван Иванович',
-  //     specialty: 'Слесарь АСУ ТП',
-  //     avatar: 'slesar',
-  //     brigade: 3,
-  //   },
-  //   {
-  //     fio: 'Иванов Иван Иванович',
-  //     specialty: 'Слесарь АСУ ТП',
-  //     avatar: 'slesar',
-  //     brigade: 1,
-  //   }
-  // ]
+  @Input() public data: IAdminShiftUserBrigade[];
 
   constructor() { }
 

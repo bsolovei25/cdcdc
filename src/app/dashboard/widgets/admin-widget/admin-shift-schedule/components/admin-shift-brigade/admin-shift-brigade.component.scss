@@ -95,6 +95,24 @@
 
         ::ng-deep .employee-container {
             cursor: move;
+
+            // &:hover {
+            //     ::ng-deep .employee-container__star {
+            //         display: block;
+            //         cursor: pointer;
+            //         position: absolute;
+            //         right: 55px;
+            //         ::ng-deep svg {
+            //             fill: var(--color-text-main);
+            //         }
+
+            //         &:hover {
+            //             ::ng-deep svg {
+            //                 fill: var(--color-active) !important;
+            //             }
+            //         }
+            //     }
+            // }
         }
     }
 }

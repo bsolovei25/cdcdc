@@ -1,6 +1,7 @@
 import { Component, OnInit, ChangeDetectionStrategy, TemplateRef, Input } from '@angular/core';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { AdminShiftScheduleService } from 'src/app/dashboard/services/widgets/admin-shift-schedule.service';
+import { IAdminShiftUserBrigade } from '../../admin-shift-schedule.component';
 
 @Component({
   selector: 'evj-admin-shift-brigade',
@@ -32,39 +33,15 @@ import { AdminShiftScheduleService } from 'src/app/dashboard/services/widgets/ad
 })
 export class AdminShiftBrigadeComponent implements OnInit {
   @Input() template: TemplateRef<any>;
+  @Input() data: IAdminShiftUserBrigade[];
 
-
-  public data = [
-    {
-      fio: 'Иванов Иван Иванович',
-      specialty: 'Слесарь АСУ ТП',
-      avatar: 'slesar',
-      brigade: 1,
-    },
-    {
-      fio: 'Иванов Иван Иванович',
-      specialty: 'Слесарь АСУ ТП',
-      avatar: 'slesar',
-      brigade: 2,
-    }, {
-      fio: 'Иванов Иван Иванович',
-      specialty: 'Слесарь АСУ ТП',
-      avatar: 'slesar',
-      brigade: 3,
-    },
-    {
-      fio: 'Иванов Иван Иванович',
-      specialty: 'Слесарь АСУ ТП',
-      avatar: 'slesar',
-      brigade: 1,
-    }
-  ];
 
   public isOpen: boolean = true;
 
   constructor(private adminShiftScheduleService: AdminShiftScheduleService) { }
 
   ngOnInit(): void {
+    console.log('test');
   }
 
   public openList(): void {

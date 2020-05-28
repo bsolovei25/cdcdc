@@ -10,6 +10,11 @@
         <div class="brigade">Бригада №{{data.brigade}}</div>
     </div>
 
+    <div class="employee-container__star" [class.star-active]="star" (click)="changeStatus()">
+        <svg-icon src="assets/icons/widgets/admin-shift-schedule/star.svg"
+        [svgStyle]="{ 'width.px':12, 'height.px':20 }"></svg-icon>
+    </div>
+
     <div *ngIf="type === 'garbage'" class="employee-container__garbage" (click)="delete()">
         <svg-icon src="assets/icons/widgets/admin-shift-schedule/garbage.svg"
         [svgStyle]="{ 'width.px':20, 'height.px':20 }"></svg-icon>

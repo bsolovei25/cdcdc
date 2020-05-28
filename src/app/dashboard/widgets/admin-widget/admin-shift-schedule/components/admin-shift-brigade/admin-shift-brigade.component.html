@@ -22,7 +22,10 @@
                 Главный в бригаде
             </div>
             <div class="list-employee">
-                <evj-admin-shift-info-employee [data]="data[0]" type="garbage"></evj-admin-shift-info-employee>
+                <ng-container *ngFor="let item of data">
+                    <evj-admin-shift-info-employee [data]="item" type="garbage" [star]="true">
+                    </evj-admin-shift-info-employee>
+                </ng-container>
             </div>
             <div class="employees__title">
                 Основной состав бригады

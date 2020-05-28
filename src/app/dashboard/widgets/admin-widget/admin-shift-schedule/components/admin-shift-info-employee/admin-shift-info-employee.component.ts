@@ -11,6 +11,7 @@ import { AdminShiftScheduleService } from 'src/app/dashboard/services/widgets/ad
 export class AdminShiftInfoEmployeeComponent implements OnInit {
   @Input() public data: IAdminShiftUserBrigade;
   @Input() public type: string;
+  @Input() public star: boolean = false;
 
   constructor(private adminShiftScheduleService: AdminShiftScheduleService) { }
 
@@ -29,6 +30,10 @@ export class AdminShiftInfoEmployeeComponent implements OnInit {
       }
     };
     this.adminShiftScheduleService.alertWindow$.next(windowsParam);
+  }
+
+  changeStatus(): void {
+
   }
 
 }

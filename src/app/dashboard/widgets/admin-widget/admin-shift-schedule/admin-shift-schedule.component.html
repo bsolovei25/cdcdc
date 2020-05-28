@@ -109,7 +109,7 @@
               <div cdkDropList id="{{ item.id }}" [cdkDropListConnectedTo]="list" *ngFor="let item of dataBrigLeft"
                 (cdkDropListDropped)="drop($event)">
                 <div class="content-brigade__block">
-                  <evj-admin-shift-brigade [template]="employees">
+                  <evj-admin-shift-brigade [data]="item.manager" [template]="employees">
                     <ng-template #employees let-data="data">
                       <div cdkDrag (cdkDragStarted)="dragStart($event, item.id);" *ngFor="let i of item.brigade">
                         <evj-admin-shift-info-employee [data]="i" type="garbage"></evj-admin-shift-info-employee>
@@ -123,7 +123,7 @@
               <div cdkDropList id="{{ item.id }}" [cdkDropListConnectedTo]="list" *ngFor="let item of dataBrigRight"
                 (cdkDropListDropped)="drop($event)">
                 <div class="content-brigade__block">
-                  <evj-admin-shift-brigade [template]="employees">
+                  <evj-admin-shift-brigade [data]="item.manager" [template]="employees">
                     <ng-template #employees let-data="data">
                       <div cdkDrag (cdkDragStarted)="dragStart($event, i.id);" *ngFor="let i of item.brigade">
                         <evj-admin-shift-info-employee [data]="i" type="garbage"></evj-admin-shift-info-employee>

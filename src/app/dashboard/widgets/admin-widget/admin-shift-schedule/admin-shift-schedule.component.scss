@@ -77,6 +77,24 @@
       &__block {
         height: auto;
         margin-top: 8px;
+
+        ::ng-deep .employee-container {
+          &:hover ::ng-deep .employee-container__star {
+            display: block;
+            cursor: pointer;
+            position: absolute;
+            right: 55px;
+            ::ng-deep svg {
+              fill: var(--color-text-main);
+            }
+
+            &:hover {
+              ::ng-deep svg {
+                fill: var(--color-active) !important;
+              }
+            }
+          }
+        }
       }
     }
   }

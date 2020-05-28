@@ -29,7 +29,8 @@ import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/dr
 
 export interface IAdminShiftBrigade {
     id: number;
-    brigade: IAdminShiftUserBrigade[]
+    brigade: IAdminShiftUserBrigade[];
+    manager: IAdminShiftUserBrigade[];
 }
 
 export interface IAdminShiftUserBrigade {
@@ -88,6 +89,15 @@ export class AdminShiftScheduleComponent extends WidgetPlatform
     public dataBrig: IAdminShiftBrigade[] = [
         {
             id: 1,
+            manager: [
+                {
+                    id: 4,
+                    fio: 'Иванов Иван Иванович',
+                    specialty: 'Главный',
+                    avatar: 'slesar',
+                    brigade: 1,
+                }
+            ],
             brigade: [
                 {
                     id: 1,
@@ -109,17 +119,19 @@ export class AdminShiftScheduleComponent extends WidgetPlatform
                     avatar: 'slesar',
                     brigade: 3,
                 },
-                {
-                    id: 4,
-                    fio: 'Иванов Иван Иванович',
-                    specialty: 'Слесарь АСУ ТП',
-                    avatar: 'slesar',
-                    brigade: 1,
-                }
             ]
         },
         {
             id: 2,
+            manager: [
+                {
+                    id: 4,
+                    fio: 'Иванов Иван Иванович',
+                    specialty: 'Главный',
+                    avatar: 'slesar',
+                    brigade: 1,
+                }
+            ],
             brigade: [
                 {
                     id: 1,
@@ -141,17 +153,19 @@ export class AdminShiftScheduleComponent extends WidgetPlatform
                     avatar: 'slesar',
                     brigade: 3,
                 },
-                {
-                    id: 4,
-                    fio: 'Иванов Иван Иванович',
-                    specialty: 'Слесарь АСУ ТП',
-                    avatar: 'slesar',
-                    brigade: 1,
-                }
             ]
         },
         {
             id: 3,
+            manager: [
+                {
+                    id: 4,
+                    fio: 'Иванов Иван Иванович',
+                    specialty: 'Главный',
+                    avatar: 'slesar',
+                    brigade: 1,
+                }
+            ],
             brigade: [
                 {
                     id: 1,
@@ -173,17 +187,19 @@ export class AdminShiftScheduleComponent extends WidgetPlatform
                     avatar: 'slesar',
                     brigade: 3,
                 },
-                {
-                    id: 4,
-                    fio: 'Иванов Иван Иванович',
-                    specialty: 'Слесарь АСУ ТП',
-                    avatar: 'slesar',
-                    brigade: 1,
-                }
             ]
         },
         {
             id: 4,
+            manager: [
+                {
+                    id: 4,
+                    fio: 'Иванов Иван Иванович',
+                    specialty: 'Главный',
+                    avatar: 'slesar',
+                    brigade: 1,
+                }
+            ],
             brigade: [
                 {
                     id: 1,
@@ -205,13 +221,6 @@ export class AdminShiftScheduleComponent extends WidgetPlatform
                     avatar: 'slesar',
                     brigade: 3,
                 },
-                {
-                    id: 4,
-                    fio: 'Иванов Иван Иванович',
-                    specialty: 'Слесарь АСУ ТП',
-                    avatar: 'slesar',
-                    brigade: 1,
-                }
             ]
         },
     ]
