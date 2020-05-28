@@ -575,38 +575,42 @@ export class WorkflowComponent extends WidgetPlatform implements OnInit, OnDestr
 
         // получаем элемент иконки, контейнера стрелки, svg dom стрелки
         const iconNode = document.getElementById(iconId);
-        const lineNode = document.getElementById(lineId);
+        const parentNode = document.getElementById(this.LEADER_LINE_PARENT_CONTAINER);
         const arrowNode = document.querySelector('#' + lineId + ' g use');
 
-        let verticalOffset = parseInt(lineNode.style.top.slice(0, -2), 10);
+        let verticalOffset =
+            arrowNode.getBoundingClientRect().top - parentNode.getBoundingClientRect().top;
+        let horizontalOffset =
+            arrowNode.getBoundingClientRect().left - parentNode.getBoundingClientRect().left;
 
-        const divArr = lineId.substr(5).split('-s-');
+        const startEndNodesArr = lineId.substr(5).split('-s-');
+        const startNode = document.getElementById(startEndNodesArr[0]);
+        const endNode = document.getElementById(startEndNodesArr[1]);
 
-        const pos =
-            document.getElementById(divArr[0]).getBoundingClientRect().y <=
-            document.getElementById(divArr[1]).getBoundingClientRect().y;
+        const yPos = startNode.getBoundingClientRect().y <= endNode.getBoundingClientRect().y;
+        const xPos = startNode.getBoundingClientRect().x <= endNode.getBoundingClientRect().x;
 
-        if (pos) {
+        if (yPos) {
             verticalOffset =
-                verticalOffset -
-                arrowNode.getBoundingClientRect().y +
-                lineNode.getBoundingClientRect().y -
-                this.LEADER_LINE_HEIGHT / 2;
+                verticalOffset
+                - iconNode.getBoundingClientRect().height / 2;
         } else {
             verticalOffset =
-                verticalOffset +
-                lineNode.getBoundingClientRect().height -
-                iconNode.getBoundingClientRect().height / 2 -
-                3;
+                verticalOffset
+                + arrowNode.getBoundingClientRect().height
+                - iconNode.getBoundingClientRect().height / 2;
         }
-        // рассчитываем смещение позиции стрелки внутри viewBox svg
-        // вертикальное смещение так же зависит от высоты самих элементов
-        const horizontalOffset =
-            arrowNode.getBoundingClientRect().x - lineNode.getBoundingClientRect().x;
 
-        iconNode.style.left =
-            (parseInt(lineNode.style.left.slice(0, -2), 10) + horizontalOffset).toString() + 'px';
+        if (!xPos) {
+            horizontalOffset =
+                + horizontalOffset
+                + arrowNode.getBoundingClientRect().width
+                - iconNode.getBoundingClientRect().width / 2;
+        }
+
+        iconNode.style.left = horizontalOffset.toString() + 'px';
         iconNode.style.top = verticalOffset.toString() + 'px';
+
         iconNode.addEventListener('click', ($event: Event) => {
             this.onRemoveIconClick(iconId, lineId);
         });
