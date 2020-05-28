@@ -216,10 +216,10 @@ export class AdminShiftScheduleComponent extends WidgetPlatform
         },
     ]
     public dragUniqElem: IAdminShiftUserBrigade;
-    public list: number[] = [];
+    public list: number[] = [0];
     public dataBrigLeft: IAdminShiftBrigade[] = [];
     public dataBrigRight: IAdminShiftBrigade[] = [];
-    public arrayUserBrigade: IAdminShiftUserBrigade[] = [];
+    public arrayUserBrigade: IAdminShiftUserBrigade[] = []; /// ДОЛЖЕН БЫТЬ СПИСОК ЮЗЕРОВ !!!
 
     constructor(
         private dateAdapter: DateAdapter<Date>,
@@ -248,6 +248,8 @@ export class AdminShiftScheduleComponent extends WidgetPlatform
             } else {
                 this.dataBrigRight.push(el);
             }
+
+            /// mock push in arrayUserBrigade
             el.brigade.forEach(item => {
                 this.arrayUserBrigade.push(item);
             })
@@ -617,7 +619,8 @@ export class AdminShiftScheduleComponent extends WidgetPlatform
     }
 
     dragStart(event, id) {
-        this.dragUniqElem = this.dataBrig[event.source.dropContainer.id].brigade.find(el => el.id === id);
+        //this.dragUniqElem = this.dataBrig[event.source.dropContainer.id].brigade.find(el => el.id === id);
+        this.dragUniqElem = this.arrayUserBrigade.find(el => el.id === id);
     }
 
     // #endregion

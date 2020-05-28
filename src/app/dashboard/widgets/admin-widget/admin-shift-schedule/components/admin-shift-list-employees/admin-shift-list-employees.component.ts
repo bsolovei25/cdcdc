@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, Input, TemplateRef } from '@angular/core';
 import { IAdminShiftUserBrigade } from '../../admin-shift-schedule.component';
 
 
@@ -9,6 +9,7 @@ import { IAdminShiftUserBrigade } from '../../admin-shift-schedule.component';
   styleUrls: ['./admin-shift-list-employees.component.scss']
 })
 export class AdminShiftListEmployeesComponent implements OnInit {
+  @Input() template: TemplateRef<any>;
   @Input() public data: IAdminShiftUserBrigade[]
 
   // public data = [

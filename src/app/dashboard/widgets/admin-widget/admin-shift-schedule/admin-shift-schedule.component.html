@@ -136,7 +136,15 @@
           </div>
         </div>
         <div class="control-block__right-side">
-          <evj-admin-shift-list-employees [data]="arrayUserBrigade"></evj-admin-shift-list-employees>
+          <div cdkDropList id="0" [cdkDropListConnectedTo]="list">
+            <evj-admin-shift-list-employees [data]="arrayUserBrigade" [template]="employeesAll">
+              <ng-template #employeesAll let-data="data">
+                <div cdkDrag (cdkDragStarted)="dragStart($event, i.id);" *ngFor="let i of arrayUserBrigade">
+                  <evj-admin-shift-info-employee [data]="i" type="garbage"></evj-admin-shift-info-employee>
+                </div>
+              </ng-template>
+            </evj-admin-shift-list-employees>
+          </div>
         </div>
       </div>
     </ng-container>
