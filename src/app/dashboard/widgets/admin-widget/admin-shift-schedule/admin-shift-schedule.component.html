@@ -9,6 +9,8 @@
   <evj-frame-top></evj-frame-top>
 
   <div class="content" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
+    <evj-alert-window [info]="adminShiftScheduleService.alertWindow$ | async"></evj-alert-window>
+
     <ng-container *ngIf="isSelectMenu">
       <div class="block-top" *ngIf="scheduleShiftMonth.length">
         <section class="calendar">

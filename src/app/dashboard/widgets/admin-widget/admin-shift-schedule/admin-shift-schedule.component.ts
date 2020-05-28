@@ -83,6 +83,8 @@ export class AdminShiftScheduleComponent extends WidgetPlatform
     @ViewChild('shiftOverlay') shiftOverlay: ElementRef<HTMLElement>;
     @ViewChild('calendar') calendar: MatCalendar<Date>;
 
+
+    //Mock data
     public dataBrig: IAdminShiftBrigade[] = [
         {
             id: 1,
@@ -213,9 +215,7 @@ export class AdminShiftScheduleComponent extends WidgetPlatform
             ]
         },
     ]
-
-    public dragUniqElem: IAdminShiftUserBrigade; //OBJECT ITEM DRAG
-
+    public dragUniqElem: IAdminShiftUserBrigade; 
     public list: number[] = [];
     public dataBrigLeft: IAdminShiftBrigade[] = [];
     public dataBrigRight: IAdminShiftBrigade[] = [];

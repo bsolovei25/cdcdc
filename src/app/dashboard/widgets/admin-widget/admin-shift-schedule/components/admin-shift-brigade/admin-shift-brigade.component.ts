@@ -1,5 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy, TemplateRef, Input } from '@angular/core';
 import { trigger, state, style, transition, animate } from '@angular/animations';
+import { AdminShiftScheduleService } from 'src/app/dashboard/services/widgets/admin-shift-schedule.service';
 
 @Component({
   selector: 'evj-admin-shift-brigade',
@@ -61,13 +62,27 @@ export class AdminShiftBrigadeComponent implements OnInit {
 
   public isOpen: boolean = true;
 
-  constructor() { }
+  constructor(private adminShiftScheduleService: AdminShiftScheduleService) { }
 
   ngOnInit(): void {
   }
 
   public openList(): void {
     this.isOpen = !this.isOpen;
+  }
+
+  delete(): void {
+    const windowsParam = {
+      isShow: true,
+      questionText: 'Вы уверены, что хотите удалить бригаду?',
+      acceptText: 'Да',
+      cancelText: 'Нет',
+      acceptFunction: () => this.adminShiftScheduleService.closeAlert(),
+      closeFunction: () => {
+        this.adminShiftScheduleService.closeAlert();
+      }
+    };
+    this.adminShiftScheduleService.alertWindow$.next(windowsParam);
   }
 
 }
