@@ -9,6 +9,7 @@ type EventsButton = 'escalate' | 'close' | 'tools';
 })
 export class EventsWorkspaceButtonComponent implements OnInit {
     @Input() public status: EventsButton;
+    @Input() public disabled: boolean = false;
 
     public readonly text: { [key in EventsButton]: string } = {
         escalate: 'Эскалировать выше',

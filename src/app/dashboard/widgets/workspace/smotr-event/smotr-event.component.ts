@@ -16,6 +16,10 @@ export class SmotrEventComponent implements OnInit {
 
     public ngOnInit(): void { }
 
+    public isDisabledCloseButton(): boolean {
+        return this.ewService.event.status.name === 'closed';
+    }
+
     public compareFn(a, b): boolean {
         return a && b && a.id === b.id;
     }

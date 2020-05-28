@@ -38,6 +38,7 @@
               panelClass="mat-select-custom"
               [(ngModel)]="ewService.event.status"
               [compareWith]="compareFn"
+              [disabled]="true"
             >
               <mat-option *ngFor="let p of ewService.status" [value]="p"
                 >{{ ewService.statuses[p.name] }}
@@ -48,6 +49,7 @@
       </div>
       <div class="row__cell cell cell_right">
         <evj-events-workspace-button
+          [disabled]="isDisabledCloseButton()"
           status="close"
           (click)="isClosePopupOpen=true"
         ></evj-events-workspace-button>
