@@ -274,6 +274,9 @@ import { OilControlTableComponent } from './widgets/oil-control/components/oil-c
 import { OilControlTowerComponent } from './widgets/oil-control/components/oil-control-tower/oil-control-tower.component';
 import { WidgetPanelComponent } from './components/widget-panel/widget-panel.component';
 import { EventSearchWindowComponent } from './widgets/workspace/components/event-search-window/event-search-window.component';
+import { AdminShiftBrigadeComponent } from './widgets/admin-widget/admin-shift-schedule/components/admin-shift-brigade/admin-shift-brigade.component';
+import { AdminShiftListEmployeesComponent } from './widgets/admin-widget/admin-shift-schedule/components/admin-shift-list-employees/admin-shift-list-employees.component';
+import { AdminShiftInfoEmployeeComponent } from './widgets/admin-widget/admin-shift-schedule/components/admin-shift-info-employee/admin-shift-info-employee.component';
 
 @NgModule({
     declarations: [
@@ -517,6 +520,9 @@ import { EventSearchWindowComponent } from './widgets/workspace/components/event
         OilControlTowerComponent,
         WidgetPanelComponent,
         EventSearchWindowComponent,
+        AdminShiftBrigadeComponent,
+        AdminShiftListEmployeesComponent,
+        AdminShiftInfoEmployeeComponent,
     ],
     entryComponents: [
         LineChartComponent,
