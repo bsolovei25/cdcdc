@@ -56,8 +56,10 @@
   </div>
   <div class="header-schedule__admin-button" (mousedown)="$event.stopPropagation()"
     (touchstart)="$event.stopPropagation()">
-    <div class="button" [class.active]="isEventOpen === true" (click)="onSelectedMenu(true)">Назначение дежурства</div>
-    <div class="button" [class.active]="isEventOpen === false" (click)="onSelectedMenu(false)">Управление бригадами
+    <div class="button text-overflow" [class.active]="isEventOpen === true" (click)="onSelectedMenu(true)">Назначение
+      дежурства</div>
+    <div class="button text-overflow" [class.active]="isEventOpen === false" (click)="onSelectedMenu(false)">Управление
+      бригадами
     </div>
   </div>
 </div>

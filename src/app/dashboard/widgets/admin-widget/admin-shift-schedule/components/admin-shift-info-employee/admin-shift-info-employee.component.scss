@@ -1,4 +1,5 @@
 .employee-container {
+    position: relative;
     font-size: 14px;
     display: flex;
     align-items: center;
@@ -35,10 +36,16 @@
         width: calc(100% - 120px);
 
         .fio {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
         .specialty {
             color: var(--color-text-sub);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
     }
 
@@ -58,6 +65,22 @@
             line-height: 20px;
             padding-left: 5px;
             padding-right: 5px;
+        }
+    }
+
+    &__garbage {
+        cursor: pointer;
+        position: absolute;
+        right: 20px;
+
+        ::ng-deep svg {
+            fill: var(--color-text-main);
+        }
+
+        &:hover {
+            ::ng-deep svg {
+                fill: var(--color-active);
+            }
         }
     }
 }

@@ -103,15 +103,38 @@
               [svgStyle]="{ 'width.px':15, 'height.px':15 }"></svg-icon>
           </div>
           <div class="content-brigade">
-            <evj-admin-shift-brigade></evj-admin-shift-brigade>
-            <!--test-->
-            <evj-admin-shift-brigade></evj-admin-shift-brigade>
-            <evj-admin-shift-brigade></evj-admin-shift-brigade>
-            <evj-admin-shift-brigade></evj-admin-shift-brigade>
+            <div class="content-brigade__left">
+              <div cdkDropList id="{{ item.id }}" [cdkDropListConnectedTo]="list" *ngFor="let item of dataBrigLeft"
+                (cdkDropListDropped)="drop($event)">
+                <div class="content-brigade__block">
+                  <evj-admin-shift-brigade [template]="employees">
+                    <ng-template #employees let-data="data">
+                      <div cdkDrag (cdkDragStarted)="dragStart($event, item.id);" *ngFor="let i of item.brigade">
+                        <evj-admin-shift-info-employee [data]="i" type="garbage"></evj-admin-shift-info-employee>
+                      </div>
+                    </ng-template>
+                  </evj-admin-shift-brigade>
+                </div>
+              </div>
+            </div>
+            <div class="content-brigade__right">
+              <div cdkDropList id="{{ item.id }}" [cdkDropListConnectedTo]="list" *ngFor="let item of dataBrigRight"
+                (cdkDropListDropped)="drop($event)">
+                <div class="content-brigade__block">
+                  <evj-admin-shift-brigade [template]="employees">
+                    <ng-template #employees let-data="data">
+                      <div cdkDrag (cdkDragStarted)="dragStart($event, i.id);" *ngFor="let i of item.brigade">
+                        <evj-admin-shift-info-employee [data]="i" type="garbage"></evj-admin-shift-info-employee>
+                      </div>
+                    </ng-template>
+                  </evj-admin-shift-brigade>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
         <div class="control-block__right-side">
-          <evj-admin-shift-list-employees></evj-admin-shift-list-employees>
+          <evj-admin-shift-list-employees [data]="arrayUserBrigade"></evj-admin-shift-list-employees>
         </div>
       </div>
     </ng-container>
