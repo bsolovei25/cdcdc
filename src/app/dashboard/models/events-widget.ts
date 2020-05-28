@@ -73,6 +73,7 @@ export interface IEventAsus {
     service: string;
     eoService: string;
     equipment: string; // ? Оборудование
+    tmPlace: string;
 
     datetimeReaction?: Date;
     datetimeStart?: Date;
@@ -237,6 +238,16 @@ export interface IAsusWorkgroup {
 
 export interface IAsusCategories {
     name: string;
+}
+
+export interface IAsusTpPlace {
+    name: string;
+    codeSap: string;
+}
+
+export interface IAsusTmPlace {
+    name: string;
+    codeSap: string;
 }
 
 export interface EventsWidgetFilter {

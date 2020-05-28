@@ -81,8 +81,15 @@
     </div>
   </div>
 
+<<<<<<< HEAD
   <div class="header-workspace__button">
     <div class="header-workspace__container" (click)="backEvent()">
+=======
+  <div class="header-workspace__button"
+       (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
+    <div class="header-workspace__container"
+         (click)="backEvent()">
+>>>>>>> d2cd35953567ca38e1c24527f81cd7927f3c2d5a
       <div class="title">Назад</div>
       <div class="icon-wrapper">
         <svg-icon src="assets/icons/arrow-back.svg" class="icon__add-button"

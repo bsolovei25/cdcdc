@@ -26,7 +26,11 @@
   </label>
 </div>
 <div class="search_block">
-  <evj-search isWidgets="true" (search)="searchWidgetsInput($event)"></evj-search>
+  <evj-search
+    isWidgets="true"
+    (search)="searchWidgetsInput($event)"
+    [panelActive]="panelActive"
+  ></evj-search>
 </div>
 <cdk-virtual-scroll-viewport
   itemSize="210"
