@@ -92,6 +92,9 @@ export interface IRetrievalEventDto {
 }
 
 export interface IEventDeviationData {
+    isCritical: boolean;
+    iteration: number;
+    escalateLevelNumber: number;
     tag: string;
     equipment: string;
     workmode: string;

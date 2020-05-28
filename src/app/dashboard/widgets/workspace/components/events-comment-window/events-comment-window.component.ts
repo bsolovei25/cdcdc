@@ -10,7 +10,9 @@ export class EventsCommentWindowComponent implements OnInit {
     @Input() public placeholder: string = 'Введите свой комментарий...';
     @Input() public buttonText: string = 'Сохранить';
 
-    @Output() private closeWindow: EventEmitter<boolean> = new EventEmitter<boolean>();
+    @Output() private closeWindow: EventEmitter<string> = new EventEmitter<string>();
+
+    public message: string = '';
 
     public readonly closeIconSrc: string = 'assets/icons/widgets/workspace/smotr/close-icon.svg';
 
@@ -19,10 +21,12 @@ export class EventsCommentWindowComponent implements OnInit {
     public ngOnInit(): void {}
 
     public onClose(): void {
-        this.closeWindow.emit(false);
+        this.closeWindow.emit(null);
     }
 
     public onSave(): void {
-        this.closeWindow.emit(true);
+        console.log(this.message);
+        console.log('this.message');
+        this.closeWindow.emit(this.message);
     }
 }
