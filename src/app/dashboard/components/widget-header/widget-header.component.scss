@@ -302,6 +302,241 @@
 
   &__content {
     cursor: move !important;
+    width: 50%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    background-color: var(--color-bg-additional);
+  }
+
+  &__icon-wrapper {
+    pointer-events: fill;
+    cursor: pointer !important;
+    display: flex;
+    min-width: 44px;
+    height: 90%;
+    padding: 9px 15px;
+    margin-right: 10px;
+    box-sizing: border-box;
+    background-color: var(--color-bg-sub);
+    line-height: 25px;
+
+    &:hover svg-icon {
+      ::ng-deep .cls-1 {
+        fill: white !important;
+      }
+
+      ::ng-deep .cls-2 {
+        fill: white !important;
+      }
+    }
+  }
+
+  &__title {
+    padding-left: 10px;
+    position: relative;
+    cursor: default;
+    font-size: 0.875rem;
+    width: 130px;
+    text-align: center;
+    line-height: 35px;
+
+    &:before {
+      z-index: 1;
+      content: "";
+      position: absolute;
+
+      top: -4px;
+      left: -1px;
+
+      height: 9px;
+      width: 9px;
+      box-sizing: border-box;
+
+      transform-origin: 43% 0;
+      transform: rotate(45deg);
+
+      background: var(--color-bg-main);
+    }
+  }
+
+  &__name {
+    font-size: 0.875rem;
+    color: var(--color-text-sub);
+  }
+
+  &__units {
+    margin: auto;
+    margin-right: 10px;
+
+    justify-self: flex-end;
+    font-size: 0.75rem;
+    color: var(--color-text-sub);
+  }
+
+  &__button {
+    background-color: var(--color-bg-additional);
+    display: flex;
+    min-width: 225px;
+    height: 100%;
+    mat-form-field {
+      width: 100%;
+      margin-top: -3px;
+      border-bottom: 1px solid var(--color-active);
+    }
+  }
+
+  &__admin-button {
+    display: flex;
+
+    .button {
+      cursor: pointer;
+      color: var(--color-text-sub);
+      font-size: 14px;
+      background: var(--color-bg-additional);
+      position: relative;
+      border-bottom: 2px solid var(--color-text-sub);
+      margin-right: 5px;
+      padding: 5px;
+      line-height: 25px;
+
+      &:before {
+        z-index: 1;
+        content: "";
+        position: absolute;
+
+        top: -4px;
+        left: -1px;
+
+        height: 9px;
+        width: 9px;
+        box-sizing: border-box;
+
+        transform-origin: 43% 0;
+        transform: rotate(45deg);
+
+        background: var(--color-bg-main);
+      }
+
+      &:after {
+        z-index: 1;
+        content: "";
+        position: absolute;
+        top: -2px;
+        right: -1px;
+
+        height: 7px;
+        width: 7px;
+        box-sizing: border-box;
+        transform-origin: 43% 0;
+        transform: rotate(-45deg);
+
+        background: var(--color-bg-main);
+      }
+    }
+
+    .active {
+      background: var(--color-active-transparent);
+      color: var(--color-text-main);
+      border-bottom: 2px solid var(--color-active);
+    }
+  }
+
+  ::ng-deep {
+    .mat-form-field-infix {
+      padding: 0px 13px;
+    }
+    .mat-form-field-appearance-legacy .mat-form-field-underline {
+      height: 0;
+      .mat-form-field-ripple {
+        opacity: 0;
+      }
+    }
+    .mat-primary .mat-option.mat-selected:not(.mat-option-disabled) {
+      background-color: var(--color-bg-main);
+    }
+
+    .mat-select-value-text {
+      font-size: 0.875rem;
+    }
+
+    .mat-select-arrow {
+      background-image: url(../../../../assets/icons/widgets/production-trend/arrow-bottom.svg);
+    }
+  }
+
+  &:before {
+    z-index: 1;
+    content: "";
+    position: absolute;
+
+    top: -4px;
+    left: -1px;
+
+    height: 9px;
+    width: 9px;
+    box-sizing: border-box;
+
+    transform-origin: 43% 0;
+    transform: rotate(45deg);
+
+    background: var(--color-bg-main);
+  }
+
+  &:after {
+    z-index: 1;
+    content: "";
+    position: absolute;
+    top: -2px;
+    right: -1px;
+
+    height: 7px;
+    width: 7px;
+    box-sizing: border-box;
+    transform-origin: 43% 0;
+    transform: rotate(-45deg);
+
+    background: var(--color-bg-main);
+  }
+}
+
+.header-trend {
+  position: relative;
+  height: 35px;
+  width: calc(100% - 5px);
+  box-sizing: border-box;
+  z-index: 800;
+  display: flex;
+  justify-content: space-between;
+
+  &__container {
+    pointer-events: fill;
+    cursor: pointer;
+    display: flex;
+    width: 100%;
+    padding: 0px 13px;
+
+    .icon-wrapper {
+      pointer-events: fill;
+      cursor: pointer !important;
+      display: flex;
+      min-width: 44px;
+      height: 100%;
+      padding: 9px 15px;
+      margin-right: 10px;
+      box-sizing: border-box;
+      line-height: 25px;
+
+      &:hover svg-icon {
+        ::ng-deep .cls-1 {
+          fill: white !important;
+        }
+      }
+    }
+  }
+
+  &__content {
+    cursor: move !important;
     width: 100%;
     height: 100%;
     display: flex;

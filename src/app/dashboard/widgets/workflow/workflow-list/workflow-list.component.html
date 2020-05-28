@@ -70,6 +70,7 @@
             ></svg-icon>
             <svg-icon
               *ngIf="scen.status === 'active'"
+              style="padding-right: 3px"
               src="./assets/icons/widgets/workflow/stop_w.svg"
               [svgStyle]="{ 'width.px':14, 'height.px':13 }"
               [class.available-scenario__body__item__container__icon__error]="scen?.errorMessage"
