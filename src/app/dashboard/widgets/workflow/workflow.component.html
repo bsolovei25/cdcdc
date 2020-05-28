@@ -211,6 +211,7 @@
                             #valueInputChips
                             [formControl]="emailPropActionUI?.emailTo"
                             [matChipInputFor]="chipList"
+                            matChipInputAddOnBlur="true"
                             [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
                             (matChipInputTokenEnd)="add($event, 'to')"
                           />
@@ -246,6 +247,7 @@
                             #valueInputChips
                             [formControl]="emailPropActionUI?.emailCopy"
                             [matChipInputFor]="chipList"
+                            matChipInputAddOnBlur="true"
                             [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
                             (matChipInputTokenEnd)="add($event, 'copy')"
                           />
