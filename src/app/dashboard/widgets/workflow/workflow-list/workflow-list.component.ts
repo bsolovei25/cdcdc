@@ -11,6 +11,7 @@ export interface IModules {
     createdAt: Date;
     name: string;
     uid: string;
+    description: string;
 }
 
 export interface IScenarios {
@@ -103,9 +104,9 @@ export class WorkflowListComponent implements OnInit, OnDestroy {
                 this.isLoading = true;
                 try {
                     this.isLoading = true;
-                    const ans = await this.workflowService.postScenarios(this.chooseModules.uid,
-                        {name: this.inputControl.value}
-                    );
+                    const ans = await this.workflowService.postScenarios(this.chooseModules.uid, {
+                        name: this.inputControl.value,
+                    });
                     this.scenarios.push(ans);
                     this.snackBar.openSnackBar(`Сценарий ${ans.name} добавлен`);
                     this.isLoading = false;
@@ -221,11 +222,8 @@ export class WorkflowListComponent implements OnInit, OnDestroy {
         try {
             this.isLoading = true;
             await this.workflowService.putScenarioStart(this.chooseModules.uid, scenarioId);
-            const el = this.scenarios.find((val) => val.uid === scenarioId);
-            if (el) {
-                el.status = 'active';
-                this.snackBar.openSnackBar('Сценарий запущен');
-            }
+            await this.loadScenarios(this.chooseModules.uid);
+            this.snackBar.openSnackBar('Сценарий запущен');
             this.isLoading = false;
         } catch (error) {
             this.isLoading = false;
@@ -236,11 +234,8 @@ export class WorkflowListComponent implements OnInit, OnDestroy {
         try {
             this.isLoading = true;
             await this.workflowService.putScenarioStop(this.chooseModules.uid, scenarioId);
-            const el = this.scenarios.find((val) => val.uid === scenarioId);
-            if (el) {
-                el.status = 'stopped';
-                this.snackBar.openSnackBar('Сценарий остановлен');
-            }
+            await this.loadScenarios(this.chooseModules.uid);
+            this.snackBar.openSnackBar('Сценарий остановлен');
             this.isLoading = false;
         } catch (error) {
             this.isLoading = false;

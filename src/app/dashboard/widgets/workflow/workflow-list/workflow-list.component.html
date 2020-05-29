@@ -6,7 +6,7 @@
     <div class="choose-system__body__select">
       <mat-form-field class="choose-system__body__select_selectbox">
         <mat-select panelClass="mat-select-custom" (selectionChange)="chooseSystem($event)">
-          <mat-option *ngFor="let p of modules" [value]="p">{{p.name}}</mat-option>
+          <mat-option *ngFor="let p of modules" [value]="p">{{p.description}}</mat-option>
         </mat-select>
       </mat-form-field>
     </div>
@@ -27,6 +27,7 @@
         class="available-scenario__body__item"
         *ngFor="let scen of scenarios"
         (click)="chooseScen(scen)"
+        matTooltipPosition="above"
         [matTooltip]="scen?.errorMessage"
       >
         <span
