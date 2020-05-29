@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { IGlobalClaim } from '../../../../models/admin-panel';
 import { IWidgets } from '../../../../models/widget.model';
 import { AdminPanelService } from '../../../../services/admin-panel/admin-panel.service';

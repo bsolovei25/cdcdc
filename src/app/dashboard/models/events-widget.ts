@@ -147,6 +147,7 @@ export interface IUser {
     email?: string;
     phone?: string;
     brigade?: { id: number; number: string };
+    unitId?: number;
     positionDescription?: string;
     displayName?: string;
     position?: WorkerPositionType;
@@ -217,11 +218,11 @@ export interface ISmotrReference {
     }[];
     data: {
         reasons: {
-            id: string,
+            id: string;
             name: string;
         }[];
         actions: {
-            id: string,
+            id: string;
             name: string;
         }[];
     };
