@@ -319,6 +319,7 @@ export class WorkflowComponent extends WidgetPlatform implements OnInit, OnDestr
     ngOnDestroy(): void {
         super.ngOnDestroy();
         this.leaderLine = [];
+        this.removeIconsAndLineLeaderLine();
     }
 
     protected async dataConnect(): Promise<void> {
@@ -573,7 +574,7 @@ export class WorkflowComponent extends WidgetPlatform implements OnInit, OnDestr
 
     private removeIconsAndLineLeaderLine(): void {
         this.removableLeaderLineIds.forEach((value, key) => {
-            this.removeIconLeader(`cross-${key}`, key);
+            this.removeIconLeader(`cross-${key}`, key, value);
         });
     }
 
@@ -635,8 +636,12 @@ export class WorkflowComponent extends WidgetPlatform implements OnInit, OnDestr
         this.deleteConnectActions(lineId);
     }
 
-    private removeIconLeader(iconId: string, lineId?: string): void {
+    private removeIconLeader(iconId: string, lineId?: string, lineObject?: any): void {
         document.getElementById(iconId)?.remove();
+        if (lineObject && lineId) {
+            document.body.appendChild(document.getElementById(lineId));
+            lineObject.remove();
+        }
         document.getElementById(lineId)?.remove();
     }
 
