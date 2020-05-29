@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { BehaviorSubject } from 'rxjs/index';
 import {
     EventsWidgetNotification,
@@ -97,9 +97,14 @@ export class EventService {
         }
     }
 
-    async postEvent(body: EventsWidgetNotification): Promise<any> {
+    async postEvent(body: EventsWidgetNotification, saveMethod: ISaveMethodEvent): Promise<any> {
         try {
-            return this.http.post(this.restUrl + '/api/notifications', body).toPromise();
+            const options = {
+                headers: new HttpHeaders({
+                    AuthenticationType:  saveMethod.data.authenticationType,
+                })
+            };
+            return this.http.post(`${saveMethod.data.url}/api/notifications`, body, options).toPromise();
         } catch (error) {
             console.error(error);
         }
@@ -113,9 +118,14 @@ export class EventService {
         }
     }
 
-    async putEvent(body: EventsWidgetNotification): Promise<any> {
+    async putEvent(body: EventsWidgetNotification, saveMethod: ISaveMethodEvent): Promise<any> {
         try {
-            return this.http.put(this.restUrl + '/api/notifications/' + body.id, body).toPromise();
+            const options = {
+                headers: new HttpHeaders({
+                    AuthenticationType:  saveMethod.data.authenticationType,
+                })
+            };
+            return this.http.put(`${saveMethod.data.url}/api/notifications/${body.id}`, body, options).toPromise();
         } catch (error) {
             console.error(error);
         }
