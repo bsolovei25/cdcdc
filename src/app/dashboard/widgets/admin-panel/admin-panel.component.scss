@@ -97,7 +97,7 @@
 
     .header {
       &__search {
-        width: 510px;
+        width: 380px;
         height: 100%;
 
         display: flex;
@@ -105,59 +105,9 @@
         justify-content: space-between;
         align-items: center;
 
-        .brigades__button,
-        .new__button {
-          width: 75px;
-          height: 100%;
-          margin: 0px 10px 0px 20px;
-        }
-
-        .group__button {
-          width: 100px;
-          height: 100%;
-          margin-left: 10px;
-        }
-
         .search {
           width: 350px;
           height: 25px;
-        }
-
-        .new__button {
-          &::after {
-            content: "";
-            position: absolute;
-            box-sizing: border-box;
-            height: 20px;
-            width: 2px;
-            background: var(--color-border-search);
-            top: 0;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            margin: auto;
-          }
-
-          &::before {
-            content: "";
-            position: absolute;
-            box-sizing: border-box;
-            height: 2px;
-            width: 20px;
-            background: var(--color-border-search);
-            top: 0;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            margin: auto;
-          }
-
-          &:hover {
-            &::before,
-            &::after {
-              background: var(--color-text-main);
-            }
-          }
         }
       }
 
@@ -175,13 +125,19 @@
       }
 
       &__more {
-        flex-basis: 370px;
+        flex-basis: 500px;
         height: 100%;
 
         display: flex;
         flex-direction: row;
         justify-content: space-between;
         align-items: center;
+
+        .group__button {
+          width: 100px;
+          height: 100%;
+          margin-left: 10px;
+        }
 
         .add {
           &__button {

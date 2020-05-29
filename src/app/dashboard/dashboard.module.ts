@@ -96,7 +96,6 @@ import { ScrollingModule as OldScrollingModule } from '@angular/cdk/scrolling';
 import { AdminEmployeeComponent } from './widgets/admin-panel/admin-employee/admin-employee.component';
 import { AdminWorkspaceComponent } from './widgets/admin-panel/admin-workspace/admin-workspace.component';
 import { AdminClaimsComponent } from './widgets/admin-panel/admin-workspace/admin-claims/admin-claims.component';
-import { AdminBrigadesComponent } from './widgets/admin-panel/admin-brigades/admin-brigades.component';
 import { AdminWorkerSettingsComponent } from './widgets/admin-panel/admin-worker-settings/admin-worker-settings.component';
 import { AwsCardComponent } from './widgets/admin-panel/admin-worker-settings/aws-card/aws-card.component';
 import { AwsWorkspaceCardComponent } from './widgets/admin-panel/admin-worker-settings/aws-workspace-card/aws-workspace-card.component';
@@ -362,7 +361,6 @@ import { AdminShiftInfoEmployeeComponent } from './widgets/admin-widget/admin-sh
         AdminWorkspaceComponent,
         AdminWorkspaceCardComponent,
         AdminClaimsComponent,
-        AdminBrigadesComponent,
         AdminWorkerSettingsComponent,
         AwsCardComponent,
         AwsWorkspaceCardComponent,

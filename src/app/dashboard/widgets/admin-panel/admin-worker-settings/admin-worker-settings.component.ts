@@ -1,6 +1,6 @@
 import { Component, OnInit, Output, EventEmitter, OnDestroy, Input } from '@angular/core';
 import { IWorkspace, IGlobalClaim } from '../../../models/admin-panel';
-import { IUser, IUnitEvents, WorkerPositionType } from '../../../models/events-widget';
+import { IUser, IUnitEvents } from '../../../models/events-widget';
 import { AdminPanelService } from '../../../services/admin-panel/admin-panel.service';
 import { Subscription } from 'rxjs';
 import { fillDataShape } from '../../../../@shared/common-functions';
@@ -63,7 +63,6 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
     //#endregion
 
     public worker: IUser = null;
-    public workerUnit: IUnitEvents = null;
     private workerPhoto: string = null;
 
     private workerGeneralClaims: IGlobalClaim[] = [];
@@ -100,10 +99,7 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
             }),
             this.adminService.activeWorkerWorkspaces$.subscribe((workerScreens) => {
                 this.workerScreens = workerScreens;
-            }),
-            this.adminService.activeWorkerUnit$.subscribe(
-                (unit: IUnitEvents) => (this.workerUnit = unit)
-            )
+            })
         );
 
         if (!!this.worker.id) {
@@ -125,38 +121,8 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
         this.subscriptions.forEach((subs: Subscription) => subs.unsubscribe());
     }
 
-    public onChangeWorkerData(data: IUnitEvents): void {
-        this.workerUnit = data;
+    public onChangeWorkerData(): void {
         this.isDataChanged = true;
-    }
-
-    public onSetResponsible(event: boolean): void {
-        const position: WorkerPositionType = event ? 'responsible' : 'common';
-
-        const brigade = this.adminService.brigades.find(
-            (brigadeItem) => this.worker.brigade.id === brigadeItem.brigadeId
-        );
-
-        const respWorker = brigade.users.find((worker) => worker.position === 'responsible');
-        const respWorkerName = !!respWorker
-            ? `с ${respWorker.lastName} ${respWorker.firstName} ${respWorker.middleName}`
-            : '';
-
-        if (event) {
-            this.alert.questionText = `Вы действительно хотите изменить главного
-            в Бригаде ${this.worker.brigade.number}
-             ${respWorkerName}
-             на ${this.worker.lastName} ${this.worker.firstName} ${this.worker.middleName}?`;
-        } else {
-            this.alert.questionText = `Вы действительно хотите убрать главного
-             в Бригаде ${this.worker.brigade.number}?`;
-        }
-        this.alert.acceptText = 'Подтвердить';
-        this.alert.acceptFunction = () => {
-            this.worker.position = position;
-            this.isDataChanged = true;
-        };
-        this.alert.isShow = true;
     }
 
     public onChangePassword(isResetPassword: boolean): void {
@@ -400,28 +366,17 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
                     await this.onEditWorker();
                 }
 
-                if (this.worker.position === 'responsible') {
-                    await this.adminService.setUserResponsible(this.worker.id).toPromise();
-                }
-
                 if (this.isResetPassword) {
                     await this.adminService.resetUserPassword(this.worker.id).toPromise();
                 }
 
                 await this.adminService.updateAllWorkers();
-                await this.adminService.updateAllBrigades();
                 const userScreens: {
                     data: IWorkspace[];
                 } = await this.adminService.getAllWorkerScreenClaims(this.worker.id).toPromise();
-                if (this.worker.hasOwnProperty('brigade')) {
-                    const newActiveBrigade = this.adminService.brigades.find(
-                        (brigade) => brigade.brigadeId === this.worker.brigade.id
-                    );
-                    this.adminService.activeBrigade$.next(newActiveBrigade);
-                }
+
                 this.adminService.activeWorkerWorkspaces$.next(userScreens.data);
                 this.adminService.activeWorker$.next(this.worker);
-                this.adminService.activeWorkerUnit$.next(this.workerUnit);
 
                 this.materialController.openSnackBar('Данные сохранены');
                 this.isDataChanged = false;
