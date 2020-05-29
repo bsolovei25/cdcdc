@@ -1,6 +1,6 @@
 import { Component, OnInit, Output, EventEmitter, OnDestroy, Input } from '@angular/core';
 import { IWorkspace, IGlobalClaim } from '../../../models/admin-panel';
-import { IUser, IUnitEvents, WorkerPositionType } from '../../../models/events-widget';
+import { IUser, IUnitEvents } from '../../../models/events-widget';
 import { AdminPanelService } from '../../../services/admin-panel/admin-panel.service';
 import { Subscription } from 'rxjs';
 import { fillDataShape } from '../../../../@shared/common-functions';

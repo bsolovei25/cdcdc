@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy, Inject } from '@angular/core';
-import { IButtonImgSrc, IBrigadeAdminPanel, IWorkspace } from '../../models/admin-panel';
+import { IButtonImgSrc, IWorkspace } from '../../models/admin-panel';
 import { AdminPanelService } from '../../services/admin-panel/admin-panel.service';
 import { IUser, IUnitEvents } from '../../models/events-widget';
 import { combineLatest } from 'rxjs';

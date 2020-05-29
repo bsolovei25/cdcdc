@@ -1,8 +1,6 @@
 import { Component, OnInit, Input, OnChanges } from '@angular/core';
-import { IWorker } from '../../../dashboard/models/worker';
-import { IUser, IUnitEvents } from '../../../dashboard/models/events-widget';
+import { IUser } from '../../../dashboard/models/events-widget';
 import { AdminPanelService } from '../../../dashboard/services/admin-panel/admin-panel.service';
-import { AppConfigService } from '../../../services/appConfigService';
 import { AvatarConfiguratorService } from '../../../dashboard/services/avatar-configurator.service';
 
 @Component({

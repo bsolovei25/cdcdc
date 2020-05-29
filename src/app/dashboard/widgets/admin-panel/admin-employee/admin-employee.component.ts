@@ -2,7 +2,6 @@ import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { AdminPanelService } from '../../../services/admin-panel/admin-panel.service';
 import { Subscription } from 'rxjs';
 import { IUser } from '../../../models/events-widget';
-import { IBrigadeAdminPanel } from '../../../models/admin-panel';
 
 @Component({
     selector: 'evj-admin-employee',

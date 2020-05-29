@@ -1,5 +1,5 @@
 import { Component, OnInit, Output, Input, EventEmitter, OnDestroy } from '@angular/core';
-import { IWorkerOptionAdminPanel, IBrigadeAdminPanel } from '../../../../models/admin-panel';
+import { IWorkerOptionAdminPanel } from '../../../../models/admin-panel';
 import { SelectionModel } from '@angular/cdk/collections';
 import { AdminPanelService } from '../../../../services/admin-panel/admin-panel.service';
 import { FormControl } from '@angular/forms';
