@@ -55,10 +55,21 @@ export class SmotrEventComponent implements OnInit {
         }
         this.ewService.event.directReasons = reason.name;
     }
+    public openClosePopup(): void {
+        if (this.isDisabledCloseButton()) {
+            return;
+        }
+        this.isClosePopupOpen = true;
+    }
 
-    // TODO add real url
     public onClickUrl(): void {
-        console.log('go to smotr');
+        if (this.isDisabledUrlButton()) {
+            return;
+        }
         window.open('http://www.example.com/');
+    }
+
+    public isDisabledUrlButton(): boolean {
+        return !(this.ewService.event.deviationData?.urlOriginalSystem === '');
     }
 }

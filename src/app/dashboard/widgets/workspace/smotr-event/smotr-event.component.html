@@ -51,7 +51,7 @@
         <evj-events-workspace-button
           [disabled]="isDisabledCloseButton()"
           status="close"
-          (click)="isClosePopupOpen=true"
+          (click)="openClosePopup()"
         ></evj-events-workspace-button>
       </div>
     </div>
@@ -115,7 +115,11 @@
         </div>
       </div>
       <div class="row__cell cell cell_right">
-        <evj-events-workspace-button status="tools" (click)="onClickUrl()"></evj-events-workspace-button>
+        <evj-events-workspace-button
+          status="tools"
+          (click)="onClickUrl()"
+          [disabled]="isDisabledUrlButton()">
+        </evj-events-workspace-button>
       </div>
     </div>
     <div class="column__row row responsible">
