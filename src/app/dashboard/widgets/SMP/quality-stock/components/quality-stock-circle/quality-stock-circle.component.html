@@ -50,9 +50,8 @@
         <!-- fuel dia -->
         <circle [attr.cx]="centerX" [attr.cy]="centerY" [attr.r]="fuelRadius" [attr.fill]="colorMain">
         </circle>
-        <circle [attr.cx]="centerX" [attr.cy]="centerY" [attr.r]="fuelRadius" fill="transparent"
-          [attr.stroke]="colorBg" stroke-width="1" [attr.stroke-dasharray]="diaCounter(fuelRadius)"
-          stroke-dashoffset="0"></circle>
+        <circle [attr.cx]="centerX" [attr.cy]="centerY" [attr.r]="fuelRadius" fill="transparent" [attr.stroke]="colorBg"
+          stroke-width="1" [attr.stroke-dasharray]="diaCounter(fuelRadius)" stroke-dashoffset="0"></circle>
         <circle [attr.cx]="centerX" [attr.cy]="centerY" [attr.r]="fuelRadius" fill="transparent"
           [attr.stroke]="diaFill(energyCircleDiagram.fuel)" stroke-width="0.7" [attr.stroke-dasharray]="
                   diaLine(fuelRadius, energyCircleDiagram.fuel)
@@ -69,19 +68,19 @@
                 "></circle>
 
         <!-- Точки на концах линий -->
-        <circle [attr.cx]="
+        <circle *ngIf="energyCircleDiagram.termo <= 100" [attr.cx]="
                   diaEndsLine(energyCircleDiagram.termo, termoRadius).xCen
                 " [attr.cy]="
                   diaEndsLine(energyCircleDiagram.termo, termoRadius).yCen
                 " [attr.r]="radPoint" fill="colorBg" [attr.stroke]="diaFill(energyCircleDiagram.termo)"
           stroke-width="0.3"></circle>
-        <circle [attr.cx]="
+        <circle *ngIf="energyCircleDiagram.electro <= 100" [attr.cx]="
                   diaEndsLine(energyCircleDiagram.electro, electroRadius).xCen
                 " [attr.cy]="
                   diaEndsLine(energyCircleDiagram.electro, electroRadius).yCen
                 " [attr.r]="radPoint" fill="colorBg" [attr.stroke]="diaFill(energyCircleDiagram.electro)"
           stroke-width="0.3"></circle>
-        <circle [attr.cx]="
+        <circle *ngIf="energyCircleDiagram.fuel <= 100" [attr.cx]="
                   diaEndsLine(energyCircleDiagram.fuel, fuelRadius).xCen
                 " [attr.cy]="
                   diaEndsLine(energyCircleDiagram.fuel, fuelRadius).yCen
@@ -120,16 +119,16 @@
         <!-- labels dia -->
 
         <!-- termo -->
-        <text *ngIf="dataN.termo !== 0" x="50%" y="3.6" class="svg__txt">
-          {{ dataN.termo }}%</text>
+        <text *ngIf="data?.termo !== 0" x="50%" y="3.6" class="svg__txt">
+          {{ data?.termo }}%</text>
 
         <!-- electro -->
-        <text *ngIf="dataN.electro !== 0" x="50%" y="6.6" class="svg__txt">
-          {{ dataN.electro }}% </text>
+        <text *ngIf="data?.electro !== 0" x="50%" y="6.6" class="svg__txt">
+          {{ data?.electro }}% </text>
 
         <!-- fuel -->
-        <text *ngIf="dataN.fuel !== 0" x="50%" y="9.6" class="svg__txt">
-          {{ dataN.fuel }}%</text>
+        <text *ngIf="data?.fuel !== 0" x="50%" y="9.6" class="svg__txt">
+          {{ data?.fuel }}%</text>
 
         <!-- limits value -->
         <text class="limitLabel" [attr.x]="

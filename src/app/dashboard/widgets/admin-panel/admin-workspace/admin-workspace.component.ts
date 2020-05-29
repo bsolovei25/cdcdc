@@ -16,7 +16,7 @@ export class AdminWorkspaceComponent implements OnInit, OnDestroy {
     public inputOptions: IInputOptions = {
         type: 'text',
         state: 'normal',
-        placeholder: 'Введите название рабочей области',
+        placeholder: 'Введите наименование рабочей области',
         isMovingPlaceholder: true,
         icon: {
             src: 'assets/icons/search-icon.svg',

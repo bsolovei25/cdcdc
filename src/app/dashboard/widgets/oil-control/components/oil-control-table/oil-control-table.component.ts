@@ -12,8 +12,8 @@ export class OilControlTableComponent implements OnInit, OnChanges {
   @Input() checkWidth: boolean;
   @Output() activeOperations: number;
 
-  public maxPage: number;
-  public currentPage: number;
+  public maxPage: number = 1;
+  public currentPage: number = 1;
 
   public criticalPage: any = [];
 

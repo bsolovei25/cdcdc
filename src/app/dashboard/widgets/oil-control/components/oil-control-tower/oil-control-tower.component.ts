@@ -26,7 +26,7 @@ export class OilControlTowerComponent implements OnInit, AfterViewInit, OnChange
   }
 
   ngAfterViewInit(): void {
-    this.drawBak(this.oilBak.nativeElement);
+  //  this.drawBak(this.oilBak.nativeElement);
   }
 
   ngOnChanges(): void {
@@ -39,6 +39,9 @@ export class OilControlTowerComponent implements OnInit, AfterViewInit, OnChange
   }
 
   public drawBak(el): void {
+    let tankLevelPercent;
+    const value = Math.round(this.data?.valueStorage);
+    (this.data.tankLevel < 0) ? tankLevelPercent = 0 : (this.data.tankLevel > 100) ? tankLevelPercent = 0 : tankLevelPercent = this.data.tankLevel;
     this.isCriticalArrow = false;
     this.towerPic = d3
       .select(el)
@@ -61,11 +64,11 @@ export class OilControlTowerComponent implements OnInit, AfterViewInit, OnChange
       .append('rect')
       .attr('fill', '#a2e2ff')
       .attr('opacity', '0.9')
-      .attr('height', this.data.tankLevel * 2.2)
+      .attr('height', tankLevelPercent * 2.2)
       .attr('width', '260px')
       .attr('x', '63')
       .attr('class', 'textProduct')
-      .attr('y', this.rectYHeight - this.data.tankLevel * 2.2 + 10);
+      .attr('y', this.rectYHeight - tankLevelPercent * 2.2 + 10);
 
     const bakValue = this.towerPic
       .append('text')
@@ -83,7 +86,7 @@ export class OilControlTowerComponent implements OnInit, AfterViewInit, OnChange
           return 'var(--color-text-main)';
         }
       })
-      .text(this.data.valueStorage);
+      .text(value);
 
   }
 

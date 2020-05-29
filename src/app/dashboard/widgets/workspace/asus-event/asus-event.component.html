@@ -9,6 +9,7 @@
               panelClass="mat-select-custom"
               [(ngModel)]="ewService.event.category"
               [compareWith]="compareFn"
+              [disabled]="true"
             >
               <mat-option *ngFor="let cat of ewService.category" [value]="cat">
                 {{ ewService.categories[cat.name] }}
