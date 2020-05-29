@@ -20,7 +20,7 @@ export class AwsWorkspacesComponent implements OnInit {
     public inputOptions: IInputOptions = {
         type: 'text',
         state: 'normal',
-        placeholder: 'Введите ФИО сотрудника',
+        placeholder: 'Введите наименование рабочей области',
         isMovingPlaceholder: true,
         icon: {
             src: 'assets/icons/search-icon.svg',
