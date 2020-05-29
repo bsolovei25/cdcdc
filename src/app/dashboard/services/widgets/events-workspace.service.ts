@@ -246,7 +246,7 @@ export class EventsWorkspaceService {
                 }
                 await this.eventService.postEventRetrieval(this.event);
             } else {
-                await this.eventService.postEvent(this.event);
+                await this.eventService.postEvent(this.event, saveMethod);
             }
             this.isCreateNewEvent = false;
             this.snackBarService.openSnackBar('Сохранено');
@@ -274,7 +274,7 @@ export class EventsWorkspaceService {
             this.snackBarService.openSnackBar('Данное действие не допустимо для выбранного события!', 'snackbar-red');
         } else {
             try {
-                await this.eventService.putEvent(this.event);
+                await this.eventService.putEvent(this.event, saveMethod);
                 this.snackBarService.openSnackBar('Изменения сохранены');
             } catch (err) {
                 console.error(err);
