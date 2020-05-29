@@ -10,6 +10,7 @@ import {
     ViewEncapsulation,
     ViewChildren,
     QueryList,
+    HostListener,
 } from '@angular/core';
 import { WidgetService } from '../../services/widget.service';
 import {
@@ -256,6 +257,9 @@ export class WorkflowComponent extends WidgetPlatform implements OnInit, OnDestr
 
     resize: boolean = true;
 
+    public scrolling: boolean = false;
+    private timeout;
+
     @ViewChild('content') content: ElementRef<HTMLInputElement>;
 
     @ViewChild('valueInputChips') valueInputChips: ElementRef<HTMLInputElement>;
@@ -272,6 +276,22 @@ export class WorkflowComponent extends WidgetPlatform implements OnInit, OnDestr
     @ViewChild('containerWorkflow') containerWorkflow: ElementRef<HTMLElement>;
 
     @ViewChildren('line') lines: QueryList<GridsterItemComponent>;
+
+    @HostListener('window:scrollEnd', ['$event'])
+    scrollHandler(event): void {
+        if (!this.scrolling) {
+            this.removeIconsLeaderLine();
+        }
+        this.leaderLineUpdatePosition();
+        this.scrolling = true;
+        clearTimeout(this.timeout);
+        this.timeout = setTimeout(() => {
+            this.drawRemoveIcons();
+            this.scrolling = false;
+        }, 200);
+
+        // this.removeIconsLeaderLine();
+    }
 
     constructor(
         public widgetService: WidgetService,
@@ -299,6 +319,7 @@ export class WorkflowComponent extends WidgetPlatform implements OnInit, OnDestr
     ngOnDestroy(): void {
         super.ngOnDestroy();
         this.leaderLine = [];
+        this.removeIconsAndLineLeaderLine();
     }
 
     protected async dataConnect(): Promise<void> {
@@ -510,6 +531,7 @@ export class WorkflowComponent extends WidgetPlatform implements OnInit, OnDestr
                                     leaderLine
                                 );
                             }
+                            setInterval(() => {}, 100);
                         }
                     }, 100);
                 }
@@ -552,7 +574,7 @@ export class WorkflowComponent extends WidgetPlatform implements OnInit, OnDestr
 
     private removeIconsAndLineLeaderLine(): void {
         this.removableLeaderLineIds.forEach((value, key) => {
-            this.removeIconLeader(`cross-${key}`, key);
+            this.removeIconLeader(`cross-${key}`, key, value);
         });
     }
 
@@ -614,8 +636,12 @@ export class WorkflowComponent extends WidgetPlatform implements OnInit, OnDestr
         this.deleteConnectActions(lineId);
     }
 
-    private removeIconLeader(iconId: string, lineId?: string): void {
+    private removeIconLeader(iconId: string, lineId?: string, lineObject?: any): void {
         document.getElementById(iconId)?.remove();
+        if (lineObject && lineId) {
+            document.body.appendChild(document.getElementById(lineId));
+            lineObject.remove();
+        }
         document.getElementById(lineId)?.remove();
     }
 
@@ -969,25 +995,27 @@ export class WorkflowComponent extends WidgetPlatform implements OnInit, OnDestr
         const input = event.input;
         const value = event.value;
 
-        if (this.validateEmail(value)) {
-            if ((value || '').trim()) {
-                if (type === 'to') {
-                    this.emailPropActionUI.emailToArray.push(value.trim());
-                } else {
-                    this.emailPropActionUI.emailCopyArray.push(value.trim());
+        if (value !== '') {
+            if (this.validateEmail(value)) {
+                if ((value || '').trim()) {
+                    if (type === 'to') {
+                        this.emailPropActionUI.emailToArray.push(value.trim());
+                    } else {
+                        this.emailPropActionUI.emailCopyArray.push(value.trim());
+                    }
                 }
-            }
 
-            if (input) {
-                input.value = '';
-            }
-            if (type === 'to') {
-                this.emailPropActionUI.emailTo.setValue(null);
+                if (input) {
+                    input.value = '';
+                }
+                if (type === 'to') {
+                    this.emailPropActionUI.emailTo.setValue(null);
+                } else {
+                    this.emailPropActionUI.emailCopy.setValue(null);
+                }
             } else {
-                this.emailPropActionUI.emailCopy.setValue(null);
+                this.snackBar.openSnackBar('Некорректно введен email', 'snackbar-red');
             }
-        } else {
-            this.snackBar.openSnackBar('Некорректно введен email', 'snackbar-red');
         }
     }
 

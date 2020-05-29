@@ -18,6 +18,7 @@ export interface EventsWidgetNotificationPreview {
     iconUrl?: string;
     statusName?: string;
     iconUrlStatus?: string;
+    responsibleOperator: IUserPreview;
 }
 
 export interface EventsWidgetNotification {
@@ -153,6 +154,15 @@ export interface IUser {
     photoId?: string;
     claims?: IGlobalClaim[];
     department?: string;
+}
+
+export interface IUserPreview {
+    id: number;
+    login: string;
+    firstName: string;
+    lastName: string;
+    middleName: string;
+    displayName: string;
 }
 
 export interface ISaveMethodEvent {
