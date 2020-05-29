@@ -107,8 +107,6 @@ export class AdminPanelComponent extends WidgetPlatform implements OnInit, OnDes
         this.subscriptions.push(
             serviceData.subscribe(([workers, activeWorker]) => {
                 if (workers) {
-                    console.log(workers);
-
                     this.workers = workers;
                     this.isDataLoading = false;
                 }
