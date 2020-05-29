@@ -18,6 +18,7 @@ export interface EventsWidgetNotificationPreview {
     iconUrl?: string;
     statusName?: string;
     iconUrlStatus?: string;
+    responsibleOperator: IUserPreview;
 }
 
 export interface EventsWidgetNotification {
@@ -146,12 +147,22 @@ export interface IUser {
     email?: string;
     phone?: string;
     brigade?: { id: number; number: string };
+    unitId?: number;
     positionDescription?: string;
     displayName?: string;
     position?: WorkerPositionType;
     photoId?: string;
     claims?: IGlobalClaim[];
     department?: string;
+}
+
+export interface IUserPreview {
+    id: number;
+    login: string;
+    firstName: string;
+    lastName: string;
+    middleName: string;
+    displayName: string;
 }
 
 export interface ISaveMethodEvent {
@@ -207,11 +218,11 @@ export interface ISmotrReference {
     }[];
     data: {
         reasons: {
-            id: string,
+            id: string;
             name: string;
         }[];
         actions: {
-            id: string,
+            id: string;
             name: string;
         }[];
     };

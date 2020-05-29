@@ -1,6 +1,6 @@
 import { Component, OnInit, Output, EventEmitter, OnDestroy } from '@angular/core';
 import { AdminPanelService } from '../../../services/admin-panel/admin-panel.service';
-import { IUserLdapDto, IUserLdap, IUserImported } from '../../../models/admin-panel';
+import { IUserLdapDto, IUserLdap } from '../../../models/admin-panel';
 import { SelectionModel } from '@angular/cdk/collections';
 import { fillDataShape } from '../../../../@shared/common-functions';
 import { IUser } from '../../../models/events-widget';

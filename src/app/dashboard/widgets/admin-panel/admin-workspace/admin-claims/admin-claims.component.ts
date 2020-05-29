@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { IGlobalClaim } from '../../../../models/admin-panel';
 import { AdminPanelService } from '../../../../services/admin-panel/admin-panel.service';
 import { Subscription, BehaviorSubject } from 'rxjs';
