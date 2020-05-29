@@ -27,18 +27,12 @@ export class WorkerCardComponent implements OnInit, OnChanges {
     public mainWorkerPathDisable: string =
         'assets/icons/widgets/admin/responsible_icon-disable.svg';
 
-    public personsUnit: IUnitEvents = null;
-
     constructor(
         private adminService: AdminPanelService,
         private avatarConfiguratorService: AvatarConfiguratorService
     ) {}
 
-    public ngOnInit(): void {
-        if (!this.isSmallCard) {
-            this.adminService.activeWorkerUnit$.subscribe((unit) => (this.personsUnit = unit));
-        }
-    }
+    public ngOnInit(): void {}
 
     public ngOnChanges(): void {
         this.photoPath = this.avatarConfiguratorService.getAvatarPath(this.person?.photoId);
@@ -72,8 +66,8 @@ export class WorkerCardComponent implements OnInit, OnChanges {
     }
 
     public getPersonUnit(): string {
-        if (this.personsUnit) {
-            return `${this.personsUnit.name}`;
+        if (this.person.unitId) {
+            return `${this.adminService.units.find((item) => item.id === this.person.unitId).name}`;
         }
         return 'Установка не выбрана';
     }

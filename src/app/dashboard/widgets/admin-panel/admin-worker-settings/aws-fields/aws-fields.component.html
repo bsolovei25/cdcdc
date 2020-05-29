@@ -17,21 +17,6 @@
     [option]="selectOptions[0]"
     (saveChanging)="onSelectUnit($event)"
   ></evj-aws-select-card>
-  <evj-aws-select-card
-    class="card"
-    *ngIf="!!workerUnit && isValidFieldName(selectOptions[1].name)"
-    [isCreateNewUser]="isCreateNewUser"
-    [option]="selectOptions[1]"
-    (saveChanging)="onSelectBrigade($event)"
-  ></evj-aws-select-card>
-
-  <evj-aws-checkbox-card
-    class="card"
-    *ngIf="worker.brigade && isValidFieldName('Назначить главным')"
-    [isCreateNewUser]="isCreateNewUser"
-    [workerPosition]="setWorkerPosition()"
-    (checked)="onSetResponsible($event)"
-  ></evj-aws-checkbox-card>
 
   <div class="card" *ngIf="isValidFieldName(textPasswordButton()) && !isImportNewWorker">
     <evj-button

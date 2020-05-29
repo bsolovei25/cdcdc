@@ -26,7 +26,7 @@ export class AdminPanelComponent extends WidgetPlatform implements OnInit, OnDes
     //#endregion
 
     //#region WIDGET_FLAGS
-    public isDataLoading: boolean = false;
+    public isDataLoading: boolean = true;
     public isWorkerSettingsShowed: boolean = false;
     public isGroupsShowed: boolean = false;
     public isCreateNewWorker: boolean = false;
@@ -52,7 +52,7 @@ export class AdminPanelComponent extends WidgetPlatform implements OnInit, OnDes
     //#endregion
 
     public workers: IUser[] = null;
-    public brigades: IBrigadeAdminPanel[] = null;
+    public activeWorker: IUser = null;
 
     public man: IUser = {
         id: 1,
@@ -100,23 +100,21 @@ export class AdminPanelComponent extends WidgetPlatform implements OnInit, OnDes
         super.dataConnect();
         this.isDataLoading = true;
         this.adminService.updateAllWorkers().then();
-        this.adminService.updateAllBrigades().then();
         const serviceData = combineLatest([
             this.adminService.allWorkers$,
-            this.adminService.allBrigades$,
             this.adminService.activeWorker$,
         ]);
         this.subscriptions.push(
-            serviceData.subscribe(([workers, brigades, activeWorker]) => {
+            serviceData.subscribe(([workers, activeWorker]) => {
                 if (workers) {
+                    console.log(workers);
+
                     this.workers = workers;
                     this.isDataLoading = false;
                 }
-                if (brigades) {
-                    this.brigades = brigades;
-                }
                 if (activeWorker) {
                     this.isImportNewWorker = activeWorker.sid ? true : false;
+                    this.activeWorker = activeWorker;
                 }
             }),
             this.adminService.getAllSpecialScreenClaims().subscribe((data) => {
@@ -125,9 +123,6 @@ export class AdminPanelComponent extends WidgetPlatform implements OnInit, OnDes
             this.adminService
                 .getAllUnits()
                 .subscribe((data: IUnitEvents[]) => (this.adminService.units = data)),
-            this.adminService
-                .getAllUnitsWithBrigades()
-                .subscribe((data: IUnitEvents[]) => (this.adminService.unitsWithBrigades = data)),
             this.adminService
                 .getAllGeneralClaims()
                 .subscribe((claims) => (this.adminService.generalClaims = claims.data)),
@@ -153,7 +148,7 @@ export class AdminPanelComponent extends WidgetPlatform implements OnInit, OnDes
     }
 
     public getMoreAboutWorker(): void {
-        if (this.adminService.activeWorker.id) {
+        if (this.activeWorker?.id) {
             this.isWorkerSettingsShowed = true;
         }
     }

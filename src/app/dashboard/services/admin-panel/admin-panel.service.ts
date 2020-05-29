@@ -41,30 +41,15 @@ export class AdminPanelService {
         department: '',
     };
 
-    public activeWorker: IUser = null;
-
     public allWorkers$: BehaviorSubject<IUser[]> = new BehaviorSubject<IUser[]>(null);
-    public allBrigades$: BehaviorSubject<IBrigadeAdminPanel[]> = new BehaviorSubject<
-        IBrigadeAdminPanel[]
-    >(null);
-    public activeUnitBrigades$: BehaviorSubject<IBrigadeAdminPanel[]> = new BehaviorSubject<
-        IBrigadeAdminPanel[]
-    >(null);
-    public activeBrigade$: BehaviorSubject<IBrigadeAdminPanel> = new BehaviorSubject<
-        IBrigadeAdminPanel
-    >(null);
 
     public activeWorker$: BehaviorSubject<IUser> = new BehaviorSubject<IUser>(this.defaultWorker);
-    public activeWorkerUnit$: BehaviorSubject<IUnitEvents> = new BehaviorSubject<IUnitEvents>(null);
     public activeWorkerWorkspaces$: BehaviorSubject<IWorkspace[]> = new BehaviorSubject<
         IWorkspace[]
     >(null);
 
     public workers: IUser[] = [];
 
-    public brigades: IBrigadeAdminPanel[] = [];
-
-    public unitsWithBrigades: IUnitEvents[] = [];
     public units: IUnitEvents[] = [];
 
     public screenClaims: IClaim[] = [];
@@ -94,9 +79,6 @@ export class AdminPanelService {
         this.restUrl = `${this.configService.restUrl}${this.restUrl}`;
         this.restUrlApi = `${this.configService.restUrl}${this.restUrlApi}`;
         this.restFileUrl = `${configService.restUrl}${this.restFileUrl}`;
-        this.activeWorker$.subscribe((worker: IUser) => {
-            this.activeWorker = worker;
-        });
     }
 
     //#region DATA_API
@@ -118,11 +100,6 @@ export class AdminPanelService {
         return this.http.post<IUser>(url, worker);
     }
 
-    public setUserResponsible(userId: number): Observable<void> {
-        const url: string = `${this.restUrl}/user/${userId}/SetResponsible`;
-        return this.http.post<void>(url, null);
-    }
-
     public resetUserPassword(workerId: number): Observable<void> {
         const url: string = `${this.restUrl}/user/${workerId}/password/reset`;
         return this.http.post<void>(url, null);
@@ -139,13 +116,6 @@ export class AdminPanelService {
     public async deleteWorker(workerId: number): Promise<any> {
         const url: string = `${this.restUrl}/user/${workerId}`;
         return this.http.delete(url).toPromise();
-    }
-    //#endregion
-
-    //#region BRIGADES
-    public getBrigades(): Observable<IBrigadeAdminPanel[]> {
-        const url: string = `${this.restUrl}/brigades`;
-        return this.http.get<IBrigadeAdminPanel[]>(url);
     }
     //#endregion
 
@@ -175,16 +145,6 @@ export class AdminPanelService {
     public getAllUnits(): Observable<IUnitEvents[]> {
         const url: string = `${this.restUrlApi}/ref-book/Unit`;
         return this.http.get<IUnitEvents[]>(url);
-    }
-
-    public getAllUnitsWithBrigades(): Observable<IUnitEvents[]> {
-        const url: string = `${this.restUrl}/units/all`;
-        return this.http.get<IUnitEvents[]>(url);
-    }
-
-    public getUnitBrigades(unitId: number): Observable<IBrigadeAdminPanel[]> {
-        const url: string = `${this.restUrl}/brigades/all/unit/${unitId}`;
-        return this.http.get<IBrigadeAdminPanel[]>(url);
     }
     //#endregion
 
@@ -277,47 +237,19 @@ export class AdminPanelService {
     //#endregion
 
     //#region WORKER_METHODS
-
     public setActiveWorker(worker: IUser): void {
         this.activeWorker$.next(worker);
-        if (worker.brigade) {
-            this.setActiveBrigade(worker.brigade.id);
-            const unit = this.getUnitByBrigadeId(worker.brigade.id);
-            if (unit) {
-                this.activeWorkerUnit$.next(unit);
-                this.updateUnitBrigades(unit.id);
-            }
-        } else {
-            this.activeWorkerUnit$.next(null);
-            this.activeUnitBrigades$.next([]);
-        }
     }
 
     public setDefaultActiveWorker(): void {
         const worker = fillDataShape(this.defaultWorker);
         this.activeWorker$.next(worker);
         this.activeWorkerWorkspaces$.next([]);
-        this.activeBrigade$.next(null);
-        this.activeWorkerUnit$.next(null);
-    }
-
-    public setActiveBrigade(brigadeId: number): void {
-        const activeBrigade = this.brigades.find((brigade) => brigade.brigadeId === brigadeId);
-        if (activeBrigade) {
-            this.activeBrigade$.next(activeBrigade);
-        }
     }
 
     public async updateAllWorkers(): Promise<void> {
         const data: IUser[] = await this.getAllWorkers().toPromise();
         this.allWorkers$.next(data);
-    }
-
-    public async updateAllBrigades(): Promise<void> {
-        const data: IBrigadeAdminPanel[] = await this.getBrigades().toPromise();
-
-        this.allBrigades$.next(data);
-        this.brigades = data;
     }
 
     public getPhotoLink(worker: IUser): string {
@@ -334,26 +266,5 @@ export class AdminPanelService {
         }
         return returnedString;
     }
-
-    //#endregion
-
-    //#region BRIGADE_METHODS
-
-    public getUnitByBrigadeId(brigadeId: number): IUnitEvents {
-        const brigade: IBrigadeAdminPanel = this.brigades.find(
-            (item: IBrigadeAdminPanel) => item.brigadeId === brigadeId
-        );
-        return brigade ? brigade.unit : null;
-    }
-
-    public async updateUnitBrigades(unitId: number): Promise<void> {
-        try {
-            const brigades = await this.getUnitBrigades(unitId).toPromise();
-            this.activeUnitBrigades$.next(brigades);
-        } catch (error) {
-            console.error(error);
-        }
-    }
-
     //#endregion
 }
