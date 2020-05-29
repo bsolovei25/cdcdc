@@ -1,8 +1,8 @@
 import { Component, OnInit, OnDestroy, Inject } from '@angular/core';
-import { IButtonImgSrc, IBrigadeAdminPanel, IWorkspace } from '../../models/admin-panel';
+import { IButtonImgSrc, IWorkspace } from '../../models/admin-panel';
 import { AdminPanelService } from '../../services/admin-panel/admin-panel.service';
 import { IUser, IUnitEvents } from '../../models/events-widget';
-import {combineLatest } from 'rxjs';
+import { combineLatest } from 'rxjs';
 import { WidgetService } from '../../services/widget.service';
 import { IInputOptions } from '../../../@shared/models/input.model';
 import { WidgetPlatform } from '../../models/widget-platform';
@@ -26,9 +26,7 @@ export class AdminPanelComponent extends WidgetPlatform implements OnInit, OnDes
     //#endregion
 
     //#region WIDGET_FLAGS
-    public isDataLoading: boolean = false;
-
-    public isBrigadesShowed: boolean = false;
+    public isDataLoading: boolean = true;
     public isWorkerSettingsShowed: boolean = false;
     public isGroupsShowed: boolean = false;
     public isCreateNewWorker: boolean = false;
@@ -54,7 +52,7 @@ export class AdminPanelComponent extends WidgetPlatform implements OnInit, OnDes
     //#endregion
 
     public workers: IUser[] = null;
-    public brigades: IBrigadeAdminPanel[] = null;
+    public activeWorker: IUser = null;
 
     public man: IUser = {
         id: 1,
@@ -102,23 +100,19 @@ export class AdminPanelComponent extends WidgetPlatform implements OnInit, OnDes
         super.dataConnect();
         this.isDataLoading = true;
         this.adminService.updateAllWorkers().then();
-        this.adminService.updateAllBrigades().then();
         const serviceData = combineLatest([
             this.adminService.allWorkers$,
-            this.adminService.allBrigades$,
             this.adminService.activeWorker$,
         ]);
         this.subscriptions.push(
-            serviceData.subscribe(([workers, brigades, activeWorker]) => {
+            serviceData.subscribe(([workers, activeWorker]) => {
                 if (workers) {
                     this.workers = workers;
                     this.isDataLoading = false;
                 }
-                if (brigades) {
-                    this.brigades = brigades;
-                }
                 if (activeWorker) {
                     this.isImportNewWorker = activeWorker.sid ? true : false;
+                    this.activeWorker = activeWorker;
                 }
             }),
             this.adminService.getAllSpecialScreenClaims().subscribe((data) => {
@@ -127,9 +121,6 @@ export class AdminPanelComponent extends WidgetPlatform implements OnInit, OnDes
             this.adminService
                 .getAllUnits()
                 .subscribe((data: IUnitEvents[]) => (this.adminService.units = data)),
-            this.adminService
-                .getAllUnitsWithBrigades()
-                .subscribe((data: IUnitEvents[]) => (this.adminService.unitsWithBrigades = data)),
             this.adminService
                 .getAllGeneralClaims()
                 .subscribe((claims) => (this.adminService.generalClaims = claims.data)),
@@ -145,8 +136,7 @@ export class AdminPanelComponent extends WidgetPlatform implements OnInit, OnDes
         );
     }
 
-    protected dataHandler(ref: any): void {
-    }
+    protected dataHandler(ref: any): void {}
 
     public createNewWorker(): void {
         this.isDropdownShowed = false;
@@ -156,7 +146,7 @@ export class AdminPanelComponent extends WidgetPlatform implements OnInit, OnDes
     }
 
     public getMoreAboutWorker(): void {
-        if (this.adminService.activeWorker.id) {
+        if (this.activeWorker?.id) {
             this.isWorkerSettingsShowed = true;
         }
     }
@@ -178,13 +168,6 @@ export class AdminPanelComponent extends WidgetPlatform implements OnInit, OnDes
             this.isImportNewWorker = true;
         }
         this.isPopupShowed = false;
-    }
-
-    public onShowBrigades(): void {
-        this.isBrigadesShowed = !this.isBrigadesShowed;
-        this.inputOptions.placeholder = this.isBrigadesShowed
-            ? 'Введите название бригады'
-            : 'Введите ФИО сотрудника';
     }
 
     public onHideGroups(): void {

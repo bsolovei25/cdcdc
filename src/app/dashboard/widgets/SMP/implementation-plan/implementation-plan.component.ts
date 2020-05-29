@@ -53,9 +53,6 @@ export class ImplementationPlanComponent extends WidgetPlatform implements OnIni
 
   public ngOnInit(): void {
     super.widgetInit();
-    setTimeout(() => {
-      this.data = this.data2;
-    }, 3000);
   }
 
   public ngOnDestroy(): void {

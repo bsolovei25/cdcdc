@@ -33,16 +33,12 @@
                 [(ngModel)]="searchedWorker"
               ></evj-input>
             </div>
-            <div class="brigades__button">
-              <evj-button
-                class="insert-component"
-                [isSmallButton]="true"
-                [imgSrc]="groupsButtonIcon"
-                [isActive]="isBrigadesShowed"
-                [isChangingState]="true"
-                (click)="onShowBrigades()"
-              ></evj-button>
-            </div>
+          </div>
+          <div class="header__title">
+            <div class="line"></div>
+            <div class="title">Основная информация</div>
+          </div>
+          <div class="header__more">
             <div class="group__button">
               <evj-button
                 class="insert-component"
@@ -51,12 +47,6 @@
                 (click)="onShowGroups()"
               ></evj-button>
             </div>
-          </div>
-          <div class="header__title">
-            <div class="title">Основная информация</div>
-            <div class="line"></div>
-          </div>
-          <div class="header__more">
             <div class="add__button">
               <evj-button
                 class="insert-component"
@@ -91,13 +81,7 @@
           <evj-admin-employee
             [searchedWorker]="searchedWorker"
             [workers]="workers"
-            *ngIf="!isBrigadesShowed"
           ></evj-admin-employee>
-          <evj-admin-brigades
-            *ngIf="isBrigadesShowed"
-            [searchedBrigade]="searchedWorker"
-            [brigades]="brigades"
-          ></evj-admin-brigades>
         </div>
         <div class="admin__workspace">
           <evj-admin-workspace></evj-admin-workspace>

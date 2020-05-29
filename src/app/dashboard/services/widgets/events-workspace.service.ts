@@ -20,8 +20,9 @@ import { EventService } from '../widgets/event.service';
 import { SnackBarService } from '../snack-bar.service';
 import { fillDataShape } from '../../../@shared/common-functions';
 import { AvatarConfiguratorService } from '../avatar-configurator.service';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { IAlertWindowModel } from '@shared/models/alert-window.model';
+import { filter, map } from 'rxjs/operators';
 
 @Injectable({
     providedIn: 'root',
@@ -52,6 +53,27 @@ export class EventsWorkspaceService {
     public asusEquipments: IAsusTpPlace[] = [];
     public asusUnits: IAsusTmPlace[] = [];
     public smotrReference: ISmotrReference = null;
+    public category$: BehaviorSubject<ICategory[]> = new BehaviorSubject<ICategory[]>([]);
+    public categoryPipe: Observable<ICategory[]> = this.category$.pipe(
+        filter((item) => item !== null),
+        map((cats) => cats.filter((cat) => {
+            if (this.isCreateNewEvent) {
+                switch (cat.name) {
+                    case 'smotr':
+                        return false;
+                    default:
+                        return true;
+                }
+            }
+            switch (cat.name) {
+                case 'asus':
+                case 'smotr':
+                    return false;
+                default:
+                    return true;
+            }
+        }))
+    );
     //#endregion
 
     public currentAuthUser: IUser = null;
@@ -296,17 +318,36 @@ export class EventsWorkspaceService {
     }
 
     // TODO #SMOTR region start
-    public async escalateEvent(): Promise<void> {
-        if (this.event.originalId) {
-            const a = this.eventService.escalateSmotrEvent(this.event.originalId);
-            // console.log(a);
+    public async escalateEvent(message: string): Promise<void> {
+        if (!this.event.originalId) {
+            return;
         }
+        this.isLoading = true;
+        try {
+            this.sendMessageToEvent(message, 'comments');
+            await this.eventService.escalateSmotrEvent(this.event.originalId);
+        } catch (e) {
+            console.log(e);
+            this.event.comments.pop();
+        }
+        this.isLoading = false;
     }
-    public async closeEvent(): Promise<void> {
-        if (this.event.originalId) {
-            const a = this.eventService.closeSmotrEvent(this.event.originalId);
-            // console.log(a);
+    public async closeEvent(message: string): Promise<void> {
+        if (!this.event.originalId) {
+            return;
         }
+        this.isLoading = true;
+        const tempStatus = this.event.status;
+        try {
+            this.sendMessageToEvent(message, 'comments');
+            this.event.status = this.status.find(el => el.name === 'closed');
+            await this.eventService.closeSmotrEvent(this.event.originalId);
+        } catch (e) {
+            console.log(e);
+            this.event.status = tempStatus;
+            this.event.comments.pop();
+        }
+        this.isLoading = false;
     }
     public async updateEvent(): Promise<void> {
         if (this.event.originalId) {
@@ -321,7 +362,11 @@ export class EventsWorkspaceService {
             isUserCanEdit: true,
             itemNumber: 0,
             branch: 'Производство',
-            category: this.category ? this.category[0] : null,
+            category: {
+                id: null,
+                name: null,
+                code: null,
+            },
             description: '',
             deviationReason: 'Причина отклонения...',
             directReasons: '',
@@ -362,6 +407,7 @@ export class EventsWorkspaceService {
         dataLoadQueue.push(
             this.eventService.getCategory().then((data) => {
                 this.category = data;
+                this.category$.next(data);
             }),
             this.eventService.getUser().then((data) => {
                 this.users = data;

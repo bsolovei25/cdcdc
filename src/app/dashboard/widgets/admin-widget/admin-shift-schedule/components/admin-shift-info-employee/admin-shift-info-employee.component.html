@@ -1,0 +1,22 @@
+<div class="employee-container">
+    <div class="employee-container__avatar">
+        <svg-icon class="icon" src="./assets/icons/widgets/admin-shift-schedule/{{data.avatar}}.svg"></svg-icon>
+    </div>
+    <div class="employee-container__info">
+        <div class="fio">{{data.fio}}</div>
+        <div class="specialty">{{data.specialty}}</div>
+    </div>
+    <div *ngIf="type === 'brigade'" class="employee-container__brigade">
+        <div class="brigade">Бригада №{{data.brigade}}</div>
+    </div>
+
+    <div class="employee-container__star" [class.star-active]="star" (click)="changeStatus()">
+        <svg-icon src="assets/icons/widgets/admin-shift-schedule/star.svg"
+        [svgStyle]="{ 'width.px':12, 'height.px':20 }"></svg-icon>
+    </div>
+
+    <div *ngIf="type === 'garbage'" class="employee-container__garbage" (click)="delete()">
+        <svg-icon src="assets/icons/widgets/admin-shift-schedule/garbage.svg"
+        [svgStyle]="{ 'width.px':20, 'height.px':20 }"></svg-icon>
+    </div>
+</div>

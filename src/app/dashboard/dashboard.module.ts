@@ -96,7 +96,6 @@ import { ScrollingModule as OldScrollingModule } from '@angular/cdk/scrolling';
 import { AdminEmployeeComponent } from './widgets/admin-panel/admin-employee/admin-employee.component';
 import { AdminWorkspaceComponent } from './widgets/admin-panel/admin-workspace/admin-workspace.component';
 import { AdminClaimsComponent } from './widgets/admin-panel/admin-workspace/admin-claims/admin-claims.component';
-import { AdminBrigadesComponent } from './widgets/admin-panel/admin-brigades/admin-brigades.component';
 import { AdminWorkerSettingsComponent } from './widgets/admin-panel/admin-worker-settings/admin-worker-settings.component';
 import { AwsCardComponent } from './widgets/admin-panel/admin-worker-settings/aws-card/aws-card.component';
 import { AwsWorkspaceCardComponent } from './widgets/admin-panel/admin-worker-settings/aws-workspace-card/aws-workspace-card.component';
@@ -274,6 +273,9 @@ import { OilControlTableComponent } from './widgets/oil-control/components/oil-c
 import { OilControlTowerComponent } from './widgets/oil-control/components/oil-control-tower/oil-control-tower.component';
 import { WidgetPanelComponent } from './components/widget-panel/widget-panel.component';
 import { EventSearchWindowComponent } from './widgets/workspace/components/event-search-window/event-search-window.component';
+import { AdminShiftBrigadeComponent } from './widgets/admin-widget/admin-shift-schedule/components/admin-shift-brigade/admin-shift-brigade.component';
+import { AdminShiftListEmployeesComponent } from './widgets/admin-widget/admin-shift-schedule/components/admin-shift-list-employees/admin-shift-list-employees.component';
+import { AdminShiftInfoEmployeeComponent } from './widgets/admin-widget/admin-shift-schedule/components/admin-shift-info-employee/admin-shift-info-employee.component';
 
 @NgModule({
     declarations: [
@@ -359,7 +361,6 @@ import { EventSearchWindowComponent } from './widgets/workspace/components/event
         AdminWorkspaceComponent,
         AdminWorkspaceCardComponent,
         AdminClaimsComponent,
-        AdminBrigadesComponent,
         AdminWorkerSettingsComponent,
         AwsCardComponent,
         AwsWorkspaceCardComponent,
@@ -517,6 +518,9 @@ import { EventSearchWindowComponent } from './widgets/workspace/components/event
         OilControlTowerComponent,
         WidgetPanelComponent,
         EventSearchWindowComponent,
+        AdminShiftBrigadeComponent,
+        AdminShiftListEmployeesComponent,
+        AdminShiftInfoEmployeeComponent,
     ],
     entryComponents: [
         LineChartComponent,
