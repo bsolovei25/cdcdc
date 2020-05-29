@@ -140,7 +140,9 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
         }
     }
 
-    public onChangeWorkspacesData(): void {}
+    public onChangeWorkspacesData(): void {
+        this.isDataChanged = true;
+    }
 
     public onSetWorkerPassword(password: string): void {
         if (password && this.isCreateNewUser) {

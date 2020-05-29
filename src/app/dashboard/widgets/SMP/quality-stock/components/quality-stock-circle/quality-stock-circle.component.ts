@@ -43,13 +43,13 @@ export class QualityStockCircleComponent implements OnInit, OnChanges {
   public radPoint: string = '0.8';
 
   /// TEST MOCK
-  public dataN: IQualityStockCircle = {
-    lowerLimit: 80,
-    upperLimit: 90,
-    termo: 94,
-    electro: 0,
-    fuel: 0
-  }
+  // public dataN: IQualityStockCircle = {
+  //   lowerLimit: 80,
+  //   upperLimit: 90,
+  //   termo: 94,
+  //   electro: 0,
+  //   fuel: 0
+  // }
 
   constructor() { }
 
@@ -177,5 +177,4 @@ export class QualityStockCircleComponent implements OnInit, OnChanges {
     };
     return limitLine;
   }
-
 }
