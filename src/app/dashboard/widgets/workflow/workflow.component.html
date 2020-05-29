@@ -31,7 +31,7 @@
       <div class="workflow__vertival-bar" #splitVertivalBar></div>
       <div class="workflow__right-block">
         <div class="workflow__action">
-          <div class="workflow__action__title">Доступные действия</div>
+          <div class="workflow__action__title">Доступные инструменты</div>
           <div class="workflow__action__body">
             <div class="workflow__action__body__items">
               <div
@@ -44,7 +44,7 @@
                   src="./assets/icons/widgets/workflow/action-other.svg"
                   [svgStyle]="{ 'width.px':32, 'height.px':32 }"
                 ></svg-icon>
-                <span class="workflow__action__body__item__title">Выполнить действие</span>
+                <span class="workflow__action__body__item__title">Событие</span>
               </div>
               <div
                 class="workflow__action__body__item"
@@ -98,6 +98,7 @@
                 id="gridSize"
                 [options]="options"
                 (click)="chooseGridItem($event, null)"
+                (scroll)="scrollHandler($event)"
               >
                 <ng-container *ngFor="let i of items">
                   <gridster-item
@@ -134,7 +135,6 @@
                     ></svg-icon>
                   </gridster-item>
                 </ng-container>
-                <div [id]="LEADER_LINE_HOST_CONTAINER"></div>
                 <div [id]="LEADER_LINE_REMOVE_CONTAINER">
                   <div style="display: none;">
                     <svg-icon
@@ -148,6 +148,7 @@
                   </div>
                 </div>
               </gridster>
+              <div [id]="LEADER_LINE_HOST_CONTAINER"></div>
             </div>
             <div class="workflow__scenario__body__bar" #splitBar></div>
             <div class="email__title" *ngIf="comboAction">
