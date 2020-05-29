@@ -2561,21 +2561,21 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, OnDes
     }
 
     public FilterStorageCircle(data, el): void {
+        const count = data.storages.length
         this.pieStartStorage = 2;
-        if (data.storages[el + 1] === undefined && el === 0) {
+        if (count === 0) {
             this.pieEndStorage = 2;
             this.pieStartStorage = 2;
-        } else if (data.storages[el + 1] !== undefined && el < 3) {
-            this.pieStartStorage = this.pieStartStorage - 1;
-            this.indexTestStorage++;
-            return this.FilterStorageCircle(data, this.indexTestStorage);
-        } else if (data.storages[el + 1] === undefined && el === 1) {
+        } else if (count === 1) {
+            this.pieStartStorage = 2;
+            this.pieEndStorage = 2;
+        } else if (count === 2) {
             this.pieStartStorage = 1;
             this.pieEndStorage = 2;
-        } else if (data.storages[el + 1] === undefined && el === 3) {
+        } else if (count === 3) {
             this.pieStartStorage = 0;
-            this.pieEndStorage = 3;
-        } else if (data.storages[el + 1] === undefined && el === 4) {
+            this.pieEndStorage = 2;
+        } else if (count === 4) {
             this.pieStartStorage = 0;
             this.pieEndStorage = 3;
         } else {
