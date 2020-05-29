@@ -1,7 +1,7 @@
-import { Component, OnInit, Inject, ViewChild, ElementRef, OnDestroy, AfterViewInit } from '@angular/core';
+import { Component, OnInit, Inject, ViewChild, ElementRef, OnDestroy } from '@angular/core';
 import { WidgetService } from '../../services/widget.service';
 import { EventEmitter } from '@angular/core';
-import { OilControls } from '../../models/oil-control';
+import { OilControls, OilProducts } from '../../models/oil-control';
 import { WidgetPlatform } from '../../models/widget-platform';
 
 export interface IOilControlCoords {
@@ -17,7 +17,7 @@ declare var d3: any;
     templateUrl: './oil-control.component.html',
     styleUrls: ['./oil-control.component.scss'],
 })
-export class OilControlComponent extends WidgetPlatform implements OnInit, AfterViewInit, OnDestroy {
+export class OilControlComponent extends WidgetPlatform implements OnInit, OnDestroy {
     @ViewChild('oilIcon') oilIcon: ElementRef;
     @ViewChild('oilCircle') oilCircle: ElementRef;
     @ViewChild('borders') borders: ElementRef;
@@ -32,1414 +32,1517 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, After
 
     public previewTitle: string;
 
-    data: OilControls = {
-        operations: 42,
-        criticalOperations: 1,
-        products: [
-            {
-                name: 'ДТ сорт F',
-                value: 12132,
-                criticalValue: 23,
-                storages: [
-                    {
-                        id: 1,
-                        nameStorage: 'E-1',
-                        status: 'critical',
-                        valueStorage: 10253,
-                        tankLevel: 10,
-                        tankers: [
-                            {
-                                nameTanker: 'Tug',
-                                shipped: true,
-                                value: 528,
-                                title: 'Авто ( AУТН-2 )',
-                            },
-                            {
-                                nameTanker: 'Tube',
-                                shipped: true,
-                                value: 528,
-                                title: 'Ж/Д ( AУТН-2 )',
-                            },
-                            {
-                                nameTanker: 'Cistern',
-                                shipped: true,
-                                value: 528,
-                                title: 'Труба ( AУТН-2 )',
-                            },
-                        ],
-                        operations: [
-                            {
-                                timeStart: '02:03:20',
-                                timeEnd: '04:08:38',
-                                tankValues: [
-                                    {
-                                        name: 'Отгружено по резервуару',
-                                        valueFirst: 1670,
-                                        valueSecond: 98.73,
-                                        status: 'normal',
-                                    },
-                                    {
-                                        name: 'По данным отгрузки',
-                                        valueFirst: 1700,
-                                        valueSecond: 103.23,
-                                        status: 'critical',
-                                    },
-                                    {
-                                        name: 'Дебаланс',
-                                        valueFirst: 30,
-                                        valueSecond: 1.27,
-                                        status: 'normal',
-                                    },
-                                    {
-                                        name: 'Допустимый дебаланс',
-                                        valueFirst: 15,
-                                        valueSecond: 103.23,
-                                        status: 'default',
-                                    },
-                                    {
-                                        name: 'Отклонение',
-                                        valueFirst: 15,
-                                        valueSecond: 103.23,
-                                        status: 'normal',
-                                    },
-                                ],
-                            },
-                        ],
-                    },
-                    {
-                        id: 2,
-                        nameStorage: 'E-2',
-                        valueStorage: 10253,
-                        status: 'normal',
-                        tankLevel: 10,
-                        tankers: [
-                            {
-                                nameTanker: 'Tug',
-                                shipped: true,
-                                value: 528,
-                                title: 'Авто ( AУТН-2 )',
-                            },
-                            {
-                                nameTanker: 'Tube',
-                                shipped: true,
-                                value: 528,
-                                title: 'Ж/Д ( AУТН-2 )',
-                            },
-                            {
-                                nameTanker: 'Cistern',
-                                shipped: false,
-                                value: 528,
-                                title: 'Труба ( AУТН-2 )',
-                            },
-                        ],
-                        operations: [
-                            {
-                                timeStart: '02:03:20',
-                                timeEnd: '04:08:38',
-                                tankValues: [
-                                    {
-                                        name: 'Отгружено по резервуару',
-                                        valueFirst: 1670,
-                                        valueSecond: 98.73,
-                                        status: 'normal',
-                                    },
-                                    {
-                                        name: 'По данным отгрузки',
-                                        valueFirst: 1700,
-                                        valueSecond: 103.23,
-                                        status: 'critical',
-                                    },
-                                    {
-                                        name: 'Дебаланс',
-                                        valueFirst: 30,
-                                        valueSecond: 1.27,
-                                        status: 'normal',
-                                    },
-                                    {
-                                        name: 'Допустимый дебаланс',
-                                        valueFirst: 15,
-                                        valueSecond: 103.23,
-                                        status: 'default',
-                                    },
-                                    {
-                                        name: 'Отклонение',
-                                        valueFirst: 15,
-                                        valueSecond: 103.23,
-                                        status: 'normal',
-                                    },
-                                ],
-                            },
-                        ],
-                    },
-                    {
-                        id: 3,
-                        nameStorage: 'E-3',
-                        valueStorage: 10253,
-                        status: 'normal',
-                        tankLevel: 10,
-                        tankers: [
-                            {
-                                nameTanker: 'bus',
-                                shipped: true,
-                                value: 528,
-                                title: 'Авто ( AУТН-2 )',
-                            },
-                            {
-                                nameTanker: 'pipe',
-                                shipped: false,
-                                value: 528,
-                                title: 'Авто ( AУТН-2 )',
-                            },
-                            {
-                                nameTanker: 'train',
-                                shipped: false,
-                                value: 528,
-                                title: 'Авто ( AУТН-2 )',
-                            },
-                        ],
-                        operations: [
-                            {
-                                timeStart: '02:03:20',
-                                timeEnd: '04:08:38',
-                                tankValues: [
-                                    {
-                                        name: 'Отгружено по резервуару',
-                                        valueFirst: 1670,
-                                        valueSecond: 98.73,
-                                        status: 'normal',
-                                    },
-                                    {
-                                        name: 'По данным отгрузки',
-                                        valueFirst: 1700,
-                                        valueSecond: 103.23,
-                                        status: 'critical',
-                                    },
-                                    {
-                                        name: 'Дебаланс',
-                                        valueFirst: 30,
-                                        valueSecond: 1.27,
-                                        status: 'normal',
-                                    },
-                                    {
-                                        name: 'Допустимый дебаланс',
-                                        valueFirst: 15,
-                                        valueSecond: 103.23,
-                                        status: 'default',
-                                    },
-                                    {
-                                        name: 'Отклонение',
-                                        valueFirst: 15,
-                                        valueSecond: 103.23,
-                                        status: 'normal',
-                                    },
-                                ],
-                            },
-                        ],
-                    },
-                ],
-            },
-            {
-                name: 'ДТ сорт D',
-                value: 12132,
-                criticalValue: 23,
-                storages: [
-                    {
-                        id: 1,
-                        nameStorage: 'D-1',
-                        status: 'critical',
-                        valueStorage: 10253,
-                        tankLevel: 10,
-                        tankers: [
-                            {
-                                nameTanker: 'Tug',
-                                shipped: true,
-                                value: 528,
-                                title: 'Авто ( AУТН-2 )',
-                            },
-                            {
-                                nameTanker: 'Tube',
-                                shipped: true,
-                                value: 528,
-                                title: 'Ж/Д ( AУТН-2 )',
-                            },
-                            {
-                                nameTanker: 'Cistern',
-                                shipped: true,
-                                value: 528,
-                                title: 'Труба ( AУТН-2 )',
-                            },
-                        ],
-                        operations: [
-                            {
-                                timeStart: '02:03:20',
-                                timeEnd: '04:08:38',
-                                tankValues: [
-                                    {
-                                        name: 'Отгружено по резервуару',
-                                        valueFirst: 1670,
-                                        valueSecond: 98.73,
-                                        status: 'normal',
-                                    },
-                                    {
-                                        name: 'По данным отгрузки',
-                                        valueFirst: 1700,
-                                        valueSecond: 103.23,
-                                        status: 'critical',
-                                    },
-                                    {
-                                        name: 'Дебаланс',
-                                        valueFirst: 30,
-                                        valueSecond: 1.27,
-                                        status: 'normal',
-                                    },
-                                    {
-                                        name: 'Допустимый дебаланс',
-                                        valueFirst: 15,
-                                        valueSecond: 103.23,
-                                        status: 'default',
-                                    },
-                                    {
-                                        name: 'Отклонение',
-                                        valueFirst: 15,
-                                        valueSecond: 103.23,
-                                        status: 'normal',
-                                    },
-                                ],
-                            },
-                            {
-                                timeStart: '02:03:20',
-                                timeEnd: '04:08:38',
-                                tankValues: [
-                                    {
-                                        name: 'Отгружено по резервуару',
-                                        valueFirst: 1670,
-                                        valueSecond: 98.73,
-                                        status: 'normal',
-                                    },
-                                    {
-                                        name: 'По данным отгрузки',
-                                        valueFirst: 1700,
-                                        valueSecond: 103.23,
-                                        status: 'critical',
-                                    },
-                                    {
-                                        name: 'Дебаланс',
-                                        valueFirst: 30,
-                                        valueSecond: 1.27,
-                                        status: 'normal',
-                                    },
-                                    {
-                                        name: 'Допустимый дебаланс',
-                                        valueFirst: 15,
-                                        valueSecond: 103.23,
-                                        status: 'default',
-                                    },
-                                    {
-                                        name: 'Отклонение',
-                                        valueFirst: 15,
-                                        valueSecond: 103.23,
-                                        status: 'normal',
-                                    },
-                                ],
-                            },
-                        ],
-                    },
-                    {
-                        id: 2,
-                        nameStorage: 'E-2',
-                        valueStorage: 10253,
-                        status: 'normal',
-                        tankLevel: 10,
-                        tankers: [
-                            {
-                                nameTanker: 'Tug',
-                                shipped: true,
-                                value: 528,
-                                title: 'Авто ( AУТН-2 )',
-                            },
-                            {
-                                nameTanker: 'Tube',
-                                shipped: true,
-                                value: 528,
-                                title: 'Ж/Д ( AУТН-2 )',
-                            },
-                            {
-                                nameTanker: 'Cistern',
-                                shipped: false,
-                                value: 528,
-                                title: 'Труба ( AУТН-2 )',
-                            },
-                        ],
-                        operations: [
-                            {
-                                timeStart: '02:03:20',
-                                timeEnd: '04:08:38',
-                                tankValues: [
-                                    {
-                                        name: 'Отгружено по резервуару',
-                                        valueFirst: 1670,
-                                        valueSecond: 98.73,
-                                        status: 'normal',
-                                    },
-                                    {
-                                        name: 'По данным отгрузки',
-                                        valueFirst: 1700,
-                                        valueSecond: 103.23,
-                                        status: 'critical',
-                                    },
-                                    {
-                                        name: 'Дебаланс',
-                                        valueFirst: 30,
-                                        valueSecond: 1.27,
-                                        status: 'normal',
-                                    },
-                                    {
-                                        name: 'Допустимый дебаланс',
-                                        valueFirst: 15,
-                                        valueSecond: 103.23,
-                                        status: 'default',
-                                    },
-                                    {
-                                        name: 'Отклонение',
-                                        valueFirst: 15,
-                                        valueSecond: 103.23,
-                                        status: 'normal',
-                                    },
-                                ],
 
-                            },
-                        ],
-                    },
-                    {
-                        id: 3,
-                        nameStorage: 'E-3',
-                        valueStorage: 10253,
-                        status: 'normal',
-                        tankLevel: 10,
-                        tankers: [
-                            {
-                                nameTanker: 'bus',
-                                shipped: true,
-                                value: 528,
-                                title: 'Авто ( AУТН-2 )',
-                            },
-                            {
-                                nameTanker: 'pipe',
-                                shipped: false,
-                                value: 528,
-                                title: 'Авто ( AУТН-2 )',
-                            },
-                            {
-                                nameTanker: 'train',
-                                shipped: false,
-                                value: 528,
-                                title: 'Авто ( AУТН-2 )',
-                            },
-                        ],
-                        operations: [
-                            {
-                                timeStart: '02:03:20',
-                                timeEnd: '04:08:38',
-                                tankValues: [
-                                    {
-                                        name: 'Отгружено по резервуару',
-                                        valueFirst: 1670,
-                                        valueSecond: 98.73,
-                                        status: 'normal',
-                                    },
-                                    {
-                                        name: 'По данным отгрузки',
-                                        valueFirst: 1700,
-                                        valueSecond: 103.23,
-                                        status: 'critical',
-                                    },
-                                    {
-                                        name: 'Дебаланс',
-                                        valueFirst: 30,
-                                        valueSecond: 1.27,
-                                        status: 'normal',
-                                    },
-                                    {
-                                        name: 'Допустимый дебаланс',
-                                        valueFirst: 15,
-                                        valueSecond: 103.23,
-                                        status: 'default',
-                                    },
-                                    {
-                                        name: 'Отклонение',
-                                        valueFirst: 15,
-                                        valueSecond: 103.23,
-                                        status: 'normal',
-                                    },
-                                ],
-                            },
-                        ],
-                    },
-                ],
-            },
-            {
-                name: 'ДТ сорт D5',
-                value: 12132,
-                criticalValue: 23,
-                storages: [
-                    {
-                        id: 1,
-                        nameStorage: 'D-1',
-                        status: 'critical',
-                        valueStorage: 10253,
-                        tankLevel: 10,
-                        tankers: [
-                            {
-                                nameTanker: 'Tug',
-                                shipped: true,
-                                value: 528,
-                                title: 'Авто ( AУТН-2 )',
-                            },
-                            {
-                                nameTanker: 'Tube',
-                                shipped: true,
-                                value: 528,
-                                title: 'Ж/Д ( AУТН-2 )',
-                            },
-                            {
-                                nameTanker: 'Cistern',
-                                shipped: true,
-                                value: 528,
-                                title: 'Труба ( AУТН-2 )',
-                            },
-                        ],
-                        operations: [
-                            {
-                                timeStart: '05:03:20',
-                                timeEnd: '04:08:38',
-                                tankValues: [
-                                    {
-                                        name: 'Отгружено по резервуару',
-                                        valueFirst: 670,
-                                        valueSecond: 98.73,
-                                        status: 'normal',
-                                    },
-                                    {
-                                        name: 'По данным отгрузки',
-                                        valueFirst: 1700,
-                                        valueSecond: 103.23,
-                                        status: 'critical',
-                                    },
-                                    {
-                                        name: 'Дебаланс',
-                                        valueFirst: 30,
-                                        valueSecond: 1.27,
-                                        status: 'normal',
-                                    },
-                                    {
-                                        name: 'Допустимый дебаланс',
-                                        valueFirst: 15,
-                                        valueSecond: 103.23,
-                                        status: 'default',
-                                    },
-                                    {
-                                        name: 'Отклонение',
-                                        valueFirst: 15,
-                                        valueSecond: 103.23,
-                                        status: 'normal',
-                                    },
-                                ],
-                            },
-                            {
-                                timeStart: '02:03:20',
-                                timeEnd: '04:08:38',
-                                tankValues: [
-                                    {
-                                        name: 'Отгружено по резервуару',
-                                        valueFirst: 1670,
-                                        valueSecond: 98.73,
-                                        status: 'normal',
-                                    },
-                                    {
-                                        name: 'По данным отгрузки',
-                                        valueFirst: 1700,
-                                        valueSecond: 103.23,
-                                        status: 'critical',
-                                    },
-                                    {
-                                        name: 'Дебаланс',
-                                        valueFirst: 30,
-                                        valueSecond: 1.27,
-                                        status: 'normal',
-                                    },
-                                    {
-                                        name: 'Допустимый дебаланс',
-                                        valueFirst: 15,
-                                        valueSecond: 103.23,
-                                        status: 'default',
-                                    },
-                                    {
-                                        name: 'Отклонение',
-                                        valueFirst: 15,
-                                        valueSecond: 103.23,
-                                        status: 'normal',
-                                    },
-                                ],
-                            },
-                        ],
-                    },
-                    {
-                        id: 2,
-                        nameStorage: 'E-2',
-                        valueStorage: 10253,
-                        status: 'normal',
-                        tankLevel: 10,
-                        tankers: [
-                            {
-                                nameTanker: 'Tug',
-                                shipped: true,
-                                value: 528,
-                                title: 'Авто ( AУТН-2 )',
-                            },
-                            {
-                                nameTanker: 'Tube',
-                                shipped: true,
-                                value: 528,
-                                title: 'Ж/Д ( AУТН-2 )',
-                            },
-                            {
-                                nameTanker: 'Cistern',
-                                shipped: false,
-                                value: 528,
-                                title: 'Труба ( AУТН-2 )',
-                            },
-                        ],
-                        operations: [
-                            {
-                                timeStart: '02:03:20',
-                                timeEnd: '04:08:38',
-                                tankValues: [
-                                    {
-                                        name: 'Отгружено по резервуару',
-                                        valueFirst: 1670,
-                                        valueSecond: 98.73,
-                                        status: 'normal',
-                                    },
-                                    {
-                                        name: 'По данным отгрузки',
-                                        valueFirst: 1700,
-                                        valueSecond: 103.23,
-                                        status: 'critical',
-                                    },
-                                    {
-                                        name: 'Дебаланс',
-                                        valueFirst: 30,
-                                        valueSecond: 1.27,
-                                        status: 'normal',
-                                    },
-                                    {
-                                        name: 'Допустимый дебаланс',
-                                        valueFirst: 15,
-                                        valueSecond: 103.23,
-                                        status: 'default',
-                                    },
-                                    {
-                                        name: 'Отклонение',
-                                        valueFirst: 15,
-                                        valueSecond: 103.23,
-                                        status: 'normal',
-                                    },
-                                ],
-                            },
-                        ],
-                    },
-                    {
-                        id: 3,
-                        nameStorage: 'E-3',
-                        valueStorage: 10253,
-                        status: 'normal',
-                        tankLevel: 10,
-                        tankers: [
-                            {
-                                nameTanker: 'bus',
-                                shipped: true,
-                                value: 528,
-                                title: 'Авто ( AУТН-2 )',
-                            },
-                            {
-                                nameTanker: 'pipe',
-                                shipped: false,
-                                value: 528,
-                                title: 'Авто ( AУТН-2 )',
-                            },
-                            {
-                                nameTanker: 'train',
-                                shipped: false,
-                                value: 528,
-                                title: 'Авто ( AУТН-2 )',
-                            },
-                        ],
-                        operations: [
-                            {
-                                timeStart: '02:03:20',
-                                timeEnd: '04:08:38',
-                                tankValues: [
-                                    {
-                                        name: 'Отгружено по резервуару',
-                                        valueFirst: 1670,
-                                        valueSecond: 98.73,
-                                        status: 'normal',
-                                    },
-                                    {
-                                        name: 'По данным отгрузки',
-                                        valueFirst: 1700,
-                                        valueSecond: 103.23,
-                                        status: 'critical',
-                                    },
-                                    {
-                                        name: 'Дебаланс',
-                                        valueFirst: 30,
-                                        valueSecond: 1.27,
-                                        status: 'normal',
-                                    },
-                                    {
-                                        name: 'Допустимый дебаланс',
-                                        valueFirst: 15,
-                                        valueSecond: 103.23,
-                                        status: 'default',
-                                    },
-                                    {
-                                        name: 'Отклонение',
-                                        valueFirst: 15,
-                                        valueSecond: 103.23,
-                                        status: 'normal',
-                                    },
-                                ],
+    public data: OilProducts[] = [
+        // {
+        //     name: 'ДТ сорт F',
+        //     value: 12132,
+        //     operations: 42,
+        //     criticalOperations: 1,
+        //     criticalValue: 23,
+        //     storages: [
+        //         {
+        //             id: 1,
+        //             nameStorage: 'E-1',
+        //             status: 'critical',
+        //             valueStorage: 10253,
+        //             tankLevel: 10,
+        //             tankers: [
+        //                 {
+        //                     nameTanker: 'Tug',
+        //                     shipped: true,
+        //                     value: 528,
+        //                 },
+        //                 {
+        //                     nameTanker: 'Tube',
+        //                     shipped: true,
+        //                     value: 528,
+        //                 },
+        //                 {
+        //                     nameTanker: 'Cistern',
+        //                     shipped: true,
+        //                     value: 528,
+        //                 },
+        //             ],
+        //             operations: [
+        //                 {
+        //                     timeStart: '02:03:20',
+        //                     timeEnd: '04:08:38',
+        //                     status: 'critical',
+        //                     tankValues: [
+        //                         {
+        //                             name: 'Отгружено по резервуару',
+        //                             valueFirst: 1670,
+        //                             valueSecond: 98.73,
+        //                             tankDetailType: "massFromTankEson",
+        //                             status: 'normal',
+        //                         },
+        //                         {
+        //                             name: 'По данным отгрузки',
+        //                             valueFirst: 1700,
+        //                             valueSecond: 103.23,
+        //                             tankDetailType: "massFromTankEson",
+        //                             status: 'critical',
+        //                         },
+        //                         {
+        //                             name: 'Дебаланс',
+        //                             valueFirst: 30,
+        //                             valueSecond: 1.27,
+        //                             tankDetailType: "massFromTankEson",
+        //                             status: 'normal',
+        //                         },
+        //                         {
+        //                             name: 'Допустимый дебаланс',
+        //                             valueFirst: 15,
+        //                             valueSecond: 103.23,
+        //                             tankDetailType: "massFromTankEson",
+        //                             status: 'default',
+        //                         },
+        //                         {
+        //                             name: 'Отклонение',
+        //                             valueFirst: 15,
+        //                             valueSecond: 103.23,
+        //                             tankDetailType: "massFromTankEson",
+        //                             status: 'normal',
+        //                         },
+        //                     ],
+        //                 },
+        //             ],
+        //         },
+        //         {
+        //             id: 2,
+        //             nameStorage: 'E-2',
+        //             valueStorage: 10253,
+        //             status: 'normal',
+        //             tankLevel: 10,
+        //             tankers: [
+        //                 {
+        //                     nameTanker: 'Tug',
+        //                     shipped: true,
+        //                     value: 528,
+        //                 },
+        //                 {
+        //                     nameTanker: 'Tube',
+        //                     shipped: true,
+        //                     value: 528,
+        //                 },
+        //                 {
+        //                     nameTanker: 'Cistern',
+        //                     shipped: false,
+        //                     value: 528,
+        //                 },
+        //             ],
+        //             operations: [
+        //                 {
+        //                     timeStart: '02:03:20',
+        //                     timeEnd: '04:08:38',
+        //                     status: 'critical',
+        //                     tankValues: [
+        //                         {
+        //                             name: 'Отгружено по резервуару',
+        //                             valueFirst: 1670,
+        //                             valueSecond: 98.73,
+        //                             tankDetailType: "massFromTankEson",
+        //                             status: 'normal',
+        //                         },
+        //                         {
+        //                             name: 'По данным отгрузки',
+        //                             valueFirst: 1700,
+        //                             valueSecond: 103.23,
+        //                             tankDetailType: "massFromTankEson",
+        //                             status: 'critical',
+        //                         },
+        //                         {
+        //                             name: 'Дебаланс',
+        //                             valueFirst: 30,
+        //                             valueSecond: 1.27,
+        //                             tankDetailType: "massFromTankEson",
+        //                             status: 'normal',
+        //                         },
+        //                         {
+        //                             name: 'Допустимый дебаланс',
+        //                             valueFirst: 15,
+        //                             valueSecond: 103.23,
+        //                             tankDetailType: "massFromTankEson",
+        //                             status: 'default',
+        //                         },
+        //                         {
+        //                             name: 'Отклонение',
+        //                             valueFirst: 15,
+        //                             tankDetailType: "massFromTankEson",
+        //                             valueSecond: 103.23,
+        //                             status: 'normal',
+        //                         },
+        //                     ],
+        //                 },
+        //             ],
+        //         },
+        //         {
+        //             id: 3,
+        //             nameStorage: 'E-3',
+        //             valueStorage: 10253,
+        //             status: 'normal',
+        //             tankLevel: 10,
+        //             tankers: [
+        //                 {
+        //                     nameTanker: 'bus',
+        //                     shipped: true,
+        //                     value: 528,
+        //                 },
+        //                 {
+        //                     nameTanker: 'pipe',
+        //                     shipped: false,
+        //                     value: 528,
+        //                 },
+        //                 {
+        //                     nameTanker: 'train',
+        //                     shipped: false,
+        //                     value: 528,
+        //                 },
+        //             ],
+        //             operations: [
+        //                 {
+        //                     timeStart: '02:03:20',
+        //                     timeEnd: '04:08:38',
+        //                     status: 'critical',
+        //                     tankValues: [
+        //                         {
+        //                             name: 'Отгружено по резервуару',
+        //                             valueFirst: 1670,
+        //                             valueSecond: 98.73,
+        //                             tankDetailType: "massFromTankEson",
+        //                             status: 'normal',
+        //                         },
+        //                         {
+        //                             name: 'По данным отгрузки',
+        //                             valueFirst: 1700,
+        //                             valueSecond: 103.23,
+        //                             tankDetailType: "massFromTankEson",
+        //                             status: 'critical',
+        //                         },
+        //                         {
+        //                             name: 'Дебаланс',
+        //                             valueFirst: 30,
+        //                             valueSecond: 1.27,
+        //                             tankDetailType: "massFromTankEson",
+        //                             status: 'normal',
+        //                         },
+        //                         {
+        //                             name: 'Допустимый дебаланс',
+        //                             valueFirst: 15,
+        //                             valueSecond: 103.23,
+        //                             tankDetailType: "massFromTankEson",
+        //                             status: 'default',
+        //                         },
+        //                         {
+        //                             name: 'Отклонение',
+        //                             valueFirst: 15,
+        //                             valueSecond: 103.23,
+        //                             tankDetailType: "massFromTankEson",
+        //                             status: 'normal',
+        //                         },
+        //                     ],
+        //                 },
+        //             ],
+        //         },
+        //     ],
+        // },
+        // {
+        //     name: 'ДТ сорт D',
+        //     value: 12132,
+        //     criticalValue: 23,
+        //     operations: 42,
+        //     criticalOperations: 1,
+        //     storages: [
+        //         {
+        //             id: 1,
+        //             nameStorage: 'D-1',
+        //             status: 'critical',
+        //             valueStorage: 10253,
+        //             tankLevel: 10,
+        //             tankers: [
+        //                 {
+        //                     nameTanker: 'Tug',
+        //                     shipped: true,
+        //                     value: 528,
+        //                 },
+        //                 {
+        //                     nameTanker: 'Tube',
+        //                     shipped: true,
+        //                     value: 528,
+        //                 },
+        //                 {
+        //                     nameTanker: 'Cistern',
+        //                     shipped: true,
+        //                     value: 528,
+        //                 },
+        //             ],
+        //             operations: [
+        //                 {
+        //                     timeStart: '02:03:20',
+        //                     timeEnd: '04:08:38',
+        //                     status: 'critical',
+        //                     tankValues: [
+        //                         {
+        //                             name: 'Отгружено по резервуару',
+        //                             valueFirst: 1670,
+        //                             valueSecond: 98.73,
+        //                             tankDetailType: "massFromTankEson",
+        //                             status: 'normal',
+        //                         },
+        //                         {
+        //                             name: 'По данным отгрузки',
+        //                             valueFirst: 1700,
+        //                             valueSecond: 103.23,
+        //                             tankDetailType: "massFromTankEson",
+        //                             status: 'critical',
+        //                         },
+        //                         {
+        //                             name: 'Дебаланс',
+        //                             valueFirst: 30,
+        //                             valueSecond: 1.27,
+        //                             status: 'normal',
+        //                             tankDetailType: "massFromTankEson",
+        //                         },
+        //                         {
+        //                             name: 'Допустимый дебаланс',
+        //                             valueFirst: 15,
+        //                             valueSecond: 103.23,
+        //                             status: 'default',
+        //                             tankDetailType: "massFromTankEson",
+        //                         },
+        //                         {
+        //                             name: 'Отклонение',
+        //                             valueFirst: 15,
+        //                             valueSecond: 103.23,
+        //                             status: 'normal',
+        //                             tankDetailType: "massFromTankEson",
+        //                         },
+        //                     ],
+        //                 },
+        //                 {
+        //                     timeStart: '02:03:20',
+        //                     timeEnd: '04:08:38',
+        //                     status: 'critical',
+        //                     tankValues: [
+        //                         {
+        //                             name: 'Отгружено по резервуару',
+        //                             valueFirst: 1670,
+        //                             valueSecond: 98.73,
+        //                             tankDetailType: "massFromTankEson",
+        //                             status: 'normal',
+        //                         },
+        //                         {
+        //                             name: 'По данным отгрузки',
+        //                             valueFirst: 1700,
+        //                             valueSecond: 103.23,
+        //                             tankDetailType: "massFromTankEson",
+        //                             status: 'critical',
+        //                         },
+        //                         {
+        //                             name: 'Дебаланс',
+        //                             valueFirst: 30,
+        //                             tankDetailType: "massFromTankEson",
+        //                             valueSecond: 1.27,
+        //                             status: 'normal',
+        //                         },
+        //                         {
+        //                             name: 'Допустимый дебаланс',
+        //                             valueFirst: 15,
+        //                             valueSecond: 103.23,
+        //                             tankDetailType: "massFromTankEson",
+        //                             status: 'default',
+        //                         },
+        //                         {
+        //                             name: 'Отклонение',
+        //                             valueFirst: 15,
+        //                             valueSecond: 103.23,
+        //                             tankDetailType: "massFromTankEson",
+        //                             status: 'normal',
+        //                         },
+        //                     ],
+        //                 },
+        //             ],
+        //         },
+        //         {
+        //             id: 2,
+        //             nameStorage: 'E-2',
+        //             valueStorage: 10253,
+        //             status: 'normal',
+        //             tankLevel: 10,
+        //             tankers: [
+        //                 {
+        //                     nameTanker: 'Tug',
+        //                     shipped: true,
+        //                     value: 528,
+        //                 },
+        //                 {
+        //                     nameTanker: 'Tube',
+        //                     shipped: true,
+        //                     value: 528,
+        //                 },
+        //                 {
+        //                     nameTanker: 'Cistern',
+        //                     shipped: false,
+        //                     value: 528,
+        //                 },
+        //             ],
+        //             operations: [
+        //                 {
+        //                     timeStart: '02:03:20',
+        //                     timeEnd: '04:08:38',
+        //                     status: 'critical',
+        //                     tankValues: [
+        //                         {
+        //                             name: 'Отгружено по резервуару',
+        //                             valueFirst: 1670,
+        //                             valueSecond: 98.73,
+        //                             status: 'normal',
+        //                             tankDetailType: "massFromTankEson",
+        //                         },
+        //                         {
+        //                             name: 'По данным отгрузки',
+        //                             valueFirst: 1700,
+        //                             valueSecond: 103.23,
+        //                             status: 'critical',
+        //                             tankDetailType: "massFromTankEson",
+        //                         },
+        //                         {
+        //                             name: 'Дебаланс',
+        //                             valueFirst: 30,
+        //                             valueSecond: 1.27,
+        //                             status: 'normal',
+        //                             tankDetailType: "massFromTankEson",
+        //                         },
+        //                         {
+        //                             name: 'Допустимый дебаланс',
+        //                             valueFirst: 15,
+        //                             valueSecond: 103.23,
+        //                             status: 'default',
+        //                             tankDetailType: "massFromTankEson",
+        //                         },
+        //                         {
+        //                             name: 'Отклонение',
+        //                             valueFirst: 15,
+        //                             valueSecond: 103.23,
+        //                             status: 'normal',
+        //                             tankDetailType: "massFromTankEson",
+        //                         },
+        //                     ],
 
-                            },
-                        ],
-                    },
-                ],
-            },
-            {
-                name: 'ДТ сорт D1',
-                value: 12132,
-                criticalValue: 23,
-                storages: [
-                    {
-                        id: 1,
-                        nameStorage: 'D-1',
-                        status: 'critical',
-                        valueStorage: 10253,
-                        tankLevel: 10,
-                        tankers: [
-                            {
-                                nameTanker: 'Tug',
-                                shipped: true,
-                                value: 528,
-                                title: 'Авто ( AУТН-2 )',
-                            },
-                            {
-                                nameTanker: 'Tube',
-                                shipped: true,
-                                value: 528,
-                                title: 'Ж/Д ( AУТН-2 )',
-                            },
-                            {
-                                nameTanker: 'Cistern',
-                                shipped: true,
-                                value: 528,
-                                title: 'Труба ( AУТН-2 )',
-                            },
-                        ],
-                        operations: [
-                            {
-                                timeStart: '02:03:20',
-                                timeEnd: '04:08:38',
-                                tankValues: [
-                                    {
-                                        name: 'Отгружено по резервуару',
-                                        valueFirst: 1670,
-                                        valueSecond: 98.73,
-                                        status: 'normal',
-                                    },
-                                    {
-                                        name: 'По данным отгрузки',
-                                        valueFirst: 1700,
-                                        valueSecond: 103.23,
-                                        status: 'critical',
-                                    },
-                                    {
-                                        name: 'Дебаланс',
-                                        valueFirst: 30,
-                                        valueSecond: 1.27,
-                                        status: 'normal',
-                                    },
-                                    {
-                                        name: 'Допустимый дебаланс',
-                                        valueFirst: 15,
-                                        valueSecond: 103.23,
-                                        status: 'default',
-                                    },
-                                    {
-                                        name: 'Отклонение',
-                                        valueFirst: 15,
-                                        valueSecond: 103.23,
-                                        status: 'normal',
-                                    },
-                                ],
-                            },
-                            {
-                                timeStart: '02:03:20',
-                                timeEnd: '04:08:38',
-                                tankValues: [
-                                    {
-                                        name: 'Отгружено по резервуару',
-                                        valueFirst: 1670,
-                                        valueSecond: 98.73,
-                                        status: 'normal',
-                                    },
-                                    {
-                                        name: 'По данным отгрузки',
-                                        valueFirst: 1700,
-                                        valueSecond: 103.23,
-                                        status: 'critical',
-                                    },
-                                    {
-                                        name: 'Дебаланс',
-                                        valueFirst: 30,
-                                        valueSecond: 1.27,
-                                        status: 'normal',
-                                    },
-                                    {
-                                        name: 'Допустимый дебаланс',
-                                        valueFirst: 15,
-                                        valueSecond: 103.23,
-                                        status: 'default',
-                                    },
-                                    {
-                                        name: 'Отклонение',
-                                        valueFirst: 15,
-                                        valueSecond: 103.23,
-                                        status: 'normal',
-                                    },
-                                ],
-                            },
-                        ],
-                    },
-                    {
-                        id: 2,
-                        nameStorage: 'E-2',
-                        valueStorage: 10253,
-                        status: 'normal',
-                        tankLevel: 10,
-                        tankers: [
-                            {
-                                nameTanker: 'Tug',
-                                shipped: true,
-                                value: 528,
-                                title: 'Авто ( AУТН-2 )',
-                            },
-                            {
-                                nameTanker: 'Tube',
-                                shipped: true,
-                                value: 528,
-                                title: 'Ж/Д ( AУТН-2 )',
-                            },
-                            {
-                                nameTanker: 'Cistern',
-                                shipped: false,
-                                value: 528,
-                                title: 'Труба ( AУТН-2 )',
-                            },
-                        ],
-                        operations: [
-                            {
-                                timeStart: '02:03:20',
-                                timeEnd: '04:08:38',
-                                tankValues: [
-                                    {
-                                        name: 'Отгружено по резервуару',
-                                        valueFirst: 1670,
-                                        valueSecond: 98.73,
-                                        status: 'normal',
-                                    },
-                                    {
-                                        name: 'По данным отгрузки',
-                                        valueFirst: 1700,
-                                        valueSecond: 103.23,
-                                        status: 'critical',
-                                    },
-                                    {
-                                        name: 'Дебаланс',
-                                        valueFirst: 30,
-                                        valueSecond: 1.27,
-                                        status: 'normal',
-                                    },
-                                    {
-                                        name: 'Допустимый дебаланс',
-                                        valueFirst: 15,
-                                        valueSecond: 103.23,
-                                        status: 'default',
-                                    },
-                                    {
-                                        name: 'Отклонение',
-                                        valueFirst: 15,
-                                        valueSecond: 103.23,
-                                        status: 'normal',
-                                    },
-                                ],
-                            },
-                        ],
-                    },
-                    {
-                        id: 3,
-                        nameStorage: 'E-3',
-                        valueStorage: 10253,
-                        status: 'normal',
-                        tankLevel: 10,
-                        tankers: [
-                            {
-                                nameTanker: 'bus',
-                                shipped: true,
-                                value: 528,
-                                title: 'Авто ( AУТН-2 )',
-                            },
-                            {
-                                nameTanker: 'pipe',
-                                shipped: false,
-                                value: 528,
-                                title: 'Авто ( AУТН-2 )',
-                            },
-                            {
-                                nameTanker: 'train',
-                                shipped: false,
-                                value: 528,
-                                title: 'Авто ( AУТН-2 )',
-                            },
-                        ],
-                        operations: [
-                            {
-                                timeStart: '02:03:20',
-                                timeEnd: '04:08:38',
-                                tankValues: [
-                                    {
-                                        name: 'Отгружено по резервуару',
-                                        valueFirst: 1670,
-                                        valueSecond: 98.73,
-                                        status: 'normal',
-                                    },
-                                    {
-                                        name: 'По данным отгрузки',
-                                        valueFirst: 1700,
-                                        valueSecond: 103.23,
-                                        status: 'critical',
-                                    },
-                                    {
-                                        name: 'Дебаланс',
-                                        valueFirst: 30,
-                                        valueSecond: 1.27,
-                                        status: 'normal',
-                                    },
-                                    {
-                                        name: 'Допустимый дебаланс',
-                                        valueFirst: 15,
-                                        valueSecond: 103.23,
-                                        status: 'default',
-                                    },
-                                    {
-                                        name: 'Отклонение',
-                                        valueFirst: 15,
-                                        valueSecond: 103.23,
-                                        status: 'normal',
-                                    },
-                                ],
-                            },
-                        ],
-                    },
-                ],
-            },
-            {
-                name: 'ДТ сорт D2',
-                value: 12132,
-                criticalValue: 23,
-                storages: [
-                    {
-                        id: 1,
-                        nameStorage: 'D-1',
-                        status: 'critical',
-                        valueStorage: 10253,
-                        tankLevel: 10,
-                        tankers: [
-                            {
-                                nameTanker: 'Tug',
-                                shipped: true,
-                                value: 528,
-                                title: 'Авто ( AУТН-2 )',
-                            },
-                            {
-                                nameTanker: 'Tube',
-                                shipped: true,
-                                value: 528,
-                                title: 'Ж/Д ( AУТН-2 )',
-                            },
-                            {
-                                nameTanker: 'Cistern',
-                                shipped: true,
-                                value: 528,
-                                title: 'Труба ( AУТН-2 )',
-                            },
-                        ],
-                        operations: [
-                            {
-                                timeStart: '02:03:20',
-                                timeEnd: '04:08:38',
-                                tankValues: [
-                                    {
-                                        name: 'Отгружено по резервуару',
-                                        valueFirst: 1670,
-                                        valueSecond: 98.73,
-                                        status: 'normal',
-                                    },
-                                    {
-                                        name: 'По данным отгрузки',
-                                        valueFirst: 1700,
-                                        valueSecond: 103.23,
-                                        status: 'critical',
-                                    },
-                                    {
-                                        name: 'Дебаланс',
-                                        valueFirst: 30,
-                                        valueSecond: 1.27,
-                                        status: 'normal',
-                                    },
-                                    {
-                                        name: 'Допустимый дебаланс',
-                                        valueFirst: 15,
-                                        valueSecond: 103.23,
-                                        status: 'default',
-                                    },
-                                    {
-                                        name: 'Отклонение',
-                                        valueFirst: 15,
-                                        valueSecond: 103.23,
-                                        status: 'normal',
-                                    },
-                                ],
+        //                 },
+        //             ],
+        //         },
+        //         {
+        //             id: 3,
+        //             nameStorage: 'E-3',
+        //             valueStorage: 10253,
+        //             status: 'normal',
+        //             tankLevel: 10,
+        //             tankers: [
+        //                 {
+        //                     nameTanker: 'bus',
+        //                     shipped: true,
+        //                     value: 528,
+        //                 },
+        //                 {
+        //                     nameTanker: 'pipe',
+        //                     shipped: false,
+        //                     value: 528,
+        //                 },
+        //                 {
+        //                     nameTanker: 'train',
+        //                     shipped: false,
+        //                     value: 528,
+        //                 },
+        //             ],
+        //             operations: [
+        //                 {
+        //                     timeStart: '02:03:20',
+        //                     timeEnd: '04:08:38',
+        //                     status: 'critical',
+        //                     tankValues: [
+        //                         {
+        //                             name: 'Отгружено по резервуару',
+        //                             valueFirst: 1670,
+        //                             valueSecond: 98.73,
+        //                             status: 'normal',
+        //                             tankDetailType: "massFromTankEson",
+        //                         },
+        //                         {
+        //                             name: 'По данным отгрузки',
+        //                             valueFirst: 1700,
+        //                             valueSecond: 103.23,
+        //                             tankDetailType: "massFromTankEson",
+        //                             status: 'critical',
+        //                         },
+        //                         {
+        //                             name: 'Дебаланс',
+        //                             valueFirst: 30,
+        //                             valueSecond: 1.27,
+        //                             status: 'normal',
+        //                             tankDetailType: "massFromTankEson",
+        //                         },
+        //                         {
+        //                             name: 'Допустимый дебаланс',
+        //                             valueFirst: 15,
+        //                             valueSecond: 103.23,
+        //                             status: 'default',
+        //                             tankDetailType: "massFromTankEson",
+        //                         },
+        //                         {
+        //                             name: 'Отклонение',
+        //                             valueFirst: 15,
+        //                             valueSecond: 103.23,
+        //                             tankDetailType: "massFromTankEson",
+        //                             status: 'normal',
+        //                         },
+        //                     ],
+        //                 },
+        //             ],
+        //         },
+        //     ],
+        // },
+        // {
+        //     name: 'ДТ сорт D5',
+        //     value: 12132,
+        //     criticalValue: 23,
+        //     operations: 42,
+        //     criticalOperations: 1,
+        //     storages: [
+        //         {
+        //             id: 1,
+        //             nameStorage: 'D-1',
+        //             status: 'critical',
+        //             valueStorage: 10253,
+        //             tankLevel: 10,
+        //             tankers: [
+        //                 {
+        //                     nameTanker: 'Tug',
+        //                     shipped: true,
+        //                     value: 528,
+        //                 },
+        //                 {
+        //                     nameTanker: 'Tube',
+        //                     shipped: true,
+        //                     value: 528,
+        //                 },
+        //                 {
+        //                     nameTanker: 'Cistern',
+        //                     shipped: true,
+        //                     value: 528,
+        //                 },
+        //             ],
+        //             operations: [
+        //                 {
+        //                     timeStart: '05:03:20',
+        //                     timeEnd: '04:08:38',
+        //                     status: 'critical',
+        //                     tankValues: [
+        //                         {
+        //                             name: 'Отгружено по резервуару',
+        //                             valueFirst: 670,
+        //                             valueSecond: 98.73,
+        //                             status: 'normal',
+        //                             tankDetailType: "massFromTankEson",
+        //                         },
+        //                         {
+        //                             name: 'По данным отгрузки',
+        //                             valueFirst: 1700,
+        //                             valueSecond: 103.23,
+        //                             status: 'critical',
+        //                             tankDetailType: "massFromTankEson",
+        //                         },
+        //                         {
+        //                             name: 'Дебаланс',
+        //                             valueFirst: 30,
+        //                             valueSecond: 1.27,
+        //                             status: 'normal',
+        //                             tankDetailType: "massFromTankEson",
+        //                         },
+        //                         {
+        //                             name: 'Допустимый дебаланс',
+        //                             valueFirst: 15,
+        //                             valueSecond: 103.23,
+        //                             status: 'default',
+        //                             tankDetailType: "massFromTankEson",
+        //                         },
+        //                         {
+        //                             name: 'Отклонение',
+        //                             valueFirst: 15,
+        //                             valueSecond: 103.23,
+        //                             status: 'normal',
+        //                             tankDetailType: "massFromTankEson",
+        //                         },
+        //                     ],
+        //                 },
+        //                 {
+        //                     timeStart: '02:03:20',
+        //                     timeEnd: '04:08:38',
+        //                     status: 'critical',
+        //                     tankValues: [
+        //                         {
+        //                             name: 'Отгружено по резервуару',
+        //                             valueFirst: 1670,
+        //                             valueSecond: 98.73,
+        //                             status: 'normal',
+        //                             tankDetailType: "massFromTankEson",
+        //                         },
+        //                         {
+        //                             name: 'По данным отгрузки',
+        //                             valueFirst: 1700,
+        //                             valueSecond: 103.23,
+        //                             status: 'critical',
+        //                             tankDetailType: "massFromTankEson",
+        //                         },
+        //                         {
+        //                             name: 'Дебаланс',
+        //                             valueFirst: 30,
+        //                             valueSecond: 1.27,
+        //                             status: 'normal',
+        //                             tankDetailType: "massFromTankEson",
+        //                         },
+        //                         {
+        //                             name: 'Допустимый дебаланс',
+        //                             valueFirst: 15,
+        //                             valueSecond: 103.23,
+        //                             status: 'default',
+        //                             tankDetailType: "massFromTankEson",
+        //                         },
+        //                         {
+        //                             name: 'Отклонение',
+        //                             valueFirst: 15,
+        //                             valueSecond: 103.23,
+        //                             status: 'normal',
+        //                             tankDetailType: "massFromTankEson",
+        //                         },
+        //                     ],
+        //                 },
+        //             ],
+        //         },
+        //         {
+        //             id: 2,
+        //             nameStorage: 'E-2',
+        //             valueStorage: 10253,
+        //             status: 'normal',
+        //             tankLevel: 10,
+        //             tankers: [
+        //                 {
+        //                     nameTanker: 'Tug',
+        //                     shipped: true,
+        //                     value: 528,
+        //                 },
+        //                 {
+        //                     nameTanker: 'Tube',
+        //                     shipped: true,
+        //                     value: 528,
+        //                 },
+        //                 {
+        //                     nameTanker: 'Cistern',
+        //                     shipped: false,
+        //                     value: 528,
+        //                 },
+        //             ],
+        //             operations: [
+        //                 {
+        //                     timeStart: '02:03:20',
+        //                     timeEnd: '04:08:38',
+        //                     status: 'critical',
+        //                     tankValues: [
+        //                         {
+        //                             name: 'Отгружено по резервуару',
+        //                             valueFirst: 1670,
+        //                             valueSecond: 98.73,
+        //                             status: 'normal',
+        //                             tankDetailType: "massFromTankEson",
+        //                         },
+        //                         {
+        //                             name: 'По данным отгрузки',
+        //                             valueFirst: 1700,
+        //                             valueSecond: 103.23,
+        //                             status: 'critical',
+        //                             tankDetailType: "massFromTankEson",
+        //                         },
+        //                         {
+        //                             name: 'Дебаланс',
+        //                             valueFirst: 30,
+        //                             valueSecond: 1.27,
+        //                             status: 'normal',
+        //                             tankDetailType: "massFromTankEson",
+        //                         },
+        //                         {
+        //                             name: 'Допустимый дебаланс',
+        //                             valueFirst: 15,
+        //                             valueSecond: 103.23,
+        //                             status: 'default',
+        //                             tankDetailType: "massFromTankEson",
+        //                         },
+        //                         {
+        //                             name: 'Отклонение',
+        //                             valueFirst: 15,
+        //                             valueSecond: 103.23,
+        //                             status: 'normal',
+        //                             tankDetailType: "massFromTankEson",
+        //                         },
+        //                     ],
+        //                 },
+        //             ],
+        //         },
+        //         {
+        //             id: 3,
+        //             nameStorage: 'E-3',
+        //             valueStorage: 10253,
+        //             status: 'normal',
+        //             tankLevel: 10,
+        //             tankers: [
+        //                 {
+        //                     nameTanker: 'bus',
+        //                     shipped: true,
+        //                     value: 528,
+        //                 },
+        //                 {
+        //                     nameTanker: 'pipe',
+        //                     shipped: false,
+        //                     value: 528,
+        //                 },
+        //                 {
+        //                     nameTanker: 'train',
+        //                     shipped: false,
+        //                     value: 528,
+        //                 },
+        //             ],
+        //             operations: [
+        //                 {
+        //                     timeStart: '02:03:20',
+        //                     timeEnd: '04:08:38',
+        //                     status: 'critical',
+        //                     tankValues: [
+        //                         {
+        //                             name: 'Отгружено по резервуару',
+        //                             valueFirst: 1670,
+        //                             valueSecond: 98.73,
+        //                             status: 'normal',
+        //                             tankDetailType: "massFromTankEson",
+        //                         },
+        //                         {
+        //                             name: 'По данным отгрузки',
+        //                             valueFirst: 1700,
+        //                             valueSecond: 103.23,
+        //                             status: 'critical',
+        //                             tankDetailType: "massFromTankEson",
+        //                         },
+        //                         {
+        //                             name: 'Дебаланс',
+        //                             valueFirst: 30,
+        //                             valueSecond: 1.27,
+        //                             status: 'normal',
+        //                             tankDetailType: "massFromTankEson",
+        //                         },
+        //                         {
+        //                             name: 'Допустимый дебаланс',
+        //                             valueFirst: 15,
+        //                             valueSecond: 103.23,
+        //                             status: 'default',
+        //                             tankDetailType: "massFromTankEson",
+        //                         },
+        //                         {
+        //                             name: 'Отклонение',
+        //                             valueFirst: 15,
+        //                             valueSecond: 103.23,
+        //                             status: 'normal',
+        //                             tankDetailType: "massFromTankEson",
+        //                         },
+        //                     ],
 
-                            },
-                            {
-                                timeStart: '02:03:20',
-                                timeEnd: '04:08:38',
-                                tankValues: [
-                                    {
-                                        name: 'Отгружено по резервуару',
-                                        valueFirst: 1670,
-                                        valueSecond: 98.73,
-                                        status: 'normal',
-                                    },
-                                    {
-                                        name: 'По данным отгрузки',
-                                        valueFirst: 1700,
-                                        valueSecond: 103.23,
-                                        status: 'critical',
-                                    },
-                                    {
-                                        name: 'Дебаланс',
-                                        valueFirst: 30,
-                                        valueSecond: 1.27,
-                                        status: 'normal',
-                                    },
-                                    {
-                                        name: 'Допустимый дебаланс',
-                                        valueFirst: 15,
-                                        valueSecond: 103.23,
-                                        status: 'default',
-                                    },
-                                    {
-                                        name: 'Отклонение',
-                                        valueFirst: 15,
-                                        valueSecond: 103.23,
-                                        status: 'normal',
-                                    },
-                                ],
+        //                 },
+        //             ],
+        //         },
+        //     ],
+        // },
+        // {
+        //     name: 'ДТ сорт D1',
+        //     value: 12132,
+        //     criticalValue: 23,
+        //     operations: 42,
+        //     criticalOperations: 1,
+        //     storages: [
+        //         {
+        //             id: 1,
+        //             nameStorage: 'D-1',
+        //             status: 'critical',
+        //             valueStorage: 10253,
+        //             tankLevel: 10,
+        //             tankers: [
+        //                 {
+        //                     nameTanker: 'Tug',
+        //                     shipped: true,
+        //                     value: 528,
+        //                 },
+        //                 {
+        //                     nameTanker: 'Tube',
+        //                     shipped: true,
+        //                     value: 528,
+        //                 },
+        //                 {
+        //                     nameTanker: 'Cistern',
+        //                     shipped: true,
+        //                     value: 528,
+        //                 },
+        //             ],
+        //             operations: [
+        //                 {
+        //                     timeStart: '02:03:20',
+        //                     timeEnd: '04:08:38',
+        //                     status: 'critical',
+        //                     tankValues: [
+        //                         {
+        //                             name: 'Отгружено по резервуару',
+        //                             valueFirst: 1670,
+        //                             valueSecond: 98.73,
+        //                             status: 'normal',
+        //                             tankDetailType: "massFromTankEson",
+        //                         },
+        //                         {
+        //                             name: 'По данным отгрузки',
+        //                             valueFirst: 1700,
+        //                             valueSecond: 103.23,
+        //                             status: 'critical',
+        //                             tankDetailType: "massFromTankEson",
+        //                         },
+        //                         {
+        //                             name: 'Дебаланс',
+        //                             valueFirst: 30,
+        //                             valueSecond: 1.27,
+        //                             tankDetailType: "massFromTankEson",
+        //                             status: 'normal',
+        //                         },
+        //                         {
+        //                             name: 'Допустимый дебаланс',
+        //                             valueFirst: 15,
+        //                             valueSecond: 103.23,
+        //                             tankDetailType: "massFromTankEson",
+        //                             status: 'default',
+        //                         },
+        //                         {
+        //                             name: 'Отклонение',
+        //                             valueFirst: 15,
+        //                             valueSecond: 103.23,
+        //                             tankDetailType: "massFromTankEson",
+        //                             status: 'normal',
+        //                         },
+        //                     ],
+        //                 },
+        //                 {
+        //                     timeStart: '02:03:20',
+        //                     timeEnd: '04:08:38',
+        //                     status: 'critical',
+        //                     tankValues: [
+        //                         {
+        //                             name: 'Отгружено по резервуару',
+        //                             valueFirst: 1670,
+        //                             valueSecond: 98.73,
+        //                             tankDetailType: "massFromTankEson",
+        //                             status: 'normal',
+        //                         },
+        //                         {
+        //                             name: 'По данным отгрузки',
+        //                             valueFirst: 1700,
+        //                             tankDetailType: "massFromTankEson",
+        //                             valueSecond: 103.23,
+        //                             status: 'critical',
+        //                         },
+        //                         {
+        //                             name: 'Дебаланс',
+        //                             valueFirst: 30,
+        //                             valueSecond: 1.27,
+        //                             tankDetailType: "massFromTankEson",
+        //                             status: 'normal',
+        //                         },
+        //                         {
+        //                             name: 'Допустимый дебаланс',
+        //                             valueFirst: 15,
+        //                             valueSecond: 103.23,
+        //                             status: 'default',
+        //                             tankDetailType: "massFromTankEson",
+        //                         },
+        //                         {
+        //                             name: 'Отклонение',
+        //                             valueFirst: 15,
+        //                             valueSecond: 103.23,
+        //                             tankDetailType: "massFromTankEson",
+        //                             status: 'normal',
+        //                         },
+        //                     ],
+        //                 },
+        //             ],
+        //         },
+        //         {
+        //             id: 2,
+        //             nameStorage: 'E-2',
+        //             valueStorage: 10253,
+        //             status: 'normal',
+        //             tankLevel: 10,
+        //             tankers: [
+        //                 {
+        //                     nameTanker: 'Tug',
+        //                     shipped: true,
+        //                     value: 528,
+        //                 },
+        //                 {
+        //                     nameTanker: 'Tube',
+        //                     shipped: true,
+        //                     value: 528,
+        //                 },
+        //                 {
+        //                     nameTanker: 'Cistern',
+        //                     shipped: false,
+        //                     value: 528,
+        //                 },
+        //             ],
+        //             operations: [
+        //                 {
+        //                     timeStart: '02:03:20',
+        //                     timeEnd: '04:08:38',
+        //                     status: 'critical',
+        //                     tankValues: [
+        //                         {
+        //                             name: 'Отгружено по резервуару',
+        //                             valueFirst: 1670,
+        //                             valueSecond: 98.73,
+        //                             status: 'normal',
+        //                             tankDetailType: "massFromTankEson",
+        //                         },
+        //                         {
+        //                             name: 'По данным отгрузки',
+        //                             valueFirst: 1700,
+        //                             valueSecond: 103.23,
+        //                             status: 'critical',
+        //                             tankDetailType: "massFromTankEson",
+        //                         },
+        //                         {
+        //                             name: 'Дебаланс',
+        //                             valueFirst: 30,
+        //                             valueSecond: 1.27,
+        //                             status: 'normal',
+        //                             tankDetailType: "massFromTankEson",
+        //                         },
+        //                         {
+        //                             name: 'Допустимый дебаланс',
+        //                             valueFirst: 15,
+        //                             valueSecond: 103.23,
+        //                             status: 'default',
+        //                             tankDetailType: "massFromTankEson",
+        //                         },
+        //                         {
+        //                             name: 'Отклонение',
+        //                             valueFirst: 15,
+        //                             valueSecond: 103.23,
+        //                             status: 'normal',
+        //                             tankDetailType: "massFromTankEson",
+        //                         },
+        //                     ],
+        //                 },
+        //             ],
+        //         },
+        //         {
+        //             id: 3,
+        //             nameStorage: 'E-3',
+        //             valueStorage: 10253,
+        //             status: 'normal',
+        //             tankLevel: 10,
+        //             tankers: [
+        //                 {
+        //                     nameTanker: 'bus',
+        //                     shipped: true,
+        //                     value: 528,
+        //                 },
+        //                 {
+        //                     nameTanker: 'pipe',
+        //                     shipped: false,
+        //                     value: 528,
+        //                 },
+        //                 {
+        //                     nameTanker: 'train',
+        //                     shipped: false,
+        //                     value: 528,
+        //                 },
+        //             ],
+        //             operations: [
+        //                 {
+        //                     timeStart: '02:03:20',
+        //                     timeEnd: '04:08:38',
+        //                     status: 'critical',
+        //                     tankValues: [
+        //                         {
+        //                             name: 'Отгружено по резервуару',
+        //                             valueFirst: 1670,
+        //                             valueSecond: 98.73,
+        //                             status: 'normal',
+        //                             tankDetailType: "massFromTankEson",
+        //                         },
+        //                         {
+        //                             name: 'По данным отгрузки',
+        //                             valueFirst: 1700,
+        //                             valueSecond: 103.23,
+        //                             status: 'critical',
+        //                             tankDetailType: "massFromTankEson",
+        //                         },
+        //                         {
+        //                             name: 'Дебаланс',
+        //                             valueFirst: 30,
+        //                             valueSecond: 1.27,
+        //                             status: 'normal',
+        //                             tankDetailType: "massFromTankEson",
+        //                         },
+        //                         {
+        //                             name: 'Допустимый дебаланс',
+        //                             valueFirst: 15,
+        //                             valueSecond: 103.23,
+        //                             status: 'default',
+        //                             tankDetailType: "massFromTankEson",
+        //                         },
+        //                         {
+        //                             name: 'Отклонение',
+        //                             valueFirst: 15,
+        //                             valueSecond: 103.23,
+        //                             status: 'normal',
+        //                             tankDetailType: "massFromTankEson",
+        //                         },
+        //                     ],
+        //                 },
+        //             ],
+        //         },
+        //     ],
+        // },
+        // {
+        //     name: 'ДТ сорт D2',
+        //     value: 12132,
+        //     criticalValue: 23,
+        //     operations: 42,
+        //     criticalOperations: 1,
+        //     storages: [
+        //         {
+        //             id: 1,
+        //             nameStorage: 'D-1',
+        //             status: 'critical',
+        //             valueStorage: 10253,
+        //             tankLevel: 10,
+        //             tankers: [
+        //                 {
+        //                     nameTanker: 'Tug',
+        //                     shipped: true,
+        //                     value: 528,
+        //                 },
+        //                 {
+        //                     nameTanker: 'Tube',
+        //                     shipped: true,
+        //                     value: 528,
+        //                 },
+        //                 {
+        //                     nameTanker: 'Cistern',
+        //                     shipped: true,
+        //                     value: 528,
+        //                 },
+        //             ],
+        //             operations: [
+        //                 {
+        //                     timeStart: '02:03:20',
+        //                     timeEnd: '04:08:38',
+        //                     status: 'critical',
+        //                     tankValues: [
+        //                         {
+        //                             name: 'Отгружено по резервуару',
+        //                             valueFirst: 1670,
+        //                             tankDetailType: "massFromTankEson",
+        //                             valueSecond: 98.73,
+        //                             status: 'normal',
+        //                         },
+        //                         {
+        //                             name: 'По данным отгрузки',
+        //                             valueFirst: 1700,
+        //                             valueSecond: 103.23,
+        //                             tankDetailType: "massFromTankEson",
+        //                             status: 'critical',
+        //                         },
+        //                         {
+        //                             name: 'Дебаланс',
+        //                             valueFirst: 30,
+        //                             valueSecond: 1.27,
+        //                             tankDetailType: "massFromTankEson",
+        //                             status: 'normal',
+        //                         },
+        //                         {
+        //                             name: 'Допустимый дебаланс',
+        //                             valueFirst: 15,
+        //                             valueSecond: 103.23,
+        //                             tankDetailType: "massFromTankEson",
+        //                             status: 'default',
+        //                         },
+        //                         {
+        //                             name: 'Отклонение',
+        //                             valueFirst: 15,
+        //                             valueSecond: 103.23,
+        //                             tankDetailType: "massFromTankEson",
+        //                             status: 'normal',
+        //                         },
+        //                     ],
 
-                            },
-                        ],
-                    },
-                    {
-                        id: 2,
-                        nameStorage: 'E-2',
-                        valueStorage: 10253,
-                        status: 'normal',
-                        tankLevel: 10,
-                        tankers: [
-                            {
-                                nameTanker: 'Tug',
-                                shipped: true,
-                                value: 528,
-                                title: 'Авто ( AУТН-2 )',
-                            },
-                            {
-                                nameTanker: 'Tube',
-                                shipped: true,
-                                value: 528,
-                                title: 'Ж/Д ( AУТН-2 )',
-                            },
-                            {
-                                nameTanker: 'Cistern',
-                                shipped: false,
-                                value: 528,
-                                title: 'Труба ( AУТН-2 )',
-                            },
-                        ],
-                        operations: [
-                            {
-                                timeStart: '02:03:20',
-                                timeEnd: '04:08:38',
-                                tankValues: [
-                                    {
-                                        name: 'Отгружено по резервуару',
-                                        valueFirst: 1670,
-                                        valueSecond: 98.73,
-                                        status: 'normal',
-                                    },
-                                    {
-                                        name: 'По данным отгрузки',
-                                        valueFirst: 1700,
-                                        valueSecond: 103.23,
-                                        status: 'critical',
-                                    },
-                                    {
-                                        name: 'Дебаланс',
-                                        valueFirst: 30,
-                                        valueSecond: 1.27,
-                                        status: 'normal',
-                                    },
-                                    {
-                                        name: 'Допустимый дебаланс',
-                                        valueFirst: 15,
-                                        valueSecond: 103.23,
-                                        status: 'default',
-                                    },
-                                    {
-                                        name: 'Отклонение',
-                                        valueFirst: 15,
-                                        valueSecond: 103.23,
-                                        status: 'normal',
-                                    },
-                                ],
+        //                 },
+        //                 {
+        //                     timeStart: '02:03:20',
+        //                     timeEnd: '04:08:38',
+        //                     status: 'critical',
+        //                     tankValues: [
+        //                         {
+        //                             name: 'Отгружено по резервуару',
+        //                             valueFirst: 1670,
+        //                             tankDetailType: "massFromTankEson",
+        //                             valueSecond: 98.73,
+        //                             status: 'normal',
+        //                         },
+        //                         {
+        //                             name: 'По данным отгрузки',
+        //                             valueFirst: 1700,
+        //                             valueSecond: 103.23,
+        //                             tankDetailType: "massFromTankEson",
+        //                             status: 'critical',
+        //                         },
+        //                         {
+        //                             name: 'Дебаланс',
+        //                             valueFirst: 30,
+        //                             valueSecond: 1.27,
+        //                             status: 'normal',
+        //                             tankDetailType: "massFromTankEson",
+        //                         },
+        //                         {
+        //                             name: 'Допустимый дебаланс',
+        //                             valueFirst: 15,
+        //                             valueSecond: 103.23,
+        //                             tankDetailType: "massFromTankEson",
+        //                             status: 'default',
+        //                         },
+        //                         {
+        //                             name: 'Отклонение',
+        //                             valueFirst: 15,
+        //                             valueSecond: 103.23,
+        //                             tankDetailType: "massFromTankEson",
+        //                             status: 'normal',
+        //                         },
+        //                     ],
 
-                            },
-                        ],
-                    },
-                    {
-                        id: 3,
-                        nameStorage: 'E-3',
-                        valueStorage: 10253,
-                        status: 'normal',
-                        tankLevel: 10,
-                        tankers: [
-                            {
-                                nameTanker: 'bus',
-                                shipped: true,
-                                value: 528,
-                                title: 'Авто ( AУТН-2 )',
-                            },
-                            {
-                                nameTanker: 'pipe',
-                                shipped: false,
-                                value: 528,
-                                title: 'Авто ( AУТН-2 )',
-                            },
-                            {
-                                nameTanker: 'train',
-                                shipped: false,
-                                value: 528,
-                                title: 'Авто ( AУТН-2 )',
-                            },
-                        ],
-                        operations: [
-                            {
-                                timeStart: '02:03:20',
-                                timeEnd: '04:08:38',
-                                tankValues: [
-                                    {
-                                        name: 'Отгружено по резервуару',
-                                        valueFirst: 1670,
-                                        valueSecond: 98.73,
-                                        status: 'normal',
-                                    },
-                                    {
-                                        name: 'По данным отгрузки',
-                                        valueFirst: 1700,
-                                        valueSecond: 103.23,
-                                        status: 'critical',
-                                    },
-                                    {
-                                        name: 'Дебаланс',
-                                        valueFirst: 30,
-                                        valueSecond: 1.27,
-                                        status: 'normal',
-                                    },
-                                    {
-                                        name: 'Допустимый дебаланс',
-                                        valueFirst: 15,
-                                        valueSecond: 103.23,
-                                        status: 'default',
-                                    },
-                                    {
-                                        name: 'Отклонение',
-                                        valueFirst: 15,
-                                        valueSecond: 103.23,
-                                        status: 'normal',
-                                    },
-                                ],
+        //                 },
+        //             ],
+        //         },
+        //         {
+        //             id: 2,
+        //             nameStorage: 'E-2',
+        //             valueStorage: 10253,
+        //             status: 'normal',
+        //             tankLevel: 10,
+        //             tankers: [
+        //                 {
+        //                     nameTanker: 'Tug',
+        //                     shipped: true,
+        //                     value: 528,
+        //                 },
 
-                            },
-                        ],
-                    },
-                ],
-            },
-            {
-                name: 'ДТ сорт D3',
-                value: 12132,
-                criticalValue: 23,
-                storages: [
-                    {
-                        id: 1,
-                        nameStorage: 'D-1',
-                        status: 'critical',
-                        valueStorage: 10253,
-                        tankLevel: 10,
-                        tankers: [
-                            {
-                                nameTanker: 'Tug',
-                                shipped: true,
-                                value: 528,
-                                title: 'Авто ( AУТН-2 )',
-                            },
-                            {
-                                nameTanker: 'Tube',
-                                shipped: true,
-                                value: 528,
-                                title: 'Ж/Д ( AУТН-2 )',
-                            },
-                            {
-                                nameTanker: 'Cistern',
-                                shipped: true,
-                                value: 528,
-                                title: 'Труба ( AУТН-2 )',
-                            },
-                        ],
-                        operations: [
-                            {
-                                timeStart: '02:03:20',
-                                timeEnd: '04:08:38',
-                                tankValues: [
-                                    {
-                                        name: 'Отгружено по резервуару',
-                                        valueFirst: 1670,
-                                        valueSecond: 98.73,
-                                        status: 'normal',
-                                    },
-                                    {
-                                        name: 'По данным отгрузки',
-                                        valueFirst: 1700,
-                                        valueSecond: 103.23,
-                                        status: 'critical',
-                                    },
-                                    {
-                                        name: 'Дебаланс',
-                                        valueFirst: 30,
-                                        valueSecond: 1.27,
-                                        status: 'normal',
-                                    },
-                                    {
-                                        name: 'Допустимый дебаланс',
-                                        valueFirst: 15,
-                                        valueSecond: 103.23,
-                                        status: 'default',
-                                    },
-                                    {
-                                        name: 'Отклонение',
-                                        valueFirst: 15,
-                                        valueSecond: 103.23,
-                                        status: 'normal',
-                                    },
-                                ],
+        //                 {
+        //                     nameTanker: 'Tube',
+        //                     shipped: true,
+        //                     value: 528,
 
-                            },
-                            {
-                                timeStart: '02:03:20',
-                                timeEnd: '04:08:38',
-                                tankValues: [
-                                    {
-                                        name: 'Отгружено по резервуару',
-                                        valueFirst: 1670,
-                                        valueSecond: 98.73,
-                                        status: 'normal',
-                                    },
-                                    {
-                                        name: 'По данным отгрузки',
-                                        valueFirst: 1700,
-                                        valueSecond: 103.23,
-                                        status: 'critical',
-                                    },
-                                    {
-                                        name: 'Дебаланс',
-                                        valueFirst: 30,
-                                        valueSecond: 1.27,
-                                        status: 'normal',
-                                    },
-                                    {
-                                        name: 'Допустимый дебаланс',
-                                        valueFirst: 15,
-                                        valueSecond: 103.23,
-                                        status: 'default',
-                                    },
-                                    {
-                                        name: 'Отклонение',
-                                        valueFirst: 15,
-                                        valueSecond: 103.23,
-                                        status: 'normal',
-                                    },
-                                ],
+        //                 },
+        //                 {
+        //                     nameTanker: 'Cistern',
+        //                     shipped: false,
+        //                     value: 528,
 
-                            },
-                        ],
-                    },
-                    {
-                        id: 2,
-                        nameStorage: 'E-2',
-                        valueStorage: 10253,
-                        status: 'normal',
-                        tankLevel: 10,
+        //                 },
+        //             ],
+        //             operations: [
+        //                 {
+        //                     timeStart: '02:03:20',
+        //                     timeEnd: '04:08:38',
+        //                     status: 'critical',
+        //                     tankValues: [
+        //                         {
+        //                             name: 'Отгружено по резервуару',
+        //                             valueFirst: 1670,
+        //                             valueSecond: 98.73,
+        //                             tankDetailType: "massFromTankEson",
+        //                             status: 'normal',
+        //                         },
+        //                         {
+        //                             name: 'По данным отгрузки',
+        //                             valueFirst: 1700,
+        //                             tankDetailType: "massFromTankEson",
+        //                             valueSecond: 103.23,
+        //                             status: 'critical',
+        //                         },
+        //                         {
+        //                             name: 'Дебаланс',
+        //                             valueFirst: 30,
+        //                             tankDetailType: "massFromTankEson",
+        //                             valueSecond: 1.27,
+        //                             status: 'normal',
+        //                         },
+        //                         {
+        //                             name: 'Допустимый дебаланс',
+        //                             valueFirst: 15,
+        //                             valueSecond: 103.23,
+        //                             tankDetailType: "massFromTankEson",
+        //                             status: 'default',
+        //                         },
+        //                         {
+        //                             name: 'Отклонение',
+        //                             valueFirst: 15,
+        //                             valueSecond: 103.23,
+        //                             status: 'normal',
+        //                             tankDetailType: "massFromTankEson",
+        //                         },
+        //                     ],
 
-                        tankers: [
-                            {
-                                nameTanker: 'Tug',
-                                shipped: true,
-                                value: 528,
-                                title: 'Авто ( AУТН-2 )',
-                            },
-                            {
-                                nameTanker: 'Tube',
-                                shipped: true,
-                                value: 528,
-                                title: 'Ж/Д ( AУТН-2 )',
-                            },
-                            {
-                                nameTanker: 'Cistern',
-                                shipped: false,
-                                value: 528,
-                                title: 'Труба ( AУТН-2 )',
-                            },
-                        ],
-                        operations: [
-                            {
-                                timeStart: '02:03:20',
-                                timeEnd: '04:08:38',
-                                tankValues: [
-                                    {
-                                        name: 'Отгружено по резервуару',
-                                        valueFirst: 1670,
-                                        valueSecond: 98.73,
-                                        status: 'normal',
-                                    },
-                                    {
-                                        name: 'По данным отгрузки',
-                                        valueFirst: 1700,
-                                        valueSecond: 103.23,
-                                        status: 'critical',
-                                    },
-                                    {
-                                        name: 'Дебаланс',
-                                        valueFirst: 30,
-                                        valueSecond: 1.27,
-                                        status: 'normal',
-                                    },
-                                    {
-                                        name: 'Допустимый дебаланс',
-                                        valueFirst: 15,
-                                        valueSecond: 103.23,
-                                        status: 'default',
-                                    },
-                                    {
-                                        name: 'Отклонение',
-                                        valueFirst: 15,
-                                        valueSecond: 103.23,
-                                        status: 'normal',
-                                    },
-                                ],
-                            },
-                        ],
-                    },
-                    {
-                        id: 3,
-                        nameStorage: 'E-3',
-                        valueStorage: 10253,
-                        status: 'normal',
-                        tankLevel: 10,
-                        tankers: [
-                            {
-                                nameTanker: 'bus',
-                                shipped: true,
-                                value: 528,
-                                title: 'Авто ( AУТН-2 )',
-                            },
-                            {
-                                nameTanker: 'pipe',
-                                shipped: false,
-                                value: 528,
-                                title: 'Авто ( AУТН-2 )',
-                            },
-                            {
-                                nameTanker: 'train',
-                                shipped: false,
-                                value: 528,
-                                title: 'Авто ( AУТН-2 )',
-                            },
-                        ],
-                        operations: [
-                            {
-                                timeStart: '02:03:20',
-                                timeEnd: '04:08:38',
-                                tankValues: [
-                                    {
-                                        name: 'Отгружено по резервуару',
-                                        valueFirst: 1670,
-                                        valueSecond: 98.73,
-                                        status: 'normal',
-                                    },
-                                    {
-                                        name: 'По данным отгрузки',
-                                        valueFirst: 1700,
-                                        valueSecond: 103.23,
-                                        status: 'critical',
-                                    },
-                                    {
-                                        name: 'Дебаланс',
-                                        valueFirst: 30,
-                                        valueSecond: 1.27,
-                                        status: 'normal',
-                                    },
-                                    {
-                                        name: 'Допустимый дебаланс',
-                                        valueFirst: 15,
-                                        valueSecond: 103.23,
-                                        status: 'default',
-                                    },
-                                    {
-                                        name: 'Отклонение',
-                                        valueFirst: 15,
-                                        valueSecond: 103.23,
-                                        status: 'normal',
-                                    },
-                                ],
+        //                 },
+        //             ],
+        //         },
+        //         {
+        //             id: 3,
+        //             nameStorage: 'E-3',
+        //             valueStorage: 10253,
+        //             status: 'normal',
+        //             tankLevel: 10,
+        //             tankers: [
+        //                 {
+        //                     nameTanker: 'bus',
+        //                     shipped: true,
+        //                     value: 528,
+        //                 },
+        //                 {
+        //                     nameTanker: 'pipe',
+        //                     shipped: false,
+        //                     value: 528,
+        //                 },
+        //                 {
+        //                     nameTanker: 'train',
+        //                     shipped: false,
+        //                     value: 528,
+        //                 },
+        //             ],
+        //             operations: [
+        //                 {
+        //                     timeStart: '02:03:20',
+        //                     timeEnd: '04:08:38',
+        //                     status: 'critical',
+        //                     tankValues: [
+        //                         {
+        //                             name: 'Отгружено по резервуару',
+        //                             valueFirst: 1670,
+        //                             valueSecond: 98.73,
+        //                             status: 'normal',
+        //                             tankDetailType: "massFromTankEson",
+        //                         },
+        //                         {
+        //                             name: 'По данным отгрузки',
+        //                             valueFirst: 1700,
+        //                             valueSecond: 103.23,
+        //                             tankDetailType: "massFromTankEson",
+        //                             status: 'critical',
+        //                         },
+        //                         {
+        //                             name: 'Дебаланс',
+        //                             valueFirst: 30,
+        //                             valueSecond: 1.27,
+        //                             tankDetailType: "massFromTankEson",
+        //                             status: 'normal',
+        //                         },
+        //                         {
+        //                             name: 'Допустимый дебаланс',
+        //                             valueFirst: 15,
+        //                             tankDetailType: "massFromTankEson",
+        //                             valueSecond: 103.23,
+        //                             status: 'default',
+        //                         },
+        //                         {
+        //                             name: 'Отклонение',
+        //                             valueFirst: 15,
+        //                             tankDetailType: "massFromTankEson",
+        //                             valueSecond: 103.23,
+        //                             status: 'normal',
+        //                         },
+        //                     ],
 
-                            },
-                        ],
-                    },
-                ],
-            },
-        ],
-    };
+        //                 },
+        //             ],
+        //         },
+        //     ],
+        // },
+        // {
+        //     name: 'ДТ сорт D3',
+        //     value: 12132,
+        //     criticalValue: 23,
+        //     operations: 42,
+        //     criticalOperations: 1,
+        //     storages: [
+        //         {
+        //             id: 1,
+        //             nameStorage: 'D-1',
+        //             status: 'critical',
+        //             valueStorage: 10253,
+        //             tankLevel: 10,
+        //             tankers: [
+        //                 {
+        //                     nameTanker: 'Tug',
+        //                     shipped: true,
+        //                     value: 528,
+        //                 },
+        //                 {
+        //                     nameTanker: 'Tube',
+        //                     shipped: true,
+        //                     value: 528,
+        //                 },
+        //                 {
+        //                     nameTanker: 'Cistern',
+        //                     shipped: true,
+        //                     value: 528,
+        //                 },
+        //             ],
+        //             operations: [
+        //                 {
+        //                     timeStart: '02:03:20',
+        //                     timeEnd: '04:08:38',
+        //                     status: 'critical',
+        //                     tankValues: [
+        //                         {
+        //                             name: 'Отгружено по резервуару',
+        //                             valueFirst: 1670,
+        //                             tankDetailType: "massFromTankEson",
+        //                             valueSecond: 98.73,
+        //                             status: 'normal',
+        //                         },
+        //                         {
+        //                             name: 'По данным отгрузки',
+        //                             valueFirst: 1700,
+        //                             tankDetailType: "massFromTankEson",
+        //                             valueSecond: 103.23,
+        //                             status: 'critical',
+        //                         },
+        //                         {
+        //                             name: 'Дебаланс',
+        //                             valueFirst: 30,
+        //                             tankDetailType: "massFromTankEson",
+        //                             valueSecond: 1.27,
+        //                             status: 'normal',
+        //                         },
+        //                         {
+        //                             name: 'Допустимый дебаланс',
+        //                             valueFirst: 15,
+        //                             tankDetailType: "massFromTankEson",
+        //                             valueSecond: 103.23,
+        //                             status: 'default',
+        //                         },
+        //                         {
+        //                             name: 'Отклонение',
+        //                             valueFirst: 15,
+        //                             tankDetailType: "massFromTankEson",
+        //                             valueSecond: 103.23,
+        //                             status: 'normal',
+        //                         },
+        //                     ],
+
+        //                 },
+        //                 {
+        //                     timeStart: '02:03:20',
+        //                     timeEnd: '04:08:38',
+        //                     status: 'critical',
+        //                     tankValues: [
+        //                         {
+        //                             name: 'Отгружено по резервуару',
+        //                             valueFirst: 1670,
+        //                             valueSecond: 98.73,
+        //                             tankDetailType: "massFromTankEson",
+        //                             status: 'normal',
+        //                         },
+        //                         {
+        //                             name: 'По данным отгрузки',
+        //                             valueFirst: 1700,
+        //                             valueSecond: 103.23,
+        //                             tankDetailType: "massFromTankEson",
+        //                             status: 'critical',
+        //                         },
+        //                         {
+        //                             name: 'Дебаланс',
+        //                             valueFirst: 30,
+        //                             tankDetailType: "massFromTankEson",
+        //                             valueSecond: 1.27,
+        //                             status: 'normal',
+        //                         },
+        //                         {
+        //                             name: 'Допустимый дебаланс',
+        //                             valueFirst: 15,
+        //                             tankDetailType: "massFromTankEson",
+        //                             valueSecond: 103.23,
+        //                             status: 'default',
+        //                         },
+        //                         {
+        //                             name: 'Отклонение',
+        //                             valueFirst: 15,
+        //                             tankDetailType: "massFromTankEson",
+        //                             valueSecond: 103.23,
+        //                             status: 'normal',
+        //                         },
+        //                     ],
+
+        //                 },
+        //             ],
+        //         },
+        //         {
+        //             id: 2,
+        //             nameStorage: 'E-2',
+        //             valueStorage: 10253,
+        //             status: 'normal',
+        //             tankLevel: 10,
+
+        //             tankers: [
+        //                 {
+        //                     nameTanker: 'Tug',
+        //                     shipped: true,
+        //                     value: 528,
+
+        //                 },
+        //                 {
+        //                     nameTanker: 'Tube',
+        //                     shipped: true,
+        //                     value: 528,
+
+        //                 },
+        //                 {
+        //                     nameTanker: 'Cistern',
+        //                     shipped: false,
+        //                     value: 528,
+
+        //                 },
+        //             ],
+        //             operations: [
+        //                 {
+        //                     timeStart: '02:03:20',
+        //                     timeEnd: '04:08:38',
+        //                     status: 'critical',
+        //                     tankValues: [
+        //                         {
+        //                             name: 'Отгружено по резервуару',
+        //                             valueFirst: 1670,
+        //                             valueSecond: 98.73,
+        //                             tankDetailType: "massFromTankEson",
+        //                             status: 'normal',
+        //                         },
+        //                         {
+        //                             name: 'По данным отгрузки',
+        //                             valueFirst: 1700,
+        //                             valueSecond: 103.23,
+        //                             tankDetailType: "massFromTankEson",
+        //                             status: 'critical',
+        //                         },
+        //                         {
+        //                             name: 'Дебаланс',
+        //                             valueFirst: 30,
+        //                             valueSecond: 1.27,
+        //                             tankDetailType: "massFromTankEson",
+        //                             status: 'normal',
+        //                         },
+        //                         {
+        //                             name: 'Допустимый дебаланс',
+        //                             valueFirst: 15,
+        //                             valueSecond: 103.23,
+        //                             tankDetailType: "massFromTankEson",
+        //                             status: 'default',
+        //                         },
+        //                         {
+        //                             name: 'Отклонение',
+        //                             valueFirst: 15,
+        //                             valueSecond: 103.23,
+        //                             status: 'normal',
+        //                             tankDetailType: "massFromTankEson",
+        //                         },
+        //                     ],
+        //                 },
+        //             ],
+        //         },
+        //         {
+        //             id: 3,
+        //             nameStorage: 'E-3',
+        //             valueStorage: 10253,
+        //             status: 'normal',
+        //             tankLevel: 10,
+        //             tankers: [
+        //                 {
+        //                     nameTanker: 'bus',
+        //                     shipped: true,
+        //                     value: 528,
+
+        //                 },
+        //                 {
+        //                     nameTanker: 'pipe',
+        //                     shipped: false,
+        //                     value: 528,
+
+        //                 },
+        //                 {
+        //                     nameTanker: 'train',
+        //                     shipped: false,
+        //                     value: 528,
+
+        //                 },
+        //             ],
+        //             operations: [
+        //                 {
+        //                     timeStart: '02:03:20',
+        //                     timeEnd: '04:08:38',
+        //                     status: 'critical',
+        //                     tankValues: [
+        //                         {
+        //                             name: 'Отгружено по резервуару',
+        //                             valueFirst: 1670,
+        //                             tankDetailType: "massFromTankEson",
+        //                             valueSecond: 98.73,
+        //                             status: 'normal',
+        //                         },
+        //                         {
+        //                             name: 'По данным отгрузки',
+        //                             valueFirst: 1700,
+        //                             valueSecond: 103.23,
+        //                             tankDetailType: "massFromTankEson",
+        //                             status: 'critical',
+        //                         },
+        //                         {
+        //                             name: 'Дебаланс',
+        //                             valueFirst: 30,
+        //                             tankDetailType: "massFromTankEson",
+        //                             valueSecond: 1.27,
+        //                             status: 'normal',
+        //                         },
+        //                         {
+        //                             name: 'Допустимый дебаланс',
+        //                             valueFirst: 15,
+        //                             valueSecond: 103.23,
+        //                             tankDetailType: "massFromTankEson",
+        //                             status: 'default',
+        //                         },
+        //                         {
+        //                             name: 'Отклонение',
+        //                             valueFirst: 15,
+        //                             valueSecond: 103.23,
+        //                             tankDetailType: "massFromTankEson",
+        //                             status: 'normal',
+        //                         },
+        //                     ],
+
+        //                 },
+        //             ],
+        //         },
+        //     ],
+        // },
+    ];
+
 
     storageXY: IOilControlCoords[] = [
         {
@@ -1547,6 +1650,12 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, After
 
     public test: boolean = false;
 
+    tankersName = {
+        shipAvto: 'Авто',
+        shipTrain: 'Поезд',
+        shipTube: 'Труба'
+    }
+
     constructor(
         public widgetService: WidgetService,
         @Inject('isMock') public isMock: boolean,
@@ -1555,26 +1664,10 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, After
         @Inject('resizeWidget') public resizeWidget: EventEmitter<MouseEvent>
     ) {
         super(widgetService, isMock, id, uniqId);
-        this.isRealtimeData = false;
-
-        this.activeProduct = this.data.products;
-        if (this.activeProduct[0].storages.length < 3) {
-            this.activeStorage = this.activeProduct[2].storages[1];
-        } else if (this.activeProduct[0].storages.length < 2) {
-            this.activeStorage = this.activeProduct[0].storages[0];
-        } else {
-            this.activeStorage = this.activeProduct[0].storages[2];
-        }
     }
 
     ngOnInit(): void {
         super.widgetInit();
-    }
-
-    ngAfterViewInit(): void {
-        if (!this.isMock) {
-            this.drawOilControlSocket(this.data);
-        }
     }
 
     ngOnDestroy(): void {
@@ -1594,29 +1687,40 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, After
     }
 
     protected dataHandler(ref: any): void {
-        // this.drawOilControlSocket(ref);
+        this.drawOilControlSocket(ref);
+    }
+
+    public mapStorage(): void {
+        this.activeProduct = this.data;
+        if (this.activeProduct[0].storages.length < 3) {
+            this.activeStorage = this.activeProduct[2].storages[1];
+        } else if (this.activeProduct[0].storages.length < 2) {
+            this.activeStorage = this.activeProduct[0].storages[0];
+        } else {
+            this.activeStorage = this.activeProduct[0].storages[2];
+        }
     }
 
     drawOilControlSocket(ref): void {
         this.checkSocket = true;
-        this.data = ref;
+        this.data = ref.products;
         if (this.svgMenu) {
             this.clearProduct();
             this.tankersPicture.remove();
+
+        }
+        if (this.svgLine) {
             this.svgLine.remove();
         }
-        let count = 0;
-        for (let i of this.data.products) {
-            count++;
-        }
-        this.indexTestProduct = count - 1;
+        this.indexTestProduct = this.data.length - 1;
+        this.mapStorage();
         this.drawOilControl(this.data);
-        // if (this.checkSocket === true && this.savePositionProduct !== undefined) {
-        //     this.onButtonChangeProduct(this.savePositionProduct);
-        //     if (this.saveDataStorage.length !== 0) {
-        //         this.onButtonChangeStorage(this.savePositionStorage, this.saveDataStorage);
-        //     }
-        // }
+        if (this.checkSocket === true && this.savePositionProduct !== undefined) {
+            this.onButtonChangeProduct(this.savePositionProduct);
+            if (this.saveDataStorage.length !== 0) {
+                this.onButtonChangeStorage(this.savePositionStorage, this.saveDataStorage);
+            }
+        }
 
         this.savePosition = true;
         this.checkSocket = false;
@@ -1628,7 +1732,7 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, After
 
     public drawOilControl(data): void {
         this.drawPicture(this.oilIcon?.nativeElement);
-        this.FilterCircle(data.products, this.indexTestProduct);
+        this.FilterCircle(data, this.indexTestProduct);
     }
 
     public clearOilControl(): void {
@@ -1657,7 +1761,7 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, After
 
         let countPicture = 0;
 
-        for (const i of this.activeStorage.tankers) {
+        for (const i of this.activeStorage?.tankers) {
             if (i.shipped === true) {
                 countPicture++;
             }
@@ -1681,8 +1785,12 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, After
             x4 = -48;
         }
 
-        for (const item of this.activeStorage.tankers) {
+        let isShipped: boolean = false;
+
+        for (const item of this.activeStorage?.tankers) {
             if (item.shipped === true) {
+                const value = Math.round(item.value);
+                isShipped = true;
                 let pictureContainer = this.tankersPicture
                     .append('image')
                     .attr('xlink:href', './assets/pic/OilControl/oil_icon.svg')
@@ -1696,7 +1804,7 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, After
                     .append('image')
                     .attr(
                         'xlink:href',
-                        item.nameTanker === 'Tug' ? tug : item.nameTanker === 'Tube' ? tube : cis
+                        item.nameTanker === 'shipTrain' ? tug : item.nameTanker === 'shipTube' ? tube : cis
                     )
                     .attr('height', '50px')
                     .attr('width', '60px')
@@ -1713,7 +1821,7 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, After
                     .attr('y', '40')
                     .attr('text-anchor', 'middle')
                     .attr('fill', '#8c99b2')
-                    .text(item.title);
+                    .text(this.tankersName[item.nameTanker]);
 
                 let valueText1 = this.tankersPicture
                     .append('text')
@@ -1724,7 +1832,7 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, After
                     .attr('class', 'textProduct')
                     .attr('text-anchor', 'middle')
                     .attr('fill', '#a2e2ff')
-                    .text(item.value);
+                    .text(value);
 
                 x1 += y;
                 x2 += y;
@@ -1733,11 +1841,10 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, After
             }
         }
 
-        this.drawLine(this.line?.nativeElement, countPicture);
+        if (isShipped) { this.drawLine(this.line?.nativeElement, countPicture); }
     }
 
     public drawLine(el, count): void {
-        console.log('Картинки', count);
         let size = 0;
         if (this.newWidth) {
             size = this.newWidth / 100;
@@ -1868,7 +1975,7 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, After
                 .attr('text-anchor', 'middle')
                 .attr('class', 'textProduct')
                 .attr('fill', '#a2e2ff')
-                .text(this.data.operations);
+                .text(data[this.indexProduct].operations);
 
             let critical = svgMenu
                 .append('text')
@@ -1890,7 +1997,7 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, After
                 .attr('text-anchor', 'middle')
                 .attr('class', 'textProduct')
                 .attr('fill', 'orange')
-                .text(this.data.criticalOperations);
+                .text(data[this.indexProduct].criticalOperations);
 
             for (let item of leftBorder) {
                 item.classList.remove('st5');
@@ -1925,7 +2032,7 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, After
                 .attr('text-anchor', 'middle')
                 .attr('class', 'textProduct')
                 .attr('fill', '#a2e2ff')
-                .text(this.data.operations);
+                .text(data[this.indexProduct].operations);
 
             for (let item of leftBorderC) {
                 item.classList.remove('st5-critical');
@@ -1961,6 +2068,7 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, After
             for (let textProduct of data) {
                 if (indexPies === indexProducts) {
                     if (pie.point === 3) {
+                        const valueProduct = Math.round(textProduct.value);
                         if (!this.checkSocket) {
                             this.savePositionProduct = textProduct.name;
                         }
@@ -1991,7 +2099,7 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, After
                                 .attr('text-anchor', 'middle')
                                 .attr('fill', 'white')
                                 .attr('class', 'textProduct')
-                                .text(textProduct.value);
+                                .text(valueProduct);
 
                             let middleText3 = svgMenu
                                 .append('text')
@@ -2035,7 +2143,7 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, After
                                 .attr('text-anchor', 'middle')
                                 .attr('fill', '#a2e2ff')
                                 .attr('class', 'textProduct')
-                                .text(textProduct.value);
+                                .text(valueProduct);
                             this.indexData = indexProducts;
                         }
                     } else {
@@ -2071,8 +2179,7 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, After
                 );
                 if (indexPies1 === indexStorage) {
                     if (pie.point === 3) {
-                        if (textStorage.status === 'critical') {
-                        }
+                        const valueStorage = Math.round(textStorage.valueStorage);
                         let valueBadText = test
                             .append('text')
                             .attr('font-family', "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
@@ -2093,7 +2200,7 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, After
                             .attr('text-anchor', 'middle')
                             .attr('fill', '#a2e2ff')
                             .attr('class', 'textValues')
-                            .text(textStorage.valueStorage);
+                            .text(valueStorage);
                     } else {
                         if (textStorage.status === 'critical') {
                             let valueGoodText = test
@@ -2160,14 +2267,14 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, After
         this.clearProduct();
         let newProduct: number;
         if (this.countClickChange === 0 && !this.checkSocket) {
-            this.changeMassiv(index, this.data.products);
+            this.changeMassiv(index, this.data);
             newProduct = this.findAndFilterProduct(this.newArrayProduct, index, this.indexTestStorage);
             this.countClickChange++;
         } else if (this.checkSocket && this.countClickChange === 0) {
-            this.newArrayProduct = this.data.products;
+            this.newArrayProduct = this.data;
             newProduct = this.findAndFilterProduct(this.newArrayProduct, index, this.indexTestStorage);
         } else if (this.checkSocket) {
-            this.changeMassiv(index, this.data.products);
+            this.changeMassiv(index, this.data);
             newProduct = this.findAndFilterProduct(this.newArrayProduct, index, this.indexTestStorage);
 
         } else {
@@ -2210,7 +2317,7 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, After
                 this.pieEnd,
                 this.pieStartStorage,
                 this.pieEndStorage,
-                this.data.products,
+                this.data,
                 this.newArrayStorage
             );
         } else {
@@ -2339,9 +2446,9 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, After
 
     public shiftMassiv(el, move): void {
         if (this.countClickChange === 0) {
-            this.newArrayProduct = [...this.data.products];
+            this.newArrayProduct = [...this.data];
         } else if (this.checkSocket) {
-            this.newArrayProduct = [...this.data.products];
+            this.newArrayProduct = [...this.data];
         } else {
             this.newArrayProduct = [...this.newArrayProduct];
         }
