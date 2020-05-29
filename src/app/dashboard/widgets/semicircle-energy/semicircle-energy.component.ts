@@ -92,7 +92,6 @@ export class SemicircleEnergyComponent extends WidgetPlatform implements OnInit,
         @Inject('uniqId') public uniqId: string
     ) {
         super(widgetService, isMock, id, uniqId);
-        this.widgetUnits = 'кг/м^3';
     }
 
     ngOnInit(): void {
