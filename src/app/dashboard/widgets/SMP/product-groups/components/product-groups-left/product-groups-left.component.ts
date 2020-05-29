@@ -46,7 +46,7 @@ export class ProductGroupsLeftComponent implements OnInit, OnChanges {
 
         let color: any;
 
-        this.percent = data.performance > 100 ? 100 : data.performance < 0 ? 0 : data.performance;
+        this.percent = data.performance < 0 ? 0 : data.performance;
 
         const newValue = this.spacePipe.transform(data.groupValue);
         const criticalNewValue = this.spacePipe.transform(data.groupValueTwo);
