@@ -10,7 +10,7 @@ export interface ITriggeringCriticalParameters {
     deLockKeys: number;
     fireAlarm: number;
     lockAndAlarm: number;
-    PIDControllers: number;
+    piDControllers: number;
     vibrodiagnosticSystems: number;
     electricalHeatingSystems: number;
     nonCritical: boolean;
