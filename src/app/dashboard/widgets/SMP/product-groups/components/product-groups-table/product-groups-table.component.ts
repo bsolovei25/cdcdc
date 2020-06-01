@@ -1,4 +1,14 @@
-import { Component, OnInit, Input, ChangeDetectorRef, ElementRef, ViewChild, OnChanges, ChangeDetectionStrategy } from '@angular/core';
+import {
+    Component,
+    OnInit,
+    Input,
+    ChangeDetectorRef,
+    ElementRef,
+    ViewChild,
+    OnChanges,
+    ChangeDetectionStrategy,
+    AfterViewChecked
+} from '@angular/core';
 import { IProducts } from '../../product-groups.component';
 
 @Component({
@@ -7,7 +17,7 @@ import { IProducts } from '../../product-groups.component';
   templateUrl: './product-groups-table.component.html',
   styleUrls: ['./product-groups-table.component.scss']
 })
-export class ProductGroupsTableComponent implements OnInit, OnChanges {
+export class ProductGroupsTableComponent implements OnInit, OnChanges, AfterViewChecked {
   @ViewChild('lines') lines: ElementRef;
 
   @Input() widgetType: string;
@@ -27,6 +37,9 @@ export class ProductGroupsTableComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(): void {
+      if (this.datas.length > 0) {
+          return;
+      }
     if (this.data) {
       this.datas = this.map(this.data);
     }
@@ -35,7 +48,6 @@ export class ProductGroupsTableComponent implements OnInit, OnChanges {
   ngAfterViewChecked(): void {
     try {
       this.botScrollWidth = document.getElementById('botscroll').scrollWidth;
-      // this.cdRef.detectChanges();
       if (!this.cdRef['destroyed']) {
         this.cdRef.detectChanges();
       }
