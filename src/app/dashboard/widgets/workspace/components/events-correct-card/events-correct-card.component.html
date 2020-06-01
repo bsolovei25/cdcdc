@@ -52,7 +52,7 @@
       <div
         class="line"
         ngClass="line_{{statusesColors[event.status.name]}}"
-        [style.width.%]="event.timerPercentage"
+        [style.width.%]="event.timerPercentage ? event.timerPercentage : 0"
       ></div>
     </div>
   </div>
