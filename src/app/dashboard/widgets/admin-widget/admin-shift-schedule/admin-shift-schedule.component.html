@@ -48,7 +48,7 @@
             </div>
             <div class="shift-yesterday" *ngFor="let i of yesterday.items; let idx = index">
               <p>3 смена</p>
-              <p>{{ i.start | date:'HH.mm':'+0000' }} - {{ i.end | date:'HH.mm':'+0000' }}</p>
+              <p>{{ i.start | date:'HH.mm' }} - {{ i.end | date:'HH.mm' }}</p>
               <p *ngIf="i.brigadeName" class="shift-today-item">Бригада {{ i.brigadeName }}</p>
               <p *ngIf="!i.brigadeName" class="shift-today-item">Не назначено</p>
             </div>
@@ -59,7 +59,7 @@
           <div *ngFor="let shift of selectedDay.items; let idx = index" class="shift-today"
             [class.shift-today--active]="selectedShift?.id === shift.id" (click)="selectShift(shift)">
             <p>{{ idx + 1 }} смена</p>
-            <p>{{ shift.start | date:'HH.mm':'+0000' }} - {{ shift.end | date:'HH.mm':'+0000' }}</p>
+            <p>{{ shift.start | date:'HH.mm' }} - {{ shift.end | date:'HH.mm' }}</p>
             <p *ngIf="!shift.brigadeId" class="btn shift-today-item" (click)="openOverlay($event, shift, true)">
               Назначить
             </p>
