@@ -359,14 +359,24 @@ export class EventService {
         }
     }
 
-    public async escalateSmotrEvent(id: string): Promise<any> {
-        const url: string = `${this.smotrUrl}/api/monitoring/escalatedeviation/${id}`;
-        return await this.http.put(url, null).toPromise();
+    public async escalateSmotrEvent(saveMethod: ISaveMethodEvent, body: EventsWidgetNotification): Promise<any> {
+        const options = {
+            headers: new HttpHeaders({
+                AuthenticationType:  saveMethod.data.authenticationType,
+            })
+        };
+        const url: string = `${saveMethod.data.url}/api/monitoring/escalatedeviation`;
+        return await this.http.put(url, body, options).toPromise();
     }
 
-    public async closeSmotrEvent(id: string): Promise<any> {
-        const url: string = `${this.smotrUrl}/api/monitoring/closedeviation/${id}`;
-        return await this.http.put(url, null).toPromise();
+    public async closeSmotrEvent(saveMethod: ISaveMethodEvent, body: EventsWidgetNotification): Promise<any> {
+        const options = {
+            headers: new HttpHeaders({
+                AuthenticationType:  saveMethod.data.authenticationType,
+            })
+        };
+        const url: string = `${this.smotrUrl}/api/monitoring/closedeviation`;
+        return await this.http.put(url, body, options).toPromise();
     }
 
     public async updateSmotrEvent(id: string): Promise<any> {
