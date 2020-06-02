@@ -392,7 +392,7 @@ export class EventService {
         }
         if (options.placeNames?.length > 0) {
             for (const place of options.placeNames) {
-                res += `&placeNames=${place}`;
+                res += `&unitNames=${place}`;
             }
         }
         if (options.filter) {
