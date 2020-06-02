@@ -47,7 +47,7 @@ export class WorkflowTableComponent implements OnInit, AfterContentInit {
                 this.renderer.setStyle(
                     this.tank.nativeElement,
                     'height',
-                    `${this.localeData.height - 30}px`
+                    `${this.localeData.height - 80}px`
                 );
             }, 200);
         }
