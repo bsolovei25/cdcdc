@@ -325,7 +325,8 @@ export class EventsWorkspaceService {
         this.isLoading = true;
         try {
             this.sendMessageToEvent(message, 'comments');
-            await this.eventService.escalateSmotrEvent(this.event.originalId);
+            const saveMethod = await this.eventService.getSaveMethod(this.event);
+            await this.eventService.escalateSmotrEvent(saveMethod, this.event);
         } catch (e) {
             console.log(e);
             this.event.comments.pop();
@@ -337,21 +338,23 @@ export class EventsWorkspaceService {
             return;
         }
         this.isLoading = true;
-        const tempStatus = this.event.status;
+        const tempStatus = {...this.event.status};
         try {
             this.sendMessageToEvent(message, 'comments');
+            const saveMethod = await this.eventService.getSaveMethod(this.event);
+            await this.eventService.closeSmotrEvent(saveMethod, this.event);
             this.event.status = this.status.find(el => el.name === 'closed');
-            await this.eventService.closeSmotrEvent(this.event.originalId);
+            this.sendMessageToEvent(message, 'comments');
         } catch (e) {
             console.log(e);
-            this.event.status = tempStatus;
             this.event.comments.pop();
+            this.event.status = tempStatus;
         }
         this.isLoading = false;
     }
     public async updateEvent(): Promise<void> {
         if (this.event.originalId) {
-            const a = this.eventService.closeSmotrEvent(this.event.originalId);
+            // const a = this.eventService.closeSmotrEvent(this.event.originalId);
             // console.log(a);
         }
     }
