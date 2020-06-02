@@ -81,15 +81,13 @@ export class WorkflowTableComponent implements OnInit, AfterContentInit {
 
     onNoClick(): void {}
 
-    doubleClick(element): void {}
-
     searchInput(event): void {
         this.dataSource = this.dataSourceLocal?.filter(
             (val) =>
-                val?.firstName?.toLowerCase().includes(event?.target?.value.toLowerCase()) ||
-                val?.lastName?.toLowerCase().includes(event?.target?.value.toLowerCase()) ||
-                val?.middleName?.toLowerCase().includes(event?.target?.value.toLowerCase()) ||
-                val?.positionDescription?.toLowerCase().includes(event?.target?.value.toLowerCase())
+                val?.firstName?.toLowerCase().includes(event?.toLowerCase()) ||
+                val?.lastName?.toLowerCase().includes(event?.toLowerCase()) ||
+                val?.middleName?.toLowerCase().includes(event?.toLowerCase()) ||
+                val?.positionDescription?.toLowerCase().includes(event?.toLowerCase())
         );
     }
 
