@@ -1,14 +1,15 @@
 import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
-import { WidgetService } from '../../services/widget.service';
+import { IDatesInterval, WidgetService } from '../../services/widget.service';
 import { WidgetPlatform } from '../../models/widget-platform';
 import { IOilOperations } from '../../models/oil-operations';
+import { OilOperationsService } from '../../services/widgets/oil-operations.service';
 
 export interface IOilOperationsButton {
-  isFilter: boolean;
-  filter: boolean;
-  line: boolean;
-  adjust: boolean;
-  free: boolean;
+    isFilter: boolean;
+    filter: boolean;
+    line: boolean;
+    adjust: boolean;
+    free: boolean;
 }
 
 @Component({
@@ -17,15 +18,17 @@ export interface IOilOperationsButton {
   styleUrls: ['./oil-operations.component.scss']
 })
 export class OilOperationsComponent extends WidgetPlatform implements OnInit, OnDestroy {
-  public static itemCols: number = 64;
-  public static itemRows: number = 16;
-  public static minItemCols: number = 54;
-  public static minItemRows: number = 16;
+    public static itemCols: number = 64;
+    public static itemRows: number = 16;
+    public static minItemCols: number = 54;
+    public static minItemRows: number = 16;
 
-  public isOpenReceived: boolean = false;
-  public isOpenShipment: boolean = false;
+    public isOpenReceived: boolean = false;
+    public isOpenShipment: boolean = false;
 
-  public data: IOilOperations = {
+    private currentDates: IDatesInterval;
+
+    public data: IOilOperations = {
     tableLeft: [
       {
         id: 1,
@@ -204,76 +207,92 @@ export class OilOperationsComponent extends WidgetPlatform implements OnInit, On
     ],
   };
 
-  filter: IOilOperationsButton = {
-    isFilter: false,
-    filter: false,
-    line: false,
-    adjust: false,
-    free: false,
-  };
+    filter: IOilOperationsButton = {
+        isFilter: false,
+        filter: false,
+        line: false,
+        adjust: false,
+        free: false,
+    };
 
-  constructor(
-    public widgetService: WidgetService,
-    @Inject('isMock') public isMock: boolean,
-    @Inject('widgetId') public id: string,
-    @Inject('uniqId') public uniqId: string
-  ) {
-    super(widgetService, isMock, id, uniqId);
-    this.isRealtimeData = false;
-    this.widgetIcon = 'reference';
-  }
+    constructor(
+        private widgetService: WidgetService,
+        private oilOperationService: OilOperationsService,
+        @Inject('isMock') public isMock: boolean,
+        @Inject('widgetId') public id: string,
+        @Inject('uniqId') public uniqId: string
+    ) {
+        super(widgetService, isMock, id, uniqId);
+        this.isRealtimeData = false;
+        this.widgetIcon = 'reference';
+    }
 
-  ngOnInit(): void {
-    super.widgetInit();
-  }
+    ngOnInit(): void {
+        super.widgetInit();
+    }
 
-  protected dataHandler(ref: any): void {
-    //this.data = ref;
-  }
+    protected dataHandler(ref: any): void {
+        // this.data = ref;
+    }
 
-  ngOnDestroy(): void {
-    super.ngOnDestroy();
-  }
+    protected dataConnect(): void {
+        super.dataConnect();
+        this.subscriptions.push(
+            this.widgetService.currentDates$.subscribe((ref) => {
+                    this.onDatesChange(ref);
+                }
+            ),
+        );
+    }
 
-  openFilter(open: boolean): void {
-    this.active('isFilter');
-  }
+    private onDatesChange(dates: IDatesInterval): void {
+        this.currentDates = dates;
+        this.oilOperationService.getTransferList(this.currentDates);
+    }
 
-  openShipment(name: string): void {
-    this.isOpenShipment = false;
-    this.isOpenReceived = true;
-    this.active(name);
-  }
+    ngOnDestroy(): void {
+        super.ngOnDestroy();
+    }
 
-  openReceived(name: string): void {
-    this.isOpenReceived = false;
-    this.isOpenShipment = true;
-    this.active(name);
-  }
+    openFilter(open: boolean): void {
+        this.active('isFilter');
+    }
 
-  closeShipment(event: boolean): void {
-    this.disabled();
-    this.isOpenShipment = true;
-  }
+    openShipment(name: string): void {
+        this.isOpenShipment = false;
+        this.isOpenReceived = true;
+        this.active(name);
+    }
 
-  closeReceived(event: boolean): void {
-    this.disabled();
-    this.isOpenReceived = true;
-  }
+    openReceived(name: string): void {
+        this.isOpenReceived = false;
+        this.isOpenShipment = true;
+        this.active(name);
+    }
 
-  active(itemActive: string): void {
-    Object.keys(this.filter).forEach(key => {
-      if (key === itemActive) {
-        this.filter[key] = true;
-      } else {
-        this.filter[key] = false;
-      }
-    });
-  }
+    closeShipment(event: boolean): void {
+        this.disabled();
+        this.isOpenShipment = true;
+    }
 
-  disabled(): void {
-    Object.keys(this.filter).forEach(item => {
-      this.filter[item] = false;
-    });
-  }
+    closeReceived(event: boolean): void {
+        this.disabled();
+        this.isOpenReceived = true;
+    }
+
+    active(itemActive: string): void {
+        Object.keys(this.filter).forEach(key => {
+              if (key === itemActive) {
+                  this.filter[key] = true;
+              } else {
+                  this.filter[key] = false;
+              }
+        });
+    }
+
+    disabled(): void {
+        Object.keys(this.filter).forEach(item => {
+            this.filter[item] = false;
+        });
+    }
 }

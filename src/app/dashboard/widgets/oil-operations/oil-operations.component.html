@@ -62,7 +62,7 @@
                     </div>
                 </ng-container>
 
-                <!-- LINE CHIRT -->
+                <!-- LINE CHART -->
                 <ng-container *ngIf="filter.line">
                     <div class="line-side">
                         <evj-oil-operations-line (closeLineChart)="closeReceived($event)"></evj-oil-operations-line>
@@ -123,7 +123,7 @@
             <div *ngIf="filter.adjust">
                 <evj-oil-operations-adjustment (closeAdjust)="closeShipment($event)"></evj-oil-operations-adjustment>
             </div>
-            
+
             <!-- RIGHT-SIDE -->
             <div *ngIf="filter.free">
                 <evj-oil-operations-free-shipment (closeFree)="closeShipment($event)">
