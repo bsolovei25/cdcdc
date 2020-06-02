@@ -324,7 +324,6 @@ export class WorkflowComponent extends WidgetPlatform implements OnInit, OnDestr
 
     protected async dataConnect(): Promise<void> {
         super.dataConnect();
-
         this.workflowService.chooseModules$.subscribe((module) => {
             this.chooseModules = module;
         });
@@ -335,13 +334,6 @@ export class WorkflowComponent extends WidgetPlatform implements OnInit, OnDestr
                 this.isLoading = true;
                 this.loadActions(this.chooseModules.uid);
             } else {
-                if (this.leaderLine.length > 0) {
-                    this.leaderLine.forEach((value) => {
-                        value.setInterval = 0;
-                        clearInterval(value.setInterval);
-                        value.remove();
-                    });
-                }
                 this.items = [];
                 this.leaderLine = [];
             }
@@ -531,7 +523,6 @@ export class WorkflowComponent extends WidgetPlatform implements OnInit, OnDestr
                                     leaderLine
                                 );
                             }
-                            setInterval(() => {}, 100);
                         }
                     }, 100);
                 }
@@ -637,12 +628,16 @@ export class WorkflowComponent extends WidgetPlatform implements OnInit, OnDestr
     }
 
     private removeIconLeader(iconId: string, lineId?: string, lineObject?: any): void {
-        document.getElementById(iconId)?.remove();
-        if (lineObject && lineId) {
-            document.body.appendChild(document.getElementById(lineId));
-            lineObject.remove();
+        try {
+            document.getElementById(iconId)?.remove();
+            if (lineObject && lineId) {
+                document.body.appendChild(document.getElementById(lineId));
+                lineObject.remove();
+            }
+            document.getElementById(lineId)?.remove();
+        } catch (error) {
+            console.error(error);
         }
-        document.getElementById(lineId)?.remove();
     }
 
     deleteConnectActions(lineId: string): void {
