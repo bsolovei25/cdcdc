@@ -8,7 +8,7 @@
             <ng-container *ngFor="let item of data.attributes">
                 <div appTooltip textTooltip='{{  item.description }}' class="att-block">
                     <div class="att-block__value">{{item.value}}</div>
-                    <div class="att-block__unit">{{item.unit}}</div>
+                    <div class="att-block__unit" [innerHTML]="item.unit | powIndex"></div>
                 </div>
             </ng-container>
 
