@@ -366,7 +366,7 @@ export class EventService {
             })
         };
         const url: string = `${saveMethod.data.url}/api/monitoring/escalatedeviation`;
-        return await this.http.put(url, body, options).toPromise();
+        return await this.http.post(url, body, options).toPromise();
     }
 
     public async closeSmotrEvent(saveMethod: ISaveMethodEvent, body: EventsWidgetNotification): Promise<any> {
@@ -375,8 +375,8 @@ export class EventService {
                 AuthenticationType:  saveMethod.data.authenticationType,
             })
         };
-        const url: string = `${this.smotrUrl}/api/monitoring/closedeviation`;
-        return await this.http.put(url, body, options).toPromise();
+        const url: string = `${saveMethod.data.url}/api/monitoring/closedeviation`;
+        return await this.http.post(url, body, options).toPromise();
     }
 
     public async updateSmotrEvent(id: string): Promise<any> {
