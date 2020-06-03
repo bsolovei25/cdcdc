@@ -54,6 +54,7 @@ export class ITankCardValueRef {
     public attributes: ICardAttributes[];
 
     constructor(data: ITankCardValue) {
+        // if (data.measuredVolume > data.maxValue)
         Object.assign<ITankCardValueRef, ITankCardValue, Partial<ITankCardValueRef>>(this, data, {});
     }
 }
