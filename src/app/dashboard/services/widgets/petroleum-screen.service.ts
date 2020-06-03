@@ -255,14 +255,14 @@ export class PetroleumScreenService {
     }
 
     public async getTransfers(
-        startTme: Date,
+        startTime: Date,
         endTime: Date,
         isOpen: boolean,
         client: string
     ): Promise<void> {
         let requestUrl = `${this.restUrl}/api/petroleum-flow-transfers/transfer?`;
-        if (startTme) {
-            requestUrl += `startTime=${startTme.toISOString()}`;
+        if (startTime) {
+            requestUrl += `startTime=${startTime.toISOString()}`;
         }
         if (endTime) {
             requestUrl += `&endTime=${endTime.toISOString()}`;

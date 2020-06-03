@@ -5,7 +5,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class PowIndexPipe implements PipeTransform {
     transform(value: string): string {
-        if (value.match('&')) {
+        if (value?.match('&')) {
             let finalString = '';
             value = value.slice(1);
             for (let i = 0; i < value.length; i++) {

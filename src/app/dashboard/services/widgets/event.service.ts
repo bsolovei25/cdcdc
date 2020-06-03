@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { BehaviorSubject } from 'rxjs/index';
 import {
     EventsWidgetNotification,
@@ -17,7 +17,7 @@ import {
     IAsusCategories,
     IAsusWorkgroup,
     ISmotrReference,
-    ISaveMethodEvent, IRetrievalEventDto
+    ISaveMethodEvent, IRetrievalEventDto, IAsusTmPlace, IAsusTpPlace
 } from '../../models/events-widget';
 import { AppConfigService } from 'src/app/services/appConfigService';
 
@@ -79,7 +79,7 @@ export class EventService {
     async getEvent(id: number): Promise<EventsWidgetNotification> {
         try {
             return this.http
-                // .get<EventsWidgetNotification>('assets/mock/AsusEventsMock/event.json')
+                // .get<EventsWidgetNotification>('assets/mock/SmotrEventsMock/event.json')
                 .get<EventsWidgetNotification>(this.restUrl + '/api/notifications/' + id)
                 .toPromise();
         } catch (error) {
@@ -87,19 +87,25 @@ export class EventService {
         }
     }
 
-    getSaveMethod(event: EventsWidgetNotification): Promise<ISaveMethodEvent> {
+    async getSaveMethod(event: EventsWidgetNotification): Promise<ISaveMethodEvent> {
         try {
-            return this.http
+            const saveMethod: ISaveMethodEvent = await this.http
                 .post<ISaveMethodEvent>(`${this.restUrl}/api/notifications/save-method`, event)
                 .toPromise();
+            saveMethod.options = {
+                headers: new HttpHeaders({
+                    AuthenticationType:  saveMethod.data.authenticationType,
+                })
+            };
+            return saveMethod;
         } catch (error) {
             console.error(error);
         }
     }
 
-    async postEvent(body: EventsWidgetNotification): Promise<any> {
+    async postEvent(body: EventsWidgetNotification, saveMethod: ISaveMethodEvent): Promise<any> {
         try {
-            return this.http.post(this.restUrl + '/api/notifications', body).toPromise();
+            return this.http.post(`${saveMethod.data.url}/api/notifications`, body, saveMethod.options).toPromise();
         } catch (error) {
             console.error(error);
         }
@@ -113,9 +119,9 @@ export class EventService {
         }
     }
 
-    async putEvent(body: EventsWidgetNotification): Promise<any> {
+    async putEvent(body: EventsWidgetNotification, saveMethod: ISaveMethodEvent): Promise<any> {
         try {
-            return this.http.put(this.restUrl + '/api/notifications/' + body.id, body).toPromise();
+            return this.http.put(`${saveMethod.data.url}/api/notifications/${body.id}`, body, saveMethod.options).toPromise();
         } catch (error) {
             console.error(error);
         }
@@ -127,6 +133,18 @@ export class EventService {
         } catch (error) {
             console.error(error);
         }
+    }
+
+    async addLink(idEvent: number, idRetrieval: number): Promise<any> {
+        return this.http
+            .post(`${this.restUrl}/api/notification-retrieval/${idEvent}/RetrievalEvents/${idRetrieval}`, null)
+            .toPromise();
+    }
+
+    async deleteLink(idEvent: number, idRetrieval: number): Promise<any> {
+        return this.http
+            .delete(`${this.restUrl}/api/notification-retrieval/${idEvent}/RetrievalEvents/${idRetrieval}`)
+            .toPromise();
     }
 
     async getStatus(): Promise<IStatus[]> {
@@ -207,7 +225,7 @@ export class EventService {
         }
     }
 
-    async getAsusCategories(): Promise<IAsusCategories[]> {
+    async getAsusCategories(saveMethod: ISaveMethodEvent): Promise<IAsusCategories[]> {
         try {
             if (!this.isDomenAuth) {
                 return this.http
@@ -215,14 +233,14 @@ export class EventService {
                     .toPromise();
             }
             return this.http
-                .get<IAsusCategories[]>(this.restUrl + '/api/asus-events/category')
+                .get<IAsusCategories[]>(saveMethod.data.url + '/api/references/category', saveMethod.options)
                 .toPromise();
         } catch (error) {
             console.error(error);
         }
     }
 
-    async getAsusWorkgroup(): Promise<IAsusWorkgroup[]> {
+    async getAsusWorkgroup(saveMethod: ISaveMethodEvent): Promise<IAsusWorkgroup[]> {
         try {
             if (!this.isDomenAuth) {
                 return this.http
@@ -230,14 +248,14 @@ export class EventService {
                     .toPromise();
             }
             return this.http
-                .get<IAsusWorkgroup[]>(this.restUrl + '/api/asus-events/api/References/workgroup')
+                .get<IAsusWorkgroup[]>(saveMethod.data.url + '/api/references/workgroup', saveMethod.options)
                 .toPromise();
         } catch (error) {
             console.error(error);
         }
     }
 
-    async getAsusServices(): Promise<IAsusService[]> {
+    async getAsusServices(saveMethod: ISaveMethodEvent): Promise<IAsusService[]> {
         try {
             if (!this.isDomenAuth) {
                 return this.http
@@ -245,22 +263,52 @@ export class EventService {
                     .toPromise();
             }
             return this.http
-                .get<IAsusService[]>(this.restUrl + '/api/asus-events//api/References/services')
+                .get<IAsusService[]>(saveMethod.data.url + '/api/references/services', saveMethod.options)
                 .toPromise();
         } catch (error) {
             console.error(error);
         }
     }
 
-    async getAsusEOServices(): Promise<IAsusEOService[]> {
+    async getAsusUnits(saveMethod: ISaveMethodEvent): Promise<IAsusTmPlace[]> {
         try {
             if (!this.isDomenAuth) {
                 return this.http
-                    .get<IAsusEOService[]>('assets/mock/AsusEventsMock/eoservice.json')
+                    .get<IAsusTmPlace[]>('assets/mock/AsusEventsMock/tmplace.json')
                     .toPromise();
             }
             return this.http
-                .get<IAsusEOService[]>(this.restUrl + '/api/notification-reference/eoservice')
+                .get<IAsusTmPlace[]>(saveMethod.data.url + '/api/references/tmplaces', saveMethod.options)
+                .toPromise();
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+    async getAsusEquipments(codeSap: string, saveMethod: ISaveMethodEvent): Promise<IAsusTpPlace[]> {
+        try {
+            if (!this.isDomenAuth) {
+                return this.http
+                    .get<IAsusTpPlace[]>('assets/mock/AsusEventsMock/tpplace.json')
+                    .toPromise();
+            }
+            return this.http
+                .get<IAsusTpPlace[]>(saveMethod.data.url + `/api/references/tplaces?tmSapCode=${codeSap}`, saveMethod.options)
+                .toPromise();
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+    async getAsusEOServices(codeSap: string, saveMethod: ISaveMethodEvent): Promise<IAsusEOService[]> {
+        try {
+            if (!this.isDomenAuth) {
+                return this.http
+                    .get<IAsusEOService[]>('assets/mock/AsusEventsMock/eoplace.json')
+                    .toPromise();
+            }
+            return this.http
+                .get<IAsusEOService[]>(saveMethod.data.url + `/api/references/eoservice?tpSapCode=${codeSap}`, saveMethod.options)
                 .toPromise();
         } catch (error) {
             console.error(error);
@@ -307,22 +355,24 @@ export class EventService {
         }
     }
 
-    public async escalateSmotrEvent(id: string): Promise<any> {
-        const url: string = `${this.smotrUrl}/api/monitoring/escalatedeviation/${id}`;
-        try {
-            return await this.http.put(url, null).toPromise();
-        } catch (error) {
-            console.error(error);
-        }
+    public async escalateSmotrEvent(saveMethod: ISaveMethodEvent, body: EventsWidgetNotification): Promise<any> {
+        const options = {
+            headers: new HttpHeaders({
+                AuthenticationType:  saveMethod.data.authenticationType,
+            })
+        };
+        const url: string = `${saveMethod.data.url}/api/monitoring/escalatedeviation`;
+        return await this.http.post(url, body, options).toPromise();
     }
 
-    public async closeSmotrEvent(id: string): Promise<any> {
-        const url: string = `${this.smotrUrl}/api/monitoring/closedeviation/${id}`;
-        try {
-            return await this.http.put(url, null).toPromise();
-        } catch (error) {
-            console.error(error);
-        }
+    public async closeSmotrEvent(saveMethod: ISaveMethodEvent, body: EventsWidgetNotification): Promise<any> {
+        const options = {
+            headers: new HttpHeaders({
+                AuthenticationType:  saveMethod.data.authenticationType,
+            })
+        };
+        const url: string = `${saveMethod.data.url}/api/monitoring/closedeviation`;
+        return await this.http.post(url, body, options).toPromise();
     }
 
     public async updateSmotrEvent(id: string): Promise<any> {
@@ -341,22 +391,31 @@ export class EventService {
                 `fromDateTime=${options.dates?.fromDateTime.toISOString()}&` +
                 `toDateTime=${options.dates?.toDateTime.toISOString()}`;
         }
-        for (const category of options.categories) {
-            res += `&categoryIds=${category}`;
+        if (options.categories?.length > 0) {
+            for (const category of options.categories) {
+                res += `&categoryIds=${category}`;
+            }
         }
-        for (const place of options.placeNames) {
-            res += `&placeNames=${place}`;
+        if (options.placeNames?.length > 0) {
+            for (const place of options.placeNames) {
+                res += `&unitNames=${place}`;
+            }
         }
-        switch (options.filter) {
-            case 'all':
-                res += '&statusIds=3001&statusIds=3002';
-                break;
-            case 'closed':
-                res += '&statusIds=3003';
-                break;
-            case 'inWork':
-                res += '&statusIds=3002';
-                break;
+        if (options.filter) {
+            switch (options.filter) {
+                case 'all':
+                    res += '&statusIds=3001&statusIds=3002';
+                    break;
+                case 'closed':
+                    res += '&statusIds=3003';
+                    break;
+                case 'inWork':
+                    res += '&statusIds=3002';
+                    break;
+            }
+        }
+        if (options.description) {
+            res += `&description=${options.description}`;
         }
         return res;
     }

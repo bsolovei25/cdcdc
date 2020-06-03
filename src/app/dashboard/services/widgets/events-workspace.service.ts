@@ -9,18 +9,24 @@ import {
     EventsWidgetNotificationStatus,
     EventsWidgetNotificationPriority,
     EventsWidgetCategoryCode,
-    IRetrievalEvents,
     IAsusService,
     IAsusEOService,
     IAsusWorkgroup,
     IAsusCategories,
     ISmotrReference,
-    ISaveMethodEvent, IRetrievalEventDto
+    ISaveMethodEvent, IRetrievalEventDto, ISearchRetrievalWindow, IAsusTpPlace, IAsusTmPlace
 } from '../../models/events-widget';
 import { EventService } from '../widgets/event.service';
 import { SnackBarService } from '../snack-bar.service';
 import { fillDataShape } from '../../../@shared/common-functions';
 import { AvatarConfiguratorService } from '../avatar-configurator.service';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { IAlertWindowModel } from '@shared/models/alert-window.model';
+import { filter, map } from 'rxjs/operators';
+
+declare interface PromiseConstructor {
+    allSettled(promises: Array<Promise<any>>): Promise<Array<{status: 'fulfilled' | 'rejected', value?: any, reason?: any}>>;
+}
 
 @Injectable({
     providedIn: 'root',
@@ -48,7 +54,30 @@ export class EventsWorkspaceService {
     public asusWorkgroup: IAsusWorkgroup[] = [];
     public asusServices: IAsusService[] = [];
     public asusEOServices: IAsusEOService[] = [];
+    public asusEquipments: IAsusTpPlace[] = [];
+    public asusUnits: IAsusTmPlace[] = [];
     public smotrReference: ISmotrReference = null;
+    public category$: BehaviorSubject<ICategory[]> = new BehaviorSubject<ICategory[]>([]);
+    public categoryPipe: Observable<ICategory[]> = this.category$.pipe(
+        filter((item) => item !== null),
+        map((cats) => cats.filter((cat) => {
+            if (this.isCreateNewEvent) {
+                switch (cat.name) {
+                    case 'smotr':
+                        return false;
+                    default:
+                        return true;
+                }
+            }
+            switch (cat.name) {
+                case 'asus':
+                case 'smotr':
+                    return false;
+                default:
+                    return true;
+            }
+        }))
+    );
     //#endregion
 
     public currentAuthUser: IUser = null;
@@ -76,6 +105,11 @@ export class EventsWorkspaceService {
 
     private defaultEvent: EventsWidgetNotification = null;
 
+    public searchWindow$: BehaviorSubject<ISearchRetrievalWindow> =
+        new BehaviorSubject<ISearchRetrievalWindow>(null);
+    public ewAlertInfo$: BehaviorSubject<IAlertWindowModel> =
+        new BehaviorSubject<IAlertWindowModel>(null);
+
     constructor(
         private eventService: EventService,
         private snackBarService: SnackBarService,
@@ -85,13 +119,12 @@ export class EventsWorkspaceService {
     public async loadItem(id: number = null): Promise<void> {
         this.isLoading = true;
         try {
+            this.setDefaultEvent();
             if (id) {
-                this.event = await this.eventService.getEvent(id);
-                this.event = {...this.defaultEvent, ...this.event};
+                await this.getEvent(id);
             }
             this.eventService.currentEventId$.next(id);
             this.loadReferences();
-            this.setDefaultEvent();
         } catch (err) {
             console.error(err);
         } finally {
@@ -99,12 +132,33 @@ export class EventsWorkspaceService {
         }
     }
 
-    public async goBackEvent(): Promise<void> {
+    private async getEvent(id: number): Promise<void> {
+        this.event = await this.eventService.getEvent(id);
+        this.event = { ...this.defaultEvent, ...this.event };
+        const dataLoadQueue: Promise<void>[] = [];
+        if (this.event.category.name === 'asus') {
+            await this.asusReferencesLoad();
+            const saveMethod = await this.eventService.getSaveMethod(this.event);
+            dataLoadQueue.push(
+                this.eventService.getAsusEquipments(this.event.asusEvent.tmPlace, saveMethod).then((data) => {
+                    this.asusEquipments = data;
+                }),
+                this.eventService.getAsusEOServices(this.event.asusEvent.equipment, saveMethod).then((data) => {
+                    this.asusEOServices = data;
+                }),
+            );
+        }
+        await Promise.all(dataLoadQueue);
+    }
+
+    public async goBackEvent(isContinue: boolean = false): Promise<void> {
         if (!(this.eventHistory?.length > 0)) {
+            this.event = null;
             return;
         }
-        if (this.eventHistory.length > 1 && !this.isCreateNewEvent) {
+        if (!this.isCreateNewEvent && !isContinue) {
             this.eventHistory.pop();
+            this.goBackEvent(true);
         }
         await this.editEvent(this.eventHistory[this.eventHistory.length - 1], true);
     }
@@ -119,12 +173,14 @@ export class EventsWorkspaceService {
     }
 
     public async refreshEvent(): Promise<void> {
+        this.isEditEvent = true;
         this.isCreateNewEvent = true;
         await this.loadItem();
         this.event = fillDataShape(this.defaultEvent);
     }
 
     public async createEvent(idParent: number = null): Promise<void> {
+        this.isEditEvent = true;
         if (this.isCreateNewEvent) {
             this.snackBarService.openSnackBar('Для создания нового события, сохраните текущее!', 'snackbar-red');
             return;
@@ -134,7 +190,6 @@ export class EventsWorkspaceService {
         }
         this.isCreateNewEvent = true;
         await this.loadItem();
-        // const tempCategory: ICategory = this.event?.category ?? this.defaultEvent.category;
         this.event = {...this.defaultEvent};
         if (idParent) {
             this.event.parentId = idParent;
@@ -153,7 +208,7 @@ export class EventsWorkspaceService {
         }
         return this.checkRetrievalCategory();
     }
-    private checkRetrievalCategory(): boolean {
+    public checkRetrievalCategory(): boolean {
         switch (this.event.category.name) {
             case 'smotr':
             case 'asus':
@@ -163,7 +218,32 @@ export class EventsWorkspaceService {
         return true;
     }
 
-    // TODO разделить методы сохранения
+    public async createRetrievalLink(idRetrieval: number): Promise<void> {
+        const idEvent = this.event.id;
+        console.log('add retrieval: ' + idEvent + idRetrieval);
+        try {
+            await this.eventService.addLink(idEvent, idRetrieval);
+            this.snackBarService.openSnackBar('События успешно связаны!');
+        } catch (err) {
+            console.log(err);
+        } finally {
+            this.editEvent(this.event.id, true);
+        }
+    }
+
+    public async deleteRetrievalLink(idRetrieval: number): Promise<void> {
+        const idEvent = this.event.id;
+        console.log('delete retrieval: ' + idEvent + idRetrieval);
+        try {
+            await this.eventService.deleteLink(idEvent, idRetrieval);
+            this.snackBarService.openSnackBar('Связь между событиями успешно удалена!');
+        } catch (err) {
+            console.log(err);
+        } finally {
+            this.editEvent(this.event.id, true);
+        }
+    }
+
     private async saveCreatedEvent(saveMethod: ISaveMethodEvent): Promise<void> {
         try {
             if (this.event.parentId) {
@@ -172,7 +252,7 @@ export class EventsWorkspaceService {
                 }
                 await this.eventService.postEventRetrieval(this.event);
             } else {
-                await this.eventService.postEvent(this.event);
+                await this.eventService.postEvent(this.event, saveMethod);
             }
             this.isCreateNewEvent = false;
             this.snackBarService.openSnackBar('Сохранено');
@@ -200,7 +280,7 @@ export class EventsWorkspaceService {
             this.snackBarService.openSnackBar('Данное действие не допустимо для выбранного события!', 'snackbar-red');
         } else {
             try {
-                await this.eventService.putEvent(this.event);
+                await this.eventService.putEvent(this.event, saveMethod);
                 this.snackBarService.openSnackBar('Изменения сохранены');
             } catch (err) {
                 console.error(err);
@@ -208,7 +288,6 @@ export class EventsWorkspaceService {
         }
     }
 
-    // TODO подумать над реализацией удаления
     public async deleteRetrievalEvent(retrieval: IRetrievalEventDto): Promise<void> {
         try {
             await this.eventService.deleteRetrievalEvents(
@@ -245,21 +324,43 @@ export class EventsWorkspaceService {
     }
 
     // TODO #SMOTR region start
-    public async escalateEvent(): Promise<void> {
-        if (this.event.originalId) {
-            const a = this.eventService.escalateSmotrEvent(this.event.originalId);
-            // console.log(a);
+    public async escalateEvent(message: string): Promise<void> {
+        if (!this.event.originalId) {
+            return;
         }
+        this.isLoading = true;
+        try {
+            this.sendMessageToEvent(message, 'comments');
+            const saveMethod = await this.eventService.getSaveMethod(this.event);
+            await this.eventService.escalateSmotrEvent(saveMethod, this.event);
+        } catch (e) {
+            console.log(e);
+            this.event.comments.pop();
+        }
+        this.isLoading = false;
     }
-    public async closeEvent(): Promise<void> {
-        if (this.event.originalId) {
-            const a = this.eventService.closeSmotrEvent(this.event.originalId);
-            // console.log(a);
+    public async closeEvent(message: string): Promise<void> {
+        if (!this.event.originalId) {
+            return;
         }
+        this.isLoading = true;
+        const tempStatus = {...this.event.status};
+        try {
+            this.sendMessageToEvent(message, 'comments');
+            const saveMethod = await this.eventService.getSaveMethod(this.event);
+            await this.eventService.closeSmotrEvent(saveMethod, this.event);
+            this.event.status = this.status.find(el => el.name === 'closed');
+            this.sendMessageToEvent(message, 'comments');
+        } catch (e) {
+            console.log(e);
+            this.event.comments.pop();
+            this.event.status = tempStatus;
+        }
+        this.isLoading = false;
     }
     public async updateEvent(): Promise<void> {
         if (this.event.originalId) {
-            const a = this.eventService.closeSmotrEvent(this.event.originalId);
+            // const a = this.eventService.closeSmotrEvent(this.event.originalId);
             // console.log(a);
         }
     }
@@ -270,7 +371,11 @@ export class EventsWorkspaceService {
             isUserCanEdit: true,
             itemNumber: 0,
             branch: 'Производство',
-            category: this.category ? this.category[0] : null,
+            category: {
+                id: null,
+                name: null,
+                code: null,
+            },
             description: '',
             deviationReason: 'Причина отклонения...',
             directReasons: '',
@@ -299,8 +404,9 @@ export class EventsWorkspaceService {
                 category: '',
                 workGroup: '',
                 service: '',
-                eoService: '',
-                equipment: '',
+                eoService: null,
+                equipment: null,
+                tmPlace: null,
             }
         };
     }
@@ -310,6 +416,7 @@ export class EventsWorkspaceService {
         dataLoadQueue.push(
             this.eventService.getCategory().then((data) => {
                 this.category = data;
+                this.category$.next(data);
             }),
             this.eventService.getUser().then((data) => {
                 this.users = data;
@@ -329,22 +436,49 @@ export class EventsWorkspaceService {
             this.eventService.getEventType().then((data) => {
                 this.eventTypes = data;
             }),
-            this.eventService.getAsusCategories().then((data) => {
-                this.asusCategories = data;
-            }),
-            this.eventService.getAsusWorkgroup().then((data) => {
-                this.asusWorkgroup = data;
-            }),
-            this.eventService.getAsusServices().then((data) => {
-                this.asusServices = data;
-            }),
-            this.eventService.getAsusEOServices().then((data) => {
-                this.asusEOServices = data;
-            }),
+            // TODO delete
             this.eventService.getSmotrReference().then((data) => {
                 this.smotrReference = data;
             }),
         );
-        await Promise.all(dataLoadQueue);
+        try {
+            await Promise.all(dataLoadQueue);
+        } catch {
+            console.warn('Promise.allSettled');
+        }
+    }
+
+    public closeSearchWindow(): void {
+        this.searchWindow$.next(null);
+    }
+
+    private async asusReferencesLoad(): Promise<void> {
+        const dataLoadQueue: Promise<void>[] = [];
+        const saveMethod: ISaveMethodEvent = await this.eventService.getSaveMethod(this.event);
+        dataLoadQueue.push(
+            this.eventService.getAsusCategories(saveMethod).then((data) => {
+                this.asusCategories = data;
+            }),
+            this.eventService.getAsusWorkgroup(saveMethod).then((data) => {
+                this.asusWorkgroup = data;
+            }),
+            this.eventService.getAsusServices(saveMethod).then((data) => {
+                this.asusServices = data;
+            }),
+            this.eventService.getAsusUnits(saveMethod).then((data) => {
+                this.asusUnits = data;
+            }),
+        );
+        try {
+            await Promise.all(dataLoadQueue);
+        } catch {
+            console.warn('Promise.allSettled');
+        }
+    }
+
+    public async changeCategory(): Promise<void> {
+        if (this.event.category.name === 'asus') {
+            await this.asusReferencesLoad();
+        }
     }
 }

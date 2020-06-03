@@ -17,6 +17,7 @@ export class CircleInputComponent {
         this.searchValue = val;
         this.searchChange.emit(this.searchValue);
     }
+    @Input() placeholder: string = 'Поиск...';
     // end region: two way binding area
     public isInput: boolean = false;
 }

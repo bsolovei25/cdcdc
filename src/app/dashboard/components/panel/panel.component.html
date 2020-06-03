@@ -27,7 +27,8 @@
       (swap)="onSwap($event)"
       (grid)="onGrid($event)"
       (toggleClick)="onToggleClick($event)"
+      [panelActive]="active"
     ></evj-widget-panel>
   </div>
-  <evj-reports @fadeAnimation *ngIf="isWidgets === 'reports'"></evj-reports>
+  <evj-reports @fadeAnimation *ngIf="isWidgets === 'reports'" [panelActive]="active"></evj-reports>
 </div>

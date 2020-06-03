@@ -71,8 +71,10 @@ export class ProductGroupsMiddleComponent implements OnInit, OnChanges {
     }
 
     ngOnChanges(): void {
-        this.indicator = this.indicatorGauge(this.data.gaugePercent);
-        this.draw(this.data, this.circle.nativeElement, this.gaugemap, this.indicator);
+        if (this.svg) {
+            return;
+        }
+        this.draw(this.data, this.circle.nativeElement, this.gaugemap);
         if (this.svgCircle) {
             this.svgCircle.remove();
         }
@@ -89,9 +91,11 @@ export class ProductGroupsMiddleComponent implements OnInit, OnChanges {
         if (summ === 0) {
             color = d3.scaleOrdinal().range(['var(--color-oil-circle-disable)']);
         } else if (data.pieStatus === 'warning') {
-            color = d3.scaleOrdinal().range(['var(--color-oil-danger)', 'var(--color-oil-circle-disable)']);
+            color = d3.scaleOrdinal().range(['var(--color-warning)', 'var(--color-oil-circle-disable)']);
         } else if (data.pieStatus === 'normal') {
-            color = d3.scaleOrdinal().range(['var(--color-text-main)', 'var(--color-oil-circle-disable)']);
+            color = d3.scaleOrdinal().range(['var(--color-smp-pie-normal)', 'var(--color-oil-circle-disable)']);
+        } else if (data.pieStatus === 'danger') {
+            color = d3.scaleOrdinal().range(['var(--color-smp-danger)', 'var(--color-oil-circle-disable)']);
         }
 
         this.svgCircle = d3
@@ -100,7 +104,7 @@ export class ProductGroupsMiddleComponent implements OnInit, OnChanges {
             .attr('min-width', '100px')
             .attr('viewBox', '0 0 100 100');
 
-        const group = this.svgCircle.append('g').attr('transform', 'translate(52 ,52)');
+        const group = this.svgCircle.append('g').attr('transform', 'translate(45 ,52)');
 
         const arc = d3
             .arc()
@@ -129,7 +133,7 @@ export class ProductGroupsMiddleComponent implements OnInit, OnChanges {
             .append('foreignObject')
             .attr('height', 62)
             .attr('width', 62)
-            .attr('x', 20)
+            .attr('x', 14)
             .attr('y', 20);
 
         const div = this.svgCircle
@@ -137,9 +141,9 @@ export class ProductGroupsMiddleComponent implements OnInit, OnChanges {
             .append('xhtml:div')
             .attr('style', () => {
                 if (data.title.length > 6) {
-                    return 'font-size: 11px; height: 100%;width: 100%; display: flex;align-items: center; justify-content: center; text-align: center;'
+                    return 'font-size: 11px; height: 100%;width: 100%; display: flex;align-items: center; justify-content: center; text-align: center;';
                 } else {
-                    return 'font-size: 14px; height: 100%;width: 100%; display: flex;align-items: center; justify-content: center;'
+                    return 'font-size: 14px; height: 100%;width: 100%; display: flex;align-items: center; justify-content: center;';
                 }
             })
             .html(data.title);
@@ -147,12 +151,12 @@ export class ProductGroupsMiddleComponent implements OnInit, OnChanges {
 
     // GAUGE RENDERING
 
-    indicatorGauge(valuePercent: number): number {
-        const percent = valuePercent > 100 ? 100 : valuePercent < 0 ? 0 : valuePercent;
-        return (this.config.majorTicks * percent) / 100;
-    }
+    // indicatorGauge(valuePercent: number): number {
+    //     const percent = valuePercent > 100 ? 100 : valuePercent < 0 ? 0 : valuePercent;
+    //     return (this.config.majorTicks * percent) / 100;
+    // }
 
-    draw(data, el, gaugemap, indicator): void {
+    draw(data, el, gaugemap): void {
         this.config.majorTicks = this.data.days.length;
         this.gauge({
             size: 295,
@@ -183,7 +187,7 @@ export class ProductGroupsMiddleComponent implements OnInit, OnChanges {
     }
 
     centerTranslation(r: number): string {
-        return 'translate(' + r + ',' + r + ')';
+        return 'translate(' + (r - 20) + ',' + r + ')';
     }
 
     isRendered(svg): boolean {
@@ -240,16 +244,7 @@ export class ProductGroupsMiddleComponent implements OnInit, OnChanges {
         if (pointid) {
             pointidLength = pointid.getTotalLength();
             coordsPoint = pointid.getPointAtLength(pointidLength);
-
         }
-
-        const aroundGauge = this.svg
-            .append('image')
-            .attr('xlink:href', '/assets/icons/widgets/SMP/circle-back.svg')
-            .attr('height', '100%')
-            .attr('width', '100%')
-            .attr('x', '5')
-            .attr('y', '5');
 
         if (coordsPoint) {
             let defaultX = coordsPoint.x + 146;
@@ -319,5 +314,4 @@ export class ProductGroupsMiddleComponent implements OnInit, OnChanges {
                 return this.deg2rad(this.config.minAngle + ratio * this.range);
             });
     }
-
 }

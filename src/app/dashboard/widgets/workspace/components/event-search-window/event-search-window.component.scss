@@ -1,0 +1,205 @@
+$border-radius: 21px;
+$width: 500px;
+$font-size: 14px;
+
+.loading-shade {
+  position: absolute;
+  top: 0;
+  left: 2px;
+  right: 2px;
+  bottom: 0;
+  background: var(--color-aw-shade-bg-transparent);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &__blur {
+    backdrop-filter: blur(1.5px);
+    transition: backdrop-filter 0.5s;
+  }
+}
+
+.confirm-container {
+  width: $width;
+  height: 80%;
+
+  background-color: var(--color-bg-main-dark);
+  box-shadow: 0 0 35px var(--color-aw-container-shadow-transparent);
+  border-radius: $border-radius;
+
+  &__body {
+    width: $width;
+    height: calc(100% - 80px);
+
+    background-color: var(--color-aw-container-body-transparent);
+    border-radius: $border-radius;
+  }
+
+  &-body__header {
+    width: $width;
+    height: 42px;
+
+    background-color: var(--color-aw-header-bg);
+    border-radius: $border-radius;
+
+    display: flex;
+    align-items: center;
+  }
+
+  &-body__content {
+    height: calc(100% - 75px);
+    display: flex;
+    flex-direction: column;
+    padding: 5px;
+
+    .block {
+      height: 100%;
+      width: calc(100% - 10px);
+      overflow: auto;
+      overflow-x: hidden;
+    }
+
+    /// Styling CARD-RETRIEVAL
+    .card {
+      padding-top: 5px;
+      padding-left: 25px;
+      padding-right: 15px;
+      padding-bottom: 0;
+
+      ::ng-deep {
+        .card {
+          font-size: 10px;
+          .info {
+            line-height: 0 !important;
+          }
+        }
+        .card-normal {
+          border-radius: 12px;
+          height: 100px;
+          cursor: pointer;
+          border: solid 1px transparent;
+          &:before {
+            display: none;
+          }
+
+          &:after {
+            display: none;
+          }
+        }
+
+        .card-normal__footer {
+          &:before {
+            display: none;
+          }
+
+          &:after {
+            display: none;
+          }
+        }
+
+        .card__progress {
+          display: none;
+        }
+
+        .info__buttons {
+          display: none !important;
+        }
+
+        .description__title {
+          line-height: 20px;
+        }
+
+        .description__text {
+          line-height: 15px;
+        }
+      }
+    }
+  }
+
+  &-body-header__icon {
+    width: 42px;
+    height: 42px;
+
+    background-color: var(--color-active);
+    border-radius: 50%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    ::ng-deep svg-icon svg {
+      fill: var(--color-text-main);
+    }
+  }
+
+  &-body-header__title {
+    width: 170px;
+    margin-left: 10px;
+    font-size: 14px;
+  }
+
+  &-body-header__input {
+    width: calc(100% - 231px);
+    height: 30px;
+    margin-right: 10px;
+
+    ::ng-deep .input-back {
+      background: var(--color-aw-header-bg) !important;
+    }
+  }
+
+  &__footer {
+    height: 80px;
+    display: flex;
+    align-items: center;
+
+    .button-container {
+      width: 168px;
+      height: 44px;
+      margin: auto;
+    }
+  }
+}
+
+.active {
+  ::ng-deep {
+    .card-normal {
+      background: var(--color-bg-active-gradient);
+      border: 1px solid var(--color-active) !important;
+    }
+  }
+}
+
+::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+
+::-webkit-scrollbar-track:vertical {
+  width: 4px;
+  height: 4px;
+  border-radius: 25px;
+}
+
+:hover::-webkit-scrollbar-thumb {
+  background-color: var(--color-border-active);
+  border-radius: 25px;
+}
+
+::-webkit-scrollbar-thumb {
+  width: 10px;
+  border-radius: 25px;
+  background-color: var(--color-border-main);
+}
+
+::-webkit-scrollbar-track {
+  border-radius: 25px;
+}
+::-webkit-scrollbar-track-piece {
+  border-radius: 25px;
+}
+
+::-webkit-resizer {
+  background-color: var(--color-border-active);
+}

@@ -57,19 +57,19 @@
 
 .left-top-button {
   position: absolute;
-  right: 151px;
+  right: 144px;
   top: 28px;
 }
 
 .left-middle-button {
   position: absolute;
-  right: 151px;
+  right: 144px;
   top: 42.2px;
 }
 
 .left-bottom-button {
   position: absolute;
-  right: 151px;
+  right: 144px;
   top: 57px;
 }
 
@@ -170,5 +170,25 @@
     .b987d2f4-a5d1-4677-8a12-56d725b554f1 {
       @extend %warning-fill;
     }
+  }
+}
+
+.scale {
+  &__top {
+    position: absolute;
+    top: 28.5px;
+    left: 157px;
+  }
+
+  &__middle {
+    position: absolute;
+    top: 42.2px;
+    left: 162px;
+  }
+
+  &__bottom {
+    position: absolute;
+    top: 57px;
+    left: 157px;
   }
 }

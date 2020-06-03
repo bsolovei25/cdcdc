@@ -62,7 +62,7 @@ export class PerformanceProgressCircleComponent implements OnInit, OnChanges {
   public pointId;
   public piePointNumber: number;
 
-  public svgCircle: any
+  public svgCircle: any;
 
   constructor(private spacePipe: SpaceNumber) { }
 
@@ -92,7 +92,7 @@ export class PerformanceProgressCircleComponent implements OnInit, OnChanges {
     } else if (data.isCritical) {
       color = d3.scaleOrdinal().range(['var(--color-oil-danger)', 'var(--color-oil-circle-disable)']);
     } else {
-      color = d3.scaleOrdinal().range(['var(--color-text-main)', 'var(--color-oil-circle-disable)']);
+      color = d3.scaleOrdinal().range(['var(--color-smp-pie-normal)', 'var(--color-oil-circle-disable)']);
     }
 
     this.svgCircle = d3
@@ -101,8 +101,7 @@ export class PerformanceProgressCircleComponent implements OnInit, OnChanges {
       .attr('min-width', '100px')
       .attr('viewBox', '0 0 100 100');
 
-    let group = this.svgCircle.append('g').attr('transform', 'translate(52 ,52)');
-
+    const group = this.svgCircle.append('g').attr('transform', 'translate(50 ,52)');
     const arc = d3
       .arc()
       .innerRadius(35)
@@ -133,7 +132,7 @@ export class PerformanceProgressCircleComponent implements OnInit, OnChanges {
       .attr('fill', 'var(--color-text-main)')
       .attr('font-family', "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
       .attr('y', '57')
-      .attr('x', '52')
+      .attr('x', '50')
       .text(pipeValue);
 
     const title = this.svgCircle
@@ -142,7 +141,7 @@ export class PerformanceProgressCircleComponent implements OnInit, OnChanges {
       .attr('font-size', '8px')
       .attr('font-family', "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
       .attr('y', '46')
-      .attr('x', '52')
+      .attr('x', '50')
       .attr('fill', 'var(--color-text-main')
       .text(data.title);
 
@@ -151,8 +150,34 @@ export class PerformanceProgressCircleComponent implements OnInit, OnChanges {
       .attr('xlink:href', './assets/icons/widgets/SMP/' + this.data.icon + '.svg')
       .attr('height', '13px')
       .attr('width', '13px')
-      .attr('x', '45')
+      .attr('x', '43')
       .attr('y', '63');
+
+
+    const scaleTop = this.svgCircle
+      .append('image')
+      .attr('xlink:href', './assets/icons/widgets/SMP/scale-top.svg')
+      .attr('height', '10px')
+      .attr('width', '10px')
+      .attr('x', '92')
+      .attr('y', '35');
+
+    const scaleMiddle = this.svgCircle
+      .append('rect')
+      .attr('x', '97.5')
+      .attr('y', '46')
+      .attr('width', '3px')
+      .attr('height', '11px')
+      .attr('fill', 'var(--color-smp-text-sub)');
+
+
+    const scaleBottom = this.svgCircle
+      .append('image')
+      .attr('xlink:href', './assets/icons/widgets/SMP/scale-bottom.svg')
+      .attr('height', '10px')
+      .attr('width', '10px')
+      .attr('x', '92')
+      .attr('y', '58');
   }
 
   // GAUGE RENDERING
@@ -193,7 +218,7 @@ export class PerformanceProgressCircleComponent implements OnInit, OnChanges {
   }
 
   centerTranslation(r: number): string {
-    return 'translate(' + r + ',' + r + ')';
+    return 'translate(' + (r - 5) + ',' + r + ')';
   }
 
   isRendered(svg): boolean {
@@ -258,7 +283,7 @@ export class PerformanceProgressCircleComponent implements OnInit, OnChanges {
       .attr('xlink:href', '/assets/icons/widgets/SMP/circle-back.svg')
       .attr('height', '100%')
       .attr('width', '100%')
-      .attr('x', '5')
+      .attr('x', '0')
       .attr('y', '5');
 
     if (coordsPoint) {
@@ -270,8 +295,8 @@ export class PerformanceProgressCircleComponent implements OnInit, OnChanges {
         defaultY = defaultY - 22;
         defaultX = coordsPoint.x + 131 + 5 * (8 - (25 - this.piePointNumber));
       } else if (this.piePointNumber > 24 && this.piePointNumber < 30) {
-        defaultY = defaultY - 2 * (29 - this.piePointNumber);
-        defaultX = defaultX + 4 * (8 - (29 - this.piePointNumber));
+        defaultY = defaultY - 2 * (28 - this.piePointNumber);
+        defaultX = defaultX + 4 * (8 - (30 - this.piePointNumber));
       }
       const point = this.svg
         .append('circle')

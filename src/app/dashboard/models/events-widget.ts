@@ -1,6 +1,7 @@
 import { LineChartData } from './line-chart';
 import { IGlobalClaim } from './admin-panel';
 import { IMessage } from '../../@shared/models/message.model';
+import { HttpHeaders } from '@angular/common/http';
 
 export interface EventsWidgetNotificationPreview {
     id: number;
@@ -18,6 +19,7 @@ export interface EventsWidgetNotificationPreview {
     iconUrl?: string;
     statusName?: string;
     iconUrlStatus?: string;
+    responsibleOperator: IUserPreview;
 }
 
 export interface EventsWidgetNotification {
@@ -73,6 +75,7 @@ export interface IEventAsus {
     service: string;
     eoService: string;
     equipment: string; // ? Оборудование
+    tmPlace: string;
 
     datetimeReaction?: Date;
     datetimeStart?: Date;
@@ -91,6 +94,10 @@ export interface IRetrievalEventDto {
 }
 
 export interface IEventDeviationData {
+    urlOriginalSystem: string;
+    isCritical: boolean;
+    iteration: number;
+    escalateLevelNumber: number;
     tag: string;
     equipment: string;
     workmode: string;
@@ -142,6 +149,7 @@ export interface IUser {
     email?: string;
     phone?: string;
     brigade?: { id: number; number: string };
+    unitId?: number;
     positionDescription?: string;
     displayName?: string;
     position?: WorkerPositionType;
@@ -150,10 +158,22 @@ export interface IUser {
     department?: string;
 }
 
+export interface IUserPreview {
+    id: number;
+    login: string;
+    firstName: string;
+    lastName: string;
+    middleName: string;
+    displayName: string;
+}
+
 export interface ISaveMethodEvent {
     data: {
         url: string;
         authenticationType: AuthenticationType;
+    };
+    options?: {
+        headers: HttpHeaders
     };
 }
 
@@ -203,11 +223,11 @@ export interface ISmotrReference {
     }[];
     data: {
         reasons: {
-            id: string,
+            id: string;
             name: string;
         }[];
         actions: {
-            id: string,
+            id: string;
             name: string;
         }[];
     };
@@ -237,6 +257,16 @@ export interface IAsusWorkgroup {
 
 export interface IAsusCategories {
     name: string;
+}
+
+export interface IAsusTpPlace {
+    name: string;
+    codeSap: string;
+}
+
+export interface IAsusTmPlace {
+    name: string;
+    codeSap: string;
 }
 
 export interface EventsWidgetFilter {
@@ -275,10 +305,11 @@ export interface EventsWidgetData {
 }
 
 export interface EventsWidgetOptions {
-    categories: number[];
-    filter: EventsWidgetFilterCode;
-    dates: { fromDateTime: Date; toDateTime: Date };
-    placeNames: string[];
+    categories?: number[];
+    filter?: EventsWidgetFilterCode;
+    dates?: { fromDateTime: Date; toDateTime: Date };
+    placeNames?: string[];
+    description?: string;
 }
 
 export interface EventsWidgetsStats {
@@ -295,4 +326,11 @@ export interface EventsWidgetsStatsCategory {
 export interface EventsWidgetsStatsStatus {
     status: { id: number };
     count: number;
+}
+
+export interface ISearchRetrievalWindow {
+    isShow: boolean;
+    idEvent: number;
+    acceptFunction?: () => void;
+    closeFunction?: () => void;
 }

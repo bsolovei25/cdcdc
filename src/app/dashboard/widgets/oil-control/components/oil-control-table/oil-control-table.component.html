@@ -14,38 +14,38 @@
                 </svg>
             </div>
             <div style="margin-left: 5px">
-                {{data.operations[currentPage - 1].timeStart}} -
-                {{data.operations[currentPage - 1].timeEnd}}
+                {{data?.operations[currentPage - 1]?.timeStart  | date: 'HH:mm:ss'}} -
+                {{data?.operations[currentPage - 1]?.timeEnd  | date: 'HH:mm:ss'}}
             </div>
         </div>
         <div class="row__name_value_debalance" [class.row__name_value_debalance_short]="checkWidth">
             Дебаланс:
         </div>
         <div class="row__value_oil_debalance">
-            <ng-container *ngFor="let item of data.operations[currentPage - 1].tankValues">
+            <ng-container *ngFor="let item of data?.operations[currentPage - 1]?.tankValues">
                 <ng-container *ngIf="item.name === 'Дебаланс'">
                     <div [class.critical]="item.status === 'critical'" [class.default]="item.status === 'default'">
-                        {{item.valueFirst}} т.
+                        {{item?.valueFirst | number:'1.0-1'}} т.
                     </div>
                     <div [class.critical]="item.status === 'critical'" [class.default]="item.status === 'default'">
-                        {{item.valueSecond}} %
+                        {{item?.valueSecond | number:'1.0-0'}} %
                     </div>
                 </ng-container>
             </ng-container>
         </div>
     </div>
     <div class="row" [class.row_short]="checkWidth">
-        <ng-container *ngFor="let item of data.operations[currentPage - 1].tankValues">
+        <ng-container *ngFor="let item of data?.operations[currentPage - 1]?.tankValues">
             <ng-container *ngIf="item.name === 'Отгружено по резервуару'">
                 <div class="row__name_value" [class.row__name_value_short]="checkWidth">
                     Отгружено по резервуару:
                 </div>
                 <div class="row__value_oil" [class.row__value_oil_short]="checkWidth">
                     <div [class.critical]="item.status === 'critical'" [class.default]="item.status === 'default'">
-                        {{item.valueFirst}} т.
+                        {{item?.valueFirst | number:'1.0-1'}} т.
                     </div>
                     <div [class.critical]="item.status === 'critical'" [class.default]="item.status === 'default'">
-                        {{item.valueSecond}} %
+                        {{item?.valueSecond | number:'1.0-0'}} %
                     </div>
                 </div>
             </ng-container>
@@ -55,27 +55,27 @@
                 </div>
                 <div class="row__value_oil" [class.row__value_oil_short]="checkWidth">
                     <div [class.critical]="item.status === 'critical'" [class.default]="item.status === 'default'">
-                        {{item.valueFirst}} т.
+                        {{item?.valueFirst | number:'1.0-1'}} т.
                     </div>
                     <div [class.critical]="item.status === 'critical'" [class.default]="item.status === 'default'">
-                        {{item.valueSecond}} %
+                        {{item?.valueSecond | number:'1.0-0'}} %
                     </div>
                 </div>
             </ng-container>
         </ng-container>
     </div>
     <div class="row" [class.row_short]="checkWidth">
-        <ng-container *ngFor="let item of data.operations[currentPage - 1].tankValues">
+        <ng-container *ngFor="let item of data?.operations[currentPage - 1]?.tankValues">
             <ng-container *ngIf="item.name === 'По данным отгрузки'">
                 <div class="row__name_value" [class.row__name_value_short]="checkWidth">
                     По данными отгрузки:
                 </div>
                 <div class="row__value_oil" [class.row__value_oil_short]="checkWidth">
                     <div [class.critical]="item.status === 'critical'" [class.default]="item.status === 'default'">
-                        {{item.valueFirst}} т.
+                        {{item?.valueFirst | number:'1.0-1'}} т.
                     </div>
                     <div [class.critical]="item.status === 'critical'">
-                        {{item.valueSecond}} %
+                        {{item?.valueSecond | number:'1.0-0'}} %
                     </div>
                 </div>
             </ng-container>
@@ -85,10 +85,10 @@
                 </div>
                 <div class="row__value_oil" [class.row__value_oil_short]="checkWidth">
                     <div [class.critical]="item.status === 'critical'" [class.default]="item.status === 'default'">
-                        {{item.valueFirst}} т.
+                        {{item?.valueFirst | number:'1.0-1'}} т.
                     </div>
                     <div [class.critical]="item.status === 'critical'" [class.default]="item.status === 'default'">
-                        {{item.valueSecond}} %
+                        {{item?.valueSecond | number:'1.0-0'}} %
                     </div>
                 </div>
             </ng-container>

@@ -15,6 +15,9 @@ export class SearchComponent implements OnInit, OnDestroy {
 
     public arrayType: string[] = [];
 
+    @Input()
+    public panelActive: boolean = false;
+
     @Output() search: EventEmitter<KeyboardEvent> = new EventEmitter<KeyboardEvent>();
     @Input() isReport: boolean = false;
     @Input() isWidgets: boolean = false;

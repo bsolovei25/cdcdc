@@ -19,6 +19,10 @@ export interface IProducts {
   ///Right-side
   groupDeviationAllValue: number; /// Значение в круге
   groupDeviationNotValue: number; /// Не оформлено
+
+  framedPecent: number; // Процент офорленных для прогресс бара
+  notFramedPercent: number; // Процент не оформленных для прогресс бара
+
   gaugePercent: number; /// Процент заполнения круга gauge
 
   ///Middle-side

@@ -8,6 +8,9 @@ import {
     AfterViewInit,
     Inject,
     ViewEncapsulation,
+    ViewChildren,
+    QueryList,
+    HostListener,
 } from '@angular/core';
 import { WidgetService } from '../../services/widget.service';
 import {
@@ -15,6 +18,7 @@ import {
     GridsterItem,
     GridType,
     GridsterItemComponentInterface,
+    GridsterItemComponent,
 } from 'angular-gridster2';
 import { WorkflowService } from '../../services/widgets/workflow.service';
 import { IAlertWindowModel } from '../../../@shared/models/alert-window.model';
@@ -29,6 +33,7 @@ import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 import { IWorkspaceTable } from './workflow-table/workflow-table.component';
 import { IModules, IScenarios } from './workflow-list/workflow-list.component';
 import { MatSelectChange } from '@angular/material/select';
+import { WorkflowActions, WorkflowActionsNameMap } from '../../models/workflow.model';
 import { trigger, transition, style, animate } from '@angular/animations';
 
 declare let LeaderLine: any;
@@ -138,6 +143,9 @@ export class WorkflowComponent extends WidgetPlatform implements OnInit, OnDestr
 
     public items: IGridsterItemLocal[] = [];
 
+    public workflowActionsNameMap = WorkflowActionsNameMap;
+    public workflowActions = WorkflowActions;
+
     private itemCol: number = 3;
     private itemRow: number = 3;
 
@@ -224,9 +232,9 @@ export class WorkflowComponent extends WidgetPlatform implements OnInit, OnDestr
         gridSizeChangedCallback: this.resizeGridsterElement.bind(this),
         itemValidateCallback: this.validatePosition.bind(this),
         pushItems: false,
-        minCols: 15,
+        minCols: 5,
         maxCols: 100,
-        minRows: 15,
+        minRows: 5,
         maxRows: 100,
         margin: 20,
         outerMarginTop: 10,
@@ -247,6 +255,11 @@ export class WorkflowComponent extends WidgetPlatform implements OnInit, OnDestr
         swap: false,
     };
 
+    resize: boolean = true;
+
+    public scrolling: boolean = false;
+    private timeout;
+
     @ViewChild('content') content: ElementRef<HTMLInputElement>;
 
     @ViewChild('valueInputChips') valueInputChips: ElementRef<HTMLInputElement>;
@@ -261,6 +274,24 @@ export class WorkflowComponent extends WidgetPlatform implements OnInit, OnDestr
     @ViewChild('splitTop') splitTop: ElementRef<HTMLElement>;
     @ViewChild('splitBottom') splitBottom: ElementRef<HTMLElement>;
     @ViewChild('containerWorkflow') containerWorkflow: ElementRef<HTMLElement>;
+
+    @ViewChildren('line') lines: QueryList<GridsterItemComponent>;
+
+    @HostListener('window:scrollEnd', ['$event'])
+    scrollHandler(event): void {
+        if (!this.scrolling) {
+            this.removeIconsLeaderLine();
+        }
+        this.leaderLineUpdatePosition();
+        this.scrolling = true;
+        clearTimeout(this.timeout);
+        this.timeout = setTimeout(() => {
+            this.drawRemoveIcons();
+            this.scrolling = false;
+        }, 200);
+
+        // this.removeIconsLeaderLine();
+    }
 
     constructor(
         public widgetService: WidgetService,
@@ -288,11 +319,11 @@ export class WorkflowComponent extends WidgetPlatform implements OnInit, OnDestr
     ngOnDestroy(): void {
         super.ngOnDestroy();
         this.leaderLine = [];
+        this.removeIconsAndLineLeaderLine();
     }
 
     protected async dataConnect(): Promise<void> {
         super.dataConnect();
-
         this.workflowService.chooseModules$.subscribe((module) => {
             this.chooseModules = module;
         });
@@ -303,13 +334,6 @@ export class WorkflowComponent extends WidgetPlatform implements OnInit, OnDestr
                 this.isLoading = true;
                 this.loadActions(this.chooseModules.uid);
             } else {
-                if (this.leaderLine.length > 0) {
-                    this.leaderLine.forEach((value) => {
-                        value.setInterval = 0;
-                        clearInterval(value.setInterval);
-                        value.remove();
-                    });
-                }
                 this.items = [];
                 this.leaderLine = [];
             }
@@ -444,8 +468,8 @@ export class WorkflowComponent extends WidgetPlatform implements OnInit, OnDestr
                 action: sort.action,
                 actionName: sort.actionName,
                 scenarioAction: sort.scenarioAction,
-                previousScenarioAction: sort.previousScenarioAction,
-                nextScenarioAction: sort.nextScenarioAction,
+                previousScenarioAction: sort.previousScenarioAction ?? '',
+                nextScenarioAction: sort.nextScenarioAction ?? '',
             });
             x += 4;
         });
@@ -459,71 +483,89 @@ export class WorkflowComponent extends WidgetPlatform implements OnInit, OnDestr
                 action: sort.action,
                 actionName: sort.actionName,
                 scenarioAction: sort.scenarioAction,
-                previousScenarioAction: sort.previousScenarioAction,
-                nextScenarioAction: sort.nextScenarioAction,
+                previousScenarioAction: sort.previousScenarioAction ?? '',
+                nextScenarioAction: sort.nextScenarioAction ?? '',
             });
             x += 4;
         });
         this.drawLeaderLine();
     }
 
-    drawLeaderLine(isResize: boolean = false): void {
+    drawLeaderLines(): void {
+        this.removeIconsAndLineLeaderLine();
         this.leaderLine = [];
         this.removableLeaderLineIds.clear();
-        this.items.forEach((item) => {
-            if (item?.scenarioAction && item?.nextScenarioAction) {
-                setTimeout(() => {
-                    const leaderLine = new LeaderLine(
-                        document?.getElementById(item.scenarioAction),
-                        document?.getElementById(item.nextScenarioAction),
-                        this.LEADER_LINE_HOST_CONTAINER,
-                        this.LEADER_LINE_PARENT_CONTAINER,
-                        {
-                            size: this.LEADER_LINE_HEIGHT,
-                            color: 'white',
-                        }
-                    );
-                    this.leaderLine.push(leaderLine);
-                    const removable = true; // TODO заменить на реальзый флаг
-                    if (removable) {
-                        this.removableLeaderLineIds.set(
-                            'line-' + item.scenarioAction + '-s-' + item.nextScenarioAction,
-                            leaderLine
-                        );
-                    }
 
-                    // this.leaderLine.forEach((value) => {
-                    //     value.setInterval = setInterval(() => {
-                    //         if (value?.options) {
-                    //             console.log(value);
-                    //             value.position();
-                    //         }
-                    //     }, 100);
-                    // });
-                }, 300);
-            }
-        });
-        setTimeout(() => {
-            this.drawRemoveIcons();
-        }, 500);
+        if (this.leaderLine.length === 0) {
+            this.items.forEach((item) => {
+                if (item?.scenarioAction && item?.nextScenarioAction) {
+                    setTimeout(() => {
+                        const el1 = this.lines.find((el) => el.el.id === item.scenarioAction)?.el;
+                        const el2 = this.lines.find((el) => el.el.id === item.nextScenarioAction)
+                            ?.el;
+                        if (el1 && el2) {
+                            const leaderLine = new LeaderLine(
+                                el1,
+                                el2,
+                                this.LEADER_LINE_HOST_CONTAINER,
+                                this.LEADER_LINE_PARENT_CONTAINER,
+                                {
+                                    size: this.LEADER_LINE_HEIGHT,
+                                    color: 'white',
+                                    startSocket: 'auto',
+                                }
+                            );
+                            this.leaderLine.push(leaderLine);
+                            const removable = true; // TODO заменить на реальзый флаг
+                            if (removable) {
+                                this.removableLeaderLineIds.set(
+                                    'line-' + item.scenarioAction + '-s-' + item.nextScenarioAction,
+                                    leaderLine
+                                );
+                            }
+                        }
+                    }, 100);
+                }
+            });
+            setTimeout(() => {
+                if (this.removableLeaderLineIds.size > 0) {
+                    this.drawRemoveIcons();
+                }
+            }, 101);
+        }
+    }
+
+    drawLeaderLine(): void {
+        if (this.lines.length > 0) {
+            this.drawLeaderLines();
+        } else {
+            const subsr = this.lines.changes.subscribe((val) => {
+                this.drawLeaderLines();
+                subsr.unsubscribe();
+            });
+        }
     }
 
     private drawRemoveIcons(): void {
-        console.log(this.removableLeaderLineIds, 'Map');
         this.removableLeaderLineIds.forEach((value: any, key: string) => {
             this.addRemoveIconToLine(key);
         });
     }
 
+    private splitLine(lineId: string): string {
+        const line = lineId?.slice(5, 41);
+        return line;
+    }
+
     private removeIconsLeaderLine(): void {
         this.removableLeaderLineIds.forEach((value, key) => {
-            this.onRemoveIconClick(`cross-${key}`);
+            this.removeIconLeader(`cross-${key}`);
         });
     }
 
     private removeIconsAndLineLeaderLine(): void {
         this.removableLeaderLineIds.forEach((value, key) => {
-            this.onRemoveIconClick(`cross-${key}`, key);
+            this.removeIconLeader(`cross-${key}`, key, value);
         });
     }
 
@@ -542,89 +584,83 @@ export class WorkflowComponent extends WidgetPlatform implements OnInit, OnDestr
 
         // получаем элемент иконки, контейнера стрелки, svg dom стрелки
         const iconNode = document.getElementById(iconId);
-        const lineNode = document.getElementById(lineId);
+        const parentNode = document.getElementById(this.LEADER_LINE_PARENT_CONTAINER);
         const arrowNode = document.querySelector('#' + lineId + ' g use');
 
-        let verticalOffset = 0;
+        let verticalOffset =
+            arrowNode.getBoundingClientRect().top - parentNode.getBoundingClientRect().top;
+        let horizontalOffset =
+            arrowNode.getBoundingClientRect().left - parentNode.getBoundingClientRect().left;
 
-        const divArr = lineId.substr(5).split('-s-');
-        console.log(divArr);
-        console.log(
-            document.getElementById(divArr[0]).getBoundingClientRect().y,
-            document.getElementById(divArr[1]).getBoundingClientRect().y,
-            arrowNode.getBoundingClientRect().y
-        );
+        const startEndNodesArr = lineId.substr(5).split('-s-');
+        const startNode = document.getElementById(startEndNodesArr[0]);
+        const endNode = document.getElementById(startEndNodesArr[1]);
 
-        const pos =
-            document.getElementById(divArr[0]).getBoundingClientRect().y <=
-            document.getElementById(divArr[1]).getBoundingClientRect().y;
+        const yPos = startNode.getBoundingClientRect().y <= endNode.getBoundingClientRect().y;
+        const xPos = startNode.getBoundingClientRect().x <= endNode.getBoundingClientRect().x;
 
-        if (pos) {
-            verticalOffset =
-                arrowNode.getBoundingClientRect().y - lineNode.getBoundingClientRect().y;
-
-            verticalOffset =
-                parseInt(lineNode.style.top.slice(0, -2), 10) -
-                verticalOffset -
-                this.LEADER_LINE_HEIGHT / 2;
+        if (yPos) {
+            verticalOffset = verticalOffset - iconNode.getBoundingClientRect().height / 2;
         } else {
             verticalOffset =
-                parseInt(lineNode.style.top.slice(0, -2), 10) +
-                lineNode.getBoundingClientRect().height -
-                iconNode.getBoundingClientRect().height / 2 -
-                3;
+                verticalOffset +
+                arrowNode.getBoundingClientRect().height -
+                iconNode.getBoundingClientRect().height / 2;
         }
-        // рассчитываем смещение позиции стрелки внутри viewBox svg
-        // вертикальное смещение так же зависит от высоты самих элементов
-        const horizontalOffset =
-            arrowNode.getBoundingClientRect().x - lineNode.getBoundingClientRect().x;
-        // const verticalOffset = arrowNode.getBoundingClientRect().y - lineNode.getBoundingClientRect().y;
-        // parseInt(iconNode.style.height.slice(0, -2), 10) / 2 -
-        // lineNode.getBoundingClientRect().height / 2;
 
-        iconNode.style.left =
-            (parseInt(lineNode.style.left.slice(0, -2), 10) + horizontalOffset).toString() + 'px';
+        if (!xPos) {
+            horizontalOffset =
+                +horizontalOffset +
+                arrowNode.getBoundingClientRect().width -
+                iconNode.getBoundingClientRect().width / 2;
+        }
+
+        iconNode.style.left = horizontalOffset.toString() + 'px';
         iconNode.style.top = verticalOffset.toString() + 'px';
+
         iconNode.addEventListener('click', ($event: Event) => {
             this.onRemoveIconClick(iconId, lineId);
         });
     }
 
     private onRemoveIconClick(iconId: string, lineId?: string): void {
-        document.getElementById(iconId)?.remove();
-        document.getElementById(lineId)?.remove();
+        this.deleteConnectActions(lineId);
     }
 
-    putConnect(previousScenarioAction: string, id: string): void {
-        const body: ICreateConnection = {
-            scenario: {
-                name: this.chooseScenarios.name,
-            },
-            actions: [
-                // ...arr,
-                {
-                    scenarioAction: previousScenarioAction,
-                    nextScenarioAction: id,
-                },
-                {
-                    scenarioAction: id,
-                    previousScenarioAction,
-                },
-            ],
-        };
+    private removeIconLeader(iconId: string, lineId?: string, lineObject?: any): void {
+        try {
+            document.getElementById(iconId)?.remove();
+            if (lineObject && lineId) {
+                document.body.appendChild(document.getElementById(lineId));
+                lineObject.remove();
+            }
+            document.getElementById(lineId)?.remove();
+        } catch (error) {
+            console.error(error);
+        }
+    }
 
+    deleteConnectActions(lineId: string): void {
         const windowsParam: IAlertWindowModel = {
             isShow: true,
-            questionText: 'Вы уверены, что хотите сделать связь?',
-            acceptText: 'Да',
+            questionText: 'Вы уверены, что хотите удалить связь?',
+            acceptText: 'Удалить',
             cancelText: 'Нет',
-            acceptFunction: async () => {
+            acceptFunction: () => {
                 this.alertWindow = null;
-                try {
-                    await this.createСonnection(body);
-                    await this.loadWorkfkowAvailbleActions();
-                    this.resetScenario();
-                } catch (error) {}
+                const id = this.splitLine(lineId);
+                let nextId: string = id;
+                this.items.map((value) => {
+                    if (id === value.scenarioAction) {
+                        value.nextScenarioAction = '';
+                    }
+                    if (nextId === value.previousScenarioAction) {
+                        value.previousScenarioAction = '';
+                        value.nextScenarioAction = '';
+                        nextId = value.scenarioAction;
+                    }
+                });
+                this.putConnect(this.items);
             },
             closeFunction: () => {},
             cancelFunction: () => {
@@ -634,7 +670,56 @@ export class WorkflowComponent extends WidgetPlatform implements OnInit, OnDestr
         this.alertWindow = windowsParam;
     }
 
-    async createСonnection(body: ICreateConnection): Promise<void> {
+    createConnection(
+        targetScenarioActionId: string,
+        sourceScenarioAction: string
+    ): IGridsterItemLocal[] {
+        const items = [...this.items];
+
+        const idx = this.items.findIndex((val) => val.scenarioAction === sourceScenarioAction);
+        const itemScenarioAction = items[idx];
+        items.splice(idx, 1);
+
+        const idxNext = items.findIndex((val) => val.scenarioAction === targetScenarioActionId);
+
+        let sourceId = sourceScenarioAction;
+        items.map((value) => {
+            if (
+                value.previousScenarioAction === sourceId &&
+                value.scenarioAction !== items[idxNext].scenarioAction
+            ) {
+                value.value.previousScenarioAction = '';
+                sourceId = value.scenarioAction;
+                value.nextScenarioAction = '';
+            }
+        });
+        const itemPrevAction = items[idxNext - 1];
+        items[idxNext].previousScenarioAction = itemScenarioAction.scenarioAction;
+        itemScenarioAction.nextScenarioAction = items[idxNext].scenarioAction;
+        if (itemPrevAction) {
+            itemPrevAction.nextScenarioAction = itemScenarioAction.scenarioAction;
+        }
+
+        items.splice(idxNext, 0, itemScenarioAction);
+
+        return items;
+    }
+
+    async putConnect(arr: IGridsterItemLocal[]): Promise<void> {
+        arr.map((value) => {
+            if (value.previousScenarioAction === '') {
+                value.previousScenarioAction = null;
+            }
+            if (value.nextScenarioAction === '') {
+                value.nextScenarioAction = null;
+            }
+        });
+        const body: ICreateConnection = {
+            scenario: {
+                name: this.chooseScenarios.name,
+            },
+            actions: [...arr],
+        };
         try {
             this.isLoading = true;
             await this.workflowService.putActionsConnections(
@@ -642,6 +727,8 @@ export class WorkflowComponent extends WidgetPlatform implements OnInit, OnDestr
                 this.chooseScenarios.uid,
                 body
             );
+            this.resetScenario();
+            await this.loadWorkfkowAvailbleActions();
             this.isLoading = false;
         } catch (error) {
             this.isLoading = false;
@@ -655,70 +742,25 @@ export class WorkflowComponent extends WidgetPlatform implements OnInit, OnDestr
 
     overItems(sourceItem: IGridsterItemLocal, targetItem: IGridsterItemLocal, grid): void {
         if (targetItem.scenarioAction !== sourceItem?.nextScenarioAction) {
-            // const arr = this.items;
-            // const idxTarget = arr.findIndex(
-            //     (val) => val.scenarioAction === targetItem.scenarioAction
-            // );
-            // const idxSource = arr.findIndex(
-            //     (val) => sourceItem.scenarioAction === val.scenarioAction
-            // );
-            // if (!targetItem?.previousScenarioAction) {
-            //     console.log('1');
-            //     if (idxTarget >= 0) {
-            //         arr.splice(idxSource, 1);
-            //         const idTar = arr.findIndex(
-            //             (val) => val.scenarioAction === targetItem.scenarioAction
-            //         );
-            //         sourceItem.nextScenarioAction = targetItem.scenarioAction;
-            //         targetItem.previousScenarioAction = sourceItem.scenarioAction;
-            //         if (idTar === 0) {
-            //             arr.unshift(sourceItem);
-            //             console.log(arr);
-            //         } else {
-            //             arr.splice(idTar, 0, sourceItem);
-            //             console.log(arr);
-            //         }
-            //     }
-            // } else if (targetItem.previousScenarioAction) {
-            //     console.log('2');
-
-            //     arr.splice(idxSource, 1);
-            //     arr[idxTarget - 1].nextScenarioAction = sourceItem.scenarioAction;
-            //     sourceItem.nextScenarioAction = targetItem.scenarioAction;
-            //     targetItem['previousScenarioAction'] = sourceItem.scenarioAction;
-            //     arr.splice(idxTarget - 1, 0, sourceItem);
-            // } else if (sourceItem?.previousScenarioAction && !sourceItem?.nextScenarioAction) {
-            //     console.log('3');
-            //     arr.splice(idxTarget, 1);
-            //     sourceItem.nextScenarioAction = targetItem.scenarioAction;
-            //     targetItem.previousScenarioAction = sourceItem.scenarioAction;
-            //     arr.splice(idxSource, 0, targetItem);
-            // } else if (!targetItem?.previousScenarioAction && !targetItem?.nextScenarioAction) {
-            //     console.log('4');
-            //     arr.splice(idxTarget, 1);
-            //     targetItem.previousScenarioAction = sourceItem.scenarioAction;
-            //     sourceItem.nextScenarioAction = targetItem.scenarioAction;
-            //     arr.splice(idxSource, 0, targetItem);
-            // }
-            // this.putConnect(sourceItem.scenarioAction, targetItem.scenarioAction, arr);
-            this.putConnect(sourceItem.scenarioAction, targetItem.scenarioAction);
-
-            // if (sourceItem.nextScenarioAction || targetItem.previousScenarioAction) {
-            //     console.log('Вы точно хотите разрушить связь');
-            //     const arr = this.items;
-            //     const idxSource = arr.findIndex(
-            //         (val) => val.scenarioAction === sourceItem.scenarioAction
-            //     );
-            //     const idxTarget = arr.findIndex(
-            //         (val) => val.scenarioAction === targetItem.scenarioAction
-            //     );
-            //     if (idxSource >= 0) {
-            //         if (arr[idxSource + 1].previousScenarioAction) {
-            //             arr[idxSource + 1].previousScenarioAction = targetItem.scenarioAction;
-            //         }
-            //         arr.splice(idxSource, 0, targetItem);
-            //     }
-            // }
+            const windowsParam: IAlertWindowModel = {
+                isShow: true,
+                questionText: 'Вы уверены, что хотите сделать связь?',
+                acceptText: 'Да',
+                cancelText: 'Нет',
+                acceptFunction: () => {
+                    const arr = this.createConnection(
+                        targetItem.scenarioAction,
+                        sourceItem?.scenarioAction
+                    );
+                    this.alertWindow = null;
+                    this.putConnect(arr);
+                },
+                closeFunction: () => {},
+                cancelFunction: () => {
+                    this.alertWindow = null;
+                },
+            };
+            this.alertWindow = windowsParam;
         }
     }
 
@@ -739,9 +781,12 @@ export class WorkflowComponent extends WidgetPlatform implements OnInit, OnDestr
 
     startDrag(): void {
         this.removeIconsLeaderLine();
+        this.resize = false;
     }
+
     stopDrag(): void {
         this.drawRemoveIcons();
+        this.resize = true;
     }
 
     public onResize(): void {
@@ -751,28 +796,23 @@ export class WorkflowComponent extends WidgetPlatform implements OnInit, OnDestr
 
     public resizeGridsterElement(): void {
         setTimeout(() => {
-            this.changedOptions();
-        }, 300);
+            if (this.resize) {
+                this.changedOptions();
+            }
+        }, 2000);
         // this.items.setSize();
         const event = new CustomEvent('resize');
         document.dispatchEvent(event);
     }
 
     public changedOptions(): void {
-        // if (this.leaderLine.length > 0) {
-        //     this.leaderLine.forEach((val) => {
-        //         val?.remove();
-        //     });
-        // }
         if (!this.timerHwnd) {
+            if (this.removableLeaderLineIds.size > 0 && this.leaderLine.length > 0) {
+                this.drawLeaderLine();
+            }
             this.timerHwnd = window.setTimeout(() => {
-                console.log('update');
-                if (this.removableLeaderLineIds.size > 0) {
-                    this.removeIconsAndLineLeaderLine();
-                    this.drawLeaderLine(true);
-                }
                 this.timerHwnd = 0;
-            }, 300);
+            }, 1000);
         }
 
         if (this.options.api && this.options.api.optionsChanged) {
@@ -857,18 +897,11 @@ export class WorkflowComponent extends WidgetPlatform implements OnInit, OnDestr
             this.resetScenario(false);
         } else {
             if (this.activeActions !== item) {
-                if (this.activeActions) {
-                    const previousScenarioAction: string = this.activeActions.scenarioAction;
-                    const id: string = item.scenarioAction;
-                    // this.putConnect(previousScenarioAction, id);
-                    await this.getScenarioActionProp(id);
-                    this.getActionProp(item.action);
-                    this.activeActions = item;
-                } else {
-                    await this.getScenarioActionProp(item.scenarioAction);
-                    this.getActionProp(item.action);
-                    this.activeActions = item;
-                }
+                this.emailAction = [];
+                this.comboAction = null;
+                await this.getScenarioActionProp(item.scenarioAction);
+                this.getActionProp(item.action);
+                this.activeActions = item;
             }
         }
     }
@@ -957,25 +990,27 @@ export class WorkflowComponent extends WidgetPlatform implements OnInit, OnDestr
         const input = event.input;
         const value = event.value;
 
-        if (this.validateEmail(value)) {
-            if ((value || '').trim()) {
-                if (type === 'to') {
-                    this.emailPropActionUI.emailToArray.push(value.trim());
-                } else {
-                    this.emailPropActionUI.emailCopyArray.push(value.trim());
+        if (value !== '') {
+            if (this.validateEmail(value)) {
+                if ((value || '').trim()) {
+                    if (type === 'to') {
+                        this.emailPropActionUI.emailToArray.push(value.trim());
+                    } else {
+                        this.emailPropActionUI.emailCopyArray.push(value.trim());
+                    }
                 }
-            }
 
-            if (input) {
-                input.value = '';
-            }
-            if (type === 'to') {
-                this.emailPropActionUI.emailTo.setValue(null);
+                if (input) {
+                    input.value = '';
+                }
+                if (type === 'to') {
+                    this.emailPropActionUI.emailTo.setValue(null);
+                } else {
+                    this.emailPropActionUI.emailCopy.setValue(null);
+                }
             } else {
-                this.emailPropActionUI.emailCopy.setValue(null);
+                this.snackBar.openSnackBar('Некорректно введен email', 'snackbar-red');
             }
-        } else {
-            this.snackBar.openSnackBar('Некорректно введен email', 'snackbar-red');
         }
     }
 

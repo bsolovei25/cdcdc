@@ -53,6 +53,8 @@ export class ProductGroupsRightComponent implements OnInit, OnChanges {
 
     public svgBlock: any;
 
+    public progressWidth: number = 185;
+
     @Input() public data: IProducts;
 
     @ViewChild('myCircle', { static: true }) myCircle: ElementRef;
@@ -95,7 +97,7 @@ export class ProductGroupsRightComponent implements OnInit, OnChanges {
         const deviationValue = this.spacePipe.transform(data.groupValue);
         const deviationNotValue = this.spacePipe.transform(data.groupDeviationNotValue);
 
-        const x = -60;
+        const x = -80;
         const y = 30;
 
         const indicatorRightPie = this.indicatorGauge(data.gaugePercent);
@@ -106,7 +108,7 @@ export class ProductGroupsRightComponent implements OnInit, OnChanges {
             .append('text')
             .attr('fill', 'var(--color-text-main)')
             .attr('font-size', '18px')
-            .attr('x', '10')
+            .attr('x', '-15')
             .attr('y', '16')
             .attr('text-anchor', 'left')
             .attr('font-family', "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
@@ -116,7 +118,7 @@ export class ProductGroupsRightComponent implements OnInit, OnChanges {
             .append('text')
             .attr('fill', 'var(--color-text-main)')
             .attr('font-size', '18px')
-            .attr('x', '10')
+            .attr('x', '-15')
             .attr('y', '55')
             .attr('text-anchor', 'left')
             .attr('font-family', "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
@@ -126,7 +128,7 @@ export class ProductGroupsRightComponent implements OnInit, OnChanges {
             .append('text')
             .attr('fill', 'var(--color-text-main)')
             .attr('font-size', '19px')
-            .attr('x', '-59')
+            .attr('x', '-79')
             .attr('y', '33')
             .attr('text-anchor', 'middle')
             .attr('font-family', "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
@@ -137,7 +139,7 @@ export class ProductGroupsRightComponent implements OnInit, OnChanges {
             .attr('xlink:href', 'assets/icons/widgets/SMP/product-group-planning/right-side/pie-icon.svg')
             .attr('height', '20px')
             .attr('width', '20px')
-            .attr('x', '-67')
+            .attr('x', '-87')
             .attr('y', '43');
 
         const topBorder = el
@@ -145,23 +147,23 @@ export class ProductGroupsRightComponent implements OnInit, OnChanges {
             .attr('xlink:href', 'assets/icons/widgets/SMP/product-group-planning/right-side/right-top-border.svg')
             .attr('height', '40px')
             .attr('width', '140px')
-            .attr('x', '140')
-            .attr('y', '-13');
+            .attr('x', '180')
+            .attr('y', '-6');
 
         const bottomBorder = el
             .append('image')
             .attr('xlink:href', 'assets/icons/widgets/SMP/product-group-planning/right-side/right-bottom-border.svg')
             .attr('height', '40px')
             .attr('width', '140px')
-            .attr('x', '140')
-            .attr('y', '28');
+            .attr('x', '180')
+            .attr('y', '35');
 
         const groupDeviationValue = el
             .append('text')
             .attr('fill', 'var(--color-text-main)')
             .attr('font-size', '19px')
-            .attr('x', '210')
-            .attr('y', '12')
+            .attr('x', '230')
+            .attr('y', '20')
             .attr('text-anchor', 'middle')
             .attr('font-family', "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
             .text(deviationValue);
@@ -170,11 +172,63 @@ export class ProductGroupsRightComponent implements OnInit, OnChanges {
             .append('text')
             .attr('fill', 'var(--color-text-main)')
             .attr('font-size', '19px')
-            .attr('x', '210')
-            .attr('y', '54')
+            .attr('x', '230')
+            .attr('y', '63')
             .attr('text-anchor', 'middle')
             .attr('font-family', "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
             .text(deviationNotValue);
+
+        const procentPrgoress1 = data.framedPecent;
+        const procentPrgoress2 = data.notFramedPercent;
+
+        const progressLine1 = el
+            .append('rect')
+            .attr('class', 'bg-rect')
+            .attr('fill', 'var(--color-standard)')
+            .attr('fill-opacity', '0.5')
+            .attr('height', 3)
+            .attr('width', this.progressWidth)
+            .attr('x', -15)
+            .attr('y', 20);
+
+        const progress1 = el.append('rect')
+            .attr('class', 'progress-rect')
+            .attr('fill', 'var(--color-standard)')
+            .attr('height', 3)
+            .attr('width', 0)
+            .attr('x', -15)
+            .attr('y', 20);
+
+        progress1.transition()
+            .duration(1000)
+            .attr('width', () => {
+                return (this.progressWidth * procentPrgoress1) / 100;
+            });
+
+
+        const progressLine2 = el
+            .append('rect')
+            .attr('class', 'bg-rect')
+            .attr('fill', 'var(--color-standard)')
+            .attr('fill-opacity', '0.5')
+            .attr('height', 3)
+            .attr('width', this.progressWidth)
+            .attr('x', -15)
+            .attr('y', 60);
+
+        const progress2 = el.append('rect')
+            .attr('class', 'progress-rect')
+            .attr('fill', 'var(--color-standard)')
+            .attr('height', 3)
+            .attr('width', 0)
+            .attr('x', -15)
+            .attr('y', 60);
+
+        progress2.transition()
+            .duration(1000)
+            .attr('width', () => {
+                return (this.progressWidth * procentPrgoress2) / 100;
+            });
     }
 
     isInteger(num): boolean {
@@ -292,5 +346,4 @@ export class ProductGroupsRightComponent implements OnInit, OnChanges {
         const ratio = this.scale(newValue);
         const newAngle = this.config.minAngle + ratio * this.range;
     }
-
 }

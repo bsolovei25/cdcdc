@@ -1,33 +1,53 @@
-import { Component, OnInit, Input, AfterViewInit } from '@angular/core';
+import {
+    Component,
+    OnInit,
+    Input,
+    ChangeDetectionStrategy,
+    OnChanges
+} from '@angular/core';
 import { ITankCardValue } from 'src/app/dashboard/models/tank-information';
 import { TooltipService } from '@shared/components/tooltip/service/tooltip.service';
 
 @Component({
-  selector: 'evj-tank-card',
-  templateUrl: './tank-card.component.html',
-  styleUrls: ['./tank-card.component.scss']
+    selector: 'evj-tank-card',
+    templateUrl: './tank-card.component.html',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    styleUrls: ['./tank-card.component.scss']
 })
-export class TankCardComponent implements OnInit {
-  @Input() public data: ITankCardValue;
-  @Input() public idLine: ITankCardValue;
+export class TankCardComponent implements OnInit, OnChanges {
+    @Input() public data: ITankCardValue;
+    @Input() public idLine: ITankCardValue;
 
-  operation = {
-    filling: "Заполнение",
-    shipment: "Отгрузка",
-    standart: "Без изменений",
-    unknown: 'Неизвестно',
-    in: 'Налив',
-    out: 'Слив',
-    repair: 'Ремонт',
-    hold: 'Отстой',
-    inOut: 'Проток',
-    work: 'В работе'
-  };
+    public heightCard: number;
+    public heightValue: number = 20;
 
-  constructor(private tooltipService: TooltipService) { }
+    operation = {
+        filling: 'Заполнение',
+        shipment: 'Отгрузка',
+        standart: 'Без изменений',
+        unknown: 'Неизвестно',
+        in: 'Налив',
+        out: 'Слив',
+        repair: 'Ремонт',
+        hold: 'Отстой',
+        inOut: 'Проток',
+        work: 'В работе'
+    };
 
-  ngOnInit(): void {
-    this.tooltipService.close();
-  }
+    constructor(private tooltipService: TooltipService) {
+    }
+
+    ngOnChanges(): void {
+        if (this.data.fillLevelPercentage > 100) {
+            this.data.fillLevelPercentage = 100;
+        } else if (this.data.fillLevelPercentage < 0) {
+            this.data.fillLevelPercentage = 0;
+        }
+        this.heightCard = (this.data.attributes.length) * this.heightValue + 40;
+        this.tooltipService.close();
+    }
+
+    ngOnInit(): void {
+    }
 
 }
