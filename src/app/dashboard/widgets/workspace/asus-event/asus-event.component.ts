@@ -48,7 +48,8 @@ export class AsusEventComponent implements OnInit {
     public async setUnit(event: IAsusTmPlace): Promise<void> {
         this.ewService.isLoading = true;
         try {
-            this.ewService.asusEquipments = await this.eventService.getAsusEquipments(event.codeSap);
+            const saveMethod = await this.eventService.getSaveMethod(this.ewService.event);
+            this.ewService.asusEquipments = await this.eventService.getAsusEquipments(event.codeSap, saveMethod);
             this.ewService.event.asusEvent.equipment = null;
             this.ewService.event.asusEvent.eoService = null;
         } catch (e) {
@@ -61,7 +62,8 @@ export class AsusEventComponent implements OnInit {
     public async setEquipment(event: IAsusTpPlace): Promise<void> {
         this.ewService.isLoading = true;
         try {
-            this.ewService.asusEOServices = await this.eventService.getAsusEOServices(event.codeSap);
+            const saveMethod = await this.eventService.getSaveMethod(this.ewService.event);
+            this.ewService.asusEOServices = await this.eventService.getAsusEOServices(event.codeSap, saveMethod);
             this.ewService.event.asusEvent.eoService = null;
         } catch (e) {
             console.error(e);

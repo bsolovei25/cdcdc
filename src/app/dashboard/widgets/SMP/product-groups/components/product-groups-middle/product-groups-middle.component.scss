@@ -20,6 +20,10 @@
   stroke: var(--color-smp-danger);
 }
 
+@mixin fill-custom-prop {
+  stroke-opacity: 0.25;
+}
+
 .cb {
   height: 100%;
   width: 100%;
@@ -160,6 +164,7 @@
 
     .befd9104-8ba5-4d66-b64c-dc2c6e40ac27 {
       @extend %danger-fill;
+      @include fill-custom-prop;
     }
   }
 }
@@ -211,6 +216,7 @@
 
     .befd9104-8ba5-4d66-b64c-dc2c6e40ac27 {
       @extend %warning-fill;
+      @include fill-custom-prop;
     }
   }
 }
