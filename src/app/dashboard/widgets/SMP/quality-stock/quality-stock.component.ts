@@ -9,11 +9,11 @@ export interface IQualityStockSecurity {
 }
 
 export interface IQualityStockCircle {
-  factPercent: number;
-  deviationPercent: number;
-  value: number;
-  deviation: number;
-  deviationStatus: boolean;
+  lowerLimit: number;
+  upperLimit: number;
+  termo: number;
+  electro: number;
+  fuel: number;
 }
 
 @Component({

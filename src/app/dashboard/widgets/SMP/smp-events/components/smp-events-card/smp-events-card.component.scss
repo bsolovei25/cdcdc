@@ -86,10 +86,10 @@
       display: flex;
       margin: 0 15px 0 15px;
       height: 3px;
-      background: var(--color-active-transparent);
+      background: var(--color-standard-transparent);
       border-radius: 10px;
       &___active {
-        background: var(--color-active);
+        background: var(--color-standard);
         border-radius: inherit;
         height: 100%;
         width: 70%;

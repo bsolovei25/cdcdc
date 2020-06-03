@@ -1,22 +1,128 @@
 .container {
-   position: relative;
-   height: 100%;
-   box-sizing: border-box;
-   padding: 0;
-   display: flex;
-   flex-direction: column;
-   justify-content: flex-start;
-   min-width: 430px;
- }
+  position: relative;
+  height: 100%;
+  box-sizing: border-box;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  min-width: 430px;
+}
 
 .content {
-  height: 100%;
+  height: calc(100% - 57px);
+
   border-left: dashed 0.5px var(--color-border-main);
   border-right: dashed 0.5px var(--color-border-main);
 
   display: flex;
-  overflow: auto;
+  // overflow: auto;
   flex-direction: column;
+}
+
+.control-block {
+  height: 100%;
+  width: 100%;
+  display: flex;
+
+  &__left-side {
+    width: 70%;
+    padding: 10px;
+    padding-right: 5px;
+    height: calc(100% - 10px);
+
+    .content-menu {
+      font-size: 14px;
+      height: 40px;
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: var(--color-aw-header-bg);
+      box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+      border-radius: 12px;
+
+      width: calc(100% - 9px);
+      margin: auto;
+      margin-right: 0;
+
+      &__icon {
+        cursor: pointer;
+        position: absolute;
+        right: 20px;
+
+        ::ng-deep .cls-1 {
+          fill: var(--color-text-main);
+        }
+
+        &:hover {
+          ::ng-deep .cls-1 {
+            fill: var(--color-active);
+          }
+        }
+      }
+    }
+
+    .content-brigade {
+      overflow: auto;
+      overflow-x: hidden;
+      height: calc(100% - 40px);
+      direction: rtl;
+
+      &__left {
+        display: flex;
+        flex-direction: column;
+        width: calc(50% - 5px);
+        min-width: 410px;
+      }
+
+      &__right {
+        display: flex;
+        flex-direction: column;
+        width: calc(50% - 5px);
+        min-width: 410px;
+      }
+
+      &__block {
+        height: auto;
+        margin-top: 8px;
+
+        ::ng-deep .employee-container {
+          &:hover ::ng-deep .employee-container__star {
+            display: block;
+            cursor: pointer;
+            position: absolute;
+            right: 55px;
+            ::ng-deep svg {
+              fill: var(--color-text-main);
+            }
+
+            &:hover {
+              ::ng-deep svg {
+                fill: var(--color-active) !important;
+              }
+            }
+          }
+        }
+      }
+
+      &__scroll {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        width: calc(100% - 5px);
+        //  max-width: 1052px;
+        height: 100%;
+        direction: ltr;
+      }
+    }
+  }
+
+  &__right-side {
+    width: 30%;
+    padding: 10px;
+    height: calc(100% - 10px);
+  }
 }
 
 .mock {
@@ -131,12 +237,10 @@ p {
         }
       }
       &--active {
-        background: url("./../../../../../assets/icons/widgets/admin-shift-schedule/border-shift.svg")
-          no-repeat;
+        background: url("./../../../../../assets/icons/widgets/admin-shift-schedule/border-shift.svg") no-repeat;
       }
       &:hover {
-        background: url("./../../../../../assets/icons/widgets/admin-shift-schedule/border-shift.svg")
-          no-repeat;
+        background: url("./../../../../../assets/icons/widgets/admin-shift-schedule/border-shift.svg") no-repeat;
       }
     }
 
@@ -256,7 +360,7 @@ p {
   z-index: 999;
 }
 :hover::-webkit-scrollbar {
-  width: 8px;
+  width: 5px;
   height: 5px;
   border-radius: 25px;
   z-index: 999;

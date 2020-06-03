@@ -11,8 +11,9 @@
           panelClass="mat-select-custom"
           [(ngModel)]="ewService.event.category"
           [compareWith]="compareFn"
+          (selectionChange)="ewService.changeCategory()"
         >
-          <mat-option *ngFor="let cat of ewService.category" [value]="cat">
+          <mat-option *ngFor="let cat of ewService.categoryPipe | async" [value]="cat">
             {{ ewService.categories[cat.name] }}
           </mat-option>
         </mat-select>

@@ -6,7 +6,7 @@
     <div class="title">{{title}}</div>
   </div>
   <div class="window__body comment">
-    <textarea class="comment__field" [placeholder]="placeholder"></textarea>
+    <textarea class="comment__field" [(ngModel)]="message" [placeholder]="placeholder"></textarea>
   </div>
   <div class="window__footer footer">
     <div class="button" (click)="onSave()">{{buttonText}}</div>

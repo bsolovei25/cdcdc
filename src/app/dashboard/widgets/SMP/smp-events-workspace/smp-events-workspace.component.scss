@@ -67,7 +67,7 @@
     height: 8px;
     position: absolute;
     left: -6px;
-    top: 4px;
+    top: 6px;
     border-top: 1px solid var(--color-smp-border);
     background: var(--color-bg-main);
     transform: rotate(45deg);
@@ -79,7 +79,7 @@
     height: 8px;
     position: absolute;
     right: -6px;
-    top: 4px;
+    top: 6px;
     border-top: 1px solid var(--color-smp-border);
     background: var(--color-bg-main);
     transform: rotate(-45deg);
@@ -103,16 +103,10 @@
     width: 100%;
     display: flex;
     align-items: center;
-    height: 30px;
+    height: 40px;
     border-top-right-radius: 15px;
     border-bottom-right-radius: 15px;
-    background: linear-gradient(
-        90deg,
-        transparent 10%,
-        var(--color-smp-ev-ws-grad1) 50%,
-        var(--color-smp-ev-ws-grad2) 70%,
-        var(--color-smp-ev-ws-grad3) 100%
-    );
+    background: linear-gradient(90deg, transparent 20%, var(--color-smp-standard) 70%, var(--color-standard) 100%);
 
     &__text {
       color: white;
@@ -135,7 +129,7 @@
 
       padding: 5px;
       border-radius: 10px;
-      background: var(--color-bg-card);
+      background: var(--color-smp-events-back);
       position: relative;
       font-size: 11px;
       display: flex;
@@ -177,6 +171,38 @@
     }
   }
 
+  ::ng-deep {
+    .chat {
+      background: var(--color-smp-events-back) !important;
+    }
+
+    .chat__header {
+      background: var(--color-smp-events-back) !important;
+    }
+
+    .messages__list {
+      background: var(--color-smp-events-back) !important;
+    }
+
+    .message_odd {
+      background: var(--color-smp-events-chats) !important;
+    }
+
+    .chat-input {
+      background: var(--color-smp-events-back) !important;
+    }
+
+    .scroll-bar {
+      &::-webkit-scrollbar-track-piece {
+        background: var(--color-smp-events-back) !important;
+      }
+    }
+
+    .messages{
+      overflow-y: auto !important;
+    }
+  }
+
   .header {
     padding-left: 1px;
     color: var(--color-smp-text-sub);
@@ -200,5 +226,3 @@
   height: 20px;
   background-color: transparent;
 }
-
-

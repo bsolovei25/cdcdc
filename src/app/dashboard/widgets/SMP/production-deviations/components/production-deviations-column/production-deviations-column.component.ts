@@ -1,6 +1,12 @@
-import { Component, OnInit, ViewChild, ElementRef, HostListener, Input } from '@angular/core';
+import {
+    Component,
+    ViewChild,
+    ElementRef,
+    Input,
+    ChangeDetectionStrategy,
+    OnChanges,
+} from '@angular/core';
 import * as d3Selection from 'd3-selection';
-import * as d3 from 'd3';
 import {
     IProductionDeviationsColumn,
     LineType,
@@ -11,8 +17,9 @@ import {
     selector: 'evj-production-deviations-column',
     templateUrl: './production-deviations-column.component.html',
     styleUrls: ['./production-deviations-column.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ProductionDeviationsColumnComponent {
+export class ProductionDeviationsColumnComponent implements OnChanges {
     @Input() private data: IProductionDeviationsColumn = null;
 
     @ViewChild('col', { static: true }) private column: ElementRef;
@@ -34,20 +41,21 @@ export class ProductionDeviationsColumnComponent {
 
     private readonly colors: { [key: string]: string } = {
         fact: '#ffffff',
-        plan: '#3fa9f5',
-        warning: '#f4a321',
-        danger: '#eb5757',
+        plan: '#6ba4ef',
+        warning: '#ff9700',
+        danger: '#d00100',
     };
 
     constructor() {
         this.lineTypes.forEach((item) => this.linesCounters.set(item, 0));
     }
 
-    @HostListener('document:resize', ['$event'])
-    public OnResize(): void {
-        this.defineBlockData();
-        this.createBlock();
-        this.drawLines();
+    public ngOnChanges(): void {
+        setTimeout(() => {
+            this.defineBlockData();
+            this.createBlock();
+            this.drawLines();
+        }, 0);
     }
 
     private defineBlockData(): void {

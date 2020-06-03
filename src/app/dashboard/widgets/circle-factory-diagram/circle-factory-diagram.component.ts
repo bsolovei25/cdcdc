@@ -1,4 +1,12 @@
-import { Component, Inject, ElementRef, ViewChild, OnDestroy, OnInit, AfterViewInit } from '@angular/core';
+import {
+    Component,
+    Inject,
+    ElementRef,
+    ViewChild,
+    OnDestroy,
+    OnInit,
+    AfterViewInit,
+} from '@angular/core';
 import { WidgetService } from '../../services/widget.service';
 import { WidgetPlatform } from '../../models/widget-platform';
 
@@ -58,13 +66,14 @@ export class CircleFactoryDiagramComponent extends WidgetPlatform
     }
 
     ngAfterViewInit(): void {
-        this.d3Circle(this.data, this.circleFactory.nativeElement);
+        if (!this.isMock) {
+            this.d3Circle(this.data, this.circleFactory.nativeElement);
+        }
     }
 
-    protected dataConnect(): void {
-    }
+    protected dataConnect(): void {}
 
-    protected dataHandler(ref: any): void { }
+    protected dataHandler(ref: any): void {}
 
     public onChangeBackground(): void {
         if (!this.isMock) {

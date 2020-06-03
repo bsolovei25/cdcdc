@@ -10,14 +10,18 @@
 }
 
 %danger-fill {
-  fill: var(--color-danger);
-  stroke: var(--color-danger);
-  fill-opacity: 0.35;
+  fill: var(--color-smp-danger);
+  stroke: var(--color-smp-danger);
+  fill-opacity: 0.25;
 }
 
 %danger-stroke {
   fill: none;
-  stroke: var(--color-danger);
+  stroke: var(--color-smp-danger);
+}
+
+@mixin fill-custom-prop {
+  stroke-opacity: 0.25;
 }
 
 .cb {
@@ -39,7 +43,7 @@
   background: var(--color-bg-main);
   height: 70px;
   margin-left: 35px;
-  width: 165px;
+  width: 182px;
   margin-top: 3px;
   z-index: 10;
   cursor: pointer;
@@ -53,7 +57,7 @@
   height: 4px;
   margin-top: 36px;
   border-radius: 15px;
-  margin-left: 195px;
+  margin-left: 210px;
   background: var(--color-bg-main);
   border: 1px solid var(--color-border-main);
   z-index: 999;
@@ -116,7 +120,7 @@
 .danger {
   ::ng-deep {
     .b195262e-0f36-4bd7-8b5d-a0004436b690 {
-      @extend %danger-stroke;
+      @extend %danger-fill;
     }
 
     .e5bde44f-423f-4ebd-9e40-b8254243c480 {
@@ -127,7 +131,15 @@
       @extend %danger-fill;
     }
 
+    .eace7803-5e18-410e-8515-7508218748cb {
+      @extend %danger-fill;
+    }
+
     .a0f3c4b4-caba-4fe1-9614-0f32a4fa6d04 {
+      @extend %danger-fill;
+    }
+
+    .b44481aa-ef74-4e7a-a657-ebc023d3b0d1{
       @extend %danger-fill;
     }
 
@@ -140,18 +152,19 @@
     }
 
     .b5395a1a-5078-4461-97ee-2d7ecdb09673 {
-      @extend %danger-stroke;
+      @extend %danger-fill;
     }
     .e72d58eb-7242-4b8d-a086-92e84ec30fcf {
       @extend %danger-fill;
     }
 
     .ea6ef7ac-d2fe-402d-8a7f-c372a4ba690c {
-      @extend %danger-stroke;
+      @extend %danger-fill;
     }
 
     .befd9104-8ba5-4d66-b64c-dc2c6e40ac27 {
       @extend %danger-fill;
+      @include fill-custom-prop;
     }
   }
 }
@@ -170,7 +183,15 @@
       @extend %warning-fill;
     }
 
+    .eace7803-5e18-410e-8515-7508218748cb {
+      @extend %warning-fill;
+    }
+
     .a0f3c4b4-caba-4fe1-9614-0f32a4fa6d04 {
+      @extend %warning-fill;
+    }
+
+    .b44481aa-ef74-4e7a-a657-ebc023d3b0d1{
       @extend %warning-fill;
     }
 
@@ -183,18 +204,65 @@
     }
 
     .b5395a1a-5078-4461-97ee-2d7ecdb09673 {
-      @extend %warning-stroke;
+      @extend %warning-fill;
     }
     .e72d58eb-7242-4b8d-a086-92e84ec30fcf {
       @extend %warning-fill;
     }
 
     .ea6ef7ac-d2fe-402d-8a7f-c372a4ba690c {
-      @extend %warning-stroke;
+      @extend %warning-fill;
     }
 
     .befd9104-8ba5-4d66-b64c-dc2c6e40ac27 {
       @extend %warning-fill;
+      @include fill-custom-prop;
+    }
+  }
+}
+
+.scale {
+  &__top {
+    position: absolute;
+    top: 19px;
+    left: 156px;
+    z-index: 999;
+  }
+
+  &__middle {
+    position: absolute;
+    top: 30px;
+    left: 161px;
+    z-index: 999;
+  }
+
+  &__bottom {
+    position: absolute;
+    top: 45px;
+    left: 156px;
+    z-index: 999;
+  }
+}
+
+.back-image {
+  position: absolute;
+  margin-left: 88px;
+  z-index: 1001;
+  margin-top: 5px;
+
+  &__warning {
+    ::ng-deep {
+      .fb0d19dd-cfba-4ec5-8801-081f1b56374c {
+        fill: var(--color-warning);
+      }
+    }
+  }
+
+  &__danger {
+    ::ng-deep {
+      .fb0d19dd-cfba-4ec5-8801-081f1b56374c {
+        fill: var(--color-smp-danger);
+      }
     }
   }
 }

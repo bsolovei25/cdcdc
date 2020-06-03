@@ -12,10 +12,10 @@
   &:before {
     content: "";
     width: 22px;
-    height: 10px;
+    height: 13px;
     position: absolute;
     left: -7px;
-    top: -1px;
+    top: -4px;
     z-index: 999;
     border-top: 0.8px solid var(--color-smp-border);
     background: var(--color-bg-main);
@@ -27,7 +27,7 @@
     width: 22px;
     height: 10px;
     position: absolute;
-    right: -6px;
+    right: -7px;
     top: -3px;
     border-top: 0.8px solid var(--color-smp-border);
     background: var(--color-bg-main);
@@ -41,6 +41,22 @@
   display: flex;
   background: var(--color-bg-header-table);
   border-left: 0.8px solid var(--color-smp-border);
+
+  .block-fabric {
+    height: 100%;
+    width: 30px;
+    margin-left: 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .block-pie {
+    height: 100%;
+    width: calc(100% - 35px);
+    display: flex;
+  }
 }
 
 .frame-top {
@@ -57,10 +73,10 @@
 
   &:before {
     content: "";
-    width: 22px;
-    height: 10px;
+    width: 25px;
+    height: 15px;
     position: absolute;
-    left: -7px;
+    left: -10px;
     top: 6px;
     border-top: 0.8px solid var(--color-smp-border);
     background: var(--color-bg-main);
@@ -70,12 +86,34 @@
   &:after {
     content: "";
     width: 23px;
-    height: 11px;
+    height: 14px;
     position: absolute;
-    right: -8px;
-    top: 6px;
+    right: -9px;
+    top: 7px;
     border-top: 0.8px solid var(--color-smp-border);
     background: var(--color-bg-main);
     transform: rotate(-45deg);
+  }
+}
+
+.icon {
+  position: relative;
+  width: 50px;
+  height: 30px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+
+  &__text {
+    position: absolute;
+    bottom: 0;
+    font-size: 7px;
+    left: 16px;
+    color: var(--color-bg-header-table);
+  }
+}
+
+.active-icon {
+  ::ng-deep path {
+    fill: #00a99d;
   }
 }

@@ -31,7 +31,7 @@
       <div class="workflow__vertival-bar" #splitVertivalBar></div>
       <div class="workflow__right-block">
         <div class="workflow__action">
-          <div class="workflow__action__title">Доступные действия</div>
+          <div class="workflow__action__title">Доступные инструменты</div>
           <div class="workflow__action__body">
             <div class="workflow__action__body__items">
               <div
@@ -44,7 +44,7 @@
                   src="./assets/icons/widgets/workflow/action-other.svg"
                   [svgStyle]="{ 'width.px':32, 'height.px':32 }"
                 ></svg-icon>
-                <span class="workflow__action__body__item__title">Выполнить действие</span>
+                <span class="workflow__action__body__item__title">Событие</span>
               </div>
               <div
                 class="workflow__action__body__item"
@@ -98,9 +98,11 @@
                 id="gridSize"
                 [options]="options"
                 (click)="chooseGridItem($event, null)"
+                (scroll)="scrollHandler($event)"
               >
                 <ng-container *ngFor="let i of items">
                   <gridster-item
+                    #line
                     [item]="i"
                     (click)="chooseGridItem($event, i)"
                     style="height: 1600px; overflow: visible !important;"
@@ -110,13 +112,15 @@
                   >
                     <ng-container [ngSwitch]="i.type">
                       <svg-icon
-                        *ngSwitchCase="'GraduationTableEvent'"
+                        *ngSwitchCase="workflowActions.GRADUATION_TABLE_EVENT"
+                        [matTooltip]="workflowActionsNameMap[workflowActions.GRADUATION_TABLE_EVENT]"
                         class="workflow__action__body__item__icon"
                         src="./assets/icons/widgets/workflow/action-other.svg"
                         [svgStyle]="{ 'width.px':widthSvgIconGrid, 'height.px':heightSvgIconGrid }"
                       ></svg-icon>
                       <svg-icon
-                        *ngSwitchCase="'SendEmail'"
+                        *ngSwitchCase="workflowActions.SEND_EMAIL"
+                        [matTooltip]="workflowActionsNameMap[workflowActions.SEND_EMAIL]"
                         class="workflow__action__body__item__icon"
                         src="./assets/icons/widgets/workflow/message_w.svg"
                         [svgStyle]="{ 'width.px':widthSvgIconGrid, 'height.px':heightSvgIconGrid }"
@@ -131,10 +135,10 @@
                     ></svg-icon>
                   </gridster-item>
                 </ng-container>
-                <div [id]="LEADER_LINE_HOST_CONTAINER"></div>
                 <div [id]="LEADER_LINE_REMOVE_CONTAINER">
                   <div style="display: none;">
                     <svg-icon
+                      #removeLineTemplate
                       [id]="LEADER_LINE_REMOVE_TEMPLATE"
                       style="height: 18px;"
                       class="remove-line__icon"
@@ -144,6 +148,7 @@
                   </div>
                 </div>
               </gridster>
+              <div [id]="LEADER_LINE_HOST_CONTAINER"></div>
             </div>
             <div class="workflow__scenario__body__bar" #splitBar></div>
             <div class="email__title" *ngIf="comboAction">
@@ -153,7 +158,7 @@
               <div>Сообщение</div>
             </div>
             <div class="workflow__scenario__body__bottom" #splitBottom>
-              <!-- Table -->
+              <!-- Combo -->
               <div class="combo-box" *ngIf="comboAction">
                 <mat-form-field class="combo-box_selectbox">
                   <mat-select
@@ -165,17 +170,6 @@
                   </mat-select>
                 </mat-form-field>
               </div>
-              <!-- <div class="table" *ngIf="tableAction.length > 0">
-                <table>
-                  <tbody>
-                    <tr>
-                      <td *ngFor="let table of tableActionProp">
-                        <input [(ngModel)]="table.value" />
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div> -->
               <!-- Email -->
               <div class="email" *ngIf="emailAction.length > 0">
                 <ng-container *ngFor="let email of emailAction">
@@ -218,6 +212,7 @@
                             #valueInputChips
                             [formControl]="emailPropActionUI?.emailTo"
                             [matChipInputFor]="chipList"
+                            matChipInputAddOnBlur="true"
                             [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
                             (matChipInputTokenEnd)="add($event, 'to')"
                           />
@@ -253,6 +248,7 @@
                             #valueInputChips
                             [formControl]="emailPropActionUI?.emailCopy"
                             [matChipInputFor]="chipList"
+                            matChipInputAddOnBlur="true"
                             [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
                             (matChipInputTokenEnd)="add($event, 'copy')"
                           />

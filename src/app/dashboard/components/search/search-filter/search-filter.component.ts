@@ -17,9 +17,7 @@ export class SearchFilterComponent {
     constructor(public widgetService: WidgetService) {}
 
     public choosenType(item: string): void {
-        this.selectedFilters.isSelected(item)
-            ? this.selectedFilters.deselect(item)
-            : this.selectedFilters.select(item);
+        this.selectedFilters.toggle(item);
 
         this.widgetService.filterWidgets$.next(this.selectedFilters.selected);
     }

@@ -13,7 +13,7 @@ export class ImplementationTankComponent implements OnInit, AfterViewInit {
 
   public tankPicture: any; //d3
 
-  public rectYHeight: number = 355;
+  public rectYHeight: number = 255;
 
   constructor() { }
 
@@ -25,6 +25,10 @@ export class ImplementationTankComponent implements OnInit, AfterViewInit {
   }
 
   public drawBak(el: ElementRef): void {
+    let planTankLevel: number;
+    let factTankLevel: number;
+    (this.data.planTankLevel < 0) ? planTankLevel = 0 : (this.data.planTankLevel > 100) ? planTankLevel = 100 : planTankLevel = this.data.planTankLevel;
+    (this.data.factTankLevel < 0) ? factTankLevel = 0 : (this.data.factTankLevel > 100) ? factTankLevel = 100 : factTankLevel = this.data.factTankLevel;
     this.tankPicture = d3
       .select(el)
       .append('svg')
@@ -32,7 +36,7 @@ export class ImplementationTankComponent implements OnInit, AfterViewInit {
       .attr('height', '100%')
       .attr('width', '100%')
       .attr('class', 'textProduct')
-      .attr('viewBox', '0 40 350 380');
+      .attr('viewBox', '10 40 300 380');
 
     const pictureContainer = this.tankPicture
       .append('image')
@@ -47,24 +51,24 @@ export class ImplementationTankComponent implements OnInit, AfterViewInit {
       .append('rect')
       .attr('fill', 'var(--color-smp-tank-plan)')
       .attr('opacity', '0.9')
-      .attr('height', this.data.planTankLevel * 2.2)
+      .attr('height', planTankLevel * 1.8)
       .attr('width', '220px')
       .attr('x', '55')
-      .attr('y', this.rectYHeight - this.data.planTankLevel * 2.2);
+      .attr('y', this.rectYHeight + (100 - planTankLevel * 1.8));
 
     const factLevel = this.tankPicture
       .append('rect')
       .attr('fill', 'var(--color-smp-tank-fact)')
       .attr('opacity', '0.9')
-      .attr('height', this.data.factTankLevel * 2.2)
+      .attr('height', factTankLevel * 1.8)
       .attr('width', '220px')
       .attr('x', '55')
-      .attr('y', this.rectYHeight - this.data.factTankLevel * 2.2);
+      .attr('y', this.rectYHeight + (100 - factTankLevel * 1.8));
 
     const title = this.tankPicture
       .append('text')
       .attr('fill', 'var(--color-text-main)')
-      .attr('font-size', '44px')
+      .attr('font-size', '46px')
       .attr('font-family', "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
       .attr('text-anchor', 'middle')
       .attr('y', '110')

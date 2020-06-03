@@ -5,6 +5,7 @@ import {
     EventsWidgetNotification, IRetrievalEventDto
 } from '../../../../models/events-widget';
 import { EventsWorkspaceService } from '../../../../services/widgets/events-workspace.service';
+import { IAlertWindowModel } from '@shared/models/alert-window.model';
 
 @Component({
     selector: 'evj-events-correct-card',
@@ -13,6 +14,7 @@ import { EventsWorkspaceService } from '../../../../services/widgets/events-work
 })
 export class EventsCorrectCardComponent implements OnInit {
     @Input() public event: IRetrievalEventDto = null;
+    @Input() public isClickable: boolean = true;
 
     public readonly statusesColors: { [id in EventsWidgetNotificationStatus]: string } = {
         new: 'standart',
@@ -20,19 +22,51 @@ export class EventsCorrectCardComponent implements OnInit {
         closed: 'danger',
     };
 
-    constructor(public ewService: EventsWorkspaceService) {}
+    constructor(public ewService: EventsWorkspaceService) { }
 
-    ngOnInit(): void {}
+    ngOnInit(): void { }
 
     public onClickDelete(): void {
-        this.ewService.deleteRetrievalEvent(this.event);
+        if (!this.isClickable) {
+            return;
+        }
+        const tempInfo: IAlertWindowModel = {
+            isShow: true,
+            questionText: 'Вы уверены, что хотите удалить связанное мероприятие?',
+            acceptText: 'Да, удалить',
+            cancelText: 'Отмена',
+            acceptFunction: () => this.ewService.deleteRetrievalEvent(this.event),
+            closeFunction: () => this.ewService.ewAlertInfo$.next(null),
+        };
+        this.ewService.ewAlertInfo$.next(tempInfo);
+    }
+
+    public onClickUnlink(): void {
+        if (!this.isClickable) {
+            return;
+        }
+        const tempInfo: IAlertWindowModel = {
+            isShow: true,
+            questionText: 'Вы уверены, что хотите удалить связь между событиями? Связанное событие не будет удалено.',
+            acceptText: 'Да, удалить связь',
+            cancelText: 'Отмена',
+            acceptFunction: () => this.ewService.deleteRetrievalLink(this.event.innerNotificationId),
+            closeFunction: () => this.ewService.ewAlertInfo$.next(null),
+        };
+        this.ewService.ewAlertInfo$.next(tempInfo);
     }
 
     public onClickEdit(): void {
+        if (!this.isClickable) {
+            return;
+        }
         this.ewService.editEvent(this.event.innerNotificationId);
     }
 
     public onClickCard(): void {
+        if (!this.isClickable) {
+            return;
+        }
         this.ewService.editEvent(this.event.innerNotificationId);
     }
 

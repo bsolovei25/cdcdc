@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 import { WidgetService } from '../../services/widget.service';
 import { IReportTemplate } from '../../models/report-server';
 import { ReportsService } from '../../services/widgets/reports.service';
@@ -43,6 +43,9 @@ export class ReportsComponent implements OnInit {
     filterData: IReportTemplate[] = [];
     templates: IReportTemplate[] = [];
     folders: ITemplateFolderLocal[] = [];
+
+    @Input()
+    public panelActive: boolean = false;
 
     search: string = '';
 
@@ -100,8 +103,12 @@ export class ReportsComponent implements OnInit {
         });
     }
 
-    searchReports(event: KeyboardEvent): void {
-        this.search = (event?.target as HTMLInputElement)?.value.toLowerCase();
+    searchReports(event: KeyboardEvent | string): void {
+        if (typeof event !== 'string') {
+            this.search = (event?.target as HTMLInputElement)?.value.toLowerCase();
+        } else {
+            this.search = event;
+        }
         if (this.search === '') {
             this.activeElements.clear();
             this.selectedFolders.clear();

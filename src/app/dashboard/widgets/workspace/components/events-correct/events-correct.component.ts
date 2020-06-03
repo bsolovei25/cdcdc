@@ -9,7 +9,7 @@ import { EventsWorkspaceService } from '../../../../services/widgets/events-work
 export class EventsCorrectComponent implements OnInit {
     public isSmotr: boolean = false;
 
-    constructor(public ewService: EventsWorkspaceService) {}
+    constructor(public ewService: EventsWorkspaceService) { }
 
     public ngOnInit(): void {
         if (this.ewService.event?.category?.code === '0') {
@@ -28,5 +28,18 @@ export class EventsCorrectComponent implements OnInit {
 
     public addRetrieval(): void {
         this.ewService.createEvent(this.ewService.event.id);
+    }
+
+    public openSearchRetrieval(): void {
+        if (!this.ewService.checkRetrievalCategory()) {
+            return;
+        }
+        const windowsParam = {
+            isShow: true,
+            idEvent: this.ewService.event.id,
+            acceptFunction: () => this.ewService.closeSearchWindow(),
+            closeFunction: () => this.ewService.closeSearchWindow(),
+        };
+        this.ewService.searchWindow$.next(windowsParam);
     }
 }

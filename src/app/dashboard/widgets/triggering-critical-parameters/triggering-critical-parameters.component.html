@@ -1,15 +1,25 @@
 <evj-widget-preview
-  [title]="title"
-  [previewTitle]="previewTitle"
+  [title]="widgetTitle"
+  [icon]="widgetIcon"
+  [previewTitle]="widgetType"
   *ngIf="isMock"
 ></evj-widget-preview>
 
 <div class="container pointer-event" *ngIf="!isMock">
-  <evj-widget-header [title]="title" [id]="id" [uniqId]="uniqId"></evj-widget-header>
+  <evj-widget-header
+    [title]="widgetTitle"
+    [units]="widgetUnits"
+    [code]="widgetCode"
+    [id]="id"
+    [uniqId]="uniqId"
+    [icon]="widgetIcon"
+  ></evj-widget-header>
 
   <evj-frame-top></evj-frame-top>
 
   <ng-container>
+    <evj-loading-shade [isLoading]="isLoading"></evj-loading-shade>
+
     <section
       class="table"
       (mousedown)="$event.stopPropagation()"
@@ -85,8 +95,8 @@
                 <span class="item__sub" *ngIf="item.lockAndAlarm === 0">-</span>
               </td>
               <td class="item item__fuel">
-                <span *ngIf="item.PIDControllers !== 0">{{ item.PIDControllers }}</span>
-                <span class="item__sub" *ngIf="item.PIDControllers === 0">-</span>
+                <span *ngIf="item.piDControllers !== 0">{{ item.piDControllers }}</span>
+                <span class="item__sub" *ngIf="item.piDControllers === 0">-</span>
               </td>
               <td class="item item__fuel">
                 <span *ngIf="item.vibrodiagnosticSystems !== 0"

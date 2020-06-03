@@ -157,6 +157,8 @@
 
           fill: #6ba4ef;
 
+          box-sizing: border-box;
+
           &__error {
             fill: var(--color-text-main);
           }

@@ -6,6 +6,8 @@
 ></evj-widget-preview>
 
 <div class="container pointer-event" *ngIf="!isMock">
+  <evj-loading-shade [isLoading]="isDataLoading"></evj-loading-shade>
+
   <evj-widget-header
     [title]="widgetTitle"
     [units]="widgetUnits"
@@ -49,19 +51,19 @@
                 Установки
               </th>
               <th class="header header__energy">
-                гКал
+                {{energyUnitsOfMeasure}}
               </th>
               <th class="header header__energy_procent">
                 %
               </th>
               <th class="header header__consumption">
-                вВт/ч
+                {{consumptionUnitsOfMeasure}}
               </th>
               <th class="header header__consumption_procent">
                 %
               </th>
               <th class="header header__fuel">
-                т.у.т
+                {{fuelUnitsOfMeasure}}
               </th>
               <th class="header header__fuel_procent">
                 %
@@ -83,7 +85,7 @@
                 {{ item.energy }}
               </td>
               <td class="item item__energy_procent" [ngClass]="{'open-procent': item.nonCritical}">
-                -3.9
+                {{ item.energyPercentage }}
               </td>
               <td class="item item__consumption">
                 {{ item.consumption }}
@@ -92,13 +94,13 @@
                 class="item item__consumption_procent"
                 [ngClass]="{'open-procent': item.nonCritical}"
               >
-                0
+                {{item.consumptionPercentage}}
               </td>
               <td class="item item__fuel">
                 {{ item.fuel }}
               </td>
               <td class="item item__fuel_procent" [ngClass]="{'open-procent': item.nonCritical}">
-                0
+                {{item.fuelPercentage}}
               </td>
             </tr>
           </tbody>

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy, OnChanges } from '@angular/core';
 import {
     IProductionDeviationsGraph,
     IProductionDeviationsColumn,
@@ -9,8 +9,9 @@ import { SelectionModel } from '@angular/cdk/collections';
     selector: 'evj-production-deviations-diagram',
     templateUrl: './production-deviations-diagram.component.html',
     styleUrls: ['./production-deviations-diagram.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ProductionDeviationsDiagramComponent implements OnInit {
+export class ProductionDeviationsDiagramComponent implements OnChanges {
     @Input() public data: IProductionDeviationsGraph = null;
 
     public readonly iconUrl: string =
@@ -27,9 +28,9 @@ export class ProductionDeviationsDiagramComponent implements OnInit {
 
     constructor() {}
 
-    public ngOnInit(): void {
+    public ngOnChanges(): void {
         this.transformData();
-        const today: Date = new Date();
+        const today: Date = new Date(2020, 4, 15);
         const col = this.data.columns.find((column) => column.date.getDate() === today.getDate());
         this.selection.select(col);
     }
@@ -65,8 +66,8 @@ export class ProductionDeviationsDiagramComponent implements OnInit {
 
     private transformBaselineGraph(): void {
         this.data.columns.forEach((column) => {
-            this.data.plan = column.plan;
-            column.direction = column.fact > column.plan ? 'up' : 'down';
+            this.data.plan = this.data.plan ? this.data.plan : column.plan;
+            column.direction = column.fact > this.data.plan ? 'up' : 'down';
             column.fact = Math.abs(column.fact - column.plan);
             if (column.direction === 'up') {
                 column.limit = {

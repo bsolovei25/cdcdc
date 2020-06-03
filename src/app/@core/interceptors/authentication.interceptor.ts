@@ -25,6 +25,24 @@ export class AuthenticationInterceptor implements HttpInterceptor {
             return next.handle(req);
         }
 
+        req = req.clone({
+            url: encodeURI(req.url),
+        });
+
+        if (req.headers.has('AuthenticationType')) {
+            const tempHeaderValue = req.headers.get('AuthenticationType');
+            req = req.clone({
+                headers: req.headers.delete('AuthenticationType')
+            });
+            switch (tempHeaderValue) {
+                case 'windows':
+                    req = req.clone({
+                        withCredentials: true,
+                    });
+                    return next.handle(req);
+            }
+        }
+
         if (req.url.includes('api/Monitoring/')) {
             req = req.clone({
                 withCredentials: true,
@@ -39,9 +57,6 @@ export class AuthenticationInterceptor implements HttpInterceptor {
             ),
         });
 
-        req = req.clone({
-            url: encodeURI(req.url),
-        });
         return next.handle(req);
     }
 }

@@ -41,6 +41,7 @@ export class WidgetHeaderComponent implements OnInit, OnChanges, OnDestroy {
     @Output() eventCreated: EventEmitter<boolean> = new EventEmitter<boolean>();
     @Output() eventBack: EventEmitter<null> = new EventEmitter<null>();
     @Output() public selected: EventEmitter<any> = new EventEmitter<any>();
+    @Output() public selectedMenu: EventEmitter<any> = new EventEmitter<any>();
     public readonly iconRoute: string = './assets/icons/widget-title-icons/';
     private subscriptions: Subscription[] = [];
     claimWidgets: EnumClaimWidgets[] = [];
@@ -99,6 +100,11 @@ export class WidgetHeaderComponent implements OnInit, OnChanges, OnDestroy {
         if (event) {
             this.selected.emit(event.value);
         }
+    }
+
+    public onSelectedMenu(event: boolean): void {
+        this.isEventOpen = event;
+        this.selectedMenu.emit(event);
     }
 
     public reportSelected(event: boolean): void {

@@ -26,7 +26,6 @@
                 (click)="selectedElement.isSelected(element) ?
                        selectedElement.deselect(element)
                        : selectedElement.select(element)"
-                (dblclick)="doubleClick(element)"
                 [class.table__body__item__row__expanded--selected]="selectedElement.isSelected(element)"
                 class="table__body__item__row__expanded"
               >
@@ -45,31 +44,10 @@
         </table>
       </div>
       <div class="tank__footer">
-        <div class="tank__footer__search__input-block">
-          <div class="tank__footer__search__button-search">
-            <svg-icon
-              *ngIf="!isRefInput"
-              class="button_filter_icon"
-              src="./assets/icons/widgets/references/search_white.svg"
-            ></svg-icon>
-
-            <svg-icon
-              *ngIf="isRefInput"
-              class="indicator-selector__collapse"
-              src="./assets/icons/widgets/references/search_blue.svg"
-            ></svg-icon>
-          </div>
-          <div
-            class="tank__footer__search__input"
-            [class.tank__footer__search__input-active]="isRefInput"
-          >
-            <input
-              type="text"
-              (focus)="isRefInput = true"
-              (blur)="isRefInput = false"
-              (keyup)="searchInput($event)"
-            />
-          </div>
+        <div class="tank__footer__search-input">
+          <evj-circle-input
+            (searchChange)="searchInput($event)"
+          ></evj-circle-input>
         </div>
         <span class="tank__footer__btn" (click)="accept()">Добавить</span>
       </div>
