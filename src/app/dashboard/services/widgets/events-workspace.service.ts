@@ -440,25 +440,6 @@ export class EventsWorkspaceService {
                 this.smotrReference = data;
             }),
         );
-        // if (this.event) {
-        //     const tempEvent = { ...this.event };
-        //     tempEvent.category = this.category.find((c) => c.name === 'asus');
-        //     const saveMethod: ISaveMethodEvent = await this.eventService.getSaveMethod(tempEvent);
-        //     dataLoadQueue.push(
-        //         this.eventService.getAsusCategories(saveMethod).then((data) => {
-        //             this.asusCategories = data;
-        //         }),
-        //         this.eventService.getAsusWorkgroup(saveMethod).then((data) => {
-        //             this.asusWorkgroup = data;
-        //         }),
-        //         this.eventService.getAsusServices(saveMethod).then((data) => {
-        //             this.asusServices = data;
-        //         }),
-        //         this.eventService.getAsusUnits(saveMethod).then((data) => {
-        //             this.asusUnits = data;
-        //         }),
-        //     );
-        // }
         try {
             await Promise.all(dataLoadQueue);
         } catch {
