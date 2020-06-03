@@ -18,6 +18,19 @@
   display: flex;
   // overflow: auto;
   flex-direction: column;
+
+  &__blocks {
+    display: flex;
+    justify-content: space-between;
+    margin: 0 10px;
+
+    .block-left {
+      width: 100%;
+    }
+    .block-right {
+      width: 100%;
+    }
+  }
 }
 
 .control-block {
@@ -155,22 +168,23 @@ p {
 .block-top {
   display: flex;
 
-  margin-right: 20px;
-  margin-left: 15px;
-
   .calendar {
+    width: 100%;
     min-height: 385px;
     min-width: 350px;
+    margin-right: 10px;
   }
   .main-team {
+    width: 100%;
     min-height: 270px;
     min-width: 250px;
-    max-height: 316px;
-    margin-left: 20px;
+    margin-right: 10px;
 
     .title {
-      font-size: 15px;
+      font-size: 12px;
       padding: 15px 0;
+      color: var(--color-text-sub);
+      margin-left: 20px;
     }
     &__container {
       height: 100%;
@@ -184,6 +198,10 @@ p {
         overflow: auto;
         height: 100%;
         max-height: 350px;
+
+        &__item {
+          width: 100%;
+        }
       }
     }
   }
@@ -191,14 +209,13 @@ p {
 
 .block-bottom {
   display: flex;
-
-  margin-top: 20px;
-  margin-left: 15px;
-  margin-right: 20px;
+  margin-top: 10px;
 
   .duty-schedule {
+    width: 100%;
     min-height: 200px;
     min-width: 350px;
+    margin-right: 10px;
 
     position: relative;
 
@@ -220,27 +237,69 @@ p {
       font-size: 15px;
     }
     .date-today {
+      color: var(--color-text-sub);
       padding: 10px 18px;
     }
     .shift-today {
       display: flex;
       justify-content: space-between;
-      padding: 10px 18px;
+      padding: 8px 10px;
+      margin: 0 9px;
+      cursor: pointer;
+
       &-item {
         position: relative;
         width: 102px;
         text-align: end;
-        &:hover {
-          .icon-storage {
-            display: block;
+      }
+
+      &__icon-storage {
+        fill: var(--color-text-sub);
+
+        &-title {
+          fill: var(--color-active);
+
+          &:hover {
+            fill: var(--color-danger);
           }
         }
+
+        &:hover {
+          fill: var(--color-danger);
+        }
       }
+
       &--active {
-        background: url("./../../../../../assets/icons/widgets/admin-shift-schedule/border-shift.svg") no-repeat;
+        background-color: var(--color-bg-active);
+        border-radius: 5px;
+        position: relative;
+
+        &::before {
+          content: "";
+          left: -9px;
+          top: 0;
+          position: absolute;
+          width: 4px;
+          height: 33px;
+          border-radius: 11px;
+          background-color: var(--color-bg-active-bright);
+        }
+
+        &::after {
+          content: "";
+          right: -9px;
+          top: 0;
+          position: absolute;
+          width: 4px;
+          height: 33px;
+          border-radius: 11px;
+          background-color: var(--color-bg-active-bright);
+        }
       }
+
       &:hover {
-        background: url("./../../../../../assets/icons/widgets/admin-shift-schedule/border-shift.svg") no-repeat;
+        background-color: var(--color-bg-active);
+        border-radius: 5px;
       }
     }
 
@@ -308,6 +367,7 @@ p {
         }
       }
     }
+
     @keyframes slide {
       from {
         opacity: 0;
@@ -319,10 +379,10 @@ p {
   }
 
   .additional-team {
-    max-height: 300px;
+    width: 100%;
     min-height: 200px;
     min-width: 350px;
-    margin-left: 20px;
+    margin-right: 10px;
 
     .title {
       font-size: 15px;
@@ -332,6 +392,7 @@ p {
     &__container {
       max-height: 210px;
       overflow: auto;
+
       .list {
         list-style: none;
         margin: 0;
@@ -341,6 +402,10 @@ p {
         flex-wrap: wrap;
         overflow: auto;
         height: 100%;
+
+        &__item {
+          width: 100%;
+        }
       }
     }
   }
@@ -391,23 +456,4 @@ p {
 ::-webkit-resizer {
   background-color: var(--color-border-active);
   border-radius: 25px;
-}
-
-.icon-storage {
-  display: none;
-  position: absolute;
-  top: -12px;
-  right: -42px;
-  padding: 9px;
-  fill: var(--color-text-sub);
-  &-title {
-    fill: var(--color-active);
-    line-height: 52px;
-    &:hover {
-      fill: var(--color-danger);
-    }
-  }
-  &:hover {
-    fill: var(--color-danger);
-  }
 }

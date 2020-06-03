@@ -4,15 +4,25 @@
   background-repeat: no-repeat;
 }
 
-.calendar-red {
-  // background-color: rgb(241, 187, 187);
+.special-date {
+  background: url(assets\icons\widgets\admin-shift-schedule\calendar-active-orange.svg) center;
+  background-size: 77%;
+  background-repeat: no-repeat;
+}
 
+.calendar-red {
   .mat-calendar-header {
     padding: 0;
+    background-color: transparent !important;
   }
 
   .mat-calendar-controls {
-    margin-top: 5px;
+    margin-top: 0;
+  }
+
+  .mat-calendar-body-label,
+  .mat-calendar-period-button {
+    font-weight: normal;
   }
 
   .mat-calendar-content {

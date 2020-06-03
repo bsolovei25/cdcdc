@@ -1,39 +1,50 @@
-import { Component, OnInit, Input, ChangeDetectionStrategy } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { IAdminShiftUserBrigade } from '../../admin-shift-schedule.component';
 import { AdminShiftScheduleService } from 'src/app/dashboard/services/widgets/admin-shift-schedule.service';
+import { EventService } from '../../../../../services/widgets/event.service';
+import { IUser } from '../../../../../models/events-widget';
+import { AvatarConfiguratorService } from '../../../../../services/avatar-configurator.service';
 
 @Component({
-  selector: 'evj-admin-shift-info-employee',
-  templateUrl: './admin-shift-info-employee.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  styleUrls: ['./admin-shift-info-employee.component.scss']
+    selector: 'evj-admin-shift-info-employee',
+    templateUrl: './admin-shift-info-employee.component.html',
+    styleUrls: ['./admin-shift-info-employee.component.scss'],
 })
 export class AdminShiftInfoEmployeeComponent implements OnInit {
-  @Input() public data: IAdminShiftUserBrigade;
-  @Input() public type: string;
-  @Input() public star: boolean = false;
+    @Input() public data: IUser;
+    @Input() public garbage: boolean;
+    @Input() public star: boolean = false;
 
-  constructor(private adminShiftScheduleService: AdminShiftScheduleService) { }
+    photoPath: string = '';
 
-  ngOnInit(): void {
-  }
+    constructor(
+        private avatarConfiguratorService: AvatarConfiguratorService,
+        private adminShiftScheduleService: AdminShiftScheduleService
+    ) {}
 
-  delete(): void {
-    const windowsParam = {
-      isShow: true,
-      questionText: 'Вы уверены, что хотите удалить сотрудника?',
-      acceptText: 'Да',
-      cancelText: 'Нет',
-      acceptFunction: () => this.adminShiftScheduleService.closeAlert(),
-      closeFunction: () => {
-        this.adminShiftScheduleService.closeAlert();
-      }
-    };
-    this.adminShiftScheduleService.alertWindow$.next(windowsParam);
-  }
+    ngOnInit(): void {
+        this.loadItem();
+    }
 
-  changeStatus(): void {
+    delete(): void {
+        const windowsParam = {
+            isShow: true,
+            questionText: 'Вы уверены, что хотите удалить сотрудника?',
+            acceptText: 'Да',
+            cancelText: 'Нет',
+            acceptFunction: () => this.adminShiftScheduleService.closeAlert(),
+            closeFunction: () => {
+                this.adminShiftScheduleService.closeAlert();
+            },
+        };
+        this.adminShiftScheduleService.alertWindow$.next(windowsParam);
+    }
 
-  }
+    private async loadItem(): Promise<void> {
+        console.log(this.data);
 
+        this.photoPath = this.avatarConfiguratorService.getAvatarPath(this.data?.photoId);
+    }
+
+    changeStatus(): void {}
 }

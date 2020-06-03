@@ -1,106 +1,109 @@
 .employee-container {
-    position: relative;
-    font-size: 14px;
+  position: relative;
+  box-sizing: border-box;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  height: 45px;
+  width: 100%;
+  background-color: var(--color-aw-header-bg);
+  padding-left: 5px;
+  padding-right: 5px;
+
+  &__avatar {
+    border-radius: 50%;
+    margin-left: 18px;
+    margin-right: 15px;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background-repeat: no-repeat;
+    background-size: contain;
+
+    .icon {
+      height: 40px;
+      width: 35px;
+      //border: 0.5px solid var(--color-text-main);
+      clip-path: circle(45%);
+
+      ::ng-deep {
+        svg {
+          height: 100%;
+          width: 100%;
+        }
+      }
+    }
+  }
+
+  &__info {
+    width: calc(100% - 120px);
+
+    .fio {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .specialty {
+      color: var(--color-text-sub);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
+
+  &__brigade {
+    width: 80px;
+    height: 100%;
     display: flex;
+    justify-content: center;
     align-items: center;
-    height: 45px;
-    width: calc(100% - 10px);
-    background-color: var(--color-aw-header-bg);
-    border-top: 1px solid var(--color-bg-main);
-    padding-left: 5px;
-    padding-right: 5px;
+    font-size: 10px;
 
-    &__avatar {
-        width: 40px;
-        height: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-
-        .icon {
-            height: 40px;
-            width: 35px;
-            //border: 0.5px solid var(--color-text-main);
-            clip-path: circle(45%);
-
-            ::ng-deep {
-                svg {
-                    height: 100%;
-                    width: 100%;
-                }
-            }
-        }
+    .brigade {
+      height: 20px;
+      background: #003b64;
+      border-radius: 19px;
+      width: auto;
+      line-height: 20px;
+      padding-left: 5px;
+      padding-right: 5px;
     }
+  }
 
-    &__info {
-        width: calc(100% - 120px);
-
-        .fio {
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-
-        .specialty {
-            color: var(--color-text-sub);
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-    }
-
-    &__brigade {
-        width: 80px;
-        height: 100%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        font-size: 10px;
-
-        .brigade {
-            height: 20px;
-            background: #003b64;
-            border-radius: 19px;
-            width: auto;
-            line-height: 20px;
-            padding-left: 5px;
-            padding-right: 5px;
-        }
-    }
-
-    &__garbage {
-        cursor: pointer;
-        position: absolute;
-        right: 20px;
-
-        ::ng-deep svg {
-            fill: var(--color-text-main);
-        }
-
-        &:hover {
-            ::ng-deep svg {
-                fill: var(--color-active);
-            }
-        }
-    }
-
-    &__star {
-        display: none;
-    }
-}
-
-.star-active {
-    display: block;
+  &__garbage {
     cursor: pointer;
     position: absolute;
-    right: 55px;
+    right: 20px;
+
     ::ng-deep svg {
-        fill: var(--color-text-main);
+      fill: var(--color-text-main);
     }
 
     &:hover {
-        ::ng-deep svg {
-            fill: var(--color-active) !important;
-        }
+      ::ng-deep svg {
+        fill: var(--color-active);
+      }
     }
+  }
+
+  &__star {
+    display: none;
+  }
+}
+
+.star-active {
+  display: block;
+  cursor: pointer;
+  position: absolute;
+  right: 55px;
+  ::ng-deep svg {
+    fill: var(--color-text-main);
+  }
+
+  &:hover {
+    ::ng-deep svg {
+      fill: var(--color-active) !important;
+    }
+  }
 }

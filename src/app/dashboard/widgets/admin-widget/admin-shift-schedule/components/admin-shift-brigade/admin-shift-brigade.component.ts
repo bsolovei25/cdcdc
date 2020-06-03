@@ -35,7 +35,6 @@ export class AdminShiftBrigadeComponent implements OnInit {
   @Input() template: TemplateRef<any>;
   @Input() data: IAdminShiftUserBrigade[];
 
-
   public isOpen: boolean = true;
 
   constructor(private adminShiftScheduleService: AdminShiftScheduleService) { }

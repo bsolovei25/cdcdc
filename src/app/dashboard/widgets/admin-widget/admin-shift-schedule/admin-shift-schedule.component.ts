@@ -26,6 +26,7 @@ import { WidgetPlatform } from '../../../models/widget-platform';
 import { SnackBarService } from '../../../services/snack-bar.service';
 import { AdminShiftScheduleService } from '../../../services/widgets/admin-shift-schedule.service';
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
+import { trigger, transition, style, animate } from '@angular/animations';
 
 export interface IAdminShiftBrigade {
     id: number;
@@ -84,7 +85,6 @@ export class AdminShiftScheduleComponent extends WidgetPlatform
     @ViewChild('shiftOverlay') shiftOverlay: ElementRef<HTMLElement>;
     @ViewChild('calendar') calendar: MatCalendar<Date>;
 
-
     //Mock data
     public dataBrig: IAdminShiftBrigade[] = [
         {
@@ -96,7 +96,7 @@ export class AdminShiftScheduleComponent extends WidgetPlatform
                     specialty: 'Главный',
                     avatar: 'slesar',
                     brigade: 1,
-                }
+                },
             ],
             brigade: [
                 {
@@ -112,14 +112,15 @@ export class AdminShiftScheduleComponent extends WidgetPlatform
                     specialty: 'Слесарь АСУ ТП',
                     avatar: 'slesar',
                     brigade: 2,
-                }, {
+                },
+                {
                     id: 3,
                     fio: 'Иванов Иван Иванович',
                     specialty: 'Слесарь АСУ ТП',
                     avatar: 'slesar',
                     brigade: 3,
                 },
-            ]
+            ],
         },
         {
             id: 2,
@@ -130,7 +131,7 @@ export class AdminShiftScheduleComponent extends WidgetPlatform
                     specialty: 'Главный',
                     avatar: 'slesar',
                     brigade: 1,
-                }
+                },
             ],
             brigade: [
                 {
@@ -146,14 +147,15 @@ export class AdminShiftScheduleComponent extends WidgetPlatform
                     specialty: 'Слесарь АСУ ТП',
                     avatar: 'slesar',
                     brigade: 2,
-                }, {
+                },
+                {
                     id: 3,
                     fio: 'Иванов Иван Иванович',
                     specialty: 'Слесарь АСУ ТП',
                     avatar: 'slesar',
                     brigade: 3,
                 },
-            ]
+            ],
         },
         {
             id: 3,
@@ -164,7 +166,7 @@ export class AdminShiftScheduleComponent extends WidgetPlatform
                     specialty: 'Главный',
                     avatar: 'slesar',
                     brigade: 1,
-                }
+                },
             ],
             brigade: [
                 {
@@ -180,14 +182,15 @@ export class AdminShiftScheduleComponent extends WidgetPlatform
                     specialty: 'Слесарь АСУ ТП',
                     avatar: 'slesar',
                     brigade: 2,
-                }, {
+                },
+                {
                     id: 3,
                     fio: 'Иванов Иван Иванович',
                     specialty: 'Слесарь АСУ ТП',
                     avatar: 'slesar',
                     brigade: 3,
                 },
-            ]
+            ],
         },
         {
             id: 4,
@@ -198,7 +201,7 @@ export class AdminShiftScheduleComponent extends WidgetPlatform
                     specialty: 'Главный',
                     avatar: 'slesar',
                     brigade: 1,
-                }
+                },
             ],
             brigade: [
                 {
@@ -214,16 +217,17 @@ export class AdminShiftScheduleComponent extends WidgetPlatform
                     specialty: 'Слесарь АСУ ТП',
                     avatar: 'slesar',
                     brigade: 2,
-                }, {
+                },
+                {
                     id: 3,
                     fio: 'Иванов Иван Иванович',
                     specialty: 'Слесарь АСУ ТП',
                     avatar: 'slesar',
                     brigade: 3,
                 },
-            ]
+            ],
         },
-    ]
+    ];
     public dragUniqElem: IAdminShiftUserBrigade;
     public list: number[] = [0];
     public dataBrigLeft: IAdminShiftBrigade[] = [];
@@ -250,8 +254,8 @@ export class AdminShiftScheduleComponent extends WidgetPlatform
     }
 
     mapArrayBrigade(data): void {
-        data.forEach(el => {
-            this.list.push((el.id).toString());
+        data.forEach((el) => {
+            this.list.push(el.id.toString());
             if (el.id % 2 === 0) {
                 this.dataBrigLeft.push(el);
             } else {
@@ -259,11 +263,10 @@ export class AdminShiftScheduleComponent extends WidgetPlatform
             }
 
             /// mock push in arrayUserBrigade
-            el.brigade.forEach(item => {
+            el.brigade.forEach((item) => {
                 this.arrayUserBrigade.push(item);
-            })
+            });
         });
-
     }
 
     protected async dataConnect(): Promise<void> {
@@ -282,8 +285,7 @@ export class AdminShiftScheduleComponent extends WidgetPlatform
         super.ngOnDestroy();
     }
 
-    protected dataHandler(ref: any): void {
-    }
+    protected dataHandler(ref: any): void {}
 
     ngAfterContentChecked(): void {
         this.listenBtn();
@@ -298,6 +300,8 @@ export class AdminShiftScheduleComponent extends WidgetPlatform
             this.scheduleShiftMonth = [];
         }
     }
+
+    //#region  Calendar
 
     listenBtn(): void {
         this.buttons = document.querySelectorAll(
@@ -319,6 +323,58 @@ export class AdminShiftScheduleComponent extends WidgetPlatform
         }
     }
 
+    private async nextAndPreviousMonth(): Promise<void> {
+        if (this.calendar.activeDate !== this.dateNow) {
+            this.dateNow = this.calendar.activeDate;
+            this.reLoadDataMonth();
+        }
+    }
+
+    public dateClass(): (d: Date) => string {
+        return (date: Date) => {
+            let str: string = '';
+            this.scheduleShiftMonth.forEach((value) => {
+                if (
+                    date.getMonth() === new Date(value.date).getMonth() &&
+                    date.getDate() === new Date(value.date).getDate() &&
+                    date.getFullYear() === new Date(value.date).getFullYear()
+                ) {
+                    if (!value.isAllShiftsSet) {
+                        str = 'special-date';
+                    }
+                }
+            });
+            return str;
+        };
+    }
+
+    private async reLoadDataMonth(): Promise<void> {
+        this.isLoading = true;
+        try {
+            await this.adminShiftScheduleService
+                .getSchudeleShiftsMonth(
+                    this.selectedUnit.id,
+                    this.dateNow.getMonth() + 1,
+                    this.dateNow.getFullYear()
+                )
+                .then((data) => {
+                    if (data && data.length > 0) {
+                        this.scheduleShiftMonth = data;
+                        if (this.calendar) {
+                            this.calendar.updateTodaysDate();
+                        }
+                    } else {
+                        this.resetComponent();
+                    }
+                });
+        } catch (error) {
+            this.isLoading = false;
+        }
+        this.isLoading = false;
+    }
+
+    //#endregion
+
     // #region DATA API
 
     private async loadItem(): Promise<void> {
@@ -327,7 +383,7 @@ export class AdminShiftScheduleComponent extends WidgetPlatform
             try {
                 await this.adminShiftScheduleService.getUnits().then((data) => {
                     this.allUnits = data;
-                    this.selectedUnit = data?.[0];
+                    this.selectedUnit = data?.[2];
                 });
             } catch (error) {
                 console.error(error);
@@ -386,31 +442,6 @@ export class AdminShiftScheduleComponent extends WidgetPlatform
                     }
                 });
             });
-        } catch (error) {
-            this.isLoading = false;
-        }
-        this.isLoading = false;
-    }
-
-    private async reLoadDataMonth(): Promise<void> {
-        this.isLoading = true;
-        try {
-            await this.adminShiftScheduleService
-                .getSchudeleShiftsMonth(
-                    this.selectedUnit.id,
-                    this.dateNow.getMonth() + 1,
-                    this.dateNow.getFullYear()
-                )
-                .then((data) => {
-                    if (data && data.length > 0) {
-                        this.scheduleShiftMonth = data;
-                        if (this.calendar) {
-                            this.calendar.updateTodaysDate();
-                        }
-                    } else {
-                        this.resetComponent();
-                    }
-                });
         } catch (error) {
             this.isLoading = false;
         }
@@ -514,13 +545,6 @@ export class AdminShiftScheduleComponent extends WidgetPlatform
 
     // #region Methods
 
-    private async nextAndPreviousMonth(): Promise<void> {
-        if (this.calendar.activeDate !== this.dateNow) {
-            this.dateNow = this.calendar.activeDate;
-            this.reLoadDataMonth();
-        }
-    }
-
     public selectedMenu(event: boolean): void {
         this.isSelectMenu = event;
     }
@@ -529,13 +553,13 @@ export class AdminShiftScheduleComponent extends WidgetPlatform
         this.isLoading = true;
         this.resetComponent();
         this.openOverlay(null, null, false);
-        const idx = this.scheduleShiftMonth.findIndex(
-            (val) => {
-                return new Date(val.date).getFullYear() === new Date(event).getFullYear()
-                    && new Date(val.date).getDate() === new Date(event).getDate()
-                    && new Date(val.date).getMonth() === new Date(event).getMonth();
-            }
-        );
+        const idx = this.scheduleShiftMonth.findIndex((val) => {
+            return (
+                new Date(val.date).getFullYear() === new Date(event).getFullYear() &&
+                new Date(val.date).getDate() === new Date(event).getDate() &&
+                new Date(val.date).getMonth() === new Date(event).getMonth()
+            );
+        });
         if (idx !== -1) {
             const day = fillDataShape(this.scheduleShiftMonth[idx]);
             this.selectedDay = day;
@@ -546,9 +570,10 @@ export class AdminShiftScheduleComponent extends WidgetPlatform
                     .toDate()
             );
             const idxYesterday = this.scheduleShiftMonth.findIndex(
-                (val) => new Date(val.date).getFullYear() === new Date(yesterdayLocal).getFullYear()
-                    && new Date(val.date).getDate() === new Date(yesterdayLocal).getDate()
-                    && new Date(val.date).getMonth() === new Date(yesterdayLocal).getMonth()
+                (val) =>
+                    new Date(val.date).getFullYear() === new Date(yesterdayLocal).getFullYear() &&
+                    new Date(val.date).getDate() === new Date(yesterdayLocal).getDate() &&
+                    new Date(val.date).getMonth() === new Date(yesterdayLocal).getMonth()
             );
             if (idxYesterday !== -1) {
                 const yesterdayLocals = fillDataShape(this.scheduleShiftMonth[idxYesterday]);
@@ -575,24 +600,6 @@ export class AdminShiftScheduleComponent extends WidgetPlatform
         }
     }
 
-    public dateClass(): (d: Date) => string {
-        return (date: Date) => {
-            let str: string = '';
-            this.scheduleShiftMonth.forEach((value) => {
-                if (
-                    date.getMonth() === new Date(value.date).getMonth() &&
-                    date.getDate() === new Date(value.date).getDate() &&
-                    date.getFullYear() === new Date(value.date).getFullYear()
-                ) {
-                    if (!value.isAllShiftsSet) {
-                        str = 'special-date';
-                    }
-                }
-            });
-            return str;
-        };
-    }
-
     public filterShiftMembers(shiftMembers: IShiftMember[]): IShiftMember[] {
         this.brigadesSubstitution.users.forEach((user) => {
             shiftMembers = shiftMembers.filter((member) => member?.employee?.id !== user?.id);
@@ -617,19 +624,21 @@ export class AdminShiftScheduleComponent extends WidgetPlatform
         };
     }
 
-    drop(event: CdkDragDrop<string[]>) {
+    drop(event: CdkDragDrop<string[]>): void {
         if (event.container.id === event.previousContainer.id) {
-            const brig = this.dataBrig.findIndex(e => (e.id).toString() === event.container.id);
+            const brig = this.dataBrig.findIndex((e) => e.id.toString() === event.container.id);
             //  moveItemInArray(this.list[brig].brigade, event.previousIndex, event.currentIndex);
         } else {
-            const brigadeIndex = this.dataBrig.findIndex(e => (e.id).toString() === event.container.id);
+            const brigadeIndex = this.dataBrig.findIndex(
+                (e) => e.id.toString() === event.container.id
+            );
             this.dataBrig[brigadeIndex].brigade.push(this.dragUniqElem);
         }
     }
 
-    dragStart(event, id) {
+    dragStart(event, id): void {
         //this.dragUniqElem = this.dataBrig[event.source.dropContainer.id].brigade.find(el => el.id === id);
-        this.dragUniqElem = this.arrayUserBrigade.find(el => el.id === id);
+        this.dragUniqElem = this.arrayUserBrigade.find((el) => el.id === id);
     }
 
     // #endregion
