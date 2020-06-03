@@ -2,7 +2,6 @@ import {
     Component,
     OnInit,
     Input,
-    AfterViewInit,
     ChangeDetectionStrategy,
     OnChanges
 } from '@angular/core';

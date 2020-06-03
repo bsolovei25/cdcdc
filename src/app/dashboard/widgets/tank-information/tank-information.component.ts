@@ -127,8 +127,4 @@ export class TankInformationComponent extends WidgetPlatform implements OnInit, 
         }
         this.isFilterTable = event.close;
     }
-
-    private checkWsData(): ITankInformationDtoFn {
-        return;
-    }
 }
