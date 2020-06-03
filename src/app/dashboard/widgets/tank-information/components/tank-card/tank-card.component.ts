@@ -22,11 +22,7 @@ export class TankCardComponent implements OnInit, OnChanges {
     public heightCard: number;
     public heightValue: number = 20;
 
-<<<<<<< Updated upstream
-    public readonly operation: any = {
-=======
     operation = {
->>>>>>> Stashed changes
         filling: 'Заполнение',
         shipment: 'Отгрузка',
         standart: 'Без изменений',
@@ -39,14 +35,6 @@ export class TankCardComponent implements OnInit, OnChanges {
         work: 'В работе'
     };
 
-<<<<<<< Updated upstream
-    constructor(private tooltipService: TooltipService) { }
-
-    ngOnChanges(): void {
-        this.heightCard = (this.data.attributes.length) * this.heightValue + 40;
-        this.tooltipService.close();
-    }
-=======
     constructor(private tooltipService: TooltipService) {
     }
 
@@ -62,8 +50,5 @@ export class TankCardComponent implements OnInit, OnChanges {
 
     ngOnInit(): void {
     }
->>>>>>> Stashed changes
 
-    ngOnInit(): void {
-    }
 }
