@@ -9,7 +9,8 @@
               panelClass="mat-select-custom"
               [(ngModel)]="ewService.event.category"
               [compareWith]="compareFn"
-              [disabled]="true"
+              [disabled]="!ewService.isCreateNewEvent"
+              (selectionChange)="ewService.changeCategory()"
             >
               <mat-option *ngFor="let cat of ewService.category" [value]="cat">
                 {{ ewService.categories[cat.name] }}

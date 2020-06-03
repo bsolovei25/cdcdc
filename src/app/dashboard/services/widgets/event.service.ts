@@ -248,7 +248,7 @@ export class EventService {
                     .toPromise();
             }
             return this.http
-                .get<IAsusWorkgroup[]>(saveMethod.data.url + '/api/asus-events/api/References/workgroup', saveMethod.options)
+                .get<IAsusWorkgroup[]>(saveMethod.data.url + '/api/References/workgroup', saveMethod.options)
                 .toPromise();
         } catch (error) {
             console.error(error);
@@ -263,7 +263,7 @@ export class EventService {
                     .toPromise();
             }
             return this.http
-                .get<IAsusService[]>(saveMethod.data.url + '/api/asus-events//api/References/services', saveMethod.options)
+                .get<IAsusService[]>(saveMethod.data.url + '/api/references/services', saveMethod.options)
                 .toPromise();
         } catch (error) {
             console.error(error);
@@ -278,7 +278,7 @@ export class EventService {
                     .toPromise();
             }
             return this.http
-                .get<IAsusTmPlace[]>(saveMethod.data.url + 'api/references/tmplaces', saveMethod.options)
+                .get<IAsusTmPlace[]>(saveMethod.data.url + '/api/references/tmplaces', saveMethod.options)
                 .toPromise();
         } catch (error) {
             console.error(error);
@@ -293,7 +293,7 @@ export class EventService {
                     .toPromise();
             }
             return this.http
-                .get<IAsusTpPlace[]>(saveMethod.data.url + `api/references/tplaces?tmSapCode=${codeSap}`, saveMethod.options)
+                .get<IAsusTpPlace[]>(saveMethod.data.url + `/api/references/tplaces?tmSapCode=${codeSap}`, saveMethod.options)
                 .toPromise();
         } catch (error) {
             console.error(error);
@@ -308,7 +308,7 @@ export class EventService {
                     .toPromise();
             }
             return this.http
-                .get<IAsusEOService[]>(saveMethod.data.url + `api/references/eoservice?tpSapCode=${codeSap}`, saveMethod.options)
+                .get<IAsusEOService[]>(saveMethod.data.url + `/api/references/eoservice?tpSapCode=${codeSap}`, saveMethod.options)
                 .toPromise();
         } catch (error) {
             console.error(error);
