@@ -216,7 +216,7 @@ export class OilOperationsComponent extends WidgetPlatform implements OnInit, On
     };
 
     constructor(
-        private widgetService: WidgetService,
+        protected widgetService: WidgetService,
         private oilOperationService: OilOperationsService,
         @Inject('isMock') public isMock: boolean,
         @Inject('widgetId') public id: string,
@@ -245,9 +245,19 @@ export class OilOperationsComponent extends WidgetPlatform implements OnInit, On
         );
     }
 
+    // TODO вынести проверку на null в сервис
     private onDatesChange(dates: IDatesInterval): void {
+        if (!dates) {
+            dates = {
+                fromDateTime: new Date(),
+                toDateTime: new Date()
+            };
+            dates.toDateTime.setHours(23, 59, 59);
+            dates.fromDateTime.setHours(0, 0, 0);
+        }
         this.currentDates = dates;
-        this.oilOperationService.getTransferList(this.currentDates);
+        console.log(this.currentDates);
+        // this.oilOperationService.getTransferList(this.currentDates);
     }
 
     ngOnDestroy(): void {

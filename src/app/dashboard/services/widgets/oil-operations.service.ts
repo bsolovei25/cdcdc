@@ -2,9 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { IDatesInterval, WidgetService } from '../widget.service';
 import { AppConfigService } from '../../../services/appConfigService';
-import { Interface } from 'readline';
 
-interface IOilOperationTransfer {
+interface IOilOperationTransferRest {
     id: number;
     tank: {
         id: string,
@@ -45,9 +44,9 @@ export class OilOperationsService {
         this.restUrl = configService.restUrl;
     }
 
-    public async getTransferList(dates: IDatesInterval, group: string = null, product: string = null): Promise<any> {
+    public async getTransferList(dates: IDatesInterval, group: string = null, product: string = null): Promise<IOilOperationTransferRest> {
         const query = this.getFilterString(dates.fromDateTime, dates.toDateTime, group, product);
-
+        return await this.getTransferListRequest(query);
     }
 
     private getFilterString(
@@ -60,7 +59,7 @@ export class OilOperationsService {
             return null;
         }
         let requestQuery: string =
-            `?startTime=${startTime}` +
+            `?startTime=${startTime.toISOString()}` +
             `&endTime=${endTime}`;
         if (group) {
             requestQuery += `&group=${group}`;
@@ -71,7 +70,9 @@ export class OilOperationsService {
         return requestQuery;
     }
 
-    private async getTransferListRequest(query: string): Promise<any> {
-        return;
+    private async getTransferListRequest(query: string): Promise<IOilOperationTransferRest> {
+        return this.http
+            .get<IOilOperationTransferRest>(`${this.restUrl}/api/OilControl/transfer${query}`)
+            .toPromise();
     }
 }
