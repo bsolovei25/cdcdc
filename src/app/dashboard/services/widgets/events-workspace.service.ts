@@ -459,7 +459,12 @@ export class EventsWorkspaceService {
                 }),
             );
         }
-        await Promise.all(dataLoadQueue);
+        try {
+            await Promise.all(dataLoadQueue);
+        } catch {
+            console.warn('Promise.allSettled');
+        }
+
     }
 
     public closeSearchWindow(): void {

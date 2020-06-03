@@ -82,7 +82,7 @@
   <div class="workspace__column column column_right">
     <div class="column__row row">
       <div class="row__cell cell cell_left events-icons">
-        <evj-events-smotr-icon [iconType]="'escalate'" [counter]="this.ewService.event.deviationData?.escalateLevelNumber"></evj-events-smotr-icon>
+        <evj-events-smotr-icon [matTooltip]="'Уровень эскалации'" [iconType]="'escalate'" [counter]="this.ewService.event.deviationData?.escalateLevelNumber"></evj-events-smotr-icon>
         <evj-events-smotr-icon [iconType]="'critical'" [isCritical]="this.ewService.event.deviationData?.isCritical"></evj-events-smotr-icon>
         <evj-events-smotr-icon [iconType]="'repeat'" [counter]="this.ewService.event.deviationData?.iteration"></evj-events-smotr-icon>
       </div>
