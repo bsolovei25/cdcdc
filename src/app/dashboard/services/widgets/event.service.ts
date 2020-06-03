@@ -233,7 +233,7 @@ export class EventService {
                     .toPromise();
             }
             return this.http
-                .get<IAsusCategories[]>(saveMethod.data.url + '/api/asus-events/category', saveMethod.options)
+                .get<IAsusCategories[]>(saveMethod.data.url + '/api/references/category', saveMethod.options)
                 .toPromise();
         } catch (error) {
             console.error(error);
@@ -248,7 +248,7 @@ export class EventService {
                     .toPromise();
             }
             return this.http
-                .get<IAsusWorkgroup[]>(saveMethod.data.url + '/api/References/workgroup', saveMethod.options)
+                .get<IAsusWorkgroup[]>(saveMethod.data.url + '/api/references/workgroup', saveMethod.options)
                 .toPromise();
         } catch (error) {
             console.error(error);
