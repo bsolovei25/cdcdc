@@ -9,33 +9,32 @@ import { TooltipService } from '@shared/components/tooltip/service/tooltip.servi
   styleUrls: ['./tank-card.component.scss']
 })
 export class TankCardComponent implements OnInit, OnChanges {
-  @Input() public data: ITankCardValue;
-  @Input() public idLine: ITankCardValue;
+    @Input() public data: ITankCardValue;
+    @Input() public idLine: ITankCardValue;
 
-  public heightCard: number;
-  public heightValue: number = 20;
+    public heightCard: number;
+    public heightValue: number = 20;
 
-  operation = {
-    filling: "Заполнение",
-    shipment: "Отгрузка",
-    standart: "Без изменений",
-    unknown: 'Неизвестно',
-    in: 'Налив',
-    out: 'Слив',
-    repair: 'Ремонт',
-    hold: 'Отстой',
-    inOut: 'Проток',
-    work: 'В работе'
-  };
+    public readonly operation: any = {
+        filling: 'Заполнение',
+        shipment: 'Отгрузка',
+        standart: 'Без изменений',
+        unknown: 'Неизвестно',
+        in: 'Налив',
+        out: 'Слив',
+        repair: 'Ремонт',
+        hold: 'Отстой',
+        inOut: 'Проток',
+        work: 'В работе'
+    };
 
-  constructor(private tooltipService: TooltipService) { }
+    constructor(private tooltipService: TooltipService) { }
 
-  ngOnChanges(): void {
-    this.heightCard = (this.data.attributes.length) * this.heightValue + 40;
-    this.tooltipService.close();
-  }
+    ngOnChanges(): void {
+        this.heightCard = (this.data.attributes.length) * this.heightValue + 40;
+        this.tooltipService.close();
+    }
 
-  ngOnInit(): void {
-  }
-
+    ngOnInit(): void {
+    }
 }
