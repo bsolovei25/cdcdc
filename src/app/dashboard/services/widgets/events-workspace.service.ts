@@ -137,6 +137,7 @@ export class EventsWorkspaceService {
         this.event = { ...this.defaultEvent, ...this.event };
         const dataLoadQueue: Promise<void>[] = [];
         if (this.event.category.name === 'asus') {
+            await this.asusReferencesLoad();
             const saveMethod = await this.eventService.getSaveMethod(this.event);
             dataLoadQueue.push(
                 this.eventService.getAsusEquipments(this.event.asusEvent.tmPlace, saveMethod).then((data) => {
@@ -440,29 +441,44 @@ export class EventsWorkspaceService {
                 this.smotrReference = data;
             }),
         );
-        if (this.event) {
-            const tempEvent = { ...this.event };
-            tempEvent.category = this.category.find((c) => c.name === 'asus');
-            const saveMethod: ISaveMethodEvent = await this.eventService.getSaveMethod(tempEvent);
-            dataLoadQueue.push(
-                this.eventService.getAsusCategories(saveMethod).then((data) => {
-                    this.asusCategories = data;
-                }),
-                this.eventService.getAsusWorkgroup(saveMethod).then((data) => {
-                    this.asusWorkgroup = data;
-                }),
-                this.eventService.getAsusServices(saveMethod).then((data) => {
-                    this.asusServices = data;
-                }),
-                this.eventService.getAsusUnits(saveMethod).then((data) => {
-                    this.asusUnits = data;
-                }),
-            );
+        try {
+            await Promise.all(dataLoadQueue);
+        } catch {
+            console.warn('Promise.allSettled');
         }
-        await Promise.all(dataLoadQueue);
     }
 
     public closeSearchWindow(): void {
         this.searchWindow$.next(null);
+    }
+
+    private async asusReferencesLoad(): Promise<void> {
+        const dataLoadQueue: Promise<void>[] = [];
+        const saveMethod: ISaveMethodEvent = await this.eventService.getSaveMethod(this.event);
+        dataLoadQueue.push(
+            this.eventService.getAsusCategories(saveMethod).then((data) => {
+                this.asusCategories = data;
+            }),
+            this.eventService.getAsusWorkgroup(saveMethod).then((data) => {
+                this.asusWorkgroup = data;
+            }),
+            this.eventService.getAsusServices(saveMethod).then((data) => {
+                this.asusServices = data;
+            }),
+            this.eventService.getAsusUnits(saveMethod).then((data) => {
+                this.asusUnits = data;
+            }),
+        );
+        try {
+            await Promise.all(dataLoadQueue);
+        } catch {
+            console.warn('Promise.allSettled');
+        }
+    }
+
+    public async changeCategory(): Promise<void> {
+        if (this.event.category.name === 'asus') {
+            await this.asusReferencesLoad();
+        }
     }
 }
