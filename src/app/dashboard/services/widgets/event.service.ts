@@ -87,11 +87,17 @@ export class EventService {
         }
     }
 
-    getSaveMethod(event: EventsWidgetNotification): Promise<ISaveMethodEvent> {
+    async getSaveMethod(event: EventsWidgetNotification): Promise<ISaveMethodEvent> {
         try {
-            return this.http
+            const saveMethod: ISaveMethodEvent = await this.http
                 .post<ISaveMethodEvent>(`${this.restUrl}/api/notifications/save-method`, event)
                 .toPromise();
+            saveMethod.options = {
+                headers: new HttpHeaders({
+                    AuthenticationType:  saveMethod.data.authenticationType,
+                })
+            };
+            return saveMethod;
         } catch (error) {
             console.error(error);
         }
@@ -99,12 +105,7 @@ export class EventService {
 
     async postEvent(body: EventsWidgetNotification, saveMethod: ISaveMethodEvent): Promise<any> {
         try {
-            const options = {
-                headers: new HttpHeaders({
-                    AuthenticationType:  saveMethod.data.authenticationType,
-                })
-            };
-            return this.http.post(`${saveMethod.data.url}/api/notifications`, body, options).toPromise();
+            return this.http.post(`${saveMethod.data.url}/api/notifications`, body, saveMethod.options).toPromise();
         } catch (error) {
             console.error(error);
         }
@@ -120,12 +121,7 @@ export class EventService {
 
     async putEvent(body: EventsWidgetNotification, saveMethod: ISaveMethodEvent): Promise<any> {
         try {
-            const options = {
-                headers: new HttpHeaders({
-                    AuthenticationType:  saveMethod.data.authenticationType,
-                })
-            };
-            return this.http.put(`${saveMethod.data.url}/api/notifications/${body.id}`, body, options).toPromise();
+            return this.http.put(`${saveMethod.data.url}/api/notifications/${body.id}`, body, saveMethod.options).toPromise();
         } catch (error) {
             console.error(error);
         }
@@ -229,7 +225,7 @@ export class EventService {
         }
     }
 
-    async getAsusCategories(): Promise<IAsusCategories[]> {
+    async getAsusCategories(saveMethod: ISaveMethodEvent): Promise<IAsusCategories[]> {
         try {
             if (!this.isDomenAuth) {
                 return this.http
@@ -237,14 +233,14 @@ export class EventService {
                     .toPromise();
             }
             return this.http
-                .get<IAsusCategories[]>(this.restUrl + '/api/asus-events/category')
+                .get<IAsusCategories[]>(saveMethod.data.url + '/api/asus-events/category', saveMethod.options)
                 .toPromise();
         } catch (error) {
             console.error(error);
         }
     }
 
-    async getAsusWorkgroup(): Promise<IAsusWorkgroup[]> {
+    async getAsusWorkgroup(saveMethod: ISaveMethodEvent): Promise<IAsusWorkgroup[]> {
         try {
             if (!this.isDomenAuth) {
                 return this.http
@@ -252,14 +248,14 @@ export class EventService {
                     .toPromise();
             }
             return this.http
-                .get<IAsusWorkgroup[]>(this.restUrl + '/api/asus-events/api/References/workgroup')
+                .get<IAsusWorkgroup[]>(saveMethod.data.url + '/api/asus-events/api/References/workgroup', saveMethod.options)
                 .toPromise();
         } catch (error) {
             console.error(error);
         }
     }
 
-    async getAsusServices(): Promise<IAsusService[]> {
+    async getAsusServices(saveMethod: ISaveMethodEvent): Promise<IAsusService[]> {
         try {
             if (!this.isDomenAuth) {
                 return this.http
@@ -267,14 +263,14 @@ export class EventService {
                     .toPromise();
             }
             return this.http
-                .get<IAsusService[]>(this.restUrl + '/api/asus-events//api/References/services')
+                .get<IAsusService[]>(saveMethod.data.url + '/api/asus-events//api/References/services', saveMethod.options)
                 .toPromise();
         } catch (error) {
             console.error(error);
         }
     }
 
-    async getAsusUnits(): Promise<IAsusTmPlace[]> {
+    async getAsusUnits(saveMethod: ISaveMethodEvent): Promise<IAsusTmPlace[]> {
         try {
             if (!this.isDomenAuth) {
                 return this.http
@@ -282,14 +278,14 @@ export class EventService {
                     .toPromise();
             }
             return this.http
-                .get<IAsusTmPlace[]>(this.restUrl + 'api/references/tmplaces')
+                .get<IAsusTmPlace[]>(saveMethod + 'api/references/tmplaces', saveMethod.options)
                 .toPromise();
         } catch (error) {
             console.error(error);
         }
     }
 
-    async getAsusEquipments(codeSap: string): Promise<IAsusTpPlace[]> {
+    async getAsusEquipments(codeSap: string, saveMethod: ISaveMethodEvent): Promise<IAsusTpPlace[]> {
         try {
             if (!this.isDomenAuth) {
                 return this.http
@@ -297,14 +293,14 @@ export class EventService {
                     .toPromise();
             }
             return this.http
-                .get<IAsusTpPlace[]>(this.restUrl + `api/references/tplaces?tmSapCode=${codeSap}`)
+                .get<IAsusTpPlace[]>(saveMethod.data.url + `api/references/tplaces?tmSapCode=${codeSap}`, saveMethod.options)
                 .toPromise();
         } catch (error) {
             console.error(error);
         }
     }
 
-    async getAsusEOServices(codeSap: string): Promise<IAsusEOService[]> {
+    async getAsusEOServices(codeSap: string, saveMethod: ISaveMethodEvent): Promise<IAsusEOService[]> {
         try {
             if (!this.isDomenAuth) {
                 return this.http
@@ -312,7 +308,7 @@ export class EventService {
                     .toPromise();
             }
             return this.http
-                .get<IAsusEOService[]>(this.restUrl + `api/references/eoservice?tpSapCode=${codeSap}`)
+                .get<IAsusEOService[]>(saveMethod.data.url + `api/references/eoservice?tpSapCode=${codeSap}`, saveMethod.options)
                 .toPromise();
         } catch (error) {
             console.error(error);
