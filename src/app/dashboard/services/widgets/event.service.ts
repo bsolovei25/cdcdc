@@ -278,7 +278,7 @@ export class EventService {
                     .toPromise();
             }
             return this.http
-                .get<IAsusTmPlace[]>(saveMethod + 'api/references/tmplaces', saveMethod.options)
+                .get<IAsusTmPlace[]>(saveMethod.data.url + 'api/references/tmplaces', saveMethod.options)
                 .toPromise();
         } catch (error) {
             console.error(error);

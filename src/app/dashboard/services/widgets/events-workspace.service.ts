@@ -24,6 +24,10 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { IAlertWindowModel } from '@shared/models/alert-window.model';
 import { filter, map } from 'rxjs/operators';
 
+declare interface PromiseConstructor {
+    allSettled(promises: Array<Promise<any>>): Promise<Array<{status: 'fulfilled' | 'rejected', value?: any, reason?: any}>>;
+}
+
 @Injectable({
     providedIn: 'root',
 })
