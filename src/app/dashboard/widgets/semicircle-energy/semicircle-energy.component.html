@@ -339,7 +339,7 @@
           >
             {{ production.name }}
           </div>
-          <div class="row numbers">{{ production.plan | number: "1.4-4" }}</div>
+          <div class="row numbers">{{ roundValues(production.plan) }}</div>
           <div
             class="row numbers numbers-fact"
             [ngClass]="{
@@ -348,7 +348,7 @@
                 (production.fact / production.plan) * 100 > upperLimit
             }"
           >
-            {{ production.fact | number: "1.4-4" }}
+            {{ roundValues(production.fact) }}
           </div>
         </div>
       </div>

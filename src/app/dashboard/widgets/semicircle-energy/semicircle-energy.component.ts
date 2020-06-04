@@ -35,8 +35,8 @@ export class SemicircleEnergyComponent extends WidgetPlatform implements OnInit,
     productionList: Production[] = [
         {
             name: '',
-            plan: 0,
-            fact: 0,
+            plan: 106886,
+            fact: 54789,
         },
         {
             name: '',
@@ -162,6 +162,12 @@ export class SemicircleEnergyComponent extends WidgetPlatform implements OnInit,
             }
             this.isWarning = false;
         }
+    }
+
+    roundValues(value: number): string {
+        const str = value.toString().split('.')[0];
+        const maxSymbols = 6;
+        return str.length >= maxSymbols ? value.toFixed(0) : value.toFixed(maxSymbols - str.length);
     }
 
     /* Отрисовка дуговых диаграмм */
