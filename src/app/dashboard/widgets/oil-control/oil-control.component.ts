@@ -32,7 +32,6 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, OnDes
 
     public previewTitle: string;
 
-
     public data: OilProducts[] = [
         // {
         //     name: 'ДТ сорт F',
@@ -429,7 +428,6 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, OnDes
         //                             tankDetailType: "massFromTankEson",
         //                         },
         //                     ],
-
         //                 },
         //             ],
         //         },
@@ -753,7 +751,6 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, OnDes
         //                             tankDetailType: "massFromTankEson",
         //                         },
         //                     ],
-
         //                 },
         //             ],
         //         },
@@ -1086,7 +1083,6 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, OnDes
         //                             status: 'normal',
         //                         },
         //                     ],
-
         //                 },
         //                 {
         //                     timeStart: '02:03:20',
@@ -1129,7 +1125,6 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, OnDes
         //                             status: 'normal',
         //                         },
         //                     ],
-
         //                 },
         //             ],
         //         },
@@ -1145,18 +1140,15 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, OnDes
         //                     shipped: true,
         //                     value: 528,
         //                 },
-
         //                 {
         //                     nameTanker: 'Tube',
         //                     shipped: true,
         //                     value: 528,
-
         //                 },
         //                 {
         //                     nameTanker: 'Cistern',
         //                     shipped: false,
         //                     value: 528,
-
         //                 },
         //             ],
         //             operations: [
@@ -1201,7 +1193,6 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, OnDes
         //                             tankDetailType: "massFromTankEson",
         //                         },
         //                     ],
-
         //                 },
         //             ],
         //         },
@@ -1270,7 +1261,6 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, OnDes
         //                             status: 'normal',
         //                         },
         //                     ],
-
         //                 },
         //             ],
         //         },
@@ -1348,7 +1338,6 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, OnDes
         //                             status: 'normal',
         //                         },
         //                     ],
-
         //                 },
         //                 {
         //                     timeStart: '02:03:20',
@@ -1391,7 +1380,6 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, OnDes
         //                             status: 'normal',
         //                         },
         //                     ],
-
         //                 },
         //             ],
         //         },
@@ -1401,25 +1389,21 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, OnDes
         //             valueStorage: 10253,
         //             status: 'normal',
         //             tankLevel: 10,
-
         //             tankers: [
         //                 {
         //                     nameTanker: 'Tug',
         //                     shipped: true,
         //                     value: 528,
-
         //                 },
         //                 {
         //                     nameTanker: 'Tube',
         //                     shipped: true,
         //                     value: 528,
-
         //                 },
         //                 {
         //                     nameTanker: 'Cistern',
         //                     shipped: false,
         //                     value: 528,
-
         //                 },
         //             ],
         //             operations: [
@@ -1478,19 +1462,16 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, OnDes
         //                     nameTanker: 'bus',
         //                     shipped: true,
         //                     value: 528,
-
         //                 },
         //                 {
         //                     nameTanker: 'pipe',
         //                     shipped: false,
         //                     value: 528,
-
         //                 },
         //                 {
         //                     nameTanker: 'train',
         //                     shipped: false,
         //                     value: 528,
-
         //                 },
         //             ],
         //             operations: [
@@ -1535,14 +1516,12 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, OnDes
         //                             status: 'normal',
         //                         },
         //                     ],
-
         //                 },
         //             ],
         //         },
         //     ],
         // },
     ];
-
 
     storageXY: IOilControlCoords[] = [
         {
@@ -1653,8 +1632,8 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, OnDes
     tankersName = {
         shipAvto: 'Авто',
         shipTrain: 'Поезд',
-        shipTube: 'Труба'
-    }
+        shipTube: 'Труба',
+    };
 
     constructor(
         public widgetService: WidgetService,
@@ -1687,6 +1666,8 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, OnDes
     }
 
     protected dataHandler(ref: any): void {
+        console.log(ref);
+
         this.drawOilControlSocket(ref);
     }
 
@@ -1707,7 +1688,6 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, OnDes
         if (this.svgMenu) {
             this.clearProduct();
             this.tankersPicture.remove();
-
         }
         if (this.svgLine) {
             this.svgLine.remove();
@@ -1804,7 +1784,11 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, OnDes
                     .append('image')
                     .attr(
                         'xlink:href',
-                        item.nameTanker === 'shipTrain' ? tug : item.nameTanker === 'shipTube' ? tube : cis
+                        item.nameTanker === 'shipTrain'
+                            ? tug
+                            : item.nameTanker === 'shipTube'
+                            ? tube
+                            : cis
                     )
                     .attr('height', '50px')
                     .attr('width', '60px')
@@ -1841,7 +1825,9 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, OnDes
             }
         }
 
-        if (isShipped) { this.drawLine(this.line?.nativeElement, countPicture); }
+        if (isShipped) {
+            this.drawLine(this.line?.nativeElement, countPicture);
+        }
     }
 
     public drawLine(el, count): void {
@@ -2117,7 +2103,34 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, OnDes
 
                             this.indexData = indexProducts;
                         } else {
-                            let valueBadText = svgMenu
+                            function nameSlicer(name: string, maxStrLen: number): string[] {
+                                if (name.length <= maxStrLen) {
+                                    return [name];
+                                } else if (name.search(' ') > maxStrLen) {
+                                    return [`${name.slice(0, maxStrLen - 3)}...`];
+                                }
+                                const str =
+                                    name.length > maxStrLen * 2 - 3
+                                        ? `${name.slice(0, maxStrLen * 2).trim()}`
+                                        : name;
+                                const splitSpaceIndex = str.split('').reduce((acc, item, index) => {
+                                    return item === ' ' &&
+                                        Math.abs(maxStrLen - index) < Math.abs(maxStrLen - acc)
+                                        ? index
+                                        : acc;
+                                }, 0);
+                                const firstStr = str.slice(0, splitSpaceIndex);
+                                let secondStr = str.slice(splitSpaceIndex + 1);
+                                if (secondStr.length > maxStrLen) {
+                                    secondStr = `${secondStr.slice(0, maxStrLen - 3).trim()}...`;
+                                }
+                                return [firstStr, secondStr];
+                            }
+
+                            // НАЗВАНИЕ АКТИВНОГО ПРОДУКТА
+                            const nameRows = nameSlicer(textProduct.name, 17);
+                            const textPadding = nameRows.length > 1 ? -10 : 0;
+                            svgMenu
                                 .append('text')
                                 .attr(
                                     'font-family',
@@ -2125,11 +2138,27 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, OnDes
                                 )
                                 .attr('font-size', '25px')
                                 .attr('x', pie.x)
-                                .attr('y', pie.y)
+                                .attr('y', pie.y + textPadding)
                                 .attr('text-anchor', 'middle')
                                 .attr('fill', 'white')
                                 .attr('class', 'textProduct')
-                                .text(textProduct.name);
+                                .text(nameRows[0]);
+
+                            if (nameRows.length > 1) {
+                                svgMenu
+                                    .append('text')
+                                    .attr(
+                                        'font-family',
+                                        "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;"
+                                    )
+                                    .attr('font-size', '25px')
+                                    .attr('x', pie.x)
+                                    .attr('y', pie.y + 30 + textPadding)
+                                    .attr('text-anchor', 'middle')
+                                    .attr('fill', 'white')
+                                    .attr('class', 'textProduct')
+                                    .text(nameRows[1]);
+                            }
 
                             let middleText2 = svgMenu
                                 .append('text')
@@ -2147,6 +2176,12 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, OnDes
                             this.indexData = indexProducts;
                         }
                     } else {
+                        function nameSlicer(name: string, maxStrLen: number): string {
+                            return name.length > maxStrLen
+                                ? `${name.slice(0, maxStrLen - 3).trim()}...`
+                                : name;
+                        }
+
                         let valueGoodText = svgMenu
                             .append('text')
                             .attr('font-family', "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
@@ -2157,7 +2192,7 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, OnDes
                             .attr('fill', '#a2e2ff')
                             .attr('cursor', 'pointer')
                             .attr('class', 'textProduct')
-                            .text(textProduct.name)
+                            .text(nameSlicer(textProduct.name, 17))
                             .on('click', () => {
                                 this.onButtonChangeProduct(textProduct.name);
                                 this.countClickChangeStorage = 0;
@@ -2268,18 +2303,33 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, OnDes
         let newProduct: number;
         if (this.countClickChange === 0 && !this.checkSocket) {
             this.changeMassiv(index, this.data);
-            newProduct = this.findAndFilterProduct(this.newArrayProduct, index, this.indexTestStorage);
+            newProduct = this.findAndFilterProduct(
+                this.newArrayProduct,
+                index,
+                this.indexTestStorage
+            );
             this.countClickChange++;
         } else if (this.checkSocket && this.countClickChange === 0) {
             this.newArrayProduct = this.data;
-            newProduct = this.findAndFilterProduct(this.newArrayProduct, index, this.indexTestStorage);
+            newProduct = this.findAndFilterProduct(
+                this.newArrayProduct,
+                index,
+                this.indexTestStorage
+            );
         } else if (this.checkSocket) {
             this.changeMassiv(index, this.data);
-            newProduct = this.findAndFilterProduct(this.newArrayProduct, index, this.indexTestStorage);
-
+            newProduct = this.findAndFilterProduct(
+                this.newArrayProduct,
+                index,
+                this.indexTestStorage
+            );
         } else {
             this.changeMassiv(index, this.newArrayProduct);
-            newProduct = this.findAndFilterProduct(this.newArrayProduct, index, this.indexTestStorage);
+            newProduct = this.findAndFilterProduct(
+                this.newArrayProduct,
+                index,
+                this.indexTestStorage
+            );
         }
         this.drawOnCircle(
             this.oilCircle?.nativeElement,
@@ -2295,7 +2345,7 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, OnDes
     }
 
     findAndFilterProduct(arr, index, indexStorage): number {
-        const indexProductStorage = arr.findIndex(e => e.name === index);
+        const indexProductStorage = arr.findIndex((e) => e.name === index);
         this.indexTestStorage = this.countStorage(arr[indexProductStorage]);
         this.FilterStorageCircle(arr[indexProductStorage], indexStorage);
         return indexProductStorage;
@@ -2561,7 +2611,7 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, OnDes
     }
 
     public FilterStorageCircle(data, el): void {
-        const count = data.storages.length
+        const count = data.storages.length;
         this.pieStartStorage = 2;
         if (count === 0) {
             this.pieEndStorage = 2;
