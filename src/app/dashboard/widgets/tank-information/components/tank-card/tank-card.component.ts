@@ -19,25 +19,28 @@ export class TankCardComponent implements OnInit, OnChanges {
     @Input() public idLine: ITankCardValue;
 
     public heightCard: number;
-    public heightValue: number = 20;
+    public readonly heightValue: number = 20;
 
     operation = {
-        filling: 'Заполнение',
-        shipment: 'Отгрузка',
-        standart: 'Без изменений',
+        in: 'Заполнение',
+        out: 'Отгрузка',
         unknown: 'Неизвестно',
-        in: 'Налив',
-        out: 'Слив',
-        repair: 'Ремонт',
         hold: 'Отстой',
-        inOut: 'Проток',
-        work: 'В работе'
+        // standart: 'Без изменений',
+        // in: 'Налив',
+        // out: 'Слив',
+        // repair: 'Ремонт',
+        // inOut: 'Проток',
+        // work: 'В работе'
     };
 
     constructor(private tooltipService: TooltipService) {
     }
 
     ngOnChanges(): void {
+        if (!this.operation[this.data.objectStatus]) {
+            this.data.objectStatus = 'unknown';
+        }
         if (this.data.fillLevelPercentage > 100) {
             this.data.fillLevelPercentage = 100;
         } else if (this.data.fillLevelPercentage < 0) {
