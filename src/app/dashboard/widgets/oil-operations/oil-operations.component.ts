@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
 import { IDatesInterval, WidgetService } from '../../services/widget.service';
 import { WidgetPlatform } from '../../models/widget-platform';
-import { IOilOperations } from '../../models/oil-operations';
+import { ILeftOilTable, IOilOperations } from '../../models/oil-operations';
 import { OilOperationsService } from '../../services/widgets/oil-operations.service';
 
 export interface IOilOperationsButton {
@@ -35,9 +35,9 @@ export class OilOperationsComponent extends WidgetPlatform implements OnInit, On
         number: 4643,
         rR: 442,
         product: 'ДТ ЕВРО сорт F, вид III(ДТ-Е-К5)',
-        pasport: 168,
-        dateFrom: '25.02.2019 12:23',
-        dateTo: '25.02.2019 12:23',
+        passport: 168,
+        dateFrom: new Date(),
+        dateTo: new Date(),
         mass: 4223.23,
         deviation: 3.3,
         status: 'open'
@@ -47,9 +47,9 @@ export class OilOperationsComponent extends WidgetPlatform implements OnInit, On
         number: 4643,
         rR: 442,
         product: 'ДТ ЕВРО сорт F, вид III(ДТ-Е-К5)',
-        pasport: 168,
-        dateFrom: '25.02.2019 12:23',
-        dateTo: '25.02.2019 12:23',
+        passport: 168,
+        dateFrom: new Date(),
+        dateTo: new Date(),
         mass: 4223.23,
         deviation: 3.3,
         status: 'close'
@@ -59,9 +59,9 @@ export class OilOperationsComponent extends WidgetPlatform implements OnInit, On
         number: 4643,
         rR: 442,
         product: 'ДТ ЕВРО сорт F, вид III(ДТ-Е-К5)',
-        pasport: 168,
-        dateFrom: '25.02.2019 12:23',
-        dateTo: '25.02.2019 12:23',
+        passport: 168,
+        dateFrom: new Date(),
+        dateTo: new Date(),
         mass: 4223.23,
         deviation: 3.3,
         status: 'close&norm'
@@ -71,9 +71,9 @@ export class OilOperationsComponent extends WidgetPlatform implements OnInit, On
         number: 4643,
         rR: 442,
         product: 'ДТ ЕВРО сорт F, вид III(ДТ-Е-К5)',
-        pasport: 168,
-        dateFrom: '25.02.2019 12:23',
-        dateTo: '25.02.2019 12:23',
+        passport: 168,
+        dateFrom: new Date(),
+        dateTo: new Date(),
         mass: 4223.23,
         deviation: 3.3,
         status: 'close&critical'
@@ -246,7 +246,7 @@ export class OilOperationsComponent extends WidgetPlatform implements OnInit, On
     }
 
     // TODO вынести проверку на null в сервис
-    private onDatesChange(dates: IDatesInterval): void {
+    private async onDatesChange(dates: IDatesInterval): Promise<void> {
         if (!dates) {
             dates = {
                 fromDateTime: new Date(),
@@ -256,8 +256,23 @@ export class OilOperationsComponent extends WidgetPlatform implements OnInit, On
             dates.fromDateTime.setHours(0, 0, 0);
         }
         this.currentDates = dates;
-        console.log(this.currentDates);
-        // this.oilOperationService.getTransferList(this.currentDates);
+        console.log(await this.getLeftTable());
+    }
+
+    public async getLeftTable(): Promise<ILeftOilTable> {
+        const oilOperations = await this.oilOperationService.getTransferList(this.currentDates);
+        return {
+            id: oilOperations.id,
+            number: 0, // TODO
+            rR: 0, // TODO
+            product: oilOperations.product,
+            passport: oilOperations.passport.id,
+            dateFrom: new Date(oilOperations.startTime),
+            dateTo: new Date(oilOperations.endTime),
+            mass: oilOperations.mass,
+            deviation: oilOperations.deviation,
+            status: oilOperations.status,
+        };
     }
 
     ngOnDestroy(): void {

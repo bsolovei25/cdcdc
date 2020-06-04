@@ -29,6 +29,19 @@ interface IOilOperationTransferRest {
     deletedAt: Date;
 }
 
+// export interface ILeываыаftOilTable {
+//     id: number;
+//     number: number;
+//     rR: number;
+//     product: string;
+//     pasport: number;
+//     dateFrom: string; /// Date
+//     dateTo: string; /// Date
+//     mass: number;
+//     deviation: number;
+//     status: string;
+// }
+
 @Injectable({
   providedIn: 'root'
 })
@@ -60,7 +73,7 @@ export class OilOperationsService {
         }
         let requestQuery: string =
             `?startTime=${startTime.toISOString()}` +
-            `&endTime=${endTime}`;
+            `&endTime=${endTime.toISOString()}`;
         if (group) {
             requestQuery += `&group=${group}`;
         }
@@ -72,7 +85,8 @@ export class OilOperationsService {
 
     private async getTransferListRequest(query: string): Promise<IOilOperationTransferRest> {
         return this.http
-            .get<IOilOperationTransferRest>(`${this.restUrl}/api/OilControl/transfer${query}`)
+            // .get<IOilOperationTransferRest>(`${this.restUrl}/api/oil-control/transfer${query}`)
+            .get<IOilOperationTransferRest>(`'assets/mock//transfer.json'`)
             .toPromise();
     }
 }
