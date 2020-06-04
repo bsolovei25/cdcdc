@@ -52,5 +52,4 @@ export class TankCardComponent implements OnInit, OnChanges {
 
     ngOnInit(): void {
     }
-
 }
