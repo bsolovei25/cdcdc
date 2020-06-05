@@ -126,8 +126,9 @@
                     *ngIf="shift.brigadeId"
                     class="btn shift-today-item"
                     (click)="openOverlay($event, shift, true)"
+                    [matTooltip]="shift.brigadeName"
                   >
-                    Бригада {{ shift.brigadeName }}
+                    {{ shift.brigadeName }}
                   </p>
                   <svg-icon
                     (click)="deleteBrigadeFromShift($event, shift)"

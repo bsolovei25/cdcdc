@@ -4,7 +4,7 @@
   </div>
   <div class="employee-container__info">
     <div class="fio">{{data.lastName}} {{data.firstName}} {{data.middleName}}</div>
-    <div class="specialty">{{data.position}}</div>
+    <div class="specialty">{{data.positionDescription}}</div>
   </div>
   <div *ngIf="brigade && data?.brigade?.number" class="employee-container__brigade">
     <div class="brigade" class="brigade--{{ color }}">{{data?.brigade?.number}}</div>

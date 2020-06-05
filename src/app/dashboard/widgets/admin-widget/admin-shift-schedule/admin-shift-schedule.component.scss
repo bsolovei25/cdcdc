@@ -261,6 +261,9 @@ p {
         position: relative;
         width: 102px;
         text-align: end;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
       }
 
       &__icon-storage {
