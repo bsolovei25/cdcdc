@@ -49,7 +49,6 @@
         cdkDropList
         #doneList="cdkDropList"
         [cdkDropListData]="data?.users"
-        [cdkDropListConnectedTo]="[todoList]"
         (cdkDropListDropped)="drop($event)"
         [id]="data.brigadeId"
         class="employees__drop"
