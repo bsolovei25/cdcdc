@@ -59,7 +59,7 @@ export class WidgetService {
         public http: HttpClient,
         private authService: AuthService,
         private configService: AppConfigService,
-        private materialController: SnackBarService
+        private materialController: SnackBarService,
     ) {
         this.restUrl = configService.restUrl;
         this.wsUrl = configService.wsUrl;
@@ -123,12 +123,12 @@ export class WidgetService {
         }
     }
 
-    removeItemService(uniqid: string): void {
-        for (const item of this.dashboard) {
-            if (item.uniqid === uniqid) {
-                this.dashboard.splice(this.dashboard.indexOf(item), 1);
-            }
+    removeItemService(uniqId: string): void {
+        const idx = this.dashboard.findIndex((item) => item.uniqid === uniqId) ?? null;
+        if (idx === null) {
+            return;
         }
+        this.dashboard.splice(idx, 1);
     }
 
     getWidgetChannel(widgetId: string): Observable<IWidgets> {
