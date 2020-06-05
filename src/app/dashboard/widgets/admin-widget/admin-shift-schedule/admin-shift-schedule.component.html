@@ -28,7 +28,7 @@
     (mousedown)="$event.stopPropagation()"
     (touchstart)="$event.stopPropagation()"
   >
-    <evj-alert-window [info]="adminShiftScheduleService.alertWindow$ | async"></evj-alert-window>
+    <evj-alert-window [info]="alertWindow"></evj-alert-window>
 
     <ng-container *ngIf="isSelectMenu">
       <div class="content__blocks">
@@ -46,33 +46,22 @@
                 ></mat-calendar>
               </section>
             </evj-admin-shift-card>
-            <evj-admin-shift-card
-              class="main-team"
-              [title]="selectedShift"
-              *ngIf="selectedShift && selectedShift?.shiftMembers && selectedShift?.shiftMembers.length > 0"
-            >
-              <section>
+            <evj-admin-shift-card class="main-team" title="Смена">
+              <section class="main-team__section">
                 <p class="title">Главный в бригаде</p>
-                <div class="main-team__container">
+                <div class="main-team__section__container">
                   <ul class="list">
-                    <li
-                      class="list__item"
-                      *ngFor="let i of filterShiftMembers(selectedShift?.shiftMembers);"
-                    >
+                    <li class="list__item" *ngFor="let i of selectedShift?.shiftMembers;">
                       <evj-admin-shift-info-employee
                         [data]="i.employee"
-                        type="garbage"
                       ></evj-admin-shift-info-employee>
                     </li>
                   </ul>
                 </div>
                 <p class="title">Основной состав бригады</p>
-                <div class="main-team__container">
+                <div class="main-team__section__container">
                   <ul class="list">
-                    <li
-                      class="list__item"
-                      *ngFor="let i of filterShiftMembers(selectedShift?.shiftMembers);"
-                    >
+                    <li class="list__item" *ngFor="let i of selectedShift?.shiftMembers;">
                       <evj-admin-shift-info-employee
                         [data]="i.employee"
                         type="garbage"
@@ -143,7 +132,6 @@
                   <svg-icon
                     (click)="deleteBrigadeFromShift($event, shift)"
                     class="shift-today__icon-storage"
-                    [svgStyle]="{'height.px':17}"
                     src="assets/icons/widgets/admin-shift-schedule/garbage.svg"
                   ></svg-icon>
                 </div>
@@ -173,8 +161,8 @@
               title="Дополнительный состав бригады"
               *ngIf="selectedShift && selectedShift?.shiftMembers && selectedShift?.shiftMembers.length > 0 && brigadesSubstitution"
             >
-              <section>
-                <div class="additional-team__container">
+              <section class="additional-team__section">
+                <div class="additional-team__section__container">
                   <ul class="list">
                     <li class="list__item" *ngFor="let i of selectedShift?.shiftMembers">
                       <evj-admin-shift-info-employee
@@ -189,8 +177,8 @@
           </div>
         </div>
         <div class="block-right">
-          <evj-admin-shift-list-employees [data]="arrayUserBrigade" [template]="employeesAll">
-            <ng-template #employeesAll let-data="data">
+          <evj-admin-shift-list-employees [data]="allUsers">
+            <!-- <ng-template #employeesAll let-data="data">
               <div
                 cdkDrag
                 (cdkDragStarted)="dragStart($event, i.id);"
@@ -201,17 +189,19 @@
                   type="garbage"
                 ></evj-admin-shift-info-employee>
               </div>
-            </ng-template>
+            </ng-template> -->
           </evj-admin-shift-list-employees>
         </div>
       </div>
     </ng-container>
     <ng-container *ngIf="!isSelectMenu">
-      <div class="control-block">
+      <div class="control-block" cdkDropListGroup>
         <div class="control-block__left-side">
           <div class="content-menu">
             Изменение состава бригад
             <svg-icon
+              matTooltip="Добавить бригаду"
+              (click)="postBrigade()"
               class="content-menu__icon"
               src="./assets/icons/SVG/add_button.svg"
               [svgStyle]="{ 'width.px':15, 'height.px':15 }"
@@ -220,16 +210,9 @@
           <div class="content-brigade">
             <div class="content-brigade__scroll">
               <div class="content-brigade__left">
-                <div
-                  cdkDropList
-                  id="{{ item.id }}"
-                  [cdkDropListConnectedTo]="list"
-                  *ngFor="let item of dataBrigLeft"
-                  (cdkDropListDropped)="drop($event)"
-                >
-                  <div class="content-brigade__block">
-                    <evj-admin-shift-brigade [data]="item.manager" [template]="employees">
-                      <ng-template #employees let-data="data">
+                <div class="content-brigade__block" *ngFor="let item of allBrigade">
+                  <evj-admin-shift-brigade [data]="item">
+                    <!-- <ng-template #employees let-data="data">
                         <div
                           cdkDrag
                           (cdkDragStarted)="dragStart($event, item.id);"
@@ -240,22 +223,14 @@
                             type="garbage"
                           ></evj-admin-shift-info-employee>
                         </div>
-                      </ng-template>
-                    </evj-admin-shift-brigade>
-                  </div>
+                      </ng-template> -->
+                  </evj-admin-shift-brigade>
                 </div>
               </div>
               <div class="content-brigade__right">
-                <div
-                  cdkDropList
-                  id="{{ item.id }}"
-                  [cdkDropListConnectedTo]="list"
-                  *ngFor="let item of dataBrigRight"
-                  (cdkDropListDropped)="drop($event)"
-                >
-                  <div class="content-brigade__block">
-                    <evj-admin-shift-brigade [data]="item.manager" [template]="employees">
-                      <ng-template #employees let-data="data">
+                <div class="content-brigade__block" *ngFor="let item of allBrigade">
+                  <evj-admin-shift-brigade [data]="item">
+                    <!-- <ng-template #employees let-data="data">
                         <div
                           cdkDrag
                           (cdkDragStarted)="dragStart($event, i.id);"
@@ -266,18 +241,17 @@
                             type="garbage"
                           ></evj-admin-shift-info-employee>
                         </div>
-                      </ng-template>
-                    </evj-admin-shift-brigade>
-                  </div>
+                      </ng-template>  -->
+                  </evj-admin-shift-brigade>
                 </div>
               </div>
             </div>
           </div>
         </div>
         <div class="control-block__right-side">
-          <div cdkDropList id="0" [cdkDropListConnectedTo]="list" style="height: 100%;">
-            <evj-admin-shift-list-employees [data]="arrayUserBrigade" [template]="employeesAll">
-              <ng-template #employeesAll let-data="data">
+          <div style="height: calc(100% - 24px);">
+            <evj-admin-shift-list-employees [data]="allUsers">
+              <!-- <ng-template #employeesAll let-data="data">
                 <div
                   cdkDrag
                   (cdkDragStarted)="dragStart($event, i.id);"
@@ -288,7 +262,7 @@
                     type="garbage"
                   ></evj-admin-shift-info-employee>
                 </div>
-              </ng-template>
+              </ng-template> -->
             </evj-admin-shift-list-employees>
           </div>
         </div>

@@ -1,20 +1,42 @@
-import { Component, OnInit, ChangeDetectionStrategy, Input, TemplateRef } from '@angular/core';
-import { IAdminShiftUserBrigade } from '../../admin-shift-schedule.component';
-
+import { Component, OnInit, Input, TemplateRef, ChangeDetectionStrategy } from '@angular/core';
+import { IUser } from '../../../../../models/events-widget';
+import { CdkDragDrop } from '@angular/cdk/drag-drop';
+import { AdminShiftScheduleService } from '../../../../../services/widgets/admin-shift-schedule.service';
 
 @Component({
-  selector: 'evj-admin-shift-list-employees',
-  templateUrl: './admin-shift-list-employees.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  styleUrls: ['./admin-shift-list-employees.component.scss']
+    selector: 'evj-admin-shift-list-employees',
+    templateUrl: './admin-shift-list-employees.component.html',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    styleUrls: ['./admin-shift-list-employees.component.scss'],
 })
 export class AdminShiftListEmployeesComponent implements OnInit {
-  @Input() template: TemplateRef<any>;
-  @Input() public data: IAdminShiftUserBrigade[];
+    // @Input() template: TemplateRef<any>;
+    @Input() public data: IUser[] = [];
 
-  constructor() { }
+    constructor(private adminShiftScheduleService: AdminShiftScheduleService) {}
 
-  ngOnInit(): void {
-  }
+    ngOnInit(): void {
+        console.log(this.data);
+    }
 
+    dragStart(id: string): void {
+        console.log(id);
+
+        this.adminShiftScheduleService.moveItemId.next(id);
+    }
+
+    drop(event: CdkDragDrop<string[]>): void {
+        console.log(event);
+        this.adminShiftScheduleService.moveItemBrigade.next(event);
+        // if (event.container.id === event.previousContainer.id) {
+        //     const brig = this.dataBrig.findIndex((e) => e.id.toString() === event.container.id);
+        //     //  moveItemInArray(this.list[brig].brigade,
+        // event.previousIndex, event.currentIndex);
+        // } else {
+        //     const brigadeIndex = this.dataBrig.findIndex(
+        //         (e) => e.id.toString() === event.container.id
+        //     );
+        //     this.dataBrig[brigadeIndex].brigade.push(this.dragUniqElem);
+        // }
+    }
 }

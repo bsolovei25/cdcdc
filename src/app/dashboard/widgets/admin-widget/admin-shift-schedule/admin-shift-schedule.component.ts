@@ -24,9 +24,16 @@ import { fillDataShape } from '../../../../@shared/common-functions';
 import { MatCalendar } from '@angular/material/datepicker';
 import { WidgetPlatform } from '../../../models/widget-platform';
 import { SnackBarService } from '../../../services/snack-bar.service';
-import { AdminShiftScheduleService } from '../../../services/widgets/admin-shift-schedule.service';
+import {
+    AdminShiftScheduleService,
+    IDropItem,
+} from '../../../services/widgets/admin-shift-schedule.service';
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { trigger, transition, style, animate } from '@angular/animations';
+import { IAlertWindowModel } from '../../../../@shared/models/alert-window.model';
+import { FormControl } from '@angular/forms';
+import { EventService } from '../../../services/widgets/event.service';
+import { Subscription } from 'rxjs';
 
 export interface IAdminShiftBrigade {
     id: number;
@@ -76,8 +83,17 @@ export class AdminShiftScheduleComponent extends WidgetPlatform
 
     scheduleShiftMonth: IScheduleShiftDay[] = [];
 
+    allUsers: IUser[] = [];
     allBrigade: IBrigadeWithUsersDto[] = [];
     brigadesSubstitution: IBrigadeWithUsersDto;
+
+    leftBrigades: IBrigadeWithUsersDto[] = [];
+    rightBrigades: IBrigadeWithUsersDto[] = [];
+
+    brigadeColors: { color: string; id: number }[] = [];
+
+    public alertWindow: IAlertWindowModel;
+    public inputControl: FormControl = new FormControl('');
 
     buttons: NodeListOf<HTMLElement>;
     nextAndPreviousMonthVar: (event: MouseEvent) => boolean | void;
@@ -85,161 +101,14 @@ export class AdminShiftScheduleComponent extends WidgetPlatform
     @ViewChild('shiftOverlay') shiftOverlay: ElementRef<HTMLElement>;
     @ViewChild('calendar') calendar: MatCalendar<Date>;
 
-    //Mock data
-    public dataBrig: IAdminShiftBrigade[] = [
-        {
-            id: 1,
-            manager: [
-                {
-                    id: 4,
-                    fio: 'Иванов Иван Иванович',
-                    specialty: 'Главный',
-                    avatar: 'slesar',
-                    brigade: 1,
-                },
-            ],
-            brigade: [
-                {
-                    id: 1,
-                    fio: 'Иванов Иван Иванович',
-                    specialty: 'Слесарь АСУ ТП',
-                    avatar: 'slesar',
-                    brigade: 1,
-                },
-                {
-                    id: 2,
-                    fio: 'Иванов Иван Иванович',
-                    specialty: 'Слесарь АСУ ТП',
-                    avatar: 'slesar',
-                    brigade: 2,
-                },
-                {
-                    id: 3,
-                    fio: 'Иванов Иван Иванович',
-                    specialty: 'Слесарь АСУ ТП',
-                    avatar: 'slesar',
-                    brigade: 3,
-                },
-            ],
-        },
-        {
-            id: 2,
-            manager: [
-                {
-                    id: 4,
-                    fio: 'Иванов Иван Иванович',
-                    specialty: 'Главный',
-                    avatar: 'slesar',
-                    brigade: 1,
-                },
-            ],
-            brigade: [
-                {
-                    id: 1,
-                    fio: 'Иванов Иван Иванович',
-                    specialty: 'Слесарь АСУ ТП',
-                    avatar: 'slesar',
-                    brigade: 1,
-                },
-                {
-                    id: 2,
-                    fio: 'Иванов Иван Иванович',
-                    specialty: 'Слесарь АСУ ТП',
-                    avatar: 'slesar',
-                    brigade: 2,
-                },
-                {
-                    id: 3,
-                    fio: 'Иванов Иван Иванович',
-                    specialty: 'Слесарь АСУ ТП',
-                    avatar: 'slesar',
-                    brigade: 3,
-                },
-            ],
-        },
-        {
-            id: 3,
-            manager: [
-                {
-                    id: 4,
-                    fio: 'Иванов Иван Иванович',
-                    specialty: 'Главный',
-                    avatar: 'slesar',
-                    brigade: 1,
-                },
-            ],
-            brigade: [
-                {
-                    id: 1,
-                    fio: 'Иванов Иван Иванович',
-                    specialty: 'Слесарь АСУ ТП',
-                    avatar: 'slesar',
-                    brigade: 1,
-                },
-                {
-                    id: 2,
-                    fio: 'Иванов Иван Иванович',
-                    specialty: 'Слесарь АСУ ТП',
-                    avatar: 'slesar',
-                    brigade: 2,
-                },
-                {
-                    id: 3,
-                    fio: 'Иванов Иван Иванович',
-                    specialty: 'Слесарь АСУ ТП',
-                    avatar: 'slesar',
-                    brigade: 3,
-                },
-            ],
-        },
-        {
-            id: 4,
-            manager: [
-                {
-                    id: 4,
-                    fio: 'Иванов Иван Иванович',
-                    specialty: 'Главный',
-                    avatar: 'slesar',
-                    brigade: 1,
-                },
-            ],
-            brigade: [
-                {
-                    id: 1,
-                    fio: 'Иванов Иван Иванович',
-                    specialty: 'Слесарь АСУ ТП',
-                    avatar: 'slesar',
-                    brigade: 1,
-                },
-                {
-                    id: 2,
-                    fio: 'Иванов Иван Иванович',
-                    specialty: 'Слесарь АСУ ТП',
-                    avatar: 'slesar',
-                    brigade: 2,
-                },
-                {
-                    id: 3,
-                    fio: 'Иванов Иван Иванович',
-                    specialty: 'Слесарь АСУ ТП',
-                    avatar: 'slesar',
-                    brigade: 3,
-                },
-            ],
-        },
-    ];
-    public dragUniqElem: IAdminShiftUserBrigade;
-    public list: number[] = [0];
-    public dataBrigLeft: IAdminShiftBrigade[] = [];
-    public dataBrigRight: IAdminShiftBrigade[] = [];
-    public arrayUserBrigade: IAdminShiftUserBrigade[] = []; /// ДОЛЖЕН БЫТЬ СПИСОК ЮЗЕРОВ !!!
-
     constructor(
         private dateAdapter: DateAdapter<Date>,
         private renderer: Renderer2,
         public adminShiftScheduleService: AdminShiftScheduleService,
         private materialController: SnackBarService,
         protected widgetService: WidgetService,
+        private snackBar: SnackBarService,
+        private eventService: EventService,
         @Inject('isMock') public isMock: boolean,
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string
@@ -250,23 +119,21 @@ export class AdminShiftScheduleComponent extends WidgetPlatform
 
     ngOnInit(): void {
         super.widgetInit();
-        this.mapArrayBrigade(this.dataBrig);
     }
 
-    mapArrayBrigade(data): void {
-        data.forEach((el) => {
-            this.list.push(el.id.toString());
-            if (el.id % 2 === 0) {
-                this.dataBrigLeft.push(el);
-            } else {
-                this.dataBrigRight.push(el);
-            }
-
-            /// mock push in arrayUserBrigade
-            el.brigade.forEach((item) => {
-                this.arrayUserBrigade.push(item);
-            });
-        });
+    mapArrayBrigade(data: IBrigadeWithUsersDto[]): void {
+        // data.forEach((el) => {
+        //     this.list.push(el.id.toString());
+        //     if (el.id % 2 === 0) {
+        //         this.dataBrigLeft.push(el);
+        //     } else {
+        //         this.dataBrigRight.push(el);
+        //     }
+        //     /// mock push in arrayUserBrigade
+        //     el.brigade.forEach((item) => {
+        //         this.arrayUserBrigade.push(item);
+        //     });
+        // });
     }
 
     protected async dataConnect(): Promise<void> {
@@ -279,10 +146,21 @@ export class AdminShiftScheduleComponent extends WidgetPlatform
             items: [],
         };
         this.dateChanged(this.selectedDay.date);
+        this.subscriptions.push(
+            this.adminShiftScheduleService.moveItemBrigade.subscribe((value) => {
+                this.moveUsertoBrigade(value);
+            }),
+            this.adminShiftScheduleService.alertWindow$.subscribe((value) => {
+                this.alertWindow = value;
+            })
+        );
     }
 
     ngOnDestroy(): void {
         super.ngOnDestroy();
+        this.subscriptions.forEach((subscription) => {
+            subscription.unsubscribe();
+        });
     }
 
     protected dataHandler(ref: any): void {}
@@ -341,6 +219,19 @@ export class AdminShiftScheduleComponent extends WidgetPlatform
                 ) {
                     if (!value.isAllShiftsSet) {
                         str = 'special-date';
+                    } else {
+                        let id = 1;
+                        value.items.forEach((item) => {
+                            if (item?.brigadeId) {
+                                const color = this.brigadeColors.find(
+                                    (val) => val.id === item.brigadeId
+                                );
+                                if (color) {
+                                    str = ` item-1--${color.color}`;
+                                    id++;
+                                }
+                            }
+                        });
                     }
                 }
             });
@@ -395,6 +286,9 @@ export class AdminShiftScheduleComponent extends WidgetPlatform
         dataLoadQueue.push(
             this.adminShiftScheduleService.getBrigades(this.selectedUnit.id).then((data) => {
                 this.allBrigade = data;
+                data.forEach((item, i) => {
+                    this.brigadeColors.push({ color: `color-${i + 1}`, id: item.brigadeId });
+                });
             })
         );
         dataLoadQueue.push(
@@ -402,6 +296,13 @@ export class AdminShiftScheduleComponent extends WidgetPlatform
                 this.brigadesSubstitution = data;
             })
         );
+        if (!this.allUsers.length) {
+            dataLoadQueue.push(
+                this.eventService.getUser().then((data) => {
+                    this.allUsers = data;
+                })
+            );
+        }
         dataLoadQueue.push();
         if (dataLoadQueue.length > 0) {
             try {
@@ -452,7 +353,7 @@ export class AdminShiftScheduleComponent extends WidgetPlatform
         event.stopPropagation();
         this.isLoading = true;
         try {
-            await this.adminShiftScheduleService.deleteBrigade(shift.id);
+            await this.adminShiftScheduleService.deleteBrigadeFromShift(shift.id);
             this.materialController.openSnackBar(`Бригада удалена`);
             const sh = this.selectedDay.items.find((val) => val.id === shift.id);
             if (sh) {
@@ -600,15 +501,15 @@ export class AdminShiftScheduleComponent extends WidgetPlatform
         }
     }
 
-    public filterShiftMembers(shiftMembers: IShiftMember[]): IShiftMember[] {
-        this.brigadesSubstitution.users.forEach((user) => {
-            shiftMembers = shiftMembers.filter((member) => member?.employee?.id !== user?.id);
-            const index: number = shiftMembers.findIndex((item) => item.position === 'responsible');
-            const mainWorker = shiftMembers.splice(index, 1)[0];
-            shiftMembers.unshift(mainWorker);
-        });
-        return shiftMembers;
-    }
+    // public filterShiftMembers(shiftMembers: IShiftMember[]): IShiftMember[] {
+    //     this.brigadesSubstitution.users.forEach((user) => {
+    //         shiftMembers = shiftMembers.filter((member) => member?.employee?.id !== user?.id);
+    //         const index: number = shiftMembers.findIndex((item) => item.position === 'responsible');
+    //         const mainWorker = shiftMembers.splice(index, 1)[0];
+    //         shiftMembers.unshift(mainWorker);
+    //     });
+    //     return shiftMembers;
+    // }
 
     public filterBrigade(brigadeUsers: IBrigadeWithUsersDto[]): IBrigadeWithUsersDto[] {
         this.selectedDay.items.forEach((shift) => {
@@ -625,21 +526,72 @@ export class AdminShiftScheduleComponent extends WidgetPlatform
     }
 
     drop(event: CdkDragDrop<string[]>): void {
-        if (event.container.id === event.previousContainer.id) {
-            const brig = this.dataBrig.findIndex((e) => e.id.toString() === event.container.id);
-            //  moveItemInArray(this.list[brig].brigade, event.previousIndex, event.currentIndex);
-        } else {
-            const brigadeIndex = this.dataBrig.findIndex(
-                (e) => e.id.toString() === event.container.id
-            );
-            this.dataBrig[brigadeIndex].brigade.push(this.dragUniqElem);
-        }
+        console.log(event);
+        // if (event.previousContainer === event.container) {
+        //     moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+        // } else {
+        //     transferArrayItem(
+        //         event.previousContainer.data,
+        //         event.container.data,
+        //         event.previousIndex,
+        //         event.currentIndex
+        //     );
+        // }
+
+        // if (event.container.id === event.previousContainer.id) {
+        //     const brig = this.dataBrig.findIndex((e) => e.id.toString() === event.container.id);
+        //     //  moveItemInArray(this.list[brig].brigade, event.previousIndex, event.currentIndex);
+        // } else {
+        //     const brigadeIndex = this.dataBrig.findIndex(
+        //         (e) => e.id.toString() === event.container.id
+        //     );
+        //     this.dataBrig[brigadeIndex].brigade.push(this.dragUniqElem);
+        // }
     }
 
     dragStart(event, id): void {
-        //this.dragUniqElem = this.dataBrig[event.source.dropContainer.id].brigade.find(el => el.id === id);
-        this.dragUniqElem = this.arrayUserBrigade.find((el) => el.id === id);
+        // this.dragUniqElem = this.dataBrig[event.source.dropContainer.id].brigade.find(
+        //     (el) => el.id === id
+        // );
+        // this.dragUniqElem = this.arrayUserBrigade.find((el) => el.id === id);
     }
 
     // #endregion
+
+    async postBrigade(): Promise<void> {
+        this.inputControl.setValue('');
+        this.alertWindow = {
+            isShow: true,
+            questionText: 'Введите название новой бригадды',
+            acceptText: ' Добавить',
+            cancelText: 'Отмена',
+            input: {
+                formControl: this.inputControl,
+                placeholder: 'Введите название',
+            },
+            acceptFunction: async (): Promise<void> => {
+                const name = this.inputControl.value;
+                this.alertWindow = null;
+                this.isLoading = true;
+                try {
+                    await this.adminShiftScheduleService.postBrigade(this.selectedUnit, name);
+                    this.snackBar.openSnackBar(`Бригада ${name} добавлена`);
+                    this.isLoading = false;
+                } catch (error) {
+                    this.isLoading = false;
+                }
+            },
+            cancelFunction: () => {
+                this.alertWindow = null;
+            },
+        };
+    }
+
+    async moveUsertoBrigade(item: IDropItem): Promise<void> {
+        if (item) {
+            const userId = this.adminShiftScheduleService.moveItemId.getValue();
+            console.log(item);
+            await this.adminShiftScheduleService.postUsertoBrigade(userId, item.container.id);
+        }
+    }
 }
