@@ -1,6 +1,5 @@
 import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
 import { WidgetService } from '../../services/widget.service';
-import { Subscription } from 'rxjs';
 import {
     EnergyCircleDiagram,
     Production,
@@ -16,6 +15,8 @@ import { WidgetPlatform } from '../../models/widget-platform';
     styleUrls: ['./semicircle-energy.component.scss'],
 })
 export class SemicircleEnergyComponent extends WidgetPlatform implements OnInit, OnDestroy {
+    public isDataLoading: boolean = true;
+
     /* Параметры для круговых диаграмм */
 
     energyCircleDiagram: EnergyCircleDiagram = {
@@ -103,6 +104,9 @@ export class SemicircleEnergyComponent extends WidgetPlatform implements OnInit,
     }
 
     dataHandler(ref: SemicircleEnergy): void {
+        if (this.isDataLoading) {
+            setTimeout(() => (this.isDataLoading = false), 500);
+        }
         this.copyData(ref);
         this.logoType();
         this.warningControl();
@@ -162,6 +166,12 @@ export class SemicircleEnergyComponent extends WidgetPlatform implements OnInit,
             }
             this.isWarning = false;
         }
+    }
+
+    roundValues(value: number): string {
+        const str = value.toString().split('.')[0];
+        const maxSymbols = 6;
+        return str.length >= maxSymbols ? value.toFixed(0) : value.toFixed(maxSymbols - str.length);
     }
 
     /* Отрисовка дуговых диаграмм */
