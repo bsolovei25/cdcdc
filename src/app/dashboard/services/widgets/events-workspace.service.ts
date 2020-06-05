@@ -24,6 +24,10 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { IAlertWindowModel } from '@shared/models/alert-window.model';
 import { filter, map } from 'rxjs/operators';
 
+declare interface PromiseConstructor {
+    allSettled(promises: Array<Promise<any>>): Promise<Array<{status: 'fulfilled' | 'rejected', value?: any, reason?: any}>>;
+}
+
 @Injectable({
     providedIn: 'root',
 })
@@ -115,12 +119,12 @@ export class EventsWorkspaceService {
     public async loadItem(id: number = null): Promise<void> {
         this.isLoading = true;
         try {
+            this.setDefaultEvent();
             if (id) {
                 await this.getEvent(id);
             }
             this.eventService.currentEventId$.next(id);
             this.loadReferences();
-            this.setDefaultEvent();
         } catch (err) {
             console.error(err);
         } finally {
@@ -133,11 +137,13 @@ export class EventsWorkspaceService {
         this.event = { ...this.defaultEvent, ...this.event };
         const dataLoadQueue: Promise<void>[] = [];
         if (this.event.category.name === 'asus') {
+            await this.asusReferencesLoad();
+            const saveMethod = await this.eventService.getSaveMethod(this.event);
             dataLoadQueue.push(
-                this.eventService.getAsusEquipments(this.event.asusEvent.tmPlace).then((data) => {
+                this.eventService.getAsusEquipments(this.event.asusEvent.tmPlace, saveMethod).then((data) => {
                     this.asusEquipments = data;
                 }),
-                this.eventService.getAsusEOServices(this.event.asusEvent.equipment).then((data) => {
+                this.eventService.getAsusEOServices(this.event.asusEvent.equipment, saveMethod).then((data) => {
                     this.asusEOServices = data;
                 }),
             );
@@ -202,7 +208,7 @@ export class EventsWorkspaceService {
         }
         return this.checkRetrievalCategory();
     }
-    private checkRetrievalCategory(): boolean {
+    public checkRetrievalCategory(): boolean {
         switch (this.event.category.name) {
             case 'smotr':
             case 'asus':
@@ -246,7 +252,7 @@ export class EventsWorkspaceService {
                 }
                 await this.eventService.postEventRetrieval(this.event);
             } else {
-                await this.eventService.postEvent(this.event);
+                await this.eventService.postEvent(this.event, saveMethod);
             }
             this.isCreateNewEvent = false;
             this.snackBarService.openSnackBar('Сохранено');
@@ -274,7 +280,7 @@ export class EventsWorkspaceService {
             this.snackBarService.openSnackBar('Данное действие не допустимо для выбранного события!', 'snackbar-red');
         } else {
             try {
-                await this.eventService.putEvent(this.event);
+                await this.eventService.putEvent(this.event, saveMethod);
                 this.snackBarService.openSnackBar('Изменения сохранены');
             } catch (err) {
                 console.error(err);
@@ -325,7 +331,8 @@ export class EventsWorkspaceService {
         this.isLoading = true;
         try {
             this.sendMessageToEvent(message, 'comments');
-            await this.eventService.escalateSmotrEvent(this.event.originalId);
+            const saveMethod = await this.eventService.getSaveMethod(this.event);
+            await this.eventService.escalateSmotrEvent(saveMethod, this.event);
         } catch (e) {
             console.log(e);
             this.event.comments.pop();
@@ -337,21 +344,23 @@ export class EventsWorkspaceService {
             return;
         }
         this.isLoading = true;
-        const tempStatus = this.event.status;
+        const tempStatus = {...this.event.status};
         try {
             this.sendMessageToEvent(message, 'comments');
+            const saveMethod = await this.eventService.getSaveMethod(this.event);
+            await this.eventService.closeSmotrEvent(saveMethod, this.event);
             this.event.status = this.status.find(el => el.name === 'closed');
-            await this.eventService.closeSmotrEvent(this.event.originalId);
+            this.sendMessageToEvent(message, 'comments');
         } catch (e) {
             console.log(e);
-            this.event.status = tempStatus;
             this.event.comments.pop();
+            this.event.status = tempStatus;
         }
         this.isLoading = false;
     }
     public async updateEvent(): Promise<void> {
         if (this.event.originalId) {
-            const a = this.eventService.closeSmotrEvent(this.event.originalId);
+            // const a = this.eventService.closeSmotrEvent(this.event.originalId);
             // console.log(a);
         }
     }
@@ -427,26 +436,49 @@ export class EventsWorkspaceService {
             this.eventService.getEventType().then((data) => {
                 this.eventTypes = data;
             }),
-            this.eventService.getAsusCategories().then((data) => {
-                this.asusCategories = data;
-            }),
-            this.eventService.getAsusWorkgroup().then((data) => {
-                this.asusWorkgroup = data;
-            }),
-            this.eventService.getAsusServices().then((data) => {
-                this.asusServices = data;
-            }),
+            // TODO delete
             this.eventService.getSmotrReference().then((data) => {
                 this.smotrReference = data;
             }),
-            this.eventService.getAsusUnits().then((data) => {
-                this.asusUnits = data;
-            }),
         );
-        await Promise.all(dataLoadQueue);
+        try {
+            await Promise.all(dataLoadQueue);
+        } catch {
+            console.warn('Promise.allSettled');
+        }
     }
 
     public closeSearchWindow(): void {
         this.searchWindow$.next(null);
+    }
+
+    private async asusReferencesLoad(): Promise<void> {
+        const dataLoadQueue: Promise<void>[] = [];
+        const saveMethod: ISaveMethodEvent = await this.eventService.getSaveMethod(this.event);
+        dataLoadQueue.push(
+            this.eventService.getAsusCategories(saveMethod).then((data) => {
+                this.asusCategories = data;
+            }),
+            this.eventService.getAsusWorkgroup(saveMethod).then((data) => {
+                this.asusWorkgroup = data;
+            }),
+            this.eventService.getAsusServices(saveMethod).then((data) => {
+                this.asusServices = data;
+            }),
+            this.eventService.getAsusUnits(saveMethod).then((data) => {
+                this.asusUnits = data;
+            }),
+        );
+        try {
+            await Promise.all(dataLoadQueue);
+        } catch {
+            console.warn('Promise.allSettled');
+        }
+    }
+
+    public async changeCategory(): Promise<void> {
+        if (this.event.category.name === 'asus') {
+            await this.asusReferencesLoad();
+        }
     }
 }

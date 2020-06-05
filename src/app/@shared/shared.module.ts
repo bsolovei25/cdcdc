@@ -37,6 +37,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { EventsChatComponent } from './components/events-chat/events-chat.component';
 import { InputComponent } from './components/input/input.component';
 import { AlertPasswordComponent } from './components/alert-password/alert-password.component';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @NgModule({
     declarations: [
@@ -112,6 +113,7 @@ import { AlertPasswordComponent } from './components/alert-password/alert-passwo
         AngularSvgIconModule,
         MatSelectModule,
         ReactiveFormsModule,
+        MatProgressSpinnerModule,
     ],
     providers: [SpaceNumber, LineBreakPipe],
 })

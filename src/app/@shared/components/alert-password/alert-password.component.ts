@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { IInputOptions } from '../../models/input.model';
-import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, AbstractControl, FormControl } from '@angular/forms';
 import { IAlertPasswordModel } from '../../models/alert-password.model';
 import { SnackBarService } from '../../../dashboard/services/snack-bar.service';
 import { AuthService } from '../../../@core/service/auth.service';
@@ -21,6 +21,8 @@ export class AlertPasswordComponent implements OnInit {
 
     public readonly minLength: number = 6;
     public readonly maxLength: number = 25;
+
+    public showOldPassword: boolean = false;
 
     //#region INPUTS_OPTIONS
     public oldPasswordOptions: IInputOptions = {
@@ -99,7 +101,6 @@ export class AlertPasswordComponent implements OnInit {
 
         this.formGroup = this.formBuilder.group(
             {
-                oldPassword: ['', [Validators.required]],
                 password: [
                     '',
                     [
@@ -115,7 +116,12 @@ export class AlertPasswordComponent implements OnInit {
         );
     }
 
-    public ngOnInit(): void {}
+    public ngOnInit(): void {
+        if (!this.options?.isCreatePassword) {
+            this.formGroup.addControl('oldPassword', new FormControl('', [Validators.required]));
+            this.showOldPassword = true;
+        }
+    }
 
     public setPasswordStyle(controlName: string): string {
         const ctrl: AbstractControl = this.formGroup.controls[controlName];

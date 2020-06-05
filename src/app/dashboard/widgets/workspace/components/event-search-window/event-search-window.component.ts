@@ -116,7 +116,7 @@ export class EventSearchWindowComponent implements OnInit, OnChanges {
             isAcknowledged: false,
             status: eventPreview.status,
             deadline: eventPreview.eventDateTime,
-            fixedByName: eventPreview.responsibleOperator.displayName,
+            fixedByName: eventPreview.responsibleOperator?.displayName ?? 'Нет информации',
             timerPercentage: null,
         }; });
         console.log(tempEvents);

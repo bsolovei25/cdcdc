@@ -14,6 +14,7 @@
               [(ngModel)]="ewService.event.category"
               [compareWith]="compareFn"
               [disabled]="true"
+              (selectionChange)="ewService.changeCategory()"
             >
               <mat-option *ngFor="let cat of ewService.category" [value]="cat">
                 {{ ewService.categories[cat.name] }}
@@ -51,7 +52,7 @@
         <evj-events-workspace-button
           [disabled]="isDisabledCloseButton()"
           status="close"
-          (click)="isClosePopupOpen=true"
+          (click)="openClosePopup()"
         ></evj-events-workspace-button>
       </div>
     </div>
@@ -82,7 +83,7 @@
   <div class="workspace__column column column_right">
     <div class="column__row row">
       <div class="row__cell cell cell_left events-icons">
-        <evj-events-smotr-icon [iconType]="'escalate'" [counter]="this.ewService.event.deviationData?.escalateLevelNumber"></evj-events-smotr-icon>
+        <evj-events-smotr-icon [matTooltip]="'Уровень эскалации'" [iconType]="'escalate'" [counter]="this.ewService.event.deviationData?.escalateLevelNumber"></evj-events-smotr-icon>
         <evj-events-smotr-icon [iconType]="'critical'" [isCritical]="this.ewService.event.deviationData?.isCritical"></evj-events-smotr-icon>
         <evj-events-smotr-icon [iconType]="'repeat'" [counter]="this.ewService.event.deviationData?.iteration"></evj-events-smotr-icon>
       </div>
@@ -115,7 +116,11 @@
         </div>
       </div>
       <div class="row__cell cell cell_right">
-        <evj-events-workspace-button status="tools" (click)="onClickUrl()"></evj-events-workspace-button>
+        <evj-events-workspace-button
+          status="tools"
+          (click)="onClickUrl()"
+          [disabled]="isDisabledUrlButton()">
+        </evj-events-workspace-button>
       </div>
     </div>
     <div class="column__row row responsible">

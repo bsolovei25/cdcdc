@@ -31,6 +31,9 @@ export class EventsCorrectComponent implements OnInit {
     }
 
     public openSearchRetrieval(): void {
+        if (!this.ewService.checkRetrievalCategory()) {
+            return;
+        }
         const windowsParam = {
             isShow: true,
             idEvent: this.ewService.event.id,

@@ -11,6 +11,7 @@ import { DndModule } from 'ngx-drag-drop';
 import { DashboardComponent } from './pages/dashboard.component';
 import { HttpClientModule } from '@angular/common/http';
 import { EventsComponent } from './widgets/events/events.component';
+import { EventCardComponent } from './widgets/event-card/event-card.component';
 import { ManualInputComponent } from './widgets/manual-input/manual-input.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LineDiagramComponent } from './widgets/line-diagram/line-diagram.component';
@@ -287,6 +288,7 @@ import { AdminShiftCardComponent } from './widgets/admin-widget/admin-shift-sche
         LineChartComponent,
         DashboardComponent,
         EventsComponent,
+        EventCardComponent,
         ManualInputComponent,
         ChangeShiftComponent,
         LineDiagramComponent,
@@ -528,6 +530,7 @@ import { AdminShiftCardComponent } from './widgets/admin-widget/admin-shift-sche
         LineChartComponent,
         WidgetPiesComponent,
         EventsComponent,
+        EventCardComponent,
         LineChartComponent,
         ManualInputComponent,
         LineDiagramComponent,

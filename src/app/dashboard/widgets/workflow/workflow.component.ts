@@ -319,11 +319,11 @@ export class WorkflowComponent extends WidgetPlatform implements OnInit, OnDestr
     ngOnDestroy(): void {
         super.ngOnDestroy();
         this.leaderLine = [];
+        this.removeIconsAndLineLeaderLine();
     }
 
     protected async dataConnect(): Promise<void> {
         super.dataConnect();
-
         this.workflowService.chooseModules$.subscribe((module) => {
             this.chooseModules = module;
         });
@@ -334,13 +334,6 @@ export class WorkflowComponent extends WidgetPlatform implements OnInit, OnDestr
                 this.isLoading = true;
                 this.loadActions(this.chooseModules.uid);
             } else {
-                if (this.leaderLine.length > 0) {
-                    this.leaderLine.forEach((value) => {
-                        value.setInterval = 0;
-                        clearInterval(value.setInterval);
-                        value.remove();
-                    });
-                }
                 this.items = [];
                 this.leaderLine = [];
             }
@@ -530,7 +523,6 @@ export class WorkflowComponent extends WidgetPlatform implements OnInit, OnDestr
                                     leaderLine
                                 );
                             }
-                            setInterval(() => {}, 100);
                         }
                     }, 100);
                 }
@@ -573,7 +565,7 @@ export class WorkflowComponent extends WidgetPlatform implements OnInit, OnDestr
 
     private removeIconsAndLineLeaderLine(): void {
         this.removableLeaderLineIds.forEach((value, key) => {
-            this.removeIconLeader(`cross-${key}`, key);
+            this.removeIconLeader(`cross-${key}`, key, value);
         });
     }
 
@@ -635,9 +627,17 @@ export class WorkflowComponent extends WidgetPlatform implements OnInit, OnDestr
         this.deleteConnectActions(lineId);
     }
 
-    private removeIconLeader(iconId: string, lineId?: string): void {
-        document.getElementById(iconId)?.remove();
-        document.getElementById(lineId)?.remove();
+    private removeIconLeader(iconId: string, lineId?: string, lineObject?: any): void {
+        try {
+            document.getElementById(iconId)?.remove();
+            if (lineObject && lineId) {
+                document.body.appendChild(document.getElementById(lineId));
+                lineObject.remove();
+            }
+            document.getElementById(lineId)?.remove();
+        } catch (error) {
+            console.error(error);
+        }
     }
 
     deleteConnectActions(lineId: string): void {

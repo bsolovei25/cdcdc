@@ -1,24 +1,27 @@
 import { LineChartData } from './line-chart';
 import { IGlobalClaim } from './admin-panel';
 import { IMessage } from '../../@shared/models/message.model';
+import { HttpHeaders } from '@angular/common/http';
 
 export interface EventsWidgetNotificationPreview {
     id: number;
     originalId: string;
     itemNumber: number;
-    place: { id: number; name: string };
+    unit: { id: number; name: string };
     eventDateTime: Date;
     status: IStatus;
     priority: IPriority;
     category: ICategory;
-    severity: string;
+    severity: 'nonCritical' | 'critical';
     description: string;
-    comments?: { comment: string; createdBy?: number }[];
     sortIndex: number;
     iconUrl?: string;
     statusName?: string;
     iconUrlStatus?: string;
     responsibleOperator: IUserPreview;
+    eventType?: { id: number; name: string };
+    facts?: { comment: string; }[];
+    source?: any;
 }
 
 export interface EventsWidgetNotification {
@@ -28,7 +31,7 @@ export interface EventsWidgetNotification {
     organization: string;
     branch: string;
     originalId?: string;
-    //place?: { id: number; name: string };
+    // place?: { id: number; name: string };
     responsibleOperator: IUser;
     fixedBy: IUser;
     eventDateTime: Date;
@@ -93,6 +96,7 @@ export interface IRetrievalEventDto {
 }
 
 export interface IEventDeviationData {
+    urlOriginalSystem: string;
     isCritical: boolean;
     iteration: number;
     escalateLevelNumber: number;
@@ -169,6 +173,9 @@ export interface ISaveMethodEvent {
     data: {
         url: string;
         authenticationType: AuthenticationType;
+    };
+    options?: {
+        headers: HttpHeaders
     };
 }
 

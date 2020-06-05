@@ -68,7 +68,7 @@
         }
     }
 
-    .filling {
+    .in {
         background-color: var(--color-standard);
         opacity: 1;
 
@@ -86,7 +86,7 @@
         }
     }
 
-    .shipment {
+    .out {
         background-color: var(--color-active);
         opacity: 1;
 
@@ -104,24 +104,25 @@
         }
     }
 
-    .hold {
-        background-color: var(--color-active);
-        opacity: 1;
+    //.hold {
+    //    background-color: var(--color-active);
+    //    opacity: 1;
+    //
+    //    &::after {
+    //        content: "";
+    //        position: absolute;
+    //        top: 0px;
+    //        right: 0px;
+    //        height: 30px;
+    //        width: 30px;
+    //        border-bottom-left-radius: 35px;
+    //        border-top-right-radius: 15px;
+    //        background-color: var(--color-active);
+    //        opacity: 0.5;
+    //    }
+    //}
 
-        &::after {
-            content: "";
-            position: absolute;
-            top: 0px;
-            right: 0px;
-            height: 30px;
-            width: 30px;
-            border-bottom-left-radius: 35px;
-            border-top-right-radius: 15px;
-            background-color: var(--color-active);
-            opacity: 0.5;
-        }
-    }
-
+    .hold,
     .unknown {
         background-color: var(--color-axis);
         opacity: 1;
@@ -188,4 +189,10 @@
 [data-tooltip]:hover::after {
     opacity: 1;
     bottom: 10px;
+}
+
+::ng-deep .mat-tooltip {
+  font-size: 12px;
+  background-color: var(--color-bg-main);
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.349);
 }
