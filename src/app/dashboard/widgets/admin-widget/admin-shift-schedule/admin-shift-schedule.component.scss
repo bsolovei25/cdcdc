@@ -43,6 +43,7 @@
     padding: 0 10px;
     padding-right: 5px;
     height: calc(100% - 10px);
+    margin-right: 5px;
 
     .content-menu {
       font-size: 14px;
@@ -87,6 +88,7 @@
         flex-direction: column;
         width: calc(50% - 5px);
         min-width: 300px;
+        margin-right: 5px;
       }
 
       &__right {

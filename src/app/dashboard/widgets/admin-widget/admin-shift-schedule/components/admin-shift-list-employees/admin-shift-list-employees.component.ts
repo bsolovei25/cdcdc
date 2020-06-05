@@ -12,6 +12,7 @@ import { AdminShiftScheduleService } from '../../../../../services/widgets/admin
 export class AdminShiftListEmployeesComponent implements OnInit {
     // @Input() template: TemplateRef<any>;
     @Input() public data: IUser[] = [];
+    @Input() brigadeColors: { color: string; id: number }[] = [];
 
     constructor(private adminShiftScheduleService: AdminShiftScheduleService) {}
 
@@ -22,12 +23,12 @@ export class AdminShiftListEmployeesComponent implements OnInit {
     dragStart(id: string): void {
         console.log(id);
 
-        this.adminShiftScheduleService.moveItemId.next(id);
+        this.adminShiftScheduleService.moveItemId$.next(id);
     }
 
     drop(event: CdkDragDrop<string[]>): void {
         console.log(event);
-        this.adminShiftScheduleService.moveItemBrigade.next(event);
+        this.adminShiftScheduleService.moveItemBrigade$.next(event);
         // if (event.container.id === event.previousContainer.id) {
         //     const brig = this.dataBrig.findIndex((e) => e.id.toString() === event.container.id);
         //     //  moveItemInArray(this.list[brig].brigade,

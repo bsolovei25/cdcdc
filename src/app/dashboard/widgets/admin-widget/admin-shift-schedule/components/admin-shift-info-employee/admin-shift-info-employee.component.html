@@ -4,13 +4,17 @@
   </div>
   <div class="employee-container__info">
     <div class="fio">{{data.lastName}} {{data.firstName}} {{data.middleName}}</div>
-    <div class="specialty">{{data.positionDescription}}</div>
+    <div class="specialty">{{data.position}}</div>
   </div>
-  <div *ngIf="type === 'brigade'" class="employee-container__brigade">
-    <div class="brigade">{{data.brigade.number}}</div>
+  <div *ngIf="brigade && data?.brigade?.number" class="employee-container__brigade">
+    <div class="brigade" class="brigade--{{ color }}">{{data?.brigade?.number}}</div>
   </div>
 
-  <div class="employee-container__star" [class.star-active]="star" (click)="changeStatus()">
+  <div
+    class="employee-container__star"
+    [class.star-active]="data.position ==='responsible' && star"
+    (click)="postUserResponsible()"
+  >
     <svg-icon
       src="assets/icons/widgets/admin-shift-schedule/star.svg"
       [svgStyle]="{ 'width.px':12, 'height.px':20 }"
@@ -20,7 +24,7 @@
   <div *ngIf="garbage" class="employee-container__garbage" (click)="delete()">
     <svg-icon
       src="assets/icons/widgets/admin-shift-schedule/garbage.svg"
-      [svgStyle]="{ 'width.px':8, 'height.px':11 }"
+      [svgStyle]="{ 'width.px':9, 'height.px':12 }"
     ></svg-icon>
   </div>
 </div>

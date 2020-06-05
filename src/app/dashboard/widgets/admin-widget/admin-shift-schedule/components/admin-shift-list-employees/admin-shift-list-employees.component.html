@@ -8,23 +8,21 @@
         </div>
       </div>
       <div
+        class="list-employee"
+        id="0"
         cdkDropList
         #doneList="cdkDropList"
         [cdkDropListData]="data"
-        [cdkDropListConnectedTo]="[todoList]"
-        (cdkDropListDropped)="drop($event)"
-        class="list-employee"
-        id="0"
-        [cdkDropListConnectedTo]="list"
       >
         <ng-container *ngFor="let item of data">
           <evj-admin-shift-info-employee
             [data]="item"
             cdkDrag
             (cdkDragStarted)="dragStart(item.id)"
+            brigade="true"
+            [brigadeColors]="brigadeColors"
           ></evj-admin-shift-info-employee>
         </ng-container>
-        <!-- <ng-container *ngTemplateOutlet="template"> </ng-container> -->
       </div>
       <div class="employees__bottom"></div>
     </div>

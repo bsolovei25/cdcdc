@@ -61,6 +61,22 @@
         }
       }
     }
+
+    .icon-edit {
+      cursor: pointer;
+      position: absolute;
+      right: 45px;
+
+      ::ng-deep svg {
+        fill: var(--color-text-main);
+      }
+
+      &:hover {
+        ::ng-deep svg {
+          fill: var(--color-active);
+        }
+      }
+    }
   }
 
   &__content {
@@ -96,6 +112,14 @@
     overflow: auto;
 
     ::ng-deep .employee-container {
+      cursor: move;
+    }
+  }
+
+  &__drop {
+    min-height: 230px;
+
+    &__item {
       cursor: move;
     }
   }

@@ -177,19 +177,7 @@
           </div>
         </div>
         <div class="block-right">
-          <evj-admin-shift-list-employees [data]="allUsers">
-            <!-- <ng-template #employeesAll let-data="data">
-              <div
-                cdkDrag
-                (cdkDragStarted)="dragStart($event, i.id);"
-                *ngFor="let i of selectedShift?.shiftMembers"
-              >
-                <evj-admin-shift-info-employee
-                  [data]="i.employee"
-                  type="garbage"
-                ></evj-admin-shift-info-employee>
-              </div>
-            </ng-template> -->
+          <evj-admin-shift-list-employees [data]="allUsers" [brigadeColors]="brigadeColors">
           </evj-admin-shift-list-employees>
         </div>
       </div>
@@ -210,39 +198,13 @@
           <div class="content-brigade">
             <div class="content-brigade__scroll">
               <div class="content-brigade__left">
-                <div class="content-brigade__block" *ngFor="let item of allBrigade">
-                  <evj-admin-shift-brigade [data]="item">
-                    <!-- <ng-template #employees let-data="data">
-                        <div
-                          cdkDrag
-                          (cdkDragStarted)="dragStart($event, item.id);"
-                          *ngFor="let i of selectedShift?.shiftMembers"
-                        >
-                          <evj-admin-shift-info-employee
-                            [data]="i.employee"
-                            type="garbage"
-                          ></evj-admin-shift-info-employee>
-                        </div>
-                      </ng-template> -->
-                  </evj-admin-shift-brigade>
+                <div class="content-brigade__block" *ngFor="let item of leftBrigades">
+                  <evj-admin-shift-brigade [data]="item"> </evj-admin-shift-brigade>
                 </div>
               </div>
               <div class="content-brigade__right">
-                <div class="content-brigade__block" *ngFor="let item of allBrigade">
-                  <evj-admin-shift-brigade [data]="item">
-                    <!-- <ng-template #employees let-data="data">
-                        <div
-                          cdkDrag
-                          (cdkDragStarted)="dragStart($event, i.id);"
-                          *ngFor="let i of selectedShift?.shiftMembers"
-                        >
-                          <evj-admin-shift-info-employee
-                            [data]="i.employee"
-                            type="garbage"
-                          ></evj-admin-shift-info-employee>
-                        </div>
-                      </ng-template>  -->
-                  </evj-admin-shift-brigade>
+                <div class="content-brigade__block" *ngFor="let item of rightBrigades">
+                  <evj-admin-shift-brigade [data]="item"> </evj-admin-shift-brigade>
                 </div>
               </div>
             </div>
@@ -250,19 +212,7 @@
         </div>
         <div class="control-block__right-side">
           <div style="height: calc(100% - 24px);">
-            <evj-admin-shift-list-employees [data]="allUsers">
-              <!-- <ng-template #employeesAll let-data="data">
-                <div
-                  cdkDrag
-                  (cdkDragStarted)="dragStart($event, i.id);"
-                  *ngFor="let i of selectedShift?.shiftMembers"
-                >
-                  <evj-admin-shift-info-employee
-                    [data]="i.employee"
-                    type="garbage"
-                  ></evj-admin-shift-info-employee>
-                </div>
-              </ng-template> -->
+            <evj-admin-shift-list-employees [data]="allUsers" [brigadeColors]="brigadeColors">
             </evj-admin-shift-list-employees>
           </div>
         </div>

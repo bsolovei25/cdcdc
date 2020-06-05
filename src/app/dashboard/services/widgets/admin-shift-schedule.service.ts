@@ -31,8 +31,9 @@ export class AdminShiftScheduleService {
         IAlertWindowModel
     >(null);
 
-    moveItemBrigade: BehaviorSubject<IDropItem> = new BehaviorSubject<IDropItem>(null);
-    moveItemId: BehaviorSubject<string> = new BehaviorSubject<string>(null);
+    moveItemBrigade$: BehaviorSubject<IDropItem> = new BehaviorSubject<IDropItem>(null);
+    moveItemId$: BehaviorSubject<string> = new BehaviorSubject<string>(null);
+    updateBrigades$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
     constructor(public http: HttpClient, configService: AppConfigService) {
         this.restUrl = configService.restUrl;
@@ -130,6 +131,32 @@ export class AdminShiftScheduleService {
         }
     }
 
+    async postUserBrigadeReset(userId: number): Promise<any> {
+        try {
+            return this.http
+                .post(
+                    this.restUrl + `/api/user-management/brigade/user/${userId}/brigade/reset`,
+                    null
+                )
+                .toPromise();
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+    async putBrigadeEdit(id: number, number: string): Promise<any> {
+        try {
+            return this.http
+                .put(this.restUrl + `/api/user-management/brigade/${id}`, {
+                    id,
+                    number,
+                })
+                .toPromise();
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
     async postUsertoBrigade(userId: string, brigadeId: string): Promise<any> {
         try {
             return this.http
@@ -138,6 +165,16 @@ export class AdminShiftScheduleService {
                         `/api/user-management/brigade/user/${userId}/brigade/${brigadeId}`,
                     null
                 )
+                .toPromise();
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+    async postUserResponsible(userId: number): Promise<any> {
+        try {
+            return this.http
+                .post(this.restUrl + `/api/user-management/user/${userId}/SetResponsible`, null)
                 .toPromise();
         } catch (error) {
             console.error(error);

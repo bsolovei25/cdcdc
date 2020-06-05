@@ -121,21 +121,6 @@ export class AdminShiftScheduleComponent extends WidgetPlatform
         super.widgetInit();
     }
 
-    mapArrayBrigade(data: IBrigadeWithUsersDto[]): void {
-        // data.forEach((el) => {
-        //     this.list.push(el.id.toString());
-        //     if (el.id % 2 === 0) {
-        //         this.dataBrigLeft.push(el);
-        //     } else {
-        //         this.dataBrigRight.push(el);
-        //     }
-        //     /// mock push in arrayUserBrigade
-        //     el.brigade.forEach((item) => {
-        //         this.arrayUserBrigade.push(item);
-        //     });
-        // });
-    }
-
     protected async dataConnect(): Promise<void> {
         super.dataConnect();
         this.setRus();
@@ -147,11 +132,16 @@ export class AdminShiftScheduleComponent extends WidgetPlatform
         };
         this.dateChanged(this.selectedDay.date);
         this.subscriptions.push(
-            this.adminShiftScheduleService.moveItemBrigade.subscribe((value) => {
+            this.adminShiftScheduleService.moveItemBrigade$.subscribe((value) => {
                 this.moveUsertoBrigade(value);
             }),
             this.adminShiftScheduleService.alertWindow$.subscribe((value) => {
                 this.alertWindow = value;
+            }),
+            this.adminShiftScheduleService.updateBrigades$.subscribe((value) => {
+                if (value) {
+                    this.getBrigade();
+                }
             })
         );
     }
@@ -274,7 +264,7 @@ export class AdminShiftScheduleComponent extends WidgetPlatform
             try {
                 await this.adminShiftScheduleService.getUnits().then((data) => {
                     this.allUnits = data;
-                    this.selectedUnit = data?.[2];
+                    this.selectedUnit = data?.[0];
                 });
             } catch (error) {
                 console.error(error);
@@ -283,14 +273,7 @@ export class AdminShiftScheduleComponent extends WidgetPlatform
         }
         const dataLoadQueue: Promise<void>[] = [];
         dataLoadQueue.push(this.reLoadDataMonth());
-        dataLoadQueue.push(
-            this.adminShiftScheduleService.getBrigades(this.selectedUnit.id).then((data) => {
-                this.allBrigade = data;
-                data.forEach((item, i) => {
-                    this.brigadeColors.push({ color: `color-${i + 1}`, id: item.brigadeId });
-                });
-            })
-        );
+        dataLoadQueue.push(this.getBrigade());
         dataLoadQueue.push(
             this.adminShiftScheduleService.getBrigadesSubstitution().then((data) => {
                 this.brigadesSubstitution = data;
@@ -314,6 +297,18 @@ export class AdminShiftScheduleComponent extends WidgetPlatform
             }
         }
         this.isLoading = false;
+    }
+
+    async getBrigade(): Promise<void> {
+        this.adminShiftScheduleService.getBrigades(this.selectedUnit.id).then((data) => {
+            this.allBrigade = data;
+            this.mapArrayBrigade(data);
+            this.brigadeColors = [];
+            this.allBrigade.forEach((item, i) => {
+                this.brigadeColors.push({ color: `color-${i + 1}`, id: item.brigadeId });
+            });
+            console.log(this.brigadeColors);
+        });
     }
 
     public async selectedUnits(event: IUnits): Promise<void> {
@@ -558,6 +553,18 @@ export class AdminShiftScheduleComponent extends WidgetPlatform
 
     // #endregion
 
+    mapArrayBrigade(data: IBrigadeWithUsersDto[]): void {
+        this.rightBrigades = [];
+        this.leftBrigades = [];
+        data.forEach((el, i) => {
+            if (i % 2 === 0) {
+                this.leftBrigades.push(el);
+            } else {
+                this.rightBrigades.push(el);
+            }
+        });
+    }
+
     async postBrigade(): Promise<void> {
         this.inputControl.setValue('');
         this.alertWindow = {
@@ -575,6 +582,7 @@ export class AdminShiftScheduleComponent extends WidgetPlatform
                 this.isLoading = true;
                 try {
                     await this.adminShiftScheduleService.postBrigade(this.selectedUnit, name);
+                    this.getBrigade();
                     this.snackBar.openSnackBar(`Бригада ${name} добавлена`);
                     this.isLoading = false;
                 } catch (error) {
@@ -588,10 +596,15 @@ export class AdminShiftScheduleComponent extends WidgetPlatform
     }
 
     async moveUsertoBrigade(item: IDropItem): Promise<void> {
-        if (item) {
-            const userId = this.adminShiftScheduleService.moveItemId.getValue();
-            console.log(item);
-            await this.adminShiftScheduleService.postUsertoBrigade(userId, item.container.id);
+        if (item && item.container.id !== '0' && item.container.id !== item.previousContainer.id) {
+            try {
+                const userId = this.adminShiftScheduleService.moveItemId$.getValue();
+                await this.adminShiftScheduleService.postUsertoBrigade(userId, item.container.id);
+                this.snackBar.openSnackBar('Сотрудник добавлен в бригаду');
+                this.getBrigade();
+            } catch (error) {
+                console.log(error);
+            }
         }
     }
 }
