@@ -84,6 +84,7 @@ export class AdminShiftScheduleComponent extends WidgetPlatform
     scheduleShiftMonth: IScheduleShiftDay[] = [];
 
     allUsers: IUser[] = [];
+    allUsersUnit: IUser[] = [];
     allBrigade: IBrigadeWithUsersDto[] = [];
     brigadesSubstitution: IBrigadeWithUsersDto;
 
@@ -141,6 +142,7 @@ export class AdminShiftScheduleComponent extends WidgetPlatform
             this.adminShiftScheduleService.updateBrigades$.subscribe((value) => {
                 if (value) {
                     this.getBrigade();
+                    this.getUsers();
                 }
             })
         );
@@ -280,13 +282,8 @@ export class AdminShiftScheduleComponent extends WidgetPlatform
             })
         );
         if (!this.allUsers.length) {
-            dataLoadQueue.push(
-                this.eventService.getUser().then((data) => {
-                    this.allUsers = data;
-                })
-            );
+            dataLoadQueue.push(this.getUsers());
         }
-        dataLoadQueue.push();
         if (dataLoadQueue.length > 0) {
             try {
                 await Promise.all(dataLoadQueue);
@@ -307,14 +304,27 @@ export class AdminShiftScheduleComponent extends WidgetPlatform
             this.allBrigade.forEach((item, i) => {
                 this.brigadeColors.push({ color: `color-${i + 1}`, id: item.brigadeId });
             });
-            console.log(this.brigadeColors);
         });
+    }
+
+    async getUsers(): Promise<void> {
+        try {
+            this.eventService.getUser().then((data) => {
+                this.allUsers = data;
+                this.allUsersUnit = this.allUsers.filter(
+                    (val) => val.unitId === this.selectedUnit.id
+                );
+            });
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     public async selectedUnits(event: IUnits): Promise<void> {
         if (event) {
             this.selectedUnit = event;
             this.resetComponent(true);
+            this.allUsersUnit = this.allUsers.filter((val) => val.unitId === this.selectedUnit.id);
             await this.loadItem();
             this.nextAndPreviousMonthVar = null;
             this.listenBtn();
@@ -602,6 +612,7 @@ export class AdminShiftScheduleComponent extends WidgetPlatform
                 await this.adminShiftScheduleService.postUsertoBrigade(userId, item.container.id);
                 this.snackBar.openSnackBar('Сотрудник добавлен в бригаду');
                 this.getBrigade();
+                this.getUsers();
             } catch (error) {
                 console.log(error);
             }
