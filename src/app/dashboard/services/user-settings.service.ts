@@ -10,6 +10,7 @@ import { WidgetService } from './widget.service';
 import { ClaimService } from './claim.service';
 import { GridsterItem, GridsterItemComponentInterface } from 'angular-gridster2';
 import { SnackBarService } from './snack-bar.service';
+import { OverlayService } from './overlay.service';
 
 @Injectable({
     providedIn: 'root',
@@ -32,6 +33,7 @@ export class UserSettingsService {
         private claimService: ClaimService,
         private configService: AppConfigService,
         private snackBar: SnackBarService,
+        private overlayService: OverlayService,
     ) {
         this.restUrl = configService.restUrl;
         localStorage.getItem('screen');
@@ -118,9 +120,18 @@ export class UserSettingsService {
         this.updateWidgetApi(oldItem.uniqid);
     }
 
-    public async removeItem(widgetId: string): Promise<any> {
-        return await this.http.delete(this.restUrl + '/api/user-management/widget/' + widgetId)
-            .toPromise();
+    public async removeItem(widgetId: string): Promise<void> {
+        this.overlayService.setIsLoad(true);
+        try {
+            await this.http.delete(this.restUrl + '/api/user-management/widget/' + widgetId)
+                .toPromise();
+            this.widgetService.removeItemService(widgetId);
+        } catch (e) {
+            console.error(`widget delete error: ${e}`);
+        } finally {
+            this.overlayService.setIsLoad(false);
+        }
+
     }
 
     public GetScreens(): void {

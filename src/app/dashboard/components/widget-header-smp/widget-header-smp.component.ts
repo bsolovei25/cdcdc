@@ -37,6 +37,6 @@ export class WidgetHeaderSmpComponent implements OnInit, OnDestroy {
 
     public async closeWidget(): Promise<void> {
         await this.userSettings.removeItem(this.uniqId);
-        this.widgetService.removeItemService(this.uniqId);
+        // await this.widgetService.removeItemService(this.uniqId);
     }
 }
