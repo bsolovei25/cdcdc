@@ -128,13 +128,17 @@
     font-size: 10px;
     margin-left: -6px;
     min-width: 10px;
-    max-width: 20px;
+    max-width: 200px;
+    -webkit-line-clamp: 1;
+    @include text-overflow;
   }
 
   &__name {
     font-size: 0.625rem;
     color: var(--color-text-sub);
-    max-width: 250px;
+    max-width: 200px;
+    -webkit-line-clamp: 1;
+    @include text-overflow;
   }
 
   &__line {
@@ -163,9 +167,10 @@
   }
 
   &__date-time {
-    flex: 0 98px;
+    flex: 0 100px;
     font-size: 0.75rem;
     color: var(--color-text-sub);
+    min-width: 100px;
   }
 
   &__body {
@@ -189,7 +194,7 @@
 
     .notification__icon_delete {
       display: inline;
-      margin-left: 10px;
+      margin: 2px 0 0 10px;
       width: 15px;
     }
 
@@ -314,13 +319,14 @@
 
   &__unit,
   &__name {
-    flex: 0 55px;
     font-size: 0.625rem;
   }
 
   &__unit {
     font-weight: normal;
     color: var(--color-text-main);
+    -webkit-line-clamp: 1;
+    @include text-overflow;
   }
 
   &__name {
@@ -384,7 +390,7 @@
   &__facts {
     color: var(--color-text-main);
     font-size: 12px;
-    max-height: 40px;
+    max-height: 27px;
     -webkit-line-clamp: 2;
   }
 

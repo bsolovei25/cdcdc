@@ -1,194 +1,197 @@
 .container-card {
-    cursor: pointer;
-    min-height: 100px;
-    width: 170px;
-    padding-left: 15px;
-    border-radius: 15px;
-    background-color: var(--color-oil-card);
-    position: relative;
+  cursor: pointer;
+  min-height: 100px;
+  width: 170px;
+  padding-left: 15px;
+  border-radius: 15px;
+  background-color: var(--color-oil-card);
+  position: relative;
 
-    &__title {
-        color: var(--color-text-sub);
-        font-size: 12px;
-        height: 20px;
-        padding-top: 3px;
+  &__title {
+    color: var(--color-text-sub);
+    font-size: 12px;
+    height: 20px;
+    padding-top: 3px;
+  }
+
+  &__content {
+    display: flex;
+    width: 100%;
+
+    .value {
+      width: 40%;
+      line-height: 20px;
+      margin-top: 5px;
+      height: 100%;
+      font-size: 14px;
     }
 
-    &__content {
-        display: flex;
-        width: 100%;
-
-        .value {
-            width: 40%;
-            line-height: 20px;
-            margin-top: 5px;
-            height: 100%;
-            font-size: 14px;
-        }
-
-        .tank {
-            width: 35%;
-            display: flex;
-            align-items: center;
-        }
-
-        .status {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            width: 25%;
-        }
+    .tank {
+      width: 35%;
+      display: flex;
+      align-items: center;
     }
 
-    &__status {
-        position: absolute;
-        top: 0;
-        right: 0;
-        height: 20px;
-        width: 20px;
-        border-bottom-left-radius: 30px;
-        border-top-right-radius: 20px;
+    .status {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 25%;
+      flex-direction: column;
+      margin-top: 13px;
     }
+  }
 
-    .standart {
-        background-color: var(--color-axis);
-        opacity: 1;
+  &__status {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 20px;
+    width: 20px;
+    border-bottom-left-radius: 30px;
+    border-top-right-radius: 20px;
+  }
 
-        &::after {
-            content: "";
-            position: absolute;
-            top: 0px;
-            right: 0px;
-            height: 30px;
-            width: 30px;
-            border-bottom-left-radius: 35px;
-            border-top-right-radius: 15px;
-            background-color: var(--color-axis);
-            opacity: 0.5;
-        }
+  //.standart {
+  //    background-color: var(--color-axis);
+  //    opacity: 1;
+  //
+  //    &::after {
+  //        content: "";
+  //        position: absolute;
+  //        top: 0px;
+  //        right: 0px;
+  //        height: 30px;
+  //        width: 30px;
+  //        border-bottom-left-radius: 35px;
+  //        border-top-right-radius: 15px;
+  //        background-color: var(--color-axis);
+  //        opacity: 0.5;
+  //    }
+  //}
+
+  //.in {
+  //    background-color: var(--color-standard);
+  //    opacity: 1;
+  //
+  //    &::after {
+  //        content: "";
+  //        position: absolute;
+  //        top: 0px;
+  //        right: 0px;
+  //        height: 30px;
+  //        width: 30px;
+  //        border-bottom-left-radius: 35px;
+  //        border-top-right-radius: 15px;
+  //        background-color: var(--color-standard);
+  //        opacity: 0.5;
+  //    }
+  //}
+
+  .inOut,
+  .in,
+  .out {
+    background-color: var(--color-active);
+    opacity: 1;
+
+    &::after {
+      content: "";
+      position: absolute;
+      top: 0px;
+      right: 0px;
+      height: 30px;
+      width: 30px;
+      border-bottom-left-radius: 35px;
+      border-top-right-radius: 15px;
+      background-color: var(--color-active);
+      opacity: 0.5;
     }
+  }
 
-    .in {
-        background-color: var(--color-standard);
-        opacity: 1;
+  .hold {
+    background-color: var(--color-standard);
+    opacity: 1;
 
-        &::after {
-            content: "";
-            position: absolute;
-            top: 0px;
-            right: 0px;
-            height: 30px;
-            width: 30px;
-            border-bottom-left-radius: 35px;
-            border-top-right-radius: 15px;
-            background-color: var(--color-standard);
-            opacity: 0.5;
-        }
+    &::after {
+      content: "";
+      position: absolute;
+      top: 0px;
+      right: 0px;
+      height: 30px;
+      width: 30px;
+      border-bottom-left-radius: 35px;
+      border-top-right-radius: 15px;
+      background-color: var(--color-standard);
+      opacity: 0.5;
     }
+  }
 
-    .out {
-        background-color: var(--color-active);
-        opacity: 1;
+  .unknown {
+    background-color: var(--color-axis);
+    opacity: 1;
 
-        &::after {
-            content: "";
-            position: absolute;
-            top: 0px;
-            right: 0px;
-            height: 30px;
-            width: 30px;
-            border-bottom-left-radius: 35px;
-            border-top-right-radius: 15px;
-            background-color: var(--color-active);
-            opacity: 0.5;
-        }
+    &::after {
+      content: "";
+      position: absolute;
+      top: 0px;
+      right: 0px;
+      height: 30px;
+      width: 30px;
+      border-bottom-left-radius: 35px;
+      border-top-right-radius: 15px;
+      background-color: var(--color-axis);
+      opacity: 0.5;
     }
-
-    //.hold {
-    //    background-color: var(--color-active);
-    //    opacity: 1;
-    //
-    //    &::after {
-    //        content: "";
-    //        position: absolute;
-    //        top: 0px;
-    //        right: 0px;
-    //        height: 30px;
-    //        width: 30px;
-    //        border-bottom-left-radius: 35px;
-    //        border-top-right-radius: 15px;
-    //        background-color: var(--color-active);
-    //        opacity: 0.5;
-    //    }
-    //}
-
-    .hold,
-    .unknown {
-        background-color: var(--color-axis);
-        opacity: 1;
-
-        &::after {
-            content: "";
-            position: absolute;
-            top: 0px;
-            right: 0px;
-            height: 30px;
-            width: 30px;
-            border-bottom-left-radius: 35px;
-            border-top-right-radius: 15px;
-            background-color: var(--color-axis);
-            opacity: 0.5;
-        }
-    }
+  }
 }
 
 .att-block {
-    display: flex;
-    height: 20px;
-    font-size: 10px;
-    align-items: center;
+  display: flex;
+  height: 20px;
+  font-size: 10px;
+  align-items: center;
 
-    &__value {
-        width: auto;
-        white-space: nowrap;
-    }
+  &__value {
+    width: auto;
+    white-space: nowrap;
+  }
 
-    &__unit {
-        margin-left: 2px;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-    }
+  &__unit {
+    margin-left: 2px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 
-    &:hover {
-        color: var(--color-active);
-    }
+  &:hover {
+    color: var(--color-active);
+  }
 }
 
 [data-tooltip]::after {
-    content: attr(data-tooltip);
-    font-size: 10px;
-    text-align: center;
-    position: absolute;
-    width: 80px;
-    left: 50px;
-    bottom: 0px;
-    background: var(--color-bg-main);
-    color: #fff;
-    border: 1px solid var(--color-text-main);
-    border-radius: 15px;
-    padding: 0.5em;
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
-    pointer-events: none;
-    opacity: 0;
-    height: 15px;
-    line-height: 15px;
-    transition: 1s;
+  content: attr(data-tooltip);
+  font-size: 10px;
+  text-align: center;
+  position: absolute;
+  width: 80px;
+  left: 50px;
+  bottom: 0px;
+  background: var(--color-bg-main);
+  color: #fff;
+  border: 1px solid var(--color-text-main);
+  border-radius: 15px;
+  padding: 0.5em;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+  pointer-events: none;
+  opacity: 0;
+  height: 15px;
+  line-height: 15px;
+  transition: 1s;
 }
 
 [data-tooltip]:hover::after {
-    opacity: 1;
-    bottom: 10px;
+  opacity: 1;
+  bottom: 10px;
 }
 
 ::ng-deep .mat-tooltip {

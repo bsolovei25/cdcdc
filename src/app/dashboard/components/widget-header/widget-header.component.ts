@@ -11,6 +11,7 @@ import { UserSettingsService } from '../../services/user-settings.service';
 import { ClaimService, EnumClaimWidgets } from '../../services/claim.service';
 import { Subscription } from 'rxjs';
 import { WidgetService } from '../../services/widget.service';
+import { OverlayService } from '../../services/overlay.service';
 
 @Component({
     selector: 'evj-widget-header',
@@ -55,6 +56,7 @@ export class WidgetHeaderComponent implements OnInit, OnChanges, OnDestroy {
     public filterTankInfo: boolean = false;
 
     constructor(
+        public overlayService: OverlayService,
         public widgetService: WidgetService,
         public userSettings: UserSettingsService,
         private claimService: ClaimService
@@ -83,7 +85,6 @@ export class WidgetHeaderComponent implements OnInit, OnChanges, OnDestroy {
 
     public async onRemoveButton(): Promise<void> {
         await this.userSettings.removeItem(this.uniqId);
-        this.widgetService.removeItemService(this.uniqId);
     }
 
     public createEvent(event): void {
