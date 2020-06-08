@@ -1,25 +1,34 @@
 <div appTooltip textTooltip='{{  operation[this.data.objectStatus] }}' class="container-card"
-    [style.height.px]="heightCard">
-    <div class="container-card__title">
-        {{ data.tankTitle }}
-    </div>
-    <div class="container-card__content">
-        <div class="value">
-            <ng-container *ngFor="let item of data.attributes">
-                <div [matTooltip]="item.description" class="att-block">
-                    <div class="att-block__value">{{item.value}}</div>
-                    <div class="att-block__unit" [innerHTML]="item.unit | powIndex"></div>
-                </div>
-            </ng-container>
+     [style.height.px]="heightCard">
+  <div class="container-card__title">
+    {{ data.tankTitle }}
+  </div>
+  <div class="container-card__content">
+    <div class="value">
+      <ng-container *ngFor="let item of data.attributes">
+        <div [matTooltip]="item.description" class="att-block">
+          <div class="att-block__value">{{item.value}}</div>
+          <div class="att-block__unit" [innerHTML]="item.unit | powIndex"></div>
+        </div>
+      </ng-container>
 
-        </div>
-        <div class="tank">
-            <evj-tank-filling [data]="data.fillLevelPercentage"></evj-tank-filling>
-        </div>
-        <div class="status">
-            <svg-icon src="./assets/icons/widgets/oil-control-all/tank-information/{{data.objectStatus}}.svg"
-                [svgStyle]="{ 'width.px':25, 'height.px':25 }"></svg-icon>
-        </div>
     </div>
-    <div class="container-card__status {{data.objectStatus}}"></div>
+    <div class="tank">
+      <evj-tank-filling [data]="data.fillLevelPercentage"></evj-tank-filling>
+    </div>
+    <div class="status">
+      <ng-container *ngIf="data.objectStatus !== 'inOut'; else inOutIcons">
+        <svg-icon src="./assets/icons/widgets/oil-control-all/tank-information/{{data.objectStatus}}.svg"
+                  [svgStyle]="{ 'width.px':22, 'height.px':22 }"></svg-icon>
+      </ng-container>
+      <ng-template #inOutIcons>
+        <svg-icon src="./assets/icons/widgets/oil-control-all/tank-information/out.svg"
+                  [svgStyle]="{ 'width.px':20, 'height.px':20 }"></svg-icon>
+        <svg-icon src="./assets/icons/widgets/oil-control-all/tank-information/in.svg"
+                  [svgStyle]="{ 'width.px':20, 'height.px':20 }"></svg-icon>
+      </ng-template>
+
+    </div>
+  </div>
+  <div class="container-card__status {{data.objectStatus}}"></div>
 </div>
