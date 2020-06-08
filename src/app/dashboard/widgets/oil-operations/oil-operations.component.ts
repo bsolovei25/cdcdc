@@ -238,10 +238,7 @@ export class OilOperationsComponent extends WidgetPlatform implements OnInit, On
     protected dataConnect(): void {
         super.dataConnect();
         this.subscriptions.push(
-            this.widgetService.currentDates$.subscribe((ref) => {
-                    this.onDatesChange(ref);
-                }
-            ),
+            this.widgetService.currentDates$.subscribe(this.onDatesChange.bind(this)),
         );
     }
 
@@ -256,23 +253,24 @@ export class OilOperationsComponent extends WidgetPlatform implements OnInit, On
             dates.fromDateTime.setHours(0, 0, 0);
         }
         this.currentDates = dates;
-        console.log(await this.getLeftTable());
+        this.data.tableLeft = (await this.getLeftTable()).slice(0, 10);
     }
 
-    public async getLeftTable(): Promise<ILeftOilTable> {
+    public async getLeftTable(): Promise<ILeftOilTable[]> {
         const oilOperations = await this.oilOperationService.getTransferList(this.currentDates);
-        return {
-            id: oilOperations.id,
+        console.log(oilOperations);
+        return oilOperations.map<ILeftOilTable>((o) => { return {
+            id: o.id,
             number: 0, // TODO
             rR: 0, // TODO
-            product: oilOperations.product,
-            passport: oilOperations.passport.id,
-            dateFrom: new Date(oilOperations.startTime),
-            dateTo: new Date(oilOperations.endTime),
-            mass: oilOperations.mass,
-            deviation: oilOperations.deviation,
-            status: oilOperations.status,
-        };
+            product: o.product,
+            passport: o.passport?.id ?? null,
+            dateFrom: new Date(o.startTime),
+            dateTo: new Date(o.endTime),
+            mass: o.mass,
+            deviation: o.deviation,
+            status: o.status,
+        }; });
     }
 
     ngOnDestroy(): void {
