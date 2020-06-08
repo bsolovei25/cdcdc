@@ -1,4 +1,4 @@
-import { Component, HostListener, Inject, OnDestroy, OnInit } from '@angular/core';
+import { AfterViewInit, Component, HostListener, Inject, OnDestroy, OnInit } from '@angular/core';
 import { UnityLoader } from './UnityLoader.js';
 import { PlatformLocation } from '@angular/common';
 import { WidgetService } from '../../services/widget.service';
@@ -10,7 +10,7 @@ import { WidgetPlatform } from '../../models/widget-platform';
     templateUrl: './dispatcher-screen.component.html',
     styleUrls: ['./dispatcher-screen.component.scss'],
 })
-export class DispatcherScreenComponent extends WidgetPlatform implements OnInit, OnDestroy {
+export class DispatcherScreenComponent extends WidgetPlatform implements AfterViewInit, OnDestroy {
     private baseUrl: string;
     private unityInstance: any;
     isStart: boolean;
@@ -36,7 +36,7 @@ export class DispatcherScreenComponent extends WidgetPlatform implements OnInit,
         this.baseUrl = location.origin + location.pathname.replace('dashboard', '');
     }
 
-    ngOnInit(): void {
+    ngAfterViewInit(): void {
         super.widgetInit();
     }
 
@@ -48,7 +48,7 @@ export class DispatcherScreenComponent extends WidgetPlatform implements OnInit,
     }
 
     protected dataConnect(): void {
-        this.InitUnity();
+        setTimeout(() => this.InitUnity(), 100);
     }
 
     protected dataHandler(ref: any): void { }

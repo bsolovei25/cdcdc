@@ -16,6 +16,9 @@ export class OverlayService {
     public dashboardAlertPassword$: BehaviorSubject<IAlertPasswordModel> = new BehaviorSubject<
         IAlertPasswordModel
     >(null);
+    public dashboardIsLoad$: BehaviorSubject<boolean> = new BehaviorSubject<
+        boolean
+        >(null);
 
     public closeDashboardAlert(): void {
         this.dashboardAlert$.next(null);
@@ -23,5 +26,9 @@ export class OverlayService {
 
     public closeDashboardPasswordAlert(): void {
         this.dashboardAlertPassword$.next(null);
+    }
+
+    public setIsLoad(isLoad: boolean): void {
+        this.dashboardIsLoad$.next(isLoad);
     }
 }
