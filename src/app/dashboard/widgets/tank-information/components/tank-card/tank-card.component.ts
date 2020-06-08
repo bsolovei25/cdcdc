@@ -24,13 +24,11 @@ export class TankCardComponent implements OnInit, OnChanges {
     operation = {
         in: 'Заполнение',
         out: 'Отгрузка',
+        inOut: 'Проток',
         unknown: 'Неизвестно',
         hold: 'Отстой',
         // standart: 'Без изменений',
-        // in: 'Налив',
-        // out: 'Слив',
         // repair: 'Ремонт',
-        // inOut: 'Проток',
         // work: 'В работе'
     };
 
@@ -38,6 +36,7 @@ export class TankCardComponent implements OnInit, OnChanges {
     }
 
     ngOnChanges(): void {
+        // this.data.objectStatus = 'inOut';
         if (!this.operation[this.data.objectStatus]) {
             this.data.objectStatus = 'unknown';
         }
