@@ -265,6 +265,7 @@ export class EventsComponent extends WidgetPlatform implements OnInit, OnDestroy
             }
             this.notifications.splice(idx, 0, notification);
             this.notifications = this.notifications.slice();
+            this.countNotificationsDivCapacity();
         }
     }
 
@@ -274,6 +275,7 @@ export class EventsComponent extends WidgetPlatform implements OnInit, OnDestroy
         if (idx >= 0) {
             this.notifications.splice(idx, 1);
             this.notifications = this.notifications.slice();
+            this.countNotificationsDivCapacity();
         }
     }
 
@@ -288,6 +290,7 @@ export class EventsComponent extends WidgetPlatform implements OnInit, OnDestroy
             }
             this.notifications[idx] = notification;
             this.notifications = this.notifications.slice();
+            this.countNotificationsDivCapacity();
         }
     }
 
