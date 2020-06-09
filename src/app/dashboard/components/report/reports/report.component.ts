@@ -187,7 +187,9 @@ export class ReportComponent implements OnInit {
         };
         try {
             const a = await this.reportsService.postTemplate(template.id, body);
-            window.open(`${this.restUrl}/api/file-storage/${a.data.fileId}`);
+            // window.open(`${this.restUrl}/api/file-storage/${a.data.fileId}`);
+            const downloadUrl = `${this.restUrl}/api/file-storage/${a.data.fileId}`;
+            window.open(downloadUrl, 'download_window', 'toolbar=0,location=no,directories=0,status=0,scrollbars=0,resizeable=0,width=1,height=1,top=0,left=0');
             this.isLoading = false;
         } catch (error) {
             this.snackBar.openSnackBar('Файл не сформирован', 'snackbar-red');
