@@ -6,6 +6,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { TanksTableComponent } from '../tank-calibration-table/tanks-table/tanks-table.component';
 import { DocumentViewerFullscreenComponent } from './document-viewer-fullscreen/document-viewer-fullscreen.component';
 import { stringify } from 'querystring';
+import { DocumentsScansService } from '../../services/oil-control-services/documents-scans.service';
 
 export interface IDocumentViewer {
     src: string;
@@ -52,6 +53,7 @@ export class DocumentViewerComponent extends WidgetPlatform implements OnInit, O
     public static minItemRows: number = 12;
 
     constructor(
+        public oilDocumentService: DocumentsScansService,
         private dialog: MatDialog,
         protected widgetService: WidgetService,
         @Inject('isMock') public isMock: boolean,
@@ -65,13 +67,21 @@ export class DocumentViewerComponent extends WidgetPlatform implements OnInit, O
 
     public ngOnInit(): void {
         super.widgetInit();
-        this.isLoading = true;
-        setTimeout(() =>
-            this.src = 'https://vadimdez.github.io/ng2-pdf-viewer/assets/pdf-test.pdf', 2000);
+
+        // setTimeout(() =>
+        //     this.src = 'https://vadimdez.github.io/ng2-pdf-viewer/assets/pdf-test.pdf', 2000);
     }
 
     public ngOnDestroy(): void {
         super.ngOnDestroy();
+    }
+
+    protected dataConnect(): void {
+        super.dataConnect();
+        this.oilDocumentService.currentDocumentUrl.subscribe((ref) => {
+            this.isLoading = true;
+            this.src = ref;
+        });
     }
 
     @HostListener('document:resize', ['$event'])

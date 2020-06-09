@@ -1,5 +1,13 @@
-export interface IOilDocument {
+// export interface IDocumentsScans {
+//     id: number;
+//     name: string;
+//     date: Date; /// Date
+//     isActive?: boolean;
+// }
+
+export interface IDocumentsScans {
     id: number;
     name: string;
-    date: Date;
+    date: Date; /// Date
+    isActive?: boolean;
 }
