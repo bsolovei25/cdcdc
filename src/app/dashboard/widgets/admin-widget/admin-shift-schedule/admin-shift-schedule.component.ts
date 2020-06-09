@@ -108,7 +108,6 @@ export class AdminShiftScheduleComponent extends WidgetPlatform
     buttons: NodeListOf<HTMLElement>;
     nextAndPreviousMonthVar: (event: MouseEvent) => boolean | void;
 
-    @ViewChild('shiftOverlay') shiftOverlay: ElementRef<HTMLElement>;
     @ViewChild('calendar') calendar: MatCalendar<Date>;
 
     constructor(
@@ -359,20 +358,9 @@ export class AdminShiftScheduleComponent extends WidgetPlatform
 
     public async selectShift(shift: IScheduleShift): Promise<void> {
         this.isLoading = true;
-        if (this.shiftOverlay?.nativeElement.style.display === 'block') {
-            this.renderer.setStyle(this.shiftOverlay.nativeElement, 'display', 'none');
-        }
-        this.activeUsers.clear();
         try {
             await this.adminShiftScheduleService.getSchudeleShift(shift.id).then((data) => {
                 this.selectedShift = data;
-            });
-            this.selectedShift.shiftMembers.forEach((member) => {
-                this.brigadesSubstitution.users.forEach((user) => {
-                    if (user.id === member.employeeId) {
-                        this.activeUsers.select(user);
-                    }
-                });
             });
         } catch (error) {
             this.isLoading = false;
@@ -415,7 +403,6 @@ export class AdminShiftScheduleComponent extends WidgetPlatform
         brigade: IBrigadeWithUsersDto,
         selectedDay: IScheduleShiftDay
     ): Promise<void> {
-        console.log('dsada');
         this.isLoading = true;
         this.selectedBrigade = brigade;
         try {
@@ -632,11 +619,13 @@ export class AdminShiftScheduleComponent extends WidgetPlatform
 
     async postAbsent(userId: number, absentReasonId: number): Promise<void> {
         try {
-            this.adminShiftScheduleService.postAbsent(
+            await this.adminShiftScheduleService.postAbsent(
                 this.selectedShift.id,
                 userId,
                 absentReasonId
             );
+            this.selectShift(this.selectedShift);
+            this.snackBar.openSnackBar('Статус обновлен');
         } catch (error) {
             console.error(error);
         }
