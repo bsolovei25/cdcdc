@@ -85,4 +85,15 @@ export class SmotrEventComponent implements OnInit {
         const event = new CustomEvent('resize');
         document.dispatchEvent(event);
     }
+
+    public openLineChart(): void {
+        console.log('line-chart');
+        this.ewService.isOverlayChartOpen = true;
+        const event = new CustomEvent('resize');
+        document.dispatchEvent(event);
+    }
+
+    public overlayChartClose(): void {
+        this.ewService.isOverlayChartOpen = false;
+    }
 }

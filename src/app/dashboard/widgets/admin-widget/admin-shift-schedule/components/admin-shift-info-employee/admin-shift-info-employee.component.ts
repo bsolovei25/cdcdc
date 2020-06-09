@@ -1,39 +1,121 @@
-import { Component, OnInit, Input, ChangeDetectionStrategy } from '@angular/core';
-import { IAdminShiftUserBrigade } from '../../admin-shift-schedule.component';
+import {
+    Component,
+    Input,
+    OnInit,
+    ChangeDetectionStrategy,
+    ElementRef,
+    ViewChild,
+    Renderer2,
+    ViewChildren,
+    QueryList,
+    Output,
+    EventEmitter,
+} from '@angular/core';
 import { AdminShiftScheduleService } from 'src/app/dashboard/services/widgets/admin-shift-schedule.service';
+import { IUser } from '../../../../../models/events-widget';
+import { AvatarConfiguratorService } from '../../../../../services/avatar-configurator.service';
+import { SnackBarService } from '../../../../../services/snack-bar.service';
+import { IAlertWindowModel } from '../../../../../../@shared/models/alert-window.model';
+import { IAbsent } from '../../admin-shift-schedule.component';
 
 @Component({
-  selector: 'evj-admin-shift-info-employee',
-  templateUrl: './admin-shift-info-employee.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  styleUrls: ['./admin-shift-info-employee.component.scss']
+    selector: 'evj-admin-shift-info-employee',
+    templateUrl: './admin-shift-info-employee.component.html',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    styleUrls: ['./admin-shift-info-employee.component.scss'],
 })
 export class AdminShiftInfoEmployeeComponent implements OnInit {
-  @Input() public data: IAdminShiftUserBrigade;
-  @Input() public type: string;
-  @Input() public star: boolean = false;
+    @Input() public data: IUser;
+    @Input() public garbage: boolean;
+    @Input() public garbageShift: boolean;
+    @Input() public star: boolean = false;
+    @Input() brigade: boolean = false;
+    @Input() allStatus: IAbsent[] = [];
+    @Input() absentReason: IAbsent;
 
-  constructor(private adminShiftScheduleService: AdminShiftScheduleService) { }
+    @Input() colorBrigade: string;
+    photoPath: string = '';
+    isOpen: boolean = false;
 
-  ngOnInit(): void {
-  }
+    @Output() deleteMemberFromShift: EventEmitter<IUser> = new EventEmitter<IUser>();
 
-  delete(): void {
-    const windowsParam = {
-      isShow: true,
-      questionText: 'Вы уверены, что хотите удалить сотрудника?',
-      acceptText: 'Да',
-      cancelText: 'Нет',
-      acceptFunction: () => this.adminShiftScheduleService.closeAlert(),
-      closeFunction: () => {
-        this.adminShiftScheduleService.closeAlert();
-      }
-    };
-    this.adminShiftScheduleService.alertWindow$.next(windowsParam);
-  }
+    constructor(
+        private avatarConfiguratorService: AvatarConfiguratorService,
+        private adminShiftScheduleService: AdminShiftScheduleService,
+        private snackBar: SnackBarService,
+    ) {}
 
-  changeStatus(): void {
+    ngOnInit(): void {
+        this.loadItem();
+    }
 
-  }
+    private async loadItem(): Promise<void> {
+        try {
+            this.photoPath = this.avatarConfiguratorService.getAvatarPath(this.data?.photoId);
+        } catch (error) {}
+    }
 
+    delete(): void {
+        const windowsParam: IAlertWindowModel = {
+            isShow: true,
+            questionText: 'Вы точно хотите удалить сотрудника из бригады',
+            acceptText: 'Удалить',
+            cancelText: 'Нет',
+            acceptFunction: () => {
+                this.resetUserBrigade();
+                this.adminShiftScheduleService.alertWindow$.next(null);
+                this.snackBar.openSnackBar(`Сотрудник удален из бригады`);
+            },
+            closeFunction: () => {
+                this.adminShiftScheduleService.alertWindow$.next(null);
+            },
+        };
+        this.adminShiftScheduleService.alertWindow$.next(windowsParam);
+    }
+
+    deleteUserShift(): void {
+        const windowsParam: IAlertWindowModel = {
+            isShow: true,
+            questionText: 'Вы точно хотите удалить сотрудника из смены',
+            acceptText: 'Удалить',
+            cancelText: 'Нет',
+            acceptFunction: () => {
+                this.deleteMemberFromShift.emit(this.data);
+            },
+            closeFunction: () => {
+                this.adminShiftScheduleService.alertWindow$.next(null);
+            },
+        };
+        this.adminShiftScheduleService.alertWindow$.next(windowsParam);
+    }
+
+    async resetUserBrigade(): Promise<void> {
+        try {
+            await this.adminShiftScheduleService.postUserBrigadeReset(this.data.id);
+            this.adminShiftScheduleService.updateBrigades$.next(true);
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    async postUserResponsible(): Promise<void> {
+        try {
+            await this.adminShiftScheduleService.postUserResponsible(this.data.id);
+            this.snackBar.openSnackBar(
+                `${this.data.firstName} ${this.data.lastName} главный в бригаде`
+            );
+            this.adminShiftScheduleService.updateBrigades$.next(true);
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+    changeStatus(): void {}
+
+    onChooseStatus(status: IAbsent): void {
+        this.adminShiftScheduleService.postAbsent$.next({
+            userId: this.data?.id,
+            absentReasonId: status?.id,
+        });
+    }
 }
