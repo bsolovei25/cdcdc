@@ -40,6 +40,7 @@ export interface IShiftMember {
     isPossibilityDelete: boolean;
     status: EnumShiftStatus;
     position: EnumShiftPosition;
+    isAdditionalMember: boolean;
 }
 
 export interface IBrigadeWithUsersDto {

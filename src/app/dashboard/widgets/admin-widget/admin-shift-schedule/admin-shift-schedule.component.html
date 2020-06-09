@@ -125,6 +125,7 @@
                     *ngIf="!shift.brigadeId"
                     class="btn shift-today-item"
                     (click)="openOverlay($event, shift, true)"
+                    [matMenuTriggerFor]="menu2"
                   >
                     Назначить
                   </p>
@@ -133,6 +134,7 @@
                     class="btn shift-today-item"
                     (click)="openOverlay($event, shift, true)"
                     [matTooltip]="shift.brigadeName"
+                    [matMenuTriggerFor]="menu2"
                   >
                     {{ shift.brigadeName }}
                   </p>
@@ -147,24 +149,15 @@
                       [svgStyle]="{ 'width.px':10, 'height.px':15 }"
                     ></svg-icon>
                   </div>
-                  <div class="shift-overlay" #shiftOverlay>
-                    <ul>
-                      <!-- <li>
-                        <svg-icon
-                          (click)="openOverlay(null, null, false)"
-                          class="icon"
-                          [svgStyle]="{'width.px':10,'padding.px':1}"
-                          src="./assets/icons/widgets/admin-shift-schedule/close.svg"
-                        ></svg-icon>
-                      </li> -->
-                      <li
-                        *ngFor="let b of filterBrigade(allBrigade);"
-                        (click)="onChooseBrigade(b, selectedDay)"
-                      >
-                        {{ b.brigadeNumber }}
-                      </li>
-                    </ul>
-                  </div>
+                  <mat-menu #menu2="matMenu" class="customize-menu">
+                    <button
+                      mat-menu-item
+                      *ngFor="let b of allBrigade"
+                      (click)="onChooseBrigade(b, selectedDay)"
+                    >
+                      {{ b.brigadeNumber }}
+                    </button>
+                  </mat-menu>
                 </div>
               </section>
             </evj-admin-shift-card>

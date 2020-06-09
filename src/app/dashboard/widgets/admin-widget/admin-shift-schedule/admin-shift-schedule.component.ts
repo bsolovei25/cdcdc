@@ -34,6 +34,7 @@ import { IAlertWindowModel } from '../../../../@shared/models/alert-window.model
 import { FormControl } from '@angular/forms';
 import { EventService } from '../../../services/widgets/event.service';
 import { Subscription } from 'rxjs';
+import { MatMenuTrigger } from '@angular/material/menu';
 
 export interface IAdminShiftBrigade {
     id: number;
@@ -414,8 +415,8 @@ export class AdminShiftScheduleComponent extends WidgetPlatform
         brigade: IBrigadeWithUsersDto,
         selectedDay: IScheduleShiftDay
     ): Promise<void> {
+        console.log('dsada');
         this.isLoading = true;
-        this.openOverlay(null, null, false);
         this.selectedBrigade = brigade;
         try {
             await this.adminShiftScheduleService.postSelectBrigade(
@@ -520,26 +521,10 @@ export class AdminShiftScheduleComponent extends WidgetPlatform
     }
 
     public openOverlay(event: MouseEvent, shift: IScheduleShift, isOpen: boolean): void {
+        console.log(event);
         event?.stopPropagation();
-        if (this.shiftOverlay?.nativeElement) {
-            if (isOpen) {
-                this.selectedShift = shift;
-                this.renderer.setStyle(this.shiftOverlay.nativeElement, 'display', 'block');
-            } else {
-                this.renderer.setStyle(this.shiftOverlay.nativeElement, 'display', 'none');
-            }
-        }
+        this.selectedShift = shift;
     }
-
-    // public filterShiftMembers(shiftMembers: IShiftMember[]): IShiftMember[] {
-    //     this.brigadesSubstitution.users.forEach((user) => {
-    //         shiftMembers = shiftMembers.filter((member) => member?.employee?.id !== user?.id);
-    //         const index: number = shiftMembers.findIndex((item) => item.position === 'responsible');
-    //         const mainWorker = shiftMembers.splice(index, 1)[0];
-    //         shiftMembers.unshift(mainWorker);
-    //     });
-    //     return shiftMembers;
-    // }
 
     public filterBrigade(brigadeUsers: IBrigadeWithUsersDto[]): IBrigadeWithUsersDto[] {
         this.selectedDay.items.forEach((shift) => {
