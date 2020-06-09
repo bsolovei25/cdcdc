@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { EventsWorkspaceService } from '../../../services/widgets/events-workspace.service';
 import { EventService } from '../../../services/widgets/event.service';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
     selector: 'evj-smotr-event',
@@ -12,9 +13,19 @@ export class SmotrEventComponent implements OnInit {
     public isClosePopupOpen: boolean = false;
     public isReasonsPopupOpen: boolean = false;
 
-    constructor(public ewService: EventsWorkspaceService, private eventService: EventService) {}
+    public graph: any;
 
-    public ngOnInit(): void { }
+    constructor(
+        public ewService: EventsWorkspaceService,
+        private eventService: EventService,
+        private http: HttpClient,
+    ) {}
+
+    public ngOnInit(): void {
+        this.http.get('assets/mock/LineChartMock/ws.json').toPromise().then((ref: any) =>
+            this.graph = ref.data
+        );
+    }
 
     public isDisabledCloseButton(): boolean {
         return this.ewService.event.status.name === 'closed';
@@ -66,21 +77,16 @@ export class SmotrEventComponent implements OnInit {
         if (this.isDisabledUrlButton()) {
             return;
         }
-        window.open('http://www.example.com/');
+        window.open(this.ewService.event.deviationData.urlOriginalSystem);
     }
 
     public isDisabledUrlButton(): boolean {
-        return !(this.ewService.event.deviationData?.urlOriginalSystem === '');
+        return !((this.ewService.event.deviationData?.urlOriginalSystem ?? '') === '');
     }
 
     public openLineChart(): void {
-        console.log('line-chart');
         this.ewService.isOverlayChartOpen = true;
         const event = new CustomEvent('resize');
         document.dispatchEvent(event);
-    }
-
-    public overlayChartClose(): void {
-        this.ewService.isOverlayChartOpen = false;
     }
 }

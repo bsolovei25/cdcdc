@@ -212,20 +212,3 @@
     </div>
   </div>
 </section>
-<div
-  (mousedown)="$event.stopPropagation()"
-  (touchstart)="$event.stopPropagation()"
-  id="overlay-chart"
-  *ngIf="ewService.isOverlayChartOpen && ewService.event.graphValues?.graphs[0]"
-  (click)="overlayChartClose()"
->
-  <div
-    class="overlay-chart__body"
-    (click)="$event.stopPropagation()"
-    *ngIf="ewService.event.graphValues"
-  >
-    <evj-line-chart-workspace
-      [dataChartAttribute]="ewService.event.graphValues"
-    ></evj-line-chart-workspace>
-  </div>
-</div>
