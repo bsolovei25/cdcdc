@@ -18,13 +18,9 @@ export class SmotrEventComponent implements OnInit {
     constructor(
         public ewService: EventsWorkspaceService,
         private eventService: EventService,
-        private http: HttpClient,
     ) {}
 
     public ngOnInit(): void {
-        this.http.get('assets/mock/LineChartMock/ws.json').toPromise().then((ref: any) =>
-            this.graph = ref.data
-        );
     }
 
     public isDisabledCloseButton(): boolean {
