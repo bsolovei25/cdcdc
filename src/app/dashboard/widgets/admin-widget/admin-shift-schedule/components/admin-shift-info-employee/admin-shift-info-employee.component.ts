@@ -8,6 +8,8 @@ import {
     Renderer2,
     ViewChildren,
     QueryList,
+    Output,
+    EventEmitter,
 } from '@angular/core';
 import { AdminShiftScheduleService } from 'src/app/dashboard/services/widgets/admin-shift-schedule.service';
 import { IUser } from '../../../../../models/events-widget';
@@ -15,8 +17,6 @@ import { AvatarConfiguratorService } from '../../../../../services/avatar-config
 import { SnackBarService } from '../../../../../services/snack-bar.service';
 import { IAlertWindowModel } from '../../../../../../@shared/models/alert-window.model';
 import { IAbsent } from '../../admin-shift-schedule.component';
-import { OverlayConfig, Overlay } from '@angular/cdk/overlay';
-import { Portal, TemplatePortalDirective } from '@angular/cdk/portal';
 
 @Component({
     selector: 'evj-admin-shift-info-employee',
@@ -27,6 +27,7 @@ import { Portal, TemplatePortalDirective } from '@angular/cdk/portal';
 export class AdminShiftInfoEmployeeComponent implements OnInit {
     @Input() public data: IUser;
     @Input() public garbage: boolean;
+    @Input() public garbageShift: boolean;
     @Input() public star: boolean = false;
     @Input() brigade: boolean = false;
     @Input() allStatus: IAbsent[] = [];
@@ -35,6 +36,8 @@ export class AdminShiftInfoEmployeeComponent implements OnInit {
     @Input() colorBrigade: string;
     photoPath: string = '';
     isOpen: boolean = false;
+
+    @Output() deleteMemberFromShift: EventEmitter<IUser> = new EventEmitter<IUser>();
 
     @ViewChild('statusOverlay') statusOverlay: ElementRef<HTMLElement>;
 
@@ -65,6 +68,22 @@ export class AdminShiftInfoEmployeeComponent implements OnInit {
                 this.resetUserBrigade();
                 this.adminShiftScheduleService.alertWindow$.next(null);
                 this.snackBar.openSnackBar(`Сотрудник удален из бригады`);
+            },
+            closeFunction: () => {
+                this.adminShiftScheduleService.alertWindow$.next(null);
+            },
+        };
+        this.adminShiftScheduleService.alertWindow$.next(windowsParam);
+    }
+
+    deleteUserShift(): void {
+        const windowsParam: IAlertWindowModel = {
+            isShow: true,
+            questionText: 'Вы точно хотите удалить сотрудника из смены',
+            acceptText: 'Удалить',
+            cancelText: 'Нет',
+            acceptFunction: () => {
+                this.deleteMemberFromShift.emit(this.data);
             },
             closeFunction: () => {
                 this.adminShiftScheduleService.alertWindow$.next(null);

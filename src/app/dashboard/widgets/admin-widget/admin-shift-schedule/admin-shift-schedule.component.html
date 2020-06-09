@@ -177,7 +177,8 @@
                         <evj-admin-shift-info-employee
                           class="list__item"
                           [data]="i.employee"
-                          type="garbage"
+                          (deleteMemberFromShift)="deleteMemberFromBrigade($event)"
+                          garbageShift="true"
                           cdkDrag
                         ></evj-admin-shift-info-employee>
                       </ng-container>

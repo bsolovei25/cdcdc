@@ -428,36 +428,19 @@ export class AdminShiftScheduleComponent extends WidgetPlatform
         this.isLoading = false;
     }
 
-    public async onClickWorkerCard(user: IUser): Promise<void> {
-        this.isLoading = true;
-        if (this.activeUsers.isSelected(user)) {
-            try {
-                await this.adminShiftScheduleService.deleteMemberFromBrigade(
-                    this.selectedShift.id,
-                    user.id
-                );
-                this.activeUsers.deselect(user);
-                this.materialController.openSnackBar(
-                    `${user.lastName} ${user.firstName} удален из смены`
-                );
-            } catch (error) {
-                this.isLoading = false;
-            }
-        } else {
-            try {
-                await this.adminShiftScheduleService.postMemberFromBrigade(
-                    this.selectedShift.id,
-                    user.id
-                );
-                this.activeUsers.select(user);
-                this.materialController.openSnackBar(
-                    `${user.lastName} ${user.firstName} добавлен в смену`
-                );
-            } catch (error) {
-                this.isLoading = false;
-            }
+    async deleteMemberFromBrigade(user: IUser): Promise<void> {
+        try {
+            await this.adminShiftScheduleService.deleteMemberFromBrigade(
+                this.selectedShift.id,
+                user.id
+            );
+            this.selectShift(this.selectedShift);
+            this.materialController.openSnackBar(
+                `${user.lastName} ${user.firstName} удален из смены`
+            );
+        } catch (error) {
+            this.isLoading = false;
         }
-        this.isLoading = false;
     }
 
     // #endregion
@@ -540,18 +523,12 @@ export class AdminShiftScheduleComponent extends WidgetPlatform
                     this.selectedShift.id,
                     userId
                 );
+                this.selectShift(this.selectedShift);
                 this.snackBar.openSnackBar('Сотрудник добавлен в смену');
             } catch (error) {
                 console.log(error);
             }
         }
-    }
-
-    dragStart(event, id): void {
-        // this.dragUniqElem = this.dataBrig[event.source.dropContainer.id].brigade.find(
-        //     (el) => el.id === id
-        // );
-        // this.dragUniqElem = this.arrayUserBrigade.find((el) => el.id === id);
     }
 
     // #endregion

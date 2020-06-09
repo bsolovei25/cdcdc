@@ -226,14 +226,8 @@ export class AdminShiftScheduleService {
     }
 
     async deleteMemberFromBrigade(idShift: number, idMember: number): Promise<void> {
-        try {
-            return await this.http
-                .delete<void>(
-                    this.restUrl + `/api/schedule-shifts/shift/${idShift}/member/${idMember}`
-                )
-                .toPromise();
-        } catch (error) {
-            console.error(error);
-        }
+        return await this.http
+            .delete<void>(this.restUrl + `/api/schedule-shifts/shift/${idShift}/member/${idMember}`)
+            .toPromise();
     }
 }
