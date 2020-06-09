@@ -1,20 +1,30 @@
 <div class="container-employees">
-    <div class="container-employees__title">Список сотрудников</div>
-    <div class="container-employees__content">
-        <div class="employees">
-            <div class="search-input">
-                <div class="search-input__height-input">
-                    <evj-circle-input placeholder="Введите ФИО сотрудника"></evj-circle-input>
-                </div>
-            </div>
-            <div class="list-employee">
-                <!-- <ng-container *ngFor="let item of data">
-                    <evj-admin-shift-info-employee [data]="item" type="brigade"></evj-admin-shift-info-employee>
-                </ng-container> -->
-                <ng-container *ngTemplateOutlet="template">
-                </ng-container>
-            </div>
-            <div class="employees__bottom"></div>
+  <div class="container-employees__title">Список сотрудников</div>
+  <div class="container-employees__content">
+    <div class="employees">
+      <div class="search-input">
+        <div class="search-input__height-input">
+          <evj-circle-input placeholder="Введите ФИО сотрудника"></evj-circle-input>
         </div>
+      </div>
+      <div
+        class="list-employee"
+        id="0"
+        cdkDropList
+        #doneList="cdkDropList"
+        [cdkDropListData]="data"
+      >
+        <ng-container *ngFor="let item of data">
+          <evj-admin-shift-info-employee
+            [colorBrigade]="brigadeColor(item)"
+            [data]="item"
+            cdkDrag
+            (cdkDragStarted)="dragStart(item.id)"
+            brigade="true"
+          ></evj-admin-shift-info-employee>
+        </ng-container>
+      </div>
+      <div class="employees__bottom"></div>
     </div>
+  </div>
 </div>

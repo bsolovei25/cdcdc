@@ -1,9 +1,26 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { AppConfigService } from 'src/app/services/appConfigService';
-import { IScheduleShiftDay, IScheduleShift, IBrigadeWithUsersDto, IUnits } from '../../models/admin-shift-schedule';
+import {
+    IScheduleShiftDay,
+    IScheduleShift,
+    IBrigadeWithUsersDto,
+    IUnits,
+} from '../../models/admin-shift-schedule';
 import { IAlertWindowModel } from '@shared/models/alert-window.model';
 import { BehaviorSubject } from 'rxjs';
+import { CdkDropList, CdkDrag } from '@angular/cdk/drag-drop';
+import { IAbsent } from '../../widgets/admin-widget/admin-shift-schedule/admin-shift-schedule.component';
+
+export interface IDropItem {
+    container: CdkDropList;
+    currentIndex: number;
+    distance: { x: number; y: number };
+    isPointerOverContainer: boolean;
+    item: CdkDrag;
+    previousContainer: CdkDropList;
+    previousIndex: number;
+}
 
 @Injectable({
     providedIn: 'root',
@@ -11,7 +28,21 @@ import { BehaviorSubject } from 'rxjs';
 export class AdminShiftScheduleService {
     private readonly restUrl: string;
 
-    public alertWindow$: BehaviorSubject<IAlertWindowModel> = new BehaviorSubject<IAlertWindowModel>(null);
+    public alertWindow$: BehaviorSubject<IAlertWindowModel> = new BehaviorSubject<
+        IAlertWindowModel
+    >(null);
+
+    moveItemBrigade$: BehaviorSubject<IDropItem> = new BehaviorSubject<IDropItem>(null);
+    moveItemId$: BehaviorSubject<number> = new BehaviorSubject<number>(null);
+    updateBrigades$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+    postAbsent$: BehaviorSubject<{ userId: number; absentReasonId: number }> = new BehaviorSubject<{
+        userId: number;
+        absentReasonId: number;
+    }>(null);
+
+    brigadeColor$: BehaviorSubject<{ color: string; id: number }[]> = new BehaviorSubject<
+        { color: string; id: number }[]
+    >(null);
 
     constructor(public http: HttpClient, configService: AppConfigService) {
         this.restUrl = configService.restUrl;
@@ -64,16 +95,37 @@ export class AdminShiftScheduleService {
         }
     }
 
-    async getBrigadesSubstitution(): Promise<IBrigadeWithUsersDto> {
-        try {
-            return this.http
-                .get<IBrigadeWithUsersDto>(
-                    this.restUrl + `/api/user-management/brigade/substitution`
-                )
-                .toPromise();
-        } catch (error) {
-            console.error(error);
-        }
+    async getAbsentReasons(): Promise<IAbsent[]> {
+        return this.http
+            .get<IAbsent[]>(this.restUrl + `/api/schedule-shifts/absentreasons`)
+            .toPromise();
+    }
+
+    async getSubstitution(unitId: number): Promise<IBrigadeWithUsersDto> {
+        return this.http
+            .get<IBrigadeWithUsersDto>(
+                this.restUrl + `/api/user-management/users/substitution/unit/${unitId}`
+            )
+            .toPromise();
+    }
+
+    async postAbsent(shiftId: number, userId: number, absentReasonId: number): Promise<any> {
+        return this.http
+            .post(this.restUrl + '/api/schedule-shifts/member/absent', {
+                shiftId,
+                userId,
+                absentReasonId,
+            })
+            .toPromise();
+    }
+
+    async postMemberRestore(shiftId: number, userId: number): Promise<any> {
+        return this.http
+            .post(this.restUrl + '/api/schedule-shifts/member/restore', {
+                shiftId,
+                userId,
+            })
+            .toPromise();
     }
 
     async postSelectBrigade(shiftId: number, brigadeId: number): Promise<any> {
@@ -87,11 +139,43 @@ export class AdminShiftScheduleService {
     }
 
     async postMemberFromBrigade(shiftId: number, userId: number): Promise<any> {
+        return this.http
+            .post(this.restUrl + `/api/schedule-shifts/shift/${shiftId}/member`, {
+                shiftId,
+                userId,
+            })
+            .toPromise();
+    }
+
+    async postBrigade(unit: IUnits, number: string): Promise<any> {
         try {
             return this.http
-                .post(this.restUrl + `/api/schedule-shifts/shift/${shiftId}/member`, {
-                    shiftId,
-                    userId,
+                .post(this.restUrl + `/api/user-management/brigade`, { number, unit })
+                .toPromise();
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+    async postUserBrigadeReset(userId: number): Promise<any> {
+        try {
+            return this.http
+                .post(
+                    this.restUrl + `/api/user-management/brigade/user/${userId}/brigade/reset`,
+                    null
+                )
+                .toPromise();
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+    async putBrigadeEdit(id: number, number: string): Promise<any> {
+        try {
+            return this.http
+                .put(this.restUrl + `/api/user-management/brigade/${id}`, {
+                    id,
+                    number,
                 })
                 .toPromise();
         } catch (error) {
@@ -99,14 +183,40 @@ export class AdminShiftScheduleService {
         }
     }
 
-    async deleteBrigade(shiftId: number): Promise<void> {
+    async postUsertoBrigade(userId: number, brigadeId: string): Promise<any> {
         try {
-            return await this.http
-                .delete<void>(this.restUrl + `/api/schedule-shifts/shift/${shiftId}`)
+            return this.http
+                .post(
+                    this.restUrl +
+                        `/api/user-management/brigade/user/${userId}/brigade/${brigadeId}`,
+                    null
+                )
                 .toPromise();
         } catch (error) {
             console.error(error);
         }
+    }
+
+    async postUserResponsible(userId: number): Promise<any> {
+        try {
+            return this.http
+                .post(this.restUrl + `/api/user-management/user/${userId}/SetResponsible`, null)
+                .toPromise();
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+    async deleteBrigade(brigadeId: number): Promise<void> {
+        return await this.http
+            .delete<void>(this.restUrl + `/api/user-management/brigade/${brigadeId}`)
+            .toPromise();
+    }
+
+    async deleteBrigadeFromShift(shiftId: number): Promise<void> {
+        return await this.http
+            .delete<void>(this.restUrl + `/api/schedule-shifts/shift/${shiftId}`)
+            .toPromise();
     }
 
     async resetTodayBrigades(unitid: number): Promise<void> {
@@ -116,18 +226,8 @@ export class AdminShiftScheduleService {
     }
 
     async deleteMemberFromBrigade(idShift: number, idMember: number): Promise<void> {
-        try {
-            return await this.http
-                .delete<void>(
-                    this.restUrl + `/api/schedule-shifts/shift/${idShift}/member/${idMember}`
-                )
-                .toPromise();
-        } catch (error) {
-            console.error(error);
-        }
-    }
-
-    public closeAlert(): void {
-        this.alertWindow$.next(null);
+        return await this.http
+            .delete<void>(this.restUrl + `/api/schedule-shifts/shift/${idShift}/member/${idMember}`)
+            .toPromise();
     }
 }
