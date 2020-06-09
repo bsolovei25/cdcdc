@@ -39,13 +39,10 @@ export class AdminShiftInfoEmployeeComponent implements OnInit {
 
     @Output() deleteMemberFromShift: EventEmitter<IUser> = new EventEmitter<IUser>();
 
-    @ViewChild('statusOverlay') statusOverlay: ElementRef<HTMLElement>;
-
     constructor(
         private avatarConfiguratorService: AvatarConfiguratorService,
         private adminShiftScheduleService: AdminShiftScheduleService,
         private snackBar: SnackBarService,
-        private renderer: Renderer2
     ) {}
 
     ngOnInit(): void {
@@ -114,20 +111,6 @@ export class AdminShiftInfoEmployeeComponent implements OnInit {
     }
 
     changeStatus(): void {}
-
-    public openOverlay(event: MouseEvent): void {
-        event?.stopPropagation();
-        console.log(this.statusOverlay?.nativeElement);
-        if (this.statusOverlay?.nativeElement) {
-            if (!this.isOpen) {
-                this.renderer.setStyle(this.statusOverlay.nativeElement, 'display', 'block');
-                this.isOpen = true;
-            } else {
-                this.renderer.setStyle(this.statusOverlay.nativeElement, 'display', 'none');
-                this.isOpen = false;
-            }
-        }
-    }
 
     onChooseStatus(status: IAbsent): void {
         this.adminShiftScheduleService.postAbsent$.next({

@@ -41,7 +41,6 @@ export class AdminShiftListEmployeesComponent implements OnInit {
     }
 
     drop(event: CdkDragDrop<string[]>): void {
-        console.log(event);
         this.adminShiftScheduleService.moveItemBrigade$.next(event);
     }
 

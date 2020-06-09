@@ -300,7 +300,6 @@ export class AdminShiftScheduleComponent extends WidgetPlatform
         dataLoadQueue.push(
             this.adminShiftScheduleService.getSubstitution(this.selectedUnit.id).then((data) => {
                 this.brigadesSubstitution = data;
-                console.log(data);
             })
         );
         if (!this.allUsers.length) {
@@ -326,8 +325,6 @@ export class AdminShiftScheduleComponent extends WidgetPlatform
             this.allBrigade.forEach((item, i) => {
                 this.brigadeColors.push({ color: `color-${i + 1}`, id: item.brigadeId });
             });
-            console.log(this.brigadeColors);
-
             this.adminShiftScheduleService.brigadeColor$.next(this.brigadeColors);
         });
     }
@@ -491,7 +488,6 @@ export class AdminShiftScheduleComponent extends WidgetPlatform
     }
 
     public openOverlay(event: MouseEvent, shift: IScheduleShift, isOpen: boolean): void {
-        console.log(event);
         event?.stopPropagation();
         this.selectedShift = shift;
     }
@@ -511,11 +507,9 @@ export class AdminShiftScheduleComponent extends WidgetPlatform
     }
 
     drop(event: CdkDragDrop<string[]>): void {
-        console.log(event);
     }
 
     async moveToDropAdditionalShift(item: IDropItem): Promise<void> {
-        console.log(item);
         if (item && item.container.id !== '0' && item.container.id !== item.previousContainer.id) {
             try {
                 const userId = this.adminShiftScheduleService.moveItemId$.getValue();
@@ -576,7 +570,6 @@ export class AdminShiftScheduleComponent extends WidgetPlatform
     }
 
     async moveUsertoBrigade(item: IDropItem): Promise<void> {
-        console.log(item);
         if (item && item.container.id !== '0' && item.container.id !== item.previousContainer.id) {
             try {
                 const userId = this.adminShiftScheduleService.moveItemId$.getValue();

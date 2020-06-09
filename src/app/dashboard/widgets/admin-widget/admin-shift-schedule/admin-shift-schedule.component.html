@@ -39,7 +39,7 @@
                 <mat-calendar
                   #calendar
                   [dateClass]="dateClass()"
-                  [(selected)]="selectedDay.date"
+                  [(selected)]="selectedDay && selectedDay.date"
                   (selectedChange)="dateChanged($event)"
                   ngClass="calendar-red"
                   locale="ru"
@@ -120,7 +120,9 @@
                   (click)="selectShift(shift)"
                 >
                   <p>{{ idx + 1 }} смена</p>
-                  <p>{{ shift.start | date:'HH.mm' }} - {{ shift.end | date:'HH.mm' }}</p>
+                  <p>
+                    {{ shift.start | date:'HH.mm' }} - {{ shift.end | date:'HH.mm' }}
+                  </p>
                   <p
                     *ngIf="!shift.brigadeId"
                     class="btn shift-today-item"
