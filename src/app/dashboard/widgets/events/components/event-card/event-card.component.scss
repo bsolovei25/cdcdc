@@ -210,11 +210,11 @@
 
     &-description,
     &-facts {
-      flex: 760px;
       @include text-overflow;
     }
 
     &-description {
+      width: 100%;
       color: var(--color-text-sub);
       font-size: 0.875rem;
       height: 32px;
@@ -223,9 +223,10 @@
     }
 
     &-facts {
+      width: 100%;
       color: var(--color-text-main);
       font-size: 12px;
-      height: 12px;
+      height: 13px;
       -webkit-line-clamp: 1;
     }
   }
@@ -376,10 +377,10 @@
   &__description,
   &__facts {
     @include text-overflow;
-    flex: 2 750px;
   }
 
   &__description {
+    width: 100%;
     color: var(--color-text-sub);
     font-size: 0.875rem;
     max-height: 50px;
@@ -388,9 +389,10 @@
   }
 
   &__facts {
+    width: 100%;
     color: var(--color-text-main);
     font-size: 12px;
-    max-height: 27px;
+    max-height: 28px;
     -webkit-line-clamp: 2;
   }
 
