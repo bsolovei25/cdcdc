@@ -31,9 +31,9 @@
     <evj-alert-window [info]="alertWindow"></evj-alert-window>
 
     <ng-container *ngIf="isSelectMenu">
-      <div class="content__blocks">
+      <div class="content__blocks" cdkDropListGroup>
         <div class="block-left">
-          <div class="block-top" *ngIf="scheduleShiftMonth.length">
+          <div class="block-top">
             <evj-admin-shift-card class="calendar" title="Календарь дежурств">
               <section>
                 <mat-calendar
@@ -44,6 +44,34 @@
                   ngClass="calendar-red"
                   locale="ru"
                 ></mat-calendar>
+                <div class="calendar__footer">
+                  <div class="calendar__footer__title">Обозначения</div>
+                  <ul class="calendar__footer__list-items">
+                    <li
+                      class="calendar__footer__list-item"
+                      *ngFor="let brigade of allBrigade"
+                      class="{{brigadeColor(brigade)}}"
+                    >
+                      {{brigade.brigadeNumber}}
+                    </li>
+                  </ul>
+                  <div class="calendar__footer__info-items">
+                    <div class="calendar__footer__info-item">
+                      <svg-icon
+                        [svgStyle]="{'height.px':17}"
+                        src="assets/icons/widgets/admin-shift-schedule/calendar-active-orange.svg"
+                      ></svg-icon>
+                      <span class="calendar__footer__info-item__text"> Бригады не заданы</span>
+                    </div>
+                    <div class="calendar__footer__info-item">
+                      <svg-icon
+                        [svgStyle]="{'height.px':17}"
+                        src="assets/icons/widgets/admin-shift-schedule/brigade_on.svg"
+                      ></svg-icon>
+                      <span class="calendar__footer__info-item__text"> Бригады заданы</span>
+                    </div>
+                  </div>
+                </div>
               </section>
             </evj-admin-shift-card>
             <evj-admin-shift-card class="main-team" title="Смена">
@@ -52,9 +80,13 @@
                 <div class="main-team__section__container">
                   <ul class="list">
                     <li class="list__item" *ngFor="let i of selectedShift?.shiftMembers;">
-                      <evj-admin-shift-info-employee
-                        [data]="i.employee"
-                      ></evj-admin-shift-info-employee>
+                      <ng-container *ngIf="i.position === 'responsible'">
+                        <evj-admin-shift-info-employee
+                          [data]="i.employee"
+                          [absentReason]="i.absentReason"
+                          [allStatus]="allStatus"
+                        ></evj-admin-shift-info-employee>
+                      </ng-container>
                     </li>
                   </ul>
                 </div>
@@ -62,10 +94,13 @@
                 <div class="main-team__section__container">
                   <ul class="list">
                     <li class="list__item" *ngFor="let i of selectedShift?.shiftMembers;">
-                      <evj-admin-shift-info-employee
-                        [data]="i.employee"
-                        type="garbage"
-                      ></evj-admin-shift-info-employee>
+                      <ng-container *ngIf="i.position !== 'responsible'">
+                        <evj-admin-shift-info-employee
+                          [data]="i.employee"
+                          [absentReason]="i.absentReason"
+                          [allStatus]="allStatus"
+                        ></evj-admin-shift-info-employee>
+                      </ng-container>
                     </li>
                   </ul>
                 </div>
@@ -75,35 +110,6 @@
           <div class="block-bottom" *ngIf="selectedDay">
             <evj-admin-shift-card class="duty-schedule" title="График дежурств">
               <section>
-                <div class="title">
-                  <!-- <button
-                (click)="resetBrigadesFromShifts()"
-                class="title-button"
-                mat-icon-button
-                *ngIf="dateNowIcon.getDate() === selectedDay.date.getDate()
-                && dateNowIcon.getMonth() === selectedDay.date.getMonth()"
-              >
-                <svg-icon
-                  class="icon-storage-title"
-                  [svgStyle]="{'height.px':25}"
-                  src="./assets/icons/garbage_bad_pic.svg"
-                ></svg-icon>
-              </button> -->
-                </div>
-                <ng-container *ngIf="selectedDay && yesterday">
-                  <div class="date-yesterday">
-                    {{ yesterday?.date | date:'d MMMM' }} - {{ selectedDay.date | date:'d MMMM yyyy'
-                    }}
-                  </div>
-                  <div class="shift-yesterday" *ngFor="let i of yesterday.items; let idx = index">
-                    <p>3 смена</p>
-                    <p>{{ i.start | date:'HH.mm' }} - {{ i.end | date:'HH.mm' }}</p>
-                    <p *ngIf="i.brigadeName" class="shift-today-item">
-                      Бригада {{ i.brigadeName }}
-                    </p>
-                    <p *ngIf="!i.brigadeName" class="shift-today-item">Не назначено</p>
-                  </div>
-                </ng-container>
                 <div class="date-today">
                   <p>{{ selectedDay.date | date:'d MMMM yyyy' }}</p>
                 </div>
@@ -130,56 +136,69 @@
                   >
                     {{ shift.brigadeName }}
                   </p>
-                  <svg-icon
+                  <div
+                    *ngIf="shift.brigadeId"
+                    class="icon-delete"
+                    matTooltip="Удалить бригаду"
                     (click)="deleteBrigadeFromShift($event, shift)"
-                    class="shift-today__icon-storage"
-                    src="assets/icons/widgets/admin-shift-schedule/garbage.svg"
-                  ></svg-icon>
-                </div>
-                <div class="shift-overlay" #shiftOverlay>
-                  <ul>
-                    <li>
-                      <svg-icon
-                        (click)="openOverlay(null, null, false)"
-                        class="icon"
-                        [svgStyle]="{'width.px':10,'fill':'rgb(150,50,255)','padding.px':1,'margin.px':3}"
-                        src="./assets/icons/widgets/admin-shift-schedule/close.svg"
-                      ></svg-icon>
-                    </li>
-                    <li
-                      *ngFor="let b of filterBrigade(allBrigade);"
-                      (click)="onChooseBrigade(b, selectedDay)"
-                    >
-                      Бригада {{ b.brigadeNumber }}
-                    </li>
-                  </ul>
+                  >
+                    <svg-icon
+                      src="assets/icons/widgets/admin-shift-schedule/garbage.svg"
+                      [svgStyle]="{ 'width.px':10, 'height.px':15 }"
+                    ></svg-icon>
+                  </div>
+                  <div class="shift-overlay" #shiftOverlay>
+                    <ul>
+                      <!-- <li>
+                        <svg-icon
+                          (click)="openOverlay(null, null, false)"
+                          class="icon"
+                          [svgStyle]="{'width.px':10,'padding.px':1}"
+                          src="./assets/icons/widgets/admin-shift-schedule/close.svg"
+                        ></svg-icon>
+                      </li> -->
+                      <li
+                        *ngFor="let b of filterBrigade(allBrigade);"
+                        (click)="onChooseBrigade(b, selectedDay)"
+                      >
+                        {{ b.brigadeNumber }}
+                      </li>
+                    </ul>
+                  </div>
                 </div>
               </section>
             </evj-admin-shift-card>
 
-            <evj-admin-shift-card
-              class="additional-team"
-              title="Дополнительный состав бригады"
-              *ngIf="selectedShift && selectedShift?.shiftMembers && selectedShift?.shiftMembers.length > 0 && brigadesSubstitution"
-            >
+            <evj-admin-shift-card class="additional-team" title="Дополнительный состав бригады">
               <section class="additional-team__section">
                 <div class="additional-team__section__container">
-                  <ul class="list">
-                    <li class="list__item" *ngFor="let i of selectedShift?.shiftMembers">
-                      <evj-admin-shift-info-employee
-                        [data]="i.employee"
-                        type="garbage"
-                      ></evj-admin-shift-info-employee>
-                    </li>
-                  </ul>
+                  <div
+                    class="list"
+                    cdkDropList
+                    [cdkDropListData]="selectedShift?.shiftMembers"
+                    (cdkDropListDropped)="moveToDropAdditionalShift($event)"
+                    id="dop"
+                  >
+                    <ng-container *ngFor="let i of selectedShift?.shiftMembers">
+                      <ng-container *ngIf="i.isAdditionalMember">
+                        <evj-admin-shift-info-employee
+                          class="list__item"
+                          [data]="i.employee"
+                          type="garbage"
+                          cdkDrag
+                        ></evj-admin-shift-info-employee>
+                      </ng-container>
+                    </ng-container>
+                  </div>
                 </div>
               </section>
             </evj-admin-shift-card>
           </div>
         </div>
         <div class="block-right">
-          <evj-admin-shift-list-employees [data]="allUsersUnit" [brigadeColors]="brigadeColors">
-          </evj-admin-shift-list-employees>
+          <evj-admin-shift-list-employees
+            [data]="brigadesSubstitution"
+          ></evj-admin-shift-list-employees>
         </div>
       </div>
     </ng-container>
@@ -200,12 +219,14 @@
             <div class="content-brigade__scroll">
               <div class="content-brigade__left">
                 <div class="content-brigade__block" *ngFor="let item of leftBrigades">
-                  <evj-admin-shift-brigade [data]="item"> </evj-admin-shift-brigade>
+                  <evj-admin-shift-brigade [data]="item" [color]="brigadeColor(item)">
+                  </evj-admin-shift-brigade>
                 </div>
               </div>
               <div class="content-brigade__right">
                 <div class="content-brigade__block" *ngFor="let item of rightBrigades">
-                  <evj-admin-shift-brigade [data]="item"> </evj-admin-shift-brigade>
+                  <evj-admin-shift-brigade [data]="item" [color]="brigadeColor(item)">
+                  </evj-admin-shift-brigade>
                 </div>
               </div>
             </div>
@@ -213,8 +234,7 @@
         </div>
         <div class="control-block__right-side">
           <div style="height: calc(100% - 24px);">
-            <evj-admin-shift-list-employees [data]="allUsersUnit" [brigadeColors]="brigadeColors">
-            </evj-admin-shift-list-employees>
+            <evj-admin-shift-list-employees [data]="allUsersUnit"></evj-admin-shift-list-employees>
           </div>
         </div>
       </div>

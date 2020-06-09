@@ -16,11 +16,11 @@
       >
         <ng-container *ngFor="let item of data">
           <evj-admin-shift-info-employee
+            [colorBrigade]="brigadeColor(item)"
             [data]="item"
             cdkDrag
             (cdkDragStarted)="dragStart(item.id)"
             brigade="true"
-            [brigadeColors]="brigadeColors"
           ></evj-admin-shift-info-employee>
         </ng-container>
       </div>

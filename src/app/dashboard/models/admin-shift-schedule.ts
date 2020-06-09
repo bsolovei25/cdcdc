@@ -1,4 +1,5 @@
 import { IUser } from './events-widget';
+import { IAbsent } from '../widgets/admin-widget/admin-shift-schedule/admin-shift-schedule.component';
 
 export enum EnumShiftStatus {
     initialization = 'initialization',
@@ -35,6 +36,7 @@ export interface IShiftMember {
     employeeId: number;
     isConfirmed: boolean;
     employee: IUser;
+    absentReason: IAbsent;
     isPossibilityDelete: boolean;
     status: EnumShiftStatus;
     position: EnumShiftPosition;

@@ -49,6 +49,12 @@ export interface IAdminShiftUserBrigade {
     brigade: number;
 }
 
+export interface IAbsent {
+    code: string;
+    id: number;
+    name: string;
+}
+
 @Component({
     selector: 'evj-admin-shift-schedule',
     templateUrl: './admin-shift-schedule.component.html',
@@ -65,7 +71,7 @@ export class AdminShiftScheduleComponent extends WidgetPlatform
     public static itemCols: number = 38;
     public static itemRows: number = 25;
 
-    public static minItemCols: number = 26;
+    public static minItemCols: number = 38;
     public static minItemRows: number = 25;
 
     activeUsers: SelectionModel<IUser> = new SelectionModel(true);
@@ -92,6 +98,8 @@ export class AdminShiftScheduleComponent extends WidgetPlatform
     rightBrigades: IBrigadeWithUsersDto[] = [];
 
     brigadeColors: { color: string; id: number }[] = [];
+
+    allStatus: IAbsent[] = [];
 
     public alertWindow: IAlertWindowModel;
     public inputControl: FormControl = new FormControl('');
@@ -143,6 +151,11 @@ export class AdminShiftScheduleComponent extends WidgetPlatform
                 if (value) {
                     this.getBrigade();
                     this.getUsers();
+                }
+            }),
+            this.adminShiftScheduleService.postAbsent$.subscribe((value) => {
+                if (value) {
+                    this.postAbsent(value.userId, value.absentReasonId);
                 }
             })
         );
@@ -215,12 +228,15 @@ export class AdminShiftScheduleComponent extends WidgetPlatform
                         let id = 1;
                         value.items.forEach((item) => {
                             if (item?.brigadeId) {
+                                str += `item-${id}`;
                                 const color = this.brigadeColors.find(
                                     (val) => val.id === item.brigadeId
                                 );
                                 if (color) {
-                                    str = ` item-1--${color.color}`;
+                                    str += `--${color.color}`;
                                     id++;
+                                } else {
+                                    str += `--color-0`;
                                 }
                             }
                         });
@@ -277,8 +293,14 @@ export class AdminShiftScheduleComponent extends WidgetPlatform
         dataLoadQueue.push(this.reLoadDataMonth());
         dataLoadQueue.push(this.getBrigade());
         dataLoadQueue.push(
-            this.adminShiftScheduleService.getBrigadesSubstitution().then((data) => {
+            this.adminShiftScheduleService.getAbsentReasons().then((data) => {
+                this.allStatus = data;
+            })
+        );
+        dataLoadQueue.push(
+            this.adminShiftScheduleService.getSubstitution(this.selectedUnit.id).then((data) => {
                 this.brigadesSubstitution = data;
+                console.log(data);
             })
         );
         if (!this.allUsers.length) {
@@ -304,6 +326,9 @@ export class AdminShiftScheduleComponent extends WidgetPlatform
             this.allBrigade.forEach((item, i) => {
                 this.brigadeColors.push({ color: `color-${i + 1}`, id: item.brigadeId });
             });
+            console.log(this.brigadeColors);
+
+            this.adminShiftScheduleService.brigadeColor$.next(this.brigadeColors);
         });
     }
 
@@ -532,26 +557,22 @@ export class AdminShiftScheduleComponent extends WidgetPlatform
 
     drop(event: CdkDragDrop<string[]>): void {
         console.log(event);
-        // if (event.previousContainer === event.container) {
-        //     moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
-        // } else {
-        //     transferArrayItem(
-        //         event.previousContainer.data,
-        //         event.container.data,
-        //         event.previousIndex,
-        //         event.currentIndex
-        //     );
-        // }
+    }
 
-        // if (event.container.id === event.previousContainer.id) {
-        //     const brig = this.dataBrig.findIndex((e) => e.id.toString() === event.container.id);
-        //     //  moveItemInArray(this.list[brig].brigade, event.previousIndex, event.currentIndex);
-        // } else {
-        //     const brigadeIndex = this.dataBrig.findIndex(
-        //         (e) => e.id.toString() === event.container.id
-        //     );
-        //     this.dataBrig[brigadeIndex].brigade.push(this.dragUniqElem);
-        // }
+    async moveToDropAdditionalShift(item: IDropItem): Promise<void> {
+        console.log(item);
+        if (item && item.container.id !== '0' && item.container.id !== item.previousContainer.id) {
+            try {
+                const userId = this.adminShiftScheduleService.moveItemId$.getValue();
+                await this.adminShiftScheduleService.postMemberFromBrigade(
+                    this.selectedShift.id,
+                    userId
+                );
+                this.snackBar.openSnackBar('Сотрудник добавлен в смену');
+            } catch (error) {
+                console.log(error);
+            }
+        }
     }
 
     dragStart(event, id): void {
@@ -606,6 +627,7 @@ export class AdminShiftScheduleComponent extends WidgetPlatform
     }
 
     async moveUsertoBrigade(item: IDropItem): Promise<void> {
+        console.log(item);
         if (item && item.container.id !== '0' && item.container.id !== item.previousContainer.id) {
             try {
                 const userId = this.adminShiftScheduleService.moveItemId$.getValue();
@@ -616,6 +638,22 @@ export class AdminShiftScheduleComponent extends WidgetPlatform
             } catch (error) {
                 console.log(error);
             }
+        }
+    }
+
+    brigadeColor(brigade: IBrigadeWithUsersDto): string {
+        return this.brigadeColors.find((val) => val?.id === brigade?.brigadeId)?.color;
+    }
+
+    async postAbsent(userId: number, absentReasonId: number): Promise<void> {
+        try {
+            this.adminShiftScheduleService.postAbsent(
+                this.selectedShift.id,
+                userId,
+                absentReasonId
+            );
+        } catch (error) {
+            console.error(error);
         }
     }
 }

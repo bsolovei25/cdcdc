@@ -1,9 +1,18 @@
-$color-smp-blue: "003b64";
-$color-bg-active-sub-workflow: "3f587c";
-$color-active: "3fa9f5";
-$color-marker-diagram: "606580";
-$color-smp-ev-ws-grad2: "285c85";
-$color-bg-active-gradient: "2d3f51";
+$color-smp-blue-1: "003b64";
+$color-bg-active-sub-workflow-2: "3f587c";
+$color-active-3: "3fa9f5";
+$color-marker-diagram-4: "606580";
+$color-smp-ev-ws-grad2-5: "285c85";
+$color-bg-active-gradient-6: "2d3f51";
+
+$color-1: "003b64";
+$color-2: "3f587c";
+$color-3: "3fa9f5";
+$color-4: "606580";
+$color-5: "285c85";
+$color-6: "2d3f51";
+
+$color-bg: "272b35";
 
 .special-date {
   background: url(assets\icons\widgets\admin-shift-schedule\calendar-active-orange.svg) center;
@@ -12,7 +21,7 @@ $color-bg-active-gradient: "2d3f51";
 }
 
 %color-1 {
-  fill: $color-smp-blue;
+  fill: $color-smp-blue-1;
 }
 %color-2 {
   fill: var(--color-bg-active-sub-workflow);
@@ -39,36 +48,622 @@ $color-bg-active-gradient: "2d3f51";
 .item-1 {
   &--color {
     &-1 {
-      @include element-color(
-        $color-smp-blue,
-        $color-bg-active-sub-workflow,
-        $color-active,
-        $color-marker-diagram,
-        $color-smp-ev-ws-grad2,
-        $color-bg-active-gradient
-      );
+      @include element-color($color-1, $color-bg, $color-bg, $color-bg, $color-bg, $color-bg);
+      &item-2 {
+        &--color {
+          &-1 {
+            @include element-color($color-1, $color-1, $color-bg, $color-bg, $color-bg, $color-bg);
+            &item-3 {
+              &--color {
+                &-1 {
+                  @include element-color(
+                    $color-1,
+                    $color-1,
+                    $color-1,
+                    $color-bg,
+                    $color-bg,
+                    $color-bg
+                  );
+                }
+                &-2 {
+                  @include element-color(
+                    $color-1,
+                    $color-1,
+                    $color-2,
+                    $color-bg,
+                    $color-bg,
+                    $color-bg
+                  );
+                }
+                &-3 {
+                  @include element-color(
+                    $color-1,
+                    $color-1,
+                    $color-3,
+                    $color-bg,
+                    $color-bg,
+                    $color-bg
+                  );
+                }
+                &-4 {
+                  @include element-color(
+                    $color-1,
+                    $color-1,
+                    $color-4,
+                    $color-bg,
+                    $color-bg,
+                    $color-bg
+                  );
+                }
+                &-5 {
+                  @include element-color(
+                    $color-1,
+                    $color-1,
+                    $color-5,
+                    $color-bg,
+                    $color-bg,
+                    $color-bg
+                  );
+                }
+                &-6 {
+                  @include element-color(
+                    $color-1,
+                    $color-1,
+                    $color-6,
+                    $color-bg,
+                    $color-bg,
+                    $color-bg
+                  );
+                }
+              }
+            }
+          }
+          &-2 {
+            @include element-color($color-1, $color-2, $color-bg, $color-bg, $color-bg, $color-bg);
+            &item-3 {
+              &--color {
+                &-1 {
+                  @include element-color(
+                    $color-1,
+                    $color-2,
+                    $color-1,
+                    $color-bg,
+                    $color-bg,
+                    $color-bg
+                  );
+                }
+                &-2 {
+                  @include element-color(
+                    $color-1,
+                    $color-2,
+                    $color-2,
+                    $color-bg,
+                    $color-bg,
+                    $color-bg
+                  );
+                }
+                &-3 {
+                  @include element-color(
+                    $color-1,
+                    $color-2,
+                    $color-3,
+                    $color-bg,
+                    $color-bg,
+                    $color-bg
+                  );
+                }
+                &-4 {
+                  @include element-color(
+                    $color-1,
+                    $color-2,
+                    $color-4,
+                    $color-bg,
+                    $color-bg,
+                    $color-bg
+                  );
+                }
+                &-5 {
+                  @include element-color(
+                    $color-1,
+                    $color-2,
+                    $color-5,
+                    $color-bg,
+                    $color-bg,
+                    $color-bg
+                  );
+                }
+                &-6 {
+                  @include element-color(
+                    $color-1,
+                    $color-2,
+                    $color-6,
+                    $color-bg,
+                    $color-bg,
+                    $color-bg
+                  );
+                }
+              }
+            }
+          }
+          &-3 {
+            @include element-color($color-1, $color-3, $color-bg, $color-bg, $color-bg, $color-bg);
+            &item-3 {
+              &--color {
+                &-1 {
+                  @include element-color(
+                    $color-1,
+                    $color-3,
+                    $color-1,
+                    $color-bg,
+                    $color-bg,
+                    $color-bg
+                  );
+                }
+                &-2 {
+                  @include element-color(
+                    $color-1,
+                    $color-3,
+                    $color-2,
+                    $color-bg,
+                    $color-bg,
+                    $color-bg
+                  );
+                }
+                &-3 {
+                  @include element-color(
+                    $color-1,
+                    $color-3,
+                    $color-3,
+                    $color-bg,
+                    $color-bg,
+                    $color-bg
+                  );
+                }
+                &-4 {
+                  @include element-color(
+                    $color-1,
+                    $color-3,
+                    $color-4,
+                    $color-bg,
+                    $color-bg,
+                    $color-bg
+                  );
+                }
+                &-5 {
+                  @include element-color(
+                    $color-1,
+                    $color-3,
+                    $color-5,
+                    $color-bg,
+                    $color-bg,
+                    $color-bg
+                  );
+                }
+                &-6 {
+                  @include element-color(
+                    $color-1,
+                    $color-3,
+                    $color-6,
+                    $color-bg,
+                    $color-bg,
+                    $color-bg
+                  );
+                }
+              }
+            }
+          }
+          &-4 {
+            @include element-color($color-1, $color-4, $color-bg, $color-bg, $color-bg, $color-bg);
+            &item-3 {
+              &--color {
+                &-1 {
+                  @include element-color(
+                    $color-1,
+                    $color-1,
+                    $color-1,
+                    $color-bg,
+                    $color-bg,
+                    $color-bg
+                  );
+                }
+                &-2 {
+                  @include element-color(
+                    $color-1,
+                    $color-1,
+                    $color-2,
+                    $color-bg,
+                    $color-bg,
+                    $color-bg
+                  );
+                }
+                &-3 {
+                  @include element-color(
+                    $color-1,
+                    $color-1,
+                    $color-3,
+                    $color-bg,
+                    $color-bg,
+                    $color-bg
+                  );
+                }
+                &-4 {
+                  @include element-color(
+                    $color-1,
+                    $color-1,
+                    $color-4,
+                    $color-bg,
+                    $color-bg,
+                    $color-bg
+                  );
+                }
+                &-5 {
+                  @include element-color(
+                    $color-1,
+                    $color-1,
+                    $color-5,
+                    $color-bg,
+                    $color-bg,
+                    $color-bg
+                  );
+                }
+                &-6 {
+                  @include element-color(
+                    $color-1,
+                    $color-1,
+                    $color-6,
+                    $color-bg,
+                    $color-bg,
+                    $color-bg
+                  );
+                }
+              }
+            }
+          }
+          &-5 {
+            @include element-color($color-1, $color-5, $color-bg, $color-bg, $color-bg, $color-bg);
+            &item-3 {
+              &--color {
+                &-1 {
+                  @include element-color(
+                    $color-1,
+                    $color-1,
+                    $color-1,
+                    $color-bg,
+                    $color-bg,
+                    $color-bg
+                  );
+                }
+                &-2 {
+                  @include element-color(
+                    $color-1,
+                    $color-1,
+                    $color-2,
+                    $color-bg,
+                    $color-bg,
+                    $color-bg
+                  );
+                }
+                &-3 {
+                  @include element-color(
+                    $color-1,
+                    $color-1,
+                    $color-3,
+                    $color-bg,
+                    $color-bg,
+                    $color-bg
+                  );
+                }
+                &-4 {
+                  @include element-color(
+                    $color-1,
+                    $color-1,
+                    $color-4,
+                    $color-bg,
+                    $color-bg,
+                    $color-bg
+                  );
+                }
+                &-5 {
+                  @include element-color(
+                    $color-1,
+                    $color-1,
+                    $color-5,
+                    $color-bg,
+                    $color-bg,
+                    $color-bg
+                  );
+                }
+                &-6 {
+                  @include element-color(
+                    $color-1,
+                    $color-1,
+                    $color-6,
+                    $color-bg,
+                    $color-bg,
+                    $color-bg
+                  );
+                }
+              }
+            }
+          }
+          &-6 {
+            @include element-color($color-1, $color-6, $color-bg, $color-bg, $color-bg, $color-bg);
+            &item-3 {
+              &--color {
+                &-1 {
+                  @include element-color(
+                    $color-1,
+                    $color-1,
+                    $color-1,
+                    $color-bg,
+                    $color-bg,
+                    $color-bg
+                  );
+                }
+                &-2 {
+                  @include element-color(
+                    $color-1,
+                    $color-1,
+                    $color-2,
+                    $color-bg,
+                    $color-bg,
+                    $color-bg
+                  );
+                }
+                &-3 {
+                  @include element-color(
+                    $color-1,
+                    $color-1,
+                    $color-3,
+                    $color-bg,
+                    $color-bg,
+                    $color-bg
+                  );
+                }
+                &-4 {
+                  @include element-color(
+                    $color-1,
+                    $color-1,
+                    $color-4,
+                    $color-bg,
+                    $color-bg,
+                    $color-bg
+                  );
+                }
+                &-5 {
+                  @include element-color(
+                    $color-1,
+                    $color-1,
+                    $color-5,
+                    $color-bg,
+                    $color-bg,
+                    $color-bg
+                  );
+                }
+                &-6 {
+                  @include element-color(
+                    $color-1,
+                    $color-1,
+                    $color-6,
+                    $color-bg,
+                    $color-bg,
+                    $color-bg
+                  );
+                }
+              }
+            }
+          }
+        }
+      }
     }
     &-2 {
-      // @include element-color($color-bg-active-sub-workflow);
+      @include element-color($color-2, $color-bg, $color-bg, $color-bg, $color-bg, $color-bg);
+      &item-2 {
+        &--color {
+          &-1 {
+            @include element-color($color-2, $color-1, $color-bg, $color-bg, $color-bg, $color-bg);
+            &item-3 {
+              &--color {
+                &-1 {
+                  @include element-color(
+                    $color-1,
+                    $color-1,
+                    $color-1,
+                    $color-bg,
+                    $color-bg,
+                    $color-bg
+                  );
+                }
+                &-2 {
+                  @include element-color(
+                    $color-1,
+                    $color-1,
+                    $color-2,
+                    $color-bg,
+                    $color-bg,
+                    $color-bg
+                  );
+                }
+                &-3 {
+                  @include element-color(
+                    $color-1,
+                    $color-1,
+                    $color-3,
+                    $color-bg,
+                    $color-bg,
+                    $color-bg
+                  );
+                }
+                &-4 {
+                  @include element-color(
+                    $color-1,
+                    $color-1,
+                    $color-4,
+                    $color-bg,
+                    $color-bg,
+                    $color-bg
+                  );
+                }
+                &-5 {
+                  @include element-color(
+                    $color-1,
+                    $color-1,
+                    $color-5,
+                    $color-bg,
+                    $color-bg,
+                    $color-bg
+                  );
+                }
+                &-6 {
+                  @include element-color(
+                    $color-1,
+                    $color-1,
+                    $color-6,
+                    $color-bg,
+                    $color-bg,
+                    $color-bg
+                  );
+                }
+              }
+            }
+          }
+          &-2 {
+            @include element-color($color-2, $color-2, $color-bg, $color-bg, $color-bg, $color-bg);
+          }
+          &-3 {
+            @include element-color($color-2, $color-3, $color-bg, $color-bg, $color-bg, $color-bg);
+          }
+          &-4 {
+            @include element-color($color-2, $color-4, $color-bg, $color-bg, $color-bg, $color-bg);
+          }
+          &-5 {
+            @include element-color($color-2, $color-5, $color-bg, $color-bg, $color-bg, $color-bg);
+          }
+          &-6 {
+            @include element-color($color-2, $color-6, $color-bg, $color-bg, $color-bg, $color-bg);
+          }
+        }
+      }
     }
     &-3 {
-      // @include element-color($color-active);
+      @include element-color($color-3, $color-bg, $color-bg, $color-bg, $color-bg, $color-bg);
+      &item-2 {
+        &--color {
+          &-1 {
+            @include element-color($color-3, $color-1, $color-bg, $color-bg, $color-bg, $color-bg);
+            &item-3 {
+              &--color {
+                &-1 {
+                  @include element-color(
+                    $color-3,
+                    $color-1,
+                    $color-1,
+                    $color-bg,
+                    $color-bg,
+                    $color-bg
+                  );
+                }
+                &-2 {
+                  @include element-color(
+                    $color-3,
+                    $color-1,
+                    $color-2,
+                    $color-bg,
+                    $color-bg,
+                    $color-bg
+                  );
+                }
+                &-3 {
+                  @include element-color(
+                    $color-3,
+                    $color-1,
+                    $color-3,
+                    $color-bg,
+                    $color-bg,
+                    $color-bg
+                  );
+                }
+                &-4 {
+                  @include element-color(
+                    $color-3,
+                    $color-1,
+                    $color-4,
+                    $color-bg,
+                    $color-bg,
+                    $color-bg
+                  );
+                }
+                &-5 {
+                  @include element-color(
+                    $color-3,
+                    $color-1,
+                    $color-5,
+                    $color-bg,
+                    $color-bg,
+                    $color-bg
+                  );
+                }
+                &-6 {
+                  @include element-color(
+                    $color-3,
+                    $color-1,
+                    $color-6,
+                    $color-bg,
+                    $color-bg,
+                    $color-bg
+                  );
+                }
+              }
+            }
+          }
+          &-2 {
+            @include element-color($color-3, $color-2, $color-bg, $color-bg, $color-bg, $color-bg);
+          }
+          &-3 {
+            @include element-color($color-3, $color-3, $color-bg, $color-bg, $color-bg, $color-bg);
+          }
+          &-4 {
+            @include element-color($color-3, $color-4, $color-bg, $color-bg, $color-bg, $color-bg);
+          }
+          &-5 {
+            @include element-color($color-3, $color-5, $color-bg, $color-bg, $color-bg, $color-bg);
+          }
+          &-6 {
+            @include element-color($color-3, $color-6, $color-bg, $color-bg, $color-bg, $color-bg);
+          }
+        }
+      }
     }
     &-4 {
-      // @include element-color($color-marker-diagram);
+      @include element-color(
+        $color-marker-diagram-4,
+        $color-bg,
+        $color-bg,
+        $color-bg,
+        $color-bg,
+        $color-bg
+      );
     }
     &-5 {
-      // @include element-color($color-smp-ev-ws-grad2);
+      @include element-color(
+        $color-smp-ev-ws-grad2-5,
+        $color-bg,
+        $color-bg,
+        $color-bg,
+        $color-bg,
+        $color-bg
+      );
     }
     &-6 {
-      // @include element-color($color-bg-active-gradient);
+      @include element-color(
+        $color-bg-active-gradient-6,
+        $color-bg,
+        $color-bg,
+        $color-bg,
+        $color-bg,
+        $color-bg
+      );
     }
-
-    // background: url(assets\icons\widgets\admin-shift-schedule\item-1.svg) center;
-    // fill: var(--color-smp-blue);
-  }
-  &--color-2 {
-    // @include element-color(red);
   }
 }
 

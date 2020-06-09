@@ -36,7 +36,6 @@
 
       .brigade {
         height: 20px;
-        background: #003b64;
         border-radius: 19px;
         width: auto;
         min-width: 60px;
@@ -129,6 +128,25 @@
   ::ng-deep svg {
     transform: scale(-1);
   }
+}
+
+.color-1 {
+  background-color: var(--color-smp-blue);
+}
+.color-2 {
+  background-color: var(--color-bg-active-sub-workflow);
+}
+.color-3 {
+  background-color: var(--color-active);
+}
+.color-4 {
+  background-color: var(--color-marker-diagram);
+}
+.color-5 {
+  background-color: var(--color-smp-ev-ws-grad2);
+}
+.color-6 {
+  background-color: var(--color-bg-active-gradient);
 }
 
 ::-webkit-scrollbar {

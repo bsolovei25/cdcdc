@@ -278,6 +278,7 @@ import { AdminShiftBrigadeComponent } from './widgets/admin-widget/admin-shift-s
 import { AdminShiftListEmployeesComponent } from './widgets/admin-widget/admin-shift-schedule/components/admin-shift-list-employees/admin-shift-list-employees.component';
 import { AdminShiftInfoEmployeeComponent } from './widgets/admin-widget/admin-shift-schedule/components/admin-shift-info-employee/admin-shift-info-employee.component';
 import { AdminShiftCardComponent } from './widgets/admin-widget/admin-shift-schedule/components/admin-shift-card/admin-shift-card.component';
+import { MatMenuModule } from '@angular/material/menu';
 
 @NgModule({
     declarations: [
@@ -524,7 +525,7 @@ import { AdminShiftCardComponent } from './widgets/admin-widget/admin-shift-sche
         AdminShiftBrigadeComponent,
         AdminShiftListEmployeesComponent,
         AdminShiftInfoEmployeeComponent,
-        AdminShiftCardComponent
+        AdminShiftCardComponent,
     ],
     entryComponents: [
         LineChartComponent,
@@ -600,7 +601,7 @@ import { AdminShiftCardComponent } from './widgets/admin-widget/admin-shift-sche
         ProductGroupsComponent,
         ProductGroupsShortComponent,
         SmpEventsWorkspaceComponent,
-        PanelComponent
+        PanelComponent,
     ],
     exports: [HomeComponent],
     imports: [
@@ -639,6 +640,7 @@ import { AdminShiftCardComponent } from './widgets/admin-widget/admin-shift-sche
         NgxMaskModule.forChild(),
         PdfViewerModule,
         MatTooltipModule,
+        MatMenuModule,
     ],
     bootstrap: [],
     providers: [

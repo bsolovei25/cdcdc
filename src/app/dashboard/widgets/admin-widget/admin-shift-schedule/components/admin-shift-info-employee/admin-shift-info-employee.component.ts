@@ -1,9 +1,22 @@
-import { Component, Input, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import {
+    Component,
+    Input,
+    OnInit,
+    ChangeDetectionStrategy,
+    ElementRef,
+    ViewChild,
+    Renderer2,
+    ViewChildren,
+    QueryList,
+} from '@angular/core';
 import { AdminShiftScheduleService } from 'src/app/dashboard/services/widgets/admin-shift-schedule.service';
 import { IUser } from '../../../../../models/events-widget';
 import { AvatarConfiguratorService } from '../../../../../services/avatar-configurator.service';
 import { SnackBarService } from '../../../../../services/snack-bar.service';
 import { IAlertWindowModel } from '../../../../../../@shared/models/alert-window.model';
+import { IAbsent } from '../../admin-shift-schedule.component';
+import { OverlayConfig, Overlay } from '@angular/cdk/overlay';
+import { Portal, TemplatePortalDirective } from '@angular/cdk/portal';
 
 @Component({
     selector: 'evj-admin-shift-info-employee',
@@ -16,20 +29,20 @@ export class AdminShiftInfoEmployeeComponent implements OnInit {
     @Input() public garbage: boolean;
     @Input() public star: boolean = false;
     @Input() brigade: boolean = false;
-    @Input() set brigadeColors(value: { color: string; id: number }[]) {
-        if (value?.length) {
-            this.color = value.find((val) => val?.id === this.data?.id)?.color;
-        }
-    }
+    @Input() allStatus: IAbsent[] = [];
+    @Input() absentReason: IAbsent;
 
-    color: string = '';
-
+    @Input() colorBrigade: string;
     photoPath: string = '';
+    isOpen: boolean = false;
+
+    @ViewChild('statusOverlay') statusOverlay: ElementRef<HTMLElement>;
 
     constructor(
         private avatarConfiguratorService: AvatarConfiguratorService,
         private adminShiftScheduleService: AdminShiftScheduleService,
-        private snackBar: SnackBarService
+        private snackBar: SnackBarService,
+        private renderer: Renderer2
     ) {}
 
     ngOnInit(): void {
@@ -82,4 +95,25 @@ export class AdminShiftInfoEmployeeComponent implements OnInit {
     }
 
     changeStatus(): void {}
+
+    public openOverlay(event: MouseEvent): void {
+        event?.stopPropagation();
+        console.log(this.statusOverlay?.nativeElement);
+        if (this.statusOverlay?.nativeElement) {
+            if (!this.isOpen) {
+                this.renderer.setStyle(this.statusOverlay.nativeElement, 'display', 'block');
+                this.isOpen = true;
+            } else {
+                this.renderer.setStyle(this.statusOverlay.nativeElement, 'display', 'none');
+                this.isOpen = false;
+            }
+        }
+    }
+
+    onChooseStatus(status: IAbsent): void {
+        this.adminShiftScheduleService.postAbsent$.next({
+            userId: this.data?.id,
+            absentReasonId: status?.id,
+        });
+    }
 }

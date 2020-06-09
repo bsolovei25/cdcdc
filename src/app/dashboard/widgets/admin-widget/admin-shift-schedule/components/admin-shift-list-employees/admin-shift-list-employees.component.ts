@@ -1,7 +1,15 @@
-import { Component, OnInit, Input, TemplateRef, ChangeDetectionStrategy } from '@angular/core';
+import {
+    Component,
+    OnInit,
+    Input,
+    TemplateRef,
+    ChangeDetectionStrategy,
+    ChangeDetectorRef,
+} from '@angular/core';
 import { IUser } from '../../../../../models/events-widget';
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
 import { AdminShiftScheduleService } from '../../../../../services/widgets/admin-shift-schedule.service';
+import { IBrigadeWithUsersDto } from '../../../../../models/admin-shift-schedule';
 
 @Component({
     selector: 'evj-admin-shift-list-employees',
@@ -12,32 +20,32 @@ import { AdminShiftScheduleService } from '../../../../../services/widgets/admin
 export class AdminShiftListEmployeesComponent implements OnInit {
     // @Input() template: TemplateRef<any>;
     @Input() public data: IUser[] = [];
-    @Input() brigadeColors: { color: string; id: number }[] = [];
+    brigadeColors: { color: string; id: number }[] = [];
 
-    constructor(private adminShiftScheduleService: AdminShiftScheduleService) {}
+    constructor(
+        private adminShiftScheduleService: AdminShiftScheduleService,
+        private chDet: ChangeDetectorRef
+    ) {}
 
     ngOnInit(): void {
-        console.log(this.data);
+        this.adminShiftScheduleService.brigadeColor$.subscribe((value) => {
+            if (value) {
+                this.brigadeColors = value;
+                this.chDet.detectChanges();
+            }
+        });
     }
 
-    dragStart(id: string): void {
-        console.log(id);
-
+    dragStart(id: number): void {
         this.adminShiftScheduleService.moveItemId$.next(id);
     }
 
     drop(event: CdkDragDrop<string[]>): void {
         console.log(event);
         this.adminShiftScheduleService.moveItemBrigade$.next(event);
-        // if (event.container.id === event.previousContainer.id) {
-        //     const brig = this.dataBrig.findIndex((e) => e.id.toString() === event.container.id);
-        //     //  moveItemInArray(this.list[brig].brigade,
-        // event.previousIndex, event.currentIndex);
-        // } else {
-        //     const brigadeIndex = this.dataBrig.findIndex(
-        //         (e) => e.id.toString() === event.container.id
-        //     );
-        //     this.dataBrig[brigadeIndex].brigade.push(this.dragUniqElem);
-        // }
+    }
+
+    brigadeColor(user: IUser): string {
+        return this.brigadeColors.find((val) => val?.id === user?.brigade?.id)?.color;
     }
 }

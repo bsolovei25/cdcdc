@@ -7,7 +7,7 @@
     <div class="specialty">{{data.positionDescription}}</div>
   </div>
   <div *ngIf="brigade && data?.brigade?.number" class="employee-container__brigade">
-    <div class="brigade" class="brigade--{{ color }}">{{data?.brigade?.number}}</div>
+    <div class="brigade" [class]="colorBrigade">{{data?.brigade?.number}}</div>
   </div>
 
   <div
@@ -19,6 +19,31 @@
       src="assets/icons/widgets/admin-shift-schedule/star.svg"
       [svgStyle]="{ 'width.px':12, 'height.px':20 }"
     ></svg-icon>
+  </div>
+
+  <div
+    *ngIf="allStatus.length"
+    class="employee-container__status"
+    mat-button
+    [matMenuTriggerFor]="menu"
+    [matTooltip]="absentReason?.name"
+    matTooltipPosition="right"
+  >
+    <svg-icon
+      *ngIf="!absentReason"
+      src="assets/icons/widgets/admin-shift-schedule/status.svg"
+      [svgStyle]="{ 'width.px':12, 'height.px':20 }"
+    ></svg-icon>
+    <svg-icon
+      *ngIf="absentReason"
+      src="assets/icons/widgets/admin-shift-schedule/status__danger.svg"
+      [svgStyle]="{ 'width.px':12, 'height.px':20 }"
+    ></svg-icon>
+    <mat-menu #menu="matMenu" class="customize-menu">
+      <button mat-menu-item *ngFor="let status of allStatus" (click)="onChooseStatus(status)">
+        {{ status.name }}
+      </button>
+    </mat-menu>
   </div>
 
   <div *ngIf="garbage" class="employee-container__garbage" (click)="delete()">

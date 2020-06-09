@@ -14,7 +14,7 @@
       ></svg-icon>
     </div>
     <div class="brigade">
-      <div class="brigade">{{data?.brigadeNumber}}</div>
+      <div class="brigade" [class]="color">{{data?.brigadeNumber}}</div>
     </div>
     <div class="icon-edit" matTooltip="Редактировать бригаду" (click)="edit(data)">
       <svg-icon

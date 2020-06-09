@@ -41,6 +41,8 @@ export class AdminShiftBrigadeComponent {
 
     public inputControl: FormControl = new FormControl('');
 
+    @Input() color: string = '';
+
     constructor(
         private adminShiftScheduleService: AdminShiftScheduleService,
         private snackBar: SnackBarService
@@ -55,7 +57,7 @@ export class AdminShiftBrigadeComponent {
         this.adminShiftScheduleService.moveItemBrigade$.next(event);
     }
 
-    dragStart(id: string): void {
+    dragStart(id: number): void {
         this.adminShiftScheduleService.moveItemId$.next(id);
     }
 
