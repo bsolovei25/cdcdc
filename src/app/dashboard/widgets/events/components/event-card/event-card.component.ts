@@ -6,7 +6,7 @@ import {
     OnInit,
     Output
 } from '@angular/core';
-import { EventsWidgetNotificationPreview } from '../../models/events-widget';
+import { EventsWidgetNotificationPreview } from '../../../../models/events-widget';
 
 
 @Component({

@@ -60,7 +60,7 @@
         <svg-icon
           class="notification__icon"
           [applyCss]="true"
-          src="./assets/icons/settings-gear.svg"
+          [src]="cardData?.iconUrl"
           [ngClass]="'notification__icon_' + cardData?.priority?.name"
         ></svg-icon>
         <svg-icon
@@ -71,6 +71,7 @@
           (click)="deleteClick(cardData?.id)"
           (mousedown)="$event.stopPropagation()"
           (touchstart)="$event.stopPropagation()"
+          [svgStyle]="{ 'width.px':16, 'height.px':16 }"
         >
         </svg-icon>
         <span *ngIf="!cardData?.source" class="notification__icon_delete__mock"></span>
@@ -102,7 +103,7 @@
       <div class="notification__block__extra">
         <span
           class="notification__block__status"
-          [ngClass]="'notification__block__status_' + cardData?.priority.name"
+          [ngClass]="'notification__block__status_' + cardData?.priority?.name"
         >
           {{ cardData?.statusName }}
         </span>
@@ -110,7 +111,7 @@
           <svg-icon
             [applyCss]="true"
             [src]="cardData?.iconUrlStatus"
-            [ngClass]="'notification__block__icon_' + cardData?.priority.name"
+            [ngClass]="'notification__block__icon_' + cardData?.priority?.name"
             [svgStyle]="{'fill':'rgb(63, 168, 243)'}"
           >
           </svg-icon>
@@ -121,6 +122,7 @@
             [applyCss]="true"
             src="./assets/icons/remove.svg"
             (click)="deleteClick(cardData?.id)"
+            [svgStyle]="{ 'width.px':14, 'height.px':14 }"
           >
           </svg-icon>
         </span>
@@ -128,7 +130,7 @@
           <svg-icon
             [applyCss]="true"
             class="notification__block__icon__right"
-            src="./assets/icons/settings-gear.svg"
+            [src]="cardData?.iconUrl"
             [ngClass]="'notification__block__icon_'"
             [svgStyle]="{'fill':'rgb(63, 168, 243)'}"
           >
