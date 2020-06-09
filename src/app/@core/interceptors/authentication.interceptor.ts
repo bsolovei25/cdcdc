@@ -13,6 +13,16 @@ export class AuthenticationInterceptor implements HttpInterceptor {
     constructor(private authService: AuthService) {}
 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+        if (req.url[req.url.length - 1] === '/') {
+            req = req.clone({
+                url: req.url.slice(0, -1),
+            });
+        }
+
+        req = req.clone({
+            url: encodeURI(req.url),
+        });
+
         if (req.headers.get('Authorization')) {
             return next.handle(req);
         }
@@ -24,10 +34,6 @@ export class AuthenticationInterceptor implements HttpInterceptor {
         if (req.url.includes('api/user-management/windows-current')) {
             return next.handle(req);
         }
-
-        req = req.clone({
-            url: encodeURI(req.url),
-        });
 
         if (req.headers.has('AuthenticationType')) {
             const tempHeaderValue = req.headers.get('AuthenticationType');
