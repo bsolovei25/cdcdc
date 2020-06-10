@@ -149,6 +149,7 @@ export class DocumentsScansComponent extends WidgetPlatform implements OnInit, O
             if (indexItem !== -1) {
                 this.data.splice(indexItem, 1);
             }
+            this.oilDocumentService.currentDocumentUrl$.next(null);
         } catch (e) {
             console.error(e);
         } finally {

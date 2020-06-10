@@ -79,7 +79,9 @@ export class DocumentViewerComponent extends WidgetPlatform implements OnInit, O
     protected dataConnect(): void {
         super.dataConnect();
         this.oilDocumentService.currentDocumentUrl.subscribe((ref) => {
-            this.isLoading = true;
+            if (ref) {
+                this.isLoading = true;
+            }
             this.src = ref;
         });
     }

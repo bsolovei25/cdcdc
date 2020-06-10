@@ -18,8 +18,7 @@ export class DocumentsScansService {
 
     public currentDocumentUrl$: BehaviorSubject<string> = new BehaviorSubject<string>(null);
     public currentDocumentUrl: Observable<string> = this.currentDocumentUrl$
-        .asObservable()
-        .pipe(filter((item) => item !== null));
+        .asObservable();
 
     public alertWindow$: BehaviorSubject<IAlertWindowModel> = new BehaviorSubject<IAlertWindowModel>(null);
 
