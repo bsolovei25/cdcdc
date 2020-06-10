@@ -113,4 +113,8 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
     canShowSaveButton(): boolean {
         return this.ewService.event?.isUserCanEdit ?? false;
     }
+
+    public overlayChartClose(): void {
+        this.ewService.isOverlayChartOpen = false;
+    }
 }
