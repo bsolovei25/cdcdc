@@ -100,31 +100,20 @@ export class EventService {
             return saveMethod;
         } catch (error) {
             console.error(error);
+            return null;
         }
     }
 
     async postEvent(body: EventsWidgetNotification, saveMethod: ISaveMethodEvent): Promise<any> {
-        try {
-            return this.http.post(`${saveMethod.data.url}/api/notifications`, body, saveMethod.options).toPromise();
-        } catch (error) {
-            console.error(error);
-        }
+        return this.http.post(`${saveMethod.data.url}/api/notifications`, body, saveMethod.options).toPromise();
     }
 
-    async postEventRetrieval(body: EventsWidgetNotification): Promise<any> {
-        try {
-            return this.http.post(`${this.restUrl}/api/notification-retrieval/${body.parentId}/RetrievalEvents`, body).toPromise();
-        } catch (error) {
-            console.error(error);
-        }
+    async postEventRetrieval(body: EventsWidgetNotification): Promise<EventsWidgetNotification> {
+        return this.http.post<EventsWidgetNotification>(`${this.restUrl}/api/notification-retrieval/${body.parentId}/RetrievalEvents`, body).toPromise();
     }
 
     async putEvent(body: EventsWidgetNotification, saveMethod: ISaveMethodEvent): Promise<any> {
-        try {
-            return this.http.put(`${saveMethod.data.url}/api/notifications/${body.id}`, body, saveMethod.options).toPromise();
-        } catch (error) {
-            console.error(error);
-        }
+        return this.http.put(`${saveMethod.data.url}/api/notifications/${body.id}`, body, saveMethod.options).toPromise();
     }
 
     async deleteEvent(id: number): Promise<any> {

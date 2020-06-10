@@ -23,10 +23,7 @@ import { AvatarConfiguratorService } from '../avatar-configurator.service';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { IAlertWindowModel } from '@shared/models/alert-window.model';
 import { filter, map } from 'rxjs/operators';
-
-declare interface PromiseConstructor {
-    allSettled(promises: Array<Promise<any>>): Promise<Array<{status: 'fulfilled' | 'rejected', value?: any, reason?: any}>>;
-}
+import { error } from '@angular/compiler/src/util';
 
 @Injectable({
     providedIn: 'root',
@@ -245,14 +242,18 @@ export class EventsWorkspaceService {
     }
 
     private async saveCreatedEvent(saveMethod: ISaveMethodEvent): Promise<void> {
+        let event: EventsWidgetNotification = null;
         try {
             if (this.event.parentId) {
                 if (!this.checkRetrievalCategory()) {
                     return;
                 }
-                await this.eventService.postEventRetrieval(this.event);
+                event = await this.eventService.postEventRetrieval(this.event);
             } else {
-                await this.eventService.postEvent(this.event, saveMethod);
+                event = await this.eventService.postEvent(this.event, saveMethod);
+            }
+            if (event?.id) {
+                this.event.id = event.id;
             }
             this.isCreateNewEvent = false;
             this.snackBarService.openSnackBar('Сохранено');
@@ -265,13 +266,17 @@ export class EventsWorkspaceService {
         this.isLoading = true;
         try {
             const saveMethod: ISaveMethodEvent = await this.eventService.getSaveMethod(this.event);
-            console.log(saveMethod);
+            if (!saveMethod) {
+                throw error('no save method');
+            }
             if (this.isCreateNewEvent) {
                 this.saveCreatedEvent(saveMethod);
             } else {
                 this.saveEditedEvent(saveMethod);
             }
-        } catch {}
+        } catch (e) {
+            console.error(e);
+        }
         this.isLoading = false;
     }
 
