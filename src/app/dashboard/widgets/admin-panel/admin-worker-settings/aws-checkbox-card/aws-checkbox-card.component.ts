@@ -6,30 +6,14 @@ import { WorkerPositionType } from '../../../../models/events-widget';
     templateUrl: './aws-checkbox-card.component.html',
     styleUrls: ['./aws-checkbox-card.component.scss'],
 })
-export class AwsCheckboxCardComponent implements OnInit, OnChanges {
+export class AwsCheckboxCardComponent {
     @Input() public isCreateNewUser: boolean = false;
-    @Input() public workerPosition: WorkerPositionType = 'common';
-    @Output() private checked: EventEmitter<boolean> = new EventEmitter<boolean>();
-
-    public isChecked: boolean = false;
+    @Input() public isChecked: boolean = false;
+    @Output() private isCheckedChange: EventEmitter<boolean> = new EventEmitter<boolean>();
 
     constructor() {}
 
-    public ngOnChanges(): void {
-        if (this.workerPosition === 'responsible') {
-            this.isChecked = true;
-        } else {
-            this.isChecked = false;
-        }
-    }
-
-    public ngOnInit(): void {
-        if (this.workerPosition === 'responsible') {
-            this.isChecked = true;
-        }
-    }
-
-    public onClick(): void {
-        this.checked.emit(!this.isChecked);
+    onClick(): void {
+        this.isCheckedChange.emit(!this.isChecked);
     }
 }
