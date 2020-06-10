@@ -31,6 +31,7 @@ import { TruncatedPieFirstComponent } from './widgets/truncated-pie-first/trunca
 import { TruncatedPieSFirstComponent } from './widgets/truncated-pie-first/truncated-pie-s-first/truncated-pie-s-first.component';
 import { TruncatedPieSIconComponent } from './widgets/truncated-pie-icon/truncated-pie-s-icon/truncated-pie-s-icon.component';
 import { TruncatedPieIconComponent } from './widgets/truncated-pie-icon/truncated-pie-icon/truncated-pie-icon.component';
+import { PieDiagramComponent } from './widgets/truncated-diagram-traffic-light/components/pie-diagram/pie-diagram.component';
 import { PointDiagramComponent } from './widgets/point-diagram/point-diagram.component';
 import { OneColumnComponent } from './widgets/point-diagram/one-column/one-column.component';
 import { ProductionPyramidComponent } from './widgets/production-pyramid/production-pyramid.component';
@@ -279,6 +280,7 @@ import { AdminShiftListEmployeesComponent } from './widgets/admin-widget/admin-s
 import { AdminShiftInfoEmployeeComponent } from './widgets/admin-widget/admin-shift-schedule/components/admin-shift-info-employee/admin-shift-info-employee.component';
 import { AdminShiftCardComponent } from './widgets/admin-widget/admin-shift-schedule/components/admin-shift-card/admin-shift-card.component';
 import { MatMenuModule } from '@angular/material/menu';
+import { TruncatedDiagramTrafficLightComponent } from './widgets/truncated-diagram-traffic-light/truncated-diagram-traffic-light.component';
 
 @NgModule({
     declarations: [
@@ -309,6 +311,8 @@ import { MatMenuModule } from '@angular/material/menu';
         TruncatedPieSFirstComponent,
         TruncatedPieSIconComponent,
         TruncatedPieIconComponent,
+        PieDiagramComponent,
+        TruncatedDiagramTrafficLightComponent,
         ProductionPyramidComponent,
         BarChartsComponent,
         BarChartComponent,
@@ -539,6 +543,7 @@ import { MatMenuModule } from '@angular/material/menu';
         EventsWorkSpaceComponent,
         TruncatedPieSFirstComponent,
         TruncatedPieSIconComponent,
+        TruncatedDiagramTrafficLightComponent,
         PointDiagramComponent,
         ProductionPyramidComponent,
         BarChartsComponent,
