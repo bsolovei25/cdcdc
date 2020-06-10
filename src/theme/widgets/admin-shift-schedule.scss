@@ -57,7 +57,7 @@ $colors: (
                   @include element-color(
                     map-get($colors, color-#{$color1}),
                     map-get($colors, color-#{$color2}),
-                    map-get($colors, color-#{$color2}),
+                    map-get($colors, color-#{$color3}),
                     $color-bg,
                     $color-bg,
                     $color-bg
