@@ -62,6 +62,20 @@ $colors: (
                     $color-bg,
                     $color-bg
                   );
+                  &item-4 {
+                    @for $color4 from 1 through 6 {
+                      &--color-#{$color4} {
+                        @include element-color(
+                          map-get($colors, color-#{$color1}),
+                          map-get($colors, color-#{$color2}),
+                          map-get($colors, color-#{$color3}),
+                          map-get($colors, color-#{$color4}),
+                          $color-bg,
+                          $color-bg
+                        );
+                      }
+                    }
+                  }
                 }
               }
             }
