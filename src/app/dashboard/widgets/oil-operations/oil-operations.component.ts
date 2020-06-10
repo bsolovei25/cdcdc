@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
 import { IDatesInterval, WidgetService } from '../../services/widget.service';
 import { WidgetPlatform } from '../../models/widget-platform';
-import { ILeftOilTable, IOilOperations } from '../../models/oil-operations';
+import { ILeftOilTable, IOilOperations, IRightOilTable } from '../../models/oil-operations';
 import { OilOperationsService } from '../../services/widgets/oil-operations.service';
 
 export interface IOilOperationsButton {
@@ -30,54 +30,54 @@ export class OilOperationsComponent extends WidgetPlatform implements OnInit, On
 
     public data: IOilOperations = {
         tableLeft: [
-            {
-                id: 1,
-                number: 4643,
-                rR: 442,
-                product: 'ДТ ЕВРО сорт F, вид III(ДТ-Е-К5)',
-                passport: 168,
-                dateFrom: new Date(),
-                dateTo: new Date(),
-                mass: 4223.23,
-                deviation: 3.3,
-                status: 'open'
-            },
-            {
-                id: 2,
-                number: 4643,
-                rR: 442,
-                product: 'ДТ ЕВРО сорт F, вид III(ДТ-Е-К5)',
-                passport: 168,
-                dateFrom: new Date(),
-                dateTo: new Date(),
-                mass: 4223.23,
-                deviation: 3.3,
-                status: 'close'
-            },
-            {
-                id: 3,
-                number: 4643,
-                rR: 442,
-                product: 'ДТ ЕВРО сорт F, вид III(ДТ-Е-К5)',
-                passport: 168,
-                dateFrom: new Date(),
-                dateTo: new Date(),
-                mass: 4223.23,
-                deviation: 3.3,
-                status: 'close&norm'
-            },
-            {
-                id: 4,
-                number: 4643,
-                rR: 442,
-                product: 'ДТ ЕВРО сорт F, вид III(ДТ-Е-К5)',
-                passport: 168,
-                dateFrom: new Date(),
-                dateTo: new Date(),
-                mass: 4223.23,
-                deviation: 3.3,
-                status: 'close&critical'
-            }
+            // {
+            //     id: 1,
+            //     number: 4643,
+            //     rR: 442,
+            //     product: 'ДТ ЕВРО сорт F, вид III(ДТ-Е-К5)',
+            //     passport: 168,
+            //     dateFrom: new Date(),
+            //     dateTo: new Date(),
+            //     mass: 4223.23,
+            //     deviation: 3.3,
+            //     status: 'open'
+            // },
+            // {
+            //     id: 2,
+            //     number: 4643,
+            //     rR: 442,
+            //     product: 'ДТ ЕВРО сорт F, вид III(ДТ-Е-К5)',
+            //     passport: 168,
+            //     dateFrom: new Date(),
+            //     dateTo: new Date(),
+            //     mass: 4223.23,
+            //     deviation: 3.3,
+            //     status: 'close'
+            // },
+            // {
+            //     id: 3,
+            //     number: 4643,
+            //     rR: 442,
+            //     product: 'ДТ ЕВРО сорт F, вид III(ДТ-Е-К5)',
+            //     passport: 168,
+            //     dateFrom: new Date(),
+            //     dateTo: new Date(),
+            //     mass: 4223.23,
+            //     deviation: 3.3,
+            //     status: 'close&norm'
+            // },
+            // {
+            //     id: 4,
+            //     number: 4643,
+            //     rR: 442,
+            //     product: 'ДТ ЕВРО сорт F, вид III(ДТ-Е-К5)',
+            //     passport: 168,
+            //     dateFrom: new Date(),
+            //     dateTo: new Date(),
+            //     mass: 4223.23,
+            //     deviation: 3.3,
+            //     status: 'close&critical'
+            // }
         ],
         received: [
             {
@@ -120,46 +120,46 @@ export class OilOperationsComponent extends WidgetPlatform implements OnInit, On
             }
         ],
         tableRight: [
-            {
-                id: 1,
-                direction: 'A-т ср.364',
-                rRRiser: 3432,
-                dok: 2334,
-                mass: 4223.32,
-                pasport: 168,
-                shipment: 3212,
-                note: 'Tруба'
-            },
-            {
-                id: 2,
-                direction: 'A-т ср.364',
-                rRRiser: 3432,
-                dok: 2334,
-                mass: 4223.32,
-                pasport: 168,
-                shipment: 3212,
-                note: ''
-            },
-            {
-                id: 3,
-                direction: 'A-т ср.364',
-                rRRiser: 3432,
-                dok: 2334,
-                mass: 4223.32,
-                pasport: 168,
-                shipment: 3212,
-                note: ''
-            },
-            {
-                id: 4,
-                direction: 'A-т ср.364',
-                rRRiser: 3432,
-                dok: 2334,
-                mass: 4223.32,
-                pasport: 168,
-                shipment: 3212,
-                note: 'Tруба'
-            }
+            // {
+            //     id: 1,
+            //     direction: 'A-т ср.364',
+            //     rRRiser: 3432,
+            //     dok: 2334,
+            //     mass: 4223.32,
+            //     pasport: 168,
+            //     shipment: 3212,
+            //     note: 'Tруба'
+            // },
+            // {
+            //     id: 2,
+            //     direction: 'A-т ср.364',
+            //     rRRiser: 3432,
+            //     dok: 2334,
+            //     mass: 4223.32,
+            //     pasport: 168,
+            //     shipment: 3212,
+            //     note: ''
+            // },
+            // {
+            //     id: 3,
+            //     direction: 'A-т ср.364',
+            //     rRRiser: 3432,
+            //     dok: 2334,
+            //     mass: 4223.32,
+            //     pasport: 168,
+            //     shipment: 3212,
+            //     note: ''
+            // },
+            // {
+            //     id: 4,
+            //     direction: 'A-т ср.364',
+            //     rRRiser: 3432,
+            //     dok: 2334,
+            //     mass: 4223.32,
+            //     pasport: 168,
+            //     shipment: 3212,
+            //     note: 'Tруба'
+            // }
         ],
         filter: [
             {
@@ -253,12 +253,21 @@ export class OilOperationsComponent extends WidgetPlatform implements OnInit, On
             dates.fromDateTime.setHours(0, 0, 0);
         }
         this.currentDates = dates;
-        this.data.tableLeft = (await this.getLeftTable()).slice(0, 10);
+
+        const dataLoadQueue: Promise<void>[] = [];
+        dataLoadQueue.push(
+            this.getLeftTable().then((ref) => {
+                this.data.tableLeft = ref.slice(0, 10);
+            }),
+            this.getRightTable().then((ref) => {
+                this.data.tableRight = ref;
+            }),
+        );
+        await Promise.all(dataLoadQueue);
     }
 
     public async getLeftTable(): Promise<ILeftOilTable[]> {
         const oilOperations = await this.oilOperationService.getTransferList(this.currentDates);
-        console.log(oilOperations);
         return oilOperations.map<ILeftOilTable>((o) => {
             return {
                 id: o.id,
@@ -275,43 +284,24 @@ export class OilOperationsComponent extends WidgetPlatform implements OnInit, On
         });
     }
 
-    // {
-    //     "id": 0,
-    //     "direction": "railway",
-    //     "tank": {
-    //         "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-    //         "omsUid": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-    //         "afUid": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-    //         "name": "string",
-    //         "enabled": true,
-    //         "limitHours": 0,
-    //         "deletedAt": "2020-06-08T14:22:03.208Z"
-    //     },
-    //     "documentNumber": 0,
-    //     "mass": 0,
-    //     "passport": {
-    //         "id": 0,
-    //         "name": "string",
-    //         "fileUid": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
-    //     },
-    //     "shipped": 0,
-    //     "note": "string",
-    //     "document": "string",
-    //     "dateFinish": "2020-06-08T14:22:03.208Z",
-    //     "productName": "string",
-    //     "resName": "string",
-    //     "passportNum": "string",
-    //     "productID": 0,
-    //     "massDelta": 0,
-    //     "transfer_ID": 0,
-    //     "carNumber": "string",
-    //     "trailerNumber": "string",
-    //     "dateStart": "2020-06-08T14:22:03.208Z",
-    //     "dateEnd": "2020-06-08T14:22:03.208Z",
-    //     "iD_Object": 0,
-    //     "massBegin": 0,
-    //     "massEnd": 0
-    // }
+    public async getRightTable(): Promise<IRightOilTable[]> {
+        const oilShipment = await this.oilOperationService.getShipmentList(this.currentDates);
+        console.log(oilShipment);
+        return oilShipment.map<IRightOilTable>((s) => {
+            return {
+                id: s.id,
+                direction: s.direction,
+                rRRiser: 0, // TODO
+                dok: s.documentNumber, // TODO
+                mass: s.mass,
+                pasport: s.passport.id,
+                shipment: 0, // TODO
+                note: s.note,
+            };
+        });
+    }
+
+
 
     ngOnDestroy(): void {
         super.ngOnDestroy();

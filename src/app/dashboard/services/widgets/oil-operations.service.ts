@@ -29,18 +29,43 @@ interface IOilOperationTransferRest {
     deletedAt: Date;
 }
 
-// export interface ILeываыаftOilTable {
-//     id: number;
-//     number: number;
-//     rR: number;
-//     product: string;
-//     pasport: number;
-//     dateFrom: string; /// Date
-//     dateTo: string; /// Date
-//     mass: number;
-//     deviation: number;
-//     status: string;
-// }
+interface IOilShipmentRest {
+    id: number;
+    direction: string;
+    tank: {
+        id: string;
+        omsUid: string;
+        afUid: string;
+        name: string;
+        enabled: boolean;
+        limitHours: number;
+        deletedAt: Date;
+    };
+    documentNumber: number;
+    mass: number;
+    passport: {
+        id: number;
+        name: string;
+        fileUid: string;
+    },
+    shipped: string;
+    note: string;
+    document: string;
+    dateFinish: Date;
+    productName: string;
+    resName: string;
+    passportNum: string;
+    productID: number;
+    massDelta: number;
+    transfer_ID: number;
+    carNumber: string;
+    trailerNumber: string;
+    dateStart: Date;
+    dateEnd: Date;
+    iD_Object: number;
+    massBegin: number;
+    massEnd: number;
+}
 
 @Injectable({
   providedIn: 'root'
@@ -60,6 +85,11 @@ export class OilOperationsService {
     public async getTransferList(dates: IDatesInterval, group: string = null, product: string = null): Promise<IOilOperationTransferRest[]> {
         const query = this.getFilterString(dates.fromDateTime, dates.toDateTime, group, product);
         return await this.getTransferListRequest(query);
+    }
+
+    public async getShipmentList(dates: IDatesInterval): Promise<IOilShipmentRest[]> {
+        const query = this.getFilterString(dates.fromDateTime, dates.toDateTime);
+        return await this.getShipmentListRequest(query);
     }
 
     private getFilterString(
@@ -87,6 +117,13 @@ export class OilOperationsService {
         return this.http
             // .get<IOilOperationTransferRest[]>(`${this.restUrl}/api/oil-control/transfer${query}`)
             .get<IOilOperationTransferRest[]>(`assets/mock/OilOperationsMock/transfers.json`)
+            .toPromise();
+    }
+
+    private async getShipmentListRequest(query: string): Promise<IOilShipmentRest[]> {
+        return this.http
+            // .get<IOilShipmentRest[]>(`${this.restUrl}/api/oil-control/shipment${query}`)
+            .get<IOilShipmentRest[]>(`assets/mock/OilOperationsMock/shipments.json`)
             .toPromise();
     }
 }
