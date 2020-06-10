@@ -29,6 +29,19 @@ interface IOilOperationTransferRest {
     deletedAt: Date;
 }
 
+// export interface ILeываыаftOilTable {
+//     id: number;
+//     number: number;
+//     rR: number;
+//     product: string;
+//     pasport: number;
+//     dateFrom: string; /// Date
+//     dateTo: string; /// Date
+//     mass: number;
+//     deviation: number;
+//     status: string;
+// }
+
 @Injectable({
   providedIn: 'root'
 })
@@ -44,7 +57,7 @@ export class OilOperationsService {
         this.restUrl = configService.restUrl;
     }
 
-    public async getTransferList(dates: IDatesInterval, group: string = null, product: string = null): Promise<IOilOperationTransferRest> {
+    public async getTransferList(dates: IDatesInterval, group: string = null, product: string = null): Promise<IOilOperationTransferRest[]> {
         const query = this.getFilterString(dates.fromDateTime, dates.toDateTime, group, product);
         return await this.getTransferListRequest(query);
     }
@@ -60,7 +73,7 @@ export class OilOperationsService {
         }
         let requestQuery: string =
             `?startTime=${startTime.toISOString()}` +
-            `&endTime=${endTime}`;
+            `&endTime=${endTime.toISOString()}`;
         if (group) {
             requestQuery += `&group=${group}`;
         }
@@ -70,9 +83,10 @@ export class OilOperationsService {
         return requestQuery;
     }
 
-    private async getTransferListRequest(query: string): Promise<IOilOperationTransferRest> {
+    private async getTransferListRequest(query: string): Promise<IOilOperationTransferRest[]> {
         return this.http
-            .get<IOilOperationTransferRest>(`${this.restUrl}/api/OilControl/transfer${query}`)
+            // .get<IOilOperationTransferRest[]>(`${this.restUrl}/api/oil-control/transfer${query}`)
+            .get<IOilOperationTransferRest[]>(`assets/mock/OilOperationsMock/transfers.json`)
             .toPromise();
     }
 }
