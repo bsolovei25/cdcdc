@@ -38,6 +38,7 @@ export class AdminPanelService {
         positionDescription: '',
         displayName: '',
         department: '',
+        isShiftWorker: false,
     };
 
     public allWorkers$: BehaviorSubject<IUser[]> = new BehaviorSubject<IUser[]>(null);

@@ -18,6 +18,13 @@
     (saveChanging)="onSelectUnit($event)"
   ></evj-aws-select-card>
 
+  <evj-aws-checkbox-card
+    class="card"
+    [isCreateNewUser]="isCreateNewUser"
+    [isChecked]="worker.isShiftWorker"
+    (isCheckedChange)="onSetShift($event)"
+  ></evj-aws-checkbox-card>
+
   <div class="card" *ngIf="isValidFieldName(textPasswordButton()) && !isImportNewWorker">
     <evj-button
       class="card__button"
