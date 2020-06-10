@@ -52,10 +52,6 @@ export class UsualEventComponent implements OnInit {
         document.dispatchEvent(event);
     }
 
-    public overlayChartClose(): void {
-        this.ewService.isOverlayChartOpen = false;
-    }
-
     // TODO
     public progressLine(): void {
         const heightMiddle = this.progress.nativeElement.offsetParent.offsetHeight - 103;
