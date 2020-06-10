@@ -14,7 +14,9 @@ export class DocumentsScansService {
 
     private restUrl: string;
 
-    private currentDocumentUrl$: BehaviorSubject<string> = new BehaviorSubject<string>(null);
+    public documentScansLoader$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+
+    public currentDocumentUrl$: BehaviorSubject<string> = new BehaviorSubject<string>(null);
     public currentDocumentUrl: Observable<string> = this.currentDocumentUrl$
         .asObservable()
         .pipe(filter((item) => item !== null));
@@ -37,10 +39,11 @@ export class DocumentsScansService {
 
     public async getDocumentView(id: number): Promise<string> {
         const blob = await this.http.get(`${this.restUrl}/api/oil-control/Passport/${id}/view`, {responseType: 'blob'}).toPromise();
-        const url = window.URL.createObjectURL(blob);
-        // window.open(url);
-        this.currentDocumentUrl$.next(url);
-        return url;
+        return window.URL.createObjectURL(blob);
+    }
+
+    public async deleteDocument(id: number): Promise<any> {
+        return this.http.delete(`${this.restUrl}/api/oil-control/Passport/${id}`).toPromise();
     }
 
     public closeAlert(): void {

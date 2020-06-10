@@ -1,4 +1,11 @@
-import { Component, OnInit, HostListener, Inject, OnDestroy } from '@angular/core';
+import {
+    ChangeDetectionStrategy, ChangeDetectorRef,
+    Component,
+    HostListener,
+    Inject,
+    OnDestroy,
+    OnInit
+} from '@angular/core';
 import { WidgetService } from '../../services/widget.service';
 import { WidgetPlatform } from '../../models/widget-platform';
 import { DocumentsScansService } from '../../services/oil-control-services/documents-scans.service';
@@ -7,7 +14,8 @@ import { IDocumentsScans } from '../../models/oil-document.model';
 @Component({
     selector: 'evj-documents-scans',
     templateUrl: './documents-scans.component.html',
-    styleUrls: ['./documents-scans.component.scss']
+    styleUrls: ['./documents-scans.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 
 export class DocumentsScansComponent extends WidgetPlatform implements OnInit, OnDestroy {
@@ -56,6 +64,7 @@ export class DocumentsScansComponent extends WidgetPlatform implements OnInit, O
     // ];
 
     constructor(
+        public cdRef: ChangeDetectorRef,
         public widgetService: WidgetService,
         public oilDocumentService: DocumentsScansService,
         @Inject('isMock') public isMock: boolean,
@@ -78,7 +87,7 @@ export class DocumentsScansComponent extends WidgetPlatform implements OnInit, O
 
     ngOnDestroy(): void {
         super.ngOnDestroy();
-
+        this.cdRef.detach();
     }
 
     protected dataConnect(): void {
@@ -88,6 +97,19 @@ export class DocumentsScansComponent extends WidgetPlatform implements OnInit, O
 
     public async getData(): Promise<void> {
         this.data = await this.oilDocumentService.getDocumentList();
+        this.cdRef.detectChanges();
+    }
+
+    private async getDocument(id: number): Promise<void> {
+        this.oilDocumentService.documentScansLoader$.next(true);
+        try {
+            const url = await this.oilDocumentService.getDocumentView(id);
+            this.oilDocumentService.currentDocumentUrl$.next(url);
+        } catch (e) {
+            console.error(e);
+        } finally {
+            this.oilDocumentService.documentScansLoader$.next(false);
+        }
     }
 
     @HostListener('document:resize', ['$event'])
@@ -112,17 +134,25 @@ export class DocumentsScansComponent extends WidgetPlatform implements OnInit, O
         this.data.forEach(e => {
             if (e.id === event) {
                 e.isActive = !e.isActive;
-                this.oilDocumentService.getDocumentView(e.id);
+                this.getDocument(e.id);
             } else {
                 e.isActive = false;
             }
         });
     }
 
-    delete(eventId: number): void {
-        const indexItem = this.data.findIndex(e => e.id === eventId);
-        if (indexItem !== -1) {
-            this.data.splice(indexItem, 1);
+    async delete(id: number): Promise<void> {
+        this.oilDocumentService.documentScansLoader$.next(true);
+        try {
+            await this.oilDocumentService.deleteDocument(id);
+            const indexItem = this.data.findIndex(e => e.id === id);
+            if (indexItem !== -1) {
+                this.data.splice(indexItem, 1);
+            }
+        } catch (e) {
+            console.error(e);
+        } finally {
+            this.oilDocumentService.documentScansLoader$.next(false);
         }
     }
 
