@@ -14,30 +14,14 @@ $color-6: "2d3f51";
 
 $color-bg: "272b35";
 
-.special-date {
-  background: url(assets\icons\widgets\admin-shift-schedule\calendar-active-orange.svg) center;
-  background-size: 77%;
-  background-repeat: no-repeat;
-}
-
-%color-1 {
-  fill: $color-smp-blue-1;
-}
-%color-2 {
-  fill: var(--color-bg-active-sub-workflow);
-}
-%color-3 {
-  fill: var(--color-active);
-}
-%color-4 {
-  fill: var(--color-marker-diagram);
-}
-%color-5 {
-  fill: var(--color-smp-ev-ws-grad2);
-}
-%color-6 {
-  fill: var(--color-bg-active-gradient);
-}
+$colors: (
+  color-1: "003b64",
+  color-2: "3f587c",
+  color-3: "3fa9f5",
+  color-4: "606580",
+  color-5: "285c85",
+  color-6: "2d3f51"
+);
 
 @mixin element-color($color1, $color2, $color3, $color4, $color5, $color6) {
   background-image: url("data:image/svg+xml,%3Csvg width='39' height='39' viewBox='0 0 39 39' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath id='brigade-1' d='M32.4063 0.442322H34.4551L38.9145 4.83592V18.3611H32.4063V0.442322Z' fill='%23#{$color1}' /%3E%3Cpath id='brigade-2' d='M32.4063 38.3837L34.6984 38.3837L38.9145 34.1976V19.9001H32.4063V38.3837Z' fill='%23#{$color2}'/%3E%3Cpath id='brigade-3' d='M7.4812 0.442335L5.18907 0.442322L0.973028 4.62843L0.973027 18.9259L7.4812 18.9259L7.4812 0.442335Z' fill='%23#{$color3}'/%3E%3Cpath id='brigade-4' d='M7.4812 38.3837L5.43245 38.3837L0.973029 33.9901L0.97303 20.4649L7.4812 20.4649L7.4812 38.3837Z' fill='%23#{$color4}'/%3E%3Crect id='brigade-5' x='9.09039' y='31.8737' width='21.9212' height='6.51' fill='%23#{$color5}' /%3E%3Crect id='brigade-6' x='9.09039' y='0.442322' width='21.9212' height='6.51' fill='%23#{$color6}'/%3E%3C/svg%3E%0A");
@@ -46,625 +30,66 @@ $color-bg: "272b35";
 }
 
 .item-1 {
-  &--color {
-    &-1 {
-      @include element-color($color-1, $color-bg, $color-bg, $color-bg, $color-bg, $color-bg);
-      &item-2 {
-        &--color {
-          &-1 {
-            @include element-color($color-1, $color-1, $color-bg, $color-bg, $color-bg, $color-bg);
-            &item-3 {
-              &--color {
-                &-1 {
-                  @include element-color(
-                    $color-1,
-                    $color-1,
-                    $color-1,
-                    $color-bg,
-                    $color-bg,
-                    $color-bg
-                  );
-                }
-                &-2 {
-                  @include element-color(
-                    $color-1,
-                    $color-1,
-                    $color-2,
-                    $color-bg,
-                    $color-bg,
-                    $color-bg
-                  );
-                }
-                &-3 {
-                  @include element-color(
-                    $color-1,
-                    $color-1,
-                    $color-3,
-                    $color-bg,
-                    $color-bg,
-                    $color-bg
-                  );
-                }
-                &-4 {
-                  @include element-color(
-                    $color-1,
-                    $color-1,
-                    $color-4,
-                    $color-bg,
-                    $color-bg,
-                    $color-bg
-                  );
-                }
-                &-5 {
-                  @include element-color(
-                    $color-1,
-                    $color-1,
-                    $color-5,
-                    $color-bg,
-                    $color-bg,
-                    $color-bg
-                  );
-                }
-                &-6 {
-                  @include element-color(
-                    $color-1,
-                    $color-1,
-                    $color-6,
-                    $color-bg,
-                    $color-bg,
-                    $color-bg
-                  );
-                }
-              }
-            }
-          }
-          &-2 {
-            @include element-color($color-1, $color-2, $color-bg, $color-bg, $color-bg, $color-bg);
-            &item-3 {
-              &--color {
-                &-1 {
-                  @include element-color(
-                    $color-1,
-                    $color-2,
-                    $color-1,
-                    $color-bg,
-                    $color-bg,
-                    $color-bg
-                  );
-                }
-                &-2 {
-                  @include element-color(
-                    $color-1,
-                    $color-2,
-                    $color-2,
-                    $color-bg,
-                    $color-bg,
-                    $color-bg
-                  );
-                }
-                &-3 {
-                  @include element-color(
-                    $color-1,
-                    $color-2,
-                    $color-3,
-                    $color-bg,
-                    $color-bg,
-                    $color-bg
-                  );
-                }
-                &-4 {
-                  @include element-color(
-                    $color-1,
-                    $color-2,
-                    $color-4,
-                    $color-bg,
-                    $color-bg,
-                    $color-bg
-                  );
-                }
-                &-5 {
-                  @include element-color(
-                    $color-1,
-                    $color-2,
-                    $color-5,
-                    $color-bg,
-                    $color-bg,
-                    $color-bg
-                  );
-                }
-                &-6 {
-                  @include element-color(
-                    $color-1,
-                    $color-2,
-                    $color-6,
-                    $color-bg,
-                    $color-bg,
-                    $color-bg
-                  );
-                }
-              }
-            }
-          }
-          &-3 {
-            @include element-color($color-1, $color-3, $color-bg, $color-bg, $color-bg, $color-bg);
-            &item-3 {
-              &--color {
-                &-1 {
-                  @include element-color(
-                    $color-1,
-                    $color-3,
-                    $color-1,
-                    $color-bg,
-                    $color-bg,
-                    $color-bg
-                  );
-                }
-                &-2 {
-                  @include element-color(
-                    $color-1,
-                    $color-3,
-                    $color-2,
-                    $color-bg,
-                    $color-bg,
-                    $color-bg
-                  );
-                }
-                &-3 {
-                  @include element-color(
-                    $color-1,
-                    $color-3,
-                    $color-3,
-                    $color-bg,
-                    $color-bg,
-                    $color-bg
-                  );
-                }
-                &-4 {
-                  @include element-color(
-                    $color-1,
-                    $color-3,
-                    $color-4,
-                    $color-bg,
-                    $color-bg,
-                    $color-bg
-                  );
-                }
-                &-5 {
-                  @include element-color(
-                    $color-1,
-                    $color-3,
-                    $color-5,
-                    $color-bg,
-                    $color-bg,
-                    $color-bg
-                  );
-                }
-                &-6 {
-                  @include element-color(
-                    $color-1,
-                    $color-3,
-                    $color-6,
-                    $color-bg,
-                    $color-bg,
-                    $color-bg
-                  );
-                }
-              }
-            }
-          }
-          &-4 {
-            @include element-color($color-1, $color-4, $color-bg, $color-bg, $color-bg, $color-bg);
-            &item-3 {
-              &--color {
-                &-1 {
-                  @include element-color(
-                    $color-1,
-                    $color-1,
-                    $color-1,
-                    $color-bg,
-                    $color-bg,
-                    $color-bg
-                  );
-                }
-                &-2 {
-                  @include element-color(
-                    $color-1,
-                    $color-1,
-                    $color-2,
-                    $color-bg,
-                    $color-bg,
-                    $color-bg
-                  );
-                }
-                &-3 {
-                  @include element-color(
-                    $color-1,
-                    $color-1,
-                    $color-3,
-                    $color-bg,
-                    $color-bg,
-                    $color-bg
-                  );
-                }
-                &-4 {
-                  @include element-color(
-                    $color-1,
-                    $color-1,
-                    $color-4,
-                    $color-bg,
-                    $color-bg,
-                    $color-bg
-                  );
-                }
-                &-5 {
-                  @include element-color(
-                    $color-1,
-                    $color-1,
-                    $color-5,
-                    $color-bg,
-                    $color-bg,
-                    $color-bg
-                  );
-                }
-                &-6 {
-                  @include element-color(
-                    $color-1,
-                    $color-1,
-                    $color-6,
-                    $color-bg,
-                    $color-bg,
-                    $color-bg
-                  );
-                }
-              }
-            }
-          }
-          &-5 {
-            @include element-color($color-1, $color-5, $color-bg, $color-bg, $color-bg, $color-bg);
-            &item-3 {
-              &--color {
-                &-1 {
-                  @include element-color(
-                    $color-1,
-                    $color-1,
-                    $color-1,
-                    $color-bg,
-                    $color-bg,
-                    $color-bg
-                  );
-                }
-                &-2 {
-                  @include element-color(
-                    $color-1,
-                    $color-1,
-                    $color-2,
-                    $color-bg,
-                    $color-bg,
-                    $color-bg
-                  );
-                }
-                &-3 {
-                  @include element-color(
-                    $color-1,
-                    $color-1,
-                    $color-3,
-                    $color-bg,
-                    $color-bg,
-                    $color-bg
-                  );
-                }
-                &-4 {
-                  @include element-color(
-                    $color-1,
-                    $color-1,
-                    $color-4,
-                    $color-bg,
-                    $color-bg,
-                    $color-bg
-                  );
-                }
-                &-5 {
-                  @include element-color(
-                    $color-1,
-                    $color-1,
-                    $color-5,
-                    $color-bg,
-                    $color-bg,
-                    $color-bg
-                  );
-                }
-                &-6 {
-                  @include element-color(
-                    $color-1,
-                    $color-1,
-                    $color-6,
-                    $color-bg,
-                    $color-bg,
-                    $color-bg
-                  );
-                }
-              }
-            }
-          }
-          &-6 {
-            @include element-color($color-1, $color-6, $color-bg, $color-bg, $color-bg, $color-bg);
-            &item-3 {
-              &--color {
-                &-1 {
-                  @include element-color(
-                    $color-1,
-                    $color-1,
-                    $color-1,
-                    $color-bg,
-                    $color-bg,
-                    $color-bg
-                  );
-                }
-                &-2 {
-                  @include element-color(
-                    $color-1,
-                    $color-1,
-                    $color-2,
-                    $color-bg,
-                    $color-bg,
-                    $color-bg
-                  );
-                }
-                &-3 {
-                  @include element-color(
-                    $color-1,
-                    $color-1,
-                    $color-3,
-                    $color-bg,
-                    $color-bg,
-                    $color-bg
-                  );
-                }
-                &-4 {
-                  @include element-color(
-                    $color-1,
-                    $color-1,
-                    $color-4,
-                    $color-bg,
-                    $color-bg,
-                    $color-bg
-                  );
-                }
-                &-5 {
-                  @include element-color(
-                    $color-1,
-                    $color-1,
-                    $color-5,
-                    $color-bg,
-                    $color-bg,
-                    $color-bg
-                  );
-                }
-                &-6 {
-                  @include element-color(
-                    $color-1,
-                    $color-1,
-                    $color-6,
-                    $color-bg,
-                    $color-bg,
-                    $color-bg
-                  );
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-    &-2 {
-      @include element-color($color-2, $color-bg, $color-bg, $color-bg, $color-bg, $color-bg);
-      &item-2 {
-        &--color {
-          &-1 {
-            @include element-color($color-2, $color-1, $color-bg, $color-bg, $color-bg, $color-bg);
-            &item-3 {
-              &--color {
-                &-1 {
-                  @include element-color(
-                    $color-1,
-                    $color-1,
-                    $color-1,
-                    $color-bg,
-                    $color-bg,
-                    $color-bg
-                  );
-                }
-                &-2 {
-                  @include element-color(
-                    $color-1,
-                    $color-1,
-                    $color-2,
-                    $color-bg,
-                    $color-bg,
-                    $color-bg
-                  );
-                }
-                &-3 {
-                  @include element-color(
-                    $color-1,
-                    $color-1,
-                    $color-3,
-                    $color-bg,
-                    $color-bg,
-                    $color-bg
-                  );
-                }
-                &-4 {
-                  @include element-color(
-                    $color-1,
-                    $color-1,
-                    $color-4,
-                    $color-bg,
-                    $color-bg,
-                    $color-bg
-                  );
-                }
-                &-5 {
-                  @include element-color(
-                    $color-1,
-                    $color-1,
-                    $color-5,
-                    $color-bg,
-                    $color-bg,
-                    $color-bg
-                  );
-                }
-                &-6 {
-                  @include element-color(
-                    $color-1,
-                    $color-1,
-                    $color-6,
-                    $color-bg,
-                    $color-bg,
-                    $color-bg
-                  );
-                }
-              }
-            }
-          }
-          &-2 {
-            @include element-color($color-2, $color-2, $color-bg, $color-bg, $color-bg, $color-bg);
-          }
-          &-3 {
-            @include element-color($color-2, $color-3, $color-bg, $color-bg, $color-bg, $color-bg);
-          }
-          &-4 {
-            @include element-color($color-2, $color-4, $color-bg, $color-bg, $color-bg, $color-bg);
-          }
-          &-5 {
-            @include element-color($color-2, $color-5, $color-bg, $color-bg, $color-bg, $color-bg);
-          }
-          &-6 {
-            @include element-color($color-2, $color-6, $color-bg, $color-bg, $color-bg, $color-bg);
-          }
-        }
-      }
-    }
-    &-3 {
-      @include element-color($color-3, $color-bg, $color-bg, $color-bg, $color-bg, $color-bg);
-      &item-2 {
-        &--color {
-          &-1 {
-            @include element-color($color-3, $color-1, $color-bg, $color-bg, $color-bg, $color-bg);
-            &item-3 {
-              &--color {
-                &-1 {
-                  @include element-color(
-                    $color-3,
-                    $color-1,
-                    $color-1,
-                    $color-bg,
-                    $color-bg,
-                    $color-bg
-                  );
-                }
-                &-2 {
-                  @include element-color(
-                    $color-3,
-                    $color-1,
-                    $color-2,
-                    $color-bg,
-                    $color-bg,
-                    $color-bg
-                  );
-                }
-                &-3 {
-                  @include element-color(
-                    $color-3,
-                    $color-1,
-                    $color-3,
-                    $color-bg,
-                    $color-bg,
-                    $color-bg
-                  );
-                }
-                &-4 {
-                  @include element-color(
-                    $color-3,
-                    $color-1,
-                    $color-4,
-                    $color-bg,
-                    $color-bg,
-                    $color-bg
-                  );
-                }
-                &-5 {
-                  @include element-color(
-                    $color-3,
-                    $color-1,
-                    $color-5,
-                    $color-bg,
-                    $color-bg,
-                    $color-bg
-                  );
-                }
-                &-6 {
-                  @include element-color(
-                    $color-3,
-                    $color-1,
-                    $color-6,
-                    $color-bg,
-                    $color-bg,
-                    $color-bg
-                  );
-                }
-              }
-            }
-          }
-          &-2 {
-            @include element-color($color-3, $color-2, $color-bg, $color-bg, $color-bg, $color-bg);
-          }
-          &-3 {
-            @include element-color($color-3, $color-3, $color-bg, $color-bg, $color-bg, $color-bg);
-          }
-          &-4 {
-            @include element-color($color-3, $color-4, $color-bg, $color-bg, $color-bg, $color-bg);
-          }
-          &-5 {
-            @include element-color($color-3, $color-5, $color-bg, $color-bg, $color-bg, $color-bg);
-          }
-          &-6 {
-            @include element-color($color-3, $color-6, $color-bg, $color-bg, $color-bg, $color-bg);
-          }
-        }
-      }
-    }
-    &-4 {
+  @for $color1 from 1 through 6 {
+    &--color-#{$color1} {
       @include element-color(
-        $color-marker-diagram-4,
+        map-get($colors, color-#{$color1}),
         $color-bg,
         $color-bg,
         $color-bg,
         $color-bg,
         $color-bg
       );
-    }
-    &-5 {
-      @include element-color(
-        $color-smp-ev-ws-grad2-5,
-        $color-bg,
-        $color-bg,
-        $color-bg,
-        $color-bg,
-        $color-bg
-      );
-    }
-    &-6 {
-      @include element-color(
-        $color-bg-active-gradient-6,
-        $color-bg,
-        $color-bg,
-        $color-bg,
-        $color-bg,
-        $color-bg
-      );
+      &item-2 {
+        @for $color2 from 1 through 6 {
+          &--color-#{$color2} {
+            @include element-color(
+              map-get($colors, color-#{$color1}),
+              map-get($colors, color-#{$color2}),
+              $color-bg,
+              $color-bg,
+              $color-bg,
+              $color-bg
+            );
+            &item-3 {
+              @for $color3 from 1 through 6 {
+                &--color-#{$color3} {
+                  @include element-color(
+                    map-get($colors, color-#{$color1}),
+                    map-get($colors, color-#{$color2}),
+                    map-get($colors, color-#{$color3}),
+                    $color-bg,
+                    $color-bg,
+                    $color-bg
+                  );
+                  &item-4 {
+                    @for $color4 from 1 through 6 {
+                      &--color-#{$color4} {
+                        @include element-color(
+                          map-get($colors, color-#{$color1}),
+                          map-get($colors, color-#{$color2}),
+                          map-get($colors, color-#{$color3}),
+                          map-get($colors, color-#{$color4}),
+                          $color-bg,
+                          $color-bg
+                        );
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
     }
   }
+}
+
+.special-date {
+  background: url(assets\icons\widgets\admin-shift-schedule\calendar-active-orange.svg) center;
+  background-size: 77%;
+  background-repeat: no-repeat;
 }
 
 .calendar-red {
@@ -696,11 +121,10 @@ $color-bg: "272b35";
   }
   .mat-calendar-body-selected {
     box-shadow: none;
-    background: url(assets\icons\widgets\admin-shift-schedule\calendar-active-body1.svg),
-      url(assets\icons\widgets\admin-shift-schedule\active-board.svg);
+    background: url(assets\icons\widgets\admin-shift-schedule\active-board.svg);
     background-position: center, center;
     background-repeat: no-repeat, no-repeat;
-    background-size: 87%, 100%;
+    background-size: 105%, 100%;
     color: var(--color-text-main);
   }
   .special-date {
@@ -740,11 +164,9 @@ $color-bg: "272b35";
 
   .mat-calendar-body-selected:hover {
     box-shadow: none;
-    background: url(assets\icons\widgets\admin-shift-schedule\calendar-active-body1.svg),
-      url(assets\icons\widgets\admin-shift-schedule\border-hover.svg);
+    background: url(assets\icons\widgets\admin-shift-schedule\border-hover.svg);
     background-position: center, center;
     background-repeat: no-repeat, no-repeat;
-    background-size: 87%, 100%;
     color: var(--color-text-main);
   }
 

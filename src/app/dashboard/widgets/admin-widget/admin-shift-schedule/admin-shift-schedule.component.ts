@@ -228,15 +228,14 @@ export class AdminShiftScheduleComponent extends WidgetPlatform
                         let id = 1;
                         value.items.forEach((item) => {
                             if (item?.brigadeId) {
-                                str += `item-${id}`;
                                 const color = this.brigadeColors.find(
                                     (val) => val.id === item.brigadeId
                                 );
                                 if (color) {
-                                    str += `--${color.color}`;
+                                    str += `item-${id}--${color.color}`;
                                     id++;
                                 } else {
-                                    str += `--color-0`;
+                                    // str += `--color-0`;
                                 }
                             }
                         });
@@ -325,6 +324,8 @@ export class AdminShiftScheduleComponent extends WidgetPlatform
             this.allBrigade.forEach((item, i) => {
                 this.brigadeColors.push({ color: `color-${i + 1}`, id: item.brigadeId });
             });
+            console.log(this.brigadeColors, this.allBrigade);
+
             this.adminShiftScheduleService.brigadeColor$.next(this.brigadeColors);
         });
     }
@@ -506,8 +507,7 @@ export class AdminShiftScheduleComponent extends WidgetPlatform
         };
     }
 
-    drop(event: CdkDragDrop<string[]>): void {
-    }
+    drop(event: CdkDragDrop<string[]>): void {}
 
     async moveToDropAdditionalShift(item: IDropItem): Promise<void> {
         if (item && item.container.id !== '0' && item.container.id !== item.previousContainer.id) {

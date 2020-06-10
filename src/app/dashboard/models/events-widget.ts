@@ -20,7 +20,7 @@ export interface EventsWidgetNotificationPreview {
     iconUrlStatus?: string;
     responsibleOperator: IUserPreview;
     eventType?: { id: number; name: string };
-    facts?: { comment: string; }[];
+    facts?: { comment: string }[];
     source?: any;
 }
 
@@ -158,6 +158,7 @@ export interface IUser {
     photoId?: string;
     claims?: IGlobalClaim[];
     department?: string;
+    isShiftWorker: boolean;
 }
 
 export interface IUserPreview {
@@ -175,7 +176,7 @@ export interface ISaveMethodEvent {
         authenticationType: AuthenticationType;
     };
     options?: {
-        headers: HttpHeaders
+        headers: HttpHeaders;
     };
 }
 
