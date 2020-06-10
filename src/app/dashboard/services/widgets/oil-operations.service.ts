@@ -29,18 +29,43 @@ interface IOilOperationTransferRest {
     deletedAt: Date;
 }
 
-// export interface ILeываыаftOilTable {
-//     id: number;
-//     number: number;
-//     rR: number;
-//     product: string;
-//     pasport: number;
-//     dateFrom: string; /// Date
-//     dateTo: string; /// Date
-//     mass: number;
-//     deviation: number;
-//     status: string;
-// }
+interface IOilShipmentRest {
+    id: number;
+    direction: string;
+    tank: {
+        id: string;
+        omsUid: string;
+        afUid: string;
+        name: string;
+        enabled: boolean;
+        limitHours: number;
+        deletedAt: Date;
+    };
+    documentNumber: number;
+    mass: number;
+    passport: {
+        id: number;
+        name: string;
+        fileUid: string;
+    },
+    shipped: string;
+    note: string;
+    document: string;
+    dateFinish: Date;
+    productName: string;
+    resName: string;
+    passportNum: string;
+    productID: number;
+    massDelta: number;
+    transfer_ID: number;
+    carNumber: string;
+    trailerNumber: string;
+    dateStart: Date;
+    dateEnd: Date;
+    iD_Object: number;
+    massBegin: number;
+    massEnd: number;
+}
 
 @Injectable({
   providedIn: 'root'
