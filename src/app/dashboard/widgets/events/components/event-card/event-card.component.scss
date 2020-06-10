@@ -7,7 +7,6 @@
   word-wrap: break-word;
   -ms-word-break: break-all;
   word-break: break-all;
-  word-break: break-word;
   -ms-hyphens: auto;
   -moz-hyphens: auto;
   -webkit-hyphens: auto;
@@ -127,8 +126,6 @@
   &__unit {
     font-size: 10px;
     margin-left: -6px;
-    min-width: 10px;
-    max-width: 200px;
     -webkit-line-clamp: 1;
     @include text-overflow;
   }
@@ -142,14 +139,14 @@
   }
 
   &__line {
-    flex: 1 130px;
+    flex: 4;
     margin: 0 16px;
 
     &_top {
       margin: 0 16px;
 
       &-first {
-        flex: 0 42px;
+        flex: 1;
       }
     }
 
