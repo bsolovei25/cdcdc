@@ -87,6 +87,11 @@ export class OilOperationsService {
         return await this.getTransferListRequest(query);
     }
 
+    public async getShipmentList(dates: IDatesInterval): Promise<IOilShipmentRest[]> {
+        const query = this.getFilterString(dates.fromDateTime, dates.toDateTime);
+        return await this.getShipmentListRequest(query);
+    }
+
     private getFilterString(
         startTime: Date,
         endTime: Date,
@@ -112,6 +117,13 @@ export class OilOperationsService {
         return this.http
             // .get<IOilOperationTransferRest[]>(`${this.restUrl}/api/oil-control/transfer${query}`)
             .get<IOilOperationTransferRest[]>(`assets/mock/OilOperationsMock/transfers.json`)
+            .toPromise();
+    }
+
+    private async getShipmentListRequest(query: string): Promise<IOilShipmentRest[]> {
+        return this.http
+            // .get<IOilShipmentRest[]>(`${this.restUrl}/api/oil-control/shipment${query}`)
+            .get<IOilShipmentRest[]>(`assets/mock/OilOperationsMock/shipments.json`)
             .toPromise();
     }
 }
