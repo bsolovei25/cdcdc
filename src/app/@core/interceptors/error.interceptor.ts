@@ -45,7 +45,7 @@ export class ErrorInterceptor implements HttpInterceptor {
                             'snackbar-red'
                         );
                         console.error(err);
-                        console.error((err.error.messages[0].message);
+                        console.error(err.error.messages[0].message);
                         break;
                     case 475:
                         if (err?.error) {
