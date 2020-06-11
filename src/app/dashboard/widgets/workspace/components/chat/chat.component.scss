@@ -123,7 +123,7 @@
     min-height: 60px;
 
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: flex-start;
     align-items: center;
 
@@ -148,7 +148,7 @@
     }
 
     &__info {
-      position: absolute;
+      width: 100%;
 
       bottom: 0px;
       right: 0px;
@@ -161,7 +161,6 @@
 
   .info {
     height: 22px;
-    width: max-content;
 
     display: flex;
     flex-direction: column;

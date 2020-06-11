@@ -1,3 +1,5 @@
+@import "src/mixins";
+
 :host {
   height: inherit;
   width: inherit;
@@ -61,15 +63,22 @@
 
     .brigade_user {
       min-width: 75px;
-      height: 100%;
-      line-height: 80px;
-      margin-left: 5px;
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
 
-      .brigade_user_text {
-        height: 100%;
+      .brigade_user_name {
         color: white;
         font-size: 11px;
-        margin-top: 10px;
+        width: 100%;
+      }
+
+      .brigade_user_text {
+        color: white;
+        font-size: 11px;
+        width: 100%;
+        @include text-overflow;
+        -webkit-line-clamp: 1;
       }
     }
 
