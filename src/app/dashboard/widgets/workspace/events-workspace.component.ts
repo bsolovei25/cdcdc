@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
+import { Component, OnInit, Inject, OnDestroy, HostListener } from '@angular/core';
 import { EventService } from '../../services/widgets/event.service';
 import { EventsWidgetNotification, IUser, EventsWidgetData } from '../../models/events-widget';
 import { WidgetService } from '../../services/widget.service';
@@ -32,6 +32,16 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
         super(widgetService, isMock, id, uniqId);
         this.widgetIcon = 'document';
         this.dateAdapter.setLocale('ru');
+    }
+
+    @HostListener('window:beforeunload', ['$event'])
+    beforeUnloadHandler(event: BeforeUnloadEvent): BeforeUnloadEvent {
+        if (this.ewService.eventCompare(this.ewService.event, this.ewService.originalEvent)) {
+            return;
+        }
+        event.preventDefault();
+        event.returnValue = true;
+        return event;
     }
 
     ngOnInit(): void {
