@@ -11,6 +11,7 @@ import { IAlertWindowModel } from '@shared/models/alert-window.model';
 import { BehaviorSubject } from 'rxjs';
 import { CdkDropList, CdkDrag } from '@angular/cdk/drag-drop';
 import { IAbsent } from '../../widgets/admin-widget/admin-shift-schedule/admin-shift-schedule.component';
+import { IUser } from '../../models/events-widget';
 
 export interface IDropItem {
     container: CdkDropList;
@@ -35,9 +36,12 @@ export class AdminShiftScheduleService {
     moveItemBrigade$: BehaviorSubject<IDropItem> = new BehaviorSubject<IDropItem>(null);
     moveItemId$: BehaviorSubject<number> = new BehaviorSubject<number>(null);
     updateBrigades$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
-    postAbsent$: BehaviorSubject<{ userId: number; absentReasonId: number }> = new BehaviorSubject<{
+    postAbsent$: BehaviorSubject<{
         userId: number;
-        absentReasonId: number;
+        absentReasonId?: number;
+    }> = new BehaviorSubject<{
+        userId: number;
+        absentReasonId?: number;
     }>(null);
 
     brigadeColor$: BehaviorSubject<{ color: string; id: number }[]> = new BehaviorSubject<
@@ -106,6 +110,12 @@ export class AdminShiftScheduleService {
             .get<IBrigadeWithUsersDto>(
                 this.restUrl + `/api/user-management/users/substitution/unit/${unitId}`
             )
+            .toPromise();
+    }
+
+    async getShiftUsers(unitId: number): Promise<IUser[]> {
+        return this.http
+            .get<IUser[]>(this.restUrl + `/api/user-management/shift-users/unit/${unitId}`)
             .toPromise();
     }
 

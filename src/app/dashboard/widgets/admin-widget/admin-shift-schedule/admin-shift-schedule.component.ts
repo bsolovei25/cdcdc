@@ -90,10 +90,8 @@ export class AdminShiftScheduleComponent extends WidgetPlatform
 
     scheduleShiftMonth: IScheduleShiftDay[] = [];
 
-    allUsers: IUser[] = [];
     allUsersUnit: IUser[] = [];
     allBrigade: IBrigadeWithUsersDto[] = [];
-    brigadesSubstitution: IBrigadeWithUsersDto;
 
     leftBrigades: IBrigadeWithUsersDto[] = [];
     rightBrigades: IBrigadeWithUsersDto[] = [];
@@ -150,12 +148,16 @@ export class AdminShiftScheduleComponent extends WidgetPlatform
             this.adminShiftScheduleService.updateBrigades$.subscribe((value) => {
                 if (value) {
                     this.getBrigade();
-                    this.getUsers();
+                    this.getUsersUnit();
                 }
             }),
             this.adminShiftScheduleService.postAbsent$.subscribe((value) => {
                 if (value) {
-                    this.postAbsent(value.userId, value.absentReasonId);
+                    if (value.absentReasonId) {
+                        this.postAbsent(value.userId, value.absentReasonId);
+                    } else {
+                        this.postResetAbsent(value.userId);
+                    }
                 }
             })
         );
@@ -296,14 +298,7 @@ export class AdminShiftScheduleComponent extends WidgetPlatform
                 this.allStatus = data;
             })
         );
-        dataLoadQueue.push(
-            this.adminShiftScheduleService.getSubstitution(this.selectedUnit.id).then((data) => {
-                this.brigadesSubstitution = data;
-            })
-        );
-        if (!this.allUsers.length) {
-            dataLoadQueue.push(this.getUsers());
-        }
+        dataLoadQueue.push(this.getUsersUnit());
         if (dataLoadQueue.length > 0) {
             try {
                 await Promise.all(dataLoadQueue);
@@ -324,19 +319,14 @@ export class AdminShiftScheduleComponent extends WidgetPlatform
             this.allBrigade.forEach((item, i) => {
                 this.brigadeColors.push({ color: `color-${i + 1}`, id: item.brigadeId });
             });
-            console.log(this.brigadeColors, this.allBrigade);
-
             this.adminShiftScheduleService.brigadeColor$.next(this.brigadeColors);
         });
     }
 
-    async getUsers(): Promise<void> {
+    async getUsersUnit(): Promise<void> {
         try {
-            this.eventService.getUser().then((data) => {
-                this.allUsers = data;
-                this.allUsersUnit = this.allUsers.filter(
-                    (val) => val.unitId === this.selectedUnit.id
-                );
+            this.adminShiftScheduleService.getShiftUsers(this.selectedUnit.id).then((data) => {
+                this.allUsersUnit = data;
             });
         } catch (error) {
             console.log(error);
@@ -347,7 +337,6 @@ export class AdminShiftScheduleComponent extends WidgetPlatform
         if (event) {
             this.selectedUnit = event;
             this.resetComponent(true);
-            this.allUsersUnit = this.allUsers.filter((val) => val.unitId === this.selectedUnit.id);
             await this.loadItem();
             this.nextAndPreviousMonthVar = null;
             this.listenBtn();
@@ -576,7 +565,7 @@ export class AdminShiftScheduleComponent extends WidgetPlatform
                 await this.adminShiftScheduleService.postUsertoBrigade(userId, item.container.id);
                 this.snackBar.openSnackBar('Сотрудник добавлен в бригаду');
                 this.getBrigade();
-                this.getUsers();
+                this.getUsersUnit();
             } catch (error) {
                 console.log(error);
             }
@@ -594,6 +583,16 @@ export class AdminShiftScheduleComponent extends WidgetPlatform
                 userId,
                 absentReasonId
             );
+            this.selectShift(this.selectedShift);
+            this.snackBar.openSnackBar('Статус обновлен');
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+    async postResetAbsent(userId: number): Promise<void> {
+        try {
+            await this.adminShiftScheduleService.postMemberRestore(this.selectedShift.id, userId);
             this.selectShift(this.selectedShift);
             this.snackBar.openSnackBar('Статус обновлен');
         } catch (error) {

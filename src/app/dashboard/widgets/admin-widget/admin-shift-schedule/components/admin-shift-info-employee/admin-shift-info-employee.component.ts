@@ -42,7 +42,7 @@ export class AdminShiftInfoEmployeeComponent implements OnInit {
     constructor(
         private avatarConfiguratorService: AvatarConfiguratorService,
         private adminShiftScheduleService: AdminShiftScheduleService,
-        private snackBar: SnackBarService,
+        private snackBar: SnackBarService
     ) {}
 
     ngOnInit(): void {
@@ -116,6 +116,12 @@ export class AdminShiftInfoEmployeeComponent implements OnInit {
         this.adminShiftScheduleService.postAbsent$.next({
             userId: this.data?.id,
             absentReasonId: status?.id,
+        });
+    }
+
+    onDeleteStatus(): void {
+        this.adminShiftScheduleService.postAbsent$.next({
+            userId: this.data?.id,
         });
     }
 }
