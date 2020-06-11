@@ -9,7 +9,10 @@ import {
 import { IUser } from '../../../../../models/events-widget';
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
 import { AdminShiftScheduleService } from '../../../../../services/widgets/admin-shift-schedule.service';
-import { IBrigadeWithUsersDto } from '../../../../../models/admin-shift-schedule';
+
+interface IShiftList extends IUser {
+    isNotVisible?: boolean;
+}
 
 @Component({
     selector: 'evj-admin-shift-list-employees',
@@ -19,7 +22,8 @@ import { IBrigadeWithUsersDto } from '../../../../../models/admin-shift-schedule
 })
 export class AdminShiftListEmployeesComponent implements OnInit {
     // @Input() template: TemplateRef<any>;
-    @Input() public data: IUser[] = [];
+    @Input() public data: IShiftList[] = [];
+
     brigadeColors: { color: string; id: number }[] = [];
 
     constructor(
@@ -34,6 +38,10 @@ export class AdminShiftListEmployeesComponent implements OnInit {
                 this.chDet.detectChanges();
             }
         });
+        this.data.map((value) => {
+            value.isNotVisible = false;
+        });
+        this.chDet.detectChanges();
     }
 
     dragStart(id: number): void {
@@ -46,5 +54,18 @@ export class AdminShiftListEmployeesComponent implements OnInit {
 
     brigadeColor(user: IUser): string {
         return this.brigadeColors.find((val) => val?.id === user?.brigade?.id)?.color;
+    }
+
+    search(event: string): void {
+        this.data.map((value) => {
+            if (
+                value.firstName.toLowerCase().includes(event.trim().toLowerCase()) ||
+                value.lastName.toLowerCase().includes(event.trim().toLowerCase())
+            ) {
+                value.isNotVisible = false;
+            } else {
+                value.isNotVisible = true;
+            }
+        });
     }
 }

@@ -1,19 +1,4 @@
-@mixin text-overflow {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  overflow-wrap: break-word;
-  word-wrap: break-word;
-  -ms-word-break: break-all;
-  word-break: break-all;
-  word-break: break-word;
-  -ms-hyphens: auto;
-  -moz-hyphens: auto;
-  -webkit-hyphens: auto;
-  hyphens: auto;
-  // use together with -webkit-line-clamp: 2;
-}
+@import "src/mixins";
 
 .content_block {
   overflow-x: hidden;
@@ -51,7 +36,7 @@
   width: calc(100% - 30px);
   min-width: 280px;
 
-  margin: 20px 10px 0 20px;
+  margin: 10px 10px 0 20px;
   background: var(--color-aw-container-body-transparent);
   box-shadow: 0 4px 4px var(--color-aw-container-shadow-transparent);
   border-radius: 10px;
