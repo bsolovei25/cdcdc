@@ -83,9 +83,18 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
 
     // нажатие на кнопку в хэдере
     createdEvent(isEdit: boolean): void {
+        if (isEdit && this.ewService.eventCompare(this.ewService.event, this.ewService.originalEvent)) {
+            this.ewService.goBackEvent();
+            if (this.ewService.isCreateNewEvent) {
+                this.ewService.refreshEvent();
+            } else {
+                this.ewService.createEvent();
+            }
+            return;
+        }
         const tempInfo: IAlertWindowModel = {
             isShow: true,
-            questionText: 'Вы уверены, что хотите перейти к созданию новго события? Все несохраненные изменения будут потеряны.',
+            questionText: 'Вы уверены, что хотите перейти к созданию нового события? Все несохраненные изменения будут потеряны.',
             acceptText: 'Да, создать событие',
             cancelText: 'Отмена',
             closeFunction: () => this.ewService.ewAlertInfo$.next(null),
@@ -107,7 +116,19 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
     }
 
     public backEvent(): void {
-        this.ewService.goBackEvent();
+        if (this.ewService.eventCompare(this.ewService.event, this.ewService.originalEvent)) {
+            this.ewService.goBackEvent();
+            return;
+        }
+        const tempInfo: IAlertWindowModel = {
+            isShow: true,
+            questionText: 'Вы уверены, что хотите вернуться к предыдущему событию? Все несохраненные изменения будут потеряны.',
+            acceptText: 'Да',
+            cancelText: 'Отмена',
+            acceptFunction: () => this.ewService.goBackEvent(),
+            closeFunction: () => this.ewService.ewAlertInfo$.next(null),
+        };
+        this.ewService.ewAlertInfo$.next(tempInfo);
     }
 
     canShowSaveButton(): boolean {
