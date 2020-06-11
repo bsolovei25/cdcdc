@@ -32,12 +32,12 @@ export class EventDescriptionComponent implements OnInit, AfterViewInit {
     }
 
     public onEditShortInfo(): void {
-        this.textarea.nativeElement.disabled = false;
+        // this.textarea.nativeElement.disabled = false;
         this.textarea.nativeElement.focus();
     }
 
     public disableTextarea(): void {
-        this.textarea.nativeElement.disabled = true;
+        // this.textarea.nativeElement.disabled = true;
     }
 
     public onChangeTextarea(): void {
