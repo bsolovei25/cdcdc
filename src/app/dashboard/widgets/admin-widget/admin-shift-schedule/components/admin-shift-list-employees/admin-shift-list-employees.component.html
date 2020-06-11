@@ -4,7 +4,10 @@
     <div class="employees">
       <div class="search-input">
         <div class="search-input__height-input">
-          <evj-circle-input placeholder="Введите ФИО сотрудника"></evj-circle-input>
+          <evj-circle-input
+            placeholder="Введите ФИО сотрудника"
+            (searchChange)="search($event)"
+          ></evj-circle-input>
         </div>
       </div>
       <div
@@ -15,13 +18,15 @@
         [cdkDropListData]="data"
       >
         <ng-container *ngFor="let item of data">
-          <evj-admin-shift-info-employee
-            [colorBrigade]="brigadeColor(item)"
-            [data]="item"
-            cdkDrag
-            (cdkDragStarted)="dragStart(item.id)"
-            brigade="true"
-          ></evj-admin-shift-info-employee>
+          <ng-container *ngIf="!item?.isNotVisible">
+            <evj-admin-shift-info-employee
+              [colorBrigade]="brigadeColor(item)"
+              [data]="item"
+              cdkDrag
+              (cdkDragStarted)="dragStart(item.id)"
+              brigade="true"
+            ></evj-admin-shift-info-employee>
+          </ng-container>
         </ng-container>
       </div>
       <div class="employees__bottom"></div>

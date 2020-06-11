@@ -80,7 +80,7 @@
                 <div class="main-team__section__container">
                   <ul class="list">
                     <li class="list__item" *ngFor="let i of selectedShift?.shiftMembers;">
-                      <ng-container *ngIf="i.position === 'responsible'">
+                      <ng-container *ngIf="i.position === 'responsible' && !i.isAdditionalMember">
                         <evj-admin-shift-info-employee
                           [data]="i.employee"
                           [absentReason]="i.absentReason"
@@ -94,7 +94,7 @@
                 <div class="main-team__section__container">
                   <ul class="list">
                     <li class="list__item" *ngFor="let i of selectedShift?.shiftMembers;">
-                      <ng-container *ngIf="i.position !== 'responsible'">
+                      <ng-container *ngIf="i.position !== 'responsible' && !i.isAdditionalMember">
                         <evj-admin-shift-info-employee
                           [data]="i.employee"
                           [absentReason]="i.absentReason"
@@ -192,9 +192,7 @@
           </div>
         </div>
         <div class="block-right">
-          <evj-admin-shift-list-employees
-            [data]="brigadesSubstitution"
-          ></evj-admin-shift-list-employees>
+          <evj-admin-shift-list-employees [data]="allUsersUnit"></evj-admin-shift-list-employees>
         </div>
       </div>
     </ng-container>
