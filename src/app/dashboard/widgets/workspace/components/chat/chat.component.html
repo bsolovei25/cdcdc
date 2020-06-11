@@ -1,5 +1,5 @@
 <div class="chat">
-  <div class="chat__header">{{title}}</div>
+  <div class="chat__header">{{dataTitle}}</div>
   <div class="chat__messages messages scroll scroll-bar" #scroll>
     <div class="messages__list">
       <div class="message__graph graph" *ngIf="displayGraphImage" (click)="onClickItem()">
@@ -28,14 +28,14 @@
       (keypress)="onEnterPush($event)"
       #input
     />
-    <button class="button">
+    <button matTooltip="Добавить файл" class="button">
       <svg-icon
         class="button__icon"
         src="./assets/icons/widgets/change-shift/add_file.svg"
         [svgStyle]="{ 'width.px':15, 'height.px':15 }"
       ></svg-icon>
     </button>
-    <button class="button" (click)="onSendMessage()">
+    <button matTooltip="Добавить сообщение" class="button" (click)="onSendMessage()">
       <svg-icon
         class="button__icon"
         src="./assets/icons/widgets/change-shift/send.svg"

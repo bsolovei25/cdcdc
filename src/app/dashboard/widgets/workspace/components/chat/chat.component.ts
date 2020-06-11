@@ -16,7 +16,7 @@ import { IMessage } from '../../../../../@shared/models/message.model';
 })
 export class ChatComponent implements OnInit {
     @Input() public messages: IMessage[] = [];
-    @Input() public title: string = '';
+    @Input() public dataTitle: string = '';
     @Input() public placeholder: string = '';
     @Input() public displayGraphImage: boolean = false;
     @Input() public onClickItem: () => void = () => {};
@@ -26,6 +26,8 @@ export class ChatComponent implements OnInit {
     @ViewChild('scroll') scroll: ElementRef;
     @ViewChild('input') input: ElementRef;
     @ViewChild('graph') graph: ElementRef;
+
+    public get headerTitle(): string { return this.dataTitle + '123'; }
 
     constructor() {}
 

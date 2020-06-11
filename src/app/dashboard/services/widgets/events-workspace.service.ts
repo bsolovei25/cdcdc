@@ -30,6 +30,7 @@ import { error } from '@angular/compiler/src/util';
 })
 export class EventsWorkspaceService {
     public event: EventsWidgetNotification;
+    public originalEvent: EventsWidgetNotification;
     public eventHistory: number[] = [];
 
     //#region FLAGS
@@ -132,6 +133,7 @@ export class EventsWorkspaceService {
     private async getEvent(id: number): Promise<void> {
         this.event = await this.eventService.getEvent(id);
         this.event = { ...this.defaultEvent, ...this.event };
+        this.originalEvent = { ...this.event };
         const dataLoadQueue: Promise<void>[] = [];
         if (this.event.category.name === 'asus') {
             await this.asusReferencesLoad();
@@ -151,6 +153,7 @@ export class EventsWorkspaceService {
     public async goBackEvent(isContinue: boolean = false): Promise<void> {
         if (!(this.eventHistory?.length > 0)) {
             this.event = null;
+            this.originalEvent = { ...this.event };
             return;
         }
         if (!this.isCreateNewEvent && !isContinue) {
@@ -174,6 +177,7 @@ export class EventsWorkspaceService {
         this.isCreateNewEvent = true;
         await this.loadItem();
         this.event = fillDataShape(this.defaultEvent);
+        this.originalEvent = { ...this.event };
     }
 
     public async createEvent(idParent: number = null): Promise<void> {
@@ -188,6 +192,7 @@ export class EventsWorkspaceService {
         this.isCreateNewEvent = true;
         await this.loadItem();
         this.event = {...this.defaultEvent};
+        this.originalEvent = { ...this.event };
         if (idParent) {
             this.event.parentId = idParent;
             this.event.category = {
@@ -485,5 +490,9 @@ export class EventsWorkspaceService {
         if (this.event.category.name === 'asus') {
             await this.asusReferencesLoad();
         }
+    }
+
+    public eventCompare(event1: EventsWidgetNotification, event2: EventsWidgetNotification): boolean {
+        return (JSON.stringify(event1) === JSON.stringify(event2));
     }
 }
