@@ -63,6 +63,7 @@ import { SmpEventsWorkspaceComponent } from '../../widgets/SMP/smp-events-worksp
 import { ProductGroupsComponent } from '../../widgets/SMP/product-groups/product-groups.component';
 import { ProductionDeviationsComponent } from '../../widgets/SMP/production-deviations/production-deviations.component';
 import { ProductGroupsShortComponent } from '../../widgets/SMP/product-groups-short/product-groups-short.component';
+import { TruncatedDiagramTrafficLightComponent } from '../../widgets/truncated-diagram-traffic-light/truncated-diagram-traffic-light.component';
 
 export const WIDGETS = {
     'pie-diagram': WidgetPiesComponent,
@@ -74,6 +75,7 @@ export const WIDGETS = {
     'shift-accept': ChangeShiftComponent,
     'events-workspace': EventsWorkSpaceComponent,
     'truncated-diagram-percentage': TruncatedPieSFirstComponent,
+    'truncated-diagram-traffic-light': TruncatedDiagramTrafficLightComponent,
     'truncated-diagram-counter': TruncatedPieSIconComponent,
     'point-diagram': PointDiagramComponent,
     'industrial-pyramid': ProductionPyramidComponent,
