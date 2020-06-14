@@ -1,8 +1,5 @@
 import gitlab
-import os
-import pprint
-import re
-import logging
+import os, re, logging
 from jinja2 import Template, Environment, FileSystemLoader
 from datetime import datetime
 
@@ -56,14 +53,6 @@ def get_milestone_project():
     logging.info("Milestone ID: {}".format(m_id))
     milestone = project.milestones.get(m_id)
     return(milestone)
-    exit(0)
-    issues = project.issues.list(milestone=MILESTONE_TITLE,
-            state='opened',
-            labels=['В работе'],
-            order_by='created_at',
-            sort='desc')
-    for i in issues:
-        logging.info("\ntitle: {} \ndescription: {} \n".format(i.attributes['title'], i.attributes['description']))
 
 def get_milestone_group():
     global M_ID
@@ -75,9 +64,6 @@ def get_milestone_group():
     logging.info(milestone)
     return(milestone)
 
-def list_projects():
-    projects = gl.projects.get(PROJECT_ID)
-    print(projects)
 
 def get_issues(state_status, gl):
     global M_ID
@@ -85,24 +71,15 @@ def get_issues(state_status, gl):
     g_milestone = gl.milestones.get(M_ID)
     issues = [issue for issue in g_milestone.issues() if issue.state == state_status]
     return(issues)
-    # old method with specifying milestone name
-    #issues = gl.issues.list(title=MILESTONE_TITLE,
-    #        state=state_status,
-    #        order_by='created_at',
-    #        sort='desc')
-    #return (issues)
 
 def gl_init():
     global gl, M_ID
 
     gl.auth()
-    #list_projects()
     milestone = get_milestone_group()
     group = gl.groups.get(PROJECT_ID)
     closed_issues = get_issues('closed', group)
-
     print(len(closed_issues))
-    #opened_issues = get_issues('opened', group)
 
     output = render_template(milestone, closed_issues)
 
