@@ -18,7 +18,13 @@ export class HomeComponent implements OnInit, OnDestroy {
         private userSettings: UserSettingsService,
         private claimService: ClaimService,
         public overlayService: OverlayService
-    ) {}
+    ) {
+        const isRefresh = localStorage.getItem('refresh-dashboard');
+        if (isRefresh === 'true') {
+            localStorage.setItem('refresh-dashboard', 'false');
+            window.location.reload();
+        }
+    }
 
     ngOnInit(): void {
         this.claimService.getClaim();

@@ -37,6 +37,7 @@ export class UserSettingsService {
     ) {
         this.restUrl = configService.restUrl;
         localStorage.getItem('screen');
+        console.log('start');
     }
 
     public create_UUID(): string {
