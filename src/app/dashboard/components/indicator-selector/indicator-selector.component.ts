@@ -57,7 +57,12 @@ export class IndicatorSelectorComponent implements OnInit, OnDestroy {
     ) {}
 
     ngOnInit(): void {
-        this.userSettings.ScreenId = Number(localStorage.getItem('screenid'));
+        let screenId: number = null;
+        screenId = Number(sessionStorage.getItem('screenid'));
+        if (!screenId) {
+            screenId = Number(localStorage.getItem('screenid'));
+        }
+        this.userSettings.ScreenId = screenId;
         this.userSettings.GetScreens();
         this.subscriptions.push(
             this.userSettings.screens$.subscribe((screens) => {

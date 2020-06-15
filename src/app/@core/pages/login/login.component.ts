@@ -1,6 +1,6 @@
 // Angular
 import { Component, OnInit, AfterViewInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { NavigationEnd, Router } from '@angular/router';
 import { AuthService } from '@core/service/auth.service';
 import { environment } from 'src/environments/environment';
 import { FormControl, Validators } from '@angular/forms';
@@ -55,8 +55,13 @@ export class LoginComponent implements OnInit, AfterViewInit {
     constructor(
         public authService: AuthService,
         private router: Router,
-        private preLoaderService: PreloaderService
-    ) {}
+        private preLoaderService: PreloaderService,
+    ) {
+        // override the route reuse strategy
+        this.router.routeReuseStrategy.shouldReuseRoute = () => {
+            return false;
+        };
+    }
 
     ngOnInit(): void {
         this.isLoadingData = true;
@@ -86,6 +91,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
                 this.router.routeReuseStrategy.shouldReuseRoute = () => {
                     return false;
                 };
+                localStorage.setItem('refresh-dashboard', 'true');
                 await this.router.navigate(['dashboard']);
                 this.isLoadingData = false;
                 // setTimeout(() => {

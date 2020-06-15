@@ -36,7 +36,8 @@ export class UserSettingsService {
         private overlayService: OverlayService,
     ) {
         this.restUrl = configService.restUrl;
-        localStorage.getItem('screen');
+        // localStorage.getItem('screen');
+        // console.log('start');
     }
 
     public create_UUID(): string {
@@ -170,6 +171,7 @@ export class UserSettingsService {
 
     public LoadScreen(id: number): Subscription {
         localStorage.setItem('screenid', id.toString());
+        sessionStorage.setItem('screenid', id.toString());
         this.widgetService.dashboard = [];
         this.claimService.setClaimsByScreen(null);
         return this.LoadScreenAsync(id, true).subscribe((item: IScreenSettings) => {
