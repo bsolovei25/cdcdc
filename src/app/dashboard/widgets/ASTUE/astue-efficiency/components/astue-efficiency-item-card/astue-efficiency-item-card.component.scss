@@ -1,0 +1,35 @@
+:host {
+  width: 100%;
+  height: 45px;
+  margin: 1px 0px;
+  * {
+    box-sizing: border-box;
+    font-size: 14px;
+    color: var(--color-text-main);
+  }
+}
+
+.card {
+  width: 100%;
+  height: 100%;
+  padding-left: 24px;
+  display: flex;
+  align-items: center;
+  background: var(--color-bg-sub);
+
+  &_active {
+    padding-left: 22px;
+    border-left: 2px solid var(--color-active);
+    background: var(--color-bg-active);
+  }
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  .icon {
+    width: 14px;
+    height: 14px;
+    margin-right: 20px;
+  }
+}
