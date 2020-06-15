@@ -252,6 +252,7 @@ export class EventsComponent extends WidgetPlatform implements OnInit, OnDestroy
 
     private clearNotifications(): void {
         this.notifications = [];
+        this.countNotificationsDivCapacity();
     }
 
     private addWsElement(notification: EventsWidgetNotificationPreview): void {
