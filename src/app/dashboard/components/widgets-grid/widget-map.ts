@@ -64,6 +64,7 @@ import { ProductGroupsComponent } from '../../widgets/SMP/product-groups/product
 import { ProductionDeviationsComponent } from '../../widgets/SMP/production-deviations/production-deviations.component';
 import { ProductGroupsShortComponent } from '../../widgets/SMP/product-groups-short/product-groups-short.component';
 import { TruncatedDiagramTrafficLightComponent } from '../../widgets/truncated-diagram-traffic-light/truncated-diagram-traffic-light.component';
+import { AstueEfficiencyComponent } from '../../widgets/ASTUE/astue-efficiency/astue-efficiency.component';
 
 export const WIDGETS = {
     'pie-diagram': WidgetPiesComponent,
@@ -133,4 +134,5 @@ export const WIDGETS = {
     'product-groups': ProductGroupsComponent,
     'production-deviations': ProductionDeviationsComponent,
     'product-groups-short': ProductGroupsShortComponent,
+    'astue-efficiency': AstueEfficiencyComponent
 };

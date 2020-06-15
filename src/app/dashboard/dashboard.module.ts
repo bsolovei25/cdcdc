@@ -281,6 +281,7 @@ import { AdminShiftInfoEmployeeComponent } from './widgets/admin-widget/admin-sh
 import { AdminShiftCardComponent } from './widgets/admin-widget/admin-shift-schedule/components/admin-shift-card/admin-shift-card.component';
 import { MatMenuModule } from '@angular/material/menu';
 import { TruncatedDiagramTrafficLightComponent } from './widgets/truncated-diagram-traffic-light/truncated-diagram-traffic-light.component';
+import { AstueEfficiencyComponent } from './widgets/ASTUE/astue-efficiency/astue-efficiency.component';
 
 @NgModule({
     declarations: [
@@ -530,6 +531,7 @@ import { TruncatedDiagramTrafficLightComponent } from './widgets/truncated-diagr
         AdminShiftListEmployeesComponent,
         AdminShiftInfoEmployeeComponent,
         AdminShiftCardComponent,
+        AstueEfficiencyComponent,
     ],
     entryComponents: [
         LineChartComponent,
@@ -607,6 +609,7 @@ import { TruncatedDiagramTrafficLightComponent } from './widgets/truncated-diagr
         ProductGroupsShortComponent,
         SmpEventsWorkspaceComponent,
         PanelComponent,
+        AstueEfficiencyComponent,
     ],
     exports: [HomeComponent],
     imports: [
