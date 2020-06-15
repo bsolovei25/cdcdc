@@ -284,6 +284,8 @@ import { TruncatedDiagramTrafficLightComponent } from './widgets/truncated-diagr
 import { AstueEfficiencyComponent } from './widgets/ASTUE/astue-efficiency/astue-efficiency.component';
 import { AstueEfficiencyItemsComponent } from './widgets/ASTUE/astue-efficiency/components/astue-efficiency-items/astue-efficiency-items.component';
 import { AstueEfficiencyItemCardComponent } from './widgets/ASTUE/astue-efficiency/components/astue-efficiency-item-card/astue-efficiency-item-card.component';
+import { AstueEfficiencyUnitsComponent } from './widgets/ASTUE/astue-efficiency/components/astue-efficiency-units/astue-efficiency-units.component';
+import { AstueEfficiencyUnitCardComponent } from './widgets/ASTUE/astue-efficiency/components/astue-efficiency-unit-card/astue-efficiency-unit-card.component';
 
 @NgModule({
     declarations: [
@@ -536,6 +538,8 @@ import { AstueEfficiencyItemCardComponent } from './widgets/ASTUE/astue-efficien
         AstueEfficiencyComponent,
         AstueEfficiencyItemsComponent,
         AstueEfficiencyItemCardComponent,
+        AstueEfficiencyUnitsComponent,
+        AstueEfficiencyUnitCardComponent,
     ],
     entryComponents: [
         LineChartComponent,

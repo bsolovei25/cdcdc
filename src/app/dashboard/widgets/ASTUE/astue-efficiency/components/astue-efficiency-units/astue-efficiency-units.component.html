@@ -1,0 +1,24 @@
+<div class="items">
+  <div class="items__header header">
+    Установки
+    <div
+      class="header__button button"
+      [ngClass]="{'button_active':isClicked}"
+      (click)="isClicked=!isClicked"
+    >
+      <img
+        class="icon icon-unactive"
+        src="assets/icons/widgets/ASTUE/astue-efficiency/units/non-select.svg"
+      />
+      <img
+        class="icon icon-active"
+        src="assets/icons/widgets/ASTUE/astue-efficiency/units/select.svg"
+      />
+    </div>
+  </div>
+  <div class="items__content content">
+    <div class="content__item">
+      <evj-astue-efficiency-unit-card></evj-astue-efficiency-unit-card>
+    </div>
+  </div>
+</div>
