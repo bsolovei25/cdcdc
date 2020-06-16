@@ -240,4 +240,8 @@ export class AdminShiftScheduleService {
             .delete<void>(this.restUrl + `/api/schedule-shifts/shift/${idShift}/member/${idMember}`)
             .toPromise();
     }
+
+    public closeAlert(): void {
+        this.alertWindow$.next(null);
+    }
 }

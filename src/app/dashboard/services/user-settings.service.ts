@@ -11,6 +11,7 @@ import { ClaimService } from './claim.service';
 import { GridsterItem, GridsterItemComponentInterface } from 'angular-gridster2';
 import { SnackBarService } from './snack-bar.service';
 import { OverlayService } from './overlay.service';
+import { Router } from '@angular/router';
 
 @Injectable({
     providedIn: 'root',
@@ -34,6 +35,7 @@ export class UserSettingsService {
         private configService: AppConfigService,
         private snackBar: SnackBarService,
         private overlayService: OverlayService,
+        private router: Router,
     ) {
         this.restUrl = configService.restUrl;
     }
@@ -173,10 +175,10 @@ export class UserSettingsService {
         this.widgetService.dashboard = [];
         this.claimService.setClaimsByScreen(null);
         return this.LoadScreenAsync(id, true).subscribe((item: IScreenSettings) => {
+            this.router.navigate([], { queryParams: {screenId: item.id}});
             this.claimService.setClaimsByScreen(item.claims);
             this.ScreenId = item.id;
             this.ScreenName = item.screenName;
-            // this.widgetService.addScreenWidgets(item.widgets);
             this.widgetService.dashboard = item.widgets.map((widget) => {
                 const minItemCols = WIDGETS[widget.widgetType]?.minItemCols ?? 6;
                 const minItemRows = WIDGETS[widget.widgetType]?.minItemRows ?? 6;

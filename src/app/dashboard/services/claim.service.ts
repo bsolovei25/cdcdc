@@ -95,7 +95,7 @@ export class ClaimService {
 
     async getClaimAll(): Promise<{ data: IClaim[] }> {
         try {
-            return this.http
+            return await this.http
                 .get<{ data: IClaim[] }>(this.restUrl + `/api/user-management/claim/all`)
                 .toPromise();
         } catch (error) {
