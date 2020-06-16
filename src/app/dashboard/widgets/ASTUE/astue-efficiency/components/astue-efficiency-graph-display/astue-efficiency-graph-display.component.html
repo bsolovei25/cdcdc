@@ -53,7 +53,15 @@
       <div class="counter__value">180</div>
     </div>
   </div>
-  <div class="graph-display__graph graph"></div>
+  <div class="graph-display__graph graph">
+    <div class="graph__container">
+      <evj-line-chart-shared
+        [data]="data"
+        [isShowingLegend]="true"
+        chartType="production-trend"
+      ></evj-line-chart-shared>
+    </div>
+  </div>
   <div class="graph-display__scroll scroll">
     <evj-smart-scroll class="scroll__smart"></evj-smart-scroll>
   </div>
