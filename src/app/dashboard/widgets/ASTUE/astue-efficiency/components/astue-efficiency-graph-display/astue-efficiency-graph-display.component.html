@@ -45,7 +45,7 @@
         <svg-icon
           class="counter__icon"
           src="assets/icons/widgets/ASTUE/astue-efficiency/graph/counter.svg"
-          [svgStyle]="{ 'width.px':23.33, 'height.px':30}"
+          [svgStyle]="{ 'width.px':23, 'height.px':30}"
         ></svg-icon>
         <div class="counter__name">Текущее<br />отклонение</div>
       </div>
@@ -54,5 +54,7 @@
     </div>
   </div>
   <div class="graph-display__graph graph"></div>
-  <div class="graph-display__scroll scroll"></div>
+  <div class="graph-display__scroll scroll">
+    <evj-smart-scroll class="scroll__smart"></evj-smart-scroll>
+  </div>
 </div>
