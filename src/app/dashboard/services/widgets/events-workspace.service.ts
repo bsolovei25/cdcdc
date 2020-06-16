@@ -382,7 +382,7 @@ export class EventsWorkspaceService {
             itemNumber: 0,
             branch: 'Производство',
             category: {
-                id: null,
+                id: 0,
                 name: null,
                 code: null,
             },
@@ -402,7 +402,11 @@ export class EventsWorkspaceService {
             responsibleOperator: this.currentAuthUser ? fillDataShape(this.currentAuthUser) : null,
             retrievalEvents: [],
             severity: 'Critical',
-            status: this.status ? this.status[0] : null,
+            status: this.status ? this.status[0] : {
+                id: 0,
+                name: null,
+                code: null,
+            },
             equipmentCategory: null,
             deadline: new Date(),
             graphValues: null,
