@@ -57,6 +57,16 @@ export class IndicatorSelectorComponent implements OnInit, OnDestroy {
     ) {}
 
     ngOnInit(): void {
+        this.LoadScreenInit();
+    }
+
+    ngOnDestroy(): void {
+        this.subscriptions.forEach((subscription) => {
+            subscription.unsubscribe();
+        });
+    }
+
+    private LoadScreenInit(): void {
         let screenId: number = null;
         screenId = Number(sessionStorage.getItem('screenid'));
         if (!screenId) {
@@ -66,7 +76,13 @@ export class IndicatorSelectorComponent implements OnInit, OnDestroy {
         this.userSettings.GetScreens();
         this.subscriptions.push(
             this.userSettings.screens$.subscribe((screens) => {
+                if (!(screens?.length > 0)) {
+                    return;
+                }
                 this.dataScreen = screens;
+                if (this.dataScreen.findIndex((s) => s.id === this.userSettings.ScreenId) === -1) {
+                    this.userSettings.ScreenId = this.dataScreen[0].id;
+                }
                 this.idScreen = this.userSettings.ScreenId;
                 this.LoadScreen(this.idScreen);
                 this.nameScreen = this.getActiveScreen();
@@ -80,12 +96,6 @@ export class IndicatorSelectorComponent implements OnInit, OnDestroy {
                 this.claimScreens = w;
             })
         );
-    }
-
-    ngOnDestroy(): void {
-        this.subscriptions.forEach((subscription) => {
-            subscription.unsubscribe();
-        });
     }
 
     public LoadScreen(id: number): void {
