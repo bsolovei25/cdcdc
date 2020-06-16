@@ -6,10 +6,52 @@
     </div>
   </div>
   <div class="graph-display__counters counters">
-    <div class="counters__item"></div>
-    <div class="counters__item"></div>
-    <div class="counters__item"></div>
-    <div class="counters__item"></div>
+    <div class="counters__item counter">
+      <div class="counter__description">
+        <div class="counter__name">Накопление<br />за период</div>
+      </div>
+      <div class="counter__value">1740</div>
+    </div>
+    <div
+      class="counters__item counter"
+      [class.counter_danger]="true"
+      [class.counter_warning]="false"
+      [class.counter_normal]="false"
+    >
+      <div class="counter__description">
+        <svg-icon
+          class="counter__icon"
+          src="assets/icons/widgets/ASTUE/astue-efficiency/graph/counter.svg"
+          [svgStyle]="{ 'width.px':23.33, 'height.px':30}"
+        ></svg-icon>
+        <div class="counter__name">Накопление<br />за период</div>
+      </div>
+      <div class="counter__status">Перерасход</div>
+      <div class="counter__value">47</div>
+    </div>
+    <div class="counters__item counter">
+      <div class="counter__description">
+        <div class="counter__name">Текущее<br />значение</div>
+      </div>
+      <div class="counter__value">520</div>
+    </div>
+    <div
+      class="counters__item counter"
+      [class.counter_danger]="false"
+      [class.counter_warning]="false"
+      [class.counter_normal]="true"
+    >
+      <div class="counter__description">
+        <svg-icon
+          class="counter__icon"
+          src="assets/icons/widgets/ASTUE/astue-efficiency/graph/counter.svg"
+          [svgStyle]="{ 'width.px':23.33, 'height.px':30}"
+        ></svg-icon>
+        <div class="counter__name">Текущее<br />отклонение</div>
+      </div>
+      <div class="counter__status">Экономия</div>
+      <div class="counter__value">180</div>
+    </div>
   </div>
   <div class="graph-display__graph graph"></div>
   <div class="graph-display__scroll scroll"></div>

@@ -108,6 +108,62 @@
     }
   }
 
+  .counter {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+
+    &__description {
+      width: 100%;
+      height: 50%;
+      padding: 9px 20px 0px;
+      display: flex;
+    }
+
+    &__name {
+      font-size: 12px;
+      color: var(--color-text-header-table);
+    }
+
+    &__icon {
+      width: 23.33px;
+      height: 30px;
+      margin-right: 7px;
+    }
+
+    &__status {
+      position: absolute;
+      bottom: 13px;
+      left: 20px;
+      font-size: 12px;
+    }
+
+    &__value {
+      position: absolute;
+      bottom: 3px;
+      right: 8px;
+      font-size: 36px;
+    }
+
+    &_danger {
+      .counter__icon {
+        color: var(--color-danger);
+      }
+    }
+
+    &_warning {
+      .counter__icon {
+        color: var(--color-warning);
+      }
+    }
+
+    &_normal {
+      .counter__icon {
+        color: var(--color-standard);
+      }
+    }
+  }
+
   .graph {
     border-radius: 12px;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
