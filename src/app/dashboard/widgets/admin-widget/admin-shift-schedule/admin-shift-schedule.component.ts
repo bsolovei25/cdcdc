@@ -272,24 +272,6 @@ export class AdminShiftScheduleComponent extends WidgetPlatform
 
     ngOnInit(): void {
         super.widgetInit();
-        this.mapArrayBrigade(this.dataBrig);
-    }
-
-    mapArrayBrigade(data): void {
-        data.forEach(el => {
-            this.list.push((el.id).toString());
-            if (el.id % 2 === 0) {
-                this.dataBrigLeft.push(el);
-            } else {
-                this.dataBrigRight.push(el);
-            }
-
-            /// mock push in arrayUserBrigade
-            el.brigade.forEach(item => {
-                this.arrayUserBrigade.push(item);
-            })
-        });
-
     }
 
     protected async dataConnect(): Promise<void> {
@@ -597,10 +579,6 @@ export class AdminShiftScheduleComponent extends WidgetPlatform
     // #endregion
 
     // #region Methods
-
-    public selectedMenu(event: boolean): void {
-        this.isSelectMenu = event;
-    }
 
     public selectedMenu(event: boolean): void {
         this.isSelectMenu = event;
