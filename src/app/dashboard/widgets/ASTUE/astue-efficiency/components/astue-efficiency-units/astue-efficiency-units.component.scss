@@ -16,7 +16,9 @@
 
   &__header {
     width: 100%;
-    height: 38px;
+    height: 40px;
+    min-height: 40px;
+    max-height: 40px;
   }
 
   .header {

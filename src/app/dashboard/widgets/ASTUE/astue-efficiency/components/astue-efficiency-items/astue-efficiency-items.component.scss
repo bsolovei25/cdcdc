@@ -16,7 +16,9 @@
 
   &__header {
     width: 100%;
-    height: 38px;
+    height: 40px;
+    min-height: 40px;
+    max-height: 40px;
   }
 
   .header {
@@ -37,16 +39,20 @@
       justify-content: center;
       align-items: center;
       background: var(--color-oil-border);
+      color: var(--color-text-sub);
 
       &:hover {
         cursor: pointer;
         background: var(--color-bg-active-gradient);
+        color: var(--color-text-main);
       }
 
       &_active {
         background: var(--color-bg-active-gradient1);
+        color: var(--color-text-main);
 
         &:hover {
+          cursor: default;
           background: var(--color-bg-active-gradient1);
         }
       }
