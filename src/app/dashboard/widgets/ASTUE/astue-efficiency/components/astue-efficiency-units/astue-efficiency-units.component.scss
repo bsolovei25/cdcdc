@@ -79,6 +79,8 @@
   .content {
     display: flex;
     flex-direction: column;
+    overflow-y: scroll;
+    overflow-x: hidden;
 
     &__item {
       width: 100%;
@@ -88,6 +90,10 @@
       &:last-child {
         margin-bottom: 0;
       }
+    }
+
+    &::-webkit-scrollbar {
+      display: none;
     }
   }
 }
