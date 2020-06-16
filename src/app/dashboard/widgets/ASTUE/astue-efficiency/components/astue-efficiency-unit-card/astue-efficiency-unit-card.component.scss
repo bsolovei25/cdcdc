@@ -5,6 +5,7 @@
     box-sizing: border-box;
     font-size: 14px;
     color: var(--color-text-main);
+    user-select: none;
   }
 }
 
@@ -81,7 +82,7 @@
       left: 19px;
       margin: auto;
       transform: scaleY(-1);
-      transition: 0.5s;
+      transition: 0.2s;
 
       &_open {
         transform: scaleY(1);
@@ -108,8 +109,6 @@
     display: none;
     flex-direction: column;
     transform-origin: top;
-    transform: scaleY(0);
-    transition: 0.5s;
 
     &__item {
       width: 100%;
@@ -118,7 +117,6 @@
     }
 
     &_open {
-      transform: scaleY(1);
       display: flex;
     }
   }
