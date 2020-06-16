@@ -1,5 +1,9 @@
-<div class="card" [ngClass]="{'card_active':isActive}">
-  <img class="icon" src="assets/icons/widgets/ASTUE/astue-efficiency/card/steam.svg" />
-  <div class="name">Химически очищенная вода</div>
-  <div class="status" *ngIf="false"></div>
+<div class="card" [class.card_list-item]="isListItem" [ngClass]="{'card_active':isActive}">
+  <img
+    class="icon"
+    src="assets/icons/widgets/ASTUE/astue-efficiency/card/{{card.icon}}.svg"
+    *ngIf="!isListItem"
+  />
+  <div class="name">{{card.name}}</div>
+  <div class="status" *ngIf="isListItem">{{card.status}}</div>
 </div>

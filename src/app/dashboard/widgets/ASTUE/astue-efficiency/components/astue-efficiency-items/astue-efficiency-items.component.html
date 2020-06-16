@@ -4,10 +4,12 @@
     <div class="header__item item">Выработка</div>
   </div>
   <div class="items__content content">
-    <evj-astue-efficiency-item-card [isActive]="true"></evj-astue-efficiency-item-card>
-    <evj-astue-efficiency-item-card [isActive]="false"></evj-astue-efficiency-item-card>
-    <evj-astue-efficiency-item-card [isActive]="false"></evj-astue-efficiency-item-card>
-    <evj-astue-efficiency-item-card [isActive]="false"></evj-astue-efficiency-item-card>
-    <evj-astue-efficiency-item-card [isActive]="false"></evj-astue-efficiency-item-card>
+    <ng-container *ngFor="let card of data">
+      <evj-astue-efficiency-item-card
+        [isActive]="cardSelection.isSelected(card)"
+        [card]="card"
+        (click)="cardSelection.select(card)"
+      ></evj-astue-efficiency-item-card>
+    </ng-container>
   </div>
 </div>

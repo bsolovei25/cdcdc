@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { IAsEfCard } from '../../../../../models/ASTUE/astue-efficiency.model';
 
 @Component({
     selector: 'evj-astue-efficiency-item-card',
@@ -6,6 +7,12 @@ import { Component, OnInit, Input } from '@angular/core';
     styleUrls: ['./astue-efficiency-item-card.component.scss'],
 })
 export class AstueEfficiencyItemCardComponent implements OnInit {
+    @Input() public card: IAsEfCard = {
+        name: 'Поток №1',
+        icon: 'steam',
+        status: 'FQIR 0051',
+    };
+    @Input() public isListItem: boolean = false;
     @Input() public isActive: boolean = false;
 
     constructor() {}

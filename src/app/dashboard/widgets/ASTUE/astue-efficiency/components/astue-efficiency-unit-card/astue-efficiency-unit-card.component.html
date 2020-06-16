@@ -23,14 +23,13 @@
     </div>
   </div>
   <div class="card__streams streams" [ngClass]="{'streams_open':isOpen}">
-    <div class="streams__item">
-      <evj-astue-efficiency-item-card></evj-astue-efficiency-item-card>
-    </div>
-    <div class="streams__item">
-      <evj-astue-efficiency-item-card></evj-astue-efficiency-item-card>
-    </div>
-    <div class="streams__item">
-      <evj-astue-efficiency-item-card></evj-astue-efficiency-item-card>
+    <div class="streams__item" *ngFor="let card of data">
+      <evj-astue-efficiency-item-card
+        [isActive]="cardSelection.isSelected(card)"
+        [isListItem]="true"
+        [card]="card"
+        (click)="cardSelection.toggle(card)"
+      ></evj-astue-efficiency-item-card>
     </div>
   </div>
 </div>
