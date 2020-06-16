@@ -170,6 +170,15 @@ export interface IUserPreview {
     displayName: string;
 }
 
+export interface IUserPreview {
+    id: number;
+    login: string;
+    firstName: string;
+    lastName: string;
+    middleName: string;
+    displayName: string;
+}
+
 export interface ISaveMethodEvent {
     data: {
         url: string;

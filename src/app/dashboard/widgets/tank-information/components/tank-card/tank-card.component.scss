@@ -168,6 +168,29 @@
   }
 }
 
+.att-block {
+    display: flex;
+    height: 20px;
+    font-size: 10px;
+    align-items: center;
+
+    &__value {
+        width: auto;
+        white-space: nowrap;
+    }
+
+    &__unit {
+        margin-left: 2px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    &:hover {
+        color: var(--color-active);
+    }
+}
+
 [data-tooltip]::after {
   content: attr(data-tooltip);
   font-size: 10px;
@@ -192,6 +215,12 @@
 [data-tooltip]:hover::after {
   opacity: 1;
   bottom: 10px;
+}
+
+::ng-deep .mat-tooltip {
+  font-size: 12px;
+  background-color: var(--color-bg-main);
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.349);
 }
 
 ::ng-deep .mat-tooltip {

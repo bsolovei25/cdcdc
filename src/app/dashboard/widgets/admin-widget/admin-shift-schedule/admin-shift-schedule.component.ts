@@ -108,6 +108,152 @@ export class AdminShiftScheduleComponent extends WidgetPlatform
 
     @ViewChild('calendar') calendar: MatCalendar<Date>;
 
+
+    //Mock data
+    public dataBrig: IAdminShiftBrigade[] = [
+        {
+            id: 1,
+            manager: [
+                {
+                    id: 4,
+                    fio: 'Иванов Иван Иванович',
+                    specialty: 'Главный',
+                    avatar: 'slesar',
+                    brigade: 1,
+                }
+            ],
+            brigade: [
+                {
+                    id: 1,
+                    fio: 'Иванов Иван Иванович',
+                    specialty: 'Слесарь АСУ ТП',
+                    avatar: 'slesar',
+                    brigade: 1,
+                },
+                {
+                    id: 2,
+                    fio: 'Иванов Иван Иванович',
+                    specialty: 'Слесарь АСУ ТП',
+                    avatar: 'slesar',
+                    brigade: 2,
+                }, {
+                    id: 3,
+                    fio: 'Иванов Иван Иванович',
+                    specialty: 'Слесарь АСУ ТП',
+                    avatar: 'slesar',
+                    brigade: 3,
+                },
+            ]
+        },
+        {
+            id: 2,
+            manager: [
+                {
+                    id: 4,
+                    fio: 'Иванов Иван Иванович',
+                    specialty: 'Главный',
+                    avatar: 'slesar',
+                    brigade: 1,
+                }
+            ],
+            brigade: [
+                {
+                    id: 1,
+                    fio: 'Иванов Иван Иванович',
+                    specialty: 'Слесарь АСУ ТП',
+                    avatar: 'slesar',
+                    brigade: 1,
+                },
+                {
+                    id: 2,
+                    fio: 'Иванов Иван Иванович',
+                    specialty: 'Слесарь АСУ ТП',
+                    avatar: 'slesar',
+                    brigade: 2,
+                }, {
+                    id: 3,
+                    fio: 'Иванов Иван Иванович',
+                    specialty: 'Слесарь АСУ ТП',
+                    avatar: 'slesar',
+                    brigade: 3,
+                },
+            ]
+        },
+        {
+            id: 3,
+            manager: [
+                {
+                    id: 4,
+                    fio: 'Иванов Иван Иванович',
+                    specialty: 'Главный',
+                    avatar: 'slesar',
+                    brigade: 1,
+                }
+            ],
+            brigade: [
+                {
+                    id: 1,
+                    fio: 'Иванов Иван Иванович',
+                    specialty: 'Слесарь АСУ ТП',
+                    avatar: 'slesar',
+                    brigade: 1,
+                },
+                {
+                    id: 2,
+                    fio: 'Иванов Иван Иванович',
+                    specialty: 'Слесарь АСУ ТП',
+                    avatar: 'slesar',
+                    brigade: 2,
+                }, {
+                    id: 3,
+                    fio: 'Иванов Иван Иванович',
+                    specialty: 'Слесарь АСУ ТП',
+                    avatar: 'slesar',
+                    brigade: 3,
+                },
+            ]
+        },
+        {
+            id: 4,
+            manager: [
+                {
+                    id: 4,
+                    fio: 'Иванов Иван Иванович',
+                    specialty: 'Главный',
+                    avatar: 'slesar',
+                    brigade: 1,
+                }
+            ],
+            brigade: [
+                {
+                    id: 1,
+                    fio: 'Иванов Иван Иванович',
+                    specialty: 'Слесарь АСУ ТП',
+                    avatar: 'slesar',
+                    brigade: 1,
+                },
+                {
+                    id: 2,
+                    fio: 'Иванов Иван Иванович',
+                    specialty: 'Слесарь АСУ ТП',
+                    avatar: 'slesar',
+                    brigade: 2,
+                }, {
+                    id: 3,
+                    fio: 'Иванов Иван Иванович',
+                    specialty: 'Слесарь АСУ ТП',
+                    avatar: 'slesar',
+                    brigade: 3,
+                },
+            ]
+        },
+    ]
+    public dragUniqElem: IAdminShiftUserBrigade;
+    public list: number[] = [0];
+    public dataBrigLeft: IAdminShiftBrigade[] = [];
+    public dataBrigRight: IAdminShiftBrigade[] = [];
+    public arrayUserBrigade: IAdminShiftUserBrigade[] = []; /// ДОЛЖЕН БЫТЬ СПИСОК ЮЗЕРОВ !!!
+
     constructor(
         private dateAdapter: DateAdapter<Date>,
         private renderer: Renderer2,
@@ -126,6 +272,24 @@ export class AdminShiftScheduleComponent extends WidgetPlatform
 
     ngOnInit(): void {
         super.widgetInit();
+        this.mapArrayBrigade(this.dataBrig);
+    }
+
+    mapArrayBrigade(data): void {
+        data.forEach(el => {
+            this.list.push((el.id).toString());
+            if (el.id % 2 === 0) {
+                this.dataBrigLeft.push(el);
+            } else {
+                this.dataBrigRight.push(el);
+            }
+
+            /// mock push in arrayUserBrigade
+            el.brigade.forEach(item => {
+                this.arrayUserBrigade.push(item);
+            })
+        });
+
     }
 
     protected async dataConnect(): Promise<void> {
@@ -433,6 +597,10 @@ export class AdminShiftScheduleComponent extends WidgetPlatform
     // #endregion
 
     // #region Methods
+
+    public selectedMenu(event: boolean): void {
+        this.isSelectMenu = event;
+    }
 
     public selectedMenu(event: boolean): void {
         this.isSelectMenu = event;

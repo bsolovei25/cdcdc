@@ -89,4 +89,29 @@ export class SmotrEventComponent implements OnInit {
     public overlayChartClose(): void {
         this.ewService.isOverlayChartOpen = false;
     }
+
+    setReason(reason: {id: string, name: string}): void {
+        this.isReasonsPopupOpen = false;
+        if (reason === null) {
+            return;
+        }
+        this.ewService.event.directReasons = reason.name;
+    }
+    public openClosePopup(): void {
+        if (this.isDisabledCloseButton()) {
+            return;
+        }
+        this.isClosePopupOpen = true;
+    }
+
+    public onClickUrl(): void {
+        if (this.isDisabledUrlButton()) {
+            return;
+        }
+        window.open('http://www.example.com/');
+    }
+
+    public isDisabledUrlButton(): boolean {
+        return !(this.ewService.event.deviationData?.urlOriginalSystem === '');
+    }
 }
