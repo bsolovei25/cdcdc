@@ -2,7 +2,7 @@ import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { WidgetService } from '../../services/widget.service';
 import { IEcologySafety } from '../../models/ecology-safety';
-import { IWidgets } from '../../models/widget.model';
+import { IWidget } from '../../models/widget.model';
 import { WidgetPlatform } from '../../models/widget-platform';
 
 @Component({

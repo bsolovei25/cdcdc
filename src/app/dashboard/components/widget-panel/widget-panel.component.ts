@@ -4,7 +4,7 @@ import { UserSettingsService } from '../../services/user-settings.service';
 import { ClaimService, EnumClaimWidgets, EnumClaimScreens } from '../../services/claim.service';
 import { Subscription, BehaviorSubject } from 'rxjs';
 import { WIDGETS } from '../widgets-grid/widget-map';
-import { IWidgets } from '../../models/widget.model';
+import { IWidget } from '../../models/widget.model';
 import { trigger, transition, animate, style } from '@angular/animations';
 
 @Component({
@@ -27,8 +27,8 @@ export class WidgetPanelComponent implements OnInit {
 
     private subscriptions: Subscription[] = [];
 
-    public widgets$: BehaviorSubject<IWidgets[]> = new BehaviorSubject<IWidgets[]>([]);
-    public filterWidgets$: BehaviorSubject<IWidgets[]> = new BehaviorSubject<IWidgets[]>([]);
+    public widgets$: BehaviorSubject<IWidget[]> = new BehaviorSubject<IWidget[]>([]);
+    public filterWidgets$: BehaviorSubject<IWidget[]> = new BehaviorSubject<IWidget[]>([]);
 
     private claimSettingsWidgets: EnumClaimWidgets[] = [];
     public claimSettingsScreens: EnumClaimScreens[] = [];
@@ -57,9 +57,10 @@ export class WidgetPanelComponent implements OnInit {
     ) {}
 
     ngOnInit(): void {
+        console.log('claims');
         this.subscriptions.push(
-            this.widgetService.widgets$.subscribe((dataW) => {
-                const filterWidgets: IWidgets[] = [];
+            this.widgetService.widgetsPanel$.subscribe((dataW) => {
+                const filterWidgets: IWidget[] = [];
                 dataW.forEach((widget) => {
                     if (WIDGETS[widget.widgetType]) {
                         filterWidgets.push(widget);
@@ -89,7 +90,7 @@ export class WidgetPanelComponent implements OnInit {
         this.toggleClick.emit('widgets');
     }
 
-    public dataById(item: IWidgets): string {
+    public dataById(item: IWidget): string {
         return item.id;
     }
 

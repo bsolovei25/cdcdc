@@ -8,6 +8,7 @@ import { OverlayService } from '../../services/overlay.service';
 import { SnackBarService } from '../../services/snack-bar.service';
 import { IAlertWindowModel } from '@shared/models/alert-window.model';
 import { IInputOptions } from '../../../@shared/models/input.model';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
     selector: 'evj-indicator-selector',
@@ -53,15 +54,52 @@ export class IndicatorSelectorComponent implements OnInit, OnDestroy {
         private userSettings: UserSettingsService,
         private claimService: ClaimService,
         public overlayService: OverlayService,
-        private snackBar: SnackBarService
+        private snackBar: SnackBarService,
+        public route: ActivatedRoute,
+        public router: Router,
     ) {}
 
     ngOnInit(): void {
-        this.userSettings.ScreenId = Number(localStorage.getItem('screenid'));
+
+        // this.router.navigate([], { queryParams: {screenId: 1}});
+        this.LoadScreenInit();
+    }
+
+    ngOnDestroy(): void {
+        this.subscriptions.forEach((subscription) => {
+            subscription.unsubscribe();
+        });
+    }
+
+    private LoadScreenInit(): void {
+        // const screenIdFromRoute = this.route.snapshot.queryParamMap.get('screenId');
+        // if (!screenIdFromRoute) {
+        //     let screenId: number = null;
+        //     screenId = Number(sessionStorage.getItem('screenid'));
+        //     if (!screenId) {
+        //         screenId = Number(localStorage.getItem('screenid'));
+        //     }
+        //     this.userSettings.ScreenId = screenId;
+        // } else {
+        //     this.userSettings.ScreenId = Number(screenIdFromRoute);
+        // }
+        let screenId: number = null;
+        screenId = Number(sessionStorage.getItem('screenid'));
+        if (!screenId) {
+            screenId = Number(localStorage.getItem('screenid'));
+        }
+        this.userSettings.ScreenId = screenId;
+
         this.userSettings.GetScreens();
         this.subscriptions.push(
             this.userSettings.screens$.subscribe((screens) => {
+                if (!(screens?.length > 0)) {
+                    return;
+                }
                 this.dataScreen = screens;
+                if (this.dataScreen.findIndex((s) => s.id === this.userSettings.ScreenId) === -1) {
+                    this.userSettings.ScreenId = this.dataScreen[0].id;
+                }
                 this.idScreen = this.userSettings.ScreenId;
                 this.LoadScreen(this.idScreen);
                 this.nameScreen = this.getActiveScreen();
@@ -75,12 +113,6 @@ export class IndicatorSelectorComponent implements OnInit, OnDestroy {
                 this.claimScreens = w;
             })
         );
-    }
-
-    ngOnDestroy(): void {
-        this.subscriptions.forEach((subscription) => {
-            subscription.unsubscribe();
-        });
     }
 
     public LoadScreen(id: number): void {

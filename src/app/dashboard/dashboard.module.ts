@@ -11,6 +11,7 @@ import { DndModule } from 'ngx-drag-drop';
 import { DashboardComponent } from './pages/dashboard.component';
 import { HttpClientModule } from '@angular/common/http';
 import { EventsComponent } from './widgets/events/events.component';
+import { EventCardComponent } from './widgets/events/components/event-card/event-card.component';
 import { ManualInputComponent } from './widgets/manual-input/manual-input.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LineDiagramComponent } from './widgets/line-diagram/line-diagram.component';
@@ -30,6 +31,7 @@ import { TruncatedPieFirstComponent } from './widgets/truncated-pie-first/trunca
 import { TruncatedPieSFirstComponent } from './widgets/truncated-pie-first/truncated-pie-s-first/truncated-pie-s-first.component';
 import { TruncatedPieSIconComponent } from './widgets/truncated-pie-icon/truncated-pie-s-icon/truncated-pie-s-icon.component';
 import { TruncatedPieIconComponent } from './widgets/truncated-pie-icon/truncated-pie-icon/truncated-pie-icon.component';
+import { PieDiagramComponent } from './widgets/truncated-diagram-traffic-light/components/pie-diagram/pie-diagram.component';
 import { PointDiagramComponent } from './widgets/point-diagram/point-diagram.component';
 import { OneColumnComponent } from './widgets/point-diagram/one-column/one-column.component';
 import { ProductionPyramidComponent } from './widgets/production-pyramid/production-pyramid.component';
@@ -276,6 +278,9 @@ import { EventSearchWindowComponent } from './widgets/workspace/components/event
 import { AdminShiftBrigadeComponent } from './widgets/admin-widget/admin-shift-schedule/components/admin-shift-brigade/admin-shift-brigade.component';
 import { AdminShiftListEmployeesComponent } from './widgets/admin-widget/admin-shift-schedule/components/admin-shift-list-employees/admin-shift-list-employees.component';
 import { AdminShiftInfoEmployeeComponent } from './widgets/admin-widget/admin-shift-schedule/components/admin-shift-info-employee/admin-shift-info-employee.component';
+import { AdminShiftCardComponent } from './widgets/admin-widget/admin-shift-schedule/components/admin-shift-card/admin-shift-card.component';
+import { MatMenuModule } from '@angular/material/menu';
+import { TruncatedDiagramTrafficLightComponent } from './widgets/truncated-diagram-traffic-light/truncated-diagram-traffic-light.component';
 
 @NgModule({
     declarations: [
@@ -286,6 +291,7 @@ import { AdminShiftInfoEmployeeComponent } from './widgets/admin-widget/admin-sh
         LineChartComponent,
         DashboardComponent,
         EventsComponent,
+        EventCardComponent,
         ManualInputComponent,
         ChangeShiftComponent,
         LineDiagramComponent,
@@ -305,6 +311,8 @@ import { AdminShiftInfoEmployeeComponent } from './widgets/admin-widget/admin-sh
         TruncatedPieSFirstComponent,
         TruncatedPieSIconComponent,
         TruncatedPieIconComponent,
+        PieDiagramComponent,
+        TruncatedDiagramTrafficLightComponent,
         ProductionPyramidComponent,
         BarChartsComponent,
         BarChartComponent,
@@ -521,11 +529,13 @@ import { AdminShiftInfoEmployeeComponent } from './widgets/admin-widget/admin-sh
         AdminShiftBrigadeComponent,
         AdminShiftListEmployeesComponent,
         AdminShiftInfoEmployeeComponent,
+        AdminShiftCardComponent,
     ],
     entryComponents: [
         LineChartComponent,
         WidgetPiesComponent,
         EventsComponent,
+        EventCardComponent,
         LineChartComponent,
         ManualInputComponent,
         LineDiagramComponent,
@@ -533,6 +543,7 @@ import { AdminShiftInfoEmployeeComponent } from './widgets/admin-widget/admin-sh
         EventsWorkSpaceComponent,
         TruncatedPieSFirstComponent,
         TruncatedPieSIconComponent,
+        TruncatedDiagramTrafficLightComponent,
         PointDiagramComponent,
         ProductionPyramidComponent,
         BarChartsComponent,
@@ -595,7 +606,7 @@ import { AdminShiftInfoEmployeeComponent } from './widgets/admin-widget/admin-sh
         ProductGroupsComponent,
         ProductGroupsShortComponent,
         SmpEventsWorkspaceComponent,
-        PanelComponent
+        PanelComponent,
     ],
     exports: [HomeComponent],
     imports: [
@@ -634,6 +645,7 @@ import { AdminShiftInfoEmployeeComponent } from './widgets/admin-widget/admin-sh
         NgxMaskModule.forChild(),
         PdfViewerModule,
         MatTooltipModule,
+        MatMenuModule,
     ],
     bootstrap: [],
     providers: [

@@ -23,16 +23,14 @@ import { AvatarConfiguratorService } from '../avatar-configurator.service';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { IAlertWindowModel } from '@shared/models/alert-window.model';
 import { filter, map } from 'rxjs/operators';
-
-declare interface PromiseConstructor {
-    allSettled(promises: Array<Promise<any>>): Promise<Array<{status: 'fulfilled' | 'rejected', value?: any, reason?: any}>>;
-}
+import { error } from '@angular/compiler/src/util';
 
 @Injectable({
     providedIn: 'root',
 })
 export class EventsWorkspaceService {
     public event: EventsWidgetNotification;
+    public originalEvent: EventsWidgetNotification;
     public eventHistory: number[] = [];
 
     //#region FLAGS
@@ -135,6 +133,7 @@ export class EventsWorkspaceService {
     private async getEvent(id: number): Promise<void> {
         this.event = await this.eventService.getEvent(id);
         this.event = { ...this.defaultEvent, ...this.event };
+        this.originalEvent = { ...this.event };
         const dataLoadQueue: Promise<void>[] = [];
         if (this.event.category.name === 'asus') {
             await this.asusReferencesLoad();
@@ -154,6 +153,7 @@ export class EventsWorkspaceService {
     public async goBackEvent(isContinue: boolean = false): Promise<void> {
         if (!(this.eventHistory?.length > 0)) {
             this.event = null;
+            this.originalEvent = { ...this.event };
             return;
         }
         if (!this.isCreateNewEvent && !isContinue) {
@@ -177,6 +177,7 @@ export class EventsWorkspaceService {
         this.isCreateNewEvent = true;
         await this.loadItem();
         this.event = fillDataShape(this.defaultEvent);
+        this.originalEvent = { ...this.event };
     }
 
     public async createEvent(idParent: number = null): Promise<void> {
@@ -191,6 +192,7 @@ export class EventsWorkspaceService {
         this.isCreateNewEvent = true;
         await this.loadItem();
         this.event = {...this.defaultEvent};
+        this.originalEvent = { ...this.event };
         if (idParent) {
             this.event.parentId = idParent;
             this.event.category = {
@@ -245,14 +247,18 @@ export class EventsWorkspaceService {
     }
 
     private async saveCreatedEvent(saveMethod: ISaveMethodEvent): Promise<void> {
+        let event: EventsWidgetNotification = null;
         try {
             if (this.event.parentId) {
                 if (!this.checkRetrievalCategory()) {
                     return;
                 }
-                await this.eventService.postEventRetrieval(this.event);
+                event = await this.eventService.postEventRetrieval(this.event);
             } else {
-                await this.eventService.postEvent(this.event, saveMethod);
+                event = await this.eventService.postEvent(this.event, saveMethod);
+            }
+            if (event?.id) {
+                this.event.id = event.id;
             }
             this.isCreateNewEvent = false;
             this.snackBarService.openSnackBar('Сохранено');
@@ -265,13 +271,17 @@ export class EventsWorkspaceService {
         this.isLoading = true;
         try {
             const saveMethod: ISaveMethodEvent = await this.eventService.getSaveMethod(this.event);
-            console.log(saveMethod);
+            if (!saveMethod) {
+                throw error('no save method');
+            }
             if (this.isCreateNewEvent) {
                 this.saveCreatedEvent(saveMethod);
             } else {
                 this.saveEditedEvent(saveMethod);
             }
-        } catch {}
+        } catch (e) {
+            console.error(e);
+        }
         this.isLoading = false;
     }
 
@@ -372,7 +382,7 @@ export class EventsWorkspaceService {
             itemNumber: 0,
             branch: 'Производство',
             category: {
-                id: null,
+                id: 0,
                 name: null,
                 code: null,
             },
@@ -392,11 +402,16 @@ export class EventsWorkspaceService {
             responsibleOperator: this.currentAuthUser ? fillDataShape(this.currentAuthUser) : null,
             retrievalEvents: [],
             severity: 'Critical',
-            status: this.status ? this.status[0] : null,
-            equipmentCategory: this.equipmentCategory ? this.equipmentCategory[0] : null,
+            status: this.status ? this.status[0] : {
+                id: 0,
+                name: null,
+                code: null,
+            },
+            equipmentCategory: null,
             deadline: new Date(),
             graphValues: null,
             isAcknowledged: false,
+            unit: this.units.find((u) => u.id === this.currentAuthUser.unitId) ?? null,
             unitName: null,
             facts: [],
             comments: [],
@@ -480,5 +495,9 @@ export class EventsWorkspaceService {
         if (this.event.category.name === 'asus') {
             await this.asusReferencesLoad();
         }
+    }
+
+    public eventCompare(event1: EventsWidgetNotification, event2: EventsWidgetNotification): boolean {
+        return (JSON.stringify(event1) === JSON.stringify(event2));
     }
 }

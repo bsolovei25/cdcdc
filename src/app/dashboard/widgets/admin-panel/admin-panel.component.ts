@@ -69,6 +69,7 @@ export class AdminPanelComponent extends WidgetPlatform implements OnInit, OnDes
         position: 'common',
         positionDescription: 'Оператор ТУ',
         displayName: 'Петров П. П.',
+        isShiftWorker: false,
     };
 
     public static itemCols: number = 43;

@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit, Inject, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, Inject, ViewChild, HostListener } from '@angular/core';
 import {
     EventsWidgetCategory,
     EventsWidgetCategoryCode,
@@ -29,6 +29,13 @@ import { BehaviorSubject } from 'rxjs';
 export class EventsComponent extends WidgetPlatform implements OnInit, OnDestroy {
     @ViewChild(CdkVirtualScrollViewport) viewport: CdkVirtualScrollViewport;
 
+    @ViewChild('notifications') notificationsDiv;
+
+    @HostListener('document:resize', ['$event'])
+    OnResize() {
+        this.countNotificationsDivCapacity();
+    }
+
     isList: boolean = false;
     selectedId: number = 0;
     eventOverlayId: number;
@@ -39,6 +46,8 @@ export class EventsComponent extends WidgetPlatform implements OnInit, OnDestroy
     private isAllowScrollLoading: boolean = true;
 
     public previewTitle: string;
+
+    public notificationsGrouped: EventsWidgetNotificationPreview[][];
 
     public placeNames: string[] = [];
 
@@ -226,6 +235,11 @@ export class EventsComponent extends WidgetPlatform implements OnInit, OnDestroy
         this.getStats();
     }
 
+    private countNotificationsDivCapacity(): void {
+        const notificationsDivCapacity = Math.trunc(this.notificationsDiv.nativeElement.clientWidth / 405);
+        this.notificationsGrouped = this.sortArray(this.notifications, this.isList ? notificationsDivCapacity : 1);
+    }
+
     private getCurrentOptions(): EventsWidgetOptions {
         const options: EventsWidgetOptions = {
             categories: this.categories.filter((c) => c.isActive).map((c) => c.id),
@@ -238,6 +252,7 @@ export class EventsComponent extends WidgetPlatform implements OnInit, OnDestroy
 
     private clearNotifications(): void {
         this.notifications = [];
+        this.countNotificationsDivCapacity();
     }
 
     private addWsElement(notification: EventsWidgetNotificationPreview): void {
@@ -251,6 +266,7 @@ export class EventsComponent extends WidgetPlatform implements OnInit, OnDestroy
             }
             this.notifications.splice(idx, 0, notification);
             this.notifications = this.notifications.slice();
+            this.countNotificationsDivCapacity();
         }
     }
 
@@ -260,6 +276,7 @@ export class EventsComponent extends WidgetPlatform implements OnInit, OnDestroy
         if (idx >= 0) {
             this.notifications.splice(idx, 1);
             this.notifications = this.notifications.slice();
+            this.countNotificationsDivCapacity();
         }
     }
 
@@ -274,6 +291,7 @@ export class EventsComponent extends WidgetPlatform implements OnInit, OnDestroy
             }
             this.notifications[idx] = notification;
             this.notifications = this.notifications.slice();
+            this.countNotificationsDivCapacity();
         }
     }
 
@@ -295,6 +313,7 @@ export class EventsComponent extends WidgetPlatform implements OnInit, OnDestroy
                     return { ...n, iconUrl, statusName, iconUrlStatus };
                 });
             this.notifications = this.notifications.concat(notifications);
+            this.countNotificationsDivCapacity();
         }
     }
 
@@ -308,12 +327,13 @@ export class EventsComponent extends WidgetPlatform implements OnInit, OnDestroy
 
     public viewChanger(list: boolean): void {
         this.isList = list;
+        this.countNotificationsDivCapacity();
     }
 
     // Удаление виджета
     public async onRemoveButton(): Promise<void> {
         await this.userSettings.removeItem(this.uniqId);
-        this.widgetService.removeItemService(this.uniqId);
+        // this.widgetService.removeItemService(this.uniqId);
     }
 
     public async eventClick(eventId?: number): Promise<void> {
@@ -321,13 +341,13 @@ export class EventsComponent extends WidgetPlatform implements OnInit, OnDestroy
         await this.ewService.editEvent(eventId);
     }
 
-    public deleteClick(notification: EventsWidgetNotification): void {
+    public deleteClick(id: number): void {
         const info: IAlertWindowModel = {
             isShow: true,
             questionText: 'Вы уверены что хотите удалить событие?',
             acceptText: 'Да',
             cancelText: 'Нет',
-            acceptFunction: () => this.deleteNotification(notification.id),
+            acceptFunction: () => this.deleteNotification(id),
             closeFunction: () => this.eventAlertInfo$.next(null),
             cancelFunction: () => this.snackBarService.openSnackBar(`Удаление отменено!`),
         };
@@ -347,7 +367,6 @@ export class EventsComponent extends WidgetPlatform implements OnInit, OnDestroy
     }
 
     public async scrollHandler(event: any): Promise<void> {
-        this.viewport.checkViewportSize();
         if (
             event.target.offsetHeight + event.target.scrollTop + 100 >= event.target.scrollHeight &&
             this.notifications.length &&
@@ -356,6 +375,26 @@ export class EventsComponent extends WidgetPlatform implements OnInit, OnDestroy
             console.log('end scroll');
             throttle(await this.getData(this.notifications[this.notifications.length - 1].id));
         }
+    }
+
+    public checkIfEventSelected(id: number): boolean {
+        return this.selectedId === id || this.eventOverlayId === id;
+    }
+
+    public sortArray(arr: EventsWidgetNotificationPreview[], n: number): EventsWidgetNotificationPreview[][] {
+        let i = 0;
+        const result = [];
+        let temp = [];
+        for (const item of arr) {
+            i++;
+            temp.push(item);
+            if (i === n) {
+                result.push(temp);
+                temp = [];
+                i = 0;
+            }
+        }
+        return result;
     }
 
     private async getData(lastId: number = 0): Promise<any> {

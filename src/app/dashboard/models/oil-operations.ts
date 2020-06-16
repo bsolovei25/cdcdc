@@ -1,5 +1,5 @@
 export interface IOilOperations { /// ALL DATA
-    tableLeft: ILeftOilTable[]; 
+    tableLeft: ILeftOilTable[];
     received: IOilReceived[];
     shipment: IOilShipment[];
     tableRight: IRightOilTable[];
@@ -12,9 +12,9 @@ export interface ILeftOilTable {
     number: number;
     rR: number;
     product: string;
-    pasport: number;
-    dateFrom: string; /// Date
-    dateTo: string; /// Date
+    passport: number;
+    dateFrom: Date; /// Date
+    dateTo: Date; /// Date
     mass: number;
     deviation: number;
     status: string;

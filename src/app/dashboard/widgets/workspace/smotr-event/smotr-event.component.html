@@ -65,8 +65,10 @@
     </div>
     <div class="column__row row chat">
       <evj-chat
+        [displayGraphImage]="!!ewService.event.graphValues?.graphs[0]"
+        [onClickItem]="openLineChart.bind(this)"
         [messages]="ewService.event.facts"
-        title="Установленные факты"
+        dataTitle="Установленные факты"
         placeholder="Укажите факты..."
         (addingMessage)="onSendMessage($event,'facts')"
       ></evj-chat>
@@ -74,7 +76,7 @@
     <div class="column__row row chat">
       <evj-chat
         [messages]="ewService.event.comments"
-        title="Комментарии"
+        dataTitle="Комментарии"
         placeholder="Напишите свой комментарий..."
         (addingMessage)="onSendMessage($event,'comments')"
       ></evj-chat>
@@ -161,5 +163,23 @@
       [reasonsList]="this.ewService.event?.deviationData?.availableReasons"
       (closeWindow)="setReason($event)"
     ></evj-events-list-window>
+  </div>
+</div>
+
+<div
+  (mousedown)="$event.stopPropagation()"
+  (touchstart)="$event.stopPropagation()"
+  id="overlay-chart"
+  *ngIf="ewService.isOverlayChartOpen && ewService.event.graphValues?.graphs[0]"
+  (click)="overlayChartClose()"
+>
+  <div
+    class="overlay-chart__body"
+    (click)="$event.stopPropagation()"
+    *ngIf="ewService.event.graphValues"
+  >
+    <evj-line-chart-workspace
+      [dataChartAttribute]="ewService.event.graphValues"
+    ></evj-line-chart-workspace>
   </div>
 </div>

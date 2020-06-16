@@ -1,7 +1,8 @@
 // Angular
-import { RouterModule, Routes } from '@angular/router';
+import { Route, RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './pages/login/login.component';
 import { AuthenticationGuard } from './guards/authentication.guard';
+import { NgModule } from '@angular/core';
 // Local modules
 
 const routes: Routes = [
@@ -34,4 +35,10 @@ const routes: Routes = [
         ],
     },
 ];
-export const CoreRoutingModule = RouterModule.forRoot(routes);
+
+@NgModule({
+  imports: [RouterModule.forRoot(routes, { onSameUrlNavigation: 'reload' })],
+  exports: [RouterModule]
+})
+export class CoreRoutingModule { }
+// export const CoreRoutingModule = RouterModule.forRoot(routes);

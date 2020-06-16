@@ -124,4 +124,9 @@ export class AwsFieldsComponent implements OnInit {
             this.password.emit(true);
         }
     }
+
+    public onSetShift(isShiftWorker: boolean): void {
+        this.worker.isShiftWorker = isShiftWorker;
+        this.workerData.emit();
+    }
 }

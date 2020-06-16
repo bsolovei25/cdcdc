@@ -42,6 +42,6 @@ export class BarChartsComponent extends WidgetPlatform implements OnInit, OnDest
 
     public async onRemoveButton(): Promise<void> {
         await this.userSettings.removeItem(this.uniqId);
-        this.widgetService.removeItemService(this.uniqId);
+        // this.widgetService.removeItemService(this.uniqId);
     }
 }

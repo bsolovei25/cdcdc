@@ -17,7 +17,7 @@
                             <evj-column-grid key="rR" name="Р-р" [width]="7"></evj-column-grid>
                             <evj-column-grid key="product" name="Продукт" [width]="20">
                             </evj-column-grid>
-                            <evj-column-grid key="pasport" name="Паспорт" [width]="13" [template]="pasport">
+                            <evj-column-grid key="pasport" name="Паспорт" [width]="12" [template]="pasport">
                                 <ng-template #pasport let-data="data">
                                     <div class="pasport">
                                         <div class="pasport__icon">
@@ -30,8 +30,16 @@
                                     </div>
                                 </ng-template>
                             </evj-column-grid>
-                            <evj-column-grid key="dateFrom" name="Дата начала" [width]="13"></evj-column-grid>
-                            <evj-column-grid key="dateTo" name="Дата окончания" [width]="14"></evj-column-grid>
+                            <evj-column-grid key="dateFrom" name="Дата начала" [width]="14" [template]="date">
+                              <ng-template #date let-data="data">
+                                {{ data.dateFrom | date:"dd.MM.yyyy | HH:mm" }}
+                              </ng-template>
+                            </evj-column-grid>
+                            <evj-column-grid key="dateTo" name="Дата окончания" [width]="14" [template]="date">
+                              <ng-template #date let-data="data">
+                                {{ data.dateTo | date:"dd.MM.yyyy | HH:mm" }}
+                              </ng-template>
+                            </evj-column-grid>
                             <evj-column-grid key="mass" name="Масса" [width]="7"></evj-column-grid>
                             <evj-column-grid key="deviation" name="Отклонение" [width]="11"></evj-column-grid>
                             <evj-column-grid key="status" name="Статус" [width]="6" [template]="status">

@@ -5,7 +5,7 @@ import { AdminPanelService } from '../../../services/admin-panel/admin-panel.ser
 import { Subscription } from 'rxjs';
 import { fillDataShape } from '../../../../@shared/common-functions';
 import { base64ToFile } from 'ngx-image-cropper';
-import { IWidgets } from '../../../models/widget.model';
+import { IWidget } from '../../../models/widget.model';
 import { SelectionModel } from '@angular/cdk/collections';
 import { SnackBarService } from '../../../services/snack-bar.service';
 import { IAlertWindowModel } from '../../../../@shared/models/alert-window.model';
@@ -77,7 +77,7 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
 
     public isDataLoading: boolean = false;
 
-    public allWidgets: IWidgets[] = [];
+    public allWidgets: IWidget[] = [];
 
     public claimsSelector: SelectionModel<IGlobalClaim> = new SelectionModel<IGlobalClaim>();
 
@@ -187,7 +187,7 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
     }
 
     public findEntityByClaimValue(claim: IGlobalClaim): string {
-        let entity: IUnitEvents | IWidgets;
+        let entity: IUnitEvents | IWidget;
         switch (claim.claimValueType) {
             case 'unit':
                 entity = this.adminService.units.find((item) => item.id === +claim.value);
