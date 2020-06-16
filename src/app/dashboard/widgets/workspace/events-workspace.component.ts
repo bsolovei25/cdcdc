@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
+import { Component, OnInit, Inject, OnDestroy, HostListener } from '@angular/core';
 import { EventService } from '../../services/widgets/event.service';
 import { EventsWidgetNotification, IUser, EventsWidgetData } from '../../models/events-widget';
 import { WidgetService } from '../../services/widget.service';
@@ -32,6 +32,16 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
         super(widgetService, isMock, id, uniqId);
         this.widgetIcon = 'document';
         this.dateAdapter.setLocale('ru');
+    }
+
+    @HostListener('window:beforeunload', ['$event'])
+    beforeUnloadHandler(event: BeforeUnloadEvent): BeforeUnloadEvent {
+        if (this.ewService.eventCompare(this.ewService.event, this.ewService.originalEvent)) {
+            return;
+        }
+        event.preventDefault();
+        event.returnValue = true;
+        return event;
     }
 
     ngOnInit(): void {
@@ -83,9 +93,17 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
 
     // нажатие на кнопку в хэдере
     createdEvent(isEdit: boolean): void {
+        if (isEdit && this.ewService.eventCompare(this.ewService.event, this.ewService.originalEvent)) {
+            if (this.ewService.isCreateNewEvent) {
+                this.ewService.refreshEvent();
+            } else {
+                this.ewService.createEvent();
+            }
+            return;
+        }
         const tempInfo: IAlertWindowModel = {
             isShow: true,
-            questionText: 'Вы уверены, что хотите перейти к созданию новго события? Все несохраненные изменения будут потеряны.',
+            questionText: 'Вы уверены, что хотите перейти к созданию нового события? Все несохраненные изменения будут потеряны.',
             acceptText: 'Да, создать событие',
             cancelText: 'Отмена',
             closeFunction: () => this.ewService.ewAlertInfo$.next(null),
@@ -107,10 +125,26 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
     }
 
     public backEvent(): void {
-        this.ewService.goBackEvent();
+        if (this.ewService.eventCompare(this.ewService.event, this.ewService.originalEvent)) {
+            this.ewService.goBackEvent();
+            return;
+        }
+        const tempInfo: IAlertWindowModel = {
+            isShow: true,
+            questionText: 'Вы уверены, что хотите вернуться к предыдущему событию? Все несохраненные изменения будут потеряны.',
+            acceptText: 'Да',
+            cancelText: 'Отмена',
+            acceptFunction: () => this.ewService.goBackEvent(),
+            closeFunction: () => this.ewService.ewAlertInfo$.next(null),
+        };
+        this.ewService.ewAlertInfo$.next(tempInfo);
     }
 
     canShowSaveButton(): boolean {
         return this.ewService.event?.isUserCanEdit ?? false;
+    }
+
+    public overlayChartClose(): void {
+        this.ewService.isOverlayChartOpen = false;
     }
 }

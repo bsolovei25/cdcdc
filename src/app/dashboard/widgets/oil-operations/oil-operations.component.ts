@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
 import { IDatesInterval, WidgetService } from '../../services/widget.service';
 import { WidgetPlatform } from '../../models/widget-platform';
-import { IOilOperations } from '../../models/oil-operations';
+import { ILeftOilTable, IOilOperations, IRightOilTable } from '../../models/oil-operations';
 import { OilOperationsService } from '../../services/widgets/oil-operations.service';
 
 export interface IOilOperationsButton {
@@ -13,9 +13,9 @@ export interface IOilOperationsButton {
 }
 
 @Component({
-  selector: 'evj-oil-operations',
-  templateUrl: './oil-operations.component.html',
-  styleUrls: ['./oil-operations.component.scss']
+    selector: 'evj-oil-operations',
+    templateUrl: './oil-operations.component.html',
+    styleUrls: ['./oil-operations.component.scss']
 })
 export class OilOperationsComponent extends WidgetPlatform implements OnInit, OnDestroy {
     public static itemCols: number = 64;
@@ -29,190 +29,190 @@ export class OilOperationsComponent extends WidgetPlatform implements OnInit, On
     private currentDates: IDatesInterval;
 
     public data: IOilOperations = {
-    tableLeft: [
-      {
-        id: 1,
-        number: 4643,
-        rR: 442,
-        product: 'ДТ ЕВРО сорт F, вид III(ДТ-Е-К5)',
-        pasport: 168,
-        dateFrom: '25.02.2019 12:23',
-        dateTo: '25.02.2019 12:23',
-        mass: 4223.23,
-        deviation: 3.3,
-        status: 'open'
-      },
-      {
-        id: 2,
-        number: 4643,
-        rR: 442,
-        product: 'ДТ ЕВРО сорт F, вид III(ДТ-Е-К5)',
-        pasport: 168,
-        dateFrom: '25.02.2019 12:23',
-        dateTo: '25.02.2019 12:23',
-        mass: 4223.23,
-        deviation: 3.3,
-        status: 'close'
-      },
-      {
-        id: 3,
-        number: 4643,
-        rR: 442,
-        product: 'ДТ ЕВРО сорт F, вид III(ДТ-Е-К5)',
-        pasport: 168,
-        dateFrom: '25.02.2019 12:23',
-        dateTo: '25.02.2019 12:23',
-        mass: 4223.23,
-        deviation: 3.3,
-        status: 'close&norm'
-      },
-      {
-        id: 4,
-        number: 4643,
-        rR: 442,
-        product: 'ДТ ЕВРО сорт F, вид III(ДТ-Е-К5)',
-        pasport: 168,
-        dateFrom: '25.02.2019 12:23',
-        dateTo: '25.02.2019 12:23',
-        mass: 4223.23,
-        deviation: 3.3,
-        status: 'close&critical'
-      },
-    ],
-    received: [
-      {
-        id: 1,
-        name: 'Открыть график',
-        type: 'line',
-      },
-      {
-        id: 2,
-        name: 'Отредактировать ёмкости для отгрузки',
-        type: 'filter',
-      },
-      {
-        id: 3,
-        name: 'Список паспортов LIMS',
-        type: 'reference',
-      },
-      {
-        id: 4,
-        name: 'Публикации в БЛПС',
-        type: 'reference',
-      }
-    ],
-    shipment: [
-      {
-        id: 1,
-        name: 'Свободные отгрузки',
-        value: 2352,
-        type: 'free',
-      },
-      {
-        id: 2,
-        name: 'Привязать отгрузки автоматически',
-        type: 'filter',
-      },
-      {
-        id: 3,
-        name: 'Создать корректировку',
-        type: 'adjust',
-      }
-    ],
-    tableRight: [
-      {
-        id: 1,
-        direction: 'A-т ср.364',
-        rRRiser: 3432,
-        dok: 2334,
-        mass: 4223.32,
-        pasport: 168,
-        shipment: 3212,
-        note: 'Tруба',
-      },
-      {
-        id: 2,
-        direction: 'A-т ср.364',
-        rRRiser: 3432,
-        dok: 2334,
-        mass: 4223.32,
-        pasport: 168,
-        shipment: 3212,
-        note: '',
-      },
-      {
-        id: 3,
-        direction: 'A-т ср.364',
-        rRRiser: 3432,
-        dok: 2334,
-        mass: 4223.32,
-        pasport: 168,
-        shipment: 3212,
-        note: '',
-      },
-      {
-        id: 4,
-        direction: 'A-т ср.364',
-        rRRiser: 3432,
-        dok: 2334,
-        mass: 4223.32,
-        pasport: 168,
-        shipment: 3212,
-        note: 'Tруба',
-      },
-    ],
-    filter: [
-      {
-        id: 1,
-        name: 'Мазут'
-      },
-      {
-        id: 2,
-        name: 'Мазут'
-      },
-      {
-        id: 3,
-        name: 'Мазут'
-      },
-      {
-        id: 4,
-        name: 'Мазут'
-      },
-      {
-        id: 5,
-        name: 'Мазут'
-      }
-    ],
-    filterTanks: [
-      {
-        id: 1,
-        name: 'Керосины',
-        valuesTank: [
-          {
-            id: 1,
-            number: 1,
-            work: true,
-            limit: 60,
-            valueCap: 521,
-          },
-          {
-            id: 2,
-            number: 1,
-            work: true,
-            limit: 60,
-            valueCap: 521,
-          },
+        tableLeft: [
+            // {
+            //     id: 1,
+            //     number: 4643,
+            //     rR: 442,
+            //     product: 'ДТ ЕВРО сорт F, вид III(ДТ-Е-К5)',
+            //     passport: 168,
+            //     dateFrom: new Date(),
+            //     dateTo: new Date(),
+            //     mass: 4223.23,
+            //     deviation: 3.3,
+            //     status: 'open'
+            // },
+            // {
+            //     id: 2,
+            //     number: 4643,
+            //     rR: 442,
+            //     product: 'ДТ ЕВРО сорт F, вид III(ДТ-Е-К5)',
+            //     passport: 168,
+            //     dateFrom: new Date(),
+            //     dateTo: new Date(),
+            //     mass: 4223.23,
+            //     deviation: 3.3,
+            //     status: 'close'
+            // },
+            // {
+            //     id: 3,
+            //     number: 4643,
+            //     rR: 442,
+            //     product: 'ДТ ЕВРО сорт F, вид III(ДТ-Е-К5)',
+            //     passport: 168,
+            //     dateFrom: new Date(),
+            //     dateTo: new Date(),
+            //     mass: 4223.23,
+            //     deviation: 3.3,
+            //     status: 'close&norm'
+            // },
+            // {
+            //     id: 4,
+            //     number: 4643,
+            //     rR: 442,
+            //     product: 'ДТ ЕВРО сорт F, вид III(ДТ-Е-К5)',
+            //     passport: 168,
+            //     dateFrom: new Date(),
+            //     dateTo: new Date(),
+            //     mass: 4223.23,
+            //     deviation: 3.3,
+            //     status: 'close&critical'
+            // }
+        ],
+        received: [
+            {
+                id: 1,
+                name: 'Открыть график',
+                type: 'line'
+            },
+            {
+                id: 2,
+                name: 'Отредактировать ёмкости для отгрузки',
+                type: 'filter'
+            },
+            {
+                id: 3,
+                name: 'Список паспортов LIMS',
+                type: 'reference'
+            },
+            {
+                id: 4,
+                name: 'Публикации в БЛПС',
+                type: 'reference'
+            }
+        ],
+        shipment: [
+            {
+                id: 1,
+                name: 'Свободные отгрузки',
+                value: 2352,
+                type: 'free'
+            },
+            {
+                id: 2,
+                name: 'Привязать отгрузки автоматически',
+                type: 'filter'
+            },
+            {
+                id: 3,
+                name: 'Создать корректировку',
+                type: 'adjust'
+            }
+        ],
+        tableRight: [
+            // {
+            //     id: 1,
+            //     direction: 'A-т ср.364',
+            //     rRRiser: 3432,
+            //     dok: 2334,
+            //     mass: 4223.32,
+            //     pasport: 168,
+            //     shipment: 3212,
+            //     note: 'Tруба'
+            // },
+            // {
+            //     id: 2,
+            //     direction: 'A-т ср.364',
+            //     rRRiser: 3432,
+            //     dok: 2334,
+            //     mass: 4223.32,
+            //     pasport: 168,
+            //     shipment: 3212,
+            //     note: ''
+            // },
+            // {
+            //     id: 3,
+            //     direction: 'A-т ср.364',
+            //     rRRiser: 3432,
+            //     dok: 2334,
+            //     mass: 4223.32,
+            //     pasport: 168,
+            //     shipment: 3212,
+            //     note: ''
+            // },
+            // {
+            //     id: 4,
+            //     direction: 'A-т ср.364',
+            //     rRRiser: 3432,
+            //     dok: 2334,
+            //     mass: 4223.32,
+            //     pasport: 168,
+            //     shipment: 3212,
+            //     note: 'Tруба'
+            // }
+        ],
+        filter: [
+            {
+                id: 1,
+                name: 'Мазут'
+            },
+            {
+                id: 2,
+                name: 'Мазут'
+            },
+            {
+                id: 3,
+                name: 'Мазут'
+            },
+            {
+                id: 4,
+                name: 'Мазут'
+            },
+            {
+                id: 5,
+                name: 'Мазут'
+            }
+        ],
+        filterTanks: [
+            {
+                id: 1,
+                name: 'Керосины',
+                valuesTank: [
+                    {
+                        id: 1,
+                        number: 1,
+                        work: true,
+                        limit: 60,
+                        valueCap: 521
+                    },
+                    {
+                        id: 2,
+                        number: 1,
+                        work: true,
+                        limit: 60,
+                        valueCap: 521
+                    }
+                ]
+            }
         ]
-      },
-    ],
-  };
+    };
 
     filter: IOilOperationsButton = {
         isFilter: false,
         filter: false,
         line: false,
         adjust: false,
-        free: false,
+        free: false
     };
 
     constructor(
@@ -238,15 +238,12 @@ export class OilOperationsComponent extends WidgetPlatform implements OnInit, On
     protected dataConnect(): void {
         super.dataConnect();
         this.subscriptions.push(
-            this.widgetService.currentDates$.subscribe((ref) => {
-                    this.onDatesChange(ref);
-                }
-            ),
+            this.widgetService.currentDates$.subscribe(this.onDatesChange.bind(this))
         );
     }
 
     // TODO вынести проверку на null в сервис
-    private onDatesChange(dates: IDatesInterval): void {
+    private async onDatesChange(dates: IDatesInterval): Promise<void> {
         if (!dates) {
             dates = {
                 fromDateTime: new Date(),
@@ -256,9 +253,55 @@ export class OilOperationsComponent extends WidgetPlatform implements OnInit, On
             dates.fromDateTime.setHours(0, 0, 0);
         }
         this.currentDates = dates;
-        console.log(this.currentDates);
-        // this.oilOperationService.getTransferList(this.currentDates);
+
+        const dataLoadQueue: Promise<void>[] = [];
+        dataLoadQueue.push(
+            this.getLeftTable().then((ref) => {
+                this.data.tableLeft = ref.slice(0, 10);
+            }),
+            this.getRightTable().then((ref) => {
+                this.data.tableRight = ref;
+            }),
+        );
+        await Promise.all(dataLoadQueue);
     }
+
+    public async getLeftTable(): Promise<ILeftOilTable[]> {
+        const oilOperations = await this.oilOperationService.getTransferList(this.currentDates);
+        return oilOperations.map<ILeftOilTable>((o) => {
+            return {
+                id: o.id,
+                number: 0, // TODO
+                rR: 0, // TODO
+                product: o.product,
+                passport: o.passport?.id ?? null,
+                dateFrom: new Date(o.startTime),
+                dateTo: new Date(o.endTime),
+                mass: o.mass,
+                deviation: o.deviation,
+                status: o.status
+            };
+        });
+    }
+
+    public async getRightTable(): Promise<IRightOilTable[]> {
+        const oilShipment = await this.oilOperationService.getShipmentList(this.currentDates);
+        console.log(oilShipment);
+        return oilShipment.map<IRightOilTable>((s) => {
+            return {
+                id: s.id,
+                direction: s.direction,
+                rRRiser: 0, // TODO
+                dok: s.documentNumber, // TODO
+                mass: s.mass,
+                pasport: s.passport.id,
+                shipment: 0, // TODO
+                note: s.note,
+            };
+        });
+    }
+
+
 
     ngOnDestroy(): void {
         super.ngOnDestroy();
@@ -292,11 +335,11 @@ export class OilOperationsComponent extends WidgetPlatform implements OnInit, On
 
     active(itemActive: string): void {
         Object.keys(this.filter).forEach(key => {
-              if (key === itemActive) {
-                  this.filter[key] = true;
-              } else {
-                  this.filter[key] = false;
-              }
+            if (key === itemActive) {
+                this.filter[key] = true;
+            } else {
+                this.filter[key] = false;
+            }
         });
     }
 

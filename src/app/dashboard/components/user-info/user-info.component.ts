@@ -22,6 +22,7 @@ export class UserInfoComponent implements OnInit, OnDestroy {
         middleName: '',
         brigade: { id: 0, number: '' },
         positionDescription: '',
+        isShiftWorker: false,
     };
 
     public photoPath: string = 'assets/icons/widgets/admin/default_avatar2.svg';

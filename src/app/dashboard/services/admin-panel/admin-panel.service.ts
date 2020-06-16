@@ -12,7 +12,7 @@ import {
     IUserImported,
 } from '../../models/admin-panel';
 import { IUser, IUnitEvents } from '../../models/events-widget';
-import { IWidgets } from '../../models/widget.model';
+import { IWidget } from '../../models/widget.model';
 import { fillDataShape } from '../../../@shared/common-functions';
 import { AuthService } from '@core/service/auth.service';
 import { AvatarConfiguratorService } from '../avatar-configurator.service';
@@ -38,6 +38,7 @@ export class AdminPanelService {
         positionDescription: '',
         displayName: '',
         department: '',
+        isShiftWorker: false,
     };
 
     public allWorkers$: BehaviorSubject<IUser[]> = new BehaviorSubject<IUser[]>(null);
@@ -56,7 +57,7 @@ export class AdminPanelService {
     public generalClaims: IGlobalClaim[] = [];
     public specialClaims: IGlobalClaim[] = [];
 
-    public allWidgets: IWidgets[] = [];
+    public allWidgets: IWidget[] = [];
     public allScreens: IWorkspace[] = [];
 
     public settingsAlert: IAlertWindowModel = {
@@ -160,9 +161,9 @@ export class AdminPanelService {
     //#endregion
 
     //#region SPECIAL_CLAIMS
-    public getAllWidgets(): Observable<{ data: IWidgets[] }> {
+    public getAllWidgets(): Observable<{ data: IWidget[] }> {
         const url: string = `${this.restUrl}/claim/getavaible-widgets`;
-        return this.http.get<{ data: IWidgets[] }>(url);
+        return this.http.get<{ data: IWidget[] }>(url);
     }
 
     public getAllSpecialClaims(): Observable<{ data: IGlobalClaim[] }> {

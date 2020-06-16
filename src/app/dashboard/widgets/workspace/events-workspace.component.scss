@@ -44,7 +44,7 @@ $border-size: 4px;
 .container {
   position: relative;
   width: 100%;
-  height: 100%;
+  height: calc(100% - 1px);
   box-sizing: border-box;
   margin-bottom: 20px;
   display: flex;
@@ -98,4 +98,40 @@ $border-size: 4px;
 
   overflow: hidden;
   overflow-x: auto;
+}
+
+/// GRAPH OPEN
+#overlay-chart {
+  position: fixed;
+  display: block;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.2);
+  z-index: 2;
+  cursor: pointer;
+
+  .overlay-chart {
+    &__body {
+      font-family: Tahoma, sans-serif;
+      font-size: 12px;
+      font-weight: 100;
+      color: var(--color-text-sub);
+
+      background-color: var(--color-bg-main);
+      min-height: 300px;
+      max-width: 90%;
+      // display: flex;
+      margin: 0 auto;
+      margin-top: 20%;
+      cursor: default;
+
+      border-radius: 5px;
+      border: 1px solid var(--color-border-main);
+      padding: 10px;
+    }
+  }
 }

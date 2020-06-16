@@ -23,17 +23,17 @@ $container-padding: 5px;
 .scroll-container{
   height: 100%;
   direction: rtl;
-  width: calc(100% - 20px);
+  width: calc(100% - 10px);
   margin: 0 auto;
   margin-right: 0;
-  overflow: auto;
+  overflow: overlay;
 }
 
 ::-webkit-scrollbar {
     width: 4px;
     height: 4px;
   }
-  
+
   ::-webkit-scrollbar-track:vertical {
     width: 4px;
     height: 4px;
@@ -41,22 +41,22 @@ $container-padding: 5px;
     margin-bottom: 5px;
     border-radius: 25px;
   }
-  
+
   :hover::-webkit-scrollbar-thumb {
     background-color: var(--color-border-active);
     border-radius: 25px;
   }
-  
+
   :hover::-webkit-scrollbar-track-piece {
   //  border: solid 1px var(--color-border-active);
   }
-  
+
   ::-webkit-scrollbar-thumb {
     width: 10px;
     border-radius: 25px;
     background-color: var(--color-border-main);
   }
-  
+
   ::-webkit-scrollbar-track {
     border-radius: 25px;
   }
@@ -64,7 +64,7 @@ $container-padding: 5px;
   //  border: solid 1px var(--color-border-main);
     border-radius: 25px;
   }
-  
+
   ::-webkit-resizer {
     background-color: var(--color-border-active);
   }

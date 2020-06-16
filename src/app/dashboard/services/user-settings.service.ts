@@ -10,6 +10,8 @@ import { WidgetService } from './widget.service';
 import { ClaimService } from './claim.service';
 import { GridsterItem, GridsterItemComponentInterface } from 'angular-gridster2';
 import { SnackBarService } from './snack-bar.service';
+import { OverlayService } from './overlay.service';
+import { Router } from '@angular/router';
 
 @Injectable({
     providedIn: 'root',
@@ -32,9 +34,10 @@ export class UserSettingsService {
         private claimService: ClaimService,
         private configService: AppConfigService,
         private snackBar: SnackBarService,
+        private overlayService: OverlayService,
+        private router: Router,
     ) {
         this.restUrl = configService.restUrl;
-        localStorage.getItem('screen');
     }
 
     public create_UUID(): string {
@@ -118,9 +121,18 @@ export class UserSettingsService {
         this.updateWidgetApi(oldItem.uniqid);
     }
 
-    public async removeItem(widgetId: string): Promise<any> {
-        return await this.http.delete(this.restUrl + '/api/user-management/widget/' + widgetId)
-            .toPromise();
+    public async removeItem(widgetId: string): Promise<void> {
+        this.overlayService.setIsLoad(true);
+        try {
+            await this.http.delete(this.restUrl + '/api/user-management/widget/' + widgetId)
+                .toPromise();
+            this.widgetService.removeItemService(widgetId);
+        } catch (e) {
+            console.error(`widget delete error: ${e}`);
+        } finally {
+            this.overlayService.setIsLoad(false);
+        }
+
     }
 
     public GetScreens(): void {
@@ -144,7 +156,7 @@ export class UserSettingsService {
             return this.http.get(this.restUrl + '/api/user-management/screen/' + id).pipe(
                 catchError((err) => {
                     if (
-                        err.status === 404 &&
+                        (err.status === 404 || err.status === 403) &&
                         loadDefault
                     ) {
                         return this.LoadScreenAsync(dataScreen[0].id, false);
@@ -159,9 +171,11 @@ export class UserSettingsService {
 
     public LoadScreen(id: number): Subscription {
         localStorage.setItem('screenid', id.toString());
+        sessionStorage.setItem('screenid', id.toString());
         this.widgetService.dashboard = [];
         this.claimService.setClaimsByScreen(null);
         return this.LoadScreenAsync(id, true).subscribe((item: IScreenSettings) => {
+            // this.router.navigate([], { queryParams: {screenId: item.id}});
             this.claimService.setClaimsByScreen(item.claims);
             this.ScreenId = item.id;
             this.ScreenName = item.screenName;

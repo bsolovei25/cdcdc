@@ -2,13 +2,14 @@ $container-padding: 5px;
 
 .body-container {
   display: flex;
-  height: calc(100% - 66px);
+  height: calc(100% - 60px);
   flex-wrap: wrap;
   padding: $container-padding;
   position: relative;
-  width: calc(100% - 1px - #{$container-padding * 2});
+  width: 100%;
   border-left: dashed 0.5px var(--color-border-main);
   border-right: dashed 0.5px var(--color-border-main);
+  box-sizing: border-box;
 }
 
 .container {

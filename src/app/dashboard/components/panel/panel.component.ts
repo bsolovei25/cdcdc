@@ -29,6 +29,9 @@ export class PanelComponent implements OnInit, OnDestroy {
     public claimSettingsScreens: EnumClaimScreens[] = [];
     EnumClaimScreens = EnumClaimScreens;
 
+    public claimSettingsWidgets: EnumClaimWidgets[] = [];
+    EnumClaimWidgets = EnumClaimWidgets;
+
     private subscriptions: Subscription[] = [];
 
     constructor(private claimService: ClaimService) {}
@@ -40,6 +43,9 @@ export class PanelComponent implements OnInit, OnDestroy {
         this.subscriptions.push(
             this.claimService.claimScreens$.subscribe((claims) => {
                 this.claimSettingsScreens = claims;
+            }),
+            this.claimService.claimWidgets$.subscribe((claims) => {
+                this.claimSettingsWidgets = claims;
             })
         );
     }

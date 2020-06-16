@@ -23,6 +23,7 @@ export class AdminEmployeeComponent implements OnInit, OnDestroy {
         position: 'common',
         positionDescription: '',
         displayName: '',
+        isShiftWorker: false,
     };
 
     public activeWorker: IUser = null;

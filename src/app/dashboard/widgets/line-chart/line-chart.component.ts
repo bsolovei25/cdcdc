@@ -20,6 +20,7 @@ import { Subscription } from 'rxjs';
 import { LineChartData, LineChartGraph, LineChartGraphValue } from '../../models/line-chart';
 import { WidgetService } from '../../services/widget.service';
 import { WidgetPlatform } from '../../models/widget-platform';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
     selector: 'evj-line-chart',
@@ -118,6 +119,7 @@ export class LineChartComponent extends WidgetPlatform implements OnInit, OnDest
 
     constructor(
         public widgetService: WidgetService,
+        private http: HttpClient,
         @Inject('isMock') public isMock: boolean,
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string
@@ -144,7 +146,9 @@ export class LineChartComponent extends WidgetPlatform implements OnInit, OnDest
         this.disableLiveData();
     }
 
-    protected dataHandler(ref: any): void {
+    protected async dataHandler(ref: any): Promise<void> {
+        // const tempData: any = await this.http.get(`assets/mock/LineChartMock/ws.json`).toPromise();
+        // this.dataLine = tempData.data;
         this.dataLine = ref;
         this.dataLine.graphs.map((x) => x.values.map((z) => (z.date = new Date(z.date))));
         this.draw(this.dataLine);
@@ -173,7 +177,9 @@ export class LineChartComponent extends WidgetPlatform implements OnInit, OnDest
     }
 
     private draw(data): void {
-        if (!this.widgetOptions) return;
+        if (!this.widgetOptions) {
+            return;
+        }
 
         if (this.svg) {
             this.svg.remove();
@@ -184,22 +190,33 @@ export class LineChartComponent extends WidgetPlatform implements OnInit, OnDest
         this.startChart();
     }
 
-    private buildData(data) {
-        const xMax = d3Array.max(data.graphs, (c) => d3Array.max(c.values, (d) => d.date));
+    private buildData(data): any {
+        const xMax = d3.max(data.graphs, (c) => d3.max(c.values, (d) => d.date));
+        const xMin = d3.min(data.graphs, (c) => d3.min(c.values, (d) => d.date));
         data.graphs
             .filter((x) => x.graphType !== 'fact')
             .forEach((g) => {
                 this.fillToXMAx(g.values, xMax);
+                this.fillToXMin(g.values, xMin);
             });
+
         return data;
     }
 
-    private fillToXMAx(values, xMax) {
+    private fillToXMAx(values, xMax): any {
         const latest = values.slice().reverse()[0];
-        const xMaxDate = new Date(xMax);
-        if (latest && new Date(latest.date).getTime() !== xMaxDate.getTime()) {
+        if (latest?.date?.getTime() !== xMax?.getTime()) {
             return values.push({ value: latest.value, date: xMax });
         }
+        // return values.push({ value: 0, date: xMax });
+    }
+
+    private fillToXMin(values, xMin): any {
+        const first = values[0];
+        if (first?.date?.getTime() !== xMin?.getTime()) {
+            return values.unshift({ value: first.value, date: xMin });
+        }
+        // return values.push({ value: 0, date: xMin });
     }
 
     private startChart(): void {

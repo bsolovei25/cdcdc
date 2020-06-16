@@ -1,12 +1,12 @@
 import { IUser } from './events-widget';
-import { IWidgets } from './widget.model';
+import { IWidget } from './widget.model';
 import { IWorker } from './worker';
 import { IBrigade } from './shift.model';
 
 export interface IAdminPanel {
     person: IUser;
     workspaces: IWorkspace[];
-    availableWidgets: IWidgets[];
+    availableWidgets: IWidget[];
     claims: IClaim[];
 }
 

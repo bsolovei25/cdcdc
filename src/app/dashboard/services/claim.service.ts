@@ -47,6 +47,7 @@ export class ClaimService {
     }
 
     public setClaimsByScreen(claims: IClaim[]): void {
+        console.log(claims);
         const claimsWidget: EnumClaimWidgets[] = [];
         claims?.forEach((claim) => {
             switch (claim.claimType) {
@@ -64,6 +65,7 @@ export class ClaimService {
                     claimsWidget.push(EnumClaimWidgets.move);
                     break;
                 case 'screenAdmin':
+                case 'screensAdmin':
                     claimsWidget.push(EnumClaimWidgets.add);
                     claimsWidget.push(EnumClaimWidgets.delete);
                     claimsWidget.push(EnumClaimWidgets.move);
@@ -71,13 +73,11 @@ export class ClaimService {
                     break;
             }
         });
-        // console.log(claimsWidget);
         this.claimWidgets$.next(claimsWidget);
     }
 
     public async getClaim(): Promise<void> {
         const allUserClaims = await this.getClaimAll();
-        // console.log(allUserClaims);
         const claimsScreen: EnumClaimScreens[] = [];
         allUserClaims.data.forEach((claim) => {
             switch (claim.claimType) {
@@ -90,13 +90,12 @@ export class ClaimService {
                     break;
             }
         });
-        // console.log(claimsScreen);
         this.claimScreens$.next(claimsScreen);
     }
 
     async getClaimAll(): Promise<{ data: IClaim[] }> {
         try {
-            return this.http
+            return await this.http
                 .get<{ data: IClaim[] }>(this.restUrl + `/api/user-management/claim/all`)
                 .toPromise();
         } catch (error) {
