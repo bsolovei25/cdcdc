@@ -4,7 +4,7 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { AdminPanelService } from '../../../services/admin-panel/admin-panel.service';
 import { IUser, IUnitEvents } from '../../../models/events-widget';
 import { Subscription, combineLatest } from 'rxjs';
-import { IWidgets } from '../../../models/widget.model';
+import { IWidget } from '../../../models/widget.model';
 import { IAlertWindowModel } from '../../../../@shared/models/alert-window.model';
 import { FormControl, Validators } from '@angular/forms';
 import { SnackBarService } from '../../../services/snack-bar.service';
@@ -185,7 +185,7 @@ export class AdminGroupsComponent implements OnInit, OnDestroy {
     }
 
     public findEntityByClaimValue(claim: IGlobalClaim): string {
-        let entity: IUnitEvents | IWidgets;
+        let entity: IUnitEvents | IWidget;
         switch (claim.claimValueType) {
             case 'unit':
                 entity = this.adminService.units.find((item) => item.id === +claim.value);

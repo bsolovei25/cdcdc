@@ -65,6 +65,7 @@ export class WidgetsGridComponent implements OnInit, OnDestroy {
     ) { }
 
     public ngOnInit(): void {
+        console.log('widget-grid start');
         document.addEventListener('fullscreenchange', () => {
             this.fullscreen = !!document.fullscreenElement;
         });

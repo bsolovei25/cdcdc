@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, EventEmitter, Output, OnDestroy } from '@angular/core';
-import { IWidgets } from '../../models/widget.model';
+import { IWidget } from '../../models/widget.model';
 import { Subscription } from 'rxjs';
 import { WidgetService } from '../../services/widget.service';
 
@@ -26,7 +26,7 @@ export class SearchComponent implements OnInit, OnDestroy {
 
     ngOnInit(): void {
         this.subscriptions.push(
-            this.widgetService.widgets$.subscribe((dataW) => {
+            this.widgetService.widgetsPanel$.subscribe((dataW) => {
                 this.arrayType = this.filterData(dataW);
             })
         );
@@ -40,7 +40,7 @@ export class SearchComponent implements OnInit, OnDestroy {
         this.isVisibleFilter = data;
     }
 
-    public filterData(data: IWidgets[]): string[] {
+    public filterData(data: IWidget[]): string[] {
         let newCategoryArray = [];
         data.forEach((value) => {
             if (value?.categories?.length > 0) {

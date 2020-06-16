@@ -36,8 +36,6 @@ export class UserSettingsService {
         private overlayService: OverlayService,
     ) {
         this.restUrl = configService.restUrl;
-        // localStorage.getItem('screen');
-        // console.log('start');
     }
 
     public create_UUID(): string {
@@ -156,7 +154,7 @@ export class UserSettingsService {
             return this.http.get(this.restUrl + '/api/user-management/screen/' + id).pipe(
                 catchError((err) => {
                     if (
-                        err.status === 404 &&
+                        (err.status === 404 || err.status === 403) &&
                         loadDefault
                     ) {
                         return this.LoadScreenAsync(dataScreen[0].id, false);
@@ -178,6 +176,7 @@ export class UserSettingsService {
             this.claimService.setClaimsByScreen(item.claims);
             this.ScreenId = item.id;
             this.ScreenName = item.screenName;
+            // this.widgetService.addScreenWidgets(item.widgets);
             this.widgetService.dashboard = item.widgets.map((widget) => {
                 const minItemCols = WIDGETS[widget.widgetType]?.minItemCols ?? 6;
                 const minItemRows = WIDGETS[widget.widgetType]?.minItemRows ?? 6;
