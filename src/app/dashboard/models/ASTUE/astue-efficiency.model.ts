@@ -3,3 +3,8 @@ export interface IAsEfCard {
     icon?: string;
     status?: string;
 }
+
+export interface IAsEfUnit {
+    name: string;
+    streams: IAsEfCard[];
+}

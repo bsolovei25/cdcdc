@@ -7,11 +7,11 @@
       src="assets/icons/widgets/ASTUE/astue-efficiency/units/arrow.svg"
     />
     <img class="icon-unit" src="assets/icons/widgets/ASTUE/astue-efficiency/units/unit.svg" />
-    АВТ-6
+    {{unit.name}}
     <div
       class="header__button button"
-      [ngClass]="{'button_active':isClicked}"
-      (click)="isClicked=!isClicked"
+      [ngClass]="{'button_active':isSelected}"
+      (click)="onSelectUnit()"
     >
       <img
         class="icon icon-unactive"
@@ -24,7 +24,7 @@
     </div>
   </div>
   <div class="card__streams streams" [ngClass]="{'streams_open':isOpen}">
-    <div class="streams__item" *ngFor="let card of data">
+    <div class="streams__item" *ngFor="let card of unit.streams">
       <evj-astue-efficiency-item-card
         [isActive]="cardSelection.isSelected(card)"
         [isListItem]="true"

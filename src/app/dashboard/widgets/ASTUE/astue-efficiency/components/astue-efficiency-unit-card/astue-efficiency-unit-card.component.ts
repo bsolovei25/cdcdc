@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { IAsEfCard } from '../../../../../models/ASTUE/astue-efficiency.model';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { IAsEfCard, IAsEfUnit } from '../../../../../models/ASTUE/astue-efficiency.model';
 import { SelectionModel } from '@angular/cdk/collections';
 
 @Component({
@@ -8,20 +8,9 @@ import { SelectionModel } from '@angular/cdk/collections';
     styleUrls: ['./astue-efficiency-unit-card.component.scss'],
 })
 export class AstueEfficiencyUnitCardComponent implements OnInit {
-    public data: IAsEfCard[] = [
-        {
-            name: 'Поток №1',
-            status: 'FQIR 0051',
-        },
-        {
-            name: 'Поток №2',
-            status: 'FQIR 0051',
-        },
-        {
-            name: 'Поток №3',
-            status: 'FQIR 0051',
-        },
-    ];
+    @Input() public unit: IAsEfUnit;
+    @Input() public isSelected: boolean = false;
+    @Output() private selectUnit: EventEmitter<void> = new EventEmitter<void>();
 
     public isClicked: boolean = false;
     public isOpen: boolean = false;
@@ -31,4 +20,8 @@ export class AstueEfficiencyUnitCardComponent implements OnInit {
     constructor() {}
 
     public ngOnInit(): void {}
+
+    public onSelectUnit(): void {
+        this.selectUnit.emit();
+    }
 }
