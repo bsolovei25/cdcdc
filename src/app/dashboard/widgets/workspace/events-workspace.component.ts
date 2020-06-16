@@ -94,7 +94,6 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
     // нажатие на кнопку в хэдере
     createdEvent(isEdit: boolean): void {
         if (isEdit && this.ewService.eventCompare(this.ewService.event, this.ewService.originalEvent)) {
-            this.ewService.goBackEvent();
             if (this.ewService.isCreateNewEvent) {
                 this.ewService.refreshEvent();
             } else {

@@ -1,6 +1,6 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { IGlobalClaim } from '../../../../models/admin-panel';
-import { IWidgets } from '../../../../models/widget.model';
+import { IWidget } from '../../../../models/widget.model';
 import { AdminPanelService } from '../../../../services/admin-panel/admin-panel.service';
 import { SelectionModel } from '@angular/cdk/collections';
 import { fillDataShape } from '../../../../../@shared/common-functions';
@@ -17,11 +17,11 @@ export class AwsCreateClaimComponent implements OnInit {
     >();
 
     public allClaims: IGlobalClaim[] = [];
-    public allWidgets: IWidgets[] = [];
+    public allWidgets: IWidget[] = [];
     public allUnits: IUnitEvents[] = [];
 
     public selectClaim: SelectionModel<IGlobalClaim> = new SelectionModel<IGlobalClaim>();
-    public selectWidget: SelectionModel<IWidgets> = new SelectionModel<IWidgets>(true);
+    public selectWidget: SelectionModel<IWidget> = new SelectionModel<IWidget>(true);
     public selectUnit: SelectionModel<IUnitEvents> = new SelectionModel<IUnitEvents>(true);
 
     constructor(private adminService: AdminPanelService) {}
@@ -43,7 +43,7 @@ export class AwsCreateClaimComponent implements OnInit {
         return true;
     }
 
-    public formEntitiesList(): IWidgets[] {
+    public formEntitiesList(): IWidget[] {
         const additionalType = this.selectClaim?.selected[0]?.additionalType;
         if (additionalType) {
             return this.allWidgets.filter((widget) => widget.widgetType === additionalType);
@@ -84,7 +84,7 @@ export class AwsCreateClaimComponent implements OnInit {
     public onSave(): void {
         const selectedClaim: IGlobalClaim = this.selectClaim.selected[0];
         if (this.selectClaim.hasValue() && this.selectWidget.hasValue()) {
-            const selectedWidgets: IWidgets[] = this.selectWidget.selected;
+            const selectedWidgets: IWidget[] = this.selectWidget.selected;
             const claims: IGlobalClaim[] = [];
 
             selectedWidgets.forEach((widget) => {

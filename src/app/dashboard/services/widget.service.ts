@@ -3,7 +3,7 @@ import { Observable, BehaviorSubject } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 import { GridsterItem } from 'angular-gridster2';
-import { IWidgets } from '../models/widget.model';
+import { IWidget } from '../models/widget.model';
 import { AppConfigService } from 'src/app/services/appConfigService';
 import { EventsWidgetDataPreview } from '../models/events-widget';
 import { LineChartData } from '../models/line-chart';
@@ -40,10 +40,16 @@ export class WidgetService {
     public draggingItem: GridsterItem;
     public dashboard: GridsterItem[] = [];
 
-    private _widgets$: BehaviorSubject<IWidgets[]> = new BehaviorSubject([]);
-    public widgets$: Observable<IWidgets[]> = this._widgets$
+    private _widgets$: BehaviorSubject<IWidget[]> = new BehaviorSubject([]);
+    public widgets$: Observable<IWidget[]> = this._widgets$
         .asObservable()
         .pipe(filter((item) => item !== null));
+    public widgetsPanel$: Observable<IWidget[]> = this._widgets$
+        .asObservable()
+        .pipe(
+            filter((item) => item !== null),
+            map((widgets) => widgets.filter((widget) => widget.isClaim))
+        );
 
     private reconnectWsTimer: any;
     private reconnectRestTimer: any;
@@ -72,11 +78,11 @@ export class WidgetService {
         setInterval(() => this.reloadPage(), 1800000);
     }
 
-    private getAvailableWidgets(): Observable<IWidgets[]> {
+    private getAvailableWidgets(): Observable<IWidget[]> {
         return this.http
             .get(this.restUrl + `/api/user-management/Claim/user/GetAvailableWidgets`)
             .pipe(
-                map((ans: { data: IWidgets[] }) => {
+                map((ans: { data: IWidget[] }) => {
                     return this.mapData(ans.data);
                 })
             );
@@ -101,8 +107,8 @@ export class WidgetService {
         console.log('minTime: ' + Math.min.apply(null, arr));
     }
 
-    mapData(data: IWidgets[]): IWidgets[] {
-        return data.map((item: IWidgets) => {
+    mapData(data: IWidget[]): IWidget[] {
+        return data.map((item: IWidget) => {
             return {
                 code: item.code,
                 id: item.id,
@@ -112,12 +118,13 @@ export class WidgetService {
                 widgetOptions: item.widgetOptions,
                 widgetType: item.widgetType,
                 categories: item.categories,
+                isClaim: item.isClaim,
             };
         });
     }
 
     getName(widgetId: string): string {
-        const widgetNames: IWidgets = this._widgets$.getValue().find((x) => x.id === widgetId);
+        const widgetNames: IWidget = this._widgets$.getValue().find((x) => x.id === widgetId);
         if (widgetNames) {
             return widgetNames.widgetType;
         }
@@ -131,7 +138,7 @@ export class WidgetService {
         this.dashboard.splice(idx, 1);
     }
 
-    getWidgetChannel(widgetId: string): Observable<IWidgets> {
+    getWidgetChannel(widgetId: string): Observable<IWidget> {
         return this.widgets$.pipe(map((i) => i.find((x) => x.id === widgetId)));
     }
 
