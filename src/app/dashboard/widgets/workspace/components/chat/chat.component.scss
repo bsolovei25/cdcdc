@@ -1,3 +1,5 @@
+@import "src/mixins";
+
 :host {
   height: inherit;
   width: inherit;
@@ -158,6 +160,53 @@
     &_odd {
       background: var(--color-bg-card-sec);
     }
+
+    &_files {
+      width: 100%;
+
+      &__list {
+        width: calc(100% - 30px);
+        display: flex;
+        flex-wrap: wrap;
+        padding: 15px;
+
+        .list-item {
+          width: 80px;
+          height: 28px;
+          border-radius: 5px;
+          margin: 0 8px 8px 0;
+          background: var(--color-aw-container-body-transparent);
+          position: relative;
+          padding: 7px 7px 13px 7px;
+          cursor: pointer;
+
+          &__icon {
+            margin: 0 10px 0 0;
+            float: left;
+          }
+
+          &__name,
+          &__size {
+            font-size: 9px;
+            float: left;
+            color: var(--color-text-main);
+            line-height: normal;
+          }
+
+          &__name {
+            width: 100%;
+            margin-top: -2px;
+            @include text-overflow;
+            -webkit-line-clamp: 1;
+          }
+
+          &__size {
+            width: 40px;
+            margin-top: 3px;
+          }
+        }
+      }
+    }
   }
 
   .info {
@@ -238,12 +287,28 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    position: relative;
 
     transition: 0.2s;
+
+    &--active {
+      border-color: var(--color-active);
+      background-color: var(--color-bg-active);
+    }
 
     &__icon {
       width: 15px;
       height: 15px;
+    }
+
+    &__files-flag {
+      width: 6px;
+      height: 6px;
+      position: absolute;
+      bottom: 2px;
+      right: 2px;
+      background-color: var(--color-active);
+      border-radius: 50%;
     }
 
     &:hover {

@@ -38,6 +38,10 @@ import { EventsChatComponent } from './components/events-chat/events-chat.compon
 import { InputComponent } from './components/input/input.component';
 import { AlertPasswordComponent } from './components/alert-password/alert-password.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { OverlayModule } from '@angular/cdk/overlay';
+import { PopoverOverlayComponent } from './components/popover-overlay/popover-overlay.component';
+import { MatDialogModule, MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @NgModule({
     declarations: [
@@ -72,6 +76,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
         EventsChatComponent,
         InputComponent,
         AlertPasswordComponent,
+        PopoverOverlayComponent,
     ],
     exports: [
         HeaderComponent,
@@ -114,7 +119,16 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
         MatSelectModule,
         ReactiveFormsModule,
         MatProgressSpinnerModule,
+        OverlayModule,
+        MatDialogModule,
+        MatTooltipModule,
     ],
-    providers: [SpaceNumber, LineBreakPipe],
+    providers: [
+        SpaceNumber,
+        LineBreakPipe,
+        MatDialog,
+        {provide: MatDialogRef, useValue: {}},
+        {provide: MAT_DIALOG_DATA, useValue: []},
+    ],
 })
 export class SharedModule {}

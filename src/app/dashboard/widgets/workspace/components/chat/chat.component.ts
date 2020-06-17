@@ -7,7 +7,14 @@ import {
     Output,
     EventEmitter,
 } from '@angular/core';
-import { IMessage } from '../../../../../@shared/models/message.model';
+import { IMessage } from '@shared/models/message.model';
+import {
+    PopoverOverlayService,
+} from '@shared/components/popover-overlay/popover-overlay.service';
+import {
+    FileAttachMenuComponent,
+    IChatFileAttach
+} from '../file-attach-menu/file-attach-menu.component';
 
 @Component({
     selector: 'evj-chat',
@@ -29,7 +36,13 @@ export class ChatComponent implements OnInit {
 
     public get headerTitle(): string { return this.dataTitle + '123'; }
 
-    constructor() {}
+    public filesToUpload: IChatFileAttach[] = [];
+
+    public isFilePopoverOpened: boolean = false;
+
+    constructor(
+        private popoverOverlayService: PopoverOverlayService,
+    ) {}
 
     public ngOnInit(): void {}
 
@@ -52,5 +65,21 @@ export class ChatComponent implements OnInit {
                 this.scrollToBottom();
             }, 50);
         }
+    }
+
+    public openAttachFilePopover(origin: HTMLElement): void {
+        const popoverRef = this.popoverOverlayService.open({
+            content: FileAttachMenuComponent,
+            origin,
+            data: this.filesToUpload,
+        });
+        this.isFilePopoverOpened = true;
+
+        popoverRef.afterClosed$.subscribe(res => {
+            this.isFilePopoverOpened = false;
+            if (res && res.data) {
+                this.filesToUpload = res.data as IChatFileAttach[];
+            }
+        });
     }
 }
