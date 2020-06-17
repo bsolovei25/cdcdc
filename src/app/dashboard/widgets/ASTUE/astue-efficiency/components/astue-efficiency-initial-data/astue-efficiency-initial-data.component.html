@@ -5,18 +5,12 @@
       <div class="table-header__item">Наименование</div>
       <div class="table-header__item">Итого</div>
     </div>
-    <ng-container *ngFor="let block of data">
-      <div class="table__block block" [ngClass]="{'block_open':blockSelection.isSelected(block)}">
-        <div class="block__main main" (click)="blockSelection.toggle(block)">
-          <img class="arrow" src="assets/icons/widgets/ASTUE/astue-efficiency/units/arrow.svg" />
-          <div class="cell cell_title">{{block.name}}</div>
-          <div class="cell cell_value">{{block.value}}</div>
-        </div>
-        <div class="block__item" *ngFor="let item of block.data">
-          <div class="cell cell_title">{{item.name}}</div>
-          <div class="cell cell_value">{{item.value}}</div>
-        </div>
-      </div>
-    </ng-container>
+    <div class="table__block" *ngFor="let block of data">
+      <evj-astue-efficiency-inintial-data-block
+        [block]="block"
+        [isOpen]="blockSelection.isSelected(block)"
+        (clicked)="blockSelection.toggle(block)"
+      ></evj-astue-efficiency-inintial-data-block>
+    </div>
   </div>
 </div>

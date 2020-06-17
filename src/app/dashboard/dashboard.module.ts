@@ -288,6 +288,7 @@ import { AstueEfficiencyUnitsComponent } from './widgets/ASTUE/astue-efficiency/
 import { AstueEfficiencyUnitCardComponent } from './widgets/ASTUE/astue-efficiency/components/astue-efficiency-unit-card/astue-efficiency-unit-card.component';
 import { AstueEfficiencyGraphDisplayComponent } from './widgets/ASTUE/astue-efficiency/components/astue-efficiency-graph-display/astue-efficiency-graph-display.component';
 import { AstueEfficiencyInitialDataComponent } from './widgets/ASTUE/astue-efficiency/components/astue-efficiency-initial-data/astue-efficiency-initial-data.component';
+import { AstueEfficiencyInintialDataBlockComponent } from './widgets/ASTUE/astue-efficiency/components/astue-efficiency-inintial-data-block/astue-efficiency-inintial-data-block.component';
 
 @NgModule({
     declarations: [
@@ -544,6 +545,7 @@ import { AstueEfficiencyInitialDataComponent } from './widgets/ASTUE/astue-effic
         AstueEfficiencyUnitCardComponent,
         AstueEfficiencyGraphDisplayComponent,
         AstueEfficiencyInitialDataComponent,
+        AstueEfficiencyInintialDataBlockComponent,
     ],
     entryComponents: [
         LineChartComponent,

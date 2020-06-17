@@ -37,6 +37,20 @@ export class AstueEfficiencyInitialDataComponent implements OnInit {
                 },
             ],
         },
+        {
+            name: 'План/Факт',
+            status: 'FQIR 0051',
+            data: [
+                {
+                    name: 'Ед. изм./т.',
+                    value: 74.543,
+                },
+                {
+                    name: 'Фактическая переработка',
+                    value: 4.543,
+                },
+            ],
+        },
     ];
 
     public isOpen: boolean = false;
@@ -47,5 +61,5 @@ export class AstueEfficiencyInitialDataComponent implements OnInit {
 
     constructor() {}
 
-    ngOnInit(): void {}
+    public ngOnInit(): void {}
 }
