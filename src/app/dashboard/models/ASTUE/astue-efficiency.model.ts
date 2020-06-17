@@ -20,3 +20,23 @@ export interface IAsEfInitialDataRow {
     name: string;
     value: number;
 }
+
+export interface IAsEfTableBlock {
+    name: string;
+    status?: string;
+    dataSummary?: string;
+    data?: IAsEfTableData[];
+    children: IAsEfTableRow[];
+}
+
+export interface IAsEfTableRow {
+    name: string;
+    dataSummary?: string;
+    data: IAsEfTableData[];
+}
+
+export interface IAsEfTableData {
+    date: Date;
+    value: string;
+    isEditable?: boolean;
+}

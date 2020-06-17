@@ -10,5 +10,47 @@
       <div class="button">Отмена</div>
     </div>
   </div>
-  <div class="table-display__table table"></div>
+  <div class="table-display__table table">
+    <table>
+      <thead>
+        <tr class="table__header table-header">
+          <th class="table-header__item">Наименование</th>
+          <th class="table-header__item">Итого</th>
+          <th class="table-header__item" *ngFor="let value of data[0].data">
+            {{value.date|date:'dd.MM'}}
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <ng-container *ngFor="let block of data">
+          <tr class="table__row block" (click)="blockSelection.toggle(block)">
+            <td class="block__item" [ngClass]="{'block__item-status': block.status}">
+              <img
+                class="arrow"
+                src="assets/icons/widgets/ASTUE/astue-efficiency/units/arrow.svg"
+              />
+              {{block.name}}
+              <div class="status" *ngIf="block.status">{{block.status}}</div>
+            </td>
+            <div class="block__item" style="border-left: none;" *ngIf="block.status"></div>
+            <td class="block__item with-status" *ngIf="block.status;else values"></td>
+            <ng-template #values>
+              <td class="block__item">{{block.dataSummary}}</td>
+              <td class="block__item" *ngFor="let value of block.data">{{value.value}}</td>
+            </ng-template>
+          </tr>
+          <ng-container *ngIf="blockSelection.isSelected(block)">
+            <tr class="table__row row" *ngFor="let child of block.children">
+              <td class="row__item">
+                {{child.name}}
+                <div class="status" *ngIf="block.status">{{block.status}}</div>
+              </td>
+              <td class="row__item">{{child.dataSummary}}</td>
+              <td class="row__item" *ngFor="let value of child.data">{{value.value}}</td>
+            </tr>
+          </ng-container>
+        </ng-container>
+      </tbody>
+    </table>
+  </div>
 </div>

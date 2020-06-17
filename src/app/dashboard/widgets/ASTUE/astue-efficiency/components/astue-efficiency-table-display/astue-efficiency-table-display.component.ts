@@ -1,4 +1,6 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { IAsEfTableBlock } from '../../../../../models/ASTUE/astue-efficiency.model';
+import { SelectionModel } from '@angular/cdk/collections';
 
 @Component({
     selector: 'evj-astue-efficiency-table-display',
@@ -7,6 +9,357 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 })
 export class AstueEfficiencyTableDisplayComponent implements OnInit {
     @Output() private toggleDisplay: EventEmitter<true> = new EventEmitter<true>();
+
+    public data: IAsEfTableBlock[] = [
+        {
+            name: 'План/факт',
+            dataSummary: '11.123',
+            data: [
+                {
+                    date: new Date(2020, 5, 1),
+                    value: '1.1123',
+                    isEditable: false,
+                },
+                {
+                    date: new Date(2020, 5, 2),
+                    value: '1.1123',
+                    isEditable: false,
+                },
+                {
+                    date: new Date(2020, 5, 3),
+                    value: '1.1123',
+                    isEditable: false,
+                },
+                {
+                    date: new Date(2020, 5, 4),
+                    value: '1.1123',
+                    isEditable: false,
+                },
+                {
+                    date: new Date(2020, 5, 5),
+                    value: '1.1123',
+                    isEditable: false,
+                },
+                {
+                    date: new Date(2020, 5, 6),
+                    value: '1.1123',
+                    isEditable: false,
+                },
+                {
+                    date: new Date(2020, 5, 7),
+                    value: '1.1123',
+                    isEditable: false,
+                },
+                {
+                    date: new Date(2020, 5, 8),
+                    value: '1.1123',
+                    isEditable: false,
+                },
+                {
+                    date: new Date(2020, 5, 9),
+                    value: '1.1123',
+                    isEditable: false,
+                },
+                {
+                    date: new Date(2020, 5, 10),
+                    value: '1.1123',
+                    isEditable: false,
+                },
+            ],
+            children: [
+                {
+                    name: 'Ед. изм./т.',
+                    dataSummary: '11.123',
+                    data: [
+                        {
+                            date: new Date(2020, 5, 1),
+                            value: '8.888',
+                            isEditable: false,
+                        },
+                        {
+                            date: new Date(2020, 5, 2),
+                            value: '8.888',
+                            isEditable: false,
+                        },
+                        {
+                            date: new Date(2020, 5, 3),
+                            value: '8.888',
+                            isEditable: false,
+                        },
+                        {
+                            date: new Date(2020, 5, 4),
+                            value: '8.888',
+                            isEditable: false,
+                        },
+                        {
+                            date: new Date(2020, 5, 5),
+                            value: '8.888',
+                            isEditable: false,
+                        },
+                        {
+                            date: new Date(2020, 5, 6),
+                            value: '8.888',
+                            isEditable: false,
+                        },
+                        {
+                            date: new Date(2020, 5, 7),
+                            value: '8.888',
+                            isEditable: false,
+                        },
+                        {
+                            date: new Date(2020, 5, 8),
+                            value: '8.888',
+                            isEditable: false,
+                        },
+                        {
+                            date: new Date(2020, 5, 9),
+                            value: '8.888',
+                            isEditable: false,
+                        },
+                        {
+                            date: new Date(2020, 5, 10),
+                            value: '8.888',
+                            isEditable: false,
+                        },
+                    ],
+                },
+                {
+                    name: 'Фактическая переработка',
+                    dataSummary: '11.123',
+                    data: [
+                        {
+                            date: new Date(2020, 5, 1),
+                            value: '4.1',
+                            isEditable: false,
+                        },
+                        {
+                            date: new Date(2020, 5, 2),
+                            value: '4.1',
+                            isEditable: false,
+                        },
+                        {
+                            date: new Date(2020, 5, 3),
+                            value: '4.1',
+                            isEditable: false,
+                        },
+                        {
+                            date: new Date(2020, 5, 4),
+                            value: '4.1',
+                            isEditable: false,
+                        },
+                        {
+                            date: new Date(2020, 5, 5),
+                            value: '4.1',
+                            isEditable: false,
+                        },
+                        {
+                            date: new Date(2020, 5, 6),
+                            value: '4.1',
+                            isEditable: false,
+                        },
+                        {
+                            date: new Date(2020, 5, 7),
+                            value: '4.1',
+                            isEditable: false,
+                        },
+                        {
+                            date: new Date(2020, 5, 8),
+                            value: '4.1',
+                            isEditable: false,
+                        },
+                        {
+                            date: new Date(2020, 5, 9),
+                            value: '4.1',
+                            isEditable: false,
+                        },
+                        {
+                            date: new Date(2020, 5, 10),
+                            value: '4.1',
+                            isEditable: false,
+                        },
+                    ],
+                },
+            ],
+        },
+        {
+            name: 'ЭЛОУ-АВТ-6 Поток №1',
+            status: 'FQIR 0051',
+            children: [
+                {
+                    name: 'Расход',
+                    dataSummary: '11.123',
+                    data: [
+                        {
+                            date: new Date(2020, 5, 1),
+                            value: '8.888',
+                            isEditable: false,
+                        },
+                        {
+                            date: new Date(2020, 5, 2),
+                            value: '8.888',
+                            isEditable: false,
+                        },
+                        {
+                            date: new Date(2020, 5, 3),
+                            value: '8.888',
+                            isEditable: false,
+                        },
+                        {
+                            date: new Date(2020, 5, 4),
+                            value: '8.888',
+                            isEditable: false,
+                        },
+                        {
+                            date: new Date(2020, 5, 5),
+                            value: '8.888',
+                            isEditable: false,
+                        },
+                        {
+                            date: new Date(2020, 5, 6),
+                            value: '8.888',
+                            isEditable: false,
+                        },
+                        {
+                            date: new Date(2020, 5, 7),
+                            value: '8.888',
+                            isEditable: false,
+                        },
+                        {
+                            date: new Date(2020, 5, 8),
+                            value: '8.888',
+                            isEditable: false,
+                        },
+                        {
+                            date: new Date(2020, 5, 9),
+                            value: '8.888',
+                            isEditable: false,
+                        },
+                        {
+                            date: new Date(2020, 5, 10),
+                            value: '8.888',
+                            isEditable: false,
+                        },
+                    ],
+                },
+                {
+                    name: 'Плотность',
+                    dataSummary: '11.123',
+                    data: [
+                        {
+                            date: new Date(2020, 5, 1),
+                            value: '4.1',
+                            isEditable: false,
+                        },
+                        {
+                            date: new Date(2020, 5, 2),
+                            value: '4.1',
+                            isEditable: false,
+                        },
+                        {
+                            date: new Date(2020, 5, 3),
+                            value: '4.1',
+                            isEditable: false,
+                        },
+                        {
+                            date: new Date(2020, 5, 4),
+                            value: '4.1',
+                            isEditable: false,
+                        },
+                        {
+                            date: new Date(2020, 5, 5),
+                            value: '4.1',
+                            isEditable: false,
+                        },
+                        {
+                            date: new Date(2020, 5, 6),
+                            value: '4.1',
+                            isEditable: false,
+                        },
+                        {
+                            date: new Date(2020, 5, 7),
+                            value: '4.1',
+                            isEditable: false,
+                        },
+                        {
+                            date: new Date(2020, 5, 8),
+                            value: '4.1',
+                            isEditable: false,
+                        },
+                        {
+                            date: new Date(2020, 5, 9),
+                            value: '4.1',
+                            isEditable: false,
+                        },
+                        {
+                            date: new Date(2020, 5, 10),
+                            value: '4.1',
+                            isEditable: false,
+                        },
+                    ],
+                },
+                {
+                    name: 'Теплотворная способность',
+                    dataSummary: '11.123',
+                    data: [
+                        {
+                            date: new Date(2020, 5, 1),
+                            value: '4.1',
+                            isEditable: false,
+                        },
+                        {
+                            date: new Date(2020, 5, 2),
+                            value: '4.1',
+                            isEditable: false,
+                        },
+                        {
+                            date: new Date(2020, 5, 3),
+                            value: '4.1',
+                            isEditable: false,
+                        },
+                        {
+                            date: new Date(2020, 5, 4),
+                            value: '4.1',
+                            isEditable: false,
+                        },
+                        {
+                            date: new Date(2020, 5, 5),
+                            value: '4.1',
+                            isEditable: false,
+                        },
+                        {
+                            date: new Date(2020, 5, 6),
+                            value: '4.1',
+                            isEditable: false,
+                        },
+                        {
+                            date: new Date(2020, 5, 7),
+                            value: '4.1',
+                            isEditable: false,
+                        },
+                        {
+                            date: new Date(2020, 5, 8),
+                            value: '4.1',
+                            isEditable: false,
+                        },
+                        {
+                            date: new Date(2020, 5, 9),
+                            value: '4.1',
+                            isEditable: false,
+                        },
+                        {
+                            date: new Date(2020, 5, 10),
+                            value: '4.1',
+                            isEditable: false,
+                        },
+                    ],
+                },
+            ],
+        },
+    ];
+
+    public blockSelection: SelectionModel<IAsEfTableBlock> = new SelectionModel<IAsEfTableBlock>(
+        true
+    );
 
     constructor() {}
 
