@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { IProductionTrend } from '../../../../../models/production-trends.model';
 
 @Component({
@@ -7,6 +7,8 @@ import { IProductionTrend } from '../../../../../models/production-trends.model'
     styleUrls: ['./astue-efficiency-graph-display.component.scss'],
 })
 export class AstueEfficiencyGraphDisplayComponent implements OnInit {
+    @Output() private toggleDisplay: EventEmitter<false> = new EventEmitter<false>();
+
     public data: IProductionTrend[] = [
         {
             graphType: 'fact',
@@ -149,4 +151,8 @@ export class AstueEfficiencyGraphDisplayComponent implements OnInit {
     constructor() {}
 
     public ngOnInit(): void {}
+
+    public clickDisplayButton(): void {
+        this.toggleDisplay.emit(false);
+    }
 }

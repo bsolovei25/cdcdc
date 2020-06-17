@@ -9,6 +9,8 @@ import { AdminPanelService } from '../../../services/admin-panel/admin-panel.ser
     styleUrls: ['./astue-efficiency.component.scss'],
 })
 export class AstueEfficiencyComponent extends WidgetPlatform implements OnInit, OnDestroy {
+    public isGraphDisplay: boolean = false;
+
     constructor(
         protected widgetService: WidgetService,
         private adminService: AdminPanelService,
@@ -28,4 +30,8 @@ export class AstueEfficiencyComponent extends WidgetPlatform implements OnInit, 
     }
 
     protected dataHandler(ref: any): void {}
+
+    public toggleDisplay(event: boolean): void {
+        this.isGraphDisplay = event;
+    }
 }
