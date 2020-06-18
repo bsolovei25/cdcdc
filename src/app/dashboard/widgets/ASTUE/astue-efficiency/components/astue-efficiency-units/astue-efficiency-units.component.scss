@@ -94,6 +94,52 @@
       }
     }
 
+    &__card {
+      width: 100%;
+      height: 45px;
+
+      &.card {
+        position: relative;
+        padding-left: 19px;
+        margin: 2px 0px;
+        display: flex;
+        align-items: center;
+        background: var(--color-bg-sub);
+        user-select: none;
+
+        &:hover {
+          cursor: pointer;
+        }
+        &:first-child {
+          margin-top: 0;
+        }
+        &:last-child {
+          margin-bottom: 0;
+        }
+
+        &_active {
+          background: var(--color-bg-active);
+
+          &::after {
+            content: "";
+            position: absolute;
+            width: 2px;
+            height: 100%;
+            left: 0;
+            top: 0;
+            background: var(--color-active);
+          }
+        }
+      }
+    }
+
+    &_list {
+      padding: 12px 0px;
+      border-radius: 12px;
+      box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
+      background: var(--color-aw-container-body-transparent);
+    }
+
     &::-webkit-scrollbar {
       display: none;
     }

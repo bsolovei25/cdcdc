@@ -156,6 +156,7 @@
 
         &:first-child {
           position: sticky;
+          z-index: 5;
           left: 0;
           width: 275px;
           padding-left: 22px;
@@ -164,6 +165,7 @@
         }
         &:nth-child(2) {
           position: sticky;
+          z-index: 5;
           left: 275px;
           margin-left: 0;
         }
@@ -210,6 +212,7 @@
 
         &:first-child {
           position: sticky;
+          z-index: 5;
           left: 0;
           width: 275px;
           padding-left: 55px;
@@ -233,6 +236,7 @@
         }
         &:nth-child(2) {
           position: sticky;
+          z-index: 5;
           left: 275px;
           margin-left: 0;
           border-left: 2px solid var(--color-aw-container-body-transparent);
@@ -281,6 +285,7 @@
 
         &:first-child {
           position: sticky;
+          z-index: 5;
           left: 0;
           width: 275px;
           padding-left: 55px;
@@ -296,6 +301,7 @@
         }
         &:nth-child(2) {
           position: sticky;
+          z-index: 5;
           left: 275px;
           margin-left: 0;
           border-left: 2px solid var(--color-aw-container-body-transparent);

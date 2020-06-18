@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { IAsEfUnit } from '../../../../../models/ASTUE/astue-efficiency.model';
 import { SelectionModel } from '@angular/cdk/collections';
 
@@ -8,6 +8,7 @@ import { SelectionModel } from '@angular/cdk/collections';
     styleUrls: ['./astue-efficiency-units.component.scss'],
 })
 export class AstueEfficiencyUnitsComponent implements OnInit {
+    @Input() public isInitialDataShow: boolean = true;
     public units: IAsEfUnit[] = [
         {
             name: 'ЭЛОУ-АВТ-6',

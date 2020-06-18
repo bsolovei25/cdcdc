@@ -28,7 +28,9 @@
 
     <ng-container *ngIf="isInitialDataShow">
       <div class="item item_s">
-        <evj-astue-efficiency-units></evj-astue-efficiency-units>
+        <evj-astue-efficiency-units
+          [isInitialDataShow]="isInitialDataShow"
+        ></evj-astue-efficiency-units>
       </div>
       <ng-container *ngIf="isGraphDisplay; else table">
         <div class="item item_l">
@@ -51,7 +53,9 @@
 
     <ng-container *ngIf="!isInitialDataShow">
       <div class="item item_s">
-        <evj-astue-efficiency-units></evj-astue-efficiency-units>
+        <evj-astue-efficiency-units
+          [isInitialDataShow]="isInitialDataShow"
+        ></evj-astue-efficiency-units>
       </div>
       <div class="item item_xl">
         <evj-astue-efficiency-table-display
