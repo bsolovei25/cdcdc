@@ -29,6 +29,8 @@ export class TankInformationComponent extends WidgetPlatform implements OnInit, 
 
     type: string[] = [];
 
+    temp = false;
+
     public isFilterTable: boolean = false;
 
     constructor(
@@ -46,8 +48,12 @@ export class TankInformationComponent extends WidgetPlatform implements OnInit, 
     }
 
     protected dataHandler(ref: any): void {
+        if (this.temp) {
+            return;
+        }
         this.dataSave = ref.items.map(e => ITankInformationDtoFn(e));
         this.mapData(this.dataSave);
+        this.temp = true;
     }
 
     mapData(data: ITankInformation[]): void {

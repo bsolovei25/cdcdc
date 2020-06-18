@@ -32,17 +32,20 @@ export class AlertWindowComponent implements OnInit {
     public accept(): void {
         try {
             this.info.acceptFunction();
+        } catch (err) {
+            console.warn(err);
+        } finally {
             this.info.closeFunction();
-        } catch (err) {}
+        }
     }
 
     public cancel(): void {
         try {
             this.info.cancelFunction();
         } catch (err) {
-            console.error(err);
+            console.warn(err);
         } finally {
-            this.info.closeFunction ? this.info.closeFunction() : this.info.cancelFunction();
+            this.info.closeFunction();
         }
     }
 

@@ -173,6 +173,7 @@ import { SystemAutogenerateComponent } from './widgets/report-server-configurato
 import { SystemPathUserComponent } from './widgets/report-server-configurator/popup-system-options/system-path-edit/system-path-user/system-path-user.component';
 import { ParameterAutogenerationComponent } from './widgets/report-server-configurator/popup-system-options/system-parameter-values-autogeneration/parameter-autogeneration/parameter-autogeneration.component';
 import { EventsWorkspaceButtonComponent } from './widgets/workspace/components/events-workspace-button/events-workspace-button.component';
+import { FileAttachMenuComponent } from './widgets/workspace/components/file-attach-menu/file-attach-menu.component';
 import { EventsResponsibleSelectComponent } from './widgets/workspace/components/events-responsible-select/events-responsible-select.component';
 import { EventsReasonsComponent } from './widgets/workspace/components/events-reasons/events-reasons.component';
 import { EventsCorrectComponent } from './widgets/workspace/components/events-correct/events-correct.component';
@@ -435,6 +436,7 @@ import { AstueEfficiencyTableDisplayComponent } from './widgets/ASTUE/astue-effi
         SystemPathUserComponent,
         ParameterAutogenerationComponent,
         EventsWorkspaceButtonComponent,
+        FileAttachMenuComponent,
         EventsResponsibleSelectComponent,
         EventsReasonsComponent,
         EventsCorrectComponent,
@@ -626,6 +628,7 @@ import { AstueEfficiencyTableDisplayComponent } from './widgets/ASTUE/astue-effi
         SmpEventsWorkspaceComponent,
         PanelComponent,
         AstueEfficiencyComponent,
+        FileAttachMenuComponent,
     ],
     exports: [HomeComponent],
     imports: [
