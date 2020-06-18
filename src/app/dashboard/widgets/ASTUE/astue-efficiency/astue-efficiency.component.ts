@@ -9,7 +9,8 @@ import { AdminPanelService } from '../../../services/admin-panel/admin-panel.ser
     styleUrls: ['./astue-efficiency.component.scss'],
 })
 export class AstueEfficiencyComponent extends WidgetPlatform implements OnInit, OnDestroy {
-    public isGraphDisplay: boolean = false;
+    public isGraphDisplay: boolean = true;
+    public isInitialDataShow: boolean = true;
 
     constructor(
         protected widgetService: WidgetService,

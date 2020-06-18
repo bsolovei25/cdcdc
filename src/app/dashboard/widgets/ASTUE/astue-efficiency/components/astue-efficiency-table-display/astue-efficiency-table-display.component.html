@@ -37,7 +37,6 @@
             <ng-template #values>
               <td class="block__item">{{block.dataSummary}}</td>
               <td class="block__item" *ngFor="let value of block.data">
-                <div class="cell__indicator" *ngIf="!!value.value && value.isEditable"></div>
                 <input
                   type="text"
                   class="cell__input"
@@ -46,6 +45,11 @@
                   placeholder="Введите значение"
                   (focus)="$event.target.select()"
                   (change)="defineDataSummary(block)"
+                />
+                <div class="cell__indicator" *ngIf="!!value.value && value.isEditable"></div>
+                <img
+                  class="cell__edit"
+                  src="assets/icons/widgets/ASTUE/astue-efficiency/table/edit.svg"
                 />
               </td>
             </ng-template>
@@ -59,13 +63,13 @@
               <td class="row__item">{{child.dataSummary}}</td>
               <td class="row__item" *ngFor="let value of child.data">
                 <input
-                type="text"
-                class="cell__input"
-                [(ngModel)]="value.value"
-                [disabled]="!value.isEditable"
-                placeholder="Введите значение"
-                (focus)="$event.target.select()"
-                (change)="defineDataSummary(child)"
+                  type="text"
+                  class="cell__input"
+                  [(ngModel)]="value.value"
+                  [disabled]="!value.isEditable"
+                  placeholder="Введите значение"
+                  (focus)="$event.target.select()"
+                  (change)="defineDataSummary(child)"
                 />
                 <div class="cell__indicator" *ngIf="!!value.value && value.isEditable"></div>
                 <img
