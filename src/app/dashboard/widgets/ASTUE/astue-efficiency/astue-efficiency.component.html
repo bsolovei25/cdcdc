@@ -45,6 +45,7 @@
       <ng-template #table>
         <div class="item item_xl">
           <evj-astue-efficiency-table-display
+            [isInitialDataShow]="isInitialDataShow"
             (toggleDisplay)="toggleDisplay($event)"
           ></evj-astue-efficiency-table-display>
         </div>
@@ -59,7 +60,7 @@
       </div>
       <div class="item item_xl">
         <evj-astue-efficiency-table-display
-          (toggleDisplay)="toggleDisplay($event)"
+          [isInitialDataShow]="isInitialDataShow"
         ></evj-astue-efficiency-table-display>
       </div>
     </ng-container>

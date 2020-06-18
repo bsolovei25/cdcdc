@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { IAsEfTableBlock, IAsEfTableRow } from '../../../../../models/ASTUE/astue-efficiency.model';
 import { SelectionModel } from '@angular/cdk/collections';
 
@@ -8,6 +8,7 @@ import { SelectionModel } from '@angular/cdk/collections';
     styleUrls: ['./astue-efficiency-table-display.component.scss'],
 })
 export class AstueEfficiencyTableDisplayComponent implements OnInit {
+    @Input() public isInitialDataShow: boolean = true;
     @Output() private toggleDisplay: EventEmitter<true> = new EventEmitter<true>();
 
     public data: IAsEfTableBlock[] = [

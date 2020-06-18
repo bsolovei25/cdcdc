@@ -75,6 +75,14 @@
       }
     }
 
+    &__title {
+      width: auto;
+      height: 100%;
+      padding-left: 22px;
+      display: flex;
+      align-items: center;
+    }
+
     &__right {
       position: absolute;
       top: 0;
@@ -398,6 +406,31 @@
       height: 10px;
       top: 5px;
       right: 5px;
+    }
+
+    .separation-line {
+      height: 25px;
+      width: 100%;
+      display: flex;
+      background: transparent;
+
+      &__item {
+        height: 100%;
+        color: var(--color-text-sub-heading);
+        font-size: 12px;
+        display: flex;
+        align-items: center;
+
+        &:first-child {
+          position: sticky;
+          z-index: 5;
+          left: 0;
+          padding-left: 22px;
+        }
+        &:nth-child(2) {
+          flex: 1;
+        }
+      }
     }
   }
 }
