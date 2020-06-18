@@ -1,7 +1,9 @@
-<div appTooltip textTooltip='{{  operation[this.data.objectStatus] }}' class="container-card"
-     [style.height.px]="heightCard">
+<!--<div appTooltip textTooltip='{{  operation[this.data.objectStatus] }}' class="container-card"-->
+<!--     [style.height.px]="heightCard">-->
+<div class="container-card"
+   [style.height.px]="heightCard">
   <div class="container-card__title">
-    {{ data.tankTitle }}
+    <span class="container-card__title__chips">{{ data.tankTitle }}</span>
   </div>
   <div class="container-card__content">
     <div class="value">
@@ -31,4 +33,5 @@
     </div>
   </div>
   <div class="container-card__status {{data.objectStatus}}"></div>
+  <div class="container-card__text-status">{{ operation[this.data.objectStatus] }}</div>
 </div>
