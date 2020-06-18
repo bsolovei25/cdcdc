@@ -226,6 +226,7 @@ export class WidgetService {
             case 'table-data':
             case 'deviations-table':
             case 'triggering-critical-parameters':
+            case 'production-trend':
                 return data;
         }
         console.warn(`unknown widget type ${widgetType}`);
@@ -318,9 +319,9 @@ export class WidgetService {
         }
         return (
             new Date(incoming.fromDateTime).getTime() ===
-                new Date(this.currentDates.fromDateTime).getTime() &&
+                new Date(this.currentDates?.fromDateTime).getTime() &&
             new Date(incoming.toDateTime).getTime() ===
-                new Date(this.currentDates.toDateTime).getTime()
+                new Date(this.currentDates?.toDateTime).getTime()
         );
     }
 

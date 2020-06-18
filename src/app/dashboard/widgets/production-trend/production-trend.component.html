@@ -17,7 +17,7 @@
         <evj-production-trend-panel> </evj-production-trend-panel>
       </div>
       <div class="block block_graph">
-        <evj-production-trend-graph> </evj-production-trend-graph>
+        <evj-production-trend-graph [dataWs]="graphData$ | async"> </evj-production-trend-graph>
       </div>
     </div>
     <evj-frame-bottom></evj-frame-bottom>

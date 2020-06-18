@@ -2,6 +2,7 @@ import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { WidgetPlatform } from '../../models/widget-platform';
 import { WidgetService } from '../../services/widget.service';
 import { IProductionTrend } from '../../models/production-trends.model';
+import { BehaviorSubject } from 'rxjs';
 
 interface IUnit {
     id: number;
@@ -20,7 +21,6 @@ export class ProductionTrendComponent extends WidgetPlatform implements OnInit, 
     public static minItemCols: number = 32;
     public static minItemRows: number = 20;
 
-
     public readonly allUnits: IUnit[] = [
         {
             id: 0,
@@ -36,6 +36,11 @@ export class ProductionTrendComponent extends WidgetPlatform implements OnInit, 
         },
     ];
 
+    public graphData$: BehaviorSubject<IProductionTrend[]>
+        = new BehaviorSubject<IProductionTrend[]>(null);
+
+    // public readonly graphData =
+
     constructor(
         protected widgetService: WidgetService,
         @Inject('isMock') public isMock: boolean,
@@ -43,7 +48,7 @@ export class ProductionTrendComponent extends WidgetPlatform implements OnInit, 
         @Inject('uniqId') public uniqId: string
     ) {
         super(widgetService, isMock, id, uniqId);
-        this.isRealtimeData = false;
+        // this.isRealtimeData = false;
         this.widgetIcon = 'graph';
     }
 
@@ -55,7 +60,10 @@ export class ProductionTrendComponent extends WidgetPlatform implements OnInit, 
         super.ngOnDestroy();
     }
 
-    protected dataHandler(ref: any): void { }
+    protected dataHandler(ref: any): void {
+        this.graphData$.next(ref.items);
+        console.log(ref);
+    }
 
     public selectUnit(event: any): void {
         console.log(event);

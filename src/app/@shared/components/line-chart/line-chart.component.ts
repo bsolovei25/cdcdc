@@ -66,26 +66,27 @@ export class LineChartComponent implements OnChanges, OnInit {
     constructor() {}
 
     public ngOnChanges(): void {
-        if (this.data.length && this.svg) {
-            this.findMinMax();
-            this.initGraph();
-            this.transformData();
-            this.drawAxis();
-            this.drawGraph();
-        }
+        this.graphInit();
     }
 
     public ngOnInit(): void {
         this.dateFormatLocale();
     }
 
-    @HostListener('document:resize', ['$event'])
-    public OnResize(): void {
+    private graphInit(): void {
+        if (!this.data?.length) {
+            return;
+        }
         this.findMinMax();
         this.initGraph();
         this.transformData();
         this.drawAxis();
         this.drawGraph();
+    }
+
+    @HostListener('document:resize', ['$event'])
+    public OnResize(): void {
+        this.graphInit();
     }
 
     private initGraph(): void {
@@ -129,7 +130,7 @@ export class LineChartComponent implements OnChanges, OnInit {
     }
 
     private transformOneChartData(chart: IProductionTrend): void {
-        const domainDates = d3.extent(chart.graph, (item: IChartMini) => item.timestamp);
+        const domainDates = d3.extent(chart.graph, (item: IChartMini) => item.timeStamp);
         const rangeX = [this.padding.left, this.graphMaxX - this.padding.right];
         this.scaleFuncs.x = d3
             .scaleTime()
@@ -165,7 +166,7 @@ export class LineChartComponent implements OnChanges, OnInit {
 
         chart.graph.forEach((item) => {
             chartData.graph.push({
-                x: this.scaleFuncs.x(item.timestamp),
+                x: this.scaleFuncs.x(item.timeStamp),
                 y: this.scaleFuncs.y(item.value),
             });
         });

@@ -57,7 +57,7 @@ export class LineChartTrackComponent implements OnChanges, AfterViewInit {
     }
 
     private transformData(): void {
-        const domainDates = d3.extent(this.data, (item: IChartMini) => item.timestamp);
+        const domainDates = d3.extent(this.data, (item: IChartMini) => item.timeStamp);
         const rangeX = [this.paddingX, this.graphMaxX - this.paddingX];
         const time = d3
             .scaleTime()
@@ -72,7 +72,7 @@ export class LineChartTrackComponent implements OnChanges, AfterViewInit {
             .range(rangeY);
 
         this.data.forEach((item, index) => {
-            this.chartData[index] = { x: time(item.timestamp), y: val(item.value) };
+            this.chartData[index] = { x: time(item.timeStamp), y: val(item.value) };
         });
     }
 

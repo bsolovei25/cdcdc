@@ -1,6 +1,6 @@
 export interface IChartMini {
     value: number;
-    timestamp: Date;
+    timeStamp: Date;
 }
 
 export interface IPointTank {
