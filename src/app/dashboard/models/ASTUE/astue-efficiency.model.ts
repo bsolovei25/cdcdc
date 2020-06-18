@@ -25,17 +25,17 @@ export interface IAsEfTableBlock {
     name: string;
     status?: string;
     dataSummary?: string;
-    data?: IAsEfTableData[];
+    data?: IAsEfTableCell[];
     children: IAsEfTableRow[];
 }
 
 export interface IAsEfTableRow {
     name: string;
     dataSummary?: string;
-    data: IAsEfTableData[];
+    data: IAsEfTableCell[];
 }
 
-export interface IAsEfTableData {
+export interface IAsEfTableCell {
     date: Date;
     value: string;
     isEditable?: boolean;

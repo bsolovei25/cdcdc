@@ -36,7 +36,18 @@
             <td class="block__item with-status" *ngIf="block.status;else values"></td>
             <ng-template #values>
               <td class="block__item">{{block.dataSummary}}</td>
-              <td class="block__item" *ngFor="let value of block.data">{{value.value}}</td>
+              <td class="block__item" *ngFor="let value of block.data">
+                <input
+                  type="text"
+                  class="cell__input"
+                  [(ngModel)]="value.value"
+                  [disabled]="!value.isEditable"
+                  placeholder="Введите значение"
+                  (focus)="$event.target.select()"
+                  (change)="defineDataSummary(block)"
+                />
+              </td>
+              <!-- <td class="block__item" *ngFor="let value of block.data">{{value.value}}</td> -->
             </ng-template>
           </tr>
           <ng-container *ngIf="blockSelection.isSelected(block)">
@@ -46,7 +57,17 @@
                 <div class="status" *ngIf="block.status">{{block.status}}</div>
               </td>
               <td class="row__item">{{child.dataSummary}}</td>
-              <td class="row__item" *ngFor="let value of child.data">{{value.value}}</td>
+              <td class="row__item" *ngFor="let value of child.data">
+                <input
+                  type="text"
+                  class="cell__input"
+                  [(ngModel)]="value.value"
+                  [disabled]="!value.isEditable"
+                  placeholder="Введите значение"
+                  (focus)="$event.target.select()"
+                  (change)="defineDataSummary(child)"
+                />
+              </td>
             </tr>
           </ng-container>
         </ng-container>

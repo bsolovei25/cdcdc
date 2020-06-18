@@ -1,5 +1,5 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import { IAsEfTableBlock } from '../../../../../models/ASTUE/astue-efficiency.model';
+import { IAsEfTableBlock, IAsEfTableRow } from '../../../../../models/ASTUE/astue-efficiency.model';
 import { SelectionModel } from '@angular/cdk/collections';
 
 @Component({
@@ -192,52 +192,52 @@ export class AstueEfficiencyTableDisplayComponent implements OnInit {
                         {
                             date: new Date(2020, 5, 1),
                             value: '8.888',
-                            isEditable: false,
+                            isEditable: true,
                         },
                         {
                             date: new Date(2020, 5, 2),
                             value: '8.888',
-                            isEditable: false,
+                            isEditable: true,
                         },
                         {
                             date: new Date(2020, 5, 3),
                             value: '8.888',
-                            isEditable: false,
+                            isEditable: true,
                         },
                         {
                             date: new Date(2020, 5, 4),
                             value: '8.888',
-                            isEditable: false,
+                            isEditable: true,
                         },
                         {
                             date: new Date(2020, 5, 5),
                             value: '8.888',
-                            isEditable: false,
+                            isEditable: true,
                         },
                         {
                             date: new Date(2020, 5, 6),
                             value: '8.888',
-                            isEditable: false,
+                            isEditable: true,
                         },
                         {
                             date: new Date(2020, 5, 7),
                             value: '8.888',
-                            isEditable: false,
+                            isEditable: true,
                         },
                         {
                             date: new Date(2020, 5, 8),
                             value: '8.888',
-                            isEditable: false,
+                            isEditable: true,
                         },
                         {
                             date: new Date(2020, 5, 9),
                             value: '8.888',
-                            isEditable: false,
+                            isEditable: true,
                         },
                         {
                             date: new Date(2020, 5, 10),
                             value: '8.888',
-                            isEditable: false,
+                            isEditable: true,
                         },
                     ],
                 },
@@ -367,5 +367,12 @@ export class AstueEfficiencyTableDisplayComponent implements OnInit {
 
     public clickDisplayButton(): void {
         this.toggleDisplay.emit(true);
+    }
+
+    public defineDataSummary(row: IAsEfTableRow): void {
+        const value: number = +(
+            row.data.reduce((acc, item) => (acc += +item.value), 0) / row.data.length
+        ).toFixed(5);
+        row.dataSummary = value.toString();
     }
 }
