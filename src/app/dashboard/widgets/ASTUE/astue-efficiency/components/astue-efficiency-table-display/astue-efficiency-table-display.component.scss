@@ -198,6 +198,7 @@
       }
 
       .block__item {
+        position: relative;
         width: 115px;
         height: 100%;
         margin: 0px 1px;
@@ -248,6 +249,12 @@
           left: 0;
           z-index: -1;
         }
+
+        .cell__input {
+          &:disabled:hover {
+            cursor: pointer;
+          }
+        }
       }
 
       .block__item-status {
@@ -261,6 +268,7 @@
       margin: 2px 0px;
 
       .row__item {
+        position: relative;
         width: 115px;
         height: 100%;
         margin: 0px 1px;
@@ -303,7 +311,46 @@
       color: var(--color-text-sub);
     }
 
+    .cell__indicator {
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      left: 5px;
+      top: 5px;
+      background: var(--color-bg-active-gradient);
+
+      &::before {
+        content: "";
+        position: absolute;
+        z-index: 2;
+        width: 4px;
+        height: 4px;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        margin: auto;
+        background: var(--color-bg-active-gradient1);
+      }
+
+      &::after {
+        content: "";
+        position: absolute;
+        z-index: 3;
+        width: 2px;
+        height: 2px;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        margin: auto;
+        background: var(--color-active);
+      }
+    }
+
     .cell__input {
+      position: relative;
       width: 100%;
       height: 100%;
       border: none;
@@ -316,6 +363,14 @@
       &:focus {
         background: var(--color-smp-ev-ws-grad2);
         border-bottom: 2px solid var(--color-active);
+
+        & ~ .cell__edit {
+          visibility: visible !important;
+        }
+
+        & ~ .cell__indicator {
+          visibility: hidden;
+        }
       }
 
       &:disabled {
@@ -327,6 +382,16 @@
         font-size: 12px;
         color: var(--color-text-main);
       }
+    }
+
+    .cell__edit {
+      visibility: hidden;
+      position: absolute;
+      z-index: 1;
+      width: 10px;
+      height: 10px;
+      top: 5px;
+      right: 5px;
     }
   }
 }
