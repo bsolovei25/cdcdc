@@ -1,7 +1,8 @@
 import { Inject, OnDestroy } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { WidgetService } from '../services/widget.service';
-import { ITankInformationDtoFn } from './tank-information';
+import { from } from 'rxjs';
+import { map, mergeAll, filter } from 'rxjs/operators';
 
 export abstract class WidgetPlatform implements OnDestroy {
     public widgetCode?: string;
@@ -27,7 +28,8 @@ export abstract class WidgetPlatform implements OnDestroy {
         @Inject('isMock') public isMock: boolean,
         @Inject('widgetId') public widgetId: string,
         @Inject('uniqId') public widgetUniqId: string
-    ) { }
+    ) {
+    }
 
     public ngOnDestroy(): void {
         this.subscriptions.forEach((el) => el.unsubscribe());
@@ -71,7 +73,8 @@ export abstract class WidgetPlatform implements OnDestroy {
         );
     }
 
-    protected dataDisconnect(): void { }
+    protected dataDisconnect(): void {
+    }
 
     protected abstract dataHandler(ref: any): void;
 
@@ -86,3 +89,5 @@ export abstract class WidgetPlatform implements OnDestroy {
         this.hoverTimer = setTimeout(() => (this.isHover = false), 200);
     }
 }
+
+

@@ -34,30 +34,35 @@ export class LineChartTrackComponent implements OnChanges, AfterViewInit {
     constructor() {}
 
     public ngOnChanges(): void {
-        if (this.svg) {
+        // if (this.svg) {
+        //     this.initGraph();
+        //     this.transformData();
+        //     this.drawGraph();
+        // }
+        this.initData();
+    }
+
+    public ngAfterViewInit(): void {
+        // this.initGraph();
+        // this.transformData();
+        // this.drawGraph();
+    }
+
+    initData(): void {
+        if (this.data) {
             this.initGraph();
             this.transformData();
             this.drawGraph();
         }
-    }
-
-    public ngAfterViewInit(): void {
-        this.initGraph();
-        this.transformData();
-        this.drawGraph();
     }
 
     @HostListener('document:resize', ['$event'])
     public OnResize(): void {
-        if (this.svg) {
-            this.initGraph();
-            this.transformData();
-            this.drawGraph();
-        }
+        this.initData();
     }
 
     private transformData(): void {
-        const domainDates = d3.extent(this.data, (item: IChartMini) => item.timestamp);
+        const domainDates = d3.extent(this.data, (item: IChartMini) => item.timeStamp);
         const rangeX = [this.paddingX, this.graphMaxX - this.paddingX];
         const time = d3
             .scaleTime()
@@ -71,8 +76,9 @@ export class LineChartTrackComponent implements OnChanges, AfterViewInit {
             .domain(domainValues)
             .range(rangeY);
 
+        this.chartData = [];
         this.data.forEach((item, index) => {
-            this.chartData[index] = { x: time(item.timestamp), y: val(item.value) };
+            this.chartData[index] = { x: time(item.timeStamp), y: val(item.value) };
         });
     }
 
