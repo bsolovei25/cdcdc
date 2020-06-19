@@ -10,7 +10,6 @@ export class AstueEfficiencyItemCardComponent implements OnInit {
     @Input() public card: IAsEfCard = {
         name: 'Поток №1',
         icon: 'steam',
-        status: 'FQIR 0051',
     };
     @Input() public isListItem: boolean = false;
     @Input() public isActive: boolean = false;
