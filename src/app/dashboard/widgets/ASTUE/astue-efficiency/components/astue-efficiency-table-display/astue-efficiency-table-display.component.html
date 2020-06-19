@@ -34,7 +34,11 @@
         </thead>
         <tbody>
           <ng-container *ngFor="let block of data">
-            <tr class="table__row block" (click)="blockSelection.toggle(block)">
+            <tr
+              class="table__row block"
+              [ngClass]="{'block_open':blockSelection.isSelected(block)}"
+              (click)="blockSelection.toggle(block)"
+            >
               <td class="block__item" [ngClass]="{'block__item-status': block.status}">
                 <img
                   class="arrow"
