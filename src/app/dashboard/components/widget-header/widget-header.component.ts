@@ -31,6 +31,7 @@ export class WidgetHeaderComponent implements OnInit, OnChanges, OnDestroy {
     @Input() isEventOpen: boolean;
     @Input() tankInfo: boolean;
     @Input() blockWorkspaceButton: boolean;
+    @Input() public toggleAstue: boolean = true;
     public localeSelect: { name: string; id: number }[];
     @Input() set select(data) {
         if (data) {
@@ -43,6 +44,7 @@ export class WidgetHeaderComponent implements OnInit, OnChanges, OnDestroy {
     @Output() eventBack: EventEmitter<null> = new EventEmitter<null>();
     @Output() public selected: EventEmitter<any> = new EventEmitter<any>();
     @Output() public selectedMenu: EventEmitter<any> = new EventEmitter<any>();
+    @Output() private toggleAstueChange: EventEmitter<boolean> = new EventEmitter<boolean>();
     public readonly iconRoute: string = './assets/icons/widget-title-icons/';
     private subscriptions: Subscription[] = [];
     claimWidgets: EnumClaimWidgets[] = [];
@@ -60,7 +62,7 @@ export class WidgetHeaderComponent implements OnInit, OnChanges, OnDestroy {
         public widgetService: WidgetService,
         public userSettings: UserSettingsService,
         private claimService: ClaimService
-    ) { }
+    ) {}
 
     public ngOnChanges(): void {
         this.filterTankInfo = this.tankInfo;
@@ -120,5 +122,9 @@ export class WidgetHeaderComponent implements OnInit, OnChanges, OnDestroy {
     public onFilterTankInfo(): void {
         this.filterTankInfo = true;
         this.selected.emit(true);
+    }
+
+    public toggleAstueEfficiency(isInitialDataShow: boolean): void {
+        this.toggleAstueChange.emit(isInitialDataShow);
     }
 }

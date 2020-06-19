@@ -36,20 +36,22 @@ export abstract class WidgetPlatform implements OnDestroy {
     }
 
     protected widgetInit(): void {
-        this.subscriptions.push(
-            this.widgetService.getWidgetChannel(this.widgetId).subscribe((ref) => {
-                if (ref) {
-                    this.widgetTitle = ref?.title;
-                    this.widgetType = ref?.widgetType;
-                    this.widgetOptions = ref.widgetOptions;
-                    this.widgetUnits = ref.units;
-                    if (!this.isMock) {
-                        console.log(this.widgetType);
+        setTimeout(() => {
+            this.subscriptions.push(
+                this.widgetService.getWidgetChannel(this.widgetId).subscribe((ref) => {
+                    if (ref) {
+                        this.widgetTitle = ref?.title;
+                        this.widgetType = ref?.widgetType;
+                        this.widgetOptions = ref.widgetOptions;
+                        this.widgetUnits = ref.units;
+                        if (!this.isMock) {
+                            console.log(this.widgetType);
+                        }
+                        this.showMock(this.isMock);
                     }
-                    this.showMock(this.isMock);
-                }
-            })
-        );
+                })
+            );
+        });
     }
 
     private showMock(show: boolean): void {

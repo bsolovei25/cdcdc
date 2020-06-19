@@ -39,7 +39,7 @@ export class LineChartTrackComponent implements OnChanges, AfterViewInit {
         //     this.transformData();
         //     this.drawGraph();
         // }
-        this.initData();
+        setTimeout(() => this.initData(), 0);
     }
 
     public ngAfterViewInit(): void {

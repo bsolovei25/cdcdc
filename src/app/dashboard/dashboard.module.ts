@@ -282,6 +282,15 @@ import { AdminShiftInfoEmployeeComponent } from './widgets/admin-widget/admin-sh
 import { AdminShiftCardComponent } from './widgets/admin-widget/admin-shift-schedule/components/admin-shift-card/admin-shift-card.component';
 import { MatMenuModule } from '@angular/material/menu';
 import { TruncatedDiagramTrafficLightComponent } from './widgets/truncated-diagram-traffic-light/truncated-diagram-traffic-light.component';
+import { AstueEfficiencyComponent } from './widgets/ASTUE/astue-efficiency/astue-efficiency.component';
+import { AstueEfficiencyItemsComponent } from './widgets/ASTUE/astue-efficiency/components/astue-efficiency-items/astue-efficiency-items.component';
+import { AstueEfficiencyItemCardComponent } from './widgets/ASTUE/astue-efficiency/components/astue-efficiency-item-card/astue-efficiency-item-card.component';
+import { AstueEfficiencyUnitsComponent } from './widgets/ASTUE/astue-efficiency/components/astue-efficiency-units/astue-efficiency-units.component';
+import { AstueEfficiencyUnitCardComponent } from './widgets/ASTUE/astue-efficiency/components/astue-efficiency-unit-card/astue-efficiency-unit-card.component';
+import { AstueEfficiencyGraphDisplayComponent } from './widgets/ASTUE/astue-efficiency/components/astue-efficiency-graph-display/astue-efficiency-graph-display.component';
+import { AstueEfficiencyInitialDataComponent } from './widgets/ASTUE/astue-efficiency/components/astue-efficiency-initial-data/astue-efficiency-initial-data.component';
+import { AstueEfficiencyInintialDataBlockComponent } from './widgets/ASTUE/astue-efficiency/components/astue-efficiency-inintial-data-block/astue-efficiency-inintial-data-block.component';
+import { AstueEfficiencyTableDisplayComponent } from './widgets/ASTUE/astue-efficiency/components/astue-efficiency-table-display/astue-efficiency-table-display.component';
 
 @NgModule({
     declarations: [
@@ -532,6 +541,15 @@ import { TruncatedDiagramTrafficLightComponent } from './widgets/truncated-diagr
         AdminShiftListEmployeesComponent,
         AdminShiftInfoEmployeeComponent,
         AdminShiftCardComponent,
+        AstueEfficiencyComponent,
+        AstueEfficiencyItemsComponent,
+        AstueEfficiencyItemCardComponent,
+        AstueEfficiencyUnitsComponent,
+        AstueEfficiencyUnitCardComponent,
+        AstueEfficiencyGraphDisplayComponent,
+        AstueEfficiencyInitialDataComponent,
+        AstueEfficiencyInintialDataBlockComponent,
+        AstueEfficiencyTableDisplayComponent,
     ],
     entryComponents: [
         LineChartComponent,
@@ -609,6 +627,7 @@ import { TruncatedDiagramTrafficLightComponent } from './widgets/truncated-diagr
         ProductGroupsShortComponent,
         SmpEventsWorkspaceComponent,
         PanelComponent,
+        AstueEfficiencyComponent,
         FileAttachMenuComponent,
     ],
     exports: [HomeComponent],
