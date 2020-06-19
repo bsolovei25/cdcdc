@@ -5,6 +5,7 @@ interface IAsEfTempl {
 
 export interface IAsEfCard extends IAsEfTempl {
     icon?: string;
+    status?: string;
 }
 
 export interface IAsEfUnitCard extends IAsEfTempl {
