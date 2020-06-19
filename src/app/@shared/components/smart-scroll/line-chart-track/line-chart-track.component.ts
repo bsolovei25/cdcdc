@@ -69,7 +69,9 @@ export class LineChartTrackComponent implements OnChanges, AfterViewInit {
             .domain(domainDates)
             .rangeRound(rangeX);
 
-        const domainValues = d3.extent(this.data, (item: IChartMini) => item.value);
+        const [dataMin, dataMax] = d3.extent(this.data, (item: IChartMini) => item.value);
+        const domainValues = [dataMax, dataMin];
+
         const rangeY = [this.paddingY, this.graphMaxY - this.paddingY];
         const val = d3
             .scaleLinear()
