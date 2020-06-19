@@ -1,0 +1,115 @@
+$mat-menu-side-padding: 16px !default;
+
+.mat-select-filter-placeholder {
+  width: 100%;
+  height: 52px;
+}
+
+.mat-select-filter-inner {
+  position: absolute;
+  top: 0;
+  width: calc(100% + 10px);
+  background: var(--color-bg-main);
+  z-index: 100;
+  padding: 10px 6px;
+}
+
+.mat-select-filter-input {
+  padding: $mat-menu-side-padding;
+  box-sizing: border-box;
+  height: 25px;
+  outline: none;
+  background-color: transparent;
+  color: var(--color-text-main);
+
+  width: 100%;
+  padding-left: 11px;
+  border: 0 solid var(--color-border-main);
+  border-radius: 25px;
+  background: var(--color-oil-circle-disable);
+  font-size: 12px;
+}
+
+::placeholder {
+  padding-right: 10px;
+  color: var(--color-border-unactive);
+  font-size: 12px;
+}
+
+.mat-select-filter-input-container {
+  width: 100%;
+  border-bottom: 1px solid var(--color-text-main);
+}
+
+.mat-select-filter-no-entries-found {
+  padding: $mat-menu-side-padding;
+}
+
+.mat-select-filter-clear {
+  position: absolute;
+  right: 0;
+  top: 4px;
+}
+
+// для абсолютного позиционирования
+::ng-deep {
+  .cdk-overlay-pane-select-filter {
+    margin-top: -52px;
+  }
+
+  .mat-select-filter-panel {
+    transform: none !important;
+    max-height: 350px;
+
+    &::-webkit-scrollbar {
+      width: 14px;
+      height: 18px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      height: 6px;
+      border: 4px solid rgba(0, 0, 0, 0);
+      background-clip: padding-box;
+      -webkit-border-radius: 7px;
+      background-color: rgb(39, 43, 53);
+    }
+
+    &::-webkit-scrollbar-button {
+      width: 0;
+      height: 0;
+      display: none;
+    }
+
+    &::-webkit-scrollbar-corner {
+      background-color: transparent;
+    }
+
+    &::-webkit-scrollbar-track {
+      margin-top: 47px;
+    }
+  }
+}
+
+.button {
+  position: absolute;
+  top: 10px;
+  right: 7px;
+  width: 45px;
+  height: 32px;
+  outline: none;
+  border: none;
+  cursor: pointer;
+  line-height: 32px;
+  text-align: center;
+
+  &__icon {
+    fill: var(--color-border-unactive);
+  }
+
+  &:hover {
+    .button_icon {
+      fill: var(--color-text-main);
+    }
+  }
+}
+
