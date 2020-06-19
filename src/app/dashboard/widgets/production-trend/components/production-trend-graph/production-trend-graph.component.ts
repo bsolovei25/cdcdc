@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, OnDestroy } from '@angular/core';
 import { IProductionTrend } from '../../../../models/production-trends.model';
 import { LineChartPlatform } from '../../../../models/linechart-platform';
 import { IDatesInterval, WidgetService } from '../../../../services/widget.service';
@@ -10,19 +10,17 @@ import { filter, map } from 'rxjs/operators';
 
 export interface IWsData<T> {
     data: {
-        items: T[],
+        items: T[];
     };
 }
 
 @Component({
     selector: 'evj-production-trend-graph',
     templateUrl: './production-trend-graph.component.html',
-    styleUrls: ['./production-trend-graph.component.scss']
+    styleUrls: ['./production-trend-graph.component.scss'],
 })
-export class ProductionTrendGraphComponent
-    extends LineChartPlatform<IProductionTrend>
-    implements OnInit, OnChanges {
-
+export class ProductionTrendGraphComponent extends LineChartPlatform<IProductionTrend>
+    implements OnChanges, OnInit, OnDestroy {
     @Input() dataWs: IProductionTrend[] = null;
     @Input() widgetId: string = null;
     private readonly restUrl: string = null;
@@ -38,22 +36,28 @@ export class ProductionTrendGraphComponent
     protected async restGraphHandler(ref: IDatesInterval): Promise<IProductionTrend[]> {
         console.log(ref);
         try {
-            return (await this.http
-                .get<IWsData<IProductionTrend>>(`${this.restUrl}/api/widget-data/` +
-                `ed2b05ac-79c5-11ea-92fa-bc5ff45fe692?FromDateTime=` +
-                `${ref.fromDateTime.toISOString()}&ToDateTime=${ref.toDateTime.toISOString()}`)
-                .toPromise())
-                ?.data?.items;
+            return (
+                await this.http
+                    .get<IWsData<IProductionTrend>>(
+                        `${this.restUrl}/api/widget-data/` +
+                            `ed2b05ac-79c5-11ea-92fa-bc5ff45fe692?FromDateTime=` +
+                            `${ref.fromDateTime.toISOString()}&ToDateTime=${ref.toDateTime.toISOString()}`
+                    )
+                    .toPromise()
+            )?.data?.items;
         } catch (e) {
             console.error(e);
             return null;
         }
     }
 
-    public ngOnInit(): void {
-    }
+    public ngOnInit(): void {}
 
     public ngOnChanges(): void {
         this.wsDataHandler(this.dataWs);
+    }
+
+    public ngOnDestroy(): void {
+        super.ngOnDestroy();
     }
 }

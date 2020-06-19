@@ -1,0 +1,132 @@
+:host {
+  width: 100%;
+  height: auto;
+  * {
+    box-sizing: border-box;
+    font-size: 14px;
+    color: var(--color-text-main);
+    user-select: none;
+  }
+}
+
+.card {
+  width: 100%;
+  height: auto;
+  min-height: 52px;
+  border-radius: 12px;
+  padding-bottom: 12px;
+  box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
+  overflow: hidden;
+  background: var(--color-aw-container-body-transparent);
+
+  &__header {
+    width: 100%;
+    height: 40px;
+  }
+
+  .header {
+    position: relative;
+    z-index: 1;
+    padding-left: 55px;
+    display: flex;
+    align-items: center;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    background: var(--color-aw-header-bg);
+
+    .click-area {
+      position: absolute;
+      z-index: 2;
+      width: calc(100% - 40px);
+      height: 100%;
+      top: 0;
+      left: 0;
+    }
+
+    &__button {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      top: 0;
+      bottom: 0;
+      right: 17px;
+      margin: auto;
+
+      .icon {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+      }
+    }
+
+    .button {
+      .icon-unactive {
+        visibility: visible;
+      }
+      .icon-active {
+        visibility: hidden;
+      }
+
+      &_active {
+        .icon-unactive {
+          visibility: hidden;
+        }
+        .icon-active {
+          visibility: visible;
+        }
+      }
+
+      &:hover {
+        cursor: pointer;
+      }
+    }
+
+    .arrow {
+      position: absolute;
+      width: 13px;
+      height: 7px;
+      top: 0;
+      bottom: 0;
+      left: 19px;
+      margin: auto;
+      transform: scaleY(-1);
+      transition: 0.2s;
+
+      &_open {
+        transform: scaleY(1);
+      }
+    }
+
+    .icon-unit {
+      width: 15px;
+      height: 16px;
+      margin-right: 15px;
+    }
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  &__streams {
+    width: 100%;
+    height: auto;
+  }
+
+  .streams {
+    display: none;
+    flex-direction: column;
+    transform-origin: top;
+
+    &__item {
+      width: 100%;
+      height: 45px;
+      margin: 1px 0;
+    }
+
+    &_open {
+      display: flex;
+    }
+  }
+}
