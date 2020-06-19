@@ -33,6 +33,9 @@ export class MatSelectFilterComponent implements OnInit, OnDestroy, AfterViewIni
     public placeholderLabel: string = 'Поиск';
 
     @Input()
+    public disableOptionCentering: boolean = false;
+
+    @Input()
     public noResultFoundText: string = 'Не найдено';
 
     @ViewChild('filterSelectInput', {read: ElementRef})
@@ -119,7 +122,9 @@ export class MatSelectFilterComponent implements OnInit, OnDestroy, AfterViewIni
     }
 
     public ngAfterViewInit(): void {
-        this.setOverlayClass();
+        if (this.disableOptionCentering) {
+            this.setOverlayClass();
+        }
     }
 
     public resetFilter(focus?: boolean): void {
