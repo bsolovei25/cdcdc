@@ -60,9 +60,22 @@
         [isShowingLegend]="true"
         chartType="production-trend"
       ></evj-line-chart-shared>
+      <!-- <evj-line-chart-shared
+        [data]="graphData$ |async"
+        [isShowingLegend]="true"
+        chartType="production-trend"
+      ></evj-line-chart-shared> -->
     </div>
   </div>
   <div class="graph-display__scroll scroll">
     <evj-smart-scroll class="scroll__smart"></evj-smart-scroll>
+    <!-- <evj-smart-scroll
+      class="scroll__smart"
+      [data]="scrollData$ | async"
+      [(sbThumbWidth)]="sbWidth"
+      [(sbThumbLeft)]="sbLeft"
+      (sbThumbLeftChange)="scrollHandler()"
+      (sbThumbWidthChange)="scrollHandler()"
+    ></evj-smart-scroll> -->
   </div>
 </div>

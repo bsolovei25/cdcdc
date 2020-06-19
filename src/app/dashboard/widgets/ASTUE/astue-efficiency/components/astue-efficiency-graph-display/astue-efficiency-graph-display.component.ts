@@ -1,12 +1,28 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import {
+    Component,
+    OnInit,
+    Output,
+    EventEmitter,
+    OnChanges,
+    Input,
+    OnDestroy,
+} from '@angular/core';
 import { IProductionTrend } from '../../../../../models/production-trends.model';
+import { LineChartPlatform } from '../../../../../models/linechart-platform';
+import { WidgetService, IDatesInterval } from '../../../../../services/widget.service';
+import { HttpClient } from '@angular/common/http';
+import { AppConfigService } from '../../../../../../services/appConfigService';
+import { IWsData } from '../../../../production-trend/components/production-trend-graph/production-trend-graph.component';
 
 @Component({
     selector: 'evj-astue-efficiency-graph-display',
     templateUrl: './astue-efficiency-graph-display.component.html',
     styleUrls: ['./astue-efficiency-graph-display.component.scss'],
 })
-export class AstueEfficiencyGraphDisplayComponent implements OnInit {
+export class AstueEfficiencyGraphDisplayComponent extends LineChartPlatform<IProductionTrend>
+    implements OnChanges, OnInit, OnDestroy {
+    @Input() dataWs: IProductionTrend[] = null;
+    @Input() widgetId: string = null;
     @Output() private toggleDisplay: EventEmitter<false> = new EventEmitter<false>();
 
     public data: IProductionTrend[] = [
@@ -148,9 +164,44 @@ export class AstueEfficiencyGraphDisplayComponent implements OnInit {
         },
     ];
 
-    constructor() {}
+    private readonly restUrl: string = null;
+
+    constructor(
+        public widgetService: WidgetService,
+        private http: HttpClient,
+        private appConfigService: AppConfigService
+    ) {
+        super(widgetService);
+        this.restUrl = appConfigService.restUrl;
+    }
+
+    protected async restGraphHandler(ref: IDatesInterval): Promise<IProductionTrend[]> {
+        console.log(ref);
+        try {
+            return (
+                await this.http
+                    .get<IWsData<IProductionTrend>>(
+                        `${this.restUrl}/api/widget-data/` +
+                            `ed2b05ac-79c5-11ea-92fa-bc5ff45fe692?FromDateTime=` +
+                            `${ref.fromDateTime.toISOString()}&ToDateTime=${ref.toDateTime.toISOString()}`
+                    )
+                    .toPromise()
+            )?.data?.items;
+        } catch (e) {
+            console.error(e);
+            return null;
+        }
+    }
+
+    public ngOnChanges(): void {
+        this.wsDataHandler(this.dataWs);
+    }
 
     public ngOnInit(): void {}
+
+    public ngOnDestroy(): void {
+        super.ngOnDestroy();
+    }
 
     public clickDisplayButton(): void {
         this.toggleDisplay.emit(false);
