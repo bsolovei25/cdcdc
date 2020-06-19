@@ -21,31 +21,31 @@ export class OilOperationsLineChartComponent implements OnInit, AfterViewInit {
             graph: [
                 {
                     value: 1000,
-                    timestamp: new Date(2020, 2, 1),
+                    timeStamp: new Date(2020, 2, 1),
                 },
                 {
                     value: 6000,
-                    timestamp: new Date(2020, 2, 2),
+                    timeStamp: new Date(2020, 2, 2),
                 },
                 {
                     value: 4500,
-                    timestamp: new Date(2020, 2, 3),
+                    timeStamp: new Date(2020, 2, 3),
                 },
                 {
                     value: 900,
-                    timestamp: new Date(2020, 2, 4),
+                    timeStamp: new Date(2020, 2, 4),
                 },
                 {
                     value: 1300,
-                    timestamp: new Date(2020, 2, 5),
+                    timeStamp: new Date(2020, 2, 5),
                 },
                 {
                     value: 5800,
-                    timestamp: new Date(2020, 2, 6),
+                    timeStamp: new Date(2020, 2, 6),
                 },
                 {
                     value: 900,
-                    timestamp: new Date(2020, 2, 7),
+                    timeStamp: new Date(2020, 2, 7),
                 },
             ],
         },
