@@ -1,0 +1,22 @@
+<div class="mat-select-filter-placeholder"></div>
+<div class="mat-select-filter-inner">
+  <input
+    class="mat-select-filter-input"
+    type="text"
+    [placeholder]="placeholderLabel"
+    (input)="onInput($event.target.value)"
+    (blur)="onBlur($event.target.value)"
+    #filterSelectInput
+  />
+  <div class="button" *ngIf="value" (click)="resetFilter()">
+    <svg-icon
+      class="button__icon"
+      src="./assets/icons/close.svg"
+      [svgStyle]="{ 'width.px': 10, 'height.px': 10 }"
+    ></svg-icon>
+  </div>
+</div>
+<div *ngIf="value && filterOptions?.length === 0"
+     class="mat-select-filter-no-entries-found">
+  {{ noResultFoundText }}
+</div>

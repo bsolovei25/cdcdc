@@ -33,6 +33,7 @@ import { TooltipComponent } from './components/tooltip/tooltip.component';
 import { TooltipDirective } from './components/tooltip/directives/tooltip.directive';
 import { LineBreakPipe } from './pipes/line-break.pipe';
 import { SelectComponent } from './components/select/select.component';
+import { MatSelectFilterComponent } from './components/mat-select-filter/mat-select-filter.component';
 import { MatSelectModule } from '@angular/material/select';
 import { EventsChatComponent } from './components/events-chat/events-chat.component';
 import { InputComponent } from './components/input/input.component';
@@ -73,6 +74,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
         TooltipDirective,
         LineBreakPipe,
         SelectComponent,
+        MatSelectFilterComponent,
         EventsChatComponent,
         InputComponent,
         AlertPasswordComponent,
@@ -103,6 +105,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
         TooltipDirective,
         LineBreakPipe,
         SelectComponent,
+        MatSelectFilterComponent,
         EventsChatComponent,
         InputComponent,
         AlertPasswordComponent,
