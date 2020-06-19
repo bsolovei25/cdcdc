@@ -3,6 +3,7 @@ import { filter, map, mergeAll } from 'rxjs/operators';
 import { IDatesInterval, WidgetService } from '../services/widget.service';
 import { OnDestroy, OnInit } from '@angular/core';
 import { IProductionTrend } from './production-trends.model';
+import { IChartMini } from '@shared/models/smart-scroll.model';
 
 export type SmartGraphType = 'realtime' | 'rest';
 
@@ -22,6 +23,11 @@ export abstract class LineChartPlatform<T extends IProductionTrend> implements O
 
     public subGraphData$: BehaviorSubject<T[]> = new BehaviorSubject<T[]>(null);
     public graphData$: BehaviorSubject<T[]> = new BehaviorSubject<T[]>(null);
+
+    public scrollData$: Observable<IChartMini[]> = this.subGraphData$.asObservable().pipe(
+        map((graphs) => graphs?.find((g) => g.graphType === 'fact')?.graph ?? null),
+        filter((value) => value !== null),
+    );
 
     protected set subGraphData(value: T[]) {
         this.subGraphData$.next(value);
@@ -126,7 +132,10 @@ export abstract class LineChartPlatform<T extends IProductionTrend> implements O
     protected async setRestGraphData(): Promise<void> {
         const reqDateTimeInterval =
             this.extractScrollDateTimes(this.dateTimeInterval, this.sbWidth, this.sbLeft);
-        this.graphData = await this.restGraphHandler(reqDateTimeInterval);
+        const data = await this.restGraphHandler(reqDateTimeInterval);
+        if (!data) { return; }
+        data.map((item) => item?.graph.map(value => value.timeStamp = new Date(value.timeStamp)));
+        this.graphData = data;
     }
 
     // Проверка расстояния от конца скролла

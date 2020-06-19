@@ -1,9 +1,10 @@
 <div class="container">
-  <div class="graph" (click)="testWs()">
+  <div class="graph">
     <evj-line-chart-shared [data]="graphData$ | async" [isShowingLegend]="true" chartType="production-trend"></evj-line-chart-shared>
   </div>
   <div class="scroll">
     <evj-smart-scroll
+      [data]="scrollData$ | async"
       [(sbThumbWidth)]="sbWidth"
       [(sbThumbLeft)]="sbLeft"
       (sbThumbLeftChange)="scrollHandler()"

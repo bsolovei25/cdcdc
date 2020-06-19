@@ -34,26 +34,31 @@ export class LineChartTrackComponent implements OnChanges, AfterViewInit {
     constructor() {}
 
     public ngOnChanges(): void {
-        if (this.svg) {
+        // if (this.svg) {
+        //     this.initGraph();
+        //     this.transformData();
+        //     this.drawGraph();
+        // }
+        this.initData();
+    }
+
+    public ngAfterViewInit(): void {
+        // this.initGraph();
+        // this.transformData();
+        // this.drawGraph();
+    }
+
+    initData(): void {
+        if (this.data) {
             this.initGraph();
             this.transformData();
             this.drawGraph();
         }
-    }
-
-    public ngAfterViewInit(): void {
-        this.initGraph();
-        this.transformData();
-        this.drawGraph();
     }
 
     @HostListener('document:resize', ['$event'])
     public OnResize(): void {
-        if (this.svg) {
-            this.initGraph();
-            this.transformData();
-            this.drawGraph();
-        }
+        this.initData();
     }
 
     private transformData(): void {
@@ -71,6 +76,7 @@ export class LineChartTrackComponent implements OnChanges, AfterViewInit {
             .domain(domainValues)
             .range(rangeY);
 
+        this.chartData = [];
         this.data.forEach((item, index) => {
             this.chartData[index] = { x: time(item.timeStamp), y: val(item.value) };
         });

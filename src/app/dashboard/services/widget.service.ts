@@ -308,7 +308,6 @@ export class WidgetService {
         this.ws.asObservable().subscribe((data) => {
             if (data?.data && this.isMatchingPeriod(data?.data?.selectedPeriod)) {
                 this.widgetsSocketObservable.next(data);
-                // console.log('data ws');ƒ
             }
         });
     }
@@ -319,9 +318,9 @@ export class WidgetService {
         }
         return (
             new Date(incoming.fromDateTime).getTime() ===
-                new Date(this.currentDates?.fromDateTime).getTime() &&
+                new Date(this.currentDates$.getValue()?.fromDateTime).getTime() &&
             new Date(incoming.toDateTime).getTime() ===
-                new Date(this.currentDates?.toDateTime).getTime()
+                new Date(this.currentDates$.getValue()?.toDateTime).getTime()
         );
     }
 
