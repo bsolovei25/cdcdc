@@ -15,6 +15,7 @@ import {
 } from '../../../dashboard/models/production-trends.model';
 import { IChartD3, IChartMini, IPointTank } from '../../models/smart-scroll.model';
 import { ChartStyleType, ChartStyle, IChartStyle } from '../../models/line-chart-style.model';
+import { IDatesInterval } from '../../../dashboard/services/widget.service';
 
 @Component({
     selector: 'evj-line-chart-shared',
@@ -24,6 +25,7 @@ import { ChartStyleType, ChartStyle, IChartStyle } from '../../models/line-chart
 export class LineChartComponent implements OnChanges, OnInit {
     @Input() public data: IProductionTrend[] = [];
     @Input() public points: IPointTank[] = [];
+    @Input() private limits: IDatesInterval = null;
     @Input() public isShowingLegend: boolean = false;
     @Input() public chartType: 'production-trend' | 'reasons-deviations' | 'oil-operations' =
         'production-trend';
@@ -112,6 +114,16 @@ export class LineChartComponent implements OnChanges, OnInit {
     }
 
     private findMinMax(): void {
+        if (this.limits) {
+            this.data.forEach((graph) => {
+                graph.graph = graph.graph.filter(
+                    (item) =>
+                        item.timeStamp >= this.limits.fromDateTime &&
+                        this.limits.toDateTime >= item.timeStamp
+                );
+            });
+        }
+
         const maxValues: number[] = [];
         const minValues: number[] = [];
 
