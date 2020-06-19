@@ -1,28 +1,34 @@
-export interface IAsEfCard {
+interface IAsEfTempl {
+    id?: number;
     name: string;
+}
+
+export interface IAsEfCard extends IAsEfTempl {
     icon?: string;
     status?: string;
 }
 
-export interface IAsEfUnit {
-    name: string;
-    streams: IAsEfCard[];
+export interface IAsEfUnitCard extends IAsEfTempl {
+    icon?: string;
+    status: string;
 }
 
-export interface IAsEfInitialDataBlock {
+export interface IAsEfUnit extends IAsEfTempl {
     name: string;
+    streams: IAsEfUnitCard[];
+}
+
+export interface IAsEfInitialDataBlock extends IAsEfTempl {
     value?: number;
     status?: string;
     data: IAsEfInitialDataRow[];
 }
 
-export interface IAsEfInitialDataRow {
-    name: string;
+export interface IAsEfInitialDataRow extends IAsEfTempl {
     value: number;
 }
 
-export interface IAsEfTableBlock {
-    name: string;
+export interface IAsEfTableBlock extends IAsEfTempl {
     relativeName?: string;
     status?: string;
     dataSummary?: string;
@@ -30,13 +36,13 @@ export interface IAsEfTableBlock {
     children: IAsEfTableRow[];
 }
 
-export interface IAsEfTableRow {
-    name: string;
+export interface IAsEfTableRow extends IAsEfTempl {
     dataSummary?: string;
     data: IAsEfTableCell[];
 }
 
 export interface IAsEfTableCell {
+    id?: number;
     date: Date;
     value: string;
     isEditable?: boolean;
