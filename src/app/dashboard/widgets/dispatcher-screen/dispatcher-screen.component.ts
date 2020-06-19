@@ -11,7 +11,7 @@ import { WidgetPlatform } from '../../models/widget-platform';
     styleUrls: ['./dispatcher-screen.component.scss'],
 })
 export class DispatcherScreenComponent extends WidgetPlatform implements AfterViewInit, OnDestroy {
-    private baseUrl: string;
+    private readonly baseUrl: string;
     private unityInstance: any;
     isStart: boolean;
 
@@ -59,7 +59,7 @@ export class DispatcherScreenComponent extends WidgetPlatform implements AfterVi
     }
 
     @HostListener('document:UnityDispatcherScreen_Start', ['$event', '$event.detail.param1'])
-    public async OnUnityStart(event, param1): Promise<void> {
+    public async OnUnityStart(event: any, param1: string): Promise<void> {
         this.isStart = true;
         if (!this.unityInstance) {
             return;
@@ -70,7 +70,7 @@ export class DispatcherScreenComponent extends WidgetPlatform implements AfterVi
     }
 
     @HostListener('document:UnityDispatcherScreen_SendSettings', ['$event', '$event.detail.param1'])
-    public async OnUnitySendSettings(event, param1): Promise<void> {
+    public async OnUnitySendSettings(event: any, param1: string): Promise<void> {
         this.isStart = true;
         if (!this.unityInstance) {
             return;
@@ -91,7 +91,7 @@ export class DispatcherScreenComponent extends WidgetPlatform implements AfterVi
         this.loadProject(`${this.baseUrl}assets/unity/dispatcher-screen/web_build.json`);
     }
 
-    private CallUnityScript(objName, funName, ...args): void {
+    private CallUnityScript(objName: string, funName: string, ...args): void {
         if (this.isStart && this.unityInstance) {
             this.unityInstance.SendMessage(objName, funName, ...args);
         }
