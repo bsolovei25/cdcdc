@@ -164,6 +164,11 @@ export class AstueEfficiencyGraphDisplayComponent extends LineChartPlatform<IPro
         },
     ];
 
+    public dataLimits: IDatesInterval = {
+        fromDateTime: new Date(2020, 2, 3),
+        toDateTime: new Date(2020, 2, 6),
+    };
+
     private readonly restUrl: string = null;
 
     constructor(
