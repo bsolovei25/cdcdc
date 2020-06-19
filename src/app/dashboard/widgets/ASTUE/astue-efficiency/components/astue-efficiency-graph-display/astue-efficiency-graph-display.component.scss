@@ -170,7 +170,7 @@
     background: var(--color-aw-container-body-transparent);
     display: flex;
 
-    &__container{
+    &__container {
       width: 100%;
       height: 80%;
       align-self: center;
@@ -188,6 +188,12 @@
     &__smart {
       width: 100%;
       height: 100%;
+
+      &::ng-deep {
+        .scroll-bar .sb__track {
+          background: var(--color-aw-container-body-transparent) !important;
+        }
+      }
     }
   }
 }

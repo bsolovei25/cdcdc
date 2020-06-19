@@ -66,7 +66,7 @@ export class LineChartComponent implements OnChanges, OnInit {
     constructor() {}
 
     public ngOnChanges(): void {
-        this.graphInit();
+        setTimeout(() => this.graphInit(), 0);
     }
 
     public ngOnInit(): void {
