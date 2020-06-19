@@ -286,6 +286,10 @@ export class LineChartPickerDirective implements OnDestroy {
                 const borderTop = findCursorPosition(x, 'higherBorder', this.svg, this.padding);
                 const borderBottom = findCursorPosition(x, 'lowerBorder', this.svg, this.padding);
 
+                if (!posFact) {
+                    return;
+                }
+
                 const factY = this.scaleFuncs.y.invert(posFact.y);
                 const factX = this.scaleFuncs.y.invert(posFact.x);
                 const planY = posPlan ? this.scaleFuncs.y.invert(posPlan.y) : null;
