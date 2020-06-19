@@ -23,6 +23,7 @@ export interface IAsEfInitialDataRow {
 
 export interface IAsEfTableBlock {
     name: string;
+    relativeName?: string;
     status?: string;
     dataSummary?: string;
     data?: IAsEfTableCell[];

@@ -358,6 +358,245 @@ export class AstueEfficiencyTableDisplayComponent implements OnInit {
         },
     ];
 
+    public deviationsData: IAsEfTableBlock[] = [
+        {
+            name: 'План/План',
+            relativeName: 'План/Факт',
+            children: [
+                {
+                    name: 'Ед. изм./т.',
+                    dataSummary: '11.123',
+                    data: [
+                        {
+                            date: new Date(2020, 5, 1),
+                            value: '8.888',
+                            isEditable: false,
+                        },
+                        {
+                            date: new Date(2020, 5, 2),
+                            value: '8.888',
+                            isEditable: false,
+                        },
+                        {
+                            date: new Date(2020, 5, 3),
+                            value: '8.888',
+                            isEditable: false,
+                        },
+                        {
+                            date: new Date(2020, 5, 4),
+                            value: '8.888',
+                            isEditable: false,
+                        },
+                        {
+                            date: new Date(2020, 5, 5),
+                            value: '8.888',
+                            isEditable: false,
+                        },
+                        {
+                            date: new Date(2020, 5, 6),
+                            value: '8.888',
+                            isEditable: false,
+                        },
+                        {
+                            date: new Date(2020, 5, 7),
+                            value: '8.888',
+                            isEditable: false,
+                        },
+                        {
+                            date: new Date(2020, 5, 8),
+                            value: '8.888',
+                            isEditable: false,
+                        },
+                        {
+                            date: new Date(2020, 5, 9),
+                            value: '8.888',
+                            isEditable: false,
+                        },
+                        {
+                            date: new Date(2020, 5, 10),
+                            value: '8.888',
+                            isEditable: false,
+                        },
+                    ],
+                },
+                {
+                    name: 'Ед. изм.',
+                    dataSummary: '11.123',
+                    data: [
+                        {
+                            date: new Date(2020, 5, 1),
+                            value: '4.1',
+                            isEditable: false,
+                        },
+                        {
+                            date: new Date(2020, 5, 2),
+                            value: '4.1',
+                            isEditable: false,
+                        },
+                        {
+                            date: new Date(2020, 5, 3),
+                            value: '4.1',
+                            isEditable: false,
+                        },
+                        {
+                            date: new Date(2020, 5, 4),
+                            value: '4.1',
+                            isEditable: false,
+                        },
+                        {
+                            date: new Date(2020, 5, 5),
+                            value: '4.1',
+                            isEditable: false,
+                        },
+                        {
+                            date: new Date(2020, 5, 6),
+                            value: '4.1',
+                            isEditable: false,
+                        },
+                        {
+                            date: new Date(2020, 5, 7),
+                            value: '4.1',
+                            isEditable: false,
+                        },
+                        {
+                            date: new Date(2020, 5, 8),
+                            value: '4.1',
+                            isEditable: false,
+                        },
+                        {
+                            date: new Date(2020, 5, 9),
+                            value: '4.1',
+                            isEditable: false,
+                        },
+                        {
+                            date: new Date(2020, 5, 10),
+                            value: '4.1',
+                            isEditable: false,
+                        },
+                    ],
+                },
+            ],
+        },
+        {
+            name: 'Бизнес-план',
+            relativeName: 'Факт',
+            children: [
+                {
+                    name: 'Ед. изм./т.',
+                    dataSummary: '11.123',
+                    data: [
+                        {
+                            date: new Date(2020, 5, 1),
+                            value: '8.888',
+                            isEditable: true,
+                        },
+                        {
+                            date: new Date(2020, 5, 2),
+                            value: '8.888',
+                            isEditable: true,
+                        },
+                        {
+                            date: new Date(2020, 5, 3),
+                            value: '8.888',
+                            isEditable: true,
+                        },
+                        {
+                            date: new Date(2020, 5, 4),
+                            value: '8.888',
+                            isEditable: true,
+                        },
+                        {
+                            date: new Date(2020, 5, 5),
+                            value: '8.888',
+                            isEditable: true,
+                        },
+                        {
+                            date: new Date(2020, 5, 6),
+                            value: '8.888',
+                            isEditable: true,
+                        },
+                        {
+                            date: new Date(2020, 5, 7),
+                            value: '8.888',
+                            isEditable: true,
+                        },
+                        {
+                            date: new Date(2020, 5, 8),
+                            value: '8.888',
+                            isEditable: true,
+                        },
+                        {
+                            date: new Date(2020, 5, 9),
+                            value: '8.888',
+                            isEditable: true,
+                        },
+                        {
+                            date: new Date(2020, 5, 10),
+                            value: '8.888',
+                            isEditable: true,
+                        },
+                    ],
+                },
+                {
+                    name: 'Ед. изм.',
+                    dataSummary: '11.123',
+                    data: [
+                        {
+                            date: new Date(2020, 5, 1),
+                            value: '4.1',
+                            isEditable: false,
+                        },
+                        {
+                            date: new Date(2020, 5, 2),
+                            value: '4.1',
+                            isEditable: false,
+                        },
+                        {
+                            date: new Date(2020, 5, 3),
+                            value: '4.1',
+                            isEditable: false,
+                        },
+                        {
+                            date: new Date(2020, 5, 4),
+                            value: '4.1',
+                            isEditable: false,
+                        },
+                        {
+                            date: new Date(2020, 5, 5),
+                            value: '4.1',
+                            isEditable: false,
+                        },
+                        {
+                            date: new Date(2020, 5, 6),
+                            value: '4.1',
+                            isEditable: false,
+                        },
+                        {
+                            date: new Date(2020, 5, 7),
+                            value: '4.1',
+                            isEditable: false,
+                        },
+                        {
+                            date: new Date(2020, 5, 8),
+                            value: '4.1',
+                            isEditable: false,
+                        },
+                        {
+                            date: new Date(2020, 5, 9),
+                            value: '4.1',
+                            isEditable: false,
+                        },
+                        {
+                            date: new Date(2020, 5, 10),
+                            value: '4.1',
+                            isEditable: false,
+                        },
+                    ],
+                },
+            ],
+        },
+    ];
+
     public blockSelection: SelectionModel<IAsEfTableBlock> = new SelectionModel<IAsEfTableBlock>(
         true
     );

@@ -106,6 +106,7 @@
         &:hover {
           cursor: pointer;
           border-color: var(--color-active);
+          color: var(--color-text-main);
         }
 
         &:first-child {
@@ -114,24 +115,22 @@
         &:last-child {
           margin-right: 0;
         }
-
-        &_active {
-          color: var(--color-text-main);
-          border-color: var(--color-active);
-
-          &:hover {
-            cursor: default;
-          }
-        }
       }
     }
   }
 
-  .table {
+  &__container {
     position: relative;
+    width: 100%;
+    height: 100%;
     border-radius: 12px;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     background: var(--color-aw-container-body-transparent);
+    overflow: hidden;
+  }
+
+  .table {
+    position: relative;
     overflow: scroll;
 
     table {
@@ -236,6 +235,12 @@
             left: 19px;
             margin: auto;
             transform: scaleY(-1);
+          }
+
+          .separator {
+            width: 15px;
+            height: 15px;
+            margin: 0px 40px;
           }
 
           .status {
@@ -430,6 +435,20 @@
         &:nth-child(2) {
           flex: 1;
         }
+      }
+    }
+
+    &::-webkit-scrollbar {
+      &-track {
+        background: var(--color-aw-container-body-transparent);
+        margin: 20px 20px;
+
+        &-piece {
+          background: var(--color-aw-container-body-transparent);
+        }
+      }
+      &-thumb {
+        background: var(--color-border-box-shadow);
       }
     }
   }
