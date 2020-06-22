@@ -25,7 +25,11 @@
         <ng-template #default>
           <div class="title" (click)="toggleDropdown()">Выберите сценарий пользователя</div>
         </ng-template>
-        <div class="dropdown" [ngClass]="{'dropdown_open': isDropdownOpen}">
+        <div
+          class="dropdown"
+          [ngClass]="{'dropdown_open': isDropdownOpen}"
+          (mouseleave)="toggleDropdown()"
+        >
           <div
             class="dropdown__item item"
             (click)="selectScript(script)"
