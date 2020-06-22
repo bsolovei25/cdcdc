@@ -5,14 +5,14 @@
       <div class="label">Начало</div>
       <evj-time-data-picker
         [data]="limits.fromDateTime"
-        (dateTimePicker)="dateTimePickerInput($event)"
+        (dateTimePicker)="dateTimePickerInput($event, 'fromDateTime')"
       ></evj-time-data-picker>
     </div>
     <div class="card__finish">
       <div class="label">Конец</div>
       <evj-time-data-picker
         [data]="limits.toDateTime"
-        (dateTimePicker)="dateTimePickerInput($event)"
+        (dateTimePicker)="dateTimePickerInput($event, 'toDateTime')"
       ></evj-time-data-picker>
     </div>
     <div class="card__submit button">Подтвердить</div>
