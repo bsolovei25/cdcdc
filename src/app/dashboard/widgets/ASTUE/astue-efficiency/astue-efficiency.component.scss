@@ -59,3 +59,23 @@
     max-width: 1332px;
   }
 }
+
+.block {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: max-content;
+
+  &__items {
+    height: 100%;
+    display: flex;
+  }
+}
+
+.calculation {
+  width: calc(264px * 2 + 12px);
+  height: 90px;
+  min-height: 90px;
+  max-height: 90px;
+  margin: 0 6px 0 0;
+}

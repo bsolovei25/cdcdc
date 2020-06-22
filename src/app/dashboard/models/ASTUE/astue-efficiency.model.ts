@@ -47,3 +47,9 @@ export interface IAsEfTableCell {
     value: string;
     isEditable?: boolean;
 }
+
+export interface IAsEfScript {
+    name: string;
+    fromDateTime: Date;
+    toDateTime: Date;
+}

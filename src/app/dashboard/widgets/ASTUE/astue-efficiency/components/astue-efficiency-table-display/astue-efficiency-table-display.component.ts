@@ -1,5 +1,9 @@
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
-import { IAsEfTableBlock, IAsEfTableRow } from '../../../../../models/ASTUE/astue-efficiency.model';
+import {
+    IAsEfTableBlock,
+    IAsEfTableRow,
+    IAsEfScript,
+} from '../../../../../models/ASTUE/astue-efficiency.model';
 import { SelectionModel } from '@angular/cdk/collections';
 
 @Component({
@@ -597,9 +601,46 @@ export class AstueEfficiencyTableDisplayComponent implements OnInit {
         },
     ];
 
+    public scripts: IAsEfScript[] = [
+        {
+            name: 'Иванов И.И.',
+            fromDateTime: new Date(2020, 1, 3, 14, 44, 23),
+            toDateTime: new Date(2020, 1, 7, 21, 23, 45),
+        },
+        {
+            name: 'Петров П.П.',
+            fromDateTime: new Date(2020, 1, 3, 14, 44, 23),
+            toDateTime: new Date(2020, 1, 7, 21, 23, 45),
+        },
+        {
+            name: 'Сидоров С.С.',
+            fromDateTime: new Date(2020, 1, 3, 14, 44, 23),
+            toDateTime: new Date(2020, 1, 7, 21, 23, 45),
+        },
+        {
+            name: 'Иванов И.И.',
+            fromDateTime: new Date(2020, 1, 3, 14, 44, 23),
+            toDateTime: new Date(2020, 1, 7, 21, 23, 45),
+        },
+        {
+            name: 'Петров П.П.',
+            fromDateTime: new Date(2020, 1, 3, 14, 44, 23),
+            toDateTime: new Date(2020, 1, 7, 21, 23, 45),
+        },
+        {
+            name: 'Сидоров С.С.',
+            fromDateTime: new Date(2020, 1, 3, 14, 44, 23),
+            toDateTime: new Date(2020, 1, 7, 21, 23, 45),
+        },
+    ];
+
+    public isDropdownOpen: boolean = false;
+
     public blockSelection: SelectionModel<IAsEfTableBlock> = new SelectionModel<IAsEfTableBlock>(
         true
     );
+
+    public scriptSelection: SelectionModel<any> = new SelectionModel<any>();
 
     constructor() {}
 
@@ -614,5 +655,14 @@ export class AstueEfficiencyTableDisplayComponent implements OnInit {
             row.data.reduce((acc, item) => (acc += +item.value), 0) / row.data.length
         ).toFixed(5);
         row.dataSummary = value.toString();
+    }
+
+    public toggleDropdown(): void {
+        this.isDropdownOpen = !this.isDropdownOpen;
+    }
+
+    public selectScript(script: IAsEfScript): void {
+        this.scriptSelection.select(script);
+        this.toggleDropdown();
     }
 }

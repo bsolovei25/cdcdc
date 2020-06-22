@@ -12,6 +12,11 @@ export class AstueEfficiencyComponent extends WidgetPlatform implements OnInit, 
     public isGraphDisplay: boolean = true;
     public isInitialDataShow: boolean = true;
 
+    public static itemCols: number = 58;
+    public static itemRows: number = 25;
+    public static minItemCols: number = 58;
+    public static minItemRows: number = 20;
+
     constructor(
         protected widgetService: WidgetService,
         private adminService: AdminPanelService,
