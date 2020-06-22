@@ -267,7 +267,7 @@ export class EventsComponent extends WidgetPlatform implements OnInit, OnDestroy
     }
 
     private countNotificationsDivCapacity(): void {
-        const notificationsDivCapacity = Math.trunc(this.notificationsDiv.nativeElement.clientWidth / 405);
+        const notificationsDivCapacity = Math.trunc(this.notificationsDiv.nativeElement.clientWidth / 383);
         this.notificationsGrouped = this.sortArray(this.notifications, this.isList ? notificationsDivCapacity : 1);
     }
 
