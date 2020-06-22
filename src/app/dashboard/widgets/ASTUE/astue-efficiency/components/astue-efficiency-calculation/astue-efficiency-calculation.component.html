@@ -4,14 +4,14 @@
     <div class="card__begin">
       <div class="label">Начало</div>
       <evj-time-data-picker
-        [data]="fromDate"
+        [data]="limits.fromDateTime"
         (dateTimePicker)="dateTimePickerInput($event)"
       ></evj-time-data-picker>
     </div>
     <div class="card__finish">
       <div class="label">Конец</div>
       <evj-time-data-picker
-        [data]="fromDate"
+        [data]="limits.toDateTime"
         (dateTimePicker)="dateTimePickerInput($event)"
       ></evj-time-data-picker>
     </div>
