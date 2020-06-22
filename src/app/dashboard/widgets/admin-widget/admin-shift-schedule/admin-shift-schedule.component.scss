@@ -34,6 +34,7 @@ $color-bg-active-gradient: "2d3f51";
 
     .block-left {
     }
+
     .block-right {
       width: 100%;
     }
@@ -59,6 +60,7 @@ $color-bg-active-gradient: "2d3f51";
       overflow: auto;
       width: 70%;
     }
+
     .block-right {
       width: 30%;
       margin-left: 5px;
@@ -143,6 +145,7 @@ $color-bg-active-gradient: "2d3f51";
             cursor: pointer;
             position: absolute;
             right: 55px;
+
             ::ng-deep svg {
               fill: var(--color-text-main);
             }
@@ -180,11 +183,13 @@ $color-bg-active-gradient: "2d3f51";
   height: 200px;
   border-left: dashed 0.5px var(--color-border-main);
   border-right: dashed 0.5px var(--color-border-main);
+
   .line {
     color: var(--color-text-sub-heading);
     margin: 0 auto;
     padding-left: 160px;
   }
+
   &-container {
     height: 100%;
     width: 100%;
@@ -192,6 +197,7 @@ $color-bg-active-gradient: "2d3f51";
     flex-direction: row;
     justify-content: center;
   }
+
   img {
     width: 80%;
     height: 100%;
@@ -208,7 +214,7 @@ p {
   .calendar {
     width: 100%;
     min-height: 500px;
-    max-height: 500px;
+    max-height: 100%;
     min-width: 350px;
     max-width: 350px;
     margin-right: 10px;
@@ -221,14 +227,17 @@ p {
         font-size: 14px;
         margin-bottom: 14px;
       }
+
       &__list-items {
         list-style: none;
         padding: 0;
         margin: 0;
 
         display: flex;
+        flex-wrap: wrap;
         margin-bottom: 14px;
       }
+
       &__list-item {
         font-size: 11px;
         height: 20px;
@@ -237,11 +246,15 @@ p {
         line-height: 20px;
         padding: 0 10px;
         margin-right: 10px;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        margin-bottom: 10px;
       }
 
       &__info-items {
         display: flex;
       }
+
       &__info-item {
         font-size: 11px;
         display: flex;
@@ -254,10 +267,11 @@ p {
       }
     }
   }
+
   .main-team {
     width: 100%;
     min-height: 270px;
-    max-height: 500px;
+    max-height: 100%;
     min-width: 250px;
     margin-right: 5px;
 
@@ -271,6 +285,7 @@ p {
     &__section {
       overflow-y: auto;
       height: 100%;
+
       &__container {
         // height: 100%;
         .list {
@@ -322,10 +337,12 @@ p {
       padding: 10px 18px;
       font-size: 15px;
     }
+
     .date-today {
       color: var(--color-text-sub);
       padding: 10px 18px;
     }
+
     .shift-today {
       display: flex;
       justify-content: space-between;
@@ -449,10 +466,12 @@ p {
         width: 20px;
         height: 20px;
       }
+
       ul {
         list-style: none;
         padding: 0;
         margin: 0;
+
         li {
           text-align: center;
           padding: 10px 10px;
@@ -461,6 +480,7 @@ p {
 
           &:hover {
             background-color: var(--color-bg-active);
+
             &::before {
               content: "";
               left: 0px;
@@ -472,6 +492,7 @@ p {
               background-color: var(--color-bg-active-bright);
             }
           }
+
           // &:first-child {
           //   padding: 10px 10px;
           //   padding-top: 5px;
@@ -544,35 +565,43 @@ p {
   border-radius: 25px;
   z-index: 999;
 }
+
 :hover::-webkit-scrollbar {
   width: 5px;
   height: 5px;
   border-radius: 25px;
   z-index: 999;
 }
+
 ::-webkit-scrollbar-track {
   border-radius: 25px;
   margin: 10px;
 }
+
 ::-webkit-scrollbar-track-piece {
   border: solid 0.5px var(--color-border-main);
   border-radius: 25px;
 }
+
 :hover::-webkit-scrollbar-track-piece {
   border: solid 0.5px var(--color-border-active);
   border-radius: 25px;
 }
+
 ::-webkit-scrollbar-thumb {
   background-color: var(--color-border-main);
   border-radius: 25px;
 }
+
 :hover::-webkit-scrollbar-thumb {
   background-color: var(--color-border-active);
   border-radius: 25px;
 }
+
 ::-webkit-scrollbar-corner {
   border-radius: 25px;
 }
+
 ::-webkit-resizer {
   background-color: var(--color-border-active);
   border-radius: 25px;
@@ -587,18 +616,23 @@ p {
 .color-1 {
   background-color: var(--color-smp-blue);
 }
+
 .color-2 {
   background-color: var(--color-bg-active-sub-workflow);
 }
+
 .color-3 {
   background-color: var(--color-active);
 }
+
 .color-4 {
   background-color: var(--color-marker-diagram);
 }
+
 .color-5 {
   background-color: var(--color-smp-ev-ws-grad2);
 }
+
 .color-6 {
   background-color: var(--color-bg-active-gradient);
 }
