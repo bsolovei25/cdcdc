@@ -47,13 +47,20 @@
     </ng-container>
 
     <ng-container *ngIf="!isInitialDataShow">
-      <div class="item item_s">
-        <evj-astue-efficiency-items></evj-astue-efficiency-items>
-      </div>
-      <div class="item item_s">
-        <evj-astue-efficiency-units
-          [isInitialDataShow]="isInitialDataShow"
-        ></evj-astue-efficiency-units>
+      <div class="block">
+        <div class="block__items">
+          <div class="item item_s">
+            <evj-astue-efficiency-items></evj-astue-efficiency-items>
+          </div>
+          <div class="item item_s">
+            <evj-astue-efficiency-units
+              [isInitialDataShow]="isInitialDataShow"
+            ></evj-astue-efficiency-units>
+          </div>
+        </div>
+        <div class="calculation">
+          <evj-astue-efficiency-calculation></evj-astue-efficiency-calculation>
+        </div>
       </div>
       <div class="item item_xl">
         <evj-astue-efficiency-table-display
