@@ -113,9 +113,26 @@ export class LineChartComponent implements OnChanges, OnInit {
             .attr('viewBox', `0 0 ${this.graphMaxX} ${this.graphMaxY - 5}`);
     }
 
-    private findMinMax(): void {
+    private setLimits(): void {
         if (this.limits) {
+            const findAverage = (graph: IProductionTrend, date: Date) => {
+                const index = graph.graph.findIndex((item) => item.timeStamp > date);
+                const newPoint: IChartMini = {
+                    timeStamp: date,
+                    value: (graph.graph[index].value + graph.graph[index - 1].value) / 2,
+                };
+                graph.graph.splice(index - 1, 0, newPoint);
+            };
+
             this.data.forEach((graph) => {
+                Object.keys(this.limits).forEach((key) => {
+                    const findFunc = (item: IChartMini) =>
+                        item.timeStamp.toString() === this.limits[key].toString();
+                    if (!graph.graph.find(findFunc)) {
+                        findAverage(graph, this.limits[key]);
+                    }
+                });
+
                 graph.graph = graph.graph.filter(
                     (item) =>
                         item.timeStamp >= this.limits.fromDateTime &&
@@ -123,6 +140,10 @@ export class LineChartComponent implements OnChanges, OnInit {
                 );
             });
         }
+    }
+
+    private findMinMax(): void {
+        this.setLimits();
 
         const maxValues: number[] = [];
         const minValues: number[] = [];
