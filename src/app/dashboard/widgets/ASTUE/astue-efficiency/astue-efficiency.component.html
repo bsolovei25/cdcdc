@@ -1,8 +1,4 @@
-<evj-widget-preview
-  [title]="widgetTitle"
-  [icon]="widgetIcon"
-  *ngIf="isMock"
-></evj-widget-preview>
+<evj-widget-preview [title]="widgetTitle" [icon]="widgetIcon" *ngIf="isMock"></evj-widget-preview>
 
 <div class="container pointer-events" *ngIf="!isMock">
   <evj-widget-header
@@ -21,11 +17,10 @@
     (mousedown)="$event.stopPropagation()"
     (touchstart)="$event.stopPropagation()"
   >
-    <div class="item item_s">
-      <evj-astue-efficiency-items></evj-astue-efficiency-items>
-    </div>
-
     <ng-container *ngIf="isInitialDataShow">
+      <div class="item item_s">
+        <evj-astue-efficiency-items></evj-astue-efficiency-items>
+      </div>
       <div class="item item_s">
         <evj-astue-efficiency-units
           [isInitialDataShow]="isInitialDataShow"
@@ -52,6 +47,9 @@
     </ng-container>
 
     <ng-container *ngIf="!isInitialDataShow">
+      <div class="item item_s">
+        <evj-astue-efficiency-items></evj-astue-efficiency-items>
+      </div>
       <div class="item item_s">
         <evj-astue-efficiency-units
           [isInitialDataShow]="isInitialDataShow"
