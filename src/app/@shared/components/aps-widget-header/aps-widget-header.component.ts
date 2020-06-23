@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { UserSettingsService } from '../../../dashboard/services/user-settings.service';
 
 @Component({
     selector: 'evj-aps-widget-header',
@@ -6,11 +7,24 @@ import { Component, OnInit } from '@angular/core';
     styleUrls: ['./aps-widget-header.component.scss'],
 })
 export class ApsWidgetHeaderComponent implements OnInit {
-    constructor() {}
+    @Input() private uniqId: string = '';
+    @Input() public onFullScreenButton: any = null;
+
+    public isMenuOpen: boolean = false;
+
+    constructor(private userSettings: UserSettingsService) {}
 
     ngOnInit(): void {}
 
-    openMenu(): void {
-        console.log('click');
+    toggleMenu(): void {
+        this.isMenuOpen = !this.isMenuOpen;
+    }
+
+    closeMenu(): void {
+        this.isMenuOpen = false;
+    }
+
+    public async onRemoveButton(): Promise<void> {
+        await this.userSettings.removeItem(this.uniqId);
     }
 }
