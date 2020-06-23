@@ -11,6 +11,7 @@ import {
     OnDestroy,
 } from '@angular/core';
 import { IChartMini } from '../../models/smart-scroll.model';
+import { IDatesInterval } from '../../../dashboard/services/widget.service';
 
 @Component({
     selector: 'evj-smart-scroll',
@@ -50,6 +51,11 @@ export class SmartScrollComponent implements AfterViewInit, OnChanges, OnDestroy
         { value: 8, timeStamp: new Date(2020, 3, 28) },
         { value: 7, timeStamp: new Date(2020, 3, 29) },
     ];
+
+    public limits: IDatesInterval = {
+        fromDateTime: new Date(2020, 3, 8),
+        toDateTime: new Date(2020, 4, 15),
+    };
 
     @Output() private sbThumbWidthChange: EventEmitter<number> = new EventEmitter<number>();
     @Output() private sbThumbLeftChange: EventEmitter<number> = new EventEmitter<number>();

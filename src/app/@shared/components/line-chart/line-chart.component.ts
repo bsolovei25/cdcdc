@@ -16,6 +16,7 @@ import {
 import { IChartD3, IChartMini, IPointTank } from '../../models/smart-scroll.model';
 import { ChartStyleType, ChartStyle, IChartStyle } from '../../models/line-chart-style.model';
 import { IDatesInterval } from '../../../dashboard/services/widget.service';
+import { setLimits } from '../../functions/set-limits.function';
 
 @Component({
     selector: 'evj-line-chart-shared',
@@ -113,47 +114,8 @@ export class LineChartComponent implements OnChanges, OnInit {
             .attr('viewBox', `0 0 ${this.graphMaxX} ${this.graphMaxY - 5}`);
     }
 
-    private setLimits(): void {
-        if (this.limits) {
-            const findAverage = (graph: IProductionTrend, date: Date) => {
-                const index = graph.graph.findIndex((item) => item.timeStamp > date);
-
-                if (!(index === -1 || index === 0)) {
-                    const coef =
-                        (date.getTime() - graph.graph[index - 1].timeStamp.getTime()) /
-                        (graph.graph[index].timeStamp.getTime() -
-                            graph.graph[index - 1].timeStamp.getTime());
-
-                    const newPoint: IChartMini = {
-                        timeStamp: date,
-                        value:
-                            graph.graph[index - 1].value +
-                            (graph.graph[index].value - graph.graph[index - 1].value) * coef,
-                    };
-                    graph.graph.splice(index - 1, 0, newPoint);
-                }
-            };
-
-            this.data.forEach((graph) => {
-                Object.keys(this.limits).forEach((key) => {
-                    const findFunc = (item: IChartMini) =>
-                        item.timeStamp.toString() === this.limits[key].toString();
-                    if (!graph.graph.find(findFunc)) {
-                        findAverage(graph, this.limits[key]);
-                    }
-                });
-
-                graph.graph = graph.graph.filter(
-                    (item) =>
-                        item.timeStamp >= this.limits.fromDateTime &&
-                        this.limits.toDateTime >= item.timeStamp
-                );
-            });
-        }
-    }
-
     private findMinMax(): void {
-        this.setLimits();
+        this.data.forEach((graph) => (graph.graph = setLimits(graph.graph, this.limits)));
 
         const maxValues: number[] = [];
         const minValues: number[] = [];
