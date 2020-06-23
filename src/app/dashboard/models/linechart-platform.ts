@@ -14,7 +14,8 @@ export abstract class LineChartPlatform<T extends IProductionTrend> implements O
     // Отступ скролла в процентах от правой части для трансляции данных
     private readonly realtimeDelta: number = 10;
 
-    protected dateTimeInterval: IDatesInterval = null;
+    public dateTimeInterval: IDatesInterval = null;
+    public graphDateTimeInterval: IDatesInterval = null;
 
     public sbLeft: number = 70;
     public sbWidth: number = 30;
@@ -97,7 +98,8 @@ export abstract class LineChartPlatform<T extends IProductionTrend> implements O
             this.setRestGraphData();
             return;
         }
-        const currentGraphInterval = this.getGraphBordersDateTime(this.graphData$.getValue());
+        // const currentGraphInterval = this.getGraphBordersDateTime(this.graphData$.getValue());
+        const currentGraphInterval = {...this.graphDateTimeInterval};
         if (currentGraphInterval.fromDateTime.getTime() < subGraphInterval.fromDateTime.getTime()) {
             this.sbLeft = 0;
             this.setRestGraphData();
@@ -132,6 +134,7 @@ export abstract class LineChartPlatform<T extends IProductionTrend> implements O
     protected async setRestGraphData(): Promise<void> {
         const reqDateTimeInterval =
             this.extractScrollDateTimes(this.dateTimeInterval, this.sbWidth, this.sbLeft);
+        this.graphDateTimeInterval = {...reqDateTimeInterval};
         const data = await this.restGraphHandler(reqDateTimeInterval);
         if (!data) { return; }
         data.map((item) => item?.graph.map(value => value.timeStamp = new Date(value.timeStamp)));
@@ -185,128 +188,3 @@ export abstract class LineChartPlatform<T extends IProductionTrend> implements O
         };
     }
 }
-
-/// V2
-// export interface ISmartGraph<T[]> {
-//     data: T;
-//     dataType: SmartGraphType;
-// }
-//
-// export abstract class LineChartPlatform<T[]> implements OnInit, OnDestroy {
-//     protected dataType$: BehaviorSubject<SmartGraphType> =
-//         new BehaviorSubject<SmartGraphType>('realtime');
-//
-//     protected set dataType(value: SmartGraphType) {
-//         this.dataType$.next(value);
-//     }
-//
-//     private realtimeGraph$: BehaviorSubject<ISmartGraph<T[]>> = new BehaviorSubject<ISmartGraph<T[]>>(null);
-//     private restGraph$: BehaviorSubject<ISmartGraph<T[]>> = new BehaviorSubject<ISmartGraph<T[]>>(null);
-//     public graphDataObserver: Observable<T[]> =
-//         this.dataObserver(this.dataType$, this.realtimeGraph$, this.restGraph$);
-//
-//     private realtimeSubGraph$: BehaviorSubject<ISmartGraph<T[]>> = new BehaviorSubject<ISmartGraph<T[]>>(null);
-//     private restSubGraph$: BehaviorSubject<ISmartGraph<T[]>> = new BehaviorSubject<ISmartGraph<T[]>>(null);
-//     public subGraphDataObserver: Observable<T[]> =
-//         this.dataObserver(this.dataType$, this.realtimeSubGraph$, this.restSubGraph$);
-//
-//     private dataObserver(
-//         type: BehaviorSubject<'realtime' | 'rest'>,
-//         realtime: BehaviorSubject<ISmartGraph<T[]>>,
-//         rest: BehaviorSubject<ISmartGraph<T[]>>
-//     ): Observable<T[]> {
-//         return from([type, realtime, rest]).pipe(
-//             mergeAll(),
-//             map(value => (value === 'realtime') ? realtime.getValue() : value),
-//             map(value => {
-//                 if (typeof value !== 'string') {
-//                     return value;
-//                 }
-//                 return null;
-//             }),
-//             filter((value) => value !== null && value.dataType === this.dataType$.getValue()),
-//             map(value => value.data),
-//             filter(value => value !== null),
-//         );
-//     }
-//
-//     private subscriptions: Subscription[] = [];
-//
-//     protected dateTimeInterval: IDatesInterval = null;
-//
-//     protected set restGraph(value: T) {
-//         this.restGraph$.next({data: value, dataType: 'rest'});
-//     }
-//
-//     protected set realtimeGraph(value: T) {
-//         this.realtimeGraph$.next({data: value, dataType: 'realtime'});
-//     }
-//
-//     protected set restSubGraph(value: T) {
-//         this.restSubGraph$.next({data: value, dataType: 'rest'});
-//     }
-//
-//     protected set realtimeSubGraph(value: T) {
-//         this.realtimeSubGraph$.next({data: value, dataType: 'realtime'});
-//     }
-//
-//     protected constructor(protected widgetService: WidgetService) {
-//     }
-//
-//     public ngOnInit(): void {
-//         this.subscriptions.push(
-//             this.widgetService.currentDates$.subscribe(this.changesIntervalHandler.bind(this))
-//         );
-//     }
-//
-//     public ngOnDestroy(): void {
-//         this.subscriptions.forEach((s) => s.unsubscribe());
-//     }
-//
-//     protected async changesIntervalHandler(ref: IDatesInterval): Promise<void> {
-//         if (ref?.toDateTime && ref?.fromDateTime) {
-//             this.dataType = 'rest';
-//             const data = await this.restGraphHandler(ref);
-//             this.restSubGraph = data;
-//             this.restGraph = data;
-//             return;
-//         }
-//         this.dataType = 'realtime';
-//     }
-//
-//     protected abstract async restGraphHandler(ref: IDatesInterval): Promise<T[]>;
-//
-//     public async scrollHandler(sbWidth: number, sbLeft: number): Promise<void> {
-//         if (!this.dateTimeInterval) {
-//             return;
-//         }
-//         if (this.dataType$.getValue() === 'realtime') {
-//             const subGraphValue = await this.restGraphHandler(this.dateTimeInterval);
-//         }
-//         this.dataType = 'rest';
-//     }
-//
-//     protected extractScrollDateTimes(
-//         dateTimeInterval: IDatesInterval,
-//         sbWidth: number,
-//         sbLeft: number
-//     ): IDatesInterval {
-//         if (!(dateTimeInterval && sbWidth && sbLeft)) {
-//             console.error('extractScrollDateTimes: No valid params');
-//             return null;
-//         }
-//         const timeInterval = {
-//             from: dateTimeInterval.fromDateTime.getTime(),
-//             to: dateTimeInterval.toDateTime.getTime()
-//         };
-//
-//         function getByPercent(value: number): number {
-//             return (timeInterval.from - timeInterval.to) * value / 100;
-//         }
-//
-//         return {
-//             fromDateTime: new Date(getByPercent(sbLeft)),
-//             toDateTime: new Date(getByPercent(sbWidth + sbLeft))
-//         };
-//     }
-// }
