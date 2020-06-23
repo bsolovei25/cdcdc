@@ -14,8 +14,8 @@ export abstract class LineChartPlatform<T extends IProductionTrend> implements O
     // Отступ скролла в процентах от правой части для трансляции данных
     private readonly realtimeDelta: number = 10;
 
-    protected dateTimeInterval: IDatesInterval = null;
-    protected graphDateTimeInterval: IDatesInterval = null;
+    public dateTimeInterval: IDatesInterval = null;
+    public graphDateTimeInterval: IDatesInterval = null;
 
     public sbLeft: number = 70;
     public sbWidth: number = 30;
