@@ -246,6 +246,13 @@
   }
 }
 
+.frame-top {
+  position: absolute;
+  top: 36px;
+  z-index: 1;
+  width: 100%;
+}
+
 .frame-bottom {
   position: absolute;
   bottom: 0;
@@ -360,8 +367,19 @@
   box-sizing: border-box;
 
   background-color: var(--color-bg-main-dark);
-  border: 0.5px solid var(--color-border-main);
-  border-radius: 5px;
+
+
+  &--display-wall {
+    border-left: 0.5px dashed var(--color-border-main-transparrent);
+    border-right: 0.5px dashed var(--color-border-main-transparrent);
+    height: 100%;
+  }
+
+  &--display-standart {
+    border: 0.5px solid var(--color-border-main);
+    border-radius: 5px;
+    height: calc(100% - var(--filters-min-height) - var(--categories-min-height) - var(--padding));
+  }
 
   &__list {
     width: 100%;
