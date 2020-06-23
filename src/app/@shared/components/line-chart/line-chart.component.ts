@@ -117,9 +117,17 @@ export class LineChartComponent implements OnChanges, OnInit {
         if (this.limits) {
             const findAverage = (graph: IProductionTrend, date: Date) => {
                 const index = graph.graph.findIndex((item) => item.timeStamp > date);
+
+                const coef =
+                    (date.getTime() - graph.graph[index - 1].timeStamp.getTime()) /
+                    (graph.graph[index].timeStamp.getTime() -
+                        graph.graph[index - 1].timeStamp.getTime());
+
                 const newPoint: IChartMini = {
                     timeStamp: date,
-                    value: (graph.graph[index].value + graph.graph[index - 1].value) / 2,
+                    value:
+                        graph.graph[index - 1].value +
+                        (graph.graph[index].value - graph.graph[index - 1].value) * coef,
                 };
                 graph.graph.splice(index - 1, 0, newPoint);
             };
