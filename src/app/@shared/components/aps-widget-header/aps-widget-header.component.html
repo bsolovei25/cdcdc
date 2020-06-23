@@ -1,3 +1,19 @@
 <div class="aps-header">
   <div class="aps-header__background"></div>
+  <div class="aps-header__interface">
+    <img class="icon" src="assets/icons/widgets/APS/header/drop.svg" />
+    <div class="title">Использование запасов</div>
+    <div
+      class="buttons"
+      (mousedown)="$event.stopPropagation()"
+      (touchstart)="$event.stopPropagation()"
+    >
+      <div class="button button_screen">
+        <img src="assets/icons/widgets/APS/header/screen.svg" />
+      </div>
+      <div class="button button_menu" (click)="openMenu()">
+        <img src="assets/icons/widgets/APS/header/menu.svg" />
+      </div>
+    </div>
+  </div>
 </div>
