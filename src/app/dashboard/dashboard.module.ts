@@ -31,7 +31,6 @@ import { TruncatedPieIconComponent } from './widgets/truncated-pie-icon/truncate
 import { PieDiagramComponent } from './widgets/truncated-diagram-traffic-light/components/pie-diagram/pie-diagram.component';
 import { PointDiagramComponent } from './widgets/point-diagram/point-diagram.component';
 import { OneColumnComponent } from './widgets/point-diagram/one-column/one-column.component';
-import { ProductionPyramidComponent } from './widgets/production-pyramid/production-pyramid.component';
 import { BarChartsComponent } from './widgets/bar-chart/bar-charts/bar-charts.component';
 import { BarChartComponent } from './widgets/bar-chart/bar-chart/bar-chart.component';
 import { SuspenseMachineComponent } from './widgets/suspense-machine/suspense-machine.component';
@@ -319,7 +318,6 @@ import { WidgetContainerComponent } from './widget-container/widget-container.co
         TruncatedPieIconComponent,
         PieDiagramComponent,
         TruncatedDiagramTrafficLightComponent,
-        ProductionPyramidComponent,
         BarChartsComponent,
         BarChartComponent,
         SuspenseMachineComponent,
@@ -563,7 +561,6 @@ import { WidgetContainerComponent } from './widget-container/widget-container.co
         TruncatedPieSIconComponent,
         TruncatedDiagramTrafficLightComponent,
         PointDiagramComponent,
-        ProductionPyramidComponent,
         BarChartsComponent,
         SuspenseMachineComponent,
         CircleDiagramComponent,

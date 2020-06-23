@@ -9,7 +9,6 @@ import { EventsWorkSpaceComponent } from '../../widgets/workspace/events-workspa
 import { TruncatedPieSFirstComponent } from '../../widgets/truncated-pie-first/truncated-pie-s-first/truncated-pie-s-first.component';
 import { TruncatedPieSIconComponent } from '../../widgets/truncated-pie-icon/truncated-pie-s-icon/truncated-pie-s-icon.component';
 import { PointDiagramComponent } from '../../widgets/point-diagram/point-diagram.component';
-import { ProductionPyramidComponent } from '../../widgets/production-pyramid/production-pyramid.component';
 import { BarChartsComponent } from '../../widgets/bar-chart/bar-charts/bar-charts.component';
 import { SuspenseMachineComponent } from '../../widgets/suspense-machine/suspense-machine.component';
 import { EnterpriseMapComponent } from '../../widgets/map-enterprise/enterprise-map.component';
@@ -137,7 +136,7 @@ export const WIDGETS = {
     'production-deviations': ProductionDeviationsComponent,
     'product-groups-short': ProductGroupsShortComponent,
     'astue-efficiency': AstueEfficiencyComponent,
-    'load-chart': WidgetContainerComponent,
+    'load-chart': WidgetContainerComponent, // контейнер для вставки
 };
 
 export const WIDGETS_LAZY = {
@@ -146,7 +145,7 @@ export const WIDGETS_LAZY = {
         import: async () => {
             return await import('src/app/widgets/APS/load-chart/load-chart.module');
         },
-        module: 'LoadChartModule',
+        module: 'LoadChartModule', // название модуля
     },
     //#endregion APS
 
