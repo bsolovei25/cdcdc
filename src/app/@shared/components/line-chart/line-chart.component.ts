@@ -118,18 +118,20 @@ export class LineChartComponent implements OnChanges, OnInit {
             const findAverage = (graph: IProductionTrend, date: Date) => {
                 const index = graph.graph.findIndex((item) => item.timeStamp > date);
 
-                const coef =
-                    (date.getTime() - graph.graph[index - 1].timeStamp.getTime()) /
-                    (graph.graph[index].timeStamp.getTime() -
-                        graph.graph[index - 1].timeStamp.getTime());
+                if (!(index === -1 || index === 0)) {
+                    const coef =
+                        (date.getTime() - graph.graph[index - 1].timeStamp.getTime()) /
+                        (graph.graph[index].timeStamp.getTime() -
+                            graph.graph[index - 1].timeStamp.getTime());
 
-                const newPoint: IChartMini = {
-                    timeStamp: date,
-                    value:
-                        graph.graph[index - 1].value +
-                        (graph.graph[index].value - graph.graph[index - 1].value) * coef,
-                };
-                graph.graph.splice(index - 1, 0, newPoint);
+                    const newPoint: IChartMini = {
+                        timeStamp: date,
+                        value:
+                            graph.graph[index - 1].value +
+                            (graph.graph[index].value - graph.graph[index - 1].value) * coef,
+                    };
+                    graph.graph.splice(index - 1, 0, newPoint);
+                }
             };
 
             this.data.forEach((graph) => {
@@ -171,7 +173,12 @@ export class LineChartComponent implements OnChanges, OnInit {
     }
 
     private transformOneChartData(chart: IProductionTrend): void {
-        const domainDates = d3.extent(chart.graph, (item: IChartMini) => item.timeStamp);
+        let domainDates;
+        if (!this.limits) {
+            domainDates = d3.extent(chart.graph, (item: IChartMini) => item.timeStamp);
+        } else {
+            domainDates = [this.limits.fromDateTime, this.limits.toDateTime];
+        }
         const rangeX = [this.padding.left, this.graphMaxX - this.padding.right];
         this.scaleFuncs.x = d3
             .scaleTime()
