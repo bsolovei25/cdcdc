@@ -7,11 +7,11 @@ import {
     OnChanges,
     OnDestroy,
 } from '@angular/core';
-import { UserSettingsService } from '../../services/user-settings.service';
-import { ClaimService, EnumClaimWidgets } from '../../services/claim.service';
 import { Subscription } from 'rxjs';
-import { WidgetService } from '../../services/widget.service';
-import { OverlayService } from '../../services/overlay.service';
+import { EnumClaimWidgets, ClaimService } from '../../../dashboard/services/claim.service';
+import { OverlayService } from '../../../dashboard/services/overlay.service';
+import { WidgetService } from '../../../dashboard/services/widget.service';
+import { UserSettingsService } from '../../../dashboard/services/user-settings.service';
 
 @Component({
     selector: 'evj-widget-header',

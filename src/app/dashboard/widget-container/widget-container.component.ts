@@ -1,10 +1,4 @@
-import {
-    Component,
-    Inject,
-    AfterViewInit,
-    ViewChild,
-    ViewContainerRef,
-} from '@angular/core';
+import { Component, Inject, AfterViewInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { WidgetService } from '../services/widget.service';
 import { WidgetPlatform } from '../models/widget-platform';
 import { LazyService } from '../../widgets/lazy.service';
@@ -41,6 +35,7 @@ export class WidgetContainerComponent extends WidgetPlatform implements AfterVie
             widgetId: this.id,
             uniqId: this.uniqId,
         };
+
         await this.lazyService.loadWidget(this.widgetType, this.container, injectParams);
         setTimeout(() => (this.isLoading = false), 300);
     }

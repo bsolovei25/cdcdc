@@ -30,7 +30,7 @@ export class LazyService {
     ): Promise<void> {
         try {
             const module = (await WIDGETS_LAZY[widgetType].import())[
-                this.defineModuleName(widgetType)
+                WIDGETS_LAZY[widgetType].module
             ];
 
             const moduleFactory = await this.compiler.compileModuleAsync(module);
@@ -61,17 +61,5 @@ export class LazyService {
             });
         });
         return providers;
-    }
-
-    private defineModuleName(widgetType: string): string {
-        const array = widgetType.split('').filter((item, index, arr) => {
-            if (item === '-') {
-                arr[index + 1] = arr[index + 1].toUpperCase();
-                return;
-            }
-            return item;
-        });
-        array[0] = array[0].toUpperCase();
-        return `${array.join('')}Module`;
     }
 }

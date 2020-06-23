@@ -65,13 +65,14 @@ import { ProductionDeviationsComponent } from '../../widgets/SMP/production-devi
 import { ProductGroupsShortComponent } from '../../widgets/SMP/product-groups-short/product-groups-short.component';
 import { TruncatedDiagramTrafficLightComponent } from '../../widgets/truncated-diagram-traffic-light/truncated-diagram-traffic-light.component';
 import { AstueEfficiencyComponent } from '../../widgets/ASTUE/astue-efficiency/astue-efficiency.component';
+import { WidgetContainerComponent } from '../../widget-container/widget-container.component';
 
 export const WIDGETS = {
     'pie-diagram': WidgetPiesComponent,
     'line-chart': LineChartComponent,
     'line-diagram': LineDiagramComponent,
     'manual-input': ManualInputComponent,
-    'events': EventsComponent,
+    events: EventsComponent,
     'shift-pass': ChangeShiftComponent,
     'shift-accept': ChangeShiftComponent,
     'events-workspace': EventsWorkSpaceComponent,
@@ -79,7 +80,7 @@ export const WIDGETS = {
     'truncated-diagram-traffic-light': TruncatedDiagramTrafficLightComponent,
     'truncated-diagram-counter': TruncatedPieSIconComponent,
     'point-diagram': PointDiagramComponent,
-    'industrial-pyramid': ProductionPyramidComponent,
+    'industrial-pyramid': WidgetContainerComponent,
     'bar-chart': BarChartsComponent,
     'enterprise-map': EnterpriseMapComponent,
     'circle-diagram': CircleDiagramComponent,
@@ -90,7 +91,7 @@ export const WIDGETS = {
     'calendar-plan': CalendarPlanComponent,
     'ring-factory-diagram': RingSFactoryDiagramComponent,
     'chain-map': ChainMapComponent,
-    'energetics': EnergeticsComponent,
+    energetics: EnergeticsComponent,
     'dispatcher-screen': DispatcherScreenComponent,
     'table-data': SuspenseMachineComponent,
     'deviations-table': DeviationsTableComponent,
@@ -112,7 +113,7 @@ export const WIDGETS = {
     'admin-references': AdminReferencesComponent,
     'petroleum-products-movement': PetroleumProductsMovementComponent,
     'admin-panel': AdminPanelComponent,
-    'reference': ReferenceComponent,
+    reference: ReferenceComponent,
     'report-server-configurator': ReportServerConfiguratorComponent,
     'tank-calibration-table': TankCalibrationTableComponent,
     'custom-report-properties-reference': CustomReportPropertiesReferenceComponent,
@@ -124,7 +125,7 @@ export const WIDGETS = {
     'quality-docs-panel': QualityDocsPanelComponent,
     'document-coding': DocumentCodingComponent,
     'oil-operations': OilOperationsComponent,
-    'workflow': WorkflowComponent,
+    workflow: WorkflowComponent,
     'cd-critical': CdCriticalComponent,
     'implementation-plan': ImplementationPlanComponent,
     'performance-progress-indicators': PerformanceProgressIndicatorsComponent,
@@ -174,9 +175,12 @@ export const WIDGETS_LAZY = {
     // 'point-diagram': {
     //     import: async () => await import('src/app/widgets/point-diagram/point-diagram.module'),
     // },
-    // 'industrial-pyramid': {
-    //     import: async () => await import('src/app/widgets/industrial-pyramid/industrial-pyramid.module'),
-    // },
+    'industrial-pyramid': {
+        import: async () => {
+            return await import('src/app/widgets/production-pyramid/production-pyramid.module');
+        },
+        module: 'ProductionPyramidModule',
+    },
     // 'bar-chart': {
     //     import: async () => await import('src/app/widgets/bar-chart/bar-chart.module'),
     // },
