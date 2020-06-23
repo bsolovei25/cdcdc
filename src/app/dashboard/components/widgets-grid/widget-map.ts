@@ -66,6 +66,7 @@ import { ProductGroupsShortComponent } from '../../widgets/SMP/product-groups-sh
 import { TruncatedDiagramTrafficLightComponent } from '../../widgets/truncated-diagram-traffic-light/truncated-diagram-traffic-light.component';
 import { AstueEfficiencyComponent } from '../../widgets/ASTUE/astue-efficiency/astue-efficiency.component';
 import { WidgetContainerComponent } from '../../widget-container/widget-container.component';
+import { LoadChartComponent } from '../../../widgets/APS/load-chart/load-chart.component';
 
 export const WIDGETS = {
     'pie-diagram': WidgetPiesComponent,
@@ -136,9 +137,19 @@ export const WIDGETS = {
     'production-deviations': ProductionDeviationsComponent,
     'product-groups-short': ProductGroupsShortComponent,
     'astue-efficiency': AstueEfficiencyComponent,
+    'load-chart': WidgetContainerComponent,
 };
 
 export const WIDGETS_LAZY = {
+    //#region APS
+    'load-chart': {
+        import: async () => {
+            return await import('src/app/widgets/APS/load-chart/load-chart.module');
+        },
+        module: 'LoadChartModule',
+    },
+    //#endregion APS
+
     // 'pie-diagram': {
     //     import: async () => await import('src/app/widgets/pie-diagram/pie-diagram.module'),
     // },
