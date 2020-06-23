@@ -3,7 +3,6 @@ import {
     Inject,
     OnDestroy,
     ViewChild,
-    ElementRef,
     Renderer2,
     OnInit,
     AfterContentChecked,
@@ -17,7 +16,6 @@ import {
     IBrigadeWithUsersDto,
     IScheduleShiftDay,
     IScheduleShift,
-    IShiftMember,
     IUnits,
 } from '../../../models/admin-shift-schedule';
 import { fillDataShape } from '../../../../@shared/common-functions';
@@ -28,27 +26,10 @@ import {
     AdminShiftScheduleService,
     IDropItem,
 } from '../../../services/widgets/admin-shift-schedule.service';
-import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
-import { trigger, transition, style, animate } from '@angular/animations';
+import { CdkDragDrop } from '@angular/cdk/drag-drop';
 import { IAlertWindowModel } from '../../../../@shared/models/alert-window.model';
 import { FormControl } from '@angular/forms';
 import { EventService } from '../../../services/widgets/event.service';
-import { Subscription } from 'rxjs';
-import { MatMenuTrigger } from '@angular/material/menu';
-
-export interface IAdminShiftBrigade {
-    id: number;
-    brigade: IAdminShiftUserBrigade[];
-    manager: IAdminShiftUserBrigade[];
-}
-
-export interface IAdminShiftUserBrigade {
-    id: number;
-    fio: string;
-    specialty: string;
-    avatar: string;
-    brigade: number;
-}
 
 export interface IAbsent {
     code: string;
@@ -170,7 +151,7 @@ export class AdminShiftScheduleComponent extends WidgetPlatform
         });
     }
 
-    protected dataHandler(ref: any): void {}
+    protected dataHandler(ref: any): void { }
 
     ngAfterContentChecked(): void {
         this.listenBtn();
@@ -496,7 +477,7 @@ export class AdminShiftScheduleComponent extends WidgetPlatform
         };
     }
 
-    drop(event: CdkDragDrop<string[]>): void {}
+    drop(event: CdkDragDrop<string[]>): void { }
 
     async moveToDropAdditionalShift(item: IDropItem): Promise<void> {
         if (item && item.container.id !== '0' && item.container.id !== item.previousContainer.id) {
@@ -553,6 +534,9 @@ export class AdminShiftScheduleComponent extends WidgetPlatform
                 }
             },
             cancelFunction: () => {
+                this.alertWindow = null;
+            },
+            closeFunction: () => {
                 this.alertWindow = null;
             },
         };

@@ -10,6 +10,8 @@ import {
 import { IChartMini, IChartD3 } from '../../../models/smart-scroll.model';
 import * as d3Selection from 'd3-selection';
 import * as d3 from 'd3';
+import { IDatesInterval } from '../../../../dashboard/services/widget.service';
+import { setLimits } from '../../../functions/set-limits.function';
 
 @Component({
     selector: 'evj-line-chart-track',
@@ -18,6 +20,7 @@ import * as d3 from 'd3';
 })
 export class LineChartTrackComponent implements OnChanges, AfterViewInit {
     @Input() private data: IChartMini[] = [];
+    @Input() private limits: IDatesInterval = null;
 
     @ViewChild('chart') private chart: ElementRef;
 
@@ -62,7 +65,14 @@ export class LineChartTrackComponent implements OnChanges, AfterViewInit {
     }
 
     private transformData(): void {
-        const domainDates = d3.extent(this.data, (item: IChartMini) => item.timeStamp);
+        this.data = setLimits(this.data, this.limits);
+
+        let domainDates;
+        if (!this.limits) {
+            domainDates = d3.extent(this.data, (item: IChartMini) => item.timeStamp);
+        } else {
+            domainDates = [this.limits.fromDateTime, this.limits.toDateTime];
+        }
         const rangeX = [this.paddingX, this.graphMaxX - this.paddingX];
         const time = d3
             .scaleTime()

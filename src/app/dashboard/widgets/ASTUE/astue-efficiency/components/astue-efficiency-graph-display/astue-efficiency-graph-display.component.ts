@@ -42,10 +42,10 @@ export class AstueEfficiencyGraphDisplayComponent extends LineChartPlatform<IPro
                     value: 4500,
                     timeStamp: new Date(2020, 2, 3),
                 },
-                {
-                    value: 900,
-                    timeStamp: new Date(2020, 2, 4),
-                },
+                // {
+                //     value: 900,
+                //     timeStamp: new Date(2020, 2, 4),
+                // },
                 {
                     value: 1300,
                     timeStamp: new Date(2020, 2, 5),
@@ -76,10 +76,10 @@ export class AstueEfficiencyGraphDisplayComponent extends LineChartPlatform<IPro
                     value: 1000,
                     timeStamp: new Date(2020, 2, 3),
                 },
-                {
-                    value: 6000,
-                    timeStamp: new Date(2020, 2, 4),
-                },
+                // {
+                //     value: 6000,
+                //     timeStamp: new Date(2020, 2, 4),
+                // },
                 {
                     value: 5000,
                     timeStamp: new Date(2020, 2, 5),
@@ -110,10 +110,10 @@ export class AstueEfficiencyGraphDisplayComponent extends LineChartPlatform<IPro
                     value: 1200,
                     timeStamp: new Date(2020, 2, 3),
                 },
-                {
-                    value: 6200,
-                    timeStamp: new Date(2020, 2, 4),
-                },
+                // {
+                //     value: 6200,
+                //     timeStamp: new Date(2020, 2, 4),
+                // },
                 {
                     value: 5200,
                     timeStamp: new Date(2020, 2, 5),
@@ -144,10 +144,10 @@ export class AstueEfficiencyGraphDisplayComponent extends LineChartPlatform<IPro
                     value: 800,
                     timeStamp: new Date(2020, 2, 3),
                 },
-                {
-                    value: 5800,
-                    timeStamp: new Date(2020, 2, 4),
-                },
+                // {
+                //     value: 5800,
+                //     timeStamp: new Date(2020, 2, 4),
+                // },
                 {
                     value: 4800,
                     timeStamp: new Date(2020, 2, 5),
@@ -165,8 +165,8 @@ export class AstueEfficiencyGraphDisplayComponent extends LineChartPlatform<IPro
     ];
 
     public dataLimits: IDatesInterval = {
-        fromDateTime: new Date(2020, 2, 3),
-        toDateTime: new Date(2020, 2, 6),
+        fromDateTime: new Date(2020, 2, 4, 15),
+        toDateTime: new Date(2020, 2, 7, 20),
     };
 
     private readonly restUrl: string = null;
