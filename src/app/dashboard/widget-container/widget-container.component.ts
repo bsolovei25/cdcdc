@@ -1,4 +1,10 @@
-import { Component, Inject, AfterViewInit } from '@angular/core';
+import {
+    Component,
+    Inject,
+    AfterViewInit,
+    ViewChild,
+    ViewContainerRef,
+} from '@angular/core';
 import { WidgetService } from '../services/widget.service';
 import { WidgetPlatform } from '../models/widget-platform';
 import { LazyService } from '../../widgets/lazy.service';
@@ -9,7 +15,8 @@ import { LazyService } from '../../widgets/lazy.service';
     styleUrls: ['./widget-container.component.scss'],
 })
 export class WidgetContainerComponent extends WidgetPlatform implements AfterViewInit {
-    public isLoading: boolean = false;
+    @ViewChild('container', { read: ViewContainerRef }) private container: ViewContainerRef;
+    public isLoading: boolean = true;
 
     constructor(
         private lazyService: LazyService,
@@ -22,21 +29,21 @@ export class WidgetContainerComponent extends WidgetPlatform implements AfterVie
     }
 
     public ngAfterViewInit(): void {
-        // if (!this.isMock) {
-        //     setTimeout(() => this.loadWidget(), 0);
-        // }
+        if (!this.isMock) {
+            setTimeout(() => this.loadWidget(), 0);
+        }
     }
 
-    // private async loadWidget(): Promise<void> {
-    //     this.getDataService.isLoading$.next(false);
-    //     const injectParams = {
-    //         isMock: this.isMock,
-    //         widgetId: this.id,
-    //         uniqId: this.uniqId,
-    //     };
-    //     await this.lazyService.loadWidget(this.previewTitle, this.container, injectParams);
-    //     setTimeout(() => (this.isLoading = false), 300);
-    // }
+    private async loadWidget(): Promise<void> {
+        // this.getDataService.isLoading$.next(false);
+        const injectParams = {
+            isMock: this.isMock,
+            widgetId: this.id,
+            uniqId: this.uniqId,
+        };
+        await this.lazyService.loadWidget(this.widgetType, this.container, injectParams);
+        setTimeout(() => (this.isLoading = false), 300);
+    }
 
     protected dataHandler(ref: any): void {}
 }

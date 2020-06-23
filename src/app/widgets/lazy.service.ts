@@ -72,6 +72,6 @@ export class LazyService {
             return item;
         });
         array[0] = array[0].toUpperCase();
-        return `${array.join('')}LazyModule`;
+        return `${array.join('')}Module`;
     }
 }
