@@ -292,6 +292,7 @@ import { AstueEfficiencyInitialDataComponent } from './widgets/ASTUE/astue-effic
 import { AstueEfficiencyInintialDataBlockComponent } from './widgets/ASTUE/astue-efficiency/components/astue-efficiency-inintial-data-block/astue-efficiency-inintial-data-block.component';
 import { AstueEfficiencyTableDisplayComponent } from './widgets/ASTUE/astue-efficiency/components/astue-efficiency-table-display/astue-efficiency-table-display.component';
 import { AstueEfficiencyCalculationComponent } from './widgets/ASTUE/astue-efficiency/components/astue-efficiency-calculation/astue-efficiency-calculation.component';
+import { WidgetContainerComponent } from './widget-container/widget-container.component';
 
 @NgModule({
     declarations: [
@@ -552,6 +553,7 @@ import { AstueEfficiencyCalculationComponent } from './widgets/ASTUE/astue-effic
         AstueEfficiencyInintialDataBlockComponent,
         AstueEfficiencyTableDisplayComponent,
         AstueEfficiencyCalculationComponent,
+        WidgetContainerComponent,
     ],
     entryComponents: [
         LineChartComponent,

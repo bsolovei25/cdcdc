@@ -136,3 +136,9 @@ export const WIDGETS = {
     'product-groups-short': ProductGroupsShortComponent,
     'astue-efficiency': AstueEfficiencyComponent
 };
+
+export const WIDGETS_LAZY = {
+    'shipment-schedule': {
+        // import: async () => await import('src/app/widgets/shipment-schedule-lazy/shipment-schedule-lazy.module'),
+    },
+}
