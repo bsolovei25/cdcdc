@@ -20,6 +20,7 @@ export interface IWidget {
     widgetType: string;
     categories?: string[];
     isClaim: boolean;
+    isVideoWall?: boolean;
 }
 
 export interface RingFactoryWidget {
