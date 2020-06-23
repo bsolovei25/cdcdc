@@ -15,6 +15,7 @@ export abstract class LineChartPlatform<T extends IProductionTrend> implements O
     private readonly realtimeDelta: number = 10;
 
     protected dateTimeInterval: IDatesInterval = null;
+    protected graphDateTimeInterval: IDatesInterval = null;
 
     public sbLeft: number = 70;
     public sbWidth: number = 30;
@@ -97,7 +98,8 @@ export abstract class LineChartPlatform<T extends IProductionTrend> implements O
             this.setRestGraphData();
             return;
         }
-        const currentGraphInterval = this.getGraphBordersDateTime(this.graphData$.getValue());
+        // const currentGraphInterval = this.getGraphBordersDateTime(this.graphData$.getValue());
+        const currentGraphInterval = {...this.graphDateTimeInterval};
         if (currentGraphInterval.fromDateTime.getTime() < subGraphInterval.fromDateTime.getTime()) {
             this.sbLeft = 0;
             this.setRestGraphData();
@@ -132,6 +134,7 @@ export abstract class LineChartPlatform<T extends IProductionTrend> implements O
     protected async setRestGraphData(): Promise<void> {
         const reqDateTimeInterval =
             this.extractScrollDateTimes(this.dateTimeInterval, this.sbWidth, this.sbLeft);
+        this.graphDateTimeInterval = {...reqDateTimeInterval};
         const data = await this.restGraphHandler(reqDateTimeInterval);
         if (!data) { return; }
         data.map((item) => item?.graph.map(value => value.timeStamp = new Date(value.timeStamp)));
