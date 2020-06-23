@@ -119,7 +119,6 @@ export class LineChartComponent extends WidgetPlatform implements OnInit, OnDest
 
     constructor(
         public widgetService: WidgetService,
-        private http: HttpClient,
         @Inject('isMock') public isMock: boolean,
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string
