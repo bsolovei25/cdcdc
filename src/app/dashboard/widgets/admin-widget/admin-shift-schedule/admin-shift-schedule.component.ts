@@ -536,6 +536,9 @@ export class AdminShiftScheduleComponent extends WidgetPlatform
             cancelFunction: () => {
                 this.alertWindow = null;
             },
+            closeFunction: () => {
+                this.alertWindow = null;
+            },
         };
     }
 
