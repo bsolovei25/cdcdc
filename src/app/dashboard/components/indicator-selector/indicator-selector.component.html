@@ -99,6 +99,7 @@
         class="dropdown-component_input"
         [(ngModel)]="tempScreen"
         (ngModelChange)="onChangeAdder()"
+        (keyup.enter)="this.addScreen()"
       />
       <div
         class="dropdown-component_adder"
