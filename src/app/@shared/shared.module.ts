@@ -43,6 +43,9 @@ import { OverlayModule } from '@angular/cdk/overlay';
 import { PopoverOverlayComponent } from './components/popover-overlay/popover-overlay.component';
 import { MatDialogModule, MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { WidgetHeaderComponent } from './components/widget-header/widget-header.component';
+import { FrameTopComponent } from './components/frame-top/frame-top.component';
+import { FrameBottomComponent } from './components/frame-bottom/frame-bottom.component';
 
 @NgModule({
     declarations: [
@@ -79,6 +82,9 @@ import { MatTooltipModule } from '@angular/material/tooltip';
         InputComponent,
         AlertPasswordComponent,
         PopoverOverlayComponent,
+        WidgetHeaderComponent,
+        FrameTopComponent,
+        FrameBottomComponent
     ],
     exports: [
         HeaderComponent,
@@ -109,6 +115,9 @@ import { MatTooltipModule } from '@angular/material/tooltip';
         EventsChatComponent,
         InputComponent,
         AlertPasswordComponent,
+        WidgetHeaderComponent,
+        FrameTopComponent,
+        FrameBottomComponent
     ],
     imports: [
         CommonModule,

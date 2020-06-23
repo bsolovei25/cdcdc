@@ -1,8 +1,7 @@
-import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
-import { WidgetService } from '../../services/widget.service';
-import { Subscription } from 'rxjs';
-import { IProductionPyramid } from '../../models/production-pyramid';
-import { WidgetPlatform } from '../../models/widget-platform';
+import { Component, OnInit, OnDestroy, Inject } from '@angular/core';
+import { WidgetPlatform } from '../../dashboard/models/widget-platform';
+import { IProductionPyramid } from '../../dashboard/models/production-pyramid';
+import { WidgetService } from '../../dashboard/services/widget.service';
 
 @Component({
     selector: 'evj-production-pyramid',
