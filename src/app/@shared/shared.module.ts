@@ -46,6 +46,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { WidgetHeaderComponent } from './components/widget-header/widget-header.component';
 import { FrameTopComponent } from './components/frame-top/frame-top.component';
 import { FrameBottomComponent } from './components/frame-bottom/frame-bottom.component';
+import { ApsWidgetHeaderComponent } from './components/aps-widget-header/aps-widget-header.component';
 
 @NgModule({
     declarations: [
@@ -84,7 +85,8 @@ import { FrameBottomComponent } from './components/frame-bottom/frame-bottom.com
         PopoverOverlayComponent,
         WidgetHeaderComponent,
         FrameTopComponent,
-        FrameBottomComponent
+        FrameBottomComponent,
+        ApsWidgetHeaderComponent
     ],
     exports: [
         HeaderComponent,
@@ -117,7 +119,8 @@ import { FrameBottomComponent } from './components/frame-bottom/frame-bottom.com
         AlertPasswordComponent,
         WidgetHeaderComponent,
         FrameTopComponent,
-        FrameBottomComponent
+        FrameBottomComponent,
+        ApsWidgetHeaderComponent
     ],
     imports: [
         CommonModule,
