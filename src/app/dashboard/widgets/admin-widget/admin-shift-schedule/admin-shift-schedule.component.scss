@@ -55,14 +55,17 @@ $color-bg-active-gradient: "2d3f51";
     display: flex;
     justify-content: space-between;
     margin: 0 10px;
+    height: 100%;
+    overflow: hidden;
 
     .block-left {
       overflow: auto;
-      width: 70%;
+      width: 65%;
+      height: calc(100% - 25px);
     }
 
     .block-right {
-      width: 30%;
+      width: 35%;
       margin-left: 5px;
       height: calc(100% - 25px);
     }
@@ -518,7 +521,6 @@ p {
   .additional-team {
     width: 100%;
     min-height: 200px;
-    max-height: 330px;
     min-width: 250px;
     margin-right: 5px;
 
