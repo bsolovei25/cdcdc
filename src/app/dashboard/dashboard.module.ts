@@ -23,10 +23,7 @@ import { GridsterModule } from 'angular-gridster2';
 import { UserInfoComponent } from './components/user-info/user-info.component';
 import { WidgetPiesComponent } from './widgets/widgets-pie/widget-pies/widget-pies.component';
 import { WidgetsPieComponent } from './widgets/widgets-pie/widget-pie-circle/widget-pie.component';
-import { WidgetHeaderComponent } from './components/widget-header/widget-header.component';
 import { EventsWorkSpaceComponent } from './widgets/workspace/events-workspace.component';
-import { FrameTopComponent } from './components/frame-top/frame-top.component';
-import { FrameBottomComponent } from './components/frame-bottom/frame-bottom.component';
 import { TruncatedPieFirstComponent } from './widgets/truncated-pie-first/truncated-pie-first/truncated-pie-first.component';
 import { TruncatedPieSFirstComponent } from './widgets/truncated-pie-first/truncated-pie-s-first/truncated-pie-s-first.component';
 import { TruncatedPieSIconComponent } from './widgets/truncated-pie-icon/truncated-pie-s-icon/truncated-pie-s-icon.component';
@@ -34,7 +31,6 @@ import { TruncatedPieIconComponent } from './widgets/truncated-pie-icon/truncate
 import { PieDiagramComponent } from './widgets/truncated-diagram-traffic-light/components/pie-diagram/pie-diagram.component';
 import { PointDiagramComponent } from './widgets/point-diagram/point-diagram.component';
 import { OneColumnComponent } from './widgets/point-diagram/one-column/one-column.component';
-import { ProductionPyramidComponent } from './widgets/production-pyramid/production-pyramid.component';
 import { BarChartsComponent } from './widgets/bar-chart/bar-charts/bar-charts.component';
 import { BarChartComponent } from './widgets/bar-chart/bar-chart/bar-chart.component';
 import { SuspenseMachineComponent } from './widgets/suspense-machine/suspense-machine.component';
@@ -292,6 +288,7 @@ import { AstueEfficiencyInitialDataComponent } from './widgets/ASTUE/astue-effic
 import { AstueEfficiencyInintialDataBlockComponent } from './widgets/ASTUE/astue-efficiency/components/astue-efficiency-inintial-data-block/astue-efficiency-inintial-data-block.component';
 import { AstueEfficiencyTableDisplayComponent } from './widgets/ASTUE/astue-efficiency/components/astue-efficiency-table-display/astue-efficiency-table-display.component';
 import { AstueEfficiencyCalculationComponent } from './widgets/ASTUE/astue-efficiency/components/astue-efficiency-calculation/astue-efficiency-calculation.component';
+import { WidgetContainerComponent } from './widget-container/widget-container.component';
 
 @NgModule({
     declarations: [
@@ -312,19 +309,15 @@ import { AstueEfficiencyCalculationComponent } from './widgets/ASTUE/astue-effic
         UserInfoComponent,
         WidgetPiesComponent,
         WidgetsPieComponent,
-        WidgetHeaderComponent,
         EventsWorkSpaceComponent,
         PointDiagramComponent,
         OneColumnComponent,
-        FrameTopComponent,
-        FrameBottomComponent,
         TruncatedPieFirstComponent,
         TruncatedPieSFirstComponent,
         TruncatedPieSIconComponent,
         TruncatedPieIconComponent,
         PieDiagramComponent,
         TruncatedDiagramTrafficLightComponent,
-        ProductionPyramidComponent,
         BarChartsComponent,
         BarChartComponent,
         SuspenseMachineComponent,
@@ -552,6 +545,7 @@ import { AstueEfficiencyCalculationComponent } from './widgets/ASTUE/astue-effic
         AstueEfficiencyInintialDataBlockComponent,
         AstueEfficiencyTableDisplayComponent,
         AstueEfficiencyCalculationComponent,
+        WidgetContainerComponent,
     ],
     entryComponents: [
         LineChartComponent,
@@ -567,7 +561,6 @@ import { AstueEfficiencyCalculationComponent } from './widgets/ASTUE/astue-effic
         TruncatedPieSIconComponent,
         TruncatedDiagramTrafficLightComponent,
         PointDiagramComponent,
-        ProductionPyramidComponent,
         BarChartsComponent,
         SuspenseMachineComponent,
         CircleDiagramComponent,

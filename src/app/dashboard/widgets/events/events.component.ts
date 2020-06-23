@@ -173,6 +173,8 @@ export class EventsComponent extends WidgetPlatform implements OnInit, OnDestroy
     public static minItemCols: number = 32;
     public static minItemRows: number = 30;
 
+    public isVideoWall: boolean = false;
+
     constructor(
         private eventService: EventService,
         private ewService: EventsWorkspaceService,

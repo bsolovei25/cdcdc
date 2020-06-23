@@ -9,7 +9,6 @@ import { EventsWorkSpaceComponent } from '../../widgets/workspace/events-workspa
 import { TruncatedPieSFirstComponent } from '../../widgets/truncated-pie-first/truncated-pie-s-first/truncated-pie-s-first.component';
 import { TruncatedPieSIconComponent } from '../../widgets/truncated-pie-icon/truncated-pie-s-icon/truncated-pie-s-icon.component';
 import { PointDiagramComponent } from '../../widgets/point-diagram/point-diagram.component';
-import { ProductionPyramidComponent } from '../../widgets/production-pyramid/production-pyramid.component';
 import { BarChartsComponent } from '../../widgets/bar-chart/bar-charts/bar-charts.component';
 import { SuspenseMachineComponent } from '../../widgets/suspense-machine/suspense-machine.component';
 import { EnterpriseMapComponent } from '../../widgets/map-enterprise/enterprise-map.component';
@@ -65,13 +64,15 @@ import { ProductionDeviationsComponent } from '../../widgets/SMP/production-devi
 import { ProductGroupsShortComponent } from '../../widgets/SMP/product-groups-short/product-groups-short.component';
 import { TruncatedDiagramTrafficLightComponent } from '../../widgets/truncated-diagram-traffic-light/truncated-diagram-traffic-light.component';
 import { AstueEfficiencyComponent } from '../../widgets/ASTUE/astue-efficiency/astue-efficiency.component';
+import { WidgetContainerComponent } from '../../widget-container/widget-container.component';
+import { LoadChartComponent } from '../../../widgets/APS/load-chart/load-chart.component';
 
 export const WIDGETS = {
     'pie-diagram': WidgetPiesComponent,
     'line-chart': LineChartComponent,
     'line-diagram': LineDiagramComponent,
     'manual-input': ManualInputComponent,
-    'events': EventsComponent,
+    events: EventsComponent,
     'shift-pass': ChangeShiftComponent,
     'shift-accept': ChangeShiftComponent,
     'events-workspace': EventsWorkSpaceComponent,
@@ -79,7 +80,7 @@ export const WIDGETS = {
     'truncated-diagram-traffic-light': TruncatedDiagramTrafficLightComponent,
     'truncated-diagram-counter': TruncatedPieSIconComponent,
     'point-diagram': PointDiagramComponent,
-    'industrial-pyramid': ProductionPyramidComponent,
+    'industrial-pyramid': WidgetContainerComponent,
     'bar-chart': BarChartsComponent,
     'enterprise-map': EnterpriseMapComponent,
     'circle-diagram': CircleDiagramComponent,
@@ -90,7 +91,7 @@ export const WIDGETS = {
     'calendar-plan': CalendarPlanComponent,
     'ring-factory-diagram': RingSFactoryDiagramComponent,
     'chain-map': ChainMapComponent,
-    'energetics': EnergeticsComponent,
+    energetics: EnergeticsComponent,
     'dispatcher-screen': DispatcherScreenComponent,
     'table-data': SuspenseMachineComponent,
     'deviations-table': DeviationsTableComponent,
@@ -112,7 +113,7 @@ export const WIDGETS = {
     'admin-references': AdminReferencesComponent,
     'petroleum-products-movement': PetroleumProductsMovementComponent,
     'admin-panel': AdminPanelComponent,
-    'reference': ReferenceComponent,
+    reference: ReferenceComponent,
     'report-server-configurator': ReportServerConfiguratorComponent,
     'tank-calibration-table': TankCalibrationTableComponent,
     'custom-report-properties-reference': CustomReportPropertiesReferenceComponent,
@@ -124,7 +125,7 @@ export const WIDGETS = {
     'quality-docs-panel': QualityDocsPanelComponent,
     'document-coding': DocumentCodingComponent,
     'oil-operations': OilOperationsComponent,
-    'workflow': WorkflowComponent,
+    workflow: WorkflowComponent,
     'cd-critical': CdCriticalComponent,
     'implementation-plan': ImplementationPlanComponent,
     'performance-progress-indicators': PerformanceProgressIndicatorsComponent,
@@ -134,5 +135,225 @@ export const WIDGETS = {
     'product-groups': ProductGroupsComponent,
     'production-deviations': ProductionDeviationsComponent,
     'product-groups-short': ProductGroupsShortComponent,
-    'astue-efficiency': AstueEfficiencyComponent
+    'astue-efficiency': AstueEfficiencyComponent,
+    'load-chart': WidgetContainerComponent, // контейнер для вставки
+};
+
+export const WIDGETS_LAZY = {
+    //#region APS
+    'load-chart': {
+        import: async () => {
+            return await import('src/app/widgets/APS/load-chart/load-chart.module');
+        },
+        module: 'LoadChartModule', // название модуля
+    },
+    //#endregion APS
+
+    // 'pie-diagram': {
+    //     import: async () => await import('src/app/widgets/pie-diagram/pie-diagram.module'),
+    // },
+    // 'line-chart': {
+    //     import: async () => await import('src/app/widgets/line-chart/line-chart.module'),
+    // },
+    // 'line-diagram': {
+    //     import: async () => await import('src/app/widgets/line-diagram/line-diagram.module'),
+    // },
+    // 'manual-input': {
+    //     import: async () => await import('src/app/widgets/manual-input/manual-input.module'),
+    // },
+    // 'events': {
+    //     import: async () => await import('src/app/widgets/events/events.module'),
+    // },
+    // 'shift-pass': {
+    //     import: async () => await import('src/app/widgets/shift-pass/shift-pass.module'),
+    // },
+    // 'shift-accept': {
+    //     import: async () => await import('src/app/widgets/shift-accept/shift-accept.module'),
+    // },
+    // 'events-workspace': {
+    //     import: async () => await import('src/app/widgets/events-workspace/events-workspace.module'),
+    // },
+    // 'truncated-diagram-percentage': {
+    //     import: async () => await import('src/app/widgets/truncated-diagram-percentage/truncated-diagram-percentage.module'),
+    // },
+    // 'truncated-diagram-traffic-light': {
+    //     import: async () => await import('src/app/widgets/truncated-diagram-traffic-light/truncated-diagram-traffic-light.module'),
+    // },
+    // 'truncated-diagram-counter': {
+    //     import: async () => await import('src/app/widgets/truncated-diagram-counter/truncated-diagram-counter.module'),
+    // },
+    // 'point-diagram': {
+    //     import: async () => await import('src/app/widgets/point-diagram/point-diagram.module'),
+    // },
+    'industrial-pyramid': {
+        import: async () => {
+            return await import('src/app/widgets/production-pyramid/production-pyramid.module');
+        },
+        module: 'ProductionPyramidModule',
+    },
+    // 'bar-chart': {
+    //     import: async () => await import('src/app/widgets/bar-chart/bar-chart.module'),
+    // },
+    // 'enterprise-map': {
+    //     import: async () => await import('src/app/widgets/enterprise-map/enterprise-map.module'),
+    // },
+    // 'circle-diagram': {
+    //     import: async () => await import('src/app/widgets/circle-diagram/circle-diagram.module'),
+    // },
+    // 'unity-template': {
+    //     import: async () => await import('src/app/widgets/unity-template/unity-template.module'),
+    // },
+    // 'map-ecology': {
+    //     import: async () => await import('src/app/widgets/map-ecology/map-ecology.module'),
+    // },
+    // 'operation-efficiency': {
+    //     import: async () => await import('src/app/widgets/operation-efficiency/operation-efficiency.module'),
+    // },
+    // 'ecology-safety': {
+    //     import: async () => await import('src/app/widgets/ecology-safety/ecology-safety.module'),
+    // },
+    // 'calendar-plan': {
+    //     import: async () => await import('src/app/widgets/calendar-plan/calendar-plan.module'),
+    // },
+    // 'ring-factory-diagram': {
+    //     import: async () => await import('src/app/widgets/ring-factory-diagram/ring-factory-diagram.module'),
+    // },
+    // 'chain-map': {
+    //     import: async () => await import('src/app/widgets/chain-map/chain-map.module'),
+    // },
+    // 'energetics': {
+    //     import: async () => await import('src/app/widgets/energetics/energetics.module'),
+    // },
+    // 'dispatcher-screen': {
+    //     import: async () => await import('src/app/widgets/dispatcher-screen/dispatcher-screen.module'),
+    // },
+    // 'table-data': {
+    //     import: async () => await import('src/app/widgets/table-data/table-data.module'),
+    // },
+    // 'deviations-table': {
+    //     import: async () => await import('src/app/widgets/deviations-table/deviations-table.module'),
+    // },
+    // 'triggering-critical-parameters': {
+    //     import: async () => await import('src/app/widgets/triggering-critical-parameters/triggering-critical-parameters.module'),
+    // },
+    // 'circle-factory-diagram': {
+    //     import: async () => await import('src/app/widgets/circle-factory-diagram/circle-factory-diagram.module'),
+    // },
+    // 'product-stocks': {
+    //     import: async () => await import('src/app/widgets/product-stocks/product-stocks.module'),
+    // },
+    // 'polar-chart': {
+    //     import: async () => await import('src/app/widgets/polar-chart/polar-chart.module'),
+    // },
+    // 'semicircle-energy': {
+    //     import: async () => await import('src/app/widgets/semicircle-energy/semicircle-energy.module'),
+    // },
+    // 'deviation-circle-diagram': {
+    //     import: async () => await import('src/app/widgets/deviation-circle-diagram/deviation-circle-diagram.module'),
+    // },
+    // 'oil-control': {
+    //     import: async () => await import('src/app/widgets/oil-control/oil-control.module'),
+    // },
+    // 'circle-block-diagram': {
+    //     import: async () => await import('src/app/widgets/circle-block-diagram/circle-block-diagram.module'),
+    // },
+    // 'column-chart-stacked': {
+    //     import: async () => await import('src/app/widgets/column-chart-stacked/column-chart-stacked.module'),
+    // },
+    // 'flame-diagram': {
+    //     import: async () => await import('src/app/widgets/flame-diagram/flame-diagram.module'),
+    // },
+    // 'ring-energy-indicator': {
+    //     import: async () => await import('src/app/widgets/ring-energy-indicator/ring-energy-indicator.module'),
+    // },
+    // 'time-line-diagram': {
+    //     import: async () => await import('src/app/widgets/time-line-diagram/time-line-diagram.module'),
+    // },
+    // 'solid-gauge-with-marker': {
+    //     import: async () => await import('src/app/widgets/solid-gauge-with-marker/solid-gauge-with-marker.module'),
+    // },
+    // 'observation-norm-tr': {
+    //     import: async () => await import('src/app/widgets/observation-norm-tr/observation-norm-tr.module'),
+    // },
+    // 'admin-shift-schedule': {
+    //     import: async () => await import('src/app/widgets/admin-shift-schedule/admin-shift-schedule.module'),
+    // },
+    // 'admin-references': {
+    //     import: async () => await import('src/app/widgets/admin-references/admin-references.module'),
+    // },
+    // 'petroleum-products-movement': {
+    //     import: async () => await import('src/app/widgets/petroleum-products-movement/petroleum-products-movement.module'),
+    // },
+    // 'admin-panel': {
+    //     import: async () => await import('src/app/widgets/admin-panel/admin-panel.module'),
+    // },
+    // 'reference': {
+    //     import: async () => await import('src/app/widgets/reference/reference.module'),
+    // },
+    // 'report-server-configurator': {
+    //     import: async () => await import('src/app/widgets/report-server-configurator/report-server-configurator.module'),
+    // },
+    // 'tank-calibration-table': {
+    //     import: async () => await import('src/app/widgets/tank-calibration-table/tank-calibration-table.module'),
+    // },
+    // 'custom-report-properties-reference': {
+    //     import: async () => await import('src/app/widgets/custom-report-properties-reference/custom-report-properties-reference.module'),
+    // },
+    // 'production-trend': {
+    //     import: async () => await import('src/app/widgets/production-trend/production-trend.module'),
+    // },
+    // 'tank-information': {
+    //     import: async () => await import('src/app/widgets/tank-information/tank-information.module'),
+    // },
+    // 'reasons-deviations': {
+    //     import: async () => await import('src/app/widgets/reasons-deviations/reasons-deviations.module'),
+    // },
+    // 'document-viewer': {
+    //     import: async () => await import('src/app/widgets/document-viewer/document-viewer.module'),
+    // },
+    // 'documents-scans': {
+    //     import: async () => await import('src/app/widgets/documents-scans/documents-scans.module'),
+    // },
+    // 'quality-docs-panel': {
+    //     import: async () => await import('src/app/widgets/quality-docs-panel/quality-docs-panel.module'),
+    // },
+    // 'document-coding': {
+    //     import: async () => await import('src/app/widgets/document-coding/document-coding.module'),
+    // },
+    // 'oil-operations': {
+    //     import: async () => await import('src/app/widgets/oil-operations/oil-operations.module'),
+    // },
+    // 'workflow': {
+    //     import: async () => await import('src/app/widgets/workflow/workflow.module'),
+    // },
+    // 'cd-critical': {
+    //     import: async () => await import('src/app/widgets/cd-critical/cd-critical.module'),
+    // },
+    // 'implementation-plan': {
+    //     import: async () => await import('src/app/widgets/implementation-plan/implementation-plan.module'),
+    // },
+    // 'performance-progress-indicators': {
+    //     import: async () => await import('src/app/widgets/performance-progress-indicators/performance-progress-indicators.module'),
+    // },
+    // 'quality-stock': {
+    //     import: async () => await import('src/app/widgets/quality-stock/quality-stock.module'),
+    // },
+    // 'smp-events': {
+    //     import: async () => await import('src/app/widgets/smp-events/smp-events.module'),
+    // },
+    // 'smp-events-workspace': {
+    //     import: async () => await import('src/app/widgets/smp-events-workspace/smp-events-workspace.module'),
+    // },
+    // 'product-groups': {
+    //     import: async () => await import('src/app/widgets/product-groups/product-groups.module'),
+    // },
+    // 'production-deviations': {
+    //     import: async () => await import('src/app/widgets/production-deviations/production-deviations.module'),
+    // },
+    // 'product-groups-short': {
+    //     import: async () => await import('src/app/widgets/product-groups-short/product-groups-short.module'),
+    // },
+    // 'astue-efficiency': {
+    //     import: async () => await import('src/app/widgets/astue-efficiency/astue-efficiency.module'),
+    // },
 };

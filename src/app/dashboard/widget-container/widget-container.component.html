@@ -1,0 +1,10 @@
+<evj-widget-preview
+  [title]="widgetTitle"
+  [previewTitle]="widgetType"
+  *ngIf="isMock"
+></evj-widget-preview>
+
+<ng-container *ngIf="!isMock">
+  <evj-loading-shade [isLoading]="isLoading"></evj-loading-shade>
+  <ng-container #container> </ng-container>
+</ng-container>
