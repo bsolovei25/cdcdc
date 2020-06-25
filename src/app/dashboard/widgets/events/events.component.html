@@ -43,7 +43,7 @@
     </div>
   </div>
 
-  <evj-frame-top class="frame-top" *ngIf="isVideoWall"></evj-frame-top>
+  <evj-frame-top class="frame-top" *ngIf="widgetIsVideoWall"></evj-frame-top>
 
   <evj-alert-window [info]="eventAlertInfo$ | async"></evj-alert-window>
   <div
@@ -52,7 +52,7 @@
     (touchstart)="$event.stopPropagation()"
   >
     <div class="events">
-      <div class="notifications" #notifications [ngClass]="isVideoWall ? 'notifications--display-wall' : 'notifications--display-standart'">
+      <div class="notifications" #notifications [ngClass]="widgetIsVideoWall ? 'notifications--display-wall' : 'notifications--display-standart'">
         <cdk-virtual-scroll-viewport
           [itemSize]="isList ? 180 : 111"
           class="scroll-bar"
@@ -72,7 +72,7 @@
 
         </cdk-virtual-scroll-viewport>
       </div>
-      <ng-container *ngIf="!isVideoWall">
+      <ng-container *ngIf="!widgetIsVideoWall">
         <div class="controls">
           <div class="controls__line controls__line_left">
             <div class="controls__circle controls__circle_left"></div>

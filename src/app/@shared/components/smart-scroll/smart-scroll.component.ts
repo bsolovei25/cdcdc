@@ -51,11 +51,7 @@ export class SmartScrollComponent implements AfterViewInit, OnChanges, OnDestroy
         { value: 8, timeStamp: new Date(2020, 3, 28) },
         { value: 7, timeStamp: new Date(2020, 3, 29) },
     ];
-
-    public limits: IDatesInterval = {
-        fromDateTime: new Date(2020, 3, 8),
-        toDateTime: new Date(2020, 4, 15),
-    };
+    @Input() public limits: IDatesInterval = null;
 
     @Output() private sbThumbWidthChange: EventEmitter<number> = new EventEmitter<number>();
     @Output() private sbThumbLeftChange: EventEmitter<number> = new EventEmitter<number>();

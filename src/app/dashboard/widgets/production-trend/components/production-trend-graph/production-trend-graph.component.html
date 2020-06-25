@@ -1,10 +1,16 @@
 <div class="container">
   <div class="graph">
-    <evj-line-chart-shared [data]="graphData$ | async" [isShowingLegend]="true" chartType="production-trend"></evj-line-chart-shared>
+    <evj-line-chart-shared
+      chartType="production-trend"
+      [data]="graphData$ | async"
+      [limits]="graphDateTimeInterval"
+      [isShowingLegend]="true">
+    </evj-line-chart-shared>
   </div>
   <div class="scroll">
     <evj-smart-scroll
       [data]="scrollData$ | async"
+      [limits]="dateTimeInterval"
       [(sbThumbWidth)]="sbWidth"
       [(sbThumbLeft)]="sbLeft"
       (sbThumbLeftChange)="scrollHandler()"
