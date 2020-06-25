@@ -137,7 +137,10 @@
   --color-smp-active: #6ba4ef;
 
   // APS
-  --color-aps-bg-sub: #5E6582;
+  --color-aps-bg-sub: #5e6582;
+  --color-aps-bg-widget: rgba(12, 19, 36, 0.25);
+  --color-aps-border-main: rgba(94, 101, 130, 0.25);
+  --color-aps-border-sub: rgba(39, 42, 56, 0.5);
 
   // @shared/alert-window (aw)
   --color-aw-container-shadow-transparent: rgba(0, 0, 0, 0.25);

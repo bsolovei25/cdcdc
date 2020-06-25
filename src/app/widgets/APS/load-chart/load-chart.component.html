@@ -1,9 +1,54 @@
-<evj-aps-widget-header [uniqId]="uniqId" [widgetTitle]="widgetTitle" icon="map">
-  <div
-    class="content-container"
-    (mousedown)="$event.stopPropagation()"
-    (touchstart)="$event.stopPropagation()"
-  >
-    <div class="action" (click)="onClick()"></div>
+<div class="container">
+  <evj-aps-widget-header [uniqId]="uniqId" [widgetTitle]="widgetTitle"> </evj-aps-widget-header>
+  <div class="load-chart">
+    <div class="chart">
+      <div class="axis-x"></div>
+      <div class="axis-y"></div>
+      <div class="grid">
+        <div class="grid__hor" #grid_hor>
+          <!-- <div class="line-hor"></div>
+          <div class="line-hor"></div>
+          <div class="line-hor"></div>
+          <div class="line-hor"></div>
+          <div class="line-hor"></div>
+          <div class="line-hor"></div> -->
+        </div>
+        <div class="grid__ver" #grid_ver>
+          <!-- <div class="line-ver"></div>
+          <div class="line-ver"></div>
+          <div class="line-ver"></div>
+          <div class="line-ver"></div>
+          <div class="line-ver"></div>
+          <div class="line-ver"></div>
+          <div class="line-ver"></div>
+          <div class="line-ver"></div>
+          <div class="line-ver"></div>
+          <div class="line-ver"></div>
+          <div class="line-ver"></div>
+          <div class="line-ver"></div>
+          <div class="line-ver"></div>
+          <div class="line-ver"></div>
+          <div class="line-ver"></div>
+          <div class="line-ver"></div>
+          <div class="line-ver"></div>
+          <div class="line-ver"></div>
+          <div class="line-ver"></div>
+          <div class="line-ver"></div>
+          <div class="line-ver"></div>
+          <div class="line-ver"></div>
+          <div class="line-ver"></div>
+          <div class="line-ver"></div>
+          <div class="line-ver"></div>
+          <div class="line-ver"></div>
+          <div class="line-ver"></div>
+          <div class="line-ver"></div>
+          <div class="line-ver"></div>
+          <div class="line-ver"></div>
+          <div class="line-ver"></div>
+          <div class="line-ver"></div>
+          <div class="line-ver"></div> -->
+        </div>
+      </div>
+    </div>
   </div>
-</evj-aps-widget-header>
+</div>
