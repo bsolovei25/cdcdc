@@ -1,0 +1,52 @@
+<div class="table__body__column__row-title">
+  {{column?.name}}
+</div>
+<!-- <div *ngIf="column.name !== 'productName'" class="line"> -->
+<!-- <ng-container *ngFor="let divGantt of element.tank">
+        <div
+          [className]="divGantt.type"
+          style.width="{{ divGantt.style.width }}%"
+          style.left="{{ divGantt.style.left }}%"
+        ></div>
+        <ng-container
+          *ngIf="divGantt.type === 'passport-system'
+                || divGantt.type === 'quality-stock'
+                || divGantt.type === 'substandard'"
+        >
+          <svg-icon
+            class="icon__preparation"
+            class="icon__preparation--{{divGantt.type}}"
+            style.left="{{ divGantt.style.left - 4 }}%"
+            src="assets/icons/widgets/gantt-chart/passport.svg"
+            [svgStyle]="{ 'width.px':25, 'height.px':25 }"
+            [ngClass]="{'z-index-chooseElement' : !selectedColumn.isSelected(divGantt.id) && this.selectedOperationGantt,
+'opacity': selectedColumn.isSelected(divGantt.id) && this.selectedOperationGantt}"
+          >
+          </svg-icon>
+        </ng-container>
+        <ng-container *ngIf="selectedOperationGantt === divGantt.id">
+          <ng-container [ngSwitch]="divGantt.type">
+            <svg-icon
+              *ngSwitchCase="'shipment'"
+              (click)="onClickTr($event, element, 'line', divGantt)"
+              [class.opacity]="selectedColumn.isSelected(divGantt.id) && selectedOperationGantt"
+              class="icon__select"
+              style.left="{{ divGantt.style.width + divGantt.style.left - 5 }}%"
+              src="assets/icons/widgets/gantt-chart/circle_oper-ship.svg"
+              [svgStyle]="{ 'width.px':25, 'height.px':25 }"
+            >
+            </svg-icon>
+            <svg-icon
+              *ngSwitchCase="'shipment'"
+              (click)="onClickTr($event, element, 'line', divGantt)"
+              [class.opacity]="selectedColumn.isSelected(divGantt.id) && selectedOperationGantt"
+              class="icon__select-right"
+              style.left="{{ divGantt.style.left - 4 }}%"
+              src="assets/icons/widgets/gantt-chart/circle_oper-ship.svg"
+              [svgStyle]="{ 'width.px':25, 'height.px':25 }"
+            >
+            </svg-icon>
+          </ng-container>
+        </ng-container>
+      </ng-container> -->
+<!-- </div> -->

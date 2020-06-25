@@ -1,0 +1,272 @@
+<div class="container pointer-event">
+  <evj-widget-header
+    [title]="widgetTitle"
+    [units]="widgetUnits"
+    [code]="widgetCode"
+    [id]="id"
+    [uniqId]="uniqId"
+    [icon]="widgetIcon"
+  ></evj-widget-header>
+
+  <div
+    class="container-body"
+    (mousedown)="$event.stopPropagation()"
+    (touchstart)="$event.stopPropagation()"
+  >
+    <div class="gradient gradient-top"></div>
+    <div class="gradient gradient-bottom"></div>
+    <div class="header">
+      <div class="header__title">
+        <div class="header__title_text">Диаграмма Ганта</div>
+      </div>
+      <ul class="header__info">
+        <li class="header__info-item">
+          <div class="header__info-1"></div>
+          <span>Приготовление</span>
+        </li>
+        <li class="header__info-item">
+          <div class="header__info-2"></div>
+          <span> Паспортизация</span>
+        </li>
+        <li class="header__info-item">
+          <div class="header__info-3"></div>
+          <span> Отгрузка</span>
+        </li>
+        <li class="header__info-item">
+          <div class="header__info-4"></div>
+          <span> Запас по качеству</span>
+        </li>
+        <li class="header__info-item">
+          <div class="header__info-5"></div>
+          <span>Некондинция, нарушение ограничений</span>
+        </li>
+        <li class="header__info-item">
+          <div class="header__info-6"></div>
+          <span> Простой резервуара</span>
+        </li>
+      </ul>
+    </div>
+    <div class="container">
+      <table class="table">
+        <thead class="table__header">
+          <tr class="table__header__row">
+            <th *ngFor="let column of columnsToDisplay" class="table__header__column">
+              {{column.name === 'productName' ? '' : column.name}}
+            </th>
+          </tr>
+        </thead>
+        <tbody class="table__body" *ngIf="dataSource">
+          <ng-container *ngFor="let element of dataSource">
+            <tr
+              *ngIf="element.tank.length !== 0 || expandedElement.isSelected(element) || element.productName === 'last-row'"
+              class="table__body__row"
+              (click)="onClickRow(element)"
+              [class.last-tr]="element.productName === 'last-row'"
+              [class.table__body__row--active]="expandedElement.isSelected(element)"
+            >
+              <ng-container *ngIf="element.productName !== 'last-row'">
+                <td
+                  *ngFor="let column of columnsToDisplay"
+                  [class.scale]="column.name !== 'productName'"
+                  class="table__body__column"
+                >
+                  <div
+                    *ngIf="column.name === 'productName'"
+                    class="table__body__column__row-title"
+                    [class.opacity]="selectedRow.isSelected(element.productName) && this.selectedOperationGantt"
+                  >
+                    <svg-icon
+                      *ngIf="!expandedElement.isSelected(element)"
+                      class="row-title__icon-border"
+                      src="assets/icons/widgets/gantt-chart/ui-border-left.svg"
+                    >
+                    </svg-icon>
+                    <svg-icon
+                      *ngIf="expandedElement.isSelected(element)"
+                      class="row-title__icon-border"
+                      src="assets/icons/widgets/gantt-chart/ui-border-left-active.svg"
+                    >
+                    </svg-icon>
+                    <svg-icon
+                      *ngIf="!expandedElement.isSelected(element)"
+                      class="row-title__icon-arrow-bottom"
+                      src="assets/icons/widgets/gantt-chart/arrow-bottom.svg"
+                    >
+                    </svg-icon>
+                    <svg-icon
+                      *ngIf="expandedElement.isSelected(element)"
+                      class="row-title__icon-arrow-top"
+                      src="assets/icons/widgets/gantt-chart/arrow-top.svg"
+                    >
+                    </svg-icon>
+                  </div>
+                  <div *ngIf="column.name !== 'productName'" class="line">
+                    <ng-container *ngFor="let divGantt of getProductData(element, column)">
+                      <!-- <evj-line-ui
+                        [item]="divGantt"
+                        [selectedColumn]="selectedColumn"
+                        [selectedOperationGantt]="selectedOperationGantt"
+                        [firstOperation]="firstOperation"
+                        [firstOperationTanks]="firstOperationTanks"
+                        [element]="element"
+                        (output)="onClickTrEl($event)"
+                      ></evj-line-ui> -->
+                      <!-- <div> -->
+                      <div
+                        [style.background]="selectedColumn.isSelected(divGantt.id) && this.selectedOperationGantt ? classNameOpacity(divGantt) : className(divGantt)"
+                        (click)="onClickTr($event, element, 'line', divGantt)"
+                        [ngClass]="firstAndLastOperProduct(divGantt, element)"
+                        [className]="divGantt.type"
+                        style.width="{{ divGantt.style.width }}%"
+                        style.left="{{ divGantt.style.left }}%"
+                        [class.z-index-chooseElement]="!selectedColumn.isSelected(divGantt.id) && this.selectedOperationGantt"
+                      ></div>
+                      <ng-container
+                        *ngIf="divGantt.type === 'passport-system'
+                      || divGantt.type === 'quality-stock'
+                      || divGantt.type === 'substandard'"
+                      >
+                        <svg-icon
+                          (click)="onClickTr($event, element, 'line', divGantt)"
+                          class="icon__preparation"
+                          class="icon__preparation--{{divGantt.type}}"
+                          style.left="{{ divGantt.style.left - 4 }}%"
+                          src="assets/icons/widgets/gantt-chart/passport.svg"
+                          [svgStyle]="{ 'width.px':25, 'height.px':25 }"
+                          [ngClass]="{'z-index-chooseElement' : !selectedColumn.isSelected(divGantt.id) && this.selectedOperationGantt,
+                          'opacity': selectedColumn.isSelected(divGantt.id) && this.selectedOperationGantt}"
+                        >
+                        </svg-icon>
+                      </ng-container>
+                      <ng-container *ngIf="selectedOperationGantt === divGantt.id">
+                        <ng-container [ngSwitch]="divGantt.type">
+                          <svg-icon
+                            *ngSwitchCase="'shipment'"
+                            (click)="onClickTr($event, element, 'line', divGantt)"
+                            [class.opacity]="selectedColumn.isSelected(divGantt.id) && selectedOperationGantt"
+                            class="icon__select"
+                            style.left="{{ divGantt.style.width + divGantt.style.left - 5 }}%"
+                            src="assets/icons/widgets/gantt-chart/circle_oper-ship.svg"
+                            [svgStyle]="{ 'width.px':25, 'height.px':25 }"
+                          >
+                          </svg-icon>
+                          <svg-icon
+                            *ngSwitchCase="'shipment'"
+                            (click)="onClickTr($event, element, 'line', divGantt)"
+                            [class.opacity]="selectedColumn.isSelected(divGantt.id) && selectedOperationGantt"
+                            class="icon__select-right"
+                            style.left="{{ divGantt.style.left - 4 }}%"
+                            src="assets/icons/widgets/gantt-chart/circle_oper-ship.svg"
+                            [svgStyle]="{ 'width.px':25, 'height.px':25 }"
+                          >
+                          </svg-icon>
+                        </ng-container>
+                      </ng-container>
+                      <!-- </div> -->
+                    </ng-container>
+                  </div>
+                </td>
+              </ng-container>
+            </tr>
+
+            <ng-container *ngFor="let elementChildren of element.tank">
+              <tr
+                *ngIf="expandedElement.isSelected(element)"
+                class="table__body__row"
+                [class.last-tr]="element.productName === 'last-row'"
+                [class.expanded-row]="elementChildren"
+                [@detailExpand]="expandedElement.isSelected(element) ? 'expanded' : 'collapsed'"
+              >
+                <td
+                  *ngFor="let column of columnsToDisplay"
+                  [class.expanded-column]="elementChildren"
+                  class="table__body__column"
+                >
+                  <div
+                    *ngIf="column.name === 'productName'"
+                    class="table__body__column__row-title table__body__column__row-title-children"
+                    [class.opacity]="selectedRow.isSelected(element.productName) && this.selectedOperationGantt"
+                  >
+                    <svg-icon
+                      class="row-title__icon-line"
+                      src="assets/icons/widgets/gantt-chart/line-children.svg"
+                    >
+                    </svg-icon>
+
+                    <svg-icon
+                      class="row-title__icon-circle"
+                      [class.row-title__icon-circle-warning]="elementChildren.tankDeviation !== 0"
+                      src="assets/icons/widgets/gantt-chart/ui-left-circle.svg"
+                    >
+                    </svg-icon>
+                  </div>
+                  <div
+                    *ngIf="column.name !== 'productName' && column.name !== 'tankName'"
+                    class="line"
+                  >
+                    <ng-container
+                      *ngFor="let divGantt of getTankData(elementChildren, column, element);"
+                    >
+                      <ng-container *ngFor="let item of divGantt.value">
+                        <div
+                          (click)="onClickTr($event, elementChildren, 'line', item)"
+                          [ngClass]="firstAndLastOperTank(item, elementChildren)"
+                          [className]="item.type"
+                          style.width="{{ item.style.width }}%"
+                          style.left="{{ item.style.left }}%"
+                          [style.background]="selectedColumn.isSelected(item.id) && this.selectedOperationGantt ? classNameOpacity(item) : className(item)"
+                          [class.z-index-chooseElement]="!selectedColumn.isSelected(item.id) && this.selectedOperationGantt"
+                        ></div>
+                        <ng-container
+                          *ngIf="item.type === 'passport-system'
+                          || item.type === 'quality-stock'
+                          || item.type === 'substandard'"
+                        >
+                          <svg-icon
+                            (click)="onClickTr($event, elementChildren, 'line', item)"
+                            class="icon__preparation"
+                            class="icon__preparation--{{item.type}}"
+                            style.left="{{ item.style.left - 4 }}%"
+                            src="assets/icons/widgets/gantt-chart/passport.svg"
+                            [svgStyle]="{ 'width.px':25, 'height.px':25 }"
+                            [ngClass]="{'z-index-chooseElement' : !selectedColumn.isSelected(item.id) && this.selectedOperationGantt,
+                          'opacity': selectedColumn.isSelected(item.id) && this.selectedOperationGantt}"
+                          >
+                          </svg-icon>
+                        </ng-container>
+                        <ng-container *ngIf="selectedOperationGantt === item.id">
+                          <ng-container [ngSwitch]="item.type">
+                            <svg-icon
+                              *ngSwitchCase="'shipment'"
+                              (click)="onClickTr($event, elementChildren, 'line', item)"
+                              [class.opacity]="selectedColumn.isSelected(item.id) && this.selectedOperationGantt"
+                              class="icon__select"
+                              style.left="{{ item.style.width + item.style.left - 5 }}%"
+                              src="assets/icons/widgets/gantt-chart/circle_oper-ship.svg"
+                              [svgStyle]="{ 'width.px':25, 'height.px':25 }"
+                            >
+                            </svg-icon>
+                            <svg-icon
+                              *ngSwitchCase="'shipment'"
+                              (click)="onClickTr($event, elementChildren, 'line', item)"
+                              [class.opacity]="selectedColumn.isSelected(item.id) && this.selectedOperationGantt"
+                              class="icon__select-right"
+                              style.left="{{ item.style.left - 4 }}%"
+                              src="assets/icons/widgets/gantt-chart/circle_oper-ship.svg"
+                              [svgStyle]="{ 'width.px':25, 'height.px':25 }"
+                            >
+                            </svg-icon>
+                          </ng-container>
+                        </ng-container>
+                      </ng-container>
+                    </ng-container>
+                  </div>
+                </td>
+              </tr>
+            </ng-container>
+          </ng-container>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

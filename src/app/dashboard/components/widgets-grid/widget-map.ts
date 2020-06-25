@@ -137,6 +137,7 @@ export const WIDGETS = {
     'product-groups-short': ProductGroupsShortComponent,
     'astue-efficiency': AstueEfficiencyComponent,
     'load-chart': WidgetContainerComponent, // контейнер для вставки
+    'aps-gantt-chart': WidgetContainerComponent,
 };
 
 export const WIDGETS_LAZY = {
@@ -146,6 +147,12 @@ export const WIDGETS_LAZY = {
             return await import('src/app/widgets/APS/load-chart/load-chart.module');
         },
         module: 'LoadChartModule', // название модуля
+    },
+    'aps-gantt-chart': {
+        import: async () => {
+            return await import('src/app/widgets/APS/aps-gantt-chart/aps-gantt-chart.module');
+        },
+        module: 'ApsGanttChartModule',
     },
     //#endregion APS
 
