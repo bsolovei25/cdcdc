@@ -276,7 +276,8 @@ export class EventsComponent extends WidgetPlatform implements OnInit, OnDestroy
             categories: this.categories.filter((c) => c.isActive).map((c) => c.id),
             filter: this.filters.find((f) => f.isActive).code,
             dates: this.widgetService.currentDates$.getValue(),
-            placeNames: this.placeNames
+            placeNames: this.placeNames,
+            isVideoWall: this.widgetIsVideoWall
         };
         return options;
     }
