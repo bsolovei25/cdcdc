@@ -1,16 +1,18 @@
 <div class="aps-header">
   <div class="aps-header__background"></div>
   <div class="aps-header__interface">
-    <img class="icon" src="assets/icons/widgets/APS/header/drop.svg" />
-    <div class="title">Использование запасов</div>
+    <ng-container *ngIf="widgetTitle">
+      <img class="icon" src="assets/icons/widgets/APS/header/{{icon}}.svg" />
+      <div class="title">{{widgetTitle}}</div>
+    </ng-container>
+
+    <ng-content></ng-content>
+
     <div
       class="buttons"
       (mousedown)="$event.stopPropagation()"
       (touchstart)="$event.stopPropagation()"
     >
-      <div class="button button_screen" *ngIf="onFullScreenButton" (click)="onFullScreenButton()">
-        <img src="assets/icons/widgets/APS/header/screen.svg" />
-      </div>
       <div class="button button_menu" (click)="toggleMenu()">
         <img src="assets/icons/widgets/APS/header/menu.svg" />
       </div>
@@ -23,7 +25,9 @@
     (mousedown)="$event.stopPropagation()"
     (touchstart)="$event.stopPropagation()"
   >
-    <div class="menu__item">Настройки</div>
+    <div class="menu__item" *ngFor="let item of additionalMenuItems" (click)="item.action()">
+      {{item.title}}
+    </div>
     <div class="menu__item" (click)="onRemoveButton()">Удалить с экрана</div>
   </div>
 </div>

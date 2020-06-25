@@ -17,9 +17,13 @@ export class LoadChartComponent extends WidgetPlatform implements OnInit {
         super(widgetService, isMock, id, uniqId);
     }
 
-    ngOnInit(): void {}
+    ngOnInit(): void {
+        super.widgetInit();
+    }
 
-    protected dataHandler(ref: any): void {
-        // this.data = ref.chartItems;
+    protected dataHandler(ref: any): void {}
+
+    public onClick(): void {
+        console.log('click');
     }
 }
