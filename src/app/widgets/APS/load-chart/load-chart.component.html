@@ -1,1 +1,9 @@
-<p>load-chart works!</p>
+<evj-aps-widget-header [uniqId]="uniqId" [widgetTitle]="widgetTitle" icon="map">
+  <div
+    class="content-container"
+    (mousedown)="$event.stopPropagation()"
+    (touchstart)="$event.stopPropagation()"
+  >
+    <div class="action" (click)="onClick()"></div>
+  </div>
+</evj-aps-widget-header>

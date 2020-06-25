@@ -11,6 +11,7 @@ export abstract class WidgetPlatform implements OnDestroy {
     public widgetType?: string;
     public widgetIcon?: string;
     public widgetOptions?: any; // TODO line-chart
+    public widgetIsVideoWall?: boolean = false;
 
     protected isRealtimeData: boolean = true;
 
@@ -39,16 +40,18 @@ export abstract class WidgetPlatform implements OnDestroy {
         setTimeout(() => {
             this.subscriptions.push(
                 this.widgetService.getWidgetChannel(this.widgetId).subscribe((ref) => {
-                    if (ref) {
-                        this.widgetTitle = ref?.title;
-                        this.widgetType = ref?.widgetType;
-                        this.widgetOptions = ref.widgetOptions;
-                        this.widgetUnits = ref.units;
-                        if (!this.isMock) {
-                            console.log(this.widgetType);
-                        }
-                        this.showMock(this.isMock);
+                    if (!ref) {
+                        return;
                     }
+                    this.widgetTitle = ref?.title;
+                    this.widgetType = ref?.widgetType;
+                    this.widgetOptions = ref.widgetOptions;
+                    this.widgetUnits = ref.units;
+                    this.widgetIsVideoWall = ref.isVideoWall ? ref.isVideoWall : false;
+                    if (!this.isMock) {
+                        console.log(this.widgetType);
+                    }
+                    this.showMock(this.isMock);
                 })
             );
         });

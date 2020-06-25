@@ -119,6 +119,7 @@ export class WidgetService {
                 widgetType: item.widgetType,
                 categories: item.categories,
                 isClaim: item.isClaim,
+                isVideoWall: item.isVideoWall
             };
         });
     }

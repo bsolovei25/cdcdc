@@ -39,9 +39,9 @@ export class ProductionTrendGraphComponent extends LineChartPlatform<IProduction
             return (
                 await this.http
                     .get<IWsData<IProductionTrend>>(
-                        `${this.restUrl}/api/widget-data/` +
-                            `ed2b05ac-79c5-11ea-92fa-bc5ff45fe692?FromDateTime=` +
-                            `${ref.fromDateTime.toISOString()}&ToDateTime=${ref.toDateTime.toISOString()}`
+                        `${this.restUrl}/api/widget-data/ed2b05ac-79c5-11ea-92fa-bc5ff45fe692` +
+                            `?FromDateTime=${ref.fromDateTime.toISOString()}` +
+                            `&ToDateTime=${ref.toDateTime.toISOString()}`
                     )
                     .toPromise()
             )?.data?.items;
