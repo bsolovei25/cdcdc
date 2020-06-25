@@ -1,12 +1,4 @@
-import {
-    Component,
-    Inject,
-    AfterViewInit,
-    ViewChild,
-    ViewContainerRef,
-    OnInit,
-    OnDestroy,
-} from '@angular/core';
+import { Component, Inject, ViewChild, ViewContainerRef, OnInit, OnDestroy } from '@angular/core';
 import { WidgetService } from '../services/widget.service';
 import { WidgetPlatform } from '../models/widget-platform';
 import { LazyService } from '../../widgets/lazy.service';
@@ -16,8 +8,7 @@ import { LazyService } from '../../widgets/lazy.service';
     templateUrl: './widget-container.component.html',
     styleUrls: ['./widget-container.component.scss'],
 })
-export class WidgetContainerComponent extends WidgetPlatform
-    implements OnInit, AfterViewInit, OnDestroy {
+export class WidgetContainerComponent extends WidgetPlatform implements OnInit, OnDestroy {
     @ViewChild('container', { read: ViewContainerRef }) private container: ViewContainerRef;
     public isLoading: boolean = true;
 
@@ -35,14 +26,13 @@ export class WidgetContainerComponent extends WidgetPlatform
         super.widgetInit();
     }
 
-    public ngAfterViewInit(): void {
-        if (!this.isMock) {
-            setTimeout(() => this.loadWidget(), 0);
-        }
-    }
-
     public ngOnDestroy(): void {
         super.ngOnDestroy();
+    }
+
+    protected async dataConnect(): Promise<void> {
+        super.dataConnect();
+        setTimeout(() => this.loadWidget(), 0);
     }
 
     private async loadWidget(): Promise<void> {
