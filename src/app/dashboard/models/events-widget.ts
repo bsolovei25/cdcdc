@@ -313,6 +313,7 @@ export interface EventsWidgetOptions {
     dates?: { fromDateTime: Date; toDateTime: Date };
     placeNames?: string[];
     description?: string;
+    isVideoWall?: boolean;
 }
 
 export interface EventsWidgetsStats {
