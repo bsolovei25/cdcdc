@@ -40,7 +40,7 @@ export class ImplementationTankComponent implements OnInit, AfterViewInit {
 
     const pictureContainer = this.tankPicture
       .append('image')
-      .attr('xlink:href', './assets/icons/widgets/oil-control-all/tank-information/Bak.png')
+      .attr('xlink:href', 'assets/icons/widgets/oil-control-all/tank-information/Bak.png')
       .attr('height', '450px')
       .attr('width', '300px')
       .attr('x', '0')
