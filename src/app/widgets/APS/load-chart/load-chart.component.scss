@@ -31,7 +31,7 @@
   width: 100%;
   height: 100%;
   padding: var(--chart-padding-tb) var(--chart-padding-lr);
-  border-bottom: 1px solid var(--color-aps-border-sub);
+  border-bottom: 1px solid var(--color-aps-border-main);
   overflow-x: scroll;
   overflow-y: hidden;
 
@@ -50,7 +50,7 @@
     z-index: 2;
     width: calc(100% - var(--chart-padding-lr) * 2);
     height: 1px;
-    bottom: var(--chart-padding-tb);
+    bottom: calc(var(--chart-padding-tb) - 1px);
     left: var(--chart-padding-lr);
     background: var(--color-aps-bg-sub);
   }
@@ -113,6 +113,16 @@
 
   .canvas {
     transform: scaleY(-1);
+  }
+
+  &::after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 1px;
+    bottom: 3px;
+    left: 0;
+    background: var(--color-aps-border-sub);
   }
 
   &::-webkit-scrollbar-track {
