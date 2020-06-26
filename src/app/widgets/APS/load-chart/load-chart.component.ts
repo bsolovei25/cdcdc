@@ -223,6 +223,8 @@ export class LoadChartComponent extends WidgetPlatform implements OnInit, AfterV
 
     private transformedData: { value: number; date: Date }[] = [];
 
+    private valueLabels: number[] = [];
+
     private readonly colWidth: number = 37;
     private minValue: number = 0;
     private maxValue: number = 0;
@@ -296,6 +298,12 @@ export class LoadChartComponent extends WidgetPlatform implements OnInit, AfterV
     private findMinMax(): void {
         const sorted = this.transformedData.slice().sort((a, b) => a.value - b.value);
         [this.minValue, this.maxValue] = [sorted[0].value, sorted.slice(-1)[0].value];
+
+        const step = (this.maxValue - this.minValue) / 7;
+        for (let i = 0, counter = this.minValue; i < 7; i++) {
+            this.valueLabels.unshift(Math.round(counter));
+            counter += step;
+        }
     }
 
     private createGrid(): void {
@@ -314,6 +322,23 @@ export class LoadChartComponent extends WidgetPlatform implements OnInit, AfterV
             }
             appendLine(this.gridVer, 'ver');
         }
+
+        const appendLabel = (elemRef: HTMLElement, value: number) => {
+            const label = this.renderer.createElement('div');
+            this.renderer.addClass(label, `label`);
+            const text = this.renderer.createText(`${value}`);
+            this.renderer.appendChild(label, text);
+            this.renderer.appendChild(elemRef, label);
+        };
+
+        const labelsBlock: HTMLElement = this.renderer.createElement('div');
+        this.renderer.addClass(labelsBlock, 'labels');
+
+        this.valueLabels.forEach((value) => {
+            appendLabel(labelsBlock, value);
+        });
+
+        this.renderer.appendChild(this.gridHor.nativeElement, labelsBlock);
     }
 
     private drawChart(): void {

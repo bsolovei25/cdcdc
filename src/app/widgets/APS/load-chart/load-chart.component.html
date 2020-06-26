@@ -2,10 +2,12 @@
   <evj-aps-widget-header [uniqId]="uniqId" [widgetTitle]="widgetTitle"> </evj-aps-widget-header>
   <div class="load-chart">
     <div class="chart" #chartContainer>
+      <div class="units">тыс.т.</div>
       <div class="axis-x"></div>
       <div class="axis-y"></div>
       <div class="grid">
-        <div class="grid__hor" #grid_hor></div>
+        <div class="grid__hor" #grid_hor>
+        </div>
         <div class="grid__ver" #grid_ver></div>
       </div>
       <div class="canvas-container">

@@ -31,8 +31,16 @@
   width: 100%;
   height: 100%;
   padding: var(--chart-padding-tb) var(--chart-padding-lr);
-  overflow-x: scroll;
-  overflow-y: hidden;
+
+  .units {
+    position: absolute;
+    width: max-content;
+    height: max-content;
+    top: 15px;
+    left: 17px;
+    font-size: 12px;
+    color: var(--color-aps-text-chart);
+  }
 
   .axis-y {
     position: absolute;
@@ -58,7 +66,6 @@
     --column-width: 37px;
 
     position: absolute;
-    // width: calc(100% - var(--chart-padding-lr) * 2);
     width: calc(var(--column-width) * 33);
     height: calc(100% - var(--chart-padding-tb) * 2);
     bottom: var(--chart-padding-tb);
@@ -74,6 +81,26 @@
       flex-direction: column;
       justify-content: flex-start;
       align-items: center;
+
+      .labels {
+        position: absolute;
+        width: max-content;
+        height: 100%;
+        top: 5px;
+        right: calc(100% + 4px);
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+
+        .label {
+          width: max-content;
+          height: 14.285%;
+          display: flex;
+          align-items: flex-end;
+          color: var(--color-aps-text-chart);
+          font-size: 10px;
+        }
+      }
     }
 
     &__ver {
@@ -88,6 +115,7 @@
     }
 
     .line-hor {
+      position: relative;
       width: 100%;
       height: 14.285%;
       border-bottom: 1px solid var(--color-aps-bg-sub);
@@ -137,14 +165,4 @@
   .canvas {
     transform: scaleY(-1);
   }
-
-  // &::after {
-  //   content: "";
-  //   position: absolute;
-  //   width: 100%;
-  //   height: 1px;
-  //   bottom: 0;
-  //   left: 0;
-  //   background: var(--color-aps-border-sub);
-  // }
 }
