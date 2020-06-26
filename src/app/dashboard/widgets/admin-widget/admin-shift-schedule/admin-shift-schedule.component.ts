@@ -5,7 +5,7 @@ import {
     ViewChild,
     Renderer2,
     OnInit,
-    AfterContentChecked,
+    AfterContentChecked
 } from '@angular/core';
 import { WidgetService } from '../../../services/widget.service';
 import * as moment from 'moment';
@@ -16,7 +16,7 @@ import {
     IBrigadeWithUsersDto,
     IScheduleShiftDay,
     IScheduleShift,
-    IUnits,
+    IUnits
 } from '../../../models/admin-shift-schedule';
 import { fillDataShape } from '../../../../@shared/common-functions';
 import { MatCalendar } from '@angular/material/datepicker';
@@ -24,7 +24,7 @@ import { WidgetPlatform } from '../../../models/widget-platform';
 import { SnackBarService } from '../../../services/snack-bar.service';
 import {
     AdminShiftScheduleService,
-    IDropItem,
+    IDropItem
 } from '../../../services/widgets/admin-shift-schedule.service';
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
 import { IAlertWindowModel } from '../../../../@shared/models/alert-window.model';
@@ -40,7 +40,7 @@ export interface IAbsent {
 @Component({
     selector: 'evj-admin-shift-schedule',
     templateUrl: './admin-shift-schedule.component.html',
-    styleUrls: ['./admin-shift-schedule.component.scss'],
+    styleUrls: ['./admin-shift-schedule.component.scss']
 })
 export class AdminShiftScheduleComponent extends WidgetPlatform
     implements OnInit, OnDestroy, AfterContentChecked {
@@ -116,7 +116,7 @@ export class AdminShiftScheduleComponent extends WidgetPlatform
         this.selectedDay = {
             date: new Date(),
             isAllShiftsSet: true,
-            items: [],
+            items: []
         };
         this.dateChanged(this.selectedDay.date);
         this.subscriptions.push(
@@ -151,7 +151,8 @@ export class AdminShiftScheduleComponent extends WidgetPlatform
         });
     }
 
-    protected dataHandler(ref: any): void { }
+    protected dataHandler(ref: any): void {
+    }
 
     ngAfterContentChecked(): void {
         this.listenBtn();
@@ -477,7 +478,8 @@ export class AdminShiftScheduleComponent extends WidgetPlatform
         };
     }
 
-    drop(event: CdkDragDrop<string[]>): void { }
+    drop(event: CdkDragDrop<string[]>): void {
+    }
 
     async moveToDropAdditionalShift(item: IDropItem): Promise<void> {
         if (item && item.container.id !== '0' && item.container.id !== item.previousContainer.id) {
@@ -518,7 +520,7 @@ export class AdminShiftScheduleComponent extends WidgetPlatform
             cancelText: 'Отмена',
             input: {
                 formControl: this.inputControl,
-                placeholder: 'Введите название',
+                placeholder: 'Введите название'
             },
             acceptFunction: async (): Promise<void> => {
                 const name = this.inputControl.value;
@@ -538,7 +540,7 @@ export class AdminShiftScheduleComponent extends WidgetPlatform
             },
             closeFunction: () => {
                 this.alertWindow = null;
-            },
+            }
         };
     }
 
