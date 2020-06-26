@@ -16,8 +16,8 @@ import { WidgetService } from '../../../dashboard/services/widget.service';
     styleUrls: ['./load-chart.component.scss'],
 })
 export class LoadChartComponent extends WidgetPlatform implements OnInit, AfterViewInit {
-    @ViewChild('grid_hor', { static: true }) private gridHorizontal: ElementRef;
-    @ViewChild('grid_ver', { static: true }) private gridVertical: ElementRef;
+    @ViewChild('grid_hor', { static: true }) private gridHor: ElementRef;
+    @ViewChild('grid_ver', { static: true }) private gridVer: ElementRef;
 
     constructor(
         protected widgetService: WidgetService,
@@ -46,15 +46,14 @@ export class LoadChartComponent extends WidgetPlatform implements OnInit, AfterV
         for (let i = 0; i < horLines; i++) {
             const lineHor = this.renderer.createElement('div');
             this.renderer.addClass(lineHor, 'line-hor');
-            this.renderer.appendChild(this.gridHorizontal, lineHor);
+            this.renderer.appendChild(this.gridHor.nativeElement, lineHor);
         }
 
         for (let i = 0; i < verLines; i++) {
             const lineVer = this.renderer.createElement('div');
             this.renderer.addClass(lineVer, 'line-ver');
-            this.renderer.appendChild(this.gridVertical, lineVer);
+            this.renderer.appendChild(this.gridVer.nativeElement, lineVer);
         }
-        // this.renderer.appendChild(this.gridHorizontal,)
     }
 
     public onClick(): void {
