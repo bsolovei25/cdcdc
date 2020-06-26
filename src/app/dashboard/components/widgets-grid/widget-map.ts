@@ -137,6 +137,7 @@ export const WIDGETS = {
     'product-groups-short': ProductGroupsShortComponent,
     'astue-efficiency': AstueEfficiencyComponent,
     'load-chart': WidgetContainerComponent, // контейнер для вставки
+    'aps-recipe-diagram': WidgetContainerComponent,
 };
 
 export const WIDGETS_LAZY = {
@@ -146,6 +147,12 @@ export const WIDGETS_LAZY = {
             return await import('src/app/widgets/APS/load-chart/load-chart.module');
         },
         module: 'LoadChartModule', // название модуля
+    },
+    'aps-recipe-diagram': {
+        import: async () => {
+            return await import('src/app/widgets/APS/aps-recipe-diagram/aps-recipe-diagram.module');
+        },
+        module: 'ApsRecipeDiagramModule',
     },
     //#endregion APS
 
