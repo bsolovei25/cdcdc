@@ -111,6 +111,10 @@
     }
   }
 
+  .canvas {
+    transform: scaleY(-1);
+  }
+
   &::-webkit-scrollbar-track {
     background: transparent;
     &-piece {
