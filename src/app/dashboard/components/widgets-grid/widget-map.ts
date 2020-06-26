@@ -149,7 +149,6 @@ export const WIDGETS_LAZY = {
         },
         module: 'LoadChartModule', // название модуля
     },
-
     'aps-gantt-chart': {
         import: async () => {
             return await import('src/app/widgets/APS/aps-gantt-chart/aps-gantt-chart.module');
