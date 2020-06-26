@@ -40,11 +40,12 @@
 
       <!-- NO-SELECTED EVENT -->
       <ng-container *ngIf="!ewService.event">
-        <div class="workspace__mock" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
-          <div class="workspace__submit">
-            Создайте или выберите событие
-          </div>
-        </div>
+<!--        <div class="workspace__mock" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">-->
+<!--          <div class="workspace__submit">-->
+<!--            Создайте или выберите событие-->
+<!--          </div>-->
+<!--        </div>-->
+        <evj-ejs-event></evj-ejs-event>
       </ng-container>
     </div>
 
