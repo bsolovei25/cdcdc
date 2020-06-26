@@ -5,59 +5,6 @@ $color-quality-stock-mbo: #c88823;
 $color-substandard-mbo: #b4433c;
 $color-holding-tank: #757a8f;
 
-$color-preparation-passport-system: #065d90;
-$color-preparation-shipment: #4784af;
-$color-preparation-quality-stock: #676c57;
-$color-preparation-substandard: #5d4963;
-$color-preparation-holding-tank: #3d658d;
-
-$color-passport-system-shipment: #4892b5;
-$color-passport-system-quality-stock: #68795d;
-$color-passport-system-substandard: #5e5769;
-$color-passport-system-holding-tank: #3e7293;
-
-$color-shipment-quality-stock: #a9a17b;
-$color-shipment-substandard: #9f7e88;
-$color-shipment-holding-tank: #7f9ab1;
-
-$color-quality-stock-substandard: #be6630;
-$color-quality-stock-holding-tank: #9f8159;
-
-$color-substandard-holding-tank: #955f66;
-
-// opacity
-
-$color-opacity-preparation-mbo: #17283f;
-$color-opacity-passport-system-mbo: #173349;
-$color-opacity-shipment-mbo: #313e4d;
-$color-opacity-quality-stock-mbo: #403525;
-$color-opacity-substandard-mbo: #35222b;
-$color-opacity-holding-tank: #282d3b;
-
-//
-
-$color-opacity-preparation-passport-system: #152c40;
-$color-opacity-preparation-shipment: #24384b;
-$color-opacity-preparation-quality-stock: #2a2d30;
-$color-opacity-preparation-substandard: #242332;
-$color-opacity-preparation-holding-tank: #1f2b3b;
-
-$color-opacity-passport-system-shipment: #24384b;
-$color-opacity-passport-system-quality-stock: #242d33;
-$color-opacity-passport-system-substandard: #272531;
-$color-opacity-passport-system-holding-tank: #202c3b;
-
-$color-opacity-shipment-quality-stock: #383c3e;
-$color-opacity-shipment-substandard: #33303d;
-$color-opacity-shipment-holding-tank: #2b3543;
-
-$color-opacity-quality-stock-substandard: #362929;
-$color-opacity-quality-stock-holding-tank: #302e30;
-
-$color-opacity-substandard-holding-tank: #2f2732;
-
-//
-
 .widget-container {
   height: 100%;
   width: 100%;
@@ -76,7 +23,7 @@ $color-opacity-substandard-holding-tank: #2f2732;
 }
 
 .container {
-  height: calc(98% - 22px);
+  height: 100%;
   width: 100%;
   overflow: auto;
   border-bottom: 1px solid var(--color-border-new-mbo);
@@ -87,6 +34,8 @@ $color-opacity-substandard-holding-tank: #2f2732;
     display: flex;
     flex-direction: column;
 
+    border: 2px solid var(--color-aps-border);
+
     box-sizing: border-box;
     padding-top: 9px;
     padding-left: 8px;
@@ -94,10 +43,10 @@ $color-opacity-substandard-holding-tank: #2f2732;
     padding-bottom: 7px;
     z-index: 999;
     position: relative;
-    width: 100%;
-    // height: calc(100% - 20px);
 
-    height: 100%;
+    width: calc(100% - 3px);
+    height: calc(100% - 43px);
+
     background-size: auto;
 
     // border-bottom: 1px solid var(--color-border-new-mbo);
@@ -218,7 +167,7 @@ p {
       height: 10px;
       min-width: 10px;
       width: 10px;
-      background-color: #0055a0;
+      background-color: rgb(var(--color-aps-timeLowerOrIncrease));
       border-radius: 10px;
       margin-right: 10px;
     }
@@ -227,7 +176,7 @@ p {
       height: 10px;
       min-width: 10px;
       width: 10px;
-      background-color: #009fe4;
+      background-color: rgb(var(--color-aps-fixedSelection));
       border-radius: 10px;
 
       margin-right: 10px;
@@ -237,7 +186,7 @@ p {
       height: 10px;
       min-width: 10px;
       width: 10px;
-      background-color: #91e1ff;
+      background-color: rgb(var(--color-aps-minOrMaxLoad));
       border-radius: 10px;
 
       margin-right: 10px;
@@ -247,7 +196,7 @@ p {
       height: 10px;
       min-width: 10px;
       width: 10px;
-      background-color: #ff9800;
+      background-color: rgb(var(--color-aps-fixedLoad));
       border-radius: 10px;
 
       margin-right: 10px;
@@ -257,7 +206,7 @@ p {
       height: 10px;
       min-width: 10px;
       width: 10px;
-      background-color: #d11913;
+      background-color: rgb(var(--color-aps-engagementRate));
       border-radius: 10px;
 
       margin-right: 10px;
@@ -267,7 +216,7 @@ p {
       height: 10px;
       min-width: 10px;
       width: 10px;
-      background-color: #757a8f;
+      background-color: rgb(var(--color-aps-fixedQualityScore));
       border-radius: 10px;
       margin-right: 10px;
     }
@@ -319,18 +268,19 @@ p {
 }
 
 .line {
-  height: 14px;
+  height: 15px;
   width: 100%;
   display: flex;
   position: relative;
 
-  .shipment {
+  .timeLowerOrIncrease {
     pointer-events: all;
     cursor: pointer;
     position: absolute;
     left: 0;
-    height: 14px;
-    background-color: $color-shipment-mbo;
+    height: 12px;
+    background-color: rgba(var(--color-aps-timeLowerOrIncrease), 0.6);
+    border: 2px solid rgba(var(--color-aps-timeLowerOrIncrease), 1);
     z-index: 11;
     &--first {
       &:after {
@@ -360,13 +310,14 @@ p {
     }
   }
 
-  .preparation {
+  .fixedSelection {
     pointer-events: fill;
     cursor: pointer;
     position: absolute;
     left: 0;
     height: 14px;
-    background-color: $color-preparation-mbo;
+    background-color: rgba(var(--color-aps-fixedSelection), 0.6);
+    border: 2px solid rgba(var(--color-aps-fixedSelection), 1);
     z-index: 12;
     &--first {
       &:after {
@@ -396,13 +347,14 @@ p {
     }
   }
 
-  .holding-tank {
+  .minOrMaxLoad {
     pointer-events: all;
     cursor: pointer;
     position: absolute;
     left: 0;
     height: 14px;
-    background-color: $color-holding-tank;
+    background-color: rgba(var(--color-aps-minOrMaxLoad), 0.6);
+    border: 2px solid rgba(var(--color-aps-minOrMaxLoad), 1);
     z-index: 13;
     &--first {
       &:after {
@@ -432,13 +384,14 @@ p {
     }
   }
 
-  .passport-system {
+  .fixedLoad {
     pointer-events: all;
     cursor: pointer;
     position: absolute;
     left: 0;
     height: 14px;
-    background-color: $color-passport-system-mbo;
+    background-color: rgba(var(--color-aps-fixedLoad), 0.6);
+    border: 2px solid rgba(var(--color-aps-fixedLoad), 1);
     z-index: 14;
     &--first {
       &:after {
@@ -468,13 +421,14 @@ p {
     }
   }
 
-  .quality-stock {
+  .engagementRate {
     pointer-events: all;
     cursor: pointer;
     position: absolute;
     left: 0;
     height: 14px;
-    background-color: $color-quality-stock-mbo;
+    background-color: rgba(var(--color-aps-engagementRate), 0.6);
+    border: 2px solid rgba(var(--color-aps-engagementRate), 1);
     z-index: 15;
     &--first {
       &:after {
@@ -504,13 +458,14 @@ p {
     }
   }
 
-  .substandard {
+  .fixedQualityScore {
     pointer-events: all;
     cursor: pointer;
     position: absolute;
     left: 0;
     height: 14px;
-    background-color: $color-substandard-mbo;
+    background-color: rgba(var(--color-aps-fixedQualityScore), 0.6);
+    border: 2px solid rgba(var(--color-aps-fixedQualityScore), 1);
     z-index: 16;
     &--first {
       &:after {
@@ -640,13 +595,13 @@ p {
 .table {
   font-family: Tahoma;
   font-size: 12px;
-  border-spacing: inherit;
 
-  min-width: 800px;
+  border-spacing: 0px 5px;
+  border-collapse: separate;
+
   height: calc(100% - 9px);
 
   &__header {
-    background-color: var(--color-bg-mbo-component);
     &__row {
       height: 30px;
       &:hover {
@@ -656,12 +611,11 @@ p {
 
     &__column {
       font-size: 12px;
-      width: 96px;
+      width: 94px;
       font-weight: normal;
       top: 0px;
       position: sticky;
       z-index: 100;
-      background: #1b1f2c;
 
       &:first-of-type {
         color: #8998b3;
@@ -689,43 +643,20 @@ p {
         display: flex;
         padding-top: 10px;
       }
-      .product-production {
-        height: 10px;
-        width: 10px;
-        position: absolute;
-        left: 106px;
-        top: 4px;
-      }
-      .product-passport {
-        height: 10px;
-        width: 10px;
-        position: absolute;
-        left: 161px;
-        top: 4px;
-      }
-      .product-ship {
-        height: 10px;
-        width: 10px;
-        position: absolute;
-        left: 216px;
-        top: 4px;
-      }
     }
   }
 
   &__body {
     &__row {
-      font-size: 10px;
-      height: 36px;
-
-      //   background: url(../../../../../assets/icons/widgets/gantt-chart/line-tr.svg) no-repeat;
-      border-top: 4px solid transparent;
-      border-bottom: 4px solid transparent;
-      background-color: var(--color-bg-mbo-sup);
-      box-shadow: inset 0 0 0 5px var(--color-bg-mbo-component);
+      font-size: 12px;
+      height: 41px;
+      // border: 1px solid var(--color-aps-border);
+      // border-left: 2px solid var(--color-aps-border-sub);
+      transition: all 150ms;
 
       &--active {
-        background-color: #182332;
+        // border: 1px solid var(--color-aps-active);
+        // border-left: 2px solid var(--color-aps-active);
       }
 
       &:hover:not(.last-tr) {
@@ -774,22 +705,61 @@ p {
     }
 
     &__column {
-      min-width: 284px;
-      max-width: 284px;
+      width: 94px;
       height: 27px;
-
-      border-bottom-width: 0 !important;
 
       text-align: center;
       //   border-right: 1px solid #2d3344;
       //   background: url(../../../../../assets/icons/widgets/gantt-chart/bg-line.svg);
       background-size: cover;
 
+      border-top: 1px solid var(--color-aps-border);
+      border-bottom: 1px solid var(--color-aps-border);
+
       &.expanded-column {
         &:first-of-type {
           //   background: var(--color-bg-mbo-active);
           max-width: 175px;
           padding: 0 !important;
+        }
+      }
+
+      &__children {
+
+        &:first-child {
+          border-left: 2px solid transparent !important;
+        }
+
+        &--active {
+          border-top: 1px solid var(--color-aps-active);
+          border-bottom: 1px solid var(--color-aps-active);
+
+          &:first-child {
+            border-left: 2px solid transparent !important;
+          }
+          &:last-of-type {
+            padding: 0 !important;
+            border-right: 1px solid var(--color-aps-active) !important;
+          }
+        }
+      }
+
+      &--active {
+        border-top: 1px solid var(--color-aps-active);
+        border-bottom: 1px solid var(--color-aps-active);
+
+        &:first-child {
+          border-left: 2px solid var(--color-aps-active) !important;
+        }
+        &:last-of-type {
+          padding: 0 !important;
+          border-right: 1px solid var(--color-aps-active) !important;
+        }
+      }
+
+      &--expand {
+        &:first-child {
+          border-left: 2px solid var(--color-aps-active) !important;
         }
       }
 
@@ -800,6 +770,8 @@ p {
         background-color: var(--color-bg-mbo-sup);
         box-shadow: inset 0 0 0 5px var(--color-bg-mbo-component);
 
+        border-left: 2px solid var(--color-aps-border);
+
         position: sticky;
         left: 0;
         z-index: 20;
@@ -808,12 +780,65 @@ p {
 
       &:last-of-type {
         padding: 0 !important;
+        border-right: 1px solid var(--color-aps-border);
       }
 
       &__row-title {
+        cursor: pointer;
         display: flex;
         justify-content: flex-start;
         align-items: center;
+
+        &__icon {
+          stroke: var(--color-aps-bg-icon);
+          margin-left: 9px;
+          z-index: 1;
+          transition: all 200ms;
+          &--active {
+            stroke: var(--color-aps-active);
+            transform: rotateZ(45deg);
+          }
+
+          &__background {
+            position: absolute;
+            top: -1px;
+            left: 0;
+
+            &-children {
+              position: absolute;
+              top: -1px;
+              left: 18px;
+            }
+          }
+        }
+
+        &__text {
+          margin-left: 10px;
+          width: 115px;
+          max-width: 115px;
+          text-align: left;
+        }
+
+        &__value {
+          &__background {
+            position: absolute;
+            left: 150px;
+            top: 1px;
+          }
+
+          &__texts {
+            margin-left: 18px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+          }
+
+          &__text {
+            &--orange {
+              color: var(--color-aps-orange);
+            }
+          }
+        }
 
         .row-title {
           user-select: none;
@@ -856,8 +881,28 @@ p {
           }
         }
 
+        &--no-active {
+          color: var(--color-aps-text-sub);
+        }
+
         &-children {
-          margin-left: 14px;
+          margin-left: 25px;
+
+          &__left-block {
+            position: absolute;
+            left: -2px;
+            top: -26px;
+
+            &__background {
+              fill: var(--color-bg-main);
+            }
+
+            &--first {
+              position: absolute;
+              left: -2px;
+              top: -9px;
+            }
+          }
           .row-title {
             &__icon {
               &-border {
