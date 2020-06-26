@@ -221,9 +221,11 @@ export class LoadChartComponent extends WidgetPlatform implements OnInit, AfterV
         },
     ];
 
-    private transformedData = [];
+    private transformedData: { value: number; date: Date }[] = [];
 
     private readonly colWidth: number = 37;
+    private minValue: number = 0;
+    private maxValue: number = 0;
 
     constructor(
         protected widgetService: WidgetService,
@@ -238,6 +240,7 @@ export class LoadChartComponent extends WidgetPlatform implements OnInit, AfterV
     public ngOnInit(): void {
         super.widgetInit();
         this.getData();
+        this.findMinMax();
     }
 
     public ngAfterViewInit(): void {
@@ -290,6 +293,11 @@ export class LoadChartComponent extends WidgetPlatform implements OnInit, AfterV
         });
     }
 
+    private findMinMax(): void {
+        const sorted = this.transformedData.slice().sort((a, b) => a.value - b.value);
+        [this.minValue, this.maxValue] = [sorted[0].value, sorted.slice(-1)[0].value];
+    }
+
     private createGrid(): void {
         const horLines = 6;
         const verLines = 33;
@@ -315,6 +323,10 @@ export class LoadChartComponent extends WidgetPlatform implements OnInit, AfterV
         const width = this.transformedData.length * this.colWidth;
         const height = this.gridHor.nativeElement.offsetHeight - 1;
 
+        const scaleValueY = (value: number) => {
+            return (height * (value - this.minValue)) / (this.maxValue - this.minValue);
+        };
+
         ctx.clearRect(0, 0, width, height);
 
         canv.setAttribute('height', `${height}`);
@@ -327,9 +339,9 @@ export class LoadChartComponent extends WidgetPlatform implements OnInit, AfterV
         ctx.lineWidth = 2;
         ctx.strokeStyle = '#3fa9f5';
 
-        ctx.moveTo(0, this.transformedData[0].value);
+        ctx.moveTo(0, scaleValueY(this.transformedData[0].value));
         this.transformedData.forEach((point, index) => {
-            ctx.lineTo(index * this.colWidth + step, point.value);
+            ctx.lineTo(index * this.colWidth + step, scaleValueY(point.value));
         });
         ctx.stroke();
 
