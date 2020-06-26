@@ -313,7 +313,7 @@ export class LoadChartComponent extends WidgetPlatform implements OnInit, AfterV
         const ctx = canv.getContext('2d') as CanvasRenderingContext2D;
 
         const width = this.transformedData.length * this.colWidth;
-        const height = this.gridHor.nativeElement.offsetHeight;
+        const height = this.gridHor.nativeElement.offsetHeight - 1;
 
         ctx.clearRect(0, 0, width, height);
 
