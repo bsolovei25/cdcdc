@@ -323,16 +323,16 @@ export class LoadChartComponent extends WidgetPlatform implements OnInit, AfterV
         const width = this.transformedData.length * this.colWidth;
         const height = this.gridHor.nativeElement.offsetHeight - 1;
 
-        const scaleValueY = (value: number) => {
-            return (height * (value - this.minValue)) / (this.maxValue - this.minValue);
-        };
-
         ctx.clearRect(0, 0, width, height);
 
         canv.setAttribute('height', `${height}`);
         canv.setAttribute('width', `${width}`);
 
         const step = this.colWidth / 2;
+
+        const scaleValueY = (value: number) => {
+            return (height * (value - this.minValue)) / (this.maxValue - this.minValue);
+        };
 
         ctx.beginPath();
 
