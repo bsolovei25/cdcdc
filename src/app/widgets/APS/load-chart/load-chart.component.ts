@@ -21,7 +21,6 @@ export class LoadChartComponent extends WidgetPlatform implements OnInit, AfterV
     @ViewChild('grid_hor', { static: true }) private gridHor: ElementRef;
     @ViewChild('grid_ver', { static: true }) private gridVer: ElementRef;
     @ViewChild('canvas', { static: true }) private canvas: ElementRef;
-    @ViewChild('chartContainer', { static: true }) private container: ElementRef;
 
     private data: IApsLoadChart[] = [
         {
