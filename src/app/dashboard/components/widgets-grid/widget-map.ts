@@ -150,6 +150,7 @@ export const WIDGETS_LAZY = {
         itemRows: 12,
         minItemCols: 40,
         minItemRows: 10,
+        // preview: 'load-chart',
     },
     //#endregion APS
 
