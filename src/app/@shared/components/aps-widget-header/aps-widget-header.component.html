@@ -12,6 +12,7 @@
       class="buttons"
       (mousedown)="$event.stopPropagation()"
       (touchstart)="$event.stopPropagation()"
+      *ngIf="!!additionalMenuItems.length || claimWidgets.includes(EnumClaimWidgets.delete)"
     >
       <div class="button button_menu" (click)="toggleMenu()">
         <img src="assets/icons/widgets/APS/header/menu.svg" />
@@ -28,6 +29,12 @@
     <div class="menu__item" *ngFor="let item of additionalMenuItems" (click)="item.action()">
       {{item.title}}
     </div>
-    <div class="menu__item" (click)="onRemoveButton()">Удалить с экрана</div>
+    <div
+      class="menu__item"
+      (click)="onRemoveButton()"
+      *ngIf="claimWidgets.includes(EnumClaimWidgets.delete)"
+    >
+      Удалить с экрана
+    </div>
   </div>
 </div>
