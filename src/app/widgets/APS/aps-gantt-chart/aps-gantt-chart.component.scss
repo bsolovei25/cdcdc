@@ -725,7 +725,6 @@ p {
       }
 
       &__children {
-
         &:first-child {
           border-left: 2px solid transparent !important;
         }
@@ -767,10 +766,7 @@ p {
         min-width: 262px;
         max-width: 262px;
         padding: 0 !important;
-        background-color: var(--color-bg-mbo-sup);
-        box-shadow: inset 0 0 0 5px var(--color-bg-mbo-component);
-
-        border-left: 2px solid var(--color-aps-border);
+        border-left: 2px solid var(--color-aps-border-sub);
 
         position: sticky;
         left: 0;

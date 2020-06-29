@@ -1,10 +1,3 @@
-$color-preparation-mbo: #054f8a;
-$color-passport-system-mbo: #076a96;
-$color-shipment-mbo: #89b9d3;
-$color-quality-stock-mbo: #c88823;
-$color-substandard-mbo: #b4433c;
-$color-holding-tank: #757a8f;
-
 .widget-container {
     height: 100%;
     width: 100%;
@@ -22,6 +15,38 @@ $color-holding-tank: #757a8f;
     z-index: 10;
 }
 
+.content-container {
+    display: flex;
+    justify-content: space-between;
+    flex: 1;
+
+    &__button {
+    }
+
+    &__checkbox {
+        display: flex;
+        align-items: center;
+    }
+
+    svg-icon {
+        cursor: pointer;
+        margin-left: 20px;
+        margin-right: 5px;
+    }
+
+    mat-checkbox {
+        font-family: "Tahoma";
+        font-size: 12px;
+        margin-left: 20px;
+
+        ::ng-deep {
+            .mat-checkbox-checked {
+                background-color: rgb(0, 178, 0);
+            }
+        }
+    }
+}
+
 .container {
     height: 100%;
     width: 100%;
@@ -37,7 +62,6 @@ $color-holding-tank: #757a8f;
         border: 2px solid var(--color-aps-border);
 
         box-sizing: border-box;
-        padding-top: 9px;
         padding-left: 8px;
         padding-right: 5px;
         padding-bottom: 7px;
@@ -48,8 +72,8 @@ $color-holding-tank: #757a8f;
         height: calc(100% - 43px);
 
         background-size: auto;
+        background-color: var(--color-aps-bg-component);
 
-        // border-bottom: 1px solid var(--color-border-new-mbo);
         &::before {
             content: "";
             position: absolute;
@@ -235,302 +259,6 @@ p {
     }
 }
 
-.children-table {
-    tr {
-        td:nth-child(2) {
-            display: flex;
-            align-items: center;
-            margin-left: 175px;
-            border-left: 1px solid #2d3344;
-        }
-
-        td {
-            &:first-of-type {
-                background: var(--color-bg-mbo-active);
-
-                width: 175px;
-                padding: 0 !important;
-            }
-
-            &:hover {
-                &:first-of-type {
-                    background: var(--color-hover-mbo-table);
-
-                    width: 175px;
-                    padding: 0 !important;
-                }
-
-                // background: url(../../../../../assets/icons/widgets/gantt-chart/bg-line.svg);
-                background-size: cover;
-            }
-        }
-    }
-}
-
-.line {
-    height: 15px;
-    width: 100%;
-    display: flex;
-    position: relative;
-
-    .timeLowerOrIncrease {
-        pointer-events: all;
-        cursor: pointer;
-        position: absolute;
-        left: 0;
-        height: 12px;
-        background-color: rgba(var(--color-aps-timeLowerOrIncrease), 0.6);
-        border: 2px solid rgba(var(--color-aps-timeLowerOrIncrease), 1);
-        z-index: 11;
-        &--first {
-            &:after {
-                content: "";
-                left: 0;
-                bottom: 0;
-                position: absolute;
-                border-left: 4px solid var(--color-bg-mbo-component);
-                border-top: 4px solid transparent;
-                border-bottom: 4px solid transparent;
-                height: 6px;
-                width: 0;
-            }
-        }
-        &--last {
-            &:before {
-                content: "";
-                right: 0;
-                bottom: 0;
-                position: absolute;
-                border-left: 4px solid transparent;
-                border-top: 4px solid var(--color-bg-mbo-component);
-                border-bottom: 4px solid var(--color-bg-mbo-component);
-                height: 6px;
-                width: 0;
-            }
-        }
-    }
-
-    .fixedSelection {
-        pointer-events: fill;
-        cursor: pointer;
-        position: absolute;
-        left: 0;
-        height: 14px;
-        background-color: rgba(var(--color-aps-fixedSelection), 0.6);
-        border: 2px solid rgba(var(--color-aps-fixedSelection), 1);
-        z-index: 12;
-        &--first {
-            &:after {
-                content: "";
-                left: 0;
-                bottom: 0;
-                position: absolute;
-                border-left: 4px solid var(--color-bg-mbo-component);
-                border-top: 4px solid transparent;
-                border-bottom: 4px solid transparent;
-                height: 6px;
-                width: 0;
-            }
-        }
-        &--last {
-            &:before {
-                content: "";
-                right: 0;
-                bottom: 0;
-                position: absolute;
-                border-left: 4px solid transparent;
-                border-top: 4px solid var(--color-bg-mbo-component);
-                border-bottom: 4px solid var(--color-bg-mbo-component);
-                height: 6px;
-                width: 0;
-            }
-        }
-    }
-
-    .minOrMaxLoad {
-        pointer-events: all;
-        cursor: pointer;
-        position: absolute;
-        left: 0;
-        height: 14px;
-        background-color: rgba(var(--color-aps-minOrMaxLoad), 0.6);
-        border: 2px solid rgba(var(--color-aps-minOrMaxLoad), 1);
-        z-index: 13;
-        &--first {
-            &:after {
-                content: "";
-                left: 0;
-                bottom: 0;
-                position: absolute;
-                border-left: 4px solid var(--color-bg-mbo-component);
-                border-top: 4px solid transparent;
-                border-bottom: 4px solid transparent;
-                height: 6px;
-                width: 0;
-            }
-        }
-        &--last {
-            &:before {
-                content: "";
-                right: 0;
-                bottom: 0;
-                position: absolute;
-                border-left: 4px solid transparent;
-                border-top: 4px solid var(--color-bg-mbo-component);
-                border-bottom: 4px solid var(--color-bg-mbo-component);
-                height: 6px;
-                width: 0;
-            }
-        }
-    }
-
-    .fixedLoad {
-        pointer-events: all;
-        cursor: pointer;
-        position: absolute;
-        left: 0;
-        height: 14px;
-        background-color: rgba(var(--color-aps-fixedLoad), 0.6);
-        border: 2px solid rgba(var(--color-aps-fixedLoad), 1);
-        z-index: 14;
-        &--first {
-            &:after {
-                content: "";
-                left: 0;
-                bottom: 0;
-                position: absolute;
-                border-left: 4px solid var(--color-bg-mbo-component);
-                border-top: 4px solid transparent;
-                border-bottom: 4px solid transparent;
-                height: 6px;
-                width: 0;
-            }
-        }
-        &--last {
-            &:before {
-                content: "";
-                right: 0;
-                bottom: 0;
-                position: absolute;
-                border-left: 4px solid transparent;
-                border-top: 4px solid var(--color-bg-mbo-component);
-                border-bottom: 4px solid var(--color-bg-mbo-component);
-                height: 6px;
-                width: 0;
-            }
-        }
-    }
-
-    .engagementRate {
-        pointer-events: all;
-        cursor: pointer;
-        position: absolute;
-        left: 0;
-        height: 14px;
-        background-color: rgba(var(--color-aps-engagementRate), 0.6);
-        border: 2px solid rgba(var(--color-aps-engagementRate), 1);
-        z-index: 15;
-        &--first {
-            &:after {
-                content: "";
-                left: 0;
-                bottom: 0;
-                position: absolute;
-                border-left: 4px solid var(--color-bg-mbo-component);
-                border-top: 4px solid transparent;
-                border-bottom: 4px solid transparent;
-                height: 6px;
-                width: 0;
-            }
-        }
-        &--last {
-            &:before {
-                content: "";
-                right: 0;
-                bottom: 0;
-                position: absolute;
-                border-left: 4px solid transparent;
-                border-top: 4px solid var(--color-bg-mbo-component);
-                border-bottom: 4px solid var(--color-bg-mbo-component);
-                height: 6px;
-                width: 0;
-            }
-        }
-    }
-
-    .fixedQualityScore {
-        pointer-events: all;
-        cursor: pointer;
-        position: absolute;
-        left: 0;
-        height: 14px;
-        background-color: rgba(var(--color-aps-fixedQualityScore), 0.6);
-        border: 2px solid rgba(var(--color-aps-fixedQualityScore), 1);
-        z-index: 16;
-        &--first {
-            &:after {
-                content: "";
-                left: 0;
-                bottom: 0;
-                position: absolute;
-                border-left: 4px solid var(--color-bg-mbo-component);
-                border-top: 4px solid transparent;
-                border-bottom: 4px solid transparent;
-                height: 6px;
-                width: 0;
-            }
-        }
-        &--last {
-            &:before {
-                content: "";
-                right: 0;
-                bottom: 0;
-                position: absolute;
-                border-left: 4px solid transparent;
-                border-top: 4px solid var(--color-bg-mbo-component);
-                border-bottom: 4px solid var(--color-bg-mbo-component);
-                height: 6px;
-                width: 0;
-            }
-        }
-    }
-
-    .icon {
-        &__preparation {
-            cursor: pointer;
-            position: absolute;
-            z-index: 18;
-            top: -5px;
-
-            &--preparation {
-                fill: $color-preparation-mbo;
-            }
-            &--passport-system {
-                fill: $color-passport-system-mbo;
-            }
-            &--holding-tank {
-                fill: #757a8f;
-            }
-            &--substandard {
-                fill: $color-substandard-mbo;
-            }
-            &--quality-stock {
-                fill: $color-quality-stock-mbo;
-            }
-        }
-        &__select {
-            position: relative;
-            top: -6px;
-            z-index: 19;
-        }
-        &__select-right {
-            position: absolute;
-            top: -6px;
-            z-index: 19;
-        }
-    }
-}
-
 .example-element-detail {
     overflow: hidden;
     display: flex;
@@ -560,43 +288,34 @@ p {
     }
 }
 
-// // Scroll
-// ::-webkit-scrollbar {
-//     width: 5px;
-//     height: 5px;
-//     border-radius: 25px;
-// }
+// Scroll
+::-webkit-scrollbar {
+    width: 2px;
+    height: 2px;
+    border-radius: 25px;
+}
 
-// ::-webkit-scrollbar-track {
-//     border-radius: 25px;
-//     margin-left: 270px;
-//     //   margin-right: 178px;
-//     margin-top: 37px;
-// }
+::-webkit-scrollbar-track {
+    border-radius: 25px;
+    margin-left: 268px;
+    margin-right: 365px;
+}
 
-// ::-webkit-scrollbar-track-piece {
-//     border: solid 1px var(--color-scroll);
-//     border-radius: 25px;
-// }
+::-webkit-scrollbar-track-piece {
+    // border: solid 1px var(--color-aps-border-sub);
+    // border-radius: 25px;
+}
 
-// ::-webkit-scrollbar-thumb {
-//     background-color: var(--color-scroll);
-//     border-radius: 25px;
-// }
-
-// ::-webkit-scrollbar-corner {
-//     border-radius: 25px;
-// }
-
-// ::-webkit-resizer {
-//     border-radius: 25px;
-// }
+::-webkit-scrollbar-thumb {
+    background-color: var(--color-aps-border-sub);
+    border-radius: 25px;
+}
 
 .table {
     font-family: Tahoma;
     font-size: 12px;
 
-    border-spacing: 0px 5px;
+    border-spacing: 0px 2px;
     border-collapse: separate;
 
     height: calc(100% - 9px);
@@ -604,28 +323,55 @@ p {
     &__header {
         &__row {
             height: 30px;
-            &:hover {
-                background: none;
-            }
         }
 
         &__column {
             font-size: 12px;
-            width: 94px;
+            min-width: 88px;
+            max-width: 88px;
             font-weight: normal;
             top: 0px;
             position: sticky;
             z-index: 100;
 
+            border-right: 1px solid rgba(var(--color-aps-border-sup), 0.2);
+
             &:first-of-type {
-                color: #8998b3;
-                background-color: var(--color-bg-main);
+                font-size: 10px;
+                color: var(--color-aps-recipe-diagram-text-sub);
+                background-color: var(--color-aps-bg-sub-3);
                 position: sticky;
                 left: 0;
                 z-index: 101;
+                text-align: left;
+                padding-left: 15px;
                 // background: url(../../../../../assets/icons/widgets/gantt-chart/product-name.svg), #1b1f2c;
                 background-repeat: no-repeat;
                 background-size: 78px 32px;
+
+                &::after {
+                    content: "";
+                    position: absolute;
+                    width: 20px;
+                    height: 31px;
+                    right: -12px;
+                    top: -1px;
+                    transform: scale(-1);
+                    background: url(../../../../assets\icons\widgets\APS\aps-recipe-diagram\gradient-black-right.svg);
+                    background-repeat: no-repeat;
+                }
+            }
+
+            &__name {
+                &__pims {
+                }
+
+                &__text {
+                    margin-left: 33px;
+                }
+                &__search {
+                    margin-left: 74px;
+                }
             }
 
             // &:last-of-type {
@@ -641,32 +387,46 @@ p {
 
             &:nth-last-child(1) {
                 padding: 0 !important;
-                border-right: 1px solid var(--color-aps-border);
-
-                background-color: var(--color-bg-main);
+                background-color: var(--color-aps-bg-sub-3);
+                color: var(--color-aps-recipe-diagram-text-sub);
 
                 position: sticky;
                 right: 0;
+                width: 120px;
+                min-width: 120px;
             }
 
             &:nth-last-child(2) {
                 padding: 0 !important;
-                border-right: 1px solid var(--color-aps-border);
-
-                background-color: var(--color-bg-main);
+                background-color: var(--color-aps-bg-sub-3);
+                color: var(--color-aps-recipe-diagram-text-sub);
 
                 position: sticky;
-                right: 50px;
+                right: 121px;
+                width: 120px;
+                min-width: 120px;
             }
 
             &:nth-last-child(3) {
                 padding: 0 !important;
-                border-right: 1px solid var(--color-aps-border);
-
-                background-color: var(--color-bg-main);
+                background-color: var(--color-aps-bg-sub-3);
+                color: var(--color-aps-recipe-diagram-text-sub);
 
                 position: sticky;
-                right: 100px;
+                right: 242px;
+                width: 120px;
+                min-width: 120px;
+
+                &::before {
+                    content: "";
+                    position: absolute;
+                    width: 20px;
+                    height: 30px;
+                    left: -12px;
+                    top: -1px;
+                    background: url(../../../../assets\icons\widgets\APS\aps-recipe-diagram\gradient-black-right.svg);
+                    background-repeat: no-repeat;
+                }
             }
 
             &__title {
@@ -690,25 +450,9 @@ p {
     &__body {
         &__row {
             font-size: 12px;
-            height: 41px;
-            // border: 1px solid var(--color-aps-border);
-            // border-left: 2px solid var(--color-aps-border-sub);
+            height: 28px;
             transition: all 150ms;
 
-            &--active {
-                // border: 1px solid var(--color-aps-active);
-                // border-left: 2px solid var(--color-aps-active);
-            }
-
-            &:hover:not(.last-tr) {
-                // background: var(--color-hover-mbo-table);
-                td {
-                    &:first-of-type {
-                        border-right: none;
-                        // background: var(--color-hover-mbo-table);
-                    }
-                }
-            }
             &.expanded-row {
                 background: none;
                 box-shadow: none;
@@ -719,7 +463,6 @@ p {
                 background: none;
                 box-shadow: none;
                 td {
-                    //   background: url(../../../../../assets/icons/widgets/gantt-chart/bg-line.svg);
                     background: auto;
 
                     &:first-of-type {
@@ -734,8 +477,6 @@ p {
                         border-right: none;
                     }
                     &:nth-child(2) {
-                        // background: url(../../../../../assets/icons/widgets/gantt-chart/bg-line.svg);
-                        // background-position: left, center;
                         background-size: auto;
                     }
                 }
@@ -746,16 +487,21 @@ p {
         }
 
         &__column {
-            width: 94px;
-            height: 27px;
+            cursor: pointer;
+            position: relative;
+            min-width: 88px;
+            max-width: 88px;
+            height: 24px;
+            color: var(--color-aps-recipe-diagram-text-sub);
 
             text-align: center;
             //   border-right: 1px solid #2d3344;
             //   background: url(../../../../../assets/icons/widgets/gantt-chart/bg-line.svg);
             background-size: cover;
 
-            border-top: 1px solid var(--color-aps-border);
-            border-bottom: 1px solid var(--color-aps-border);
+            border-top: 1px solid var(--color-aps-border-opacity-25);
+            border-bottom: 1px solid var(--color-aps-border-opacity-25);
+            border-right: 1px solid rgba(var(--color-aps-border-sup), 0.2);
 
             &.expanded-column {
                 &:first-of-type {
@@ -787,6 +533,7 @@ p {
             &--active {
                 border-top: 1px solid var(--color-aps-active);
                 border-bottom: 1px solid var(--color-aps-active);
+                color: var(--color-text-main);
 
                 &:first-child {
                     border-left: 2px solid var(--color-aps-active) !important;
@@ -807,49 +554,69 @@ p {
                 min-width: 262px;
                 max-width: 262px;
                 padding: 0 !important;
-                background-color: var(--color-bg-main);
-                box-shadow: inset 0 0 0 5px var(--color-bg-mbo-component);
-
-                border-left: 2px solid var(--color-aps-border);
+                background-color: var(--color-aps-bg-sub-3);
+                border-left: 2px solid var(--color-aps-border-sub);
 
                 position: sticky;
                 left: 0;
                 z-index: 20;
-                border-right: none;
+
+                &::after {
+                    content: "";
+                    position: absolute;
+                    width: 20px;
+                    height: 31px;
+                    right: -12px;
+                    top: -1px;
+                    transform: scale(-1);
+                    background: url(../../../../assets\icons\widgets\APS\aps-recipe-diagram\gradient-black-right.svg);
+                    background-repeat: no-repeat;
+                }
             }
 
             &:nth-last-child(1) {
                 padding: 0 !important;
                 border-right: 1px solid var(--color-aps-border);
-
-                background-color: var(--color-bg-main);
+                background-color: var(--color-aps-bg-sub-3);
 
                 position: sticky;
                 right: 0;
+                width: 120px;
+                min-width: 120px;
             }
 
             &:nth-last-child(2) {
                 padding: 0 !important;
-                border-right: 1px solid var(--color-aps-border);
-
-                background-color: var(--color-bg-main);
+                background-color: var(--color-aps-bg-sub-3);
 
                 position: sticky;
-                right: 50px;
+                right: 121px;
+                width: 120px;
+                min-width: 120px;
             }
 
             &:nth-last-child(3) {
                 padding: 0 !important;
-                border-right: 1px solid var(--color-aps-border);
-
-                background-color: var(--color-bg-main);
+                background-color: var(--color-aps-bg-sub-3);
 
                 position: sticky;
-                right: 100px;
+                right: 242px;
+                width: 120px;
+                min-width: 120px;
+
+                &::before {
+                    content: "";
+                    position: absolute;
+                    width: 20px;
+                    height: 30px;
+                    left: -12px;
+                    top: -1px;
+                    background: url(../../../../assets\icons\widgets\APS\aps-recipe-diagram\gradient-black-right.svg);
+                    background-repeat: no-repeat;
+                }
             }
 
             &__row-title {
-                cursor: pointer;
                 display: flex;
                 justify-content: flex-start;
                 align-items: center;
@@ -869,19 +636,26 @@ p {
                         top: -1px;
                         left: 0;
 
-                        &-children {
+                        &--orange {
                             position: absolute;
-                            top: -1px;
-                            left: 18px;
+                            top: 2px;
+                            left: 0;
                         }
                     }
                 }
 
                 &__text {
-                    margin-left: 10px;
-                    width: 115px;
-                    max-width: 115px;
-                    text-align: left;
+                    &__pims {
+                        margin-left: 13px;
+                        width: 77px;
+                        max-width: 77px;
+                        text-align: left;
+                    }
+                    &__name {
+                        width: 150px;
+                        max-width: 150px;
+                        text-align: left;
+                    }
                 }
 
                 &__value {
@@ -903,6 +677,16 @@ p {
                             color: var(--color-aps-orange);
                         }
                     }
+                }
+
+                &__value {
+                    color: var(--color-aps-orange);
+                    width: 100%;
+                    height: 20.69px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    border-left: 1px solid var(--color-aps-orange);
                 }
 
                 .row-title {

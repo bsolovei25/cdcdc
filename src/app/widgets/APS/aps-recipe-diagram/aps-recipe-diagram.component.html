@@ -1,10 +1,24 @@
 <div class="container pointer-event">
-  <evj-aps-widget-header [uniqId]="uniqId" [widgetTitle]="widgetTitle" icon="map">
+  <evj-aps-widget-header>
     <div
       class="content-container"
       (mousedown)="$event.stopPropagation()"
       (touchstart)="$event.stopPropagation()"
-    ></div>
+    >
+      <div class="content-container__button">
+        <button>Показатели качества</button>
+        <button>Загрузка и выработка</button>
+      </div>
+      <div class="content-container__checkbox">
+        <mat-checkbox color="primary">Показать распределение</mat-checkbox>
+        <mat-checkbox color="primary">Показать утилиты</mat-checkbox>
+        <svg-icon
+          [svgStyle]="{ 'width.px':15, 'height.px':16 }"
+          src="assets/icons/widgets/APS/aps-recipe-diagram/fullscreen.svg"
+        >
+        </svg-icon>
+      </div>
+    </div>
   </evj-aps-widget-header>
 
   <div
@@ -17,7 +31,21 @@
         <thead class="table__header">
           <tr class="table__header__row">
             <th *ngFor="let column of columnsToDisplay" class="table__header__column">
-              {{column.name === 'productName' ? '' : column.name}}
+              <ng-container *ngIf="column.name !== 'productName'">{{ column.name }}</ng-container>
+              <ng-container
+                *ngIf="column.name === 'productName'"
+                class="table__header__column__name"
+                ><span class="table__header__column__name__pims">Код PIMS</span
+                ><span class="table__header__column__name__text">Наименование</span>
+                <span>
+                  <svg-icon
+                    class="table__header__column__name__search"
+                    [svgStyle]="{ 'width.px':17, 'height.px':17 }"
+                    src="assets/icons/widgets/APS/aps-recipe-diagram/search.svg"
+                  >
+                  </svg-icon>
+                </span>
+              </ng-container>
             </th>
           </tr>
         </thead>
@@ -33,51 +61,46 @@
                   *ngFor="let column of columnsToDisplay"
                   class="table__body__column"
                   [class.table__body__column--active]="selectedRowProduct === element.id"
+                  (click)="onClickTr($event, element)"
                 >
                   <div
                     *ngIf="column.name === 'productName'"
+                    (click)="onClickTr($event, element)"
                     class="table__body__column__row-title"
                     [class.table__body__column__row-title__border-active]="selectedRowProduct === element.id"
                   >
                     <svg-icon
-                      class="table__body__column__row-title__icon"
-                      [class.table__body__column__row-title__icon--active]="selectedRowProduct === element.id"
-                      src="assets/icons/widgets/APS/aps-gantt-chart/plus.svg"
-                    >
-                    </svg-icon>
-                    <svg-icon
                       *ngIf="selectedRowProduct === element.id; else elseBlock"
                       class="table__body__column__row-title__icon__background"
-                      src="assets/icons/widgets/APS/aps-gantt-chart/gradient-product-blue.svg"
+                      src="assets/icons/widgets/APS/aps-recipe-diagram/gradient-blue.svg"
                     >
                     </svg-icon>
                     <ng-template #elseBlock>
                       <svg-icon
                         class="table__body__column__row-title__icon__background"
-                        src="assets/icons/widgets/APS/aps-gantt-chart/gradient-product-grey.svg"
+                        src="assets/icons/widgets/APS/aps-recipe-diagram/gradient-grey.svg"
                       >
                       </svg-icon
                     ></ng-template>
-                    <span class="table__body__column__row-title__text"
+                    <span class="table__body__column__row-title__text__pims"
+                      >{{ element.codePims }}
+                    </span>
+                    <span class="table__body__column__row-title__text__name"
                       >{{ element.productName }}
                     </span>
-                    <div class="table__body__column__row-title__value__texts">
-                      <div class="table__body__column__row-title__value__text">
-                        {{ element.productValue }}
-                      </div>
-                      <div class="table__body__column__row-title__value__text--orange">
-                        {{ element.productDeviation }}
-                      </div>
-                    </div>
+                  </div>
+                  <ng-container *ngIf="column.name !== 'productName'">
+                    <span
+                      [class.table__body__column__row-title__value]="element.deviationQuality === 1 && selectedRowProduct === element.id"
+                      >{{element.productDeviation }}</span
+                    >
                     <svg-icon
-                      src="assets/icons/widgets/APS/aps-gantt-chart/product-value.svg"
-                      class="table__body__column__row-title__value__background"
+                      *ngIf="element.deviationQuality === 1 && selectedRowProduct === element.id"
+                      class="table__body__column__row-title__icon__background--orange"
+                      src="assets/icons/widgets/APS/aps-recipe-diagram/gradient-orange.svg"
                     >
                     </svg-icon>
-                  </div>
-                  <div *ngIf="column.name !== 'productName'" class="line">
-                    {{element.productDeviation }}
-                  </div>
+                  </ng-container>
                 </td>
               </ng-container>
             </tr>

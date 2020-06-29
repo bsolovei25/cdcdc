@@ -137,12 +137,21 @@
   --color-smp-active: #6ba4ef;
 
   // APS
+  --color-aps-bg-component: #161a28;
   --color-aps-bg-sub: #5e6582;
+  --color-aps-bg-sub-2: #161a28;
+  --color-aps-bg-sub-3: #131827;
 
-  --color-aps-border: #2a2e40;
-  --color-aps-border-sub: #40455c;
+  --color-aps-border: #32374b;
+  --color-aps-border-sub: #41465c;
+  --color-aps-border-sup: #0e1320;
+
+  --color-aps-border-opacity-25: rgba(94, 101, 130, 0.2);
+
+  --color-aps-border-sup: 0, 0, 0;
 
   --color-aps-text-sub: #8d9eb8;
+  --color-aps-recipe-diagram-text-sub: #5b607d;
 
   --color-aps-active: #0189ff;
   --color-aps-orange: #ff931e;
