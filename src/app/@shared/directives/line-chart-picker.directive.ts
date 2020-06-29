@@ -291,7 +291,7 @@ export class LineChartPickerDirective implements OnDestroy {
                 }
 
                 const factY = this.scaleFuncs.y.invert(posFact.y);
-                const factX = this.scaleFuncs.y.invert(posFact.x);
+                const factX = this.scaleFuncs.x.invert(posFact.x);
                 const planY = posPlan ? this.scaleFuncs.y.invert(posPlan.y) : null;
                 const borderTopY = borderTop ? this.scaleFuncs.y.invert(borderTop.y) : null;
                 const borderBotY = borderBottom ? this.scaleFuncs.y.invert(borderBottom.y) : null;
