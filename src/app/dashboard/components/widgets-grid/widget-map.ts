@@ -138,6 +138,7 @@ export const WIDGETS = {
     'astue-efficiency': AstueEfficiencyComponent,
     'load-chart': WidgetContainerComponent, // контейнер для вставки
     'aps-gantt-chart': WidgetContainerComponent,
+    scenarios: WidgetContainerComponent,
 };
 
 export const WIDGETS_LAZY = {
@@ -152,6 +153,17 @@ export const WIDGETS_LAZY = {
         minItemCols: 40,
         minItemRows: 10,
         // preview: 'load-chart',
+    },
+    scenarios: {
+        import: async () => {
+            return await import('src/app/widgets/APS/scenarios/scenarios.module');
+        },
+        module: 'ScenariosModule',
+        itemCols: 15,
+        itemRows: 30,
+        minItemCols: 15,
+        minItemRows: 30,
+        preview: 'scenarios',
     },
     'aps-gantt-chart': {
         import: async () => {

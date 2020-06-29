@@ -1,0 +1,21 @@
+<div class="notched-container-wrapper">
+  <div class="notched-container-left">
+    <div class="notched-container-left__top-frame"></div>
+    <div class="notched-container-left__bottom-frame"></div>
+    <div class="icon">
+      <ng-content class="icon-content" select="[icon]"></ng-content>
+    </div>
+  </div>
+  <div class="notched-container-right">
+    <div class="notched-container-right__top-frame"></div>
+    <div class="notched-container-right__bottom-frame"></div>
+    <div class="notched-container-right__content-container">
+      <ng-content select="[content]"></ng-content>
+    </div>
+    <div class="notched-container-right__value-container">
+      <div class="top-frame"></div>
+      <div class="bottom-frame"></div>
+      <ng-content select="[value]"></ng-content>
+    </div>
+  </div>
+</div>
