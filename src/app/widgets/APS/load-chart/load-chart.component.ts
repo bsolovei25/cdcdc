@@ -10,6 +10,7 @@ import {
 } from '@angular/core';
 import { WidgetPlatform } from '../../../dashboard/models/widget-platform';
 import { WidgetService } from '../../../dashboard/services/widget.service';
+import { IApsLoadChart } from '../../../dashboard/models/APS/load-chart.model';
 
 @Component({
     selector: 'evj-load-chart',
@@ -22,7 +23,7 @@ export class LoadChartComponent extends WidgetPlatform implements OnInit, AfterV
     @ViewChild('canvas', { static: true }) private canvas: ElementRef;
     @ViewChild('chartContainer', { static: true }) private container: ElementRef;
 
-    private data: { value: number; date: Date }[] = [
+    private data: IApsLoadChart[] = [
         {
             value: 130,
             date: new Date(2020, 1, 1, 4),
@@ -221,7 +222,7 @@ export class LoadChartComponent extends WidgetPlatform implements OnInit, AfterV
         },
     ];
 
-    public transformedData: { value: number; date: Date }[] = [];
+    public transformedData: IApsLoadChart[] = [];
 
     private valueLabels: number[] = [];
 
