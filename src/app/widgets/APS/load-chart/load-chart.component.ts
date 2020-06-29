@@ -221,7 +221,7 @@ export class LoadChartComponent extends WidgetPlatform implements OnInit, AfterV
         },
     ];
 
-    private transformedData: { value: number; date: Date }[] = [];
+    public transformedData: { value: number; date: Date }[] = [];
 
     private valueLabels: number[] = [];
 

@@ -146,6 +146,10 @@ export const WIDGETS_LAZY = {
             return await import('src/app/widgets/APS/load-chart/load-chart.module');
         },
         module: 'LoadChartModule', // название модуля
+        itemCols: 12,
+        itemRows: 12,
+        minItemCols: 10,
+        minItemRows: 10,
     },
     //#endregion APS
 

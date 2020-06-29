@@ -6,12 +6,14 @@
       <div class="axis-x"></div>
       <div class="axis-y"></div>
       <div class="grid">
-        <div class="grid__hor" #grid_hor>
-        </div>
+        <div class="grid__hor" #grid_hor></div>
         <div class="grid__ver" #grid_ver></div>
       </div>
       <div class="canvas-container">
         <canvas class="canvas" #canvas></canvas>
+        <div class="axis-x__labels">
+          <div class="label" *ngFor="let item of transformedData">{{item.date|date:"dd"}}</div>
+        </div>
       </div>
     </div>
   </div>

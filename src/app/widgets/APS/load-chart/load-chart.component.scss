@@ -1,6 +1,7 @@
 :host {
   --chart-padding-lr: 34px;
   --chart-padding-tb: 30px;
+  --column-width: 37px;
 
   width: 100%;
   height: 100%;
@@ -22,6 +23,7 @@
 .load-chart {
   width: 100%;
   height: calc(100% - 40px);
+  padding-bottom: 10px;
   border: 1px solid var(--color-aps-border-main);
   background: var(--color-aps-bg-widget);
 }
@@ -30,7 +32,8 @@
   position: relative;
   width: 100%;
   height: 100%;
-  padding: var(--chart-padding-tb) var(--chart-padding-lr);
+  padding: var(--chart-padding-tb) var(--chart-padding-lr) 0;
+  // padding: var(--chart-padding-tb) var(--chart-padding-lr);
 
   .units {
     position: absolute;
@@ -63,8 +66,6 @@
   }
 
   .grid {
-    --column-width: 37px;
-
     position: absolute;
     width: calc(var(--column-width) * 33);
     height: calc(100% - var(--chart-padding-tb) * 2);
@@ -141,12 +142,37 @@
   .canvas-container {
     position: absolute;
     width: calc(100% - var(--chart-padding-lr) * 2);
-    height: calc(100% - var(--chart-padding-tb) - 20px);
-    bottom: 20px;
+    height: calc(100% - var(--chart-padding-tb));
+    // height: calc(100% - var(--chart-padding-tb) - 20px);
+    // bottom: 20px;
+    bottom: 0;
     left: var(--chart-padding-lr);
     padding-bottom: 10px;
     overflow-x: scroll;
     overflow-y: hidden;
+
+    .axis-x__labels {
+      position: absolute;
+      width: max-content;
+      height: max-content;
+      left: 0;
+      // top: 100%;
+      // bottom: 10px;
+      bottom: 5px;
+      display: flex;
+      justify-content: flex-start;
+
+      .label {
+        width: var(--column-width);
+        height: max-content;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: var(--color-aps-text-chart);
+        font-size: 10px;
+        line-height: 150%;
+      }
+    }
 
     &::-webkit-scrollbar {
       &-thumb {
