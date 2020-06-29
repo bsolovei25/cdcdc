@@ -1,0 +1,53 @@
+.container {
+  padding: 3px;
+  border: 1px solid var(--color-border-main);
+  border-radius: 2px;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+
+  .progress-main {
+    flex: 3;
+    height: 4px;
+    position: relative;
+
+    &__bar {
+      float: left;
+    }
+  }
+
+  .progress-extension {
+    flex: 1;
+    height: 4px;
+    position: relative;
+
+    .marker {
+      height: 15px;
+      width: 15px;
+      position: absolute;
+      left: -12px;
+      top: -20px;
+      font-size: 12px;
+      color: var(--color-border-main);
+
+      &::after {
+        left: 11px;
+        top: 13px;
+        content: "";
+        position: absolute;
+        z-index: 2;
+        width: 1px;
+        height: 14px;
+        background: var(--color-border-main);
+      }
+    }
+
+    &__bar {
+      float: left;
+    }
+  }
+
+  .color {
+    height: 100%;
+  }
+}

@@ -144,13 +144,15 @@
   --color-aps-border-main: rgba(94, 101, 130, 0.25);
   --color-aps-text-chart: #5c607d;
   --color-aps-scroll-thumb: #393d52;
+  --color-aps-bg: #161a28;
+  --color-aps-bg-light: #1d2131;
 
   --color-aps-border: #2a2e40;
   --color-aps-border-sub: #40455c;
-
+  --color-aps-border-light: #5b607d;
   --color-aps-text-sub: #8d9eb8;
 
-  --color-aps-active: #0189ff;
+  --color-aps-active: #0089ff;
   --color-aps-orange: #ff931e;
 
   --color-aps-timeLowerOrIncrease: 103, 58, 183;
@@ -161,6 +163,11 @@
   --color-aps-fixedQualityScore: 11, 164, 163;
 
   --color-aps-bg-icon: #5f6580;
+
+  --color-aps-button-color: #8c99b2;
+  --color-aps-button-bg: #272c3d;
+  --color-aps-innactive-tab: #343b4c;
+  --color-aps-innactive-tab-text: #8d9eb8;
 
   // @shared/alert-window (aw)
   --color-aw-container-shadow-transparent: rgba(0, 0, 0, 0.25);
