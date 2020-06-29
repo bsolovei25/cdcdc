@@ -22,10 +22,10 @@ export interface IChatFileAttach {
 })
 export class FileAttachMenuComponent {
     private allowedExtensions: IChatAllowedExtensions = {
-        image: ['jpg', 'png', 'jpeg'],
-        document: ['docx', 'doc', 'xls', 'xlsx'],
-        archive: ['zip'],
-        video: ['mov', 'mp4'],
+        image: ['jpg', 'png', 'jpeg', 'heic', 'heif'],
+        document: ['docx', 'doc', 'xls', 'xlsx', 'pdf', 'p7s', 'rtx', 'pptx'],
+        archive: ['zip', 'zipx', 'rar', 'cab'],
+        video: ['mov', 'mp4', 'm4v', 'webm'],
     };
 
     public filesToUpload: IChatFileAttach[] = [];
