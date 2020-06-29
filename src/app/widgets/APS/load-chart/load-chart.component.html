@@ -1,6 +1,10 @@
 <div class="container">
   <evj-aps-widget-header [uniqId]="uniqId" [widgetTitle]="widgetTitle"> </evj-aps-widget-header>
-  <div class="load-chart">
+  <div
+    class="load-chart"
+    (mousedown)="$event.stopPropagation()"
+    (touchstart)="$event.stopPropagation()"
+  >
     <div class="chart" #chartContainer>
       <div class="units">тыс.т.</div>
       <div class="axis-x"></div>
