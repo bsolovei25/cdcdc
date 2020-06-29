@@ -247,14 +247,14 @@ export class LoadChartComponent extends WidgetPlatform implements OnInit, AfterV
 
     public ngAfterViewInit(): void {
         this.createGrid();
-        this.drawChart();
+        this.drawCanvas();
     }
 
     protected dataHandler(ref: any): void {}
 
     @HostListener('document:resize')
     onResize(): void {
-        this.drawChart();
+        this.drawCanvas();
     }
 
     private getData(): void {
@@ -308,7 +308,6 @@ export class LoadChartComponent extends WidgetPlatform implements OnInit, AfterV
 
     private createGrid(): void {
         const horLines = 6;
-        const verLines = 33;
 
         const appendLine = (elemRef: ElementRef, type: 'hor' | 'ver') => {
             const line = this.renderer.createElement('div');
@@ -316,11 +315,8 @@ export class LoadChartComponent extends WidgetPlatform implements OnInit, AfterV
             this.renderer.appendChild(elemRef.nativeElement, line);
         };
 
-        for (let i = 0; i < verLines; i++) {
-            if (i < horLines) {
-                appendLine(this.gridHor, 'hor');
-            }
-            appendLine(this.gridVer, 'ver');
+        for (let i = 0; i < horLines; i++) {
+            appendLine(this.gridHor, 'hor');
         }
 
         const appendLabel = (elemRef: HTMLElement, value: number) => {
@@ -341,7 +337,7 @@ export class LoadChartComponent extends WidgetPlatform implements OnInit, AfterV
         this.renderer.appendChild(this.gridHor.nativeElement, labelsBlock);
     }
 
-    private drawChart(): void {
+    private drawCanvas(): void {
         const canv = this.canvas.nativeElement as HTMLCanvasElement;
         const ctx = canv.getContext('2d') as CanvasRenderingContext2D;
 
@@ -353,6 +349,11 @@ export class LoadChartComponent extends WidgetPlatform implements OnInit, AfterV
         canv.setAttribute('height', `${height}`);
         canv.setAttribute('width', `${width}`);
 
+        this.drawVerticalGrid(ctx, height);
+        this.drawChart(ctx, height);
+    }
+
+    private drawChart(ctx: CanvasRenderingContext2D, height: number): void {
         const step = this.colWidth / 2;
 
         const scaleValueY = (value: number) => {
@@ -367,6 +368,28 @@ export class LoadChartComponent extends WidgetPlatform implements OnInit, AfterV
         ctx.moveTo(0, scaleValueY(this.transformedData[0].value));
         this.transformedData.forEach((point, index) => {
             ctx.lineTo(index * this.colWidth + step, scaleValueY(point.value));
+        });
+        ctx.stroke();
+
+        ctx.closePath();
+    }
+
+    private drawVerticalGrid(ctx: CanvasRenderingContext2D, height: number): void {
+        ctx.beginPath();
+
+        ctx.lineWidth = 1;
+        ctx.strokeStyle = 'rgba(94, 101, 130, 0.1)';
+
+        let xCoord: number = 0;
+        const yCoordMin: number = 0;
+        const yCoordMax: number = height;
+
+        ctx.moveTo(xCoord, yCoordMin);
+        ctx.lineTo(xCoord, yCoordMax);
+        this.transformedData.forEach(() => {
+            xCoord += this.colWidth;
+            ctx.moveTo(xCoord, yCoordMin);
+            ctx.lineTo(xCoord, yCoordMax);
         });
         ctx.stroke();
 

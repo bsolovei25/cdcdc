@@ -67,7 +67,7 @@
 
   .grid {
     position: absolute;
-    width: calc(var(--column-width) * 33);
+    width: calc(100% - var(--chart-padding-lr) * 2);
     height: calc(100% - var(--chart-padding-tb) * 2);
     bottom: var(--chart-padding-tb);
     left: var(--chart-padding-lr);
