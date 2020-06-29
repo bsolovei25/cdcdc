@@ -147,7 +147,7 @@ export class PerformanceProgressCircleComponent implements OnInit, OnChanges {
 
     const icon = this.svgCircle
       .append('image')
-      .attr('xlink:href', './assets/icons/widgets/SMP/' + this.data.icon + '.svg')
+      .attr('xlink:href', 'assets/icons/widgets/SMP/' + this.data.icon + '.svg')
       .attr('height', '13px')
       .attr('width', '13px')
       .attr('x', '43')
@@ -156,7 +156,7 @@ export class PerformanceProgressCircleComponent implements OnInit, OnChanges {
 
     const scaleTop = this.svgCircle
       .append('image')
-      .attr('xlink:href', './assets/icons/widgets/SMP/scale-top.svg')
+      .attr('xlink:href', 'assets/icons/widgets/SMP/scale-top.svg')
       .attr('height', '10px')
       .attr('width', '10px')
       .attr('x', '92')
@@ -173,7 +173,7 @@ export class PerformanceProgressCircleComponent implements OnInit, OnChanges {
 
     const scaleBottom = this.svgCircle
       .append('image')
-      .attr('xlink:href', './assets/icons/widgets/SMP/scale-bottom.svg')
+      .attr('xlink:href', 'assets/icons/widgets/SMP/scale-bottom.svg')
       .attr('height', '10px')
       .attr('width', '10px')
       .attr('x', '92')
