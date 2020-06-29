@@ -1,6 +1,13 @@
+@import url(src/theme/fonts.css);
+
+html, body, p, code:before, table {
+  font-family: "Tahoma", sans-serif;
+}
+
 #shell #shell-screen nav.top-nav {
   background: var(--color-bg-main-dark);
   box-shadow: 0px -6px 20px 0px black;
+  display: none;
 }
 
 #shell #shell-screen nav.leftnav {
@@ -14,6 +21,11 @@
 #shell #shell-screen section.content-wrapper {
   width: 100%;
   height: calc(100% - 51px);
+  height: 100%;
+}
+
+div.rec-new-manager-shell div.rm-datasheet-container {
+  padding: 0;
 }
 
 .rm-datasheet-container::-webkit-scrollbar {
@@ -81,12 +93,9 @@ div.rec-new-manager-shell div.record-explorer h1.title {
   color: white;
 }
 
-.datasheet-layout-container:not(.refdoc-datasheet-layout) .layout-tabbed-group .nav-tabs li.active>a {
-  color: white;
-}
-
+.datasheet-layout-container:not(.refdoc-datasheet-layout) .layout-tabbed-group .nav-tabs li.active>a,
 .datasheet-layout-container:not(.refdoc-datasheet-layout) .layout-tabbed-group .nav-tabs li>a {
-  color: white;
+  color: var(--color-text-sub-heading);
   max-width: 200px;
 }
 
@@ -180,4 +189,150 @@ span {
 
 .datasheet-layout-container:not(.refdoc-datasheet-layout) .mi-multi-value-selector {
   background: var(--color-bg-card) !important;
+}
+
+
+
+
+.overview {
+  background: var(--color-bg-main);
+}
+
+mi-dashboard div.dashboard-content mi-widget, mi-dashboard-editor div.dashboard-content mi-widget {
+  border: none !important;
+  background: var(--color-bg-card) !important;
+  padding: 15px;
+  border-radius: 15px;
+}
+
+.overview mi-page-filter .page-filter-root header div h1 {
+  color: var(--color-text-main);
+}
+
+mi-page-filter {
+  //height: unset;
+}
+
+mi-dashboard div.dashboard-content mi-grid-layout mi-grid-layout-collection mi-grid-layout-item {
+  min-height: 220px !important;
+}
+
+mi-dashboard div.dashboard-content mi-widget header {
+  border: none;
+  color: var(--color-text-main);
+}
+
+mi-dashboard div.dashboard-content mi-grid-layout mi-grid-layout-collection {
+  min-height: 250px;
+}
+
+mi-dashboard div.dashboard-content mi-widget section.widget-body {
+  padding: 15px;
+}
+
+mi-dashboard div.dashboard-content mi-widget header div.name {
+  color: var(--color-text-sub-heading);
+}
+
+mi-page-filter .page-filter-root header {
+  display: none;
+}
+
+#shell #shell-screen nav.top-nav nav.tab .middle-content div.active {
+  background: var(--color-bg-main-dark);
+  border-left: none;
+}
+
+a{
+  color: var(--color-text-sub);
+}
+
+
+
+
+
+#shell #shell-screen section.content-wrapper section.content>div.region {
+  background-color: var(--color-bg-main);
+}
+
+.query-landing-page div.query-results {
+  height: calc(100%);
+  padding: 20px 0;
+}
+
+.dx-scrollbar-vertical.dx-scrollbar-hoverable {
+  display: none;
+}
+
+.dx-scrollable-container {
+  direction: rtl;
+  overflow-y: scroll;
+}
+
+.dx-scrollable-container::-webkit-scrollbar {
+  width: 5px !important;
+}
+
+.dx-scrollable-container::-webkit-scrollbar-thumb {
+  background: var(--color-bg-sub);
+  border-radius: 5px;
+}
+
+.dx-scrollable-container::-webkit-scrollbar-track {
+  background: var(--color-bg-main);
+  border-radius: 5px;
+}
+
+.dx-scrollable-content {
+  direction: ltr;
+}
+
+.dx-datagrid-headers {
+  margin-left: 5px;
+}
+
+.dx-datagrid-rowsview {
+  border: none;
+}
+
+.dx-datagrid-headers {
+  color: var(--color-text-sub-heading);
+}
+
+.dx-gridbase-container>.dx-datagrid-rowsview {
+  color: var(--color-text-sub);
+}
+
+.dx-datagrid-content .dx-datagrid-table {
+  border-collapse: collapse;
+}
+
+.dx-datagrid .dx-datagrid-headers .dx-column-lines>:first-child {
+  border: none !important;
+}
+
+.dx-datagrid-headers .dx-datagrid-table .dx-row>td {
+  border: none;
+}
+
+.dx-datagrid-rowsview .dx-row {
+  border: none;
+}
+
+.dx-datagrid .dx-column-lines>td {
+  border: none;
+  border-left: solid 1px var(--color-bg-sub);
+}
+
+.dx-datagrid-headers .dx-datagrid-table .dx-row {
+  border: none;
+  border-bottom: solid 1px var(--color-bg-sub);
+}
+
+mi-resultgrid .rg-header .totalCount {
+  color: var(--color-text-sub);
+}
+
+.query-landing-page {
+  padding: 0;
 }

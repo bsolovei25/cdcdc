@@ -1,3 +1,23 @@
-<div class="container">
-  <iframe (load)="changeStyles()" id="frame" src="assets/mock/pages/d.html"></iframe>
+<div class="workspace">
+  <div class="select-container">
+    <evj-ui-block status="normal">
+      <mat-form-field class="categories_selectbox">
+        <mat-label>Категория</mat-label>
+        <mat-select
+          panelClass="mat-select-custom"
+          [(ngModel)]="ewService.event.category"
+          [disabled]="!ewService.isCreateNewEvent"
+          (selectionChange)="ewService.changeCategory()"
+        >
+          <mat-option *ngFor="let cat of ewService.categoryPipe | async" [value]="cat">
+            {{ ewService.categories[cat.name] }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </evj-ui-block>
+  </div>
+  <div class="container">
+    <iframe (load)="iFrameModify()" name="ejsFrame" id="frame" src="assets/mock/pages/ejs.html"></iframe>
+  </div>
 </div>
+
