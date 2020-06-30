@@ -1,7 +1,6 @@
 import { Directive, ElementRef, HostListener, Renderer2, Input, OnDestroy } from '@angular/core';
 import * as d3Selection from 'd3-selection';
 import * as d3 from 'd3';
-import { ProductionTrendType } from '../../dashboard/models/production-trends.model';
 import { findCursorPosition } from '../functions/find-cursor-position.function';
 
 @Directive({
@@ -271,12 +270,12 @@ export class LineChartPickerDirective implements OnDestroy {
         const eventListeners: (() => void)[] = [];
 
         eventListeners.push(
-            this.renderer.listen(element, 'mouseout', () => {
-                this.svg.select('.mouse-over').style('opacity', 0);
-            }),
-            this.renderer.listen(element, 'mouseover', () => {
-                this.svg.select('.mouse-over').style('opacity', 1);
-            }),
+            // this.renderer.listen(element, 'mouseout', () => {
+            //     this.svg.select('.mouse-over').style('opacity', 0);
+            // }),
+            // this.renderer.listen(element, 'mouseover', () => {
+            //     this.svg.select('.mouse-over').style('opacity', 1);
+            // }),
             this.renderer.listen(element, 'mousemove', (event: MouseEvent) => {
                 const rect: DOMRect = element.getBoundingClientRect();
                 const x = event.clientX - rect.left;
@@ -287,8 +286,10 @@ export class LineChartPickerDirective implements OnDestroy {
                 const borderBottom = findCursorPosition(x, 'lowerBorder', this.svg, this.padding);
 
                 if (!posFact) {
+                    this.svg.select('.mouse-over').style('opacity', 0);
                     return;
                 }
+                this.svg.select('.mouse-over').style('opacity', 1);
 
                 const factY = this.scaleFuncs.y.invert(posFact.y);
                 const factX = this.scaleFuncs.x.invert(posFact.x);
