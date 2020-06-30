@@ -139,6 +139,7 @@ export const WIDGETS = {
     'load-chart': WidgetContainerComponent, // контейнер для вставки
     'aps-recipe-diagram': WidgetContainerComponent,
     'aps-gantt-chart': WidgetContainerComponent,
+    scenarios: WidgetContainerComponent,
 };
 
 export const WIDGETS_LAZY = {
@@ -148,6 +149,22 @@ export const WIDGETS_LAZY = {
             return await import('src/app/widgets/APS/load-chart/load-chart.module');
         },
         module: 'LoadChartModule', // название модуля
+        itemCols: 41,
+        itemRows: 12,
+        minItemCols: 40,
+        minItemRows: 10,
+        // preview: 'load-chart',
+    },
+    scenarios: {
+        import: async () => {
+            return await import('src/app/widgets/APS/scenarios/scenarios.module');
+        },
+        module: 'ScenariosModule',
+        itemCols: 15,
+        itemRows: 30,
+        minItemCols: 15,
+        minItemRows: 30,
+        preview: 'scenarios',
     },
     'aps-gantt-chart': {
         import: async () => {
