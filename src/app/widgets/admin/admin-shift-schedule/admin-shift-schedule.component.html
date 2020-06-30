@@ -1,13 +1,4 @@
-<evj-widget-preview
-  [title]="widgetTitle"
-  [icon]="widgetIcon"
-  [previewTitle]="widgetType"
-  *ngIf="isMock"
->
-</evj-widget-preview>
-
-<div class="container pointer-event" *ngIf="!isMock">
-  <evj-loading-shade [isLoading]="isLoading"></evj-loading-shade>
+<div class="container pointer-event">
   <evj-widget-header
     [title]="widgetTitle"
     [units]="widgetUnits"
@@ -28,8 +19,6 @@
     (mousedown)="$event.stopPropagation()"
     (touchstart)="$event.stopPropagation()"
   >
-    <evj-alert-window [info]="alertWindow"></evj-alert-window>
-
     <ng-container *ngIf="isSelectMenu">
       <div class="content__blocks" cdkDropListGroup>
         <div class="block-left">
@@ -164,7 +153,10 @@
               </section>
             </evj-admin-shift-card>
 
-            <evj-admin-shift-card class="additional-team" titleBlock="Дополнительный состав бригады">
+            <evj-admin-shift-card
+              class="additional-team"
+              titleBlock="Дополнительный состав бригады"
+            >
               <section class="additional-team__section">
                 <div class="additional-team__section__container">
                   <div

@@ -36,7 +36,6 @@ import { FlameDiagramComponent } from '../../widgets/flame-diagram/flame-diagram
 import { ObservationNormTRComponent } from '../../widgets/observation-norm-tr/observation-norm-tr.component';
 import { RingEnergyIndicatorComponent } from '../../widgets/ring-energy-indicator/ring-energy-indicator.component';
 import { SolidGaugesComponent } from '../../widgets/solid-gauge-with-marker/solid-gauges/solid-gauges.component';
-import { AdminShiftScheduleComponent } from '../../widgets/admin-widget/admin-shift-schedule/admin-shift-schedule.component';
 import { AdminReferencesComponent } from '../../widgets/admin-references/admin-references.component';
 import { PetroleumProductsMovementComponent } from '../../widgets/petroleum-products-movement/petroleum-products-movement.component';
 import { AdminPanelComponent } from '../../widgets/admin-panel/admin-panel.component';
@@ -66,6 +65,7 @@ import { TruncatedDiagramTrafficLightComponent } from '../../widgets/truncated-d
 import { AstueEfficiencyComponent } from '../../widgets/ASTUE/astue-efficiency/astue-efficiency.component';
 import { WidgetContainerComponent } from '../../widget-container/widget-container.component';
 import { LoadChartComponent } from '../../../widgets/APS/load-chart/load-chart.component';
+import { AdminShiftScheduleComponent } from '../../../widgets/admin/admin-shift-schedule/admin-shift-schedule.component';
 
 export const WIDGETS = {
     'pie-diagram': WidgetPiesComponent,
@@ -109,7 +109,6 @@ export const WIDGETS = {
     'time-line-diagram': TimeLineDiagramComponent,
     'solid-gauge-with-marker': SolidGaugesComponent,
     'observation-norm-tr': ObservationNormTRComponent,
-    'admin-shift-schedule': AdminShiftScheduleComponent,
     'admin-references': AdminReferencesComponent,
     'petroleum-products-movement': PetroleumProductsMovementComponent,
     'admin-panel': AdminPanelComponent,
@@ -139,10 +138,11 @@ export const WIDGETS = {
     'load-chart': WidgetContainerComponent, // контейнер для вставки
     'aps-gantt-chart': WidgetContainerComponent,
     scenarios: WidgetContainerComponent,
+    'admin-shift-schedule': WidgetContainerComponent,
 };
 
 export const WIDGETS_LAZY = {
-    //#region APS
+    // #region APS
     'load-chart': {
         import: async () => {
             return await import('src/app/widgets/APS/load-chart/load-chart.module');
@@ -171,8 +171,25 @@ export const WIDGETS_LAZY = {
         },
         module: 'ApsGanttChartModule',
     },
-    //#endregion APS
 
+
+    // #endregion APS
+
+    // #region Admin
+
+    'admin-shift-schedule': {
+        import: async () => {
+            return await import('src/app/widgets/admin/admin-shift-schedule/admin-shift-schedule.module');
+        },
+        module: 'AdminShiftScheduleModule',
+        itemCols: 15,
+        itemRows: 30,
+        minItemCols: 15,
+        minItemRows: 30,
+        preview: 'admin-shift-schedule',
+    },
+
+    // #endregion APS
     // 'pie-diagram': {
     //     import: async () => await import('src/app/widgets/pie-diagram/pie-diagram.module'),
     // },

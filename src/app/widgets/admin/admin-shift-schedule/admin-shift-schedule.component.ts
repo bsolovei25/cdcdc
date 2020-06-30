@@ -7,29 +7,30 @@ import {
     OnInit,
     AfterContentChecked
 } from '@angular/core';
-import { WidgetService } from '../../../services/widget.service';
 import * as moment from 'moment';
 import { DateAdapter } from '@angular/material/core';
-import { IUser } from '../../../models/events-widget';
 import { SelectionModel } from '@angular/cdk/collections';
+
+import { MatCalendar } from '@angular/material/datepicker';
+
+import { CdkDragDrop } from '@angular/cdk/drag-drop';
+import { FormControl } from '@angular/forms';
+import { IUser } from '../../../dashboard/models/events-widget';
 import {
-    IBrigadeWithUsersDto,
     IScheduleShiftDay,
     IScheduleShift,
+    IBrigadeWithUsersDto,
     IUnits
-} from '../../../models/admin-shift-schedule';
-import { fillDataShape } from '../../../../@shared/common-functions';
-import { MatCalendar } from '@angular/material/datepicker';
-import { WidgetPlatform } from '../../../models/widget-platform';
-import { SnackBarService } from '../../../services/snack-bar.service';
+} from '../../../dashboard/models/admin-shift-schedule';
+import { IAlertWindowModel } from '../../../@shared/models/alert-window.model';
 import {
     AdminShiftScheduleService,
     IDropItem
-} from '../../../services/widgets/admin-shift-schedule.service';
-import { CdkDragDrop } from '@angular/cdk/drag-drop';
-import { IAlertWindowModel } from '../../../../@shared/models/alert-window.model';
-import { FormControl } from '@angular/forms';
-import { EventService } from '../../../services/widgets/event.service';
+} from '../../../dashboard/services/widgets/admin-shift-schedule.service';
+import { SnackBarService } from '../../../dashboard/services/snack-bar.service';
+import { WidgetService } from '../../../dashboard/services/widget.service';
+import { WidgetPlatform } from '../../../dashboard/models/widget-platform';
+import { fillDataShape } from '../../../@shared/common-functions';
 
 export interface IAbsent {
     code: string;
@@ -58,7 +59,7 @@ export class AdminShiftScheduleComponent extends WidgetPlatform
 
     activeUsers: SelectionModel<IUser> = new SelectionModel(true);
 
-    dateNowIcon: Date = new Date(); // только для иконки
+    dateNowIcon: Date = new Date();
 
     dateNow: Date = new Date();
     yesterday: IScheduleShiftDay;
@@ -96,7 +97,6 @@ export class AdminShiftScheduleComponent extends WidgetPlatform
         private materialController: SnackBarService,
         protected widgetService: WidgetService,
         private snackBar: SnackBarService,
-        private eventService: EventService,
         @Inject('isMock') public isMock: boolean,
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string

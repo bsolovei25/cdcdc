@@ -10,8 +10,8 @@ import {
 import { IAlertWindowModel } from '@shared/models/alert-window.model';
 import { BehaviorSubject } from 'rxjs';
 import { CdkDropList, CdkDrag } from '@angular/cdk/drag-drop';
-import { IAbsent } from '../../widgets/admin-widget/admin-shift-schedule/admin-shift-schedule.component';
 import { IUser } from '../../models/events-widget';
+import { IAbsent } from '../../../widgets/admin/admin-shift-schedule/admin-shift-schedule.component';
 
 export interface IDropItem {
     container: CdkDropList;
@@ -198,7 +198,7 @@ export class AdminShiftScheduleService {
             return this.http
                 .post(
                     this.restUrl +
-                        `/api/user-management/brigade/user/${userId}/brigade/${brigadeId}`,
+                    `/api/user-management/brigade/user/${userId}/brigade/${brigadeId}`,
                     null
                 )
                 .toPromise();
