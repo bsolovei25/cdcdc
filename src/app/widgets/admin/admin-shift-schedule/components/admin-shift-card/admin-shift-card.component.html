@@ -1,6 +1,22 @@
 <div class="card">
-  <div class="card__title">
+  <div *ngIf="titleBlock" class="card__title">
     {{ titleBlock }}
+  </div>
+  <div *ngIf="buttonLeft" class="card__buttons">
+    <button
+      class="card__button card__button-left card__button-left--active"
+      [class.card__button-left--active]="isLeftActive"
+      (click)="onBtnClick(true)"
+    >
+      {{ buttonLeft }}
+    </button>
+    <button
+      class="card__button card__button-right"
+      [class.card__button-right--active]="!isLeftActive"
+      (click)="onBtnClick(false)"
+    >
+      {{ buttonRight }}
+    </button>
   </div>
   <div class="card__content">
     <ng-content></ng-content>

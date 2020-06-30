@@ -13,7 +13,7 @@
     (selectedMenu)="selectedMenu($event)"
   ></evj-widget-header>
   <evj-frame-top></evj-frame-top>
-  
+
   <div
     class="content"
     (mousedown)="$event.stopPropagation()"
@@ -97,8 +97,13 @@
             </evj-admin-shift-card>
           </div>
           <div class="block-bottom" *ngIf="selectedDay">
-            <evj-admin-shift-card class="duty-schedule" titleBlock="График дежурств">
-              <section>
+            <evj-admin-shift-card
+              class="duty-schedule"
+              buttonLeft="График дежурств"
+              buttonRight="Управление расписание"
+              (clickEvent)="changeDutySchedule($event)"
+            >
+              <section *ngIf="isDutySchedule">
                 <div class="date-today">
                   <p>{{ selectedDay.date | date:'d MMMM yyyy' }}</p>
                 </div>
@@ -151,6 +156,66 @@
                   </mat-menu>
                 </div>
               </section>
+              <section *ngIf="!isDutySchedule" class="office-schedule">
+                <div class="office-schedule__item">
+                  <svg-icon
+                    class="office-schedule__item__icon"
+                    src="assets/icons/widgets/admin-shift-schedule/culm.svg"
+                    [svgStyle]="{ 'width.px':18, 'height.px':18 }"
+                  ></svg-icon>
+                  <div class="office-schedule__item__title">Время начала смены:</div>
+                  <div class="office-schedule__item__value" (click)="openBlock()">
+                    {{ timeStart | date:'hh:mm:ss' }}
+                  </div>
+                  <div *ngIf="isOpenStartDate" class="office-schedule__item__value__overlay">
+                    <ngx-mat-timepicker [(ngModel)]="timeStart" showSeconds="false">
+                    </ngx-mat-timepicker>
+                  </div>
+                </div>
+                <div class="office-schedule__item">
+                  <svg-icon
+                    class="office-schedule__item__icon"
+                    src="assets/icons/widgets/admin-shift-schedule/time__shift.svg"
+                    [svgStyle]="{ 'width.px':18, 'height.px':18 }"
+                  ></svg-icon>
+                  <div class="office-schedule__item__title">Длительность смены:</div>
+                  <div class="office-schedule__item__value" [matMenuTriggerFor]="menu3">dsad</div>
+                </div>
+                <div class="office-schedule__item">
+                  <svg-icon
+                    class="office-schedule__item__icon"
+                    src="assets/icons/widgets/admin-shift-schedule/calendar.svg"
+                    [svgStyle]="{ 'width.px':18, 'height.px':18 }"
+                  ></svg-icon>
+                  <div class="office-schedule__item__title">Применить с:</div>
+                  <div class="office-schedule__item__value" (click)="openBlockSave()">
+                    {{ saveIsDate | date:'d.m.yy | hh:mm:ss' }}
+                    <!-- <mat-form-field class="form form__picker custom-picker">
+                      <input
+                        disabled
+                        autocomplete="off"
+                        matInput
+                        [ngxMatDatetimePicker]="pickerTend"
+                        [(ngModel)]="dateNowIcon"
+                      />
+                      <mat-datepicker-toggle > </mat-datepicker-toggle>
+                    </mat-form-field> -->
+                  </div>
+                  <div *ngIf="isOpenSaveDate" class="office-schedule__item__value__overlay">
+                    <ngx-mat-timepicker [(ngModel)]="timeStart" showSeconds="false">
+                    </ngx-mat-timepicker>
+                  </div>
+                </div>
+              </section>
+              <mat-menu #menu3="matMenu" class="customize-menu">
+                <button
+                  mat-menu-item
+                  *ngFor="let b of [6, 8, 12]"
+                  (click)="onChooseBrigade(b, selectedDay)"
+                >
+                  {{ b }}
+                </button>
+              </mat-menu>
             </evj-admin-shift-card>
 
             <evj-admin-shift-card

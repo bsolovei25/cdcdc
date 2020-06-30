@@ -196,7 +196,7 @@ export const WIDGETS_LAZY = {
         },
         module: 'AdminShiftScheduleModule',
         itemCols: 15,
-        itemRows: 30,
+        itemRows: 15,
         minItemCols: 15,
         minItemRows: 15,
         preview: 'admin-shift-schedule',

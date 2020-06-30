@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
     selector: 'evj-admin-shift-card',
@@ -7,5 +7,16 @@ import { Component, Input } from '@angular/core';
 })
 export class AdminShiftCardComponent {
     @Input() titleBlock: string = '';
-    constructor() {}
+    @Input() buttonLeft: string = '';
+    @Input() buttonRight: string = '';
+
+    @Output() clickEvent: EventEmitter<boolean> = new EventEmitter<boolean>();
+
+    isLeftActive: boolean = true;
+    constructor() { }
+
+    onBtnClick(isLeftActive: boolean): void {
+        this.isLeftActive = isLeftActive ? true : false;
+        this.clickEvent.emit(this.isLeftActive);
+    }
 }

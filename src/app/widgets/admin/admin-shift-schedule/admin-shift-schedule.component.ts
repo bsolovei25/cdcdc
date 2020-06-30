@@ -31,6 +31,7 @@ import { SnackBarService } from '../../../dashboard/services/snack-bar.service';
 import { WidgetService } from '../../../dashboard/services/widget.service';
 import { WidgetPlatform } from '../../../dashboard/models/widget-platform';
 import { fillDataShape } from '../../../@shared/common-functions';
+import { Moment } from 'moment';
 
 export interface IAbsent {
     code: string;
@@ -81,6 +82,12 @@ export class AdminShiftScheduleComponent extends WidgetPlatform
     brigadeColors: { color: string; id: number }[] = [];
 
     allStatus: IAbsent[] = [];
+
+    isDutySchedule: boolean = true;
+    saveIsDate: Moment = moment();
+    timeStart: Moment = moment();
+    isOpenStartDate: boolean = false;
+    isOpenSaveDate: boolean = false;
 
     public alertWindow: IAlertWindowModel;
     public inputControl: FormControl = new FormControl('');
@@ -584,5 +591,17 @@ export class AdminShiftScheduleComponent extends WidgetPlatform
         } catch (error) {
             console.error(error);
         }
+    }
+
+    changeDutySchedule(isLeftButton: boolean): void {
+        this.isDutySchedule = isLeftButton;
+    }
+
+    openBlock(): void {
+        this.isOpenStartDate = this.isOpenStartDate ? false : true;
+    }
+
+    openBlockSave(): void {
+        this.isOpenSaveDate = this.isOpenSaveDate ? false : true;
     }
 }

@@ -50,7 +50,9 @@ export class WidgetContainerComponent extends WidgetPlatform implements OnInit, 
         };
 
         await this.lazyService.loadWidget(this.widgetType, this.container, injectParams);
-        setTimeout(() => (this.isLoading = false), 300);  
+        console.log(injectParams);
+        
+        setTimeout(() => (this.isLoading = false), 300);
     }
 
     protected dataHandler(ref: any): void { }
