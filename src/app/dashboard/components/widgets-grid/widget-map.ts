@@ -65,7 +65,6 @@ import { ProductGroupsShortComponent } from '../../widgets/SMP/product-groups-sh
 import { TruncatedDiagramTrafficLightComponent } from '../../widgets/truncated-diagram-traffic-light/truncated-diagram-traffic-light.component';
 import { AstueEfficiencyComponent } from '../../widgets/ASTUE/astue-efficiency/astue-efficiency.component';
 import { WidgetContainerComponent } from '../../widget-container/widget-container.component';
-import { LoadChartComponent } from '../../../widgets/APS/load-chart/load-chart.component';
 
 export const WIDGETS = {
     'pie-diagram': WidgetPiesComponent,
@@ -136,10 +135,11 @@ export const WIDGETS = {
     'production-deviations': ProductionDeviationsComponent,
     'product-groups-short': ProductGroupsShortComponent,
     'astue-efficiency': AstueEfficiencyComponent,
-    'load-chart': WidgetContainerComponent, // контейнер для вставки
+    'load-chart': WidgetContainerComponent,
     'aps-recipe-diagram': WidgetContainerComponent,
     'aps-gantt-chart': WidgetContainerComponent,
     scenarios: WidgetContainerComponent,
+    'facility-deviation': WidgetContainerComponent,
 };
 
 export const WIDGETS_LAZY = {
@@ -161,9 +161,9 @@ export const WIDGETS_LAZY = {
         },
         module: 'ScenariosModule',
         itemCols: 15,
-        itemRows: 30,
+        itemRows: 10,
         minItemCols: 15,
-        minItemRows: 30,
+        minItemRows: 10,
         preview: 'scenarios',
     },
     'aps-gantt-chart': {
@@ -184,6 +184,16 @@ export const WIDGETS_LAZY = {
         module: 'ApsRecipeDiagramModule',
         itemCols: 15,
         itemRows: 30,
+        minItemCols: 40,
+        minItemRows: 10,
+    },
+    'facility-deviation': {
+        import: async () => {
+            return await import('src/app/widgets/APS/facility-deviation/facility-deviation.module');
+        },
+        module: 'FacilityDeviationModule',
+        itemCols: 41,
+        itemRows: 12,
         minItemCols: 40,
         minItemRows: 10,
     },
