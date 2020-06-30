@@ -137,6 +137,7 @@ export const WIDGETS = {
     'product-groups-short': ProductGroupsShortComponent,
     'astue-efficiency': AstueEfficiencyComponent,
     'load-chart': WidgetContainerComponent, // контейнер для вставки
+    'aps-recipe-diagram': WidgetContainerComponent,
     'aps-gantt-chart': WidgetContainerComponent,
     scenarios: WidgetContainerComponent,
 };
@@ -170,6 +171,21 @@ export const WIDGETS_LAZY = {
             return await import('src/app/widgets/APS/aps-gantt-chart/aps-gantt-chart.module');
         },
         module: 'ApsGanttChartModule',
+        itemCols: 15,
+        itemRows: 30,
+        minItemCols: 40,
+        minItemRows: 10,
+        preview: 'gant-chart',
+    },
+    'aps-recipe-diagram': {
+        import: async () => {
+            return await import('src/app/widgets/APS/aps-recipe-diagram/aps-recipe-diagram.module');
+        },
+        module: 'ApsRecipeDiagramModule',
+        itemCols: 15,
+        itemRows: 30,
+        minItemCols: 40,
+        minItemRows: 10,
     },
     //#endregion APS
 

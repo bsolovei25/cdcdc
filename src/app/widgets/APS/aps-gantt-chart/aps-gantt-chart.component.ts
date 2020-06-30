@@ -2,7 +2,7 @@ import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
 import { WidgetPlatform } from '../../../dashboard/models/widget-platform';
 import { WidgetService } from '../../../dashboard/services/widget.service';
 import { SelectionModel } from '@angular/cdk/collections';
-import { P } from '@angular/cdk/keycodes';
+import { DATASOURCE } from './mock';
 
 
 export interface IAPSGanttChart {
@@ -17,19 +17,6 @@ export interface IAPSGanttChart {
   tank: IAPSGanttTank[];
   operationsRenderValues?: Map<IColumnsToDisplay, IUIELement[]>;
 }
-
-// export interface IAPSGanttTank {
-//   productName?: string;
-//   tankName: string;
-//   tankProduction: number;
-//   tankPassport: number;
-//   tankShip: number;
-//   tankDeviation: number;
-//   deviationInventory: number;
-//   deviationQuality: number;
-//   operations: IGanttTankOperations[];
-//   operationsRenderValues?: Map<IColumnsToDisplay, IUIELement[]>;
-// }
 
 export interface IUIELements {
   id: number;
@@ -79,98 +66,7 @@ export interface IAPSGanttTank {
 })
 export class ApsGanttChartComponent extends WidgetPlatform implements OnInit, OnDestroy {
 
-  dataSource: IAPSGanttTank[] = [{
-    id: 1,
-    productName: 'ДТЛ Евро С д.т.',
-    productDeviation: 282.773,
-    productValue: 38457.545,
-    deviationQuality: 1,
-    tank: [{
-      id: 2,
-      productName: '1 fdfsdfdsf',
-      productDeviation: 282.773,
-      productValue: 38457.545,
-      deviationQuality: 1,
-      tank: [],
-      operation: [],
-      operationRender: [{
-        id: 5,
-        type: 'timeLowerOrIncrease',
-        style: { width: 30, left: 10 },
-      }]
-    },
-    {
-      id: 4,
-      productName: '1 fdfsdfdsf',
-      productDeviation: 282.773,
-      productValue: 38457.545,
-      deviationQuality: 1,
-      tank: [],
-      operation: [],
-      operationRender: [{
-        id: 5,
-        type: 'timeLowerOrIncrease',
-        style: { width: 30, left: 10 },
-      }]
-    }],
-    operation: [],
-    operationRender: [{
-      id: 3,
-      type: 'timeLowerOrIncrease',
-      style: { width: 30, left: 10 },
-    }]
-  },
-  {
-    id: 6,
-    productName: 'ВТ-3.',
-    productDeviation: 282.773,
-    productValue: 38457.545,
-    deviationQuality: 1,
-    tank: [{
-      id: 2,
-      productName: '14324',
-      productDeviation: 282.773,
-      productValue: 38457.545,
-      deviationQuality: 1,
-      tank: [],
-      operation: [],
-      operationRender: [{
-        id: 5,
-        type: 'timeLowerOrIncrease',
-        style: { width: 30, left: 10 },
-      }]
-    },
-    {
-      id: 8,
-      productName: '1 fdf31232sdfdsf',
-      productDeviation: 282.773,
-      productValue: 38457.545,
-      deviationQuality: 1,
-      tank: [],
-      operation: [],
-      operationRender: [{
-        id: 5,
-        type: 'timeLowerOrIncrease',
-        style: { width: 30, left: 10 },
-      }]
-    }],
-    operation: [],
-    operationRender: [{
-      id: 3,
-      type: 'timeLowerOrIncrease',
-      style: { width: 30, left: 10 },
-    }]
-  },
-  {
-    id: 1,
-    productName: 'last-row',
-    productDeviation: 282.773,
-    productValue: 38457.545,
-    deviationQuality: 1,
-    tank: [],
-    operation: [],
-    operationRender: []
-  }];
+  dataSource: IAPSGanttTank[] = DATASOURCE;
 
   columnsToDisplay: IColumnsToDisplay[] = [
     { name: 'productName', date: new Date() },
@@ -212,25 +108,19 @@ export class ApsGanttChartComponent extends WidgetPlatform implements OnInit, On
     div?: IUIELements
   ): void {
     event.stopPropagation();
-    console.log(element);
     if (this.expandedElement.isSelected(element.id)) {
       this.expandedElement.deselect(element.id);
     } else {
       this.expandedElement.select(element.id);
     }
-    console.log(this.expandedElement.selected);
   }
 
   onClickRow(event: MouseEvent, element?: IAPSGanttChart): void {
     event.stopPropagation();
-    if (!this.selectedRowProduct) {
+    if (!this.selectedRowProduct || element.id !== this.selectedRowProduct) {
       this.selectedRowProduct = element.id;
     } else {
-      if (element.id !== this.selectedRowProduct) {
-        this.selectedRowProduct = element.id;
-      } else {
-        this.selectedRowProduct = null;
-      }
+      this.selectedRowProduct = null;
     }
   }
 

@@ -1,10 +1,6 @@
 <div class="container pointer-event">
-  <evj-aps-widget-header [uniqId]="uniqId" [widgetTitle]="widgetTitle" icon="map">
-    <div
-      class="content-container"
-      (mousedown)="$event.stopPropagation()"
-      (touchstart)="$event.stopPropagation()"
-    >
+  <evj-aps-widget-header [uniqId]="uniqId" [widgetTitle]="widgetTitle" icon="gantt">
+    <div class="content-container">
       <div class="header">
         <ul class="header__info">
           <li class="header__info-item">
@@ -33,6 +29,12 @@
           </li>
         </ul>
       </div>
+      <svg-icon
+        class="content-container__svg"
+        [svgStyle]="{ 'width.px':15, 'height.px':16 }"
+        src="assets/icons/widgets/APS/aps-recipe-diagram/fullscreen.svg"
+      >
+      </svg-icon>
     </div>
   </evj-aps-widget-header>
 
@@ -46,7 +48,33 @@
         <thead class="table__header">
           <tr class="table__header__row">
             <th *ngFor="let column of columnsToDisplay" class="table__header__column">
-              {{column.name === 'productName' ? '' : column.name}}
+              <ng-container *ngIf="column.name !== 'productName'">{{ column.name }}</ng-container>
+              <ng-container
+                *ngIf="column.name === 'productName'"
+                class="table__header__column__name"
+              >
+                <svg-icon
+                  class="table__header__column__name__gradient"
+                  src="assets/icons/widgets/APS/aps-gantt-chart/gradient-header.svg"
+                >
+                </svg-icon>
+                <svg-icon
+                  class="table__header__column__name__icon"
+                  [svgStyle]="{ 'width.px':15, 'height.px':15 }"
+                  src="assets/icons/widgets/APS/aps-gantt-chart/zavod.svg"
+                >
+                </svg-icon>
+                <span class="table__header__column__name__text">Установка</span>
+                <span class="table__header__column__name__pims">Тн</span>
+                <span>
+                  <svg-icon
+                    class="table__header__column__name__search"
+                    [svgStyle]="{ 'width.px':15, 'height.px':15 }"
+                    src="assets/icons/widgets/APS/aps-recipe-diagram/search.svg"
+                  >
+                  </svg-icon>
+                </span>
+              </ng-container>
             </th>
           </tr>
         </thead>
@@ -124,6 +152,12 @@
                         (output)="onClickTrEl($event)"
                       ></evj-line-ui> -->
                       <!-- <div> -->
+                      <svg-icon
+                        class="line__icon"
+                        [svgStyle]="{ 'width.px':15, 'height.px':15 }"
+                        src="assets/icons/widgets/APS/aps-gantt-chart/first-line.svg"
+                      >
+                      </svg-icon>
                       <div
                         (click)="onClickTr($event, element, 'line', divGantt)"
                         [className]="divGantt.type"
@@ -131,23 +165,6 @@
                         style.left="{{ divGantt.style.left }}%"
                         [class.z-index-chooseElement]="!selectedColumn.isSelected(divGantt.id) && this.selectedRowProduct"
                       ></div>
-                      <ng-container
-                        *ngIf="divGantt.type === 'passport-system'
-                      || divGantt.type === 'quality-stock'
-                      || divGantt.type === 'substandard'"
-                      >
-                        <svg-icon
-                          (click)="onClickTr($event, element, 'line', divGantt)"
-                          class="icon__preparation"
-                          class="icon__preparation--{{divGantt.type}}"
-                          style.left="{{ divGantt.style.left - 4 }}%"
-                          src="assets/icons/widgets/gantt-chart/passport.svg"
-                          [svgStyle]="{ 'width.px':25, 'height.px':25 }"
-                          [ngClass]="{'z-index-chooseElement' : !selectedColumn.isSelected(divGantt.id) && this.selectedRowProduct,
-                          'opacity': selectedColumn.isSelected(divGantt.id) && this.selectedRowProduct}"
-                        >
-                        </svg-icon>
-                      </ng-container>
                       <!-- <ng-container *ngIf="selectedOperationGantt === divGantt.id">
                         <ng-container [ngSwitch]="divGantt.type">
                           <svg-icon
