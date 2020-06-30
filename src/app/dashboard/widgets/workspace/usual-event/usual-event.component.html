@@ -172,8 +172,7 @@
             Автор
           </div>
           <div class="creator_body">
-            {{ ewService.event.responsibleOperator?.lastName }} {{
-            ewService.event.responsibleOperator?.firstName }}
+            {{this.ewService.event.fixedBy?.displayName ? this.ewService.event.fixedBy?.displayName : 'Не установлен'}}
           </div>
         </div>
         <div class="deadline">
