@@ -1,10 +1,4 @@
-import {
-    Component,
-    OnInit,
-    Injector,
-    Inject,
-    OnDestroy,
-} from '@angular/core';
+import { Component, OnInit, Injector, Inject, OnDestroy } from '@angular/core';
 import { WIDGETS } from './widget-map';
 import { WidgetModel } from '../../models/widget.model';
 import {
@@ -62,7 +56,7 @@ export class WidgetsGridComponent implements OnInit, OnDestroy {
         public injector: Injector,
         public userSettings: UserSettingsService,
         private claimService: ClaimService
-    ) { }
+    ) {}
 
     public ngOnInit(): void {
         console.log('widget-grid start');
@@ -76,7 +70,8 @@ export class WidgetsGridComponent implements OnInit, OnDestroy {
                     this.options = null;
                     this.loaditem();
                 }
-            }));
+            })
+        );
     }
 
     public ngOnDestroy(): void {
@@ -158,6 +153,9 @@ export class WidgetsGridComponent implements OnInit, OnDestroy {
         this.options.fixedRowHeight = this.RowHeight;
 
         this.changedOptions();
+
+        const event = new Event('resizeGrid');
+        document.dispatchEvent(event);
     }
 
     public resizeGridsterElement(): void {
@@ -244,9 +242,9 @@ export class WidgetsGridComponent implements OnInit, OnDestroy {
         this.widgetService.dashboard.push(item);
     }
 
-    public emptyCellMenuClick(): void { }
+    public emptyCellMenuClick(): void {}
 
-    public emptyCellDragClick(): void { }
+    public emptyCellDragClick(): void {}
 
     public emptyCellDropClick(event: DragEvent, param: IParamWidgetsGrid): void {
         const idWidget: string = event.dataTransfer.getData('text');

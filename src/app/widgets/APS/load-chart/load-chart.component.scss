@@ -176,9 +176,9 @@
     }
 
     &::-webkit-scrollbar {
+      height: 4px;
       &-thumb {
         background: var(--color-aps-scroll-thumb);
-        opacity: 0.5;
       }
       &-track {
         background: transparent;
