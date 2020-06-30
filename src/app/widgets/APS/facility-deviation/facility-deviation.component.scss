@@ -1,0 +1,36 @@
+.container {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.container > * {
+  margin: 20px 10px;
+}
+
+.widget-container {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  background: var(--color-aps-bg-widget);
+}
+
+.scroll-container {
+  overflow: overlay;
+}
+
+.body-container {
+  position: relative;
+  width: 100%;
+  height: calc(100% - 40px);
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  border: 2px solid var(--color-aps-border);
+  padding: 5px;
+  background-size: auto;
+}
