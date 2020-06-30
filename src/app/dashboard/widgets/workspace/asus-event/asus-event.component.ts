@@ -45,11 +45,12 @@ export class AsusEventComponent implements OnInit {
         this.ewService.setDeadlineToEvent(date);
     }
 
-    public async setUnit(event: IAsusTmPlace): Promise<void> {
+    public async setUnit(event: string): Promise<void> {
         this.ewService.isLoading = true;
         try {
             const saveMethod = await this.eventService.getSaveMethod(this.ewService.event);
-            this.ewService.asusEquipments = await this.eventService.getAsusEquipments(event.codeSap, saveMethod);
+            this.ewService.asusEquipments =
+                await this.eventService.getAsusEquipments(event, saveMethod);
             this.ewService.event.asusEvent.equipment = null;
             this.ewService.event.asusEvent.eoService = null;
         } catch (e) {
@@ -59,11 +60,12 @@ export class AsusEventComponent implements OnInit {
         }
     }
 
-    public async setEquipment(event: IAsusTpPlace): Promise<void> {
+    public async setEquipment(event: string): Promise<void> {
         this.ewService.isLoading = true;
         try {
             const saveMethod = await this.eventService.getSaveMethod(this.ewService.event);
-            this.ewService.asusEOServices = await this.eventService.getAsusEOServices(event.codeSap, saveMethod);
+            this.ewService.asusEOServices =
+                await this.eventService.getAsusEOServices(event, saveMethod);
             this.ewService.event.asusEvent.eoService = null;
         } catch (e) {
             console.error(e);
@@ -79,7 +81,8 @@ export class AsusEventComponent implements OnInit {
     public isAvailableOption(type: string): boolean {
         switch (type) {
             case 'eoService':
-                return !!(this.ewService.event.asusEvent.tmPlace && this.ewService.event.asusEvent.equipment);
+                return !!(this.ewService.event.asusEvent.tmPlace &&
+                    this.ewService.event.asusEvent.equipment);
             case 'equipment':
                 return !!this.ewService.event.asusEvent.tmPlace;
         }

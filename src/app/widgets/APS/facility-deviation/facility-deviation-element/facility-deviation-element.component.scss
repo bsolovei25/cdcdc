@@ -1,0 +1,124 @@
+.normal {
+  color: #5B607D;
+  border-color: #5B607D !important;
+  fill: #5B607D;
+  stroke: #5B607D;
+  svg-icon {
+    fill: #5B607D;
+    stroke: #5B607D;
+  }
+}
+
+.warning {
+  color: var(--color-warning);
+  border-color: var(--color-warning) !important;
+  fill: var(--color-warning);
+  stroke: var(--color-warning);
+  svg-icon {
+    fill: var(--color-warning);
+    stroke: var(--color-warning);
+  }
+}
+
+.factory-container {
+  position: relative;
+  width: 320px;
+  margin: auto;
+}
+
+.perspective-container {
+  display: flex;
+  height: 180px;
+  perspective: 800px;
+}
+
+.info {
+  width: 80%;
+  height: 45px;
+  margin: auto;
+  padding: 10px;
+  box-sizing: border-box;
+  border: solid 1px transparent;
+  border-style: solid solid none solid;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  font-size: 13.5px;
+  color: var(--color-text-main);
+  &_top {
+    display: flex;
+    justify-content: space-between;
+    &__dig {
+      font-size: 16px;
+    }
+  }
+  &_bottom {
+    display: flex;
+    flex-flow: row-reverse;
+    font-size: 15px;
+  }
+}
+
+.factory {
+  position: relative;
+  width: 320px;
+  height: 300px;
+  margin: auto;
+  //margin-left: -35px;
+  margin-top: -55px;
+  transform: rotateX(55deg) scale(.85);
+
+  &_background{
+    width: 100%;
+    height: 100%;
+  }
+
+  &_circle{
+    position: absolute;
+    left: 93px;
+    bottom: 75px;
+  }
+}
+
+.facility {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1;
+}
+
+@mixin rot-poser($left, $bottom, $rotation) {
+  position: absolute;
+  left: $left;
+  bottom: $bottom;
+  transform: rotateZ($rotation);
+}
+
+.rot-1 {
+  @include rot-poser(-4px, -66px, 2deg);
+}
+.rot-2 {
+  @include rot-poser(-83px, -13px, 53deg);
+}
+.rot-3 {
+  @include rot-poser(-91px, 80px, 105deg);
+}
+.rot-4 {
+  @include rot-poser(-22.5px, 144px, 156deg);
+}
+.rot-5 {
+  @include rot-poser(71.5px, 131px, 207deg);
+}
+.rot-6 {
+  @include rot-poser(120px, 50px, 258.5deg);
+}
+.rot-7 {
+  @include rot-poser(86px, -38px, 311deg);
+}
+
+.rot-icon {
+  position: absolute;
+  left: 50%;
+  top: 58%;
+  transform: translateX(-50%) translateY(-50%) rotateZ(7deg);
+  z-index: 1;
+}
