@@ -364,7 +364,6 @@ export class LoadChartComponent extends WidgetPlatform implements OnInit, AfterV
 
         ctx.lineWidth = 2;
         ctx.strokeStyle = '#2378d9';
-
         ctx.moveTo(0, scaleValueY(this.transformedData[0].value));
         this.transformedData.forEach((point, index) => {
             ctx.lineTo(index * this.colWidth + step, scaleValueY(point.value));
