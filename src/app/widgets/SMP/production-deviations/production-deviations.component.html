@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" *ngIf="!isMock">
   <evj-widget-header-smp
     [uniqId]="uniqId"
     (mouseenter)="onMouseEnter()"

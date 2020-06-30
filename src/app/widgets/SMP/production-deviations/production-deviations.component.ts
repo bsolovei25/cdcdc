@@ -24,13 +24,6 @@ export class ProductionDeviationsComponent extends WidgetPlatform implements OnI
 
     public ngOnInit(): void {
         super.widgetInit();
-        this.showLoader();
-    }
-
-    public showLoader(): void {
-        this.isDataLoading = true;
-
-        setTimeout(() => (this.isDataLoading = false), 1500);
     }
 
     public ngOnDestroy(): void {
@@ -44,5 +37,6 @@ export class ProductionDeviationsComponent extends WidgetPlatform implements OnI
                 col.date = new Date(col.date);
             });
         });
+        setTimeout(() => (this.isDataLoading = false), 500);
     }
 }

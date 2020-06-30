@@ -163,7 +163,7 @@ export const WIDGETS_LAZY = {
         itemRows: 30,
         minItemCols: 15,
         minItemRows: 30,
-        preview: 'scenarios',
+        // preview: 'scenarios',
     },
     'aps-gantt-chart': {
         import: async () => {
@@ -174,7 +174,7 @@ export const WIDGETS_LAZY = {
         itemRows: 30,
         minItemCols: 40,
         minItemRows: 10,
-        preview: 'gant-chart',
+        // preview: 'gant-chart',
     },
     'aps-recipe-diagram': {
         import: async () => {
@@ -185,6 +185,7 @@ export const WIDGETS_LAZY = {
         itemRows: 30,
         minItemCols: 40,
         minItemRows: 10,
+        // preview: 'aps-recipe-diagram',
     },
     //#endregion APS
 
@@ -229,6 +230,11 @@ export const WIDGETS_LAZY = {
             return await import('src/app/widgets/production-pyramid/production-pyramid.module');
         },
         module: 'ProductionPyramidModule',
+        itemCols: 20,
+        itemRows: 16,
+        minItemCols: 20,
+        minItemRows: 16,
+        preview: 'industrial-pyramid',
     },
     // 'bar-chart': {
     //     import: async () => await import('src/app/widgets/bar-chart/bar-chart.module'),
