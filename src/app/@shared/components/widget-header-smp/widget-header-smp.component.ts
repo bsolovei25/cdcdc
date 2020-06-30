@@ -1,13 +1,13 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { WidgetService } from '../../services/widget.service';
-import { UserSettingsService } from '../../services/user-settings.service';
+import { EnumClaimWidgets, ClaimService } from '../../../dashboard/services/claim.service';
 import { Subscription } from 'rxjs';
-import { ClaimService, EnumClaimWidgets } from '../../services/claim.service';
+import { WidgetService } from '../../../dashboard/services/widget.service';
+import { UserSettingsService } from '../../../dashboard/services/user-settings.service';
 
 @Component({
-  selector: 'evj-widget-header-smp',
-  templateUrl: './widget-header-smp.component.html',
-  styleUrls: ['./widget-header-smp.component.scss']
+    selector: 'evj-widget-header-smp',
+    templateUrl: './widget-header-smp.component.html',
+    styleUrls: ['./widget-header-smp.component.scss'],
 })
 export class WidgetHeaderSmpComponent implements OnInit, OnDestroy {
     @Input() uniqId: string;
@@ -17,8 +17,8 @@ export class WidgetHeaderSmpComponent implements OnInit, OnDestroy {
     constructor(
         private widgetService: WidgetService,
         private userSettings: UserSettingsService,
-        private claimService: ClaimService,
-    ) { }
+        private claimService: ClaimService
+    ) {}
 
     ngOnInit(): void {
         this.subscriptions.push(
