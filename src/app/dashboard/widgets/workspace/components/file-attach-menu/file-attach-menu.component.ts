@@ -22,7 +22,7 @@ export interface IChatFileAttach {
 })
 export class FileAttachMenuComponent {
     private allowedExtensions: IChatAllowedExtensions = {
-        image: ['jpg', 'png', 'jpeg', 'heic', 'heif'],
+        image: ['jpg', 'png', 'jpeg', 'heic', 'heif', 'JPG'],
         document: ['docx', 'doc', 'xls', 'xlsx', 'pdf', 'p7s', 'rtx', 'pptx'],
         archive: ['zip', 'zipx', 'rar', 'cab'],
         video: ['mov', 'mp4', 'm4v', 'webm'],

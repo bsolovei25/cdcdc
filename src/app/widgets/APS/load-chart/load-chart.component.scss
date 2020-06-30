@@ -1,24 +1,195 @@
 :host {
+  --chart-padding-lr: 34px;
+  --chart-padding-tb: 30px;
+  --column-width: 37px;
+
   width: 100%;
   height: 100%;
   * {
     box-sizing: border-box;
     color: var(--color-text-main);
     font-size: 14px;
+    user-select: none;
   }
 }
 
-.content-container {
-  flex: 1;
+.container {
+  width: 100%;
   height: 100%;
-  background: yellow;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  flex-direction: column;
+  background: var(--color-aps-bg-widget);
+}
 
-  .action {
-    width: 100px;
-    height: 100%;
-    background: green;
+.load-chart {
+  width: 100%;
+  height: calc(100% - 40px);
+  padding-bottom: 10px;
+  border: 1px solid var(--color-aps-border-main);
+  background: var(--color-aps-bg-widget);
+}
+
+.chart {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  padding: var(--chart-padding-tb) var(--chart-padding-lr) 0;
+  // padding: var(--chart-padding-tb) var(--chart-padding-lr);
+
+  .units {
+    position: absolute;
+    width: max-content;
+    height: max-content;
+    top: 15px;
+    left: 17px;
+    font-size: 12px;
+    color: var(--color-aps-text-chart);
+  }
+
+  .axis-y {
+    position: absolute;
+    z-index: 2;
+    width: 1px;
+    height: calc(100% - var(--chart-padding-tb) * 2);
+    bottom: var(--chart-padding-tb);
+    left: var(--chart-padding-lr);
+    background: var(--color-aps-bg-sub);
+  }
+
+  .axis-x {
+    position: absolute;
+    z-index: 2;
+    width: calc(100% - var(--chart-padding-lr) * 2);
+    height: 1px;
+    bottom: calc(var(--chart-padding-tb) - 1px);
+    left: var(--chart-padding-lr);
+    background: var(--color-aps-bg-sub);
+  }
+
+  .grid {
+    position: absolute;
+    width: calc(100% - var(--chart-padding-lr) * 2);
+    height: calc(100% - var(--chart-padding-tb) * 2);
+    bottom: var(--chart-padding-tb);
+    left: var(--chart-padding-lr);
+
+    &__hor {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+
+      .labels {
+        position: absolute;
+        width: max-content;
+        height: 100%;
+        top: 5px;
+        right: calc(100% + 4px);
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+
+        .label {
+          width: max-content;
+          height: 14.285%;
+          display: flex;
+          align-items: flex-end;
+          color: var(--color-aps-text-chart);
+          font-size: 10px;
+        }
+      }
+    }
+
+    &__ver {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+    }
+
+    .line-hor {
+      position: relative;
+      width: 100%;
+      height: 14.285%;
+      border-bottom: 1px solid var(--color-aps-bg-sub);
+      box-sizing: border-box;
+      opacity: 0.1;
+
+      &:first-child {
+        border-top: 1px solid var(--color-aps-bg-sub);
+      }
+    }
+
+    .line-ver {
+      width: 37px;
+      min-width: 37px;
+      max-width: 37px;
+      height: 100%;
+      border-right: 1px solid var(--color-aps-bg-sub);
+      box-sizing: border-box;
+      opacity: 0.1;
+    }
+  }
+
+  .canvas-container {
+    position: absolute;
+    width: calc(100% - var(--chart-padding-lr) * 2);
+    height: calc(100% - var(--chart-padding-tb));
+    // height: calc(100% - var(--chart-padding-tb) - 20px);
+    // bottom: 20px;
+    bottom: 0;
+    left: var(--chart-padding-lr);
+    padding-bottom: 10px;
+    overflow-x: scroll;
+    overflow-y: hidden;
+
+    .axis-x__labels {
+      position: absolute;
+      width: max-content;
+      height: max-content;
+      left: 0;
+      // top: 100%;
+      // bottom: 10px;
+      bottom: 5px;
+      display: flex;
+      justify-content: flex-start;
+
+      .label {
+        width: var(--column-width);
+        height: max-content;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: var(--color-aps-text-chart);
+        font-size: 10px;
+        line-height: 150%;
+      }
+    }
+
+    &::-webkit-scrollbar {
+      &-thumb {
+        background: var(--color-aps-scroll-thumb);
+        opacity: 0.5;
+      }
+      &-track {
+        background: transparent;
+        &-piece {
+          background: transparent;
+        }
+      }
+    }
+  }
+
+  .canvas {
+    transform: scaleY(-1);
   }
 }

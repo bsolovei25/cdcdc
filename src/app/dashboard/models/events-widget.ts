@@ -194,7 +194,8 @@ export type EventsWidgetCategoryCode =
     | 'tasks'
     | 'equipmentStatus'
     | 'drops'
-    | 'asus';
+    | 'asus'
+    | 'ejs';
 
 export type AuthenticationType = 'bearer' | 'windows';
 

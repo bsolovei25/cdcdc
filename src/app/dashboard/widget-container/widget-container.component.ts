@@ -11,6 +11,7 @@ import { LazyService } from '../../widgets/lazy.service';
 export class WidgetContainerComponent extends WidgetPlatform implements OnInit, OnDestroy {
     @ViewChild('container', { read: ViewContainerRef }) private container: ViewContainerRef;
     public isLoading: boolean = true;
+    public previewTitle: string = null;
 
     constructor(
         private lazyService: LazyService,
@@ -28,6 +29,11 @@ export class WidgetContainerComponent extends WidgetPlatform implements OnInit, 
 
     public ngOnDestroy(): void {
         super.ngOnDestroy();
+    }
+
+    protected dataDisconnect(): void {
+        super.dataDisconnect();
+        this.previewTitle = this.lazyService.getWidgetPreview(this.widgetType);
     }
 
     protected async dataConnect(): Promise<void> {
