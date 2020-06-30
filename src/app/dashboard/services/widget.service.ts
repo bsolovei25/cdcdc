@@ -228,6 +228,7 @@ export class WidgetService {
             case 'deviations-table':
             case 'triggering-critical-parameters':
             case 'production-trend':
+            case 'production-deviations':
                 return data;
         }
         console.warn(`unknown widget type ${widgetType}`);

@@ -27,11 +27,13 @@
       <div class="frame-bottom"></div>
       <div class="frame-left"></div>
       <div class="diagrams scroll scroll-bar">
-        <div class="diagrams__item scroll scroll-bar" *ngFor="let graph of data">
-          <div class="graph">
-            <evj-production-deviations-diagram [data]="graph"></evj-production-deviations-diagram>
+        <ng-container *ngIf="data">
+          <div class="diagrams__item scroll scroll-bar" *ngFor="let graph of data">
+            <div class="graph">
+              <evj-production-deviations-diagram [data]="graph"></evj-production-deviations-diagram>
+            </div>
           </div>
-        </div>
+        </ng-container>
       </div>
     </div>
   </div>
