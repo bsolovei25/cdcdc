@@ -52,6 +52,10 @@ export class LazyService {
         } catch {}
     }
 
+    public getWidgetPreview(widgetType: string): string {
+        return WIDGETS_LAZY[widgetType]?.preview ?? null;
+    }
+
     private injectionProvidersConstructor(params: IInjectParameters): StaticProvider[] {
         const providers: StaticProvider[] = [];
         Object.keys(params).forEach((key) => {

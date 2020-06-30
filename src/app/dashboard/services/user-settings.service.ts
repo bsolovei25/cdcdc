@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { IUserGridItem, IScreenSettings } from '../models/user-settings.model';
 import { HttpClient } from '@angular/common/http';
-import { WIDGETS } from '../components/widgets-grid/widget-map';
+import { WIDGETS, WIDGETS_LAZY } from '../components/widgets-grid/widget-map';
 import { AppConfigService } from 'src/app/services/appConfigService';
 import { Observable, BehaviorSubject, throwError, Subscription } from 'rxjs';
 import { filter, catchError } from 'rxjs/operators';
@@ -35,7 +35,7 @@ export class UserSettingsService {
         private configService: AppConfigService,
         private snackBar: SnackBarService,
         private overlayService: OverlayService,
-        private router: Router,
+        private router: Router
     ) {
         this.restUrl = configService.restUrl;
     }
@@ -52,18 +52,20 @@ export class UserSettingsService {
 
     public addCellByPosition(idWidget: string, nameWidget: string, param: IParamWidgetsGrid): void {
         const uniqId = this.create_UUID();
-        const minItemCols = WIDGETS[nameWidget]?.minItemCols ?? 6;
-        const minItemRows = WIDGETS[nameWidget]?.minItemRows ?? 6;
+        const minItemCols = this.defWidgetSize(nameWidget)?.minItemCols ?? 6;
+        const minItemRows = this.defWidgetSize(nameWidget)?.minItemRows ?? 6;
         console.log(minItemCols, minItemRows);
         this.widgetService.dashboard.push({
             x: param.x,
             y: param.y,
-            cols: WIDGETS[nameWidget].itemCols < minItemCols
-                ? minItemCols
-                : WIDGETS[nameWidget].itemCols,
-            rows: WIDGETS[nameWidget].itemRows < minItemRows
-                ? minItemRows
-                : WIDGETS[nameWidget].itemRows,
+            cols:
+                this.defWidgetSize(nameWidget).itemCols < minItemCols
+                    ? minItemCols
+                    : this.defWidgetSize(nameWidget).itemCols,
+            rows:
+                this.defWidgetSize(nameWidget).itemRows < minItemRows
+                    ? minItemRows
+                    : this.defWidgetSize(nameWidget).itemRows,
             minItemCols,
             minItemRows,
             id: idWidget,
@@ -79,15 +81,13 @@ export class UserSettingsService {
         this.http
             .post(this.restUrl + '/api/user-management/widget/' + this.ScreenId, updateWidget)
             .subscribe(
-                (ans) => { },
+                (ans) => {},
                 (error) => console.log(error)
             );
     }
 
     private save(uniqId: string): void {
-        const item = this.widgetService.dashboard?.find((el) =>
-            el.uniqid === uniqId
-        );
+        const item = this.widgetService.dashboard?.find((el) => el.uniqid === uniqId);
         this.widgetInfo = {
             widgetId: item.id,
             posX: item.x,
@@ -105,13 +105,13 @@ export class UserSettingsService {
         this.http
             .put(this.restUrl + '/api/user-management/widget/' + uniqId, updateWidget)
             .subscribe(
-                (ans) => { },
+                (ans) => {},
                 (error) => console.log(error)
             );
     }
 
     public updateByPosition(oldItem: GridsterItem, newItem: GridsterItem): void {
-        const item = this.widgetService.dashboard?.find(el => el.uniqId === oldItem.uniqId);
+        const item = this.widgetService.dashboard?.find((el) => el.uniqId === oldItem.uniqId);
         item.x = newItem.x;
         item.y = newItem.y;
         item.rows = newItem.rows;
@@ -124,7 +124,8 @@ export class UserSettingsService {
     public async removeItem(widgetId: string): Promise<void> {
         this.overlayService.setIsLoad(true);
         try {
-            await this.http.delete(this.restUrl + '/api/user-management/widget/' + widgetId)
+            await this.http
+                .delete(this.restUrl + '/api/user-management/widget/' + widgetId)
                 .toPromise();
             this.widgetService.removeItemService(widgetId);
         } catch (e) {
@@ -132,7 +133,6 @@ export class UserSettingsService {
         } finally {
             this.overlayService.setIsLoad(false);
         }
-
     }
 
     public GetScreens(): void {
@@ -155,10 +155,7 @@ export class UserSettingsService {
         if (dataScreen?.length > 0) {
             return this.http.get(this.restUrl + '/api/user-management/screen/' + id).pipe(
                 catchError((err) => {
-                    if (
-                        (err.status === 404 || err.status === 403) &&
-                        loadDefault
-                    ) {
+                    if ((err.status === 404 || err.status === 403) && loadDefault) {
                         return this.LoadScreenAsync(dataScreen[0].id, false);
                     }
                     return throwError(err);
@@ -175,13 +172,13 @@ export class UserSettingsService {
         this.widgetService.dashboard = [];
         this.claimService.setClaimsByScreen(null);
         return this.LoadScreenAsync(id, true).subscribe((item: IScreenSettings) => {
-            this.router.navigate([], { queryParams: {screenId: item.id}});
+            this.router.navigate([], { queryParams: { screenId: item.id } });
             this.claimService.setClaimsByScreen(item.claims);
             this.ScreenId = item.id;
             this.ScreenName = item.screenName;
             this.widgetService.dashboard = item.widgets.map((widget) => {
-                const minItemCols = WIDGETS[widget.widgetType]?.minItemCols ?? 6;
-                const minItemRows = WIDGETS[widget.widgetType]?.minItemRows ?? 6;
+                const minItemCols = this.defWidgetSize(widget.widgetType)?.minItemCols ?? 6;
+                const minItemRows = this.defWidgetSize(widget.widgetType)?.minItemRows ?? 6;
                 return {
                     x: widget.posX,
                     y: widget.posY,
@@ -207,7 +204,7 @@ export class UserSettingsService {
             widgets: null,
         };
         return this.http.post(this.restUrl + '/api/user-management/screen', userScreen).subscribe(
-            (data: { id: number, name: string }) => {
+            (data: { id: number; name: string }) => {
                 console.log('screen id');
                 console.log(data);
                 this.ScreenId = data?.id ?? this.ScreenId;
@@ -251,5 +248,9 @@ export class UserSettingsService {
 
     public clearScreens(): void {
         this._screens$.next(null);
+    }
+
+    private defWidgetSize(widgetType: string): any {
+        return WIDGETS_LAZY[widgetType] ?? WIDGETS[widgetType];
     }
 }

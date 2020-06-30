@@ -136,6 +136,46 @@
   --color-smp-warning: #ff9700;
   --color-smp-active: #6ba4ef;
 
+  // APS
+  --color-aps-bg: #161a28;
+  --color-aps-bg-sub: #5e6582;
+  --color-aps-bg-sub-2: #131827;
+  --color-aps-bg-header: #202333;
+  --color-aps-bg-widget: rgba(12, 19, 36, 0.25);
+  --color-aps-bg-light: #1d2131;
+  --color-bg-row-header: #141928;
+
+  --color-aps-border: #32374b;
+  --color-aps-border-sup: #0e1320;
+
+  --color-aps-border-main: rgba(94, 101, 130, 0.25);
+  --color-aps-text-chart: #5c607d;
+  --color-aps-scroll-thumb: #393d52;
+  --color-aps-fact: #2378d9;
+
+  --color-aps-border: #2a2e40;
+  --color-aps-border-sub: #40455c;
+  --color-aps-border-light: #5b607d;
+  --color-aps-text-sub: #8d9eb8;
+
+  --color-aps-active: #0089ff;
+  --color-aps-orange: #ff931e;
+
+  // APS Gantt
+  --color-aps-timeLowerOrIncrease: 103, 58, 183;
+  --color-aps-fixedSelection: 63, 81, 181;
+  --color-aps-minOrMaxLoad: 182, 225, 254;
+  --color-aps-fixedLoad: 3, 169, 244;
+  --color-aps-engagementRate: 0, 188, 212;
+  --color-aps-fixedQualityScore: 11, 164, 163;
+  //
+
+  --color-aps-bg-icon: #5f6580;
+
+  --color-aps-button-color: #8c99b2;
+  --color-aps-button-bg: #272c3d;
+  --color-aps-innactive-tab: #343b4c;
+
   // @shared/alert-window (aw)
   --color-aw-container-shadow-transparent: rgba(0, 0, 0, 0.25);
   --color-aw-container-body-transparent: rgba(39, 43, 53, 0.75);

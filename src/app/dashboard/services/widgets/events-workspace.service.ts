@@ -70,6 +70,7 @@ export class EventsWorkspaceService {
             switch (cat.name) {
                 case 'asus':
                 case 'smotr':
+                case 'ejs':
                     return false;
                 default:
                     return true;
@@ -99,6 +100,7 @@ export class EventsWorkspaceService {
         equipmentStatus: 'Состояния оборудования',
         drops: 'Сбросы',
         asus: 'АСУС',
+        ejs: 'ЭЖС',
     };
 
     private defaultEvent: EventsWidgetNotification = null;

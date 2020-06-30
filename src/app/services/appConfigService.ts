@@ -13,7 +13,7 @@ export class AppConfigService {
     constructor(private http: HttpClient) {}
 
     public async loadAppConfig(): Promise<void> {
-        this.appConfig = await this.http.get('/assets/config.json').toPromise();
+        this.appConfig = await this.http.get('assets/config.json').toPromise();
         this.restUrl$.next(this.appConfig.restUrl);
     }
 
