@@ -37,7 +37,6 @@ $color-holding-tank: #757a8f;
     border: 2px solid var(--color-aps-border);
 
     box-sizing: border-box;
-    padding-top: 9px;
     padding-left: 8px;
     padding-right: 5px;
     padding-bottom: 7px;
@@ -48,8 +47,8 @@ $color-holding-tank: #757a8f;
     height: calc(100% - 43px);
 
     background-size: auto;
+    background-color: var(--color-aps-bg);
 
-    // border-bottom: 1px solid var(--color-border-new-mbo);
     &::before {
       content: "";
       position: absolute;
@@ -88,6 +87,11 @@ $color-holding-tank: #757a8f;
     display: block;
     height: 40%;
   }
+}
+
+.content-container {
+  display: flex;
+  align-items: center;
 }
 
 p {
@@ -494,6 +498,11 @@ p {
       }
     }
   }
+  &__icon {
+    position: absolute;
+    left: 0px;
+    top: 0.8px;
+  }
 
   .icon {
     &__preparation {
@@ -604,9 +613,7 @@ p {
   &__header {
     &__row {
       height: 30px;
-      &:hover {
-        background: none;
-      }
+      background-color: var(--color-bg-row-header);
     }
 
     &__column {
@@ -626,6 +633,17 @@ p {
         // background: url(../../../../../assets/icons/widgets/gantt-chart/product-name.svg), #1b1f2c;
         background-repeat: no-repeat;
         background-size: 78px 32px;
+
+        &::after {
+          content: "";
+          position: absolute;
+          width: 20px;
+          height: 40px;
+          right: -20px;
+          top: -4px;
+          background: url(../../../../assets\icons\widgets\APS\aps-gantt-chart\gradient-black.svg);
+          background-repeat: no-repeat;
+        }
       }
 
       &__title {
@@ -642,6 +660,29 @@ p {
       &__titles {
         display: flex;
         padding-top: 10px;
+      }
+
+      &__name {
+        &__gradient {
+          position: absolute;
+          left: 0;
+          top: 1px;
+        }
+        &__icon {
+          position: absolute;
+          left: 9px;
+          top: 7px;
+        }
+        &__text {
+          color: var(--color-aps-border-light);
+        }
+        &__pims {
+          margin-left: 33px;
+          color: var(--color-aps-border-light);
+        }
+        &__search {
+          margin-left: 74px;
+        }
       }
     }
   }
@@ -664,7 +705,7 @@ p {
         td {
           &:first-of-type {
             border-right: none;
-            // background: var(--color-hover-mbo-table);
+            background: var(--color-aps-bg-sub-2);
           }
         }
       }
@@ -716,16 +757,7 @@ p {
       border-top: 1px solid var(--color-aps-border);
       border-bottom: 1px solid var(--color-aps-border);
 
-      &.expanded-column {
-        &:first-of-type {
-          //   background: var(--color-bg-mbo-active);
-          max-width: 175px;
-          padding: 0 !important;
-        }
-      }
-
       &__children {
-
         &:first-child {
           border-left: 2px solid transparent !important;
         }
@@ -767,15 +799,24 @@ p {
         min-width: 262px;
         max-width: 262px;
         padding: 0 !important;
-        background-color: var(--color-bg-mbo-sup);
-        box-shadow: inset 0 0 0 5px var(--color-bg-mbo-component);
-
-        border-left: 2px solid var(--color-aps-border);
+        border-left: 2px solid var(--color-aps-border-sub);
+        background: var(--color-aps-bg-sub-2);
 
         position: sticky;
         left: 0;
         z-index: 20;
         border-right: none;
+
+        &::after {
+          content: "";
+          position: absolute;
+          width: 10px;
+          height: 45px;
+          right: -10px;
+          top: 0px;
+          background: url(../../../../assets\icons\widgets\APS\aps-gantt-chart\gradient-black.svg);
+          background-repeat: no-repeat;
+        }
       }
 
       &:last-of-type {
