@@ -14,6 +14,20 @@ import { HttpClient } from '@angular/common/http';
 import { AppConfigService } from '../../../../../../services/appConfigService';
 import { IWsData } from '../../../../production-trend/components/production-trend-graph/production-trend-graph.component';
 
+type LabelStatusType = 'normal' | 'warning' | 'danger';
+
+interface ILabel {
+    value: number;
+    status?: LabelStatusType;
+    statusName?: string;
+}
+interface ILabels {
+    periodCounter: ILabel;
+    periodDeviations: ILabel;
+    currentValue: ILabel;
+    currentDeviation: ILabel;
+}
+
 @Component({
     selector: 'evj-astue-efficiency-graph-display',
     templateUrl: './astue-efficiency-graph-display.component.html',
@@ -24,6 +38,32 @@ export class AstueEfficiencyGraphDisplayComponent extends LineChartPlatform<IPro
     @Input() dataWs: IProductionTrend[] = null;
     @Input() widgetId: string = null;
     @Output() private toggleDisplay: EventEmitter<false> = new EventEmitter<false>();
+
+    public labels: ILabels = {
+        periodCounter: {
+            value: 1700,
+        },
+        periodDeviations: {
+            value: 200,
+            status: 'danger',
+            statusName: 'Перерасход',
+        },
+        currentValue: {
+            value: 500,
+        },
+        currentDeviation: {
+            value: 200,
+            status: 'warning',
+            statusName: 'Экономия',
+        },
+    };
+
+    // public labels = {
+    //     periodCounter: 1700,
+    //     periodDeviations: 200,
+    //     currentValue: 500,
+    //     currentDeviation: 200,
+    // };
 
     public data: IProductionTrend[] = [
         {
