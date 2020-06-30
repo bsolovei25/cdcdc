@@ -72,7 +72,7 @@
         height: calc(100% - 43px);
 
         background-size: auto;
-        background-color: var(--color-aps-bg-component);
+        background-color: var(--color-aps-bg);
 
         &::before {
             content: "";
@@ -334,12 +334,12 @@ p {
             position: sticky;
             z-index: 100;
 
-            border-right: 1px solid rgba(var(--color-aps-border-sup), 0.2);
+            border-right: 1px solid var(--color-aps-border-main);
 
             &:first-of-type {
                 font-size: 10px;
-                color: var(--color-aps-recipe-diagram-text-sub);
-                background-color: var(--color-aps-bg-sub-3);
+                color: var(--color-aps-border-light);
+                background-color: var(--color-aps-bg-sub-2);
                 position: sticky;
                 left: 0;
                 z-index: 101;
@@ -387,8 +387,8 @@ p {
 
             &:nth-last-child(1) {
                 padding: 0 !important;
-                background-color: var(--color-aps-bg-sub-3);
-                color: var(--color-aps-recipe-diagram-text-sub);
+                background-color: var(--color-aps-bg-sub-2);
+                color: var(--color-aps-border-light);
 
                 position: sticky;
                 right: 0;
@@ -398,8 +398,8 @@ p {
 
             &:nth-last-child(2) {
                 padding: 0 !important;
-                background-color: var(--color-aps-bg-sub-3);
-                color: var(--color-aps-recipe-diagram-text-sub);
+                background-color: var(--color-aps-bg-sub-2);
+                color: var(--color-aps-border-light);
 
                 position: sticky;
                 right: 121px;
@@ -409,8 +409,8 @@ p {
 
             &:nth-last-child(3) {
                 padding: 0 !important;
-                background-color: var(--color-aps-bg-sub-3);
-                color: var(--color-aps-recipe-diagram-text-sub);
+                background-color: var(--color-aps-bg-sub-2);
+                color: var(--color-aps-border-light);
 
                 position: sticky;
                 right: 242px;
@@ -492,16 +492,16 @@ p {
             min-width: 88px;
             max-width: 88px;
             height: 24px;
-            color: var(--color-aps-recipe-diagram-text-sub);
+            color: var(--color-aps-border-light);
 
             text-align: center;
             //   border-right: 1px solid #2d3344;
             //   background: url(../../../../../assets/icons/widgets/gantt-chart/bg-line.svg);
             background-size: cover;
 
-            border-top: 1px solid var(--color-aps-border-opacity-25);
-            border-bottom: 1px solid var(--color-aps-border-opacity-25);
-            border-right: 1px solid rgba(var(--color-aps-border-sup), 0.2);
+            border-top: 1px solid var(--color-aps-border-main);
+            border-bottom: 1px solid var(--color-aps-border-main);
+            border-right: 1px solid var(--color-aps-border-main);
 
             &.expanded-column {
                 &:first-of-type {
@@ -554,7 +554,7 @@ p {
                 min-width: 262px;
                 max-width: 262px;
                 padding: 0 !important;
-                background-color: var(--color-aps-bg-sub-3);
+                background-color: var(--color-aps-bg-sub-2);
                 border-left: 2px solid var(--color-aps-border-sub);
 
                 position: sticky;
@@ -577,7 +577,7 @@ p {
             &:nth-last-child(1) {
                 padding: 0 !important;
                 border-right: 1px solid var(--color-aps-border);
-                background-color: var(--color-aps-bg-sub-3);
+                background-color: var(--color-aps-bg-sub-2);
 
                 position: sticky;
                 right: 0;
@@ -587,7 +587,7 @@ p {
 
             &:nth-last-child(2) {
                 padding: 0 !important;
-                background-color: var(--color-aps-bg-sub-3);
+                background-color: var(--color-aps-bg-sub-2);
 
                 position: sticky;
                 right: 121px;
@@ -597,7 +597,7 @@ p {
 
             &:nth-last-child(3) {
                 padding: 0 !important;
-                background-color: var(--color-aps-bg-sub-3);
+                background-color: var(--color-aps-bg-sub-2);
 
                 position: sticky;
                 right: 242px;
