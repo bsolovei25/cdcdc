@@ -1,0 +1,30 @@
+<div class="container" *ngIf="!isMock">
+  <evj-widget-header-smp
+    [uniqId]="uniqId"
+    (mouseenter)="onMouseEnter()"
+    (mouseleave)="onMouseExit()"
+    *ngIf="isHover"
+  >
+  </evj-widget-header-smp>
+  <div
+    class="content"
+    (mouseenter)="onMouseEnter()"
+    (mouseleave)="onMouseExit()"
+    (mousedown)="$event.stopPropagation()"
+    (touchstart)="$event.stopPropagation()"
+  >
+    <div class="frame-top"></div>
+    <div class="frame-right"></div>
+    <div class="frame-bottom"></div>
+    <div class="frame-left"></div>
+    <div class="diagrams scroll scroll-bar">
+      <ng-container *ngIf="data">
+        <div class="diagrams__item scroll scroll-bar" *ngFor="let graph of data">
+          <div class="graph">
+            <evj-production-deviations-diagram [data]="graph"></evj-production-deviations-diagram>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+</div>

@@ -35,16 +35,16 @@
         <div class="graph__cols graph__cols_baseline">
           <div
             class="graph__limit"
-            style.--limit-color="var(--color-smp-{{data.limits.upType}})"
+            style.--limit-color="var(--color-smp-{{data?.limits.upType}})"
             [style.bottom]="limits.up"
           >
             <div class="limit"></div>
             <div
               class="limit__label"
-              *ngIf="selection.selected[0].fact > selection.selected[0].limit.value && selection.selected[0].direction==='up'"
+              *ngIf="selection.selected[0]?.fact > selection.selected[0]?.limit.value && selection.selected[0].direction==='up'"
             >
               <svg-icon [src]="iconUrl" [svgStyle]="{ 'width.px':17, 'height.px':17 }"></svg-icon>
-              +{{(selection.selected[0].fact - selection.selected[0].limit.value).toFixed(0)}}
+              +{{(selection.selected[0]?.fact - selection.selected[0]?.limit.value).toFixed(0)}}
             </div>
           </div>
           <div
@@ -62,16 +62,16 @@
         <div class="graph__cols graph__cols_baseline graph__cols_down">
           <div
             class="graph__limit"
-            style.--limit-color="var(--color-smp-{{data.limits.downType}})"
+            style.--limit-color="var(--color-smp-{{data?.limits.downType}})"
             [style.bottom]="limits.down"
           >
             <div class="limit"></div>
             <div
               class="limit__label"
-              *ngIf="selection.selected[0].fact > selection.selected[0].limit.value && selection.selected[0].direction==='down'"
+              *ngIf="selection.selected[0]?.fact > selection.selected[0]?.limit.value && selection.selected[0].direction==='down'"
             >
               <svg-icon [src]="iconUrl" [svgStyle]="{ 'width.px':17, 'height.px':17 }"></svg-icon>
-              -{{(selection.selected[0].fact - selection.selected[0].limit.value).toFixed(0)}}
+              -{{(selection.selected[0]?.fact - selection.selected[0]?.limit.value).toFixed(0)}}
             </div>
           </div>
           <div class="graph__col" *ngFor="let col of data.columns">
@@ -86,16 +86,16 @@
         <div class="graph__cols">
           <div
             class="graph__limit"
-            style.--limit-color="var(--color-smp-{{data.limits.upType}})"
+            style.--limit-color="var(--color-smp-{{data?.limits.upType}})"
             [style.bottom]="limits.up"
           >
             <div class="limit"></div>
             <div
               class="limit__label"
-              *ngIf="selection.selected[0].fact > selection.selected[0].limit.value"
+              *ngIf="selection.selected[0]?.fact > selection.selected[0]?.limit.value"
             >
               <svg-icon [src]="iconUrl" [svgStyle]="{ 'width.px':17, 'height.px':17 }"></svg-icon>
-              +{{(selection.selected[0].fact - selection.selected[0].limit.value).toFixed(0)}}
+              +{{(selection.selected[0]?.fact - selection.selected[0]?.limit.value).toFixed(0)}}
             </div>
           </div>
           <div
@@ -111,12 +111,12 @@
   </div>
   <div class="diagram__sidebar">
     <div class="label" *ngIf="data.graphType==='baseline';else labelNoBaseline">
-      {{data.plan.toFixed(0)}}
+      {{data?.plan.toFixed(0)}}
     </div>
     <ng-template #labelNoBaseline>
       <div class="label label_big">
-        <div class="label__item">{{selection.selected[0].plan.toFixed(0)}}</div>
-        <div class="label__item">{{selection.selected[0].fact.toFixed(0)}}</div>
+        <div class="label__item">{{selection.selected[0]?.plan.toFixed(0)}}</div>
+        <div class="label__item">{{selection.selected[0]?.fact.toFixed(0)}}</div>
       </div>
     </ng-template>
   </div>

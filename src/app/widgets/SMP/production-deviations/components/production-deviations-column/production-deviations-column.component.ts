@@ -9,9 +9,9 @@ import {
 import * as d3Selection from 'd3-selection';
 import {
     IProductionDeviationsColumn,
-    LineType,
     IGeometryParameters,
-} from '../../../../../models/SMP/production-deviations.model';
+    LineType,
+} from '../../../../../dashboard/models/SMP/production-deviations.model';
 
 @Component({
     selector: 'evj-production-deviations-column',
