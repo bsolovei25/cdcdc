@@ -1,7 +1,7 @@
-import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
-import { WidgetPlatform } from '../../../models/widget-platform';
-import { WidgetService } from '../../../services/widget.service';
-import { IProductionDeviationsGraph } from '../../../models/SMP/production-deviations.model';
+import { Component, OnInit, OnDestroy, Inject } from '@angular/core';
+import { WidgetPlatform } from '../../../dashboard/models/widget-platform';
+import { IProductionDeviationsGraph } from '../../../dashboard/models/SMP/production-deviations.model';
+import { WidgetService } from '../../../dashboard/services/widget.service';
 
 @Component({
     selector: 'evj-production-deviations',
@@ -12,11 +12,6 @@ export class ProductionDeviationsComponent extends WidgetPlatform implements OnI
     public isDataLoading: boolean = true;
 
     public data: IProductionDeviationsGraph[] = null;
-
-    public static itemCols: number = 37;
-    public static itemRows: number = 27;
-    public static minItemCols: number = 37;
-    public static minItemRows: number = 27;
 
     constructor(
         protected widgetService: WidgetService,

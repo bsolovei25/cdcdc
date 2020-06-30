@@ -258,9 +258,6 @@ import { ProductGroupsMiddleComponent } from './widgets/SMP/product-groups/compo
 import { ProductGroupsRightComponent } from './widgets/SMP/product-groups/components/product-groups-right/product-groups-right.component';
 import { EventsReasonsSingleComponent } from './widgets/workspace/components/events-reasons-single/events-reasons-single.component';
 import { WorkflowListComponent } from './widgets/workflow/workflow-list/workflow-list.component';
-import { ProductionDeviationsComponent } from './widgets/SMP/production-deviations/production-deviations.component';
-import { ProductionDeviationsDiagramComponent } from './widgets/SMP/production-deviations/components/production-deviations-diagram/production-deviations-diagram.component';
-import { ProductionDeviationsColumnComponent } from './widgets/SMP/production-deviations/components/production-deviations-column/production-deviations-column.component';
 import { ProductGroupsTableComponent } from './widgets/SMP/product-groups/components/product-groups-table/product-groups-table.component';
 import { ProductGroupsShortComponent } from './widgets/SMP/product-groups-short/product-groups-short.component';
 import { ProductGroupsComponent } from './widgets/SMP/product-groups/product-groups.component';
@@ -518,9 +515,6 @@ import { EjsEventComponent } from './widgets/workspace/ejs-event/ejs-event.compo
         ProductGroupsMiddleComponent,
         ProductGroupsRightComponent,
         WorkflowListComponent,
-        ProductionDeviationsComponent,
-        ProductionDeviationsDiagramComponent,
-        ProductionDeviationsColumnComponent,
         ProductGroupsTableComponent,
         ProductGroupsShortComponent,
         SmpEventsWorkspaceComponent,
@@ -617,7 +611,6 @@ import { EjsEventComponent } from './widgets/workspace/ejs-event/ejs-event.compo
         PerformanceProgressIndicatorsComponent,
         QualityStockComponent,
         ProductGroupsComponent,
-        ProductionDeviationsComponent,
         ProductGroupsComponent,
         ProductGroupsShortComponent,
         SmpEventsWorkspaceComponent,

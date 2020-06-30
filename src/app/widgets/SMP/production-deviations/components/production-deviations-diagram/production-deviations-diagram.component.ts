@@ -1,8 +1,8 @@
-import { Component, Input, ChangeDetectionStrategy, OnChanges } from '@angular/core';
+import { Component, ChangeDetectionStrategy, OnChanges, Input } from '@angular/core';
 import {
     IProductionDeviationsGraph,
     IProductionDeviationsColumn,
-} from '../../../../../models/SMP/production-deviations.model';
+} from '../../../../../dashboard/models/SMP/production-deviations.model';
 import { SelectionModel } from '@angular/cdk/collections';
 
 @Component({
