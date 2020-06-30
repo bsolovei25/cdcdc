@@ -139,6 +139,7 @@ export const WIDGETS = {
     'aps-gantt-chart': WidgetContainerComponent,
     scenarios: WidgetContainerComponent,
     'facility-deviation': WidgetContainerComponent,
+    'raw-motion': WidgetContainerComponent,
 };
 
 export const WIDGETS_LAZY = {
@@ -196,6 +197,17 @@ export const WIDGETS_LAZY = {
         itemRows: 12,
         minItemCols: 40,
         minItemRows: 10,
+    },
+    'raw-motion': {
+        import: async () => {
+            return await import('src/app/widgets/APS/raw-motion/raw-motion.module');
+        },
+        module: 'RawMotionModule',
+        itemCols: 41,
+        itemRows: 12,
+        minItemCols: 40,
+        minItemRows: 10,
+        // preview: 'raw-motion',
     },
     //#endregion APS
 
