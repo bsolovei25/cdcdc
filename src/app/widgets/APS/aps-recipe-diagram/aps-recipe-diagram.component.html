@@ -1,18 +1,22 @@
 <div class="container pointer-event">
   <evj-aps-widget-header>
-    <div
-      class="content-container"
-      (mousedown)="$event.stopPropagation()"
-      (touchstart)="$event.stopPropagation()"
-    >
-      <div class="content-container__button">
-        <button>Показатели качества</button>
-        <button>Загрузка и выработка</button>
+    <div class="content-container">
+      <div
+        class="content-container__button"
+        (mousedown)="$event.stopPropagation()"
+        (touchstart)="$event.stopPropagation()"
+      >
+        <ng-container *ngTemplateOutlet="headerTabs"></ng-container>
       </div>
-      <div class="content-container__checkbox">
+      <div
+        class="content-container__checkbox"
+        (mousedown)="$event.stopPropagation()"
+        (touchstart)="$event.stopPropagation()"
+      >
         <mat-checkbox color="primary">Показать распределение</mat-checkbox>
         <mat-checkbox color="primary">Показать утилиты</mat-checkbox>
         <svg-icon
+          class="content-container__svg"
           [svgStyle]="{ 'width.px':15, 'height.px':16 }"
           src="assets/icons/widgets/APS/aps-recipe-diagram/fullscreen.svg"
         >
@@ -20,6 +24,31 @@
       </div>
     </div>
   </evj-aps-widget-header>
+
+  <ng-template #headerTabs>
+    <div class="tabs-container">
+      <div class="tab tab--active">
+        <div class="tab__icon">
+          <svg-icon
+            src="./assets/icons/widgets/APS/aps-recipe-diagram/recipe-qualtity.svg"
+            [svgStyle]="{ 'width.px':15, 'height.px':15 }"
+          >
+          </svg-icon>
+        </div>
+        <div class="tab__title">Показатели качества</div>
+      </div>
+      <div class="tab">
+        <div class="tab__icon">
+          <svg-icon
+            src="./assets/icons/widgets/APS/aps-recipe-diagram/recipe-download.svg"
+            [svgStyle]="{ 'width.px':17, 'height.px':15 }"
+          >
+          </svg-icon>
+        </div>
+        <div class="tab__title">Загрузка и выработка</div>
+      </div>
+    </div>
+  </ng-template>
 
   <div
     class="container-body"
@@ -40,7 +69,7 @@
                 <span>
                   <svg-icon
                     class="table__header__column__name__search"
-                    [svgStyle]="{ 'width.px':17, 'height.px':17 }"
+                    [svgStyle]="{ 'width.px':15, 'height.px':15 }"
                     src="assets/icons/widgets/APS/aps-recipe-diagram/search.svg"
                   >
                   </svg-icon>

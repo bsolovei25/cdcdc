@@ -212,13 +212,11 @@ export class ApsGanttChartComponent extends WidgetPlatform implements OnInit, On
     div?: IUIELements
   ): void {
     event.stopPropagation();
-    console.log(element);
     if (this.expandedElement.isSelected(element.id)) {
       this.expandedElement.deselect(element.id);
     } else {
       this.expandedElement.select(element.id);
     }
-    console.log(this.expandedElement.selected);
   }
 
   onClickRow(event: MouseEvent, element?: IAPSGanttChart): void {
