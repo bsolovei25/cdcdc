@@ -11,12 +11,11 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { WidgetPreviewComponent } from '../../../dashboard/components/widget-preview/widget-preview.component';
 
 @NgModule({
   declarations: [AdminShiftScheduleComponent, AdminShiftBrigadeComponent,
     AdminShiftInfoEmployeeComponent, AdminShiftCardComponent,
-    AdminShiftListEmployeesComponent, WidgetPreviewComponent],
+    AdminShiftListEmployeesComponent],
   imports: [CommonModule, SharedModule, AngularSvgIconModule, MatTooltipModule,
     DragDropModule, MatMenuModule, MatDatepickerModule],
 })
