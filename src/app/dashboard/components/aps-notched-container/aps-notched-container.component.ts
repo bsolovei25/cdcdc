@@ -1,5 +1,4 @@
-import { Component, Input } from '@angular/core';
-import { ApsHeaderIconType } from '../../models/aps-widget-header.model';
+import { Component } from '@angular/core';
 
 @Component({
     selector: 'evj-aps-notched-container',

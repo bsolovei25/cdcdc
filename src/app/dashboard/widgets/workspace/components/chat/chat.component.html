@@ -10,10 +10,9 @@
       </div>
       <ng-container *ngFor="let message of messages; let i = index;">
         <div class="message" [ngClass]="{'message_odd':i%2===0}">
-          <!-- TODO ожидает реализации на стороне бэкенда
           <div class="message_files__list">
-            <ng-container *ngFor="let file of filesToUpload; let i = index">
-              <div class="list-item">
+            <ng-container *ngFor="let file of message.attachedFiles; let i = index">
+              <div class="list-item" (click)="openAttachmentBlank(file?.fileId)">
                 <svg-icon
                   class="list-item__icon"
                   [src]="'./assets/icons/widgets/events/file-attach-menu/' + file.type + '.svg'"
@@ -24,7 +23,6 @@
               </div>
             </ng-container>
           </div>
-          -->
           <div class="message__text">{{message.comment}}</div>
           <div class="message__info info">
             <div class="info__author">{{message.displayName}}</div>

@@ -11,10 +11,14 @@ import { IMessage } from '@shared/models/message.model';
 import {
     PopoverOverlayService,
 } from '@shared/components/popover-overlay/popover-overlay.service';
-import {
-    FileAttachMenuComponent,
-    IChatFileAttach
-} from '../file-attach-menu/file-attach-menu.component';
+import { FileAttachMenuComponent } from '../file-attach-menu/file-attach-menu.component';
+import { IMessageFileAttachment } from '@shared/models/message.model';
+import { AppConfigService } from 'src/app/services/appConfigService';
+
+export interface IChatMessageWithAttachments {
+    msg: string;
+    attachments?: IMessageFileAttachment[];
+}
 
 @Component({
     selector: 'evj-chat',
@@ -28,7 +32,9 @@ export class ChatComponent implements OnInit {
     @Input() public displayGraphImage: boolean = false;
     @Input() public onClickItem: () => void = () => {};
 
-    @Output() private addingMessage: EventEmitter<string> = new EventEmitter<string>();
+    @Output()
+    private addingMessage: EventEmitter<IChatMessageWithAttachments> =
+        new EventEmitter<IChatMessageWithAttachments>();
 
     @ViewChild('scroll') scroll: ElementRef;
     @ViewChild('input') input: ElementRef;
@@ -36,12 +42,13 @@ export class ChatComponent implements OnInit {
 
     public get headerTitle(): string { return this.dataTitle + '123'; }
 
-    public filesToUpload: IChatFileAttach[] = [];
+    public filesToUpload: IMessageFileAttachment[] = [];
 
     public isFilePopoverOpened: boolean = false;
 
     constructor(
         private popoverOverlayService: PopoverOverlayService,
+        private appConfigService: AppConfigService,
     ) {}
 
     public ngOnInit(): void {}
@@ -58,9 +65,13 @@ export class ChatComponent implements OnInit {
 
     public onSendMessage(): void {
         if (this.input.nativeElement.value) {
-            const msg = this.input.nativeElement.value;
+            const msg = {
+                msg: this.input.nativeElement.value,
+                attachments: this.filesToUpload,
+            } as IChatMessageWithAttachments;
             this.input.nativeElement.value = '';
             this.addingMessage.emit(msg);
+            this.filesToUpload = [];
             setTimeout(() => {
                 this.scrollToBottom();
             }, 50);
@@ -78,8 +89,13 @@ export class ChatComponent implements OnInit {
         popoverRef.afterClosed$.subscribe(res => {
             this.isFilePopoverOpened = false;
             if (res && res.data) {
-                this.filesToUpload = res.data as IChatFileAttach[];
+                this.filesToUpload = res.data as IMessageFileAttachment[];
             }
         });
+    }
+
+    public openAttachmentBlank(fileId: string): void {
+        if (!fileId) { return; }
+        window.open(`${this.appConfigService.restUrl}/api/file-storage/${fileId}`, '_blank');
     }
 }

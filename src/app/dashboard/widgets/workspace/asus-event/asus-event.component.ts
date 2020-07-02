@@ -3,6 +3,7 @@ import { EventsWorkspaceService } from '../../../services/widgets/events-workspa
 import { SnackBarService } from '../../../services/snack-bar.service';
 import { IAsusTmPlace, IAsusTpPlace } from '../../../models/events-widget';
 import { EventService } from '../../../services/widgets/event.service';
+import { IChatMessageWithAttachments } from '../components/chat/chat.component';
 
 @Component({
     selector: 'evj-asus-event',
@@ -37,7 +38,7 @@ export class AsusEventComponent implements OnInit {
         this.ewService.event.description = description;
     }
 
-    public onSendMessage(message: string, msgType: 'comments' | 'facts'): void {
+    public onSendMessage(message: IChatMessageWithAttachments, msgType: 'comments' | 'facts'): void {
         this.ewService.sendMessageToEvent(message, msgType);
     }
 
