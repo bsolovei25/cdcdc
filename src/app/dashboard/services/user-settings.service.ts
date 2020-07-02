@@ -172,7 +172,7 @@ export class UserSettingsService {
         this.widgetService.dashboard = [];
         this.claimService.setClaimsByScreen(null);
         return this.LoadScreenAsync(id, true).subscribe((item: IScreenSettings) => {
-            this.router.navigate([], { queryParams: { screenId: item.id } });
+            this.router.navigate([], { queryParams: { screenId: item.id }, queryParamsHandling: 'merge' });
             this.claimService.setClaimsByScreen(item.claims);
             this.ScreenId = item.id;
             this.ScreenName = item.screenName;
