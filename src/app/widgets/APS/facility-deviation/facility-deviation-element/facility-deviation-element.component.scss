@@ -10,13 +10,13 @@
 }
 
 .warning {
-  color: var(--color-warning);
-  border-color: var(--color-warning) !important;
-  fill: var(--color-warning);
-  stroke: var(--color-warning);
+  color: var(--color-aps-warning);
+  border-color: var(--color-aps-warning) !important;
+  fill: var(--color-aps-warning);
+  stroke: var(--color-aps-warning);
   svg-icon {
-    fill: var(--color-warning);
-    stroke: var(--color-warning);
+    fill: var(--color-aps-warning);
+    stroke: var(--color-aps-warning);
   }
 }
 
@@ -43,8 +43,8 @@
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
   font-size: 13.5px;
-  color: var(--color-text-main);
   &_top {
+    color: var(--color-text-main);
     display: flex;
     justify-content: space-between;
     &__dig {
