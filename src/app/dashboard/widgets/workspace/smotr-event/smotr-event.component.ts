@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { EventsWorkspaceService } from '../../../services/widgets/events-workspace.service';
 import { EventService } from '../../../services/widgets/event.service';
 import { HttpClient } from '@angular/common/http';
+import { IChatMessageWithAttachments } from '../components/chat/chat.component';
 
 @Component({
     selector: 'evj-smotr-event',
@@ -35,11 +36,11 @@ export class SmotrEventComponent implements OnInit {
         this.ewService.event.description = description;
     }
 
-    public onSendMessage(message: string, msgType: 'comments' | 'facts'): void {
+    public onSendMessage(message: IChatMessageWithAttachments, msgType: 'comments' | 'facts'): void {
         this.ewService.sendMessageToEvent(message, msgType);
     }
 
-    public onEscalateEvent(message: string): void {
+    public onEscalateEvent(message: IChatMessageWithAttachments): void {
         this.isEscalatePopupOpen = false;
         console.log(message);
         if (message) {
@@ -47,7 +48,7 @@ export class SmotrEventComponent implements OnInit {
         }
     }
 
-    public onCloseCard(message: string): void {
+    public onCloseCard(message: IChatMessageWithAttachments): void {
         this.isClosePopupOpen = false;
         console.log(message);
         if (message) {

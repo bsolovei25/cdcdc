@@ -16,14 +16,21 @@ import {
     ISmotrReference,
     ISaveMethodEvent, IRetrievalEventDto, ISearchRetrievalWindow, IAsusTpPlace, IAsusTmPlace
 } from '../../models/events-widget';
-import { EventService } from '../widgets/event.service';
+import { EventService } from './event.service';
 import { SnackBarService } from '../snack-bar.service';
-import { fillDataShape } from '../../../@shared/common-functions';
+import { fillDataShape } from '@shared/common-functions';
 import { AvatarConfiguratorService } from '../avatar-configurator.service';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { IAlertWindowModel } from '@shared/models/alert-window.model';
 import { filter, map } from 'rxjs/operators';
 import { error } from '@angular/compiler/src/util';
+import {
+    IChatMessageWithAttachments
+} from '../../widgets/workspace/components/chat/chat.component';
+import { IMessage, IMessageFileAttachment } from '@shared/models/message.model';
+import {
+    FileAttachMenuService
+} from '../file-attach-menu.service';
 
 @Injectable({
     providedIn: 'root',
@@ -113,7 +120,8 @@ export class EventsWorkspaceService {
     constructor(
         private eventService: EventService,
         private snackBarService: SnackBarService,
-        private avatarConfiguratorService: AvatarConfiguratorService
+        private avatarConfiguratorService: AvatarConfiguratorService,
+        private fileAttachMenuService: FileAttachMenuService,
     ) { }
 
     public async loadItem(id: number = null): Promise<void> {
@@ -135,6 +143,8 @@ export class EventsWorkspaceService {
     private async getEvent(id: number): Promise<void> {
         this.event = await this.eventService.getEvent(id);
         this.event = { ...this.defaultEvent, ...this.event };
+        this.event.comments = await this.processAttachments(this.event.comments);
+        this.event.facts = await this.processAttachments(this.event.facts);
         this.originalEvent = { ...this.event };
         const dataLoadQueue: Promise<void>[] = [];
         if (this.event.category.name === 'asus') {
@@ -316,15 +326,20 @@ export class EventsWorkspaceService {
     }
 
     public sendMessageToEvent(
-        msg: string,
+        msg: IChatMessageWithAttachments,
         category: 'comments' | 'facts'
     ): void {
-        const fullComment = {
-            comment: msg,
-            createdAt: new Date(),
-            displayName: this.currentAuthUser.displayName,
-        };
-        this.event[category].push(fullComment);
+        this.isLoading = true;
+        this.uploadNewlyAddedAttachments(msg.attachments).then((attachments) => {
+            const fullComment = {
+                comment: msg.msg,
+                createdAt: new Date(),
+                displayName: this.currentAuthUser.displayName,
+                attachedFiles: attachments,
+            };
+            this.event[category].push(fullComment);
+            this.isLoading = false;
+        });
     }
 
     public setDeadlineToEvent(date: Date): void {
@@ -336,7 +351,7 @@ export class EventsWorkspaceService {
     }
 
     // TODO #SMOTR region start
-    public async escalateEvent(message: string): Promise<void> {
+    public async escalateEvent(message: IChatMessageWithAttachments): Promise<void> {
         if (!this.event.originalId) {
             return;
         }
@@ -351,7 +366,7 @@ export class EventsWorkspaceService {
         }
         this.isLoading = false;
     }
-    public async closeEvent(message: string): Promise<void> {
+    public async closeEvent(message: IChatMessageWithAttachments): Promise<void> {
         if (!this.event.originalId) {
             return;
         }
@@ -501,5 +516,42 @@ export class EventsWorkspaceService {
 
     public eventCompare(event1: EventsWidgetNotification, event2: EventsWidgetNotification): boolean {
         return (JSON.stringify(event1) === JSON.stringify(event2));
+    }
+
+    private async getFileInfoById(file: IMessageFileAttachment): Promise<any> {
+        return await this.fileAttachMenuService.getFileInfoById(file.fileId);
+    }
+
+    private async uploadAttachment(file: File): Promise<any> {
+        return await this.fileAttachMenuService.uploadFile(file);
+    }
+
+    private async processAttachments(
+        messages: IMessage[]
+    ): Promise<IMessage[]> {
+        messages.map(async (message) => {
+            message.attachedFiles.map(async (file) => {
+                // 00000000-0000-0000-0000-000000000000 - handle corrupted fileId uid
+                if (file.fileId && file.fileId !== '00000000-0000-0000-0000-000000000000') {
+                    const fileInfo = await this.getFileInfoById(file);
+                    file.size = this.fileAttachMenuService.convertBytes(fileInfo.length);
+                    file.name = fileInfo.fileName;
+                    file.contentType = fileInfo.contentType;
+                }
+            });
+        });
+        return messages;
+    }
+
+    private async uploadNewlyAddedAttachments(
+        files: IMessageFileAttachment[]
+    ): Promise<IMessageFileAttachment[]> {
+        files.map(async (file) => {
+            if (!file.fileId && file._file) {
+                file.fileId = await this.uploadAttachment(file._file);
+                file._file = null;
+            }
+        });
+        return files;
     }
 }
