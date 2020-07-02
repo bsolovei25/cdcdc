@@ -17,7 +17,7 @@
     </evj-ui-block>
   </div>
   <div class="container">
-    <iframe *ngIf="url" (load)="iFrameModify()" name="ejsFrame" id="frame" [src]="url | safeUrl"></iframe>
+    <iframe *ngIf="url" (load)="iFrameModify()" name="ejsFrame" id="frame" [src]="frameUrl | safeUrl"></iframe>
   </div>
 </div>
 

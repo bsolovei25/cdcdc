@@ -12,7 +12,6 @@ export class EjsEventComponent implements OnInit, OnDestroy {
     private readonly defaultUrlCreate: string = 'assets/mock/pages/Dashboard.html'; // http://spb99-t-merap01/meridium/#0;rte=home;rte=assets/hierarchy;rte=record-manager/0/9316215
     private readonly defaultUrlRead: string = 'assets/mock/pages/d.html'; // http://spb99-t-merap01/meridium/#record-manager/{11574279}
     private linkInterval: any = null;
-    public url: string = null;
 
     constructor(
         private http: HttpClient,
@@ -21,13 +20,15 @@ export class EjsEventComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit(): void {
+    }
+
+    public get frameUrl(): string {
         if (this.ewService.isCreateNewEvent) {
-            this.url = this.defaultUrlCreate;
+            return this.defaultUrlCreate;
         } else {
             // this.url = `${this.defaultUrlRead}${this.ewService.event.id}`;
-            this.url = `${this.defaultUrlRead}`;
+            return `${this.defaultUrlRead}`;
         }
-        console.log(this.url);
     }
 
     ngOnDestroy(): void {

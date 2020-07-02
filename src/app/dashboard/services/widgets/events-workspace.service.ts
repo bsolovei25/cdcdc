@@ -29,7 +29,14 @@ import { error } from '@angular/compiler/src/util';
     providedIn: 'root',
 })
 export class EventsWorkspaceService {
-    public event: EventsWidgetNotification;
+    public event$: BehaviorSubject<EventsWidgetNotification> = new BehaviorSubject<EventsWidgetNotification>(null);
+    public set event(value: EventsWidgetNotification) {
+        this.event$.next(value);
+    }
+    public get event(): EventsWidgetNotification {
+        return this.event$.getValue();
+    }
+    // public event: EventsWidgetNotification;
     public originalEvent: EventsWidgetNotification;
     public eventHistory: number[] = [];
 
