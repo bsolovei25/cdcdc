@@ -1,0 +1,32 @@
+<ng-container *ngIf="info">
+  <div
+    class="loading-shade loading-shade__blur"
+    (mousedown)="$event.stopPropagation()"
+    (touchstart)="$event.stopPropagation()"
+  >
+    <div class="window-container">
+      <div class="window-container__header">
+        <div class="window-container__header__title">{{ info?.title }}</div>
+        <div class="window-container__header__value">
+          {{ info?.valueNearTitle }}
+          <span class="window-container__header__value__sup">тн</span>
+        </div>
+      </div>
+      <div class="window-container__body">
+        <evj-aps-input
+          class="window-container__body__input"
+          *ngFor="let i of info.inputs"
+          [data]="i"
+        ></evj-aps-input>
+      </div>
+      <div class="window-container__footer">
+        <div class="window-container__footer__btn">
+          <div (click)="cancel()">Отмена</div>
+        </div>
+        <div class="window-container__footer__btn window-container__footer__btn__accept">
+          <div (click)="accept()">Отправить</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-container>
