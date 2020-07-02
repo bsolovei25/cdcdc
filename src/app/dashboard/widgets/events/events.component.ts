@@ -37,7 +37,7 @@ export class EventsComponent extends WidgetPlatform implements OnInit, OnDestroy
     @ViewChild('notifications') notificationsDiv;
 
     @HostListener('document:resize', ['$event'])
-    OnResize() {
+    OnResize(): void {
         this.countNotificationsDivCapacity();
     }
 
@@ -211,9 +211,11 @@ export class EventsComponent extends WidgetPlatform implements OnInit, OnDestroy
         this.getWidgetSettings();
     }
 
-    protected dataHandler(ref: any): void {
-        for (const place of this.notifications) {
-            // TODO что то надо сделать
+    protected dataHandler(
+        ref: {notification: EventsWidgetNotificationPreview, action: string}
+    ): void {
+        if (!(this.placeNames.find((place) => place === ref.notification.unit.name))) {
+            return;
         }
 
         switch (ref.action) {
