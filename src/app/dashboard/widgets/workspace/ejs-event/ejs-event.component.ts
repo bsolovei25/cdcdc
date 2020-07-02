@@ -9,12 +9,25 @@ import { EventsWorkspaceService } from '../../../services/widgets/events-workspa
 })
 export class EjsEventComponent implements OnInit, OnDestroy {
 
+    private readonly defaultUrlCreate: string = 'assets/mock/pages/Dashboard.html'; // http://spb99-t-merap01/meridium/#0;rte=home;rte=assets/hierarchy;rte=record-manager/0/9316215
+    private readonly defaultUrlRead: string = 'assets/mock/pages/d.html'; // http://spb99-t-merap01/meridium/#record-manager/{11574279}
     private linkInterval: any = null;
+    public url: string = null;
 
-    constructor(private http: HttpClient, public ewService: EventsWorkspaceService) {
+    constructor(
+        private http: HttpClient,
+        public ewService: EventsWorkspaceService,
+    ) {
     }
 
     ngOnInit(): void {
+        if (this.ewService.isCreateNewEvent) {
+            this.url = this.defaultUrlCreate;
+        } else {
+            // this.url = `${this.defaultUrlRead}${this.ewService.event.id}`;
+            this.url = `${this.defaultUrlRead}`;
+        }
+        console.log(this.url);
     }
 
     ngOnDestroy(): void {
@@ -72,7 +85,8 @@ export class EjsEventComponent implements OnInit, OnDestroy {
                 return;
             }
             link.setAttribute('target', 'ejsFrame');
-            link.setAttribute('href', 'http://localhost:4200/assets/mock/pages/d.html');
+            // for example
+            link.setAttribute('href', 'http://localhost:4200/assets/mock/pages/ejs.html');
         });
     }
 }

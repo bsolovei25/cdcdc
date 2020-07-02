@@ -53,6 +53,7 @@ import { FrameTopComponent } from './components/frame-top/frame-top.component';
 import { FrameBottomComponent } from './components/frame-bottom/frame-bottom.component';
 import { ApsWidgetHeaderComponent } from './components/aps-widget-header/aps-widget-header.component';
 import { WidgetHeaderSmpComponent } from './components/widget-header-smp/widget-header-smp.component';
+import { SafeUrlPipe } from './pipes/safe-url.pipe';
 
 @NgModule({
     declarations: [
@@ -94,6 +95,7 @@ import { WidgetHeaderSmpComponent } from './components/widget-header-smp/widget-
         FrameBottomComponent,
         ApsWidgetHeaderComponent,
         WidgetHeaderSmpComponent,
+        SafeUrlPipe,
     ],
     exports: [
         HeaderComponent,
@@ -129,6 +131,7 @@ import { WidgetHeaderSmpComponent } from './components/widget-header-smp/widget-
         FrameBottomComponent,
         ApsWidgetHeaderComponent,
         WidgetHeaderSmpComponent,
+        SafeUrlPipe,
     ],
     imports: [
         CommonModule,

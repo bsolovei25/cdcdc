@@ -1,5 +1,5 @@
 <div class="workspace">
-  <div class="select-container">
+  <div *ngIf="ewService.isCreateNewEvent" class="select-container">
     <evj-ui-block status="normal">
       <mat-form-field class="categories_selectbox">
         <mat-label>Категория</mat-label>
@@ -17,7 +17,7 @@
     </evj-ui-block>
   </div>
   <div class="container">
-    <iframe (load)="iFrameModify()" name="ejsFrame" id="frame" src="assets/mock/pages/ejs.html"></iframe>
+    <iframe *ngIf="url" (load)="iFrameModify()" name="ejsFrame" id="frame" [src]="url | safeUrl"></iframe>
   </div>
 </div>
 
