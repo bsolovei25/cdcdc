@@ -4,7 +4,7 @@ import { Pipe, PipeTransform } from '@angular/core';
     name: 'spaceNumber',
 })
 export class SpaceNumber implements PipeTransform {
-    transform(value: number) {
+    transform(value: number): string {
         return (value + '')
             .split('')
             .reverse()

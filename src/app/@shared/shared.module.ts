@@ -27,7 +27,7 @@ import { AngularSvgIconModule } from 'angular-svg-icon';
 import { CircleInputComponent } from './components/circle-input/circle-input.component';
 import { LineChartTanksDirective } from './directives/line-chart-tanks.directive';
 import { LineChartPickerTankDirective } from './directives/line-chart-picker-tank.directive';
-import { SpaceNumber } from './pipes/number_space.pipe';
+import { SpaceNumber } from './pipes/number-space.pipe';
 import { AlertInputComponent } from './components/alert-input/alert-input.component';
 import { TooltipComponent } from './components/tooltip/tooltip.component';
 import { TooltipDirective } from './components/tooltip/directives/tooltip.directive';
