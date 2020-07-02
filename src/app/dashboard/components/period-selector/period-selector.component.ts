@@ -2,11 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { HeaderDataService } from '../../services/header-data.service';
 import { WidgetService } from '../../services/widget.service';
 import { SnackBarService } from '../../services/snack-bar.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
     selector: 'evj-period-selector',
     templateUrl: './period-selector.component.html',
-    styleUrls: ['./period-selector.component.scss'],
+    styleUrls: ['./period-selector.component.scss']
 })
 export class PeriodSelectorComponent implements OnInit {
     public toDate: Date;
@@ -17,12 +18,29 @@ export class PeriodSelectorComponent implements OnInit {
         private headerData: HeaderDataService,
         private widgetService: WidgetService,
         private snackBar: SnackBarService,
-    ) { }
+        private router: Router,
+        public route: ActivatedRoute
+    ) {
+    }
 
     public ngOnInit(): void {
-        this.fromDate = new Date();
-        this.toDate = new Date();
-        this.setDefault();
+        if (!this.getQueryParams()) {
+            this.setDefault();
+        }
+    }
+
+    getQueryParams(): boolean {
+        const dtStartFromRoute = this.route.snapshot.queryParamMap.get('dtStart');
+        const dtEndFromRoute = this.route.snapshot.queryParamMap.get('dtEnd');
+        if (!dtStartFromRoute || !dtEndFromRoute) {
+            return false;
+        }
+        if (Number(dtStartFromRoute) > Number(dtEndFromRoute)) {
+            return false;
+        }
+        this.fromDate = new Date(Number(dtStartFromRoute));
+        this.toDate = new Date(Number(dtEndFromRoute));
+        return true;
     }
 
     private setDefault(): void {
@@ -53,6 +71,16 @@ export class PeriodSelectorComponent implements OnInit {
 
         if (this.isCurrent) {
             this.widgetService.currentDates$.next(null);
+            this.router.navigate(
+                [],
+                {
+                    queryParams: {
+                        dtStart: null,
+                        dtEnd: null
+                    },
+                    queryParamsHandling: 'merge'
+                }
+            );
             this.headerData.catchDefaultDate(this.fromDate, this.toDate, this.isCurrent);
         } else {
             this.setDates();
@@ -92,8 +120,18 @@ export class PeriodSelectorComponent implements OnInit {
     private setDates(): void {
         const dates = {
             fromDateTime: this.fromDate,
-            toDateTime: this.toDate,
+            toDateTime: this.toDate
         };
+        this.router.navigate(
+            [],
+            {
+                queryParams: {
+                    dtStart: dates.fromDateTime.getTime(),
+                    dtEnd: dates.toDateTime.getTime()
+                },
+                queryParamsHandling: 'merge'
+            }
+        );
         this.widgetService.currentDates$.next(dates);
     }
 }
