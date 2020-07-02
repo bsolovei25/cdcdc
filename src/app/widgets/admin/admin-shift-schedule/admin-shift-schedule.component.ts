@@ -5,7 +5,8 @@ import {
     ViewChild,
     Renderer2,
     OnInit,
-    AfterContentChecked
+    AfterContentChecked,
+    ElementRef
 } from '@angular/core';
 import * as moment from 'moment';
 import { DateAdapter } from '@angular/material/core';
@@ -32,6 +33,10 @@ import { WidgetService } from '../../../dashboard/services/widget.service';
 import { WidgetPlatform } from '../../../dashboard/models/widget-platform';
 import { fillDataShape } from '../../../@shared/common-functions';
 import { Moment } from 'moment';
+import {
+    NgxMatDateFormats,
+    NGX_MAT_DATE_FORMATS
+} from '@angular-material-components/datetime-picker';
 
 export interface IAbsent {
     code: string;
@@ -39,10 +44,23 @@ export interface IAbsent {
     name: string;
 }
 
+const CUSTOM_DATE_FORMATS: NgxMatDateFormats = {
+    parse: {
+        dateInput: 'L | LT',
+    },
+    display: {
+        dateInput: 'L | LT',
+        monthYearLabel: 'MMM YYYY',
+        dateA11yLabel: 'LL',
+        monthYearA11yLabel: 'MMMM YYYY',
+    },
+};
+
 @Component({
     selector: 'evj-admin-shift-schedule',
     templateUrl: './admin-shift-schedule.component.html',
-    styleUrls: ['./admin-shift-schedule.component.scss']
+    styleUrls: ['./admin-shift-schedule.component.scss'],
+    providers: [{ provide: NGX_MAT_DATE_FORMATS, useValue: CUSTOM_DATE_FORMATS }],
 })
 export class AdminShiftScheduleComponent extends WidgetPlatform
     implements OnInit, OnDestroy, AfterContentChecked {
@@ -88,6 +106,7 @@ export class AdminShiftScheduleComponent extends WidgetPlatform
     timeStart: Moment = moment();
     isOpenStartDate: boolean = false;
     isOpenSaveDate: boolean = false;
+    timeShift: number[] = [6, 8, 12];
 
     public alertWindow: IAlertWindowModel;
     public inputControl: FormControl = new FormControl('');
@@ -96,6 +115,8 @@ export class AdminShiftScheduleComponent extends WidgetPlatform
     nextAndPreviousMonthVar: (event: MouseEvent) => boolean | void;
 
     @ViewChild('calendar') calendar: MatCalendar<Date>;
+    @ViewChild('toggleButton') toggleButton: ElementRef;
+    @ViewChild('menu') menu: ElementRef;
 
     constructor(
         private dateAdapter: DateAdapter<Date>,
@@ -110,6 +131,12 @@ export class AdminShiftScheduleComponent extends WidgetPlatform
     ) {
         super(widgetService, isMock, id, uniqId);
         this.widgetIcon = 'peoples';
+        this.renderer.listen('window', 'click', (e: Event) => {
+            if (e.target !== this.toggleButton?.nativeElement
+                && e.target !== this.menu?.nativeElement) {
+                this.isOpenStartDate = false;
+            }
+        });
     }
 
     ngOnInit(): void {
@@ -118,6 +145,7 @@ export class AdminShiftScheduleComponent extends WidgetPlatform
 
     protected async dataConnect(): Promise<void> {
         super.dataConnect();
+
         this.setRus();
         this.loadItem();
         this.selectedDay = {
@@ -598,10 +626,7 @@ export class AdminShiftScheduleComponent extends WidgetPlatform
     }
 
     openBlock(): void {
-        this.isOpenStartDate = this.isOpenStartDate ? false : true;
+        this.isOpenStartDate = !this.isOpenStartDate;
     }
 
-    openBlockSave(): void {
-        this.isOpenSaveDate = this.isOpenSaveDate ? false : true;
-    }
 }

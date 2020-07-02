@@ -52,7 +52,8 @@ import { OverlayModule } from '@angular/cdk/overlay';
     DashboardModule,
     FormsModule,
     MatInputModule,
-    OverlayModule
+    OverlayModule,
+    MatInputModule
   ],
   providers: [
     { provide: LOCALE_ID, useValue: 'ru-RU' },

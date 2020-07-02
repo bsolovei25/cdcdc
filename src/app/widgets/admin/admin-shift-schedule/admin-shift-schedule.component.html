@@ -13,6 +13,7 @@
     (selectedMenu)="selectedMenu($event)"
   ></evj-widget-header>
   <evj-frame-top></evj-frame-top>
+  <evj-alert-window [info]="alertWindow"></evj-alert-window>
 
   <div
     class="content"
@@ -164,11 +165,17 @@
                     [svgStyle]="{ 'width.px':18, 'height.px':18 }"
                   ></svg-icon>
                   <div class="office-schedule__item__title">Время начала смены:</div>
-                  <div class="office-schedule__item__value" (click)="openBlock()">
+                  <div class="office-schedule__item__value" (click)="openBlock()" #toggleButton>
                     {{ timeStart | date:'hh:mm:ss' }}
                   </div>
                   <div *ngIf="isOpenStartDate" class="office-schedule__item__value__overlay">
-                    <ngx-mat-timepicker [(ngModel)]="timeStart" showSeconds="false">
+                    <ngx-mat-timepicker
+                      #menu
+                      (click)="$event.stopPropagation()"
+                      [(ngModel)]="timeStart"
+                      [showSeconds]="false"
+                      [disableMinute]="true"
+                    >
                     </ngx-mat-timepicker>
                   </div>
                 </div>
@@ -179,7 +186,9 @@
                     [svgStyle]="{ 'width.px':18, 'height.px':18 }"
                   ></svg-icon>
                   <div class="office-schedule__item__title">Длительность смены:</div>
-                  <div class="office-schedule__item__value" [matMenuTriggerFor]="menu3">dsad</div>
+                  <div class="office-schedule__item__value" [matMenuTriggerFor]="menu3">
+                    {{ timeShift[0]}}
+                  </div>
                 </div>
                 <div class="office-schedule__item">
                   <svg-icon
@@ -188,29 +197,47 @@
                     [svgStyle]="{ 'width.px':18, 'height.px':18 }"
                   ></svg-icon>
                   <div class="office-schedule__item__title">Применить с:</div>
-                  <div class="office-schedule__item__value" (click)="openBlockSave()">
-                    {{ saveIsDate | date:'d.m.yy | hh:mm:ss' }}
-                    <!-- <mat-form-field class="form form__picker custom-picker">
+                  <div class="office-schedule__item__value">
+                    <mat-form-field class="form form__picker custom-picker">
                       <input
-                        disabled
                         autocomplete="off"
                         matInput
-                        [ngxMatDatetimePicker]="pickerTend"
-                        [(ngModel)]="dateNowIcon"
+                        [ngxMatDatetimePicker]="pickerD"
+                        [(ngModel)]="timeStart"
                       />
-                      <mat-datepicker-toggle > </mat-datepicker-toggle>
-                    </mat-form-field> -->
+                      <mat-datepicker-toggle matSuffix [for]="pickerD">
+                        <mat-icon matDatepickerToggleIcon>
+                          <svg-icon
+                            class="form__icon"
+                            src="./assets/icons/widgets/reports/calend.svg"
+                            [svgStyle]="{ 'width.px':25, 'height.px':25}"
+                          >
+                          </svg-icon>
+                        </mat-icon>
+                      </mat-datepicker-toggle>
+                      <ngx-mat-datetime-picker
+                        #pickerD
+                        disabled="false"
+                        [showSeconds]="false"
+                        [disableMinute]="true"
+                      >
+                      </ngx-mat-datetime-picker>
+                    </mat-form-field>
                   </div>
-                  <div *ngIf="isOpenSaveDate" class="office-schedule__item__value__overlay">
-                    <ngx-mat-timepicker [(ngModel)]="timeStart" showSeconds="false">
-                    </ngx-mat-timepicker>
+                  <div class="office-schedule__action">
+                    <evj-button
+                      class="office-schedule__action__btn"
+                      textButton="Сохранить"
+                      [isChangingState]="false"
+                      [isRounded]="true"
+                    ></evj-button>
                   </div>
                 </div>
               </section>
               <mat-menu #menu3="matMenu" class="customize-menu">
                 <button
                   mat-menu-item
-                  *ngFor="let b of [6, 8, 12]"
+                  *ngFor="let b of timeShift"
                   (click)="onChooseBrigade(b, selectedDay)"
                 >
                   {{ b }}
