@@ -25,9 +25,9 @@ export interface IPerfCircleDay {
 }
 
 export interface IPerfProgPark {
-  capacity: number; /// Вместимость
-  balance: number; /// Остаток
-  certified: number; /// Паспортизировано
+  capacity?: number; /// Вместимость
+  balance?: number; /// Остаток
+  certified?: number; /// Паспортизировано (Использовано)
   planLevel: number; /// % (0-100) плана заполнения уровня бака
   factLevel: number; /// % (0-100) фактическое заполнение уровня бака
 }
@@ -40,8 +40,6 @@ export interface IPerfProgPark {
 export class PerformanceProgressIndicatorsComponent extends WidgetPlatform implements OnInit, OnDestroy {
 
   public data: IProgressIndicators;
-
-
 
   constructor(
     protected widgetService: WidgetService,

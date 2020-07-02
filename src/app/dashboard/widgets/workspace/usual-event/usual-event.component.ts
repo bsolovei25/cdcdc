@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild, ElementRef, HostListener } from '@angular/core';
 import { EventsWorkspaceService } from '../../../services/widgets/events-workspace.service';
 import { IInputOptions } from '../../../../@shared/models/input.model';
+import { IChatMessageWithAttachments } from '../components/chat/chat.component';
 
 @Component({
     selector: 'evj-usual-event',
@@ -34,7 +35,7 @@ export class UsualEventComponent implements OnInit {
         return a && b && a.id === b.id;
     }
 
-    public onSendMessage(message: string, msgType: 'comments' | 'facts'): void {
+    public onSendMessage(message: IChatMessageWithAttachments, msgType: 'comments' | 'facts'): void {
         this.ewService.sendMessageToEvent(message, msgType);
     }
 

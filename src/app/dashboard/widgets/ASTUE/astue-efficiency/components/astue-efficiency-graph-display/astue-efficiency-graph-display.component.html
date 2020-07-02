@@ -10,7 +10,7 @@
       <div class="counter__description">
         <div class="counter__name">Накопление<br />за период</div>
       </div>
-      <div class="counter__value">1740</div>
+      <div class="counter__value">{{labels.periodCounter.value}}</div>
     </div>
     <div
       class="counters__item counter"
@@ -24,16 +24,16 @@
           src="assets/icons/widgets/ASTUE/astue-efficiency/graph/counter.svg"
           [svgStyle]="{ 'width.px':23.33, 'height.px':30}"
         ></svg-icon>
-        <div class="counter__name">Накопление<br />за период</div>
+        <div class="counter__name">Отклонение<br />за период</div>
       </div>
-      <div class="counter__status">Перерасход</div>
-      <div class="counter__value">47</div>
+      <div class="counter__status">{{labels.periodDeviations.statusName}}</div>
+      <div class="counter__value">{{labels.periodDeviations.value}}</div>
     </div>
     <div class="counters__item counter">
       <div class="counter__description">
         <div class="counter__name">Текущее<br />значение</div>
       </div>
-      <div class="counter__value">520</div>
+      <div class="counter__value">{{labels.currentValue.value}}</div>
     </div>
     <div
       class="counters__item counter"
@@ -49,8 +49,8 @@
         ></svg-icon>
         <div class="counter__name">Текущее<br />отклонение</div>
       </div>
-      <div class="counter__status">Экономия</div>
-      <div class="counter__value">180</div>
+      <div class="counter__status">{{labels.currentDeviation.statusName}}</div>
+      <div class="counter__value">{{labels.currentDeviation.value}}</div>
     </div>
   </div>
   <div class="graph-display__graph graph">

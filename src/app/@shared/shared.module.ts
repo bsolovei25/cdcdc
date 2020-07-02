@@ -27,7 +27,7 @@ import { AngularSvgIconModule } from 'angular-svg-icon';
 import { CircleInputComponent } from './components/circle-input/circle-input.component';
 import { LineChartTanksDirective } from './directives/line-chart-tanks.directive';
 import { LineChartPickerTankDirective } from './directives/line-chart-picker-tank.directive';
-import { SpaceNumber } from './pipes/number_space.pipe';
+import { SpaceNumber } from './pipes/number-space.pipe';
 import { AlertInputComponent } from './components/alert-input/alert-input.component';
 import { TooltipComponent } from './components/tooltip/tooltip.component';
 import { TooltipDirective } from './components/tooltip/directives/tooltip.directive';
@@ -41,12 +41,19 @@ import { AlertPasswordComponent } from './components/alert-password/alert-passwo
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { OverlayModule } from '@angular/cdk/overlay';
 import { PopoverOverlayComponent } from './components/popover-overlay/popover-overlay.component';
-import { MatDialogModule, MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
+import {
+    MatDialogModule,
+    MatDialogRef,
+    MAT_DIALOG_DATA,
+    MatDialog,
+} from '@angular/material/dialog';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { WidgetHeaderComponent } from './components/widget-header/widget-header.component';
 import { FrameTopComponent } from './components/frame-top/frame-top.component';
 import { FrameBottomComponent } from './components/frame-bottom/frame-bottom.component';
 import { ApsWidgetHeaderComponent } from './components/aps-widget-header/aps-widget-header.component';
+import { WidgetHeaderSmpComponent } from './components/widget-header-smp/widget-header-smp.component';
+import { SafeUrlPipe } from './pipes/safe-url.pipe';
 
 @NgModule({
     declarations: [
@@ -86,7 +93,9 @@ import { ApsWidgetHeaderComponent } from './components/aps-widget-header/aps-wid
         WidgetHeaderComponent,
         FrameTopComponent,
         FrameBottomComponent,
-        ApsWidgetHeaderComponent
+        ApsWidgetHeaderComponent,
+        WidgetHeaderSmpComponent,
+        SafeUrlPipe,
     ],
     exports: [
         HeaderComponent,
@@ -120,7 +129,9 @@ import { ApsWidgetHeaderComponent } from './components/aps-widget-header/aps-wid
         WidgetHeaderComponent,
         FrameTopComponent,
         FrameBottomComponent,
-        ApsWidgetHeaderComponent
+        ApsWidgetHeaderComponent,
+        WidgetHeaderSmpComponent,
+        SafeUrlPipe,
     ],
     imports: [
         CommonModule,
@@ -142,8 +153,8 @@ import { ApsWidgetHeaderComponent } from './components/aps-widget-header/aps-wid
         SpaceNumber,
         LineBreakPipe,
         MatDialog,
-        {provide: MatDialogRef, useValue: {}},
-        {provide: MAT_DIALOG_DATA, useValue: []},
+        { provide: MatDialogRef, useValue: {} },
+        { provide: MAT_DIALOG_DATA, useValue: [] },
     ],
 })
 export class SharedModule {}

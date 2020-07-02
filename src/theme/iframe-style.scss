@@ -336,3 +336,11 @@ mi-resultgrid .rg-header .totalCount {
 .query-landing-page {
   padding: 0;
 }
+
+mi-page-filter, .mi-page-filter {
+  height: calc(100% - 10px);
+}
+
+#shell #shell-screen .small-screen-app-title-bar {
+  display: none;
+}

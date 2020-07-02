@@ -1,8 +1,8 @@
-import { Component, Input, ChangeDetectionStrategy, OnChanges } from '@angular/core';
+import { Component, ChangeDetectionStrategy, OnChanges, Input } from '@angular/core';
 import {
     IProductionDeviationsGraph,
     IProductionDeviationsColumn,
-} from '../../../../../models/SMP/production-deviations.model';
+} from '../../../../../dashboard/models/SMP/production-deviations.model';
 import { SelectionModel } from '@angular/cdk/collections';
 
 @Component({
@@ -31,7 +31,10 @@ export class ProductionDeviationsDiagramComponent implements OnChanges {
     public ngOnChanges(): void {
         this.transformData();
         const today: Date = new Date(2020, 4, 15);
-        const col = this.data.columns.find((column) => column.date.getDate() === today.getDate());
+        let col = this.data.columns.find((column) => column.date.getDate() === today.getDate());
+        if (!col) {
+            col = this.data.columns[0];
+        }
         this.selection.select(col);
     }
 

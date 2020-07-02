@@ -18,8 +18,8 @@ export class HomeComponent implements OnInit, OnDestroy {
         private userSettings: UserSettingsService,
         private claimService: ClaimService,
         public overlayService: OverlayService,
-        public route: ActivatedRoute,
-        public router: Router,
+        // public route: ActivatedRoute,
+        // public router: Router,
     ) {
         const isRefresh = localStorage.getItem('refresh-dashboard');
         if (isRefresh === 'true') {

@@ -24,11 +24,6 @@ export class ProductionPyramidComponent extends WidgetPlatform implements OnInit
         },
     ];
 
-    public static itemCols: number = 20;
-    public static itemRows: number = 16;
-    public static minItemCols: number = 20;
-    public static minItemRows: number = 16;
-
     constructor(
         protected widgetService: WidgetService,
         @Inject('isMock') public isMock: boolean,

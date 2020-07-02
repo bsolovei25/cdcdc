@@ -59,7 +59,6 @@ import { QualityStockComponent } from '../../widgets/SMP/quality-stock/quality-s
 import { SmpEventsComponent } from '../../widgets/SMP/smp-events/smp-events.component';
 import { SmpEventsWorkspaceComponent } from '../../widgets/SMP/smp-events-workspace/smp-events-workspace.component';
 import { ProductGroupsComponent } from '../../widgets/SMP/product-groups/product-groups.component';
-import { ProductionDeviationsComponent } from '../../widgets/SMP/production-deviations/production-deviations.component';
 import { ProductGroupsShortComponent } from '../../widgets/SMP/product-groups-short/product-groups-short.component';
 import { TruncatedDiagramTrafficLightComponent } from '../../widgets/truncated-diagram-traffic-light/truncated-diagram-traffic-light.component';
 import { AstueEfficiencyComponent } from '../../widgets/ASTUE/astue-efficiency/astue-efficiency.component';
@@ -130,14 +129,16 @@ export const WIDGETS = {
     'smp-events': SmpEventsComponent,
     'smp-events-workspace': SmpEventsWorkspaceComponent,
     'product-groups': ProductGroupsComponent,
-    'production-deviations': ProductionDeviationsComponent,
+    'production-deviations': WidgetContainerComponent,
     'product-groups-short': ProductGroupsShortComponent,
     'astue-efficiency': AstueEfficiencyComponent,
-    'load-chart': WidgetContainerComponent, // контейнер для вставки
+    'load-chart': WidgetContainerComponent,
     'aps-recipe-diagram': WidgetContainerComponent,
     'aps-gantt-chart': WidgetContainerComponent,
     scenarios: WidgetContainerComponent,
     'admin-shift-schedule': WidgetContainerComponent,
+    'facility-deviation': WidgetContainerComponent,
+    'stocks-using': WidgetContainerComponent,
 };
 
 export const WIDGETS_LAZY = {
@@ -159,10 +160,10 @@ export const WIDGETS_LAZY = {
         },
         module: 'ScenariosModule',
         itemCols: 15,
-        itemRows: 30,
+        itemRows: 10,
         minItemCols: 15,
-        minItemRows: 30,
-        preview: 'scenarios',
+        minItemRows: 10,
+        // preview: 'scenarios',
     },
     'aps-gantt-chart': {
         import: async () => {
@@ -173,7 +174,7 @@ export const WIDGETS_LAZY = {
         itemRows: 30,
         minItemCols: 40,
         minItemRows: 10,
-        preview: 'gant-chart',
+        // preview: 'gant-chart',
     },
     'aps-recipe-diagram': {
         import: async () => {
@@ -183,6 +184,27 @@ export const WIDGETS_LAZY = {
         itemCols: 15,
         itemRows: 30,
         minItemCols: 40,
+        minItemRows: 10,
+        // preview: 'aps-recipe-diagram',
+    },
+    'facility-deviation': {
+        import: async () => {
+            return await import('src/app/widgets/APS/facility-deviation/facility-deviation.module');
+        },
+        module: 'FacilityDeviationModule',
+        itemCols: 41,
+        itemRows: 12,
+        minItemCols: 40,
+        minItemRows: 10,
+    },
+    'stocks-using': {
+        import: async () => {
+            return await import('src/app/widgets/APS/stocks-using/stocks-using.module');
+        },
+        module: 'StocksUsingModule',
+        itemCols: 41,
+        itemRows: 12,
+        minItemCols: 30,
         minItemRows: 10,
     },
 
@@ -244,6 +266,11 @@ export const WIDGETS_LAZY = {
             return await import('src/app/widgets/production-pyramid/production-pyramid.module');
         },
         module: 'ProductionPyramidModule',
+        itemCols: 20,
+        itemRows: 16,
+        minItemCols: 20,
+        minItemRows: 16,
+        preview: 'industrial-pyramid',
     },
     // 'bar-chart': {
     //     import: async () => await import('src/app/widgets/bar-chart/bar-chart.module'),
@@ -401,9 +428,21 @@ export const WIDGETS_LAZY = {
     // 'product-groups': {
     //     import: async () => await import('src/app/widgets/product-groups/product-groups.module'),
     // },
-    // 'production-deviations': {
-    //     import: async () => await import('src/app/widgets/production-deviations/production-deviations.module'),
-    // },
+    'production-deviations': {
+        import: async () => {
+            {
+                return await import(
+                    'src/app/widgets/SMP/production-deviations/production-deviations.module'
+                );
+            }
+        },
+        module: 'ProductionDeviationsModule',
+        itemCols: 37,
+        itemRows: 27,
+        minItemCols: 37,
+        minItemRows: 27,
+        preview: 'production-deviations',
+    },
     // 'product-groups-short': {
     //     import: async () => await import('src/app/widgets/product-groups-short/product-groups-short.module'),
     // },

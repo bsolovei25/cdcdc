@@ -230,7 +230,6 @@ import { OilOperationsLineChartComponent } from './widgets/oil-operations/compon
 import { OilOperationsLineMenuComponent } from './widgets/oil-operations/components/oil-operations-line-menu/oil-operations-line-menu.component';
 import { OilOperationsLineComponent } from './widgets/oil-operations/components/oil-operations-line/oil-operations-line.component';
 import { ReportFileSelectBoxComponent } from './widgets/report-server-configurator/report-file-select-box/report-file-select-box.component';
-import { WidgetHeaderSmpComponent } from './components/widget-header-smp/widget-header-smp.component';
 import { OilOperationsAdjustmentComponent } from './widgets/oil-operations/components/oil-operations-adjustment/oil-operations-adjustment.component';
 import { OilOperationsFreeShipmentComponent } from './widgets/oil-operations/components/oil-operations-free-shipment/oil-operations-free-shipment.component';
 import { DocumentViewerFullscreenComponent } from './widgets/document-viewer/document-viewer-fullscreen/document-viewer-fullscreen.component';
@@ -258,9 +257,6 @@ import { ProductGroupsMiddleComponent } from './widgets/SMP/product-groups/compo
 import { ProductGroupsRightComponent } from './widgets/SMP/product-groups/components/product-groups-right/product-groups-right.component';
 import { EventsReasonsSingleComponent } from './widgets/workspace/components/events-reasons-single/events-reasons-single.component';
 import { WorkflowListComponent } from './widgets/workflow/workflow-list/workflow-list.component';
-import { ProductionDeviationsComponent } from './widgets/SMP/production-deviations/production-deviations.component';
-import { ProductionDeviationsDiagramComponent } from './widgets/SMP/production-deviations/components/production-deviations-diagram/production-deviations-diagram.component';
-import { ProductionDeviationsColumnComponent } from './widgets/SMP/production-deviations/components/production-deviations-column/production-deviations-column.component';
 import { ProductGroupsTableComponent } from './widgets/SMP/product-groups/components/product-groups-table/product-groups-table.component';
 import { ProductGroupsShortComponent } from './widgets/SMP/product-groups-short/product-groups-short.component';
 import { ProductGroupsComponent } from './widgets/SMP/product-groups/product-groups.component';
@@ -285,6 +281,7 @@ import { AstueEfficiencyTableDisplayComponent } from './widgets/ASTUE/astue-effi
 import { AstueEfficiencyCalculationComponent } from './widgets/ASTUE/astue-efficiency/components/astue-efficiency-calculation/astue-efficiency-calculation.component';
 import { WidgetContainerComponent } from './widget-container/widget-container.component';
 import { EjsEventComponent } from './widgets/workspace/ejs-event/ejs-event.component';
+import { PerformanceBarComponent } from './components/performance-bar/performance-bar.component';
 
 @NgModule({
     declarations: [
@@ -485,7 +482,6 @@ import { EjsEventComponent } from './widgets/workspace/ejs-event/ejs-event.compo
         OilOperationsLineMenuComponent,
         OilOperationsLineComponent,
         ReportFileSelectBoxComponent,
-        WidgetHeaderSmpComponent,
         DocumentViewerFullscreenComponent,
         OilOperationsAdjustmentComponent,
         OilOperationsFreeShipmentComponent,
@@ -514,9 +510,6 @@ import { EjsEventComponent } from './widgets/workspace/ejs-event/ejs-event.compo
         ProductGroupsMiddleComponent,
         ProductGroupsRightComponent,
         WorkflowListComponent,
-        ProductionDeviationsComponent,
-        ProductionDeviationsDiagramComponent,
-        ProductionDeviationsColumnComponent,
         ProductGroupsTableComponent,
         ProductGroupsShortComponent,
         SmpEventsWorkspaceComponent,
@@ -538,6 +531,7 @@ import { EjsEventComponent } from './widgets/workspace/ejs-event/ejs-event.compo
         AstueEfficiencyCalculationComponent,
         WidgetContainerComponent,
         EjsEventComponent,
+        PerformanceBarComponent,
     ],
     entryComponents: [
         LineChartComponent,
@@ -608,7 +602,6 @@ import { EjsEventComponent } from './widgets/workspace/ejs-event/ejs-event.compo
         PerformanceProgressIndicatorsComponent,
         QualityStockComponent,
         ProductGroupsComponent,
-        ProductionDeviationsComponent,
         ProductGroupsComponent,
         ProductGroupsShortComponent,
         SmpEventsWorkspaceComponent,
@@ -616,7 +609,7 @@ import { EjsEventComponent } from './widgets/workspace/ejs-event/ejs-event.compo
         AstueEfficiencyComponent,
         FileAttachMenuComponent,
     ],
-    exports: [HomeComponent],
+    exports: [HomeComponent, PerformanceBarComponent],
     imports: [
         CommonModule,
         SharedModule,

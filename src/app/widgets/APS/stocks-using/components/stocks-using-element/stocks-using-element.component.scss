@@ -1,0 +1,59 @@
+.component-container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 205px;
+  height: 100%;
+}
+
+.title-container {
+  width: 100%;
+  display: flex;
+  margin-bottom: 15px;
+  font-size: 14px;
+  color: var(--color-text-sub-heading);
+  &_line {
+    width: 100%;
+    height: 50%;
+    margin-left: 5px;
+    box-sizing: border-box;
+    border-bottom: solid 1px var(--color-text-sub-heading);
+  }
+}
+
+.bar-container {
+  display: flex;
+  position: relative;
+  height: 100%;
+  width: 100%;
+}
+
+.info {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  &_block {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    line-height: 20px;
+    &__title {
+      font-size: 13.5px;
+      color: var(--color-text-sub-heading);
+    }
+    &__value {
+      font-size: 16.5px;
+      color: var(--color-text-main);
+    }
+  }
+}
+
+.bar {
+  margin: 0 10px 0 0;
+  ::ng-deep .container-bar{
+    margin: 0;
+    height: 100%;
+    width: 75px;
+  }
+}

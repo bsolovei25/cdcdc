@@ -1,19 +1,14 @@
 import { Component, Inject } from '@angular/core';
 import { PopoverRef } from '@shared/components/popover-overlay/popover-overlay.ref';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
+import { FileAttachMenuService } from '../../../../services/file-attach-menu.service';
+import { IMessageFileAttachment } from '@shared/models/message.model';
 import {
     UploadDropZoneComponent
 } from '@shared/components/upload-drop-zone/upload-drop-zone.component';
 
 export interface IChatAllowedExtensions {
     [index: string]: string[];
-}
-
-export interface IChatFileAttach {
-    name: string;
-    size: string;
-    type: 'image' | 'document' | 'archive' | 'video';
-    _file?: File;
 }
 
 @Component({
@@ -28,12 +23,13 @@ export class FileAttachMenuComponent {
         video: ['mov', 'mp4', 'm4v', 'webm'],
     };
 
-    public filesToUpload: IChatFileAttach[] = [];
+    public filesToUpload: IMessageFileAttachment[] = [];
 
     constructor(
         private popoverRef: PopoverRef,
         private dialog: MatDialog,
         @Inject(MAT_DIALOG_DATA) public data: any,
+        private fileAttachMenuService: FileAttachMenuService,
     ) {
         this.popoverRef.overlay.backdropClick().subscribe(() => {
             this.popoverRef.close('backdropClick', this.filesToUpload);
@@ -74,18 +70,9 @@ export class FileAttachMenuComponent {
     private addFile(file: File, fileType: 'image' | 'document' | 'archive' | 'video'): void {
         this.filesToUpload.push({
             name: file.name,
-            size: this.convertBytes(file.size),
+            size: this.fileAttachMenuService.convertBytes(file.size),
             type: fileType,
             _file: file,
-        } as IChatFileAttach);
-    }
-
-    private convertBytes(value: number): string {
-        const sizes = ['Bytes', 'kb', 'mb', 'gb'];
-        if (value === 0) {
-            return '0 byte';
-        }
-        const i = parseInt(Math.floor(Math.log(value) / Math.log(1024)).toString(), 0);
-        return Math.round(value / Math.pow(1024, i)) + ' ' + sizes[i];
+        } as IMessageFileAttachment);
     }
 }
