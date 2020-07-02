@@ -14,7 +14,7 @@ const routes: Routes = [
                 path: 'dashboard',
                 loadChildren: () =>
                     import('../dashboard/dashboard.module').then((m) => m.DashboardModule),
-                canLoad: [AuthenticationGuard],
+                // canLoad: [AuthenticationGuard],
                 canActivate: [AuthenticationGuard],
                 canActivateChild: [AuthenticationGuard],
                 data: { animation: 'dashboard' },
@@ -37,7 +37,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes, { onSameUrlNavigation: 'reload' })],
+  imports: [RouterModule.forRoot(routes, { onSameUrlNavigation: 'ignore' })],
   exports: [RouterModule]
 })
 export class CoreRoutingModule { }
