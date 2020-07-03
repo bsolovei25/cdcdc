@@ -12,7 +12,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class PeriodSelectorComponent implements OnInit {
     public toDate: Date;
     public fromDate: Date;
-    public isCurrent: boolean;
+    public isCurrent: boolean = false;
 
     constructor(
         private headerData: HeaderDataService,
@@ -40,6 +40,9 @@ export class PeriodSelectorComponent implements OnInit {
         }
         this.fromDate = new Date(Number(dtStartFromRoute));
         this.toDate = new Date(Number(dtEndFromRoute));
+        this.setDates();
+        this.headerData.catchStatusButton(this.isCurrent);
+        this.headerData.catchDefaultDate(this.fromDate, this.toDate, this.isCurrent);
         return true;
     }
 

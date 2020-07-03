@@ -16,7 +16,7 @@
   flex-direction: column;
   box-sizing: border-box;
   border: 2px solid var(--color-aps-border);
-  padding: 5px;
+  padding: 10px 15px 5px 15px;
   background-size: auto;
 }
 
@@ -26,7 +26,10 @@
 }
 
 .stocks-container > * {
-  margin-right: 45px;
+  margin-right: 50px;
+  &:last-child {
+    margin: 0;
+  }
 }
 
 .scroll-container {

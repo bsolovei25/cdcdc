@@ -205,7 +205,7 @@ export const WIDGETS_LAZY = {
         itemCols: 41,
         itemRows: 12,
         minItemCols: 30,
-        minItemRows: 10,
+        minItemRows: 8,
     },
 
     // #endregion APS

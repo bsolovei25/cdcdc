@@ -2,7 +2,7 @@
   position: relative;
   display: flex;
   flex-direction: column;
-  width: 205px;
+  width: 210px;
   height: 100%;
 }
 
@@ -41,6 +41,7 @@
     &__title {
       font-size: 13.5px;
       color: var(--color-text-sub-heading);
+      margin-bottom: 3px;
     }
     &__value {
       font-size: 16.5px;
@@ -50,7 +51,7 @@
 }
 
 .bar {
-  margin: 0 10px 0 0;
+  margin: 0 15px 0 0;
   ::ng-deep .container-bar{
     margin: 0;
     height: 100%;
