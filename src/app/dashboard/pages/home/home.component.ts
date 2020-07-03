@@ -46,8 +46,8 @@ export class HomeComponent implements OnInit, OnDestroy {
             const queryParamsStr = localStorage.getItem('queryParams');
             if (queryParamsStr?.length > 0) {
                 const queryParams = JSON.parse(queryParamsStr);
-                console.log(queryParams);
                 await this.router.navigate([], {queryParams});
+                localStorage.removeItem('queryParams');
             }
             localStorage.setItem('refresh-dashboard', 'false');
             window.location.reload();
