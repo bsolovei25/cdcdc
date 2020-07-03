@@ -1,7 +1,8 @@
 import { Inject, OnDestroy } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { WidgetService } from '../services/widget.service';
-import { ITankInformationDtoFn } from './tank-information';
+import { from } from 'rxjs';
+import { map, mergeAll, filter } from 'rxjs/operators';
 
 export abstract class WidgetPlatform implements OnDestroy {
     public widgetCode?: string;
@@ -10,6 +11,7 @@ export abstract class WidgetPlatform implements OnDestroy {
     public widgetType?: string;
     public widgetIcon?: string;
     public widgetOptions?: any; // TODO line-chart
+    public widgetIsVideoWall?: boolean = false;
 
     protected isRealtimeData: boolean = true;
 
@@ -27,27 +29,32 @@ export abstract class WidgetPlatform implements OnDestroy {
         @Inject('isMock') public isMock: boolean,
         @Inject('widgetId') public widgetId: string,
         @Inject('uniqId') public widgetUniqId: string
-    ) { }
+    ) {
+    }
 
     public ngOnDestroy(): void {
         this.subscriptions.forEach((el) => el.unsubscribe());
     }
 
     protected widgetInit(): void {
-        this.subscriptions.push(
-            this.widgetService.getWidgetChannel(this.widgetId).subscribe((ref) => {
-                if (ref) {
+        setTimeout(() => {
+            this.subscriptions.push(
+                this.widgetService.getWidgetChannel(this.widgetId).subscribe((ref) => {
+                    if (!ref) {
+                        return;
+                    }
                     this.widgetTitle = ref?.title;
                     this.widgetType = ref?.widgetType;
                     this.widgetOptions = ref.widgetOptions;
                     this.widgetUnits = ref.units;
+                    this.widgetIsVideoWall = ref.isVideoWall ? ref.isVideoWall : false;
                     if (!this.isMock) {
                         console.log(this.widgetType);
                     }
                     this.showMock(this.isMock);
-                }
-            })
-        );
+                })
+            );
+        });
     }
 
     private showMock(show: boolean): void {
@@ -71,7 +78,8 @@ export abstract class WidgetPlatform implements OnDestroy {
         );
     }
 
-    protected dataDisconnect(): void { }
+    protected dataDisconnect(): void {
+    }
 
     protected abstract dataHandler(ref: any): void;
 
@@ -86,3 +94,5 @@ export abstract class WidgetPlatform implements OnDestroy {
         this.hoverTimer = setTimeout(() => (this.isHover = false), 200);
     }
 }
+
+

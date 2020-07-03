@@ -1,0 +1,20 @@
+<div class="calculations">
+  <div class="calculations__title">Формирование расчета</div>
+  <div class="calculations__card card">
+    <div class="card__begin">
+      <div class="label">Начало</div>
+      <evj-time-data-picker
+        [data]="limits.fromDateTime"
+        (dateTimePicker)="dateTimePickerInput($event, 'fromDateTime')"
+      ></evj-time-data-picker>
+    </div>
+    <div class="card__finish">
+      <div class="label">Конец</div>
+      <evj-time-data-picker
+        [data]="limits.toDateTime"
+        (dateTimePicker)="dateTimePickerInput($event, 'toDateTime')"
+      ></evj-time-data-picker>
+    </div>
+    <div class="card__submit button">Подтвердить</div>
+  </div>
+</div>

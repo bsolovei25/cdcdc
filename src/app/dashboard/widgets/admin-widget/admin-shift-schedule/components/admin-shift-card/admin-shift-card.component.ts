@@ -6,6 +6,6 @@ import { Component, Input } from '@angular/core';
     styleUrls: ['./admin-shift-card.component.scss'],
 })
 export class AdminShiftCardComponent {
-    @Input() title: string = '';
+    @Input() titleBlock: string = '';
     constructor() {}
 }

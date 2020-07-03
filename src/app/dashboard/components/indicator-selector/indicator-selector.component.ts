@@ -72,23 +72,17 @@ export class IndicatorSelectorComponent implements OnInit, OnDestroy {
     }
 
     private LoadScreenInit(): void {
-        // const screenIdFromRoute = this.route.snapshot.queryParamMap.get('screenId');
-        // if (!screenIdFromRoute) {
-        //     let screenId: number = null;
-        //     screenId = Number(sessionStorage.getItem('screenid'));
-        //     if (!screenId) {
-        //         screenId = Number(localStorage.getItem('screenid'));
-        //     }
-        //     this.userSettings.ScreenId = screenId;
-        // } else {
-        //     this.userSettings.ScreenId = Number(screenIdFromRoute);
-        // }
-        let screenId: number = null;
-        screenId = Number(sessionStorage.getItem('screenid'));
-        if (!screenId) {
-            screenId = Number(localStorage.getItem('screenid'));
+        const screenIdFromRoute = this.route.snapshot.queryParamMap.get('screenId');
+        if (!screenIdFromRoute) {
+            let screenId: number = null;
+            screenId = Number(sessionStorage.getItem('screenid'));
+            if (!screenId) {
+                screenId = Number(localStorage.getItem('screenid'));
+            }
+            this.userSettings.ScreenId = screenId;
+        } else {
+            this.userSettings.ScreenId = Number(screenIdFromRoute);
         }
-        this.userSettings.ScreenId = screenId;
 
         this.userSettings.GetScreens();
         this.subscriptions.push(

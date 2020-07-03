@@ -406,6 +406,9 @@ export class EventService {
         if (options.description) {
             res += `&description=${options.description}`;
         }
+        if (options.isVideoWall) {
+            res += `&isVideoWall=${options.isVideoWall}`;
+        }
         return res;
     }
 }

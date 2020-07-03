@@ -15,6 +15,8 @@ import {
 } from '../../../dashboard/models/production-trends.model';
 import { IChartD3, IChartMini, IPointTank } from '../../models/smart-scroll.model';
 import { ChartStyleType, ChartStyle, IChartStyle } from '../../models/line-chart-style.model';
+import { IDatesInterval } from '../../../dashboard/services/widget.service';
+import { setLimits } from '../../functions/set-limits.function';
 
 @Component({
     selector: 'evj-line-chart-shared',
@@ -24,6 +26,7 @@ import { ChartStyleType, ChartStyle, IChartStyle } from '../../models/line-chart
 export class LineChartComponent implements OnChanges, OnInit {
     @Input() public data: IProductionTrend[] = [];
     @Input() public points: IPointTank[] = [];
+    @Input() private limits: IDatesInterval = null;
     @Input() public isShowingLegend: boolean = false;
     @Input() public chartType: 'production-trend' | 'reasons-deviations' | 'oil-operations' =
         'production-trend';
@@ -66,26 +69,27 @@ export class LineChartComponent implements OnChanges, OnInit {
     constructor() {}
 
     public ngOnChanges(): void {
-        if (this.data.length && this.svg) {
-            this.findMinMax();
-            this.initGraph();
-            this.transformData();
-            this.drawAxis();
-            this.drawGraph();
-        }
+        setTimeout(() => this.graphInit(), 0);
     }
 
     public ngOnInit(): void {
         this.dateFormatLocale();
     }
 
-    @HostListener('document:resize', ['$event'])
-    public OnResize(): void {
+    private graphInit(): void {
+        if (!this.data?.length) {
+            return;
+        }
         this.findMinMax();
         this.initGraph();
         this.transformData();
         this.drawAxis();
         this.drawGraph();
+    }
+
+    @HostListener('document:resize', ['$event'])
+    public OnResize(): void {
+        this.graphInit();
     }
 
     private initGraph(): void {
@@ -111,6 +115,8 @@ export class LineChartComponent implements OnChanges, OnInit {
     }
 
     private findMinMax(): void {
+        this.data.forEach((graph) => (graph.graph = setLimits(graph.graph, this.limits)));
+
         const maxValues: number[] = [];
         const minValues: number[] = [];
 
@@ -129,7 +135,12 @@ export class LineChartComponent implements OnChanges, OnInit {
     }
 
     private transformOneChartData(chart: IProductionTrend): void {
-        const domainDates = d3.extent(chart.graph, (item: IChartMini) => item.timestamp);
+        let domainDates;
+        if (!this.limits) {
+            domainDates = d3.extent(chart.graph, (item: IChartMini) => item.timeStamp);
+        } else {
+            domainDates = [this.limits.fromDateTime, this.limits.toDateTime];
+        }
         const rangeX = [this.padding.left, this.graphMaxX - this.padding.right];
         this.scaleFuncs.x = d3
             .scaleTime()
@@ -165,7 +176,7 @@ export class LineChartComponent implements OnChanges, OnInit {
 
         chart.graph.forEach((item) => {
             chartData.graph.push({
-                x: this.scaleFuncs.x(item.timestamp),
+                x: this.scaleFuncs.x(item.timeStamp),
                 y: this.scaleFuncs.y(item.value),
             });
         });

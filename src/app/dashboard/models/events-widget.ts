@@ -22,6 +22,7 @@ export interface EventsWidgetNotificationPreview {
     eventType?: { id: number; name: string };
     facts?: { comment: string }[];
     source?: any;
+    externalId?: number;
 }
 
 export interface EventsWidgetNotification {
@@ -62,6 +63,7 @@ export interface EventsWidgetNotification {
     unitName?: string;
     deviationData?: IEventDeviationData;
     asusEvent: IEventAsus;
+    externalId?: number;
 }
 
 export interface IEventAsus {
@@ -194,7 +196,8 @@ export type EventsWidgetCategoryCode =
     | 'tasks'
     | 'equipmentStatus'
     | 'drops'
-    | 'asus';
+    | 'asus'
+    | 'ejs';
 
 export type AuthenticationType = 'bearer' | 'windows';
 
@@ -313,6 +316,7 @@ export interface EventsWidgetOptions {
     dates?: { fromDateTime: Date; toDateTime: Date };
     placeNames?: string[];
     description?: string;
+    isVideoWall?: boolean;
 }
 
 export interface EventsWidgetsStats {

@@ -1,0 +1,36 @@
+<div class="card">
+  <div class="card__header header">
+    <div class="click-area" (click)="isOpen=!isOpen"></div>
+    <img
+      class="arrow"
+      [ngClass]="{'arrow_open':isOpen}"
+      src="assets/icons/widgets/ASTUE/astue-efficiency/units/arrow.svg"
+    />
+    <img class="icon-unit" src="assets/icons/widgets/ASTUE/astue-efficiency/units/unit.svg" />
+    {{unit.name}}
+    <div
+      class="header__button button"
+      [ngClass]="{'button_active':isSelected}"
+      (click)="onSelectUnit()"
+    >
+      <img
+        class="icon icon-unactive"
+        src="assets/icons/widgets/ASTUE/astue-efficiency/units/non-select.svg"
+      />
+      <img
+        class="icon icon-active"
+        src="assets/icons/widgets/ASTUE/astue-efficiency/units/select.svg"
+      />
+    </div>
+  </div>
+  <div class="card__streams streams" [ngClass]="{'streams_open':isOpen}">
+    <div class="streams__item" *ngFor="let card of unit.streams">
+      <evj-astue-efficiency-item-card
+        [isActive]="cardSelection.isSelected(card)"
+        [isListItem]="true"
+        [card]="card"
+        (click)="cardSelection.toggle(card)"
+      ></evj-astue-efficiency-item-card>
+    </div>
+  </div>
+</div>

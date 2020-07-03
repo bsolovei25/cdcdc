@@ -10,6 +10,8 @@ import {
 import { IChartMini, IChartD3 } from '../../../models/smart-scroll.model';
 import * as d3Selection from 'd3-selection';
 import * as d3 from 'd3';
+import { IDatesInterval } from '../../../../dashboard/services/widget.service';
+import { setLimits } from '../../../functions/set-limits.function';
 
 @Component({
     selector: 'evj-line-chart-track',
@@ -18,6 +20,7 @@ import * as d3 from 'd3';
 })
 export class LineChartTrackComponent implements OnChanges, AfterViewInit {
     @Input() private data: IChartMini[] = [];
+    @Input() private limits: IDatesInterval = null;
 
     @ViewChild('chart') private chart: ElementRef;
 
@@ -34,45 +37,60 @@ export class LineChartTrackComponent implements OnChanges, AfterViewInit {
     constructor() {}
 
     public ngOnChanges(): void {
-        if (this.svg) {
+        // if (this.svg) {
+        //     this.initGraph();
+        //     this.transformData();
+        //     this.drawGraph();
+        // }
+        setTimeout(() => this.initData(), 0);
+    }
+
+    public ngAfterViewInit(): void {
+        // this.initGraph();
+        // this.transformData();
+        // this.drawGraph();
+    }
+
+    initData(): void {
+        if (this.data) {
             this.initGraph();
             this.transformData();
             this.drawGraph();
         }
-    }
-
-    public ngAfterViewInit(): void {
-        this.initGraph();
-        this.transformData();
-        this.drawGraph();
     }
 
     @HostListener('document:resize', ['$event'])
     public OnResize(): void {
-        if (this.svg) {
-            this.initGraph();
-            this.transformData();
-            this.drawGraph();
-        }
+        this.initData();
     }
 
     private transformData(): void {
-        const domainDates = d3.extent(this.data, (item: IChartMini) => item.timestamp);
+        this.data = setLimits(this.data, this.limits);
+
+        let domainDates;
+        if (!this.limits) {
+            domainDates = d3.extent(this.data, (item: IChartMini) => item.timeStamp);
+        } else {
+            domainDates = [this.limits.fromDateTime, this.limits.toDateTime];
+        }
         const rangeX = [this.paddingX, this.graphMaxX - this.paddingX];
         const time = d3
             .scaleTime()
             .domain(domainDates)
             .rangeRound(rangeX);
 
-        const domainValues = d3.extent(this.data, (item: IChartMini) => item.value);
+        const [dataMin, dataMax] = d3.extent(this.data, (item: IChartMini) => item.value);
+        const domainValues = [dataMax, dataMin];
+
         const rangeY = [this.paddingY, this.graphMaxY - this.paddingY];
         const val = d3
             .scaleLinear()
             .domain(domainValues)
             .range(rangeY);
 
+        this.chartData = [];
         this.data.forEach((item, index) => {
-            this.chartData[index] = { x: time(item.timestamp), y: val(item.value) };
+            this.chartData[index] = { x: time(item.timeStamp), y: val(item.value) };
         });
     }
 

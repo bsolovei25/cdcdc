@@ -52,16 +52,16 @@ export class UploadDropZoneComponent {
     handleFileInput(event: FileList): void {
         const file: File = event?.[0];
         const typeFile: string = file.name.split('.').pop();
-        if (typeFile === 'xls' || typeFile === 'xlsm' || typeFile === 'xlsx') {
+        if (this.extension.includes(typeFile)) {
             this.fileLoad = true;
             this.fileName = file.name;
+            this.file.emit(file);
             setTimeout(() => {
                 this.isUploadBlock = false;
-                this.file.emit(file);
                 this.fileLoad = false;
             }, 1500);
         } else {
-            this.snackBar.openSnackBar('Не верный формат файла', 'snackbar-red');
+            this.snackBar.openSnackBar('Неверный формат файла', 'snackbar-red');
         }
     }
 

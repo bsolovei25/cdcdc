@@ -11,6 +11,10 @@ export const DashboardRoutes: Routes = [
     //     component: HomeComponent,
     // },
     {
+        path: ':id',
+        component: HomeComponent,
+    },
+    {
         path: '',
         component: HomeComponent,
     },

@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, ElementRef, ViewChild, OnChanges, ChangeDetectionStrategy } from '@angular/core';
 import * as d3 from 'd3';
 import { ITypeProduct } from '../../product-groups.component';
-import { SpaceNumber } from '@shared/pipes/number_space.pipe';
+import { SpaceNumber } from '@shared/pipes/number-space.pipe';
 
 @Component({
     selector: 'evj-product-groups-middle',

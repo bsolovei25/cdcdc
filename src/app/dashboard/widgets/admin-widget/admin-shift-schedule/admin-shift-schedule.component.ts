@@ -3,10 +3,9 @@ import {
     Inject,
     OnDestroy,
     ViewChild,
-    ElementRef,
     Renderer2,
     OnInit,
-    AfterContentChecked,
+    AfterContentChecked
 } from '@angular/core';
 import { WidgetService } from '../../../services/widget.service';
 import * as moment from 'moment';
@@ -17,8 +16,7 @@ import {
     IBrigadeWithUsersDto,
     IScheduleShiftDay,
     IScheduleShift,
-    IShiftMember,
-    IUnits,
+    IUnits
 } from '../../../models/admin-shift-schedule';
 import { fillDataShape } from '../../../../@shared/common-functions';
 import { MatCalendar } from '@angular/material/datepicker';
@@ -26,28 +24,17 @@ import { WidgetPlatform } from '../../../models/widget-platform';
 import { SnackBarService } from '../../../services/snack-bar.service';
 import {
     AdminShiftScheduleService,
-    IDropItem,
+    IDropItem
 } from '../../../services/widgets/admin-shift-schedule.service';
-import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
-import { trigger, transition, style, animate } from '@angular/animations';
+import { CdkDragDrop } from '@angular/cdk/drag-drop';
 import { IAlertWindowModel } from '../../../../@shared/models/alert-window.model';
 import { FormControl } from '@angular/forms';
 import { EventService } from '../../../services/widgets/event.service';
-import { Subscription } from 'rxjs';
-import { MatMenuTrigger } from '@angular/material/menu';
 
-export interface IAdminShiftBrigade {
+export interface IAbsent {
+    code: string;
     id: number;
-    brigade: IAdminShiftUserBrigade[];
-    manager: IAdminShiftUserBrigade[];
-}
-
-export interface IAdminShiftUserBrigade {
-    id: number;
-    fio: string;
-    specialty: string;
-    avatar: string;
-    brigade: number;
+    name: string;
 }
 
 export interface IAbsent {
@@ -59,7 +46,7 @@ export interface IAbsent {
 @Component({
     selector: 'evj-admin-shift-schedule',
     templateUrl: './admin-shift-schedule.component.html',
-    styleUrls: ['./admin-shift-schedule.component.scss'],
+    styleUrls: ['./admin-shift-schedule.component.scss']
 })
 export class AdminShiftScheduleComponent extends WidgetPlatform
     implements OnInit, OnDestroy, AfterContentChecked {
@@ -135,7 +122,7 @@ export class AdminShiftScheduleComponent extends WidgetPlatform
         this.selectedDay = {
             date: new Date(),
             isAllShiftsSet: true,
-            items: [],
+            items: []
         };
         this.dateChanged(this.selectedDay.date);
         this.subscriptions.push(
@@ -496,7 +483,8 @@ export class AdminShiftScheduleComponent extends WidgetPlatform
         };
     }
 
-    drop(event: CdkDragDrop<string[]>): void {}
+    drop(event: CdkDragDrop<string[]>): void {
+    }
 
     async moveToDropAdditionalShift(item: IDropItem): Promise<void> {
         if (item && item.container.id !== '0' && item.container.id !== item.previousContainer.id) {
@@ -537,7 +525,7 @@ export class AdminShiftScheduleComponent extends WidgetPlatform
             cancelText: 'Отмена',
             input: {
                 formControl: this.inputControl,
-                placeholder: 'Введите название',
+                placeholder: 'Введите название'
             },
             acceptFunction: async (): Promise<void> => {
                 const name = this.inputControl.value;
@@ -555,6 +543,9 @@ export class AdminShiftScheduleComponent extends WidgetPlatform
             cancelFunction: () => {
                 this.alertWindow = null;
             },
+            closeFunction: () => {
+                this.alertWindow = null;
+            }
         };
     }
 

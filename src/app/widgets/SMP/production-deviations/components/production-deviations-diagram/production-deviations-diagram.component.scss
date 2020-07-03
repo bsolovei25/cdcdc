@@ -1,0 +1,437 @@
+// VARIABLES
+:host {
+  --header-height: 30px;
+  --col-width: 32px;
+  --axis-padding-left: 20px;
+  --graph-padding-top: 5px;
+  --baseline-height: 2px;
+}
+// VARIABLES
+
+.diagram {
+  position: relative;
+
+  width: 100%;
+  height: 100%;
+
+  min-width: 1100px;
+
+  box-sizing: border-box;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+
+  &__frame {
+    position: absolute;
+    z-index: 5;
+
+    width: 100%;
+    height: 10px;
+
+    box-sizing: border-box;
+
+    .line {
+      position: absolute;
+
+      width: calc(100% - 180px);
+      height: 1px;
+
+      top: 3px;
+      left: 0;
+      right: 0;
+      margin: auto;
+
+      background: var(--color-axis);
+    }
+
+    &_top {
+      top: 0;
+      transform: scaleY(1);
+    }
+
+    &_bottom {
+      bottom: 0;
+      transform: scaleY(-1);
+    }
+
+    &::before {
+      content: "";
+      position: absolute;
+      z-index: 9999;
+
+      width: 90px;
+      height: 15px;
+
+      top: 0;
+      left: 0;
+
+      background: url(../../../../../../assets/icons/widgets/SMP/production-deviations/border-left-top.svg)
+        no-repeat;
+    }
+
+    &::after {
+      content: "";
+      position: absolute;
+      z-index: 9999;
+
+      width: 90px;
+      height: 15px;
+
+      top: 0;
+      right: 0;
+
+      background: url(../../../../../../assets/icons/widgets/SMP/production-deviations/border-left-top.svg)
+        no-repeat;
+
+      transform: scaleX(-1);
+    }
+  }
+
+  &__body {
+    height: 100%;
+    flex: 1;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+  }
+
+  &__sidebar {
+    position: relative;
+
+    height: 100%;
+    width: 90px;
+
+    margin-left: 5px;
+
+    background: var(--color-disable-transparent);
+
+    .label {
+      position: absolute;
+
+      width: max-content;
+      height: max-content;
+
+      top: 0;
+      bottom: 0;
+      right: 10px;
+      margin: auto;
+
+      color: var(--color-text-main);
+      font-size: 22px;
+
+      &_big {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: flex-end;
+      }
+
+      &__item {
+        width: max-content;
+        height: max-content;
+
+        &:first-child {
+          color: var(--color--active);
+        }
+      }
+    }
+  }
+
+  &__header {
+    width: 100%;
+    height: var(--header-height);
+    margin-top: 4px;
+  }
+
+  &__graph {
+    width: 100%;
+    height: calc(100% - var(--header-height));
+  }
+
+  .header {
+    box-sizing: border-box;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+
+    background: linear-gradient(to bottom, var(--color-border-box-shadow) 0%, transparent 100%);
+
+    &__units {
+      width: 80px;
+      height: 25px;
+
+      margin-left: 4px;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      font-size: 12px;
+      color: var(--color-text-main-transparent);
+
+      background: url(../../../../../../assets/icons/widgets/SMP/production-deviations/units-label.svg)
+        no-repeat;
+    }
+
+    &__title {
+      flex: 1;
+      font-size: 12px;
+
+      box-sizing: border-box;
+      padding: 0px 10px;
+
+      color: var(--color-text-sub);
+    }
+
+    &__legend {
+      margin-left: auto;
+    }
+
+    .legend {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-around;
+      justify-content: center;
+
+      &__item {
+        font-size: 12px;
+        margin: 0px 10px;
+
+        &:first-child {
+          color: var(--color-text-main);
+        }
+
+        &:last-child {
+          color: var(--color-smp-active);
+        }
+      }
+    }
+  }
+
+  .graph {
+    position: relative;
+
+    margin-bottom: 4px;
+
+    box-sizing: border-box;
+
+    padding: var(--graph-padding-top) 0 30px var(--axis-padding-left);
+
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+
+    &__cols {
+      position: relative;
+      z-index: 2;
+
+      width: 100%;
+      height: 100%;
+
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+
+      &_baseline {
+        height: calc(50% - var(--baseline-height));
+      }
+
+      &_down {
+        transform: scaleY(-1);
+
+        .limit__label {
+          transform: scaleY(-1);
+        }
+      }
+    }
+
+    &__limit {
+      --limit-color: var(--color-smp-danger);
+
+      position: absolute;
+      z-index: 5;
+
+      width: 100%;
+      height: 20px;
+
+      bottom: 0;
+      left: 0;
+
+      .limit {
+        width: 100%;
+        height: 100%;
+
+        box-sizing: border-box;
+        border-bottom: 1px dashed var(--limit-color);
+
+        background: linear-gradient(to top, var(--limit-color) 0%, transparent 100%);
+        opacity: 0.5;
+
+        &__label {
+          position: absolute;
+
+          width: max-content;
+          height: max-content;
+
+          left: calc(100% + 8px);
+          top: 0;
+          bottom: 0;
+          margin: auto;
+
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+
+          color: var(--limit-color);
+          font-size: 12px;
+        }
+      }
+    }
+
+    &__baseline {
+      width: 100%;
+      height: var(--baseline-height);
+      background: var(--color-smp-active);
+    }
+
+    &__col {
+      position: relative;
+      z-index: 2;
+      height: 100%;
+      width: var(--col-width);
+
+      &:hover {
+        // cursor: pointer;
+      }
+
+      &_active {
+        &::after {
+          content: "";
+          position: absolute;
+          z-index: 1;
+
+          width: 100%;
+          height: 114%;
+
+          top: 0;
+          left: 0;
+
+          background: linear-gradient(to top, var(--color-smp-active) 0%, transparent 100%);
+          opacity: 0.5;
+        }
+
+        &-baseline {
+          &::after {
+            height: 234%;
+          }
+        }
+      }
+    }
+
+    &__axis {
+      top: 0;
+      left: 0;
+    }
+
+    .axis {
+      position: absolute;
+      z-index: 1;
+
+      width: 100%;
+      height: 100%;
+
+      &-x {
+        position: absolute;
+
+        width: calc(100% - var(--axis-padding-left));
+        height: 26px;
+
+        bottom: 0;
+        left: var(--axis-padding-left);
+
+        box-sizing: border-box;
+        border-top: 1px solid var(--color-axis);
+
+        padding-top: 3px;
+
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: flex-start;
+
+        &__item {
+          position: relative;
+
+          height: max-content;
+          width: var(--col-width);
+
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+
+          font-size: 12px;
+          color: var(--color-text-sub);
+
+          &_active {
+            color: var(--color-text-main);
+
+            &::after {
+              content: "";
+              position: absolute;
+              z-index: 2;
+
+              width: 100%;
+              height: 2px;
+
+              bottom: -5px;
+
+              background: var(--color-smp-active);
+            }
+          }
+        }
+      }
+
+      &-y {
+        position: absolute;
+
+        width: var(--axis-padding-left);
+        height: calc(100% - 10px);
+
+        top: 0;
+        bottom: 0;
+        left: 0;
+        margin: auto;
+
+        box-sizing: border-box;
+        border-right: 1px solid var(--color-axis);
+
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+
+        &__item {
+          height: max-content;
+          width: var(--col-width);
+
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+
+          font-size: 12px;
+          color: var(--color-text-sub);
+        }
+      }
+    }
+  }
+}

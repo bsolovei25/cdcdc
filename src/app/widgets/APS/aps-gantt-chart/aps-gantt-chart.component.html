@@ -1,0 +1,325 @@
+<div class="container pointer-event">
+  <evj-aps-widget-header [uniqId]="uniqId" [widgetTitle]="widgetTitle" icon="gantt">
+    <div class="content-container">
+      <div class="header">
+        <ul class="header__info">
+          <li class="header__info-item">
+            <div class="header__info-1"></div>
+            <span>Время на понижение/повышение</span>
+          </li>
+          <li class="header__info-item">
+            <div class="header__info-2"></div>
+            <span>Фиксированный % отбора</span>
+          </li>
+          <li class="header__info-item">
+            <div class="header__info-3"></div>
+            <span>Минимальная/максимальная загрузка</span>
+          </li>
+          <li class="header__info-item">
+            <div class="header__info-4"></div>
+            <span>Фиксированная загрузка</span>
+          </li>
+          <li class="header__info-item">
+            <div class="header__info-5"></div>
+            <span>Доля вовлечения</span>
+          </li>
+          <li class="header__info-item">
+            <div class="header__info-6"></div>
+            <span>Фиксированный показатель качества</span>
+          </li>
+        </ul>
+      </div>
+      <svg-icon
+        class="content-container__svg"
+        [svgStyle]="{ 'width.px':15, 'height.px':16 }"
+        src="assets/icons/widgets/APS/aps-recipe-diagram/fullscreen.svg"
+      >
+      </svg-icon>
+    </div>
+  </evj-aps-widget-header>
+
+  <div
+    class="container-body"
+    (mousedown)="$event.stopPropagation()"
+    (touchstart)="$event.stopPropagation()"
+  >
+    <div class="container">
+      <table class="table">
+        <thead class="table__header">
+          <tr class="table__header__row">
+            <th *ngFor="let column of columnsToDisplay" class="table__header__column">
+              <ng-container *ngIf="column.name !== 'productName'">{{ column.name }}</ng-container>
+              <ng-container
+                *ngIf="column.name === 'productName'"
+                class="table__header__column__name"
+              >
+                <svg-icon
+                  class="table__header__column__name__gradient"
+                  src="assets/icons/widgets/APS/aps-gantt-chart/gradient-header.svg"
+                >
+                </svg-icon>
+                <svg-icon
+                  class="table__header__column__name__icon"
+                  [svgStyle]="{ 'width.px':15, 'height.px':15 }"
+                  src="assets/icons/widgets/APS/aps-gantt-chart/zavod.svg"
+                >
+                </svg-icon>
+                <span class="table__header__column__name__text">Установка</span>
+                <span class="table__header__column__name__pims">Тн</span>
+                <span>
+                  <svg-icon
+                    class="table__header__column__name__search"
+                    [svgStyle]="{ 'width.px':15, 'height.px':15 }"
+                    src="assets/icons/widgets/APS/aps-recipe-diagram/search.svg"
+                  >
+                  </svg-icon>
+                </span>
+              </ng-container>
+            </th>
+          </tr>
+        </thead>
+        <tbody class="table__body" *ngIf="dataSource">
+          <ng-container *ngFor="let element of dataSource">
+            <tr
+              *ngIf="element.tank.length !== 0 || expandedElement.isSelected(element.id) || element.productName === 'last-row'"
+              class="table__body__row"
+              (click)="onClickRow($event, element)"
+              [class.last-tr]="element.productName === 'last-row'"
+              [class.table__body__row--active]="expandedElement.isSelected(element.id)"
+            >
+              <ng-container *ngIf="element.productName !== 'last-row'">
+                <td
+                  *ngFor="let column of columnsToDisplay"
+                  class="table__body__column"
+                  [class.table__body__column--active]="selectedRowProduct === element.id"
+                  [class.table__body__column--expand]="expandedElement.isSelected(element.id)"
+                >
+                  <div
+                    *ngIf="column.name === 'productName'"
+                    class="table__body__column__row-title"
+                    [class.opacity]="selectedRow.isSelected(element.productName) && selectedRowProduct"
+                    [class.table__body__column__row-title__border-active]="selectedRow.isSelected(element.productName) && this.selectedRowProduct"
+                  >
+                    <svg-icon
+                      class="table__body__column__row-title__icon"
+                      (click)="onClickTr($event, element)"
+                      [class.table__body__column__row-title__icon--active]="expandedElement.isSelected(element.id)"
+                      src="assets/icons/widgets/APS/aps-gantt-chart/plus.svg"
+                    >
+                    </svg-icon>
+                    <svg-icon
+                      *ngIf="selectedRowProduct === element.id || expandedElement.isSelected(element.id); else elseBlock"
+                      class="table__body__column__row-title__icon__background"
+                      src="assets/icons/widgets/APS/aps-gantt-chart/gradient-product-blue.svg"
+                    >
+                    </svg-icon>
+                    <ng-template #elseBlock>
+                      <svg-icon
+                        class="table__body__column__row-title__icon__background"
+                        src="assets/icons/widgets/APS/aps-gantt-chart/gradient-product-grey.svg"
+                      >
+                      </svg-icon
+                    ></ng-template>
+
+                    <span
+                      class="table__body__column__row-title__text"
+                      [class.table__body__column__row-title--no-active]="selectedRow.isSelected(element.productName)"
+                      >{{ element.productName }}</span
+                    >
+                    <div class="table__body__column__row-title__value__texts">
+                      <div class="table__body__column__row-title__value__text">
+                        {{ element.productValue }}
+                      </div>
+                      <div class="table__body__column__row-title__value__text--orange">
+                        {{ element.productDeviation }}
+                      </div>
+                    </div>
+                    <svg-icon
+                      src="assets/icons/widgets/APS/aps-gantt-chart/product-value.svg"
+                      class="table__body__column__row-title__value__background"
+                    >
+                    </svg-icon>
+                  </div>
+                  <div *ngIf="column.name !== 'productName'" class="line">
+                    <ng-container *ngFor="let divGantt of element.operationRender">
+                      <!-- <evj-line-ui
+                        [item]="divGantt"
+                        [selectedColumn]="selectedColumn"
+                        [selectedOperationGantt]="selectedOperationGantt"
+                        [firstOperation]="firstOperation"
+                        [firstOperationTanks]="firstOperationTanks"
+                        [element]="element"
+                        (output)="onClickTrEl($event)"
+                      ></evj-line-ui> -->
+                      <!-- <div> -->
+                      <svg-icon
+                        class="line__icon"
+                        [svgStyle]="{ 'width.px':15, 'height.px':15 }"
+                        src="assets/icons/widgets/APS/aps-gantt-chart/first-line.svg"
+                      >
+                      </svg-icon>
+                      <div
+                        (click)="onClickTr($event, element, 'line', divGantt)"
+                        [className]="divGantt.type"
+                        style.width="{{ divGantt.style.width }}%"
+                        style.left="{{ divGantt.style.left }}%"
+                        [class.z-index-chooseElement]="!selectedColumn.isSelected(divGantt.id) && this.selectedRowProduct"
+                      ></div>
+                      <!-- <ng-container *ngIf="selectedOperationGantt === divGantt.id">
+                        <ng-container [ngSwitch]="divGantt.type">
+                          <svg-icon
+                            *ngSwitchCase="'shipment'"
+                            (click)="onClickTr($event, element, 'line', divGantt)"
+                            [class.opacity]="selectedColumn.isSelected(divGantt.id) && selectedOperationGantt"
+                            class="icon__select"
+                            style.left="{{ divGantt.style.width + divGantt.style.left - 5 }}%"
+                            src="assets/icons/widgets/gantt-chart/circle_oper-ship.svg"
+                            [svgStyle]="{ 'width.px':25, 'height.px':25 }"
+                          >
+                          </svg-icon>
+                          <svg-icon
+                            *ngSwitchCase="'shipment'"
+                            (click)="onClickTr($event, element, 'line', divGantt)"
+                            [class.opacity]="selectedColumn.isSelected(divGantt.id) && selectedOperationGantt"
+                            class="icon__select-right"
+                            style.left="{{ divGantt.style.left - 4 }}%"
+                            src="assets/icons/widgets/gantt-chart/circle_oper-ship.svg"
+                            [svgStyle]="{ 'width.px':25, 'height.px':25 }"
+                          >
+                          </svg-icon>
+                        </ng-container>
+                      </ng-container> -->
+                      <!-- </div> -->
+                    </ng-container>
+                  </div>
+                </td>
+              </ng-container>
+            </tr>
+
+            <ng-container *ngFor="let elementChildren of element.tank;  index as i;">
+              <tr
+                *ngIf="expandedElement.isSelected(element.id)"
+                class="table__body__row expanded-row"
+                (click)="onClickRow($event, elementChildren)"
+              >
+                <td
+                  *ngFor="let column of columnsToDisplay"
+                  class="expanded-column table__body__column table__body__column__children"
+                  [class.table__body__column__children--active]="selectedRowProduct === elementChildren.id"
+                >
+                  <div
+                    *ngIf="column.name === 'productName'"
+                    class="table__body__column__row-title table__body__column__row-title-children"
+                    [class.opacity]="selectedRow.isSelected(element.productName) && this.selectedRowProduct"
+                  >
+                    <svg-icon
+                      *ngIf="i === 0"
+                      [svgStyle]="{'height.px':51, 'width.px': 21.3}"
+                      class="table__body__column__row-title-children__left-block--first"
+                      src="assets/icons/widgets/APS/aps-gantt-chart/first-children-dashed-left-line-product.svg"
+                    >
+                    </svg-icon>
+                    <svg-icon
+                      *ngIf="i !== 0"
+                      [svgStyle]="{'height.px':67, 'width.px': 21.3}"
+                      class="table__body__column__row-title-children__left-block"
+                      src="assets/icons/widgets/APS/aps-gantt-chart/left-row-block.svg"
+                    >
+                    </svg-icon>
+                    <svg-icon
+                      *ngIf="selectedRowProduct === elementChildren.id"
+                      class="table__body__column__row-title__icon__background-children"
+                      src="assets/icons/widgets/APS/aps-gantt-chart/gradient-product-blue.svg"
+                    >
+                    </svg-icon>
+                    <svg-icon
+                      *ngIf="selectedRowProduct !== elementChildren.id"
+                      class="table__body__column__row-title__icon__background-children"
+                      src="assets/icons/widgets/APS/aps-gantt-chart/gradient-product-grey.svg"
+                    >
+                    </svg-icon>
+                    <span
+                      class="table__body__column__row-title__text"
+                      [class.table__body__column__row-title--no-active]="selectedRow.isSelected(element.productName)"
+                      >{{ elementChildren.productName }}</span
+                    >
+                    <div class="table__body__column__row-title__value__texts">
+                      <div class="table__body__column__row-title__value__text">
+                        {{ elementChildren.productValue }}
+                      </div>
+                      <div class="table__body__column__row-title__value__text--orange">
+                        {{ elementChildren.productDeviation }}
+                      </div>
+                    </div>
+                    <svg-icon
+                      src="assets/icons/widgets/APS/aps-gantt-chart/product-value.svg"
+                      class="table__body__column__row-title__value__background"
+                    >
+                    </svg-icon>
+                  </div>
+                  <div
+                    *ngIf="column.name !== 'productName' && column.name !== 'tankName'"
+                    class="line"
+                  >
+                    <!-- <ng-container *ngFor="let divGantt of elementChildren">
+                      <ng-container *ngFor="let item of divGantt.value">
+                        <div
+                          (click)="onClickTr($event, elementChildren, 'line', item)"
+                          [className]="item.type"
+                          style.width="{{ item.style.width }}%"
+                          style.left="{{ item.style.left }}%"
+                          [class.z-index-chooseElement]="!selectedColumn.isSelected(item.id) && this.selectedRowProduct"
+                        ></div>
+                        <ng-container
+                          *ngIf="item.type === 'passport-system'
+                          || item.type === 'quality-stock'
+                          || item.type === 'substandard'"
+                        >
+                          <svg-icon
+                            (click)="onClickTr($event, elementChildren, 'line', item)"
+                            class="icon__preparation"
+                            class="icon__preparation--{{item.type}}"
+                            style.left="{{ item.style.left - 4 }}%"
+                            src="assets/icons/widgets/gantt-chart/passport.svg"
+                            [svgStyle]="{ 'width.px':25, 'height.px':25 }"
+                            [ngClass]="{'z-index-chooseElement' : !selectedColumn.isSelected(item.id) && this.selectedRowProduct,
+                          'opacity': selectedColumn.isSelected(item.id) && this.selectedRowProduct}"
+                          >
+                          </svg-icon>
+                        </ng-container>
+                        <ng-container *ngIf="selectedRowProduct === item.id">
+                          <ng-container [ngSwitch]="item.type">
+                            <svg-icon
+                              *ngSwitchCase="'shipment'"
+                              (click)="onClickTr($event, elementChildren, 'line', item)"
+                              [class.opacity]="selectedColumn.isSelected(item.id) && this.selectedRowProduct"
+                              class="icon__select"
+                              style.left="{{ item.style.width + item.style.left - 5 }}%"
+                              src="assets/icons/widgets/gantt-chart/circle_oper-ship.svg"
+                              [svgStyle]="{ 'width.px':25, 'height.px':25 }"
+                            >
+                            </svg-icon>
+                            <svg-icon
+                              *ngSwitchCase="'shipment'"
+                              (click)="onClickTr($event, elementChildren, 'line', item)"
+                              [class.opacity]="selectedColumn.isSelected(item.id) && this.selectedRowProduct"
+                              class="icon__select-right"
+                              style.left="{{ item.style.left - 4 }}%"
+                              src="assets/icons/widgets/gantt-chart/circle_oper-ship.svg"
+                              [svgStyle]="{ 'width.px':25, 'height.px':25 }"
+                            >
+                            </svg-icon>
+                          </ng-container>
+                        </ng-container>
+                      </ng-container>
+                    </ng-container> -->
+                  </div>
+                </td>
+              </tr>
+            </ng-container>
+          </ng-container>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

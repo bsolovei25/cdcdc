@@ -12,11 +12,13 @@
     class="insert-component insert-component__login"
     [options]="loginOptions"
     [formControl]="username"
+    (keyup.enter)="onSubmit()"
   ></evj-input>
   <evj-input
     class="insert-component insert-component__password"
     [options]="passwordOptions"
     [formControl]="password"
+    (keyup.enter)="onSubmit()"
   ></evj-input>
 
   <div class="login__submit">
