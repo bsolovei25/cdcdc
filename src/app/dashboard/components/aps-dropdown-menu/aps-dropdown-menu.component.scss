@@ -1,0 +1,68 @@
+::ng-deep {
+  .mat-menu-panel {
+    border-radius: 0;
+    box-shadow: none !important;
+    min-height: max-content !important;
+    overflow: hidden !important;
+  }
+
+  .dropdown-menu {
+    .mat-menu-content {
+      padding-top: 0 !important;
+      padding-bottom: 0 !important;
+      transform: translateY(3px);
+      height: calc(100% - 3px);
+
+      button.mat-menu-item {
+        background: var(--color-aps-dropdown-menu-bg);
+        margin: 5px;
+        width: calc(100% - 10px) !important;
+        color: var(--color-aps-button-color);
+        border: 1px solid var(--color-aps-dropdown-border);
+        border-left: 2px solid var(--color-aps-button-color);
+        box-shadow: 0 0 10px var(--color-oil-popup-shadow) !important;
+
+        span {
+          font-size: 12px;
+        }
+      }
+
+      .mat-menu-item {
+        line-height: normal !important;
+        height: max-content !important;
+        padding: 8px 25px 8px 15px !important;
+
+        &:hover {
+          border: 1px solid var(--color-aps-active) !important;
+          border-left: 2px solid var(--color-aps-active) !important;
+          background: linear-gradient(90deg, rgb(0, 70, 123) 0%, var(--color-aps-dropdown-menu-bg) 50%);
+          color: var(--color-text-main);
+
+          .arrow-icon {
+            fill: var(--color-aps-active);
+          }
+        }
+      }
+    }
+
+    .mat-menu-item-highlighted {
+      border: 1px solid var(--color-aps-active) !important;
+      border-left: 2px solid var(--color-aps-active) !important;
+      color: var(--color-text-main) !important;
+
+      .arrow-icon {
+        fill: var(--color-aps-active);
+      }
+    }
+
+    .mat-menu-item-submenu-trigger::after {
+      display: none;
+    }
+  }
+}
+
+.arrow-icon {
+  fill: var(--color-aps-button-color);
+  position: absolute;
+  right: 10px;
+}
