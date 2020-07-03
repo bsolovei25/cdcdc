@@ -90,7 +90,7 @@ export class EjsEventComponent implements OnInit, OnDestroy {
             }
             link.setAttribute('target', 'ejsFrame');
             // for example
-            link.setAttribute('href', 'http://localhost:4200/assets/mock/pages/ejs.html');
+            // link.setAttribute('href', 'http://localhost:4200/assets/mock/pages/ejs.html');
         });
     }
 }
