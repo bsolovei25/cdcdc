@@ -91,7 +91,9 @@ export class AdminShiftScheduleComponent extends WidgetPlatform
     allUnits: IUnits[] = [];
     selectedUnit: IUnits;
 
-    scheduleShiftMonth: IScheduleShift[] = [];
+    scheduleShiftMonth: IScheduleShiftDay[] = [];
+
+    renderScheduleShiftMonth: IScheduleShift[] = [];
 
     allUsersUnit: IUser[] = [];
     allBrigade: IBrigadeWithUsersDto[] = [];
@@ -147,7 +149,6 @@ export class AdminShiftScheduleComponent extends WidgetPlatform
 
     protected async dataConnect(): Promise<void> {
         super.dataConnect();
-
         this.setRus();
         this.loadItem();
         this.selectedDay = {
@@ -271,44 +272,42 @@ export class AdminShiftScheduleComponent extends WidgetPlatform
         this.isLoading = true;
         try {
             await this.adminShiftScheduleService
-                .getSchudeleShiftsMonth(
+                .getSchudeleShiftsRenderMonth(
                     this.selectedUnit.id,
                     this.dateNow.getMonth() + 1,
                     this.dateNow.getFullYear()
                 )
                 .then((data) => {
                     if (data && data.length > 0) {
-                        this.scheduleShiftMonth = data;
                         if (this.calendar) {
                             this.calendar.updateTodaysDate();
                         }
                     } else {
                         this.resetComponent();
                     }
-                    console.log(
-                        new Date(data[0]?.start).getFullYear(),
-                        new Date(data[0]?.start).getMonth(),
-                        new Date(data[0]?.start).getDate());
                     const source = from(data);
                     const example = source.pipe(
                         groupBy(person => {
-                            console.log(`${new Date(person?.start).getFullYear()}.${new Date(person?.start).getMonth()}.${new Date(person?.start).getDate()}`);
-
                             return `${new Date(person?.start).getFullYear()}.${new Date(person?.start).getMonth()}.${new Date(person?.start).getDate()}`
                         }),
                         mergeMap(group => group.pipe(toArray()))
                     );
-                    /*
-                      output:
-                      [{age: 25, name: "Sue"},{age: 25, name: "Frank"}]
-                      [{age: 30, name: "Joe"}]
-                      [{age: 35, name: "Sarah"}]
-                    */
-                    const subscribe = example.subscribe(val => console.log(val));
+                    const subscribe = example
+                        .subscribe(val => {
+                            let isAllShiftsSet = true;
+                            val.forEach(value2 => {
+                                if (!value2.isBrigadeSet) {
+                                    isAllShiftsSet = false;
+                                }
+                            });
+                            this.scheduleShiftMonth
+                                .push({
+                                    date: val[0].start,
+                                    isAllShiftsSet, items: [...val]
+                                });
+                        });
+                    console.log(this.scheduleShiftMonth);
 
-                    // from(data)
-                    //     .pipe(groupBy(item => new Date(item.start).getUTCDate()))
-                    //     .subscribe(x => console.log(x.pipe(toArray())));
                 });
         } catch (error) {
             this.isLoading = false;
@@ -360,7 +359,7 @@ export class AdminShiftScheduleComponent extends WidgetPlatform
             this.mapArrayBrigade(data);
             this.brigadeColors = [];
             this.allBrigade.forEach((item, i) => {
-                this.brigadeColors.push({ color: `color - ${i + 1}`, id: item.brigadeId });
+                this.brigadeColors.push({ color: `color-${i + 1}`, id: item.brigadeId });
             });
             this.adminShiftScheduleService.brigadeColor$.next(this.brigadeColors);
         });

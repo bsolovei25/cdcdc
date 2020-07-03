@@ -67,6 +67,23 @@ export class AdminShiftScheduleService {
             console.error(error);
         }
     }
+
+    async getSchudeleShiftsRenderMonth(
+        unitId: number,
+        month: number,
+        year: number
+    ): Promise<IScheduleShift[]> {
+        try {
+            return this.http
+                .get<IScheduleShift[]>(
+                    this.restUrl + `/api/schedule-shifts/unit/${unitId}/month/${month}/year/${year}`
+                )
+                .toPromise();
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
     async getSchudeleShift(id: number): Promise<IScheduleShift> {
         try {
             return this.http
