@@ -37,6 +37,8 @@ import {
     NgxMatDateFormats,
     NGX_MAT_DATE_FORMATS
 } from '@angular-material-components/datetime-picker';
+import { from } from 'rxjs';
+import { groupBy, toArray, mergeMap } from 'rxjs/operators';
 
 export interface IAbsent {
     code: string;
@@ -89,7 +91,7 @@ export class AdminShiftScheduleComponent extends WidgetPlatform
     allUnits: IUnits[] = [];
     selectedUnit: IUnits;
 
-    scheduleShiftMonth: IScheduleShiftDay[] = [];
+    scheduleShiftMonth: IScheduleShift[] = [];
 
     allUsersUnit: IUser[] = [];
     allBrigade: IBrigadeWithUsersDto[] = [];
@@ -283,6 +285,30 @@ export class AdminShiftScheduleComponent extends WidgetPlatform
                     } else {
                         this.resetComponent();
                     }
+                    console.log(
+                        new Date(data[0]?.start).getFullYear(),
+                        new Date(data[0]?.start).getMonth(),
+                        new Date(data[0]?.start).getDate());
+                    const source = from(data);
+                    const example = source.pipe(
+                        groupBy(person => {
+                            console.log(`${new Date(person?.start).getFullYear()}.${new Date(person?.start).getMonth()}.${new Date(person?.start).getDate()}`);
+
+                            return `${new Date(person?.start).getFullYear()}.${new Date(person?.start).getMonth()}.${new Date(person?.start).getDate()}`
+                        }),
+                        mergeMap(group => group.pipe(toArray()))
+                    );
+                    /*
+                      output:
+                      [{age: 25, name: "Sue"},{age: 25, name: "Frank"}]
+                      [{age: 30, name: "Joe"}]
+                      [{age: 35, name: "Sarah"}]
+                    */
+                    const subscribe = example.subscribe(val => console.log(val));
+
+                    // from(data)
+                    //     .pipe(groupBy(item => new Date(item.start).getUTCDate()))
+                    //     .subscribe(x => console.log(x.pipe(toArray())));
                 });
         } catch (error) {
             this.isLoading = false;
@@ -334,7 +360,7 @@ export class AdminShiftScheduleComponent extends WidgetPlatform
             this.mapArrayBrigade(data);
             this.brigadeColors = [];
             this.allBrigade.forEach((item, i) => {
-                this.brigadeColors.push({ color: `color-${i + 1}`, id: item.brigadeId });
+                this.brigadeColors.push({ color: `color - ${i + 1}`, id: item.brigadeId });
             });
             this.adminShiftScheduleService.brigadeColor$.next(this.brigadeColors);
         });

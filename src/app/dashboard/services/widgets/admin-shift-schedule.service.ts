@@ -56,10 +56,10 @@ export class AdminShiftScheduleService {
         unitId: number,
         month: number,
         year: number
-    ): Promise<IScheduleShiftDay[]> {
+    ): Promise<IScheduleShift[]> {
         try {
             return this.http
-                .get<IScheduleShiftDay[]>(
+                .get<IScheduleShift[]>(
                     this.restUrl + `/api/schedule-shifts/unit/${unitId}/month/${month}/${year}`
                 )
                 .toPromise();
