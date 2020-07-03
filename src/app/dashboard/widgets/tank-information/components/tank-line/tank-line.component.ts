@@ -11,7 +11,7 @@ export class TankLineComponent implements OnInit, OnChanges {
   @Input() public data: ITankInformation;
 
   public heightCard: number;
-  public heightValue: number = 20;
+  public heightValue: number = 25;
 
   constructor() { }
 

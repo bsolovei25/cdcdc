@@ -1,6 +1,8 @@
-<ng-container *ngFor="let cardData of cardDataArr">
-  <ng-container *ngTemplateOutlet="viewType === 'block' ? block : list; context: {cardData: cardData}"></ng-container>
-</ng-container>
+<div [class.block-container]="viewType === 'block'">
+  <ng-container *ngFor="let cardData of cardDataArr">
+    <ng-container *ngTemplateOutlet="viewType === 'block' ? block : list; context: {cardData: cardData}"></ng-container>
+  </ng-container>
+</div>
 
 <ng-template #list let-cardData="cardData">
   <div

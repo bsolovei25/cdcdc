@@ -217,7 +217,7 @@
       <div class="row__cell cell cell_left information">
         <div class="label">
           <div class="label__title">Автор</div>
-          <div class="label__text">{{this.ewService.event.fixedBy?.displayName}}</div>
+          <div class="label__text">{{this.ewService.event.fixedBy?.displayName ? this.ewService.event.fixedBy.displayName : 'Не установлен'}}</div>
         </div>
       </div>
       <div class="row__cell cell cell_right">

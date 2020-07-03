@@ -18,18 +18,25 @@ export function findCursorPosition(
     let target: number = null;
     let pos: SVGPoint = null;
 
-    while (true) {
-        target = Math.floor((begin + end) / 2);
-        pos = line.getPointAtLength(target);
-        if ((target === end || target === begin) && pos.x !== posX + padding.left) {
-            break;
-        }
-        if (pos.x > posX + padding.left) {
-            end = target;
-        } else if (pos.x < posX + padding.left) {
-            begin = target;
-        } else {
-            break;
+    const beginCoords = line.getPointAtLength(begin);
+    const endCoords = line.getPointAtLength(end);
+
+    if (posX + padding.left > endCoords.x || posX + padding.left < beginCoords.x) {
+        return null;
+    } else {
+        while (true) {
+            target = Math.floor((begin + end) / 2);
+            pos = line.getPointAtLength(target);
+            if ((target === end || target === begin) && pos.x !== posX + padding.left) {
+                break;
+            }
+            if (pos.x > posX + padding.left) {
+                end = target;
+            } else if (pos.x < posX + padding.left) {
+                begin = target;
+            } else {
+                break;
+            }
         }
     }
 

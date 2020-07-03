@@ -46,7 +46,7 @@ export class AdminShiftBrigadeComponent {
     constructor(
         private adminShiftScheduleService: AdminShiftScheduleService,
         private snackBar: SnackBarService
-    ) {}
+    ) { }
 
     public openList(): void {
         this.isOpen = !this.isOpen;
@@ -78,6 +78,7 @@ export class AdminShiftBrigadeComponent {
     }
 
     edit(brigade: IBrigadeWithUsersDto): void {
+        this.inputControl.setValue(brigade.brigadeNumber);
         const windowsParam: IAlertWindowModel = {
             isShow: true,
             questionText: 'Переименование бригады',
@@ -93,6 +94,9 @@ export class AdminShiftBrigadeComponent {
                 this.adminShiftScheduleService.alertWindow$.next(null);
             },
             closeFunction: () => {
+                this.adminShiftScheduleService.alertWindow$.next(null);
+            },
+            cancelFunction: () => {
                 this.adminShiftScheduleService.alertWindow$.next(null);
             },
         };

@@ -11,6 +11,7 @@ import {
     OnDestroy,
 } from '@angular/core';
 import { IChartMini } from '../../models/smart-scroll.model';
+import { IDatesInterval } from '../../../dashboard/services/widget.service';
 
 @Component({
     selector: 'evj-smart-scroll',
@@ -21,35 +22,36 @@ export class SmartScrollComponent implements AfterViewInit, OnChanges, OnDestroy
     @Input() private sbThumbWidth: number = 40; // ширина бегунка в процентах
     @Input() private sbThumbLeft: number = 40; // положение левой части скролла в процентах
     @Input() public data: IChartMini[] = [
-        { value: 7, timestamp: new Date(2020, 3, 1) },
-        { value: 2, timestamp: new Date(2020, 3, 2) },
-        { value: -3, timestamp: new Date(2020, 3, 3) },
-        { value: 5, timestamp: new Date(2020, 3, 4) },
-        { value: 1, timestamp: new Date(2020, 3, 5) },
-        { value: 8, timestamp: new Date(2020, 3, 6) },
-        { value: 7, timestamp: new Date(2020, 3, 7) },
-        { value: 7, timestamp: new Date(2020, 3, 9) },
-        { value: 2, timestamp: new Date(2020, 3, 10) },
-        { value: -3, timestamp: new Date(2020, 3, 11) },
-        { value: 5, timestamp: new Date(2020, 3, 12) },
-        { value: 1, timestamp: new Date(2020, 3, 13) },
-        { value: 8, timestamp: new Date(2020, 3, 14) },
-        { value: 7, timestamp: new Date(2020, 3, 15) },
-        { value: 7, timestamp: new Date(2020, 3, 16) },
-        { value: 2, timestamp: new Date(2020, 3, 17) },
-        { value: -3, timestamp: new Date(2020, 3, 18) },
-        { value: 5, timestamp: new Date(2020, 3, 19) },
-        { value: 1, timestamp: new Date(2020, 3, 20) },
-        { value: 8, timestamp: new Date(2020, 3, 21) },
-        { value: 7, timestamp: new Date(2020, 3, 22) },
-        { value: 7, timestamp: new Date(2020, 3, 23) },
-        { value: 2, timestamp: new Date(2020, 3, 24) },
-        { value: -3, timestamp: new Date(2020, 3, 25) },
-        { value: 5, timestamp: new Date(2020, 3, 26) },
-        { value: 1, timestamp: new Date(2020, 3, 27) },
-        { value: 8, timestamp: new Date(2020, 3, 28) },
-        { value: 7, timestamp: new Date(2020, 3, 29) },
+        { value: 7, timeStamp: new Date(2020, 3, 1) },
+        { value: 2, timeStamp: new Date(2020, 3, 2) },
+        { value: -3, timeStamp: new Date(2020, 3, 3) },
+        { value: 5, timeStamp: new Date(2020, 3, 4) },
+        { value: 1, timeStamp: new Date(2020, 3, 5) },
+        { value: 8, timeStamp: new Date(2020, 3, 6) },
+        { value: 7, timeStamp: new Date(2020, 3, 7) },
+        { value: 7, timeStamp: new Date(2020, 3, 9) },
+        { value: 2, timeStamp: new Date(2020, 3, 10) },
+        { value: -3, timeStamp: new Date(2020, 3, 11) },
+        { value: 5, timeStamp: new Date(2020, 3, 12) },
+        { value: 1, timeStamp: new Date(2020, 3, 13) },
+        { value: 8, timeStamp: new Date(2020, 3, 14) },
+        { value: 7, timeStamp: new Date(2020, 3, 15) },
+        { value: 7, timeStamp: new Date(2020, 3, 16) },
+        { value: 2, timeStamp: new Date(2020, 3, 17) },
+        { value: -3, timeStamp: new Date(2020, 3, 18) },
+        { value: 5, timeStamp: new Date(2020, 3, 19) },
+        { value: 1, timeStamp: new Date(2020, 3, 20) },
+        { value: 8, timeStamp: new Date(2020, 3, 21) },
+        { value: 7, timeStamp: new Date(2020, 3, 22) },
+        { value: 7, timeStamp: new Date(2020, 3, 23) },
+        { value: 2, timeStamp: new Date(2020, 3, 24) },
+        { value: -3, timeStamp: new Date(2020, 3, 25) },
+        { value: 5, timeStamp: new Date(2020, 3, 26) },
+        { value: 1, timeStamp: new Date(2020, 3, 27) },
+        { value: 8, timeStamp: new Date(2020, 3, 28) },
+        { value: 7, timeStamp: new Date(2020, 3, 29) },
     ];
+    @Input() public limits: IDatesInterval = null;
 
     @Output() private sbThumbWidthChange: EventEmitter<number> = new EventEmitter<number>();
     @Output() private sbThumbLeftChange: EventEmitter<number> = new EventEmitter<number>();

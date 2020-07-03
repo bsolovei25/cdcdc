@@ -1,7 +1,6 @@
 import { Directive, ElementRef, HostListener, Renderer2, Input, OnDestroy } from '@angular/core';
 import * as d3Selection from 'd3-selection';
 import * as d3 from 'd3';
-import { ProductionTrendType } from '../../dashboard/models/production-trends.model';
 import { findCursorPosition } from '../functions/find-cursor-position.function';
 
 @Directive({
@@ -271,12 +270,12 @@ export class LineChartPickerDirective implements OnDestroy {
         const eventListeners: (() => void)[] = [];
 
         eventListeners.push(
-            this.renderer.listen(element, 'mouseout', () => {
-                this.svg.select('.mouse-over').style('opacity', 0);
-            }),
-            this.renderer.listen(element, 'mouseover', () => {
-                this.svg.select('.mouse-over').style('opacity', 1);
-            }),
+            // this.renderer.listen(element, 'mouseout', () => {
+            //     this.svg.select('.mouse-over').style('opacity', 0);
+            // }),
+            // this.renderer.listen(element, 'mouseover', () => {
+            //     this.svg.select('.mouse-over').style('opacity', 1);
+            // }),
             this.renderer.listen(element, 'mousemove', (event: MouseEvent) => {
                 const rect: DOMRect = element.getBoundingClientRect();
                 const x = event.clientX - rect.left;
@@ -286,9 +285,15 @@ export class LineChartPickerDirective implements OnDestroy {
                 const borderTop = findCursorPosition(x, 'higherBorder', this.svg, this.padding);
                 const borderBottom = findCursorPosition(x, 'lowerBorder', this.svg, this.padding);
 
+                if (!posFact) {
+                    this.svg.select('.mouse-over').style('opacity', 0);
+                    return;
+                }
+                this.svg.select('.mouse-over').style('opacity', 1);
+
                 const factY = this.scaleFuncs.y.invert(posFact.y);
-                const factX = this.scaleFuncs.y.invert(posFact.x);
-                const planY = this.scaleFuncs.y.invert(posPlan.y);
+                const factX = this.scaleFuncs.x.invert(posFact.x);
+                const planY = posPlan ? this.scaleFuncs.y.invert(posPlan.y) : null;
                 const borderTopY = borderTop ? this.scaleFuncs.y.invert(borderTop.y) : null;
                 const borderBotY = borderBottom ? this.scaleFuncs.y.invert(borderBottom.y) : null;
 
@@ -341,10 +346,12 @@ export class LineChartPickerDirective implements OnDestroy {
                     .attr('x', x - infoFramePaddings.nearText)
                     .text(factY.toFixed(0));
 
-                this.svg
-                    .select('g.mouse-info .mouse-graph-deviation')
-                    .attr('x', x + infoFramePaddings.nearText)
-                    .text((factY - planY).toFixed(0));
+                if (planY) {
+                    this.svg
+                        .select('g.mouse-info .mouse-graph-deviation')
+                        .attr('x', x + infoFramePaddings.nearText)
+                        .text((factY - planY).toFixed(0));
+                }
 
                 const formatDate = d3.timeFormat('%d.%m.%Y | %H:%M:%S');
 
@@ -355,11 +362,11 @@ export class LineChartPickerDirective implements OnDestroy {
 
                 let cursorColor: string = this.dataPickerColors.standard;
 
-                if (factY < planY && borderBotY && factY > borderBotY) {
+                if (planY && factY < planY && borderBotY && factY > borderBotY) {
                     cursorColor = this.dataPickerColors.warning;
-                } else if (factY > planY && borderTopY && factY < borderTopY) {
+                } else if (planY && factY > planY && borderTopY && factY < borderTopY) {
                     cursorColor = this.dataPickerColors.warning;
-                } else if (factY > planY) {
+                } else if (planY && factY > planY) {
                     cursorColor = this.dataPickerColors.danger;
                 }
 

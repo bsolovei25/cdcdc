@@ -34,7 +34,7 @@
       <div class="content__blocks" cdkDropListGroup>
         <div class="block-left">
           <div class="block-top">
-            <evj-admin-shift-card class="calendar" title="Календарь дежурств">
+            <evj-admin-shift-card class="calendar" titleBlock="Календарь дежурств">
               <section>
                 <mat-calendar
                   #calendar
@@ -74,7 +74,7 @@
                 </div>
               </section>
             </evj-admin-shift-card>
-            <evj-admin-shift-card class="main-team" title="Смена">
+            <evj-admin-shift-card class="main-team" titleBlock="Смена">
               <section class="main-team__section">
                 <p class="title">Главный в бригаде</p>
                 <div class="main-team__section__container">
@@ -108,7 +108,7 @@
             </evj-admin-shift-card>
           </div>
           <div class="block-bottom" *ngIf="selectedDay">
-            <evj-admin-shift-card class="duty-schedule" title="График дежурств">
+            <evj-admin-shift-card class="duty-schedule" titleBlock="График дежурств">
               <section>
                 <div class="date-today">
                   <p>{{ selectedDay.date | date:'d MMMM yyyy' }}</p>
@@ -164,7 +164,7 @@
               </section>
             </evj-admin-shift-card>
 
-            <evj-admin-shift-card class="additional-team" title="Дополнительный состав бригады">
+            <evj-admin-shift-card class="additional-team" titleBlock="Дополнительный состав бригады">
               <section class="additional-team__section">
                 <div class="additional-team__section__container">
                   <div

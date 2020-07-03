@@ -16,6 +16,11 @@
   display: block;
 }
 
+.block-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
 .selected-block {
   // border: 1px solid var(--color-border-active);
   background: linear-gradient(0deg, rgba(63, 169, 245, 0.1) 0%, var(--color-bg-main) 100%);
@@ -51,13 +56,11 @@
     }
 
     &__item {
+      height: 160px;
       background-color: var(--color-bg-sub);
       padding: 0 0 20px 20px;
       margin-bottom: 15px;
-      height: 160px;
-      width: 340px;
-      flex: 1;
-      display: inline-block;
+      flex: 1 1 340px;
 
       clip-path:
         polygon(
@@ -277,9 +280,6 @@
   cursor: pointer;
   margin: 0 10px 10px 0;
   transition: background-color 100ms ease;
-  min-width: 360px;
-  float: left;
-  display: inline;
 
   &__header {
     display: flex;

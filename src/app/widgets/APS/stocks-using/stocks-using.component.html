@@ -1,0 +1,16 @@
+<div class="widget-container">
+  <evj-aps-widget-header [uniqId]="uniqId" [widgetTitle]="widgetTitle" icon="tank"></evj-aps-widget-header>
+  <div
+    class="body-container"
+    (mousedown)="$event.stopPropagation()"
+    (touchstart)="$event.stopPropagation()"
+  >
+    <div class="scroll-container">
+      <div class="stocks-container">
+        <ng-container *ngFor="let bar of data">
+          <evj-stocks-using-element [data]="bar"></evj-stocks-using-element>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+</div>

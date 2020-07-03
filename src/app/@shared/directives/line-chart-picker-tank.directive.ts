@@ -296,6 +296,10 @@ export class LineChartPickerTankDirective implements OnDestroy {
     private moveLineCoords(x: number): void {
         const posFact = findCursorPosition(x, 'fact', this.svg, this.padding);
 
+        if (!posFact) {
+            return;
+        }
+
         this.svg
             .select('.mouse-line')
             .attr('x1', x)
@@ -336,6 +340,11 @@ export class LineChartPickerTankDirective implements OnDestroy {
 
     private drawCircleColumnDiagram(x: number): void {
         const posFact = findCursorPosition(x, 'fact', this.svg, this.padding);
+
+        if (!posFact) {
+            return;
+        }
+
         const factY = this.scaleFuncs.y.invert(posFact.y);
 
         const percent: number = factY / this.maxValue;

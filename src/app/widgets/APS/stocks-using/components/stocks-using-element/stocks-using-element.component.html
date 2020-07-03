@@ -1,0 +1,25 @@
+<div *ngIf="data" class="component-container">
+  <div class="title-container">
+    <span>{{data?.productTitle}}</span>
+    <div class="title-container_line"></div>
+  </div>
+  <div class="bar-container">
+    <div class="bar">
+      <evj-performance-bar></evj-performance-bar>
+    </div>
+    <div class="info">
+      <div class="info_block">
+        <span class="info_block__title">Вместимость всего</span>
+        <span class="info_block__value">{{data?.capacity | spaceNumber}}</span>
+      </div>
+      <div class="info_block">
+        <span class="info_block__title">Остаток</span>
+        <span class="info_block__value">{{data?.rest | spaceNumber}}</span>
+      </div>
+      <div class="info_block">
+        <span class="info_block__title">Использовано</span>
+        <span class="info_block__value">{{data?.using | spaceNumber}}</span>
+      </div>
+    </div>
+  </div>
+</div>

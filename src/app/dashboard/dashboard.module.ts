@@ -23,10 +23,7 @@ import { GridsterModule } from 'angular-gridster2';
 import { UserInfoComponent } from './components/user-info/user-info.component';
 import { WidgetPiesComponent } from './widgets/widgets-pie/widget-pies/widget-pies.component';
 import { WidgetsPieComponent } from './widgets/widgets-pie/widget-pie-circle/widget-pie.component';
-import { WidgetHeaderComponent } from './components/widget-header/widget-header.component';
 import { EventsWorkSpaceComponent } from './widgets/workspace/events-workspace.component';
-import { FrameTopComponent } from './components/frame-top/frame-top.component';
-import { FrameBottomComponent } from './components/frame-bottom/frame-bottom.component';
 import { TruncatedPieFirstComponent } from './widgets/truncated-pie-first/truncated-pie-first/truncated-pie-first.component';
 import { TruncatedPieSFirstComponent } from './widgets/truncated-pie-first/truncated-pie-s-first/truncated-pie-s-first.component';
 import { TruncatedPieSIconComponent } from './widgets/truncated-pie-icon/truncated-pie-s-icon/truncated-pie-s-icon.component';
@@ -34,7 +31,6 @@ import { TruncatedPieIconComponent } from './widgets/truncated-pie-icon/truncate
 import { PieDiagramComponent } from './widgets/truncated-diagram-traffic-light/components/pie-diagram/pie-diagram.component';
 import { PointDiagramComponent } from './widgets/point-diagram/point-diagram.component';
 import { OneColumnComponent } from './widgets/point-diagram/one-column/one-column.component';
-import { ProductionPyramidComponent } from './widgets/production-pyramid/production-pyramid.component';
 import { BarChartsComponent } from './widgets/bar-chart/bar-charts/bar-charts.component';
 import { BarChartComponent } from './widgets/bar-chart/bar-chart/bar-chart.component';
 import { SuspenseMachineComponent } from './widgets/suspense-machine/suspense-machine.component';
@@ -173,6 +169,7 @@ import { SystemAutogenerateComponent } from './widgets/report-server-configurato
 import { SystemPathUserComponent } from './widgets/report-server-configurator/popup-system-options/system-path-edit/system-path-user/system-path-user.component';
 import { ParameterAutogenerationComponent } from './widgets/report-server-configurator/popup-system-options/system-parameter-values-autogeneration/parameter-autogeneration/parameter-autogeneration.component';
 import { EventsWorkspaceButtonComponent } from './widgets/workspace/components/events-workspace-button/events-workspace-button.component';
+import { FileAttachMenuComponent } from './widgets/workspace/components/file-attach-menu/file-attach-menu.component';
 import { EventsResponsibleSelectComponent } from './widgets/workspace/components/events-responsible-select/events-responsible-select.component';
 import { EventsReasonsComponent } from './widgets/workspace/components/events-reasons/events-reasons.component';
 import { EventsCorrectComponent } from './widgets/workspace/components/events-correct/events-correct.component';
@@ -234,7 +231,6 @@ import { OilOperationsLineChartComponent } from './widgets/oil-operations/compon
 import { OilOperationsLineMenuComponent } from './widgets/oil-operations/components/oil-operations-line-menu/oil-operations-line-menu.component';
 import { OilOperationsLineComponent } from './widgets/oil-operations/components/oil-operations-line/oil-operations-line.component';
 import { ReportFileSelectBoxComponent } from './widgets/report-server-configurator/report-file-select-box/report-file-select-box.component';
-import { WidgetHeaderSmpComponent } from './components/widget-header-smp/widget-header-smp.component';
 import { OilOperationsAdjustmentComponent } from './widgets/oil-operations/components/oil-operations-adjustment/oil-operations-adjustment.component';
 import { OilOperationsFreeShipmentComponent } from './widgets/oil-operations/components/oil-operations-free-shipment/oil-operations-free-shipment.component';
 import { DocumentViewerFullscreenComponent } from './widgets/document-viewer/document-viewer-fullscreen/document-viewer-fullscreen.component';
@@ -262,9 +258,6 @@ import { ProductGroupsMiddleComponent } from './widgets/SMP/product-groups/compo
 import { ProductGroupsRightComponent } from './widgets/SMP/product-groups/components/product-groups-right/product-groups-right.component';
 import { EventsReasonsSingleComponent } from './widgets/workspace/components/events-reasons-single/events-reasons-single.component';
 import { WorkflowListComponent } from './widgets/workflow/workflow-list/workflow-list.component';
-import { ProductionDeviationsComponent } from './widgets/SMP/production-deviations/production-deviations.component';
-import { ProductionDeviationsDiagramComponent } from './widgets/SMP/production-deviations/components/production-deviations-diagram/production-deviations-diagram.component';
-import { ProductionDeviationsColumnComponent } from './widgets/SMP/production-deviations/components/production-deviations-column/production-deviations-column.component';
 import { ProductGroupsTableComponent } from './widgets/SMP/product-groups/components/product-groups-table/product-groups-table.component';
 import { ProductGroupsShortComponent } from './widgets/SMP/product-groups-short/product-groups-short.component';
 import { ProductGroupsComponent } from './widgets/SMP/product-groups/product-groups.component';
@@ -281,6 +274,19 @@ import { AdminShiftInfoEmployeeComponent } from './widgets/admin-widget/admin-sh
 import { AdminShiftCardComponent } from './widgets/admin-widget/admin-shift-schedule/components/admin-shift-card/admin-shift-card.component';
 import { MatMenuModule } from '@angular/material/menu';
 import { TruncatedDiagramTrafficLightComponent } from './widgets/truncated-diagram-traffic-light/truncated-diagram-traffic-light.component';
+import { AstueEfficiencyComponent } from './widgets/ASTUE/astue-efficiency/astue-efficiency.component';
+import { AstueEfficiencyItemsComponent } from './widgets/ASTUE/astue-efficiency/components/astue-efficiency-items/astue-efficiency-items.component';
+import { AstueEfficiencyItemCardComponent } from './widgets/ASTUE/astue-efficiency/components/astue-efficiency-item-card/astue-efficiency-item-card.component';
+import { AstueEfficiencyUnitsComponent } from './widgets/ASTUE/astue-efficiency/components/astue-efficiency-units/astue-efficiency-units.component';
+import { AstueEfficiencyUnitCardComponent } from './widgets/ASTUE/astue-efficiency/components/astue-efficiency-unit-card/astue-efficiency-unit-card.component';
+import { AstueEfficiencyGraphDisplayComponent } from './widgets/ASTUE/astue-efficiency/components/astue-efficiency-graph-display/astue-efficiency-graph-display.component';
+import { AstueEfficiencyInitialDataComponent } from './widgets/ASTUE/astue-efficiency/components/astue-efficiency-initial-data/astue-efficiency-initial-data.component';
+import { AstueEfficiencyInintialDataBlockComponent } from './widgets/ASTUE/astue-efficiency/components/astue-efficiency-inintial-data-block/astue-efficiency-inintial-data-block.component';
+import { AstueEfficiencyTableDisplayComponent } from './widgets/ASTUE/astue-efficiency/components/astue-efficiency-table-display/astue-efficiency-table-display.component';
+import { AstueEfficiencyCalculationComponent } from './widgets/ASTUE/astue-efficiency/components/astue-efficiency-calculation/astue-efficiency-calculation.component';
+import { WidgetContainerComponent } from './widget-container/widget-container.component';
+import { EjsEventComponent } from './widgets/workspace/ejs-event/ejs-event.component';
+import { PerformanceBarComponent } from './components/performance-bar/performance-bar.component';
 
 @NgModule({
     declarations: [
@@ -301,19 +307,15 @@ import { TruncatedDiagramTrafficLightComponent } from './widgets/truncated-diagr
         UserInfoComponent,
         WidgetPiesComponent,
         WidgetsPieComponent,
-        WidgetHeaderComponent,
         EventsWorkSpaceComponent,
         PointDiagramComponent,
         OneColumnComponent,
-        FrameTopComponent,
-        FrameBottomComponent,
         TruncatedPieFirstComponent,
         TruncatedPieSFirstComponent,
         TruncatedPieSIconComponent,
         TruncatedPieIconComponent,
         PieDiagramComponent,
         TruncatedDiagramTrafficLightComponent,
-        ProductionPyramidComponent,
         BarChartsComponent,
         BarChartComponent,
         SuspenseMachineComponent,
@@ -426,6 +428,7 @@ import { TruncatedDiagramTrafficLightComponent } from './widgets/truncated-diagr
         SystemPathUserComponent,
         ParameterAutogenerationComponent,
         EventsWorkspaceButtonComponent,
+        FileAttachMenuComponent,
         EventsResponsibleSelectComponent,
         EventsReasonsComponent,
         EventsCorrectComponent,
@@ -485,7 +488,6 @@ import { TruncatedDiagramTrafficLightComponent } from './widgets/truncated-diagr
         OilOperationsLineMenuComponent,
         OilOperationsLineComponent,
         ReportFileSelectBoxComponent,
-        WidgetHeaderSmpComponent,
         DocumentViewerFullscreenComponent,
         OilOperationsAdjustmentComponent,
         OilOperationsFreeShipmentComponent,
@@ -514,9 +516,6 @@ import { TruncatedDiagramTrafficLightComponent } from './widgets/truncated-diagr
         ProductGroupsMiddleComponent,
         ProductGroupsRightComponent,
         WorkflowListComponent,
-        ProductionDeviationsComponent,
-        ProductionDeviationsDiagramComponent,
-        ProductionDeviationsColumnComponent,
         ProductGroupsTableComponent,
         ProductGroupsShortComponent,
         SmpEventsWorkspaceComponent,
@@ -530,6 +529,19 @@ import { TruncatedDiagramTrafficLightComponent } from './widgets/truncated-diagr
         AdminShiftListEmployeesComponent,
         AdminShiftInfoEmployeeComponent,
         AdminShiftCardComponent,
+        AstueEfficiencyComponent,
+        AstueEfficiencyItemsComponent,
+        AstueEfficiencyItemCardComponent,
+        AstueEfficiencyUnitsComponent,
+        AstueEfficiencyUnitCardComponent,
+        AstueEfficiencyGraphDisplayComponent,
+        AstueEfficiencyInitialDataComponent,
+        AstueEfficiencyInintialDataBlockComponent,
+        AstueEfficiencyTableDisplayComponent,
+        AstueEfficiencyCalculationComponent,
+        WidgetContainerComponent,
+        EjsEventComponent,
+        PerformanceBarComponent,
     ],
     entryComponents: [
         LineChartComponent,
@@ -545,7 +557,6 @@ import { TruncatedDiagramTrafficLightComponent } from './widgets/truncated-diagr
         TruncatedPieSIconComponent,
         TruncatedDiagramTrafficLightComponent,
         PointDiagramComponent,
-        ProductionPyramidComponent,
         BarChartsComponent,
         SuspenseMachineComponent,
         CircleDiagramComponent,
@@ -602,13 +613,14 @@ import { TruncatedDiagramTrafficLightComponent } from './widgets/truncated-diagr
         PerformanceProgressIndicatorsComponent,
         QualityStockComponent,
         ProductGroupsComponent,
-        ProductionDeviationsComponent,
         ProductGroupsComponent,
         ProductGroupsShortComponent,
         SmpEventsWorkspaceComponent,
         PanelComponent,
+        AstueEfficiencyComponent,
+        FileAttachMenuComponent,
     ],
-    exports: [HomeComponent],
+    exports: [HomeComponent, PerformanceBarComponent],
     imports: [
         CommonModule,
         SharedModule,

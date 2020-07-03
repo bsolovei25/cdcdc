@@ -3,6 +3,7 @@ import { EventsWorkspaceService } from '../../../services/widgets/events-workspa
 import { SnackBarService } from '../../../services/snack-bar.service';
 import { IAsusTmPlace, IAsusTpPlace } from '../../../models/events-widget';
 import { EventService } from '../../../services/widgets/event.service';
+import { IChatMessageWithAttachments } from '../components/chat/chat.component';
 
 @Component({
     selector: 'evj-asus-event',
@@ -37,7 +38,7 @@ export class AsusEventComponent implements OnInit {
         this.ewService.event.description = description;
     }
 
-    public onSendMessage(message: string, msgType: 'comments' | 'facts'): void {
+    public onSendMessage(message: IChatMessageWithAttachments, msgType: 'comments' | 'facts'): void {
         this.ewService.sendMessageToEvent(message, msgType);
     }
 
@@ -45,11 +46,12 @@ export class AsusEventComponent implements OnInit {
         this.ewService.setDeadlineToEvent(date);
     }
 
-    public async setUnit(event: IAsusTmPlace): Promise<void> {
+    public async setUnit(event: string): Promise<void> {
         this.ewService.isLoading = true;
         try {
             const saveMethod = await this.eventService.getSaveMethod(this.ewService.event);
-            this.ewService.asusEquipments = await this.eventService.getAsusEquipments(event.codeSap, saveMethod);
+            this.ewService.asusEquipments =
+                await this.eventService.getAsusEquipments(event, saveMethod);
             this.ewService.event.asusEvent.equipment = null;
             this.ewService.event.asusEvent.eoService = null;
         } catch (e) {
@@ -59,11 +61,12 @@ export class AsusEventComponent implements OnInit {
         }
     }
 
-    public async setEquipment(event: IAsusTpPlace): Promise<void> {
+    public async setEquipment(event: string): Promise<void> {
         this.ewService.isLoading = true;
         try {
             const saveMethod = await this.eventService.getSaveMethod(this.ewService.event);
-            this.ewService.asusEOServices = await this.eventService.getAsusEOServices(event.codeSap, saveMethod);
+            this.ewService.asusEOServices =
+                await this.eventService.getAsusEOServices(event, saveMethod);
             this.ewService.event.asusEvent.eoService = null;
         } catch (e) {
             console.error(e);
@@ -79,7 +82,8 @@ export class AsusEventComponent implements OnInit {
     public isAvailableOption(type: string): boolean {
         switch (type) {
             case 'eoService':
-                return !!(this.ewService.event.asusEvent.tmPlace && this.ewService.event.asusEvent.equipment);
+                return !!(this.ewService.event.asusEvent.tmPlace &&
+                    this.ewService.event.asusEvent.equipment);
             case 'equipment':
                 return !!this.ewService.event.asusEvent.tmPlace;
         }
@@ -92,11 +96,11 @@ export class AsusEventComponent implements OnInit {
         switch (type) {
             case 'equipment':
                 this.snackBarService
-                    .openSnackBar('Сперва заполните поле Установка!', 'snackbar-red');
+                    .openSnackBar('Заполните поле Установка!', 'snackbar-red');
                 break;
             case 'eoService':
                 this.snackBarService
-                    .openSnackBar('Сперва заполните поля Установка и Оборудование!', 'snackbar-red');
+                    .openSnackBar('Заполните поля Установка и Оборудование!', 'snackbar-red');
                 break;
         }
     }

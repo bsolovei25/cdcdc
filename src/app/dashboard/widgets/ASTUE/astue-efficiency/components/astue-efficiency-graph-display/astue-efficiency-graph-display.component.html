@@ -1,0 +1,82 @@
+<div class="graph-display">
+  <div class="graph-display__header header">
+    <div class="header__buttons">
+      <div class="button button_active">Графическое отображение</div>
+      <div class="button" (click)="clickDisplayButton()">Табличное отображение</div>
+    </div>
+  </div>
+  <div class="graph-display__counters counters">
+    <div class="counters__item counter">
+      <div class="counter__description">
+        <div class="counter__name">Накопление<br />за период</div>
+      </div>
+      <div class="counter__value">{{labels.periodCounter.value}}</div>
+    </div>
+    <div
+      class="counters__item counter"
+      [class.counter_danger]="true"
+      [class.counter_warning]="false"
+      [class.counter_normal]="false"
+    >
+      <div class="counter__description">
+        <svg-icon
+          class="counter__icon"
+          src="assets/icons/widgets/ASTUE/astue-efficiency/graph/counter.svg"
+          [svgStyle]="{ 'width.px':23.33, 'height.px':30}"
+        ></svg-icon>
+        <div class="counter__name">Отклонение<br />за период</div>
+      </div>
+      <div class="counter__status">{{labels.periodDeviations.statusName}}</div>
+      <div class="counter__value">{{labels.periodDeviations.value}}</div>
+    </div>
+    <div class="counters__item counter">
+      <div class="counter__description">
+        <div class="counter__name">Текущее<br />значение</div>
+      </div>
+      <div class="counter__value">{{labels.currentValue.value}}</div>
+    </div>
+    <div
+      class="counters__item counter"
+      [class.counter_danger]="false"
+      [class.counter_warning]="false"
+      [class.counter_normal]="true"
+    >
+      <div class="counter__description">
+        <svg-icon
+          class="counter__icon"
+          src="assets/icons/widgets/ASTUE/astue-efficiency/graph/counter.svg"
+          [svgStyle]="{ 'width.px':23, 'height.px':30}"
+        ></svg-icon>
+        <div class="counter__name">Текущее<br />отклонение</div>
+      </div>
+      <div class="counter__status">{{labels.currentDeviation.statusName}}</div>
+      <div class="counter__value">{{labels.currentDeviation.value}}</div>
+    </div>
+  </div>
+  <div class="graph-display__graph graph">
+    <div class="graph__container">
+      <evj-line-chart-shared
+        [data]="data"
+        [isShowingLegend]="true"
+        [limits]="dataLimits"
+        chartType="production-trend"
+      ></evj-line-chart-shared>
+      <!-- <evj-line-chart-shared
+        [data]="graphData$ |async"
+        [isShowingLegend]="true"
+        chartType="production-trend"
+      ></evj-line-chart-shared> -->
+    </div>
+  </div>
+  <div class="graph-display__scroll scroll">
+    <evj-smart-scroll class="scroll__smart"></evj-smart-scroll>
+    <!-- <evj-smart-scroll
+      class="scroll__smart"
+      [data]="scrollData$ | async"
+      [(sbThumbWidth)]="sbWidth"
+      [(sbThumbLeft)]="sbLeft"
+      (sbThumbLeftChange)="scrollHandler()"
+      (sbThumbWidthChange)="scrollHandler()"
+    ></evj-smart-scroll> -->
+  </div>
+</div>

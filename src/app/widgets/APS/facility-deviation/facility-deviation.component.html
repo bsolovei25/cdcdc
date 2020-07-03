@@ -1,0 +1,18 @@
+<div class="widget-container">
+  <evj-aps-widget-header [uniqId]="uniqId" [widgetTitle]="widgetTitle" icon="map"></evj-aps-widget-header>
+  <div
+    class="body-container"
+    (mousedown)="$event.stopPropagation()"
+    (touchstart)="$event.stopPropagation()"
+  >
+    <div class="scroll-container scroll-bar">
+      <div class="container">
+        <evj-facility-deviation-element></evj-facility-deviation-element>
+        <evj-facility-deviation-element></evj-facility-deviation-element>
+        <evj-facility-deviation-element></evj-facility-deviation-element>
+        <evj-facility-deviation-element></evj-facility-deviation-element>
+        <evj-facility-deviation-element></evj-facility-deviation-element>
+      </div>
+    </div>
+  </div>
+</div>
