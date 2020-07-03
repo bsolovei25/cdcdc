@@ -58,22 +58,6 @@ export class ApsRecipeDiagramComponent extends WidgetPlatform implements OnInit,
     { name: 'Расчет', date: new Date() },
     { name: 'Дельта', date: new Date() }];
 
-  windowData: IViewWorkflowWindow = {
-    title: 'Корректировка исходных данных',
-    inputs: [
-      { title: 'Наименование журнала:', value: 'dsadas' },
-      { title: 'Наименование журнала:', value: 'ffff' },
-      { title: 'Наименование журнала:', value: 'ggggg' },
-      { title: 'Наименование журнала:', value: 'wewer3wqfrewf' },
-      { title: 'Наименование журнала:', value: 'gregregregrev' },
-      { title: 'Наименование журнала:', value: 'fdgvrehtghrfg' },
-      { title: 'Наименование журнала:', value: 'fdgvrehtghrfg' },
-      { title: 'Наименование журнала:', value: 'fdgvrehtghrfg' },
-      { title: 'Наименование журнала:', value: 'fdgvrehtghrfg' },
-    ],
-    valueNearTitle: '+93'
-  };
-
   selectedRowProduct: number;
 
   constructor(
