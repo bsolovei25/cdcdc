@@ -1,0 +1,20 @@
+<mat-menu #dropdownMenu="matMenu" [overlapTrigger]="false" class="dropdown-menu">
+  <ng-container *ngFor="let child of items">
+    <ng-container *ngIf="child.children && child.children.length > 0">
+      <button mat-menu-item [matMenuTriggerFor]="menu.dropdownMenu" (click)="child.onClick()">
+        <span>{{ child.name }}</span>
+        <svg-icon
+          class="arrow-icon"
+          [svgStyle]="{ 'width.px':5, 'height.px':10 }"
+          src="assets/icons/widgets/APS/aps-dropdown-menu/arrow.svg"
+        ></svg-icon>
+      </button>
+      <evj-aps-dropdown-menu #menu [items]="child.children"></evj-aps-dropdown-menu>
+    </ng-container>
+    <ng-container *ngIf="!child.children || child.children.length === 0">
+      <button mat-menu-item (click)="child.onClick();">
+        <span>{{ child.name }}</span>
+      </button>
+    </ng-container>
+  </ng-container>
+</mat-menu>

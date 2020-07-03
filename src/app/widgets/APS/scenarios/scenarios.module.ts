@@ -8,6 +8,10 @@ import { SharedModule } from '@shared/shared.module';
 import { AngularSvgIconModule } from 'angular-svg-icon';
 import { MatSelectModule } from '@angular/material/select';
 import { FormsModule } from "@angular/forms";
+import { ApsDropdownMenuComponent } from "../../../dashboard/components/aps-dropdown-menu/aps-dropdown-menu.component";
+import { ApsContextMenuComponent } from "../../../dashboard/components/aps-context-menu/aps-context-menu.component";
+import { MatButtonModule } from "@angular/material/button";
+import { MatMenuModule } from "@angular/material/menu";
 
 @NgModule({
     declarations: [
@@ -15,6 +19,8 @@ import { FormsModule } from "@angular/forms";
         ExpandableBottomFrameComponent,
         ApsNotchedContainerComponent,
         ProgressBarComponent,
+        ApsDropdownMenuComponent,
+        ApsContextMenuComponent,
     ],
     imports: [
         CommonModule,
@@ -22,6 +28,8 @@ import { FormsModule } from "@angular/forms";
         AngularSvgIconModule,
         MatSelectModule,
         FormsModule,
+        MatButtonModule,
+        MatMenuModule,
     ],
 })
 export class ScenariosModule {
