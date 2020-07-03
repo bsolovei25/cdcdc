@@ -27,7 +27,7 @@ import { AngularSvgIconModule } from 'angular-svg-icon';
 import { CircleInputComponent } from './components/circle-input/circle-input.component';
 import { LineChartTanksDirective } from './directives/line-chart-tanks.directive';
 import { LineChartPickerTankDirective } from './directives/line-chart-picker-tank.directive';
-import { SpaceNumber } from './pipes/number_space.pipe';
+import { SpaceNumber } from './pipes/number-space.pipe';
 import { AlertInputComponent } from './components/alert-input/alert-input.component';
 import { TooltipComponent } from './components/tooltip/tooltip.component';
 import { TooltipDirective } from './components/tooltip/directives/tooltip.directive';
@@ -53,6 +53,7 @@ import { FrameTopComponent } from './components/frame-top/frame-top.component';
 import { FrameBottomComponent } from './components/frame-bottom/frame-bottom.component';
 import { ApsWidgetHeaderComponent } from './components/aps-widget-header/aps-widget-header.component';
 import { WidgetHeaderSmpComponent } from './components/widget-header-smp/widget-header-smp.component';
+import { SafeUrlPipe } from './pipes/safe-url.pipe';
 
 @NgModule({
     declarations: [
@@ -94,6 +95,7 @@ import { WidgetHeaderSmpComponent } from './components/widget-header-smp/widget-
         FrameBottomComponent,
         ApsWidgetHeaderComponent,
         WidgetHeaderSmpComponent,
+        SafeUrlPipe,
     ],
     exports: [
         HeaderComponent,
@@ -129,6 +131,7 @@ import { WidgetHeaderSmpComponent } from './components/widget-header-smp/widget-
         FrameBottomComponent,
         ApsWidgetHeaderComponent,
         WidgetHeaderSmpComponent,
+        SafeUrlPipe,
     ],
     imports: [
         CommonModule,
