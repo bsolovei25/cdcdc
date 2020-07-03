@@ -102,16 +102,21 @@ export class AdminShiftScheduleComponent extends WidgetPlatform
     rightBrigades: IBrigadeWithUsersDto[] = [];
 
     brigadeColors: { color: string; id: number }[] = [];
-
     allStatus: IAbsent[] = [];
 
-    isDutySchedule: boolean = true;
-    saveIsDate: Moment = moment();
-    timeStart: Moment = moment();
-    isOpenStartDate: boolean = false;
-    isOpenSaveDate: boolean = false;
-    timeShift: number[] = [6, 8, 12];
+    // TODO Управление расписанием
 
+    isDutySchedule: boolean = true;   // показать график дежурств или управление расписанием
+    isOpenStartDate: boolean = false; // Открыть/закрыть overlay Начала смены
+
+    timeStart: Moment = moment().second(0).minutes(0);     // Время начала смены. Только часы
+    timeShift: { isSelected: boolean, value: number }[] =  // Длительность смены
+        [{ isSelected: true, value: 6 },
+        { isSelected: false, value: 8 },
+        { isSelected: false, value: 12 }];
+    saveIsDate: Moment = moment().second(0).minutes(0);    // ПРименить с:. Без минут и секунд
+
+    //
     public alertWindow: IAlertWindowModel;
     public inputControl: FormControl = new FormControl('');
 
@@ -652,6 +657,23 @@ export class AdminShiftScheduleComponent extends WidgetPlatform
 
     openBlock(): void {
         this.isOpenStartDate = !this.isOpenStartDate;
+    }
+
+    async scheduleManagement(): Promise<void> {
+        // TODO Отправка на бэк данных о изменение смен
+        // this.timeStart;     // Время начала смены. Только часы
+        // this.timeShift;  // Длительность смены
+        // this.saveIsDate;    // ПРименить с:. Без минут и секунд
+    }
+
+    selectTimeShift(time: { isSelected: boolean, value: number }): void {
+        this.timeShift.map(value => {
+            if (value === time) {
+                value.isSelected = true;
+            } else {
+                value.isSelected = false;
+            }
+        });
     }
 
 }

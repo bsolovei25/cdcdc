@@ -187,7 +187,11 @@
                   ></svg-icon>
                   <div class="office-schedule__item__title">Длительность смены:</div>
                   <div class="office-schedule__item__value" [matMenuTriggerFor]="menu3">
-                    {{ timeShift[0]}}
+                    <ng-container *ngFor="let i of timeShift">
+                      <ng-container *ngIf="i.isSelected">
+                        {{ i.value }}
+                      </ng-container>
+                    </ng-container>
                   </div>
                 </div>
                 <div class="office-schedule__item">
@@ -203,7 +207,7 @@
                         autocomplete="off"
                         matInput
                         [ngxMatDatetimePicker]="pickerD"
-                        [(ngModel)]="timeStart"
+                        [(ngModel)]="saveIsDate"
                       />
                       <mat-datepicker-toggle matSuffix [for]="pickerD">
                         <mat-icon matDatepickerToggleIcon>
@@ -230,17 +234,14 @@
                       textButton="Сохранить"
                       [isChangingState]="false"
                       [isRounded]="true"
+                      (click)="scheduleManagement()"
                     ></evj-button>
                   </div>
                 </div>
               </section>
               <mat-menu #menu3="matMenu" class="customize-menu">
-                <button
-                  mat-menu-item
-                  *ngFor="let b of timeShift"
-                  (click)="onChooseBrigade(b, selectedDay)"
-                >
-                  {{ b }}
+                <button mat-menu-item *ngFor="let b of timeShift" (click)="selectTimeShift(b)">
+                  {{ b.value }}
                 </button>
               </mat-menu>
             </evj-admin-shift-card>

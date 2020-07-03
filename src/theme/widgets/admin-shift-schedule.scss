@@ -25,7 +25,7 @@ $colors: (
 
 @mixin element-color($color1, $color2, $color3, $color4, $color5, $color6) {
   background-image: url("data:image/svg+xml,%3Csvg width='39' height='39' viewBox='0 0 39 39' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath id='brigade-1' d='M32.4063 0.442322H34.4551L38.9145 4.83592V18.3611H32.4063V0.442322Z' fill='%23#{$color1}' /%3E%3Cpath id='brigade-2' d='M32.4063 38.3837L34.6984 38.3837L38.9145 34.1976V19.9001H32.4063V38.3837Z' fill='%23#{$color2}'/%3E%3Cpath id='brigade-3' d='M7.4812 0.442335L5.18907 0.442322L0.973028 4.62843L0.973027 18.9259L7.4812 18.9259L7.4812 0.442335Z' fill='%23#{$color3}'/%3E%3Cpath id='brigade-4' d='M7.4812 38.3837L5.43245 38.3837L0.973029 33.9901L0.97303 20.4649L7.4812 20.4649L7.4812 38.3837Z' fill='%23#{$color4}'/%3E%3Crect id='brigade-5' x='9.09039' y='31.8737' width='21.9212' height='6.51' fill='%23#{$color5}' /%3E%3Crect id='brigade-6' x='9.09039' y='0.442322' width='21.9212' height='6.51' fill='%23#{$color6}'/%3E%3C/svg%3E%0A");
-  background-position: 50% 47%;
+  background-position: 45% 53%;
   background-repeat: no-repeat;
 }
 
