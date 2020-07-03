@@ -17,6 +17,7 @@ input[type="text"]:focus {
   display: flex;
   flex-direction: column;
   flex: 1;
+
   &__title {
     font-size: 11px;
     color: var(--color-aps-bg-icon);

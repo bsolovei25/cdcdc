@@ -18,15 +18,23 @@
           *ngFor="let i of info.inputs"
           [data]="i"
         ></evj-aps-input>
+        <div class="window-container__body__input">
+          <div class="window-container__body__input__btn">
+            <div (click)="cancel()">Отмена</div>
+          </div>
+          <div class="window-container__body__input__btn window-container__body__input__btn__accept">
+            <div (click)="accept()">Отправить</div>
+          </div>
+        </div>
       </div>
-      <div class="window-container__footer">
+      <!-- <div class="window-container__footer">
         <div class="window-container__footer__btn">
           <div (click)="cancel()">Отмена</div>
         </div>
         <div class="window-container__footer__btn window-container__footer__btn__accept">
           <div (click)="accept()">Отправить</div>
         </div>
-      </div>
+      </div> -->
     </div>
   </div>
 </ng-container>

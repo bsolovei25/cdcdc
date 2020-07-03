@@ -18,8 +18,8 @@
 
 .window-container {
   background-color: var(--color-aps-bg-window);
-  padding: 30px;
-  border-radius: 15px;
+  padding: 40px 50px;
+  border-radius: 10px;
   border: 1px solid var(--color-aps-active);
   max-height: 600px;
   max-width: 1150px;
@@ -29,7 +29,7 @@
     font-weight: bold;
     display: flex;
     justify-content: space-between;
-    margin-bottom: 50px;
+    margin-bottom: 40px;
 
     &__value {
       margin-left: 30px;
@@ -43,15 +43,41 @@
   &__body {
     display: flex;
     flex-wrap: wrap;
+    column-gap: 2rem;
+    row-gap: 2rem;
 
     &__input {
       display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
       flex: 1 1 200px;
       min-width: 100%;
       width: 100%;
       min-width: 375px;
-      margin: 0 10px;
+
       margin-top: 5px;
+      &:nth-child(2n + 1) {
+        margin-right: 50px;
+      }
+
+      &__btn {
+        cursor: pointer;
+        height: 41px;
+        box-sizing: border-box;
+        width: 221px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 5px;
+        background-color: var(--color-aps-button-bg);
+        color: var(--color-aps-border-light);
+
+        &__accept {
+          color: var(--color-text-main);
+          background-color: var(--color-aps-btn-accept);
+          margin-left: 30px;
+        }
+      }
     }
   }
 
@@ -60,17 +86,5 @@
     flex-direction: row;
     justify-content: flex-end;
     margin-top: 20px;
-
-    &__btn {
-      cursor: pointer;
-      padding: 15px 70px;
-      border-radius: 5px;
-      background-color: var(--color-aps-button-bg);
-
-      &__accept {
-        background-color: var(--color-aps-btn-accept);
-        margin-left: 30px;
-      }
-    }
   }
 }
