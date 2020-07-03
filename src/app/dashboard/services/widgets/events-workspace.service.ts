@@ -196,6 +196,7 @@ export class EventsWorkspaceService {
         this.isCreateNewEvent = true;
         await this.loadItem();
         this.event = fillDataShape(this.defaultEvent);
+        this.event.fixedBy = {...this.currentAuthUser};
         this.originalEvent = { ...this.event };
     }
 
@@ -211,7 +212,7 @@ export class EventsWorkspaceService {
         this.isCreateNewEvent = true;
         await this.loadItem();
         this.event = {...this.defaultEvent};
-        this.originalEvent = { ...this.event };
+        this.event.fixedBy = {...this.currentAuthUser};
         if (idParent) {
             this.event.parentId = idParent;
             this.event.category = {
@@ -220,6 +221,7 @@ export class EventsWorkspaceService {
                 code: null,
             };
         }
+        this.originalEvent = { ...this.event };
     }
 
     // TODO временно пока не будет поддержка мульти авторизации
@@ -416,7 +418,7 @@ export class EventsWorkspaceService {
             establishedFacts: '',
             eventDateTime: new Date(),
             eventType: this.eventTypes ? this.eventTypes[0] : null,
-            fixedBy: this.currentAuthUser,
+            fixedBy: null,
             organization: 'АО Газпромнефть',
             priority: this.priority
                 ? this.priority[2]
