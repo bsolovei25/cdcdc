@@ -42,14 +42,13 @@
     }
   }
 
-    .status {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      width: 15%;
-      flex-direction: column;
-      margin-top: 3px;
-    }
+  .status {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 15%;
+    flex-direction: column;
+    margin-top: 3px;
   }
 
   &__status {
