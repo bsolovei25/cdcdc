@@ -141,6 +141,7 @@ export const WIDGETS = {
     'facility-deviation': WidgetContainerComponent,
     'raw-motion': WidgetContainerComponent,
     'stocks-using': WidgetContainerComponent,
+    'indicator-load-deviation': WidgetContainerComponent,
 };
 
 export const WIDGETS_LAZY = {
@@ -219,6 +220,19 @@ export const WIDGETS_LAZY = {
         itemRows: 12,
         minItemCols: 30,
         minItemRows: 8,
+    },
+    'indicator-load-deviation': {
+        import: async () => {
+            return await import(
+                'src/app/widgets/APS/indicator-load-deviation/indicator-load-deviation.module'
+            );
+        },
+        module: 'IndicatorLoadDeviationModule',
+        itemCols: 41,
+        itemRows: 12,
+        minItemCols: 40,
+        minItemRows: 10,
+        // preview: 'indicator-load-deviation',
     },
     //#endregion APS
 
