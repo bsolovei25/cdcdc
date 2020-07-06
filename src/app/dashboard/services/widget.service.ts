@@ -149,8 +149,6 @@ export class WidgetService {
         this.openedWSChannels[widgetId] = this.openedWSChannels[widgetId]
             ? ++this.openedWSChannels[widgetId]
             : 1;
-        console.log('increment channels: ', this.openedWSChannels);
-
         return this.widgetsSocketObservable.pipe(
             filter((ref) => ref && ref.channelId === widgetId),
             map((ref) => {
@@ -196,7 +194,6 @@ export class WidgetService {
         } else if (this.openedWSChannels[widgetId]) {
             this.openedWSChannels[widgetId]--;
         }
-        console.log('decrement channels: ', this.openedWSChannels);
     }
 
     private mapWidgetData(data: any, widgetType: string): any {
