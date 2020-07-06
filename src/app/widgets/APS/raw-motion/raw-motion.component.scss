@@ -99,10 +99,11 @@
 
     .begin {
       position: absolute;
-      top: -7px;
+      top: -5px;
       bottom: 0;
       right: calc(100% + 4px);
       color: var(--color-aps-main-axis);
+      font-size: 10px;
     }
   }
   &-y {
@@ -111,6 +112,7 @@
       top: calc(var(--chart-padding-tb) - 20px);
       left: var(--chart-padding-lr);
       color: var(--color-aps-main-axis);
+      font-size: 12px;
     }
     &::before {
       content: "";
@@ -147,7 +149,6 @@
   .lower-limit {
     position: absolute;
     width: 100%;
-    height: 10%;
     left: 0;
     top: 0;
 
@@ -164,9 +165,10 @@
 
     .value {
       position: absolute;
-      bottom: -7px;
+      bottom: -5px;
       right: calc(100% + 4px);
       color: var(--color-aps-main-axis);
+      font-size: 10px;
     }
   }
 
@@ -176,7 +178,7 @@
 
     .value {
       position: absolute;
-      top: -7px;
+      top: -5px;
       bottom: auto;
       right: calc(100% + 4px);
     }
@@ -210,6 +212,38 @@
 .column {
   width: var(--column-width);
   height: 100%;
+  min-width: var(--column-width);
   border-right: 1px solid var(--color-aps-col-border);
-  border-collapse: collapse;
+  display: flex;
+  flex-direction: column;
+
+  &__chart {
+    position: relative;
+    width: 100%;
+    height: 100%;
+  }
+
+  &__date {
+    width: 100%;
+    height: calc(var(--chart-padding-tb) - 12px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--color-aps-main-axis);
+    font-size: 10px;
+  }
+
+  .line {
+    position: absolute;
+    width: calc(100% - 4px);
+    height: 1px;
+    left: 0;
+    right: 0;
+    margin: auto;
+    background: var(--color-aps-active);
+
+    &_warning {
+      background: var(--color-aps-orange);
+    }
+  }
 }

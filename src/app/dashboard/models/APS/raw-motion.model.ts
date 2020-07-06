@@ -2,6 +2,8 @@ export interface IRawMotion {
     units: string;
     upperLimit: number;
     lowerLimit: number;
+    maxValue: number;
+    minValue: number;
     cols: IRawMotionCol[];
 }
 

@@ -28,23 +28,32 @@
     <div class="graph">
       <div class="axis">
         <div class="axis-x">
-          <div class="begin">0</div>
+          <div class="begin">{{data.minValue}}</div>
         </div>
         <div class="axis-y">
-          <div class="units">т</div>
+          <div class="units">{{data.units}}</div>
         </div>
       </div>
       <div class="limits">
-        <div class="upper-limit">
+        <div class="upper-limit" [style.height]="upperLimit" *ngIf="upperLimit">
           <div class="value">{{data.upperLimit}}</div>
         </div>
-        <div class="lower-limit">
+        <div class="lower-limit" [style.height]="lowerLimit" *ngIf="lowerLimit">
           <div class="value">{{data.lowerLimit}}</div>
         </div>
       </div>
       <div class="chart-container">
         <ng-container *ngFor="let col of data.cols">
-          <div class="column"></div>
+          <div class="column">
+            <div class="column__chart">
+              <div
+                class="line"
+                [style.bottom]="defineHeight(col.value)"
+                [ngClass]="{'line_warning':col.value>data.upperLimit||col.value<data.lowerLimit}"
+              ></div>
+            </div>
+            <div class="column__date">{{col.date|date:'dd'}}</div>
+          </div>
         </ng-container>
       </div>
     </div>
