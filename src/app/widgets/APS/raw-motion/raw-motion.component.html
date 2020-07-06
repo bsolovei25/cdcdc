@@ -1,29 +1,5 @@
 <div class="container">
-  <evj-aps-widget-header [uniqId]="uniqId">
-    <div
-      class="content-container"
-      (mousedown)="$event.stopPropagation()"
-      (touchstart)="$event.stopPropagation()"
-    >
-      <div class="tabs-container">
-        <div
-          class="tab"
-          *ngFor="let item of header"
-          [class.tab_active]="headerSelect.isSelected(item)"
-          (click)="headerSelect.select(item)"
-        >
-          <div class="tab__icon">
-            <svg-icon
-              src="assets/icons/widgets/APS/aps-raw-motion/{{item.iconName}}.svg"
-              [svgStyle]="item.svgStyle"
-            >
-            </svg-icon>
-          </div>
-          <div class="tab__title">{{item.title}}</div>
-        </div>
-      </div>
-    </div>
-  </evj-aps-widget-header>
+  <evj-aps-widget-header [uniqId]="uniqId" [widgetTitle]="widgetTitle"> </evj-aps-widget-header>
   <div class="raw" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
     <div class="graph">
       <div class="axis">
