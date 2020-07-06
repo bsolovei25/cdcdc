@@ -79,3 +79,137 @@
   border: 1px solid var(--color-aps-border-main);
   background: var(--color-aps-bg-widget);
 }
+
+.graph {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  padding: var(--chart-padding-tb) var(--chart-padding-lr) 0;
+}
+
+.axis {
+  &-x {
+    position: absolute;
+    z-index: 5;
+    width: calc(100% - var(--chart-padding-lr) * 2);
+    height: 1px;
+    left: var(--chart-padding-lr);
+    bottom: var(--chart-padding-tb);
+    background: var(--color-aps-main-axis);
+
+    .begin {
+      position: absolute;
+      top: -7px;
+      bottom: 0;
+      right: calc(100% + 4px);
+      color: var(--color-aps-main-axis);
+    }
+  }
+  &-y {
+    .units {
+      position: absolute;
+      top: calc(var(--chart-padding-tb) - 20px);
+      left: var(--chart-padding-lr);
+      color: var(--color-aps-main-axis);
+    }
+    &::before {
+      content: "";
+      position: absolute;
+      z-index: 4;
+      width: 1px;
+      height: calc(100% - var(--chart-padding-tb) - 10px);
+      top: var(--chart-padding-tb);
+      left: var(--chart-padding-lr);
+      background: var(--color-aps-main-axis);
+    }
+    &::after {
+      content: "";
+      position: absolute;
+      z-index: 4;
+      width: 1px;
+      height: calc(100% - var(--chart-padding-tb) - 10px);
+      top: var(--chart-padding-tb);
+      right: var(--chart-padding-lr);
+      background: var(--color-aps-main-axis);
+    }
+  }
+}
+
+.limits {
+  position: absolute;
+  z-index: 3;
+  width: calc(100% - var(--chart-padding-lr) * 2);
+  height: calc(100% - var(--chart-padding-tb) * 2);
+  left: var(--chart-padding-lr);
+  top: var(--chart-padding-tb);
+
+  .upper-limit,
+  .lower-limit {
+    position: absolute;
+    width: 100%;
+    height: 10%;
+    left: 0;
+    top: 0;
+
+    &:before {
+      content: "";
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      background: var(--color-aps-limits);
+      opacity: 0.1;
+    }
+
+    .value {
+      position: absolute;
+      bottom: -7px;
+      right: calc(100% + 4px);
+      color: var(--color-aps-main-axis);
+    }
+  }
+
+  .lower-limit {
+    top: auto;
+    bottom: 0;
+
+    .value {
+      position: absolute;
+      top: -7px;
+      bottom: auto;
+      right: calc(100% + 4px);
+    }
+  }
+}
+
+.chart-container {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  height: 100%;
+  padding-bottom: 10px;
+  display: flex;
+  overflow-x: scroll;
+  overflow-y: hidden;
+
+  &::-webkit-scrollbar {
+    height: 4px;
+    &-thumb {
+      background: var(--color-aps-scroll-thumb);
+    }
+    &-track {
+      background: transparent;
+      &-piece {
+        background: transparent;
+      }
+    }
+  }
+}
+
+.column {
+  width: var(--column-width);
+  height: 100%;
+  border-right: 1px solid var(--color-aps-col-border);
+  border-collapse: collapse;
+}

@@ -24,9 +24,29 @@
       </div>
     </div>
   </evj-aps-widget-header>
-  <div
-    class="raw"
-    (mousedown)="$event.stopPropagation()"
-    (touchstart)="$event.stopPropagation()"
-  ></div>
+  <div class="raw" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
+    <div class="graph">
+      <div class="axis">
+        <div class="axis-x">
+          <div class="begin">0</div>
+        </div>
+        <div class="axis-y">
+          <div class="units">т</div>
+        </div>
+      </div>
+      <div class="limits">
+        <div class="upper-limit">
+          <div class="value">{{data.upperLimit}}</div>
+        </div>
+        <div class="lower-limit">
+          <div class="value">{{data.lowerLimit}}</div>
+        </div>
+      </div>
+      <div class="chart-container">
+        <ng-container *ngFor="let col of data.cols">
+          <div class="column"></div>
+        </ng-container>
+      </div>
+    </div>
+  </div>
 </div>
