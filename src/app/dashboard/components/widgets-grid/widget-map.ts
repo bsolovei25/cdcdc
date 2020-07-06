@@ -228,10 +228,10 @@ export const WIDGETS_LAZY = {
             );
         },
         module: 'IndicatorLoadDeviationModule',
-        itemCols: 41,
+        itemCols: 12,
         itemRows: 12,
-        minItemCols: 40,
-        minItemRows: 10,
+        minItemCols: 11,
+        minItemRows: 11,
         // preview: 'indicator-load-deviation',
     },
     //#endregion APS
