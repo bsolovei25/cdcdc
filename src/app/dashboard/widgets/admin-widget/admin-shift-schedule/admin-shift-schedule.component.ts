@@ -37,6 +37,12 @@ export interface IAbsent {
     name: string;
 }
 
+export interface IAbsent {
+    code: string;
+    id: number;
+    name: string;
+}
+
 @Component({
     selector: 'evj-admin-shift-schedule',
     templateUrl: './admin-shift-schedule.component.html',
@@ -151,8 +157,7 @@ export class AdminShiftScheduleComponent extends WidgetPlatform
         });
     }
 
-    protected dataHandler(ref: any): void {
-    }
+    protected dataHandler(ref: any): void {}
 
     ngAfterContentChecked(): void {
         this.listenBtn();

@@ -286,6 +286,7 @@ import { AstueEfficiencyTableDisplayComponent } from './widgets/ASTUE/astue-effi
 import { AstueEfficiencyCalculationComponent } from './widgets/ASTUE/astue-efficiency/components/astue-efficiency-calculation/astue-efficiency-calculation.component';
 import { WidgetContainerComponent } from './widget-container/widget-container.component';
 import { EjsEventComponent } from './widgets/workspace/ejs-event/ejs-event.component';
+import { PerformanceBarComponent } from './components/performance-bar/performance-bar.component';
 
 @NgModule({
     declarations: [
@@ -540,6 +541,7 @@ import { EjsEventComponent } from './widgets/workspace/ejs-event/ejs-event.compo
         AstueEfficiencyCalculationComponent,
         WidgetContainerComponent,
         EjsEventComponent,
+        PerformanceBarComponent,
     ],
     entryComponents: [
         LineChartComponent,
@@ -618,7 +620,7 @@ import { EjsEventComponent } from './widgets/workspace/ejs-event/ejs-event.compo
         AstueEfficiencyComponent,
         FileAttachMenuComponent,
     ],
-    exports: [HomeComponent],
+    exports: [HomeComponent, PerformanceBarComponent],
     imports: [
         CommonModule,
         SharedModule,

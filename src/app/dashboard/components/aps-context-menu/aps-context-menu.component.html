@@ -1,0 +1,13 @@
+<div
+  [matMenuTriggerFor]="contextMenu.dropdownMenu"
+  [style.position]="'absolute'"
+  [style.left.px]="menuX"
+  [style.top.px]="menuY">
+</div>
+
+<evj-aps-dropdown-menu #contextMenu [items]="items"></evj-aps-dropdown-menu>
+
+<div #container (contextmenu)="triggerContextMenu($event);">
+  <ng-content>
+  </ng-content>
+</div>

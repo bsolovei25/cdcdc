@@ -9,12 +9,28 @@ import { EventsWorkspaceService } from '../../../services/widgets/events-workspa
 })
 export class EjsEventComponent implements OnInit, OnDestroy {
 
+    // 'assets/mock/pages/Dashboard.html';
+    private readonly defaultUrlCreate: string =
+        'http://spb99-t-merap01/meridium/#0;rte=home;rte=assets/hierarchy;rte=record-manager/0/9316215';
+    // 'assets/mock/pages/d.html';
+    private readonly defaultUrlRead: string = 'http://spb99-t-merap01/meridium/#record-manager/';
     private linkInterval: any = null;
 
-    constructor(private http: HttpClient, public ewService: EventsWorkspaceService) {
+    constructor(
+        private http: HttpClient,
+        public ewService: EventsWorkspaceService
+    ) {
     }
 
     ngOnInit(): void {
+    }
+
+    public get frameUrl(): string {
+        if (this.ewService.isCreateNewEvent) {
+            return this.defaultUrlCreate;
+        } else {
+            return `${this.defaultUrlRead}${this.ewService.event.externalId}`;
+        }
     }
 
     ngOnDestroy(): void {
@@ -23,12 +39,13 @@ export class EjsEventComponent implements OnInit, OnDestroy {
 
     async loadStylesheet(): Promise<string> {
         return await this.http
-            .get<string>('theme/iframe-style.scss', {responseType: 'text' as 'json'})
+            .get<string>('theme/iframe-style.scss', { responseType: 'text' as 'json' })
             .toPromise();
     }
+
     async loadVariables(): Promise<string> {
         return await this.http
-            .get<string>('theme/variables.scss', {responseType: 'text' as 'json'})
+            .get<string>('theme/variables.scss', { responseType: 'text' as 'json' })
             .toPromise();
     }
 
@@ -45,7 +62,7 @@ export class EjsEventComponent implements OnInit, OnDestroy {
         if (this.linkInterval) {
             clearInterval(this.linkInterval);
         }
-        this.linkInterval = setInterval(() => this.addLinkTarget(doc), 1500);
+        this.linkInterval = setInterval(() => this.addLinkTarget(doc), 1000);
     }
 
     styleInput(doc: HTMLDocument): void {
@@ -72,7 +89,8 @@ export class EjsEventComponent implements OnInit, OnDestroy {
                 return;
             }
             link.setAttribute('target', 'ejsFrame');
-            link.setAttribute('href', 'http://localhost:4200/assets/mock/pages/d.html');
+            // for example
+            // link.setAttribute('href', 'http://localhost:4200/assets/mock/pages/ejs.html');
         });
     }
 }

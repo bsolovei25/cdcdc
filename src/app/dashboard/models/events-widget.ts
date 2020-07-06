@@ -22,6 +22,7 @@ export interface EventsWidgetNotificationPreview {
     eventType?: { id: number; name: string };
     facts?: { comment: string }[];
     source?: any;
+    externalId?: number;
 }
 
 export interface EventsWidgetNotification {
@@ -62,6 +63,7 @@ export interface EventsWidgetNotification {
     unitName?: string;
     deviationData?: IEventDeviationData;
     asusEvent: IEventAsus;
+    externalId?: number;
 }
 
 export interface IEventAsus {

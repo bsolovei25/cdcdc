@@ -137,12 +137,14 @@
   --color-smp-active: #6ba4ef;
 
   // APS
+  --color-aps-warning: #FF931E;
   --color-aps-bg: #161a28;
   --color-aps-bg-sub: #5e6582;
   --color-aps-bg-sub-2: #131827;
   --color-aps-bg-header: #202333;
   --color-aps-bg-widget: rgba(12, 19, 36, 0.25);
   --color-aps-bg-light: #1d2131;
+  --color-aps-bg-window: #191c2a;
   --color-bg-row-header: #141928;
 
   --color-aps-border: #32374b;
@@ -170,8 +172,14 @@
   --color-aps-fixedQualityScore: 11, 164, 163;
   //
 
+  // APS dropdown menu
+  --color-aps-dropdown-menu-bg: #202433;
+  --color-aps-dropdown-border: #35394B;
+  //
+
   --color-aps-bg-icon: #5f6580;
 
+  --color-aps-btn-accept: #0c5395;
   --color-aps-button-color: #8c99b2;
   --color-aps-button-bg: #272c3d;
   --color-aps-innactive-tab: #343b4c;

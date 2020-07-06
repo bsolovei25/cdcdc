@@ -18,14 +18,10 @@ export class HomeComponent implements OnInit, OnDestroy {
         private userSettings: UserSettingsService,
         private claimService: ClaimService,
         public overlayService: OverlayService,
-        public route: ActivatedRoute,
+        // public route: ActivatedRoute,
         public router: Router,
     ) {
-        const isRefresh = localStorage.getItem('refresh-dashboard');
-        if (isRefresh === 'true') {
-            localStorage.setItem('refresh-dashboard', 'false');
-            window.location.reload();
-        }
+        this.applicationCreate();
     }
 
     ngOnInit(): void {
@@ -42,5 +38,19 @@ export class HomeComponent implements OnInit, OnDestroy {
     ngOnDestroy(): void {
         this.widgetService.closeService();
         this.userSettings.clearScreens();
+    }
+
+    async applicationCreate(): Promise<void> {
+        const isRefresh = localStorage.getItem('refresh-dashboard');
+        if (isRefresh === 'true') {
+            const queryParamsStr = localStorage.getItem('queryParams');
+            if (queryParamsStr?.length > 0) {
+                const queryParams = JSON.parse(queryParamsStr);
+                await this.router.navigate([], {queryParams});
+                localStorage.removeItem('queryParams');
+            }
+            localStorage.setItem('refresh-dashboard', 'false');
+            window.location.reload();
+        }
     }
 }

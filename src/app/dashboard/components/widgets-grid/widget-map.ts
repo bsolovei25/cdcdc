@@ -140,6 +140,7 @@ export const WIDGETS = {
     scenarios: WidgetContainerComponent,
     'facility-deviation': WidgetContainerComponent,
     'raw-motion': WidgetContainerComponent,
+    'stocks-using': WidgetContainerComponent,
 };
 
 export const WIDGETS_LAZY = {
@@ -164,7 +165,7 @@ export const WIDGETS_LAZY = {
         itemRows: 10,
         minItemCols: 15,
         minItemRows: 10,
-        preview: 'scenarios',
+        // preview: 'scenarios',
     },
     'aps-gantt-chart': {
         import: async () => {
@@ -208,6 +209,16 @@ export const WIDGETS_LAZY = {
         minItemCols: 40,
         minItemRows: 10,
         // preview: 'raw-motion',
+    },
+    'stocks-using': {
+        import: async () => {
+            return await import('src/app/widgets/APS/stocks-using/stocks-using.module');
+        },
+        module: 'StocksUsingModule',
+        itemCols: 41,
+        itemRows: 12,
+        minItemCols: 30,
+        minItemRows: 8,
     },
     //#endregion APS
 

@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, ViewChild, ElementRef, OnChanges, ChangeDetectionStrategy } from '@angular/core';
 import { IImplementationPlan } from '../../implementation-plan.component';
-import { SpaceNumber } from '@shared/pipes/number_space.pipe';
+import { SpaceNumber } from '@shared/pipes/number-space.pipe';
 import * as d3 from 'd3';
 
 @Component({
