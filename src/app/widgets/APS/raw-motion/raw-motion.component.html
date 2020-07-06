@@ -1,0 +1,61 @@
+<div class="container">
+  <evj-aps-widget-header [uniqId]="uniqId">
+    <div
+      class="content-container"
+      (mousedown)="$event.stopPropagation()"
+      (touchstart)="$event.stopPropagation()"
+    >
+      <div class="tabs-container">
+        <div
+          class="tab"
+          *ngFor="let item of header"
+          [class.tab_active]="headerSelect.isSelected(item)"
+          (click)="headerSelect.select(item)"
+        >
+          <div class="tab__icon">
+            <svg-icon
+              src="assets/icons/widgets/APS/aps-raw-motion/{{item.iconName}}.svg"
+              [svgStyle]="item.svgStyle"
+            >
+            </svg-icon>
+          </div>
+          <div class="tab__title">{{item.title}}</div>
+        </div>
+      </div>
+    </div>
+  </evj-aps-widget-header>
+  <div class="raw" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
+    <div class="graph">
+      <div class="axis">
+        <div class="axis-x">
+          <div class="begin">{{data.minValue}}</div>
+        </div>
+        <div class="axis-y">
+          <div class="units">{{data.units}}</div>
+        </div>
+      </div>
+      <div class="limits">
+        <div class="upper-limit" [style.height]="upperLimit" *ngIf="upperLimit">
+          <div class="value">{{data.upperLimit}}</div>
+        </div>
+        <div class="lower-limit" [style.height]="lowerLimit" *ngIf="lowerLimit">
+          <div class="value">{{data.lowerLimit}}</div>
+        </div>
+      </div>
+      <div class="chart-container">
+        <ng-container *ngFor="let col of data.cols">
+          <div class="column">
+            <div class="column__chart">
+              <div
+                class="line"
+                [style.bottom]="defineHeight(col.value)"
+                [ngClass]="{'line_warning':col.value>data.upperLimit||col.value<data.lowerLimit}"
+              ></div>
+            </div>
+            <div class="column__date">{{col.date|date:'dd'}}</div>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+</div>
