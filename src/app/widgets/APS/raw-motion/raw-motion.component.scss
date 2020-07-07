@@ -1,0 +1,198 @@
+:host {
+  --chart-padding-lr: 34px;
+  --chart-padding-tb: 30px;
+  --column-width: 37px;
+
+  width: 100%;
+  height: 100%;
+  * {
+    box-sizing: border-box;
+    color: var(--color-text-main);
+    font-size: 14px;
+    user-select: none;
+  }
+}
+
+.container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background: var(--color-aps-bg-widget);
+}
+
+.raw {
+  width: 100%;
+  height: calc(100% - 40px);
+  padding-bottom: 10px;
+  border: 1px solid var(--color-aps-border-main);
+  background: var(--color-aps-bg-widget);
+}
+
+.graph {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  padding: var(--chart-padding-tb) var(--chart-padding-lr) 0;
+}
+
+.axis {
+  &-x {
+    position: absolute;
+    z-index: 5;
+    width: calc(100% - var(--chart-padding-lr) * 2);
+    height: 1px;
+    left: var(--chart-padding-lr);
+    bottom: var(--chart-padding-tb);
+    background: var(--color-aps-main-axis);
+
+    .begin {
+      position: absolute;
+      top: -5px;
+      bottom: 0;
+      right: calc(100% + 4px);
+      color: var(--color-aps-main-axis);
+      font-size: 10px;
+    }
+  }
+  &-y {
+    .units {
+      position: absolute;
+      top: calc(var(--chart-padding-tb) - 20px);
+      left: var(--chart-padding-lr);
+      color: var(--color-aps-main-axis);
+      font-size: 12px;
+    }
+    &::before {
+      content: "";
+      position: absolute;
+      z-index: 4;
+      width: 1px;
+      height: calc(100% - var(--chart-padding-tb) - 10px);
+      top: var(--chart-padding-tb);
+      left: var(--chart-padding-lr);
+      background: var(--color-aps-main-axis);
+    }
+    &::after {
+      content: "";
+      position: absolute;
+      z-index: 4;
+      width: 1px;
+      height: calc(100% - var(--chart-padding-tb) - 10px);
+      top: var(--chart-padding-tb);
+      right: var(--chart-padding-lr);
+      background: var(--color-aps-main-axis);
+    }
+  }
+}
+
+.limits {
+  position: absolute;
+  z-index: 3;
+  width: calc(100% - var(--chart-padding-lr) * 2);
+  height: calc(100% - var(--chart-padding-tb) * 2);
+  left: var(--chart-padding-lr);
+  top: var(--chart-padding-tb);
+
+  .upper-limit,
+  .lower-limit {
+    position: absolute;
+    width: 100%;
+    left: 0;
+    top: 0;
+
+    &:before {
+      content: "";
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      background: var(--color-aps-limits);
+      opacity: 0.1;
+    }
+
+    .value {
+      position: absolute;
+      bottom: -5px;
+      right: calc(100% + 4px);
+      color: var(--color-aps-main-axis);
+      font-size: 10px;
+    }
+  }
+
+  .lower-limit {
+    top: auto;
+    bottom: 0;
+
+    .value {
+      position: absolute;
+      top: -5px;
+      bottom: auto;
+      right: calc(100% + 4px);
+    }
+  }
+}
+
+.chart-container {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  height: 100%;
+  padding-bottom: 10px;
+  display: flex;
+  overflow-x: scroll;
+  overflow-y: hidden;
+
+  &::-webkit-scrollbar {
+    height: 4px;
+    &-thumb {
+      background: var(--color-aps-scroll-thumb);
+    }
+    &-track {
+      background: transparent;
+      &-piece {
+        background: transparent;
+      }
+    }
+  }
+}
+
+.column {
+  width: var(--column-width);
+  height: 100%;
+  min-width: var(--column-width);
+  border-right: 1px solid var(--color-aps-col-border);
+  display: flex;
+  flex-direction: column;
+
+  &__chart {
+    position: relative;
+    width: 100%;
+    height: 100%;
+  }
+
+  &__date {
+    width: 100%;
+    height: calc(var(--chart-padding-tb) - 12px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--color-aps-main-axis);
+    font-size: 10px;
+  }
+
+  .line {
+    position: absolute;
+    width: calc(100% - 4px);
+    height: 1px;
+    left: 0;
+    right: 0;
+    margin: auto;
+    background: var(--color-aps-active);
+
+    &_warning {
+      background: var(--color-aps-orange);
+    }
+  }
+}

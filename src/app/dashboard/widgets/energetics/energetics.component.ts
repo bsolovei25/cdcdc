@@ -111,54 +111,42 @@ export class EnergeticsComponent extends WidgetPlatform implements OnInit, OnDes
 
     ngOnInit(): void {
         super.widgetInit();
-        if (!this.isMock) {
-            this.wsConnect();
-        }
     }
 
     ngOnDestroy(): void {
         super.ngOnDestroy();
     }
 
-    protected dataHandler(ref: any): void {}
+    protected dataHandler(ref: any): void {
+        this.data = ref;
+        this.data.curValue = ref.currentValue;
+        this.data.lowerBorder = Math.abs(this.data.lowerBorder - this.data.plan) / this.data.plan;
+        this.data.higherBorder = Math.abs(this.data.higherBorder - this.data.plan) / this.data.plan;
+        this.data.lowerValue = this.data.plan * (1 - this.data.lowerBorder);
+        this.data.higherValue = this.data.plan * (1 + this.data.higherBorder);
+        this.energyCircleDiagram = ref.circleDiagram;
+        this.termoCard = ref.termoCard;
+        this.termoCard.curValue = ref.termoCard.currentValue;
+        this.electroCard = ref.electroCard;
+        this.electroCard.curValue = ref.electroCard.currentValue;
+        this.fuelCard = ref.fuelCard;
+        this.fuelCard.curValue = ref.fuelCard.currentValue;
 
-    wsConnect(): void {
-        this.subscriptions.push(
-            this.widgetService.getWidgetLiveDataFromWS(this.id, 'energetics').subscribe((ref) => {
-                console.log(ref);
-                this.data = ref;
-                this.data.curValue = ref.currentValue;
-                this.data.lowerBorder =
-                    Math.abs(this.data.lowerBorder - this.data.plan) / this.data.plan;
-                this.data.higherBorder =
-                    Math.abs(this.data.higherBorder - this.data.plan) / this.data.plan;
-                this.data.lowerValue = this.data.plan * (1 - this.data.lowerBorder);
-                this.data.higherValue = this.data.plan * (1 + this.data.higherBorder);
-                this.energyCircleDiagram = ref.circleDiagram;
-                this.termoCard = ref.termoCard;
-                this.termoCard.curValue = ref.termoCard.currentValue;
-                this.electroCard = ref.electroCard;
-                this.electroCard.curValue = ref.electroCard.currentValue;
-                this.fuelCard = ref.fuelCard;
-                this.fuelCard.curValue = ref.fuelCard.currentValue;
-
-                if (this.termoCard.plan < this.termoCard.curValue) {
-                    this.isTermoCardDanger = true;
-                } else {
-                    this.isTermoCardDanger = false;
-                }
-                if (this.electroCard.plan < this.electroCard.curValue) {
-                    this.isElectroCardDanger = true;
-                } else {
-                    this.isElectroCardDanger = false;
-                }
-                if (this.fuelCard.plan < this.fuelCard.curValue) {
-                    this.isFuelCardDanger = true;
-                } else {
-                    this.isFuelCardDanger = false;
-                }
-            })
-        );
+        if (this.termoCard.plan < this.termoCard.curValue) {
+            this.isTermoCardDanger = true;
+        } else {
+            this.isTermoCardDanger = false;
+        }
+        if (this.electroCard.plan < this.electroCard.curValue) {
+            this.isElectroCardDanger = true;
+        } else {
+            this.isElectroCardDanger = false;
+        }
+        if (this.fuelCard.plan < this.fuelCard.curValue) {
+            this.isFuelCardDanger = true;
+        } else {
+            this.isFuelCardDanger = false;
+        }
     }
 
     private checkDangerCard(cardData: IEnergeticsCard, dangerFlag: string): void {

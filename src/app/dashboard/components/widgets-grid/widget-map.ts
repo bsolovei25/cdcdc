@@ -138,6 +138,7 @@ export const WIDGETS = {
     scenarios: WidgetContainerComponent,
     'admin-shift-schedule': WidgetContainerComponent,
     'facility-deviation': WidgetContainerComponent,
+    'raw-motion': WidgetContainerComponent,
     'stocks-using': WidgetContainerComponent,
 };
 
@@ -196,6 +197,17 @@ export const WIDGETS_LAZY = {
         itemRows: 12,
         minItemCols: 40,
         minItemRows: 10,
+    },
+    'raw-motion': {
+        import: async () => {
+            return await import('src/app/widgets/APS/raw-motion/raw-motion.module');
+        },
+        module: 'RawMotionModule',
+        itemCols: 41,
+        itemRows: 12,
+        minItemCols: 40,
+        minItemRows: 10,
+        // preview: 'raw-motion',
     },
     'stocks-using': {
         import: async () => {

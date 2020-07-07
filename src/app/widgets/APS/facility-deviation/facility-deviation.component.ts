@@ -1,16 +1,13 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnInit, OnDestroy } from '@angular/core';
 import { WidgetService } from '../../../dashboard/services/widget.service';
 import { WidgetPlatform } from '../../../dashboard/models/widget-platform';
 
 @Component({
     selector: 'evj-facility-deviation',
     templateUrl: './facility-deviation.component.html',
-    styleUrls: ['./facility-deviation.component.scss']
+    styleUrls: ['./facility-deviation.component.scss'],
 })
-export class FacilityDeviationComponent
-    extends WidgetPlatform
-    implements OnInit {
-
+export class FacilityDeviationComponent extends WidgetPlatform implements OnInit, OnDestroy {
     constructor(
         protected widgetService: WidgetService,
         @Inject('isMock') public isMock: boolean,
@@ -24,7 +21,9 @@ export class FacilityDeviationComponent
         super.widgetInit();
     }
 
-    protected dataHandler(ref: any): void {
+    ngOnDestroy(): void {
+        super.ngOnDestroy();
     }
 
+    protected dataHandler(ref: any): void {}
 }

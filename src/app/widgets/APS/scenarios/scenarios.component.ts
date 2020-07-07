@@ -1,22 +1,18 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnInit, OnDestroy } from '@angular/core';
 import { WidgetPlatform } from '../../../dashboard/models/widget-platform';
 import { WidgetService } from '../../../dashboard/services/widget.service';
 import { IApsProgressBarSettings } from './components/progress-bar/progress-bar.component';
 import { FormControl } from '@angular/forms';
-
 
 @Component({
     selector: 'evj-scenarios',
     templateUrl: './scenarios.component.html',
     styleUrls: ['./scenarios.component.scss'],
 })
-export class ScenariosComponent extends WidgetPlatform implements OnInit {
-
+export class ScenariosComponent extends WidgetPlatform implements OnInit, OnDestroy {
     public selectScenario: FormControl = new FormControl('');
 
-    public scenarios: string[] = [
-        'НГРУ_июнь_20_Куляшов_15.05_13.44'
-    ];
+    public scenarios: string[] = ['НГРУ_июнь_20_Куляшов_15.05_13.44'];
 
     public barChartSettings1: IApsProgressBarSettings = {
         barColor: '#2378D9',
@@ -45,8 +41,11 @@ export class ScenariosComponent extends WidgetPlatform implements OnInit {
         super.widgetInit();
     }
 
-    protected dataHandler(ref: any): void {
+    ngOnDestroy(): void {
+        super.ngOnDestroy();
     }
+
+    protected dataHandler(ref: any): void {}
 
     public onClick(): void {
         console.log('click');

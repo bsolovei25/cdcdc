@@ -5,7 +5,7 @@ import {
     ViewChild,
     ElementRef,
     Renderer2,
-    OnDestroy,
+    OnDestroy
 } from '@angular/core';
 import { HeaderDataService } from '../../services/header-data.service';
 import { Subscription } from 'rxjs';
@@ -14,7 +14,7 @@ import { IHeaderDate } from '../../models/i-header-date';
 @Component({
     selector: 'evj-line-datetime',
     templateUrl: './line-datetime.component.html',
-    styleUrls: ['./line-datetime.component.scss'],
+    styleUrls: ['./line-datetime.component.scss']
 })
 export class LineDatetimeComponent implements OnInit, AfterViewInit, OnDestroy {
     @ViewChild('lightBlock') lightBlock: ElementRef;
@@ -27,7 +27,7 @@ export class LineDatetimeComponent implements OnInit, AfterViewInit, OnDestroy {
     public dateFromSelector: IHeaderDate = {
         status: true,
         startDatetime: new Date(),
-        endDatetime: new Date(),
+        endDatetime: new Date()
     };
 
     public activeStates: {
@@ -37,13 +37,14 @@ export class LineDatetimeComponent implements OnInit, AfterViewInit, OnDestroy {
     } = {
         isTimeline: false,
         isLeftArrow: false,
-        isRightArrow: false,
+        isRightArrow: false
     };
 
-    constructor(private renderer: Renderer2, private headerData: HeaderDataService) { }
+    constructor(private renderer: Renderer2, private headerData: HeaderDataService) {
+    }
 
     ngOnInit(): void {
-        this.datesFill();
+        setTimeout(() => this.datesFill(), 0);
         setInterval(() => {
             this.datesFill();
             this.currentData = Date.now();
@@ -52,13 +53,17 @@ export class LineDatetimeComponent implements OnInit, AfterViewInit, OnDestroy {
 
     ngAfterViewInit(): void {
         this.subscription = this.headerData.date$.subscribe((data) => {
-            this.dateFromSelector = data;
-            if (this.dateFromSelector.status === false) {
-                setTimeout(() => {
-                    this.searchDate(this.dateFromSelector, this.lightBlock);
-                }, 1);
-            }
+            setTimeout(() => this.setData(data));
         });
+    }
+
+    private setData(data: IHeaderDate): void {
+        this.dateFromSelector = data;
+        if (this.dateFromSelector.status === false) {
+            setTimeout(() => {
+                this.searchDate(this.dateFromSelector, this.lightBlock);
+            }, 1);
+        }
     }
 
     ngOnDestroy(): void {
@@ -89,7 +94,7 @@ export class LineDatetimeComponent implements OnInit, AfterViewInit, OnDestroy {
                 day: i + 1,
                 isActive: active,
                 isLast: last,
-                isFuture: future,
+                isFuture: future
             };
             this.dates.push(el);
         }
@@ -104,7 +109,7 @@ export class LineDatetimeComponent implements OnInit, AfterViewInit, OnDestroy {
         const firstDayInMs: number = new Date(
             currentDatetime.getFullYear(),
             currentDatetime.getMonth(),
-        1
+            1
         ).getTime();
         const allTimelineInMs = 86400000 * this.dates?.length;
         return (date.getTime() - firstDayInMs) / allTimelineInMs * 100

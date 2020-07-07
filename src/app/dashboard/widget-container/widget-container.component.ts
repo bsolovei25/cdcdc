@@ -13,6 +13,8 @@ export class WidgetContainerComponent extends WidgetPlatform implements OnInit, 
     public isLoading: boolean = true;
     public previewTitle: string = null;
 
+    protected isRealtimeData: boolean = false;
+
     constructor(
         private lazyService: LazyService,
         public widgetService: WidgetService,
