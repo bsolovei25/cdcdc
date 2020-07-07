@@ -57,3 +57,12 @@ export interface IUnits {
     createdById: number;
     synonyms: IUnits[];
 }
+
+export interface IUnitSettings {
+    id?: number;
+    unitId: number;
+    shiftLengthHours: number;
+    shiftStartOffset: number;
+    applyFrom: string;
+    createdAt?: Date;
+}

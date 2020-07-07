@@ -6,7 +6,7 @@ import {
     Renderer2,
     OnInit,
     AfterContentChecked,
-    ElementRef
+    ElementRef,
 } from '@angular/core';
 import * as moment from 'moment';
 import { DateAdapter } from '@angular/material/core';
@@ -21,12 +21,13 @@ import {
     IScheduleShiftDay,
     IScheduleShift,
     IBrigadeWithUsersDto,
-    IUnits
+    IUnits,
+    IUnitSettings,
 } from '../../../dashboard/models/admin-shift-schedule';
 import { IAlertWindowModel } from '../../../@shared/models/alert-window.model';
 import {
     AdminShiftScheduleService,
-    IDropItem
+    IDropItem,
 } from '../../../dashboard/services/widgets/admin-shift-schedule.service';
 import { SnackBarService } from '../../../dashboard/services/snack-bar.service';
 import { WidgetService } from '../../../dashboard/services/widget.service';
@@ -35,10 +36,11 @@ import { fillDataShape } from '../../../@shared/common-functions';
 import { Moment } from 'moment';
 import {
     NgxMatDateFormats,
-    NGX_MAT_DATE_FORMATS
+    NGX_MAT_DATE_FORMATS,
 } from '@angular-material-components/datetime-picker';
 import { from } from 'rxjs';
 import { groupBy, toArray, mergeMap } from 'rxjs/operators';
+import { HttpErrorResponse } from '@angular/common/http';
 
 export interface IAbsent {
     code: string;
@@ -106,15 +108,21 @@ export class AdminShiftScheduleComponent extends WidgetPlatform
 
     // TODO Управление расписанием
 
-    isDutySchedule: boolean = true;   // показать график дежурств или управление расписанием
+    isDutySchedule: boolean = true; // показать график дежурств или управление расписанием
     isOpenStartDate: boolean = false; // Открыть/закрыть overlay Начала смены
 
-    timeStart: Moment = moment().second(0).minutes(0);     // Время начала смены. Только часы
-    timeShift: { isSelected: boolean, value: number }[] =  // Длительность смены
-        [{ isSelected: true, value: 6 },
+    timeStart: Moment = moment()
+        .second(0)
+        .minutes(0); // Время начала смены. Только часы
+    timeShift: { isSelected: boolean; value: number }[] = [
+        // Длительность смены
+        { isSelected: true, value: 6 },
         { isSelected: false, value: 8 },
-        { isSelected: false, value: 12 }];
-    saveIsDate: Moment = moment().second(0).minutes(0);    // ПРименить с:. Без минут и секунд
+        { isSelected: false, value: 12 },
+    ];
+    saveIsDate: Moment = moment()
+        .second(0)
+        .minutes(0); // ПРименить с:. Без минут и секунд
 
     //
     public alertWindow: IAlertWindowModel;
@@ -141,8 +149,10 @@ export class AdminShiftScheduleComponent extends WidgetPlatform
         super(widgetService, isMock, id, uniqId);
         this.widgetIcon = 'peoples';
         this.renderer.listen('window', 'click', (e: Event) => {
-            if (e.target !== this.toggleButton?.nativeElement
-                && e.target !== this.menu?.nativeElement) {
+            if (
+                e.target !== this.toggleButton?.nativeElement &&
+                e.target !== this.menu?.nativeElement
+            ) {
                 this.isOpenStartDate = false;
             }
         });
@@ -159,7 +169,7 @@ export class AdminShiftScheduleComponent extends WidgetPlatform
         this.selectedDay = {
             date: new Date(),
             isAllShiftsSet: true,
-            items: []
+            items: [],
         };
         this.dateChanged(this.selectedDay.date);
         this.subscriptions.push(
@@ -194,8 +204,7 @@ export class AdminShiftScheduleComponent extends WidgetPlatform
         });
     }
 
-    protected dataHandler(ref: any): void {
-    }
+    protected dataHandler(ref: any): void {}
 
     ngAfterContentChecked(): void {
         this.listenBtn();
@@ -292,27 +301,27 @@ export class AdminShiftScheduleComponent extends WidgetPlatform
                     }
                     const source = from(data);
                     const example = source.pipe(
-                        groupBy(person => {
-                            return `${new Date(person?.start).getFullYear()}.${new Date(person?.start).getMonth()}.${new Date(person?.start).getDate()}`
+                        groupBy((person) => {
+                            return `${new Date(person?.start).getFullYear()}.${new Date(
+                                person?.start
+                            ).getMonth()}.${new Date(person?.start).getDate()}`;
                         }),
-                        mergeMap(group => group.pipe(toArray()))
+                        mergeMap((group) => group.pipe(toArray()))
                     );
-                    const subscribe = example
-                        .subscribe(val => {
-                            let isAllShiftsSet = true;
-                            val.forEach(value2 => {
-                                if (!value2.isBrigadeSet) {
-                                    isAllShiftsSet = false;
-                                }
-                            });
-                            this.scheduleShiftMonth
-                                .push({
-                                    date: val[0].start,
-                                    isAllShiftsSet, items: [...val]
-                                });
+                    const subscribe = example.subscribe((val) => {
+                        let isAllShiftsSet = true;
+                        val.forEach((value2) => {
+                            if (!value2.isBrigadeSet) {
+                                isAllShiftsSet = false;
+                            }
                         });
+                        this.scheduleShiftMonth.push({
+                            date: val[0].start,
+                            isAllShiftsSet,
+                            items: [...val],
+                        });
+                    });
                     console.log(this.scheduleShiftMonth);
-
                 });
         } catch (error) {
             this.isLoading = false;
@@ -387,6 +396,7 @@ export class AdminShiftScheduleComponent extends WidgetPlatform
             await this.loadItem();
             this.nextAndPreviousMonthVar = null;
             this.listenBtn();
+            await this.getUnitSettings();
         }
     }
 
@@ -543,8 +553,7 @@ export class AdminShiftScheduleComponent extends WidgetPlatform
         };
     }
 
-    drop(event: CdkDragDrop<string[]>): void {
-    }
+    drop(event: CdkDragDrop<string[]>): void {}
 
     async moveToDropAdditionalShift(item: IDropItem): Promise<void> {
         if (item && item.container.id !== '0' && item.container.id !== item.previousContainer.id) {
@@ -585,7 +594,7 @@ export class AdminShiftScheduleComponent extends WidgetPlatform
             cancelText: 'Отмена',
             input: {
                 formControl: this.inputControl,
-                placeholder: 'Введите название'
+                placeholder: 'Введите название',
             },
             acceptFunction: async (): Promise<void> => {
                 const name = this.inputControl.value;
@@ -605,7 +614,7 @@ export class AdminShiftScheduleComponent extends WidgetPlatform
             },
             closeFunction: () => {
                 this.alertWindow = null;
-            }
+            },
         };
     }
 
@@ -661,13 +670,67 @@ export class AdminShiftScheduleComponent extends WidgetPlatform
 
     async scheduleManagement(): Promise<void> {
         // TODO Отправка на бэк данных о изменение смен
+
         // this.timeStart;     // Время начала смены. Только часы
         // this.timeShift;  // Длительность смены
         // this.saveIsDate;    // ПРименить с:. Без минут и секунд
+
+        const body: IUnitSettings = {
+            unitId: this.selectedUnit.id,
+            shiftLengthHours: this.timeShift.find((item) => item.isSelected).value,
+            shiftStartOffset: this.timeStart.hours(),
+            applyFrom: this.saveIsDate.toDate().toUTCString(),
+        };
+
+        try {
+            await this.adminShiftScheduleService.checkUnitSettings(this.selectedUnit.id, body);
+            this.isLoading = true;
+            await this.adminShiftScheduleService.saveUnitSettings(this.selectedUnit.id, body);
+            await this.getUnitSettings();
+            setTimeout(() => (this.isLoading = false), 500);
+        } catch (error) {
+            if (error.status === 477 && error.error.messages[0].type === 'warning') {
+                this.alertWindow = {
+                    acceptText: 'Сохранить',
+                    cancelText: 'Отменить',
+                    closeFunction: () => (this.alertWindow.isShow = false),
+                    acceptFunction: async () => {
+                        this.isLoading = true;
+                        await this.adminShiftScheduleService.saveUnitSettings(
+                            this.selectedUnit.id,
+                            body
+                        );
+                        const resp = await this.adminShiftScheduleService.getActualUnitSettings(
+                            this.selectedUnit.id
+                        );
+                        await this.getUnitSettings();
+                        setTimeout(() => (this.isLoading = false), 500);
+                    },
+                    questionText: error.error.messages[0].message,
+                    isShow: true,
+                };
+            }
+        }
     }
 
-    selectTimeShift(time: { isSelected: boolean, value: number }): void {
-        this.timeShift.map(value => {
+    private async getUnitSettings(): Promise<void> {
+        const data: IUnitSettings = await this.adminShiftScheduleService.getActualUnitSettings(
+            this.selectedUnit.id
+        );
+
+        this.timeStart = moment()
+            .hours(data.shiftStartOffset)
+            .minutes(0)
+            .seconds(0);
+        this.timeShift.forEach((item) => (item.isSelected = false));
+        this.timeShift.find((item) => item.value === data.shiftLengthHours).isSelected = true;
+        this.saveIsDate = moment(data.applyFrom)
+            .minutes(0)
+            .seconds(0);
+    }
+
+    selectTimeShift(time: { isSelected: boolean; value: number }): void {
+        this.timeShift.map((value) => {
             if (value === time) {
                 value.isSelected = true;
             } else {
@@ -675,5 +738,4 @@ export class AdminShiftScheduleComponent extends WidgetPlatform
             }
         });
     }
-
 }
