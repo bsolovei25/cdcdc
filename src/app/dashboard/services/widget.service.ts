@@ -44,12 +44,10 @@ export class WidgetService {
     public widgets$: Observable<IWidget[]> = this._widgets$
         .asObservable()
         .pipe(filter((item) => item !== null));
-    public widgetsPanel$: Observable<IWidget[]> = this._widgets$
-        .asObservable()
-        .pipe(
-            filter((item) => item !== null),
-            map((widgets) => widgets.filter((widget) => widget.isClaim))
-        );
+    public widgetsPanel$: Observable<IWidget[]> = this._widgets$.asObservable().pipe(
+        filter((item) => item !== null),
+        map((widgets) => widgets.filter((widget) => widget.isClaim))
+    );
 
     private reconnectWsTimer: any;
     private reconnectRestTimer: any;
@@ -61,11 +59,14 @@ export class WidgetService {
 
     filterWidgets$: BehaviorSubject<string[]> = new BehaviorSubject<string[]>([]);
 
+    // открытые каналы ws на текущем экране
+    private openedWSChannels: { [key: string]: number } = {};
+
     constructor(
         public http: HttpClient,
         private authService: AuthService,
         private configService: AppConfigService,
-        private materialController: SnackBarService,
+        private materialController: SnackBarService
     ) {
         this.restUrl = configService.restUrl;
         this.wsUrl = configService.wsUrl;
@@ -119,7 +120,7 @@ export class WidgetService {
                 widgetType: item.widgetType,
                 categories: item.categories,
                 isClaim: item.isClaim,
-                isVideoWall: item.isVideoWall
+                isVideoWall: item.isVideoWall,
             };
         });
     }
@@ -145,6 +146,9 @@ export class WidgetService {
 
     getWidgetLiveDataFromWS(widgetId: string, widgetType: string): Observable<any> {
         this.wsConnect(widgetId);
+        this.openedWSChannels[widgetId] = this.openedWSChannels[widgetId]
+            ? ++this.openedWSChannels[widgetId]
+            : 1;
         return this.widgetsSocketObservable.pipe(
             filter((ref) => ref && ref.channelId === widgetId),
             map((ref) => {
@@ -181,6 +185,15 @@ export class WidgetService {
             actionType: 'unsubscribe',
             channelId: widgetId,
         });
+    }
+
+    public removeWidget(widgetId: string): void {
+        if (this.openedWSChannels[widgetId] === 1) {
+            delete this.openedWSChannels[widgetId];
+            this.wsDisconnect(widgetId);
+        } else if (this.openedWSChannels[widgetId]) {
+            this.openedWSChannels[widgetId]--;
+        }
     }
 
     private mapWidgetData(data: any, widgetType: string): any {
