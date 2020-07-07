@@ -3,20 +3,15 @@ import {
     Input,
     OnInit,
     ChangeDetectionStrategy,
-    ElementRef,
-    ViewChild,
-    Renderer2,
-    ViewChildren,
-    QueryList,
-    Output,
     EventEmitter,
+    Output,
 } from '@angular/core';
 import { AdminShiftScheduleService } from 'src/app/dashboard/services/widgets/admin-shift-schedule.service';
-import { IUser } from '../../../../../models/events-widget';
-import { AvatarConfiguratorService } from '../../../../../services/avatar-configurator.service';
-import { SnackBarService } from '../../../../../services/snack-bar.service';
-import { IAlertWindowModel } from '../../../../../../@shared/models/alert-window.model';
 import { IAbsent } from '../../admin-shift-schedule.component';
+import { IUser } from '../../../../../dashboard/models/events-widget';
+import { AvatarConfiguratorService } from '../../../../../dashboard/services/avatar-configurator.service';
+import { SnackBarService } from '../../../../../dashboard/services/snack-bar.service';
+import { IAlertWindowModel } from '../../../../../@shared/models/alert-window.model';
 
 @Component({
     selector: 'evj-admin-shift-info-employee',

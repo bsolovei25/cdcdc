@@ -61,7 +61,7 @@ $color-bg-active-gradient: "2d3f51";
     .block-left {
       overflow: auto;
       width: 65%;
-      height: calc(100% - 25px);
+      height: 100%;
     }
 
     .block-right {
@@ -516,6 +516,51 @@ p {
         opacity: 1;
       }
     }
+
+    .office-schedule {
+      &__item {
+        position: relative;
+        &__icon {
+          position: absolute;
+          top: 12px;
+          left: 13px;
+        }
+        &__title {
+          font-size: 12px;
+          color: var(--color-border-unactive);
+          padding-left: 45px;
+          padding-top: 15px;
+        }
+        &__value {
+          cursor: pointer;
+          font-size: 12px;
+          padding-left: 45px;
+          padding-top: 12px;
+
+          &__overlay {
+            position: absolute;
+            top: 60px;
+            left: 40px;
+            background-color: var(--color-bg-additional);
+            z-index: 20;
+            border-radius: 10px;
+            padding: 10px;
+            box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2), 0px 4px 5px 0px rgba(0, 0, 0, 0.14),
+              0px 1px 10px 0px rgba(0, 0, 0, 0.12);
+          }
+        }
+      }
+      &__action {
+        display: flex;
+        justify-content: flex-end;
+        min-width: 140px;
+        &__btn {
+          min-width: 130px;
+          height: 30px;
+          padding-right: 20px;
+        }
+      }
+    }
   }
 
   .additional-team {
@@ -637,4 +682,64 @@ p {
 
 .color-6 {
   background-color: var(--color-bg-active-gradient);
+}
+
+::ng-deep .customize-menu {
+  background-color: var(--color-bg-additional);
+  .mat-menu-item {
+    color: var(--color-text-main);
+    background-color: var(--color-bg-sub);
+    margin-bottom: 2px;
+    height: 45px;
+    min-width: 150px;
+    &:hover {
+      background-color: var(--color-bg-active);
+      &::before {
+        content: "";
+        left: 0px;
+        top: 0;
+        position: absolute;
+        width: 4px;
+        height: 45px;
+        border-radius: 11px;
+        background-color: var(--color-bg-active-bright);
+      }
+    }
+  }
+}
+
+::ng-deep .customize-menu2 {
+  background-color: var(--color-bg-additional);
+  .mat-menu-item {
+    color: var(--color-text-main);
+    background-color: var(--color-bg-sub);
+    margin-bottom: 2px;
+    height: 160px;
+    min-width: 150px;
+  }
+}
+
+.custom-picker {
+  &.mat-form-field {
+    width: 130px;
+  }
+  ::ng-deep {
+    .mat-form-field-infix {
+      width: 100px;
+      border-top: none;
+    }
+    .mat-form-field-underline {
+      display: none;
+    }
+    input {
+      border-bottom: 0;
+    }
+    .mat-icon {
+      margin-top: -10px;
+    }
+    .mat-input-element:disabled,
+    .mat-form-field-type-mat-native-select .mat-form-field-disabled .mat-form-field-infix::after {
+      color: var(--color-text-main);
+    }
+  }
 }

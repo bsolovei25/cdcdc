@@ -26,6 +26,45 @@
     }
   }
 
+  &__buttons {
+    font-size: 14px;
+    height: 40px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    border-radius: 12px 12px 0px 0px;
+    background-color: var(--color-aw-header-bg);
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 1);
+  }
+
+  &__button {
+    cursor: pointer;
+    width: 50%;
+    height: 100%;
+    padding: 0;
+    border: none;
+    font: inherit;
+    color: inherit;
+    background-color: transparent;
+
+    &:focus {
+      outline: none;
+    }
+
+    &-left {
+      border-top-left-radius: 12px;
+      &--active {
+        background-color: var(--color-bg-active);
+      }
+    }
+    &-right {
+      border-top-right-radius: 12px;
+      &--active {
+        background-color: var(--color-bg-active);
+      }
+    }
+  }
+
   &__content {
     height: calc(100% - 51px);
     background: var(--color-aw-container-body-transparent);

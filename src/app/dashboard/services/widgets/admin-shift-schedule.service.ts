@@ -6,12 +6,13 @@ import {
     IScheduleShift,
     IBrigadeWithUsersDto,
     IUnits,
+    IUnitSettings,
 } from '../../models/admin-shift-schedule';
 import { IAlertWindowModel } from '@shared/models/alert-window.model';
 import { BehaviorSubject } from 'rxjs';
 import { CdkDropList, CdkDrag } from '@angular/cdk/drag-drop';
-import { IAbsent } from '../../widgets/admin-widget/admin-shift-schedule/admin-shift-schedule.component';
 import { IUser } from '../../models/events-widget';
+import { IAbsent } from '../../../widgets/admin/admin-shift-schedule/admin-shift-schedule.component';
 
 export interface IDropItem {
     container: CdkDropList;
@@ -56,10 +57,10 @@ export class AdminShiftScheduleService {
         unitId: number,
         month: number,
         year: number
-    ): Promise<IScheduleShiftDay[]> {
+    ): Promise<IScheduleShift[]> {
         try {
             return this.http
-                .get<IScheduleShiftDay[]>(
+                .get<IScheduleShift[]>(
                     this.restUrl + `/api/schedule-shifts/unit/${unitId}/month/${month}/${year}`
                 )
                 .toPromise();
@@ -67,6 +68,23 @@ export class AdminShiftScheduleService {
             console.error(error);
         }
     }
+
+    async getSchudeleShiftsRenderMonth(
+        unitId: number,
+        month: number,
+        year: number
+    ): Promise<IScheduleShift[]> {
+        try {
+            return this.http
+                .get<IScheduleShift[]>(
+                    this.restUrl + `/api/schedule-shifts/unit/${unitId}/month/${month}/year/${year}`
+                )
+                .toPromise();
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
     async getSchudeleShift(id: number): Promise<IScheduleShift> {
         try {
             return this.http
@@ -239,6 +257,24 @@ export class AdminShiftScheduleService {
         return await this.http
             .delete<void>(this.restUrl + `/api/schedule-shifts/shift/${idShift}/member/${idMember}`)
             .toPromise();
+    }
+
+    // получить актуальные настройки по выбранной установке
+    public async getActualUnitSettings(id: number): Promise<IUnitSettings> {
+        const url: string = `${this.restUrl}/api/schedule-settings/unit/${id}`;
+        return await this.http.get<IUnitSettings>(url).toPromise();
+    }
+
+    // сохранить настройки расписания смен для выбранной установки
+    public async saveUnitSettings(id: number, body: IUnitSettings): Promise<void> {
+        const url: string = `${this.restUrl}/api/schedule-settings/unit/${id}`;
+        return await this.http.post<void>(url, body).toPromise();
+    }
+
+    // проверить настройки расписания смен для выбранной установки
+    public async checkUnitSettings(id: number, body: IUnitSettings): Promise<IUnitSettings> {
+        const url: string = `${this.restUrl}/api/schedule-settings/unit/${id}/check`;
+        return await this.http.post<IUnitSettings>(url, body).toPromise();
     }
 
     public closeAlert(): void {
