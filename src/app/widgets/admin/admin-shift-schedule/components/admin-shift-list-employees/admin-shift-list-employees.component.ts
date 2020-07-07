@@ -2,13 +2,12 @@ import {
     Component,
     OnInit,
     Input,
-    TemplateRef,
     ChangeDetectionStrategy,
     ChangeDetectorRef,
 } from '@angular/core';
-import { IUser } from '../../../../../models/events-widget';
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
-import { AdminShiftScheduleService } from '../../../../../services/widgets/admin-shift-schedule.service';
+import { IUser } from '../../../../../dashboard/models/events-widget';
+import { AdminShiftScheduleService } from '../../../../../dashboard/services/widgets/admin-shift-schedule.service';
 
 interface IShiftList extends IUser {
     isNotVisible?: boolean;

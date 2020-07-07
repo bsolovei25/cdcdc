@@ -78,7 +78,6 @@ import { TimeDiagramComponent } from './widgets/time-line-diagram/time-diagram/t
 import { ObservationNormTRComponent } from './widgets/observation-norm-tr/observation-norm-tr.component';
 import { AdminPanelComponent } from './widgets/admin-panel/admin-panel.component';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { AdminShiftScheduleComponent } from './widgets/admin-widget/admin-shift-schedule/admin-shift-schedule.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatNativeDateModule, MAT_DATE_LOCALE, MAT_DATE_FORMATS } from '@angular/material/core';
@@ -268,10 +267,6 @@ import { OilControlTableComponent } from './widgets/oil-control/components/oil-c
 import { OilControlTowerComponent } from './widgets/oil-control/components/oil-control-tower/oil-control-tower.component';
 import { WidgetPanelComponent } from './components/widget-panel/widget-panel.component';
 import { EventSearchWindowComponent } from './widgets/workspace/components/event-search-window/event-search-window.component';
-import { AdminShiftBrigadeComponent } from './widgets/admin-widget/admin-shift-schedule/components/admin-shift-brigade/admin-shift-brigade.component';
-import { AdminShiftListEmployeesComponent } from './widgets/admin-widget/admin-shift-schedule/components/admin-shift-list-employees/admin-shift-list-employees.component';
-import { AdminShiftInfoEmployeeComponent } from './widgets/admin-widget/admin-shift-schedule/components/admin-shift-info-employee/admin-shift-info-employee.component';
-import { AdminShiftCardComponent } from './widgets/admin-widget/admin-shift-schedule/components/admin-shift-card/admin-shift-card.component';
 import { MatMenuModule } from '@angular/material/menu';
 import { TruncatedDiagramTrafficLightComponent } from './widgets/truncated-diagram-traffic-light/truncated-diagram-traffic-light.component';
 import { AstueEfficiencyComponent } from './widgets/ASTUE/astue-efficiency/astue-efficiency.component';
@@ -360,7 +355,6 @@ import { PerformanceBarComponent } from './components/performance-bar/performanc
         SearchListComponent,
         ObservationNormTRComponent,
         AdminPanelComponent,
-        AdminShiftScheduleComponent,
         AdminReferencesComponent,
         CardVerifierComponent,
         PetroleumProductsMovementComponent,
@@ -525,10 +519,6 @@ import { PerformanceBarComponent } from './components/performance-bar/performanc
         OilControlTowerComponent,
         WidgetPanelComponent,
         EventSearchWindowComponent,
-        AdminShiftBrigadeComponent,
-        AdminShiftListEmployeesComponent,
-        AdminShiftInfoEmployeeComponent,
-        AdminShiftCardComponent,
         AstueEfficiencyComponent,
         AstueEfficiencyItemsComponent,
         AstueEfficiencyItemCardComponent,
@@ -588,7 +578,6 @@ import { PerformanceBarComponent } from './components/performance-bar/performanc
         TimeLineDiagramComponent,
         SolidGaugesComponent,
         ObservationNormTRComponent,
-        AdminShiftScheduleComponent,
         AdminReferencesComponent,
         PetroleumProductsMovementComponent,
         AdminPanelComponent,

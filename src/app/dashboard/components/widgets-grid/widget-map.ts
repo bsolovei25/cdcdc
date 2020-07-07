@@ -36,7 +36,6 @@ import { FlameDiagramComponent } from '../../widgets/flame-diagram/flame-diagram
 import { ObservationNormTRComponent } from '../../widgets/observation-norm-tr/observation-norm-tr.component';
 import { RingEnergyIndicatorComponent } from '../../widgets/ring-energy-indicator/ring-energy-indicator.component';
 import { SolidGaugesComponent } from '../../widgets/solid-gauge-with-marker/solid-gauges/solid-gauges.component';
-import { AdminShiftScheduleComponent } from '../../widgets/admin-widget/admin-shift-schedule/admin-shift-schedule.component';
 import { AdminReferencesComponent } from '../../widgets/admin-references/admin-references.component';
 import { PetroleumProductsMovementComponent } from '../../widgets/petroleum-products-movement/petroleum-products-movement.component';
 import { AdminPanelComponent } from '../../widgets/admin-panel/admin-panel.component';
@@ -107,7 +106,6 @@ export const WIDGETS = {
     'time-line-diagram': TimeLineDiagramComponent,
     'solid-gauge-with-marker': SolidGaugesComponent,
     'observation-norm-tr': ObservationNormTRComponent,
-    'admin-shift-schedule': AdminShiftScheduleComponent,
     'admin-references': AdminReferencesComponent,
     'petroleum-products-movement': PetroleumProductsMovementComponent,
     'admin-panel': AdminPanelComponent,
@@ -138,6 +136,7 @@ export const WIDGETS = {
     'aps-recipe-diagram': WidgetContainerComponent,
     'aps-gantt-chart': WidgetContainerComponent,
     scenarios: WidgetContainerComponent,
+    'admin-shift-schedule': WidgetContainerComponent,
     'facility-deviation': WidgetContainerComponent,
     'raw-motion': WidgetContainerComponent,
     'stocks-using': WidgetContainerComponent,
@@ -145,7 +144,7 @@ export const WIDGETS = {
 };
 
 export const WIDGETS_LAZY = {
-    //#region APS
+    // #region APS
     'load-chart': {
         import: async () => {
             return await import('src/app/widgets/APS/load-chart/load-chart.module');
@@ -236,6 +235,25 @@ export const WIDGETS_LAZY = {
     },
     //#endregion APS
 
+    // #endregion APS
+
+    // #region Admin
+
+    'admin-shift-schedule': {
+        import: async () => {
+            return await import(
+                'src/app/widgets/admin/admin-shift-schedule/admin-shift-schedule.module'
+            );
+        },
+        module: 'AdminShiftScheduleModule',
+        itemCols: 15,
+        itemRows: 15,
+        minItemCols: 15,
+        minItemRows: 15,
+        preview: 'admin-shift-schedule',
+    },
+
+    // #endregion APS
     // 'pie-diagram': {
     //     import: async () => await import('src/app/widgets/pie-diagram/pie-diagram.module'),
     // },
