@@ -1,7 +1,7 @@
 import { Component, Inject, OnInit, OnDestroy } from '@angular/core';
 import { WidgetPlatform } from '../../../dashboard/models/widget-platform';
 import { WidgetService } from '../../../dashboard/services/widget.service';
-import { IApsProgressBarSettings } from './components/progress-bar/progress-bar.component';
+import { IApsProgressBarSettings } from '@shared/components/aps-progress-bar/aps-progress-bar.component';
 import { FormControl } from '@angular/forms';
 
 @Component({
