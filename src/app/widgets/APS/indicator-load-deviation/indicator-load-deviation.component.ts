@@ -98,19 +98,37 @@ export class IndicatorLoadDeviationComponent extends WidgetPlatform
         buttons
             .append('image')
             .attr('xlink:href', urlButton)
-            .attr('x', 70)
-            .attr('y', 0)
-            .attr('width', 130)
-            .attr('height', 35)
+            .attr('x', 75)
+            .attr('y', -5)
+            .attr('width', 125)
+            .attr('height', 40)
             .style('cursor', 'pointer');
+        buttons
+            .append('text')
+            .attr('x', 140)
+            .attr('y', 20)
+            .attr('fill', '#8C99B2')
+            .attr('text-anchor', 'middle')
+            .style('font-size', 12)
+            .text('Планирование');
+
         buttons
             .append('image')
             .attr('xlink:href', urlButtonActive)
-            .attr('x', 200)
-            .attr('y', 0)
-            .attr('width', 128)
-            .attr('height', 35)
+            .attr('x', 205)
+            .attr('y', -5)
+            .attr('width', 125)
+            .attr('height', 40)
             .style('cursor', 'pointer');
+
+        buttons
+            .append('text')
+            .attr('x', 267)
+            .attr('y', 20)
+            .attr('fill', '#ffffff')
+            .attr('text-anchor', 'middle')
+            .style('font-size', 12)
+            .text('Мониторинг');
 
         const labels = this.svgMenu.append('g').attr('class', 'labels');
         labels
@@ -122,6 +140,14 @@ export class IndicatorLoadDeviationComponent extends WidgetPlatform
             .attr('x', 29)
             .attr('y', 40);
         labels
+            .append('text')
+            .attr('x', 140)
+            .attr('y', 53)
+            .attr('fill', '#ffffff')
+            .attr('text-anchor', 'middle')
+            .style('font-size', 11)
+            .text('Качество данных');
+        labels
             .append('image')
             .attr(
                 'xlink:href',
@@ -129,21 +155,29 @@ export class IndicatorLoadDeviationComponent extends WidgetPlatform
             )
             .attr('x', 199)
             .attr('y', 40);
+        labels
+            .append('text')
+            .attr('x', 267)
+            .attr('y', 53)
+            .attr('fill', '#ffffff')
+            .attr('text-anchor', 'middle')
+            .style('font-size', 11)
+            .text('Качество графика');
 
         this.svgMenu
             .append('circle')
             .attr('class', 'indicator')
-            .attr('cx', 31)
-            .attr('cy', 27)
-            .attr('r', 30)
+            .attr('cx', 35)
+            .attr('cy', 23)
+            .attr('r', 35)
             .attr('fill', '#1C1F2D');
 
         this.svgMenu
             .append('circle')
             .attr('class', 'indicator')
-            .attr('cx', 369)
-            .attr('cy', 27)
-            .attr('r', 30)
+            .attr('cx', 365)
+            .attr('cy', 23)
+            .attr('r', 35)
             .attr('fill', '#1C1F2D');
     }
 
@@ -234,234 +268,78 @@ export class IndicatorLoadDeviationComponent extends WidgetPlatform
     }
 
     private drawCards(): void {
+        const step = 50;
+        let stepCounter = -20;
+        let card;
+
         const cards = this.svgBody.append('g').attr('class', 'cards');
 
-        let card = cards.append('g').attr('class', 'card');
-        card.append('image')
-            .attr(
-                'xlink:href',
-                'assets/icons/widgets/APS/aps-indicator-load-deviation/card-left.svg'
-            )
-            .attr('x', 210)
-            .attr('y', -20)
-            .attr('width', 48)
-            .attr('height', 45);
+        this.data.forEach((item) => {
+            card = cards.append('g').attr('class', 'card');
+            card.append('image')
+                .attr(
+                    'xlink:href',
+                    'assets/icons/widgets/APS/aps-indicator-load-deviation/card-left.svg'
+                )
+                .attr('x', 210)
+                .attr('y', stepCounter)
+                .attr('width', 48)
+                .attr('height', 45);
 
-        card.append('image')
-            .attr(
-                'xlink:href',
-                'assets/icons/widgets/APS/aps-indicator-load-deviation/card-frame.svg'
-            )
-            .attr('x', 210)
-            .attr('y', -20)
-            .attr('width', 190)
-            .attr('height', 46);
+            card.append('image')
+                .attr(
+                    'xlink:href',
+                    'assets/icons/widgets/APS/aps-indicator-load-deviation/card-frame.svg'
+                )
+                .attr('x', 210)
+                .attr('y', stepCounter)
+                .attr('width', 190)
+                .attr('height', 46);
 
-        card.append('image')
-            .attr(
-                'xlink:href',
-                'assets/icons/widgets/APS/aps-indicator-load-deviation/card-values.svg'
-            )
-            .attr('x', 320)
-            .attr('y', -17)
-            .attr('width', 75)
-            .attr('height', 40);
+            card.append('image')
+                .attr(
+                    'xlink:href',
+                    'assets/icons/widgets/APS/aps-indicator-load-deviation/card-values.svg'
+                )
+                .attr('x', 320)
+                .attr('y', stepCounter + 3)
+                .attr('width', 75)
+                .attr('height', 40);
 
-        card.append('image')
-            .attr(
-                'xlink:href',
-                'assets/icons/widgets/APS/aps-indicator-load-deviation/card-icon.svg'
-            )
-            .attr('x', 217)
-            .attr('y', -7)
-            .attr('width', 20)
-            .attr('height', 20);
+            card.append('image')
+                .attr(
+                    'xlink:href',
+                    'assets/icons/widgets/APS/aps-indicator-load-deviation/card-icon.svg'
+                )
+                .attr('x', 217)
+                .attr('y', stepCounter + 13)
+                .attr('width', 20)
+                .attr('height', 20);
 
-        card.append('text')
-            .attr('x', 240)
-            .attr('y', 5)
-            .attr('fill', '#8D9EB8')
-            .style('font-size', 11)
-            .text('Гидроочистка ДТ');
+            card.append('text')
+                .attr('x', 240)
+                .attr('y', stepCounter + 25)
+                .attr('fill', '#8D9EB8')
+                .style('font-size', 11)
+                .text(item.name);
 
-        card.append('text')
-            .attr('x', 390)
-            .attr('y', 0)
-            .attr('fill', '#ffffff')
-            .attr('text-anchor', 'end')
-            .style('font-size', 11)
-            .text('850074');
+            card.append('text')
+                .attr('x', 390)
+                .attr('y', stepCounter + 20)
+                .attr('fill', '#ffffff')
+                .attr('text-anchor', 'end')
+                .style('font-size', 11)
+                .text(`${item.value}`);
 
-        card.append('text')
-            .attr('x', 390)
-            .attr('y', 15)
-            .attr('fill', '#FF931E')
-            .attr('text-anchor', 'end')
-            .style('font-size', 11)
-            .text('-298');
+            card.append('text')
+                .attr('x', 390)
+                .attr('y', stepCounter + 35)
+                .attr('fill', '#FF931E')
+                .attr('text-anchor', 'end')
+                .style('font-size', 11)
+                .text(`${item.deviation}`);
 
-        card = cards.append('g').attr('class', 'card');
-        card.append('image')
-            .attr(
-                'xlink:href',
-                'assets/icons/widgets/APS/aps-indicator-load-deviation/card-left.svg'
-            )
-            .attr('x', 210)
-            .attr('y', 30)
-            .attr('width', 48)
-            .attr('height', 45);
-
-        card.append('image')
-            .attr(
-                'xlink:href',
-                'assets/icons/widgets/APS/aps-indicator-load-deviation/card-frame.svg'
-            )
-            .attr('x', 210)
-            .attr('y', 30)
-            .attr('width', 190)
-            .attr('height', 46);
-
-        card.append('image')
-            .attr(
-                'xlink:href',
-                'assets/icons/widgets/APS/aps-indicator-load-deviation/card-values.svg'
-            )
-            .attr('x', 320)
-            .attr('y', 33)
-            .attr('width', 75)
-            .attr('height', 40);
-
-        card.append('image')
-            .attr(
-                'xlink:href',
-                'assets/icons/widgets/APS/aps-indicator-load-deviation/card-icon.svg'
-            )
-            .attr('x', 217)
-            .attr('y', 43)
-            .attr('width', 20)
-            .attr('height', 20);
-
-        card = cards.append('g').attr('class', 'card');
-        card.append('image')
-            .attr(
-                'xlink:href',
-                'assets/icons/widgets/APS/aps-indicator-load-deviation/card-left.svg'
-            )
-            .attr('x', 210)
-            .attr('y', 80)
-            .attr('width', 48)
-            .attr('height', 45);
-
-        card.append('image')
-            .attr(
-                'xlink:href',
-                'assets/icons/widgets/APS/aps-indicator-load-deviation/card-frame.svg'
-            )
-            .attr('x', 210)
-            .attr('y', 80)
-            .attr('width', 190)
-            .attr('height', 46);
-
-        card.append('image')
-            .attr(
-                'xlink:href',
-                'assets/icons/widgets/APS/aps-indicator-load-deviation/card-values.svg'
-            )
-            .attr('x', 320)
-            .attr('y', 83)
-            .attr('width', 75)
-            .attr('height', 40);
-
-        card.append('image')
-            .attr(
-                'xlink:href',
-                'assets/icons/widgets/APS/aps-indicator-load-deviation/card-icon.svg'
-            )
-            .attr('x', 217)
-            .attr('y', 93)
-            .attr('width', 20)
-            .attr('height', 20);
-
-        card = cards.append('g').attr('class', 'card');
-        card.append('image')
-            .attr(
-                'xlink:href',
-                'assets/icons/widgets/APS/aps-indicator-load-deviation/card-left.svg'
-            )
-            .attr('x', 210)
-            .attr('y', 130)
-            .attr('width', 48)
-            .attr('height', 45);
-
-        card.append('image')
-            .attr(
-                'xlink:href',
-                'assets/icons/widgets/APS/aps-indicator-load-deviation/card-frame.svg'
-            )
-            .attr('x', 210)
-            .attr('y', 130)
-            .attr('width', 190)
-            .attr('height', 46);
-
-        card.append('image')
-            .attr(
-                'xlink:href',
-                'assets/icons/widgets/APS/aps-indicator-load-deviation/card-values.svg'
-            )
-            .attr('x', 320)
-            .attr('y', 133)
-            .attr('width', 75)
-            .attr('height', 40);
-
-        card.append('image')
-            .attr(
-                'xlink:href',
-                'assets/icons/widgets/APS/aps-indicator-load-deviation/card-icon.svg'
-            )
-            .attr('x', 217)
-            .attr('y', 143)
-            .attr('width', 20)
-            .attr('height', 20);
-
-        card = cards.append('g').attr('class', 'card');
-        card.append('image')
-            .attr(
-                'xlink:href',
-                'assets/icons/widgets/APS/aps-indicator-load-deviation/card-left.svg'
-            )
-            .attr('x', 210)
-            .attr('y', 180)
-            .attr('width', 48)
-            .attr('height', 45);
-
-        card.append('image')
-            .attr(
-                'xlink:href',
-                'assets/icons/widgets/APS/aps-indicator-load-deviation/card-frame.svg'
-            )
-            .attr('x', 210)
-            .attr('y', 180)
-            .attr('width', 190)
-            .attr('height', 46);
-
-        card.append('image')
-            .attr(
-                'xlink:href',
-                'assets/icons/widgets/APS/aps-indicator-load-deviation/card-values.svg'
-            )
-            .attr('x', 320)
-            .attr('y', 183)
-            .attr('width', 75)
-            .attr('height', 40);
-
-        card.append('image')
-            .attr(
-                'xlink:href',
-                'assets/icons/widgets/APS/aps-indicator-load-deviation/card-icon.svg'
-            )
-            .attr('x', 217)
-            .attr('y', 193)
-            .attr('width', 20)
-            .attr('height', 20);
+            stepCounter += step;
+        });
     }
 }
