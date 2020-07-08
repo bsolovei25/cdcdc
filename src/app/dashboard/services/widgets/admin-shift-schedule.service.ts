@@ -235,6 +235,11 @@ export class AdminShiftScheduleService {
         }
     }
 
+    async checkForDeleteBrigade(brigadeId: number): Promise<any> {
+        const url: string = `${this.restUrl}/api/user-management/brigade/${brigadeId}/check-delete`;
+        return await this.http.get<any>(url).toPromise();
+    }
+
     async deleteBrigade(brigadeId: number): Promise<void> {
         return await this.http
             .delete<void>(this.restUrl + `/api/user-management/brigade/${brigadeId}`)

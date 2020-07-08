@@ -46,7 +46,7 @@ export class AdminShiftBrigadeComponent {
     constructor(
         private adminShiftScheduleService: AdminShiftScheduleService,
         private snackBar: SnackBarService
-    ) { }
+    ) {}
 
     public openList(): void {
         this.isOpen = !this.isOpen;
@@ -68,7 +68,7 @@ export class AdminShiftBrigadeComponent {
             cancelText: 'Нет',
             acceptFunction: () => {
                 this.adminShiftScheduleService.alertWindow$.next(null);
-                this.deleteBrigade(brigade);
+                this.checkForDeleteBrigade(brigade);
             },
             closeFunction: () => {
                 this.adminShiftScheduleService.alertWindow$.next(null);
@@ -101,6 +101,33 @@ export class AdminShiftBrigadeComponent {
             },
         };
         this.adminShiftScheduleService.alertWindow$.next(windowsParam);
+    }
+
+    async checkForDeleteBrigade(brigade: IBrigadeWithUsersDto): Promise<void> {
+        try {
+            const a = await this.adminShiftScheduleService.checkForDeleteBrigade(brigade.brigadeId);
+            console.log(a);
+
+            await this.deleteBrigade(brigade);
+        } catch (error) {
+            console.log('error: ', error);
+            if (error.status === 477 && error.error.messages[0].type === 'warning') {
+                const windowsParam: IAlertWindowModel = {
+                    isShow: true,
+                    questionText: error.error.messages[0].message,
+                    acceptText: 'Удалить',
+                    cancelText: 'Отмена',
+                    acceptFunction: () => {
+                        this.adminShiftScheduleService.alertWindow$.next(null);
+                        this.deleteBrigade(brigade);
+                    },
+                    closeFunction: () => {
+                        this.adminShiftScheduleService.alertWindow$.next(null);
+                    },
+                };
+                this.adminShiftScheduleService.alertWindow$.next(windowsParam);
+            }
+        }
     }
 
     async deleteBrigade(brigade: IBrigadeWithUsersDto): Promise<void> {
