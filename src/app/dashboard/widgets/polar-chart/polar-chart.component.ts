@@ -12,9 +12,9 @@ declare var d3: any;
 export class PolarChartComponent extends WidgetPlatform implements OnInit, OnDestroy {
     @ViewChild('polar') Polar: ElementRef;
 
-    public static itemCols: number = 21;
-    public static itemRows: number = 21;
-    public static minItemCols: number = 15;
+    public static itemCols: number = 20;
+    public static itemRows: number = 20;
+    public static minItemCols: number = 9;
     public static minItemRows: number = 15;
 
     private canvas: any;
@@ -159,7 +159,7 @@ export class PolarChartComponent extends WidgetPlatform implements OnInit, OnDes
             .select(el)
             .append('svg')
             .attr('min-width', '100px')
-            .attr('viewBox', '10 0 150 120');
+            .attr('viewBox', '10 0 130 120');
 
         let imageFrame = this.canvas
             .append('image')
