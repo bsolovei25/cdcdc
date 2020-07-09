@@ -11,8 +11,8 @@
   min-width: 120px;
 }
 .item-b {
-  margin: 5px auto;
-  height: 100%;
+  // margin: 5px auto;
+  height: calc(100% + 25px);
   width: 100%;
   text-align: center;
 }
