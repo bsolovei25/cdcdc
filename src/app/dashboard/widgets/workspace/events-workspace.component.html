@@ -1,10 +1,13 @@
-<evj-widget-preview [icon]="widgetIcon" [title]="widgetTitle" [previewTitle]="widgetType" *ngIf="isMock">
+<evj-widget-preview
+  [icon]="widgetIcon"
+  [title]="widgetTitle"
+  [previewTitle]="widgetType"
+  *ngIf="isMock"
+>
 </evj-widget-preview>
 
 <ng-container *ngIf="!isMock">
-  <div
-    class="container pointer-event events-workspace__scroll"
-  >
+  <div class="container pointer-event events-workspace__scroll">
     <!-- loading data -->
     <evj-loading-shade [isLoading]="ewService.isLoading"></evj-loading-shade>
     <evj-event-search-window [info]="ewService.searchWindow$ | async"></evj-event-search-window>
@@ -28,9 +31,10 @@
     <evj-frame-top></evj-frame-top>
 
     <!-- EVENT -->
-    <div class="container-widget"
-     (mousedown)="$event.stopPropagation()"
-     (touchstart)="$event.stopPropagation()"
+    <div
+      class="container-widget"
+      (mousedown)="$event.stopPropagation()"
+      (touchstart)="$event.stopPropagation()"
     >
       <ng-container *ngIf="ewService.event" [ngSwitch]="ewService?.event?.category?.code">
         <evj-smotr-event *ngSwitchCase="0"></evj-smotr-event>
@@ -39,9 +43,16 @@
         <evj-usual-event *ngSwitchDefault></evj-usual-event>
       </ng-container>
 
+      <!-- <evj-smotr-event></evj-smotr-event> -->
+      <!-- <evj-asus-event></evj-asus-event> -->
+
       <!-- NO-SELECTED EVENT -->
       <ng-container *ngIf="!ewService.event">
-        <div class="workspace__mock" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
+        <div
+          class="workspace__mock"
+          (mousedown)="$event.stopPropagation()"
+          (touchstart)="$event.stopPropagation()"
+        >
           <div class="workspace__submit">
             Создайте или выберите событие
           </div>
@@ -50,7 +61,6 @@
     </div>
 
     <evj-frame-bottom></evj-frame-bottom>
-
   </div>
 
   <div

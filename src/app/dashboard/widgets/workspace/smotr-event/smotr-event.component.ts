@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { EventsWorkspaceService } from '../../../services/widgets/events-workspace.service';
 import { EventService } from '../../../services/widgets/event.service';
-import { HttpClient } from '@angular/common/http';
 import { IChatMessageWithAttachments } from '../components/chat/chat.component';
 
 @Component({
@@ -16,13 +15,9 @@ export class SmotrEventComponent implements OnInit {
 
     public graph: any;
 
-    constructor(
-        public ewService: EventsWorkspaceService,
-        private eventService: EventService,
-    ) {}
+    constructor(public ewService: EventsWorkspaceService, private eventService: EventService) {}
 
-    public ngOnInit(): void {
-    }
+    public ngOnInit(): void {}
 
     public isDisabledCloseButton(): boolean {
         return this.ewService.event.status.name === 'closed';
@@ -36,7 +31,10 @@ export class SmotrEventComponent implements OnInit {
         this.ewService.event.description = description;
     }
 
-    public onSendMessage(message: IChatMessageWithAttachments, msgType: 'comments' | 'facts'): void {
+    public onSendMessage(
+        message: IChatMessageWithAttachments,
+        msgType: 'comments' | 'facts'
+    ): void {
         this.ewService.sendMessageToEvent(message, msgType);
     }
 
@@ -56,7 +54,7 @@ export class SmotrEventComponent implements OnInit {
         }
     }
 
-    setReason(reason: {id: string, name: string}): void {
+    setReason(reason: { id: string; name: string }): void {
         this.isReasonsPopupOpen = false;
         if (reason === null) {
             return;
