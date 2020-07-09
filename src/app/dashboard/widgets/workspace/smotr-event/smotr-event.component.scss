@@ -94,6 +94,10 @@
 
     box-sizing: border-box;
     padding: 0px 15px;
+
+    &_uniq {
+      justify-content: center;
+    }
   }
 
   .label {

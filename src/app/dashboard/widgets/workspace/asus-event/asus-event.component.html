@@ -28,7 +28,10 @@
               [disabled]="isCreateEvent()"
               [value]="ewService.event.asusEvent.category"
             >
-              <mat-option *ngFor="let category of ewService.asusCategories" [value]="category?.name">
+              <mat-option
+                *ngFor="let category of ewService.asusCategories"
+                [value]="category?.name"
+              >
                 {{ category?.name }}
               </mat-option>
             </mat-select>
@@ -64,7 +67,9 @@
               [(ngModel)]="ewService.event.asusEvent.tmPlace"
               (selectionChange)="this.setUnit($event.value)"
             >
-              <mat-option *ngFor="let p of ewService.asusUnits" [value]="p.codeSap">{{ p.name }} </mat-option>
+              <mat-option *ngFor="let p of ewService.asusUnits" [value]="p.codeSap"
+                >{{ p.name }}
+              </mat-option>
             </mat-select>
           </mat-form-field>
         </evj-ui-block>
@@ -152,7 +157,7 @@
               [(ngModel)]="ewService.event.asusEvent.service"
             >
               <mat-option *ngFor="let service of ewService.asusServices" [value]="service.name"
-              >{{ service.name }}
+                >{{ service.name }}
               </mat-option>
             </mat-select>
           </mat-form-field>
@@ -188,8 +193,10 @@
               (selectionChange)="setEquipment($event.value)"
               [(ngModel)]="ewService.event.asusEvent.equipment"
             >
-              <mat-option *ngFor="let equipment of ewService.asusEquipments" [value]="equipment.codeSap"
-              >{{ equipment.name }}
+              <mat-option
+                *ngFor="let equipment of ewService.asusEquipments"
+                [value]="equipment.codeSap"
+                >{{ equipment.name }}
               </mat-option>
             </mat-select>
           </mat-form-field>
@@ -205,8 +212,10 @@
               (click)="optionClick('eoService')"
               [(ngModel)]="ewService.event.asusEvent.eoService"
             >
-              <mat-option *ngFor="let eoService of ewService.asusEOServices" [value]="eoService.codeSap"
-              >{{ eoService.name }}
+              <mat-option
+                *ngFor="let eoService of ewService.asusEOServices"
+                [value]="eoService.codeSap"
+                >{{ eoService.name }}
               </mat-option>
             </mat-select>
           </mat-form-field>
@@ -217,7 +226,10 @@
       <div class="row__cell cell cell_left information">
         <div class="label">
           <div class="label__title">Автор</div>
-          <div class="label__text">{{this.ewService.event.fixedBy?.displayName ? this.ewService.event.fixedBy.displayName : 'Не установлен'}}</div>
+          <div class="label__text">
+            {{this.ewService.event.fixedBy?.displayName ? this.ewService.event.fixedBy.displayName :
+            'Не установлен'}}
+          </div>
         </div>
       </div>
       <div class="row__cell cell cell_right">
@@ -230,11 +242,30 @@
               [(ngModel)]="ewService.event.asusEvent.workGroup"
             >
               <mat-option *ngFor="let workgroup of ewService.asusWorkgroup" [value]="workgroup.name"
-              >{{ workgroup.name }}
+                >{{ workgroup.name }}
               </mat-option>
             </mat-select>
           </mat-form-field>
         </evj-ui-block>
+      </div>
+    </div>
+    <div class="column__row row">
+      <div class="row__cell cell cell_left information">
+        <div class="label">
+          <div class="label__title">ID в Системе-источник</div>
+          <div class="label__text">
+            {{this.ewService.event?.externalCode ? this.ewService.event?.externalCode : ''}}
+          </div>
+        </div>
+      </div>
+      <div class="row__cell cell cell_right information">
+        <div class="label">
+          <div class="label__title">Дата регистрации</div>
+          <div class="label__text">
+            {{this.ewService.event?.externalDate ? this.ewService.event.externalDate :
+            ''|date:'dd.MM.yyyy | hh.mm'}}
+          </div>
+        </div>
       </div>
     </div>
     <div class="column__row row responsible">

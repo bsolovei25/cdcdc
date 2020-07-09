@@ -23,6 +23,7 @@ export interface EventsWidgetNotificationPreview {
     facts?: { comment: string }[];
     source?: any;
     externalId?: number;
+    isQvitirovano?: boolean; //TOFIX: mock-свойтво Квитировано
 }
 
 export interface EventsWidgetNotification {
@@ -64,6 +65,8 @@ export interface EventsWidgetNotification {
     deviationData?: IEventDeviationData;
     asusEvent: IEventAsus;
     externalId?: number;
+    externalCode?: string; // код внешней системы (ID в Системе-источник)
+    externalDate?: Date; // дата регистрации во внешней системе
 }
 
 export interface IEventAsus {
