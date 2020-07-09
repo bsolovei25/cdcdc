@@ -235,26 +235,6 @@ export const WIDGETS_LAZY = {
         minItemRows: 11,
         // preview: 'indicator-load-deviation',
     },
-    //#endregion APS
-
-    // #region Admin
-
-    'admin-shift-schedule': {
-        import: async () => {
-            return await import(
-                'src/app/widgets/admin/admin-shift-schedule/admin-shift-schedule.module'
-            );
-        },
-        module: 'AdminShiftScheduleModule',
-        itemCols: 15,
-        itemRows: 15,
-        minItemCols: 15,
-        minItemRows: 15,
-        preview: 'admin-shift-schedule',
-    },
-
-    // #endregion Admin
-
     'deviation-details': {
         import: async () => {
             return await import('src/app/widgets/APS/deviation-details/deviation-details.module');
@@ -275,6 +255,23 @@ export const WIDGETS_LAZY = {
         minItemCols: 11,
         minItemRows: 11,
     },
+    //#endregion APS
+
+    // #region Admin
+    'admin-shift-schedule': {
+        import: async () => {
+            return await import(
+                'src/app/widgets/admin/admin-shift-schedule/admin-shift-schedule.module'
+            );
+        },
+        module: 'AdminShiftScheduleModule',
+        itemCols: 15,
+        itemRows: 15,
+        minItemCols: 15,
+        minItemRows: 15,
+        preview: 'admin-shift-schedule',
+    },
+    // #endregion Admin
 
     // 'pie-diagram': {
     //     import: async () => await import('src/app/widgets/pie-diagram/pie-diagram.module'),
