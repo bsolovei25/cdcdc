@@ -254,8 +254,7 @@
         <div class="label">
           <div class="label__title">ID в Системе-источник</div>
           <div class="label__text">
-            {{this.ewService.event.fixedBy?.displayName ? this.ewService.event.fixedBy.displayName :
-            'Не установлен'}}
+            {{this.ewService.event?.externalCode ? this.ewService.event?.externalCode : ''}}
           </div>
         </div>
       </div>
@@ -263,8 +262,8 @@
         <div class="label">
           <div class="label__title">Дата регистрации</div>
           <div class="label__text">
-            {{this.ewService.event.fixedBy?.displayName ? this.ewService.event.fixedBy.displayName :
-            'Не установлен'}}
+            {{this.ewService.event?.externalDate ? this.ewService.event.externalDate :
+            ''|date:'dd.MM.yyyy | hh.mm'}}
           </div>
         </div>
       </div>
