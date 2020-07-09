@@ -141,6 +141,8 @@ export const WIDGETS = {
     'raw-motion': WidgetContainerComponent,
     'stocks-using': WidgetContainerComponent,
     'indicator-load-deviation': WidgetContainerComponent,
+    'deviation-details': WidgetContainerComponent,
+    'production-details': WidgetContainerComponent,
 };
 
 export const WIDGETS_LAZY = {
@@ -235,8 +237,6 @@ export const WIDGETS_LAZY = {
     },
     //#endregion APS
 
-    // #endregion APS
-
     // #region Admin
 
     'admin-shift-schedule': {
@@ -253,7 +253,29 @@ export const WIDGETS_LAZY = {
         preview: 'admin-shift-schedule',
     },
 
-    // #endregion APS
+    // #endregion Admin
+
+    'deviation-details': {
+        import: async () => {
+            return await import('src/app/widgets/APS/deviation-details/deviation-details.module');
+        },
+        module: 'DeviationDetailsModule',
+        itemCols: 11,
+        itemRows: 20,
+        minItemCols: 11,
+        minItemRows: 11,
+    },
+    'production-details': {
+        import: async () => {
+            return await import('src/app/widgets/APS/production-details/production-details.module');
+        },
+        module: 'ProductionDetailsModule',
+        itemCols: 11,
+        itemRows: 20,
+        minItemCols: 11,
+        minItemRows: 11,
+    },
+
     // 'pie-diagram': {
     //     import: async () => await import('src/app/widgets/pie-diagram/pie-diagram.module'),
     // },
