@@ -4,7 +4,11 @@ import * as d3 from 'd3';
 export interface IPieChartInputData {
     name: string;
     value: number;
-    highLightSector: 0 | 1 | 2;
+    greenUpperBounds?: number;
+    yellowUpperBounds?: number;
+    redUpperBounds?: number;
+    unitsOfMeasure?: string;
+    highLightSector?: 0 | 1 | 2;
 }
 
 @Component({
