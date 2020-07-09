@@ -133,7 +133,9 @@
       <div class="row__cell cell cell_left information information_uniq">
         <div class="information__label label">
           <div class="label__title">Дата регистрации</div>
-          <div class="label__text">{{this.ewService.event.unitName}}</div>
+          <div class="label__text">
+            {{this.ewService.event?.externalDate?this.ewService.event.externalDate:''|date:'dd.MM.yyyy | hh.mm'}}
+          </div>
         </div>
       </div>
     </div>
@@ -141,7 +143,9 @@
       <div class="row__cell cell cell_left information">
         <div class="information__label label">
           <div class="label__title">ID в Системе-источник</div>
-          <div class="label__text">{{this.ewService.event.unitName}}</div>
+          <div class="label__text">
+            {{this.ewService.event?.externalCode?this.ewService.event.externalCode:''}}
+          </div>
         </div>
       </div>
       <div class="row__cell cell cell_right">
