@@ -6,7 +6,7 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 
 export interface ITruncatedDiagramInputData {
     name: string;
-    diagram: IPieChartInputData[];
+    items: IPieChartInputData[];
 }
 
 @Component({
@@ -26,83 +26,7 @@ export interface ITruncatedDiagramInputData {
 })
 export class TruncatedDiagramTrafficLightComponent extends WidgetPlatform implements OnInit, OnDestroy {
     public expandedPanels: Map<number, boolean> = new Map<number, boolean>();
-    public data: ITruncatedDiagramInputData[] = [
-        {
-            name: 'Резервуар №505',
-            diagram: [
-                {
-                    name: 'ИОЧ',
-                    value: 105,
-                    highLightSector: 1,
-                },
-                {
-                    name: 'МОЧ',
-                    value: 107,
-                    highLightSector: 2,
-                },
-                {
-                    name: 'ИОЧ1',
-                    value: 101,
-                    highLightSector: 0,
-                },
-                {
-                    name: 'ИОЧ2',
-                    value: 99,
-                    highLightSector: 1,
-                },
-                {
-                    name: 'ИОЧ2',
-                    value: 99,
-                    highLightSector: 1,
-                },
-            ]
-        },
-        {
-            name: 'Резервуар №527',
-            diagram: [
-                {
-                    name: 'ИОЧ',
-                    value: 105,
-                    highLightSector: 2,
-                },
-                {
-                    name: 'МОЧ',
-                    value: 107,
-                    highLightSector: 0,
-                }
-            ]
-        },
-        {
-            name: 'Резервуар №506',
-            diagram: [
-                {
-                    name: 'ИОЧ',
-                    value: 105,
-                    highLightSector: 1,
-                },
-                {
-                    name: 'МОЧ',
-                    value: 107,
-                    highLightSector: 2,
-                }
-            ]
-        },
-        {
-            name: 'Резервуар №502',
-            diagram: [
-                {
-                    name: 'ИОЧ',
-                    value: 105,
-                    highLightSector: 0,
-                },
-                {
-                    name: 'МОЧ',
-                    value: 107,
-                    highLightSector: 1,
-                }
-            ]
-        },
-    ];
+    public data: ITruncatedDiagramInputData[] = [];
 
     public static itemCols: number = 14;
     public static itemRows: number = 22;
@@ -116,8 +40,6 @@ export class TruncatedDiagramTrafficLightComponent extends WidgetPlatform implem
         @Inject('uniqId') public uniqId: string
     ) {
         super(widgetService, isMock, id, uniqId);
-        this.widgetIcon = 'flask';
-        this.widgetUnits = '%';
     }
 
     ngOnInit(): void {
@@ -126,7 +48,38 @@ export class TruncatedDiagramTrafficLightComponent extends WidgetPlatform implem
     }
 
     protected dataHandler(ref: any): void {
-        console.log(ref);
+        this.data = ref.groups;
+        this.processData();
+    }
+
+    private processData(): void {
+        this.data.forEach(item => {
+            item.items.forEach(chart => {
+                chart = this.countHighlightSector(chart);
+            });
+        });
+    }
+
+    private countHighlightSector(data: IPieChartInputData): IPieChartInputData {
+        const countedData = data;
+        if (
+            countedData.value <= data.yellowUpperBounds
+        ) {
+            countedData.highLightSector = 0;
+        }
+        if (
+            countedData.value >= data.yellowUpperBounds &&
+            countedData.value <= data.greenUpperBounds
+        ) {
+            countedData.highLightSector = 1;
+        }
+        if (
+            countedData.value >= data.greenUpperBounds &&
+            countedData.value <= data.redUpperBounds
+        ) {
+            countedData.highLightSector = 2;
+        }
+        return countedData;
     }
 
     ngOnDestroy(): void {
