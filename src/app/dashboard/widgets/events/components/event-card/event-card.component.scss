@@ -62,17 +62,16 @@
       margin-bottom: 15px;
       flex: 1 1 340px;
 
-      clip-path:
-        polygon(
-            0% 6px,                 /* top left */
-            6px 0%,                 /* top left */
-            calc(100% - 6px) 0%,    /* top right */
-            100% 6px,               /* top right */
-            100% calc(100% - 6px),  /* bottom right */
-            calc(100% - 6px) 100%,  /* bottom right */
-            6px 100%,               /* bottom left */
-            0 calc(100% - 6px)      /* bottom left */
-        );
+      clip-path: polygon(
+        0% 6px,
+        /* top left */ 6px 0%,
+        /* top left */ calc(100% - 6px) 0%,
+        /* top right */ 100% 6px,
+        /* top right */ 100% calc(100% - 6px),
+        /* bottom right */ calc(100% - 6px) 100%,
+        /* bottom right */ 6px 100%,
+        /* bottom left */ 0 calc(100% - 6px) /* bottom left */
+      );
     }
   }
 
@@ -773,5 +772,29 @@
       color: var(--color-text-main);
       outline: none;
     }
+  }
+}
+
+.label-button {
+  width: 110px;
+  height: max-content;
+  box-sizing: border-box;
+  padding: 5px 10px;
+  border-radius: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: var(--color-oil-border);
+  color: var(--color-text-main);
+  font-size: 12px;
+
+  &_active {
+    border: 1px solid var(--color-active);
+    background: var(--color-bg-active);
+  }
+
+  &:hover {
+    cursor: pointer;
+    opacity: 0.7;
   }
 }

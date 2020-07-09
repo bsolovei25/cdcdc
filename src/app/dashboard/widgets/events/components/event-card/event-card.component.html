@@ -1,6 +1,8 @@
 <div [class.block-container]="viewType === 'block'">
   <ng-container *ngFor="let cardData of cardDataArr">
-    <ng-container *ngTemplateOutlet="viewType === 'block' ? block : list; context: {cardData: cardData}"></ng-container>
+    <ng-container
+      *ngTemplateOutlet="viewType === 'block' ? block : list; context: {cardData: cardData}"
+    ></ng-container>
   </ng-container>
 </div>
 
@@ -11,16 +13,10 @@
     [class.selected]="cardData?.id === cardActiveId"
   >
     <div class="notification__header">
-      <span
-        class="notification__number"
-        [ngClass]="'notification__number_' + cardData?.priority"
-      >
+      <span class="notification__number" [ngClass]="'notification__number_' + cardData?.priority">
         {{ cardData?.itemNumber }}
       </span>
-      <span
-        class="notification__name"
-        *ngIf="cardData?.eventType"
-      >
+      <span class="notification__name" *ngIf="cardData?.eventType">
         {{ cardData?.eventType?.name }}
       </span>
       <div class="line notification__line notification__line_top notification__line_top-first">
@@ -102,6 +98,15 @@
       <span class="notification__block__unit">
         {{ cardData?.unit?.name || '-' }}
       </span>
+
+      <div
+        class="label-button"
+        [class.label-button_active]="cardData?.isQvitirovano"
+        (click)="cardData.isQvitirovano=!cardData.isQvitirovano"
+      >
+        {{cardData?.isQvitirovano?'Квитировано':'Не квитировано'}}
+      </div>
+
       <div class="notification__block__extra">
         <span
           class="notification__block__status"
@@ -150,8 +155,9 @@
     </div>
     <div class="notification__block__footer">
       <span class="notification__block__footer-text">Начало события:</span>
-      <span
-        class="notification__block__footer-date-time">{{ cardData?.eventDateTime | date: 'dd.MM.yyyy HH:mm' }}</span>
+      <span class="notification__block__footer-date-time"
+        >{{ cardData?.eventDateTime | date: 'dd.MM.yyyy HH:mm' }}</span
+      >
     </div>
   </div>
 </ng-template>

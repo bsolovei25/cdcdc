@@ -1,13 +1,5 @@
-import {
-    Component,
-    EventEmitter,
-    Input,
-    OnDestroy,
-    OnInit,
-    Output
-} from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { EventsWidgetNotificationPreview } from '../../../../models/events-widget';
-
 
 @Component({
     selector: 'evj-event-card',
@@ -15,7 +7,6 @@ import { EventsWidgetNotificationPreview } from '../../../../models/events-widge
     styleUrls: ['./event-card.component.scss'],
 })
 export class EventCardComponent implements OnInit, OnDestroy {
-
     @Input()
     public cardDataArr: EventsWidgetNotificationPreview[];
 
@@ -34,14 +25,11 @@ export class EventCardComponent implements OnInit, OnDestroy {
     @Output()
     public cardDeleteClick: EventEmitter<number> = new EventEmitter<number>();
 
-    constructor() {
-    }
+    constructor() {}
 
-    public ngOnInit(): void {
-    }
+    public ngOnInit(): void {}
 
-    public ngOnDestroy(): void {
-    }
+    public ngOnDestroy(): void {}
 
     public eventClick(id: number): void {
         this.cardClick.emit(id);
