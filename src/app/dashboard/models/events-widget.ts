@@ -23,7 +23,7 @@ export interface EventsWidgetNotificationPreview {
     facts?: { comment: string }[];
     source?: any;
     externalId?: number;
-    isQvitirovano?: boolean; //TOFIX: mock-свойтво Квитировано
+    isAcknowledged?: boolean; // Квитировано
 }
 
 export interface EventsWidgetNotification {

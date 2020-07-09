@@ -101,10 +101,10 @@
 
       <div
         class="label-button"
-        [class.label-button_active]="cardData?.isQvitirovano"
-        (click)="cardData.isQvitirovano=!cardData.isQvitirovano"
+        [class.label-button_active]="cardData?.isAcknowledged"
+        (click)="changeIsAcknowledged(cardData)"
       >
-        {{cardData?.isQvitirovano?'Квитировано':'Не квитировано'}}
+        {{cardData?.isAcknowledged?'Квитировано':'Не квитировано'}}
       </div>
 
       <div class="notification__block__extra">
