@@ -7,6 +7,7 @@ import { ISmpEventCard } from '../../../../../models/SMP/smp-events.model';
     styleUrls: ['./smp-events-card.component.scss'],
 })
 export class SmpEventsCardComponent implements OnInit {
+    @Input() public isSelected: boolean = false;
     @Input() public event: ISmpEventCard = {
         id: 0,
         originalId: '3fa85f64-5717-4562-b3fc-2c963f66afa6',

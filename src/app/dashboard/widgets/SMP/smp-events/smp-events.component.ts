@@ -3,6 +3,7 @@ import { WidgetService } from '../../../services/widget.service';
 import { WidgetPlatform } from '../../../models/widget-platform';
 import { SmpEventsService } from '../../../services/widgets/smp-events.service';
 import { ISmpEventCard, ISmpEventStatus } from '../../../models/SMP/smp-events.model';
+import { SelectionModel } from '@angular/cdk/collections';
 
 @Component({
     selector: 'evj-smp-events',
@@ -15,6 +16,8 @@ export class SmpEventsComponent extends WidgetPlatform implements OnInit, OnDest
 
     static itemCols: number = 14;
     static itemRows: number = 20;
+
+    public selectCard: SelectionModel<ISmpEventCard> = new SelectionModel<ISmpEventCard>();
 
     constructor(
         protected widgetService: WidgetService,
@@ -30,6 +33,12 @@ export class SmpEventsComponent extends WidgetPlatform implements OnInit, OnDest
     public ngOnInit(): void {
         super.widgetInit();
         this.getData();
+        this.subscriptions.push(
+            this.eventService.event$.subscribe((data) => {
+                const card = this.cards.find((item) => item?.id === data?.id);
+                this.selectCard.select(card);
+            })
+        );
     }
 
     public ngOnDestroy(): void {

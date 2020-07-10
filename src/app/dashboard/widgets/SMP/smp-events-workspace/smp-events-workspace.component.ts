@@ -2,7 +2,6 @@ import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { WidgetPlatform } from '../../../models/widget-platform';
 import { WidgetService } from '../../../services/widget.service';
 import { ISelectValue } from '@shared/components/select/select.component';
-import { ISmpEventsWorkspaceData } from '../../../models/smp-events-workspace.model';
 import { ISmpEventsMessageModel } from '@shared/models/smp-events-message.model';
 import { SmpEventsService } from '../../../services/widgets/smp-events.service';
 import { ISmpEvent } from '../../../models/SMP/smp-events.model';
@@ -79,12 +78,6 @@ export class SmpEventsWorkspaceComponent extends WidgetPlatform implements OnIni
                 this.data = event;
             })
         );
-
-        // this.data = {
-        //     date: '15.05.2020',
-        //     company: 'АО "Газпромнефть - МНПЗ',
-        //     state: 'В работе',
-        // } as ISmpEventsWorkspaceData;
     }
 
     public ngOnDestroy(): void {
