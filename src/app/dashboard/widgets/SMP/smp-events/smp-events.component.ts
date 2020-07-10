@@ -50,9 +50,13 @@ export class SmpEventsComponent extends WidgetPlatform implements OnInit, OnDest
         this.cards = (await this.eventService.getEventsByFilter(code)) ?? [];
     }
 
-    public onClickEvent(event: ISmpEventCard): void {
+    public async onClickEvent(event: ISmpEventCard): Promise<void> {
         // TOFIX
-        this.eventService.event = event;
         console.log('select event: ', event);
+        try {
+            const fullEvent = await this.eventService.getFullEvent(event.id);
+            this.eventService.event = fullEvent;
+            console.log('full event: ', fullEvent);
+        } catch (error) {}
     }
 }

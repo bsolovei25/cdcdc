@@ -42,4 +42,10 @@ export class SmpEventsService {
             .get<any>(url, { params })
             .toPromise();
     }
+
+    // TOFIX убрать дефолтный id
+    public async getFullEvent(id: number = 2333): Promise<any> {
+        const url: string = `${this.restUrl}/api/notifications/smp/${id}`;
+        return this.http.get<any>(url).toPromise();
+    }
 }
