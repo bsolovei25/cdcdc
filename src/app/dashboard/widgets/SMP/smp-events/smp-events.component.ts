@@ -2,7 +2,7 @@ import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { WidgetService } from '../../../services/widget.service';
 import { WidgetPlatform } from '../../../models/widget-platform';
 import { SmpEventsService } from '../../../services/widgets/smp-events.service';
-import { ISmpEventCard, ISmpEventStatusStatistics } from '../../../models/SMP/smp-events.model';
+import { ISmpEventCard, ISmpEventStatus } from '../../../models/SMP/smp-events.model';
 
 @Component({
     selector: 'evj-smp-events',
@@ -10,7 +10,7 @@ import { ISmpEventCard, ISmpEventStatusStatistics } from '../../../models/SMP/sm
     styleUrls: ['./smp-events.component.scss'],
 })
 export class SmpEventsComponent extends WidgetPlatform implements OnInit, OnDestroy {
-    public stats: ISmpEventCard[] = [];
+    public stats: ISmpEventStatus[] = [];
     public cards: ISmpEventCard[] = [];
 
     static itemCols: number = 14;
@@ -41,7 +41,8 @@ export class SmpEventsComponent extends WidgetPlatform implements OnInit, OnDest
     private async getData(): Promise<void> {
         try {
             this.stats = (await this.eventService.getStats())?.statsByStatus ?? [];
-            this.cards = (await this.eventService.getEventsByFilter()) ?? [];
+            this.cards =
+                (await this.eventService.getEventsByFilter(+this.stats[0].status.code)) ?? [];
         } catch (error) {}
     }
 
@@ -52,5 +53,6 @@ export class SmpEventsComponent extends WidgetPlatform implements OnInit, OnDest
     public onClickEvent(event: ISmpEventCard): void {
         // TOFIX
         this.eventService.event = event;
+        console.log('select event: ', event);
     }
 }

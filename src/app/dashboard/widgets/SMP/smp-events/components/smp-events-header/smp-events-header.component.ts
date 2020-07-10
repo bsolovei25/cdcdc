@@ -27,9 +27,7 @@ export class SmpEventsHeaderComponent implements OnChanges, OnInit, OnDestroy {
     constructor() {}
 
     public ngOnChanges(): void {
-        if (this.select.isEmpty()) {
-            this.select.select(this.stats[0]);
-        }
+        this.select.select(this.stats[0]);
     }
 
     public ngOnInit(): void {
