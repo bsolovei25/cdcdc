@@ -29,9 +29,9 @@ export class TruncatedDiagramTrafficLightComponent extends WidgetPlatform implem
     public data: ITruncatedDiagramInputData[] = [];
 
     public static itemCols: number = 13;
-    public static itemRows: number = 22;
+    public static itemRows: number = 16;
     public static minItemCols: number = 13;
-    public static minItemRows: number = 22;
+    public static minItemRows: number = 16;
 
     constructor(
         public widgetService: WidgetService,
@@ -42,14 +42,17 @@ export class TruncatedDiagramTrafficLightComponent extends WidgetPlatform implem
         super(widgetService, isMock, id, uniqId);
     }
 
-    ngOnInit(): void {
+    public ngOnInit(): void {
         super.widgetInit();
         this.data.forEach((value, index) => this.expandedPanels.set(index, false));
     }
 
-    protected dataHandler(ref: any): void {
-        this.data = ref.groups;
-        this.processData();
+    public isPanelClosed(id: number): boolean {
+        return this.expandedPanels.get(id);
+    }
+
+    public togglePanel(id: number): void {
+        this.expandedPanels.set(id, !this.expandedPanels.get(id));
     }
 
     private processData(): void {
@@ -58,6 +61,11 @@ export class TruncatedDiagramTrafficLightComponent extends WidgetPlatform implem
                 chart = this.countHighlightSector(chart);
             });
         });
+    }
+
+    protected dataHandler(ref: any): void {
+        this.data = ref.groups;
+        this.processData();
     }
 
     private countHighlightSector(data: IPieChartInputData): IPieChartInputData {
@@ -89,13 +97,5 @@ export class TruncatedDiagramTrafficLightComponent extends WidgetPlatform implem
 
     ngOnDestroy(): void {
         super.ngOnDestroy();
-    }
-
-    public isPanelClosed(id: number): boolean {
-        return this.expandedPanels.get(id);
-    }
-
-    public togglePanel(id: number): void {
-        this.expandedPanels.set(id, !this.expandedPanels.get(id));
     }
 }
