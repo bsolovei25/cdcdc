@@ -52,10 +52,13 @@
         </div>
       </div>
       <div class="smp-events">
-        <evj-smp-events-header [stats]="stats.statsByStatus"></evj-smp-events-header>
+        <evj-smp-events-header
+          [stats]="stats"
+          (changeStatus)="onChangeStatus($event)"
+        ></evj-smp-events-header>
         <div class="cards">
           <ng-container *ngFor="let card of cards">
-            <evj-smp-events-card [event]="card"></evj-smp-events-card>
+            <evj-smp-events-card [event]="card" (click)="onClickEvent(card)"></evj-smp-events-card>
           </ng-container>
         </div>
       </div>

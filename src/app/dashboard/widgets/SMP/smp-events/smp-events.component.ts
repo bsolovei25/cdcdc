@@ -10,35 +10,7 @@ import { ISmpEventCard, ISmpEventStatusStatistics } from '../../../models/SMP/sm
     styleUrls: ['./smp-events.component.scss'],
 })
 export class SmpEventsComponent extends WidgetPlatform implements OnInit, OnDestroy {
-    public stats: ISmpEventStatusStatistics = {
-        statsByStatus: [
-            {
-                status: {
-                    id: 3001,
-                    name: 'new',
-                    code: '0',
-                },
-                count: 9,
-            },
-            {
-                status: {
-                    id: 3002,
-                    name: 'inWork',
-                    code: '1',
-                },
-                count: 9,
-            },
-            {
-                status: {
-                    id: 3003,
-                    name: 'closed',
-                    code: '2',
-                    description: 'Завершено',
-                },
-                count: 0,
-            },
-        ],
-    };
+    public stats: ISmpEventCard[] = [];
     public cards: ISmpEventCard[] = [];
 
     static itemCols: number = 14;
@@ -57,6 +29,7 @@ export class SmpEventsComponent extends WidgetPlatform implements OnInit, OnDest
 
     public ngOnInit(): void {
         super.widgetInit();
+        this.getData();
     }
 
     public ngOnDestroy(): void {
@@ -64,4 +37,20 @@ export class SmpEventsComponent extends WidgetPlatform implements OnInit, OnDest
     }
 
     protected dataHandler(ref: any): void {}
+
+    private async getData(): Promise<void> {
+        try {
+            this.stats = (await this.eventService.getStats())?.statsByStatus ?? [];
+            this.cards = (await this.eventService.getEventsByFilter()) ?? [];
+        } catch (error) {}
+    }
+
+    public async onChangeStatus(code: number): Promise<void> {
+        this.cards = (await this.eventService.getEventsByFilter(code)) ?? [];
+    }
+
+    public onClickEvent(event: ISmpEventCard): void {
+        // TOFIX
+        this.eventService.event = event;
+    }
 }
