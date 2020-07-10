@@ -6,6 +6,7 @@ interface IAsEfTempl {
 export interface IAsEfCard extends IAsEfTempl {
     icon?: string;
     status?: string;
+    direction?: string;
 }
 
 export interface IAsEfUnitCard extends IAsEfTempl {
@@ -15,7 +16,7 @@ export interface IAsEfUnitCard extends IAsEfTempl {
 
 export interface IAsEfUnit extends IAsEfTempl {
     name: string;
-    streams: IAsEfUnitCard[];
+    flows: IAsEfUnitCard[];
 }
 
 export interface IAsEfInitialDataBlock extends IAsEfTempl {

@@ -1,14 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, Output, EventEmitter } from '@angular/core';
 import { IAsEfCard } from '../../../../../models/ASTUE/astue-efficiency.model';
 import { SelectionModel } from '@angular/cdk/collections';
+import { Subscription } from 'rxjs';
 
 @Component({
     selector: 'evj-astue-efficiency-items',
     templateUrl: './astue-efficiency-items.component.html',
     styleUrls: ['./astue-efficiency-items.component.scss'],
 })
-export class AstueEfficiencyItemsComponent implements OnInit {
-    public data: IAsEfCard[] = [
+export class AstueEfficiencyItemsComponent implements OnChanges, OnInit {
+    @Input() public data: IAsEfCard[] = [
         {
             name: 'Пар',
         },
@@ -35,13 +36,28 @@ export class AstueEfficiencyItemsComponent implements OnInit {
         },
     ];
 
+    @Output() private selectProduct: EventEmitter<string> = new EventEmitter<string>();
+
     public cardSelection: SelectionModel<IAsEfCard> = new SelectionModel<IAsEfCard>();
+
+    private subscriptions: Subscription[] = [];
 
     constructor() {}
 
-    public ngOnInit(): void {
+    public ngOnChanges(): void {
         this.iconMap();
-        this.cardSelection.select(this.data[0]);
+
+        if (this.cardSelection.isEmpty() && this.data.length) {
+            this.cardSelection.select(this.data[0]);
+        }
+    }
+
+    public ngOnInit(): void {
+        this.subscriptions.push(
+            this.cardSelection.changed.subscribe((data) => {
+                this.selectProduct.emit(data.added[0].name);
+            })
+        );
     }
 
     public iconMap(): void {

@@ -24,7 +24,7 @@
     </div>
   </div>
   <div class="card__streams streams" [ngClass]="{'streams_open':isOpen}">
-    <div class="streams__item" *ngFor="let card of unit.streams">
+    <div class="streams__item" *ngFor="let card of unit.flows">
       <evj-astue-efficiency-item-card
         [isActive]="cardSelection.isSelected(card)"
         [isListItem]="true"

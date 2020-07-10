@@ -19,11 +19,15 @@
   >
     <ng-container *ngIf="isInitialDataShow">
       <div class="item item_s">
-        <evj-astue-efficiency-items></evj-astue-efficiency-items>
+        <evj-astue-efficiency-items
+          [data]="data"
+          (selectProduct)="onSelectProduct($event)"
+        ></evj-astue-efficiency-items>
       </div>
       <div class="item item_s">
         <evj-astue-efficiency-units
           [isInitialDataShow]="isInitialDataShow"
+          [units]="selection.selected[0].units"
         ></evj-astue-efficiency-units>
       </div>
       <ng-container *ngIf="isGraphDisplay; else table">

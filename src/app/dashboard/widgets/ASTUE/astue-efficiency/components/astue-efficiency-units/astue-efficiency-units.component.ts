@@ -9,76 +9,7 @@ import { SelectionModel } from '@angular/cdk/collections';
 })
 export class AstueEfficiencyUnitsComponent implements OnInit {
     @Input() public isInitialDataShow: boolean = true;
-    public units: IAsEfUnit[] = [
-        {
-            name: 'ЭЛОУ-АВТ-6',
-            streams: [
-                {
-                    name: 'Поток №1',
-                    status: 'FQIR 0051',
-                },
-                {
-                    name: 'Поток №2',
-                    status: 'FQIR 0051',
-                },
-                {
-                    name: 'Поток №3',
-                    status: 'FQIR 0051',
-                },
-            ],
-        },
-        {
-            name: 'АВТ-6',
-            streams: [
-                {
-                    name: 'Поток №1',
-                    status: 'FQIR 0051',
-                },
-                {
-                    name: 'Поток №2',
-                    status: 'FQIR 0051',
-                },
-            ],
-        },
-        {
-            name: 'ЭЛОУ - 2',
-            streams: [
-                {
-                    name: 'Поток №1',
-                    status: 'FQIR 0051',
-                },
-                {
-                    name: 'Поток №2',
-                    status: 'FQIR 0051',
-                },
-                {
-                    name: 'Поток №3',
-                    status: 'FQIR 0051',
-                },
-                {
-                    name: 'Поток №4',
-                    status: 'FQIR 0051',
-                },
-                {
-                    name: 'Поток №5',
-                    status: 'FQIR 0051',
-                },
-                {
-                    name: 'Поток №6',
-                    status: 'FQIR 0051',
-                },
-            ],
-        },
-        {
-            name: 'АТ-ВБ',
-            streams: [
-                {
-                    name: 'Поток №1',
-                    status: 'FQIR 0051',
-                },
-            ],
-        },
-    ];
+    @Input() public units: IAsEfUnit[] = [];
 
     public isClicked: boolean = false;
 
