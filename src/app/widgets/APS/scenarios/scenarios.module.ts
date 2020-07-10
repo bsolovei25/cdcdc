@@ -7,18 +7,20 @@ import { SharedModule } from '@shared/shared.module';
 import { AngularSvgIconModule } from 'angular-svg-icon';
 import { MatSelectModule } from '@angular/material/select';
 import { FormsModule } from "@angular/forms";
-import { ApsDropdownMenuComponent } from "../../../dashboard/components/aps-dropdown-menu/aps-dropdown-menu.component";
+import { ApsContextMenuDirective } from "../../../dashboard/components/aps-context-menu/aps-context-menu.directive";
 import { ApsContextMenuComponent } from "../../../dashboard/components/aps-context-menu/aps-context-menu.component";
-import { MatButtonModule } from "@angular/material/button";
-import { MatMenuModule } from "@angular/material/menu";
+import { ApsDropdownMenuComponent } from "../../../dashboard/components/aps-dropdown-menu/aps-dropdown-menu.component";
+import { MatButtonModule } from '@angular/material/button';
+import { MatMenuModule } from '@angular/material/menu';
 
 @NgModule({
     declarations: [
         ScenariosComponent,
         ExpandableBottomFrameComponent,
         ApsNotchedContainerComponent,
-        ApsDropdownMenuComponent,
+        ApsContextMenuDirective,
         ApsContextMenuComponent,
+        ApsDropdownMenuComponent,
     ],
     imports: [
         CommonModule,
@@ -29,6 +31,9 @@ import { MatMenuModule } from "@angular/material/menu";
         MatButtonModule,
         MatMenuModule,
     ],
+    providers: [
+        ApsContextMenuDirective,
+    ]
 })
 export class ScenariosModule {
     enterComponent = ScenariosComponent;
