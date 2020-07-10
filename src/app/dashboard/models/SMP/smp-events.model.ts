@@ -1,3 +1,30 @@
+export interface ISmpEvent {
+    id: number;
+    originalId: string;
+    date: string;
+    company: string;
+    state: string;
+    description: string;
+    reasons: ISmpEventReason[];
+    actions: ISmpEventActions[];
+}
+
+export interface ISmpEventReason {
+    comment: string;
+    createdAt: string;
+    createdBy: number;
+    displayName: string;
+    active: boolean;
+}
+
+export interface ISmpEventActions {
+    comment: string;
+    createdAt: string;
+    createdBy: number;
+    displayName: string;
+    active: boolean;
+}
+
 export interface ISmpEventCard {
     id: number;
     originalId: string;
