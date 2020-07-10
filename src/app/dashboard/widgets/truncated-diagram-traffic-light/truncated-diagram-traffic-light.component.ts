@@ -28,9 +28,9 @@ export class TruncatedDiagramTrafficLightComponent extends WidgetPlatform implem
     public expandedPanels: Map<number, boolean> = new Map<number, boolean>();
     public data: ITruncatedDiagramInputData[] = [];
 
-    public static itemCols: number = 14;
+    public static itemCols: number = 13;
     public static itemRows: number = 22;
-    public static minItemCols: number = 14;
+    public static minItemCols: number = 13;
     public static minItemRows: number = 22;
 
     constructor(
@@ -63,7 +63,7 @@ export class TruncatedDiagramTrafficLightComponent extends WidgetPlatform implem
     private countHighlightSector(data: IPieChartInputData): IPieChartInputData {
         const countedData = data;
         if (
-            countedData.value <= data.yellowUpperBounds
+            countedData.value < data.yellowUpperBounds
         ) {
             countedData.highLightSector = 0;
         }
@@ -74,8 +74,13 @@ export class TruncatedDiagramTrafficLightComponent extends WidgetPlatform implem
             countedData.highLightSector = 1;
         }
         if (
-            countedData.value >= data.greenUpperBounds &&
+            countedData.value > data.greenUpperBounds &&
             countedData.value <= data.redUpperBounds
+        ) {
+            countedData.highLightSector = 2;
+        }
+        if (
+            countedData.value > data.redUpperBounds
         ) {
             countedData.highLightSector = 2;
         }
