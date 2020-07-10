@@ -3,15 +3,15 @@
     <div class="card_item__top">
       <div class="card_item__top___left">
         <div class="product-text">
-          АИ-92
+          {{event?.productName ? event.productName : ''}}
         </div>
         <div class="date-text">
-          30.04.2020
+          {{event?.cardDate | date:'dd.MM.yyyy'}}
         </div>
       </div>
       <div class="card_item__top___right">
         <div class="status-text">
-          В работе
+          {{event?.statusName}}
         </div>
       </div>
     </div>
@@ -27,13 +27,13 @@
       </div>
       <div class="card_item__middle___text-block">
         <div class="info-text">
-          Дефицит полезной вместимости
+          {{event?.description}}
         </div>
       </div>
     </div>
     <div class="card_item__bottom">
       <div class="time-text">
-        1д.
+        {{event?.day || event?.day===0 ? event.day+'д.' : '' }}
       </div>
     </div>
   </div>
@@ -41,4 +41,3 @@
     <div class="card_item__loader___active"></div>
   </div>
 </div>
-
