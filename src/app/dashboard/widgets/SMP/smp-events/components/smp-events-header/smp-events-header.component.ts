@@ -33,7 +33,7 @@ export class SmpEventsHeaderComponent implements OnChanges, OnInit, OnDestroy {
     public ngOnInit(): void {
         this.subscription.push(
             this.select.changed.subscribe((data) => {
-                this.changeStatus.emit(+data.added[0].status.code);
+                this.changeStatus.emit(+data.added[0].status.id);
             })
         );
     }
