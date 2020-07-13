@@ -1,15 +1,44 @@
-import { Component, OnInit } from '@angular/core';
+import {
+    Component,
+    OnInit,
+    Input,
+    OnChanges,
+    OnDestroy,
+    Output,
+    EventEmitter,
+} from '@angular/core';
+import { ISmpEventStatus } from '../../../../../models/SMP/smp-events.model';
+import { SelectionModel } from '@angular/cdk/collections';
+import { Subscription } from 'rxjs';
 
 @Component({
-  selector: 'evj-smp-events-header',
-  templateUrl: './smp-events-header.component.html',
-  styleUrls: ['./smp-events-header.component.scss']
+    selector: 'evj-smp-events-header',
+    templateUrl: './smp-events-header.component.html',
+    styleUrls: ['./smp-events-header.component.scss'],
 })
-export class SmpEventsHeaderComponent implements OnInit {
+export class SmpEventsHeaderComponent implements OnChanges, OnInit, OnDestroy {
+    @Input() public stats: ISmpEventStatus[] = [];
+    @Output() private changeStatus: EventEmitter<number> = new EventEmitter<number>();
 
-  constructor() { }
+    public select: SelectionModel<ISmpEventStatus> = new SelectionModel<ISmpEventStatus>();
 
-  ngOnInit(): void {
-  }
+    private subscription: Subscription[] = [];
 
+    constructor() {}
+
+    public ngOnChanges(): void {
+        this.select.select(this.stats[0]);
+    }
+
+    public ngOnInit(): void {
+        this.subscription.push(
+            this.select.changed.subscribe((data) => {
+                this.changeStatus.emit(+data.added[0].status.code);
+            })
+        );
+    }
+
+    public ngOnDestroy(): void {
+        this.subscription.forEach((subs) => subs.unsubscribe());
+    }
 }
