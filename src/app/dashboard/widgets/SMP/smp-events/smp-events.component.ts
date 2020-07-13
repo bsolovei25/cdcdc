@@ -50,13 +50,13 @@ export class SmpEventsComponent extends WidgetPlatform implements OnInit, OnDest
     private async getData(): Promise<void> {
         try {
             this.stats = (await this.eventService.getStats())?.statsByStatus ?? [];
-            this.cards =
-                (await this.eventService.getEventsByFilter(+this.stats[0].status.code)) ?? [];
         } catch (error) {}
     }
 
     public async onChangeStatus(code: number): Promise<void> {
-        this.cards = (await this.eventService.getEventsByFilter(code)) ?? [];
+        try {
+            this.cards = (await this.eventService.getEventsByFilter(code)) ?? [];
+        } catch (error) {}
     }
 
     public async onClickEvent(event: ISmpEventCard): Promise<void> {

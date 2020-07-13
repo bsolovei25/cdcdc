@@ -14,7 +14,7 @@ export class AddReportFileComponent implements OnInit {
 
   @Output() public fileUpload: EventEmitter<boolean> = new EventEmitter<boolean>();
 
-  extension: string[] = ['.xls', '.xlsx', '.xls'];
+  extension: string[] = ['xls', 'xlsx', 'xlsm'];
 
   public data: any;
   public dataTemplate;

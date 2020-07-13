@@ -7,6 +7,7 @@ import {
     OnInit,
     AfterContentChecked,
     ElementRef,
+    ChangeDetectorRef,
 } from '@angular/core';
 import * as moment from 'moment';
 import { DateAdapter } from '@angular/material/core';
@@ -15,7 +16,7 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { MatCalendar } from '@angular/material/datepicker';
 
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
-import { FormControl } from '@angular/forms';
+import { FormControl, Validators } from '@angular/forms';
 import { IUser } from '../../../dashboard/models/events-widget';
 import {
     IScheduleShiftDay,
@@ -110,10 +111,9 @@ export class AdminShiftScheduleComponent extends WidgetPlatform
 
     isDutySchedule: boolean = true; // показать график дежурств или управление расписанием
     isOpenStartDate: boolean = false; // Открыть/закрыть overlay Начала смены
-
-    timeStart: Moment = moment()
-        .second(0)
-        .minutes(0); // Время начала смены. Только часы
+    timeStart: FormControl = new FormControl(
+        moment().second(0).minutes(0),
+        [Validators.required]);
     timeShift: { isSelected: boolean; value: number }[] = [
         // Длительность смены
         { isSelected: true, value: 6 },
@@ -142,6 +142,7 @@ export class AdminShiftScheduleComponent extends WidgetPlatform
         private materialController: SnackBarService,
         protected widgetService: WidgetService,
         private snackBar: SnackBarService,
+        private chDet: ChangeDetectorRef,
         @Inject('isMock') public isMock: boolean,
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string
@@ -204,7 +205,7 @@ export class AdminShiftScheduleComponent extends WidgetPlatform
         });
     }
 
-    protected dataHandler(ref: any): void {}
+    protected dataHandler(ref: any): void { }
 
     ngAfterContentChecked(): void {
         this.listenBtn();
@@ -553,7 +554,7 @@ export class AdminShiftScheduleComponent extends WidgetPlatform
         };
     }
 
-    drop(event: CdkDragDrop<string[]>): void {}
+    drop(event: CdkDragDrop<string[]>): void { }
 
     async moveToDropAdditionalShift(item: IDropItem): Promise<void> {
         if (item && item.container.id !== '0' && item.container.id !== item.previousContainer.id) {
@@ -678,7 +679,7 @@ export class AdminShiftScheduleComponent extends WidgetPlatform
         const body: IUnitSettings = {
             unitId: this.selectedUnit.id,
             shiftLengthHours: this.timeShift.find((item) => item.isSelected).value,
-            shiftStartOffset: this.timeStart.hours(),
+            shiftStartOffset: this.timeStart.value.hours(),
             applyFrom: this.saveIsDate.toDate().toUTCString(),
         };
 
@@ -718,10 +719,10 @@ export class AdminShiftScheduleComponent extends WidgetPlatform
             this.selectedUnit.id
         );
 
-        this.timeStart = moment()
+        this.timeStart.setValue(moment()
             .hours(data.shiftStartOffset)
             .minutes(0)
-            .seconds(0);
+            .seconds(0));
         this.timeShift.forEach((item) => (item.isSelected = false));
         this.timeShift.find((item) => item.value === data.shiftLengthHours).isSelected = true;
         this.saveIsDate = moment(data.applyFrom)

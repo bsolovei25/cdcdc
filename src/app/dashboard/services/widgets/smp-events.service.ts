@@ -44,9 +44,9 @@ export class SmpEventsService {
 
     public async getEventsByFilter(statusId?: number): Promise<ISmpEventCard[]> {
         const url: string = `${this.restUrl}/api/notifications/getbyfilter-smp`;
-        const params: HttpParams = new HttpParams();
+        let params: HttpParams = new HttpParams();
         if (statusId) {
-            params.append('StatusId', statusId.toString());
+            params = params.append('StatusId', statusId.toString());
         }
         return await this.http
             .get<ISmpEventCard[]>(url, { params })
