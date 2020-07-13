@@ -20,7 +20,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { NgxMatMomentModule } from '@angular-material-components/moment-adapter';
 import { DashboardModule } from '../../../dashboard/dashboard.module';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { OverlayModule } from '@angular/cdk/overlay';
 
@@ -53,7 +53,7 @@ import { OverlayModule } from '@angular/cdk/overlay';
     FormsModule,
     MatInputModule,
     OverlayModule,
-    MatInputModule
+    ReactiveFormsModule 
   ],
   providers: [
     { provide: LOCALE_ID, useValue: 'ru-RU' },
