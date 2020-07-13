@@ -38,6 +38,19 @@ export class AstueEfficiencyUnitCardComponent implements OnChanges {
 
     public onSelectFlow(flow: IAsEfFlow): void {
         this.cardSelection.toggle(flow);
-        this.AsEfService.toggleActiveFlow(this.unit.name, flow.name);
+        const isAddFlow = this.AsEfService.toggleActiveFlow(this.unit.name, flow.name);
+        if (isAddFlow) {
+            this.AsEfService.lastFlow$.next(flow);
+        } else {
+            const length = this.AsEfService.active[this.unit.name]?.length;
+            if (length) {
+                const lastFlow = this.AsEfService.active[this.unit.name][length - 1];
+                this.AsEfService.lastFlow$.next(
+                    this.unit.flows.find((item) => item.name === lastFlow)
+                );
+            } else {
+                this.AsEfService.lastFlow$.next(null);
+            }
+        }
     }
 }

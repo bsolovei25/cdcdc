@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { IAsEfUnitNew } from '../../models/ASTUE/astue-efficiency.model';
+import { IAsEfUnitNew, IAsEfFlow } from '../../models/ASTUE/astue-efficiency.model';
 import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
@@ -7,6 +7,7 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class AstueEfficiencyService {
     public product$: BehaviorSubject<string> = new BehaviorSubject<string>(null);
+    public lastFlow$: BehaviorSubject<IAsEfFlow> = new BehaviorSubject<IAsEfFlow>(null);
     public active: { [key: string]: string[] } = {};
 
     constructor() {}
@@ -20,7 +21,7 @@ export class AstueEfficiencyService {
         console.log(this.active);
     }
 
-    public toggleActiveFlow(unitName: string, flowName: string): void {
+    public toggleActiveFlow(unitName: string, flowName: string): boolean {
         if (!this.active[unitName]) {
             this.toggleActiveUnit(unitName);
         }
@@ -28,8 +29,10 @@ export class AstueEfficiencyService {
         const index = this.active[unitName].findIndex((item) => item === flowName);
         if (index === -1) {
             this.active[unitName].push(flowName);
+            return true;
         } else {
             this.active[unitName].splice(index, 1);
+            return false;
         }
         console.log(this.active);
     }
