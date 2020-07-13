@@ -36,7 +36,6 @@ import { FlameDiagramComponent } from '../../widgets/flame-diagram/flame-diagram
 import { ObservationNormTRComponent } from '../../widgets/observation-norm-tr/observation-norm-tr.component';
 import { RingEnergyIndicatorComponent } from '../../widgets/ring-energy-indicator/ring-energy-indicator.component';
 import { SolidGaugesComponent } from '../../widgets/solid-gauge-with-marker/solid-gauges/solid-gauges.component';
-import { AdminShiftScheduleComponent } from '../../widgets/admin-widget/admin-shift-schedule/admin-shift-schedule.component';
 import { AdminReferencesComponent } from '../../widgets/admin-references/admin-references.component';
 import { PetroleumProductsMovementComponent } from '../../widgets/petroleum-products-movement/petroleum-products-movement.component';
 import { AdminPanelComponent } from '../../widgets/admin-panel/admin-panel.component';
@@ -64,6 +63,7 @@ import { ProductGroupsShortComponent } from '../../widgets/SMP/product-groups-sh
 import { TruncatedDiagramTrafficLightComponent } from '../../widgets/truncated-diagram-traffic-light/truncated-diagram-traffic-light.component';
 import { AstueEfficiencyComponent } from '../../widgets/ASTUE/astue-efficiency/astue-efficiency.component';
 import { WidgetContainerComponent } from '../../widget-container/widget-container.component';
+import { AdminShiftScheduleComponent } from '../../widgets/admin-widget/admin-shift-schedule/admin-shift-schedule.component';
 
 export const WIDGETS = {
     'pie-diagram': WidgetPiesComponent,
@@ -107,7 +107,6 @@ export const WIDGETS = {
     'time-line-diagram': TimeLineDiagramComponent,
     'solid-gauge-with-marker': SolidGaugesComponent,
     'observation-norm-tr': ObservationNormTRComponent,
-    'admin-shift-schedule': AdminShiftScheduleComponent,
     'admin-references': AdminReferencesComponent,
     'petroleum-products-movement': PetroleumProductsMovementComponent,
     'admin-panel': AdminPanelComponent,
@@ -138,12 +137,17 @@ export const WIDGETS = {
     'aps-recipe-diagram': WidgetContainerComponent,
     'aps-gantt-chart': WidgetContainerComponent,
     scenarios: WidgetContainerComponent,
+    // 'admin-shift-schedule': WidgetContainerComponent,
+    'admin-shift-schedule': AdminShiftScheduleComponent,
     'facility-deviation': WidgetContainerComponent,
+    'raw-motion': WidgetContainerComponent,
     'stocks-using': WidgetContainerComponent,
+    'deviation-details': WidgetContainerComponent,
+    'production-details': WidgetContainerComponent,
 };
 
 export const WIDGETS_LAZY = {
-    //#region APS
+    // #region APS
     'load-chart': {
         import: async () => {
             return await import('src/app/widgets/APS/load-chart/load-chart.module');
@@ -198,6 +202,17 @@ export const WIDGETS_LAZY = {
         minItemCols: 40,
         minItemRows: 10,
     },
+    'raw-motion': {
+        import: async () => {
+            return await import('src/app/widgets/APS/raw-motion/raw-motion.module');
+        },
+        module: 'RawMotionModule',
+        itemCols: 41,
+        itemRows: 12,
+        minItemCols: 40,
+        minItemRows: 10,
+        // preview: 'raw-motion',
+    },
     'stocks-using': {
         import: async () => {
             return await import('src/app/widgets/APS/stocks-using/stocks-using.module');
@@ -207,6 +222,44 @@ export const WIDGETS_LAZY = {
         itemRows: 12,
         minItemCols: 30,
         minItemRows: 8,
+    },
+
+    // #endregion APS
+
+    // #region Admin
+
+    // 'admin-shift-schedule': {
+    //     import: async () => {
+    //         return await import('src/app/widgets/admin/admin-shift-schedule/admin-shift-schedule.module');
+    //     },
+    //     module: 'AdminShiftScheduleModule',
+    //     itemCols: 15,
+    //     itemRows: 15,
+    //     minItemCols: 15,
+    //     minItemRows: 15,
+    //     preview: 'admin-shift-schedule',
+    // },
+
+    // #endregion APS
+    'deviation-details': {
+        import: async () => {
+            return await import('src/app/widgets/APS/deviation-details/deviation-details.module');
+        },
+        module: 'DeviationDetailsModule',
+        itemCols: 11,
+        itemRows: 20,
+        minItemCols: 11,
+        minItemRows: 11,
+    },
+    'production-details': {
+        import: async () => {
+            return await import('src/app/widgets/APS/production-details/production-details.module');
+        },
+        module: 'ProductionDetailsModule',
+        itemCols: 11,
+        itemRows: 20,
+        minItemCols: 11,
+        minItemRows: 11,
     },
     //#endregion APS
 

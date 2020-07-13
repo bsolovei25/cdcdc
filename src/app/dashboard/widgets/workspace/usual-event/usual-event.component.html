@@ -36,11 +36,7 @@
     <evj-ui-block class="workspace__header__block" status="{{ewService.event.isAcknowledged}}">
       <mat-form-field class="card-{{ewService.event.isAcknowledged}}">
         <mat-label>Событие</mat-label>
-        <mat-select
-          panelClass="mat-select-custom"
-          [(ngModel)]="ewService.event.isAcknowledged"
-          [compareWith]="compareFn"
-        >
+        <mat-select panelClass="mat-select-custom" [(ngModel)]="ewService.event.isAcknowledged">
           <mat-option [value]="true">
             Квитировано
           </mat-option>
@@ -172,7 +168,8 @@
             Автор
           </div>
           <div class="creator_body">
-            {{this.ewService.event.fixedBy?.displayName ? this.ewService.event.fixedBy?.displayName : 'Не установлен'}}
+            {{this.ewService.event.fixedBy?.displayName ? this.ewService.event.fixedBy?.displayName
+            : 'Не установлен'}}
           </div>
         </div>
         <div class="deadline">

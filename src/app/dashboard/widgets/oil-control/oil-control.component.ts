@@ -23,9 +23,9 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, OnDes
     @ViewChild('borders') borders: ElementRef;
     @ViewChild('line') line: ElementRef;
 
-    public static itemCols: number = 33;
+    public static itemCols: number = 29;
     public static itemRows: number = 12;
-    public static minItemCols: number = 33;
+    public static minItemCols: number = 29;
     public static minItemRows: number = 12;
 
     public isVertical: boolean = false;

@@ -84,17 +84,14 @@
 
   .table {
     position: relative;
-    z-index: 2;
-    width: 100%;
-    flex-basis: 30%;
+    width: 80%;
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
 
-    margin-top: -100px;
+    margin: -100px 20px 0 0;
     box-sizing: border-box;
-    padding-right: 20px;
 
     .col {
       width: 65px;

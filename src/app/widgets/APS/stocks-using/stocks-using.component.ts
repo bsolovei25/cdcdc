@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnInit, OnDestroy } from '@angular/core';
 import { WidgetPlatform } from '../../../dashboard/models/widget-platform';
 import { WidgetService } from '../../../dashboard/services/widget.service';
 import { IStocksUsingElement } from '../../../dashboard/models/APS/stocks-using.model';
@@ -7,10 +7,9 @@ import { DATASOURCE } from './mock';
 @Component({
     selector: 'evj-stocks-using',
     templateUrl: './stocks-using.component.html',
-    styleUrls: ['./stocks-using.component.scss']
+    styleUrls: ['./stocks-using.component.scss'],
 })
-export class StocksUsingComponent extends WidgetPlatform implements OnInit {
-
+export class StocksUsingComponent extends WidgetPlatform implements OnInit, OnDestroy {
     public data: IStocksUsingElement[] = [];
 
     constructor(
@@ -27,6 +26,9 @@ export class StocksUsingComponent extends WidgetPlatform implements OnInit {
         this.data = DATASOURCE;
     }
 
-    protected dataHandler(ref: any): void {
+    ngOnDestroy(): void {
+        super.ngOnDestroy();
     }
+
+    protected dataHandler(ref: any): void {}
 }

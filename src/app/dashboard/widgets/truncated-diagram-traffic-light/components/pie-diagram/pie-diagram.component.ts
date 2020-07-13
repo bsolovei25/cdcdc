@@ -4,7 +4,11 @@ import * as d3 from 'd3';
 export interface IPieChartInputData {
     name: string;
     value: number;
-    highLightSector: 0 | 1 | 2;
+    greenUpperBounds?: number;
+    yellowUpperBounds?: number;
+    redUpperBounds?: number;
+    unitsOfMeasure?: string;
+    highLightSector?: 0 | 1 | 2;
 }
 
 @Component({
@@ -52,7 +56,10 @@ export class PieDiagramComponent implements OnInit {
 
     private initSvg(): void {
         this.svg = d3.select(this.hostElement.nativeElement).select('svg');
-        this.g = this.svg.append('g').attr('transform', 'translate(50,50)');
+        this.g = this.svg.append('g')
+            .attr('transform', 'translate(50,50)')
+            .attr('z-index', '50')
+        ;
     }
 
     private placeText(): void {
@@ -66,9 +73,10 @@ export class PieDiagramComponent implements OnInit {
 
         this.g.append('text')
             .attr('font-size', '12px')
-            .attr('x', '-10')
             .attr('y', '40')
             .attr('z-index', '100')
+            .attr('text-anchor', 'middle')
+            .attr('dominant-baseline', 'middle')
             .attr('fill', 'rgb(109, 122, 145)')
             .text(this.data.name);
     }

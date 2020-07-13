@@ -2,6 +2,7 @@ import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
 import { WidgetPlatform } from 'src/app/dashboard/models/widget-platform';
 import { WidgetService } from 'src/app/dashboard/services/widget.service';
 import { DATASOURCE } from './mock';
+import { IViewWorkflowWindow } from '../components/view-workflow-window/view-workflow-window.component';
 
 export interface IAPSRecipeDiagram {
   id: number;

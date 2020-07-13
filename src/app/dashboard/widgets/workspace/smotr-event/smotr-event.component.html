@@ -85,9 +85,19 @@
   <div class="workspace__column column column_right">
     <div class="column__row row">
       <div class="row__cell cell cell_left events-icons">
-        <evj-events-smotr-icon [matTooltip]="'Уровень эскалации'" [iconType]="'escalate'" [counter]="this.ewService.event.deviationData?.escalateLevelNumber"></evj-events-smotr-icon>
-        <evj-events-smotr-icon [iconType]="'critical'" [isCritical]="this.ewService.event.deviationData?.isCritical"></evj-events-smotr-icon>
-        <evj-events-smotr-icon [iconType]="'repeat'" [counter]="this.ewService.event.deviationData?.iteration"></evj-events-smotr-icon>
+        <evj-events-smotr-icon
+          [matTooltip]="'Уровень эскалации'"
+          [iconType]="'escalate'"
+          [counter]="this.ewService.event.deviationData?.escalateLevelNumber"
+        ></evj-events-smotr-icon>
+        <evj-events-smotr-icon
+          [iconType]="'critical'"
+          [isCritical]="this.ewService.event.deviationData?.isCritical"
+        ></evj-events-smotr-icon>
+        <evj-events-smotr-icon
+          [iconType]="'repeat'"
+          [counter]="this.ewService.event.deviationData?.iteration"
+        ></evj-events-smotr-icon>
       </div>
       <div class="row__cell cell cell_right">
         <evj-ui-block status="{{ewService.event.priority.name}}">
@@ -114,14 +124,36 @@
         </div>
         <div class="information__label label">
           <div class="label__title">Автор</div>
-          <div class="label__text">{{this.ewService.event.fixedBy?.displayName ? this.ewService.event.fixedBy?.displayName : 'Не установлен'}}</div>
+          <div class="label__text">
+            {{this.ewService.event.fixedBy?.displayName ? this.ewService.event.fixedBy?.displayName
+            : 'Не установлен'}}
+          </div>
+        </div>
+      </div>
+      <div class="row__cell cell cell_left information information_uniq">
+        <div class="information__label label">
+          <div class="label__title">Дата регистрации</div>
+          <div class="label__text">
+            {{this.ewService.event?.externalDate?this.ewService.event.externalDate:''|date:'dd.MM.yyyy | hh.mm'}}
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="column__row row">
+      <div class="row__cell cell cell_left information">
+        <div class="information__label label">
+          <div class="label__title">ID в Системе-источник</div>
+          <div class="label__text">
+            {{this.ewService.event?.externalCode?this.ewService.event.externalCode:''}}
+          </div>
         </div>
       </div>
       <div class="row__cell cell cell_right">
         <evj-events-workspace-button
           status="tools"
           (click)="onClickUrl()"
-          [disabled]="isDisabledUrlButton()">
+          [disabled]="isDisabledUrlButton()"
+        >
         </evj-events-workspace-button>
       </div>
     </div>

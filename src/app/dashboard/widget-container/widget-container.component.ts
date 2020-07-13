@@ -13,6 +13,8 @@ export class WidgetContainerComponent extends WidgetPlatform implements OnInit, 
     public isLoading: boolean = true;
     public previewTitle: string = null;
 
+    protected isRealtimeData: boolean = false;
+
     constructor(
         private lazyService: LazyService,
         public widgetService: WidgetService,
@@ -50,8 +52,10 @@ export class WidgetContainerComponent extends WidgetPlatform implements OnInit, 
         };
 
         await this.lazyService.loadWidget(this.widgetType, this.container, injectParams);
+        console.log(injectParams);
+        
         setTimeout(() => (this.isLoading = false), 300);
     }
 
-    protected dataHandler(ref: any): void {}
+    protected dataHandler(ref: any): void { }
 }

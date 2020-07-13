@@ -37,12 +37,6 @@ export interface IAbsent {
     name: string;
 }
 
-export interface IAbsent {
-    code: string;
-    id: number;
-    name: string;
-}
-
 @Component({
     selector: 'evj-admin-shift-schedule',
     templateUrl: './admin-shift-schedule.component.html',
@@ -157,7 +151,8 @@ export class AdminShiftScheduleComponent extends WidgetPlatform
         });
     }
 
-    protected dataHandler(ref: any): void {}
+    protected dataHandler(ref: any): void {
+    }
 
     ngAfterContentChecked(): void {
         this.listenBtn();
@@ -488,17 +483,20 @@ export class AdminShiftScheduleComponent extends WidgetPlatform
 
     async moveToDropAdditionalShift(item: IDropItem): Promise<void> {
         if (item && item.container.id !== '0' && item.container.id !== item.previousContainer.id) {
-            try {
-                const userId = this.adminShiftScheduleService.moveItemId$.getValue();
-                await this.adminShiftScheduleService.postMemberFromBrigade(
-                    this.selectedShift.id,
-                    userId
-                );
-                this.selectShift(this.selectedShift);
-                this.snackBar.openSnackBar('Сотрудник добавлен в смену');
-            } catch (error) {
-                console.log(error);
+            if (this.selectedShift.brigadeId) {
+                try {
+                    const userId = this.adminShiftScheduleService.moveItemId$.getValue();
+                    await this.adminShiftScheduleService.postMemberFromBrigade(
+                        this.selectedShift.id,
+                        userId
+                    );
+                    this.selectShift(this.selectedShift);
+                    this.snackBar.openSnackBar('Сотрудник добавлен в смену');
+                } catch (error) {
+                    console.log(error);
+                }
             }
+
         }
     }
 
