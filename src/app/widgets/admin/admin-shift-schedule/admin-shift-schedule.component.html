@@ -41,7 +41,7 @@
                     <li
                       class="calendar__footer__list-item"
                       *ngFor="let brigade of allBrigade"
-                      class="{{brigadeColor(brigade)}}"
+                      class="{{ brigadeColor(brigade) }}"
                     >
                       {{brigade.brigadeNumber}}
                     </li>
@@ -167,17 +167,24 @@
                   ></svg-icon>
                   <div class="office-schedule__item__title">Время начала смены:</div>
                   <div class="office-schedule__item__value" (click)="openBlock()" #toggleButton>
-                    {{ timeStart | date:'hh:mm:ss' }}
+                    {{ timeStart.value.toDate() | date:'HH:mm:ss' }}
                   </div>
                   <div *ngIf="isOpenStartDate" class="office-schedule__item__value__overlay">
                     <ngx-mat-timepicker
                       #menu
                       (click)="$event.stopPropagation()"
-                      [(ngModel)]="timeStart"
+                      [formControl]="timeStart"
                       [showSeconds]="false"
                       [disableMinute]="true"
                     >
                     </ngx-mat-timepicker>
+                    <div class="office-schedule__item__value__overlay__footer">
+                      <div class="office-schedule__item__value__overlay__footer__btn">
+                        <mat-icon class="mat-icon notranslate material-icons mat-icon-no-color">
+                          done
+                        </mat-icon>
+                      </div>
+                    </div>
                   </div>
                 </div>
                 <div class="office-schedule__item">
