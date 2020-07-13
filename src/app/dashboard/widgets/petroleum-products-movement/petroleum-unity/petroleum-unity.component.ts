@@ -3,7 +3,7 @@ import { Subscription } from 'rxjs';
 import { WidgetService } from '../../../services/widget.service';
 import { PlatformLocation } from '@angular/common';
 import { UnityLoader } from '../../dispatcher-screen/UnityLoader';
-import { PetroleumScreenService } from '../../../services/petroleum-screen.service';
+import { PetroleumScreenService } from '../../../services/widgets/petroleum-screen.service';
 import { ITransfer, ObjectType } from '../../../models/petroleum-products-movement.model';
 
 @Component({
@@ -43,7 +43,6 @@ export class PetroleumUnityComponent implements OnInit, AfterViewInit, OnDestroy
     }
 
     ngOnDestroy(): void {
-        console.log('destroy_unity');
         if (this.subscriptions) {
             for (const subscription of this.subscriptions) {
                 subscription.unsubscribe();
@@ -64,15 +63,30 @@ export class PetroleumUnityComponent implements OnInit, AfterViewInit, OnDestroy
         '$event.detail.param1',
     ])
     public DeleteTransfer(event, param1): void {
-        console.log(param1);
-        this.petroleumService.deleteTransfer(param1);
+        console.log('delete-transfer');
+        const windowsParam = {
+            isShow: true,
+            questionText: 'Вы уверены, что хотите удалить текущую операцию?',
+            acceptText: 'Да',
+            cancelText: 'Отменить',
+            acceptFunction: () => this.petroleumService.deleteTransfer(param1),
+            closeFunction: () => this.petroleumService.closeAlert(),
+        };
+        this.petroleumService.alertWindow$.next(windowsParam);
     }
 
     @HostListener('document:UnityMotionAccounting_SaveTransfer', ['$event', '$event.detail.param1'])
     public SaveTransfer(event, param1: string): void {
         console.log('save-transfer');
-        console.log(param1);
-        this.petroleumService.saveTransfer();
+        const windowsParam = {
+            isShow: true,
+            questionText: 'Вы уверены, что хотите сохранить изменения в текущей операции?',
+            acceptText: 'Да',
+            cancelText: 'Отменить',
+            acceptFunction: () => this.petroleumService.saveTransfer(),
+            closeFunction: () => this.petroleumService.closeAlert(),
+        };
+        this.petroleumService.alertWindow$.next(windowsParam);
     }
 
     @HostListener('document:UnityMotionAccounting_CreateTransfer', ['$event'])
@@ -84,7 +98,15 @@ export class PetroleumUnityComponent implements OnInit, AfterViewInit, OnDestroy
     @HostListener('document:UnityMotionAccounting_SetDefaultTransfer', ['$event'])
     public SetDefaultTransfer(event): void {
         console.log('set-default-transfer');
-        this.petroleumService.createTransfer();
+        const windowsParam = {
+            isShow: true,
+            questionText: 'Вы уверены, что хотите сбросить создание текущей операции?',
+            acceptText: 'Да',
+            cancelText: 'Отменить',
+            acceptFunction: () => this.petroleumService.createTransfer(),
+            closeFunction: () => this.petroleumService.closeAlert(),
+        };
+        this.petroleumService.alertWindow$.next(windowsParam);
     }
 
     @HostListener('document:UnityMotionAccounting_SetTime', [

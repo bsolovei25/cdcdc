@@ -1,8 +1,14 @@
-import { Component, OnInit, Inject, ViewChild, AfterViewInit, ElementRef } from '@angular/core';
+import { Component, OnInit, Inject, ViewChild, ElementRef, OnDestroy } from '@angular/core';
 import { WidgetService } from '../../services/widget.service';
 import { EventEmitter } from '@angular/core';
-import { OilControls } from '../../models/oil-control';
+import { OilControls, OilProducts } from '../../models/oil-control';
 import { WidgetPlatform } from '../../models/widget-platform';
+
+export interface IOilControlCoords {
+    x: number;
+    y: number;
+    point?: number;
+}
 
 declare var d3: any;
 
@@ -11,224 +17,24 @@ declare var d3: any;
     templateUrl: './oil-control.component.html',
     styleUrls: ['./oil-control.component.scss'],
 })
-export class OilControlComponent extends WidgetPlatform implements OnInit, AfterViewInit {
+export class OilControlComponent extends WidgetPlatform implements OnInit, OnDestroy {
     @ViewChild('oilIcon') oilIcon: ElementRef;
-    @ViewChild('oilBak') oilBak: ElementRef;
     @ViewChild('oilCircle') oilCircle: ElementRef;
     @ViewChild('borders') borders: ElementRef;
     @ViewChild('line') line: ElementRef;
 
-    static itemCols: number = 32;
-    static itemRows: number = 12;
+    public static itemCols: number = 33;
+    public static itemRows: number = 12;
+    public static minItemCols: number = 33;
+    public static minItemRows: number = 12;
 
     public isVertical: boolean = false;
 
     public previewTitle: string;
 
-    data: OilControls = {
-        operations: 42,
-        criticalOperations: 1,
-        products: [
-            {
-                name: 'ДТ сорт F',
-                value: 12132,
-                criticalValue: 23,
-                storages: [
-                    {
-                        id: 1,
-                        nameStorage: 'E-1',
-                        status: 'critical',
-                        valueStorage: 10253,
-                        tank: {
-                            timeStart: '02:03:20',
-                            timeEnd: '04:08:38',
-                            tankLevel: 10,
-                            tankValues: [
-                                {
-                                    name: 'Отгружено по резервуару',
-                                    valueFirst: 1670,
-                                    valueSecond: 98.73,
-                                    status: 'normal',
-                                },
-                                {
-                                    name: 'По данным отгрузки',
-                                    valueFirst: 1700,
-                                    valueSecond: 103.23,
-                                    status: 'critical',
-                                },
-                                {
-                                    name: 'Дебаланс',
-                                    valueFirst: 30,
-                                    valueSecond: 1.27,
-                                    status: 'normal',
-                                },
-                                {
-                                    name: 'Допустимый дебаланс',
-                                    valueFirst: 15,
-                                    valueSecond: 103.23,
-                                    status: 'default',
-                                },
-                                {
-                                    name: 'Отклонение',
-                                    valueFirst: 15,
-                                    valueSecond: 103.23,
-                                    status: 'normal',
-                                },
-                            ],
-                        },
-                        tankers: [
-                            {
-                                nameTanker: 'Tug',
-                                shipped: true,
-                                value: 528,
-                                title: 'Авто ( AУТН-2 )',
-                            },
-                            {
-                                nameTanker: 'Tube',
-                                shipped: true,
-                                value: 528,
-                                title: 'Ж/Д ( AУТН-2 )',
-                            },
-                            {
-                                nameTanker: 'Cistern',
-                                shipped: true,
-                                value: 528,
-                                title: 'Труба ( AУТН-2 )',
-                            },
-                        ],
-                    },
-                    {
-                        id: 2,
-                        nameStorage: 'E-2',
-                        valueStorage: 10253,
-                        status: 'normal',
-                        tank: {
-                            timeStart: '020320',
-                            timeEnd: '040838',
-                            tankLevel: 70,
-                            tankValues: [
-                                {
-                                    name: 'Отгружено по резервуару',
-                                    valueFirst: 1240,
-                                    valueSecond: 98.73,
-                                    status: 'normal',
-                                },
-                                {
-                                    name: 'По данным отгрузки',
-                                    valueFirst: 1700,
-                                    valueSecond: 103.23,
-                                    status: 'normal',
-                                },
-                                {
-                                    name: 'Дебаланс',
-                                    valueFirst: 30,
-                                    valueSecond: 1.27,
-                                    status: 'normal',
-                                },
-                                {
-                                    name: 'Допустимый дебаланс',
-                                    valueFirst: 15,
-                                    valueSecond: 103.23,
-                                    status: 'normal',
-                                },
-                                {
-                                    name: 'Отклонение',
-                                    valueFirst: 0,
-                                    valueSecond: 0,
-                                    status: 'normal',
-                                },
-                            ],
-                        },
-                        tankers: [
-                            {
-                                nameTanker: 'Tug',
-                                shipped: true,
-                                value: 528,
-                                title: 'Авто ( AУТН-2 )',
-                            },
-                            {
-                                nameTanker: 'Tube',
-                                shipped: true,
-                                value: 528,
-                                title: 'Ж/Д ( AУТН-2 )',
-                            },
-                            {
-                                nameTanker: 'Cistern',
-                                shipped: false,
-                                value: 528,
-                                title: 'Труба ( AУТН-2 )',
-                            },
-                        ],
-                    },
-                    {
-                        id: 3,
-                        nameStorage: 'E-3',
-                        valueStorage: 10253,
-                        status: 'normal',
-                        tank: {
-                            timeStart: '020320',
-                            timeEnd: '040838',
-                            tankLevel: 100,
-                            tankValues: [
-                                {
-                                    name: 'Отгружено по резервуару',
-                                    valueFirst: 1670,
-                                    valueSecond: 98.73,
-                                    status: 'normal',
-                                },
-                                {
-                                    name: 'По данным отгрузки',
-                                    valueFirst: 1700,
-                                    valueSecond: 103.23,
-                                    status: 'normal',
-                                },
-                                {
-                                    name: 'Дебаланс',
-                                    valueFirst: 30,
-                                    valueSecond: 1.27,
-                                    status: 'default',
-                                },
-                                {
-                                    name: 'Допустимый дебаланс',
-                                    valueFirst: 15,
-                                    valueSecond: 103.23,
-                                    status: 'normal',
-                                },
-                                {
-                                    name: 'Отклонение',
-                                    valueFirst: 0,
-                                    valueSecond: 0,
-                                    status: 'normal',
-                                },
-                            ],
-                        },
-                        tankers: [
-                            {
-                                nameTanker: 'bus',
-                                shipped: true,
-                                value: 528,
-                                title: 'Авто ( AУТН-2 )',
-                            },
-                            {
-                                nameTanker: 'pipe',
-                                shipped: false,
-                                value: 528,
-                                title: 'Авто ( AУТН-2 )',
-                            },
-                            {
-                                nameTanker: 'train',
-                                shipped: false,
-                                value: 528,
-                                title: 'Авто ( AУТН-2 )',
-                            },
-                        ],
-                    },
-                ],
-            },
-        ],
-    };
+    public data: OilProducts[] = [];
 
-    storageXY: any = [
+    storageXY: IOilControlCoords[] = [
         {
             x: 400,
             y: 220,
@@ -252,7 +58,7 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, After
         },
     ];
 
-    productXY: any = [
+    productXY: IOilControlCoords[] = [
         {
             point: 1,
             x: 200,
@@ -292,8 +98,6 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, After
     public pieStartStorage: number = 3;
     public pieEndStorage: number = 3;
 
-    public rectYHeight: number = 370;
-
     public countClickChange: number = 0;
     public countClickChangeStorage: number = 0;
 
@@ -305,13 +109,12 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, After
 
     public indexData: number = 0;
 
-    public maxPage: number;
-    public currentPage: number;
-
     public activeStorage: any;
     public activeProduct: any = [];
 
     public indexProductActive: number = 0;
+
+    public isCriticalArrow: boolean = false;
 
     public htmlProduct: number;
     public htmlStorage: number;
@@ -320,17 +123,11 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, After
     public newWidth: number;
     public checkWidth: boolean = false;
 
-    public criticalPage: any = [];
-
-    public isCriticalArrow: boolean = false;
-
     public svgMenu: any;
     public tankersPicture: any;
-    public tankPicture: any;
     public svgLine: any;
 
     public checkRemove: boolean = false;
-    public checkCriticalTank: boolean = false;
 
     public savePosition: boolean = false;
     public savePositionProduct: number;
@@ -343,6 +140,12 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, After
 
     public test: boolean = false;
 
+    tankersName = {
+        shipAvto: 'Авто',
+        shipTrain: 'Поезд',
+        shipTube: 'Труба',
+    };
+
     constructor(
         public widgetService: WidgetService,
         @Inject('isMock') public isMock: boolean,
@@ -351,22 +154,9 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, After
         @Inject('resizeWidget') public resizeWidget: EventEmitter<MouseEvent>
     ) {
         super(widgetService, isMock, id, uniqId);
-
-        this.currentPage = 3;
-        this.maxPage = this.data.products[0].storages.length;
-        this.activeProduct = this.data.products;
-        if (this.activeProduct[0].storages.length < 3) {
-            this.activeStorage = this.activeProduct[2].storages[1];
-        } else if (this.activeProduct[0].storages.length < 2) {
-            this.activeStorage = this.activeProduct[0].storages[0];
-        } else {
-            this.activeStorage = this.activeProduct[0].storages[2];
-        }
     }
 
-    ngOnInit(): void {}
-
-    ngAfterViewInit(): void {
+    ngOnInit(): void {
         super.widgetInit();
     }
 
@@ -376,40 +166,42 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, After
 
     protected dataConnect(): void {
         super.dataConnect();
-        // this.subscriptions.push(
-        //     this.resizeWidget.subscribe((data) => {
-        //         if (data.item.uniqid === this.uniqId) {
-        //             this.newWidth = data.event.clientX;
-        //             this.onResize(data.event.clientX);
-        //         }
-        //     })
-        // );
     }
 
     protected dataHandler(ref: any): void {
+        console.log(ref);
+
         this.drawOilControlSocket(ref);
+    }
+
+    public mapStorage(): void {
+        this.activeProduct = this.data;
+        if (this.activeProduct[0].storages.length < 3) {
+            this.activeStorage = this.activeProduct[2].storages[1];
+        } else if (this.activeProduct[0].storages.length < 2) {
+            this.activeStorage = this.activeProduct[0].storages[0];
+        } else {
+            this.activeStorage = this.activeProduct[0].storages[2];
+        }
     }
 
     drawOilControlSocket(ref): void {
         this.checkSocket = true;
-        this.data = ref;
+        this.data = ref.products;
         if (this.svgMenu) {
             this.clearProduct();
             this.tankersPicture.remove();
-            this.tankPicture.remove();
+        }
+        if (this.svgLine) {
             this.svgLine.remove();
         }
-        let count = 0;
-        for (let i of this.data.products) {
-            count++;
-        }
-        this.indexTestProduct = count - 1;
+        this.indexTestProduct = this.data.length - 1;
+        this.mapStorage();
         this.drawOilControl(this.data);
         if (this.checkSocket === true && this.savePositionProduct !== undefined) {
             this.onButtonChangeProduct(this.savePositionProduct);
             if (this.saveDataStorage.length !== 0) {
                 this.onButtonChangeStorage(this.savePositionStorage, this.saveDataStorage);
-                this.currentPage = this.saveCurrentPage;
             }
         }
 
@@ -422,9 +214,8 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, After
     }
 
     public drawOilControl(data): void {
-        this.drawPicture(this.oilIcon.nativeElement);
-        this.drawBak(this.oilBak.nativeElement);
-        this.FilterCircle(data.products, this.indexTestProduct);
+        this.drawPicture(this.oilIcon?.nativeElement);
+        this.FilterCircle(data, this.indexTestProduct);
     }
 
     public clearOilControl(): void {
@@ -447,13 +238,13 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, After
         let x4 = -48;
         let y = 110;
 
-        let tug = './assets/pic/Icons3D/Tug.png';
-        let tube = './assets/pic/Icons3D/Tube.png';
-        let cis = './assets/pic/Icons3D/Cistern.png';
+        const tug = './assets/pic/Icons3D/Tug.png';
+        const tube = './assets/pic/Icons3D/Tube.png';
+        const cis = './assets/pic/Icons3D/Cistern.png';
 
         let countPicture = 0;
 
-        for (let i of this.activeStorage.tankers) {
+        for (const i of this.activeStorage?.tankers) {
             if (i.shipped === true) {
                 countPicture++;
             }
@@ -477,8 +268,12 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, After
             x4 = -48;
         }
 
-        for (let item of this.activeStorage.tankers) {
+        let isShipped: boolean = false;
+
+        for (const item of this.activeStorage?.tankers) {
             if (item.shipped === true) {
+                const value = Math.round(item.value);
+                isShipped = true;
                 let pictureContainer = this.tankersPicture
                     .append('image')
                     .attr('xlink:href', './assets/pic/OilControl/oil_icon.svg')
@@ -492,7 +287,11 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, After
                     .append('image')
                     .attr(
                         'xlink:href',
-                        item.nameTanker === 'Tug' ? tug : item.nameTanker === 'Tube' ? tube : cis
+                        item.nameTanker === 'shipTrain'
+                            ? tug
+                            : item.nameTanker === 'shipTube'
+                            ? tube
+                            : cis
                     )
                     .attr('height', '50px')
                     .attr('width', '60px')
@@ -509,7 +308,7 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, After
                     .attr('y', '40')
                     .attr('text-anchor', 'middle')
                     .attr('fill', '#8c99b2')
-                    .text(item.title);
+                    .text(this.tankersName[item.nameTanker]);
 
                 let valueText1 = this.tankersPicture
                     .append('text')
@@ -520,7 +319,7 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, After
                     .attr('class', 'textProduct')
                     .attr('text-anchor', 'middle')
                     .attr('fill', '#a2e2ff')
-                    .text(item.value);
+                    .text(value);
 
                 x1 += y;
                 x2 += y;
@@ -529,11 +328,12 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, After
             }
         }
 
-        this.drawLine(this.line.nativeElement, countPicture);
+        if (isShipped) {
+            this.drawLine(this.line?.nativeElement, countPicture);
+        }
     }
 
     public drawLine(el, count): void {
-        console.log('Картинки', count);
         let size = 0;
         if (this.newWidth) {
             size = this.newWidth / 100;
@@ -586,8 +386,7 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, After
         data,
         dataStorage
     ): void {
-        this.criticalPage = [];
-        this.svgMenu = d3.select(el.firstElementChild);
+        this.svgMenu = d3.select(el?.firstElementChild);
 
         let svgMenu = this.svgMenu;
         this.activeProduct = data;
@@ -665,7 +464,7 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, After
                 .attr('text-anchor', 'middle')
                 .attr('class', 'textProduct')
                 .attr('fill', '#a2e2ff')
-                .text(this.data.operations);
+                .text(data[this.indexProduct].operations);
 
             let critical = svgMenu
                 .append('text')
@@ -687,7 +486,7 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, After
                 .attr('text-anchor', 'middle')
                 .attr('class', 'textProduct')
                 .attr('fill', 'orange')
-                .text(this.data.criticalOperations);
+                .text(data[this.indexProduct].criticalOperations);
 
             for (let item of leftBorder) {
                 item.classList.remove('st5');
@@ -722,7 +521,7 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, After
                 .attr('text-anchor', 'middle')
                 .attr('class', 'textProduct')
                 .attr('fill', '#a2e2ff')
-                .text(this.data.operations);
+                .text(data[this.indexProduct].operations);
 
             for (let item of leftBorderC) {
                 item.classList.remove('st5-critical');
@@ -758,6 +557,7 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, After
             for (let textProduct of data) {
                 if (indexPies === indexProducts) {
                     if (pie.point === 3) {
+                        const valueProduct = Math.round(textProduct.value);
                         if (!this.checkSocket) {
                             this.savePositionProduct = textProduct.name;
                         }
@@ -788,7 +588,7 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, After
                                 .attr('text-anchor', 'middle')
                                 .attr('fill', 'white')
                                 .attr('class', 'textProduct')
-                                .text(textProduct.value);
+                                .text(valueProduct);
 
                             let middleText3 = svgMenu
                                 .append('text')
@@ -806,7 +606,34 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, After
 
                             this.indexData = indexProducts;
                         } else {
-                            let valueBadText = svgMenu
+                            function nameSlicer(name: string, maxStrLen: number): string[] {
+                                if (name.length <= maxStrLen) {
+                                    return [name];
+                                } else if (name.search(' ') > maxStrLen) {
+                                    return [`${name.slice(0, maxStrLen - 3)}...`];
+                                }
+                                const str =
+                                    name.length > maxStrLen * 2 - 3
+                                        ? `${name.slice(0, maxStrLen * 2).trim()}`
+                                        : name;
+                                const splitSpaceIndex = str.split('').reduce((acc, item, index) => {
+                                    return item === ' ' &&
+                                        Math.abs(maxStrLen - index) < Math.abs(maxStrLen - acc)
+                                        ? index
+                                        : acc;
+                                }, 0);
+                                const firstStr = str.slice(0, splitSpaceIndex);
+                                let secondStr = str.slice(splitSpaceIndex + 1);
+                                if (secondStr.length > maxStrLen) {
+                                    secondStr = `${secondStr.slice(0, maxStrLen - 3).trim()}...`;
+                                }
+                                return [firstStr, secondStr];
+                            }
+
+                            // НАЗВАНИЕ АКТИВНОГО ПРОДУКТА
+                            const nameRows = nameSlicer(textProduct.name, 17);
+                            const textPadding = nameRows.length > 1 ? -10 : 0;
+                            svgMenu
                                 .append('text')
                                 .attr(
                                     'font-family',
@@ -814,11 +641,27 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, After
                                 )
                                 .attr('font-size', '25px')
                                 .attr('x', pie.x)
-                                .attr('y', pie.y)
+                                .attr('y', pie.y + textPadding)
                                 .attr('text-anchor', 'middle')
                                 .attr('fill', 'white')
                                 .attr('class', 'textProduct')
-                                .text(textProduct.name);
+                                .text(nameRows[0]);
+
+                            if (nameRows.length > 1) {
+                                svgMenu
+                                    .append('text')
+                                    .attr(
+                                        'font-family',
+                                        "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;"
+                                    )
+                                    .attr('font-size', '25px')
+                                    .attr('x', pie.x)
+                                    .attr('y', pie.y + 30 + textPadding)
+                                    .attr('text-anchor', 'middle')
+                                    .attr('fill', 'white')
+                                    .attr('class', 'textProduct')
+                                    .text(nameRows[1]);
+                            }
 
                             let middleText2 = svgMenu
                                 .append('text')
@@ -832,10 +675,16 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, After
                                 .attr('text-anchor', 'middle')
                                 .attr('fill', '#a2e2ff')
                                 .attr('class', 'textProduct')
-                                .text(textProduct.value);
+                                .text(valueProduct);
                             this.indexData = indexProducts;
                         }
                     } else {
+                        function nameSlicer(name: string, maxStrLen: number): string {
+                            return name.length > maxStrLen
+                                ? `${name.slice(0, maxStrLen - 3).trim()}...`
+                                : name;
+                        }
+
                         let valueGoodText = svgMenu
                             .append('text')
                             .attr('font-family', "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
@@ -846,7 +695,7 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, After
                             .attr('fill', '#a2e2ff')
                             .attr('cursor', 'pointer')
                             .attr('class', 'textProduct')
-                            .text(textProduct.name)
+                            .text(nameSlicer(textProduct.name, 17))
                             .on('click', () => {
                                 this.onButtonChangeProduct(textProduct.name);
                                 this.countClickChangeStorage = 0;
@@ -864,13 +713,11 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, After
             let indexStorage = this.indexStorage;
             for (let textStorage of dataStorage) {
                 let test = d3.select(
-                    el.firstElementChild.getElementById((indexStorage + 1).toString())
+                    el?.firstElementChild.getElementById((indexStorage + 1).toString())
                 );
                 if (indexPies1 === indexStorage) {
                     if (pie.point === 3) {
-                        if (textStorage.status === 'critical') {
-                            this.criticalPage.push(textStorage.id);
-                        }
+                        const valueStorage = Math.round(textStorage.valueStorage);
                         let valueBadText = test
                             .append('text')
                             .attr('font-family', "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
@@ -891,10 +738,9 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, After
                             .attr('text-anchor', 'middle')
                             .attr('fill', '#a2e2ff')
                             .attr('class', 'textValues')
-                            .text(textStorage.valueStorage);
+                            .text(valueStorage);
                     } else {
                         if (textStorage.status === 'critical') {
-                            this.criticalPage.push(textStorage.id);
                             let valueGoodText = test
                                 .append('text')
                                 .attr(
@@ -955,124 +801,60 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, After
         }
     }
 
-    public drawBak(el): void {
-        this.isCriticalArrow = false;
-        this.tankPicture = d3
-            .select(el)
-            .append('svg')
-            .attr('min-width', '100px')
-            .attr('height', '100%')
-            .attr('width', '100%')
-            .attr('class', 'textProduct')
-            .attr('viewBox', '0 40 350 380');
-
-        let pictureContainer = this.tankPicture
-            .append('image')
-            .attr('xlink:href', './assets/pic/OilControl/Bak.png')
-            .attr('height', '450px')
-            .attr('width', '350px')
-            .attr('x', '0')
-            .attr('class', 'textProduct')
-            .attr('y', '0');
-        let rect = this.tankPicture
-            .append('rect')
-            .attr('fill', '#a2e2ff')
-            .attr('opacity', '0.9')
-            .attr('height', this.activeStorage.tank.tankLevel * 2.2)
-            .attr('width', '260px')
-            .attr('x', '63')
-            .attr('class', 'textProduct')
-            .attr('y', this.rectYHeight - this.activeStorage.tank.tankLevel * 2.2 + 10);
-
-        for (let item of this.activeStorage.tank.tankValues) {
-            if (item.status === 'critical') {
-                this.isCriticalArrow = true;
-                this.checkCriticalTank = true;
-                let bakValue = this.tankPicture
-                    .append('text')
-                    .attr('font-family', "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
-                    .attr('font-size', '38px')
-                    .attr('x', '190')
-                    .attr('y', '100')
-                    .attr('text-anchor', 'middle')
-                    .attr('class', 'textProduct')
-                    .attr('fill', 'orange')
-                    .text(item.valueFirst);
-                break;
-            }
-        }
-        if (this.checkCriticalTank === false) {
-            let bakValue = this.tankPicture
-                .append('text')
-                .attr('font-family', "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
-                .attr('font-size', '38px')
-                .attr('x', '190')
-                .attr('y', '100')
-                .attr('text-anchor', 'middle')
-                .attr('class', 'textProduct')
-                .attr('fill', 'white')
-                .text(this.activeStorage.tank.tankValues[0].valueFirst);
-        }
-        this.checkCriticalTank = false;
-    }
-
     public onButtonChangeProduct(index): void {
         this.clearProduct();
+        let newProduct: number;
         if (this.countClickChange === 0 && !this.checkSocket) {
-            this.changeMassiv(index, this.data.products);
-            this.indexTestStorage = this.countStorage(this.newArrayProduct[2]);
-            this.FilterStorageCircle(this.newArrayProduct[2], this.indexTestStorage);
+            this.changeMassiv(index, this.data);
+            newProduct = this.findAndFilterProduct(
+                this.newArrayProduct,
+                index,
+                this.indexTestStorage
+            );
             this.countClickChange++;
         } else if (this.checkSocket && this.countClickChange === 0) {
-            this.newArrayProduct = this.data.products;
-            this.indexTestStorage = this.countStorage(this.newArrayProduct[2]);
-            this.FilterStorageCircle(this.newArrayProduct[2], this.indexTestStorage);
+            this.newArrayProduct = this.data;
+            newProduct = this.findAndFilterProduct(
+                this.newArrayProduct,
+                index,
+                this.indexTestStorage
+            );
         } else if (this.checkSocket) {
-            this.changeMassiv(index, this.data.products);
-            this.indexTestStorage = this.countStorage(this.newArrayProduct[2]);
-            this.FilterStorageCircle(this.newArrayProduct[2], this.indexTestStorage);
+            this.changeMassiv(index, this.data);
+            newProduct = this.findAndFilterProduct(
+                this.newArrayProduct,
+                index,
+                this.indexTestStorage
+            );
         } else {
             this.changeMassiv(index, this.newArrayProduct);
-            this.indexTestStorage = this.countStorage(this.newArrayProduct[2]);
-            this.FilterStorageCircle(this.newArrayProduct[2], this.indexTestStorage);
+            newProduct = this.findAndFilterProduct(
+                this.newArrayProduct,
+                index,
+                this.indexTestStorage
+            );
         }
         this.drawOnCircle(
-            this.oilCircle.nativeElement,
+            this.oilCircle?.nativeElement,
             this.pieStart,
             this.pieEnd,
             this.pieStartStorage,
             this.pieEndStorage,
             this.newArrayProduct,
-            this.newArrayProduct[2].storages
+            this.newArrayProduct[newProduct].storages
         );
-        this.drawBak(this.oilBak.nativeElement);
-        this.drawPicture(this.oilIcon.nativeElement);
+        // this.drawBak(this.oilBak.nativeElement);
+        this.drawPicture(this.oilIcon?.nativeElement);
     }
 
-    public onNextStorage(event): void {
-        this.clickPaginator = true;
-        if (this.countClickChange === 0) {
-            for (let item of this.data.products[2].storages) {
-                if (item.id === event) {
-                    if (this.countClickChangeStorage === 0) {
-                        this.onButtonChangeStorage(item.id, this.data.products[2].storages);
-                    } else {
-                        this.onButtonChangeStorage(item.id, this.htmlDataStorage);
-                    }
-                }
-            }
-        } else {
-            for (let item of this.htmlDataStorage) {
-                if (item.id === event) {
-                    this.onButtonChangeStorage(item.id, this.htmlDataStorage);
-                }
-            }
-        }
+    findAndFilterProduct(arr, index, indexStorage): number {
+        const indexProductStorage = arr.findIndex((e) => e.name === index);
+        this.indexTestStorage = this.countStorage(arr[indexProductStorage]);
+        this.FilterStorageCircle(arr[indexProductStorage], indexStorage);
+        return indexProductStorage;
     }
 
     public onButtonChangeStorage(index, data): void {
-        this.currentPage = index;
-        this.saveCurrentPage = this.currentPage;
         this.clearProduct();
 
         if (this.countClickChange === 0 && !this.checkSocket) {
@@ -1083,12 +865,12 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, After
                 this.changeMassivStorage(index, data);
             }
             this.drawOnCircle(
-                this.oilCircle.nativeElement,
+                this.oilCircle?.nativeElement,
                 this.pieStart,
                 this.pieEnd,
                 this.pieStartStorage,
                 this.pieEndStorage,
-                this.data.products,
+                this.data,
                 this.newArrayStorage
             );
         } else {
@@ -1102,7 +884,7 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, After
                 this.changeMassivStorage(index, data);
             }
             this.drawOnCircle(
-                this.oilCircle.nativeElement,
+                this.oilCircle?.nativeElement,
                 this.pieStart,
                 this.pieEnd,
                 this.pieStartStorage,
@@ -1111,32 +893,32 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, After
                 this.newArrayStorage
             );
         }
-        this.drawBak(this.oilBak.nativeElement);
-        this.drawPicture(this.oilIcon.nativeElement);
+        // this.drawBak(this.oilBak.nativeElement);
+        this.drawPicture(this.oilIcon?.nativeElement);
     }
 
     ///Возможно зачищение всех нефтеконтролей
 
     public clearStorage(): void {
-        const clears = this.oilCircle.nativeElement.querySelectorAll('.textValues');
+        const clears = this.oilCircle?.nativeElement.querySelectorAll('.textValues');
         clears.forEach((el) => el.remove());
-        this.clearBak();
+        this.clearPicture();
         this.clearLine();
     }
 
     public clearProduct(): void {
         this.clearStorage();
-        const clears = this.oilCircle.nativeElement.querySelectorAll('.textProduct');
+        const clears = this.oilCircle?.nativeElement.querySelectorAll('.textProduct');
         clears.forEach((el) => el.remove());
     }
 
-    public clearBak(): void {
-        const clears = this.oilBak.nativeElement.querySelectorAll('.textProduct');
+    public clearPicture(): void {
+        const clears = this.oilIcon?.nativeElement.querySelectorAll('.textProduct');
         clears.forEach((el) => el.remove());
     }
 
     public clearLine(): void {
-        const clears = this.line.nativeElement.querySelectorAll('.textProduct');
+        const clears = this.line?.nativeElement.querySelectorAll('.textProduct');
         clears.forEach((el) => el.remove());
     }
 
@@ -1161,11 +943,11 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, After
                     }
                 } else {
                     move = 'prev';
-                    if (indexProduct === 2) {
-                        newIndexProduct = 1;
+                    if (indexProduct === 1) {
+                        newIndexProduct = 2;
                         this.shiftMassiv(newIndexProduct, move);
                     } else {
-                        newIndexProduct = 2;
+                        newIndexProduct = 1;
                         this.shiftMassiv(newIndexProduct, move);
                     }
                 }
@@ -1217,9 +999,9 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, After
 
     public shiftMassiv(el, move): void {
         if (this.countClickChange === 0) {
-            this.newArrayProduct = [...this.data.products];
+            this.newArrayProduct = [...this.data];
         } else if (this.checkSocket) {
-            this.newArrayProduct = [...this.data.products];
+            this.newArrayProduct = [...this.data];
         } else {
             this.newArrayProduct = [...this.newArrayProduct];
         }
@@ -1263,7 +1045,7 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, After
             this.indexTestStorage = this.countStorage(data[0]);
             this.FilterStorageCircle(data[el], this.indexTestStorage);
             return this.drawOnCircle(
-                this.oilCircle.nativeElement,
+                this.oilCircle?.nativeElement,
                 this.pieStart,
                 this.pieEnd,
                 this.pieStartStorage,
@@ -1282,7 +1064,7 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, After
             this.indexProductActive = 2;
             this.FilterStorageCircle(data[el - 1], this.indexTestStorage);
             return this.drawOnCircle(
-                this.oilCircle.nativeElement,
+                this.oilCircle?.nativeElement,
                 this.pieStart,
                 this.pieEnd,
                 this.pieStartStorage,
@@ -1290,20 +1072,20 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, After
                 data,
                 data[2].storages
             );
-        } else if (data[el + 1] === undefined) {
-            this.pieStart = 0;
-            this.pieEnd = 4;
+        } else if (data[el + 1] === undefined && el < 2) {
+            this.pieStart = 1;
+            this.pieEnd = 2;
             this.indexProductActive = 2;
-            this.indexTestStorage = this.countStorage(data[2]);
-            this.FilterStorageCircle(data[2], this.indexTestStorage);
+            this.indexTestStorage = this.countStorage(data[el]);
+            this.FilterStorageCircle(data[el], this.indexTestStorage);
             return this.drawOnCircle(
-                this.oilCircle.nativeElement,
+                this.oilCircle?.nativeElement,
                 this.pieStart,
                 this.pieEnd,
                 this.pieStartStorage,
                 this.pieEndStorage,
                 data,
-                data[2].storages
+                data[el].storages
             );
         } else {
             this.pieStart = 0;
@@ -1312,7 +1094,7 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, After
             this.indexTestStorage = this.countStorage(data[2]);
             this.FilterStorageCircle(data[2], this.indexTestStorage);
             return this.drawOnCircle(
-                this.oilCircle.nativeElement,
+                this.oilCircle?.nativeElement,
                 this.pieStart,
                 this.pieEnd,
                 this.pieStartStorage,
@@ -1332,33 +1114,26 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, After
     }
 
     public FilterStorageCircle(data, el): void {
-        this.maxPage = el + 1;
+        const count = data.storages.length;
         this.pieStartStorage = 2;
-        if (data.storages[el + 1] === undefined && el === 0) {
+        if (count === 0) {
             this.pieEndStorage = 2;
             this.pieStartStorage = 2;
-            this.currentPage = 1;
-        } else if (data.storages[el + 1] !== undefined && el < 3) {
-            this.pieStartStorage = this.pieStartStorage - 1;
-            this.indexTestStorage++;
-            this.currentPage = 2;
-            return this.FilterStorageCircle(data, this.indexTestStorage);
-        } else if (data.storages[el + 1] === undefined && el === 1) {
+        } else if (count === 1) {
+            this.pieStartStorage = 2;
+            this.pieEndStorage = 2;
+        } else if (count === 2) {
             this.pieStartStorage = 1;
             this.pieEndStorage = 2;
-            this.currentPage = 3;
-        } else if (data.storages[el + 1] === undefined && el === 3) {
+        } else if (count === 3) {
+            this.pieStartStorage = 0;
+            this.pieEndStorage = 2;
+        } else if (count === 4) {
             this.pieStartStorage = 0;
             this.pieEndStorage = 3;
-            this.currentPage = 3;
-        } else if (data.storages[el + 1] === undefined && el === 4) {
-            this.pieStartStorage = 0;
-            this.pieEndStorage = 3;
-            this.currentPage = 3;
         } else {
             this.pieStartStorage = 0;
             this.pieEndStorage = 4;
-            this.currentPage = 3;
         }
     }
 }

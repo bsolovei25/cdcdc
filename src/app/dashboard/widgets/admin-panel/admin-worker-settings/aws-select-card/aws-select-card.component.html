@@ -7,17 +7,12 @@
       panelClass="admin-panel-select"
     >
       <mat-option [value]="null">Не выбрана</mat-option>
-      <ng-container *ngIf="isBrigadeSelect">
-        <mat-option *ngFor="let item of allItems" [value]="item.brigadeNumber">
-          {{item.brigadeNumber}}
+
+      <ng-container>
+        <mat-option *ngFor="let item of allItems" [value]="item.name">
+          {{item.name}}
         </mat-option>
       </ng-container>
-
-      <ng-container *ngIf="!isBrigadeSelect"
-        ><mat-option *ngFor="let item of allItems" [value]="item.name">
-          {{item.name}}
-        </mat-option></ng-container
-      >
     </mat-select>
   </mat-form-field>
 

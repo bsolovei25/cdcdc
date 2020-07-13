@@ -11,6 +11,7 @@
   <body>
     <evj-root></evj-root>
   </body>
+  <script src="assets/libs/ckeditor/ckeditor.js"></script>
   <script>
     function UnityListener() {
       var funName = arguments[0];
@@ -21,7 +22,6 @@
         }
       }
       var event = new CustomEvent(funName, { detail: dictParams });
-      console.warn(funName);
       document.dispatchEvent(event);
     }
   </script>

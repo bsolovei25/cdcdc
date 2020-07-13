@@ -1,0 +1,28 @@
+<div id="upload" class="upload">
+  <div
+    class="upload-container"
+    #area
+    (click)="$event.stopPropagation()"
+    (dragover)="dragOver($event)"
+    (dragleave)="dragLeave($event)"
+    (drop)="dropFile($event)"
+  >
+    <svg-icon
+      *ngIf="!fileLoad"
+      src="./assets/icons/widgets/reports/cloud.svg"
+      [svgStyle]="{ 'width.%':100, 'height.%':100 }"
+    ></svg-icon>
+    <label *ngIf="fileLoad">Файл {{ fileName }} загружен</label>
+    <div *ngIf="!fileLoad" class="upload-label">
+      <input
+        id="file-input"
+        type="file"
+        name="file"
+        (change)="handleFileInput($event.target.files)"
+        [accept]="extension"
+      />
+      <label for="file-input">Выберите файл</label>
+      <span> или перетащите его сюда</span>
+    </div>
+  </div>
+</div>

@@ -2,10 +2,10 @@ import {
     Component,
     ElementRef,
     OnDestroy,
-    AfterViewInit,
     ViewChild,
     Inject,
     HostListener,
+    OnInit,
 } from '@angular/core';
 
 import * as d3Selection from 'd3-selection';
@@ -20,19 +20,22 @@ import { Subscription } from 'rxjs';
 import { LineChartData, LineChartGraph, LineChartGraphValue } from '../../models/line-chart';
 import { WidgetService } from '../../services/widget.service';
 import { WidgetPlatform } from '../../models/widget-platform';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
     selector: 'evj-line-chart',
     templateUrl: './line-chart.component.html',
     styleUrls: ['./line-chart.component.scss'],
 })
-export class LineChartComponent extends WidgetPlatform implements AfterViewInit, OnDestroy {
+export class LineChartComponent extends WidgetPlatform implements OnInit, OnDestroy {
     position?: string = 'default';
 
     data: LineChartData;
 
     public static itemCols: number = 20;
-    public static itemRows: number = 12;
+    public static itemRows: number = 13;
+    public static minItemCols: number = 17;
+    public static minItemRows: number = 7;
 
     @ViewChild('chart', { static: true }) private chartContainer: ElementRef;
 
@@ -116,6 +119,7 @@ export class LineChartComponent extends WidgetPlatform implements AfterViewInit,
 
     constructor(
         public widgetService: WidgetService,
+        private http: HttpClient,
         @Inject('isMock') public isMock: boolean,
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string
@@ -123,7 +127,7 @@ export class LineChartComponent extends WidgetPlatform implements AfterViewInit,
         super(widgetService, isMock, id, uniqId);
     }
 
-    ngAfterViewInit(): void {
+    ngOnInit(): void {
         super.widgetInit();
     }
 
@@ -142,7 +146,9 @@ export class LineChartComponent extends WidgetPlatform implements AfterViewInit,
         this.disableLiveData();
     }
 
-    protected dataHandler(ref: any): void {
+    protected async dataHandler(ref: any): Promise<void> {
+        // const tempData: any = await this.http.get(`assets/mock/LineChartMock/ws.json`).toPromise();
+        // this.dataLine = tempData.data;
         this.dataLine = ref;
         this.dataLine.graphs.map((x) => x.values.map((z) => (z.date = new Date(z.date))));
         this.draw(this.dataLine);
@@ -171,7 +177,9 @@ export class LineChartComponent extends WidgetPlatform implements AfterViewInit,
     }
 
     private draw(data): void {
-        if (!this.widgetOptions) return;
+        if (!this.widgetOptions) {
+            return;
+        }
 
         if (this.svg) {
             this.svg.remove();
@@ -182,25 +190,36 @@ export class LineChartComponent extends WidgetPlatform implements AfterViewInit,
         this.startChart();
     }
 
-    private buildData(data) {
-        const xMax = d3Array.max(data.graphs, (c) => d3Array.max(c.values, (d) => d.date));
+    private buildData(data): any {
+        const xMax = d3.max(data.graphs, (c) => d3.max(c.values, (d) => d.date));
+        const xMin = d3.min(data.graphs, (c) => d3.min(c.values, (d) => d.date));
         data.graphs
             .filter((x) => x.graphType !== 'fact')
             .forEach((g) => {
                 this.fillToXMAx(g.values, xMax);
+                this.fillToXMin(g.values, xMin);
             });
+
         return data;
     }
 
-    private fillToXMAx(values, xMax) {
+    private fillToXMAx(values, xMax): any {
         const latest = values.slice().reverse()[0];
-        const xMaxDate = new Date(xMax);
-        if (latest && new Date(latest.date).getTime() !== xMaxDate.getTime()) {
+        if (latest?.date?.getTime() !== xMax?.getTime()) {
             return values.push({ value: latest.value, date: xMax });
         }
+        // return values.push({ value: 0, date: xMax });
     }
 
-    private startChart() {
+    private fillToXMin(values, xMin): any {
+        const first = values[0];
+        if (first?.date?.getTime() !== xMin?.getTime()) {
+            return values.unshift({ value: first.value, date: xMin });
+        }
+        // return values.push({ value: 0, date: xMin });
+    }
+
+    private startChart(): void {
         // const plan = this.data.graphs.find(d => d.graphType === 'plan');
         // const fact = this.data.graphs.find(d => d.graphType === 'fact');
         const upperLimit = this.data.graphs.find((d) => d.graphType === 'upperLimit');
@@ -225,7 +244,7 @@ export class LineChartComponent extends WidgetPlatform implements AfterViewInit,
     }
 
     private extractByName(graphs: LineChartGraph[], graphTypeName: string): LineChartGraphValue[] {
-        var found = graphs.find((d) => d.graphType === graphTypeName);
+        const found = graphs.find((d) => d.graphType === graphTypeName);
         return found != null ? found.values : [];
     }
 
@@ -292,7 +311,7 @@ export class LineChartComponent extends WidgetPlatform implements AfterViewInit,
         return deviationMode;
     }
 
-    private deleteLimitsData() {
+    private deleteLimitsData(): void {
         const ulIndex = this.data.graphs.findIndex((d) => d.graphType === 'upperLimit');
         if (ulIndex !== -1) {
             this.data.graphs.splice(ulIndex, 1);
@@ -303,7 +322,7 @@ export class LineChartComponent extends WidgetPlatform implements AfterViewInit,
         }
     }
 
-    private refreshDomains() {
+    private refreshDomains(): void {
         this.x = d3Scale.scaleTime().range([0, this.width - 60]);
         this.y = d3Scale.scaleLinear().range([this.height, 0]);
 
@@ -362,7 +381,7 @@ export class LineChartComponent extends WidgetPlatform implements AfterViewInit,
         //   .y((d: any) => this.y(d.value));
     }
 
-    private initChart() {
+    private initChart(): void {
         const element = this.chartContainer.nativeElement;
         this.width = element.offsetWidth - this.margin.left - this.margin.right;
         this.height = element.offsetHeight - this.margin.top - this.margin.bottom;
@@ -449,18 +468,18 @@ export class LineChartComponent extends WidgetPlatform implements AfterViewInit,
             return (d3.timeSecond(date) < date
                 ? formatMillisecond
                 : d3.timeMinute(date) < date
-                ? formatSecond
-                : d3.timeHour(date) < date
-                ? formatMinute
-                : d3.timeDay(date) < date
-                ? formatHour
-                : d3.timeMonth(date) < date
-                ? d3.timeWeek(date) < date
-                    ? formatDay
-                    : formatWeek
-                : d3.timeYear(date) < date
-                ? formatMonth
-                : formatYear)(date);
+                    ? formatSecond
+                    : d3.timeHour(date) < date
+                        ? formatMinute
+                        : d3.timeDay(date) < date
+                            ? formatHour
+                            : d3.timeMonth(date) < date
+                                ? d3.timeWeek(date) < date
+                                    ? formatDay
+                                    : formatWeek
+                                : d3.timeYear(date) < date
+                                    ? formatMonth
+                                    : formatYear)(date);
         }
         // let RU = d3.timeFormatDefaultLocale(ru_RU);
         this.g
@@ -487,7 +506,7 @@ export class LineChartComponent extends WidgetPlatform implements AfterViewInit,
             );
     }
 
-    private drawGridLines() {
+    private drawGridLines(): void {
         this.g
             .append('g')
             .selectAll('grid')
@@ -523,7 +542,7 @@ export class LineChartComponent extends WidgetPlatform implements AfterViewInit,
             );
     }
 
-    private drawPath() {
+    private drawPath(): void {
         const trend = this.g
             .selectAll('.trend')
             .data(this.data.graphs)
@@ -537,7 +556,7 @@ export class LineChartComponent extends WidgetPlatform implements AfterViewInit,
             .attr('class', (d) => this.trendsStyle[d.graphType].trend.class);
     }
 
-    private drawPoints() {
+    private drawPoints(): void {
         const points = this.g
             .selectAll('.point')
             .data([
@@ -565,7 +584,7 @@ export class LineChartComponent extends WidgetPlatform implements AfterViewInit,
             .attr('class', (d) => this.trendsStyle[d.type].point.class);
     }
 
-    private drawLimitsAreas(upperLimit, lowerLimit) {
+    private drawLimitsAreas(upperLimit, lowerLimit): void {
         const upperLimitArea = d3Shape
             .area()
             .curve(d3Shape[this.widgetOptions['upperLimitLineType']])

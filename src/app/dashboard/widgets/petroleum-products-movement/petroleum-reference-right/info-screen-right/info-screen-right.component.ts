@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { PetroleumScreenService } from 'src/app/dashboard/services/petroleum-screen.service';
+import { PetroleumScreenService } from 'src/app/dashboard/services/widgets/petroleum-screen.service';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { TransfersFilter } from '../../../../models/petroleum-products-movement.model';
 import { filter } from 'rxjs/operators';
@@ -44,7 +44,6 @@ export class InfoScreenRightComponent implements OnInit {
     }
 
     public filterClick(isOpen: boolean): void {
-        this.petroleumService.isLoad$.next(true);
         let filterType: TransfersFilter;
         if (isOpen) {
             filterType = 'open';

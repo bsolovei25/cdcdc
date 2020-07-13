@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { APP_INITIALIZER, Component, OnInit } from '@angular/core';
 
 @Component({
     selector: 'evj-dashboard',
@@ -7,5 +7,5 @@ import { Component, OnInit } from '@angular/core';
 export class DashboardComponent implements OnInit {
     constructor() {}
 
-    ngOnInit() {}
+    public ngOnInit(): void { }
 }

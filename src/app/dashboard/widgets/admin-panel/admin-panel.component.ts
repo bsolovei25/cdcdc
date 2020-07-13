@@ -1,16 +1,18 @@
 import { Component, OnInit, OnDestroy, Inject } from '@angular/core';
-import { IButtonImgSrc, IBrigadeAdminPanel, IWorkspace } from '../../models/admin-panel';
+import { IButtonImgSrc, IWorkspace } from '../../models/admin-panel';
 import { AdminPanelService } from '../../services/admin-panel/admin-panel.service';
 import { IUser, IUnitEvents } from '../../models/events-widget';
-import { Subscription, combineLatest } from 'rxjs';
+import { combineLatest } from 'rxjs';
 import { WidgetService } from '../../services/widget.service';
+import { IInputOptions } from '../../../@shared/models/input.model';
+import { WidgetPlatform } from '../../models/widget-platform';
 
 @Component({
     selector: 'evj-admin-panel',
     templateUrl: './admin-panel.component.html',
     styleUrls: ['./admin-panel.component.scss'],
 })
-export class AdminPanelComponent implements OnInit, OnDestroy {
+export class AdminPanelComponent extends WidgetPlatform implements OnInit, OnDestroy {
     //#region WIDGET_PROPS
     public title: string = 'Панель администратора';
     public previewTitle: string = 'admin-panel';
@@ -21,13 +23,10 @@ export class AdminPanelComponent implements OnInit, OnDestroy {
     public groupsButtonIcon: IButtonImgSrc = {
         btnIconSrc: 'assets/icons/widgets/admin/icon_group-active.svg',
     };
-    public searchIcon: string = 'assets/icons/search-icon.svg';
     //#endregion
 
     //#region WIDGET_FLAGS
-    public isDataLoading: boolean = false;
-
-    public isBrigadesShowed: boolean = false;
+    public isDataLoading: boolean = true;
     public isWorkerSettingsShowed: boolean = false;
     public isGroupsShowed: boolean = false;
     public isCreateNewWorker: boolean = false;
@@ -36,11 +35,24 @@ export class AdminPanelComponent implements OnInit, OnDestroy {
     public isPopupShowed: boolean = false;
     //#endregion
 
-    public searchPlaceholder: string = 'Введите ФИО сотрудника';
+    //#region SEARCH_INPUT_OPTIONS
+    public inputOptions: IInputOptions = {
+        type: 'text',
+        state: 'normal',
+        placeholder: 'Введите ФИО сотрудника',
+        isMovingPlaceholder: true,
+        icon: {
+            src: 'assets/icons/search-icon.svg',
+            svgStyle: { 'width.px': 17, 'height.px': 17 },
+            isClickable: false,
+        },
+    };
+
     public searchedWorker: string = '';
+    //#endregion
 
     public workers: IUser[] = null;
-    public brigades: IBrigadeAdminPanel[] = null;
+    public activeWorker: IUser = null;
 
     public man: IUser = {
         id: 1,
@@ -57,41 +69,51 @@ export class AdminPanelComponent implements OnInit, OnDestroy {
         position: 'common',
         positionDescription: 'Оператор ТУ',
         displayName: 'Петров П. П.',
+        isShiftWorker: false,
     };
 
-    static itemCols: number = 45;
-    static itemRows: number = 25;
+    public static itemCols: number = 43;
+    public static itemRows: number = 28;
 
-    private subscriptions: Subscription[] = [];
+    public static minItemCols: number = 43;
+    public static minItemRows: number = 28;
 
     constructor(
-        private widgetService: WidgetService,
+        protected widgetService: WidgetService,
+        private adminService: AdminPanelService,
         @Inject('isMock') public isMock: boolean,
         @Inject('widgetId') public id: string,
-        @Inject('uniqId') public uniqId: string,
-        private adminService: AdminPanelService
-    ) {}
+        @Inject('uniqId') public uniqId: string
+    ) {
+        super(widgetService, isMock, id, uniqId);
+    }
 
     public ngOnInit(): void {
+        super.widgetInit();
+    }
+
+    public ngOnDestroy(): void {
+        super.ngOnDestroy();
+        this.adminService.setDefaultActiveWorker();
+    }
+
+    protected async dataConnect(): Promise<void> {
+        super.dataConnect();
         this.isDataLoading = true;
         this.adminService.updateAllWorkers().then();
-        this.adminService.updateAllBrigades().then();
         const serviceData = combineLatest([
             this.adminService.allWorkers$,
-            this.adminService.allBrigades$,
             this.adminService.activeWorker$,
         ]);
         this.subscriptions.push(
-            serviceData.subscribe(([workers, brigades, activeWorker]) => {
+            serviceData.subscribe(([workers, activeWorker]) => {
                 if (workers) {
                     this.workers = workers;
                     this.isDataLoading = false;
                 }
-                if (brigades) {
-                    this.brigades = brigades;
-                }
                 if (activeWorker) {
                     this.isImportNewWorker = activeWorker.sid ? true : false;
+                    this.activeWorker = activeWorker;
                 }
             }),
             this.adminService.getAllSpecialScreenClaims().subscribe((data) => {
@@ -100,9 +122,6 @@ export class AdminPanelComponent implements OnInit, OnDestroy {
             this.adminService
                 .getAllUnits()
                 .subscribe((data: IUnitEvents[]) => (this.adminService.units = data)),
-            this.adminService
-                .getAllUnitsWithBrigades()
-                .subscribe((data: IUnitEvents[]) => (this.adminService.unitsWithBrigades = data)),
             this.adminService
                 .getAllGeneralClaims()
                 .subscribe((claims) => (this.adminService.generalClaims = claims.data)),
@@ -118,9 +137,7 @@ export class AdminPanelComponent implements OnInit, OnDestroy {
         );
     }
 
-    public ngOnDestroy(): void {
-        this.subscriptions.forEach((subs: Subscription) => subs.unsubscribe());
-    }
+    protected dataHandler(ref: any): void {}
 
     public createNewWorker(): void {
         this.isDropdownShowed = false;
@@ -130,7 +147,7 @@ export class AdminPanelComponent implements OnInit, OnDestroy {
     }
 
     public getMoreAboutWorker(): void {
-        if (this.adminService.activeWorker.id) {
+        if (this.activeWorker?.id) {
             this.isWorkerSettingsShowed = true;
         }
     }
@@ -143,6 +160,7 @@ export class AdminPanelComponent implements OnInit, OnDestroy {
         this.isCreateNewWorker = false;
         this.isWorkerSettingsShowed = false;
         this.isImportNewWorker = false;
+        this.searchedWorker = '';
     }
 
     public onCloseLdapList(event: boolean): void {
@@ -153,18 +171,19 @@ export class AdminPanelComponent implements OnInit, OnDestroy {
         this.isPopupShowed = false;
     }
 
-    public onSearchWorker(inputedValue: string): void {
-        this.searchedWorker = inputedValue;
-    }
-
-    public onShowBrigades(): void {
-        this.isBrigadesShowed = !this.isBrigadesShowed;
-        this.searchPlaceholder = this.isBrigadesShowed
-            ? 'Введите название бригады'
-            : 'Введите ФИО сотрудника';
-    }
-
     public onHideGroups(): void {
         this.isGroupsShowed = false;
+        this.searchedWorker = '';
+    }
+
+    public async updateUsers(): Promise<void> {
+        this.isDataLoading = true;
+        try {
+            const a = await this.adminService.updateAllLdapUsers();
+        } catch (err) {
+            console.error(err);
+        } finally {
+            this.isDataLoading = false;
+        }
     }
 }

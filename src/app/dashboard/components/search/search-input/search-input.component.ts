@@ -1,50 +1,64 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import {
+    Component,
+    Input,
+    Output,
+    EventEmitter,
+    OnChanges,
+    SimpleChanges
+} from '@angular/core';
 import { WidgetService } from '../../../services/widget.service';
+import { FormControl } from '@angular/forms';
 
 @Component({
     selector: 'evj-search-input',
     templateUrl: './search-input.component.html',
     styleUrls: ['./search-input.component.scss'],
 })
-export class SearchInputComponent implements OnInit {
-    @Input() public data;
-    @Input() public dataWidget;
+export class SearchInputComponent implements OnChanges {
+    public isVisibleFilter: boolean = false;
+
     @Input() isReport: boolean = false;
 
-    @Output() searchReport = new EventEmitter<KeyboardEvent>();
+    @Input()
+    public panelActive: boolean = false;
 
-    @Output() onCheck = new EventEmitter<boolean>();
+    @Output() search: EventEmitter<KeyboardEvent> = new EventEmitter<KeyboardEvent>();
+    @Output() visibleFilter: EventEmitter<boolean> = new EventEmitter<boolean>();
 
-    public checkClick: boolean = false;
+    public searchInputField: FormControl = new FormControl('');
 
-    itemChoose: boolean = false;
-    valueInput: string = '';
+    constructor(private widgetService: WidgetService) {}
 
-    constructor(public widgetService: WidgetService) {
-        if (this.data) {
-            this.itemChoose = true;
+    public ngOnChanges(changes: SimpleChanges): void {
+        if (!changes.panelActive.currentValue) {
+            this.closePanel();
         }
     }
 
-    ngOnInit() { }
-
-    searchRecords(e: any) {
-        this.onCheck.emit(this.checkClick);
-        let type = 'input';
-        this.widgetService.searchItems(e.currentTarget.value, type);
-        if (!e.currentTarget.value) {
-            this.widgetService.reEmitList();
-        }
+    public searchInput(): void {
+        this.search.emit(this.searchInputField.value);
     }
 
-    searchReports(event: KeyboardEvent) {
-        this.searchReport.emit(event);
+    public resetSearchInput(): void {
+        this.searchInputField.setValue('');
+        this.search.emit(this.searchInputField.value);
     }
 
-    public openFilter(event: any) {
-        if (event) {
-            this.checkClick = !this.checkClick;
+    public toggleFilter(): void {
+        this.isVisibleFilter = !this.isVisibleFilter;
+        if (!this.isVisibleFilter) {
+            this.widgetService.filterWidgets$.next([]);
         }
-        this.onCheck.emit(this.checkClick);
+        this.visibleFilter.emit(this.isVisibleFilter);
+    }
+
+    private closePanel(): void {
+        this.closeFilter();
+        this.resetSearchInput();
+    }
+
+    private closeFilter(): void {
+        this.isVisibleFilter = false;
+        this.visibleFilter.emit(this.isVisibleFilter);
     }
 }

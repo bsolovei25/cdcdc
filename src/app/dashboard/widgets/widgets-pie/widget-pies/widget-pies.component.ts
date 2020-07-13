@@ -10,8 +10,10 @@ import { WidgetPlatform } from '../../../models/widget-platform';
 export class WidgetPiesComponent extends WidgetPlatform implements OnInit, OnDestroy {
     public datas = [];
 
-    public static itemCols: number = 16;
+    public static itemCols: number = 31;
     public static itemRows: number = 10;
+    public static minItemCols: number = 9;
+    public static minItemRows: number = 10;
 
     constructor(
         public widgetService: WidgetService,

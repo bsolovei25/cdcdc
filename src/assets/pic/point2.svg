@@ -1,26 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Generator: Adobe Illustrator 19.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
 <svg version="1.1" id="Слой_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-	 viewBox="0 0 595.3 841.9" style="enable-background:new 0 0 595.3 841.9;" xml:space="preserve">
+	 viewBox="0 0 0.00001 0.00001" xml:space="preserve">
 <style type="text/css">
-	.st0{fill:#F5A422;stroke:url(#XMLID_8_);stroke-miterlimit:10;}
-	.st1{opacity:0.2;fill:#F5A422;stroke:url(#XMLID_9_);stroke-miterlimit:10;enable-background:new    ;}
-	.st2{opacity:0.2;fill:url(#XMLID_10_);stroke:url(#XMLID_11_);stroke-miterlimit:10;enable-background:new    ;}
+	.st0-map-ecology{fill:#F5A422;stroke:url(#XMLID_8_);stroke-miterlimit:10;}
+	.st1-map-ecology{opacity:0.2;fill:#F5A422;stroke:url(#XMLID_9_);stroke-miterlimit:10;enable-background:new    ;}
+	.st2-map-ecology{opacity:0.2;fill:url(#XMLID_10_);stroke:url(#XMLID_11_);stroke-miterlimit:10;enable-background:new    ;}
 	
-		.st3{display:none;opacity:5.000000e-002;fill:url(#XMLID_12_);stroke:url(#XMLID_13_);stroke-miterlimit:10;enable-background:new    ;}
-	.st4{opacity:0.5;fill:none;stroke:url(#XMLID_14_);stroke-miterlimit:10;enable-background:new    ;}
+		.st3-map-ecology{display:none;opacity:5.000000e-002;fill:url(#XMLID_12_);stroke:url(#XMLID_13_);stroke-miterlimit:10;enable-background:new    ;}
+	.st4-map-ecology{opacity:0.5;fill:none;stroke:url(#XMLID_14_);stroke-miterlimit:10;enable-background:new    ;}
 </style>
 <g id="XMLID_7_">
 	<linearGradient id="XMLID_8_" gradientUnits="userSpaceOnUse" x1="217.6174" y1="361.1588" x2="377.6826" y2="361.1588">
 		<stop  offset="0" style="stop-color:#FFFFFF"/>
 		<stop  offset="1" style="stop-color:#000000"/>
 	</linearGradient>
-	<ellipse id="XMLID_5_" class="st0" cx="297.6" cy="361.2" rx="79.5" ry="80"/>
+	<ellipse id="XMLID_5_" class="st0-map-ecology" cx="297.6" cy="361.2" rx="79.5" ry="80"/>
 	<linearGradient id="XMLID_9_" gradientUnits="userSpaceOnUse" x1="98.3919" y1="361.1588" x2="496.9081" y2="361.1588">
 		<stop  offset="0" style="stop-color:#FFFFFF"/>
 		<stop  offset="1" style="stop-color:#000000"/>
 	</linearGradient>
-	<ellipse id="XMLID_4_" class="st1" cx="297.6" cy="361.2" rx="198.8" ry="199.9"/>
+	<ellipse id="XMLID_4_" class="st1-map-ecology" cx="297.6" cy="361.2" rx="198.8" ry="199.9"/>
 	
 		<radialGradient id="XMLID_10_" cx="238.9693" cy="533.5822" r="292.4737" gradientTransform="matrix(1.2554 0 0 -1.2626 -2.352 1034.8597)" gradientUnits="userSpaceOnUse">
 		<stop  offset="0" style="stop-color:#F5A422;stop-opacity:0"/>
@@ -31,7 +31,7 @@
 		<stop  offset="0" style="stop-color:#FFFFFF"/>
 		<stop  offset="1" style="stop-color:#000000"/>
 	</linearGradient>
-	<ellipse id="XMLID_3_" class="st2" cx="297.6" cy="361.2" rx="367.2" ry="369.3"/>
+	<ellipse id="XMLID_3_" class="st2-map-ecology" cx="297.6" cy="361.2" rx="367.2" ry="369.3"/>
 	
 		<radialGradient id="XMLID_12_" cx="238.9693" cy="533.5823" r="463.5674" gradientTransform="matrix(1.2554 0 0 -1.2626 -2.352 1034.8597)" gradientUnits="userSpaceOnUse">
 		<stop  offset="0" style="stop-color:#F5A422;stop-opacity:0"/>
@@ -42,11 +42,11 @@
 		<stop  offset="0" style="stop-color:#FFFFFF"/>
 		<stop  offset="1" style="stop-color:#000000"/>
 	</linearGradient>
-	<ellipse id="XMLID_2_" class="st3" cx="297.6" cy="361.2" rx="581.9" ry="585.3"/>
+	<ellipse id="XMLID_2_" class="st3-map-ecology" cx="297.6" cy="361.2" rx="581.9" ry="585.3"/>
 	<linearGradient id="XMLID_14_" gradientUnits="userSpaceOnUse" x1="98.3919" y1="361.1588" x2="496.9081" y2="361.1588">
 		<stop  offset="0" style="stop-color:#FFFFFF"/>
 		<stop  offset="1" style="stop-color:#000000"/>
 	</linearGradient>
-	<ellipse id="XMLID_1_" class="st4" cx="297.6" cy="361.2" rx="198.8" ry="199.9"/>
+	<ellipse id="XMLID_1_" class="st4-map-ecology" cx="297.6" cy="361.2" rx="198.8" ry="199.9"/>
 </g>
 </svg>

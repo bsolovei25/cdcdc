@@ -1,37 +1,43 @@
 ::-webkit-scrollbar {
-  width: 4px;
+  width: 5px;
   height: 5px;
+  border-radius: 25px;
+  margin-top: 90px;
+  margin-bottom: 90px;
+}
+
+::-webkit-scrollbar-track:vertical {
+  width: 5px;
+  height: 5px;
+  margin-top: 1px;
+  margin-bottom: 1px;
   border-radius: 25px;
 }
 
-::-webkit-scrollbar:hover {
-  width: 10px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  width: 10px;
+:hover::-webkit-scrollbar-thumb {
   background-color: var(--color-border-active);
 }
 
+:hover::-webkit-scrollbar-track-piece {
+  border: solid 1px var(--color-border-active);
+}
+
+::-webkit-scrollbar-thumb {
+  width: 10px;
+  border-radius: 25px;
+  background-color: var(--color-border-main);
+}
+
 ::-webkit-scrollbar-track {
-  // background-color:var(--color-border-active);
   border-radius: 25px;
 }
 ::-webkit-scrollbar-track-piece {
   border: solid 1px var(--color-border-main);
   border-radius: 25px;
 }
-::-webkit-scrollbar-thumb {
-  background-color: var(--color-border-main);
-  border-radius: 25px;
-}
-::-webkit-scrollbar-corner {
-  background-color: var(--color-border-active);
-  border-radius: 25px;
-}
+
 ::-webkit-resizer {
   background-color: var(--color-border-active);
-  border-radius: 25px;
 }
 
 .mycheckbox {
@@ -84,8 +90,6 @@
   display: block;
   width: 0;
   height: 0;
-  //background: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHg9IjBweCIgeT0iMHB4Igp3aWR0aD0iNTAiIGhlaWdodD0iNTAiCnZpZXdCb3g9IjAgMCA1MCA1MCIKc3R5bGU9IiBmaWxsOiMwMDAwMDA7Ij48cGF0aCBkPSJNIDQxLjkzNzUgOC42MjUgQyA0MS4yNzM0MzggOC42NDg0MzggNDAuNjY0MDYzIDkgNDAuMzEyNSA5LjU2MjUgTCAyMS41IDM4LjM0Mzc1IEwgOS4zMTI1IDI3LjgxMjUgQyA4Ljc4OTA2MyAyNy4yNjk1MzEgOC4wMDM5MDYgMjcuMDY2NDA2IDcuMjgxMjUgMjcuMjkyOTY5IEMgNi41NjI1IDI3LjUxNTYyNSA2LjAyNzM0NCAyOC4xMjUgNS45MDIzNDQgMjguODY3MTg4IEMgNS43NzczNDQgMjkuNjEzMjgxIDYuMDc4MTI1IDMwLjM2MzI4MSA2LjY4NzUgMzAuODEyNSBMIDIwLjYyNSA0Mi44NzUgQyAyMS4wNjI1IDQzLjI0NjA5NCAyMS42NDA2MjUgNDMuNDEwMTU2IDIyLjIwNzAzMSA0My4zMjgxMjUgQyAyMi43NzczNDQgNDMuMjQyMTg4IDIzLjI4MTI1IDQyLjkxNzk2OSAyMy41OTM3NSA0Mi40Mzc1IEwgNDMuNjg3NSAxMS43NSBDIDQ0LjExNzE4OCAxMS4xMjEwOTQgNDQuMTUyMzQ0IDEwLjMwODU5NCA0My43ODEyNSA5LjY0NDUzMSBDIDQzLjQxMDE1NiA4Ljk4NDM3NSA0Mi42OTUzMTMgOC41ODk4NDQgNDEuOTM3NSA4LjYyNSBaIj48L3BhdGg+PC9zdmc+")
-  //   no-repeat center / 95%;
   background-color: var(--color-border-active);
   left: 50%;
   top: 50%;
@@ -99,7 +103,7 @@
 .container {
   position: relative;
   width: 100%;
-  height: 100%;
+  height: 99%;
   box-sizing: border-box;
   margin-bottom: 20px;
   display: flex;
@@ -136,7 +140,6 @@ input {
   }
 }
 
-
 .references {
   display: flex;
   justify-content: space-between;
@@ -149,17 +152,20 @@ input {
   width: 30%;
   height: 100%;
   padding: 10px;
-  min-width: 240px;
+  min-width: 250px;
   padding-bottom: 0;
 
   .title-reference {
     position: relative;
     height: 40px;
-    width: 100%;
+    margin: 0 auto;
+    margin-right: 0;
+    width: calc(100% - 10px);
     background-color: rgba(93, 96, 123, 0.2);
-    color: white;
+    color: var(--color-text-main);
     text-align: center;
     line-height: 40px;
+    font-size: 11px;
 
     &:before {
       z-index: 1;
@@ -197,16 +203,23 @@ input {
   }
 
   .reference-container {
-    background-color: #1b1f2c;
     height: calc(100% - 80px);
-    margin-top: 2px;
-    margin-bottom: 2px;
-    width: calc(100%);
-    line-height: 40px;
+    width: 100%;
     overflow: auto;
     overflow-x: hidden;
-    min-height: 40px;
     direction: rtl;
+    margin-bottom: 2px;
+    margin-top: 2px;
+
+    .scroll-block {
+      background-color: #1b1f2c;
+      margin: 0 auto;
+      width: calc(100% - 5px);
+      margin-right: 0;
+      height: 100%;
+      line-height: 40px;
+      min-height: 40px;
+    }
 
     &__name {
       line-height: 35px;
@@ -218,6 +231,8 @@ input {
       direction: ltr;
       display: flex;
       height: 40px;
+      background-color: #1b1f2c;
+      position: relative;
 
       .block-active {
         border-left: 2px solid var(--color-border-active);
@@ -230,14 +245,24 @@ input {
     &__block-info {
       position: relative;
       display: flex;
-      width: 90%;
+      width: calc(100% - 50px);
       justify-content: space-between;
     }
 
     &__button-remove {
       cursor: pointer;
-      width: 40px;
-      margin-top: 2px;
+      position: absolute;
+      right: 10px;
+      top: 3px;
+      width: 35px;
+      height: 35px;
+      background-repeat: no-repeat;
+      background-position: center;
+      background-image: url(../../../../assets/icons/widgets/references/delete_blue.svg);
+
+      &:hover {
+        background-image: url(../../../../assets/icons/widgets/references/delete_red.svg);
+      }
     }
 
     &__button-edit {
@@ -251,11 +276,12 @@ input {
 
     &__add-block {
       display: flex;
-      width: 80%;
+      width: 100%;
       margin: 0 auto;
       margin-left: 20px;
       height: 40px;
       direction: ltr;
+      background-color: #1b1f2c;
     }
 
     &__add-block-input {
@@ -278,7 +304,9 @@ input {
   .bottom-reference-left {
     position: relative;
     height: 40px;
-    width: 100%;
+    margin: 0 auto;
+    margin-right: 0;
+    width: calc(100% - 10px);
     background-color: rgba(93, 96, 123, 0.2);
 
     &:before {
@@ -336,15 +364,29 @@ input {
     }
 
     &__input {
-      border: 1px solid white;
+      border: 1px solid;
+      border-image: linear-gradient(90deg, transparent 10%, var(--color-text-main) 100%);
+      border-image-slice: 1;
       border-left: none;
-      border-top-right-radius: 20px;
-      border-bottom-right-radius: 20px;
+      border-right: none;
       left: 25px;
       top: 5px;
       height: 28px;
       position: absolute;
       width: 150px;
+
+      &:after {
+        content: "";
+        position: absolute;
+        height: 28px;
+        width: 14px;
+        top: -1px;
+        right: -15px;
+        border: 1px solid var(--color-text-main);
+        border-left: none;
+        border-top-right-radius: 25px;
+        border-bottom-right-radius: 25px;
+      }
 
       input {
         border-bottom: none !important;
@@ -352,8 +394,34 @@ input {
     }
 
     &__input-active {
-      border: 1px solid var(--color-border-active);
-      border-left: none;
+      border: 1px solid;
+      border-image: linear-gradient(
+        to left,
+        rgba(107, 166, 241, 0.7) 2%,
+        rgba(107, 166, 241, 0.63) 6%,
+        rgba(107, 166, 241, 0.46) 16%,
+        rgba(107, 166, 241, 0.32) 26%,
+        rgba(107, 166, 241, 0.2) 38%,
+        rgba(107, 166, 241, 0.11) 50%,
+        rgba(107, 166, 241, 0.05) 63%,
+        rgba(107, 166, 241, 0.01) 79%,
+        rgba(107, 166, 241, 0) 102%
+      );
+      border-image-slice: 1;
+      border-right: none;
+
+      &:after {
+        content: "";
+        position: absolute;
+        height: 28px;
+        width: 14px;
+        top: -1px;
+        right: -15px;
+        border: 1px solid var(--color-border-active);
+        border-left: none;
+        border-top-right-radius: 25px;
+        border-bottom-right-radius: 25px;
+      }
     }
 
     &__input-block {
@@ -369,13 +437,16 @@ input {
   width: 70%;
   padding: 10px;
   padding-bottom: 0;
+  padding-left: 0;
   min-width: 500px;
 
   .title-reference {
     color: white;
     position: relative;
     height: 40px;
-    width: 90%;
+    width: calc(100% - 50px);
+    margin: 0 auto;
+    margin-left: 10px;
     background-color: rgba(93, 96, 123, 0.2);
     display: flex;
     text-align: center;
@@ -425,7 +496,7 @@ input {
     }
 
     &__title-value {
-      .line-value{
+      .line-value {
         line-height: 0.9;
       }
       margin-top: 14px;
@@ -433,7 +504,7 @@ input {
     }
 
     &__title-uniqValue {
-      .line-uniqValue{
+      .line-uniqValue {
         line-height: 0.9;
       }
       margin-top: 14px;
@@ -448,12 +519,17 @@ input {
     width: 100%;
     margin-bottom: 2px;
     margin-top: 2px;
+    position: relative;
+    direction: rtl;
+
     .reference-container-value {
       height: 100%;
       background-color: #1b1f2c;
-      width: 90%;
+      width: calc(100% - 50px);
       min-height: 40px;
-      direction: rtl;
+      direction: initial;
+      margin: 0 auto;
+      margin-left: 10px;
       position: relative;
 
       &__block {
@@ -463,6 +539,7 @@ input {
         line-height: 40px;
         text-align: center;
         direction: ltr;
+        position: relative;
       }
 
       &__fio-block {
@@ -498,7 +575,7 @@ input {
             display: none;
           }
 
-          ::ng-deep .mat-select-arrow{
+          ::ng-deep .mat-select-arrow {
             background-image: url(../../../../assets/icons/widgets/references/arrow.svg);
           }
         }
@@ -519,15 +596,22 @@ input {
       }
 
       &__delete-button {
-        cursor: pointer;
         display: block !important;
+        cursor: pointer;
         position: absolute;
-        right: -44px;
-        width: 40px;
-        padding: 2px;
-        height: 34px;
-        //background: var(--color-bg-main);
+        right: -34px;
+        top: 0px;
+        width: 35px;
+        height: 38px;
         background: var(--color-bg-active);
+        background-image: url(../../../../assets/icons/widgets/references/delete_blue.svg) !important;
+        background-repeat: no-repeat !important;
+        background-position: center !important;
+
+        &:hover {
+          background-image: url(../../../../assets/icons/widgets/references/delete_red.svg) !important;
+        }
+
         border-top-right-radius: 20px;
         border-bottom-right-radius: 20px;
 
@@ -557,7 +641,8 @@ input {
 
         .reference-container-value__type {
           .mat-form-field {
-            width: 95%;
+            width: 89%;
+            margin-left: 12px;
           }
         }
       }
@@ -577,7 +662,9 @@ input {
   .bottom-reference-right {
     position: relative;
     height: 40px;
-    width: 90%;
+    width: calc(100% - 50px);
+    margin: 0 auto;
+    margin-left: 10px;
     background-color: rgba(93, 96, 123, 0.2);
 
     &:before {
@@ -636,15 +723,29 @@ input {
     }
 
     &__input {
-      border: 1px solid var(--color-text-main);
+      border: 1px solid;
+      border-image: linear-gradient(90deg, transparent 10%, var(--color-text-main) 100%);
+      border-image-slice: 1;
       border-left: none;
-      border-top-right-radius: 20px;
-      border-bottom-right-radius: 20px;
+      border-right: none;
       left: 25px;
       top: 5px;
       height: 28px;
       position: absolute;
-      width: 200px;
+      width: 150px;
+
+      &:after {
+        content: "";
+        position: absolute;
+        height: 28px;
+        width: 14px;
+        top: -1px;
+        right: -15px;
+        border: 1px solid var(--color-text-main);
+        border-left: none;
+        border-top-right-radius: 25px;
+        border-bottom-right-radius: 25px;
+      }
 
       input {
         border-bottom: none !important;
@@ -652,8 +753,34 @@ input {
     }
 
     &__input-active {
-      border: 1px solid var(--color-border-active);
-      border-left: none;
+      border: 1px solid;
+      border-image: linear-gradient(
+        to left,
+        rgba(107, 166, 241, 0.7) 2%,
+        rgba(107, 166, 241, 0.63) 6%,
+        rgba(107, 166, 241, 0.46) 16%,
+        rgba(107, 166, 241, 0.32) 26%,
+        rgba(107, 166, 241, 0.2) 38%,
+        rgba(107, 166, 241, 0.11) 50%,
+        rgba(107, 166, 241, 0.05) 63%,
+        rgba(107, 166, 241, 0.01) 79%,
+        rgba(107, 166, 241, 0) 102%
+      );
+      border-image-slice: 1;
+      border-right: none;
+
+      &:after {
+        content: "";
+        position: absolute;
+        height: 28px;
+        width: 14px;
+        top: -1px;
+        right: -15px;
+        border: 1px solid var(--color-border-active);
+        border-left: none;
+        border-top-right-radius: 25px;
+        border-bottom-right-radius: 25px;
+      }
     }
 
     &__input-block {
@@ -665,11 +792,19 @@ input {
 }
 
 .isLongBlock {
-  width: 100% !important;
+  //width: 100% !important;
+
+  //  width: calc(100% - 10px) !important;
+  //  margin: 0 auto;
+  //  margin-right: 0 !important;
 }
 
 .isNotButton {
   display: none;
+}
+
+.disabled {
+  pointer-events: none;
 }
 
 .example-box {

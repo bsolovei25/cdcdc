@@ -3,6 +3,12 @@ import { UserSettingsService } from '../../services/user-settings.service';
 import { Subscription } from 'rxjs';
 import { IScreenSettings } from '../../models/user-settings.model';
 import { ClaimService, EnumClaimScreens } from '../../services/claim.service';
+import { ViewportScroller } from '@angular/common';
+import { OverlayService } from '../../services/overlay.service';
+import { SnackBarService } from '../../services/snack-bar.service';
+import { IAlertWindowModel } from '@shared/models/alert-window.model';
+import { IInputOptions } from '../../../@shared/models/input.model';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
     selector: 'evj-indicator-selector',
@@ -19,33 +25,83 @@ export class IndicatorSelectorComponent implements OnInit, OnDestroy {
 
     isReadyAdd: boolean = false;
 
+    //#region SEARCH_OPTIONS
+    public inputOptions: IInputOptions = {
+        type: 'text',
+        state: 'normal',
+        placeholder: 'Поиск экрана',
+        isMovingPlaceholder: false,
+        icon: {
+            src: 'assets/icons/search-icon.svg',
+            svgStyle: { 'width.px': 17, 'height.px': 17 },
+            isClickable: false,
+        },
+    };
+
+    public searchScreen: string = '';
+    //#endregion
+
     tempScreen: string = '';
-
     newNameScreen: string = '';
-
     public idScreen: number;
-
     public nameScreen: string;
 
-    public localSaved;
-
-    private timerOff = null;
+    private timerOff: any = null;
 
     isShowScreens: boolean = false;
 
-    constructor(private userSettings: UserSettingsService, private claimService: ClaimService) {}
+    constructor(
+        private userSettings: UserSettingsService,
+        private claimService: ClaimService,
+        public overlayService: OverlayService,
+        private snackBar: SnackBarService,
+        public route: ActivatedRoute,
+        public router: Router,
+    ) {}
 
     ngOnInit(): void {
+
+        // this.router.navigate([], { queryParams: {screenId: 1}});
+        this.LoadScreenInit();
+    }
+
+    ngOnDestroy(): void {
+        this.subscriptions.forEach((subscription) => {
+            subscription.unsubscribe();
+        });
+    }
+
+    private LoadScreenInit(): void {
+        const screenIdFromRoute = this.route.snapshot.queryParamMap.get('screenId');
+        if (!screenIdFromRoute) {
+            let screenId: number = null;
+            screenId = Number(sessionStorage.getItem('screenid'));
+            if (!screenId) {
+                screenId = Number(localStorage.getItem('screenid'));
+            }
+            this.userSettings.ScreenId = screenId;
+        } else {
+            this.userSettings.ScreenId = Number(screenIdFromRoute);
+        }
+
+        this.userSettings.GetScreens();
         this.subscriptions.push(
-            this.userSettings.screens$.subscribe((dataW) => {
-                console.log(dataW);
-                this.dataScreen = dataW;
-                this.localSaved = Number(localStorage.getItem('screenid'));
-                this.LoadScreen(this.localSaved);
+            this.userSettings.screens$.subscribe((screens) => {
+                if (!(screens?.length > 0)) {
+                    return;
+                }
+                this.dataScreen = screens;
+                if (this.dataScreen.findIndex((s) => s.id === this.userSettings.ScreenId) === -1) {
+                    this.userSettings.ScreenId = this.dataScreen[0].id;
+                }
+                this.idScreen = this.userSettings.ScreenId;
+                this.LoadScreen(this.idScreen);
                 this.nameScreen = this.getActiveScreen();
                 for (const item of this.dataScreen) {
                     item.updateScreen = false;
+                    item.isFilter = true;
                 }
+                this.scrollToScreenById(this.idScreen);
             }),
             this.claimService.claimScreens$.subscribe((w) => {
                 this.claimScreens = w;
@@ -53,29 +109,30 @@ export class IndicatorSelectorComponent implements OnInit, OnDestroy {
         );
     }
 
-    ngOnDestroy(): void {
-        if (this.subscriptions.length > 0) {
-            for (const subscribe of this.subscriptions) {
-                subscribe.unsubscribe();
-            }
-        }
-    }
-
-    public LoadScreen(id: any): void {
+    public LoadScreen(id: number): void {
         this.userSettings.LoadScreen(id);
     }
 
-    ScreenActive(e) {
+    ScreenActive(): void {
         if (this.timerOff) {
             clearTimeout(this.timerOff);
+        } else {
+            if (!this.isShowScreens) {
+                this.scrollToScreenById(this.idScreen);
+            }
         }
         this.isShowScreens = true;
     }
 
-    ScreenDisable(e) {
+    ScreenDisable(): void {
         this.timerOff = setTimeout(() => {
+            this.dataScreen.forEach((screen) => {
+                screen.isFilter = true;
+                screen.updateScreen = false;
+            });
             this.isShowScreens = false;
-        }, 700);
+            this.searchScreen = '';
+        }, 300);
     }
 
     public getActiveScreen = (): string => {
@@ -85,25 +142,18 @@ export class IndicatorSelectorComponent implements OnInit, OnDestroy {
                 return currentScreen.screenName;
             }
         }
-
-        if (this.localSaved) {
-            const found = this.dataScreen.find((x) => x.id === this.localSaved);
-            if (found) {
-                return found.screenName;
-            }
-            this.LoadScreen(this.localSaved);
+        if (this.dataScreen[0]) {
+            return this.dataScreen[0].screenName;
         }
-
-        if (this.dataScreen[0]) return this.dataScreen[0].screenName;
     };
 
-    setActiveScreen(screen) {
+    setActiveScreen(screen: IScreenSettings): void {
         this.nameScreen = screen.screenName;
         this.idScreen = screen.id;
         screen.isActive = true;
     }
 
-    onChangeAdder() {
+    onChangeAdder(): void {
         if (this.tempScreen !== '') {
             this.isReadyAdd = true;
         } else {
@@ -111,14 +161,29 @@ export class IndicatorSelectorComponent implements OnInit, OnDestroy {
         }
     }
 
-    public deleteScreen(id: any): void {
+    public deleteScreenButton(screen: IScreenSettings): void {
+        const windowsParam = {
+            isShow: true,
+            questionText: `Вы уверены, что хотите удалить экран "${screen.screenName}"?`,
+            acceptText: 'Да',
+            cancelText: 'Отменить',
+            acceptFunction: () => this.deleteScreen(screen.id),
+            closeFunction: () => this.overlayService.closeDashboardAlert(),
+            cancelFunction: () =>
+                this.snackBar.openSnackBar(
+                    `Экран "${screen.screenName}" не удален и доступен для работы`
+                ),
+        };
+        this.overlayService.dashboardAlert$.next(windowsParam);
+    }
+
+    public deleteScreen(id: number): void {
         this.userSettings.deleteScreen(id);
         for (const item of this.dataScreen) {
             if (item.id === Number(id)) {
                 this.dataScreen.splice(this.dataScreen.indexOf(item), 1);
             }
         }
-
         if (this.idScreen === Number(id)) {
             this.nameScreen = this.dataScreen[0].screenName;
             this.idScreen = this.dataScreen[0].id;
@@ -126,48 +191,83 @@ export class IndicatorSelectorComponent implements OnInit, OnDestroy {
         }
     }
 
-    public updateScreen(id, newName): void {
-        for (const item of this.dataScreen) {
-            if (item.id === id) {
-                item.updateScreen = false;
-            }
-        }
-        this.userSettings.updateScreen(id, newName);
+    public updateScreenButton(screen: IScreenSettings, newName: string): void {
+        const windowsParam: IAlertWindowModel = {
+            isShow: true,
+            questionText: `Вы уверены, что хотите изменить название экрана с "${screen.screenName}" на "${newName}"?`,
+            acceptText: 'Да',
+            cancelText: 'Отменить',
+            acceptFunction: () => this.updateScreen(screen, newName),
+            closeFunction: () => this.overlayService.closeDashboardAlert(),
+            cancelFunction: () =>
+                this.snackBar.openSnackBar(
+                    `Внесенные изменения для экрана "${screen.screenName}" не сохранены`
+                ),
+        };
+        this.overlayService.dashboardAlert$.next(windowsParam);
     }
 
-    public addScreen() {
-        const newScreen = {
-            id: 0,
-            name: this.tempScreen,
-            isActive: false,
-        };
+    public updateScreen(screen: IScreenSettings, newName: string): void {
+        screen.updateScreen = false;
+        this.userSettings.updateScreen(screen.id, newName);
+    }
+
+    public addScreen(): void {
         this.userSettings.PushScreen(this.tempScreen);
         this.tempScreen = '';
     }
 
-    onUpdateForm(id) {
-        for (const item of this.dataScreen) {
-            if (item.id === id) {
-                item.updateScreen = true;
-                this.newNameScreen = item.screenName;
-            }
-        }
+    onUpdateForm(id: number): void {
+        const item = this.dataScreen.find((el) => el.id === id);
+        item.updateScreen = true;
+        this.newNameScreen = item.screenName;
     }
 
-    isLeaveScreen(e) {
-        for (const item of this.dataScreen) {
-            item.updateScreen = false;
-        }
+    isLeaveScreen(e): void {
+        // for (const item of this.dataScreen) {
+        //     item.updateScreen = false;
+        // }
     }
-    isOverScreen(e) {}
+    isOverScreen(e): void {}
+
+    public closeEdit(): void {
+        this.dataScreen.forEach((el) => {
+            el.updateScreen = false;
+        });
+    }
 
     public isScreenDelete(screen: IScreenSettings): boolean {
-        return !!(screen.claims.find((claim) => claim.claimType === 'screenDel') ||
-            screen.claims.find((claim) => claim.claimType === 'screenAdmin'));
+        return !!screen.claims.find(
+            (claim) =>
+                claim.claimType === 'screenDel' ||
+                claim.claimType === 'screensDel' ||
+                claim.claimType === 'screenAdmin'
+        );
     }
 
     public isScreenEdit(screen: IScreenSettings): boolean {
-        return !!(screen.claims.find((claim) => claim.claimType === 'screenEdit') ||
-            screen.claims.find((claim) => claim.claimType === 'screenAdmin'));
+        return !!screen.claims.find(
+            (claim) =>
+                claim.claimType === 'screensEdit' ||
+                claim.claimType === 'screenEdit' ||
+                claim.claimType === 'screenAdmin'
+        );
+    }
+
+    public screensFilter(filter: string): void {
+        this.searchScreen = filter;
+        this.dataScreen.forEach((screen) => {
+            screen.isFilter = screen.screenName.toLowerCase().includes(filter.toLowerCase());
+        });
+    }
+
+    private scrollToScreenById(idScreen: number): void {
+        if (idScreen) {
+            setTimeout(() => {
+                const el = document.getElementById('screen_' + this.idScreen);
+                el.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'end' });
+                // this.viewportScroller.scrollToAnchor('screen_' + this.idScreen);
+            }, 200);
+        }
     }
 }

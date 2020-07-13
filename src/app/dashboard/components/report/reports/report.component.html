@@ -1,77 +1,240 @@
-<div class="panel" *ngIf="data">
+<div class="panel" @fadeAnimation *ngIf="data && !activeElements?.isSelected(data?.id)">
   <div class="panel-header" [class.panel-header--active]="active" (click)="toggle(data.id)">
-    <p class="panel-header__text" [class.panel-header__text--active]="active">{{data.name}}</p>
+    <p class="panel-header__text" [class.panel-header__text--active]="active || activeSearch">
+      {{data.name}}
+    </p>
     <svg-icon
-      *ngIf="!active"
-      class="panel-header__icon"
+      *ngIf="active"
+      class="panel-header__icon panel-header__icon__active"
       [svgStyle]="{ 'width.px':20, 'height.px':20 }"
       src="assets/icons/widgets/reports/arrow-up.svg"
     ></svg-icon>
     <svg-icon
-      *ngIf="active"
-      class="panel-header__icon panel-header__icon__active"
+      *ngIf="!active"
+      class="panel-header__icon"
       [svgStyle]="{ 'width.px':20, 'height.px':20 }"
       src="assets/icons/widgets/reports/arrow-bottom.svg"
     ></svg-icon>
   </div>
   <div class="panel-body" *ngIf="active">
     <evj-loading-shade [isLoading]="isLoading"></evj-loading-shade>
-    <ng-container *ngIf="template && template.options.length > 0">
-      <ng-container *ngFor="let option of template.options">
-        <div class="form" *ngIf="option.type === 'dateTime'">
-          <p class="form__title">{{ option.name }}</p>
-          <div class="form__value">
-            01.08.2019
-            <svg-icon
-              [svgStyle]="{ 'width.px':15, 'height.px':15 }"
-              src="./assets/icons/widgets/reports/date.svg"
-              style="margin-left: 10px; margin-right: 20px;"
-              (click)="openDatePicker(1)"
-            ></svg-icon>
-            <div class="dates-selector__picker" [class.dates-selector__picker-open]="datePicker">
-              <evj-time-data-picker
-                (dateTimePicker)="dateTimePickerNew($event)"
-              ></evj-time-data-picker>
-            </div>
-            02:00
-          </div>
-        </div>
+    <mat-form-field
+      class="form form__picker custom-picker"
+      *ngIf="periodTime?.periodType === 'exactTime'"
+    >
+      <mat-label class="form__title">Точное время</mat-label>
+      <input
+        disabled
+        autocomplete="off"
+        matInput
+        [ngxMatDatetimePicker]="pickerD"
+        [value]="dateNow"
+      />
+      <mat-datepicker-toggle matSuffix [for]="pickerD">
+        <mat-icon matDatepickerToggleIcon>
+          <svg-icon
+            class="form__icon"
+            src="./assets/icons/widgets/reports/calend.svg"
+            [svgStyle]="{ 'width.px':25, 'height.px':25}"
+          >
+          </svg-icon>
+        </mat-icon>
+      </mat-datepicker-toggle>
+      <ngx-mat-datetime-picker #pickerD disabled="false"> </ngx-mat-datetime-picker>
+    </mat-form-field>
+    <mat-form-field
+      class="form form__picker custom-picker"
+      *ngIf="periodTime?.periodType === 'timePeriod'"
+    >
+      <mat-label class="form__title">Выберите дату начала</mat-label>
+      <input
+        disabled
+        autocomplete="off"
+        matInput
+        [ngxMatDatetimePicker]="pickerT"
+        [(ngModel)]="periodTime.startDateTime"
+      />
+      <mat-datepicker-toggle matSuffix [for]="pickerT">
+        <mat-icon matDatepickerToggleIcon>
+          <svg-icon
+            class="form__icon"
+            src="./assets/icons/widgets/reports/calend.svg"
+            [svgStyle]="{ 'width.px':25, 'height.px':25}"
+          >
+          </svg-icon>
+        </mat-icon>
+      </mat-datepicker-toggle>
+      <ngx-mat-datetime-picker #pickerT disabled="false"> </ngx-mat-datetime-picker>
+    </mat-form-field>
+    <mat-form-field
+      class="form form__picker custom-picker"
+      *ngIf="periodTime?.periodType === 'timePeriod'"
+    >
+      <mat-label class="form__title">Выберите дату окончания</mat-label>
+      <input
+        disabled
+        autocomplete="off"
+        matInput
+        [ngxMatDatetimePicker]="pickerTend"
+        [(ngModel)]="periodTime.endDateTime"
+      />
+      <mat-datepicker-toggle matSuffix [for]="pickerTend">
+        <mat-icon matDatepickerToggleIcon>
+          <svg-icon
+            class="form__icon"
+            src="./assets/icons/widgets/reports/calend.svg"
+            [svgStyle]="{ 'width.px':25, 'height.px':25}"
+          >
+          </svg-icon>
+        </mat-icon>
+      </mat-datepicker-toggle>
+      <ngx-mat-datetime-picker #pickerTend disabled="false"> </ngx-mat-datetime-picker>
+    </mat-form-field>
+    <mat-form-field
+      class="form form__picker custom-picker"
+      *ngIf="periodTime?.periodType === 'datePeriod'"
+    >
+      <mat-label class="form__title">Выберите дату начала</mat-label>
+      <input
+        disabled
+        autocomplete="off"
+        matInput
+        [matDatepicker]="pickerFrom"
+        [(ngModel)]="periodTime.startDateTime"
+      />
+      <mat-datepicker-toggle matSuffix [for]="pickerFrom">
+        <mat-icon matDatepickerToggleIcon>
+          <svg-icon
+            class="form__icon"
+            src="./assets/icons/widgets/reports/calend.svg"
+            [svgStyle]="{ 'width.px':25, 'height.px':25}"
+          >
+          </svg-icon>
+        </mat-icon>
+      </mat-datepicker-toggle>
+      <mat-datepicker #pickerFrom disabled="false"></mat-datepicker>
+    </mat-form-field>
+    <mat-form-field
+      class="form form__picker custom-picker"
+      *ngIf="periodTime?.periodType === 'datePeriod'"
+    >
+      <mat-label class="form__title">Выберите дату окончания</mat-label>
+      <input
+        disabled
+        autocomplete="off"
+        matInput
+        [matDatepicker]="pickerTo"
+        [(ngModel)]="periodTime.endDateTime"
+      />
+      <mat-datepicker-toggle matSuffix [for]="pickerTo">
+        <mat-icon matDatepickerToggleIcon>
+          <svg-icon
+            class="form__icon"
+            src="./assets/icons/widgets/reports/calend.svg"
+            [svgStyle]="{ 'width.px':25, 'height.px':25}"
+          >
+          </svg-icon>
+        </mat-icon>
+      </mat-datepicker-toggle>
+      <mat-datepicker #pickerTo disabled="false"></mat-datepicker>
+    </mat-form-field>
+    <mat-form-field
+      class="form form__picker custom-picker"
+      *ngIf="periodTime?.periodType === 'day'"
+    >
+      <mat-label class="form__title">Выберите день</mat-label>
+      <input
+        disabled
+        autocomplete="off"
+        matInput
+        [matDatepicker]="pickerTo"
+        [(ngModel)]="periodTime.endDateTime"
+      />
+      <mat-datepicker-toggle matSuffix [for]="pickerTo">
+        <mat-icon matDatepickerToggleIcon>
+          <svg-icon
+            class="form__icon"
+            src="./assets/icons/widgets/reports/calend.svg"
+            [svgStyle]="{ 'width.px':25, 'height.px':25}"
+          >
+          </svg-icon>
+        </mat-icon>
+      </mat-datepicker-toggle>
+      <mat-datepicker #pickerTo disabled="false"></mat-datepicker>
+    </mat-form-field>
+    <evj-system-period-date-year
+      *ngIf="periodTime?.periodType === 'year'"
+      (dateTimePicker)="dateTimePicker($event, 'year')"
+      class="form form__picker"
+    ></evj-system-period-date-year>
+    <evj-system-period-date-month
+      class="form form__picker"
+      (dateTimePicker)="dateTimePicker($event, 'month')"
+      *ngIf="periodTime?.periodType === 'month'"
+    ></evj-system-period-date-month>
+
+    <ng-container *ngIf="template && template?.customOptions?.length > 0">
+      <ng-container *ngFor="let option of formGroup">
+        <mat-form-field class="form form__picker custom-picker" *ngIf="option.type === 'dateTime'">
+          <mat-label class="form__title">{{ option.name }}</mat-label>
+          <input
+            disabled
+            autocomplete="off"
+            matInput
+            [ngxMatDatetimePicker]="pickerD"
+            [(ngModel)]="option.value"
+          />
+          <mat-datepicker-toggle matSuffix [for]="pickerD">
+            <mat-icon matDatepickerToggleIcon>
+              <svg-icon
+                class="form__icon"
+                src="./assets/icons/widgets/reports/calend.svg"
+                [svgStyle]="{ 'width.px':25, 'height.px':25}"
+              >
+              </svg-icon>
+            </mat-icon>
+          </mat-datepicker-toggle>
+          <ngx-mat-datetime-picker #pickerD disabled="false"> </ngx-mat-datetime-picker>
+        </mat-form-field>
         <mat-form-field class="form" *ngIf="option.type === 'comboBox'">
           <mat-label class="form__title">{{ option.name }}</mat-label>
-          <mat-select>
-            <mat-option *ngFor="let food of [1]" [value]="food">
-              {{food}}
+          <mat-select [(ngModel)]="option.value">
+            <mat-option *ngFor="let source of option?.source" [value]="source">
+              {{ source }}
             </mat-option>
           </mat-select>
         </mat-form-field>
         <mat-form-field class="form" *ngIf="option.type === 'textBox'">
           <mat-label class="form__title">{{ option.name }}</mat-label>
-          <input matInput value="" />
+          <input matInput [(ngModel)]="option.value" />
         </mat-form-field>
-        <mat-checkbox style="margin-top: 18px;" *ngIf="option.type === 'checkBox'"
+        <mat-checkbox
+          style="margin-top: 18px;"
+          [(ngModel)]="option.value"
+          *ngIf="option.type === 'checkBox'"
           >{{ option.name }}</mat-checkbox
         >
       </ng-container>
-      <div class="panel-body__footer">
-        <svg-icon
-          (click)="postItem(template)"
-          class="panel-body__footer__icon"
-          [svgStyle]="{ 'width.px':37, 'height.px':42 }"
-          src="assets/icons/widgets/reports/xls.svg"
-        ></svg-icon>
-        <svg-icon
-          class="panel-body__footer__icon"
-          style="opacity: 0.3;"
-          [svgStyle]="{ 'width.px':37, 'height.px':42 }"
-          src="assets/icons/widgets/reports/pdf.svg"
-        ></svg-icon>
-        <svg-icon
-          class="panel-body__footer__icon"
-          style="opacity: 0.3;"
-          [svgStyle]="{ 'width.px':37, 'height.px':42 }"
-          src="assets/icons/widgets/reports/html.svg"
-        ></svg-icon>
-      </div>
     </ng-container>
+    <div class="panel-body__footer">
+      <svg-icon
+        (click)="postItem(template, 'xlsx')"
+        class="panel-body__footer__icon"
+        [svgStyle]="{ 'width.px':37, 'height.px':42 }"
+        src="assets/icons/widgets/reports/xls.svg"
+      ></svg-icon>
+      <svg-icon
+        (click)="postItem(template, 'pdf')"
+        class="panel-body__footer__icon"
+        [svgStyle]="{ 'width.px':37, 'height.px':42 }"
+        src="assets/icons/widgets/reports/pdf.svg"
+      ></svg-icon>
+      <svg-icon
+        (click)="postItem(template, 'html')"
+        class="panel-body__footer__icon"
+        [svgStyle]="{ 'width.px':37, 'height.px':42 }"
+        src="assets/icons/widgets/reports/html.svg"
+      ></svg-icon>
+    </div>
   </div>
 </div>

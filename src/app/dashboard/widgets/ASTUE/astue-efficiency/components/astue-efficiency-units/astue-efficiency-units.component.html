@@ -1,0 +1,49 @@
+<div class="items">
+  <div class="items__header header">
+    Установки
+    <div
+      class="header__button button"
+      [ngClass]="{'button_active':unitSelection.selected.length===units.length && units.length!==0}"
+      (click)="onClickSelectAll()"
+      *ngIf="isInitialDataShow"
+    >
+      <img
+        class="icon icon-unactive"
+        src="assets/icons/widgets/ASTUE/astue-efficiency/units/non-select.svg"
+      />
+      <img
+        class="icon icon-active"
+        src="assets/icons/widgets/ASTUE/astue-efficiency/units/select.svg"
+      />
+    </div>
+  </div>
+
+  <ng-container *ngIf="isInitialDataShow;else planning">
+    <div class="items__content content">
+      <div class="content__item" *ngFor="let unit of units">
+        <evj-astue-efficiency-unit-card
+          [unit]="unit"
+          [isSelected]="unitSelection.isSelected(unit)"
+          (selectUnit)="onSelectUnit(unit)"
+        ></evj-astue-efficiency-unit-card>
+      </div>
+    </div>
+  </ng-container>
+
+  <ng-template #planning>
+    <div
+      class="items__content content content_list"
+      (mousedown)="$event.stopPropagation()"
+      (touchstart)="$event.stopPropagation()"
+    >
+      <div
+        class="content__card card"
+        *ngFor="let unit of units"
+        [ngClass]="{'card_active':unitSelection.isSelected(unit)}"
+        (click)="onSelectUnit(unit)"
+      >
+        {{unit.name}}
+      </div>
+    </div>
+  </ng-template>
+</div>

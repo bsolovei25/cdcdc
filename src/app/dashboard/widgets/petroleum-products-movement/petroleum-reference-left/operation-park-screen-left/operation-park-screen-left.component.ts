@@ -4,7 +4,7 @@ import {
     IFacilityInfo,
     IPetroleumObject,
 } from 'src/app/dashboard/models/petroleum-products-movement.model';
-import { PetroleumScreenService } from '../../../../services/petroleum-screen.service';
+import { PetroleumScreenService } from '../../../../services/widgets/petroleum-screen.service';
 
 @Component({
     selector: 'evj-operation-park-screen-left',
@@ -30,7 +30,7 @@ export class OperationParkScreenLeftComponent implements OnInit {
         if (!object) {
             object = this.data[0];
         }
-        this.currentObject = object;
+        this.currentObject = this.data.find(el => el.objectName === object.objectName);
         this.petroleumService.setTankParam(object.objectName);
     }
 }

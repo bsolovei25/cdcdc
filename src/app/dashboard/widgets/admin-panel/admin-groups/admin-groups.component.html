@@ -10,9 +10,8 @@
       <div class="search">
         <evj-input
           class="insert-component"
-          [placeholder]="'Введите наименование группы'"
-          [iconSrc]="searchIcon"
-          (inputedValue)="onSearchGroup($event)"
+          [options]="inputGroupOptions"
+          [(ngModel)]="searchingGroupString"
         ></evj-input>
       </div>
       <div class="button__small">
@@ -21,7 +20,7 @@
           [isSmallButton]="true"
           [imgSrc]="plusIcon"
           [isChangingState]="false"
-          (click)="isCreateNewGroup=true"
+          (click)="onChangeGroupName()"
         ></evj-button>
       </div>
     </div>
@@ -32,8 +31,8 @@
           [group]="group"
           [isCardActive]="groupSelection.isSelected(group)"
           (click)="onSelectGroup(group)"
-          (editGroup)="onEditGroupName(group)"
-          (deleteGroup)="onDeleteGroup()"
+          (editGroup)="onChangeGroupName(group)"
+          (deleteGroup)="onClickDeleteGroup()"
         ></evj-ag-group-card>
       </ng-container>
       <ng-container *ngFor="let group of groups">
@@ -42,8 +41,8 @@
           [group]="group"
           [isCardActive]="groupSelection.isSelected(group)"
           (click)="onSelectGroup(group)"
-          (editGroup)="onEditGroupName(group)"
-          (deleteGroup)="onDeleteGroup()"
+          (editGroup)="onChangeGroupName(group)"
+          (deleteGroup)="onClickDeleteGroup()"
         ></evj-ag-group-card>
       </ng-container>
     </div>
@@ -53,9 +52,8 @@
       <div class="search">
         <evj-input
           class="insert-component"
-          [placeholder]="'Введите ФИО'"
-          [iconSrc]="searchIcon"
-          (inputedValue)="onSearchUser($event)"
+          [options]="inputWorkerOptions"
+          [(ngModel)]="searchingWorkerString"
         ></evj-input>
       </div>
     </div>
@@ -76,18 +74,19 @@
         <evj-button
           class="insert-component"
           [isSmallButton]="false"
-          [textButton]="'Назад'"
+          textButton="Сохранить"
+          [disabled]="!isDataChanged"
           [isChangingState]="false"
-          (click)="onClickButton(false)"
+          (click)="onClickButton(true)"
         ></evj-button>
       </div>
       <div class="button__back">
         <evj-button
           class="insert-component"
           [isSmallButton]="false"
-          [textButton]="'Сохранить'"
+          textButton="Вернуться"
           [isChangingState]="false"
-          (click)="onClickButton(true)"
+          (click)="onClickButton(false)"
         ></evj-button>
       </div>
     </div>
@@ -127,8 +126,10 @@
           </div>
         </div>
         <div class="block__body claims">
-          <div class="title title__special">Специальные права</div>
-          <div class="create-special-claim" (click)="onClickCreateNewClaim()"></div>
+          <div class="title">
+            Специальные права
+            <div class="create-special-claim" (click)="onClickCreateNewClaim()"></div>
+          </div>
           <div class="list scroll scroll-bar">
             <ng-container *ngFor="let claim of specialClaims">
               <div
@@ -161,26 +162,17 @@
         [ngClass]="{'block_active': blockSelection.hasValue()}"
         *ngIf="blockSelection.hasValue()"
       >
-        <div class="block__body">
+        <div class="block__body block__body_workspaces">
           <evj-aws-workspaces
             class="workspaces workspaces__list scroll scroll-bar"
             [workerScreens]="groupWorkspaces"
             [workerSpecialClaims]="this.groupSelection.selected[0].claims"
-            [searchingWorkspaceValue]="''"
             (changeWorkspaces)="onChangeWorkspaces()"
           ></evj-aws-workspaces>
         </div>
       </div>
     </div>
   </div>
-
-  <evj-ag-new-group
-    class="popup"
-    [ngClass]="{'popup_active':isCreateNewGroup}"
-    *ngIf="isCreateNewGroup"
-    [editingGroup]="editingGroup"
-    (newGroup)="onCreateNewGroup($event)"
-  ></evj-ag-new-group>
 
   <evj-aws-create-claim
     class="popup"
@@ -189,10 +181,5 @@
     (createdClaim)="onCreateSpecialClaim($event)"
   ></evj-aws-create-claim>
 
-  <evj-ag-alert-submit
-    class="popup"
-    [ngClass]="{'popup_active':isAlertShowing}"
-    [isSaving]="isSaveClicked"
-    (clickedButton)="onClickAlert($event)"
-  ></evj-ag-alert-submit>
+  <evj-alert-window [info]="alert"></evj-alert-window>
 </div>

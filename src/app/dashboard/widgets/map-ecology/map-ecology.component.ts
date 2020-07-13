@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild, AfterViewInit, Inject, OnDestroy } from '@angular/core';
+import { Component, ElementRef, ViewChild, Inject, OnDestroy, OnInit } from '@angular/core';
 import { WidgetService } from 'src/app/dashboard/services/widget.service';
 import { WidgetPlatform } from 'src/app/dashboard/models/widget-platform';
 
@@ -9,9 +9,11 @@ declare var d3: any;
     templateUrl: './map-ecology.component.html',
     styleUrls: ['./map-ecology.component.scss'],
 })
-export class MapEcologyComponent extends WidgetPlatform implements AfterViewInit, OnDestroy {
-    static itemCols: number = 32;
-    static itemRows: number = 12;
+export class MapEcologyComponent extends WidgetPlatform implements OnInit, OnDestroy {
+    public static itemCols: number = 32;
+    public static itemRows: number = 15;
+    public static minItemCols: number = 32;
+    public static minItemRows: number = 15;
 
     public startY: number = 55.6611;
     public startX: number = 37.7726;
@@ -44,12 +46,12 @@ export class MapEcologyComponent extends WidgetPlatform implements AfterViewInit
         super(widgetService, isMock, id, uniqId);
     }
 
-    ngOnDestroy(): void {
-        super.ngOnDestroy();
+    ngOnInit(): void {
+        super.widgetInit();
     }
 
-    ngAfterViewInit(): void {
-        super.widgetInit();
+    ngOnDestroy(): void {
+        super.ngOnDestroy();
     }
 
     protected dataHandler(ref: any): void {
@@ -74,7 +76,7 @@ export class MapEcologyComponent extends WidgetPlatform implements AfterViewInit
         try {
             let getSvg = document.getElementById('svg1');
             getSvg.remove();
-        } catch (error) {}
+        } catch (error) { }
     }
 
     public drawMap(el, data): void {
@@ -99,16 +101,22 @@ export class MapEcologyComponent extends WidgetPlatform implements AfterViewInit
             this.clat = 2.15 * (this.startImgY - item.latitude) + this.startY;
             this.clon = this.startImgX + (item.longitude - this.startX) * 1.2;
             if (this.namePoint === item.name) {
-                if (item.isCritical) {
-                    svg.append('image')
-                        .attr('xlink:href', '/assets/pic/point2.svg')
-                        .attr('y', this.clat)
-                        .attr('x', this.clon)
-                        .attr('height', '0.0022')
-                        .attr('width', '0.0027')
-                        .attr('id', 'critical')
-                        .attr('class', item.name)
-                        .on('click', () => {
+                svg.append('image')
+                    .attr('xlink:href', '/assets/pic/point2.svg')
+                    .attr('y', this.clat)
+                    .attr('x', this.clon)
+                    .attr('height', '0.0022px')
+                    .attr('width', '0.0027px')
+                    .attr('id', () => {
+                        if (item.isCritical) {
+                            return 'critical';
+                        } else {
+                            return 'notcritical';
+                        }
+                    })
+                    .attr('class', item.name)
+                    .on('click', () => {
+                        if (item.isCritical) {
                             svg.selectAll('#notcritical').attr(
                                 'xlink:href',
                                 '/assets/pic/point.svg'
@@ -119,17 +127,7 @@ export class MapEcologyComponent extends WidgetPlatform implements AfterViewInit
                                 '/assets/pic/point2.svg'
                             );
                             return (this.namePoint = item.name);
-                        });
-                } else {
-                    svg.append('image')
-                        .attr('xlink:href', '/assets/pic/point2.svg')
-                        .attr('y', this.clat)
-                        .attr('x', this.clon)
-                        .attr('height', '0.0022')
-                        .attr('width', '0.0027')
-                        .attr('id', 'notcritical')
-                        .attr('class', item.name)
-                        .on('click', () => {
+                        } else {
                             svg.selectAll('#notcritical').attr(
                                 'xlink:href',
                                 '/assets/pic/point.svg'
@@ -140,19 +138,32 @@ export class MapEcologyComponent extends WidgetPlatform implements AfterViewInit
                                 '/assets/pic/point2.svg'
                             );
                             return (this.namePoint = item.name);
-                        });
-                }
+                        }
+
+                    });
             } else {
-                if (item.isCritical) {
-                    svg.append('image')
-                        .attr('xlink:href', '/assets/pic/point3.svg')
-                        .attr('y', this.clat)
-                        .attr('x', this.clon)
-                        .attr('height', '0.0022')
-                        .attr('width', '0.0027')
-                        .attr('id', 'critical')
-                        .attr('class', item.name)
-                        .on('click', () => {
+                svg.append('image')
+                    .attr('xlink:href', () => {
+                        if (item.isCritical) {
+                            return '/assets/pic/point.svg';
+                        } else {
+                            return '/assets/pic/point3.svg';
+                        }
+                    })
+                    .attr('y', this.clat)
+                    .attr('x', this.clon)
+                    .attr('height', '0.0022')
+                    .attr('width', '0.0027')
+                    .attr('id', () => {
+                        if (item.isCritical) {
+                            return 'critical';
+                        } else {
+                            return 'notcritical';
+                        }
+                    })
+                    .attr('class', item.name)
+                    .on('click', () => {
+                        if (item.isCritical) {
                             svg.selectAll('#notcritical').attr(
                                 'xlink:href',
                                 '/assets/pic/point.svg'
@@ -163,17 +174,7 @@ export class MapEcologyComponent extends WidgetPlatform implements AfterViewInit
                                 '/assets/pic/point2.svg'
                             );
                             return (this.namePoint = item.name);
-                        });
-                } else {
-                    svg.append('image')
-                        .attr('xlink:href', '/assets/pic/point.svg')
-                        .attr('y', this.clat)
-                        .attr('x', this.clon)
-                        .attr('height', '0.0022')
-                        .attr('width', '0.0027')
-                        .attr('id', 'notcritical')
-                        .attr('class', item.name)
-                        .on('click', () => {
+                        } else {
                             svg.selectAll('#notcritical').attr(
                                 'xlink:href',
                                 '/assets/pic/point.svg'
@@ -184,8 +185,8 @@ export class MapEcologyComponent extends WidgetPlatform implements AfterViewInit
                                 '/assets/pic/point2.svg'
                             );
                             return (this.namePoint = item.name);
-                        });
-                }
+                        }
+                    });
             }
         }
     }
@@ -215,7 +216,7 @@ export class MapEcologyComponent extends WidgetPlatform implements AfterViewInit
                     this.drawMap(this.myCircle.nativeElement, this.datas);
                 }
             }
-        } catch (error) {}
+        } catch (error) { }
     }
 
     public backPoint(name): void {
@@ -229,6 +230,6 @@ export class MapEcologyComponent extends WidgetPlatform implements AfterViewInit
                     this.drawMap(this.myCircle.nativeElement, this.datas);
                 }
             }
-        } catch (error) {}
+        } catch (error) { }
     }
 }

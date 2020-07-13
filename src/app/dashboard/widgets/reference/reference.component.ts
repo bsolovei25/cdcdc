@@ -1,8 +1,9 @@
-import { Component, OnInit, OnDestroy, Inject } from '@angular/core';
+import { Component, OnInit, OnDestroy, Inject, ViewChild, ElementRef, HostListener } from '@angular/core';
 import { WidgetService } from '../../services/widget.service';
-import { IReferenceTypes} from '../../models/references';
-import { ReferencesService } from '../../services/references.service';
+import { IReferenceTypes } from '../../models/references';
 import { WidgetPlatform } from '../../models/widget-platform';
+import { SnackBarService } from '../../services/snack-bar.service';
+import { ReferencesService } from '../../services/widgets/references.service';
 
 @Component({
     selector: 'evj-reference',
@@ -10,14 +11,23 @@ import { WidgetPlatform } from '../../models/widget-platform';
     styleUrls: ['./reference.component.scss'],
 })
 export class ReferenceComponent extends WidgetPlatform implements OnInit, OnDestroy {
-    static itemCols = 18;
-    static itemRows = 14;
+    @ViewChild('refereneTable') public testBlock: ElementRef;
+
+    public static itemCols: number = 32;
+    public static itemRows: number = 15;
+
+    public static minItemCols: number = 27;
+    public static minItemRows: number = 15;
+
+    isLoading: boolean = false;
 
     public valueCheck: boolean;
     public valueUniqCheck: boolean;
 
     public clickFio: boolean = true;
     public clickDate: boolean = false;
+
+    public isEdit: boolean = false;
 
     public isAddBlockRecord: boolean = false;
 
@@ -40,6 +50,7 @@ export class ReferenceComponent extends WidgetPlatform implements OnInit, OnDest
     public datas: IReferenceTypes[] = [];
 
     public dataTable: any = []; //// НАПИСАТЬ МОДЕЛЬКУ
+    public saveTable: any = [];
 
     public idReferenceClick: number;
 
@@ -51,26 +62,65 @@ export class ReferenceComponent extends WidgetPlatform implements OnInit, OnDest
 
     public newValue: number;
 
+    public checkTitle: number;
+
+    public blockOut = [];
+    public blockOutColumn = [];
+
     constructor(
         public widgetService: WidgetService,
         public referencesService: ReferencesService,
+        public snackBar: SnackBarService,
         @Inject('isMock') public isMock: boolean,
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string
     ) {
         super(widgetService, isMock, id, uniqId);
+        this.isRealtimeData = false;
         this.widgetIcon = 'reference';
     }
 
     ngOnInit(): void {
         super.widgetInit();
-        this.subscriptions.push(
-            this.getReference()
-        );
+    }
+
+    setStyleScroll() {
+        const rightScroll = document.getElementById('rightScrollRef');
+        const leftScroll = document.getElementById('leftScrollRef');
+
+        if (rightScroll) {
+            if (rightScroll.scrollHeight !== rightScroll.clientHeight) {
+                rightScroll.style.cssText = "margin-left: 5px; width: calc(100% - 45px);";
+            } else {
+                rightScroll.style.cssText = "margin-left: 10px; width: calc(100% - 50px);";
+
+            }
+        }
+
+        if (leftScroll) {
+            if (leftScroll.scrollHeight !== leftScroll.clientHeight) {
+                leftScroll.style.cssText = "margin-right: 0px; width: calc(100% - 5px);";
+            } else {
+                leftScroll.style.cssText = "margin-right: -5px; width: calc(100% - 5px);";
+            }
+        }
+    }
+
+    @HostListener('document:resize', ['$event'])
+    OnResize(event) {
+        this.blockNeed();
+        this.setStyleScroll();
     }
 
     ngOnDestroy(): void {
         super.ngOnDestroy();
+    }
+
+    protected dataConnect(): void {
+        super.dataConnect();
+        this.subscriptions.push(
+            this.getReference()
+        );
     }
 
     protected dataHandler(ref: any): void {
@@ -81,16 +131,21 @@ export class ReferenceComponent extends WidgetPlatform implements OnInit, OnDest
         return this.referencesService.reference$.subscribe((data) => {
             this.datas = data;
             this.data = this.datas;
+            this.setStyleScroll();
         });
     }
 
     getTable(id: number) {
-        this.referencesService.getTableReference(id).subscribe((data) => {
+        return this.referencesService.getTableReference(id).subscribe((data) => {
             this.dataTable = data;
+            this.saveTable = data;
+            this.blockNeed();
+            this.setStyleScroll();
         });
     }
 
     onClickReference(data, index) {
+        this.checkTitle = null;
         this.idReferenceClick = data.id;
         this.isLongBlock = true;
         this.isAddBlockRecord = false;
@@ -100,6 +155,7 @@ export class ReferenceComponent extends WidgetPlatform implements OnInit, OnDest
         this.columnData = this.data[this.indexColumn].columns;
 
         this.getTable(data.id);
+        this.setStyleScroll();
     }
 
     onClickItemReference(data) {
@@ -111,10 +167,12 @@ export class ReferenceComponent extends WidgetPlatform implements OnInit, OnDest
                 this.isLongBlock = false;
             }
         }
+
+        this.setStyleScroll();
     }
 
     changeSwap(item) {
-        item.checked = !item.checked;
+        this.checkTitle = item.id;
     }
 
     onAddBlockRecord() {
@@ -149,36 +207,25 @@ export class ReferenceComponent extends WidgetPlatform implements OnInit, OnDest
                         valueInt: null
                     }
                 } else {
-                    if (i.columnTypeId === 3) {
+                    if (i.columnTypeId === 'typeDateTime') {
                         obj = {
                             referenceColumnId: i.id,
                             valueString: null,
-                            valueDateTime: null,
-                            valueNumber: +test,
+                            valueDateTime: test,
                             valueInt: null
                         }
-                    } else if (i.columnTypeId === 4) {
+                    } else if (i.columnTypeId === 'typeString') {
                         obj = {
                             referenceColumnId: i.id,
                             valueString: test,
                             valueDateTime: null,
-                            valueNumber: null,
                             valueInt: null
                         }
-                    } else if (i.columnTypeId === 1) {
-                        obj = {
-                            referenceColumnId: i.id,
-                            valueString: null,
-                            valueDateTime: this.addDate,
-                            valueNumber: null,
-                            valueInt: null
-                        }
-                    } else if (i.columnTypeId === 2) {
+                    } else if (i.columnTypeId === 'typeInt') {
                         obj = {
                             referenceColumnId: i.id,
                             valueString: null,
                             valueDateTime: null,
-                            valueNumber: null,
                             valueInt: +test,
                         }
                     }
@@ -193,11 +240,11 @@ export class ReferenceComponent extends WidgetPlatform implements OnInit, OnDest
             columnsData: columnsObj,
         };
 
+        this.columnObject = [];
+        this.newName = null;
 
         this.referencesService.pushReferenceData(object).subscribe(ans => {
             this.dataTable.data.push(object);
-            this.columnObject = [];
-            this.newName = null;
         });
 
     }
@@ -219,6 +266,9 @@ export class ReferenceComponent extends WidgetPlatform implements OnInit, OnDest
     }
 
     searchReference(event: any) {
+        if (event.key === "Backspace") {
+            this.data = this.datas;
+        }
         const record = event.currentTarget.value.toLowerCase();
         const filterData = this.data.filter(
             (e) =>
@@ -232,15 +282,31 @@ export class ReferenceComponent extends WidgetPlatform implements OnInit, OnDest
     }
 
     searchRecords(event: any) {
-        // const record = event.currentTarget.value.toLowerCase();
-        // const filterData = this.data[this.indexColumn].columns.filter(
-        //     (e) => e.name.toLowerCase().indexOf(record.toLowerCase()) > -1
-        // );
+        if (this.checkTitle === null) {
+            this.snackBar.openSnackBar('Выберите колонку для поиска', 'snackbar-red');
+        } else {
+            if (event.key === 'Backspace') {
+                this.getTable(this.idReferenceClick);
+            }
+            const record = event.currentTarget.value.toLowerCase();
 
-        // this.data[this.indexColumn].columns = filterData;
-        // if (!event.currentTarget.value) {
-        //     this.data[this.indexColumn].columns = this.saveColumns;
-        // }
+            this.dataTable.data = this.dataTable.data.filter((e) => {
+                return e.columnsData = e.columnsData.find((el) => {
+                    if (el.referenceColumnId === this.checkTitle) {
+                        if (el.valueString) {
+                            return el.valueString.toLowerCase().indexOf(record.toLowerCase()) > -1;
+                        } else if (el.valueInt) {
+                            return el.valueInt.toString().toLowerCase().indexOf(record.toLowerCase()) > -1;
+                        } else if (el.valueDateTime) {
+                            return el.valueDateTime.toLowerCase().indexOf(record.toLowerCase()) > -1;
+                        }
+                    }
+                });
+            });
+            if (!event.currentTarget.value) {
+                this.getTable(this.idReferenceClick);
+            }
+        }
     }
 
     onBlockEditRecordName(item) {
@@ -252,40 +318,65 @@ export class ReferenceComponent extends WidgetPlatform implements OnInit, OnDest
     }
 
     onBlockEditRecord(i, item) {
+        this.isEdit = true;
         const result = item.columnsData.find((el) => {
             if (i.id === el.referenceColumnId) {
                 el.edit = true;
                 return true;
             }
         });
-
         if (result === undefined) {
-            let obj = {
+            const obj = {
                 referenceColumnId: i.id,
                 edit: true,
-            }
+            };
             item.columnsData.push(obj);
         }
 
     }
 
-    onEditRecord(i,item) {
+    onEditRecord(i, item) {
+        this.isEdit = false;
         item.columnsData.find((el) => {
             if (i.id === el.id) {
                 el.edit = false;
             }
         });
-
-        this.referencesService.putEditData(item).subscribe();
+        this.referencesService.putEditData(item).subscribe(ans => {
+            // this.isLongBlock = true;
+            this.getTable(item.referenceTypeId);
+            this.newName = null;
+        });
     }
 
-    dateTimePickerNew(event) {
-        this.addDate = event.date._d;
+    dateTimePickerNew(event, id) {
+        if (event) {
+            const obj = {
+                idColumn: id,
+                value: event,
+            }
+            this.columnObject.push(obj);
+        }
     }
 
     dateTimePickerEdit(event, item) {
-        item.valueDateTime = event.date._d;
+        if (event) {
+            item.valueDateTime = event;
+        }
     }
 
-
+    blockNeed(): void {
+        this.blockOutColumn = [];
+        this.blockOut = [];
+        if (this.dataTable?.data) {
+            const heightTemplate = this.dataTable.data.length * 40;
+            const heightOut = (this.testBlock.nativeElement.clientHeight - heightTemplate) / 40;
+            for (let i = 0; i < heightOut - 1; i++) {
+                this.blockOut.push(i);
+            }
+            for (let j = 0; j < this.columnData.length - 1; j++) {
+                this.blockOutColumn.push(j);
+            }
+        }
+    }
 }

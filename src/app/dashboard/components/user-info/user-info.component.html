@@ -4,12 +4,13 @@
   <div *ngIf="data" class="user-info_data">
     <div class="user-name">
       <span>
-        {{ data.lastName ? data.lastName : data.login }} {{ data.firstName | slice : 0 : 1 }}.{{
-        data.middleName | slice : 0 : 1 }}
+        {{ data?.displayName ? data?.displayName : data.login }}
       </span>
     </div>
-    <div class="user-position">{{ data.positionDescription }}</div>
-    <div class="user-groupe">Бригада {{ data.brigade?.number }}</div>
+    <div *ngIf="data?.positionDescription" class="user-position">
+      {{ data.positionDescription }}
+    </div>
+    <div *ngIf="data?.brigade?.number" class="user-groupe">Бригада {{ data.brigade?.number }}</div>
   </div>
 </div>
 
@@ -34,6 +35,7 @@
       class="dropdown-component"
       (mouseover)="isOverScreen()"
       (mouseleave)="isLeaveScreen()"
+      *ngIf="!data.sid"
     >
       <div class="screen_block">
         <div class="screen_blocks">

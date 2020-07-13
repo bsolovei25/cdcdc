@@ -1,0 +1,39 @@
+[
+  {
+    "id": 0,
+    "direction": "railway",
+    "tank": {
+      "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+      "omsUid": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+      "afUid": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+      "name": "string",
+      "enabled": true,
+      "limitHours": 0,
+      "deletedAt": "2020-06-10T13:18:17.071Z"
+    },
+    "documentNumber": 0,
+    "mass": 0,
+    "passport": {
+      "id": 0,
+      "name": "string",
+      "fileUid": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
+    },
+    "shipped": 0,
+    "note": "string",
+    "document": "string",
+    "dateFinish": "2020-06-10T13:18:17.071Z",
+    "productName": "string",
+    "resName": "string",
+    "passportNum": "string",
+    "productID": 0,
+    "massDelta": 0,
+    "transfer_ID": 0,
+    "carNumber": "string",
+    "trailerNumber": "string",
+    "dateStart": "2020-06-10T13:18:17.071Z",
+    "dateEnd": "2020-06-10T13:18:17.071Z",
+    "iD_Object": 0,
+    "massBegin": 0,
+    "massEnd": 0
+  }
+]

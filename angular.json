@@ -26,14 +26,15 @@
             "aot": true,
             "assets": [
               "src/favicon.ico",
-              "src/assets"
+              "src/assets",
+              "src/theme"
             ],
             "styles": [
               "src/styles.scss"
             ],
             "scripts": [
               "./node_modules/d3/dist/d3.js",
-              "./node_modules/leader-line/leader-line.min.js"
+              "./src/assets/libs/leader-line/leader-line.min.js"
             ]
           },
           "configurations": {
@@ -50,8 +51,8 @@
               "extractCss": true,
               "namedChunks": false,
               "extractLicenses": true,
-              "vendorChunk": false,
-              "buildOptimizer": false,
+              "vendorChunk": true,
+              "buildOptimizer": true,
               "budgets": [
                 {
                   "type": "initial",
@@ -60,8 +61,8 @@
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "6kb",
-                  "maximumError": "10kb"
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
                 }
               ]
             }

@@ -11,6 +11,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ErrorInterceptor } from '@core/interceptors/error.interceptor';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AuthenticationInterceptor } from '@core/interceptors/authentication.interceptor';
+import { NgxMaskModule } from 'ngx-mask';
 
 @NgModule({
     imports: [
@@ -21,6 +22,7 @@ import { AuthenticationInterceptor } from '@core/interceptors/authentication.int
         SharedModule,
         HttpClientModule,
         BrowserAnimationsModule,
+        NgxMaskModule.forRoot(),
     ],
     declarations: [AppComponent],
     providers: [
@@ -43,4 +45,4 @@ import { AuthenticationInterceptor } from '@core/interceptors/authentication.int
     ],
     bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }

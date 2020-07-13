@@ -1,12 +1,74 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.container {
+  overflow-x: hidden;
+  overflow-y: auto;
+
+  width: 100%;
+  height: calc(100% - 50px);
+
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
 .cards {
-  margin-top: 10px;
+  position: relative;
 
   width: 100%;
   height: auto;
+
+  box-sizing: border-box;
 
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
   align-items: flex-start;
   flex-wrap: wrap;
+
+  &__search {
+    width: 100%;
+    height: 40px;
+
+    box-sizing: border-box;
+    padding: 5px 20px 0px 0px;
+    margin-bottom: 10px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    .search {
+      width: 100%;
+      height: 25px;
+    }
+  }
+}
+
+.insert-component {
+  width: 100%;
+  height: 100%;
+  font-size: 14px;
+}
+
+::-webkit-scrollbar {
+  &-thumb {
+    background-color: var(--color-axis);
+  }
+
+  &-track {
+    border-radius: 25px;
+    margin: 15px 0px;
+
+    &-piece {
+      background: var(--color-bg-sub);
+    }
+  }
 }

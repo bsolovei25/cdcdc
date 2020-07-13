@@ -13,18 +13,56 @@ export class AuthenticationInterceptor implements HttpInterceptor {
     constructor(private authService: AuthService) {}
 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-        if (req.headers.get('Authorization')) return next.handle(req);
+        if (req.url[req.url.length - 1] === '/') {
+            req = req.clone({
+                url: req.url.slice(0, -1),
+            });
+        }
 
-        if (!this.authService.userSessionToken) return next.handle(req);
+        req = req.clone({
+            url: encodeURI(req.url),
+        });
 
-        if (req.url.includes('api/user-management/windows-current')) return next.handle(req);
+        if (req.headers.get('Authorization')) {
+            return next.handle(req);
+        }
 
-        const authReq = req.clone({
+        if (!this.authService.userSessionToken) {
+            return next.handle(req);
+        }
+
+        if (req.url.includes('api/user-management/windows-current')) {
+            return next.handle(req);
+        }
+
+        if (req.headers.has('AuthenticationType')) {
+            const tempHeaderValue = req.headers.get('AuthenticationType');
+            req = req.clone({
+                headers: req.headers.delete('AuthenticationType')
+            });
+            switch (tempHeaderValue) {
+                case 'windows':
+                    req = req.clone({
+                        withCredentials: true,
+                    });
+                    return next.handle(req);
+            }
+        }
+
+        if (req.url.includes('api/Monitoring/')) {
+            req = req.clone({
+                withCredentials: true,
+            });
+            return next.handle(req);
+        }
+
+        req = req.clone({
             headers: req.headers.append(
                 'Authorization',
-                `Bearer ` + this.authService.userSessionToken
+                `Bearer ${this.authService.userSessionToken}`
             ),
         });
-        return next.handle(authReq);
+
+        return next.handle(req);
     }
 }

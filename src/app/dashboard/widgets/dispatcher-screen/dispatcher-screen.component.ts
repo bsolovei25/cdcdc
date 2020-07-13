@@ -1,4 +1,4 @@
-import { Component, HostListener, Inject, OnDestroy, AfterViewInit } from '@angular/core';
+import { AfterViewInit, Component, HostListener, Inject, OnDestroy, OnInit } from '@angular/core';
 import { UnityLoader } from './UnityLoader.js';
 import { PlatformLocation } from '@angular/common';
 import { WidgetService } from '../../services/widget.service';
@@ -11,16 +11,16 @@ import { WidgetPlatform } from '../../models/widget-platform';
     styleUrls: ['./dispatcher-screen.component.scss'],
 })
 export class DispatcherScreenComponent extends WidgetPlatform implements AfterViewInit, OnDestroy {
-    private baseUrl: string;
+    private readonly baseUrl: string;
     private unityInstance: any;
     isStart: boolean;
 
     private canvas: HTMLCanvasElement;
 
-    public static itemCols: number = 15;
-    public static itemRows: number = 10;
-    public static minItemCols: number = 10;
-    public static minItemRows: number = 10;
+    public static itemCols: number = 64;
+    public static itemRows: number = 30;
+    public static minItemCols: number = 50;
+    public static minItemRows: number = 30;
 
     constructor(
         public widgetService: WidgetService,
@@ -42,17 +42,16 @@ export class DispatcherScreenComponent extends WidgetPlatform implements AfterVi
 
     ngOnDestroy(): void {
         super.ngOnDestroy();
-        console.log('destroy_unity');
         if (this.unityInstance) {
             this.unityInstance.Quit(() => console.log('destroy'));
         }
     }
 
     protected dataConnect(): void {
-        this.InitUnity();
+        setTimeout(() => this.InitUnity(), 100);
     }
 
-    protected dataHandler(ref: any): void {}
+    protected dataHandler(ref: any): void { }
 
     @HostListener('document:resize', ['$event'])
     public OnResize(event): void {
@@ -60,7 +59,7 @@ export class DispatcherScreenComponent extends WidgetPlatform implements AfterVi
     }
 
     @HostListener('document:UnityDispatcherScreen_Start', ['$event', '$event.detail.param1'])
-    public async OnUnityStart(event, param1): Promise<void> {
+    public async OnUnityStart(event: any, param1: string): Promise<void> {
         this.isStart = true;
         if (!this.unityInstance) {
             return;
@@ -71,7 +70,7 @@ export class DispatcherScreenComponent extends WidgetPlatform implements AfterVi
     }
 
     @HostListener('document:UnityDispatcherScreen_SendSettings', ['$event', '$event.detail.param1'])
-    public async OnUnitySendSettings(event, param1): Promise<void> {
+    public async OnUnitySendSettings(event: any, param1: string): Promise<void> {
         this.isStart = true;
         if (!this.unityInstance) {
             return;
@@ -92,7 +91,7 @@ export class DispatcherScreenComponent extends WidgetPlatform implements AfterVi
         this.loadProject(`${this.baseUrl}assets/unity/dispatcher-screen/web_build.json`);
     }
 
-    private CallUnityScript(objName, funName, ...args): void {
+    private CallUnityScript(objName: string, funName: string, ...args): void {
         if (this.isStart && this.unityInstance) {
             this.unityInstance.SendMessage(objName, funName, ...args);
         }

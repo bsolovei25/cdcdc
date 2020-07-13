@@ -5,9 +5,10 @@
 .content_block {
   height: calc(100% - 60px);
   width: calc(100% - 3px);
-  border: 1px dashed var(--color-border-main);
+  border: 1px var(--color-border-main);
   border-style: none dashed none dashed;
-  overflow-y: auto;
+  overflow: none;
+  position: relative;
 }
 
 .blocks {

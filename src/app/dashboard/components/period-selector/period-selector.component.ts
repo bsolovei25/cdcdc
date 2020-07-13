@@ -1,133 +1,140 @@
 import { Component, OnInit } from '@angular/core';
 import { HeaderDataService } from '../../services/header-data.service';
 import { WidgetService } from '../../services/widget.service';
-import { FormControl } from '@angular/forms';
-import { ITime } from '../../models/time-data-picker';
+import { SnackBarService } from '../../services/snack-bar.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
     selector: 'evj-period-selector',
     templateUrl: './period-selector.component.html',
-    styleUrls: ['./period-selector.component.scss'],
+    styleUrls: ['./period-selector.component.scss']
 })
 export class PeriodSelectorComponent implements OnInit {
     public toDate: Date;
     public fromDate: Date;
-    public isCurrent: boolean;
+    public isCurrent: boolean = false;
 
-    public datePicker: boolean = false;
-    public datePickerOpen: number;
-
-    public dateNow: Date;
-
-
-    constructor(private headerData: HeaderDataService, private widgetService: WidgetService) {
-        this.setDefault();
+    constructor(
+        private headerData: HeaderDataService,
+        private widgetService: WidgetService,
+        private snackBar: SnackBarService,
+        private router: Router,
+        public route: ActivatedRoute
+    ) {
     }
 
-    ngOnInit(): void {
-        this.fromDate = new Date();
-        this.toDate = new Date();
-        this.dateNow = new Date();
+    public ngOnInit(): void {
+        if (!this.getQueryParams()) {
+            this.setDefault();
+        }
     }
 
-    setDefault(): void {
-        let defaultTime: Date = new Date(Date.now());
-        defaultTime = new Date(
-            defaultTime.getFullYear(),
-            defaultTime.getMonth(),
-            defaultTime.getDate(),
+    getQueryParams(): boolean {
+        const dtStartFromRoute = this.route.snapshot.queryParamMap.get('dtStart');
+        const dtEndFromRoute = this.route.snapshot.queryParamMap.get('dtEnd');
+        if (!dtStartFromRoute || !dtEndFromRoute) {
+            return false;
+        }
+        if (Number(dtStartFromRoute) > Number(dtEndFromRoute)) {
+            return false;
+        }
+        this.fromDate = new Date(Number(dtStartFromRoute));
+        this.toDate = new Date(Number(dtEndFromRoute));
+        this.setDates();
+        this.headerData.catchStatusButton(this.isCurrent);
+        this.headerData.catchDefaultDate(this.fromDate, this.toDate, this.isCurrent);
+        return true;
+    }
+
+    private setDefault(): void {
+        const currentDatetime: Date = new Date(Date.now());
+        this.fromDate = new Date(
+            currentDatetime.getFullYear(),
+            currentDatetime.getMonth(),
+            currentDatetime.getDate(),
             0,
             0,
             0
         );
-        this.toDate = defaultTime;
-        this.fromDate = defaultTime;
+        this.toDate = new Date(
+            currentDatetime.getFullYear(),
+            currentDatetime.getMonth(),
+            currentDatetime.getDate(),
+            23,
+            59,
+            59
+        );
         this.isCurrent = true;
         this.headerData.catchDefaultDate(this.fromDate, this.toDate, this.isCurrent);
     }
 
-    setDateTime(event, datetime): void {
-        // this.headerData.catchDate(event, datetime);
-        let defaultTime = new Date();
-        defaultTime = new Date(
-            defaultTime.getFullYear(),
-            defaultTime.getMonth(),
-            defaultTime.getDate(),
-            0,
-            0,
-            0
-        );
-
-        if (datetime === 1) {
-            if (event) {
-                const eventDate: Date = new Date(event);
-                if (eventDate < defaultTime) {
-                    this.toDate = eventDate;
-                    this.fromDate = eventDate;
-                } else {
-                    this.toDate = eventDate;
-                }
-            } else {
-                this.toDate = defaultTime;
-            }
-        } else {
-            if (event) {
-                const eventDate: Date = new Date(event);
-                if (new Date(event) > defaultTime) {
-                    this.toDate = eventDate;
-                    this.fromDate = eventDate;
-                } else {
-                    this.fromDate = eventDate;
-                }
-            } else {
-                this.fromDate = defaultTime;
-            }
-        }
-
-        this.isCurrent = false;
-        this.headerData.catchDefaultDate(this.fromDate, this.toDate, this.isCurrent);
-
-        const dates = {
-            fromDateTime: this.fromDate,
-            toDateTime: this.toDate,
-        };
-        this.widgetService.currentDatesObservable.next(dates);
-        console.log(dates);
-    }
-
-    isCurrentChange(value: boolean): void {
+    public isCurrentChange(value: boolean): void {
         this.isCurrent = value;
         this.headerData.catchStatusButton(this.isCurrent);
 
         if (this.isCurrent) {
-            this.widgetService.wsSetParams();
+            this.widgetService.currentDates$.next(null);
+            this.router.navigate(
+                [],
+                {
+                    queryParams: {
+                        dtStart: null,
+                        dtEnd: null
+                    },
+                    queryParamsHandling: 'merge'
+                }
+            );
+            this.headerData.catchDefaultDate(this.fromDate, this.toDate, this.isCurrent);
         } else {
-            const dates = {
-                fromDateTime: this.fromDate,
-                toDateTime: this.toDate,
-            };
-            console.log(dates);
-            this.widgetService.currentDatesObservable.next(dates);
+            this.setDates();
         }
     }
 
-
-
-    dateTimePickerStart(data: ITime): void {
-        const time = data.time.split(':');
-        const date = new Date(data.date);
-
-        this.fromDate = new Date(date.setHours(+time[0], +time[1], +time[2]));
-
+    public dateTimePickerInput(date: Date, isStart: boolean): void {
+        if (this.isCurrent) {
+            return;
+        }
+        if (isStart && new Date(date).getTime() > this.toDate.getTime()) {
+            this.fromDate = new Date(this.fromDate);
+            this.snackBar.openSnackBar(
+                'Установлено неверное время! Время начала периода должно быть меньше времени конца периода',
+                'snackbar-red'
+            );
+            console.error('wrong time!');
+            return;
+        } else if (!isStart && new Date(date).getTime() < this.fromDate.getTime()) {
+            this.toDate = new Date(this.toDate);
+            this.snackBar.openSnackBar(
+                'Установлено неверное время! Время конца периода должно быть больше времени начала периода',
+                'snackbar-red'
+            );
+            console.error('wrong time!');
+            return;
+        }
+        if (isStart) {
+            this.fromDate = new Date(date);
+        } else {
+            this.toDate = new Date(date);
+        }
         this.headerData.catchDefaultDate(this.fromDate, this.toDate, this.isCurrent);
+        this.setDates();
     }
 
-    dateTimePickerEnd(data: ITime): void {
-        const time = data.time.split(':');
-        const date = new Date(data.date);
-
-        this.toDate = new Date(date.setHours(+time[0], +time[1], +time[2]));
-
-        this.headerData.catchDefaultDate(this.fromDate, this.toDate, this.isCurrent);
+    private setDates(): void {
+        const dates = {
+            fromDateTime: this.fromDate,
+            toDateTime: this.toDate
+        };
+        this.router.navigate(
+            [],
+            {
+                queryParams: {
+                    dtStart: dates.fromDateTime.getTime(),
+                    dtEnd: dates.toDateTime.getTime()
+                },
+                queryParamsHandling: 'merge'
+            }
+        );
+        this.widgetService.currentDates$.next(dates);
     }
 }

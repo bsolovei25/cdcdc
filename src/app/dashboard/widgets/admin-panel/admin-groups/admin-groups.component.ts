@@ -4,8 +4,11 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { AdminPanelService } from '../../../services/admin-panel/admin-panel.service';
 import { IUser, IUnitEvents } from '../../../models/events-widget';
 import { Subscription, combineLatest } from 'rxjs';
-import { IWidgets } from '../../../models/widget.model';
+import { IWidget } from '../../../models/widget.model';
+import { IAlertWindowModel } from '../../../../@shared/models/alert-window.model';
+import { FormControl, Validators } from '@angular/forms';
 import { SnackBarService } from '../../../services/snack-bar.service';
+import { IInputOptions } from '../../../../@shared/models/input.model';
 
 @Component({
     selector: 'evj-admin-groups',
@@ -22,14 +25,12 @@ export class AdminGroupsComponent implements OnInit, OnDestroy {
     };
 
     public isDataLoading: boolean = false;
+    public isDataChanged: boolean = false;
 
     public allWorkers: IUser[] = [];
     public allWorkspaces: IWorkspace[] = [];
 
     public isCreateClaim: boolean = false;
-    public isCreateNewGroup: boolean = false;
-    public isAlertShowing: boolean = false;
-    public isSaveClicked: boolean = false;
 
     public groups: IGroup[] = [];
     public newGroups: IGroup[] = [];
@@ -39,13 +40,39 @@ export class AdminGroupsComponent implements OnInit, OnDestroy {
     public currentGroupGeneralClaims: IGlobalClaim[] = [];
     public currentGroupSpecialClaims: IGlobalClaim[] = [];
 
-    public editingGroup: IGroup = null;
-
     public generalClaims: IGlobalClaim[] = [];
     public specialClaims: IGlobalClaim[] = [];
 
-    private searchingGroupString: string = '';
-    private searchingWorkerString: string = '';
+    //#region SEARCH_INPUT
+
+    public inputGroupOptions: IInputOptions = {
+        type: 'text',
+        state: 'normal',
+        placeholder: 'Введите наименование группы',
+        isMovingPlaceholder: true,
+        icon: {
+            src: 'assets/icons/search-icon.svg',
+            svgStyle: { 'width.px': 17, 'height.px': 17 },
+            isClickable: false,
+        },
+    };
+
+    public searchingGroupString: string = '';
+
+    public inputWorkerOptions: IInputOptions = {
+        type: 'text',
+        state: 'normal',
+        placeholder: 'Введите ФИО сотрудника',
+        isMovingPlaceholder: true,
+        icon: {
+            src: 'assets/icons/search-icon.svg',
+            svgStyle: { 'width.px': 17, 'height.px': 17 },
+            isClickable: false,
+        },
+    };
+
+    public searchingWorkerString: string = '';
+    //#endregion
 
     public groupSelection: SelectionModel<IGroup> = new SelectionModel<IGroup>();
     public blockSelection: SelectionModel<void> = new SelectionModel<void>();
@@ -53,13 +80,20 @@ export class AdminGroupsComponent implements OnInit, OnDestroy {
 
     public groupWorkspaces: IWorkspace[] = [];
 
+    public alert: IAlertWindowModel = {
+        isShow: false,
+        questionText: '',
+        acceptText: '',
+        cancelText: 'Вернуться',
+        acceptFunction: () => null,
+        cancelFunction: () => null,
+        closeFunction: () => (this.alert.isShow = false),
+    };
+
     private subscriptions: Subscription[] = [];
     private subs: Subscription = null;
 
-    constructor(
-        private adminService: AdminPanelService,
-        private materialController: SnackBarService
-    ) {}
+    constructor(private adminService: AdminPanelService, private snackBar: SnackBarService) {}
 
     public ngOnInit(): void {
         this.isDataLoading = true;
@@ -92,21 +126,13 @@ export class AdminGroupsComponent implements OnInit, OnDestroy {
         }
     }
 
-    public onSearchGroup(event: string): void {
-        this.searchingGroupString = event.toLowerCase();
-    }
-
-    public onSearchUser(event: string): void {
-        this.searchingWorkerString = event.toLowerCase();
-    }
-
     public displaySearchedWorker(worker: IUser): boolean {
         const fullName: string = `${worker.lastName} ${worker.firstName} ${worker.middleName}`;
-        return fullName.toLowerCase().includes(this.searchingWorkerString);
+        return fullName.toLowerCase().includes(this.searchingWorkerString.toLowerCase());
     }
 
     public displaySearchedGroup(group: IGroup): boolean {
-        return group.name.toLowerCase().includes(this.searchingGroupString);
+        return group.name.toLowerCase().includes(this.searchingGroupString.toLowerCase());
     }
 
     public defineIsUserInGroup(worker: IUser): boolean {
@@ -131,12 +157,15 @@ export class AdminGroupsComponent implements OnInit, OnDestroy {
             currentGroupClaims.splice(index, 1);
         }
         this.onEditGroup();
+        this.isDataChanged = true;
     }
 
     public canShowSpecialClaim(claim: IGlobalClaim): boolean {
         const currentGroup = this.groupSelection.selected[0];
         return currentGroup
-            ? !!currentGroup.claims.find((item) => item.claimType === claim.claimType)
+            ? !!currentGroup.claims.find(
+                  (item) => item.claimType === claim.claimType && claim.claimValueType !== 'screen'
+              )
             : false;
     }
 
@@ -156,14 +185,14 @@ export class AdminGroupsComponent implements OnInit, OnDestroy {
     }
 
     public findEntityByClaimValue(claim: IGlobalClaim): string {
-        let entity: IUnitEvents | IWidgets;
+        let entity: IUnitEvents | IWidget;
         switch (claim.claimValueType) {
             case 'unit':
                 entity = this.adminService.units.find((item) => item.id === +claim.value);
-                return entity ? entity.name : '111';
+                return entity ? entity.name : '';
             case 'widget':
                 entity = this.adminService.allWidgets.find((item) => item.id === claim.value);
-                return entity ? entity.title : '111';
+                return entity ? entity.title : '';
         }
     }
 
@@ -174,6 +203,7 @@ export class AdminGroupsComponent implements OnInit, OnDestroy {
         );
         currentGroup.claims.splice(index, 1);
         this.onEditGroup();
+        this.isDataChanged = true;
     }
 
     public onWorkerScreens(): IWorkspace[] {
@@ -195,7 +225,7 @@ export class AdminGroupsComponent implements OnInit, OnDestroy {
             this.currentGroupGeneralClaims = group.claims.filter((claim) => !claim.value);
             this.currentGroupSpecialClaims = group.claims.filter((claim) => !!claim.value);
 
-            if (!group.workspaces) {
+            if (!group.workspaces && group.id) {
                 if (this.subs) {
                     this.subs.unsubscribe();
                 }
@@ -211,48 +241,48 @@ export class AdminGroupsComponent implements OnInit, OnDestroy {
                     () => (this.isDataLoading = false)
                 );
                 this.groupWorkspaces = [];
+            } else if (!group.workspaces) {
+                this.groupWorkspaces = [];
             } else {
-                this.groupWorkspaces = group.workspaces;
+                this.groupWorkspaces = group?.workspaces;
             }
         }
-    }
-
-    public onCreateNewGroup(group: IGroup): void {
-        this.isCreateNewGroup = false;
-        this.editingGroup = null;
-        if (group) {
-            this.newGroups.push(group);
-            this.groupSelection.select(group);
-        }
-    }
-
-    public onEditGroupName(group: IGroup): void {
-        this.editingGroup = group;
-        this.isCreateNewGroup = true;
-
-        this.onEditGroup();
     }
 
     public onEditGroup(): void {
         const editedGroup = this.groupSelection.selected[0];
         if (editedGroup.id && !this.editedGroupsIds.includes(editedGroup.id)) {
             this.editedGroupsIds.push(editedGroup.id);
+            this.isDataChanged = true;
         }
     }
 
-    public onDeleteGroup(): void {
+    public onClickDeleteGroup(): void {
+        this.alert.questionText = `Вы действительно хотите удалить группу
+        ${this.groupSelection.selected[0].name}`;
+        this.alert.acceptText = 'Подтвердить';
+        this.alert.cancelText = 'Вернуться';
+        this.alert.acceptFunction = this.onDeleteGroup.bind(this);
+        delete this.alert.input;
+        this.alert.isShow = true;
+    }
+
+    private onDeleteGroup(): void {
         const deletedGroup = this.groupSelection.selected[0];
-        let index: number = null;
         if (deletedGroup.id) {
             this.deletedGroupsIds.push(deletedGroup.id);
-            index = this.groups.findIndex((group) => group.id === deletedGroup.id);
+            const index = this.groups.findIndex((group) => group.id === deletedGroup.id);
+            if (index !== -1) {
+                this.groups.splice(index, 1);
+            }
         } else {
-            index = this.newGroups.findIndex((group) => group.name === deletedGroup.name);
+            const index = this.newGroups.findIndex((group) => group.name === deletedGroup.name);
+            if (index !== -1) {
+                this.newGroups.splice(index, 1);
+            }
         }
-        if (index !== -1) {
-            this.groups.splice(index, 1);
-            this.groupSelection.select(this.groups[0]);
-        }
+        this.groupSelection.select(this.groups[0]);
+        this.isDataChanged = true;
     }
 
     public editWorkerInGroup(addWorkerToGroup: boolean, worker: IUser): void {
@@ -268,50 +298,98 @@ export class AdminGroupsComponent implements OnInit, OnDestroy {
         if (currentGroup.id) {
             this.onEditGroup();
         }
+
+        this.isDataChanged = true;
     }
 
     public onClickCreateNewClaim(): void {
         this.isCreateClaim = true;
     }
 
-    public onCreateSpecialClaim(claim: IGlobalClaim): void {
-        let isClaimExists: boolean = false;
-
-        if (claim) {
-            isClaimExists = !!this.groupSelection.selected[0].claims.find(
-                (item) => item.claimType === claim.claimType && item.value === claim.value
-            );
-        }
-
-        if (claim && !isClaimExists) {
+    public onCreateSpecialClaim(claims: IGlobalClaim[]): void {
+        if (claims) {
             const currentGroup = this.groupSelection.selected[0];
-            currentGroup.claims.push(claim);
-            this.onEditGroup();
-        }
 
-        if (isClaimExists) {
-            this.materialController.openSnackBar(
-                'Такое специальное право уже существует',
-                'snackbar-red'
-            );
-            return;
+            claims.forEach((claim) => {
+                const findClaim: boolean = !!currentGroup.claims.find(
+                    (item) => item.claimType === claim.claimType && item.value === claim.value
+                );
+
+                if (findClaim) {
+                    return;
+                }
+
+                currentGroup.claims.push(claim);
+                this.onEditGroup();
+            });
+            this.isDataChanged = true;
         }
 
         this.isCreateClaim = false;
     }
 
     public onClickButton(isSaveClicked: boolean = false): void {
-        this.isSaveClicked = isSaveClicked;
-        this.isAlertShowing = true;
-    }
-
-    public onClickAlert(event: boolean): void {
-        this.isAlertShowing = false;
-        if (event && this.isSaveClicked) {
-            this.onSave();
-        } else if (event && !this.isSaveClicked) {
+        if (isSaveClicked && this.isDataChanged) {
+            this.alert.questionText = 'Сохранить внесенные изменения?';
+            this.alert.acceptText = 'Сохранить';
+            this.alert.cancelText = 'Отменить';
+            this.alert.acceptFunction = this.onSave.bind(this);
+        } else if (this.isDataChanged) {
+            this.alert.questionText = `Вы действительно хотите вернуться?
+                Все внесенные изменения будут утрачены!`;
+            this.alert.acceptText = 'Подтвердить';
+            this.alert.cancelText = 'Вернуться';
+            this.alert.acceptFunction = this.onReturn.bind(this);
+        } else {
             this.onReturn();
         }
+        delete this.alert.input;
+        this.alert.isShow = true;
+    }
+
+    public onChangeGroupName(group?: IGroup): void {
+        let questionText: string = '';
+        let inputValue: string = '';
+        let acceptFn: () => void = null;
+
+        if (group) {
+            questionText = 'Введите новое название группы';
+            inputValue = group.name;
+            acceptFn = () => {
+                group.name = this.alert.input.formControl.value;
+                this.onEditGroup();
+            };
+        } else {
+            questionText = 'Введите название новой группы пользователей';
+            acceptFn = () => {
+                const newGroup: IGroup = {
+                    id: null,
+                    name: this.alert.input.formControl.value,
+                    claims: [],
+                    users: [],
+                };
+                this.newGroups.push(newGroup);
+                this.groupSelection.select(newGroup);
+                this.isDataChanged = true;
+            };
+        }
+
+        this.alert.questionText = questionText;
+        this.alert.acceptText = 'Сохранить';
+        this.alert.cancelText = 'Отменить';
+        this.alert.input = {
+            formControl: new FormControl(inputValue, Validators.required),
+            placeholder: 'Введите информацию',
+        };
+        this.alert.acceptFunction = () => {
+            if (this.alert.input.formControl.value) {
+                acceptFn();
+            } else {
+                this.alert.input.formControl.markAsTouched();
+                throw new Error('Empty field');
+            }
+        };
+        this.alert.isShow = true;
     }
 
     public onChangeWorkspaces(): void {
@@ -324,21 +402,39 @@ export class AdminGroupsComponent implements OnInit, OnDestroy {
 
     public async onSave(): Promise<void> {
         try {
-            this.newGroups.forEach(
-                async (item) => await this.adminService.createNewGroup(item).toPromise()
+            this.isDataLoading = true;
+            const promises: Promise<void>[] = [];
+            this.newGroups.forEach((item) =>
+                promises.push(this.adminService.createNewGroup(item).toPromise())
             );
-            this.deletedGroupsIds.forEach(
-                async (id) => await this.adminService.deleteGroupById(id).toPromise()
+            this.deletedGroupsIds.forEach((id) =>
+                promises.push(this.adminService.deleteGroupById(id).toPromise())
             );
             this.editedGroupsIds.forEach(async (id) => {
                 const group = this.groups.find((item) => item.id === id);
                 if (group) {
-                    await this.adminService.editGroup(group).toPromise();
+                    promises.push(this.adminService.editGroup(group).toPromise());
                 }
             });
+            this.newGroups = [];
+            this.deletedGroupsIds = [];
+            this.editedGroupsIds = [];
+
+            await Promise.all(promises);
+
+            const groups = await this.adminService.getAllGroups().toPromise();
+            this.groups = groups;
+            this.onSelectGroup(this.groups[0]);
+
+            const screens = await this.adminService.getAllScreens().toPromise();
+            this.allWorkspaces = screens;
+
+            this.isDataChanged = false;
+            this.snackBar.openSnackBar('Данные сохранены', 'blue');
         } catch (error) {
             console.error(error);
+        } finally {
+            this.isDataLoading = false;
         }
-        this.hideGroups.emit();
     }
 }

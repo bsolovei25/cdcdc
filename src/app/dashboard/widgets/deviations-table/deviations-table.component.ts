@@ -5,9 +5,19 @@ import { WidgetPlatform } from '../../models/widget-platform';
 export interface IDeviationsTable {
     equipment: string;
     energy: number;
+    energyPercentage: number;
     consumption: number;
+    consumptionPercentage: number;
     fuel: number;
+    fuelPercentage: number;
     nonCritical: boolean;
+}
+
+export interface IDeviationsTableDto {
+    items: IDeviationsTable[];
+    consumptionUnitsOfMeasure: string;
+    energyUnitsOfMeasure: string;
+    fuelUnitsOfMeasure: string;
 }
 
 @Component({
@@ -16,221 +26,19 @@ export interface IDeviationsTable {
     styleUrls: ['./deviations-table.component.scss'],
 })
 export class DeviationsTableComponent extends WidgetPlatform implements OnInit, OnDestroy {
-    data: IDeviationsTable[] = [
-        {
-            equipment: 'ЭЛОУ-АВТ-6',
-            energy: 0,
-            consumption: -150,
-            fuel: 0,
-            nonCritical: true,
-        },
-        {
-            equipment: 'ЭЛОУ-2',
-            energy: 0,
-            consumption: -150,
-            fuel: 0,
-            nonCritical: true,
-        },
-        {
-            equipment: 'С.100 ЭЛОУ-АВТ-6',
-            energy: 0,
-            consumption: -150,
-            fuel: 0,
-            nonCritical: true,
-        },
-        {
-            equipment: 'Блок ВТ (АТВБ)',
-            energy: 0,
-            consumption: -150,
-            fuel: 0,
-            nonCritical: true,
-        },
-        {
-            equipment: 'Блок ВТ (АТВБ)',
-            energy: 0,
-            consumption: -150,
-            fuel: 0,
-            nonCritical: false,
-        },
-        {
-            equipment: 'УПВ',
-            energy: 0,
-            consumption: -150,
-            fuel: 0,
-            nonCritical: true,
-        },
-        {
-            equipment: 'АВТ-3',
-            energy: 0,
-            consumption: -150,
-            fuel: 0,
-            nonCritical: false,
-        },
-        {
-            equipment: 'Изомеризация',
-            energy: 0,
-            consumption: -150,
-            fuel: 0,
-            nonCritical: true,
-        },
-        {
-            equipment: 'Л-22/4',
-            energy: 0,
-            consumption: -150,
-            fuel: 0,
-            nonCritical: true,
-        },
-        {
-            equipment: 'Л-22-2000',
-            energy: 0,
-            consumption: -150,
-            fuel: 0,
-            nonCritical: false,
-        },
-        {
-            equipment: 'Л-22/5',
-            energy: 0,
-            consumption: -150,
-            fuel: 0,
-            nonCritical: false,
-        },
-        {
-            equipment: 'Реагентное хоз-во',
-            energy: 0,
-            consumption: -150,
-            fuel: 0,
-            nonCritical: false,
-        },
-        {
-            equipment: 'ЛЧ-35-11-300М',
-            energy: 0,
-            consumption: -150,
-            fuel: 0,
-            nonCritical: true,
-        },
-        {
-            equipment: 'УПБ',
-            energy: 0,
-            consumption: -150,
-            fuel: 0,
-            nonCritical: true,
-        },
-        {
-            equipment: 'С-200 КУПН СТО',
-            energy: 0,
-            consumption: -150,
-            fuel: 0,
-            nonCritical: true,
-        },
-        {
-            equipment: 'УПС',
-            energy: 0,
-            consumption: -150,
-            fuel: 0,
-            nonCritical: true,
-        },
-        {
-            equipment: 'С-400 КУПН ГФУ',
-            energy: 0,
-            consumption: -150,
-            fuel: 0,
-            nonCritical: true,
-        },
-        {
-            equipment: 'КЦА',
-            energy: 0,
-            consumption: -150,
-            fuel: 0,
-            nonCritical: true,
-        },
-        {
-            equipment: 'ЛЧ-35-11-1000',
-            energy: 0,
-            consumption: -150,
-            fuel: 0,
-            nonCritical: true,
-        },
-        {
-            equipment: 'МТБЭ',
-            energy: 0,
-            consumption: -150,
-            fuel: 0,
-            nonCritical: true,
-        },
-        {
-            equipment: 'С-300 КУПН',
-            energy: 0,
-            consumption: -150,
-            fuel: 0,
-            nonCritical: true,
-        },
-        {
-            equipment: 'ГФУ-2',
-            energy: 0,
-            consumption: -150,
-            fuel: 0,
-            nonCritical: true,
-        },
-        {
-            equipment: 'АССБ и КТ',
-            energy: 0,
-            consumption: -150,
-            fuel: 0,
-            nonCritical: true,
-        },
-        {
-            equipment: 'Парк Б,Р и ДТ',
-            energy: 0,
-            consumption: -150,
-            fuel: 0,
-            nonCritical: true,
-        },
-        {
-            equipment: 'ТАМЭ',
-            energy: 0,
-            consumption: -150,
-            fuel: 0,
-            nonCritical: true,
-        },
-        {
-            equipment: 'Т-д транснефть',
-            energy: 0,
-            consumption: -150,
-            fuel: 0,
-            nonCritical: true,
-        },
-        {
-            equipment: 'Г-43-107',
-            energy: 0,
-            consumption: -150,
-            fuel: 0,
-            nonCritical: true,
-        },
-        {
-            equipment: 'ГОБКК',
-            energy: 0,
-            consumption: -150,
-            fuel: 0,
-            nonCritical: true,
-        },
-        {
-            equipment: 'ЖД эстакажы',
-            energy: 0,
-            consumption: -150,
-            fuel: 0,
-            nonCritical: true,
-        },
-        {
-            equipment: 'АВТО эстакажы',
-            energy: 0,
-            consumption: -150,
-            fuel: 0,
-            nonCritical: true,
-        },
-    ];
+    data: IDeviationsTable[] = [];
 
-    public static itemCols: number = 15;
-    public static itemRows: number = 18;
+    public consumptionUnitsOfMeasure: string = '';
+    public energyUnitsOfMeasure: string = '';
+    public fuelUnitsOfMeasure: string = '';
+
+    public isDataLoading: boolean = true;
+
+    public static itemCols: number = 20;
+    public static itemRows: number = 30;
+
+    public static minItemCols: number = 20;
+    public static minItemRows: number = 10;
 
     constructor(
         protected widgetService: WidgetService,
@@ -249,5 +57,14 @@ export class DeviationsTableComponent extends WidgetPlatform implements OnInit, 
         super.ngOnDestroy();
     }
 
-    protected dataHandler(ref: any): void {}
+    protected dataHandler(ref: IDeviationsTableDto): void {
+        if (this.isDataLoading) {
+            setTimeout(() => (this.isDataLoading = false), 500);
+        }
+
+        this.data = ref.items;
+        this.consumptionUnitsOfMeasure = ref.consumptionUnitsOfMeasure;
+        this.energyUnitsOfMeasure = ref.energyUnitsOfMeasure;
+        this.fuelUnitsOfMeasure = ref.fuelUnitsOfMeasure;
+    }
 }

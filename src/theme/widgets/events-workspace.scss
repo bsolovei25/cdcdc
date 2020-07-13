@@ -20,13 +20,13 @@
   border-right: none !important;
   border-top: none !important;
   margin: 0 !important;
-  background-image: url("./assets/icons/widgets/workspace/arrow.svg");
+  background-image: url("./assets/icons/widgets/workspace/arrow-work.svg");
   background-repeat: no-repeat;
 }
 
 ::-webkit-scrollbar {
-  width: 1px;
-  height: 10px;
+  width: 5px;
+  height: 7px;
 }
 ::-webkit-scrollbar:vertical {
   width: 5px;
@@ -44,8 +44,8 @@
   border-radius: 10px;
 }
 ::-webkit-scrollbar-corner {
-  background-color: #999;
+  background-color: var(--color-bg-main);
 }
 ::-webkit-resizer {
-  background-color: #666;
+  // background-color: #666;
 }

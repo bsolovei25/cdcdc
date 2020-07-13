@@ -6,6 +6,7 @@
         y="3.5"
         width="42"
         height="42"
+        preserveAspectRatio="xMidYMid slice"
         style="clip-path: circle(50% at center);"
         [attr.xlink:href]="photoPath"
       />
@@ -18,17 +19,32 @@
         xlink:href="assets/icons/widgets/admin/worker-card.svg"
       />
 
-      <text x="33" y="9" text-anchor="start" class="svg__txt">
-        {{person.phone}}
+      <text
+        x="33"
+        y="9"
+        text-anchor="start"
+        class="svg__txt"
+        *ngIf="phoneRegExp.test(person.phone)"
+      >
+        +7 {{person.phone|mask:'(000) 000-00-00'}}
+      </text>
+      <text
+        x="33"
+        y="9"
+        text-anchor="start"
+        class="svg__txt"
+        *ngIf="!phoneRegExp.test(person.phone)"
+      >
+        Телефон не указан
       </text>
       <text x="33" y="20" text-anchor="start" class="svg__txt">
-        {{person.email}}
+        {{wrapLongString(person.email)}}
       </text>
       <text x="33" y="32" text-anchor="start" class="svg__txt">
-        {{getPersonUnit()}}
+        {{wrapLongString(getPersonUnit())}}
       </text>
       <text x="33" y="43" text-anchor="start" class="svg__txt">
-        {{getPersonBrigade()}}
+        {{wrapLongString(getPersonBrigade())}}
       </text>
       <image
         x="-35"
@@ -48,6 +64,7 @@
         y="10"
         width="80"
         height="80"
+        preserveAspectRatio="xMidYMid slice"
         style="clip-path: circle(40px at center);"
         [attr.xlink:href]="photoPath"
       />
@@ -67,7 +84,7 @@
         class="svg__txt-small"
         [ngClass]="{'svg__txt-small-active':isActiveCard}"
       >
-        {{getPersonName()}}
+        {{wrapLongString(getPersonName())}}
       </text>
       <text
         x="65"
@@ -76,7 +93,7 @@
         class="svg__txt-small"
         [ngClass]="{'svg__txt-small-active':isActiveCard}"
       >
-        {{getPersonPosition()}}
+        {{wrapLongString(getPersonPosition())}}
       </text>
       <image
         x="-40"

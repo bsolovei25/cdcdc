@@ -3,7 +3,6 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { AppConfigService } from '../../../services/appConfigService';
 import {
-    IBrigadeAdminPanel,
     IClaim,
     IWorkspace,
     IGlobalClaim,
@@ -13,8 +12,11 @@ import {
     IUserImported,
 } from '../../models/admin-panel';
 import { IUser, IUnitEvents } from '../../models/events-widget';
-import { IWidgets } from '../../models/widget.model';
+import { IWidget } from '../../models/widget.model';
 import { fillDataShape } from '../../../@shared/common-functions';
+import { AuthService } from '@core/service/auth.service';
+import { AvatarConfiguratorService } from '../avatar-configurator.service';
+import { IAlertWindowModel } from '../../../@shared/models/alert-window.model';
 
 @Injectable({
     providedIn: 'root',
@@ -22,7 +24,7 @@ import { fillDataShape } from '../../../@shared/common-functions';
 export class AdminPanelService {
     private restUrl: string = `/api/user-management`;
     private restUrlApi: string = `/api`;
-    private restFileUrl: string = '';
+    private restFileUrl: string = '/api/file-storage';
 
     public defaultWorker: IUser = {
         id: undefined,
@@ -35,32 +37,19 @@ export class AdminPanelService {
         position: 'common',
         positionDescription: '',
         displayName: '',
+        department: '',
+        isShiftWorker: false,
     };
 
-    public activeWorker: IUser = null;
-
     public allWorkers$: BehaviorSubject<IUser[]> = new BehaviorSubject<IUser[]>(null);
-    public allBrigades$: BehaviorSubject<IBrigadeAdminPanel[]> = new BehaviorSubject<
-        IBrigadeAdminPanel[]
-    >(null);
-    public activeUnitBrigades$: BehaviorSubject<IBrigadeAdminPanel[]> = new BehaviorSubject<
-        IBrigadeAdminPanel[]
-    >(null);
-    public activeBrigade$: BehaviorSubject<IBrigadeAdminPanel> = new BehaviorSubject<
-        IBrigadeAdminPanel
-    >(null);
 
     public activeWorker$: BehaviorSubject<IUser> = new BehaviorSubject<IUser>(this.defaultWorker);
-    public activeWorkerUnit$: BehaviorSubject<IUnitEvents> = new BehaviorSubject<IUnitEvents>(null);
     public activeWorkerWorkspaces$: BehaviorSubject<IWorkspace[]> = new BehaviorSubject<
         IWorkspace[]
     >(null);
 
     public workers: IUser[] = [];
 
-    public brigades: IBrigadeAdminPanel[] = [];
-
-    public unitsWithBrigades: IUnitEvents[] = [];
     public units: IUnitEvents[] = [];
 
     public screenClaims: IClaim[] = [];
@@ -68,16 +57,28 @@ export class AdminPanelService {
     public generalClaims: IGlobalClaim[] = [];
     public specialClaims: IGlobalClaim[] = [];
 
-    public allWidgets: IWidgets[] = [];
+    public allWidgets: IWidget[] = [];
     public allScreens: IWorkspace[] = [];
 
-    constructor(private http: HttpClient, private configService: AppConfigService) {
+    public settingsAlert: IAlertWindowModel = {
+        isShow: false,
+        questionText: '',
+        acceptText: '',
+        cancelText: 'Вернуться',
+        acceptFunction: () => null,
+        cancelFunction: () => null,
+        closeFunction: () => (this.settingsAlert.isShow = false),
+    };
+
+    constructor(
+        private http: HttpClient,
+        private configService: AppConfigService,
+        private avatarConfiguratorService: AvatarConfiguratorService,
+        private authService: AuthService
+    ) {
         this.restUrl = `${this.configService.restUrl}${this.restUrl}`;
         this.restUrlApi = `${this.configService.restUrl}${this.restUrlApi}`;
-        this.restFileUrl = this.configService.fsUrl;
-        this.activeWorker$.subscribe((worker: IUser) => {
-            this.activeWorker = worker;
-        });
+        this.restFileUrl = `${configService.restUrl}${this.restFileUrl}`;
     }
 
     //#region DATA_API
@@ -90,19 +91,13 @@ export class AdminPanelService {
 
     public editWorkerData(worker: IUser): Observable<void> {
         const url: string = `${this.restUrl}/user/${worker.id}`;
-        const body: string = JSON.stringify(worker);
-        return this.http.put<void>(url, body);
+        return this.http.put<void>(url, worker);
     }
 
     public createNewWorker(worker: IUser): Observable<IUser> {
+        worker.password = worker?.password ? this.authService.encrypt(worker.password) : null;
         const url: string = `${this.restUrl}/user`;
-        const body: string = JSON.stringify(worker);
-        return this.http.post<IUser>(url, body);
-    }
-
-    public setUserResponsible(userId: number): Observable<void> {
-        const url: string = `${this.restUrl}/user/${userId}/SetResponsible`;
-        return this.http.post<void>(url, null);
+        return this.http.post<IUser>(url, worker);
     }
 
     public resetUserPassword(workerId: number): Observable<void> {
@@ -117,12 +112,10 @@ export class AdminPanelService {
 
         return this.http.post<string>(this.restFileUrl, body).toPromise();
     }
-    //#endregion
 
-    //#region BRIGADES
-    public getBrigades(): Observable<IBrigadeAdminPanel[]> {
-        const url: string = `${this.restUrl}/brigades`;
-        return this.http.get<IBrigadeAdminPanel[]>(url);
+    public async deleteWorker(workerId: number): Promise<any> {
+        const url: string = `${this.restUrl}/user/${workerId}`;
+        return this.http.delete(url).toPromise();
     }
     //#endregion
 
@@ -153,16 +146,6 @@ export class AdminPanelService {
         const url: string = `${this.restUrlApi}/ref-book/Unit`;
         return this.http.get<IUnitEvents[]>(url);
     }
-
-    public getAllUnitsWithBrigades(): Observable<IUnitEvents[]> {
-        const url: string = `${this.restUrl}/units/all`;
-        return this.http.get<IUnitEvents[]>(url);
-    }
-
-    public getUnitBrigades(unitId: number): Observable<IBrigadeAdminPanel[]> {
-        const url: string = `${this.restUrl}/brigades/unit/${unitId}`;
-        return this.http.get<IBrigadeAdminPanel[]>(url);
-    }
     //#endregion
 
     //#region GENERAL_CLAIMS
@@ -178,9 +161,9 @@ export class AdminPanelService {
     //#endregion
 
     //#region SPECIAL_CLAIMS
-    public getAllWidgets(): Observable<{ data: IWidgets[] }> {
+    public getAllWidgets(): Observable<{ data: IWidget[] }> {
         const url: string = `${this.restUrl}/claim/getavaible-widgets`;
-        return this.http.get<{ data: IWidgets[] }>(url);
+        return this.http.get<{ data: IWidget[] }>(url);
     }
 
     public getAllSpecialClaims(): Observable<{ data: IGlobalClaim[] }> {
@@ -222,9 +205,16 @@ export class AdminPanelService {
     //#endregion
 
     //#region LDAP
-    public getAllLdapUsers(): Observable<IUserLdapDto[]> {
+    public getAllLdapUsers(
+        login: string,
+        skip: number = 0,
+        take: number = 50,
+        lastSid: string = ''
+    ): Observable<IUserLdapDto[]> {
         const url: string = `${this.restUrl}/ldap/users`;
-        return this.http.get<IUserLdapDto[]>(url);
+        return this.http.get<IUserLdapDto[]>(url, {
+            params: { login, skip: skip.toString(), take: take.toString(), lastSid },
+        });
     }
 
     public getLdapUser(worker: IUserLdap): Observable<IUserLdapDto> {
@@ -236,40 +226,25 @@ export class AdminPanelService {
         const url: string = `${this.restUrl}/ldap/user/${worker.login}/import`;
         return this.http.post<IUserImported>(url, worker);
     }
+
+    public async updateAllLdapUsers(): Promise<void> {
+        const url: string = `${this.restUrl}/ldap/update`;
+        return this.http.post<void>(url, null).toPromise();
+    }
+
     //#endregion
 
     //#endregion
 
     //#region WORKER_METHODS
-
     public setActiveWorker(worker: IUser): void {
         this.activeWorker$.next(worker);
-        if (worker.brigade) {
-            this.setActiveBrigade(worker.brigade.id);
-            const unit = this.getUnitByBrigadeId(worker.brigade.id);
-            if (unit) {
-                this.activeWorkerUnit$.next(unit);
-                this.updateUnitBrigades(unit.id);
-            }
-        } else {
-            this.activeWorkerUnit$.next(null);
-            this.activeUnitBrigades$.next([]);
-        }
     }
 
     public setDefaultActiveWorker(): void {
         const worker = fillDataShape(this.defaultWorker);
         this.activeWorker$.next(worker);
         this.activeWorkerWorkspaces$.next([]);
-        this.activeBrigade$.next(null);
-        this.activeWorkerUnit$.next(null);
-    }
-
-    public setActiveBrigade(brigadeId: number): void {
-        const activeBrigade = this.brigades.find((brigade) => brigade.brigadeId === brigadeId);
-        if (activeBrigade) {
-            this.activeBrigade$.next(activeBrigade);
-        }
     }
 
     public async updateAllWorkers(): Promise<void> {
@@ -277,19 +252,8 @@ export class AdminPanelService {
         this.allWorkers$.next(data);
     }
 
-    public async updateAllBrigades(): Promise<void> {
-        const data: IBrigadeAdminPanel[] = await this.getBrigades().toPromise();
-
-        this.allBrigades$.next(data);
-        this.brigades = data;
-    }
-
     public getPhotoLink(worker: IUser): string {
-        if (worker.photoId) {
-            return `${this.configService.fsUrl}/${worker.photoId}`;
-        } else {
-            return 'assets/icons/widgets/admin/default_avatar2.svg';
-        }
+        return this.avatarConfiguratorService.getAvatarPath(worker?.photoId);
     }
 
     public generateDisplayName(worker: IUser): string {
@@ -302,26 +266,5 @@ export class AdminPanelService {
         }
         return returnedString;
     }
-
-    //#endregion
-
-    //#region BRIGADE_METHODS
-
-    public getUnitByBrigadeId(brigadeId: number): IUnitEvents {
-        const brigade: IBrigadeAdminPanel = this.brigades.find(
-            (item: IBrigadeAdminPanel) => item.brigadeId === brigadeId
-        );
-        return brigade ? brigade.unit : null;
-    }
-
-    public async updateUnitBrigades(unitId: number): Promise<void> {
-        try {
-            const brigades = await this.getUnitBrigades(unitId).toPromise();
-            this.activeUnitBrigades$.next(brigades);
-        } catch (error) {
-            console.error(error);
-        }
-    }
-
     //#endregion
 }

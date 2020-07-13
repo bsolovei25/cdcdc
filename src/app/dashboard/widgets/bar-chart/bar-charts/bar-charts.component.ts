@@ -11,8 +11,11 @@ import { WidgetPlatform } from '../../../models/widget-platform';
 export class BarChartsComponent extends WidgetPlatform implements OnInit, OnDestroy {
     public data: any[] = [];
 
-    public static itemCols: number = 24;
+    public static itemCols: number = 38;
     public static itemRows: number = 10;
+
+    public static minItemCols: number = 10;
+    public static minItemRows: number = 10;
 
     constructor(
         private userSettings: UserSettingsService,
@@ -39,6 +42,6 @@ export class BarChartsComponent extends WidgetPlatform implements OnInit, OnDest
 
     public async onRemoveButton(): Promise<void> {
         await this.userSettings.removeItem(this.uniqId);
-        this.widgetService.removeItemService(this.uniqId);
+        // this.widgetService.removeItemService(this.uniqId);
     }
 }

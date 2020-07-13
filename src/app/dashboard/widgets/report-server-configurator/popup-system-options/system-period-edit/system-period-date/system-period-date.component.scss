@@ -1,0 +1,74 @@
+.container {
+  &__time {
+    display: flex;
+  }
+
+  .arbitraryDate {
+    ::ng-deep {
+      .mat-form-field-infix {
+        width: 140px;
+      }
+
+      .mat-form-field-underline {
+        display: none;
+      }
+
+      input {
+        border-bottom: 0;
+      }
+
+      .mat-icon {
+        margin-top: -10px;
+      }
+    }
+  }
+
+  .time {
+    margin-top: -15px;
+    ::ng-deep {
+      .mat-form-field {
+        line-height: 1.55;
+      }
+      .mat-form-field-infix label {
+        font-size: 10px;
+        color: var(--color-text-sub);
+      }
+
+      mat-icon {
+        margin-top: 20px;
+      }
+    }
+  }
+
+  ::ng-deep {
+
+
+    .mat-form-field-underline {
+      display: none;
+    }
+
+    mat-label {
+      font-size: 12px;
+      color: var(--color-text-sub);
+    }
+
+    .mat-form-field-infix {
+      input{
+        border-bottom: 1px solid white !important;
+      }
+    }
+
+    .month ::ng-deep  .mat-icon{
+      margin-top: -25px;
+    }
+
+    .day ::ng-deep  .mat-icon{
+      margin-top: -25px;
+    }
+
+    .year ::ng-deep  .mat-icon{
+      margin-top: -25px;
+    }
+  }
+}
+

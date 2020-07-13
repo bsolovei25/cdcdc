@@ -1,13 +1,24 @@
-<div class="cards">
-  <ng-container *ngFor="let workspace of allWorkspaces">
-    <evj-aws-workspace-card
-      *ngIf="isValidWorkspaceName(workspace.screenName)"
-      [isActive]="defineIsWorkspaceActive(workspace)"
-      [workspace]="workspace"
-      [workerScreens]="workerScreens"
-      [workerSpecialClaims]="workerSpecialClaims"
-      [isChangingCardState]="true"
-      (changingSelect)="onChangeFields()"
-    ></evj-aws-workspace-card>
-  </ng-container>
+<div class="cards__search">
+  <div class="search">
+    <evj-input
+      class="insert-component"
+      [options]="inputOptions"
+      [(ngModel)]="searchingWorkspaceValue"
+    ></evj-input>
+  </div>
+</div>
+<div class="container">
+  <div class="cards">
+    <ng-container *ngFor="let workspace of allWorkspaces">
+      <evj-aws-workspace-card
+        *ngIf="isValidWorkspaceName(workspace.screenName)"
+        [isActive]="defineIsWorkspaceActive(workspace)"
+        [workspace]="workspace"
+        [workerScreens]="workerScreens"
+        [workerSpecialClaims]="workerSpecialClaims"
+        [isChangingCardState]="true"
+        (changingSelect)="onChangeFields()"
+      ></evj-aws-workspace-card>
+    </ng-container>
+  </div>
 </div>

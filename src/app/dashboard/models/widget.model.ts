@@ -10,7 +10,7 @@ export class WidgetModel {
     id: number;
 }
 
-export interface IWidgets {
+export interface IWidget {
     code: string;
     id: string;
     name: string;
@@ -19,6 +19,8 @@ export interface IWidgets {
     widgetOptions?: LineChartOptions;
     widgetType: string;
     categories?: string[];
+    isClaim: boolean;
+    isVideoWall?: boolean;
 }
 
 export interface RingFactoryWidget {

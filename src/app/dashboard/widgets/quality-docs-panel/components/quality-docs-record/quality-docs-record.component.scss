@@ -1,0 +1,143 @@
+.docs-record-container {
+  background-color: var(--color-oil-table-ref);
+  border-bottom: 2px solid var(--color-bg-main);
+  width: calc(100% - 5px);
+
+  &__block-info {
+    display: flex;
+    width: 100%;
+    position: relative;
+    height: auto;
+    text-align: center;
+    align-items: center;
+    font-size: 12px;
+    cursor: pointer;
+    .short {
+      width: 6%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .middle {
+      width: 10%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .big {
+      width: 20%;
+      line-height: 15px;
+    }
+
+    .key {
+      position: relative;
+      width: 2%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-left: -7px;
+
+      svg-icon {
+        display: none;
+      }
+    }
+
+    .key-blocked {
+      position: relative;
+      width: 2%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      svg-icon {
+        display: none;
+      }
+    }
+
+    .pasport {
+      display: flex;
+
+      &__icon {
+        width: 50%;
+      }
+
+      &__name {
+        width: 50%;
+      }
+    }
+
+    .creator {
+      text-align: left;
+      line-height: 15px;
+    }
+
+    //TOOLTIP
+
+    [data-tooltip]::after {
+      content: attr(data-tooltip);
+      position: absolute;
+      width: 100px;
+      left: 0;
+      top: 30%;
+      background: var(--color-bg-main);
+      color: #fff;
+      padding: 0.5em;
+      box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+      pointer-events: none;
+      opacity: 0;
+      height: 20px;
+      line-height: 20px;
+      transition: 0.5s;
+    }
+
+    [data-tooltip]:hover::after {
+      opacity: 1;
+      left: -10em;
+    }
+  }
+
+  &:hover {
+    background: var(--color-bg-active);
+    border-radius: 25px;
+    margin: 0 auto;
+    margin-left: 0;
+    transition: 0.8s;
+
+    .docs-record-container__block-info {
+      .key {
+        svg-icon {
+          display: block;
+        }
+
+        &:hover svg-icon {
+          ::ng-deep .a1c245c4-44cc-4568-94d9-b50e5870c9e2 {
+            fill: var(--color-active);
+          }
+        }
+        cursor: pointer;
+      }
+
+      .key-blocked {
+        cursor: pointer;
+        svg-icon {
+          display: block;
+        }
+
+        &:hover svg-icon {
+          ::ng-deep .be158748-3c36-4357-a57b-9d1074410248 {
+            fill: var(--color-active);
+          }
+        }
+      }
+    }
+  }
+}
+
+.block-active {
+  background: var(--color-bg-active);
+  border-radius: 25px;
+  margin: 0 auto;
+  margin-left: 0;
+}

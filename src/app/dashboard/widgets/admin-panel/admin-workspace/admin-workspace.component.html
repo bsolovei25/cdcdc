@@ -3,9 +3,8 @@
     <div class="workspace__search">
       <evj-input
         class="insert-component"
-        [placeholder]="'Введите название рабочей области'"
-        [iconSrc]="searchIcon"
-        (inputedValue)="onInput($event)"
+        [options]="inputOptions"
+        [(ngModel)]="searchValue"
         *ngIf="isWorkspaceActive && workspaces.length!==0"
       ></evj-input>
     </div>

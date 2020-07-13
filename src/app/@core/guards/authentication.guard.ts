@@ -10,16 +10,17 @@ import {
     Route,
     UrlSegment,
     UrlTree,
-    Navigation,
+    Navigation, ActivatedRoute
 } from '@angular/router';
 import { AuthService } from '@core/service/auth.service';
+import { Observable } from 'rxjs';
 // Local modules
 
 @Injectable({
     providedIn: 'root', // singleton service
 })
 export class AuthenticationGuard implements CanLoad, CanActivate, CanActivateChild {
-    constructor(private authService: AuthService, private router: Router) { }
+    constructor(private authService: AuthService, private route: ActivatedRoute) { }
 
     private async authenticationCheck(
         route: Route | ActivatedRouteSnapshot,
@@ -45,7 +46,11 @@ export class AuthenticationGuard implements CanLoad, CanActivate, CanActivateChi
         route: ActivatedRouteSnapshot,
         routerState: RouterStateSnapshot
     ): Promise<boolean | UrlTree> {
-        return true;
+        console.log(Object.keys(route.queryParams));
+        if (Object.keys(route?.queryParams)?.length > 0) {
+            localStorage.setItem('queryParams', JSON.stringify(route.queryParams));
+        }
+        return this.authenticationCheck(route, null, true);
     }
 
     async canActivateChild(

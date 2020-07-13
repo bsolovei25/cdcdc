@@ -11,8 +11,6 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { AngularSvgIconModule } from 'angular-svg-icon';
-import { PasswordResetComponent } from './pages/reset-password/password-reset.component';
-import { OverlayModule } from '@angular/cdk/overlay';
 
 @NgModule({
     imports: [
@@ -28,15 +26,7 @@ import { OverlayModule } from '@angular/cdk/overlay';
         MatSnackBarModule,
         MatProgressSpinnerModule,
         AngularSvgIconModule,
-        OverlayModule
     ],
-    declarations: [
-        LoginComponent,
-        PasswordResetComponent
-    ],
-    entryComponents: [
-        PasswordResetComponent
-    ],
-    providers: [],
+    declarations: [LoginComponent],
 })
-export class CoreModule { }
+export class CoreModule {}

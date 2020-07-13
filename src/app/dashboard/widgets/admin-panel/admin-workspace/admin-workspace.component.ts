@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { IWorkspace } from '../../../models/admin-panel';
 import { AdminPanelService } from '../../../services/admin-panel/admin-panel.service';
 import { Subscription } from 'rxjs';
+import { IInputOptions } from '../../../../@shared/models/input.model';
 
 @Component({
     selector: 'evj-admin-workspace',
@@ -11,9 +12,21 @@ import { Subscription } from 'rxjs';
 export class AdminWorkspaceComponent implements OnInit, OnDestroy {
     public isWorkspaceActive: boolean = true;
 
-    public searchValue: string = '';
+    //#region SEARCH_REGION
+    public inputOptions: IInputOptions = {
+        type: 'text',
+        state: 'normal',
+        placeholder: 'Введите наименование рабочей области',
+        isMovingPlaceholder: true,
+        icon: {
+            src: 'assets/icons/search-icon.svg',
+            svgStyle: { 'width.px': 17, 'height.px': 17 },
+            isClickable: false,
+        },
+    };
 
-    public searchIcon: string = 'assets/icons/search-icon.svg';
+    public searchValue: string = '';
+    //#endregion
 
     public workspaces: IWorkspace[] = [];
 
@@ -33,10 +46,6 @@ export class AdminWorkspaceComponent implements OnInit, OnDestroy {
 
     public ngOnDestroy(): void {
         this.subscriptions.forEach((subs: Subscription) => subs.unsubscribe());
-    }
-
-    public onInput(inputVal: string): void {
-        this.searchValue = inputVal;
     }
 
     public onSearchWorkspace(workspaceName: string): boolean {

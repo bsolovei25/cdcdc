@@ -1,4 +1,4 @@
-import { Component, ElementRef, AfterViewInit, ViewChild, Inject, OnDestroy } from '@angular/core';
+import { Component, ElementRef, ViewChild, Inject, OnDestroy, OnInit } from '@angular/core';
 import { WidgetService } from '../../services/widget.service';
 import { RingEnegryIndicatorModel } from '../../models/ring-energy-indicator';
 import { WidgetPlatform } from '../../models/widget-platform';
@@ -11,13 +11,15 @@ declare var d3: any;
     styleUrls: ['./ring-energy-indicator.component.scss'],
 })
 export class RingEnergyIndicatorComponent extends WidgetPlatform
-    implements AfterViewInit, OnDestroy {
+    implements OnInit, OnDestroy {
     @ViewChild('circleFactory') CircleFactory: ElementRef;
 
     public readonly RADIUS: number = 50;
 
-    static itemCols: number = 12;
-    static itemRows: number = 8;
+    public static itemCols: number = 8;
+    public static itemRows: number = 10;
+    public static minItemCols: number = 8;
+    public static minItemRows: number = 10;
 
     public pic: string;
 
@@ -35,7 +37,7 @@ export class RingEnergyIndicatorComponent extends WidgetPlatform
         this.widgetIcon = 'zipper';
     }
 
-    ngAfterViewInit(): void {
+    ngOnInit(): void {
         super.widgetInit();
     }
 

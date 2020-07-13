@@ -3,11 +3,10 @@ import { AuthService } from '@core/service/auth.service';
 import { Router } from '@angular/router';
 import { IUser } from '../../models/events-widget';
 import { Subscription } from 'rxjs';
-import { Overlay, OverlayConfig, OverlayRef } from '@angular/cdk/overlay';
-import { ComponentPortal } from '@angular/cdk/portal';
-import { PasswordResetComponent } from '../../../@core/pages/reset-password/password-reset.component';
 import { AppConfigService } from '../../../services/appConfigService';
 import { OverlayService } from '../../services/overlay.service';
+import { AvatarConfiguratorService } from '../../services/avatar-configurator.service';
+import { IAlertPasswordModel } from '../../../@shared/models/alert-password.model';
 
 @Component({
     selector: 'evj-user-info',
@@ -23,27 +22,25 @@ export class UserInfoComponent implements OnInit, OnDestroy {
         middleName: '',
         brigade: { id: 0, number: '' },
         positionDescription: '',
+        isShiftWorker: false,
     };
 
     public photoPath: string = 'assets/icons/widgets/admin/default_avatar2.svg';
-    private defaultAvatarPath: string = 'assets/icons/widgets/admin/default_avatar2.svg';
-    private fsUrl: string = '';
-
-    private overlayRef: OverlayRef | null;
 
     isShowScreens: boolean = false;
     subscription: Subscription;
 
-    constructor(private authService: AuthService, private router: Router, public overlay: Overlay,
-        public viewContainerRef: ViewContainerRef, private configService: AppConfigService,
-        public myOverlayService: OverlayService,
-    ) {
-        this.fsUrl = this.configService.fsUrl;
-    }
+    constructor(
+        private authService: AuthService,
+        private router: Router,
+        public viewContainerRef: ViewContainerRef,
+        private configService: AppConfigService,
+        public overlayService: OverlayService,
+        private avatarConfiguratorService: AvatarConfiguratorService
+    ) {}
 
     ngOnInit(): void {
         this.loadData();
-        this.myOverlayService.closed$.subscribe((val) => this.closeOverlay(val));
     }
 
     ngOnDestroy(): void {
@@ -54,35 +51,22 @@ export class UserInfoComponent implements OnInit, OnDestroy {
 
     async loadData(): Promise<void> {
         this.subscription = this.authService.user$.subscribe((data: IUser) => {
-            if (data) {
-                this.data = data;
-                if (this.data.photoId) {
-                    this.photoPath = `${this.fsUrl}/${this.data.photoId}`;
-                } else {
-                    this.photoPath = this.defaultAvatarPath;
-                }
+            if (!data) {
+                return;
             }
+            this.data = data;
+            this.photoPath = this.avatarConfiguratorService.getAvatarPath(this.data.photoId);
         });
     }
 
-    resetPassword() {
-        let config = new OverlayConfig();
-        config.positionStrategy = this.overlay.position()
-            .global()
-            .centerHorizontally()
-            .centerVertically();
-        config.hasBackdrop = true;
-        this.overlayRef = this.overlay.create(config);
-        this.overlayRef.backdropClick().subscribe(() => {
-            this.overlayRef.dispose();
-        });
-        this.overlayRef.attach(new ComponentPortal(PasswordResetComponent, this.viewContainerRef));
+    resetPassword(): void {
+        const passwordOptions: IAlertPasswordModel = {
+            isShow: true,
+            isCreatePassword: false,
+            closeFunction: () => this.overlayService.dashboardAlertPassword$.next(null),
+        };
+        this.overlayService.dashboardAlertPassword$.next(passwordOptions);
     }
-
-    closeOverlay(value) {
-        value ? this.overlayRef.dispose() : null;
-    }
-
 
     async logOut(): Promise<void> {
         await this.authService.logOut();

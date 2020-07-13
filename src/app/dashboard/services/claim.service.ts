@@ -15,6 +15,7 @@ export enum EnumClaimScreens {
     add = 'add',
     edit = 'edit',
     delete = 'delete',
+    report = 'report',
 }
 
 export interface IClaimAll {
@@ -43,12 +44,12 @@ export class ClaimService {
 
     constructor(public http: HttpClient, configService: AppConfigService) {
         this.restUrl = configService.restUrl;
-        this.getClaim();
     }
 
     public setClaimsByScreen(claims: IClaim[]): void {
+        console.log(claims);
         const claimsWidget: EnumClaimWidgets[] = [];
-        claims.forEach((claim) => {
+        claims?.forEach((claim) => {
             switch (claim.claimType) {
                 case 'screenWidgetAdd':
                 case 'screensWidgetAdd':
@@ -64,6 +65,7 @@ export class ClaimService {
                     claimsWidget.push(EnumClaimWidgets.move);
                     break;
                 case 'screenAdmin':
+                case 'screensAdmin':
                     claimsWidget.push(EnumClaimWidgets.add);
                     claimsWidget.push(EnumClaimWidgets.delete);
                     claimsWidget.push(EnumClaimWidgets.move);
@@ -71,42 +73,29 @@ export class ClaimService {
                     break;
             }
         });
-        console.log(claimsWidget);
         this.claimWidgets$.next(claimsWidget);
     }
 
-    private async getClaim(): Promise<void> {
-        // this.claimWidgets$.next([
-        //     // EnumClaimWidgets.delete, // TODO
-        //     EnumClaimWidgets.move,
-        //     EnumClaimWidgets.resize,
-        //     EnumClaimWidgets.add,
-        // ]);
-        // this.claimScreens$.next([
-        //     EnumClaimScreens.add,
-        //     EnumClaimScreens.edit,
-        //     EnumClaimScreens.delete,
-        // ]);
+    public async getClaim(): Promise<void> {
         const allUserClaims = await this.getClaimAll();
-        console.log(allUserClaims);
         const claimsScreen: EnumClaimScreens[] = [];
-        let i: number = 0;
         allUserClaims.data.forEach((claim) => {
             switch (claim.claimType) {
                 case 'screensAdmin':
                 case 'screensAdd':
                     claimsScreen.push(EnumClaimScreens.add);
                     break;
+                case 'reportsView':
+                    claimsScreen.push(EnumClaimScreens.report);
+                    break;
             }
-            i++;
         });
-        console.log(claimsScreen);
         this.claimScreens$.next(claimsScreen);
     }
 
     async getClaimAll(): Promise<{ data: IClaim[] }> {
         try {
-            return this.http
+            return await this.http
                 .get<{ data: IClaim[] }>(this.restUrl + `/api/user-management/claim/all`)
                 .toPromise();
         } catch (error) {

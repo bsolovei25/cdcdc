@@ -1,7 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { IWorkerOptionAdminPanel } from '../../../../models/admin-panel';
 import { IUser, IUnitEvents } from '../../../../models/events-widget';
-import { IBrigade } from '../../../../models/shift.model';
 import { AdminPanelService } from '../../../../services/admin-panel/admin-panel.service';
 
 @Component({
@@ -11,13 +10,11 @@ import { AdminPanelService } from '../../../../services/admin-panel/admin-panel.
 })
 export class AwsFieldsComponent implements OnInit {
     @Input() public worker: IUser = null;
-    @Input() public workerUnit: IUnitEvents = null;
     @Input() private searchingFieldName: string = '';
     @Input() public isCreateNewUser: boolean = false;
     @Input() public isImportNewWorker: boolean = false;
 
-    @Output() private workerData: EventEmitter<IUnitEvents> = new EventEmitter<IUnitEvents>();
-    @Output() private responsible: EventEmitter<boolean> = new EventEmitter<boolean>();
+    @Output() private workerData: EventEmitter<void> = new EventEmitter<void>();
     @Output() private password: EventEmitter<boolean> = new EventEmitter<boolean>();
 
     public inputOptions: IWorkerOptionAdminPanel[];
@@ -49,6 +46,11 @@ export class AwsFieldsComponent implements OnInit {
                     key: 'middleName',
                 },
                 {
+                    name: 'Отдел',
+                    value: this.worker.department,
+                    key: 'department',
+                },
+                {
                     name: 'Должность',
                     value: this.worker.positionDescription,
                     key: 'positionDescription',
@@ -64,28 +66,21 @@ export class AwsFieldsComponent implements OnInit {
                     key: 'email',
                 },
             ];
-            const unit: IUnitEvents = this.worker.brigade
-                ? this.adminService.getUnitByBrigadeId(this.worker.brigade.id)
-                : null;
+            const unit: IUnitEvents = this.adminService.units.find(
+                (item) => item.id === this.worker.unitId
+            );
             this.selectOptions = [
                 {
                     name: 'Установка',
                     value: unit ? unit.name : null,
                     key: 'unit',
                 },
-                {
-                    name: 'Бригада',
-                    value: this.worker.hasOwnProperty('brigade')
-                        ? this.worker.brigade.number
-                        : null,
-                    key: 'brigade',
-                },
             ];
         }
     }
 
     public isValidFieldName(fieldName: string): boolean {
-        return fieldName.toLowerCase().includes(this.searchingFieldName);
+        return fieldName.toLowerCase().includes(this.searchingFieldName.toLowerCase());
     }
 
     public isDisabledField(fieldKey: string): boolean {
@@ -95,6 +90,8 @@ export class AwsFieldsComponent implements OnInit {
                 case 'firstName':
                 case 'lastName':
                 case 'email':
+                case 'department':
+                case 'positionDescription':
                     return true;
             }
         } else if (!this.isCreateNewUser) {
@@ -106,50 +103,18 @@ export class AwsFieldsComponent implements OnInit {
         return false;
     }
 
-    public setWorkerPosition(): string {
-        if (this.worker.position) {
-            return this.worker.position;
-        }
-        return 'common';
-    }
-
     public onFieldChanging(event: IWorkerOptionAdminPanel): void {
         this.worker[event.key] = event.value;
-        this.workerData.emit(this.workerUnit);
+        this.workerData.emit();
     }
 
     public onSelectUnit(unit: IUnitEvents): void {
-        this.workerUnit = unit;
-        if (unit) {
-            this.adminService.updateUnitBrigades(unit.id);
-            this.worker.position = 'common';
-        } else {
-            this.onSelectBrigade(null);
-        }
-        this.workerData.emit(this.workerUnit);
-    }
-
-    public onSelectBrigade(brigade: IBrigade): void {
-        if (brigade) {
-            this.worker.brigade = { id: brigade.id, number: brigade.number.toString() };
-            return;
-        }
-
-        if (this.worker.hasOwnProperty('brigade')) {
-            delete this.worker.brigade;
-            this.worker.position = 'common';
-        }
-        this.workerData.emit(this.workerUnit);
-    }
-
-    public onSetResponsible(event: boolean): void {
-        this.responsible.emit(event);
+        this.worker.unitId = unit?.id ?? null;
+        this.workerData.emit();
     }
 
     public textPasswordButton(): string {
-        return this.isCreateNewUser || (this.isImportNewWorker && !this.worker.id)
-            ? 'Добавить пароль'
-            : 'Сбросить пароль';
+        return this.isCreateNewUser ? 'Добавить пароль' : 'Сбросить пароль';
     }
 
     public onSetPassword(): void {
@@ -158,5 +123,10 @@ export class AwsFieldsComponent implements OnInit {
         } else {
             this.password.emit(true);
         }
+    }
+
+    public onSetShift(isShiftWorker: boolean): void {
+        this.worker.isShiftWorker = isShiftWorker;
+        this.workerData.emit();
     }
 }

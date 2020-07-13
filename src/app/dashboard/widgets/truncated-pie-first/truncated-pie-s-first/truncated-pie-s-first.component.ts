@@ -8,8 +8,10 @@ import { WidgetPlatform } from 'src/app/dashboard/models/widget-platform';
     styleUrls: ['./truncated-pie-s-first.component.scss'],
 })
 export class TruncatedPieSFirstComponent extends WidgetPlatform implements OnInit, OnDestroy {
-    static itemCols: number = 15;
-    static itemRows: number = 17;
+    public static itemCols: number = 16;
+    public static itemRows: number = 12;
+    public static minItemCols: number = 16;
+    public static minItemRows: number = 12;
 
     public datas: any = [
         { name: 'Статическое Оборудование 1', plan: 5, value: 28 },

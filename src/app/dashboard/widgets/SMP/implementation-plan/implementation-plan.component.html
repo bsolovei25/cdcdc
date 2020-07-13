@@ -1,0 +1,35 @@
+<evj-widget-preview [title]="widgetTitle" [icon]="widgetIcon" [previewTitle]="widgetType" *ngIf="isMock">
+</evj-widget-preview>
+<ng-container *ngIf="!isMock">
+  <div class="container">
+    <evj-widget-header-smp [uniqId]="uniqId" (mouseenter)="onMouseEnter()" (mouseleave)="onMouseExit()" *ngIf="isHover">
+    </evj-widget-header-smp>
+    <div class="frame-top"></div>
+    <div class="content" (mouseenter)="onMouseEnter()" (mouseleave)="onMouseExit()"
+      (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
+      <div class="block-fabric">
+        <div class="icon active-icon">
+          <svg-icon src="assets/icons/widgets/SMP/fabric.svg" [svgStyle]="{ 'width.px':50, 'height.px':30}">
+          </svg-icon>
+          <div class="icon__text">МНПЗ</div>
+        </div>
+        <div class="icon">
+          <svg-icon src="assets/icons/widgets/SMP/fabric.svg" [svgStyle]="{ 'width.px':50, 'height.px':30}">
+          </svg-icon>
+          <div class="icon__text">ОНПЗ</div>
+        </div>
+        <div class="icon">
+          <svg-icon src="assets/icons/widgets/SMP/fabric.svg" [svgStyle]="{ 'width.px':50, 'height.px':30}">
+          </svg-icon>
+          <div class="icon__text">ЯНОС</div>
+        </div>
+      </div>
+      <div class="block-pie">
+        <ng-container *ngFor="let item of data">
+          <evj-implementations [data]='item'></evj-implementations>
+        </ng-container>
+      </div>
+    </div>
+    <div class="frame-bottom"></div>
+  </div>
+</ng-container>

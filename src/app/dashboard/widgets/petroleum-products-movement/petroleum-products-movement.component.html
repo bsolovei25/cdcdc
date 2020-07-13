@@ -1,4 +1,4 @@
-<evj-widget-preview [title]="widgetTitle" [previewTitle]="" *ngIf="isMock"></evj-widget-preview>
+<evj-widget-preview [title]="widgetTitle" [previewTitle]="widgetType" *ngIf="isMock"></evj-widget-preview>
 
 <div style="height: 100%; width: 100%;" *ngIf="!isMock">
   <evj-widget-header
@@ -16,6 +16,7 @@
       (touchstart)="$event.stopPropagation()"
     >
       <evj-loading-shade [isLoading]="petroleumService.isLoad$ | async"></evj-loading-shade>
+      <evj-alert-window [info]="petroleumService.alertWindow$ | async"></evj-alert-window>
       <div class="blocks">
         <div class="components">
           <div class="left_block">
@@ -26,11 +27,6 @@
             </evj-petroleum-reference-left>
           </div>
           <div class="middle_block">
-            <!--            <evj-petroleum-reference-->
-            <!--              [typeScreen]="typeScreen"-->
-            <!--              [updateParamBlock]="isUpdateParamButton"-->
-            <!--              (exitBlock)="onReturn($event)"-->
-            <!--            ></evj-petroleum-reference>  -->
             <evj-petroleum-reference [typeScreen]="typeScreen"></evj-petroleum-reference>
           </div>
           <div class="right_block">

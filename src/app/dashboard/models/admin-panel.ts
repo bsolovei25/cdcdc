@@ -1,12 +1,12 @@
-import { IUser, IUnitEvents } from './events-widget';
-import { IWidgets } from './widget.model';
+import { IUser } from './events-widget';
+import { IWidget } from './widget.model';
 import { IWorker } from './worker';
 import { IBrigade } from './shift.model';
 
 export interface IAdminPanel {
     person: IUser;
     workspaces: IWorkspace[];
-    availableWidgets: IWidgets[];
+    availableWidgets: IWidget[];
     claims: IClaim[];
 }
 
@@ -31,13 +31,6 @@ export interface IScreen {
 
 export interface IButtonImgSrc {
     btnIconSrc: string;
-}
-
-export interface IBrigadeAdminPanel {
-    brigadeId: number;
-    brigadeNumber: string;
-    users: IUser[];
-    unit?: IUnitEvents;
 }
 
 export interface IWorkerAdminPanel {
@@ -69,6 +62,7 @@ export interface IGlobalClaim {
     specification?: string;
     claimValueType?: string;
     value?: string;
+    additionalType?: string;
 }
 
 export interface IUserLdap {
@@ -79,6 +73,7 @@ export interface IUserLdap {
     userPrincipalName?: string;
     samAccountName?: string;
     sid: string;
+    department: string;
 }
 
 export interface IUserImported {

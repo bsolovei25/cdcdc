@@ -1,18 +1,13 @@
 <div class="search">
   <evj-search-input
-    [data]="typeWidgetChoose"
-    [dataWidget]="widgets"
-    (onCheck)="onCheck($event)"
+    (visibleFilter)="onVisibleFilter($event)"
     [isReport]="isReport"
-    (searchReport)="searchReports($event)"
+    (search)="searchInput($event)"
+    [panelActive]="panelActive"
   ></evj-search-input>
 </div>
-<ng-container *ngIf="!checkClick && newArrayType !== undefined">
+<ng-container *ngIf="isVisibleFilter">
   <div class="result_block">
-    <evj-search-filter
-      [data]="newArrayType"
-      (onFilterMass)="onFilterMass($event)"
-      [arrayClick]="newArrayClick"
-    ></evj-search-filter>
+    <evj-search-filter [data]="arrayType"></evj-search-filter>
   </div>
 </ng-container>

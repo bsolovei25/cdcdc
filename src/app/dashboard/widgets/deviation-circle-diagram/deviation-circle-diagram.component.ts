@@ -31,8 +31,10 @@ export class DeviationCircleDiagramComponent extends WidgetPlatform implements O
     public radius: string = '19';
     public radPoint: string = '0.8';
 
-    public static itemCols: number = 10;
-    public static itemRows: number = 8;
+    public static itemCols: number = 12;
+    public static itemRows: number = 9;
+    public static minItemCols: number = 9;
+    public static minItemRows: number = 8;
 
     constructor(
         protected widgetService: WidgetService,

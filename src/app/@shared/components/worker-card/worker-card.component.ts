@@ -1,8 +1,7 @@
 import { Component, OnInit, Input, OnChanges } from '@angular/core';
-import { IWorker } from '../../../dashboard/models/worker';
-import { IUser, IUnitEvents } from '../../../dashboard/models/events-widget';
+import { IUser } from '../../../dashboard/models/events-widget';
 import { AdminPanelService } from '../../../dashboard/services/admin-panel/admin-panel.service';
-import { AppConfigService } from '../../../services/appConfigService';
+import { AvatarConfiguratorService } from '../../../dashboard/services/avatar-configurator.service';
 
 @Component({
     selector: 'evj-worker-card',
@@ -13,10 +12,11 @@ export class WorkerCardComponent implements OnInit, OnChanges {
     @Input() public person: IUser = null;
     @Input() public isSmallCard: boolean = false;
     @Input() public isActiveCard: boolean = false;
+    @Input() public position: 'responsible' | 'common'; // нужно в расписании смен
+
+    public readonly phoneRegExp: RegExp = /[0-9]{10}/;
 
     public photoPath: string = 'assets/icons/widgets/admin/default_avatar2.svg';
-
-    private defaultAvatarPath: string = 'assets/icons/widgets/admin/default_avatar2.svg';
 
     public srcCardNormal: string = 'assets/icons/widgets/admin/card-small.svg';
     public srcCardActive: string = 'assets/icons/widgets/admin/card-small-active.svg';
@@ -25,26 +25,15 @@ export class WorkerCardComponent implements OnInit, OnChanges {
     public mainWorkerPathDisable: string =
         'assets/icons/widgets/admin/responsible_icon-disable.svg';
 
-    public personsUnit: IUnitEvents = null;
+    constructor(
+        private adminService: AdminPanelService,
+        private avatarConfiguratorService: AvatarConfiguratorService
+    ) {}
 
-    private fsUrl: string = '';
-
-    constructor(private adminService: AdminPanelService, private configService: AppConfigService) {
-        this.fsUrl = this.configService.fsUrl;
-    }
-
-    public ngOnInit(): void {
-        if (!this.isSmallCard) {
-            this.adminService.activeWorkerUnit$.subscribe((unit) => (this.personsUnit = unit));
-        }
-    }
+    public ngOnInit(): void {}
 
     public ngOnChanges(): void {
-        if (this.person?.photoId) {
-            this.photoPath = `${this.fsUrl}/${this.person?.photoId}`;
-        } else {
-            this.photoPath = this.defaultAvatarPath;
-        }
+        this.photoPath = this.avatarConfiguratorService.getAvatarPath(this.person?.photoId);
     }
 
     public getPersonName(): string {
@@ -67,13 +56,28 @@ export class WorkerCardComponent implements OnInit, OnChanges {
     }
 
     public checkPersonResponsibility(): boolean {
-        return this.person.position === 'responsible';
+        if (this.position) {
+            return this.position === 'responsible';
+        } else {
+            return this.person.position === 'responsible';
+        }
     }
 
     public getPersonUnit(): string {
-        if (this.personsUnit) {
-            return `${this.personsUnit.name}`;
+        if (this.person.unitId) {
+            return `${this.adminService.units.find((item) => item.id === this.person.unitId).name}`;
         }
         return 'Установка не выбрана';
+    }
+
+    public wrapLongString(str: string): string {
+        let outputString: string = str;
+        const maxLength: number = 30;
+
+        if (str.length > maxLength) {
+            outputString = `${str.slice(0, maxLength)}...`;
+        }
+
+        return outputString;
     }
 }

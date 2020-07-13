@@ -1,10 +1,11 @@
 // Angular
 import { Component, OnInit, AfterViewInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { NavigationEnd, Router } from '@angular/router';
 import { AuthService } from '@core/service/auth.service';
 import { environment } from 'src/environments/environment';
 import { FormControl, Validators } from '@angular/forms';
 import { PreloaderService } from '../../service/preloader.service';
+import { IInputOptions } from '../../../@shared/models/input.model';
 // Angular material
 // Local modules
 
@@ -14,8 +15,8 @@ import { PreloaderService } from '../../service/preloader.service';
     templateUrl: './login.component.html',
 })
 export class LoginComponent implements OnInit, AfterViewInit {
-    username: FormControl = new FormControl(environment.username, [Validators.required]);
-    password: FormControl = new FormControl(environment.password, [Validators.required]);
+    username: FormControl = new FormControl(environment.username, Validators.required);
+    password: FormControl = new FormControl(environment.password, Validators.required);
 
     isLoadingData: boolean = false;
     isLoading: boolean = true;
@@ -23,11 +24,44 @@ export class LoginComponent implements OnInit, AfterViewInit {
 
     swing: boolean = false;
 
+    public loginOptions: IInputOptions = {
+        type: 'text',
+        state: 'normal',
+        placeholder: 'Логин',
+        isMovingPlaceholder: true,
+    };
+
+    public passwordOptions: IInputOptions = {
+        type: 'password',
+        state: 'normal',
+        placeholder: 'Пароль',
+        isMovingPlaceholder: true,
+        icon: {
+            src: 'assets/icons/login/visibility_off.svg',
+            svgStyle: { 'width.px': 20, 'height.px': 20 },
+            isClickable: true,
+            onClick: () => {
+                [this.passwordOptions.icon.src, this.passwordOptions.icon.secState] = [
+                    this.passwordOptions.icon.secState,
+                    this.passwordOptions.icon.src,
+                ];
+                this.passwordOptions.type =
+                    this.passwordOptions.type === 'text' ? 'password' : 'text';
+            },
+            secState: 'assets/icons/login/visibility.svg',
+        },
+    };
+
     constructor(
         public authService: AuthService,
         private router: Router,
-        private preLoaderService: PreloaderService
-    ) {}
+        private preLoaderService: PreloaderService,
+    ) {
+        // override the route reuse strategy
+        this.router.routeReuseStrategy.shouldReuseRoute = () => {
+            return false;
+        };
+    }
 
     ngOnInit(): void {
         this.isLoadingData = true;
@@ -54,10 +88,15 @@ export class LoginComponent implements OnInit, AfterViewInit {
                 this.password.value
             );
             if (auth) {
-                this.router.navigate(['dashboard']);
-                setTimeout(() => {
-                    this.isLoadingData = false;
-                }, 1000);
+                this.router.routeReuseStrategy.shouldReuseRoute = () => {
+                    return false;
+                };
+                localStorage.setItem('refresh-dashboard', 'true');
+                await this.router.navigate(['dashboard']);
+                this.isLoadingData = false;
+                // setTimeout(() => {
+                //     this.isLoadingData = false;
+                // }, 1000);
             } else {
                 this.swing = true;
                 this.isLoadingData = false;

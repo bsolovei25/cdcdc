@@ -1,52 +1,24 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { IWidgets } from 'src/app/dashboard/models/widget.model';
+import { Component, Input, EventEmitter, Output } from '@angular/core';
 import { WidgetService } from '../../../services/widget.service';
+import { SelectionModel } from '@angular/cdk/collections';
 
 @Component({
     selector: 'evj-search-filter',
     templateUrl: './search-filter.component.html',
     styleUrls: ['./search-filter.component.scss'],
 })
-export class SearchFilterComponent implements OnInit {
-    @Input() public data;
-    @Input() public arrayClick;
+export class SearchFilterComponent {
+    @Input() public data: string;
 
-    itemId: number;
-    clicked: boolean = false;
+    @Output() filter: EventEmitter<KeyboardEvent> = new EventEmitter<KeyboardEvent>();
 
-    public massFilter = [];
-
-    @Output() onFilterMass = new EventEmitter<any>();
+    selectedFilters: SelectionModel<string> = new SelectionModel<string>(true);
 
     constructor(public widgetService: WidgetService) {}
 
-    ngOnInit() {}
+    public choosenType(item: string): void {
+        this.selectedFilters.toggle(item);
 
-    public choosenType(value, i) {
-        let type = 'filter';
-        this.itemId = i;
-        if (this.arrayClick.indexOf(i) !== -1) {
-            for (let check of this.arrayClick) {
-                if (check === i) {
-                    this.arrayClick.splice(this.arrayClick.indexOf(i), 1);
-                    this.massFilter.splice(this.massFilter.indexOf(value), 1);
-                    this.widgetService.searchItems(this.massFilter, type);
-                }
-            }
-        } else {
-            this.massFilter.push(value);
-            this.arrayClick.push(i);
-            this.clicked = true;
-            this.widgetService.searchItems(this.massFilter, type);
-        }
-
-        if (this.arrayClick.length === 0) {
-            this.widgetService.reEmitList();
-            this.widgetService.searchItems('', 'input');
-        }
-
-        this.onFilterMass.emit(this.arrayClick);
-
-        // this.onSearch.emit(type);
+        this.widgetService.filterWidgets$.next(this.selectedFilters.selected);
     }
 }

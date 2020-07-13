@@ -1,28 +1,28 @@
 import { Injectable } from '@angular/core';
-import { Observable, BehaviorSubject, Subject, of } from 'rxjs';
-import { filter, map, tap, debounceTime, switchMap } from 'rxjs/operators';
+import { Observable, BehaviorSubject } from 'rxjs';
+import { filter, map } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 import { GridsterItem } from 'angular-gridster2';
-import { IWidgets } from '../models/widget.model';
+import { IWidget } from '../models/widget.model';
 import { AppConfigService } from 'src/app/services/appConfigService';
 import { EventsWidgetDataPreview } from '../models/events-widget';
 import { LineChartData } from '../models/line-chart';
-import { IMachine_MI } from '../models/manual-input.model';
 import { WebSocketSubject } from 'rxjs/internal/observable/dom/WebSocketSubject';
 import { webSocket } from 'rxjs/internal/observable/dom/webSocket';
 import { AuthService } from '../../@core/service/auth.service';
 import * as moment from 'moment';
 import { SnackBarService } from './snack-bar.service';
 
-interface IDatesInterval {
+export interface IDatesInterval {
     fromDateTime: Date;
     toDateTime: Date;
 }
 
 interface IWebSocket {
-    actionType: string;
+    actionType: 'authenticate' | 'subscribe' | 'unsubscribe' | 'getPeriodData';
     channelId: string;
     selectedPeriod?: IDatesInterval;
+    token?: string; // Bearer token for authenticate actionType
     data?: any;
 }
 
@@ -35,97 +35,80 @@ export class WidgetService {
     private readonly reconnectInterval: number;
 
     private widgetsSocketObservable: BehaviorSubject<any> = new BehaviorSubject(null);
-    private ws: WebSocketSubject<IWebSocket> = null;
+    public ws: WebSocketSubject<IWebSocket> = null;
 
     public draggingItem: GridsterItem;
-    public isOver = false;
-    // GridsterItem with uniqid that identifies concrete widget
     public dashboard: GridsterItem[] = [];
-    public mass = [];
-    private i = 0;
-    private _widgets$: BehaviorSubject<IWidgets[]> = new BehaviorSubject(null);
-    private _filterWidgets$: BehaviorSubject<IWidgets[]> = new BehaviorSubject(null);
 
-    public searchWidget$ = new Subject<any>();
+    private _widgets$: BehaviorSubject<IWidget[]> = new BehaviorSubject([]);
+    public widgets$: Observable<IWidget[]> = this._widgets$
+        .asObservable()
+        .pipe(filter((item) => item !== null));
+    public widgetsPanel$: Observable<IWidget[]> = this._widgets$
+        .asObservable()
+        .pipe(
+            filter((item) => item !== null),
+            map((widgets) => widgets.filter((widget) => widget.isClaim))
+        );
 
-    private reconnectTimer: any;
+    private reconnectWsTimer: any;
     private reconnectRestTimer: any;
 
-    private _lastSearchValue: string;
-
-    public searchValue: string;
-
-    public searchType;
-
-    public offFilterWidget: any = [];
-
     private currentDates: IDatesInterval = null;
-    public currentDatesObservable: BehaviorSubject<IDatesInterval> = new BehaviorSubject<
-        IDatesInterval
-    >(null);
-
-    public searchWidgetT: Observable<any> = this.searchWidget$.pipe(
-        tap((val) => {
-            this._lastSearchValue = val;
-        }),
-        switchMap(this.Search.bind(this))
-        //   filter(res => res.length > 0),
-        //  switchMap(this.Search.bind(this))
+    public currentDates$: BehaviorSubject<IDatesInterval> = new BehaviorSubject<IDatesInterval>(
+        null
     );
+
+    filterWidgets$: BehaviorSubject<string[]> = new BehaviorSubject<string[]>([]);
+
     constructor(
         public http: HttpClient,
         private authService: AuthService,
-        configService: AppConfigService,
-        private materialController: SnackBarService
+        private configService: AppConfigService,
+        private materialController: SnackBarService,
     ) {
         this.restUrl = configService.restUrl;
         this.wsUrl = configService.wsUrl;
         this.reconnectInterval = configService.reconnectInterval * 1000;
 
-        this.getRest();
-        this.initWS();
-
-        this.currentDatesObservable.subscribe((ref) => {
+        this.currentDates$.subscribe((ref) => {
             this.wsSetParams(ref);
         });
 
         setInterval(() => this.reloadPage(), 1800000);
     }
 
-    public widgets$: Observable<IWidgets[]> = this._widgets$
-        .asObservable()
-        .pipe(filter((item) => item !== null));
-
-    private getAvailableWidgets(): Observable<IWidgets[]> {
+    private getAvailableWidgets(): Observable<IWidget[]> {
         return this.http
             .get(this.restUrl + `/api/user-management/Claim/user/GetAvailableWidgets`)
             .pipe(
-                map((ans: {data: IWidgets[]}) => {
-                    const localeData = this.mapData(ans.data);
-                    this.mass = this.mapData(ans.data);
-                    return localeData;
+                map((ans: { data: IWidget[] }) => {
+                    return this.mapData(ans.data);
                 })
             );
     }
 
+    // Для тестирования скорости работы
     private async getAvailableWidgetsTest(): Promise<void> {
         const arr: number[] = [];
         for (let i = 0; i < 10; i++) {
             const start = new Date().getTime();
             await this.http.get(this.restUrl + `/api/af-service/GetAvailableWidgets`).toPromise();
-            await this.http.get(this.restUrl + `/api/user-management/Claim/user/GetAvailableWidgets`).toPromise();
+            await this.http
+                .get(this.restUrl + `/api/user-management/Claim/user/GetAvailableWidgets`)
+                .toPromise();
             const end = new Date().getTime();
             arr.push(end - start);
         }
         let summ = 0;
-        arr.forEach(el => summ += el);
-        console.log('averageTime: ' + (summ / arr.length));
-        console.log('maxTime: ' + (Math.max.apply(null, arr)));
-        console.log('minTime: ' + (Math.min.apply(null, arr)));
+        arr.forEach((el) => (summ += el));
+        console.log('averageTime: ' + summ / arr.length);
+        console.log('maxTime: ' + Math.max.apply(null, arr));
+        console.log('minTime: ' + Math.min.apply(null, arr));
     }
 
-    mapData(data: IWidgets[]): IWidgets[] {
-        return data.map((item: IWidgets) => {
+    mapData(data: IWidget[]): IWidget[] {
+        return data.map((item: IWidget) => {
             return {
                 code: item.code,
                 id: item.id,
@@ -135,35 +118,32 @@ export class WidgetService {
                 widgetOptions: item.widgetOptions,
                 widgetType: item.widgetType,
                 categories: item.categories,
+                isClaim: item.isClaim,
+                isVideoWall: item.isVideoWall
             };
         });
     }
 
-    getName(idWidg: string): string {
-        let widgetNames: IWidgets | string = this.mass.find((x) => x.id === idWidg);
-        if (widgetNames === undefined || widgetNames === null || widgetNames === '') {
-            widgetNames = 'Нет имени';
-            return widgetNames;
-        } else {
-            if (widgetNames && typeof widgetNames !== 'string') {
-                return widgetNames.widgetType;
-            }
+    getName(widgetId: string): string {
+        const widgetNames: IWidget = this._widgets$.getValue().find((x) => x.id === widgetId);
+        if (widgetNames) {
+            return widgetNames.widgetType;
         }
     }
 
-    removeItemService(uniqid: string) {
-        for (const item of this.dashboard) {
-            if (item.uniqid === uniqid) {
-                this.dashboard.splice(this.dashboard.indexOf(item), 1);
-            }
+    removeItemService(uniqId: string): void {
+        const idx = this.dashboard.findIndex((item) => item.uniqid === uniqId) ?? null;
+        if (idx === null) {
+            return;
         }
+        this.dashboard.splice(idx, 1);
     }
 
-    getWidgetChannel(idWidg) {
-        return this.widgets$.pipe(map((i) => i.find((x) => x.id === idWidg)));
+    getWidgetChannel(widgetId: string): Observable<IWidget> {
+        return this.widgets$.pipe(map((i) => i.find((x) => x.id === widgetId)));
     }
 
-    getWidgetLiveDataFromWS(widgetId, widgetType): any {
+    getWidgetLiveDataFromWS(widgetId: string, widgetType: string): Observable<any> {
         this.wsConnect(widgetId);
         return this.widgetsSocketObservable.pipe(
             filter((ref) => ref && ref.channelId === widgetId),
@@ -174,7 +154,7 @@ export class WidgetService {
     }
 
     private wsConnect(widgetId: string): void {
-        if (this.currentDatesObservable.getValue() !== null) {
+        if (this.currentDates$.getValue() !== null) {
             this.wsPeriodData(widgetId);
         } else {
             this.wsRealtimeData(widgetId);
@@ -192,11 +172,11 @@ export class WidgetService {
         this.ws.next({
             actionType: 'getPeriodData',
             channelId: widgetId,
-            selectedPeriod: this.currentDatesObservable.getValue(),
+            selectedPeriod: this.currentDates$.getValue(),
         });
     }
 
-    private wsDisonnect(widgetId: string): void {
+    public wsDisconnect(widgetId: string): void {
         this.ws.next({
             actionType: 'unsubscribe',
             channelId: widgetId,
@@ -238,14 +218,23 @@ export class WidgetService {
             case 'shift-accept':
             case 'column-chart-stacked':
             case 'events-workspace':
+            case 'implementation-plan':
+            case 'performance-progress-indicators':
+            case 'quality-stock':
+            case 'product-groups':
+            case 'product-groups-short':
+            case 'tank-information':
             case 'table-data':
+            case 'deviations-table':
+            case 'triggering-critical-parameters':
+            case 'production-trend':
+            case 'production-deviations':
                 return data;
         }
         console.warn(`unknown widget type ${widgetType}`);
     }
 
     private mapEventsWidgetDataPreview(data: EventsWidgetDataPreview): EventsWidgetDataPreview {
-        // data.notification.forEach((n) => (n.eventDateTime = new Date(n.eventDateTime)));
         data.notification.eventDateTime = new Date(data.notification.eventDateTime);
         return data;
     }
@@ -257,7 +246,7 @@ export class WidgetService {
         return data;
     }
 
-    private getRest(): void {
+    public getRest(): void {
         this.getAvailableWidgets().subscribe(
             (data) => {
                 this._widgets$.next(data);
@@ -292,16 +281,21 @@ export class WidgetService {
         }, 5000);
     }
 
-    private initWS(): void {
+    public initWS(): void {
         if (this.ws) {
             this.ws.complete();
         }
         this.ws = webSocket(this.wsUrl);
+        this.ws.next({
+            actionType: 'authenticate',
+            channelId: null,
+            token: this.authService.userSessionToken,
+        });
         this.ws.subscribe(
             (msg) => {
                 console.log('message received: ' + msg);
-                if (this.reconnectTimer) {
-                    clearInterval(this.reconnectTimer);
+                if (this.reconnectWsTimer) {
+                    clearInterval(this.reconnectWsTimer);
                 }
             },
             (err) => {
@@ -314,9 +308,8 @@ export class WidgetService {
             }
         );
         this.ws.asObservable().subscribe((data) => {
-            if (data.data && this.isMatchingPeriod(data.data.selectedPeriod)) {
+            if (data?.data && this.isMatchingPeriod(data?.data?.selectedPeriod)) {
                 this.widgetsSocketObservable.next(data);
-                console.log('data ws');
             }
         });
     }
@@ -327,80 +320,26 @@ export class WidgetService {
         }
         return (
             new Date(incoming.fromDateTime).getTime() ===
-                new Date(this.currentDates.fromDateTime).getTime() &&
+                new Date(this.currentDates$.getValue()?.fromDateTime).getTime() &&
             new Date(incoming.toDateTime).getTime() ===
-                new Date(this.currentDates.toDateTime).getTime()
+                new Date(this.currentDates$.getValue()?.toDateTime).getTime()
         );
     }
 
-    private reconnectWs() {
-        if (this.reconnectTimer) {
+    private reconnectWs(): void {
+        if (this.reconnectWsTimer) {
             console.warn('reconnect уже создан');
             return;
         }
         this.materialController.openSnackBar('Переподключение к данным реального времени');
-        this.reconnectTimer = setInterval(() => {
+        this.reconnectWsTimer = setInterval(() => {
             this.initWS();
             this.dashboard.forEach((el) => this.wsConnect(el.id));
         }, this.reconnectInterval);
     }
 
-    public searchItems(value, type) {
-        this.searchType = type;
-        try {
-            this.searchWidget$.next(value);
-        } catch (error) {
-            return console.error('Поиск пуст');
-        }
-    }
-
-    public Search(record: string): Observable<IWidgets[]> {
-        try {
-            const point = this._widgets$.getValue();
-            let pointFilter;
-            let arrFilter: any = [];
-            let arrFilterButton: any = [];
-            let resultObject: any = [];
-            if (this.searchType === 'input') {
-                let undefinedFilter = point.filter((point) => point.title !== undefined);
-                const filter = of(
-                    undefinedFilter.filter(
-                        (point) => point.title.toLowerCase().indexOf(record.toLowerCase()) > -1
-                    )
-                );
-                pointFilter = filter;
-                this.searchValue = record;
-                return pointFilter;
-            } else {
-                for (const i of record) {
-                    const filter = point.filter((point) => point.categories.indexOf(i) > -1);
-                    arrFilter.push(filter);
-                }
-                //  const filter = point.filter((point) => point.categories.indexOf(record) > -1);
-                //  arrFilter.push(filter);
-                for (const i of arrFilter) {
-                    for (const j of i) {
-                        arrFilterButton.push(j);
-                    }
-                }
-                const newFilterArray: any = [...new Set(arrFilterButton)];
-                resultObject.push(newFilterArray);
-                this.searchValue = record;
-                return resultObject;
-            }
-        } catch (error) {
-            console.log('Ошбика', error);
-        }
-    }
-
-    public reEmitList(): void {
-        this._widgets$.next(this._widgets$.getValue());
-        this.searchValue = null;
-    }
-
     public wsSetParams(Dates: IDatesInterval = null): void {
-        console.log(Dates);
-        this.dashboard.forEach((el) => this.wsDisonnect(el.id));
+        this.dashboard.forEach((el) => this.wsDisconnect(el.id));
         this.dashboard.forEach((el) => this.wsConnect(el.id));
     }
 
@@ -415,5 +354,19 @@ export class WidgetService {
         ) {
             window.location.reload();
         }
+    }
+
+    public closeService(): void {
+        if (this.reconnectRestTimer) {
+            clearInterval(this.reconnectRestTimer);
+        }
+        if (this.reconnectWsTimer) {
+            clearInterval(this.reconnectWsTimer);
+        }
+        this.dashboard.forEach((el) => this.wsDisconnect(el.id));
+        this.dashboard = [];
+        this.ws.complete();
+        this.ws.unsubscribe();
+        this.ws = null;
     }
 }
