@@ -142,7 +142,6 @@ export class AdminShiftScheduleComponent extends WidgetPlatform
         private materialController: SnackBarService,
         protected widgetService: WidgetService,
         private snackBar: SnackBarService,
-        private chDet: ChangeDetectorRef,
         @Inject('isMock') public isMock: boolean,
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string
@@ -184,6 +183,7 @@ export class AdminShiftScheduleComponent extends WidgetPlatform
                 if (value) {
                     this.getBrigade();
                     this.getUsersUnit();
+                    this.reLoadDataMonth();
                 }
             }),
             this.adminShiftScheduleService.postAbsent$.subscribe((value) => {
@@ -260,7 +260,7 @@ export class AdminShiftScheduleComponent extends WidgetPlatform
                     date.getFullYear() === new Date(value.date).getFullYear()
                 ) {
                     if (!value.isAllShiftsSet) {
-                        str = 'special-date';
+                        str = 'special-date ';
                     } else {
                         let id = 1;
                         value.items.forEach((item) => {
@@ -271,8 +271,6 @@ export class AdminShiftScheduleComponent extends WidgetPlatform
                                 if (color) {
                                     str += `item-${id}--${color.color}`;
                                     id++;
-                                } else {
-                                    // str += `--color-0`;
                                 }
                             }
                         });
@@ -294,35 +292,37 @@ export class AdminShiftScheduleComponent extends WidgetPlatform
                 )
                 .then((data) => {
                     if (data && data.length > 0) {
+                        this.scheduleShiftMonth = [];
+                        const source = from(data);
+                        const example = source.pipe(
+                            groupBy((person) => {
+                                return `${new Date(person?.start).getFullYear()}.${new Date(
+                                    person?.start
+                                ).getMonth()}.${new Date(person?.start).getDate()}`;
+                            }),
+                            mergeMap((group) => group.pipe(toArray()))
+                        );
+                        const subscribe = example.subscribe((val) => {
+                            let isAllShiftsSet = true;
+                            val.forEach((value2) => {
+                                if (!value2.isBrigadeSet) {
+                                    isAllShiftsSet = false;
+                                }
+                            });
+                            this.scheduleShiftMonth.push({
+                                date: val[0].start,
+                                isAllShiftsSet,
+                                items: [...val],
+                            });
+                        });
+                        subscribe.unsubscribe();
                         if (this.calendar) {
                             this.calendar.updateTodaysDate();
                         }
                     } else {
                         this.resetComponent();
                     }
-                    const source = from(data);
-                    const example = source.pipe(
-                        groupBy((person) => {
-                            return `${new Date(person?.start).getFullYear()}.${new Date(
-                                person?.start
-                            ).getMonth()}.${new Date(person?.start).getDate()}`;
-                        }),
-                        mergeMap((group) => group.pipe(toArray()))
-                    );
-                    const subscribe = example.subscribe((val) => {
-                        let isAllShiftsSet = true;
-                        val.forEach((value2) => {
-                            if (!value2.isBrigadeSet) {
-                                isAllShiftsSet = false;
-                            }
-                        });
-                        this.scheduleShiftMonth.push({
-                            date: val[0].start,
-                            isAllShiftsSet,
-                            items: [...val],
-                        });
-                    });
-                    console.log(this.scheduleShiftMonth);
+                    this.dateChanged(this.selectedDay.date);
                 });
         } catch (error) {
             this.isLoading = false;
@@ -497,6 +497,8 @@ export class AdminShiftScheduleComponent extends WidgetPlatform
     }
 
     public dateChanged(event: Date): void {
+        console.log(event);
+
         this.isLoading = true;
         this.resetComponent();
         this.openOverlay(null, null, false);
@@ -532,6 +534,8 @@ export class AdminShiftScheduleComponent extends WidgetPlatform
         if (this.calendar) {
             this.calendar.updateTodaysDate();
         }
+        console.log(this.selectedDay);
+
         this.isLoading = false;
     }
 

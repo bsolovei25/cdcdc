@@ -46,7 +46,7 @@ export class AdminShiftBrigadeComponent {
     constructor(
         private adminShiftScheduleService: AdminShiftScheduleService,
         private snackBar: SnackBarService
-    ) {}
+    ) { }
 
     public openList(): void {
         this.isOpen = !this.isOpen;
