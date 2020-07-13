@@ -8,6 +8,9 @@ import { BehaviorSubject } from 'rxjs';
 export class AstueEfficiencyService {
     public product$: BehaviorSubject<string> = new BehaviorSubject<string>(null);
     public lastFlow$: BehaviorSubject<IAsEfFlow> = new BehaviorSubject<IAsEfFlow>(null);
+
+    public change$: BehaviorSubject<void> = new BehaviorSubject<void>(null);
+
     public active: { [key: string]: string[] } = {};
 
     constructor() {}
@@ -18,7 +21,7 @@ export class AstueEfficiencyService {
         } else {
             this.active[unitName] = [];
         }
-        console.log(this.active);
+        this.change$.next();
     }
 
     public toggleActiveFlow(unitName: string, flowName: string): boolean {
@@ -29,17 +32,18 @@ export class AstueEfficiencyService {
         const index = this.active[unitName].findIndex((item) => item === flowName);
         if (index === -1) {
             this.active[unitName].push(flowName);
+            this.change$.next();
             return true;
         } else {
             this.active[unitName].splice(index, 1);
+            this.change$.next();
             return false;
         }
-        console.log(this.active);
     }
 
     public clearActive(): void {
         this.active = {};
-        console.log(this.active);
+        this.change$.next();
     }
 
     public selectAllUnits(units: IAsEfUnitNew[]): void {
@@ -48,6 +52,6 @@ export class AstueEfficiencyService {
                 this.active[unit.name] = [];
             }
         });
-        console.log(this.active);
+        this.change$.next();
     }
 }

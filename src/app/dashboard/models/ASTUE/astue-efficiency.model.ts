@@ -2,24 +2,32 @@
 export interface IAsEfProduct {
     name: string;
     direction: 'in' | 'out';
-    units: IAsEfUnit[];
+    units: IAsEfUnitNew[];
     icon?: string;
 }
 
-export interface IAsEfUnitNew {
+export interface IAsEfTable {
     name: string;
-    rows: IAsEfRow[];
+    rows: IAsEfRow;
+    rowsArr?: IAsEfRowArr[];
+}
+
+export interface IAsEfUnitNew extends IAsEfTable {
     flows: IAsEfFlow[];
 }
 
-export interface IAsEfFlow {
-    name: string;
-    rows: IAsEfRow[];
+export interface IAsEfFlow extends IAsEfTable {
     astueFlowGraph: IAsEfGraph;
 }
 
 export interface IAsEfRow {
     [key: string]: IAsEfCell[];
+}
+
+export interface IAsEfRowArr {
+    name: string;
+    data: IAsEfCell[];
+    dataSummary?: number;
 }
 
 export interface IAsEfCell {
@@ -37,6 +45,7 @@ export interface IAsEfGraph {
     periodDeviation: number;
     periodSum: number;
 }
+
 //#endregion
 
 interface IAsEfTempl {

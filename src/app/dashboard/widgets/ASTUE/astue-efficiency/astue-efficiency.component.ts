@@ -58,5 +58,6 @@ export class AstueEfficiencyComponent extends WidgetPlatform implements OnInit, 
     public onSelectProduct(name: string): void {
         const product = this.data.find((item) => item.name === name);
         this.selection.select(product);
+        this.AsEfService.change$.next();
     }
 }
