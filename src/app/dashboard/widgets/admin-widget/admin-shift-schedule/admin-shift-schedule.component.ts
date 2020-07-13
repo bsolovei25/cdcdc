@@ -483,17 +483,20 @@ export class AdminShiftScheduleComponent extends WidgetPlatform
 
     async moveToDropAdditionalShift(item: IDropItem): Promise<void> {
         if (item && item.container.id !== '0' && item.container.id !== item.previousContainer.id) {
-            try {
-                const userId = this.adminShiftScheduleService.moveItemId$.getValue();
-                await this.adminShiftScheduleService.postMemberFromBrigade(
-                    this.selectedShift.id,
-                    userId
-                );
-                this.selectShift(this.selectedShift);
-                this.snackBar.openSnackBar('Сотрудник добавлен в смену');
-            } catch (error) {
-                console.log(error);
+            if (this.selectedShift.brigadeId) {
+                try {
+                    const userId = this.adminShiftScheduleService.moveItemId$.getValue();
+                    await this.adminShiftScheduleService.postMemberFromBrigade(
+                        this.selectedShift.id,
+                        userId
+                    );
+                    this.selectShift(this.selectedShift);
+                    this.snackBar.openSnackBar('Сотрудник добавлен в смену');
+                } catch (error) {
+                    console.log(error);
+                }
             }
+
         }
     }
 
