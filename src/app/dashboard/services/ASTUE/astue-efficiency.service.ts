@@ -26,7 +26,7 @@ export class AstueEfficiencyService {
 
     public toggleActiveFlow(unitName: string, flowName: string): boolean {
         if (!this.active[unitName]) {
-            this.toggleActiveUnit(unitName);
+            return false;
         }
 
         const index = this.active[unitName].findIndex((item) => item === flowName);

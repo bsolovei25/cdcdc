@@ -37,11 +37,12 @@ export class AstueEfficiencyUnitCardComponent implements OnChanges {
     }
 
     public onSelectFlow(flow: IAsEfFlow): void {
-        this.cardSelection.toggle(flow);
         const isAddFlow = this.AsEfService.toggleActiveFlow(this.unit.name, flow.name);
         if (isAddFlow) {
+            this.cardSelection.select(flow);
             this.AsEfService.lastFlow$.next(flow);
         } else {
+            this.cardSelection.deselect(flow);
             const length = this.AsEfService.active[this.unit.name]?.length;
             if (length) {
                 const lastFlow = this.AsEfService.active[this.unit.name][length - 1];
