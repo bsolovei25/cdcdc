@@ -1,3 +1,53 @@
+//#region NEW_MODELS
+export interface IAsEfProduct {
+    name: string;
+    direction: 'in' | 'out';
+    units: IAsEfUnitNew[];
+    icon?: string;
+}
+
+export interface IAsEfTable {
+    name: string;
+    rows: IAsEfRow;
+    rowsArr?: IAsEfRowArr[];
+}
+
+export interface IAsEfUnitNew extends IAsEfTable {
+    flows: IAsEfFlow[];
+}
+
+export interface IAsEfFlow extends IAsEfTable {
+    astueFlowGraph: IAsEfGraph;
+}
+
+export interface IAsEfRow {
+    [key: string]: IAsEfCell[];
+}
+
+export interface IAsEfRowArr {
+    name: string;
+    data: IAsEfCell[];
+    dataSummary?: number;
+}
+
+export interface IAsEfCell {
+    id?: number;
+    date: Date;
+    value: number;
+    isEditable?: boolean;
+}
+
+export interface IAsEfGraph {
+    currentDeviation: number;
+    currentValue: number;
+    higherLimit: number;
+    lowerLimit: number;
+    periodDeviation: number;
+    periodSum: number;
+}
+
+//#endregion
+
 interface IAsEfTempl {
     id?: number;
     name: string;
@@ -6,6 +56,7 @@ interface IAsEfTempl {
 export interface IAsEfCard extends IAsEfTempl {
     icon?: string;
     status?: string;
+    direction?: string;
 }
 
 export interface IAsEfUnitCard extends IAsEfTempl {
@@ -15,7 +66,7 @@ export interface IAsEfUnitCard extends IAsEfTempl {
 
 export interface IAsEfUnit extends IAsEfTempl {
     name: string;
-    streams: IAsEfUnitCard[];
+    flows: IAsEfUnitCard[];
 }
 
 export interface IAsEfInitialDataBlock extends IAsEfTempl {

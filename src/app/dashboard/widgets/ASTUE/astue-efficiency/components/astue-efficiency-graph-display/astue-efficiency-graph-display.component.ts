@@ -13,6 +13,8 @@ import { WidgetService, IDatesInterval } from '../../../../../services/widget.se
 import { HttpClient } from '@angular/common/http';
 import { AppConfigService } from '../../../../../../services/appConfigService';
 import { IWsData } from '../../../../production-trend/components/production-trend-graph/production-trend-graph.component';
+import { AstueEfficiencyService } from '../../../../../services/ASTUE/astue-efficiency.service';
+import { Subscription } from 'rxjs';
 
 type LabelStatusType = 'normal' | 'warning' | 'danger';
 
@@ -41,18 +43,18 @@ export class AstueEfficiencyGraphDisplayComponent extends LineChartPlatform<IPro
 
     public labels: ILabels = {
         periodCounter: {
-            value: 1700,
+            value: 0,
         },
         periodDeviations: {
-            value: 200,
+            value: 0,
             status: 'danger',
             statusName: 'Перерасход',
         },
         currentValue: {
-            value: 500,
+            value: 0,
         },
         currentDeviation: {
-            value: 200,
+            value: 0,
             status: 'warning',
             statusName: 'Экономия',
         },
@@ -209,12 +211,15 @@ export class AstueEfficiencyGraphDisplayComponent extends LineChartPlatform<IPro
         toDateTime: new Date(2020, 2, 7, 20),
     };
 
+    private subs: Subscription[] = [];
+
     private readonly restUrl: string = null;
 
     constructor(
         public widgetService: WidgetService,
         private http: HttpClient,
-        private appConfigService: AppConfigService
+        private appConfigService: AppConfigService,
+        private AsEfService: AstueEfficiencyService
     ) {
         super(widgetService);
         this.restUrl = appConfigService.restUrl;
@@ -242,10 +247,55 @@ export class AstueEfficiencyGraphDisplayComponent extends LineChartPlatform<IPro
         this.wsDataHandler(this.dataWs);
     }
 
-    public ngOnInit(): void {}
+    public ngOnInit(): void {
+        this.subs.push(
+            this.AsEfService.lastFlow$.subscribe((flow) => {
+                if (flow) {
+                    this.labels = {
+                        periodCounter: {
+                            value: flow.astueFlowGraph.periodSum,
+                        },
+                        periodDeviations: {
+                            value: flow.astueFlowGraph.periodDeviation,
+                            status: 'danger',
+                            statusName: 'Перерасход',
+                        },
+                        currentValue: {
+                            value: flow.astueFlowGraph.currentValue,
+                        },
+                        currentDeviation: {
+                            value: flow.astueFlowGraph.currentDeviation,
+                            status: 'warning',
+                            statusName: 'Экономия',
+                        },
+                    };
+                } else {
+                    this.labels = {
+                        periodCounter: {
+                            value: 0,
+                        },
+                        periodDeviations: {
+                            value: 0,
+                            status: 'danger',
+                            statusName: 'Перерасход',
+                        },
+                        currentValue: {
+                            value: 0,
+                        },
+                        currentDeviation: {
+                            value: 0,
+                            status: 'warning',
+                            statusName: 'Экономия',
+                        },
+                    };
+                }
+            })
+        );
+    }
 
     public ngOnDestroy(): void {
         super.ngOnDestroy();
+        this.subs.forEach((sub) => sub.unsubscribe());
     }
 
     public clickDisplayButton(): void {

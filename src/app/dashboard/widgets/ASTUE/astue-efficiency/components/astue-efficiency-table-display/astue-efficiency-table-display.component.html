@@ -62,29 +62,34 @@
               <th class="table-header__item">Показатели</th>
             </ng-template>
             <th class="table-header__item">Итого</th>
-            <th class="table-header__item" *ngFor="let value of data[0].data">
+            <th class="table-header__item" *ngFor="let value of dates">
               {{value.date|date:'dd.MM'}}
             </th>
+            <!-- <th class="table-header__item" *ngFor="let value of data[0].data">
+              {{value.date|date:'dd.MM'}}
+            </th> -->
           </tr>
         </thead>
         <tbody>
-          <ng-container *ngFor="let block of data">
+          <ng-container *ngFor="let block of newdata">
             <tr
               class="table__row block"
-              [ngClass]="{'block_open':blockSelection.isSelected(block)}"
-              (click)="blockSelection.toggle(block)"
+              [ngClass]="{'block_open':newBlockSelection.isSelected(block)}"
+              (click)="newBlockSelection.toggle(block)"
             >
-              <td class="block__item" [ngClass]="{'block__item-status': block.status}">
+              <td class="block__item">
+                <!-- <td class="block__item" [ngClass]="{'block__item-status': block.status}"> -->
                 <img
                   class="arrow"
                   src="assets/icons/widgets/ASTUE/astue-efficiency/units/arrow.svg"
                 />
                 {{block.name}}
-                <div class="status" *ngIf="block.status">{{block.status}}</div>
+                <!-- <div class="status" *ngIf="block.status">{{block.status}}</div> -->
               </td>
-              <div class="block__item" style="border-left: none;" *ngIf="block.status"></div>
-              <td class="block__item with-status" *ngIf="block.status;else values"></td>
-              <ng-template #values>
+              <!-- <div class="block__item" style="border-left: none;" *ngIf="block.status"></div> -->
+              <td class="block__item with-status"></td>
+              <!-- <td class="block__item with-status" *ngIf="block.status;else values"></td> -->
+              <!-- <ng-template #values>
                 <td class="block__item">{{block.dataSummary}}</td>
                 <td class="block__item" *ngFor="let value of block.data">
                   <input
@@ -102,9 +107,34 @@
                     src="assets/icons/widgets/ASTUE/astue-efficiency/table/edit.svg"
                   />
                 </td>
-              </ng-template>
+              </ng-template> -->
             </tr>
-            <ng-container *ngIf="blockSelection.isSelected(block)">
+            <ng-container *ngIf="newBlockSelection.isSelected(block)">
+              <tr class="table__row row" *ngFor="let child of block.rowsArr">
+                <td class="row__item">
+                  {{child.name}}
+                  <!-- <div class="status" *ngIf="block.status">{{block.status}}</div> -->
+                </td>
+                <td class="row__item">{{child.dataSummary}}</td>
+                <td class="row__item" *ngFor="let value of child.data">
+                  <input
+                    type="text"
+                    class="cell__input"
+                    [(ngModel)]="value.value"
+                    [disabled]="!value.isEditable"
+                    placeholder="Введите значение"
+                    (focus)="$event.target.select()"
+                    (change)="defineDataSummary(child)"
+                  />
+                  <div class="cell__indicator" *ngIf="!!value.value && value.isEditable"></div>
+                  <img
+                    class="cell__edit"
+                    src="assets/icons/widgets/ASTUE/astue-efficiency/table/edit.svg"
+                  />
+                </td>
+              </tr>
+            </ng-container>
+            <!-- <ng-container *ngIf="blockSelection.isSelected(block)">
               <tr class="table__row row" *ngFor="let child of block.children">
                 <td class="row__item">
                   {{child.name}}
@@ -128,7 +158,7 @@
                   />
                 </td>
               </tr>
-            </ng-container>
+            </ng-container> -->
           </ng-container>
           <ng-container *ngIf="!isInitialDataShow">
             <tr class="table__row separation-line">

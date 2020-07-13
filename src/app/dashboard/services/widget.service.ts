@@ -243,6 +243,7 @@ export class WidgetService {
             case 'production-trend':
             case 'production-deviations':
             case 'truncated-diagram-traffic-light':
+            case 'astue-efficiency':
                 return data;
         }
         console.warn(`unknown widget type ${widgetType}`);
