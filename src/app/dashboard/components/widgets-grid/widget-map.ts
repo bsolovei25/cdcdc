@@ -63,7 +63,6 @@ import { ProductGroupsShortComponent } from '../../widgets/SMP/product-groups-sh
 import { TruncatedDiagramTrafficLightComponent } from '../../widgets/truncated-diagram-traffic-light/truncated-diagram-traffic-light.component';
 import { AstueEfficiencyComponent } from '../../widgets/ASTUE/astue-efficiency/astue-efficiency.component';
 import { WidgetContainerComponent } from '../../widget-container/widget-container.component';
-import { AdminShiftScheduleComponent } from '../../widgets/admin-widget/admin-shift-schedule/admin-shift-schedule.component';
 
 export const WIDGETS = {
     'pie-diagram': WidgetPiesComponent,
@@ -137,8 +136,7 @@ export const WIDGETS = {
     'aps-recipe-diagram': WidgetContainerComponent,
     'aps-gantt-chart': WidgetContainerComponent,
     scenarios: WidgetContainerComponent,
-    // 'admin-shift-schedule': WidgetContainerComponent,
-    'admin-shift-schedule': AdminShiftScheduleComponent,
+    'admin-shift-schedule': WidgetContainerComponent,
     'facility-deviation': WidgetContainerComponent,
     'raw-motion': WidgetContainerComponent,
     'stocks-using': WidgetContainerComponent,
@@ -228,17 +226,17 @@ export const WIDGETS_LAZY = {
 
     // #region Admin
 
-    // 'admin-shift-schedule': {
-    //     import: async () => {
-    //         return await import('src/app/widgets/admin/admin-shift-schedule/admin-shift-schedule.module');
-    //     },
-    //     module: 'AdminShiftScheduleModule',
-    //     itemCols: 15,
-    //     itemRows: 15,
-    //     minItemCols: 15,
-    //     minItemRows: 15,
-    //     preview: 'admin-shift-schedule',
-    // },
+    'admin-shift-schedule': {
+        import: async () => {
+            return await import('src/app/widgets/admin/admin-shift-schedule/admin-shift-schedule.module');
+        },
+        module: 'AdminShiftScheduleModule',
+        itemCols: 15,
+        itemRows: 15,
+        minItemCols: 15,
+        minItemRows: 15,
+        preview: 'admin-shift-schedule',
+    },
 
     // #endregion APS
     'deviation-details': {

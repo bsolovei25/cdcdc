@@ -1,5 +1,5 @@
 import { IUser } from './events-widget';
-import { IAbsent } from '../widgets/admin-widget/admin-shift-schedule/admin-shift-schedule.component';
+import { IAbsent } from '../../widgets/admin/admin-shift-schedule/admin-shift-schedule.component';
 
 export enum EnumShiftStatus {
     initialization = 'initialization',
