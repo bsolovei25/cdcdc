@@ -288,7 +288,7 @@
   }
 
   &__number {
-    font-size: 0.75rem;
+    font-size: 14px;
     font-weight: bold;
     margin-right: 6px;
 
@@ -303,7 +303,7 @@
 
   &__unit,
   &__name {
-    font-size: 0.625rem;
+    font-size: 1rem;
   }
 
   &__unit {
@@ -364,8 +364,8 @@
 
   &__description {
     width: 100%;
-    color: var(--color-text-sub);
-    font-size: 0.875rem;
+    color: var(--color-text-main);
+    font-size: 1.25rem;
     max-height: 50px;
     margin-bottom: 10px;
     -webkit-line-clamp: 3;
@@ -373,8 +373,8 @@
 
   &__facts {
     width: 100%;
-    color: var(--color-text-main);
-    font-size: 12px;
+    color: var(--color-text-sub);
+    font-size: 20px;
     max-height: 28px;
     -webkit-line-clamp: 2;
   }
@@ -390,7 +390,7 @@
 
   &__status {
     margin-right: 15px;
-    font-size: 0.75rem;
+    font-size: 14px;
     color: var(--color-text-sub);
 
     &_danger {
@@ -452,14 +452,14 @@
     display: flex;
     justify-content: space-between;
     align-self: flex-end;
-    color: var(--color-text-sub);
+    color: var(--color-text-main);
 
     &-text {
       font-size: 14px;
     }
 
     &-date-time {
-      font-size: 18px;
+      font-size: 16px;
       margin-right: 12px;
     }
   }
