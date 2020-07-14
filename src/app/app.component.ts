@@ -3,6 +3,7 @@ import { slideInAnimation } from 'src/app/animations';
 import { RouterOutlet } from '@angular/router';
 import ru from '@angular/common/locales/ru';
 import { registerLocaleData } from '@angular/common';
+import { Title } from '@angular/platform-browser';
 registerLocaleData(ru);
 
 @Component({
@@ -12,9 +13,8 @@ registerLocaleData(ru);
     animations: [slideInAnimation],
 })
 export class AppComponent {
-    title = 'evj';
 
-    constructor() {}
+    constructor() { }
 
     prepareRoute(outlet: RouterOutlet) {
         return outlet && outlet.activatedRouteData && outlet.activatedRouteData['animation'];
