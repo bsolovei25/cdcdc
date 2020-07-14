@@ -106,7 +106,7 @@ export class ProductionDetailsComponent extends WidgetPlatform implements OnInit
         this.details.forEach((deviation) => {
             deviation = this.countProgressBarValue(deviation);
             if (deviation.progressBar.value === 100) {
-                deviation.progressBar.barColor = '#2378D9';
+                deviation.progressBar.barColor = '#008DEB';
             }
         });
     }
