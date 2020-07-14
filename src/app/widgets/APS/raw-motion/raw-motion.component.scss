@@ -34,6 +34,18 @@
   width: 100%;
   height: 100%;
   padding: var(--chart-padding-tb) var(--chart-padding-lr) 0;
+
+  &::after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 1px;
+
+    bottom: 5px;
+    left: 0;
+
+    background: var(--color-aps-border);
+  }
 }
 
 .axis {
