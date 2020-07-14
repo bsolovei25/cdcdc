@@ -82,9 +82,9 @@ export class SemicircleEnergyComponent extends WidgetPlatform implements OnInit,
     public isWarning: boolean = false;
 
     public static itemCols: number = 13;
-    public static itemRows: number = 11;
+    public static itemRows: number = 9;
     public static minItemCols: number = 13;
-    public static minItemRows: number = 11;
+    public static minItemRows: number = 9;
 
     constructor(
         protected widgetService: WidgetService,
