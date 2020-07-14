@@ -9,6 +9,7 @@ import { SnackBarService } from '../../services/snack-bar.service';
 import { IAlertWindowModel } from '@shared/models/alert-window.model';
 import { IInputOptions } from '../../../@shared/models/input.model';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Title } from '@angular/platform-browser';
 
 @Component({
     selector: 'evj-indicator-selector',
@@ -57,7 +58,8 @@ export class IndicatorSelectorComponent implements OnInit, OnDestroy {
         private snackBar: SnackBarService,
         public route: ActivatedRoute,
         public router: Router,
-    ) {}
+        private titleService: Title
+    ) { }
 
     ngOnInit(): void {
 
@@ -69,6 +71,10 @@ export class IndicatorSelectorComponent implements OnInit, OnDestroy {
         this.subscriptions.forEach((subscription) => {
             subscription.unsubscribe();
         });
+    }
+
+    public setTitle(newTitle: string): void {
+        this.titleService.setTitle(newTitle);
     }
 
     private LoadScreenInit(): void {
@@ -97,6 +103,7 @@ export class IndicatorSelectorComponent implements OnInit, OnDestroy {
                 this.idScreen = this.userSettings.ScreenId;
                 this.LoadScreen(this.idScreen);
                 this.nameScreen = this.getActiveScreen();
+                this.setTitle(`evj - ${this.nameScreen}`);
                 for (const item of this.dataScreen) {
                     item.updateScreen = false;
                     item.isFilter = true;
@@ -145,10 +152,11 @@ export class IndicatorSelectorComponent implements OnInit, OnDestroy {
         if (this.dataScreen[0]) {
             return this.dataScreen[0].screenName;
         }
-    };
+    }
 
     setActiveScreen(screen: IScreenSettings): void {
         this.nameScreen = screen.screenName;
+        this.setTitle(`evj - ${this.nameScreen}`);
         this.idScreen = screen.id;
         screen.isActive = true;
     }
@@ -186,6 +194,7 @@ export class IndicatorSelectorComponent implements OnInit, OnDestroy {
         }
         if (this.idScreen === Number(id)) {
             this.nameScreen = this.dataScreen[0].screenName;
+            this.setTitle(`evj - ${this.nameScreen}`);
             this.idScreen = this.dataScreen[0].id;
             this.LoadScreen(this.idScreen);
         }
@@ -221,6 +230,7 @@ export class IndicatorSelectorComponent implements OnInit, OnDestroy {
         const item = this.dataScreen.find((el) => el.id === id);
         item.updateScreen = true;
         this.newNameScreen = item.screenName;
+        this.setTitle(`evj - ${this.nameScreen}`);
     }
 
     isLeaveScreen(e): void {
@@ -228,7 +238,7 @@ export class IndicatorSelectorComponent implements OnInit, OnDestroy {
         //     item.updateScreen = false;
         // }
     }
-    isOverScreen(e): void {}
+    isOverScreen(e): void { }
 
     public closeEdit(): void {
         this.dataScreen.forEach((el) => {
