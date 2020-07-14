@@ -142,6 +142,28 @@
     <div class="column__row row">
       <div class="row__cell cell cell_left information">
         <div class="information__label label">
+          <div class="label__title">Производство</div>
+          <div class="label__text">{{this.ewService.event?.branch?this.ewService.event.branch:''}}</div>
+        </div>
+        <div class="information__label label">
+          <div class="label__title">Дата начала</div>
+          <div class="label__text">
+            {{this.ewService.event?.eventDateTime?this.ewService.event.eventDateTime:''|date:'dd.MM.yyyy | hh.mm'}}
+          </div>
+        </div>
+      </div>
+      <div class="row__cell cell cell_left information information_uniq">
+        <div class="information__label label">
+          <div class="label__title">Дата окончания</div>
+          <div class="label__text">
+            {{this.ewService.event?.eventEndDateTime?this.ewService.event.eventEndDateTime:''|date:'dd.MM.yyyy | hh.mm'}}
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="column__row row">
+      <div class="row__cell cell cell_left information">
+        <div class="information__label label">
           <div class="label__title">ID в Системе-источник</div>
           <div class="label__text">
             {{this.ewService.event?.externalCode?this.ewService.event.externalCode:''}}
