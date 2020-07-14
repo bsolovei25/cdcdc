@@ -11,7 +11,7 @@ import { SelectionModel } from '@angular/cdk/collections';
 })
 export class RawMotionComponent extends WidgetPlatform implements OnInit, OnDestroy {
     public data: IRawMotion = {
-        units: 'т',
+        units: 'тн',
         upperLimit: 100,
         lowerLimit: 55,
         maxValue: 120,
