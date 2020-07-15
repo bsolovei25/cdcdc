@@ -1,0 +1,22 @@
+<div class="title-area">
+  <span class="title-area__title">{{ data.name }}</span>
+  <span class="title-area__comment">{{ data.comment }}</span>
+</div>
+<div class="chart-area">
+  <div class="columns">
+    <ng-container *ngFor="let column of data.chartData">
+      <div class="columns__col">
+        <ng-container *ngFor="let row of [].constructor(column.barSize); let i = index;">
+          <div
+            [class.enabled-bg-color]="i < column.valueSize"
+            [class.over-bg-color]="i >= column.barSize - column.overSize"
+            class="row default-bg-color"
+          ></div>
+        </ng-container>
+      </div>
+    </ng-container>
+  </div>
+  <div class="divider-bottom"></div>
+  <div class="divider-center"></div>
+  <div class="divider-top"></div>
+</div>
