@@ -55,6 +55,7 @@ import { ApsWidgetHeaderComponent } from './components/aps-widget-header/aps-wid
 import { WidgetHeaderSmpComponent } from './components/widget-header-smp/widget-header-smp.component';
 import { SafeUrlPipe } from './pipes/safe-url.pipe';
 import { ApsProgressBarComponent } from './components/aps-progress-bar/aps-progress-bar.component';
+import { KpeEqualizerChartComponent } from '../widgets/KPE/kpe-equalizer-chart/kpe-equalizer-chart.component'; // TODO переместить в модуль виджета, когда он будет готов
 
 @NgModule({
     declarations: [
@@ -98,6 +99,7 @@ import { ApsProgressBarComponent } from './components/aps-progress-bar/aps-progr
         WidgetHeaderSmpComponent,
         SafeUrlPipe,
         ApsProgressBarComponent,
+        KpeEqualizerChartComponent,
     ],
     exports: [
         HeaderComponent,
@@ -135,6 +137,7 @@ import { ApsProgressBarComponent } from './components/aps-progress-bar/aps-progr
         WidgetHeaderSmpComponent,
         SafeUrlPipe,
         ApsProgressBarComponent,
+        KpeEqualizerChartComponent,
     ],
     imports: [
         CommonModule,
