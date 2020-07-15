@@ -249,10 +249,10 @@ export class KpeLineChartComponent implements OnInit, AfterViewInit {
         this.initData();
         this.drawChart();
         this.findMinMax();
+        this.defineScale();
         this.transformData();
         this.drawChart();
-
-        console.log(this.chartData);
+        this.drawPoints();
     }
 
     private initData(): void {
@@ -290,14 +290,12 @@ export class KpeLineChartComponent implements OnInit, AfterViewInit {
         this.dataMin = d3.min(minValues) * (1 - this.MIN_COEF);
     }
 
-    private transformData(): void {
-        this.chartData = [];
-        this.data.forEach((item) => this.transformOneChartData(item));
-    }
+    private defineScale(): void {
+        const plan = this.data.find((chart) => chart.graphType === 'plan');
 
-    private transformOneChartData(chart: IProductionTrend): void {
-        const domainDates = d3.extent(chart.graph, (item: IChartMini) => item.timeStamp);
+        const domainDates = d3.extent(plan.graph, (item: IChartMini) => item.timeStamp);
         const rangeX = [this.padding.left, this.graphMaxX - this.padding.right];
+
         this.scaleFuncs.x = d3
             .scaleTime()
             .domain(domainDates)
@@ -319,7 +317,14 @@ export class KpeLineChartComponent implements OnInit, AfterViewInit {
             .axisLeft(this.scaleFuncs.y)
             .ticks(10)
             .tickSize(0);
+    }
 
+    private transformData(): void {
+        this.chartData = [];
+        this.data.forEach((item) => this.transformOneChartData(item));
+    }
+
+    private transformOneChartData(chart: IProductionTrend): void {
         const chartData: {
             graphType: ProductionTrendType;
             graph: IChartD3[];
@@ -367,11 +372,32 @@ export class KpeLineChartComponent implements OnInit, AfterViewInit {
             if (chart.graphType === 'plan') {
                 this.svg
                     .append('path')
-                    .attr('class', `graph-line-${chart.graphType}`)
+                    .attr('class', `graph-area-${chart.graphType}`)
                     .attr('d', area(chart.graph))
                     .style('fill', '#4B5169')
                     .style('opacity', opacity);
             }
+        });
+    }
+
+    private drawPoints(): void {
+        const pointsG = this.svg.append('g').attr('class', 'chart-points');
+        const fact = this.chartData.find((chart) => chart.graphType === 'fact');
+        if (!fact.graph.length) {
+            return;
+        }
+
+        fact.graph.forEach((point, index, arr) => {
+            const r = index < arr.length - 1 ? 3 : 4;
+            pointsG
+                .append('circle')
+                .attr('class', 'point')
+                .attr('cx', point.x)
+                .attr('cy', point.y)
+                .attr('r', r)
+                .style('fill', '#1C1F2B')
+                .style('stroke', '#0089FF')
+                .style('stroke-width', 1);
         });
     }
 }
