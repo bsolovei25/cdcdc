@@ -235,8 +235,8 @@ export class KpeLineChartComponent implements OnInit, AfterViewInit {
     private readonly MIN_COEF: number = 0.3;
 
     private readonly padding: { left: number; right: number; top: number; bottom: number } = {
-        left: 0,
-        right: 0,
+        left: 5,
+        right: 5,
         top: 0,
         bottom: 0,
     };
@@ -416,7 +416,5 @@ export class KpeLineChartComponent implements OnInit, AfterViewInit {
                     .tickFormat('')
             )
             .style('color', '#272A38');
-
-        // d3Selection.select()
     }
 }
