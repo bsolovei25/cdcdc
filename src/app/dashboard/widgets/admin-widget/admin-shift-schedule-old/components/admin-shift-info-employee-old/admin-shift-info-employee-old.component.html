@@ -1,0 +1,81 @@
+<div class="employee-container">
+  <div>
+    <img class="employee-container__avatar" [src]="photoPath" />
+  </div>
+  <div class="employee-container__info">
+    <div class="fio">{{data.lastName}} {{data.firstName}} {{data.middleName}}</div>
+    <div class="specialty">{{data.positionDescription}}</div>
+  </div>
+  <div *ngIf="brigade && data?.brigade?.number" class="employee-container__brigade">
+    <div class="brigade" [class]="colorBrigade">{{data?.brigade?.number}}</div>
+  </div>
+
+  <div
+    class="employee-container__star"
+    [class.star-active]="data.position ==='responsible' && star"
+    matTooltip="Назначить главным в бригаде"
+    (click)="postUserResponsible()"
+  >
+    <svg-icon
+      src="assets/icons/widgets/admin-shift-schedule/star.svg"
+      [svgStyle]="{ 'width.px':12, 'height.px':20 }"
+    ></svg-icon>
+  </div>
+
+  <div
+    *ngIf="allStatus.length"
+    class="employee-container__status"
+    [matTooltip]="absentReason?.name"
+    matTooltipPosition="right"
+  >
+    <svg-icon
+      *ngIf="!absentReason"
+      mat-button
+      [matMenuTriggerFor]="menu"
+      matTooltip="Сменить статус участника смены"
+      src="assets/icons/widgets/admin-shift-schedule/status.svg"
+      [svgStyle]="{ 'width.px':12, 'height.px':20 }"
+    ></svg-icon>
+    <svg-icon
+      *ngIf="absentReason"
+      mat-button
+      matTooltip="Сменить статус участника смены"
+      [matMenuTriggerFor]="menuDelete"
+      src="assets/icons/widgets/admin-shift-schedule/status__danger.svg"
+      [svgStyle]="{ 'width.px':12, 'height.px':20 }"
+    ></svg-icon>
+    <mat-menu #menu="matMenu" class="customize-menu">
+      <button mat-menu-item *ngFor="let status of allStatus" (click)="onChooseStatus(status)">
+        {{ status.name }}
+      </button>
+    </mat-menu>
+    <mat-menu #menuDelete="matMenu" class="customize-menu">
+      <button mat-menu-item (click)="onDeleteStatus()">
+        Вернуть на смену
+      </button>
+    </mat-menu>
+  </div>
+
+  <div
+    *ngIf="garbage"
+    class="employee-container__garbage"
+    matTooltip="Удалить пользователя из основного состава бригады"
+    (click)="delete()"
+  >
+    <svg-icon
+      src="assets/icons/widgets/admin-shift-schedule/garbage.svg"
+      [svgStyle]="{ 'width.px':9, 'height.px':12 }"
+    ></svg-icon>
+  </div>
+  <div
+    *ngIf="garbageShift"
+    class="employee-container__garbage"
+    (click)="deleteUserShift()"
+    matTooltip="Удалить участника дополнительного состава бригады"
+  >
+    <svg-icon
+      src="assets/icons/widgets/admin-shift-schedule/garbage.svg"
+      [svgStyle]="{ 'width.px':9, 'height.px':12 }"
+    ></svg-icon>
+  </div>
+</div>
