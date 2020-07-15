@@ -270,6 +270,9 @@ export class AdminShiftScheduleComponent extends WidgetPlatform
                                 if (color) {
                                     str += `item-${id}--${color.color}`;
                                     id++;
+                                } else {
+                                    str += `item-${id}--color-7`;
+                                    id++;
                                 }
                             }
                         });

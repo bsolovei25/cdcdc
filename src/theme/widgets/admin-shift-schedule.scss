@@ -11,6 +11,7 @@ $color-3: "3fa9f5";
 $color-4: "606580";
 $color-5: "285c85";
 $color-6: "2d3f51";
+$color-7: "f28b4a";
 
 $color-bg: "272b35";
 
@@ -21,6 +22,7 @@ $colors: (
   color-4: "606580",
   color-5: "285c85",
   color-6: "2d3f51",
+  color-7: "f28b4a",
 );
 
 @mixin element-color($color1, $color2, $color3, $color4, $color5, $color6) {
@@ -30,11 +32,11 @@ $colors: (
 }
 
 .item-1 {
-  @for $color1 from 1 through 6 {
+  @for $color1 from 1 through 7 {
     &--color-#{$color1} {
       @include element-color(map-get($colors, color-#{$color1}), $color-bg, $color-bg, $color-bg, $color-bg, $color-bg);
       &item-2 {
-        @for $color2 from 1 through 6 {
+        @for $color2 from 1 through 7 {
           &--color-#{$color2} {
             @include element-color(
               map-get($colors, color-#{$color1}),
@@ -45,7 +47,7 @@ $colors: (
               $color-bg
             );
             &item-3 {
-              @for $color3 from 1 through 6 {
+              @for $color3 from 1 through 7 {
                 &--color-#{$color3} {
                   @include element-color(
                     map-get($colors, color-#{$color1}),
@@ -56,7 +58,7 @@ $colors: (
                     $color-bg
                   );
                   &item-4 {
-                    @for $color4 from 1 through 6 {
+                    @for $color4 from 1 through 7 {
                       &--color-#{$color4} {
                         @include element-color(
                           map-get($colors, color-#{$color1}),
