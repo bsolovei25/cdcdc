@@ -251,6 +251,7 @@ export class KpeLineChartComponent implements OnInit, AfterViewInit {
         this.findMinMax();
         this.defineScale();
         this.transformData();
+        this.drawGridlines();
         this.drawChart();
         this.drawPoints();
     }
@@ -399,5 +400,23 @@ export class KpeLineChartComponent implements OnInit, AfterViewInit {
                 .style('stroke', '#0089FF')
                 .style('stroke-width', 1);
         });
+    }
+
+    private drawGridlines(): void {
+        const plan = this.chartData.find((chart) => chart.graphType === 'plan');
+        this.svg
+            .append('g')
+            .attr('class', 'grid')
+            .attr('transform', 'translate(0,' + this.graphMaxY + ')')
+            .call(
+                d3
+                    .axisBottom(this.scaleFuncs.x)
+                    .ticks(plan.graph.length)
+                    .tickSize(-this.graphMaxY)
+                    .tickFormat('')
+            )
+            .style('color', '#272A38');
+
+        // d3Selection.select()
     }
 }
