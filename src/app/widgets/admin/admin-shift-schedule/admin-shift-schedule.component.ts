@@ -705,6 +705,9 @@ export class AdminShiftScheduleComponent extends WidgetPlatform
                             this.selectedUnit.id
                         );
                         await this.getUnitSettings();
+                        this.resetComponent(true);
+                        this.loadItem();
+
                         setTimeout(() => (this.isLoading = false), 500);
                     },
                     questionText: error.error.messages[0].message,
