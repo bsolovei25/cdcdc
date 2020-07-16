@@ -3,7 +3,7 @@ import { ChartStyleType } from '../../@shared/models/line-chart-style.model';
 
 export interface IProductionTrend {
     graphType: ProductionTrendType;
-    graphStyle: ChartStyleType;
+    graphStyle?: ChartStyleType;
     graph: IChartMini[];
     additional?: {
         tankName: string;
