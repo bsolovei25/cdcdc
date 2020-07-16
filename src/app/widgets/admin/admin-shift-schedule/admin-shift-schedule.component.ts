@@ -391,8 +391,6 @@ export class AdminShiftScheduleComponent extends WidgetPlatform
         try {
             this.adminShiftScheduleService.getShiftUsers(this.selectedUnit.id).then((data) => {
                 this.allUsersUnit = data;
-                console.log(data);
-                
             });
         } catch (error) {
             console.log(error);
@@ -506,8 +504,6 @@ export class AdminShiftScheduleComponent extends WidgetPlatform
     }
 
     public dateChanged(event: Date): void {
-        console.log(event);
-
         this.isLoading = true;
         this.resetComponent();
         this.openOverlay(null, null, false);
@@ -543,8 +539,6 @@ export class AdminShiftScheduleComponent extends WidgetPlatform
         if (this.calendar) {
             this.calendar.updateTodaysDate();
         }
-        console.log(this.selectedDay);
-
         this.isLoading = false;
     }
 
@@ -687,11 +681,8 @@ export class AdminShiftScheduleComponent extends WidgetPlatform
             unitId: this.selectedUnit.id,
             shiftLengthHours: this.timeShift.find((item) => item.isSelected).value,
             shiftStartOffset: this.timeStart.value.hours(),
-            applyFrom: this.saveIsDate.toDate().toUTCString(),
+            applyFrom: `${this.saveIsDate.year}-${this.saveIsDate.month}-${this.saveIsDate.day}`,
         };
-        console.log(body);
-
-
         try {
             await this.adminShiftScheduleService.checkUnitSettings(this.selectedUnit.id, body);
             this.isLoading = true;
@@ -727,17 +718,13 @@ export class AdminShiftScheduleComponent extends WidgetPlatform
         const data: IUnitSettings = await this.adminShiftScheduleService.getActualUnitSettings(
             this.selectedUnit.id
         );
-        console.log(data);
-
         this.timeStart.setValue(moment()
             .hours(data.shiftStartOffset)
             .minutes(0)
             .seconds(0));
         this.timeShift.forEach((item) => (item.isSelected = false));
         this.timeShift.find((item) => item.value === data.shiftLengthHours).isSelected = true;
-        this.saveIsDate = moment(data.applyFrom)
-            .minutes(0)
-            .seconds(0);
+        this.saveIsDate = moment(data.applyFrom);
     }
 
     selectTimeShift(time: { isSelected: boolean; value: number }): void {
