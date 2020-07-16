@@ -681,10 +681,8 @@ export class AdminShiftScheduleComponent extends WidgetPlatform
             unitId: this.selectedUnit.id,
             shiftLengthHours: this.timeShift.find((item) => item.isSelected).value,
             shiftStartOffset: this.timeStart.value.hours(),
-            applyFrom: `${this.saveIsDate.year}-${this.saveIsDate.month}-${this.saveIsDate.day}`,
+            applyFrom: `${this.saveIsDate.year()}-${(this.saveIsDate.month() + 1) < 10 ? 0 : ''}${this.saveIsDate.month() + 1}-${this.saveIsDate.date()}`,
         };
-        console.log(`${this.saveIsDate.year()}-${(this.saveIsDate.month() + 1) < 10 ? 0 : ''}${this.saveIsDate.month() + 1}-${this.saveIsDate.date()}`);
-
         try {
             await this.adminShiftScheduleService.checkUnitSettings(this.selectedUnit.id, body);
             this.isLoading = true;
