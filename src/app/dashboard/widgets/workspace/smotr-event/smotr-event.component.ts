@@ -88,4 +88,17 @@ export class SmotrEventComponent implements OnInit {
     public overlayChartClose(): void {
         this.ewService.isOverlayChartOpen = false;
     }
+
+    public showDate(dateIso: string): string {
+        if (!dateIso) {
+            return '';
+        }
+        const date = new Date(dateIso);
+        const day = date.getDate();
+        const month = date.getMonth() + 1;
+        const year = date.getFullYear();
+        const hours = date.getHours();
+        const minutes = date.getMinutes();
+        return `${day}.${month}.${year} | ${hours}:${minutes}`;
+    }
 }
