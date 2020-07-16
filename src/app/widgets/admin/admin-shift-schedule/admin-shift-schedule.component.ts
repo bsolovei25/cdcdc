@@ -683,6 +683,8 @@ export class AdminShiftScheduleComponent extends WidgetPlatform
             shiftStartOffset: this.timeStart.value.hours(),
             applyFrom: `${this.saveIsDate.year}-${this.saveIsDate.month}-${this.saveIsDate.day}`,
         };
+        console.log(`${this.saveIsDate.year()}-${(this.saveIsDate.month() + 1) < 10 ? 0 : ''}${this.saveIsDate.month() + 1}-${this.saveIsDate.date()}`);
+
         try {
             await this.adminShiftScheduleService.checkUnitSettings(this.selectedUnit.id, body);
             this.isLoading = true;
