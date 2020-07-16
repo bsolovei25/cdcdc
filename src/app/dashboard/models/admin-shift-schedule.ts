@@ -46,8 +46,8 @@ export interface IShiftMember {
 export interface IBrigadeWithUsersDto {
     brigadeId: number;
     brigadeNumber: string;
-    unit: IUnits;
-    users: IUser[];
+    unit?: IUnits;
+    users?: IUser[];
 }
 
 export interface IUnits {

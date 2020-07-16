@@ -282,6 +282,11 @@ import { AstueEfficiencyCalculationComponent } from './widgets/ASTUE/astue-effic
 import { WidgetContainerComponent } from './widget-container/widget-container.component';
 import { EjsEventComponent } from './widgets/workspace/ejs-event/ejs-event.component';
 import { PerformanceBarComponent } from './components/performance-bar/performance-bar.component';
+import { AdminShiftScheduleOldComponent } from './widgets/admin-widget/admin-shift-schedule-old/admin-shift-schedule-old.component';
+import { AdminShiftListEmployeesOldComponent } from './widgets/admin-widget/admin-shift-schedule-old/components/admin-shift-list-employees-old/admin-shift-list-employees-old.component';
+import { AdminShiftInfoEmployeeOldComponent } from './widgets/admin-widget/admin-shift-schedule-old/components/admin-shift-info-employee-old/admin-shift-info-employee-old.component';
+import { AdminShiftCardOldComponent } from './widgets/admin-widget/admin-shift-schedule-old/components/admin-shift-card-old/admin-shift-card-old.component';
+import { AdminShiftBrigadeOldComponent } from './widgets/admin-widget/admin-shift-schedule-old/components/admin-shift-brigade-old/admin-shift-brigade-old.component';
 
 @NgModule({
     declarations: [
@@ -532,6 +537,11 @@ import { PerformanceBarComponent } from './components/performance-bar/performanc
         WidgetContainerComponent,
         EjsEventComponent,
         PerformanceBarComponent,
+        AdminShiftScheduleOldComponent,
+        AdminShiftListEmployeesOldComponent,
+        AdminShiftInfoEmployeeOldComponent,
+        AdminShiftCardOldComponent,
+        AdminShiftBrigadeOldComponent
     ],
     entryComponents: [
         LineChartComponent,
@@ -608,8 +618,12 @@ import { PerformanceBarComponent } from './components/performance-bar/performanc
         PanelComponent,
         AstueEfficiencyComponent,
         FileAttachMenuComponent,
+        AdminShiftScheduleOldComponent,
     ],
-    exports: [HomeComponent, PerformanceBarComponent],
+    exports: [
+        HomeComponent,
+        PerformanceBarComponent,
+    ],
     imports: [
         CommonModule,
         SharedModule,
