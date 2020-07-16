@@ -12,7 +12,7 @@
               [disabled]="!ewService.isCreateNewEvent"
               (selectionChange)="ewService.changeCategory()"
             >
-              <mat-option *ngFor="let cat of ewService.categoryPipe | async" [value]="cat">
+              <mat-option *ngFor="let cat of ewService.category" [value]="cat">
                 {{ ewService.categories[cat.name] }}
               </mat-option>
             </mat-select>
@@ -27,6 +27,7 @@
               panelClass="mat-select-custom"
               [disabled]="isCreateEvent()"
               [value]="ewService.event.asusEvent.category"
+              [compareWith]="compareFn"
             >
               <mat-option
                 *ngFor="let category of ewService.asusCategories"
@@ -262,8 +263,7 @@
         <div class="label">
           <div class="label__title">Дата регистрации</div>
           <div class="label__text">
-            {{this.ewService.event?.externalDate ? this.ewService.event.externalDate :
-            ''|date:'dd.MM.yyyy | hh.mm'}}
+            {{showDate(this.ewService.event?.externalDate)}}
           </div>
         </div>
       </div>
