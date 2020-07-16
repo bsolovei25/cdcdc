@@ -144,6 +144,7 @@ export const WIDGETS = {
     'stocks-using': WidgetContainerComponent,
     'deviation-details': WidgetContainerComponent,
     'production-details': WidgetContainerComponent,
+    'kpe-quality': WidgetContainerComponent,
 };
 
 export const WIDGETS_LAZY = {
@@ -224,23 +225,6 @@ export const WIDGETS_LAZY = {
         minItemRows: 8,
     },
 
-    // #endregion APS
-
-    // #region Admin
-
-    'admin-shift-schedule': {
-        import: async () => {
-            return await import('src/app/widgets/admin/admin-shift-schedule/admin-shift-schedule.module');
-        },
-        module: 'AdminShiftScheduleModule',
-        itemCols: 15,
-        itemRows: 15,
-        minItemCols: 15,
-        minItemRows: 15,
-        preview: 'admin-shift-schedule',
-    },
-
-    // #endregion APS
     'deviation-details': {
         import: async () => {
             return await import('src/app/widgets/APS/deviation-details/deviation-details.module');
@@ -261,7 +245,41 @@ export const WIDGETS_LAZY = {
         minItemCols: 11,
         minItemRows: 11,
     },
-    //#endregion APS
+
+    // #endregion APS
+
+    // #region Admin
+
+    'admin-shift-schedule': {
+        import: async () => {
+            return await import('src/app/widgets/admin/admin-shift-schedule/admin-shift-schedule.module');
+        },
+        module: 'AdminShiftScheduleModule',
+        itemCols: 15,
+        itemRows: 15,
+        minItemCols: 15,
+        minItemRows: 15,
+        preview: 'admin-shift-schedule',
+    },
+
+
+    // #endregion Admin
+
+    // #region Kpe
+
+    'kpe-quality': {
+        import: async () => {
+            return await import('src/app/widgets/KPE/kpe-quality/kpe-quality.module');
+        },
+        module: 'KpeQualityModule',
+        itemCols: 15,
+        itemRows: 15,
+        minItemCols: 15,
+        minItemRows: 15,
+        // preview: 'kpe-quality',
+    },
+
+    // #endregion Kpe
 
     // 'pie-diagram': {
     //     import: async () => await import('src/app/widgets/pie-diagram/pie-diagram.module'),
