@@ -1,11 +1,4 @@
-import {
-    Component,
-    OnInit,
-    ViewChild,
-    AfterViewInit,
-    ElementRef,
-    HostListener,
-} from '@angular/core';
+import { Component, ViewChild, ElementRef, HostListener, Input, OnChanges } from '@angular/core';
 import * as d3Selection from 'd3-selection';
 import * as d3 from 'd3';
 import {
@@ -19,209 +12,10 @@ import { IChartMini, IChartD3 } from '../../../../@shared/models/smart-scroll.mo
     templateUrl: './kpe-line-chart.component.html',
     styleUrls: ['./kpe-line-chart.component.scss'],
 })
-export class KpeLineChartComponent implements OnInit, AfterViewInit {
-    @ViewChild('chart') private chart: ElementRef;
+export class KpeLineChartComponent implements OnChanges {
+    @Input() private data: IProductionTrend[] = [];
 
-    private data: IProductionTrend[] = [
-        {
-            graphType: 'plan',
-            graph: [
-                {
-                    value: 10,
-                    timeStamp: new Date(2020, 2, 1),
-                },
-                {
-                    value: 50,
-                    timeStamp: new Date(2020, 2, 2),
-                },
-                {
-                    value: 35,
-                    timeStamp: new Date(2020, 2, 3),
-                },
-                {
-                    value: 13,
-                    timeStamp: new Date(2020, 2, 4),
-                },
-                {
-                    value: 67,
-                    timeStamp: new Date(2020, 2, 5),
-                },
-                {
-                    value: 10,
-                    timeStamp: new Date(2020, 2, 6),
-                },
-                {
-                    value: 56,
-                    timeStamp: new Date(2020, 2, 7),
-                },
-                {
-                    value: 45,
-                    timeStamp: new Date(2020, 2, 8),
-                },
-                {
-                    value: 53,
-                    timeStamp: new Date(2020, 2, 9),
-                },
-                {
-                    value: 34,
-                    timeStamp: new Date(2020, 2, 10),
-                },
-                {
-                    value: 76,
-                    timeStamp: new Date(2020, 2, 11),
-                },
-                {
-                    value: 45,
-                    timeStamp: new Date(2020, 2, 12),
-                },
-                {
-                    value: 34,
-                    timeStamp: new Date(2020, 2, 13),
-                },
-                {
-                    value: 65,
-                    timeStamp: new Date(2020, 2, 14),
-                },
-                {
-                    value: 34,
-                    timeStamp: new Date(2020, 2, 15),
-                },
-                {
-                    value: 42,
-                    timeStamp: new Date(2020, 2, 16),
-                },
-                {
-                    value: 57,
-                    timeStamp: new Date(2020, 2, 17),
-                },
-                {
-                    value: 46,
-                    timeStamp: new Date(2020, 2, 18),
-                },
-                {
-                    value: 72,
-                    timeStamp: new Date(2020, 2, 19),
-                },
-                {
-                    value: 17,
-                    timeStamp: new Date(2020, 2, 20),
-                },
-                {
-                    value: 36,
-                    timeStamp: new Date(2020, 2, 21),
-                },
-                {
-                    value: 28,
-                    timeStamp: new Date(2020, 2, 22),
-                },
-                {
-                    value: 43,
-                    timeStamp: new Date(2020, 2, 23),
-                },
-                {
-                    value: 52,
-                    timeStamp: new Date(2020, 2, 24),
-                },
-                {
-                    value: 63,
-                    timeStamp: new Date(2020, 2, 25),
-                },
-                {
-                    value: 33,
-                    timeStamp: new Date(2020, 2, 26),
-                },
-                {
-                    value: 15,
-                    timeStamp: new Date(2020, 2, 27),
-                },
-                {
-                    value: 25,
-                    timeStamp: new Date(2020, 2, 28),
-                },
-                {
-                    value: 20,
-                    timeStamp: new Date(2020, 2, 29),
-                },
-                {
-                    value: 40,
-                    timeStamp: new Date(2020, 2, 30),
-                },
-                {
-                    value: 35,
-                    timeStamp: new Date(2020, 2, 31),
-                },
-            ],
-        },
-        {
-            graphType: 'fact',
-            graph: [
-                {
-                    value: 32,
-                    timeStamp: new Date(2020, 2, 1),
-                },
-                {
-                    value: 45,
-                    timeStamp: new Date(2020, 2, 2),
-                },
-                {
-                    value: 55,
-                    timeStamp: new Date(2020, 2, 3),
-                },
-                {
-                    value: 12,
-                    timeStamp: new Date(2020, 2, 4),
-                },
-                {
-                    value: 46,
-                    timeStamp: new Date(2020, 2, 5),
-                },
-                {
-                    value: 24,
-                    timeStamp: new Date(2020, 2, 6),
-                },
-                {
-                    value: 37,
-                    timeStamp: new Date(2020, 2, 7),
-                },
-                {
-                    value: 42,
-                    timeStamp: new Date(2020, 2, 8),
-                },
-                {
-                    value: 47,
-                    timeStamp: new Date(2020, 2, 9),
-                },
-                {
-                    value: 62,
-                    timeStamp: new Date(2020, 2, 10),
-                },
-                {
-                    value: 58,
-                    timeStamp: new Date(2020, 2, 11),
-                },
-                {
-                    value: 38,
-                    timeStamp: new Date(2020, 2, 12),
-                },
-                {
-                    value: 33,
-                    timeStamp: new Date(2020, 2, 13),
-                },
-                {
-                    value: 39,
-                    timeStamp: new Date(2020, 2, 14),
-                },
-                {
-                    value: 49,
-                    timeStamp: new Date(2020, 2, 15),
-                },
-                {
-                    value: 50,
-                    timeStamp: new Date(2020, 2, 16),
-                },
-            ],
-        },
-    ];
+    @ViewChild('chart') private chart: ElementRef;
 
     private chartData: {
         graphType: ProductionTrendType;
@@ -250,15 +44,17 @@ export class KpeLineChartComponent implements OnInit, AfterViewInit {
 
     constructor() {}
 
-    public ngOnInit(): void {}
-
-    public ngAfterViewInit(): void {
-        this.startDrawChart();
+    public ngOnChanges(): void {
+        if (this.data.length) {
+            this.startDrawChart();
+        }
     }
 
     @HostListener('document:resize', ['$event'])
     public OnResize(): void {
-        this.startDrawChart();
+        if (this.data.length) {
+            this.startDrawChart();
+        }
     }
 
     private startDrawChart(): void {

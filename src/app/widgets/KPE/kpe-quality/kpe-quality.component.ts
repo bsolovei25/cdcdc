@@ -2,6 +2,8 @@ import { Component, OnInit, Inject, OnDestroy, ViewChild, ElementRef } from '@an
 import { WidgetPlatform } from '../../../dashboard/models/widget-platform';
 import { WidgetService } from '../../../dashboard/services/widget.service';
 import * as d3 from 'd3';
+import { HttpClient } from '@angular/common/http';
+import { IProductionTrend } from '../../../dashboard/models/production-trends.model';
 
 @Component({
     selector: 'evj-kpe-quality',
@@ -11,10 +13,13 @@ import * as d3 from 'd3';
 export class KpeQualityComponent extends WidgetPlatform implements OnInit, OnDestroy {
     @ViewChild('chart') private chartContainer: ElementRef;
 
+    public lineChartData: IProductionTrend[] = [];
+
     margin = { top: 20, right: 20, bottom: 30, left: 40 };
 
     constructor(
         protected widgetService: WidgetService,
+        private http: HttpClient,
         @Inject('isMock') public isMock: boolean,
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string
@@ -25,8 +30,19 @@ export class KpeQualityComponent extends WidgetPlatform implements OnInit, OnDes
     ngOnInit(): void {
         super.widgetInit();
         setTimeout(() => {
-            // this.createChart();
+            this.createChart();
         }, 1000);
+        this.http
+            .get('assets/mock/KPE/kpe-trends.json')
+            .toPromise()
+            .then((data: { data: IProductionTrend[] }) => {
+                this.lineChartData = data.data;
+                this.lineChartData.forEach((item) =>
+                    item.graph.forEach((chart) => {
+                        chart.timeStamp = new Date(chart.timeStamp);
+                    })
+                );
+            });
     }
 
     ngOnDestroy(): void {
