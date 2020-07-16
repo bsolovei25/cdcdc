@@ -1,4 +1,11 @@
-import { Component, OnInit, ViewChild, AfterViewInit, ElementRef } from '@angular/core';
+import {
+    Component,
+    OnInit,
+    ViewChild,
+    AfterViewInit,
+    ElementRef,
+    HostListener,
+} from '@angular/core';
 import * as d3Selection from 'd3-selection';
 import * as d3 from 'd3';
 import {
@@ -235,10 +242,10 @@ export class KpeLineChartComponent implements OnInit, AfterViewInit {
     private readonly MIN_COEF: number = 0.3;
 
     private readonly padding: { left: number; right: number; top: number; bottom: number } = {
-        left: 5,
+        left: 25,
         right: 5,
         top: 0,
-        bottom: 0,
+        bottom: 20,
     };
 
     constructor() {}
@@ -246,12 +253,22 @@ export class KpeLineChartComponent implements OnInit, AfterViewInit {
     public ngOnInit(): void {}
 
     public ngAfterViewInit(): void {
+        this.startDrawChart();
+    }
+
+    @HostListener('document:resize', ['$event'])
+    public OnResize(): void {
+        this.startDrawChart();
+    }
+
+    private startDrawChart(): void {
         this.initData();
-        this.drawChart();
         this.findMinMax();
         this.defineScale();
         this.transformData();
         this.drawGridlines();
+        this.drawAxisYLabels();
+        this.drawAxisXLabels();
         this.drawChart();
         this.drawPoints();
     }
@@ -259,6 +276,7 @@ export class KpeLineChartComponent implements OnInit, AfterViewInit {
     private initData(): void {
         if (this.svg) {
             this.svg.remove();
+            this.svg = undefined;
         }
 
         this.svg = d3Selection.select(this.chart.nativeElement).append('svg');
@@ -311,12 +329,12 @@ export class KpeLineChartComponent implements OnInit, AfterViewInit {
 
         this.axis.axisX = d3
             .axisBottom(this.scaleFuncs.x)
-            .ticks(7)
-            .tickFormat('%d')
+            .ticks(plan.graph.length)
+            .tickFormat(d3.timeFormat('%d'))
             .tickSizeOuter(0);
         this.axis.axisY = d3
             .axisLeft(this.scaleFuncs.y)
-            .ticks(10)
+            .ticks(5)
             .tickSize(0);
     }
 
@@ -354,7 +372,7 @@ export class KpeLineChartComponent implements OnInit, AfterViewInit {
             const area = d3
                 .area()
                 .x((item: IChartD3) => item.x)
-                .y0(this.graphMaxY)
+                .y0(this.graphMaxY - this.padding.bottom)
                 .y1((item: IChartD3) => item.y);
 
             const lineWidth: number = 1;
@@ -407,14 +425,63 @@ export class KpeLineChartComponent implements OnInit, AfterViewInit {
         this.svg
             .append('g')
             .attr('class', 'grid')
-            .attr('transform', 'translate(0,' + this.graphMaxY + ')')
+            .attr('transform', `translate(0,${this.graphMaxY - this.padding.bottom})`)
             .call(
                 d3
                     .axisBottom(this.scaleFuncs.x)
                     .ticks(plan.graph.length)
-                    .tickSize(-this.graphMaxY)
+                    .tickSize(-this.graphMaxY - this.padding.bottom)
                     .tickFormat('')
             )
             .style('color', '#272A38');
+    }
+
+    private drawAxisXLabels(): void {
+        this.svg
+            .append('g')
+            .attr('transform', `translate(0,${this.graphMaxY - this.padding.bottom})`)
+            .attr('class', 'axisX')
+            .call(this.axis.axisX)
+            .selectAll('text')
+            .style('font-size', '12px')
+            .style('fill', '#8c99b2');
+
+        const axisG = this.svg.select('g.axisX');
+        axisG.select('path.domain').remove();
+        axisG.selectAll('g.tick line').remove();
+
+        const colors = {
+            last: '#606580',
+            active: '#0089FF',
+            future: '#303549',
+        };
+
+        const activeIdx =
+            this.chartData.find((chart) => chart.graphType === 'fact').graph.length - 1;
+
+        const gArr = Array.from(axisG.selectAll('g.tick')._groups[0]);
+        gArr.forEach((g: HTMLElement, idx: number) => {
+            const fill =
+                idx < activeIdx ? colors.last : idx === activeIdx ? colors.active : colors.future;
+            d3Selection
+                .select(g)
+                .select('text')
+                .style('fill', fill);
+        });
+    }
+
+    private drawAxisYLabels(): void {
+        this.svg
+            .append('g')
+            .attr('transform', `translate(${this.padding.left},0)`)
+            .attr('class', 'axisY')
+            .call(this.axis.axisY)
+            .selectAll('text')
+            .style('font-size', '12px')
+            .style('fill', '#606580');
+
+        const axisG = this.svg.select('g.axisY');
+        axisG.select('path.domain').remove();
+        axisG.selectAll('g.tick line').remove();
     }
 }
