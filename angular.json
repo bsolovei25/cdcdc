@@ -30,7 +30,8 @@
               "src/theme"
             ],
             "styles": [
-              "src/styles.scss"
+              "src/styles.scss",
+              "node_modules/material-design-icons/iconfont/material-icons.css"
             ],
             "scripts": [
               "./node_modules/d3/dist/d3.js",
