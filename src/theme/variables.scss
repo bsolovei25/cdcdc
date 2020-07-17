@@ -192,10 +192,15 @@
 
   // KPE equalizer-chart
 
-  --color-kpe-eq-chart-title: #D7E2F2;
+  --color-kpe-eq-chart-title: #d7e2f2;
   --color-kpe-eq-chart-area: #232532;
   --color-kpe-eq-chart-row-default: #303549;
-  --color-kpe-eq-chart-row-over: #F7931E;
+  --color-kpe-eq-chart-row-over: #f7931e;
+
+  // KPE line-diagram
+
+  --color-kpe-line-diagram-bg-sub: #1c1f2b;
+  --color-kpe-line-diagram-active: #1f3d60;
 
   // @shared/alert-window (aw)
   --color-aw-container-shadow-transparent: rgba(0, 0, 0, 0.25);
