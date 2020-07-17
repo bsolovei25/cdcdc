@@ -191,11 +191,16 @@
   --color-aps-limits: #b6e1fe;
 
   // KPE equalizer-chart
-
   --color-kpe-eq-chart-title: #D7E2F2;
   --color-kpe-eq-chart-area: #232532;
   --color-kpe-eq-chart-row-default: #303549;
   --color-kpe-eq-chart-row-over: #F7931E;
+
+  // KPE gauge-chart
+  --color-kpe-gauge-border: #262A39;
+  --color-kpe-gauge-bg: #1C1F2B;
+  --color-kpe-gauge-tab-border: #4B5169;
+  --color-kpe-gauge-bg-1: #11151F;
 
   // @shared/alert-window (aw)
   --color-aw-container-shadow-transparent: rgba(0, 0, 0, 0.25);
