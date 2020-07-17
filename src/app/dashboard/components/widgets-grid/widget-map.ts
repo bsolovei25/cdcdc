@@ -145,6 +145,7 @@ export const WIDGETS = {
     'deviation-details': WidgetContainerComponent,
     'production-details': WidgetContainerComponent,
     'kpe-quality': WidgetContainerComponent,
+    'key-performance-indicators': WidgetContainerComponent,
 };
 
 export const WIDGETS_LAZY = {
@@ -247,6 +248,17 @@ export const WIDGETS_LAZY = {
     },
 
     // #endregion APS
+    'key-performance-indicators': {
+        import: async () => {
+            return await import('src/app/widgets/KPE/key-performance-indicators/key-performance-indicators.module');
+        },
+        module: 'KeyPerformanceIndicatorsModule',
+        itemCols: 26,
+        itemRows: 21,
+        minItemCols: 26,
+        minItemRows: 21,
+    },
+    //#endregion APS
 
     // #region Admin
 

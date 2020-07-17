@@ -1,0 +1,170 @@
+.header {
+  position: relative;
+  width: 100%;
+  height: 60px;
+  min-height: 60px;
+  max-height: 60px;
+  border-radius: 5px;
+
+  &__background {
+    position: absolute;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+    background-color: var(--color-kpe-gauge-bg);
+    border-radius: 5px;
+  }
+
+  &__interface {
+    position: relative;
+    z-index: 3;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+  }
+}
+
+.tabs-container {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 60px;
+
+  .tab {
+    display: flex;
+    flex: 1 1;
+    justify-content: center;
+    align-items: center;
+    border-bottom: 2px solid var(--color-kpe-gauge-tab-border);
+    padding: 15px;
+    cursor: pointer;
+
+    &__title {
+      font-size: 13px;
+      color: var(--color-marker-diagram);
+
+    }
+
+    &--active {
+      border-bottom: 2px solid var(--color-aps-active);
+      background: linear-gradient(0deg, rgba(35, 120, 217, 0.25) 0px, rgba(35, 120, 217, 0.0001) 10px);
+
+      .tab__title {
+        color: var(--color-kpe-eq-chart-title);
+      }
+    }
+  }
+}
+
+.wrapper {
+  background-color: var(--color-kpe-gauge-bg-1);
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+
+  .unit-selector {
+    position: absolute;
+    z-index: 20;
+    top: 17px;
+    right: 19px;
+    display: flex;
+
+    span {
+      font-family: Tahoma;
+      font-style: normal;
+      font-weight: normal;
+      font-size: 10px;
+    }
+
+    &__unit,
+    &__sign {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+
+    &__unit {
+      width: 41px;
+      height: 16px;
+      background: var(--color-kpe-gauge-bg);
+      border-radius: 2px 0 0 2px;
+
+      span {
+        color: var(--color-marker-diagram);
+      }
+    }
+
+    &__sign {
+      width: 20px;
+      height: 16px;
+      background: rgba(0, 137, 255, 0.2);
+      border: 0.75px solid var(--color-aps-active);
+      border-radius: 0 2px 2px 0;
+
+      span {
+        color: var(--color-kpe-eq-chart-title);
+      }
+    }
+  }
+
+  .diagram-container {
+    width: 300px;
+    min-width: 300px;
+    height: 300px;
+    min-height: 300px;
+    margin-top: -61px;
+  }
+
+  .circle1,
+  .circle2,
+  .circle3,
+  .circle4,
+  .circle5 {
+    border-radius: 50%;
+    border: 1px solid var(--color-lines-bg-dia);
+    position: absolute;
+  }
+
+  .circle1 {
+    width: 360px;
+    height: 360px;
+    bottom: calc((100% - 360px + 56px) / 2);
+    left: calc((100% - 360px) / 2);
+  }
+
+  .circle2 {
+    width: 420px;
+    height: 420px;
+    bottom: calc((100% - 420px + 56px) / 2);
+    left: calc((100% - 420px) / 2);
+  }
+
+  .circle3 {
+    width: 480px;
+    height: 480px;
+    bottom: calc((100% - 480px + 56px) / 2);
+    left: calc((100% - 480px) / 2);
+  }
+
+  .circle4 {
+    width: 540px;
+    height: 540px;
+    bottom: calc((100% - 540px + 56px) / 2);
+    left: calc((100% - 540px) / 2);
+  }
+
+  .circle5 {
+    width: 600px;
+    height: 600px;
+    bottom: calc((100% - 600px + 56px) / 2);
+    left: calc((100% - 600px) / 2);
+  }
+}

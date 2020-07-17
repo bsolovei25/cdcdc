@@ -390,9 +390,21 @@ export class EventsComponent extends WidgetPlatform implements OnInit, OnDestroy
     }
 
     private async deleteNotification(id: number): Promise<void> {
-        await this.eventService.deleteEvent(id);
-        this.ewService.event = null;
-        this.snackBarService.openSnackBar(`Событие id: ${id} успешно удалено!`);
+        try {
+            await this.eventService.deleteEvent(id);
+            this.ewService.event = null;
+            const idx = this.notifications.findIndex((n) => n.id === id);
+            console.log(idx);
+            if (idx >= 0) {
+                this.notifications.splice(idx, 1);
+                this.notifications = this.notifications.slice();
+                this.countNotificationsDivCapacity();
+            }
+            this.snackBarService.openSnackBar(`Событие id: ${id} успешно удалено!`);
+        } catch (error) {
+            console.error(error);
+        }
+
     }
 
     // Переход в систему источник

@@ -585,10 +585,12 @@ export class AdminShiftScheduleComponent extends WidgetPlatform
         this.rightBrigades = [];
         this.leftBrigades = [];
         data.forEach((el, i) => {
-            if (i % 2 === 0) {
-                this.leftBrigades.push(el);
-            } else {
-                this.rightBrigades.push(el);
+            if (el.brigadeId !== 0.1) {
+                if (i % 2 === 0) {
+                    this.leftBrigades.push(el);
+                } else {
+                    this.rightBrigades.push(el);
+                }
             }
         });
     }
