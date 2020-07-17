@@ -212,9 +212,9 @@ export class EventsComponent extends WidgetPlatform implements OnInit, OnDestroy
     }
 
     protected dataHandler(
-        ref: {notification: EventsWidgetNotificationPreview, action: string}
+        ref: { notification: EventsWidgetNotificationPreview, action: string }
     ): void {
-        if (!(this.placeNames.find((place) => place === ref.notification.unit.name))) {
+        if (!(this.placeNames.find((place) => place === ref.notification?.unit?.name))) {
             return;
         }
 
@@ -362,7 +362,7 @@ export class EventsComponent extends WidgetPlatform implements OnInit, OnDestroy
     public viewChanger(list: boolean): void {
         this.isList = list;
         this.countNotificationsDivCapacity();
-        this.setWidgetSettings({viewType: list ? 'list' : 'cards'});
+        this.setWidgetSettings({ viewType: list ? 'list' : 'cards' });
     }
 
     // Удаление виджета

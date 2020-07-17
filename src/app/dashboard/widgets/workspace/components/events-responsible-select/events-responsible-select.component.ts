@@ -21,13 +21,15 @@ export class EventsResponsibleSelectComponent implements OnInit {
 
     public users: IUser[];
 
-    constructor(public ewService: EventsWorkspaceService) {}
+    constructor(public ewService: EventsWorkspaceService) { }
 
     public ngOnInit(): void {
         this.ewService.event$
             .pipe(takeUntil(this.onDestroy))
             .subscribe((event) => {
-                this.responsible = event.responsibleOperator;
+                if (event) {
+                    this.responsible = event.responsibleOperator;
+                }
             });
         this.filter.valueChanges
             .pipe(takeUntil(this.onDestroy))
