@@ -5,11 +5,11 @@ import { ClaimService, EnumClaimWidgets } from '../../../dashboard/services/clai
 import { Subscription } from 'rxjs';
 
 @Component({
-    selector: 'evj-aps-widget-header',
-    templateUrl: './aps-widget-header.component.html',
-    styleUrls: ['./aps-widget-header.component.scss'],
+    selector: 'evj-aps-kpe-widget-header',
+    templateUrl: './aps-kpe-widget-header.component.html',
+    styleUrls: ['./aps-kpe-widget-header.component.scss']
 })
-export class ApsWidgetHeaderComponent implements OnInit, OnDestroy {
+export class ApsKpeWidgetHeaderComponent implements OnInit, OnDestroy {
     @Input() private uniqId: string = '';
     @Input() public widgetTitle: string = '';
     @Input() public icon: ApsHeaderIconType = 'drop';
@@ -23,7 +23,8 @@ export class ApsWidgetHeaderComponent implements OnInit, OnDestroy {
 
     private subscriptions: Subscription[] = [];
 
-    constructor(private userSettings: UserSettingsService, private claimService: ClaimService) {}
+    constructor(private userSettings: UserSettingsService, private claimService: ClaimService) {
+    }
 
     public ngOnInit(): void {
         this.subscriptions.push(

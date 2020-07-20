@@ -146,6 +146,7 @@ export const WIDGETS = {
     'production-details': WidgetContainerComponent,
     'kpe-quality': WidgetContainerComponent,
     'key-performance-indicators': WidgetContainerComponent,
+    'kpe-readiness': WidgetContainerComponent,
 };
 
 export const WIDGETS_LAZY = {
@@ -158,7 +159,7 @@ export const WIDGETS_LAZY = {
         itemCols: 41,
         itemRows: 12,
         minItemCols: 40,
-        minItemRows: 10,
+        minItemRows: 10
         // preview: 'load-chart',
     },
     scenarios: {
@@ -169,7 +170,7 @@ export const WIDGETS_LAZY = {
         itemCols: 15,
         itemRows: 10,
         minItemCols: 15,
-        minItemRows: 10,
+        minItemRows: 10
         // preview: 'scenarios',
     },
     'aps-gantt-chart': {
@@ -180,7 +181,7 @@ export const WIDGETS_LAZY = {
         itemCols: 15,
         itemRows: 30,
         minItemCols: 40,
-        minItemRows: 10,
+        minItemRows: 10
         // preview: 'gant-chart',
     },
     'aps-recipe-diagram': {
@@ -191,7 +192,7 @@ export const WIDGETS_LAZY = {
         itemCols: 15,
         itemRows: 30,
         minItemCols: 40,
-        minItemRows: 10,
+        minItemRows: 10
         // preview: 'aps-recipe-diagram',
     },
     'facility-deviation': {
@@ -202,7 +203,7 @@ export const WIDGETS_LAZY = {
         itemCols: 41,
         itemRows: 12,
         minItemCols: 40,
-        minItemRows: 10,
+        minItemRows: 10
     },
     'raw-motion': {
         import: async () => {
@@ -212,7 +213,7 @@ export const WIDGETS_LAZY = {
         itemCols: 41,
         itemRows: 12,
         minItemCols: 40,
-        minItemRows: 10,
+        minItemRows: 10
         // preview: 'raw-motion',
     },
     'stocks-using': {
@@ -223,7 +224,7 @@ export const WIDGETS_LAZY = {
         itemCols: 41,
         itemRows: 12,
         minItemCols: 30,
-        minItemRows: 8,
+        minItemRows: 8
     },
 
     'deviation-details': {
@@ -234,7 +235,7 @@ export const WIDGETS_LAZY = {
         itemCols: 11,
         itemRows: 20,
         minItemCols: 11,
-        minItemRows: 11,
+        minItemRows: 11
     },
     'production-details': {
         import: async () => {
@@ -244,7 +245,7 @@ export const WIDGETS_LAZY = {
         itemCols: 11,
         itemRows: 20,
         minItemCols: 11,
-        minItemRows: 11,
+        minItemRows: 11
     },
 
     // #endregion APS
@@ -256,7 +257,7 @@ export const WIDGETS_LAZY = {
         itemCols: 26,
         itemRows: 21,
         minItemCols: 26,
-        minItemRows: 21,
+        minItemRows: 21
     },
     //#endregion APS
 
@@ -271,7 +272,7 @@ export const WIDGETS_LAZY = {
         itemRows: 15,
         minItemCols: 15,
         minItemRows: 15,
-        preview: 'admin-shift-schedule',
+        preview: 'admin-shift-schedule'
     },
 
 
@@ -287,7 +288,18 @@ export const WIDGETS_LAZY = {
         itemCols: 15,
         itemRows: 15,
         minItemCols: 15,
-        minItemRows: 15,
+        minItemRows: 10
+        // preview: 'kpe-quality',
+    },
+    'kpe-readiness': {
+        import: async () => {
+            return await import('src/app/widgets/KPE/kpe-readiness/kpe-readiness.module');
+        },
+        module: 'KpeReadinessModule',
+        itemCols: 15,
+        itemRows: 15,
+        minItemCols: 15,
+        minItemRows: 10
         // preview: 'kpe-quality',
     },
 
@@ -338,7 +350,7 @@ export const WIDGETS_LAZY = {
         itemRows: 16,
         minItemCols: 20,
         minItemRows: 16,
-        preview: 'industrial-pyramid',
+        preview: 'industrial-pyramid'
     },
     // 'bar-chart': {
     //     import: async () => await import('src/app/widgets/bar-chart/bar-chart.module'),
@@ -501,7 +513,7 @@ export const WIDGETS_LAZY = {
             {
                 return await import(
                     'src/app/widgets/SMP/production-deviations/production-deviations.module'
-                );
+                    );
             }
         },
         module: 'ProductionDeviationsModule',
@@ -509,8 +521,8 @@ export const WIDGETS_LAZY = {
         itemRows: 27,
         minItemCols: 37,
         minItemRows: 27,
-        preview: 'production-deviations',
-    },
+        preview: 'production-deviations'
+    }
     // 'product-groups-short': {
     //     import: async () => await import('src/app/widgets/product-groups-short/product-groups-short.module'),
     // },

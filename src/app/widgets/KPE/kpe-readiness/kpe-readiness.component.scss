@@ -1,0 +1,57 @@
+.readiness {
+  display: grid;
+  grid-template-columns: 1fr;
+  width: 100%;
+
+  &__header {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 135px;
+    padding: 15px;
+    box-sizing: border-box;
+
+    &__circle-diagram {
+      grid-column-start: 1;
+      grid-column-end: 1;
+    }
+
+    &__line-diagram {
+      grid-column-start: 2;
+      grid-column-end: 4;
+    }
+  }
+
+  &__body {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    column-gap: 10px;
+    row-gap: 15px;
+
+    .card {
+      box-sizing: border-box;
+      max-height: 130px;
+      border-radius: 2px;
+      padding: 15px 0;
+      background-color: var(--color-kpe-bg-sub);
+    }
+
+    &__circle-diagram {
+      &__first {
+        grid-column: span 1;
+      }
+
+      &__second {
+        grid-column: span 1;
+      }
+    }
+
+    &__line-diagram {
+      grid-column: span 2;
+
+      evj-kpe-line-chart {
+        display: block;
+        height: 40px;
+      }
+    }
+  }
+}

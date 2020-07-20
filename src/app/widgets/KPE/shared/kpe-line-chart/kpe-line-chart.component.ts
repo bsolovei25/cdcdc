@@ -14,6 +14,7 @@ import { IChartMini, IChartD3 } from '../../../../@shared/models/smart-scroll.mo
 })
 export class KpeLineChartComponent implements OnChanges {
     @Input() private data: IProductionTrend[] = [];
+    @Input() isLineCircle: boolean = false;
 
     @ViewChild('chart') private chart: ElementRef;
 
@@ -36,13 +37,14 @@ export class KpeLineChartComponent implements OnChanges {
     private readonly MIN_COEF: number = 0.3;
 
     private readonly padding: { left: number; right: number; top: number; bottom: number } = {
-        left: 25,
-        right: 5,
+        left: this.isLineCircle ? 25 : 15,
+        right: this.isLineCircle ? 5 : 15,
         top: 0,
         bottom: 20,
     };
 
-    constructor() {}
+
+    constructor() { }
 
     public ngOnChanges(): void {
         if (this.data.length) {
@@ -63,10 +65,12 @@ export class KpeLineChartComponent implements OnChanges {
         this.defineScale();
         this.transformData();
         this.drawGridlines();
-        this.drawAxisYLabels();
-        this.drawAxisXLabels();
         this.drawChart();
-        this.drawPoints();
+        if (this.isLineCircle) {
+            this.drawAxisYLabels();
+            this.drawAxisXLabels();
+            this.drawPoints();
+        }
     }
 
     private initData(): void {
@@ -172,7 +176,8 @@ export class KpeLineChartComponent implements OnChanges {
                 .y1((item: IChartD3) => item.y);
 
             const lineWidth: number = 1;
-            const lineColor: string = chart.graphType === 'fact' ? '#0089FF' : '#4B5169';
+            const lineColor: string = chart.graphType === 'fact' ?
+                (this.isLineCircle ? '#0089FF' : 'white') : '#4B5169';
             const opacity: number = chart.graphType === 'fact' ? 1 : 0.2;
 
             this.svg
