@@ -19,13 +19,13 @@
       >
         <ng-container *ngFor="let item of data">
           <ng-container *ngIf="!item?.isNotVisible">
-            <evj-admin-shift-info-employee
+            <evj-admin-shift-info-employee-old
               [colorBrigade]="brigadeColor(item)"
               [data]="item"
               cdkDrag
               (cdkDragStarted)="dragStart(item.id)"
               brigade="true"
-            ></evj-admin-shift-info-employee>
+            ></evj-admin-shift-info-employee-old>
           </ng-container>
         </ng-container>
       </div>

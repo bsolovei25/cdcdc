@@ -8,9 +8,9 @@ import { SnackBarService } from '../../../../../services/snack-bar.service';
 import { FormControl } from '@angular/forms';
 
 @Component({
-    selector: 'evj-admin-shift-brigade',
-    templateUrl: './admin-shift-brigade.component.html',
-    styleUrls: ['./admin-shift-brigade.component.scss'],
+    selector: 'evj-admin-shift-brigade-old',
+    templateUrl: './admin-shift-brigade-old.component.html',
+    styleUrls: ['./admin-shift-brigade-old.component.scss'],
     animations: [
         trigger('Branch', [
             state(
@@ -34,7 +34,7 @@ import { FormControl } from '@angular/forms';
         ]),
     ],
 })
-export class AdminShiftBrigadeComponent {
+export class AdminShiftBrigadeOldComponent {
     @Input() data: IBrigadeWithUsersDto;
 
     public isOpen: boolean = true;

@@ -29,20 +29,14 @@ import {
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
 import { IAlertWindowModel } from '../../../../@shared/models/alert-window.model';
 import { FormControl } from '@angular/forms';
-import { EventService } from '../../../services/widgets/event.service';
-
-export interface IAbsent {
-    code: string;
-    id: number;
-    name: string;
-}
+import { IAbsent } from '../../../../widgets/admin/admin-shift-schedule/admin-shift-schedule.component';
 
 @Component({
-    selector: 'evj-admin-shift-schedule',
-    templateUrl: './admin-shift-schedule.component.html',
-    styleUrls: ['./admin-shift-schedule.component.scss']
+    selector: 'evj-admin-shift-schedule-old',
+    templateUrl: './admin-shift-schedule-old.component.html',
+    styleUrls: ['./admin-shift-schedule-old.component.scss']
 })
-export class AdminShiftScheduleComponent extends WidgetPlatform
+export class AdminShiftScheduleOldComponent extends WidgetPlatform
     implements OnInit, OnDestroy, AfterContentChecked {
     defaultLocale: string = 'ru-RU';
 
@@ -96,7 +90,6 @@ export class AdminShiftScheduleComponent extends WidgetPlatform
         private materialController: SnackBarService,
         protected widgetService: WidgetService,
         private snackBar: SnackBarService,
-        private eventService: EventService,
         @Inject('isMock') public isMock: boolean,
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string
@@ -265,6 +258,7 @@ export class AdminShiftScheduleComponent extends WidgetPlatform
             try {
                 await this.adminShiftScheduleService.getUnits().then((data) => {
                     this.allUnits = data;
+                    console.log(data);
                     this.selectedUnit = data?.[0];
                 });
             } catch (error) {
@@ -309,6 +303,7 @@ export class AdminShiftScheduleComponent extends WidgetPlatform
         try {
             this.adminShiftScheduleService.getShiftUsers(this.selectedUnit.id).then((data) => {
                 this.allUsersUnit = data;
+                console.log(data);
             });
         } catch (error) {
             console.log(error);
@@ -483,20 +478,17 @@ export class AdminShiftScheduleComponent extends WidgetPlatform
 
     async moveToDropAdditionalShift(item: IDropItem): Promise<void> {
         if (item && item.container.id !== '0' && item.container.id !== item.previousContainer.id) {
-            if (this.selectedShift.brigadeId) {
-                try {
-                    const userId = this.adminShiftScheduleService.moveItemId$.getValue();
-                    await this.adminShiftScheduleService.postMemberFromBrigade(
-                        this.selectedShift.id,
-                        userId
-                    );
-                    this.selectShift(this.selectedShift);
-                    this.snackBar.openSnackBar('Сотрудник добавлен в смену');
-                } catch (error) {
-                    console.log(error);
-                }
+            try {
+                const userId = this.adminShiftScheduleService.moveItemId$.getValue();
+                await this.adminShiftScheduleService.postMemberFromBrigade(
+                    this.selectedShift.id,
+                    userId
+                );
+                this.selectShift(this.selectedShift);
+                this.snackBar.openSnackBar('Сотрудник добавлен в смену');
+            } catch (error) {
+                console.log(error);
             }
-
         }
     }
 

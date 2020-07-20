@@ -2,7 +2,6 @@ import {
     Component,
     OnInit,
     Input,
-    TemplateRef,
     ChangeDetectionStrategy,
     ChangeDetectorRef,
 } from '@angular/core';
@@ -15,13 +14,12 @@ interface IShiftList extends IUser {
 }
 
 @Component({
-    selector: 'evj-admin-shift-list-employees',
-    templateUrl: './admin-shift-list-employees.component.html',
+    selector: 'evj-admin-shift-list-employees-old',
+    templateUrl: './admin-shift-list-employees-old.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
-    styleUrls: ['./admin-shift-list-employees.component.scss'],
+    styleUrls: ['./admin-shift-list-employees-old.component.scss'],
 })
-export class AdminShiftListEmployeesComponent implements OnInit {
-    // @Input() template: TemplateRef<any>;
+export class AdminShiftListEmployeesOldComponent implements OnInit {
     @Input() public data: IShiftList[] = [];
 
     brigadeColors: { color: string; id: number }[] = [];
@@ -29,7 +27,7 @@ export class AdminShiftListEmployeesComponent implements OnInit {
     constructor(
         private adminShiftScheduleService: AdminShiftScheduleService,
         private chDet: ChangeDetectorRef
-    ) {}
+    ) { }
 
     ngOnInit(): void {
         this.adminShiftScheduleService.brigadeColor$.subscribe((value) => {
@@ -53,7 +51,7 @@ export class AdminShiftListEmployeesComponent implements OnInit {
     }
 
     brigadeColor(user: IUser): string {
-        return this.brigadeColors.find((val) => val?.id === user?.brigade?.id)?.color;
+        return this.brigadeColors.find((val) => val?.id === user?.brigade?.id)?.color || '';
     }
 
     search(event: string): void {

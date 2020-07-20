@@ -34,7 +34,7 @@
       <div class="content__blocks" cdkDropListGroup>
         <div class="block-left">
           <div class="block-top">
-            <evj-admin-shift-card class="calendar" titleBlock="Календарь дежурств">
+            <evj-admin-shift-card-old class="calendar" titleBlock="Календарь дежурств">
               <section>
                 <mat-calendar
                   #calendar
@@ -73,19 +73,19 @@
                   </div>
                 </div>
               </section>
-            </evj-admin-shift-card>
-            <evj-admin-shift-card class="main-team" titleBlock="Смена">
+            </evj-admin-shift-card-old>
+            <evj-admin-shift-card-old class="main-team" titleBlock="Смена">
               <section class="main-team__section">
                 <p class="title">Главный в бригаде</p>
                 <div class="main-team__section__container">
                   <ul class="list">
                     <li class="list__item" *ngFor="let i of selectedShift?.shiftMembers;">
                       <ng-container *ngIf="i.position === 'responsible' && !i.isAdditionalMember">
-                        <evj-admin-shift-info-employee
+                        <evj-admin-shift-info-employee-old
                           [data]="i.employee"
                           [absentReason]="i.absentReason"
                           [allStatus]="allStatus"
-                        ></evj-admin-shift-info-employee>
+                        ></evj-admin-shift-info-employee-old>
                       </ng-container>
                     </li>
                   </ul>
@@ -95,20 +95,20 @@
                   <ul class="list">
                     <li class="list__item" *ngFor="let i of selectedShift?.shiftMembers;">
                       <ng-container *ngIf="i.position !== 'responsible' && !i.isAdditionalMember">
-                        <evj-admin-shift-info-employee
+                        <evj-admin-shift-info-employee-old
                           [data]="i.employee"
                           [absentReason]="i.absentReason"
                           [allStatus]="allStatus"
-                        ></evj-admin-shift-info-employee>
+                        ></evj-admin-shift-info-employee-old>
                       </ng-container>
                     </li>
                   </ul>
                 </div>
               </section>
-            </evj-admin-shift-card>
+            </evj-admin-shift-card-old>
           </div>
           <div class="block-bottom" *ngIf="selectedDay">
-            <evj-admin-shift-card class="duty-schedule" titleBlock="График дежурств">
+            <evj-admin-shift-card-old class="duty-schedule" titleBlock="График дежурств">
               <section>
                 <div class="date-today">
                   <p>{{ selectedDay.date | date:'d MMMM yyyy' }}</p>
@@ -162,9 +162,9 @@
                   </mat-menu>
                 </div>
               </section>
-            </evj-admin-shift-card>
+            </evj-admin-shift-card-old>
 
-            <evj-admin-shift-card class="additional-team" titleBlock="Дополнительный состав бригады">
+            <evj-admin-shift-card-old class="additional-team" titleBlock="Дополнительный состав бригады">
               <section class="additional-team__section">
                 <div class="additional-team__section__container">
                   <div
@@ -176,23 +176,23 @@
                   >
                     <ng-container *ngFor="let i of selectedShift?.shiftMembers">
                       <ng-container *ngIf="i.isAdditionalMember">
-                        <evj-admin-shift-info-employee
+                        <evj-admin-shift-info-employee-old
                           class="list__item"
                           [data]="i.employee"
                           (deleteMemberFromShift)="deleteMemberFromBrigade($event)"
                           garbageShift="true"
                           cdkDrag
-                        ></evj-admin-shift-info-employee>
+                        ></evj-admin-shift-info-employee-old>
                       </ng-container>
                     </ng-container>
                   </div>
                 </div>
               </section>
-            </evj-admin-shift-card>
+            </evj-admin-shift-card-old>
           </div>
         </div>
         <div class="block-right">
-          <evj-admin-shift-list-employees [data]="allUsersUnit"></evj-admin-shift-list-employees>
+          <evj-admin-shift-list-employees-old [data]="allUsersUnit"></evj-admin-shift-list-employees-old>
         </div>
       </div>
     </ng-container>
@@ -213,14 +213,14 @@
             <div class="content-brigade__scroll">
               <div class="content-brigade__left">
                 <div class="content-brigade__block" *ngFor="let item of leftBrigades">
-                  <evj-admin-shift-brigade [data]="item" [color]="brigadeColor(item)">
-                  </evj-admin-shift-brigade>
+                  <evj-admin-shift-brigade-old [data]="item" [color]="brigadeColor(item)">
+                  </evj-admin-shift-brigade-old>
                 </div>
               </div>
               <div class="content-brigade__right">
                 <div class="content-brigade__block" *ngFor="let item of rightBrigades">
-                  <evj-admin-shift-brigade [data]="item" [color]="brigadeColor(item)">
-                  </evj-admin-shift-brigade>
+                  <evj-admin-shift-brigade-old [data]="item" [color]="brigadeColor(item)">
+                  </evj-admin-shift-brigade-old>
                 </div>
               </div>
             </div>
@@ -228,7 +228,7 @@
         </div>
         <div class="control-block__right-side">
           <div style="height: calc(100% - 24px);">
-            <evj-admin-shift-list-employees [data]="allUsersUnit"></evj-admin-shift-list-employees>
+            <evj-admin-shift-list-employees-old [data]="allUsersUnit"></evj-admin-shift-list-employees-old>
           </div>
         </div>
       </div>

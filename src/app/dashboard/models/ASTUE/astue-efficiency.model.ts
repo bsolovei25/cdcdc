@@ -1,3 +1,5 @@
+import { IProductionTrend } from '../production-trends.model';
+
 //#region NEW_MODELS
 export interface IAsEfProduct {
     name: string;
@@ -8,8 +10,9 @@ export interface IAsEfProduct {
 
 export interface IAsEfTable {
     name: string;
-    rows: IAsEfRow;
-    rowsArr?: IAsEfRowArr[];
+    header?: IAsEfRow;
+    rows: IAsEfRow[];
+    parent?: string;
 }
 
 export interface IAsEfUnitNew extends IAsEfTable {
@@ -17,17 +20,26 @@ export interface IAsEfUnitNew extends IAsEfTable {
 }
 
 export interface IAsEfFlow extends IAsEfTable {
-    astueFlowGraph: IAsEfGraph;
+    astueFlowGraphs: IProductionTrend[];
+    currentDeviation: IAsEfLabel;
+    currentValue: IAsEfLabel;
+    periodDeviations: IAsEfLabel;
+    periodCounter: IAsEfLabel;
 }
+
+export interface IAsEfLabel {
+    value: number;
+    status?: LabelStatusType;
+    statusName?: string;
+}
+
+export type LabelStatusType = 'normal' | 'warning' | 'danger';
 
 export interface IAsEfRow {
-    [key: string]: IAsEfCell[];
-}
-
-export interface IAsEfRowArr {
     name: string;
-    data: IAsEfCell[];
+    tagName?: string;
     dataSummary?: number;
+    values?: IAsEfCell[];
 }
 
 export interface IAsEfCell {
@@ -38,12 +50,8 @@ export interface IAsEfCell {
 }
 
 export interface IAsEfGraph {
-    currentDeviation: number;
-    currentValue: number;
     higherLimit: number;
     lowerLimit: number;
-    periodDeviation: number;
-    periodSum: number;
 }
 
 //#endregion

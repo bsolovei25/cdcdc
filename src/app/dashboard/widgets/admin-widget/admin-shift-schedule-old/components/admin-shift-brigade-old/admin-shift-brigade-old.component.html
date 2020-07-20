@@ -38,8 +38,8 @@
       <div class="list-employee">
         <ng-container *ngFor="let item of data?.users">
           <ng-container *ngIf="item.position === 'responsible'">
-            <evj-admin-shift-info-employee [data]="item" garbage="true" star="true">
-            </evj-admin-shift-info-employee>
+            <evj-admin-shift-info-employee-old [data]="item" garbage="true" star="true">
+            </evj-admin-shift-info-employee-old>
           </ng-container>
         </ng-container>
       </div>
@@ -56,7 +56,7 @@
       >
         <ng-container *ngFor="let item of data?.users">
           <ng-container *ngIf="item.position === 'common'">
-            <evj-admin-shift-info-employee
+            <evj-admin-shift-info-employee-old
               class="employees__drop__item"
               [data]="item"
               garbage="true"
@@ -64,7 +64,7 @@
               cdkDrag
               (cdkDragStarted)="dragStart(item.id)"
             >
-            </evj-admin-shift-info-employee>
+            </evj-admin-shift-info-employee-old>
           </ng-container>
         </ng-container>
       </div>

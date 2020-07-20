@@ -282,11 +282,11 @@ import { AstueEfficiencyCalculationComponent } from './widgets/ASTUE/astue-effic
 import { WidgetContainerComponent } from './widget-container/widget-container.component';
 import { EjsEventComponent } from './widgets/workspace/ejs-event/ejs-event.component';
 import { PerformanceBarComponent } from './components/performance-bar/performance-bar.component';
-import { AdminShiftScheduleComponent } from './widgets/admin-widget/admin-shift-schedule/admin-shift-schedule.component';
-import { AdminShiftBrigadeComponent } from './widgets/admin-widget/admin-shift-schedule/components/admin-shift-brigade/admin-shift-brigade.component';
-import { AdminShiftCardComponent } from './widgets/admin-widget/admin-shift-schedule/components/admin-shift-card/admin-shift-card.component';
-import { AdminShiftInfoEmployeeComponent } from './widgets/admin-widget/admin-shift-schedule/components/admin-shift-info-employee/admin-shift-info-employee.component';
-import { AdminShiftListEmployeesComponent } from './widgets/admin-widget/admin-shift-schedule/components/admin-shift-list-employees/admin-shift-list-employees.component';
+import { AdminShiftScheduleOldComponent } from './widgets/admin-widget/admin-shift-schedule-old/admin-shift-schedule-old.component';
+import { AdminShiftListEmployeesOldComponent } from './widgets/admin-widget/admin-shift-schedule-old/components/admin-shift-list-employees-old/admin-shift-list-employees-old.component';
+import { AdminShiftInfoEmployeeOldComponent } from './widgets/admin-widget/admin-shift-schedule-old/components/admin-shift-info-employee-old/admin-shift-info-employee-old.component';
+import { AdminShiftCardOldComponent } from './widgets/admin-widget/admin-shift-schedule-old/components/admin-shift-card-old/admin-shift-card-old.component';
+import { AdminShiftBrigadeOldComponent } from './widgets/admin-widget/admin-shift-schedule-old/components/admin-shift-brigade-old/admin-shift-brigade-old.component';
 
 @NgModule({
     declarations: [
@@ -537,12 +537,11 @@ import { AdminShiftListEmployeesComponent } from './widgets/admin-widget/admin-s
         WidgetContainerComponent,
         EjsEventComponent,
         PerformanceBarComponent,
-        AdminShiftScheduleComponent,
-        AdminShiftBrigadeComponent,
-        AdminShiftCardComponent,
-        AdminShiftInfoEmployeeComponent,
-        AdminShiftListEmployeesComponent
-
+        AdminShiftScheduleOldComponent,
+        AdminShiftListEmployeesOldComponent,
+        AdminShiftInfoEmployeeOldComponent,
+        AdminShiftCardOldComponent,
+        AdminShiftBrigadeOldComponent
     ],
     entryComponents: [
         LineChartComponent,
@@ -619,9 +618,12 @@ import { AdminShiftListEmployeesComponent } from './widgets/admin-widget/admin-s
         PanelComponent,
         AstueEfficiencyComponent,
         FileAttachMenuComponent,
-        AdminShiftScheduleComponent
+        AdminShiftScheduleOldComponent,
     ],
-    exports: [HomeComponent, PerformanceBarComponent],
+    exports: [
+        HomeComponent,
+        PerformanceBarComponent,
+    ],
     imports: [
         CommonModule,
         SharedModule,

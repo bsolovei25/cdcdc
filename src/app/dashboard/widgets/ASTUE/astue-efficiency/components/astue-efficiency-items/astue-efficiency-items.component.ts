@@ -1,12 +1,4 @@
-import {
-    Component,
-    OnInit,
-    Input,
-    OnChanges,
-    Output,
-    EventEmitter,
-    OnDestroy,
-} from '@angular/core';
+import { Component, Input, OnChanges, Output, EventEmitter, OnDestroy } from '@angular/core';
 import { IAsEfProduct } from '../../../../../models/ASTUE/astue-efficiency.model';
 import { SelectionModel } from '@angular/cdk/collections';
 import { Subscription } from 'rxjs';
@@ -17,10 +9,12 @@ import { AstueEfficiencyService } from '../../../../../services/ASTUE/astue-effi
     templateUrl: './astue-efficiency-items.component.html',
     styleUrls: ['./astue-efficiency-items.component.scss'],
 })
-export class AstueEfficiencyItemsComponent implements OnChanges, OnInit, OnDestroy {
+export class AstueEfficiencyItemsComponent implements OnChanges, OnDestroy {
     @Input() public data: IAsEfProduct[] = [];
 
     @Output() private selectProduct: EventEmitter<string> = new EventEmitter<string>();
+
+    public direction: 'in' | 'out' = 'in';
 
     public cardSelection: SelectionModel<IAsEfProduct> = new SelectionModel<IAsEfProduct>();
 
@@ -33,14 +27,12 @@ export class AstueEfficiencyItemsComponent implements OnChanges, OnInit, OnDestr
         this.selectionOnChanges();
     }
 
-    public ngOnInit(): void {}
-
     public ngOnDestroy(): void {
         this.subscriptions.forEach((subs) => subs.unsubscribe());
     }
 
     private selectionOnChanges(): void {
-        const activeProduct = this.AsEfService.product$.getValue();
+        const activeProduct = this.cardSelection.selected[0]?.name;
         if (activeProduct) {
             const product = this.data.find((item) => item.name === activeProduct);
             this.cardSelection.select(product);
@@ -48,7 +40,6 @@ export class AstueEfficiencyItemsComponent implements OnChanges, OnInit, OnDestr
         } else {
             if (this.data.length) {
                 this.cardSelection.select(this.data[0]);
-                this.AsEfService.product$.next(this.data[0].name);
                 this.selectProduct.emit(this.data[0].name);
             }
         }
@@ -56,8 +47,9 @@ export class AstueEfficiencyItemsComponent implements OnChanges, OnInit, OnDestr
 
     public onSelectProduct(product: IAsEfProduct): void {
         this.cardSelection.select(product);
-        this.AsEfService.product$.next(product.name);
-        this.AsEfService.clearActive();
+        this.AsEfService.clearOpenedUnits();
+        this.AsEfService.clearUnits();
+        this.selectProduct.emit(product.name);
     }
 
     public iconMap(): void {

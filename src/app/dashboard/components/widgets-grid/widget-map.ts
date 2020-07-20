@@ -63,7 +63,7 @@ import { ProductGroupsShortComponent } from '../../widgets/SMP/product-groups-sh
 import { TruncatedDiagramTrafficLightComponent } from '../../widgets/truncated-diagram-traffic-light/truncated-diagram-traffic-light.component';
 import { AstueEfficiencyComponent } from '../../widgets/ASTUE/astue-efficiency/astue-efficiency.component';
 import { WidgetContainerComponent } from '../../widget-container/widget-container.component';
-import { AdminShiftScheduleComponent } from '../../widgets/admin-widget/admin-shift-schedule/admin-shift-schedule.component';
+import { AdminShiftScheduleOldComponent } from '../../widgets/admin-widget/admin-shift-schedule-old/admin-shift-schedule-old.component';
 
 export const WIDGETS = {
     'pie-diagram': WidgetPiesComponent,
@@ -137,13 +137,15 @@ export const WIDGETS = {
     'aps-recipe-diagram': WidgetContainerComponent,
     'aps-gantt-chart': WidgetContainerComponent,
     scenarios: WidgetContainerComponent,
-    // 'admin-shift-schedule': WidgetContainerComponent,
-    'admin-shift-schedule': AdminShiftScheduleComponent,
+    'admin-shift-schedule': WidgetContainerComponent,
+    'admin-shift-schedule-old': AdminShiftScheduleOldComponent,
     'facility-deviation': WidgetContainerComponent,
     'raw-motion': WidgetContainerComponent,
     'stocks-using': WidgetContainerComponent,
     'deviation-details': WidgetContainerComponent,
     'production-details': WidgetContainerComponent,
+    'kpe-quality': WidgetContainerComponent,
+    'key-performance-indicators': WidgetContainerComponent,
 };
 
 export const WIDGETS_LAZY = {
@@ -224,23 +226,6 @@ export const WIDGETS_LAZY = {
         minItemRows: 8,
     },
 
-    // #endregion APS
-
-    // #region Admin
-
-    // 'admin-shift-schedule': {
-    //     import: async () => {
-    //         return await import('src/app/widgets/admin/admin-shift-schedule/admin-shift-schedule.module');
-    //     },
-    //     module: 'AdminShiftScheduleModule',
-    //     itemCols: 15,
-    //     itemRows: 15,
-    //     minItemCols: 15,
-    //     minItemRows: 15,
-    //     preview: 'admin-shift-schedule',
-    // },
-
-    // #endregion APS
     'deviation-details': {
         import: async () => {
             return await import('src/app/widgets/APS/deviation-details/deviation-details.module');
@@ -261,7 +246,52 @@ export const WIDGETS_LAZY = {
         minItemCols: 11,
         minItemRows: 11,
     },
+
+    // #endregion APS
+    'key-performance-indicators': {
+        import: async () => {
+            return await import('src/app/widgets/KPE/key-performance-indicators/key-performance-indicators.module');
+        },
+        module: 'KeyPerformanceIndicatorsModule',
+        itemCols: 24,
+        itemRows: 15,
+        minItemCols: 24,
+        minItemRows: 15,
+    },
     //#endregion APS
+
+    // #region Admin
+
+    'admin-shift-schedule': {
+        import: async () => {
+            return await import('src/app/widgets/admin/admin-shift-schedule/admin-shift-schedule.module');
+        },
+        module: 'AdminShiftScheduleModule',
+        itemCols: 15,
+        itemRows: 15,
+        minItemCols: 15,
+        minItemRows: 15,
+        preview: 'admin-shift-schedule',
+    },
+
+
+    // #endregion Admin
+
+    // #region Kpe
+
+    'kpe-quality': {
+        import: async () => {
+            return await import('src/app/widgets/KPE/kpe-quality/kpe-quality.module');
+        },
+        module: 'KpeQualityModule',
+        itemCols: 15,
+        itemRows: 15,
+        minItemCols: 15,
+        minItemRows: 15,
+        // preview: 'kpe-quality',
+    },
+
+    // #endregion Kpe
 
     // 'pie-diagram': {
     //     import: async () => await import('src/app/widgets/pie-diagram/pie-diagram.module'),

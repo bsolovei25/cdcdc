@@ -22,14 +22,21 @@ export class AstueEfficiencyUnitCardComponent implements OnChanges {
 
     public ngOnChanges(): void {
         this.cardSelection.clear();
-        const unit = this.AsEfService.active[this.unit.name];
-        if (unit?.length) {
+        const unit = this.AsEfService.isUnitSelected(this.unit);
+        if (unit) {
+            this.isClicked = true;
             this.unit.flows.forEach((flow) => {
                 if (unit.includes(flow.name)) {
                     this.cardSelection.select(flow);
                 }
             });
         }
+        this.isOpen = this.AsEfService.isCardOpen(this.unit.name);
+    }
+
+    public onToggleCard(): void {
+        this.isOpen = !this.isOpen;
+        this.AsEfService.toggleUnitCard(this.unit.name);
     }
 
     public onSelectUnit(): void {
@@ -37,21 +44,22 @@ export class AstueEfficiencyUnitCardComponent implements OnChanges {
     }
 
     public onSelectFlow(flow: IAsEfFlow): void {
-        const isAddFlow = this.AsEfService.toggleActiveFlow(this.unit.name, flow.name);
+        const isAddFlow = this.AsEfService.toggleFlow(this.unit.name, flow.name);
         if (isAddFlow) {
             this.cardSelection.select(flow);
-            this.AsEfService.lastFlow$.next(flow);
+            this.AsEfService.currentFlow = flow;
         } else {
             this.cardSelection.deselect(flow);
-            const length = this.AsEfService.active[this.unit.name]?.length;
-            if (length) {
-                const lastFlow = this.AsEfService.active[this.unit.name][length - 1];
-                this.AsEfService.lastFlow$.next(
-                    this.unit.flows.find((item) => item.name === lastFlow)
+            const len = this.AsEfService.isUnitSelected(this.unit)?.length;
+            if (len) {
+                const lastFlow = this.AsEfService.isUnitSelected(this.unit)[length - 1];
+                this.AsEfService.currentFlow = this.unit.flows.find(
+                    (item) => item.name === lastFlow
                 );
             } else {
-                this.AsEfService.lastFlow$.next(null);
+                this.AsEfService.currentFlow = null;
             }
         }
+        this.AsEfService.selection$.next();
     }
 }

@@ -3,11 +3,6 @@ import {
     Input,
     OnInit,
     ChangeDetectionStrategy,
-    ElementRef,
-    ViewChild,
-    Renderer2,
-    ViewChildren,
-    QueryList,
     Output,
     EventEmitter,
 } from '@angular/core';
@@ -16,15 +11,15 @@ import { IUser } from '../../../../../models/events-widget';
 import { AvatarConfiguratorService } from '../../../../../services/avatar-configurator.service';
 import { SnackBarService } from '../../../../../services/snack-bar.service';
 import { IAlertWindowModel } from '../../../../../../@shared/models/alert-window.model';
-import { IAbsent } from '../../admin-shift-schedule.component';
+import { IAbsent } from '../../../../../../widgets/admin/admin-shift-schedule/admin-shift-schedule.component';
+
 
 @Component({
-    selector: 'evj-admin-shift-info-employee',
-    templateUrl: './admin-shift-info-employee.component.html',
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    styleUrls: ['./admin-shift-info-employee.component.scss'],
+    selector: 'evj-admin-shift-info-employee-old',
+    templateUrl: './admin-shift-info-employee-old.component.html',
+    styleUrls: ['./admin-shift-info-employee-old.component.scss'],
 })
-export class AdminShiftInfoEmployeeComponent implements OnInit {
+export class AdminShiftInfoEmployeeOldComponent implements OnInit {
     @Input() public data: IUser;
     @Input() public garbage: boolean;
     @Input() public garbageShift: boolean;
@@ -43,7 +38,7 @@ export class AdminShiftInfoEmployeeComponent implements OnInit {
         private avatarConfiguratorService: AvatarConfiguratorService,
         private adminShiftScheduleService: AdminShiftScheduleService,
         private snackBar: SnackBarService
-    ) {}
+    ) { }
 
     ngOnInit(): void {
         this.loadItem();
@@ -52,7 +47,7 @@ export class AdminShiftInfoEmployeeComponent implements OnInit {
     private async loadItem(): Promise<void> {
         try {
             this.photoPath = this.avatarConfiguratorService.getAvatarPath(this.data?.photoId);
-        } catch (error) {}
+        } catch (error) { }
     }
 
     delete(): void {
@@ -110,7 +105,7 @@ export class AdminShiftInfoEmployeeComponent implements OnInit {
         }
     }
 
-    changeStatus(): void {}
+    changeStatus(): void { }
 
     onChooseStatus(status: IAbsent): void {
         this.adminShiftScheduleService.postAbsent$.next({

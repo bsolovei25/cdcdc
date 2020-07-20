@@ -14,7 +14,7 @@
   >
     <div class="notification__header">
       <span class="notification__number" [ngClass]="'notification__number_' + cardData?.priority">
-        {{ cardData?.itemNumber }}
+        {{ cardData?.id }}
       </span>
       <span class="notification__name" *ngIf="cardData?.eventType">
         {{ cardData?.eventType?.name }}
@@ -93,7 +93,7 @@
         class="notification__block__number"
         [ngClass]="'notification__number_' + cardData?.priority"
       >
-        {{ cardData?.itemNumber }}
+        {{ cardData?.id }}
       </span>
       <span class="notification__block__unit">
         {{ cardData?.unit?.name || '-' }}

@@ -134,7 +134,31 @@
         <div class="information__label label">
           <div class="label__title">Дата регистрации</div>
           <div class="label__text">
-            {{this.ewService.event?.externalDate?this.ewService.event.externalDate:''|date:'dd.MM.yyyy | hh.mm'}}
+            {{showDate(this.ewService.event?.externalDate)}}
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="column__row row">
+      <div class="row__cell cell cell_left information">
+        <div class="information__label label">
+          <div class="label__title">Производство</div>
+          <div class="label__text">
+            {{this.ewService.event?.branch?this.ewService.event.branch:''}}
+          </div>
+        </div>
+        <div class="information__label label">
+          <div class="label__title">Дата начала</div>
+          <div class="label__text">
+            {{showDate(this.ewService.event?.eventDateTime)}}
+          </div>
+        </div>
+      </div>
+      <div class="row__cell cell cell_left information information_uniq">
+        <div class="information__label label">
+          <div class="label__title">Дата окончания</div>
+          <div class="label__text">
+            {{showDate(this.ewService.event?.eventEndDateTime)}}
           </div>
         </div>
       </div>

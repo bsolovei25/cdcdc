@@ -21,10 +21,16 @@ export class EventsResponsibleSelectComponent implements OnInit {
 
     public users: IUser[];
 
-    constructor(public ewService: EventsWorkspaceService) {}
+    constructor(public ewService: EventsWorkspaceService) { }
 
     public ngOnInit(): void {
-        this.responsible = this.ewService.event.fixedBy;
+        this.ewService.event$
+            .pipe(takeUntil(this.onDestroy))
+            .subscribe((event) => {
+                if (event) {
+                    this.responsible = event.responsibleOperator;
+                }
+            });
         this.filter.valueChanges
             .pipe(takeUntil(this.onDestroy))
             .subscribe(() => {
@@ -34,7 +40,7 @@ export class EventsResponsibleSelectComponent implements OnInit {
     }
 
     public chooseRespons(data: IUser): void {
-        this.ewService.event.fixedBy = data;
+        this.ewService.event.responsibleOperator = data;
     }
 
     public clearFilter(): void {
