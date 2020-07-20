@@ -15,19 +15,13 @@ import { AppConfigService } from '../../../../../../services/appConfigService';
 import { IWsData } from '../../../../production-trend/components/production-trend-graph/production-trend-graph.component';
 import { AstueEfficiencyService } from '../../../../../services/ASTUE/astue-efficiency.service';
 import { Subscription } from 'rxjs';
+import { IAsEfLabel } from '../../../../../models/ASTUE/astue-efficiency.model';
 
-type LabelStatusType = 'normal' | 'warning' | 'danger';
-
-interface ILabel {
-    value: number;
-    status?: LabelStatusType;
-    statusName?: string;
-}
 interface ILabels {
-    periodCounter: ILabel;
-    periodDeviations: ILabel;
-    currentValue: ILabel;
-    currentDeviation: ILabel;
+    periodCounter: IAsEfLabel;
+    periodDeviations: IAsEfLabel;
+    currentValue: IAsEfLabel;
+    currentDeviation: IAsEfLabel;
 }
 
 @Component({
@@ -249,26 +243,29 @@ export class AstueEfficiencyGraphDisplayComponent extends LineChartPlatform<IPro
 
     public ngOnInit(): void {
         this.subs.push(
-            this.AsEfService.lastFlow$.subscribe((flow) => {
+            this.AsEfService.selection$.subscribe(() => {
+                const flow = this.AsEfService.currentFlow;
+
                 if (flow) {
                     this.labels = {
                         periodCounter: {
-                            value: flow.astueFlowGraph.periodSum,
+                            value: flow.periodCounter.value,
                         },
                         periodDeviations: {
-                            value: flow.astueFlowGraph.periodDeviation,
+                            value: flow.periodDeviations.value,
                             status: 'danger',
                             statusName: 'Перерасход',
                         },
                         currentValue: {
-                            value: flow.astueFlowGraph.currentValue,
+                            value: flow.currentValue.value,
                         },
                         currentDeviation: {
-                            value: flow.astueFlowGraph.currentDeviation,
+                            value: flow.currentDeviation.value,
                             status: 'warning',
                             statusName: 'Экономия',
                         },
                     };
+                    this.data = this.chartDataMap(flow.astueFlowGraphs);
                 } else {
                     this.labels = {
                         periodCounter: {
@@ -288,6 +285,7 @@ export class AstueEfficiencyGraphDisplayComponent extends LineChartPlatform<IPro
                             statusName: 'Экономия',
                         },
                     };
+                    this.data = [];
                 }
             })
         );
@@ -296,6 +294,25 @@ export class AstueEfficiencyGraphDisplayComponent extends LineChartPlatform<IPro
     public ngOnDestroy(): void {
         super.ngOnDestroy();
         this.subs.forEach((sub) => sub.unsubscribe());
+    }
+
+    private chartDataMap(data: any): IProductionTrend[] {
+        const ret: IProductionTrend[] = [];
+        data.forEach((chart) => {
+            const mapped: IProductionTrend = {
+                graphType: chart.productionTrendStyle,
+                graphStyle: chart.chartStyleType,
+                graph: [],
+            };
+            chart.values?.forEach((val) => {
+                mapped.graph.push({
+                    value: val.value,
+                    timeStamp: new Date(val.date),
+                });
+            });
+            ret.push(mapped);
+        });
+        return ret;
     }
 
     public clickDisplayButton(): void {

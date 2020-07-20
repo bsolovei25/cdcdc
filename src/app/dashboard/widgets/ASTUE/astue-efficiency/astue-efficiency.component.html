@@ -28,7 +28,7 @@
         <div class="item item_s">
           <evj-astue-efficiency-units
             [isInitialDataShow]="isInitialDataShow"
-            [units]="selection.selected[0].units"
+            [units]="units"
             *ngIf="selection.hasValue()"
           ></evj-astue-efficiency-units>
         </div>
@@ -46,7 +46,7 @@
           <div class="item item_xl">
             <evj-astue-efficiency-table-display
               [isInitialDataShow]="isInitialDataShow"
-              [allData]="data"
+              [allData]="units"
               (toggleDisplay)="toggleDisplay($event)"
             ></evj-astue-efficiency-table-display>
           </div>
