@@ -6,6 +6,8 @@ import {
     IAsEfProduct,
     IAsEfCell,
     IAsEfTable,
+    IAsEfUnitNew,
+    IAsEfRow,
 } from '../../../../../models/ASTUE/astue-efficiency.model';
 import { SelectionModel } from '@angular/cdk/collections';
 import { Subscription } from 'rxjs';
@@ -18,11 +20,10 @@ import { AstueEfficiencyService } from '../../../../../services/ASTUE/astue-effi
 })
 export class AstueEfficiencyTableDisplayComponent implements OnInit, OnDestroy {
     @Input() public isInitialDataShow: boolean = true;
-    @Input() public allData: IAsEfProduct[] = [];
+    @Input() public allData: IAsEfUnitNew[] = [];
     @Output() private toggleDisplay: EventEmitter<true> = new EventEmitter<true>();
 
-    public activeProduct: IAsEfProduct = null;
-    public newdata: IAsEfTable[] = [];
+    public displayData: IAsEfTable[] = [];
     public dates: IAsEfCell[] = [];
 
     public data: IAsEfTableBlock[] = [
@@ -655,51 +656,61 @@ export class AstueEfficiencyTableDisplayComponent implements OnInit, OnDestroy {
 
     private subscriptions: Subscription[] = [];
 
-    constructor(private AsEfService: AstueEfficiencyService) {}
+    constructor(public AsEfService: AstueEfficiencyService) {}
 
     public ngOnInit(): void {
         this.subscriptions.push(
-            this.AsEfService.product$.subscribe((product) => {
-                this.activeProduct = this.allData.find((item) => item.name === product);
-            }),
-            this.AsEfService.change$.subscribe(() => {
-                this.newdata = [];
-                const active = this.AsEfService.active;
-                for (const key in active) {
-                    if (!active[key]) {
-                        continue;
-                    }
-                    this.newdata.push(
-                        this.activeProduct.units.find((unit) => unit.name === key) as IAsEfTable
-                    );
-                    active[key].forEach((flowName) => {
-                        this.activeProduct.units
-                            .find((unit) => unit.name === key)
-                            ?.flows.forEach((flow) => {
-                                if (flow.name === flowName) {
-                                    this.newdata.push(flow);
-                                }
-                            });
-                    });
-                }
-                this.newdata.forEach((data) => {
-                    data.rowsArr = [];
-
-                    for (const key in data.rows) {
-                        if (!data.rows[key]) {
-                            continue;
-                        }
-                        const sum = data.rows[key].reduce((acc, item) => acc + item.value, 0);
-                        data.rowsArr.push({ name: key, data: data.rows[key], dataSummary: sum });
-                    }
-                });
-                this.dates = this.newdata[0]?.rowsArr[0].data ?? [];
+            this.AsEfService.selection$.subscribe(() => {
+                this.displayData = [];
+                this.dates = [];
+                this.dataMapping();
+                this.defineDates();
+                this.defineSum();
             })
         );
     }
 
     public ngOnDestroy(): void {
         this.subscriptions.forEach((subs) => subs.unsubscribe());
+    }
+
+    private dataMapping(): void {
+        this.allData.forEach((unit) => {
+            const flows: string[] = this.AsEfService.isUnitSelected(unit);
+            if (!!flows) {
+                this.displayData.push(unit);
+                unit.flows.forEach((flow) => {
+                    if (flows.includes(flow.name)) {
+                        flow.parent = unit.name;
+                        this.displayData.push(flow);
+                    }
+                });
+            }
+        });
+    }
+
+    private defineDates(): void {
+        this.displayData.forEach((item) => {
+            item.rows.forEach((row) => {
+                if (this.dates.length < row.values.length) {
+                    this.dates = row.values;
+                }
+            });
+        });
+    }
+
+    private defineSum(): void {
+        this.displayData.forEach((item) => {
+            if (item.header?.values) {
+                item.header.dataSummary = item.header.values.reduce(
+                    (acc, val) => acc + val.value,
+                    0
+                );
+            }
+            item.rows.forEach((row) => {
+                row.dataSummary = row.values.reduce((acc, val) => acc + val.value, 0);
+            });
+        });
     }
 
     public clickDisplayButton(): void {
