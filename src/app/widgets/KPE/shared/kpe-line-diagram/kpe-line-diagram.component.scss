@@ -1,0 +1,80 @@
+.line-diagram {
+  margin: 0 15px;
+  font-size: 13px;
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    &__title {
+      color: var(--color-kpe-eq-chart-title);
+    }
+    &__btn {
+      cursor: pointer;
+      font-size: 10px;
+      display: flex;
+      border-radius: 2px;
+      background-color: var(--color-kpe-line-diagram-bg-sub);
+      &__left {
+        padding: 5px;
+        color: var(--color-text-sub-heading);
+        &--active {
+          color: var(--color-kpe-eq-chart-title);
+          background-color: var(--color-kpe-line-diagram-active);
+          border: 1px solid var(--color-aps-active);
+          border-top-left-radius: 2px;
+          border-bottom-left-radius: 2px;
+        }
+      }
+      &__right {
+        padding: 5px;
+        color: var(--color-text-sub-heading);
+        &--active {
+          color: var(--color-kpe-eq-chart-title);
+          background-color: var(--color-kpe-line-diagram-active);
+          border: 1px solid var(--color-aps-active);
+          border-top-right-radius: 2px;
+          border-bottom-right-radius: 2px;
+        }
+      }
+    }
+  }
+  &__body {
+    &__line-up {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 7px;
+
+      .percent__left {
+        color: var(--color-text-sub);
+      }
+      .percent__right {
+        color: var(--color-text-sub-heading);
+        &__warning {
+          color: var(--color-kpe-eq-chart-row-over);
+        }
+      }
+    }
+    &__line {
+      position: relative;
+      width: 100%;
+      height: 10px;
+      background-image: url("./../../../../../assets/icons/widgets/KPE/kpe-line-diagram/line.svg");
+      background-repeat: no-repeat;
+      background-size: 100%;
+      .line__accept {
+        position: absolute;
+        left: 2px;
+        width: 60%;
+        height: 4px;
+        background-color: var(--color-kpe-eq-chart-title);
+      }
+      .line__warning {
+        position: absolute;
+        left: 61%;
+        width: 10%;
+        height: 4px;
+        background-color: var(--color-kpe-eq-chart-row-over);
+      }
+    }
+  }
+}
