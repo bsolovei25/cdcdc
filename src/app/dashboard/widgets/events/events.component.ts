@@ -34,7 +34,7 @@ export interface IEventSettings {
 export class EventsComponent extends WidgetPlatform implements OnInit, OnDestroy {
     @ViewChild(CdkVirtualScrollViewport) viewport: CdkVirtualScrollViewport;
 
-    @ViewChild('notifications') notificationsDiv;
+    @ViewChild('notifications') notificationsDiv: any;
 
     @HostListener('document:resize', ['$event'])
     OnResize(): void {
@@ -214,10 +214,12 @@ export class EventsComponent extends WidgetPlatform implements OnInit, OnDestroy
     protected dataHandler(
         ref: { notification: EventsWidgetNotificationPreview, action: string }
     ): void {
-        if (!(this.placeNames.find((place) => place === ref.notification?.unit?.name))) {
+        if (
+            !(this.placeNames.find((place) => place === ref.notification?.unit?.name)) &&
+            ref.action !== 'delete'
+        ) {
             return;
         }
-
         switch (ref.action) {
             case 'add':
                 this.addWsElement(ref.notification);
@@ -306,7 +308,6 @@ export class EventsComponent extends WidgetPlatform implements OnInit, OnDestroy
 
     private deleteWsElement(notification: EventsWidgetNotificationPreview): void {
         const idx = this.notifications.findIndex((n) => n.id === notification.id);
-        console.log(idx);
         if (idx >= 0) {
             this.notifications.splice(idx, 1);
             this.notifications = this.notifications.slice();
