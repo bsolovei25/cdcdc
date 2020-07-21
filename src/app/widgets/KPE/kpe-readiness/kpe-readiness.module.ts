@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { KpeReadinessComponent } from './kpe-readiness.component';
 import { KpeSharedModule } from '../shared/kpe-shared.module';
 import { SharedModule } from '@shared/shared.module';
-import { AngularSvgIconModule } from 'angular-svg-icon';
 
 
 @NgModule({
@@ -12,7 +11,6 @@ import { AngularSvgIconModule } from 'angular-svg-icon';
         CommonModule,
         SharedModule,
         KpeSharedModule,
-        AngularSvgIconModule
     ]
 })
 export class KpeReadinessModule {
