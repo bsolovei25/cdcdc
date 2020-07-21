@@ -1,57 +1,95 @@
 import { Injectable } from '@angular/core';
 import { IAsEfUnitNew, IAsEfFlow } from '../../models/ASTUE/astue-efficiency.model';
 import { BehaviorSubject } from 'rxjs';
+import { SnackBarService } from '../snack-bar.service';
 
 @Injectable({
     providedIn: 'root',
 })
 export class AstueEfficiencyService {
-    public product$: BehaviorSubject<string> = new BehaviorSubject<string>(null);
-    public lastFlow$: BehaviorSubject<IAsEfFlow> = new BehaviorSubject<IAsEfFlow>(null);
+    public selection$: BehaviorSubject<void> = new BehaviorSubject<void>(null);
+    private flow$: BehaviorSubject<IAsEfFlow> = new BehaviorSubject<IAsEfFlow>(null);
 
-    public change$: BehaviorSubject<void> = new BehaviorSubject<void>(null);
-
-    public active: { [key: string]: string[] } = {};
-
-    constructor() {}
-
-    public toggleActiveUnit(unitName: string): void {
-        if (this.active[unitName]) {
-            delete this.active[unitName];
-        } else {
-            this.active[unitName] = [];
-        }
-        this.change$.next();
+    get currentFlow(): IAsEfFlow {
+        return this.flow$.getValue();
+    }
+    set currentFlow(flow: IAsEfFlow) {
+        this.flow$.next(flow);
     }
 
-    public toggleActiveFlow(unitName: string, flowName: string): boolean {
-        if (!this.active[unitName]) {
+    private openedUnits: { [key: string]: true } = {};
+    private unitsFlowsMap: { [key: string]: string[] } = {};
+
+    constructor(private snackbar: SnackBarService) {}
+
+    public isCardOpen(unitName: string): boolean {
+        return !!this.openedUnits[unitName];
+    }
+
+    public isUnitSelected(unit: IAsEfUnitNew): string[] {
+        return this.unitsFlowsMap[unit.name];
+    }
+
+    public isFlowSelected(unit: IAsEfUnitNew, flow: IAsEfFlow): boolean {
+        return !!this.unitsFlowsMap[unit.name]?.includes(flow.name);
+    }
+
+    public toggleUnitCard(unitName: string): boolean {
+        if (this.openedUnits[unitName]) {
+            delete this.openedUnits[unitName];
+            return false;
+        }
+        this.openedUnits[unitName] = true;
+        return true;
+    }
+
+    public toggleUnit(unitName: string): void {
+        if (this.unitsFlowsMap[unitName]) {
+            const flow = this.flow$.getValue()?.name;
+            if (flow && this.unitsFlowsMap[unitName].includes(flow)) {
+                this.currentFlow = null;
+            }
+            delete this.unitsFlowsMap[unitName];
+        } else {
+            this.unitsFlowsMap[unitName] = [];
+        }
+        this.selection$.next();
+    }
+
+    public toggleFlow(unitName: string, flowName: string): boolean {
+        if (!this.unitsFlowsMap[unitName]) {
+            const msg = `Сначала выберите установку ${unitName} для выбора потока ${flowName}`;
+            this.snackbar.openSnackBar(msg, 'snackbar-red');
             return false;
         }
 
-        const index = this.active[unitName].findIndex((item) => item === flowName);
+        const index = this.unitsFlowsMap[unitName].findIndex((item) => item === flowName);
         if (index === -1) {
-            this.active[unitName].push(flowName);
-            this.change$.next();
+            this.unitsFlowsMap[unitName].push(flowName);
             return true;
         } else {
-            this.active[unitName].splice(index, 1);
-            this.change$.next();
+            this.unitsFlowsMap[unitName].splice(index, 1);
             return false;
         }
     }
 
-    public clearActive(): void {
-        this.active = {};
-        this.change$.next();
+    public clearUnits(): void {
+        this.unitsFlowsMap = {};
+        this.currentFlow = null;
+        this.selection$.next();
+    }
+
+    public clearOpenedUnits(): void {
+        this.openedUnits = {};
+        this.selection$.next();
     }
 
     public selectAllUnits(units: IAsEfUnitNew[]): void {
         units.forEach((unit) => {
-            if (!this.active[unit.name]) {
-                this.active[unit.name] = [];
+            if (!this.unitsFlowsMap[unit.name]) {
+                this.unitsFlowsMap[unit.name] = [];
             }
         });
-        this.change$.next();
+        this.selection$.next();
     }
 }

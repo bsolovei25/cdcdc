@@ -254,10 +254,10 @@ export const WIDGETS_LAZY = {
             return await import('src/app/widgets/KPE/key-performance-indicators/key-performance-indicators.module');
         },
         module: 'KeyPerformanceIndicatorsModule',
-        itemCols: 26,
-        itemRows: 21,
-        minItemCols: 26,
-        minItemRows: 21
+        itemCols: 24,
+        itemRows: 15,
+        minItemCols: 24,
+        minItemRows: 15,
     },
     //#endregion APS
 
