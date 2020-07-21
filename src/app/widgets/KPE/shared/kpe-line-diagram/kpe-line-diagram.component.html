@@ -31,8 +31,8 @@
       </div>
     </div>
     <div class="line-diagram__body__line">
-      <div class="line__accept"></div>
-      <div class="line__warning"></div>
+      <div class="line__accept" [class.line__accept--white]="isCritical"></div>
+      <div class="line__warning" *ngIf="isCritical"></div>
     </div>
   </div>
 </div>

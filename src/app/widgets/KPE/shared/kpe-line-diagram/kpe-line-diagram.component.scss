@@ -1,22 +1,27 @@
 .line-diagram {
   margin: 0 15px;
   font-size: 13px;
+
   &__header {
     display: flex;
     justify-content: space-between;
     margin-bottom: 10px;
+
     &__title {
       color: var(--color-kpe-eq-chart-title);
     }
+
     &__btn {
       cursor: pointer;
       font-size: 10px;
       display: flex;
       border-radius: 2px;
       background-color: var(--color-kpe-line-diagram-bg-sub);
+
       &__left {
         padding: 5px;
         color: var(--color-text-sub-heading);
+
         &--active {
           color: var(--color-kpe-eq-chart-title);
           background-color: var(--color-kpe-line-diagram-active);
@@ -25,9 +30,11 @@
           border-bottom-left-radius: 2px;
         }
       }
+
       &__right {
         padding: 5px;
         color: var(--color-text-sub-heading);
+
         &--active {
           color: var(--color-kpe-eq-chart-title);
           background-color: var(--color-kpe-line-diagram-active);
@@ -38,6 +45,7 @@
       }
     }
   }
+
   &__body {
     &__line-up {
       display: flex;
@@ -47,13 +55,16 @@
       .percent__left {
         color: var(--color-text-sub);
       }
+
       .percent__right {
         color: var(--color-text-sub-heading);
+
         &__warning {
           color: var(--color-kpe-eq-chart-row-over);
         }
       }
     }
+
     &__line {
       position: relative;
       width: 100%;
@@ -61,13 +72,19 @@
       background-image: url("./../../../../../assets/icons/widgets/KPE/kpe-line-diagram/line.svg");
       background-repeat: no-repeat;
       background-size: 100%;
+
       .line__accept {
         position: absolute;
         left: 2px;
         width: 60%;
         height: 4px;
-        background-color: var(--color-kpe-eq-chart-title);
+        background-color: var(--color-active);
+
+        &--white {
+          background-color: var(--color-kpe-eq-chart-title);
+        }
       }
+
       .line__warning {
         position: absolute;
         left: 61%;
