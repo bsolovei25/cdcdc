@@ -413,7 +413,7 @@ export class EventsWorkspaceService {
                 code: null,
             },
             description: '',
-            deviationReason: 'Причина отклонения...',
+            deviationReason: '',
             directReasons: '',
             establishedFacts: '',
             eventDateTime: new Date(),
