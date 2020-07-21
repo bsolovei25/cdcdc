@@ -1,4 +1,4 @@
-<evj-aps-widget-header [uniqId]="uniqId" icon="map" [kpeFlag]="true">
+<evj-aps-kpe-widget-header [uniqId]="uniqId" icon="map" [kpeFlag]="true">
   <div
     class="content-container"
     (mousedown)="$event.stopPropagation()"
@@ -6,39 +6,41 @@
   >
     <ng-container *ngTemplateOutlet="headerTabs"></ng-container>
   </div>
-</evj-aps-widget-header>
+</evj-aps-kpe-widget-header>
 
 <ng-template #headerTabs>
   <div class="tabs-container">
     <div class="tab tab--active">
-      <div class="tab__title"
-           (mousedown)="$event.stopPropagation()"
-           (touchstart)="$event.stopPropagation()"
-      >План PIMS
+      <div
+        class="tab__title"
+        (mousedown)="$event.stopPropagation()"
+        (touchstart)="$event.stopPropagation()"
+      >
+        План PIMS
       </div>
     </div>
     <div class="tab">
-      <div class="tab__title"
-           (mousedown)="$event.stopPropagation()"
-           (touchstart)="$event.stopPropagation()"
-      >Нормативный план
+      <div
+        class="tab__title"
+        (mousedown)="$event.stopPropagation()"
+        (touchstart)="$event.stopPropagation()"
+      >
+        Нормативный план
       </div>
     </div>
     <div class="tab">
-      <div class="tab__title"
-           (mousedown)="$event.stopPropagation()"
-           (touchstart)="$event.stopPropagation()"
-      >Оперативный план
+      <div
+        class="tab__title"
+        (mousedown)="$event.stopPropagation()"
+        (touchstart)="$event.stopPropagation()"
+      >
+        Оперативный план
       </div>
     </div>
   </div>
 </ng-template>
 
-<div
-  class="wrapper"
-  (mousedown)="$event.stopPropagation()"
-  (touchstart)="$event.stopPropagation()"
->
+<div class="wrapper" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
   <div class="unit-selector">
     <div class="unit-selector__unit">
       <span>ед.изм</span>
@@ -58,4 +60,3 @@
   <div class="circle4"></div>
   <div class="circle5"></div>
 </div>
-

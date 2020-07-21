@@ -43,6 +43,8 @@ export class PieDiagramComponent implements OnInit {
     ngOnInit(): void {
         this.initSvg();
         if (this.data) {
+            console.log(this.data);
+
             this.getColors();
             this.placeText();
             this.drawSvg();
@@ -59,7 +61,7 @@ export class PieDiagramComponent implements OnInit {
         this.g = this.svg.append('g')
             .attr('transform', 'translate(50,50)')
             .attr('z-index', '50')
-        ;
+            ;
     }
 
     private placeText(): void {
@@ -89,7 +91,7 @@ export class PieDiagramComponent implements OnInit {
             .value((d) => d.size);
 
         const data = angleGen(
-            [{size: 1}, {size: 1}, {size: 1}]
+            [{ size: 1 }, { size: 1 }, { size: 1 }]
         );
 
         const arcGen = d3.arc()
