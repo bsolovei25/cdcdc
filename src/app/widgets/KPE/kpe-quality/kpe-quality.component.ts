@@ -4,6 +4,7 @@ import { WidgetService } from '../../../dashboard/services/widget.service';
 import * as d3 from 'd3';
 import { HttpClient } from '@angular/common/http';
 import { IProductionTrend } from '../../../dashboard/models/production-trends.model';
+import { IKpeGaudeData } from '../shared/kpe-gaude-chart/kpe-gaude-chart.component';
 
 @Component({
     selector: 'evj-kpe-quality',
@@ -11,11 +12,13 @@ import { IProductionTrend } from '../../../dashboard/models/production-trends.mo
     styleUrls: ['./kpe-quality.component.scss'],
 })
 export class KpeQualityComponent extends WidgetPlatform implements OnInit, OnDestroy {
-    @ViewChild('chart') private chartContainer: ElementRef;
+    data;
 
     public lineChartData: IProductionTrend[] = [];
 
     margin = { top: 20, right: 20, bottom: 30, left: 40 };
+
+    public gaudeData: IKpeGaudeData = null;
 
     constructor(
         protected widgetService: WidgetService,
@@ -29,9 +32,6 @@ export class KpeQualityComponent extends WidgetPlatform implements OnInit, OnDes
 
     ngOnInit(): void {
         super.widgetInit();
-        setTimeout(() => {
-            this.createChart();
-        }, 1000);
         this.http
             .get('assets/mock/KPE/kpe-trends.json')
             .toPromise()
@@ -43,6 +43,18 @@ export class KpeQualityComponent extends WidgetPlatform implements OnInit, OnDes
                     })
                 );
             });
+        this.http
+            .get('assets/mock/KPE/kpe-gaude.json')
+            .toPromise()
+            .then((data: { gaude: IKpeGaudeData[] }) => {
+                let counter: number = 0;
+                setInterval(() => {
+                    if (counter === data.gaude.length) {
+                        counter = 0;
+                    }
+                    this.gaudeData = data.gaude[counter++];
+                }, 5000);
+            });
     }
 
     ngOnDestroy(): void {
@@ -51,23 +63,5 @@ export class KpeQualityComponent extends WidgetPlatform implements OnInit, OnDes
 
     protected dataHandler(ref: any): void {
         // this.data = ref.chartItems;
-    }
-
-    private createChart(): void {
-        const element = this.chartContainer.nativeElement;
-
-        const svg = d3
-            .select(element)
-            .append('svg')
-            .attr('width', element.offsetWidth)
-            .attr('height', element.offsetHeight)
-            .append('circle') // attach a circle
-            .attr('cx', 200) // position the x-centre
-            .attr('cy', 100) // position the y-centre
-            .attr('r', 50) // set the radius
-            .style('stroke-dasharray', '2, 2') // make the stroke dashed
-            .attr('stroke-width', '5px')
-            .style('stroke', 'white') // set the line colour
-            .style('fill', 'none');
     }
 }
