@@ -51,7 +51,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { WidgetHeaderComponent } from './components/widget-header/widget-header.component';
 import { FrameTopComponent } from './components/frame-top/frame-top.component';
 import { FrameBottomComponent } from './components/frame-bottom/frame-bottom.component';
-import { ApsWidgetHeaderComponent } from './components/aps-widget-header/aps-widget-header.component';
+import { ApsKpeWidgetHeaderComponent } from './components/aps-kpe-widget-header/aps-kpe-widget-header.component';
 import { WidgetHeaderSmpComponent } from './components/widget-header-smp/widget-header-smp.component';
 import { SafeUrlPipe } from './pipes/safe-url.pipe';
 import { ApsProgressBarComponent } from './components/aps-progress-bar/aps-progress-bar.component';
@@ -95,7 +95,7 @@ import { KpeEqualizerChartComponent } from '../widgets/KPE/kpe-equalizer-chart/k
         WidgetHeaderComponent,
         FrameTopComponent,
         FrameBottomComponent,
-        ApsWidgetHeaderComponent,
+        ApsKpeWidgetHeaderComponent,
         WidgetHeaderSmpComponent,
         SafeUrlPipe,
         ApsProgressBarComponent,
@@ -133,7 +133,7 @@ import { KpeEqualizerChartComponent } from '../widgets/KPE/kpe-equalizer-chart/k
         WidgetHeaderComponent,
         FrameTopComponent,
         FrameBottomComponent,
-        ApsWidgetHeaderComponent,
+        ApsKpeWidgetHeaderComponent,
         WidgetHeaderSmpComponent,
         SafeUrlPipe,
         ApsProgressBarComponent,

@@ -62,6 +62,7 @@ $color-holding-tank: #757a8f;
       margin-left: -2px;
       transform: scaleY(-1);
     }
+
     &::after {
       content: "";
       position: absolute;
@@ -117,6 +118,7 @@ p {
     text-align: center;
     // background: url(../../../../../assets/icons/widgets/gantt-chart/btn-right.svg) no-repeat;
   }
+
   &__button {
     &-left-top {
       cursor: pointer;
@@ -128,12 +130,14 @@ p {
       // background: url(../../../../../assets/icons/widgets/gantt-chart/button-left-top.svg) no-repeat;
     }
   }
+
   &__title {
     display: flex;
     min-width: 325px;
     font-weight: 500;
     font-size: 14px;
     color: var(--color-text-sup);
+
     &_text {
       padding-top: 4px;
     }
@@ -286,6 +290,7 @@ p {
     background-color: rgba(var(--color-aps-timeLowerOrIncrease), 0.6);
     border: 2px solid rgba(var(--color-aps-timeLowerOrIncrease), 1);
     z-index: 11;
+
     &--first {
       &:after {
         content: "";
@@ -299,6 +304,7 @@ p {
         width: 0;
       }
     }
+
     &--last {
       &:before {
         content: "";
@@ -323,6 +329,7 @@ p {
     background-color: rgba(var(--color-aps-fixedSelection), 0.6);
     border: 2px solid rgba(var(--color-aps-fixedSelection), 1);
     z-index: 12;
+
     &--first {
       &:after {
         content: "";
@@ -336,6 +343,7 @@ p {
         width: 0;
       }
     }
+
     &--last {
       &:before {
         content: "";
@@ -360,6 +368,7 @@ p {
     background-color: rgba(var(--color-aps-minOrMaxLoad), 0.6);
     border: 2px solid rgba(var(--color-aps-minOrMaxLoad), 1);
     z-index: 13;
+
     &--first {
       &:after {
         content: "";
@@ -373,6 +382,7 @@ p {
         width: 0;
       }
     }
+
     &--last {
       &:before {
         content: "";
@@ -397,6 +407,7 @@ p {
     background-color: rgba(var(--color-aps-fixedLoad), 0.6);
     border: 2px solid rgba(var(--color-aps-fixedLoad), 1);
     z-index: 14;
+
     &--first {
       &:after {
         content: "";
@@ -410,6 +421,7 @@ p {
         width: 0;
       }
     }
+
     &--last {
       &:before {
         content: "";
@@ -434,6 +446,7 @@ p {
     background-color: rgba(var(--color-aps-engagementRate), 0.6);
     border: 2px solid rgba(var(--color-aps-engagementRate), 1);
     z-index: 15;
+
     &--first {
       &:after {
         content: "";
@@ -447,6 +460,7 @@ p {
         width: 0;
       }
     }
+
     &--last {
       &:before {
         content: "";
@@ -471,6 +485,7 @@ p {
     background-color: rgba(var(--color-aps-fixedQualityScore), 0.6);
     border: 2px solid rgba(var(--color-aps-fixedQualityScore), 1);
     z-index: 16;
+
     &--first {
       &:after {
         content: "";
@@ -484,6 +499,7 @@ p {
         width: 0;
       }
     }
+
     &--last {
       &:before {
         content: "";
@@ -498,6 +514,7 @@ p {
       }
     }
   }
+
   &__icon {
     position: absolute;
     left: 0px;
@@ -514,24 +531,30 @@ p {
       &--preparation {
         fill: $color-preparation-mbo;
       }
+
       &--passport-system {
         fill: $color-passport-system-mbo;
       }
+
       &--holding-tank {
         fill: #757a8f;
       }
+
       &--substandard {
         fill: $color-substandard-mbo;
       }
+
       &--quality-stock {
         fill: $color-quality-stock-mbo;
       }
     }
+
     &__select {
       position: relative;
       top: -6px;
       z-index: 19;
     }
+
     &__select-right {
       position: absolute;
       top: -6px;
@@ -649,14 +672,17 @@ p {
       &__title {
         font-size: 8px;
         padding: 0 3px;
+
         &-product {
           margin-top: -4px;
           //   background: url(../../../../../assets/icons/widgets/gantt-chart/product-name.svg);
         }
+
         &-production {
           padding-left: 37px;
         }
       }
+
       &__titles {
         display: flex;
         padding-top: 10px;
@@ -668,18 +694,22 @@ p {
           left: 0;
           top: 1px;
         }
+
         &__icon {
           position: absolute;
           left: 9px;
           top: 7px;
         }
+
         &__text {
           color: var(--color-aps-border-light);
         }
+
         &__pims {
           margin-left: 33px;
           color: var(--color-aps-border-light);
         }
+
         &__search {
           margin-left: 74px;
         }
@@ -709,6 +739,7 @@ p {
           }
         }
       }
+
       &.expanded-row {
         background: none;
         box-shadow: none;
@@ -718,6 +749,7 @@ p {
         height: 100%;
         background: none;
         box-shadow: none;
+
         td {
           //   background: url(../../../../../assets/icons/widgets/gantt-chart/bg-line.svg);
           background: auto;
@@ -733,12 +765,14 @@ p {
             z-index: 1;
             border-right: none;
           }
+
           &:nth-child(2) {
             // background: url(../../../../../assets/icons/widgets/gantt-chart/bg-line.svg);
             // background-position: left, center;
             background-size: auto;
           }
         }
+
         &:hover {
           background: none;
         }
@@ -769,6 +803,7 @@ p {
           &:first-child {
             border-left: 2px solid transparent !important;
           }
+
           &:last-of-type {
             padding: 0 !important;
             border-right: 1px solid var(--color-aps-active) !important;
@@ -783,6 +818,7 @@ p {
         &:first-child {
           border-left: 2px solid var(--color-aps-active) !important;
         }
+
         &:last-of-type {
           padding: 0 !important;
           border-right: 1px solid var(--color-aps-active) !important;
@@ -835,6 +871,7 @@ p {
           margin-left: 9px;
           z-index: 1;
           transition: all 200ms;
+
           &--active {
             stroke: var(--color-aps-active);
             transform: rotateZ(45deg);
@@ -883,12 +920,14 @@ p {
 
         .row-title {
           user-select: none;
+
           &__icon {
             &-arrow-top {
               width: 13px;
               height: 12px;
               padding-left: 5px;
             }
+
             &-arrow-bottom {
               width: 13px;
               height: 12px;
@@ -900,18 +939,22 @@ p {
               max-width: 2px;
               height: 13px;
               fill: var(--color-border-main);
+
               &-warning {
                 fill: var(--color-warning);
               }
             }
+
             &-circle {
               min-width: 6px;
               height: 14px;
               stroke: var(--color-active);
+
               &-warning {
                 stroke: var(--color-warning);
               }
             }
+
             &-line {
               width: 13px;
               left: 1px;
@@ -944,6 +987,7 @@ p {
               top: -9px;
             }
           }
+
           .row-title {
             &__icon {
               &-border {
@@ -961,6 +1005,7 @@ p {
 .header {
   border-top: 1px solid var(--color-border-new-mbo);
   padding-top: 1.5px;
+
   &::before {
     content: "";
     position: absolute;
@@ -1110,6 +1155,7 @@ p {
     left: 45%;
     // background: url(../../../../../assets/icons/widgets/gantt-chart/arrow-bottom.svg) no-repeat;
   }
+
   &-arrow-close {
     position: absolute;
     z-index: 9999;
