@@ -254,9 +254,9 @@ export const WIDGETS_LAZY = {
         },
         module: 'KeyPerformanceIndicatorsModule',
         itemCols: 24,
-        itemRows: 15,
+        itemRows: 14,
         minItemCols: 24,
-        minItemRows: 15,
+        minItemRows: 14,
     },
     //#endregion APS
 

@@ -16,6 +16,7 @@ export class ApsWidgetHeaderComponent implements OnInit, OnDestroy {
     @Input() public additionalMenuItems: IApsWidgetHeaderMenu[] = [
         // { title: 'Настройки', action: () => null },
     ];
+    @Input() public kpeFlag: boolean = false;
 
     public isMenuOpen: boolean = false;
     public claimWidgets: EnumClaimWidgets[] = [];
