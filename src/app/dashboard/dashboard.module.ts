@@ -541,7 +541,7 @@ import { AdminShiftBrigadeOldComponent } from './widgets/admin-widget/admin-shif
         AdminShiftListEmployeesOldComponent,
         AdminShiftInfoEmployeeOldComponent,
         AdminShiftCardOldComponent,
-        AdminShiftBrigadeOldComponent
+        AdminShiftBrigadeOldComponent,
     ],
     entryComponents: [
         LineChartComponent,
