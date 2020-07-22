@@ -236,7 +236,6 @@ export class IndicatorLoadDeviationComponent extends WidgetPlatform
             .attr('viewBox', '0 0 400 200');
 
         const indicator = this.svgBody.append('g').attr('class', 'indicator');
-
         indicator
             .append('circle')
             .attr('cx', 100)
@@ -245,7 +244,6 @@ export class IndicatorLoadDeviationComponent extends WidgetPlatform
             .attr('fill', '#161A28')
             .attr('stroke', '#272A38')
             .attr('stroke-width', 1);
-
         indicator
             .append('image')
             .attr(
@@ -256,7 +254,6 @@ export class IndicatorLoadDeviationComponent extends WidgetPlatform
             .attr('y', 0)
             .attr('width', 190)
             .attr('height', 55);
-
         indicator
             .append('image')
             .attr(
@@ -273,6 +270,8 @@ export class IndicatorLoadDeviationComponent extends WidgetPlatform
         this.drawBigGaude(gaude, 50);
         const innerGaude = gaude.append('g').attr('class', 'innerGaude');
         this.drawInnerGaude(innerGaude, 50);
+        const text = gaude.append('g').attr('class', 'gaude-text');
+        this.drawTextInGaude(text, 50);
         gaude.style('transform', 'translate(25%, 51%) scale(9)');
     }
 
@@ -330,24 +329,72 @@ export class IndicatorLoadDeviationComponent extends WidgetPlatform
             .scaleLinear()
             .domain([0, 100]) // числовой диапазон
             .range([0, 270]); // диапазон угла
-        const arc = this.defineArc(lineMin, lineMax);
-        const pie = this.definePie(startAngle, endAngle); // функция для внешней дуги
-        this.drawArc(pie([1]), 'arc-line', arc, svg); // отрисовка внешней дуги
+        const arc = this.defineArc(lineMin, lineMax); // параметры дуги
+        const pie = this.definePie(startAngle, endAngle); // функция дуги
+        this.drawArc(pie([1]), 'arc-line', arc, svg); // отрисовка дуги
         const needlePos = {
             cx: (-(lineMax + lineMin) / 2) * Math.cos(Math.PI / 4),
             cy: ((lineMax + lineMin) / 2) * Math.sin(Math.PI / 4),
             r: (lineMax - lineMin) * 2,
         };
         this.drawCircleNeedle([data], 'circle-needle', 'circleNeedle', svg, needlePos, scale);
-
-        const gradient = d3.interpolateHsl('#442726', '#4C7795');
-        const rainbowArc = this.defineArc(rainbowMin, rainbowMax, 0.05);
+        // пунктирная дуга
+        const rainbowArc = this.defineArc(rainbowMin, rainbowMax, 0.05); // параметры дуги
         const rainbowG = svg.append('g').attr('class', 'rainbow');
-        this.drawArc(pie(new Array(30)), 'rainbow-arc', rainbowArc, rainbowG); // отрисовка пунктирной дуги
+        this.drawArc(pie(new Array(30)), 'rainbow-arc', rainbowArc, rainbowG); // отрисовка дуги
+        const gradient = d3.interpolateHsl('#442726', '#4C7795'); // функция градиента
         rainbowG.selectAll('.rainbow-arc')._groups[0].forEach((item, idx, arr) => {
             const coef = (idx + 1) / arr.length;
             d3.select(item).style('fill', gradient(coef));
         });
+    }
+
+    private drawTextInGaude(block: any, data: any): void {
+        block
+            .append('text')
+            .attr('class', 'value')
+            .attr('text-anchor', 'end')
+            .attr('x', 3.2)
+            .attr('y', -1)
+            .text('1600537');
+        block
+            .append('text')
+            .attr('class', 'deviation')
+            .attr('text-anchor', 'end')
+            .attr('x', 3.2)
+            .attr('y', 1)
+            .text('-537');
+        block
+            .append('text')
+            .attr('class', 'units')
+            .attr('text-anchor', 'middle')
+            .attr('x', 0)
+            .attr('y', 3)
+            .text('ТН');
+        block
+            .append('text')
+            .attr('class', 'name')
+            .attr('text-anchor', 'middle')
+            .attr('x', 0)
+            .attr('y', 7.5)
+            .text('План первичной');
+        block
+            .append('text')
+            .attr('class', 'name')
+            .attr('text-anchor', 'middle')
+            .attr('x', 0)
+            .attr('y', 9)
+            .text('переработки');
+        block
+            .append('image')
+            .attr(
+                'xlink:href',
+                'assets/icons/widgets/APS/aps-indicator-load-deviation/deviation-arrow.svg'
+            )
+            .attr('x', -3.5)
+            .attr('y', 0)
+            .attr('width', 1.2)
+            .attr('height', 1.2);
     }
 
     private drawArrows(): void {

@@ -74,8 +74,24 @@
       fill: var(--color-aps-active);
     }
 
-    .rainbow-arc {
-      // fill: yellow;
+    .value {
+      fill: var(--color-text-main);
+      font-size: 1.7px;
+    }
+
+    .deviation {
+      fill: var(--color-aps-orange);
+      font-size: 1.5px;
+    }
+
+    .units {
+      fill: var(--color-text-sub-heading);
+      font-size: 1.3px;
+    }
+
+    .name{
+      fill: var(--color-text-main);
+      font-size: 1.5px;
     }
   }
 }
