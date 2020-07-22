@@ -262,7 +262,7 @@ export const WIDGETS_LAZY = {
         // preview: 'indicator-load-deviation',
     },
 
-    // #endregion Admin
+    // #endregion APS
 
     // #region Kpe
     'key-performance-indicators': {
