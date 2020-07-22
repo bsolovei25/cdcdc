@@ -168,26 +168,6 @@ export class RawMotionComponent extends WidgetPlatform implements OnInit, OnDest
         ],
     };
 
-    public readonly header: IRawMotionHeader[] = [
-        {
-            title: 'Движение НС',
-            iconName: 'drop',
-            svgStyle: {
-                'width.px': 11,
-                'height.px': 15,
-            },
-        },
-        {
-            title: 'Движение КГС',
-            iconName: 'scales',
-            svgStyle: {
-                'width.px': 17,
-                'height.px': 21,
-            },
-        },
-    ];
-    public headerSelect: SelectionModel<IRawMotionHeader> = new SelectionModel<IRawMotionHeader>();
-
     public upperLimit: string = '';
     public lowerLimit: string = '';
 
@@ -202,7 +182,6 @@ export class RawMotionComponent extends WidgetPlatform implements OnInit, OnDest
 
     public ngOnInit(): void {
         super.widgetInit();
-        this.headerSelect.select(this.header[0]);
         this.defineLimits();
     }
 
