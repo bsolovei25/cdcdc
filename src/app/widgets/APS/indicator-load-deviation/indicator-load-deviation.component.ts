@@ -79,9 +79,9 @@ export class IndicatorLoadDeviationComponent extends WidgetPlatform
 
     private drawWidget(): void {
         this.drawMenu();
-        this.drawDiagram();
+        // this.drawDiagram();
         // this.drawArrows();
-        this.drawCards();
+        // this.drawCards();
     }
 
     private drawMenu(): void {
@@ -179,6 +179,53 @@ export class IndicatorLoadDeviationComponent extends WidgetPlatform
             .attr('cy', 23)
             .attr('r', 35)
             .attr('fill', '#1C1F2D');
+
+        const indicator1 = this.drawQualityIndicator(90);
+        indicator1.style('transform', 'translate(35px, 23px) scale(3)');
+        const indicator2 = this.drawQualityIndicator(30);
+        indicator2.style('transform', 'translate(365px, 23px) scale(3)');
+    }
+
+    private drawQualityIndicator(value: number): any {
+        const svg = this.svgMenu.append('g').attr('class', 'indicator');
+        const min = 8;
+        const max = 10;
+        // масштабирующая функция (перевод чисел в градусы)
+        const scale = d3
+            .scaleLinear()
+            .domain([0, 100]) // числовой диапазон
+            .range([0, 360]); // диапазон угла
+
+        const arc = this.defineArc(min, max);
+        const dashedArc = this.defineArc(min, max, 0.05); // функция верхней пунктирной дуги
+
+        const pie = this.definePie(0, 2 * Math.PI); // функция для внешней дуги
+        const endAngleFn = (d) => (scale(d) * Math.PI) / 180;
+        const lastArc = this.definePie(0, endAngleFn); // функция дуги, которая следует за ползунком
+
+        this.drawArc(pie([1]), 'back-arc', arc, svg); // отрисовка внешней дуги
+        this.drawArc(lastArc([value]), 'needle-arc', arc, svg); // отрисовка подвижной дуги
+        this.drawArc(pie(new Array(60)), 'dashed-arc', dashedArc, svg.append('g')); // отрисовка пунктирной дуги
+
+        svg.append('circle')
+            .attr('class', 'point')
+            .attr('cx', 0)
+            .attr('cy', -5)
+            .attr('r', 1);
+        svg.append('text')
+            .attr('class', 'value')
+            .attr('text-anchor', 'middle')
+            .attr('x', 0)
+            .attr('y', 2)
+            .text(value.toFixed(1));
+        svg.append('text')
+            .attr('class', 'units')
+            .attr('text-anchor', 'middle')
+            .attr('x', 0)
+            .attr('y', 6)
+            .text('%');
+
+        return svg;
     }
 
     private drawDiagram(): void {
@@ -342,4 +389,40 @@ export class IndicatorLoadDeviationComponent extends WidgetPlatform
             stepCounter += step;
         });
     }
+
+    //#region gaude functions
+
+    private defineArc(
+        innerRad: number,
+        outerRad: number,
+        padAngle: number = 0,
+        cornerRadius: number = 0
+    ): any {
+        return d3
+            .arc()
+            .innerRadius(innerRad)
+            .outerRadius(outerRad)
+            .cornerRadius(cornerRadius)
+            .padAngle(padAngle);
+    }
+
+    private definePie(startAngle: any, endAngle: any, val: any = (d) => 1): any {
+        return d3
+            .pie()
+            .startAngle(startAngle)
+            .endAngle(endAngle)
+            .value(val);
+    }
+
+    private drawArc(dataFn: any, cls: string, arcFn: any, block: any): any {
+        block
+            .selectAll('.arc')
+            .data(dataFn)
+            .enter()
+            .append('path')
+            .attr('class', cls)
+            .attr('d', arcFn);
+    }
+
+    //#endregion gaude functions
 }
