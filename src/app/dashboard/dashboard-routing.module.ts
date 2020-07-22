@@ -6,14 +6,6 @@ import { NgModule } from '@angular/core';
 // Local modules
 
 export const DashboardRoutes: Routes = [
-    // {
-    //     path: ':id',
-    //     component: HomeComponent,
-    // },
-    {
-        path: ':id',
-        component: HomeComponent,
-    },
     {
         path: '',
         component: HomeComponent,
