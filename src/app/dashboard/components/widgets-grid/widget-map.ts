@@ -145,6 +145,7 @@ export const WIDGETS = {
     'deviation-details': WidgetContainerComponent,
     'production-details': WidgetContainerComponent,
     'kpe-quality': WidgetContainerComponent,
+    'kpe-energetic': WidgetContainerComponent,
     'key-performance-indicators': WidgetContainerComponent,
     'kpe-readiness': WidgetContainerComponent,
 };
@@ -300,6 +301,18 @@ export const WIDGETS_LAZY = {
         itemRows: 15,
         minItemCols: 15,
         minItemRows: 10
+        // preview: 'kpe-quality',
+    },
+
+    'kpe-energetic': {
+        import: async () => {
+            return await import('src/app/widgets/KPE/kpe-energy/kpe-energy.module');
+        },
+        module: 'KpeEnergyModule',
+        itemCols: 15,
+        itemRows: 7,
+        minItemCols: 15,
+        minItemRows: 7,
         // preview: 'kpe-quality',
     },
 

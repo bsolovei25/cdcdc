@@ -5,8 +5,11 @@ import { GaugeDiagramComponent } from './components/gauge-diagram/gauge-diagram.
 import { SharedModule } from '@shared/shared.module';
 
 @NgModule({
-    declarations: [KeyPerformanceIndicatorsComponent, GaugeDiagramComponent],
-    imports: [CommonModule, SharedModule],
+  declarations: [KeyPerformanceIndicatorsComponent, GaugeDiagramComponent],
+  imports: [CommonModule, SharedModule],
+  exports: [
+    GaugeDiagramComponent
+  ]
 })
 export class KeyPerformanceIndicatorsModule {
     enterComponent = KeyPerformanceIndicatorsComponent;

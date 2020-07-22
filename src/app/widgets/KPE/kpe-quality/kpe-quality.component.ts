@@ -21,6 +21,7 @@ export class KpeQualityComponent extends WidgetPlatform implements OnInit, OnDes
     public gaudeData: IKpeGaudeData = null;
 
     constructor(
+        private hostElement: ElementRef,
         protected widgetService: WidgetService,
         private http: HttpClient,
         @Inject('isMock') public isMock: boolean,
