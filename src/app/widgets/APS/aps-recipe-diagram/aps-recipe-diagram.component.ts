@@ -1,9 +1,8 @@
-import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { WidgetPlatform } from 'src/app/dashboard/models/widget-platform';
 import { WidgetService } from 'src/app/dashboard/services/widget.service';
 import { DATASOURCE } from './mock';
 import { SelectionModel } from '@angular/cdk/collections';
-import { IAPSGanttChart } from '../aps-gantt-chart/aps-gantt-chart.component';
 
 export interface IAPSRecipeDiagram {
     id: number;
@@ -12,13 +11,16 @@ export interface IAPSRecipeDiagram {
     productDeviation: number;
     deviationQuality: number;
     type: 'stream' | 'unit' | 'to' | 'fuel' | 'utility';
-    percent: number;
+    percent?: number;
     children: IAPSRecipeDiagram[];
-    values: {
-        date: Date;
-        value: number;
-        deviationQuality: number,
-    }[];
+    values: IAPSRecipeDiagramValue[];
+}
+
+interface IAPSRecipeDiagramValue {
+    date: Date;
+    value: number;
+    deviationQuality: number;
+    percent?: number;
 }
 
 export interface IColumnsToDisplay {
@@ -29,7 +31,8 @@ export interface IColumnsToDisplay {
 @Component({
     selector: 'evj-aps-recipe-diagram',
     templateUrl: './aps-recipe-diagram.component.html',
-    styleUrls: ['./aps-recipe-diagram.component.scss']
+    styleUrls: ['./aps-recipe-diagram.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ApsRecipeDiagramComponent extends WidgetPlatform implements OnInit, OnDestroy {
 
@@ -37,40 +40,41 @@ export class ApsRecipeDiagramComponent extends WidgetPlatform implements OnInit,
 
     columnsToDisplay: IColumnsToDisplay[] = [
         { name: 'productName', date: new Date() },
-        { name: '1.02', date: new Date() },
-        { name: '2.02', date: new Date() },
-        { name: '3.02', date: new Date() },
-        { name: '3.02', date: new Date() },
-        { name: '3.02', date: new Date() },
-        { name: '3.02', date: new Date() },
-        { name: '3.02', date: new Date() },
-        { name: '2.02', date: new Date() },
-        { name: '3.02', date: new Date() },
-        { name: '3.02', date: new Date() },
-        { name: '3.02', date: new Date() },
-        { name: '3.02', date: new Date() },
-        { name: '3.02', date: new Date() },
-        { name: '3.02', date: new Date() },
-        { name: '2.02', date: new Date() },
-        { name: '2.02', date: new Date() },
-        { name: '3.02', date: new Date() },
-        { name: '3.02', date: new Date() },
-        { name: '3.02', date: new Date() },
-        { name: '3.02', date: new Date() },
-        { name: '3.02', date: new Date() },
-        { name: '3.02', date: new Date() },
-        { name: '2.02', date: new Date() },
-        { name: '12.02', date: new Date() },
-        { name: '23.02', date: new Date() },
-        { name: '5.02', date: new Date() },
-        { name: 'План PIMS', date: new Date() },
-        { name: 'Расчет', date: new Date() },
-        { name: 'Дельта', date: new Date() }];
+        { name: '1.02', date: new Date('2020-02-01T03:24:00') },
+        { name: '2.02', date: new Date('2020-02-02T03:24:00') },
+        { name: '3.02', date: new Date('2020-02-03T03:24:00') },
+        { name: '4.02', date: new Date('2020-02-04T03:24:00') },
+        { name: '5.02', date: new Date('2020-02-05T03:24:00') },
+        { name: '6.02', date: new Date('2020-02-06T03:24:00') },
+        { name: '7.02', date: new Date('2020-02-07T03:24:00') },
+        { name: '8.02', date: new Date('2020-02-08T03:24:00') },
+        { name: '9.02', date: new Date('2020-02-09T03:24:00') },
+        { name: '10.02', date: new Date('2020-02-10T03:24:00') },
+        { name: '11.02', date: new Date('2020-02-11T03:24:00') },
+        { name: '12.02', date: new Date('2020-02-12T03:24:00') },
+        { name: '13.02', date: new Date('2020-02-13T03:24:00') },
+        { name: '14.02', date: new Date('2020-02-14T03:24:00') },
+        { name: '15.02', date: new Date('2020-02-15T03:24:00') },
+        { name: '16.02', date: new Date('2020-02-16T03:24:00') },
+        { name: '17.02', date: new Date('2020-02-17T03:24:00') },
+        { name: '18.02', date: new Date('2020-02-18T03:24:00') },
+        { name: '19.02', date: new Date('2020-02-19T03:24:00') },
+        { name: '20.02', date: new Date('2020-02-20T03:24:00') },
+        { name: '21.02', date: new Date('2020-02-21T03:24:00') },
+        { name: '22.02', date: new Date('2020-02-22T03:24:00') },
+        { name: '23.02', date: new Date('2020-02-23T03:24:00') },
+        { name: '24.02', date: new Date('2020-02-24T03:24:00') },
+        { name: '25.02', date: new Date('2020-02-25T03:24:00') },
+        { name: '26.02', date: new Date('2020-02-26T03:24:00') },
+        { name: '27.02', date: new Date('2020-02-27T03:24:00') },
+        { name: 'План PIMS', date: new Date('2020-02-01T03:24:00') },
+        { name: 'Расчет', date: new Date('2020-02-01T03:24:00') },
+        { name: 'Дельта', date: new Date('2020-02-01T03:24:00') }];
 
     isSelectedQuality: boolean = false;
     selectedRowProduct: number;
     isShowDistribution: boolean = false;
-    isShowQuality: boolean = false;
+    isShowUtility: boolean = false;
     selectedRow: SelectionModel<string> = new SelectionModel(true);
 
     constructor(
@@ -113,6 +117,19 @@ export class ApsRecipeDiagramComponent extends WidgetPlatform implements OnInit,
         } else {
             this.selectedRowProduct = null;
         }
+    }
+
+    searchValue(element: IAPSRecipeDiagramValue[], column: IColumnsToDisplay): { value: number, percentValue: number }[] {
+        const el = element.find(value => this.sameDay(value.date, column.date));
+        return el?.value ? [{
+            value: el?.value, percentValue: el?.percent
+        }] : null;
+    }
+
+    sameDay(a: Date, d: Date): boolean {
+        return a.getFullYear() === d.getFullYear()
+            && a.getDate() === d.getDate()
+            && a.getMonth() === d.getMonth();
     }
 
 }

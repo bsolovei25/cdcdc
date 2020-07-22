@@ -9,12 +9,11 @@ export const DATASOURCE: IAPSRecipeDiagram[] = [
         deviationQuality: 0,
         type: 'stream',
         values: [{
-            date: new Date('2020-15-07'),
+            date: new Date('2020-02-01T03:24:00'),
             value: 4900.23,
             deviationQuality: 0
         }],
-        children: [],
-        percent: null
+        children: []
     },
     {
         id: 6,
@@ -25,17 +24,16 @@ export const DATASOURCE: IAPSRecipeDiagram[] = [
         type: 'stream',
         values: [
             {
-                date: new Date('2020-02-07'),
+                date: new Date('2020-02-01T03:24:00'),
                 value: 4900.23,
                 deviationQuality: 1
             },
             {
-                date: new Date('2020-02-07'),
+                date: new Date('2020-02-02T03:24:00'),
                 value: 49.23,
                 deviationQuality: 0
             }],
-        children: [],
-        percent: null
+        children: []
     },
     {
         id: 7,
@@ -45,7 +43,7 @@ export const DATASOURCE: IAPSRecipeDiagram[] = [
         deviationQuality: 0,
         type: 'stream',
         values: [{
-            date: new Date('2020-15-07'),
+            date: new Date('2020-02-01T03:24:00'),
             value: 4900.23,
             deviationQuality: 0
         }],
@@ -60,7 +58,7 @@ export const DATASOURCE: IAPSRecipeDiagram[] = [
         deviationQuality: 0,
         type: 'unit',
         values: [{
-            date: new Date('2020-15-07'),
+            date: new Date('2020-02-01T03:24:00'),
             value: 4900.23,
             deviationQuality: 0
         }],
@@ -70,13 +68,28 @@ export const DATASOURCE: IAPSRecipeDiagram[] = [
                 codePims: '<F1\n',
                 productName: 'ФР.БЕН.НЕСТ.НК-195\n',
                 productDeviation: 282.773,
-                deviationQuality: 0,
+                deviationQuality: 1,
                 type: 'stream',
-                values: [{
-                    date: new Date('2020-15-07'),
-                    value: 4900.23,
-                    deviationQuality: 0
-                }],
+                values: [
+                    {
+                        date: new Date('2020-02-01T03:24:00'),
+                        value: 4900.23,
+                        deviationQuality: 1,
+                        percent: 0.1677
+                    },
+                    {
+                        date: new Date('2020-02-02T03:24:00'),
+                        value: 4900.23,
+                        deviationQuality: 0,
+                        percent: 0.1677
+                    },
+                    {
+                        date: new Date('2020-02-03T03:24:00'),
+                        value: 4900.23,
+                        deviationQuality: 0,
+                        percent: 0.1677
+                    }
+                ],
                 children: [{
                     id: 688,
                     codePims: 'SFB2\n',
@@ -85,9 +98,10 @@ export const DATASOURCE: IAPSRecipeDiagram[] = [
                     deviationQuality: 0,
                     type: 'to',
                     values: [{
-                        date: new Date('2020-15-07'),
+                        date: new Date('2020-02-01T03:24:00'),
                         value: 4900.23,
-                        deviationQuality: 0
+                        deviationQuality: 0,
+                        percent: 0.1677
                     }],
                     children: [],
                     percent: null
@@ -102,9 +116,10 @@ export const DATASOURCE: IAPSRecipeDiagram[] = [
                 deviationQuality: 0,
                 type: 'stream',
                 values: [{
-                    date: new Date('2020-15-07'),
+                    date: new Date('2020-02-01T03:24:00'),
                     value: 4900.23,
-                    deviationQuality: 0
+                    deviationQuality: 0,
+                    percent: 0.1677
                 }],
                 children: [{
                     id: 65673,
@@ -114,9 +129,10 @@ export const DATASOURCE: IAPSRecipeDiagram[] = [
                     deviationQuality: 0,
                     type: 'to',
                     values: [{
-                        date: new Date('2020-15-07'),
+                        date: new Date('2020-02-01T03:24:00'),
                         value: 4900.23,
-                        deviationQuality: 0
+                        deviationQuality: 0,
+                        percent: 0.1677
                     }],
                     children: [],
                     percent: null
@@ -132,36 +148,56 @@ export const DATASOURCE: IAPSRecipeDiagram[] = [
                 type: 'stream',
                 values: [
                     {
-                        date: new Date('2020-15-07'),
+                        date: new Date('2020-02-01T03:24:00'),
                         value: 4900.23,
-                        deviationQuality: 0
+                        deviationQuality: 0,
+                        percent: 0.1677
                     },
                     {
-                        date: new Date('2020-15-07'),
+                        date: new Date('2020-02-01T03:24:00'),
                         value: 1200.23,
-                        deviationQuality: 1
+                        deviationQuality: 1,
+                        percent: 0.1677
                     },
                     {
-                        date: new Date('2020-15-07'),
+                        date: new Date('2020-02-01T03:24:00'),
                         value: 6500.23,
-                        deviationQuality: 0
+                        deviationQuality: 0,
+                        percent: 0.1677
                     }
                 ],
-                children: [{
-                    id: 64667,
-                    codePims: 'SVR6\n',
-                    productName: 'ВТ-6\n',
-                    productDeviation: 282.773,
-                    deviationQuality: 0,
-                    type: 'to',
-                    values: [{
-                        date: new Date('2020-15-07'),
-                        value: 4900.23,
-                        deviationQuality: 0
-                    }],
-                    children: [],
-                    percent: null
-                }],
+                children: [
+                    {
+                        id: 64667,
+                        codePims: 'SVR6\n',
+                        productName: 'ВТ-6\n',
+                        productDeviation: 282.773,
+                        deviationQuality: 0,
+                        type: 'to',
+                        values: [{
+                            date: new Date('2020-02-01T03:24:00'),
+                            value: 4900.23,
+                            deviationQuality: 0
+                        }],
+                        children: [],
+                        percent: null
+                    },
+                    {
+                        id: 64667,
+                        codePims: 'SVR6\n',
+                        productName: 'ВТ-6\n',
+                        productDeviation: 282.773,
+                        deviationQuality: 0,
+                        type: 'to',
+                        values: [{
+                            date: new Date('2020-02-01T03:24:00'),
+                            value: 4900.23,
+                            deviationQuality: 0
+                        }],
+                        children: [],
+                        percent: null
+                    }
+                ],
                 percent: 0.1677
             },
             {
@@ -172,9 +208,10 @@ export const DATASOURCE: IAPSRecipeDiagram[] = [
                 deviationQuality: 0,
                 type: 'stream',
                 values: [{
-                    date: new Date('2020-15-07'),
+                    date: new Date('2020-02-01T03:24:00'),
                     value: 4900.23,
-                    deviationQuality: 0
+                    deviationQuality: 0,
+                    percent: 0.1677
                 }],
                 children: [],
                 percent: null
@@ -182,8 +219,36 @@ export const DATASOURCE: IAPSRecipeDiagram[] = [
         ],
         percent: null
     },
-
-
+    {
+        id: 55,
+        codePims: 'SLO\n',
+        productName: 'НЕФТЯНАЯ ФАЗА\n',
+        productDeviation: 282.773,
+        deviationQuality: 0,
+        type: 'utility',
+        values: [{
+            date: new Date('2020-02-01T03:24:00'),
+            value: 4900.23,
+            deviationQuality: 0
+        }],
+        children: [],
+        percent: null
+    },
+    {
+        id: 56,
+        codePims: 'SLO\n',
+        productName: 'НЕФТЯНАЯ ФАЗА\n',
+        productDeviation: 282.773,
+        deviationQuality: 0,
+        type: 'utility',
+        values: [{
+            date: new Date('2020-02-01T03:24:00'),
+            value: 4900.23,
+            deviationQuality: 0
+        }],
+        children: [],
+        percent: null
+    },
     {
         id: 999,
         codePims: 'SLO',
@@ -192,7 +257,7 @@ export const DATASOURCE: IAPSRecipeDiagram[] = [
         deviationQuality: 0,
         type: 'stream',
         values: [{
-            date: new Date('2020-15-07'),
+            date: new Date('2020-02-01T03:24:00'),
             value: 4900.23,
             deviationQuality: 0
         }],
