@@ -271,6 +271,8 @@ export class IndicatorLoadDeviationComponent extends WidgetPlatform
 
         const gaude = indicator.append('g').attr('class', 'gaude');
         this.drawBigGaude(gaude, 50);
+        const innerGaude = gaude.append('g').attr('class', 'innerGaude');
+        this.drawInnerGaude(innerGaude, 50);
         gaude.style('transform', 'translate(25%, 51%) scale(9)');
     }
 
@@ -314,6 +316,38 @@ export class IndicatorLoadDeviationComponent extends WidgetPlatform
         this.drawNeedle([100], 'end-line', 'line2', lines, needlePos, scale);
         // отрисовка бегунка
         this.drawNeedle([data], 'needle', 'needle', svg, needlePos, scale);
+    }
+
+    private drawInnerGaude(block: any, data: any): void {
+        const svg = block;
+        const lineMin = 6.6;
+        const lineMax = 6.8;
+        const rainbowMin = 5.5;
+        const rainbowMax = 5.9;
+        const startAngle = (-1.5 * Math.PI) / 2;
+        const endAngle = (1.5 * Math.PI) / 2;
+        const scale = d3
+            .scaleLinear()
+            .domain([0, 100]) // числовой диапазон
+            .range([0, 270]); // диапазон угла
+        const arc = this.defineArc(lineMin, lineMax);
+        const pie = this.definePie(startAngle, endAngle); // функция для внешней дуги
+        this.drawArc(pie([1]), 'arc-line', arc, svg); // отрисовка внешней дуги
+        const needlePos = {
+            cx: (-(lineMax + lineMin) / 2) * Math.cos(Math.PI / 4),
+            cy: ((lineMax + lineMin) / 2) * Math.sin(Math.PI / 4),
+            r: (lineMax - lineMin) * 2,
+        };
+        this.drawCircleNeedle([data], 'circle-needle', 'circleNeedle', svg, needlePos, scale);
+
+        const gradient = d3.interpolateHsl('#442726', '#4C7795');
+        const rainbowArc = this.defineArc(rainbowMin, rainbowMax, 0.05);
+        const rainbowG = svg.append('g').attr('class', 'rainbow');
+        this.drawArc(pie(new Array(30)), 'rainbow-arc', rainbowArc, rainbowG); // отрисовка пунктирной дуги
+        rainbowG.selectAll('.rainbow-arc')._groups[0].forEach((item, idx, arr) => {
+            const coef = (idx + 1) / arr.length;
+            d3.select(item).style('fill', gradient(coef));
+        });
     }
 
     private drawArrows(): void {
@@ -488,6 +522,27 @@ export class IndicatorLoadDeviationComponent extends WidgetPlatform
             .attr('x2', needlePos.x2)
             .attr('y1', needlePos.y1)
             .attr('y2', needlePos.y2)
+            .classed(classed, true)
+            .style('transform', (d) => `rotate(${scaleFn(d)}deg)`);
+    }
+
+    private drawCircleNeedle(
+        data: any[],
+        cls: string,
+        classed: string,
+        block: any,
+        needlePos: any,
+        scaleFn: any
+    ): any {
+        block
+            .selectAll(`.needle`)
+            .data(data)
+            .enter()
+            .append('circle')
+            .attr('class', cls)
+            .attr('cx', needlePos.cx)
+            .attr('cy', needlePos.cy)
+            .attr('r', needlePos.r)
             .classed(classed, true)
             .style('transform', (d) => `rotate(${scaleFn(d)}deg)`);
     }

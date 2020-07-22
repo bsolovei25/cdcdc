@@ -65,5 +65,17 @@
       stroke: var(--color-aps-active-line);
       stroke-width: 0.3px;
     }
+
+    .arc-line {
+      fill: var(--color-aps-gaude-back-line);
+    }
+
+    .circle-needle {
+      fill: var(--color-aps-active);
+    }
+
+    .rainbow-arc {
+      // fill: yellow;
+    }
   }
 }
