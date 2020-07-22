@@ -41,4 +41,29 @@
 .diagram {
   width: 100%;
   height: 75%;
+
+  &::ng-deep {
+    .back-arc,
+    .dashed-arc {
+      fill: var(--color-aps-gaude-back);
+    }
+
+    .needle-arc {
+      fill: var(--color-aps-active);
+    }
+
+    .deviation-arc {
+      fill: var(--color-aps-orange);
+    }
+
+    .end-line {
+      stroke: var(--color-aps-gaude-line);
+      stroke-width: 0.3px;
+    }
+
+    .needle {
+      stroke: var(--color-aps-active-line);
+      stroke-width: 0.3px;
+    }
+  }
 }

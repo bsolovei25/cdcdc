@@ -79,7 +79,7 @@ export class IndicatorLoadDeviationComponent extends WidgetPlatform
 
     private drawWidget(): void {
         this.drawMenu();
-        // this.drawDiagram();
+        this.drawDiagram();
         // this.drawArrows();
         // this.drawCards();
     }
@@ -268,6 +268,52 @@ export class IndicatorLoadDeviationComponent extends WidgetPlatform
             .attr('width', 190)
             .attr('height', 55)
             .style('transform', 'scaleY(-1)');
+
+        const gaude = indicator.append('g').attr('class', 'gaude');
+        this.drawBigGaude(gaude, 50);
+        gaude.style('transform', 'translate(25%, 51%) scale(9)');
+    }
+
+    private drawBigGaude(block: any, data: any): void {
+        const svg = block;
+        const min = 7.5;
+        const max = 10;
+        const innerMin = 8;
+        const innerMax = 9.5;
+        const startAngle = (-1.5 * Math.PI) / 2;
+        const endAngle = (1.5 * Math.PI) / 2;
+        // масштабирующая функция (перевод чисел в градусы)
+        const scale = d3
+            .scaleLinear()
+            .domain([0, 100]) // числовой диапазон
+            .range([0, 270]); // диапазон угла
+
+        const arc = this.defineArc(min, max);
+        const innerArc = this.defineArc(innerMin, innerMax);
+        const dashedArc = this.defineArc(min, max, 0.015); // функция верхней пунктирной дуги
+
+        const pie = this.definePie(startAngle, endAngle); // функция для внешней дуги
+        const endAngleFn = (d) => (scale(d) * Math.PI) / 180 - (1.5 * Math.PI) / 2;
+        const lastPie = this.definePie(startAngle, endAngleFn); // функция дуги, которая следует за ползунком
+
+        this.drawArc(pie([1]), 'back-arc', arc, svg); // отрисовка внешней дуги
+        this.drawArc(pie([1]), 'deviation-arc', innerArc, svg); // отрисовка подвижной дуги
+        this.drawArc(lastPie([data]), 'needle-arc', innerArc, svg); // отрисовка подвижной дуги
+        this.drawArc(pie(new Array(80)), 'dashed-arc', dashedArc, svg.append('g')); // отрисовка пунктирной дуги
+
+        // позиция бегунка в положении 0
+        const needlePos = {
+            x1: -min * Math.cos(Math.PI / 4),
+            x2: -max * Math.cos(Math.PI / 4),
+            y1: min * Math.sin(Math.PI / 4),
+            y2: max * Math.sin(Math.PI / 4),
+        };
+        // отрисовка линий начала и конца
+        const lines = svg.append('g').attr('class', 'lines');
+        this.drawNeedle([0], 'end-line', 'line1', lines, needlePos, scale);
+        this.drawNeedle([100], 'end-line', 'line2', lines, needlePos, scale);
+        // отрисовка бегунка
+        this.drawNeedle([data], 'needle', 'needle', svg, needlePos, scale);
     }
 
     private drawArrows(): void {
@@ -422,6 +468,28 @@ export class IndicatorLoadDeviationComponent extends WidgetPlatform
             .append('path')
             .attr('class', cls)
             .attr('d', arcFn);
+    }
+
+    private drawNeedle(
+        data: any[],
+        cls: string,
+        classed: string,
+        block: any,
+        needlePos: any,
+        scaleFn: any
+    ): any {
+        block
+            .selectAll(`.needle`)
+            .data(data)
+            .enter()
+            .append('line')
+            .attr('class', cls)
+            .attr('x1', needlePos.x1)
+            .attr('x2', needlePos.x2)
+            .attr('y1', needlePos.y1)
+            .attr('y2', needlePos.y2)
+            .classed(classed, true)
+            .style('transform', (d) => `rotate(${scaleFn(d)}deg)`);
     }
 
     //#endregion gaude functions
