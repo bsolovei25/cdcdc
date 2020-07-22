@@ -13,6 +13,13 @@ import { WidgetService } from '../../../dashboard/services/widget.service';
 import * as d3Selection from 'd3-selection';
 import * as d3 from 'd3';
 
+export interface IApsIndicatorLoad {
+    name: string;
+    value: number;
+    deviation: number;
+    percentValue: number;
+}
+
 @Component({
     selector: 'evj-indicator-load-deviation',
     templateUrl: './indicator-load-deviation.component.html',
@@ -23,31 +30,45 @@ export class IndicatorLoadDeviationComponent extends WidgetPlatform
     @ViewChild('menu', { static: true }) private menu: ElementRef;
     @ViewChild('diagram', { static: true }) private diagram: ElementRef;
 
-    data = [
+    private dataQuality: number = 0;
+    private chartQuality: number = 0;
+    public activeCard: IApsIndicatorLoad;
+    private data: IApsIndicatorLoad[] = [
+        {
+            name: 'План первичной переработки',
+            value: 1600537,
+            deviation: -537,
+            percentValue: 98,
+        },
         {
             name: 'Гидроочистка ДТ',
             value: 850074,
             deviation: -298,
+            percentValue: 87,
         },
         {
             name: 'Риформинг',
             value: 70470,
             deviation: -348,
+            percentValue: 45,
         },
         {
             name: 'Кат. крекинг',
             value: 126679,
             deviation: -329,
+            percentValue: 67,
         },
         {
             name: 'Ароматика',
             value: 640667,
             deviation: -104,
+            percentValue: 52,
         },
         {
             name: 'Прочее',
             value: 272118,
             deviation: -82,
+            percentValue: 15,
         },
     ];
 
@@ -65,6 +86,7 @@ export class IndicatorLoadDeviationComponent extends WidgetPlatform
 
     public ngOnInit(): void {
         super.widgetInit();
+        this.activeCard = this.data.shift();
     }
 
     public ngAfterViewInit(): void {
@@ -78,10 +100,16 @@ export class IndicatorLoadDeviationComponent extends WidgetPlatform
     protected dataHandler(ref: any): void {}
 
     private drawWidget(): void {
+        if (this.svgMenu) {
+            this.svgMenu.remove();
+        }
+        if (this.svgBody) {
+            this.svgBody.remove();
+        }
         this.drawMenu();
         this.drawDiagram();
         // this.drawArrows();
-        // this.drawCards();
+        this.drawCards();
     }
 
     private drawMenu(): void {
@@ -267,11 +295,11 @@ export class IndicatorLoadDeviationComponent extends WidgetPlatform
             .style('transform', 'scaleY(-1)');
 
         const gaude = indicator.append('g').attr('class', 'gaude');
-        this.drawBigGaude(gaude, 50);
+        this.drawBigGaude(gaude, this.activeCard.percentValue);
         const innerGaude = gaude.append('g').attr('class', 'innerGaude');
-        this.drawInnerGaude(innerGaude, 50);
+        this.drawInnerGaude(innerGaude, this.activeCard.percentValue);
         const text = gaude.append('g').attr('class', 'gaude-text');
-        this.drawTextInGaude(text, 50);
+        this.drawTextInGaude(text);
         gaude.style('transform', 'translate(25%, 51%) scale(9)');
     }
 
@@ -335,7 +363,7 @@ export class IndicatorLoadDeviationComponent extends WidgetPlatform
         const needlePos = {
             cx: (-(lineMax + lineMin) / 2) * Math.cos(Math.PI / 4),
             cy: ((lineMax + lineMin) / 2) * Math.sin(Math.PI / 4),
-            r: (lineMax - lineMin) * 2,
+            r: (lineMax - lineMin) * 1.5,
         };
         this.drawCircleNeedle([data], 'circle-needle', 'circleNeedle', svg, needlePos, scale);
         // пунктирная дуга
@@ -349,21 +377,21 @@ export class IndicatorLoadDeviationComponent extends WidgetPlatform
         });
     }
 
-    private drawTextInGaude(block: any, data: any): void {
+    private drawTextInGaude(block: any): void {
         block
             .append('text')
             .attr('class', 'value')
             .attr('text-anchor', 'end')
             .attr('x', 3.2)
             .attr('y', -1)
-            .text('1600537');
+            .text(this.activeCard.value);
         block
             .append('text')
             .attr('class', 'deviation')
             .attr('text-anchor', 'end')
             .attr('x', 3.2)
             .attr('y', 1)
-            .text('-537');
+            .text(this.activeCard.deviation);
         block
             .append('text')
             .attr('class', 'units')
@@ -371,20 +399,19 @@ export class IndicatorLoadDeviationComponent extends WidgetPlatform
             .attr('x', 0)
             .attr('y', 3)
             .text('ТН');
+
+        let text = this.activeCard.name;
+        if (text.length > 14) {
+            text = text.slice(0, 11) + '...';
+        }
+
         block
             .append('text')
             .attr('class', 'name')
             .attr('text-anchor', 'middle')
             .attr('x', 0)
             .attr('y', 7.5)
-            .text('План первичной');
-        block
-            .append('text')
-            .attr('class', 'name')
-            .attr('text-anchor', 'middle')
-            .attr('x', 0)
-            .attr('y', 9)
-            .text('переработки');
+            .text(text);
         block
             .append('image')
             .attr(
@@ -397,6 +424,7 @@ export class IndicatorLoadDeviationComponent extends WidgetPlatform
             .attr('height', 1.2);
     }
 
+    // TOFIX не умещаются линии из дизайна
     private drawArrows(): void {
         const arrows = this.svgBody.append('g').attr('class', 'arrows');
 
@@ -443,12 +471,12 @@ export class IndicatorLoadDeviationComponent extends WidgetPlatform
 
     private drawCards(): void {
         const step = 50;
-        let stepCounter = -20;
+        let stepCounter = -25;
         let card;
 
         const cards = this.svgBody.append('g').attr('class', 'cards');
 
-        this.data.forEach((item) => {
+        this.data.forEach((item, idx) => {
             card = cards.append('g').attr('class', 'card');
             card.append('image')
                 .attr(
@@ -490,12 +518,17 @@ export class IndicatorLoadDeviationComponent extends WidgetPlatform
                 .attr('width', 20)
                 .attr('height', 20);
 
+            let text = item.name;
+            if (text.length > 14) {
+                text = text.slice(0, 11) + '...';
+            }
+
             card.append('text')
                 .attr('x', 240)
                 .attr('y', stepCounter + 25)
                 .attr('fill', '#8D9EB8')
                 .style('font-size', 11)
-                .text(item.name);
+                .text(text);
 
             card.append('text')
                 .attr('x', 390)
@@ -513,8 +546,19 @@ export class IndicatorLoadDeviationComponent extends WidgetPlatform
                 .style('font-size', 11)
                 .text(`${item.deviation}`);
 
+            card.on('click', () => {
+                console.log(idx);
+                this.onClickCard(idx);
+            });
+
             stepCounter += step;
         });
+    }
+
+    private onClickCard(idx: number): void {
+        const card = this.data.splice(idx, 1, this.activeCard)[0];
+        this.activeCard = card;
+        this.drawWidget();
     }
 
     //#region gaude functions
