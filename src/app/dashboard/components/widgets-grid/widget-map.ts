@@ -145,6 +145,7 @@ export const WIDGETS = {
     'deviation-details': WidgetContainerComponent,
     'production-details': WidgetContainerComponent,
     'kpe-quality': WidgetContainerComponent,
+    'kpe-energetic': WidgetContainerComponent,
     'key-performance-indicators': WidgetContainerComponent,
     'kpe-readiness': WidgetContainerComponent,
 };
@@ -254,10 +255,10 @@ export const WIDGETS_LAZY = {
             return await import('src/app/widgets/KPE/key-performance-indicators/key-performance-indicators.module');
         },
         module: 'KeyPerformanceIndicatorsModule',
-        itemCols: 24,
-        itemRows: 14,
-        minItemCols: 24,
-        minItemRows: 14,
+        itemCols: 19,
+        itemRows: 12,
+        minItemCols: 19,
+        minItemRows: 12,
     },
     //#endregion APS
 
@@ -300,6 +301,18 @@ export const WIDGETS_LAZY = {
         itemRows: 15,
         minItemCols: 15,
         minItemRows: 10
+        // preview: 'kpe-quality',
+    },
+
+    'kpe-energetic': {
+        import: async () => {
+            return await import('src/app/widgets/KPE/kpe-energy/kpe-energy.module');
+        },
+        module: 'KpeEnergyModule',
+        itemCols: 15,
+        itemRows: 7,
+        minItemCols: 15,
+        minItemRows: 7,
         // preview: 'kpe-quality',
     },
 

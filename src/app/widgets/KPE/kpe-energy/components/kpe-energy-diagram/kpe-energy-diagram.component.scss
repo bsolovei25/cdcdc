@@ -1,0 +1,35 @@
+::ng-deep .back {
+  & > * {
+    fill: var(--color-kpe-line-diagram-bg-sub);
+  }
+}
+
+::ng-deep .main {
+  & > * {
+    fill: var(--color-aps-active);
+  }
+}
+
+::ng-deep .main-warning {
+  & > * {
+    fill: var(--color-kpe-text-main);
+  }
+}
+
+::ng-deep .sub {
+  & > * {
+    fill: var(--color-aps-orange);
+  }
+}
+
+::ng-deep .serif-static {
+  & > * {
+    stroke: var(--color-kpe-eq-chart-row-default);
+  }
+}
+
+::ng-deep .serif-dynamic {
+  & > * {
+    stroke: var(--color-text-main);
+  }
+}

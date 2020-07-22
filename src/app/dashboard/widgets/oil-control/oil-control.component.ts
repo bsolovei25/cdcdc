@@ -3,6 +3,7 @@ import { WidgetService } from '../../services/widget.service';
 import { EventEmitter } from '@angular/core';
 import { OilControls, OilProducts } from '../../models/oil-control';
 import { WidgetPlatform } from '../../models/widget-platform';
+import { HttpClient } from '@angular/common/http';
 
 export interface IOilControlCoords {
     x: number;
@@ -15,7 +16,7 @@ declare var d3: any;
 @Component({
     selector: 'evj-oil-control',
     templateUrl: './oil-control.component.html',
-    styleUrls: ['./oil-control.component.scss'],
+    styleUrls: ['./oil-control.component.scss']
 })
 export class OilControlComponent extends WidgetPlatform implements OnInit, OnDestroy {
     @ViewChild('oilIcon') oilIcon: ElementRef;
@@ -37,53 +38,53 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, OnDes
     storageXY: IOilControlCoords[] = [
         {
             x: 400,
-            y: 220,
+            y: 220
         },
         {
             x: 450,
-            y: 300,
+            y: 300
         },
         {
             point: 3,
             x: 510,
-            y: 420,
+            y: 420
         },
         {
             x: 450,
-            y: 620,
+            y: 620
         },
         {
             x: 400,
-            y: 690,
-        },
+            y: 690
+        }
     ];
 
     productXY: IOilControlCoords[] = [
         {
             point: 1,
             x: 200,
-            y: 220,
+            y: 220
         },
         {
             point: 2,
             x: 260,
-            y: 300,
+            y: 300
         },
         {
             point: 3,
             x: 320,
-            y: 420,
+            y: 420
         },
         {
             point: 4,
             x: 260,
-            y: 620,
+            y: 620
         },
         {
             point: 5,
             x: 200,
-            y: 700,
-        },
+            y: 700
+        }
     ];
 
     public clickPaginator: boolean = false;
@@ -109,7 +110,7 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, OnDes
 
     public indexData: number = 0;
 
-    public activeStorage: any;
+    public activeStorage: any = null;
     public activeProduct: any = [];
 
     public indexProductActive: number = 0;
@@ -143,10 +144,11 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, OnDes
     tankersName = {
         shipAvto: 'Авто',
         shipTrain: 'Поезд',
-        shipTube: 'Труба',
+        shipTube: 'Труба'
     };
 
     constructor(
+        private http: HttpClient,
         public widgetService: WidgetService,
         @Inject('isMock') public isMock: boolean,
         @Inject('widgetId') public id: string,
@@ -164,22 +166,31 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, OnDes
         super.ngOnDestroy();
     }
 
-    protected dataConnect(): void {
+    // for test
+    async mockDataConnect(): Promise<any> {
+        const widgetData = await this.http.get<any>('assets/mock/OilOperationsMock/lco.json').toPromise();
+        return widgetData.data;
+    }
+
+    protected async dataConnect(): Promise<void> {
         super.dataConnect();
+        // const ref = await this.mockDataConnect();
+        // this.drawOilControlSocket(ref);
     }
 
     protected dataHandler(ref: any): void {
-        console.log(ref);
-
         this.drawOilControlSocket(ref);
     }
 
     public mapStorage(): void {
         this.activeProduct = this.data;
-        if (this.activeProduct[0].storages.length < 3) {
-            this.activeStorage = this.activeProduct[2].storages[1];
-        } else if (this.activeProduct[0].storages.length < 2) {
+        if (!(this.activeProduct[0].storages?.length > 0)) {
+            return;
+        }
+        if (this.activeProduct[0].storages.length < 2) {
             this.activeStorage = this.activeProduct[0].storages[0];
+        } else if (this.activeProduct[0].storages.length < 3) {
+            this.activeStorage = this.activeProduct[0].storages[1];
         } else {
             this.activeStorage = this.activeProduct[0].storages[2];
         }
@@ -244,9 +255,11 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, OnDes
 
         let countPicture = 0;
 
-        for (const i of this.activeStorage?.tankers) {
-            if (i.shipped === true) {
-                countPicture++;
+        if (this.activeStorage) {
+            for (const i of this.activeStorage?.tankers) {
+                if (i.shipped === true) {
+                    countPicture++;
+                }
             }
         }
 
@@ -301,7 +314,7 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, OnDes
 
                 let planText1 = this.tankersPicture
                     .append('text')
-                    .attr('font-family', "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
+                    .attr('font-family', '\'Segoe UI\', Tahoma, Geneva, Verdana, sans-serif;')
                     .attr('font-size', '10px')
                     .attr('x', x3 + y)
                     .attr('class', 'textProduct')
@@ -391,7 +404,8 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, OnDes
         let svgMenu = this.svgMenu;
         this.activeProduct = data;
 
-        if (dataStorage.length < 2) {
+        if (!(dataStorage?.lenght > 0)) {
+        } else if (dataStorage.length < 2) {
             this.activeStorage = dataStorage[0];
         } else if (dataStorage.length < 3) {
             this.activeStorage = dataStorage[1];
@@ -446,7 +460,7 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, OnDes
 
             let operations = svgMenu
                 .append('text')
-                .attr('font-family', "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
+                .attr('font-family', '\'Segoe UI\', Tahoma, Geneva, Verdana, sans-serif;')
                 .attr('font-size', '25px')
                 .attr('x', '100')
                 .attr('y', '390')
@@ -457,7 +471,7 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, OnDes
 
             let operationsValues = svgMenu
                 .append('text')
-                .attr('font-family', "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
+                .attr('font-family', '\'Segoe UI\', Tahoma, Geneva, Verdana, sans-serif;')
                 .attr('font-size', '25px')
                 .attr('x', '100')
                 .attr('y', '430')
@@ -468,7 +482,7 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, OnDes
 
             let critical = svgMenu
                 .append('text')
-                .attr('font-family', "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
+                .attr('font-family', '\'Segoe UI\', Tahoma, Geneva, Verdana, sans-serif;')
                 .attr('font-size', '25px')
                 .attr('x', '100')
                 .attr('y', '480')
@@ -479,7 +493,7 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, OnDes
 
             let ctiticalValuues = svgMenu
                 .append('text')
-                .attr('font-family', "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
+                .attr('font-family', '\'Segoe UI\', Tahoma, Geneva, Verdana, sans-serif;')
                 .attr('font-size', '25px')
                 .attr('x', '100')
                 .attr('y', '520')
@@ -503,7 +517,7 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, OnDes
         } else {
             let middleText3 = svgMenu
                 .append('text')
-                .attr('font-family', "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
+                .attr('font-family', '\'Segoe UI\', Tahoma, Geneva, Verdana, sans-serif;')
                 .attr('font-size', '25px')
                 .attr('x', '100')
                 .attr('y', '420')
@@ -514,7 +528,7 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, OnDes
 
             let middleText4 = svgMenu
                 .append('text')
-                .attr('font-family', "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
+                .attr('font-family', '\'Segoe UI\', Tahoma, Geneva, Verdana, sans-serif;')
                 .attr('font-size', '25px')
                 .attr('x', '100')
                 .attr('y', '500')
@@ -566,7 +580,7 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, OnDes
                                 .append('text')
                                 .attr(
                                     'font-family',
-                                    "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;"
+                                    '\'Segoe UI\', Tahoma, Geneva, Verdana, sans-serif;'
                                 )
                                 .attr('font-size', '25px')
                                 .attr('x', pie.x)
@@ -580,7 +594,7 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, OnDes
                                 .append('text')
                                 .attr(
                                     'font-family',
-                                    "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;"
+                                    '\'Segoe UI\', Tahoma, Geneva, Verdana, sans-serif;'
                                 )
                                 .attr('font-size', '32px')
                                 .attr('x', pie.x)
@@ -594,7 +608,7 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, OnDes
                                 .append('text')
                                 .attr(
                                     'font-family',
-                                    "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;"
+                                    '\'Segoe UI\', Tahoma, Geneva, Verdana, sans-serif;'
                                 )
                                 .attr('font-size', '25px')
                                 .attr('x', pie.x)
@@ -618,7 +632,7 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, OnDes
                                         : name;
                                 const splitSpaceIndex = str.split('').reduce((acc, item, index) => {
                                     return item === ' ' &&
-                                        Math.abs(maxStrLen - index) < Math.abs(maxStrLen - acc)
+                                    Math.abs(maxStrLen - index) < Math.abs(maxStrLen - acc)
                                         ? index
                                         : acc;
                                 }, 0);
@@ -637,7 +651,7 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, OnDes
                                 .append('text')
                                 .attr(
                                     'font-family',
-                                    "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;"
+                                    '\'Segoe UI\', Tahoma, Geneva, Verdana, sans-serif;'
                                 )
                                 .attr('font-size', '25px')
                                 .attr('x', pie.x)
@@ -652,7 +666,7 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, OnDes
                                     .append('text')
                                     .attr(
                                         'font-family',
-                                        "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;"
+                                        '\'Segoe UI\', Tahoma, Geneva, Verdana, sans-serif;'
                                     )
                                     .attr('font-size', '25px')
                                     .attr('x', pie.x)
@@ -667,7 +681,7 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, OnDes
                                 .append('text')
                                 .attr(
                                     'font-family',
-                                    "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;"
+                                    '\'Segoe UI\', Tahoma, Geneva, Verdana, sans-serif;'
                                 )
                                 .attr('font-size', '40px')
                                 .attr('x', pie.x)
@@ -687,7 +701,7 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, OnDes
 
                         let valueGoodText = svgMenu
                             .append('text')
-                            .attr('font-family', "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
+                            .attr('font-family', '\'Segoe UI\', Tahoma, Geneva, Verdana, sans-serif;')
                             .attr('font-size', '25px')
                             .attr('x', pie.x)
                             .attr('y', pie.y)
@@ -720,7 +734,7 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, OnDes
                         const valueStorage = Math.round(textStorage.valueStorage);
                         let valueBadText = test
                             .append('text')
-                            .attr('font-family', "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
+                            .attr('font-family', '\'Segoe UI\', Tahoma, Geneva, Verdana, sans-serif;')
                             .attr('font-size', '25px')
                             .attr('x', pie.x)
                             .attr('y', pie.y)
@@ -731,7 +745,7 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, OnDes
 
                         let middleText2 = test
                             .append('text')
-                            .attr('font-family', "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
+                            .attr('font-family', '\'Segoe UI\', Tahoma, Geneva, Verdana, sans-serif;')
                             .attr('font-size', '25px')
                             .attr('x', pie.x)
                             .attr('y', pie.y + 80)
@@ -745,7 +759,7 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, OnDes
                                 .append('text')
                                 .attr(
                                     'font-family',
-                                    "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;"
+                                    '\'Segoe UI\', Tahoma, Geneva, Verdana, sans-serif;'
                                 )
                                 .attr('font-size', '25px')
                                 .attr('x', pie.x)
@@ -770,7 +784,7 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, OnDes
                                 .append('text')
                                 .attr(
                                     'font-family',
-                                    "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;"
+                                    '\'Segoe UI\', Tahoma, Geneva, Verdana, sans-serif;'
                                 )
                                 .attr('font-size', '25px')
                                 .attr('x', pie.x)
@@ -1116,12 +1130,9 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, OnDes
     public FilterStorageCircle(data, el): void {
         const count = data.storages.length;
         this.pieStartStorage = 2;
-        if (count === 0) {
+        if (count < 2) {
             this.pieEndStorage = 2;
             this.pieStartStorage = 2;
-        } else if (count === 1) {
-            this.pieStartStorage = 2;
-            this.pieEndStorage = 2;
         } else if (count === 2) {
             this.pieStartStorage = 1;
             this.pieEndStorage = 2;

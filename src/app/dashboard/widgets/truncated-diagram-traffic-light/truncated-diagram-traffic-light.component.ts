@@ -16,11 +16,11 @@ export interface ITruncatedDiagramInputData {
     animations: [
         trigger(
             'expandCollapse', [
-                state('true', style({minHeight: '45px', height: '45px'})),
-                state('false', style({minHeight: '165px'})),
-                transition('1 => 0', animate('200ms')),
-                transition('0 => 1', animate('200ms'))
-            ]
+            state('true', style({ minHeight: '45px', height: '45px' })),
+            state('false', style({ minHeight: '165px' })),
+            transition('1 => 0', animate('200ms')),
+            transition('0 => 1', animate('200ms'))
+        ]
         )
     ],
 })
@@ -65,6 +65,8 @@ export class TruncatedDiagramTrafficLightComponent extends WidgetPlatform implem
 
     protected dataHandler(ref: any): void {
         this.data = ref.groups;
+        console.log(this.data);
+
         this.processData();
     }
 
