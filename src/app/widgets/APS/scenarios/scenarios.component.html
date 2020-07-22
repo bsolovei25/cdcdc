@@ -1,4 +1,4 @@
-<evj-aps-widget-header [uniqId]="uniqId" icon="map">
+<evj-aps-kpe-widget-header [uniqId]="uniqId" icon="map">
   <div
     class="content-container"
     (mousedown)="$event.stopPropagation()"
@@ -6,7 +6,7 @@
   >
     <ng-container *ngTemplateOutlet="headerTabs"></ng-container>
   </div>
-</evj-aps-widget-header>
+</evj-aps-kpe-widget-header>
 
 <ng-template #headerTabs>
   <div class="tabs-container">
@@ -35,8 +35,8 @@
   class="wrapper"
   (mousedown)="$event.stopPropagation()"
   (touchstart)="$event.stopPropagation()"
+  evjContextMenu
 >
-  <evj-aps-context-menu>
   <div class="primary-content">
     <div class="primary-content__dashed">
       <div class="circle-container">
@@ -85,7 +85,6 @@
       <button class="button block-button">Расчитать</button>
     </div>
   </div>
-  </evj-aps-context-menu>
   <evj-aps-expandable-bottom-frame></evj-aps-expandable-bottom-frame>
 
   <div class="secondary-content">

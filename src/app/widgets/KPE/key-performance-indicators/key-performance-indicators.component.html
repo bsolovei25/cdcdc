@@ -1,0 +1,62 @@
+<evj-aps-kpe-widget-header [uniqId]="uniqId" icon="map" [kpeFlag]="true">
+  <div
+    class="content-container"
+    (mousedown)="$event.stopPropagation()"
+    (touchstart)="$event.stopPropagation()"
+  >
+    <ng-container *ngTemplateOutlet="headerTabs"></ng-container>
+  </div>
+</evj-aps-kpe-widget-header>
+
+<ng-template #headerTabs>
+  <div class="tabs-container">
+    <div class="tab tab--active">
+      <div
+        class="tab__title"
+        (mousedown)="$event.stopPropagation()"
+        (touchstart)="$event.stopPropagation()"
+      >
+        План PIMS
+      </div>
+    </div>
+    <div class="tab">
+      <div
+        class="tab__title"
+        (mousedown)="$event.stopPropagation()"
+        (touchstart)="$event.stopPropagation()"
+      >
+        Нормативный план
+      </div>
+    </div>
+    <div class="tab">
+      <div
+        class="tab__title"
+        (mousedown)="$event.stopPropagation()"
+        (touchstart)="$event.stopPropagation()"
+      >
+        Оперативный план
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<div class="wrapper" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
+  <div class="unit-selector">
+    <div class="unit-selector__unit">
+      <span>ед.изм</span>
+    </div>
+    <div class="unit-selector__sign">
+      <span>%</span>
+    </div>
+  </div>
+
+  <div class="diagram-container">
+    <evj-kpe-gauge-diagram></evj-kpe-gauge-diagram>
+  </div>
+
+  <div class="circle1"></div>
+  <div class="circle2"></div>
+  <div class="circle3"></div>
+  <div class="circle4"></div>
+  <div class="circle5"></div>
+</div>

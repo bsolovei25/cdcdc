@@ -209,6 +209,7 @@ $color-bg-active-gradient: "2d3f51";
 
 p {
   margin: 0;
+  margin-right: 15px;
 }
 
 .block-top {
@@ -348,7 +349,7 @@ p {
 
     .shift-today {
       display: flex;
-      justify-content: space-between;
+
       padding: 8px 10px;
       padding-right: 0;
       margin: 0 9px;
@@ -360,7 +361,7 @@ p {
         min-width: 40px;
         max-height: 100px;
         width: 100px;
-        text-align: end;
+        text-align: start;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
@@ -539,6 +540,8 @@ p {
 
           &__overlay {
             position: absolute;
+            flex-direction: column;
+            width: 122px;
             top: 60px;
             left: 40px;
             background-color: var(--color-bg-additional);
@@ -547,6 +550,22 @@ p {
             padding: 10px;
             box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2), 0px 4px 5px 0px rgba(0, 0, 0, 0.14),
               0px 1px 10px 0px rgba(0, 0, 0, 0.12);
+            &__footer {
+              display: flex;
+              justify-content: flex-end;
+              position: absolute;
+              bottom: 10px;
+              right: 5px;
+              &__btn {
+                cursor: pointer;
+                border: 1px solid var(--color-text-main);
+                border-radius: 20px;
+                width: 50px;
+                mat-icon {
+                  padding: 5px 12px;
+                }
+              }
+            }
           }
         }
       }
@@ -682,6 +701,10 @@ p {
 
 .color-6 {
   background-color: var(--color-bg-active-gradient);
+}
+
+.color-delete {
+  background-color: var(--color-orange);
 }
 
 ::ng-deep .customize-menu {

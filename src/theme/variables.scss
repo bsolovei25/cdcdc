@@ -190,6 +190,28 @@
   --color-aps-col-border: #1d2131;
   --color-aps-limits: #b6e1fe;
 
+  // KPE equalizer-chart
+
+  --color-kpe-eq-chart-title: #d7e2f2;
+  --color-kpe-eq-chart-area: #232532;
+  --color-kpe-eq-chart-row-default: #303549;
+  --color-kpe-eq-chart-row-over: #f7931e;
+
+  // KPE line-diagram
+
+  --color-kpe-line-diagram-bg-sub: #1c1f2b;
+  --color-kpe-line-diagram-active: #1f3d60;
+  --color-kpe-bg-sub: #272a38;
+
+  // KPE gauge-chart
+  --color-kpe-gaude-main: #d7e2f2;
+  --color-kpe-gaude-additional: #606580;
+  --color-kpe-gaude-active: #0089ff;
+  --color-kpe-gaude-deviation: #f7931e;
+  --color-kpe-gaude-lines: #272a38;
+  --color-kpe-gaude-back: #12151e;
+  --color-kpe-gaude-unactive: #1c1f2b;
+
   // @shared/alert-window (aw)
   --color-aw-container-shadow-transparent: rgba(0, 0, 0, 0.25);
   --color-aw-container-body-transparent: rgba(39, 43, 53, 0.75);

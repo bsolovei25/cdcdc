@@ -196,7 +196,7 @@ export class EventsWorkspaceService {
         this.isCreateNewEvent = true;
         await this.loadItem();
         this.event = fillDataShape(this.defaultEvent);
-        this.event.fixedBy = {...this.currentAuthUser};
+        this.event.fixedBy = { ...this.currentAuthUser };
         this.originalEvent = { ...this.event };
     }
 
@@ -211,8 +211,8 @@ export class EventsWorkspaceService {
         }
         this.isCreateNewEvent = true;
         await this.loadItem();
-        this.event = {...this.defaultEvent};
-        this.event.fixedBy = {...this.currentAuthUser};
+        this.event = { ...this.defaultEvent };
+        this.event.fixedBy = { ...this.currentAuthUser };
         if (idParent) {
             this.event.parentId = idParent;
             this.event.category = {
@@ -380,7 +380,7 @@ export class EventsWorkspaceService {
             return;
         }
         this.isLoading = true;
-        const tempStatus = {...this.event.status};
+        const tempStatus = { ...this.event.status };
         try {
             this.sendMessageToEvent(message, 'comments');
             const saveMethod = await this.eventService.getSaveMethod(this.event);
@@ -413,7 +413,7 @@ export class EventsWorkspaceService {
                 code: null,
             },
             description: '',
-            deviationReason: 'Причина отклонения...',
+            deviationReason: '',
             directReasons: '',
             establishedFacts: '',
             eventDateTime: new Date(),
@@ -425,7 +425,7 @@ export class EventsWorkspaceService {
                     ? this.priority[2]
                     : this.priority[0]
                 : undefined,
-            responsibleOperator: this.currentAuthUser ? fillDataShape(this.currentAuthUser) : null,
+            responsibleOperator: null,
             retrievalEvents: [],
             severity: 'Critical',
             status: this.status ? this.status[0] : {

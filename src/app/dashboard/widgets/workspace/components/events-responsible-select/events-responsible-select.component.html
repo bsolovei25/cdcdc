@@ -6,9 +6,9 @@
       </div>
       <div class="name_user_info">
         <div>
-          {{ responsible.displayName }}
+          {{ responsible?.displayName }}
         </div>
-        <div>{{ responsible.positionDescription }}</div>
+        <div>{{ responsible?.positionDescription }}</div>
       </div>
     </div>
     <div class="brigade_user">
@@ -31,10 +31,7 @@
       <mat-select panelClass="mat-select-custom" [(ngModel)]="responsible" disableOptionCentering>
         <evj-mat-select-filter [formControl]="filter"></evj-mat-select-filter>
         <ng-container *ngFor="let p of users">
-          <mat-option
-            [value]="p"
-            (click)="chooseRespons(p)"
-          >
+          <mat-option [value]="p" (click)="chooseRespons(p)">
             {{ p.lastName }} {{ p.firstName }}
           </mat-option>
         </ng-container>

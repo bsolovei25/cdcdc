@@ -57,10 +57,11 @@ export class AdminShiftScheduleService {
         unitId: number,
         month: number,
         year: number
-    ): Promise<IScheduleShift[]> {
+        // ): Promise<IScheduleShift[]> {
+    ): Promise<IScheduleShiftDay[]> {
         try {
             return this.http
-                .get<IScheduleShift[]>(
+                .get<IScheduleShiftDay[]>(
                     this.restUrl + `/api/schedule-shifts/unit/${unitId}/month/${month}/${year}`
                 )
                 .toPromise();
@@ -216,7 +217,7 @@ export class AdminShiftScheduleService {
             return this.http
                 .post(
                     this.restUrl +
-                        `/api/user-management/brigade/user/${userId}/brigade/${brigadeId}`,
+                    `/api/user-management/brigade/user/${userId}/brigade/${brigadeId}`,
                     null
                 )
                 .toPromise();

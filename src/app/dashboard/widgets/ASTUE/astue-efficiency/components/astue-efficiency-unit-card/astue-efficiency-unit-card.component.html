@@ -1,6 +1,6 @@
 <div class="card">
   <div class="card__header header">
-    <div class="click-area" (click)="isOpen=!isOpen"></div>
+    <div class="click-area" (click)="onToggleCard()"></div>
     <img
       class="arrow"
       [ngClass]="{'arrow_open':isOpen}"
@@ -24,12 +24,12 @@
     </div>
   </div>
   <div class="card__streams streams" [ngClass]="{'streams_open':isOpen}">
-    <div class="streams__item" *ngFor="let card of unit.streams">
+    <div class="streams__item" *ngFor="let card of unit.flows">
       <evj-astue-efficiency-item-card
         [isActive]="cardSelection.isSelected(card)"
         [isListItem]="true"
         [card]="card"
-        (click)="cardSelection.toggle(card)"
+        (click)="onSelectFlow(card)"
       ></evj-astue-efficiency-item-card>
     </div>
   </div>

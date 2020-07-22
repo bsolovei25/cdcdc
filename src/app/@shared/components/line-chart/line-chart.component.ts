@@ -115,7 +115,9 @@ export class LineChartComponent implements OnChanges, OnInit {
     }
 
     private findMinMax(): void {
-        this.data.forEach((graph) => (graph.graph = setLimits(graph.graph, this.limits)));
+        if (this.limits) {
+            this.data.forEach((graph) => (graph.graph = setLimits(graph.graph, this.limits)));
+        }
 
         const maxValues: number[] = [];
         const minValues: number[] = [];

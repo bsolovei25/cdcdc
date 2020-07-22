@@ -1,43 +1,17 @@
 <div class="menu">
-  <div class="menu_item">
-
-    <div class="menu_item__container">
-      <div class="menu_item__title-text">Всего</div>
-      <div class="menu_item__count-text">12</div>
+  <ng-container *ngFor="let item of stats">
+    <div
+      class="menu_item"
+      [class.menu_item__active]="select.isSelected(item)"
+      (click)="select.select(item)"
+    >
+      <div class="menu_item__container">
+        <div class="menu_item__title-text">
+          {{item?.status?.description ? item.status.description : item.status.name}}
+        </div>
+        <div class="menu_item__count-text">{{item.count}}</div>
+      </div>
+      <div class="menu_item__border"></div>
     </div>
-    <div class="menu_item__border"></div>
-  </div>
-
-  <div class="menu_item">
-    <div class="menu_item__container">
-      <div class="menu_item__title-text">Новые</div>
-      <div class="menu_item__count-text">12</div>
-    </div>
-    <div class="menu_item__border"></div>
-  </div>
-
-  <div class="menu_item">
-    <div class="menu_item__container">
-      <div class="menu_item__title-text">В работе</div>
-      <div class="menu_item__count-text">12</div>
-    </div>
-    <div class="menu_item__border"></div>
-  </div>
-
-  <div class="menu_item">
-    <div class="menu_item__container">
-      <div class="menu_item__title-text">Отложено</div>
-      <div class="menu_item__count-text">12</div>
-    </div>
-    <div class="menu_item__border"></div>
-  </div>
-
-  <div class="menu_item">
-    <div class="menu_item__container">
-      <div class="menu_item__title-text">Закрыто</div>
-      <div class="menu_item__count-text">12</div>
-    </div>
-    <div class="menu_item__border"></div>
-  </div>
-
+  </ng-container>
 </div>

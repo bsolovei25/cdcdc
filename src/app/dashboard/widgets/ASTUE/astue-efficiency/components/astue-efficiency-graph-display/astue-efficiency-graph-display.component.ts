@@ -13,19 +13,15 @@ import { WidgetService, IDatesInterval } from '../../../../../services/widget.se
 import { HttpClient } from '@angular/common/http';
 import { AppConfigService } from '../../../../../../services/appConfigService';
 import { IWsData } from '../../../../production-trend/components/production-trend-graph/production-trend-graph.component';
+import { AstueEfficiencyService } from '../../../../../services/ASTUE/astue-efficiency.service';
+import { Subscription } from 'rxjs';
+import { IAsEfLabel } from '../../../../../models/ASTUE/astue-efficiency.model';
 
-type LabelStatusType = 'normal' | 'warning' | 'danger';
-
-interface ILabel {
-    value: number;
-    status?: LabelStatusType;
-    statusName?: string;
-}
 interface ILabels {
-    periodCounter: ILabel;
-    periodDeviations: ILabel;
-    currentValue: ILabel;
-    currentDeviation: ILabel;
+    periodCounter: IAsEfLabel;
+    periodDeviations: IAsEfLabel;
+    currentValue: IAsEfLabel;
+    currentDeviation: IAsEfLabel;
 }
 
 @Component({
@@ -41,18 +37,18 @@ export class AstueEfficiencyGraphDisplayComponent extends LineChartPlatform<IPro
 
     public labels: ILabels = {
         periodCounter: {
-            value: 1700,
+            value: 0,
         },
         periodDeviations: {
-            value: 200,
+            value: 0,
             status: 'danger',
             statusName: 'Перерасход',
         },
         currentValue: {
-            value: 500,
+            value: 0,
         },
         currentDeviation: {
-            value: 200,
+            value: 0,
             status: 'warning',
             statusName: 'Экономия',
         },
@@ -209,12 +205,15 @@ export class AstueEfficiencyGraphDisplayComponent extends LineChartPlatform<IPro
         toDateTime: new Date(2020, 2, 7, 20),
     };
 
+    private subs: Subscription[] = [];
+
     private readonly restUrl: string = null;
 
     constructor(
         public widgetService: WidgetService,
         private http: HttpClient,
-        private appConfigService: AppConfigService
+        private appConfigService: AppConfigService,
+        private AsEfService: AstueEfficiencyService
     ) {
         super(widgetService);
         this.restUrl = appConfigService.restUrl;
@@ -242,10 +241,78 @@ export class AstueEfficiencyGraphDisplayComponent extends LineChartPlatform<IPro
         this.wsDataHandler(this.dataWs);
     }
 
-    public ngOnInit(): void {}
+    public ngOnInit(): void {
+        this.subs.push(
+            this.AsEfService.selection$.subscribe(() => {
+                const flow = this.AsEfService.currentFlow;
+
+                if (flow) {
+                    this.labels = {
+                        periodCounter: {
+                            value: flow.periodCounter.value,
+                        },
+                        periodDeviations: {
+                            value: flow.periodDeviations.value,
+                            status: 'danger',
+                            statusName: 'Перерасход',
+                        },
+                        currentValue: {
+                            value: flow.currentValue.value,
+                        },
+                        currentDeviation: {
+                            value: flow.currentDeviation.value,
+                            status: 'warning',
+                            statusName: 'Экономия',
+                        },
+                    };
+                    this.data = this.chartDataMap(flow.astueFlowGraphs);
+                } else {
+                    this.labels = {
+                        periodCounter: {
+                            value: 0,
+                        },
+                        periodDeviations: {
+                            value: 0,
+                            status: 'danger',
+                            statusName: 'Перерасход',
+                        },
+                        currentValue: {
+                            value: 0,
+                        },
+                        currentDeviation: {
+                            value: 0,
+                            status: 'warning',
+                            statusName: 'Экономия',
+                        },
+                    };
+                    this.data = [];
+                }
+            })
+        );
+    }
 
     public ngOnDestroy(): void {
         super.ngOnDestroy();
+        this.subs.forEach((sub) => sub.unsubscribe());
+    }
+
+    private chartDataMap(data: any): IProductionTrend[] {
+        const ret: IProductionTrend[] = [];
+        data.forEach((chart) => {
+            const mapped: IProductionTrend = {
+                graphType: chart.productionTrendStyle,
+                graphStyle: chart.chartStyleType,
+                graph: [],
+            };
+            chart.values?.forEach((val) => {
+                mapped.graph.push({
+                    value: val.value,
+                    timeStamp: new Date(val.date),
+                });
+            });
+            ret.push(mapped);
+        });
+        return ret;
     }
 
     public clickDisplayButton(): void {

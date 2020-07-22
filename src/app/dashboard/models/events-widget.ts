@@ -18,11 +18,12 @@ export interface EventsWidgetNotificationPreview {
     iconUrl?: string;
     statusName?: string;
     iconUrlStatus?: string;
-    responsibleOperator: IUserPreview;
+    responsibleOperator?: IUserPreview;
     eventType?: { id: number; name: string };
     facts?: { comment: string }[];
     source?: any;
     externalId?: number;
+    isAcknowledged?: boolean; // Квитировано
 }
 
 export interface EventsWidgetNotification {
@@ -33,7 +34,7 @@ export interface EventsWidgetNotification {
     branch: string;
     originalId?: string;
     // place?: { id: number; name: string };
-    responsibleOperator: IUser;
+    responsibleOperator?: IUser;
     fixedBy: IUser;
     eventDateTime: Date;
     eventEndDateTime?: Date;
@@ -64,6 +65,8 @@ export interface EventsWidgetNotification {
     deviationData?: IEventDeviationData;
     asusEvent: IEventAsus;
     externalId?: number;
+    externalCode?: string; // код внешней системы (ID в Системе-источник)
+    externalDate?: Date; // дата регистрации во внешней системе
 }
 
 export interface IEventAsus {

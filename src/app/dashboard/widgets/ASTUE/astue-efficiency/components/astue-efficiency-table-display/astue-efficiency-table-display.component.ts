@@ -1,19 +1,30 @@
-import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input, OnDestroy } from '@angular/core';
 import {
     IAsEfTableBlock,
     IAsEfTableRow,
     IAsEfScript,
+    IAsEfProduct,
+    IAsEfCell,
+    IAsEfTable,
+    IAsEfUnitNew,
+    IAsEfRow,
 } from '../../../../../models/ASTUE/astue-efficiency.model';
 import { SelectionModel } from '@angular/cdk/collections';
+import { Subscription } from 'rxjs';
+import { AstueEfficiencyService } from '../../../../../services/ASTUE/astue-efficiency.service';
 
 @Component({
     selector: 'evj-astue-efficiency-table-display',
     templateUrl: './astue-efficiency-table-display.component.html',
     styleUrls: ['./astue-efficiency-table-display.component.scss'],
 })
-export class AstueEfficiencyTableDisplayComponent implements OnInit {
+export class AstueEfficiencyTableDisplayComponent implements OnInit, OnDestroy {
     @Input() public isInitialDataShow: boolean = true;
+    @Input() public allData: IAsEfUnitNew[] = [];
     @Output() private toggleDisplay: EventEmitter<true> = new EventEmitter<true>();
+
+    public displayData: IAsEfTable[] = [];
+    public dates: IAsEfCell[] = [];
 
     public data: IAsEfTableBlock[] = [
         {
@@ -639,12 +650,68 @@ export class AstueEfficiencyTableDisplayComponent implements OnInit {
     public blockSelection: SelectionModel<IAsEfTableBlock> = new SelectionModel<IAsEfTableBlock>(
         true
     );
+    public newBlockSelection: SelectionModel<IAsEfTable> = new SelectionModel<IAsEfTable>(true);
 
     public scriptSelection: SelectionModel<any> = new SelectionModel<any>();
 
-    constructor() {}
+    private subscriptions: Subscription[] = [];
 
-    public ngOnInit(): void {}
+    constructor(public AsEfService: AstueEfficiencyService) {}
+
+    public ngOnInit(): void {
+        this.subscriptions.push(
+            this.AsEfService.selection$.subscribe(() => {
+                this.displayData = [];
+                this.dates = [];
+                this.dataMapping();
+                this.defineDates();
+                this.defineSum();
+            })
+        );
+    }
+
+    public ngOnDestroy(): void {
+        this.subscriptions.forEach((subs) => subs.unsubscribe());
+    }
+
+    private dataMapping(): void {
+        this.allData.forEach((unit) => {
+            const flows: string[] = this.AsEfService.isUnitSelected(unit);
+            if (!!flows) {
+                this.displayData.push(unit);
+                unit.flows.forEach((flow) => {
+                    if (flows.includes(flow.name)) {
+                        flow.parent = unit.name;
+                        this.displayData.push(flow);
+                    }
+                });
+            }
+        });
+    }
+
+    private defineDates(): void {
+        this.displayData.forEach((item) => {
+            item.rows.forEach((row) => {
+                if (this.dates.length < row.values.length) {
+                    this.dates = row.values;
+                }
+            });
+        });
+    }
+
+    private defineSum(): void {
+        this.displayData.forEach((item) => {
+            if (item.header?.values) {
+                item.header.dataSummary = item.header.values.reduce(
+                    (acc, val) => acc + val.value,
+                    0
+                );
+            }
+            item.rows.forEach((row) => {
+                row.dataSummary = row.values.reduce((acc, val) => acc + val.value, 0);
+            });
+        });
+    }
 
     public clickDisplayButton(): void {
         this.toggleDisplay.emit(true);

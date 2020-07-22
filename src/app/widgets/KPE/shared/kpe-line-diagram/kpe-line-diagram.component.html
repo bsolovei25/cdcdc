@@ -1,0 +1,38 @@
+<div
+  class="line-diagram"
+  (mousedown)="$event.stopPropagation()"
+  (touchstart)="$event.stopPropagation()"
+>
+  <div class="line-diagram__header">
+    <div class="line-diagram__header__title">{{ dataP.name }}</div>
+    <div class="line-diagram__header__btn">
+      <div
+        (click)="switchBtn = true"
+        class="line-diagram__header__btn__left"
+        [class.line-diagram__header__btn__left--active]="switchBtn"
+      >
+        тн/c
+      </div>
+      <div
+        (click)="switchBtn = false"
+        class="line-diagram__header__btn__right"
+        [class.line-diagram__header__btn__right--active]="!switchBtn"
+      >
+        %
+      </div>
+    </div>
+  </div>
+
+  <div class="line-diagram__body">
+    <div class="line-diagram__body__line-up">
+      <div class="percent__left">{{ dataP.percent }}%</div>
+      <div class="percent__right">
+        <span class="percent__right__warning">∆ -{{ dataP.percentDeviation }}%</span> 100%
+      </div>
+    </div>
+    <div class="line-diagram__body__line">
+      <div class="line__accept" [class.line__accept--white]="isCritical"></div>
+      <div class="line__warning" *ngIf="isCritical"></div>
+    </div>
+  </div>
+</div>

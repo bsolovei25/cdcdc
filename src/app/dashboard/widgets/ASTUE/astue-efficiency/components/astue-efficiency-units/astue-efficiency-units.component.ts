@@ -1,102 +1,44 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { IAsEfUnit } from '../../../../../models/ASTUE/astue-efficiency.model';
+import { Component, Input, OnChanges } from '@angular/core';
+import { IAsEfUnitNew } from '../../../../../models/ASTUE/astue-efficiency.model';
 import { SelectionModel } from '@angular/cdk/collections';
+import { AstueEfficiencyService } from '../../../../../services/ASTUE/astue-efficiency.service';
 
 @Component({
     selector: 'evj-astue-efficiency-units',
     templateUrl: './astue-efficiency-units.component.html',
     styleUrls: ['./astue-efficiency-units.component.scss'],
 })
-export class AstueEfficiencyUnitsComponent implements OnInit {
+export class AstueEfficiencyUnitsComponent implements OnChanges {
     @Input() public isInitialDataShow: boolean = true;
-    public units: IAsEfUnit[] = [
-        {
-            name: 'ЭЛОУ-АВТ-6',
-            streams: [
-                {
-                    name: 'Поток №1',
-                    status: 'FQIR 0051',
-                },
-                {
-                    name: 'Поток №2',
-                    status: 'FQIR 0051',
-                },
-                {
-                    name: 'Поток №3',
-                    status: 'FQIR 0051',
-                },
-            ],
-        },
-        {
-            name: 'АВТ-6',
-            streams: [
-                {
-                    name: 'Поток №1',
-                    status: 'FQIR 0051',
-                },
-                {
-                    name: 'Поток №2',
-                    status: 'FQIR 0051',
-                },
-            ],
-        },
-        {
-            name: 'ЭЛОУ - 2',
-            streams: [
-                {
-                    name: 'Поток №1',
-                    status: 'FQIR 0051',
-                },
-                {
-                    name: 'Поток №2',
-                    status: 'FQIR 0051',
-                },
-                {
-                    name: 'Поток №3',
-                    status: 'FQIR 0051',
-                },
-                {
-                    name: 'Поток №4',
-                    status: 'FQIR 0051',
-                },
-                {
-                    name: 'Поток №5',
-                    status: 'FQIR 0051',
-                },
-                {
-                    name: 'Поток №6',
-                    status: 'FQIR 0051',
-                },
-            ],
-        },
-        {
-            name: 'АТ-ВБ',
-            streams: [
-                {
-                    name: 'Поток №1',
-                    status: 'FQIR 0051',
-                },
-            ],
-        },
-    ];
+    @Input() public units: IAsEfUnitNew[] = [];
 
     public isClicked: boolean = false;
 
-    public unitSelection: SelectionModel<IAsEfUnit> = new SelectionModel<IAsEfUnit>(true);
+    public unitSelection: SelectionModel<IAsEfUnitNew> = new SelectionModel<IAsEfUnitNew>(true);
 
-    constructor() {}
+    constructor(private AsEfService: AstueEfficiencyService) {}
 
-    public ngOnInit(): void {}
+    public ngOnChanges(): void {
+        this.unitSelection.clear();
+        this.units.forEach((unit) => {
+            if (!!this.AsEfService.isUnitSelected(unit)) {
+                this.unitSelection.select(unit);
+            }
+        });
+    }
 
-    public onSelectUnit(unit: IAsEfUnit): void {
+    public onSelectUnit(unit: IAsEfUnitNew): void {
         this.unitSelection.toggle(unit);
+        this.AsEfService.toggleUnit(unit.name);
     }
 
     public onClickSelectAll(): void {
         if (this.unitSelection.selected.length === this.units.length) {
             this.unitSelection.clear();
+            this.AsEfService.clearUnits();
         } else {
             this.unitSelection.select(...this.units);
+            this.AsEfService.selectAllUnits(this.units);
         }
     }
 }

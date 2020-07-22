@@ -63,6 +63,7 @@ import { ProductGroupsShortComponent } from '../../widgets/SMP/product-groups-sh
 import { TruncatedDiagramTrafficLightComponent } from '../../widgets/truncated-diagram-traffic-light/truncated-diagram-traffic-light.component';
 import { AstueEfficiencyComponent } from '../../widgets/ASTUE/astue-efficiency/astue-efficiency.component';
 import { WidgetContainerComponent } from '../../widget-container/widget-container.component';
+import { AdminShiftScheduleOldComponent } from '../../widgets/admin-widget/admin-shift-schedule-old/admin-shift-schedule-old.component';
 
 export const WIDGETS = {
     'pie-diagram': WidgetPiesComponent,
@@ -137,12 +138,16 @@ export const WIDGETS = {
     'aps-gantt-chart': WidgetContainerComponent,
     scenarios: WidgetContainerComponent,
     'admin-shift-schedule': WidgetContainerComponent,
+    'admin-shift-schedule-old': AdminShiftScheduleOldComponent,
     'facility-deviation': WidgetContainerComponent,
     'raw-motion': WidgetContainerComponent,
     'stocks-using': WidgetContainerComponent,
     'indicator-load-deviation': WidgetContainerComponent,
     'deviation-details': WidgetContainerComponent,
     'production-details': WidgetContainerComponent,
+    'kpe-quality': WidgetContainerComponent,
+    'key-performance-indicators': WidgetContainerComponent,
+    'kpe-readiness': WidgetContainerComponent,
 };
 
 export const WIDGETS_LAZY = {
@@ -222,19 +227,7 @@ export const WIDGETS_LAZY = {
         minItemCols: 30,
         minItemRows: 8,
     },
-    'indicator-load-deviation': {
-        import: async () => {
-            return await import(
-                'src/app/widgets/APS/indicator-load-deviation/indicator-load-deviation.module'
-            );
-        },
-        module: 'IndicatorLoadDeviationModule',
-        itemCols: 12,
-        itemRows: 12,
-        minItemCols: 11,
-        minItemRows: 11,
-        // preview: 'indicator-load-deviation',
-    },
+
     'deviation-details': {
         import: async () => {
             return await import('src/app/widgets/APS/deviation-details/deviation-details.module');
@@ -255,7 +248,59 @@ export const WIDGETS_LAZY = {
         minItemCols: 11,
         minItemRows: 11,
     },
-    //#endregion APS
+    'indicator-load-deviation': {
+        import: async () => {
+            return await import(
+                'src/app/widgets/APS/indicator-load-deviation/indicator-load-deviation.module'
+            );
+        },
+        module: 'IndicatorLoadDeviationModule',
+        itemCols: 12,
+        itemRows: 12,
+        minItemCols: 11,
+        minItemRows: 11,
+        // preview: 'indicator-load-deviation',
+    },
+
+    // #endregion Admin
+
+    // #region Kpe
+    'key-performance-indicators': {
+        import: async () => {
+            return await import(
+                'src/app/widgets/KPE/key-performance-indicators/key-performance-indicators.module'
+            );
+        },
+        module: 'KeyPerformanceIndicatorsModule',
+        itemCols: 24,
+        itemRows: 14,
+        minItemCols: 24,
+        minItemRows: 14,
+    },
+    'kpe-quality': {
+        import: async () => {
+            return await import('src/app/widgets/KPE/kpe-quality/kpe-quality.module');
+        },
+        module: 'KpeQualityModule',
+        itemCols: 15,
+        itemRows: 15,
+        minItemCols: 15,
+        minItemRows: 10,
+        // preview: 'kpe-quality',
+    },
+    'kpe-readiness': {
+        import: async () => {
+            return await import('src/app/widgets/KPE/kpe-readiness/kpe-readiness.module');
+        },
+        module: 'KpeReadinessModule',
+        itemCols: 15,
+        itemRows: 15,
+        minItemCols: 15,
+        minItemRows: 10,
+        // preview: 'kpe-quality',
+    },
+
+    // #endregion Kpe
 
     // #region Admin
     'admin-shift-schedule': {

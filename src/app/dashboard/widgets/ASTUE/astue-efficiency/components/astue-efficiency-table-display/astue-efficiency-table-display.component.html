@@ -62,35 +62,44 @@
               <th class="table-header__item">Показатели</th>
             </ng-template>
             <th class="table-header__item">Итого</th>
-            <th class="table-header__item" *ngFor="let value of data[0].data">
+            <th class="table-header__item" *ngFor="let value of dates">
               {{value.date|date:'dd.MM'}}
             </th>
           </tr>
         </thead>
         <tbody>
-          <ng-container *ngFor="let block of data">
+          <ng-container *ngFor="let block of displayData">
             <tr
               class="table__row block"
-              [ngClass]="{'block_open':blockSelection.isSelected(block)}"
-              (click)="blockSelection.toggle(block)"
+              [ngClass]="{'block_open':newBlockSelection.isSelected(block)}"
+              (click)="newBlockSelection.toggle(block)"
             >
-              <td class="block__item" [ngClass]="{'block__item-status': block.status}">
+              <td class="block__item" [ngClass]="{'block__item-status': block.header?.tagName}">
                 <img
                   class="arrow"
                   src="assets/icons/widgets/ASTUE/astue-efficiency/units/arrow.svg"
                 />
-                {{block.name}}
-                <div class="status" *ngIf="block.status">{{block.status}}</div>
+                {{block.parent?block.parent+' ':''}}{{block.name}}
+                <div class="status" *ngIf="block.header?.tagName">{{block.header?.tagName}}</div>
               </td>
-              <div class="block__item" style="border-left: none;" *ngIf="block.status"></div>
-              <td class="block__item with-status" *ngIf="block.status;else values"></td>
+              <div
+                class="block__item"
+                style="border-left: none;"
+                *ngIf="block.header?.tagName"
+              ></div>
+              <td class="block__item with-status"></td>
+              <td
+                class="block__item with-status"
+                *ngIf="block.header?.tagName || !block.header?.values;else values"
+              ></td>
               <ng-template #values>
-                <td class="block__item">{{block.dataSummary}}</td>
-                <td class="block__item" *ngFor="let value of block.data">
+                <td class="block__item">{{block.header?.dataSummary | number:'1.0-2'}}</td>
+                <td class="block__item" *ngFor="let value of block.header?.values">
                   <input
                     type="text"
                     class="cell__input"
-                    [(ngModel)]="value.value"
+                    [ngModel]="value.value|number:'1.0-2'"
+                    (ngModelChange)="value.value=$event"
                     [disabled]="!value.isEditable"
                     placeholder="Введите значение"
                     (focus)="$event.target.select()"
@@ -104,18 +113,19 @@
                 </td>
               </ng-template>
             </tr>
-            <ng-container *ngIf="blockSelection.isSelected(block)">
-              <tr class="table__row row" *ngFor="let child of block.children">
+            <ng-container *ngIf="newBlockSelection.isSelected(block)">
+              <tr class="table__row row" *ngFor="let child of block.rows">
                 <td class="row__item">
                   {{child.name}}
-                  <div class="status" *ngIf="block.status">{{block.status}}</div>
+                  <div class="status" *ngIf="child.tagName">{{child.tagName}}</div>
                 </td>
-                <td class="row__item">{{child.dataSummary}}</td>
-                <td class="row__item" *ngFor="let value of child.data">
+                <td class="row__item">{{child.dataSummary | number:'1.0-2'}}</td>
+                <td class="row__item" *ngFor="let value of child.values">
                   <input
                     type="text"
                     class="cell__input"
-                    [(ngModel)]="value.value"
+                    [ngModel]="value.value|number:'1.0-2'"
+                    (ngModelChange)="value.value=$event"
                     [disabled]="!value.isEditable"
                     placeholder="Введите значение"
                     (focus)="$event.target.select()"
