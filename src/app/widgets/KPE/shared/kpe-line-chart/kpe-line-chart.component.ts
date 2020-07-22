@@ -3,14 +3,14 @@ import * as d3Selection from 'd3-selection';
 import * as d3 from 'd3';
 import {
     IProductionTrend,
-    ProductionTrendType,
+    ProductionTrendType
 } from '../../../../dashboard/models/production-trends.model';
 import { IChartMini, IChartD3 } from '../../../../@shared/models/smart-scroll.model';
 
 @Component({
     selector: 'evj-kpe-line-chart',
     templateUrl: './kpe-line-chart.component.html',
-    styleUrls: ['./kpe-line-chart.component.scss'],
+    styleUrls: ['./kpe-line-chart.component.scss']
 })
 export class KpeLineChartComponent implements OnChanges {
     @Input() private data: IProductionTrend[] = [];
@@ -40,11 +40,12 @@ export class KpeLineChartComponent implements OnChanges {
         left: this.isLineCircle ? 25 : 15,
         right: this.isLineCircle ? 5 : 15,
         top: 0,
-        bottom: 20,
+        bottom: 20
     };
 
 
-    constructor() { }
+    constructor() {
+    }
 
     public ngOnChanges(): void {
         if (this.data.length) {
@@ -149,13 +150,13 @@ export class KpeLineChartComponent implements OnChanges {
             graph: IChartD3[];
         } = {
             graphType: chart.graphType,
-            graph: [],
+            graph: []
         };
 
         chart.graph.forEach((item) => {
             chartData.graph.push({
                 x: this.scaleFuncs.x(item.timeStamp),
-                y: this.scaleFuncs.y(item.value),
+                y: this.scaleFuncs.y(item.value)
             });
         });
 
@@ -234,7 +235,7 @@ export class KpeLineChartComponent implements OnChanges {
                     .tickSize(-this.graphMaxY - this.padding.bottom)
                     .tickFormat('')
             )
-            .style('color', '#272A38');
+            .style('color', this.isLineCircle ? '#272A38' : '#2d2f3d');
     }
 
     private drawAxisXLabels(): void {
@@ -254,7 +255,7 @@ export class KpeLineChartComponent implements OnChanges {
         const colors = {
             last: '#606580',
             active: '#0089FF',
-            future: '#303549',
+            future: '#303549'
         };
 
         const activeIdx =
