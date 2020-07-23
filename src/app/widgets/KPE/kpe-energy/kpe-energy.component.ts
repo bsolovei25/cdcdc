@@ -3,6 +3,13 @@ import { HttpClient } from '@angular/common/http';
 import { IProductionTrend } from '../../../dashboard/models/production-trends.model';
 import { WidgetPlatform } from '../../../dashboard/models/widget-platform';
 import { WidgetService } from '../../../dashboard/services/widget.service';
+import { DATASOURCE } from './mock';
+import { IKpeEnergyTab } from './components/kpe-energy-tab/kpe-energy-tab.component';
+
+export interface IKpeEnergy {
+    tabs: IKpeEnergyTab[];
+    chart: IProductionTrend[];
+}
 
 @Component({
     selector: 'evj-kpe-energy',
@@ -12,7 +19,7 @@ import { WidgetService } from '../../../dashboard/services/widget.service';
 export class KpeEnergyComponent extends WidgetPlatform implements OnInit {
 
     @ViewChild('gauge') gaugeElement: ElementRef;
-    public lineChartData: IProductionTrend[] = [];
+    public data: IKpeEnergy;
 
     constructor(
         private http: HttpClient,
@@ -26,16 +33,17 @@ export class KpeEnergyComponent extends WidgetPlatform implements OnInit {
 
     ngOnInit(): void {
         super.widgetInit();
+        this.data = DATASOURCE;
         this.http
             .get('assets/mock/KPE/kpe-trends.json')
             .toPromise()
             .then((data: { data: IProductionTrend[] }) => {
-                this.lineChartData = data.data;
-                this.lineChartData.forEach((item) =>
+                data.data.forEach((item) =>
                     item.graph.map((chart) => {
                         chart.timeStamp = new Date(chart.timeStamp);
                     })
                 );
+                this.data.chart = data.data;
             });
     }
 

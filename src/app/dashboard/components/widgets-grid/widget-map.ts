@@ -309,7 +309,7 @@ export const WIDGETS_LAZY = {
         itemCols: 15,
         itemRows: 7,
         minItemCols: 15,
-        minItemRows: 7,
+        minItemRows: 6,
         // preview: 'kpe-quality',
     },
 
