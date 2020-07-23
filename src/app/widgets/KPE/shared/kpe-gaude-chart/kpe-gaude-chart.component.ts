@@ -65,21 +65,12 @@ export class KpeGaudeChartComponent implements OnChanges, AfterViewInit {
             this.svg = undefined;
         }
         this.svg = d3Selection.select(this.chart.nativeElement).append('svg');
-
-        const graphMaxX = +d3Selection
-            .select(this.chart.nativeElement)
-            .style('width')
-            .slice(0, -2);
-        const graphMaxY = +d3Selection
-            .select(this.chart.nativeElement)
-            .style('height')
-            .slice(0, -2);
-        this.maxSize = d3.min([graphMaxX, graphMaxY]);
+        this.maxSize = 200;
 
         this.svg
             .attr('width', '100%')
             .attr('height', '100%')
-            .attr('viewBox', `0 0 ${this.maxSize} ${this.maxSize - 5}`);
+            .attr('viewBox', `0 0 ${this.maxSize} ${this.maxSize}`);
         this.svg = this.svg
             .append('g')
             .attr('class', 'svg')

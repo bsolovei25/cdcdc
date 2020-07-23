@@ -164,8 +164,13 @@ export class WidgetsGridComponent implements OnInit, OnDestroy {
     }
 
     public itemChange(item: GridsterItem, itemComponent: GridsterItemComponentInterface): void {
-        const useItem = { ...item };
-        this.userSettings.updateByPosition(useItem, itemComponent.item);
+        item = itemComponent.item;
+        this.userSettings.updateByPosition(item, itemComponent.item);
+
+        // itemComponent.updateOptions();
+        // const useItem = { ...item };
+        // this.userSettings.updateByPosition(useItem, itemComponent.item);
+        // setTimeout(() => this.changedOptions());
         // itemComponent.item = {...itemComponent.item, ...itemComponent.$item};
     }
 
