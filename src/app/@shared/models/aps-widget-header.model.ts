@@ -13,4 +13,5 @@ export type ApsHeaderIconType =
     | 'plant'
     | 'tank'
     | 'tools'
-    | 'triangle';
+    | 'triangle'
+    | 'kpe-marker';
