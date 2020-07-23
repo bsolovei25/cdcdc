@@ -16,7 +16,7 @@ export interface IAPSRecipeDiagram {
     values: IAPSRecipeDiagramValue[];
 }
 
-interface IAPSRecipeDiagramValue {
+export interface IAPSRecipeDiagramValue {
     date: Date;
     value: number;
     deviationQuality: number;
@@ -119,7 +119,8 @@ export class ApsRecipeDiagramComponent extends WidgetPlatform implements OnInit,
         }
     }
 
-    searchValue(element: IAPSRecipeDiagramValue[], column: IColumnsToDisplay): { value: number, percentValue: number }[] {
+    searchValue(element: IAPSRecipeDiagramValue[], column: IColumnsToDisplay):
+        { value: number, percentValue: number }[] {
         const el = element.find(value => this.sameDay(value.date, column.date));
         return el?.value ? [{
             value: el?.value, percentValue: el?.percent
