@@ -7,13 +7,17 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { ViewWorkflowWindowComponent } from '../components/view-workflow-window/view-workflow-window.component';
 import { ApsInputComponent } from '../components/view-workflow-window/aps-input/aps-input.component';
 import { FormsModule } from '@angular/forms';
+import {
+    ApsRecipeDiagramQualityComponent
+} from './components/aps-recipe-diagram-quility/aps-recipe-diagram-quality.component';
 
 
 @NgModule({
     declarations: [
         ApsRecipeDiagramComponent,
         ViewWorkflowWindowComponent,
-        ApsInputComponent
+        ApsInputComponent,
+        ApsRecipeDiagramQualityComponent
     ],
     imports: [
         CommonModule,

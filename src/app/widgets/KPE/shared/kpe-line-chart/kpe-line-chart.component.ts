@@ -89,6 +89,15 @@ export class KpeLineChartComponent implements OnChanges {
             .style('height')
             .slice(0, -2);
 
+        if (!this.isLineCircle) {
+            this.svg
+                .append('rect')
+                .attr('x', this.padding.left)
+                .attr('y', this.padding.top)
+                .attr('width', `${this.graphMaxX - this.padding.left - this.padding.right}`)
+                .attr('height', `${this.graphMaxY - this.padding.top - this.padding.bottom}`)
+                .attr('fill', '#232532');
+        }
         this.svg
             .attr('width', '100%')
             .attr('height', '100%')
@@ -175,8 +184,8 @@ export class KpeLineChartComponent implements OnChanges {
                 .y1((item: IChartD3) => item.y);
 
             const lineWidth: number = 1;
-            const lineColor: string =
-                chart.graphType === 'fact' ? (this.isLineCircle ? '#0089FF' : 'white') : '#4B5169';
+            const lineColor: string = chart.graphType === 'fact' ?
+                (this.isLineCircle ? '#0089FF' : '#8C99B2') : '#4B5169';
             const opacity: number = chart.graphType === 'fact' ? 1 : 0.2;
 
             this.svg

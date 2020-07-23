@@ -64,7 +64,7 @@ export const DATASOURCE: IAPSRecipeDiagram[] = [
         }],
         children: [
             {
-                id: 68,
+                id: 654358,
                 codePims: '<F1\n',
                 productName: 'ФР.БЕН.НЕСТ.НК-195\n',
                 productDeviation: 282.773,
@@ -91,7 +91,7 @@ export const DATASOURCE: IAPSRecipeDiagram[] = [
                     }
                 ],
                 children: [{
-                    id: 688,
+                    id: 68238,
                     codePims: 'SFB2\n',
                     productName: 'ФСБ\n',
                     productDeviation: 282.773,
@@ -109,7 +109,7 @@ export const DATASOURCE: IAPSRecipeDiagram[] = [
                 percent: 0.1677
             },
             {
-                id: 6567,
+                id: 6452567,
                 codePims: '<W1\n',
                 productName: 'ДТ "ЛЕТ" ПР.АВТ-6\n',
                 productDeviation: 282.773,
@@ -122,7 +122,7 @@ export const DATASOURCE: IAPSRecipeDiagram[] = [
                     percent: 0.1677
                 }],
                 children: [{
-                    id: 65673,
+                    id: 6562373,
                     codePims: 'SDSL\n',
                     productName: 'Смесь ДТЛ прям\n',
                     productDeviation: 282.773,
@@ -183,7 +183,7 @@ export const DATASOURCE: IAPSRecipeDiagram[] = [
                         percent: null
                     },
                     {
-                        id: 64667,
+                        id: 646673,
                         codePims: 'SVR6\n',
                         productName: 'ВТ-6\n',
                         productDeviation: 282.773,
