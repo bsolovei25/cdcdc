@@ -54,13 +54,6 @@ export class AstueEfficiencyGraphDisplayComponent extends LineChartPlatform<IPro
         },
     };
 
-    // public labels = {
-    //     periodCounter: 1700,
-    //     periodDeviations: 200,
-    //     currentValue: 500,
-    //     currentDeviation: 200,
-    // };
-
     public data: IProductionTrend[] = [
         {
             graphType: 'fact',
@@ -221,20 +214,21 @@ export class AstueEfficiencyGraphDisplayComponent extends LineChartPlatform<IPro
 
     protected async restGraphHandler(ref: IDatesInterval): Promise<IProductionTrend[]> {
         console.log(ref);
-        try {
-            return (
-                await this.http
-                    .get<IWsData<IProductionTrend>>(
-                        `${this.restUrl}/api/widget-data/` +
-                            `ed2b05ac-79c5-11ea-92fa-bc5ff45fe692?FromDateTime=` +
-                            `${ref.fromDateTime.toISOString()}&ToDateTime=${ref.toDateTime.toISOString()}`
-                    )
-                    .toPromise()
-            )?.data?.items;
-        } catch (e) {
-            console.error(e);
-            return null;
-        }
+        return;
+        // try {
+        //     return (
+        //         await this.http
+        //             .get<IWsData<IProductionTrend>>(
+        //                 `${this.restUrl}/api/widget-data/` +
+        //                     `ed2b05ac-79c5-11ea-92fa-bc5ff45fe692?FromDateTime=` +
+        //                     `${ref.fromDateTime.toISOString()}&ToDateTime=${ref.toDateTime.toISOString()}`
+        //             )
+        //             .toPromise()
+        //     )?.data?.items;
+        // } catch (e) {
+        //     console.error(e);
+        //     return null;
+        // }
     }
 
     public ngOnChanges(): void {
@@ -266,6 +260,7 @@ export class AstueEfficiencyGraphDisplayComponent extends LineChartPlatform<IPro
                         },
                     };
                     this.data = this.chartDataMap(flow.astueFlowGraphs);
+                    console.log(this.data);
                 } else {
                     this.labels = {
                         periodCounter: {
@@ -310,7 +305,12 @@ export class AstueEfficiencyGraphDisplayComponent extends LineChartPlatform<IPro
                     timeStamp: new Date(val.date),
                 });
             });
-            ret.push(mapped);
+            if (mapped.graphType === 'plan') {
+                mapped.graphStyle = 'common';
+            }
+            if (chart.values?.length) {
+                ret.push(mapped);
+            }
         });
         return ret;
     }
