@@ -3,14 +3,14 @@ import * as d3Selection from 'd3-selection';
 import * as d3 from 'd3';
 import {
     IProductionTrend,
-    ProductionTrendType
+    ProductionTrendType,
 } from '../../../../dashboard/models/production-trends.model';
 import { IChartMini, IChartD3 } from '../../../../@shared/models/smart-scroll.model';
 
 @Component({
     selector: 'evj-kpe-line-chart',
     templateUrl: './kpe-line-chart.component.html',
-    styleUrls: ['./kpe-line-chart.component.scss']
+    styleUrls: ['./kpe-line-chart.component.scss'],
 })
 export class KpeLineChartComponent implements OnChanges {
     @Input() private data: IProductionTrend[] = [];
@@ -40,12 +40,10 @@ export class KpeLineChartComponent implements OnChanges {
         left: this.isLineCircle ? 25 : 15,
         right: this.isLineCircle ? 5 : 15,
         top: 0,
-        bottom: 20
+        bottom: 20,
     };
 
-
-    constructor() {
-    }
+    constructor() {}
 
     public ngOnChanges(): void {
         if (this.data.length) {
@@ -130,7 +128,7 @@ export class KpeLineChartComponent implements OnChanges {
 
         this.axis.axisX = d3
             .axisBottom(this.scaleFuncs.x)
-            .ticks(plan.graph.length)
+            .ticks(10)
             .tickFormat(d3.timeFormat('%d'))
             .tickSizeOuter(0);
         this.axis.axisY = d3
@@ -150,13 +148,13 @@ export class KpeLineChartComponent implements OnChanges {
             graph: IChartD3[];
         } = {
             graphType: chart.graphType,
-            graph: []
+            graph: [],
         };
 
         chart.graph.forEach((item) => {
             chartData.graph.push({
                 x: this.scaleFuncs.x(item.timeStamp),
-                y: this.scaleFuncs.y(item.value)
+                y: this.scaleFuncs.y(item.value),
             });
         });
 
@@ -177,8 +175,8 @@ export class KpeLineChartComponent implements OnChanges {
                 .y1((item: IChartD3) => item.y);
 
             const lineWidth: number = 1;
-            const lineColor: string = chart.graphType === 'fact' ?
-                (this.isLineCircle ? '#0089FF' : 'white') : '#4B5169';
+            const lineColor: string =
+                chart.graphType === 'fact' ? (this.isLineCircle ? '#0089FF' : 'white') : '#4B5169';
             const opacity: number = chart.graphType === 'fact' ? 1 : 0.2;
 
             this.svg
@@ -255,7 +253,7 @@ export class KpeLineChartComponent implements OnChanges {
         const colors = {
             last: '#606580',
             active: '#0089FF',
-            future: '#303549'
+            future: '#303549',
         };
 
         const activeIdx =
