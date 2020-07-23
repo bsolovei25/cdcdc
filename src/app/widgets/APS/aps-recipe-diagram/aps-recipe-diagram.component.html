@@ -107,6 +107,9 @@
                   class="table__body__column"
                   [class.table__body__column--active]="selectedRowProduct === element.id"
                   [class.table__body__column--unit]="element.type === 'unit'"
+                  [class.table__body__column--sticky]="column.name === 'План PIMS' ||
+                        column.name === 'Расчет' ||
+                        column.name === 'Дельта'"
                   (click)="onClickTr($event, element)"
                 >
                   <div
@@ -151,7 +154,11 @@
                   </div>
                   <ng-container *ngIf="column.name !== 'productName'">
                     <span
-                      [class.table__body__column__row-title__value]="element.deviationQuality === 1 && selectedRowProduct === element.id"
+                      class="table__body__column__row-title__value"
+                      [class.table__body__column__row-title__value--warning]="element.deviationQuality === 1 && selectedRowProduct === element.id"
+                      [class.table__body__column__row-title__value--sticky]="column.name === 'План PIMS' ||
+                        column.name === 'Расчет' ||
+                        column.name === 'Дельта'"
                     >{{element.productDeviation }}</span
                     >
                     <svg-icon
@@ -177,6 +184,9 @@
                     class="table__body__column"
                     [class.table__body__column--active]="selectedRowProduct === elementStream.id"
                     [class.table__body__column--unit]="elementStream.type === 'unit'"
+                    [class.table__body__column--sticky]="column.name === 'План PIMS' ||
+                        column.name === 'Расчет' ||
+                        column.name === 'Дельта'"
                     (click)="onClickTr($event, elementStream)"
                   >
                     <div
@@ -223,9 +233,12 @@
                     <ng-container *ngIf="column.name !== 'productName'">
                       <ng-container *ngFor="let valueColumn of searchValue(elementStream?.values, column)">
                         <div class="table__body__column__row-title__value-block"
-                             [class.table__body__column__row-title__value-big-orange]="elementStream.deviationQuality === 1 && selectedRowProduct === elementStream.id">
+                             [class.table__body__column__row-title__value-big-orange]="elementStream.deviationQuality === 1 && selectedRowProduct === elementStream.id"
+                             [class.table__body__column__row-title__value--sticky]="column.name === 'План PIMS' ||
+                        column.name === 'Расчет' ||
+                        column.name === 'Дельта'">
                           <span>{{ valueColumn?.value }}</span>
-                          <span>{{ valueColumn?.percentValue }}%</span>
+                          <span *ngIf="isShowDistribution">{{ valueColumn?.percentValue }}%</span>
                         </div>
                       </ng-container>
                       <svg-icon
