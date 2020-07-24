@@ -149,6 +149,7 @@ export const WIDGETS = {
     'kpe-energetic': WidgetContainerComponent,
     'key-performance-indicators': WidgetContainerComponent,
     'kpe-readiness': WidgetContainerComponent,
+    'spline-trends-chart': WidgetContainerComponent,
 };
 
 export const WIDGETS_LAZY = {
@@ -330,6 +331,21 @@ export const WIDGETS_LAZY = {
         preview: 'admin-shift-schedule',
     },
     // #endregion Admin
+
+    // #region Kpe
+
+    'spline-trends-chart': {
+        import: async () => {
+            return await import('src/app/widgets/LCO/spline-trends-chart/spline-trends-chart.module');
+        },
+        module: 'SplineTrendsChartModule',
+        itemCols: 31,
+        itemRows: 17,
+        minItemCols: 31,
+        minItemRows: 17,
+    },
+
+    // #endregion Kpe
 
     // 'pie-diagram': {
     //     import: async () => await import('src/app/widgets/pie-diagram/pie-diagram.module'),
