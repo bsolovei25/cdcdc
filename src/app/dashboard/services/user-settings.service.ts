@@ -111,13 +111,13 @@ export class UserSettingsService {
     }
 
     public updateByPosition(oldItem: GridsterItem, newItem: GridsterItem): void {
-        const item = this.widgetService.dashboard?.find((el) => el.uniqId === oldItem.uniqId);
-        item.x = newItem.x;
-        item.y = newItem.y;
-        item.rows = newItem.rows;
-        item.cols = newItem.cols;
-        item.minItemCols = newItem.minItemCols;
-        item.maxItemRows = newItem.maxItemRows;
+        // const item = this.widgetService.dashboard?.find((el) => el.uniqId === oldItem.uniqId);
+        // item.x = newItem.x;
+        // item.y = newItem.y;
+        // item.rows = newItem.rows;
+        // item.cols = newItem.cols;
+        // item.minItemCols = newItem.minItemCols;
+        // item.maxItemRows = newItem.maxItemRows;
         this.updateWidgetApi(oldItem.uniqid);
     }
 

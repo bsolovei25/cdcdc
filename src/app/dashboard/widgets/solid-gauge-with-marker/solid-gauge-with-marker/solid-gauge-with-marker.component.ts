@@ -59,8 +59,13 @@ export class SolidGaugeWithMarkerComponent implements AfterViewInit {
     };
 
     ngAfterViewInit(): void {
+        this.dataHandler();
         this.indicator = this.indicatorGauge(this.data);
         this.draw(this.data, this.myCircle.nativeElement, this.gaugemap, this.indicator);
+    }
+
+    dataHandler(): void {
+        this.data.percent *= this.criticalPie / this.config.maxValue;
     }
 
     indicatorGauge(data): number {
@@ -237,9 +242,9 @@ export class SolidGaugeWithMarkerComponent implements AfterViewInit {
         const ratio = this.scale(newValue);
         const newAngle = this.config.minAngle + ratio * this.range;
         this.pointer
-            .transition()
-            .duration(this.config.transitionMs)
-            .ease(d3.easeElastic)
+            // .transition()
+            // .duration(this.config.transitionMs)
+            // .ease(d3.easeElastic)
             .attr('transform', 'rotate(' + newAngle + ')');
     }
 

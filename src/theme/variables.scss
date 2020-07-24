@@ -190,6 +190,19 @@
   --color-aps-col-border: #1d2131;
   --color-aps-limits: #b6e1fe;
 
+  // APS indicator-load-deviation
+  --color-aps-unactive-line: #333542;
+  --color-aps-active-line: #ffffff;
+  --color-aps-back-line: #1c1f2d;
+
+  --color-aps-gaude-back: #1b1f2c;
+  --color-aps-gaude-line: #3c4257;
+  --color-aps-gaude-back-line: #111626;
+
+  // KPE font-color
+  --color-kpe-text-main: #D7E2F2;
+  --color-kpe-text-sub: #606580;
+
   // KPE equalizer-chart
 
   --color-kpe-eq-chart-title: #d7e2f2;
@@ -201,12 +214,17 @@
 
   --color-kpe-line-diagram-bg-sub: #1c1f2b;
   --color-kpe-line-diagram-active: #1f3d60;
+  --color-kpe-bg-sub: #272a38;
 
   // KPE gauge-chart
-  --color-kpe-gauge-border: #262a39;
-  --color-kpe-gauge-bg: #1c1f2b;
-  --color-kpe-gauge-tab-border: #4b5169;
-  --color-kpe-gauge-bg-1: #11151f;
+  --color-kpe-gaude-main: #d7e2f2;
+  --color-kpe-gaude-additional: #606580;
+  --color-kpe-gaude-active: #0089ff;
+  --color-kpe-gaude-deviation: #f7931e;
+  --color-kpe-gaude-lines: #272a38;
+  --color-kpe-gaude-back: #12151e;
+  --color-kpe-gaude-unactive: #1c1f2b;
+  --color-kpe-gauge-tab-unactive: #4B5169;
 
   // @shared/alert-window (aw)
   --color-aw-container-shadow-transparent: rgba(0, 0, 0, 0.25);
