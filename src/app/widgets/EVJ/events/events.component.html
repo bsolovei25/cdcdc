@@ -51,15 +51,15 @@
     (mousedown)="$event.stopPropagation()"
     (touchstart)="$event.stopPropagation()"
   >
-    <div class="events">
-      <div class="notifications" #notifications [ngClass]="widgetIsVideoWall ? 'notifications--display-wall' : 'notifications--display-standart'">
+    <div [class.events]="!isCDEvents" [class.cd-events]="isCDEvents">
+      <div class="notifications" #notifications
+           [ngClass]="widgetIsVideoWall ? 'notifications--display-wall' : 'notifications--display-standart'">
         <cdk-virtual-scroll-viewport
           [itemSize]="isList ? 180 : 111"
           class="scroll-bar"
           [ngClass]="isList ? 'notifications__block__list' : 'notifications__list'"
           (scroll)="scrollHandler($event)"
         >
-
           <ng-container *cdkVirtualFor="let n of notificationsGrouped">
             <evj-event-card
               [cardDataArr]="n"
@@ -83,13 +83,13 @@
               class="filter filters__item"
               *ngFor="let f of filters"
               (click)="onFilterClick(f)"
-              [class.filter_active]="f.isActive"
+              [class.filter_active]="f?.isActive"
             >
               <span class="filter__name">
-                {{f.name}}
+                {{f?.name}}
               </span>
               <span class="filter__count">
-                {{f.notificationsCount}}
+                {{f?.notificationsCount}}
               </span>
             </div>
           </div>
@@ -103,7 +103,7 @@
               class="category categories__item"
               *ngFor="let c of categories"
               (click)="onCategoryClick(c)"
-              [class.category_active]="c.isActive"
+              [class.category_active]="c?.isActive"
             >
               <div class="line category__line category__line_top">
                 <div class="line__circle line__circle__left"></div>
@@ -118,9 +118,9 @@
                 <svg-icon class="category__icon" [applyCss]="true" [src]="c.iconUrl"></svg-icon>
 
                 <div class="counts category__counts">
-                  <span class="counts__count">{{c.notificationsCounts?.open}}</span>
+                  <span class="counts__count">{{c?.notificationsCounts?.open}}</span>
                   <span class="counts__count">/</span>
-                  <span class="counts__count">{{c.notificationsCounts?.all}}</span>
+                  <span class="counts__count">{{c?.notificationsCounts?.all}}</span>
                 </div>
               </div>
 
@@ -135,7 +135,7 @@
                 <button
                   [disabled]="c.url === '#'"
                   type="submit gridster-item-content"
-                  (click)="onClickUrl($event, c.url)"
+                  (click)="onClickUrl($event, c?.url)"
                 >
                   В систему источник
                 </button>

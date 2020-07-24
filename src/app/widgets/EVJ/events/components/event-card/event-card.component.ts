@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
-import { EventsWidgetNotificationPreview } from '../../../../models/events-widget';
-import { EventService } from '../../../../services/widgets/event.service';
+import { EventsWidgetNotificationPreview } from '../../../../../dashboard/models/events-widget';
+import { EventService } from '../../../../../dashboard/services/widgets/event.service';
 
 @Component({
     selector: 'evj-event-card',

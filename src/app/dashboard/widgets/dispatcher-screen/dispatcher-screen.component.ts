@@ -4,11 +4,12 @@ import { PlatformLocation } from '@angular/common';
 import { WidgetService } from '../../services/widget.service';
 import { WidgetSettingsService } from '../../services/widget-settings.service';
 import { WidgetPlatform } from '../../models/widget-platform';
+import { error } from '@angular/compiler/src/util';
 
 @Component({
     selector: 'evj-dispatcher-screen',
     templateUrl: './dispatcher-screen.component.html',
-    styleUrls: ['./dispatcher-screen.component.scss'],
+    styleUrls: ['./dispatcher-screen.component.scss']
 })
 export class DispatcherScreenComponent extends WidgetPlatform implements AfterViewInit, OnDestroy {
     private readonly baseUrl: string;
@@ -51,7 +52,8 @@ export class DispatcherScreenComponent extends WidgetPlatform implements AfterVi
         setTimeout(() => this.InitUnity(), 100);
     }
 
-    protected dataHandler(ref: any): void { }
+    protected dataHandler(ref: any): void {
+    }
 
     @HostListener('document:resize', ['$event'])
     public OnResize(event): void {
@@ -65,8 +67,12 @@ export class DispatcherScreenComponent extends WidgetPlatform implements AfterVi
             return;
         }
         this.wsConnect();
-        const params = await this.widgetSettingsService.getSettings(this.uniqId);
-        this.CallUnityScript('Scripts', 'RefreshSettings', JSON.stringify(params));
+        try {
+            const params = await this.widgetSettingsService.getSettings(this.uniqId);
+            this.CallUnityScript('Scripts', 'RefreshSettings', JSON.stringify(params));
+        } catch (e) {
+            console.error(e);
+        }
     }
 
     @HostListener('document:UnityDispatcherScreen_SendSettings', ['$event', '$event.detail.param1'])

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { AppConfigService } from 'src/app/services/appConfigService';
+import { tryCatch } from 'rxjs/internal-compatibility';
 
 /*
 
@@ -14,7 +15,7 @@ To load settings
 */
 
 @Injectable({
-    providedIn: 'root',
+    providedIn: 'root'
 })
 export class WidgetSettingsService {
     private readonly restUrl: string;
@@ -24,10 +25,13 @@ export class WidgetSettingsService {
     }
 
     public async getSettings<TSettings>(widgetUniqueId: string): Promise<TSettings> {
-        const url = `${this.restUrl}/api/user-management/widgetsettings/${widgetUniqueId}`;
-        const settings = await this.http.get<TSettings>(url).toPromise();
-        console.log(settings);
-        return settings;
+        try {
+            const url = `${this.restUrl}/api/user-management/widgetsettings/${widgetUniqueId}`;
+            const settings = await this.http.get<TSettings>(url).toPromise();
+            return settings;
+        } catch (e) {
+            console.error(e);
+        }
     }
 
     public async saveSettings<TSettings>(

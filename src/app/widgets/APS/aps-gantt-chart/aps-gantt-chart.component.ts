@@ -87,6 +87,7 @@ export class ApsGanttChartComponent extends WidgetPlatform implements OnInit, On
     @Inject('uniqId') public uniqId: string
   ) {
     super(widgetService, isMock, id, uniqId);
+      console.log(this.widgetType);
   }
 
   ngOnInit(): void {
