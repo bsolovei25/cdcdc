@@ -92,6 +92,20 @@ export class GaugeDiagramComponent implements OnInit {
             .attr(`transform`, `rotate(${grad})`);
     }
 
+    private appendTitle(y: number, text: string): void {
+        this.g.append('text')
+            .attr('font-size', '5.3px')
+            .attr('font-style', 'normal')
+            .attr('font-weight', 'normal')
+            .attr('font-family', 'Tahoma')
+            .attr('y', y)
+            .attr('z-index', '100')
+            .attr('text-anchor', 'middle')
+            .attr('dominant-baseline', 'middle')
+            .attr('fill', '#8C99B2')
+            .text(text);
+    }
+
     private placeText(): void {
         this.text = this.g.append('text')
             .attr('text-anchor', 'middle')
@@ -110,44 +124,9 @@ export class GaugeDiagramComponent implements OnInit {
             .attr('dominant-baseline', 'middle')
             .text('%');
 
-        const titleFontSize = '5.3px';
-        const titleColor = '#8C99B2';
-
-        this.g.append('text')
-            .attr('font-size', titleFontSize)
-            .attr('font-style', 'normal')
-            .attr('font-weight', 'normal')
-            .attr('font-family', 'Tahoma')
-            .attr('y', '39')
-            .attr('z-index', '100')
-            .attr('text-anchor', 'middle')
-            .attr('dominant-baseline', 'middle')
-            .attr('fill', titleColor)
-            .text('Ключевой показатель');
-
-        this.g.append('text')
-            .attr('font-size', titleFontSize)
-            .attr('font-style', 'normal')
-            .attr('font-weight', 'normal')
-            .attr('font-family', 'Tahoma')
-            .attr('y', '45')
-            .attr('z-index', '100')
-            .attr('text-anchor', 'middle')
-            .attr('dominant-baseline', 'middle')
-            .attr('fill', titleColor)
-            .text('эффективности');
-
-        this.g.append('text')
-            .attr('font-size', titleFontSize)
-            .attr('font-style', 'normal')
-            .attr('font-weight', 'normal')
-            .attr('font-family', 'Tahoma')
-            .attr('y', '51')
-            .attr('z-index', '100')
-            .attr('text-anchor', 'middle')
-            .attr('dominant-baseline', 'middle')
-            .attr('fill', titleColor)
-            .text(this.data.name);
+        this.appendTitle(39, 'Ключевой показатель');
+        this.appendTitle(45, 'эффективности');
+        this.appendTitle(51, this.data.name);
     }
 
     private drawSvg(): void {
@@ -185,16 +164,6 @@ export class GaugeDiagramComponent implements OnInit {
             .append('path')
             .attr('d', arc)
             .attr('fill', borderColor);
-
-        this.g
-            .append('rect')
-            .attr('y', '30')
-            .attr('x', '-42')
-            .attr('width', '84px')
-            .attr('height', '10px')
-            .attr('z-index', '60')
-            .attr('dominant-baseline', 'middle')
-            .attr('fill', bodyColor);
 
         this.needle = this.g
             .append('path')
