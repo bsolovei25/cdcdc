@@ -67,6 +67,7 @@
               (cardClick)="eventClick($event)"
               [cardActiveId]="selectedId || eventOverlayId"
               (cardDeleteClick)="deleteClick($event)"
+              [isCdEvents]="isCDEvents"
             ></evj-event-card>
           </ng-container>
 
@@ -150,5 +151,5 @@
       </ng-container>
     </div>
   </div>
-  <evj-frame-bottom class="frame-bottom"></evj-frame-bottom>
+  <evj-frame-bottom *ngIf="!isCDEvents" class="frame-bottom"></evj-frame-bottom>
 </ng-container>

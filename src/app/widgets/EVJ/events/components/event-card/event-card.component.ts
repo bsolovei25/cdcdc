@@ -5,7 +5,7 @@ import { EventService } from '../../../../../dashboard/services/widgets/event.se
 @Component({
     selector: 'evj-event-card',
     templateUrl: './event-card.component.html',
-    styleUrls: ['./event-card.component.scss'],
+    styleUrls: ['./event-card.component.scss', './cd-event-card.component.scss'],
 })
 export class EventCardComponent implements OnInit, OnDestroy {
     @Input()
@@ -20,6 +20,9 @@ export class EventCardComponent implements OnInit, OnDestroy {
     @Input()
     public isCardActive: boolean = false;
 
+    @Input()
+    public isCdEvents: boolean = false;
+
     @Output()
     public cardClick: EventEmitter<number> = new EventEmitter<number>();
 
@@ -28,7 +31,9 @@ export class EventCardComponent implements OnInit, OnDestroy {
 
     constructor(private eventService: EventService) {}
 
-    public ngOnInit(): void {}
+    public ngOnInit(): void {
+        console.log(this.isCdEvents);
+    }
 
     public ngOnDestroy(): void {}
 
