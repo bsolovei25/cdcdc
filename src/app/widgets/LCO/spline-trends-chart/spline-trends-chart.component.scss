@@ -1,0 +1,52 @@
+.content_block {
+  overflow: hidden;
+  position: relative;
+  height: calc(100% - 58px);
+  border: 1px dashed var(--color-border-main);
+  border-style: none dashed none dashed;
+  pointer-events: fill;
+  font-family: Tahoma;
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+
+  .chart {
+    flex: 1 1;
+    margin: -15px 0 0 15px;
+  }
+
+  .metrics {
+    display: flex;
+    flex-direction: column;
+    margin: 12px 25px 12px 0;
+
+    &__block {
+      font-style: normal;
+      font-weight: normal;
+      margin-bottom: 25px;
+
+      .title {
+        font-size: 12px;
+      }
+
+      .value {
+        font-size: 18px;
+      }
+    }
+  }
+
+  .plan-color {
+    color: var(--color-plan);
+  }
+
+  .fact-color {
+    color: var(--color-fact);
+  }
+
+  .deviation-color {
+    color: var(--color-deviation);
+  }
+}
