@@ -56,6 +56,10 @@ import { WidgetHeaderSmpComponent } from './components/widget-header-smp/widget-
 import { SafeUrlPipe } from './pipes/safe-url.pipe';
 import { ApsProgressBarComponent } from './components/aps-progress-bar/aps-progress-bar.component';
 import { KpeEqualizerChartComponent } from '../widgets/KPE/kpe-equalizer-chart/kpe-equalizer-chart.component'; // TODO переместить в модуль виджета, когда он будет готов
+import { ProductGroupsLeftComponent } from './components/SMP/product-group/product-groups-left/product-groups-left.component';
+import { ProductGroupsTableComponent } from './components/SMP/product-group/product-groups-table/product-groups-table.component';
+import { ProductGroupsMiddleComponent } from './components/SMP/product-group/product-groups-middle/product-groups-middle.component';
+import { ProductGroupsRightComponent } from './components/SMP/product-group/product-groups-right/product-groups-right.component';
 
 @NgModule({
     declarations: [
@@ -100,6 +104,10 @@ import { KpeEqualizerChartComponent } from '../widgets/KPE/kpe-equalizer-chart/k
         SafeUrlPipe,
         ApsProgressBarComponent,
         KpeEqualizerChartComponent,
+        ProductGroupsLeftComponent,
+        ProductGroupsMiddleComponent,
+        ProductGroupsRightComponent,
+        ProductGroupsTableComponent,
     ],
     exports: [
         HeaderComponent,
@@ -138,6 +146,7 @@ import { KpeEqualizerChartComponent } from '../widgets/KPE/kpe-equalizer-chart/k
         SafeUrlPipe,
         ApsProgressBarComponent,
         KpeEqualizerChartComponent,
+        ProductGroupsTableComponent,
     ],
     imports: [
         CommonModule,
