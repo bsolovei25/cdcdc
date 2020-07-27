@@ -235,32 +235,9 @@ import { OilOperationsFreeShipmentComponent } from './widgets/oil-operations/com
 import { DocumentViewerFullscreenComponent } from './widgets/document-viewer/document-viewer-fullscreen/document-viewer-fullscreen.component';
 import { CdCriticalComponent } from './widgets/cd-critical/cd-critical.component';
 import { WorkflowTableComponent } from './widgets/workflow/workflow-table/workflow-table.component';
-import { ImplementationPlanComponent } from './widgets/SMP/implementation-plan/implementation-plan.component';
-import { ImplementationPieComponent } from './widgets/SMP/implementation-plan/components/implementation-pie/implementation-pie.component';
-import { ImplementationTankComponent } from './widgets/SMP/implementation-plan/components/implementation-tank/implementation-tank.component';
-import { ImplementationsComponent } from './widgets/SMP/implementation-plan/components/implementations/implementations.component';
-import { PerformanceProgressIndicatorsComponent } from './widgets/SMP/performance-progress-indicators/performance-progress-indicators.component';
-import { PerformanceProgressParkComponent } from './widgets/SMP/performance-progress-indicators/components/performance-progress-park/performance-progress-park.component';
-import { PerformanceProgressShippedComponent } from './widgets/SMP/performance-progress-indicators/components/performance-progress-shipped/performance-progress-shipped.component';
-import { PerformanceProgressBarComponent } from './widgets/SMP/performance-progress-indicators/components/performance-progress-bar/performance-progress-bar.component';
-import { PerformanceProgressCircleComponent } from './widgets/SMP/performance-progress-indicators/components/performance-progress-circle/performance-progress-circle.component';
-import { PerformanceProgressLineCircleComponent } from './widgets/SMP/performance-progress-indicators/components/performance-progress-line-circle/performance-progress-line-circle.component';
-import { QualityStockComponent } from './widgets/SMP/quality-stock/quality-stock.component';
-import { QualityStockSecurityComponent } from './widgets/SMP/quality-stock/components/quality-stock-security/quality-stock-security.component';
-import { QualityStockCircleComponent } from './widgets/SMP/quality-stock/components/quality-stock-circle/quality-stock-circle.component';
-import { SmpEventsComponent } from './widgets/SMP/smp-events/smp-events.component';
-import { SmpEventsHeaderComponent } from './widgets/SMP/smp-events/components/smp-events-header/smp-events-header.component';
-import { SmpEventsCardComponent } from './widgets/SMP/smp-events/components/smp-events-card/smp-events-card.component';
 import { AsusEventComponent } from './widgets/workspace/asus-event/asus-event.component';
-import { ProductGroupsLeftComponent } from './widgets/SMP/product-groups/components/product-groups-left/product-groups-left.component';
-import { ProductGroupsMiddleComponent } from './widgets/SMP/product-groups/components/product-groups-middle/product-groups-middle.component';
-import { ProductGroupsRightComponent } from './widgets/SMP/product-groups/components/product-groups-right/product-groups-right.component';
 import { EventsReasonsSingleComponent } from './widgets/workspace/components/events-reasons-single/events-reasons-single.component';
 import { WorkflowListComponent } from './widgets/workflow/workflow-list/workflow-list.component';
-import { ProductGroupsTableComponent } from './widgets/SMP/product-groups/components/product-groups-table/product-groups-table.component';
-import { ProductGroupsShortComponent } from './widgets/SMP/product-groups-short/product-groups-short.component';
-import { ProductGroupsComponent } from './widgets/SMP/product-groups/product-groups.component';
-import { SmpEventsWorkspaceComponent } from './widgets/SMP/smp-events-workspace/smp-events-workspace.component';
 import { ProductionTrendInstallationsComponent } from './widgets/production-trend/components/production-trend-installations/production-trend-installations.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { OilControlTableComponent } from './widgets/oil-control/components/oil-control-table/oil-control-table.component';
@@ -493,31 +470,8 @@ import { AdminShiftBrigadeOldComponent } from './widgets/admin-widget/admin-shif
         DocumentViewerFullscreenComponent,
         CdCriticalComponent,
         WorkflowTableComponent,
-        ImplementationPlanComponent,
-        ImplementationPieComponent,
-        ImplementationTankComponent,
-        ImplementationsComponent,
-        PerformanceProgressIndicatorsComponent,
-        PerformanceProgressParkComponent,
-        PerformanceProgressShippedComponent,
-        PerformanceProgressBarComponent,
-        PerformanceProgressCircleComponent,
-        PerformanceProgressLineCircleComponent,
-        QualityStockComponent,
-        QualityStockSecurityComponent,
-        QualityStockCircleComponent,
-        SmpEventsComponent,
-        SmpEventsHeaderComponent,
-        SmpEventsCardComponent,
         AsusEventComponent,
-        ProductGroupsComponent,
-        ProductGroupsLeftComponent,
-        ProductGroupsMiddleComponent,
-        ProductGroupsRightComponent,
         WorkflowListComponent,
-        ProductGroupsTableComponent,
-        ProductGroupsShortComponent,
-        SmpEventsWorkspaceComponent,
         ProductionTrendInstallationsComponent,
         EventsReasonsSingleComponent,
         OilControlTableComponent,
@@ -608,22 +562,12 @@ import { AdminShiftBrigadeOldComponent } from './widgets/admin-widget/admin-shif
         ReportTreeComponent,
         OilOperationsComponent,
         WorkflowComponent,
-        ImplementationPlanComponent,
-        PerformanceProgressIndicatorsComponent,
-        QualityStockComponent,
-        ProductGroupsComponent,
-        ProductGroupsComponent,
-        ProductGroupsShortComponent,
-        SmpEventsWorkspaceComponent,
         PanelComponent,
         AstueEfficiencyComponent,
         FileAttachMenuComponent,
         AdminShiftScheduleOldComponent,
     ],
-    exports: [
-        HomeComponent,
-        PerformanceBarComponent,
-    ],
+    exports: [HomeComponent, PerformanceBarComponent],
     imports: [
         CommonModule,
         SharedModule,
@@ -670,4 +614,4 @@ import { AdminShiftBrigadeOldComponent } from './widgets/admin-widget/admin-shif
         { provide: MAT_DIALOG_DATA, useValue: [] },
     ],
 })
-export class DashboardModule { }
+export class DashboardModule {}

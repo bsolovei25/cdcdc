@@ -1,16 +1,14 @@
-import { Component, Input, OnChanges, OnInit } from '@angular/core';
-import { IPerfProgPark } from '../../models/SMP/performance-progress-indicators.model';
+import { Component, OnInit, Input, OnChanges, ChangeDetectionStrategy } from '@angular/core';
+import { IPerfProgPark } from '../../../../../dashboard/models/SMP/performance-progress-indicators.model';
 
 @Component({
-    selector: 'evj-performance-bar',
-    templateUrl: './performance-bar.component.html',
-    styleUrls: ['./performance-bar.component.scss'],
+    selector: 'evj-performance-progress-bar',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    templateUrl: './performance-progress-bar.component.html',
+    styleUrls: ['./performance-progress-bar.component.scss'],
 })
-export class PerformanceBarComponent implements OnInit, OnChanges {
-    @Input() public data: IPerfProgPark = {
-        planLevel: 50,
-        factLevel: 40,
-    };
+export class PerformanceProgressBarComponent implements OnInit, OnChanges {
+    @Input() public data: IPerfProgPark;
 
     constructor() {}
 
