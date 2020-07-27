@@ -1,4 +1,4 @@
-import {Component, OnInit, ElementRef, Input, OnChanges, SimpleChanges} from '@angular/core';
+import {Component, ElementRef, Input, OnChanges, SimpleChanges} from '@angular/core';
 import * as d3 from 'd3';
 
 export interface ISplineDiagramSize {
@@ -19,7 +19,7 @@ export interface ISplineDiagramData {
     templateUrl: './spline-diagram.component.html',
     styleUrls: ['./spline-diagram.component.scss'],
 })
-export class SplineDiagramComponent implements OnInit, OnChanges {
+export class SplineDiagramComponent implements OnChanges {
     @Input()
     public data: ISplineDiagramData;
 
@@ -48,23 +48,9 @@ export class SplineDiagramComponent implements OnInit, OnChanges {
 
     private g: any;
 
-    private colors: any = {
-        white: '#FFFFFF',
-        grey1: '#5B607D',
-        grey2: '#8C99B2',
-        grey3: '#616580',
-        grey4: 'rgba(33, 36, 45, 0.1)',
-        blue: '#A2E2FF',
-        orange: '#F4A321',
-    };
-
     constructor(
         private hostElement: ElementRef,
-    ) {
-    }
-
-    public ngOnInit(): void {
-    }
+    ) {}
 
     public ngOnChanges(changes: SimpleChanges): void {
         if (changes.data && changes.data.currentValue) {
@@ -126,8 +112,11 @@ export class SplineDiagramComponent implements OnInit, OnChanges {
             this.g = undefined;
         }
 
+        const viewBoxWidth = this.size.width + this.margin.right + this.margin.left;
+        const viewBoxHeight = this.size.height + this.margin.top + this.margin.bottom;
+
         this.svg = d3.select(this.hostElement.nativeElement).select('svg');
-        this.svg.attr('viewBox', `0 0 ${this.size.width + this.margin.right + this.margin.left} ${this.size.height + this.margin.top + this.margin.bottom}`);
+        this.svg.attr('viewBox', `0 0 ${viewBoxWidth} ${viewBoxHeight}`);
         this.g = this.svg.append('g').attr('transform', 'translate(40,30)');
     }
 
@@ -140,86 +129,77 @@ export class SplineDiagramComponent implements OnInit, OnChanges {
             .call(g => g.select('.domain').remove());
 
         this.g.selectAll('.x-axis text')
-            .style('font-size', '11px')
-            .style('fill', (d, g) => {
-                return g === this.day - 1 ? this.colors.white : this.colors.grey1;
+            .attr('class', (d, g) => {
+                return g === this.day - 1 ? 'white' : 'gray';
             });
 
         // y
         this.g.append('g')
             .attr('transform', `translate(${-10}, 0)`)
             .attr('class', 'y-axis')
-            .call(d3.axisLeft(this.scales.y).tickSize(0).ticks(7).tickFormat(d3.format('.1f')))
+            .call(d3.axisLeft(this.scales.y).tickSize(0).ticks(7).tickFormat(d3.format('.1f'))) // форматирование до 1 знака после запятой
             .call(g => g.select('.domain').remove());
-
-        this.g.selectAll('.y-axis text')
-            .style('fill', this.colors.grey2)
-            .style('font-size', '10px');
     }
 
     private drawGrid(): void {
-        const strokeWidth = 0.5;
-        const opacity = 0.1;
-
         this.g.append('g')
             .attr('transform', `translate(0, ${this.size.height - this.margin.top - this.margin.bottom})`)
             .call(d3.axisBottom(this.scales.x)
                 .ticks(this.sizeX.max)
-                .tickSize(-(this.size.height - this.margin.top - this.margin.bottom))
+                .tickSize(1 - (this.size.height - this.margin.top - this.margin.bottom))
                 .tickFormat('')
             )
-            .style('color', this.colors.grey3)
-            .style('stroke-width', strokeWidth)
-            .style('opacity', opacity);
+            .attr('class', 'grid');
 
         this.g.append('g')
             .call(d3.axisLeft(this.scales.y)
                 .ticks(7)
-                .tickSize(-(this.size.width - this.margin.left - this.margin.right))
+                .tickSize(1 - (this.size.width - this.margin.left - this.margin.right))
                 .tickFormat('')
             )
-            .style('color', this.colors.grey3)
-            .style('stroke-width', strokeWidth)
-            .style('opacity', opacity);
-
-        this.g.selectAll('.grid path')
-            .style('fill', this.colors.grey4);
+            .attr('class', 'grid');
     }
 
-    private appendPlanThreshold(x1: number, x2: number, stroke: number): void {
+    private appendPlanThreshold(x1: number, x2: number, className: string): void {
         this.g.append('line')
             .attr('x1', this.scales.x(x1))
             .attr('x2', this.scales.x(x2))
             .attr('y1', this.scales.y(this.plan))
             .attr('y2', this.scales.y(this.plan))
-            .style('stroke', this.colors.blue)
-            .style('stroke-width', stroke);
+            .attr('class', className);
+    }
+
+    private appendPlanThresholdCircles(r: number, coord: number, className: string): void {
+        this.g.append('circle')
+            .attr('r', r)
+            .attr('cx', this.scales.x(coord))
+            .attr('cy', this.scales.y(this.plan))
+            .attr('class', className);
     }
 
     private drawPlanThreshold(): void {
-        this.appendPlanThreshold(1, this.day, 1);
-        this.appendPlanThreshold(this.day, this.sizeX.max, 0.5);
+        this.appendPlanThreshold(1, this.day, 'plan-threshold-line-filled');
+        this.appendPlanThreshold(this.day, this.sizeX.max, 'plan-threshold-line-rest');
 
         let i = 0;
         while (i < this.day) {
             i++;
-            this.g.append('circle')
-                .attr('r', 3)
-                .attr('cx', this.scales.x(i))
-                .attr('cy', this.scales.y(this.plan))
-                .style('stroke', this.colors.blue)
-                .style('fill', 'transparent');
+            this.appendPlanThresholdCircles(3, i, 'plan-threshold-circle-outer');
         }
 
         i = 0;
         while (i < this.sizeX.max) {
             i++;
-            this.g.append('circle')
-                .attr('r', 1.5)
-                .attr('cx', this.scales.x(i))
-                .attr('cy', this.scales.y(this.plan))
-                .style('fill', this.colors.blue);
+            this.appendPlanThresholdCircles(1.5, i, 'plan-threshold-circle-inner');
         }
+    }
+
+    private appendCurveDataCircle(r: number, x: number, y: number, className: string): void {
+        this.g.append('circle')
+            .attr('class', className)
+            .attr('r', r)
+            .attr('cx', this.scales.x(x))
+            .attr('cy', this.scales.y(y));
     }
 
     private drawCurve(): void {
@@ -230,48 +210,29 @@ export class SplineDiagramComponent implements OnInit, OnChanges {
 
         this.g.append('path')
             .datum(this.dataset)
-            .attr('class', 'line')
-            .style('stroke', this.colors.white)
-            .style('stroke-width', 0.5)
-            .style('fill', 'none')
+            .attr('class', 'data-curve')
             .attr('d', line);
 
         this.dataset.forEach(data => {
             this.g.append('line')
+                .attr('class', 'bound-line')
                 .attr('x1', this.scales.x(data.x))
                 .attr('x2', this.scales.x(data.x))
                 .attr('y1', this.scales.y(data.y))
-                .attr('y2', this.scales.y(this.plan))
-                .style('stroke', this.colors.white)
-                .style('stroke-width', 0.2);
+                .attr('y2', this.scales.y(this.plan));
 
             if (data.y > this.plan) {
-                this.g.append('circle')
-                    .attr('r', 2)
-                    .attr('cx', this.scales.x(data.x))
-                    .attr('cy', this.scales.y(data.y))
-                    .style('fill', this.colors.orange);
+                this.appendCurveDataCircle(2, data.x, data.y, 'curve-value-circle-high');
 
                 this.g.append('rect')
+                    .attr('class', 'curve-value-rect-high')
                     .attr('x', this.scales.x(data.x) - 3)
                     .attr('y', this.scales.y(data.y) - 3)
                     .attr('width', 6)
-                    .attr('height', 6)
-                    .style('fill', 'transparent')
-                    .style('stroke', this.colors.orange);
+                    .attr('height', 6);
             } else {
-                this.g.append('circle')
-                    .attr('r', 2)
-                    .attr('cx', this.scales.x(data.x))
-                    .attr('cy', this.scales.y(data.y))
-                    .style('fill', this.colors.white);
-
-                this.g.append('circle')
-                    .attr('r', 4)
-                    .attr('cx', this.scales.x(data.x))
-                    .attr('cy', this.scales.y(data.y))
-                    .style('fill', 'transparent')
-                    .style('stroke', this.colors.blue);
+                this.appendCurveDataCircle(2, data.x, data.y, 'curve-value-circle-low');
+                this.appendCurveDataCircle(4, data.x, data.y, 'curve-value-rect-low');
             }
         });
     }
@@ -286,13 +247,11 @@ export class SplineDiagramComponent implements OnInit, OnChanges {
 
         lg.append('stop')
             .attr('offset', '0%')
-            .style('stop-color', this.colors.orange)
-            .style('stop-opacity', 0.5);
+            .attr('class', 'gradient-stop-1');
 
         lg.append('stop')
             .attr('offset', '100%')
-            .style('stop-color', 'transparent')
-            .style('stop-opacity', 0);
+            .attr('class', 'gradient-stop-2');
 
         const area = d3.area()
             .x((d) => this.scales.x(d.x))
@@ -308,19 +267,17 @@ export class SplineDiagramComponent implements OnInit, OnChanges {
 
         this.g.append('path')
             .datum(newDataSet)
-            .attr('class', 'area')
-            .attr('d', area)
-            .style('fill', 'url(#gradient)');
+            .attr('class', 'data-area-high')
+            .attr('d', area);
     }
 
     private drawDayThreshold(): void {
         this.g.append('line')
+            .attr('class', 'day-threshold-line')
             .attr('x1', this.scales.x(this.day))
             .attr('x2', this.scales.x(this.day))
             .attr('y1', this.scales.y(this.sizeY.max))
-            .attr('y2', this.scales.y(this.sizeY.min))
-            .style('stroke', this.colors.white)
-            .style('stroke-width', 0.25);
+            .attr('y2', this.scales.y(this.sizeY.min));
 
         this.appendThresholdCircles(this.scales.y(this.sizeY.min));
         this.appendThresholdCircles(this.scales.y(this.sizeY.max));
@@ -331,6 +288,6 @@ export class SplineDiagramComponent implements OnInit, OnChanges {
             .attr('r', 1)
             .attr('cx', this.scales.x(this.day))
             .attr('cy', cy)
-            .style('fill', this.colors.white);
+            .attr('class', 'day-threshold-circle');
     }
 }
