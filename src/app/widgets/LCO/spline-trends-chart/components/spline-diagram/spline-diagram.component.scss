@@ -3,6 +3,114 @@
   height: 100%;
 }
 
-.curve-line {
-  stroke: red;
+::ng-deep {
+  .data-curve,
+  .bound-line,
+  .day-threshold-line {
+    stroke: var(--color-text-main);
+  }
+
+  .data-curve {
+    stroke-width: 0.5;
+    fill: none;
+  }
+
+  .bound-line {
+    stroke-width: 0.2;
+  }
+
+  .curve-value-circle-high {
+    fill: var(--color-deviation);
+  }
+
+  .curve-value-rect-high {
+    fill: none;
+    stroke: var(--color-deviation);
+  }
+
+  .curve-value-circle-low {
+    fill: var(--color-text-main);
+  }
+
+  .curve-value-rect-low {
+    fill: none;
+    stroke: var(--color-plan);
+  }
+
+  .gradient-stop-1 {
+    stop-color: var(--color-deviation);
+    stop-opacity: 0.5;
+  }
+
+  .gradient-stop-2 {
+    stop-color: transparent;
+    stop-opacity: 0;
+  }
+
+  .data-area-high {
+    fill: url(#gradient);
+  }
+
+  .day-threshold-line {
+    stroke-width: 0.25;
+  }
+
+  .day-threshold-circle {
+    fill: var(--color-text-main);
+  }
+
+  .grid {
+    color: var(--color-axis);
+    stroke-width: 0.5;
+    opacity: 0.1;
+    fill: var(--color-input);
+
+    path {
+      fill: var(--color-input);
+    }
+  }
+
+  .plan-threshold-line-filled,
+  .plan-threshold-line-rest,
+  .plan-threshold-circle-outer {
+    stroke: var(--color-plan);
+  }
+
+  .plan-threshold-line-filled {
+    stroke-width: 1;
+  }
+
+  .plan-threshold-line-rest {
+    stroke-width: 0.5;
+  }
+
+  .plan-threshold-circle-inner {
+    fill: var(--color-plan);
+  }
+
+  .plan-threshold-circle-outer {
+    fill: none;
+  }
+
+  .y-axis {
+    text {
+      fill: var(--color-text-sub);
+      font-size: 10px;
+    }
+  }
+
+  .x-axis {
+    text {
+      font-size: 11px;
+    }
+
+    .white {
+      fill: var(--color-text-main);
+    }
+
+    .gray {
+      fill: var(--color-border-main);
+    }
+  }
 }
+
