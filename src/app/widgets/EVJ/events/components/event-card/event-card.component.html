@@ -1,5 +1,4 @@
-<div [class.block-container]="viewType === 'block'" [class.notification-event]="!isCdEvents"
-     [class.notification-cd-event]="isCdEvents">
+<div [class.block-container]="viewType === 'block'">
   <ng-container *ngFor="let cardData of cardDataArr">
     <ng-container
       *ngTemplateOutlet="viewType === 'block' ? block : list; context: {cardData: cardData}"

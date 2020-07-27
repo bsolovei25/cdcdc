@@ -1,24 +1,19 @@
-import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { EventsWidgetNotificationPreview } from '../../../../../dashboard/models/events-widget';
 import { EventService } from '../../../../../dashboard/services/widgets/event.service';
 
 @Component({
-    selector: 'evj-event-card',
-    templateUrl: './event-card.component.html',
-    styleUrls: ['./event-card.component.scss']
+    selector: 'evj-cd-event-card',
+    templateUrl: './cd-event-card.component.html',
+    styleUrls: ['./cd-event-card.component.scss']
 })
-export class EventCardComponent implements OnInit, OnDestroy {
+export class CdEventCardComponent implements OnInit {
+
     @Input()
     public cardDataArr: EventsWidgetNotificationPreview[];
 
     @Input()
-    public viewType: 'block' | 'list';
-
-    @Input()
     public cardActiveId: number = 0;
-
-    @Input()
-    public isCardActive: boolean = false;
 
     @Input()
     public isCdEvents: boolean = false;
@@ -32,11 +27,7 @@ export class EventCardComponent implements OnInit, OnDestroy {
     constructor(private eventService: EventService) {
     }
 
-    public ngOnInit(): void {
-        console.log(this.isCdEvents);
-    }
-
-    public ngOnDestroy(): void {
+    ngOnInit(): void {
     }
 
     public eventClick(id: number): void {
@@ -58,4 +49,5 @@ export class EventCardComponent implements OnInit, OnDestroy {
             console.error('EVENT CARD ERROR -> IsAcknowledged', error);
         }
     }
+
 }

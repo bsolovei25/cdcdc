@@ -1,5 +1,5 @@
 .cd-events {
-  --categories-min-height: 150px;
+  --categories-min-height: 145px;
   --filters-min-height: 40px;
   --margin-vertical: 38px;
   --line-border: 0.5px dashed var(--color-border-main-transparrent);
@@ -31,12 +31,13 @@
   .categories {
     display: flex;
     justify-content: space-between;
+    gap: 10px;
     min-height: var(--categories-min-height);
     box-sizing: border-box;
-    padding: 0 20px 16px 20px;
+    padding: 0 20px 25px 20px;
 
     &__item {
-      margin-right: 20px;
+      width: 20%;
 
       &:last-child {
         margin-right: 0;
@@ -240,11 +241,11 @@
     color: var(--color-text-sub);
 
     &_active {
-      border-color: var(--color-border-active);
+      border-color: var(--color-kpe-gaude-active);
       color: var(--color-text-main);
 
       background: var(--color-bg-active-bright);
-      background: linear-gradient(0deg, rgba(63, 169, 245, 0.1) 0%, var(--color-bg-main) 100%);
+      background: linear-gradient(0deg, rgba(63, 169, 245, 0.1) 0%, transparent 100%);
     }
 
     &__name {

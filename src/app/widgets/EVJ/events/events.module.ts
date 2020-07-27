@@ -16,9 +16,11 @@ import { ScrollingModule } from '@angular/cdk-experimental/scrolling';
 import { ScrollingModule as OldScrollingModule } from '@angular/cdk/scrolling';
 import { EventCardComponent } from './components/event-card/event-card.component';
 import { SharedModule } from '@shared/shared.module';
+import { CdEventCardComponent } from './components/cd-event-card/cd-event-card.component';
+import { CdEventCategoriesComponent } from './components/cd-event-categories/cd-event-categories.component';
 
 @NgModule({
-    declarations: [EventsComponent, EventCardComponent],
+    declarations: [EventsComponent, EventCardComponent, CdEventCardComponent, CdEventCategoriesComponent],
     imports: [
         CommonModule,
         AngularSvgIconModule,
