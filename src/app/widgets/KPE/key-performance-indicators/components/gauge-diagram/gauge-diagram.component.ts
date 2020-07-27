@@ -18,8 +18,6 @@ export class GaugeDiagramComponent implements OnInit {
         value: 97.1,
     };
 
-    private color: string = '#0089FF';
-
     private svg: any;
     private g: any;
     private needle: any;
@@ -92,68 +90,36 @@ export class GaugeDiagramComponent implements OnInit {
             .attr(`transform`, `rotate(${grad})`);
     }
 
+    private appendTitle(y: number, text: string): void {
+        this.g.append('text')
+            .attr('class', 'title-text')
+            .attr('y', y)
+            .text(text);
+    }
+
     private placeText(): void {
         this.text = this.g.append('text')
-            .attr('text-anchor', 'middle')
-            .attr('font-size', '13px')
-            .attr('font-weight', 'normal')
-            .attr('fill', '#D7E2F2')
-            .attr('dominant-baseline', 'middle')
+            .attr('class', 'value')
             .text(this.percent);
 
         this.g.append('text')
-            .attr('font-size', '6px')
+            .attr('class', 'percentage')
             .attr('y', '11')
-            .attr('text-anchor', 'middle')
-            .attr('font-weight', 'normal')
-            .attr('fill', '#606580')
-            .attr('dominant-baseline', 'middle')
             .text('%');
 
-        const titleFontSize = '5.3px';
-        const titleColor = '#8C99B2';
+        this.appendTitle(39, 'Ключевой показатель');
+        this.appendTitle(45, 'эффективности');
+        this.appendTitle(51, this.data.name);
+    }
 
-        this.g.append('text')
-            .attr('font-size', titleFontSize)
-            .attr('font-style', 'normal')
-            .attr('font-weight', 'normal')
-            .attr('font-family', 'Tahoma')
-            .attr('y', '39')
-            .attr('z-index', '100')
-            .attr('text-anchor', 'middle')
-            .attr('dominant-baseline', 'middle')
-            .attr('fill', titleColor)
-            .text('Ключевой показатель');
-
-        this.g.append('text')
-            .attr('font-size', titleFontSize)
-            .attr('font-style', 'normal')
-            .attr('font-weight', 'normal')
-            .attr('font-family', 'Tahoma')
-            .attr('y', '45')
-            .attr('z-index', '100')
-            .attr('text-anchor', 'middle')
-            .attr('dominant-baseline', 'middle')
-            .attr('fill', titleColor)
-            .text('эффективности');
-
-        this.g.append('text')
-            .attr('font-size', titleFontSize)
-            .attr('font-style', 'normal')
-            .attr('font-weight', 'normal')
-            .attr('font-family', 'Tahoma')
-            .attr('y', '51')
-            .attr('z-index', '100')
-            .attr('text-anchor', 'middle')
-            .attr('dominant-baseline', 'middle')
-            .attr('fill', titleColor)
-            .text(this.data.name);
+    private appendCircle(r: number, className: string): void {
+        this.g
+            .append('circle')
+            .attr('r', r)
+            .attr('class', className);
     }
 
     private drawSvg(): void {
-        const borderColor = '#262A39';
-        const bodyColor = '#1B1F2C';
-
         const angleGen = d3.pie()
             .startAngle(-0.75 * Math.PI)
             .endAngle(0.75 * Math.PI)
@@ -179,42 +145,21 @@ export class GaugeDiagramComponent implements OnInit {
             .enter()
             .append('path')
             .attr('d', arcGen)
-            .attr('fill', this.color);
+            .attr('class', 'arc-gen');
 
         this.g
             .append('path')
             .attr('d', arc)
-            .attr('fill', borderColor);
-
-        this.g
-            .append('rect')
-            .attr('y', '30')
-            .attr('x', '-42')
-            .attr('width', '84px')
-            .attr('height', '10px')
-            .attr('z-index', '60')
-            .attr('dominant-baseline', 'middle')
-            .attr('fill', bodyColor);
+            .attr('class', 'arc');
 
         this.needle = this.g
             .append('path')
-            .attr('fill', '#D7E2F2')
+            .attr('class', 'needle')
             .attr('d', 'M-3 0 L-1 -43 L1 0 S3 5 0 5 S-3 5 -3 0 Z') // стрелка
             .attr(`transform`, `rotate(${0})`);
 
-        this.g
-            .append('circle')
-            .attr('r', 21)
-            .attr('fill', borderColor);
-
-        this.g
-            .append('circle')
-            .attr('r', 20.5)
-            .attr('fill', bodyColor);
-
-        this.g
-            .append('circle')
-            .attr('r', 19)
-            .attr('fill', borderColor);
+        this.appendCircle(21, 'fill-border-color');
+        this.appendCircle(20.5, 'fill-body-color');
+        this.appendCircle(19, 'fill-border-color');
     }
 }
