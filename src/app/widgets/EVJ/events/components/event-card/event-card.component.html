@@ -85,6 +85,7 @@
 <ng-template #block let-cardData="cardData">
   <div
     class="notification__block notifications__block__item"
+    [class.notification-event]="!isCdEvents" [class.notification-cd-event]="isCdEvents"
     [class.selected-block]="cardData?.id === cardActiveId"
     (click)="eventClick(cardData?.id)"
   >
@@ -105,7 +106,7 @@
         (click)="changeIsAcknowledged(cardData)"
         *ngIf="cardData?.category?.code!==0 && cardData?.category?.code!==5 && cardData?.category?.code!==6"
       >
-        {{cardData?.isAcknowledged?'Квитировано':'Не квитировано'}}
+        {{cardData?.isAcknowledged ? 'Квитировано' : 'Не квитировано'}}
       </div>
 
       <div class="notification__block__extra">
@@ -157,7 +158,7 @@
     <div class="notification__block__footer">
       <span class="notification__block__footer-text">Начало события:</span>
       <span class="notification__block__footer-date-time"
-        >{{ cardData?.eventDateTime | date: 'dd.MM.yyyy HH:mm' }}</span
+      >{{ cardData?.eventDateTime | date: 'dd.MM.yyyy HH:mm' }}</span
       >
     </div>
   </div>

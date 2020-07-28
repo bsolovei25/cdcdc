@@ -4,23 +4,23 @@ import {
     EventsWidgetCategoryCode,
     EventsWidgetNotificationPreview,
     EventsWidgetOptions
-} from '../../models/events-widget';
-import { EventsWidgetFilter } from '../../models/events-widget';
+} from '../../../dashboard/models/events-widget';
+import { EventsWidgetFilter } from '../../../dashboard/models/events-widget';
 import {
     EventsWidgetNotification,
     EventsWidgetNotificationStatus
-} from '../../models/events-widget';
-import { WidgetService } from '../../services/widget.service';
-import { UserSettingsService } from '../../services/user-settings.service';
-import { EventService } from '../../services/widgets/event.service';
+} from '../../../dashboard/models/events-widget';
+import { WidgetService } from '../../../dashboard/services/widget.service';
+import { UserSettingsService } from '../../../dashboard/services/user-settings.service';
+import { EventService } from '../../../dashboard/services/widgets/event.service';
 import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
-import { WidgetPlatform } from '../../models/widget-platform';
+import { WidgetPlatform } from '../../../dashboard/models/widget-platform';
 import { throttle } from 'rxjs/operators';
-import { SnackBarService } from '../../services/snack-bar.service';
-import { EventsWorkspaceService } from '../../services/widgets/events-workspace.service';
+import { SnackBarService } from '../../../dashboard/services/snack-bar.service';
+import { EventsWorkspaceService } from '../../../dashboard/services/widgets/events-workspace.service';
 import { IAlertWindowModel } from '@shared/models/alert-window.model';
 import { BehaviorSubject } from 'rxjs';
-import { WidgetSettingsService } from '../../services/widget-settings.service';
+import { WidgetSettingsService } from '../../../dashboard/services/widget-settings.service';
 
 export interface IEventSettings {
     viewType: 'list' | 'cards';
@@ -29,7 +29,7 @@ export interface IEventSettings {
 @Component({
     selector: 'evj-events',
     templateUrl: './events.component.html',
-    styleUrls: ['./events.component.scss']
+    styleUrls: ['./events.component.scss', './cd-events.component.scss']
 })
 export class EventsComponent extends WidgetPlatform implements OnInit, OnDestroy {
     @ViewChild(CdkVirtualScrollViewport) viewport: CdkVirtualScrollViewport;
@@ -166,12 +166,9 @@ export class EventsComponent extends WidgetPlatform implements OnInit, OnDestroy
         closed: 'Завершено'
     };
 
-    private readonly defaultIconPath: string = './assets/icons/widgets/events/smotr.svg';
+    isCDEvents: boolean = false;
 
-    public static itemCols: number = 32;
-    public static itemRows: number = 30;
-    public static minItemCols: number = 32;
-    public static minItemRows: number = 30;
+    private readonly defaultIconPath: string = './assets/icons/widgets/events/smotr.svg';
 
     constructor(
         private eventService: EventService,
@@ -198,6 +195,9 @@ export class EventsComponent extends WidgetPlatform implements OnInit, OnDestroy
 
     protected async dataConnect(): Promise<void> {
         super.dataConnect();
+        if (this.widgetType === 'cd-events') {
+            this.isCDEvents = true;
+        }
         this.placeNames = await this.eventService.getPlaces(this.id);
         this.subscriptions.push(
             this.widgetService.currentDates$.subscribe((ref) => {
@@ -208,7 +208,7 @@ export class EventsComponent extends WidgetPlatform implements OnInit, OnDestroy
                 this.selectedId = ref;
             })
         );
-        this.getWidgetSettings();
+        await this.getWidgetSettings();
     }
 
     protected dataHandler(
@@ -271,7 +271,7 @@ export class EventsComponent extends WidgetPlatform implements OnInit, OnDestroy
     }
 
     private countNotificationsDivCapacity(): void {
-        const notificationsDivCapacity = Math.trunc(this.notificationsDiv.nativeElement.clientWidth / 383);
+        const notificationsDivCapacity = Math.trunc(this.notificationsDiv?.nativeElement?.clientWidth / 383);
         this.notificationsGrouped = this.sortArray(this.notifications, this.isList ? notificationsDivCapacity : 1);
     }
 
@@ -455,7 +455,7 @@ export class EventsComponent extends WidgetPlatform implements OnInit, OnDestroy
         this.appendNotifications(ans);
         this.isAllowScrollLoading = true;
         if (ans?.length > 0) {
-            this.viewport.checkViewportSize();
+            this.viewport?.checkViewportSize();
         }
     }
 
