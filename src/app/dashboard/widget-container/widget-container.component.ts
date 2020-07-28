@@ -51,12 +51,7 @@ export class WidgetContainerComponent extends WidgetPlatform implements OnInit, 
             uniqId: this.uniqId
         };
 
-        let widgetType: string = this.widgetType;
-        if (this.widgetType === 'cd-events') {
-            widgetType = 'events';
-        }
-
-        await this.lazyService.loadWidget(widgetType, this.container, injectParams);
+        await this.lazyService.loadWidget(this.widgetType, this.container, injectParams);
         setTimeout(() => (this.isLoading = false), 300);
     }
 

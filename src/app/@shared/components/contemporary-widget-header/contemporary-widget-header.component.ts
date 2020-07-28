@@ -5,11 +5,11 @@ import { ClaimService, EnumClaimWidgets } from '../../../dashboard/services/clai
 import { Subscription } from 'rxjs';
 
 @Component({
-    selector: 'evj-aps-kpe-widget-header',
-    templateUrl: './aps-kpe-widget-header.component.html',
-    styleUrls: ['./aps-kpe-widget-header.component.scss']
+    selector: 'evj-contemporary-widget-header',
+    templateUrl: './contemporary-widget-header.component.html',
+    styleUrls: ['./contemporary-widget-header.component.scss']
 })
-export class ApsKpeWidgetHeaderComponent implements OnInit, OnDestroy {
+export class ContemporaryWidgetHeaderComponent implements OnInit, OnDestroy {
     @Input() private uniqId: string = '';
     @Input() public widgetTitle: string = '';
     @Input() public icon: ApsHeaderIconType = 'drop';

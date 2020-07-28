@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ApsKpeWidgetHeaderComponent } from './aps-kpe-widget-header.component';
+import { ContemporaryWidgetHeaderComponent } from './contemporary-widget-header.component';
 
 describe('ApsWidgetHeaderComponent', () => {
-  let component: ApsKpeWidgetHeaderComponent;
-  let fixture: ComponentFixture<ApsKpeWidgetHeaderComponent>;
+  let component: ContemporaryWidgetHeaderComponent;
+  let fixture: ComponentFixture<ContemporaryWidgetHeaderComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ApsKpeWidgetHeaderComponent ]
+      declarations: [ ContemporaryWidgetHeaderComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ApsKpeWidgetHeaderComponent);
+    fixture = TestBed.createComponent(ContemporaryWidgetHeaderComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

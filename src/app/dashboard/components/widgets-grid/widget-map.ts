@@ -143,7 +143,7 @@ export const WIDGETS = {
     'kpe-readiness': WidgetContainerComponent,
     events: WidgetContainerComponent,
     'cd-events': WidgetContainerComponent,
-    'spline-trends-chart': WidgetContainerComponent,
+    'spline-trends-chart': WidgetContainerComponent
 };
 
 export const WIDGETS_LAZY = {
@@ -248,7 +248,7 @@ export const WIDGETS_LAZY = {
         import: async () => {
             return await import(
                 'src/app/widgets/APS/indicator-load-deviation/indicator-load-deviation.module'
-            );
+                );
         },
         module: 'IndicatorLoadDeviationModule',
         itemCols: 12,
@@ -266,7 +266,7 @@ export const WIDGETS_LAZY = {
         import: async () => {
             return await import(
                 'src/app/widgets/KPE/key-performance-indicators/key-performance-indicators.module'
-            );
+                );
         },
         module: 'KeyPerformanceIndicatorsModule',
         itemCols: 19,
@@ -317,7 +317,7 @@ export const WIDGETS_LAZY = {
         itemCols: 31,
         itemRows: 17,
         minItemCols: 31,
-        minItemRows: 17,
+        minItemRows: 17
     },
 
     // #endregion KPE
@@ -328,7 +328,7 @@ export const WIDGETS_LAZY = {
         import: async () => {
             return await import(
                 'src/app/widgets/admin/admin-shift-schedule/admin-shift-schedule.module'
-            );
+                );
         },
         module: 'AdminShiftScheduleModule',
         itemCols: 15,
@@ -346,7 +346,7 @@ export const WIDGETS_LAZY = {
         import: async () => {
             return await import(
                 'src/app/widgets/EVJ/events/events.module'
-            );
+                );
         },
         module: 'EventsModule',
         itemCols: 32,
@@ -364,7 +364,7 @@ export const WIDGETS_LAZY = {
         import: async () => {
             return await import(
                 'src/app/widgets/EVJ/events/events.module'
-            );
+                );
         },
         module: 'EventsModule',
         itemCols: 32,
@@ -567,19 +567,19 @@ export const WIDGETS_LAZY = {
         itemRows: 7,
         minItemCols: 9,
         minItemRows: 7,
-        preview: 'implementation-plan',
+        preview: 'implementation-plan'
     },
     'performance-progress-indicators': {
         import: async () =>
             await import(
                 'src/app/widgets/SMP/performance-progress-indicators/performance-progress-indicators.module'
-            ),
+                ),
         module: 'PerformanceProgressIndicatorsModule',
         itemCols: 9,
         itemRows: 7,
         minItemCols: 9,
         minItemRows: 7,
-        preview: 'performance-progress-indicators',
+        preview: 'performance-progress-indicators'
     },
     'quality-stock': {
         import: async () => await import('src/app/widgets/SMP/quality-stock/quality-stock.module'),
@@ -588,7 +588,7 @@ export const WIDGETS_LAZY = {
         itemRows: 14,
         minItemCols: 14,
         minItemRows: 14,
-        preview: 'quality-stock',
+        preview: 'quality-stock'
     },
     'smp-events': {
         import: async () => await import('src/app/widgets/SMP/smp-events/smp-events.module'),
@@ -597,7 +597,7 @@ export const WIDGETS_LAZY = {
         itemRows: 20,
         minItemCols: 14,
         minItemRows: 20,
-        preview: 'smp-events',
+        preview: 'smp-events'
     },
     'smp-events-workspace': {
         import: async () =>
@@ -607,7 +607,7 @@ export const WIDGETS_LAZY = {
         itemRows: 30,
         minItemCols: 20,
         minItemRows: 30,
-        preview: 'smp-events-workspace',
+        preview: 'smp-events-workspace'
     },
     'product-groups': {
         import: async () =>
@@ -617,14 +617,14 @@ export const WIDGETS_LAZY = {
         itemRows: 20,
         minItemCols: 20,
         minItemRows: 17,
-        preview: 'product-groups',
+        preview: 'product-groups'
     },
     'production-deviations': {
         import: async () => {
             {
                 return await import(
                     'src/app/widgets/SMP/production-deviations/production-deviations.module'
-                );
+                    );
             }
         },
         module: 'ProductionDeviationsModule',
@@ -646,8 +646,8 @@ export const WIDGETS_LAZY = {
         itemRows: 20,
         minItemCols: 20,
         minItemRows: 17,
-        preview: 'product-groups-short',
-    },
+        preview: 'product-groups-short'
+    }
     // 'astue-efficiency': {
     //     import: async () => await import('src/app/widgets/astue-efficiency/astue-efficiency.module'),
     // },
