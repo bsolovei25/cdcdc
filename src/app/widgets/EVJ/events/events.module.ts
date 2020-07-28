@@ -8,7 +8,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { ImageCropperModule } from 'ngx-image-cropper';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import {
-    NgxMatDatetimePickerModule,
+    NgxMatDatetimePickerModule
 } from '@angular-material-components/datetime-picker';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatTooltipModule } from '@angular/material/tooltip';
@@ -20,7 +20,12 @@ import { CdEventCardComponent } from './components/cd-event-card/cd-event-card.c
 import { CdEventCategoriesComponent } from './components/cd-event-categories/cd-event-categories.component';
 
 @NgModule({
-    declarations: [EventsComponent, EventCardComponent, CdEventCardComponent, CdEventCategoriesComponent],
+    declarations: [
+        EventsComponent,
+        EventCardComponent,
+        CdEventCardComponent,
+        CdEventCategoriesComponent,
+    ],
     imports: [
         CommonModule,
         AngularSvgIconModule,
