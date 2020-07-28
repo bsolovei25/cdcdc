@@ -145,6 +145,7 @@
     }
 
     &--display-standart {
+      border: none;
       height: calc(100% - var(--filters-min-height) - var(--categories-min-height) - var(--padding));
     }
 

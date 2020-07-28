@@ -1,7 +1,8 @@
 <ng-container *ngIf="!isMock">
   <div id="snackbar"></div>
-
-  <div class="header">
+  <evj-contemporary-widget-header *ngIf="isCDEvents" [uniqId]="uniqId" [widgetTitle]="widgetTitle"
+                                  icon="letter"></evj-contemporary-widget-header>
+  <div class="header" *ngIf="!isCDEvents">
     <div class="pointer-events">
       <div class="header__content drag handle">
         <div class="header__icon-wrapper">

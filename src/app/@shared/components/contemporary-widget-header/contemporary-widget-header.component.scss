@@ -1,6 +1,7 @@
 :host {
   width: 100%;
   height: max-content;
+
   * {
     box-sizing: border-box;
     color: var(--color-text-main);
@@ -76,6 +77,7 @@
   margin-right: 10px;
   width: 16px;
   height: 16px;
+  fill: #8c99b2;
 }
 
 .title {
@@ -139,6 +141,7 @@
 
     &:hover {
       cursor: pointer;
+
       &::before {
         opacity: 0.4;
       }
