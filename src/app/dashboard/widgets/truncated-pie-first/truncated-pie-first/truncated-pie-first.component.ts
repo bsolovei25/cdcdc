@@ -30,8 +30,8 @@ export class TruncatedPieFirstComponent implements OnInit {
     private d3Circle(data, el): void {
         this.splitWord(data.name, this.space);
 
-        const summ = data.plan - data.value;
-        const mass = [data.value + 35, data.plan - data.value];
+        const summ = data.planValue - data.value;
+        const mass = [data.value + 35, data.planValue - data.value];
         let color: any;
 
         const canvas = d3
@@ -79,7 +79,7 @@ export class TruncatedPieFirstComponent implements OnInit {
             .append('text')
             .attr('text-anchor', 'middle')
             .attr('font-size', '22px')
-            .attr('fill', data.plan === 100 ? 'white' : 'orange')
+            .attr('fill', data.planValue === 100 ? 'white' : 'orange')
             .attr('dominant-baseline', 'middle')
             .text(data.value);
 
