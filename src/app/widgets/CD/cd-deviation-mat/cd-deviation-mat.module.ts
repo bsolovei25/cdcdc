@@ -1,13 +1,19 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CdDeviationMatComponent } from './cd-deviation-mat.component';
-import { ContemporaryWidgetHeaderComponent } from '@shared/components/contemporary-widget-header/contemporary-widget-header.component';
-
+import { SharedModule } from '@shared/shared.module';
+import { AngularSvgIconModule } from 'angular-svg-icon';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
-    declarations: [CdDeviationMatComponent, ContemporaryWidgetHeaderComponent],
+    declarations: [CdDeviationMatComponent],
     imports: [
-        CommonModule
+        CommonModule,
+        SharedModule,
+        AngularSvgIconModule,
+        MatCheckboxModule,
+        FormsModule
     ]
 })
 export class CdDeviationMatModule {

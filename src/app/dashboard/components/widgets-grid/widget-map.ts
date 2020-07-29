@@ -367,8 +367,8 @@ export const WIDGETS_LAZY = {
         module: 'CdReactorParametersModule',
         itemCols: 15,
         itemRows: 15,
-        minItemCols: 15,
-        minItemRows: 15,
+        minItemCols: 8,
+        minItemRows: 8,
         preview: 'cd-reactor-parameters'
     },
 
@@ -381,8 +381,8 @@ export const WIDGETS_LAZY = {
         module: 'CdDeviationMatModule',
         itemCols: 15,
         itemRows: 15,
-        minItemCols: 15,
-        minItemRows: 15,
+        minItemCols: 8,
+        minItemRows: 8,
         preview: 'cd-deviation-mat'
     },
 

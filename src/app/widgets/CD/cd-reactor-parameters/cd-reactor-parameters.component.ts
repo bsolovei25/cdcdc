@@ -6,6 +6,7 @@ import {
     IColumnsToDisplay
 } from '../../APS/aps-recipe-diagram/aps-recipe-diagram.component';
 import { SelectionModel } from '@angular/cdk/collections';
+import { DATASOURCE } from '../../APS/aps-recipe-diagram/mock';
 
 @Component({
     selector: 'evj-cd-reactor-parameters',
@@ -14,7 +15,12 @@ import { SelectionModel } from '@angular/cdk/collections';
 })
 export class CdReactorParametersComponent extends WidgetPlatform implements OnInit, OnDestroy {
 
-    @Input() columnsToDisplay: IColumnsToDisplay[] = [];
+    dataSourceQuality: IAPSRecipeDiagram[] = DATASOURCE;
+    columnsToDisplay: IColumnsToDisplay[] = [
+        { name: 'Параметры', date: new Date() },
+        { name: 'Факт', date: new Date('2020-02-01T03:24:00') },
+        { name: 'Модель', date: new Date('2020-02-02T03:24:00') }
+    ];
 
     expandedElement: SelectionModel<number> = new SelectionModel(true);
     selectedRowProduct: number;
@@ -29,6 +35,7 @@ export class CdReactorParametersComponent extends WidgetPlatform implements OnIn
     }
 
     ngOnInit(): void {
+        super.widgetInit();
     }
 
     protected async dataConnect(): Promise<void> {
