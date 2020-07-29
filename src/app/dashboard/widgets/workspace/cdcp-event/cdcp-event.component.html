@@ -203,9 +203,9 @@
         <evj-events-responsible-select></evj-events-responsible-select>
       </div>
       <div class="monitoring">
-        <ng-container *ngTemplateOutlet="monitoringCard"></ng-container>
-        <ng-container *ngTemplateOutlet="monitoringCard"></ng-container>
-        <ng-container *ngTemplateOutlet="monitoringCard"></ng-container>
+        <ng-container *ngTemplateOutlet="monitoringCard; context: {label: 'Мат. баланс', type: 'material', deviationCounter: 1}"></ng-container>
+        <ng-container *ngTemplateOutlet="monitoringCard; context: {label: 'Тепловой баланс', type: 'warm', deviationCounter: 0}"></ng-container>
+        <ng-container *ngTemplateOutlet="monitoringCard; context: {label: 'Качество', type: 'quality', deviationCounter: 0}"></ng-container>
       </div>
       <div class="events-correct">
         <evj-events-correct></evj-events-correct>
@@ -215,16 +215,16 @@
 </section>
 
 
-<ng-template let-deviation="deviation" let-label="label" let-type="type" #monitoringCard>
+<ng-template let-deviationCounter="deviationCounter" let-label="label" let-type="type" #monitoringCard>
   <evj-ui-block status="normal">
-    <div class="monitoring-card">
+    <div class="monitoring-card" [class.monitoring-card__warning]="deviationCounter > 0">
       <div class="icon">
-        <svg-icon src="assets/"
+        <svg-icon src="assets/icons/widgets/events/cd-monitoring/{{type}}.svg"></svg-icon>
       </div>
-      <span>{{label}}</span>
+      <span class="text-color">{{label}}</span>
       <span style="flex-grow: 1"></span>
-      <span></span>
-      <span></span>
+      <span style="color: var(--color-cd-text-sub);">Отклонений: </span>
+      <span style="margin-left: 5px" class="text-color">{{deviationCounter}}</span>
     </div>
   </evj-ui-block>
 </ng-template>

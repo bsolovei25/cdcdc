@@ -1956,4 +1956,50 @@ textarea {
   display: flex;
   width: 100%;
   height: 100%;
+  padding: 0 20px;
+  box-sizing: border-box;
+
+  span {
+    margin: auto;
+  }
+
+  .icon {
+    width: 16px;
+    height: 16px;
+    box-sizing: border-box;
+    margin: auto 15px auto auto;
+
+    svg-icon {
+      display: flex;
+      width: 100%;
+      height: 100%;
+      stroke: var(--color-cd-bg-border-sub);
+
+      ::ng-deep svg {
+        margin: auto;
+        width: 100%;
+        height: 100%;
+      }
+    }
+  }
+
+  .text-color {
+    color: var(--color-cd-text-sub);
+  }
+
+  &__warning {
+    border-left-width: 1px;
+    border-color: var(--color-cd-bg-border);
+
+    .text-color {
+      color: var(--color-text-main);
+    }
+
+    .icon {
+      margin-left: 3px;
+      svg-icon {
+        stroke: var(--color-warning);
+      }
+    }
+  }
 }
