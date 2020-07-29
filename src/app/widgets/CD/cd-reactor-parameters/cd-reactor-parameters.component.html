@@ -120,7 +120,7 @@
                   [class.table__body__column__row-title--no-active]="selectedRow.isSelected(element.productName)"
                 >С</span>
               </div>
-              <ng-container *ngIf="column.name !== 'productName'">
+              <ng-container *ngIf="column.name !== 'Параметры'">
                 <ng-container *ngFor="let valueColumn of searchValue(elementChildren?.values, column)">
                  <span
                    [class.table__body__column__row-title__value]="element.deviationQuality === 1 && selectedRowProduct === element.id"

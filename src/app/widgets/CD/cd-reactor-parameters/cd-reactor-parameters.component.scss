@@ -112,56 +112,6 @@
   }
 }
 
-.tabs-container {
-  display: flex;
-  flex-direction: row;
-  height: 0;
-  margin-left: -22px;
-
-  .tab {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    height: 100%;
-    flex-direction: row;
-    border-bottom: 3px solid var(--color-aps-innactive-tab);
-    padding: 14.6px;
-    cursor: pointer;
-
-    &__icon {
-      margin: 0 14px 5px 8px;
-      fill: red;
-
-      &--active {
-        fill: var(--color-active);
-      }
-    }
-
-    &__title {
-      font-size: 12px;
-      color: var(--color-aps-text-sub);
-      margin-bottom: 8px;
-    }
-
-    &--active {
-      border-bottom: 3px solid var(--color-aps-active);
-      background: linear-gradient(0deg, rgba(35, 120, 217, 0.25) 0px, rgba(35, 120, 217, 0.0001) 10px);
-
-      .tab__title {
-        color: var(--color-text-main);
-      }
-    }
-  }
-}
-
-p {
-  padding: 5px 0;
-}
-
-.mat-cell {
-  font-size: 12px;
-}
-
 .header {
   min-height: 30px;
   width: 100%;
@@ -169,6 +119,8 @@ p {
   justify-content: space-between;
   font-size: 10px;
   overflow: hidden;
+  border-top: 1px solid var(--color-border-new-mbo);
+  padding-top: 1.5px;
 
   &__button {
     min-width: 144px;
@@ -223,58 +175,34 @@ p {
       width: 645px;
     }
   }
-}
 
-.example-element-detail {
-  overflow: hidden;
-  display: flex;
-}
+  &::before {
+    content: "";
+    position: absolute;
+    z-index: 9999;
+    // background: url(../../../../../assets/icons/widgets/gantt-chart/border-left-top.svg) no-repeat;
+    width: 90px;
+    height: 15px;
 
-.example-element-diagram {
-  min-width: 80px;
-  border: 2px solid black;
-  padding: 8px;
-  font-weight: lighter;
-  margin: 8px 0;
-  height: 104px;
-}
-
-.expand_panel {
-  background: var(--color-bg-mbo-active);
-}
-
-.mat-footer-row {
-  align-items: stretch;
-}
-
-.expand__table {
-  td {
-    height: 54px;
-    padding: 0 !important;
+    left: 4px;
+    top: 5px;
   }
-}
 
-// Scroll
-::-webkit-scrollbar {
-  width: 2px;
-  height: 2px;
-  border-radius: 25px;
-}
-
-::-webkit-scrollbar-track {
-  border-radius: 25px;
-  margin-left: 268px;
-  margin-right: 365px;
-}
-
-::-webkit-scrollbar-track-piece {
-  // border: solid 1px var(--color-aps-border-sub);
-  // border-radius: 25px;
-}
-
-::-webkit-scrollbar-thumb {
-  background-color: var(--color-aps-border-sub);
-  border-radius: 25px;
+  &__right {
+    &::before {
+      content: "";
+      position: absolute;
+      z-index: 9999;
+      // background: url(../../../../../assets/icons/widgets/gantt-chart/border-left-top.svg) no-repeat;
+      width: 94px;
+      height: 15px;
+      top: 3px;
+      right: -6px;
+      margin-top: 2px;
+      margin-right: 4px;
+      transform: scale(-1, 1);
+    }
+  }
 }
 
 .table {
@@ -384,8 +312,6 @@ p {
         box-shadow: none;
 
         td {
-          background: auto;
-
           &:first-of-type {
 
             padding: 0 !important;
@@ -488,10 +414,10 @@ p {
       }
 
       &__row-title {
-        width: 100%;
         display: flex;
         justify-content: space-between;
         align-items: center;
+        width: calc(100% - 18px);
 
         &__icon {
           stroke: var(--color-aps-bg-icon);
@@ -676,247 +602,25 @@ p {
   }
 }
 
-.header {
-  border-top: 1px solid var(--color-border-new-mbo);
-  padding-top: 1.5px;
-
-  &::before {
-    content: "";
-    position: absolute;
-    z-index: 9999;
-    // background: url(../../../../../assets/icons/widgets/gantt-chart/border-left-top.svg) no-repeat;
-    width: 90px;
-    height: 15px;
-
-    left: 4px;
-    top: 5px;
-  }
-
-  &__right {
-    &::before {
-      content: "";
-      position: absolute;
-      z-index: 9999;
-      // background: url(../../../../../assets/icons/widgets/gantt-chart/border-left-top.svg) no-repeat;
-      width: 94px;
-      height: 15px;
-      top: 3px;
-      right: -6px;
-      margin-top: 2px;
-      margin-right: 4px;
-      transform: scale(-1, 1);
-    }
-  }
+// Scroll
+::-webkit-scrollbar {
+  width: 2px;
+  height: 2px;
+  border-radius: 25px;
 }
 
-.frame {
-  position: absolute;
-  z-index: 2;
-  width: 100%;
-  height: 5px;
-
-  img {
-    width: 100%;
-  }
-
-  &-top {
-    top: 10px;
-  }
-
-  &-bottom {
-    bottom: 10px;
-  }
+::-webkit-scrollbar-track {
+  border-radius: 25px;
+  margin-left: 268px;
+  margin-right: 365px;
 }
 
-.gradient {
-  position: absolute;
-
-  width: 100%;
-  height: 30px;
-
-  &-top {
-    top: 12px;
-    background: linear-gradient(to bottom, var(--color-bg-widget-gradient) 0%, transparent 60%);
-
-    &::before {
-      content: "";
-      position: absolute;
-
-      width: 15px;
-      height: 15px;
-
-      top: -9px;
-      left: -9px;
-
-      transform: rotate(45deg);
-
-      background: var(--color-bg-main);
-    }
-
-    &::after {
-      content: "";
-      position: absolute;
-
-      width: 15px;
-      height: 15px;
-
-      top: -9px;
-      right: -9px;
-
-      transform: rotate(45deg);
-
-      background: var(--color-bg-main);
-    }
-  }
-
-  &-bottom {
-    bottom: 10px;
-    background: linear-gradient(to top, var(--color-bg-widget-gradient) 0%, transparent 60%);
-  }
-
-  &::before {
-    content: "";
-    position: absolute;
-
-    width: 15px;
-    height: 15px;
-
-    bottom: -9px;
-    left: -9px;
-
-    transform: rotate(45deg);
-
-    background: var(--color-bg-main);
-  }
-
-  &::after {
-    content: "";
-    position: absolute;
-
-    width: 15px;
-    height: 15px;
-
-    bottom: -9px;
-    right: -9px;
-
-    transform: rotate(45deg);
-
-    background: var(--color-bg-main);
-  }
+::-webkit-scrollbar-track-piece {
+  // border: solid 1px var(--color-aps-border-sub);
+  // border-radius: 25px;
 }
 
-.table__expand {
-  height: 290px;
-}
-
-.bottom-btn__expand {
-  cursor: pointer;
-
-  position: absolute;
-  z-index: 9999;
-  // background: url(../../../../../assets/icons/widgets/recipe-diagram/btn-expand.svg) no-repeat;
-  width: 94px;
-  height: 15px;
-  bottom: 3px;
-  left: 47%;
-
-  &-arrow-open {
-    position: absolute;
-    z-index: 9999;
-    width: 11px;
-    height: 5px;
-    bottom: 8px;
-    left: 45%;
-    // background: url(../../../../../assets/icons/widgets/gantt-chart/arrow-bottom.svg) no-repeat;
-  }
-
-  &-arrow-close {
-    position: absolute;
-    z-index: 9999;
-    width: 11px;
-    height: 5px;
-    bottom: 8px;
-    left: 45%;
-    // background: url(../../../../../assets/icons/widgets/gantt-chart/arrow-top.svg) no-repeat;
-  }
-}
-
-select {
-  position: relative;
-  z-index: 2;
-
-  box-sizing: border-box;
-
-  color: var(--color-text-main);
-  background: transparent;
-  border: none;
-
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-
-  option {
-    background: var(--color-bg-main);
-  }
-
-  &:hover {
-    cursor: pointer;
-  }
-
-  &:focus {
-    outline: none;
-  }
-}
-
-.select-gantt {
-  height: 26px !important;
-  top: -6px;
-  opacity: 0.25;
-  border-radius: 3px;
-}
-
-.opacity {
-  &--shipment {
-    background-color: #2e3d4b !important;
-  }
-
-  &--preparation {
-    background-color: #16283e !important;
-  }
-
-  &--holding-tank {
-    background-color: #3a3c42 !important;
-  }
-
-  &--passport-system {
-    background-color: #173349 !important;
-  }
-
-  &--quality-stock {
-    background-color: #684d26 !important;
-  }
-
-  &--substandard {
-    background-color: #35222b !important;
-  }
-}
-
-.z-index-chooseElement {
-  z-index: 19 !important;
-}
-
-.opacity {
-  opacity: 0.6;
-}
-
-.gradient1 {
-  background: linear-gradient(90deg, #be6630 0%, #b4433c 10px, #b4433c 80%, #b4433c 100%);
-}
-
-.gradient1 {
-  background: linear-gradient(90deg, #c88823 0%, #c88823 10px, #c88823 80%, #be6630 100%);
-}
-
-.preparation-quality-stock-shipment {
-  background: linear-gradient(90deg, #be6630 0%, #b4433c 10px, #b4433c 80%, #b4433c 100%);
+::-webkit-scrollbar-thumb {
+  background-color: var(--color-aps-border-sub);
+  border-radius: 25px;
 }
