@@ -143,7 +143,8 @@ export const WIDGETS = {
     'kpe-readiness': WidgetContainerComponent,
     events: WidgetContainerComponent,
     'cd-events': WidgetContainerComponent,
-    'spline-trends-chart': WidgetContainerComponent
+    'spline-trends-chart': WidgetContainerComponent,
+    'cd-mat-balance': WidgetContainerComponent
 };
 
 export const WIDGETS_LAZY = {
@@ -354,6 +355,20 @@ export const WIDGETS_LAZY = {
         minItemCols: 32,
         minItemRows: 30,
         preview: 'cd-events'
+    },
+
+    'cd-mat-balance': {
+        import: async () => {
+            return await import(
+                'src/app/widgets/CD/cd-mat-balance/cd-mat-balance.module'
+                );
+        },
+        module: 'CdMatBalanceModule',
+        itemCols: 40,
+        itemRows: 30,
+        minItemCols: 40,
+        minItemRows: 30,
+        preview: 'cd-mat-balance'
     },
 
     // #endregion CD
