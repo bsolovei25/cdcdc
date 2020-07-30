@@ -124,7 +124,7 @@
                 <ng-container *ngFor="let valueColumn of searchValue(elementChildren?.values, column)">
                  <span
                    [class.table__body__column__row-title__value]="element.deviationQuality === 1 && selectedRowProduct === element.id"
-                 >{{element.productDeviation }}</span
+                 >{{element.productDeviation | number: "decimalPipe" }}</span
                  >
                 </ng-container>
                 <svg-icon

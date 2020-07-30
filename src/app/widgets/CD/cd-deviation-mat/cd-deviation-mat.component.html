@@ -69,7 +69,7 @@
                     <span
                       class="table__body__column__row-title__value"
                       [class.table__body__column__row-title__value-orange]="element.deviationQuality === 1"
-                    >{{element.productDeviation }}</span>
+                    >{{element.productDeviation | number: "decimalPipe" }}</span>
                 <svg-icon
                   *ngIf="element.deviationQuality === 1"
                   class="table__body__column__row-title__icon__background--orange"
