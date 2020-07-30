@@ -36,6 +36,10 @@
     &_deviation {
       color: var(--color-deviation);
     }
+
+    &_bound {
+      color: var(--color-text-sub);
+    }
   }
 
   &__heading {
