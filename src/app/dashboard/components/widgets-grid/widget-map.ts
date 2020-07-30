@@ -143,7 +143,9 @@ export const WIDGETS = {
     'kpe-readiness': WidgetContainerComponent,
     events: WidgetContainerComponent,
     'cd-events': WidgetContainerComponent,
-    'spline-trends-chart': WidgetContainerComponent
+    'spline-trends-chart': WidgetContainerComponent,
+    'cd-deviation-mat': WidgetContainerComponent,
+    'cd-reactor-parameters': WidgetContainerComponent
 };
 
 export const WIDGETS_LAZY = {
@@ -356,6 +358,34 @@ export const WIDGETS_LAZY = {
         preview: 'cd-events'
     },
 
+    'cd-reactor-parameters': {
+        import: async () => {
+            return await import(
+                'src/app/widgets/CD/cd-reactor-parameters/cd-reactor-parameters.module'
+                );
+        },
+        module: 'CdReactorParametersModule',
+        itemCols: 15,
+        itemRows: 15,
+        minItemCols: 8,
+        minItemRows: 8,
+        preview: 'cd-reactor-parameters'
+    },
+
+    'cd-deviation-mat': {
+        import: async () => {
+            return await import(
+                'src/app/widgets/CD/cd-deviation-mat/cd-deviation-mat.module'
+                );
+        },
+        module: 'CdDeviationMatModule',
+        itemCols: 15,
+        itemRows: 15,
+        minItemCols: 8,
+        minItemRows: 8,
+        preview: 'cd-deviation-mat'
+    },
+
     // #endregion CD
 
     // #region EVJ
@@ -410,6 +440,7 @@ export const WIDGETS_LAZY = {
     // 'point-diagram': {
     //     import: async () => await import('src/app/widgets/point-diagram/point-diagram.module'),
     // },
+
     'industrial-pyramid': {
         import: async () => {
             return await import('src/app/widgets/production-pyramid/production-pyramid.module');
@@ -421,6 +452,7 @@ export const WIDGETS_LAZY = {
         minItemRows: 16,
         preview: 'industrial-pyramid'
     },
+
     // 'bar-chart': {
     //     import: async () => await import('src/app/widgets/bar-chart/bar-chart.module'),
     // },
