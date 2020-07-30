@@ -6,7 +6,7 @@ export const DATASOURCE: IAPSRecipeDiagram[] = [
         codePims: 'WT6',
         productName: 'НЕФТЬ АВТ-6\n',
         productDeviation: 43504.6,
-        deviationQuality: 0,
+        deviationQuality: 1,
         type: 'stream',
         values: [{
             date: new Date('2020-02-01T03:24:00'),

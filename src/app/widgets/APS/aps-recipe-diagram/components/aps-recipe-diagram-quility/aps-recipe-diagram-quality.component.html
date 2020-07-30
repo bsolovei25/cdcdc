@@ -70,16 +70,15 @@
             </ng-template>
             <span class="table__body__column__row-title__text__pims"
             >{{ element.codePims }}
-                    </span>
+            </span>
             <span class="table__body__column__row-title__text__name"
             >{{ element.productName }}
-                    </span>
+            </span>
           </div>
           <ng-container *ngIf="column.name !== 'productName'">
                     <span
                       [class.table__body__column__row-title__value]="element.deviationQuality === 1 && selectedRowProduct === element.id"
-                    >{{element.productDeviation }}</span
-                    >
+                    >{{element.productDeviation }}</span>
             <svg-icon
               *ngIf="element.deviationQuality === 1 && selectedRowProduct === element.id"
               class="table__body__column__row-title__icon__background--orange"

@@ -1,29 +1,50 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Inject, Input, OnDestroy, OnInit } from '@angular/core';
+import { WidgetPlatform } from '../../../dashboard/models/widget-platform';
+import { WidgetService } from '../../../dashboard/services/widget.service';
 import {
-    IAPSRecipeDiagram,
-    IAPSRecipeDiagramValue,
+    IAPSRecipeDiagram, IAPSRecipeDiagramValue,
     IColumnsToDisplay
-} from '../../aps-recipe-diagram.component';
+} from '../../APS/aps-recipe-diagram/aps-recipe-diagram.component';
 import { SelectionModel } from '@angular/cdk/collections';
+import { DATASOURCE } from '../../APS/aps-recipe-diagram/mock';
 
 @Component({
-    selector: 'evj-aps-recipe-diagram-quality',
-    templateUrl: './aps-recipe-diagram-quality.component.html',
-    styleUrls: ['./aps-recipe-diagram-quality.component.scss']
+    selector: 'evj-cd-reactor-parameters',
+    templateUrl: './cd-reactor-parameters.component.html',
+    styleUrls: ['./cd-reactor-parameters.component.scss']
 })
-export class ApsRecipeDiagramQualityComponent implements OnInit {
+export class CdReactorParametersComponent extends WidgetPlatform implements OnInit, OnDestroy {
 
-    @Input() dataSourceQuality: IAPSRecipeDiagram[] = [];
-    @Input() columnsToDisplay: IColumnsToDisplay[] = [];
+    dataSourceQuality: IAPSRecipeDiagram[] = DATASOURCE;
+    columnsToDisplay: IColumnsToDisplay[] = [
+        { name: 'Параметры', date: new Date() },
+        { name: 'Факт', date: new Date('2020-02-01T03:24:00') },
+        { name: 'Модель', date: new Date('2020-02-02T03:24:00') }
+    ];
 
     expandedElement: SelectionModel<number> = new SelectionModel(true);
     selectedRowProduct: number;
     selectedRow: SelectionModel<string> = new SelectionModel(true);
 
-    constructor() {
+    constructor(public widgetService: WidgetService,
+                @Inject('isMock') public isMock: boolean,
+                @Inject('widgetId') public id: string,
+                @Inject('uniqId') public uniqId: string
+    ) {
+        super(widgetService, isMock, id, uniqId);
     }
 
     ngOnInit(): void {
+        super.widgetInit();
+    }
+
+    protected async dataConnect(): Promise<void> {
+        super.dataConnect();
+    }
+
+    protected dataHandler(
+        ref: any
+    ): void {
     }
 
     onClickTr(
