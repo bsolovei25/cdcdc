@@ -1,0 +1,18 @@
+.svg {
+  &__circle {
+    fill: var(--color-bg-main);
+    stroke: var(--color-kpe-gaude-active);
+
+    &--deviation {
+      stroke: var(--color-kpe-eq-chart-row-over);
+    }
+  }
+
+  &__modal {
+    display: none;
+
+    &--visible {
+      display: block;
+    }
+  }
+}
