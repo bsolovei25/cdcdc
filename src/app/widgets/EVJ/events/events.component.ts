@@ -282,6 +282,7 @@ export class EventsComponent extends WidgetPlatform implements OnInit, OnDestroy
             dates: this.widgetService.currentDates$.getValue(),
             placeNames: this.placeNames,
             isVideoWall: this.widgetIsVideoWall,
+            sortType: this.widgetSortType,
         };
         return options;
     }
