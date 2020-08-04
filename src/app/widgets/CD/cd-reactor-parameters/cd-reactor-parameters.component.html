@@ -111,6 +111,7 @@
                   src="assets/icons/widgets/APS/aps-recipe-diagram/gradient-grey.svg"
                 >
                 </svg-icon>
+
                 <span
                   class="table__body__column__row-title__text"
                   [class.table__body__column__row-title--no-active]="selectedRow.isSelected(element.productName)"
@@ -118,13 +119,13 @@
                 <span
                   class="table__body__column__row-title__text"
                   [class.table__body__column__row-title--no-active]="selectedRow.isSelected(element.productName)"
-                >С</span>
+                >°С</span>
               </div>
               <ng-container *ngIf="column.name !== 'Параметры'">
                 <ng-container *ngFor="let valueColumn of searchValue(elementChildren?.values, column)">
                  <span
                    [class.table__body__column__row-title__value]="element.deviationQuality === 1 && selectedRowProduct === element.id"
-                 >{{element.productDeviation | number: "decimalPipe" }}</span
+                 >{{element.productDeviation.toFixed(0) }}</span
                  >
                 </ng-container>
                 <svg-icon
@@ -143,3 +144,4 @@
     </table>
   </div>
 </div>
+
