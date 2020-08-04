@@ -51,3 +51,18 @@
 
   }
 }
+
+.mat-balance {
+  &__gauge {
+    position: absolute;
+  }
+
+  &__mneonic {
+    min-width: 1200px;
+    max-width: 1200px;
+    svg {
+      margin-top: 32px;
+      margin-left: 69px;
+    }
+  }
+}
