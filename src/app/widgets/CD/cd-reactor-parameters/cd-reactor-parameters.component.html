@@ -42,7 +42,7 @@
                 </svg-icon>
 
                 <svg-icon
-                  *ngIf="selectedRowProduct === element.id && element.type !== 'unit'; else elseBlock"
+                  *ngIf="selectedRowProduct === element.id; else elseBlock"
                   class="table__body__column__row-title__icon__background"
                   src="assets/icons/widgets/APS/aps-recipe-diagram/gradient-blue.svg"
                 >
@@ -56,11 +56,7 @@
                 </span>
 
                 <ng-template #elseBlock>
-                  <svg-icon
-                    class="table__body__column__row-title__icon__background"
-                    src="assets/icons/widgets/APS/aps-recipe-diagram/gradient-grey.svg"
-                  >
-                  </svg-icon>
+
                 </ng-template>
 
               </div>
@@ -97,20 +93,14 @@
                   src="assets/icons/widgets/APS/aps-recipe-diagram/left-row-block-active-recipe.svg"
                 >
                 </svg-icon>
-                <svg-icon
-                  *ngIf="selectedRowProduct === elementChildren.id"
-                  [svgStyle]="{'height.px':'28'}"
-                  class="table__body__column__row-title__icon__background-children"
-                  src="assets/icons/widgets/APS/aps-recipe-diagram/gradient-grey.svg"
-                >
-                </svg-icon>
-                <svg-icon
-                  *ngIf="selectedRowProduct !== elementChildren.id"
-                  [svgStyle]="{'height.px':'27'}"
-                  class="table__body__column__row-title__icon__background-children"
-                  src="assets/icons/widgets/APS/aps-recipe-diagram/gradient-grey.svg"
-                >
-                </svg-icon>
+                <!--  <svg-icon
+                    *ngIf="selectedRowProduct === elementChildren.id"
+                    [svgStyle]="{'height.px':'28'}"
+                    class="table__body__column__row-title__icon__background-children"
+                    src="assets/icons/widgets/APS/aps-recipe-diagram/gradient-grey.svg"
+                  >
+                  </svg-icon>-->
+
 
                 <span
                   class="table__body__column__row-title__text"
