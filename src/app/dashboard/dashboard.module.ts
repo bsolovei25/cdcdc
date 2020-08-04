@@ -78,7 +78,12 @@ import { AdminPanelComponent } from './widgets/admin-panel/admin-panel.component
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { MatNativeDateModule, MAT_DATE_LOCALE, MAT_DATE_FORMATS } from '@angular/material/core';
+import {
+    MatNativeDateModule,
+    MAT_DATE_LOCALE,
+    MAT_DATE_FORMATS,
+    MatRippleModule
+} from '@angular/material/core';
 import { AdminReferencesComponent } from './widgets/admin-references/admin-references.component';
 import { CardVerifierComponent } from './widgets/change-shift/card-verifier/card-verifier.component';
 import { PetroleumProductsMovementComponent } from './widgets/petroleum-products-movement/petroleum-products-movement.component';
@@ -561,7 +566,7 @@ import { AdminShiftBrigadeOldComponent } from './widgets/admin-widget/admin-shif
         FileAttachMenuComponent,
         AdminShiftScheduleOldComponent,
     ],
-    exports: [HomeComponent, PerformanceBarComponent],
+    exports: [HomeComponent, PerformanceBarComponent, MatRippleModule],
     imports: [
         CommonModule,
         SharedModule,
@@ -572,6 +577,7 @@ import { AdminShiftBrigadeOldComponent } from './widgets/admin-widget/admin-shif
         GridsterModule,
         DashboardRoutingModule,
         MatSnackBarModule,
+        MatRippleModule,
         MatDatepickerModule,
         MatFormFieldModule,
         MatInputModule,
@@ -599,6 +605,7 @@ import { AdminShiftBrigadeOldComponent } from './widgets/admin-widget/admin-shif
         PdfViewerModule,
         MatTooltipModule,
         MatMenuModule,
+        MatRippleModule,
     ],
     bootstrap: [],
     providers: [

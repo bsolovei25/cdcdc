@@ -1,36 +1,18 @@
-import {
-    AfterViewInit,
-    Component,
-    ElementRef,
-    Input, OnDestroy,
-    OnInit,
-    SimpleChanges,
-    ViewChild
-} from '@angular/core';
-
+import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import * as d3Selection from 'd3-selection';
 import * as d3 from 'd3';
-import {
-    ISplineDiagramData,
-    ISplineDiagramSize, LineType
-} from '../../../widgets/LCO/spline-trends-chart/components/spline-diagram/spline-diagram.component';
-import { HttpClient } from '@angular/common/http';
-import { timestamp } from 'rxjs/operators';
 
 interface ICdIndicatorLoad {
-    // name: string;
     percentValue: number;
-    //
-    // value: number;
-    // deviation: number;
 }
 
 @Component({
-    selector: 'evj-dev-graph',
-    templateUrl: './dev-graph.component.html',
-    styleUrls: ['./dev-graph.component.scss']
+  selector: 'evj-cd-mat-balance-gauge',
+  templateUrl: './cd-mat-balance-gauge.component.html',
+  styleUrls: ['./cd-mat-balance-gauge.component.scss']
 })
-export class DevGraphComponent implements OnInit, AfterViewInit {
+export class CdMatBalanceGaugeComponent implements OnInit, AfterViewInit {
+
     @ViewChild('gauge') gaugeElement: ElementRef;
     @ViewChild('diagram', { static: false }) private diagram: ElementRef;
 
@@ -306,6 +288,4 @@ export class DevGraphComponent implements OnInit, AfterViewInit {
             .style('transform', (d) => `rotate(${scaleFn(d)}deg)`);
     }
 
-    //#endregion gaude functions
 }
-
