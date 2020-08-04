@@ -301,10 +301,10 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, OnDes
                     .attr(
                         'xlink:href',
                         item.nameTanker === 'shipTrain'
-                            ? tug
+                            ? cis
                             : item.nameTanker === 'shipTube'
                             ? tube
-                            : cis
+                            : tug
                     )
                     .attr('height', '50px')
                     .attr('width', '60px')

@@ -1,101 +1,55 @@
-import {
-    Component,
-    OnInit,
-    OnDestroy,
-    Inject,
-    ViewChild,
-    ElementRef,
-    AfterViewInit
-} from '@angular/core';
-import { WidgetPlatform } from '../../../dashboard/models/widget-platform';
-import { WidgetService } from '../../../dashboard/services/widget.service';
-
+import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import * as d3Selection from 'd3-selection';
 import * as d3 from 'd3';
 
-export interface IApsIndicatorLoad {
-    name: string;
-    value: number;
-    deviation: number;
+interface ICdIndicatorLoad {
     percentValue: number;
 }
 
 @Component({
-    selector: 'evj-indicator-load-deviation',
-    templateUrl: './indicator-load-deviation.component.html',
-    styleUrls: ['./indicator-load-deviation.component.scss']
+  selector: 'evj-cd-mat-balance-gauge',
+  templateUrl: './cd-mat-balance-gauge.component.html',
+  styleUrls: ['./cd-mat-balance-gauge.component.scss']
 })
-export class IndicatorLoadDeviationComponent extends WidgetPlatform
-    implements OnInit, AfterViewInit, OnDestroy {
+export class CdMatBalanceGaugeComponent implements OnInit, AfterViewInit {
 
-    @ViewChild('diagram', { static: true }) private diagram: ElementRef;
+    @ViewChild('gauge') gaugeElement: ElementRef;
+    @ViewChild('diagram', { static: false }) private diagram: ElementRef;
 
-    public activeCard: IApsIndicatorLoad;
-    private data: IApsIndicatorLoad[] = [
-        {
-            name: 'План первичной переработки',
-            value: 1600537,
-            deviation: -537,
-            percentValue: 98
-        },
-        {
-            name: 'Гидроочистка ДТ',
-            value: 850074,
-            deviation: -298,
-            percentValue: 87
-        },
-        {
-            name: 'Риформинг',
-            value: 70470,
-            deviation: -348,
-            percentValue: 45
-        },
-        {
-            name: 'Кат. крекинг',
-            value: 126679,
-            deviation: -329,
-            percentValue: 67
-        },
-        {
-            name: 'Ароматика',
-            value: 640667,
-            deviation: -104,
-            percentValue: 52
-        },
-        {
-            name: 'Прочее',
-            value: 272118,
-            deviation: -82,
-            percentValue: 15
-        }
-    ];
+    public data: ICdIndicatorLoad = {
+        percentValue: 50
+    };
 
-    private svgMenu;
-    private svgBody;
+    private svgBody: any;
 
-    constructor(
-        protected widgetService: WidgetService,
-        @Inject('isMock') public isMock: boolean,
-        @Inject('widgetId') public id: string,
-        @Inject('uniqId') public uniqId: string
-    ) {
-        super(widgetService, isMock, id, uniqId);
+    constructor() {
     }
 
-    public ngOnInit(): void {
-        super.widgetInit();
-        this.activeCard = this.data.shift();
+    ngOnInit(): void {
     }
 
-    public ngAfterViewInit(): void {
+    ngAfterViewInit(): void {
         this.drawWidget();
     }
 
-    public ngOnDestroy(): void {
-        super.ngOnDestroy();
+    getLineWidth(curValue: number, maxValue: number): string {
+        return `width: ${curValue / maxValue * 100}%`;
     }
 
-    protected dataHandler(ref: any): void {
+    get chartWidth(): string {
+        if (!(this.gaugeElement?.nativeElement?.offsetHeight > 0)) {
+            return;
+        }
+        const height = this.gaugeElement.nativeElement.offsetHeight;
+        return `min-width: ${height}px; max-width: ${height}px;`;
+    }
+
+    get borderLeft(): string {
+        if (!(this.gaugeElement?.nativeElement?.offsetHeight > 0)) {
+            return;
+        }
+        const height = this.gaugeElement.nativeElement.offsetHeight;
+        return `left: ${height / 2}px`;
     }
 
     private drawWidget(): void {
@@ -110,7 +64,7 @@ export class IndicatorLoadDeviationComponent extends WidgetPlatform
         this.svgBody
             .attr('width', '100%')
             .attr('height', '100%')
-            .attr('viewBox', '0 0 400 200');
+            .attr('viewBox', '0 0 200 200');
 
         const indicator = this.svgBody.append('g').attr('class', 'indicator');
         indicator
@@ -144,12 +98,12 @@ export class IndicatorLoadDeviationComponent extends WidgetPlatform
             .style('transform', 'scaleY(-1)');
 
         const gaude = indicator.append('g').attr('class', 'gaude');
-        this.drawBigGaude(gaude, this.activeCard.percentValue);
+        this.drawBigGaude(gaude, this.data.percentValue);
         const innerGaude = gaude.append('g').attr('class', 'innerGaude');
-        this.drawInnerGaude(innerGaude, this.activeCard.percentValue);
+        this.drawInnerGaude(innerGaude, this.data.percentValue);
         const text = gaude.append('g').attr('class', 'gaude-text');
         this.drawTextInGaude(text);
-        gaude.style('transform', 'translate(25%, 51%) scale(9)');
+        gaude.style('transform', 'translate(50%, 51.5%) scale(8.9)');
     }
 
     private drawBigGaude(block: any, data: any): void {
@@ -177,7 +131,7 @@ export class IndicatorLoadDeviationComponent extends WidgetPlatform
         this.drawArc(pie([1]), 'back-arc', arc, svg); // отрисовка внешней дуги
         this.drawArc(pie([1]), 'deviation-arc', innerArc, svg); // отрисовка подвижной дуги
         this.drawArc(lastPie([data]), 'needle-arc', innerArc, svg); // отрисовка подвижной дуги
-        this.drawArc(pie(new Array(80)), 'dashed-arc', dashedArc, svg.append('g')); // отрисовка пунктирной дуги
+        this.drawArc(pie(new Array(100)), 'dashed-arc', dashedArc, svg.append('g')); // отрисовка пунктирной дуги
 
         // позиция бегунка в положении 0
         const needlePos = {
@@ -230,47 +184,31 @@ export class IndicatorLoadDeviationComponent extends WidgetPlatform
         block
             .append('text')
             .attr('class', 'value')
-            .attr('text-anchor', 'end')
-            .attr('x', 3.2)
-            .attr('y', -1)
-            .text(this.activeCard.value);
-        block
-            .append('text')
-            .attr('class', 'deviation')
-            .attr('text-anchor', 'end')
-            .attr('x', 3.2)
-            .attr('y', 1)
-            .text(this.activeCard.deviation);
+            .attr('text-anchor', 'middle')
+            .attr('x', 0)
+            .attr('y', 0)
+            .text(this.data.percentValue);
         block
             .append('text')
             .attr('class', 'units')
             .attr('text-anchor', 'middle')
             .attr('x', 0)
             .attr('y', 3)
-            .text('ТН');
-
-        let text = this.activeCard.name;
-        if (text.length > 14) {
-            text = text.slice(0, 11) + '...';
-        }
-
+            .text('%');
+        block
+            .append('text')
+            .attr('class', 'name')
+            .attr('text-anchor', 'middle')
+            .attr('x', 0)
+            .attr('y', 6)
+            .text('Загрузка');
         block
             .append('text')
             .attr('class', 'name')
             .attr('text-anchor', 'middle')
             .attr('x', 0)
             .attr('y', 7.5)
-            .text(text);
-        block
-            .append('image')
-            .attr(
-                'xlink:href',
-                'assets/icons/widgets/APS/aps-indicator-load-deviation/deviation-arrow.svg'
-            )
-            .attr('x', -3.5)
-            .attr('y', 0)
-            .attr('width', 1.2)
-            .attr('height', 1.2);
+            .text('Установок');
     }
 
     //#region gaude functions
@@ -350,5 +288,4 @@ export class IndicatorLoadDeviationComponent extends WidgetPlatform
             .style('transform', (d) => `rotate(${scaleFn(d)}deg)`);
     }
 
-    //#endregion gaude functions
 }

@@ -88,6 +88,7 @@ export class SplineDiagramComponent implements OnChanges {
         this.data = changes.data?.currentValue ? changes.data?.currentValue : this.data;
         if (this.size?.width && this.size?.height && this.data) {
             this.drawSvg();
+            setTimeout(() => this.drawSvg(), 100);
         }
     }
 

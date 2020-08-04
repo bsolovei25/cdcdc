@@ -1,0 +1,171 @@
+$color-bg-border: rgba(92, 101, 133, 0.25);
+$color-text-label: #D7E2F2;
+$color-text-value: #8A98B3;
+$color-diagram-bg: #0B1325;
+$color-diagram-active: #0089FF;
+$color-diagram-sub: rgba(92, 101, 133, .2);
+$color-header-bg: rgba(92, 101, 133, 0.1);
+
+.box-container {
+  position: relative;
+  display: flex;
+  width: 500px;
+  height: 190px;
+
+  .gauge-container {
+    height: 100%;
+    box-sizing: border-box;
+    border: solid 2px $color-bg-border;
+    border-radius: 50%;
+  }
+
+  .diagrams-container {
+    display: flex;
+    flex-flow: column;
+    justify-content: space-evenly;
+    flex-grow: 1;
+    height: 100%;
+    box-sizing: border-box;
+    padding: 0 15px 0 20px;
+  }
+
+  .border-container {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    border: 1px $color-bg-border;
+    border-style: solid solid solid none;
+    border-radius: 5px;
+  }
+}
+
+.diagram-container {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  width: 100%;
+  height: 32px;
+
+  .label {
+    font-size: 13px;
+    color: $color-text-label;
+  }
+
+  .diagram-component {
+    display: flex;
+    flex-grow: 1;
+    gap: 5px;
+    width: 100%;
+
+    .value {
+      font-size: 13px;
+      color: $color-text-value;
+      margin: auto;
+    }
+  }
+}
+
+.line-diagram-container {
+  $dashed-width: 3px;
+  height: 10px;
+  flex-grow: 1;
+  grid-area: diagram;
+  position: relative;
+  padding: 2px 5px;
+  box-sizing: border-box;
+  background: $color-diagram-bg;
+  margin: auto;
+  border-radius: 2px;
+
+  .line-diagram-container-entry {
+    position: relative;
+    width: 100%;
+    height: 100%;
+  }
+
+  .line-diagram-background {
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    background-image: linear-gradient(90deg, $color-diagram-sub, $color-diagram-sub 60%, transparent 60%, transparent 100%);
+    background-size: $dashed-width 1px;
+    border: none;
+  }
+
+  .line-diagram-value {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    box-sizing: border-box;
+    background-image: linear-gradient(90deg, $color-diagram-active, $color-diagram-active 60%, transparent 60%, transparent 100%);
+    background-size: $dashed-width 1px;
+    border: none;
+  }
+}
+
+
+.diagram {
+  width: 100%;
+  height: 100%;
+
+  &::ng-deep {
+    .back-arc,
+    .dashed-arc {
+      fill: var(--color-aps-gaude-back);
+    }
+
+    .needle-arc {
+      fill: var(--color-aps-active);
+    }
+
+    .deviation-arc {
+      fill: $color-diagram-sub;
+    }
+
+    .end-line {
+      stroke: var(--color-aps-gaude-line);
+      stroke-width: 0.3px;
+    }
+
+    .needle {
+      stroke: var(--color-aps-active-line);
+      stroke-width: 0.3px;
+    }
+
+    .arc-line {
+      fill: var(--color-aps-gaude-back-line);
+    }
+
+    .circle-needle {
+      fill: var(--color-aps-active);
+    }
+
+    .value {
+      fill: $color-text-label;
+      font-size: 3px;
+    }
+
+    .deviation {
+      fill: var(--color-aps-orange);
+      font-size: 1.5px;
+    }
+
+    .units {
+      fill: var(--color-text-sub-heading);
+      font-size: 1.3px;
+    }
+
+    .name {
+      fill: $color-text-label;
+      font-size: 1.5px;
+    }
+
+    .card {
+      &:hover {
+        cursor: pointer;
+      }
+    }
+  }
+}
