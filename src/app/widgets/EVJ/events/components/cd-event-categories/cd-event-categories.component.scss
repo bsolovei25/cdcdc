@@ -16,15 +16,14 @@
     border: 1px solid var(--color-cd-bg-border);
     border-left: 2px solid var(--color-cd-bg-border-sub);
     transition: all 0.2s;
+    background: linear-gradient(90deg, rgba(32,38,56,1) 0%, rgba(53,34,43,0) 76%);
 
     &:hover {
-      border: 1px solid var(--color-kpe-gaude-active);
       border-left: 2px solid var(--color-kpe-gaude-active);
       color: var(--color-text-main);
     }
 
     &--active {
-      border: 1px solid var(--color-kpe-gaude-active);
       border-left: 2px solid var(--color-kpe-gaude-active);
       background: linear-gradient(90deg, rgba(0, 137, 255, 0.24413515406162467) 0%, rgba(53, 34, 43, 0) 65%);
       color: var(--color-text-main);
@@ -37,6 +36,7 @@
     &__footer {
       display: flex;
       justify-content: space-between;
+      overflow: auto;
       font-size: 14px;
 
       &__icon {

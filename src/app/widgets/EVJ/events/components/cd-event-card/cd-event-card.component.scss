@@ -14,6 +14,7 @@
   &--danger {
     border-left: 2px solid var(--color-danger);
     background: linear-gradient(90deg, rgba(235, 87, 87, 0.2329306722689075) 0%, rgba(53, 34, 43, 0) 21%);
+    background-color: var(--color-cd-bg-component);
   }
 
   &--warning {
