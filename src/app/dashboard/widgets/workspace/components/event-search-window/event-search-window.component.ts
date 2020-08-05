@@ -9,7 +9,7 @@ import {
     ISearchRetrievalWindow,
     EventsWidgetNotification,
     IRetrievalEventDto,
-    EventsWidgetOptions, EventsWidgetNotificationPreview
+    IEventsWidgetOptions, EventsWidgetNotificationPreview
 } from 'src/app/dashboard/models/events-widget';
 import { EventService } from 'src/app/dashboard/services/widgets/event.service';
 import { BehaviorSubject, Observable } from 'rxjs';
@@ -101,7 +101,7 @@ export class EventSearchWindowComponent implements OnInit, OnChanges {
             this.results = [];
             return;
         }
-        const options: EventsWidgetOptions = {
+        const options: IEventsWidgetOptions = {
             description: searchString,
             categories: this.getAvailableRetrievalCategories(),
         };
