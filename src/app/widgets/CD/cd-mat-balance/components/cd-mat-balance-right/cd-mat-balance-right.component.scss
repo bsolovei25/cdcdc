@@ -92,7 +92,7 @@ $color-header-bg: rgba(92, 101, 133, 0.1);
             left: 0;
             background: linear-gradient(90deg, var(--color-cd-bg-border-sub), transparent);
             opacity: 0.2;
-            z-index: -1;
+            z-index: 0;
           }
 
           &__active {
