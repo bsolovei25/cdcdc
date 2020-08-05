@@ -267,6 +267,7 @@ import { AdminShiftListEmployeesOldComponent } from './widgets/admin-widget/admi
 import { AdminShiftInfoEmployeeOldComponent } from './widgets/admin-widget/admin-shift-schedule-old/components/admin-shift-info-employee-old/admin-shift-info-employee-old.component';
 import { AdminShiftCardOldComponent } from './widgets/admin-widget/admin-shift-schedule-old/components/admin-shift-card-old/admin-shift-card-old.component';
 import { AdminShiftBrigadeOldComponent } from './widgets/admin-widget/admin-shift-schedule-old/components/admin-shift-brigade-old/admin-shift-brigade-old.component';
+import { SouBalanceCardComponent } from '../widgets/SOU/sou-shared/sou-balance-card/sou-balance-card.component';
 
 @NgModule({
     declarations: [
@@ -497,6 +498,7 @@ import { AdminShiftBrigadeOldComponent } from './widgets/admin-widget/admin-shif
         AdminShiftInfoEmployeeOldComponent,
         AdminShiftCardOldComponent,
         AdminShiftBrigadeOldComponent,
+        SouBalanceCardComponent,
     ],
     entryComponents: [
         LineChartComponent,

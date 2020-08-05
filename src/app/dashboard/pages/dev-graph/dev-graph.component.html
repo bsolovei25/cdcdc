@@ -1,13 +1,13 @@
 <div class="page-container">
   <div class="widget-container">
-<!--    <evj-cd-mat-balance-chart></evj-cd-mat-balance-chart>-->
-<!--    <evj-cd-mat-balance-gauge></evj-cd-mat-balance-gauge>-->
-    <div class="container">
-      <div class="diagram-circle"></div>
-      <div class="label">label</div>
-      <div class="percent-value">55</div>
-      <div class="unit-value">55,47 т/ч</div>
-      <div class="vertical-line"></div>
+    <div class="column-container">
+      <evj-sou-balance-card [data]="{type: 'in', title: 'Сумма входа'}"></evj-sou-balance-card>
+      <evj-sou-balance-card [data]="{type: 'out', title: 'Сумма выхода'}"></evj-sou-balance-card>
+      <evj-sou-balance-card [data]="{type: 'delta', title: 'Дельта'}"></evj-sou-balance-card>
+      <evj-sou-balance-card [data]="{type: 'balance', title: 'Допустимый баланс'}"></evj-sou-balance-card>
     </div>
   </div>
 </div>
+
+
+
