@@ -53,13 +53,17 @@
 }
 
 .mat-balance {
+  background-color: var(--color-cd-bg-component);
   &__gauge {
     position: absolute;
+    top: 0;
+    background-color: var(--color-cd-bg-component);
   }
 
-  &__mneonic {
+  &__mnemonic {
     min-width: 1200px;
     max-width: 1200px;
+
     svg {
       margin-top: 32px;
       margin-left: 69px;

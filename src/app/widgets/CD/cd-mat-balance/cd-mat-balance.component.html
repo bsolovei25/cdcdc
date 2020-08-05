@@ -2,17 +2,14 @@
   [uniqId]="uniqId"
   (mouseenter)="onMouseEnter()"
   (mouseleave)="onMouseExit()"
-  *ngIf="isHover"
 >
 </evj-widget-header-smp>
 <div (mousedown)="$event.stopPropagation()"
-     (touchstart)="$event.stopPropagation()">
-
-  <!-- <evj-cd-mat-balance-chart></evj-cd-mat-balance-chart>-->
+     (touchstart)="$event.stopPropagation()" class="mat-balance">
   <div class="mat-balance__gauge">
     <evj-cd-mat-balance-gauge></evj-cd-mat-balance-gauge>
   </div>
-  <div class="mat-balance__mneonic">
+  <div class="mat-balance__mnemonic">
     <svg
       xmlns:svg="http://www.w3.org/2000/svg"
       xmlns="http://www.w3.org/2000/svg"
@@ -3142,5 +3139,8 @@
         </ng-container>
       </ng-container>
     </svg>
+  </div>
+  <div class="mat-balance__gauge">
+    <evj-cd-mat-balance-chart></evj-cd-mat-balance-chart>
   </div>
 </div>
