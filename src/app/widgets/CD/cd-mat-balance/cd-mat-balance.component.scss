@@ -1,53 +1,38 @@
-.svg {
-  &__circle {
-    fill: var(--color-bg-main);
-    stroke: var(--color-kpe-gaude-active);
 
-    &--deviation {
-      stroke: var(--color-kpe-eq-chart-row-over);
-    }
+.mat-balance {
+  position: relative;
+  height: 100%;
+  background-color: var(--color-cd-bg-component);
 
-    &__value {
-      visibility: visible;
-      opacity: 1;
-      transition: visibility 0.1s, opacity 0.1s linear;
-
-      &--disabled {
-        visibility: hidden;
-        opacity: 0;
-      }
-    }
-
-    &__eng-units {
-      visibility: visible;
-      opacity: 1;
-      transition: visibility 0.1s, opacity 0.1s linear;
-
-      &--disabled {
-        visibility: hidden;
-        opacity: 0;
-      }
-    }
-
-    &--disabled {
-      visibility: hidden;
-      opacity: 0;
-    }
+  &__gauge {
+    position: absolute;
+    top: 0;
+    background-color: var(--color-cd-bg-component);
   }
 
-  &__modal {
-    visibility: hidden;
-    opacity: 0;
-    transition: visibility 0.1s, opacity 0.1s linear;
-
-    &--visible {
-      visibility: visible;
-      opacity: 1;
-    }
+  &__chart {
+    position: absolute;
+    top: 0;
+    background-color: var(--color-cd-bg-component);
+    height: 100%;
   }
 
-  &__icon {
-    cursor: pointer;
+  &__right {
+    height: 100%;
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-color: var(--color-cd-bg-component);
+  }
 
+  &__mnemonic {
+    min-width: 1300px;
+    max-width: 1300px;
+    height: 100%;
+
+    svg {
+      margin-top: 16px;
+      margin-left: 27px;
+    }
   }
 }

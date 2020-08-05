@@ -4,11 +4,12 @@ import {
     ISplineDiagramSize
 } from '../../../../LCO/spline-trends-chart/components/spline-diagram/spline-diagram.component';
 import { HttpClient } from '@angular/common/http';
+import { CdMatBalanceService } from '../../../../../dashboard/services/widgets/CD/cd-mat-balance.service';
 
 @Component({
-  selector: 'evj-cd-mat-balance-chart',
-  templateUrl: './cd-mat-balance-chart.component.html',
-  styleUrls: ['./cd-mat-balance-chart.component.scss']
+    selector: 'evj-cd-mat-balance-chart',
+    templateUrl: './cd-mat-balance-chart.component.html',
+    styleUrls: ['./cd-mat-balance-chart.component.scss']
 })
 export class CdMatBalanceChartComponent implements OnInit, AfterViewInit {
 
@@ -21,7 +22,10 @@ export class CdMatBalanceChartComponent implements OnInit, AfterViewInit {
     @Input()
     public size: ISplineDiagramSize = null;
 
-    constructor(public http: HttpClient) {
+    public isMenuOpen: boolean = false;
+
+    constructor(public http: HttpClient,
+                private cdMatBalanceService: CdMatBalanceService) {
     }
 
     ngOnInit(): void {
@@ -29,7 +33,7 @@ export class CdMatBalanceChartComponent implements OnInit, AfterViewInit {
         const currentDatetime = this.dateHourRound(new Date());
         const startDatetime = this.dateHourRound(new Date(new Date().setHours(new Date().getHours() - (hourInterval - 1))));
         // TODO sort array
-        let testData: {value: number; timestamp: Date}[] = [];
+        let testData: { value: number; timestamp: Date }[] = [];
         for (let i = 0; i < 100; i++) {
             if (i === 49) {
                 continue;
@@ -51,20 +55,22 @@ export class CdMatBalanceChartComponent implements OnInit, AfterViewInit {
         testData = testData.filter(el => el.timestamp.getTime() >= startDatetime.getTime() && el.timestamp.getTime() <= currentDatetime.getTime());
         console.log(testData);
 
-        const normArray: {value: number; timestamp: Date}[] = [];
+        const normArray: { value: number; timestamp: Date }[] = [];
         for (const el of testData) {
             if (normArray.find(res => res.timestamp.getTime() === el.timestamp.getTime())) {
                 continue;
             }
             const filterValues = testData.filter(res => res.timestamp.getTime() === el.timestamp.getTime()).map(res => res.value);
             const resultValue = filterValues.map(res => res).reduce((prev, next) => prev + next) / filterValues.length;
-            normArray.push({timestamp: el.timestamp, value: resultValue});
+            normArray.push({ timestamp: el.timestamp, value: resultValue });
         }
 
-        const resultArray: {x: number, y: number}[] = normArray.map((el) => { return {
-            y: el.value,
-            x: (el.timestamp.getTime() - normArray[0].timestamp.getTime()) / (60 * 60 * 1000),
-        }; });
+        const resultArray: { x: number, y: number }[] = normArray.map((el) => {
+            return {
+                y: el.value,
+                x: (el.timestamp.getTime() - normArray[0].timestamp.getTime()) / (60 * 60 * 1000)
+            };
+        });
 
         console.log(resultArray);
     }
@@ -131,6 +137,18 @@ export class CdMatBalanceChartComponent implements OnInit, AfterViewInit {
             dataArray[idx] = el;
         });
         return dataArray;
+    }
+
+    onClickHeader(): void {
+        this.cdMatBalanceService.showDeviation.next(null);
+    }
+
+    public toggleMenu(): void {
+        this.isMenuOpen = !this.isMenuOpen;
+    }
+
+    public closeMenu(): void {
+        this.isMenuOpen = false;
     }
 
 }

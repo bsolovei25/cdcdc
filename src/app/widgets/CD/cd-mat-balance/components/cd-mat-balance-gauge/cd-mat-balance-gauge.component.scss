@@ -125,13 +125,13 @@ $color-header-bg: rgba(92, 101, 133, 0.1);
     }
 
     .end-line {
-      stroke: var(--color-aps-gaude-line);
-      stroke-width: 0.3px;
+      stroke: var(--color-aps-active-line);;
+      stroke-width: 0.5px;
     }
 
     .needle {
       stroke: var(--color-aps-active-line);
-      stroke-width: 0.3px;
+      stroke-width: 0.5px;
     }
 
     .arc-line {
@@ -144,7 +144,7 @@ $color-header-bg: rgba(92, 101, 133, 0.1);
 
     .value {
       fill: $color-text-label;
-      font-size: 3px;
+      font-size: 4px;
     }
 
     .deviation {

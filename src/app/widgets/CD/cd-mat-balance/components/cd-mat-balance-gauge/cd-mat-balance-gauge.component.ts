@@ -99,8 +99,6 @@ export class CdMatBalanceGaugeComponent implements OnInit, AfterViewInit {
 
         const gaude = indicator.append('g').attr('class', 'gaude');
         this.drawBigGaude(gaude, this.data.percentValue);
-        const innerGaude = gaude.append('g').attr('class', 'innerGaude');
-        this.drawInnerGaude(innerGaude, this.data.percentValue);
         const text = gaude.append('g').attr('class', 'gaude-text');
         this.drawTextInGaude(text);
         gaude.style('transform', 'translate(50%, 51.5%) scale(8.9)');
@@ -108,9 +106,9 @@ export class CdMatBalanceGaugeComponent implements OnInit, AfterViewInit {
 
     private drawBigGaude(block: any, data: any): void {
         const svg = block;
-        const min = 7.5;
+        const min = 6.5;
         const max = 10;
-        const innerMin = 8;
+        const innerMin = 7;
         const innerMax = 9.5;
         const startAngle = (-1.5 * Math.PI) / 2;
         const endAngle = (1.5 * Math.PI) / 2;
@@ -148,67 +146,35 @@ export class CdMatBalanceGaugeComponent implements OnInit, AfterViewInit {
         this.drawNeedle([data], 'needle', 'needle', svg, needlePos, scale);
     }
 
-    private drawInnerGaude(block: any, data: any): void {
-        const svg = block;
-        const lineMin = 6.6;
-        const lineMax = 6.8;
-        const rainbowMin = 5.5;
-        const rainbowMax = 5.9;
-        const startAngle = (-1.5 * Math.PI) / 2;
-        const endAngle = (1.5 * Math.PI) / 2;
-        const scale = d3
-            .scaleLinear()
-            .domain([0, 100]) // числовой диапазон
-            .range([0, 270]); // диапазон угла
-        const arc = this.defineArc(lineMin, lineMax); // параметры дуги
-        const pie = this.definePie(startAngle, endAngle); // функция дуги
-        this.drawArc(pie([1]), 'arc-line', arc, svg); // отрисовка дуги
-        const needlePos = {
-            cx: (-(lineMax + lineMin) / 2) * Math.cos(Math.PI / 4),
-            cy: ((lineMax + lineMin) / 2) * Math.sin(Math.PI / 4),
-            r: (lineMax - lineMin) * 1.5
-        };
-        this.drawCircleNeedle([data], 'circle-needle', 'circleNeedle', svg, needlePos, scale);
-        // пунктирная дуга
-        const rainbowArc = this.defineArc(rainbowMin, rainbowMax, 0.05); // параметры дуги
-        const rainbowG = svg.append('g').attr('class', 'rainbow');
-        this.drawArc(pie(new Array(30)), 'rainbow-arc', rainbowArc, rainbowG); // отрисовка дуги
-        const gradient = d3.interpolateHsl('#442726', '#4C7795'); // функция градиента
-        rainbowG.selectAll('.rainbow-arc')._groups[0].forEach((item, idx, arr) => {
-            const coef = (idx + 1) / arr.length;
-            d3.select(item).style('fill', gradient(coef));
-        });
-    }
-
     private drawTextInGaude(block: any): void {
         block
             .append('text')
             .attr('class', 'value')
             .attr('text-anchor', 'middle')
             .attr('x', 0)
-            .attr('y', 0)
+            .attr('y', 0.5)
             .text(this.data.percentValue);
         block
             .append('text')
             .attr('class', 'units')
             .attr('text-anchor', 'middle')
             .attr('x', 0)
-            .attr('y', 3)
+            .attr('y', 2.5)
             .text('%');
         block
             .append('text')
             .attr('class', 'name')
             .attr('text-anchor', 'middle')
             .attr('x', 0)
-            .attr('y', 6)
+            .attr('y', 6.5)
             .text('Загрузка');
         block
             .append('text')
             .attr('class', 'name')
             .attr('text-anchor', 'middle')
             .attr('x', 0)
-            .attr('y', 7.5)
-            .text('Установок');
+            .attr('y', 8)
+            .text('установки');
     }
 
     //#region gaude functions
@@ -266,26 +232,4 @@ export class CdMatBalanceGaugeComponent implements OnInit, AfterViewInit {
             .classed(classed, true)
             .style('transform', (d) => `rotate(${scaleFn(d)}deg)`);
     }
-
-    private drawCircleNeedle(
-        data: any[],
-        cls: string,
-        classed: string,
-        block: any,
-        needlePos: any,
-        scaleFn: any
-    ): any {
-        block
-            .selectAll(`.needle`)
-            .data(data)
-            .enter()
-            .append('circle')
-            .attr('class', cls)
-            .attr('cx', needlePos.cx)
-            .attr('cy', needlePos.cy)
-            .attr('r', needlePos.r)
-            .classed(classed, true)
-            .style('transform', (d) => `rotate(${scaleFn(d)}deg)`);
-    }
-
 }
