@@ -148,13 +148,15 @@
                     ></svg-icon>
                   </div>
                   <mat-menu #menu2="matMenu" class="customize-menu">
-                    <button
-                      mat-menu-item
-                      *ngFor="let b of allBrigade"
-                      (click)="onChooseBrigade(b, selectedDay)"
-                    >
-                      {{ b.brigadeNumber }}
-                    </button>
+                    <ng-container *ngFor="let b of allBrigade">
+                      <button
+                        *ngIf="b.brigadeId !== 0.1"
+                        mat-menu-item
+                        (click)="onChooseBrigade(b, selectedDay)"
+                      >
+                        {{ b.brigadeNumber }}
+                      </button>
+                    </ng-container>
                   </mat-menu>
                 </div>
               </section>

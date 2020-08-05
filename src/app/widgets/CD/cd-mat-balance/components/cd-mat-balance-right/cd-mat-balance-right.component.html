@@ -1,0 +1,51 @@
+<div class="panel-container">
+  <div class="panel_header">
+    <div class="icon">
+      <svg-icon [svgStyle]="{ 'width.%':100, 'height.%':100 }" src="assets/icons/widgets/CD/cd-mat-balance/settings.svg"></svg-icon>
+    </div>
+    <div class="label">Мат. баланс</div>
+    <span style="flex-grow: 1"></span>
+    <div class="units">%масс</div>
+  </div>
+  <div class="panel panel_info">
+    <div class="panel_info__buttons">
+      <div class="button">
+        <div class="gradient"></div>
+        <span class="label">Cек. 100</span>
+      </div>
+      <div class="button button__big button__active">
+        <div class="gradient"></div>
+        <span class="label">Cек. 200-300</span>
+      </div>
+    </div>
+    <div class="panel_info__value">
+      <span class="text"> 100 </span>
+    </div>
+  </div>
+  <div class="panel panel_content">
+    <div class="scroll-container scroll-bar">
+      <ng-container *ngTemplateOutlet="itemTemplate; context: {title: 'Сухой газ', percentValue: 50.1, value: 41.699}"></ng-container>
+      <ng-container *ngTemplateOutlet="itemTemplate; context: {title: 'ППФ', percentValue: 50.1, value: 41.699}"></ng-container>
+      <ng-container *ngTemplateOutlet="itemTemplate; context: {title: 'ББФ', percentValue: 50.1, value: 41.699}"></ng-container>
+      <ng-container *ngTemplateOutlet="itemTemplate; context: {title: 'ЛБ', percentValue: 50.1, value: 41.699}"></ng-container>
+      <ng-container *ngTemplateOutlet="itemTemplate; context: {title: 'ТБ', percentValue: 50.1, value: 41.699}"></ng-container>
+      <ng-container *ngTemplateOutlet="itemTemplate; context: {title: 'ЛГКК', percentValue: 50.1, value: 41.699}"></ng-container>
+      <ng-container *ngTemplateOutlet="itemTemplate; context: {title: 'ТГКК', percentValue: 50.1, value: 41.699}"></ng-container>
+      <ng-container *ngTemplateOutlet="itemTemplate; context: {title: 'Фр. > 420', percentValue: 50.1, value: 41.699}"></ng-container>
+    </div>
+  </div>
+  <div class="panel panel_footer"></div>
+</div>
+
+<ng-template #itemTemplate let-title="title" let-percentValue="percentValue" let-value="value">
+  <div class="item-container">
+    <div class="diagram-circle"></div>
+    <div class="label">{{title}}</div>
+    <div class="percent-value">{{percentValue | number: "0.0-0"}}</div>
+    <div class="unit-value">{{value | number: "0.1-2"}} т/ч</div>
+    <div class="vertical-line"></div>
+    <div class="icon">
+      <svg-icon [svgStyle]="{ 'width.px':17, 'height.px':17 }" src="assets/icons/widgets/CD/cd-mat-balance/tube.svg"></svg-icon>
+    </div>
+  </div>
+</ng-template>
