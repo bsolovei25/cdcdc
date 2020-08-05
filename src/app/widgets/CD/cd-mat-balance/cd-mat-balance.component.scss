@@ -26,12 +26,13 @@
   }
 
   &__mnemonic {
-    //min-width: 1300px;
-    //max-width: 1300px;
+    min-width: 1300px;
+    max-width: 1300px;
+    height: 100%;
 
     svg {
       margin-top: 16px;
-      margin-left: 23px;
+      margin-left: 27px;
     }
   }
 }
