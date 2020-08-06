@@ -610,4 +610,12 @@ export class LineChartWorkspaceComponent implements OnInit {
                 .attr('stop-color', 'transparent');
         }
     }
+
+    public getLastGraphValue(graphType: string): number {
+        const graph = this.data?.graphs?.find((d) => d.graphType === graphType) ?? null;
+        if (!(graph?.values?.length > 0)) {
+            return null;
+        }
+        return graph.values[graph.values.length - 1]?.value ?? null;
+    }
 }

@@ -1,5 +1,4 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { DATASOURCE } from '../../mock';
 import {
     IAPSRecipeDiagram,
     IAPSRecipeDiagramValue,

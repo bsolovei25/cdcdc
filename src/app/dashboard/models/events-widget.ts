@@ -313,13 +313,16 @@ export interface EventsWidgetData {
     action: EventAction;
 }
 
-export interface EventsWidgetOptions {
+export type SortTypeEvents = 'default' | 'dateStart' | 'isAcknowledged';
+
+export interface IEventsWidgetOptions {
     categories?: number[];
     filter?: EventsWidgetFilterCode;
     dates?: { fromDateTime: Date; toDateTime: Date };
     placeNames?: string[];
     description?: string;
     isVideoWall?: boolean;
+    sortType?: SortTypeEvents;
 }
 
 export interface EventsWidgetsStats {

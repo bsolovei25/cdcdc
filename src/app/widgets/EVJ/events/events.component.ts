@@ -3,7 +3,7 @@ import {
     EventsWidgetCategory,
     EventsWidgetCategoryCode,
     EventsWidgetNotificationPreview,
-    EventsWidgetOptions
+    IEventsWidgetOptions
 } from '../../../dashboard/models/events-widget';
 import { EventsWidgetFilter } from '../../../dashboard/models/events-widget';
 import {
@@ -275,13 +275,14 @@ export class EventsComponent extends WidgetPlatform implements OnInit, OnDestroy
         this.notificationsGrouped = this.sortArray(this.notifications, this.isList ? notificationsDivCapacity : 1);
     }
 
-    private getCurrentOptions(): EventsWidgetOptions {
-        const options: EventsWidgetOptions = {
+    private getCurrentOptions(): IEventsWidgetOptions {
+        const options: IEventsWidgetOptions = {
             categories: this.categories.filter((c) => c.isActive).map((c) => c.id),
             filter: this.filters.find((f) => f.isActive).code,
             dates: this.widgetService.currentDates$.getValue(),
             placeNames: this.placeNames,
-            isVideoWall: this.widgetIsVideoWall
+            isVideoWall: this.widgetIsVideoWall,
+            sortType: this.widgetSortType,
         };
         return options;
     }

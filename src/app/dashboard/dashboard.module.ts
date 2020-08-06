@@ -78,7 +78,12 @@ import { AdminPanelComponent } from './widgets/admin-panel/admin-panel.component
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { MatNativeDateModule, MAT_DATE_LOCALE, MAT_DATE_FORMATS } from '@angular/material/core';
+import {
+    MatNativeDateModule,
+    MAT_DATE_LOCALE,
+    MAT_DATE_FORMATS,
+    MatRippleModule
+} from '@angular/material/core';
 import { AdminReferencesComponent } from './widgets/admin-references/admin-references.component';
 import { CardVerifierComponent } from './widgets/change-shift/card-verifier/card-verifier.component';
 import { PetroleumProductsMovementComponent } from './widgets/petroleum-products-movement/petroleum-products-movement.component';
@@ -563,7 +568,7 @@ import { CdcpEventComponent } from './widgets/workspace/cdcp-event/cdcp-event.co
         FileAttachMenuComponent,
         AdminShiftScheduleOldComponent,
     ],
-    exports: [HomeComponent, PerformanceBarComponent],
+    exports: [HomeComponent, PerformanceBarComponent, MatRippleModule],
     imports: [
         CommonModule,
         SharedModule,
@@ -574,6 +579,7 @@ import { CdcpEventComponent } from './widgets/workspace/cdcp-event/cdcp-event.co
         GridsterModule,
         DashboardRoutingModule,
         MatSnackBarModule,
+        MatRippleModule,
         MatDatepickerModule,
         MatFormFieldModule,
         MatInputModule,
@@ -601,6 +607,7 @@ import { CdcpEventComponent } from './widgets/workspace/cdcp-event/cdcp-event.co
         PdfViewerModule,
         MatTooltipModule,
         MatMenuModule,
+        MatRippleModule,
     ],
     bootstrap: [],
     providers: [

@@ -38,6 +38,7 @@
 
     &__item {
       width: 20%;
+      margin-right: 0;
 
       &:last-child {
         margin-right: 0;
@@ -147,6 +148,7 @@
     &--display-standart {
       border: none;
       height: calc(100% - var(--filters-min-height) - var(--categories-min-height) - var(--padding));
+      background-color: var(--color-cd-bg-component);
     }
 
     &__list {
