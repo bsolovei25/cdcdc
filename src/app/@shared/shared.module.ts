@@ -51,11 +51,15 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { WidgetHeaderComponent } from './components/widget-header/widget-header.component';
 import { FrameTopComponent } from './components/frame-top/frame-top.component';
 import { FrameBottomComponent } from './components/frame-bottom/frame-bottom.component';
-import { ApsKpeWidgetHeaderComponent } from './components/aps-kpe-widget-header/aps-kpe-widget-header.component';
+import { ContemporaryWidgetHeaderComponent } from './components/contemporary-widget-header/contemporary-widget-header.component';
 import { WidgetHeaderSmpComponent } from './components/widget-header-smp/widget-header-smp.component';
 import { SafeUrlPipe } from './pipes/safe-url.pipe';
 import { ApsProgressBarComponent } from './components/aps-progress-bar/aps-progress-bar.component';
 import { KpeEqualizerChartComponent } from '../widgets/KPE/kpe-equalizer-chart/kpe-equalizer-chart.component'; // TODO переместить в модуль виджета, когда он будет готов
+import { ProductGroupsLeftComponent } from './components/SMP/product-group/product-groups-left/product-groups-left.component';
+import { ProductGroupsTableComponent } from './components/SMP/product-group/product-groups-table/product-groups-table.component';
+import { ProductGroupsMiddleComponent } from './components/SMP/product-group/product-groups-middle/product-groups-middle.component';
+import { ProductGroupsRightComponent } from './components/SMP/product-group/product-groups-right/product-groups-right.component';
 
 @NgModule({
     declarations: [
@@ -95,11 +99,15 @@ import { KpeEqualizerChartComponent } from '../widgets/KPE/kpe-equalizer-chart/k
         WidgetHeaderComponent,
         FrameTopComponent,
         FrameBottomComponent,
-        ApsKpeWidgetHeaderComponent,
+        ContemporaryWidgetHeaderComponent,
         WidgetHeaderSmpComponent,
         SafeUrlPipe,
         ApsProgressBarComponent,
         KpeEqualizerChartComponent,
+        ProductGroupsLeftComponent,
+        ProductGroupsMiddleComponent,
+        ProductGroupsRightComponent,
+        ProductGroupsTableComponent,
     ],
     exports: [
         HeaderComponent,
@@ -133,11 +141,12 @@ import { KpeEqualizerChartComponent } from '../widgets/KPE/kpe-equalizer-chart/k
         WidgetHeaderComponent,
         FrameTopComponent,
         FrameBottomComponent,
-        ApsKpeWidgetHeaderComponent,
+        ContemporaryWidgetHeaderComponent,
         WidgetHeaderSmpComponent,
         SafeUrlPipe,
         ApsProgressBarComponent,
         KpeEqualizerChartComponent,
+        ProductGroupsTableComponent,
     ],
     imports: [
         CommonModule,

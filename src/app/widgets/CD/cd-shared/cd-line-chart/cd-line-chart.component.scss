@@ -1,0 +1,61 @@
+$color-bg-border: rgba(92, 101, 133, 0.25);
+$color-text-label: #D7E2F2;
+$color-text-value: #8A98B3;
+$color-diagram-bg: #0B1325;
+$color-diagram-active: #0089FF;
+$color-diagram-sub: rgba(92, 101, 133, .2);
+$color-header-bg: rgba(92, 101, 133, 0.1);
+
+:host {
+  width: 100%;
+  height: 100%;
+}
+
+::ng-deep {
+  .circle {
+    fill: var(--color-bg-main);
+    &_plan {
+      stroke: $color-diagram-active;
+    }
+    &_fact {
+      stroke: white;
+    }
+    &_deviation {
+      stroke: orange;
+    }
+  }
+
+  .line {
+    fill: none;
+    stroke-width: 1;
+    &__plan {
+      stroke: $color-diagram-active;
+    }
+    &__fact {
+      stroke: var(--color-text-main);
+    }
+    &__threshold {
+      stroke: var(--color-cd-bg-border-sub);
+    }
+  }
+
+  .y-axis {
+    text {
+      fill: var(--color-cd-text-sub);
+      //fill: red;
+      font-size: 10px;
+    }
+  }
+
+  .grid {
+    color: white !important;
+    stroke-width: 0.5;
+    opacity: 0.6;
+    fill: white;
+
+    path {
+      fill: white;
+    }
+  }
+}
+

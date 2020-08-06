@@ -1,0 +1,38 @@
+
+.mat-balance {
+  position: relative;
+  height: 100%;
+  background-color: var(--color-cd-bg-component);
+
+  &__gauge {
+    position: absolute;
+    top: 0;
+    background-color: var(--color-cd-bg-component);
+  }
+
+  &__chart {
+    position: absolute;
+    top: 0;
+    background-color: var(--color-cd-bg-component);
+    height: 100%;
+  }
+
+  &__right {
+    height: 100%;
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-color: var(--color-cd-bg-component);
+  }
+
+  &__mnemonic {
+    min-width: 1300px;
+    max-width: 1300px;
+    height: 100%;
+
+    svg {
+      margin-top: 16px;
+      margin-left: 27px;
+    }
+  }
+}

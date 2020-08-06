@@ -313,7 +313,7 @@ export class PolarChartComponent extends WidgetPlatform implements OnInit, OnDes
             .attr('y', '11')
             .attr('text-anchor', 'middle')
             .attr('fill', '#a2e2ff')
-            .text(`${data[0].plan} ${data[0].valueType}`);
+            .text(`${data[0].planValue} ${data[0].valueType}`);
 
         let titleText2 = this.canvas
             .append('text')
@@ -363,7 +363,7 @@ export class PolarChartComponent extends WidgetPlatform implements OnInit, OnDes
             .attr('y', '28')
             .attr('text-anchor', 'middle')
             .attr('fill', '#a2e2ff')
-            .text(`${data[1].plan} ${data[1].valueType}`);
+            .text(`${data[1].planValue} ${data[1].valueType}`);
 
         let titleText3 = this.canvas
             .append('text')
@@ -413,7 +413,7 @@ export class PolarChartComponent extends WidgetPlatform implements OnInit, OnDes
             .attr('y', '84')
             .attr('text-anchor', 'middle')
             .attr('fill', '#a2e2ff')
-            .text(`${data[2].plan} ${data[2].valueType}`);
+            .text(`${data[2].planValue} ${data[2].valueType}`);
 
         let titleText4 = this.canvas
             .append('text')
@@ -463,7 +463,7 @@ export class PolarChartComponent extends WidgetPlatform implements OnInit, OnDes
             .attr('y', '102')
             .attr('text-anchor', 'middle')
             .attr('fill', '#a2e2ff')
-            .text(`${data[3].plan} ${data[3].valueType}`);
+            .text(`${data[3].planValue} ${data[3].valueType}`);
 
         let titleText5 = this.canvas
             .append('text')
@@ -513,7 +513,7 @@ export class PolarChartComponent extends WidgetPlatform implements OnInit, OnDes
             .attr('y', '84')
             .attr('text-anchor', 'middle')
             .attr('fill', '#a2e2ff')
-            .text(`${data[4].plan} ${data[4].valueType}`);
+            .text(`${data[4].planValue} ${data[4].valueType}`);
 
         let titleText6 = this.canvas
             .append('text')
@@ -563,7 +563,7 @@ export class PolarChartComponent extends WidgetPlatform implements OnInit, OnDes
             .attr('y', '28')
             .attr('fill', '#a2e2ff')
             .attr('text-anchor', 'middle')
-            .text(`${data[5].plan} ${data[5].valueType}`);
+            .text(`${data[5].planValue} ${data[5].valueType}`);
     }
 
     public drawNewLine(data): void {

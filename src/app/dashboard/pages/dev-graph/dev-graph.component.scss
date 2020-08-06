@@ -5,7 +5,81 @@
 }
 
 .widget-container {
-  width: 1000px;
-  height: 220px;
+  width: 500px;
+  height: 190px;
+  //width: 1000px;
+  //height: 1000px;
   margin: auto;
+}
+
+
+// var region
+$color-bg-border: rgba(92, 101, 133, 0.25);
+$color-text-label: #D7E2F2;
+$color-text-value: #8A98B3;
+$color-diagram-bg: #0B1325;
+$color-diagram-active: #0089FF;
+$color-diagram-sub: rgba(92, 101, 133, .2);
+$color-header-bg: rgba(92, 101, 133, 0.1);
+
+
+// second component region
+.container {
+  position: relative;
+  width: 160px;
+  height: 55px;
+  background-image: url("../../../../assets/icons/widgets/CD/cd-components/mat-bg.svg");
+
+  .diagram-circle {
+    position: absolute;
+    width: 45px;
+    height: 45px;
+    left: 5px;
+    top: calc(50% - 45px/2);
+    border: 2px solid #0089FF;
+    box-sizing: border-box;
+    border-radius: 50%;
+  }
+
+  .label {
+    position: absolute;
+    height: 16px;
+    left: 55px;
+    right: 0;
+    top: calc(50% - 16px/2 - 22.5px);
+    font-size: 13px;
+    line-height: 16px;
+    color: #D7E2F2;
+  }
+
+  .percent-value {
+    position: absolute;
+    width: 32px;
+    height: 16px;
+    left: 12px;
+    top: calc(50% - 16px/2);
+    font-size: 13px;
+    text-align: center;
+    color: #D7E2F2;
+  }
+
+  .unit-value {
+    position: absolute;
+    width: 59px;
+    height: 16px;
+    left: 60px;
+    top: calc(50% - 16px/2 + 6.5px);
+    font-size: 13px;
+    line-height: 16px;
+    color: #D7E2F2;
+  }
+
+  .vertical-line {
+    position: absolute;
+    width: 1px;
+    right: 39px;
+    top: calc(50% - 11.5px);
+    bottom: 1px;
+    background: rgba(92, 101, 133, 0.25);
+  }
 }

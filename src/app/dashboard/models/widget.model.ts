@@ -1,4 +1,5 @@
 import { LineChartOptions } from './line-chart';
+import { SortTypeEvents } from './events-widget';
 
 export interface WidgetGridsterSettings {
     itemRows: string;
@@ -21,6 +22,7 @@ export interface IWidget {
     categories?: string[];
     isClaim: boolean;
     isVideoWall?: boolean;
+    sortType?: SortTypeEvents;
 }
 
 export interface RingFactoryWidget {

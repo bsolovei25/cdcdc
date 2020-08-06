@@ -121,6 +121,7 @@ export class WidgetService {
                 categories: item.categories,
                 isClaim: item.isClaim,
                 isVideoWall: item.isVideoWall,
+                sortType: item.sortType,
             };
         });
     }
@@ -244,6 +245,7 @@ export class WidgetService {
             case 'production-deviations':
             case 'truncated-diagram-traffic-light':
             case 'astue-efficiency':
+            case 'spline-trends-chart':
                 return data;
         }
         console.warn(`unknown widget type ${widgetType}`);

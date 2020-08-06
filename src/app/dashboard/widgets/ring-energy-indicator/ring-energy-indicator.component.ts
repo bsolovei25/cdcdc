@@ -114,7 +114,7 @@ export class RingEnergyIndicatorComponent extends WidgetPlatform
                         .attr('y', y + 1)
                         .attr('fill', 'rgba(158,215,245)')
                         .attr('font-family', "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
-                        .text(i.plan);
+                        .text(i.planValue);
 
                     let name = this.svg
                         .append('text')
@@ -145,7 +145,7 @@ export class RingEnergyIndicatorComponent extends WidgetPlatform
                 .attr('y', 171)
                 .attr('fill', 'rgba(158,215,245)')
                 .attr('font-family', "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
-                .text(data.values[0].plan);
+                .text(data.values[0].planValue);
 
             let name = this.svg
                 .append('text')

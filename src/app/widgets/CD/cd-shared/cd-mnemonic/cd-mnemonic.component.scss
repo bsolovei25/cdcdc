@@ -1,0 +1,64 @@
+.svg {
+  &__circle {
+    fill: var(--color-bg-main);
+    stroke: var(--color-kpe-gaude-active);
+
+    &--deviation {
+      stroke: var(--color-kpe-eq-chart-row-over);
+    }
+
+    &__value {
+      visibility: visible;
+      opacity: 1;
+      transition: visibility 0.1s, opacity 0.1s linear;
+
+      &--disabled {
+        visibility: hidden;
+        opacity: 0;
+      }
+    }
+
+    &__eng-units {
+      visibility: visible;
+      opacity: 1;
+      transition: visibility 0.1s, opacity 0.1s linear;
+
+      &--disabled {
+        visibility: hidden;
+        opacity: 0;
+      }
+    }
+
+    &--disabled {
+      visibility: hidden;
+      opacity: 0;
+    }
+  }
+
+  &__modal {
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0.1s, opacity 0.1s linear;
+
+    &--visible {
+      visibility: visible;
+      opacity: 1;
+    }
+  }
+
+  &__icon {
+    cursor: pointer;
+
+  }
+}
+
+svg {
+  margin-top: 16px;
+  margin-left: 25px;
+}
+
+.container {
+  width: 100%;
+  height: calc(100% - 5px);
+}
+

@@ -5,7 +5,7 @@ import {
     EventsWidgetNotification,
     IStatus,
     ICategory,
-    EventsWidgetOptions,
+    IEventsWidgetOptions,
     EventsWidgetsStats,
     EventsWidgetNotificationPreview,
     IRetrievalEvents,
@@ -43,7 +43,7 @@ export class EventService {
 
     async getBatchData(
         lastId: number,
-        options: EventsWidgetOptions
+        options: IEventsWidgetOptions
     ): Promise<EventsWidgetNotificationPreview[]> {
         try {
             return this.http
@@ -57,7 +57,7 @@ export class EventService {
         }
     }
 
-    public async getStats(options: EventsWidgetOptions): Promise<EventsWidgetsStats> {
+    public async getStats(options: IEventsWidgetOptions): Promise<EventsWidgetsStats> {
         try {
             return this.http
                 .get<EventsWidgetsStats>(
@@ -425,7 +425,7 @@ export class EventService {
         return this.http.put<void>(url, null).toPromise();
     }
 
-    private getOptionString(lastId: number, options: EventsWidgetOptions): string {
+    private getOptionString(lastId: number, options: IEventsWidgetOptions): string {
         let res = `take=${this.batchSize}&lastId=${lastId}&`;
         if (options.dates) {
             res +=
@@ -460,6 +460,9 @@ export class EventService {
         }
         if (options.isVideoWall) {
             res += `&isVideoWall=${options.isVideoWall}`;
+        }
+        if (options.sortType) {
+            res += `&sortType=${options.sortType}`;
         }
         return res;
     }
