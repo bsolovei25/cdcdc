@@ -1,0 +1,29 @@
+<div class="container">
+  <div class="header">
+    <div class="header__icon">
+      <svg-icon [svgStyle]="{'width': '100%', 'height': '100%'}" src="assets/icons/widgets/SOU/header-icons/down.svg"></svg-icon>
+    </div>
+    <div class="header__label">Потери</div>
+  </div>
+  <div class="table-content">
+    <ng-container *ngTemplateOutlet="tableRow; context: {label: 'Суммарные потери'}"></ng-container>
+    <ng-container *ngTemplateOutlet="tableRow; context: {label: 'Идентефицированные потери', isButton: true}"></ng-container>
+    <ng-container *ngTemplateOutlet="tableRow; context: {label: 'Неидентифицированные потери'}"></ng-container>
+  </div>
+</div>
+
+<ng-template #tableRow let-label="label" let-isButton="isButton">
+  <div class="row">
+    <div class="label">
+      <span style="margin: auto">{{label}}</span>
+      <span style="flex-grow: 1"></span>
+      <div class="button" *ngIf="isButton" matRipple [matRippleColor]="'white'">
+        <span style="margin: auto">Открыть</span>
+      </div>
+    </div>
+    <div class="values">
+      <span>110 800 т.</span>
+      <span>3%</span>
+    </div>
+  </div>
+</ng-template>
