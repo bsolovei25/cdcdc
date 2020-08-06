@@ -146,7 +146,8 @@ export const WIDGETS = {
     'spline-trends-chart': WidgetContainerComponent,
     'cd-mat-balance': WidgetContainerComponent,
     'cd-deviation-mat': WidgetContainerComponent,
-    'cd-reactor-parameters': WidgetContainerComponent
+    'cd-reactor-parameters': WidgetContainerComponent,
+    'sou-operational-accounting-system': WidgetContainerComponent
 };
 
 export const WIDGETS_LAZY = {
@@ -251,7 +252,7 @@ export const WIDGETS_LAZY = {
         import: async () => {
             return await import(
                 'src/app/widgets/APS/indicator-load-deviation/indicator-load-deviation.module'
-            );
+                );
         },
         module: 'IndicatorLoadDeviationModule',
         itemCols: 12,
@@ -269,7 +270,7 @@ export const WIDGETS_LAZY = {
         import: async () => {
             return await import(
                 'src/app/widgets/KPE/key-performance-indicators/key-performance-indicators.module'
-            );
+                );
         },
         module: 'KeyPerformanceIndicatorsModule',
         itemCols: 19,
@@ -331,7 +332,7 @@ export const WIDGETS_LAZY = {
         import: async () => {
             return await import(
                 'src/app/widgets/admin/admin-shift-schedule/admin-shift-schedule.module'
-            );
+                );
         },
         module: 'AdminShiftScheduleModule',
         itemCols: 15,
@@ -349,7 +350,7 @@ export const WIDGETS_LAZY = {
         import: async () => {
             return await import(
                 'src/app/widgets/EVJ/events/events.module'
-            );
+                );
         },
         module: 'EventsModule',
         itemCols: 32,
@@ -363,7 +364,7 @@ export const WIDGETS_LAZY = {
         import: async () => {
             return await import(
                 'src/app/widgets/CD/cd-mat-balance/cd-mat-balance.module'
-            );
+                );
         },
         module: 'CdMatBalanceModule',
         itemCols: 40,
@@ -378,7 +379,7 @@ export const WIDGETS_LAZY = {
         import: async () => {
             return await import(
                 'src/app/widgets/CD/cd-reactor-parameters/cd-reactor-parameters.module'
-            );
+                );
         },
         module: 'CdReactorParametersModule',
         itemCols: 15,
@@ -392,7 +393,7 @@ export const WIDGETS_LAZY = {
         import: async () => {
             return await import(
                 'src/app/widgets/CD/cd-deviation-mat/cd-deviation-mat.module'
-            );
+                );
         },
         module: 'CdDeviationMatModule',
         itemCols: 15,
@@ -410,7 +411,7 @@ export const WIDGETS_LAZY = {
         import: async () => {
             return await import(
                 'src/app/widgets/EVJ/events/events.module'
-            );
+                );
         },
         module: 'EventsModule',
         itemCols: 32,
@@ -421,6 +422,24 @@ export const WIDGETS_LAZY = {
     },
 
     // #endregion EVJ
+
+    // #region SOU
+
+    'sou-operational-accounting-system': {
+        import: async () => {
+            return await import(
+                'src/app/widgets/SOU/sou-operational-accounting-system/sou-operational-accounting-system.module'
+                );
+        },
+        module: 'SouOperationalAccountingSystemModule',
+        itemCols: 32,
+        itemRows: 30,
+        minItemCols: 32,
+        minItemRows: 30,
+        preview: 'sou-operational-accounting-system'
+    },
+
+    // #endregion SOU
 
     // 'pie-diagram': {
     //     import: async () => await import('src/app/widgets/pie-diagram/pie-diagram.module'),
@@ -621,7 +640,7 @@ export const WIDGETS_LAZY = {
         import: async () =>
             await import(
                 'src/app/widgets/SMP/performance-progress-indicators/performance-progress-indicators.module'
-            ),
+                ),
         module: 'PerformanceProgressIndicatorsModule',
         itemCols: 9,
         itemRows: 7,
@@ -672,7 +691,7 @@ export const WIDGETS_LAZY = {
             {
                 return await import(
                     'src/app/widgets/SMP/production-deviations/production-deviations.module'
-                );
+                    );
             }
         },
         module: 'ProductionDeviationsModule',
