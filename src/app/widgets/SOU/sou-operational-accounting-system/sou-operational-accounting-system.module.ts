@@ -5,10 +5,11 @@ import { SouInStreamsComponent } from '../components/sou-in-streams/sou-in-strea
 import { AngularSvgIconModule } from 'angular-svg-icon';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { FormsModule } from '@angular/forms';
+import { SouDeviationCardsComponent } from './components/sou-deviation-cards/sou-deviation-cards.component';
 
 
 @NgModule({
-    declarations: [SouOperationalAccountingSystemComponent, SouInStreamsComponent],
+    declarations: [SouOperationalAccountingSystemComponent, SouInStreamsComponent, SouDeviationCardsComponent],
     imports: [
         CommonModule,
         AngularSvgIconModule,
