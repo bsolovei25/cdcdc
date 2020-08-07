@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-interface ISOUInStream {
+export interface ISOUInStream {
     name: string;
     firstValue: string;
     accept: string;

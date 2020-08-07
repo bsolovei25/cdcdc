@@ -1,0 +1,81 @@
+<div class="in-streams">
+  <table class="table">
+    <thead class="table__header">
+    <tr class="header__row">
+      <th class="header__column"></th>
+      <th class="header__column header__column__trust-value">Уровень доверия</th>
+      <th class="header__column"></th>
+      <th class="header__column header__column__diff">Мгновен. значение</th>
+      <th class="header__column header__column__diff">Значение за час</th>
+      <th class="header__column header__column__diff">Накоп.</th>
+      <th class="header__column">Согл.</th>
+      <th class="header__column"></th>
+      <th class="header__column"></th>
+
+    </tr>
+    </thead>
+    <tbody class="table__body">
+    <tr class="body__row"
+        *ngFor="let item of data; let idx = index"
+        [class.body__row_inactivity]="!item.isActive">
+      <td class="body__column">
+        <div class="column__block-pims">
+          <div class="column__block-pims__slide">
+            <mat-slide-toggle [(ngModel)]="item.isActive" disableRipple="true"></mat-slide-toggle>
+          </div>
+          <span class="column__block-pims__value">{{ item.pims }}</span>
+        </div>
+      </td>
+      <td class="body__column column body__column--padding-disabled body__column__trust-level">
+        <span class="body__column column__trust-level">{{ item.trustLevel }}</span></td>
+      <td class="body__column body__column__text_grey">{{ item.firstValue }}</td>
+      <td class="body__column body__column__text_grey">{{ item.accept }}</td>
+      <td
+        class="body__column">
+        <div class="column">
+          <div class="column__block">
+            <svg-icon
+              class="column__icon"
+              src="assets/icons/widgets/SOU/sou-in-streams/lightning.svg"
+              [svgStyle]="{ 'width.px': 8, 'height.px': 12 }"
+            ></svg-icon>
+            <span class="column__value">{{ item.instantaneousValue?.value }}</span>
+            <span class="column__eng-value">{{ item.instantaneousValue?.engValue }}</span>
+          </div>
+
+          <span class="column__percent">{{ item.instantaneousValue?.percent }}</span>
+        </div>
+      </td>
+      <td class="body__column">
+        <div class="column__block">
+          <svg-icon
+            src="assets/icons/widgets/SOU/sou-in-streams/stopwatch.svg"
+            [svgStyle]="{ 'width.px': 8, 'height.px': 9 }"
+          ></svg-icon>
+          <span class="column__value">{{ item.valueInAnHour?.value }}</span>
+          <span class="column__eng-value">{{ item.valueInAnHour?.engValue }}</span>
+        </div>
+
+        <span class="column__percent">{{ item.valueInAnHour?.percent }}</span>
+      </td>
+      <td class="body__column">
+        <div class="column__block">
+          <svg-icon
+            src="assets/icons/widgets/SOU/sou-in-streams/accum.svg"
+            [svgStyle]="{ 'width.px': 8, 'height.px': 9 }"
+          ></svg-icon>
+          <span class="column__value"> {{ item.accumulation?.value }}</span>
+          <span class="column__eng-value">{{ item.accumulation?.engValue }}</span>
+        </div>
+
+        <span class="column__percent">{{ item.accumulation?.percent }}</span>
+      </td>
+      <td class="body__column">{{ item.sevenValue }}</td>
+
+      <td class="body__column column body__column--padding-disabled">
+
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
