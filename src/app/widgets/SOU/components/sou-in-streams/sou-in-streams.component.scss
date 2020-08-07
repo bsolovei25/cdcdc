@@ -18,13 +18,17 @@
           vertical-align: bottom;
           padding: 0 10px 10px 10px;
 
+          &__diff {
+            min-width: 85px;
+          }
+
           &__trust-value {
             max-width: 50px;
 
           }
 
           &:first-of-type {
-            min-width: 120px;
+            min-width: 130px;
           }
         }
       }
@@ -33,12 +37,22 @@
     &__body {
       .body {
         &__row {
-
+          &_inactivity {
+            color: var(--color-border-main);
+          }
         }
 
         &__column {
-          padding: 0 10px;
+          padding: 0 7px;
           height: 32px;
+
+          &__svg-line {
+            margin-left: 8px;
+          }
+
+          &__text_grey {
+            color: var(--color-border-main);
+          }
 
           &--padding-disabled {
             padding: 0;
@@ -51,6 +65,7 @@
           .column {
             display: flex;
             flex-direction: column;
+
 
             &__block {
               display: flex;
@@ -69,22 +84,29 @@
               border-top-left-radius: 3px;
               border-bottom-left-radius: 3px;
               background-color: var(--color-gray80);
-              padding: 5px 5px;
+              display: flex;
+              align-items: center;
+              height: 20px;
             }
 
             &__block-pims {
               display: flex;
 
               &__value {
+                display: flex;
+                align-items: center;
                 border-top-right-radius: 3px;
                 border-bottom-right-radius: 3px;
                 background-color: var(--color-kpe-eq-chart-row-default);
-                padding: 5px 5px;
-                padding-left: 25px;
+                height: 20px;
+                padding-left: 31px;
+                padding-right: 6px;
+                margin-top: 2px;
               }
 
               &__slide {
                 margin-left: 10px;
+                min-width: 36px;
 
                 ::ng-deep {
                   .mat-slide-toggle-bar {
@@ -112,7 +134,7 @@
                   }
 
                   .mat-ripple-element {
-                    background-color: var(--color-text-main);
+                    background-color: transparent;
                   }
                 }
               }

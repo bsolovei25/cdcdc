@@ -10,6 +10,7 @@ interface ISOUInStream {
     sevenValue: string;
     trustLevel: string;
     pims: string;
+    isActive: boolean;
 }
 
 interface ISOUValue {
@@ -47,7 +48,8 @@ export class SouInStreamsComponent implements OnInit {
             },
             sevenValue: 'Нефть обес. и обезвож.',
             trustLevel: '100%',
-            pims: 'FOIL'
+            pims: 'FOIL',
+            isActive: true
         },
         {
             name: 'Установка №2',
@@ -70,7 +72,8 @@ export class SouInStreamsComponent implements OnInit {
             },
             sevenValue: 'Нефть обес. и обезвож.',
             trustLevel: '100%',
-            pims: 'FOIL'
+            pims: 'FOIL',
+            isActive: true
         },
         {
             name: 'Установка №3',
@@ -93,19 +96,11 @@ export class SouInStreamsComponent implements OnInit {
             },
             sevenValue: 'Нефть обес. и обезвож.',
             trustLevel: '100%',
-            pims: 'FOIL'
+            pims: 'FOIL',
+            isActive: true
         }
 
     ];
-
-    btnToggle: { id: number, isActive: boolean }[] = [
-        { id: 1, isActive: true },
-        { id: 2, isActive: true },
-        { id: 3, isActive: true }
-    ];
-    btnOne: boolean = true;
-    btnTwo: boolean = true;
-    btnThree: boolean = true;
 
     constructor() {
     }
