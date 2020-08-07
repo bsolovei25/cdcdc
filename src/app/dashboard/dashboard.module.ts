@@ -270,6 +270,7 @@ import { AdminShiftBrigadeOldComponent } from './widgets/admin-widget/admin-shif
 import { SouBalanceCardComponent } from '../widgets/SOU/sou-shared/sou-balance-card/sou-balance-card.component';
 import { SouProductionTableComponent } from '../widgets/SOU/sou-shared/sou-production-table/sou-production-table.component';
 import { SouLossesTableComponent } from '../widgets/SOU/sou-shared/sou-losses-table/sou-losses-table.component';
+import { SouDetailTableComponent } from '../widgets/SOU/sou-shared/sou-detail-table/sou-detail-table.component';
 
 @NgModule({
     declarations: [
@@ -503,6 +504,7 @@ import { SouLossesTableComponent } from '../widgets/SOU/sou-shared/sou-losses-ta
         SouBalanceCardComponent,
         SouProductionTableComponent,
         SouLossesTableComponent,
+        SouDetailTableComponent,
     ],
     entryComponents: [
         LineChartComponent,

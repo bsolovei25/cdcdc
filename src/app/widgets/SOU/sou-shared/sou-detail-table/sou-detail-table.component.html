@@ -1,0 +1,35 @@
+<div class="container">
+  <div class="header">
+    <div class="header__icon">
+      <svg-icon [svgStyle]="{'width': '100%', 'height': '100%'}" src="assets/icons/widgets/SOU/header-icons/search.svg"></svg-icon>
+    </div>
+    <div class="header__label">Идентифицированные потери</div>
+    <span style="flex-grow: 1"></span>
+    <div class="header__button-close">
+      <svg-icon [svgStyle]="{'width': '100%', 'height': '100%'}" src="assets/icons/widgets/SOU/header-icons/close.svg"></svg-icon>
+    </div>
+  </div>
+  <div class="table-content">
+    <ng-container *ngTemplateOutlet="tableRow; context: {label: 'Потери при сбросе газа установок на факел'}"></ng-container>
+    <ng-container *ngTemplateOutlet="tableRow; context: {label: 'Потери при сбросах газов разложения в печь'}"></ng-container>
+    <ng-container *ngTemplateOutlet="tableRow; context: {label: 'Потери при сбросах углеводородов со сточными водами'}"></ng-container>
+    <ng-container *ngTemplateOutlet="tableRow; context: {label: 'Потери от неплотностей технологического оборудования'}"></ng-container>
+    <ng-container *ngTemplateOutlet="tableRow; context: {label: 'Потери при сбросах на свечи рассеивания'}"></ng-container>
+    <ng-container *ngTemplateOutlet="tableRow; context: {label: 'Потери нефти и нефтепродуктов при отборе проб'}"></ng-container>
+    <ng-container *ngTemplateOutlet="tableRow; context: {label: 'Потери у/в при подготовке к ремонту'}"></ng-container>
+    <ng-container *ngTemplateOutlet="tableRow; context: {label: 'Потери в виде твёрдых отложений у/в при ремонте'}"></ng-container>
+    <ng-container *ngTemplateOutlet="tableRow; context: {label: 'Потери при пуске объектов и оборудования'}"></ng-container>
+    <ng-container *ngTemplateOutlet="tableRow; context: {label: 'Аварийные потери'}"></ng-container>
+  </div>
+</div>
+
+<ng-template #tableRow let-label="label">
+  <div class="row">
+    <div class="label">
+      <span>{{label}}</span>
+    </div>
+    <div class="value">
+      <span>2,5 т.</span>
+    </div>
+  </div>
+</ng-template>
