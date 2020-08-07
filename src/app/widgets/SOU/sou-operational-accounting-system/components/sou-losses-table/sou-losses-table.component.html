@@ -17,7 +17,7 @@
     <div class="label">
       <span style="margin: auto">{{label}}</span>
       <span style="flex-grow: 1"></span>
-      <div class="button" *ngIf="isButton" matRipple [matRippleColor]="'white'">
+      <div class="button" *ngIf="isButton" (click)="buttonClick()" matRipple [matRippleColor]="'white'">
         <span style="margin: auto">Открыть</span>
       </div>
     </div>

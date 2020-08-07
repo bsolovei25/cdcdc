@@ -1,7 +1,7 @@
 .container {
   display: flex;
   flex-flow: column;
-  background: var(--color-sou-bg);
+  background: var(--color-bg-main);
 
   .header {
     display: flex;
@@ -25,6 +25,7 @@
     &__button-close {
       width: 15px;
       height: 15px;
+      cursor: pointer;
     }
 
     &__label {
@@ -40,6 +41,7 @@
     border: 1px var(--color-sou-border);
     border-style: none solid none solid;
     box-sizing: border-box;
+    background: var(--color-sou-bg);;
 
     .row {
       display: flex;

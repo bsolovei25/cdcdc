@@ -2,7 +2,7 @@
   display: flex;
   height: 100%;
   flex-flow: column;
-  background: var(--color-sou-bg);
+  background: var(--color-bg-main);
 
   .header {
     display: flex;
@@ -41,6 +41,7 @@
     display: flex;
     flex-flow: column;
     width: 100%;
+    background: var(--color-sou-bg);
     border: 1px var(--color-sou-border);
     border-style: none solid solid solid;
     box-sizing: border-box;
