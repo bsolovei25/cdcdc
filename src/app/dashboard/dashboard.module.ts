@@ -506,7 +506,6 @@ import { SouDeviationCardsComponent } from '../widgets/SOU/sou-operational-accou
         SouProductionTableComponent,
         SouLossesTableComponent,
         SouDetailTableComponent,
-        SouDeviationCardsComponent,
     ],
     entryComponents: [
         LineChartComponent,
