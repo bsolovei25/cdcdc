@@ -271,7 +271,6 @@ import { SouBalanceCardComponent } from '../widgets/SOU/sou-shared/sou-balance-c
 import { SouProductionTableComponent } from '../widgets/SOU/sou-shared/sou-production-table/sou-production-table.component';
 import { SouLossesTableComponent } from '../widgets/SOU/sou-shared/sou-losses-table/sou-losses-table.component';
 import { SouDetailTableComponent } from '../widgets/SOU/sou-shared/sou-detail-table/sou-detail-table.component';
-import { SouDeviationCardsComponent } from '../widgets/SOU/sou-operational-accounting-system/components/sou-deviation-cards/sou-deviation-cards.component';
 
 @NgModule({
     declarations: [

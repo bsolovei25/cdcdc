@@ -6,6 +6,7 @@ import { AngularSvgIconModule } from 'angular-svg-icon';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { FormsModule } from '@angular/forms';
 import { SouDeviationCardsComponent } from './components/sou-deviation-cards/sou-deviation-cards.component';
+import { SharedModule } from '@shared/shared.module';
 
 
 @NgModule({
@@ -14,7 +15,8 @@ import { SouDeviationCardsComponent } from './components/sou-deviation-cards/sou
         CommonModule,
         AngularSvgIconModule,
         MatSlideToggleModule,
-        FormsModule
+        FormsModule,
+        SharedModule,
     ]
 })
 export class SouOperationalAccountingSystemModule {

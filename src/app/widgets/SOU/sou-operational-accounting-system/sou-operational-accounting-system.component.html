@@ -1,2 +1,11 @@
-<evj-sou-in-streams (mousedown)="$event.stopPropagation()"
-                    (touchstart)="$event.stopPropagation()"></evj-sou-in-streams>
+<div class="widget-container">
+  <div class="widget-header">
+    <evj-contemporary-widget-header [uniqId]="widgetUniqId" [widgetTitle]="widgetTitle"></evj-contemporary-widget-header>
+  </div>
+  <div class="widget-content">
+    <evj-sou-in-streams (mousedown)="$event.stopPropagation()"
+                        (touchstart)="$event.stopPropagation()">
+    </evj-sou-in-streams>
+
+  </div>
+</div>
