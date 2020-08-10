@@ -4,16 +4,8 @@
   *ngIf="isMock"
 ></evj-widget-preview>
 
-<div style="height: 100%; width: 100%;" class="container" *ngIf="!isMock">
-  <evj-widget-header
-    [title]="widgetTitle"
-    [units]="widgetUnits"
-    [code]="widgetCode"
-    [id]="widgetId"
-    [uniqId]="widgetUniqId"
-  ></evj-widget-header>
-
-  <evj-frame-top></evj-frame-top>
+<div style="height: 100%; width: 100%;" class="container" (mouseenter)="onMouseEnter()" (mouseleave)="onMouseExit()" *ngIf="!isMock">
+  <evj-widget-header-smp [uniqId]="widgetUniqId" *ngIf="isHover"></evj-widget-header-smp>
 
   <ng-container>
     <div
@@ -404,7 +396,7 @@
                 <div class="frame frame-left"></div>
                 <div class="frame frame-right"></div>
               </div>
-   
+
               <div class="line_on_picture" #line [class.line_on_picture_short]="checkWidth"></div>
               <div class="oil_picture" [class.oil_picture_short]="checkWidth">
                 <evj-oil-control-tower [data]="activeStorage"></evj-oil-control-tower>
@@ -456,6 +448,4 @@
       </div>
     </div>
   </ng-container>
-
-  <evj-frame-bottom></evj-frame-bottom>
 </div>
