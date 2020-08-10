@@ -69,13 +69,13 @@ export class SplineDiagramComponent implements OnChanges {
     public margin: { top: number, right: number, bottom: number, left: number } =
         { top: 20, right: 20, bottom: 30, left: 10 };
 
-    private day: number = 0;
+    private day: number | null = null;
 
     private plan: number = 0;
 
-    private svg: any;
+    private svg: any = null;
 
-    private g: any;
+    private g: any = null;
 
     constructor(
         private hostElement: ElementRef
@@ -86,9 +86,9 @@ export class SplineDiagramComponent implements OnChanges {
         console.log(changes);
         this.size = changes.size?.currentValue ? changes.size?.currentValue : this.size;
         this.data = changes.data?.currentValue ? changes.data?.currentValue : this.data;
-        if (this.size?.width && this.size?.height && this.data) {
+        this.prepareData();
+        if (this.size.width && this.size.height && this.data && this.day) {
             this.drawSvg();
-            setTimeout(() => this.drawSvg(), 100);
         }
     }
 
@@ -105,9 +105,7 @@ export class SplineDiagramComponent implements OnChanges {
         this.drawAxises();
         this.drawGrid();
         // data render
-        this.prepareData();
         // this.drawPlanThreshold();
-        // this.drawCurve();
         this.drawCurve(this.factDataset, 'fact');
         this.drawCurve(this.planDataset, 'plan');
         // this.drawGradient();
@@ -213,6 +211,7 @@ export class SplineDiagramComponent implements OnChanges {
     }
 
     // old
+    /*
     private appendPlanThresholdCircles(r: number, coord: number, className: string): void {
         this.g.append('circle')
             .attr('r', r)
@@ -220,6 +219,7 @@ export class SplineDiagramComponent implements OnChanges {
             .attr('cy', this.scales.y(this.plan))
             .attr('class', className);
     }
+     */
 
     private appendPlanThresholdCircle(r: number, coord: { x: number, y: number }, className: string): void {
         this.g.append('circle')
@@ -230,6 +230,7 @@ export class SplineDiagramComponent implements OnChanges {
     }
 
     // old
+    /*
     private drawPlanThreshold(): void {
         this.appendPlanThreshold(1, this.day, 'plan-threshold-line-filled');
         this.appendPlanThreshold(this.day, this.sizeX.max, 'plan-threshold-line-rest');
@@ -242,6 +243,7 @@ export class SplineDiagramComponent implements OnChanges {
             }
         }
     }
+     */
 
     private appendCurveDataCircle(r: number, x: number, y: number, className: string): void {
         this.g.append('circle')
