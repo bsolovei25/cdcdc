@@ -5,6 +5,7 @@ import { AngularSvgIconModule } from 'angular-svg-icon';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { FormsModule } from '@angular/forms';
 import { SouDeviationCardsComponent } from './components/sou-deviation-cards/sou-deviation-cards.component';
+import { MatRippleModule } from '@angular/material/core';
 import { SouInStreamsComponent } from './components/sou-in-streams/sou-in-streams.component';
 import { SouOutStreamsComponent } from './components/sou-out-streams/sou-out-streams.component';
 
@@ -19,7 +20,8 @@ import { SouOutStreamsComponent } from './components/sou-out-streams/sou-out-str
         CommonModule,
         AngularSvgIconModule,
         MatSlideToggleModule,
-        FormsModule
+        FormsModule,
+        MatRippleModule
     ]
 })
 export class SouOperationalAccountingSystemModule {

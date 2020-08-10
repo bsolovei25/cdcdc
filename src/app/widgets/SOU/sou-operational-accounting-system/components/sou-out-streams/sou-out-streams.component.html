@@ -133,12 +133,15 @@
       </ul>
     </div>
     <div class="footer__block-btn">
-      <div class="footer__btn">
+      <div class="footer__btn"
+           matRipple
+           [matRippleColor]="'black'">
         <svg-icon
           src="assets/icons/widgets/SOU/sou-in-streams/factory.svg"
           [svgStyle]="{ 'width.px': 17, 'height.px': 16 }"
         ></svg-icon>
-        <span class="footer__text">Потоки АВТ-10 ВБ</span>
+        <span class="footer__text"
+        >Потоки АВТ-10 ВБ</span>
       </div>
     </div>
   </div>
