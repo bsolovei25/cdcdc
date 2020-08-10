@@ -46,8 +46,10 @@
       position: absolute;
       right: 5px;
       top: 5px;
-      height: calc(100% - 40px);
+      bottom: 5px;
       width: 350px;
+      z-index: 1;
+      box-shadow: 5px 0 10px 2px black;
     }
   }
 

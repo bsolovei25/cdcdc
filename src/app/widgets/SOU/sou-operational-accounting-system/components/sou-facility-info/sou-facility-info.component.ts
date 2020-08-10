@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 @Component({
     selector: 'evj-sou-facility-info',
@@ -6,6 +6,7 @@ import { Component, Input, OnInit } from '@angular/core';
     styleUrls: ['./sou-facility-info.component.scss']
 })
 export class SouFacilityInfoComponent implements OnInit {
+    @Output() openPanel: EventEmitter<boolean> = new EventEmitter<boolean>();
 
     @Input() facilityTitle: string = 'АВТ-10-АБ';
 
@@ -15,4 +16,7 @@ export class SouFacilityInfoComponent implements OnInit {
     ngOnInit(): void {
     }
 
+    counterClick(): void {
+        this.openPanel.emit();
+    }
 }

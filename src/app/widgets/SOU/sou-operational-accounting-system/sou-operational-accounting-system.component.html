@@ -12,7 +12,7 @@
           <evj-sou-production-table class="table"></evj-sou-production-table>
         </div>
         <div class="flex-column-container cards">
-          <evj-sou-facility-info></evj-sou-facility-info>
+          <evj-sou-facility-info (openPanel)="togglePopupElement('deviation', true)"></evj-sou-facility-info>
           <evj-sou-balance-card [data]="{type: 'in', title: 'Сумма входа'}"></evj-sou-balance-card>
           <evj-sou-balance-card [data]="{type: 'out', title: 'Сумма выхода'}"></evj-sou-balance-card>
           <evj-sou-balance-card [data]="{type: 'delta', title: 'Дельта'}"></evj-sou-balance-card>
@@ -25,6 +25,6 @@
     </div>
 
     <evj-sou-detail-table (closeTable)="togglePopupElement('table', false)" class="popup-table" *ngIf="popupElementsStates.get('table')"></evj-sou-detail-table>
-    <evj-sou-deviation-cards class="popup-deviations"></evj-sou-deviation-cards>
+    <evj-sou-deviation-cards (closePanel)="togglePopupElement('deviation', false)" class="popup-deviations" *ngIf="popupElementsStates.get('deviation')"></evj-sou-deviation-cards>
   </div>
 </div>

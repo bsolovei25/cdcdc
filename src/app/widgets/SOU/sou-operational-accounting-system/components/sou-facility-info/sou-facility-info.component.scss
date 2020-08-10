@@ -11,7 +11,7 @@
     height: 40px;
     background: var(--color-sou-bg-header);
     border-radius: 2px 2px 0 0;
-    padding: 0 18px 0 16px;
+    padding: 0 8px 0 12px;
     box-sizing: border-box;
 
     & > * {
@@ -24,15 +24,17 @@
     }
 
     &__label {
-      font-size: 12px;
+      font-size: 18px;
       color: var(--color-kpe-text-main);
     }
 
     &__button-counter {
-      width: 15px;
-      height: 15px;
+      display: flex;
+      width: 28px;
+      height: 28px;
       cursor: pointer;
-      background: orange;
+      background: #F7931E;
+      border-radius: 2px;
     }
   }
 

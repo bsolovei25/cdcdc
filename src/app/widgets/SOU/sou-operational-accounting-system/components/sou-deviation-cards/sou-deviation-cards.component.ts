@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 
 @Component({
     selector: 'evj-sou-deviation-cards',
@@ -6,11 +6,16 @@ import { Component, OnInit } from '@angular/core';
     styleUrls: ['./sou-deviation-cards.component.scss']
 })
 export class SouDeviationCardsComponent implements OnInit {
+    @Output() closePanel: EventEmitter<boolean> = new EventEmitter<boolean>();
 
     constructor() {
     }
 
     ngOnInit(): void {
+    }
+
+    public buttonClick(): void {
+        this.closePanel.emit();
     }
 
 }
