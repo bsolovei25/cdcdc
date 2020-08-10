@@ -147,7 +147,9 @@ export const WIDGETS = {
     'cd-mat-balance': WidgetContainerComponent,
     'cd-deviation-mat': WidgetContainerComponent,
     'cd-reactor-parameters': WidgetContainerComponent,
-    'sou-operational-accounting-system': WidgetContainerComponent
+    'sou-operational-accounting-system': WidgetContainerComponent,
+    'astue-onpz-predictors': WidgetContainerComponent,
+    'astue-onpz-main-indicators': WidgetContainerComponent
 };
 
 export const WIDGETS_LAZY = {
@@ -440,6 +442,38 @@ export const WIDGETS_LAZY = {
     },
 
     // #endregion SOU
+
+    // #region ASTUE-ONPZ
+
+    'astue-onpz-predictors': {
+        import: async () => {
+            return await import(
+                'src/app/widgets/ASTUE-ONPZ/astue-onpz-predictors/astue-onpz-predictors.module'
+                );
+        },
+        module: 'AstueOnpzPredictorsModule',
+        itemCols: 13,
+        itemRows: 15,
+        minItemCols: 13,
+        minItemRows: 15,
+        preview: 'astue-onpz-predictors'
+    },
+
+    'astue-onpz-main-indicators': {
+        import: async () => {
+            return await import(
+                'src/app/widgets/ASTUE-ONPZ/astue-onpz-main-indicators/astue-onpz-main-indicators.module'
+                );
+        },
+        module: 'AstueOnpzMainIndicatorsModule',
+        itemCols: 13,
+        itemRows: 15,
+        minItemCols: 13,
+        minItemRows: 15,
+        preview: 'astue-onpz-main-indicators'
+    },
+
+    // #endregion ASTUE-ONPZ
 
     // 'pie-diagram': {
     //     import: async () => await import('src/app/widgets/pie-diagram/pie-diagram.module'),
