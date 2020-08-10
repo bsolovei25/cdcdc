@@ -404,7 +404,7 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, OnDes
         let svgMenu = this.svgMenu;
         this.activeProduct = data;
 
-        if (!(dataStorage?.lenght > 0)) {
+        if (!dataStorage?.length) {
         } else if (dataStorage.length < 2) {
             this.activeStorage = dataStorage[0];
         } else if (dataStorage.length < 3) {
