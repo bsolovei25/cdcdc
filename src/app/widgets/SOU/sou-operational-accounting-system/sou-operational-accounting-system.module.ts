@@ -12,7 +12,6 @@ import { SharedModule } from '@shared/shared.module';
 import { SouProductionTableComponent } from './components/sou-production-table/sou-production-table.component';
 import { SouLossesTableComponent } from './components/sou-losses-table/sou-losses-table.component';
 import { SouBalanceCardComponent } from './components/sou-balance-card/sou-balance-card.component';
-import { MatRippleModule } from '@angular/material/core';
 import { SouFacilityInfoComponent } from './components/sou-facility-info/sou-facility-info.component';
 import { SouDetailTableComponent } from './components/sou-detail-table/sou-detail-table.component';
 
