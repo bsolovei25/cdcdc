@@ -9,6 +9,8 @@ import { WidgetService } from '../../../dashboard/services/widget.service';
 })
 export class SouOperationalAccountingSystemComponent extends WidgetPlatform implements OnInit, OnDestroy {
 
+    popupElementsStates: Map<string, boolean> = new Map<string, boolean>();
+
     constructor(protected widgetService: WidgetService,
                 @Inject('isMock') public isMock: boolean,
                 @Inject('widgetId') public id: string,
@@ -22,6 +24,10 @@ export class SouOperationalAccountingSystemComponent extends WidgetPlatform impl
 
     ngOnDestroy(): void {
         super.ngOnDestroy();
+    }
+
+    public togglePopupElement(key: string, value: boolean): void {
+        this.popupElementsStates.set(key, value);
     }
 
     protected dataHandler(ref: any): void {

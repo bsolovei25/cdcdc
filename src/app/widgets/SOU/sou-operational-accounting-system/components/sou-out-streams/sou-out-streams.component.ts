@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { ISOUInStream } from '../sou-in-streams/sou-in-streams.component';
 
-interface ISOUInStream {
+interface ISOUOutStream {
     name: string;
     firstValue: string;
     accept: string;
@@ -11,6 +12,8 @@ interface ISOUInStream {
     trustLevel: string;
     pims: string;
     isActive: boolean;
+    deviation: boolean;
+    valueEnd: string[];
 }
 
 interface ISOUValue {
@@ -20,13 +23,13 @@ interface ISOUValue {
 }
 
 @Component({
-    selector: 'evj-sou-in-streams',
-    templateUrl: './sou-in-streams.component.html',
-    styleUrls: ['./sou-in-streams.component.scss']
+    selector: 'evj-sou-out-streams',
+    templateUrl: './sou-out-streams.component.html',
+    styleUrls: ['./sou-out-streams.component.scss']
 })
-export class SouInStreamsComponent implements OnInit {
+export class SouOutStreamsComponent implements OnInit {
 
-    data: ISOUInStream[] = [
+    data: ISOUOutStream[] = [
         {
             name: 'Установка №1',
             firstValue: 'знач',
@@ -46,10 +49,12 @@ export class SouInStreamsComponent implements OnInit {
                 engValue: 'т',
                 percent: '35%'
             },
-            sevenValue: 'Нефть обес. и обезвож.',
+            sevenValue: 'Газ сухой',
             trustLevel: '100%',
             pims: 'FOIL',
-            isActive: true
+            isActive: true,
+            deviation: false,
+            valueEnd: ['Установка', 'Товарное производство', 'Бензин К-6 в ТП']
         },
         {
             name: 'Установка №2',
@@ -70,10 +75,12 @@ export class SouInStreamsComponent implements OnInit {
                 engValue: 'т',
                 percent: '35%'
             },
-            sevenValue: 'Нефть обес. и обезвож.',
+            sevenValue: 'Газ сухой',
             trustLevel: '100%',
             pims: 'FOIL',
-            isActive: true
+            isActive: true,
+            deviation: true,
+            valueEnd: ['Установка']
         },
         {
             name: 'Установка №3',
@@ -94,10 +101,12 @@ export class SouInStreamsComponent implements OnInit {
                 engValue: 'т',
                 percent: '35%'
             },
-            sevenValue: 'Нефть обес. и обезвож.',
+            sevenValue: 'Газ сухой',
             trustLevel: '100%',
             pims: 'FOIL',
-            isActive: true
+            isActive: true,
+            deviation: false,
+            valueEnd: ['Установка', 'Товарное производство']
         }
 
     ];
