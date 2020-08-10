@@ -6,6 +6,7 @@
 .in-streams {
   .table {
     border-collapse: collapse;
+    width: 100%;
 
     &__header {
       .header {
@@ -16,7 +17,7 @@
         &__column {
           font-size: 11px;
           vertical-align: bottom;
-          padding: 0 10px 10px 10px;
+          padding: 0 7px 10px 7px;
 
           &__diff {
             min-width: 85px;
@@ -28,7 +29,7 @@
           }
 
           &:first-of-type {
-            min-width: 130px;
+            /* min-width: 100px;*/
           }
         }
       }
@@ -45,6 +46,7 @@
         &__column {
           padding: 0 7px;
           height: 32px;
+          position: relative;
 
           &__svg-line {
             margin-left: 8px;
@@ -66,6 +68,61 @@
             display: flex;
             flex-direction: column;
 
+            &__svg_row {
+              position: absolute;
+              right: -14px;
+              top: 50%;
+              transform: translate(-50%, -70%);
+            }
+
+            &__list {
+              list-style: none;
+              padding: 0;
+              margin: 0;
+
+              margin-left: 20px;
+
+              .list__item {
+                position: relative;
+
+                .item {
+                  &__svg {
+                    position: absolute;
+                    top: 50%;
+                    left: -12px;
+                    transform: translate(-50%, -70%);
+
+                    &_first {
+                      position: absolute;
+                      left: -18px;
+                      top: 6px;
+                    }
+
+                    &_middle {
+                      position: absolute;
+                      left: -18px;
+                      top: -1px;
+                    }
+
+                    &_row {
+                      position: absolute;
+                      top: 0;
+                      bottom: 0;
+                      margin: auto;
+                      left: 0;
+                      right: 0;
+                    }
+
+                    &_last {
+                      position: absolute;
+                      left: -23px;
+                      top: -4px;
+                    }
+                  }
+                }
+
+              }
+            }
 
             &__block {
               display: flex;
@@ -81,8 +138,9 @@
             }
 
             &__trust-level {
-              border-top-left-radius: 3px;
-              border-bottom-left-radius: 3px;
+
+              border-top-right-radius: 3px;
+              border-bottom-right-radius: 3px;
               background-color: var(--color-gray80);
               display: flex;
               align-items: center;
@@ -91,16 +149,17 @@
 
             &__block-pims {
               display: flex;
+              justify-content: flex-end;
 
               &__value {
                 display: flex;
                 align-items: center;
-                border-top-right-radius: 3px;
-                border-bottom-right-radius: 3px;
+                border-top-left-radius: 3px;
+                border-bottom-left-radius: 3px;
                 background-color: var(--color-kpe-eq-chart-row-default);
                 height: 20px;
-                padding-left: 31px;
-                padding-right: 6px;
+                padding-left: 6px;
+                padding-right: 31px;
                 margin-top: 2px;
               }
 
@@ -149,6 +208,66 @@
           }
         }
       }
+    }
+  }
+
+  .footer {
+    display: flex;
+    margin-top: 40px;
+    padding: 0 15px;
+
+    &__items {
+
+    }
+
+    &__list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+
+      display: flex;
+      justify-content: flex-start;
+      flex-wrap: wrap;
+      gap: 5px;
+      margin-right: 10px;
+    }
+
+    &__item {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      height: 35px;
+      width: 66px;
+      border-radius: 2px;
+
+      background-color: var(--color-gray80);
+
+      &_deviation {
+        background-color: var(--color-kpe-eq-chart-row-over);
+      }
+    }
+
+    &__block-btn {
+      display: flex;
+      align-items: flex-end;
+    }
+
+    &__btn {
+      cursor: pointer;
+      height: 35px;
+      width: 165px;
+      border-radius: 2px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      background-color: var(--color-kpe-eq-chart-row-default);
+    }
+
+    &__text {
+      margin-left: 10px;
     }
   }
 }

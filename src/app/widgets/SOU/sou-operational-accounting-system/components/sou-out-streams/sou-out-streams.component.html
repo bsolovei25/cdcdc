@@ -18,18 +18,18 @@
     <tr class="body__row"
         *ngFor="let item of data; let idx = index"
         [class.body__row_inactivity]="!item.isActive">
-      <td class="body__column">
+      <td class="body__column body__column--padding-disabled">
         <div class="column__block-pims">
           <div class="column__block-pims__slide">
             <mat-slide-toggle [(ngModel)]="item.isActive" disableRipple="true"></mat-slide-toggle>
           </div>
-          <span class="column__block-pims__value">{{ item.pims }}</span>
+          <span class="column__block-pims__value"
+                [class.column__block-pims__value_deviation]="item.deviation">{{ item.pims }}</span>
         </div>
       </td>
       <td class="body__column column body__column--padding-disabled body__column__trust-level">
         <span class="body__column column__trust-level">{{ item.trustLevel }}</span></td>
-      <td class="body__column body__column__text_grey">{{ item.firstValue }}</td>
-      <td class="body__column body__column__text_grey">{{ item.accept }}</td>
+      <td class="body__column">{{ item.sevenValue }}</td>
       <td
         class="body__column">
         <div class="column">
@@ -70,12 +70,79 @@
 
         <span class="column__percent">{{ item.accumulation?.percent }}</span>
       </td>
-      <td class="body__column">{{ item.sevenValue }}</td>
+      <td class="body__column body__column__text_grey">{{ item.firstValue }}</td>
+      <td class="body__column body__column__text_grey">{{ item.accept }}
+        <svg-icon
+          class="column__svg_row"
+          src="assets/icons/widgets/SOU/sou-out-streams/tree__line__row.svg"
+          [svgStyle]="{ 'width.px': 7, 'height.px': 2 }"
+        ></svg-icon>
+      </td>
+      <td class="body__column">
 
-      <td class="body__column column body__column--padding-disabled">
+        <ul class="column__list">
+          <li class="list__item" *ngFor="let i of item.valueEnd; let idx = index; last as isLast">
+            <ng-container *ngIf="item.valueEnd.length > 1">
+              <svg-icon
+                *ngIf="idx === 0"
+                class="item__svg_first"
+                src="assets/icons/widgets/SOU/sou-out-streams/tree__line__first.svg"
+                [svgStyle]="{ 'width.px': 2, 'height.px': 11 }"
+              ></svg-icon>
+              <svg-icon
+                *ngIf="idx !== 0 && !isLast"
+                class="item__svg_middle"
+                src="assets/icons/widgets/SOU/sou-out-streams/tree__line__middle.svg"
+                [svgStyle]="{ 'width.px': 2, 'height.px': 17 }"
+              ></svg-icon>
+              <svg-icon
+                *ngIf="isLast"
+                class="item__svg_last"
+                src="assets/icons/widgets/SOU/sou-out-streams/tree__line__first.svg"
+                [svgStyle]="{ 'width.px': 12, 'height.px': 9 }"
+              ></svg-icon>
+            </ng-container>
+            <svg-icon
+              class="item__svg"
+              src="assets/icons/widgets/SOU/sou-out-streams/tree__line.svg"
+              [svgStyle]="{ 'width.px': 12, 'height.px': 3 }"
+            ></svg-icon>
 
+
+            {{ i }}
+          </li>
+        </ul>
       </td>
     </tr>
     </tbody>
   </table>
+  <div class="footer">
+    <div class="footer__items">
+      <ul class="footer__list">
+        <li class="footer__item" [class.footer__item_deviation]="true">F118</li>
+        <li class="footer__item">F118</li>
+        <li class="footer__item" [class.footer__item_deviation]="true">F118</li>
+        <li class="footer__item">F118</li>
+        <li class="footer__item" [class.footer__item_deviation]="true">F118</li>
+        <li class="footer__item">F118</li>
+        <li class="footer__item" [class.footer__item_deviation]="true">F118</li>
+        <li class="footer__item">F118</li>
+        <li class="footer__item">F118</li>
+        <li class="footer__item" [class.footer__item_deviation]="true">F118</li>
+        <li class="footer__item">F118</li>
+      </ul>
+    </div>
+    <div class="footer__block-btn">
+      <div class="footer__btn"
+           matRipple
+           [matRippleColor]="'black'">
+        <svg-icon
+          src="assets/icons/widgets/SOU/sou-in-streams/factory.svg"
+          [svgStyle]="{ 'width.px': 17, 'height.px': 16 }"
+        ></svg-icon>
+        <span class="footer__text"
+        >Потоки АВТ-10 ВБ</span>
+      </div>
+    </div>
+  </div>
 </div>
