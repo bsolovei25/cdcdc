@@ -1,7 +1,14 @@
 <div class="container">
-  <evj-contemporary-widget-header [uniqId]="uniqId" [widgetTitle]="widgetTitle" icon="gantt">
+  <evj-contemporary-widget-header [uniqId]="uniqId" [widgetTitle]="widgetTitle" icon="astue-indicators">
     <div class="container__header">
-      <div class="header__btn">Рассчитать</div>
+      <div class="header__btn"
+           matRipple
+           [matRippleColor]="'black'">
+        <svg-icon class="header__icon"
+                  src="assets/icons/widgets/ASTUE-ONPZ/calc.svg">
+        </svg-icon>
+        Рассчитать
+      </div>
     </div>
   </evj-contemporary-widget-header>
 

@@ -4,6 +4,7 @@ import { AstueOnpzMainIndicatorsComponent } from './astue-onpz-main-indicators.c
 import { SharedModule } from '@shared/shared.module';
 import { AngularSvgIconModule } from 'angular-svg-icon';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatRippleModule } from '@angular/material/core';
 
 
 @NgModule({
@@ -13,6 +14,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
         SharedModule,
         AngularSvgIconModule,
         MatSlideToggleModule,
+        MatRippleModule,
     ]
 })
 export class AstueOnpzMainIndicatorsModule {
