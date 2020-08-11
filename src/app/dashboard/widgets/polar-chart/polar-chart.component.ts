@@ -163,7 +163,7 @@ export class PolarChartComponent extends WidgetPlatform implements OnInit, OnDes
 
         let imageFrame = this.canvas
             .append('image')
-            .attr('xlink:href', './assets/pic/PolarWidget/polar_frame.png')
+            .attr('xlink:href', 'assets/pic/PolarWidget/polar_frame.png')
             .attr('height', '50px')
             .attr('width', '50px')
             .attr('x', '50')
@@ -171,7 +171,7 @@ export class PolarChartComponent extends WidgetPlatform implements OnInit, OnDes
 
         let imageLogo = this.canvas
             .append('image')
-            .attr('xlink:href', './assets/pic/PolarWidget/polar_logo.png')
+            .attr('xlink:href', 'assets/pic/PolarWidget/polar_logo.png')
             .attr('height', '10px')
             .attr('width', '10px')
             .attr('x', '70')
@@ -253,10 +253,10 @@ export class PolarChartComponent extends WidgetPlatform implements OnInit, OnDes
                 .attr(
                     'xlink:href',
                     data[indexBorder].state === 'default'
-                        ? './assets/pic/PolarWidget/polar_border2.svg'
+                        ? 'assets/pic/PolarWidget/polar_border2.svg'
                         : data[indexBorder].state === 'normal'
-                        ? './assets/pic/PolarWidget/polar_border1.svg'
-                        : './assets/pic/PolarWidget/polar_border3.svg'
+                        ? 'assets/pic/PolarWidget/polar_border1.svg'
+                        : 'assets/pic/PolarWidget/polar_border3.svg'
                 )
                 .attr('height', '80px')
                 .attr('width', '50px')

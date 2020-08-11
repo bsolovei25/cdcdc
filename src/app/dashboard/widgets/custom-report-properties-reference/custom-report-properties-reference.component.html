@@ -21,7 +21,7 @@
                   <div class="reference-container__name">{{item.name}}</div>
                   <div class="reference-container__button-edit" (click)="onEdit(item)">
                     <svg-icon *ngIf="item.id === idReferenceClick" class="indicator-selector__collapse"
-                      src="./assets/icons/widgets/references/edit_white.svg"></svg-icon>
+                      src="assets/icons/widgets/references/edit_white.svg"></svg-icon>
                   </div>
                 </div>
                 <div *ngIf="item.openEdit" class="reference-container__block-info" [class.block-active]="item.open">
@@ -29,7 +29,7 @@
                     <input type="text" [(ngModel)]="item.name" placeholder="Новое наименование..." />
                   </div>
                   <div class="reference-container__add-block-icon" (click)="editOptions(item)">
-                    <svg-icon src="./assets/icons/widgets/references/accept.svg" class="add_button_icon"></svg-icon>
+                    <svg-icon src="assets/icons/widgets/references/accept.svg" class="add_button_icon"></svg-icon>
                   </div>
                 </div>
                 <div class="reference-container__button-remove" (click)="deleteReference(item)"
@@ -42,7 +42,7 @@
                 <input type="text" [(ngModel)]="newRecordInReference" placeholder="Введите имя параметра..." />
               </div>
               <div class="reference-container__add-block-icon" (click)="onPushReference()">
-                <svg-icon src="./assets/icons/widgets/references/accept.svg" class="add_button_icon"></svg-icon>
+                <svg-icon src="assets/icons/widgets/references/accept.svg" class="add_button_icon"></svg-icon>
               </div>
             </div>
           </div>
@@ -50,19 +50,19 @@
         <div class="bottom-reference-left">
           <div class="bottom-reference-left__block">
             <div class="bottom-reference-left__button-add" (click)="onPushBlockInReference()">
-              <svg-icon *ngIf="!isClickPushReference" src="./assets/icons/widgets/references/add_white.svg"
+              <svg-icon *ngIf="!isClickPushReference" src="assets/icons/widgets/references/add_white.svg"
                 class="add_button_icon"></svg-icon>
 
               <svg-icon *ngIf="isClickPushReference" class="indicator-selector__collapse"
-                src="./assets/icons/widgets/references/add_blue.svg"></svg-icon>
+                src="assets/icons/widgets/references/add_blue.svg"></svg-icon>
             </div>
             <div class="bottom-reference-left__input-block">
               <div class="bottom-reference-left__button-search">
                 <svg-icon *ngIf="!isRefInput" class="button_filter_icon"
-                  src="./assets/icons/widgets/references/search_white.svg"></svg-icon>
+                  src="assets/icons/widgets/references/search_white.svg"></svg-icon>
 
                 <svg-icon *ngIf="isRefInput" class="indicator-selector__collapse"
-                  src="./assets/icons/widgets/references/search_blue.svg"></svg-icon>
+                  src="assets/icons/widgets/references/search_blue.svg"></svg-icon>
               </div>
               <div class="bottom-reference-left__input" [class.bottom-reference-left__input-active]="isRefInput">
                 <input type="text" (focus)="isRefInput = true" (blur)="isRefInput = false"
