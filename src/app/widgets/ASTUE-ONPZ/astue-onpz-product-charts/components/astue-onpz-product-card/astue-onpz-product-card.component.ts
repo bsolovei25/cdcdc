@@ -59,7 +59,7 @@ export class AstueOnpzProductCardComponent implements OnInit {
                     timeStamp: new Date(2020, 1, 2),
                 },
                 {
-                    value: 200,
+                    value: 700,
                     timeStamp: new Date(2020, 1, 3),
                 },
                 {
@@ -75,7 +75,7 @@ export class AstueOnpzProductCardComponent implements OnInit {
                     timeStamp: new Date(2020, 1, 6),
                 },
                 {
-                    value: 1300,
+                    value: 1100,
                     timeStamp: new Date(2020, 1, 7),
                 },
                 {

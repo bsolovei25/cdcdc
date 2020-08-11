@@ -18,7 +18,7 @@
       &-higherBorder {
         fill: none;
         opacity: 1;
-        stroke: var(--color-astue-onpz-plan);
+        stroke: var(--color-astue-onpz-fact);
       }
 
       &-fact,
@@ -29,10 +29,11 @@
       &-lowerBorder,
       &-higherBorder {
         stroke-dasharray: 3 2;
+        stroke: var(--color-astue-onpz-limit);
       }
 
-      &-fact {
-        stroke: var(--color-astue-onpz-fact);
+      &-plan {
+        stroke: var(--color-astue-onpz-plan);
       }
 
       &_warning {

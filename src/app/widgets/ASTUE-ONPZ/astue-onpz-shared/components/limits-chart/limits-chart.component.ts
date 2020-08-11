@@ -28,6 +28,8 @@ export class LimitsChartComponent implements OnChanges {
     private graphMaxY: number = 0;
     private dataMax: number = 0;
     private dataMin: number = 0;
+    private dateMax: Date;
+    private dateMin: Date;
 
     public scaleFuncs: { x: any; y: any } = { x: null, y: null };
     private axis: { axisX: any; axisY: any } = { axisX: null, axisY: null };
@@ -96,20 +98,26 @@ export class LimitsChartComponent implements OnChanges {
     private findMinMax(): void {
         const maxValues: number[] = [];
         const minValues: number[] = [];
+        const minDate: Date[] = [];
+        const maxDate: Date[] = [];
 
         this.data.forEach((graph) => {
             maxValues.push(d3.max(graph.graph, (item: IChartMini) => item.value));
             minValues.push(d3.min(graph.graph, (item: IChartMini) => item.value));
+            maxDate.push(d3.max(graph.graph, (item: IChartMini) => item.timeStamp));
+            minDate.push(d3.min(graph.graph, (item: IChartMini) => item.timeStamp));
         });
 
         this.dataMax = d3.max(maxValues) * (1 + this.MAX_COEF);
         this.dataMin = d3.min(minValues) * (1 - this.MIN_COEF);
+        this.dateMax = d3.max(maxDate);
+        this.dateMin = d3.min(minDate);
     }
 
     private defineScale(): void {
         const plan = this.data.find((chart) => chart.graphType === 'higherBorder');
 
-        const domainDates = d3.extent(plan.graph, (item: IChartMini) => item.timeStamp);
+        const domainDates = [this.dateMin, this.dateMax];
         const rangeX = [this.padding.left, this.graphMaxX - this.padding.right];
 
         this.scaleFuncs.x = d3
@@ -217,7 +225,6 @@ export class LimitsChartComponent implements OnChanges {
     }
 
     private drawGridlines(): void {
-        const hb = this.chartData.find((chart) => chart.graphType === 'higherBorder');
         this.svg
             .append('g')
             .attr('class', 'grid')
@@ -225,7 +232,7 @@ export class LimitsChartComponent implements OnChanges {
             .call(
                 d3
                     .axisBottom(this.scaleFuncs.x)
-                    .ticks(hb.graph.length)
+                    .ticks(20)
                     .tickSize(-(this.graphMaxY - this.padding.bottom - this.padding.top))
                     .tickFormat('')
             )
@@ -269,15 +276,15 @@ export class LimitsChartComponent implements OnChanges {
         const fact = this.data.find((item) => item.graphType === 'fact')?.graph ?? [];
         const higher = this.data.find((item) => item.graphType === 'higherBorder')?.graph ?? [];
         const lower = this.data.find((item) => item.graphType === 'lowerBorder')?.graph ?? [];
-        fact.forEach((val, idx, arr) => {
-            if (higher[idx].value < val.value) {
+        fact.forEach((val, idx) => {
+            if (higher[idx] && higher[idx].value < val.value) {
                 this.svg
                     .select('path.graph-line-higherBorder')
                     .attr('class', 'graph-line-higherBorder graph-line_warning');
                 this.svg
                     .select('path.graph-area-higherBorder')
                     .attr('class', 'graph-area-higherBorder graph-area_warning');
-            } else if (lower[idx].value > val.value) {
+            } else if (lower[idx] && lower[idx].value > val.value) {
                 this.svg
                     .select('path.graph-line-lowerBorder')
                     .attr('class', 'graph-line-lowerBorder graph-line_normal');
