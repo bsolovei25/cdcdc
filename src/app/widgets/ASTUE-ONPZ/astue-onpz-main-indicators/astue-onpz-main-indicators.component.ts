@@ -38,67 +38,7 @@ export class AstueOnpzMainIndicatorsComponent extends WidgetPlatform implements 
         {
             name: 'Факт',
             value: 1100
-        },
-        {
-            name: 'Факт',
-            value: 1100
-        },
-        {
-            name: 'План',
-            value: 1100
-        },
-        {
-            name: 'Факт',
-            value: 1100
-        },
-        {
-            name: 'Факт',
-            value: 1100
-        },
-        {
-            name: 'План',
-            value: 1100
-        },
-        {
-            name: 'Факт',
-            value: 1100
-        },
-        {
-            name: 'Факт',
-            value: 1100
-        },
-        {
-            name: 'План',
-            value: 1100
-        },
-        {
-            name: 'Факт',
-            value: 1100
-        },
-        {
-            name: 'Факт',
-            value: 1100
-        },
-        {
-            name: 'План',
-            value: 1100
-        },
-        {
-            name: 'Факт',
-            value: 1100
-        },
-        {
-            name: 'Факт',
-            value: 1100
-        },
-        {
-            name: 'План',
-            value: 1100
-        },
-        {
-            name: 'Факт',
-            value: 1100
-        },
+        }
     ];
 
     constructor(
