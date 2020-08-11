@@ -1,3 +1,18 @@
 <div class="container">
-  <evj-astue-onpz-product-card class="container__item"></evj-astue-onpz-product-card>
+  <evj-widget-header-smp
+    [uniqId]="uniqId"
+    (mouseenter)="onMouseEnter()"
+    (mouseleave)="onMouseExit()"
+    *ngIf="isHover"
+  >
+  </evj-widget-header-smp>
+  <div
+    class="content"
+    (mouseenter)="onMouseEnter()"
+    (mouseleave)="onMouseExit()"
+    (mousedown)="$event.stopPropagation()"
+    (touchstart)="$event.stopPropagation()"
+  >
+    <evj-astue-onpz-product-card class="content__item"></evj-astue-onpz-product-card>
+  </div>
 </div>

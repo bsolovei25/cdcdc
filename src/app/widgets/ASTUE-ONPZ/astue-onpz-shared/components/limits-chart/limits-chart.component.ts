@@ -169,22 +169,26 @@ export class LimitsChartComponent implements OnChanges {
 
     private drawChart(): void {
         this.chartData.forEach((chart) => {
+            const curve = d3.curveBasis;
             const line = d3
                 .line()
                 .x((item: IChartD3) => item.x)
-                .y((item: IChartD3) => item.y);
+                .y((item: IChartD3) => item.y)
+                .curve(curve);
 
             const areaBottom = d3
                 .area()
                 .x((item: IChartD3) => item.x)
                 .y0(this.graphMaxY - this.padding.bottom)
-                .y1((item: IChartD3) => item.y);
+                .y1((item: IChartD3) => item.y)
+                .curve(curve);
 
             const areaTop = d3
                 .area()
                 .x((item: IChartD3) => item.x)
                 .y0((item: IChartD3) => item.y)
-                .y1(this.padding.top);
+                .y1(this.padding.top)
+                .curve(curve);
 
             const opacity: number = 1;
 
