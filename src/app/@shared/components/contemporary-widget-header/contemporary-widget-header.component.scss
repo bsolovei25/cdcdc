@@ -16,7 +16,9 @@
   min-height: 40px;
   max-height: 40px;
 
-  &__background-kpe {
+  &__background-kpe,
+  &__background-astue
+  {
     position: absolute;
     z-index: 1;
     width: 100%;
@@ -25,7 +27,14 @@
     left: 0;
     overflow: hidden;
     background: var(--color-aps-bg-header);
+  }
+
+  &__background-kpe {
     border-radius: 5px;
+  }
+
+  &__background-astue {
+    border-radius: 2px 2px 0 0;
   }
 
   &__background {
