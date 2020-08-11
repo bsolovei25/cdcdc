@@ -449,9 +449,9 @@ export const WIDGETS_LAZY = {
         },
         module: 'AstueOnpzConventionalFuelModule',
         itemCols: 30,
-        itemRows: 40,
+        itemRows: 20,
         minItemCols: 30,
-        minItemRows: 40,
+        minItemRows: 20,
         preview: 'astue-onpz-conventional-fuel'
     },
 
