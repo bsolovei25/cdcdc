@@ -65,6 +65,7 @@ export class LimitsChartComponent implements OnChanges {
         this.drawGridlines();
         this.drawChart();
         this.drawAxisLabels();
+        this.drawFutureRect();
         this.drawPoints();
         this.customizeAreas();
     }
@@ -285,5 +286,30 @@ export class LimitsChartComponent implements OnChanges {
                     .attr('class', 'graph-area-lowerBorder graph-area_normal');
             }
         });
+    }
+
+    private drawFutureRect(): void {
+        const fact = this.chartData.find((chart) => chart.graphType === 'fact')?.graph ?? [];
+        const x = fact[fact.length - 1].x;
+        const y = this.padding.top;
+        const y2 = this.graphMaxY - this.padding.bottom;
+        const width = this.graphMaxX - this.padding.right - x;
+        const height = this.graphMaxY - this.padding.top - this.padding.bottom;
+        if (width > 0) {
+            this.svg
+                .append('rect')
+                .attr('x', x)
+                .attr('y', y)
+                .attr('width', width)
+                .attr('height', height)
+                .attr('class', 'future');
+            this.svg
+                .append('line')
+                .attr('x1', x)
+                .attr('y1', y)
+                .attr('x2', x)
+                .attr('y2', y2)
+                .attr('class', 'future-line');
+        }
     }
 }
