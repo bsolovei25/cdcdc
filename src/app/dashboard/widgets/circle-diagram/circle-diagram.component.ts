@@ -179,8 +179,8 @@ export class CircleDiagramComponent extends WidgetPlatform implements OnDestroy,
             .attr(
                 'xlink:href',
                 !data.acknowledged
-                    ? './assets/pic/circle-diagram-grey.svg'
-                    : './assets/pic/circle-diagram-orange.svg'
+                    ? 'assets/pic/circle-diagram-grey.svg'
+                    : 'assets/pic/circle-diagram-orange.svg'
             )
             .attr('height', '189px')
             .attr('width', '110px')
