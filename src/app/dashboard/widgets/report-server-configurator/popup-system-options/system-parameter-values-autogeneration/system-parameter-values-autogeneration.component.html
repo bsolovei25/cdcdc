@@ -2,7 +2,7 @@
     <div style="height: 100%;">
         <div class="title">
             <div class="title__button-close" (click)="close()">
-                <svg-icon src="./assets/icons/widgets/reports/close.svg" class="add_button_icon">
+                <svg-icon src="assets/icons/widgets/reports/close.svg" class="add_button_icon">
                 </svg-icon>
             </div>
             <!--Можно сделать на вывод из тайтла?? -->
@@ -12,10 +12,10 @@
             <ng-container *ngFor="let item of data">
                 <div class="item-content" (click)="onClickItem(item)" [class.active]="item.id === itemChooseId">
                     <div class="item-content__title-button" (click)="itemOpen(item)">
-                        <svg-icon *ngIf="item.open" src="./assets/icons/widgets/reports/arrow-up.svg"
+                        <svg-icon *ngIf="item.open" src="assets/icons/widgets/reports/arrow-up.svg"
                             [svgStyle]="{ 'width.px':10, 'height.px':10 }"></svg-icon>
 
-                        <svg-icon *ngIf="!item.open" src="./assets/icons/widgets/reports/arrow-bottom.svg"
+                        <svg-icon *ngIf="!item.open" src="assets/icons/widgets/reports/arrow-bottom.svg"
                             [svgStyle]="{ 'width.px':10, 'height.px':10 }"></svg-icon>
                     </div>
                     <div class="item-content__name">{{item.name}}</div>
@@ -23,7 +23,7 @@
                     <div *ngIf="item.id === itemChooseId" class="item-content__button-remove"
                         (click)="deleteItem(item)">
                     </div>
-                </div> 
+                </div>
                 <div *ngIf="item.open" class="item-content__shadow-block">
                     <ng-container *ngFor="let i of item.param">
                         <div class="item-content__info">
@@ -37,7 +37,7 @@
             <div class="bottom__block-edit">
                 <div class="bottom__block-add">
                     <div class="bottom__button-add" (click)="openUserBlock()">
-                        <svg-icon src="./assets/icons/widgets/reports/edit.svg" class="add_button_icon">
+                        <svg-icon src="assets/icons/widgets/reports/edit.svg" class="add_button_icon">
                         </svg-icon>
                     </div>
                 </div>

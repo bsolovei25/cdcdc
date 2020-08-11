@@ -16,7 +16,7 @@
   <div class="available-scenario__title">Доступные сценарии</div>
   <svg-icon
     class="available-scenario__icon"
-    src="./assets/icons/widgets/workflow/add_btn.svg"
+    src="assets/icons/widgets/workflow/add_btn.svg"
     (click)="chooseModules ? postScenarios() : null"
     [svgStyle]="{ 'width.px': 30, 'height.px': 30 }"
     matTooltip="Создать сценарий"
@@ -43,7 +43,7 @@
             <svg-icon
               (click)="editScenario($event, scen)"
               class="available-scenario__body__item__container__edit-block__edit"
-              src="./assets/icons/widgets/workflow/edit_w.svg"
+              src="assets/icons/widgets/workflow/edit_w.svg"
               [svgStyle]="{ 'width.px':30, 'height.px':30 }"
               matTooltip="Редактировать сценарий"
             ></svg-icon>
@@ -64,7 +64,7 @@
           >
             <svg-icon
               *ngIf="scen.status === 'stopped'"
-              src="./assets/icons/widgets/workflow/play_w.svg"
+              src="assets/icons/widgets/workflow/play_w.svg"
               [svgStyle]="{ 'width.px':15, 'height.px':15 }"
               [class.available-scenario__body__item__container__icon__error]="scen?.errorMessage"
               matTooltip="Запустить сценарий"
@@ -72,7 +72,7 @@
             <svg-icon
               *ngIf="scen.status === 'active'"
               style="padding-right: 3px"
-              src="./assets/icons/widgets/workflow/stop_w.svg"
+              src="assets/icons/widgets/workflow/stop_w.svg"
               [svgStyle]="{ 'width.px':14, 'height.px':13 }"
               [class.available-scenario__body__item__container__icon__error]="scen?.errorMessage"
               matTooltip="Остановить сценарий"

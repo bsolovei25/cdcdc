@@ -1,7 +1,7 @@
 <div class="container">
   <div class="title">
     <div class="title__button-close" (click)="closeOptions()">
-      <svg-icon src="./assets/icons/widgets/reports/close.svg" class="add_button_icon">
+      <svg-icon src="assets/icons/widgets/reports/close.svg" class="add_button_icon">
       </svg-icon>
     </div>
     <div class="title__name">Выберите необходимые параметры</div>
@@ -10,10 +10,10 @@
     <ng-container *ngFor="let item of data">
       <div class="content__item-title" (click)="onShowOptions(item)">
         <div class="content__title-button">
-          <svg-icon *ngIf="item.open" src="./assets/icons/widgets/reports/arrow-up.svg"
+          <svg-icon *ngIf="item.open" src="assets/icons/widgets/reports/arrow-up.svg"
             [svgStyle]="{ 'width.px':10, 'height.px':10 }"></svg-icon>
 
-          <svg-icon *ngIf="!item.open" src="./assets/icons/widgets/reports/arrow-bottom.svg"
+          <svg-icon *ngIf="!item.open" src="assets/icons/widgets/reports/arrow-bottom.svg"
             [svgStyle]="{ 'width.px':10, 'height.px':10 }"></svg-icon>
         </div>
         <div class="name-item">
@@ -44,10 +44,10 @@
       <div class="bottom__input-block">
         <div class="bottom__button-search">
           <svg-icon *ngIf="!isRepInput" class="button_filter_icon"
-            src="./assets/icons/widgets/references/search_white.svg"></svg-icon>
+            src="assets/icons/widgets/references/search_white.svg"></svg-icon>
 
           <svg-icon *ngIf="isRepInput" class="indicator-selector__collapse"
-            src="./assets/icons/widgets/references/search_blue.svg"></svg-icon>
+            src="assets/icons/widgets/references/search_blue.svg"></svg-icon>
         </div>
         <div class="bottom__input" [class.bottom__input-active]="isRepInput">
           <input type="text" (focus)="isRepInput = true" (blur)="isRepInput = false" (keyup)="search($event)" />

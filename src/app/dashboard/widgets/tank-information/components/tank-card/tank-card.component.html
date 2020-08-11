@@ -20,13 +20,13 @@
     </div>
     <div class="status">
       <ng-container *ngIf="data.objectStatus !== 'inOut'; else inOutIcons">
-        <svg-icon src="./assets/icons/widgets/oil-control-all/tank-information/{{data.objectStatus}}.svg"
+        <svg-icon src="assets/icons/widgets/oil-control-all/tank-information/{{data.objectStatus}}.svg"
                   [svgStyle]="{ 'width.px':22, 'height.px':22 }"></svg-icon>
       </ng-container>
       <ng-template #inOutIcons>
-        <svg-icon src="./assets/icons/widgets/oil-control-all/tank-information/out.svg"
+        <svg-icon src="assets/icons/widgets/oil-control-all/tank-information/out.svg"
                   [svgStyle]="{ 'width.px':20, 'height.px':20 }"></svg-icon>
-        <svg-icon src="./assets/icons/widgets/oil-control-all/tank-information/in.svg"
+        <svg-icon src="assets/icons/widgets/oil-control-all/tank-information/in.svg"
                   [svgStyle]="{ 'width.px':20, 'height.px':20 }"></svg-icon>
       </ng-template>
 

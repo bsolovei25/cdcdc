@@ -2,7 +2,7 @@
     <div style="height: 100%;">
         <div class="title">
             <div class="title__button-close" (click)="exit()">
-                <svg-icon src="./assets/icons/widgets/reports/close.svg" class="add_button_icon">
+                <svg-icon src="assets/icons/widgets/reports/close.svg" class="add_button_icon">
                 </svg-icon>
             </div>
             <div class="title__name">Продукт</div>
@@ -14,7 +14,7 @@
                             <div class="item__i" (click)="active(item)">
                                 <div class="name-param" [class.active]="activeItemId === item.id">
                                     {{ item.name }}
-                                </div>  
+                                </div>
                             </div>
                     </div>
                 </ng-container>
