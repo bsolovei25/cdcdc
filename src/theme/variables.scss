@@ -200,9 +200,9 @@
   --color-aps-gaude-back-line: #111626;
 
   // KPE font-color
-  --color-kpe-text-main: #D7E2F2;
+  --color-kpe-text-main: #d7e2f2;
   --color-kpe-text-sub: #606580;
-  --color-kpe-border-sub: #262A39;
+  --color-kpe-border-sub: #262a39;
 
   // KPE equalizer-chart
 
@@ -221,31 +221,55 @@
   --color-kpe-gaude-main: #d7e2f2;
   --color-kpe-gaude-additional: #606580;
   --color-kpe-gaude-active: #0089ff;
-  --color-kpe-gaude-deviation: #60647F;
+  --color-kpe-gaude-deviation: #60647f;
   --color-kpe-gaude-lines: #272a38;
   --color-kpe-gaude-back: #12151e;
   --color-kpe-gaude-unactive: #1c1f2b;
-  --color-kpe-gauge-tab-unactive: #4B5169;
+  --color-kpe-gauge-tab-unactive: #4b5169;
 
   // CD
-  --color-cd-bg-component: #151A29;
-  --color-cd-bg-border: #2A2E41;
-  --color-cd-bg-border-sub: #5A5F80;
-  --color-cd-text-sub: #8A97B0;
-  --color-cd-bg-btn-active: #11355F;
-  --color-cd-bg-row-table: #1C2132;
-  --color-cd-text-sub-2: #8A98B3;
-  --color-cd-select: #1B1F30;
-  --color-cd-warning: #FD911E;
+  --color-cd-bg-component: #151a29;
+  --color-cd-bg-border: #2a2e41;
+  --color-cd-bg-border-sub: #5a5f80;
+  --color-cd-text-sub: #8a97b0;
+  --color-cd-bg-btn-active: #11355f;
+  --color-cd-bg-row-table: #1c2132;
+  --color-cd-text-sub-2: #8a98b3;
+  --color-cd-select: #1b1f30;
 
   // new
-  --color-gray80: #272A38;
+  --color-gray80: #272a38;
+  --color-cd-bg-component: #151a29;
+  --color-cd-bg-border: #2a2e41;
+  --color-cd-bg-border-sub: #5a5f80;
+  --color-cd-text-sub: #8a97b0;
+  --color-cd-bg-btn-active: #11355f;
+  --color-cd-bg-row-table: #1c2132;
+  --color-cd-text-sub-2: #8a98b3;
+  --color-cd-select: #1b1f30;
+  --color-cd-warning: #fd911e;
+
+  // new
+  --color-gray80: #272a38;
 
   // SOU
   --color-sou-bg: rgba(18, 21, 30, 0.5);
   --color-sou-bg-header: rgba(39, 42, 56, 0.5);
   --color-sou-border: rgba(96, 101, 128, 0.25);
   --color-sou-button: rgba(48, 53, 73, 0.5);
+
+  // ASTUE-ONPZ
+  --color-astue-onpz-bg-header: #222431;
+  --color-astue-onpz-bg-card: #171a24;
+  --color-astue-onpz-button: #616580;
+  --color-astue-onpz-plan: #0089ff;
+  --color-astue-onpz-fact: #ffffff;
+  --color-astue-onpz-limit: #5c6585;
+  --color-astue-onpz-area: #4b5169;
+  --color-astue-onpz-normal: #00a73d;
+  --color-astue-onpz-warning: #f7931e;
+  --color-astue-onpz-units: #606580;
+  --color-astue-onpz-bg-legend: #232737;
 
   // @shared/alert-window (aw)
   --color-aw-container-shadow-transparent: rgba(0, 0, 0, 0.25);

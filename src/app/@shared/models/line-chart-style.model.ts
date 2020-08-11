@@ -6,7 +6,7 @@ export interface IChartStyle {
 
 export type LineTypes = 'solid' | 'dashed';
 
-export type ChartStyleType = 'common' | 'main' | 'additional';
+export type ChartStyleType = 'common' | 'main' | 'additional' | 'area';
 
 export class ChartStyle {
     private readonly chartColors: { [key: string]: string } = {
