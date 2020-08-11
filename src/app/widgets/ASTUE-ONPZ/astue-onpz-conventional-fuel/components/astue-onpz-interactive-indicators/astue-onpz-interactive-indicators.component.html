@@ -18,7 +18,15 @@
       </div>
     </div>
     <div class="labels__select">
-
+      <mat-form-field class="select__item">
+        <mat-select
+          panelClass="mat-select-custom"
+        >
+          <mat-option *ngFor="let p of ['Коллоны и реакторы']" [value]="p">
+            {{ p }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
     </div>
   </div>
   <div class="interactive-indicators__table">
