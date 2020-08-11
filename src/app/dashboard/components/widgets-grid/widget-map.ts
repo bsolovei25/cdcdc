@@ -147,7 +147,8 @@ export const WIDGETS = {
     'cd-mat-balance': WidgetContainerComponent,
     'cd-deviation-mat': WidgetContainerComponent,
     'cd-reactor-parameters': WidgetContainerComponent,
-    'sou-operational-accounting-system': WidgetContainerComponent
+    'sou-operational-accounting-system': WidgetContainerComponent,
+    'astue-onpz-conventional-fuel': WidgetContainerComponent
 };
 
 export const WIDGETS_LAZY = {
@@ -440,6 +441,26 @@ export const WIDGETS_LAZY = {
     },
 
     // #endregion SOU
+
+    // #region ASTUE-ONPZ
+
+    'astue-onpz-conventional-fuel': {
+        import: async () => {
+            return await import(
+                // tslint:disable-next-line:max-line-length
+                'src/app/widgets/ASTUE-ONPZ/astue-onpz-conventional-fuel/astue-onpz-conventional-fuel.module'
+                );
+        },
+        module: 'AstueOnpzConventionalFuelModule',
+        itemCols: 30,
+        itemRows: 40,
+        minItemCols: 30,
+        minItemRows: 40,
+        preview: 'astue-onpz-conventional-fuel'
+    },
+
+    // #endregion ASTUE-ONPZ
+
 
     // 'pie-diagram': {
     //     import: async () => await import('src/app/widgets/pie-diagram/pie-diagram.module'),
