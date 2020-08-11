@@ -4,33 +4,26 @@ import { HttpEvent, HttpInterceptor, HttpHandler, HttpRequest } from '@angular/c
 // RxJS
 import { Observable } from 'rxjs';
 import { AuthService } from '@core/service/auth.service';
-
 // Local modules
 
 @Injectable({
-    providedIn: 'root'
+    providedIn: 'root',
 })
 export class AuthenticationInterceptor implements HttpInterceptor {
-
-    private authorizationHeaderName: string = 'ASPlatform-Authentication';
-    private authorization: string = 'Authorization';
-
-
-    constructor(private authService: AuthService) {
-    }
+    constructor(private authService: AuthService) {}
 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         if (req.url[req.url.length - 1] === '/') {
             req = req.clone({
-                url: req.url.slice(0, -1)
+                url: req.url.slice(0, -1),
             });
         }
 
         req = req.clone({
-            url: encodeURI(req.url)
+            url: encodeURI(req.url),
         });
 
-        if (req.headers.get(this.authorization)) {
+        if (req.headers.get('Authorization')) {
             return next.handle(req);
         }
 
@@ -50,7 +43,7 @@ export class AuthenticationInterceptor implements HttpInterceptor {
             switch (tempHeaderValue) {
                 case 'windows':
                     req = req.clone({
-                        withCredentials: true
+                        withCredentials: true,
                     });
                     return next.handle(req);
             }
@@ -58,16 +51,16 @@ export class AuthenticationInterceptor implements HttpInterceptor {
 
         if (req.url.includes('api/Monitoring/')) {
             req = req.clone({
-                withCredentials: true
+                withCredentials: true,
             });
             return next.handle(req);
         }
 
         req = req.clone({
             headers: req.headers.append(
-                this.authorization,
+                'Authorization',
                 `Bearer ${this.authService.userSessionToken}`
-            )
+            ),
         });
 
         return next.handle(req);
