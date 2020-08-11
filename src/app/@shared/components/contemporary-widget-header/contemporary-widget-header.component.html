@@ -1,5 +1,5 @@
 <div class="aps-header">
-  <div [ngClass]="kpeFlag ? 'aps-header__background-kpe' : 'aps-header__background'"></div>
+  <div [ngClass]="type ? 'aps-header__background-' + type : 'aps-header__background'"></div>
   <div class="aps-header__interface">
     <ng-container *ngIf="widgetTitle">
       <img class="icon" src="assets/pic/{{icon}}.svg"/>
