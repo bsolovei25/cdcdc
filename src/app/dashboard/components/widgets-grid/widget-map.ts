@@ -321,10 +321,10 @@ export const WIDGETS_LAZY = {
             );
         },
         module: 'SplineTrendsChartModule',
-        itemCols: 31,
-        itemRows: 17,
-        minItemCols: 31,
-        minItemRows: 17,
+        itemCols: 24,
+        itemRows: 14,
+        minItemCols: 24,
+        minItemRows: 14
     },
 
     // #endregion KPE
