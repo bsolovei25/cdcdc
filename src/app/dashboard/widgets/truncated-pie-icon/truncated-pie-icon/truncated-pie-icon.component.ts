@@ -90,9 +90,9 @@ export class TruncatedPieIconComponent implements OnInit {
             .attr('fill', (d) => color(d.index));
 
         if (data.value === 0) {
-            this.pic = '/assets/pic/' + data.image + '.svg';
+            this.pic = 'assets/pic/' + data.image + '.svg';
         } else {
-            this.pic = '/assets/pic/' + data.image + 'act.svg';
+            this.pic = 'assets/pic/' + data.image + 'act.svg';
         }
 
         let image = canvas
@@ -105,7 +105,7 @@ export class TruncatedPieIconComponent implements OnInit {
 
         let pie_back = canvas
             .append('image')
-            .attr('xlink:href', '/assets/pic/test2.svg')
+            .attr('xlink:href', 'assets/pic/test2.svg')
             .attr('height', '185px')
             .attr('width', '200px')
             .attr('x', '0')
