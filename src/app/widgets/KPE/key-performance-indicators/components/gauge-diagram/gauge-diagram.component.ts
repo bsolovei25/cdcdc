@@ -123,10 +123,10 @@ export class GaugeDiagramComponent implements OnInit {
         const angleGen = d3.pie()
             .startAngle(-0.75 * Math.PI)
             .endAngle(0.75 * Math.PI)
-            .padAngle(.03)
+            .padAngle(.02)
             .value((d) => d.size);
 
-        const angleGenSource = this.initAngleGen(17);
+        const angleGenSource = this.initAngleGen(20);
         const data = angleGen(angleGenSource);
 
         const arcGen = d3.arc()
@@ -134,8 +134,8 @@ export class GaugeDiagramComponent implements OnInit {
             .outerRadius(51);
 
         const arc = d3.arc()
-            .innerRadius(57.5)
-            .outerRadius(58)
+            .innerRadius(56.5)
+            .outerRadius(57)
             .startAngle(-0.68 * Math.PI)
             .endAngle(0.68 * Math.PI);
 
@@ -161,5 +161,6 @@ export class GaugeDiagramComponent implements OnInit {
         this.appendCircle(21, 'fill-border-color');
         this.appendCircle(20.5, 'fill-body-color');
         this.appendCircle(19, 'fill-border-color');
+        this.appendCircle(18.5, 'fill-center-circle');
     }
 }

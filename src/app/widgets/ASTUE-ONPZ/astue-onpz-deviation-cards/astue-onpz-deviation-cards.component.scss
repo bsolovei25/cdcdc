@@ -1,0 +1,238 @@
+.container {
+  display: flex;
+  height: 100%;
+  flex-flow: column;
+  background: var(--color-bg-main);
+
+  .header {
+    display: flex;
+    gap: 19px;
+    width: 100%;
+    height: 40px;
+    background: var(--color-sou-bg-header);
+    border-radius: 2px 2px 0 0;
+    padding: 0 18px 0 16px;
+    box-sizing: border-box;
+
+    & > * {
+      margin: auto 0;
+    }
+
+    &__icon {
+      width: 19px;
+      height: 19px;
+    }
+
+    &__button-close {
+      width: 15px;
+      height: 15px;
+      cursor: pointer;
+    }
+
+    &__label {
+      font-size: 12px;
+      color: var(--color-kpe-text-main);
+    }
+  }
+
+  .filter-panel {
+    display: flex;
+    padding: 5px 20px 0 20px;
+    min-height: 38px;
+    max-height: 38px;
+    background: var(--color-sou-bg);
+    border: 1px var(--color-sou-border);
+    border-style: none solid none solid;
+    box-sizing: border-box;
+  }
+
+  .table-content {
+    flex-grow: 1;
+    overflow: hidden;
+    display: flex;
+    flex-flow: column;
+    width: 100%;
+    background: var(--color-sou-bg);
+    border: 1px var(--color-sou-border);
+    border-style: none solid solid solid;
+    box-sizing: border-box;
+
+    .scroll-container {
+      display: flex;
+      flex-flow: column;
+      gap: 16px;
+      height: 100%;
+      padding: 0 13px 0 18px;
+      margin: 20px 5px 20px 0;
+      box-sizing: border-box;
+      overflow-y: auto;
+    }
+  }
+}
+
+.card {
+  display: flex;
+  flex-flow: column;
+  width: 100%;
+  max-height: 120px;
+  min-height: 120px;
+  background: #272A38;
+  border-radius: 2px;
+  padding: 12px;
+  box-sizing: border-box;
+  font-size: 12px;
+
+  &_header {
+    display: flex;
+    gap: 13px;
+    width: 100%;
+    height: 16px;
+    color: var(--color-text-main);
+    font-size: 12px;
+
+    & > * {
+      margin: auto 0;
+    }
+
+    &__icon {
+      width: 16px;
+      height: 16px;
+    }
+
+    &__title {
+
+    }
+
+    &__unit {
+
+    }
+  }
+
+  &_content {
+    display: flex;
+    gap: 11px;
+    flex-grow: 1;
+    width: 100%;
+
+    & > * {
+      margin: auto 0;
+    }
+
+    &__icon {
+      height: 18px;
+      width: 18px;
+    }
+
+    &__textarea {
+      flex-grow: 1;
+    }
+  }
+
+  &_footer {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    height: 15px;
+  }
+
+  .text {
+    color: var(--color-text-main);
+
+    &_status {
+      color: var(--color-aps-active);
+    }
+
+    &_date {
+      color: var(--color-aps-bg-icon);
+    }
+  }
+}
+
+.filter-select {
+  border: 1px #0B1325;
+  border-style: none solid;
+  border-radius: 3px;
+  max-height: 30px;
+  min-width: 20px;
+  flex-grow: 1;
+  box-shadow: 0 12px 8px -3px black;
+
+  &__mini {
+    width: 80px;
+    flex-grow: unset;
+  }
+
+  ::ng-deep {
+    mat-label {
+      font-size: 12px;
+      line-height: 14px;
+    }
+
+    .mat-form-field-type-mat-select .mat-form-field-label {
+      margin-left: 5px;
+      margin-bottom: -1px;
+    }
+
+    mat-form-field {
+      width: 100%;
+    }
+
+    .mat-form-field-appearance-legacy.mat-form-field-can-float.mat-form-field-should-float .mat-form-field-label, .mat-form-field-appearance-legacy.mat-form-field-can-float .mat-input-server:focus + .mat-form-field-label-wrapper .mat-form-field-label {
+      display: none;
+    }
+
+    .mat-form-field {
+      max-width: 120px;
+    }
+
+    .mat-form-field-underline {
+      height: 0 !important;
+    }
+
+    .mat-form-field-appearance-legacy .mat-form-field-ripple {
+      height: 0;
+    }
+
+    .mat-form-field-appearance-legacy .mat-form-field-infix {
+      padding: 0;
+      display: flex;
+      padding-top: 6px;
+    }
+
+    .mat-form-field-wrapper {
+      padding-bottom: 0;
+      margin: 0;
+    }
+
+    .mat-select-trigger {
+      padding: 0 5px;
+    }
+
+    .mat-select-value {
+      color: var(--color-cd-text-sub);
+      font-size: 12px;
+    }
+
+    .mat-form-field-infix {
+      border-top: none;
+    }
+
+    .mat-select {
+      //width: 85px !important;
+    }
+
+    .mat-select-value-text {
+      //margin-left: 10px;
+      font-size: 12px;
+      color: var(--color-cd-text-sub);
+    }
+
+    .mat-select-arrow-wrapper {
+      padding-top: 0px;
+    }
+
+    .mat-select-arrow {
+      width: 10px !important;
+    }
+  }
+}

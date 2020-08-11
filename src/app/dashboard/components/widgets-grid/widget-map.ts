@@ -153,6 +153,7 @@ export const WIDGETS = {
     'astue-onpz-product-charts': WidgetContainerComponent,
     'astue-onpz-menu-structure': WidgetContainerComponent,
     'astue-onpz-consumption-indicators': WidgetContainerComponent,
+    'astue-onpz-deviation-cards': WidgetContainerComponent,
 };
 
 export const WIDGETS_LAZY = {
@@ -511,6 +512,20 @@ export const WIDGETS_LAZY = {
         preview: 'astue-onpz-consumption-indicators',
     },
 
+    'astue-onpz-deviation-cards': {
+        import: async () => {
+            return await import(
+                'src/app/widgets/ASTUE-ONPZ/astue-onpz-deviation-cards/astue-onpz-deviation-cards.module'
+                );
+        },
+        module: 'AstueOnpzDeviationCardsModule',
+        itemCols: 19,
+        itemRows: 28,
+        minItemCols: 17,
+        minItemRows: 23,
+        preview: 'default',
+    },
+    
     //#endregion ASTUE-ONPZ
 
     // 'pie-diagram': {
