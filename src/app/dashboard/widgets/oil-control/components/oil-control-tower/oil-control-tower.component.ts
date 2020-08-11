@@ -54,7 +54,7 @@ export class OilControlTowerComponent implements OnInit, AfterViewInit, OnChange
 
     const pictureContainer = this.towerPic
       .append('image')
-      .attr('xlink:href', './assets/pic/OilControl/Bak.png')
+      .attr('xlink:href', 'assets/pic/OilControl/Bak.png')
       .attr('height', '450px')
       .attr('width', '350px')
       .attr('x', '0')

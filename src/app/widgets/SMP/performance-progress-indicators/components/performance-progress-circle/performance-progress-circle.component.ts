@@ -280,7 +280,7 @@ export class PerformanceProgressCircleComponent implements OnInit, OnChanges {
 
     const aroundGauge = this.svg
       .append('image')
-      .attr('xlink:href', '/assets/icons/widgets/SMP/circle-back.svg')
+      .attr('xlink:href', 'assets/icons/widgets/SMP/circle-back.svg')
       .attr('height', '100%')
       .attr('width', '100%')
       .attr('x', '0')

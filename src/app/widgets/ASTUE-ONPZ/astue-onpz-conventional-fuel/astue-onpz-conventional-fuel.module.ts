@@ -5,6 +5,8 @@ import { AstueOnpzInteractiveIndicatorsComponent } from './components/astue-onpz
 import { AngularSvgIconModule } from 'angular-svg-icon';
 import { AstueOnpzMultiChartComponent } from './components/astue-onpz-multi-chart/astue-onpz-multi-chart.component';
 import { SharedModule } from '../../../@shared/shared.module';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSelectModule } from '@angular/material/select';
 
 @NgModule({
     declarations: [
@@ -12,7 +14,13 @@ import { SharedModule } from '../../../@shared/shared.module';
         AstueOnpzInteractiveIndicatorsComponent,
         AstueOnpzMultiChartComponent,
     ],
-    imports: [CommonModule, AngularSvgIconModule, SharedModule],
+    imports: [
+        CommonModule,
+        AngularSvgIconModule,
+        SharedModule,
+        MatFormFieldModule,
+        MatSelectModule,
+    ],
 })
 export class AstueOnpzConventionalFuelModule {
     enterComponent = AstueOnpzConventionalFuelComponent;

@@ -1,7 +1,7 @@
 <div class="container">
     <div class="title">
         <div class="title__button-close" (click)="closeAdditional()">
-            <svg-icon src="./assets/icons/widgets/reports/close.svg" class="add_button_icon">
+            <svg-icon src="assets/icons/widgets/reports/close.svg" class="add_button_icon">
             </svg-icon>
         </div>
         <div class="title__name">Дополнительные параметры</div>
@@ -10,10 +10,10 @@
         <ng-container *ngFor="let item of this.optionsChoose" >
             <div class="content__title-block" (click)="onShowOptions(item)" [class.active]="item.open">
                 <div class="content__title-button">
-                    <svg-icon *ngIf="item.open" src="./assets/icons/widgets/reports/arrow-up.svg"
+                    <svg-icon *ngIf="item.open" src="assets/icons/widgets/reports/arrow-up.svg"
                         [svgStyle]="{ 'width.px':10, 'height.px':10 }"></svg-icon>
 
-                    <svg-icon *ngIf="!item.open" src="./assets/icons/widgets/reports/arrow-bottom.svg"
+                    <svg-icon *ngIf="!item.open" src="assets/icons/widgets/reports/arrow-bottom.svg"
                         [svgStyle]="{ 'width.px':10, 'height.px':10 }"></svg-icon>
                 </div>
                 <div class="content__item-title" >
@@ -36,7 +36,7 @@
         <div class="bottom__block-edit">
             <div class="bottom__block-add">
                 <div class="bottom__button-add" (click)="openCustomOptions()">
-                    <svg-icon src="./assets/icons/widgets/reports/edit.svg" class="add_button_icon">
+                    <svg-icon src="assets/icons/widgets/reports/edit.svg" class="add_button_icon">
                     </svg-icon>
                 </div>
             </div>

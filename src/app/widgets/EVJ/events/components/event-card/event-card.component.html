@@ -65,7 +65,7 @@
           *ngIf="!cardData?.source"
           class="notification__icon_delete"
           [applyCss]="true"
-          src="./assets/icons/remove.svg"
+          src="assets/icons/remove.svg"
           (click)="deleteClick(cardData?.id)"
           (mousedown)="$event.stopPropagation()"
           (touchstart)="$event.stopPropagation()"
@@ -129,7 +129,7 @@
           <svg-icon
             class="notification__block__icon notification__block__icon_delete"
             [applyCss]="true"
-            src="./assets/icons/remove.svg"
+            src="assets/icons/remove.svg"
             (click)="deleteClick(cardData?.id)"
             [svgStyle]="{ 'width.px':14, 'height.px':14 }"
           >
