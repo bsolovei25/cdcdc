@@ -16,7 +16,7 @@ export class CcsOneColumnComponent implements OnInit, AfterViewInit {
     public colorFact: string = '#ffffff';
     public colorNormal: string = '#A2E2FF';
 
-    public defaultIconPath: string = '../../../../.assets/icons/widgets/column-chart-stacked/';
+    public defaultIconPath: string = 'assets/icons/widgets/column-chart-stacked/';
 
     constructor() {}
 
