@@ -26,7 +26,7 @@
     top: 0;
     left: 0;
     overflow: hidden;
-    background: var(--color-aps-bg-header);
+    background: rgba(39, 42, 56, 0.5);
   }
 
   &__background-kpe {
@@ -92,6 +92,7 @@
 .title {
   width: max-content;
   height: max-content;
+  cursor: default;
 }
 
 .buttons {
