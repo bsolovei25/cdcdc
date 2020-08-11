@@ -75,7 +75,7 @@ export class AstueOnpzProductCardComponent implements OnInit {
                     timeStamp: new Date(2020, 1, 6),
                 },
                 {
-                    value: 1600,
+                    value: 1300,
                     timeStamp: new Date(2020, 1, 7),
                 },
                 {

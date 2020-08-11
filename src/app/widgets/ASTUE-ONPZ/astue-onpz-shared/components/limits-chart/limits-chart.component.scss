@@ -59,5 +59,23 @@
         fill: var(--color-astue-onpz-normal);
       }
     }
+
+    .label {
+      fill: var(--color-astue-onpz-units);
+      font-size: 12px;
+    }
+
+    .point {
+      fill: #1c1f2b;
+      stroke-width: 2;
+
+      &_plan {
+        stroke: var(--color-astue-onpz-plan);
+      }
+
+      &_fact {
+        stroke: var(--color-astue-onpz-fact);
+      }
+    }
   }
 }

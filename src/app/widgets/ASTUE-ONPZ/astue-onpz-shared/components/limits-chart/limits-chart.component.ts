@@ -38,8 +38,8 @@ export class LimitsChartComponent implements OnChanges {
     private readonly padding: { left: number; right: number; top: number; bottom: number } = {
         left: 50,
         right: 30,
-        top: 40,
-        bottom: 30,
+        top: 0,
+        bottom: 40,
     };
 
     constructor() {}
@@ -64,8 +64,7 @@ export class LimitsChartComponent implements OnChanges {
         this.transformData();
         this.drawGridlines();
         this.drawChart();
-        this.drawAxisYLabels();
-        this.drawAxisXLabels();
+        this.drawAxisLabels();
         this.drawPoints();
         this.customizeAreas();
     }
@@ -201,19 +200,16 @@ export class LimitsChartComponent implements OnChanges {
             if (item.graphType !== 'fact' && item.graphType !== 'plan') {
                 return;
             }
-            const color = item.graphType === 'fact' ? '#0089FF' : '#FFFFFF';
+            const classes = item.graphType === 'plan' ? 'point point_plan' : 'point point_fact';
             const r = 4;
             item.graph.forEach((point, idx, arr) => {
                 if (!!arr.length && idx === arr.length - 1) {
                     pointsG
                         .append('circle')
-                        .attr('class', 'point')
+                        .attr('class', classes)
                         .attr('cx', point.x)
                         .attr('cy', point.y)
-                        .attr('r', r)
-                        .style('fill', '#1C1F2B')
-                        .style('stroke', color)
-                        .style('stroke-width', 2);
+                        .attr('r', r);
                 }
             });
         });
@@ -247,53 +243,25 @@ export class LimitsChartComponent implements OnChanges {
             .style('color', '#272A38');
     }
 
-    private drawAxisXLabels(): void {
-        this.svg
-            .append('g')
-            .attr('transform', `translate(0,${this.graphMaxY - this.padding.bottom})`)
-            .attr('class', 'axisX')
-            .call(this.axis.axisX)
-            .selectAll('text')
-            .style('font-size', '12px')
-            .style('fill', '#8c99b2');
+    private drawAxisLabels(): void {
+        const drawLabels = (axis: 'axisX' | 'axisY', translate: string): void => {
+            this.svg
+                .append('g')
+                .attr('transform', translate)
+                .attr('class', axis)
+                .call(this.axis[axis])
+                .selectAll('text')
+                .attr('class', 'label');
 
-        const axisG = this.svg.select('g.axisX');
-        axisG.select('path.domain').remove();
-        axisG.selectAll('g.tick line').remove();
-
-        const colors = {
-            last: '#606580',
-            active: '#0089FF',
-            future: '#303549',
+            const axisG = this.svg.select(`g.${axis}`);
+            axisG.select('path.domain').remove();
+            axisG.selectAll('g.tick line').remove();
         };
 
-        const activeIdx =
-            this.chartData.find((chart) => chart.graphType === 'fact').graph.length - 1;
-
-        const gArr = Array.from(axisG.selectAll('g.tick')._groups[0]);
-        gArr.forEach((g: HTMLElement, idx: number) => {
-            const fill =
-                idx < activeIdx ? colors.last : idx === activeIdx ? colors.active : colors.future;
-            d3Selection
-                .select(g)
-                .select('text')
-                .style('fill', fill);
-        });
-    }
-
-    private drawAxisYLabels(): void {
-        this.svg
-            .append('g')
-            .attr('transform', `translate(${this.padding.left},0)`)
-            .attr('class', 'axisY')
-            .call(this.axis.axisY)
-            .selectAll('text')
-            .style('font-size', '12px')
-            .style('fill', '#606580');
-
-        const axisG = this.svg.select('g.axisY');
-        axisG.select('path.domain').remove();
-        axisG.selectAll('g.tick line').remove();
+        const translateX: string = `translate(0,${this.graphMaxY - this.padding.bottom})`;
+        const translateY: string = `translate(${this.padding.left},0)`;
+        drawLabels('axisX', translateX);
+        drawLabels('axisY', translateY);
     }
 
     private customizeAreas(): void {
