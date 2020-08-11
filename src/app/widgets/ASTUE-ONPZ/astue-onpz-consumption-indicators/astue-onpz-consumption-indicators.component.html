@@ -1,0 +1,31 @@
+<evj-contemporary-widget-header [uniqId]="uniqId" type="astue">
+  <div
+    class="content-container"
+    (mousedown)="$event.stopPropagation()"
+    (touchstart)="$event.stopPropagation()"
+  >
+    <div>{{ widgetTitle }}</div>
+  </div>
+</evj-contemporary-widget-header>
+
+<div
+  class="wrapper"
+  (mousedown)="$event.stopPropagation()"
+  (touchstart)="$event.stopPropagation()"
+>
+
+  <ng-container *ngFor="let button of buttons">
+    <ng-container *ngIf="button.type === type">
+      <div class="block" (click)="setButton(button.id)" [ngClass]="activeButton === button.id ? 'block--active' : ''">
+        <div class="block__title">
+          <span>{{button.title}}</span>
+        </div>
+        <div class="block__value" *ngIf="button.value">
+          <span>{{button.value}}</span>
+        </div>
+        <div class="empty-value" *ngIf="!button.value"></div>
+      </div>
+    </ng-container>
+  </ng-container>
+
+</div>

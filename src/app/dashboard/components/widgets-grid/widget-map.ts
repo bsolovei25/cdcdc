@@ -149,6 +149,8 @@ export const WIDGETS = {
     'cd-reactor-parameters': WidgetContainerComponent,
     'sou-operational-accounting-system': WidgetContainerComponent,
     'astue-onpz-product-charts': WidgetContainerComponent,
+    'astue-onpz-menu-structure': WidgetContainerComponent,
+    'astue-onpz-consumption-indicators': WidgetContainerComponent,
 };
 
 export const WIDGETS_LAZY = {
@@ -324,7 +326,7 @@ export const WIDGETS_LAZY = {
         itemCols: 24,
         itemRows: 14,
         minItemCols: 24,
-        minItemRows: 14
+        minItemRows: 14,
     },
 
     // #endregion KPE
@@ -449,7 +451,33 @@ export const WIDGETS_LAZY = {
         minItemRows: 30,
         preview: 'astue-onpz-product-charts',
     },
-    //#endregion
+    'astue-onpz-menu-structure': {
+        import: async () => {
+            return await import(
+                'src/app/widgets/ASTUE-ONPZ/astue-onpz-menu-structure/astue-onpz-menu-structure.module'
+            );
+        },
+        module: 'AstueOnpzMenuStructureModule',
+        itemCols: 11,
+        itemRows: 8,
+        minItemCols: 11,
+        minItemRows: 8,
+        preview: 'astue-onpz-menu-structure',
+    },
+    'astue-onpz-consumption-indicators': {
+        import: async () => {
+            return await import(
+                'src/app/widgets/ASTUE-ONPZ/astue-onpz-consumption-indicators/astue-onpz-consumption-indicators.module'
+            );
+        },
+        module: 'AstueOnpzConsumptionIndicatorsModule',
+        itemCols: 11,
+        itemRows: 6,
+        minItemCols: 11,
+        minItemRows: 6,
+        preview: 'astue-onpz-consumption-indicators',
+    },
+    //#endregion ASTUE-ONPZ
 
     // 'pie-diagram': {
     //     import: async () => await import('src/app/widgets/pie-diagram/pie-diagram.module'),
