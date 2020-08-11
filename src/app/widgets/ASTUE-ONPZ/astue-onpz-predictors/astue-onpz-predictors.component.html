@@ -1,0 +1,26 @@
+<div class="container">
+  <evj-contemporary-widget-header [uniqId]="uniqId" [widgetTitle]="widgetTitle" icon="astue-predictors" type="astue">
+  </evj-contemporary-widget-header>
+
+  <div class="container-body"
+       (mousedown)="$event.stopPropagation()"
+       (touchstart)="$event.stopPropagation()">
+
+    <div class="predictors">
+      <ul class="predictors__list">
+        <li class="list__item" *ngFor="let item of data" [class.list__item--no-active]="!item.isActive">
+          <div class="list__item__block">
+          <span class="list__item__slide">
+          <mat-slide-toggle [(ngModel)]="item.isActive" disableRipple="true"></mat-slide-toggle>
+          </span>
+            <span class="list__item__name">{{ item.name }}</span>
+          </div>
+          <div class="list__item__label" [class.list__item__label--unactive]="!item.isActive">
+            {{ item.label }}
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+</div>

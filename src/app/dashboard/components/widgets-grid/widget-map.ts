@@ -148,6 +148,8 @@ export const WIDGETS = {
     'cd-deviation-mat': WidgetContainerComponent,
     'cd-reactor-parameters': WidgetContainerComponent,
     'sou-operational-accounting-system': WidgetContainerComponent,
+    'astue-onpz-predictors': WidgetContainerComponent,
+    'astue-onpz-main-indicators': WidgetContainerComponent,
     'astue-onpz-product-charts': WidgetContainerComponent,
     'astue-onpz-menu-structure': WidgetContainerComponent,
     'astue-onpz-consumption-indicators': WidgetContainerComponent,
@@ -439,6 +441,35 @@ export const WIDGETS_LAZY = {
     // #endregion SOU
 
     //#region ASTUE-ONPZ
+
+    'astue-onpz-predictors': {
+        import: async () => {
+            return await import(
+                'src/app/widgets/ASTUE-ONPZ/astue-onpz-predictors/astue-onpz-predictors.module'
+            );
+        },
+        module: 'AstueOnpzPredictorsModule',
+        itemCols: 13,
+        itemRows: 15,
+        minItemCols: 13,
+        minItemRows: 15,
+        preview: 'astue-onpz-predictors'
+    },
+
+    'astue-onpz-main-indicators': {
+        import: async () => {
+            return await import(
+                'src/app/widgets/ASTUE-ONPZ/astue-onpz-main-indicators/astue-onpz-main-indicators.module'
+            );
+        },
+        module: 'AstueOnpzMainIndicatorsModule',
+        itemCols: 13,
+        itemRows: 15,
+        minItemCols: 13,
+        minItemRows: 15,
+        preview: 'astue-onpz-main-indicators'
+    },
+
     'astue-onpz-product-charts': {
         import: async () => {
             return await import(
@@ -452,6 +483,7 @@ export const WIDGETS_LAZY = {
         minItemRows: 30,
         preview: 'astue-onpz-product-charts',
     },
+
     'astue-onpz-menu-structure': {
         import: async () => {
             return await import(
@@ -465,6 +497,7 @@ export const WIDGETS_LAZY = {
         minItemRows: 8,
         preview: 'astue-onpz-menu-structure',
     },
+
     'astue-onpz-consumption-indicators': {
         import: async () => {
             return await import(
@@ -478,6 +511,7 @@ export const WIDGETS_LAZY = {
         minItemRows: 6,
         preview: 'astue-onpz-consumption-indicators',
     },
+
     'astue-onpz-deviation-cards': {
         import: async () => {
             return await import(
@@ -491,6 +525,7 @@ export const WIDGETS_LAZY = {
         minItemRows: 23,
         preview: 'default',
     },
+    
     //#endregion ASTUE-ONPZ
 
     // 'pie-diagram': {
