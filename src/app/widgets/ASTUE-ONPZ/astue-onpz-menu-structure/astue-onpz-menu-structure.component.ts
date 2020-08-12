@@ -10,6 +10,11 @@ import {
 import { WidgetPlatform } from '../../../dashboard/models/widget-platform';
 import { WidgetService } from '../../../dashboard/services/widget.service';
 
+interface IAstueOnpzMenuStructure {
+    production: {name: string; id: number}[];
+    facility: {name: string; id: number}[];
+}
+
 @Component({
     selector: 'evj-astue-onpz-menu-structure',
     templateUrl: './astue-onpz-menu-structure.component.html',

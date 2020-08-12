@@ -28,17 +28,9 @@ export class AstueOnpzMainIndicatorsComponent extends WidgetPlatform implements 
             value: 1100
         },
         {
-            name: 'Факт',
-            value: 1100
+            name: 'План на следующий час',
+            value: 1500
         },
-        {
-            name: 'План',
-            value: 1100
-        },
-        {
-            name: 'Факт',
-            value: 1100
-        }
     ];
 
     constructor(
