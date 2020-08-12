@@ -376,21 +376,21 @@ export class ChainMapComponent extends WidgetPlatform implements OnInit, OnDestr
                     item.setAttributeNS(
                         'http://www.w3.org/1999/xlink',
                         'href',
-                        'assets/pic/chain4.png'
+                        '../../../.assets/pic/chain4.png'
                     );
                 } else if (datLine === id && datStatus == 1) {
                     item.removeAttribute('href');
                     item.setAttributeNS(
                         'http://www.w3.org/1999/xlink',
                         'href',
-                        'assets/pic/chain2.png'
+                        '../../../.assets/pic/chain2.png'
                     );
                 } else if (datLine === id && datStatus == 2) {
                     item.removeAttribute('href');
                     item.setAttributeNS(
                         'http://www.w3.org/1999/xlink',
                         'href',
-                        'assets/pic/critical_chain.png'
+                        '../../../.assets/pic/critical_chain.png'
                     );
                 }
             }
