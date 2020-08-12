@@ -41,7 +41,7 @@
               >
                 <svg-icon
                   class="workflow__action__body__item__icon"
-                  src="assets/icons/widgets/workflow/action-other.svg"
+                  src="./assets/icons/widgets/workflow/action-other.svg"
                   [svgStyle]="{ 'width.px':32, 'height.px':32 }"
                 ></svg-icon>
                 <span class="workflow__action__body__item__title">Событие</span>
@@ -53,7 +53,7 @@
               >
                 <svg-icon
                   class="workflow__action__body__item__icon"
-                  src="assets/icons/widgets/workflow/message_w.svg"
+                  src="./assets/icons/widgets/workflow/message_w.svg"
                   [svgStyle]="{ 'width.px':32, 'height.px':32 }"
                 ></svg-icon>
                 <span class="workflow__action__body__item__title">Отправить сообщение </span>
@@ -115,14 +115,14 @@
                         *ngSwitchCase="workflowActions.GRADUATION_TABLE_EVENT"
                         [matTooltip]="workflowActionsNameMap[workflowActions.GRADUATION_TABLE_EVENT]"
                         class="workflow__action__body__item__icon"
-                        src="assets/icons/widgets/workflow/action-other.svg"
+                        src="./assets/icons/widgets/workflow/action-other.svg"
                         [svgStyle]="{ 'width.px':widthSvgIconGrid, 'height.px':heightSvgIconGrid }"
                       ></svg-icon>
                       <svg-icon
                         *ngSwitchCase="workflowActions.SEND_EMAIL"
                         [matTooltip]="workflowActionsNameMap[workflowActions.SEND_EMAIL]"
                         class="workflow__action__body__item__icon"
-                        src="assets/icons/widgets/workflow/message_w.svg"
+                        src="./assets/icons/widgets/workflow/message_w.svg"
                         [svgStyle]="{ 'width.px':widthSvgIconGrid, 'height.px':heightSvgIconGrid }"
                       ></svg-icon>
                     </ng-container>
@@ -130,7 +130,7 @@
                       *ngIf="activeActions === i"
                       (click)="deleteAction(i.scenarioAction)"
                       style="position: absolute; bottom: -10px; right: -4px;"
-                      src="assets/icons/widgets/workflow/trash_w.svg"
+                      src="./assets/icons/widgets/workflow/trash_w.svg"
                       [svgStyle]="{ 'width.px':10, 'height.px':10 }"
                     ></svg-icon>
                   </gridster-item>
@@ -142,7 +142,7 @@
                       [id]="LEADER_LINE_REMOVE_TEMPLATE"
                       style="height: 18px;"
                       class="remove-line__icon"
-                      src="assets/icons/widgets/admin-shift-schedule/close.svg"
+                      src="./assets/icons/widgets/admin-shift-schedule/close.svg"
                       [svgStyle]="{ 'width.px':'10', 'height.px':'10' }"
                     ></svg-icon>
                   </div>
@@ -201,7 +201,7 @@
                             {{ value }}
                             <mat-icon matChipRemove>
                               <svg-icon
-                                src="assets/icons/widgets/reports/close-icon.svg"
+                                src="./assets/icons/widgets/reports/close-icon.svg"
                                 [svgStyle]="{ 'width.px':10, 'height.px':18, 'margin-top.px': 0}"
                               >
                               </svg-icon>
@@ -237,7 +237,7 @@
                             {{ value }}
                             <mat-icon matChipRemove>
                               <svg-icon
-                                src="assets/icons/widgets/reports/close-icon.svg"
+                                src="./assets/icons/widgets/reports/close-icon.svg"
                                 [svgStyle]="{ 'width.px':10, 'height.px':18, 'margin-top.px': 0}"
                               >
                               </svg-icon>

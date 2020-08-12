@@ -6,7 +6,7 @@
     <div class="tank__header">
       <span class="tank__header__close">
         <svg-icon mat-dialog-close
-                  src="assets/icons/widgets/calibration-table/close.svg"
+                  src="./assets/icons/widgets/calibration-table/close.svg"
                   [svgStyle]="{ 'width.px': 30, 'height.px': 30 }">
         </svg-icon>
       </span>
@@ -64,11 +64,11 @@
         <div class="tank__footer__search__button-search">
           <svg-icon *ngIf="!isRefInput"
                     class="button_filter_icon"
-                    src="assets/icons/widgets/references/search_white.svg"></svg-icon>
+                    src="./assets/icons/widgets/references/search_white.svg"></svg-icon>
 
           <svg-icon *ngIf="isRefInput"
                     class="indicator-selector__collapse"
-                    src="assets/icons/widgets/references/search_blue.svg"></svg-icon>
+                    src="./assets/icons/widgets/references/search_blue.svg"></svg-icon>
         </div>
         <div class="tank__footer__search__input"
              [class.tank__footer__search__input-active]="isRefInput">

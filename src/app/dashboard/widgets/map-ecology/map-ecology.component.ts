@@ -91,7 +91,7 @@ export class MapEcologyComponent extends WidgetPlatform implements OnInit, OnDes
 
         this.svgimg = svg
             .append('image')
-            .attr('xlink:href', 'assets/img/mapEcology2.jpg')
+            .attr('xlink:href', '/assets/img/mapEcology2.jpg')
             .attr('height', '0.0554')
             .attr('width', '0.07225')
             .attr('y', this.startImgY)
@@ -102,7 +102,7 @@ export class MapEcologyComponent extends WidgetPlatform implements OnInit, OnDes
             this.clon = this.startImgX + (item.longitude - this.startX) * 1.2;
             if (this.namePoint === item.name) {
                 svg.append('image')
-                    .attr('xlink:href', 'assets/pic/point2.svg')
+                    .attr('xlink:href', '/assets/pic/point2.svg')
                     .attr('y', this.clat)
                     .attr('x', this.clon)
                     .attr('height', '0.0022px')
@@ -119,23 +119,23 @@ export class MapEcologyComponent extends WidgetPlatform implements OnInit, OnDes
                         if (item.isCritical) {
                             svg.selectAll('#notcritical').attr(
                                 'xlink:href',
-                                'assets/pic/point.svg'
+                                '/assets/pic/point.svg'
                             );
-                            svg.selectAll('#critical').attr('xlink:href', 'assets/pic/point3.svg');
+                            svg.selectAll('#critical').attr('xlink:href', '/assets/pic/point3.svg');
                             svg.select('.' + item.name).attr(
                                 'xlink:href',
-                                'assets/pic/point2.svg'
+                                '/assets/pic/point2.svg'
                             );
                             return (this.namePoint = item.name);
                         } else {
                             svg.selectAll('#notcritical').attr(
                                 'xlink:href',
-                                'assets/pic/point.svg'
+                                '/assets/pic/point.svg'
                             );
-                            svg.selectAll('#critical').attr('xlink:href', 'assets/pic/point3.svg');
+                            svg.selectAll('#critical').attr('xlink:href', '/assets/pic/point3.svg');
                             svg.select('.' + item.name).attr(
                                 'xlink:href',
-                                'assets/pic/point2.svg'
+                                '/assets/pic/point2.svg'
                             );
                             return (this.namePoint = item.name);
                         }
@@ -145,9 +145,9 @@ export class MapEcologyComponent extends WidgetPlatform implements OnInit, OnDes
                 svg.append('image')
                     .attr('xlink:href', () => {
                         if (item.isCritical) {
-                            return 'assets/pic/point.svg';
+                            return '/assets/pic/point.svg';
                         } else {
-                            return 'assets/pic/point3.svg';
+                            return '/assets/pic/point3.svg';
                         }
                     })
                     .attr('y', this.clat)
@@ -166,23 +166,23 @@ export class MapEcologyComponent extends WidgetPlatform implements OnInit, OnDes
                         if (item.isCritical) {
                             svg.selectAll('#notcritical').attr(
                                 'xlink:href',
-                                'assets/pic/point.svg'
+                                '/assets/pic/point.svg'
                             );
-                            svg.selectAll('#critical').attr('xlink:href', 'assets/pic/point3.svg');
+                            svg.selectAll('#critical').attr('xlink:href', '/assets/pic/point3.svg');
                             svg.select('.' + item.name).attr(
                                 'xlink:href',
-                                'assets/pic/point2.svg'
+                                '/assets/pic/point2.svg'
                             );
                             return (this.namePoint = item.name);
                         } else {
                             svg.selectAll('#notcritical').attr(
                                 'xlink:href',
-                                'assets/pic/point.svg'
+                                '/assets/pic/point.svg'
                             );
-                            svg.selectAll('#critical').attr('xlink:href', 'assets/pic/point3.svg');
+                            svg.selectAll('#critical').attr('xlink:href', '/assets/pic/point3.svg');
                             svg.select('.' + item.name).attr(
                                 'xlink:href',
-                                'assets/pic/point2.svg'
+                                '/assets/pic/point2.svg'
                             );
                             return (this.namePoint = item.name);
                         }

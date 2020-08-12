@@ -249,9 +249,9 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, OnDes
         let x4 = -48;
         let y = 110;
 
-        const tug = 'assets/pic/Icons3D/Tug.png';
-        const tube = 'assets/pic/Icons3D/Tube.png';
-        const cis = 'assets/pic/Icons3D/Cistern.png';
+        const tug = './assets/pic/Icons3D/Tug.png';
+        const tube = './assets/pic/Icons3D/Tube.png';
+        const cis = './assets/pic/Icons3D/Cistern.png';
 
         let countPicture = 0;
 
@@ -289,7 +289,7 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, OnDes
                 isShipped = true;
                 let pictureContainer = this.tankersPicture
                     .append('image')
-                    .attr('xlink:href', 'assets/pic/OilControl/oil_icon.svg')
+                    .attr('xlink:href', './assets/pic/OilControl/oil_icon.svg')
                     .attr('height', '130px')
                     .attr('width', '105px')
                     .attr('class', 'textProduct')
@@ -363,7 +363,7 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, OnDes
         if (count === 1) {
             let lineOne = this.svgLine
                 .append('image')
-                .attr('xlink:href', 'assets/pic/OilControl/LineOne.svg')
+                .attr('xlink:href', './assets/pic/OilControl/LineOne.svg')
                 .attr('height', '100%')
                 .attr('width', '100%')
                 .attr('class', 'textProduct')
@@ -372,7 +372,7 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, OnDes
         } else if (count === 2) {
             let lineTwo = this.svgLine
                 .append('image')
-                .attr('xlink:href', 'assets/pic/OilControl/LineTwo.svg')
+                .attr('xlink:href', './assets/pic/OilControl/LineTwo.svg')
                 .attr('height', '100%')
                 .attr('width', '100%')
                 .attr('class', 'textProduct')
@@ -381,7 +381,7 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, OnDes
         } else {
             let lineThree = this.svgLine
                 .append('image')
-                .attr('xlink:href', 'assets/pic/OilControl/LineThree.svg')
+                .attr('xlink:href', './assets/pic/OilControl/LineThree.svg')
                 .attr('height', '100%')
                 .attr('width', '100%')
                 .attr('class', 'textProduct')
@@ -451,7 +451,7 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, OnDes
         if (this.activeStorage.status === 'critical') {
             let backgroundCircle = svgMenu
                 .append('image')
-                .attr('xlink:href', 'assets/pic/OilControl/backCircle.svg')
+                .attr('xlink:href', './assets/pic/OilControl/backCircle.svg')
                 .attr('height', '250px')
                 .attr('width', '250px')
                 .attr('x', '195')

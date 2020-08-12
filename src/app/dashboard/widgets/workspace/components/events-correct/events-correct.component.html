@@ -2,7 +2,7 @@
   <div class="events-correct__header">
     <div [class.left-title]="!isSmotr">Корректирующие мероприятия</div>
     <div matTooltip="Привязать существующее событие" class="button__search" (click)="openSearchRetrieval()" [class.button__search_bottom]="!isSmotr">
-      <svg-icon src="assets/icons/widgets/workspace/searchWindow.svg"
+      <svg-icon src="./assets/icons/widgets/workspace/searchWindow.svg"
         [svgStyle]="{ 'width.px':20, 'height.px':20, 'margin-top.px': 3}"></svg-icon>
     </div>
     <div matTooltip="Добавить новое событие" class="button__add" [class.button__add_bottom]="!isSmotr" (click)="addRetrieval()">
@@ -54,7 +54,7 @@
                 <div style="margin-left: 10px">
                   <svg-icon
                     *ngIf="retrieval.timerPercentage > 99"
-                    src="assets/icons/widgets/workspace/attantion.svg"
+                    src="./assets/icons/widgets/workspace/attantion.svg"
                     [svgStyle]="{ 'width.px':18, 'height.px':18, 'margin-top.px': 2 }"
                   ></svg-icon>
                 </div>
@@ -89,7 +89,7 @@
           <div class="events_menu">
             <div class="events_check" *ngIf="retrieval.innerNotification.isAcknowledged">
               <svg-icon
-                src="assets/icons/widgets/workspace/accept.svg"
+                src="./assets/icons/widgets/workspace/accept.svg"
                 [svgStyle]="{ 'width.px':15, 'height.px':15 }"
               >
               </svg-icon>
@@ -98,7 +98,7 @@
               <div clas="events_button_delete" (click)="overlayConfirmationOpen()">
                 <svg-icon
                   class="delete_button_icon"
-                  src="assets/icons/widgets/workspace/delete.svg"
+                  src="./assets/icons/widgets/workspace/delete.svg"
                   [svgStyle]="{ 'width.px':16, 'height.px':16 }"
                 >
                 </svg-icon>
@@ -109,7 +109,7 @@
               >
                 <svg-icon
                   class="edit_button_icon"
-                  src="assets/icons/widgets/workspace/edit.svg"
+                  src="./assets/icons/widgets/workspace/edit.svg"
                   [svgStyle]="{ 'width.px':20, 'height.px':20 }"
                 >
                 </svg-icon>
@@ -158,7 +158,7 @@
     <div class="events_bottom_info">
       <div class="add_events">
         <svg-icon
-          src="assets/icons/add_button.svg"
+          src="./assets/icons/add_button.svg"
           class="add_button_icon"
           [svgStyle]="{ 'width.px':20, 'height.px':20 }"
           (click)="addRetrieval()"

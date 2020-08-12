@@ -2,7 +2,7 @@
     <div style="height: 100%;">
         <div class="title">
             <div class="title__button-close" (click)="close()">
-                <svg-icon src="assets/icons/widgets/reports/close.svg" class="add_button_icon">
+                <svg-icon src="./assets/icons/widgets/reports/close.svg" class="add_button_icon">
                 </svg-icon>
             </div>
             <div class="title__name">Редактирование макросов</div>
@@ -14,7 +14,7 @@
                         <ng-container *ngIf="!item.edit">
                             <div>{{ item.name }}</div>
                             <div *ngIf="item === itemChoose" class="item-list__button-edit">
-                                <svg-icon src="assets/icons/widgets/reports/edit_white.svg" (click)="editItem(item)">
+                                <svg-icon src="./assets/icons/widgets/reports/edit_white.svg" (click)="editItem(item)">
                                 </svg-icon>
                             </div>
                               <!--DELETE ITEM-->
@@ -28,7 +28,7 @@
                                 <input type="text" [(ngModel)]="nameItem" placeholder="Новое наименование..." />
                             </div>
                             <div class="item-list__add-block-icon" (click)="editItemAccept(item)">
-                                <svg-icon src="assets/icons/widgets/reports/accept.svg">
+                                <svg-icon src="./assets/icons/widgets/reports/accept.svg">
                                 </svg-icon>
                             </div>
                         </ng-container>
@@ -41,7 +41,7 @@
                         <input type="text" [(ngModel)]="nameItem" placeholder="Наименование..." />
                     </div>
                     <div class="item-list__add-block-icon" (click)="addItemAccept()">
-                        <svg-icon src="assets/icons/widgets/reports/accept.svg">
+                        <svg-icon src="./assets/icons/widgets/reports/accept.svg">
                         </svg-icon>
                     </div>
                 </ng-container>
@@ -58,7 +58,7 @@
             <div class="bottom__block-edit">
                 <div class="bottom__block-add">
                     <div class="bottom__button-add" (click)="addItemBlock()">
-                        <svg-icon src="assets/icons/widgets/reports/add_white.svg" class="add_button_icon">
+                        <svg-icon src="./assets/icons/widgets/reports/add_white.svg" class="add_button_icon">
                         </svg-icon>
                     </div>
                 </div>

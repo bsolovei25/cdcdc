@@ -2,7 +2,7 @@
     <div style="height: 100%;">
         <div class="title">
             <div class="title__button-close" (click)="exit()">
-                <svg-icon src="assets/icons/widgets/reports/close.svg" class="add_button_icon">
+                <svg-icon src="./assets/icons/widgets/reports/close.svg" class="add_button_icon">
                 </svg-icon>
             </div>
             <div class="title__name">Выберите нужные разделы</div>
@@ -11,10 +11,10 @@
             <ng-container *ngFor="let item of dataParam">
                 <div class="item" (click)="itemOpen(item)">
                     <div class="item__title-button">
-                        <svg-icon *ngIf="item.open" src="assets/icons/widgets/oil-control-all/tank-information/arrow-up.svg"
+                        <svg-icon *ngIf="item.open" src="./assets/icons/widgets/oil-control-all/tank-information/arrow-up.svg"
                             [svgStyle]="{ 'width.px':14, 'height.px':10 }"></svg-icon>
 
-                        <svg-icon *ngIf="!item.open" src="assets/icons/widgets/oil-control-all/tank-information/arrow-bottom.svg"
+                        <svg-icon *ngIf="!item.open" src="./assets/icons/widgets/oil-control-all/tank-information/arrow-bottom.svg"
                             [svgStyle]="{ 'width.px':14, 'height.px':10 }"></svg-icon>
                     </div>
                     <div class="item__name"> {{ item.type }}</div>

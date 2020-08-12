@@ -37,14 +37,14 @@ export class ReasonsDeviationsPicTankComponent implements OnInit, AfterViewInit 
     const x3 = -48;
     const y = 110;
 
-    const tug = 'assets/pic/Icons3D/Tug.png';
-    const tube = 'assets/pic/Icons3D/Tube.png';
-    const cis = 'assets/pic/Icons3D/Cistern.png';
-    const work = 'assets/pic/Icons3D/work.svg';
+    const tug = './assets/pic/Icons3D/Tug.png';
+    const tube = './assets/pic/Icons3D/Tube.png';
+    const cis = './assets/pic/Icons3D/Cistern.png';
+    const work = './assets/pic/Icons3D/work.svg';
 
     const pictureContainer = this.tankersPicture
       .append('image')
-      .attr('xlink:href', 'assets/icons/widgets/oil-control-all/reasons-deviations/background-pic.svg')
+      .attr('xlink:href', './assets/icons/widgets/oil-control-all/reasons-deviations/background-pic.svg')
       .attr('height', '110px')
       .attr('width', '95px')
       .attr('class', 'textProduct')

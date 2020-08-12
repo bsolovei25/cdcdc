@@ -47,7 +47,7 @@ export class WidgetHeaderComponent implements OnInit, OnChanges, OnDestroy {
     @Output() public selected: EventEmitter<any> = new EventEmitter<any>();
     @Output() public selectedMenu: EventEmitter<any> = new EventEmitter<any>();
     @Output() private toggleAstueChange: EventEmitter<boolean> = new EventEmitter<boolean>();
-    public readonly iconRoute: string = 'assets/icons/widget-title-icons/';
+    public readonly iconRoute: string = './assets/icons/widget-title-icons/';
     private subscriptions: Subscription[] = [];
     claimWidgets: EnumClaimWidgets[] = [];
     EnumClaimWidgets: typeof EnumClaimWidgets = EnumClaimWidgets;

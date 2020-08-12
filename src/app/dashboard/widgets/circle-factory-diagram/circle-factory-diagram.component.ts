@@ -190,8 +190,8 @@ export class CircleFactoryDiagramComponent extends WidgetPlatform
             .attr(
                 'xlink:href',
                 !data.value
-                    ? 'assets/pic/CircleFactory/notActiveCircleBack.svg'
-                    : 'assets/pic/CircleFactory/activeCircleBack.svg'
+                    ? './assets/pic/CircleFactory/notActiveCircleBack.svg'
+                    : './assets/pic/CircleFactory/activeCircleBack.svg'
             )
             .attr('height', '189px')
             .attr('width', '110px')
@@ -200,7 +200,7 @@ export class CircleFactoryDiagramComponent extends WidgetPlatform
 
         let imageFactory = canvas
             .append('image')
-            .attr('xlink:href', 'assets/pic/Icons3D/1.png')
+            .attr('xlink:href', './assets/pic/Icons3D/1.png')
             .attr('height', '40px')
             .attr('width', '40px')
             .attr('x', '40')
@@ -216,8 +216,8 @@ export class CircleFactoryDiagramComponent extends WidgetPlatform
                     .attr(
                         'xlink:href',
                         item.isCritical
-                            ? 'assets/pic/IconsCircle/aFabricButton' + item.id + '.svg'
-                            : 'assets/pic/IconsCircle/nFabricButton' + item.id + '.svg'
+                            ? './assets/pic/IconsCircle/aFabricButton' + item.id + '.svg'
+                            : './assets/pic/IconsCircle/nFabricButton' + item.id + '.svg'
                     )
                     .attr('height', '30px')
                     .attr('width', '30px')
@@ -230,8 +230,8 @@ export class CircleFactoryDiagramComponent extends WidgetPlatform
                     .attr(
                         'xlink:href',
                         item.isCritical
-                            ? 'assets/pic/IconsCircle/aFabricButton' + item.id + '.svg'
-                            : 'assets/pic/IconsCircle/nFabricButton' + item.id + '.svg'
+                            ? './assets/pic/IconsCircle/aFabricButton' + item.id + '.svg'
+                            : './assets/pic/IconsCircle/nFabricButton' + item.id + '.svg'
                     )
                     .attr('height', '30px')
                     .attr('width', '30px')
@@ -243,7 +243,7 @@ export class CircleFactoryDiagramComponent extends WidgetPlatform
 
         let pointStart = canvas
             .append('image')
-            .attr('xlink:href', 'assets/pic/CircleFactory/pointStart.svg')
+            .attr('xlink:href', './assets/pic/CircleFactory/pointStart.svg')
             .attr('height', '20px')
             .attr('width', '20px')
             .attr('x', '50')

@@ -66,7 +66,7 @@
                       >
                         <svg-icon
                           class="indicator-selector__collapse"
-                          src="assets/icons/widgets/reports/edit_white.svg"
+                          src="./assets/icons/widgets/reports/edit_white.svg"
                           (click)="onEdit(node.data)"
                         ></svg-icon>
                       </div>
@@ -94,7 +94,7 @@
                         (click)="editReference(node.data)"
                       >
                         <svg-icon
-                          src="assets/icons/widgets/reports/accept.svg"
+                          src="./assets/icons/widgets/reports/accept.svg"
                           class="add_button_icon"
                         ></svg-icon>
                       </div>
@@ -118,7 +118,7 @@
                       >
                         <svg-icon
                           class="indicator-selector__collapse"
-                          src="assets/icons/widgets/reports/edit_white.svg"
+                          src="./assets/icons/widgets/reports/edit_white.svg"
                           (click)="onEdit(node.data)"
                         ></svg-icon>
                       </div>
@@ -146,7 +146,7 @@
                         (click)="editFolder(node.data)"
                       >
                         <svg-icon
-                          src="assets/icons/widgets/reports/accept.svg"
+                          src="./assets/icons/widgets/reports/accept.svg"
                           class="add_button_icon"
                         ></svg-icon>
                       </div>
@@ -172,7 +172,7 @@
                     </div>
                     <div class="reference-container__add-block-icon" (click)="onPushReport()">
                       <svg-icon
-                        src="assets/icons/widgets/references/accept.svg"
+                        src="./assets/icons/widgets/references/accept.svg"
                         class="add_button_icon"
                       ></svg-icon>
                     </div>
@@ -197,7 +197,7 @@
                     </div>
                     <div class="reference-container__add-block-icon" (click)="onPushReport()">
                       <svg-icon
-                        src="assets/icons/widgets/references/accept.svg"
+                        src="./assets/icons/widgets/references/accept.svg"
                         class="add_button_icon"
                       ></svg-icon>
                     </div>
@@ -210,7 +210,7 @@
             <div class="bottom-reference-left__block">
               <div class="bottom-reference-left__button-add" (click)="addMenu()">
                 <svg-icon
-                  src="assets/icons/widgets/references/add_white.svg"
+                  src="./assets/icons/widgets/references/add_white.svg"
                   class="add_button_icon"
                 >
                 </svg-icon>
@@ -220,12 +220,12 @@
                   <svg-icon
                     *ngIf="!isRepInput"
                     class="button_filter_icon"
-                    src="assets/icons/widgets/references/search_white.svg"
+                    src="./assets/icons/widgets/references/search_white.svg"
                   ></svg-icon>
                   <svg-icon
                     *ngIf="isRepInput"
                     class="indicator-selector__collapse"
-                    src="assets/icons/widgets/references/search_blue.svg"
+                    src="./assets/icons/widgets/references/search_blue.svg"
                   ></svg-icon>
                 </div>
                 <div
@@ -334,7 +334,7 @@
                           <svg-icon
                             *ngIf="item.open"
                             class="indicator-selector__collapse"
-                            src="assets/icons/widgets/references/edit_white.svg"
+                            src="./assets/icons/widgets/references/edit_white.svg"
                           ></svg-icon>
                         </div>
                       </ng-container>
@@ -386,13 +386,13 @@
                   <svg-icon
                     data-tooltip="Редактировать параметры отчета"
                     *ngIf="!isOpenCheckBlock"
-                    src="assets/icons/widgets/reports/edit.svg"
+                    src="./assets/icons/widgets/reports/edit.svg"
                     class="add_button_icon"
                   >
                   </svg-icon>
                   <svg-icon
                     *ngIf="isOpenCheckBlock"
-                    src="assets/icons/widgets/reports/edit_blue.svg"
+                    src="./assets/icons/widgets/reports/edit_blue.svg"
                     class="add_button_icon"
                   >
                   </svg-icon>

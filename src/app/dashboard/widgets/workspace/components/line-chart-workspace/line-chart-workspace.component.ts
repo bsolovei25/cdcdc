@@ -64,7 +64,7 @@ export class LineChartWorkspaceComponent implements OnInit {
     private readonly trendsStyle: any = {
         plan: {
             point: {
-                iconUrl: 'assets/icons/widgets/line-chart/point-plan.svg',
+                iconUrl: './assets/icons/widgets/line-chart/point-plan.svg',
                 width: 6,
                 height: 6,
                 widthOffset: -3,
@@ -77,7 +77,7 @@ export class LineChartWorkspaceComponent implements OnInit {
         },
         fact: {
             point: {
-                iconUrl: 'assets/icons/widgets/line-chart/point-fact.svg',
+                iconUrl: './assets/icons/widgets/line-chart/point-fact.svg',
                 width: 8,
                 height: 8,
                 widthOffset: -4,
@@ -90,7 +90,7 @@ export class LineChartWorkspaceComponent implements OnInit {
         },
         deviation: {
             point: {
-                iconUrl: 'assets/icons/widgets/line-chart/point-deviation.svg',
+                iconUrl: './assets/icons/widgets/line-chart/point-deviation.svg',
                 width: 9.2,
                 height: 8,
                 widthOffset: -4.6,
@@ -100,7 +100,7 @@ export class LineChartWorkspaceComponent implements OnInit {
         },
         lowerLimit: {
             point: {
-                iconUrl: 'assets/icons/widgets/line-chart/point-deviation.svg',
+                iconUrl: './assets/icons/widgets/line-chart/point-deviation.svg',
                 width: 9.2,
                 height: 8,
                 widthOffset: -4.6,
@@ -113,7 +113,7 @@ export class LineChartWorkspaceComponent implements OnInit {
         },
         upperLimit: {
             point: {
-                iconUrl: 'assets/icons/widgets/line-chart/point-deviation.svg',
+                iconUrl: './assets/icons/widgets/line-chart/point-deviation.svg',
                 width: 9.2,
                 height: 8,
                 widthOffset: -4.6,

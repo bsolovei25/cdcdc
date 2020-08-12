@@ -2,7 +2,7 @@
     <div class="container-oil-shipment__content">
         <div *ngFor="let item of data" class="block" (click)="active(item)" [class.active]="activeItemId === item.id">
             <div class="block__icon">
-                <svg-icon src="assets/icons/widgets/oil-control-all/oil-operations/{{item.type}}-operation.svg"
+                <svg-icon src="./assets/icons/widgets/oil-control-all/oil-operations/{{item.type}}-operation.svg"
                     [svgStyle]="{ 'width.px':30, 'height.px':30 }"></svg-icon>
             </div>
             <div *ngIf="item.type !== 'free'" class="block__info"> {{ item.name }} </div>

@@ -2,7 +2,7 @@
     <div style="height: 100%;">
         <div class="title">
             <div class="title__button-close" (click)="close()">
-                <svg-icon src="assets/icons/widgets/reports/close.svg" class="add_button_icon">
+                <svg-icon src="./assets/icons/widgets/reports/close.svg" class="add_button_icon">
                 </svg-icon>
             </div>
             <div class="title__name">Ёмкости используемые в качестве отгрузки</div>
@@ -26,11 +26,11 @@
                 <div class="item" (click)="itemOpen(item)" [class.active]="item.open">
                     <div class="item__title-button">
                         <svg-icon *ngIf="item.open"
-                            src="assets/icons/widgets/oil-control-all/tank-information/arrow-up.svg"
+                            src="./assets/icons/widgets/oil-control-all/tank-information/arrow-up.svg"
                             [svgStyle]="{ 'width.px':14, 'height.px':10 }"></svg-icon>
 
                         <svg-icon *ngIf="!item.open"
-                            src="assets/icons/widgets/oil-control-all/tank-information/arrow-bottom.svg"
+                            src="./assets/icons/widgets/oil-control-all/tank-information/arrow-bottom.svg"
                             [svgStyle]="{ 'width.px':14, 'height.px':10 }"></svg-icon>
                     </div>
                     <div class="item__name"> {{ item.name }}</div>
@@ -56,7 +56,7 @@
                                     {{ i.limit }}
                                 </div>
                                 <div class="limit-param__icon">
-                                    <svg-icon src="assets/icons/widgets/oil-control-all/oil-operations/update.svg"
+                                    <svg-icon src="./assets/icons/widgets/oil-control-all/oil-operations/update.svg"
                                         [svgStyle]="{ 'width.px':30, 'height.px':30 }">
                                     </svg-icon>
                                 </div>
