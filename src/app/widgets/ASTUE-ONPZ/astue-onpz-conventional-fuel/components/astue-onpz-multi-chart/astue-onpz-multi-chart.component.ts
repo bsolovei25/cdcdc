@@ -9,6 +9,9 @@ import {
 
 const lineColors: { [key: string]: string } = {
     temperature: '#FFB100',
+    heatExchanger: '#673AB7',
+    volume: '#45C5FA',
+    pressure: '#0F62FE',
 };
 
 @Component({
@@ -33,6 +36,8 @@ export class AstueOnpzMultiChartComponent implements OnChanges {
     private dataMax: number = 0;
     private dataMin: number = 0;
 
+    private charts;
+
     public scaleFuncs: { x: any; y: any } = { x: null, y: null };
     private axis: { axisX: any; axisY: any } = { axisX: null, axisY: null };
 
@@ -40,11 +45,13 @@ export class AstueOnpzMultiChartComponent implements OnChanges {
     private readonly MIN_COEF: number = 0.3;
 
     private readonly padding: { left: number; right: number; top: number; bottom: number } = {
-        left: 50,
+        left: 0,
         right: 30,
         top: 50,
         bottom: 40,
     };
+
+    private readonly axisYWidth: number = 50;
 
     constructor() {}
 
@@ -64,13 +71,17 @@ export class AstueOnpzMultiChartComponent implements OnChanges {
     private startDrawChart(): void {
         this.initData();
         this.findMinMax();
+        this.findMinMaxNew();
         this.defineScale();
         this.transformData();
+        this.transformDataNew();
         this.drawGridlines();
-        this.drawChart();
-        this.drawAxisLabels();
-        this.drawFutureRect();
-        this.drawPoints();
+        // this.drawChart();
+        this.drawChartNew();
+        // this.drawAxisLabels();
+        this.drawAxisXLabels();
+        this.drawAxisYLabels();
+        // this.drawFutureRect();
     }
 
     private initData(): void {
@@ -109,21 +120,58 @@ export class AstueOnpzMultiChartComponent implements OnChanges {
         this.dataMin = d3.min(minValues) * (1 - this.MIN_COEF);
     }
 
+    private findMinMaxNew(): void {
+        this.charts = [];
+
+        this.data.forEach((graph) => {
+            this.charts.push({ ...graph });
+            const currentChart = this.charts[this.charts.length - 1];
+            currentChart.maxValue = Math.round(
+                d3.max(graph.graph, (item: IChartMini) => item.value) * (1 + this.MAX_COEF)
+            );
+            currentChart.minValue = Math.round(
+                d3.min(graph.graph, (item: IChartMini) => item.value) * (1 - this.MIN_COEF)
+            );
+        });
+
+        const plan = this.charts.find((item) => item.graphType === 'plan');
+        const fact = this.charts.find((item) => item.graphType === 'fact');
+        const [min, max] = d3.extent([plan.minValue, plan.maxValue, fact.minValue, fact.maxValue]);
+        plan.minValue = fact.minValue = min;
+        plan.maxValue = fact.maxValue = max;
+
+        console.log(this.charts);
+    }
+
     private defineScale(): void {
+        const left = this.padding.left + this.axisYWidth * (this.charts.length - 1);
+
         const chart = this.data.find((graph) => !!graph.graph.length).graph;
         const year = chart[0].timeStamp.getFullYear();
         const month = chart[0].timeStamp.getMonth();
         const day = chart[0].timeStamp.getDate();
         const domainDates = [new Date(year, month, day), new Date(year, month, day + 1)];
-        const rangeX = [this.padding.left, this.graphMaxX - this.padding.right];
+        const rangeX = [left, this.graphMaxX - this.padding.right];
 
         this.scaleFuncs.x = d3
             .scaleTime()
             .domain(domainDates)
             .rangeRound(rangeX);
 
-        const domainValues = [this.dataMax, this.dataMin];
         const rangeY = [this.padding.top, this.graphMaxY - this.padding.bottom];
+        this.charts.forEach((item) => {
+            const domain = [item.maxValue, item.minValue];
+            item.scaleY = d3
+                .scaleLinear()
+                .domain(domain)
+                .range(rangeY);
+            item.axisY = d3
+                .axisLeft(item.scaleY)
+                .ticks(5)
+                .tickSize(0);
+        });
+
+        const domainValues = [this.dataMax, this.dataMin];
         this.scaleFuncs.y = d3
             .scaleLinear()
             .domain(domainValues)
@@ -141,37 +189,47 @@ export class AstueOnpzMultiChartComponent implements OnChanges {
     }
 
     private transformData(): void {
-        this.chartData = [];
-        this.data.forEach((item) => this.transformOneChartData(item));
-    }
+        const transform = (item: IMultiChartLine): void => {
+            const chartData: {
+                graphType: IMultiChartTypes;
+                graph: IChartD3[];
+            } = {
+                graphType: item.graphType,
+                graph: [],
+            };
 
-    private transformOneChartData(chart: IMultiChartLine): void {
-        const chartData: {
-            graphType: IMultiChartTypes;
-            graph: IChartD3[];
-        } = {
-            graphType: chart.graphType,
-            graph: [],
+            item.graph.forEach((point) => {
+                chartData.graph.push({
+                    x: this.scaleFuncs.x(point.timeStamp),
+                    y: this.scaleFuncs.y(point.value),
+                });
+            });
+            this.chartData.push(chartData);
         };
 
-        chart.graph.forEach((item) => {
-            chartData.graph.push({
-                x: this.scaleFuncs.x(item.timeStamp),
-                y: this.scaleFuncs.y(item.value),
-            });
-        });
+        this.chartData = [];
+        this.data.forEach(transform);
+    }
 
-        this.chartData.push(chartData);
+    private transformDataNew(): void {
+        const transform = (item): void => {
+            item.transformedGraph = [];
+            item.graph.forEach((point) => {
+                item.transformedGraph.push({
+                    x: this.scaleFuncs.x(point.timeStamp),
+                    y: item.scaleY(point.value),
+                });
+            });
+        };
+        this.charts.forEach(transform);
     }
 
     private drawChart(): void {
         this.chartData.forEach((chart) => {
-            const curve = d3.curveBasis;
             const line = d3
                 .line()
                 .x((item: IChartD3) => item.x)
-                .y((item: IChartD3) => item.y)
-                .curve(curve);
+                .y((item: IChartD3) => item.y);
 
             const flag = chart.graphType !== 'plan' && chart.graphType !== 'fact';
             const lineType = flag ? 'other' : chart.graphType;
@@ -185,24 +243,22 @@ export class AstueOnpzMultiChartComponent implements OnChanges {
         });
     }
 
-    private drawPoints(): void {
-        const pointsG = this.svg.append('g').attr('class', 'chart-points');
-        this.chartData.forEach((item) => {
-            if (item.graphType !== 'fact' && item.graphType !== 'plan') {
-                return;
+    private drawChartNew(): void {
+        this.charts.forEach((chart) => {
+            const line = d3
+                .line()
+                .x((item: IChartD3) => item.x)
+                .y((item: IChartD3) => item.y);
+
+            const flag = chart.graphType !== 'plan' && chart.graphType !== 'fact';
+            const lineType = flag ? 'other' : chart.graphType;
+            const drawnLine = this.svg
+                .append('path')
+                .attr('class', `graph-line-${lineType}`)
+                .attr('d', line(chart.transformedGraph));
+            if (flag) {
+                drawnLine.style('stroke', lineColors[chart.graphType]);
             }
-            const classes = item.graphType === 'plan' ? 'point point_plan' : 'point point_fact';
-            const r = 4;
-            item.graph.forEach((point, idx, arr) => {
-                if (!!arr.length && idx === arr.length - 1) {
-                    pointsG
-                        .append('circle')
-                        .attr('class', classes)
-                        .attr('cx', point.x)
-                        .attr('cy', point.y)
-                        .attr('r', r);
-                }
-            });
         });
     }
 
@@ -220,8 +276,10 @@ export class AstueOnpzMultiChartComponent implements OnChanges {
             )
             .style('color', '#272A38');
 
+        const left = this.padding.left + this.axisYWidth * (this.charts.length - 1);
+
         grid.append('line')
-            .attr('x1', this.padding.left)
+            .attr('x1', left)
             .attr('y1', -(this.graphMaxY - this.padding.top - this.padding.bottom))
             .attr('x2', this.graphMaxX - this.padding.right)
             .attr('y2', -(this.graphMaxY - this.padding.top - this.padding.bottom))
@@ -249,20 +307,75 @@ export class AstueOnpzMultiChartComponent implements OnChanges {
         drawLabels('axisY', translateY);
     }
 
-    private drawFutureRect(): void {
-        const fact = this.chartData.find((chart) => chart.graphType === 'fact')?.graph ?? [];
-        const x = fact[fact.length - 1].x;
-        const y = this.padding.top;
-        const y2 = this.graphMaxY - this.padding.bottom;
-        const width = this.graphMaxX - this.padding.right - x;
-        if (width > 0) {
+    private drawAxisXLabels(): void {
+        const drawLabels = (axis: 'axisX' | 'axisY', translate: string): void => {
             this.svg
-                .append('line')
-                .attr('x1', x)
-                .attr('y1', y)
-                .attr('x2', x)
-                .attr('y2', y2)
-                .attr('class', 'future-line');
-        }
+                .append('g')
+                .attr('transform', translate)
+                .attr('class', axis)
+                .call(this.axis[axis])
+                .selectAll('text')
+                .attr('class', 'label');
+
+            const axisG = this.svg.select(`g.${axis}`);
+            axisG.select('path.domain').remove();
+            axisG.selectAll('g.tick line').remove();
+        };
+
+        const translateX: string = `translate(0,${this.graphMaxY - this.padding.bottom})`;
+        drawLabels('axisX', translateX);
     }
+
+    private drawAxisYLabels(): void {
+        let left = this.padding.left + this.axisYWidth * (this.charts.length - 1);
+        let counter = 0;
+        let isMainAxisDrawn = false;
+        this.charts.forEach((chart) => {
+            const flag = chart.graphType === 'fact' || chart.graphType === 'plan';
+            if (flag && isMainAxisDrawn) {
+                return;
+            } else if (flag) {
+                isMainAxisDrawn = true;
+            }
+            const translate: string = `translate(${left},0)`;
+            left -= this.axisYWidth;
+            const axisY = this.svg
+                .append('g')
+                .attr('transform', translate)
+                .attr('class', 'axisY');
+            axisY
+                .append('rect')
+                .attr('class', `axisY-bg_${(counter % 2) + 1}`)
+                .attr('x', -this.axisYWidth)
+                .attr('y', this.padding.top)
+                .attr('width', this.axisYWidth)
+                .attr('height', this.graphMaxY - this.padding.top - this.padding.bottom);
+            counter++;
+            axisY
+                .call(chart.axisY)
+                .selectAll('text')
+                .attr('class', 'label');
+        });
+
+        const axisG = this.svg.selectAll(`g.axisY`);
+        axisG.select('path.domain').remove();
+        axisG.selectAll('g.tick line').remove();
+    }
+
+    // private drawFutureRect(): void {
+    //     const fact = this.chartData.find((chart) => chart.graphType === 'fact')?.graph ?? [];
+    //     const x = fact[fact.length - 1].x;
+    //     const y = this.padding.top;
+    //     const y2 = this.graphMaxY - this.padding.bottom;
+    //     const width = this.graphMaxX - this.padding.right - x;
+    //     if (width > 0) {
+    //         this.svg
+    //             .append('line')
+    //             .attr('x1', x)
+    //             .attr('y1', y)
+    //             .attr('x2', x)
+    //             .attr('y2', y2)
+    //             .attr('class', 'future-line');
+    //     }
+    // }
 }

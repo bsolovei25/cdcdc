@@ -122,6 +122,43 @@ export class AstueOnpzConventionalFuelComponent extends WidgetPlatform
                 },
             ],
         },
+        {
+            graphType: 'heatExchanger',
+            graph: [
+                {
+                    value: 500,
+                    timeStamp: new Date(2020, 1, 1, 0),
+                },
+                {
+                    value: 440,
+                    timeStamp: new Date(2020, 1, 1, 1),
+                },
+                {
+                    value: 700,
+                    timeStamp: new Date(2020, 1, 1, 2),
+                },
+                {
+                    value: 600,
+                    timeStamp: new Date(2020, 1, 1, 3),
+                },
+                {
+                    value: 800,
+                    timeStamp: new Date(2020, 1, 1, 4),
+                },
+                {
+                    value: 700,
+                    timeStamp: new Date(2020, 1, 1, 5),
+                },
+                {
+                    value: 1000,
+                    timeStamp: new Date(2020, 1, 1, 6),
+                },
+                {
+                    value: 900,
+                    timeStamp: new Date(2020, 1, 1, 7),
+                },
+            ],
+        },
     ];
 
     constructor(
