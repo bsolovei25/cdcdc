@@ -119,8 +119,8 @@ export class WidgetsPieComponent implements OnInit {
             .attr(
                 'xlink:href',
                 !data.nonCritical && !data.critical
-                    ? 'assets/pic/ncir.svg'
-                    : 'assets/pic/acir.svg'
+                    ? '/assets/pic/ncir.svg'
+                    : '/assets/pic/acir.svg'
             )
             .attr('height', '185px')
             .attr('width', '200px')

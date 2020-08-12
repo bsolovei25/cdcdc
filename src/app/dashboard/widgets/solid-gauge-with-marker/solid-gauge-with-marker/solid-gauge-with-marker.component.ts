@@ -160,7 +160,7 @@ export class SolidGaugeWithMarkerComponent implements AfterViewInit {
 
         const aroundGauge = this.svg
             .append('image')
-            .attr('xlink:href', 'assets/pic/SolidGauge/aroundGauge.svg')
+            .attr('xlink:href', '/assets/pic/SolidGauge/aroundGauge.svg')
             .attr('height', '420px')
             .attr('width', '410px')
             .attr('x', '-55')
@@ -218,7 +218,7 @@ export class SolidGaugeWithMarkerComponent implements AfterViewInit {
 
         const lineGauge = this.svg
             .append('image')
-            .attr('xlink:href', 'assets/pic/SolidGauge/lineGauge.svg')
+            .attr('xlink:href', '/assets/pic/SolidGauge/lineGauge.svg')
             .attr('height', '120px')
             .attr('width', '110px')
             .attr('x', '199.4')

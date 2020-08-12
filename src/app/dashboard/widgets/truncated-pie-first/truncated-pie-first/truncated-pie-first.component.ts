@@ -85,7 +85,7 @@ export class TruncatedPieFirstComponent implements OnInit {
 
         let pie_back = canvas
             .append('image')
-            .attr('xlink:href', 'assets/pic/test2.svg')
+            .attr('xlink:href', '/assets/pic/test2.svg')
             .attr('height', '185px')
             .attr('width', '200px')
             .attr('x', '0')

@@ -34,7 +34,7 @@ export class RingFactoryDiagramComponent implements OnInit, AfterViewInit {
     public draw(el): void {
         const svg = d3.select(el);
         svg.append('image')
-            .attr('xlink:href', 'assets/pic/Icons3D/' + this.data.typeFabric + '.png')
+            .attr('xlink:href', '/assets/pic/Icons3D/' + this.data.typeFabric + '.png')
             .attr('height', '250px')
             .attr('pointer-events', 'none')
             .attr('width', '250px')
@@ -53,7 +53,7 @@ export class RingFactoryDiagramComponent implements OnInit, AfterViewInit {
                             const status = this.dataStyle['id_0'].status;
                             item.classList.add(`-${status}`);
                             svg.append('image')
-                                .attr('xlink:href', 'assets/pic/RingFactory/leftBorder.svg')
+                                .attr('xlink:href', '/assets/pic/RingFactory/leftBorder.svg')
                                 .attr('height', '250px')
                                 .attr('width', '250px')
                                 .attr('x', '-21')
@@ -94,7 +94,7 @@ export class RingFactoryDiagramComponent implements OnInit, AfterViewInit {
                             const status = this.dataStyle['id_0'].status;
                             item.classList.add(`-${status}`);
                             svg.append('image')
-                                .attr('xlink:href', 'assets/pic/RingFactory/borderimg.png')
+                                .attr('xlink:href', '/assets/pic/RingFactory/borderimg.png')
                                 .attr('height', '250px')
                                 .attr('width', '250px')
                                 .attr('x', '40')
@@ -132,7 +132,7 @@ export class RingFactoryDiagramComponent implements OnInit, AfterViewInit {
                             const status = this.dataStyle['id_0'].status;
                             item.classList.add(`-${status}`);
                             svg.append('image')
-                                .attr('xlink:href', 'assets/pic/RingFactory/borderimg.png')
+                                .attr('xlink:href', '/assets/pic/RingFactory/borderimg.png')
                                 .attr('height', '250px')
                                 .attr('width', '250px')
                                 .attr('x', '-550')
@@ -171,7 +171,7 @@ export class RingFactoryDiagramComponent implements OnInit, AfterViewInit {
                             const status = this.dataStyle['id_0'].status;
                             item.classList.add(`-${status}`);
                             svg.append('image')
-                                .attr('xlink:href', 'assets/pic/RingFactory/leftBorder.svg')
+                                .attr('xlink:href', '/assets/pic/RingFactory/leftBorder.svg')
                                 .attr('height', '250px')
                                 .attr('width', '250px')
                                 .attr('x', '-617')
@@ -213,7 +213,7 @@ export class RingFactoryDiagramComponent implements OnInit, AfterViewInit {
                             const status = this.dataStyle['id_0'].status;
                             item.classList.add(`-${status}`);
                             svg.append('image')
-                                .attr('xlink:href', 'assets/pic/RingFactory/borderimg.png')
+                                .attr('xlink:href', '/assets/pic/RingFactory/borderimg.png')
                                 .attr('height', '250px')
                                 .attr('width', '250px')
                                 .attr('x', '-550')
@@ -252,7 +252,7 @@ export class RingFactoryDiagramComponent implements OnInit, AfterViewInit {
                             const status = this.dataStyle['id_0'].status;
                             item.classList.add(`-${status}`);
                             svg.append('image')
-                                .attr('xlink:href', 'assets/pic/RingFactory/borderimg.png')
+                                .attr('xlink:href', '/assets/pic/RingFactory/borderimg.png')
                                 .attr('height', '250px')
                                 .attr('width', '250px')
                                 .attr('x', '45')
