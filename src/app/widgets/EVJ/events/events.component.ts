@@ -142,6 +142,13 @@ export class EventsComponent extends WidgetPlatform implements OnInit, OnDestroy
             name: 'В работе',
             notificationsCount: 0,
             isActive: false
+        },
+        {
+            id: -100,
+            code: 'isNotAcknowledged',
+            name: 'Неквитировано',
+            notificationsCount: 0,
+            isActive: false
         }
     ];
 
@@ -490,6 +497,11 @@ export class EventsComponent extends WidgetPlatform implements OnInit, OnDestroy
                 case 'inWork':
                     f.notificationsCount = stats.statsByStatus.find(
                         (sf) => sf.status.id === 3002
+                    ).count;
+                    break;
+                case 'isNotAcknowledged':
+                    f.notificationsCount = stats.statsByStatus.find(
+                        (sf) => sf.status.id === -100
                     ).count;
                     break;
             }
