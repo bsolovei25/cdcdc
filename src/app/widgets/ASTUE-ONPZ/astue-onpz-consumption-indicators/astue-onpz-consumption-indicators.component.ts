@@ -1,10 +1,4 @@
-import {
-    Component,
-    OnInit,
-    Inject,
-    OnDestroy,
-    AfterViewInit,
-} from '@angular/core';
+import { Component, OnInit, Inject, OnDestroy, AfterViewInit } from '@angular/core';
 import { WidgetPlatform } from '../../../dashboard/models/widget-platform';
 import { WidgetService } from '../../../dashboard/services/widget.service';
 import { AstueOnpzConsumptionIndicatorsService } from './astue-onpz-consumption-indicators.service';
@@ -19,10 +13,10 @@ interface IAstueOnpzConsumptionIndicatorsButtons {
 @Component({
     selector: 'evj-astue-onpz-consumption-indicators',
     templateUrl: './astue-onpz-consumption-indicators.component.html',
-    styleUrls: ['./astue-onpz-consumption-indicators.component.scss']
+    styleUrls: ['./astue-onpz-consumption-indicators.component.scss'],
 })
-export class AstueOnpzConsumptionIndicatorsComponent extends WidgetPlatform implements OnInit, OnDestroy, AfterViewInit {
-
+export class AstueOnpzConsumptionIndicatorsComponent extends WidgetPlatform
+    implements OnInit, OnDestroy, AfterViewInit {
     public data: any;
 
     public type: 'deviation' | 'indicators';
@@ -34,28 +28,28 @@ export class AstueOnpzConsumptionIndicatorsComponent extends WidgetPlatform impl
             id: 0,
             title: 'Значения в рублях',
             value: '895 000',
-            type: 'indicators',
+            type: 'deviation',
         },
         {
             id: 1,
             title: 'Значения в процентах',
             value: '85%',
-            type: 'indicators',
+            type: 'deviation',
         },
         {
             id: 2,
             title: 'Абсолютное отклонение',
-            type: 'indicators',
+            type: 'deviation',
         },
         {
             id: 3,
             title: 'Значения в рублях',
-            type: 'deviation',
+            type: 'indicators',
         },
         {
             id: 4,
             title: 'Абсолютное потребление',
-            type: 'deviation',
+            type: 'indicators',
         },
     ];
 
@@ -70,7 +64,9 @@ export class AstueOnpzConsumptionIndicatorsComponent extends WidgetPlatform impl
     }
 
     public ngOnInit(): void {
-        this.astueOnpzConsumptionIndicatorsService.sharedSelectedId.subscribe(id => this.activeButton = id);
+        this.astueOnpzConsumptionIndicatorsService.sharedSelectedId.subscribe(
+            (id) => (this.activeButton = id)
+        );
     }
 
     public ngAfterViewInit(): void {
@@ -83,13 +79,13 @@ export class AstueOnpzConsumptionIndicatorsComponent extends WidgetPlatform impl
 
     protected dataConnect(): void {
         super.dataConnect();
-        this.subscriptions.push(
-            this.defineWidgetType(),
-        );
+        this.subscriptions.push(this.defineWidgetType());
     }
 
     private defineWidgetType(): any {
-        this.widgetTitle.toLowerCase().includes('показатели') ? this.type = 'deviation' : this.type = 'indicators';
+        this.widgetTitle.toLowerCase().includes('показатели')
+            ? (this.type = 'indicators')
+            : (this.type = 'deviation');
     }
 
     public ngOnDestroy(): void {
