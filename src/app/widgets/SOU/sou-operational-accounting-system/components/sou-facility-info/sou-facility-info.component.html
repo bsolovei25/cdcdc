@@ -4,11 +4,11 @@
       <svg-icon [svgStyle]="{'width': '100%', 'height': '100%'}" src="assets/icons/widgets/SOU/header-icons/facilities.svg"></svg-icon>
     </div>
     <div class="header__label">
-      <span>{{facilityTitle}}</span>
+      <span>{{data.title}}</span>
     </div>
     <span style="flex-grow: 1"></span>
     <div class="header__button-counter" (click)="counterClick()">
-      <span style="margin: auto; font-size: 14px;"> 1 </span>
+      <span style="margin: auto; font-size: 14px;"> {{data.counter}} </span>
     </div>
   </div>
   <div class="facility">

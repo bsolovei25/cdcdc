@@ -13,10 +13,10 @@
         </div>
         <div class="flex-column-container cards">
           <evj-sou-facility-info (openPanel)="togglePopupElement('deviation', true)"></evj-sou-facility-info>
-          <evj-sou-balance-card [data]="{type: 'in', title: 'Сумма входа'}"></evj-sou-balance-card>
-          <evj-sou-balance-card [data]="{type: 'out', title: 'Сумма выхода'}"></evj-sou-balance-card>
-          <evj-sou-balance-card [data]="{type: 'delta', title: 'Дельта'}"></evj-sou-balance-card>
-          <evj-sou-balance-card [data]="{type: 'balance', title: 'Допустимый баланс'}"></evj-sou-balance-card>
+          <evj-sou-balance-card [data]="{type: 'in', title: 'Сумма входа', sumValue: 2000000, perHourValue: 9100}"></evj-sou-balance-card>
+          <evj-sou-balance-card [data]="{type: 'out', title: 'Сумма выхода', sumValue: 2000000, perHourValue: 9100}"></evj-sou-balance-card>
+          <evj-sou-balance-card [data]="{type: 'delta', title: 'Дельта', sumValue: 343234, percentageValue: 56}"></evj-sou-balance-card>
+          <evj-sou-balance-card [data]="{type: 'balance', title: 'Допустимый баланс', sumValue: 765234, percentageValue: 86}"></evj-sou-balance-card>
         </div>
         <div class="flex-column-container">
           <evj-sou-out-streams style="height: 100%"></evj-sou-out-streams>

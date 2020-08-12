@@ -12,27 +12,30 @@
         <th class="cell">Значение за час</th>
         <th class="cell">Накопленное значение</th>
       </tr>
-      <ng-container *ngTemplateOutlet="contentRow; context: {title: 'Бензин'}"></ng-container>
-      <ng-container *ngTemplateOutlet="contentRow; context: {title: 'ТС-1'}"></ng-container>
-      <ng-container *ngTemplateOutlet="contentRow; context: {title: 'ДТЛ'}"></ng-container>
-      <ng-container *ngTemplateOutlet="contentRow; context: {title: 'Всего светлых'}"></ng-container>
+      <ng-container *ngFor="let row of data.rows">
+              <ng-container *ngTemplateOutlet="contentRow; context: {row: row}"></ng-container>
+      </ng-container>
+<!--      <ng-container *ngTemplateOutlet="contentRow; context: {title: 'Бензин'}"></ng-container>-->
+<!--      <ng-container *ngTemplateOutlet="contentRow; context: {title: 'ТС-1'}"></ng-container>-->
+<!--      <ng-container *ngTemplateOutlet="contentRow; context: {title: 'ДТЛ'}"></ng-container>-->
+<!--      <ng-container *ngTemplateOutlet="contentRow; context: {title: 'Всего светлых'}"></ng-container>-->
     </table>
   </div>
 </div>
 
-<ng-template #contentRow let-title="title">
+<ng-template #contentRow let-row="row">
   <tr class="table_row__body">
-    <td class="cell cell__title">{{title}}</td>
+    <td class="cell cell__title">{{row.title}}</td>
     <td class="cell cell__content">
       <div class="values">
-        <span>5 400 т/ч</span>
-        <span>85%</span>
+        <span>{{row.perHourValue.value | spaceNumber}} т/ч</span>
+        <span>{{row.perHourValue.percentageValue}}%</span>
       </div>
     </td>
     <td class="cell cell__content">
       <div class="values">
-        <span>55 400 т.</span>
-        <span>85%</span>
+        <span>{{row.sumValue.value | spaceNumber}} т/ч</span>
+        <span>{{row.sumValue.percentageValue}}%</span>
       </div>
     </td>
   </tr>
