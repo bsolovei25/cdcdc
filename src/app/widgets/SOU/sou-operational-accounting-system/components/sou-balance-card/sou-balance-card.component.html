@@ -12,11 +12,11 @@
     <div class="content_values">
       <div class="item">
         <div class="label">Накопленное</div>
-        <div class="value"><span>2 000 000</span></div>
+        <div class="value"><span>{{data.sumValue | spaceNumber}}</span></div>
       </div>
       <div class="item">
         <div class="label">За час</div>
-        <div class="value"><span>9 100</span><span class="unit">%</span></div>
+        <div class="value"><span>{{((data.type === 'in' || data.type === 'out') ? data.perHourValue : data.percentageValue) | spaceNumber}}</span><span class="unit">%</span></div>
       </div>
     </div>
   </div>
