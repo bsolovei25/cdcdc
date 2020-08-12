@@ -26,15 +26,16 @@
     top: 0;
     left: 0;
     overflow: hidden;
-    background: var(--color-contemporary-header-bg);
   }
 
   &__background-kpe {
     border-radius: 5px;
+    background: var(--color-contemporary-header-bg);
   }
 
   &__background-astue {
     border-radius: 2px 2px 0 0;
+    background: var(--color-astue-onpz-header-bg);
   }
 
   &__background {

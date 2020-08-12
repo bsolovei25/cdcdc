@@ -9,6 +9,7 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  font-size: 12px;
 }
 
 .wrapper {
@@ -43,7 +44,7 @@
 
   &__title {
     flex: 3 3;
-    background: var(--color-sou-button);
+    background: var(--color-astue-onpz-btn);
     border-radius: 2px;
 
     span {
