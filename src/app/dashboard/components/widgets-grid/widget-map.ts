@@ -149,6 +149,8 @@ export const WIDGETS = {
     'cd-reactor-parameters': WidgetContainerComponent,
     'sou-operational-accounting-system': WidgetContainerComponent,
     'astue-onpz-conventional-fuel': WidgetContainerComponent,
+    'astue-onpz-predictors': WidgetContainerComponent,
+    'astue-onpz-main-indicators': WidgetContainerComponent,
     'astue-onpz-product-charts': WidgetContainerComponent,
     'astue-onpz-menu-structure': WidgetContainerComponent,
     'astue-onpz-consumption-indicators': WidgetContainerComponent,
@@ -453,7 +455,35 @@ export const WIDGETS_LAZY = {
         itemRows: 20,
         minItemCols: 30,
         minItemRows: 20,
-        preview: 'astue-onpz-conventional-fuel'
+        preview: 'astue-onpz-conventional-fuel',
+    },
+
+    'astue-onpz-predictors': {
+        import: async () => {
+            return await import(
+                'src/app/widgets/ASTUE-ONPZ/astue-onpz-predictors/astue-onpz-predictors.module'
+            );
+        },
+        module: 'AstueOnpzPredictorsModule',
+        itemCols: 13,
+        itemRows: 15,
+        minItemCols: 13,
+        minItemRows: 15,
+        preview: 'astue-onpz-predictors',
+    },
+
+    'astue-onpz-main-indicators': {
+        import: async () => {
+            return await import(
+                'src/app/widgets/ASTUE-ONPZ/astue-onpz-main-indicators/astue-onpz-main-indicators.module'
+            );
+        },
+        module: 'AstueOnpzMainIndicatorsModule',
+        itemCols: 13,
+        itemRows: 15,
+        minItemCols: 13,
+        minItemRows: 15,
+        preview: 'astue-onpz-main-indicators',
     },
 
     'astue-onpz-product-charts': {
@@ -497,11 +527,12 @@ export const WIDGETS_LAZY = {
         minItemRows: 6,
         preview: 'astue-onpz-consumption-indicators',
     },
+
     'astue-onpz-deviation-cards': {
         import: async () => {
             return await import(
                 'src/app/widgets/ASTUE-ONPZ/astue-onpz-deviation-cards/astue-onpz-deviation-cards.module'
-                );
+            );
         },
         module: 'AstueOnpzDeviationCardsModule',
         itemCols: 19,
@@ -510,6 +541,7 @@ export const WIDGETS_LAZY = {
         minItemRows: 23,
         preview: 'default',
     },
+
     //#endregion ASTUE-ONPZ
 
     // 'pie-diagram': {
