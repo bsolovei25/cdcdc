@@ -168,7 +168,7 @@ export const WIDGETS_LAZY = {
         itemRows: 12,
         minItemCols: 40,
         minItemRows: 10,
-        // preview: 'load-chart',
+        preview: 'load-chart',
     },
     scenarios: {
         import: async () => {
@@ -179,7 +179,7 @@ export const WIDGETS_LAZY = {
         itemRows: 10,
         minItemCols: 15,
         minItemRows: 10,
-        // preview: 'scenarios',
+        preview: 'scenarios',
     },
     'aps-gantt-chart': {
         import: async () => {
@@ -190,7 +190,7 @@ export const WIDGETS_LAZY = {
         itemRows: 30,
         minItemCols: 40,
         minItemRows: 10,
-        // preview: 'gant-chart',
+        preview: 'gant-chart',
     },
     'aps-recipe-diagram': {
         import: async () => {
@@ -201,7 +201,7 @@ export const WIDGETS_LAZY = {
         itemRows: 30,
         minItemCols: 40,
         minItemRows: 10,
-        // preview: 'aps-recipe-diagram',
+        preview: 'aps-recipe-diagram',
     },
     'facility-deviation': {
         import: async () => {
@@ -212,6 +212,7 @@ export const WIDGETS_LAZY = {
         itemRows: 12,
         minItemCols: 40,
         minItemRows: 10,
+        preview: 'facility-deviation',
     },
     'raw-motion': {
         import: async () => {
@@ -222,7 +223,7 @@ export const WIDGETS_LAZY = {
         itemRows: 12,
         minItemCols: 40,
         minItemRows: 10,
-        // preview: 'raw-motion',
+        preview: 'raw-motion',
     },
     'stocks-using': {
         import: async () => {
@@ -233,6 +234,7 @@ export const WIDGETS_LAZY = {
         itemRows: 12,
         minItemCols: 30,
         minItemRows: 8,
+        preview: 'stocks-using',
     },
 
     'deviation-details': {
@@ -244,6 +246,7 @@ export const WIDGETS_LAZY = {
         itemRows: 20,
         minItemCols: 11,
         minItemRows: 11,
+        preview: 'deviation-details',
     },
     'production-details': {
         import: async () => {
@@ -254,6 +257,7 @@ export const WIDGETS_LAZY = {
         itemRows: 20,
         minItemCols: 11,
         minItemRows: 11,
+        preview: 'production-details',
     },
     'indicator-load-deviation': {
         import: async () => {
@@ -266,7 +270,7 @@ export const WIDGETS_LAZY = {
         itemRows: 12,
         minItemCols: 11,
         minItemRows: 11,
-        // preview: 'indicator-load-deviation',
+        preview: 'indicator-load-deviation',
     },
 
     // #endregion APS
@@ -284,6 +288,7 @@ export const WIDGETS_LAZY = {
         itemRows: 12,
         minItemCols: 19,
         minItemRows: 12,
+        preview: 'key-performance-indicators',
     },
     'kpe-quality': {
         import: async () => {
@@ -294,7 +299,7 @@ export const WIDGETS_LAZY = {
         itemRows: 15,
         minItemCols: 15,
         minItemRows: 10,
-        // preview: 'kpe-quality',
+        preview: 'kpe-quality',
     },
     'kpe-readiness': {
         import: async () => {
@@ -305,7 +310,7 @@ export const WIDGETS_LAZY = {
         itemRows: 15,
         minItemCols: 15,
         minItemRows: 10,
-        // preview: 'kpe-quality',
+        preview: 'kpe-readiness',
     },
 
     'kpe-energetic': {
@@ -317,7 +322,7 @@ export const WIDGETS_LAZY = {
         itemRows: 7,
         minItemCols: 15,
         minItemRows: 6,
-        // preview: 'kpe-quality',
+        preview: 'kpe-energetic',
     },
 
     'spline-trends-chart': {
@@ -331,6 +336,7 @@ export const WIDGETS_LAZY = {
         itemRows: 14,
         minItemCols: 24,
         minItemRows: 14,
+        preview: 'spline-trends-chart',
     },
 
     // #endregion KPE
@@ -539,7 +545,7 @@ export const WIDGETS_LAZY = {
         itemRows: 28,
         minItemCols: 17,
         minItemRows: 23,
-        preview: 'default',
+        preview: 'astue-onpz-deviation-cards',
     },
 
     //#endregion ASTUE-ONPZ
