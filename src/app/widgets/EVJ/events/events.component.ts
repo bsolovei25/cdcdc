@@ -60,7 +60,7 @@ export class EventsComponent extends WidgetPlatform implements OnInit, OnDestroy
         {
             id: 1001,
             code: 'smotr',
-            iconUrl: 'assets/icons/widgets/events/smotr.svg',
+            iconUrl: './assets/icons/widgets/events/smotr.svg',
             notificationsCounts: {
                 open: 0,
                 all: 0
@@ -72,7 +72,7 @@ export class EventsComponent extends WidgetPlatform implements OnInit, OnDestroy
         {
             id: 1002,
             code: 'safety',
-            iconUrl: 'assets/icons/widgets/events/safety.svg',
+            iconUrl: './assets/icons/widgets/events/safety.svg',
             notificationsCounts: {
                 open: 0,
                 all: 0
@@ -84,7 +84,7 @@ export class EventsComponent extends WidgetPlatform implements OnInit, OnDestroy
         {
             id: 1003,
             code: 'tasks',
-            iconUrl: 'assets/icons/widgets/events/tasks.svg',
+            iconUrl: './assets/icons/widgets/events/tasks.svg',
             notificationsCounts: {
                 open: 0,
                 all: 0
@@ -96,7 +96,7 @@ export class EventsComponent extends WidgetPlatform implements OnInit, OnDestroy
         {
             id: 1004,
             code: 'equipmentStatus',
-            iconUrl: 'assets/icons/widgets/events/status.svg',
+            iconUrl: './assets/icons/widgets/events/status.svg',
             notificationsCounts: {
                 open: 0,
                 all: 0
@@ -108,7 +108,7 @@ export class EventsComponent extends WidgetPlatform implements OnInit, OnDestroy
         {
             id: 1005,
             code: 'drops',
-            iconUrl: 'assets/icons/widgets/events/drops.svg',
+            iconUrl: './assets/icons/widgets/events/drops.svg',
             notificationsCounts: {
                 open: 0,
                 all: 0
@@ -148,15 +148,15 @@ export class EventsComponent extends WidgetPlatform implements OnInit, OnDestroy
     public iconStatus: { name: string; iconUrl: string }[] = [
         {
             name: 'inWork',
-            iconUrl: 'assets/icons/widgets/process/in-work.svg'
+            iconUrl: './assets/icons/widgets/process/in-work.svg'
         },
         {
             name: 'closed',
-            iconUrl: 'assets/icons/widgets/process/closed.svg'
+            iconUrl: './assets/icons/widgets/process/closed.svg'
         },
         {
             name: 'new',
-            iconUrl: 'assets/icons/widgets/process/in-work.svg'
+            iconUrl: './assets/icons/widgets/process/in-work.svg'
         }
     ];
 
@@ -168,7 +168,7 @@ export class EventsComponent extends WidgetPlatform implements OnInit, OnDestroy
 
     isCDEvents: boolean = false;
 
-    private readonly defaultIconPath: string = 'assets/icons/widgets/events/smotr.svg';
+    private readonly defaultIconPath: string = './assets/icons/widgets/events/smotr.svg';
 
     constructor(
         private eventService: EventService,

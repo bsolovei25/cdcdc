@@ -6,17 +6,17 @@
     <div class="pointer-events">
       <div class="header__content drag handle">
         <div class="header__icon-wrapper">
-          <svg-icon class="header__icon" src="assets/icons/widgets/events/letter.svg"></svg-icon>
+          <svg-icon class="header__icon" src="./assets/icons/widgets/events/letter.svg"></svg-icon>
         </div>
         <div *ngIf="!isMock" class="header__icon-wrapper" (click)="viewChanger(false)">
-          <svg-icon [ngClass]="{'list': !isList}" class="header__icon" src="assets/pic/list.svg">
+          <svg-icon [ngClass]="{'list': !isList}" class="header__icon" src="./assets/pic/list.svg">
           </svg-icon>
         </div>
         <div *ngIf="!isMock" class="header__icon-wrapper" (click)="viewChanger(true)">
           <svg-icon
             [ngClass]="{'blocks': isList}"
             class="header__icon"
-            src="assets/pic/blocks.svg"
+            src="./assets/pic/blocks.svg"
           ></svg-icon>
         </div>
         <span class="header__name">
@@ -30,7 +30,7 @@
         >
           <svg-icon
             style="height: 100%; width: 100%; fill: #8C99B2"
-            src="assets/icons/close_bad.svg"
+            src="./assets/icons/close_bad.svg"
           ></svg-icon>
         </div>
       </div>
