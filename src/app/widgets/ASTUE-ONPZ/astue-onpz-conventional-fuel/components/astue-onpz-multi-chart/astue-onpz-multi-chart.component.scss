@@ -59,5 +59,14 @@
     .axisY-bg_2 {
       fill: var(--color-astue-onpz-bg-axis-2);
     }
+
+    .legend-text {
+      fill: var(--color-text-main);
+      font-size: 13px;
+    }
+
+    .button:hover {
+      cursor: pointer;
+    }
   }
 }

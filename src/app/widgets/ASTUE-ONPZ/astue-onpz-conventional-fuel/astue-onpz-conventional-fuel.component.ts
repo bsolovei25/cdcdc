@@ -87,6 +87,7 @@ export class AstueOnpzConventionalFuelComponent extends WidgetPlatform
         },
         {
             graphType: 'temperature',
+            units: 'oC',
             graph: [
                 {
                     value: 1100,
@@ -124,6 +125,7 @@ export class AstueOnpzConventionalFuelComponent extends WidgetPlatform
         },
         {
             graphType: 'heatExchanger',
+            units: 'Па',
             graph: [
                 {
                     value: 500,

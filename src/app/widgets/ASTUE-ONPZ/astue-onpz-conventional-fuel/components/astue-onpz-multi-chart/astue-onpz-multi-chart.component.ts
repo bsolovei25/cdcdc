@@ -47,11 +47,12 @@ export class AstueOnpzMultiChartComponent implements OnChanges {
     private readonly padding: { left: number; right: number; top: number; bottom: number } = {
         left: 0,
         right: 30,
-        top: 50,
+        top: 60,
         bottom: 40,
     };
 
-    private readonly axisYWidth: number = 50;
+    private readonly axisYWidth: number = 60;
+    private readonly topMargin: number = 25;
 
     constructor() {}
 
@@ -70,15 +71,11 @@ export class AstueOnpzMultiChartComponent implements OnChanges {
 
     private startDrawChart(): void {
         this.initData();
-        this.findMinMax();
         this.findMinMaxNew();
         this.defineScale();
-        this.transformData();
         this.transformDataNew();
         this.drawGridlines();
-        // this.drawChart();
         this.drawChartNew();
-        // this.drawAxisLabels();
         this.drawAxisXLabels();
         this.drawAxisYLabels();
         // this.drawFutureRect();
@@ -271,7 +268,9 @@ export class AstueOnpzMultiChartComponent implements OnChanges {
                 d3
                     .axisBottom(this.scaleFuncs.x)
                     .ticks(20)
-                    .tickSize(-(this.graphMaxY - this.padding.bottom - this.padding.top))
+                    .tickSize(
+                        -(this.graphMaxY - this.padding.bottom - this.padding.top + this.topMargin)
+                    )
                     .tickFormat('')
             )
             .style('color', '#272A38');
@@ -280,31 +279,10 @@ export class AstueOnpzMultiChartComponent implements OnChanges {
 
         grid.append('line')
             .attr('x1', left)
-            .attr('y1', -(this.graphMaxY - this.padding.top - this.padding.bottom))
+            .attr('y1', -(this.graphMaxY - this.padding.top - this.padding.bottom + this.topMargin))
             .attr('x2', this.graphMaxX - this.padding.right)
-            .attr('y2', -(this.graphMaxY - this.padding.top - this.padding.bottom))
+            .attr('y2', -(this.graphMaxY - this.padding.top - this.padding.bottom + this.topMargin))
             .attr('stroke', 'currentColor');
-    }
-
-    private drawAxisLabels(): void {
-        const drawLabels = (axis: 'axisX' | 'axisY', translate: string): void => {
-            this.svg
-                .append('g')
-                .attr('transform', translate)
-                .attr('class', axis)
-                .call(this.axis[axis])
-                .selectAll('text')
-                .attr('class', 'label');
-
-            const axisG = this.svg.select(`g.${axis}`);
-            axisG.select('path.domain').remove();
-            axisG.selectAll('g.tick line').remove();
-        };
-
-        const translateX: string = `translate(0,${this.graphMaxY - this.padding.bottom})`;
-        const translateY: string = `translate(${this.padding.left},0)`;
-        drawLabels('axisX', translateX);
-        drawLabels('axisY', translateY);
     }
 
     private drawAxisXLabels(): void {
@@ -347,14 +325,70 @@ export class AstueOnpzMultiChartComponent implements OnChanges {
                 .append('rect')
                 .attr('class', `axisY-bg_${(counter % 2) + 1}`)
                 .attr('x', -this.axisYWidth)
-                .attr('y', this.padding.top)
+                .attr('y', this.padding.top - this.topMargin)
                 .attr('width', this.axisYWidth)
-                .attr('height', this.graphMaxY - this.padding.top - this.padding.bottom);
+                .attr(
+                    'height',
+                    this.graphMaxY - this.padding.top - this.padding.bottom + this.topMargin
+                );
             counter++;
             axisY
                 .call(chart.axisY)
                 .selectAll('text')
                 .attr('class', 'label');
+            const legend = axisY.append('g').attr('class', 'legend');
+            const stroke = flag ? '#FFFFFF' : lineColors[chart.graphType];
+            const padding = 5;
+            legend
+                .append('line')
+                .attr('class', 'legend-line')
+                .attr('x1', -this.axisYWidth + padding)
+                .attr('y1', this.padding.top)
+                .attr('x2', -padding)
+                .attr('y2', this.padding.top)
+                .attr('stroke', stroke)
+                .attr('stroke-width', 3);
+
+            if (flag) {
+                legend
+                    .append('line')
+                    .attr('class', 'legend-line')
+                    .attr('x1', -this.axisYWidth + padding)
+                    .attr('y1', this.padding.top)
+                    .attr('x2', -padding)
+                    .attr('y2', this.padding.top)
+                    .attr('stroke', '#0089ff')
+                    .attr('stroke-width', 3)
+                    .attr('stroke-dasharray', (this.axisYWidth - 2 * padding) / 2);
+            }
+
+            legend
+                .append('text')
+                .attr('class', 'legend-text')
+                .attr('text-anchor', 'end')
+                .attr('x', -padding)
+                .attr('y', this.padding.top - 1.2 * padding)
+                .text(chart.units);
+
+            const buttons = axisY.append('g').attr('class', 'scale-buttons');
+            buttons
+                .append('g')
+                .attr('class', 'button')
+                .append('circle')
+                .attr('cx', -this.axisYWidth / 4)
+                .attr('cy', (this.padding.top - this.topMargin) * 0.6)
+                .attr('r', 8)
+                .attr('stroke-width', 2)
+                .attr('stroke', '#616580');
+            buttons
+                .append('g')
+                .attr('class', 'button')
+                .append('circle')
+                .attr('cx', (-this.axisYWidth * 3) / 4)
+                .attr('cy', (this.padding.top - this.topMargin) * 0.6)
+                .attr('r', 8)
+                .attr('stroke-width', 2)
+                .attr('stroke', '#616580');
         });
 
         const axisG = this.svg.selectAll(`g.axisY`);
