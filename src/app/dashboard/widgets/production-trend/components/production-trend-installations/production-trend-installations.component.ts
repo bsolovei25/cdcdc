@@ -35,7 +35,7 @@ export class ProductionTrendInstallationsComponent implements OnInit, OnChanges 
 
     const circle = this.svg
       .append('image')
-      .attr('xlink:href', './assets/icons/widgets/production-trend/circle-' + status + '.svg')
+      .attr('xlink:href', 'assets/icons/widgets/production-trend/circle-' + status + '.svg')
       .attr('height', '90px')
       .attr('width', '100px')
       .attr('x', '0')
@@ -43,7 +43,7 @@ export class ProductionTrendInstallationsComponent implements OnInit, OnChanges 
 
     const installations = this.svg
       .append('image')
-      .attr('xlink:href', './assets/icons/widgets/production-trend/fabric-' + fabric + '.svg')
+      .attr('xlink:href', 'assets/icons/widgets/production-trend/fabric-' + fabric + '.svg')
       .attr('height', '90px')
       .attr('width', '90px')
       .attr('x', '5')

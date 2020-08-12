@@ -148,6 +148,7 @@ export const WIDGETS = {
     'cd-deviation-mat': WidgetContainerComponent,
     'cd-reactor-parameters': WidgetContainerComponent,
     'sou-operational-accounting-system': WidgetContainerComponent,
+    'astue-onpz-conventional-fuel': WidgetContainerComponent,
     'astue-onpz-predictors': WidgetContainerComponent,
     'astue-onpz-main-indicators': WidgetContainerComponent,
     'astue-onpz-product-charts': WidgetContainerComponent,
@@ -442,6 +443,21 @@ export const WIDGETS_LAZY = {
 
     //#region ASTUE-ONPZ
 
+    'astue-onpz-conventional-fuel': {
+        import: async () => {
+            return await import(
+                // tslint:disable-next-line:max-line-length
+                'src/app/widgets/ASTUE-ONPZ/astue-onpz-conventional-fuel/astue-onpz-conventional-fuel.module'
+            );
+        },
+        module: 'AstueOnpzConventionalFuelModule',
+        itemCols: 30,
+        itemRows: 20,
+        minItemCols: 30,
+        minItemRows: 20,
+        preview: 'astue-onpz-conventional-fuel',
+    },
+
     'astue-onpz-predictors': {
         import: async () => {
             return await import(
@@ -453,7 +469,7 @@ export const WIDGETS_LAZY = {
         itemRows: 15,
         minItemCols: 13,
         minItemRows: 15,
-        preview: 'astue-onpz-predictors'
+        preview: 'astue-onpz-predictors',
     },
 
     'astue-onpz-main-indicators': {
@@ -467,7 +483,7 @@ export const WIDGETS_LAZY = {
         itemRows: 15,
         minItemCols: 13,
         minItemRows: 15,
-        preview: 'astue-onpz-main-indicators'
+        preview: 'astue-onpz-main-indicators',
     },
 
     'astue-onpz-product-charts': {
@@ -516,7 +532,7 @@ export const WIDGETS_LAZY = {
         import: async () => {
             return await import(
                 'src/app/widgets/ASTUE-ONPZ/astue-onpz-deviation-cards/astue-onpz-deviation-cards.module'
-                );
+            );
         },
         module: 'AstueOnpzDeviationCardsModule',
         itemCols: 19,
@@ -525,7 +541,7 @@ export const WIDGETS_LAZY = {
         minItemRows: 23,
         preview: 'default',
     },
-    
+
     //#endregion ASTUE-ONPZ
 
     // 'pie-diagram': {

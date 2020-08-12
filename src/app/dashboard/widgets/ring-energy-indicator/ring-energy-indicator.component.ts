@@ -55,8 +55,8 @@ export class RingEnergyIndicatorComponent extends WidgetPlatform
 
     public d3Circle(data, el): void {
         this.pic = data.isCritical
-            ? '/assets/pic/RingEnergyIndicator/active' + data.iconId + '.svg'
-            : '/assets/pic/RingEnergyIndicator/notActive' + data.iconId + '.svg';
+            ? 'assets/pic/RingEnergyIndicator/active' + data.iconId + '.svg'
+            : 'assets/pic/RingEnergyIndicator/notActive' + data.iconId + '.svg';
 
         const mass = [data.percent, 100 - data.percent];
         let color: any;
@@ -168,7 +168,7 @@ export class RingEnergyIndicatorComponent extends WidgetPlatform
 
         let pie_back = this.svg
             .append('image')
-            .attr('xlink:href', '/assets/pic/RingEnergyIndicator/around.svg')
+            .attr('xlink:href', 'assets/pic/RingEnergyIndicator/around.svg')
             .attr('height', '189px')
             .attr('width', '120px')
             .attr('opacity', '0.6')
