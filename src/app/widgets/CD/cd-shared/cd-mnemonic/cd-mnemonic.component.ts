@@ -230,18 +230,8 @@ export class CdMnemonicComponent implements OnInit {
             if (el?.value) {
                 value = +el?.value.toFixed(1);
             }
-            let textCount = text.textContent.length;
-            const dot = text.textContent.includes('.');
-            // if (dot) {
-            textCount -= 0.5;
-            // }
-            let x = +text.getAttribute('x');
-            x = x + textCount * 1.6;
-            // if (textCount === 4) {
-            //     x = x + 8;
-            // } else {
-            //     x = x + 10;
-            // }
+            const textCount = text.textContent.length - 0.5;
+            const x = +text.getAttribute('x') + textCount * 1.6;
             const letterValue = String(value).length * 1.8;
             const finalX = this.calculationAxisX(x, letterValue);
             this.renderer2.setAttribute(text, 'x', finalX);

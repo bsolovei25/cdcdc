@@ -81,11 +81,6 @@ export class CdMatBalanceComponent extends WidgetPlatform implements OnInit, OnD
         super.ngOnDestroy();
     }
 
-    // protected async dataConnect(): Promise<void> {
-    //     super.dataConnect();
-    //     console.log('fffff');
-    // }
-
     protected dataHandler(ref: any): void {
         if (ref) {
             this.data = ref;
