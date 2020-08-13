@@ -16,7 +16,7 @@ export class KpeGaugeChartComponent implements OnInit {
 
     @ViewChild('chart') chart: ElementRef;
 
-    @Input() fact: number = 110;
+    @Input() fact: number = 70;
     @Input() plan: number = 100;
     @Input() img: string = this.defaultImg;
 
@@ -109,17 +109,25 @@ export class KpeGaugeChartComponent implements OnInit {
 
         addSerif(1.5 * Math.PI * mainValue / this.diagramCounter + 3 * Math.PI / 4, this.fact >= this. plan ? 'serif-active' : 'serif-warning');
 
+        const arrowAngle = (-135 + 270 * mainValue / this.diagramCounter);
+        svg.append('path')
+            .attr('class', 'needle')
+            .attr('d', 'M-3 0 L-1 -30 L1 0 S3 5 0 5 S-3 5 -3 0 Z') // стрелка
+            .attr(`transform`, `rotate(${arrowAngle}) scale(0.87)`);
+
+        drawCircle(16, 'needle-hover-circle-back');
+
         const g = svg.append('g').attr('class', 'text');
 
         g.append('line')
             .attr('class', 'line')
-            .attr('x1', -15)
-            .attr('y1', 5)
-            .attr('x2', 15)
-            .attr('y2', 5);
-        addText(`97.1`, 'text text__value', 0);
-        addText(`\u0394 10%`, 'text text__deviation', 33);
-        // addText(`100%`, 'sub-text', mid - 30);
+            .attr('x1', -14)
+            .attr('y1', 3)
+            .attr('x2', 14)
+            .attr('y2', 3);
+        addText(`97.1`, 'text text__value', -2);
+        addText(`\u0394 10%`, 'text text__deviation', 13);
+        addText(`100%`, 'text text__plan', 28);
 
         function addText(text: string, cls: string, yCord: number): void {
             g.append('text')
@@ -128,6 +136,12 @@ export class KpeGaugeChartComponent implements OnInit {
                 .attr('x', 0)
                 .attr('y', yCord)
                 .text(text);
+        }
+
+        function drawCircle(r: number, className: string): void {
+            svg.append('circle')
+                .attr('r', r)
+                .attr('class', className);
         }
     }
 }
