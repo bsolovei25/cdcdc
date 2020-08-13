@@ -1,18 +1,17 @@
-import { Component, OnDestroy, OnInit, Renderer2 } from '@angular/core';
+import { Component, OnInit, Renderer2, Input } from '@angular/core';
 import { CdMatBalanceService } from '../../../../dashboard/services/widgets/CD/cd-mat-balance.service';
-import { Subscription } from 'rxjs';
+import { ISensors } from '../../cd-mat-balance/cd-mat-balance.component';
 
 export interface IMnemonic {
     id: number;
     name: string;
     value: number;
     engUnits: string;
-    description?: string;
-    deviation?: number;
-    deviationName?: string;
-    deviationFact?: number;
-    deviationModel?: number;
-    deviationEngUnits?: string;
+    description: string;
+    deviation: number;
+    max: number;
+    min: number;
+    modelValue: number;
 }
 
 export interface IModalIcon {
@@ -23,78 +22,50 @@ export interface IModalIcon {
     isVisible: boolean;
 }
 
-
 @Component({
     selector: 'evj-cd-mnemonic',
     templateUrl: './cd-mnemonic.component.html',
-    styleUrls: ['./cd-mnemonic.component.scss']
+    styleUrls: ['./cd-mnemonic.component.scss'],
 })
 export class CdMnemonicComponent implements OnInit {
+    @Input() set dataRef(value: ISensors[]) {
+        if (value) {
+            console.log(value);
 
-    data: IMnemonic[] = [
-        {
-            id: 2,
-            name: 'dsad',
-            value: 200.9,
-            engUnits: 'м³/ч',
-            deviation: -6.6,
-            deviationName: 'FIRCA0955',
-            deviationFact: 75,
-            deviationModel: 55,
-            deviationEngUnits: 'м3/ч'
-        },
-        {
-            id: 3,
-            name: 'dsad',
-            value: 20,
-            engUnits: 'м³/ч'
-        },
-        {
-            id: 4,
-            name: 'dsad',
-            value: 200.9,
-            engUnits: 'ºС',
-            deviation: -7.6,
-            deviationName: 'FIRCA0956',
-            deviationFact: 55,
-            deviationModel: 89,
-            deviationEngUnits: 'м3/ч'
-        },
-        {
-            id: 45,
-            name: 'dsad',
-            value: 200.9,
-            engUnits: 'ºС',
-            deviation: -7.6,
-            deviationName: 'FIRCA0956',
-            deviationFact: 55,
-            deviationModel: 89,
-            deviationEngUnits: 'м3/ч'
+            this.data = value;
+            this.draw();
         }
-    ];
+    }
+
+    engUnits: boolean = false;
+
+    data: ISensors[] = [];
 
     modalIcons: IModalIcon[] = [];
     isSelectedEl: number;
 
-    constructor(private renderer2: Renderer2,
-                private cdMatBalanceService: CdMatBalanceService) {
-    }
+    constructor(private renderer2: Renderer2, private cdMatBalanceService: CdMatBalanceService) {}
 
-    ngOnInit(): void {
-        this.draw();
-    }
+    ngOnInit(): void {}
 
     private draw(): void {
-        this.drawValue();
         this.drawCircle();
-        this.drawEngUnits();
+        if (!this.engUnits) {
+            this.engUnits = true;
+            this.drawValue();
+            this.drawEngUnits();
+        }
     }
 
-    drawModal(x: number, y: number, deviation: number = 0,
-              deviationName: string = '',
-              deviationFact: number = 0,
-              deviationModel: number = 0,
-              deviationEngUnits: string = ''): void {
+    drawModal(
+        x: number,
+        y: number,
+        deviation: number = 0,
+        deviationName: string = '',
+        deviationFact: number = 0,
+        deviationModel: number = 0,
+        deviationEngUnits: string = ''
+    ): void {
         const modal = document.querySelector('.svg__modal');
         this.renderer2.removeClass(modal, 'svg__modal--visible');
         const modalTexts = document.querySelectorAll('.svg__modal__text');
@@ -124,15 +95,25 @@ export class CdMnemonicComponent implements OnInit {
         this.renderer2.addClass(modal, 'svg__modal--visible');
     }
 
+    closeModal(): void {
+        this.disabledOrEnableCircle(false, this.isSelectedEl);
+        const modal = document.querySelector('.svg__modal');
+        this.renderer2.removeClass(modal, 'svg__modal--visible');
+        this.isSelectedEl = null;
+    }
+
     drawCircle(): void {
         const circles = document.querySelectorAll('.svg__circle');
-        circles.forEach(circle => {
+        circles.forEach((circle) => {
             const id = circle.getAttribute('id-circle');
-            const elDeviation = this.data.find(val => val.id === +id)?.deviation;
+            const elDeviation = this.data.find((val) => val.id === +id)?.deviation;
             if (elDeviation) {
                 this.renderer2.addClass(circle, 'svg__circle--deviation');
-                this.addCircleDeviation(+id, +circle.getAttribute('cx'),
-                    +circle.getAttribute('cy'));
+                this.addCircleDeviation(
+                    +id,
+                    +circle.getAttribute('cx'),
+                    +circle.getAttribute('cy')
+                );
             }
         });
     }
@@ -144,21 +125,31 @@ export class CdMnemonicComponent implements OnInit {
             this.cdMatBalanceService.showDeviation.next(id);
             this.disabledOrEnableCircle(false, this.isSelectedEl);
             this.isSelectedEl = id;
-            const el = this.data.find(val => val.id === id);
+            const el = this.data.find((val) => val.id === id);
             this.disabledOrEnableCircle(true, id);
-            this.drawModal(x, y, el.deviation, el.deviationName,
-                el.deviationFact, el.deviationModel, el.deviationEngUnits);
+            this.drawModal(
+                x,
+                y,
+                +el.deviation.toFixed(),
+                el.description,
+                +el.modelValue.toFixed(),
+                +el.value.toFixed(),
+                el.engUnits
+            );
         }
-
     }
 
     addCircleDeviation(id: number, x: number, y: number, callBack?: () => null): void {
-        const locX = x - 28;  // Разница в svg
+        const locX = x - 28; // Разница в svg
         const locY = y - 7;
         this.modalIcons.push({
-            id, x: locX, y: locY, callBack: () => {
+            id,
+            x: locX,
+            y: locY,
+            callBack: () => {
                 this.clickIcon(id, x, y);
-            }, isVisible: true
+            },
+            isVisible: true,
         });
     }
 
@@ -190,13 +181,15 @@ export class CdMnemonicComponent implements OnInit {
         engUnits.forEach((engUnit) => {
             const idEl = engUnit.getAttribute('id-eng-units');
             if (id === +idEl) {
-                this.renderer2.addClass(engUnit, 'svg__circle__eng-units--disabled');
-            } else {
-                this.renderer2.removeClass(engUnit, 'svg__circle__eng-units--disabled');
+                if (disabled) {
+                    this.renderer2.addClass(engUnit, 'svg__circle__eng-units--disabled');
+                } else {
+                    this.renderer2.removeClass(engUnit, 'svg__circle__eng-units--disabled');
+                }
             }
         });
 
-        this.modalIcons.map(value => {
+        this.modalIcons.map((value) => {
             if (value.id === id) {
                 if (disabled) {
                     value.isVisible = false;
@@ -209,20 +202,21 @@ export class CdMnemonicComponent implements OnInit {
 
     drawEngUnits(): void {
         const engUnits = document.querySelectorAll('.svg__circle__eng-units');
-        engUnits.forEach(text => {
+        engUnits.forEach((text) => {
             const id = text.getAttribute('id-eng-units');
-            const valueEngUnits = this.data.find(val => val.id === +id)?.engUnits;
+            const valueEngUnits = this.data.find((val) => val.id === +id)?.engUnits;
             if (valueEngUnits) {
                 const textCount = text.textContent.length;
                 let x = +text.getAttribute('x');
                 if (textCount === 2) {
-                    x = x + 6;
+                    x = x + 2;
                 } else {
-                    x = x + 10;
+                    x = x + 8;
                 }
                 const letterValue = valueEngUnits.length;
-                const finalX = this.calculationAxisX(x, 2.4 * letterValue);
+                const finalX = this.calculationAxisX(x);
                 this.renderer2.setAttribute(text, 'x', finalX);
+                this.renderer2.setAttribute(text, 'text-anchor', 'middle');
                 this.renderer2.setProperty(text, 'textContent', valueEngUnits);
             }
         });
@@ -230,20 +224,15 @@ export class CdMnemonicComponent implements OnInit {
 
     drawValue(): void {
         const texts = document.querySelectorAll('.svg__circle__value');
-        texts.forEach(text => {
+        texts.forEach((text) => {
             const id = text.getAttribute('id-text');
-            const el = this.data.find(val => val.id === +id);
+            const el = this.data.find((val) => val.id === +id);
             let value = 0;
             if (el?.value) {
-                value = el?.value;
+                value = +el?.value.toFixed(1);
             }
-            const textCount = text.textContent.length;
-            let x = +text.getAttribute('x');
-            if (textCount === 4) {
-                x = x + 8;
-            } else {
-                x = x + 10;
-            }
+            const textCount = text.textContent.length - 0.5;
+            const x = +text.getAttribute('x') + textCount * 1.6;
             const letterValue = String(value).length * 1.8;
             const finalX = this.calculationAxisX(x, letterValue);
             this.renderer2.setAttribute(text, 'x', finalX);
@@ -251,9 +240,8 @@ export class CdMnemonicComponent implements OnInit {
         });
     }
 
-    private calculationAxisX(x: number, letterSize: number): string {
+    private calculationAxisX(x: number, letterSize: number = 0): string {
         const axisX = x - letterSize;
         return axisX.toFixed();
     }
-
 }

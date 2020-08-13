@@ -55,6 +55,7 @@
 
     .main-indicators {
       margin: 10px;
+      margin-left: 15px;
       overflow: auto;
       padding-right: 5px;
 
@@ -77,6 +78,7 @@
             }
 
             &:last-of-type {
+              font-size: 14px;
               min-width: 50px;
               text-align: left;
               border-right: 2px solid var(--color-aps-border-main);
