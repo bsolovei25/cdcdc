@@ -12,7 +12,7 @@ export interface IMatBalance {
 }
 export interface IParams {
     unit: { description: string; name: string };
-    unitParams: IUnitParams;
+    unitParams: IUnitParams[];
 }
 export interface IUnitParams {
     description: string;
@@ -79,6 +79,7 @@ export class CdMatBalanceComponent extends WidgetPlatform implements OnInit, OnD
     protected dataHandler(ref: any): void {
         if (ref) {
             this.data = ref;
+            console.log(ref);
         }
     }
 }
