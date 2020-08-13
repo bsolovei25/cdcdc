@@ -14,6 +14,7 @@ import { JSEncrypt } from 'jsencrypt';
 
 export interface ITokenData extends IUser {
     token: string;
+    keycloakToken: string;
 }
 
 @Injectable({
@@ -40,6 +41,11 @@ mInarJutHTwE+Elb3QIDAQAB`;
     public get userSessionToken(): string | null {
         const storageToken: string | null = localStorage.getItem('authentication-token');
         return this.authTokenData ? this.authTokenData.token : storageToken;
+    }
+
+    public get keycloakToken(): string | null {
+        const storageToken: string | null = localStorage.getItem('keycloak-token');
+        return this.authTokenData ? this.authTokenData.keycloakToken : storageToken;
     }
 
     constructor(
@@ -138,6 +144,7 @@ mInarJutHTwE+Elb3QIDAQAB`;
         this.authTokenData = tokenData;
         // save token
         localStorage.setItem('authentication-token', this.authTokenData.token);
+        localStorage.setItem('keycloak-token', this.authTokenData.keycloakToken);
     }
 
     private resetUserAuth(clearTokenFromStorage?: boolean): void {
