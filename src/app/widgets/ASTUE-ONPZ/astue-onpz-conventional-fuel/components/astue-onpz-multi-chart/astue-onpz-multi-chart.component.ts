@@ -6,7 +6,6 @@ import {
     IMultiChartLine,
     IMultiChartData,
 } from '../../../../../dashboard/models/ASTUE-ONPZ/astue-onpz-multi-chart.model';
-import { DatePipe } from '@angular/common';
 
 const lineColors: { [key: string]: string } = {
     temperature: '#FFB100',
@@ -149,21 +148,11 @@ export class AstueOnpzMultiChartComponent implements OnChanges {
                 .tickSize(0);
         });
 
-        const domainValues = [this.dataMax, this.dataMin];
-        this.scaleFuncs.y = d3
-            .scaleLinear()
-            .domain(domainValues)
-            .range(rangeY);
-
         this.axis.axisX = d3
             .axisBottom(this.scaleFuncs.x)
             .ticks(24)
             .tickFormat(d3.timeFormat('%H'))
             .tickSizeOuter(0);
-        this.axis.axisY = d3
-            .axisLeft(this.scaleFuncs.y)
-            .ticks(5)
-            .tickSize(0);
     }
 
     private transformData(): void {
