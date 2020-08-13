@@ -1,8 +1,15 @@
-<evj-widget-header-smp [uniqId]="uniqId" (mouseenter)="onMouseEnter()" (mouseleave)="onMouseExit()">
+<evj-widget-header-smp
+  [uniqId]="uniqId"
+  (mouseenter)="onMouseEnter()"
+  (mouseleave)="onMouseExit()"
+  *ngIf="isHover"
+>
 </evj-widget-header-smp>
 <div
   (mousedown)="$event.stopPropagation()"
   (touchstart)="$event.stopPropagation()"
+  (mouseenter)="onMouseEnter()"
+  (mouseleave)="onMouseExit()"
   class="mat-balance"
 >
   <div class="mat-balance__gauge">

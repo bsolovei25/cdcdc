@@ -39,47 +39,7 @@ export class CdMnemonicComponent implements OnInit {
 
     engUnits: boolean = false;
 
-    data: ISensors[] = [
-        // {
-        //     id: 2,
-        //     name: 'dsad',
-        //     value: 200.9,
-        //     engUnits: 'м³/ч',
-        //     deviation: -6.6,
-        //     deviationName: 'FIRCA0955',
-        //     deviationFact: 75,
-        //     deviationModel: 55,
-        //     deviationEngUnits: 'м3/ч',
-        // },
-        // {
-        //     id: 3,
-        //     name: 'dsad',
-        //     value: 20,
-        //     engUnits: 'м³/ч',
-        // },
-        // {
-        //     id: 4,
-        //     name: 'dsad',
-        //     value: 200.9,
-        //     engUnits: 'ºС',
-        //     deviation: -7.6,
-        //     deviationName: 'FIRCA0956',
-        //     deviationFact: 55,
-        //     deviationModel: 89,
-        //     deviationEngUnits: 'м3/ч',
-        // },
-        // {
-        //     id: 45,
-        //     name: 'dsad',
-        //     value: 200.9,
-        //     engUnits: 'ºС',
-        //     deviation: -7.6,
-        //     deviationName: 'FIRCA0956',
-        //     deviationFact: 55,
-        //     deviationModel: 89,
-        //     deviationEngUnits: 'м3/ч',
-        // },
-    ];
+    data: ISensors[] = [];
 
     modalIcons: IModalIcon[] = [];
     isSelectedEl: number;
@@ -137,6 +97,9 @@ export class CdMnemonicComponent implements OnInit {
 
     closeModal(): void {
         this.disabledOrEnableCircle(false, this.isSelectedEl);
+        const modal = document.querySelector('.svg__modal');
+        this.renderer2.removeClass(modal, 'svg__modal--visible');
+        this.isSelectedEl = null;
     }
 
     drawCircle(): void {
@@ -218,9 +181,11 @@ export class CdMnemonicComponent implements OnInit {
         engUnits.forEach((engUnit) => {
             const idEl = engUnit.getAttribute('id-eng-units');
             if (id === +idEl) {
-                this.renderer2.addClass(engUnit, 'svg__circle__eng-units--disabled');
-            } else {
-                this.renderer2.removeClass(engUnit, 'svg__circle__eng-units--disabled');
+                if (disabled) {
+                    this.renderer2.addClass(engUnit, 'svg__circle__eng-units--disabled');
+                } else {
+                    this.renderer2.removeClass(engUnit, 'svg__circle__eng-units--disabled');
+                }
             }
         });
 
