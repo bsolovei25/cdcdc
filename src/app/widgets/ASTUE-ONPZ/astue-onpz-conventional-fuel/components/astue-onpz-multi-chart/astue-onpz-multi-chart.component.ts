@@ -6,6 +6,7 @@ import {
     IMultiChartLine,
     IMultiChartData,
 } from '../../../../../dashboard/models/ASTUE-ONPZ/astue-onpz-multi-chart.model';
+import { DatePipe } from '@angular/common';
 
 const lineColors: { [key: string]: string } = {
     temperature: '#FFB100',
@@ -73,7 +74,7 @@ export class AstueOnpzMultiChartComponent implements OnChanges {
         this.drawChart();
         this.drawAxisXLabels();
         this.drawAxisYLabels();
-        // this.drawFutureRect();
+        this.drawFutureRect();
     }
 
     private initData(): void {
@@ -345,20 +346,145 @@ export class AstueOnpzMultiChartComponent implements OnChanges {
         axisG.selectAll('g.tick line').remove();
     }
 
-    // private drawFutureRect(): void {
-    //     const fact = this.chartData.find((chart) => chart.graphType === 'fact')?.graph ?? [];
-    //     const x = fact[fact.length - 1].x;
-    //     const y = this.padding.top;
-    //     const y2 = this.graphMaxY - this.padding.bottom;
-    //     const width = this.graphMaxX - this.padding.right - x;
-    //     if (width > 0) {
-    //         this.svg
-    //             .append('line')
-    //             .attr('x1', x)
-    //             .attr('y1', y)
-    //             .attr('x2', x)
-    //             .attr('y2', y2)
-    //             .attr('class', 'future-line');
-    //     }
-    // }
+    private drawFutureRect(): void {
+        const values = [];
+        let plan: IChartMini;
+        let fact: IChartMini;
+        let x: number;
+        this.charts.forEach((chart) => {
+            if (chart.graphType === 'plan') {
+                plan = chart.graph[chart.graph.length - 1];
+            } else if (chart.graphType === 'fact') {
+                fact = chart.graph[chart.graph.length - 1];
+            } else {
+                values.push({
+                    val: chart.graph[chart.graph.length - 1],
+                    color: lineColors[chart.graphType],
+                    units: chart.units ?? '',
+                });
+            }
+            x = chart.transformedGraph[chart.transformedGraph.length - 1].x;
+        });
+
+        const y = (this.padding.top - this.topMargin) * 0.7;
+        const y2 = this.graphMaxY - this.padding.bottom;
+        const width = this.graphMaxX - this.padding.right - x;
+        const height = this.graphMaxY - this.padding.top - this.padding.bottom + this.topMargin;
+        if (width > 0) {
+            const g = this.svg.append('g').attr('class', 'picker');
+            g.append('rect')
+                .attr('x', x)
+                .attr('y', this.padding.top - this.topMargin)
+                .attr('width', width)
+                .attr('height', height)
+                .attr('class', 'future');
+            g.append('line')
+                .attr('x1', x)
+                .attr('y1', y)
+                .attr('x2', x)
+                .attr('y2', y2)
+                .attr('class', 'future-line');
+            g.append('line')
+                .attr('x1', x - this.topMargin / 2)
+                .attr('y1', y)
+                .attr('x2', x + this.topMargin / 2)
+                .attr('y2', y)
+                .attr('class', 'future-line future-line_hor');
+            g.append('rect')
+                .attr('x', x - this.axisYWidth * 1.25)
+                .attr('y', y - this.axisYWidth * 0.5)
+                .attr('width', this.axisYWidth * 2.5)
+                .attr('height', this.axisYWidth * 0.5)
+                .attr('rx', 5)
+                .attr('class', 'data');
+            g.append('rect')
+                .attr('x', x - (this.axisYWidth * 0.3) / 2)
+                .attr('y', y - this.axisYWidth * 0.4)
+                .attr('width', this.axisYWidth * 0.3)
+                .attr('height', this.axisYWidth * 0.3)
+                .attr('rx', 5)
+                .attr('class', 'data-icon');
+            g.append('image')
+                .attr(
+                    'xlink:href',
+                    'assets/icons/widgets/ASTUE-ONPZ/astue-onpz-conventional-fuel/poly.svg'
+                )
+                .attr('x', x - (this.axisYWidth * 0.3) / 2 + 1)
+                .attr('y', y - this.axisYWidth * 0.4 + 3)
+                .attr('width', this.axisYWidth * 0.3 - 8)
+                .attr('height', this.axisYWidth * 0.3 - 8);
+            g.append('image')
+                .attr(
+                    'xlink:href',
+                    'assets/icons/widgets/ASTUE-ONPZ/astue-onpz-conventional-fuel/poly.svg'
+                )
+                .attr('x', x - (this.axisYWidth * 0.3) / 2 + 2)
+                .attr('y', y - this.axisYWidth * 0.4 + 2)
+                .attr('width', this.axisYWidth * 0.3 - 4)
+                .attr('height', this.axisYWidth * 0.3 - 4);
+            g.append('text')
+                .attr('text-anchor', 'end')
+                .attr('x', x - this.axisYWidth * 0.3)
+                .attr('y', y - this.axisYWidth * 0.15)
+                .attr('class', 'data-fact')
+                .text(fact.value);
+            g.append('text')
+                .attr('text-anchor', 'start')
+                .attr('x', x + this.axisYWidth * 0.3)
+                .attr('y', y - this.axisYWidth * 0.15)
+                .attr('class', 'data-plan')
+                .text(plan.value);
+
+            const formatDate = d3.timeFormat('%d.%m.%Y | %H:%M:%S');
+            g.append('text')
+                .attr('text-anchor', 'middle')
+                .attr('x', x)
+                .attr('y', y - this.axisYWidth * 0.6)
+                .attr('class', 'data-date')
+                .text(formatDate(plan.timeStamp));
+
+            let start = this.padding.top - this.topMargin;
+            const step = 10;
+            const cardWidth = this.axisYWidth * 2;
+            const cardHeigh = this.axisYWidth * 0.5;
+
+            values.forEach((val, idx) => {
+                const rect = g.append('g').attr('class', 'val');
+                const bg = rect
+                    .append('g')
+                    .attr('class', 'bg')
+                    .style('opacity', 0.25);
+
+                start += step + cardHeigh * idx;
+
+                bg.append('rect')
+                    .attr('x', x + step)
+                    .attr('y', start)
+                    .attr('width', cardWidth)
+                    .attr('height', cardHeigh)
+                    .attr('rx', 5);
+                bg.append('rect')
+                    .attr('x', x + step * 1.5)
+                    .attr('y', start + step * 0.5)
+                    .attr('width', cardHeigh - step)
+                    .attr('height', cardHeigh - step)
+                    .attr('rx', 5)
+                    .style('fill', val.color);
+
+                rect.append('text')
+                    .attr('x', x + step * 1.5 + cardHeigh)
+                    .attr('y', start + cardHeigh - step * 0.9)
+                    .text(`${val.val.value} ${val.units}`);
+                rect.append('image')
+                    .attr(
+                        'xlink:href',
+                        'assets/icons/widgets/ASTUE-ONPZ/astue-onpz-conventional-fuel/pressure.svg'
+                    )
+                    .attr('x', x + step * 1.7)
+                    .attr('y', start + step * 0.7)
+                    .attr('width', cardHeigh - step * 1.4)
+                    .attr('height', cardHeigh - step * 1.4);
+            });
+        }
+    }
 }

@@ -11,6 +11,10 @@
   height: 100%;
 
   &::ng-deep {
+    * {
+      user-select: none;
+    }
+
     .graph-line {
       &-fact,
       &-plan,
@@ -87,6 +91,53 @@
 
       &:hover {
         cursor: pointer;
+      }
+    }
+
+    .future {
+      fill: rgba(28, 31, 43, 0.5);
+
+      &-line {
+        stroke: white;
+        stroke-width: 1;
+
+        &_hor {
+          stroke-width: 3;
+        }
+      }
+    }
+
+    .data {
+      fill: var(--color-astue-onpz-bg-data);
+
+      &-fact,
+      &-plan,
+      &-date {
+        font-size: 13px;
+        fill: var(--color-astue-onpz-fact);
+      }
+
+      &-date {
+        font-size: 11px;
+      }
+
+      &-plan {
+        fill: var(--color-astue-onpz-plan);
+      }
+
+      &-icon {
+        fill: var(--color-astue-onpz-bg-data-icon);
+      }
+    }
+
+    .val {
+      rect {
+        fill: rgba(48, 53, 73);
+      }
+
+      text {
+        font-size: 13px;
+        fill: var(--color-astue-onpz-fact);
       }
     }
   }
