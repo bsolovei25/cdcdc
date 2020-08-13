@@ -152,6 +152,7 @@ mInarJutHTwE+Elb3QIDAQAB`;
         this.user$.next(null);
         if (clearTokenFromStorage) {
             localStorage.removeItem('authentication-token');
+            localStorage.removeItem('keycloak-token');
         }
     }
 
