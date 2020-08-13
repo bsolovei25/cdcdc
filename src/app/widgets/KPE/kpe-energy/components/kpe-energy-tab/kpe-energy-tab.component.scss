@@ -5,7 +5,8 @@
   width: 240px;
   height: 100%;
   padding: 15px;
-  background: var(--color-lines-bg-dia);
+  background: var(--color-sou-bg);
+  border: solid 1px var(--color-sou-border);
   border-radius: 2px;
   box-sizing: border-box;
   color: var(--color-kpe-text-main);
@@ -21,11 +22,11 @@
   &__units {
     display: flex;
     font-size: 10px;
-    color: var(--color-kpe-text-sub);
+    color: var(--color-astue-onpz-units);
     &__block {
       margin: auto;
       padding: 0 5px;
-      background: var(--color-kpe-line-diagram-bg-sub);
+      background: var(--color-sou-border);
       border: solid 1px transparent;
       cursor: pointer;
     }
@@ -55,12 +56,18 @@
   &__stats {
     display: flex;
     line-height: 20px;
-    &__disabled {
-      color: var(--color-kpe-text-sub);
+
+    &__plan {
+      color: var(--color-aps-active);
     }
-    &__warning {
+    &__deviation {
       color: var(--color-aps-orange);
     }
+
+    &__fact {
+      color: var(--color-kpe-text-main);
+    }
+
     .titles {
       display: flex;
       flex-direction: column;
@@ -68,7 +75,6 @@
       margin-right: 12px;
       text-align: right;
       font-size: 10px;
-      color: var(--color-kpe-text-sub);
     }
     .values {
       display: flex;
@@ -91,5 +97,5 @@
   width: 100%;
   height: 100%;
   box-sizing: border-box;
-  padding: 22px;
+  padding: 25px;
 }
