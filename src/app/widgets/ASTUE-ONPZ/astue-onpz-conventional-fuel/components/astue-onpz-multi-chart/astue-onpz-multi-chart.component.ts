@@ -3,8 +3,8 @@ import * as d3Selection from 'd3-selection';
 import * as d3 from 'd3';
 import { IChartD3, IChartMini } from '../../../../../@shared/models/smart-scroll.model';
 import {
-    IMultiChartTypes,
     IMultiChartLine,
+    IMultiChartData,
 } from '../../../../../dashboard/models/ASTUE-ONPZ/astue-onpz-multi-chart.model';
 
 const lineColors: { [key: string]: string } = {
@@ -31,7 +31,7 @@ export class AstueOnpzMultiChartComponent implements OnChanges {
     private dataMax: number = 0;
     private dataMin: number = 0;
 
-    private charts;
+    private charts: IMultiChartData[] = [];
 
     public scaleFuncs: { x: any; y: any } = { x: null, y: null };
     private axis: { axisX: any; axisY: any } = { axisX: null, axisY: null };
@@ -42,7 +42,7 @@ export class AstueOnpzMultiChartComponent implements OnChanges {
     private readonly padding: { left: number; right: number; top: number; bottom: number } = {
         left: 0,
         right: 30,
-        top: 60,
+        top: 120,
         bottom: 40,
     };
 
@@ -103,7 +103,7 @@ export class AstueOnpzMultiChartComponent implements OnChanges {
         this.charts = [];
 
         this.data.forEach((graph) => {
-            this.charts.push({ ...graph });
+            this.charts.push({ ...(graph as IMultiChartData) });
             const currentChart = this.charts[this.charts.length - 1];
             currentChart.maxValue = Math.round(
                 d3.max(graph.graph, (item: IChartMini) => item.value) * (1 + this.MAX_COEF)
@@ -311,33 +311,33 @@ export class AstueOnpzMultiChartComponent implements OnChanges {
             buttonMinus
                 .append('circle')
                 .attr('cx', -this.axisYWidth / 3)
-                .attr('cy', (this.padding.top - this.topMargin) * 0.6)
+                .attr('cy', (this.padding.top - this.topMargin) * 0.8)
                 .attr('r', 7);
             buttonMinus
                 .append('line')
                 .attr('x1', -this.axisYWidth / 3 - 4)
-                .attr('y1', (this.padding.top - this.topMargin) * 0.6)
+                .attr('y1', (this.padding.top - this.topMargin) * 0.8)
                 .attr('x2', -this.axisYWidth / 3 + 4)
-                .attr('y2', (this.padding.top - this.topMargin) * 0.6);
+                .attr('y2', (this.padding.top - this.topMargin) * 0.8);
 
             const buttonPlus = buttons.append('g').attr('class', 'button');
             buttonPlus
                 .append('circle')
                 .attr('cx', (-this.axisYWidth * 2) / 3)
-                .attr('cy', (this.padding.top - this.topMargin) * 0.6)
+                .attr('cy', (this.padding.top - this.topMargin) * 0.8)
                 .attr('r', 7);
             buttonPlus
                 .append('line')
                 .attr('x1', (-this.axisYWidth * 2) / 3)
-                .attr('y1', (this.padding.top - this.topMargin) * 0.6 - 4)
+                .attr('y1', (this.padding.top - this.topMargin) * 0.8 - 4)
                 .attr('x2', (-this.axisYWidth * 2) / 3)
-                .attr('y2', (this.padding.top - this.topMargin) * 0.6 + 4);
+                .attr('y2', (this.padding.top - this.topMargin) * 0.8 + 4);
             buttonPlus
                 .append('line')
                 .attr('x1', (-this.axisYWidth * 2) / 3 - 4)
-                .attr('y1', (this.padding.top - this.topMargin) * 0.6)
+                .attr('y1', (this.padding.top - this.topMargin) * 0.8)
                 .attr('x2', (-this.axisYWidth * 2) / 3 + 4)
-                .attr('y2', (this.padding.top - this.topMargin) * 0.6);
+                .attr('y2', (this.padding.top - this.topMargin) * 0.8);
         });
 
         const axisG = this.svg.selectAll(`g.axisY`);
