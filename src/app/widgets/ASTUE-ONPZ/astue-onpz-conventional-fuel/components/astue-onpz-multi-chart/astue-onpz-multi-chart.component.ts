@@ -346,8 +346,7 @@ export class AstueOnpzMultiChartComponent implements OnChanges {
                 .attr('y1', this.padding.top)
                 .attr('x2', -padding)
                 .attr('y2', this.padding.top)
-                .attr('stroke', stroke)
-                .attr('stroke-width', 3);
+                .attr('stroke', stroke);
 
             if (flag) {
                 legend
@@ -358,7 +357,6 @@ export class AstueOnpzMultiChartComponent implements OnChanges {
                     .attr('x2', -padding)
                     .attr('y2', this.padding.top)
                     .attr('stroke', '#0089ff')
-                    .attr('stroke-width', 3)
                     .attr('stroke-dasharray', (this.axisYWidth - 2 * padding) / 2);
             }
 
@@ -384,11 +382,7 @@ export class AstueOnpzMultiChartComponent implements OnChanges {
                 .attr('x2', -this.axisYWidth / 3 + 4)
                 .attr('y2', (this.padding.top - this.topMargin) * 0.6);
 
-            const buttonPlus = buttons
-                .append('g')
-                .attr('class', 'button')
-                .attr('stroke-width', 2)
-                .attr('stroke', '#616580');
+            const buttonPlus = buttons.append('g').attr('class', 'button');
             buttonPlus
                 .append('circle')
                 .attr('cx', (-this.axisYWidth * 2) / 3)

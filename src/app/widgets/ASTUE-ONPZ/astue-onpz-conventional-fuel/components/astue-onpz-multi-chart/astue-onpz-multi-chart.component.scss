@@ -52,6 +52,14 @@
       }
     }
 
+    .axisY {
+      .legend {
+        &-line {
+          stroke-width: 3;
+        }
+      }
+    }
+
     .axisY-bg_1 {
       fill: var(--color-astue-onpz-bg-axis-1);
     }
