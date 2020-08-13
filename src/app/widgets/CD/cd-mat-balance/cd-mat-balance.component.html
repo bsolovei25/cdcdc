@@ -16,7 +16,7 @@
     <evj-cd-mat-balance-gauge></evj-cd-mat-balance-gauge>
   </div>
   <div class="mat-balance__mnemonic">
-    <evj-cd-mnemonic [dataRef]="data.sensors"></evj-cd-mnemonic>
+    <evj-cd-mnemonic [dataRef]="data?.sensors"></evj-cd-mnemonic>
   </div>
   <div class="mat-balance__chart mat-elevation-z6" *ngIf="isSelectedEl">
     <evj-cd-mat-balance-chart></evj-cd-mat-balance-chart>
