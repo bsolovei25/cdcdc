@@ -10,26 +10,20 @@
   }
 }
 
-::ng-deep .main-warning {
-  & > * {
-    fill: var(--color-kpe-text-main);
-  }
-}
-
 ::ng-deep .sub {
   & > * {
     fill: var(--color-aps-orange);
   }
 }
 
-::ng-deep .serif-static {
+::ng-deep .serif-active {
   & > * {
-    stroke: var(--color-kpe-eq-chart-row-default);
+    stroke: var(--color-aps-active);
   }
 }
 
-::ng-deep .serif-dynamic {
+::ng-deep .serif-warning {
   & > * {
-    stroke: var(--color-text-main);
+    stroke: var(--color-aps-orange);
   }
 }
