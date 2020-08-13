@@ -55,6 +55,7 @@ export class KpeGaugeChartComponent implements OnInit {
                 .value(1);
         }
 
+        const backPie = createPie(-3 * Math.PI / 4, 3 * Math.PI / 4);
         const mainPie = createPie(-3 * Math.PI / 4, 1.5 * Math.PI * mainValue / this.diagramCounter - 3 * Math.PI / 4);
         const subPie = createPie(1.5 * Math.PI * mainValue / this.diagramCounter - 3 * Math.PI / 4, 3 * Math.PI / 4);
 
@@ -63,25 +64,27 @@ export class KpeGaugeChartComponent implements OnInit {
             .innerRadius(innerRadius)
             .padAngle(0.025);
 
+        const backArc: d3.Arc = d3.arc()
+            .outerRadius(outerRadius + 1.5)
+            .innerRadius(innerRadius - 1.5);
+
         const svg = d3.select(this.chart.nativeElement).append('svg')
-            // .attr('width', width)
-            // .attr('height', height)
             .attr('viewBox', `0 0 75 75`)
             .append('g')
             .attr('transform', 'translate(' + width / 2 + ',' + height / 2 + ')');
 
-        function drawDiagram(className: string, pie: any): void {
+        function drawDiagram(className: string, pie: any, fig: d3.Arc = arc): void {
             svg.append('g')
                 .attr('class', className)
                 .selectAll('path')
                 .data(pie())
                 .enter()
                 .append('path')
-                .attr('d', arc);
+                .attr('d', fig);
         }
 
+        drawDiagram('background', () => backPie([null]), backArc);
         drawDiagram('sub', () => subPie(this.fact > this.plan ? [null] : newArray(tickSub)));
-        // drawDiagram('main', () => mainPie(newArray(tickMain)));
         drawDiagram('main', () => mainPie(newArray(tickMain)));
 
         function addSerif(angle: number, className: 'serif-active' | 'serif-warning'): void {
