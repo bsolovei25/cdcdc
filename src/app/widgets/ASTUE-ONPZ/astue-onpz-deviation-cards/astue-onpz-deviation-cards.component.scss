@@ -2,38 +2,7 @@
   display: flex;
   height: 100%;
   flex-flow: column;
-  background: var(--color-bg-main);
-
-  .header {
-    display: flex;
-    gap: 19px;
-    width: 100%;
-    height: 40px;
-    background: var(--color-sou-bg-header);
-    border-radius: 2px 2px 0 0;
-    padding: 0 18px 0 16px;
-    box-sizing: border-box;
-
-    & > * {
-      margin: auto 0;
-    }
-
-    &__icon {
-      width: 19px;
-      height: 19px;
-    }
-
-    &__button-close {
-      width: 15px;
-      height: 15px;
-      cursor: pointer;
-    }
-
-    &__label {
-      font-size: 12px;
-      color: var(--color-kpe-text-main);
-    }
-  }
+  background: var(--color-sou-bg);
 
   .filter-panel {
     display: flex;
@@ -56,6 +25,7 @@
     border: 1px var(--color-sou-border);
     border-style: none solid solid solid;
     box-sizing: border-box;
+    color: var(--color-kpe-text-main);
 
     .scroll-container {
       display: flex;
@@ -76,7 +46,7 @@
   width: 100%;
   max-height: 120px;
   min-height: 120px;
-  background: #272A38;
+  background: var(--color-sou-bg-header);
   border-radius: 2px;
   padding: 12px;
   box-sizing: border-box;
@@ -87,7 +57,6 @@
     gap: 13px;
     width: 100%;
     height: 16px;
-    color: var(--color-text-main);
     font-size: 12px;
 
     & > * {
@@ -125,6 +94,7 @@
 
     &__textarea {
       flex-grow: 1;
+      font-size: 14px;
     }
   }
 
@@ -136,7 +106,6 @@
   }
 
   .text {
-    color: var(--color-text-main);
 
     &_status {
       color: var(--color-aps-active);
@@ -166,6 +135,7 @@
     mat-label {
       font-size: 12px;
       line-height: 14px;
+      font-family: "Tahoma" !important;
     }
 
     .mat-form-field-type-mat-select .mat-form-field-label {

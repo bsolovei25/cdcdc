@@ -1,4 +1,12 @@
-import { Component, Input } from '@angular/core';
+import {
+    AfterViewInit,
+    Component,
+    ElementRef,
+    HostListener, OnInit,
+    ViewChild
+} from '@angular/core';
+import { IBarDiagramSize, IBarDiagramData } from './components/bar-diagram/bar-diagram.component';
+import { HttpClient } from '@angular/common/http';
 
 export interface IKpeEqualizerInputData {
     name: string;
@@ -17,120 +25,42 @@ export interface IKpeEqualizerChartData {
     templateUrl: './kpe-equalizer-chart.component.html',
     styleUrls: ['./kpe-equalizer-chart.component.scss'],
 })
-export class KpeEqualizerChartComponent {
-    @Input()
-    public data: IKpeEqualizerInputData = {
-        name: 'Рефлюкс',
-        comment: 'норма по м/д углев-ов С5+',
-        chartData: [
-            {
-                barSize: 10,
-                valueSize: 10,
-                overSize: 0,
-            },
-            {
-                barSize: 15,
-                valueSize: 12,
-                overSize: 3,
-            },
-            {
-                barSize: 12,
-                valueSize: 11,
-                overSize: 1,
-            },
-            {
-                barSize: 10,
-                valueSize: 10,
-                overSize: 0,
-            },
-            {
-                barSize: 13,
-                valueSize: 10,
-                overSize: 3,
-            },
-            {
-                barSize: 11,
-                valueSize: 11,
-                overSize: 0,
-            },
-            {
-                barSize: 13,
-                valueSize: 12,
-                overSize: 1,
-            },
-            {
-                barSize: 12,
-                valueSize: 12,
-                overSize: 0,
-            },
-            {
-                barSize: 11,
-                valueSize: 11,
-                overSize: 0,
-            },
-            {
-                barSize: 13,
-                valueSize: 12,
-                overSize: 1,
-            },
-            {
-                barSize: 15,
-                valueSize: 13,
-                overSize: 2,
-            },
-            {
-                barSize: 11,
-                valueSize: 11,
-                overSize: 0,
-            },
-            {
-                barSize: 13,
-                valueSize: 13,
-                overSize: 0,
-            },
-            {
-                barSize: 12,
-                valueSize: 12,
-                overSize: 0,
-            },
-            {
-                barSize: 10,
-                valueSize: 10,
-                overSize: 0,
-            },
-            {
-                barSize: 13,
-                valueSize: 0,
-                overSize: 0,
-            },
-            {
-                barSize: 12,
-                valueSize: 0,
-                overSize: 0,
-            },
-            {
-                barSize: 13,
-                valueSize: 0,
-                overSize: 0,
-            },
-            {
-                barSize: 10,
-                valueSize: 0,
-                overSize: 0,
-            },
-            {
-                barSize: 12,
-                valueSize: 0,
-                overSize: 0,
-            },
-            {
-                barSize: 13,
-                valueSize: 0,
-                overSize: 0,
-            }
-        ]
-    };
+export class KpeEqualizerChartComponent implements AfterViewInit, OnInit {
 
-    constructor() {
+    public size: IBarDiagramSize = { width: null, height: null };
+
+    public data: IBarDiagramData[] = [];
+
+    @ViewChild('chart')
+    public chartElement: ElementRef;
+
+    @HostListener('document:resize', ['$event'])
+    public OnResize(): void {
+        this.getChartAreaSize();
+    }
+
+    constructor(
+        private http: HttpClient,
+    ) {
+    }
+
+    public ngOnInit(): void {
+        this.http
+            .get('assets/mock/KPE/equalizer-chart.json')
+            .toPromise()
+            .then((data: IBarDiagramData[]) => {
+                this.data = data;
+            });
+    }
+
+    public ngAfterViewInit(): void {
+        this.getChartAreaSize();
+    }
+
+    private getChartAreaSize(): void {
+        this.size = {
+            width: this.chartElement.nativeElement.clientWidth,
+            height: this.chartElement.nativeElement.clientHeight
+        };
     }
 }
