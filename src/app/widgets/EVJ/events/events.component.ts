@@ -39,7 +39,7 @@ export class EventsComponent extends WidgetPlatform implements OnInit, OnDestroy
     @HostListener('document:resize', ['$event'])
     OnResize(): void {
         this.countNotificationsDivCapacity();
-        this.dataConnect();
+        this.getData();
     }
 
     isList: boolean = false;
