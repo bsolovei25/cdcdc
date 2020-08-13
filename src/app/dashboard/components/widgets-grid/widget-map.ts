@@ -480,9 +480,9 @@ export const WIDGETS_LAZY = {
         },
         module: 'AstueOnpzMainIndicatorsModule',
         itemCols: 13,
-        itemRows: 10,
+        itemRows: 8,
         minItemCols: 13,
-        minItemRows: 10,
+        minItemRows: 8,
         preview: 'astue-onpz-main-indicators',
     },
 
