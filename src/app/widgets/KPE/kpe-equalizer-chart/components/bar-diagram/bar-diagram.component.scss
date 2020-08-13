@@ -1,0 +1,57 @@
+:host {
+  width: 100%;
+  height: 100%;
+}
+
+.svg {
+  width: 100%;
+  height: 100%;
+}
+
+$column-width: 4px;
+
+::ng-deep {
+  .rect {
+    height: 1px;
+    width: $column-width;
+    border-radius: 0.5px;
+  }
+
+  .rect-normal {
+    fill: var(--color-kpe-gaude-active);
+  }
+
+  .rect-white {
+    fill: white;
+  }
+
+  .rect-orange {
+    fill: var(--color-astue-onpz-warning);
+  }
+
+  .background-col {
+    line {
+      stroke-width: $column-width;
+      border-radius: 1px;
+    }
+
+    path {
+      color: transparent;
+    }
+  }
+
+  .active {
+    color: var(--color-kpe-eq-chart-day-active);
+  }
+
+  .normal {
+    color: var(--color-kpe-eq-chart-day-normal);
+  }
+
+  .step-line {
+    stroke: var(--color-kpe-gaude-active);
+    fill: transparent;
+    stroke-width: 0.75px;
+  }
+}
+
