@@ -65,8 +65,21 @@
       font-size: 13px;
     }
 
-    .button:hover {
-      cursor: pointer;
+    .button {
+      circle {
+        stroke-width: 2;
+        stroke: #616580;
+        fill: transparent;
+      }
+
+      line {
+        stroke-width: 2;
+        stroke: #616580;
+      }
+
+      &:hover {
+        cursor: pointer;
+      }
     }
   }
 }

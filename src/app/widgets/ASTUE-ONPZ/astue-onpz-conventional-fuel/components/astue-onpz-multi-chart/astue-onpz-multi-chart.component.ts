@@ -371,24 +371,41 @@ export class AstueOnpzMultiChartComponent implements OnChanges {
                 .text(chart.units);
 
             const buttons = axisY.append('g').attr('class', 'scale-buttons');
-            buttons
+            const buttonMinus = buttons.append('g').attr('class', 'button');
+            buttonMinus
+                .append('circle')
+                .attr('cx', -this.axisYWidth / 3)
+                .attr('cy', (this.padding.top - this.topMargin) * 0.6)
+                .attr('r', 7);
+            buttonMinus
+                .append('line')
+                .attr('x1', -this.axisYWidth / 3 - 4)
+                .attr('y1', (this.padding.top - this.topMargin) * 0.6)
+                .attr('x2', -this.axisYWidth / 3 + 4)
+                .attr('y2', (this.padding.top - this.topMargin) * 0.6);
+
+            const buttonPlus = buttons
                 .append('g')
                 .attr('class', 'button')
-                .append('circle')
-                .attr('cx', -this.axisYWidth / 4)
-                .attr('cy', (this.padding.top - this.topMargin) * 0.6)
-                .attr('r', 8)
                 .attr('stroke-width', 2)
                 .attr('stroke', '#616580');
-            buttons
-                .append('g')
-                .attr('class', 'button')
+            buttonPlus
                 .append('circle')
-                .attr('cx', (-this.axisYWidth * 3) / 4)
+                .attr('cx', (-this.axisYWidth * 2) / 3)
                 .attr('cy', (this.padding.top - this.topMargin) * 0.6)
-                .attr('r', 8)
-                .attr('stroke-width', 2)
-                .attr('stroke', '#616580');
+                .attr('r', 7);
+            buttonPlus
+                .append('line')
+                .attr('x1', (-this.axisYWidth * 2) / 3)
+                .attr('y1', (this.padding.top - this.topMargin) * 0.6 - 4)
+                .attr('x2', (-this.axisYWidth * 2) / 3)
+                .attr('y2', (this.padding.top - this.topMargin) * 0.6 + 4);
+            buttonPlus
+                .append('line')
+                .attr('x1', (-this.axisYWidth * 2) / 3 - 4)
+                .attr('y1', (this.padding.top - this.topMargin) * 0.6)
+                .attr('x2', (-this.axisYWidth * 2) / 3 + 4)
+                .attr('y2', (this.padding.top - this.topMargin) * 0.6);
         });
 
         const axisG = this.svg.selectAll(`g.axisY`);
