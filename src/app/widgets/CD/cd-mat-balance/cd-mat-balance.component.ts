@@ -1,25 +1,24 @@
 import {
-    Component, ElementRef,
+    Component,
+    ElementRef,
     Inject,
     OnDestroy,
     OnInit,
     QueryList,
     Renderer2,
-    ViewChildren
+    ViewChildren,
 } from '@angular/core';
 import { WidgetPlatform } from '../../../dashboard/models/widget-platform';
 import { WidgetService } from '../../../dashboard/services/widget.service';
 import { CdMatBalanceService } from '../../../dashboard/services/widgets/CD/cd-mat-balance.service';
 import { Subscription } from 'rxjs';
 
-
 @Component({
     selector: 'evj-cd-mat-balance',
     templateUrl: './cd-mat-balance.component.html',
-    styleUrls: ['./cd-mat-balance.component.scss']
+    styleUrls: ['./cd-mat-balance.component.scss'],
 })
 export class CdMatBalanceComponent extends WidgetPlatform implements OnInit, OnDestroy {
-
     isSelectedEl: number;
 
     constructor(
@@ -35,7 +34,7 @@ export class CdMatBalanceComponent extends WidgetPlatform implements OnInit, OnD
     ngOnInit(): void {
         super.widgetInit();
         this.subscriptions.push(
-            this.cdMatBalanceService.showDeviation.subscribe(value => {
+            this.cdMatBalanceService.showDeviation.subscribe((value) => {
                 this.isSelectedEl = value;
             })
         );
@@ -45,7 +44,12 @@ export class CdMatBalanceComponent extends WidgetPlatform implements OnInit, OnD
         super.ngOnDestroy();
     }
 
-    protected dataHandler(ref: any): void {
-    }
+    // protected async dataConnect(): Promise<void> {
+    //     super.dataConnect();
+    //     console.log('fffff');
+    // }
 
+    protected dataHandler(ref: any): void {
+        console.log(ref);
+    }
 }
