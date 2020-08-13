@@ -65,12 +65,14 @@ export class AuthenticationInterceptor implements HttpInterceptor {
             ),
         });
 
-        req = req.clone({
-            headers: req.headers.append(
-                'Authorization',
-                `Bearer ${this.authService.keycloakToken}`
-            ),
-        });
+        if (this.authService.keycloakToken) {
+            req = req.clone({
+                headers: req.headers.append(
+                    'Authorization',
+                    `Bearer ${this.authService.keycloakToken}`
+                ),
+            });
+        }
 
         return next.handle(req);
     }
