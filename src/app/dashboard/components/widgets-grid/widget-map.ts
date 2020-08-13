@@ -541,9 +541,9 @@ export const WIDGETS_LAZY = {
             );
         },
         module: 'AstueOnpzDeviationCardsModule',
-        itemCols: 19,
+        itemCols: 13,
         itemRows: 28,
-        minItemCols: 17,
+        minItemCols: 13,
         minItemRows: 23,
         preview: 'astue-onpz-deviation-cards',
     },
