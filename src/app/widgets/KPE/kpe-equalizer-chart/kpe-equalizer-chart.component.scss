@@ -21,69 +21,12 @@
 
 .chart-area {
   margin: 7px 5px;
-  width: 160px;
-  height: 75px;
-  background-color: var(--color-kpe-eq-chart-area);
+  padding: 4px 0;
+  width: 100%;
+  height: 70px;
+  min-width: 160px;
+  background-color: var(--color-sou-bg);
+  border: 1px solid var(--color-kpe-eq-chart-day-normal);
   border-radius: 2px;
   position: relative;
-
-  .columns {
-    display: flex;
-    justify-content: flex-start;
-    flex-direction: row;
-    position: absolute;
-    left: 6px;
-    bottom: 9.3px;
-    overflow: hidden;
-    z-index: 10;
-
-    &__col {
-      width: 3.7px;
-
-      display: flex;
-      flex-direction: column-reverse;
-      margin: 0 1.7px 0 1.7px;
-
-      .row {
-        height: 1px;
-        border-radius: 1px;
-        width: 100%;
-        margin: 1px 0 1px 0;
-      }
-
-      .default-bg-color {
-        background-color: var(--color-kpe-eq-chart-row-default);
-      }
-
-      .enabled-bg-color {
-        background-color: var(--color-aps-button-color);
-      }
-
-      .over-bg-color {
-        background-color: var(--color-kpe-eq-chart-row-over);
-      }
-    }
-  }
-
-  .divider-top,
-  .divider-center,
-  .divider-bottom {
-    width: 160px;
-    height: 1px;
-    background-color: var(--color-lines-bg-dia);
-    position: absolute;
-    z-index: 5;
-  }
-
-  .divider-top {
-    bottom: 67.1px;
-  }
-
-  .divider-center {
-    bottom: 38.2px;
-  }
-
-  .divider-bottom {
-    bottom: 9.3px;
-  }
 }

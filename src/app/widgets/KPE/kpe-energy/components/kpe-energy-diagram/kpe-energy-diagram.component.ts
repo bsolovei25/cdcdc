@@ -102,5 +102,19 @@ export class KpeEnergyDiagramComponent implements OnInit {
         addSerif(0, this.fact > this. plan ?  'serif-warning' : 'serif-active');
 
         addSerif(2 * Math.PI * mainValue / this.diagramCounter + Math.PI / 2, this.fact >= this. plan ? 'serif-active' : 'serif-warning');
+
+        function drawCircle(r: number, className: string): void {
+            svg.append('circle')
+                .attr('r', r)
+                .attr('class', className);
+        }
+
+        const needle = svg
+            .append('path')
+            .attr('class', 'needle')
+            .attr('d', 'M-3 0 L-1 -30 L1 0 S3 5 0 5 S-3 5 -3 0 Z') // стрелка
+            .attr(`transform`, `rotate(${30})`);
+
+        drawCircle(18, 'needle-hover-circle');
     }
 }

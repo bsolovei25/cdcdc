@@ -27,3 +27,13 @@
     stroke: var(--color-aps-orange);
   }
 }
+
+::ng-deep {
+  .needle {
+    fill: var(--color-kpe-text-main);
+  }
+
+  .needle-hover-circle {
+    fill: var(--color-kpe-energy-diagram-bg);
+  }
+}
