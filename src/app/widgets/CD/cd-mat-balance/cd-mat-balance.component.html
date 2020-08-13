@@ -1,18 +1,17 @@
-<evj-widget-header-smp
-  [uniqId]="uniqId"
-  (mouseenter)="onMouseEnter()"
-  (mouseleave)="onMouseExit()"
->
+<evj-widget-header-smp [uniqId]="uniqId" (mouseenter)="onMouseEnter()" (mouseleave)="onMouseExit()">
 </evj-widget-header-smp>
-<div (mousedown)="$event.stopPropagation()"
-     (touchstart)="$event.stopPropagation()" class="mat-balance">
+<div
+  (mousedown)="$event.stopPropagation()"
+  (touchstart)="$event.stopPropagation()"
+  class="mat-balance"
+>
   <div class="mat-balance__gauge">
     <evj-cd-mat-balance-gauge></evj-cd-mat-balance-gauge>
   </div>
   <div class="mat-balance__mnemonic">
-    <evj-cd-mnemonic></evj-cd-mnemonic>
+    <evj-cd-mnemonic [dataRef]="data.sensors"></evj-cd-mnemonic>
   </div>
-    <div class="mat-balance__chart mat-elevation-z6" *ngIf="isSelectedEl" >
+  <div class="mat-balance__chart mat-elevation-z6" *ngIf="isSelectedEl">
     <evj-cd-mat-balance-chart></evj-cd-mat-balance-chart>
   </div>
   <div class="mat-balance__right">
