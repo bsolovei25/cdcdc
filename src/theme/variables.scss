@@ -225,7 +225,7 @@
   --color-kpe-gaude-lines: #272a38;
   --color-kpe-gaude-back: #12151e;
   --color-kpe-gaude-unactive: #1c1f2b;
-  --color-kpe-gauge-tab-unactive: #4B5169;
+  --color-kpe-gauge-tab-unactive: #4b5169;
   --color-kpe-gauge-circle: rgb(28, 31, 43);
   --color-kpe-gauge-bg: rgb(20, 23, 33);
   --color-kpe-gauge-tab-unactive: #4b5169;
@@ -292,8 +292,18 @@
   --color-astue-onpz-warning: #f7931e;
   --color-astue-onpz-units: #606580;
   --color-astue-onpz-bg-legend: #232737;
-  --color-astue-onpz-bg-header-table: #1F222E;
+  --color-astue-onpz-bg-header-table: #1f222e;
   --color-astue-onpz-table-border: #252937;
+
+  --color-astue-onpz-bg-widget: #171a24;
+  --color-astue-onpz-border-widget: rgba(96, 101, 128, 0.25);
+  --color-astue-onpz-bg-scroll: #1f222e;
+
+  --color-astue-onpz-bg-axis-1: #1b1e2a;
+  --color-astue-onpz-bg-axis-2: none;
+
+  --color-astue-onpz-bg-data: #232737;
+  --color-astue-onpz-bg-data-icon: #303549;
 
   // @shared/alert-window (aw)
   --color-aw-container-shadow-transparent: rgba(0, 0, 0, 0.25);
