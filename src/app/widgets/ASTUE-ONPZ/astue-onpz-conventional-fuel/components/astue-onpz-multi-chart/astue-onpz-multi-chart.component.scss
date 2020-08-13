@@ -76,13 +76,13 @@
     .button {
       circle {
         stroke-width: 2;
-        stroke: #616580;
+        stroke: var(--color-astue-onpz-button);
         fill: transparent;
       }
 
       line {
         stroke-width: 2;
-        stroke: #616580;
+        stroke: var(--color-astue-onpz-button);
       }
 
       &:hover {

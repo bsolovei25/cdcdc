@@ -24,11 +24,6 @@ export class AstueOnpzMultiChartComponent implements OnChanges {
 
     @ViewChild('chart', { static: true }) private chart: ElementRef;
 
-    private chartData: {
-        graphType: IMultiChartTypes;
-        graph: IChartD3[];
-    }[] = [];
-
     private svg;
 
     private graphMaxX: number = 0;
@@ -71,11 +66,11 @@ export class AstueOnpzMultiChartComponent implements OnChanges {
 
     private startDrawChart(): void {
         this.initData();
-        this.findMinMaxNew();
+        this.findMinMax();
         this.defineScale();
-        this.transformDataNew();
+        this.transformData();
         this.drawGridlines();
-        this.drawChartNew();
+        this.drawChart();
         this.drawAxisXLabels();
         this.drawAxisYLabels();
         // this.drawFutureRect();
@@ -105,19 +100,6 @@ export class AstueOnpzMultiChartComponent implements OnChanges {
     }
 
     private findMinMax(): void {
-        const maxValues: number[] = [];
-        const minValues: number[] = [];
-
-        this.data.forEach((graph) => {
-            maxValues.push(d3.max(graph.graph, (item: IChartMini) => item.value));
-            minValues.push(d3.min(graph.graph, (item: IChartMini) => item.value));
-        });
-
-        this.dataMax = d3.max(maxValues) * (1 + this.MAX_COEF);
-        this.dataMin = d3.min(minValues) * (1 - this.MIN_COEF);
-    }
-
-    private findMinMaxNew(): void {
         this.charts = [];
 
         this.data.forEach((graph) => {
@@ -136,8 +118,6 @@ export class AstueOnpzMultiChartComponent implements OnChanges {
         const [min, max] = d3.extent([plan.minValue, plan.maxValue, fact.minValue, fact.maxValue]);
         plan.minValue = fact.minValue = min;
         plan.maxValue = fact.maxValue = max;
-
-        console.log(this.charts);
     }
 
     private defineScale(): void {
@@ -186,29 +166,6 @@ export class AstueOnpzMultiChartComponent implements OnChanges {
     }
 
     private transformData(): void {
-        const transform = (item: IMultiChartLine): void => {
-            const chartData: {
-                graphType: IMultiChartTypes;
-                graph: IChartD3[];
-            } = {
-                graphType: item.graphType,
-                graph: [],
-            };
-
-            item.graph.forEach((point) => {
-                chartData.graph.push({
-                    x: this.scaleFuncs.x(point.timeStamp),
-                    y: this.scaleFuncs.y(point.value),
-                });
-            });
-            this.chartData.push(chartData);
-        };
-
-        this.chartData = [];
-        this.data.forEach(transform);
-    }
-
-    private transformDataNew(): void {
         const transform = (item): void => {
             item.transformedGraph = [];
             item.graph.forEach((point) => {
@@ -222,25 +179,6 @@ export class AstueOnpzMultiChartComponent implements OnChanges {
     }
 
     private drawChart(): void {
-        this.chartData.forEach((chart) => {
-            const line = d3
-                .line()
-                .x((item: IChartD3) => item.x)
-                .y((item: IChartD3) => item.y);
-
-            const flag = chart.graphType !== 'plan' && chart.graphType !== 'fact';
-            const lineType = flag ? 'other' : chart.graphType;
-            const drawnLine = this.svg
-                .append('path')
-                .attr('class', `graph-line-${lineType}`)
-                .attr('d', line(chart.graph));
-            if (flag) {
-                drawnLine.style('stroke', lineColors[chart.graphType]);
-            }
-        });
-    }
-
-    private drawChartNew(): void {
         this.charts.forEach((chart) => {
             const line = d3
                 .line()
