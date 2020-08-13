@@ -1,10 +1,13 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnInit } from '@angular/core';
 
 export type SouBalanceCardType = 'in' | 'out' | 'delta' | 'balance';
 
 export interface ISouBalanceCard {
     title: string;
     type: SouBalanceCardType;
+    sumValue: number;
+    percentageValue?: number;
+    perHourValue?: number;
 }
 
 @Component({
@@ -20,6 +23,6 @@ export class SouBalanceCardComponent implements OnInit {
     }
 
     ngOnInit(): void {
-    }
 
+    }
 }

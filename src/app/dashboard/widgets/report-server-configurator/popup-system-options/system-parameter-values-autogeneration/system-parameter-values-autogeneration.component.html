@@ -23,7 +23,7 @@
                     <div *ngIf="item.id === itemChooseId" class="item-content__button-remove"
                         (click)="deleteItem(item)">
                     </div>
-                </div> 
+                </div>
                 <div *ngIf="item.open" class="item-content__shadow-block">
                     <ng-container *ngFor="let i of item.param">
                         <div class="item-content__info">

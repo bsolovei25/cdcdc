@@ -6,24 +6,24 @@
     <div class="header__label">Потери</div>
   </div>
   <div class="table-content">
-    <ng-container *ngTemplateOutlet="tableRow; context: {label: 'Суммарные потери'}"></ng-container>
-    <ng-container *ngTemplateOutlet="tableRow; context: {label: 'Идентефицированные потери', isButton: true}"></ng-container>
-    <ng-container *ngTemplateOutlet="tableRow; context: {label: 'Неидентифицированные потери'}"></ng-container>
+    <ng-container *ngFor="let row of data.rows">
+      <ng-container *ngTemplateOutlet="tableRow; context: {row: row}"></ng-container>
+    </ng-container>
   </div>
 </div>
 
-<ng-template #tableRow let-label="label" let-isButton="isButton">
+<ng-template #tableRow let-row="row">
   <div class="row">
     <div class="label">
-      <span style="margin: auto">{{label}}</span>
+      <span style="margin: auto">{{row.title}}</span>
       <span style="flex-grow: 1"></span>
-      <div class="button" *ngIf="isButton" (click)="buttonClick()" matRipple [matRippleColor]="'white'">
+      <div class="button" *ngIf="row.isButton" (click)="buttonClick()" matRipple [matRippleColor]="'white'">
         <span style="margin: auto">Открыть</span>
       </div>
     </div>
     <div class="values">
-      <span>110 800 т.</span>
-      <span>3%</span>
+      <span>{{row.value | spaceNumber}} т.</span>
+      <span>{{row.percentageValue}}%</span>
     </div>
   </div>
 </ng-template>

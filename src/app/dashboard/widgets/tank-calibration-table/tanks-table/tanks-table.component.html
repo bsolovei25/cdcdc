@@ -45,7 +45,7 @@
             </ng-container>
           </ng-container>
           <ng-container *ngFor="let element of dataSourceTanks">
-            <tr (click)="selectedElement.isSelected(element) ? 
+            <tr (click)="selectedElement.isSelected(element) ?
                        selectedElement.deselect(element)
                        : selectedElement.select(element)"
                 (dblclick)="doubleClick(element)"

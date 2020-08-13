@@ -9,7 +9,7 @@
         </div>
         <div class="content">
             <ng-container *ngFor="let item of dataMail">
-                <div class="item"> 
+                <div class="item">
                     <div class="item__mail"> {{ item.mail }}</div>
                     <div class="item__check">
                         <label class="mycheckbox">
@@ -27,7 +27,7 @@
                     <div class="bottom__button-search">
                       <svg-icon *ngIf="!isRepInput" class="button_filter_icon"
                         src="assets/icons/widgets/references/search_white.svg"></svg-icon>
-            
+
                       <svg-icon *ngIf="isRepInput" class="indicator-selector__collapse"
                         src="assets/icons/widgets/references/search_blue.svg"></svg-icon>
                     </div>

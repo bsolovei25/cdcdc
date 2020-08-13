@@ -457,6 +457,7 @@ export const WIDGETS_LAZY = {
         minItemRows: 20,
         preview: 'astue-onpz-conventional-fuel',
     },
+
     'astue-onpz-predictors': {
         import: async () => {
             return await import(
@@ -465,9 +466,9 @@ export const WIDGETS_LAZY = {
         },
         module: 'AstueOnpzPredictorsModule',
         itemCols: 13,
-        itemRows: 15,
+        itemRows: 10,
         minItemCols: 13,
-        minItemRows: 15,
+        minItemRows: 10,
         preview: 'astue-onpz-predictors',
     },
 
@@ -479,9 +480,9 @@ export const WIDGETS_LAZY = {
         },
         module: 'AstueOnpzMainIndicatorsModule',
         itemCols: 13,
-        itemRows: 15,
+        itemRows: 10,
         minItemCols: 13,
-        minItemRows: 15,
+        minItemRows: 10,
         preview: 'astue-onpz-main-indicators',
     },
 

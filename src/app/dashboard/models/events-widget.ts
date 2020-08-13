@@ -191,7 +191,7 @@ export type EventsWidgetNotificationPriority = 'danger' | 'warning' | 'standard'
 
 export type EventsWidgetNotificationStatus = 'new' | 'inWork' | 'closed';
 
-export type EventsWidgetFilterCode = 'all' | 'inWork' | 'closed';
+export type EventsWidgetFilterCode = 'all' | 'inWork' | 'closed' | 'isNotAcknowledged';
 
 export type EventsWidgetCategoryCode =
     | 'smotr'

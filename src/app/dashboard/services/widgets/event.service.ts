@@ -453,6 +453,9 @@ export class EventService {
                 case 'inWork':
                     res += '&statusIds=3002';
                     break;
+                case 'isNotAcknowledged':
+                    res += '&statusIds=-100';
+                    break;
             }
         }
         if (options.description) {

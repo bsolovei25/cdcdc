@@ -32,13 +32,13 @@
           <div class="card__title">{{ item.name }}</div>
           <div class="card__change" [ngClass]="{ danger: !item.isBetter }">
             <img
-              src="../../../.assets/icons/widgets/calendar-plan/deviat_danger.svg"
+              src="assets/icons/widgets/calendar-plan/deviat_danger.svg"
               alt=""
               *ngIf="!item.isBetter"
               [ngClass]="{ rotate: item.deviation > 0 }"
             />
             <img
-              src="../../../.assets/icons/widgets/calendar-plan/deviat.svg"
+              src="assets/icons/widgets/calendar-plan/deviat.svg"
               alt=""
               *ngIf="item.isBetter"
               [ngClass]="{ rotate: item.deviation < 0 }"
