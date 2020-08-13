@@ -209,13 +209,14 @@ export class CdMnemonicComponent implements OnInit {
                 const textCount = text.textContent.length;
                 let x = +text.getAttribute('x');
                 if (textCount === 2) {
-                    x = x + 6;
+                    x = x + 2;
                 } else {
-                    x = x + 10;
+                    x = x + 8;
                 }
                 const letterValue = valueEngUnits.length;
-                const finalX = this.calculationAxisX(x, 2.4 * letterValue);
+                const finalX = this.calculationAxisX(x);
                 this.renderer2.setAttribute(text, 'x', finalX);
+                this.renderer2.setAttribute(text, 'text-anchor', 'middle');
                 this.renderer2.setProperty(text, 'textContent', valueEngUnits);
             }
         });
@@ -239,7 +240,7 @@ export class CdMnemonicComponent implements OnInit {
         });
     }
 
-    private calculationAxisX(x: number, letterSize: number): string {
+    private calculationAxisX(x: number, letterSize: number = 0): string {
         const axisX = x - letterSize;
         return axisX.toFixed();
     }
