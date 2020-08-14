@@ -25,13 +25,12 @@ export interface IModalIcon {
 @Component({
     selector: 'evj-cd-mnemonic',
     templateUrl: './cd-mnemonic.component.html',
-    styleUrls: ['./cd-mnemonic.component.scss'],
+    styleUrls: ['./cd-mnemonic.component.scss']
 })
 export class CdMnemonicComponent implements OnInit {
     @Input() set dataRef(value: ISensors[]) {
         if (value) {
             console.log(value);
-
             this.data = value;
             this.draw();
         }
@@ -42,11 +41,13 @@ export class CdMnemonicComponent implements OnInit {
     data: ISensors[] = [];
 
     modalIcons: IModalIcon[] = [];
-    isSelectedEl: number;
+    isSelectedEl: { id: number, modal: 'top-right' | 'top-left' | 'down-right' };
 
-    constructor(private renderer2: Renderer2, private cdMatBalanceService: CdMatBalanceService) {}
+    constructor(private renderer2: Renderer2, private cdMatBalanceService: CdMatBalanceService) {
+    }
 
-    ngOnInit(): void {}
+    ngOnInit(): void {
+    }
 
     private draw(): void {
         this.drawCircle();
@@ -66,10 +67,23 @@ export class CdMnemonicComponent implements OnInit {
         deviationModel: number = 0,
         deviationEngUnits: string = ''
     ): void {
-        const modal = document.querySelector('.svg__modal');
-        this.renderer2.removeClass(modal, 'svg__modal--visible');
+        let isModal: 'top-right' | 'top-left' | 'down-right' = 'top-right';
+        let isDeviation: { x: number, y: number } = { x: 78, y: 122 };
+        if (x > 900) {
+            isModal = 'top-left';
+            isDeviation = { x: 275, y: 100 };
+        }
+        if (y < 100) {
+            isModal = 'down-right';
+            console.log('y < 10');
+            isDeviation = { x: 55, y: 13 };
+        }
+        this.isSelectedEl.modal = isModal;
+        const modal = document.querySelector(`.svg__modal--${isModal}`);
+
         const modalTexts = document.querySelectorAll('.svg__modal__text');
-        modalTexts.forEach((text) => {
+        const modalTextsTooltip = document.querySelectorAll('.svg__modal__text__tooltip');
+        modalTextsTooltip.forEach((text) => {
             switch (text.getAttribute('id-modal-text')) {
                 case '1':
                     this.renderer2.setProperty(text, 'textContent', deviationName);
@@ -90,19 +104,45 @@ export class CdMnemonicComponent implements OnInit {
                     console.log('Нет текста');
             }
         });
-        this.renderer2.setAttribute(modal, 'x', String(x - 78));
-        this.renderer2.setAttribute(modal, 'y', String(y - 122));
-        this.renderer2.addClass(modal, 'svg__modal--visible');
+
+        modalTexts.forEach((text) => {
+            const deviationNameSplice = deviationName.slice(0, 12) + (deviationName.length > 12 ? '...' : '');
+            switch (text.getAttribute('id-modal-text')) {
+                case '1':
+                    this.renderer2.setProperty(text, 'textContent', deviationNameSplice);
+                    break;
+                case '2':
+                    this.renderer2.setProperty(text, 'textContent', deviationFact);
+                    break;
+                case '3':
+                    this.renderer2.setProperty(text, 'textContent', deviationModel);
+                    break;
+                case '4':
+                    this.renderer2.setProperty(text, 'textContent', deviation);
+                    break;
+                case '5':
+                    this.renderer2.setProperty(text, 'textContent', deviationEngUnits);
+                    break;
+                default:
+                    console.log('Нет текста');
+            }
+        });
+        this.renderer2.setAttribute(modal, 'x', String(x - isDeviation.x));
+        this.renderer2.setAttribute(modal, 'y', String(y - isDeviation.y));
+        this.renderer2.addClass(modal, `svg__modal--${isModal}--visible`);
     }
 
     closeModal(): void {
         this.disabledOrEnableCircle(false, this.isSelectedEl);
-        const modal = document.querySelector('.svg__modal');
-        this.renderer2.removeClass(modal, 'svg__modal--visible');
+        const modal = document.querySelector(`.svg__modal--${this.isSelectedEl?.modal}`);
+        if (modal) {
+            this.renderer2.removeClass(modal, `svg__modal--${this.isSelectedEl?.modal}--visible`);
+        }
         this.isSelectedEl = null;
     }
 
     drawCircle(): void {
+        this.modalIcons = [];
         const circles = document.querySelectorAll('.svg__circle');
         circles.forEach((circle) => {
             const id = circle.getAttribute('id-circle');
@@ -119,14 +159,15 @@ export class CdMnemonicComponent implements OnInit {
     }
 
     clickIcon(id: number, x: number, y: number): void {
-        if (this.isSelectedEl === id) {
+        if (this.isSelectedEl?.id === id) {
             this.isSelectedEl = null;
         } else {
+            this.closeModal();
             this.cdMatBalanceService.showDeviation.next(id);
             this.disabledOrEnableCircle(false, this.isSelectedEl);
-            this.isSelectedEl = id;
+            this.isSelectedEl = { id, modal: 'top-right' };
             const el = this.data.find((val) => val.id === id);
-            this.disabledOrEnableCircle(true, id);
+            this.disabledOrEnableCircle(true, this.isSelectedEl);
             this.drawModal(
                 x,
                 y,
@@ -149,18 +190,18 @@ export class CdMnemonicComponent implements OnInit {
             callBack: () => {
                 this.clickIcon(id, x, y);
             },
-            isVisible: true,
+            isVisible: true
         });
     }
 
-    disabledOrEnableCircle(disabled: boolean, id: number): void {
+    disabledOrEnableCircle(disabled: boolean, el: { id: number, modal: 'top-right' | 'top-left' | 'down-right' }): void {
         const circles = document.querySelectorAll('.svg__circle');
         const texts = document.querySelectorAll('.svg__circle__value');
         const engUnits = document.querySelectorAll('.svg__circle__eng-units');
 
         circles.forEach((circle) => {
             const idEl = circle.getAttribute('id-circle');
-            if (id === +idEl) {
+            if (el?.id === +idEl) {
                 if (disabled) {
                     this.renderer2.addClass(circle, 'svg__circle--disabled');
                 } else {
@@ -170,7 +211,7 @@ export class CdMnemonicComponent implements OnInit {
         });
         texts.forEach((text) => {
             const idEl = text.getAttribute('id-text');
-            if (id === +idEl) {
+            if (el?.id === +idEl) {
                 if (disabled) {
                     this.renderer2.addClass(text, 'svg__circle__value--disabled');
                 } else {
@@ -180,7 +221,7 @@ export class CdMnemonicComponent implements OnInit {
         });
         engUnits.forEach((engUnit) => {
             const idEl = engUnit.getAttribute('id-eng-units');
-            if (id === +idEl) {
+            if (el?.id === +idEl) {
                 if (disabled) {
                     this.renderer2.addClass(engUnit, 'svg__circle__eng-units--disabled');
                 } else {
@@ -190,7 +231,7 @@ export class CdMnemonicComponent implements OnInit {
         });
 
         this.modalIcons.map((value) => {
-            if (value.id === id) {
+            if (value.id === el?.id) {
                 if (disabled) {
                     value.isVisible = false;
                 } else {
