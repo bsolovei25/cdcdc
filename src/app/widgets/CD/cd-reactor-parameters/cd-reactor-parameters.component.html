@@ -76,6 +76,7 @@
                 class="expanded-column table__body__column table__body__column__children"
                 [class.table__body__column__children--active]="selectedRowProduct === elementChildren.name"
                 [class.table__body__column__children--deviation]="selectedRowProduct === elementChildren.name && selectedRowProduct === elementChildren.name"
+                [matTooltip]="elementChildren?.name"
               >
                 <div
                   *ngIf="column.name === 'Параметры'"
@@ -108,7 +109,7 @@
                     >{{ elementChildren.name }}</span
                   >
                   <span
-                    class="table__body__column__row-title__text"
+                    class="table__body__column__row-title__engUnit"
                     [class.table__body__column__row-title--no-active]="selectedRow.isSelected(element.unit.name)"
                     >{{elementChildren.engUnits}}</span
                   >

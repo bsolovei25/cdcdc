@@ -22,7 +22,7 @@
         <ng-container *ngFor="let element of data">
           <tr
             class="table__body__row"
-            [class.last-tr]="element.name === 'last-row'"
+            [class.last-tr]="element?.name === 'last-row'"
             [class.table__body__row--active]="selectedRowProduct === element.name"
           >
             <ng-container *ngIf="element.name !== 'last-row'">

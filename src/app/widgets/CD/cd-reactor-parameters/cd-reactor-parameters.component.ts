@@ -4,7 +4,7 @@ import { WidgetService } from '../../../dashboard/services/widget.service';
 import {
     IAPSRecipeDiagram,
     IAPSRecipeDiagramValue,
-    IColumnsToDisplay,
+    IColumnsToDisplay
 } from '../../APS/aps-recipe-diagram/aps-recipe-diagram.component';
 import { SelectionModel } from '@angular/cdk/collections';
 import { DATASOURCE } from '../../APS/aps-recipe-diagram/mock';
@@ -13,7 +13,7 @@ import { IParams } from '../cd-mat-balance/cd-mat-balance.component';
 @Component({
     selector: 'evj-cd-reactor-parameters',
     templateUrl: './cd-reactor-parameters.component.html',
-    styleUrls: ['./cd-reactor-parameters.component.scss'],
+    styleUrls: ['./cd-reactor-parameters.component.scss']
 })
 export class CdReactorParametersComponent extends WidgetPlatform implements OnInit, OnDestroy {
     dataSourceQuality: IAPSRecipeDiagram[] = DATASOURCE;
@@ -21,10 +21,10 @@ export class CdReactorParametersComponent extends WidgetPlatform implements OnIn
     columnsToDisplay: IColumnsToDisplay[] = [
         { name: 'Параметры', date: new Date() },
         { name: 'Факт', date: new Date('2020-02-01T03:24:00') },
-        { name: 'Модель', date: new Date('2020-02-02T03:24:00') },
+        { name: 'Модель', date: new Date('2020-02-02T03:24:00') }
     ];
 
-    expandedElement: SelectionModel<number> = new SelectionModel(true);
+    expandedElement: SelectionModel<string> = new SelectionModel(true);
     selectedRowProduct: string;
     selectedRow: SelectionModel<string> = new SelectionModel(true);
 
@@ -47,15 +47,15 @@ export class CdReactorParametersComponent extends WidgetPlatform implements OnIn
 
     protected dataHandler(ref: any): void {
         if (ref) {
+            console.log(ref.params);
             this.data = [
-                ...ref,
+                ...ref.params,
                 {
-                    description: 'ЛБ',
-                    deviation: 1,
-                    modelValue: 0,
-                    name: 'last-row',
-                    value: 14.96366457,
-                },
+                    unit: {
+                        name: 'last-row',
+                        description: 'last-row'
+                    }
+                }
             ];
         }
     }
