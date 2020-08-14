@@ -78,4 +78,19 @@ export class KpeReadinessComponent extends WidgetPlatform implements OnInit, OnD
             .style('fill', 'none');
     }
 
+    public gaugeWidth(container: HTMLDivElement): string {
+        if (!(container?.offsetHeight > 0)) {
+            return;
+        }
+        const height = container.offsetHeight;
+        return `min-width: ${height * 1.136}px`;
+    }
+
+    public rowHeight(container: HTMLDivElement): string {
+        if (!(container?.offsetWidth > 0)) {
+            return;
+        }
+        const width = container.offsetWidth;
+        return `min-height: ${width * 0.93}px; height: ${width * 0.93}px`;
+    }
 }
