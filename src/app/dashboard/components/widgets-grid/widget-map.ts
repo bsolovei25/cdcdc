@@ -155,6 +155,8 @@ export const WIDGETS = {
     'astue-onpz-menu-structure': WidgetContainerComponent,
     'astue-onpz-consumption-indicators': WidgetContainerComponent,
     'astue-onpz-deviation-cards': WidgetContainerComponent,
+    'astue-onpz-planning-charts': WidgetContainerComponent,
+    'astue-onpz-big-planning-chart': WidgetContainerComponent,
 };
 
 export const WIDGETS_LAZY = {
@@ -546,6 +548,34 @@ export const WIDGETS_LAZY = {
         minItemCols: 13,
         minItemRows: 23,
         preview: 'astue-onpz-deviation-cards',
+    },
+
+    'astue-onpz-planning-charts': {
+        import: async () => {
+            return await import(
+                'src/app/widgets/ASTUE-ONPZ/astue-onpz-planning-charts/astue-onpz-planning-charts.module'
+            );
+        },
+        module: 'AstueOnpzPlanningChartsModule',
+        itemCols: 13,
+        itemRows: 28,
+        minItemCols: 13,
+        minItemRows: 23,
+        // preview: 'astue-onpz-planning-charts',
+    },
+
+    'astue-onpz-big-planning-chart': {
+        import: async () => {
+            return await import(
+                'src/app/widgets/ASTUE-ONPZ/astue-onpz-big-planning-chart/astue-onpz-big-planning-chart.module'
+            );
+        },
+        module: 'AstueOnpzBigPlanningChartModule',
+        itemCols: 13,
+        itemRows: 28,
+        minItemCols: 13,
+        minItemRows: 23,
+        // preview: 'astue-onpz-big-planning-chart',
     },
 
     //#endregion ASTUE-ONPZ
