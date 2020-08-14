@@ -15,10 +15,7 @@
       </div>
     </div>
   </evj-contemporary-widget-header>
-  <div
-    (mousedown)="$event.stopPropagation()"
-    (touchstart)="$event.stopPropagation()"
-  >
+  <div (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
     <div class="readiness">
       <div class="readiness__header">
         <div class="readiness__header__circle-diagram"></div>
@@ -31,31 +28,46 @@
         <div class="readiness__body__circle-diagram__second card">s</div>
         <div class="readiness__body__line-diagram card">
           <evj-kpe-line-diagram [isCritical]="false"></evj-kpe-line-diagram>
-          <evj-kpe-line-chart [data]="lineChartData" [isLineCircle]="false"></evj-kpe-line-chart>
+          <evj-kpe-line-chart [data]="lineChartData"></evj-kpe-line-chart>
         </div>
         <div class="readiness__body__line-diagram card">
           <evj-kpe-line-diagram [isCritical]="false"></evj-kpe-line-diagram>
-          <evj-kpe-line-chart [data]="lineChartData" [isLineCircle]="false"></evj-kpe-line-chart>
+          <evj-kpe-line-chart [data]="lineChartData"></evj-kpe-line-chart>
         </div>
         <div class="readiness__body__line-diagram card">
-          <evj-kpe-line-diagram [isCritical]="true" class="readiness__body__"></evj-kpe-line-diagram>
-          <evj-kpe-line-chart [data]="lineChartData" [isLineCircle]="false"></evj-kpe-line-chart>
+          <evj-kpe-line-diagram
+            [isCritical]="true"
+            class="readiness__body__"
+          ></evj-kpe-line-diagram>
+          <evj-kpe-line-chart [data]="lineChartData"></evj-kpe-line-chart>
         </div>
         <div class="readiness__body__line-diagram card">
-          <evj-kpe-line-diagram [isCritical]="false" class="readiness__body__"></evj-kpe-line-diagram>
-          <evj-kpe-line-chart [data]="lineChartData" [isLineCircle]="false"></evj-kpe-line-chart>
+          <evj-kpe-line-diagram
+            [isCritical]="false"
+            class="readiness__body__"
+          ></evj-kpe-line-diagram>
+          <evj-kpe-line-chart [data]="lineChartData"></evj-kpe-line-chart>
         </div>
         <div class="readiness__body__line-diagram card">
-          <evj-kpe-line-diagram [isCritical]="true" class="readiness__body__"></evj-kpe-line-diagram>
-          <evj-kpe-line-chart [data]="lineChartData" [isLineCircle]="false"></evj-kpe-line-chart>
+          <evj-kpe-line-diagram
+            [isCritical]="true"
+            class="readiness__body__"
+          ></evj-kpe-line-diagram>
+          <evj-kpe-line-chart [data]="lineChartData"></evj-kpe-line-chart>
         </div>
         <div class="readiness__body__line-diagram card">
-          <evj-kpe-line-diagram [isCritical]="false" class="readiness__body__"></evj-kpe-line-diagram>
-          <evj-kpe-line-chart [data]="lineChartData" [isLineCircle]="false"></evj-kpe-line-chart>
+          <evj-kpe-line-diagram
+            [isCritical]="false"
+            class="readiness__body__"
+          ></evj-kpe-line-diagram>
+          <evj-kpe-line-chart [data]="lineChartData"></evj-kpe-line-chart>
         </div>
         <div class="readiness__body__line-diagram card">
-          <evj-kpe-line-diagram [isCritical]="false" class="readiness__body__"></evj-kpe-line-diagram>
-          <evj-kpe-line-chart [data]="lineChartData" [isLineCircle]="false"></evj-kpe-line-chart>
+          <evj-kpe-line-diagram
+            [isCritical]="false"
+            class="readiness__body__"
+          ></evj-kpe-line-diagram>
+          <evj-kpe-line-chart [data]="lineChartData"></evj-kpe-line-chart>
         </div>
       </div>
       <!-- <div style="width: 100%; height: 30%;">
