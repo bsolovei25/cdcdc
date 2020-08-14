@@ -1,3 +1,14 @@
+.container {
+  background-color: var(--color-astue-onpz-bg-card);
+  height: 100%;
+
+  &-body {
+    height: calc(100% - 43px);
+    padding: 0 10px;
+    border: 1px solid var(--color-cd-bg-border);
+  }
+}
+
 .readiness {
   display: grid;
   grid-template-columns: 1fr;
@@ -32,7 +43,8 @@
       max-height: 130px;
       border-radius: 2px;
       padding: 15px 0;
-      background-color: var(--color-kpe-bg-sub);
+      border: 2px solid var(--color-cd-new-bg-border);
+      background-color: var(--color-cd-new-bg-block);
     }
 
     &__circle-diagram {
@@ -55,7 +67,6 @@
     }
   }
 }
-
 
 .content-container {
   flex: 1;
@@ -103,7 +114,6 @@
 
         margin-right: 10px;
       }
-
     }
 
     &__right {
