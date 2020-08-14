@@ -1,4 +1,4 @@
-import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
+import { Component, Inject, OnDestroy, OnInit, Input } from '@angular/core';
 import { WidgetPlatform } from '../../../dashboard/models/widget-platform';
 import { WidgetService } from '../../../dashboard/services/widget.service';
 import {
@@ -7,6 +7,7 @@ import {
 } from '../../APS/aps-recipe-diagram/aps-recipe-diagram.component';
 import { DATASOURCE } from '../../APS/aps-recipe-diagram/mock';
 import { SelectionModel } from '@angular/cdk/collections';
+import { IStreams } from '../cd-mat-balance/cd-mat-balance.component';
 
 @Component({
     selector: 'evj-cd-deviation-mat',
@@ -14,7 +15,7 @@ import { SelectionModel } from '@angular/cdk/collections';
     styleUrls: ['./cd-deviation-mat.component.scss']
 })
 export class CdDeviationMatComponent extends WidgetPlatform implements OnInit, OnDestroy {
-
+    data: IStreams[] = [];
     columnsToDisplay: IColumnsToDisplay[] = [
         { name: 'Мат. поток', date: new Date() },
         { name: 'Факт', date: new Date('2020-02-01T03:24:00') },
@@ -24,7 +25,7 @@ export class CdDeviationMatComponent extends WidgetPlatform implements OnInit, O
 
     dataSourceQuality: IAPSRecipeDiagram[] = DATASOURCE;
 
-    selectedRowProduct: number;
+    selectedRowProduct: string;
     selectedRow: SelectionModel<string> = new SelectionModel(true);
 
     constructor(
@@ -44,19 +45,28 @@ export class CdDeviationMatComponent extends WidgetPlatform implements OnInit, O
         super.dataConnect();
     }
 
-    protected dataHandler(
-        ref: any
-    ): void {
+    protected dataHandler(ref: any): void {
+        if (ref) {
+            console.log(ref);
+            this.data = [
+                ...ref?.streams,
+                {
+                    description: 'ББФ',
+                    deviation: 0,
+                    modelValue: 0,
+                    name: 'last-row',
+                    value: 8.846439278
+                }
+            ];
+        }
     }
 
     onClickRow(event: MouseEvent, element?: any): void {
         event.stopPropagation();
-        if (!this.selectedRowProduct || element.id !== this.selectedRowProduct) {
-            this.selectedRowProduct = element.id;
+        if (!this.selectedRowProduct || element?.name !== this.selectedRowProduct) {
+            this.selectedRowProduct = element?.name;
         } else {
             this.selectedRowProduct = null;
         }
     }
-
-
 }

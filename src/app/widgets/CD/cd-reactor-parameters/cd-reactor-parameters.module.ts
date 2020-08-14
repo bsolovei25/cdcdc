@@ -5,6 +5,7 @@ import { SharedModule } from '@shared/shared.module';
 import { AngularSvgIconModule } from 'angular-svg-icon';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { FormsModule } from '@angular/forms';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @NgModule({
     declarations: [
@@ -15,7 +16,8 @@ import { FormsModule } from '@angular/forms';
         SharedModule,
         AngularSvgIconModule,
         MatCheckboxModule,
-        FormsModule
+        FormsModule,
+        MatTooltipModule
     ]
 })
 export class CdReactorParametersModule {

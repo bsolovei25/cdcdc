@@ -453,6 +453,11 @@
         &__text {
           margin-left: 10px;
           margin-right: 6px;
+          max-height: 27px;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          min-width: 13px;
 
           &__pims {
             margin-left: 13px;
@@ -470,6 +475,13 @@
               text-align: left;
             }
           }
+        }
+
+        &__engUnit {
+          margin-left: 10px;
+          margin-right: 6px;
+          white-space: nowrap;
+          min-width: 13px;
         }
 
         &__value {
@@ -601,6 +613,12 @@
       }
     }
   }
+}
+
+::ng-deep .mat-tooltip {
+  font-size: 12px;
+  background-color: var(--color-bg-main);
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.349);
 }
 
 // Scroll

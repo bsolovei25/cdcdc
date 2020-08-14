@@ -247,6 +247,8 @@ export class WidgetService {
             case 'astue-efficiency':
             case 'spline-trends-chart':
             case 'cd-mat-balance':
+            case 'cd-deviation-mat':
+            case 'cd-reactor-parameters':
                 return data;
         }
         console.warn(`unknown widget type ${widgetType}`);

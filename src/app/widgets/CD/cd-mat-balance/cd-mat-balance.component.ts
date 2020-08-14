@@ -10,12 +10,10 @@ export interface IMatBalance {
     title: string;
     widgetType: string;
 }
-
 export interface IParams {
     unit: { description: string; name: string };
-    unitParams: IUnitParams;
+    unitParams: IUnitParams[];
 }
-
 export interface IUnitParams {
     description: string;
     deviation: number;
@@ -28,7 +26,6 @@ export interface IUnitParams {
     name: string;
     value: number;
 }
-
 export interface ISensors {
     id: number;
     name: string;
@@ -40,7 +37,6 @@ export interface ISensors {
     min: number;
     modelValue: number;
 }
-
 export interface IStreams {
     description: string;
     deviation: number;
@@ -55,7 +51,6 @@ export interface IStreams {
 })
 export class CdMatBalanceComponent extends WidgetPlatform implements OnInit, OnDestroy {
     isSelectedEl: number;
-
     data: IMatBalance;
 
     constructor(
@@ -84,6 +79,7 @@ export class CdMatBalanceComponent extends WidgetPlatform implements OnInit, OnD
     protected dataHandler(ref: any): void {
         if (ref) {
             this.data = ref;
+            console.log(ref);
         }
     }
 }
