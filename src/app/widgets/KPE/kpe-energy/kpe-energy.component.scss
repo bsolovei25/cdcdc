@@ -20,6 +20,7 @@
   flex-direction: row;
   overflow-y: overlay;
   height: 100%;
+  gap: 10px;
 
   &::-webkit-scrollbar-track {
     background: var(--color-kpe-gaude-unactive);
@@ -27,7 +28,7 @@
 
   &::-webkit-scrollbar {
     width: 1px;
-    height: 14px;
+    height: 10px;
   }
   &::-webkit-scrollbar-track-piece {
     background: var(--color-kpe-gaude-unactive);
@@ -37,11 +38,7 @@
   }
   &::-webkit-scrollbar-thumb {
     border-radius: 10px;
-    border: solid 4px var(--color-kpe-gaude-unactive);
-  }
-
-  & > * {
-    margin-right: 10px;
+    border: solid 2px var(--color-kpe-gaude-unactive);
   }
 }
 
