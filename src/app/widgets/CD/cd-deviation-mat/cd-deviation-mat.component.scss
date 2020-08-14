@@ -205,18 +205,18 @@
         }
 
         &--warning {
-          border-top: 1px solid var(--color-kpe-eq-chart-row-over);
-          border-bottom: 1px solid var(--color-kpe-eq-chart-row-over);
+          border-top: 1px solid var(--color-cd-warning);
+          border-bottom: 1px solid var(--color-cd-warning);
 
           &:last-of-type {
             padding: 0 !important;
-            border-right: 1px solid var(--color-kpe-eq-chart-row-over) !important;
+            border-right: 1px solid var(--color-cd-warning) !important;
           }
         }
       }
 
       &--warning {
-        color: var(--color-kpe-eq-chart-row-over);
+        /*color: var(--color-cd-warning);*/
 
         &:first-child {
           color: var(--color-text-main);
@@ -339,6 +339,7 @@
 
           &-orange {
             border-left: 1px solid var(--color-aps-orange);
+            color: var(--color-aps-orange);
           }
 
           &-big-orange {
