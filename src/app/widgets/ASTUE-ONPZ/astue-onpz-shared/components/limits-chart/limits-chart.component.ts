@@ -213,18 +213,28 @@ export class LimitsChartComponent implements OnChanges {
             if (item.graphType !== 'fact' && item.graphType !== 'plan') {
                 return;
             }
-            const classes = item.graphType === 'plan' ? 'point point_plan' : 'point point_fact';
-            const r = 4;
-            item.graph.forEach((point, idx, arr) => {
-                if (!!arr.length && idx === arr.length - 1) {
-                    pointsG
-                        .append('circle')
-                        .attr('class', classes)
-                        .attr('cx', point.x)
-                        .attr('cy', point.y)
-                        .attr('r', r);
+            if (item.graphType === 'plan') {
+                pointsG
+                    .append('circle')
+                    .attr('class', 'point point_plan')
+                    .attr('cx', item.graph[item.graph.length - 1].x)
+                    .attr('cy', item.graph[item.graph.length - 1].y)
+                    .attr('r', 4);
+            } else {
+                const g = pointsG.append('g').attr('class', 'fact-point');
+                let r = 9;
+                let opacity = 0.33;
+                for (let i = 0; i < 3; i++) {
+                    g.append('circle')
+                        .attr('class', 'point point_fact')
+                        .attr('cx', item.graph[item.graph.length - 1].x)
+                        .attr('cy', item.graph[item.graph.length - 1].y)
+                        .attr('r', r)
+                        .style('opacity', opacity);
+                    r -= 3;
+                    opacity += 0.33;
                 }
-            });
+            }
         });
     }
 

@@ -14,9 +14,8 @@ import { IChartMini, IChartD3 } from '../../../../@shared/models/smart-scroll.mo
 })
 export class KpeLineChartComponent implements OnChanges {
     @Input() private data: IProductionTrend[] = [];
-    @Input() isLineCircle: boolean = false;
 
-    @ViewChild('chart') private chart: ElementRef;
+    @ViewChild('chart', { static: true }) private chart: ElementRef;
 
     private chartData: {
         graphType: ProductionTrendType;
@@ -29,6 +28,8 @@ export class KpeLineChartComponent implements OnChanges {
     private graphMaxY: number = 0;
     private dataMax: number = 0;
     private dataMin: number = 0;
+    private dateMax: Date;
+    private dateMin: Date;
 
     public scaleFuncs: { x: any; y: any } = { x: null, y: null };
     private axis: { axisX: any; axisY: any } = { axisX: null, axisY: null };
@@ -37,10 +38,10 @@ export class KpeLineChartComponent implements OnChanges {
     private readonly MIN_COEF: number = 0.3;
 
     private readonly padding: { left: number; right: number; top: number; bottom: number } = {
-        left: this.isLineCircle ? 25 : 15,
-        right: this.isLineCircle ? 5 : 15,
+        left: 0,
+        right: 0,
         top: 0,
-        bottom: 20,
+        bottom: 0,
     };
 
     constructor() {}
@@ -63,13 +64,10 @@ export class KpeLineChartComponent implements OnChanges {
         this.findMinMax();
         this.defineScale();
         this.transformData();
-        this.drawGridlines();
         this.drawChart();
-        if (this.isLineCircle) {
-            this.drawAxisYLabels();
-            this.drawAxisXLabels();
-            this.drawPoints();
-        }
+        this.drawFutureRect();
+        this.drawPoints();
+        this.customizeAreas();
     }
 
     private initData(): void {
@@ -89,38 +87,35 @@ export class KpeLineChartComponent implements OnChanges {
             .style('height')
             .slice(0, -2);
 
-        if (!this.isLineCircle) {
-            this.svg
-                .append('rect')
-                .attr('x', this.padding.left)
-                .attr('y', this.padding.top)
-                .attr('width', `${this.graphMaxX - this.padding.left - this.padding.right}`)
-                .attr('height', `${this.graphMaxY - this.padding.top - this.padding.bottom}`)
-                .attr('fill', '#232532');
-        }
         this.svg
             .attr('width', '100%')
             .attr('height', '100%')
-            .attr('viewBox', `0 0 ${this.graphMaxX} ${this.graphMaxY - 5}`);
+            .attr('viewBox', `0 0 ${this.graphMaxX} ${this.graphMaxY}`);
     }
 
     private findMinMax(): void {
         const maxValues: number[] = [];
         const minValues: number[] = [];
+        const minDate: Date[] = [];
+        const maxDate: Date[] = [];
 
         this.data.forEach((graph) => {
             maxValues.push(d3.max(graph.graph, (item: IChartMini) => item.value));
             minValues.push(d3.min(graph.graph, (item: IChartMini) => item.value));
+            maxDate.push(d3.max(graph.graph, (item: IChartMini) => item.timeStamp));
+            minDate.push(d3.min(graph.graph, (item: IChartMini) => item.timeStamp));
         });
 
         this.dataMax = d3.max(maxValues) * (1 + this.MAX_COEF);
         this.dataMin = d3.min(minValues) * (1 - this.MIN_COEF);
+        this.dateMax = d3.max(maxDate);
+        this.dateMin = d3.min(minDate);
     }
 
     private defineScale(): void {
-        const plan = this.data.find((chart) => chart.graphType === 'plan');
+        const plan = this.data.find((chart) => chart.graphType === 'higherBorder');
 
-        const domainDates = d3.extent(plan.graph, (item: IChartMini) => item.timeStamp);
+        const domainDates = [this.dateMin, this.dateMax];
         const rangeX = [this.padding.left, this.graphMaxX - this.padding.right];
 
         this.scaleFuncs.x = d3
@@ -137,7 +132,7 @@ export class KpeLineChartComponent implements OnChanges {
 
         this.axis.axisX = d3
             .axisBottom(this.scaleFuncs.x)
-            .ticks(10)
+            .ticks(12)
             .tickFormat(d3.timeFormat('%d'))
             .tickSizeOuter(0);
         this.axis.axisY = d3
@@ -172,125 +167,126 @@ export class KpeLineChartComponent implements OnChanges {
 
     private drawChart(): void {
         this.chartData.forEach((chart) => {
+            const curve = d3.curveBasis;
             const line = d3
                 .line()
                 .x((item: IChartD3) => item.x)
-                .y((item: IChartD3) => item.y);
+                .y((item: IChartD3) => item.y)
+                .curve(curve);
 
-            const area = d3
+            const areaBottom = d3
                 .area()
                 .x((item: IChartD3) => item.x)
                 .y0(this.graphMaxY - this.padding.bottom)
-                .y1((item: IChartD3) => item.y);
+                .y1((item: IChartD3) => item.y)
+                .curve(curve);
 
-            const lineWidth: number = 1;
-            const lineColor: string = chart.graphType === 'fact' ?
-                (this.isLineCircle ? '#0089FF' : '#8C99B2') : '#4B5169';
-            const opacity: number = chart.graphType === 'fact' ? 1 : 0.2;
+            const areaTop = d3
+                .area()
+                .x((item: IChartD3) => item.x)
+                .y0((item: IChartD3) => item.y)
+                .y1(this.padding.top)
+                .curve(curve);
 
             this.svg
                 .append('path')
                 .attr('class', `graph-line-${chart.graphType}`)
-                .attr('d', line(chart.graph))
-                .style('fill', 'none')
-                .style('stroke', lineColor)
-                .style('stroke-width', lineWidth)
-                .style('opacity', opacity);
+                .attr('d', line(chart.graph));
 
-            if (chart.graphType === 'plan') {
+            if (chart.graphType === 'higherBorder' || chart.graphType === 'lowerBorder') {
+                const areaFn = chart.graphType === 'lowerBorder' ? areaBottom : areaTop;
                 this.svg
                     .append('path')
                     .attr('class', `graph-area-${chart.graphType}`)
-                    .attr('d', area(chart.graph))
-                    .style('fill', '#4B5169')
-                    .style('opacity', opacity);
+                    .attr('d', areaFn(chart.graph));
             }
         });
     }
 
     private drawPoints(): void {
         const pointsG = this.svg.append('g').attr('class', 'chart-points');
-        const fact = this.chartData.find((chart) => chart.graphType === 'fact');
-        if (!fact.graph.length) {
-            return;
+        this.chartData.forEach((item) => {
+            if (item.graphType !== 'fact' && item.graphType !== 'plan') {
+                return;
+            }
+            if (item.graphType === 'plan') {
+                pointsG
+                    .append('circle')
+                    .attr('class', 'point point_plan')
+                    .attr('cx', item.graph[item.graph.length - 1].x)
+                    .attr('cy', item.graph[item.graph.length - 1].y)
+                    .attr('r', 4);
+            } else {
+                const g = pointsG.append('g').attr('class', 'fact-point');
+                let r = 9;
+                let opacity = 0.33;
+                for (let i = 0; i < 3; i++) {
+                    g.append('circle')
+                        .attr('class', 'point point_fact')
+                        .attr('cx', item.graph[item.graph.length - 1].x)
+                        .attr('cy', item.graph[item.graph.length - 1].y)
+                        .attr('r', r)
+                        .style('opacity', opacity);
+                    r -= 3;
+                    opacity += 0.33;
+                }
+            }
+        });
+    }
+
+    private customizeAreas(): void {
+        const fact = this.data.find((item) => item.graphType === 'fact')?.graph ?? [];
+        const higher = this.data.find((item) => item.graphType === 'higherBorder')?.graph ?? [];
+        const lower = this.data.find((item) => item.graphType === 'lowerBorder')?.graph ?? [];
+        fact.forEach((val, idx) => {
+            if (higher[idx] && higher[idx].value < val.value) {
+                this.svg
+                    .select('path.graph-line-higherBorder')
+                    .attr('class', 'graph-line-higherBorder graph-line_warning');
+                this.svg
+                    .select('path.graph-area-higherBorder')
+                    .attr('class', 'graph-area-higherBorder graph-area_warning');
+            } else if (lower[idx] && lower[idx].value > val.value) {
+                this.svg
+                    .select('path.graph-line-lowerBorder')
+                    .attr('class', 'graph-line-lowerBorder graph-line_normal');
+                this.svg
+                    .select('path.graph-area-lowerBorder')
+                    .attr('class', 'graph-area-lowerBorder graph-area_normal');
+            }
+        });
+    }
+
+    private drawFutureRect(): void {
+        const fact = this.chartData.find((chart) => chart.graphType === 'fact')?.graph ?? [];
+        const x = fact[fact.length - 1].x;
+        const y = this.padding.top;
+        const y2 = this.graphMaxY - this.padding.bottom;
+        const width = this.graphMaxX - this.padding.right - x;
+        const height = this.graphMaxY - this.padding.top - this.padding.bottom;
+        if (width > 0) {
+            this.svg
+                .append('rect')
+                .attr('x', x)
+                .attr('y', y)
+                .attr('width', width)
+                .attr('height', height)
+                .attr('class', 'future');
+            this.svg
+                .append('line')
+                .attr('x1', x)
+                .attr('y1', y)
+                .attr('x2', x)
+                .attr('y2', y2)
+                .attr('class', 'future-line');
         }
 
-        fact.graph.forEach((point, index, arr) => {
-            const r = index < arr.length - 1 ? 3 : 4;
-            pointsG
-                .append('circle')
-                .attr('class', 'point')
-                .attr('cx', point.x)
-                .attr('cy', point.y)
-                .attr('r', r)
-                .style('fill', '#1C1F2B')
-                .style('stroke', '#0089FF')
-                .style('stroke-width', 1);
-        });
-    }
-
-    private drawGridlines(): void {
-        const plan = this.chartData.find((chart) => chart.graphType === 'plan');
         this.svg
-            .append('g')
-            .attr('class', 'grid')
-            .attr('transform', `translate(0,${this.graphMaxY - this.padding.bottom})`)
-            .call(
-                d3
-                    .axisBottom(this.scaleFuncs.x)
-                    .ticks(plan.graph.length)
-                    .tickSize(-this.graphMaxY - this.padding.bottom)
-                    .tickFormat('')
-            )
-            .style('color', this.isLineCircle ? '#272A38' : '#2d2f3d');
-    }
-
-    private drawAxisXLabels(): void {
-        this.svg
-            .append('g')
-            .attr('transform', `translate(0,${this.graphMaxY - this.padding.bottom})`)
-            .attr('class', 'axisX')
-            .call(this.axis.axisX)
-            .selectAll('text')
-            .style('font-size', '12px')
-            .style('fill', '#8c99b2');
-
-        const axisG = this.svg.select('g.axisX');
-        axisG.select('path.domain').remove();
-        axisG.selectAll('g.tick line').remove();
-
-        const colors = {
-            last: '#606580',
-            active: '#0089FF',
-            future: '#303549',
-        };
-
-        const activeIdx =
-            this.chartData.find((chart) => chart.graphType === 'fact').graph.length - 1;
-
-        const gArr = Array.from(axisG.selectAll('g.tick')._groups[0]);
-        gArr.forEach((g: HTMLElement, idx: number) => {
-            const fill =
-                idx < activeIdx ? colors.last : idx === activeIdx ? colors.active : colors.future;
-            d3Selection
-                .select(g)
-                .select('text')
-                .style('fill', fill);
-        });
-    }
-
-    private drawAxisYLabels(): void {
-        this.svg
-            .append('g')
-            .attr('transform', `translate(${this.padding.left},0)`)
-            .attr('class', 'axisY')
-            .call(this.axis.axisY)
-            .selectAll('text')
-            .style('font-size', '12px')
-            .style('fill', '#606580');
-
-        const axisG = this.svg.select('g.axisY');
-        axisG.select('path.domain').remove();
-        axisG.selectAll('g.tick line').remove();
+            .append('rect')
+            .attr('x', this.padding.left)
+            .attr('y', this.padding.top)
+            .attr('width', this.graphMaxX - this.padding.left - this.padding.right)
+            .attr('height', this.graphMaxY - this.padding.top - this.padding.bottom)
+            .attr('class', 'border-rect');
     }
 }

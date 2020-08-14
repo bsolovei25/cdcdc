@@ -284,18 +284,28 @@
 
   // ASTUE-ONPZ
   --color-astue-onpz-bg-header: #222431;
-  --color-astue-onpz-bg-card: #171a24;
+  --color-astue-onpz-bg-card: rgba(18, 21, 30, 0.5);
   --color-astue-onpz-button: #616580;
   --color-astue-onpz-plan: #0089ff;
   --color-astue-onpz-fact: #ffffff;
   --color-astue-onpz-limit: #5c6585;
-  --color-astue-onpz-area: #4b5169;
+  --color-astue-onpz-area: rgba(96, 101, 128, 0.1);
   --color-astue-onpz-normal: #00a73d;
   --color-astue-onpz-warning: #f7931e;
   --color-astue-onpz-units: #606580;
   --color-astue-onpz-bg-legend: #232737;
   --color-astue-onpz-bg-header-table: #1f222e;
   --color-astue-onpz-table-border: #252937;
+
+  --color-astue-onpz-bg-widget: #171a24;
+  --color-astue-onpz-border-widget: rgba(96, 101, 128, 0.25);
+  --color-astue-onpz-bg-scroll: #1f222e;
+
+  --color-astue-onpz-bg-axis-1: #1b1e2a;
+  --color-astue-onpz-bg-axis-2: none;
+
+  --color-astue-onpz-bg-data: #232737;
+  --color-astue-onpz-bg-data-icon: #303549;
 
   // @shared/alert-window (aw)
   --color-aw-container-shadow-transparent: rgba(0, 0, 0, 0.25);

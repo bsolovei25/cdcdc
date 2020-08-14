@@ -1,0 +1,63 @@
+::ng-deep .background {
+  & > * {
+    fill: var(--color-sou-bg);
+    //fill: red;
+  }
+}
+
+::ng-deep .main {
+  & > * {
+    fill: var(--color-aps-active);
+  }
+}
+
+::ng-deep .sub {
+  & > * {
+    fill: var(--color-aps-orange);
+  }
+}
+
+::ng-deep .serif-active {
+  & > * {
+    stroke: var(--color-aps-active);
+  }
+}
+
+::ng-deep .serif-warning {
+  & > * {
+    stroke: var(--color-aps-orange);
+  }
+}
+
+::ng-deep .text {
+  &__value {
+    fill: var(--color-kpe-text-main);
+    font-size: 12px;
+  }
+
+  &__deviation {
+    fill: var(--color-aps-orange);
+    font-size: 7px;
+  }
+
+  &__plan {
+    fill: var(--color-astue-onpz-units);
+    font-size: 7px;
+  }
+}
+
+::ng-deep .line {
+  stroke: var(--color-kpe-gaude-additional);
+  stroke-width: 1;
+  opacity: 0.7;
+}
+
+::ng-deep {
+  .needle {
+    fill: var(--color-kpe-text-main);
+  }
+
+  .needle-hover-circle-back {
+    fill: #161A22;
+  }
+}
