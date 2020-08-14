@@ -557,10 +557,10 @@ export const WIDGETS_LAZY = {
             );
         },
         module: 'AstueOnpzPlanningChartsModule',
-        itemCols: 13,
-        itemRows: 28,
-        minItemCols: 13,
-        minItemRows: 23,
+        itemCols: 30,
+        itemRows: 12,
+        minItemCols: 30,
+        minItemRows: 12,
         // preview: 'astue-onpz-planning-charts',
     },
 
