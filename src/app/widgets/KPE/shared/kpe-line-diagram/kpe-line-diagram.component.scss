@@ -59,7 +59,7 @@
         color: var(--color-text-sub-heading);
 
         &__warning {
-          color: var(--color-kpe-eq-chart-row-over);
+          color: var(--color-cd-warning);
         }
       }
     }
@@ -89,7 +89,7 @@
         left: 61%;
         width: 10%;
         height: 4px;
-        background-color: var(--color-kpe-eq-chart-row-over);
+        background-color: var(--color-cd-warning);
       }
     }
   }
