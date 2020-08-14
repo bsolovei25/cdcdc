@@ -1,15 +1,27 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
+import { WidgetPlatform } from '../../../dashboard/models/widget-platform';
+import { WidgetService } from '../../../dashboard/services/widget.service';
 
 @Component({
-  selector: 'evj-astue-onpz-planning-charts',
-  templateUrl: './astue-onpz-planning-charts.component.html',
-  styleUrls: ['./astue-onpz-planning-charts.component.scss']
+    selector: 'evj-astue-onpz-planning-charts',
+    templateUrl: './astue-onpz-planning-charts.component.html',
+    styleUrls: ['./astue-onpz-planning-charts.component.scss'],
 })
-export class AstueOnpzPlanningChartsComponent implements OnInit {
+export class AstueOnpzPlanningChartsComponent extends WidgetPlatform implements OnInit, OnDestroy {
+    constructor(
+        protected widgetService: WidgetService,
+        @Inject('isMock') public isMock: boolean,
+        @Inject('widgetId') public id: string,
+        @Inject('uniqId') public uniqId: string
+    ) {
+        super(widgetService, isMock, id, uniqId);
+    }
 
-  constructor() { }
+    ngOnInit(): void {}
 
-  ngOnInit(): void {
-  }
+    public ngOnDestroy(): void {
+        super.ngOnDestroy();
+    }
 
+    protected dataHandler(ref: any): void {}
 }
