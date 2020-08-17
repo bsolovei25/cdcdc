@@ -39,9 +39,6 @@ export class KpeReadinessComponent extends WidgetPlatform implements OnInit, OnD
 
     public ngOnInit(): void {
         super.widgetInit();
-        setTimeout(() => {
-            this.createChart();
-        }, 1000);
         this.http
             .get('assets/mock/KPE/kpe-trends.json')
             .toPromise()
@@ -69,23 +66,19 @@ export class KpeReadinessComponent extends WidgetPlatform implements OnInit, OnD
     protected dataHandler(ref: any): void {
     }
 
-    private createChart(): void {
-        /*
-        const element = this.chartContainer.nativeElement;
+    public gaugeWidth(container: HTMLDivElement): string {
+        if (!(container?.offsetHeight > 0)) {
+            return;
+        }
+        const height = container.offsetHeight;
+        return `min-width: ${height * 1.136}px`;
+    }
 
-        const svg = d3
-            .select(element)
-            .append('svg')
-            .attr('width', element.offsetWidth)
-            .attr('height', element.offsetHeight)
-            .append('circle') // attach a circle
-            .attr('cx', 200) // position the x-centre
-            .attr('cy', 100) // position the y-centre
-            .attr('r', 50) // set the radius
-            .style('stroke-dasharray', '2, 2') // make the stroke dashed
-            .attr('stroke-width', '5px')
-            .style('stroke', 'white') // set the line colour
-            .style('fill', 'none');
-         */
+    public rowHeight(container: HTMLDivElement): string {
+        if (!(container?.offsetWidth > 0)) {
+            return;
+        }
+        const width = container.offsetWidth;
+        return `min-height: ${width * 0.93}px; height: ${width * 0.93}px`;
     }
 }

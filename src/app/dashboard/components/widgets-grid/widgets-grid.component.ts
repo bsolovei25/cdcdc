@@ -136,7 +136,6 @@ export class WidgetsGridComponent implements OnInit, OnDestroy {
     public onResize(): void {
         clearTimeout(this.sizeTimeout);
         this.sizeTimeout = setTimeout(() => this.sizeGrid(), 1000);
-        this.resizeGridsterElement();
     }
 
     public sizeGrid(): void {
@@ -156,6 +155,7 @@ export class WidgetsGridComponent implements OnInit, OnDestroy {
 
         const event = new Event('resizeGrid');
         document.dispatchEvent(event);
+        setTimeout(() => this.resizeGridsterElement(), 1000);
     }
 
     public resizeGridsterElement(): void {
@@ -166,12 +166,6 @@ export class WidgetsGridComponent implements OnInit, OnDestroy {
     public itemChange(item: GridsterItem, itemComponent: GridsterItemComponentInterface): void {
         item = itemComponent.item;
         this.userSettings.updateByPosition(item, itemComponent.item);
-
-        // itemComponent.updateOptions();
-        // const useItem = { ...item };
-        // this.userSettings.updateByPosition(useItem, itemComponent.item);
-        // setTimeout(() => this.changedOptions());
-        // itemComponent.item = {...itemComponent.item, ...itemComponent.$item};
     }
 
     public onSwap(swap: boolean): void {

@@ -126,8 +126,8 @@ export class KpeGaugeChartComponent implements OnInit {
             .attr('x2', 14)
             .attr('y2', 3);
         addText(`97.1`, 'text text__value', -2);
-        addText(`\u0394 10%`, 'text text__deviation', 13);
-        addText(`100%`, 'text text__plan', 28);
+        addText(`\u0394 10`, 'text text__deviation', 13);
+        addText(`100`, 'text text__plan', 28);
 
         function addText(text: string, cls: string, yCord: number): void {
             g.append('text')
