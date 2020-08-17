@@ -39,9 +39,6 @@ export class KpeReadinessComponent extends WidgetPlatform implements OnInit, OnD
 
     public ngOnInit(): void {
         super.widgetInit();
-        setTimeout(() => {
-            this.createChart();
-        }, 1000);
         this.http
             .get('assets/mock/KPE/kpe-trends.json')
             .toPromise()
@@ -67,26 +64,6 @@ export class KpeReadinessComponent extends WidgetPlatform implements OnInit, OnD
     }
 
     protected dataHandler(ref: any): void {
-    }
-
-    private createChart(): void {
-        /*
-        const element = this.chartContainer.nativeElement;
-
-        const svg = d3
-            .select(element)
-            .append('svg')
-            .attr('width', element.offsetWidth)
-            .attr('height', element.offsetHeight)
-            .append('circle') // attach a circle
-            .attr('cx', 200) // position the x-centre
-            .attr('cy', 100) // position the y-centre
-            .attr('r', 50) // set the radius
-            .style('stroke-dasharray', '2, 2') // make the stroke dashed
-            .attr('stroke-width', '5px')
-            .style('stroke', 'white') // set the line colour
-            .style('fill', 'none');
-         */
     }
 
     public gaugeWidth(container: HTMLDivElement): string {

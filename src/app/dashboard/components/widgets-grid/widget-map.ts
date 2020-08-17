@@ -141,6 +141,7 @@ export const WIDGETS = {
     'kpe-energetic': WidgetContainerComponent,
     'key-performance-indicators': WidgetContainerComponent,
     'kpe-readiness': WidgetContainerComponent,
+    'kpe-safety': WidgetContainerComponent,
     events: WidgetContainerComponent,
     'cd-events': WidgetContainerComponent,
     'spline-trends-chart': WidgetContainerComponent,
@@ -323,6 +324,18 @@ export const WIDGETS_LAZY = {
         minItemCols: 15,
         minItemRows: 6,
         preview: 'kpe-energetic',
+    },
+
+    'kpe-safety': {
+        import: async () => {
+            return await import('src/app/widgets/KPE/kpe-safety/kpe-safety.module');
+        },
+        module: 'KpeSafetyModule',
+        itemCols: 15,
+        itemRows: 7,
+        minItemCols: 15,
+        minItemRows: 6,
+        preview: 'default',
     },
 
     'spline-trends-chart': {
