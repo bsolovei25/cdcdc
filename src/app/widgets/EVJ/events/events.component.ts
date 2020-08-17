@@ -21,6 +21,7 @@ import { EventsWorkspaceService } from '../../../dashboard/services/widgets/even
 import { IAlertWindowModel } from '@shared/models/alert-window.model';
 import { BehaviorSubject } from 'rxjs';
 import { WidgetSettingsService } from '../../../dashboard/services/widget-settings.service';
+import { ClaimService, EnumClaimWidgets } from '../../../dashboard/services/claim.service';
 
 export interface IEventSettings {
     viewType: 'list' | 'cards';
@@ -41,6 +42,9 @@ export class EventsComponent extends WidgetPlatform implements OnInit, OnDestroy
         this.countNotificationsDivCapacity();
         this.getData();
     }
+
+    public claimWidgets: EnumClaimWidgets[] = [];
+    public EnumClaimWidgets: typeof EnumClaimWidgets = EnumClaimWidgets;
 
     isList: boolean = false;
     selectedId: number = 0;
@@ -182,6 +186,7 @@ export class EventsComponent extends WidgetPlatform implements OnInit, OnDestroy
         private eventService: EventService,
         private ewService: EventsWorkspaceService,
         private snackBarService: SnackBarService,
+        private claimService: ClaimService,
         public userSettings: UserSettingsService,
         public widgetService: WidgetService,
         private widgetSettingsService: WidgetSettingsService,
@@ -195,6 +200,11 @@ export class EventsComponent extends WidgetPlatform implements OnInit, OnDestroy
 
     public ngOnInit(): void {
         super.widgetInit();
+        this.subscriptions.push(
+            this.claimService.claimWidgets$.subscribe((data) => {
+                this.claimWidgets = data;
+            })
+        );
     }
 
     public ngOnDestroy(): void {
