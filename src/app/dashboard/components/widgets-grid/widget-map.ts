@@ -571,10 +571,10 @@ export const WIDGETS_LAZY = {
             );
         },
         module: 'AstueOnpzBigPlanningChartModule',
-        itemCols: 13,
-        itemRows: 28,
-        minItemCols: 13,
-        minItemRows: 23,
+        itemCols: 24,
+        itemRows: 12,
+        minItemCols: 24,
+        minItemRows: 12,
         // preview: 'astue-onpz-big-planning-chart',
     },
 
