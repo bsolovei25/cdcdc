@@ -28,7 +28,7 @@
 
 .chart {
   width: 100%;
-  height: 65%;
+  height: calc(100% - 50px);
   background: var(--color-astue-onpz-bg-widget);
 }
 

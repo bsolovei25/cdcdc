@@ -156,6 +156,9 @@ export const WIDGETS = {
     'astue-onpz-menu-structure': WidgetContainerComponent,
     'astue-onpz-consumption-indicators': WidgetContainerComponent,
     'astue-onpz-deviation-cards': WidgetContainerComponent,
+    'astue-onpz-planning-charts': WidgetContainerComponent,
+    'astue-onpz-big-planning-chart': WidgetContainerComponent,
+    'astue-onpz-interactive-indicators': WidgetContainerComponent,
 };
 
 export const WIDGETS_LAZY = {
@@ -471,9 +474,9 @@ export const WIDGETS_LAZY = {
         },
         module: 'AstueOnpzConventionalFuelModule',
         itemCols: 30,
-        itemRows: 20,
+        itemRows: 18,
         minItemCols: 30,
-        minItemRows: 20,
+        minItemRows: 16,
         preview: 'astue-onpz-conventional-fuel',
     },
 
@@ -559,6 +562,48 @@ export const WIDGETS_LAZY = {
         minItemCols: 13,
         minItemRows: 23,
         preview: 'astue-onpz-deviation-cards',
+    },
+
+    'astue-onpz-planning-charts': {
+        import: async () => {
+            return await import(
+                'src/app/widgets/ASTUE-ONPZ/astue-onpz-planning-charts/astue-onpz-planning-charts.module'
+            );
+        },
+        module: 'AstueOnpzPlanningChartsModule',
+        itemCols: 30,
+        itemRows: 12,
+        minItemCols: 30,
+        minItemRows: 12,
+        // preview: 'astue-onpz-planning-charts',
+    },
+
+    'astue-onpz-big-planning-chart': {
+        import: async () => {
+            return await import(
+                'src/app/widgets/ASTUE-ONPZ/astue-onpz-big-planning-chart/astue-onpz-big-planning-chart.module'
+            );
+        },
+        module: 'AstueOnpzBigPlanningChartModule',
+        itemCols: 24,
+        itemRows: 12,
+        minItemCols: 24,
+        minItemRows: 12,
+        // preview: 'astue-onpz-big-planning-chart',
+    },
+
+    'astue-onpz-interactive-indicators': {
+        import: async () => {
+            return await import(
+                'src/app/widgets/ASTUE-ONPZ/astue-onpz-interactive-indicators/astue-onpz-interactive-indicators.module'
+            );
+        },
+        module: 'AstueOnpzInteractiveIndicatorsModule',
+        itemCols: 24,
+        itemRows: 10,
+        minItemCols: 24,
+        minItemRows: 10,
+        // preview: 'astue-onpz-interactive-indicators',
     },
 
     //#endregion ASTUE-ONPZ
