@@ -5,10 +5,11 @@ import { WidgetPlatform } from '../../../dashboard/models/widget-platform';
 import { WidgetService } from '../../../dashboard/services/widget.service';
 import { DATASOURCE } from './mock';
 import { IKpeEnergyTab } from './components/kpe-energy-tab/kpe-energy-tab.component';
+import { IDeviationDiagramData } from '../shared/kpe-deviation-diagram/kpe-deviation-diagram.component';
 
 export interface IKpeEnergy {
     tabs: IKpeEnergyTab[];
-    chart: IProductionTrend[];
+    chart: IDeviationDiagramData[];
 }
 
 @Component({
@@ -35,15 +36,10 @@ export class KpeEnergyComponent extends WidgetPlatform implements OnInit {
         super.widgetInit();
         this.data = DATASOURCE;
         this.http
-            .get('assets/mock/KPE/kpe-trends.json')
+            .get('assets/mock/KPE/deviation-chart.json')
             .toPromise()
-            .then((data: { data: IProductionTrend[] }) => {
-                data.data.forEach((item) =>
-                    item.graph.map((chart) => {
-                        chart.timeStamp = new Date(chart.timeStamp);
-                    })
-                );
-                this.data.chart = data.data;
+            .then((data: IDeviationDiagramData[]) => {
+                this.data.chart = data;
             });
     }
 
