@@ -38,7 +38,7 @@
       .body {
         &__row {
           &_inactivity {
-            color: var(--color-border-main);
+            color: var(--color-sou-text-sub);
           }
         }
 
@@ -74,10 +74,12 @@
 
             &__eng-value {
               margin-left: 15px;
+              font-size: 11px;
             }
 
             &__value {
-              margin-left: 10px;
+              margin-left: 7px;
+              font-size: 14px;
             }
 
             &__trust-level {
@@ -97,11 +99,16 @@
                 align-items: center;
                 border-top-right-radius: 3px;
                 border-bottom-right-radius: 3px;
-                background-color: var(--color-kpe-eq-chart-row-default);
+                background-color: var(--color-astue-onpz-bg-data-icon);
                 height: 20px;
                 padding-left: 31px;
                 padding-right: 6px;
                 margin-top: 2px;
+                font-size: 14px;
+
+                &--no-active {
+                  background-color: var(--color-sou-bg-sup);
+                }
               }
 
               &__slide {
@@ -145,6 +152,10 @@
               justify-content: flex-start;
               color: var(--color-border-main);
               margin-left: 16px;
+
+              &_inactivity {
+                color: var(--color-sou-text-sub);
+              }
             }
           }
         }

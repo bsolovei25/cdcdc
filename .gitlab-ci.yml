@@ -22,6 +22,7 @@ stages:
     - build
     - deploy-review
     - staging
+    - export-images
     - deploy
     - release
     - clean-on-failure
@@ -136,6 +137,23 @@ staging:
         - cd ${ROCKETCHAT_HOOKS} ; git pull origin master --no-edit ; python3 rockethooks.py
     only:
         - develop
+
+
+export to zyfra:
+    <<: *init
+    stage: export-images
+    script:
+      - if [[ -z $CI_ZYFRA_TAG  ]]; then echo "Add \$CI_ZYFRA_TAG variable to pipelines! Exiting (1)"; exit 1; fi
+      - docker build -f Dockerfile.k8s . -t onpz.local/evj/frontend:${CI_ZYFRA_TAG} # make env with tags
+      - docker save -o ./frontend-${CI_ZYFRA_TAG}.img onpz.local/evj/frontend:${CI_ZYFRA_TAG}
+      - xz -T0 -9 ./frontend-${CI_ZYFRA_TAG}.img
+    artifacts:
+        paths:
+            - ./frontend-${CI_ZYFRA_TAG}.img.xz
+    when: manual
+    only:
+      - zyfra
+      - dev
 
 prod:
     <<: *init

@@ -86,6 +86,38 @@
         stroke: var(--color-astue-onpz-units);
         stroke-width: 2;
       }
+
+      &-with-line {
+        stroke: white;
+        stroke-width: 1;
+
+        &_hor {
+          stroke-width: 3;
+        }
+      }
+    }
+
+    .data {
+      fill: var(--color-astue-onpz-bg-data);
+
+      &-fact,
+      &-plan,
+      &-date {
+        font-size: 13px;
+        fill: var(--color-astue-onpz-fact);
+      }
+
+      &-date {
+        font-size: 11px;
+      }
+
+      &-plan {
+        fill: var(--color-astue-onpz-plan);
+      }
+
+      &-icon {
+        fill: var(--color-astue-onpz-bg-data-icon);
+      }
     }
   }
 }
