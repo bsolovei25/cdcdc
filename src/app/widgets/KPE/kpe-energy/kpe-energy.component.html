@@ -6,7 +6,7 @@
 <!--        <evj-kpe-gaude-chart></evj-kpe-gaude-chart>-->
         <evj-kpe-gauge-chart></evj-kpe-gauge-chart>
       </div>
-      <evj-kpe-line-chart style="min-width: 400px" [data]="data.chart" isLineCircle="true"></evj-kpe-line-chart>
+      <evj-kpe-deviation-diagram style="min-width: 400px" [data]="data?.chart"></evj-kpe-deviation-diagram>
       <evj-kpe-energy-tab *ngFor="let tab of data.tabs" [data]="tab"></evj-kpe-energy-tab>
     </div>
   </div>
