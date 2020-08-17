@@ -21,7 +21,7 @@ $color-header-bg: rgba(92, 101, 133, 0.1);
       stroke: white;
     }
     &_deviation {
-      stroke: orange;
+      stroke: var(--color-cd-warning);
     }
   }
 

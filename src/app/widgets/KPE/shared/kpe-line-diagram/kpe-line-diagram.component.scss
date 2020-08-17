@@ -1,5 +1,5 @@
 .line-diagram {
-  margin: 0 15px;
+  margin: 0;
   font-size: 13px;
 
   &__header {
@@ -59,7 +59,7 @@
         color: var(--color-text-sub-heading);
 
         &__warning {
-          color: var(--color-kpe-eq-chart-row-over);
+          color: var(--color-cd-warning);
         }
       }
     }
@@ -67,7 +67,7 @@
     &__line {
       position: relative;
       width: 100%;
-      height: 14px;
+      height: 5px;
       background-image: url("./../../../../../assets/icons/widgets/KPE/kpe-line-diagram/line.svg");
       background-repeat: no-repeat;
       background-size: 100%;
@@ -89,7 +89,7 @@
         left: 61%;
         width: 10%;
         height: 4px;
-        background-color: var(--color-kpe-eq-chart-row-over);
+        background-color: var(--color-cd-warning);
       }
     }
   }

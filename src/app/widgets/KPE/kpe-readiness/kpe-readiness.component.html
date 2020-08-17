@@ -1,5 +1,91 @@
+<!--<div class="container">-->
+<!--  <evj-contemporary-widget-header type="kpe" [uniqId]="uniqId" [widgetTitle]="widgetTitle">-->
+<!--    <div class="content-container">-->
+<!--      <div class="header">-->
+<!--        <ul class="header__info">-->
+<!--          <li class="header__info-item">-->
+<!--            <div class="header__info-1"></div>-->
+<!--            <span>Факт</span>-->
+<!--          </li>-->
+<!--          <li class="header__info-item">-->
+<!--            <div class="header__info-2"></div>-->
+<!--            <span>План</span>-->
+<!--          </li>-->
+<!--        </ul>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </evj-contemporary-widget-header>-->
+<!--  <div-->
+<!--    class="container-body"-->
+<!--    (mousedown)="$event.stopPropagation()"-->
+<!--    (touchstart)="$event.stopPropagation()"-->
+<!--  >-->
+<!--    <div class="readiness">-->
+<!--      <div class="readiness__header">-->
+<!--        <div class="readiness__header__circle-diagram">-->
+<!--          <evj-kpe-gauge-chart></evj-kpe-gauge-chart>-->
+<!--        </div>-->
+<!--        <div class="readiness__header__line-diagram">-->
+<!--          <evj-kpe-line-chart [data]="lineChartData" isLineCircle="true"></evj-kpe-line-chart>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--      <div class="readiness__body">-->
+<!--        <div class="readiness__body__circle-diagram__first card">-->
+<!--          <evj-kpe-gauge-chart></evj-kpe-gauge-chart>-->
+<!--        </div>-->
+<!--        <div class="readiness__body__circle-diagram__second card">-->
+<!--          <evj-kpe-gauge-chart></evj-kpe-gauge-chart>-->
+<!--        </div>-->
+<!--        <div class="readiness__body__line-diagram card">-->
+<!--          <evj-kpe-line-diagram [isCritical]="false"></evj-kpe-line-diagram>-->
+<!--          <evj-kpe-line-chart [data]="lineChartData"></evj-kpe-line-chart>-->
+<!--        </div>-->
+<!--        <div class="readiness__body__line-diagram card">-->
+<!--          <evj-kpe-line-diagram [isCritical]="false"></evj-kpe-line-diagram>-->
+<!--          <evj-kpe-line-chart [data]="lineChartData"></evj-kpe-line-chart>-->
+<!--        </div>-->
+<!--        <div class="readiness__body__line-diagram card">-->
+<!--          <evj-kpe-line-diagram-->
+<!--            [isCritical]="true"-->
+<!--            class="readiness__body__"-->
+<!--          ></evj-kpe-line-diagram>-->
+<!--          <evj-kpe-line-chart [data]="lineChartData"></evj-kpe-line-chart>-->
+<!--        </div>-->
+<!--        <div class="readiness__body__line-diagram card">-->
+<!--          <evj-kpe-line-diagram-->
+<!--            [isCritical]="false"-->
+<!--            class="readiness__body__"-->
+<!--          ></evj-kpe-line-diagram>-->
+<!--          <evj-kpe-line-chart [data]="lineChartData"></evj-kpe-line-chart>-->
+<!--        </div>-->
+<!--        <div class="readiness__body__line-diagram card">-->
+<!--          <evj-kpe-line-diagram-->
+<!--            [isCritical]="true"-->
+<!--            class="readiness__body__"-->
+<!--          ></evj-kpe-line-diagram>-->
+<!--          <evj-kpe-line-chart [data]="lineChartData"></evj-kpe-line-chart>-->
+<!--        </div>-->
+<!--        <div class="readiness__body__line-diagram card">-->
+<!--          <evj-kpe-line-diagram-->
+<!--            [isCritical]="false"-->
+<!--            class="readiness__body__"-->
+<!--          ></evj-kpe-line-diagram>-->
+<!--          <evj-kpe-line-chart [data]="lineChartData"></evj-kpe-line-chart>-->
+<!--        </div>-->
+<!--        <div class="readiness__body__line-diagram card">-->
+<!--          <evj-kpe-line-diagram-->
+<!--            [isCritical]="false"-->
+<!--            class="readiness__body__"-->
+<!--          ></evj-kpe-line-diagram>-->
+<!--          <evj-kpe-line-chart [data]="lineChartData"></evj-kpe-line-chart>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</div>-->
+
 <div class="container">
-  <evj-contemporary-widget-header [uniqId]="uniqId" [widgetTitle]="widgetTitle">
+  <evj-contemporary-widget-header type="kpe" icon="performance" [uniqId]="uniqId" [widgetTitle]="widgetTitle">
     <div class="content-container">
       <div class="header">
         <ul class="header__info">
@@ -16,51 +102,98 @@
     </div>
   </evj-contemporary-widget-header>
   <div
+    class="container-body"
     (mousedown)="$event.stopPropagation()"
     (touchstart)="$event.stopPropagation()"
   >
     <div class="readiness">
       <div class="readiness__header">
-        <div class="readiness__header__circle-diagram"></div>
-        <div class="readiness__header__line-diagram">
-          <evj-kpe-line-chart [data]="lineChartData" isLineCircle="true"></evj-kpe-line-chart>
+        <div #mainGauge class="readiness__header__gauge" [style]="gaugeWidth(mainGauge)">
+          <evj-kpe-gauge-chart></evj-kpe-gauge-chart>
+        </div>
+        <div class="readiness__header__chart">
+          <evj-kpe-deviation-diagram [data]="deviationChartData"></evj-kpe-deviation-diagram>
         </div>
       </div>
-      <div class="readiness__body">
-        <div class="readiness__body__circle-diagram__first card">s</div>
-        <div class="readiness__body__circle-diagram__second card">s</div>
-        <div class="readiness__body__line-diagram card">
-          <evj-kpe-line-diagram [isCritical]="false"></evj-kpe-line-diagram>
-          <evj-kpe-line-chart [data]="lineChartData" [isLineCircle]="false"></evj-kpe-line-chart>
+      <div class="readiness__middle" [style]="rowHeight(middleGauge)">
+        <div class="readiness__middle__gauges-container">
+          <div class="container">
+            <div #middleGauge class="readiness__middle__gauge element-container">
+              <ng-container *ngTemplateOutlet="gaugeContainer"></ng-container>
+            </div>
+            <div class="readiness__middle__gauge element-container">
+              <ng-container *ngTemplateOutlet="gaugeContainer"></ng-container>
+            </div>
+          </div>
         </div>
-        <div class="readiness__body__line-diagram card">
-          <evj-kpe-line-diagram [isCritical]="false"></evj-kpe-line-diagram>
-          <evj-kpe-line-chart [data]="lineChartData" [isLineCircle]="false"></evj-kpe-line-chart>
-        </div>
-        <div class="readiness__body__line-diagram card">
-          <evj-kpe-line-diagram [isCritical]="true" class="readiness__body__"></evj-kpe-line-diagram>
-          <evj-kpe-line-chart [data]="lineChartData" [isLineCircle]="false"></evj-kpe-line-chart>
-        </div>
-        <div class="readiness__body__line-diagram card">
-          <evj-kpe-line-diagram [isCritical]="false" class="readiness__body__"></evj-kpe-line-diagram>
-          <evj-kpe-line-chart [data]="lineChartData" [isLineCircle]="false"></evj-kpe-line-chart>
-        </div>
-        <div class="readiness__body__line-diagram card">
-          <evj-kpe-line-diagram [isCritical]="true" class="readiness__body__"></evj-kpe-line-diagram>
-          <evj-kpe-line-chart [data]="lineChartData" [isLineCircle]="false"></evj-kpe-line-chart>
-        </div>
-        <div class="readiness__body__line-diagram card">
-          <evj-kpe-line-diagram [isCritical]="false" class="readiness__body__"></evj-kpe-line-diagram>
-          <evj-kpe-line-chart [data]="lineChartData" [isLineCircle]="false"></evj-kpe-line-chart>
-        </div>
-        <div class="readiness__body__line-diagram card">
-          <evj-kpe-line-diagram [isCritical]="false" class="readiness__body__"></evj-kpe-line-diagram>
-          <evj-kpe-line-chart [data]="lineChartData" [isLineCircle]="false"></evj-kpe-line-chart>
+        <div class="readiness__middle__chart element-container">
+          <ng-container *ngTemplateOutlet="chartContainer"></ng-container>
         </div>
       </div>
-      <!-- <div style="width: 100%; height: 30%;">
-        <evj-kpe-line-chart [data]="lineChartData" isLineCircle="true"></evj-kpe-line-chart>
-      </div> -->
+      <div class="readiness__main">
+        <div class="readiness__main__row">
+          <div class="readiness__main__chart element-container">
+            <ng-container *ngTemplateOutlet="chartContainer"></ng-container>
+          </div>
+          <div class="readiness__main__chart element-container">
+            <ng-container *ngTemplateOutlet="chartContainer"></ng-container>
+          </div>
+        </div>
+        <div class="readiness__main__row">
+          <div class="readiness__main__chart element-container">
+            <ng-container *ngTemplateOutlet="chartContainer"></ng-container>
+          </div>
+          <div class="readiness__main__chart element-container">
+            <ng-container *ngTemplateOutlet="chartContainer"></ng-container>
+          </div>
+        </div>
+        <div class="readiness__main__row">
+          <div class="readiness__main__chart element-container">
+            <ng-container *ngTemplateOutlet="chartContainer"></ng-container>
+          </div>
+          <div class="readiness__main__chart element-container">
+            <ng-container *ngTemplateOutlet="chartContainer"></ng-container>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>
+
+
+<ng-template #gaugeContainer>
+  <div class="gauge-card">
+    <div class="gauge-card__content">
+      <div class="gauge-card__units">
+        <div class="gauge-card__units__unit">тыс.тн/cут</div>
+        <div class="gauge-card__units__unit gauge-card__units__unit__active">%</div>
+      </div>
+      <div class="gauge-card__gauge">
+        <evj-kpe-gauge-chart></evj-kpe-gauge-chart>
+      </div>
+      <div class="gauge-card__title">
+        Загрузка
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #chartContainer>
+  <div class="chart-card">
+    <div class="chart-card__content">
+      <div class="chart-card__title">
+        <span class="label">Фракция 85-140°C</span>
+        <div class="units">
+          <div class="units__unit units__unit__active">тыс.тн/сут</div>
+          <div class="units__unit">%</div>
+        </div>
+      </div>
+      <div class="chart-card__diagram">
+        <evj-kpe-line-diagram [isCritical]="false"></evj-kpe-line-diagram>
+      </div>
+      <div class="chart-card__chart">
+        <evj-kpe-line-chart [data]="lineChartData"></evj-kpe-line-chart>
+      </div>
+    </div>
+  </div>
+</ng-template>

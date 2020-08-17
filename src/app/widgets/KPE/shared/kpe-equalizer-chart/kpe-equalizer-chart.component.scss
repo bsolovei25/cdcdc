@@ -1,0 +1,32 @@
+.title-area {
+  margin-left: 5px;
+  display: flex;
+  flex-direction: column;
+  font-family: Tahoma;
+  font-style: normal;
+  font-weight: normal;
+
+  &__title {
+    font-size: 13px;
+    line-height: 16px;
+    color: var(--color-kpe-eq-chart-title);
+  }
+
+  &__comment {
+    font-size: 10px;
+    line-height: 12px;
+    color: var(--color-marker-diagram);
+  }
+}
+
+.chart-area {
+  margin: 7px 5px;
+  padding: 4px 0;
+  width: 100%;
+  height: 70px;
+  min-width: 160px;
+  background-color: var(--color-sou-bg);
+  border: 1px solid var(--color-kpe-eq-chart-day-normal);
+  border-radius: 2px;
+  position: relative;
+}

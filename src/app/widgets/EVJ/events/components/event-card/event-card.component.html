@@ -65,7 +65,7 @@
           *ngIf="!cardData?.source"
           class="notification__icon_delete"
           [applyCss]="true"
-          src="./assets/icons/remove.svg"
+          src="assets/icons/remove.svg"
           (click)="deleteClick(cardData?.id)"
           (mousedown)="$event.stopPropagation()"
           (touchstart)="$event.stopPropagation()"
@@ -106,7 +106,7 @@
         (click)="changeIsAcknowledged(cardData)"
         *ngIf="cardData?.category?.code!==0 && cardData?.category?.code!==5 && cardData?.category?.code!==6"
       >
-        {{cardData?.isAcknowledged ? 'Квитировано' : 'Не квитировано'}}
+        {{cardData?.isAcknowledged ? 'Квитировано' : 'Неквитировано'}}
       </div>
 
       <div class="notification__block__extra">
@@ -129,7 +129,7 @@
           <svg-icon
             class="notification__block__icon notification__block__icon_delete"
             [applyCss]="true"
-            src="./assets/icons/remove.svg"
+            src="assets/icons/remove.svg"
             (click)="deleteClick(cardData?.id)"
             [svgStyle]="{ 'width.px':14, 'height.px':14 }"
           >

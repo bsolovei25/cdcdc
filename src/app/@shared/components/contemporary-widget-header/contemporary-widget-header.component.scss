@@ -5,7 +5,7 @@
   * {
     box-sizing: border-box;
     color: var(--color-text-main);
-    font-size: 14px;
+    font-size: 12px;
   }
 }
 
@@ -16,7 +16,9 @@
   min-height: 40px;
   max-height: 40px;
 
-  &__background-kpe {
+  &__background-kpe,
+  &__background-astue
+  {
     position: absolute;
     z-index: 1;
     width: 100%;
@@ -24,8 +26,16 @@
     top: 0;
     left: 0;
     overflow: hidden;
-    background: var(--color-aps-bg-header);
-    border-radius: 5px;
+  }
+
+  &__background-kpe {
+    border-radius: 5px 5px 0 0;
+    background: var(--color-contemporary-header-bg);
+  }
+
+  &__background-astue {
+    border-radius: 2px 2px 0 0;
+    background: var(--color-astue-onpz-header-bg);
   }
 
   &__background {
@@ -83,6 +93,7 @@
 .title {
   width: max-content;
   height: max-content;
+  cursor: default;
 }
 
 .buttons {

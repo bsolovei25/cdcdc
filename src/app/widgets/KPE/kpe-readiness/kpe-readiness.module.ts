@@ -6,7 +6,9 @@ import { SharedModule } from '@shared/shared.module';
 
 
 @NgModule({
-    declarations: [KpeReadinessComponent],
+    declarations: [
+        KpeReadinessComponent,
+    ],
     imports: [
         CommonModule,
         SharedModule,

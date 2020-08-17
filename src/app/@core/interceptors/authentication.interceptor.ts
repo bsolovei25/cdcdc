@@ -12,6 +12,8 @@ import { AuthService } from '@core/service/auth.service';
 export class AuthenticationInterceptor implements HttpInterceptor {
     constructor(private authService: AuthService) {}
 
+    private readonly authorizationHeader: string = 'AsPlatform-Authorization';
+
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         if (req.url[req.url.length - 1] === '/') {
             req = req.clone({
@@ -23,7 +25,7 @@ export class AuthenticationInterceptor implements HttpInterceptor {
             url: encodeURI(req.url),
         });
 
-        if (req.headers.get('Authorization')) {
+        if (req.headers.get(this.authorizationHeader)) {
             return next.handle(req);
         }
 
@@ -58,10 +60,19 @@ export class AuthenticationInterceptor implements HttpInterceptor {
 
         req = req.clone({
             headers: req.headers.append(
-                'Authorization',
+                this.authorizationHeader,
                 `Bearer ${this.authService.userSessionToken}`
             ),
         });
+
+        if (this.authService.keycloakToken) {
+            req = req.clone({
+                headers: req.headers.append(
+                    'Authorization',
+                    `Bearer ${this.authService.keycloakToken}`
+                ),
+            });
+        }
 
         return next.handle(req);
     }

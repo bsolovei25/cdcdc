@@ -1,0 +1,107 @@
+.container {
+  height: 100%;
+  width: 100%;
+  overflow: auto;
+  border-bottom: 1px solid var(--color-border-new-mbo);
+
+  z-index: 1;
+
+  &__header {
+    display: flex;
+    justify-content: flex-end;
+    flex: 1;
+    margin-right: 10px;
+
+    .header {
+      &__btn {
+        cursor: pointer;
+
+        font-size: 13px;
+        color: var(--color-kpe-gaude-main);
+
+        width: 106px;
+        height: 24px;
+        border-radius: 2px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        background-color: var(--color-kpe-eq-chart-row-default);
+      }
+
+      &__icon {
+        padding-right: 7px;
+      }
+
+    }
+  }
+
+  &-body {
+    display: flex;
+    flex-direction: column;
+
+    border: 2px solid var(--color-aps-border);
+
+    box-sizing: border-box;
+    z-index: 1;
+    position: relative;
+
+    width: 100%;
+    height: calc(100% - 40px);
+
+    background-size: auto;
+    background-color: var(--color-sou-bg);
+
+    .main-indicators {
+      margin: 10px;
+      margin-left: 15px;
+      overflow: auto;
+      padding-right: 5px;
+
+      &__table {
+        width: 100%;
+        border-collapse: separate;
+        border-spacing: 0 5px;
+        font-size: 13px;
+
+        .table {
+          &__row {
+            border: 1px solid var(--color-aps-border-sub);
+            border-left: 2px solid var(--color-aps-border-sub);
+          }
+
+          &__column {
+            &:first-of-type {
+              border-left: 2px solid var(--color-kpe-gaude-deviation);
+              background: linear-gradient(90deg, rgba(35, 38, 52, 1) 0%, rgba(96, 100, 127, 0) 35%);
+            }
+
+            &:last-of-type {
+              font-size: 14px;
+              min-width: 50px;
+              text-align: left;
+              border-right: 2px solid var(--color-aps-border-main);
+              color: var(--color-text-main);
+            }
+
+            position: relative;
+            height: 26px;
+            color: var(--color-cd-text-sub-2);
+            text-align: center;
+            background-size: cover;
+            border-top: 1px solid var(--color-aps-border-main);
+            border-bottom: 1px solid var(--color-aps-border-main);
+
+            &__name {
+              min-width: 245px;
+              text-align: left;
+              padding-left: 15px;
+            }
+          }
+        }
+      }
+    }
+
+  }
+}

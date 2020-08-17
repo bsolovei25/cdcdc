@@ -1,0 +1,30 @@
+<div class="widget-container">
+  <div class="widget-header">
+    <evj-contemporary-widget-header [uniqId]="widgetUniqId" [widgetTitle]="widgetTitle"></evj-contemporary-widget-header>
+  </div>
+  <div class="widget-content" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
+
+    <div class="widget-content-wrapper">
+      <div class="flex-row-container">
+        <div class="flex-column-container flex-column-container__left">
+          <evj-sou-in-streams class="input-streams"></evj-sou-in-streams>
+          <evj-sou-losses-table (openTable)="togglePopupElement('table', true)" class="table"></evj-sou-losses-table>
+          <evj-sou-production-table class="table"></evj-sou-production-table>
+        </div>
+        <div class="flex-column-container cards">
+          <evj-sou-facility-info (openPanel)="togglePopupElement('deviation', true)"></evj-sou-facility-info>
+          <evj-sou-balance-card [data]="{type: 'in', title: 'Сумма входа', sumValue: 2000000, perHourValue: 9100}"></evj-sou-balance-card>
+          <evj-sou-balance-card [data]="{type: 'out', title: 'Сумма выхода', sumValue: 2000000, perHourValue: 9100}"></evj-sou-balance-card>
+          <evj-sou-balance-card [data]="{type: 'delta', title: 'Дельта', sumValue: 343234, percentageValue: 56}"></evj-sou-balance-card>
+          <evj-sou-balance-card [data]="{type: 'balance', title: 'Допустимый баланс', sumValue: 765234, percentageValue: 86}"></evj-sou-balance-card>
+        </div>
+        <div class="flex-column-container">
+          <evj-sou-out-streams style="height: 100%"></evj-sou-out-streams>
+        </div>
+      </div>
+    </div>
+
+    <evj-sou-detail-table (closeTable)="togglePopupElement('table', false)" class="popup-table" *ngIf="popupElementsStates.get('table')"></evj-sou-detail-table>
+    <evj-sou-deviation-cards (closePanel)="togglePopupElement('deviation', false)" class="popup-deviations" *ngIf="popupElementsStates.get('deviation')"></evj-sou-deviation-cards>
+  </div>
+</div>

@@ -1,17 +1,180 @@
-<div style="width: 50%; height:50%;">
-  <evj-kpe-gaude-chart [data]="gaudeData"></evj-kpe-gaude-chart>
-  <!-- <div #chart id="chart"></div> -->
+<evj-contemporary-widget-header
+  [uniqId]="uniqId"
+  [widgetTitle]="widgetTitle"
+  type="kpe"
+  icon="kpe-quality-header-icon"
+>
+  <div class="content-container">
+    <div class="header">
+      <ul class="header__info">
+        <li class="header__info-item">
+          <div class="header__info-1"></div>
+          <span>Факт</span>
+        </li>
+        <li class="header__info-item">
+          <div class="header__info-2"></div>
+          <span>План</span>
+        </li>
+      </ul>
+    </div>
+  </div>
+</evj-contemporary-widget-header>
 
-  <div style="width: 100%; height: 90px;">
-    <evj-kpe-line-diagram></evj-kpe-line-diagram>
+<!--
+<div class="wrapper">
+  <div class="content-header">
+    <div class="content-header__gauge-chart">
+      <evj-kpe-gauge-chart></evj-kpe-gauge-chart>
+    </div>
+    <div class="content-header__deviation-chart">
+      <evj-kpe-deviation-diagram [data]="deviationChartData"></evj-kpe-deviation-diagram>
+    </div>
   </div>
-  <!-- <div style="width: 100%; height: 30%;">
-  <evj-kpe-line-chart [data]="lineChartData" isLineCircle="true"></evj-kpe-line-chart>
-</div> -->
-  <div style="width: 100%; height: 30%;">
-    <evj-kpe-line-diagram></evj-kpe-line-diagram>
-  </div>
-  <div style="width: 100%; height: 30%;">
-    <evj-kpe-line-chart [data]="lineChartData"></evj-kpe-line-chart>
+  <div class="content-body">
+    <div class="content-body__row">
+      <div class="card">
+        <div class="card__gauge-chart">
+          <evj-kpe-gauge-chart></evj-kpe-gauge-chart>
+        </div>
+        <div class="card__equalizier-chart">
+          <evj-kpe-equalizer-chart></evj-kpe-equalizer-chart>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card__gauge-chart">
+          <evj-kpe-gauge-chart></evj-kpe-gauge-chart>
+        </div>
+        <div class="card__equalizier-chart">
+          <evj-kpe-equalizer-chart></evj-kpe-equalizer-chart>
+        </div>
+      </div>
+    </div>
+    <div class="content-body__row">
+      <div class="card">
+        <div class="card__gauge-chart">
+          <evj-kpe-gauge-chart></evj-kpe-gauge-chart>
+        </div>
+        <div class="card__equalizier-chart">
+          <evj-kpe-equalizer-chart></evj-kpe-equalizer-chart>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card__gauge-chart">
+          <evj-kpe-gauge-chart></evj-kpe-gauge-chart>
+        </div>
+        <div class="card__equalizier-chart">
+          <evj-kpe-equalizer-chart></evj-kpe-equalizer-chart>
+        </div>
+      </div>
+    </div>
+    <div class="content-body__row">
+      <div class="card">
+        <div class="card__gauge-chart">
+          <evj-kpe-gauge-chart></evj-kpe-gauge-chart>
+        </div>
+        <div class="card__equalizier-chart">
+          <evj-kpe-equalizer-chart></evj-kpe-equalizer-chart>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card__gauge-chart">
+          <evj-kpe-gauge-chart></evj-kpe-gauge-chart>
+        </div>
+        <div class="card__equalizier-chart">
+          <evj-kpe-equalizer-chart></evj-kpe-equalizer-chart>
+        </div>
+      </div>
+    </div>
+    <div class="content-body__row">
+      <div class="card">
+        <div class="card__gauge-chart">
+          <evj-kpe-gauge-chart></evj-kpe-gauge-chart>
+        </div>
+        <div class="card__equalizier-chart">
+          <evj-kpe-equalizer-chart></evj-kpe-equalizer-chart>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card__gauge-chart">
+          <evj-kpe-gauge-chart></evj-kpe-gauge-chart>
+        </div>
+        <div class="card__equalizier-chart">
+          <evj-kpe-equalizer-chart></evj-kpe-equalizer-chart>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
+-->
+
+<div class="container">
+  <div
+    class="container-body"
+    (mousedown)="$event.stopPropagation()"
+    (touchstart)="$event.stopPropagation()"
+  >
+    <div class="quality">
+      <div class="quality__header">
+        <div #mainGauge class="quality__header__gauge" [style]="gaugeWidth(mainGauge)">
+          <evj-kpe-gauge-chart></evj-kpe-gauge-chart>
+        </div>
+        <div class="quality__header__chart">
+          <evj-kpe-deviation-diagram [data]="deviationChartData"></evj-kpe-deviation-diagram>
+        </div>
+      </div>
+      <div class="quality__main">
+        <div class="quality__main__gauge element-container">
+          <ng-container *ngTemplateOutlet="cardContainer"></ng-container>
+        </div>
+        <div class="quality__main__gauge element-container">
+          <ng-container *ngTemplateOutlet="cardContainer"></ng-container>
+        </div>
+      </div>
+      <div class="quality__main">
+        <div class="quality__main__gauge element-container">
+          <ng-container *ngTemplateOutlet="cardContainer"></ng-container>
+        </div>
+        <div class="quality__main__gauge element-container">
+          <ng-container *ngTemplateOutlet="cardContainer"></ng-container>
+        </div>
+      </div>
+      <div class="quality__main">
+        <div class="quality__main__gauge element-container">
+          <ng-container *ngTemplateOutlet="cardContainer"></ng-container>
+        </div>
+        <div class="quality__main__gauge element-container">
+          <ng-container *ngTemplateOutlet="cardContainer"></ng-container>
+        </div>
+      </div>
+      <div class="quality__main">
+        <div class="quality__main__gauge element-container">
+          <ng-container *ngTemplateOutlet="cardContainer"></ng-container>
+        </div>
+        <div class="quality__main__gauge element-container">
+          <ng-container *ngTemplateOutlet="cardContainer"></ng-container>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #cardContainer>
+  <div class="card">
+    <div class="card__content">
+      <div class="card__gauge-diagram">
+        <evj-kpe-gauge-chart></evj-kpe-gauge-chart>
+        <div class="unit-selector">
+          <div class="unit-selector__unit">
+            <span>%/масс</span>
+          </div>
+          <div class="unit-selector__sign">
+            <span>%</span>
+          </div>
+        </div>
+      </div>
+      <div class="card__eq-diagram">
+        <evj-kpe-equalizer-chart></evj-kpe-equalizer-chart>
+      </div>
+    </div>
+  </div>
+</ng-template>

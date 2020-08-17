@@ -1,11 +1,12 @@
 <div class="widget-container">
-  <evj-contemporary-widget-header [uniqId]="uniqId" [widgetTitle]="widgetTitle" [icon]="'kpe-marker'"></evj-contemporary-widget-header>
+  <evj-contemporary-widget-header type="kpe" [uniqId]="uniqId" [widgetTitle]="widgetTitle" [icon]="'kpe-marker'"></evj-contemporary-widget-header>
   <div class="container">
     <div class="scroll-container">
       <div #gauge class="chart-container" [style]="chartWidth">
-        <evj-kpe-gaude-chart></evj-kpe-gaude-chart>
+<!--        <evj-kpe-gaude-chart></evj-kpe-gaude-chart>-->
+        <evj-kpe-gauge-chart></evj-kpe-gauge-chart>
       </div>
-      <evj-kpe-line-chart style="min-width: 400px" [data]="data.chart" isLineCircle="true"></evj-kpe-line-chart>
+      <evj-kpe-deviation-diagram style="min-width: 400px" [data]="data?.chart"></evj-kpe-deviation-diagram>
       <evj-kpe-energy-tab *ngFor="let tab of data.tabs" [data]="tab"></evj-kpe-energy-tab>
     </div>
   </div>

@@ -10,7 +10,7 @@ export class WidgetPreviewComponent implements OnInit {
     @Input() title: string = '';
     @Input() code: string = '';
     @Input() icon: string;
-    public route: string = '../../../../assets/icons/widget-preview/';
+    public route: string = 'assets/icons/widget-preview/';
     public format: string = '.svg';
 
     constructor() {}
