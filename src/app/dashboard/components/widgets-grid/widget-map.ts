@@ -299,10 +299,10 @@ export const WIDGETS_LAZY = {
             return await import('src/app/widgets/KPE/kpe-quality/kpe-quality.module');
         },
         module: 'KpeQualityModule',
-        itemCols: 15,
-        itemRows: 15,
-        minItemCols: 15,
-        minItemRows: 10,
+        itemCols: 21,
+        itemRows: 27,
+        minItemCols: 21,
+        minItemRows: 27,
         preview: 'kpe-quality',
     },
     'kpe-readiness': {
