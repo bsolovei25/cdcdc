@@ -22,7 +22,7 @@
         <span class="header__name">
           {{ widgetTitle }}
         </span>
-        <div
+        <div  *ngIf="claimWidgets.includes(EnumClaimWidgets.delete)"
           class="delete_widget"
           (click)="onRemoveButton()"
           (mousedown)="$event.stopPropagation()"
