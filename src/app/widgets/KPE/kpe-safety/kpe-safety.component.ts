@@ -23,6 +23,7 @@ export class KpeSafetyComponent extends WidgetPlatform implements OnInit {
     }
 
     ngOnInit(): void {
+        super.widgetInit();
         this.http
             .get('assets/mock/KPE/deviation-chart.json')
             .toPromise()
