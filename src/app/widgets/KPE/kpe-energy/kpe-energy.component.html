@@ -1,5 +1,25 @@
 <div class="widget-container">
-  <evj-contemporary-widget-header type="kpe" [uniqId]="uniqId" [widgetTitle]="widgetTitle" [icon]="'kpe-marker'"></evj-contemporary-widget-header>
+  <evj-contemporary-widget-header
+    [uniqId]="uniqId"
+    [widgetTitle]="widgetTitle"
+    type="kpe"
+    icon="kpe-marker"
+  >
+    <div class="content-container">
+      <div class="header">
+        <ul class="header__info">
+          <li class="header__info-item">
+            <div class="header__info-1"></div>
+            <span>Факт</span>
+          </li>
+          <li class="header__info-item">
+            <div class="header__info-2"></div>
+            <span>План</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </evj-contemporary-widget-header>
   <div class="container">
     <div class="scroll-container">
       <div #gauge class="chart-container" [style]="chartWidth">
