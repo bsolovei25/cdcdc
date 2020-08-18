@@ -78,16 +78,46 @@
   &__gauge-diagram {
     flex: 1 1;
     overflow: hidden;
-    margin: 0 auto;
     padding: 5px 5px;
   }
 
   &__eq-diagram {
     flex: 3 3;
     overflow: hidden;
-    margin: 0 auto;
-    // display: flex;
-    // align-items: center;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    padding: 5px;
+
+    .diagram-area {
+      border: 1px solid var(--color-kpe-eq-chart-day-normal);
+      background: var(--color-sou-bg);
+      border-radius: 2px;
+      height: calc(100% - 50px);
+      padding: 5px;
+    }
+
+    .title-area {
+      height: 30px;
+      display: flex;
+      flex-direction: column;
+      font-family: Tahoma;
+      font-style: normal;
+      font-weight: normal;
+
+      &__title {
+        font-size: 13px;
+        line-height: 16px;
+        color: var(--color-kpe-eq-chart-title);
+      }
+
+      &__comment {
+        font-size: 10px;
+        line-height: 12px;
+        color: var(--color-marker-diagram);
+      }
+    }
   }
 
   &__label {
@@ -109,6 +139,7 @@
 
 .content-container {
   flex: 1;
+
   .header {
     min-height: 30px;
     width: 100%;

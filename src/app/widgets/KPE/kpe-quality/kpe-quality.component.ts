@@ -5,6 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import { IProductionTrend } from '../../../dashboard/models/production-trends.model';
 import { IKpeGaudeData } from '../shared/kpe-gaude-chart/kpe-gaude-chart.component';
 import { IDeviationDiagramData } from '../shared/kpe-deviation-diagram/kpe-deviation-diagram.component';
+import { IBarDiagramData } from '../shared/kpe-equalizer-chart/kpe-equalizer-chart.component';
 
 @Component({
     selector: 'evj-kpe-quality',
@@ -21,6 +22,8 @@ export class KpeQualityComponent extends WidgetPlatform implements OnInit, OnDes
     public gaudeData: IKpeGaudeData = null;
 
     public deviationChartData: IDeviationDiagramData[] = [];
+
+    public equalizerData: IBarDiagramData[] = [];
 
     constructor(
         private hostElement: ElementRef,
@@ -40,6 +43,13 @@ export class KpeQualityComponent extends WidgetPlatform implements OnInit, OnDes
             .toPromise()
             .then((data: IDeviationDiagramData[]) => {
                 this.deviationChartData = data;
+            });
+
+        this.http
+            .get('assets/mock/KPE/equalizer-chart.json')
+            .toPromise()
+            .then((data: IBarDiagramData[]) => {
+                this.equalizerData = data;
             });
     }
 

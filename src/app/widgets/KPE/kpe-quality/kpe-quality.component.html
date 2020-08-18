@@ -173,7 +173,13 @@
         </div>
       </div>
       <div class="card__eq-diagram">
-        <evj-kpe-equalizer-chart></evj-kpe-equalizer-chart>
+        <div class="title-area">
+          <span class="title-area__title">Рефлюкс</span>
+          <span class="title-area__comment">норма по содержанию С5+</span>
+        </div>
+        <div class="diagram-area">
+          <evj-kpe-equalizer-chart [data]="equalizerData"></evj-kpe-equalizer-chart>
+        </div>
       </div>
     </div>
   </div>
