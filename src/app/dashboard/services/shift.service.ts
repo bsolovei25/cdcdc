@@ -1,31 +1,38 @@
 import { Injectable } from '@angular/core';
 import {
+    Employee,
     ICommentRequired,
     IVerifyWindow,
     ShiftPass,
     VerifyWindowActions,
-    VerifyWindowType,
+    VerifyWindowType
 } from '../models/shift.model';
 import { HttpClient } from '@angular/common/http';
 import { AppConfigService } from '../../services/appConfigService';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
 import { IUser } from '../models/events-widget';
+import { IAlertWindowModel } from '@shared/models/alert-window.model';
+import { SnackBarService } from './snack-bar.service';
 
 @Injectable({
     providedIn: 'root',
 })
 export class ShiftService {
     public shiftPass$: BehaviorSubject<ShiftPass> = new BehaviorSubject<ShiftPass>(null);
+    public alertWindow$: BehaviorSubject<IAlertWindowModel> = new BehaviorSubject<IAlertWindowModel>(null);
     public continueWithComment: Subject<ICommentRequired> = new Subject<ICommentRequired>();
     public verifyWindowSubject: Subject<IVerifyWindow> = new Subject<IVerifyWindow>();
     public isCommentRequiredPass: boolean = false;
     public isCommentRequiredAccept: boolean = false;
 
     private restUrl: string;
-    private shiftFreeStatus: string;
+    private readonly shiftFreeStatus: string;
 
-    constructor(private http: HttpClient, configService: AppConfigService) {
+    constructor(
+        private http: HttpClient,
+        configService: AppConfigService,
+    ) {
         this.restUrl = configService.restUrl;
         this.shiftFreeStatus = configService.shiftFree;
     }
@@ -123,21 +130,21 @@ export class ShiftService {
 
     private async cancelShiftAsync(
         idShift: number,
-        _comment: string,
+        comment: string,
         widgetId: string
     ): Promise<any> {
         const body = {
-            comment: _comment,
+            comment,
         };
         return this.http
             .post(`${this.restUrl}/api/shift/${idShift}/widgetid/${widgetId}/accept-revert`, body)
             .toPromise();
     }
 
-    private async passingComment(idShift: number, idUser: number, _comment: string): Promise<any> {
+    private async passingComment(idShift: number, idUser: number, comment: string): Promise<any> {
         const body = {
             userId: idUser,
-            comment: _comment,
+            comment,
         };
         return this.http
             .post(this.restUrl + '/api/shift/' + idShift + '/passingcomment', body)
@@ -147,11 +154,11 @@ export class ShiftService {
     private async acceptingComment(
         idShift: number,
         idUser: number,
-        _comment: string
+        comment: string
     ): Promise<any> {
         const body = {
             userId: idUser,
-            comment: _comment,
+            comment,
         };
         return this.http
             .post(this.restUrl + '/api/shift/' + idShift + '/acceptingcomment', body)
@@ -164,7 +171,7 @@ export class ShiftService {
         this.shiftPass$.next(tempData);
     }
 
-    public async getFreeShiftMembers(id: number) {
+    public async getFreeShiftMembers(id: number): Promise<any> {
         console.log('get free shift members with id: ' + id.toString());
         return await this.getFreeMembersAsync(id);
     }
@@ -202,12 +209,12 @@ export class ShiftService {
     }
 
     public async changeStatus(
-        status,
+        status: string,
         id,
         idShift,
         widgetId: string,
         unitId: number,
-        msg: string = null
+        msg: string = null,
     ): Promise<void> {
         const obj = await this.changeStatusAsync(status, id, idShift, widgetId, msg);
         this.getShiftInfo(unitId);

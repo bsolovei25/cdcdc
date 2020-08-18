@@ -204,13 +204,24 @@ export class ShiftPersonComponent implements OnInit, OnChanges {
                 );
                 break;
             case 'Покинул смену':
-                this.shiftService.changeStatus(
-                    'missing',
-                    person.employee.id,
-                    this.shiftId,
-                    this.widgetId,
-                    this.unitId
-                );
+                this.shiftService.alertWindow$.next({
+                    isShow: true,
+                    questionText: `Вы действительно хотите перевести пользователя ${person.employee.lastName} ${person.employee.firstName} в статус Отсутствующие?`,
+                    acceptText: 'Да',
+                    cancelText: 'Отмена',
+                    closeFunction: () =>  this.shiftService.alertWindow$.next(null),
+                    acceptFunction: async () => {
+                        await this.shiftService.changeStatus(
+                            'missing',
+                            person.employee.id,
+                            this.shiftId,
+                            this.widgetId,
+                            this.unitId,
+                            null,
+                        );
+                        this.materialController.openSnackBar(`Пользователь ${person.employee.lastName} ${person.employee.firstName} успешно удален из смены`);
+                    }
+                });
                 break;
             case 'Сделать главным':
                 this.shiftService.changePosition(person.employee.id, this.shiftId, this.unitId);

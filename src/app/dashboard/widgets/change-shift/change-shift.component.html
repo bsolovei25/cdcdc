@@ -36,6 +36,8 @@
         <evj-usb-verifier [verifyInfo]="verifyInfo"></evj-usb-verifier>
       </div>
 
+      <evj-alert-window [info]="shiftService.alertWindow$ | async"></evj-alert-window>
+
       <div
         class="change-shift"
         (mousedown)="$event.stopPropagation()"
