@@ -36,4 +36,18 @@
   .needle-hover-circle {
     fill: var(--color-kpe-energy-diagram-bg);
   }
+
+  .kpe-energy-hide-down-sector {
+    fill: var(--color-kpe-energy-diagram-bg);
+  }
+
+  .needle-shadow-gradient-1 {
+    stop-color: var(--color-button-borderside);
+    stop-opacity: 0.15;
+  }
+
+  .needle-shadow-gradient-2 {
+    stop-color: transparent;
+    stop-opacity: 0;
+  }
 }
