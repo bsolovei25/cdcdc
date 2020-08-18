@@ -300,9 +300,9 @@ export const WIDGETS_LAZY = {
         },
         module: 'KpeQualityModule',
         itemCols: 21,
-        itemRows: 27,
+        itemRows: 22,
         minItemCols: 21,
-        minItemRows: 20,
+        minItemRows: 22,
         preview: 'kpe-quality',
     },
     'kpe-readiness': {
