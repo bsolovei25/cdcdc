@@ -21,7 +21,8 @@ $font-size: 14px;
 }
 
 .confirm-container {
-  width: $width;
+  max-width: $width;
+  width: 90%;
   height: 300px;
 
   background-color: var(--color-bg-main-dark);
@@ -29,7 +30,7 @@ $font-size: 14px;
   border-radius: $border-radius;
 
   &__body {
-    width: $width;
+    width: 100%;
     height: 220px;
 
     background-color: var(--color-aw-container-body-transparent);
@@ -37,7 +38,7 @@ $font-size: 14px;
   }
 
   &-body__header {
-    width: $width;
+    width: 100%;
     height: 42px;
 
     background-color: var(--color-aw-header-bg);
