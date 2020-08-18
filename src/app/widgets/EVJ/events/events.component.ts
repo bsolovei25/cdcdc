@@ -362,8 +362,8 @@ export class EventsComponent extends WidgetPlatform implements OnInit, OnDestroy
                 .filter((n) => n.category && n.category.name)
                 .map((n) => {
                     const iconUrl = this.getNotificationIcon(n.category.name);
-                    const iconUrlStatus = this.getStatusIcon(n.status.name);
-                    const statusName = this.statuses[n.status.name]; // TODO check
+                    const iconUrlStatus = this.getStatusIcon(n.status?.name);
+                    const statusName = n.status?.name ? this.statuses[n.status.name] : ''; // TODO check
                     return { ...n, iconUrl, statusName, iconUrlStatus };
                 });
             this.notifications = this.notifications.concat(notifications);
