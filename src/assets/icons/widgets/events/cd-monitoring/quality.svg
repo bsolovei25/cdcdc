@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.7 15.7" fill="none" stroke="inherit">
+    <g id="Слой_2" data-name="Слой 2">
+        <g id="Слой_1-2" data-name="Слой 1">
+            <path
+                  d="M3.81,2.43H9a0,0,0,0,1,0,0V14.25A1.95,1.95,0,0,1,7,16.2H5.75a1.95,1.95,0,0,1-1.95-1.95V2.43a0,0,0,0,1,0,0Z"
+                  transform="translate(8.46 -1.79) rotate(45)"/>
+            <rect x="8" y="2.95" width="7.75" height="1.76" rx="0.66"
+                  transform="translate(6.18 -7.28) rotate(45)"/>
+            <path
+                  d="M12,1.33h2.62a.76.76,0,0,1,.76.76V3.53a0,0,0,0,1,0,0H11.2a0,0,0,0,1,0,0V2.09A.76.76,0,0,1,12,1.33Z"
+                  transform="translate(5.6 -8.67) rotate(45)"/>
+            <path d="M4.69,9.72l-1.6,1.6a.88.88,0,0,0,0,1.24l.07.07a.87.87,0,0,0,1.24,0L7.84,9.15Z"/>
+        </g>
+    </g>
+</svg>

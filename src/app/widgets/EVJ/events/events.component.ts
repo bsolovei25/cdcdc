@@ -295,7 +295,7 @@ export class EventsComponent extends WidgetPlatform implements OnInit, OnDestroy
 
     private getCurrentOptions(): IEventsWidgetOptions {
         const options: IEventsWidgetOptions = {
-            categories: this.categories.filter((c) => c.isActive).map((c) => c.id),
+            categories: this.categories.filter((c) => c.isActive)?.map((c) => c.id),
             filter: this.filters.find((f) => f.isActive).code,
             dates: this.widgetService.currentDates$.getValue(),
             placeNames: this.placeNames,

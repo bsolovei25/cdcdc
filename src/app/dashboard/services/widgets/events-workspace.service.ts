@@ -85,6 +85,7 @@ export class EventsWorkspaceService {
                 case 'asus':
                 case 'smotr':
                 case 'ejs':
+                case 'modelCalculations':
                     return false;
                 default:
                     return true;
@@ -115,6 +116,7 @@ export class EventsWorkspaceService {
         drops: 'Сбросы',
         asus: 'АСУС',
         ejs: 'ЭЖС',
+        modelCalculations: 'ЦД',
     };
 
     private defaultEvent: EventsWidgetNotification = null;
