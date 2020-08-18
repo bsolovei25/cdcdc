@@ -200,6 +200,7 @@ export type EventsWidgetCategoryCode =
     | 'equipmentStatus'
     | 'drops'
     | 'asus'
+    | 'modelCalculations' // cd
     | 'ejs';
 
 export type AuthenticationType = 'bearer' | 'windows';

@@ -145,8 +145,9 @@
           [messages]="ewService.event.facts"
           dataTitle="Установленные факты"
           placeholder="Укажите факты..."
+          displayMnemoImage="true"
           [displayGraphImage]="!!ewService.event.graphValues?.graphs[0]"
-          [onClickItem]="openLineChart.bind(this)"
+          [onClickItem]="openMnemo.bind(this)"
           (addingMessage)="onSendMessage($event,'facts')"
         ></evj-chat>
       </div>

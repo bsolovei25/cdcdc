@@ -8,6 +8,12 @@
           [svgStyle]="{ 'width.px':250, 'height.px':70 }"
         ></svg-icon>
       </div>
+      <div class="message__graph graph" *ngIf="displayMnemoImage" (click)="onClickItem()">
+        <svg-icon
+          src="assets/icons/widgets/workspace/mnemo.svg"
+          [svgStyle]="{ 'width.px':250, 'height.px':70 }"
+        ></svg-icon>
+      </div>
       <ng-container *ngFor="let message of messages; let i = index;">
         <div class="message" [ngClass]="{'message_odd':i%2===0}">
           <div class="message_files__list">

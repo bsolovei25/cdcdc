@@ -2,6 +2,8 @@ import { Component, OnInit, ViewChild, ElementRef, HostListener } from '@angular
 import { EventsWorkspaceService } from '../../../services/widgets/events-workspace.service';
 import { IInputOptions } from '../../../../@shared/models/input.model';
 import { IChatMessageWithAttachments } from '../components/chat/chat.component';
+import { WidgetService } from '../../../services/widget.service';
+import { UserSettingsService } from '../../../services/user-settings.service';
 
 @Component({
   selector: 'evj-cdcp-event',
@@ -17,7 +19,10 @@ export class CdcpEventComponent implements OnInit {
         isMovingPlaceholder: true,
     };
 
-    constructor(public ewService: EventsWorkspaceService) {}
+    constructor(
+        public ewService: EventsWorkspaceService,
+        private userService: UserSettingsService,
+    ) {}
 
     ngOnInit(): void {}
 
@@ -37,9 +42,7 @@ export class CdcpEventComponent implements OnInit {
         this.ewService.setDeadlineToEvent(date);
     }
 
-    public openLineChart(): void {
-        this.ewService.isOverlayChartOpen = true;
-        const event = new CustomEvent('resize');
-        document.dispatchEvent(event);
+    public openMnemo(): void {
+        this.userService.LoadScreenByWidget('cd-mat-balance');
     }
 }

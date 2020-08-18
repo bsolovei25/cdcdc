@@ -214,6 +214,14 @@ export class UserSettingsService {
         );
     }
 
+    public async LoadScreenByWidget(widgetType: string): Promise<void> {
+        const screenId = await this.getScreenByWidgetType(widgetType);
+        if (!screenId) {
+            throwError('wrong screen id');
+        }
+        this.LoadScreen(screenId);
+    }
+
     public deleteScreen(id: number): Subscription {
         return this.http.delete(this.restUrl + '/api/user-management/screen/' + id).subscribe(
             (ans) => {
@@ -248,6 +256,11 @@ export class UserSettingsService {
 
     public clearScreens(): void {
         this._screens$.next(null);
+    }
+
+    private async getScreenByWidgetType(widgetType: string): Promise<number> {
+        const screen = await this.http.get<IScreenSettings>(`${this.restUrl}/api/user-management/screens/widget/${widgetType}`).toPromise();
+        return screen?.id ?? null;
     }
 
     private defWidgetSize(widgetType: string): any {
