@@ -1,7 +1,11 @@
 <ng-container *ngIf="!isMock">
   <div id="snackbar"></div>
-  <evj-contemporary-widget-header *ngIf="isCDEvents" [uniqId]="uniqId" [widgetTitle]="widgetTitle"
-                                  icon="letter"></evj-contemporary-widget-header>
+  <evj-contemporary-widget-header
+    *ngIf="isCDEvents"
+    [uniqId]="uniqId"
+    [widgetTitle]="widgetTitle"
+    icon="letter"
+  ></evj-contemporary-widget-header>
   <div class="header" *ngIf="!isCDEvents">
     <div class="pointer-events">
       <div class="header__content drag handle">
@@ -46,8 +50,11 @@
     (touchstart)="$event.stopPropagation()"
   >
     <div [class.events]="!isCDEvents" [class.cd-events]="isCDEvents">
-      <div class="notifications" #notifications
-           [ngClass]="widgetIsVideoWall ? 'notifications--display-wall' : 'notifications--display-standart'">
+      <div
+        class="notifications"
+        #notifications
+        [ngClass]="widgetIsVideoWall ? 'notifications--display-wall' : 'notifications--display-standart'"
+      >
         <cdk-virtual-scroll-viewport
           [itemSize]="isList ? 180 : 111"
           class="scroll-bar"
@@ -65,15 +72,15 @@
               ></evj-event-card>
             </ng-container>
             <ng-container *ngIf="isCDEvents">
-              <evj-cd-event-card [cardDataArr]="n"
-                                 (cardClick)="eventClick($event)"
-                                 [cardActiveId]="selectedId || eventOverlayId"
-                                 (cardDeleteClick)="deleteClick($event)"
+              <evj-cd-event-card
+                [cardDataArr]="n"
+                (cardClick)="eventClick($event)"
+                [cardActiveId]="selectedId || eventOverlayId"
+                (cardDeleteClick)="deleteClick($event)"
               >
               </evj-cd-event-card>
             </ng-container>
           </ng-container>
-
         </cdk-virtual-scroll-viewport>
       </div>
       <ng-container *ngIf="!widgetIsVideoWall">
@@ -98,8 +105,19 @@
             </div>
           </div>
 
-          <ng-container *ngIf="!isCDEvents">
-            <div class="categories">
+          <div class="categories" [ngSwitch]="widgetType">
+            <ng-container *ngSwitchCase="'cd-events'">
+              <ng-container *ngFor="let c of categories">
+                <evj-cd-event-categories
+                  class="categories__item"
+                  [data]="c"
+                  (categoryClick)="onCategoryClick($event)"
+                  (categoryDeleteClick)="deleteClick($event)"
+                >
+                </evj-cd-event-categories>
+              </ng-container>
+            </ng-container>
+            <ng-container *ngSwitchDefault>
               <div class="categories__line categories__line_left">
                 <div class="categories__circle categories__circle_left"></div>
               </div>
@@ -146,21 +164,8 @@
                   </button>
                 </div>
               </div>
-            </div>
-          </ng-container>
-          <ng-container *ngIf="isCDEvents">
-            <div class="categories">
-              <ng-container *ngFor="let c of categories">
-                <evj-cd-event-categories
-                  class="categories__item"
-                  [data]="c"
-                  (categoryClick)="onCategoryClick($event)"
-                  (categoryDeleteClick)="deleteClick($event)">
-                </evj-cd-event-categories>
-              </ng-container>
-            </div>
-          </ng-container>
-
+            </ng-container>
+          </div>
 
           <div class="controls__line controls__line_right">
             <div class="controls__circle controls__circle_right"></div>

@@ -201,7 +201,9 @@ export type EventsWidgetCategoryCode =
     | 'drops'
     | 'asus'
     | 'modelCalculations' // cd
-    | 'ejs';
+    | 'ejs'
+    | 'indicators'
+    | 'resources';
 
 export type AuthenticationType = 'bearer' | 'windows';
 
@@ -297,6 +299,8 @@ export interface EventsWidgetCategory {
     name?: string;
     isActive?: boolean;
     url?: string;
+
+    categoryType?: 'default' | 'ed';
 }
 
 export interface EventsWidgetNotificationsCounter {
