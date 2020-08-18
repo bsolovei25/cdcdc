@@ -18,7 +18,8 @@
 .scroll-container {
   display: flex;
   flex-direction: row;
-  overflow-y: overlay;
+  overflow-y: hidden;
+  overflow-x: overlay;
   height: 100%;
   gap: 10px;
 
