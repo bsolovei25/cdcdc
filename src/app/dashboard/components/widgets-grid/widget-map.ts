@@ -143,6 +143,7 @@ export const WIDGETS = {
     'kpe-readiness': WidgetContainerComponent,
     'kpe-safety': WidgetContainerComponent,
     events: WidgetContainerComponent,
+    'events-ed': WidgetContainerComponent,
     'cd-events': WidgetContainerComponent,
     'spline-trends-chart': WidgetContainerComponent,
     'cd-mat-balance': WidgetContainerComponent,
@@ -432,6 +433,18 @@ export const WIDGETS_LAZY = {
     // #region EVJ
 
     events: {
+        import: async () => {
+            return await import('src/app/widgets/EVJ/events/events.module');
+        },
+        module: 'EventsModule',
+        itemCols: 32,
+        itemRows: 30,
+        minItemCols: 32,
+        minItemRows: 30,
+        preview: 'events',
+    },
+
+    'events-ed': {
         import: async () => {
             return await import('src/app/widgets/EVJ/events/events.module');
         },
