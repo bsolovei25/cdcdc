@@ -89,10 +89,10 @@ export class ShiftService {
         id,
         idShift,
         widgetId: string,
-        msg: string
+        comment: string
     ): Promise<any> {
         const body = {
-            comment: msg,
+            comment,
         };
         return this.http
             .post(
