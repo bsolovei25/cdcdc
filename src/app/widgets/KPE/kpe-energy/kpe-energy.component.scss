@@ -18,7 +18,8 @@
 .scroll-container {
   display: flex;
   flex-direction: row;
-  overflow-y: overlay;
+  overflow-y: hidden;
+  overflow-x: overlay;
   height: 100%;
   gap: 10px;
 
@@ -45,4 +46,64 @@
 .chart-container {
   margin-right: 20px !important;
   height: 100%;
+}
+
+.content-container {
+  flex: 1;
+  .header {
+    min-height: 30px;
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    font-size: 10px;
+    overflow: hidden;
+
+    &__info {
+      display: flex;
+      justify-content: flex-end;
+      color: var(--color-text-sub);
+
+      margin: 0;
+      padding: 0;
+      list-style: none;
+
+      margin-left: 60px;
+
+      &-item {
+        padding-right: 12px;
+        display: flex;
+        align-items: center;
+        //min-width: 60px;
+      }
+
+      &-1 {
+        height: 5px;
+        min-width: 5px;
+        width: 5px;
+        background-color: var(--color-kpe-eq-chart-title);
+        border-radius: 50%;
+        margin-right: 5px;
+      }
+
+      &-2 {
+        height: 5px;
+        min-width: 5px;
+        width: 5px;
+        background-color: var(--color-aps-active);
+        border-radius: 50%;
+        margin-right: 5px;
+      }
+    }
+
+    &__right {
+      display: flex;
+
+      margin-left: 30px;
+      min-height: 24px;
+
+      &__button-date {
+        width: 645px;
+      }
+    }
+  }
 }
