@@ -109,12 +109,55 @@ export class KpeEnergyDiagramComponent implements OnInit {
                 .attr('class', className);
         }
 
+        const circleRad = 18;
+
+        const shadowGradient = svg.append('defs').append('linearGradient')
+            .attr('id', 'gradient')
+            .attr('x1', '0%')
+            .attr('x2', '0%')
+            .attr('y1', '0%')
+            .attr('y2', '100%')
+            .attr('spreadMethod', 'pad');
+
+        shadowGradient.append('svg:stop')
+            .attr('offset', '0%')
+            .attr('class', 'needle-shadow-gradient-1');
+
+        shadowGradient.append('svg:stop')
+            .attr('offset', '100%')
+            .attr('class', 'needle-shadow-gradient-2');
+
+        const shadow = d3.arc()
+            .innerRadius(circleRad)
+            .outerRadius(innerRadius - 2)
+            .startAngle(-0.5 * Math.PI)
+            .endAngle(-0.008 * Math.PI);
+
+        const arrowAngle = (-175 + 270 * mainValue / this.diagramCounter);
+
+        const needleShadow = svg
+            .append('path')
+            .attr('d', shadow)
+            .attr(`transform`, `rotate(${arrowAngle})`)
+            .style('fill', 'url(#gradient)');
+
+        const hideDownSector = d3.arc()
+            .innerRadius(circleRad)
+            .outerRadius(outerRadius)
+            .startAngle(-0.49 * Math.PI)
+            .endAngle(-0.01 * Math.PI);
+
+        svg.append('path')
+            .attr('d', hideDownSector)
+            .attr(`transform`, `rotate(180)`)
+            .attr('class', 'kpe-energy-hide-down-sector');
+
         const needle = svg
             .append('path')
             .attr('class', 'needle')
             .attr('d', 'M-3 0 L-1 -30 L1 0 S3 5 0 5 S-3 5 -3 0 Z') // стрелка
-            .attr(`transform`, `rotate(${30})`);
+            .attr(`transform`, `rotate(${arrowAngle})`);
 
-        drawCircle(18, 'needle-hover-circle');
+        drawCircle(circleRad, 'needle-hover-circle');
     }
 }

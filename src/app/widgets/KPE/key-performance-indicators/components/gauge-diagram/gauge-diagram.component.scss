@@ -57,4 +57,18 @@
   .fill-body-color {
     fill: var(--color-kpe-gauge-bg);
   }
+
+  .hide-down-sector {
+    fill: var(--color-kpe-key-p-d-bg);
+  }
+
+  .needle-shadow-gradient-1 {
+    stop-color: var(--color-button-borderside);
+    stop-opacity: 0.15;
+  }
+
+  .needle-shadow-gradient-2 {
+    stop-color: transparent;
+    stop-opacity: 0;
+  }
 }

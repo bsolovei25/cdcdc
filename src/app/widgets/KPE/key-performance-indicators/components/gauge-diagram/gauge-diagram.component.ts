@@ -21,6 +21,7 @@ export class GaugeDiagramComponent implements OnInit {
     private svg: any;
     private g: any;
     private needle: any;
+    private needleShadow: any;
     public percent: number = 0;
     public text: any;
 
@@ -62,7 +63,7 @@ export class GaugeDiagramComponent implements OnInit {
             return 135;
         }
         if (percent <= 0) {
-            return -135;
+            return -133;
         }
     }
 
@@ -84,9 +85,16 @@ export class GaugeDiagramComponent implements OnInit {
     }
 
     private pokeNeedle(grad: number): void {
+        const duration = 1000;
+
         this.needle
             .transition()
-            .duration(1000)
+            .duration(duration)
+            .attr(`transform`, `rotate(${grad})`);
+
+        this.needleShadow
+            .transition()
+            .duration(duration)
             .attr(`transform`, `rotate(${grad})`);
     }
 
@@ -152,6 +160,20 @@ export class GaugeDiagramComponent implements OnInit {
             .attr('d', arc)
             .attr('class', 'arc');
 
+        this.drawNeedleShadow();
+
+        const hideDownSector = d3.arc()
+            .innerRadius(21)
+            .outerRadius(41.5)
+            .startAngle(-0.25 * Math.PI)
+            .endAngle(0.25 * Math.PI);
+
+        this.g
+            .append('path')
+            .attr('d', hideDownSector)
+            .attr(`transform`, `rotate(180)`)
+            .attr('class', 'hide-down-sector');
+
         this.needle = this.g
             .append('path')
             .attr('class', 'needle')
@@ -162,5 +184,35 @@ export class GaugeDiagramComponent implements OnInit {
         this.appendCircle(20.5, 'fill-body-color');
         this.appendCircle(19, 'fill-border-color');
         this.appendCircle(18.5, 'fill-center-circle');
+    }
+
+    private drawNeedleShadow(): void {
+        const shadowGradient = this.g.append('defs').append('linearGradient')
+            .attr('id', 'gradient')
+            .attr('x1', '0%')
+            .attr('x2', '0%')
+            .attr('y1', '0%')
+            .attr('y2', '100%')
+            .attr('spreadMethod', 'pad');
+
+        shadowGradient.append('svg:stop')
+            .attr('offset', '0%')
+            .attr('class', 'needle-shadow-gradient-1');
+
+        shadowGradient.append('svg:stop')
+            .attr('offset', '100%')
+            .attr('class', 'needle-shadow-gradient-2');
+
+        const shadow = d3.arc()
+            .innerRadius(21)
+            .outerRadius(41.5)
+            .startAngle(-0.5 * Math.PI)
+            .endAngle(-0.008 * Math.PI);
+
+        this.needleShadow = this.g
+            .append('path')
+            .attr('d', shadow)
+            .attr(`transform`, `rotate(${0})`)
+            .style('fill', 'url(#gradient)');
     }
 }
