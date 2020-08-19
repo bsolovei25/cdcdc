@@ -20,7 +20,7 @@
     >
       <div class="interactive-indicators__labels">
         <div class="labels__items">
-          <div class="labels__item labels__item__disable" *ngFor="let item of data.labels">
+          <div (click)="LabelClick(item)" class="labels__item" [class.labels__item__disable]="DisabledLabels?.get(item)" *ngFor="let item of data.labels">
             <div class="item__icon">
               <svg-icon src="assets/icons/widgets/ASTUE-ONPZ/aim.svg"></svg-icon>
             </div>
@@ -32,6 +32,7 @@
         </div>
         <div class="labels__select">
           <mat-form-field class="select__item">
+            <mat-label>Выберите показатель</mat-label>
             <mat-select panelClass="mat-select-custom">
               <mat-option *ngFor="let p of ['Коллоны и реакторы']" [value]="p">
                 {{ p }}
