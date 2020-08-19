@@ -1,0 +1,68 @@
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { EventsWorkspaceComponent } from './events-workspace.component';
+import { SharedModule } from '../../../@shared/shared.module';
+import { LineChartWorkspaceComponent } from './components/line-chart-workspace/line-chart-workspace.component';
+import { ChatComponent } from './components/chat/chat.component';
+import { EventDescriptionComponent } from './components/event-description/event-description.component';
+import { EventSearchWindowComponent } from './components/event-search-window/event-search-window.component';
+import { EventsCommentWindowComponent } from './components/events-comment-window/events-comment-window.component';
+import { EventsCorrectComponent } from './components/events-correct/events-correct.component';
+import { EventsCorrectCardComponent } from './components/events-correct-card/events-correct-card.component';
+import { EventsListWindowComponent } from './components/events-list-window/events-list-window.component';
+import { EventsReasonsComponent } from './components/events-reasons/events-reasons.component';
+import { EventsReasonsSingleComponent } from './components/events-reasons-single/events-reasons-single.component';
+import { EventsResponsibleSelectComponent } from './components/events-responsible-select/events-responsible-select.component';
+import { EventsSmotrIconComponent } from './components/events-smotr-icon/events-smotr-icon.component';
+import { EventsWorkspaceButtonComponent } from './components/events-workspace-button/events-workspace-button.component';
+import { FileAttachMenuComponent } from './components/file-attach-menu/file-attach-menu.component';
+import { UsualEventComponent } from './usual-event/usual-event.component';
+import { SmotrEventComponent } from './smotr-event/smotr-event.component';
+import { EjsEventComponent } from './ejs-event/ejs-event.component';
+import { CdcpEventComponent } from './cdcp-event/cdcp-event.component';
+import { AsusEventComponent } from './asus-event/asus-event.component';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { AngularSvgIconModule } from 'angular-svg-icon';
+
+@NgModule({
+    declarations: [
+        EventsWorkspaceComponent,
+        UsualEventComponent,
+        SmotrEventComponent,
+        EjsEventComponent,
+        CdcpEventComponent,
+        AsusEventComponent,
+        LineChartWorkspaceComponent,
+        ChatComponent,
+        EventDescriptionComponent,
+        EventSearchWindowComponent,
+        EventsCommentWindowComponent,
+        EventsCorrectComponent,
+        EventsCorrectCardComponent,
+        EventsListWindowComponent,
+        EventsReasonsComponent,
+        EventsReasonsSingleComponent,
+        EventsResponsibleSelectComponent,
+        EventsSmotrIconComponent,
+        EventsWorkspaceButtonComponent,
+        FileAttachMenuComponent,
+    ],
+    imports: [
+        CommonModule,
+        SharedModule,
+        FormsModule,
+        ReactiveFormsModule,
+        AngularSvgIconModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatSelectModule,
+        MatTooltipModule,
+    ],
+})
+export class EventsWorkspaceModule {
+    enterComponent = EventsWorkspaceComponent;
+}

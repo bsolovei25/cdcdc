@@ -59,6 +59,9 @@ import { ProductGroupsLeftComponent } from './components/SMP/product-group/produ
 import { ProductGroupsTableComponent } from './components/SMP/product-group/product-groups-table/product-groups-table.component';
 import { ProductGroupsMiddleComponent } from './components/SMP/product-group/product-groups-middle/product-groups-middle.component';
 import { ProductGroupsRightComponent } from './components/SMP/product-group/product-groups-right/product-groups-right.component';
+import { TimeDataPickerComponent } from './components/time-data-picker/time-data-picker.component';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { NgxMatDatetimePickerModule } from '@angular-material-components/datetime-picker';
 
 @NgModule({
     declarations: [
@@ -106,6 +109,7 @@ import { ProductGroupsRightComponent } from './components/SMP/product-group/prod
         ProductGroupsMiddleComponent,
         ProductGroupsRightComponent,
         ProductGroupsTableComponent,
+        TimeDataPickerComponent,
     ],
     exports: [
         HeaderComponent,
@@ -144,6 +148,7 @@ import { ProductGroupsRightComponent } from './components/SMP/product-group/prod
         SafeUrlPipe,
         ApsProgressBarComponent,
         ProductGroupsTableComponent,
+        TimeDataPickerComponent,
     ],
     imports: [
         CommonModule,
@@ -160,6 +165,8 @@ import { ProductGroupsRightComponent } from './components/SMP/product-group/prod
         OverlayModule,
         MatDialogModule,
         MatTooltipModule,
+        MatDatepickerModule,
+        NgxMatDatetimePickerModule,
     ],
     providers: [
         SpaceNumber,

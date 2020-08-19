@@ -1,0 +1,14 @@
+<div class="window">
+  <div class="window__header header">
+    <div class="button-icon button-icon__close" (click)="onClose()">
+      <svg-icon [src]="closeIconSrc" [svgStyle]="{ 'width.px':27, 'height.px':27 }"></svg-icon>
+    </div>
+    <div class="title">{{title}}</div>
+  </div>
+  <div class="window__body comment">
+    <textarea class="comment__field" [(ngModel)]="message" [placeholder]="placeholder"></textarea>
+  </div>
+  <div class="window__footer footer">
+    <div class="button" (click)="onSave()">{{buttonText}}</div>
+  </div>
+</div>
