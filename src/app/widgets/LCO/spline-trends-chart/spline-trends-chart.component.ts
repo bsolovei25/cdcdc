@@ -103,6 +103,7 @@ export class SplineTrendsChartComponent extends WidgetPlatform implements OnInit
             }; });
         }
         const result = {
+            deviationValue: ref.deviationValue ?? 0,
             planValue: 0,
             fact: fieldHandler(ref.fact),
             plan: fieldHandler(ref.plan),
