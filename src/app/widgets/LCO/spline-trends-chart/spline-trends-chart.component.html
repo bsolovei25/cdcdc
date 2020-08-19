@@ -30,7 +30,7 @@
         </div>
         <div class="metrics__block deviation-color">
           <div class="title">Отклонение</div>
-          <div class="value">{{data ? (data.fact[data.fact.length - 1].y - data.planValue) : 0 | number:'.1-1'}}</div>
+          <div class="value">{{data?.deviationValue ? data.deviationValue : 0}}</div>
         </div>
       </div>
     </div>
