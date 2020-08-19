@@ -1,0 +1,12 @@
+.indicator-diagram {
+  width: 60px;
+  min-height: 60px;
+  box-sizing: border-box;
+  position: relative;
+  border-left: 1px solid var(--color-border-header);
+  border-right: 1px solid var(--color-border-header);
+
+  background-image: url(../../../../assets/icons/indicator-diagram.svg);
+  background-repeat: no-repeat;
+  background-size: contain;
+}

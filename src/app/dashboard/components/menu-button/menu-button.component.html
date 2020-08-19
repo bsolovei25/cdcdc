@@ -1,0 +1,9 @@
+<div class="menu-button" (mouseenter)="onMouseEnter()" (mouseleave)="onMouseLeave()">
+  <svg-icon class="menu-button__collapse" src="assets/icons/collapse.svg"></svg-icon>
+
+  <div class="menu-button__dropdown dropdown" *ngIf="isDropdownShowing">
+    <ng-container *ngFor="let menuItem of menuItems">
+      <div class="dropdown__item" (click)="menuItem.action()">{{menuItem.name}}</div>
+    </ng-container>
+  </div>
+</div>

@@ -1,4 +1,4 @@
-<div class="user-info" (mouseover)="ScreenActive()" (mouseleave)="ScreenDisable()">
+<div class="user-info">
   <div></div>
   <img class="user-info_avatar" [src]="photoPath" />
   <div *ngIf="data" class="user-info_data">
@@ -12,52 +12,4 @@
     </div>
     <div *ngIf="data?.brigade?.number" class="user-groupe">Бригада {{ data.brigade?.number }}</div>
   </div>
-</div>
-
-<div class="dropdown-content" [class.dropdown-content_active]="this.isShowScreens">
-  <ng-container>
-    <div
-      (click)="fullScreen()"
-      class="dropdown-component"
-      (mouseover)="isOverScreen()"
-      (mouseleave)="isLeaveScreen()"
-    >
-      <div class="screen_block">
-        <div class="screen_blocks">
-          <div class="screen_name">
-            Полный экран
-          </div>
-        </div>
-      </div>
-    </div>
-    <div
-      (click)="resetPassword()"
-      class="dropdown-component"
-      (mouseover)="isOverScreen()"
-      (mouseleave)="isLeaveScreen()"
-      *ngIf="!data.sid"
-    >
-      <div class="screen_block">
-        <div class="screen_blocks">
-          <div class="screen_name">
-            Изменение пароля
-          </div>
-        </div>
-      </div>
-    </div>
-    <div
-      (click)="logOut()"
-      class="dropdown-component"
-      (mouseover)="isOverScreen()"
-      (mouseleave)="isLeaveScreen()"
-    >
-      <div class="screen_block">
-        <div class="screen_blocks">
-          <div class="screen_name">
-            Выйти
-          </div>
-        </div>
-      </div>
-    </div>
-  </ng-container>
 </div>
