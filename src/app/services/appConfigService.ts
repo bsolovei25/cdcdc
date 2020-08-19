@@ -45,6 +45,13 @@ export class AppConfigService {
         return this.appConfig.isDomenAuth;
     }
 
+    get authorizationHeader(): string {
+        if (!this.appConfig) {
+            throw Error('Config file not loaded!');
+        }
+        return this.appConfig.authorizationHeader ?? 'Authorization';
+    }
+
     /**
      * @deprecated Use `${this.restUrl}/api/file-storage/${fileId}` to load files!
      */

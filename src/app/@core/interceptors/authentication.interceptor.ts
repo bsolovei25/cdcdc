@@ -4,17 +4,20 @@ import { HttpEvent, HttpInterceptor, HttpHandler, HttpRequest } from '@angular/c
 // RxJS
 import { Observable } from 'rxjs';
 import { AuthService } from '@core/service/auth.service';
+import { AppConfigService } from '../../services/appConfigService';
 // Local modules
 
 @Injectable({
     providedIn: 'root',
 })
 export class AuthenticationInterceptor implements HttpInterceptor {
-    constructor(private authService: AuthService) {}
 
-    private readonly authorizationHeader: string = 'AsPlatform-Authorization';
+    private authorizationHeader: string;
+
+    constructor(private authService: AuthService, private appConfigService: AppConfigService) { }
 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+
         if (req.url[req.url.length - 1] === '/') {
             req = req.clone({
                 url: req.url.slice(0, -1),
@@ -24,6 +27,14 @@ export class AuthenticationInterceptor implements HttpInterceptor {
         req = req.clone({
             url: encodeURI(req.url),
         });
+
+        if (!req.url.includes('/api')) {
+            return next.handle(req);
+        }
+
+        if (!this.authorizationHeader) {
+            this.authorizationHeader = this.appConfigService.authorizationHeader;
+        }
 
         if (req.headers.get(this.authorizationHeader)) {
             return next.handle(req);
