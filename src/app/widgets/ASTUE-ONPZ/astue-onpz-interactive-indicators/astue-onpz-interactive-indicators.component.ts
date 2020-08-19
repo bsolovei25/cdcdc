@@ -31,12 +31,12 @@ export class AstueOnpzInteractiveIndicatorsComponent extends WidgetPlatform
             },
             {
                 id: 3,
-                name: 'Температура',
+                name: 'Значение температуры',
                 icon: 'dsad',
             },
             {
                 id: 4,
-                name: 'Температура',
+                name: 'Значение давления',
                 icon: 'dsad',
             },
             {
