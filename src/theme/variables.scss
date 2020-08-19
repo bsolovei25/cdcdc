@@ -200,16 +200,16 @@
   --color-aps-gaude-back-line: #111626;
 
   // KPE font-color
-  --color-kpe-text-main: #D7E2F2;
+  --color-kpe-text-main: #d7e2f2;
   --color-kpe-text-sub: #606580;
-  --color-kpe-border-sub: #262A39;
+  --color-kpe-border-sub: #262a39;
 
   // KPE equalizer-chart
 
   --color-kpe-eq-chart-title: #d7e2f2;
   --color-kpe-eq-chart-area: #232532;
-  --color-kpe-eq-chart-row-default: #303549;
-  --color-kpe-eq-chart-row-over: #f7931e;
+  --color-kpe-eq-chart-day-normal: rgba(96, 101, 128, 0.1);
+  --color-kpe-eq-chart-day-active: rgba(0, 137, 255, 0.25);
 
   // KPE line-diagram
 
@@ -221,21 +221,99 @@
   --color-kpe-gaude-main: #d7e2f2;
   --color-kpe-gaude-additional: #606580;
   --color-kpe-gaude-active: #0089ff;
-  --color-kpe-gaude-deviation: #60647F;
+  --color-kpe-gaude-deviation: #60647f;
   --color-kpe-gaude-lines: #272a38;
   --color-kpe-gaude-back: #12151e;
   --color-kpe-gaude-unactive: #1c1f2b;
-  --color-kpe-gauge-tab-unactive: #4B5169;
+  --color-kpe-gauge-tab-unactive: #4b5169;
+  --color-kpe-gauge-circle: rgb(28, 31, 43);
+  --color-kpe-gauge-bg: rgb(20, 23, 33);
+  --color-kpe-gauge-tab-unactive: #4b5169;
+  --color-kpe-key-p-d-bg: rgb(23, 25, 37);
+  --color-kpe-key-p-d-bg-d: rgb(20, 22, 33);
+
+  // KPE energy
+  --color-kpe-energy-diagram-bg: rgb(21, 23, 33);
+
+  // KPE readiness
+  --color-kpe-deviation-diagram-circle-bg: rgb(20, 22, 33);
 
   // CD
-  --color-cd-bg-component: #151A29;
-  --color-cd-bg-border: #2A2E41;
-  --color-cd-bg-border-sub: #5A5F80;
-  --color-cd-text-sub: #8A97B0;
-  --color-cd-bg-btn-active: #11355F;
-  --color-cd-bg-row-table: #1C2132;
-  --color-cd-text-sub-2: #8A98B3;
-  --color-cd-select: #1B1F30;
+  --color-cd-bg-component: #151a29;
+  --color-cd-bg-border: #2a2e41;
+  --color-cd-bg-border-sub: #5a5f80;
+  --color-cd-text-sub: #8a97b0;
+  --color-cd-bg-btn-active: #11355f;
+  --color-cd-bg-row-table: #1c2132;
+  --color-cd-text-sub-2: #8a98b3;
+  --color-cd-select: #1b1f30;
+  --color-cd-warning: #fd911e;
+  --color-cd-new-bg-block: #13161f;
+  --color-cd-new-bg-border: #262a37;
+
+  // new
+  --color-gray80: #272a38;
+  --color-gray40: #8c99b2;
+
+  // ASTUE
+  --color-astue-tag-1: #9362d0;
+  --color-astue-onpz-bg-tag-1: #342c4c;
+  --color-astue-tag-2: #673ab7;
+  --color-astue-onpz-bg-tag-2: #2b2447;
+  --color-astue-tag-3: #8090f0;
+  --color-astue-onpz-bg-tag-3: #303652;
+  --color-astue-tag-4: #0f62fe;
+  --color-astue-onpz-bg-tag-4: #2b2447;
+  --color-astue-tag-5: #0089ff;
+  --color-astue-onpz-bg-tag-5: #163455;
+  --color-astue-tag-6: #039de0;
+  --color-astue-onpz-bg-tag-6: #17384f;
+  --color-astue-tag-7: #45c5fa;
+  --color-astue-onpz-bg-tag-7: #244054;
+  --color-astue-tag-8: #0ba4a4;
+  --color-astue-onpz-bg-tag-8: #193a43;
+  --color-astue-tag-9: #00bcd4;
+  --color-astue-onpz-bg-tag-9: #163e4d;
+  --color-astue-tag-10: #78a9ff;
+  --color-astue-onpz-bg-tag-10: #2e3b55;
+  --color-astue-tag-11: #8c99b2;
+  --color-astue-onpz-bg-tag-11: #323746;
+  --color-astue-tag-12: #606580;
+  --color-astue-onpz-bg-tag-12: #2a2d3c;
+
+  // SOU
+  --color-sou-bg: rgba(18, 21, 30, 0.5);
+  --color-sou-bg-header: rgba(39, 42, 56, 0.5);
+  --color-sou-border: rgba(96, 101, 128, 0.25);
+  --color-sou-button: rgba(48, 53, 73, 0.5);
+  --color-sou-bg-sup: #252836;
+  --color-sou-text-sub: #41435f;
+
+  // ASTUE-ONPZ
+  --color-astue-onpz-bg-header: #222431;
+  --color-astue-onpz-bg-card: rgba(18, 21, 30, 0.5);
+  --color-astue-onpz-button: #616580;
+  --color-astue-onpz-plan: #0089ff;
+  --color-astue-onpz-fact: #ffffff;
+  --color-astue-onpz-limit: #5c6585;
+  --color-astue-onpz-area: rgba(96, 101, 128, 0.1);
+  --color-astue-onpz-normal: #00a73d;
+  --color-astue-onpz-warning: #f7931e;
+  --color-astue-onpz-units: #606580;
+  --color-astue-onpz-bg-legend: #232737;
+  --color-astue-onpz-bg-header-table: #1f222e;
+  --color-astue-onpz-table-border: #252937;
+
+  --color-astue-onpz-bg-widget: #171a24;
+  --color-astue-onpz-border-widget: rgba(96, 101, 128, 0.25);
+  --color-astue-onpz-bg-scroll: #1f222e;
+
+  --color-astue-onpz-bg-axis-1: #1b1e2a;
+  --color-astue-onpz-bg-axis-2: none;
+
+  --color-astue-onpz-bg-data: #232737;
+  --color-astue-onpz-bg-data-icon: #303549;
+
   // @shared/alert-window (aw)
   --color-aw-container-shadow-transparent: rgba(0, 0, 0, 0.25);
   --color-aw-container-body-transparent: rgba(39, 43, 53, 0.75);
@@ -246,6 +324,17 @@
   // @shared/button (btn)
   --color-btn-rounded-border: #3fa9f5;
   --color-btn-rounded-disabled-transparent: rgba(255, 255, 255, 0.1);
+
+  // astue-onpz
+  --color-astue-onpz-header-bg: rgb(34, 36, 50);
+  --color-astue-border-main: #1e212e;
+  --color-astue-bg-main: rgba(24, 26, 36);
+  --color-astue-mat-select-border: rgba(92, 101, 133, 0.25);
+  --color-astue-mat-select-bg: rgb(20, 24, 36);
+  --color-astue-value-gr-start: rgba(255, 140, 0, 0.2);
+  --color-astue-onpz-btn: rgba(37, 39, 54);
+
+  --color-contemporary-header-bg: rgb(34, 36, 47);
 }
 
 $--color-active: #3fa9f5;

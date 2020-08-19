@@ -37,7 +37,7 @@
 }
 
 .wrapper {
-  background-color: var(--color-kpe-gaude-back);
+  background-color: var(--color-kpe-gauge-circle);
   height: 100%;
   width: 100%;
   display: flex;
@@ -71,12 +71,12 @@
 
     &__unit {
       width: 41px;
-      height: 16px;
-      background: var(--color-kpe-gaude-unactive);
+      height: 18px;
+      background: var(--color-sou-border);
       border-radius: 2px 0 0 2px;
 
       span {
-        color: var(--color-marker-diagram);
+        color: var(--color-kpe-gaude-additional);
       }
     }
 

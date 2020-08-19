@@ -4,7 +4,7 @@
     stroke: var(--color-kpe-gaude-active);
 
     &--deviation {
-      stroke: var(--color-kpe-eq-chart-row-over);
+      stroke: var(--color-cd-warning);
     }
 
     &__value {
@@ -35,7 +35,29 @@
     }
   }
 
-  &__modal {
+  &__modal--top-right {
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0.1s, opacity 0.1s linear;
+
+    &--visible {
+      visibility: visible;
+      opacity: 1;
+    }
+  }
+
+  &__modal--top-left {
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0.1s, opacity 0.1s linear;
+
+    &--visible {
+      visibility: visible;
+      opacity: 1;
+    }
+  }
+
+  &__modal--down-right {
     visibility: hidden;
     opacity: 0;
     transition: visibility 0.1s, opacity 0.1s linear;

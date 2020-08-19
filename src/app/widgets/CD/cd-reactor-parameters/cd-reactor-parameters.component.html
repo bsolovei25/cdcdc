@@ -1,5 +1,9 @@
 <div class="container pointer-event">
-  <evj-contemporary-widget-header [uniqId]="widgetUniqId" [widgetTitle]="widgetTitle" icon="parameter">
+  <evj-contemporary-widget-header
+    [uniqId]="widgetUniqId"
+    [widgetTitle]="widgetTitle"
+    icon="parameter"
+  >
   </evj-contemporary-widget-header>
   <div
     class="container-body"
@@ -8,130 +12,119 @@
   >
     <table class="table">
       <thead class="table__header">
-      <tr class="table__header__row">
-        <th *ngFor="let column of columnsToDisplay" class="table__header__column">
-          {{ column.name }}
-        </th>
-      </tr>
+        <tr class="table__header__row">
+          <th *ngFor="let column of columnsToDisplay" class="table__header__column">
+            {{ column.name }}
+          </th>
+        </tr>
       </thead>
       <tbody class="table__body">
-      <ng-container *ngFor="let element of dataSourceQuality">
-        <tr
-          class="table__body__row"
-          [class.last-tr]="element.productName === 'last-row'"
-          [class.table__body__row--active]="selectedRowProduct === element.id"
-        >
-          <ng-container *ngIf="element.productName !== 'last-row'">
-            <td
-              class="table__body__column"
-              [class.table__body__column--active]="selectedRowProduct === element.id"
-              (click)="onClickRow($event, element)"
-              colspan="3"
-            >
-              <div
-                (click)="onClickRow($event, element)"
-                class="table__body__column__row-title"
-                [class.table__body__column__row-title__border-active]="selectedRowProduct === element.id"
-              >
-                <svg-icon
-                  class="table__body__column__row-title__icon"
-                  (click)="onClickTr($event, element)"
-                  [class.table__body__column__row-title__icon--active]="expandedElement.isSelected(element.id)"
-                  src="assets/icons/widgets/APS/aps-gantt-chart/plus.svg"
-                >
-                </svg-icon>
-
-                <svg-icon
-                  *ngIf="selectedRowProduct === element.id; else elseBlock"
-                  class="table__body__column__row-title__icon__background"
-                  src="assets/icons/widgets/APS/aps-recipe-diagram/gradient-blue.svg"
-                >
-                </svg-icon>
-                <span class="table__body__column__row-title">
-                  <span class="table__body__column__row-title__text__name"
-                  >{{ element.productName }}
-                </span>
-                <span class="table__body__column__row-title__text__name__value-right">Отклонений 0
-                </span>
-                </span>
-
-                <ng-template #elseBlock>
-
-                </ng-template>
-
-              </div>
-            </td>
-          </ng-container>
-        </tr>
-        <ng-container *ngFor="let elementChildren of element.children;  index as i;">
+        <ng-container *ngFor="let element of data">
           <tr
-            *ngIf="expandedElement.isSelected(element.id)"
-            class="table__body__row expanded-row"
-            (click)="onClickRow($event, elementChildren)"
+            class="table__body__row"
+            [class.last-tr]="element.unit.name === 'last-row'"
+            [class.table__body__row--active]="selectedRowProduct === element.unit.name"
           >
-            <td
-              *ngFor="let column of columnsToDisplay"
-              class="expanded-column table__body__column table__body__column__children"
-              [class.table__body__column__children--active]="selectedRowProduct === elementChildren.id"
-            >
-              <div
-                *ngIf="column.name === 'Параметры'"
-                class="table__body__column__row-title table__body__column__row-title-children"
-                [class.opacity]="selectedRow.isSelected(element.productName) && this.selectedRowProduct"
+            <ng-container *ngIf="element.unit.name !== 'last-row'">
+              <td
+                class="table__body__column"
+                [class.table__body__column--active]="selectedRowProduct === element.unit.name"
+                (click)="onClickRow($event, element)"
+                colspan="3"
               >
-                <svg-icon
-                  *ngIf="selectedRowProduct !== elementChildren.id"
-                  [svgStyle]="{'height.px':'43', 'width.px': '21.3'}"
-                  class="table__body__column__row-title-children__left-block--first"
-                  src="assets/icons/widgets/APS/aps-recipe-diagram/left-row-block-recipe.svg"
+                <div
+                  (click)="onClickRow($event, element.unit)"
+                  class="table__body__column__row-title"
+                  [class.table__body__column__row-title__border-active]="selectedRowProduct === element.unit.name"
                 >
-                </svg-icon>
-                <svg-icon
-                  *ngIf="selectedRowProduct === elementChildren.id"
-                  [svgStyle]="{'height.px':'43', 'width.px': '21.3'}"
-                  class="table__body__column__row-title-children__left-block--first"
-                  src="assets/icons/widgets/APS/aps-recipe-diagram/left-row-block-active-recipe.svg"
-                >
-                </svg-icon>
-                <!--  <svg-icon
-                    *ngIf="selectedRowProduct === elementChildren.id"
-                    [svgStyle]="{'height.px':'28'}"
-                    class="table__body__column__row-title__icon__background-children"
-                    src="assets/icons/widgets/APS/aps-recipe-diagram/gradient-grey.svg"
+                  <svg-icon
+                    class="table__body__column__row-title__icon"
+                    (click)="onClickTr($event, element.unit)"
+                    [class.table__body__column__row-title__icon--active]="expandedElement.isSelected(element.unit.name)"
+                    src="assets/icons/widgets/APS/aps-gantt-chart/plus.svg"
                   >
-                  </svg-icon>-->
+                  </svg-icon>
 
+                  <svg-icon
+                    *ngIf="selectedRowProduct === element.unit.name; else elseBlock"
+                    class="table__body__column__row-title__icon__background"
+                    src="assets/icons/widgets/APS/aps-recipe-diagram/gradient-blue.svg"
+                  >
+                  </svg-icon>
+                  <span class="table__body__column__row-title">
+                    <span class="table__body__column__row-title__text__name"
+                      >{{ element.unit.name }}
+                    </span>
+                    <span class="table__body__column__row-title__text__name__value-right"
+                      >Отклонений {{ deviationCount(element) }}
+                    </span>
+                  </span>
 
-                <span
-                  class="table__body__column__row-title__text"
-                  [class.table__body__column__row-title--no-active]="selectedRow.isSelected(element.productName)"
-                >{{ elementChildren.productName }}</span>
-                <span
-                  class="table__body__column__row-title__text"
-                  [class.table__body__column__row-title--no-active]="selectedRow.isSelected(element.productName)"
-                >°С</span>
-              </div>
-              <ng-container *ngIf="column.name !== 'Параметры'">
-                <ng-container *ngFor="let valueColumn of searchValue(elementChildren?.values, column)">
-                 <span
-                   [class.table__body__column__row-title__value]="element.deviationQuality === 1 && selectedRowProduct === element.id"
-                 >{{element.productDeviation.toFixed(0) }}</span
-                 >
-                </ng-container>
-                <svg-icon
-                  *ngIf="element.deviationQuality === 1 && selectedRowProduct === element.id"
-                  class="table__body__column__row-title__icon__background--orange"
-                  src="assets/icons/widgets/APS/aps-recipe-diagram/gradient-orange.svg"
-                >
-                </svg-icon>
-              </ng-container>
-            </td>
+                  <ng-template #elseBlock> </ng-template>
+                </div>
+              </td>
+            </ng-container>
           </tr>
-
+          <ng-container *ngFor="let elementChildren of element.unitParams;  index as i;">
+            <tr
+              *ngIf="expandedElement.isSelected(element.unit.name)"
+              class="table__body__row expanded-row"
+              (click)="onClickRow($event, elementChildren)"
+            >
+              <td
+                *ngFor="let column of columnsToDisplay"
+                class="expanded-column table__body__column table__body__column__children"
+                [class.table__body__column__children--active]="selectedRowProduct === elementChildren.name"
+                [class.table__body__column__children--deviation]="selectedRowProduct === elementChildren.name && selectedRowProduct === elementChildren.name"
+                [matTooltip]="elementChildren?.name"
+              >
+                <div
+                  *ngIf="column.name === 'Параметры'"
+                  class="table__body__column__row-title table__body__column__row-title-children"
+                  [class.opacity]="selectedRow.isSelected(element.unit.name) && this.selectedRowProduct"
+                >
+                  <svg-icon
+                    *ngIf="elementChildren.deviation === 1 && selectedRowProduct === elementChildren.name"
+                    class="table__body__column__row-title__icon__background--orange"
+                    src="assets/icons/widgets/APS/aps-recipe-diagram/gradient-orange.svg"
+                  >
+                  </svg-icon>
+                  <svg-icon
+                    *ngIf="selectedRowProduct !== elementChildren.name"
+                    [svgStyle]="{'height.px':'43', 'width.px': '21.3'}"
+                    class="table__body__column__row-title-children__left-block--first"
+                    src="assets/icons/widgets/APS/aps-recipe-diagram/left-row-block-recipe.svg"
+                  >
+                  </svg-icon>
+                  <svg-icon
+                    *ngIf="selectedRowProduct === elementChildren.name"
+                    [svgStyle]="{'height.px':'43', 'width.px': '21.3'}"
+                    class="table__body__column__row-title-children__left-block--first"
+                    src="assets/icons/widgets/APS/aps-recipe-diagram/left-row-block-active-recipe.svg"
+                  >
+                  </svg-icon>
+                  <span
+                    class="table__body__column__row-title__text"
+                    [class.table__body__column__row-title--no-active]="selectedRow.isSelected(element.unit.name)"
+                    >{{ elementChildren.name }}</span
+                  >
+                  <span
+                    class="table__body__column__row-title__engUnit"
+                    [class.table__body__column__row-title--no-active]="selectedRow.isSelected(element.unit.name)"
+                    >{{elementChildren.engUnits}}</span
+                  >
+                </div>
+                <ng-container *ngIf="column.name === 'Факт'">
+                  <span>{{elementChildren.value.toFixed(0) }}</span>
+                </ng-container>
+                <ng-container *ngIf="column.name === 'Модель'">
+                  <span>{{elementChildren.modelValue.toFixed(0) }}</span>
+                </ng-container>
+              </td>
+            </tr>
+          </ng-container>
         </ng-container>
-      </ng-container>
       </tbody>
     </table>
   </div>
 </div>
-

@@ -191,7 +191,7 @@ export type EventsWidgetNotificationPriority = 'danger' | 'warning' | 'standard'
 
 export type EventsWidgetNotificationStatus = 'new' | 'inWork' | 'closed';
 
-export type EventsWidgetFilterCode = 'all' | 'inWork' | 'closed';
+export type EventsWidgetFilterCode = 'all' | 'inWork' | 'closed' | 'isNotAcknowledged';
 
 export type EventsWidgetCategoryCode =
     | 'smotr'
@@ -200,7 +200,10 @@ export type EventsWidgetCategoryCode =
     | 'equipmentStatus'
     | 'drops'
     | 'asus'
-    | 'ejs';
+    | 'modelCalculations' // cd
+    | 'ejs'
+    | 'indicators'
+    | 'resources';
 
 export type AuthenticationType = 'bearer' | 'windows';
 
@@ -296,6 +299,8 @@ export interface EventsWidgetCategory {
     name?: string;
     isActive?: boolean;
     url?: string;
+
+    categoryType?: 'default' | 'ed';
 }
 
 export interface EventsWidgetNotificationsCounter {

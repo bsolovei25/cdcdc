@@ -10,23 +10,26 @@ import { newArray } from '@angular/compiler/src/util';
 export class KpeEnergyDiagramComponent implements OnInit {
 
     private readonly defaultImg: string = '';
-    private readonly tickDensity: number = 40 / 133.33;
+    private readonly diagramCounter: number = 133.33;
+    private readonly tickDensity: number = 90 / this.diagramCounter;
 
     @ViewChild('chart') chart: ElementRef;
 
-    @Input() value: number = 110;
+    @Input() fact: number = 110;
+    @Input() plan: number = 100;
     @Input() img: string = this.defaultImg;
 
     ngOnInit(): void {
-        this.checkData();
-        const mainValue = this.value > 100 ? 100 : this.value;
-        const subValue = this.value > 100 ? this.value - 100 : 0;
+        this.dataHandler();
+        const mainValue = this.fact > this.plan
+            ? this.plan / this.fact * 100
+            : this.fact / this.plan * 100;
+        const subValue = Math.abs(this.fact - this.plan);
         setTimeout(() => this.bindChart(mainValue, subValue));
     }
 
-    private checkData(): void {
+    private dataHandler(): void {
         this.img = this.img?.length > 0 ? this.img : this.defaultImg;
-        this.value = this.value > 100 / 3 * 4 ? 100 / 3 * 4 : this.value < 0 ? 0 : this.value;
     }
 
     private getTick(percent: number): number {
@@ -39,7 +42,7 @@ export class KpeEnergyDiagramComponent implements OnInit {
 
         const width = 75;
         const height = 75;
-        const diagramWidth = 5;
+        const diagramWidth = 4;
 
         const outerRadius = width / 2 - 2;
         const innerRadius = outerRadius - diagramWidth;
@@ -51,14 +54,13 @@ export class KpeEnergyDiagramComponent implements OnInit {
                 .value(1);
         }
 
-        const backPie = createPie(Math.PI, 5 / 2 * Math.PI);
-        const mainPie = createPie(-Math.PI, 2 * Math.PI * mainValue / 133 - Math.PI);
-        const subPie = createPie(Math.PI / 2, 2 * Math.PI * subValue / 133 + Math.PI / 2);
+        const mainPie = createPie(-Math.PI, 2 * Math.PI * mainValue / this.diagramCounter - Math.PI);
+        const subPie = createPie(2 * Math.PI * mainValue / this.diagramCounter - Math.PI, Math.PI / 2);
 
         const arc: d3.Arc = d3.arc()
             .outerRadius(outerRadius)
             .innerRadius(innerRadius)
-            .padAngle(0.05);
+            .padAngle(0.025);
 
         const svg = d3.select(this.chart.nativeElement).append('svg')
             .attr('width', width)
@@ -76,16 +78,12 @@ export class KpeEnergyDiagramComponent implements OnInit {
                 .attr('d', arc);
         }
 
-        if (subValue > 0) {
-            drawDiagram('sub', () => subPie(newArray(tickSub)));
-        } else {
-            drawDiagram('back', () => backPie([null]));
-        }
-        drawDiagram(subValue > 0 ? 'main-warning' : 'main', () => mainPie(newArray(tickMain)));
+        drawDiagram('sub', () => subPie(this.fact > this.plan ? [null] : newArray(tickSub)));
+        drawDiagram('main', () => mainPie(newArray(tickMain)));
 
-        function addSerif(angle: number, className: 'serif-static' | 'serif-dynamic'): void {
+        function addSerif(angle: number, className: 'serif-active' | 'serif-warning'): void {
             const lineOut = 2;
-            const lineWidth = 3;
+            const lineWidth = 2;
             svg.append('g')
                 .attr('class', className)
                 .selectAll('.needle')
@@ -100,9 +98,66 @@ export class KpeEnergyDiagramComponent implements OnInit {
                 .style('stroke-width', lineWidth);
         }
 
-        addSerif(Math.PI / 2, 'serif-static');
-        addSerif(0, 'serif-static');
+        addSerif(Math.PI / 2, 'serif-active');
+        addSerif(0, this.fact > this. plan ?  'serif-warning' : 'serif-active');
 
-        addSerif(2 * Math.PI * this.value / 133 + Math.PI / 2, 'serif-dynamic');
+        addSerif(2 * Math.PI * mainValue / this.diagramCounter + Math.PI / 2, this.fact >= this. plan ? 'serif-active' : 'serif-warning');
+
+        function drawCircle(r: number, className: string): void {
+            svg.append('circle')
+                .attr('r', r)
+                .attr('class', className);
+        }
+
+        const circleRad = 18;
+
+        const shadowGradient = svg.append('defs').append('linearGradient')
+            .attr('id', 'gradient')
+            .attr('x1', '0%')
+            .attr('x2', '0%')
+            .attr('y1', '0%')
+            .attr('y2', '100%')
+            .attr('spreadMethod', 'pad');
+
+        shadowGradient.append('svg:stop')
+            .attr('offset', '0%')
+            .attr('class', 'needle-shadow-gradient-1');
+
+        shadowGradient.append('svg:stop')
+            .attr('offset', '100%')
+            .attr('class', 'needle-shadow-gradient-2');
+
+        const shadow = d3.arc()
+            .innerRadius(circleRad)
+            .outerRadius(innerRadius - 2)
+            .startAngle(-0.5 * Math.PI)
+            .endAngle(-0.008 * Math.PI);
+
+        const arrowAngle = (-175 + 270 * mainValue / this.diagramCounter);
+
+        const needleShadow = svg
+            .append('path')
+            .attr('d', shadow)
+            .attr(`transform`, `rotate(${arrowAngle})`)
+            .style('fill', 'url(#gradient)');
+
+        const hideDownSector = d3.arc()
+            .innerRadius(circleRad)
+            .outerRadius(outerRadius)
+            .startAngle(-0.49 * Math.PI)
+            .endAngle(-0.01 * Math.PI);
+
+        svg.append('path')
+            .attr('d', hideDownSector)
+            .attr(`transform`, `rotate(180)`)
+            .attr('class', 'kpe-energy-hide-down-sector');
+
+        const needle = svg
+            .append('path')
+            .attr('class', 'needle')
+            .attr('d', 'M-3 0 L-1 -30 L1 0 S3 5 0 5 S-3 5 -3 0 Z') // стрелка
+            .attr(`transform`, `rotate(${arrowAngle})`);
+
+        drawCircle(circleRad, 'needle-hover-circle');
     }
 }

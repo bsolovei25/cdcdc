@@ -16,7 +16,7 @@ export class ContemporaryWidgetHeaderComponent implements OnInit, OnDestroy {
     @Input() public additionalMenuItems: IApsWidgetHeaderMenu[] = [
         // { title: 'Настройки', action: () => null },
     ];
-    @Input() public kpeFlag: boolean = false;
+    @Input() public type: 'kpe' | 'astue' | null = null;
 
     public isMenuOpen: boolean = false;
     public claimWidgets: EnumClaimWidgets[] = [];

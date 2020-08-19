@@ -54,7 +54,7 @@ export class LineChartComponent extends WidgetPlatform implements OnInit, OnDest
     private readonly trendsStyle: any = {
         plan: {
             point: {
-                iconUrl: './assets/icons/widgets/line-chart/point-plan.svg',
+                iconUrl: 'assets/icons/widgets/line-chart/point-plan.svg',
                 width: 6,
                 height: 6,
                 widthOffset: -3,
@@ -67,7 +67,7 @@ export class LineChartComponent extends WidgetPlatform implements OnInit, OnDest
         },
         fact: {
             point: {
-                iconUrl: './assets/icons/widgets/line-chart/point-fact.svg',
+                iconUrl: 'assets/icons/widgets/line-chart/point-fact.svg',
                 width: 8,
                 height: 8,
                 widthOffset: -4,
@@ -80,7 +80,7 @@ export class LineChartComponent extends WidgetPlatform implements OnInit, OnDest
         },
         deviation: {
             point: {
-                iconUrl: './assets/icons/widgets/line-chart/point-deviation.svg',
+                iconUrl: 'assets/icons/widgets/line-chart/point-deviation.svg',
                 width: 9.2,
                 height: 8,
                 widthOffset: -4.6,
@@ -90,7 +90,7 @@ export class LineChartComponent extends WidgetPlatform implements OnInit, OnDest
         },
         lowerLimit: {
             point: {
-                iconUrl: './assets/icons/widgets/line-chart/point-deviation.svg',
+                iconUrl: 'assets/icons/widgets/line-chart/point-deviation.svg',
                 width: 9.2,
                 height: 8,
                 widthOffset: -4.6,
@@ -103,7 +103,7 @@ export class LineChartComponent extends WidgetPlatform implements OnInit, OnDest
         },
         upperLimit: {
             point: {
-                iconUrl: './assets/icons/widgets/line-chart/point-deviation.svg',
+                iconUrl: 'assets/icons/widgets/line-chart/point-deviation.svg',
                 width: 9.2,
                 height: 8,
                 widthOffset: -4.6,

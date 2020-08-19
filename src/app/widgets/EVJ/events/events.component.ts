@@ -3,12 +3,12 @@ import {
     EventsWidgetCategory,
     EventsWidgetCategoryCode,
     EventsWidgetNotificationPreview,
-    IEventsWidgetOptions
+    IEventsWidgetOptions,
 } from '../../../dashboard/models/events-widget';
 import { EventsWidgetFilter } from '../../../dashboard/models/events-widget';
 import {
     EventsWidgetNotification,
-    EventsWidgetNotificationStatus
+    EventsWidgetNotificationStatus,
 } from '../../../dashboard/models/events-widget';
 import { WidgetService } from '../../../dashboard/services/widget.service';
 import { UserSettingsService } from '../../../dashboard/services/user-settings.service';
@@ -21,6 +21,7 @@ import { EventsWorkspaceService } from '../../../dashboard/services/widgets/even
 import { IAlertWindowModel } from '@shared/models/alert-window.model';
 import { BehaviorSubject } from 'rxjs';
 import { WidgetSettingsService } from '../../../dashboard/services/widget-settings.service';
+import { ClaimService, EnumClaimWidgets } from '../../../dashboard/services/claim.service';
 
 export interface IEventSettings {
     viewType: 'list' | 'cards';
@@ -29,7 +30,7 @@ export interface IEventSettings {
 @Component({
     selector: 'evj-events',
     templateUrl: './events.component.html',
-    styleUrls: ['./events.component.scss', './cd-events.component.scss']
+    styleUrls: ['./events.component.scss', './cd-events.component.scss'],
 })
 export class EventsComponent extends WidgetPlatform implements OnInit, OnDestroy {
     @ViewChild(CdkVirtualScrollViewport) viewport: CdkVirtualScrollViewport;
@@ -39,14 +40,19 @@ export class EventsComponent extends WidgetPlatform implements OnInit, OnDestroy
     @HostListener('document:resize', ['$event'])
     OnResize(): void {
         this.countNotificationsDivCapacity();
+        this.getData();
     }
+
+    public claimWidgets: EnumClaimWidgets[] = [];
+    public EnumClaimWidgets: typeof EnumClaimWidgets = EnumClaimWidgets;
 
     isList: boolean = false;
     selectedId: number = 0;
     eventOverlayId: number;
 
-    public eventAlertInfo$: BehaviorSubject<IAlertWindowModel> =
-        new BehaviorSubject<IAlertWindowModel>(null);
+    public eventAlertInfo$: BehaviorSubject<IAlertWindowModel> = new BehaviorSubject<
+        IAlertWindowModel
+    >(null);
 
     private isAllowScrollLoading: boolean = true;
 
@@ -56,67 +62,126 @@ export class EventsComponent extends WidgetPlatform implements OnInit, OnDestroy
 
     public placeNames: string[] = [];
 
-    public categories: EventsWidgetCategory[] = [
+    public categories: EventsWidgetCategory[] = [];
+
+    public readonly categoriesAll: EventsWidgetCategory[] = [
         {
             id: 1001,
             code: 'smotr',
-            iconUrl: './assets/icons/widgets/events/smotr.svg',
+            iconUrl: 'assets/icons/widgets/events/smotr.svg',
             notificationsCounts: {
                 open: 0,
-                all: 0
+                all: 0,
             },
             name: 'СМОТР',
             isActive: false,
-            url: 'https://spb25-cce-mo1.gazprom-neft.local/BLPS_MO/ru_RU/'
+            url: 'https://spb25-cce-mo1.gazprom-neft.local/BLPS_MO/ru_RU/',
+            categoryType: 'default',
         },
         {
             id: 1002,
             code: 'safety',
-            iconUrl: './assets/icons/widgets/events/safety.svg',
+            iconUrl: 'assets/icons/widgets/events/safety.svg',
             notificationsCounts: {
                 open: 0,
-                all: 0
+                all: 0,
             },
             name: 'Безопасноть',
             isActive: false,
-            url: '#'
+            url: '#',
+            categoryType: 'default',
         },
         {
             id: 1003,
             code: 'tasks',
-            iconUrl: './assets/icons/widgets/events/tasks.svg',
+            iconUrl: 'assets/icons/widgets/events/tasks.svg',
             notificationsCounts: {
                 open: 0,
-                all: 0
+                all: 0,
             },
             name: 'Производственные задания',
             isActive: false,
-            url: '#'
+            url: '#',
+            categoryType: 'default',
         },
         {
             id: 1004,
             code: 'equipmentStatus',
-            iconUrl: './assets/icons/widgets/events/status.svg',
+            iconUrl: 'assets/icons/widgets/events/status.svg',
             notificationsCounts: {
                 open: 0,
-                all: 0
+                all: 0,
             },
             name: 'Состояния оборудования',
             isActive: false,
-            url: 'http://spb99-t-merap01/meridium'
+            url: 'http://spb99-t-merap01/meridium',
+            categoryType: 'default',
         },
         {
             id: 1005,
             code: 'drops',
-            iconUrl: './assets/icons/widgets/events/drops.svg',
+            iconUrl: 'assets/icons/widgets/events/drops.svg',
             notificationsCounts: {
                 open: 0,
-                all: 0
+                all: 0,
             },
             name: 'Сбросы',
             isActive: false,
-            url: '#'
-        }
+            url: '#',
+            categoryType: 'default',
+        },
+        {
+            id: 9991,
+            code: 'safety',
+            iconUrl: 'assets/icons/widgets/events/safety.svg',
+            notificationsCounts: {
+                open: 0,
+                all: 0,
+            },
+            name: 'Безопасность',
+            isActive: false,
+            url: '#',
+            categoryType: 'ed',
+        },
+        {
+            id: 9992,
+            code: 'indicators',
+            iconUrl: 'assets/icons/widgets/events/indicators.svg',
+            notificationsCounts: {
+                open: 0,
+                all: 0,
+            },
+            name: 'Производственные показатели',
+            isActive: false,
+            url: '#',
+            categoryType: 'ed',
+        },
+        {
+            id: 9993,
+            code: 'resources',
+            iconUrl: 'assets/icons/widgets/events/resources.svg',
+            notificationsCounts: {
+                open: 0,
+                all: 0,
+            },
+            name: 'Вспомогательные ресурсы',
+            isActive: false,
+            url: '#',
+            categoryType: 'ed',
+        },
+        {
+            id: 9994,
+            code: 'tasks',
+            iconUrl: 'assets/icons/widgets/events/tasks.svg',
+            notificationsCounts: {
+                open: 0,
+                all: 0,
+            },
+            name: 'Производственные задания',
+            isActive: false,
+            url: '#',
+            categoryType: 'ed',
+        },
     ];
 
     public notifications: EventsWidgetNotificationPreview[] = [];
@@ -127,53 +192,61 @@ export class EventsComponent extends WidgetPlatform implements OnInit, OnDestroy
             code: 'all',
             name: 'Все',
             notificationsCount: 0,
-            isActive: true
+            isActive: true,
         },
         {
             id: 3002,
             code: 'closed',
             name: 'Отработано',
             notificationsCount: 0,
-            isActive: false
+            isActive: false,
         },
         {
             id: 3003,
             code: 'inWork',
             name: 'В работе',
             notificationsCount: 0,
-            isActive: false
-        }
+            isActive: false,
+        },
+        {
+            id: -100,
+            code: 'isNotAcknowledged',
+            name: 'Неквитировано',
+            notificationsCount: 0,
+            isActive: false,
+        },
     ];
 
     public iconStatus: { name: string; iconUrl: string }[] = [
         {
             name: 'inWork',
-            iconUrl: './assets/icons/widgets/process/in-work.svg'
+            iconUrl: 'assets/icons/widgets/process/in-work.svg',
         },
         {
             name: 'closed',
-            iconUrl: './assets/icons/widgets/process/closed.svg'
+            iconUrl: 'assets/icons/widgets/process/closed.svg',
         },
         {
             name: 'new',
-            iconUrl: './assets/icons/widgets/process/in-work.svg'
-        }
+            iconUrl: 'assets/icons/widgets/process/in-work.svg',
+        },
     ];
 
     public statuses: { [id in EventsWidgetNotificationStatus]: string } = {
         new: 'Новое',
         inWork: 'В работе',
-        closed: 'Завершено'
+        closed: 'Завершено',
     };
 
     isCDEvents: boolean = false;
 
-    private readonly defaultIconPath: string = './assets/icons/widgets/events/smotr.svg';
+    private readonly defaultIconPath: string = 'assets/icons/widgets/events/smotr.svg';
 
     constructor(
         private eventService: EventService,
         private ewService: EventsWorkspaceService,
         private snackBarService: SnackBarService,
+        private claimService: ClaimService,
         public userSettings: UserSettingsService,
         public widgetService: WidgetService,
         private widgetSettingsService: WidgetSettingsService,
@@ -187,6 +260,11 @@ export class EventsComponent extends WidgetPlatform implements OnInit, OnDestroy
 
     public ngOnInit(): void {
         super.widgetInit();
+        this.subscriptions.push(
+            this.claimService.claimWidgets$.subscribe((data) => {
+                this.claimWidgets = data;
+            })
+        );
     }
 
     public ngOnDestroy(): void {
@@ -195,9 +273,16 @@ export class EventsComponent extends WidgetPlatform implements OnInit, OnDestroy
 
     protected async dataConnect(): Promise<void> {
         super.dataConnect();
-        if (this.widgetType === 'cd-events') {
-            this.isCDEvents = true;
+        let filterCondition: 'default' | 'ed' = 'default';
+        switch (this.widgetType) {
+            case 'events-ed':
+                filterCondition = 'ed';
+                break;
+            case 'cd-events':
+                this.isCDEvents = true;
+                break;
         }
+        this.categories = this.categoriesAll.filter((cat) => cat.categoryType === filterCondition);
         this.placeNames = await this.eventService.getPlaces(this.id);
         this.subscriptions.push(
             this.widgetService.currentDates$.subscribe((ref) => {
@@ -211,11 +296,12 @@ export class EventsComponent extends WidgetPlatform implements OnInit, OnDestroy
         await this.getWidgetSettings();
     }
 
-    protected dataHandler(
-        ref: { notification: EventsWidgetNotificationPreview, action: string }
-    ): void {
+    protected dataHandler(ref: {
+        notification: EventsWidgetNotificationPreview;
+        action: string;
+    }): void {
         if (
-            !(this.placeNames.find((place) => place === ref.notification?.unit?.name)) &&
+            !this.placeNames.find((place) => place === ref.notification?.unit?.name) &&
             ref.action !== 'delete'
         ) {
             return;
@@ -246,8 +332,10 @@ export class EventsComponent extends WidgetPlatform implements OnInit, OnDestroy
         if (!params?.viewType) {
             return;
         }
-        if ((params.viewType === 'cards' && !this.isList) ||
-            (params.viewType === 'list' && this.isList)) {
+        if (
+            (params.viewType === 'cards' && !this.isList) ||
+            (params.viewType === 'list' && this.isList)
+        ) {
             return;
         }
         if (params.viewType === 'cards') {
@@ -271,13 +359,18 @@ export class EventsComponent extends WidgetPlatform implements OnInit, OnDestroy
     }
 
     private countNotificationsDivCapacity(): void {
-        const notificationsDivCapacity = Math.trunc(this.notificationsDiv?.nativeElement?.clientWidth / 383);
-        this.notificationsGrouped = this.sortArray(this.notifications, this.isList ? notificationsDivCapacity : 1);
+        const notificationsDivCapacity = Math.trunc(
+            this.notificationsDiv?.nativeElement?.clientWidth / 383
+        );
+        this.notificationsGrouped = this.sortArray(
+            this.notifications,
+            this.isList ? notificationsDivCapacity : 1
+        );
     }
 
     private getCurrentOptions(): IEventsWidgetOptions {
         const options: IEventsWidgetOptions = {
-            categories: this.categories.filter((c) => c.isActive).map((c) => c.id),
+            categories: this.categories.filter((c) => c.isActive)?.map((c) => c.id),
             filter: this.filters.find((f) => f.isActive).code,
             dates: this.widgetService.currentDates$.getValue(),
             placeNames: this.placeNames,
@@ -344,8 +437,8 @@ export class EventsComponent extends WidgetPlatform implements OnInit, OnDestroy
                 .filter((n) => n.category && n.category.name)
                 .map((n) => {
                     const iconUrl = this.getNotificationIcon(n.category.name);
-                    const iconUrlStatus = this.getStatusIcon(n.status.name);
-                    const statusName = this.statuses[n.status.name]; // TODO check
+                    const iconUrlStatus = this.getStatusIcon(n.status?.name);
+                    const statusName = n.status?.name ? this.statuses[n.status.name] : ''; // TODO check
                     return { ...n, iconUrl, statusName, iconUrlStatus };
                 });
             this.notifications = this.notifications.concat(notifications);
@@ -386,7 +479,7 @@ export class EventsComponent extends WidgetPlatform implements OnInit, OnDestroy
             cancelText: 'Нет',
             acceptFunction: () => this.deleteNotification(id),
             closeFunction: () => this.eventAlertInfo$.next(null),
-            cancelFunction: () => this.snackBarService.openSnackBar(`Удаление отменено!`)
+            cancelFunction: () => this.snackBarService.openSnackBar(`Удаление отменено!`),
         };
         this.eventAlertInfo$.next(info);
     }
@@ -406,7 +499,6 @@ export class EventsComponent extends WidgetPlatform implements OnInit, OnDestroy
         } catch (error) {
             console.error(error);
         }
-
     }
 
     // Переход в систему источник
@@ -430,7 +522,10 @@ export class EventsComponent extends WidgetPlatform implements OnInit, OnDestroy
         return this.selectedId === id || this.eventOverlayId === id;
     }
 
-    public sortArray(arr: EventsWidgetNotificationPreview[], n: number): EventsWidgetNotificationPreview[][] {
+    public sortArray(
+        arr: EventsWidgetNotificationPreview[],
+        n: number
+    ): EventsWidgetNotificationPreview[][] {
         let i = 0;
         const result = [];
         let temp = [];
@@ -467,10 +562,10 @@ export class EventsComponent extends WidgetPlatform implements OnInit, OnDestroy
         this.categories.forEach((c) => {
             c.notificationsCounts.all = stats.statsByCategory.find(
                 (sc) => sc.category.id === c.id
-            ).totalCount;
+            )?.totalCount;
             c.notificationsCounts.open = stats.statsByCategory.find(
                 (sc) => sc.category.id === c.id
-            ).unclosedCount;
+            )?.unclosedCount;
         });
         this.filters.forEach((f) => {
             switch (f.code) {
@@ -490,6 +585,11 @@ export class EventsComponent extends WidgetPlatform implements OnInit, OnDestroy
                 case 'inWork':
                     f.notificationsCount = stats.statsByStatus.find(
                         (sf) => sf.status.id === 3002
+                    ).count;
+                    break;
+                case 'isNotAcknowledged':
+                    f.notificationsCount = stats.statsByStatus.find(
+                        (sf) => sf.status.id === -100
                     ).count;
                     break;
             }

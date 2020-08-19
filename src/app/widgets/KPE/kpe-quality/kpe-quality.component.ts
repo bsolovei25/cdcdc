@@ -1,10 +1,11 @@
 import { Component, OnInit, Inject, OnDestroy, ViewChild, ElementRef } from '@angular/core';
 import { WidgetPlatform } from '../../../dashboard/models/widget-platform';
 import { WidgetService } from '../../../dashboard/services/widget.service';
-import * as d3 from 'd3';
 import { HttpClient } from '@angular/common/http';
 import { IProductionTrend } from '../../../dashboard/models/production-trends.model';
 import { IKpeGaudeData } from '../shared/kpe-gaude-chart/kpe-gaude-chart.component';
+import { IDeviationDiagramData } from '../shared/kpe-deviation-diagram/kpe-deviation-diagram.component';
+import { IBarDiagramData } from '../shared/kpe-equalizer-chart/kpe-equalizer-chart.component';
 
 @Component({
     selector: 'evj-kpe-quality',
@@ -12,13 +13,17 @@ import { IKpeGaudeData } from '../shared/kpe-gaude-chart/kpe-gaude-chart.compone
     styleUrls: ['./kpe-quality.component.scss'],
 })
 export class KpeQualityComponent extends WidgetPlatform implements OnInit, OnDestroy {
-    data;
+    public data: any;
 
     public lineChartData: IProductionTrend[] = [];
 
-    margin = { top: 20, right: 20, bottom: 30, left: 40 };
+    public margin = { top: 20, right: 20, bottom: 30, left: 40 };
 
     public gaudeData: IKpeGaudeData = null;
+
+    public deviationChartData: IDeviationDiagramData[] = [];
+
+    public equalizerData: IBarDiagramData[] = [];
 
     constructor(
         private hostElement: ElementRef,
@@ -31,36 +36,35 @@ export class KpeQualityComponent extends WidgetPlatform implements OnInit, OnDes
         super(widgetService, isMock, id, uniqId);
     }
 
-    ngOnInit(): void {
+    public ngOnInit(): void {
         super.widgetInit();
         this.http
-            .get('assets/mock/KPE/kpe-trends.json')
+            .get('assets/mock/KPE/deviation-chart.json')
             .toPromise()
-            .then((data: { data: IProductionTrend[] }) => {
-                this.lineChartData = data.data;
-                this.lineChartData.forEach((item) =>
-                    item.graph.forEach((chart) => {
-                        chart.timeStamp = new Date(chart.timeStamp);
-                    })
-                );
+            .then((data: IDeviationDiagramData[]) => {
+                this.deviationChartData = data;
             });
+
         this.http
-            .get('assets/mock/KPE/kpe-gaude.json')
+            .get('assets/mock/KPE/equalizer-chart.json')
             .toPromise()
-            .then((data: { gaude: IKpeGaudeData[] }) => {
-                let counter: number = 0;
-                setInterval(() => {
-                    if (counter === data.gaude.length) {
-                        counter = 0;
-                    }
-                    this.gaudeData = data.gaude[counter++];
-                }, 5000);
+            .then((data: IBarDiagramData[]) => {
+                this.equalizerData = data;
             });
     }
 
-    ngOnDestroy(): void {
+    public ngOnDestroy(): void {
         super.ngOnDestroy();
     }
+
+    public gaugeWidth(container: HTMLDivElement): string {
+        if (!(container?.offsetHeight > 0)) {
+            return;
+        }
+        const height = container.offsetHeight;
+        return `min-width: ${height * 1.136}px`;
+    }
+
 
     protected dataHandler(ref: any): void {
         // this.data = ref.chartItems;

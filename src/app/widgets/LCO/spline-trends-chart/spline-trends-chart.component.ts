@@ -13,8 +13,6 @@ import {
     ISplineDiagramSize,
     ISplineDiagramData
 } from './components/spline-diagram/spline-diagram.component';
-import { HttpClient } from '@angular/common/http';
-import { filter } from 'rxjs/operators';
 
 @Component({
     selector: 'evj-spline-trends-chart',
@@ -36,7 +34,6 @@ export class SplineTrendsChartComponent extends WidgetPlatform implements OnInit
 
     constructor(
         public widgetService: WidgetService,
-        private http: HttpClient,
         @Inject('isMock') public isMock: boolean,
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string
@@ -45,29 +42,11 @@ export class SplineTrendsChartComponent extends WidgetPlatform implements OnInit
     }
 
     public ngOnInit(): void {
-
     }
 
     public ngAfterViewInit(): void {
         super.widgetInit();
         this.getChartAreaSize();
-
-        // this.http
-        //     .get('assets/mock/LCO/spline-trends-chart.json')
-        //     .toPromise()
-        //     .then((data: ISplineDiagramData) => {
-        //         this.getChartAreaSize();
-        //         data.plan = data.fact.map((point) => {
-        //             const newPoint = { ...point };
-        //             newPoint.y += 2;
-        //             return newPoint;
-        //         });
-        //         data.highBound = this.fillArray(data.highBound, 31);
-        //         data.lowBound = this.fillArray(data.lowBound, 31);
-        //         data.plan = this.fillArray(data.plan, 31);
-        //         this.data = data;
-        //         console.log(data);
-        //     });
     }
 
     private fillArray(data: { x: number, y: number }[], count: number): { x: number, y: number }[] {

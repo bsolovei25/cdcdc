@@ -55,7 +55,6 @@ import { ContemporaryWidgetHeaderComponent } from './components/contemporary-wid
 import { WidgetHeaderSmpComponent } from './components/widget-header-smp/widget-header-smp.component';
 import { SafeUrlPipe } from './pipes/safe-url.pipe';
 import { ApsProgressBarComponent } from './components/aps-progress-bar/aps-progress-bar.component';
-import { KpeEqualizerChartComponent } from '../widgets/KPE/kpe-equalizer-chart/kpe-equalizer-chart.component'; // TODO переместить в модуль виджета, когда он будет готов
 import { ProductGroupsLeftComponent } from './components/SMP/product-group/product-groups-left/product-groups-left.component';
 import { ProductGroupsTableComponent } from './components/SMP/product-group/product-groups-table/product-groups-table.component';
 import { ProductGroupsMiddleComponent } from './components/SMP/product-group/product-groups-middle/product-groups-middle.component';
@@ -103,7 +102,6 @@ import { ProductGroupsRightComponent } from './components/SMP/product-group/prod
         WidgetHeaderSmpComponent,
         SafeUrlPipe,
         ApsProgressBarComponent,
-        KpeEqualizerChartComponent,
         ProductGroupsLeftComponent,
         ProductGroupsMiddleComponent,
         ProductGroupsRightComponent,
@@ -145,7 +143,6 @@ import { ProductGroupsRightComponent } from './components/SMP/product-group/prod
         WidgetHeaderSmpComponent,
         SafeUrlPipe,
         ApsProgressBarComponent,
-        KpeEqualizerChartComponent,
         ProductGroupsTableComponent,
     ],
     imports: [

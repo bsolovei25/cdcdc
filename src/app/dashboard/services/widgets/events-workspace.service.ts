@@ -14,7 +14,11 @@ import {
     IAsusWorkgroup,
     IAsusCategories,
     ISmotrReference,
-    ISaveMethodEvent, IRetrievalEventDto, ISearchRetrievalWindow, IAsusTpPlace, IAsusTmPlace
+    ISaveMethodEvent,
+    IRetrievalEventDto,
+    ISearchRetrievalWindow,
+    IAsusTpPlace,
+    IAsusTmPlace,
 } from '../../models/events-widget';
 import { EventService } from './event.service';
 import { SnackBarService } from '../snack-bar.service';
@@ -24,19 +28,17 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { IAlertWindowModel } from '@shared/models/alert-window.model';
 import { filter, map } from 'rxjs/operators';
 import { error } from '@angular/compiler/src/util';
-import {
-    IChatMessageWithAttachments
-} from '../../widgets/workspace/components/chat/chat.component';
+import { IChatMessageWithAttachments } from '../../widgets/workspace/components/chat/chat.component';
 import { IMessage, IMessageFileAttachment } from '@shared/models/message.model';
-import {
-    FileAttachMenuService
-} from '../file-attach-menu.service';
+import { FileAttachMenuService } from '../file-attach-menu.service';
 
 @Injectable({
     providedIn: 'root',
 })
 export class EventsWorkspaceService {
-    public event$: BehaviorSubject<EventsWidgetNotification> = new BehaviorSubject<EventsWidgetNotification>(null);
+    public event$: BehaviorSubject<EventsWidgetNotification> = new BehaviorSubject<
+        EventsWidgetNotification
+    >(null);
     public set event(value: EventsWidgetNotification) {
         this.event$.next(value);
     }
@@ -72,24 +74,27 @@ export class EventsWorkspaceService {
     public category$: BehaviorSubject<ICategory[]> = new BehaviorSubject<ICategory[]>([]);
     public categoryPipe: Observable<ICategory[]> = this.category$.pipe(
         filter((item) => item !== null),
-        map((cats) => cats.filter((cat) => {
-            if (this.isCreateNewEvent) {
+        map((cats) =>
+            cats.filter((cat) => {
+                if (this.isCreateNewEvent) {
+                    switch (cat.name) {
+                        case 'smotr':
+                            return false;
+                        default:
+                            return true;
+                    }
+                }
                 switch (cat.name) {
+                    case 'asus':
                     case 'smotr':
+                    case 'ejs':
+                    case 'modelCalculations':
                         return false;
                     default:
                         return true;
                 }
-            }
-            switch (cat.name) {
-                case 'asus':
-                case 'smotr':
-                case 'ejs':
-                    return false;
-                default:
-                    return true;
-            }
-        }))
+            })
+        )
     );
     //#endregion
 
@@ -115,21 +120,26 @@ export class EventsWorkspaceService {
         drops: 'Сбросы',
         asus: 'АСУС',
         ejs: 'ЭЖС',
+        indicators: 'Производственные показатели',
+        resources: 'Вспомогательные ресурсы',
+        modelCalculations: 'ЦД',
     };
 
     private defaultEvent: EventsWidgetNotification = null;
 
-    public searchWindow$: BehaviorSubject<ISearchRetrievalWindow> =
-        new BehaviorSubject<ISearchRetrievalWindow>(null);
-    public ewAlertInfo$: BehaviorSubject<IAlertWindowModel> =
-        new BehaviorSubject<IAlertWindowModel>(null);
+    public searchWindow$: BehaviorSubject<ISearchRetrievalWindow> = new BehaviorSubject<
+        ISearchRetrievalWindow
+    >(null);
+    public ewAlertInfo$: BehaviorSubject<IAlertWindowModel> = new BehaviorSubject<
+        IAlertWindowModel
+    >(null);
 
     constructor(
         private eventService: EventService,
         private snackBarService: SnackBarService,
         private avatarConfiguratorService: AvatarConfiguratorService,
-        private fileAttachMenuService: FileAttachMenuService,
-    ) { }
+        private fileAttachMenuService: FileAttachMenuService
+    ) {}
 
     public async loadItem(id: number = null): Promise<void> {
         this.isLoading = true;
@@ -158,12 +168,16 @@ export class EventsWorkspaceService {
             await this.asusReferencesLoad();
             const saveMethod = await this.eventService.getSaveMethod(this.event);
             dataLoadQueue.push(
-                this.eventService.getAsusEquipments(this.event.asusEvent.tmPlace, saveMethod).then((data) => {
-                    this.asusEquipments = data;
-                }),
-                this.eventService.getAsusEOServices(this.event.asusEvent.equipment, saveMethod).then((data) => {
-                    this.asusEOServices = data;
-                }),
+                this.eventService
+                    .getAsusEquipments(this.event.asusEvent.tmPlace, saveMethod)
+                    .then((data) => {
+                        this.asusEquipments = data;
+                    }),
+                this.eventService
+                    .getAsusEOServices(this.event.asusEvent.equipment, saveMethod)
+                    .then((data) => {
+                        this.asusEOServices = data;
+                    })
             );
         }
         await Promise.all(dataLoadQueue);
@@ -203,7 +217,10 @@ export class EventsWorkspaceService {
     public async createEvent(idParent: number = null): Promise<void> {
         this.isEditEvent = true;
         if (this.isCreateNewEvent) {
-            this.snackBarService.openSnackBar('Для создания нового события, сохраните текущее!', 'snackbar-red');
+            this.snackBarService.openSnackBar(
+                'Для создания нового события, сохраните текущее!',
+                'snackbar-red'
+            );
             return;
         }
         if (!this.checkParentRetrievalCategory(idParent)) {
@@ -235,7 +252,10 @@ export class EventsWorkspaceService {
         switch (this.event.category.name) {
             case 'smotr':
             case 'asus':
-                this.snackBarService.openSnackBar('Данное действие пока не доступно для данных категорий событий! Ждите в ближайшем обновлении :)', 'snackbar-red');
+                this.snackBarService.openSnackBar(
+                    'Данное действие пока не доступно для данных категорий событий! Ждите в ближайшем обновлении :)',
+                    'snackbar-red'
+                );
                 return false;
         }
         return true;
@@ -308,7 +328,10 @@ export class EventsWorkspaceService {
 
     private async saveEditedEvent(saveMethod: ISaveMethodEvent): Promise<void> {
         if (this.event.category.name === 'asus') {
-            this.snackBarService.openSnackBar('Данное действие не допустимо для выбранного события!', 'snackbar-red');
+            this.snackBarService.openSnackBar(
+                'Данное действие не допустимо для выбранного события!',
+                'snackbar-red'
+            );
         } else {
             try {
                 await this.eventService.putEvent(this.event, saveMethod);
@@ -323,9 +346,11 @@ export class EventsWorkspaceService {
         try {
             await this.eventService.deleteRetrievalEvents(
                 this.event.id,
-                retrieval.innerNotificationId,
+                retrieval.innerNotificationId
             );
-            const index = this.event.retrievalEvents.findIndex((item) => item.innerNotificationId === retrieval.innerNotificationId);
+            const index = this.event.retrievalEvents.findIndex(
+                (item) => item.innerNotificationId === retrieval.innerNotificationId
+            );
             this.event.retrievalEvents.splice(index, 1);
             this.snackBarService.openSnackBar('Мероприятие удалено');
         } catch (err) {
@@ -385,7 +410,7 @@ export class EventsWorkspaceService {
             this.sendMessageToEvent(message, 'comments');
             const saveMethod = await this.eventService.getSaveMethod(this.event);
             await this.eventService.closeSmotrEvent(saveMethod, this.event);
-            this.event.status = this.status.find(el => el.name === 'closed');
+            this.event.status = this.status.find((el) => el.name === 'closed');
             this.sendMessageToEvent(message, 'comments');
         } catch (e) {
             console.log(e);
@@ -428,11 +453,13 @@ export class EventsWorkspaceService {
             responsibleOperator: null,
             retrievalEvents: [],
             severity: 'Critical',
-            status: this.status ? this.status[0] : {
-                id: 0,
-                name: null,
-                code: null,
-            },
+            status: this.status
+                ? this.status[0]
+                : {
+                      id: 0,
+                      name: null,
+                      code: null,
+                  },
             equipmentCategory: null,
             deadline: new Date(),
             graphValues: null,
@@ -448,7 +475,7 @@ export class EventsWorkspaceService {
                 eoService: null,
                 equipment: null,
                 tmPlace: null,
-            }
+            },
         };
     }
 
@@ -480,7 +507,7 @@ export class EventsWorkspaceService {
             // TODO delete
             this.eventService.getSmotrReference().then((data) => {
                 this.smotrReference = data;
-            }),
+            })
         );
         try {
             await Promise.all(dataLoadQueue);
@@ -508,7 +535,7 @@ export class EventsWorkspaceService {
             }),
             this.eventService.getAsusUnits(saveMethod).then((data) => {
                 this.asusUnits = data;
-            }),
+            })
         );
         try {
             await Promise.all(dataLoadQueue);
@@ -523,8 +550,11 @@ export class EventsWorkspaceService {
         }
     }
 
-    public eventCompare(event1: EventsWidgetNotification, event2: EventsWidgetNotification): boolean {
-        return (JSON.stringify(event1) === JSON.stringify(event2));
+    public eventCompare(
+        event1: EventsWidgetNotification,
+        event2: EventsWidgetNotification
+    ): boolean {
+        return JSON.stringify(event1) === JSON.stringify(event2);
     }
 
     private async getFileInfoById(file: IMessageFileAttachment): Promise<any> {
@@ -535,9 +565,7 @@ export class EventsWorkspaceService {
         return await this.fileAttachMenuService.uploadFile(file);
     }
 
-    private async processAttachments(
-        messages: IMessage[]
-    ): Promise<IMessage[]> {
+    private async processAttachments(messages: IMessage[]): Promise<IMessage[]> {
         messages.map(async (message) => {
             message.attachedFiles.map(async (file) => {
                 // 00000000-0000-0000-0000-000000000000 - handle corrupted fileId uid

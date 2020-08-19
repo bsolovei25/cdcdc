@@ -1,0 +1,19 @@
+<div class="container">
+  <evj-contemporary-widget-header
+    [uniqId]="uniqId"
+    [widgetTitle]="widgetTitle"
+    icon="astue-predictors"
+    type="astue"
+  >
+  </evj-contemporary-widget-header>
+  <div
+    class="content"
+    (mouseenter)="onMouseEnter()"
+    (mouseleave)="onMouseExit()"
+    (mousedown)="$event.stopPropagation()"
+    (touchstart)="$event.stopPropagation()"
+  >
+    <evj-astue-onpz-multi-chart class="chart" [data]="data"></evj-astue-onpz-multi-chart>
+    <evj-smart-scroll class="scroll"></evj-smart-scroll>
+  </div>
+</div>

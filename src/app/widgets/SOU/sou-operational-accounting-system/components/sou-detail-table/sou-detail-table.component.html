@@ -1,0 +1,28 @@
+<div class="container">
+  <div class="header">
+    <div class="header__icon">
+      <svg-icon [svgStyle]="{'width': '100%', 'height': '100%'}" src="assets/icons/widgets/SOU/header-icons/search.svg"></svg-icon>
+    </div>
+    <div class="header__label">Идентифицированные потери</div>
+    <span style="flex-grow: 1"></span>
+    <div class="header__button-close" (click)="buttonClick()">
+      <svg-icon [svgStyle]="{'width': '100%', 'height': '100%'}" src="assets/icons/widgets/SOU/header-icons/close.svg"></svg-icon>
+    </div>
+  </div>
+  <div class="table-content">
+    <ng-container *ngFor="let row of data.rows">
+      <ng-container *ngTemplateOutlet="tableRow; context: {row: row}"></ng-container>
+    </ng-container>
+  </div>
+</div>
+
+<ng-template #tableRow let-row="row">
+  <div class="row">
+    <div class="label">
+      <span>{{row.title}}</span>
+    </div>
+    <div class="value">
+      <span>{{row.value}} т.</span>
+    </div>
+  </div>
+</ng-template>
