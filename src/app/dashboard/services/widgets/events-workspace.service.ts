@@ -28,9 +28,9 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { IAlertWindowModel } from '@shared/models/alert-window.model';
 import { filter, map } from 'rxjs/operators';
 import { error } from '@angular/compiler/src/util';
-import { IChatMessageWithAttachments } from '../../widgets/workspace/components/chat/chat.component';
 import { IMessage, IMessageFileAttachment } from '@shared/models/message.model';
 import { FileAttachMenuService } from '../file-attach-menu.service';
+import { IChatMessageWithAttachments } from '../../../widgets/EVJ/events-workspace/components/chat/chat.component';
 
 @Injectable({
     providedIn: 'root',

@@ -18,11 +18,6 @@ import { IAlertWindowModel } from '../../../@shared/models/alert-window.model';
     styleUrls: ['./events-workspace.component.scss'],
 })
 export class EventsWorkspaceComponent extends WidgetPlatform implements OnInit, OnDestroy {
-    static itemCols: number = 27;
-    static itemRows: number = 30;
-    public static minItemCols: number = 32;
-    public static minItemRows: number = 30;
-
     constructor(
         public ewService: EventsWorkspaceService,
         private eventService: EventService,
