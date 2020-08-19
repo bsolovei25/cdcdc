@@ -5,5 +5,6 @@
     "smotrUrl": "http://192.168.0.17:6937",
     "reconnectInterval": 5,
     "shiftFree": "not-all",
-    "isDomenAuth": true
+    "isDomenAuth": true,
+    "authorizationHeader": "AsPlatform-Authorization"
 }
