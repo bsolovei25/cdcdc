@@ -82,7 +82,7 @@ import {
     MatNativeDateModule,
     MAT_DATE_LOCALE,
     MAT_DATE_FORMATS,
-    MatRippleModule
+    MatRippleModule,
 } from '@angular/material/core';
 import { AdminReferencesComponent } from './widgets/admin-references/admin-references.component';
 import { CardVerifierComponent } from './widgets/change-shift/card-verifier/card-verifier.component';
@@ -267,7 +267,11 @@ import { AdminShiftListEmployeesOldComponent } from './widgets/admin-widget/admi
 import { AdminShiftInfoEmployeeOldComponent } from './widgets/admin-widget/admin-shift-schedule-old/components/admin-shift-info-employee-old/admin-shift-info-employee-old.component';
 import { AdminShiftCardOldComponent } from './widgets/admin-widget/admin-shift-schedule-old/components/admin-shift-card-old/admin-shift-card-old.component';
 import { AdminShiftBrigadeOldComponent } from './widgets/admin-widget/admin-shift-schedule-old/components/admin-shift-brigade-old/admin-shift-brigade-old.component';
+import { GroupSelectorComponent } from './components/group-selector/group-selector.component';
+import { IndicatorDiagramComponent } from './components/indicator-diagram/indicator-diagram.component';
+import { MenuButtonComponent } from './components/menu-button/menu-button.component';
 import { CdcpEventComponent } from './widgets/workspace/cdcp-event/cdcp-event.component';
+import { GroupSelectorRowComponent } from './components/group-selector-row/group-selector-row.component';
 
 @NgModule({
     declarations: [
@@ -498,7 +502,11 @@ import { CdcpEventComponent } from './widgets/workspace/cdcp-event/cdcp-event.co
         AdminShiftInfoEmployeeOldComponent,
         AdminShiftCardOldComponent,
         AdminShiftBrigadeOldComponent,
+        GroupSelectorComponent,
+        IndicatorDiagramComponent,
+        MenuButtonComponent,
         CdcpEventComponent,
+        GroupSelectorRowComponent,
     ],
     entryComponents: [
         LineChartComponent,
