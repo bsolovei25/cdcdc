@@ -204,9 +204,9 @@
         <evj-events-responsible-select></evj-events-responsible-select>
       </div>
       <div class="monitoring">
-        <ng-container *ngTemplateOutlet="monitoringCard; context: {label: 'Мат. баланс', type: 'material', deviationCounter: 1}"></ng-container>
-        <ng-container *ngTemplateOutlet="monitoringCard; context: {label: 'Тепловой баланс', type: 'warm', deviationCounter: 0}"></ng-container>
-        <ng-container *ngTemplateOutlet="monitoringCard; context: {label: 'Качество', type: 'quality', deviationCounter: 0}"></ng-container>
+        <ng-container *ngTemplateOutlet="monitoringCard; context: {label: 'Мат. баланс', type: 'material', deviationCounter: ewService.event.cdData?.deviationMatBalCount}"></ng-container>
+        <ng-container *ngTemplateOutlet="monitoringCard; context: {label: 'Тепловой баланс', type: 'warm', deviationCounter: ewService.event.cdData?.deviationTempBalCount}"></ng-container>
+        <ng-container *ngTemplateOutlet="monitoringCard; context: {label: 'Качество', type: 'quality', deviationCounter: ewService.event.cdData?.deviationQualityCount}"></ng-container>
       </div>
       <div class="events-correct">
         <evj-events-correct></evj-events-correct>

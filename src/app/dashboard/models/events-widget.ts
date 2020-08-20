@@ -67,6 +67,14 @@ export interface EventsWidgetNotification {
     externalId?: number;
     externalCode?: string; // код внешней системы (ID в Системе-источник)
     externalDate?: Date; // дата регистрации во внешней системе
+    cdData?: IEventCd;
+}
+
+export interface IEventCd {
+    deviationQualityCount: number;
+    deviationMatBalCount: number;
+    deviationTempBalCount: number;
+    sensorId: number;
 }
 
 export interface IEventAsus {
