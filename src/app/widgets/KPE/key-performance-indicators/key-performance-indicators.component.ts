@@ -33,7 +33,7 @@ export class KeyPerformanceIndicatorsComponent extends WidgetPlatform implements
     }
 
     protected dataHandler(ref: any): void {
-        this.data = ref.groups;
+        this.data = ref?.groups;
         this.processData();
     }
 
