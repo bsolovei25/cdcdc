@@ -3,7 +3,7 @@ import { WidgetPlatform } from '../../../dashboard/models/widget-platform';
 import { EventsWorkspaceService } from '../../../dashboard/services/widgets/events-workspace.service';
 import { EventService } from '../../../dashboard/services/widgets/event.service';
 import { WidgetService } from '../../../dashboard/services/widget.service';
-import { DateAdapter } from '@angular/material/core';
+import { DateAdapter, MAT_DATE_LOCALE } from '@angular/material/core';
 import { AuthService } from '../../../@core/service/auth.service';
 import {
     IUser,
@@ -11,11 +11,22 @@ import {
     EventsWidgetNotification,
 } from '../../../dashboard/models/events-widget';
 import { IAlertWindowModel } from '../../../@shared/models/alert-window.model';
+import {
+    MomentDateAdapter,
+    MAT_MOMENT_DATE_ADAPTER_OPTIONS,
+} from '@angular/material-moment-adapter';
 
 @Component({
     selector: 'evj-events-workspace',
     templateUrl: './events-workspace.component.html',
     styleUrls: ['./events-workspace.component.scss'],
+    providers: [
+        {
+            provide: DateAdapter,
+            useClass: MomentDateAdapter,
+            deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS],
+        },
+    ],
 })
 export class EventsWorkspaceComponent extends WidgetPlatform implements OnInit, OnDestroy {
     constructor(

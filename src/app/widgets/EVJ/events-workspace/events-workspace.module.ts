@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, LOCALE_ID } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { EventsWorkspaceComponent } from './events-workspace.component';
 import { SharedModule } from '../../../@shared/shared.module';
@@ -27,6 +27,8 @@ import { MatSelectModule } from '@angular/material/select';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { AngularSvgIconModule } from 'angular-svg-icon';
+import { MAT_DATE_LOCALE } from '@angular/material/core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @NgModule({
     declarations: [
@@ -61,6 +63,12 @@ import { AngularSvgIconModule } from 'angular-svg-icon';
         MatInputModule,
         MatSelectModule,
         MatTooltipModule,
+    ],
+    providers: [
+        { provide: LOCALE_ID, useValue: 'ru-RU' },
+        { provide: MAT_DATE_LOCALE, useValue: 'ru-RU' },
+        { provide: MatDialogRef, useValue: {} },
+        { provide: MAT_DIALOG_DATA, useValue: [] },
     ],
 })
 export class EventsWorkspaceModule {
