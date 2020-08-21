@@ -16,6 +16,7 @@
         [(ngModel)]="description"
         (input)="onChangeTextarea()"
         (blur)="disableTextarea()"
+        [disabled]="!isEditable"
         #textarea
       >
       </textarea>

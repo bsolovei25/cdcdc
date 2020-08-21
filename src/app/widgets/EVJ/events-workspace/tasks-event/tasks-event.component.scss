@@ -41,13 +41,17 @@
   gap: 10px;
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(2, max-content);
+
+  &__item {
+    height: 50px;
+  }
 }
 
 .left {
   display: grid;
   gap: 10px;
   grid-template-columns: 1fr;
-  grid-template-rows: 160px 1fr 1fr;
+  grid-template-rows: 130px 1fr 1fr;
 
   &__item {
     height: 100%;
@@ -130,6 +134,10 @@ mat-form-field {
 // END-MAT-SELECT
 
 .standard {
+  height: 100%;
+  border: 1px solid;
+  border-image: linear-gradient(90deg, transparent 0%, var(--color-standard) 100%);
+  border-image-slice: 1;
   background-image: linear-gradient(
     to right,
     #6fcf97 0%,
@@ -146,6 +154,7 @@ mat-form-field {
 }
 
 .warning {
+  height: 100%;
   border: 1px solid;
   border-image: linear-gradient(90deg, transparent 0%, var(--color-warning) 100%);
   border-image-slice: 1;
@@ -166,6 +175,7 @@ mat-form-field {
 }
 
 .danger {
+  height: 100%;
   border: 1px solid;
   border-image: linear-gradient(90deg, transparent 0%, var(--color-danger) 100%);
   border-image-slice: 1;
