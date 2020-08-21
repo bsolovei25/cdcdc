@@ -33,4 +33,8 @@ export class TasksEventComponent implements OnInit {
         const obj = this.ewService.event?.productionTasks;
         return obj ? obj[infoType] : undefined;
     }
+
+    public dateTimePicker(date: Date): void {
+        this.ewService.setDeadlineToEvent(date);
+    }
 }

@@ -66,18 +66,13 @@
     </div>
     <div class="selects__item">
       <evj-ui-block status="normal">
-        <mat-form-field class="status">
-          <mat-label>Срок выполнения</mat-label>
-          <mat-select
-            panelClass="mat-select-custom"
-            [(ngModel)]="ewService.event.status"
-            [compareWith]="compareFn"
-          >
-            <mat-option *ngFor="let p of ewService.status" [value]="p"
-              >{{ ewService.statuses[p.name] }}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
+        <div class="deadline">
+          <div class="deadline__title">Срок выполнения</div>
+          <evj-time-data-picker
+            [data]="ewService.event.deadline"
+            (dateTimePicker)="dateTimePicker($event)"
+          ></evj-time-data-picker>
+        </div>
       </evj-ui-block>
     </div>
     <div class="selects__item">
