@@ -38,10 +38,14 @@
 .interactive-indicators {
   display: flex;
   justify-content: space-between;
-  margin: 15px;
+  padding: 15px;
+  height: 100%;
 
   &__labels {
     margin-right: 15px;
+    display: flex;
+    flex-flow: column;
+    justify-content: space-between;
 
     .labels {
       &__items {
@@ -56,7 +60,6 @@
         display: flex;
         align-items: center;
         padding: 0 10px;
-
         background-color: var(--color-astue-onpz-bg-legend);
         border-radius: 2px;
 
@@ -71,52 +74,137 @@
 
             border-radius: 2px;
             margin-right: 15px;
+
+            &::ng-deep {
+              fill: var(--color-text-main) !important;
+            }
           }
 
           &__name {
             margin-right: 30px;
+            font-size: 14px;
           }
 
           &__delete {
             cursor: pointer;
+            &::ng-deep {
+              fill: var(--color-text-main);
+            }
+          }
+        }
+
+        &__disable {
+          transition: .3s;
+          background-color: rgba(39,42,56,.5);
+          .item {
+            &__icon {
+              background-color: rgba(48,53,73,.5);
+              &::ng-deep {
+                fill: var(--color-text-sub) !important;
+              }
+            }
+
+            &__delete {
+              &::ng-deep {
+                fill: var(--color-text-sub);
+              }
+            }
+
+            &__name {
+              color: var(--color-text-sub);
+            }
           }
         }
       }
 
       &__select {
         height: 35px;
-        margin-top: 30px;
+        width: 210px;
+        padding: 0 15px;
+        box-sizing: border-box;
+        background-color: var(--color-astue-onpz-bg-legend);
+        border-radius: 2px;
 
         ::ng-deep {
-          .mat-form-field-wrapper {
-            padding-bottom: 0 !important;
+          mat-label {
+            font-size: 12px;
+            line-height: 14px;
+            font-family: "Tahoma" !important;
+            color: var(--color-text-main);
           }
 
-          .mat-select-arrow {
-            color: white !important;
-            margin-right: 10px !important;
+          .mat-form-field-type-mat-select .mat-form-field-label {
+            margin-left: 5px;
+            margin-bottom: -1px;
+          }
+
+          mat-form-field {
+          }
+
+          .mat-form-field-appearance-legacy.mat-form-field-can-float.mat-form-field-should-float .mat-form-field-label, .mat-form-field-appearance-legacy.mat-form-field-can-float .mat-input-server:focus + .mat-form-field-label-wrapper .mat-form-field-label {
+            display: none;
+          }
+
+          .mat-form-field {
+            //max-width: 120px;
           }
 
           .mat-form-field-underline {
+            height: 0 !important;
+          }
+
+          .mat-form-field-appearance-legacy .mat-form-field-ripple {
             height: 0;
           }
 
           .mat-form-field-appearance-legacy .mat-form-field-infix {
-            padding-top: 0;
-            padding-bottom: 10px;
-            padding-left: 15px;
+            padding: 0;
+            display: flex;
+            padding-top: 6px;
           }
 
-          .mat-form-field-ripple {
-            background-color: transparent !important;
+          .mat-form-field-wrapper {
+            padding-bottom: 0;
+            margin: 0;
+          }
+
+          .mat-select-trigger {
+            padding: 0 5px;
+          }
+
+          .mat-select-value {
+            color: var(--color-cd-text-sub);
+            font-size: 12px;
+          }
+
+          .mat-form-field-infix {
+            border-top: none;
+          }
+
+          .mat-select {
+            //width: 85px !important;
+          }
+
+          .mat-select-value-text {
+            //margin-left: 10px;
+            font-size: 12px;
+            color: var(--color-cd-text-sub);
+          }
+
+          .mat-select-arrow-wrapper {
+            padding-top: 0px;
+          }
+
+          .mat-select-arrow {
+            width: 11px !important;
+            filter: brightness(10);
           }
         }
 
         .select {
           &__item {
-            width: 220px;
-            border-radius: 2px;
-            background-color: var(--color-astue-onpz-bg-legend);
+            width: 100%;
+            height: 100%;
           }
         }
       }
