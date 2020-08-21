@@ -29,6 +29,7 @@
   >
     <ng-container *ngIf="ewService.event" [ngSwitch]="ewService?.event?.category?.code">
       <evj-smotr-event *ngSwitchCase="0"></evj-smotr-event>
+      <evj-tasks-event *ngSwitchCase="2"></evj-tasks-event>
       <evj-asus-event *ngSwitchCase="5"></evj-asus-event>
       <evj-ejs-event *ngSwitchCase="6"></evj-ejs-event>
       <evj-cdcp-event *ngSwitchCase="7"></evj-cdcp-event>

@@ -29,6 +29,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { AngularSvgIconModule } from 'angular-svg-icon';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { TasksEventComponent } from './tasks-event/tasks-event.component';
 
 @NgModule({
     declarations: [
@@ -52,6 +53,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
         EventsSmotrIconComponent,
         EventsWorkspaceButtonComponent,
         FileAttachMenuComponent,
+        TasksEventComponent,
     ],
     imports: [
         CommonModule,
