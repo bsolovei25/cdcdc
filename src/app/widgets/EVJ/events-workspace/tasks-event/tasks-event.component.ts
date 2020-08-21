@@ -28,4 +28,9 @@ export class TasksEventComponent implements OnInit {
     public compareFn(a, b): boolean {
         return a && b && a.id === b.id;
     }
+
+    public infoFunc(infoType: 'start' | 'inWork' | 'close'): any {
+        const obj = this.ewService.event?.productionTasks;
+        return obj ? obj[infoType] : undefined;
+    }
 }

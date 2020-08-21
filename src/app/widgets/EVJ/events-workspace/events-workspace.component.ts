@@ -9,6 +9,7 @@ import {
     IUser,
     EventsWidgetData,
     EventsWidgetNotification,
+    IStatus,
 } from '../../../dashboard/models/events-widget';
 import { IAlertWindowModel } from '../../../@shared/models/alert-window.model';
 import {
@@ -29,6 +30,15 @@ import {
     ],
 })
 export class EventsWorkspaceComponent extends WidgetPlatform implements OnInit, OnDestroy {
+    get eventProdButton(): string {
+        const flagCat: boolean = this.ewService.event?.category?.code === '2';
+        const flagStat: boolean = this.ewService.event?.status?.name === 'closed';
+        const flagNew: boolean = this.ewService.event?.status?.name === 'new';
+        const message: string = flagNew ? 'В работу' : 'Завершить';
+
+        return flagCat && !flagStat ? message : '';
+    }
+
     constructor(
         public ewService: EventsWorkspaceService,
         private eventService: EventService,
@@ -161,5 +171,11 @@ export class EventsWorkspaceComponent extends WidgetPlatform implements OnInit, 
 
     public overlayChartClose(): void {
         this.ewService.isOverlayChartOpen = false;
+    }
+
+    public onChangeStatus(): void {
+        const statusId: number = this.ewService.event.status.id + 1;
+        const newStatus: IStatus = this.ewService.status.find((item) => item.id === statusId);
+        this.ewService.event.status = newStatus;
     }
 }

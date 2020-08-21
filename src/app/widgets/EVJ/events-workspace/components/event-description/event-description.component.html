@@ -1,7 +1,7 @@
 <div class="description">
   <div class="description_nav">
-    <div class="description_title">Краткое описание</div>
-    <div class="description_button_update" (click)="onEditShortInfo()">
+    <div class="description_title">{{titleName}}</div>
+    <div class="description_button_update" *ngIf="isEditable" (click)="onEditShortInfo()">
       <svg-icon src="assets/icons/edit.svg" [svgStyle]="{ 'width.px':20, 'height.px':20 }">
       </svg-icon>
     </div>

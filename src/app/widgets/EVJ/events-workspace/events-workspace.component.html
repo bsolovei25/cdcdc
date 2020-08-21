@@ -16,6 +16,8 @@
     (eventBack)="backEvent()"
     [isEventOpen]="!ewService.isEditEvent"
     [blockWorkspaceButton]="canShowSaveButton()"
+    [eventProdTask]="eventProdButton"
+    (eventProdTaskChange)="onChangeStatus()"
   >
   </evj-widget-header>
 

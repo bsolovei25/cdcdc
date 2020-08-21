@@ -546,6 +546,7 @@ export class EventsWorkspaceService {
 
     public async changeCategory(): Promise<void> {
         console.log(this.event.category);
+        console.log(this.event);
 
         if (this.event.category.name === 'asus') {
             await this.asusReferencesLoad();
