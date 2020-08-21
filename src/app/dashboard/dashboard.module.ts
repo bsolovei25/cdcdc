@@ -248,6 +248,7 @@ import { AdminShiftInfoEmployeeOldComponent } from './widgets/admin-widget/admin
 import { AdminShiftCardOldComponent } from './widgets/admin-widget/admin-shift-schedule-old/components/admin-shift-card-old/admin-shift-card-old.component';
 import { AdminShiftBrigadeOldComponent } from './widgets/admin-widget/admin-shift-schedule-old/components/admin-shift-brigade-old/admin-shift-brigade-old.component';
 import { GroupSelectorComponent } from './components/group-selector/group-selector.component';
+import { GroupSelectorRowComponent } from './components/group-selector-row/group-selector-row.component';
 import { IndicatorDiagramComponent } from './components/indicator-diagram/indicator-diagram.component';
 import { MenuButtonComponent } from './components/menu-button/menu-button.component';
 
@@ -461,6 +462,7 @@ import { MenuButtonComponent } from './components/menu-button/menu-button.compon
         AdminShiftCardOldComponent,
         AdminShiftBrigadeOldComponent,
         GroupSelectorComponent,
+        GroupSelectorRowComponent,
         IndicatorDiagramComponent,
         MenuButtonComponent,
     ],
