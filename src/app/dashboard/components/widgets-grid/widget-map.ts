@@ -1,11 +1,9 @@
 import { LineChartComponent } from '../../widgets/line-chart/line-chart.component';
-import { EventsComponent } from '../../../widgets/EVJ/events/events.component';
 import { LineDiagramComponent } from '../../widgets/line-diagram/line-diagram.component';
 import { ManualInputComponent } from '../../widgets/manual-input/manual-input.component';
 import { ChangeShiftComponent } from '../../widgets/change-shift/change-shift.component';
 import { EnergeticsComponent } from '../../widgets/energetics/energetics.component';
 import { WidgetPiesComponent } from '../../widgets/widgets-pie/widget-pies/widget-pies.component';
-import { EventsWorkSpaceComponent } from '../../widgets/workspace/events-workspace.component';
 import { TruncatedPieSFirstComponent } from '../../widgets/truncated-pie-first/truncated-pie-s-first/truncated-pie-s-first.component';
 import { TruncatedPieSIconComponent } from '../../widgets/truncated-pie-icon/truncated-pie-s-icon/truncated-pie-s-icon.component';
 import { PointDiagramComponent } from '../../widgets/point-diagram/point-diagram.component';
@@ -65,7 +63,7 @@ export const WIDGETS = {
     'manual-input': ManualInputComponent,
     'shift-pass': ChangeShiftComponent,
     'shift-accept': ChangeShiftComponent,
-    'events-workspace': EventsWorkSpaceComponent,
+    'events-workspace': WidgetContainerComponent,
     'truncated-diagram-percentage': TruncatedPieSFirstComponent,
     'truncated-diagram-traffic-light': TruncatedDiagramTrafficLightComponent,
     'truncated-diagram-counter': TruncatedPieSIconComponent,
@@ -456,6 +454,18 @@ export const WIDGETS_LAZY = {
         preview: 'events',
     },
 
+    'events-workspace': {
+        import: async () => {
+            return await import('src/app/widgets/EVJ/events-workspace/events-workspace.module');
+        },
+        module: 'EventsWorkspaceModule',
+        itemCols: 32,
+        itemRows: 30,
+        minItemCols: 32,
+        minItemRows: 30,
+        preview: 'events-workspace',
+    },
+
     // #endregion EVJ
 
     // #region SOU
@@ -639,9 +649,6 @@ export const WIDGETS_LAZY = {
     // },
     // 'shift-accept': {
     //     import: async () => await import('src/app/widgets/shift-accept/shift-accept.module'),
-    // },
-    // 'events-workspace': {
-    //     import: async () => await import('src/app/widgets/events-workspace/events-workspace.module'),
     // },
     // 'truncated-diagram-percentage': {
     //     import: async () => await import('src/app/widgets/truncated-diagram-percentage/truncated-diagram-percentage.module'),

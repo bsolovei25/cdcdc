@@ -68,6 +68,20 @@ export interface EventsWidgetNotification {
     externalCode?: string; // код внешней системы (ID в Системе-источник)
     externalDate?: Date; // дата регистрации во внешней системе
     cdData?: IEventCd;
+    productionTasks?: IEventProductionTask;
+}
+
+export interface IEventProductionTask {
+    subcategory: string;
+    order: string;
+    start: IEventStep;
+    inWork: IEventStep;
+    close: IEventStep;
+}
+
+interface IEventStep {
+    author: string;
+    date: Date;
 }
 
 export interface IEventCd {
