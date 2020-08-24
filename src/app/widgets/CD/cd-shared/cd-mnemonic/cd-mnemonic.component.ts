@@ -31,7 +31,6 @@ export interface IModalIcon {
 export class CdMnemonicComponent implements OnInit {
     @Input() set dataRef(value: ISensors[]) {
         if (value) {
-            console.log(value);
             this.data = value;
             this.draw();
         }
@@ -52,11 +51,8 @@ export class CdMnemonicComponent implements OnInit {
 
     private draw(): void {
         this.drawCircle();
-        // if (!this.engUnits) {
         this.engUnits = true;
         this.drawValue();
-        // this.drawEngUnits();
-        // }
     }
 
     drawModal(
@@ -148,7 +144,6 @@ export class CdMnemonicComponent implements OnInit {
             const id = circle.getAttribute('id-circle');
             this.renderer2?.removeClass(circle, 'svg__circle--deviation');
             const elDeviation = this.data.find((val) => val.id === +id)?.deviation;
-            console.log(elDeviation);
             if (elDeviation) {
                 const dev = elDeviation <= 0 ? true : false;
                 this.renderer2.addClass(circle, 'svg__circle--deviation');
