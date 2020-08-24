@@ -10,8 +10,8 @@
     <input class="container__input input" type="text" [formControl]="formControl" />
   </ng-template>
 
-  <div class="buttons" *ngIf="isShowButtons">
-    <ng-container *ngIf="!isEditing;else buttonsInput">
+  <div class="buttons" *ngIf="isShowButtons && isClaimsAvailable">
+    <ng-container *ngIf="!isEditing; else buttonsInput">
       <div class="button">
         <svg-icon src="assets/icons/edit.svg" (click)="onClickEdit()"></svg-icon>
       </div>
