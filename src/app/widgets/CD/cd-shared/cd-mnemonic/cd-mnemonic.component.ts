@@ -20,6 +20,7 @@ export interface IModalIcon {
     y: number;
     callBack: () => void;
     isVisible: boolean;
+    isDown: boolean;
 }
 
 @Component({
@@ -30,7 +31,6 @@ export interface IModalIcon {
 export class CdMnemonicComponent implements OnInit {
     @Input() set dataRef(value: ISensors[]) {
         if (value) {
-            console.log(value);
             this.data = value;
             this.draw();
         }
@@ -41,7 +41,7 @@ export class CdMnemonicComponent implements OnInit {
     data: ISensors[] = [];
 
     modalIcons: IModalIcon[] = [];
-    isSelectedEl: { id: number, modal: 'top-right' | 'top-left' | 'down-right' };
+    isSelectedEl: { id: number, modal: 'top-right' | 'top-left' | 'down-right', deviation: number };
 
     constructor(private renderer2: Renderer2, private cdMatBalanceService: CdMatBalanceService) {
     }
@@ -51,11 +51,8 @@ export class CdMnemonicComponent implements OnInit {
 
     private draw(): void {
         this.drawCircle();
-        if (!this.engUnits) {
-            this.engUnits = true;
-            this.drawValue();
-            this.drawEngUnits();
-        }
+        this.engUnits = true;
+        this.drawValue();
     }
 
     drawModal(
@@ -68,19 +65,18 @@ export class CdMnemonicComponent implements OnInit {
         deviationEngUnits: string = ''
     ): void {
         let isModal: 'top-right' | 'top-left' | 'down-right' = 'top-right';
-        let isDeviation: { x: number, y: number } = { x: 78, y: 122 };
+        let isDeviation: { x: number, y: number } = { x: 55, y: 100 };
         if (x > 900) {
             isModal = 'top-left';
             isDeviation = { x: 275, y: 100 };
         }
         if (y < 100) {
             isModal = 'down-right';
-            console.log('y < 10');
             isDeviation = { x: 55, y: 13 };
         }
         this.isSelectedEl.modal = isModal;
+        this.isSelectedEl.deviation = deviation;
         const modal = document.querySelector(`.svg__modal--${isModal}`);
-
         const modalTexts = document.querySelectorAll('.svg__modal__text');
         const modalTextsTooltip = document.querySelectorAll('.svg__modal__text__tooltip');
         modalTextsTooltip.forEach((text) => {
@@ -146,13 +142,16 @@ export class CdMnemonicComponent implements OnInit {
         const circles = document.querySelectorAll('.svg__circle');
         circles.forEach((circle) => {
             const id = circle.getAttribute('id-circle');
+            this.renderer2?.removeClass(circle, 'svg__circle--deviation');
             const elDeviation = this.data.find((val) => val.id === +id)?.deviation;
             if (elDeviation) {
+                const dev = elDeviation <= 0 ? true : false;
                 this.renderer2.addClass(circle, 'svg__circle--deviation');
                 this.addCircleDeviation(
                     +id,
                     +circle.getAttribute('cx'),
-                    +circle.getAttribute('cy')
+                    +circle.getAttribute('cy'),
+                    dev
                 );
             }
         });
@@ -165,22 +164,22 @@ export class CdMnemonicComponent implements OnInit {
             this.closeModal();
             this.cdMatBalanceService.showDeviation.next(id);
             this.disabledOrEnableCircle(false, this.isSelectedEl);
-            this.isSelectedEl = { id, modal: 'top-right' };
             const el = this.data.find((val) => val.id === id);
+            this.isSelectedEl = { id, modal: 'top-right', deviation: +el?.deviation?.toFixed() };
             this.disabledOrEnableCircle(true, this.isSelectedEl);
             this.drawModal(
                 x,
                 y,
-                +el.deviation.toFixed(),
-                el.description,
-                +el.modelValue.toFixed(),
-                +el.value.toFixed(),
-                el.engUnits
+                +el?.deviation.toFixed(),
+                el?.description,
+                +el?.modelValue.toFixed(),
+                +el?.value.toFixed(),
+                el?.engUnits
             );
         }
     }
 
-    addCircleDeviation(id: number, x: number, y: number, callBack?: () => null): void {
+    addCircleDeviation(id: number, x: number, y: number, isDown: boolean = false, callBack?: () => null): void {
         const locX = x - 28; // Разница в svg
         const locY = y - 7;
         this.modalIcons.push({
@@ -190,7 +189,8 @@ export class CdMnemonicComponent implements OnInit {
             callBack: () => {
                 this.clickIcon(id, x, y);
             },
-            isVisible: true
+            isVisible: (this.isSelectedEl?.id !== id) ? true : false,
+            isDown
         });
     }
 
@@ -244,23 +244,23 @@ export class CdMnemonicComponent implements OnInit {
     drawEngUnits(): void {
         const engUnits = document.querySelectorAll('.svg__circle__eng-units');
         engUnits.forEach((text) => {
-            const id = text.getAttribute('id-eng-units');
-            const valueEngUnits = this.data.find((val) => val.id === +id)?.engUnits;
-            if (valueEngUnits) {
-                const textCount = text.textContent.length;
-                let x = +text.getAttribute('x');
-                if (textCount === 2) {
-                    x = x + 2;
-                } else {
-                    x = x + 8;
+                const id = text.getAttribute('id-eng-units');
+                const valueEngUnits = this.data.find((val) => val.id === +id)?.engUnits;
+                if (valueEngUnits) {
+                    let x = +text.getAttribute('x');
+                    if (text.textContent.trim() === 'м³/ч') {
+                        x = x + 10;
+                    }
+                    if (text.textContent.trim() === 'ºС') {
+                        x = x + 3;
+                    }
+                    const finalX = this.calculationAxisX(x);
+                    this.renderer2.setAttribute(text, 'x', finalX);
+                    this.renderer2.setAttribute(text, 'text-anchor', 'middle');
+                    this.renderer2.setProperty(text, 'textContent', valueEngUnits);
                 }
-                const letterValue = valueEngUnits.length;
-                const finalX = this.calculationAxisX(x);
-                this.renderer2.setAttribute(text, 'x', finalX);
-                this.renderer2.setAttribute(text, 'text-anchor', 'middle');
-                this.renderer2.setProperty(text, 'textContent', valueEngUnits);
             }
-        });
+        );
     }
 
     drawValue(): void {
@@ -272,11 +272,7 @@ export class CdMnemonicComponent implements OnInit {
             if (el?.value) {
                 value = +el?.value.toFixed(1);
             }
-            const textCount = text.textContent.length - 0.5;
-            const x = +text.getAttribute('x') + textCount * 1.6;
-            const letterValue = String(value).length * 1.8;
-            const finalX = this.calculationAxisX(x, letterValue);
-            this.renderer2.setAttribute(text, 'x', finalX);
+            this.renderer2.setAttribute(text, 'text-anchor', 'middle');
             this.renderer2.setProperty(text, 'textContent', value);
         });
     }
