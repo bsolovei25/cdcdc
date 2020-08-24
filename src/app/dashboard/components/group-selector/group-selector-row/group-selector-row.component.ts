@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { IGroupScreens } from '../group-selector/group-selector.component';
+import { IGroupScreens } from '../group-selector.component';
 import { FormControl } from '@angular/forms';
 
 @Component({
@@ -8,8 +8,11 @@ import { FormControl } from '@angular/forms';
     styleUrls: ['./group-selector-row.component.scss'],
 })
 export class GroupSelectorRowComponent implements OnInit {
+    @Input() public isClaimsAvailable: boolean = false;
     @Input() public group: IGroupScreens;
     @Output() private selectGroup: EventEmitter<boolean> = new EventEmitter<boolean>();
+    @Output() private deleteGroup: EventEmitter<boolean> = new EventEmitter<boolean>();
+    @Output() private editGroup: EventEmitter<string> = new EventEmitter<string>();
 
     public isShowButtons: boolean = false;
     public isEditing: boolean = false;
@@ -38,13 +41,12 @@ export class GroupSelectorRowComponent implements OnInit {
     }
 
     public onClickDelete(): void {
-        this.selectGroup.emit(false);
+        this.deleteGroup.emit(true);
     }
 
     public onClickSaveEdit(): void {
         this.isEditing = false;
-        this.group.name = this.formControl.value;
-        this.selectGroup.emit(true);
+        this.editGroup.emit(this.formControl.value);
     }
 
     public onClickCancelEdit(): void {

@@ -1,14 +1,17 @@
 <div class="group-selector" (mouseenter)="onMouseEnter()" (mouseleave)="onMouseLeave()">
   <span class="group-selector__name">
-    {{selector.selected[0].name}}
+    {{selector.selected[0]?.name}}
   </span>
 
   <div class="group-selector__dropdown dropdown" *ngIf="isDropdownShowing">
     <ng-container *ngFor="let group of groups">
       <div class="dropdown__row">
         <evj-group-selector-row
+          [isClaimsAvailable]="getClaims(group?.id)"
           [group]="group"
-          (selectGroup)="onAction(group,$event)"
+          (selectGroup)="onSelect(group)"
+          (editGroup)="onEdit(group, $event)"
+          (deleteGroup)="onDelete(group)"
         ></evj-group-selector-row>
       </div>
     </ng-container>
