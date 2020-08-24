@@ -30,6 +30,7 @@ export class WidgetHeaderComponent implements OnInit, OnChanges, OnDestroy {
     @Input() icon: string = 'shedule';
 
     @Input() isEventOpen: boolean;
+    @Input() eventProdTask: string;
     @Input() tankInfo: boolean;
     @Input() blockWorkspaceButton: boolean;
     @Input() public toggleAstue: boolean = true;
@@ -42,6 +43,7 @@ export class WidgetHeaderComponent implements OnInit, OnChanges, OnDestroy {
             this.chDet.detectChanges();
         }
     }
+    @Output() public eventProdTaskChange: EventEmitter<void> = new EventEmitter<void>();
     @Output() eventCreated: EventEmitter<boolean> = new EventEmitter<boolean>();
     @Output() eventBack: EventEmitter<null> = new EventEmitter<null>();
     @Output() public selected: EventEmitter<any> = new EventEmitter<any>();
@@ -65,7 +67,7 @@ export class WidgetHeaderComponent implements OnInit, OnChanges, OnDestroy {
         public userSettings: UserSettingsService,
         private claimService: ClaimService,
         private chDet: ChangeDetectorRef
-    ) { }
+    ) {}
 
     public ngOnChanges(): void {
         this.filterTankInfo = this.tankInfo;
@@ -80,9 +82,7 @@ export class WidgetHeaderComponent implements OnInit, OnChanges, OnDestroy {
         );
         setTimeout(() => {
             console.log(this.widgetType);
-
         }, 2000);
-
     }
 
     ngOnDestroy(): void {
@@ -101,6 +101,10 @@ export class WidgetHeaderComponent implements OnInit, OnChanges, OnDestroy {
         this.createIcon = false;
         this.blockWorkspaceButton = true;
         this.eventCreated.emit(event);
+    }
+
+    public changeStatus(): void {
+        this.eventProdTaskChange.emit();
     }
 
     public backEvent(): void {
