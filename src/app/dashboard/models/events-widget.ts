@@ -243,6 +243,11 @@ export interface IStatus {
     code: string;
 }
 
+export interface ISubcategory {
+    id: number;
+    name?: string;
+}
+
 export interface IPriority {
     id: number;
     name: EventsWidgetNotificationPriority;
