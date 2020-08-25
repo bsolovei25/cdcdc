@@ -1,4 +1,4 @@
-<div class="line-chart" [class.line-chart__warning]="isWarning">
+<div class="line-chart" [class.line-chart__warning]="false">
   <div class="line-chart_header">
     <div class="gradient"></div>
     <span class="line-chart_header__title">{{ data?.title }}</span>
@@ -33,7 +33,7 @@
   </div>
   <div class="line-chart_body">
     <div #chart class="chart-container">
-      <evj-cd-line-chart [size]="size" [data]="data"></evj-cd-line-chart>
+      <evj-cd-line-chart [size]="size" [data]="chartData"></evj-cd-line-chart>
     </div>
 
     <div class="legend">
@@ -42,7 +42,7 @@
           <span class="fact">Факт</span>
         </div>
         <div class="legend_item__value">
-          <span class="fact">50</span>
+          <span class="fact">{{data?.value|number:"0.0-2"}}</span>
         </div>
       </div>
       <div class="legend_item">
@@ -50,7 +50,7 @@
           <span class="plan">Модель</span>
         </div>
         <div class="legend_item__value">
-          <span class="plan">50</span>
+          <span class="plan">{{data?.modelValue|number:"0.0-2"}}</span>
         </div>
       </div>
       <div class="legend_item">
@@ -58,7 +58,7 @@
           <span class="deviation">Отклонение</span>
         </div>
         <div class="legend_item__value">
-          <span class="deviation">0.1%</span>
+          <span class="deviation">{{data?.deviation|number:"0.0-2"}}</span>
         </div>
       </div>
     </div>

@@ -5,11 +5,11 @@ import {
     Injector,
     Input, OnDestroy,
     OnInit,
-    ViewChild
+    ViewChild,
 } from '@angular/core';
 import {
     ISplineDiagramData,
-    ISplineDiagramSize
+    ISplineDiagramSize,
 } from '../../../../LCO/spline-trends-chart/components/spline-diagram/spline-diagram.component';
 import { HttpClient } from '@angular/common/http';
 import { CdMatBalanceService } from '../../../../../dashboard/services/widgets/CD/cd-mat-balance.service';
@@ -21,7 +21,7 @@ import { IWidget } from '../../../../../dashboard/models/widget.model';
 @Component({
     selector: 'evj-cd-mat-balance-chart',
     templateUrl: './cd-mat-balance-chart.component.html',
-    styleUrls: ['./cd-mat-balance-chart.component.scss']
+    styleUrls: ['./cd-mat-balance-chart.component.scss'],
 })
 export class CdMatBalanceChartComponent implements OnInit, OnDestroy, AfterViewInit {
 
@@ -79,9 +79,9 @@ export class CdMatBalanceChartComponent implements OnInit, OnDestroy, AfterViewI
             providers: [
                 { provide: 'widgetId', useValue: idWidget },
                 { provide: 'uniqId', useValue: uniqId },
-                { provide: 'isMock', useValue: false }
+                { provide: 'isMock', useValue: false },
             ],
-            parent: this.injector
+            parent: this.injector,
         });
     };
 
@@ -101,12 +101,12 @@ export class CdMatBalanceChartComponent implements OnInit, OnDestroy, AfterViewI
             if (i === 50) {
                 testData.push({
                     value: 0,
-                    timestamp: new Date(new Date().setHours(new Date().getHours() + (i - 50)))
+                    timestamp: new Date(new Date().setHours(new Date().getHours() + (i - 50))),
                 });
             }
             testData.push({
                 value: i,
-                timestamp: new Date(new Date().setHours(new Date().getHours() + (i - 50)))
+                timestamp: new Date(new Date().setHours(new Date().getHours() + (i - 50))),
             });
         }
         console.log(testData);
@@ -135,7 +135,7 @@ export class CdMatBalanceChartComponent implements OnInit, OnDestroy, AfterViewI
         const resultArray: { x: number; y: number }[] = normArray.map((el) => {
             return {
                 y: el.value,
-                x: (el.timestamp.getTime() - normArray[0].timestamp.getTime()) / (60 * 60 * 1000)
+                x: (el.timestamp.getTime() - normArray[0].timestamp.getTime()) / (60 * 60 * 1000),
             };
         });
 
@@ -144,30 +144,6 @@ export class CdMatBalanceChartComponent implements OnInit, OnDestroy, AfterViewI
 
     private async getData(): Promise<void> {
         try {
-            const mockData = await this.http.get<any>('assets/mock/CD/model.json').toPromise();
-            console.log('mockData', mockData);
-
-            const newData: ISplineDiagramData = {
-                deviationValue: mockData.data.deviation,
-                planValue: mockData.data.modelValue,
-                highBound: [],
-                lowBound: [],
-                fact: mockData.data.valueGraphs.map((item) => {
-                    return {
-                        x: this.dateHourRound(new Date(item.date)),
-                        y: item.value ?? 0
-                    };
-                }),
-                plan: mockData.data.modelValueGraphs.map((item) => {
-                    return {
-                        x: this.dateHourRound(new Date(item.date)),
-                        y: item.value ?? 0
-                    };
-                })
-            };
-
-            console.log('newData', newData);
-
             const data: ISplineDiagramData = await this.http
                 .get<ISplineDiagramData>('assets/mock/LCO/spline-trends-chart.json')
                 .toPromise();
@@ -220,7 +196,7 @@ export class CdMatBalanceChartComponent implements OnInit, OnDestroy, AfterViewI
             } else {
                 el = {
                     x: idx + 1,
-                    y: prev.y + ((idx + 1 - prev.x) / (next.x - prev.x)) * (next.y - prev.y)
+                    y: prev.y + ((idx + 1 - prev.x) / (next.x - prev.x)) * (next.y - prev.y),
                 };
             }
             dataArray[idx] = el;
