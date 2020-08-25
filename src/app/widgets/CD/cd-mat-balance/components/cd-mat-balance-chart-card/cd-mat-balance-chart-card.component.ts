@@ -16,6 +16,23 @@ import {
 import { WidgetService } from '../../../../../dashboard/services/widget.service';
 import { HttpClient } from '@angular/common/http';
 
+export interface IMatBalanceChartCard {
+    id: number;
+    description: string;
+    deviation: number;
+    engUnits: string;
+    max: number;
+    min: number;
+    modelValue: number;
+    modelValueGraphs: { value: number; date: Date }[];
+    name: string;
+    title: string;
+    value: number;
+    valueGraphs: { value: number; date: Date }[];
+    widgetId: string;
+    widgetType: string;
+}
+
 @Component({
     selector: 'evj-cd-mat-balance-chart-card',
     templateUrl: './cd-mat-balance-chart-card.component.html',
@@ -26,12 +43,12 @@ export class CdMatBalanceChartCardComponent extends WidgetPlatform
     @ViewChild('chart')
     public chartElement: ElementRef;
 
-    public data: ISplineDiagramData;
+    public data: IMatBalanceChartCard;
+    public chartData: ISplineDiagramData;
     public size: ISplineDiagramSize;
 
     constructor(
         protected widgetService: WidgetService,
-        private http: HttpClient,
         public injector: Injector,
         @Inject('isMock') public isMock: boolean,
         @Inject('widgetId') public id: string,
@@ -49,34 +66,28 @@ export class CdMatBalanceChartCardComponent extends WidgetPlatform
             width: this.chartElement.nativeElement.offsetWidth,
             height: this.chartElement.nativeElement.offsetHeight,
         };
-        this.getData();
     }
 
     ngOnDestroy(): void {
         super.ngOnDestroy();
     }
 
-    protected dataHandler(ref: any): void {
+    protected dataHandler(ref: IMatBalanceChartCard): void {
         if (ref) {
-            this.data = ref;
+            this.getData(ref);
             console.log(ref);
         }
     }
 
-    private async getData(): Promise<void> {
-        const mockData = await this.http.get<any>('assets/mock/CD/model.json').toPromise();
-        console.log('mockData', mockData);
+    private async getData(data: IMatBalanceChartCard): Promise<void> {
+        const plan: { value: number; timestamp: Date }[] = data.modelValueGraphs.map((item) => {
+            return {
+                value: item.value ?? 0,
+                timestamp: new Date(item.date),
+            };
+        });
 
-        const plan: { value: number; timestamp: Date }[] = mockData.data.modelValueGraphs.map(
-            (item) => {
-                return {
-                    value: item.value ?? 0,
-                    timestamp: new Date(item.date),
-                };
-            }
-        );
-
-        const fact: { value: number; timestamp: Date }[] = mockData.data.valueGraphs.map((item) => {
+        const fact: { value: number; timestamp: Date }[] = data.valueGraphs.map((item) => {
             return {
                 value: item.value ?? 0,
                 timestamp: new Date(item.date),
@@ -84,8 +95,8 @@ export class CdMatBalanceChartCardComponent extends WidgetPlatform
         });
 
         const newData: ISplineDiagramData = {
-            deviationValue: mockData.data.deviation,
-            planValue: mockData.data.modelValue,
+            deviationValue: data.deviation,
+            planValue: data.modelValue,
             highBound: [],
             lowBound: [],
             fact: this.transformData(fact),
@@ -93,6 +104,8 @@ export class CdMatBalanceChartCardComponent extends WidgetPlatform
         };
 
         console.log('newData', newData);
+        this.data = data;
+        this.chartData = newData;
     }
 
     private dateHourRound(date: Date): Date {
