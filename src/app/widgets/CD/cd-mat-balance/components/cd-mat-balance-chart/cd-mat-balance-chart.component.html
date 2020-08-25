@@ -1,7 +1,7 @@
 <div class="line-charts">
   <div class="header">
     <div class="header__interface">
-      <img class="icon" src="assets/pic/diagram.svg" />
+      <img class="icon" src="assets/pic/diagram.svg"/>
 
       <div class="title">Анализ трендов</div>
 
@@ -24,7 +24,7 @@
           </mat-form-field>
         </div>
         <div class="button button_menu" (click)="toggleMenu()">
-          <img src="assets/pic/menu.svg" />
+          <img src="assets/pic/menu.svg"/>
         </div>
       </div>
     </div>
@@ -85,7 +85,18 @@
   </div>
   <div class="body">
     <div class="scroll-container">
-      <evj-cd-mat-balance-chart-card></evj-cd-mat-balance-chart-card>
+      <!-- TODO  -->
+      <ng-container
+        *ngFor="let item of widgetService.widgets$ | async"
+      >
+        <ng-container *ngIf="item.widgetType === 'cd-mat-balance-sensor'">
+          <ng-container
+            *ngComponentOutlet="WIDGETS[item.widgetType]; injector: (item.id | fn:getInjector : item.uniqid);"
+          >
+          </ng-container>
+        </ng-container>
+      </ng-container>
+      <!-- TODO  -->
     </div>
   </div>
   <div class="footer">

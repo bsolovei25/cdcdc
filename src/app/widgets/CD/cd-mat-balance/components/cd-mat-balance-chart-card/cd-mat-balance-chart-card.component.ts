@@ -1,6 +1,19 @@
-import { Component, OnInit, AfterViewInit, ViewChild, ElementRef, Input } from '@angular/core';
-import { ISplineDiagramData } from '../../../../LCO/spline-trends-chart/components/spline-diagram/spline-diagram.component';
-import { ISplineDiagramSize } from '../../../cd-shared/cd-line-chart/cd-line-chart.component';
+import {
+    Component,
+    OnInit,
+    OnDestroy,
+    AfterViewInit,
+    ViewChild,
+    ElementRef,
+    Injector,
+    Inject,
+} from '@angular/core';
+import { WidgetPlatform } from '../../../../../dashboard/models/widget-platform';
+import {
+    ISplineDiagramData,
+    ISplineDiagramSize,
+} from '../../../../LCO/spline-trends-chart/components/spline-diagram/spline-diagram.component';
+import { WidgetService } from '../../../../../dashboard/services/widget.service';
 import { HttpClient } from '@angular/common/http';
 
 @Component({
@@ -8,24 +21,46 @@ import { HttpClient } from '@angular/common/http';
     templateUrl: './cd-mat-balance-chart-card.component.html',
     styleUrls: ['./cd-mat-balance-chart-card.component.scss'],
 })
-export class CdMatBalanceChartCardComponent implements OnInit, AfterViewInit {
-    @ViewChild('chart', { static: true })
+export class CdMatBalanceChartCardComponent extends WidgetPlatform
+    implements OnInit, OnDestroy, AfterViewInit {
+    @ViewChild('chart')
     public chartElement: ElementRef;
 
     public data: ISplineDiagramData;
     public size: ISplineDiagramSize;
 
-    constructor(private http: HttpClient) {}
+    constructor(
+        protected widgetService: WidgetService,
+        private http: HttpClient,
+        public injector: Injector,
+        @Inject('isMock') public isMock: boolean,
+        @Inject('widgetId') public id: string,
+        @Inject('uniqId') public uniqId: string
+    ) {
+        super(widgetService, isMock, id, uniqId);
+    }
 
-    public ngOnInit(): void {
+    ngOnInit(): void {
+        super.widgetInit();
+    }
+
+    public ngAfterViewInit(): void {
         this.size = {
             width: this.chartElement.nativeElement.offsetWidth,
             height: this.chartElement.nativeElement.offsetHeight,
         };
+        this.getData();
     }
 
-    public ngAfterViewInit(): void {
-        this.getData();
+    ngOnDestroy(): void {
+        super.ngOnDestroy();
+    }
+
+    protected dataHandler(ref: any): void {
+        if (ref) {
+            this.data = ref;
+            console.log(ref);
+        }
     }
 
     private async getData(): Promise<void> {
