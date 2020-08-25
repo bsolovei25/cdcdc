@@ -176,6 +176,8 @@ export class CdMnemonicComponent implements OnInit {
                 +el?.value.toFixed(),
                 el?.engUnits
             );
+            const selectChart: string[] = [...this.cdMatBalanceService.charts$.getValue(), id.toString()];
+            this.cdMatBalanceService.charts$.next(selectChart);
         }
     }
 

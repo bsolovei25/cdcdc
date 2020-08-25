@@ -8,6 +8,9 @@ export class CdMatBalanceService {
 
     showDeviation: BehaviorSubject<number> = new BehaviorSubject<number>(null);
 
+    charts$: BehaviorSubject<string[]> = new BehaviorSubject<string[]>([]);
+
     constructor() {
     }
+
 }

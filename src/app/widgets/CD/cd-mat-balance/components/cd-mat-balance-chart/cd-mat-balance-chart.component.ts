@@ -3,7 +3,7 @@ import {
     Component,
     ElementRef,
     Injector,
-    Input,
+    Input, OnDestroy,
     OnInit,
     ViewChild
 } from '@angular/core';
@@ -15,15 +15,22 @@ import { HttpClient } from '@angular/common/http';
 import { CdMatBalanceService } from '../../../../../dashboard/services/widgets/CD/cd-mat-balance.service';
 import { WidgetService } from '../../../../../dashboard/services/widget.service';
 import { WIDGETS } from '../../../../../dashboard/components/widgets-grid/widget-map';
+import { Subscription } from 'rxjs';
+import { IWidget } from '../../../../../dashboard/models/widget.model';
 
 @Component({
     selector: 'evj-cd-mat-balance-chart',
     templateUrl: './cd-mat-balance-chart.component.html',
     styleUrls: ['./cd-mat-balance-chart.component.scss']
 })
-export class CdMatBalanceChartComponent implements OnInit, AfterViewInit {
+export class CdMatBalanceChartComponent implements OnInit, OnDestroy, AfterViewInit {
 
     public readonly WIDGETS = WIDGETS;
+
+    private subscriptions: Subscription[] = [];
+
+    allCheckedCharts: string[] = [];
+    allWidgets: IWidget[] = [];
 
     @Input()
     public data: ISplineDiagramData = null;
@@ -36,11 +43,30 @@ export class CdMatBalanceChartComponent implements OnInit, AfterViewInit {
     constructor(public http: HttpClient,
                 private cdMatBalanceService: CdMatBalanceService,
                 public widgetService: WidgetService,
-                public injector: Injector) {
+                public injector: Injector
+    ) {
     }
 
     ngOnInit(): void {
         this.onStart();
+        this.subscriptions.push(
+            this.cdMatBalanceService.charts$.subscribe(charts => {
+                console.log(charts);
+                const allWidgets = this.widgetService.allWidgets;
+                allWidgets.forEach(value => {
+                    charts.forEach(chart => {
+                        if (value.name === chart) {
+                            this.allWidgets.push(value);
+                        }
+                    });
+                });
+                this.allCheckedCharts = charts;
+            })
+        );
+    }
+
+    ngOnDestroy(): void {
+        this.subscriptions.forEach((sub) => sub.unsubscribe());
     }
 
     ngAfterViewInit(): void {
@@ -56,7 +82,7 @@ export class CdMatBalanceChartComponent implements OnInit, AfterViewInit {
             ],
             parent: this.injector
         });
-    }
+    };
 
     private async onStart(): Promise<void> {
         const hourInterval = 8;

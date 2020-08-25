@@ -79,6 +79,10 @@ export class WidgetService {
         setInterval(() => this.reloadPage(), 1800000);
     }
 
+    public get allWidgets(): IWidget[] {
+        return this._widgets$.getValue();
+    }
+
     private getAvailableWidgets(): Observable<IWidget[]> {
         return this.http
             .get(this.restUrl + `/api/user-management/Claim/user/GetAvailableWidgets`)
