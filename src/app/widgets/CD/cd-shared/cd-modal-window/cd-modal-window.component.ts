@@ -2,6 +2,8 @@ import { Component, Input, OnInit } from '@angular/core';
 import { IUser } from '../../../../dashboard/models/events-widget';
 import { FormControl, Validators } from '@angular/forms';
 import * as moment from 'moment';
+import { EventService } from '../../../../dashboard/services/widgets/event.service';
+import { EventsWorkspaceService } from '../../../../dashboard/services/widgets/events-workspace.service';
 
 export interface ICDModalWindow {
     responsible: IUser;
@@ -17,22 +19,26 @@ export interface ICDModalWindow {
 @Component({
     selector: 'evj-cd-modal-window',
     templateUrl: './cd-modal-window.component.html',
-    styleUrls: ['./cd-modal-window.component.scss']
+    styleUrls: ['./cd-modal-window.component.scss'],
 })
 export class CdModalWindowComponent implements OnInit {
-
     @Input() public info: ICDModalWindow;
+
+    users: IUser[] = [];
 
     isOpenStartDate: boolean = false;
 
     timeStart: FormControl = new FormControl(
-        moment().second(0).minutes(0),
-        [Validators.required]);
+        moment()
+            .second(0)
+            .minutes(0),
+        [Validators.required]
+    );
 
-    constructor() {
-    }
+    constructor(private ewService: EventsWorkspaceService) {}
 
     ngOnInit(): void {
+        this.users = this.ewService.users;
     }
 
     public accept(): void {
@@ -60,9 +66,7 @@ export class CdModalWindowComponent implements OnInit {
     }
 
     public dateTimePickerInput(date: Date, isStart: boolean): void {
-
         if (!isStart) {
-
         }
     }
 
@@ -75,5 +79,4 @@ export class CdModalWindowComponent implements OnInit {
             this.isOpenStartDate = false;
         }, 700);
     }
-
 }

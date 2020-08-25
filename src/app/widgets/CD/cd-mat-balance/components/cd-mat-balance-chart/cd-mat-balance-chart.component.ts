@@ -3,7 +3,8 @@ import {
     Component,
     ElementRef,
     Injector,
-    Input, OnDestroy,
+    Input,
+    OnDestroy,
     OnInit,
     ViewChild,
 } from '@angular/core';
@@ -24,7 +25,6 @@ import { IWidget } from '../../../../../dashboard/models/widget.model';
     styleUrls: ['./cd-mat-balance-chart.component.scss'],
 })
 export class CdMatBalanceChartComponent implements OnInit, OnDestroy, AfterViewInit {
-
     public readonly WIDGETS = WIDGETS;
 
     private subscriptions: Subscription[] = [];
@@ -40,22 +40,22 @@ export class CdMatBalanceChartComponent implements OnInit, OnDestroy, AfterViewI
 
     public isMenuOpen: boolean = false;
 
-    constructor(public http: HttpClient,
-                private cdMatBalanceService: CdMatBalanceService,
-                public widgetService: WidgetService,
-                public injector: Injector
-    ) {
-    }
+    constructor(
+        public http: HttpClient,
+        private cdMatBalanceService: CdMatBalanceService,
+        public widgetService: WidgetService,
+        public injector: Injector
+    ) {}
 
     ngOnInit(): void {
         this.onStart();
         this.subscriptions.push(
-            this.cdMatBalanceService.charts$.subscribe(charts => {
+            this.cdMatBalanceService.charts$.subscribe((charts) => {
                 console.log(charts);
                 this.allWidgets = [];
                 const allWidgets = this.widgetService.allWidgets;
-                allWidgets.forEach(value => {
-                    charts.forEach(chart => {
+                allWidgets.forEach((value) => {
+                    charts.forEach((chart) => {
                         if (value.name === chart) {
                             this.allWidgets.push(value);
                         }
@@ -97,7 +97,6 @@ export class CdMatBalanceChartComponent implements OnInit, OnDestroy, AfterViewI
             if (i === 49) {
                 continue;
             }
-
             if (i === 50) {
                 testData.push({
                     value: 0,
@@ -109,14 +108,12 @@ export class CdMatBalanceChartComponent implements OnInit, OnDestroy, AfterViewI
                 timestamp: new Date(new Date().setHours(new Date().getHours() + (i - 50))),
             });
         }
-        console.log(testData);
         testData.forEach((el) => (el.timestamp = this.dateHourRound(el.timestamp)));
         testData = testData.filter(
             (el) =>
                 el.timestamp.getTime() >= startDatetime.getTime() &&
                 el.timestamp.getTime() <= currentDatetime.getTime()
         );
-        console.log(testData);
 
         const normArray: { value: number; timestamp: Date }[] = [];
         for (const el of testData) {
@@ -138,8 +135,6 @@ export class CdMatBalanceChartComponent implements OnInit, OnDestroy, AfterViewI
                 x: (el.timestamp.getTime() - normArray[0].timestamp.getTime()) / (60 * 60 * 1000),
             };
         });
-
-        console.log('resultArray', resultArray);
     }
 
     private async getData(): Promise<void> {

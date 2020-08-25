@@ -174,6 +174,9 @@ export class ApsContextMenuDirective implements OnInit {
         }
     ];
 
+    @Input()
+    public disabledDirective: boolean = true;
+
     @Output()
     public rightClick: EventEmitter<any> = new EventEmitter<any>();
 
@@ -198,6 +201,7 @@ export class ApsContextMenuDirective implements OnInit {
         const componentRef = this.vcRef.createComponent(factory);
         componentRef.instance.event = this.eventSubject.asObservable();
         componentRef.instance.items = this.items;
+        componentRef.instance.disabledDirective = this.disabledDirective;
         this.renderer.appendChild(
             this.vcRef.element.nativeElement,
             componentRef.injector.get(ApsContextMenuComponent).elRef.nativeElement

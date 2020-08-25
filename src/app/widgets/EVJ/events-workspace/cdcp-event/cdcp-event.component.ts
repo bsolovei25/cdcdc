@@ -3,6 +3,7 @@ import { IInputOptions } from '../../../../@shared/models/input.model';
 import { IChatMessageWithAttachments } from '../components/chat/chat.component';
 import { EventsWorkspaceService } from '../../../../dashboard/services/widgets/events-workspace.service';
 import { UserSettingsService } from '../../../../dashboard/services/user-settings.service';
+import { CdMatBalanceService } from '../../../../dashboard/services/widgets/CD/cd-mat-balance.service';
 
 @Component({
     selector: 'evj-cdcp-event',
@@ -19,7 +20,8 @@ export class CdcpEventComponent implements OnInit {
 
     constructor(
         public ewService: EventsWorkspaceService,
-        private userService: UserSettingsService
+        private userService: UserSettingsService,
+        private cdMatBalanceService: CdMatBalanceService
     ) {}
 
     ngOnInit(): void {}
@@ -44,6 +46,7 @@ export class CdcpEventComponent implements OnInit {
     }
 
     public openMnemo(): void {
+        this.cdMatBalanceService.isOpenEvent$.next(false);
         this.userService.LoadScreenByWidget('cd-mat-balance');
     }
 }

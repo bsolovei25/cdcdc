@@ -112,6 +112,7 @@ input[type="text"]:focus {
 }
 
 textarea {
+  font-size: 14px;
   background-color: var(--color-aps-bg);
   border: 1px solid var(--color-cd-new-border);
   border-radius: 2px;
@@ -119,7 +120,7 @@ textarea {
   min-height: 36px;
   padding-left: 15px;
   padding-right: 10px;
-  font-size: 14px;
+  padding-top: 10px;
 }
 
 textarea[type="text"]:focus {

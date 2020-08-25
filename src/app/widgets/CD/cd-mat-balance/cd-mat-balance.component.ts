@@ -4,6 +4,7 @@ import { WidgetService } from '../../../dashboard/services/widget.service';
 import { CdMatBalanceService } from '../../../dashboard/services/widgets/CD/cd-mat-balance.service';
 import { ICDModalWindow } from '../cd-shared/cd-modal-window/cd-modal-window.component';
 import { INavItem } from '../../../dashboard/components/aps-dropdown-menu/aps-dropdown-menu.component';
+import { UserSettingsService } from '../../../dashboard/services/user-settings.service';
 
 export interface IMatBalance {
     params: IParams;
@@ -54,18 +55,16 @@ export interface IStreams {
 @Component({
     selector: 'evj-cd-mat-balance',
     templateUrl: './cd-mat-balance.component.html',
-    styleUrls: ['./cd-mat-balance.component.scss']
+    styleUrls: ['./cd-mat-balance.component.scss'],
 })
 export class CdMatBalanceComponent extends WidgetPlatform implements OnInit, OnDestroy {
     isSelectedEl: number;
     data: IMatBalance;
+    // disabledDirective: boolean = this.cdMatBalanceService.isOpenEvent$.getValue();
+    disabledDirective: boolean = false;
+
 
     modal: ICDModalWindow;
-    // = {
-    //     // acceptText: 'Отправить в службу КИПиА',
-    //     // date: new Date(),
-    //     // time: new Date()
-    // };
 
     public items: INavItem[] = [
         {
@@ -78,30 +77,49 @@ export class CdMatBalanceComponent extends WidgetPlatform implements OnInit, OnD
                     children: [
                         {
                             name: 'Передать в службу КИПиА',
-                            value: 0
-                        }
-                    ]
+                            value: 0,
+                            onClick: () => {
+                                this.modal = {
+                                    acceptText: 'Отправить в службу КИПиА',
+                                    date: new Date(),
+                                    time: new Date(),
+                                    description: '',
+                                    task: '',
+                                    acceptFunction: () => {
+                                        console.log(this.modal.description);
+                                    },
+                                    cancelFunction: () => {
+                                        this.modal = null;
+                                    },
+                                };
+                            },
+                        },
+                    ],
                 },
                 {
                     name: 'Модель',
-                    value: 0
-
+                    value: 0,
                 },
                 {
                     name: 'Техпроцесс',
-                    value: 0
-                }
-            ]
+                    value: 0,
+                },
+            ],
         },
         {
             name: 'Вернуться к карточке события',
-            value: 0
-        }
+            value: 0,
+            onClick: () => {
+                this.userService.LoadScreenByWidget('events-workspace');
+                this.cdMatBalanceService.isOpenEvent$.next(false);
+            },
+        },
     ];
 
     constructor(
         protected widgetService: WidgetService,
         private cdMatBalanceService: CdMatBalanceService,
+        private userService: UserSettingsService,
         @Inject('isMock') public isMock: boolean,
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string
@@ -125,7 +143,6 @@ export class CdMatBalanceComponent extends WidgetPlatform implements OnInit, OnD
     protected dataHandler(ref: any): void {
         if (ref) {
             this.data = ref;
-            console.log(ref);
         }
     }
 }

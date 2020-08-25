@@ -14,15 +14,9 @@
             <div class="input__container">
               <p class="input__container__title">Назначьте отвественного:</p>
               <mat-form-field class="input__container__form mat-select-custom">
-                <mat-select
-                  value="ewService.event.asusEvent.category"
-                  [compareWith]="compareFn"
-                >
-                  <mat-option
-                    *ngFor="let category of ['dasdas']"
-                    [value]="category"
-                  >
-                    {{ category }}
+                <mat-select value="ewService.event.asusEvent.category" [compareWith]="compareFn">
+                  <mat-option *ngFor="let user of users" [value]="user">
+                    {{ user.firstName }}
                   </mat-option>
                 </mat-select>
               </mat-form-field>
@@ -32,9 +26,7 @@
             <div class="window-container__body__input">
               <div class="input__container">
                 <p class="input__container__title">Выберите дату:</p>
-                <mat-form-field
-                  class="form form__picker custom-picker"
-                >
+                <mat-form-field class="form form__picker custom-picker">
                   <input
                     autocomplete="off"
                     matInput
@@ -67,8 +59,11 @@
                   >
                   </svg-icon>
                 </div>
-                <div *ngIf="isOpenStartDate" class="input__container__overlay"
-                     (mouseleave)="onMouseExit()">
+                <div
+                  *ngIf="isOpenStartDate"
+                  class="input__container__overlay"
+                  (mouseleave)="onMouseExit()"
+                >
                   <ngx-mat-timepicker
                     #menu
                     (click)="$event.stopPropagation()"
@@ -83,14 +78,13 @@
                   <!--                    </div>-->
                   <!--                  </div>-->
                 </div>
-
               </div>
             </div>
           </div>
           <div class="window-container__body__input">
             <div class="input__container">
-              <p class="input__container__title">Краткость описание:</p>
-              <textarea type="text" rows="9"></textarea>
+              <p class="input__container__title">Краткое описание:</p>
+              <textarea type="text" rows="9" [(ngModel)]="info.description"></textarea>
             </div>
           </div>
         </div>
@@ -98,22 +92,25 @@
           <div class="window-container__body__input">
             <div class="input__container">
               <p class="input__container__title">Установленные факты:</p>
-              <textarea type="text" rows="19"></textarea>
+              <textarea type="text" rows="19" [(ngModel)]="info.task"></textarea>
             </div>
           </div>
         </div>
       </div>
       <div class="window-container__footer">
         <div class="window-container__footer__btn">
-          <div (click)="cancel()">Принять</div>
+          <div>Принять</div>
         </div>
         <div class="window-container__footer__btn">
-          <div (click)="cancel()">Отправить в обработку</div>
+          <div>Отправить в обработку</div>
         </div>
         <div class="window-container__footer__btn">
           <div (click)="cancel()">Отменить</div>
         </div>
-        <div class="window-container__footer__btn window-container__footer__btn__accept" (click)="accept()">
+        <div
+          class="window-container__footer__btn window-container__footer__btn__accept"
+          (click)="accept()"
+        >
           <svg-icon
             class="table__body__column__row-title__icon__background"
             src="assets/icons/widgets/CD/cd-mat-balance/send.svg"
