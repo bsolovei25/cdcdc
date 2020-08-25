@@ -52,6 +52,7 @@ export class CdMatBalanceChartComponent implements OnInit, OnDestroy, AfterViewI
         this.subscriptions.push(
             this.cdMatBalanceService.charts$.subscribe(charts => {
                 console.log(charts);
+                this.allWidgets = [];
                 const allWidgets = this.widgetService.allWidgets;
                 allWidgets.forEach(value => {
                     charts.forEach(chart => {
@@ -229,6 +230,7 @@ export class CdMatBalanceChartComponent implements OnInit, OnDestroy, AfterViewI
 
     onClickHeader(): void {
         this.cdMatBalanceService.showDeviation.next(null);
+        this.cdMatBalanceService.charts$.next([]);
     }
 
     public toggleMenu(): void {

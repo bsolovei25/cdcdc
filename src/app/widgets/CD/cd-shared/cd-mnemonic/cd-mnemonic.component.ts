@@ -144,7 +144,8 @@ export class CdMnemonicComponent implements OnInit {
             const id = circle.getAttribute('id-circle');
             circle.addEventListener('click',
                 (e) => {
-                    console.log(id);
+                    this.addLineChart(+id);
+                    // console.log(id);
                 });
             this.renderer2?.removeClass(circle, 'svg__circle--deviation');
             const elDeviation = this.data.find((val) => val.id === +id)?.deviation;
@@ -161,7 +162,15 @@ export class CdMnemonicComponent implements OnInit {
         });
     }
 
-    clickIcon(id: number, x: number, y: number): void {
+    addLineChart(id: number): void {
+        const selectChart: string[] =
+            [...this.cdMatBalanceService.charts$.getValue(), id.toString()];
+        const setCharts = new Set(selectChart);
+        this.cdMatBalanceService.charts$.next([...setCharts]);
+    }
+
+    clickIcon(id: number, x?: number, y?: number): void {
+        this.addLineChart(id);
         if (this.isSelectedEl?.id === id) {
             this.isSelectedEl = null;
         } else {
@@ -180,8 +189,6 @@ export class CdMnemonicComponent implements OnInit {
                 +el?.value.toFixed(),
                 el?.engUnits
             );
-            const selectChart: string[] = [...this.cdMatBalanceService.charts$.getValue(), id.toString()];
-            this.cdMatBalanceService.charts$.next(selectChart);
         }
     }
 
@@ -253,7 +260,8 @@ export class CdMnemonicComponent implements OnInit {
                 const id = engUnit.getAttribute('id-eng-units');
                 engUnit.addEventListener('click',
                     () => {
-                        console.log(id);
+                        this.addLineChart(+id);
+                        // console.log(id);
                     });
                 const valueEngUnits = this.data.find((val) => val.id === +id)?.engUnits;
                 if (valueEngUnits) {
@@ -279,7 +287,8 @@ export class CdMnemonicComponent implements OnInit {
             const id = text.getAttribute('id-text');
             text.addEventListener('click',
                 (e) => {
-                    console.log(id);
+                    this.addLineChart(+id);
+                    // console.log(id);
                 });
             const el = this.data.find((val) => val.id === +id);
             let value = 0;
