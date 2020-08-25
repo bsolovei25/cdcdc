@@ -27,7 +27,7 @@ interface IWebSocket {
 }
 
 @Injectable({
-    providedIn: 'root',
+    providedIn: 'root'
 })
 export class WidgetService {
     private readonly wsUrl: string;
@@ -121,7 +121,7 @@ export class WidgetService {
                 categories: item.categories,
                 isClaim: item.isClaim,
                 isVideoWall: item.isVideoWall,
-                sortType: item.sortType,
+                sortType: item.sortType
             };
         });
     }
@@ -169,7 +169,7 @@ export class WidgetService {
     private wsRealtimeData(widgetId: string): void {
         this.ws.next({
             actionType: 'subscribe',
-            channelId: widgetId,
+            channelId: widgetId
         });
     }
 
@@ -177,14 +177,14 @@ export class WidgetService {
         this.ws.next({
             actionType: 'getPeriodData',
             channelId: widgetId,
-            selectedPeriod: this.currentDates$.getValue(),
+            selectedPeriod: this.currentDates$.getValue()
         });
     }
 
     public wsDisconnect(widgetId: string): void {
         this.ws.next({
             actionType: 'unsubscribe',
-            channelId: widgetId,
+            channelId: widgetId
         });
     }
 
@@ -249,6 +249,7 @@ export class WidgetService {
             case 'cd-mat-balance':
             case 'cd-deviation-mat':
             case 'cd-reactor-parameters':
+            case 'cd-mat-balance-sensor':
                 return data;
         }
         console.warn(`unknown widget type ${widgetType}`);
@@ -309,7 +310,7 @@ export class WidgetService {
         this.ws.next({
             actionType: 'authenticate',
             channelId: null,
-            token: this.authService.userSessionToken,
+            token: this.authService.userSessionToken
         });
         this.ws.subscribe(
             (msg) => {
@@ -340,9 +341,9 @@ export class WidgetService {
         }
         return (
             new Date(incoming.fromDateTime).getTime() ===
-                new Date(this.currentDates$.getValue()?.fromDateTime).getTime() &&
+            new Date(this.currentDates$.getValue()?.fromDateTime).getTime() &&
             new Date(incoming.toDateTime).getTime() ===
-                new Date(this.currentDates$.getValue()?.toDateTime).getTime()
+            new Date(this.currentDates$.getValue()?.toDateTime).getTime()
         );
     }
 

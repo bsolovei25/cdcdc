@@ -1,17 +1,30 @@
-import { AfterViewInit, Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import {
+    AfterViewInit,
+    Component,
+    ElementRef,
+    Injector,
+    Input,
+    OnInit,
+    ViewChild
+} from '@angular/core';
 import {
     ISplineDiagramData,
-    ISplineDiagramSize,
+    ISplineDiagramSize
 } from '../../../../LCO/spline-trends-chart/components/spline-diagram/spline-diagram.component';
 import { HttpClient } from '@angular/common/http';
 import { CdMatBalanceService } from '../../../../../dashboard/services/widgets/CD/cd-mat-balance.service';
+import { WidgetService } from '../../../../../dashboard/services/widget.service';
+import { WIDGETS } from '../../../../../dashboard/components/widgets-grid/widget-map';
 
 @Component({
     selector: 'evj-cd-mat-balance-chart',
     templateUrl: './cd-mat-balance-chart.component.html',
-    styleUrls: ['./cd-mat-balance-chart.component.scss'],
+    styleUrls: ['./cd-mat-balance-chart.component.scss']
 })
 export class CdMatBalanceChartComponent implements OnInit, AfterViewInit {
+
+    public readonly WIDGETS = WIDGETS;
+
     @Input()
     public data: ISplineDiagramData = null;
 
@@ -20,7 +33,11 @@ export class CdMatBalanceChartComponent implements OnInit, AfterViewInit {
 
     public isMenuOpen: boolean = false;
 
-    constructor(public http: HttpClient, private cdMatBalanceService: CdMatBalanceService) {}
+    constructor(public http: HttpClient,
+                private cdMatBalanceService: CdMatBalanceService,
+                public widgetService: WidgetService,
+                public injector: Injector) {
+    }
 
     ngOnInit(): void {
         this.onStart();
@@ -28,6 +45,17 @@ export class CdMatBalanceChartComponent implements OnInit, AfterViewInit {
 
     ngAfterViewInit(): void {
         this.getData();
+    }
+
+    public getInjector = (idWidget: string, uniqId: string): Injector => {
+        return Injector.create({
+            providers: [
+                { provide: 'widgetId', useValue: idWidget },
+                { provide: 'uniqId', useValue: uniqId },
+                { provide: 'isMock', useValue: false }
+            ],
+            parent: this.injector
+        });
     }
 
     private async onStart(): Promise<void> {
@@ -46,12 +74,12 @@ export class CdMatBalanceChartComponent implements OnInit, AfterViewInit {
             if (i === 50) {
                 testData.push({
                     value: 0,
-                    timestamp: new Date(new Date().setHours(new Date().getHours() + (i - 50))),
+                    timestamp: new Date(new Date().setHours(new Date().getHours() + (i - 50)))
                 });
             }
             testData.push({
                 value: i,
-                timestamp: new Date(new Date().setHours(new Date().getHours() + (i - 50))),
+                timestamp: new Date(new Date().setHours(new Date().getHours() + (i - 50)))
             });
         }
         console.log(testData);
@@ -80,7 +108,7 @@ export class CdMatBalanceChartComponent implements OnInit, AfterViewInit {
         const resultArray: { x: number; y: number }[] = normArray.map((el) => {
             return {
                 y: el.value,
-                x: (el.timestamp.getTime() - normArray[0].timestamp.getTime()) / (60 * 60 * 1000),
+                x: (el.timestamp.getTime() - normArray[0].timestamp.getTime()) / (60 * 60 * 1000)
             };
         });
 
@@ -100,15 +128,15 @@ export class CdMatBalanceChartComponent implements OnInit, AfterViewInit {
                 fact: mockData.data.valueGraphs.map((item) => {
                     return {
                         x: this.dateHourRound(new Date(item.date)),
-                        y: item.value ?? 0,
+                        y: item.value ?? 0
                     };
                 }),
                 plan: mockData.data.modelValueGraphs.map((item) => {
                     return {
                         x: this.dateHourRound(new Date(item.date)),
-                        y: item.value ?? 0,
+                        y: item.value ?? 0
                     };
-                }),
+                })
             };
 
             console.log('newData', newData);
@@ -165,7 +193,7 @@ export class CdMatBalanceChartComponent implements OnInit, AfterViewInit {
             } else {
                 el = {
                     x: idx + 1,
-                    y: prev.y + ((idx + 1 - prev.x) / (next.x - prev.x)) * (next.y - prev.y),
+                    y: prev.y + ((idx + 1 - prev.x) / (next.x - prev.x)) * (next.y - prev.y)
                 };
             }
             dataArray[idx] = el;
