@@ -1,0 +1,66 @@
+<div class="line-chart" [class.line-chart__warning]="isWarning">
+  <div class="line-chart_header">
+    <div class="gradient"></div>
+    <span class="line-chart_header__title">P- 201 параметр FIRC0955</span>
+    <span style="flex-grow: 1"></span>
+    <div
+      matRipple
+      [matRippleCentered]="true"
+      [matRippleUnbounded]="true"
+      [matRippleColor]="'white'"
+      class="line-chart_header__icon"
+    >
+      <div class="top-arrow"></div>
+    </div>
+    <div
+      matRipple
+      [matRippleCentered]="true"
+      [matRippleUnbounded]="true"
+      [matRippleColor]="'white'"
+      class="line-chart_header__icon"
+    >
+      <div class="bottom-arrow"></div>
+    </div>
+    <div
+      matRipple
+      [matRippleCentered]="true"
+      [matRippleUnbounded]="true"
+      [matRippleColor]="'white'"
+      class="line-chart_header__icon"
+    >
+      <div class="close"></div>
+    </div>
+  </div>
+  <div class="line-chart_body">
+    <div #chart class="chart-container">
+      <evj-cd-line-chart [size]="size" [data]="data"></evj-cd-line-chart>
+    </div>
+
+    <div class="legend">
+      <div class="legend_item">
+        <div class="legend_item__title">
+          <span class="fact">Факт</span>
+        </div>
+        <div class="legend_item__value">
+          <span class="fact">50</span>
+        </div>
+      </div>
+      <div class="legend_item">
+        <div class="legend_item__title">
+          <span class="plan">Модель</span>
+        </div>
+        <div class="legend_item__value">
+          <span class="plan">50</span>
+        </div>
+      </div>
+      <div class="legend_item">
+        <div class="legend_item__title">
+          <span class="deviation">Отклонение</span>
+        </div>
+        <div class="legend_item__value">
+          <span class="deviation">0.1%</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

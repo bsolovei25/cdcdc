@@ -1,10 +1,9 @@
 <div class="line-charts">
   <div class="header">
     <div class="header__interface">
-      <img class="icon" src="assets/pic/diagram.svg"/>
+      <img class="icon" src="assets/pic/diagram.svg" />
 
       <div class="title">Анализ трендов</div>
-
 
       <div
         class="buttons"
@@ -12,11 +11,12 @@
         (touchstart)="$event.stopPropagation()"
       >
         <div class="buttons__mat-select">
-          <mat-form-field >
-            <img class="buttons__mat-select__icon" src="assets/icons/widgets/CD/cd-mat-balance/mnemonic-diagram/watch.svg"/>
-            <mat-select
-              panelClass="mat-balance-select"
-            >
+          <mat-form-field>
+            <img
+              class="buttons__mat-select__icon"
+              src="assets/icons/widgets/CD/cd-mat-balance/mnemonic-diagram/watch.svg"
+            />
+            <mat-select panelClass="mat-balance-select">
               <mat-option *ngFor="let p of ['24 часа']" [value]="p">
                 {{ p }}
               </mat-option>
@@ -24,7 +24,7 @@
           </mat-form-field>
         </div>
         <div class="button button_menu" (click)="toggleMenu()">
-          <img src="assets/pic/menu.svg"/>
+          <img src="assets/pic/menu.svg" />
         </div>
       </div>
     </div>
@@ -35,10 +35,7 @@
       (mousedown)="$event.stopPropagation()"
       (touchstart)="$event.stopPropagation()"
     >
-      <div
-        class="menu__item"
-        (click)="onClickHeader()"
-      >
+      <div class="menu__item" (click)="onClickHeader()">
         Удалить с экрана
       </div>
     </div>
@@ -48,50 +45,53 @@
       <span style="margin: auto 0">16.07.2020</span>
     </div>
     <div class="timeline__time">
-      <div class="item"><span class="item_hour">13</span>
+      <div class="item">
+        <span class="item_hour">13</span>
         <div class="item_line"></div>
       </div>
-      <div class="item"><span class="item_hour">14</span>
+      <div class="item">
+        <span class="item_hour">14</span>
         <div class="item_line"></div>
       </div>
-      <div class="item"><span class="item_hour">15</span>
+      <div class="item">
+        <span class="item_hour">15</span>
         <div class="item_line"></div>
       </div>
-      <div class="item"><span class="item_hour">16</span>
+      <div class="item">
+        <span class="item_hour">16</span>
         <div class="item_line"></div>
       </div>
-      <div class="item"><span class="item_hour">17</span>
+      <div class="item">
+        <span class="item_hour">17</span>
         <div class="item_line"></div>
       </div>
-      <div class="item"><span class="item_hour">18</span>
+      <div class="item">
+        <span class="item_hour">18</span>
         <div class="item_line"></div>
       </div>
-      <div class="item"><span class="item_hour">19</span>
+      <div class="item">
+        <span class="item_hour">19</span>
         <div class="item_line"></div>
       </div>
-      <div class="item item_active"><span class="item_hour">20</span>
+      <div class="item item_active">
+        <span class="item_hour">20</span>
         <div class="item_line"></div>
       </div>
-      <div class="item"><span class="item_hour">21</span>
+      <div class="item">
+        <span class="item_hour">21</span>
         <div class="item_line"></div>
       </div>
     </div>
   </div>
   <div class="body">
     <div class="scroll-container">
-      <ng-container *ngTemplateOutlet="lineChart context: {isWarning: true}"></ng-container>
-      <ng-container *ngTemplateOutlet="lineChart context: {isWarning: false}"></ng-container>
-      <ng-container *ngTemplateOutlet="lineChart context: {isWarning: false}"></ng-container>
-      <ng-container *ngTemplateOutlet="lineChart context: {isWarning: true}"></ng-container>
-      <ng-container *ngTemplateOutlet="lineChart context: {isWarning: true}"></ng-container>
+      <evj-cd-mat-balance-chart-card></evj-cd-mat-balance-chart-card>
     </div>
   </div>
   <div class="footer">
     <div class="footer__mat-select">
       <mat-form-field>
-        <mat-select
-          panelClass="mat-select-custom"
-        >
+        <mat-select panelClass="mat-select-custom">
           <mat-option *ngFor="let p of ['Коллоны и реакторы']" [value]="p">
             {{ p }}
           </mat-option>
@@ -100,9 +100,7 @@
     </div>
     <div class="footer__mat-select">
       <mat-form-field>
-        <mat-select
-          panelClass="mat-select-custom"
-        >
+        <mat-select panelClass="mat-select-custom">
           <mat-option *ngFor="let p of ['Параметр']" [value]="p">
             {{ p }}
           </mat-option>
@@ -110,12 +108,12 @@
       </mat-form-field>
     </div>
     <div class="footer__btn">
-        Добавить график
+      Добавить график
     </div>
   </div>
 </div>
 
-<ng-template #lineChart let-isWarning="isWarning">
+<!-- <ng-template #lineChart let-isWarning="isWarning">
   <div class="line-chart" [class.line-chart__warning]="isWarning">
     <div class="line-chart_header">
       <div class="gradient"></div>
@@ -167,4 +165,4 @@
       </div>
     </div>
   </div>
-</ng-template>
+</ng-template> -->

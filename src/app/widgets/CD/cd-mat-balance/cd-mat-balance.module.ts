@@ -11,9 +11,10 @@ import { FormsModule } from '@angular/forms';
 import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { AngularSvgIconModule } from 'angular-svg-icon';
+import { CdMatBalanceChartCardComponent } from './components/cd-mat-balance-chart-card/cd-mat-balance-chart-card.component';
 
 @NgModule({
-    declarations: [CdMatBalanceComponent, CdMatBalanceChartComponent, CdMatBalanceGaugeComponent, CdMatBalanceRightComponent],
+    declarations: [CdMatBalanceComponent, CdMatBalanceChartComponent, CdMatBalanceGaugeComponent, CdMatBalanceRightComponent, CdMatBalanceChartCardComponent],
     imports: [
         CommonModule,
         DashboardModule,
