@@ -215,20 +215,20 @@ export class KpeLineChartComponent implements OnChanges {
                     .attr('class', 'point point_plan')
                     .attr('cx', item.graph[item.graph.length - 1].x)
                     .attr('cy', item.graph[item.graph.length - 1].y)
-                    .attr('r', 4);
+                    .attr('r', 2);
             } else {
                 const g = pointsG.append('g').attr('class', 'fact-point');
-                let r = 9;
-                let opacity = 0.33;
-                for (let i = 0; i < 3; i++) {
+                let r = 8;
+                let opacity = 0.05;
+                for (let i = 0; i < 4; i++) {
                     g.append('circle')
                         .attr('class', 'point point_fact')
                         .attr('cx', item.graph[item.graph.length - 1].x)
                         .attr('cy', item.graph[item.graph.length - 1].y)
                         .attr('r', r)
                         .style('opacity', opacity);
-                    r -= 3;
-                    opacity += 0.33;
+                    r = r / 2;
+                    opacity = opacity * 3;
                 }
             }
         });
