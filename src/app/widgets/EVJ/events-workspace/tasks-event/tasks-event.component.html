@@ -54,11 +54,11 @@
           <mat-label>Подкатегория</mat-label>
           <mat-select
             panelClass="mat-select-custom"
-            [(ngModel)]="ewService.event.status"
+            [(ngModel)]="ewService.event?.productionTasks.subcategory"
             [compareWith]="compareFn"
           >
-            <mat-option *ngFor="let p of ewService.status" [value]="p"
-              >{{ ewService.statuses[p.name] }}
+            <mat-option *ngFor="let p of ewService.subcategory" [value]="p.name"
+              >{{ ewService.subCategories[p.id] }}
             </mat-option>
           </mat-select>
         </mat-form-field>

@@ -18,7 +18,7 @@ import {
     IRetrievalEventDto,
     ISearchRetrievalWindow,
     IAsusTpPlace,
-    IAsusTmPlace,
+    IAsusTmPlace, ISubcategory,
 } from '../../models/events-widget';
 import { EventService } from './event.service';
 import { SnackBarService } from '../snack-bar.service';
@@ -59,6 +59,7 @@ export class EventsWorkspaceService {
     //#region REFERENCES
     public priority: IPriority[] = [];
     public status: IStatus[] = [];
+    public subcategory: ISubcategory[] = [];
     public users: IUser[] = [];
     public category: ICategory[] = [];
     public equipmentCategory: ICategory[] = [];
@@ -104,6 +105,11 @@ export class EventsWorkspaceService {
         new: 'Новое',
         inWork: 'В работе',
         closed: 'Завершено',
+    };
+
+    public readonly subCategories: { [id in number]: string } = {
+        0: 'Распоряжения',
+        1: 'Прием/передача смены',
     };
 
     public readonly priorities: { [id in EventsWidgetNotificationPriority]: string } = {
@@ -476,6 +482,13 @@ export class EventsWorkspaceService {
                 equipment: null,
                 tmPlace: null,
             },
+            productionTasks: {
+                subcategory: null,
+                order: null,
+                start: null,
+                inWork: null,
+                close: null,
+            }
         };
     }
 
@@ -491,6 +504,9 @@ export class EventsWorkspaceService {
             }),
             this.eventService.getStatus().then((data) => {
                 this.status = data;
+            }),
+            this.eventService.getSubcategory().then((data) => {
+                this.subcategory = data;
             }),
             this.eventService.getUnits().then((data) => {
                 this.units = data;
