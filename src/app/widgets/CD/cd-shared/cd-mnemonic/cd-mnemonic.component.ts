@@ -142,6 +142,10 @@ export class CdMnemonicComponent implements OnInit {
         const circles = document.querySelectorAll('.svg__circle');
         circles.forEach((circle) => {
             const id = circle.getAttribute('id-circle');
+            circle.addEventListener('click',
+                (e) => {
+                    console.log(id);
+                });
             this.renderer2?.removeClass(circle, 'svg__circle--deviation');
             const elDeviation = this.data.find((val) => val.id === +id)?.deviation;
             if (elDeviation) {
@@ -245,21 +249,25 @@ export class CdMnemonicComponent implements OnInit {
 
     drawEngUnits(): void {
         const engUnits = document.querySelectorAll('.svg__circle__eng-units');
-        engUnits.forEach((text) => {
-                const id = text.getAttribute('id-eng-units');
+        engUnits.forEach((engUnit) => {
+                const id = engUnit.getAttribute('id-eng-units');
+                engUnit.addEventListener('click',
+                    () => {
+                        console.log(id);
+                    });
                 const valueEngUnits = this.data.find((val) => val.id === +id)?.engUnits;
                 if (valueEngUnits) {
-                    let x = +text.getAttribute('x');
-                    if (text.textContent.trim() === 'м³/ч') {
+                    let x = +engUnit.getAttribute('x');
+                    if (engUnit.textContent.trim() === 'м³/ч') {
                         x = x + 10;
                     }
-                    if (text.textContent.trim() === 'ºС') {
+                    if (engUnit.textContent.trim() === 'ºС') {
                         x = x + 3;
                     }
                     const finalX = this.calculationAxisX(x);
-                    this.renderer2.setAttribute(text, 'x', finalX);
-                    this.renderer2.setAttribute(text, 'text-anchor', 'middle');
-                    this.renderer2.setProperty(text, 'textContent', valueEngUnits);
+                    this.renderer2.setAttribute(engUnit, 'x', finalX);
+                    this.renderer2.setAttribute(engUnit, 'text-anchor', 'middle');
+                    this.renderer2.setProperty(engUnit, 'textContent', valueEngUnits);
                 }
             }
         );
@@ -269,6 +277,10 @@ export class CdMnemonicComponent implements OnInit {
         const texts = document.querySelectorAll('.svg__circle__value');
         texts.forEach((text) => {
             const id = text.getAttribute('id-text');
+            text.addEventListener('click',
+                (e) => {
+                    console.log(id);
+                });
             const el = this.data.find((val) => val.id === +id);
             let value = 0;
             if (el?.value) {
