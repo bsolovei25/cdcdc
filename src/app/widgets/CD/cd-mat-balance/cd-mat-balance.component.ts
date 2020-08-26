@@ -55,7 +55,7 @@ export interface IStreams {
 @Component({
     selector: 'evj-cd-mat-balance',
     templateUrl: './cd-mat-balance.component.html',
-    styleUrls: ['./cd-mat-balance.component.scss'],
+    styleUrls: ['./cd-mat-balance.component.scss']
 })
 export class CdMatBalanceComponent extends WidgetPlatform implements OnInit, OnDestroy {
     isSelectedEl: number;
@@ -85,26 +85,27 @@ export class CdMatBalanceComponent extends WidgetPlatform implements OnInit, OnD
                                     time: new Date(),
                                     description: '',
                                     task: '',
+                                    responsible: null,
                                     acceptFunction: () => {
                                         console.log(this.modal.description);
                                     },
                                     cancelFunction: () => {
                                         this.modal = null;
-                                    },
+                                    }
                                 };
-                            },
-                        },
-                    ],
+                            }
+                        }
+                    ]
                 },
                 {
                     name: 'Модель',
-                    value: 0,
+                    value: 0
                 },
                 {
                     name: 'Техпроцесс',
-                    value: 0,
-                },
-            ],
+                    value: 0
+                }
+            ]
         },
         {
             name: 'Вернуться к карточке события',
@@ -112,8 +113,8 @@ export class CdMatBalanceComponent extends WidgetPlatform implements OnInit, OnD
             onClick: () => {
                 this.userService.LoadScreenByWidget('events-workspace');
                 this.cdMatBalanceService.isOpenEvent$.next(false);
-            },
-        },
+            }
+        }
     ];
 
     constructor(

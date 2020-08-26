@@ -39,6 +39,7 @@ export class CdModalWindowComponent implements OnInit {
 
     ngOnInit(): void {
         this.users = this.ewService.users;
+        console.log(this.users);
     }
 
     public accept(): void {

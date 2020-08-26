@@ -90,8 +90,6 @@ export class IndicatorSelectorComponent implements OnInit, OnDestroy {
         this.subscriptions.push(
             this.userSettings.screens$.subscribe((screens) => {
                 // if (screens?.length > 0) {
-                console.log('screens', screens);
-
 
                 if (!screens?.length) {
                     this.userSettings.ScreenId = undefined;
@@ -109,7 +107,6 @@ export class IndicatorSelectorComponent implements OnInit, OnDestroy {
                     item.updateScreen = false;
                     item.isFilter = true;
                 }
-                console.log(this.nameScreen,'dffffffffffffffffff');
 
                 this.scrollToScreenById(this.idScreen);
                 // }
