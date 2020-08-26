@@ -40,6 +40,7 @@ export interface IMatBalanceChartCard {
 })
 export class CdMatBalanceChartCardComponent extends WidgetPlatform
     implements OnInit, OnDestroy, AfterViewInit {
+    // TOFIX пробросить количество часов снаружи (возможно через InjectionToken)
     @Input() public hoursCount: 8 | 24 = 8;
 
     @ViewChild('chart')

@@ -132,6 +132,8 @@ export class CdLineChartComponent implements OnChanges {
         let maxY = 0;
         let minY = 0;
 
+        // TOFIX нахождение максимальных значений проще через
+        // d3.min(), d3.max() и d3.extent()
         [...this.factDataset, ...this.planDataset].forEach((item) => {
             maxY = item.y >= maxY ? item.y : maxY === 0 ? item.y : maxY;
             minY = item.y <= minY ? item.y : minY === 0 ? item.y : minY;
@@ -226,7 +228,9 @@ export class CdLineChartComponent implements OnChanges {
     }
 
     private drawCurve(dataset: { x: number; y: number }[], type: LineType): void {
-        dataset = dataset.slice(0, 9);
+        // TOFIX реализовать в зависимости от количества отображаемых часов
+        dataset = dataset.slice(1, 10);
+
         const lineClass: string = `line line__${type}`;
 
         const line = d3
