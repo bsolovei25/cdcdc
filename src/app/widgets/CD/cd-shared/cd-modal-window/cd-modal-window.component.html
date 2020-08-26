@@ -14,9 +14,10 @@
             <div class="input__container">
               <p class="input__container__title">Назначьте отвественного:</p>
               <mat-form-field class="input__container__form mat-select-custom">
-                <mat-select value="ewService.event.asusEvent.category" [compareWith]="compareFn">
-                  <mat-option *ngFor="let user of users" [value]="user">
-                    {{ user.firstName }}
+                <mat-select value="ewService.event.asusEvent.category" [compareWith]="compareFn"
+                            [(value)]="info.responsible">
+                  <mat-option *ngFor="let user of info?.users" [value]="user">
+                    {{ user.positionDescription }}  {{ user.middleName }} {{ user.firstName }}
                   </mat-option>
                 </mat-select>
               </mat-form-field>
@@ -72,11 +73,6 @@
                     [disableMinute]="true"
                   >
                   </ngx-mat-timepicker>
-                  <!--                  <div class="overlay__footer">-->
-                  <!--                    <div class="overlay__footer">-->
-
-                  <!--                    </div>-->
-                  <!--                  </div>-->
                 </div>
               </div>
             </div>
@@ -92,7 +88,7 @@
           <div class="window-container__body__input">
             <div class="input__container">
               <p class="input__container__title">Установленные факты:</p>
-              <textarea type="text" rows="19" [(ngModel)]="info.task"></textarea>
+              <textarea type="text" rows="19" [(ngModel)]="info.establishedFacts"></textarea>
             </div>
           </div>
         </div>

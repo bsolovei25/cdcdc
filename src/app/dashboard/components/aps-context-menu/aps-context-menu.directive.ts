@@ -175,7 +175,7 @@ export class ApsContextMenuDirective implements OnInit {
     ];
 
     @Input()
-    public disabledDirective: boolean = true;
+    public disabledDirective: boolean = null;
 
     @Output()
     public rightClick: EventEmitter<any> = new EventEmitter<any>();

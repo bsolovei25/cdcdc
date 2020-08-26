@@ -12,7 +12,7 @@
   (mouseleave)="onMouseExit()"
   class="mat-balance"
   evjContextMenu
-  [disabledDirective]="disabledDirective"
+  [disabledDirective]="!!openEvent"
   [items]="items"
 >
   <evj-cd-modal-window [info]="modal"></evj-cd-modal-window>

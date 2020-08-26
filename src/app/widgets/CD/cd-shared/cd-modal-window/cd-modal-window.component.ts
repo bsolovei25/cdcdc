@@ -6,10 +6,11 @@ import { EventService } from '../../../../dashboard/services/widgets/event.servi
 import { EventsWorkspaceService } from '../../../../dashboard/services/widgets/events-workspace.service';
 
 export interface ICDModalWindow {
+    users: IUser[];
     responsible: IUser;
     date: Date;
     time: Date;
-    task: string;
+    establishedFacts: string;
     description: string;
     acceptText: string;
     acceptFunction?: () => void;
@@ -19,7 +20,7 @@ export interface ICDModalWindow {
 @Component({
     selector: 'evj-cd-modal-window',
     templateUrl: './cd-modal-window.component.html',
-    styleUrls: ['./cd-modal-window.component.scss'],
+    styleUrls: ['./cd-modal-window.component.scss']
 })
 export class CdModalWindowComponent implements OnInit {
     @Input() public info: ICDModalWindow;
@@ -35,11 +36,10 @@ export class CdModalWindowComponent implements OnInit {
         [Validators.required]
     );
 
-    constructor(private ewService: EventsWorkspaceService) {}
+    constructor() {
+    }
 
     ngOnInit(): void {
-        this.users = this.ewService.users;
-        console.log(this.users);
     }
 
     public accept(): void {

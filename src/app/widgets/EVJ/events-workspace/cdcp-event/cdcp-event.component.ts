@@ -4,27 +4,31 @@ import { IChatMessageWithAttachments } from '../components/chat/chat.component';
 import { EventsWorkspaceService } from '../../../../dashboard/services/widgets/events-workspace.service';
 import { UserSettingsService } from '../../../../dashboard/services/user-settings.service';
 import { CdMatBalanceService } from '../../../../dashboard/services/widgets/CD/cd-mat-balance.service';
+import { SnackBarService } from '../../../../dashboard/services/snack-bar.service';
 
 @Component({
     selector: 'evj-cdcp-event',
     templateUrl: './cdcp-event.component.html',
-    styleUrls: ['./cdcp-event.component.scss'],
+    styleUrls: ['./cdcp-event.component.scss']
 })
 export class CdcpEventComponent implements OnInit {
     public inputOptions: IInputOptions = {
         type: 'text',
         state: 'normal',
         placeholder: 'Номер позиции',
-        isMovingPlaceholder: true,
+        isMovingPlaceholder: true
     };
 
     constructor(
         public ewService: EventsWorkspaceService,
         private userService: UserSettingsService,
-        private cdMatBalanceService: CdMatBalanceService
-    ) {}
+        private cdMatBalanceService: CdMatBalanceService,
+        private snackBar: SnackBarService
+    ) {
+    }
 
-    ngOnInit(): void {}
+    ngOnInit(): void {
+    }
 
     public compareFn(a, b): boolean {
         return a && b && a.id === b.id;
@@ -46,7 +50,14 @@ export class CdcpEventComponent implements OnInit {
     }
 
     public openMnemo(): void {
-        this.cdMatBalanceService.isOpenEvent$.next(false);
-        this.userService.LoadScreenByWidget('cd-mat-balance');
+        if (this.ewService.event.id) {
+            this.cdMatBalanceService.isOpenEvent$.next(this.ewService.event);
+            this.userService.LoadScreenByWidget('cd-mat-balance');
+        } else {
+            this.snackBar.openSnackBar(
+                'Для создания нового события, сохраните текущее!',
+                'snackbar-red'
+            );
+        }
     }
 }

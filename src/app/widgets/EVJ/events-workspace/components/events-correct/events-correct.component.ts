@@ -4,12 +4,13 @@ import { EventsWorkspaceService } from '../../../../../dashboard/services/widget
 @Component({
     selector: 'evj-events-correct',
     templateUrl: './events-correct.component.html',
-    styleUrls: ['./events-correct.component.scss'],
+    styleUrls: ['./events-correct.component.scss']
 })
 export class EventsCorrectComponent implements OnInit {
     public isSmotr: boolean = false;
 
-    constructor(public ewService: EventsWorkspaceService) {}
+    constructor(public ewService: EventsWorkspaceService) {
+    }
 
     public ngOnInit(): void {
         if (this.ewService.event?.category?.code === '0') {
@@ -38,7 +39,7 @@ export class EventsCorrectComponent implements OnInit {
             isShow: true,
             idEvent: this.ewService.event.id,
             acceptFunction: () => this.ewService.closeSearchWindow(),
-            closeFunction: () => this.ewService.closeSearchWindow(),
+            closeFunction: () => this.ewService.closeSearchWindow()
         };
         this.ewService.searchWindow$.next(windowsParam);
     }

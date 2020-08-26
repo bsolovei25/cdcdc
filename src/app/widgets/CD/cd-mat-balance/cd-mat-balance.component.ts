@@ -5,6 +5,13 @@ import { CdMatBalanceService } from '../../../dashboard/services/widgets/CD/cd-m
 import { ICDModalWindow } from '../cd-shared/cd-modal-window/cd-modal-window.component';
 import { INavItem } from '../../../dashboard/components/aps-dropdown-menu/aps-dropdown-menu.component';
 import { UserSettingsService } from '../../../dashboard/services/user-settings.service';
+import { EventsWorkspaceService } from '../../../dashboard/services/widgets/events-workspace.service';
+import {
+    EventsWidgetNotification,
+    ISaveMethodEvent, IUser
+} from '../../../dashboard/models/events-widget';
+import { EventService } from '../../../dashboard/services/widgets/event.service';
+import { SnackBarService } from '../../../dashboard/services/snack-bar.service';
 
 export interface IMatBalance {
     params: IParams;
@@ -60,10 +67,7 @@ export interface IStreams {
 export class CdMatBalanceComponent extends WidgetPlatform implements OnInit, OnDestroy {
     isSelectedEl: number;
     data: IMatBalance;
-    // disabledDirective: boolean = this.cdMatBalanceService.isOpenEvent$.getValue();
-    disabledDirective: boolean = false;
-
-
+    openEvent: EventsWidgetNotification = this.cdMatBalanceService.isOpenEvent$.getValue();
     modal: ICDModalWindow;
 
     public items: INavItem[] = [
@@ -80,14 +84,20 @@ export class CdMatBalanceComponent extends WidgetPlatform implements OnInit, OnD
                             value: 0,
                             onClick: () => {
                                 this.modal = {
+                                    users: this.ewtService.users,
                                     acceptText: 'Отправить в службу КИПиА',
                                     date: new Date(),
                                     time: new Date(),
                                     description: '',
-                                    task: '',
+                                    establishedFacts: '',
                                     responsible: null,
                                     acceptFunction: () => {
-                                        console.log(this.modal.description);
+                                        console.log(this.modal);
+                                        this.saveEvents(this.modal.responsible,
+                                            this.modal.description,
+                                            this.modal.establishedFacts,
+                                            this.modal.date,
+                                            this.modal.time);
                                     },
                                     cancelFunction: () => {
                                         this.modal = null;
@@ -112,7 +122,7 @@ export class CdMatBalanceComponent extends WidgetPlatform implements OnInit, OnD
             value: 0,
             onClick: () => {
                 this.userService.LoadScreenByWidget('events-workspace');
-                this.cdMatBalanceService.isOpenEvent$.next(false);
+                this.cdMatBalanceService.isOpenEvent$.next(null);
             }
         }
     ];
@@ -121,6 +131,9 @@ export class CdMatBalanceComponent extends WidgetPlatform implements OnInit, OnD
         protected widgetService: WidgetService,
         private cdMatBalanceService: CdMatBalanceService,
         private userService: UserSettingsService,
+        public ewService: EventService,
+        public ewtService: EventsWorkspaceService,
+        private snackBar: SnackBarService,
         @Inject('isMock') public isMock: boolean,
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string
@@ -144,6 +157,27 @@ export class CdMatBalanceComponent extends WidgetPlatform implements OnInit, OnD
     protected dataHandler(ref: any): void {
         if (ref) {
             this.data = ref;
+        }
+    }
+
+    async saveEvents(responsibleOperator: IUser, description: string, establishedFacts: string, date: Date, time: Date): Promise<void> {
+        const event: EventsWidgetNotification = {
+            category: this.openEvent.category,
+            priority: this.openEvent.priority,
+            parentId: this.openEvent.id,
+            isAcknowledged: this.openEvent.isAcknowledged,
+            status: this.openEvent.status,
+            unit: this.openEvent.unit,
+            responsibleOperator,
+            description,
+            establishedFacts,
+            deadline: date
+        };
+        try {
+            const events = await this.ewService.postEventRetrieval(event);
+            this.snackBar.openSnackBar('Корректирующие мероприятие создано');
+        } catch (e) {
+
         }
     }
 }
