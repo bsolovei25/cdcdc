@@ -24,6 +24,17 @@ export class CdMatBalanceChartComponent implements OnInit, AfterViewInit {
 
     public hoursCount: 8 | 24 = 8;
 
+    public readonly selectValues: { value: number; title: string }[] = [
+        {
+            value: 8,
+            title: '8 часов',
+        },
+        {
+            value: 24,
+            title: '24 часа',
+        },
+    ];
+
     public isMenuOpen: boolean = false;
 
     constructor(

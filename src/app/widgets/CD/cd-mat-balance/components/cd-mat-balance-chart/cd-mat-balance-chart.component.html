@@ -16,9 +16,9 @@
               class="buttons__mat-select__icon"
               src="assets/icons/widgets/CD/cd-mat-balance/mnemonic-diagram/watch.svg"
             />
-            <mat-select panelClass="mat-balance-select">
-              <mat-option *ngFor="let p of ['24 часа']" [value]="p">
-                {{ p }}
+            <mat-select panelClass="mat-balance-select" [(ngModel)]="hoursCount">
+              <mat-option *ngFor="let p of selectValues" [value]="p.value">
+                {{ p.title }}
               </mat-option>
             </mat-select>
           </mat-form-field>

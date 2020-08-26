@@ -15,7 +15,6 @@ import {
     ISplineDiagramSize,
 } from '../../../../LCO/spline-trends-chart/components/spline-diagram/spline-diagram.component';
 import { WidgetService } from '../../../../../dashboard/services/widget.service';
-import { HttpClient } from '@angular/common/http';
 
 export interface IMatBalanceChartCard {
     id: number;
@@ -112,10 +111,6 @@ export class CdMatBalanceChartCardComponent extends WidgetPlatform
         console.log('newData', newData);
         this.data = data;
         this.chartData = newData;
-    }
-
-    private dateHourRound(date: Date): Date {
-        return new Date(date.getTime() - (date.getTime() % (60 * 60 * 1000)));
     }
 
     private transformData(data: { value: number; timestamp: Date }[]): { x: number; y: number }[] {

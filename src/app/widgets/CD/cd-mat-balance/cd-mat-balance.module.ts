@@ -7,14 +7,20 @@ import { DashboardModule } from '../../../dashboard/dashboard.module';
 import { CDSharedModule } from '../cd-shared/cd-shared.module';
 import { SharedModule } from '@shared/shared.module';
 import { CdMatBalanceRightComponent } from './components/cd-mat-balance-right/cd-mat-balance-right.component';
-import { FormsModule } from '@angular/forms';
 import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { AngularSvgIconModule } from 'angular-svg-icon';
 import { CdMatBalanceChartCardComponent } from './components/cd-mat-balance-chart-card/cd-mat-balance-chart-card.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
-    declarations: [CdMatBalanceComponent, CdMatBalanceChartComponent, CdMatBalanceGaugeComponent, CdMatBalanceRightComponent, CdMatBalanceChartCardComponent],
+    declarations: [
+        CdMatBalanceComponent,
+        CdMatBalanceChartComponent,
+        CdMatBalanceGaugeComponent,
+        CdMatBalanceRightComponent,
+        CdMatBalanceChartCardComponent,
+    ],
     imports: [
         CommonModule,
         DashboardModule,
@@ -23,7 +29,8 @@ import { CdMatBalanceChartCardComponent } from './components/cd-mat-balance-char
         MatSelectModule,
         MatFormFieldModule,
         AngularSvgIconModule,
-    ]
+        FormsModule
+    ],
 })
 export class CdMatBalanceModule {
     enterComponent = CdMatBalanceComponent;
