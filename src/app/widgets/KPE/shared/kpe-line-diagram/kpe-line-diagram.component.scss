@@ -45,6 +45,7 @@
       }
     }
   }
+
   &__body {
     &__line-up {
       display: flex;
@@ -67,7 +68,7 @@
     &__line {
       position: relative;
       width: 100%;
-      height: 5px;
+      height: 8px;
       background-image: url("./../../../../../assets/icons/widgets/KPE/kpe-line-diagram/line.svg");
       background-repeat: no-repeat;
       background-size: 100%;
@@ -75,21 +76,32 @@
       .line__accept {
         position: absolute;
         left: 2px;
-        width: 60%;
         height: 4px;
-        background-color: var(--color-aps-active);
+
+        background-image: linear-gradient(90deg, var(--color-aps-active), var(--color-aps-active) 33.33%, transparent 33.33%, transparent 100%);
+        background-size: 3px 100%;
 
         &--white {
           background-color: var(--color-kpe-eq-chart-title);
         }
       }
 
+      .line__circle {
+        position: absolute;
+        top: -5.8px;
+        z-index: 2;
+      }
+
       .line__warning {
         position: absolute;
-        left: 61%;
-        width: 10%;
         height: 4px;
-        background-color: var(--color-cd-warning);
+        background-image: linear-gradient(90deg, var(--color-cd-warning), var(--color-cd-warning) 33.33%, transparent 33.33%, transparent 100%);
+        background-size: 3px 100%;
+
+        &--line {
+          background-color: var(--color-cd-warning);
+          background-image: none;
+        }
       }
     }
   }
