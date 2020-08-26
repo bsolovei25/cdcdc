@@ -31,7 +31,7 @@ export interface ISplineDiagramData {
 @Component({
     selector: 'evj-cd-line-chart',
     templateUrl: './cd-line-chart.component.html',
-    styleUrls: ['./cd-line-chart.component.scss']
+    styleUrls: ['./cd-line-chart.component.scss'],
 })
 export class CdLineChartComponent implements OnChanges {
     @Input()
@@ -41,6 +41,8 @@ export class CdLineChartComponent implements OnChanges {
     public size: ISplineDiagramSize = null;
 
     @Input() hoursCount: number = 8;
+
+    public isLoading: boolean = true;
 
     public factDataset: {
         x: number;
@@ -68,8 +70,12 @@ export class CdLineChartComponent implements OnChanges {
 
     public sizeY: { min: number; max: number } = { min: 0, max: 0 };
 
-    public margin: { top: number, right: number, bottom: number, left: number } =
-        { top: 0, right: 10, bottom: 0, left: 10 };
+    public margin: { top: number; right: number; bottom: number; left: number } = {
+        top: 0,
+        right: 10,
+        bottom: 0,
+        left: 10,
+    };
 
     private currentHour: number = 0;
 
@@ -79,10 +85,7 @@ export class CdLineChartComponent implements OnChanges {
 
     private g: any = null;
 
-    constructor(
-        private hostElement: ElementRef
-    ) {
-    }
+    constructor(private hostElement: ElementRef) {}
 
     public ngOnChanges(changes: SimpleChanges): void {
         setTimeout(() => {
@@ -100,7 +103,7 @@ export class CdLineChartComponent implements OnChanges {
     private configChartArea(): void {
         this.sizeX.min = 1;
         this.sizeX.max = this.hoursCount + 3;
-            // new Date((new Date()).getFullYear(), (new Date()).getMonth() + 1, 0).getDate();
+        // new Date((new Date()).getFullYear(), (new Date()).getMonth() + 1, 0).getDate();
     }
 
     private drawSvg(): void {
@@ -129,11 +132,13 @@ export class CdLineChartComponent implements OnChanges {
         let maxY = 0;
         let minY = 0;
 
-        [...this.factDataset, ...this.planDataset].forEach(item => {
+        // TOFIX нахождение максимальных значений проще через
+        // d3.min(), d3.max() и d3.extent()
+        [...this.factDataset, ...this.planDataset].forEach((item) => {
             maxY = item.y >= maxY ? item.y : maxY === 0 ? item.y : maxY;
             minY = item.y <= minY ? item.y : minY === 0 ? item.y : minY;
         });
-        this.factDataset.forEach(item => {
+        this.factDataset.forEach((item) => {
             maxX = item.x >= maxX ? item.x : maxX === 0 ? item.x : maxX;
         });
 
@@ -144,11 +149,13 @@ export class CdLineChartComponent implements OnChanges {
     }
 
     private initScale(): void {
-        this.scales.x = d3.scaleLinear()
+        this.scales.x = d3
+            .scaleLinear()
             .domain([this.sizeX.min, this.sizeX.max])
             .range([0, this.size.width - this.margin.right - this.margin.left]);
 
-        this.scales.y = d3.scaleLinear()
+        this.scales.y = d3
+            .scaleLinear()
             .domain([this.sizeY.min, this.sizeY.max])
             .range([this.size.height - this.margin.top - this.margin.bottom, 0]);
     }
@@ -169,34 +176,51 @@ export class CdLineChartComponent implements OnChanges {
 
     private drawAxises(): void {
         // y
-        this.g.append('g')
+        this.g
+            .append('g')
             .attr('transform', `translate(${-10}, 0)`)
             .attr('class', 'y-axis')
-            .call(d3.axisLeft(this.scales.y).tickSize(0).ticks(3).tickFormat(d3.format('.1f'))) // форматирование до 1 знака после запятой
-            .call(g => g.select('.domain').remove());
+            .call(
+                d3
+                    .axisLeft(this.scales.y)
+                    .tickSize(0)
+                    .ticks(3)
+                    .tickFormat(d3.format('.1f'))
+            ) // форматирование до 1 знака после запятой
+            .call((g) => g.select('.domain').remove());
     }
 
     private drawGrid(): void {
-        this.g.append('g')
-            .attr('transform', `translate(0, ${this.size.height - this.margin.top - this.margin.bottom})`)
-            .call(d3.axisBottom(this.scales.x)
-                .ticks(this.sizeX.max)
-                .tickSize(1 - (this.size.height - this.margin.top - this.margin.bottom))
-                .tickFormat('')
+        this.g
+            .append('g')
+            .attr(
+                'transform',
+                `translate(0, ${this.size.height - this.margin.top - this.margin.bottom})`
+            )
+            .call(
+                d3
+                    .axisBottom(this.scales.x)
+                    .ticks(this.sizeX.max)
+                    .tickSize(1 - (this.size.height - this.margin.top - this.margin.bottom))
+                    .tickFormat('')
             )
             .attr('class', 'grid');
 
-        this.g.append('g')
-            .call(d3.axisLeft(this.scales.y)
-                .ticks(5)
-                .tickSize(1 - (this.size.width - this.margin.left - this.margin.right))
-                .tickFormat('')
+        this.g
+            .append('g')
+            .call(
+                d3
+                    .axisLeft(this.scales.y)
+                    .ticks(5)
+                    .tickSize(1 - (this.size.width - this.margin.left - this.margin.right))
+                    .tickFormat('')
             )
             .attr('class', 'grid');
     }
 
     private appendCurveDataCircle(r: number, x: number, y: number, className: string): void {
-        this.g.append('circle')
+        this.g
+            .append('circle')
             .attr('class', className)
             .attr('r', r)
             .attr('cx', this.scales.x(x))
@@ -204,14 +228,18 @@ export class CdLineChartComponent implements OnChanges {
     }
 
     private drawCurve(dataset: { x: number; y: number }[], type: LineType): void {
-        dataset = dataset.slice(0, 9);
+        // TOFIX реализовать в зависимости от количества отображаемых часов
+        dataset = dataset.slice(1, 10);
+
         const lineClass: string = `line line__${type}`;
 
-        const line = d3.line()
+        const line = d3
+            .line()
             .x((d) => this.scales.x(d.x))
             .y((d) => this.scales.y(d.y));
 
-        this.g.append('path')
+        this.g
+            .append('path')
             .datum(dataset)
             .attr('class', lineClass)
             .attr('d', line);
@@ -220,13 +248,19 @@ export class CdLineChartComponent implements OnChanges {
             if (idx === 0) {
                 return;
             }
-            const circleClass = type === 'fact' ? ((data.y < this.planDataset[data.x - 1].y) ? 'deviation' : 'fact') : 'plan';
+            const circleClass =
+                type === 'fact'
+                    ? data.y < this.planDataset[data.x - 1].y
+                        ? 'deviation'
+                        : 'fact'
+                    : 'plan';
             this.appendCurveDataCircle(3, data.x, data.y, `circle circle_${circleClass}`);
         });
     }
 
     private drawDayThreshold(): void {
-        this.g.append('line')
+        this.g
+            .append('line')
             .attr('class', 'line line__threshold')
             .attr('x1', this.scales.x(this.currentHour))
             .attr('x2', this.scales.x(this.currentHour))

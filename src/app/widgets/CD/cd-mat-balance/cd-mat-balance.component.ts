@@ -4,6 +4,15 @@ import { WidgetService } from '../../../dashboard/services/widget.service';
 import { CdMatBalanceService } from '../../../dashboard/services/widgets/CD/cd-mat-balance.service';
 import { ICDModalWindow } from '../cd-shared/cd-modal-window/cd-modal-window.component';
 import { INavItem } from '../../../dashboard/components/aps-dropdown-menu/aps-dropdown-menu.component';
+import { UserSettingsService } from '../../../dashboard/services/user-settings.service';
+import { EventsWorkspaceService } from '../../../dashboard/services/widgets/events-workspace.service';
+import {
+    EventsWidgetNotification,
+    ISaveMethodEvent, IUser
+} from '../../../dashboard/models/events-widget';
+import { EventService } from '../../../dashboard/services/widgets/event.service';
+import { SnackBarService } from '../../../dashboard/services/snack-bar.service';
+import { AuthService } from '@core/service/auth.service';
 
 export interface IMatBalance {
     params: IParams;
@@ -59,13 +68,8 @@ export interface IStreams {
 export class CdMatBalanceComponent extends WidgetPlatform implements OnInit, OnDestroy {
     isSelectedEl: number;
     data: IMatBalance;
-
+    openEvent: EventsWidgetNotification = this.cdMatBalanceService.isOpenEvent$.getValue();
     modal: ICDModalWindow;
-    // = {
-    //     // acceptText: 'Отправить в службу КИПиА',
-    //     // date: new Date(),
-    //     // time: new Date()
-    // };
 
     public items: INavItem[] = [
         {
@@ -78,14 +82,35 @@ export class CdMatBalanceComponent extends WidgetPlatform implements OnInit, OnD
                     children: [
                         {
                             name: 'Передать в службу КИПиА',
-                            value: 0
+                            value: 0,
+                            onClick: () => {
+                                this.modal = {
+                                    users: this.ewtService.users,
+                                    acceptText: 'Отправить в службу КИПиА',
+                                    date: new Date(),
+                                    time: new Date(),
+                                    description: '',
+                                    establishedFacts: '',
+                                    responsible: null,
+                                    acceptFunction: () => {
+                                        console.log(this.modal);
+                                        this.saveEvents(this.modal.responsible,
+                                            this.modal.description,
+                                            this.modal.establishedFacts,
+                                            this.modal.date,
+                                            this.modal.time);
+                                    },
+                                    cancelFunction: () => {
+                                        this.modal = null;
+                                    }
+                                };
+                            }
                         }
                     ]
                 },
                 {
                     name: 'Модель',
                     value: 0
-
                 },
                 {
                     name: 'Техпроцесс',
@@ -95,13 +120,22 @@ export class CdMatBalanceComponent extends WidgetPlatform implements OnInit, OnD
         },
         {
             name: 'Вернуться к карточке события',
-            value: 0
+            value: 0,
+            onClick: () => {
+                this.userService.LoadScreenByWidget('events-workspace');
+                this.cdMatBalanceService.isOpenEvent$.next(null);
+            }
         }
     ];
 
     constructor(
         protected widgetService: WidgetService,
         private cdMatBalanceService: CdMatBalanceService,
+        private userService: UserSettingsService,
+        public ewService: EventService,
+        public ewtService: EventsWorkspaceService,
+        private snackBar: SnackBarService,
+        private authService: AuthService,
         @Inject('isMock') public isMock: boolean,
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string
@@ -125,7 +159,31 @@ export class CdMatBalanceComponent extends WidgetPlatform implements OnInit, OnD
     protected dataHandler(ref: any): void {
         if (ref) {
             this.data = ref;
-            console.log(ref);
+        }
+    }
+
+    async saveEvents(responsibleOperator: IUser, description: string, establishedFacts: string, date: Date, time: Date): Promise<void> {
+        const dateTime = new Date(date.getFullYear(),
+            date.getMonth(), date.getDate(), time.getHours(), time.getMinutes());
+        const event: EventsWidgetNotification = {
+            category: this.openEvent.category,
+            priority: this.openEvent.priority,
+            parentId: this.openEvent.id,
+            isAcknowledged: this.openEvent.isAcknowledged,
+            status: this.openEvent.status,
+            unit: this.openEvent.unit,
+            responsibleOperator,
+            description,
+            establishedFacts,
+            deadline: dateTime,
+            eventDateTime: dateTime,
+            fixedBy: this.authService.user$.getValue(),
+            retrievalEvents: []
+        };
+        try {
+            const events = await this.ewService.postEventRetrieval(event);
+            this.snackBar.openSnackBar('Корректирующие мероприятие создано');
+        } catch (e) {
         }
     }
 }

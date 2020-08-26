@@ -1,0 +1,74 @@
+<div class="line-chart" [class.line-chart__warning]="false">
+  <evj-loading-shade [isLoading]="isLoading"></evj-loading-shade>
+  <div class="line-chart_header">
+    <div class="gradient"></div>
+    <span class="line-chart_header__title">{{ data?.title }}</span>
+    <span style="flex-grow: 1"></span>
+    <div
+      matRipple
+      [matRippleCentered]="true"
+      [matRippleUnbounded]="true"
+      [matRippleColor]="'white'"
+      class="line-chart_header__icon"
+      (click)="downChart()"
+    >
+      <div class="top-arrow"></div>
+    </div>
+    <div
+      matRipple
+      [matRippleCentered]="true"
+      [matRippleUnbounded]="true"
+      [matRippleColor]="'white'"
+      class="line-chart_header__icon"
+      (click)="upChart()"
+    >
+      <div class="bottom-arrow"></div>
+    </div>
+    <div
+      matRipple
+      [matRippleCentered]="true"
+      [matRippleUnbounded]="true"
+      [matRippleColor]="'white'"
+      class="line-chart_header__icon"
+      (click)="deleteChart()"
+    >
+      <div class="close"></div>
+    </div>
+  </div>
+  <div class="line-chart_body">
+    <div #chart class="chart-container">
+      <evj-cd-line-chart
+        [size]="size"
+        [data]="chartData"
+        [hoursCount]="hoursCount"
+      ></evj-cd-line-chart>
+    </div>
+
+    <div class="legend">
+      <div class="legend_item">
+        <div class="legend_item__title">
+          <span class="fact">Факт</span>
+        </div>
+        <div class="legend_item__value">
+          <span class="fact">{{data?.value|number:"0.0-2"}}</span>
+        </div>
+      </div>
+      <div class="legend_item">
+        <div class="legend_item__title">
+          <span class="plan">Модель</span>
+        </div>
+        <div class="legend_item__value">
+          <span class="plan">{{data?.modelValue|number:"0.0-2"}}</span>
+        </div>
+      </div>
+      <div class="legend_item">
+        <div class="legend_item__title">
+          <span class="deviation">Отклонение</span>
+        </div>
+        <div class="legend_item__value">
+          <span class="deviation">{{data?.deviation|number:"0.0-2"}}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

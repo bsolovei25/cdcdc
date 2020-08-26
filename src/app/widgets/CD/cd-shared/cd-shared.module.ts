@@ -14,7 +14,6 @@ import {
     NgxMatDatetimePickerModule,
     NgxMatTimepickerModule
 } from '@angular-material-components/datetime-picker';
-import { ApsContextMenuDirective } from '../../../dashboard/components/aps-context-menu/aps-context-menu.directive';
 
 @NgModule({
     declarations: [

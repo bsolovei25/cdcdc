@@ -2,12 +2,15 @@ import { Component, Input, OnInit } from '@angular/core';
 import { IUser } from '../../../../dashboard/models/events-widget';
 import { FormControl, Validators } from '@angular/forms';
 import * as moment from 'moment';
+import { EventService } from '../../../../dashboard/services/widgets/event.service';
+import { EventsWorkspaceService } from '../../../../dashboard/services/widgets/events-workspace.service';
 
 export interface ICDModalWindow {
+    users: IUser[];
     responsible: IUser;
     date: Date;
     time: Date;
-    task: string;
+    establishedFacts: string;
     description: string;
     acceptText: string;
     acceptFunction?: () => void;
@@ -20,14 +23,18 @@ export interface ICDModalWindow {
     styleUrls: ['./cd-modal-window.component.scss']
 })
 export class CdModalWindowComponent implements OnInit {
-
     @Input() public info: ICDModalWindow;
+
+    users: IUser[] = [];
 
     isOpenStartDate: boolean = false;
 
     timeStart: FormControl = new FormControl(
-        moment().second(0).minutes(0),
-        [Validators.required]);
+        moment()
+            .second(0)
+            .minutes(0),
+        [Validators.required]
+    );
 
     constructor() {
     }
@@ -60,9 +67,7 @@ export class CdModalWindowComponent implements OnInit {
     }
 
     public dateTimePickerInput(date: Date, isStart: boolean): void {
-
         if (!isStart) {
-
         }
     }
 
@@ -75,5 +80,4 @@ export class CdModalWindowComponent implements OnInit {
             this.isOpenStartDate = false;
         }, 700);
     }
-
 }
