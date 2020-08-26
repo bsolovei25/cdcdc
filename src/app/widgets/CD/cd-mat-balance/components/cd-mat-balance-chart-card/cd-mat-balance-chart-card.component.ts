@@ -7,6 +7,7 @@ import {
     ElementRef,
     Injector,
     Inject,
+    Input,
 } from '@angular/core';
 import { WidgetPlatform } from '../../../../../dashboard/models/widget-platform';
 import {
@@ -40,8 +41,12 @@ export interface IMatBalanceChartCard {
 })
 export class CdMatBalanceChartCardComponent extends WidgetPlatform
     implements OnInit, OnDestroy, AfterViewInit {
+    @Input() public hoursCount: 8 | 24 = 8;
+
     @ViewChild('chart')
     public chartElement: ElementRef;
+
+    public isLoading: boolean = true;
 
     public data: IMatBalanceChartCard;
     public chartData: ISplineDiagramData;
@@ -75,6 +80,7 @@ export class CdMatBalanceChartCardComponent extends WidgetPlatform
     protected dataHandler(ref: IMatBalanceChartCard): void {
         if (ref) {
             this.getData(ref);
+            this.isLoading = false;
             console.log(ref);
         }
     }
