@@ -29,9 +29,9 @@ export interface EventsWidgetNotificationPreview {
 export interface EventsWidgetNotification {
     id?: number;
     parentId?: number;
-    itemNumber: number;
-    organization: string;
-    branch: string;
+    itemNumber?: number;
+    organization?: string;
+    branch?: string;
     originalId?: string;
     // place?: { id: number; name: string };
     responsibleOperator?: IUser;
@@ -44,26 +44,26 @@ export interface EventsWidgetNotification {
     status: IStatus;
     facts?: IMessage[];
     priority: IPriority;
-    deviationReason: string; // Причина отклонения
+    deviationReason?: string; // Причина отклонения
     establishedFacts: string; // Установленные факты
-    eventType: { id: number; name: string }; // Тип происшествия
-    directReasons: string; // Непосредственные/прямые причины
+    eventType?: { id: number; name: string }; // Тип происшествия
+    directReasons?: string; // Непосредственные/прямые причины
     description: string; // Описание
     comments?: IMessage[]; // Комментарий оператора
     category: ICategory;
     statusName?: string;
     positionNumber?: string;
-    severity: string;
+    severity?: string;
     retrievalEvents: IRetrievalEventDto[];
-    equipmentCategory: { id: number; name: string; code: string };
+    equipmentCategory?: { id: number; name: string; code: string };
     deadline?: Date;
-    graphValues: LineChartData;
+    graphValues?: LineChartData;
     isAcknowledged: boolean;
     source?: any;
     unit?: IUnitEvents;
     unitName?: string;
     deviationData?: IEventDeviationData;
-    asusEvent: IEventAsus;
+    asusEvent?: IEventAsus;
     externalId?: number;
     externalCode?: string; // код внешней системы (ID в Системе-источник)
     externalDate?: Date; // дата регистрации во внешней системе

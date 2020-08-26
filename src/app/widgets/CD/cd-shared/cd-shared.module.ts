@@ -35,10 +35,6 @@ import {
         NgxMatTimepickerModule,
         ReactiveFormsModule
     ]
-
-@NgModule({
-    declarations: [CdLineChartComponent, CdMnemonicComponent],
-    exports: [CdLineChartComponent, CdMnemonicComponent],
-    imports: [CommonModule],
 })
-export class CDSharedModule {}
+export class CDSharedModule {
+}

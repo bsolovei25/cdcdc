@@ -12,6 +12,7 @@ import {
 } from '../../../dashboard/models/events-widget';
 import { EventService } from '../../../dashboard/services/widgets/event.service';
 import { SnackBarService } from '../../../dashboard/services/snack-bar.service';
+import { AuthService } from '@core/service/auth.service';
 
 export interface IMatBalance {
     params: IParams;
@@ -134,6 +135,7 @@ export class CdMatBalanceComponent extends WidgetPlatform implements OnInit, OnD
         public ewService: EventService,
         public ewtService: EventsWorkspaceService,
         private snackBar: SnackBarService,
+        private authService: AuthService,
         @Inject('isMock') public isMock: boolean,
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string
@@ -161,6 +163,8 @@ export class CdMatBalanceComponent extends WidgetPlatform implements OnInit, OnD
     }
 
     async saveEvents(responsibleOperator: IUser, description: string, establishedFacts: string, date: Date, time: Date): Promise<void> {
+        const dateTime = new Date(date.getFullYear(),
+            date.getMonth(), date.getDate(), time.getHours(), time.getMinutes());
         const event: EventsWidgetNotification = {
             category: this.openEvent.category,
             priority: this.openEvent.priority,
@@ -171,13 +175,15 @@ export class CdMatBalanceComponent extends WidgetPlatform implements OnInit, OnD
             responsibleOperator,
             description,
             establishedFacts,
-            deadline: date
+            deadline: dateTime,
+            eventDateTime: dateTime,
+            fixedBy: this.authService.user$.getValue(),
+            retrievalEvents: []
         };
         try {
             const events = await this.ewService.postEventRetrieval(event);
             this.snackBar.openSnackBar('Корректирующие мероприятие создано');
         } catch (e) {
-
         }
     }
 }
