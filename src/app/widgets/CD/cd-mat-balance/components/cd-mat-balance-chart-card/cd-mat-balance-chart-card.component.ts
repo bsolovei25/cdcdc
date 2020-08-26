@@ -7,6 +7,7 @@ import {
     ElementRef,
     Injector,
     Inject,
+    Input,
 } from '@angular/core';
 import { WidgetPlatform } from '../../../../../dashboard/models/widget-platform';
 import {
@@ -14,7 +15,6 @@ import {
     ISplineDiagramSize,
 } from '../../../../LCO/spline-trends-chart/components/spline-diagram/spline-diagram.component';
 import { WidgetService } from '../../../../../dashboard/services/widget.service';
-import { HttpClient } from '@angular/common/http';
 
 export interface IMatBalanceChartCard {
     id: number;
@@ -40,8 +40,13 @@ export interface IMatBalanceChartCard {
 })
 export class CdMatBalanceChartCardComponent extends WidgetPlatform
     implements OnInit, OnDestroy, AfterViewInit {
+    // TOFIX пробросить количество часов снаружи (возможно через InjectionToken)
+    @Input() public hoursCount: 8 | 24 = 8;
+
     @ViewChild('chart')
     public chartElement: ElementRef;
+
+    public isLoading: boolean = true;
 
     public data: IMatBalanceChartCard;
     public chartData: ISplineDiagramData;
@@ -75,6 +80,7 @@ export class CdMatBalanceChartCardComponent extends WidgetPlatform
     protected dataHandler(ref: IMatBalanceChartCard): void {
         if (ref) {
             this.getData(ref);
+            this.isLoading = false;
             console.log(ref);
         }
     }
@@ -106,10 +112,6 @@ export class CdMatBalanceChartCardComponent extends WidgetPlatform
         console.log('newData', newData);
         this.data = data;
         this.chartData = newData;
-    }
-
-    private dateHourRound(date: Date): Date {
-        return new Date(date.getTime() - (date.getTime() % (60 * 60 * 1000)));
     }
 
     private transformData(data: { value: number; timestamp: Date }[]): { x: number; y: number }[] {

@@ -1,7 +1,7 @@
 <div class="line-charts">
   <div class="header">
     <div class="header__interface">
-      <img class="icon" src="assets/pic/diagram.svg"/>
+      <img class="icon" src="assets/pic/diagram.svg" />
 
       <div class="title">Анализ трендов</div>
 
@@ -16,15 +16,15 @@
               class="buttons__mat-select__icon"
               src="assets/icons/widgets/CD/cd-mat-balance/mnemonic-diagram/watch.svg"
             />
-            <mat-select panelClass="mat-balance-select">
-              <mat-option *ngFor="let p of ['24 часа']" [value]="p">
-                {{ p }}
+            <mat-select panelClass="mat-balance-select" [(ngModel)]="hoursCount">
+              <mat-option *ngFor="let p of selectValues" [value]="p.value">
+                {{ p.title }}
               </mat-option>
             </mat-select>
           </mat-form-field>
         </div>
         <div class="button button_menu" (click)="toggleMenu()">
-          <img src="assets/pic/menu.svg"/>
+          <img src="assets/pic/menu.svg" />
         </div>
       </div>
     </div>

@@ -13,9 +13,16 @@ import { AngularSvgIconModule } from 'angular-svg-icon';
 import { CdMatBalanceChartCardComponent } from './components/cd-mat-balance-chart-card/cd-mat-balance-chart-card.component';
 import { ApsContextMenuDirective } from '../../../dashboard/components/aps-context-menu/aps-context-menu.directive';
 import { ScenariosModule } from '../../APS/scenarios/scenarios.module';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
-    declarations: [CdMatBalanceComponent, CdMatBalanceChartComponent, CdMatBalanceGaugeComponent, CdMatBalanceRightComponent, CdMatBalanceChartCardComponent],
+    declarations: [
+        CdMatBalanceComponent,
+        CdMatBalanceChartComponent,
+        CdMatBalanceGaugeComponent,
+        CdMatBalanceRightComponent,
+        CdMatBalanceChartCardComponent,
+    ],
     imports: [
         CommonModule,
         DashboardModule,
@@ -24,7 +31,8 @@ import { ScenariosModule } from '../../APS/scenarios/scenarios.module';
         MatSelectModule,
         MatFormFieldModule,
         AngularSvgIconModule,
-        ScenariosModule
+        ScenariosModule,
+        FormsModule
     ],
     providers: [
         ApsContextMenuDirective

@@ -14,7 +14,6 @@ import {
     NgxMatDatetimePickerModule,
     NgxMatTimepickerModule
 } from '@angular-material-components/datetime-picker';
-import { ApsContextMenuDirective } from '../../../dashboard/components/aps-context-menu/aps-context-menu.directive';
 
 @NgModule({
     declarations: [
@@ -36,6 +35,10 @@ import { ApsContextMenuDirective } from '../../../dashboard/components/aps-conte
         NgxMatTimepickerModule,
         ReactiveFormsModule
     ]
+
+@NgModule({
+    declarations: [CdLineChartComponent, CdMnemonicComponent],
+    exports: [CdLineChartComponent, CdMnemonicComponent],
+    imports: [CommonModule],
 })
-export class CDSharedModule {
-}
+export class CDSharedModule {}

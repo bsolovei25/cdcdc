@@ -1,12 +1,10 @@
 import {
     AfterViewInit,
     Component,
-    ElementRef,
     Injector,
     Input,
     OnDestroy,
     OnInit,
-    ViewChild,
 } from '@angular/core';
 import {
     ISplineDiagramData,
@@ -38,6 +36,19 @@ export class CdMatBalanceChartComponent implements OnInit, OnDestroy, AfterViewI
     @Input()
     public size: ISplineDiagramSize = null;
 
+    public hoursCount: 8 | 24 = 8;
+
+    public readonly selectValues: { value: number; title: string }[] = [
+        {
+            value: 8,
+            title: '8 часов',
+        },
+        {
+            value: 24,
+            title: '24 часа',
+        },
+    ];
+
     public isMenuOpen: boolean = false;
 
     constructor(
@@ -68,10 +79,11 @@ export class CdMatBalanceChartComponent implements OnInit, OnDestroy, AfterViewI
 
     ngOnDestroy(): void {
         this.subscriptions.forEach((sub) => sub.unsubscribe());
+        // this.onStart();
     }
 
     ngAfterViewInit(): void {
-        this.getData();
+        // this.getData();
     }
 
     public getInjector = (idWidget: string, uniqId: string): Injector => {
@@ -85,6 +97,9 @@ export class CdMatBalanceChartComponent implements OnInit, OnDestroy, AfterViewI
         });
     };
 
+    /**
+     * @deprecated
+     */
     private async onStart(): Promise<void> {
         const hourInterval = 8;
         const currentDatetime = this.dateHourRound(new Date());
@@ -137,6 +152,9 @@ export class CdMatBalanceChartComponent implements OnInit, OnDestroy, AfterViewI
         });
     }
 
+    /**
+     * @deprecated
+     */
     private async getData(): Promise<void> {
         try {
             const data: ISplineDiagramData = await this.http

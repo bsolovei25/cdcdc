@@ -1,4 +1,5 @@
 <div class="line-chart" [class.line-chart__warning]="false">
+  <evj-loading-shade [isLoading]="isLoading"></evj-loading-shade>
   <div class="line-chart_header">
     <div class="gradient"></div>
     <span class="line-chart_header__title">{{ data?.title }}</span>
@@ -33,7 +34,11 @@
   </div>
   <div class="line-chart_body">
     <div #chart class="chart-container">
-      <evj-cd-line-chart [size]="size" [data]="chartData"></evj-cd-line-chart>
+      <evj-cd-line-chart
+        [size]="size"
+        [data]="chartData"
+        [hoursCount]="hoursCount"
+      ></evj-cd-line-chart>
     </div>
 
     <div class="legend">

@@ -17,6 +17,7 @@ $color-header-bg: rgba(92, 101, 133, 0.1);
 $color-button: #5c6585;
 
 .line-chart {
+  position: relative;
   display: flex;
   flex-flow: column;
   $scroll-margin: 5px;
