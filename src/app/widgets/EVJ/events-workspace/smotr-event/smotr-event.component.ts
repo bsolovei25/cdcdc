@@ -69,14 +69,13 @@ export class SmotrEventComponent implements OnInit {
     }
 
     public onClickUrl(): void {
-        if (this.isDisabledUrlButton()) {
-            return;
+        if (!this.isDisabledUrlButton()) {
+            window.open(this.ewService.event.deviationData.urlOriginalSystem);
         }
-        window.open(this.ewService.event.deviationData.urlOriginalSystem);
     }
 
     public isDisabledUrlButton(): boolean {
-        return !((this.ewService.event.deviationData?.urlOriginalSystem ?? '') === '');
+        return !this.ewService.event.deviationData?.urlOriginalSystem;
     }
 
     public openLineChart(): void {
@@ -87,18 +86,5 @@ export class SmotrEventComponent implements OnInit {
 
     public overlayChartClose(): void {
         this.ewService.isOverlayChartOpen = false;
-    }
-
-    public showDate(dateIso: string): string {
-        if (!dateIso) {
-            return '';
-        }
-        const date = new Date(dateIso);
-        const day = date.getDate();
-        const month = date.getMonth() + 1;
-        const year = date.getFullYear();
-        const hours = date.getHours();
-        const minutes = date.getMinutes();
-        return `${day}.${month}.${year} | ${hours}:${minutes}`;
     }
 }
