@@ -72,7 +72,7 @@ export interface EventsWidgetNotification {
 }
 
 export interface IEventProductionTask {
-    subcategory: string;
+    subcategory: ISubcategory;
     order: string;
     start: IEventStep;
     inWork: IEventStep;

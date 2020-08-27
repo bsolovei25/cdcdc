@@ -70,18 +70,20 @@
           </div>
           <div class="type">
             <evj-ui-block class="workspace__body__categories" status="normal">
-              <mat-form-field class="categories_selectbox">
-                <mat-label>Тип оборудования</mat-label>
-                <mat-select
-                  panelClass="mat-select-custom"
-                  [(ngModel)]="ewService.event.equipmentCategory"
-                  [compareWith]="compareFn"
-                >
-                  <mat-option *ngFor="let p of ewService.equipmentCategory" [value]="p"
-                    >{{ p.name }}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
+              <ng-container *ngIf="ewService.event.category.code!=='2' else subcategories">
+                <mat-form-field class="categories_selectbox">
+                  <mat-label>Тип оборудования</mat-label>
+                  <mat-select
+                    panelClass="mat-select-custom"
+                    [(ngModel)]="ewService.event.equipmentCategory"
+                    [compareWith]="compareFn"
+                  >
+                    <mat-option *ngFor="let p of ewService.equipmentCategory" [value]="p"
+                      >{{ p.name }}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </ng-container>
             </evj-ui-block>
           </div>
         </div>
@@ -208,3 +210,19 @@
     </div>
   </div>
 </section>
+
+<ng-template #subcategories>
+  <mat-form-field class="categories_selectbox">
+    <mat-label>Подкатегория</mat-label>
+    <mat-select
+      panelClass="mat-select-custom"
+      [(ngModel)]="ewService.event.productionTasks.subcategory"
+      [compareWith]="compareFn"
+    >
+      <mat-option [value]="undefined">Не выбрана</mat-option>
+      <mat-option *ngFor="let p of ewService.subcategory" [value]="p"
+        >{{ ewService.subCategories[p.id] }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</ng-template>
