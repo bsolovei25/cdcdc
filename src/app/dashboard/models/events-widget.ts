@@ -72,10 +72,10 @@ export interface EventsWidgetNotification {
 }
 
 export interface IEventProductionTask {
-    subcategory: ISubcategory; // Подкатегория
-    start: IEventStep; // Создано
-    inWork: IEventStep; // Принято в работу
-    close: IEventStep; // Закрыто
+    subcategory?: ISubcategory; // Подкатегория
+    start?: IEventStep; // Создано
+    inWork?: IEventStep; // Принято в работу
+    close?: IEventStep; // Закрыто
 }
 
 export interface IEventCd {
