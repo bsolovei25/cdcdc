@@ -23,6 +23,7 @@ export interface IWidget {
     isClaim: boolean;
     isVideoWall?: boolean;
     sortType?: SortTypeEvents;
+    isHidden?: boolean;
 }
 
 export interface RingFactoryWidget {

@@ -1,4 +1,11 @@
-import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import {
+    AfterViewInit,
+    ChangeDetectorRef,
+    Component,
+    ElementRef,
+    OnInit,
+    ViewChild
+} from '@angular/core';
 import * as d3Selection from 'd3-selection';
 import * as d3 from 'd3';
 
@@ -7,9 +14,9 @@ interface ICdIndicatorLoad {
 }
 
 @Component({
-  selector: 'evj-cd-mat-balance-gauge',
-  templateUrl: './cd-mat-balance-gauge.component.html',
-  styleUrls: ['./cd-mat-balance-gauge.component.scss']
+    selector: 'evj-cd-mat-balance-gauge',
+    templateUrl: './cd-mat-balance-gauge.component.html',
+    styleUrls: ['./cd-mat-balance-gauge.component.scss']
 })
 export class CdMatBalanceGaugeComponent implements OnInit, AfterViewInit {
 
@@ -22,7 +29,7 @@ export class CdMatBalanceGaugeComponent implements OnInit, AfterViewInit {
 
     private svgBody: any;
 
-    constructor() {
+    constructor(private cdRef: ChangeDetectorRef) {
     }
 
     ngOnInit(): void {
@@ -30,6 +37,7 @@ export class CdMatBalanceGaugeComponent implements OnInit, AfterViewInit {
 
     ngAfterViewInit(): void {
         this.drawWidget();
+        this.cdRef.detectChanges();
     }
 
     getLineWidth(curValue: number, maxValue: number): string {

@@ -7,7 +7,7 @@ import {
     ElementRef,
     Injector,
     Inject,
-    Input
+    Input, ChangeDetectorRef
 } from '@angular/core';
 import { WidgetPlatform } from '../../../../../dashboard/models/widget-platform';
 import {
@@ -57,6 +57,7 @@ export class CdMatBalanceChartCardComponent extends WidgetPlatform
         protected widgetService: WidgetService,
         public injector: Injector,
         private cdMatBalanceService: CdMatBalanceService,
+        private cdRef: ChangeDetectorRef,
         @Inject('isMock') public isMock: boolean,
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string
@@ -73,6 +74,7 @@ export class CdMatBalanceChartCardComponent extends WidgetPlatform
             width: this.chartElement.nativeElement.offsetWidth,
             height: this.chartElement.nativeElement.offsetHeight
         };
+        this.cdRef.detectChanges();
     }
 
     ngOnDestroy(): void {
@@ -83,7 +85,6 @@ export class CdMatBalanceChartCardComponent extends WidgetPlatform
         if (ref) {
             this.getData(ref);
             this.isLoading = false;
-            console.log(ref);
         }
     }
 
@@ -111,7 +112,6 @@ export class CdMatBalanceChartCardComponent extends WidgetPlatform
             plan: this.transformData(plan)
         };
 
-        console.log('newData', newData);
         this.data = data;
         this.chartData = newData;
     }
