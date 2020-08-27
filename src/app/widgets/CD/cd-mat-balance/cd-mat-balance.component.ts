@@ -13,6 +13,7 @@ import {
 import { EventService } from '../../../dashboard/services/widgets/event.service';
 import { SnackBarService } from '../../../dashboard/services/snack-bar.service';
 import { AuthService } from '@core/service/auth.service';
+import { IMessageFileAttachment } from '@shared/models/message.model';
 
 export interface IMatBalance {
     params: IParams;
@@ -123,6 +124,7 @@ export class CdMatBalanceComponent extends WidgetPlatform implements OnInit, OnD
             value: 0,
             onClick: () => {
                 this.userService.LoadScreenByWidget('events-workspace');
+                this.ewtService.editEvent(this.cdMatBalanceService.isOpenEvent$.getValue()?.id);
                 this.cdMatBalanceService.isOpenEvent$.next(null);
             }
         }
@@ -162,7 +164,8 @@ export class CdMatBalanceComponent extends WidgetPlatform implements OnInit, OnD
         }
     }
 
-    async saveEvents(responsibleOperator: IUser, description: string, establishedFacts: string, date: Date, time: Date): Promise<void> {
+    async saveEvents(responsibleOperator: IUser, description: string,
+                     facts: string, date: Date, time: Date): Promise<void> {
         const dateTime = new Date(date.getFullYear(),
             date.getMonth(), date.getDate(), time.getHours(), time.getMinutes());
         const event: EventsWidgetNotification = {
@@ -174,7 +177,12 @@ export class CdMatBalanceComponent extends WidgetPlatform implements OnInit, OnD
             unit: this.openEvent.unit,
             responsibleOperator,
             description,
-            establishedFacts,
+            establishedFacts: '',
+            facts: [{
+                comment: facts,
+                createdAt: new Date(),
+                displayName: this.authService.user$.getValue()?.displayName
+            }],
             deadline: dateTime,
             eventDateTime: dateTime,
             fixedBy: this.authService.user$.getValue(),

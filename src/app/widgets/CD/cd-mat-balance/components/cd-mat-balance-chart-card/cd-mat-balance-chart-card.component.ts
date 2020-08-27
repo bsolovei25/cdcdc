@@ -144,9 +144,7 @@ export class CdMatBalanceChartCardComponent extends WidgetPlatform
         const widgets = this.cdMatBalanceService.charts$.getValue();
         const idx = widgets.findIndex(value => value === this.data.name);
         if (idx > 0) {
-            const el = widgets[idx - 1];
-            widgets[idx - 1] = widgets[idx];
-            widgets[idx] = el;
+            [widgets[idx - 1], widgets[idx]] = [widgets[idx], widgets[idx - 1]];
         }
         this.cdMatBalanceService.charts$.next(widgets);
     }
@@ -154,12 +152,10 @@ export class CdMatBalanceChartCardComponent extends WidgetPlatform
     downChart(): void {
         const widgets = this.cdMatBalanceService.charts$.getValue();
         const idx = widgets.findIndex(value => value === this.data.name);
-        if (idx < widgets.length + 1) {
-            const el = widgets[idx + 1];
-            widgets[idx + 1] = widgets[idx];
-            widgets[idx] = el;
+        if (idx < widgets.length - 1) {
+            [widgets[idx + 1], widgets[idx]] = [widgets[idx], widgets[idx + 1]];
         }
-        this.cdMatBalanceService.charts$.next(widgets);
+        this.cdMatBalanceService.charts$.next(widgets.map(item => item));
     }
 
     deleteChart(): void {
