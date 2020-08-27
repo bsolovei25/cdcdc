@@ -1,27 +1,24 @@
-import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
-import { WidgetPlatform } from '../../../models/widget-platform';
-import { WidgetService } from '../../../services/widget.service';
-import { SelectionModel } from '@angular/cdk/collections';
+import { Component, OnInit, OnDestroy, Inject } from '@angular/core';
 import {
     IAsEfProduct,
     IAsEfUnitNew,
     IAsEfFlow,
-} from '../../../models/ASTUE/astue-efficiency.model';
-import { AstueEfficiencyService } from '../../../services/ASTUE/astue-efficiency.service';
+} from '../../../dashboard/models/ASTUE/astue-efficiency.model';
+import { SelectionModel } from '@angular/cdk/collections';
+import { WidgetService } from '../../../dashboard/services/widget.service';
+import { AstueEfficiencyService } from '../../../dashboard/services/ASTUE/astue-efficiency.service';
+import { WidgetPlatform } from '../../../dashboard/models/widget-platform';
 
 @Component({
-    selector: 'evj-astue-efficiency',
-    templateUrl: './astue-efficiency.component.html',
-    styleUrls: ['./astue-efficiency.component.scss'],
+    selector: 'evj-astue-mnpz-efficiency',
+    templateUrl: './astue-mnpz-efficiency.component.html',
+    styleUrls: ['./astue-mnpz-efficiency.component.scss'],
 })
-export class AstueEfficiencyComponent extends WidgetPlatform implements OnInit, OnDestroy {
+export class AstueMnpzEfficiencyComponent extends WidgetPlatform implements OnInit, OnDestroy {
+    public isLoading: boolean = true;
+
     public isGraphDisplay: boolean = true;
     public isInitialDataShow: boolean = true;
-
-    public static itemCols: number = 58;
-    public static itemRows: number = 25;
-    public static minItemCols: number = 58;
-    public static minItemRows: number = 20;
 
     public data: IAsEfProduct[] = [];
 
@@ -53,6 +50,7 @@ export class AstueEfficiencyComponent extends WidgetPlatform implements OnInit, 
         console.log(ref);
 
         this.data = ref.products;
+        this.isLoading = false;
     }
 
     public toggleDisplay(event: boolean): void {

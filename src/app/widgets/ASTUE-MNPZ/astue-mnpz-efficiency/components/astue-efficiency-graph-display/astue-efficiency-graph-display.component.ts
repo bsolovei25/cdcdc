@@ -7,15 +7,14 @@ import {
     Input,
     OnDestroy,
 } from '@angular/core';
-import { IProductionTrend } from '../../../../../models/production-trends.model';
-import { LineChartPlatform } from '../../../../../models/linechart-platform';
-import { WidgetService, IDatesInterval } from '../../../../../services/widget.service';
-import { HttpClient } from '@angular/common/http';
-import { AppConfigService } from '../../../../../../services/appConfigService';
-import { IWsData } from '../../../../production-trend/components/production-trend-graph/production-trend-graph.component';
-import { AstueEfficiencyService } from '../../../../../services/ASTUE/astue-efficiency.service';
+import { IAsEfLabel } from '../../../../../dashboard/models/ASTUE/astue-efficiency.model';
+import { LineChartPlatform } from '../../../../../dashboard/models/linechart-platform';
+import { IProductionTrend } from '../../../../../dashboard/models/production-trends.model';
+import { IDatesInterval, WidgetService } from '../../../../../dashboard/services/widget.service';
 import { Subscription } from 'rxjs';
-import { IAsEfLabel } from '../../../../../models/ASTUE/astue-efficiency.model';
+import { HttpClient } from '@angular/common/http';
+import { AppConfigService } from '../../../../../services/appConfigService';
+import { AstueEfficiencyService } from '../../../../../dashboard/services/ASTUE/astue-efficiency.service';
 
 interface ILabels {
     periodCounter: IAsEfLabel;
@@ -204,7 +203,6 @@ export class AstueEfficiencyGraphDisplayComponent extends LineChartPlatform<IPro
 
     constructor(
         public widgetService: WidgetService,
-        private http: HttpClient,
         private appConfigService: AppConfigService,
         private AsEfService: AstueEfficiencyService
     ) {

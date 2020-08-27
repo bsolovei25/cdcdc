@@ -1,5 +1,5 @@
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
-import { IAsEfInitialDataBlock } from '../../../../../models/ASTUE/astue-efficiency.model';
+import { IAsEfInitialDataBlock } from '../../../../../dashboard/models/ASTUE/astue-efficiency.model';
 
 @Component({
     selector: 'evj-astue-efficiency-inintial-data-block',

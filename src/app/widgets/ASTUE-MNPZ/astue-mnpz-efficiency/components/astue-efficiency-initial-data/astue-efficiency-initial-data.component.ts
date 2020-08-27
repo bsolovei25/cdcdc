@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { IAsEfInitialDataBlock } from '../../../../../models/ASTUE/astue-efficiency.model';
 import { SelectionModel } from '@angular/cdk/collections';
+import { IAsEfInitialDataBlock } from '../../../../../dashboard/models/ASTUE/astue-efficiency.model';
 
 @Component({
     selector: 'evj-astue-efficiency-initial-data',

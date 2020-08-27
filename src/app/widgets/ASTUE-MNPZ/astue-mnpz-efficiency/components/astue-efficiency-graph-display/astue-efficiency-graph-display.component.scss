@@ -35,9 +35,9 @@
   }
 
   &__counters {
-    height: 86px;
-    min-height: 86px;
-    max-height: 86px;
+    height: 230px;
+    min-height: 230px;
+    max-height: 230px;
   }
 
   &__graph {
@@ -97,74 +97,84 @@
 
   .counters {
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
 
-    &__item {
-      width: 197px;
-      height: 100%;
-      border-radius: 12px;
-      box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-      background: var(--color-aw-container-body-transparent);
+    &__header {
+      height: 40px;
+      width: 100%;
+      display: flex;
+      align-items: center;
+    }
+
+    &__cards {
+      height: 70px;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
     }
   }
 
   .counter {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-
-    &__description {
-      width: 100%;
-      height: 50%;
-      padding: 9px 20px 0px;
+    &-header {
+      height: 100%;
+      flex: 3;
       display: flex;
+      align-items: center;
+      padding-left: 20px;
+      font-size: 12px;
+      color: var(--color-text-main);
+
+      &:last-child {
+        flex: 1;
+      }
     }
 
-    &__name {
+    &-card {
+      width: 195px;
+      height: 100%;
+      border-radius: 2px;
+      background: var(--color-aw-container-body-transparent);
+      box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    }
+  }
+
+  .card {
+    position: relative;
+    padding: 10px 10px 12px 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    &__title {
       font-size: 12px;
       color: var(--color-text-header-table);
     }
 
-    &__icon {
-      width: 23.33px;
-      height: 30px;
-      margin-right: 7px;
-    }
-
-    &__status {
-      position: absolute;
-      bottom: 13px;
-      left: 20px;
-      font-size: 12px;
-    }
-
     &__value {
-      position: absolute;
-      bottom: 3px;
-      right: 8px;
-      font-size: 36px;
+      font-size: 18px;
+      color: var(--color-text-main);
     }
 
-    &_danger {
-      .counter__icon {
-        color: var(--color-danger);
-      }
-    }
-
-    &_warning {
-      .counter__icon {
-        color: var(--color-warning);
-      }
-    }
-
-    &_normal {
-      .counter__icon {
-        color: var(--color-standard);
-      }
+    &_single {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 24px;
+      color: var(--color-text-main);
     }
   }
 
+  .label {
+    position: absolute;
+    right: 10px;
+    bottom: 12px;
+    font-size: 14px;
+    color: var(--color-text-main);
+  }
+
   .graph {
+    position: relative;
     border-radius: 12px;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     background: var(--color-aw-container-body-transparent);
@@ -175,6 +185,14 @@
       height: 80%;
       align-self: center;
     }
+  }
+
+  .units {
+    position: absolute;
+    top: 15px;
+    left: 25px;
+    font-size: 10px;
+    color: var(--color-text-header-table);
   }
 
   .scroll {

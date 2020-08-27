@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { IDatesInterval } from '../../../../../services/widget.service';
+import { IDatesInterval } from '../../../../../dashboard/services/widget.service';
 
 @Component({
     selector: 'evj-astue-efficiency-calculation',
