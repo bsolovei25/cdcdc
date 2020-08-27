@@ -1,7 +1,10 @@
 <div class="panel-container">
   <div class="panel_header">
     <div class="icon">
-      <svg-icon [svgStyle]="{ 'width.%':100, 'height.%':100 }" src="assets/icons/widgets/CD/cd-mat-balance/settings.svg"></svg-icon>
+      <svg-icon
+        [svgStyle]="{ 'width.%':100, 'height.%':100 }"
+        src="assets/icons/widgets/CD/cd-mat-balance/settings.svg"
+      ></svg-icon>
     </div>
     <div class="label">Мат. баланс</div>
     <span style="flex-grow: 1"></span>
@@ -24,14 +27,11 @@
   </div>
   <div class="panel panel_content">
     <div class="scroll-container scroll-bar">
-      <ng-container *ngTemplateOutlet="itemTemplate; context: {title: 'Сухой газ', percentValue: 50.1, value: 41.699}"></ng-container>
-      <ng-container *ngTemplateOutlet="itemTemplate; context: {title: 'ППФ', percentValue: 50.1, value: 41.699}"></ng-container>
-      <ng-container *ngTemplateOutlet="itemTemplate; context: {title: 'ББФ', percentValue: 50.1, value: 41.699}"></ng-container>
-      <ng-container *ngTemplateOutlet="itemTemplate; context: {title: 'ЛБ', percentValue: 50.1, value: 41.699}"></ng-container>
-      <ng-container *ngTemplateOutlet="itemTemplate; context: {title: 'ТБ', percentValue: 50.1, value: 41.699}"></ng-container>
-      <ng-container *ngTemplateOutlet="itemTemplate; context: {title: 'ЛГКК', percentValue: 50.1, value: 41.699}"></ng-container>
-      <ng-container *ngTemplateOutlet="itemTemplate; context: {title: 'ТГКК', percentValue: 50.1, value: 41.699}"></ng-container>
-      <ng-container *ngTemplateOutlet="itemTemplate; context: {title: 'Фр. > 420', percentValue: 50.1, value: 41.699}"></ng-container>
+      <ng-container *ngFor="let item of data">
+        <ng-container
+          *ngTemplateOutlet="itemTemplate; context: {title: item?.name, percentValue: item?.percentLoad, value: item?.value}"
+        ></ng-container>
+      </ng-container>
     </div>
   </div>
   <div class="panel panel_footer"></div>
@@ -45,7 +45,10 @@
     <div class="unit-value">{{value | number: "0.1-2"}} т/ч</div>
     <div class="vertical-line"></div>
     <div class="icon">
-      <svg-icon [svgStyle]="{ 'width.px':17, 'height.px':17 }" src="assets/icons/widgets/CD/cd-mat-balance/tube.svg"></svg-icon>
+      <svg-icon
+        [svgStyle]="{ 'width.px':17, 'height.px':17 }"
+        src="assets/icons/widgets/CD/cd-mat-balance/tube.svg"
+      ></svg-icon>
     </div>
   </div>
 </ng-template>

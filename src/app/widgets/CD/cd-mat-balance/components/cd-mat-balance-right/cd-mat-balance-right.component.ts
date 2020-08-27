@@ -1,15 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { IStreams } from '../../cd-mat-balance.component';
 
 @Component({
-  selector: 'evj-cd-mat-balance-right',
-  templateUrl: './cd-mat-balance-right.component.html',
-  styleUrls: ['./cd-mat-balance-right.component.scss']
+    selector: 'evj-cd-mat-balance-right',
+    templateUrl: './cd-mat-balance-right.component.html',
+    styleUrls: ['./cd-mat-balance-right.component.scss'],
 })
 export class CdMatBalanceRightComponent implements OnInit {
+    @Input() data: IStreams[] = [];
 
-  constructor() { }
+    constructor() {}
 
-  ngOnInit(): void {
-  }
-
+    ngOnInit(): void {}
 }

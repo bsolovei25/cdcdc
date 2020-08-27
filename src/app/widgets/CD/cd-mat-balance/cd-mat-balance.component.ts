@@ -8,14 +8,16 @@ import { UserSettingsService } from '../../../dashboard/services/user-settings.s
 import { EventsWorkspaceService } from '../../../dashboard/services/widgets/events-workspace.service';
 import {
     EventsWidgetNotification,
-    ISaveMethodEvent, IUser
+    ISaveMethodEvent,
+    IUser,
 } from '../../../dashboard/models/events-widget';
 import { EventService } from '../../../dashboard/services/widgets/event.service';
 import { SnackBarService } from '../../../dashboard/services/snack-bar.service';
 import { AuthService } from '@core/service/auth.service';
-import { IMessageFileAttachment } from '@shared/models/message.model';
+import { ICdIndicatorLoad } from './components/cd-mat-balance-gauge/cd-mat-balance-gauge.component';
 
 export interface IMatBalance {
+    loads: ICdIndicatorLoad;
     params: IParams;
     sensors: ISensors;
     streams: IStreams;
@@ -59,12 +61,17 @@ export interface IStreams {
     modelValue: number;
     name: string;
     value: number;
+    engUnits: string;
+    percentLoad: number;
+    totalDeviation: number;
+    totalModelValue: number;
+    totalValue: number;
 }
 
 @Component({
     selector: 'evj-cd-mat-balance',
     templateUrl: './cd-mat-balance.component.html',
-    styleUrls: ['./cd-mat-balance.component.scss']
+    styleUrls: ['./cd-mat-balance.component.scss'],
 })
 export class CdMatBalanceComponent extends WidgetPlatform implements OnInit, OnDestroy {
     isSelectedEl: number;
@@ -95,29 +102,31 @@ export class CdMatBalanceComponent extends WidgetPlatform implements OnInit, OnD
                                     responsible: null,
                                     acceptFunction: () => {
                                         console.log(this.modal);
-                                        this.saveEvents(this.modal.responsible,
+                                        this.saveEvents(
+                                            this.modal.responsible,
                                             this.modal.description,
                                             this.modal.establishedFacts,
                                             this.modal.date,
-                                            this.modal.time);
+                                            this.modal.time
+                                        );
                                     },
                                     cancelFunction: () => {
                                         this.modal = null;
-                                    }
+                                    },
                                 };
-                            }
-                        }
-                    ]
+                            },
+                        },
+                    ],
                 },
                 {
                     name: 'Модель',
-                    value: 0
+                    value: 0,
                 },
                 {
                     name: 'Техпроцесс',
-                    value: 0
-                }
-            ]
+                    value: 0,
+                },
+            ],
         },
         {
             name: 'Вернуться к карточке события',
@@ -126,8 +135,8 @@ export class CdMatBalanceComponent extends WidgetPlatform implements OnInit, OnD
                 this.userService.LoadScreenByWidget('events-workspace');
                 this.ewtService.editEvent(this.cdMatBalanceService.isOpenEvent$.getValue()?.id);
                 this.cdMatBalanceService.isOpenEvent$.next(null);
-            }
-        }
+            },
+        },
     ];
 
     constructor(
@@ -161,13 +170,24 @@ export class CdMatBalanceComponent extends WidgetPlatform implements OnInit, OnD
     protected dataHandler(ref: any): void {
         if (ref) {
             this.data = ref;
+            console.log(ref);
         }
     }
 
-    async saveEvents(responsibleOperator: IUser, description: string,
-                     facts: string, date: Date, time: Date): Promise<void> {
-        const dateTime = new Date(date.getFullYear(),
-            date.getMonth(), date.getDate(), time.getHours(), time.getMinutes());
+    async saveEvents(
+        responsibleOperator: IUser,
+        description: string,
+        facts: string,
+        date: Date,
+        time: Date
+    ): Promise<void> {
+        const dateTime = new Date(
+            date.getFullYear(),
+            date.getMonth(),
+            date.getDate(),
+            time.getHours(),
+            time.getMinutes()
+        );
         const event: EventsWidgetNotification = {
             category: this.openEvent.category,
             priority: this.openEvent.priority,
@@ -178,20 +198,21 @@ export class CdMatBalanceComponent extends WidgetPlatform implements OnInit, OnD
             responsibleOperator,
             description,
             establishedFacts: '',
-            facts: [{
-                comment: facts,
-                createdAt: new Date(),
-                displayName: this.authService.user$.getValue()?.displayName
-            }],
+            facts: [
+                {
+                    comment: facts,
+                    createdAt: new Date(),
+                    displayName: this.authService.user$.getValue()?.displayName,
+                },
+            ],
             deadline: dateTime,
             eventDateTime: dateTime,
             fixedBy: this.authService.user$.getValue(),
-            retrievalEvents: []
+            retrievalEvents: [],
         };
         try {
             const events = await this.ewService.postEventRetrieval(event);
             this.snackBar.openSnackBar('Корректирующие мероприятие создано');
-        } catch (e) {
-        }
+        } catch (e) {}
     }
 }
