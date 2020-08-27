@@ -47,14 +47,14 @@ export class KpeLineChartComponent implements OnChanges {
     constructor() {}
 
     public ngOnChanges(): void {
-        if (this.data.length) {
+        if (this.data && this.data.length) {
             this.startDrawChart();
         }
     }
 
     @HostListener('document:resize', ['$event'])
     public OnResize(): void {
-        if (this.data.length) {
+        if (this.data && this.data.length) {
             this.startDrawChart();
         }
     }

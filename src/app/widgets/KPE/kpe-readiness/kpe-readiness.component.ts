@@ -1,17 +1,36 @@
 import {
     Component,
-    ElementRef,
     Inject,
     OnDestroy,
-    OnInit,
-    ViewChild
+    OnInit, QueryList,
+    ViewChildren,
 } from '@angular/core';
 import { WidgetPlatform } from '../../../dashboard/models/widget-platform';
 import { WidgetService } from '../../../dashboard/services/widget.service';
-import * as d3 from 'd3';
 import { IProductionTrend } from '../../../dashboard/models/production-trends.model';
-import { HttpClient } from '@angular/common/http';
 import { IDeviationDiagramData } from '../shared/kpe-deviation-diagram/kpe-deviation-diagram.component';
+import { IKpeGaugeChartData, IKpeLineChartData } from '../shared/kpe-charts.model';
+import { KpeHelperService } from '../shared/kpe-helper.service';
+
+export interface IKpeReadinessData {
+    chartCards: IKpeReadinessChartCard[] | null;
+    deviationChart: IKpeLineChartData[] | null;
+    deviationDiagram: IKpeGaugeChartData | null;
+    gaugeCards: IKpeGaugeChartData[] | null;
+}
+
+export interface IKpeReadinessChartCard {
+    progressChart: IKpeReadinessGauge;
+    trendChart: IProductionTrend[];
+}
+
+export interface IKpeReadinessGauge {
+    title: string;
+    unit: string;
+    deviation?: number;
+    fact: number;
+    plan: number;
+}
 
 @Component({
     selector: 'evj-kpe-readiness',
@@ -20,16 +39,25 @@ import { IDeviationDiagramData } from '../shared/kpe-deviation-diagram/kpe-devia
 })
 export class KpeReadinessComponent extends WidgetPlatform implements OnInit, OnDestroy {
 
-    // @ViewChild('chart') private chartContainer: ElementRef;
+    @ViewChildren('gauges')
+    public gaugesElements: QueryList<HTMLDivElement>;
 
     public lineChartData: IProductionTrend[] = [];
 
     public deviationChartData: IDeviationDiagramData[] = [];
 
+    public gaugeCards: IKpeGaugeChartData[] = [];
+
+    public chartCard: IKpeReadinessChartCard;
+
+    public chartCards: IKpeReadinessChartCard[] | IKpeReadinessChartCard[][];
+
+    public diagram: IKpeGaugeChartData = { plan: 100, fact: 100};
+
     public margin = { top: 20, right: 20, bottom: 30, left: 40 };
 
     constructor(protected widgetService: WidgetService,
-                private http: HttpClient,
+                private kpeHelperService: KpeHelperService,
                 @Inject('isMock') public isMock: boolean,
                 @Inject('widgetId') public id: string,
                 @Inject('uniqId') public uniqId: string
@@ -39,31 +67,19 @@ export class KpeReadinessComponent extends WidgetPlatform implements OnInit, OnD
 
     public ngOnInit(): void {
         super.widgetInit();
-        this.http
-            .get('assets/mock/KPE/kpe-trends.json')
-            .toPromise()
-            .then((data: { data: IProductionTrend[] }) => {
-                this.lineChartData = data.data;
-                this.lineChartData.forEach((item) =>
-                    item.graph.forEach((chart) => {
-                        chart.timeStamp = new Date(chart.timeStamp);
-                    })
-                );
-            });
-
-        this.http
-            .get('assets/mock/KPE/deviation-chart.json')
-            .toPromise()
-            .then((data: IDeviationDiagramData[]) => {
-                this.deviationChartData = data;
-            });
     }
 
     public ngOnDestroy(): void {
         super.ngOnDestroy();
     }
 
-    protected dataHandler(ref: any): void {
+    protected dataHandler(ref: IKpeReadinessData): void {
+        this.deviationChartData = this.kpeHelperService.prepareKpeLineChartData(ref.deviationChart);
+        this.gaugeCards = ref.gaugeCards;
+        this.chartCards = ref.chartCards as IKpeReadinessChartCard[];
+        this.chartCard = this.chartCards.shift();
+        this.chartCards = this.sortArray(this.chartCards, 2) as IKpeReadinessChartCard[][];
+        this.diagram = ref.deviationDiagram;
     }
 
     public gaugeWidth(container: HTMLDivElement): string {
@@ -74,11 +90,41 @@ export class KpeReadinessComponent extends WidgetPlatform implements OnInit, OnD
         return `min-width: ${height * 1.136}px`;
     }
 
+    public prepareTrendData(data: IProductionTrend[]): IProductionTrend[] | void {
+        if (!data) { return; }
+        return this.kpeHelperService.prepareKpeTrendChartData(data);
+    }
+
+    public sortArray(
+        arr: IKpeReadinessChartCard[],
+        n: number
+    ): IKpeReadinessChartCard[][] {
+        let i = 0;
+        let j = 0;
+        const result = [];
+        let temp = [];
+        for (const item of arr) {
+            i++;
+            j++;
+            temp.push(item);
+            if (i === n || j === arr.length) {
+                result.push(temp);
+                temp = [];
+                i = 0;
+            }
+        }
+        return result;
+    }
+
     public rowHeight(container: HTMLDivElement): string {
+        if (!container) {
+            return;
+        }
+
         if (!(container?.offsetWidth > 0)) {
             return;
         }
-        const width = container.offsetWidth;
+        const width = container?.offsetWidth;
         return `min-height: ${width * 0.93}px; height: ${width * 0.93}px`;
     }
 }

@@ -7,7 +7,12 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class KpeLineDiagramComponent implements OnInit {
 
-    @Input() data: { plan: number, fact: number };
+    @Input()
+    public plan: number = 100;
+
+    @Input()
+    public fact: number = 100;
+
     percentDeviation: number;
     percentFact: number;
     percentPlan: number;
@@ -17,12 +22,12 @@ export class KpeLineDiagramComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.percentDeviation = this.data.fact - this.data.plan;
+        this.percentDeviation = this.fact - this.plan;
         if (this.percentDeviation > 0) {
-            this.percentFact = this.data.plan / this.data.fact * 100;
+            this.percentFact = this.plan / this.fact * 100;
             this.percentPlan = 100 - this.percentFact;
         } else {
-            this.percentFact = this.data.fact / this.data.plan * 100;
+            this.percentFact = this.fact / this.plan * 100;
             this.percentPlan = 100 - this.percentFact;
         }
 
