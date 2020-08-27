@@ -1,7 +1,7 @@
 import { Component, Input, OnChanges } from '@angular/core';
-import { IAsEfUnitNew } from '../../../../../models/ASTUE/astue-efficiency.model';
 import { SelectionModel } from '@angular/cdk/collections';
-import { AstueEfficiencyService } from '../../../../../services/ASTUE/astue-efficiency.service';
+import { IAsEfUnitNew } from '../../../../../dashboard/models/ASTUE/astue-efficiency.model';
+import { AstueEfficiencyService } from '../../../../../dashboard/services/ASTUE/astue-efficiency.service';
 
 @Component({
     selector: 'evj-astue-efficiency-units',

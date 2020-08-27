@@ -1,17 +1,15 @@
 import { Component, OnInit, Output, EventEmitter, Input, OnDestroy } from '@angular/core';
-import {
-    IAsEfTableBlock,
-    IAsEfTableRow,
-    IAsEfScript,
-    IAsEfProduct,
-    IAsEfCell,
-    IAsEfTable,
-    IAsEfUnitNew,
-    IAsEfRow,
-} from '../../../../../models/ASTUE/astue-efficiency.model';
 import { SelectionModel } from '@angular/cdk/collections';
 import { Subscription } from 'rxjs';
-import { AstueEfficiencyService } from '../../../../../services/ASTUE/astue-efficiency.service';
+import {
+    IAsEfUnitNew,
+    IAsEfTable,
+    IAsEfCell,
+    IAsEfTableBlock,
+    IAsEfScript,
+    IAsEfTableRow,
+} from '../../../../../dashboard/models/ASTUE/astue-efficiency.model';
+import { AstueEfficiencyService } from '../../../../../dashboard/services/ASTUE/astue-efficiency.service';
 
 @Component({
     selector: 'evj-astue-efficiency-table-display',

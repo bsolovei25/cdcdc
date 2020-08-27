@@ -1,6 +1,7 @@
-<evj-widget-preview [title]="widgetTitle" [icon]="widgetIcon" *ngIf="isMock" [previewTitle]="widgetType"></evj-widget-preview>
 
-<div class="container pointer-events" *ngIf="!isMock">
+<div class="container pointer-events">
+  <evj-loading-shade [isLoading]="isLoading"></evj-loading-shade>
+
   <evj-widget-header
     [title]="widgetTitle"
     [widgetType]="widgetType"

@@ -1,7 +1,10 @@
 import { Component, Input, Output, EventEmitter, OnChanges } from '@angular/core';
-import { IAsEfUnitNew, IAsEfFlow } from '../../../../../models/ASTUE/astue-efficiency.model';
 import { SelectionModel } from '@angular/cdk/collections';
-import { AstueEfficiencyService } from '../../../../../services/ASTUE/astue-efficiency.service';
+import {
+    IAsEfUnitNew,
+    IAsEfFlow,
+} from '../../../../../dashboard/models/ASTUE/astue-efficiency.model';
+import { AstueEfficiencyService } from '../../../../../dashboard/services/ASTUE/astue-efficiency.service';
 
 @Component({
     selector: 'evj-astue-efficiency-unit-card',

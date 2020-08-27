@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { IAsEfCard } from '../../../../../models/ASTUE/astue-efficiency.model';
+import { IAsEfCard } from '../../../../../dashboard/models/ASTUE/astue-efficiency.model';
 
 @Component({
     selector: 'evj-astue-efficiency-item-card',
