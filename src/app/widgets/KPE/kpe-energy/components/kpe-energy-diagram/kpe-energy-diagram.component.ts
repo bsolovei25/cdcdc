@@ -15,11 +15,11 @@ export class KpeEnergyDiagramComponent implements OnInit {
 
     @ViewChild('chart') chart: ElementRef;
 
-    @Input() fact: number = 110;
-    @Input() plan: number = 100;
+    @Input() fact: number = 0;
+    @Input() plan: number = 0;
     @Input() img: string = this.defaultImg;
 
-    ngOnInit(): void {
+    public ngOnInit(): void {
         this.dataHandler();
         const mainValue = this.fact > this.plan
             ? this.plan / this.fact * 100

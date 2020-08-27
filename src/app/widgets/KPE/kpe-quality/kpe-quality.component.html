@@ -20,93 +20,6 @@
   </div>
 </evj-contemporary-widget-header>
 
-<!--
-<div class="wrapper">
-  <div class="content-header">
-    <div class="content-header__gauge-chart">
-      <evj-kpe-gauge-chart></evj-kpe-gauge-chart>
-    </div>
-    <div class="content-header__deviation-chart">
-      <evj-kpe-deviation-diagram [data]="deviationChartData"></evj-kpe-deviation-diagram>
-    </div>
-  </div>
-  <div class="content-body">
-    <div class="content-body__row">
-      <div class="card">
-        <div class="card__gauge-chart">
-          <evj-kpe-gauge-chart></evj-kpe-gauge-chart>
-        </div>
-        <div class="card__equalizier-chart">
-          <evj-kpe-equalizer-chart></evj-kpe-equalizer-chart>
-        </div>
-      </div>
-      <div class="card">
-        <div class="card__gauge-chart">
-          <evj-kpe-gauge-chart></evj-kpe-gauge-chart>
-        </div>
-        <div class="card__equalizier-chart">
-          <evj-kpe-equalizer-chart></evj-kpe-equalizer-chart>
-        </div>
-      </div>
-    </div>
-    <div class="content-body__row">
-      <div class="card">
-        <div class="card__gauge-chart">
-          <evj-kpe-gauge-chart></evj-kpe-gauge-chart>
-        </div>
-        <div class="card__equalizier-chart">
-          <evj-kpe-equalizer-chart></evj-kpe-equalizer-chart>
-        </div>
-      </div>
-      <div class="card">
-        <div class="card__gauge-chart">
-          <evj-kpe-gauge-chart></evj-kpe-gauge-chart>
-        </div>
-        <div class="card__equalizier-chart">
-          <evj-kpe-equalizer-chart></evj-kpe-equalizer-chart>
-        </div>
-      </div>
-    </div>
-    <div class="content-body__row">
-      <div class="card">
-        <div class="card__gauge-chart">
-          <evj-kpe-gauge-chart></evj-kpe-gauge-chart>
-        </div>
-        <div class="card__equalizier-chart">
-          <evj-kpe-equalizer-chart></evj-kpe-equalizer-chart>
-        </div>
-      </div>
-      <div class="card">
-        <div class="card__gauge-chart">
-          <evj-kpe-gauge-chart></evj-kpe-gauge-chart>
-        </div>
-        <div class="card__equalizier-chart">
-          <evj-kpe-equalizer-chart></evj-kpe-equalizer-chart>
-        </div>
-      </div>
-    </div>
-    <div class="content-body__row">
-      <div class="card">
-        <div class="card__gauge-chart">
-          <evj-kpe-gauge-chart></evj-kpe-gauge-chart>
-        </div>
-        <div class="card__equalizier-chart">
-          <evj-kpe-equalizer-chart></evj-kpe-equalizer-chart>
-        </div>
-      </div>
-      <div class="card">
-        <div class="card__gauge-chart">
-          <evj-kpe-gauge-chart></evj-kpe-gauge-chart>
-        </div>
-        <div class="card__equalizier-chart">
-          <evj-kpe-equalizer-chart></evj-kpe-equalizer-chart>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
--->
-
 <div class="container">
   <div
     class="container-body"
@@ -116,71 +29,48 @@
     <div class="quality">
       <div class="quality__header">
         <div #mainGauge class="quality__header__gauge" [style]="gaugeWidth(mainGauge)">
-          <evj-kpe-gauge-chart></evj-kpe-gauge-chart>
+          <evj-kpe-gauge-chart
+            [fact]="deviationDiagram?.fact"
+            [plan]="deviationDiagram?.plan"
+          ></evj-kpe-gauge-chart>
         </div>
         <div class="quality__header__chart">
           <evj-kpe-deviation-diagram [data]="deviationChartData"></evj-kpe-deviation-diagram>
         </div>
       </div>
-      <div class="quality__main">
-        <div class="quality__main__gauge element-container">
-          <ng-container *ngTemplateOutlet="cardContainer"></ng-container>
+      <ng-container *ngFor="let main of cards">
+        <div class="quality__main">
+          <ng-container *ngFor="let card of main">
+            <div class="quality__main__gauge element-container">
+              <div class="card">
+                <div class="card__content">
+                  <div class="card__gauge-diagram">
+                    <evj-kpe-gauge-chart background="dark" [fact]="card.gaugeChart?.fact" [plan]="card.gaugeChart?.plan"></evj-kpe-gauge-chart>
+                    <div class="unit-selector">
+                      <div class="unit-selector__unit">
+                        <span>{{ card.gaugeChart.unit }}</span>
+                      </div>
+                      <div class="unit-selector__sign">
+                        <span>%</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="card__eq-diagram">
+                    <div class="title-area">
+                      <span class="title-area__title">{{ card.gaugeChart.title }}</span>
+                      <span class="title-area__comment">{{ card.description }}</span>
+                    </div>
+                    <div class="diagram-area">
+                      <!--<evj-kpe-equalizer-chart [data]="formatData(card.equalizerChart)"></evj-kpe-equalizer-chart>-->
+                      <evj-kpe-equalizer-chart [data]="formatData(card.equalizerChart)"></evj-kpe-equalizer-chart>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </ng-container>
         </div>
-        <div class="quality__main__gauge element-container">
-          <ng-container *ngTemplateOutlet="cardContainer"></ng-container>
-        </div>
-      </div>
-      <div class="quality__main">
-        <div class="quality__main__gauge element-container">
-          <ng-container *ngTemplateOutlet="cardContainer"></ng-container>
-        </div>
-        <div class="quality__main__gauge element-container">
-          <ng-container *ngTemplateOutlet="cardContainer"></ng-container>
-        </div>
-      </div>
-      <div class="quality__main">
-        <div class="quality__main__gauge element-container">
-          <ng-container *ngTemplateOutlet="cardContainer"></ng-container>
-        </div>
-        <div class="quality__main__gauge element-container">
-          <ng-container *ngTemplateOutlet="cardContainer"></ng-container>
-        </div>
-      </div>
-      <div class="quality__main">
-        <div class="quality__main__gauge element-container">
-          <ng-container *ngTemplateOutlet="cardContainer"></ng-container>
-        </div>
-        <div class="quality__main__gauge element-container">
-          <ng-container *ngTemplateOutlet="cardContainer"></ng-container>
-        </div>
-      </div>
+      </ng-container>
     </div>
   </div>
 </div>
-
-<ng-template #cardContainer>
-  <div class="card">
-    <div class="card__content">
-      <div class="card__gauge-diagram">
-        <evj-kpe-gauge-chart background="dark"></evj-kpe-gauge-chart>
-        <div class="unit-selector">
-          <div class="unit-selector__unit">
-            <span>%/масс</span>
-          </div>
-          <div class="unit-selector__sign">
-            <span>%</span>
-          </div>
-        </div>
-      </div>
-      <div class="card__eq-diagram">
-        <div class="title-area">
-          <span class="title-area__title">Рефлюкс</span>
-          <span class="title-area__comment">норма по содержанию С5+</span>
-        </div>
-        <div class="diagram-area">
-          <evj-kpe-equalizer-chart [data]="equalizerData"></evj-kpe-equalizer-chart>
-        </div>
-      </div>
-    </div>
-  </div>
-</ng-template>
