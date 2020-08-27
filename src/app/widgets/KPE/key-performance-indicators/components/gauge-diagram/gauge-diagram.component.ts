@@ -1,7 +1,7 @@
-import { Component, OnInit, ElementRef, Input } from '@angular/core';
+import {Component, OnInit, ElementRef, Input, SimpleChanges, OnChanges} from '@angular/core';
 import * as d3 from 'd3';
 
-export interface IKpeGaugeChartInputData {
+export interface IKpeGaugeChartPage {
     name: string;
     value: number;
 }
@@ -11,12 +11,9 @@ export interface IKpeGaugeChartInputData {
     templateUrl: './gauge-diagram.component.html',
     styleUrls: ['./gauge-diagram.component.scss'],
 })
-export class GaugeDiagramComponent implements OnInit {
+export class GaugeDiagramComponent implements OnInit, OnChanges {
     @Input()
-    public data: IKpeGaugeChartInputData = {
-        name: 'АВТ-10',
-        value: 97.1,
-    };
+    public data: IKpeGaugeChartPage;
 
     private svg: any;
     private g: any;
@@ -30,29 +27,19 @@ export class GaugeDiagramComponent implements OnInit {
 
     public ngOnInit(): void {
         this.initSvg();
-        if (this.data) {
-            this.drawSvg();
-            this.placeText();
-        }
-
-        // TODO mock данные для стрелки
-        this.initMockAnimation();
+        this.drawSvg();
+        this.placeText();
     }
 
-    // TODO mock данные для стрелки
-    private initMockAnimation(): void {
-        setInterval(() => {
-            this.percent = Number(this.generateRandomNumber().toFixed(1));
+    public ngOnChanges(changes: SimpleChanges): void {
+        if (this.needle) {
+            this.percent = Number(this.data.value.toFixed(1));
             this.pokeNeedle(this.convertPercentToGrad(this.percent));
             this.text.text(this.percent);
-        }, 1000);
-    }
-
-    // TODO mock данные для стрелки
-    private generateRandomNumber(): number {
-        const min = 90;
-        const max = 100;
-        return Math.random() * (max - min) + min;
+        }
+        if (this.data) {
+            this.appendName(51, this.data.name);
+        }
     }
 
     private convertPercentToGrad(percent: number): number {
@@ -105,6 +92,14 @@ export class GaugeDiagramComponent implements OnInit {
             .text(text);
     }
 
+    private appendName(y: number, text: string): void {
+        this.g.selectAll('.name-text').remove();
+        this.g.append('text')
+            .attr('class', 'name-text')
+            .attr('y', y)
+            .text(text);
+    }
+
     private placeText(): void {
         this.text = this.g.append('text')
             .attr('class', 'value')
@@ -117,7 +112,6 @@ export class GaugeDiagramComponent implements OnInit {
 
         this.appendTitle(39, 'Ключевой показатель');
         this.appendTitle(45, 'эффективности');
-        this.appendTitle(51, this.data.name);
     }
 
     private appendCircle(r: number, className: string): void {

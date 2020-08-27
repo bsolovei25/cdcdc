@@ -27,7 +27,7 @@ export class KpeEqualizerChartComponent implements OnChanges {
 
     @HostListener('document:resize', ['$event'])
     public OnResize(): void {
-        if (this.data.length) {
+        if (this.data.length && this.chart) {
             this.drawSvg();
         }
     }
@@ -53,7 +53,7 @@ export class KpeEqualizerChartComponent implements OnChanges {
         this.configChartArea();
         this.prepareData();
 
-        if (this.data.length) {
+        if (this.data.length && this.chart) {
             this.drawSvg();
         }
     }
@@ -74,11 +74,19 @@ export class KpeEqualizerChartComponent implements OnChanges {
 
     private prepareData(): void {
         this.dataset = [];
-        let maxDay = 0;
-        this.data.forEach(item => {
+        const maxPlan = Math.max(...this.data.map(d => d.planValue), 0);
+        const maxFact = Math.max(...this.data.map(d => d.factValue), 0);
+        const k = Math.max(maxPlan, maxFact) / this.sizeY.max + 0.1;
+        const maxDay = Math.max(...this.data.filter(d => d.factValue !== 0).map(d => d.day), 0);
+        this.data.map(item => {
+            /*
             if (item.factValue !== 0) {
                 maxDay = item.day >= maxDay ? item.day : maxDay === 0 ? item.day : maxDay;
             }
+             */
+            item.planValue = Math.round(item.planValue / k);
+            item.factValue = Math.round(item.factValue / k);
+            if (item.planValue > this.sizeY.max) { item.planValue = this.sizeY.max; }
             // добавляем координаты по ширине col, чтобы line не привязывалась к вершинам col
             this.dataset.push({x: item.day - 0.42, y: item.planValue + 0.3});
             this.dataset.push({x: item.day + 0.42, y: item.planValue + 0.3});
@@ -157,6 +165,8 @@ export class KpeEqualizerChartComponent implements OnChanges {
 
     private drawEqColumns(): void {
         this.data.forEach(item => {
+            if (item.factValue > this.sizeY.max) { item.factValue = this.sizeY.max; }
+            if (item.planValue > this.sizeY.max) { item.planValue = this.sizeY.max; }
             for (let i = 0; i <= item.factValue; i++) {
                 let className = '';
                 if (item.factValue > item.planValue) {

@@ -1,14 +1,13 @@
-import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import {Component, ElementRef, Input, OnChanges, OnInit, SimpleChanges, ViewChild} from '@angular/core';
 import { newArray } from '@angular/compiler/src/util';
 import * as d3 from 'd3';
-import { main } from '@angular/compiler-cli/src/main';
 
 @Component({
   selector: 'evj-kpe-gauge-chart',
   templateUrl: './kpe-gauge-chart.component.html',
   styleUrls: ['./kpe-gauge-chart.component.scss']
 })
-export class KpeGaugeChartComponent implements OnInit {
+export class KpeGaugeChartComponent implements OnInit, OnChanges {
 
     private readonly defaultImg: string = '';
     private readonly diagramCounter: number = 100;
@@ -16,18 +15,26 @@ export class KpeGaugeChartComponent implements OnInit {
 
     @ViewChild('chart') chart: ElementRef;
 
-    @Input() fact: number = 70;
-    @Input() plan: number = 100;
+    @Input() fact: number = 0;
+    @Input() plan: number = 0;
     @Input() img: string = this.defaultImg;
     @Input() background: 'lite' | 'dark' = 'lite';
 
-    ngOnInit(): void {
+    public ngOnInit(): void {
+        this.chartInit();
+    }
+
+    public ngOnChanges(changes: SimpleChanges): void {
+        this.chartInit();
+    }
+
+    private chartInit(): void {
         this.dataHandler();
         const mainValue = this.fact > this.plan
             ? this.plan / this.fact * 100
             : this.fact / this.plan * 100;
         const subValue = Math.abs(this.fact - this.plan);
-        setTimeout(() => this.bindChart(mainValue, subValue));
+        setTimeout(() => this.bindChart(mainValue, subValue), 100);
     }
 
     private dataHandler(): void {
@@ -68,6 +75,8 @@ export class KpeGaugeChartComponent implements OnInit {
         const backArc: d3.Arc = d3.arc()
             .outerRadius(outerRadius + 1.5)
             .innerRadius(innerRadius - 1.5);
+
+        d3.select(this.chart.nativeElement).selectAll('*').remove();
 
         const svg = d3.select(this.chart.nativeElement).append('svg')
             .attr('viewBox', `0 0 75 75`)
@@ -168,9 +177,9 @@ export class KpeGaugeChartComponent implements OnInit {
             .attr('y1', 3)
             .attr('x2', 14)
             .attr('y2', 3);
-        addText(`97.1`, 'text text__value', -2);
-        addText(`\u0394 10`, 'text text__deviation', 13);
-        addText(`100`, 'text text__plan', 28);
+        addText(`${this.fact}`, 'text text__value', -2);
+        addText(`\u0394 ${this.fact - this.plan}`, 'text text__deviation', 13);
+        addText(`${this.plan}`, 'text text__plan', 28);
 
         function addText(text: string, cls: string, yCord: number): void {
             g.append('text')

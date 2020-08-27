@@ -254,6 +254,11 @@ export class WidgetService {
             case 'cd-deviation-mat':
             case 'cd-reactor-parameters':
             case 'cd-mat-balance-sensor':
+            case 'key-performance-indicators':
+            case 'kpe-energetic':
+            case 'kpe-readiness':
+            case 'kpe-quality':
+            case 'kpe-safety':
                 return data;
         }
         console.warn(`unknown widget type ${widgetType}`);
