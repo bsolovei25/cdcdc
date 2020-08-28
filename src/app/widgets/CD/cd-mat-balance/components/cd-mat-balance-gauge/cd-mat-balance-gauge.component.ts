@@ -73,8 +73,10 @@ export class CdMatBalanceGaugeComponent implements OnInit, AfterViewInit {
         this.cdRef.detectChanges();
     }
 
-    getLineWidth(curValue: number, maxValue: number): string {
-        return `width: ${(curValue / maxValue) * 100}%`;
+    getLineWidth(curValue: number, maxValue: number, minValue: number): string {
+        let value = ((curValue - minValue) * 100) / (maxValue - minValue);
+        value = value > 100 ? 100 : value;
+        return `width: ${value}%`;
     }
 
     get chartWidth(): string {
