@@ -86,9 +86,7 @@
   <div class="body">
     <div class="scroll-container">
       <!-- TODO  -->
-      <ng-container
-        *ngFor="let item of allWidgets"
-      >
+      <ng-container *ngFor="let item of allWidgets">
         <ng-container *ngIf="item.widgetType === 'cd-mat-balance-sensor'">
           <ng-container
             *ngComponentOutlet="WIDGETS[item.widgetType]; injector: (item.id | fn:getInjector : item.uniqid);"
@@ -99,29 +97,29 @@
       <!-- TODO  -->
     </div>
   </div>
-<!--  <div class="footer">-->
-<!--    <div class="footer__mat-select">-->
-<!--      <mat-form-field>-->
-<!--        <mat-select panelClass="mat-select-custom">-->
-<!--          <mat-option *ngFor="let p of ['Коллоны и реакторы']" [value]="p">-->
-<!--            {{ p }}-->
-<!--          </mat-option>-->
-<!--        </mat-select>-->
-<!--      </mat-form-field>-->
-<!--    </div>-->
-<!--    <div class="footer__mat-select">-->
-<!--      <mat-form-field>-->
-<!--        <mat-select panelClass="mat-select-custom">-->
-<!--          <mat-option *ngFor="let p of ['Параметр']" [value]="p">-->
-<!--            {{ p }}-->
-<!--          </mat-option>-->
-<!--        </mat-select>-->
-<!--      </mat-form-field>-->
-<!--    </div>-->
-<!--    <div class="footer__btn">-->
-<!--      Добавить график-->
-<!--    </div>-->
-<!--  </div>-->
+  <!--  <div class="footer">-->
+  <!--    <div class="footer__mat-select">-->
+  <!--      <mat-form-field>-->
+  <!--        <mat-select panelClass="mat-select-custom">-->
+  <!--          <mat-option *ngFor="let p of ['Коллоны и реакторы']" [value]="p">-->
+  <!--            {{ p }}-->
+  <!--          </mat-option>-->
+  <!--        </mat-select>-->
+  <!--      </mat-form-field>-->
+  <!--    </div>-->
+  <!--    <div class="footer__mat-select">-->
+  <!--      <mat-form-field>-->
+  <!--        <mat-select panelClass="mat-select-custom">-->
+  <!--          <mat-option *ngFor="let p of ['Параметр']" [value]="p">-->
+  <!--            {{ p }}-->
+  <!--          </mat-option>-->
+  <!--        </mat-select>-->
+  <!--      </mat-form-field>-->
+  <!--    </div>-->
+  <!--    <div class="footer__btn">-->
+  <!--      Добавить график-->
+  <!--    </div>-->
+  <!--  </div>-->
 </div>
 
 <!-- <ng-template #lineChart let-isWarning="isWarning">

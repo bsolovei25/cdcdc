@@ -5,6 +5,7 @@ import {
     Input,
     OnDestroy,
     OnInit,
+    Injectable,
 } from '@angular/core';
 import {
     ISplineDiagramData,
@@ -14,8 +15,13 @@ import { HttpClient } from '@angular/common/http';
 import { CdMatBalanceService } from '../../../../../dashboard/services/widgets/CD/cd-mat-balance.service';
 import { WidgetService } from '../../../../../dashboard/services/widget.service';
 import { WIDGETS } from '../../../../../dashboard/components/widgets-grid/widget-map';
-import { Subscription } from 'rxjs';
+import { Subscription, BehaviorSubject } from 'rxjs';
 import { IWidget } from '../../../../../dashboard/models/widget.model';
+
+@Injectable({ providedIn: 'root' })
+export class HoursCountService {
+    public hc$: BehaviorSubject<8 | 24> = new BehaviorSubject<8 | 24>(8);
+}
 
 @Component({
     selector: 'evj-cd-mat-balance-chart',
@@ -36,7 +42,13 @@ export class CdMatBalanceChartComponent implements OnInit, OnDestroy, AfterViewI
     @Input()
     public size: ISplineDiagramSize = null;
 
-    public hoursCount: 8 | 24 = 8;
+    // выбор интервала отображаемого времени
+    get hoursCount(): 8 | 24 {
+        return this.hc.hc$.getValue();
+    }
+    set hoursCount(param: 8 | 24) {
+        this.hc.hc$.next(param);
+    }
 
     public readonly selectValues: { value: number; title: string }[] = [
         {
@@ -55,7 +67,8 @@ export class CdMatBalanceChartComponent implements OnInit, OnDestroy, AfterViewI
         public http: HttpClient,
         private cdMatBalanceService: CdMatBalanceService,
         public widgetService: WidgetService,
-        public injector: Injector
+        public injector: Injector,
+        private hc: HoursCountService
     ) {}
 
     ngOnInit(): void {

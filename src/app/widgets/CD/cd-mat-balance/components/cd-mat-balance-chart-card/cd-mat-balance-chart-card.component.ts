@@ -7,15 +7,16 @@ import {
     ElementRef,
     Injector,
     Inject,
-    Input
+    Input,
 } from '@angular/core';
 import { WidgetPlatform } from '../../../../../dashboard/models/widget-platform';
 import {
     ISplineDiagramData,
-    ISplineDiagramSize
+    ISplineDiagramSize,
 } from '../../../../LCO/spline-trends-chart/components/spline-diagram/spline-diagram.component';
 import { WidgetService } from '../../../../../dashboard/services/widget.service';
 import { CdMatBalanceService } from '../../../../../dashboard/services/widgets/CD/cd-mat-balance.service';
+import { HoursCountService } from '../cd-mat-balance-chart/cd-mat-balance-chart.component';
 
 export interface IMatBalanceChartCard {
     id: number;
@@ -37,12 +38,12 @@ export interface IMatBalanceChartCard {
 @Component({
     selector: 'evj-cd-mat-balance-chart-card',
     templateUrl: './cd-mat-balance-chart-card.component.html',
-    styleUrls: ['./cd-mat-balance-chart-card.component.scss']
+    styleUrls: ['./cd-mat-balance-chart-card.component.scss'],
 })
 export class CdMatBalanceChartCardComponent extends WidgetPlatform
     implements OnInit, OnDestroy, AfterViewInit {
     // TOFIX пробросить количество часов снаружи (возможно через InjectionToken)
-    @Input() public hoursCount: 8 | 24 = 8;
+    @Input() public hoursCount: 8 | 24;
 
     @ViewChild('chart')
     public chartElement: ElementRef;
@@ -59,23 +60,30 @@ export class CdMatBalanceChartCardComponent extends WidgetPlatform
         private cdMatBalanceService: CdMatBalanceService,
         @Inject('isMock') public isMock: boolean,
         @Inject('widgetId') public id: string,
-        @Inject('uniqId') public uniqId: string
+        @Inject('uniqId') public uniqId: string,
+        private hc: HoursCountService
     ) {
         super(widgetService, isMock, id, uniqId);
     }
 
-    ngOnInit(): void {
+    public ngOnInit(): void {
         super.widgetInit();
+        this.subscriptions.push(
+            this.hc.hc$.subscribe((hoursCount) => {
+                console.log('hoursCount: ', hoursCount);
+                this.hoursCount = hoursCount;
+            })
+        );
     }
 
     public ngAfterViewInit(): void {
         this.size = {
             width: this.chartElement.nativeElement.offsetWidth,
-            height: this.chartElement.nativeElement.offsetHeight
+            height: this.chartElement.nativeElement.offsetHeight,
         };
     }
 
-    ngOnDestroy(): void {
+    public ngOnDestroy(): void {
         super.ngOnDestroy();
     }
 
@@ -91,14 +99,14 @@ export class CdMatBalanceChartCardComponent extends WidgetPlatform
         const plan: { value: number; timestamp: Date }[] = data.modelValueGraphs.map((item) => {
             return {
                 value: item.value ?? 0,
-                timestamp: new Date(item.date)
+                timestamp: new Date(item.date),
             };
         });
 
         const fact: { value: number; timestamp: Date }[] = data.valueGraphs.map((item) => {
             return {
                 value: item.value ?? 0,
-                timestamp: new Date(item.date)
+                timestamp: new Date(item.date),
             };
         });
 
@@ -108,7 +116,7 @@ export class CdMatBalanceChartCardComponent extends WidgetPlatform
             highBound: [],
             lowBound: [],
             fact: this.transformData(fact),
-            plan: this.transformData(plan)
+            plan: this.transformData(plan),
         };
 
         console.log('newData', newData);
@@ -134,7 +142,7 @@ export class CdMatBalanceChartCardComponent extends WidgetPlatform
         const resultArray: { x: number; y: number }[] = normArray.map((el) => {
             return {
                 y: el.value,
-                x: (el.timestamp.getTime() - normArray[0].timestamp.getTime()) / (60 * 60 * 1000)
+                x: (el.timestamp.getTime() - normArray[0].timestamp.getTime()) / (60 * 60 * 1000),
             };
         });
         return resultArray;
@@ -142,7 +150,7 @@ export class CdMatBalanceChartCardComponent extends WidgetPlatform
 
     upChart(): void {
         const widgets = this.cdMatBalanceService.charts$.getValue();
-        const idx = widgets.findIndex(value => value === this.data.name);
+        const idx = widgets.findIndex((value) => value === this.data.name);
         if (idx > 0) {
             const el = widgets[idx - 1];
             widgets[idx - 1] = widgets[idx];
@@ -153,7 +161,7 @@ export class CdMatBalanceChartCardComponent extends WidgetPlatform
 
     downChart(): void {
         const widgets = this.cdMatBalanceService.charts$.getValue();
-        const idx = widgets.findIndex(value => value === this.data.name);
+        const idx = widgets.findIndex((value) => value === this.data.name);
         if (idx < widgets.length + 1) {
             const el = widgets[idx + 1];
             widgets[idx + 1] = widgets[idx];
@@ -164,7 +172,7 @@ export class CdMatBalanceChartCardComponent extends WidgetPlatform
 
     deleteChart(): void {
         const widgets = this.cdMatBalanceService.charts$.getValue();
-        const idx = widgets.findIndex(value => value === this.data.name);
+        const idx = widgets.findIndex((value) => value === this.data.name);
         widgets.splice(idx, 1);
         this.cdMatBalanceService.charts$.next(widgets);
     }
