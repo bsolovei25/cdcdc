@@ -25,7 +25,7 @@ export class WidgetContainerComponent extends WidgetPlatform implements OnInit, 
         super(widgetService, isMock, id, uniqId);
     }
 
-    public ngOnInit(): void {
+public ngOnInit(): void {
         super.widgetInit();
     }
 

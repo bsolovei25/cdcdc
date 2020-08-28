@@ -13,7 +13,6 @@ import { SnackBarService } from './snack-bar.service';
 import { OverlayService } from './overlay.service';
 import { Router } from '@angular/router';
 import { IGroupScreens } from '../components/group-selector/group-selector.component';
-import { log } from 'util';
 
 @Injectable({
     providedIn: 'root'
@@ -59,7 +58,6 @@ export class UserSettingsService {
         const uniqId = this.create_UUID();
         const minItemCols = this.defWidgetSize(nameWidget)?.minItemCols ?? 6;
         const minItemRows = this.defWidgetSize(nameWidget)?.minItemRows ?? 6;
-        console.log(minItemCols, minItemRows);
         this.widgetService.dashboard.push({
             x: param.x,
             y: param.y,
@@ -199,7 +197,6 @@ export class UserSettingsService {
                 this.ScreenId = data[0]?.id;
             }
             this._screens$.next(data);
-            console.log(this._screens$.getValue());
         } catch (e) {
             console.log('Error: could not get screen!');
         }
@@ -227,7 +224,6 @@ export class UserSettingsService {
         this.widgetService.dashboard = [];
         this.claimService.setClaimsByScreen(null);
         return this.LoadScreenAsync(id, true).subscribe((item: IScreenSettings) => {
-            console.log(item);
             this.router.navigate([], {
                 queryParams: { screenId: item.id },
                 queryParamsHandling: 'merge'
@@ -269,7 +265,6 @@ export class UserSettingsService {
                 .post<IScreenSettings>(this.restUrl + '/api/user-management/screen', userScreen)
                 .toPromise();
             console.log('screen id');
-            console.log(data);
             this.ScreenId = data?.id ?? this.ScreenId;
             this.GetScreens(this.groupId);
         } catch (error) {
@@ -279,7 +274,6 @@ export class UserSettingsService {
 
     public async LoadScreenByWidget(widgetType: string): Promise<void> {
         const screenId = await this.getScreenByWidgetType(widgetType);
-        console.log(screenId);
         if (!screenId) {
             throwError('wrong screen id');
         }

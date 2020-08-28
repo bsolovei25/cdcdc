@@ -3,10 +3,18 @@
     <div class="diagram" #diagram></div>
   </div>
   <div class="diagrams-container">
-    <ng-container *ngTemplateOutlet="lineDiagram; context: {label: 'Температура P-201. Норма 510-545 град.', currentValue: 6, maxValue: 10}"></ng-container>
-    <ng-container *ngTemplateOutlet="lineDiagram; context: {label: 'Температура сырья', currentValue: 8, maxValue: 10}"></ng-container>
-    <ng-container *ngTemplateOutlet="lineDiagram; context: {label: 'Расход ВГ', currentValue: 3, maxValue: 10}"></ng-container>
-    <ng-container *ngTemplateOutlet="lineDiagram; context: {label: 'Кратность циркуляции катализатора', currentValue: 9, maxValue: 10}"></ng-container>
+    <ng-container
+      *ngTemplateOutlet="lineDiagram; context: {label: temperature?.name, currentValue: temperature?.min, maxValue: temperature?.max}"
+    ></ng-container>
+    <ng-container
+      *ngTemplateOutlet="lineDiagram; context: {label: temperatureRaw?.name, currentValue: temperatureRaw?.min, maxValue: temperatureRaw?.max}"
+    ></ng-container>
+    <ng-container
+      *ngTemplateOutlet="lineDiagram; context: {label: consumption?.name, currentValue: consumption?.min, maxValue: consumption?.max}"
+    ></ng-container>
+    <ng-container
+      *ngTemplateOutlet="lineDiagram; context: {label: multiplicity?.name, currentValue: multiplicity?.min, maxValue: multiplicity?.max}"
+    ></ng-container>
   </div>
   <div class="border-container" [style]="borderLeft"></div>
 </div>
