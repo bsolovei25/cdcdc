@@ -4,6 +4,7 @@ import { ShiftService } from '../../../services/shift.service';
 import { SnackBarService } from '../../../services/snack-bar.service';
 import { AppConfigService } from '../../../../services/appConfigService';
 import { AvatarConfiguratorService } from '../../../services/avatar-configurator.service';
+import { IAlertWindowModel } from '@shared/models/alert-window.model';
 
 interface IMapper { code: string; name: string; }
 
@@ -204,12 +205,12 @@ export class ShiftPersonComponent implements OnInit, OnChanges {
                 );
                 break;
             case 'Покинул смену':
-                this.shiftService.alertWindow$.next({
+                this.shiftService.alertWindowLeaveShift$.next({
                     isShow: true,
                     questionText: `Вы действительно хотите перевести пользователя ${person.employee.lastName} ${person.employee.firstName} в статус Отсутствующие?`,
                     acceptText: 'Да',
                     cancelText: 'Отмена',
-                    closeFunction: () =>  this.shiftService.alertWindow$.next(null),
+                    closeFunction: () =>  this.shiftService.alertWindowLeaveShift$.next(null),
                     acceptFunction: async () => {
                         await this.shiftService.changeStatus(
                             'missing',
