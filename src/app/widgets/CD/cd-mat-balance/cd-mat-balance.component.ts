@@ -86,7 +86,7 @@ export class CdMatBalanceComponent extends WidgetPlatform implements OnInit, OnD
             value: 0,
             children: [
                 {
-                    name: 'КИП',
+                    name: 'Данные',
                     value: 0,
                     children: [
                         {

@@ -18,7 +18,7 @@ import {
     IRetrievalEventDto,
     ISearchRetrievalWindow,
     IAsusTpPlace,
-    IAsusTmPlace, ISubcategory,
+    IAsusTmPlace, ISubcategory
 } from '../../models/events-widget';
 import { EventService } from './event.service';
 import { SnackBarService } from '../snack-bar.service';
@@ -33,18 +33,19 @@ import { FileAttachMenuService } from '../file-attach-menu.service';
 import { IChatMessageWithAttachments } from '../../../widgets/EVJ/events-workspace/components/chat/chat.component';
 
 @Injectable({
-    providedIn: 'root',
+    providedIn: 'root'
 })
 export class EventsWorkspaceService {
-    public event$: BehaviorSubject<EventsWidgetNotification> = new BehaviorSubject<
-        EventsWidgetNotification
-    >(null);
+    public event$: BehaviorSubject<EventsWidgetNotification> = new BehaviorSubject<EventsWidgetNotification>(null);
+
     public set event(value: EventsWidgetNotification) {
         this.event$.next(value);
     }
+
     public get event(): EventsWidgetNotification {
         return this.event$.getValue();
     }
+
     // public event: EventsWidgetNotification;
     public originalEvent: EventsWidgetNotification;
     public eventHistory: number[] = [];
@@ -104,18 +105,18 @@ export class EventsWorkspaceService {
     public readonly statuses: { [id in EventsWidgetNotificationStatus]: string } = {
         new: 'Новое',
         inWork: 'В работе',
-        closed: 'Завершено',
+        closed: 'Завершено'
     };
 
     public readonly subCategories: { [id in number]: string } = {
         0: 'Распоряжения',
-        1: 'Прием/передача смены',
+        1: 'Прием/передача смены'
     };
 
     public readonly priorities: { [id in EventsWidgetNotificationPriority]: string } = {
         danger: 'Высокий',
         warning: 'Средний',
-        standard: 'Стандартный',
+        standard: 'Стандартный'
     };
 
     public readonly categories: { [id in EventsWidgetCategoryCode]: string } = {
@@ -128,24 +129,21 @@ export class EventsWorkspaceService {
         ejs: 'ЭЖС',
         indicators: 'Производственные показатели',
         resources: 'Вспомогательные ресурсы',
-        modelCalculations: 'ЦД',
+        modelCalculations: 'ЦД'
     };
 
     private defaultEvent: EventsWidgetNotification = null;
 
-    public searchWindow$: BehaviorSubject<ISearchRetrievalWindow> = new BehaviorSubject<
-        ISearchRetrievalWindow
-    >(null);
-    public ewAlertInfo$: BehaviorSubject<IAlertWindowModel> = new BehaviorSubject<
-        IAlertWindowModel
-    >(null);
+    public searchWindow$: BehaviorSubject<ISearchRetrievalWindow> = new BehaviorSubject<ISearchRetrievalWindow>(null);
+    public ewAlertInfo$: BehaviorSubject<IAlertWindowModel> = new BehaviorSubject<IAlertWindowModel>(null);
 
     constructor(
         private eventService: EventService,
         private snackBarService: SnackBarService,
         private avatarConfiguratorService: AvatarConfiguratorService,
         private fileAttachMenuService: FileAttachMenuService
-    ) {}
+    ) {
+    }
 
     public async loadItem(id: number = null): Promise<void> {
         this.isLoading = true;
@@ -241,7 +239,7 @@ export class EventsWorkspaceService {
             this.event.category = {
                 id: null,
                 name: null,
-                code: null,
+                code: null
             };
         }
         this.originalEvent = { ...this.event };
@@ -254,6 +252,7 @@ export class EventsWorkspaceService {
         }
         return this.checkRetrievalCategory();
     }
+
     public checkRetrievalCategory(): boolean {
         switch (this.event.category.name) {
             case 'smotr':
@@ -375,7 +374,7 @@ export class EventsWorkspaceService {
                 comment: msg.msg,
                 createdAt: new Date(),
                 displayName: this.currentAuthUser.displayName,
-                attachedFiles: attachments,
+                attachedFiles: attachments
             };
             this.event[category].push(fullComment);
             this.isLoading = false;
@@ -406,6 +405,7 @@ export class EventsWorkspaceService {
         }
         this.isLoading = false;
     }
+
     public async closeEvent(message: IChatMessageWithAttachments): Promise<void> {
         if (!this.event.originalId) {
             return;
@@ -425,12 +425,14 @@ export class EventsWorkspaceService {
         }
         this.isLoading = false;
     }
+
     public async updateEvent(): Promise<void> {
         if (this.event.originalId) {
             // const a = this.eventService.closeSmotrEvent(this.event.originalId);
             // console.log(a);
         }
     }
+
     // TODO #SMOTR region end
 
     public setDefaultEvent(): void {
@@ -441,7 +443,7 @@ export class EventsWorkspaceService {
             category: {
                 id: 0,
                 name: null,
-                code: null,
+                code: null
             },
             description: '',
             deviationReason: '',
@@ -462,10 +464,10 @@ export class EventsWorkspaceService {
             status: this.status
                 ? this.status[0]
                 : {
-                      id: 0,
-                      name: null,
-                      code: null,
-                  },
+                    id: 0,
+                    name: null,
+                    code: null
+                },
             equipmentCategory: null,
             deadline: new Date(),
             graphValues: null,
@@ -480,13 +482,13 @@ export class EventsWorkspaceService {
                 service: '',
                 eoService: null,
                 equipment: null,
-                tmPlace: null,
+                tmPlace: null
             },
             productionTasks: {
                 subcategory: null,
                 start: null,
                 inWork: null,
-                close: null,
+                close: null
             }
         };
     }
@@ -505,6 +507,7 @@ export class EventsWorkspaceService {
                 this.status = data;
             }),
             this.eventService.getSubcategory().then((data) => {
+                console.log(data);
                 this.subcategory = data;
             }),
             this.eventService.getUnits().then((data) => {

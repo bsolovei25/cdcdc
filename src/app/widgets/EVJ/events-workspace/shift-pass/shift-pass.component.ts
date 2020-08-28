@@ -1,16 +1,19 @@
 import { Component, OnInit } from '@angular/core';
-import { EventsWorkspaceService } from '../../../../dashboard/services/widgets/events-workspace.service';
 import { IChatMessageWithAttachments } from '../components/chat/chat.component';
+import { EventsWorkspaceService } from '../../../../dashboard/services/widgets/events-workspace.service';
 
 @Component({
-    selector: 'evj-tasks-event',
-    templateUrl: './tasks-event.component.html',
-    styleUrls: ['./tasks-event.component.scss'],
+    selector: 'evj-shift-pass',
+    templateUrl: './shift-pass.component.html',
+    styleUrls: ['./shift-pass.component.scss']
 })
-export class TasksEventComponent implements OnInit {
-    constructor(public ewService: EventsWorkspaceService) {}
+export class ShiftPassComponent implements OnInit {
 
-    public ngOnInit(): void {}
+    constructor(public ewService: EventsWorkspaceService) {
+    }
+
+    public ngOnInit(): void {
+    }
 
     public openLineChart(): void {
         this.ewService.isOverlayChartOpen = true;
@@ -41,4 +44,5 @@ export class TasksEventComponent implements OnInit {
     public onChangeEventDescription(description: string): void {
         this.ewService.event.description = description;
     }
+
 }
