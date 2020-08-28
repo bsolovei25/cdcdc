@@ -1,28 +1,68 @@
-import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import {
+    AfterViewInit,
+    ChangeDetectorRef,
+    Component,
+    ElementRef,
+    OnInit,
+    ViewChild,
+    Input
+} from '@angular/core';
 import * as d3Selection from 'd3-selection';
 import * as d3 from 'd3';
 
-interface ICdIndicatorLoad {
-    percentValue: number;
+export interface ICdIndicatorLoad {
+    description: string;
+    max: number;
+    min: number;
+    name: string;
+    value: number;
 }
 
 @Component({
-  selector: 'evj-cd-mat-balance-gauge',
-  templateUrl: './cd-mat-balance-gauge.component.html',
-  styleUrls: ['./cd-mat-balance-gauge.component.scss']
+    selector: 'evj-cd-mat-balance-gauge',
+    templateUrl: './cd-mat-balance-gauge.component.html',
+    styleUrls: ['./cd-mat-balance-gauge.component.scss']
 })
 export class CdMatBalanceGaugeComponent implements OnInit, AfterViewInit {
+    @Input() set data(values: ICdIndicatorLoad[]) {
+        values?.forEach((value) => {
+            switch (value.name) {
+                case 'Загрузка':
+                    this.load = value;
+                    this.percentLoad = this.load.value / this.load.max * 100;
+                    if (this.gaugeElement?.nativeElement) {
+                        this.drawWidget();
+                    }
+                    break;
+                case 'Кратность циркуляции катализатора':
+                    this.multiplicity = value;
+                    break;
+                case 'Расход ВГ':
+                    this.consumption = value;
+                    break;
+                case 'Температура Р-201. Норма 510 - 545 град':
+                    this.temperature = value;
+                    break;
+                case 'Температура сырья':
+                    this.temperatureRaw = value;
+                    break;
+            }
+        });
+    }
+
+    percentLoad: number = 0;
+    multiplicity: ICdIndicatorLoad;
+    consumption: ICdIndicatorLoad;
+    temperature: ICdIndicatorLoad;
+    temperatureRaw: ICdIndicatorLoad;
+    load: ICdIndicatorLoad;
 
     @ViewChild('gauge') gaugeElement: ElementRef;
     @ViewChild('diagram', { static: false }) private diagram: ElementRef;
 
-    public data: ICdIndicatorLoad = {
-        percentValue: 50
-    };
-
     private svgBody: any;
 
-    constructor() {
+    constructor(private cdRef: ChangeDetectorRef) {
     }
 
     ngOnInit(): void {
@@ -30,17 +70,20 @@ export class CdMatBalanceGaugeComponent implements OnInit, AfterViewInit {
 
     ngAfterViewInit(): void {
         this.drawWidget();
+        this.cdRef.detectChanges();
     }
 
-    getLineWidth(curValue: number, maxValue: number): string {
-        return `width: ${curValue / maxValue * 100}%`;
+    getLineWidth(curValue: number, maxValue: number, minValue: number): string {
+        let value = ((curValue - minValue) * 100) / (maxValue - minValue);
+        value = value > 100 ? 100 : value;
+        return `width: ${value}%`;
     }
 
     get chartWidth(): string {
         if (!(this.gaugeElement?.nativeElement?.offsetHeight > 0)) {
             return;
         }
-        const height = this.gaugeElement.nativeElement.offsetHeight;
+        const height = this.gaugeElement?.nativeElement?.offsetHeight;
         return `min-width: ${height}px; max-width: ${height}px;`;
     }
 
@@ -48,7 +91,7 @@ export class CdMatBalanceGaugeComponent implements OnInit, AfterViewInit {
         if (!(this.gaugeElement?.nativeElement?.offsetHeight > 0)) {
             return;
         }
-        const height = this.gaugeElement.nativeElement.offsetHeight;
+        const height = this.gaugeElement?.nativeElement?.offsetHeight;
         return `left: ${height / 2}px`;
     }
 
@@ -60,7 +103,7 @@ export class CdMatBalanceGaugeComponent implements OnInit, AfterViewInit {
     }
 
     private drawDiagram(): void {
-        this.svgBody = d3Selection.select(this.diagram.nativeElement).append('svg');
+        this.svgBody = d3Selection.select(this.diagram?.nativeElement).append('svg');
         this.svgBody
             .attr('width', '100%')
             .attr('height', '100%')
@@ -98,7 +141,7 @@ export class CdMatBalanceGaugeComponent implements OnInit, AfterViewInit {
             .style('transform', 'scaleY(-1)');
 
         const gaude = indicator.append('g').attr('class', 'gaude');
-        this.drawBigGaude(gaude, this.data.percentValue);
+        this.drawBigGaude(gaude, this.percentLoad ? this.percentLoad : 0);
         const text = gaude.append('g').attr('class', 'gaude-text');
         this.drawTextInGaude(text);
         gaude.style('transform', 'translate(50%, 51.5%) scale(8.9)');
@@ -153,7 +196,7 @@ export class CdMatBalanceGaugeComponent implements OnInit, AfterViewInit {
             .attr('text-anchor', 'middle')
             .attr('x', 0)
             .attr('y', 0.5)
-            .text(this.data.percentValue);
+            .text(this.load?.value?.toFixed() ? this.load?.value?.toFixed() : 0);
         block
             .append('text')
             .attr('class', 'units')
