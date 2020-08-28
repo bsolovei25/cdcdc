@@ -22,12 +22,12 @@
       </div>
     </div>
     <div class="panel_info__value">
-      <span class="text"> 100 </span>
+      <span class="text"> {{ percentLoad }} </span>
     </div>
   </div>
   <div class="panel panel_content">
     <div class="scroll-container scroll-bar">
-      <ng-container *ngFor="let item of data">
+      <ng-container *ngFor="let item of dataLocal">
         <ng-container
           *ngTemplateOutlet="itemTemplate; context: {
             title: item?.name,

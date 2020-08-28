@@ -8,17 +8,23 @@ import { CdMatBalanceService } from '../../../../../dashboard/services/widgets/C
     styleUrls: ['./cd-mat-balance-right.component.scss']
 })
 export class CdMatBalanceRightComponent implements OnInit {
-    @Input() data: IStreams[] = [];
+    @Input() dataLocal: IStreams[] = [];
+
+    @Input() set data(value: IStreams[]) {
+        this.dataLocal = value;
+        this.percentLoad = 0;
+        value.forEach(el => this.percentLoad += +el.percentLoad.toFixed());
+    }
+
+    percentLoad: number = 0;
 
     constructor(private cdMatBalanceService: CdMatBalanceService) {
     }
 
     ngOnInit(): void {
-
     }
 
     clickItem(id: number, deviation: number): void {
-        console.log(id);
         const selectChart: string[] =
             [...this.cdMatBalanceService.charts$?.getValue(), id?.toString()];
         const setCharts = new Set(selectChart);
