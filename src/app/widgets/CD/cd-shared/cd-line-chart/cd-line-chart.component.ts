@@ -229,7 +229,24 @@ export class CdLineChartComponent implements OnChanges {
 
     private drawCurve(dataset: { x: number; y: number }[], type: LineType): void {
         // TOFIX реализовать в зависимости от количества отображаемых часов
-        dataset = dataset.slice(1, 10);
+        // dataset = dataset.slice(1, 10);
+
+        const arr: { x: number; y: number }[] = dataset.map((item) => {
+            return { x: item.x, y: item.y };
+        });
+
+        if (this.hoursCount === 24) {
+            dataset = arr.slice(1, this.hoursCount + 2);
+        } else {
+            const lastIdx: number = arr.length - 1;
+            dataset = arr.slice(lastIdx - this.hoursCount);
+            dataset.forEach((item, idx) => {
+                item.x = idx + 1;
+            });
+        }
+
+        console.log('dataset-full', arr);
+        console.log('dataset', dataset);
 
         const lineClass: string = `line line__${type}`;
 
