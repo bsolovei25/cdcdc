@@ -52,7 +52,6 @@ import { OilOperationsComponent } from '../../widgets/oil-operations/oil-operati
 import { WorkflowComponent } from '../../widgets/workflow/workflow.component';
 import { CdCriticalComponent } from '../../widgets/cd-critical/cd-critical.component';
 import { TruncatedDiagramTrafficLightComponent } from '../../widgets/truncated-diagram-traffic-light/truncated-diagram-traffic-light.component';
-import { AstueEfficiencyComponent } from '../../widgets/ASTUE/astue-efficiency/astue-efficiency.component';
 import { WidgetContainerComponent } from '../../widget-container/widget-container.component';
 import { AdminShiftScheduleOldComponent } from '../../widgets/admin-widget/admin-shift-schedule-old/admin-shift-schedule-old.component';
 import { CdMatBalanceChartCardComponent } from '../../../widgets/CD/cd-mat-balance/components/cd-mat-balance-chart-card/cd-mat-balance-chart-card.component';
@@ -123,7 +122,7 @@ export const WIDGETS = {
     'product-groups': WidgetContainerComponent,
     'production-deviations': WidgetContainerComponent,
     'product-groups-short': WidgetContainerComponent,
-    'astue-efficiency': AstueEfficiencyComponent,
+    'astue-efficiency': WidgetContainerComponent,
     'load-chart': WidgetContainerComponent,
     'aps-recipe-diagram': WidgetContainerComponent,
     'aps-gantt-chart': WidgetContainerComponent,
@@ -600,6 +599,22 @@ export const WIDGETS_LAZY = {
 
     // #endregion SOU
 
+    //#region ASTUE-MNPZ
+
+    'astue-efficiency': {
+        import: async () =>
+            await import(
+                'src/app/widgets/ASTUE-MNPZ/astue-mnpz-efficiency/astue-mnpz-efficiency.module'
+            ),
+        module: 'AstueMnpzEfficiencyModule',
+        itemCols: 58,
+        itemRows: 25,
+        minItemCols: 58,
+        minItemRows: 20,
+        preview: 'astue-efficiency',
+    },
+    //#endregion ASTUE-MNPZ
+
     //#region ASTUE-ONPZ
 
     'astue-onpz-conventional-fuel': {
@@ -917,8 +932,5 @@ export const WIDGETS_LAZY = {
 
     // 'product-groups-short': {
     //     import: async () => await import('src/app/widgets/product-groups-short/product-groups-short.module'),
-    // },
-    // 'astue-efficiency': {
-    //     import: async () => await import('src/app/widgets/astue-efficiency/astue-efficiency.module'),
     // },
 };

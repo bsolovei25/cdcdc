@@ -51,22 +51,19 @@
     </div>
   </div>
   <div class="table-display__container">
-    <div class="table-display__table table">
+    <div
+      class="table-display__table table"
+      *ngIf="!!dates.length && !!displayData.length; else nodata"
+    >
+      <div class="table-header">
+        <div class="table-header__item">{{isInitialDataShow?'Наименование':'Показатели'}}</div>
+        <div class="table-header__item">Итого</div>
+        <div class="table-header__item" *ngFor="let value of dates">
+          {{value.date|date:'dd.MM'}}
+        </div>
+      </div>
+
       <table>
-        <thead>
-          <tr class="table__header table-header">
-            <th class="table-header__item" *ngIf="isInitialDataShow; else tableTitle">
-              Наименование
-            </th>
-            <ng-template #tableTitle>
-              <th class="table-header__item">Показатели</th>
-            </ng-template>
-            <th class="table-header__item">Итого</th>
-            <th class="table-header__item" *ngFor="let value of dates">
-              {{value.date|date:'dd.MM'}}
-            </th>
-          </tr>
-        </thead>
         <tbody>
           <ng-container *ngFor="let block of displayData">
             <tr
@@ -194,3 +191,9 @@
     </div>
   </div>
 </div>
+
+<ng-template #nodata>
+  <div class="no-data">
+    Выберите установку или поток
+  </div>
+</ng-template>
