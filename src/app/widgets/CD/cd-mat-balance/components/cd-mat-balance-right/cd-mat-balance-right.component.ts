@@ -13,7 +13,7 @@ export class CdMatBalanceRightComponent implements OnInit {
     @Input() set data(value: IStreams[]) {
         this.dataLocal = value;
         this.percentLoad = 0;
-        value.forEach(el => this.percentLoad += +el.percentLoad.toFixed());
+        value?.forEach(el => this.percentLoad += +el.percentLoad?.toFixed());
     }
 
     percentLoad: number = 0;
