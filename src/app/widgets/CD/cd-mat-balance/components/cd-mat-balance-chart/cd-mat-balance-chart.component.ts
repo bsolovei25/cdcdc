@@ -18,11 +18,6 @@ import { WIDGETS } from '../../../../../dashboard/components/widgets-grid/widget
 import { Subscription, BehaviorSubject } from 'rxjs';
 import { IWidget } from '../../../../../dashboard/models/widget.model';
 
-@Injectable({ providedIn: 'root' })
-export class HoursCountService {
-    public hc$: BehaviorSubject<8 | 24> = new BehaviorSubject<8 | 24>(8);
-}
-
 @Component({
     selector: 'evj-cd-mat-balance-chart',
     templateUrl: './cd-mat-balance-chart.component.html',
@@ -44,10 +39,10 @@ export class CdMatBalanceChartComponent implements OnInit, OnDestroy, AfterViewI
 
     // выбор интервала отображаемого времени
     get hoursCount(): 8 | 24 {
-        return this.hc.hc$.getValue();
+        return this.cdMatBalanceService.hc$.getValue();
     }
     set hoursCount(param: 8 | 24) {
-        this.hc.hc$.next(param);
+        this.cdMatBalanceService.hc$.next(param);
     }
 
     public readonly selectValues: { value: number; title: string }[] = [
@@ -67,8 +62,7 @@ export class CdMatBalanceChartComponent implements OnInit, OnDestroy, AfterViewI
         public http: HttpClient,
         private cdMatBalanceService: CdMatBalanceService,
         public widgetService: WidgetService,
-        public injector: Injector,
-        private hc: HoursCountService
+        public injector: Injector
     ) {}
 
     ngOnInit(): void {

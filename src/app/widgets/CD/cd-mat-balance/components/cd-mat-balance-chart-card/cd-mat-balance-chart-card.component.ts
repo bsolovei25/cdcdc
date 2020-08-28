@@ -16,7 +16,6 @@ import {
 } from '../../../../LCO/spline-trends-chart/components/spline-diagram/spline-diagram.component';
 import { WidgetService } from '../../../../../dashboard/services/widget.service';
 import { CdMatBalanceService } from '../../../../../dashboard/services/widgets/CD/cd-mat-balance.service';
-import { HoursCountService } from '../cd-mat-balance-chart/cd-mat-balance-chart.component';
 
 export interface IMatBalanceChartCard {
     id: number;
@@ -42,14 +41,12 @@ export interface IMatBalanceChartCard {
 })
 export class CdMatBalanceChartCardComponent extends WidgetPlatform
     implements OnInit, OnDestroy, AfterViewInit {
-    // TOFIX пробросить количество часов снаружи (возможно через InjectionToken)
-    @Input() public hoursCount: 8 | 24;
-
     @ViewChild('chart')
     public chartElement: ElementRef;
 
     public isLoading: boolean = true;
 
+    public hoursCount: 8 | 24;
     public data: IMatBalanceChartCard;
     public chartData: ISplineDiagramData;
     public size: ISplineDiagramSize;
@@ -60,8 +57,7 @@ export class CdMatBalanceChartCardComponent extends WidgetPlatform
         private cdMatBalanceService: CdMatBalanceService,
         @Inject('isMock') public isMock: boolean,
         @Inject('widgetId') public id: string,
-        @Inject('uniqId') public uniqId: string,
-        private hc: HoursCountService
+        @Inject('uniqId') public uniqId: string
     ) {
         super(widgetService, isMock, id, uniqId);
     }
@@ -69,7 +65,7 @@ export class CdMatBalanceChartCardComponent extends WidgetPlatform
     public ngOnInit(): void {
         super.widgetInit();
         this.subscriptions.push(
-            this.hc.hc$.subscribe((hoursCount) => {
+            this.cdMatBalanceService.hc$.subscribe((hoursCount) => {
                 console.log('hoursCount: ', hoursCount);
                 this.hoursCount = hoursCount;
             })
