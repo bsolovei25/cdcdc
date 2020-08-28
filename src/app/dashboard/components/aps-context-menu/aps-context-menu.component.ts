@@ -24,6 +24,9 @@ export class ApsContextMenuComponent implements OnInit, OnDestroy, AfterViewInit
     @Input()
     public items: INavItem[] = [];
 
+    @Input()
+    public disabledDirective: boolean;
+
     public menuX: number = 0;
 
     public menuY: number = 0;

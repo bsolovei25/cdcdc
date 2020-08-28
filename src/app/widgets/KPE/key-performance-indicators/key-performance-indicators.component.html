@@ -10,7 +10,10 @@
 
 <ng-template #headerTabs>
   <div class="tabs-container">
-    <div class="tab tab--active">
+    <div class="tab"
+         (click)="setActiveIndicator('pimsPlan')"
+         [class.tab--active]="activeIndicatorType === 'pimsPlan'"
+    >
       <div
         class="tab__title"
         (mousedown)="$event.stopPropagation()"
@@ -19,7 +22,10 @@
         План PIMS
       </div>
     </div>
-    <div class="tab">
+    <div class="tab"
+         (click)="setActiveIndicator('normPlan')"
+         [class.tab--active]="activeIndicatorType === 'normPlan'"
+    >
       <div
         class="tab__title"
         (mousedown)="$event.stopPropagation()"
@@ -28,7 +34,10 @@
         Нормативный план
       </div>
     </div>
-    <div class="tab">
+    <div class="tab"
+         (click)="setActiveIndicator('operPlan')"
+         [class.tab--active]="activeIndicatorType === 'operPlan'"
+    >
       <div
         class="tab__title"
         (mousedown)="$event.stopPropagation()"
@@ -51,7 +60,7 @@
   </div>
 
   <div class="diagram-container">
-    <evj-kpe-gauge-diagram></evj-kpe-gauge-diagram>
+    <evj-kpe-gauge-diagram [data]="diagramData"></evj-kpe-gauge-diagram>
   </div>
 
   <div class="circle1">

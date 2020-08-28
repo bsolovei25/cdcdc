@@ -79,7 +79,7 @@ export class LineDatetimeComponent implements OnInit, AfterViewInit, OnDestroy {
         const month = date.getMonth() + 1;
         const year = date.getFullYear();
         const daysCount = new Date(year, month, 0).getDate();
-        for (let i = 0; i < daysCount; i++) {
+        for (let i: number = 0; i < daysCount; i++) {
             let active: boolean = false;
             let last: boolean = false;
             let future: boolean = false;
@@ -91,7 +91,7 @@ export class LineDatetimeComponent implements OnInit, AfterViewInit, OnDestroy {
                 future = true;
             }
             const el = {
-                day: i + 1,
+                day: Number(i) + 1,
                 isActive: active,
                 isLast: last,
                 isFuture: future

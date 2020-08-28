@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, LOCALE_ID } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HeaderComponent } from './layout/header/header.component';
 import { ContentComponent } from './layout/content/content.component';
@@ -59,6 +59,14 @@ import { ProductGroupsLeftComponent } from './components/SMP/product-group/produ
 import { ProductGroupsTableComponent } from './components/SMP/product-group/product-groups-table/product-groups-table.component';
 import { ProductGroupsMiddleComponent } from './components/SMP/product-group/product-groups-middle/product-groups-middle.component';
 import { ProductGroupsRightComponent } from './components/SMP/product-group/product-groups-right/product-groups-right.component';
+import { TimeDataPickerComponent } from './components/time-data-picker/time-data-picker.component';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import {
+    NgxMatDatetimePickerModule,
+    NgxMatNativeDateModule,
+} from '@angular-material-components/datetime-picker';
+import { NgxMatMomentModule } from '@angular-material-components/moment-adapter';
+import { MAT_DATE_LOCALE } from '@angular/material/core';
 
 @NgModule({
     declarations: [
@@ -106,6 +114,7 @@ import { ProductGroupsRightComponent } from './components/SMP/product-group/prod
         ProductGroupsMiddleComponent,
         ProductGroupsRightComponent,
         ProductGroupsTableComponent,
+        TimeDataPickerComponent,
     ],
     exports: [
         HeaderComponent,
@@ -144,6 +153,7 @@ import { ProductGroupsRightComponent } from './components/SMP/product-group/prod
         SafeUrlPipe,
         ApsProgressBarComponent,
         ProductGroupsTableComponent,
+        TimeDataPickerComponent,
     ],
     imports: [
         CommonModule,
@@ -160,11 +170,17 @@ import { ProductGroupsRightComponent } from './components/SMP/product-group/prod
         OverlayModule,
         MatDialogModule,
         MatTooltipModule,
+        MatDatepickerModule,
+        NgxMatDatetimePickerModule,
+        NgxMatNativeDateModule,
+        NgxMatMomentModule,
     ],
     providers: [
         SpaceNumber,
         LineBreakPipe,
         MatDialog,
+        { provide: LOCALE_ID, useValue: 'ru-RU' },
+        { provide: MAT_DATE_LOCALE, useValue: 'ru-RU' },
         { provide: MatDialogRef, useValue: {} },
         { provide: MAT_DIALOG_DATA, useValue: [] },
     ],

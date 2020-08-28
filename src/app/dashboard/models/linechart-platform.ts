@@ -1,5 +1,5 @@
-import { BehaviorSubject, from, Observable, Subscription } from 'rxjs';
-import { filter, map, mergeAll } from 'rxjs/operators';
+import { BehaviorSubject, Observable, Subscription } from 'rxjs';
+import { filter, map } from 'rxjs/operators';
 import { IDatesInterval, WidgetService } from '../services/widget.service';
 import { OnDestroy, OnInit } from '@angular/core';
 import { IProductionTrend } from './production-trends.model';
@@ -7,9 +7,7 @@ import { IChartMini } from '@shared/models/smart-scroll.model';
 
 export type SmartGraphType = 'realtime' | 'rest';
 
-
 export abstract class LineChartPlatform<T extends IProductionTrend> implements OnInit, OnDestroy {
-
     /// CONFIG
     // Отступ скролла в процентах от правой части для трансляции данных
     private readonly realtimeDelta: number = 10;
@@ -27,7 +25,7 @@ export abstract class LineChartPlatform<T extends IProductionTrend> implements O
 
     public scrollData$: Observable<IChartMini[]> = this.subGraphData$.asObservable().pipe(
         map((graphs) => graphs?.find((g) => g.graphType === 'fact')?.graph ?? null),
-        filter((value) => value !== null),
+        filter((value) => value !== null)
     );
 
     protected set subGraphData(value: T[]) {
@@ -46,8 +44,7 @@ export abstract class LineChartPlatform<T extends IProductionTrend> implements O
         );
     }
 
-    public ngOnInit(): void {
-    }
+    public ngOnInit(): void {}
 
     public ngOnDestroy(): void {
         this.subscriptions.forEach((s) => s.unsubscribe());
@@ -68,7 +65,9 @@ export abstract class LineChartPlatform<T extends IProductionTrend> implements O
         if (!data) {
             return;
         }
-        data.map((item) => item?.graph.map(value => value.timeStamp = new Date(value.timeStamp)));
+        data.map((item) =>
+            item?.graph.map((value) => (value.timeStamp = new Date(value.timeStamp)))
+        );
         this.subGraphData = data;
         if (this.dataType === 'rest') {
             this.restDataHandler(data);
@@ -99,7 +98,7 @@ export abstract class LineChartPlatform<T extends IProductionTrend> implements O
             return;
         }
         // const currentGraphInterval = this.getGraphBordersDateTime(this.graphData$.getValue());
-        const currentGraphInterval = {...this.graphDateTimeInterval};
+        const currentGraphInterval = { ...this.graphDateTimeInterval };
         if (currentGraphInterval.fromDateTime.getTime() < subGraphInterval.fromDateTime.getTime()) {
             this.sbLeft = 0;
             this.setRestGraphData();
@@ -121,23 +120,33 @@ export abstract class LineChartPlatform<T extends IProductionTrend> implements O
 
     // Поиск границ временных графика
     protected getGraphBordersDateTime(data: T[]): IDatesInterval {
-        const dateTimeArray = data.map(el => el.graph).flat().map((el) => el.timeStamp.getTime());
-        const max = dateTimeArray.reduce((prev, cur) => prev > cur ? prev : cur);
-        const min = dateTimeArray.reduce((prev, cur) => prev < cur ? prev : cur);
+        const dateTimeArray = data
+            .map((el) => el.graph)
+            .flat()
+            .map((el) => el.timeStamp.getTime());
+        const max = dateTimeArray.reduce((prev, cur) => (prev > cur ? prev : cur));
+        const min = dateTimeArray.reduce((prev, cur) => (prev < cur ? prev : cur));
         return {
             fromDateTime: new Date(min),
-            toDateTime: new Date(max)
+            toDateTime: new Date(max),
         };
     }
 
     // Установка значений основного графика
     protected async setRestGraphData(): Promise<void> {
-        const reqDateTimeInterval =
-            this.extractScrollDateTimes(this.dateTimeInterval, this.sbWidth, this.sbLeft);
-        this.graphDateTimeInterval = {...reqDateTimeInterval};
+        const reqDateTimeInterval = this.extractScrollDateTimes(
+            this.dateTimeInterval,
+            this.sbWidth,
+            this.sbLeft
+        );
+        this.graphDateTimeInterval = { ...reqDateTimeInterval };
         const data = await this.restGraphHandler(reqDateTimeInterval);
-        if (!data) { return; }
-        data.map((item) => item?.graph.map(value => value.timeStamp = new Date(value.timeStamp)));
+        if (!data) {
+            return;
+        }
+        data.map((item) =>
+            item?.graph.map((value) => (value.timeStamp = new Date(value.timeStamp)))
+        );
         this.graphData = data;
     }
 
@@ -157,26 +166,28 @@ export abstract class LineChartPlatform<T extends IProductionTrend> implements O
         }
         const timeInterval = {
             from: dateTimeInterval.fromDateTime.getTime(),
-            to: dateTimeInterval.toDateTime.getTime()
+            to: dateTimeInterval.toDateTime.getTime(),
         };
 
         function getByPercent(value: number): number {
-            return (timeInterval.to - timeInterval.from) * value / 100;
+            return ((timeInterval.to - timeInterval.from) * value) / 100;
         }
 
         return {
             fromDateTime: new Date(timeInterval.from + getByPercent(left)),
-            toDateTime: new Date(timeInterval.from + getByPercent(width + left))
+            toDateTime: new Date(timeInterval.from + getByPercent(width + left)),
         };
     }
 
     protected extractScrollParams(
         dateTimeInterval: IDatesInterval,
         currentDateTimeInterval: IDatesInterval
-    ): { sbWidth: number, sbLeft: number } {
-        const sbWidth = getDelta(dateTimeInterval) / getDelta(currentDateTimeInterval) * 100;
+    ): { sbWidth: number; sbLeft: number } {
+        const sbWidth = (getDelta(dateTimeInterval) / getDelta(currentDateTimeInterval)) * 100;
         const sbLeft =
-            (currentDateTimeInterval.fromDateTime.getTime() - dateTimeInterval.fromDateTime.getTime()) / getDelta(dateTimeInterval);
+            (currentDateTimeInterval.fromDateTime.getTime() -
+                dateTimeInterval.fromDateTime.getTime()) /
+            getDelta(dateTimeInterval);
 
         function getDelta(interval: IDatesInterval): number {
             return interval.toDateTime.getTime() - interval.fromDateTime.getTime();
@@ -184,7 +195,7 @@ export abstract class LineChartPlatform<T extends IProductionTrend> implements O
 
         return {
             sbWidth,
-            sbLeft
+            sbLeft,
         };
     }
 }

@@ -69,20 +69,20 @@
               <ng-container *ngIf="column.name === 'Факт'">
                   <span
                     class="table__body__column__row-title__value"
-                  >{{ element.value.toFixed(0) }}</span
+                  >{{ element.totalValue.toFixed(0) }}</span
                   >
               </ng-container>
               <ng-container *ngIf="column.name === 'Модель'">
                   <span
                     class="table__body__column__row-title__value"
-                  >{{ element.modelValue.toFixed(0) }}</span
+                  >{{ element.totalModelValue.toFixed(0) }}</span
                   >
               </ng-container>
               <ng-container *ngIf="column.name === '∆'">
                   <span
                     class="table__body__column__row-title__value"
                     [class.table__body__column__row-title__value-orange]="element.deviation !== 0"
-                  >{{ element.deviation.toFixed(0) }}</span
+                  >{{ element.totalDeviation.toFixed(0) }}</span
                   >
                 <svg-icon
                   *ngIf="element.deviation !== 0"

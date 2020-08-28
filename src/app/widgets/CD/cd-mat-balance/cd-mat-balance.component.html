@@ -11,9 +11,13 @@
   (mouseenter)="onMouseEnter()"
   (mouseleave)="onMouseExit()"
   class="mat-balance"
+  evjContextMenu
+  [disabledDirective]="!!openEvent"
+  [items]="items"
 >
+  <evj-cd-modal-window [info]="modal"></evj-cd-modal-window>
   <div class="mat-balance__gauge">
-    <evj-cd-mat-balance-gauge></evj-cd-mat-balance-gauge>
+    <evj-cd-mat-balance-gauge [data]="data?.loads"></evj-cd-mat-balance-gauge>
   </div>
   <div class="mat-balance__mnemonic">
     <evj-cd-mnemonic [dataRef]="data?.sensors"></evj-cd-mnemonic>
@@ -22,6 +26,6 @@
     <evj-cd-mat-balance-chart></evj-cd-mat-balance-chart>
   </div>
   <div class="mat-balance__right">
-    <evj-cd-mat-balance-right></evj-cd-mat-balance-right>
+    <evj-cd-mat-balance-right [data]="data?.streams"></evj-cd-mat-balance-right>
   </div>
 </div>

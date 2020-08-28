@@ -27,7 +27,7 @@ interface IWebSocket {
 }
 
 @Injectable({
-    providedIn: 'root',
+    providedIn: 'root'
 })
 export class WidgetService {
     private readonly wsUrl: string;
@@ -79,6 +79,10 @@ export class WidgetService {
         setInterval(() => this.reloadPage(), 1800000);
     }
 
+    public get allWidgets(): IWidget[] {
+        return this._widgets$.getValue();
+    }
+
     private getAvailableWidgets(): Observable<IWidget[]> {
         return this.http
             .get(this.restUrl + `/api/user-management/Claim/user/GetAvailableWidgets`)
@@ -122,6 +126,8 @@ export class WidgetService {
                 isClaim: item.isClaim,
                 isVideoWall: item.isVideoWall,
                 sortType: item.sortType,
+                isHidden: item.isHidden,
+                sensorId: item.sensorId
             };
         });
     }
@@ -169,7 +175,7 @@ export class WidgetService {
     private wsRealtimeData(widgetId: string): void {
         this.ws.next({
             actionType: 'subscribe',
-            channelId: widgetId,
+            channelId: widgetId
         });
     }
 
@@ -177,14 +183,14 @@ export class WidgetService {
         this.ws.next({
             actionType: 'getPeriodData',
             channelId: widgetId,
-            selectedPeriod: this.currentDates$.getValue(),
+            selectedPeriod: this.currentDates$.getValue()
         });
     }
 
     public wsDisconnect(widgetId: string): void {
         this.ws.next({
             actionType: 'unsubscribe',
-            channelId: widgetId,
+            channelId: widgetId
         });
     }
 
@@ -249,6 +255,13 @@ export class WidgetService {
             case 'cd-mat-balance':
             case 'cd-deviation-mat':
             case 'cd-reactor-parameters':
+            case 'cd-mat-balance-sensor':
+            case 'cd-mat-balance-stream':
+            case 'key-performance-indicators':
+            case 'kpe-energetic':
+            case 'kpe-readiness':
+            case 'kpe-quality':
+            case 'kpe-safety':
                 return data;
         }
         console.warn(`unknown widget type ${widgetType}`);
@@ -309,7 +322,7 @@ export class WidgetService {
         this.ws.next({
             actionType: 'authenticate',
             channelId: null,
-            token: this.authService.userSessionToken,
+            token: this.authService.userSessionToken
         });
         this.ws.subscribe(
             (msg) => {
@@ -340,9 +353,9 @@ export class WidgetService {
         }
         return (
             new Date(incoming.fromDateTime).getTime() ===
-                new Date(this.currentDates$.getValue()?.fromDateTime).getTime() &&
+            new Date(this.currentDates$.getValue()?.fromDateTime).getTime() &&
             new Date(incoming.toDateTime).getTime() ===
-                new Date(this.currentDates$.getValue()?.toDateTime).getTime()
+            new Date(this.currentDates$.getValue()?.toDateTime).getTime()
         );
     }
 

@@ -1,0 +1,84 @@
+<div class="graph-display">
+  <div class="graph-display__header header">
+    <div class="header__buttons">
+      <div class="button button_active">Графическое отображение</div>
+      <div class="button" (click)="clickDisplayButton()">Табличное отображение</div>
+    </div>
+  </div>
+  <div class="graph-display__counters counters">
+    <div class="counters__header">
+      <div class="counter-header">Отклонение за период</div>
+      <div class="counter-header">Факт за период</div>
+    </div>
+    <div class="counters__cards">
+      <div class="counter-card card">
+        <div class="card__title">План-план\План-факт</div>
+        <div class="card__value">1740</div>
+        <div class="label">Перерасход</div>
+      </div>
+      <div class="counter-card card">
+        <div class="card__title">План-план\Факт</div>
+        <div class="card__value">47</div>
+        <div class="label"></div>
+      </div>
+      <div class="counter-card card">
+        <div class="card__title">План-факт\Факт</div>
+        <div class="card__value">520</div>
+        <div class="label">Экономия</div>
+      </div>
+      <div class="counter-card card_single">
+        180
+      </div>
+    </div>
+    <div class="counters__header">
+      <div class="counter-header">Отклонение на текущий момент</div>
+      <div class="counter-header">Факт на текущий момент</div>
+    </div>
+    <div class="counters__cards">
+      <div class="counter-card card">
+        <div class="card__title">План-план\План-факт</div>
+        <div class="card__value">1740</div>
+        <div class="label">Перерасход</div>
+      </div>
+      <div class="counter-card card">
+        <div class="card__title">План-план\Факт</div>
+        <div class="card__value">47</div>
+        <div class="label"></div>
+      </div>
+      <div class="counter-card card">
+        <div class="card__title">План-факт\Факт</div>
+        <div class="card__value">520</div>
+        <div class="label">Экономия</div>
+      </div>
+      <div class="counter-card card_single">
+        180
+      </div>
+    </div>
+  </div>
+  <div class="graph-display__graph graph">
+    <div class="units">Ед. измерения</div>
+    <div class="graph__container">
+      <evj-line-chart-shared
+        [data]="data"
+        [isShowingLegend]="true"
+        chartType="production-trend"
+      ></evj-line-chart-shared>
+      <!-- <evj-line-chart-shared
+        [data]="graphData$ |async"
+        [isShowingLegend]="true"
+        chartType="production-trend"
+      ></evj-line-chart-shared> -->
+    </div>
+  </div>
+  <div class="graph-display__scroll scroll">
+    <evj-smart-scroll class="scroll__smart"></evj-smart-scroll>
+    <!-- <evj-smart-scroll
+      class="scroll__smart"
+      [data]="scrollData$ | async"
+      [(sbThumbWidth)]="sbWidth"
+      [(sbThumbLeft)]="sbLeft"
+      (sbThumbLeftChange)="scrollHandler()"
+      (sbThumbWidthChange)="scrollHandler()"
+    ></evj-smart-scroll> -->
+  </div>
+</div>

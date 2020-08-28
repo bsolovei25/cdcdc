@@ -8,8 +8,6 @@
   box-sizing: border-box;
   position: relative;
 
-  border-right: 1px solid var(--color-border-main);
-  border-left: 1px solid var(--color-border-main);
   cursor: pointer;
 
   &__icon {
@@ -25,7 +23,7 @@
   }
 
   &__name {
-    font-size: 15px;
+    font-size: 12px;
   }
 
   &:hover {
@@ -176,6 +174,8 @@
   font-size: 15px;
   width: 160px;
   padding: 10px;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .delete_screen {
   display: inline-block;

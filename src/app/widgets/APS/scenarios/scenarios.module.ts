@@ -20,7 +20,7 @@ import { MatMenuModule } from '@angular/material/menu';
         ApsNotchedContainerComponent,
         ApsContextMenuDirective,
         ApsContextMenuComponent,
-        ApsDropdownMenuComponent,
+        ApsDropdownMenuComponent
     ],
     imports: [
         CommonModule,
@@ -29,10 +29,13 @@ import { MatMenuModule } from '@angular/material/menu';
         MatSelectModule,
         FormsModule,
         MatButtonModule,
-        MatMenuModule,
+        MatMenuModule
+    ],
+    exports: [
+        ApsContextMenuDirective
     ],
     providers: [
-        ApsContextMenuDirective,
+        ApsContextMenuDirective
     ]
 })
 export class ScenariosModule {

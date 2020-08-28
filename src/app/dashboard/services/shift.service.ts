@@ -16,11 +16,13 @@ import { IAlertWindowModel } from '@shared/models/alert-window.model';
 import { SnackBarService } from './snack-bar.service';
 
 @Injectable({
-    providedIn: 'root',
+    providedIn: 'root'
 })
 export class ShiftService {
     public shiftPass$: BehaviorSubject<ShiftPass> = new BehaviorSubject<ShiftPass>(null);
     public alertWindow$: BehaviorSubject<IAlertWindowModel> = new BehaviorSubject<IAlertWindowModel>(null);
+    // TODO
+    public alertWindowLeaveShift$: BehaviorSubject<IAlertWindowModel> = new BehaviorSubject<IAlertWindowModel>(null);
     public continueWithComment: Subject<ICommentRequired> = new Subject<ICommentRequired>();
     public verifyWindowSubject: Subject<IVerifyWindow> = new Subject<IVerifyWindow>();
     public isCommentRequiredPass: boolean = false;
@@ -31,7 +33,7 @@ export class ShiftService {
 
     constructor(
         private http: HttpClient,
-        configService: AppConfigService,
+        configService: AppConfigService
     ) {
         this.restUrl = configService.restUrl;
         this.shiftFreeStatus = configService.shiftFree;
@@ -74,11 +76,11 @@ export class ShiftService {
         return this.http
             .post(
                 this.restUrl +
-                    '/api/shift/' +
-                    idShift +
-                    '/employee/' +
-                    id.toString() +
-                    '/setresponsible',
+                '/api/shift/' +
+                idShift +
+                '/employee/' +
+                id.toString() +
+                '/setresponsible',
                 null
             )
             .toPromise();
@@ -92,19 +94,19 @@ export class ShiftService {
         comment: string
     ): Promise<any> {
         const body = {
-            comment,
+            comment
         };
         return this.http
             .post(
                 this.restUrl +
-                    '/api/shift/' +
-                    idShift +
-                    '/Employee/' +
-                    id +
-                    '/WidgetId/' +
-                    widgetId +
-                    '/ChangeStatus/' +
-                    status,
+                '/api/shift/' +
+                idShift +
+                '/Employee/' +
+                id +
+                '/WidgetId/' +
+                widgetId +
+                '/ChangeStatus/' +
+                status,
                 body
             )
             .toPromise();
@@ -134,7 +136,7 @@ export class ShiftService {
         widgetId: string
     ): Promise<any> {
         const body = {
-            comment,
+            comment
         };
         return this.http
             .post(`${this.restUrl}/api/shift/${idShift}/widgetid/${widgetId}/accept-revert`, body)
@@ -144,7 +146,7 @@ export class ShiftService {
     private async passingComment(idShift: number, idUser: number, comment: string): Promise<any> {
         const body = {
             userId: idUser,
-            comment,
+            comment
         };
         return this.http
             .post(this.restUrl + '/api/shift/' + idShift + '/passingcomment', body)
@@ -158,7 +160,7 @@ export class ShiftService {
     ): Promise<any> {
         const body = {
             userId: idUser,
-            comment,
+            comment
         };
         return this.http
             .post(this.restUrl + '/api/shift/' + idShift + '/acceptingcomment', body)
@@ -214,7 +216,7 @@ export class ShiftService {
         idShift,
         widgetId: string,
         unitId: number,
-        msg: string = null,
+        msg: string = null
     ): Promise<void> {
         const obj = await this.changeStatusAsync(status, id, idShift, widgetId, msg);
         this.getShiftInfo(unitId);
@@ -298,7 +300,7 @@ export class ShiftService {
             message,
             verifyId,
             user,
-            result,
+            result
         };
         this.verifyWindowSubject.next(obj);
     }

@@ -100,7 +100,7 @@ export class LimitsChartComponent implements OnChanges {
         this.svg
             .attr('width', '100%')
             .attr('height', '100%')
-            .attr('viewBox', `0 0 ${this.graphMaxX} ${this.graphMaxY - 5}`);
+            .attr('viewBox', `0 0 ${this.graphMaxX > 0 ? this.graphMaxX : 0} ${this.graphMaxY > 5 ? this.graphMaxY - 5 : 0}`);
     }
 
     private findMinMax(): void {

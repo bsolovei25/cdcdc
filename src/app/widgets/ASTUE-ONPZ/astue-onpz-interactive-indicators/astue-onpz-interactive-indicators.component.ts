@@ -1,9 +1,11 @@
 import { Component, OnInit, OnDestroy, Inject, Input } from '@angular/core';
 import { WidgetPlatform } from '../../../dashboard/models/widget-platform';
 import { WidgetService } from '../../../dashboard/services/widget.service';
+import { coerceBooleanProperty } from '@angular/cdk/coercion';
+import { any } from 'codelyzer/util/function';
 
 interface IAstueOnpzInteractiveIndicators {
-    labels: { name: string; icon: string }[];
+    labels: { id: number; name: string; icon: string }[];
     indicators: { name: string; value: number }[];
     allIndicators: { name: string; icon: string }[];
 }
@@ -18,22 +20,27 @@ export class AstueOnpzInteractiveIndicatorsComponent extends WidgetPlatform
     @Input() data: IAstueOnpzInteractiveIndicators = {
         labels: [
             {
+                id: 1,
                 name: 'Плановое значение',
                 icon: 'dsad',
             },
             {
+                id: 2,
                 name: 'Фактическое значение',
                 icon: 'dsad',
             },
             {
-                name: 'Температура',
+                id: 3,
+                name: 'Значение температуры',
                 icon: 'dsad',
             },
             {
-                name: 'Температура',
+                id: 4,
+                name: 'Значение давления',
                 icon: 'dsad',
             },
             {
+                id: 5,
                 name: 'Температура',
                 icon: 'dsad',
             },
@@ -60,6 +67,9 @@ export class AstueOnpzInteractiveIndicatorsComponent extends WidgetPlatform
         ],
     };
 
+    public DisabledLabels: Map<{ id: number; name: string; icon: string }, boolean>
+        = new Map<{id: number, name: string, icon: string}, boolean>();
+
     constructor(
         protected widgetService: WidgetService,
         @Inject('isMock') public isMock: boolean,
@@ -73,6 +83,11 @@ export class AstueOnpzInteractiveIndicatorsComponent extends WidgetPlatform
 
     public ngOnDestroy(): void {
         super.ngOnDestroy();
+    }
+
+    public LabelClick(element: { id: number; name: string; icon: string }): void {
+        const value = this.DisabledLabels?.get(element) ?? false;
+        this.DisabledLabels.set(element, !value);
     }
 
     protected dataHandler(ref: any): void {}

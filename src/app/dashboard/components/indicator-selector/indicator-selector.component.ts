@@ -3,7 +3,6 @@ import { UserSettingsService } from '../../services/user-settings.service';
 import { Subscription } from 'rxjs';
 import { IScreenSettings } from '../../models/user-settings.model';
 import { ClaimService, EnumClaimScreens } from '../../services/claim.service';
-import { ViewportScroller } from '@angular/common';
 import { OverlayService } from '../../services/overlay.service';
 import { SnackBarService } from '../../services/snack-bar.service';
 import { IAlertWindowModel } from '@shared/models/alert-window.model';
@@ -59,10 +58,9 @@ export class IndicatorSelectorComponent implements OnInit, OnDestroy {
         public route: ActivatedRoute,
         public router: Router,
         private titleService: Title
-    ) { }
+    ) {}
 
     ngOnInit(): void {
-
         // this.router.navigate([], { queryParams: {screenId: 1}});
         this.LoadScreenInit();
     }
@@ -89,11 +87,13 @@ export class IndicatorSelectorComponent implements OnInit, OnDestroy {
         } else {
             this.userSettings.ScreenId = Number(screenIdFromRoute);
         }
-
-        this.userSettings.GetScreens();
         this.subscriptions.push(
             this.userSettings.screens$.subscribe((screens) => {
-                if (!(screens?.length > 0)) {
+                // if (screens?.length > 0) {
+
+                if (!screens?.length) {
+                    this.userSettings.ScreenId = undefined;
+                    this.nameScreen = 'СОЗДАЙТЕ ЭКРАН!';
                     return;
                 }
                 this.dataScreen = screens;
@@ -103,12 +103,13 @@ export class IndicatorSelectorComponent implements OnInit, OnDestroy {
                 this.idScreen = this.userSettings.ScreenId;
                 this.LoadScreen(this.idScreen);
                 this.nameScreen = this.getActiveScreen();
-                this.setTitle(`Evj - ${this.nameScreen}`);
                 for (const item of this.dataScreen) {
                     item.updateScreen = false;
                     item.isFilter = true;
                 }
+
                 this.scrollToScreenById(this.idScreen);
+                // }
             }),
             this.claimService.claimScreens$.subscribe((w) => {
                 this.claimScreens = w;
@@ -152,7 +153,7 @@ export class IndicatorSelectorComponent implements OnInit, OnDestroy {
         if (this.dataScreen[0]) {
             return this.dataScreen[0].screenName;
         }
-    }
+    };
 
     setActiveScreen(screen: IScreenSettings): void {
         this.nameScreen = screen.screenName;
@@ -238,7 +239,7 @@ export class IndicatorSelectorComponent implements OnInit, OnDestroy {
         //     item.updateScreen = false;
         // }
     }
-    isOverScreen(e): void { }
+    isOverScreen(e): void {}
 
     public closeEdit(): void {
         this.dataScreen.forEach((el) => {

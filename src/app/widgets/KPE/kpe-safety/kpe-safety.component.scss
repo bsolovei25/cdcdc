@@ -27,6 +27,7 @@
     flex-grow: 1;
     overflow: hidden;
     gap: 15px;
+    max-height: 40%;
 
     &__gauge {
       height: 100%;

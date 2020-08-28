@@ -1,0 +1,119 @@
+{
+  "id": 9,
+  "screenName": "Энергоконтроль. Мониторинг",
+  "claims": [
+    {
+      "claimType": "screensAdmin",
+      "claimCategory": "allow",
+      "claimCategoryName": "Разрешить",
+      "claimName": "Администрирование экранов",
+      "specification": " Администрирование экранов Разрешить"
+    },
+    {
+      "claimType": "screensView",
+      "claimCategory": "allow",
+      "claimCategoryName": "Разрешить",
+      "claimName": "Просмотр экранов",
+      "specification": " Просмотр экранов Разрешить"
+    },
+    {
+      "claimType": "screensWidgetDel",
+      "claimCategory": "allow",
+      "claimCategoryName": "Разрешить",
+      "claimName": "Удаление виджетов с экранов",
+      "specification": " Удаление виджетов с экранов Разрешить"
+    },
+    {
+      "claimType": "screensWidgetEdit",
+      "claimCategory": "allow",
+      "claimCategoryName": "Разрешить",
+      "claimName": "Изменение виджетов на экранах",
+      "specification": " Изменение виджетов на экранах Разрешить"
+    },
+    {
+      "claimType": "screensWidgetAdd",
+      "claimCategory": "allow",
+      "claimCategoryName": "Разрешить",
+      "claimName": "Добавление виджетов на экраны",
+      "specification": " Добавление виджетов на экраны Разрешить"
+    },
+    {
+      "claimType": "screensDel",
+      "claimCategory": "allow",
+      "claimCategoryName": "Разрешить",
+      "claimName": "Удаление экранов",
+      "specification": " Удаление экранов Разрешить"
+    },
+    {
+      "claimType": "screensEdit",
+      "claimCategory": "allow",
+      "claimCategoryName": "Разрешить",
+      "claimName": "Редактирование экранов",
+      "specification": " Редактирование экранов Разрешить"
+    },
+    {
+      "claimType": "screensAdd",
+      "claimCategory": "allow",
+      "claimCategoryName": "Разрешить",
+      "claimName": "Добавление экранов",
+      "specification": " Добавление экранов Разрешить"
+    }
+  ],
+  "widgets": [
+    {
+      "id": 12,
+      "posX": 53,
+      "posY": 13,
+      "sizeX": 12,
+      "sizeY": 7,
+      "zIndex": 0,
+      "widgetId": "866336cd-daf6-11ea-b22a-c8d9d2317227",
+      "uniqueId": "94944371-7839-4f4b-a3fa-bc7614f93a26",
+      "widgetType": "astue-onpz-consumption-indicators"
+    },
+    {
+      "id": 13,
+      "posX": 65,
+      "posY": 14,
+      "sizeX": 12,
+      "sizeY": 8,
+      "zIndex": 0,
+      "widgetId": "bdc668dc-dba9-11ea-b22a-c8d9d2317227",
+      "uniqueId": "629916bd-522c-4041-a0df-e3a95f38479d",
+      "widgetType": "astue-onpz-consumption-indicators"
+    },
+    {
+      "id": 15,
+      "posX": 77,
+      "posY": 16,
+      "sizeX": 12,
+      "sizeY": 8,
+      "zIndex": 0,
+      "widgetId": "866336d0-daf6-11ea-b22a-c8d9d2317227",
+      "uniqueId": "ddab6f36-6252-4a31-bc2f-69cd36c1a938",
+      "widgetType": "astue-onpz-menu-structure"
+    },
+    {
+      "id": 16,
+      "posX": 104,
+      "posY": 30,
+      "sizeX": 40,
+      "sizeY": 30,
+      "zIndex": 0,
+      "widgetId": "51f1368d-dae0-11ea-b22a-c8d9d2317227",
+      "uniqueId": "e9e195e8-83fa-4a79-865f-decf7e87f36b",
+      "widgetType": "astue-onpz-product-charts"
+    },
+    {
+      "id": 28,
+      "posX": 25,
+      "posY": 30,
+      "sizeX": 13,
+      "sizeY": 30,
+      "zIndex": 0,
+      "widgetId": "ab49167c-dbc7-11ea-b22a-c8d9d2317227",
+      "uniqueId": "56da2a8b-3434-4a3f-b216-6e2f14870f94",
+      "widgetType": "astue-onpz-deviation-cards"
+    }
+  ]
+}
