@@ -210,6 +210,16 @@
         (mousedown)="$event.stopPropagation()"
         (touchstart)="$event.stopPropagation()"
       >
+        <div class="header-workspace__container" *ngIf="!!eventProdTask" (click)="changeStatus()">
+          <div class="title">{{eventProdTask}}</div>
+          <div class="icon-wrapper">
+            <svg-icon
+              src="assets/icons/in-work.svg"
+              class="icon__add-button"
+              [svgStyle]="{ 'width.px':17, 'height.px':17 }"
+            ></svg-icon>
+          </div>
+        </div>
         <div class="header-workspace__container" (click)="backEvent()">
           <div class="title">Назад</div>
           <div class="icon-wrapper">

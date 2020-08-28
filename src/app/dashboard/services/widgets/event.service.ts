@@ -20,7 +20,7 @@ import {
     ISaveMethodEvent,
     IRetrievalEventDto,
     IAsusTmPlace,
-    IAsusTpPlace,
+    IAsusTpPlace, ISubcategory,
 } from '../../models/events-widget';
 import { AppConfigService } from 'src/app/services/appConfigService';
 
@@ -156,6 +156,25 @@ export class EventService {
             return this.http
                 .get<IStatus[]>(this.restUrl + '/api/notification-reference/status')
                 .toPromise();
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+    async getSubcategory(): Promise<ISubcategory[]> {
+        try {
+            return new Promise(resolve => {
+                resolve([
+                    {
+                        id: 0,
+                        name: 'Распоряжения',
+                    },
+                    {
+                        id: 1,
+                        name: 'Прием/передача смены',
+                    },
+                ]);
+            });
         } catch (error) {
             console.error(error);
         }

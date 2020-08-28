@@ -1,7 +1,11 @@
+.container {
+  z-index: 100;
+}
 .svg {
   &__circle {
     fill: var(--color-bg-main);
     stroke: var(--color-kpe-gaude-active);
+    cursor: pointer;
 
     &--deviation {
       stroke: var(--color-cd-warning);
@@ -11,6 +15,7 @@
       visibility: visible;
       opacity: 1;
       transition: visibility 0.1s, opacity 0.1s linear;
+      cursor: pointer;
 
       &--disabled {
         visibility: hidden;
@@ -22,6 +27,7 @@
       visibility: visible;
       opacity: 1;
       transition: visibility 0.1s, opacity 0.1s linear;
+      cursor: pointer;
 
       &--disabled {
         visibility: hidden;

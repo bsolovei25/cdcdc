@@ -47,7 +47,6 @@ export class CdDeviationMatComponent extends WidgetPlatform implements OnInit, O
 
     protected dataHandler(ref: any): void {
         if (ref) {
-            console.log(ref);
             this.data = [
                 ...ref?.streams,
                 {

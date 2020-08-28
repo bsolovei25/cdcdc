@@ -32,7 +32,11 @@ export abstract class WidgetPlatform implements OnDestroy {
     ) {}
 
     public ngOnDestroy(): void {
-        this.subscriptions.forEach((el) => el.unsubscribe());
+        this.subscriptions.forEach((el) => {
+            try {
+                el?.unsubscribe();
+            } catch {}
+        });
         if (!this.isMock) {
             this.widgetService.removeWidget(this.widgetId);
         }

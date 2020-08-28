@@ -44,6 +44,9 @@ export class WidgetsGridComponent implements OnInit, OnDestroy {
         event: MouseEvent;
     }> = new EventEmitter<{ item: GridsterItem; event: MouseEvent }>();
 
+    // To fix template errors;
+    private isUserAction: boolean = false;
+
     private sizeTimeout: any;
 
     public ColWidth: number;
@@ -164,6 +167,9 @@ export class WidgetsGridComponent implements OnInit, OnDestroy {
     }
 
     public itemChange(item: GridsterItem, itemComponent: GridsterItemComponentInterface): void {
+        if (!this.isUserAction) {
+            return;
+        }
         item = itemComponent.item;
         this.userSettings.updateByPosition(item, itemComponent.item);
     }
@@ -200,6 +206,7 @@ export class WidgetsGridComponent implements OnInit, OnDestroy {
         if (!e) {
             return;
         }
+        this.isUserAction = true;
         const dataTrasfer = new DataTransfer();
         e.currentTarget.dispatchEvent(new DragEvent('dragstart', { dataTransfer: dataTrasfer }));
     }
@@ -220,6 +227,7 @@ export class WidgetsGridComponent implements OnInit, OnDestroy {
     }
 
     public dragStop(item: GridsterItem, e: MouseEvent): void {
+        setTimeout(() => this.isUserAction = false, 1000);
         // if (!e) return;
         // const dataTrasfer = new DataTransfer();
         // e.currentTarget.dispatchEvent(new DragEvent('dragstop', { dataTransfer: dataTrasfer }));

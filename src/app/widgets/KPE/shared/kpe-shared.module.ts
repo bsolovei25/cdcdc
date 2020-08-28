@@ -6,6 +6,8 @@ import { KpeDeviationDiagramComponent } from './kpe-deviation-diagram/kpe-deviat
 import { KpeEqualizerChartComponent } from './kpe-equalizer-chart/kpe-equalizer-chart.component';
 import { CommonModule } from '@angular/common';
 import { KpeGaugeChartComponent } from './kpe-gauge-chart/kpe-gauge-chart.component';
+import { AngularSvgIconModule } from 'angular-svg-icon';
+import { KpeHelperService } from './kpe-helper.service';
 
 @NgModule({
     declarations: [
@@ -14,7 +16,7 @@ import { KpeGaugeChartComponent } from './kpe-gauge-chart/kpe-gauge-chart.compon
         KpeGaudeChartComponent,
         KpeGaugeChartComponent,
         KpeDeviationDiagramComponent,
-        KpeEqualizerChartComponent,
+        KpeEqualizerChartComponent
     ],
     exports: [
         KpeLineDiagramComponent,
@@ -22,8 +24,13 @@ import { KpeGaugeChartComponent } from './kpe-gauge-chart/kpe-gauge-chart.compon
         KpeGaudeChartComponent,
         KpeGaugeChartComponent,
         KpeDeviationDiagramComponent,
-        KpeEqualizerChartComponent,
+        KpeEqualizerChartComponent
     ],
-    imports: [CommonModule],
+    imports: [
+        CommonModule,
+        AngularSvgIconModule
+    ],
+    providers: [KpeHelperService],
 })
-export class KpeSharedModule {}
+export class KpeSharedModule {
+}

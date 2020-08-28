@@ -1,0 +1,120 @@
+<ng-container *ngIf="info">
+  <div
+    class="loading-shade loading-shade__blur"
+    (mousedown)="$event.stopPropagation()"
+    (touchstart)="$event.stopPropagation()"
+  >
+    <div class="window-container">
+      <div class="window-container__header">
+        <div class="window-container__header__title">Добавление корректирующего мероприятия</div>
+      </div>
+      <div class="window-container__body">
+        <div class="window-container__body__left-block">
+          <div class="window-container__body__input">
+            <div class="input__container">
+              <p class="input__container__title">Назначьте отвественного:</p>
+              <mat-form-field class="input__container__form mat-select-custom">
+                <mat-select value="ewService.event.asusEvent.category" [compareWith]="compareFn"
+                            [(value)]="info.responsible">
+                  <mat-option *ngFor="let user of info?.users" [value]="user">
+                    {{ user.positionDescription }}  {{ user.middleName }} {{ user.firstName }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="window-container__body__time-block">
+            <div class="window-container__body__input">
+              <div class="input__container">
+                <p class="input__container__title">Выберите дату:</p>
+                <mat-form-field class="form form__picker custom-picker">
+                  <input
+                    autocomplete="off"
+                    matInput
+                    [matDatepicker]="pickerTo"
+                    [(ngModel)]="info.date"
+                  />
+                  <mat-datepicker-toggle matSuffix [for]="pickerTo">
+                    <span matDatepickerToggleIcon>
+                      <svg-icon
+                        class="form__icon"
+                        src="assets/icons/widgets/CD/cd-mat-balance/calendar.svg"
+                        [svgStyle]="{ 'width.px': 15, 'height.px': 15}"
+                      >
+                      </svg-icon>
+                    </span>
+                  </mat-datepicker-toggle>
+                  <mat-datepicker #pickerTo disabled="false"></mat-datepicker>
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="window-container__body__input">
+              <div class="input__container">
+                <p class="input__container__title">Выберите время:</p>
+                <div class="input__container__time" (click)="openBlock()" #toggleButton>
+                  {{ timeStart.value.toDate() | date:'HH:mm' }}
+                  <svg-icon
+                    class="form__icon"
+                    src="assets/icons/widgets/CD/cd-mat-balance/time.svg"
+                    [svgStyle]="{ 'width.px': 21, 'height.px': 21}"
+                  >
+                  </svg-icon>
+                </div>
+                <div
+                  *ngIf="isOpenStartDate"
+                  class="input__container__overlay"
+                  (mouseleave)="onMouseExit()"
+                >
+                  <ngx-mat-timepicker
+                    #menu
+                    (click)="$event.stopPropagation()"
+                    [formControl]="timeStart"
+                    [showSeconds]="false"
+                    [disableMinute]="true"
+                  >
+                  </ngx-mat-timepicker>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="window-container__body__input">
+            <div class="input__container">
+              <p class="input__container__title">Краткое описание:</p>
+              <textarea type="text" rows="9" [(ngModel)]="info.description"></textarea>
+            </div>
+          </div>
+        </div>
+        <div class="window-container__body__right-block">
+          <div class="window-container__body__input">
+            <div class="input__container">
+              <p class="input__container__title">Установленные факты:</p>
+              <textarea type="text" rows="19" [(ngModel)]="info.establishedFacts"></textarea>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="window-container__footer">
+        <div class="window-container__footer__btn">
+          <div>Принять</div>
+        </div>
+        <div class="window-container__footer__btn">
+          <div>Отправить в обработку</div>
+        </div>
+        <div class="window-container__footer__btn" (click)="cancel()">
+          <div>Отменить</div>
+        </div>
+        <div
+          class="window-container__footer__btn window-container__footer__btn__accept"
+          (click)="accept()"
+        >
+          <svg-icon
+            class="table__body__column__row-title__icon__background"
+            src="assets/icons/widgets/CD/cd-mat-balance/send.svg"
+          >
+          </svg-icon>
+          {{ info?.acceptText }}
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-container>

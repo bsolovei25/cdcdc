@@ -5,7 +5,10 @@
 
   box-sizing: border-box;
 
-  &__indicator-selector {
+  &__group-selector,
+  &__indicator-selector,
+  &__indicator-diagram,
+  &__menu-button {
     height: 100%;
   }
 
@@ -31,10 +34,18 @@
 }
 
 .logo-gpn {
-  margin: 7px 15px 7px 5px;
-  min-width: 240px;
+  margin: 10px 15px 14px 20px;
+  min-width: 73px;
   height: calc(100% - 15px);
-  background: url("../../../../assets/icons/mnpz-logo.svg");
+  background: url("../../../../assets/icons/logo.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+}
+.arrow-gpn {
+  min-width: 24px;
+  height: 100%;
+  background: url("../../../../assets/icons/logo-arrow.svg");
   background-repeat: no-repeat;
   background-position: center;
   background-size: contain;

@@ -31,7 +31,7 @@ export class KpeDeviationDiagramComponent implements OnChanges {
 
     @HostListener('document:resize', ['$event'])
     public OnResize(): void {
-        if (this.data.length) {
+        if (this.data && this.chart) {
             this.drawSvg();
         }
     }
@@ -63,7 +63,7 @@ export class KpeDeviationDiagramComponent implements OnChanges {
 
 
     public ngOnChanges(changes: SimpleChanges): void {
-        if (this.data.length) {
+        if (this.data && this.chart) {
             this.drawSvg();
         }
     }
@@ -235,10 +235,10 @@ export class KpeDeviationDiagramComponent implements OnChanges {
 
         const dayFact = this.factDataset.find(item => item.x === this.day);
 
-        this.appendCircle(8, this.day, dayFact.y, 'day-circle-1');
-        this.appendCircle(4, this.day, dayFact.y, 'day-circle-2');
-        this.appendCircle(2, this.day, dayFact.y, 'day-circle-3');
-        this.appendCircle(1, this.day, dayFact.y, 'day-circle-4');
+        this.appendCircle(8, this.day, dayFact?.y, 'day-circle-1');
+        this.appendCircle(4, this.day, dayFact?.y, 'day-circle-2');
+        this.appendCircle(2, this.day, dayFact?.y, 'day-circle-3');
+        this.appendCircle(1, this.day, dayFact?.y, 'day-circle-4');
     }
 
     private drawDeviations(): void {

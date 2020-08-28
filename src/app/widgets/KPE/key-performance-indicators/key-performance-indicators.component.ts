@@ -1,11 +1,14 @@
 import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
 import { WidgetPlatform } from '../../../dashboard/models/widget-platform';
 import { WidgetService } from '../../../dashboard/services/widget.service';
-import { IKpeGaugeChartInputData } from './components/gauge-diagram/gauge-diagram.component';
+import { IKpeGaugeChartPage } from './components/gauge-diagram/gauge-diagram.component';
 
-export interface ITruncatedDiagramInputData {
-    name: string;
-    items: IKpeGaugeChartInputData;
+export type KeyPerformanceIndicatorType = 'pimsPlan' | 'normPlan' | 'operPlan';
+
+export interface IKpeGaugeChartData {
+    pimsPlan: IKpeGaugeChartPage;
+    normPlan: IKpeGaugeChartPage;
+    operPlan: IKpeGaugeChartPage;
 }
 
 @Component({
@@ -14,7 +17,10 @@ export interface ITruncatedDiagramInputData {
     styleUrls: ['./key-performance-indicators.component.scss'],
 })
 export class KeyPerformanceIndicatorsComponent extends WidgetPlatform implements OnInit, OnDestroy {
-    public data: ITruncatedDiagramInputData;
+    public sourceData: IKpeGaugeChartData;
+    public diagramData: IKpeGaugeChartPage;
+
+    public activeIndicatorType: KeyPerformanceIndicatorType;
 
     constructor(
         public widgetService: WidgetService,
@@ -27,14 +33,18 @@ export class KeyPerformanceIndicatorsComponent extends WidgetPlatform implements
 
     public ngOnInit(): void {
         super.widgetInit();
+        this.setActiveIndicator();
     }
 
-    private processData(): void {
+    public setActiveIndicator(indicator?: KeyPerformanceIndicatorType): void {
+        indicator = indicator ? indicator : this.activeIndicatorType ? this.activeIndicatorType : 'pimsPlan';
+        this.activeIndicatorType = indicator;
+        if (this.sourceData) { this.diagramData = this.sourceData[indicator]; }
     }
 
     protected dataHandler(ref: any): void {
-        this.data = ref.groups;
-        this.processData();
+        this.sourceData = ref;
+        this.setActiveIndicator();
     }
 
     ngOnDestroy(): void {
