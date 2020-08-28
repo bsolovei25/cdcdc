@@ -56,6 +56,7 @@ export interface ISensors {
 }
 
 export interface IStreams {
+    id: number;
     description: string;
     deviation: number;
     modelValue: number;

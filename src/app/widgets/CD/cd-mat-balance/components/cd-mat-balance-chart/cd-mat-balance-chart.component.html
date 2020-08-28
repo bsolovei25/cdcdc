@@ -89,9 +89,10 @@
       <ng-container
         *ngFor="let item of allWidgets"
       >
-        <ng-container *ngIf="item.widgetType === 'cd-mat-balance-sensor'">
+        <ng-container
+          *ngIf="item.widgetType === 'cd-mat-balance-sensor' || item.widgetType === 'cd-mat-balance-stream'">
           <ng-container
-            *ngComponentOutlet="WIDGETS[item.widgetType]; injector: (item.id | fn:getInjector : item.uniqid);"
+            *ngComponentOutlet="WIDGETS[item.widgetType]; injector: (item.id | fn:getInjector : item?.uniqid);"
           >
           </ng-container>
         </ng-container>

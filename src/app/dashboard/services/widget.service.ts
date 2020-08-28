@@ -126,7 +126,8 @@ export class WidgetService {
                 isClaim: item.isClaim,
                 isVideoWall: item.isVideoWall,
                 sortType: item.sortType,
-                isHidden: item.isHidden
+                isHidden: item.isHidden,
+                sensorId: item.sensorId
             };
         });
     }
@@ -255,6 +256,7 @@ export class WidgetService {
             case 'cd-deviation-mat':
             case 'cd-reactor-parameters':
             case 'cd-mat-balance-sensor':
+            case 'cd-mat-balance-stream':
             case 'key-performance-indicators':
             case 'kpe-energetic':
             case 'kpe-readiness':

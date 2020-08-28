@@ -160,7 +160,8 @@ export const WIDGETS = {
     'astue-onpz-big-planning-chart': WidgetContainerComponent,
     'astue-onpz-interactive-indicators': WidgetContainerComponent,
     // TODO
-    'cd-mat-balance-sensor': CdMatBalanceChartCardComponent
+    'cd-mat-balance-sensor': CdMatBalanceChartCardComponent,
+    'cd-mat-balance-stream': CdMatBalanceChartCardComponent
     //
 };
 
@@ -463,14 +464,14 @@ export const WIDGETS_LAZY = {
         import: async () => {
             return await import(
                 'src/app/widgets/LCO/spline-trends-chart/spline-trends-chart.module'
-            );
+                );
         },
         module: 'SplineTrendsChartModule',
         itemCols: 24,
         itemRows: 14,
         minItemCols: 24,
         minItemRows: 14,
-        preview: 'spline-trends-chart',
+        preview: 'spline-trends-chart'
     },
 
     'industrial-pyramid': {
@@ -482,7 +483,7 @@ export const WIDGETS_LAZY = {
         itemRows: 16,
         minItemCols: 20,
         minItemRows: 16,
-        preview: 'industrial-pyramid',
+        preview: 'industrial-pyramid'
     },
     //#endregion LCO
 
@@ -495,20 +496,20 @@ export const WIDGETS_LAZY = {
         itemRows: 7,
         minItemCols: 9,
         minItemRows: 7,
-        preview: 'implementation-plan',
+        preview: 'implementation-plan'
     },
 
     'performance-progress-indicators': {
         import: async () =>
             await import(
                 'src/app/widgets/SMP/performance-progress-indicators/performance-progress-indicators.module'
-            ),
+                ),
         module: 'PerformanceProgressIndicatorsModule',
         itemCols: 9,
         itemRows: 7,
         minItemCols: 9,
         minItemRows: 7,
-        preview: 'performance-progress-indicators',
+        preview: 'performance-progress-indicators'
     },
 
     'quality-stock': {
@@ -518,7 +519,7 @@ export const WIDGETS_LAZY = {
         itemRows: 14,
         minItemCols: 14,
         minItemRows: 14,
-        preview: 'quality-stock',
+        preview: 'quality-stock'
     },
 
     'smp-events': {
@@ -528,7 +529,7 @@ export const WIDGETS_LAZY = {
         itemRows: 20,
         minItemCols: 14,
         minItemRows: 20,
-        preview: 'smp-events',
+        preview: 'smp-events'
     },
 
     'smp-events-workspace': {
@@ -539,7 +540,7 @@ export const WIDGETS_LAZY = {
         itemRows: 30,
         minItemCols: 20,
         minItemRows: 30,
-        preview: 'smp-events-workspace',
+        preview: 'smp-events-workspace'
     },
 
     'product-groups': {
@@ -550,7 +551,7 @@ export const WIDGETS_LAZY = {
         itemRows: 20,
         minItemCols: 20,
         minItemRows: 17,
-        preview: 'product-groups',
+        preview: 'product-groups'
     },
 
     'production-deviations': {
@@ -558,7 +559,7 @@ export const WIDGETS_LAZY = {
             {
                 return await import(
                     'src/app/widgets/SMP/production-deviations/production-deviations.module'
-                );
+                    );
             }
         },
         module: 'ProductionDeviationsModule',
@@ -566,7 +567,7 @@ export const WIDGETS_LAZY = {
         itemRows: 27,
         minItemCols: 37,
         minItemRows: 27,
-        preview: 'production-deviations',
+        preview: 'production-deviations'
     },
 
     'product-groups-short': {
@@ -577,7 +578,7 @@ export const WIDGETS_LAZY = {
         itemRows: 20,
         minItemCols: 20,
         minItemRows: 17,
-        preview: 'product-groups-short',
+        preview: 'product-groups-short'
     },
     //#endregion SMP
 
@@ -740,7 +741,7 @@ export const WIDGETS_LAZY = {
         minItemCols: 24,
         minItemRows: 10
         // preview: 'astue-onpz-interactive-indicators',
-    },
+    }
 
     //#endregion ASTUE-ONPZ
 

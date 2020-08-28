@@ -24,6 +24,7 @@ export interface IWidget {
     isVideoWall?: boolean;
     sortType?: SortTypeEvents;
     isHidden?: boolean;
+    sensorId?: number;
 }
 
 export interface RingFactoryWidget {

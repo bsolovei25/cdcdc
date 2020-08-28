@@ -5,7 +5,7 @@ import {
     ElementRef,
     OnInit,
     ViewChild,
-    Input,
+    Input
 } from '@angular/core';
 import * as d3Selection from 'd3-selection';
 import * as d3 from 'd3';
@@ -21,38 +21,36 @@ export interface ICdIndicatorLoad {
 @Component({
     selector: 'evj-cd-mat-balance-gauge',
     templateUrl: './cd-mat-balance-gauge.component.html',
-    styleUrls: ['./cd-mat-balance-gauge.component.scss'],
+    styleUrls: ['./cd-mat-balance-gauge.component.scss']
 })
 export class CdMatBalanceGaugeComponent implements OnInit, AfterViewInit {
-    @Input() set datas(values: ICdIndicatorLoad[]) {
-        if (values) {
-            values.forEach((value) => {
-                switch (value.name) {
-                    case 'Загрузка':
-                        this.load = value;
-                        if (this.gaugeElement?.nativeElement) {
-                            this.drawWidget();
-                        }
-                        break;
-                    case 'Кратность циркуляции катализатора':
-                        this.multiplicity = value;
-                        break;
-                    case 'Расход ВГ':
-                        this.consumption = value;
-                        break;
-                    case 'Температура Р-201. Норма 510 - 545 град':
-                        this.temperature = value;
-                        break;
-                    case 'Температура сырья':
-                        this.temperatureRaw = value;
-                        break;
-                }
-            });
-        }
+    @Input() set data(values: ICdIndicatorLoad[]) {
+        values?.forEach((value) => {
+            switch (value.name) {
+                case 'Загрузка':
+                    this.load = value;
+                    this.percentLoad = this.load.value / this.load.max * 100;
+                    if (this.gaugeElement?.nativeElement) {
+                        this.drawWidget();
+                    }
+                    break;
+                case 'Кратность циркуляции катализатора':
+                    this.multiplicity = value;
+                    break;
+                case 'Расход ВГ':
+                    this.consumption = value;
+                    break;
+                case 'Температура Р-201. Норма 510 - 545 град':
+                    this.temperature = value;
+                    break;
+                case 'Температура сырья':
+                    this.temperatureRaw = value;
+                    break;
+            }
+        });
     }
 
-    array: ICdIndicatorLoad[] = [];
-
+    percentLoad: number = 0;
     multiplicity: ICdIndicatorLoad;
     consumption: ICdIndicatorLoad;
     temperature: ICdIndicatorLoad;
@@ -64,9 +62,11 @@ export class CdMatBalanceGaugeComponent implements OnInit, AfterViewInit {
 
     private svgBody: any;
 
-    constructor(private cdRef: ChangeDetectorRef) {}
+    constructor(private cdRef: ChangeDetectorRef) {
+    }
 
-    ngOnInit(): void {}
+    ngOnInit(): void {
+    }
 
     ngAfterViewInit(): void {
         this.drawWidget();
@@ -139,7 +139,7 @@ export class CdMatBalanceGaugeComponent implements OnInit, AfterViewInit {
             .style('transform', 'scaleY(-1)');
 
         const gaude = indicator.append('g').attr('class', 'gaude');
-        this.drawBigGaude(gaude, this.load?.value?.toFixed() ? this.load?.value?.toFixed() : 0);
+        this.drawBigGaude(gaude, this.percentLoad ? this.percentLoad : 0);
         const text = gaude.append('g').attr('class', 'gaude-text');
         this.drawTextInGaude(text);
         gaude.style('transform', 'translate(50%, 51.5%) scale(8.9)');
@@ -177,7 +177,7 @@ export class CdMatBalanceGaugeComponent implements OnInit, AfterViewInit {
             x1: -min * Math.cos(Math.PI / 4),
             x2: -max * Math.cos(Math.PI / 4),
             y1: min * Math.sin(Math.PI / 4),
-            y2: max * Math.sin(Math.PI / 4),
+            y2: max * Math.sin(Math.PI / 4)
         };
         // отрисовка линий начала и конца
         const lines = svg.append('g').attr('class', 'lines');

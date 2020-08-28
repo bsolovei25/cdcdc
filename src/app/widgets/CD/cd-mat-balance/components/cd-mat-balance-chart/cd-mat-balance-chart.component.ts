@@ -68,7 +68,7 @@ export class CdMatBalanceChartComponent implements OnInit, OnDestroy, AfterViewI
                 const allWidgetsLoc = this.widgetService.allWidgets;
                 charts.forEach((chart) => {
                     allWidgetsLoc.forEach((value) => {
-                        if (value.name === chart) {
+                        if (value?.sensorId === +chart) {
                             this.allWidgets.push(value);
                         }
                     });
