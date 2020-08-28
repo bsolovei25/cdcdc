@@ -288,7 +288,6 @@ export class CdMnemonicComponent implements OnInit {
             text.addEventListener('click',
                 (e) => {
                     this.addLineChart(+id);
-                    // console.log(id);
                 });
             const el = this.data.find((val) => val.id === +id);
             let value = 0;
