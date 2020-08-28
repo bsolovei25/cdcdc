@@ -57,7 +57,8 @@
             [(ngModel)]="ewService.event?.productionTasks.subcategory"
             [compareWith]="compareFn"
           >
-            <mat-option *ngFor="let p of ewService.subcategory" [value]="p.name"
+            <mat-option [value]="undefined">Не выбрана</mat-option>
+            <mat-option *ngFor="let p of ewService.subcategory" [value]="p"
               >{{ ewService.subCategories[p.id] }}
             </mat-option>
           </mat-select>
@@ -96,7 +97,8 @@
     <evj-event-description
       class="left__item"
       titleName="Распоряжения"
-      [description]="ewService.event?.productionTasks?.order"
+      [description]="ewService.event?.description"
+      (changedDescription)="onChangeEventDescription($event)"
     ></evj-event-description>
     <evj-chat
       [displayGraphImage]="!!ewService.event.graphValues?.graphs[0]"

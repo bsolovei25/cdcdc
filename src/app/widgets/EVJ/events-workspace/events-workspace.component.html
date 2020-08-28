@@ -31,7 +31,16 @@
   >
     <ng-container *ngIf="ewService.event" [ngSwitch]="ewService?.event?.category?.code">
       <evj-smotr-event *ngSwitchCase="0"></evj-smotr-event>
-      <evj-tasks-event *ngSwitchCase="2"></evj-tasks-event>
+      <ng-container *ngSwitchCase="2">
+        <!-- Проверка на подкатегорию "Распоряжения" -->
+        <evj-tasks-event
+          *ngIf="ewService?.event?.productionTasks?.subcategory?.id===0 else usual"
+        ></evj-tasks-event>
+
+        <ng-template #usual>
+          <evj-usual-event></evj-usual-event>
+        </ng-template>
+      </ng-container>
       <evj-asus-event *ngSwitchCase="5"></evj-asus-event>
       <evj-ejs-event *ngSwitchCase="6"></evj-ejs-event>
       <evj-cdcp-event *ngSwitchCase="7"></evj-cdcp-event>
