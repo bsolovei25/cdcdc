@@ -484,7 +484,6 @@ export class EventsWorkspaceService {
             },
             productionTasks: {
                 subcategory: null,
-                order: null,
                 start: null,
                 inWork: null,
                 close: null,

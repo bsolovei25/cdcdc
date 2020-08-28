@@ -38,4 +38,8 @@ export class TasksEventComponent implements OnInit {
     public dateTimePicker(date: Date): void {
         this.ewService.setDeadlineToEvent(date);
     }
+
+    public onChangeEventDescription(description: string): void {
+        this.ewService.event.description = description;
+    }
 }
