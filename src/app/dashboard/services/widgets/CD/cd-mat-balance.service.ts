@@ -13,6 +13,7 @@ export class CdMatBalanceService {
     >(null);
 
     public hc$: BehaviorSubject<8 | 24> = new BehaviorSubject<8 | 24>(8);
+    public currentHour$: BehaviorSubject<number> = new BehaviorSubject<number>(0);
 
     constructor() {}
 }

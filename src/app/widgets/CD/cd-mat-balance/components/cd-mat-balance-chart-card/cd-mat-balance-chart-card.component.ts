@@ -87,7 +87,6 @@ export class CdMatBalanceChartCardComponent extends WidgetPlatform
         if (ref) {
             this.getData(ref);
             this.isLoading = false;
-            console.log(ref);
         }
     }
 
@@ -106,6 +105,8 @@ export class CdMatBalanceChartCardComponent extends WidgetPlatform
             };
         });
 
+        this.setCurrentHour(fact); // задание текущего активного часа для отрисовки шкалы
+
         const newData: ISplineDiagramData = {
             deviationValue: data.deviation,
             planValue: data.modelValue,
@@ -115,7 +116,6 @@ export class CdMatBalanceChartCardComponent extends WidgetPlatform
             plan: this.transformData(plan),
         };
 
-        console.log('newData', newData);
         this.data = data;
         this.chartData = newData;
     }
@@ -142,6 +142,14 @@ export class CdMatBalanceChartCardComponent extends WidgetPlatform
             };
         });
         return resultArray;
+    }
+
+    private setCurrentHour(data: { value: number; timestamp: Date }[]): void {
+        const currHour = this.cdMatBalanceService.currentHour$.getValue();
+        const newCurrentHour = data[data.length - 1].timestamp.getHours();
+        if (currHour !== newCurrentHour) {
+            this.cdMatBalanceService.currentHour$.next(newCurrentHour);
+        }
     }
 
     upChart(): void {

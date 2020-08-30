@@ -1,12 +1,4 @@
-import {
-    AfterViewInit,
-    Component,
-    Injector,
-    Input,
-    OnDestroy,
-    OnInit,
-    Injectable,
-} from '@angular/core';
+import { AfterViewInit, Component, Injector, Input, OnDestroy, OnInit } from '@angular/core';
 import {
     ISplineDiagramData,
     ISplineDiagramSize,
@@ -15,7 +7,7 @@ import { HttpClient } from '@angular/common/http';
 import { CdMatBalanceService } from '../../../../../dashboard/services/widgets/CD/cd-mat-balance.service';
 import { WidgetService } from '../../../../../dashboard/services/widget.service';
 import { WIDGETS } from '../../../../../dashboard/components/widgets-grid/widget-map';
-import { Subscription, BehaviorSubject } from 'rxjs';
+import { Subscription, BehaviorSubject, combineLatest } from 'rxjs';
 import { IWidget } from '../../../../../dashboard/models/widget.model';
 
 @Component({
@@ -44,6 +36,9 @@ export class CdMatBalanceChartComponent implements OnInit, OnDestroy, AfterViewI
     set hoursCount(param: 8 | 24) {
         this.cdMatBalanceService.hc$.next(param);
     }
+
+    public hoursLine: number[] = [];
+    public currentDate: Date;
 
     public readonly selectValues: { value: number; title: string }[] = [
         {
@@ -80,6 +75,19 @@ export class CdMatBalanceChartComponent implements OnInit, OnDestroy, AfterViewI
                     });
                 });
                 this.allCheckedCharts = charts;
+            }),
+            combineLatest([
+                this.cdMatBalanceService.hc$,
+                this.cdMatBalanceService.currentHour$,
+            ]).subscribe(([hc, currentHour]) => {
+                const begin: number = currentHour - (hc - 1);
+                const end: number = currentHour + 2;
+                this.hoursLine = [];
+                this.currentDate = new Date();
+                for (let i = begin; i < end; i++) {
+                    const insert = i > 0 ? i : 24 + i;
+                    this.hoursLine.push(insert);
+                }
             })
         );
     }
