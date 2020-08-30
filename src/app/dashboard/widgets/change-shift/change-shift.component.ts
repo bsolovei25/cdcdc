@@ -18,7 +18,6 @@ import {
 } from '../../models/shift.model';
 import { WidgetPlatform } from '../../models/widget-platform';
 import { SnackBarService } from '../../services/snack-bar.service';
-import { AppConfigService } from '../../../services/appConfigService';
 import { AvatarConfiguratorService } from '../../services/avatar-configurator.service';
 
 @Component({

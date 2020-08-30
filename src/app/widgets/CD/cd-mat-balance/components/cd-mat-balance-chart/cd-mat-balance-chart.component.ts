@@ -1,4 +1,12 @@
-import { AfterViewInit, Component, Injector, Input, OnDestroy, OnInit } from '@angular/core';
+import {
+    AfterViewInit,
+    ChangeDetectorRef,
+    Component,
+    Injector,
+    Input,
+    OnDestroy,
+    OnInit,
+} from '@angular/core';
 import {
     ISplineDiagramData,
     ISplineDiagramSize,
@@ -57,24 +65,25 @@ export class CdMatBalanceChartComponent implements OnInit, OnDestroy, AfterViewI
         public http: HttpClient,
         private cdMatBalanceService: CdMatBalanceService,
         public widgetService: WidgetService,
-        public injector: Injector
+        public injector: Injector,
+        private chDet: ChangeDetectorRef
     ) {}
 
     ngOnInit(): void {
         this.onStart();
         this.subscriptions.push(
             this.cdMatBalanceService.charts$.subscribe((charts) => {
-                console.log(charts);
                 this.allWidgets = [];
-                const allWidgets = this.widgetService.allWidgets;
-                allWidgets.forEach((value) => {
-                    charts.forEach((chart) => {
-                        if (value.name === chart) {
+                const allWidgetsLoc = this.widgetService.allWidgets;
+                charts.forEach((chart) => {
+                    allWidgetsLoc.forEach((value) => {
+                        if (value?.sensorId === +chart) {
                             this.allWidgets.push(value);
                         }
                     });
                 });
                 this.allCheckedCharts = charts;
+                this.chDet.detectChanges();
             }),
             combineLatest([
                 this.cdMatBalanceService.hc$,

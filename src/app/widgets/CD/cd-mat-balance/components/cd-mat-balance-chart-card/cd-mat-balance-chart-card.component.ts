@@ -7,7 +7,7 @@ import {
     ElementRef,
     Injector,
     Inject,
-    Input,
+    Input, ChangeDetectorRef
 } from '@angular/core';
 import { WidgetPlatform } from '../../../../../dashboard/models/widget-platform';
 import {
@@ -55,6 +55,7 @@ export class CdMatBalanceChartCardComponent extends WidgetPlatform
         protected widgetService: WidgetService,
         public injector: Injector,
         private cdMatBalanceService: CdMatBalanceService,
+        private cdRef: ChangeDetectorRef,
         @Inject('isMock') public isMock: boolean,
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string
@@ -77,6 +78,7 @@ export class CdMatBalanceChartCardComponent extends WidgetPlatform
             width: this.chartElement.nativeElement.offsetWidth,
             height: this.chartElement.nativeElement.offsetHeight,
         };
+        this.cdRef.detectChanges();
     }
 
     public ngOnDestroy(): void {
@@ -156,22 +158,18 @@ export class CdMatBalanceChartCardComponent extends WidgetPlatform
         const widgets = this.cdMatBalanceService.charts$.getValue();
         const idx = widgets.findIndex((value) => value === this.data.name);
         if (idx > 0) {
-            const el = widgets[idx - 1];
-            widgets[idx - 1] = widgets[idx];
-            widgets[idx] = el;
+            [widgets[idx - 1], widgets[idx]] = [widgets[idx], widgets[idx - 1]];
         }
         this.cdMatBalanceService.charts$.next(widgets);
     }
 
     downChart(): void {
         const widgets = this.cdMatBalanceService.charts$.getValue();
-        const idx = widgets.findIndex((value) => value === this.data.name);
-        if (idx < widgets.length + 1) {
-            const el = widgets[idx + 1];
-            widgets[idx + 1] = widgets[idx];
-            widgets[idx] = el;
+        const idx = widgets.findIndex(value => value === this.data.name);
+        if (idx < widgets.length - 1) {
+            [widgets[idx + 1], widgets[idx]] = [widgets[idx], widgets[idx + 1]];
         }
-        this.cdMatBalanceService.charts$.next(widgets);
+        this.cdMatBalanceService.charts$.next(widgets.map(item => item));
     }
 
     deleteChart(): void {

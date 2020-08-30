@@ -9,12 +9,10 @@ import { IUnitEvents } from '../../../../models/events-widget';
 @Component({
     selector: 'evj-aws-create-claim',
     templateUrl: './aws-create-claim.component.html',
-    styleUrls: ['./aws-create-claim.component.scss'],
+    styleUrls: ['./aws-create-claim.component.scss']
 })
 export class AwsCreateClaimComponent implements OnInit {
-    @Output() private createdClaim: EventEmitter<IGlobalClaim[]> = new EventEmitter<
-        IGlobalClaim[]
-    >();
+    @Output() private createdClaim: EventEmitter<IGlobalClaim[]> = new EventEmitter<IGlobalClaim[]>();
 
     public allClaims: IGlobalClaim[] = [];
     public allWidgets: IWidget[] = [];
@@ -24,11 +22,12 @@ export class AwsCreateClaimComponent implements OnInit {
     public selectWidget: SelectionModel<IWidget> = new SelectionModel<IWidget>(true);
     public selectUnit: SelectionModel<IUnitEvents> = new SelectionModel<IUnitEvents>(true);
 
-    constructor(private adminService: AdminPanelService) {}
+    constructor(private adminService: AdminPanelService) {
+    }
 
     ngOnInit(): void {
         this.allClaims = this.adminService.specialClaims;
-        this.allWidgets = this.adminService.allWidgets;
+        this.allWidgets = this.adminService.allWidgets.filter(value => !value.isHidden);
         this.allUnits = this.adminService.units;
     }
 

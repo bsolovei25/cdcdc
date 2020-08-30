@@ -15,10 +15,10 @@ import { trigger, transition, animate, style } from '@angular/animations';
         trigger('items', [
             transition('void => *', [
                 style({ opacity: 0 }),
-                animate('1s cubic-bezier(.8, -0.6, 0.2, 1.5)', style({ opacity: 1 })),
-            ]),
-        ]),
-    ],
+                animate('1s cubic-bezier(.8, -0.6, 0.2, 1.5)', style({ opacity: 1 }))
+            ])
+        ])
+    ]
 })
 export class WidgetPanelComponent implements OnInit {
     public readonly WIDGETS = WIDGETS;
@@ -54,7 +54,8 @@ export class WidgetPanelComponent implements OnInit {
         public injector: Injector,
         public userSettings: UserSettingsService,
         private claimService: ClaimService
-    ) {}
+    ) {
+    }
 
     ngOnInit(): void {
         console.log('claims');
@@ -62,7 +63,7 @@ export class WidgetPanelComponent implements OnInit {
             this.widgetService.widgetsPanel$.subscribe((dataW) => {
                 const filterWidgets: IWidget[] = [];
                 dataW.forEach((widget) => {
-                    if (WIDGETS[widget.widgetType]) {
+                    if (WIDGETS[widget.widgetType] && !widget.isHidden) {
                         filterWidgets.push(widget);
                     }
                 });
@@ -82,7 +83,8 @@ export class WidgetPanelComponent implements OnInit {
         );
     }
 
-    async loadItem(): Promise<void> {}
+    async loadItem(): Promise<void> {
+    }
 
     dragStartHandler(event: DragEvent, item: string): void {
         event.dataTransfer.setData('text/plain', item);
@@ -185,9 +187,9 @@ export class WidgetPanelComponent implements OnInit {
                 { provide: 'widgetId', useValue: idWidget },
                 { provide: 'uniqId', useValue: null }, // uniqId is null when isMock
                 { provide: 'isMock', useValue: true },
-                { provide: 'resizeWidget', useValue: null },
+                { provide: 'resizeWidget', useValue: null }
             ],
-            parent: this.injector,
+            parent: this.injector
         });
     };
 }

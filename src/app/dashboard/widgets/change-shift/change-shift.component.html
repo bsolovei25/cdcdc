@@ -38,6 +38,11 @@
 
       <evj-alert-window [info]="shiftService.alertWindow$ | async"></evj-alert-window>
 
+      <!--TODO-->
+      <ng-container *ngIf="widgetType === 'shift-pass'">
+        <evj-alert-window [info]="shiftService.alertWindowLeaveShift$ | async"></evj-alert-window>
+      </ng-container>
+
       <div
         class="change-shift"
         (mousedown)="$event.stopPropagation()"

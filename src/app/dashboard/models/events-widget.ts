@@ -72,16 +72,10 @@ export interface EventsWidgetNotification {
 }
 
 export interface IEventProductionTask {
-    subcategory: string;
-    order: string;
-    start: IEventStep;
-    inWork: IEventStep;
-    close: IEventStep;
-}
-
-interface IEventStep {
-    author: string;
-    date: Date;
+    subcategory?: ISubcategory; // Подкатегория
+    start?: IEventStep; // Создано
+    inWork?: IEventStep; // Принято в работу
+    close?: IEventStep; // Закрыто
 }
 
 export interface IEventCd {
@@ -246,6 +240,11 @@ export interface IStatus {
 export interface ISubcategory {
     id: number;
     name?: string;
+}
+
+interface IEventStep {
+    author: string;
+    date: Date;
 }
 
 export interface IPriority {
