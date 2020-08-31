@@ -133,7 +133,10 @@ export class KpeEnergyDiagramComponent implements OnInit {
             .startAngle(-0.5 * Math.PI)
             .endAngle(-0.008 * Math.PI);
 
-        const arrowAngle = (-175 + 270 * mainValue / this.diagramCounter);
+        // const arrowAngle = (-180 + 270 * mainValue / this.diagramCounter);
+        const arrowAngle = this.fact > this.plan
+            ? 90
+            : (-180 + 360 * mainValue / this.diagramCounter);
 
         const needleShadow = svg
             .append('path')
