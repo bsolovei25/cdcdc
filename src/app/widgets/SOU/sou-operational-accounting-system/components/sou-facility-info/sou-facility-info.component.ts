@@ -1,9 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-
-export interface ISouFacilityInfo {
-    title: string;
-    counter: number;
-}
+import { ISOUSection } from '../../../../../dashboard/models/SOU/sou-operational-accounting-system';
 
 @Component({
     selector: 'evj-sou-facility-info',
@@ -13,10 +9,7 @@ export interface ISouFacilityInfo {
 export class SouFacilityInfoComponent implements OnInit {
     @Output() openPanel: EventEmitter<boolean> = new EventEmitter<boolean>();
 
-    @Input() data: ISouFacilityInfo = {
-        title: 'АВТ-10-АБ',
-        counter: 2,
-    };
+    @Input() data: ISOUSection;
 
     constructor() {
     }

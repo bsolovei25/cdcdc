@@ -1,4 +1,12 @@
-import { Component, OnInit, Output, EventEmitter, Injector, Input } from '@angular/core';
+import {
+    Component,
+    OnInit,
+    Output,
+    EventEmitter,
+    Injector,
+    Input,
+    ChangeDetectorRef
+} from '@angular/core';
 import { WidgetService } from '../../services/widget.service';
 import { UserSettingsService } from '../../services/user-settings.service';
 import { ClaimService, EnumClaimWidgets, EnumClaimScreens } from '../../services/claim.service';
@@ -53,7 +61,8 @@ export class WidgetPanelComponent implements OnInit {
         public widgetService: WidgetService,
         public injector: Injector,
         public userSettings: UserSettingsService,
-        private claimService: ClaimService
+        private claimService: ClaimService,
+        private chDet: ChangeDetectorRef
     ) {
     }
 
@@ -69,6 +78,7 @@ export class WidgetPanelComponent implements OnInit {
                 });
                 this.widgets$.next(filterWidgets);
                 this.filterWidgets$.next(filterWidgets);
+                this.chDet.detectChanges();
             }),
             this.claimService.claimWidgets$.subscribe((set) => {
                 this.claimSettingsWidgets = set;

@@ -262,6 +262,7 @@ export class WidgetService {
             case 'kpe-readiness':
             case 'kpe-quality':
             case 'kpe-safety':
+            case 'sou-operational-accounting-system':
                 return data;
         }
         console.warn(`unknown widget type ${widgetType}`);
