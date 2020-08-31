@@ -9,7 +9,7 @@ import { EventsWorkspaceService } from '../../../dashboard/services/widgets/even
 import {
     EventsWidgetNotification,
     ISaveMethodEvent,
-    IUser,
+    IUser
 } from '../../../dashboard/models/events-widget';
 import { EventService } from '../../../dashboard/services/widgets/event.service';
 import { SnackBarService } from '../../../dashboard/services/snack-bar.service';
@@ -72,7 +72,7 @@ export interface IStreams {
 @Component({
     selector: 'evj-cd-mat-balance',
     templateUrl: './cd-mat-balance.component.html',
-    styleUrls: ['./cd-mat-balance.component.scss'],
+    styleUrls: ['./cd-mat-balance.component.scss']
 })
 export class CdMatBalanceComponent extends WidgetPlatform implements OnInit, OnDestroy {
     isSelectedEl: number;
@@ -86,7 +86,7 @@ export class CdMatBalanceComponent extends WidgetPlatform implements OnInit, OnD
             value: 0,
             children: [
                 {
-                    name: 'КИП',
+                    name: 'Данные',
                     value: 0,
                     children: [
                         {
@@ -98,11 +98,10 @@ export class CdMatBalanceComponent extends WidgetPlatform implements OnInit, OnD
                                     acceptText: 'Отправить в службу КИПиА',
                                     date: new Date(),
                                     time: new Date(),
-                                    description: '',
+                                    description: `Корректирующие мероприятие: ${this.openEvent.description}`,
                                     establishedFacts: '',
                                     responsible: null,
                                     acceptFunction: () => {
-                                        console.log(this.modal);
                                         this.saveEvents(
                                             this.modal.responsible,
                                             this.modal.description,
@@ -113,21 +112,21 @@ export class CdMatBalanceComponent extends WidgetPlatform implements OnInit, OnD
                                     },
                                     cancelFunction: () => {
                                         this.modal = null;
-                                    },
+                                    }
                                 };
-                            },
-                        },
-                    ],
+                            }
+                        }
+                    ]
                 },
                 {
                     name: 'Модель',
-                    value: 0,
+                    value: 0
                 },
                 {
                     name: 'Техпроцесс',
-                    value: 0,
-                },
-            ],
+                    value: 0
+                }
+            ]
         },
         {
             name: 'Вернуться к карточке события',
@@ -136,8 +135,8 @@ export class CdMatBalanceComponent extends WidgetPlatform implements OnInit, OnD
                 this.userService.LoadScreenByWidget('events-workspace');
                 this.ewtService.editEvent(this.cdMatBalanceService.isOpenEvent$.getValue()?.id);
                 this.cdMatBalanceService.isOpenEvent$.next(null);
-            },
-        },
+            }
+        }
     ];
 
     constructor(
@@ -203,17 +202,18 @@ export class CdMatBalanceComponent extends WidgetPlatform implements OnInit, OnD
                 {
                     comment: facts,
                     createdAt: new Date(),
-                    displayName: this.authService.user$.getValue()?.displayName,
-                },
+                    displayName: this.authService.user$.getValue()?.displayName
+                }
             ],
             deadline: dateTime,
             eventDateTime: dateTime,
             fixedBy: this.authService.user$.getValue(),
-            retrievalEvents: [],
+            retrievalEvents: []
         };
         try {
             const events = await this.ewService.postEventRetrieval(event);
             this.snackBar.openSnackBar('Корректирующие мероприятие создано');
-        } catch (e) {}
+        } catch (e) {
+        }
     }
 }
