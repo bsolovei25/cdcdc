@@ -14,6 +14,7 @@ export class CdMatBalanceRightComponent implements OnInit {
         this.dataLocal = value;
         this.percentLoad = 0;
         value?.forEach(el => this.percentLoad += +el.percentLoad?.toFixed());
+        value?.sort((a, b) => a.id - b.id);
     }
 
     percentLoad: number = 0;
