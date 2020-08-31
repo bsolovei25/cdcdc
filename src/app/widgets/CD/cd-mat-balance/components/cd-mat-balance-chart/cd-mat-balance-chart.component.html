@@ -41,47 +41,19 @@
     </div>
   </div>
   <div class="timeline">
-    <div class="timeline__date">
-      <span style="margin: auto 0">16.07.2020</span>
+    <div class="timeline__date" [class.timeline__date_24]="hoursCount===24">
+      <span style="margin: auto 0">{{currentDate|date:"dd.MM.yyyy"}}</span>
     </div>
+    <!-- TOFIX Исправить по-нормальному вставку элементов линейки часов -->
     <div class="timeline__time">
-      <div class="item">
-        <span class="item_hour">13</span>
-        <div class="item_line"></div>
-      </div>
-      <div class="item">
-        <span class="item_hour">14</span>
-        <div class="item_line"></div>
-      </div>
-      <div class="item">
-        <span class="item_hour">15</span>
-        <div class="item_line"></div>
-      </div>
-      <div class="item">
-        <span class="item_hour">16</span>
-        <div class="item_line"></div>
-      </div>
-      <div class="item">
-        <span class="item_hour">17</span>
-        <div class="item_line"></div>
-      </div>
-      <div class="item">
-        <span class="item_hour">18</span>
-        <div class="item_line"></div>
-      </div>
-      <div class="item">
-        <span class="item_hour">19</span>
-        <div class="item_line"></div>
-      </div>
-      <div class="item item_active">
-        <span class="item_hour">20</span>
-        <div class="item_line"></div>
-      </div>
-      <div class="item">
-        <span class="item_hour">21</span>
-        <div class="item_line"></div>
-      </div>
+      <ng-container *ngFor="let item of hoursLine; let i = index">
+        <div class="item" [class.item_active]="i===hoursLine.length-2">
+          <span class="item_hour">{{item}}</span>
+          <div class="item_line"></div>
+        </div>
+      </ng-container>
     </div>
+    <!-- TOFIX -->
   </div>
   <div class="body">
     <div class="scroll-container">

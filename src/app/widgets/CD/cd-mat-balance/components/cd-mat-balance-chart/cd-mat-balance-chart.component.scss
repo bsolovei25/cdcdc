@@ -7,15 +7,14 @@
   }
 }
 
-
 $color-bg-border: rgba(92, 101, 133, 0.25);
-$color-text-label: #D7E2F2;
-$color-text-value: #8A98B3;
-$color-diagram-bg: #0B1325;
-$color-diagram-active: #0089FF;
-$color-diagram-sub: rgba(92, 101, 133, .2);
+$color-text-label: #d7e2f2;
+$color-text-value: #8a98b3;
+$color-diagram-bg: #0b1325;
+$color-diagram-active: #0089ff;
+$color-diagram-sub: rgba(92, 101, 133, 0.2);
 $color-header-bg: rgba(92, 101, 133, 0.1);
-$color-button: #5C6585;
+$color-button: #5c6585;
 
 .line-charts {
   position: relative;
@@ -53,6 +52,10 @@ $color-button: #5C6585;
       margin-left: 310px;
       display: flex;
       color: $color-diagram-active;
+
+      &_24 {
+        margin-left: 360px;
+      }
     }
 
     &__time {
@@ -172,8 +175,6 @@ $color-button: #5C6585;
           border-top: none;
         }
 
-
-
         .mat-select-value-text {
           margin-left: 10px;
           font-size: 13px;
@@ -185,7 +186,6 @@ $color-button: #5C6585;
         }
       }
     }
-
 
     &__btn {
       cursor: pointer;
@@ -202,7 +202,6 @@ $color-button: #5C6585;
       &:hover {
         background-color: var(--color-cd-bg-border-sub);
       }
-
     }
   }
 }
@@ -321,7 +320,6 @@ $color-button: #5C6585;
     flex-grow: 1;
     overflow: hidden;
 
-
     .legend {
       display: flex;
       flex-flow: column;
@@ -384,7 +382,6 @@ $color-button: #5C6585;
         }
 
         &__icon {
-
         }
       }
     }
@@ -419,7 +416,6 @@ $color-button: #5C6585;
     }
   }
 }
-
 
 .header {
   position: relative;
@@ -478,7 +474,6 @@ $color-button: #5C6585;
     display: flex;
     align-items: center;
     box-sizing: border-box;
-
   }
 
   &__menu {
@@ -651,13 +646,13 @@ i::after {
   display: inline-block;
   width: 0;
   height: 0;
-  margin-left: .25em;
-  vertical-align: .25em;
+  margin-left: 0.25em;
+  vertical-align: 0.25em;
   content: "";
-  border-top: .25em solid;
-  border-right: .25em solid transparent;
+  border-top: 0.25em solid;
+  border-right: 0.25em solid transparent;
   border-bottom: 0;
-  border-left: .25em solid transparent;
+  border-left: 0.25em solid transparent;
 }
 
 select::-ms-expand {
