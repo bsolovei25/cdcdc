@@ -1,0 +1,35 @@
+<div
+  class="container"
+  (click)="onClickGroup()"
+  (mouseenter)="onMouseEnter()"
+  (mouseleave)="onMouseLeave()"
+>
+  <ng-container *ngIf="!isEditing;else input">{{group.name}}</ng-container>
+
+  <ng-template #input>
+    <input class="container__input input" type="text" [formControl]="formControl" />
+  </ng-template>
+
+  <div class="buttons" *ngIf="isShowButtons && isClaimsAvailable">
+    <ng-container *ngIf="!isEditing; else buttonsInput">
+      <div class="button">
+        <svg-icon src="assets/icons/edit.svg" (click)="onClickEdit()"></svg-icon>
+      </div>
+      <div class="button">
+        <svg-icon src="assets/icons/garbage_bad_pic.svg" (click)="onClickDelete()"></svg-icon>
+      </div>
+    </ng-container>
+    <ng-template #buttonsInput>
+      <div class="button">
+        <svg-icon src="assets/icons/checkmark.svg" (click)="onClickSaveEdit()"></svg-icon>
+      </div>
+      <div class="button button-x">
+        <svg-icon
+          src="assets/icons/close_bad.svg"
+          [svgStyle]="{ 'width.px': 12, 'height.px':12 }"
+          (click)="onClickCancelEdit()"
+        ></svg-icon>
+      </div>
+    </ng-template>
+  </div>
+</div>

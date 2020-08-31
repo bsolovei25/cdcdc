@@ -1,0 +1,180 @@
+<div class="line-charts">
+  <div class="header">
+    <div class="header__interface">
+      <img class="icon" src="assets/pic/diagram.svg"/>
+
+      <div class="title">Анализ трендов</div>
+
+      <div
+        class="buttons"
+        (mousedown)="$event.stopPropagation()"
+        (touchstart)="$event.stopPropagation()"
+      >
+        <div class="buttons__mat-select">
+          <mat-form-field>
+            <img
+              class="buttons__mat-select__icon"
+              src="assets/icons/widgets/CD/cd-mat-balance/mnemonic-diagram/watch.svg"
+            />
+            <mat-select panelClass="mat-balance-select" [(ngModel)]="hoursCount">
+              <mat-option *ngFor="let p of selectValues" [value]="p.value">
+                {{ p.title }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="button button_menu" (click)="toggleMenu()">
+          <img src="assets/pic/menu.svg"/>
+        </div>
+      </div>
+    </div>
+    <div
+      class="header__menu menu"
+      [ngClass]="{'menu_open':isMenuOpen}"
+      (mouseleave)="closeMenu()"
+      (mousedown)="$event.stopPropagation()"
+      (touchstart)="$event.stopPropagation()"
+    >
+      <div class="menu__item" (click)="onClickHeader()">
+        Удалить с экрана
+      </div>
+    </div>
+  </div>
+  <div class="timeline">
+    <div class="timeline__date">
+      <span style="margin: auto 0">16.07.2020</span>
+    </div>
+    <div class="timeline__time">
+      <div class="item">
+        <span class="item_hour">13</span>
+        <div class="item_line"></div>
+      </div>
+      <div class="item">
+        <span class="item_hour">14</span>
+        <div class="item_line"></div>
+      </div>
+      <div class="item">
+        <span class="item_hour">15</span>
+        <div class="item_line"></div>
+      </div>
+      <div class="item">
+        <span class="item_hour">16</span>
+        <div class="item_line"></div>
+      </div>
+      <div class="item">
+        <span class="item_hour">17</span>
+        <div class="item_line"></div>
+      </div>
+      <div class="item">
+        <span class="item_hour">18</span>
+        <div class="item_line"></div>
+      </div>
+      <div class="item">
+        <span class="item_hour">19</span>
+        <div class="item_line"></div>
+      </div>
+      <div class="item item_active">
+        <span class="item_hour">20</span>
+        <div class="item_line"></div>
+      </div>
+      <div class="item">
+        <span class="item_hour">21</span>
+        <div class="item_line"></div>
+      </div>
+    </div>
+  </div>
+  <div class="body">
+    <div class="scroll-container">
+      <!-- TODO  -->
+      <ng-container
+        *ngFor="let item of allWidgets"
+      >
+        <ng-container
+          *ngIf="item.widgetType === 'cd-mat-balance-sensor' || item.widgetType === 'cd-mat-balance-stream'">
+          <ng-container
+            *ngComponentOutlet="WIDGETS[item.widgetType]; injector: (item.id | fn:getInjector : item?.uniqid);"
+          >
+          </ng-container>
+        </ng-container>
+      </ng-container>
+      <!-- TODO  -->
+    </div>
+  </div>
+  <!--  <div class="footer">-->
+  <!--    <div class="footer__mat-select">-->
+  <!--      <mat-form-field>-->
+  <!--        <mat-select panelClass="mat-select-custom">-->
+  <!--          <mat-option *ngFor="let p of ['Коллоны и реакторы']" [value]="p">-->
+  <!--            {{ p }}-->
+  <!--          </mat-option>-->
+  <!--        </mat-select>-->
+  <!--      </mat-form-field>-->
+  <!--    </div>-->
+  <!--    <div class="footer__mat-select">-->
+  <!--      <mat-form-field>-->
+  <!--        <mat-select panelClass="mat-select-custom">-->
+  <!--          <mat-option *ngFor="let p of ['Параметр']" [value]="p">-->
+  <!--            {{ p }}-->
+  <!--          </mat-option>-->
+  <!--        </mat-select>-->
+  <!--      </mat-form-field>-->
+  <!--    </div>-->
+  <!--    <div class="footer__btn">-->
+  <!--      Добавить график-->
+  <!--    </div>-->
+  <!--  </div>-->
+</div>
+
+<!-- <ng-template #lineChart let-isWarning="isWarning">
+  <div class="line-chart" [class.line-chart__warning]="isWarning">
+    <div class="line-chart_header">
+      <div class="gradient"></div>
+      <span class="line-chart_header__title">P- 201 параметр FIRC0955</span>
+      <span style="flex-grow: 1"></span>
+      <div matRipple [matRippleCentered]="true" [matRippleUnbounded]="true" [matRippleColor]="'white'"
+           class="line-chart_header__icon">
+        <div class="top-arrow"></div>
+      </div>
+      <div matRipple [matRippleCentered]="true" [matRippleUnbounded]="true" [matRippleColor]="'white'"
+           class="line-chart_header__icon">
+        <div class="bottom-arrow"></div>
+      </div>
+      <div matRipple [matRippleCentered]="true" [matRippleUnbounded]="true" [matRippleColor]="'white'"
+           class="line-chart_header__icon">
+        <div class="close"></div>
+      </div>
+    </div>
+    <div class="line-chart_body">
+      <div #chart class="chart-container">
+        <evj-cd-line-chart [size]="size" [data]="data"></evj-cd-line-chart>
+      </div>
+
+      <div class="legend">
+        <div class="legend_item">
+          <div class="legend_item__title">
+            <span class="fact">Факт</span>
+          </div>
+          <div class="legend_item__value">
+            <span class="fact">50</span>
+          </div>
+        </div>
+        <div class="legend_item">
+          <div class="legend_item__title">
+            <span class="plan">Модель</span>
+          </div>
+          <div class="legend_item__value">
+            <span class="plan">50</span>
+          </div>
+        </div>
+        <div class="legend_item">
+          <div class="legend_item__title">
+            <span class="deviation">Отклонение</span>
+          </div>
+          <div class="legend_item__value">
+            <span class="deviation">0.1%</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template> -->

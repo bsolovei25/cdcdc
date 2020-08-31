@@ -1,0 +1,101 @@
+.container {
+  display: flex;
+  flex-flow: column;
+  justify-content: space-between;
+  width: 240px;
+  height: 100%;
+  padding: 15px;
+  background: var(--color-sou-bg);
+  border: solid 1px var(--color-sou-border);
+  border-radius: 2px;
+  box-sizing: border-box;
+  color: var(--color-kpe-text-main);
+}
+
+.top {
+  display: flex;
+  justify-content: space-between;
+  line-height: 16px;
+  &__title {
+    font-size: 13px;
+  }
+  &__units {
+    display: flex;
+    font-size: 10px;
+    color: var(--color-astue-onpz-units);
+    &__block {
+      margin: auto;
+      padding: 0 5px;
+      background: var(--color-sou-border);
+      border: solid 1px transparent;
+      cursor: pointer;
+    }
+    &__active {
+      background: var(--color-bg-active);
+      border: solid 1px var(--color-aps-active);
+      color: var(--color-kpe-text-main);
+    }
+    .unit {
+      border-radius: 2px 0 0 2px;
+    }
+    .measure {
+      border-radius: 0 2px 2px 0;
+    }
+  }
+}
+
+.main {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  height: 75px;
+  &__diagram {
+    height: 75px;
+    width: 75px;
+  }
+  &__stats {
+    display: flex;
+    line-height: 20px;
+
+    &__plan {
+      color: var(--color-aps-active);
+    }
+    &__deviation {
+      color: var(--color-aps-orange);
+    }
+
+    &__fact {
+      color: var(--color-kpe-text-main);
+    }
+
+    .titles {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      margin-right: 12px;
+      text-align: right;
+      font-size: 10px;
+    }
+    .values {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      font-size: 13px;
+    }
+  }
+}
+
+.circle-diagram {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+}
+
+.icon {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  padding: 25px;
+}

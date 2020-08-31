@@ -5,7 +5,13 @@
 }
 
 .widget-container {
-  width: 1000px;
-  height: 250px;
+  width: 351px;
+  height: 800px;
   margin: auto;
+}
+
+.column-container {
+  display: flex;
+  flex-flow: column;
+  gap: 20px;
 }

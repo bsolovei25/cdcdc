@@ -128,22 +128,12 @@
 
   box-sizing: border-box;
 
-  &__body {
-    //new
-    // height: 50px;
-    //
-    //margin-right: 17px;
-  }
-
   &__heading {
     margin-bottom: 6.6px;
     color: var(--color-text-sub-heading);
   }
 
   &__dates {
-    //new
-    // height: 18px;
-    //
     display: flex;
     justify-content: space-between;
   }
@@ -166,9 +156,6 @@
   }
 
   &__label {
-    //new
-    // margin-top: 13px;
-    //
     margin-top: 5px;
     margin-right: 5px;
   }

@@ -1,0 +1,53 @@
+::ng-deep .back {
+  & > * {
+    fill: var(--color-kpe-line-diagram-bg-sub);
+  }
+}
+
+::ng-deep .main {
+  & > * {
+    fill: var(--color-aps-active);
+  }
+}
+
+::ng-deep .sub {
+  & > * {
+    fill: var(--color-aps-orange);
+  }
+}
+
+::ng-deep .serif-active {
+  & > * {
+    stroke: var(--color-aps-active);
+  }
+}
+
+::ng-deep .serif-warning {
+  & > * {
+    stroke: var(--color-aps-orange);
+  }
+}
+
+::ng-deep {
+  .needle {
+    fill: var(--color-kpe-text-main);
+  }
+
+  .needle-hover-circle {
+    fill: var(--color-kpe-energy-diagram-bg);
+  }
+
+  .kpe-energy-hide-down-sector {
+    fill: var(--color-kpe-energy-diagram-bg);
+  }
+
+  .needle-shadow-gradient-1 {
+    stop-color: var(--color-button-borderside);
+    stop-opacity: 0.15;
+  }
+
+  .needle-shadow-gradient-2 {
+    stop-color: transparent;
+    stop-opacity: 0;
+  }
+}

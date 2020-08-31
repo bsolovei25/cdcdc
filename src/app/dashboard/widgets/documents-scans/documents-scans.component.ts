@@ -1,10 +1,11 @@
 import {
-    ChangeDetectionStrategy, ChangeDetectorRef,
+    ChangeDetectionStrategy,
+    ChangeDetectorRef,
     Component,
     HostListener,
     Inject,
     OnDestroy,
-    OnInit
+    OnInit,
 } from '@angular/core';
 import { WidgetService } from '../../services/widget.service';
 import { WidgetPlatform } from '../../models/widget-platform';
@@ -17,7 +18,6 @@ import { IDocumentsScans } from '../../models/oil-document.model';
     styleUrls: ['./documents-scans.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-
 export class DocumentsScansComponent extends WidgetPlatform implements OnInit, OnDestroy {
     public static itemCols: number = 16;
     public static itemRows: number = 15;
@@ -131,7 +131,7 @@ export class DocumentsScansComponent extends WidgetPlatform implements OnInit, O
     }
 
     active(event: number): void {
-        this.data.forEach(e => {
+        this.data.forEach((e) => {
             if (e.id === event) {
                 e.isActive = !e.isActive;
                 this.getDocument(e.id);
@@ -145,7 +145,7 @@ export class DocumentsScansComponent extends WidgetPlatform implements OnInit, O
         this.oilDocumentService.documentScansLoader$.next(true);
         try {
             await this.oilDocumentService.deleteDocument(id);
-            const indexItem = this.data.findIndex(e => e.id === id);
+            const indexItem = this.data.findIndex((e) => e.id === id);
             if (indexItem !== -1) {
                 this.data.splice(indexItem, 1);
             }
@@ -156,5 +156,4 @@ export class DocumentsScansComponent extends WidgetPlatform implements OnInit, O
             this.oilDocumentService.documentScansLoader$.next(false);
         }
     }
-
 }

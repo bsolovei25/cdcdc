@@ -1,0 +1,24 @@
+<div class="items">
+  <div class="items__header header">
+    <div class="header__item item" [class.item_active]="direction==='in'" (click)="direction='in'">
+      Потребление
+    </div>
+    <div
+      class="header__item item"
+      [class.item_active]="direction==='out'"
+      (click)="direction='out'"
+    >
+      Выработка
+    </div>
+  </div>
+  <div class="items__content content">
+    <ng-container *ngFor="let card of data">
+      <evj-astue-efficiency-item-card
+        [isActive]="cardSelection.isSelected(card)"
+        [card]="card"
+        (click)="onSelectProduct(card)"
+        *ngIf="card.direction===direction"
+      ></evj-astue-efficiency-item-card>
+    </ng-container>
+  </div>
+</div>

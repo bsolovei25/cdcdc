@@ -1,10 +1,10 @@
 import { Component, Input, OnChanges, OnInit } from '@angular/core';
-import { IPerfProgPark } from '../../widgets/SMP/performance-progress-indicators/performance-progress-indicators.component';
+import { IPerfProgPark } from '../../models/SMP/performance-progress-indicators.model';
 
 @Component({
-  selector: 'evj-performance-bar',
-  templateUrl: './performance-bar.component.html',
-  styleUrls: ['./performance-bar.component.scss']
+    selector: 'evj-performance-bar',
+    templateUrl: './performance-bar.component.html',
+    styleUrls: ['./performance-bar.component.scss'],
 })
 export class PerformanceBarComponent implements OnInit, OnChanges {
     @Input() public data: IPerfProgPark = {
@@ -12,10 +12,9 @@ export class PerformanceBarComponent implements OnInit, OnChanges {
         factLevel: 40,
     };
 
-    constructor() { }
+    constructor() {}
 
-    ngOnInit(): void {
-    }
+    ngOnInit(): void {}
 
     ngOnChanges(): void {
         if (this.data) {
@@ -42,7 +41,6 @@ export class PerformanceBarComponent implements OnInit, OnChanges {
 
     percent(value: number): number {
         const levelBakPercent = 85;
-        return (value === 0) ? 0 : (levelBakPercent * value) / 100;
+        return value === 0 ? 0 : (levelBakPercent * value) / 100;
     }
-
 }

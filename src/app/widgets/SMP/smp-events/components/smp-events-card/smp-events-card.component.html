@@ -1,0 +1,43 @@
+<div class="card" [class.selected-card]="isSelected">
+  <div class="card_item">
+    <div class="card_item__top">
+      <div class="card_item__top___left">
+        <div class="product-text">
+          {{event?.productName ? event.productName : ''}}
+        </div>
+        <div class="date-text">
+          {{event?.cardDate | date:'dd.MM.yyyy'}}
+        </div>
+      </div>
+      <div class="card_item__top___right">
+        <div class="status-text">
+          {{event?.statusName}}
+        </div>
+      </div>
+    </div>
+    <div class="card_item__middle">
+      <div class="card_item__middle___icon-block">
+        <div class="icon">
+          <svg-icon
+            src="assets/icons/widgets/petroleum-products-movement/Voskl.svg"
+            [svgStyle]="{ 'width.%':100, 'height.%':100 }"
+          >
+          </svg-icon>
+        </div>
+      </div>
+      <div class="card_item__middle___text-block">
+        <div class="info-text">
+          {{event?.description}}
+        </div>
+      </div>
+    </div>
+    <div class="card_item__bottom">
+      <div class="time-text">
+        {{event?.day || event?.day===0 ? event.day+'д.' : '' }}
+      </div>
+    </div>
+  </div>
+  <div class="card_item__loader">
+    <div class="card_item__loader___active"></div>
+  </div>
+</div>

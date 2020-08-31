@@ -1,0 +1,246 @@
+:host {
+  width: 100%;
+  height: 100%;
+}
+
+.container {
+  display: flex;
+  flex-flow: column;
+  background-color: var(--color-astue-onpz-bg-card);
+  height: calc(100% - 40px);
+  width: 100%;
+
+  &-body {
+    flex-grow: 1;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 10px;
+    border: 1px solid var(--color-cd-bg-border);
+    overflow: hidden;
+  }
+}
+
+.quality {
+  display: flex;
+  flex-flow: column;
+  gap: 15px;
+  width: 100%;
+  height: 100%;
+
+  &__header {
+    display: flex;
+    min-height: 110px;
+    max-height: 110px;
+    height: 110px;
+    gap: 15px;
+
+    &__gauge {
+      height: 100%;
+    }
+
+    &__chart {
+      flex-grow: 1;
+      height: 100%;
+    }
+  }
+
+  &__main {
+    display: flex;
+    gap: 12px;
+    flex-grow: 1;
+    width: 100%;
+
+    &__gauge {
+      flex-grow: 1;
+      height: 100%;
+      max-width: 50%;
+    }
+  }
+}
+
+.card {
+  position: absolute;
+  left: 4px;
+  right: 4px;
+  top: 5px;
+  bottom: 7px;
+
+  &__content {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    flex-flow: column;
+    overflow: hidden;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+
+  &__gauge-diagram {
+    flex: 1 1;
+    overflow: hidden;
+    padding: 5px 5px;
+  }
+
+  &__eq-diagram {
+    flex: 3 3;
+    overflow: hidden;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    padding: 5px;
+
+    .diagram-area {
+      border: 1px solid var(--color-kpe-eq-chart-day-normal);
+      background: var(--color-sou-bg);
+      border-radius: 2px;
+      height: calc(100% - 50px);
+      padding: 5px;
+    }
+
+    .title-area {
+      height: 30px;
+      display: flex;
+      flex-direction: column;
+      font-family: Tahoma;
+      font-style: normal;
+      font-weight: normal;
+
+      &__title {
+        font-size: 13px;
+        line-height: 16px;
+        color: var(--color-kpe-eq-chart-title);
+      }
+
+      &__comment {
+        font-size: 10px;
+        line-height: 12px;
+        color: var(--color-marker-diagram);
+      }
+    }
+  }
+
+  &__label {
+    font-size: 13px;
+    line-height: 16px;
+    text-align: center;
+    margin: 0 auto;
+    color: var(--color-kpe-text-main);
+  }
+}
+
+.element-container {
+  position: relative;
+  border: solid 1px var(--color-sou-border);
+  border-radius: 2px;
+  background: var(--color-sou-bg);
+  box-sizing: border-box;
+}
+
+.content-container {
+  flex: 1;
+
+  .header {
+    min-height: 30px;
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    font-size: 10px;
+    overflow: hidden;
+
+    &__info {
+      display: flex;
+      justify-content: flex-end;
+      color: var(--color-text-sub);
+
+      margin: 0;
+      padding: 0;
+      list-style: none;
+
+      margin-left: 60px;
+
+      &-item {
+        padding-right: 12px;
+        display: flex;
+        align-items: center;
+        //min-width: 60px;
+      }
+
+      &-1 {
+        height: 5px;
+        min-width: 5px;
+        width: 5px;
+        background-color: var(--color-kpe-eq-chart-title);
+        border-radius: 50%;
+        margin-right: 5px;
+      }
+
+      &-2 {
+        height: 5px;
+        min-width: 5px;
+        width: 5px;
+        background-color: var(--color-aps-active);
+        border-radius: 50%;
+        margin-right: 5px;
+      }
+    }
+
+    &__right {
+      display: flex;
+
+      margin-left: 30px;
+      min-height: 24px;
+
+      &__button-date {
+        width: 645px;
+      }
+    }
+  }
+}
+
+
+.unit-selector {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  span {
+    font-family: Tahoma;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 10px;
+  }
+
+  &__unit,
+  &__sign {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  }
+
+  &__unit {
+    width: 41px;
+    height: 16px;
+    background: rgba(0, 137, 255, 0.2);
+    border: 0.75px solid var(--color-aps-active);
+    border-radius: 2px 0 0 2px;
+
+    span {
+      color: var(--color-kpe-text-main);
+    }
+  }
+
+  &__sign {
+    width: 20px;
+    height: 18px;
+    background: var(--color-sou-border);
+    border-radius: 0 2px 2px 0;
+
+    span {
+      color: var(--color-kpe-eq-chart-title);
+    }
+  }
+}
+

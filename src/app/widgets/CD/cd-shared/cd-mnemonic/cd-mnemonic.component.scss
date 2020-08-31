@@ -1,0 +1,92 @@
+.container {
+  z-index: 100;
+}
+.svg {
+  &__circle {
+    fill: var(--color-bg-main);
+    stroke: var(--color-kpe-gaude-active);
+    cursor: pointer;
+
+    &--deviation {
+      stroke: var(--color-cd-warning);
+    }
+
+    &__value {
+      visibility: visible;
+      opacity: 1;
+      transition: visibility 0.1s, opacity 0.1s linear;
+      cursor: pointer;
+
+      &--disabled {
+        visibility: hidden;
+        opacity: 0;
+      }
+    }
+
+    &__eng-units {
+      visibility: visible;
+      opacity: 1;
+      transition: visibility 0.1s, opacity 0.1s linear;
+      cursor: pointer;
+
+      &--disabled {
+        visibility: hidden;
+        opacity: 0;
+      }
+    }
+
+    &--disabled {
+      visibility: hidden;
+      opacity: 0;
+    }
+  }
+
+  &__modal--top-right {
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0.1s, opacity 0.1s linear;
+
+    &--visible {
+      visibility: visible;
+      opacity: 1;
+    }
+  }
+
+  &__modal--top-left {
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0.1s, opacity 0.1s linear;
+
+    &--visible {
+      visibility: visible;
+      opacity: 1;
+    }
+  }
+
+  &__modal--down-right {
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0.1s, opacity 0.1s linear;
+
+    &--visible {
+      visibility: visible;
+      opacity: 1;
+    }
+  }
+
+  &__icon {
+    cursor: pointer;
+
+  }
+}
+
+svg {
+  margin-top: 16px;
+  margin-left: 25px;
+}
+
+.container {
+  width: 100%;
+  height: calc(100% - 5px);
+}
+

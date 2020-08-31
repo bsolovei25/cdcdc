@@ -111,11 +111,13 @@ export class LineChartComponent implements OnChanges, OnInit {
         this.svg
             .attr('width', '100%')
             .attr('height', '100%')
-            .attr('viewBox', `0 0 ${this.graphMaxX} ${this.graphMaxY - 5}`);
+            .attr('viewBox', `0 0 ${this.graphMaxX} ${this.graphMaxY > 5 ? this.graphMaxY - 5 : 0}`);
     }
 
     private findMinMax(): void {
-        this.data.forEach((graph) => (graph.graph = setLimits(graph.graph, this.limits)));
+        if (this.limits) {
+            this.data.forEach((graph) => (graph.graph = setLimits(graph.graph, this.limits)));
+        }
 
         const maxValues: number[] = [];
         const minValues: number[] = [];

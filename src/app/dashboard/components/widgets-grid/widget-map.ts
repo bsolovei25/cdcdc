@@ -1,11 +1,9 @@
 import { LineChartComponent } from '../../widgets/line-chart/line-chart.component';
-import { EventsComponent } from '../../widgets/events/events.component';
 import { LineDiagramComponent } from '../../widgets/line-diagram/line-diagram.component';
 import { ManualInputComponent } from '../../widgets/manual-input/manual-input.component';
 import { ChangeShiftComponent } from '../../widgets/change-shift/change-shift.component';
 import { EnergeticsComponent } from '../../widgets/energetics/energetics.component';
 import { WidgetPiesComponent } from '../../widgets/widgets-pie/widget-pies/widget-pies.component';
-import { EventsWorkSpaceComponent } from '../../widgets/workspace/events-workspace.component';
 import { TruncatedPieSFirstComponent } from '../../widgets/truncated-pie-first/truncated-pie-s-first/truncated-pie-s-first.component';
 import { TruncatedPieSIconComponent } from '../../widgets/truncated-pie-icon/truncated-pie-s-icon/truncated-pie-s-icon.component';
 import { PointDiagramComponent } from '../../widgets/point-diagram/point-diagram.component';
@@ -36,7 +34,6 @@ import { FlameDiagramComponent } from '../../widgets/flame-diagram/flame-diagram
 import { ObservationNormTRComponent } from '../../widgets/observation-norm-tr/observation-norm-tr.component';
 import { RingEnergyIndicatorComponent } from '../../widgets/ring-energy-indicator/ring-energy-indicator.component';
 import { SolidGaugesComponent } from '../../widgets/solid-gauge-with-marker/solid-gauges/solid-gauges.component';
-import { AdminShiftScheduleComponent } from '../../widgets/admin-widget/admin-shift-schedule/admin-shift-schedule.component';
 import { AdminReferencesComponent } from '../../widgets/admin-references/admin-references.component';
 import { PetroleumProductsMovementComponent } from '../../widgets/petroleum-products-movement/petroleum-products-movement.component';
 import { AdminPanelComponent } from '../../widgets/admin-panel/admin-panel.component';
@@ -54,26 +51,19 @@ import { DocumentCodingComponent } from '../../widgets/document-coding/document-
 import { OilOperationsComponent } from '../../widgets/oil-operations/oil-operations.component';
 import { WorkflowComponent } from '../../widgets/workflow/workflow.component';
 import { CdCriticalComponent } from '../../widgets/cd-critical/cd-critical.component';
-import { ImplementationPlanComponent } from '../../widgets/SMP/implementation-plan/implementation-plan.component';
-import { PerformanceProgressIndicatorsComponent } from '../../widgets/SMP/performance-progress-indicators/performance-progress-indicators.component';
-import { QualityStockComponent } from '../../widgets/SMP/quality-stock/quality-stock.component';
-import { SmpEventsComponent } from '../../widgets/SMP/smp-events/smp-events.component';
-import { SmpEventsWorkspaceComponent } from '../../widgets/SMP/smp-events-workspace/smp-events-workspace.component';
-import { ProductGroupsComponent } from '../../widgets/SMP/product-groups/product-groups.component';
-import { ProductGroupsShortComponent } from '../../widgets/SMP/product-groups-short/product-groups-short.component';
 import { TruncatedDiagramTrafficLightComponent } from '../../widgets/truncated-diagram-traffic-light/truncated-diagram-traffic-light.component';
-import { AstueEfficiencyComponent } from '../../widgets/ASTUE/astue-efficiency/astue-efficiency.component';
 import { WidgetContainerComponent } from '../../widget-container/widget-container.component';
+import { AdminShiftScheduleOldComponent } from '../../widgets/admin-widget/admin-shift-schedule-old/admin-shift-schedule-old.component';
+import { CdMatBalanceChartCardComponent } from '../../../widgets/CD/cd-mat-balance/components/cd-mat-balance-chart-card/cd-mat-balance-chart-card.component';
 
 export const WIDGETS = {
     'pie-diagram': WidgetPiesComponent,
     'line-chart': LineChartComponent,
     'line-diagram': LineDiagramComponent,
     'manual-input': ManualInputComponent,
-    events: EventsComponent,
     'shift-pass': ChangeShiftComponent,
     'shift-accept': ChangeShiftComponent,
-    'events-workspace': EventsWorkSpaceComponent,
+    'events-workspace': WidgetContainerComponent,
     'truncated-diagram-percentage': TruncatedPieSFirstComponent,
     'truncated-diagram-traffic-light': TruncatedDiagramTrafficLightComponent,
     'truncated-diagram-counter': TruncatedPieSIconComponent,
@@ -107,7 +97,6 @@ export const WIDGETS = {
     'time-line-diagram': TimeLineDiagramComponent,
     'solid-gauge-with-marker': SolidGaugesComponent,
     'observation-norm-tr': ObservationNormTRComponent,
-    'admin-shift-schedule': AdminShiftScheduleComponent,
     'admin-references': AdminReferencesComponent,
     'petroleum-products-movement': PetroleumProductsMovementComponent,
     'admin-panel': AdminPanelComponent,
@@ -125,25 +114,58 @@ export const WIDGETS = {
     'oil-operations': OilOperationsComponent,
     workflow: WorkflowComponent,
     'cd-critical': CdCriticalComponent,
-    'implementation-plan': ImplementationPlanComponent,
-    'performance-progress-indicators': PerformanceProgressIndicatorsComponent,
-    'quality-stock': QualityStockComponent,
-    'smp-events': SmpEventsComponent,
-    'smp-events-workspace': SmpEventsWorkspaceComponent,
-    'product-groups': ProductGroupsComponent,
+    'implementation-plan': WidgetContainerComponent,
+    'performance-progress-indicators': WidgetContainerComponent,
+    'quality-stock': WidgetContainerComponent,
+    'smp-events': WidgetContainerComponent,
+    'smp-events-workspace': WidgetContainerComponent,
+    'product-groups': WidgetContainerComponent,
     'production-deviations': WidgetContainerComponent,
-    'product-groups-short': ProductGroupsShortComponent,
-    'astue-efficiency': AstueEfficiencyComponent,
+    'product-groups-short': WidgetContainerComponent,
+    'astue-efficiency': WidgetContainerComponent,
     'load-chart': WidgetContainerComponent,
     'aps-recipe-diagram': WidgetContainerComponent,
     'aps-gantt-chart': WidgetContainerComponent,
     scenarios: WidgetContainerComponent,
+    'admin-shift-schedule': WidgetContainerComponent,
+    'admin-shift-schedule-old': AdminShiftScheduleOldComponent,
     'facility-deviation': WidgetContainerComponent,
+    'raw-motion': WidgetContainerComponent,
     'stocks-using': WidgetContainerComponent,
+    'indicator-load-deviation': WidgetContainerComponent,
+    'deviation-details': WidgetContainerComponent,
+    'production-details': WidgetContainerComponent,
+    'kpe-quality': WidgetContainerComponent,
+    'kpe-energetic': WidgetContainerComponent,
+    'key-performance-indicators': WidgetContainerComponent,
+    'kpe-readiness': WidgetContainerComponent,
+    'kpe-safety': WidgetContainerComponent,
+    events: WidgetContainerComponent,
+    'events-ed': WidgetContainerComponent,
+    'cd-events': WidgetContainerComponent,
+    'spline-trends-chart': WidgetContainerComponent,
+    'cd-mat-balance': WidgetContainerComponent,
+    'cd-deviation-mat': WidgetContainerComponent,
+    'cd-reactor-parameters': WidgetContainerComponent,
+    'sou-operational-accounting-system': WidgetContainerComponent,
+    'astue-onpz-conventional-fuel': WidgetContainerComponent,
+    'astue-onpz-predictors': WidgetContainerComponent,
+    'astue-onpz-main-indicators': WidgetContainerComponent,
+    'astue-onpz-product-charts': WidgetContainerComponent,
+    'astue-onpz-menu-structure': WidgetContainerComponent,
+    'astue-onpz-consumption-indicators': WidgetContainerComponent,
+    'astue-onpz-deviation-cards': WidgetContainerComponent,
+    'astue-onpz-planning-charts': WidgetContainerComponent,
+    'astue-onpz-big-planning-chart': WidgetContainerComponent,
+    'astue-onpz-interactive-indicators': WidgetContainerComponent,
+    // TODO
+    'cd-mat-balance-sensor': CdMatBalanceChartCardComponent,
+    'cd-mat-balance-stream': CdMatBalanceChartCardComponent
+    //
 };
 
 export const WIDGETS_LAZY = {
-    //#region APS
+    // #region APS
     'load-chart': {
         import: async () => {
             return await import('src/app/widgets/APS/load-chart/load-chart.module');
@@ -153,7 +175,7 @@ export const WIDGETS_LAZY = {
         itemRows: 12,
         minItemCols: 40,
         minItemRows: 10,
-        // preview: 'load-chart',
+        preview: 'load-chart'
     },
     scenarios: {
         import: async () => {
@@ -164,7 +186,7 @@ export const WIDGETS_LAZY = {
         itemRows: 10,
         minItemCols: 15,
         minItemRows: 10,
-        // preview: 'scenarios',
+        preview: 'scenarios'
     },
     'aps-gantt-chart': {
         import: async () => {
@@ -175,7 +197,7 @@ export const WIDGETS_LAZY = {
         itemRows: 30,
         minItemCols: 40,
         minItemRows: 10,
-        // preview: 'gant-chart',
+        preview: 'gant-chart'
     },
     'aps-recipe-diagram': {
         import: async () => {
@@ -186,7 +208,7 @@ export const WIDGETS_LAZY = {
         itemRows: 30,
         minItemCols: 40,
         minItemRows: 10,
-        // preview: 'aps-recipe-diagram',
+        preview: 'aps-recipe-diagram'
     },
     'facility-deviation': {
         import: async () => {
@@ -197,6 +219,18 @@ export const WIDGETS_LAZY = {
         itemRows: 12,
         minItemCols: 40,
         minItemRows: 10,
+        preview: 'facility-deviation'
+    },
+    'raw-motion': {
+        import: async () => {
+            return await import('src/app/widgets/APS/raw-motion/raw-motion.module');
+        },
+        module: 'RawMotionModule',
+        itemCols: 41,
+        itemRows: 12,
+        minItemCols: 40,
+        minItemRows: 10,
+        preview: 'raw-motion'
     },
     'stocks-using': {
         import: async () => {
@@ -207,8 +241,524 @@ export const WIDGETS_LAZY = {
         itemRows: 12,
         minItemCols: 30,
         minItemRows: 8,
+        preview: 'stocks-using'
     },
-    //#endregion APS
+
+    'deviation-details': {
+        import: async () => {
+            return await import('src/app/widgets/APS/deviation-details/deviation-details.module');
+        },
+        module: 'DeviationDetailsModule',
+        itemCols: 11,
+        itemRows: 20,
+        minItemCols: 11,
+        minItemRows: 11,
+        preview: 'deviation-details'
+    },
+    'production-details': {
+        import: async () => {
+            return await import('src/app/widgets/APS/production-details/production-details.module');
+        },
+        module: 'ProductionDetailsModule',
+        itemCols: 11,
+        itemRows: 20,
+        minItemCols: 11,
+        minItemRows: 11,
+        preview: 'production-details'
+    },
+    'indicator-load-deviation': {
+        import: async () => {
+            return await import(
+                'src/app/widgets/APS/indicator-load-deviation/indicator-load-deviation.module'
+                );
+        },
+        module: 'IndicatorLoadDeviationModule',
+        itemCols: 12,
+        itemRows: 12,
+        minItemCols: 11,
+        minItemRows: 11,
+        preview: 'indicator-load-deviation'
+    },
+
+    // #endregion APS
+
+    // #region KPE
+
+    'key-performance-indicators': {
+        import: async () => {
+            return await import(
+                'src/app/widgets/KPE/key-performance-indicators/key-performance-indicators.module'
+                );
+        },
+        module: 'KeyPerformanceIndicatorsModule',
+        itemCols: 19,
+        itemRows: 12,
+        minItemCols: 19,
+        minItemRows: 12,
+        preview: 'key-performance-indicators'
+    },
+    'kpe-quality': {
+        import: async () => {
+            return await import('src/app/widgets/KPE/kpe-quality/kpe-quality.module');
+        },
+        module: 'KpeQualityModule',
+        itemCols: 21,
+        itemRows: 22,
+        minItemCols: 21,
+        minItemRows: 22,
+        preview: 'kpe-quality'
+    },
+    'kpe-readiness': {
+        import: async () => {
+            return await import('src/app/widgets/KPE/kpe-readiness/kpe-readiness.module');
+        },
+        module: 'KpeReadinessModule',
+        itemCols: 15,
+        itemRows: 15,
+        minItemCols: 15,
+        minItemRows: 10,
+        preview: 'kpe-readiness'
+    },
+
+    'kpe-energetic': {
+        import: async () => {
+            return await import('src/app/widgets/KPE/kpe-energy/kpe-energy.module');
+        },
+        module: 'KpeEnergyModule',
+        itemCols: 15,
+        itemRows: 7,
+        minItemCols: 15,
+        minItemRows: 6,
+        preview: 'kpe-energetic'
+    },
+
+    'kpe-safety': {
+        import: async () => {
+            return await import('src/app/widgets/KPE/kpe-safety/kpe-safety.module');
+        },
+        module: 'KpeSafetyModule',
+        itemCols: 15,
+        itemRows: 7,
+        minItemCols: 15,
+        minItemRows: 6,
+        preview: 'default'
+    },
+
+    // #endregion KPE
+
+    // #region Admin
+
+    'admin-shift-schedule': {
+        import: async () => {
+            return await import(
+                'src/app/widgets/admin/admin-shift-schedule/admin-shift-schedule.module'
+                );
+        },
+        module: 'AdminShiftScheduleModule',
+        itemCols: 15,
+        itemRows: 15,
+        minItemCols: 15,
+        minItemRows: 15,
+        preview: 'admin-shift-schedule'
+    },
+
+    // #endregion Admin
+
+    // #region CD
+
+    'cd-events': {
+        import: async () => {
+            return await import('src/app/widgets/EVJ/events/events.module');
+        },
+        module: 'EventsModule',
+        itemCols: 32,
+        itemRows: 30,
+        minItemCols: 32,
+        minItemRows: 30,
+        preview: 'cd-events'
+    },
+
+    'cd-mat-balance': {
+        import: async () => {
+            return await import('src/app/widgets/CD/cd-mat-balance/cd-mat-balance.module');
+        },
+        module: 'CdMatBalanceModule',
+        itemCols: 40,
+        itemRows: 30,
+        minItemCols: 40,
+        minItemRows: 30,
+        preview: 'cd-mat-balance'
+    },
+
+    'cd-reactor-parameters': {
+        import: async () => {
+            return await import(
+                'src/app/widgets/CD/cd-reactor-parameters/cd-reactor-parameters.module'
+                );
+        },
+        module: 'CdReactorParametersModule',
+        itemCols: 15,
+        itemRows: 15,
+        minItemCols: 8,
+        minItemRows: 8,
+        preview: 'cd-reactor-parameters'
+    },
+
+    'cd-deviation-mat': {
+        import: async () => {
+            return await import('src/app/widgets/CD/cd-deviation-mat/cd-deviation-mat.module');
+        },
+        module: 'CdDeviationMatModule',
+        itemCols: 15,
+        itemRows: 15,
+        minItemCols: 8,
+        minItemRows: 8,
+        preview: 'cd-deviation-mat'
+    },
+
+    // #endregion CD
+
+    // #region EVJ
+
+    events: {
+        import: async () => {
+            return await import('src/app/widgets/EVJ/events/events.module');
+        },
+        module: 'EventsModule',
+        itemCols: 32,
+        itemRows: 30,
+        minItemCols: 32,
+        minItemRows: 30,
+        preview: 'events'
+    },
+
+    'events-ed': {
+        import: async () => {
+            return await import('src/app/widgets/EVJ/events/events.module');
+        },
+        module: 'EventsModule',
+        itemCols: 32,
+        itemRows: 30,
+        minItemCols: 32,
+        minItemRows: 30,
+        preview: 'events'
+    },
+
+    'events-workspace': {
+        import: async () => {
+            return await import('src/app/widgets/EVJ/events-workspace/events-workspace.module');
+        },
+        module: 'EventsWorkspaceModule',
+        itemCols: 32,
+        itemRows: 30,
+        minItemCols: 32,
+        minItemRows: 30,
+        preview: 'events-workspace'
+    },
+
+    // #endregion EVJ
+
+    //#region LCO
+    'spline-trends-chart': {
+        import: async () => {
+            return await import(
+                'src/app/widgets/LCO/spline-trends-chart/spline-trends-chart.module'
+                );
+        },
+        module: 'SplineTrendsChartModule',
+        itemCols: 24,
+        itemRows: 14,
+        minItemCols: 24,
+        minItemRows: 14,
+        preview: 'spline-trends-chart'
+    },
+
+    'industrial-pyramid': {
+        import: async () => {
+            return await import('src/app/widgets/LCO/production-pyramid/production-pyramid.module');
+        },
+        module: 'ProductionPyramidModule',
+        itemCols: 20,
+        itemRows: 16,
+        minItemCols: 20,
+        minItemRows: 16,
+        preview: 'industrial-pyramid'
+    },
+    //#endregion LCO
+
+    //#region SMP
+    'implementation-plan': {
+        import: async () =>
+            await import('src/app/widgets/SMP/implementation-plan/implementation-plan.module'),
+        module: 'ImplementationPlanModule',
+        itemCols: 9,
+        itemRows: 7,
+        minItemCols: 9,
+        minItemRows: 7,
+        preview: 'implementation-plan'
+    },
+
+    'performance-progress-indicators': {
+        import: async () =>
+            await import(
+                'src/app/widgets/SMP/performance-progress-indicators/performance-progress-indicators.module'
+                ),
+        module: 'PerformanceProgressIndicatorsModule',
+        itemCols: 9,
+        itemRows: 7,
+        minItemCols: 9,
+        minItemRows: 7,
+        preview: 'performance-progress-indicators'
+    },
+
+    'quality-stock': {
+        import: async () => await import('src/app/widgets/SMP/quality-stock/quality-stock.module'),
+        module: 'QualityStockModule',
+        itemCols: 14,
+        itemRows: 14,
+        minItemCols: 14,
+        minItemRows: 14,
+        preview: 'quality-stock'
+    },
+
+    'smp-events': {
+        import: async () => await import('src/app/widgets/SMP/smp-events/smp-events.module'),
+        module: 'SmpEventsModule',
+        itemCols: 14,
+        itemRows: 20,
+        minItemCols: 14,
+        minItemRows: 20,
+        preview: 'smp-events'
+    },
+
+    'smp-events-workspace': {
+        import: async () =>
+            await import('src/app/widgets/SMP/smp-events-workspace/smp-events-workspace.module'),
+        module: 'SmpEventsWorkspaceModule',
+        itemCols: 20,
+        itemRows: 30,
+        minItemCols: 20,
+        minItemRows: 30,
+        preview: 'smp-events-workspace'
+    },
+
+    'product-groups': {
+        import: async () =>
+            await import('src/app/widgets/SMP/product-groups/product-groups.module'),
+        module: 'ProductGroupsModule',
+        itemCols: 25,
+        itemRows: 20,
+        minItemCols: 20,
+        minItemRows: 17,
+        preview: 'product-groups'
+    },
+
+    'production-deviations': {
+        import: async () => {
+            {
+                return await import(
+                    'src/app/widgets/SMP/production-deviations/production-deviations.module'
+                    );
+            }
+        },
+        module: 'ProductionDeviationsModule',
+        itemCols: 37,
+        itemRows: 27,
+        minItemCols: 37,
+        minItemRows: 27,
+        preview: 'production-deviations'
+    },
+
+    'product-groups-short': {
+        import: async () =>
+            await import('src/app/widgets/SMP/product-groups-short/product-groups-short.module'),
+        module: 'ProductGroupsShortModule',
+        itemCols: 25,
+        itemRows: 20,
+        minItemCols: 20,
+        minItemRows: 17,
+        preview: 'product-groups-short'
+    },
+    //#endregion SMP
+
+    // #region SOU
+
+    'sou-operational-accounting-system': {
+        import: async () => {
+            return await import(
+                'src/app/widgets/SOU/sou-operational-accounting-system/sou-operational-accounting-system.module'
+                );
+        },
+        module: 'SouOperationalAccountingSystemModule',
+        itemCols: 32,
+        itemRows: 30,
+        minItemCols: 32,
+        minItemRows: 30,
+        preview: 'sou-operational-accounting-system'
+    },
+
+    // #endregion SOU
+
+    //#region ASTUE-MNPZ
+
+    'astue-efficiency': {
+        import: async () =>
+            await import(
+                'src/app/widgets/ASTUE-MNPZ/astue-mnpz-efficiency/astue-mnpz-efficiency.module'
+            ),
+        module: 'AstueMnpzEfficiencyModule',
+        itemCols: 58,
+        itemRows: 25,
+        minItemCols: 58,
+        minItemRows: 20,
+        preview: 'astue-efficiency',
+    },
+    //#endregion ASTUE-MNPZ
+
+    //#region ASTUE-ONPZ
+
+    'astue-onpz-conventional-fuel': {
+        import: async () => {
+            return await import(
+                // tslint:disable-next-line:max-line-length
+                'src/app/widgets/ASTUE-ONPZ/astue-onpz-conventional-fuel/astue-onpz-conventional-fuel.module'
+                );
+        },
+        module: 'AstueOnpzConventionalFuelModule',
+        itemCols: 30,
+        itemRows: 18,
+        minItemCols: 30,
+        minItemRows: 16,
+        preview: 'astue-onpz-conventional-fuel'
+    },
+
+    'astue-onpz-predictors': {
+        import: async () => {
+            return await import(
+                'src/app/widgets/ASTUE-ONPZ/astue-onpz-predictors/astue-onpz-predictors.module'
+                );
+        },
+        module: 'AstueOnpzPredictorsModule',
+        itemCols: 13,
+        itemRows: 10,
+        minItemCols: 13,
+        minItemRows: 10,
+        preview: 'astue-onpz-predictors'
+    },
+
+    'astue-onpz-main-indicators': {
+        import: async () => {
+            return await import(
+                'src/app/widgets/ASTUE-ONPZ/astue-onpz-main-indicators/astue-onpz-main-indicators.module'
+                );
+        },
+        module: 'AstueOnpzMainIndicatorsModule',
+        itemCols: 13,
+        itemRows: 8,
+        minItemCols: 13,
+        minItemRows: 8,
+        preview: 'astue-onpz-main-indicators'
+    },
+
+    'astue-onpz-product-charts': {
+        import: async () => {
+            return await import(
+                'src/app/widgets/ASTUE-ONPZ/astue-onpz-product-charts/astue-onpz-product-charts.module'
+                );
+        },
+        module: 'AstueOnpzProductChartsModule',
+        itemCols: 32,
+        itemRows: 30,
+        minItemCols: 32,
+        minItemRows: 30,
+        preview: 'astue-onpz-product-charts'
+    },
+
+    'astue-onpz-menu-structure': {
+        import: async () => {
+            return await import(
+                'src/app/widgets/ASTUE-ONPZ/astue-onpz-menu-structure/astue-onpz-menu-structure.module'
+                );
+        },
+        module: 'AstueOnpzMenuStructureModule',
+        itemCols: 11,
+        itemRows: 8,
+        minItemCols: 11,
+        minItemRows: 8,
+        preview: 'astue-onpz-menu-structure'
+    },
+
+    'astue-onpz-consumption-indicators': {
+        import: async () => {
+            return await import(
+                'src/app/widgets/ASTUE-ONPZ/astue-onpz-consumption-indicators/astue-onpz-consumption-indicators.module'
+                );
+        },
+        module: 'AstueOnpzConsumptionIndicatorsModule',
+        itemCols: 11,
+        itemRows: 6,
+        minItemCols: 11,
+        minItemRows: 6,
+        preview: 'astue-onpz-consumption-indicators'
+    },
+
+    'astue-onpz-deviation-cards': {
+        import: async () => {
+            return await import(
+                'src/app/widgets/ASTUE-ONPZ/astue-onpz-deviation-cards/astue-onpz-deviation-cards.module'
+                );
+        },
+        module: 'AstueOnpzDeviationCardsModule',
+        itemCols: 13,
+        itemRows: 28,
+        minItemCols: 13,
+        minItemRows: 23,
+        preview: 'astue-onpz-deviation-cards'
+    },
+
+    'astue-onpz-planning-charts': {
+        import: async () => {
+            return await import(
+                'src/app/widgets/ASTUE-ONPZ/astue-onpz-planning-charts/astue-onpz-planning-charts.module'
+                );
+        },
+        module: 'AstueOnpzPlanningChartsModule',
+        itemCols: 30,
+        itemRows: 12,
+        minItemCols: 30,
+        minItemRows: 12
+        // preview: 'astue-onpz-planning-charts',
+    },
+
+    'astue-onpz-big-planning-chart': {
+        import: async () => {
+            return await import(
+                'src/app/widgets/ASTUE-ONPZ/astue-onpz-big-planning-chart/astue-onpz-big-planning-chart.module'
+                );
+        },
+        module: 'AstueOnpzBigPlanningChartModule',
+        itemCols: 24,
+        itemRows: 12,
+        minItemCols: 24,
+        minItemRows: 12
+        // preview: 'astue-onpz-big-planning-chart',
+    },
+
+    'astue-onpz-interactive-indicators': {
+        import: async () => {
+            return await import(
+                'src/app/widgets/ASTUE-ONPZ/astue-onpz-interactive-indicators/astue-onpz-interactive-indicators.module'
+                );
+        },
+        module: 'AstueOnpzInteractiveIndicatorsModule',
+        itemCols: 24,
+        itemRows: 10,
+        minItemCols: 24,
+        minItemRows: 10
+        // preview: 'astue-onpz-interactive-indicators',
+    }
+
+    //#endregion ASTUE-ONPZ
 
     // 'pie-diagram': {
     //     import: async () => await import('src/app/widgets/pie-diagram/pie-diagram.module'),
@@ -222,17 +772,12 @@ export const WIDGETS_LAZY = {
     // 'manual-input': {
     //     import: async () => await import('src/app/widgets/manual-input/manual-input.module'),
     // },
-    // 'events': {
-    //     import: async () => await import('src/app/widgets/events/events.module'),
-    // },
+
     // 'shift-pass': {
     //     import: async () => await import('src/app/widgets/shift-pass/shift-pass.module'),
     // },
     // 'shift-accept': {
     //     import: async () => await import('src/app/widgets/shift-accept/shift-accept.module'),
-    // },
-    // 'events-workspace': {
-    //     import: async () => await import('src/app/widgets/events-workspace/events-workspace.module'),
     // },
     // 'truncated-diagram-percentage': {
     //     import: async () => await import('src/app/widgets/truncated-diagram-percentage/truncated-diagram-percentage.module'),
@@ -246,17 +791,6 @@ export const WIDGETS_LAZY = {
     // 'point-diagram': {
     //     import: async () => await import('src/app/widgets/point-diagram/point-diagram.module'),
     // },
-    'industrial-pyramid': {
-        import: async () => {
-            return await import('src/app/widgets/production-pyramid/production-pyramid.module');
-        },
-        module: 'ProductionPyramidModule',
-        itemCols: 20,
-        itemRows: 16,
-        minItemCols: 20,
-        minItemRows: 16,
-        preview: 'industrial-pyramid',
-    },
     // 'bar-chart': {
     //     import: async () => await import('src/app/widgets/bar-chart/bar-chart.module'),
     // },
@@ -395,43 +929,8 @@ export const WIDGETS_LAZY = {
     // 'cd-critical': {
     //     import: async () => await import('src/app/widgets/cd-critical/cd-critical.module'),
     // },
-    // 'implementation-plan': {
-    //     import: async () => await import('src/app/widgets/implementation-plan/implementation-plan.module'),
-    // },
-    // 'performance-progress-indicators': {
-    //     import: async () => await import('src/app/widgets/performance-progress-indicators/performance-progress-indicators.module'),
-    // },
-    // 'quality-stock': {
-    //     import: async () => await import('src/app/widgets/quality-stock/quality-stock.module'),
-    // },
-    // 'smp-events': {
-    //     import: async () => await import('src/app/widgets/smp-events/smp-events.module'),
-    // },
-    // 'smp-events-workspace': {
-    //     import: async () => await import('src/app/widgets/smp-events-workspace/smp-events-workspace.module'),
-    // },
-    // 'product-groups': {
-    //     import: async () => await import('src/app/widgets/product-groups/product-groups.module'),
-    // },
-    'production-deviations': {
-        import: async () => {
-            {
-                return await import(
-                    'src/app/widgets/SMP/production-deviations/production-deviations.module'
-                );
-            }
-        },
-        module: 'ProductionDeviationsModule',
-        itemCols: 37,
-        itemRows: 27,
-        minItemCols: 37,
-        minItemRows: 27,
-        preview: 'production-deviations',
-    },
+
     // 'product-groups-short': {
     //     import: async () => await import('src/app/widgets/product-groups-short/product-groups-short.module'),
-    // },
-    // 'astue-efficiency': {
-    //     import: async () => await import('src/app/widgets/astue-efficiency/astue-efficiency.module'),
     // },
 };

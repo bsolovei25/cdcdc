@@ -1,4 +1,4 @@
-import { BrowserModule } from '@angular/platform-browser';
+import { BrowserModule, Title } from '@angular/platform-browser';
 import { NgModule, APP_INITIALIZER } from '@angular/core';
 
 import { AppComponent } from './app.component';
@@ -22,7 +22,7 @@ import { NgxMaskModule } from 'ngx-mask';
         SharedModule,
         HttpClientModule,
         BrowserAnimationsModule,
-        NgxMaskModule.forRoot(),
+        NgxMaskModule.forRoot()
     ],
     declarations: [AppComponent],
     providers: [
@@ -34,15 +34,17 @@ import { NgxMaskModule } from 'ngx-mask';
                 return () => {
                     return appConfigService.loadAppConfig();
                 };
-            },
+            }
         },
         { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
         {
             provide: HTTP_INTERCEPTORS,
             useClass: AuthenticationInterceptor,
-            multi: true,
+            multi: true
         },
+        Title
     ],
     bootstrap: [AppComponent],
+    exports: []
 })
 export class AppModule { }

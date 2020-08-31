@@ -1,3 +1,61 @@
+import { IProductionTrend } from '../production-trends.model';
+
+//#region NEW_MODELS
+export interface IAsEfProduct {
+    name: string;
+    direction: 'in' | 'out';
+    units: IAsEfUnitNew[];
+    icon?: string;
+}
+
+export interface IAsEfTable {
+    name: string;
+    header?: IAsEfRow;
+    rows: IAsEfRow[];
+    parent?: string;
+}
+
+export interface IAsEfUnitNew extends IAsEfTable {
+    flows: IAsEfFlow[];
+}
+
+export interface IAsEfFlow extends IAsEfTable {
+    astueFlowGraphs: IProductionTrend[];
+    currentDeviation: IAsEfLabel;
+    currentValue: IAsEfLabel;
+    periodDeviations: IAsEfLabel;
+    periodCounter: IAsEfLabel;
+}
+
+export interface IAsEfLabel {
+    value: number;
+    status?: LabelStatusType;
+    statusName?: string;
+}
+
+export type LabelStatusType = 'normal' | 'warning' | 'danger';
+
+export interface IAsEfRow {
+    name: string;
+    tagName?: string;
+    dataSummary?: number;
+    values?: IAsEfCell[];
+}
+
+export interface IAsEfCell {
+    id?: number;
+    date: Date;
+    value: number;
+    isEditable?: boolean;
+}
+
+export interface IAsEfGraph {
+    higherLimit: number;
+    lowerLimit: number;
+}
+
+//#endregion
+
 interface IAsEfTempl {
     id?: number;
     name: string;
@@ -6,6 +64,7 @@ interface IAsEfTempl {
 export interface IAsEfCard extends IAsEfTempl {
     icon?: string;
     status?: string;
+    direction?: string;
 }
 
 export interface IAsEfUnitCard extends IAsEfTempl {
@@ -15,7 +74,7 @@ export interface IAsEfUnitCard extends IAsEfTempl {
 
 export interface IAsEfUnit extends IAsEfTempl {
     name: string;
-    streams: IAsEfUnitCard[];
+    flows: IAsEfUnitCard[];
 }
 
 export interface IAsEfInitialDataBlock extends IAsEfTempl {

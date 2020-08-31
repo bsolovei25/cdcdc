@@ -27,7 +27,7 @@ interface IWebSocket {
 }
 
 @Injectable({
-    providedIn: 'root',
+    providedIn: 'root'
 })
 export class WidgetService {
     private readonly wsUrl: string;
@@ -44,12 +44,10 @@ export class WidgetService {
     public widgets$: Observable<IWidget[]> = this._widgets$
         .asObservable()
         .pipe(filter((item) => item !== null));
-    public widgetsPanel$: Observable<IWidget[]> = this._widgets$
-        .asObservable()
-        .pipe(
-            filter((item) => item !== null),
-            map((widgets) => widgets.filter((widget) => widget.isClaim))
-        );
+    public widgetsPanel$: Observable<IWidget[]> = this._widgets$.asObservable().pipe(
+        filter((item) => item !== null),
+        map((widgets) => widgets.filter((widget) => widget.isClaim))
+    );
 
     private reconnectWsTimer: any;
     private reconnectRestTimer: any;
@@ -61,11 +59,14 @@ export class WidgetService {
 
     filterWidgets$: BehaviorSubject<string[]> = new BehaviorSubject<string[]>([]);
 
+    // открытые каналы ws на текущем экране
+    private openedWSChannels: { [key: string]: number } = {};
+
     constructor(
         public http: HttpClient,
         private authService: AuthService,
         private configService: AppConfigService,
-        private materialController: SnackBarService,
+        private materialController: SnackBarService
     ) {
         this.restUrl = configService.restUrl;
         this.wsUrl = configService.wsUrl;
@@ -76,6 +77,10 @@ export class WidgetService {
         });
 
         setInterval(() => this.reloadPage(), 1800000);
+    }
+
+    public get allWidgets(): IWidget[] {
+        return this._widgets$.getValue();
     }
 
     private getAvailableWidgets(): Observable<IWidget[]> {
@@ -119,7 +124,10 @@ export class WidgetService {
                 widgetType: item.widgetType,
                 categories: item.categories,
                 isClaim: item.isClaim,
-                isVideoWall: item.isVideoWall
+                isVideoWall: item.isVideoWall,
+                sortType: item.sortType,
+                isHidden: item.isHidden,
+                sensorId: item.sensorId
             };
         });
     }
@@ -145,6 +153,9 @@ export class WidgetService {
 
     getWidgetLiveDataFromWS(widgetId: string, widgetType: string): Observable<any> {
         this.wsConnect(widgetId);
+        this.openedWSChannels[widgetId] = this.openedWSChannels[widgetId]
+            ? ++this.openedWSChannels[widgetId]
+            : 1;
         return this.widgetsSocketObservable.pipe(
             filter((ref) => ref && ref.channelId === widgetId),
             map((ref) => {
@@ -164,7 +175,7 @@ export class WidgetService {
     private wsRealtimeData(widgetId: string): void {
         this.ws.next({
             actionType: 'subscribe',
-            channelId: widgetId,
+            channelId: widgetId
         });
     }
 
@@ -172,15 +183,24 @@ export class WidgetService {
         this.ws.next({
             actionType: 'getPeriodData',
             channelId: widgetId,
-            selectedPeriod: this.currentDates$.getValue(),
+            selectedPeriod: this.currentDates$.getValue()
         });
     }
 
     public wsDisconnect(widgetId: string): void {
         this.ws.next({
             actionType: 'unsubscribe',
-            channelId: widgetId,
+            channelId: widgetId
         });
+    }
+
+    public removeWidget(widgetId: string): void {
+        if (this.openedWSChannels[widgetId] === 1) {
+            delete this.openedWSChannels[widgetId];
+            this.wsDisconnect(widgetId);
+        } else if (this.openedWSChannels[widgetId]) {
+            this.openedWSChannels[widgetId]--;
+        }
     }
 
     private mapWidgetData(data: any, widgetType: string): any {
@@ -229,6 +249,19 @@ export class WidgetService {
             case 'triggering-critical-parameters':
             case 'production-trend':
             case 'production-deviations':
+            case 'truncated-diagram-traffic-light':
+            case 'astue-efficiency':
+            case 'spline-trends-chart':
+            case 'cd-mat-balance':
+            case 'cd-deviation-mat':
+            case 'cd-reactor-parameters':
+            case 'cd-mat-balance-sensor':
+            case 'cd-mat-balance-stream':
+            case 'key-performance-indicators':
+            case 'kpe-energetic':
+            case 'kpe-readiness':
+            case 'kpe-quality':
+            case 'kpe-safety':
                 return data;
         }
         console.warn(`unknown widget type ${widgetType}`);
@@ -289,7 +322,7 @@ export class WidgetService {
         this.ws.next({
             actionType: 'authenticate',
             channelId: null,
-            token: this.authService.userSessionToken,
+            token: this.authService.userSessionToken
         });
         this.ws.subscribe(
             (msg) => {
@@ -320,9 +353,9 @@ export class WidgetService {
         }
         return (
             new Date(incoming.fromDateTime).getTime() ===
-                new Date(this.currentDates$.getValue()?.fromDateTime).getTime() &&
+            new Date(this.currentDates$.getValue()?.fromDateTime).getTime() &&
             new Date(incoming.toDateTime).getTime() ===
-                new Date(this.currentDates$.getValue()?.toDateTime).getTime()
+            new Date(this.currentDates$.getValue()?.toDateTime).getTime()
         );
     }
 

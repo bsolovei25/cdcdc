@@ -1,8 +1,7 @@
 import { Inject, OnDestroy } from '@angular/core';
-import { BehaviorSubject, Observable, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { WidgetService } from '../services/widget.service';
-import { from } from 'rxjs';
-import { map, mergeAll, filter } from 'rxjs/operators';
+import { SortTypeEvents } from './events-widget';
 
 export abstract class WidgetPlatform implements OnDestroy {
     public widgetCode?: string;
@@ -12,6 +11,7 @@ export abstract class WidgetPlatform implements OnDestroy {
     public widgetIcon?: string;
     public widgetOptions?: any; // TODO line-chart
     public widgetIsVideoWall?: boolean = false;
+    public widgetSortType?: SortTypeEvents = null;
 
     protected isRealtimeData: boolean = true;
 
@@ -29,11 +29,17 @@ export abstract class WidgetPlatform implements OnDestroy {
         @Inject('isMock') public isMock: boolean,
         @Inject('widgetId') public widgetId: string,
         @Inject('uniqId') public widgetUniqId: string
-    ) {
-    }
+    ) {}
 
     public ngOnDestroy(): void {
-        this.subscriptions.forEach((el) => el.unsubscribe());
+        this.subscriptions.forEach((el) => {
+            try {
+                el?.unsubscribe();
+            } catch {}
+        });
+        if (!this.isMock) {
+            this.widgetService.removeWidget(this.widgetId);
+        }
     }
 
     protected widgetInit(): void {
@@ -47,7 +53,8 @@ export abstract class WidgetPlatform implements OnDestroy {
                     this.widgetType = ref?.widgetType;
                     this.widgetOptions = ref.widgetOptions;
                     this.widgetUnits = ref.units;
-                    this.widgetIsVideoWall = ref.isVideoWall ? ref.isVideoWall : false;
+                    this.widgetIsVideoWall = ref.isVideoWall ?? false;
+                    this.widgetSortType = ref.sortType ?? 'default';
                     if (!this.isMock) {
                         console.log(this.widgetType);
                     }
@@ -78,8 +85,7 @@ export abstract class WidgetPlatform implements OnDestroy {
         );
     }
 
-    protected dataDisconnect(): void {
-    }
+    protected dataDisconnect(): void {}
 
     protected abstract dataHandler(ref: any): void;
 
@@ -94,5 +100,3 @@ export abstract class WidgetPlatform implements OnDestroy {
         this.hoverTimer = setTimeout(() => (this.isHover = false), 200);
     }
 }
-
-

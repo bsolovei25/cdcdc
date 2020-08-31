@@ -1,5 +1,11 @@
 import { IUser } from './events-widget';
 
+export interface IGroupScreensSettings {
+    id: number;
+    name: string;
+    userScreens: IScreenSettings[];
+}
+
 export interface IScreenSettings {
     id: number;
     user: IUser[];
@@ -9,6 +15,8 @@ export interface IScreenSettings {
     claims?: IClaim[];
     isFilter?: boolean;
     isActive?: boolean;
+    userScreenGroupId?: number;
+    userScreenGroupName?: string;
 }
 
 export interface IClaim {
@@ -30,19 +38,20 @@ export interface IUserGridItem {
     uniqueId: string;
 }
 
-export type ClaimType = 'screenView' |
-    'screenEdit' |
-    'screenDel' |
-    'screenAdmin' |
-    'screensAdmin' |
-    'screensAdd' |
-    'screenWidgetAdd'|
-    'screensWidgetAdd'|
-    'screenWidgetEdit' |
-    'screensWidgetEdit' |
-    'screenWidgetDel' |
-    'screensWidgetDel' |
-    'reportsView' |
-    string;
+export type ClaimType =
+    | 'screenView'
+    | 'screenEdit'
+    | 'screenDel'
+    | 'screenAdmin'
+    | 'screensAdmin'
+    | 'screensAdd'
+    | 'screenWidgetAdd'
+    | 'screensWidgetAdd'
+    | 'screenWidgetEdit'
+    | 'screensWidgetEdit'
+    | 'screenWidgetDel'
+    | 'screensWidgetDel'
+    | 'reportsView'
+    | string;
 
 export type ClaimCategory = 'allow' | 'deny';

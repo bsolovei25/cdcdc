@@ -1,0 +1,59 @@
+<div class="container">
+  <ul>
+    <li (click)="openDialog('image')">
+      <svg-icon
+        class="container_icon"
+        src="assets/icons/widgets/events/file-attach-menu/image.svg"
+        [svgStyle]="{ 'width.px':15, 'height.px':13 }"
+      ></svg-icon>
+      <span>Изображение</span>
+    </li>
+    <li (click)="openDialog('document')">
+      <svg-icon
+        class="container_icon"
+        src="assets/icons/widgets/events/file-attach-menu/document.svg"
+        [svgStyle]="{ 'width.px':14, 'height.px':17 }"
+      ></svg-icon>
+      <span>Документ</span>
+    </li>
+    <li (click)="openDialog('archive')">
+      <svg-icon
+        class="container_icon"
+        src="assets/icons/widgets/events/file-attach-menu/archive.svg"
+        [svgStyle]="{ 'width.px':14, 'height.px':17 }"
+      ></svg-icon>
+      <span>Архив</span>
+    </li>
+    <li (click)="openDialog('video')">
+      <svg-icon
+        class="container_icon"
+        src="assets/icons/widgets/events/file-attach-menu/video.svg"
+        [svgStyle]="{ 'width.px':14, 'height.px':12 }"
+      ></svg-icon>
+      <span>Видео</span>
+    </li>
+  </ul>
+
+  <div class="container_files">
+    <h5>Ваши файлы:</h5>
+    <div class="container_files__list">
+      <ng-container *ngFor="let file of filesToUpload; let i = index">
+        <div class="list-item">
+          <svg-icon
+            class="list-item__icon"
+            [src]="'assets/icons/widgets/events/file-attach-menu/' + file.type + '.svg'"
+            [svgStyle]="{ 'width.px':15, 'height.px':15 }"
+          ></svg-icon>
+          <div class="list-item__size">{{ file.size }}</div>
+          <div class="list-item__name" [matTooltip]="file.name">{{ file.name }}</div>
+          <svg-icon
+            class="list-item__delete-icon"
+            src="assets/icons/remove.svg"
+            (click)="deleteFile(i)"
+            [svgStyle]="{ 'width.px':12, 'height.px':12 }"
+          ></svg-icon>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+</div>

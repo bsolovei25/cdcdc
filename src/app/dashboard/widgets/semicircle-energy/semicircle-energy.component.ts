@@ -82,9 +82,9 @@ export class SemicircleEnergyComponent extends WidgetPlatform implements OnInit,
     public isWarning: boolean = false;
 
     public static itemCols: number = 13;
-    public static itemRows: number = 11;
+    public static itemRows: number = 9;
     public static minItemCols: number = 13;
-    public static minItemRows: number = 11;
+    public static minItemRows: number = 9;
 
     constructor(
         protected widgetService: WidgetService,
@@ -135,19 +135,19 @@ export class SemicircleEnergyComponent extends WidgetPlatform implements OnInit,
     logoType(): void {
         switch (this.iconType) {
             case 0:
-                this.diagramLogo = '../../../../assets/icons/widgets/energetics/electro.svg';
+                this.diagramLogo = 'assets/icons/widgets/energetics/electro.svg';
                 this.diagramLogoDanger =
-                    '../../../../assets/icons/widgets/energetics/electro_danger.svg';
+                    'assets/icons/widgets/energetics/electro_danger.svg';
                 return;
             case 1:
-                this.diagramLogo = '../../../../assets/icons/widgets/energetics/termo.svg';
+                this.diagramLogo = 'assets/icons/widgets/energetics/termo.svg';
                 this.diagramLogoDanger =
-                    '../../../../assets/icons/widgets/energetics/termo_danger.svg';
+                    'assets/icons/widgets/energetics/termo_danger.svg';
                 return;
             case 2:
-                this.diagramLogo = '../../../../assets/icons/widgets/energetics/fuel.svg';
+                this.diagramLogo = 'assets/icons/widgets/energetics/fuel.svg';
                 this.diagramLogoDanger =
-                    '../../../../assets/icons/widgets/energetics/fuel_danger.svg';
+                    'assets/icons/widgets/energetics/fuel_danger.svg';
                 return;
         }
     }

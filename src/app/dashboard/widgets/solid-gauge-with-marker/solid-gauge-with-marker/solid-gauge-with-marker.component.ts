@@ -59,8 +59,13 @@ export class SolidGaugeWithMarkerComponent implements AfterViewInit {
     };
 
     ngAfterViewInit(): void {
+        this.dataHandler();
         this.indicator = this.indicatorGauge(this.data);
         this.draw(this.data, this.myCircle.nativeElement, this.gaugemap, this.indicator);
+    }
+
+    dataHandler(): void {
+        this.data.percent *= this.criticalPie / this.config.maxValue;
     }
 
     indicatorGauge(data): number {
@@ -155,7 +160,7 @@ export class SolidGaugeWithMarkerComponent implements AfterViewInit {
 
         const aroundGauge = this.svg
             .append('image')
-            .attr('xlink:href', '/assets/pic/SolidGauge/aroundGauge.svg')
+            .attr('xlink:href', 'assets/pic/SolidGauge/aroundGauge.svg')
             .attr('height', '420px')
             .attr('width', '410px')
             .attr('x', '-55')
@@ -213,7 +218,7 @@ export class SolidGaugeWithMarkerComponent implements AfterViewInit {
 
         const lineGauge = this.svg
             .append('image')
-            .attr('xlink:href', '/assets/pic/SolidGauge/lineGauge.svg')
+            .attr('xlink:href', 'assets/pic/SolidGauge/lineGauge.svg')
             .attr('height', '120px')
             .attr('width', '110px')
             .attr('x', '199.4')
@@ -237,9 +242,9 @@ export class SolidGaugeWithMarkerComponent implements AfterViewInit {
         const ratio = this.scale(newValue);
         const newAngle = this.config.minAngle + ratio * this.range;
         this.pointer
-            .transition()
-            .duration(this.config.transitionMs)
-            .ease(d3.easeElastic)
+            // .transition()
+            // .duration(this.config.transitionMs)
+            // .ease(d3.easeElastic)
             .attr('transform', 'rotate(' + newAngle + ')');
     }
 

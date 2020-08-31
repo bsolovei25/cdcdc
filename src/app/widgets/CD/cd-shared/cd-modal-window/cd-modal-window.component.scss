@@ -1,0 +1,236 @@
+.loading-shade {
+  position: absolute;
+  top: 0;
+  left: 2px;
+  right: 2px;
+  bottom: 0;
+  background: var(--color-aw-shade-bg-transparent);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-kpe-eq-chart-title);
+
+  &__blur {
+    backdrop-filter: blur(1.5px);
+    transition: backdrop-filter 0.5s;
+  }
+}
+
+
+.window-container {
+  background-color: var(--color-aps-bg-window);
+  padding: 40px 50px;
+  border-radius: 10px;
+  border: 1px solid var(--color-aps-active);
+
+  max-width: 880px;
+
+  &__header {
+    font-size: 28px;
+    font-weight: bold;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 30px;
+
+    &__title {
+      color: var(--color-kpe-eq-chart-title);
+    }
+
+  }
+
+  &__body {
+    display: flex;
+    column-gap: 2rem;
+    row-gap: 2rem;
+
+    &__left-block {
+      width: 50%;
+    }
+
+    &__right-block {
+      width: 50%;
+    }
+
+    &__time-block {
+      display: flex;
+      justify-content: space-between;
+    }
+
+  }
+
+  &__footer {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    margin-top: 20px;
+    gap: 10px;
+    padding: 0 50px;
+
+    &__btn {
+      font-size: 13px;
+      cursor: pointer;
+      height: 32px;
+      box-sizing: border-box;
+      width: 221px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 10px;
+      min-width: 130px;
+      border-radius: 5px;
+      background-color: var(--color-aps-button-bg);
+      color: var(--color-cd-new-text-sub);
+
+      &__accept {
+        color: var(--color-text-main);
+        background-color: var(--color-aps-active);
+        padding: 0 17px;
+        min-width: 230px;
+
+        svg-icon {
+          margin-right: 10px;
+        }
+      }
+    }
+  }
+}
+
+input {
+  background-color: var(--color-aps-bg);
+  border: 1px solid var(--color-cd-new-border);
+  border-radius: 2px;
+  color: var(--color-kpe-eq-chart-title);
+  min-height: 36px;
+  padding-left: 15px;
+  padding-right: 10px;
+  font-size: 13px;
+}
+
+input[type="text"]:focus {
+  outline: none;
+}
+
+textarea {
+  font-size: 14px;
+  background-color: var(--color-aps-bg);
+  border: 1px solid var(--color-cd-new-border);
+  border-radius: 2px;
+  color: var(--color-kpe-eq-chart-title);
+  min-height: 36px;
+  padding-left: 15px;
+  padding-right: 10px;
+  padding-top: 10px;
+}
+
+textarea[type="text"]:focus {
+  outline: none;
+}
+
+.input__container {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  position: relative;
+
+  &__title {
+    font-size: 13px;
+    color: var(--color-cd-text-sub-2);
+  }
+
+  &__time {
+    font-size: 13px;
+    color: var(--color-kpe-eq-chart-title);
+    background-color: var(--color-aps-bg);
+    border: 1px solid var(--color-cd-new-border);
+    border-radius: 2px;
+    height: 36px;
+    min-width: 175px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 13px;
+  }
+
+  &__overlay {
+    position: absolute;
+    left: 68px;
+    background-color: var(--color-aps-bg);
+    border: 1px solid var(--color-cd-new-border);
+    border-radius: 2px;
+    z-index: 2;
+    padding-left: 15px;
+  }
+
+  &__form {
+    max-height: 34px;
+    min-height: 34px;
+    border-radius: 2px;
+    background-color: var(--color-aps-bg);
+    border: 1px solid var(--color-cd-new-border);
+  }
+
+}
+
+
+::ng-deep {
+  .mat-select-custom {
+    font-size: 13px;
+
+    .mat-form-field-infix {
+      border-top: none;
+      padding: 0;
+    }
+
+    .mat-form-field-underline {
+      height: 0;
+    }
+
+    .mat-form-field-wrapper {
+      padding: 0 17px;
+    }
+
+    .mat-form-field-ripple {
+      background-color: transparent !important;
+    }
+
+    .mat-form-field-wrapper {
+      padding-bottom: 0;
+      margin: 12px 0;
+      margin-bottom: 12px;
+    }
+
+    .mat-select-value,
+    .mat-input-element {
+      color: var(--color-kpe-eq-chart-title);
+    }
+  }
+
+  .custom-picker {
+    .mat-form-field-underline {
+      height: 0;
+    }
+
+    .mat-form-field-ripple {
+      background-color: transparent !important;
+    }
+
+    .mat-form-field-wrapper {
+      padding-bottom: 0;
+    }
+
+    .mat-form-field-infix {
+      border-top: 0;
+      padding: 0;
+    }
+
+    .mat-form-field-suffix {
+      top: -9px;
+      right: 5px;
+    }
+  }
+
+
+}
+
+

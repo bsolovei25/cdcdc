@@ -1,0 +1,35 @@
+<div *ngIf="data" class="container">
+  <div class="top">
+    <div class="top__title">
+      <span>{{data.title}}</span>
+    </div>
+    <div class="top__units">
+      <div class="unit top__units__block">
+        <span>{{data.unit}}</span>
+      </div>
+      <div class="measure top__units__block top__units__active">
+        <span>%</span>
+      </div>
+    </div>
+  </div>
+  <div class="main">
+    <div class="main__diagram">
+      <div class="circle-diagram">
+        <svg-icon [src]="iconPath" class="icon"></svg-icon>
+        <evj-kpe-energy-diagram [fact]="data.fact" [plan]="data.plan"></evj-kpe-energy-diagram>
+      </div>
+    </div>
+    <div class="main__stats">
+      <div class="titles">
+        <span class="main__stats__fact">Факт:</span>
+        <span class="main__stats__deviation">Откл.:</span>
+        <span class="main__stats__plan">План:</span>
+      </div>
+      <div class="values">
+        <span class="main__stats__fact">{{data.fact | number : '1.0-2'}}%</span>
+        <span class="main__stats__deviation">∆ {{deviationValue | number : '1.0-2'}}%</span>
+        <span class="main__stats__plan">{{data.plan | number : '1.0-2'}}%</span>
+      </div>
+    </div>
+  </div>
+</div>

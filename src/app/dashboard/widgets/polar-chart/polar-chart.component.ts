@@ -12,9 +12,9 @@ declare var d3: any;
 export class PolarChartComponent extends WidgetPlatform implements OnInit, OnDestroy {
     @ViewChild('polar') Polar: ElementRef;
 
-    public static itemCols: number = 21;
-    public static itemRows: number = 21;
-    public static minItemCols: number = 15;
+    public static itemCols: number = 20;
+    public static itemRows: number = 20;
+    public static minItemCols: number = 9;
     public static minItemRows: number = 15;
 
     private canvas: any;
@@ -159,11 +159,11 @@ export class PolarChartComponent extends WidgetPlatform implements OnInit, OnDes
             .select(el)
             .append('svg')
             .attr('min-width', '100px')
-            .attr('viewBox', '10 0 150 120');
+            .attr('viewBox', '10 0 130 120');
 
         let imageFrame = this.canvas
             .append('image')
-            .attr('xlink:href', './assets/pic/PolarWidget/polar_frame.png')
+            .attr('xlink:href', 'assets/pic/PolarWidget/polar_frame.png')
             .attr('height', '50px')
             .attr('width', '50px')
             .attr('x', '50')
@@ -171,7 +171,7 @@ export class PolarChartComponent extends WidgetPlatform implements OnInit, OnDes
 
         let imageLogo = this.canvas
             .append('image')
-            .attr('xlink:href', './assets/pic/PolarWidget/polar_logo.png')
+            .attr('xlink:href', 'assets/pic/PolarWidget/polar_logo.png')
             .attr('height', '10px')
             .attr('width', '10px')
             .attr('x', '70')
@@ -218,8 +218,8 @@ export class PolarChartComponent extends WidgetPlatform implements OnInit, OnDes
                                 data[indexLine].state === 'default'
                                     ? 'gray'
                                     : data[indexLine].state === 'normal'
-                                        ? 'white'
-                                        : 'orange'
+                                    ? 'white'
+                                    : 'orange'
                             )
                             .attr('stroke-dasharray', '0.3')
                             .attr('stroke-width', '0.2');
@@ -236,8 +236,8 @@ export class PolarChartComponent extends WidgetPlatform implements OnInit, OnDes
                                 data[indexLine].state === 'default'
                                     ? 'gray'
                                     : data[indexLine].state === 'normal'
-                                        ? 'white'
-                                        : 'orange'
+                                    ? 'white'
+                                    : 'orange'
                             )
                             .attr('stroke-dasharray', '0.3')
                             .attr('stroke-width', '0.3');
@@ -253,10 +253,10 @@ export class PolarChartComponent extends WidgetPlatform implements OnInit, OnDes
                 .attr(
                     'xlink:href',
                     data[indexBorder].state === 'default'
-                        ? './assets/pic/PolarWidget/polar_border2.svg'
+                        ? 'assets/pic/PolarWidget/polar_border2.svg'
                         : data[indexBorder].state === 'normal'
-                            ? './assets/pic/PolarWidget/polar_border1.svg'
-                            : './assets/pic/PolarWidget/polar_border3.svg'
+                        ? 'assets/pic/PolarWidget/polar_border1.svg'
+                        : 'assets/pic/PolarWidget/polar_border3.svg'
                 )
                 .attr('height', '80px')
                 .attr('width', '50px')
@@ -279,19 +279,21 @@ export class PolarChartComponent extends WidgetPlatform implements OnInit, OnDes
             .append('text')
             .attr('font-family', "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
             .attr('font-size', '1.4px')
-            .attr('x', '64')
+            .attr('x', '67')
             .attr('y', '13')
+            .attr('text-anchor', 'middle')
             .attr('fill', 'white')
-            .text('Прогноз');
+            .text(this.data[0].forecastTitle);
 
         let planText1 = this.canvas
             .append('text')
             .attr('font-family', "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
             .attr('font-size', '1.4px')
-            .attr('x', '82')
+            .attr('x', '84')
             .attr('y', '13')
+            .attr('text-anchor', 'middle')
             .attr('fill', '#a2e2ff')
-            .text('План');
+            .text(this.data[0].planTitle);
 
         let forecastTextData1 = this.canvas
             .append('text')
@@ -301,13 +303,7 @@ export class PolarChartComponent extends WidgetPlatform implements OnInit, OnDes
             .attr('y', '11')
             .attr('text-anchor', 'middle')
             .attr('fill', data[0].state === 'critical' ? 'orange' : 'white')
-            .text(
-                data[0].valueType === 'procent'
-                    ? data[0].forecast + ' %'
-                    : data[0].valueType === 'mln'
-                        ? data[0].forecast + ' млн.т'
-                        : data[0].forecast + ' EII'
-            );
+            .text(`${data[0].forecast} ${data[0].valueType}`);
 
         let planTextData1 = this.canvas
             .append('text')
@@ -317,13 +313,7 @@ export class PolarChartComponent extends WidgetPlatform implements OnInit, OnDes
             .attr('y', '11')
             .attr('text-anchor', 'middle')
             .attr('fill', '#a2e2ff')
-            .text(
-                data[0].valueType === 'procent'
-                    ? data[0].plan + ' %'
-                    : data[0].valueType === 'mln'
-                        ? data[0].plan + ' млн.т'
-                        : data[0].plan + ' EII'
-            );
+            .text(`${data[0].planValue} ${data[0].valueType}`);
 
         let titleText2 = this.canvas
             .append('text')
@@ -339,19 +329,21 @@ export class PolarChartComponent extends WidgetPlatform implements OnInit, OnDes
             .append('text')
             .attr('font-family', "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
             .attr('font-size', '1.4px')
-            .attr('x', '104')
+            .attr('x', '107')
             .attr('y', '30')
+            .attr('text-anchor', 'middle')
             .attr('fill', 'white')
-            .text('Прогноз');
+            .text(this.data[1].forecastTitle);
 
         let planText2 = this.canvas
             .append('text')
             .attr('font-family', "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
             .attr('font-size', '1.4px')
-            .attr('x', '122')
+            .attr('x', '124')
             .attr('y', '30')
+            .attr('text-anchor', 'middle')
             .attr('fill', '#a2e2ff')
-            .text('План');
+            .text(this.data[1].planTitle);
 
         let forecastTextData2 = this.canvas
             .append('text')
@@ -361,13 +353,7 @@ export class PolarChartComponent extends WidgetPlatform implements OnInit, OnDes
             .attr('y', '28')
             .attr('text-anchor', 'middle')
             .attr('fill', data[1].state === 'critical' ? 'orange' : 'white')
-            .text(
-                data[1].valueType === 'procent'
-                    ? data[1].forecast + ' %'
-                    : data[1].valueType === 'mln'
-                        ? data[1].forecast + ' млн.т'
-                        : data[1].forecast + ' EII'
-            );
+            .text(`${data[1].forecast} ${data[1].valueType}`);
 
         let planTextData2 = this.canvas
             .append('text')
@@ -377,13 +363,7 @@ export class PolarChartComponent extends WidgetPlatform implements OnInit, OnDes
             .attr('y', '28')
             .attr('text-anchor', 'middle')
             .attr('fill', '#a2e2ff')
-            .text(
-                data[1].valueType === 'procent'
-                    ? data[1].plan + ' %'
-                    : data[1].valueType === 'mln'
-                        ? data[1].plan + ' млн.т'
-                        : data[1].plan + ' EII'
-            );
+            .text(`${data[1].planValue} ${data[1].valueType}`);
 
         let titleText3 = this.canvas
             .append('text')
@@ -399,19 +379,21 @@ export class PolarChartComponent extends WidgetPlatform implements OnInit, OnDes
             .append('text')
             .attr('font-family', "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
             .attr('font-size', '1.4px')
-            .attr('x', '104')
+            .attr('x', '107')
             .attr('y', '86')
+            .attr('text-anchor', 'middle')
             .attr('fill', 'white')
-            .text('Прогноз');
+            .text(this.data[2].forecastTitle);
 
         let planText3 = this.canvas
             .append('text')
             .attr('font-family', "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
             .attr('font-size', '1.4px')
-            .attr('x', '122')
+            .attr('x', '124')
             .attr('y', '86')
+            .attr('text-anchor', 'middle')
             .attr('fill', '#a2e2ff')
-            .text('План');
+            .text(this.data[2].planTitle);
 
         let forecastTextData3 = this.canvas
             .append('text')
@@ -421,13 +403,7 @@ export class PolarChartComponent extends WidgetPlatform implements OnInit, OnDes
             .attr('y', '84')
             .attr('text-anchor', 'middle')
             .attr('fill', data[2].state === 'critical' ? 'orange' : 'white')
-            .text(
-                data[2].valueType === 'procent'
-                    ? data[2].forecast + ' %'
-                    : data[2].valueType === 'mln'
-                        ? data[2].forecast + ' млн.т'
-                        : data[2].forecast + ' EII'
-            );
+            .text(`${data[2].forecast} ${data[2].valueType}`);
 
         let planTextData3 = this.canvas
             .append('text')
@@ -437,13 +413,7 @@ export class PolarChartComponent extends WidgetPlatform implements OnInit, OnDes
             .attr('y', '84')
             .attr('text-anchor', 'middle')
             .attr('fill', '#a2e2ff')
-            .text(
-                data[2].valueType === 'procent'
-                    ? data[2].plan + ' %'
-                    : data[2].valueType === 'mln'
-                        ? data[2].plan + ' млн.т'
-                        : data[2].plan + ' EII'
-            );
+            .text(`${data[2].planValue} ${data[2].valueType}`);
 
         let titleText4 = this.canvas
             .append('text')
@@ -459,19 +429,21 @@ export class PolarChartComponent extends WidgetPlatform implements OnInit, OnDes
             .append('text')
             .attr('font-family', "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
             .attr('font-size', '1.4px')
-            .attr('x', '64')
+            .attr('x', '67')
             .attr('y', '104')
+            .attr('text-anchor', 'middle')
             .attr('fill', 'white')
-            .text('Прогноз');
+            .text(this.data[3].forecastTitle);
 
         let planText4 = this.canvas
             .append('text')
             .attr('font-family', "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
             .attr('font-size', '1.4px')
-            .attr('x', '82')
+            .attr('x', '84')
             .attr('y', '104')
+            .attr('text-anchor', 'middle')
             .attr('fill', '#a2e2ff')
-            .text('План');
+            .text(this.data[3].planTitle);
 
         let forecastTextData4 = this.canvas
             .append('text')
@@ -481,13 +453,7 @@ export class PolarChartComponent extends WidgetPlatform implements OnInit, OnDes
             .attr('y', '102')
             .attr('text-anchor', 'middle')
             .attr('fill', data[3].state === 'critical' ? 'orange' : 'white')
-            .text(
-                data[3].valueType === 'procent'
-                    ? data[3].forecast + ' %'
-                    : data[3].valueType === 'mln'
-                        ? data[3].forecast + ' млн.т'
-                        : data[3].forecast + ' EII'
-            );
+            .text(`${data[3].forecast} ${data[3].valueType}`);
 
         let planTextData4 = this.canvas
             .append('text')
@@ -497,13 +463,7 @@ export class PolarChartComponent extends WidgetPlatform implements OnInit, OnDes
             .attr('y', '102')
             .attr('text-anchor', 'middle')
             .attr('fill', '#a2e2ff')
-            .text(
-                data[3].valueType === 'procent'
-                    ? data[3].plan + ' %'
-                    : data[3].valueType === 'mln'
-                        ? data[3].plan + ' млн.т'
-                        : data[3].plan + ' EII'
-            );
+            .text(`${data[3].planValue} ${data[3].valueType}`);
 
         let titleText5 = this.canvas
             .append('text')
@@ -519,19 +479,21 @@ export class PolarChartComponent extends WidgetPlatform implements OnInit, OnDes
             .append('text')
             .attr('font-family', "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
             .attr('font-size', '1.4px')
-            .attr('x', '24')
+            .attr('x', '27')
             .attr('y', '86')
+            .attr('text-anchor', 'middle')
             .attr('fill', 'white')
-            .text('Прогноз');
+            .text(this.data[4].forecastTitle);
 
         let planText5 = this.canvas
             .append('text')
             .attr('font-family', "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
             .attr('font-size', '1.4px')
-            .attr('x', '42')
+            .attr('x', '43')
             .attr('y', '86')
+            .attr('text-anchor', 'middle')
             .attr('fill', '#a2e2ff')
-            .text('План');
+            .text(this.data[4].planTitle);
 
         let forecastTextData5 = this.canvas
             .append('text')
@@ -541,13 +503,7 @@ export class PolarChartComponent extends WidgetPlatform implements OnInit, OnDes
             .attr('y', '84')
             .attr('text-anchor', 'middle')
             .attr('fill', data[4].state === 'critical' ? 'orange' : 'white')
-            .text(
-                data[4].valueType === 'procent'
-                    ? data[4].forecast + ' %'
-                    : data[4].valueType === 'mln'
-                        ? data[4].forecast + ' млн.т'
-                        : data[4].forecast + ' EII'
-            );
+            .text(`${data[4].forecast} ${data[4].valueType}`);
 
         let planTextData5 = this.canvas
             .append('text')
@@ -557,13 +513,7 @@ export class PolarChartComponent extends WidgetPlatform implements OnInit, OnDes
             .attr('y', '84')
             .attr('text-anchor', 'middle')
             .attr('fill', '#a2e2ff')
-            .text(
-                data[4].valueType === 'procent'
-                    ? data[4].plan + ' %'
-                    : data[4].valueType === 'mln'
-                        ? data[4].plan + ' млн.т'
-                        : data[4].plan + ' EII'
-            );
+            .text(`${data[4].planValue} ${data[4].valueType}`);
 
         let titleText6 = this.canvas
             .append('text')
@@ -571,7 +521,6 @@ export class PolarChartComponent extends WidgetPlatform implements OnInit, OnDes
             .attr('font-size', '1.9px')
             .attr('x', '35')
             .attr('y', '25')
-
             .attr('text-anchor', 'middle')
             .attr('fill', data[5].state === 'default' ? '#a2e2ff' : 'white')
             .text(data[5].title);
@@ -580,10 +529,21 @@ export class PolarChartComponent extends WidgetPlatform implements OnInit, OnDes
             .append('text')
             .attr('font-family', "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
             .attr('font-size', '1.4px')
-            .attr('x', '24')
+            .attr('x', '27')
             .attr('y', '30')
+            .attr('text-anchor', 'middle')
             .attr('fill', 'white')
-            .text('Прогноз');
+            .text(this.data[5].forecastTitle);
+
+        let planText6 = this.canvas
+            .append('text')
+            .attr('font-family', "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
+            .attr('font-size', '1.4px')
+            .attr('x', '43')
+            .attr('y', '30')
+            .attr('text-anchor', 'middle')
+            .attr('fill', '#a2e2ff')
+            .text(this.data[5].planTitle);
 
         let forecastTextData6 = this.canvas
             .append('text')
@@ -593,22 +553,7 @@ export class PolarChartComponent extends WidgetPlatform implements OnInit, OnDes
             .attr('y', '28')
             .attr('text-anchor', 'middle')
             .attr('fill', data[5].state === 'critical' ? 'orange' : 'white')
-            .text(
-                data[5].valueType === 'procent'
-                    ? data[5].forecast + ' %'
-                    : data[5].valueType === 'mln'
-                        ? data[5].forecast + ' млн.т'
-                        : data[5].forecast + ' EII'
-            );
-
-        let planText6 = this.canvas
-            .append('text')
-            .attr('font-family', "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
-            .attr('font-size', '1.4px')
-            .attr('x', '42')
-            .attr('y', '30')
-            .attr('fill', '#a2e2ff')
-            .text('План');
+            .text(`${data[5].forecast} ${data[5].valueType}`);
 
         let planTextData6 = this.canvas
             .append('text')
@@ -618,13 +563,7 @@ export class PolarChartComponent extends WidgetPlatform implements OnInit, OnDes
             .attr('y', '28')
             .attr('fill', '#a2e2ff')
             .attr('text-anchor', 'middle')
-            .text(
-                data[5].valueType === 'procent'
-                    ? data[5].plan + ' %'
-                    : data[5].valueType === 'mln'
-                        ? data[5].plan + ' млн.т'
-                        : data[5].plan + ' EII'
-            );
+            .text(`${data[5].planValue} ${data[5].valueType}`);
     }
 
     public drawNewLine(data): void {

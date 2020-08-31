@@ -6,7 +6,6 @@ import { Subscription } from 'rxjs';
 import { AppConfigService } from '../../../services/appConfigService';
 import { OverlayService } from '../../services/overlay.service';
 import { AvatarConfiguratorService } from '../../services/avatar-configurator.service';
-import { IAlertPasswordModel } from '../../../@shared/models/alert-password.model';
 
 @Component({
     selector: 'evj-user-info',
@@ -57,39 +56,5 @@ export class UserInfoComponent implements OnInit, OnDestroy {
             this.data = data;
             this.photoPath = this.avatarConfiguratorService.getAvatarPath(this.data.photoId);
         });
-    }
-
-    resetPassword(): void {
-        const passwordOptions: IAlertPasswordModel = {
-            isShow: true,
-            isCreatePassword: false,
-            closeFunction: () => this.overlayService.dashboardAlertPassword$.next(null),
-        };
-        this.overlayService.dashboardAlertPassword$.next(passwordOptions);
-    }
-
-    async logOut(): Promise<void> {
-        await this.authService.logOut();
-        this.router.navigate(['login']);
-    }
-
-    async fullScreen(): Promise<void> {
-        const elem = document.getElementById('#fullScreen');
-        document.documentElement.requestFullscreen();
-    }
-
-    isLeaveScreen(): void {
-        this.isShowScreens = false;
-    }
-    isOverScreen(): void {
-        this.isShowScreens = true;
-    }
-
-    ScreenActive(): void {
-        this.isShowScreens = true;
-    }
-
-    ScreenDisable(): void {
-        this.isShowScreens = false;
     }
 }

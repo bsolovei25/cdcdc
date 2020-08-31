@@ -1,0 +1,40 @@
+<div class="container">
+  <div class="header">
+    <div class="header__icon">
+      <svg-icon [svgStyle]="{'width': '100%', 'height': '100%'}" src="assets/icons/widgets/SOU/header-icons/letter.svg"></svg-icon>
+    </div>
+    <div class="header__label">Карточки отклонений</div>
+    <span style="flex-grow: 1"></span>
+    <div class="header__button-close" (click)="buttonClick()">
+      <svg-icon [svgStyle]="{'width': '100%', 'height': '100%'}" src="assets/icons/widgets/SOU/header-icons/close.svg"></svg-icon>
+    </div>
+  </div>
+  <div class="table-content">
+    <div class="scroll-container scroll-bar">
+      <ng-container *ngFor="let cardData of data">
+        <ng-container *ngTemplateOutlet="card; context: {cardData: cardData}"></ng-container>
+      </ng-container>
+    </div>
+  </div>
+</div>
+
+
+<ng-template #card let-cardData="cardData">
+  <div class="card">
+    <div class="card_header">
+      <span class="text">{{cardData.unit}}</span>
+    </div>
+    <div class="card_content">
+      <div class="card_content__icon">
+        <svg-icon [svgStyle]="{'width': '100%', 'height': '100%'}" src="assets/icons/widgets/SOU/warning.svg"></svg-icon>
+      </div>
+      <div class="card_content__textarea">
+        <span>{{cardData.info}}</span>
+      </div>
+    </div>
+    <div class="card_footer">
+      <span class="text_status">{{cardData.status}}</span>
+      <span class="text_date">{{cardData.timestamp | date: "dd.MM.yyyy"}}</span>
+    </div>
+  </div>
+</ng-template>

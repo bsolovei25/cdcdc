@@ -10,8 +10,6 @@ import { LineChartComponent } from './widgets/line-chart/line-chart.component';
 import { DndModule } from 'ngx-drag-drop';
 import { DashboardComponent } from './pages/dashboard.component';
 import { HttpClientModule } from '@angular/common/http';
-import { EventsComponent } from './widgets/events/events.component';
-import { EventCardComponent } from './widgets/events/components/event-card/event-card.component';
 import { ManualInputComponent } from './widgets/manual-input/manual-input.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LineDiagramComponent } from './widgets/line-diagram/line-diagram.component';
@@ -23,7 +21,6 @@ import { GridsterModule } from 'angular-gridster2';
 import { UserInfoComponent } from './components/user-info/user-info.component';
 import { WidgetPiesComponent } from './widgets/widgets-pie/widget-pies/widget-pies.component';
 import { WidgetsPieComponent } from './widgets/widgets-pie/widget-pie-circle/widget-pie.component';
-import { EventsWorkSpaceComponent } from './widgets/workspace/events-workspace.component';
 import { TruncatedPieFirstComponent } from './widgets/truncated-pie-first/truncated-pie-first/truncated-pie-first.component';
 import { TruncatedPieSFirstComponent } from './widgets/truncated-pie-first/truncated-pie-s-first/truncated-pie-s-first.component';
 import { TruncatedPieSIconComponent } from './widgets/truncated-pie-icon/truncated-pie-s-icon/truncated-pie-s-icon.component';
@@ -41,7 +38,6 @@ import { MapEcologyComponent } from './widgets/map-ecology/map-ecology.component
 import { UnityTemplateComponent } from './widgets/unity-template/unity-template.component';
 import { PowIndexPipe } from './pipes/pow-index.pipe';
 import { RingFactoryDiagramComponent } from './widgets/ring-factory-diagrams/ring-factory-diagram/ring-factory-diagram.component';
-import { LineChartWorkspaceComponent } from './widgets/workspace/components/line-chart-workspace/line-chart-workspace.component';
 import { RingSFactoryDiagramComponent } from './widgets/ring-factory-diagrams/ring-s-factory-diagram/ring-s-factory-diagram.component';
 import { CalendarPlanComponent } from './widgets/calendar-plan/calendar-plan.component';
 import { EcologySafetyComponent } from './widgets/ecology-safety/ecology-safety.component';
@@ -78,10 +74,14 @@ import { TimeDiagramComponent } from './widgets/time-line-diagram/time-diagram/t
 import { ObservationNormTRComponent } from './widgets/observation-norm-tr/observation-norm-tr.component';
 import { AdminPanelComponent } from './widgets/admin-panel/admin-panel.component';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { AdminShiftScheduleComponent } from './widgets/admin-widget/admin-shift-schedule/admin-shift-schedule.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { MatNativeDateModule, MAT_DATE_LOCALE, MAT_DATE_FORMATS } from '@angular/material/core';
+import {
+    MatNativeDateModule,
+    MAT_DATE_LOCALE,
+    MAT_DATE_FORMATS,
+    MatRippleModule,
+} from '@angular/material/core';
 import { AdminReferencesComponent } from './widgets/admin-references/admin-references.component';
 import { CardVerifierComponent } from './widgets/change-shift/card-verifier/card-verifier.component';
 import { PetroleumProductsMovementComponent } from './widgets/petroleum-products-movement/petroleum-products-movement.component';
@@ -115,7 +115,6 @@ import { AwsCheckboxCardComponent } from './widgets/admin-panel/admin-worker-set
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { AwsBlockComponent } from './widgets/admin-panel/admin-worker-settings/aws-block/aws-block.component';
 import { UsbVerifierComponent } from './widgets/change-shift/usb-verifier/usb-verifier.component';
-import { TimeDataPickerComponent } from './components/time-data-picker/time-data-picker.component';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { ReportComponent } from './components/report/reports/report.component';
 import { ReportsComponent } from './components/report/reports.component';
@@ -146,10 +145,6 @@ import { UploadDropComponent } from './widgets/tank-calibration-table/upload-for
 import { MatDialogModule, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { TanksTableComponent } from './widgets/tank-calibration-table/tanks-table/tanks-table.component';
 import { UploadFormComponent } from './widgets/tank-calibration-table/upload-form/upload-form.component';
-import { SmotrEventComponent } from './widgets/workspace/smotr-event/smotr-event.component';
-import { UsualEventComponent } from './widgets/workspace/usual-event/usual-event.component';
-import { EventDescriptionComponent } from './widgets/workspace/components/event-description/event-description.component';
-import { ChatComponent } from './widgets/workspace/components/chat/chat.component';
 import { CustomReportPropertiesReferenceComponent } from './widgets/custom-report-properties-reference/custom-report-properties-reference.component';
 import { PopupUserOptionsComponent } from './widgets/report-server-configurator/popup-user-options/popup-user-options.component';
 import { NecessaryParamComponent } from './widgets/report-server-configurator/popup-user-options/necessary-param/necessary-param.component';
@@ -168,15 +163,6 @@ import { SystemPathEditComponent } from './widgets/report-server-configurator/po
 import { SystemAutogenerateComponent } from './widgets/report-server-configurator/popup-system-options/system-autogenerate/system-autogenerate.component';
 import { SystemPathUserComponent } from './widgets/report-server-configurator/popup-system-options/system-path-edit/system-path-user/system-path-user.component';
 import { ParameterAutogenerationComponent } from './widgets/report-server-configurator/popup-system-options/system-parameter-values-autogeneration/parameter-autogeneration/parameter-autogeneration.component';
-import { EventsWorkspaceButtonComponent } from './widgets/workspace/components/events-workspace-button/events-workspace-button.component';
-import { FileAttachMenuComponent } from './widgets/workspace/components/file-attach-menu/file-attach-menu.component';
-import { EventsResponsibleSelectComponent } from './widgets/workspace/components/events-responsible-select/events-responsible-select.component';
-import { EventsReasonsComponent } from './widgets/workspace/components/events-reasons/events-reasons.component';
-import { EventsCorrectComponent } from './widgets/workspace/components/events-correct/events-correct.component';
-import { EventsCorrectCardComponent } from './widgets/workspace/components/events-correct-card/events-correct-card.component';
-import { EventsSmotrIconComponent } from './widgets/workspace/components/events-smotr-icon/events-smotr-icon.component';
-import { EventsCommentWindowComponent } from './widgets/workspace/components/events-comment-window/events-comment-window.component';
-import { EventsListWindowComponent } from './widgets/workspace/components/events-list-window/events-list-window.component';
 import { FilterPopupComponent } from './widgets/petroleum-products-movement/components/filter-popup/filter-popup.component';
 import { NgxMaskModule } from 'ngx-mask';
 import { SystemPeriodDateComponent } from './widgets/report-server-configurator/popup-system-options/system-period-edit/system-period-date/system-period-date.component';
@@ -236,57 +222,25 @@ import { OilOperationsFreeShipmentComponent } from './widgets/oil-operations/com
 import { DocumentViewerFullscreenComponent } from './widgets/document-viewer/document-viewer-fullscreen/document-viewer-fullscreen.component';
 import { CdCriticalComponent } from './widgets/cd-critical/cd-critical.component';
 import { WorkflowTableComponent } from './widgets/workflow/workflow-table/workflow-table.component';
-import { ImplementationPlanComponent } from './widgets/SMP/implementation-plan/implementation-plan.component';
-import { ImplementationPieComponent } from './widgets/SMP/implementation-plan/components/implementation-pie/implementation-pie.component';
-import { ImplementationTankComponent } from './widgets/SMP/implementation-plan/components/implementation-tank/implementation-tank.component';
-import { ImplementationsComponent } from './widgets/SMP/implementation-plan/components/implementations/implementations.component';
-import { PerformanceProgressIndicatorsComponent } from './widgets/SMP/performance-progress-indicators/performance-progress-indicators.component';
-import { PerformanceProgressParkComponent } from './widgets/SMP/performance-progress-indicators/components/performance-progress-park/performance-progress-park.component';
-import { PerformanceProgressShippedComponent } from './widgets/SMP/performance-progress-indicators/components/performance-progress-shipped/performance-progress-shipped.component';
-import { PerformanceProgressBarComponent } from './widgets/SMP/performance-progress-indicators/components/performance-progress-bar/performance-progress-bar.component';
-import { PerformanceProgressCircleComponent } from './widgets/SMP/performance-progress-indicators/components/performance-progress-circle/performance-progress-circle.component';
-import { PerformanceProgressLineCircleComponent } from './widgets/SMP/performance-progress-indicators/components/performance-progress-line-circle/performance-progress-line-circle.component';
-import { QualityStockComponent } from './widgets/SMP/quality-stock/quality-stock.component';
-import { QualityStockSecurityComponent } from './widgets/SMP/quality-stock/components/quality-stock-security/quality-stock-security.component';
-import { QualityStockCircleComponent } from './widgets/SMP/quality-stock/components/quality-stock-circle/quality-stock-circle.component';
-import { SmpEventsComponent } from './widgets/SMP/smp-events/smp-events.component';
-import { SmpEventsHeaderComponent } from './widgets/SMP/smp-events/components/smp-events-header/smp-events-header.component';
-import { SmpEventsCardComponent } from './widgets/SMP/smp-events/components/smp-events-card/smp-events-card.component';
-import { AsusEventComponent } from './widgets/workspace/asus-event/asus-event.component';
-import { ProductGroupsLeftComponent } from './widgets/SMP/product-groups/components/product-groups-left/product-groups-left.component';
-import { ProductGroupsMiddleComponent } from './widgets/SMP/product-groups/components/product-groups-middle/product-groups-middle.component';
-import { ProductGroupsRightComponent } from './widgets/SMP/product-groups/components/product-groups-right/product-groups-right.component';
-import { EventsReasonsSingleComponent } from './widgets/workspace/components/events-reasons-single/events-reasons-single.component';
 import { WorkflowListComponent } from './widgets/workflow/workflow-list/workflow-list.component';
-import { ProductGroupsTableComponent } from './widgets/SMP/product-groups/components/product-groups-table/product-groups-table.component';
-import { ProductGroupsShortComponent } from './widgets/SMP/product-groups-short/product-groups-short.component';
-import { ProductGroupsComponent } from './widgets/SMP/product-groups/product-groups.component';
-import { SmpEventsWorkspaceComponent } from './widgets/SMP/smp-events-workspace/smp-events-workspace.component';
 import { ProductionTrendInstallationsComponent } from './widgets/production-trend/components/production-trend-installations/production-trend-installations.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { OilControlTableComponent } from './widgets/oil-control/components/oil-control-table/oil-control-table.component';
 import { OilControlTowerComponent } from './widgets/oil-control/components/oil-control-tower/oil-control-tower.component';
 import { WidgetPanelComponent } from './components/widget-panel/widget-panel.component';
-import { EventSearchWindowComponent } from './widgets/workspace/components/event-search-window/event-search-window.component';
-import { AdminShiftBrigadeComponent } from './widgets/admin-widget/admin-shift-schedule/components/admin-shift-brigade/admin-shift-brigade.component';
-import { AdminShiftListEmployeesComponent } from './widgets/admin-widget/admin-shift-schedule/components/admin-shift-list-employees/admin-shift-list-employees.component';
-import { AdminShiftInfoEmployeeComponent } from './widgets/admin-widget/admin-shift-schedule/components/admin-shift-info-employee/admin-shift-info-employee.component';
-import { AdminShiftCardComponent } from './widgets/admin-widget/admin-shift-schedule/components/admin-shift-card/admin-shift-card.component';
 import { MatMenuModule } from '@angular/material/menu';
 import { TruncatedDiagramTrafficLightComponent } from './widgets/truncated-diagram-traffic-light/truncated-diagram-traffic-light.component';
-import { AstueEfficiencyComponent } from './widgets/ASTUE/astue-efficiency/astue-efficiency.component';
-import { AstueEfficiencyItemsComponent } from './widgets/ASTUE/astue-efficiency/components/astue-efficiency-items/astue-efficiency-items.component';
-import { AstueEfficiencyItemCardComponent } from './widgets/ASTUE/astue-efficiency/components/astue-efficiency-item-card/astue-efficiency-item-card.component';
-import { AstueEfficiencyUnitsComponent } from './widgets/ASTUE/astue-efficiency/components/astue-efficiency-units/astue-efficiency-units.component';
-import { AstueEfficiencyUnitCardComponent } from './widgets/ASTUE/astue-efficiency/components/astue-efficiency-unit-card/astue-efficiency-unit-card.component';
-import { AstueEfficiencyGraphDisplayComponent } from './widgets/ASTUE/astue-efficiency/components/astue-efficiency-graph-display/astue-efficiency-graph-display.component';
-import { AstueEfficiencyInitialDataComponent } from './widgets/ASTUE/astue-efficiency/components/astue-efficiency-initial-data/astue-efficiency-initial-data.component';
-import { AstueEfficiencyInintialDataBlockComponent } from './widgets/ASTUE/astue-efficiency/components/astue-efficiency-inintial-data-block/astue-efficiency-inintial-data-block.component';
-import { AstueEfficiencyTableDisplayComponent } from './widgets/ASTUE/astue-efficiency/components/astue-efficiency-table-display/astue-efficiency-table-display.component';
-import { AstueEfficiencyCalculationComponent } from './widgets/ASTUE/astue-efficiency/components/astue-efficiency-calculation/astue-efficiency-calculation.component';
 import { WidgetContainerComponent } from './widget-container/widget-container.component';
-import { EjsEventComponent } from './widgets/workspace/ejs-event/ejs-event.component';
 import { PerformanceBarComponent } from './components/performance-bar/performance-bar.component';
+import { AdminShiftScheduleOldComponent } from './widgets/admin-widget/admin-shift-schedule-old/admin-shift-schedule-old.component';
+import { AdminShiftListEmployeesOldComponent } from './widgets/admin-widget/admin-shift-schedule-old/components/admin-shift-list-employees-old/admin-shift-list-employees-old.component';
+import { AdminShiftInfoEmployeeOldComponent } from './widgets/admin-widget/admin-shift-schedule-old/components/admin-shift-info-employee-old/admin-shift-info-employee-old.component';
+import { AdminShiftCardOldComponent } from './widgets/admin-widget/admin-shift-schedule-old/components/admin-shift-card-old/admin-shift-card-old.component';
+import { AdminShiftBrigadeOldComponent } from './widgets/admin-widget/admin-shift-schedule-old/components/admin-shift-brigade-old/admin-shift-brigade-old.component';
+import { GroupSelectorComponent } from './components/group-selector/group-selector.component';
+import { GroupSelectorRowComponent } from './components/group-selector/group-selector-row/group-selector-row.component';
+import { IndicatorDiagramComponent } from './components/indicator-diagram/indicator-diagram.component';
+import { MenuButtonComponent } from './components/menu-button/menu-button.component';
 
 @NgModule({
     declarations: [
@@ -296,8 +250,6 @@ import { PerformanceBarComponent } from './components/performance-bar/performanc
         LineDatetimeComponent,
         LineChartComponent,
         DashboardComponent,
-        EventsComponent,
-        EventCardComponent,
         ManualInputComponent,
         ChangeShiftComponent,
         LineDiagramComponent,
@@ -307,7 +259,6 @@ import { PerformanceBarComponent } from './components/performance-bar/performanc
         UserInfoComponent,
         WidgetPiesComponent,
         WidgetsPieComponent,
-        EventsWorkSpaceComponent,
         PointDiagramComponent,
         OneColumnComponent,
         TruncatedPieFirstComponent,
@@ -328,7 +279,6 @@ import { PerformanceBarComponent } from './components/performance-bar/performanc
         OperationEfficiencyComponent,
         RingFactoryDiagramComponent,
         RingSFactoryDiagramComponent,
-        LineChartWorkspaceComponent,
         CalendarPlanComponent,
         EcologySafetyComponent,
         ChainMapComponent,
@@ -360,7 +310,6 @@ import { PerformanceBarComponent } from './components/performance-bar/performanc
         SearchListComponent,
         ObservationNormTRComponent,
         AdminPanelComponent,
-        AdminShiftScheduleComponent,
         AdminReferencesComponent,
         CardVerifierComponent,
         PetroleumProductsMovementComponent,
@@ -390,7 +339,6 @@ import { PerformanceBarComponent } from './components/performance-bar/performanc
         AwsCheckboxCardComponent,
         AwsBlockComponent,
         UsbVerifierComponent,
-        TimeDataPickerComponent,
         ReportComponent,
         ReportsComponent,
         AwsAvatarComponent,
@@ -409,10 +357,6 @@ import { PerformanceBarComponent } from './components/performance-bar/performanc
         UploadFormComponent,
         UploadDropComponent,
         TanksTableComponent,
-        SmotrEventComponent,
-        UsualEventComponent,
-        EventDescriptionComponent,
-        ChatComponent,
         CustomReportPropertiesReferenceComponent,
         PopupUserOptionsComponent,
         NecessaryParamComponent,
@@ -427,15 +371,6 @@ import { PerformanceBarComponent } from './components/performance-bar/performanc
         SystemAutogenerateComponent,
         SystemPathUserComponent,
         ParameterAutogenerationComponent,
-        EventsWorkspaceButtonComponent,
-        FileAttachMenuComponent,
-        EventsResponsibleSelectComponent,
-        EventsReasonsComponent,
-        EventsCorrectComponent,
-        EventsCorrectCardComponent,
-        EventsSmotrIconComponent,
-        EventsCommentWindowComponent,
-        EventsListWindowComponent,
         FilterPopupComponent,
         SystemPeriodDateComponent,
         TransferTableComponent,
@@ -494,65 +429,30 @@ import { PerformanceBarComponent } from './components/performance-bar/performanc
         DocumentViewerFullscreenComponent,
         CdCriticalComponent,
         WorkflowTableComponent,
-        ImplementationPlanComponent,
-        ImplementationPieComponent,
-        ImplementationTankComponent,
-        ImplementationsComponent,
-        PerformanceProgressIndicatorsComponent,
-        PerformanceProgressParkComponent,
-        PerformanceProgressShippedComponent,
-        PerformanceProgressBarComponent,
-        PerformanceProgressCircleComponent,
-        PerformanceProgressLineCircleComponent,
-        QualityStockComponent,
-        QualityStockSecurityComponent,
-        QualityStockCircleComponent,
-        SmpEventsComponent,
-        SmpEventsHeaderComponent,
-        SmpEventsCardComponent,
-        AsusEventComponent,
-        ProductGroupsComponent,
-        ProductGroupsLeftComponent,
-        ProductGroupsMiddleComponent,
-        ProductGroupsRightComponent,
         WorkflowListComponent,
-        ProductGroupsTableComponent,
-        ProductGroupsShortComponent,
-        SmpEventsWorkspaceComponent,
         ProductionTrendInstallationsComponent,
-        EventsReasonsSingleComponent,
         OilControlTableComponent,
         OilControlTowerComponent,
         WidgetPanelComponent,
-        EventSearchWindowComponent,
-        AdminShiftBrigadeComponent,
-        AdminShiftListEmployeesComponent,
-        AdminShiftInfoEmployeeComponent,
-        AdminShiftCardComponent,
-        AstueEfficiencyComponent,
-        AstueEfficiencyItemsComponent,
-        AstueEfficiencyItemCardComponent,
-        AstueEfficiencyUnitsComponent,
-        AstueEfficiencyUnitCardComponent,
-        AstueEfficiencyGraphDisplayComponent,
-        AstueEfficiencyInitialDataComponent,
-        AstueEfficiencyInintialDataBlockComponent,
-        AstueEfficiencyTableDisplayComponent,
-        AstueEfficiencyCalculationComponent,
         WidgetContainerComponent,
-        EjsEventComponent,
         PerformanceBarComponent,
+        AdminShiftScheduleOldComponent,
+        AdminShiftListEmployeesOldComponent,
+        AdminShiftInfoEmployeeOldComponent,
+        AdminShiftCardOldComponent,
+        AdminShiftBrigadeOldComponent,
+        GroupSelectorComponent,
+        GroupSelectorRowComponent,
+        IndicatorDiagramComponent,
+        MenuButtonComponent,
     ],
     entryComponents: [
         LineChartComponent,
         WidgetPiesComponent,
-        EventsComponent,
-        EventCardComponent,
         LineChartComponent,
         ManualInputComponent,
         LineDiagramComponent,
         ChangeShiftComponent,
-        EventsWorkSpaceComponent,
         TruncatedPieSFirstComponent,
         TruncatedPieSIconComponent,
         TruncatedDiagramTrafficLightComponent,
@@ -567,10 +467,8 @@ import { PerformanceBarComponent } from './components/performance-bar/performanc
         CalendarPlanComponent,
         EcologySafetyComponent,
         RingFactoryDiagramComponent,
-        LineChartWorkspaceComponent,
         EnergeticsComponent,
         RingSFactoryDiagramComponent,
-        LineChartWorkspaceComponent,
         ChainMapComponent,
         DispatcherScreenComponent,
         DeviationsTableComponent,
@@ -588,7 +486,6 @@ import { PerformanceBarComponent } from './components/performance-bar/performanc
         TimeLineDiagramComponent,
         SolidGaugesComponent,
         ObservationNormTRComponent,
-        AdminShiftScheduleComponent,
         AdminReferencesComponent,
         PetroleumProductsMovementComponent,
         AdminPanelComponent,
@@ -609,18 +506,10 @@ import { PerformanceBarComponent } from './components/performance-bar/performanc
         ReportTreeComponent,
         OilOperationsComponent,
         WorkflowComponent,
-        ImplementationPlanComponent,
-        PerformanceProgressIndicatorsComponent,
-        QualityStockComponent,
-        ProductGroupsComponent,
-        ProductGroupsComponent,
-        ProductGroupsShortComponent,
-        SmpEventsWorkspaceComponent,
         PanelComponent,
-        AstueEfficiencyComponent,
-        FileAttachMenuComponent,
+        AdminShiftScheduleOldComponent,
     ],
-    exports: [HomeComponent, PerformanceBarComponent],
+    exports: [HomeComponent, PerformanceBarComponent, MatRippleModule],
     imports: [
         CommonModule,
         SharedModule,
@@ -631,6 +520,7 @@ import { PerformanceBarComponent } from './components/performance-bar/performanc
         GridsterModule,
         DashboardRoutingModule,
         MatSnackBarModule,
+        MatRippleModule,
         MatDatepickerModule,
         MatFormFieldModule,
         MatInputModule,
@@ -658,6 +548,7 @@ import { PerformanceBarComponent } from './components/performance-bar/performanc
         PdfViewerModule,
         MatTooltipModule,
         MatMenuModule,
+        MatRippleModule,
     ],
     bootstrap: [],
     providers: [

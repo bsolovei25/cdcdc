@@ -1,0 +1,204 @@
+<!--<div class="container">-->
+<!--  <evj-contemporary-widget-header type="kpe" [uniqId]="uniqId" [widgetTitle]="widgetTitle">-->
+<!--    <div class="content-container">-->
+<!--      <div class="header">-->
+<!--        <ul class="header__info">-->
+<!--          <li class="header__info-item">-->
+<!--            <div class="header__info-1"></div>-->
+<!--            <span>Факт</span>-->
+<!--          </li>-->
+<!--          <li class="header__info-item">-->
+<!--            <div class="header__info-2"></div>-->
+<!--            <span>План</span>-->
+<!--          </li>-->
+<!--        </ul>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </evj-contemporary-widget-header>-->
+<!--  <div-->
+<!--    class="container-body"-->
+<!--    (mousedown)="$event.stopPropagation()"-->
+<!--    (touchstart)="$event.stopPropagation()"-->
+<!--  >-->
+<!--    <div class="readiness">-->
+<!--      <div class="readiness__header">-->
+<!--        <div class="readiness__header__circle-diagram">-->
+<!--          <evj-kpe-gauge-chart></evj-kpe-gauge-chart>-->
+<!--        </div>-->
+<!--        <div class="readiness__header__line-diagram">-->
+<!--          <evj-kpe-line-chart [data]="lineChartData" isLineCircle="true"></evj-kpe-line-chart>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--      <div class="readiness__body">-->
+<!--        <div class="readiness__body__circle-diagram__first card">-->
+<!--          <evj-kpe-gauge-chart></evj-kpe-gauge-chart>-->
+<!--        </div>-->
+<!--        <div class="readiness__body__circle-diagram__second card">-->
+<!--          <evj-kpe-gauge-chart></evj-kpe-gauge-chart>-->
+<!--        </div>-->
+<!--        <div class="readiness__body__line-diagram card">-->
+<!--          <evj-kpe-line-diagram [isCritical]="false"></evj-kpe-line-diagram>-->
+<!--          <evj-kpe-line-chart [data]="lineChartData"></evj-kpe-line-chart>-->
+<!--        </div>-->
+<!--        <div class="readiness__body__line-diagram card">-->
+<!--          <evj-kpe-line-diagram [isCritical]="false"></evj-kpe-line-diagram>-->
+<!--          <evj-kpe-line-chart [data]="lineChartData"></evj-kpe-line-chart>-->
+<!--        </div>-->
+<!--        <div class="readiness__body__line-diagram card">-->
+<!--          <evj-kpe-line-diagram-->
+<!--            [isCritical]="true"-->
+<!--            class="readiness__body__"-->
+<!--          ></evj-kpe-line-diagram>-->
+<!--          <evj-kpe-line-chart [data]="lineChartData"></evj-kpe-line-chart>-->
+<!--        </div>-->
+<!--        <div class="readiness__body__line-diagram card">-->
+<!--          <evj-kpe-line-diagram-->
+<!--            [isCritical]="false"-->
+<!--            class="readiness__body__"-->
+<!--          ></evj-kpe-line-diagram>-->
+<!--          <evj-kpe-line-chart [data]="lineChartData"></evj-kpe-line-chart>-->
+<!--        </div>-->
+<!--        <div class="readiness__body__line-diagram card">-->
+<!--          <evj-kpe-line-diagram-->
+<!--            [isCritical]="true"-->
+<!--            class="readiness__body__"-->
+<!--          ></evj-kpe-line-diagram>-->
+<!--          <evj-kpe-line-chart [data]="lineChartData"></evj-kpe-line-chart>-->
+<!--        </div>-->
+<!--        <div class="readiness__body__line-diagram card">-->
+<!--          <evj-kpe-line-diagram-->
+<!--            [isCritical]="false"-->
+<!--            class="readiness__body__"-->
+<!--          ></evj-kpe-line-diagram>-->
+<!--          <evj-kpe-line-chart [data]="lineChartData"></evj-kpe-line-chart>-->
+<!--        </div>-->
+<!--        <div class="readiness__body__line-diagram card">-->
+<!--          <evj-kpe-line-diagram-->
+<!--            [isCritical]="false"-->
+<!--            class="readiness__body__"-->
+<!--          ></evj-kpe-line-diagram>-->
+<!--          <evj-kpe-line-chart [data]="lineChartData"></evj-kpe-line-chart>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</div>-->
+
+<div class="container">
+  <evj-contemporary-widget-header type="kpe" icon="performance" [uniqId]="uniqId" [widgetTitle]="widgetTitle">
+    <div class="content-container">
+      <div class="header">
+        <ul class="header__info">
+          <li class="header__info-item">
+            <div class="header__info-1"></div>
+            <span>Факт</span>
+          </li>
+          <li class="header__info-item">
+            <div class="header__info-2"></div>
+            <span>План</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </evj-contemporary-widget-header>
+  <div
+    class="container-body"
+    (mousedown)="$event.stopPropagation()"
+    (touchstart)="$event.stopPropagation()"
+  >
+    <div class="readiness">
+      <div class="readiness__header">
+        <div #mainGauge class="readiness__header__gauge" [style]="gaugeWidth(mainGauge)">
+          <evj-kpe-gauge-chart [fact]="diagram?.fact" [plan]="diagram?.plan"></evj-kpe-gauge-chart>
+        </div>
+        <div class="readiness__header__chart">
+          <evj-kpe-deviation-diagram [data]="deviationChartData"></evj-kpe-deviation-diagram>
+        </div>
+      </div>
+      <div class="readiness__middle" [style]="rowHeight(gauge)">
+        <div class="readiness__middle__gauges-container">
+          <div class="container">
+            <div #gauge class="readiness__middle__gauge element-container">
+              <div class="gauge-card">
+                <div class="gauge-card__content">
+                  <div class="gauge-card__units">
+                    <div class="gauge-card__units__unit">{{ gaugeCards[0]?.unit }}</div>
+                    <div class="gauge-card__units__unit gauge-card__units__unit__active">%</div>
+                  </div>
+                  <div class="gauge-card__gauge">
+                    <evj-kpe-gauge-chart background="dark" [fact]="gaugeCards[0]?.fact" [plan]="gaugeCards[0]?.plan"></evj-kpe-gauge-chart>
+                  </div>
+                  <div class="gauge-card__title">
+                    {{ gaugeCards[0]?.title }}
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="readiness__middle__gauge element-container">
+              <div class="gauge-card">
+                <div class="gauge-card__content">
+                  <div class="gauge-card__units">
+                    <div class="gauge-card__units__unit">{{ gaugeCards[1]?.unit }}</div>
+                    <div class="gauge-card__units__unit gauge-card__units__unit__active">%</div>
+                  </div>
+                  <div class="gauge-card__gauge">
+                    <evj-kpe-gauge-chart background="dark" [fact]="gaugeCards[1]?.fact" [plan]="gaugeCards[1]?.plan"></evj-kpe-gauge-chart>
+                  </div>
+                  <div class="gauge-card__title">
+                    {{ gaugeCards[1]?.title }}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="readiness__middle__chart element-container">
+          <div class="chart-card">
+            <div class="chart-card__content">
+              <div class="chart-card__title">
+                <span class="label">{{ chartCard?.progressChart.title }}</span>
+                <div class="units">
+                  <div class="units__unit units__unit__active">{{ chartCard?.progressChart.unit }}</div>
+                  <div class="units__unit">%</div>
+                </div>
+              </div>
+              <div class="chart-card__diagram">
+                <evj-kpe-line-diagram [fact]="chartCard?.progressChart.fact" [plan]="chartCard?.progressChart.plan"></evj-kpe-line-diagram>
+              </div>
+              <div class="chart-card__chart">
+                <evj-kpe-line-chart [data]="prepareTrendData(chartCard?.trendChart)"></evj-kpe-line-chart>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="readiness__main">
+        <ng-container *ngFor="let row of chartCards">
+          <div class="readiness__main__row">
+            <ng-container *ngFor="let card of row">
+              <div class="readiness__main__chart element-container">
+                <div class="chart-card">
+                  <div class="chart-card__content">
+                    <div class="chart-card__title">
+                      <span class="label">{{ card?.progressChart.title }}</span>
+                      <div class="units">
+                        <div class="units__unit units__unit__active">{{ card?.progressChart.unit }}</div>
+                        <div class="units__unit">%</div>
+                      </div>
+                    </div>
+                    <div class="chart-card__diagram">
+                      <evj-kpe-line-diagram [fact]="card?.progressChart.fact" [plan]="card?.progressChart.plan"></evj-kpe-line-diagram>
+                    </div>
+                    <div class="chart-card__chart">
+                      <evj-kpe-line-chart [data]="prepareTrendData(card?.trendChart)"></evj-kpe-line-chart>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </ng-container>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+</div>

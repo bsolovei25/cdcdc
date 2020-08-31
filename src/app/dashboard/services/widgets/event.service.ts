@@ -5,7 +5,7 @@ import {
     EventsWidgetNotification,
     IStatus,
     ICategory,
-    EventsWidgetOptions,
+    IEventsWidgetOptions,
     EventsWidgetsStats,
     EventsWidgetNotificationPreview,
     IRetrievalEvents,
@@ -17,7 +17,10 @@ import {
     IAsusCategories,
     IAsusWorkgroup,
     ISmotrReference,
-    ISaveMethodEvent, IRetrievalEventDto, IAsusTmPlace, IAsusTpPlace
+    ISaveMethodEvent,
+    IRetrievalEventDto,
+    IAsusTmPlace,
+    IAsusTpPlace, ISubcategory,
 } from '../../models/events-widget';
 import { AppConfigService } from 'src/app/services/appConfigService';
 
@@ -40,13 +43,13 @@ export class EventService {
 
     async getBatchData(
         lastId: number,
-        options: EventsWidgetOptions
+        options: IEventsWidgetOptions
     ): Promise<EventsWidgetNotificationPreview[]> {
         try {
             return this.http
                 .get<EventsWidgetNotificationPreview[]>(
                     this.restUrl +
-                        `/api/notifications/getbyfilter?${this.getOptionString(lastId, options)}`
+                    `/api/notifications/getbyfilter?${this.getOptionString(lastId, options)}`
                 )
                 .toPromise();
         } catch (error) {
@@ -54,7 +57,7 @@ export class EventService {
         }
     }
 
-    public async getStats(options: EventsWidgetOptions): Promise<EventsWidgetsStats> {
+    public async getStats(options: IEventsWidgetOptions): Promise<EventsWidgetsStats> {
         try {
             return this.http
                 .get<EventsWidgetsStats>(
@@ -78,10 +81,12 @@ export class EventService {
 
     async getEvent(id: number): Promise<EventsWidgetNotification> {
         try {
-            return this.http
-                // .get<EventsWidgetNotification>('assets/mock/SmotrEventsMock/event.json')
-                .get<EventsWidgetNotification>(this.restUrl + '/api/notifications/' + id)
-                .toPromise();
+            return (
+                this.http
+                    // .get<EventsWidgetNotification>('assets/mock/SmotrEventsMock/event.json')
+                    .get<EventsWidgetNotification>(this.restUrl + '/api/notifications/' + id)
+                    .toPromise()
+            );
         } catch (error) {
             console.error(error);
         }
@@ -94,8 +99,8 @@ export class EventService {
                 .toPromise();
             saveMethod.options = {
                 headers: new HttpHeaders({
-                    AuthenticationType:  saveMethod.data.authenticationType,
-                })
+                    AuthenticationType: saveMethod.data.authenticationType,
+                }),
             };
             return saveMethod;
         } catch (error) {
@@ -105,34 +110,44 @@ export class EventService {
     }
 
     async postEvent(body: EventsWidgetNotification, saveMethod: ISaveMethodEvent): Promise<any> {
-        return this.http.post(`${saveMethod.data.url}/api/notifications`, body, saveMethod.options).toPromise();
+        return this.http
+            .post(`${saveMethod.data.url}/api/notifications`, body, saveMethod.options)
+            .toPromise();
     }
 
     async postEventRetrieval(body: EventsWidgetNotification): Promise<EventsWidgetNotification> {
-        return this.http.post<EventsWidgetNotification>(`${this.restUrl}/api/notification-retrieval/${body.parentId}/RetrievalEvents`, body).toPromise();
+        return this.http
+            .post<EventsWidgetNotification>(
+                `${this.restUrl}/api/notification-retrieval/${body.parentId}/RetrievalEvents`,
+                body
+            )
+            .toPromise();
     }
 
     async putEvent(body: EventsWidgetNotification, saveMethod: ISaveMethodEvent): Promise<any> {
-        return this.http.put(`${saveMethod.data.url}/api/notifications/${body.id}`, body, saveMethod.options).toPromise();
+        return this.http
+            .put(`${saveMethod.data.url}/api/notifications/${body.id}`, body, saveMethod.options)
+            .toPromise();
     }
 
     async deleteEvent(id: number): Promise<any> {
-        try {
-            return this.http.delete(this.restUrl + '/api/notifications/' + id).toPromise();
-        } catch (error) {
-            console.error(error);
-        }
+        return this.http.delete(this.restUrl + '/api/notifications/' + id).toPromise();
     }
 
     async addLink(idEvent: number, idRetrieval: number): Promise<any> {
         return this.http
-            .post(`${this.restUrl}/api/notification-retrieval/${idEvent}/RetrievalEvents/${idRetrieval}`, null)
+            .post(
+                `${this.restUrl}/api/notification-retrieval/${idEvent}/RetrievalEvents/${idRetrieval}`,
+                null
+            )
             .toPromise();
     }
 
     async deleteLink(idEvent: number, idRetrieval: number): Promise<any> {
         return this.http
-            .delete(`${this.restUrl}/api/notification-retrieval/${idEvent}/RetrievalEvents/${idRetrieval}`)
+            .delete(
+                `${this.restUrl}/api/notification-retrieval/${idEvent}/RetrievalEvents/${idRetrieval}`
+            )
             .toPromise();
     }
 
@@ -141,6 +156,25 @@ export class EventService {
             return this.http
                 .get<IStatus[]>(this.restUrl + '/api/notification-reference/status')
                 .toPromise();
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+    async getSubcategory(): Promise<ISubcategory[]> {
+        try {
+            return new Promise(resolve => {
+                resolve([
+                    {
+                        id: 0,
+                        name: 'Распоряжения',
+                    },
+                    {
+                        id: 1,
+                        name: 'Прием/передача смены',
+                    },
+                ]);
+            });
         } catch (error) {
             console.error(error);
         }
@@ -222,7 +256,10 @@ export class EventService {
                     .toPromise();
             }
             return this.http
-                .get<IAsusCategories[]>(saveMethod.data.url + '/api/references/category', saveMethod.options)
+                .get<IAsusCategories[]>(
+                    saveMethod.data.url + '/api/references/category',
+                    saveMethod.options
+                )
                 .toPromise();
         } catch (error) {
             console.error(error);
@@ -237,7 +274,10 @@ export class EventService {
                     .toPromise();
             }
             return this.http
-                .get<IAsusWorkgroup[]>(saveMethod.data.url + '/api/references/workgroup', saveMethod.options)
+                .get<IAsusWorkgroup[]>(
+                    saveMethod.data.url + '/api/references/workgroup',
+                    saveMethod.options
+                )
                 .toPromise();
         } catch (error) {
             console.error(error);
@@ -252,7 +292,10 @@ export class EventService {
                     .toPromise();
             }
             return this.http
-                .get<IAsusService[]>(saveMethod.data.url + '/api/references/services', saveMethod.options)
+                .get<IAsusService[]>(
+                    saveMethod.data.url + '/api/references/services',
+                    saveMethod.options
+                )
                 .toPromise();
         } catch (error) {
             console.error(error);
@@ -267,14 +310,20 @@ export class EventService {
                     .toPromise();
             }
             return this.http
-                .get<IAsusTmPlace[]>(saveMethod.data.url + '/api/references/tmplaces', saveMethod.options)
+                .get<IAsusTmPlace[]>(
+                    saveMethod.data.url + '/api/references/tmplaces',
+                    saveMethod.options
+                )
                 .toPromise();
         } catch (error) {
             console.error(error);
         }
     }
 
-    async getAsusEquipments(codeSap: string, saveMethod: ISaveMethodEvent): Promise<IAsusTpPlace[]> {
+    async getAsusEquipments(
+        codeSap: string,
+        saveMethod: ISaveMethodEvent
+    ): Promise<IAsusTpPlace[]> {
         try {
             if (!this.isDomenAuth) {
                 return this.http
@@ -282,14 +331,20 @@ export class EventService {
                     .toPromise();
             }
             return this.http
-                .get<IAsusTpPlace[]>(saveMethod.data.url + `/api/references/tplaces?tmSapCode=${codeSap}`, saveMethod.options)
+                .get<IAsusTpPlace[]>(
+                    saveMethod.data.url + `/api/references/tplaces?tmSapCode=${codeSap}`,
+                    saveMethod.options
+                )
                 .toPromise();
         } catch (error) {
             console.error(error);
         }
     }
 
-    async getAsusEOServices(codeSap: string, saveMethod: ISaveMethodEvent): Promise<IAsusEOService[]> {
+    async getAsusEOServices(
+        codeSap: string,
+        saveMethod: ISaveMethodEvent
+    ): Promise<IAsusEOService[]> {
         try {
             if (!this.isDomenAuth) {
                 return this.http
@@ -297,7 +352,10 @@ export class EventService {
                     .toPromise();
             }
             return this.http
-                .get<IAsusEOService[]>(saveMethod.data.url + `/api/references/eoservice?tpSapCode=${codeSap}`, saveMethod.options)
+                .get<IAsusEOService[]>(
+                    saveMethod.data.url + `/api/references/eoservice?tpSapCode=${codeSap}`,
+                    saveMethod.options
+                )
                 .toPromise();
         } catch (error) {
             console.error(error);
@@ -308,10 +366,12 @@ export class EventService {
     async getSmotrReference(): Promise<ISmotrReference> {
         try {
             if (!this.isDomenAuth) {
-                return this.http
-                    .get<ISmotrReference>('assets/mock/SmotrEventsMock/reference.json')
-                    // .get<IAsusEOService[]>(this.restUrl + '/api/notification-reference/eoservice')
-                    .toPromise();
+                return (
+                    this.http
+                        .get<ISmotrReference>('assets/mock/SmotrEventsMock/reference.json')
+                        // .get<IAsusEOService[]>(this.restUrl + '/api/notification-reference/eoservice')
+                        .toPromise()
+                );
             }
         } catch (error) {
             console.error(error);
@@ -336,7 +396,7 @@ export class EventService {
             return await this.http
                 .delete<any>(
                     this.restUrl +
-                        `/api/notification-retrieval/${idEvent}/retrievalevents/${idRetr}`
+                    `/api/notification-retrieval/${idEvent}/retrievalevents/${idRetr}`
                 )
                 .toPromise();
         } catch (error) {
@@ -344,21 +404,27 @@ export class EventService {
         }
     }
 
-    public async escalateSmotrEvent(saveMethod: ISaveMethodEvent, body: EventsWidgetNotification): Promise<any> {
+    public async escalateSmotrEvent(
+        saveMethod: ISaveMethodEvent,
+        body: EventsWidgetNotification
+    ): Promise<any> {
         const options = {
             headers: new HttpHeaders({
-                AuthenticationType:  saveMethod.data.authenticationType,
-            })
+                AuthenticationType: saveMethod.data.authenticationType,
+            }),
         };
         const url: string = `${saveMethod.data.url}/api/monitoring/escalatedeviation`;
         return await this.http.post(url, body, options).toPromise();
     }
 
-    public async closeSmotrEvent(saveMethod: ISaveMethodEvent, body: EventsWidgetNotification): Promise<any> {
+    public async closeSmotrEvent(
+        saveMethod: ISaveMethodEvent,
+        body: EventsWidgetNotification
+    ): Promise<any> {
         const options = {
             headers: new HttpHeaders({
-                AuthenticationType:  saveMethod.data.authenticationType,
-            })
+                AuthenticationType: saveMethod.data.authenticationType,
+            }),
         };
         const url: string = `${saveMethod.data.url}/api/monitoring/closedeviation`;
         return await this.http.post(url, body, options).toPromise();
@@ -373,7 +439,12 @@ export class EventService {
         }
     }
 
-    private getOptionString(lastId: number, options: EventsWidgetOptions): string {
+    public async changeEventIsAcknowledged(id: number, isAcknowledged: boolean): Promise<void> {
+        const url: string = `${this.restUrl}/api/notifications/${id}/acknowledged/${isAcknowledged}`;
+        return this.http.put<void>(url, null).toPromise();
+    }
+
+    private getOptionString(lastId: number, options: IEventsWidgetOptions): string {
         let res = `take=${this.batchSize}&lastId=${lastId}&`;
         if (options.dates) {
             res +=
@@ -401,6 +472,9 @@ export class EventService {
                 case 'inWork':
                     res += '&statusIds=3002';
                     break;
+                case 'isNotAcknowledged':
+                    res += '&statusIds=-100';
+                    break;
             }
         }
         if (options.description) {
@@ -408,6 +482,9 @@ export class EventService {
         }
         if (options.isVideoWall) {
             res += `&isVideoWall=${options.isVideoWall}`;
+        }
+        if (options.sortType) {
+            res += `&sortType=${options.sortType}`;
         }
         return res;
     }

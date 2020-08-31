@@ -1,0 +1,35 @@
+<div class="container">
+  <evj-contemporary-widget-header [uniqId]="uniqId" [widgetTitle]="widgetTitle" icon="astue-indicators" type="astue">
+    <div class="container__header">
+      <div class="header__btn"
+           matRipple
+           [matRippleColor]="'black'">
+        <svg-icon class="header__icon"
+                  src="assets/icons/widgets/ASTUE-ONPZ/calc.svg">
+        </svg-icon>
+        Рассчитать
+      </div>
+    </div>
+  </evj-contemporary-widget-header>
+
+  <div class="container-body"
+       (mousedown)="$event.stopPropagation()"
+       (touchstart)="$event.stopPropagation()">
+
+    <div class="main-indicators">
+      <table class="main-indicators__table">
+        <tbody>
+        <tr class="table__row" *ngFor="let item of data">
+          <td class="table__column table__column__name">
+            {{ item.name }}
+          </td>
+          <td class="table__column table__column__value">
+            {{ item.value }}
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+</div>

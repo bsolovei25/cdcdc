@@ -1,0 +1,39 @@
+<div class="box-container">
+  <div #gauge class="gauge-container" [style]="chartWidth">
+    <div class="diagram" #diagram></div>
+  </div>
+  <div class="diagrams-container">
+    <ng-container
+      *ngTemplateOutlet="lineDiagram; context: {label: temperature?.name, currentValue: temperature?.value, maxValue: temperature?.max, minValue: temperature?.min}"
+    ></ng-container>
+    <ng-container
+      *ngTemplateOutlet="lineDiagram; context: {label: temperatureRaw?.name, currentValue: temperatureRaw?.value, maxValue: temperatureRaw?.max, minValue: temperatureRaw?.min}"
+    ></ng-container>
+    <ng-container
+      *ngTemplateOutlet="lineDiagram; context: {label: consumption?.name, currentValue: consumption?.value, maxValue: consumption?.max, minValue: consumption?.min }"
+    ></ng-container>
+    <ng-container
+      *ngTemplateOutlet="lineDiagram; context: {label: multiplicity?.name, currentValue: multiplicity?.value, maxValue: multiplicity?.max, minValue: multiplicity?.min }"
+    ></ng-container>
+  </div>
+  <div class="border-container" [style]="borderLeft"></div>
+</div>
+
+<ng-template #lineDiagram let-label="label"
+             let-currentValue="currentValue"
+             let-minValue="minValue"
+             let-maxValue="maxValue">
+  <div class="diagram-container">
+    <div class="label">{{label}}</div>
+    <div class="diagram-component">
+      <div class="value">{{minValue}}</div>
+      <div class="line-diagram-container">
+        <div class="line-diagram-container-entry">
+          <div class="line-diagram-background"></div>
+          <div [style]="getLineWidth(currentValue, maxValue, minValue)" class="line-diagram-value"></div>
+        </div>
+      </div>
+      <div class="value">{{maxValue}}</div>
+    </div>
+  </div>
+</ng-template>

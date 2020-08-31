@@ -3,10 +3,12 @@
     background: var(--color-bg-main) !important;
   }
 }
+
 .mat-primary .mat-option.mat-selected:not(.mat-option-disabled) {
   color: var(--color-text-main) !important;
   background-color: var(--color-bg-main) !important;
 }
+
 .mat-select-panel .mat-optgroup-label,
 .mat-select-panel .mat-option {
   background-color: var(--color-bg-main);
@@ -28,24 +30,30 @@
   width: 5px;
   height: 7px;
 }
+
 ::-webkit-scrollbar:vertical {
   width: 5px;
   height: 100%;
 }
+
 ::-webkit-scrollbar-track {
   background-color: #999;
 }
+
 ::-webkit-scrollbar-track-piece {
   background-color: rgb(27, 30, 39);
 }
+
 ::-webkit-scrollbar-thumb {
   height: 50px;
-  background-color: #666;
+  background-color: var(--color-disable-transparent);
   border-radius: 10px;
 }
+
 ::-webkit-scrollbar-corner {
   background-color: var(--color-bg-main);
 }
+
 ::-webkit-resizer {
   // background-color: #666;
 }

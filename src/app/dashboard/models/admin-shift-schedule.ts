@@ -1,5 +1,5 @@
 import { IUser } from './events-widget';
-import { IAbsent } from '../widgets/admin-widget/admin-shift-schedule/admin-shift-schedule.component';
+import { IAbsent } from '../../widgets/admin/admin-shift-schedule/admin-shift-schedule.component';
 
 export enum EnumShiftStatus {
     initialization = 'initialization',
@@ -46,8 +46,8 @@ export interface IShiftMember {
 export interface IBrigadeWithUsersDto {
     brigadeId: number;
     brigadeNumber: string;
-    unit: IUnits;
-    users: IUser[];
+    unit?: IUnits;
+    users?: IUser[];
 }
 
 export interface IUnits {
@@ -56,4 +56,13 @@ export interface IUnits {
     createdAt: Date;
     createdById: number;
     synonyms: IUnits[];
+}
+
+export interface IUnitSettings {
+    id?: number;
+    unitId: number;
+    shiftLengthHours: number;
+    shiftStartOffset: number;
+    applyFrom: string;
+    createdAt?: Date;
 }

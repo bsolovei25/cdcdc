@@ -1,0 +1,56 @@
+<div class="container">
+  <evj-contemporary-widget-header icon="safety" type="kpe" [uniqId]="uniqId" [widgetTitle]="widgetTitle">
+    <div class="content-container">
+      <div class="header">
+        <ul class="header__info">
+          <li class="header__info-item">
+            <div class="header__info-1"></div>
+            <span>Факт</span>
+          </li>
+          <li class="header__info-item">
+            <div class="header__info-2"></div>
+            <span>План</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </evj-contemporary-widget-header>
+  <div
+    class="container-body"
+    (mousedown)="$event.stopPropagation()"
+    (touchstart)="$event.stopPropagation()"
+  >
+    <div class="readiness">
+      <div class="readiness__header">
+        <div #mainGauge class="readiness__header__gauge" [style]="gaugeWidth(mainGauge)">
+          <evj-kpe-gauge-chart [fact]="deviationDiagramData?.fact" [plan]="deviationDiagramData?.plan"></evj-kpe-gauge-chart>
+        </div>
+        <div class="readiness__header__chart">
+          <evj-kpe-deviation-diagram [data]="deviationChartData"></evj-kpe-deviation-diagram>
+        </div>
+      </div>
+      <ng-container *ngFor="let cards of gaugeCards">
+        <div class="readiness__main">
+          <ng-container *ngFor="let card of cards">
+            <div class="readiness__main__gauge element-container">
+              <div class="gauge-card">
+                <div class="gauge-card__content">
+                  <div class="gauge-card__units">
+                    <div class="gauge-card__units__unit">{{ card?.unit }}</div>
+                    <div class="gauge-card__units__unit gauge-card__units__unit__active">%</div>
+                  </div>
+                  <div class="gauge-card__diagram">
+                    <evj-kpe-gauge-chart [fact]="card.fact" [plan]="card.plan"></evj-kpe-gauge-chart>
+                  </div>
+                  <div class="gauge-card__label">
+                    {{ card?.title }}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </ng-container>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+</div>

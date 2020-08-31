@@ -6,6 +6,7 @@ import {
     EventEmitter,
     OnChanges,
     OnDestroy,
+    ChangeDetectorRef,
 } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { EnumClaimWidgets, ClaimService } from '../../../dashboard/services/claim.service';
@@ -29,6 +30,7 @@ export class WidgetHeaderComponent implements OnInit, OnChanges, OnDestroy {
     @Input() icon: string = 'shedule';
 
     @Input() isEventOpen: boolean;
+    @Input() eventProdTask: string;
     @Input() tankInfo: boolean;
     @Input() blockWorkspaceButton: boolean;
     @Input() public toggleAstue: boolean = true;
@@ -38,21 +40,23 @@ export class WidgetHeaderComponent implements OnInit, OnChanges, OnDestroy {
             this.localeSelect = data;
             this.selectValue = data?.[0];
             this.selected.emit(this.selectValue);
+            this.chDet.detectChanges();
         }
     }
+    @Output() public eventProdTaskChange: EventEmitter<void> = new EventEmitter<void>();
     @Output() eventCreated: EventEmitter<boolean> = new EventEmitter<boolean>();
     @Output() eventBack: EventEmitter<null> = new EventEmitter<null>();
     @Output() public selected: EventEmitter<any> = new EventEmitter<any>();
     @Output() public selectedMenu: EventEmitter<any> = new EventEmitter<any>();
     @Output() private toggleAstueChange: EventEmitter<boolean> = new EventEmitter<boolean>();
-    public readonly iconRoute: string = './assets/icons/widget-title-icons/';
+    public readonly iconRoute: string = 'assets/icons/widget-title-icons/';
     private subscriptions: Subscription[] = [];
     claimWidgets: EnumClaimWidgets[] = [];
     EnumClaimWidgets: typeof EnumClaimWidgets = EnumClaimWidgets;
 
     public selectValue: { name: string; id: number };
 
-    public CreateIcon: boolean = true;
+    public createIcon: boolean = true;
     public isReportButton: boolean = true;
 
     public filterTankInfo: boolean = false;
@@ -61,12 +65,13 @@ export class WidgetHeaderComponent implements OnInit, OnChanges, OnDestroy {
         public overlayService: OverlayService,
         public widgetService: WidgetService,
         public userSettings: UserSettingsService,
-        private claimService: ClaimService
+        private claimService: ClaimService,
+        private chDet: ChangeDetectorRef
     ) {}
 
     public ngOnChanges(): void {
         this.filterTankInfo = this.tankInfo;
-        this.CreateIcon = this.isEventOpen;
+        this.createIcon = this.isEventOpen;
     }
 
     ngOnInit(): void {
@@ -75,6 +80,9 @@ export class WidgetHeaderComponent implements OnInit, OnChanges, OnDestroy {
                 this.claimWidgets = data;
             })
         );
+        setTimeout(() => {
+            console.log(this.widgetType);
+        }, 2000);
     }
 
     ngOnDestroy(): void {
@@ -90,9 +98,13 @@ export class WidgetHeaderComponent implements OnInit, OnChanges, OnDestroy {
     }
 
     public createEvent(event): void {
-        this.CreateIcon = false;
+        this.createIcon = false;
         this.blockWorkspaceButton = true;
         this.eventCreated.emit(event);
+    }
+
+    public changeStatus(): void {
+        this.eventProdTaskChange.emit();
     }
 
     public backEvent(): void {

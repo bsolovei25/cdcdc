@@ -1,0 +1,76 @@
+<evj-contemporary-widget-header
+  [uniqId]="uniqId"
+  [widgetTitle]="widgetTitle"
+  type="kpe"
+  icon="kpe-quality-header-icon"
+>
+  <div class="content-container">
+    <div class="header">
+      <ul class="header__info">
+        <li class="header__info-item">
+          <div class="header__info-1"></div>
+          <span>Факт</span>
+        </li>
+        <li class="header__info-item">
+          <div class="header__info-2"></div>
+          <span>План</span>
+        </li>
+      </ul>
+    </div>
+  </div>
+</evj-contemporary-widget-header>
+
+<div class="container">
+  <div
+    class="container-body"
+    (mousedown)="$event.stopPropagation()"
+    (touchstart)="$event.stopPropagation()"
+  >
+    <div class="quality">
+      <div class="quality__header">
+        <div #mainGauge class="quality__header__gauge" [style]="gaugeWidth(mainGauge)">
+          <evj-kpe-gauge-chart
+            [fact]="deviationDiagram?.fact"
+            [plan]="deviationDiagram?.plan"
+          ></evj-kpe-gauge-chart>
+        </div>
+        <div class="quality__header__chart">
+          <evj-kpe-deviation-diagram [data]="deviationChartData"></evj-kpe-deviation-diagram>
+        </div>
+      </div>
+      <ng-container *ngFor="let main of cards">
+        <div class="quality__main">
+          <ng-container *ngFor="let card of main">
+            <div class="quality__main__gauge element-container">
+              <div class="card">
+                <div class="card__content">
+                  <div class="card__gauge-diagram">
+                    <evj-kpe-gauge-chart background="dark" [fact]="card.gaugeChart?.fact" [plan]="card.gaugeChart?.plan"></evj-kpe-gauge-chart>
+                    <div class="unit-selector">
+                      <div class="unit-selector__unit">
+                        <span>{{ card.gaugeChart.unit }}</span>
+                      </div>
+                      <div class="unit-selector__sign">
+                        <span>%</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="card__eq-diagram">
+                    <div class="title-area">
+                      <span class="title-area__title">{{ card.gaugeChart.title }}</span>
+                      <span class="title-area__comment">{{ card.description }}</span>
+                    </div>
+                    <div class="diagram-area">
+                      <!--<evj-kpe-equalizer-chart [data]="formatData(card.equalizerChart)"></evj-kpe-equalizer-chart>-->
+                      <evj-kpe-equalizer-chart [data]="formatData(card.equalizerChart)"></evj-kpe-equalizer-chart>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </ng-container>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+</div>

@@ -31,10 +31,7 @@ export class ProductionDeviationsDiagramComponent implements OnChanges {
     public ngOnChanges(): void {
         this.transformData();
         const today: Date = new Date(2020, 4, 15);
-        let col = this.data.columns.find((column) => column.date.getDate() === today.getDate());
-        if (!col) {
-            col = this.data.columns[0];
-        }
+        const col = this.data.columns.find((column) => column.date.getDate() === today.getDate());
         this.selection.select(col);
     }
 
@@ -47,13 +44,14 @@ export class ProductionDeviationsDiagramComponent implements OnChanges {
     }
 
     private transformNormalGraph(): void {
-        const maxValue: number = this.data.columns.reduce((acc, column) => {
+        let maxValue: number = this.data.columns.reduce((acc, column) => {
             const val: number = column.fact < column.plan ? column.plan : column.fact;
             if (acc < val) {
                 return val;
             }
             return acc;
         }, 0);
+        maxValue = maxValue < this.data.limits.upValue ? this.data.limits.upValue + 15 : maxValue;
         this.data.columns.forEach((column) => {
             column.limit = {
                 value: this.data.limits.upValue,

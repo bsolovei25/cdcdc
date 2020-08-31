@@ -1,0 +1,75 @@
+.svg {
+  border-radius: 50%;
+  background-color: var(--color-sou-bg);
+  padding: 12px;
+  border: 1px solid var(--color-kpe-gaude-lines);
+  width: calc(100% - 24px);
+  height: calc(100% - 24px);
+}
+
+::ng-deep {
+  .title-text,
+  .value,
+  .percentage {
+    font-style: normal;
+    font-weight: normal;
+    font-family: Tahoma;
+    text-anchor: middle;
+    dominant-baseline: middle;
+  }
+
+  .name-text,
+  .title-text {
+    font-size: 4.5px;
+    z-index: 100;
+    fill: var(--color-kpe-text-main);
+  }
+
+  .value {
+    font-size: 13px;
+    fill: var(--color-kpe-text-main);
+  }
+
+  .percentage {
+    font-size: 6px;
+    fill: var(--color-kpe-text-sub);
+  }
+
+  .arc-gen {
+    fill: var(--color-kpe-gaude-active);
+  }
+
+  .arc {
+    fill: var(--color-kpe-border-sub);
+  }
+
+  .needle {
+    fill: var(--color-kpe-text-main);
+  }
+
+  .fill-border-color {
+    fill: var(--color-kpe-border-sub);
+  }
+
+  .fill-center-circle {
+    fill: var(--color-kpe-gauge-circle);
+  }
+
+  .fill-body-color {
+    fill: var(--color-kpe-gauge-bg);
+  }
+
+  .hide-down-sector {
+    fill: var(--color-kpe-key-p-d-bg);
+  }
+
+  .needle-shadow-gradient-1 {
+    stop-color: var(--color-button-borderside);
+    stop-opacity: 0.15;
+  }
+
+  .needle-shadow-gradient-2 {
+    stop-color: transparent;
+    stop-opacity: 0;
+  }
+}

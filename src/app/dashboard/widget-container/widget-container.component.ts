@@ -6,12 +6,14 @@ import { LazyService } from '../../widgets/lazy.service';
 @Component({
     selector: 'evj-widget-container',
     templateUrl: './widget-container.component.html',
-    styleUrls: ['./widget-container.component.scss'],
+    styleUrls: ['./widget-container.component.scss']
 })
 export class WidgetContainerComponent extends WidgetPlatform implements OnInit, OnDestroy {
     @ViewChild('container', { read: ViewContainerRef }) private container: ViewContainerRef;
     public isLoading: boolean = true;
     public previewTitle: string = null;
+
+    protected isRealtimeData: boolean = false;
 
     constructor(
         private lazyService: LazyService,
@@ -23,7 +25,7 @@ export class WidgetContainerComponent extends WidgetPlatform implements OnInit, 
         super(widgetService, isMock, id, uniqId);
     }
 
-    public ngOnInit(): void {
+public ngOnInit(): void {
         super.widgetInit();
     }
 
@@ -46,12 +48,13 @@ export class WidgetContainerComponent extends WidgetPlatform implements OnInit, 
         const injectParams = {
             isMock: this.isMock,
             widgetId: this.id,
-            uniqId: this.uniqId,
+            uniqId: this.uniqId
         };
 
         await this.lazyService.loadWidget(this.widgetType, this.container, injectParams);
         setTimeout(() => (this.isLoading = false), 300);
     }
 
-    protected dataHandler(ref: any): void {}
+    protected dataHandler(ref: any): void {
+    }
 }

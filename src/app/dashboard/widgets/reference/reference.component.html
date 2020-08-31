@@ -27,10 +27,10 @@
             <div class="bottom-reference-left__input-block">
               <div class="bottom-reference-left__button-search">
                 <svg-icon *ngIf="!isRefInput" class="button_filter_icon"
-                  src="./assets/icons/widgets/references/search_white.svg"></svg-icon>
+                  src="assets/icons/widgets/references/search_white.svg"></svg-icon>
 
                 <svg-icon *ngIf="isRefInput" class="indicator-selector__collapse"
-                  src="./assets/icons/widgets/references/search_blue.svg"></svg-icon>
+                  src="assets/icons/widgets/references/search_blue.svg"></svg-icon>
               </div>
               <div class="bottom-reference-left__input" [class.bottom-reference-left__input-active]="isRefInput">
                 <input type="text" (focus)="isRefInput = true" (blur)="isRefInput = false"
@@ -83,12 +83,12 @@
                           <div *ngIf="!item.edit" class="reference-container-value__edit-button"
                             (click)="onBlockEditRecordName(item)">
                             <svg-icon *ngIf="item.open" class="indicator-selector__collapse"
-                              src="./assets/icons/widgets/references/edit_white.svg"></svg-icon>
+                              src="assets/icons/widgets/references/edit_white.svg"></svg-icon>
                           </div>
                           <div *ngIf="item.edit" class="reference-container-value__add-button-edit"
                             (click)="onEditRecordName(item)">
                             <svg-icon class="indicator-selector__collapse"
-                              src="./assets/icons/widgets/references/accept.svg">
+                              src="assets/icons/widgets/references/accept.svg">
                             </svg-icon>
                           </div>
                         </div>
@@ -117,7 +117,7 @@
                                 <div *ngIf="i2.edit" class="reference-container-value__add-button-edit"
                                   (click)="onEditRecord(i2,item)">
                                   <svg-icon class="indicator-selector__collapse"
-                                    src="./assets/icons/widgets/references/accept.svg">
+                                    src="assets/icons/widgets/references/accept.svg">
                                   </svg-icon>
                                 </div>
                               </div>
@@ -126,7 +126,7 @@
                           <div class="reference-container-value__edit-button"
                           (click)="onBlockEditRecord(i,item)">
                           <svg-icon *ngIf="item.open && !isEdit" class="indicator-selector__collapse"
-                            src="./assets/icons/widgets/references/edit_white.svg"></svg-icon>
+                            src="assets/icons/widgets/references/edit_white.svg"></svg-icon>
                         </div>
                         </div>
                       </ng-container>
@@ -165,7 +165,7 @@
                   </ng-container>
                 </ng-container>
                 <div class="reference-container-value__add-button" (click)="onPushRecord()">
-                  <svg-icon class="indicator-selector__collapse" src="./assets/icons/widgets/references/accept.svg">
+                  <svg-icon class="indicator-selector__collapse" src="assets/icons/widgets/references/accept.svg">
                   </svg-icon>
                 </div>
               </div>
@@ -184,19 +184,19 @@
         <div class="bottom-reference-right" [class.isLongBlock]="isLongBlock">
           <div class="bottom-reference-right__block">
             <div class="bottom-reference-right__button-add" (click)="onAddBlockRecord()">
-              <svg-icon *ngIf="!isAddBlockRecord" src="./assets/icons/widgets/references/add_white.svg"
+              <svg-icon *ngIf="!isAddBlockRecord" src="assets/icons/widgets/references/add_white.svg"
                 class="add_button_icon"></svg-icon>
 
               <svg-icon *ngIf="isAddBlockRecord" class="indicator-selector__collapse"
-                src="./assets/icons/widgets/references/add_blue.svg"></svg-icon>
+                src="assets/icons/widgets/references/add_blue.svg"></svg-icon>
 
             </div>
             <div class="bottom-reference-right__input-block">
               <div class="bottom-reference-right__button-search">
                 <svg-icon *ngIf="!isRecInput" class="button_filter_icon"
-                  src="./assets/icons/widgets/references/search_white.svg"></svg-icon>
+                  src="assets/icons/widgets/references/search_white.svg"></svg-icon>
                 <svg-icon *ngIf="isRecInput" class="button_filter_icon"
-                  src="./assets/icons/widgets/references/search_blue.svg"></svg-icon>
+                  src="assets/icons/widgets/references/search_blue.svg"></svg-icon>
               </div>
               <div class="bottom-reference-right__input" [class.bottom-reference-right__input-active]="isRecInput">
                 <input type="text" (focus)="isRecInput = true" (blur)="isRecInput = false"

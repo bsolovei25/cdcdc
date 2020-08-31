@@ -44,6 +44,9 @@ export class WidgetsGridComponent implements OnInit, OnDestroy {
         event: MouseEvent;
     }> = new EventEmitter<{ item: GridsterItem; event: MouseEvent }>();
 
+    // To fix template errors;
+    private isUserAction: boolean = false;
+
     private sizeTimeout: any;
 
     public ColWidth: number;
@@ -136,7 +139,6 @@ export class WidgetsGridComponent implements OnInit, OnDestroy {
     public onResize(): void {
         clearTimeout(this.sizeTimeout);
         this.sizeTimeout = setTimeout(() => this.sizeGrid(), 1000);
-        this.resizeGridsterElement();
     }
 
     public sizeGrid(): void {
@@ -156,6 +158,7 @@ export class WidgetsGridComponent implements OnInit, OnDestroy {
 
         const event = new Event('resizeGrid');
         document.dispatchEvent(event);
+        setTimeout(() => this.resizeGridsterElement(), 1000);
     }
 
     public resizeGridsterElement(): void {
@@ -164,9 +167,11 @@ export class WidgetsGridComponent implements OnInit, OnDestroy {
     }
 
     public itemChange(item: GridsterItem, itemComponent: GridsterItemComponentInterface): void {
-        const useItem = { ...item };
-        this.userSettings.updateByPosition(useItem, itemComponent.item);
-        // itemComponent.item = {...itemComponent.item, ...itemComponent.$item};
+        if (!this.isUserAction) {
+            return;
+        }
+        item = itemComponent.item;
+        this.userSettings.updateByPosition(item, itemComponent.item);
     }
 
     public onSwap(swap: boolean): void {
@@ -201,6 +206,7 @@ export class WidgetsGridComponent implements OnInit, OnDestroy {
         if (!e) {
             return;
         }
+        this.isUserAction = true;
         const dataTrasfer = new DataTransfer();
         e.currentTarget.dispatchEvent(new DragEvent('dragstart', { dataTransfer: dataTrasfer }));
     }
@@ -221,6 +227,7 @@ export class WidgetsGridComponent implements OnInit, OnDestroy {
     }
 
     public dragStop(item: GridsterItem, e: MouseEvent): void {
+        setTimeout(() => this.isUserAction = false, 1000);
         // if (!e) return;
         // const dataTrasfer = new DataTransfer();
         // e.currentTarget.dispatchEvent(new DragEvent('dragstop', { dataTransfer: dataTrasfer }));
