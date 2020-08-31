@@ -143,7 +143,9 @@ export class KpeGaugeChartComponent implements OnInit, OnChanges {
             .startAngle(-0.5 * Math.PI)
             .endAngle(-0.008 * Math.PI);
 
-        const arrowAngle = (-135 + 270 * mainValue / this.diagramCounter);
+        const arrowAngle = this.fact > this.plan
+            ? 135
+            : (-135 + 270 * mainValue / this.diagramCounter);
 
         const needleShadow = svg
             .append('path')
