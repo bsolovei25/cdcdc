@@ -3,14 +3,11 @@ import {
     OnInit,
     Inject,
     OnDestroy,
-    HostListener,
-    ElementRef,
-    ViewChild, AfterViewInit
+    AfterViewInit
 } from '@angular/core';
 import { WidgetPlatform } from '../../../dashboard/models/widget-platform';
 import { WidgetService } from '../../../dashboard/services/widget.service';
 import {
-    ISplineDiagramSize,
     ISplineDiagramData
 } from './components/spline-diagram/spline-diagram.component';
 
@@ -20,17 +17,8 @@ import {
     styleUrls: ['./spline-trends-chart.component.scss']
 })
 export class SplineTrendsChartComponent extends WidgetPlatform implements OnInit, OnDestroy, AfterViewInit {
+
     public data: ISplineDiagramData;
-
-    @ViewChild('chart')
-    public chartElement: ElementRef;
-
-    @HostListener('document:resize', ['$event'])
-    public OnResize(): void {
-        this.getChartAreaSize();
-    }
-
-    public size: ISplineDiagramSize = { width: null, height: null };
 
     constructor(
         public widgetService: WidgetService,
@@ -46,7 +34,6 @@ export class SplineTrendsChartComponent extends WidgetPlatform implements OnInit
 
     public ngAfterViewInit(): void {
         super.widgetInit();
-        this.getChartAreaSize();
     }
 
     private fillArray(data: { x: number, y: number }[], count: number): { x: number, y: number }[] {
@@ -85,13 +72,6 @@ export class SplineTrendsChartComponent extends WidgetPlatform implements OnInit
             dataArray[idx] = el;
         });
         return dataArray;
-    }
-
-    private getChartAreaSize(): void {
-        this.size = {
-            width: this.chartElement.nativeElement.clientWidth,
-            height: this.chartElement.nativeElement.clientHeight
-        };
     }
 
     private processData(ref: any): ISplineDiagramData {
