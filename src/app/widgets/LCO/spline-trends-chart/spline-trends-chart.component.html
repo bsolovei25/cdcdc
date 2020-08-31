@@ -16,8 +16,8 @@
     (touchstart)="$event.stopPropagation()"
   >
     <div class="wrapper">
-      <div class="chart" #chart>
-        <evj-spline-diagram [size]="size" [data]="data"></evj-spline-diagram>
+      <div class="chart">
+        <evj-spline-diagram [data]="data"></evj-spline-diagram>
       </div>
       <div class="metrics">
         <div class="metrics__block plan-color">

@@ -1,4 +1,10 @@
-import { Component, ElementRef, Input, OnChanges, SimpleChanges } from '@angular/core';
+import {
+    Component,
+    ElementRef, HostListener,
+    Input,
+    OnChanges,
+    SimpleChanges, ViewChild
+} from '@angular/core';
 import * as d3 from 'd3';
 
 export type LineType = 'fact' | 'plan';
@@ -38,8 +44,15 @@ export class SplineDiagramComponent implements OnChanges {
     @Input()
     public data: ISplineDiagramData = null;
 
-    @Input()
-    public size: ISplineDiagramSize = null;
+    @ViewChild('chart')
+    private chart: ElementRef;
+
+    @HostListener('document:resize', ['$event'])
+    public OnResize(): void {
+        if (this.data && this.chart) {
+            this.drawSvg();
+        }
+    }
 
     public factDataset: {
         x: number;
@@ -61,14 +74,16 @@ export class SplineDiagramComponent implements OnChanges {
         y: number;
     }[] = [];
 
+    public size: { width: number | null; height: number | null; } = { width: null, height: null };
+
     public scales: { x: any; y: any } = { x: null, y: null };
 
     public sizeX: { min: number; max: number } = { min: 1, max: 31 };
 
     public sizeY: { min: number; max: number } = { min: 0, max: 0 };
 
-    public margin: { top: number, right: number, bottom: number, left: number } =
-        { top: 20, right: 20, bottom: 30, left: 10 };
+    private readonly padding: { top: number, right: number, bottom: number, left: number } =
+        { top: 5, right: 20, bottom: 40, left: 40 };
 
     private day: number | null = null;
 
@@ -76,19 +91,13 @@ export class SplineDiagramComponent implements OnChanges {
 
     private svg: any = null;
 
-    private g: any = null;
-
     constructor(
-        private hostElement: ElementRef
     ) {
     }
 
     public ngOnChanges(changes: SimpleChanges): void {
-        console.log(changes);
-        this.size = changes.size?.currentValue ? changes.size?.currentValue : this.size;
-        this.data = changes.data?.currentValue ? changes.data?.currentValue : this.data;
         this.prepareData();
-        if (this.size.width && this.size.height && this.data && this.day) {
+        if (this.data && this.chart) {
             this.drawSvg();
         }
     }
@@ -104,12 +113,11 @@ export class SplineDiagramComponent implements OnChanges {
         this.initScale();
         this.initSvg();
         this.drawAxises();
+        this.drawGradient();
         this.drawGrid();
         // data render
-        // this.drawPlanThreshold();
         this.drawCurve(this.factDataset, 'fact');
         this.drawCurve(this.planDataset, 'plan');
-        // this.drawGradient();
         this.drawDayThreshold();
     }
 
@@ -134,120 +142,89 @@ export class SplineDiagramComponent implements OnChanges {
         });
 
         this.day = maxX;
-        this.sizeY.min = minY - 1;
-        this.sizeY.max = maxY + 1;
+        this.sizeY.min = minY - ( 0.03 * minY );
+        this.sizeY.max = maxY + ( 0.03 * maxY );
     }
 
     private initScale(): void {
+        this.size = {
+            width: this.chart.nativeElement.clientWidth,
+            height: this.chart.nativeElement.clientHeight
+        };
+
         this.scales.x = d3.scaleLinear()
             .domain([this.sizeX.min, this.sizeX.max])
-            .range([0, this.size.width - this.margin.right - this.margin.left]);
+            .range([this.padding.left, this.size.width - this.padding.right]);
 
         this.scales.y = d3.scaleLinear()
             .domain([this.sizeY.min, this.sizeY.max])
-            .range([this.size.height - this.margin.top - this.margin.bottom, 0]);
+            .range([this.size.height - this.padding.bottom, this.padding.top]);
     }
 
     private initSvg(): void {
-        if (this.g) {
-            this.g.remove();
-            this.g = undefined;
+        if (this.svg) {
+            this.svg.remove();
+            this.svg = undefined;
         }
 
-        const viewBoxWidth = this.size.width + this.margin.right + this.margin.left;
-        const viewBoxHeight = this.size.height + this.margin.top + this.margin.bottom;
-
-        this.svg = d3.select(this.hostElement.nativeElement).select('svg');
-        this.svg.attr('viewBox', `0 0 ${viewBoxWidth} ${viewBoxHeight}`);
-        this.g = this.svg.append('g').attr('transform', 'translate(40,30)');
+        this.svg = d3.select(this.chart.nativeElement).append('svg');
+        this.svg
+            .attr('width', '100%')
+            .attr('height', '100%')
+            .attr('viewBox', `0 0 ${this.size.width} ${this.size.height}`);
     }
 
     private drawAxises(): void {
         // x
-        this.g.append('g')
-            .attr('transform', `translate(0, ${this.size.height - this.margin.top - this.margin.bottom + 18})`) // 18 - дополнительный отступ
+        this.svg.append('g')
+            .attr('transform', `translate(0, ${this.size.height - this.padding.bottom + 20})`)
             .attr('class', 'x-axis')
             .call(d3.axisBottom(this.scales.x).tickSize(0).ticks(this.sizeX.max))
             .call(g => g.select('.domain').remove());
 
-        this.g.selectAll('.x-axis text')
+        this.svg.selectAll('.x-axis text')
             .attr('class', (d, g) => {
                 return g === this.day - 1 ? 'white' : 'gray';
             });
 
         // y
-        this.g.append('g')
-            .attr('transform', `translate(${-10}, 0)`)
+        this.svg.append('g')
+            .attr('transform', `translate(${this.padding.left}, 0)`)
             .attr('class', 'y-axis')
             .call(d3.axisLeft(this.scales.y).tickSize(0).ticks(7).tickFormat(d3.format('.1f'))) // форматирование до 1 знака после запятой
             .call(g => g.select('.domain').remove());
     }
 
     private drawGrid(): void {
-        this.g.append('g')
-            .attr('transform', `translate(0, ${this.size.height - this.margin.top - this.margin.bottom})`)
+        this.svg.append('g')
+            .attr('transform', `translate(0, ${this.size.height - this.padding.bottom})`)
             .call(d3.axisBottom(this.scales.x)
                 .ticks(this.sizeX.max)
-                .tickSize(1 - (this.size.height - this.margin.top - this.margin.bottom))
+                .tickSize(1 - (this.size.height - this.padding.bottom - this.padding.top))
                 .tickFormat('')
             )
             .attr('class', 'grid');
 
-        this.g.append('g')
+        this.svg.append('g')
+            .attr('transform', `translate(${this.padding.left}, 0)`)
             .call(d3.axisLeft(this.scales.y)
                 .ticks(7)
-                .tickSize(1 - (this.size.width - this.margin.left - this.margin.right))
+                .tickSize(1 - (this.size.width - this.padding.left - this.padding.right))
                 .tickFormat('')
             )
             .attr('class', 'grid');
     }
 
-    private appendPlanThreshold(x1: number, x2: number, className: string): void {
-        this.g.append('line')
-            .attr('x1', this.scales.x(x1))
-            .attr('x2', this.scales.x(x2))
-            .attr('y1', this.scales.y(this.plan))
-            .attr('y2', this.scales.y(this.plan))
-            .attr('class', className);
-    }
-
-    // old
-    /*
-    private appendPlanThresholdCircles(r: number, coord: number, className: string): void {
-        this.g.append('circle')
-            .attr('r', r)
-            .attr('cx', this.scales.x(coord))
-            .attr('cy', this.scales.y(this.plan))
-            .attr('class', className);
-    }
-     */
-
     private appendPlanThresholdCircle(r: number, coord: { x: number, y: number }, className: string): void {
-        this.g.append('circle')
+        this.svg.append('circle')
             .attr('r', r)
             .attr('cx', this.scales.x(coord.x))
             .attr('cy', this.scales.y(coord.y))
             .attr('class', className);
     }
 
-    // old
-    /*
-    private drawPlanThreshold(): void {
-        this.appendPlanThreshold(1, this.day, 'plan-threshold-line-filled');
-        this.appendPlanThreshold(this.day, this.sizeX.max, 'plan-threshold-line-rest');
-        let i = 0;
-        while (i < this.sizeX.max) {
-            i++;
-            this.appendPlanThresholdCircles(1.5, i, 'plan-threshold-circle-inner');
-            if (i < this.day) {
-                this.appendPlanThresholdCircles(3, i, 'plan-threshold-circle-outer');
-            }
-        }
-    }
-     */
-
     private appendCurveDataCircle(r: number, x: number, y: number, className: string): void {
-        this.g.append('circle')
+        this.svg.append('circle')
             .attr('class', className)
             .attr('r', r)
             .attr('cx', this.scales.x(x))
@@ -263,18 +240,18 @@ export class SplineDiagramComponent implements OnChanges {
             .curve(d3.curveMonotoneX);
 
         if (type === 'fact') {
-            this.g.append('path')
+            this.svg.append('path')
                 .datum(dataset)
                 .attr('class', lineClass)
                 .attr('d', line);
         } else if (type === 'plan') {
             const currentDataset = dataset.filter((el) => el.x <= this.day);
             const futureDataset = dataset.filter((el) => el.x >= this.day);
-            this.g.append('path')
+            this.svg.append('path')
                 .datum(currentDataset)
                 .attr('class', lineClass)
                 .attr('d', line);
-            this.g.append('path')
+            this.svg.append('path')
                 .datum(futureDataset)
                 .attr('class', 'plan-threshold-line-rest')
                 .attr('d', line);
@@ -283,7 +260,7 @@ export class SplineDiagramComponent implements OnChanges {
 
         dataset.forEach((data, idx) => {
             if (type === 'fact') {
-                this.g.append('line')
+                this.svg.append('line')
                     .attr('class', 'bound-line')
                     .attr('x1', this.scales.x(data.x))
                     .attr('x2', this.scales.x(data.x))
@@ -293,7 +270,7 @@ export class SplineDiagramComponent implements OnChanges {
                 if (data.y > this.highDataset[data.x - 1].y || data.y < this.lowDataset[data.x - 1].y) {
                     this.appendCurveDataCircle(2, data.x, data.y, 'curve-value-circle-high');
 
-                    this.g.append('rect')
+                    this.svg.append('rect')
                         .attr('class', 'curve-value-rect-high')
                         .attr('x', this.scales.x(data.x) - 3)
                         .attr('y', this.scales.y(data.y) - 3)
@@ -312,9 +289,8 @@ export class SplineDiagramComponent implements OnChanges {
         });
     }
 
-    // TODO неправильно работает градиент (необходимо разбивать на области)
     private drawGradient(): void {
-        const lg = this.g.append('defs').append('linearGradient')
+        const lg = this.svg.append('defs').append('linearGradient')
             .attr('id', 'gradient')
             .attr('x1', '0%')
             .attr('x2', '0%')
@@ -331,24 +307,40 @@ export class SplineDiagramComponent implements OnChanges {
 
         const area = d3.area()
             .x((d) => this.scales.x(d.x))
-            .y1((d) => this.scales.y(d.y))
-            .y0(this.scales.y(this.plan));
+            .y1((d) => this.scales.y(d.planY))
+            .y0((d) => this.scales.y(d.factY));
 
-        const newDataSet = [];
-        this.factDataset.forEach(item => {
-            if (item.y > this.plan) {
-                newDataSet.push(item);
-            }
+        const areaToHide = d3.area()
+            .x((d) => this.scales.x(d.x))
+            .y1((d) => this.scales.y(d.factY))
+            .y0(this.scales.y(this.sizeY.max));
+
+        const fact = [...new Map(this.factDataset.map(item => [item.x, item])).values()];
+        const plan = [...new Map(this.planDataset.map(item => [item.x, item])).values()];
+
+        const dataset = [];
+        fact.forEach(factItem => {
+            const planItem = plan.find(p => p.x === factItem.x);
+            dataset.push({
+                x: factItem.x,
+                factY: factItem.y,
+                planY: planItem.y,
+            });
         });
 
-        this.g.append('path')
-            .datum(newDataSet)
-            .attr('class', 'data-area-high')
+        this.svg.append('path')
+            .datum(dataset)
+            .attr('class', 'data-area')
             .attr('d', area);
+
+        this.svg.append('path')
+            .datum(dataset)
+            .attr('class', 'data-area-hide')
+            .attr('d', areaToHide);
     }
 
     private drawDayThreshold(): void {
-        this.g.append('line')
+        this.svg.append('line')
             .attr('class', 'day-threshold-line')
             .attr('x1', this.scales.x(this.day))
             .attr('x2', this.scales.x(this.day))
@@ -360,7 +352,7 @@ export class SplineDiagramComponent implements OnChanges {
     }
 
     private appendThresholdCircles(cy: number): void {
-        this.g.append('circle')
+        this.svg.append('circle')
             .attr('r', 1)
             .attr('cx', this.scales.x(this.day))
             .attr('cy', cy)
