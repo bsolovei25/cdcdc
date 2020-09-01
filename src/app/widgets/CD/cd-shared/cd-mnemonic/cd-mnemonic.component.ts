@@ -262,7 +262,6 @@ export class CdMnemonicComponent implements OnInit {
                 engUnit.addEventListener('click',
                     () => {
                         this.addLineChart(+id);
-                        console.log(engUnit);
                     });
                 const valueEngUnits = this.data.find((val) => val.id === +id)?.engUnits;
                 if (valueEngUnits) {
