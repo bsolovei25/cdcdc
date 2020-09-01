@@ -47,7 +47,7 @@ export class EventsComponent extends WidgetPlatform implements OnInit, OnDestroy
     public EnumClaimWidgets: typeof EnumClaimWidgets = EnumClaimWidgets;
 
     isList: boolean = false;
-    isSound: boolean = true;
+    isSound: boolean = !!localStorage.getItem('sound');
     audio: HTMLAudioElement = new Audio('assets/sound/event/message.mp3');
     selectedId: number = 0;
     eventOverlayId: number;
@@ -257,6 +257,7 @@ export class EventsComponent extends WidgetPlatform implements OnInit, OnDestroy
     ) {
         super(widgetService, isMock, id, uniqId);
         this.widgetIcon = 'letter';
+        console.log();
     }
 
     public ngOnInit(): void {
@@ -388,17 +389,17 @@ export class EventsComponent extends WidgetPlatform implements OnInit, OnDestroy
 
     private addWsElement(notification: EventsWidgetNotificationPreview): void {
         const idx = this.notifications.findIndex((n) => notification.sortIndex <= n.sortIndex);
-        console.log(idx);
-        if (idx >= 0) {
-            if (notification.category && notification.category.name) {
-                notification.iconUrl = this.getNotificationIcon(notification.category.name);
-                notification.iconUrlStatus = this.getStatusIcon(notification.status.name);
-                notification.statusName = this.statuses[notification.status.name]; // TODO check
-            }
-            this.notifications.splice(idx, 0, notification);
-            this.notifications = this.notifications.slice();
-            this.countNotificationsDivCapacity();
+        if (idx === -1) {
+            return;
         }
+        if (notification.category && notification.category.name) {
+            notification.iconUrl = this.getNotificationIcon(notification.category.name);
+            notification.iconUrlStatus = this.getStatusIcon(notification.status.name);
+            notification.statusName = this.statuses[notification.status.name]; // TODO check
+        }
+        this.notifications.splice(idx, 0, notification);
+        this.notifications = this.notifications.slice();
+        this.countNotificationsDivCapacity();
         this.playAudio();
     }
 
@@ -599,8 +600,9 @@ export class EventsComponent extends WidgetPlatform implements OnInit, OnDestroy
 
     soundSwitch(event: MouseEvent, isSound: boolean): void {
         this.isSound = !isSound;
+        localStorage.setItem('sound', `${this.isSound ? 'true' : ''}`);
         if (this.isSound) {
-            this.playAudio();
+            this.audio.play();
         }
     }
 
