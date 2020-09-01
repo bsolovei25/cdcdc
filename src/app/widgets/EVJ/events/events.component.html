@@ -26,11 +26,27 @@
         <span class="header__name">
           {{ widgetTitle }}
         </span>
-        <div  *ngIf="claimWidgets.includes(EnumClaimWidgets.delete)"
-          class="delete_widget"
-          (click)="onRemoveButton()"
+        <svg-icon
           (mousedown)="$event.stopPropagation()"
           (touchstart)="$event.stopPropagation()"
+          *ngIf="isSound"
+          (click)="soundSwitch($event, isSound)"
+          class="header__icon_bell"
+          src="assets/icons/widgets/events/bell.svg"
+        ></svg-icon>
+        <svg-icon
+          (mousedown)="$event.stopPropagation()"
+          (touchstart)="$event.stopPropagation()"
+          *ngIf="!isSound"
+          (click)="soundSwitch($event, isSound)"
+          class="header__icon_bell"
+          src="assets/icons/widgets/events/mute_bell.svg"
+        ></svg-icon>
+        <div *ngIf="claimWidgets.includes(EnumClaimWidgets.delete)"
+             class="delete_widget"
+             (click)="onRemoveButton()"
+             (mousedown)="$event.stopPropagation()"
+             (touchstart)="$event.stopPropagation()"
         >
           <svg-icon
             style="height: 100%; width: 100%; fill: #8C99B2"
