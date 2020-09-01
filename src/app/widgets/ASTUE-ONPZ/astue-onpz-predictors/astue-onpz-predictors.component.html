@@ -13,9 +13,10 @@
           </span>
             <span class="list__item__name">{{ item.name }}</span>
           </div>
-          <div class="list__item__label" [class.list__item__label--unactive]="!item.isActive"
+          <div class="list__item__label"
                style.backgroundColor="var(--color-astue-onpz-bg-tag-{{ item.color }})"
                style.color="var(--color-astue-tag-{{ item.color }})"
+               [class.list__item__label--unactive]="!item.isActive"
           >
             {{ item.label }}
           </div>

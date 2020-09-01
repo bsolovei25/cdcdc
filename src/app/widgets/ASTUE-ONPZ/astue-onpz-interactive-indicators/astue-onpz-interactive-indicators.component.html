@@ -20,12 +20,20 @@
     >
       <div class="interactive-indicators__labels">
         <div class="labels__items">
-          <div (click)="LabelClick(item)" class="labels__item" [class.labels__item__disable]="DisabledLabels?.get(item)" *ngFor="let item of data.labels">
-            <div class="item__icon">
-              <svg-icon src="assets/icons/widgets/ASTUE-ONPZ/aim.svg"></svg-icon>
+          <div (click)="LabelClick(item)" class="labels__item"
+               [class.labels__item__disable]="DisabledLabels?.get(item)"
+               *ngFor="let item of data.labels"
+          >
+            <div class="item__icon"
+                 style.backgroundColor="{{ DisabledLabels?.get(item) ? 'var(--color-astue-onpz-bg-tag-12)' : getColorBgTag(item.color) }}">
+              <svg-icon [src]="getPathSvg(item.icon)"
+                        style.fill="{{ DisabledLabels?.get(item) ? 'var(--color-text-sub)' : getColorTag(item.color) }}"
+                        [class.item__icon__svg__disable]="DisabledLabels?.get(item)"
+              ></svg-icon>
             </div>
-            <div class="item__name">{{ item.name }}</div>
-            <div class="item__delete">
+            <div class=" item__name
+              ">{{ item.name }}</div>
+            <div class="item__delete" (click)="deleteLabel($event,item.id)">
               <svg-icon src="assets/icons/widgets/ASTUE-ONPZ/close.svg"></svg-icon>
             </div>
           </div>
@@ -51,17 +59,17 @@
         </div>
         <table class="table">
           <tbody>
-            <tr *ngFor="let item of data.indicators; last as last" class="table__row">
-              <td class="table__column">{{ item.name }}</td>
-              <td class="table__column">
-                {{ item.value }}
-                <svg-icon
-                  *ngIf="last"
-                  class="table__column__icon"
-                  src="assets/icons/widgets/ASTUE-ONPZ/lamp.svg"
-                ></svg-icon>
-              </td>
-            </tr>
+          <tr *ngFor="let item of data.indicators; last as last" class="table__row">
+            <td class="table__column">{{ item.name }}</td>
+            <td class="table__column">
+              {{ item.value }}
+              <svg-icon
+                *ngIf="last"
+                class="table__column__icon"
+                src="assets/icons/widgets/ASTUE-ONPZ/lamp.svg"
+              ></svg-icon>
+            </td>
+          </tr>
           </tbody>
         </table>
       </div>
