@@ -257,7 +257,6 @@ export class EventsComponent extends WidgetPlatform implements OnInit, OnDestroy
     ) {
         super(widgetService, isMock, id, uniqId);
         this.widgetIcon = 'letter';
-        console.log();
     }
 
     public ngOnInit(): void {
