@@ -5,7 +5,8 @@ import { WidgetService } from '../../../dashboard/services/widget.service';
 interface IPredictors {
     name: string;
     label: string;
-    isActive: boolean;
+    color: number;
+    isActive?: boolean;
 }
 
 @Component({
@@ -19,26 +20,31 @@ export class AstueOnpzPredictorsComponent extends WidgetPlatform implements OnIn
         {
             name: 'Скорость ветра',
             label: 'Meteo:SP',
+            color: 1,
             isActive: true
         },
         {
             name: 'Газ из Е-2 (FI103 пл лаб)',
             label: 'AVT10:PL103_O',
+            color: 2,
             isActive: true
         },
         {
             name: 'Температура канала 1',
             label: 'AVT10:PL103_O',
+            color: 3,
             isActive: false
         },
         {
             name: 'Скорость ветра',
             label: 'Meteo:SP',
+            color: 3,
             isActive: true
         },
         {
             name: 'Газ из Е-2 (FI103 пл лаб)',
             label: 'AVT10:PL103_O',
+            color: 4,
             isActive: true
         }
     ];
