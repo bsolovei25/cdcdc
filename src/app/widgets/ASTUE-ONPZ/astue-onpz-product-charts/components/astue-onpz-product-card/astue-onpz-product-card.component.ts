@@ -13,8 +13,8 @@ export class AstueOnpzProductCardComponent implements OnChanges, OnInit {
     constructor() {}
 
     ngOnChanges(): void {
-        this.data.graph.forEach((item) => {
-            item.graph.forEach((val) => {
+        this.data?.graphs?.forEach((item) => {
+            item?.graph?.forEach((val) => {
                 val.timeStamp = new Date(val.timeStamp);
             });
         });

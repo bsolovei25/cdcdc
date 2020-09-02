@@ -1,7 +1,6 @@
 import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
 import { WidgetPlatform } from '../../../dashboard/models/widget-platform';
 import { WidgetService } from '../../../dashboard/services/widget.service';
-import { HttpClient } from '@angular/common/http';
 import { IProductionTrend } from '../../../dashboard/models/production-trends.model';
 import { AstueOnpzService } from '../astue-onpz-shared/astue-onpz.service';
 
@@ -12,7 +11,7 @@ export interface IAstueProductChart {
     units: string;
     currentPlanValue: number;
     currentFactValue: number;
-    graph: IProductionTrend[];
+    graphs: IProductionTrend[];
 }
 
 @Component({
@@ -21,14 +20,13 @@ export interface IAstueProductChart {
     styleUrls: ['./astue-onpz-product-charts.component.scss'],
 })
 export class AstueOnpzProductChartsComponent extends WidgetPlatform implements OnInit, OnDestroy {
-    public data: IAstueProductChart[];
+    public data: IAstueProductChart[] = [];
 
     constructor(
         protected widgetService: WidgetService,
         @Inject('isMock') public isMock: boolean,
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string,
-        private http: HttpClient,
         private astueOnpzService: AstueOnpzService,
     ) {
         super(widgetService, isMock, id, uniqId);
@@ -36,11 +34,6 @@ export class AstueOnpzProductChartsComponent extends WidgetPlatform implements O
 
     public ngOnInit(): void {
         super.widgetInit();
-        this.subscriptions.push(
-            this.http
-                .get<IAstueProductChart[]>('assets/mock/ASTUE-ONPZ/product-charts.mock.json')
-                .subscribe((data) => (this.data = data))
-        );
     }
 
     protected dataConnect(): void {
@@ -56,5 +49,11 @@ export class AstueOnpzProductChartsComponent extends WidgetPlatform implements O
         super.ngOnDestroy();
     }
 
-    protected dataHandler(ref: any): void {}
+    protected dataHandler(ref: any): void {
+        if (ref?.graphs?.length > 0) {
+            this.data = ref.graphs;
+        } else {
+            this.data = [];
+        }
+    }
 }

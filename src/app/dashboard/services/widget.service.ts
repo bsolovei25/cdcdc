@@ -299,6 +299,7 @@ export class WidgetService {
             case 'kpe-safety':
             case 'astue-onpz-consumption-indicators':
             case 'astue-onpz-menu-structure':
+            case 'astue-onpz-product-charts':
                 return data;
         }
         console.warn(`unknown widget type ${widgetType}`);
