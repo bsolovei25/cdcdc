@@ -3,6 +3,7 @@ import { WidgetPlatform } from '../../../dashboard/models/widget-platform';
 import { WidgetService } from '../../../dashboard/services/widget.service';
 import { HttpClient } from '@angular/common/http';
 import { IProductionTrend } from '../../../dashboard/models/production-trends.model';
+import { AstueOnpzService } from '../astue-onpz-shared/astue-onpz.service';
 
 export interface IAstueProductChart {
     productName: string;
@@ -27,16 +28,27 @@ export class AstueOnpzProductChartsComponent extends WidgetPlatform implements O
         @Inject('isMock') public isMock: boolean,
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string,
-        private http: HttpClient
+        private http: HttpClient,
+        private astueOnpzService: AstueOnpzService,
     ) {
         super(widgetService, isMock, id, uniqId);
     }
 
     public ngOnInit(): void {
+        super.widgetInit();
         this.subscriptions.push(
             this.http
                 .get<IAstueProductChart[]>('assets/mock/ASTUE-ONPZ/product-charts.mock.json')
                 .subscribe((data) => (this.data = data))
+        );
+    }
+
+    protected dataConnect(): void {
+        super.dataConnect();
+        this.subscriptions.push(
+            this.astueOnpzService.sharedMonitoringOptions.subscribe((ref) => {
+                this.widgetService.setWidgetLiveDataFromWSOptions(this.widgetId, ref);
+            })
         );
     }
 

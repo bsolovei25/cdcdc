@@ -183,7 +183,7 @@ export class WidgetService {
                 timeStamp: new Date(),
             };
         }
-        this.wsAppendOptions(widgetId, options);
+        this.wsAppendOptions(widgetId, this.openedWSChannels[widgetId].options);
     }
 
     private wsConnect(widgetId: string, options: any = null): void {

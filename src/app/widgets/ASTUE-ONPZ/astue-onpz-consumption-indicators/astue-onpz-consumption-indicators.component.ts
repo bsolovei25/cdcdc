@@ -66,6 +66,7 @@ export class AstueOnpzConsumptionIndicatorsComponent extends WidgetPlatform
         super.dataConnect();
         this.subscriptions.push(
             this.astueOnpzService.sharedMonitoringOptions.subscribe(options => {
+                this.activeIndicator = null;
                 if (this.indicators) {
                     const indicator = this.indicators.find(indicatorFromList => indicatorFromList.type === options.indicatorType);
                     if (options.type === this.type) {
