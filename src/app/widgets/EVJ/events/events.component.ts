@@ -387,6 +387,9 @@ export class EventsComponent extends WidgetPlatform implements OnInit, OnDestroy
     }
 
     private addWsElement(notification: EventsWidgetNotificationPreview): void {
+        if (this.isSound) {
+            this.playAudio();
+        }
         const idx = this.notifications.findIndex((n) => notification.sortIndex <= n.sortIndex);
         if (idx === -1) {
             return;
@@ -399,7 +402,6 @@ export class EventsComponent extends WidgetPlatform implements OnInit, OnDestroy
         this.notifications.splice(idx, 0, notification);
         this.notifications = this.notifications.slice();
         this.countNotificationsDivCapacity();
-        this.playAudio();
     }
 
     private deleteWsElement(notification: EventsWidgetNotificationPreview): void {
