@@ -17,7 +17,10 @@ export class EjsEventComponent implements OnInit, OnDestroy {
 
     constructor(private http: HttpClient, public ewService: EventsWorkspaceService) {}
 
-    ngOnInit(): void {}
+    ngOnInit(): void {
+        window.open('http://spb99-t-merap01/meridium/');
+        this.ewService.goBackEvent();
+    }
 
     public get frameUrl(): string {
         if (this.ewService.isCreateNewEvent) {
