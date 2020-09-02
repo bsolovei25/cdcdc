@@ -1,5 +1,4 @@
 import { LineChartComponent } from '../../widgets/line-chart/line-chart.component';
-import { LineDiagramComponent } from '../../widgets/line-diagram/line-diagram.component';
 import { ManualInputComponent } from '../../widgets/manual-input/manual-input.component';
 import { ChangeShiftComponent } from '../../widgets/change-shift/change-shift.component';
 import { EnergeticsComponent } from '../../widgets/energetics/energetics.component';
@@ -59,7 +58,6 @@ import { CdMatBalanceChartCardComponent } from '../../../widgets/CD/cd-mat-balan
 export const WIDGETS = {
     'pie-diagram': WidgetPiesComponent,
     'line-chart': LineChartComponent,
-    'line-diagram': LineDiagramComponent,
     'manual-input': ManualInputComponent,
     'shift-pass': ChangeShiftComponent,
     'shift-accept': ChangeShiftComponent,
@@ -160,8 +158,9 @@ export const WIDGETS = {
     'astue-onpz-interactive-indicators': WidgetContainerComponent,
     // TODO
     'cd-mat-balance-sensor': CdMatBalanceChartCardComponent,
-    'cd-mat-balance-stream': CdMatBalanceChartCardComponent
+    'cd-mat-balance-stream': CdMatBalanceChartCardComponent,
     //
+    'line-diagram': WidgetContainerComponent
 };
 
 export const WIDGETS_LAZY = {
@@ -484,6 +483,19 @@ export const WIDGETS_LAZY = {
         minItemRows: 16,
         preview: 'industrial-pyramid'
     },
+
+    'line-diagram': {
+        import: async () => {
+            return await import('src/app/widgets/LCO/line-diagram/line-diagram.module');
+        },
+        module: 'LineDiagramModule',
+        itemCols: 20,
+        itemRows: 16,
+        minItemCols: 20,
+        minItemRows: 16,
+        preview: 'line-diagram'
+    },
+
     //#endregion LCO
 
     //#region SMP
@@ -605,13 +617,13 @@ export const WIDGETS_LAZY = {
         import: async () =>
             await import(
                 'src/app/widgets/ASTUE-MNPZ/astue-mnpz-efficiency/astue-mnpz-efficiency.module'
-            ),
+                ),
         module: 'AstueMnpzEfficiencyModule',
         itemCols: 58,
         itemRows: 25,
         minItemCols: 58,
         minItemRows: 20,
-        preview: 'astue-efficiency',
+        preview: 'astue-efficiency'
     },
     //#endregion ASTUE-MNPZ
 
