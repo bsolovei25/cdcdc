@@ -19,9 +19,11 @@
 
   <div class="astue-mat-select">
     <mat-form-field>
-      <mat-select panelClass="mat-balance-select">
-        <mat-option *ngFor="let value of ['Производство 1']" [value]="value">
-          {{ value }}
+      <mat-select panelClass="mat-balance-select"
+                  [formControl]="manufactureSelect"
+                  (selectionChange)="onManufactureSelect($event)">
+        <mat-option *ngFor="let manufacture of manufactures" [value]="manufacture.name">
+          {{ manufacture.name }}
         </mat-option>
       </mat-select>
     </mat-form-field>
@@ -33,9 +35,11 @@
 
   <div class="astue-mat-select">
     <mat-form-field>
-      <mat-select panelClass="mat-balance-select">
-        <mat-option *ngFor="let value of ['АВТ-10']" [value]="value">
-          {{ value }}
+      <mat-select panelClass="mat-balance-select"
+                  [formControl]="unitSelect"
+                  (selectionChange)="onUnitSelect($event)">
+        <mat-option *ngFor="let unit of units" [value]="unit.name">
+          {{ unit.name }}
         </mat-option>
       </mat-select>
     </mat-form-field>
