@@ -12,4 +12,5 @@ export interface ILineDiagramDataItem {
     lowerBound: number;
     lowerLimit: number;
     upperLimit: number;
+    percentFact?: number;
 }
