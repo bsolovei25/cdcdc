@@ -34,7 +34,7 @@
       <ng-container *ngSwitchCase="2">
         <!-- Проверка на подкатегорию "Распоряжения" -->
         <evj-tasks-event
-          *ngIf="ewService?.event?.productionTasks?.subcategory?.id===0 else usual"
+          *ngIf="ewService?.event?.productionTasks?.subCategory?.id===1000 else usual"
         ></evj-tasks-event>
 
         <ng-template #usual>
