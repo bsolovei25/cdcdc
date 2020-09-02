@@ -297,6 +297,8 @@ export class WidgetService {
             case 'kpe-readiness':
             case 'kpe-quality':
             case 'kpe-safety':
+            case 'astue-onpz-consumption-indicators':
+            case 'astue-onpz-menu-structure':
                 return data;
         }
         console.warn(`unknown widget type ${widgetType}`);

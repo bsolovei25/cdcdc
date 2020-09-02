@@ -1,18 +1,23 @@
-import {
-    Component,
-    OnInit,
-    Inject,
-    OnDestroy,
-    HostListener,
-    ElementRef,
-    ViewChild, AfterViewInit
-} from '@angular/core';
+import { AfterViewInit, Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { WidgetPlatform } from '../../../dashboard/models/widget-platform';
 import { WidgetService } from '../../../dashboard/services/widget.service';
+import { FormControl } from '@angular/forms';
+import { MatSelectChange } from '@angular/material/select';
+import { AstueOnpzService } from '../astue-onpz-shared/astue-onpz.service';
 
 interface IAstueOnpzMenuStructure {
-    production: {name: string; id: number}[];
-    facility: {name: string; id: number}[];
+    manufactures: IAstueOnpzMenuManufacture[];
+    title: string;
+    widgetType: string;
+}
+
+export interface IAstueOnpzMenuManufacture {
+    name: string;
+    units: IAstueOnpzMenuUnit[];
+}
+
+export interface IAstueOnpzMenuUnit {
+    name: string;
 }
 
 @Component({
@@ -22,10 +27,17 @@ interface IAstueOnpzMenuStructure {
 })
 export class AstueOnpzMenuStructureComponent extends WidgetPlatform implements OnInit, OnDestroy, AfterViewInit {
 
-    public data: any;
+    public manufactures: IAstueOnpzMenuManufacture[];
+
+    public units: IAstueOnpzMenuUnit[];
+
+    public manufactureSelect: FormControl = new FormControl();
+
+    public unitSelect: FormControl = new FormControl();
 
     constructor(
         public widgetService: WidgetService,
+        private astueOnpzService: AstueOnpzService,
         @Inject('isMock') public isMock: boolean,
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string
@@ -40,11 +52,42 @@ export class AstueOnpzMenuStructureComponent extends WidgetPlatform implements O
         super.widgetInit();
     }
 
-    protected dataHandler(ref: any): void {
-        this.data = ref.items;
+    protected dataHandler(ref: IAstueOnpzMenuStructure): void {
+        this.manufactures = ref.manufactures;
+        this.setManufactureSelectValue();
+        this.setUnitSelectValue();
     }
 
     public ngOnDestroy(): void {
         super.ngOnDestroy();
+    }
+
+    public onManufactureSelect(event: MatSelectChange): void {
+        this.setUnitSelectValue(false);
+        this.astueOnpzService.updateManufactureName(event.value);
+    }
+
+    public onUnitSelect(event: MatSelectChange): void {
+        this.astueOnpzService.updateUnitName(event.value);
+    }
+
+    private setManufactureSelectValue(): void {
+        const value = this.manufactureSelect.value ? this.manufactureSelect.value : this.manufactures[0].name;
+        this.manufactureSelect.setValue(value);
+        this.astueOnpzService.updateManufactureName(value);
+    }
+
+    private setUnitSelectValue(saveValueFlag: boolean = true): void {
+        if (this.unitSelect.value && saveValueFlag) {
+            return;
+        }
+        const value = this.manufactureSelect.value;
+        this.manufactures.forEach(manufacture => {
+            if (manufacture.name === value) {
+                this.units = manufacture.units;
+                this.unitSelect.setValue(this.units[0].name);
+                this.astueOnpzService.updateUnitName(this.units[0].name);
+            }
+        });
     }
 }
