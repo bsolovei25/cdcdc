@@ -112,7 +112,7 @@ export class KpeEnergyDiagramComponent implements OnInit {
         const circleRad = 18;
 
         const shadowGradient = svg.append('defs').append('linearGradient')
-            .attr('id', 'gradient')
+            .attr('id', 'kpe-energy-gradient')
             .attr('x1', '0%')
             .attr('x2', '0%')
             .attr('y1', '0%')
@@ -133,13 +133,16 @@ export class KpeEnergyDiagramComponent implements OnInit {
             .startAngle(-0.5 * Math.PI)
             .endAngle(-0.008 * Math.PI);
 
-        const arrowAngle = (-175 + 270 * mainValue / this.diagramCounter);
+        // const arrowAngle = (-180 + 270 * mainValue / this.diagramCounter);
+        const arrowAngle = this.fact > this.plan
+            ? 90
+            : (-180 + 360 * mainValue / this.diagramCounter);
 
         const needleShadow = svg
             .append('path')
             .attr('d', shadow)
             .attr(`transform`, `rotate(${arrowAngle})`)
-            .style('fill', 'url(#gradient)');
+            .style('fill', 'url(#kpe-energy-gradient)');
 
         const hideDownSector = d3.arc()
             .innerRadius(circleRad)

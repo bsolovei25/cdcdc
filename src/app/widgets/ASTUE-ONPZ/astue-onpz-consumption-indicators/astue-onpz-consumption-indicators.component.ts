@@ -1,13 +1,29 @@
-import { Component, OnInit, Inject, OnDestroy, AfterViewInit } from '@angular/core';
+import {
+    Component,
+    OnInit,
+    Inject,
+    OnDestroy,
+    AfterViewInit,
+} from '@angular/core';
 import { WidgetPlatform } from '../../../dashboard/models/widget-platform';
 import { WidgetService } from '../../../dashboard/services/widget.service';
-import { AstueOnpzConsumptionIndicatorsService } from './astue-onpz-consumption-indicators.service';
+import { AstueOnpzService } from '../astue-onpz-shared/astue-onpz.service';
 
-interface IAstueOnpzConsumptionIndicatorsButtons {
-    id: number;
+export type AstueOnpzConsumptionIndicatorsWidgetType = 'Deviation' | 'Consumption';
+
+export type AstueOnpzConsumptionIndicatorType = 'Money' | 'Percent' | 'Absolute';
+
+interface IAstueOnpzConsumptionIndicators {
     title: string;
-    value?: string;
-    type: 'deviation' | 'indicators';
+    widgetType: string;
+    type?: AstueOnpzConsumptionIndicatorsWidgetType;
+    indicators: IAstueOnpzIndicator[];
+}
+
+export interface IAstueOnpzIndicator {
+    caption: string;
+    type: AstueOnpzConsumptionIndicatorType;
+    value?: number;
 }
 
 @Component({
@@ -17,45 +33,16 @@ interface IAstueOnpzConsumptionIndicatorsButtons {
 })
 export class AstueOnpzConsumptionIndicatorsComponent extends WidgetPlatform
     implements OnInit, OnDestroy, AfterViewInit {
-    public data: any;
 
-    public type: 'deviation' | 'indicators';
+    public type: AstueOnpzConsumptionIndicatorsWidgetType;
 
-    public activeButton: number;
+    public activeIndicator: IAstueOnpzIndicator | null;
 
-    buttons: IAstueOnpzConsumptionIndicatorsButtons[] = [
-        {
-            id: 0,
-            title: 'Значения в рублях',
-            value: '895 000',
-            type: 'deviation',
-        },
-        {
-            id: 1,
-            title: 'Значения в процентах',
-            value: '85%',
-            type: 'deviation',
-        },
-        {
-            id: 2,
-            title: 'Абсолютное отклонение',
-            type: 'deviation',
-        },
-        {
-            id: 3,
-            title: 'Значения в рублях',
-            type: 'indicators',
-        },
-        {
-            id: 4,
-            title: 'Абсолютное потребление',
-            type: 'indicators',
-        },
-    ];
+    public indicators: IAstueOnpzIndicator[] = [];
 
     constructor(
         public widgetService: WidgetService,
-        private astueOnpzConsumptionIndicatorsService: AstueOnpzConsumptionIndicatorsService,
+        public astueOnpzService: AstueOnpzService,
         @Inject('isMock') public isMock: boolean,
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string
@@ -64,35 +51,37 @@ export class AstueOnpzConsumptionIndicatorsComponent extends WidgetPlatform
     }
 
     public ngOnInit(): void {
-        this.astueOnpzConsumptionIndicatorsService.sharedSelectedId.subscribe(
-            (id) => (this.activeButton = id)
-        );
     }
 
     public ngAfterViewInit(): void {
         super.widgetInit();
     }
 
-    protected dataHandler(ref: any): void {
-        this.data = ref.items;
+    protected dataHandler(ref: IAstueOnpzConsumptionIndicators): void {
+        this.indicators = ref.indicators;
+        this.type = ref.type;
     }
 
     protected dataConnect(): void {
         super.dataConnect();
-        this.subscriptions.push(this.defineWidgetType());
-    }
-
-    private defineWidgetType(): any {
-        this.widgetTitle.toLowerCase().includes('показатели')
-            ? (this.type = 'indicators')
-            : (this.type = 'deviation');
+        this.subscriptions.push(
+            this.astueOnpzService.sharedMonitoringOptions.subscribe(options => {
+                this.activeIndicator = null;
+                if (this.indicators) {
+                    const indicator = this.indicators.find(indicatorFromList => indicatorFromList.type === options.indicatorType);
+                    if (options.type === this.type) {
+                        this.activeIndicator = indicator;
+                    }
+                }
+            })
+        );
     }
 
     public ngOnDestroy(): void {
         super.ngOnDestroy();
     }
 
-    public setButton(id: number): void {
-        this.astueOnpzConsumptionIndicatorsService.setId(id);
+    public setIndicator(indicator: IAstueOnpzIndicator): void {
+        this.astueOnpzService.updateIndicator(indicator.type, this.type);
     }
 }
