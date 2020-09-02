@@ -33,10 +33,11 @@ export class EventsWorkspaceComponent extends WidgetPlatform implements OnInit, 
     get eventProdButton(): string {
         const flagCat: boolean = this.ewService.event?.category?.code === '2';
         const flagStat: boolean = this.ewService.event?.status?.name === 'closed';
+        const flagSubcat: boolean = this.ewService.event?.productionTasks?.subCategory?.id === 1000;
         const flagNew: boolean = this.ewService.event?.status?.name === 'new';
         const message: string = flagNew ? 'В работу' : 'Завершить';
 
-        return flagCat && !flagStat ? message : '';
+        return flagCat && !flagStat && flagSubcat ? message : '';
     }
 
     constructor(
@@ -176,6 +177,23 @@ export class EventsWorkspaceComponent extends WidgetPlatform implements OnInit, 
     public onChangeStatus(): void {
         const statusId: number = this.ewService.event.status.id + 1;
         const newStatus: IStatus = this.ewService.status.find((item) => item.id === statusId);
-        this.ewService.event.status = newStatus;
+
+        if (newStatus) {
+            const oldStatus: string = this.ewService.statuses[this.ewService.event.status.name];
+            const status: string = this.ewService.statuses[newStatus.name];
+            const tempInfo: IAlertWindowModel = {
+                isShow: true,
+                questionText: `Вы уверены, что хотите сохранить событие
+                и изменить его статус c "${oldStatus}" на "${status}"?`,
+                acceptText: 'Да, изменить статус',
+                cancelText: 'Отмена',
+                acceptFunction: async () => {
+                    await this.ewService.saveEvent();
+                    await this.ewService.changeStatus(newStatus);
+                },
+                closeFunction: () => this.ewService.ewAlertInfo$.next(null),
+            };
+            this.ewService.ewAlertInfo$.next(tempInfo);
+        }
     }
 }
