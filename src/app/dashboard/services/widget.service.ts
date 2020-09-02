@@ -183,7 +183,7 @@ export class WidgetService {
                 timeStamp: new Date(),
             };
         }
-        this.wsAppendOptions(widgetId, options);
+        this.wsAppendOptions(widgetId, this.openedWSChannels[widgetId].options);
     }
 
     private wsConnect(widgetId: string, options: any = null): void {
@@ -299,6 +299,7 @@ export class WidgetService {
             case 'kpe-safety':
             case 'astue-onpz-consumption-indicators':
             case 'astue-onpz-menu-structure':
+            case 'astue-onpz-product-charts':
                 return data;
         }
         console.warn(`unknown widget type ${widgetType}`);
