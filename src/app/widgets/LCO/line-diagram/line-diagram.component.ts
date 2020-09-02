@@ -14,9 +14,9 @@ import { log } from 'util';
 })
 export class LineDiagramComponent extends WidgetPlatform implements OnInit, OnDestroy {
 
-    percentDeviation: number;
+    percentDeviation: number = 33.3;  // 50% суммы плана
     percentFact: number;
-    percentPlan: number;
+    percentPlan: number = 66.6;
 
     public data: ILineDiagramDataItem[] = [];
 
@@ -40,10 +40,8 @@ export class LineDiagramComponent extends WidgetPlatform implements OnInit, OnDe
     protected dataHandler(ref: ILineDiagramData): void {
         this.data = ref.items;
         this.data.forEach(value => {
-            this.percentDeviation = 33.3;  // 50% суммы плана
-            this.percentPlan = 66.6;
             this.percentFact = ((value.value - value.lowerLimit) /
-                (value.upperLimit - value.lowerLimit) * 66);
+                (value.upperLimit - value.lowerLimit) * this.percentPlan);
             this.percentFact = this.percentFact > 100 ? 100 :
                 this.percentFact < 0 ? 0 : this.percentFact;
         });
