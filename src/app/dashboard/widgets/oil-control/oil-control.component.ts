@@ -131,8 +131,8 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, OnDes
     public checkRemove: boolean = false;
 
     public savePosition: boolean = false;
-    public savePositionProduct: number;
-    public savePositionStorage: number;
+    public savePositionProduct: string;
+    public savePositionStorage: string;
     public saveCurrentPage: number;
 
     public saveDataStorage: any = [];
@@ -160,6 +160,7 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, OnDes
 
     ngOnInit(): void {
         super.widgetInit();
+        setInterval(this.toggleInterval.bind(this), 5000);
     }
 
     ngOnDestroy(): void {
@@ -174,8 +175,6 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, OnDes
 
     protected async dataConnect(): Promise<void> {
         super.dataConnect();
-        // const ref = await this.mockDataConnect();
-        // this.drawOilControlSocket(ref);
     }
 
     protected dataHandler(ref: any): void {
@@ -209,9 +208,10 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, OnDes
         this.indexTestProduct = this.data.length - 1;
         this.mapStorage();
         this.drawOilControl(this.data);
-        if (this.checkSocket === true && this.savePositionProduct !== undefined) {
+        if (this.checkSocket === true && this.savePositionProduct) {
+            console.log(this.savePositionProduct);
             this.onButtonChangeProduct(this.savePositionProduct);
-            if (this.saveDataStorage.length !== 0) {
+            if (this.saveDataStorage?.length > 0) {
                 this.onButtonChangeStorage(this.savePositionStorage, this.saveDataStorage);
             }
         }
@@ -287,7 +287,7 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, OnDes
             if (item.shipped === true) {
                 const value = Math.round(item.value);
                 isShipped = true;
-                let pictureContainer = this.tankersPicture
+                const pictureContainer = this.tankersPicture
                     .append('image')
                     .attr('xlink:href', 'assets/pic/OilControl/oil_icon.svg')
                     .attr('height', '130px')
@@ -296,7 +296,7 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, OnDes
                     .attr('x', x1 + y)
                     .attr('y', '10');
 
-                let pictureIcon = this.tankersPicture
+                const pictureIcon = this.tankersPicture
                     .append('image')
                     .attr(
                         'xlink:href',
@@ -312,7 +312,7 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, OnDes
                     .attr('x', x2 + y)
                     .attr('y', '65');
 
-                let planText1 = this.tankersPicture
+                const planText1 = this.tankersPicture
                     .append('text')
                     .attr('font-family', '\'Segoe UI\', Tahoma, Geneva, Verdana, sans-serif;')
                     .attr('font-size', '10px')
@@ -323,7 +323,7 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, OnDes
                     .attr('fill', '#8c99b2')
                     .text(this.tankersName[item.nameTanker]);
 
-                let valueText1 = this.tankersPicture
+                const valueText1 = this.tankersPicture
                     .append('text')
                     .attr('font-family', 'Tahoma bold')
                     .attr('font-size', '14px')
@@ -346,7 +346,7 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, OnDes
         }
     }
 
-    public drawLine(el, count): void {
+    public drawLine(el, count: number): void {
         let size = 0;
         if (this.newWidth) {
             size = this.newWidth / 100;
@@ -361,7 +361,7 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, OnDes
             .attr('viewBox', '-30 20 1200 200');
 
         if (count === 1) {
-            let lineOne = this.svgLine
+            const lineOne = this.svgLine
                 .append('image')
                 .attr('xlink:href', 'assets/pic/OilControl/LineOne.svg')
                 .attr('height', '100%')
@@ -370,7 +370,7 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, OnDes
                 .attr('x', 200 + size)
                 .attr('y', '0');
         } else if (count === 2) {
-            let lineTwo = this.svgLine
+            const lineTwo = this.svgLine
                 .append('image')
                 .attr('xlink:href', 'assets/pic/OilControl/LineTwo.svg')
                 .attr('height', '100%')
@@ -379,7 +379,7 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, OnDes
                 .attr('x', 300)
                 .attr('y', '0');
         } else {
-            let lineThree = this.svgLine
+            const lineThree = this.svgLine
                 .append('image')
                 .attr('xlink:href', 'assets/pic/OilControl/LineThree.svg')
                 .attr('height', '100%')
@@ -392,16 +392,16 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, OnDes
 
     public drawOnCircle(
         el,
-        pieStart,
-        pieEnd,
-        pieStartStorage,
-        pieEndStorage,
+        pieStart: number,
+        pieEnd: number,
+        pieStartStorage: number,
+        pieEndStorage: number,
         data,
         dataStorage
     ): void {
         this.svgMenu = d3.select(el?.firstElementChild);
 
-        let svgMenu = this.svgMenu;
+        const svgMenu = this.svgMenu;
         this.activeProduct = data;
 
         if (!dataStorage?.length) {
@@ -417,39 +417,36 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, OnDes
             (this.saveDataStorage.length === 0 && this.checkSocket === true) ||
             (this.countClickChange !== 0 && this.checkSocket === false)
         ) {
-            this.saveDataStorage = [];
-            for (let item of dataStorage) {
-                this.saveDataStorage.push(item);
-            }
-            this.savePositionStorage = this.activeStorage.id;
+            this.saveDataStorage = [...dataStorage];
+            this.savePositionStorage = this.activeStorage.nameStorage;
         } else if (this.countClickChange === 0 && this.clickPaginator === true) {
-            this.savePositionStorage = this.saveCurrentPage;
+            // this.savePositionStorage = this.saveCurrentPage;
         } else if (this.countClickChange === 0) {
-            this.savePositionStorage = this.saveCurrentPage;
+            // this.savePositionStorage = this.saveCurrentPage;
         } else if (
             this.countClickChange !== 0 &&
             this.checkSocket &&
             this.countClickChangeStorage === 0
         ) {
-            this.savePositionStorage = this.activeStorage.id;
+            this.savePositionStorage = this.activeStorage.nameStorage;
         } else if (
             this.countClickChange !== 0 &&
             this.checkSocket &&
             this.countClickChangeStorage !== 0
         ) {
-            this.savePositionStorage = this.saveCurrentPage;
+            // this.savePositionStorage = this.saveCurrentPage;
         }
 
-        const leftBorder: any = el.querySelectorAll('.st5');
-        const Circle: any = el.querySelectorAll('.st6');
-        const rightBorder: any = el.querySelectorAll('.st7');
+        const leftBorder = el.querySelectorAll('.st5');
+        const Circle = el.querySelectorAll('.st6');
+        const rightBorder = el.querySelectorAll('.st7');
 
-        const leftBorderC: any = el.querySelectorAll('.st5-critical');
-        const CircleC: any = el.querySelectorAll('.st6-critical');
-        const rightBorderC: any = el.querySelectorAll('.st7-critical');
+        const leftBorderC = el.querySelectorAll('.st5-critical');
+        const CircleC = el.querySelectorAll('.st6-critical');
+        const rightBorderC = el.querySelectorAll('.st7-critical');
 
         if (this.activeStorage.status === 'critical') {
-            let backgroundCircle = svgMenu
+            const backgroundCircle = svgMenu
                 .append('image')
                 .attr('xlink:href', 'assets/pic/OilControl/backCircle.svg')
                 .attr('height', '250px')
@@ -554,29 +551,22 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, OnDes
         let indexPies = this.indexPie;
         let indexPies1 = this.indexPie;
 
-        let newProductXY = [];
-        let newStorageXY = [];
+        const newProductXY = this.productXY.slice(pieStart, ++pieEnd);
+        const newStorageXY = this.storageXY.slice(pieStartStorage, ++pieEndStorage);
 
-        for (let i = pieStartStorage; i <= pieEndStorage; i++) {
-            newStorageXY.push(this.storageXY[i]);
-        }
-
-        for (let i = pieStart; i <= pieEnd; i++) {
-            newProductXY.push(this.productXY[i]);
-        }
-
-        for (let pie of newProductXY) {
+        for (const pie of newProductXY) {
             let indexProducts = this.indexProduct;
 
-            for (let textProduct of data) {
+            for (const textProduct of data) {
                 if (indexPies === indexProducts) {
                     if (pie.point === 3) {
                         const valueProduct = Math.round(textProduct.value);
-                        if (!this.checkSocket) {
-                            this.savePositionProduct = textProduct.name;
-                        }
+                        // if (!this.checkSocket) {
+                        //     this.savePositionProduct = textProduct.name;
+                        // }
+                        // this.savePositionProduct = this.savePositionProduct ? this.savePositionProduct : textProduct.name;
                         if (textProduct.criticalValue) {
-                            let valueBadText = svgMenu
+                            const valueBadText = svgMenu
                                 .append('text')
                                 .attr(
                                     'font-family',
@@ -590,7 +580,7 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, OnDes
                                 .attr('class', 'textProduct')
                                 .text(textProduct.name);
 
-                            let middleText2 = svgMenu
+                            const middleText2 = svgMenu
                                 .append('text')
                                 .attr(
                                     'font-family',
@@ -604,7 +594,7 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, OnDes
                                 .attr('class', 'textProduct')
                                 .text(valueProduct);
 
-                            let middleText3 = svgMenu
+                            const middleText3 = svgMenu
                                 .append('text')
                                 .attr(
                                     'font-family',
@@ -677,7 +667,7 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, OnDes
                                     .text(nameRows[1]);
                             }
 
-                            let middleText2 = svgMenu
+                            const middleText2 = svgMenu
                                 .append('text')
                                 .attr(
                                     'font-family',
@@ -699,7 +689,7 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, OnDes
                                 : name;
                         }
 
-                        let valueGoodText = svgMenu
+                        const valueGoodText = svgMenu
                             .append('text')
                             .attr('font-family', '\'Segoe UI\', Tahoma, Geneva, Verdana, sans-serif;')
                             .attr('font-size', '25px')
@@ -723,18 +713,18 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, OnDes
             indexPies++;
         }
 
-        for (let pie of newStorageXY) {
+        for (const pie of newStorageXY) {
             let indexStorage = this.indexStorage;
-            for (let textStorage of dataStorage) {
-                let test = d3.select(
+            for (const textStorage of dataStorage) {
+                const test = d3.select(
                     el?.firstElementChild.getElementById((indexStorage + 1).toString())
                 );
                 if (indexPies1 === indexStorage) {
                     if (pie.point === 3) {
                         const valueStorage = Math.round(textStorage.valueStorage);
-                        let valueBadText = test
+                        const valueBadText = test
                             .append('text')
-                            .attr('font-family', '\'Segoe UI\', Tahoma, Geneva, Verdana, sans-serif;')
+                            .attr('font-family', '\'Segoe UI\',Tahoma,Geneva,Verdana,sans-serif;')
                             .attr('font-size', '25px')
                             .attr('x', pie.x)
                             .attr('y', pie.y)
@@ -743,9 +733,9 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, OnDes
                             .attr('class', 'textValues')
                             .text(textStorage.nameStorage);
 
-                        let middleText2 = test
+                        const middleText2 = test
                             .append('text')
-                            .attr('font-family', '\'Segoe UI\', Tahoma, Geneva, Verdana, sans-serif;')
+                            .attr('font-family', '\'Segoe UI\',Tahoma,Geneva,Verdana,sans-serif;')
                             .attr('font-size', '25px')
                             .attr('x', pie.x)
                             .attr('y', pie.y + 80)
@@ -754,8 +744,15 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, OnDes
                             .attr('class', 'textValues')
                             .text(valueStorage);
                     } else {
+                        function buttonStorageClick(): void {
+                            this.countClickChangeStorage++;
+                            this.onButtonChangeStorage(textStorage.nameStorage, dataStorage);
+                            this.savePositionStorage = textStorage.nameStorage;
+                            this.saveDataStorage = [...dataStorage];
+                        }
+
                         if (textStorage.status === 'critical') {
-                            let valueGoodText = test
+                            const valueGoodText = test
                                 .append('text')
                                 .attr(
                                     'font-family',
@@ -770,17 +767,9 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, OnDes
                                 .attr('class', 'textValues')
                                 .attr('id', indexStorage)
                                 .text(textStorage.nameStorage)
-                                .on('click', () => {
-                                    this.countClickChangeStorage++;
-                                    this.onButtonChangeStorage(textStorage.id, dataStorage);
-                                    this.savePositionStorage = textStorage.id;
-                                    this.saveDataStorage = [];
-                                    for (let item of dataStorage) {
-                                        this.saveDataStorage.push(item);
-                                    }
-                                });
+                                .on('click', buttonStorageClick.bind(this));
                         } else {
-                            let valueGoodText = test
+                            const valueGoodText = test
                                 .append('text')
                                 .attr(
                                     'font-family',
@@ -795,15 +784,7 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, OnDes
                                 .attr('class', 'textValues')
                                 .attr('id', indexStorage)
                                 .text(textStorage.nameStorage)
-                                .on('click', () => {
-                                    this.countClickChangeStorage++;
-                                    this.onButtonChangeStorage(textStorage.id, dataStorage);
-                                    this.savePositionStorage = textStorage.id;
-                                    this.saveDataStorage = [];
-                                    for (let item of dataStorage) {
-                                        this.saveDataStorage.push(item);
-                                    }
-                                });
+                                .on('click', buttonStorageClick.bind(this));
                         }
                         this.htmlDataStorage = dataStorage;
                         this.htmlStorage = textStorage.nameStorage;
@@ -815,39 +796,25 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, OnDes
         }
     }
 
-    public onButtonChangeProduct(index): void {
+    public onButtonChangeProduct(index: string): void {
         this.clearProduct();
-        let newProduct: number;
         if (this.countClickChange === 0 && !this.checkSocket) {
             this.changeMassiv(index, this.data);
-            newProduct = this.findAndFilterProduct(
-                this.newArrayProduct,
-                index,
-                this.indexTestStorage
-            );
             this.countClickChange++;
         } else if (this.checkSocket && this.countClickChange === 0) {
             this.newArrayProduct = this.data;
-            newProduct = this.findAndFilterProduct(
-                this.newArrayProduct,
-                index,
-                this.indexTestStorage
-            );
         } else if (this.checkSocket) {
             this.changeMassiv(index, this.data);
-            newProduct = this.findAndFilterProduct(
-                this.newArrayProduct,
-                index,
-                this.indexTestStorage
-            );
         } else {
             this.changeMassiv(index, this.newArrayProduct);
-            newProduct = this.findAndFilterProduct(
-                this.newArrayProduct,
-                index,
-                this.indexTestStorage
-            );
         }
+
+        const newProduct: number = this.findAndFilterProduct(
+            this.newArrayProduct,
+            index,
+            this.indexTestStorage
+        );
+
         this.drawOnCircle(
             this.oilCircle?.nativeElement,
             this.pieStart,
@@ -859,6 +826,7 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, OnDes
         );
         // this.drawBak(this.oilBak.nativeElement);
         this.drawPicture(this.oilIcon?.nativeElement);
+        this.saveCurrentPage = 1;
     }
 
     findAndFilterProduct(arr, index, indexStorage): number {
@@ -868,7 +836,7 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, OnDes
         return indexProductStorage;
     }
 
-    public onButtonChangeStorage(index, data): void {
+    public onButtonChangeStorage(index: string, data): void {
         this.clearProduct();
 
         if (this.countClickChange === 0 && !this.checkSocket) {
@@ -909,9 +877,10 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, OnDes
         }
         // this.drawBak(this.oilBak.nativeElement);
         this.drawPicture(this.oilIcon?.nativeElement);
+        this.saveCurrentPage = 1;
     }
 
-    ///Возможно зачищение всех нефтеконтролей
+    /// Возможно зачищение всех нефтеконтролей
 
     public clearStorage(): void {
         const clears = this.oilCircle?.nativeElement.querySelectorAll('.textValues');
@@ -937,84 +906,70 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, OnDes
     }
 
     public changeMassiv(el, data): void {
-        let move;
-        let indexProduct = 0;
+        let move: 'next' | 'prev';
         let newIndexProduct = 0;
-        for (let item of data) {
-            indexProduct++;
-            if (item.name === el) {
-                if (indexProduct > 2) {
-                    move = 'next';
-                    if (indexProduct === 4) {
-                        newIndexProduct = 1;
-                        this.shiftMassiv(newIndexProduct, move);
-                    } else if (indexProduct > 5) {
-                        newIndexProduct = indexProduct - 3;
-                        this.shiftMassiv(newIndexProduct, move);
-                    } else {
-                        newIndexProduct = 2;
-                        this.shiftMassiv(newIndexProduct, move);
-                    }
-                } else {
-                    move = 'prev';
-                    if (indexProduct === 1) {
-                        newIndexProduct = 2;
-                        this.shiftMassiv(newIndexProduct, move);
-                    } else {
-                        newIndexProduct = 1;
-                        this.shiftMassiv(newIndexProduct, move);
-                    }
-                }
+        const indexProduct = 1 + data.findIndex(x => x.name === el);
+        if (indexProduct === 0) {
+            return;
+        }
+        if (indexProduct > 2) {
+            move = 'next';
+            if (indexProduct === 4) {
+                newIndexProduct = 1;
+            } else if (indexProduct > 5) {
+                newIndexProduct = indexProduct - 3;
+            } else {
+                newIndexProduct = 2;
+            }
+        } else {
+            move = 'prev';
+            if (indexProduct === 1) {
+                newIndexProduct = 2;
+            } else {
+                newIndexProduct = 1;
             }
         }
+        this.shiftMassiv(newIndexProduct, move);
     }
 
     public changeMassivStorage(el, data): void {
-        let move;
+        let move: 'next' | 'prev';
         let lengthData = data.length;
-        let indexProduct = 0;
         let newIndexProduct = 0;
-        for (let item of data) {
-            indexProduct++;
-            if (item.id === el) {
-                if (indexProduct > 2) {
-                    move = 'next';
-                    if (data.length === 5) {
-                        lengthData = lengthData - 1;
-                    }
-                    newIndexProduct = lengthData - indexProduct;
-                    if (indexProduct === 4) {
-                        newIndexProduct = 1;
-                        this.shiftMassivStorage(newIndexProduct, move, data);
-                    } else {
-                        newIndexProduct = 2;
-                        this.shiftMassivStorage(newIndexProduct, move, data);
-                    }
-                } else {
-                    move = 'prev';
-                    if (data.length === 1) {
-                        lengthData = lengthData - 1;
-                    }
-                    newIndexProduct = lengthData - indexProduct;
-                    if (indexProduct === 2) {
-                        newIndexProduct = 1;
-                        this.shiftMassivStorage(newIndexProduct, move, data);
-                    } else if (indexProduct === 1 && data.length === 2) {
-                        newIndexProduct = 1;
-                        this.shiftMassivStorage(newIndexProduct, move, data);
-                    } else {
-                        newIndexProduct = 2;
-                        this.shiftMassivStorage(newIndexProduct, move, data);
-                    }
-                }
+        const indexProduct = 1 + data.findIndex(x => x.nameStorage === el);
+        if (indexProduct === 0) {
+            return;
+        }
+        if (indexProduct > 2) {
+            move = 'next';
+            if (data.length === 5) {
+                lengthData = lengthData - 1;
+            }
+            newIndexProduct = lengthData - indexProduct;
+            if (indexProduct === 4) {
+                newIndexProduct = 1;
+            } else {
+                newIndexProduct = 2;
+            }
+        } else {
+            move = 'prev';
+            if (data.length === 1) {
+                lengthData--;
+            }
+            newIndexProduct = lengthData - indexProduct;
+            if (indexProduct === 2) {
+                newIndexProduct = 1;
+            } else if (indexProduct === 1 && data.length === 2) {
+                newIndexProduct = 1;
+            } else {
+                newIndexProduct = 2;
             }
         }
+        this.shiftMassivStorage(newIndexProduct, move, data);
     }
 
     public shiftMassiv(el, move): void {
-        if (this.countClickChange === 0) {
-            this.newArrayProduct = [...this.data];
-        } else if (this.checkSocket) {
+        if (this.countClickChange === 0 || this.checkSocket) {
             this.newArrayProduct = [...this.data];
         } else {
             this.newArrayProduct = [...this.newArrayProduct];
@@ -1030,16 +985,8 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, OnDes
         }
     }
 
-    public shiftMassivStorage(el, move, data): void {
-        if (this.countClickChangeStorage === 0) {
-            this.newArrayStorage = [...data];
-        } else if (this.checkSocket) {
-            this.newArrayStorage = [...data];
-        } else {
-            //   this.newArrayStorage = [...this.newArrayStorage];
-            this.newArrayStorage = [...data];
-        }
-
+    public shiftMassivStorage(el: number, move: string, data): void {
+        this.newArrayStorage = [...data];
         if (move === 'prev') {
             for (let i = 0; i < el; i++) {
                 this.newArrayStorage.unshift(this.newArrayStorage.pop());
@@ -1052,21 +999,14 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, OnDes
     }
 
     public FilterCircle(data, el): void {
+        let idx = 0;
         if (data[el + 1] === undefined && el === 0) {
             this.pieEnd = 2;
             this.pieStart = 2;
             this.indexProductActive = 0;
             this.indexTestStorage = this.countStorage(data[0]);
             this.FilterStorageCircle(data[el], this.indexTestStorage);
-            return this.drawOnCircle(
-                this.oilCircle?.nativeElement,
-                this.pieStart,
-                this.pieEnd,
-                this.pieStartStorage,
-                this.pieEndStorage,
-                data,
-                data[0].storages
-            );
+            idx = 0;
         } else if (data[el + 1] !== undefined && el < 3) {
             this.pieStart = this.pieStart - 1;
             this.indexTestProduct++;
@@ -1077,46 +1017,36 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, OnDes
             this.pieEnd = 3;
             this.indexProductActive = 2;
             this.FilterStorageCircle(data[el - 1], this.indexTestStorage);
-            return this.drawOnCircle(
-                this.oilCircle?.nativeElement,
-                this.pieStart,
-                this.pieEnd,
-                this.pieStartStorage,
-                this.pieEndStorage,
-                data,
-                data[2].storages
-            );
+            idx = 2;
         } else if (data[el + 1] === undefined && el < 2) {
             this.pieStart = 1;
             this.pieEnd = 2;
             this.indexProductActive = 2;
             this.indexTestStorage = this.countStorage(data[el]);
             this.FilterStorageCircle(data[el], this.indexTestStorage);
-            return this.drawOnCircle(
-                this.oilCircle?.nativeElement,
-                this.pieStart,
-                this.pieEnd,
-                this.pieStartStorage,
-                this.pieEndStorage,
-                data,
-                data[el].storages
-            );
+            idx = el;
         } else {
             this.pieStart = 0;
             this.pieEnd = 4;
             this.indexProductActive = 2;
             this.indexTestStorage = this.countStorage(data[2]);
             this.FilterStorageCircle(data[2], this.indexTestStorage);
-            return this.drawOnCircle(
-                this.oilCircle?.nativeElement,
-                this.pieStart,
-                this.pieEnd,
-                this.pieStartStorage,
-                this.pieEndStorage,
-                data,
-                data[2].storages
-            );
+            idx = 2;
         }
+
+        if (!this.savePositionProduct) {
+            this.savePositionProduct = data[idx].name;
+        }
+
+        return this.drawOnCircle(
+            this.oilCircle?.nativeElement,
+            this.pieStart,
+            this.pieEnd,
+            this.pieStartStorage,
+            this.pieEndStorage,
+            data,
+            data[idx].storages
+        );
     }
 
     public countStorage(data): number {
@@ -1146,5 +1076,43 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, OnDes
             this.pieStartStorage = 0;
             this.pieEndStorage = 4;
         }
+    }
+
+    private toggleInterval(): void {
+        if (!this.data) {
+            return;
+        }
+        this.nextProduct();
+        this.nextStorage();
+        this.nextOperation();
+    }
+
+    private nextProduct(): void {
+        let curIdx = this.data.findIndex(x => x.name === this.savePositionProduct);
+        console.log(`product: ${curIdx}`);
+        // let product = this.data[++curIdx]?.name;
+        // if (!product) {
+        //     product = this.data[0]?.name;
+        // }
+        // this.onButtonChangeProduct(product);
+        // this.countClickChangeStorage = 0;
+        // this.savePositionProduct = product;
+    }
+
+    private nextStorage(): boolean {
+        const curIdx = this.data
+            .find(x => x.name === this.savePositionProduct)
+            .storages.findIndex(x => x === this.activeStorage);
+        console.log(`storage: ${curIdx}`);
+        return false;
+        // this.countClickChangeStorage++;
+        // this.onButtonChangeStorage(textStorage.id, dataStorage);
+        // this.savePositionStorage = textStorage.id;
+        // this.saveDataStorage = [...dataStorage];
+    }
+
+    private nextOperation(): boolean {
+        console.log(`operation: ${this.saveCurrentPage}`);
+        return false;
     }
 }
