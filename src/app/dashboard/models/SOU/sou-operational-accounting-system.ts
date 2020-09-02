@@ -22,6 +22,9 @@ export interface ISOUFlowOut {
     tolerance: number;
     tag: string;
     isEnable: boolean;
+    valueMomentPercent: number;
+    valueByHourPercent: number;
+    valueTankPercent: number;
 }
 
 export interface ISOUSection {
@@ -36,10 +39,13 @@ export interface ISOUIdent {
 }
 
 export interface ISOULosses {
-    undefinedLosses: number;
-    sumLosses: number;
     ident: ISOUIdent[];
-    sum: number;
+    lossesType: {
+        name: string;
+        persent: number;
+        value: number;
+        isButton?: boolean;  // only front
+    }[];
 }
 
 export interface ISOUProduct {
@@ -66,4 +72,6 @@ export interface ISOUOperationalAccountingSystem {
     products: ISOUProduct[];
     title: string;
     widgetType: string;
+    deltaByPersent: number;
+    balanceAllowByPercent: number;
 }

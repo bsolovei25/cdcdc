@@ -39,31 +39,6 @@ export class SouInStreamsComponent implements OnInit {
     }
 
     data: ISOUFlowIn[] = [];
-    //     {
-    //         name: 'Установка №1',
-    //         firstValue: 'знач',
-    //         accept: 'знач',
-    //         instantaneousValue: {
-    //             value: 345,
-    //             engValue: 'т/ч',
-    //             percent: '85%'
-    //         },
-    //         valueInAnHour: {
-    //             value: 1345,
-    //             engValue: 'т',
-    //             percent: '65%'
-    //         },
-    //         accumulation: {
-    //             value: 4345,
-    //             engValue: 'т',
-    //             percent: '35%'
-    //         },
-    //         sevenValue: 'Нефть обес. и обезвож.',
-    //         trustLevel: '100%',
-    //         pims: 'FOIL',
-    //         isActive: true
-    //     },
-    // ];
 
     constructor() {
     }
@@ -85,8 +60,6 @@ export class SouInStreamsComponent implements OnInit {
             this.valueByHourPercent = +(item.valueByHour / sumValueByHourPercent * 100).toFixed();
             this.valueTankPercent = +(item.valueTank / sumValueTankPercent * 100).toFixed();
         });
-
-
     }
 
 }

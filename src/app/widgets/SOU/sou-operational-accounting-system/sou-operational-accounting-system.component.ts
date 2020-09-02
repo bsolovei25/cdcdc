@@ -40,6 +40,7 @@ export class SouOperationalAccountingSystemComponent extends WidgetPlatform impl
     protected dataHandler(ref: ISOUOperationalAccountingSystem): void {
         if (ref) {
             this.data = ref;
+            console.log(ref);
             this.isSection = this.data?.section[0];
             this.data.section[0].isEnable = true;
         }

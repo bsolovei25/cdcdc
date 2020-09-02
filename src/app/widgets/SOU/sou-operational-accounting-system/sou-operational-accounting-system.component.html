@@ -21,18 +21,20 @@
           <evj-sou-balance-card
             [data]="{type: 'out', title: 'Сумма выхода', sumValue: data?.sumOut, perHourValue: data?.sumOutByHour}"></evj-sou-balance-card>
           <evj-sou-balance-card
-            [data]="{type: 'delta', title: 'Дельта', sumValue: data?.delta, percentageValue: 56, deviation: data?.delta > data?.balanceAllow }">
+            [data]="{type: 'delta', title: 'Дельта', sumValue: data?.delta, percentageValue: data?.deltaByPersent, deviation: data?.delta > data?.balanceAllow }">
           </evj-sou-balance-card>
           <evj-sou-balance-card
-            [data]="{type: 'balance', title: 'Допустимый баланс', sumValue: data?.balanceAllow, percentageValue: 86}"></evj-sou-balance-card>
+            [data]="{type: 'balance', title: 'Допустимый баланс', sumValue: data?.balanceAllow,
+            percentageValue: data?.balanceAllowByPercent.toFixed()}"></evj-sou-balance-card>
         </div>
         <div class="flex-column-container">
-          <evj-sou-out-streams [flowOut]="isSection?.flowOut" [sections]="data?.section" (changeSection)="changeSection($event)" style="height: 100%"></evj-sou-out-streams>
+          <evj-sou-out-streams [flowOut]="isSection?.flowOut" [sections]="data?.section"
+                               (changeSection)="changeSection($event)" style="height: 100%"></evj-sou-out-streams>
         </div>
       </div>
     </div>
 
-    <evj-sou-detail-table (closeTable)="togglePopupElement('table', false)" class="popup-table"
+    <evj-sou-detail-table [data]="data?.losses?.ident" (closeTable)="togglePopupElement('table', false)" class="popup-table"
                           *ngIf="popupElementsStates.get('table')"></evj-sou-detail-table>
     <evj-sou-deviation-cards (closePanel)="togglePopupElement('deviation', false)" class="popup-deviations"
                              *ngIf="popupElementsStates.get('deviation')"></evj-sou-deviation-cards>

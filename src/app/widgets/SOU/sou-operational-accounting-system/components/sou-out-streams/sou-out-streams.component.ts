@@ -1,7 +1,8 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ISOUInStream } from '../sou-in-streams/sou-in-streams.component';
 import {
-    ISOUFlowOut,
+    ISOUFlowIn,
+    ISOUFlowOut, ISOUProduct,
     ISOUSection
 } from '../../../../../dashboard/models/SOU/sou-operational-accounting-system';
 
@@ -35,6 +36,7 @@ export class SouOutStreamsComponent implements OnInit {
 
     @Input() set flowOut(data: ISOUFlowOut[]) {
         this.data = data;
+        this.getValuePercent(this.data);
     }
 
     @Input() sections: ISOUSection[] = [];
@@ -50,6 +52,23 @@ export class SouOutStreamsComponent implements OnInit {
 
     onClickName(section: ISOUSection): void {
         this.changeSection.emit(section);
+    }
+
+    getValuePercent(data: ISOUFlowOut[]): void {
+        let sumValueByHourPercent: number = 0;
+        let sumValueTankPercent: number = 0;
+        let sumValueMomentPercent: number = 0;
+
+        data.forEach(item => {
+            sumValueByHourPercent += item.valueByHour;
+            sumValueTankPercent += item.valueTank;
+            sumValueMomentPercent += item.valueMoment;
+        });
+        data.map(item => {
+            item.valueByHourPercent = +(item?.valueByHour / sumValueByHourPercent * 100).toFixed();
+            item.valueTankPercent = +(item?.valueTank / sumValueTankPercent * 100).toFixed();
+            item.valueMomentPercent = +(item?.valueMoment / sumValueMomentPercent * 100).toFixed();
+        });
     }
 
 }

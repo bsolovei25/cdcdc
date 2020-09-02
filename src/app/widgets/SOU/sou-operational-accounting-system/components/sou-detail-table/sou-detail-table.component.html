@@ -10,7 +10,7 @@
     </div>
   </div>
   <div class="table-content">
-    <ng-container *ngFor="let row of data.rows">
+    <ng-container *ngFor="let row of data">
       <ng-container *ngTemplateOutlet="tableRow; context: {row: row}"></ng-container>
     </ng-container>
   </div>
@@ -19,7 +19,7 @@
 <ng-template #tableRow let-row="row">
   <div class="row">
     <div class="label">
-      <span>{{row.title}}</span>
+      <span>{{row.name}}</span>
     </div>
     <div class="value">
       <span>{{row.value}} т.</span>

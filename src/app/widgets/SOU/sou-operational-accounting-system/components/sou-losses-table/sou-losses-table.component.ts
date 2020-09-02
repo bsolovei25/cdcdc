@@ -19,29 +19,10 @@ export class SouLossesTableComponent implements OnInit, OnChanges {
 
     @Input() set losses(data: ISOULosses) {
         if (data) {
-            // this.data = data;
+            this.data = data;
         }
     }
-
-    @Input() data: ISouLossesTable = {
-        rows: [
-            {
-                title: 'Суммарные потери',
-                value: 110800,
-                percentageValue: 3
-            },
-            {
-                title: 'Идентефицированные потери',
-                value: 110800,
-                percentageValue: 3
-            },
-            {
-                title: 'Неидентифицированные потери',
-                value: 110800,
-                percentageValue: 3
-            }
-        ]
-    };
+    @Input() data: ISOULosses;
 
     @Output() openTable: EventEmitter<boolean> = new EventEmitter<boolean>();
 
@@ -57,7 +38,12 @@ export class SouLossesTableComponent implements OnInit, OnChanges {
     }
 
     private dataHandler(): void {
-        // this.data.rows.find((row) => row.title === 'Идентефицированные потери').isButton = true;
+        this.data?.lossesType.map((row) => {
+                if (row?.name === 'Идентефицированные потери') {
+                    row.isButton = true;
+                }
+            }
+        );
     }
 
     public buttonClick(): void {
