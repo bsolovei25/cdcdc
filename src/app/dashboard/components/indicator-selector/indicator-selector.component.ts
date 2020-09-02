@@ -89,11 +89,11 @@ export class IndicatorSelectorComponent implements OnInit, OnDestroy {
         }
         this.subscriptions.push(
             this.userSettings.screens$.subscribe((screens) => {
-                // if (screens?.length > 0) {
-
                 if (!screens?.length) {
-                    this.userSettings.ScreenId = undefined;
+                    this.idScreen = undefined;
                     this.nameScreen = 'СОЗДАЙТЕ ЭКРАН!';
+                    this.dataScreen = [];
+                    this.LoadScreen(this.idScreen);
                     return;
                 }
                 this.dataScreen = screens;
@@ -109,7 +109,6 @@ export class IndicatorSelectorComponent implements OnInit, OnDestroy {
                 }
 
                 this.scrollToScreenById(this.idScreen);
-                // }
             }),
             this.claimService.claimScreens$.subscribe((w) => {
                 this.claimScreens = w;
