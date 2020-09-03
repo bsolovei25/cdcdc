@@ -1,6 +1,7 @@
 import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import * as d3 from 'd3';
 import { newArray } from '@angular/compiler/src/util';
+import { AsyncRender } from '@shared/functions/async-render.function';
 
 @Component({
     selector: 'evj-kpe-energy-diagram',
@@ -25,7 +26,7 @@ export class KpeEnergyDiagramComponent implements OnInit {
             ? this.plan / this.fact * 100
             : this.fact / this.plan * 100;
         const subValue = Math.abs(this.fact - this.plan);
-        setTimeout(() => this.bindChart(mainValue, subValue));
+        this.bindChart(mainValue, subValue)
     }
 
     private dataHandler(): void {
@@ -36,6 +37,7 @@ export class KpeEnergyDiagramComponent implements OnInit {
         return this.tickDensity * percent;
     }
 
+    @AsyncRender
     private bindChart(mainValue: number, subValue: number): void {
         const tickMain = this.getTick(mainValue);
         const tickSub = this.getTick(subValue);
