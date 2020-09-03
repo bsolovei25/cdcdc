@@ -392,7 +392,7 @@
             </div>
             <div class="oil_info">
               <div id="start" class="oil_block_info" [class.oil_block_info_short]="checkWidth">
-                <evj-oil-control-table [data]="activeStorage"></evj-oil-control-table>
+                <evj-oil-control-table [(activeOperation)]="saveCurrentPage" [data]="activeStorage"></evj-oil-control-table>
                 <div class="frame frame-left"></div>
                 <div class="frame frame-right"></div>
               </div>
