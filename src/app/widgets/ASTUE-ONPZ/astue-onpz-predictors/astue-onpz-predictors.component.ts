@@ -37,7 +37,6 @@ export class AstueOnpzPredictorsComponent extends WidgetPlatform implements OnIn
     }
 
     protected dataHandler(ref: {predictors: IPredictors[] }): void {
-        console.log(ref);
         this.data = ref.predictors;
     }
 
