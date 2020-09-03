@@ -1,15 +1,15 @@
 import {
     AfterViewInit,
     ChangeDetectorRef,
-    Component,
+    Component, EventEmitter,
     Injector,
     Input,
     OnDestroy,
-    OnInit,
+    OnInit, Output
 } from '@angular/core';
 import {
     ISplineDiagramData,
-    ISplineDiagramSize,
+    ISplineDiagramSize
 } from '../../../../LCO/spline-trends-chart/components/spline-diagram/spline-diagram.component';
 import { HttpClient } from '@angular/common/http';
 import { CdMatBalanceService } from '../../../../../dashboard/services/widgets/CD/cd-mat-balance.service';
@@ -21,7 +21,7 @@ import { IWidget } from '../../../../../dashboard/models/widget.model';
 @Component({
     selector: 'evj-cd-mat-balance-chart',
     templateUrl: './cd-mat-balance-chart.component.html',
-    styleUrls: ['./cd-mat-balance-chart.component.scss'],
+    styleUrls: ['./cd-mat-balance-chart.component.scss']
 })
 export class CdMatBalanceChartComponent implements OnInit, OnDestroy, AfterViewInit {
     public readonly WIDGETS = WIDGETS;
@@ -37,10 +37,22 @@ export class CdMatBalanceChartComponent implements OnInit, OnDestroy, AfterViewI
     @Input()
     public size: ISplineDiagramSize = null;
 
+    public toggleAreaValue: boolean = false;
+    @Output() toggleAreaChange: EventEmitter<boolean> = new EventEmitter<boolean>();
+    @Input()
+    get toggleArea(): boolean {
+        return this.toggleAreaValue;
+    }
+    set toggleArea(val: boolean) {
+        this.toggleAreaValue = val;
+        this.toggleAreaChange.emit(this.toggleAreaValue);
+    }
+
     // выбор интервала отображаемого времени
     get hoursCount(): 8 | 24 {
         return this.cdMatBalanceService.hc$.getValue();
     }
+
     set hoursCount(param: 8 | 24) {
         this.cdMatBalanceService.hc$.next(param);
     }
@@ -51,12 +63,12 @@ export class CdMatBalanceChartComponent implements OnInit, OnDestroy, AfterViewI
     public readonly selectValues: { value: number; title: string }[] = [
         {
             value: 8,
-            title: '8 часов',
+            title: '8 часов'
         },
         {
             value: 24,
-            title: '24 часа',
-        },
+            title: '24 часа'
+        }
     ];
 
     public isMenuOpen: boolean = false;
@@ -67,7 +79,8 @@ export class CdMatBalanceChartComponent implements OnInit, OnDestroy, AfterViewI
         public widgetService: WidgetService,
         public injector: Injector,
         private chDet: ChangeDetectorRef
-    ) {}
+    ) {
+    }
 
     ngOnInit(): void {
         this.onStart();
@@ -87,7 +100,7 @@ export class CdMatBalanceChartComponent implements OnInit, OnDestroy, AfterViewI
             }),
             combineLatest([
                 this.cdMatBalanceService.hc$,
-                this.cdMatBalanceService.currentHour$,
+                this.cdMatBalanceService.currentHour$
             ]).subscribe(([hc, currentHour]) => {
                 const begin: number = currentHour - (hc - 1);
                 const end: number = currentHour + 2;
@@ -115,9 +128,9 @@ export class CdMatBalanceChartComponent implements OnInit, OnDestroy, AfterViewI
             providers: [
                 { provide: 'widgetId', useValue: idWidget },
                 { provide: 'uniqId', useValue: uniqId },
-                { provide: 'isMock', useValue: false },
+                { provide: 'isMock', useValue: false }
             ],
-            parent: this.injector,
+            parent: this.injector
         });
     };
 
@@ -139,12 +152,12 @@ export class CdMatBalanceChartComponent implements OnInit, OnDestroy, AfterViewI
             if (i === 50) {
                 testData.push({
                     value: 0,
-                    timestamp: new Date(new Date().setHours(new Date().getHours() + (i - 50))),
+                    timestamp: new Date(new Date().setHours(new Date().getHours() + (i - 50)))
                 });
             }
             testData.push({
                 value: i,
-                timestamp: new Date(new Date().setHours(new Date().getHours() + (i - 50))),
+                timestamp: new Date(new Date().setHours(new Date().getHours() + (i - 50)))
             });
         }
         testData.forEach((el) => (el.timestamp = this.dateHourRound(el.timestamp)));
@@ -171,7 +184,7 @@ export class CdMatBalanceChartComponent implements OnInit, OnDestroy, AfterViewI
         const resultArray: { x: number; y: number }[] = normArray.map((el) => {
             return {
                 y: el.value,
-                x: (el.timestamp.getTime() - normArray[0].timestamp.getTime()) / (60 * 60 * 1000),
+                x: (el.timestamp.getTime() - normArray[0].timestamp.getTime()) / (60 * 60 * 1000)
             };
         });
     }
@@ -233,7 +246,7 @@ export class CdMatBalanceChartComponent implements OnInit, OnDestroy, AfterViewI
             } else {
                 el = {
                     x: idx + 1,
-                    y: prev.y + ((idx + 1 - prev.x) / (next.x - prev.x)) * (next.y - prev.y),
+                    y: prev.y + ((idx + 1 - prev.x) / (next.x - prev.x)) * (next.y - prev.y)
                 };
             }
             dataArray[idx] = el;

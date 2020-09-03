@@ -85,7 +85,7 @@ export interface IModalDeviation {
     styleUrls: ['./cd-mat-balance.component.scss']
 })
 export class CdMatBalanceComponent extends WidgetPlatform implements OnInit, OnDestroy {
-    isSelectedEl: number;
+    isSelectedEl: boolean = false;
     data: IMatBalance;
     openEvent: EventsWidgetNotification = this.cdMatBalanceService.isOpenEvent$.getValue();
     modal: ICDModalWindow;
@@ -170,7 +170,8 @@ export class CdMatBalanceComponent extends WidgetPlatform implements OnInit, OnD
         super.widgetInit();
         this.subscriptions.push(
             this.cdMatBalanceService.showDeviation.subscribe((value) => {
-                this.isSelectedEl = value;
+                console.log(`showDeviation: `, value);
+                this.isSelectedEl = !!value;
             })
         );
     }

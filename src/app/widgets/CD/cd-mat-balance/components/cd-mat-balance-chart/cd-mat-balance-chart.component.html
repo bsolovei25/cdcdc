@@ -1,101 +1,109 @@
-<div class="line-charts">
-  <div class="header">
-    <div class="header__interface">
-      <img class="icon" src="assets/pic/diagram.svg"/>
+<div matRipple class="toggle-button" (click)="toggleArea = !toggleArea">
+<!--TODO add icon-->
+</div>
 
-      <div class="title">Анализ трендов</div>
+<div class="container" [class.container__closed]="toggleAreaValue">
 
+  <div class="line-charts">
+    <div class="header">
+      <div class="header__interface">
+        <img class="icon" src="assets/pic/diagram.svg"/>
+
+        <div class="title">Анализ трендов</div>
+
+        <div
+          class="buttons"
+          (mousedown)="$event.stopPropagation()"
+          (touchstart)="$event.stopPropagation()"
+        >
+          <div class="buttons__mat-select">
+            <mat-form-field>
+              <img
+                class="buttons__mat-select__icon"
+                src="assets/icons/widgets/CD/cd-mat-balance/mnemonic-diagram/watch.svg"
+              />
+              <mat-select panelClass="mat-balance-select" [(ngModel)]="hoursCount">
+                <mat-option *ngFor="let p of selectValues" [value]="p.value">
+                  {{ p.title }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="button button_menu" (click)="toggleMenu()">
+            <img src="assets/pic/menu.svg"/>
+          </div>
+        </div>
+      </div>
       <div
-        class="buttons"
+        class="header__menu menu"
+        [ngClass]="{'menu_open':isMenuOpen}"
+        (mouseleave)="closeMenu()"
         (mousedown)="$event.stopPropagation()"
         (touchstart)="$event.stopPropagation()"
       >
-        <div class="buttons__mat-select">
-          <mat-form-field>
-            <img
-              class="buttons__mat-select__icon"
-              src="assets/icons/widgets/CD/cd-mat-balance/mnemonic-diagram/watch.svg"
-            />
-            <mat-select panelClass="mat-balance-select" [(ngModel)]="hoursCount">
-              <mat-option *ngFor="let p of selectValues" [value]="p.value">
-                {{ p.title }}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
-        </div>
-        <div class="button button_menu" (click)="toggleMenu()">
-          <img src="assets/pic/menu.svg"/>
+        <div class="menu__item" (click)="onClickHeader()">
+          Удалить с экрана
         </div>
       </div>
     </div>
-    <div
-      class="header__menu menu"
-      [ngClass]="{'menu_open':isMenuOpen}"
-      (mouseleave)="closeMenu()"
-      (mousedown)="$event.stopPropagation()"
-      (touchstart)="$event.stopPropagation()"
-    >
-      <div class="menu__item" (click)="onClickHeader()">
-        Удалить с экрана
+    <div class="timeline">
+      <div class="timeline__date" [class.timeline__date_24]="hoursCount===24">
+        <span style="margin: auto 0">{{currentDate|date:"dd.MM.yyyy"}}</span>
       </div>
+      <!-- TOFIX Исправить по-нормальному вставку элементов линейки часов -->
+      <div class="timeline__time">
+        <ng-container *ngFor="let item of hoursLine; let i = index">
+          <div class="item" [class.item_active]="i===hoursLine.length-2">
+            <span class="item_hour">{{item}}</span>
+            <div class="item_line"></div>
+          </div>
+        </ng-container>
+      </div>
+      <!-- TOFIX -->
     </div>
-  </div>
-  <div class="timeline">
-    <div class="timeline__date" [class.timeline__date_24]="hoursCount===24">
-      <span style="margin: auto 0">{{currentDate|date:"dd.MM.yyyy"}}</span>
-    </div>
-    <!-- TOFIX Исправить по-нормальному вставку элементов линейки часов -->
-    <div class="timeline__time">
-      <ng-container *ngFor="let item of hoursLine; let i = index">
-        <div class="item" [class.item_active]="i===hoursLine.length-2">
-          <span class="item_hour">{{item}}</span>
-          <div class="item_line"></div>
-        </div>
-      </ng-container>
-    </div>
-    <!-- TOFIX -->
-  </div>
-  <div class="body">
-    <div class="scroll-container">
-      <!-- TODO  -->
-      <ng-container
-        *ngFor="let item of allWidgets"
-      >
+    <div class="body">
+      <div class="scroll-container">
+        <!-- TODO  -->
         <ng-container
-          *ngIf="item.widgetType === 'cd-mat-balance-sensor' || item.widgetType === 'cd-mat-balance-stream'">
+          *ngFor="let item of allWidgets"
+        >
           <ng-container
-            *ngComponentOutlet="WIDGETS[item.widgetType]; injector: (item.id | fn:getInjector : item?.uniqid);"
-          >
+            *ngIf="item.widgetType === 'cd-mat-balance-sensor' || item.widgetType === 'cd-mat-balance-stream'">
+            <ng-container
+              *ngComponentOutlet="WIDGETS[item.widgetType]; injector: (item.id | fn:getInjector : item?.uniqid);"
+            >
+            </ng-container>
           </ng-container>
         </ng-container>
-      </ng-container>
-      <!-- TODO  -->
+        <!-- TODO  -->
+      </div>
     </div>
+    <!--  <div class="footer">-->
+    <!--    <div class="footer__mat-select">-->
+    <!--      <mat-form-field>-->
+    <!--        <mat-select panelClass="mat-select-custom">-->
+    <!--          <mat-option *ngFor="let p of ['Коллоны и реакторы']" [value]="p">-->
+    <!--            {{ p }}-->
+    <!--          </mat-option>-->
+    <!--        </mat-select>-->
+    <!--      </mat-form-field>-->
+    <!--    </div>-->
+    <!--    <div class="footer__mat-select">-->
+    <!--      <mat-form-field>-->
+    <!--        <mat-select panelClass="mat-select-custom">-->
+    <!--          <mat-option *ngFor="let p of ['Параметр']" [value]="p">-->
+    <!--            {{ p }}-->
+    <!--          </mat-option>-->
+    <!--        </mat-select>-->
+    <!--      </mat-form-field>-->
+    <!--    </div>-->
+    <!--    <div class="footer__btn">-->
+    <!--      Добавить график-->
+    <!--    </div>-->
+    <!--  </div>-->
   </div>
-  <!--  <div class="footer">-->
-  <!--    <div class="footer__mat-select">-->
-  <!--      <mat-form-field>-->
-  <!--        <mat-select panelClass="mat-select-custom">-->
-  <!--          <mat-option *ngFor="let p of ['Коллоны и реакторы']" [value]="p">-->
-  <!--            {{ p }}-->
-  <!--          </mat-option>-->
-  <!--        </mat-select>-->
-  <!--      </mat-form-field>-->
-  <!--    </div>-->
-  <!--    <div class="footer__mat-select">-->
-  <!--      <mat-form-field>-->
-  <!--        <mat-select panelClass="mat-select-custom">-->
-  <!--          <mat-option *ngFor="let p of ['Параметр']" [value]="p">-->
-  <!--            {{ p }}-->
-  <!--          </mat-option>-->
-  <!--        </mat-select>-->
-  <!--      </mat-form-field>-->
-  <!--    </div>-->
-  <!--    <div class="footer__btn">-->
-  <!--      Добавить график-->
-  <!--    </div>-->
-  <!--  </div>-->
 </div>
+
 
 <!-- <ng-template #lineChart let-isWarning="isWarning">
   <div class="line-chart" [class.line-chart__warning]="isWarning">
