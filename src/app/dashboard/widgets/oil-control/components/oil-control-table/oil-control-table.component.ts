@@ -4,7 +4,7 @@ import {
     Input,
     ChangeDetectionStrategy,
     OnChanges,
-    Output
+    Output, EventEmitter, SimpleChanges
 } from '@angular/core';
 import { OilStorages } from 'src/app/dashboard/models/oil-control';
 
@@ -17,10 +17,20 @@ import { OilStorages } from 'src/app/dashboard/models/oil-control';
 export class OilControlTableComponent implements OnInit, OnChanges {
     @Input() data: OilStorages;
     @Input() checkWidth: boolean;
-    @Output() activeOperations: number;
+
+    public activeOperationValue: number = 1;
+    @Output() activeOperationChange: EventEmitter<number> = new EventEmitter<number>();
+
+    @Input() get activeOperation(): number {
+        return this.activeOperationValue;
+    }
+
+    set activeOperation(val: number) {
+        this.activeOperationValue = val;
+        this.activeOperationChange.emit(this.activeOperationValue);
+    }
 
     public maxPage: number = 1;
-    public currentPage: number = 1;
 
     public criticalPage: any = [];
 
@@ -28,19 +38,16 @@ export class OilControlTableComponent implements OnInit, OnChanges {
     }
 
     ngOnInit(): void {
+        this.activeOperation = 1;
     }
 
-    ngOnChanges(): void {
-        console.log('table changes');
-        console.log(this.data);
+    ngOnChanges(changes: SimpleChanges): void {
         if (this.data) {
             this.maxPage = this.data.operations.length;
-            this.currentPage = 1;
         }
     }
 
     onNextOperation(event: number): void {
-        this.currentPage = event;
+        this.activeOperation = event;
     }
-
 }
