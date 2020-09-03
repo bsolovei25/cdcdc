@@ -3,9 +3,9 @@ import { WidgetPlatform } from '../../../dashboard/models/widget-platform';
 import { WidgetService } from '../../../dashboard/services/widget.service';
 
 interface IAstueOnpzInteractiveIndicators {
-    labels: { id: number; name: string; icon: string, color: number }[];
+    labels: { id: number; name: string; icon: string, colorIndex: number }[];
     indicators: { name: string; value: number }[];
-    allIndicators: { id: number; name: string; icon: string, color: number }[];
+    allIndicators: { id: number; name: string; icon: string, colorIndex: number }[];
 }
 
 @Component({
@@ -21,37 +21,37 @@ export class AstueOnpzInteractiveIndicatorsComponent extends WidgetPlatform
                 id: 1,
                 name: 'Плановое значение',
                 icon: '',
-                color: 17
+                colorIndex: 17
             },
             {
                 id: 2,
                 name: 'Фактическое значение',
                 icon: '',
-                color: 0
+                colorIndex: 0
             },
             {
                 id: 3,
                 name: 'Tемпература',
                 icon: 'temperature',
-                color: 15
+                colorIndex: 15
             },
             {
                 id: 4,
                 name: 'Давления',
                 icon: 'pressure',
-                color: 4
+                colorIndex: 4
             },
             {
                 id: 5,
                 name: 'Температура после теплообменника',
                 icon: 'temperature-after',
-                color: 2
+                colorIndex: 2
             },
             {
                 id: 6,
                 name: 'Объем',
                 icon: 'volume',
-                color: 7
+                colorIndex: 7
             }
         ],
         indicators: [
@@ -73,7 +73,7 @@ export class AstueOnpzInteractiveIndicatorsComponent extends WidgetPlatform
                 id: 7,
                 name: 'Объем',
                 icon: 'volume',
-                color: 6
+                colorIndex: 6
             }
         ]
     };
@@ -93,6 +93,7 @@ export class AstueOnpzInteractiveIndicatorsComponent extends WidgetPlatform
     }
 
     ngOnInit(): void {
+        super.widgetInit();
     }
 
     public ngOnDestroy(): void {
@@ -105,6 +106,7 @@ export class AstueOnpzInteractiveIndicatorsComponent extends WidgetPlatform
     }
 
     protected dataHandler(ref: any): void {
+        console.log(ref);
     }
 
     deleteLabel(event: MouseEvent, id: number): void {

@@ -25,9 +25,9 @@
                *ngFor="let item of data.labels"
           >
             <div class="item__icon"
-                 style.backgroundColor="{{ DisabledLabels?.get(item) ? 'var(--color-astue-onpz-bg-tag-12)' : getColorBgTag(item.color) }}">
+                 style.backgroundColor="{{ DisabledLabels?.get(item) ? 'var(--color-astue-onpz-bg-tag-12)' : getColorBgTag(item.colorIndex) }}">
               <svg-icon [src]="getPathSvg(item.icon)"
-                        style.fill="{{ DisabledLabels?.get(item) ? 'var(--color-text-sub)' : getColorTag(item.color) }}"
+                        style.fill="{{ DisabledLabels?.get(item) ? 'var(--color-text-sub)' : getColorTag(item.colorIndex) }}"
                         [class.item__icon__svg__disable]="DisabledLabels?.get(item)"
               ></svg-icon>
             </div>
