@@ -300,6 +300,7 @@ export class WidgetService {
             case 'astue-onpz-consumption-indicators':
             case 'astue-onpz-menu-structure':
             case 'astue-onpz-product-charts':
+            case 'astue-onpz-predictors':
                 return data;
         }
         console.warn(`unknown widget type ${widgetType}`);
