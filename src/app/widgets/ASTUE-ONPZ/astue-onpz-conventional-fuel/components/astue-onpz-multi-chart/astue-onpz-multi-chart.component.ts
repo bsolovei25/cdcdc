@@ -1,4 +1,13 @@
-import { Component, Input, ViewChild, ElementRef, HostListener, OnChanges } from '@angular/core';
+import {
+    Component,
+    Input,
+    ViewChild,
+    ElementRef,
+    HostListener,
+    OnChanges,
+    Renderer2,
+    OnDestroy,
+} from '@angular/core';
 import * as d3Selection from 'd3-selection';
 import * as d3 from 'd3';
 import { IChartD3, IChartMini } from '../../../../../@shared/models/smart-scroll.model';
@@ -19,7 +28,7 @@ const lineColors: { [key: string]: string } = {
     templateUrl: './astue-onpz-multi-chart.component.html',
     styleUrls: ['./astue-onpz-multi-chart.component.scss'],
 })
-export class AstueOnpzMultiChartComponent implements OnChanges {
+export class AstueOnpzMultiChartComponent implements OnChanges, OnDestroy {
     @Input() private data: IMultiChartLine[] = [];
 
     @ViewChild('chart', { static: true }) private chart: ElementRef;
@@ -36,8 +45,8 @@ export class AstueOnpzMultiChartComponent implements OnChanges {
     public scaleFuncs: { x: any; y: any } = { x: null, y: null };
     private axis: { axisX: any; axisY: any } = { axisX: null, axisY: null };
 
-    private readonly MAX_COEF: number = 0.1;
-    private readonly MIN_COEF: number = 0.3;
+    private MAX_COEF: number = 0.3;
+    private MIN_COEF: number = 0.3;
 
     private readonly padding: { left: number; right: number; top: number; bottom: number } = {
         left: 0,
@@ -49,12 +58,18 @@ export class AstueOnpzMultiChartComponent implements OnChanges {
     private readonly axisYWidth: number = 60;
     private readonly topMargin: number = 25;
 
-    constructor() {}
+    private listeners: (() => void)[] = [];
+
+    constructor(private renderer: Renderer2) {}
 
     public ngOnChanges(): void {
         if (this.data.length) {
             this.startDrawChart();
         }
+    }
+
+    public ngOnDestroy(): void {
+        this.listeners.forEach((listener) => listener());
     }
 
     @HostListener('document:resize', ['$event'])
@@ -80,6 +95,7 @@ export class AstueOnpzMultiChartComponent implements OnChanges {
         if (this.svg) {
             this.svg.remove();
             this.svg = undefined;
+            this.listeners.forEach((listener) => listener());
         }
 
         this.svg = d3Selection.select(this.chart.nativeElement).append('svg');
@@ -241,6 +257,9 @@ export class AstueOnpzMultiChartComponent implements OnChanges {
         let left = this.padding.left + this.axisYWidth * (this.charts.length - 1);
         let counter = 0;
         let isMainAxisDrawn = false;
+
+        const SCALE_STEP: number = 0.05;
+
         this.charts.forEach((chart) => {
             const flag = chart.graphType === 'fact' || chart.graphType === 'plan';
             if (flag && isMainAxisDrawn) {
@@ -333,6 +352,21 @@ export class AstueOnpzMultiChartComponent implements OnChanges {
                 .attr('y1', (this.padding.top - this.topMargin) * 0.8)
                 .attr('x2', (-this.axisYWidth * 2) / 3 + 4)
                 .attr('y2', (this.padding.top - this.topMargin) * 0.8);
+
+            this.listeners.push(
+                this.renderer.listen(buttonMinus._groups[0][0], 'click', () => {
+                    this.MAX_COEF += SCALE_STEP;
+                    this.MIN_COEF += SCALE_STEP;
+                    this.startDrawChart();
+                }),
+                this.renderer.listen(buttonPlus._groups[0][0], 'click', () => {
+                    if (!!+this.MAX_COEF.toFixed(2)) {
+                        this.MAX_COEF -= SCALE_STEP;
+                        this.MIN_COEF -= SCALE_STEP;
+                        this.startDrawChart();
+                    }
+                })
+            );
         });
 
         const axisG = this.svg.selectAll(`g.axisY`);
