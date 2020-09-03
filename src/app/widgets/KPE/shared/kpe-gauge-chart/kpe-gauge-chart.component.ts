@@ -1,6 +1,7 @@
 import {Component, ElementRef, Input, OnChanges, OnInit, SimpleChanges, ViewChild} from '@angular/core';
 import { newArray } from '@angular/compiler/src/util';
 import * as d3 from 'd3';
+import { AsyncRender } from '@shared/functions/async-render.function';
 
 @Component({
   selector: 'evj-kpe-gauge-chart',
@@ -34,7 +35,7 @@ export class KpeGaugeChartComponent implements OnInit, OnChanges {
             ? this.plan / this.fact * 100
             : this.fact / this.plan * 100;
         const subValue = Math.abs(this.fact - this.plan);
-        setTimeout(() => this.bindChart(mainValue, subValue), 100);
+        this.bindChart(mainValue, subValue);
     }
 
     private dataHandler(): void {
@@ -45,6 +46,7 @@ export class KpeGaugeChartComponent implements OnInit, OnChanges {
         return this.tickDensity * percent;
     }
 
+    @AsyncRender
     private bindChart(mainValue: number, subValue: number): void {
         const tickMain = this.getTick(mainValue);
         const tickSub = this.getTick(subValue);
