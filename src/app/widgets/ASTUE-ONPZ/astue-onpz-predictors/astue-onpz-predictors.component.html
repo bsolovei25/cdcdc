@@ -14,8 +14,8 @@
             <span class="list__item__name">{{ item.name }}</span>
           </div>
           <div class="list__item__label"
-               style.backgroundColor="var(--color-astue-onpz-bg-tag-{{ item.color }})"
-               style.color="var(--color-astue-tag-{{ item.color }})"
+               style.backgroundColor="var(--color-astue-onpz-bg-tag-{{ item.colorIndex }})"
+               style.color="var(--color-astue-tag-{{ item.colorIndex }})"
                [class.list__item__label--unactive]="!item.isActive"
           >
             {{ item.label }}
