@@ -163,7 +163,7 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, OnDes
 
     ngOnInit(): void {
         super.widgetInit();
-        setInterval(this.toggleInterval.bind(this), 5000);
+        setInterval(this.toggleInterval.bind(this), 15000);
     }
 
     ngOnDestroy(): void {
