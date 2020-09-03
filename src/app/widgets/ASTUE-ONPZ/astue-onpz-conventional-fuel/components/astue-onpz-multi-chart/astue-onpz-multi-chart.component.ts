@@ -45,8 +45,10 @@ export class AstueOnpzMultiChartComponent implements OnChanges, OnDestroy {
     public scaleFuncs: { x: any; y: any } = { x: null, y: null };
     private axis: { axisX: any; axisY: any } = { axisX: null, axisY: null };
 
-    private MAX_COEF: number = 0.3;
-    private MIN_COEF: number = 0.3;
+    private readonly MAX_COEF: number = 0.3;
+    private readonly MIN_COEF: number = 0.3;
+
+    private coefs: { [key: string]: { min: number; max: number } } = {};
 
     private readonly padding: { left: number; right: number; top: number; bottom: number } = {
         left: 0,
@@ -124,13 +126,21 @@ export class AstueOnpzMultiChartComponent implements OnChanges, OnDestroy {
         this.charts = [];
 
         this.data.forEach((graph) => {
+            const key: string =
+                graph.graphType === 'fact' || graph.graphType === 'plan' ? 'main' : graph.graphType;
+            if (!this.coefs[key]) {
+                this.coefs[key] = {
+                    min: this.MIN_COEF,
+                    max: this.MAX_COEF,
+                };
+            }
             this.charts.push({ ...(graph as IMultiChartData) });
             const currentChart = this.charts[this.charts.length - 1];
             currentChart.maxValue = Math.round(
-                d3.max(graph.graph, (item: IChartMini) => item.value) * (1 + this.MAX_COEF)
+                d3.max(graph.graph, (item: IChartMini) => item.value) * (1 + this.coefs[key].max)
             );
             currentChart.minValue = Math.round(
-                d3.min(graph.graph, (item: IChartMini) => item.value) * (1 - this.MIN_COEF)
+                d3.min(graph.graph, (item: IChartMini) => item.value) * (1 - this.coefs[key].min)
             );
         });
 
@@ -353,16 +363,20 @@ export class AstueOnpzMultiChartComponent implements OnChanges, OnDestroy {
                 .attr('x2', (-this.axisYWidth * 2) / 3 + 4)
                 .attr('y2', (this.padding.top - this.topMargin) * 0.8);
 
+            const key: string =
+                chart.graphType === 'fact' || chart.graphType === 'plan' ? 'main' : chart.graphType;
+            const coefs = this.coefs[key];
+
             this.listeners.push(
                 this.renderer.listen(buttonMinus._groups[0][0], 'click', () => {
-                    this.MAX_COEF += SCALE_STEP;
-                    this.MIN_COEF += SCALE_STEP;
+                    coefs.max += SCALE_STEP;
+                    coefs.min += SCALE_STEP;
                     this.startDrawChart();
                 }),
                 this.renderer.listen(buttonPlus._groups[0][0], 'click', () => {
-                    if (!!+this.MAX_COEF.toFixed(2)) {
-                        this.MAX_COEF -= SCALE_STEP;
-                        this.MIN_COEF -= SCALE_STEP;
+                    if (!!+coefs.max.toFixed(2)) {
+                        coefs.max -= SCALE_STEP;
+                        coefs.min -= SCALE_STEP;
                         this.startDrawChart();
                     }
                 })
