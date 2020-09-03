@@ -141,6 +141,9 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, OnDes
 
     public test: boolean = false;
 
+
+    public intervalStorage: any = null;
+
     tankersName = {
         shipAvto: 'Авто',
         shipTrain: 'Поезд',
@@ -209,7 +212,6 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, OnDes
         this.mapStorage();
         this.drawOilControl(this.data);
         if (this.checkSocket === true && this.savePositionProduct) {
-            console.log(this.savePositionProduct);
             this.onButtonChangeProduct(this.savePositionProduct);
             if (this.saveDataStorage?.length > 0) {
                 this.onButtonChangeStorage(this.savePositionStorage, this.saveDataStorage);
@@ -399,6 +401,8 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, OnDes
         data,
         dataStorage
     ): void {
+        this.intervalStorage = dataStorage;
+
         this.svgMenu = d3.select(el?.firstElementChild);
 
         const svgMenu = this.svgMenu;
@@ -747,7 +751,6 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, OnDes
                         function buttonStorageClick(): void {
                             this.countClickChangeStorage++;
                             this.onButtonChangeStorage(textStorage.nameStorage, dataStorage);
-                            this.savePositionStorage = textStorage.nameStorage;
                             this.saveDataStorage = [...dataStorage];
                         }
 
@@ -826,7 +829,9 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, OnDes
         );
         // this.drawBak(this.oilBak.nativeElement);
         this.drawPicture(this.oilIcon?.nativeElement);
-        this.saveCurrentPage = 1;
+        if (this.savePositionProduct && this.savePositionProduct !== index) {
+            this.saveCurrentPage = 1;
+        }
     }
 
     findAndFilterProduct(arr, index, indexStorage): number {
@@ -838,7 +843,10 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, OnDes
 
     public onButtonChangeStorage(index: string, data): void {
         this.clearProduct();
-
+        if (this.savePositionStorage && this.savePositionStorage !== index) {
+            this.saveCurrentPage = 1;
+        }
+        this.savePositionStorage = index;
         if (this.countClickChange === 0 && !this.checkSocket) {
             if (this.countClickChangeStorage === 0) {
                 this.changeMassivStorage(index, data);
@@ -877,7 +885,6 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, OnDes
         }
         // this.drawBak(this.oilBak.nativeElement);
         this.drawPicture(this.oilIcon?.nativeElement);
-        this.saveCurrentPage = 1;
     }
 
     /// Возможно зачищение всех нефтеконтролей
@@ -1082,37 +1089,51 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, OnDes
         if (!this.data) {
             return;
         }
-        this.nextProduct();
-        this.nextStorage();
-        this.nextOperation();
+        // this.nextProduct();
+        if (!this.nextOperation()) {
+            if (!this.nextStorage()) {
+                this.nextProduct();
+            }
+        }
     }
 
     private nextProduct(): void {
         let curIdx = this.data.findIndex(x => x.name === this.savePositionProduct);
         console.log(`product: ${curIdx}`);
-        // let product = this.data[++curIdx]?.name;
-        // if (!product) {
-        //     product = this.data[0]?.name;
-        // }
-        // this.onButtonChangeProduct(product);
-        // this.countClickChangeStorage = 0;
-        // this.savePositionProduct = product;
+        let product = this.data[++curIdx]?.name;
+        if (!product) {
+            product = this.data[0]?.name;
+        }
+        this.onButtonChangeProduct(product);
+        this.countClickChangeStorage = 0;
+        this.savePositionProduct = product;
+        this.savePositionStorage = null;
+        this.nextStorage();
     }
 
     private nextStorage(): boolean {
-        const curIdx = this.data
-            .find(x => x.name === this.savePositionProduct)
-            .storages.findIndex(x => x === this.activeStorage);
+        const currentProduct = this.data.find(x => x.name === this.savePositionProduct);
+        if (!currentProduct) {
+            return false;
+        }
+        let curIdx = currentProduct.storages.findIndex(x => x.nameStorage === this.savePositionStorage);
         console.log(`storage: ${curIdx}`);
-        return false;
-        // this.countClickChangeStorage++;
-        // this.onButtonChangeStorage(textStorage.id, dataStorage);
-        // this.savePositionStorage = textStorage.id;
-        // this.saveDataStorage = [...dataStorage];
+        const storage = currentProduct.storages[++curIdx]?.nameStorage;
+        if (!storage) {
+            return false;
+        }
+        this.countClickChangeStorage++;
+        this.onButtonChangeStorage(storage, this.intervalStorage);
+        this.saveDataStorage = [...this.intervalStorage];
+        return true;
     }
 
     private nextOperation(): boolean {
         console.log(`operation: ${this.saveCurrentPage}`);
-        return false;
+        if (this.saveCurrentPage + 1 > this.activeStorage.operations.length) {
+            return false;
+        }
+        this.saveCurrentPage++;
+        return true;
     }
 }
