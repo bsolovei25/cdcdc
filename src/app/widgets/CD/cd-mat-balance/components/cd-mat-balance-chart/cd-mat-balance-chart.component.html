@@ -1,8 +1,8 @@
-<div matRipple class="toggle-button" (click)="toggleArea = !toggleArea">
+<div matRipple class="toggle-button" (click)="toggleAreaValue = !toggleAreaValue">
 <!--TODO add icon-->
 </div>
 
-<div class="container" [class.container__closed]="toggleAreaValue">
+<div class="container" [class.container__open]="toggleAreaValue">
   <div class="line-charts">
     <div class="header">
       <div class="header__interface">

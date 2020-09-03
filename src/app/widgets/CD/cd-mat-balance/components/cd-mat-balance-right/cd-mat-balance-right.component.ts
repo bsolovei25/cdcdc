@@ -5,7 +5,7 @@ import { CdMatBalanceService } from '../../../../../dashboard/services/widgets/C
 @Component({
     selector: 'evj-cd-mat-balance-right',
     templateUrl: './cd-mat-balance-right.component.html',
-    styleUrls: ['./cd-mat-balance-right.component.scss']
+    styleUrls: ['./cd-mat-balance-right.component.scss'],
 })
 export class CdMatBalanceRightComponent implements OnInit {
     @Input() dataLocal: IStreams[] = [];
@@ -13,7 +13,7 @@ export class CdMatBalanceRightComponent implements OnInit {
     @Input() set data(value: IStreams[]) {
         this.dataLocal = value;
         this.percentLoad = 0;
-        value?.forEach(el => this.percentLoad += +el.percentLoad?.toFixed());
+        value?.forEach((el) => (this.percentLoad += +el.percentLoad?.toFixed()));
         value?.sort((a, b) => a.id - b.id);
     }
 
@@ -21,23 +21,25 @@ export class CdMatBalanceRightComponent implements OnInit {
         this.modal = value;
     }
 
-    @Output() modalDeviation: EventEmitter<IModalDeviation> =
-        new EventEmitter<IModalDeviation>(null);
-
+    @Output() modalDeviation: EventEmitter<IModalDeviation> = new EventEmitter<IModalDeviation>(
+        null
+    );
 
     modal: IModalDeviation;
     percentLoad: number = 0;
     iconArrow: boolean;
 
-    constructor(private cdMatBalanceService: CdMatBalanceService) {
-    }
+    constructor(private cdMatBalanceService: CdMatBalanceService) {}
 
-    ngOnInit(): void {
-    }
+    ngOnInit(): void {}
 
-    clickItem(item: IStreams, idx: number): void {
-        const selectChart: string[] =
-            [...this.cdMatBalanceService.charts$?.getValue(), item.id?.toString()];
+    clickItem(event: MouseEvent, item: IStreams, idx: number): void {
+        let parentPos = document.getElementById('parentPos')?.getBoundingClientRect();
+        let childPos = document.getElementById(`el-${idx}`)?.getBoundingClientRect();
+        const selectChart: string[] = [
+            ...this.cdMatBalanceService.charts$?.getValue(),
+            item.id?.toString(),
+        ];
         const setCharts = new Set(selectChart);
         this.cdMatBalanceService.charts$.next([...setCharts]);
         if (item.deviation !== 0) {
@@ -45,12 +47,12 @@ export class CdMatBalanceRightComponent implements OnInit {
         }
         this.modal = {
             id: item.id,
-            top: 117 + (idx * 97.5),
+            top: childPos?.top - parentPos?.top - 93,
             name: item.name,
             engUnits: item.engUnits,
             valueDeviation: item.deviation,
             valueModel: item.modelValue,
-            valueFact: item.value
+            valueFact: item.value,
         };
         this.modalDeviation.emit(this.modal);
     }
@@ -58,6 +60,4 @@ export class CdMatBalanceRightComponent implements OnInit {
     openChart(id: number): void {
         this.cdMatBalanceService.showDeviation.next(id);
     }
-
-
 }

@@ -31,15 +31,15 @@ $color-button: #5c6585;
 
 .container {
   position: relative;
-  width: 570px;
+  width: 0;
   height: 100%;
   min-height: 320px;
   transition: 0.3s;
   border: 1px solid var(--color-cd-bg-border);
   overflow: hidden;
 
-  &__closed {
-    width: 0;
+  &__open {
+    width: 570px;
     transition: 0.3s;
   }
 }
