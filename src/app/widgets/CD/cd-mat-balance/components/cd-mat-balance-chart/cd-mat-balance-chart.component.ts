@@ -39,10 +39,12 @@ export class CdMatBalanceChartComponent implements OnInit, OnDestroy, AfterViewI
 
     public toggleAreaValue: boolean = false;
     @Output() toggleAreaChange: EventEmitter<boolean> = new EventEmitter<boolean>();
+
     @Input()
     get toggleArea(): boolean {
         return this.toggleAreaValue;
     }
+
     set toggleArea(val: boolean) {
         this.toggleAreaValue = val;
         this.toggleAreaChange.emit(this.toggleAreaValue);
@@ -96,6 +98,7 @@ export class CdMatBalanceChartComponent implements OnInit, OnDestroy, AfterViewI
                     });
                 });
                 this.allCheckedCharts = charts;
+                this.toggleAreaValue = false;
                 this.chDet.detectChanges();
             }),
             combineLatest([
