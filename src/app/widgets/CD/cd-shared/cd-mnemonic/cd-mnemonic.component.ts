@@ -186,8 +186,8 @@ export class CdMnemonicComponent implements OnInit {
                 y,
                 +el?.deviation.toFixed(),
                 el?.description,
-                +el?.modelValue.toFixed(),
                 +el?.value.toFixed(),
+                +el?.modelValue.toFixed(),
                 el?.engUnits
             );
         }

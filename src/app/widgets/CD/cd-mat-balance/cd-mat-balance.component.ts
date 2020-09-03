@@ -1,4 +1,4 @@
-import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
+import { Component, Inject, OnDestroy, OnInit, Renderer2 } from '@angular/core';
 import { WidgetPlatform } from '../../../dashboard/models/widget-platform';
 import { WidgetService } from '../../../dashboard/services/widget.service';
 import { CdMatBalanceService } from '../../../dashboard/services/widgets/CD/cd-mat-balance.service';
@@ -67,6 +67,16 @@ export interface IStreams {
     totalDeviation: number;
     totalModelValue: number;
     totalValue: number;
+}
+
+export interface IModalDeviation {
+    id: number;
+    name: string;
+    valueFact: number;
+    valueModel: number;
+    valueDeviation: number;
+    engUnits: string;
+    top: number;
 }
 
 @Component({
@@ -138,6 +148,8 @@ export class CdMatBalanceComponent extends WidgetPlatform implements OnInit, OnD
             }
         }
     ];
+
+    modalDeviation: IModalDeviation;
 
     constructor(
         protected widgetService: WidgetService,
@@ -215,5 +227,13 @@ export class CdMatBalanceComponent extends WidgetPlatform implements OnInit, OnD
             this.snackBar.openSnackBar('Корректирующие мероприятие создано');
         } catch (e) {
         }
+    }
+
+    closeModal(): void {
+        this.modalDeviation = null;
+    }
+
+    openModalDeviation(item: IModalDeviation): void {
+        this.modalDeviation = item;
     }
 }

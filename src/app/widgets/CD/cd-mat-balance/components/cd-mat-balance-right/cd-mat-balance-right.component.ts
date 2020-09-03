@@ -1,5 +1,5 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { IStreams } from '../../cd-mat-balance.component';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { IModalDeviation, IStreams } from '../../cd-mat-balance.component';
 import { CdMatBalanceService } from '../../../../../dashboard/services/widgets/CD/cd-mat-balance.service';
 
 @Component({
@@ -17,7 +17,17 @@ export class CdMatBalanceRightComponent implements OnInit {
         value?.sort((a, b) => a.id - b.id);
     }
 
+    @Input() set modalDev(value: IModalDeviation) {
+        this.modal = value;
+    }
+
+    @Output() modalDeviation: EventEmitter<IModalDeviation> =
+        new EventEmitter<IModalDeviation>(null);
+
+
+    modal: IModalDeviation;
     percentLoad: number = 0;
+    iconArrow: boolean;
 
     constructor(private cdMatBalanceService: CdMatBalanceService) {
     }
@@ -25,17 +35,29 @@ export class CdMatBalanceRightComponent implements OnInit {
     ngOnInit(): void {
     }
 
-    clickItem(id: number, deviation: number): void {
+    clickItem(item: IStreams, idx: number): void {
         const selectChart: string[] =
-            [...this.cdMatBalanceService.charts$?.getValue(), id?.toString()];
+            [...this.cdMatBalanceService.charts$?.getValue(), item.id?.toString()];
         const setCharts = new Set(selectChart);
         this.cdMatBalanceService.charts$.next([...setCharts]);
-        if (deviation !== 0) {
-            this.openChart(id);
+        if (item.deviation !== 0) {
+            this.openChart(item.id);
         }
+        this.modal = {
+            id: item.id,
+            top: 117 + (idx * 97.5),
+            name: item.name,
+            engUnits: item.engUnits,
+            valueDeviation: item.deviation,
+            valueModel: item.modelValue,
+            valueFact: item.value
+        };
+        this.modalDeviation.emit(this.modal);
     }
 
     openChart(id: number): void {
         this.cdMatBalanceService.showDeviation.next(id);
     }
+
+
 }
