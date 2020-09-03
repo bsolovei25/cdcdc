@@ -16,13 +16,40 @@ $color-diagram-sub: rgba(92, 101, 133, 0.2);
 $color-header-bg: rgba(92, 101, 133, 0.1);
 $color-button: #5c6585;
 
+.toggle-button {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  transform: translateX(50%);
+  top: 50%;
+  right: 0;
+  border-radius: 50%;
+  z-index: 999;
+  cursor: pointer;
+  background: var(--color-cd-bg-border);
+}
+
+.container {
+  position: relative;
+  width: 570px;
+  height: 100%;
+  min-height: 320px;
+  transition: 0.3s;
+  border: 1px solid var(--color-cd-bg-border);
+  overflow: hidden;
+
+  &__closed {
+    width: 0;
+    transition: 0.3s;
+  }
+}
+
 .line-charts {
   position: relative;
   display: flex;
   flex-flow: column;
   width: 570px;
   height: 100%;
-  min-height: 320px;
   border: 1px solid var(--color-cd-bg-border);
 
   .header {
