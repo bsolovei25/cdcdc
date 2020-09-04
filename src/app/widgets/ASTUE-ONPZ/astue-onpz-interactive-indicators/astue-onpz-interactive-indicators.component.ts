@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy, Inject, Input } from '@angular/core';
 import { WidgetPlatform } from '../../../dashboard/models/widget-platform';
 import { WidgetService } from '../../../dashboard/services/widget.service';
+import { AstueOnpzService } from '../astue-onpz-shared/astue-onpz.service';
 
 interface IAstueOnpzInteractiveIndicators {
     labels: { id: number; name: string; icon: string, colorIndex: number }[];
@@ -50,7 +51,8 @@ export class AstueOnpzInteractiveIndicatorsComponent extends WidgetPlatform
         protected widgetService: WidgetService,
         @Inject('isMock') public isMock: boolean,
         @Inject('widgetId') public id: string,
-        @Inject('uniqId') public uniqId: string
+        @Inject('uniqId') public uniqId: string,
+        private astueOnpzService: AstueOnpzService,
     ) {
         super(widgetService, isMock, id, uniqId);
     }
@@ -102,6 +104,7 @@ export class AstueOnpzInteractiveIndicatorsComponent extends WidgetPlatform
             indicator.isActive = true;
             indicator.isChoosing = true;
         }
+        this.astueOnpzService.updateIndicatorFilter(key, 'add');
     }
 
     public deleteLabel(event: MouseEvent, key: string): void {
@@ -111,6 +114,7 @@ export class AstueOnpzInteractiveIndicatorsComponent extends WidgetPlatform
             indicator.isActive = false;
             indicator.isChoosing = false;
         }
+        this.astueOnpzService.updateIndicatorFilter(key, 'delete');
     }
 
     public toggleLabel(event: MouseEvent, key: string): void {
@@ -118,6 +122,11 @@ export class AstueOnpzInteractiveIndicatorsComponent extends WidgetPlatform
         const indicator = this.data.indicators.find((i) => i.key === key);
         if (indicator) {
             indicator.isChoosing = !indicator.isChoosing;
+        }
+        if (indicator.isChoosing) {
+            this.astueOnpzService.updateIndicatorFilter(key, 'add');
+        } else {
+            this.astueOnpzService.updateIndicatorFilter(key, 'delete');
         }
     }
 

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import {
     AstueOnpzConsumptionIndicatorsWidgetType,
-    AstueOnpzConsumptionIndicatorType,
+    AstueOnpzConsumptionIndicatorType
 } from '../astue-onpz-consumption-indicators/astue-onpz-consumption-indicators.component';
 
 export interface IAstueOnpzMonitoringOptions {
@@ -20,7 +20,7 @@ export interface IAstueOnpzMonitoringCarrierOptions {
 }
 
 @Injectable({
-    providedIn: 'root',
+    providedIn: 'root'
 })
 export class AstueOnpzService {
 
@@ -29,14 +29,14 @@ export class AstueOnpzService {
             manufactureName: null,
             unitName: null,
             itemId: null,
-            filterValues: null,
-    });
+            filterValues: null
+        });
 
     private monitoringOptions$: BehaviorSubject<IAstueOnpzMonitoringOptions> = new BehaviorSubject({
         manufactureName: null,
         unitName: null,
         type: null,
-        indicatorType: null,
+        indicatorType: null
     });
 
     public sharedMonitoringOptions: Observable<IAstueOnpzMonitoringOptions> =
@@ -45,10 +45,33 @@ export class AstueOnpzService {
     public sharedIndicatorOptions: Observable<IAstueOnpzMonitoringCarrierOptions> =
         this.indicatorOptions$.asObservable();
 
-    constructor() { }
+    constructor() {
+    }
 
     public setMonitoringOptions(options: IAstueOnpzMonitoringOptions): void {
         this.monitoringOptions$.next(options);
+    }
+
+    public updateIndicatorFilter(key: string, action: 'add' | 'delete'): void {
+        const filterArray = this.indicatorOptions$.getValue()
+            ?.filterValues?.split(';')?.filter((f) => f !== '') ?? [];
+        switch (action) {
+            case 'add':
+                filterArray.push(key);
+                break;
+            case 'delete':
+                const idx = filterArray.findIndex((f) => f === key);
+                if (idx !== -1) {
+                    filterArray.splice(idx, 1);
+                }
+                break;
+        }
+        const filter: string = filterArray.reduce((a, b) => `${a};${b}`);
+        this.nextMonitoringCarrierOptions<string>('filterValues', filter);
+    }
+
+    public updateGraphId(itemId: string): void {
+        this.nextMonitoringCarrierOptions('itemId', itemId);
     }
 
     public updateManufactureName(manufactureNameParam: string): void {
@@ -58,7 +81,7 @@ export class AstueOnpzService {
 
     public updateUnitName(unitNameParam: string): void {
         this.nextMonitoringOptions<string>('unitName', unitNameParam);
-        this.nextMonitoringCarrierOptions<string>('manufactureName', unitNameParam);
+        this.nextMonitoringCarrierOptions<string>('unitName', unitNameParam);
     }
 
     public updateType(typeParam: AstueOnpzConsumptionIndicatorsWidgetType): void {
@@ -78,10 +101,10 @@ export class AstueOnpzService {
     }
 
     private nextMonitoringOptions<T>(key: keyof IAstueOnpzMonitoringOptions, value: T): void {
-        this.monitoringOptions$.next({...this.monitoringOptions$.value, ...{ [key]: value }});
+        this.monitoringOptions$.next({ ...this.monitoringOptions$.value, ...{ [key]: value } });
     }
 
     private nextMonitoringCarrierOptions<T>(key: keyof IAstueOnpzMonitoringCarrierOptions, value: T): void {
-        this.indicatorOptions$.next({...this.indicatorOptions$.value, ...{ [key]: value }});
+        this.indicatorOptions$.next({ ...this.indicatorOptions$.value, ...{ [key]: value } });
     }
 }

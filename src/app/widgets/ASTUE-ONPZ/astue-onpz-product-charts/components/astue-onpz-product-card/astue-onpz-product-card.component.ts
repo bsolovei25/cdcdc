@@ -1,6 +1,8 @@
 import { Component, OnInit, Input, OnChanges } from '@angular/core';
 import { IProductionTrend } from '../../../../../dashboard/models/production-trends.model';
 import { IAstueProductChart } from '../../astue-onpz-product-charts.component';
+import { UserSettingsService } from '../../../../../dashboard/services/user-settings.service';
+import { AstueOnpzService } from '../../../astue-onpz-shared/astue-onpz.service';
 
 @Component({
     selector: 'evj-astue-onpz-product-card',
@@ -10,7 +12,10 @@ import { IAstueProductChart } from '../../astue-onpz-product-charts.component';
 export class AstueOnpzProductCardComponent implements OnChanges, OnInit {
     @Input() public data: IAstueProductChart;
 
-    constructor() {
+    constructor(
+        private userSettingsService: UserSettingsService,
+        private astueOnpzSerivice: AstueOnpzService,
+    ) {
     }
 
     ngOnChanges(): void {
@@ -25,6 +30,7 @@ export class AstueOnpzProductCardComponent implements OnChanges, OnInit {
     }
 
     public switchToIndicatorScreen(): void {
-        console.log(this.data.itemId);
+        this.astueOnpzSerivice.updateGraphId(this.data.itemId);
+        this.userSettingsService.LoadScreenByWidget('astue-onpz-interactive-indicators');
     }
 }

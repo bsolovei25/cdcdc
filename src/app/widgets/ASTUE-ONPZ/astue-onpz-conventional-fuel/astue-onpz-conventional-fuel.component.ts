@@ -26,23 +26,34 @@ export class AstueOnpzConventionalFuelComponent extends WidgetPlatform
     }
 
     public ngOnInit(): void {
-        this.subscriptions.push(
-            this.http
-                .get<IMultiChartLine[]>('assets/mock/ASTUE-ONPZ/conventional-fuel.json')
-                .subscribe((data) => {
-                    data.forEach((item) => {
-                        item.graph.forEach((val) => {
-                            val.timeStamp = new Date(val.timeStamp);
-                        });
-                    });
-                    this.data = data;
-                })
-        );
+        this.widgetInit();
+        // this.subscriptions.push(
+        //     this.http
+        //         .get<IMultiChartLine[]>('assets/mock/ASTUE-ONPZ/conventional-fuel.json')
+        //         .subscribe((data) => {
+        //             data.forEach((item) => {
+        //                 item.graph.forEach((val) => {
+        //                     val.timeStamp = new Date(val.timeStamp);
+        //                 });
+        //             });
+        //             this.data = data;
+        //         })
+        // );
+    }
+
+    protected dataConnect(): void {
+        super.dataConnect();
+        this.subscriptions.push(this.astueOnpzService.sharedIndicatorOptions.subscribe((options) => {
+            this.widgetService.setWidgetLiveDataFromWSOptions(this.widgetId, options);
+        }));
     }
 
     public ngOnDestroy(): void {
         super.ngOnDestroy();
     }
 
-    protected dataHandler(ref: any): void {}
+    protected dataHandler(ref: {graphs: IMultiChartLine[]}): void {
+        console.log(ref);
+        this.data = ref?.graphs ?? [];
+    }
 }
