@@ -20,7 +20,7 @@ export class AstueOnpzConventionalFuelComponent extends WidgetPlatform
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string,
         private http: HttpClient,
-        private astueOnpzService: AstueOnpzService,
+        private astueOnpzService: AstueOnpzService
     ) {
         super(widgetService, isMock, id, uniqId);
     }
@@ -43,17 +43,31 @@ export class AstueOnpzConventionalFuelComponent extends WidgetPlatform
 
     protected dataConnect(): void {
         super.dataConnect();
-        this.subscriptions.push(this.astueOnpzService.sharedIndicatorOptions.subscribe((options) => {
-            this.widgetService.setWidgetLiveDataFromWSOptions(this.widgetId, options);
-        }));
+        this.subscriptions.push(
+            this.astueOnpzService.sharedIndicatorOptions.subscribe((options) => {
+                this.widgetService.setWidgetLiveDataFromWSOptions(this.widgetId, options);
+            })
+        );
     }
 
     public ngOnDestroy(): void {
         super.ngOnDestroy();
+        this.astueOnpzService.dropDataStream();
     }
 
-    protected dataHandler(ref: {graphs: IMultiChartLine[]}): void {
+    protected dataHandler(ref: { graphs: IMultiChartLine[] }): void {
         console.log(ref);
-        this.data = ref?.graphs ?? [];
+        if (ref?.graphs) {
+            ref.graphs.forEach((graph) => {
+                const _ = graph as any;
+                graph.graphType = _.multiChartTypes;
+                graph.graph.forEach((item) => {
+                    item.timeStamp = new Date(item.timeStamp);
+                });
+            });
+            this.data = ref?.graphs;
+            return;
+        }
+        this.data = [];
     }
 }

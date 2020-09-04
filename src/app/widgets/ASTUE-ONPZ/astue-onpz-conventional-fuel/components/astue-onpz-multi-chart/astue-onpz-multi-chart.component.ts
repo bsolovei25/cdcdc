@@ -66,7 +66,9 @@ export class AstueOnpzMultiChartComponent implements OnChanges, OnDestroy {
     constructor(private renderer: Renderer2) {}
 
     public ngOnChanges(): void {
-        if (this.data.length) {
+        console.log('data:', this.data);
+
+        if (!!this.data.length) {
             this.startDrawChart();
         }
     }
@@ -77,7 +79,7 @@ export class AstueOnpzMultiChartComponent implements OnChanges, OnDestroy {
 
     @HostListener('document:resize', ['$event'])
     public OnResize(): void {
-        if (this.data.length) {
+        if (!!this.data.length) {
             this.startDrawChart();
         }
     }
@@ -149,9 +151,16 @@ export class AstueOnpzMultiChartComponent implements OnChanges, OnDestroy {
 
         const plan = this.charts.find((item) => item.graphType === 'plan');
         const fact = this.charts.find((item) => item.graphType === 'fact');
-        const [min, max] = d3.extent([plan.minValue, plan.maxValue, fact.minValue, fact.maxValue]);
-        plan.minValue = fact.minValue = min;
-        plan.maxValue = fact.maxValue = max;
+        if (!!plan && !!fact) {
+            const [min, max] = d3.extent([
+                plan.minValue,
+                plan.maxValue,
+                fact.minValue,
+                fact.maxValue,
+            ]);
+            plan.minValue = fact.minValue = min;
+            plan.maxValue = fact.maxValue = max;
+        }
     }
 
     private defineAxis(): void {
@@ -299,6 +308,7 @@ export class AstueOnpzMultiChartComponent implements OnChanges, OnDestroy {
         let left = this.padding.left + this.axisYWidth * (this.charts.length - 1);
         let counter = 0;
         let isMainAxisDrawn = false;
+        let isMainLabelsDrawn: boolean = false;
 
         const SCALE_STEP: number = 0.05;
 
@@ -326,22 +336,26 @@ export class AstueOnpzMultiChartComponent implements OnChanges, OnDestroy {
                 .attr('height', height);
             counter++;
 
-            if (chart.graphType !== 'fact') {
-                const labels = axisY.append('g').attr('class', 'labels');
-                let y: number = this.padding.top - this.topMargin + height;
-                const step: number = height / 10;
-                const currentKey: string = chart.graphType === 'plan' ? 'main' : chart.graphType;
-                this.axisLabels[currentKey].forEach((item) => {
-                    y -= step;
-                    labels
-                        .append('text')
-                        .attr('class', 'label')
-                        .attr('x', -5)
-                        .attr('y', y + 5)
-                        .attr('text-anchor', 'end')
-                        .text(item);
-                });
+            const labels = axisY.append('g').attr('class', 'labels');
+            let y: number = this.padding.top - this.topMargin + height;
+            const step: number = height / 10;
+            if (isMainLabelsDrawn && (chart.graphType === 'plan' || chart.graphType === 'fact')) {
+                return;
             }
+            const currentKey: string =
+                chart.graphType === 'plan' || chart.graphType === 'fact' ? 'main' : chart.graphType;
+            isMainLabelsDrawn = chart.graphType === 'plan' || chart.graphType === 'fact';
+            this.axisLabels[currentKey].forEach((item) => {
+                y -= step;
+                labels
+                    .append('text')
+                    .attr('class', 'label')
+                    .attr('x', -5)
+                    .attr('y', y + 5)
+                    .attr('text-anchor', 'end')
+                    .text(item);
+            });
+
             const legend = axisY.append('g').attr('class', 'legend');
             const stroke = flag ? '#FFFFFF' : lineColors[chart.graphType];
             const padding = 5;
