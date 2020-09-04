@@ -28,9 +28,21 @@ import { HttpClient } from '@angular/common/http';
     styleUrls: ['./line-chart.component.scss'],
 })
 export class LineChartComponent extends WidgetPlatform implements OnInit, OnDestroy {
-    position?: string = 'default';
+    public position?: string = 'default';
 
-    data: LineChartData;
+    public data: LineChartData;
+
+    public paths: {
+        fact: any,
+        plan: any,
+        lowerLimit: any,
+        upperLimit: any,
+    } = {
+        fact: null,
+        plan: null,
+        lowerLimit: null,
+        upperLimit: null,
+    };
 
     public static itemCols: number = 20;
     public static itemRows: number = 13;
@@ -127,11 +139,14 @@ export class LineChartComponent extends WidgetPlatform implements OnInit, OnDest
         super(widgetService, isMock, id, uniqId);
     }
 
-    ngOnInit(): void {
+    public ngOnInit(): void {
         super.widgetInit();
+        if (this.dataLine) {
+            this.draw(this.dataLine);
+        }
     }
 
-    ngOnDestroy(): void {
+    public ngOnDestroy(): void {
         super.ngOnDestroy();
     }
 
@@ -155,7 +170,7 @@ export class LineChartComponent extends WidgetPlatform implements OnInit, OnDest
     }
 
     @HostListener('document:resize', ['$event'])
-    OnResize(event) {
+    public OnResize(): void {
         if (this.dataLine) {
             this.draw(this.dataLine);
         }
@@ -224,6 +239,7 @@ export class LineChartComponent extends WidgetPlatform implements OnInit, OnDest
         // const fact = this.data.graphs.find(d => d.graphType === 'fact');
         const upperLimit = this.data.graphs.find((d) => d.graphType === 'upperLimit');
         const lowerLimit = this.data.graphs.find((d) => d.graphType === 'lowerLimit');
+        const fact = this.data.graphs.filter((d) => d.graphType === 'fact');
 
         this.initChart();
         this.refreshDomains();
@@ -233,6 +249,7 @@ export class LineChartComponent extends WidgetPlatform implements OnInit, OnDest
 
         if (this.deviationMode === 'limits') {
             this.drawLimitsAreas(upperLimit, lowerLimit);
+            this.drawDeviationGradient(fact[0].values);
             // this.drawLimitsDeviationAreas(upperLimit, lowerLimit, fact);
         } else {
             this.deleteLimitsData();
@@ -543,17 +560,20 @@ export class LineChartComponent extends WidgetPlatform implements OnInit, OnDest
     }
 
     private drawPath(): void {
-        const trend = this.g
-            .selectAll('.trend')
-            .data(this.data.graphs)
-            .enter()
-            .append('g')
-            .attr('class', 'trend');
+        const line = d3.line()
+            .x((d) => this.x(d.date))
+            .y((d) => this.y(d.value))
+            .curve(d3.curveLinear);
 
-        trend
-            .append('path')
-            .attr('d', (d) => this.lines[d.graphType](d.values))
-            .attr('class', (d) => this.trendsStyle[d.graphType].trend.class);
+        this.data.graphs.forEach(graph => {
+            const path = this.g
+                .append('path')
+                .datum(graph.values)
+                .attr('d', line)
+                .attr('class', this.trendsStyle[graph.graphType].trend.class)
+                .attr('id', graph.graphType);
+            this.paths[graph.graphType] = path;
+        });
     }
 
     private drawPoints(): void {
@@ -665,6 +685,104 @@ export class LineChartComponent extends WidgetPlatform implements OnInit, OnDest
             .append('stop')
             .attr('offset', '100%')
             .attr('stop-color', 'transparent');
+    }
+
+    private drawDeviationGradient(fact: {date: Date, value: number}[]): void {
+        const upperDataset = [];
+        const lowerDataset = [];
+        let tempUpper = [];
+        let tempLower = [];
+
+        fact.forEach(item => {
+            if (this.paths.upperLimit?.node().getPointAtLength(this.x(item.date)).y > this.y(item.value)) {
+                tempUpper.push({
+                    date: this.x(item.date),
+                    y0: this.paths.upperLimit?.node().getPointAtLength(this.x(item.date)).y,
+                    y1: this.y(item.value),
+                });
+            } else if (this.paths.upperLimit?.node().getPointAtLength(this.x(item.date)).y <= this.y(item.value)) {
+                if (tempUpper.length) {
+                    upperDataset.push(tempUpper);
+                    tempUpper = [];
+                }
+            }
+
+            if (this.paths.lowerLimit?.node().getPointAtLength(this.x(item.date)).y < this.y(item.value)) {
+                tempLower.push({
+                    date: this.x(item.date),
+                    y0: this.paths.lowerLimit?.node().getPointAtLength(this.x(item.date)).y,
+                    y1: this.y(item.value),
+                });
+            } else if (this.paths.lowerLimit?.node().getPointAtLength(this.x(item.date)).y >= this.y(item.value)) {
+                if (tempLower.length) {
+                    lowerDataset.push(tempLower);
+                    tempLower = [];
+                }
+            }
+        });
+
+        const upperGradientParams: {
+            id: string,
+            class1: string,
+            class2: string,
+        } = {
+            id: 'line-upper-deviation-gradient',
+            class1: 'line-upper-deviation-gradient-stop-1',
+            class2: 'line-upper-deviation-gradient-stop-2',
+        };
+        this.appendGradient(upperGradientParams);
+        upperDataset.forEach(item => {
+            this.appendArea(item, `fill: url(#${upperGradientParams.id})`);
+        });
+
+        const lowerGradientParams: {
+            id: string,
+            class1: string,
+            class2: string,
+        } = {
+            id: 'line-lower-deviation-gradient',
+            class1: 'line-lower-deviation-gradient-stop-1',
+            class2: 'line-lower-deviation-gradient-stop-2',
+        };
+        this.appendGradient(lowerGradientParams);
+        lowerDataset.forEach(item => {
+            this.appendArea(item, `fill: url(#${lowerGradientParams.id})`);
+        });
+    }
+
+    private appendArea(dataset: {date: Date, y1: number, y0: number}[], style: string): void {
+        const area = d3.area()
+            .x(d => d.date)
+            .y1(d => d.y1)
+            .y0(d => d.y0);
+
+        this.g.append('path')
+            .datum(dataset)
+            .attr('style', `${style}`)
+            .attr('d', area);
+    }
+
+    private appendGradient(
+        params: {
+            id: string,
+            class1: string,
+            class2: string,
+        }
+        ): void {
+        const grad = this.g.append('defs').append('linearGradient')
+            .attr('id', `${params.id}`)
+            .attr('x1', '0%')
+            .attr('x2', '0%')
+            .attr('y1', '0%')
+            .attr('y2', '100%');
+
+        grad.append('stop')
+            .attr('offset', `0%`)
+            .attr('class', `${params.class1}`);
+
+        grad.append('stop')
+            .attr('offset', `100%`)
+            .attr('class', `${params.class2}`);
     }
 
     // private drawLimitsDeviationAreas(upperLimit, lowerLimit, fact) {

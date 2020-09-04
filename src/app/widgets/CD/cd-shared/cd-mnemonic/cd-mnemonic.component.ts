@@ -53,6 +53,7 @@ export class CdMnemonicComponent implements OnInit {
         this.drawCircle();
         this.engUnits = true;
         this.drawValue();
+        this.drawEngUnits();
     }
 
     drawModal(
@@ -185,8 +186,8 @@ export class CdMnemonicComponent implements OnInit {
                 y,
                 +el?.deviation.toFixed(),
                 el?.description,
-                +el?.modelValue.toFixed(),
                 +el?.value.toFixed(),
+                +el?.modelValue.toFixed(),
                 el?.engUnits
             );
         }
@@ -261,7 +262,6 @@ export class CdMnemonicComponent implements OnInit {
                 engUnit.addEventListener('click',
                     () => {
                         this.addLineChart(+id);
-                        // console.log(id);
                     });
                 const valueEngUnits = this.data.find((val) => val.id === +id)?.engUnits;
                 if (valueEngUnits) {

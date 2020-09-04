@@ -6,6 +6,7 @@ import {
     SimpleChanges, ViewChild
 } from '@angular/core';
 import * as d3 from 'd3';
+import { AsyncRender } from '@shared/functions/async-render.function';
 
 export interface IBarDiagramData {
     day: number;

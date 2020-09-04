@@ -40,6 +40,8 @@
   justify-content: space-between;
   padding: 15px;
   height: 100%;
+  width: 100%;
+  background-color: var(--color-sou-bg);
 
   &__labels {
     margin-right: 15px;
@@ -76,7 +78,7 @@
             margin-right: 15px;
 
             &::ng-deep {
-              fill: var(--color-text-main) !important;
+              //fill: var(--color-text-main) !important;
             }
           }
 

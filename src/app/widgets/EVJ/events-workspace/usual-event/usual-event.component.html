@@ -28,7 +28,7 @@
           [compareWith]="compareFn"
         >
           <mat-option *ngFor="let p of ewService.priority" [value]="p"
-            >{{ ewService.priorities[p.name] }}
+          >{{ ewService.priorities[p.name] }}
           </mat-option>
         </mat-select>
       </mat-form-field>
@@ -62,7 +62,7 @@
                   [compareWith]="compareFn"
                 >
                   <mat-option *ngFor="let p of ewService.status" [value]="p"
-                    >{{ ewService.statuses[p.name] }}
+                  >{{ ewService.statuses[p.name] }}
                   </mat-option>
                 </mat-select>
               </mat-form-field>
@@ -79,7 +79,7 @@
                     [compareWith]="compareFn"
                   >
                     <mat-option *ngFor="let p of ewService.equipmentCategory" [value]="p"
-                      >{{ p.name }}
+                    >{{ p.name }}
                     </mat-option>
                   </mat-select>
                 </mat-form-field>
@@ -98,7 +98,7 @@
                   [compareWith]="compareFn"
                 >
                   <mat-option *ngFor="let p of ewService.eventTypes" [value]="p"
-                    >{{ p.name }}
+                  >{{ p.name }}
                   </mat-option>
                 </mat-select>
               </mat-form-field>
@@ -170,8 +170,10 @@
             Автор
           </div>
           <div class="creator_body">
-            {{this.ewService.event.fixedBy?.displayName ? this.ewService.event.fixedBy?.displayName
-            : 'Не установлен'}}
+            {{
+            this.ewService.event.fixedBy?.displayName ?
+              this.ewService.event.fixedBy?.displayName === 'SynchronizableAf S. S.' ?
+                'Система' : this.ewService.event.fixedBy?.displayName : 'Не установлен' }}
           </div>
         </div>
         <div class="deadline">
@@ -216,12 +218,12 @@
     <mat-label>Подкатегория</mat-label>
     <mat-select
       panelClass="mat-select-custom"
-      [(ngModel)]="ewService.event.productionTasks.subcategory"
+      [(ngModel)]="ewService.event.productionTasks.subCategory"
       [compareWith]="compareFn"
     >
       <mat-option [value]="undefined">Не выбрана</mat-option>
-      <mat-option *ngFor="let p of ewService.subcategory" [value]="p"
-        >{{ ewService.subCategories[p.id] }}
+      <mat-option *ngFor="let p of ewService.subCategory" [value]="p"
+      >{{ p.description }}
       </mat-option>
     </mat-select>
   </mat-form-field>

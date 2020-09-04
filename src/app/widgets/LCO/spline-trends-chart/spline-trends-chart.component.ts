@@ -3,14 +3,11 @@ import {
     OnInit,
     Inject,
     OnDestroy,
-    HostListener,
-    ElementRef,
-    ViewChild, AfterViewInit
+    AfterViewInit
 } from '@angular/core';
 import { WidgetPlatform } from '../../../dashboard/models/widget-platform';
 import { WidgetService } from '../../../dashboard/services/widget.service';
 import {
-    ISplineDiagramSize,
     ISplineDiagramData
 } from './components/spline-diagram/spline-diagram.component';
 
@@ -20,17 +17,10 @@ import {
     styleUrls: ['./spline-trends-chart.component.scss']
 })
 export class SplineTrendsChartComponent extends WidgetPlatform implements OnInit, OnDestroy, AfterViewInit {
+
     public data: ISplineDiagramData;
 
-    @ViewChild('chart')
-    public chartElement: ElementRef;
-
-    @HostListener('document:resize', ['$event'])
-    public OnResize(): void {
-        this.getChartAreaSize();
-    }
-
-    public size: ISplineDiagramSize = { width: null, height: null };
+    public displayedMonth: Date;
 
     constructor(
         public widgetService: WidgetService,
@@ -46,7 +36,6 @@ export class SplineTrendsChartComponent extends WidgetPlatform implements OnInit
 
     public ngAfterViewInit(): void {
         super.widgetInit();
-        this.getChartAreaSize();
     }
 
     private fillArray(data: { x: number, y: number }[], count: number): { x: number, y: number }[] {
@@ -87,40 +76,61 @@ export class SplineTrendsChartComponent extends WidgetPlatform implements OnInit
         return dataArray;
     }
 
-    private getChartAreaSize(): void {
-        this.size = {
-            width: this.chartElement.nativeElement.clientWidth,
-            height: this.chartElement.nativeElement.clientHeight
-        };
-    }
-
     private processData(ref: any): ISplineDiagramData {
+        function splitHandler(field: {value: number, timeStamp: Date}[]): {value: number, timeStamp: Date}[][] {
+            let tempArr = [];
+            const resultArr = [];
+            let month: number = new Date(field[0].timeStamp).getMonth();
+            for (let i = 0; i <= field.length; i++) {
+                const itemMonth = new Date(field[i]?.timeStamp).getMonth();
+                if (field[i]?.timeStamp && (field[i]?.value || field[i]?.value === 0)) {
+                    tempArr.push({
+                        timeStamp: field[i]?.timeStamp,
+                        value: field[i]?.value,
+                    });
+                }
+                if (month !== itemMonth || i === field.length) {
+                    resultArr.push(tempArr);
+                    tempArr = [];
+                }
+                month = new Date(field[i]?.timeStamp).getMonth();
+            }
+            return resultArr;
+        }
+
         function fieldHandler(field: {value: number, timeStamp: Date}[]): {x: number, y: number}[] {
-            field = field.filter(el => new Date(el.timeStamp).getMonth() === new Date().getMonth());
-            return field?.map(el => {return {
+            // field = field.filter(el => new Date(el.timeStamp).getMonth() === new Date().getMonth());
+            const fieldNew = field?.map(el => {return {
                 x: new Date(el.timeStamp).getDate(),
                 y: el.value,
             }; });
+            return [...new Map(fieldNew.map(item => [item.x, item])).values()];
         }
+
+        this.displayedMonth = splitHandler(ref?.fact)[0][0].timeStamp;
+        const numOfDays = this.getNumOfDays(this.displayedMonth);
+
         const result = {
             deviationValue: ref.deviationValue ?? 0,
             planValue: 0,
-            fact: fieldHandler(ref.fact),
-            plan: fieldHandler(ref.plan),
-            lowBound: fieldHandler(ref.lowerBound),
-            highBound: fieldHandler(ref.upperBound),
+            fact: fieldHandler(splitHandler(ref?.fact)[0]),
+            plan: fieldHandler(splitHandler(ref?.plan)[0]),
+            lowBound: fieldHandler(splitHandler(ref?.lowerBound)[0]),
+            highBound: fieldHandler(splitHandler(ref?.upperBound)[0]),
         };
-        result.highBound = this.fillArray(result.highBound, 31);
-        result.lowBound = this.fillArray(result.lowBound, 31);
-        result.plan = this.fillArray(result.plan, 31);
+        result.highBound = this.fillArray(result.highBound, numOfDays);
+        result.lowBound = this.fillArray(result.lowBound, numOfDays);
+        result.plan = this.fillArray(result.plan, numOfDays);
         result.planValue = result.plan[result.plan.length - 1].y;
         return result;
     }
 
+    private getNumOfDays(timeStamp: Date): number {
+        return new Date((new Date(timeStamp)).getFullYear(), (new Date(timeStamp)).getMonth() + 1, 0).getDate();
+    }
+
     protected dataHandler(ref: any): void {
         this.data = this.processData(ref);
-        console.log(ref);
-        console.log(this.data);
     }
 
     public ngOnDestroy(): void {

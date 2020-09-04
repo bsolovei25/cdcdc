@@ -13,14 +13,14 @@
   <script src="assets/libs/ckeditor/ckeditor.js"></script>
   <script>
     function UnityListener() {
-      var funName = arguments[0];
-      var dictParams = {};
+      const funName = arguments[0];
+      const dictParams = {};
       for (let i in arguments) {
         if (i != 0) {
           dictParams["param" + i.toString()] = arguments[i];
         }
       }
-      var event = new CustomEvent(funName, { detail: dictParams });
+      const event = new CustomEvent(funName, { detail: dictParams });
       document.dispatchEvent(event);
     }
   </script>

@@ -96,7 +96,12 @@ export class AstueOnpzMultiChartComponent implements OnChanges {
         this.svg
             .attr('width', '100%')
             .attr('height', '100%')
-            .attr('viewBox', `0 0 ${this.graphMaxX > 0 ? this.graphMaxX : 0} ${this.graphMaxY > 5 ? this.graphMaxY - 5 : 0}`);
+            .attr(
+                'viewBox',
+                `0 0 ${this.graphMaxX > 0 ? this.graphMaxX : 0} ${
+                    this.graphMaxY > 5 ? this.graphMaxY - 5 : 0
+                }`
+            );
     }
 
     private findMinMax(): void {
@@ -350,6 +355,7 @@ export class AstueOnpzMultiChartComponent implements OnChanges {
                     val: chart.graph[chart.graph.length - 1],
                     color: lineColors[chart.graphType],
                     units: chart.units ?? '',
+                    iconType: chart.graphType,
                 });
             }
             x = chart.transformedGraph[chart.transformedGraph.length - 1].x;
@@ -437,14 +443,14 @@ export class AstueOnpzMultiChartComponent implements OnChanges {
             const cardWidth = this.axisYWidth * 2;
             const cardHeigh = this.axisYWidth * 0.5;
 
-            values.forEach((val, idx) => {
+            values.forEach((val) => {
                 const rect = g.append('g').attr('class', 'val');
                 const bg = rect
                     .append('g')
                     .attr('class', 'bg')
                     .style('opacity', 0.25);
 
-                start += step + cardHeigh * idx;
+                start += step + cardHeigh;
 
                 bg.append('rect')
                     .attr('x', x + step)
@@ -467,7 +473,7 @@ export class AstueOnpzMultiChartComponent implements OnChanges {
                 rect.append('image')
                     .attr(
                         'xlink:href',
-                        'assets/icons/widgets/ASTUE-ONPZ/astue-onpz-conventional-fuel/pressure.svg'
+                        `assets/icons/widgets/ASTUE-ONPZ/astue-onpz-conventional-fuel/${val.iconType}.svg`
                     )
                     .attr('x', x + step * 1.7)
                     .attr('y', start + step * 0.7)

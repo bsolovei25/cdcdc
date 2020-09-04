@@ -1,7 +1,7 @@
 <div class="oil_block_inter_info" [class.oil_block_inter_info_short]="checkWidth">
     <div class="row" [class.row_short]="checkWidth">
         <div class="row__page">
-            <evj-paginator [perPage]="1" [currentPage]="currentPage" [criticalPage]="criticalPage"
+            <evj-paginator [perPage]="1" [currentPage]="activeOperationValue" [criticalPage]="criticalPage"
                 [totalCount]="this.maxPage" [aroundCount]="1" (changePage)="onNextOperation($event)">
             </evj-paginator>
         </div>
@@ -14,15 +14,15 @@
                 </svg>
             </div>
             <div style="margin-left: 5px">
-                {{data?.operations[currentPage - 1]?.timeStart  | date: 'HH:mm:ss'}} -
-                {{data?.operations[currentPage - 1]?.timeEnd  | date: 'HH:mm:ss'}}
+                {{data?.operations[activeOperationValue - 1]?.timeStart  | date: 'HH:mm:ss'}} -
+                {{data?.operations[activeOperationValue - 1]?.timeEnd  | date: 'HH:mm:ss'}}
             </div>
         </div>
         <div class="row__name_value_debalance" [class.row__name_value_debalance_short]="checkWidth">
             Дебаланс:
         </div>
         <div class="row__value_oil_debalance">
-            <ng-container *ngFor="let item of data?.operations[currentPage - 1]?.tankValues">
+            <ng-container *ngFor="let item of data?.operations[activeOperationValue - 1]?.tankValues">
                 <ng-container *ngIf="item.name === 'Дебаланс'">
                     <div [class.critical]="item.status === 'critical'" [class.default]="item.status === 'default'">
                         {{item?.valueFirst | number:'1.0-1'}} т.
@@ -35,7 +35,7 @@
         </div>
     </div>
     <div class="row" [class.row_short]="checkWidth">
-        <ng-container *ngFor="let item of data?.operations[currentPage - 1]?.tankValues">
+        <ng-container *ngFor="let item of data?.operations[activeOperationValue - 1]?.tankValues">
             <ng-container *ngIf="item.name === 'Отгружено по резервуару'">
                 <div class="row__name_value" [class.row__name_value_short]="checkWidth">
                     Отгружено по резервуару:
@@ -65,7 +65,7 @@
         </ng-container>
     </div>
     <div class="row" [class.row_short]="checkWidth">
-        <ng-container *ngFor="let item of data?.operations[currentPage - 1]?.tankValues">
+        <ng-container *ngFor="let item of data?.operations[activeOperationValue - 1]?.tankValues">
             <ng-container *ngIf="item.name === 'По данным отгрузки'">
                 <div class="row__name_value" [class.row__name_value_short]="checkWidth">
                     По данными отгрузки:

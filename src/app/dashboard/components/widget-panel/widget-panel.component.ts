@@ -5,7 +5,7 @@ import {
     EventEmitter,
     Injector,
     Input,
-    ChangeDetectorRef
+    ChangeDetectorRef, AfterViewInit, AfterContentChecked
 } from '@angular/core';
 import { WidgetService } from '../../services/widget.service';
 import { UserSettingsService } from '../../services/user-settings.service';
@@ -28,7 +28,7 @@ import { trigger, transition, animate, style } from '@angular/animations';
         ])
     ]
 })
-export class WidgetPanelComponent implements OnInit {
+export class WidgetPanelComponent implements OnInit, AfterContentChecked {
     public readonly WIDGETS = WIDGETS;
     public gridWidget: boolean = true;
     public fixWidget: boolean = true;
@@ -67,7 +67,6 @@ export class WidgetPanelComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        console.log('claims');
         this.subscriptions.push(
             this.widgetService.widgetsPanel$.subscribe((dataW) => {
                 const filterWidgets: IWidget[] = [];
@@ -91,6 +90,10 @@ export class WidgetPanelComponent implements OnInit {
                 this.searchWidgetsFilter();
             })
         );
+    }
+
+    ngAfterContentChecked(): void {
+        this.chDet.detectChanges();
     }
 
     async loadItem(): Promise<void> {

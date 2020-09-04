@@ -1,12 +1,12 @@
-<div class="card">
+<div class="card" *ngIf="!!data" (click)="switchToIndicatorScreen()">
   <div class="card__header header">
     <svg-icon
       class="header__icon"
-      src="assets/icons/widgets/ASTUE-ONPZ/electro.svg"
+      src="assets/icons/widgets/ASTUE-ONPZ/{{data.iconType}}.svg"
       [svgStyle]="{ 'width.px':25, 'height.px':25}"
     ></svg-icon>
-    <div class="header__title">Электроэнергия</div>
-    <div class="header__unit">АВТ-10</div>
+    <div class="header__title">{{data.productName}}</div>
+    <div class="header__unit">{{data.unitName}}</div>
     <svg-icon
       class="header__icon"
       src="assets/icons/widgets/ASTUE-ONPZ/fullscreen.svg"
@@ -16,18 +16,18 @@
   </div>
   <div class="card-border">
     <div class="card__legend legend">
-      <div class="legend__units">Ед. измерения</div>
+      <div class="legend__units">{{data.units}}</div>
       <div class="legend__value value plan">
         <div class="value__title">План</div>
-        <div class="value__card">500</div>
+        <div class="value__card">{{data.currentPlanValue}}</div>
       </div>
       <div class="legend__value value">
         <div class="value__title">Факт</div>
-        <div class="value__card">500</div>
+        <div class="value__card">{{data.currentFactValue}}</div>
       </div>
     </div>
     <div class="card__chart">
-      <evj-limits-chart [data]="data"></evj-limits-chart>
+      <evj-limits-chart [data]="data.graphs"></evj-limits-chart>
     </div>
   </div>
 </div>

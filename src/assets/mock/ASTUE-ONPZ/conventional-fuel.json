@@ -1,0 +1,190 @@
+[
+    {
+        "graphType": "plan",
+        "graph": [
+            {
+                "value": 1000,
+                "timeStamp": "2020-01-31T21:00:00.000Z"
+            },
+            {
+                "value": 800,
+                "timeStamp": "2020-01-31T22:00:00.000Z"
+            },
+            {
+                "value": 1200,
+                "timeStamp": "2020-01-31T23:00:00.000Z"
+            },
+            {
+                "value": 1400,
+                "timeStamp": "2020-02-01T00:00:00.000Z"
+            },
+            {
+                "value": 900,
+                "timeStamp": "2020-02-01T01:00:00.000Z"
+            },
+            {
+                "value": 1200,
+                "timeStamp": "2020-02-01T02:00:00.000Z"
+            },
+            {
+                "value": 1300,
+                "timeStamp": "2020-02-01T03:00:00.000Z"
+            },
+            {
+                "value": 600,
+                "timeStamp": "2020-02-01T04:00:00.000Z"
+            }
+        ]
+    },
+    {
+        "graphType": "fact",
+        "graph": [
+            {
+                "value": 700,
+                "timeStamp": "2020-01-31T21:00:00.000Z"
+            },
+            {
+                "value": 900,
+                "timeStamp": "2020-01-31T22:00:00.000Z"
+            },
+            {
+                "value": 1500,
+                "timeStamp": "2020-01-31T23:00:00.000Z"
+            },
+            {
+                "value": 1100,
+                "timeStamp": "2020-02-01T00:00:00.000Z"
+            },
+            {
+                "value": 1200,
+                "timeStamp": "2020-02-01T01:00:00.000Z"
+            },
+            {
+                "value": 800,
+                "timeStamp": "2020-02-01T02:00:00.000Z"
+            },
+            {
+                "value": 700,
+                "timeStamp": "2020-02-01T03:00:00.000Z"
+            },
+            {
+                "value": 900,
+                "timeStamp": "2020-02-01T04:00:00.000Z"
+            }
+        ]
+    },
+    {
+        "graphType": "temperature",
+        "units": "oC",
+        "graph": [
+            {
+                "value": 1100,
+                "timeStamp": "2020-01-31T21:00:00.000Z"
+            },
+            {
+                "value": 1440,
+                "timeStamp": "2020-01-31T22:00:00.000Z"
+            },
+            {
+                "value": 1300,
+                "timeStamp": "2020-01-31T23:00:00.000Z"
+            },
+            {
+                "value": 600,
+                "timeStamp": "2020-02-01T00:00:00.000Z"
+            },
+            {
+                "value": 1100,
+                "timeStamp": "2020-02-01T01:00:00.000Z"
+            },
+            {
+                "value": 900,
+                "timeStamp": "2020-02-01T02:00:00.000Z"
+            },
+            {
+                "value": 800,
+                "timeStamp": "2020-02-01T03:00:00.000Z"
+            },
+            {
+                "value": 1300,
+                "timeStamp": "2020-02-01T04:00:00.000Z"
+            }
+        ]
+    },
+    {
+        "graphType": "heatExchanger",
+        "units": "Па",
+        "graph": [
+            {
+                "value": 500,
+                "timeStamp": "2020-01-31T21:00:00.000Z"
+            },
+            {
+                "value": 440,
+                "timeStamp": "2020-01-31T22:00:00.000Z"
+            },
+            {
+                "value": 700,
+                "timeStamp": "2020-01-31T23:00:00.000Z"
+            },
+            {
+                "value": 600,
+                "timeStamp": "2020-02-01T00:00:00.000Z"
+            },
+            {
+                "value": 800,
+                "timeStamp": "2020-02-01T01:00:00.000Z"
+            },
+            {
+                "value": 700,
+                "timeStamp": "2020-02-01T02:00:00.000Z"
+            },
+            {
+                "value": 1000,
+                "timeStamp": "2020-02-01T03:00:00.000Z"
+            },
+            {
+                "value": 900,
+                "timeStamp": "2020-02-01T04:00:00.000Z"
+            }
+        ]
+    },
+    {
+        "graphType": "pressure",
+        "units": "Па",
+        "graph": [
+            {
+                "value": 400,
+                "timeStamp": "2020-01-31T21:00:00.000Z"
+            },
+            {
+                "value": 240,
+                "timeStamp": "2020-01-31T22:00:00.000Z"
+            },
+            {
+                "value": 500,
+                "timeStamp": "2020-01-31T23:00:00.000Z"
+            },
+            {
+                "value": 450,
+                "timeStamp": "2020-02-01T00:00:00.000Z"
+            },
+            {
+                "value": 600,
+                "timeStamp": "2020-02-01T01:00:00.000Z"
+            },
+            {
+                "value": 300,
+                "timeStamp": "2020-02-01T02:00:00.000Z"
+            },
+            {
+                "value": 430,
+                "timeStamp": "2020-02-01T03:00:00.000Z"
+            },
+            {
+                "value": 500,
+                "timeStamp": "2020-02-01T04:00:00.000Z"
+            }
+        ]
+    }
+]
