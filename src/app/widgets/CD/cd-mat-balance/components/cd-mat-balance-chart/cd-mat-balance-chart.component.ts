@@ -1,6 +1,4 @@
 import {
-    AfterViewInit,
-    ChangeDetectorRef,
     Component,
     EventEmitter,
     Injector,
@@ -25,7 +23,7 @@ import { IWidget } from '../../../../../dashboard/models/widget.model';
     templateUrl: './cd-mat-balance-chart.component.html',
     styleUrls: ['./cd-mat-balance-chart.component.scss'],
 })
-export class CdMatBalanceChartComponent implements OnInit, OnDestroy, AfterViewInit {
+export class CdMatBalanceChartComponent implements OnInit, OnDestroy {
     public readonly WIDGETS = WIDGETS;
 
     private subscriptions: Subscription[] = [];
@@ -46,10 +44,7 @@ export class CdMatBalanceChartComponent implements OnInit, OnDestroy, AfterViewI
     get toggleArea(): boolean {
         return this.toggleAreaValue;
     }
-
     set toggleArea(val: boolean) {
-        console.log(val);
-
         this.toggleAreaValue = val;
         this.toggleAreaChange.emit(this.toggleAreaValue);
     }
@@ -84,11 +79,9 @@ export class CdMatBalanceChartComponent implements OnInit, OnDestroy, AfterViewI
         private cdMatBalanceService: CdMatBalanceService,
         public widgetService: WidgetService,
         public injector: Injector,
-        private chDet: ChangeDetectorRef
     ) {}
 
     ngOnInit(): void {
-        this.onStart();
         this.subscriptions.push(
             this.cdMatBalanceService.charts$.subscribe((charts) => {
                 this.allWidgets = [];
@@ -103,7 +96,6 @@ export class CdMatBalanceChartComponent implements OnInit, OnDestroy, AfterViewI
                 this.allCheckedCharts = charts;
             }),
             this.cdMatBalanceService.showDeviation.subscribe((value) => {
-                console.log(`showDeviation: `, value);
                 if (value) {
                     this.toggleAreaValue = true;
                 }
@@ -126,10 +118,6 @@ export class CdMatBalanceChartComponent implements OnInit, OnDestroy, AfterViewI
 
     ngOnDestroy(): void {
         this.subscriptions.forEach((sub) => sub.unsubscribe());
-    }
-
-    ngAfterViewInit(): void {
-        // this.getData();
     }
 
     public getInjector = (idWidget: string, uniqId: string): Injector => {
@@ -264,6 +252,7 @@ export class CdMatBalanceChartComponent implements OnInit, OnDestroy, AfterViewI
     }
 
     onClickHeader(): void {
+        this.toggleAreaValue = false;
         this.cdMatBalanceService.showDeviation.next(null);
         this.cdMatBalanceService.charts$.next([]);
     }

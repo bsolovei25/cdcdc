@@ -2,8 +2,6 @@ import { Component, Input, OnInit } from '@angular/core';
 import { IUser } from '../../../../dashboard/models/events-widget';
 import { FormControl, Validators } from '@angular/forms';
 import * as moment from 'moment';
-import { EventService } from '../../../../dashboard/services/widgets/event.service';
-import { EventsWorkspaceService } from '../../../../dashboard/services/widgets/events-workspace.service';
 
 export interface ICDModalWindow {
     users: IUser[];
@@ -11,6 +9,7 @@ export interface ICDModalWindow {
     date: Date;
     time: Date;
     establishedFacts: string;
+    allEstablishedFacts: string[];
     description: string;
     acceptText: string;
     acceptFunction?: () => void;

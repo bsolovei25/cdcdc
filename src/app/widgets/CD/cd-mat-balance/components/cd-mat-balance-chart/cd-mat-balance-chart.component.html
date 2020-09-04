@@ -1,5 +1,10 @@
 <div matRipple class="toggle-button" (click)="toggleAreaValue = !toggleAreaValue">
-<!--TODO add icon-->
+  <svg-icon
+    [svgStyle]="{ 'width.px':24, 'height.px':26 }"
+    class="toggle-button__icon"
+    [class.toggle-button__icon--rtl]="!toggleAreaValue"
+    src="assets/icons/widgets/CD/cd-mat-balance/arrow.svg"
+  ></svg-icon>
 </div>
 
 <div class="container" [class.container__open]="toggleAreaValue">
@@ -7,9 +12,7 @@
     <div class="header">
       <div class="header__interface">
         <img class="icon" src="assets/pic/diagram.svg"/>
-
         <div class="title">Анализ трендов</div>
-
         <div
           class="buttons"
           (mousedown)="$event.stopPropagation()"
