@@ -10,6 +10,7 @@ export class SouFacilityInfoComponent implements OnInit {
     @Output() openPanel: EventEmitter<boolean> = new EventEmitter<boolean>();
 
     @Input() data: ISOUSection;
+    @Input() count: number = 0;
 
     constructor() {
     }

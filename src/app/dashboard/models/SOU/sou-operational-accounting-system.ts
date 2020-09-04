@@ -57,6 +57,13 @@ export interface ISOUProduct {
     percentTank: number;
 }
 
+export interface ISOUNotificationCards {
+    date: Date;
+    id: string;
+    message: string;
+    tag: string;
+}
+
 export interface ISOUOperationalAccountingSystem {
     name: string;
     flowIn: ISOUFlowIn[];
@@ -74,4 +81,5 @@ export interface ISOUOperationalAccountingSystem {
     widgetType: string;
     deltaByPersent: number;
     balanceAllowByPercent: number;
+    notificationCards: ISOUNotificationCards[];
 }

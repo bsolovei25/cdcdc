@@ -1,31 +1,9 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { ISOUInStream } from '../sou-in-streams/sou-in-streams.component';
 import {
-    ISOUFlowIn,
-    ISOUFlowOut, ISOUProduct,
+    ISOUFlowOut,
     ISOUSection
 } from '../../../../../dashboard/models/SOU/sou-operational-accounting-system';
 
-interface ISOUOutStream {
-    name: string;
-    firstValue: string;
-    accept: string;
-    instantaneousValue: ISOUValue;
-    valueInAnHour: ISOUValue;
-    accumulation: ISOUValue;
-    sevenValue: string;
-    trustLevel: string;
-    pims: string;
-    isActive: boolean;
-    deviation: boolean;
-    valueEnd: string[];
-}
-
-interface ISOUValue {
-    value: number;
-    percent: string;
-    engValue: string;
-}
 
 @Component({
     selector: 'evj-sou-out-streams',
@@ -35,8 +13,10 @@ interface ISOUValue {
 export class SouOutStreamsComponent implements OnInit {
 
     @Input() set flowOut(data: ISOUFlowOut[]) {
-        this.data = data;
-        this.getValuePercent(this.data);
+        if (data) {
+            this.data = data;
+            this.getValuePercent(this.data);
+        }
     }
 
     @Input() sections: ISOUSection[] = [];

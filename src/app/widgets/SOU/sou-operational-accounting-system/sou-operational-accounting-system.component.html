@@ -15,6 +15,7 @@
         </div>
         <div class="flex-column-container cards">
           <evj-sou-facility-info [data]="isSection"
+                                 [count]="data?.notificationCards.length"
                                  (openPanel)="togglePopupElement('deviation', true)"></evj-sou-facility-info>
           <evj-sou-balance-card
             [data]="{type: 'in', title: 'Сумма входа', sumValue: data?.summIn , perHourValue: data?.summInByHour }"></evj-sou-balance-card>
@@ -34,9 +35,11 @@
       </div>
     </div>
 
-    <evj-sou-detail-table [data]="data?.losses?.ident" (closeTable)="togglePopupElement('table', false)" class="popup-table"
+    <evj-sou-detail-table [data]="data?.losses?.ident" (closeTable)="togglePopupElement('table', false)"
+                          class="popup-table"
                           *ngIf="popupElementsStates.get('table')"></evj-sou-detail-table>
-    <evj-sou-deviation-cards (closePanel)="togglePopupElement('deviation', false)" class="popup-deviations"
+    <evj-sou-deviation-cards [data]="data?.notificationCards" (closePanel)="togglePopupElement('deviation', false)"
+                             class="popup-deviations"
                              *ngIf="popupElementsStates.get('deviation')"></evj-sou-deviation-cards>
   </div>
 </div>
