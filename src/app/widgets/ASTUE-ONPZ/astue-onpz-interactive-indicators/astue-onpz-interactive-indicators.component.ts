@@ -114,7 +114,6 @@ export class AstueOnpzInteractiveIndicatorsComponent extends WidgetPlatform
     }
 
     public toggleLabel(event: MouseEvent, key: string): void {
-        console.log('click', key);
         event.stopPropagation();
         const indicator = this.data.indicators.find((i) => i.key === key);
         if (indicator) {

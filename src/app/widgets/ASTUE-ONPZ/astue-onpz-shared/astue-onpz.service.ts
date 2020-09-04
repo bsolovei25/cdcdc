@@ -12,10 +12,25 @@ export interface IAstueOnpzMonitoringOptions {
     indicatorType: AstueOnpzConsumptionIndicatorType | null;
 }
 
+export interface IAstueOnpzMonitoringCarrierOptions {
+    manufactureName: string;
+    unitName: string;
+    itemId: string;
+    filterValues: string;
+}
+
 @Injectable({
     providedIn: 'root',
 })
 export class AstueOnpzService {
+
+    private indicatorOptions$: BehaviorSubject<IAstueOnpzMonitoringCarrierOptions> =
+        new BehaviorSubject({
+            manufactureName: null,
+            unitName: null,
+            itemId: null,
+            filterValues: null,
+    });
 
     private monitoringOptions$: BehaviorSubject<IAstueOnpzMonitoringOptions> = new BehaviorSubject({
         manufactureName: null,
@@ -24,7 +39,11 @@ export class AstueOnpzService {
         indicatorType: null,
     });
 
-    public sharedMonitoringOptions: Observable<IAstueOnpzMonitoringOptions> = this.monitoringOptions$.asObservable();
+    public sharedMonitoringOptions: Observable<IAstueOnpzMonitoringOptions> =
+        this.monitoringOptions$.asObservable();
+
+    public sharedIndicatorOptions: Observable<IAstueOnpzMonitoringCarrierOptions> =
+        this.indicatorOptions$.asObservable();
 
     constructor() { }
 
@@ -33,15 +52,17 @@ export class AstueOnpzService {
     }
 
     public updateManufactureName(manufactureNameParam: string): void {
-        this.next<string>('manufactureName', manufactureNameParam);
+        this.nextMonitoringOptions<string>('manufactureName', manufactureNameParam);
+        this.nextMonitoringCarrierOptions<string>('manufactureName', manufactureNameParam);
     }
 
     public updateUnitName(unitNameParam: string): void {
-        this.next<string>('unitName', unitNameParam);
+        this.nextMonitoringOptions<string>('unitName', unitNameParam);
+        this.nextMonitoringCarrierOptions<string>('manufactureName', unitNameParam);
     }
 
     public updateType(typeParam: AstueOnpzConsumptionIndicatorsWidgetType): void {
-        this.next<AstueOnpzConsumptionIndicatorsWidgetType>('type', typeParam);
+        this.nextMonitoringOptions<AstueOnpzConsumptionIndicatorsWidgetType>('type', typeParam);
     }
 
     public updateIndicator(
@@ -56,8 +77,11 @@ export class AstueOnpzService {
         });
     }
 
-    private next<T>(key: keyof IAstueOnpzMonitoringOptions, value: T): void {
+    private nextMonitoringOptions<T>(key: keyof IAstueOnpzMonitoringOptions, value: T): void {
         this.monitoringOptions$.next({...this.monitoringOptions$.value, ...{ [key]: value }});
-        console.log(this.monitoringOptions$);
+    }
+
+    private nextMonitoringCarrierOptions<T>(key: keyof IAstueOnpzMonitoringCarrierOptions, value: T): void {
+        this.indicatorOptions$.next({...this.indicatorOptions$.value, ...{ [key]: value }});
     }
 }

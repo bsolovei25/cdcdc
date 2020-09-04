@@ -3,6 +3,7 @@ import { WidgetPlatform } from '../../../dashboard/models/widget-platform';
 import { WidgetService } from '../../../dashboard/services/widget.service';
 import { IMultiChartLine } from '../../../dashboard/models/ASTUE-ONPZ/astue-onpz-multi-chart.model';
 import { HttpClient } from '@angular/common/http';
+import { AstueOnpzService } from '../astue-onpz-shared/astue-onpz.service';
 
 @Component({
     selector: 'evj-astue-onpz-conventional-fuel',
@@ -18,7 +19,8 @@ export class AstueOnpzConventionalFuelComponent extends WidgetPlatform
         @Inject('isMock') public isMock: boolean,
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string,
-        private http: HttpClient
+        private http: HttpClient,
+        private astueOnpzService: AstueOnpzService,
     ) {
         super(widgetService, isMock, id, uniqId);
     }

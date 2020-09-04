@@ -5,12 +5,13 @@ import { IAstueProductChart } from '../../astue-onpz-product-charts.component';
 @Component({
     selector: 'evj-astue-onpz-product-card',
     templateUrl: './astue-onpz-product-card.component.html',
-    styleUrls: ['./astue-onpz-product-card.component.scss'],
+    styleUrls: ['./astue-onpz-product-card.component.scss']
 })
 export class AstueOnpzProductCardComponent implements OnChanges, OnInit {
     @Input() public data: IAstueProductChart;
 
-    constructor() {}
+    constructor() {
+    }
 
     ngOnChanges(): void {
         this.data?.graphs?.forEach((item) => {
@@ -20,5 +21,10 @@ export class AstueOnpzProductCardComponent implements OnChanges, OnInit {
         });
     }
 
-    ngOnInit(): void {}
+    ngOnInit(): void {
+    }
+
+    public switchToIndicatorScreen(): void {
+        console.log(this.data.itemId);
+    }
 }

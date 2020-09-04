@@ -8,6 +8,7 @@ export interface IAstueProductChart {
     productName: string;
     unitName: string;
     iconType: string;
+    itemId: string;
     units: string;
     currentPlanValue: number;
     currentFactValue: number;
@@ -49,7 +50,7 @@ export class AstueOnpzProductChartsComponent extends WidgetPlatform implements O
         super.ngOnDestroy();
     }
 
-    protected dataHandler(ref: any): void {
+    protected dataHandler(ref: {graphs: IAstueProductChart[]}): void {
         if (ref?.graphs?.length > 0) {
             this.data = ref.graphs;
         } else {
