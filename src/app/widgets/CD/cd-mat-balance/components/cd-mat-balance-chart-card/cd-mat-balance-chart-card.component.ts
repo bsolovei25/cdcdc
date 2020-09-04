@@ -12,7 +12,7 @@ import {
 import { WidgetPlatform } from '../../../../../dashboard/models/widget-platform';
 import {
     ISplineDiagramData,
-    ISplineDiagramSize,
+    ISplineDiagramSize
 } from '../../../../LCO/spline-trends-chart/components/spline-diagram/spline-diagram.component';
 import { WidgetService } from '../../../../../dashboard/services/widget.service';
 import { CdMatBalanceService } from '../../../../../dashboard/services/widgets/CD/cd-mat-balance.service';
@@ -37,7 +37,7 @@ export interface IMatBalanceChartCard {
 @Component({
     selector: 'evj-cd-mat-balance-chart-card',
     templateUrl: './cd-mat-balance-chart-card.component.html',
-    styleUrls: ['./cd-mat-balance-chart-card.component.scss'],
+    styleUrls: ['./cd-mat-balance-chart-card.component.scss']
 })
 export class CdMatBalanceChartCardComponent extends WidgetPlatform
     implements OnInit, OnDestroy, AfterViewInit {
@@ -67,7 +67,6 @@ export class CdMatBalanceChartCardComponent extends WidgetPlatform
         super.widgetInit();
         this.subscriptions.push(
             this.cdMatBalanceService.hc$.subscribe((hoursCount) => {
-                console.log('hoursCount: ', hoursCount);
                 this.hoursCount = hoursCount;
             })
         );
@@ -76,7 +75,7 @@ export class CdMatBalanceChartCardComponent extends WidgetPlatform
     public ngAfterViewInit(): void {
         this.size = {
             width: this.chartElement.nativeElement.offsetWidth,
-            height: this.chartElement.nativeElement.offsetHeight,
+            height: this.chartElement.nativeElement.offsetHeight
         };
         this.cdRef.detectChanges();
     }
@@ -96,14 +95,14 @@ export class CdMatBalanceChartCardComponent extends WidgetPlatform
         const plan: { value: number; timestamp: Date }[] = data.modelValueGraphs.map((item) => {
             return {
                 value: item.value ?? 0,
-                timestamp: new Date(item.date),
+                timestamp: new Date(item.date)
             };
         });
 
         const fact: { value: number; timestamp: Date }[] = data.valueGraphs.map((item) => {
             return {
                 value: item.value ?? 0,
-                timestamp: new Date(item.date),
+                timestamp: new Date(item.date)
             };
         });
 
@@ -115,7 +114,7 @@ export class CdMatBalanceChartCardComponent extends WidgetPlatform
             highBound: [],
             lowBound: [],
             fact: this.transformData(fact),
-            plan: this.transformData(plan),
+            plan: this.transformData(plan)
         };
 
         this.data = data;
@@ -140,7 +139,7 @@ export class CdMatBalanceChartCardComponent extends WidgetPlatform
         const resultArray: { x: number; y: number }[] = normArray.map((el) => {
             return {
                 y: el.value,
-                x: (el.timestamp.getTime() - normArray[0].timestamp.getTime()) / (60 * 60 * 1000),
+                x: (el.timestamp.getTime() - normArray[0].timestamp.getTime()) / (60 * 60 * 1000)
             };
         });
         return resultArray;
