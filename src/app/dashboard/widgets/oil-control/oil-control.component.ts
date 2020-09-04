@@ -4,6 +4,7 @@ import { EventEmitter } from '@angular/core';
 import { OilControls, OilProducts } from '../../models/oil-control';
 import { WidgetPlatform } from '../../models/widget-platform';
 import { HttpClient } from '@angular/common/http';
+import { fillDataShape } from '@shared/common-functions';
 
 export interface IOilControlCoords {
     x: number;
@@ -137,6 +138,9 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, OnDes
 
     public saveDataStorage: any = [];
 
+    // Костыль
+    public tempData: OilProducts[] = [];
+
     public checkSocket: boolean = false;
 
     public test: boolean = false;
@@ -145,7 +149,7 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, OnDes
 
     private toggleIntervalTimer: any = null;
 
-    private readonly defaultTimeInSec: number = 15;
+    private readonly defaultTimeInSec: number = 3;
 
     tankersName = {
         shipAvto: 'Авто',
@@ -209,6 +213,8 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, OnDes
     drawOilControlSocket(ref): void {
         this.checkSocket = true;
         this.data = ref.products;
+        this.tempData = ref.products.map(p => fillDataShape(p));
+        console.log(ref.products);
         if (this.svgMenu) {
             this.clearProduct();
             this.tankersPicture.remove();
@@ -1105,11 +1111,11 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, OnDes
     }
 
     private nextProduct(): void {
-        let curIdx = this.data.findIndex(x => x.name === this.savePositionProduct);
+        let curIdx = this.tempData.findIndex(x => x.name === this.savePositionProduct);
         console.log(`product: ${curIdx}`);
-        let product = this.data[++curIdx]?.name;
+        let product = this.tempData[++curIdx]?.name;
         if (!product) {
-            product = this.data[0]?.name;
+            product = this.tempData[0]?.name;
         }
         this.onButtonChangeProduct(product);
         this.countClickChangeStorage = 0;
@@ -1119,7 +1125,8 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, OnDes
     }
 
     private nextStorage(): boolean {
-        const currentProduct = this.data.find(x => x.name === this.savePositionProduct);
+        console.log(this.tempData);
+        const currentProduct = this.tempData.find(x => x.name === this.savePositionProduct);
         if (!currentProduct) {
             return false;
         }
