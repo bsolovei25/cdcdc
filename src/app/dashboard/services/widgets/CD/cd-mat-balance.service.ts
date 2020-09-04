@@ -4,6 +4,7 @@ import { EventsWidgetNotification } from '../../../models/events-widget';
 import { HttpClient } from '@angular/common/http';
 import { IScheduleShiftDay } from '../../../models/admin-shift-schedule';
 import { AppConfigService } from '../../../../services/appConfigService';
+import { IAllEstablishedFacts } from '../../../../widgets/CD/cd-mat-balance/cd-mat-balance.component';
 
 @Injectable({
     providedIn: 'root'
@@ -23,10 +24,10 @@ export class CdMatBalanceService {
         this.restUrl = configService.restUrl;
     }
 
-    async getEstablishedFactsArray(): Promise<string[]> {
+    async getEstablishedFactsArray(): Promise<IAllEstablishedFacts[]> {
         return this.http
-            .get<string[]>(
-                this.restUrl + `/api/schedule-shifts/unit/`
+            .get<IAllEstablishedFacts[]>(
+                this.restUrl + `/api/notification-reference/establishedfacts`
             )
             .toPromise();
     }

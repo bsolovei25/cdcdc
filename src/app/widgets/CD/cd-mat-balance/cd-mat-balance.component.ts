@@ -78,6 +78,12 @@ export interface IModalDeviation {
     top: number;
 }
 
+export interface IAllEstablishedFacts {
+    code: string;
+    id: number;
+    name: string;
+}
+
 @Component({
     selector: 'evj-cd-mat-balance',
     templateUrl: './cd-mat-balance.component.html',
@@ -87,7 +93,6 @@ export class CdMatBalanceComponent extends WidgetPlatform implements OnInit, OnD
     data: IMatBalance;
     openEvent: EventsWidgetNotification = this.cdMatBalanceService.isOpenEvent$.getValue();
     modal: ICDModalWindow;
-    allEstablishedFacts: string[] = [];
 
     public items: INavItem[] = [
         {
@@ -109,7 +114,7 @@ export class CdMatBalanceComponent extends WidgetPlatform implements OnInit, OnD
                                     time: new Date(),
                                     description: `Корректирующие мероприятие: ${this.openEvent.description}`,
                                     establishedFacts: '',
-                                    allEstablishedFacts: this.allEstablishedFacts,
+                                    allEstablishedFacts: [],
                                     responsible: null,
                                     acceptFunction: () => {
                                         this.saveEvents(
@@ -180,12 +185,7 @@ export class CdMatBalanceComponent extends WidgetPlatform implements OnInit, OnD
         }
     }
 
-    async getDropDownFacts(): Promise<void> {
-        try {
-            this.allEstablishedFacts = await this.cdMatBalanceService.getEstablishedFactsArray();
-        } catch (err) {
-        }
-    }
+
 
     async saveEvents(
         responsibleOperator: IUser,

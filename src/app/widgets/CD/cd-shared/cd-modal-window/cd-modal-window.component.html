@@ -90,10 +90,10 @@
               <div class="input__container">
                 <p class="input__container__title">Установленные факты:</p>
                 <mat-form-field class="input__container__form mat-select-custom">
-                  <mat-select value="ewService.event.asusEvent.category" [compareWith]="compareFn"
-                              [(value)]="info.responsible">
-                    <mat-option *ngFor="let user of info?.users" [value]="user">
-                      {{ user.positionDescription }}
+                  <mat-select value="ewService.event.asusEvent.category"
+                              [(value)]="info.establishedFacts">
+                    <mat-option *ngFor="let fact of allEstablishedFacts" [value]="fact.name">
+                      {{ fact.name }}
                     </mat-option>
                   </mat-select>
                 </mat-form-field>
