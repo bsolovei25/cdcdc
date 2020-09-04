@@ -8,6 +8,22 @@ interface IAstueOnpzInteractiveIndicators {
     allIndicators: { id: number; name: string; icon: string, colorIndex: number }[];
 }
 
+interface IAstueOnpzIndicatorData {
+    indicators: IAstueOnpzInteractiveIndicator[];
+    deviationValue: number;
+    factValue: number;
+    planValue: number;
+}
+
+interface IAstueOnpzInteractiveIndicator {
+    key: string;
+    value: string;
+    icon: string;
+    colorIndex: number;
+    isActive: boolean;
+    isChoosing: boolean;
+}
+
 @Component({
     selector: 'evj-astue-onpz-interactive-indicators',
     templateUrl: './astue-onpz-interactive-indicators.component.html',
@@ -15,73 +31,20 @@ interface IAstueOnpzInteractiveIndicators {
 })
 export class AstueOnpzInteractiveIndicatorsComponent extends WidgetPlatform
     implements OnInit, OnDestroy {
-    @Input() data: IAstueOnpzInteractiveIndicators = {
-        labels: [
-            {
-                id: 1,
-                name: 'Плановое значение',
-                icon: '',
-                colorIndex: 17
-            },
-            {
-                id: 2,
-                name: 'Фактическое значение',
-                icon: '',
-                colorIndex: 0
-            },
-            {
-                id: 3,
-                name: 'Tемпература',
-                icon: 'temperature',
-                colorIndex: 15
-            },
-            {
-                id: 4,
-                name: 'Давления',
-                icon: 'pressure',
-                colorIndex: 4
-            },
-            {
-                id: 5,
-                name: 'Температура после теплообменника',
-                icon: 'temperature-after',
-                colorIndex: 2
-            },
-            {
-                id: 6,
-                name: 'Объем',
-                icon: 'volume',
-                colorIndex: 7
-            }
-        ],
-        indicators: [
-            {
-                name: 'Плановое значение',
-                value: 1100
-            },
-            {
-                name: 'Текущее значение',
-                value: 1500
-            },
-            {
-                name: 'Текущее отклонение',
-                value: 400
-            }
-        ],
-        allIndicators: [
-            {
-                id: 7,
-                name: 'Объем',
-                icon: 'volume',
-                colorIndex: 6
-            }
-        ]
-    };
 
-    pathSvg: string = '{{ item.icon }}.svg';
+    private readonly colorIndexCount: number = 6; // доступное количество color index
 
-    public DisabledLabels: Map<{ id: number; name: string; icon: string }, boolean>
-        = new Map<{ id: number, name: string, icon: string }, boolean>();
+    public data: IAstueOnpzIndicatorData = null;
+
+    public selectValue: string = null;
+
+    get currentIndicators(): IAstueOnpzInteractiveIndicator[] {
+        return this.data?.indicators?.filter((i) => i.isActive) ?? [];
+    }
+
+    get restIndicators(): IAstueOnpzInteractiveIndicator[] {
+        return this.data?.indicators?.filter((i) => !i.isActive) ?? [];
+    }
 
     constructor(
         protected widgetService: WidgetService,
@@ -100,24 +63,66 @@ export class AstueOnpzInteractiveIndicatorsComponent extends WidgetPlatform
         super.ngOnDestroy();
     }
 
-    public LabelClick(element: { id: number; name: string; icon: string }): void {
-        const value = this.DisabledLabels?.get(element) ?? false;
-        this.DisabledLabels.set(element, !value);
-    }
-
     protected dataHandler(ref: any): void {
-        console.log(ref);
+        const indicators: IAstueOnpzInteractiveIndicator[] = [];
+        let colorIndex = 0;
+        for (const i in ref.indicators) {
+            indicators.push({
+                key: i,
+                value: ref.indicators[i],
+                icon: this.getIconByKey(i),
+                colorIndex,
+                isActive: !!this.currentIndicators?.find((ind) => ind.key === i),
+                isChoosing: !!this.currentIndicators?.find((ind) =>
+                    ind.key === i && ind.isChoosing),
+            } as IAstueOnpzInteractiveIndicator);
+            if (++colorIndex > this.colorIndexCount - 1) {
+                colorIndex = 0;
+            }
+        }
+        ref.indicators = indicators;
+        this.data = ref;
     }
 
-    deleteLabel(event: MouseEvent, id: number): void {
-        event.stopPropagation();
-        const idx = this.data.labels.findIndex(value => value.id === id);
-        if (idx > -1) {
-            this.data.labels.splice(idx, 1);
+    private getIconByKey(key: string): string {
+        if (key.toLowerCase().includes('press')) {
+            return 'pressure';
+        } else if (key.toLowerCase().includes('volume')) {
+            return 'volume';
+        } else if (key.toLowerCase().includes('temp')) {
+            return 'temperature';
+        }
+        return '';
+    }
+
+    public chooseIndicator(key: string): void {
+        this.selectValue = null;
+        const indicator = this.data.indicators.find((i) => i.key === key);
+        if (indicator) {
+            indicator.isActive = true;
+            indicator.isChoosing = true;
         }
     }
 
-    getPathSvg(icon: string): string {
+    public deleteLabel(event: MouseEvent, key: string): void {
+        event.stopPropagation();
+        const indicator = this.data.indicators.find((i) => i.key === key);
+        if (indicator) {
+            indicator.isActive = false;
+            indicator.isChoosing = false;
+        }
+    }
+
+    public toggleLabel(event: MouseEvent, key: string): void {
+        console.log('click', key);
+        event.stopPropagation();
+        const indicator = this.data.indicators.find((i) => i.key === key);
+        if (indicator) {
+            indicator.isChoosing = !indicator.isChoosing;
+        }
+    }
+
+    public getPathSvg(icon: string): string {
         if (icon) {
             return `assets/icons/widgets/ASTUE-ONPZ/interactive-indicators/${icon}.svg`;
         } else {
@@ -125,12 +130,11 @@ export class AstueOnpzInteractiveIndicatorsComponent extends WidgetPlatform
         }
     }
 
-    getColorTag(color: number): string {
+    public getColorTag(color: number): string {
         return `var(--color-astue-tag-${color})`;
     }
 
-    getColorBgTag(color: number): string {
+    public getColorBgTag(color: number): string {
         return `var(--color-astue-onpz-bg-tag-${color})`;
     }
-
 }
