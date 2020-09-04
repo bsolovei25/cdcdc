@@ -3,9 +3,11 @@ import { WidgetPlatform } from '../../../dashboard/models/widget-platform';
 import { WidgetService } from '../../../dashboard/services/widget.service';
 
 interface IPredictors {
+    id: number;
     name: string;
     label: string;
-    isActive: boolean;
+    colorIndex: number;
+    isActive?: boolean;
 }
 
 @Component({
@@ -15,33 +17,7 @@ interface IPredictors {
 })
 export class AstueOnpzPredictorsComponent extends WidgetPlatform implements OnInit, OnDestroy {
 
-    data: IPredictors[] = [
-        {
-            name: 'Скорость ветра',
-            label: 'Meteo:SP',
-            isActive: true
-        },
-        {
-            name: 'Газ из Е-2 (FI103 пл лаб)',
-            label: 'AVT10:PL103_O',
-            isActive: true
-        },
-        {
-            name: 'Температура канала 1',
-            label: 'AVT10:PL103_O',
-            isActive: false
-        },
-        {
-            name: 'Скорость ветра',
-            label: 'Meteo:SP',
-            isActive: true
-        },
-        {
-            name: 'Газ из Е-2 (FI103 пл лаб)',
-            label: 'AVT10:PL103_O',
-            isActive: true
-        }
-    ];
+    data: IPredictors[] = [];
 
     constructor(
         protected widgetService: WidgetService,
@@ -60,8 +36,8 @@ export class AstueOnpzPredictorsComponent extends WidgetPlatform implements OnIn
         super.ngOnDestroy();
     }
 
-    protected dataHandler(ref: any): void {
-        // this.data = ref.chartItems;
+    protected dataHandler(ref: {predictors: IPredictors[] }): void {
+        this.data = ref.predictors;
     }
 
 }

@@ -34,7 +34,7 @@ export interface IAstueOnpzIndicator {
 export class AstueOnpzConsumptionIndicatorsComponent extends WidgetPlatform
     implements OnInit, OnDestroy, AfterViewInit {
 
-    public type: AstueOnpzConsumptionIndicatorsWidgetType;
+    public type: AstueOnpzConsumptionIndicatorsWidgetType | null = null;
 
     public activeIndicator: IAstueOnpzIndicator | null;
 
@@ -58,8 +58,12 @@ export class AstueOnpzConsumptionIndicatorsComponent extends WidgetPlatform
     }
 
     protected dataHandler(ref: IAstueOnpzConsumptionIndicators): void {
-        this.indicators = ref.indicators;
-        this.type = ref.type;
+        if (this.compare<IAstueOnpzIndicator>(this.indicators, ref.indicators)) {
+            this.indicators = ref.indicators;
+        }
+        if (this.type !== ref.type) {
+            this.type = ref.type;
+        }
     }
 
     protected dataConnect(): void {
@@ -73,6 +77,7 @@ export class AstueOnpzConsumptionIndicatorsComponent extends WidgetPlatform
                         this.activeIndicator = indicator;
                     }
                 }
+                this.widgetService.setWidgetLiveDataFromWSOptions(this.widgetId, options);
             })
         );
     }
@@ -83,5 +88,16 @@ export class AstueOnpzConsumptionIndicatorsComponent extends WidgetPlatform
 
     public setIndicator(indicator: IAstueOnpzIndicator): void {
         this.astueOnpzService.updateIndicator(indicator.type, this.type);
+    }
+
+    private compare<T>(a: T[], b: T[]): boolean {
+        let flag = true;
+        for (const property in a) {
+            if (a[property] !== b[property]) {
+                flag = false;
+                break;
+            }
+        }
+        return flag;
     }
 }
