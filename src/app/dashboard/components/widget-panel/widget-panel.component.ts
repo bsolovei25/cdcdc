@@ -77,6 +77,7 @@ export class WidgetPanelComponent implements OnInit, AfterContentChecked {
                 });
                 this.widgets$.next(filterWidgets);
                 this.filterWidgets$.next(filterWidgets);
+                this.chDet.detectChanges();
             }),
             this.claimService.claimWidgets$.subscribe((set) => {
                 this.claimSettingsWidgets = set;

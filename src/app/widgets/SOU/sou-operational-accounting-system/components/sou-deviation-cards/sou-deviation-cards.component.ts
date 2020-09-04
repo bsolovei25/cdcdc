@@ -1,13 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ISOUNotificationCards } from '../../../../../dashboard/models/SOU/sou-operational-accounting-system';
 
 type SouDeviationCardStatus = 'Новое';
-
-export interface ISouDeviationCard {
-    unit: string;
-    info: string;
-    status: SouDeviationCardStatus;
-    timestamp: Date;
-}
 
 @Component({
     selector: 'evj-sou-deviation-cards',
@@ -16,20 +10,7 @@ export interface ISouDeviationCard {
 })
 export class SouDeviationCardsComponent implements OnInit {
 
-    @Input() data: ISouDeviationCard[] = [
-        {
-            unit: 'F118',
-            info: 'Фр. ДТ "Летнее" ВСС',
-            status: 'Новое',
-            timestamp: new Date()
-        },
-        {
-            unit: 'F119',
-            info: 'Фр. ДТ "Летнее" ВСС',
-            status: 'Новое',
-            timestamp: new Date()
-        }
-    ];
+    @Input() data: ISOUNotificationCards[] = [];
 
     @Output() closePanel: EventEmitter<boolean> = new EventEmitter<boolean>();
 

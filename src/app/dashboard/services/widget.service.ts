@@ -297,6 +297,7 @@ export class WidgetService {
             case 'kpe-readiness':
             case 'kpe-quality':
             case 'kpe-safety':
+            case 'sou-operational-accounting-system':
             case 'astue-onpz-consumption-indicators':
             case 'astue-onpz-menu-structure':
             case 'astue-onpz-product-charts':
