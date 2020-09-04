@@ -149,7 +149,7 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, OnDes
 
     private toggleIntervalTimer: any = null;
 
-    private readonly defaultTimeInSec: number = 3;
+    private readonly defaultTimeInSec: number = 15;
 
     tankersName = {
         shipAvto: 'Авто',
