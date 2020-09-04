@@ -49,6 +49,7 @@ export class AstueOnpzMultiChartComponent implements OnChanges, OnDestroy {
     private readonly MIN_COEF: number = 0.3;
 
     private coefs: { [key: string]: { min: number; max: number } } = {};
+    private axisLabels: { [key: string]: number[] } = {};
 
     private readonly padding: { left: number; right: number; top: number; bottom: number } = {
         left: 0,
@@ -84,6 +85,7 @@ export class AstueOnpzMultiChartComponent implements OnChanges, OnDestroy {
     private startDrawChart(): void {
         this.initData();
         this.findMinMax();
+        this.defineAxis();
         this.defineScale();
         this.transformData();
         this.drawGridlines();
@@ -134,6 +136,7 @@ export class AstueOnpzMultiChartComponent implements OnChanges, OnDestroy {
                     max: this.MAX_COEF,
                 };
             }
+
             this.charts.push({ ...(graph as IMultiChartData) });
             const currentChart = this.charts[this.charts.length - 1];
             currentChart.maxValue = Math.round(
@@ -149,6 +152,35 @@ export class AstueOnpzMultiChartComponent implements OnChanges, OnDestroy {
         const [min, max] = d3.extent([plan.minValue, plan.maxValue, fact.minValue, fact.maxValue]);
         plan.minValue = fact.minValue = min;
         plan.maxValue = fact.maxValue = max;
+    }
+
+    private defineAxis(): void {
+        let min: number = Infinity;
+        let max: number = -Infinity;
+
+        this.charts.forEach((chart) => {
+            if (chart.graphType !== 'fact' && chart.graphType !== 'plan') {
+                this.axisLabels[chart.graphType] = this.defineAxisYLabels(
+                    chart.minValue,
+                    chart.maxValue
+                );
+            } else {
+                min = chart.minValue < min ? chart.minValue : min;
+                max = chart.maxValue > max ? chart.maxValue : max;
+            }
+        });
+
+        this.axisLabels.main = this.defineAxisYLabels(min, max);
+    }
+
+    private defineAxisYLabels(min: number, max: number, countOfSteps: number = 10): number[] {
+        const arr: number[] = [];
+        const step: number = Math.round((max - min) / countOfSteps);
+        for (let i = 1; i < 10; i++) {
+            min += step;
+            arr.push(min);
+        }
+        return arr;
     }
 
     private defineScale(): void {
@@ -279,6 +311,8 @@ export class AstueOnpzMultiChartComponent implements OnChanges, OnDestroy {
             }
             const translate: string = `translate(${left},0)`;
             left -= this.axisYWidth;
+            const height: number =
+                this.graphMaxY - this.padding.top - this.padding.bottom + this.topMargin;
             const axisY = this.svg
                 .append('g')
                 .attr('transform', translate)
@@ -289,15 +323,25 @@ export class AstueOnpzMultiChartComponent implements OnChanges, OnDestroy {
                 .attr('x', -this.axisYWidth)
                 .attr('y', this.padding.top - this.topMargin)
                 .attr('width', this.axisYWidth)
-                .attr(
-                    'height',
-                    this.graphMaxY - this.padding.top - this.padding.bottom + this.topMargin
-                );
+                .attr('height', height);
             counter++;
-            axisY
-                .call(chart.axisY)
-                .selectAll('text')
-                .attr('class', 'label');
+
+            if (chart.graphType !== 'fact') {
+                const labels = axisY.append('g').attr('class', 'labels');
+                let y: number = this.padding.top - this.topMargin + height;
+                const step: number = height / 10;
+                const currentKey: string = chart.graphType === 'plan' ? 'main' : chart.graphType;
+                this.axisLabels[currentKey].forEach((item) => {
+                    y -= step;
+                    labels
+                        .append('text')
+                        .attr('class', 'label')
+                        .attr('x', -5)
+                        .attr('y', y + 5)
+                        .attr('text-anchor', 'end')
+                        .text(item);
+                });
+            }
             const legend = axisY.append('g').attr('class', 'legend');
             const stroke = flag ? '#FFFFFF' : lineColors[chart.graphType];
             const padding = 5;
