@@ -2,8 +2,8 @@ import { Component, Input, OnInit } from '@angular/core';
 import { IUser } from '../../../../dashboard/models/events-widget';
 import { FormControl, Validators } from '@angular/forms';
 import * as moment from 'moment';
-import { EventService } from '../../../../dashboard/services/widgets/event.service';
-import { EventsWorkspaceService } from '../../../../dashboard/services/widgets/events-workspace.service';
+import { CdMatBalanceService } from '../../../../dashboard/services/widgets/CD/cd-mat-balance.service';
+import { IAllEstablishedFacts } from '../../cd-mat-balance/cd-mat-balance.component';
 
 export interface ICDModalWindow {
     users: IUser[];
@@ -11,6 +11,7 @@ export interface ICDModalWindow {
     date: Date;
     time: Date;
     establishedFacts: string;
+    allEstablishedFacts: string[];
     description: string;
     acceptText: string;
     acceptFunction?: () => void;
@@ -26,20 +27,20 @@ export class CdModalWindowComponent implements OnInit {
     @Input() public info: ICDModalWindow;
 
     users: IUser[] = [];
-
     isOpenStartDate: boolean = false;
-
     timeStart: FormControl = new FormControl(
         moment()
             .second(0)
             .minutes(0),
         [Validators.required]
     );
+    allEstablishedFacts: IAllEstablishedFacts[] = [];
 
-    constructor() {
+    constructor(private cdMatBalanceService: CdMatBalanceService) {
     }
 
     ngOnInit(): void {
+        this.getDropDownFacts();
     }
 
     public accept(): void {
@@ -68,6 +69,13 @@ export class CdModalWindowComponent implements OnInit {
 
     public dateTimePickerInput(date: Date, isStart: boolean): void {
         if (!isStart) {
+        }
+    }
+
+    async getDropDownFacts(): Promise<void> {
+        try {
+            this.allEstablishedFacts = await this.cdMatBalanceService.getEstablishedFactsArray();
+        } catch (err) {
         }
     }
 

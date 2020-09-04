@@ -1,4 +1,4 @@
-<div class="panel-container">
+<div class="panel-container" id="parentPos">
   <div class="panel_header">
     <div class="icon">
       <svg-icon
@@ -27,15 +27,17 @@
   </div>
   <div class="panel panel_content">
     <div class="scroll-container scroll-bar">
-      <ng-container *ngFor="let item of dataLocal">
+      <ng-container *ngFor="let item of dataLocal; index as idx">
         <ng-container
           *ngTemplateOutlet="itemTemplate; context: {
+            item: item,
             title: item?.name,
             percentValue: item?.percentLoad,
             value: item?.value,
             engUnits: item?.engUnits,
             id: item?.id,
-            deviation: item?.deviation
+            deviation: item?.deviation,
+            idx: idx
             }"
         ></ng-container>
       </ng-container>
@@ -44,17 +46,59 @@
   <div class="panel panel_footer"></div>
 </div>
 
-<ng-template #itemTemplate
-             let-title="title"
-             let-percentValue="percentValue"
-             let-value="value"
-             let-engUnits="engUnits"
-             let-id="id"
-             let-deviation="deviation">
-  <div class="item-container" (click)="clickItem(id, deviation)">
-    <div class="diagram-circle" [class.diagram-circle--warning]="deviation !== 0"></div>
+<ng-template
+  #itemTemplate
+  let-item="item"
+  let-title="title"
+  let-percentValue="percentValue"
+  let-value="value"
+  let-engUnits="engUnits"
+  let-deviation="deviation"
+  let-idx="idx"
+>
+  <div class="item-container"
+       (click)="deviation !== 0 ? clickItemDeviation($event, item, idx) : clickItem(item)">
+    <div class="panel_icon-overlay" *ngIf="modal?.id !== item?.id || !modal">
+      <ng-container *ngIf="deviation !== 0">
+        <ng-container *ngIf="deviation > 0">
+          <svg
+            class="svg__icon"
+            width="15"
+            height="15"
+            viewBox="0 0 15 15"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <circle cx="7.5" cy="7.5" r="7" fill="#191C2B" stroke="#F7931E"/>
+            <path d="M5.5 7L7.5 5L9.5 7" stroke="#F7931E" stroke-linecap="round"/>
+            <path d="M5.5 10L7.5 8L9.5 10" stroke="#F7931E" stroke-linecap="round"/>
+          </svg>
+        </ng-container>
+        <ng-container *ngIf="deviation < 0">
+          <svg
+            class="svg__icon"
+            width="15"
+            height="15"
+            viewBox="0 0 15 15"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <circle cx="7.5" cy="7.5" r="7" fill="#191C2B" stroke="#F7931E"/>
+            <path d="M5.5 5L7.5 7L9.5 5" stroke="#F7931E" stroke-linecap="round"/>
+            <path d="M9.5 8L7.5 10L5.5 8" stroke="#F7931E" stroke-linecap="round"/>
+          </svg>
+        </ng-container>
+      </ng-container>
+    </div>
+    <div
+      *ngIf="modal?.id !== item?.id"
+      class="diagram-circle"
+      [class.diagram-circle--warning]="deviation !== 0"
+    ></div>
     <div class="label">{{title}}</div>
-    <div class="percent-value">{{percentValue | number: "0.0-0"}}</div>
+    <div id="el-{{idx}}" *ngIf="modal?.id !== item?.id" class="percent-value">
+      {{percentValue | number: "0.0-0"}}
+    </div>
     <div class="unit-value">{{value.toFixed(1) | number: "0.1-2"}} {{ engUnits }}</div>
     <div class="vertical-line"></div>
     <div class="icon">

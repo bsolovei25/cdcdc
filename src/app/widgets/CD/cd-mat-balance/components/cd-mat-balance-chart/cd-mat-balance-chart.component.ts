@@ -1,11 +1,11 @@
 import {
-    AfterViewInit,
-    ChangeDetectorRef,
     Component,
+    EventEmitter,
     Injector,
     Input,
     OnDestroy,
     OnInit,
+    Output,
 } from '@angular/core';
 import {
     ISplineDiagramData,
@@ -23,7 +23,7 @@ import { IWidget } from '../../../../../dashboard/models/widget.model';
     templateUrl: './cd-mat-balance-chart.component.html',
     styleUrls: ['./cd-mat-balance-chart.component.scss'],
 })
-export class CdMatBalanceChartComponent implements OnInit, OnDestroy, AfterViewInit {
+export class CdMatBalanceChartComponent implements OnInit, OnDestroy {
     public readonly WIDGETS = WIDGETS;
 
     private subscriptions: Subscription[] = [];
@@ -37,10 +37,23 @@ export class CdMatBalanceChartComponent implements OnInit, OnDestroy, AfterViewI
     @Input()
     public size: ISplineDiagramSize = null;
 
+    public toggleAreaValue: boolean = false;
+    @Output() toggleAreaChange: EventEmitter<boolean> = new EventEmitter<boolean>();
+
+    @Input()
+    get toggleArea(): boolean {
+        return this.toggleAreaValue;
+    }
+    set toggleArea(val: boolean) {
+        this.toggleAreaValue = val;
+        this.toggleAreaChange.emit(this.toggleAreaValue);
+    }
+
     // выбор интервала отображаемого времени
     get hoursCount(): 8 | 24 {
         return this.cdMatBalanceService.hc$.getValue();
     }
+
     set hoursCount(param: 8 | 24) {
         this.cdMatBalanceService.hc$.next(param);
     }
@@ -66,11 +79,9 @@ export class CdMatBalanceChartComponent implements OnInit, OnDestroy, AfterViewI
         private cdMatBalanceService: CdMatBalanceService,
         public widgetService: WidgetService,
         public injector: Injector,
-        private chDet: ChangeDetectorRef
     ) {}
 
     ngOnInit(): void {
-        this.onStart();
         this.subscriptions.push(
             this.cdMatBalanceService.charts$.subscribe((charts) => {
                 this.allWidgets = [];
@@ -83,7 +94,11 @@ export class CdMatBalanceChartComponent implements OnInit, OnDestroy, AfterViewI
                     });
                 });
                 this.allCheckedCharts = charts;
-                this.chDet.detectChanges();
+            }),
+            this.cdMatBalanceService.showDeviation.subscribe((value) => {
+                if (value) {
+                    this.toggleAreaValue = true;
+                }
             }),
             combineLatest([
                 this.cdMatBalanceService.hc$,
@@ -103,11 +118,6 @@ export class CdMatBalanceChartComponent implements OnInit, OnDestroy, AfterViewI
 
     ngOnDestroy(): void {
         this.subscriptions.forEach((sub) => sub.unsubscribe());
-        // this.onStart();
-    }
-
-    ngAfterViewInit(): void {
-        // this.getData();
     }
 
     public getInjector = (idWidget: string, uniqId: string): Injector => {
@@ -242,6 +252,7 @@ export class CdMatBalanceChartComponent implements OnInit, OnDestroy, AfterViewI
     }
 
     onClickHeader(): void {
+        this.toggleAreaValue = false;
         this.cdMatBalanceService.showDeviation.next(null);
         this.cdMatBalanceService.charts$.next([]);
     }
