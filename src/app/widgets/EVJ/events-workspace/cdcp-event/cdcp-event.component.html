@@ -133,10 +133,10 @@
 
       <div class="description">
         <evj-event-description style="height: 100%"
-          [ngClass]="{'description_small':ewService.event.category.name === 'equipmentStatus'}"
-          [description]="ewService.event.description"
-          [isRetrievalEvent]="false"
-          (changedDescription)="onChangeEventDescription($event)"
+                               [ngClass]="{'description_small':ewService.event.category.name === 'equipmentStatus'}"
+                               [description]="ewService.event.description"
+                               [isRetrievalEvent]="false"
+                               (changedDescription)="onChangeEventDescription($event)"
         ></evj-event-description>
       </div>
 
@@ -169,8 +169,10 @@
             Автор
           </div>
           <div class="creator_body">
-            {{this.ewService.event.fixedBy?.displayName ? this.ewService.event.fixedBy?.displayName
-            : 'Не установлен'}}
+            {{
+            this.ewService.event.fixedBy?.displayName ?
+              this.ewService.event.fixedBy?.displayName === 'SynchronizableAf S. S.' ?
+                'Система' : this.ewService.event.fixedBy?.displayName : 'Не установлен' }}
           </div>
         </div>
         <div class="deadline">
@@ -204,9 +206,12 @@
         <evj-events-responsible-select></evj-events-responsible-select>
       </div>
       <div class="monitoring">
-        <ng-container *ngTemplateOutlet="monitoringCard; context: {label: 'Мат. баланс', type: 'material', deviationCounter: ewService.event.cdData?.deviationMatBalCount}"></ng-container>
-        <ng-container *ngTemplateOutlet="monitoringCard; context: {label: 'Тепловой баланс', type: 'warm', deviationCounter: ewService.event.cdData?.deviationTempBalCount}"></ng-container>
-        <ng-container *ngTemplateOutlet="monitoringCard; context: {label: 'Качество', type: 'quality', deviationCounter: ewService.event.cdData?.deviationQualityCount}"></ng-container>
+        <ng-container
+          *ngTemplateOutlet="monitoringCard; context: {label: 'Мат. баланс', type: 'material', deviationCounter: ewService.event.cdData?.deviationMatBalCount}"></ng-container>
+        <ng-container
+          *ngTemplateOutlet="monitoringCard; context: {label: 'Тепловой баланс', type: 'warm', deviationCounter: ewService.event.cdData?.deviationTempBalCount}"></ng-container>
+        <ng-container
+          *ngTemplateOutlet="monitoringCard; context: {label: 'Качество', type: 'quality', deviationCounter: ewService.event.cdData?.deviationQualityCount}"></ng-container>
       </div>
       <div class="events-correct">
         <evj-events-correct></evj-events-correct>

@@ -112,7 +112,7 @@ export class CdMatBalanceComponent extends WidgetPlatform implements OnInit, OnD
                                     acceptText: 'Отправить в службу КИПиА',
                                     date: new Date(),
                                     time: new Date(),
-                                    description: `Корректирующие мероприятие: ${this.openEvent.description}`,
+                                    description: this.openEvent.description,
                                     establishedFacts: '',
                                     allEstablishedFacts: [],
                                     responsible: null,
@@ -184,7 +184,6 @@ export class CdMatBalanceComponent extends WidgetPlatform implements OnInit, OnD
             this.data = ref;
         }
     }
-
 
 
     async saveEvents(
