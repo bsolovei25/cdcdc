@@ -1,4 +1,12 @@
-import { Component, ViewChild, ElementRef, HostListener, Input, OnChanges } from '@angular/core';
+import {
+    Component,
+    ViewChild,
+    ElementRef,
+    HostListener,
+    Input,
+    OnChanges,
+    AfterViewInit
+} from '@angular/core';
 import * as d3Selection from 'd3-selection';
 import * as d3 from 'd3';
 import {
@@ -6,13 +14,14 @@ import {
     ProductionTrendType,
 } from '../../../../dashboard/models/production-trends.model';
 import { IChartMini, IChartD3 } from '../../../../@shared/models/smart-scroll.model';
+import { AsyncRender } from '@shared/functions/async-render.function';
 
 @Component({
     selector: 'evj-kpe-line-chart',
     templateUrl: './kpe-line-chart.component.html',
     styleUrls: ['./kpe-line-chart.component.scss'],
 })
-export class KpeLineChartComponent implements OnChanges {
+export class KpeLineChartComponent implements OnChanges, AfterViewInit {
     @Input() private data: IProductionTrend[] = [];
 
     @ViewChild('chart', { static: true }) private chart: ElementRef;
@@ -23,6 +32,7 @@ export class KpeLineChartComponent implements OnChanges {
     }[] = [];
 
     private svg;
+    private tempSvg;
 
     private graphMaxX: number = 0;
     private graphMaxY: number = 0;
@@ -45,6 +55,10 @@ export class KpeLineChartComponent implements OnChanges {
     };
 
     constructor() {}
+
+    public ngAfterViewInit(): void {
+        setTimeout(this.OnResize.bind(this), 100);
+    }
 
     public ngOnChanges(): void {
         if (this.data && this.data.length) {
