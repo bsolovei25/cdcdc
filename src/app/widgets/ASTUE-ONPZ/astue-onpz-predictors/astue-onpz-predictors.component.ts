@@ -36,7 +36,7 @@ export class AstueOnpzPredictorsComponent extends WidgetPlatform implements OnIn
         super.ngOnDestroy();
     }
 
-    protected dataHandler(ref: {predictors: IPredictors[] }): void {
+    protected dataHandler(ref: { predictors: IPredictors[] }): void {
         this.data = ref.predictors;
     }
 

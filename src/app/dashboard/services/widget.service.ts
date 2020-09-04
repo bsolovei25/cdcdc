@@ -301,6 +301,8 @@ export class WidgetService {
             case 'astue-onpz-menu-structure':
             case 'astue-onpz-product-charts':
             case 'astue-onpz-predictors':
+            case 'astue-onpz-interactive-indicators':
+            case 'astue-onpz-conventional-fuel':
                 return data;
         }
         console.warn(`unknown widget type ${widgetType}`);
