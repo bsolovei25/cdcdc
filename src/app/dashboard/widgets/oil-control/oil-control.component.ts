@@ -141,8 +141,11 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, OnDes
 
     public test: boolean = false;
 
-
     public intervalStorage: any = null;
+
+    private toggleIntervalTimer: any = null;
+
+    private readonly defaultTimeInSec: number = 15;
 
     tankersName = {
         shipAvto: 'Авто',
@@ -163,7 +166,6 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, OnDes
 
     ngOnInit(): void {
         super.widgetInit();
-        setInterval(this.toggleInterval.bind(this), 15000);
     }
 
     ngOnDestroy(): void {
@@ -182,6 +184,12 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, OnDes
 
     protected dataHandler(ref: any): void {
         this.drawOilControlSocket(ref);
+        if (!this.toggleIntervalTimer) {
+            const updateTimeInSec =
+                (ref.updateTimeInSec ?? 0) === 0 ? this.defaultTimeInSec : ref.updateTimeInSec;
+            this.toggleIntervalTimer =
+                setInterval(this.toggleInterval.bind(this), updateTimeInSec * 1000);
+        }
     }
 
     public mapStorage(): void {
@@ -1089,7 +1097,6 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, OnDes
         if (!this.data) {
             return;
         }
-        // this.nextProduct();
         if (!this.nextOperation()) {
             if (!this.nextStorage()) {
                 this.nextProduct();
