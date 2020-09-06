@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import {
     AstueOnpzConsumptionIndicatorsWidgetType,
-    AstueOnpzConsumptionIndicatorType
+    AstueOnpzConsumptionIndicatorType,
 } from '../astue-onpz-consumption-indicators/astue-onpz-consumption-indicators.component';
 
 export interface IAstueOnpzMonitoringOptions {
@@ -20,41 +20,45 @@ export interface IAstueOnpzMonitoringCarrierOptions {
 }
 
 @Injectable({
-    providedIn: 'root'
+    providedIn: 'root',
 })
 export class AstueOnpzService {
-
-    private indicatorOptions$: BehaviorSubject<IAstueOnpzMonitoringCarrierOptions> =
-        new BehaviorSubject({
-            manufactureName: null,
-            unitName: null,
-            itemId: null,
-            filterValues: null
-        });
+    private indicatorOptions$: BehaviorSubject<
+        IAstueOnpzMonitoringCarrierOptions
+    > = new BehaviorSubject({
+        manufactureName: null,
+        unitName: null,
+        itemId: null,
+        filterValues: null,
+    });
 
     private monitoringOptions$: BehaviorSubject<IAstueOnpzMonitoringOptions> = new BehaviorSubject({
         manufactureName: null,
         unitName: null,
         type: null,
-        indicatorType: null
+        indicatorType: null,
     });
 
-    public sharedMonitoringOptions: Observable<IAstueOnpzMonitoringOptions> =
-        this.monitoringOptions$.asObservable();
+    public sharedMonitoringOptions: Observable<
+        IAstueOnpzMonitoringOptions
+    > = this.monitoringOptions$.asObservable();
 
-    public sharedIndicatorOptions: Observable<IAstueOnpzMonitoringCarrierOptions> =
-        this.indicatorOptions$.asObservable();
+    public sharedIndicatorOptions: Observable<
+        IAstueOnpzMonitoringCarrierOptions
+    > = this.indicatorOptions$.asObservable();
 
-    constructor() {
-    }
+    constructor() {}
 
     public setMonitoringOptions(options: IAstueOnpzMonitoringOptions): void {
         this.monitoringOptions$.next(options);
     }
 
     public updateIndicatorFilter(key: string, action: 'add' | 'delete'): void {
-        const filterArray = this.indicatorOptions$.getValue()
-            ?.filterValues?.split(';')?.filter((f) => f !== '') ?? [];
+        const filterArray =
+            this.indicatorOptions$
+                .getValue()
+                ?.filterValues?.split(';')
+                ?.filter((f) => f !== '') ?? [];
         switch (action) {
             case 'add':
                 filterArray.push(key);
@@ -93,10 +97,11 @@ export class AstueOnpzService {
         typeParam: AstueOnpzConsumptionIndicatorsWidgetType
     ): void {
         this.monitoringOptions$.next({
-            ...this.monitoringOptions$.value, ...{
+            ...this.monitoringOptions$.value,
+            ...{
                 indicatorType: indicatorTypeParam,
-                type: typeParam
-            }
+                type: typeParam,
+            },
         });
     }
 
@@ -104,7 +109,16 @@ export class AstueOnpzService {
         this.monitoringOptions$.next({ ...this.monitoringOptions$.value, ...{ [key]: value } });
     }
 
-    private nextMonitoringCarrierOptions<T>(key: keyof IAstueOnpzMonitoringCarrierOptions, value: T): void {
+    private nextMonitoringCarrierOptions<T>(
+        key: keyof IAstueOnpzMonitoringCarrierOptions,
+        value: T
+    ): void {
         this.indicatorOptions$.next({ ...this.indicatorOptions$.value, ...{ [key]: value } });
+    }
+
+    public dropDataStream(): void {
+        const val = this.indicatorOptions$.getValue();
+        val.filterValues = null;
+        this.indicatorOptions$.next(val);
     }
 }
