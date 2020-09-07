@@ -1,4 +1,4 @@
-import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
+import { Component, Inject, OnDestroy, OnInit, Renderer2 } from '@angular/core';
 import { WidgetPlatform } from '../../../dashboard/models/widget-platform';
 import { WidgetService } from '../../../dashboard/services/widget.service';
 import { CdMatBalanceService } from '../../../dashboard/services/widgets/CD/cd-mat-balance.service';
@@ -8,8 +8,7 @@ import { UserSettingsService } from '../../../dashboard/services/user-settings.s
 import { EventsWorkspaceService } from '../../../dashboard/services/widgets/events-workspace.service';
 import {
     EventsWidgetNotification,
-    ISaveMethodEvent,
-    IUser,
+    IUser
 } from '../../../dashboard/models/events-widget';
 import { EventService } from '../../../dashboard/services/widgets/event.service';
 import { SnackBarService } from '../../../dashboard/services/snack-bar.service';
@@ -17,10 +16,10 @@ import { AuthService } from '@core/service/auth.service';
 import { ICdIndicatorLoad } from './components/cd-mat-balance-gauge/cd-mat-balance-gauge.component';
 
 export interface IMatBalance {
-    loads: ICdIndicatorLoad;
-    params: IParams;
-    sensors: ISensors;
-    streams: IStreams;
+    loads: ICdIndicatorLoad[];
+    params: IParams[];
+    sensors: ISensors[];
+    streams: IStreams[];
     title: string;
     widgetType: string;
 }
@@ -69,13 +68,28 @@ export interface IStreams {
     totalValue: number;
 }
 
+export interface IModalDeviation {
+    id: number;
+    name: string;
+    valueFact: number;
+    valueModel: number;
+    valueDeviation: number;
+    engUnits: string;
+    top: number;
+}
+
+export interface IAllEstablishedFacts {
+    code: string;
+    id: number;
+    name: string;
+}
+
 @Component({
     selector: 'evj-cd-mat-balance',
     templateUrl: './cd-mat-balance.component.html',
-    styleUrls: ['./cd-mat-balance.component.scss'],
+    styleUrls: ['./cd-mat-balance.component.scss']
 })
 export class CdMatBalanceComponent extends WidgetPlatform implements OnInit, OnDestroy {
-    isSelectedEl: number;
     data: IMatBalance;
     openEvent: EventsWidgetNotification = this.cdMatBalanceService.isOpenEvent$.getValue();
     modal: ICDModalWindow;
@@ -86,7 +100,7 @@ export class CdMatBalanceComponent extends WidgetPlatform implements OnInit, OnD
             value: 0,
             children: [
                 {
-                    name: 'КИП',
+                    name: 'Данные',
                     value: 0,
                     children: [
                         {
@@ -98,11 +112,11 @@ export class CdMatBalanceComponent extends WidgetPlatform implements OnInit, OnD
                                     acceptText: 'Отправить в службу КИПиА',
                                     date: new Date(),
                                     time: new Date(),
-                                    description: '',
+                                    description: this.openEvent.description,
                                     establishedFacts: '',
+                                    allEstablishedFacts: [],
                                     responsible: null,
                                     acceptFunction: () => {
-                                        console.log(this.modal);
                                         this.saveEvents(
                                             this.modal.responsible,
                                             this.modal.description,
@@ -113,21 +127,21 @@ export class CdMatBalanceComponent extends WidgetPlatform implements OnInit, OnD
                                     },
                                     cancelFunction: () => {
                                         this.modal = null;
-                                    },
+                                    }
                                 };
-                            },
-                        },
-                    ],
+                            }
+                        }
+                    ]
                 },
                 {
                     name: 'Модель',
-                    value: 0,
+                    value: 0
                 },
                 {
                     name: 'Техпроцесс',
-                    value: 0,
-                },
-            ],
+                    value: 0
+                }
+            ]
         },
         {
             name: 'Вернуться к карточке события',
@@ -136,9 +150,11 @@ export class CdMatBalanceComponent extends WidgetPlatform implements OnInit, OnD
                 this.userService.LoadScreenByWidget('events-workspace');
                 this.ewtService.editEvent(this.cdMatBalanceService.isOpenEvent$.getValue()?.id);
                 this.cdMatBalanceService.isOpenEvent$.next(null);
-            },
-        },
+            }
+        }
     ];
+
+    modalDeviation: IModalDeviation;
 
     constructor(
         protected widgetService: WidgetService,
@@ -157,11 +173,6 @@ export class CdMatBalanceComponent extends WidgetPlatform implements OnInit, OnD
 
     ngOnInit(): void {
         super.widgetInit();
-        this.subscriptions.push(
-            this.cdMatBalanceService.showDeviation.subscribe((value) => {
-                this.isSelectedEl = value;
-            })
-        );
     }
 
     ngOnDestroy(): void {
@@ -171,9 +182,9 @@ export class CdMatBalanceComponent extends WidgetPlatform implements OnInit, OnD
     protected dataHandler(ref: any): void {
         if (ref) {
             this.data = ref;
-            console.log(ref);
         }
     }
+
 
     async saveEvents(
         responsibleOperator: IUser,
@@ -203,17 +214,26 @@ export class CdMatBalanceComponent extends WidgetPlatform implements OnInit, OnD
                 {
                     comment: facts,
                     createdAt: new Date(),
-                    displayName: this.authService.user$.getValue()?.displayName,
-                },
+                    displayName: this.authService.user$.getValue()?.displayName
+                }
             ],
             deadline: dateTime,
             eventDateTime: dateTime,
             fixedBy: this.authService.user$.getValue(),
-            retrievalEvents: [],
+            retrievalEvents: []
         };
         try {
-            const events = await this.ewService.postEventRetrieval(event);
+            await this.ewService.postEventRetrieval(event);
             this.snackBar.openSnackBar('Корректирующие мероприятие создано');
-        } catch (e) {}
+        } catch (e) {
+        }
+    }
+
+    closeModal(): void {
+        this.modalDeviation = null;
+    }
+
+    openModalDeviation(item: IModalDeviation): void {
+        this.modalDeviation = item;
     }
 }

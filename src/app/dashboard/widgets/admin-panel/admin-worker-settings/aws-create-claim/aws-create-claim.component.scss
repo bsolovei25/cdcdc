@@ -11,6 +11,20 @@
 
   box-sizing: border-box;
 
+  input[type="text"] {
+    border: 1px solid var(--color-border-box-shadow);
+    border-radius: 3px;
+    background: var(--color-bg-main);
+    outline: none;
+    color: var(--color-text-main);
+    height: 27px;
+    width: 180px;
+    padding-left: 8px;
+    &::placeholder {
+      color: var(--color-border-main-transparrent);
+    }
+  }
+
   .alert {
     position: relative;
 
@@ -78,6 +92,23 @@
       color: var(--color-text-sub);
       font-size: 14px;
       line-height: 150%;
+
+      &:hover {
+        cursor: pointer;
+        color: var(--color-active);
+        text-decoration: underline;
+      }
+    }
+
+    .search {
+      position: absolute;
+      z-index: 2;
+
+      right: 180px;
+      top: 8px;
+
+      color: var(--color-text-sub);
+      font-size: 14px;
 
       &:hover {
         cursor: pointer;

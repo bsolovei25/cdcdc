@@ -80,9 +80,6 @@ export class WidgetHeaderComponent implements OnInit, OnChanges, OnDestroy {
                 this.claimWidgets = data;
             })
         );
-        setTimeout(() => {
-            console.log(this.widgetType);
-        }, 2000);
     }
 
     ngOnDestroy(): void {

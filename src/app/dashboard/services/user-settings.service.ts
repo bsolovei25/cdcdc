@@ -15,7 +15,7 @@ import { Router } from '@angular/router';
 import { IGroupScreens } from '../components/group-selector/group-selector.component';
 
 @Injectable({
-    providedIn: 'root'
+    providedIn: 'root',
 })
 export class UserSettingsService {
     private _screens$: BehaviorSubject<IScreenSettings[]> = new BehaviorSubject(null);
@@ -73,7 +73,7 @@ export class UserSettingsService {
             minItemRows,
             id: idWidget,
             uniqid: uniqId,
-            widgetType: nameWidget
+            widgetType: nameWidget,
         });
         this.addWidgetApi(uniqId);
     }
@@ -83,8 +83,7 @@ export class UserSettingsService {
         this.http
             .post(this.restUrl + '/api/user-management/widget/' + this.ScreenId, updateWidget)
             .subscribe(
-                (ans) => {
-                },
+                (ans) => {},
                 (error) => console.log(error)
             );
     }
@@ -98,7 +97,7 @@ export class UserSettingsService {
             widgetType: item.widgetType,
             sizeX: item.cols,
             sizeY: item.rows,
-            uniqueId: item.uniqid
+            uniqueId: item.uniqid,
         };
     }
 
@@ -107,8 +106,7 @@ export class UserSettingsService {
         this.http
             .put(this.restUrl + '/api/user-management/widget/' + uniqId, updateWidget)
             .subscribe(
-                (ans) => {
-                },
+                (ans) => {},
                 (error) => console.log(error)
             );
     }
@@ -190,10 +188,15 @@ export class UserSettingsService {
             }
             const data = await this.http
                 .get<IScreenSettings[]>(`${this.restUrl}/api/user-management/screens/group`, {
-                    params
+                    params,
                 })
                 .toPromise();
-            if (!this.ScreenId && data[0]) {
+
+            const search = data.find((item) => item.id === this.ScreenId);
+            if (!data.length) {
+                this.ScreenId = undefined;
+                this.ScreenName = undefined;
+            } else if (!search) {
                 this.ScreenId = data[0]?.id;
             }
             this._screens$.next(data);
@@ -219,34 +222,45 @@ export class UserSettingsService {
     }
 
     public LoadScreen(id: number): Subscription {
-        localStorage.setItem('screenid', id.toString());
-        sessionStorage.setItem('screenid', id.toString());
-        this.widgetService.dashboard = [];
-        this.claimService.setClaimsByScreen(null);
-        return this.LoadScreenAsync(id, true).subscribe((item: IScreenSettings) => {
+        if (id) {
+            localStorage.setItem('screenid', id.toString());
+            sessionStorage.setItem('screenid', id.toString());
+            this.widgetService.dashboard = [];
+            this.claimService.setClaimsByScreen(null);
+            return this.LoadScreenAsync(id, true).subscribe((item: IScreenSettings) => {
+                this.router.navigate([], {
+                    queryParams: { screenId: item.id },
+                    queryParamsHandling: 'merge',
+                });
+                this.claimService.setClaimsByScreen(item.claims);
+                this.ScreenId = item.id;
+                this.ScreenName = item.screenName;
+                this.widgetService.dashboard = item.widgets.map((widget) => {
+                    const minItemCols = this.defWidgetSize(widget.widgetType)?.minItemCols ?? 6;
+                    const minItemRows = this.defWidgetSize(widget.widgetType)?.minItemRows ?? 6;
+                    return {
+                        x: widget.posX,
+                        y: widget.posY,
+                        cols: widget.sizeX < minItemCols ? minItemCols : widget.sizeX,
+                        rows: widget.sizeY < minItemRows ? minItemRows : widget.sizeY,
+                        minItemCols,
+                        minItemRows,
+                        id: widget.widgetId,
+                        widgetType: widget.widgetType,
+                        uniqid: widget.uniqueId,
+                    };
+                });
+            });
+        } else {
+            this.ScreenId = undefined;
+            this.ScreenName = undefined;
+            this.widgetService.dashboard = [];
+            this.claimService.setClaimsByScreen(null);
             this.router.navigate([], {
-                queryParams: { screenId: item.id },
-                queryParamsHandling: 'merge'
+                queryParams: { screenId: undefined },
+                queryParamsHandling: 'merge',
             });
-            this.claimService.setClaimsByScreen(item.claims);
-            this.ScreenId = item.id;
-            this.ScreenName = item.screenName;
-            this.widgetService.dashboard = item.widgets.map((widget) => {
-                const minItemCols = this.defWidgetSize(widget.widgetType)?.minItemCols ?? 6;
-                const minItemRows = this.defWidgetSize(widget.widgetType)?.minItemRows ?? 6;
-                return {
-                    x: widget.posX,
-                    y: widget.posY,
-                    cols: widget.sizeX < minItemCols ? minItemCols : widget.sizeX,
-                    rows: widget.sizeY < minItemRows ? minItemRows : widget.sizeY,
-                    minItemCols,
-                    minItemRows,
-                    id: widget.widgetId,
-                    widgetType: widget.widgetType,
-                    uniqid: widget.uniqueId
-                };
-            });
-        });
+        }
     }
 
     public async PushScreen(screenName: string): Promise<void> {
@@ -258,7 +272,7 @@ export class UserSettingsService {
             widgets: null,
             // экран создается в привязке к активной группе
             userScreenGroupName: this.groupName,
-            userScreenGroupId: this.groupId
+            userScreenGroupId: this.groupId,
         };
         try {
             const data: IScreenSettings = await this.http
@@ -299,7 +313,7 @@ export class UserSettingsService {
             screenName: name,
             user: null,
             updateScreen: null,
-            widgets: null
+            widgets: null,
         };
         return this.http
             .put(this.restUrl + '/api/user-management/screen/' + id, userScreen)

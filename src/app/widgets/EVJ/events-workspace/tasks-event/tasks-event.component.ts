@@ -13,7 +13,6 @@ export class TasksEventComponent implements OnInit {
     public ngOnInit(): void {}
 
     public openLineChart(): void {
-        console.log('wwwwwwww');
         this.ewService.isOverlayChartOpen = true;
         const event = new CustomEvent('resize');
         document.dispatchEvent(event);

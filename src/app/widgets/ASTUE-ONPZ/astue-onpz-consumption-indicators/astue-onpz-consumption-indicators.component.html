@@ -14,18 +14,16 @@
   (touchstart)="$event.stopPropagation()"
 >
 
-  <ng-container *ngFor="let button of buttons">
-    <ng-container *ngIf="button.type === type">
-      <div class="block" (click)="setButton(button.id)" [ngClass]="activeButton === button.id ? 'block--active' : ''">
-        <div class="block__title">
-          <span>{{button.title}}</span>
-        </div>
-        <div class="block__value" *ngIf="button.value">
-          <span>{{button.value}}</span>
-        </div>
-        <div class="empty-value" *ngIf="!button.value"></div>
+  <ng-container *ngFor="let indicator of indicators">
+    <div class="block" (click)="setIndicator(indicator)" [ngClass]="activeIndicator === indicator ? 'block--active' : ''">
+      <div class="block__title">
+        <span>{{ indicator.caption }}</span>
       </div>
-    </ng-container>
+      <div class="block__value" *ngIf="indicator.value || indicator.value === 0">
+        <span>{{ indicator.value | spaceNumber }}</span>
+      </div>
+      <div class="empty-value" *ngIf="!indicator.value && indicator.value !== 0"></div>
+    </div>
   </ng-container>
 
 </div>

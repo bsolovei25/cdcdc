@@ -12,16 +12,13 @@
     (mouseleave)="onMouseExit()"
     (mousedown)="$event.stopPropagation()"
     (touchstart)="$event.stopPropagation()"
+    *ngIf="!!data"
   >
-    <evj-astue-onpz-planning-card class="content__item"></evj-astue-onpz-planning-card>
-    <evj-astue-onpz-planning-card class="content__item"></evj-astue-onpz-planning-card>
-    <evj-astue-onpz-planning-card class="content__item"></evj-astue-onpz-planning-card>
-    <evj-astue-onpz-planning-card class="content__item"></evj-astue-onpz-planning-card>
-    <evj-astue-onpz-planning-card class="content__item"></evj-astue-onpz-planning-card>
-    <evj-astue-onpz-planning-card class="content__item"></evj-astue-onpz-planning-card>
-    <evj-astue-onpz-planning-card class="content__item"></evj-astue-onpz-planning-card>
-    <evj-astue-onpz-planning-card class="content__item"></evj-astue-onpz-planning-card>
-    <evj-astue-onpz-planning-card class="content__item"></evj-astue-onpz-planning-card>
-    <evj-astue-onpz-planning-card class="content__item"></evj-astue-onpz-planning-card>
+    <ng-container *ngFor="let item of data">
+      <evj-astue-onpz-planning-card
+        class="content__item"
+        [data]="item"
+      ></evj-astue-onpz-planning-card>
+    </ng-container>
   </div>
 </div>

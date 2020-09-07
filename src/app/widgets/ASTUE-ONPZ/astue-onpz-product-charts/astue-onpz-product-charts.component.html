@@ -12,12 +12,13 @@
     (mouseleave)="onMouseExit()"
     (mousedown)="$event.stopPropagation()"
     (touchstart)="$event.stopPropagation()"
+    *ngIf="!!data"
   >
-    <evj-astue-onpz-product-card class="content__item"></evj-astue-onpz-product-card>
-    <evj-astue-onpz-product-card class="content__item"></evj-astue-onpz-product-card>
-    <evj-astue-onpz-product-card class="content__item"></evj-astue-onpz-product-card>
-    <evj-astue-onpz-product-card class="content__item"></evj-astue-onpz-product-card>
-    <evj-astue-onpz-product-card class="content__item"></evj-astue-onpz-product-card>
-    <evj-astue-onpz-product-card class="content__item"></evj-astue-onpz-product-card>
+    <ng-container *ngFor="let item of data">
+      <evj-astue-onpz-product-card
+        class="content__item"
+        [data]="item"
+      ></evj-astue-onpz-product-card>
+    </ng-container>
   </div>
 </div>

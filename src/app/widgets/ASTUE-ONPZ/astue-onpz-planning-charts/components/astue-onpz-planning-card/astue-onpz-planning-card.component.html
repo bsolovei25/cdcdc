@@ -1,8 +1,8 @@
-<div class="card">
+<div class="card" *ngIf="!!data">
   <div class="card__header header">
-    <div class="header__tag">Meteo:SP</div>
-    <div class="header__title">Скорость ветра</div>
-    <div class="header__unit">АВТ-10</div>
+    <div class="header__tag">{{data.tag}}</div>
+    <div class="header__title">{{data.title}}</div>
+    <div class="header__unit">{{data.unitName}}</div>
     <svg-icon
       class="header__icon"
       src="assets/icons/widgets/ASTUE-ONPZ/fullscreen.svg"
@@ -12,7 +12,7 @@
   </div>
   <div class="card-border">
     <div class="card__legend legend">
-      <div class="legend__units">Ед. измерения</div>
+      <div class="legend__units">{{data.units}}</div>
       <div class="legend__buttons">
         <svg-icon
           class="button"
@@ -25,11 +25,11 @@
       </div>
       <div class="legend__value value">
         <div class="value__title">Факт</div>
-        <div class="value__card">500</div>
+        <div class="value__card">{{data.currentFactValue}}</div>
       </div>
     </div>
     <div class="card__chart">
-      <evj-limits-chart [data]="data"></evj-limits-chart>
+      <evj-limits-chart [data]="data.graph"></evj-limits-chart>
     </div>
   </div>
 </div>

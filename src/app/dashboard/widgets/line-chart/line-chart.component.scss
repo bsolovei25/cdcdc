@@ -256,3 +256,25 @@
     top: -9.5px;
   }
 }
+
+::ng-deep {
+  .line-upper-deviation-gradient-stop-1 {
+    stop-color: var(--color-deviation);
+    stop-opacity: 0.5;
+  }
+
+  .line-upper-deviation-gradient-stop-2 {
+    stop-color: transparent;
+    stop-opacity: 0;
+  }
+
+  .line-lower-deviation-gradient-stop-1 {
+    stop-color: transparent;
+    stop-opacity: 0;
+  }
+
+  .line-lower-deviation-gradient-stop-2 {
+    stop-color: var(--color-deviation);
+    stop-opacity: 0.5;
+  }
+}

@@ -1,12 +1,13 @@
 <div class="container">
   <div class="header">
     <div class="header__icon">
-      <svg-icon [svgStyle]="{'width': '100%', 'height': '100%'}" src="assets/icons/widgets/SOU/header-icons/down.svg"></svg-icon>
+      <svg-icon [svgStyle]="{'width': '100%', 'height': '100%'}"
+                src="assets/icons/widgets/SOU/header-icons/down.svg"></svg-icon>
     </div>
     <div class="header__label">Потери</div>
   </div>
   <div class="table-content">
-    <ng-container *ngFor="let row of data.rows">
+    <ng-container *ngFor="let row of data?.lossesType">
       <ng-container *ngTemplateOutlet="tableRow; context: {row: row}"></ng-container>
     </ng-container>
   </div>
@@ -15,15 +16,19 @@
 <ng-template #tableRow let-row="row">
   <div class="row">
     <div class="label">
-      <span style="margin: auto">{{row.title}}</span>
+      <span style="margin: auto">{{row?.name}}</span>
       <span style="flex-grow: 1"></span>
-      <div class="button" *ngIf="row.isButton" (click)="buttonClick()" matRipple [matRippleColor]="'white'">
+      <div class="button"
+           *ngIf="row?.isButton"
+           (click)="buttonClick()"
+           matRipple
+           [matRippleColor]="'white'">
         <span style="margin: auto">Открыть</span>
       </div>
     </div>
     <div class="values">
-      <span>{{row.value | spaceNumber}} т.</span>
-      <span>{{row.percentageValue}}%</span>
+      <span>{{row?.value | spaceNumber}} т.</span>
+      <span>{{ row?.persent }}%</span>
     </div>
   </div>
 </ng-template>

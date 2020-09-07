@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { ISOUFlowIn } from '../../../../../dashboard/models/SOU/sou-operational-accounting-system';
 
 export interface ISOUInStream {
     name: string;
@@ -26,86 +27,35 @@ interface ISOUValue {
 })
 export class SouInStreamsComponent implements OnInit {
 
-    data: ISOUInStream[] = [
-        {
-            name: 'Установка №1',
-            firstValue: 'знач',
-            accept: 'знач',
-            instantaneousValue: {
-                value: 345,
-                engValue: 'т/ч',
-                percent: '85%'
-            },
-            valueInAnHour: {
-                value: 1345,
-                engValue: 'т',
-                percent: '65%'
-            },
-            accumulation: {
-                value: 4345,
-                engValue: 'т',
-                percent: '35%'
-            },
-            sevenValue: 'Нефть обес. и обезвож.',
-            trustLevel: '100%',
-            pims: 'FOIL',
-            isActive: true
-        },
-        {
-            name: 'Установка №2',
-            firstValue: 'знач',
-            accept: 'знач',
-            instantaneousValue: {
-                value: 345,
-                engValue: 'т/ч',
-                percent: '85%'
-            },
-            valueInAnHour: {
-                value: 1345,
-                engValue: 'т',
-                percent: '65%'
-            },
-            accumulation: {
-                value: 4345,
-                engValue: 'т',
-                percent: '35%'
-            },
-            sevenValue: 'Нефть обес. и обезвож.',
-            trustLevel: '100%',
-            pims: 'FOIL',
-            isActive: true
-        },
-        {
-            name: 'Установка №3',
-            firstValue: 'знач',
-            accept: 'знач',
-            instantaneousValue: {
-                value: 345,
-                engValue: 'т/ч',
-                percent: '85%'
-            },
-            valueInAnHour: {
-                value: 1345,
-                engValue: 'т',
-                percent: '65%'
-            },
-            accumulation: {
-                value: 4345,
-                engValue: 'т',
-                percent: '35%'
-            },
-            sevenValue: 'Нефть обес. и обезвож.',
-            trustLevel: '100%',
-            pims: 'FOIL',
-            isActive: true
+    @Input() set flowIn(value: ISOUFlowIn[]) {
+        if (value) {
+            this.data = value;
+            this.getPercentValue(value);
         }
+    }
 
-    ];
+    data: ISOUFlowIn[] = [];
 
     constructor() {
     }
 
     ngOnInit(): void {
+    }
+
+    getPercentValue(data: ISOUFlowIn[]): void {
+        let sumValueMomentPercent: number = 0;
+        let sumValueByHourPercent: number = 0;
+        let sumValueTankPercent: number = 0;
+        this.data.forEach(item => {
+            sumValueMomentPercent += item.valueMoment;
+            sumValueByHourPercent += item.valueByHour;
+            sumValueTankPercent += item.valueTank;
+        });
+        this.data.forEach(item => {
+            item.valueMomentPercent = +(item.valueMoment / sumValueMomentPercent * 100).toFixed();
+            item.valueByHourPercent = +(item.valueByHour / sumValueByHourPercent * 100).toFixed();
+            item.valueTankPercent = +(item.valueTank / sumValueTankPercent * 100).toFixed();
+        });
     }
 
 }
