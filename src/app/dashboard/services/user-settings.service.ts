@@ -309,17 +309,9 @@ export class UserSettingsService {
         );
     }
 
-    public updateScreen(id: number, name: string, isHidden: boolean = false): Subscription {
-        const userScreen: IScreenSettings = {
-            id,
-            screenName: name,
-            isHidden,
-            user: null,
-            updateScreen: null,
-            widgets: null
-        };
+    public updateScreen(screen: IScreenSettings): Subscription {
         return this.http
-            .put(this.restUrl + '/api/user-management/screen/' + id, userScreen)
+            .put(`${this.restUrl}/api/user-management/screen/${screen.id}`, screen)
             .subscribe(
                 (ans) => {
                     this.snackBar.openSnackBar('Экран успешно изменен');
