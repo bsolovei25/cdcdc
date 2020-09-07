@@ -2,6 +2,10 @@ import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { WidgetPlatform } from '../../../dashboard/models/widget-platform';
 import { WidgetService } from '../../../dashboard/services/widget.service';
 import { SelectionModel } from '@angular/cdk/collections';
+import {
+    AstueOnpzService,
+    IAstueOnpzPredictorsOptions
+} from '../astue-onpz-shared/astue-onpz.service';
 
 interface IPredictors {
     id: number;
@@ -24,6 +28,7 @@ export class AstueOnpzPredictorsComponent extends WidgetPlatform implements OnIn
 
     constructor(
         protected widgetService: WidgetService,
+        private astueOnpzService: AstueOnpzService,
         @Inject('isMock') public isMock: boolean,
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string
@@ -40,7 +45,6 @@ export class AstueOnpzPredictorsComponent extends WidgetPlatform implements OnIn
     }
 
     protected dataHandler(ref: { predictors: IPredictors[] }): void {
-        console.log(ref.predictors);
         if (this.selectPredictors.selected.length === 0) {
             this.data = ref.predictors;
             ref.predictors.forEach(value => value.isActive ?
@@ -52,6 +56,15 @@ export class AstueOnpzPredictorsComponent extends WidgetPlatform implements OnIn
             });
             this.data = ref.predictors;
         }
+    }
+
+    changeToggle(): void {
+        const arr: IAstueOnpzPredictorsOptions[] = [];
+        this.selectPredictors.selected.forEach(id => {
+            const el = this.data.find(value => value.id === id);
+            arr.push({ name: el?.name, id: el?.id, colorIndex: el?.colorIndex });
+        });
+        this.astueOnpzService.predictorsOptions$.next(arr);
     }
 
 }
