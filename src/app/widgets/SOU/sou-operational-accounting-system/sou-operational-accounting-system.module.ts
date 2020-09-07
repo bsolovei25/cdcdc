@@ -14,6 +14,7 @@ import { SouLossesTableComponent } from './components/sou-losses-table/sou-losse
 import { SouBalanceCardComponent } from './components/sou-balance-card/sou-balance-card.component';
 import { SouFacilityInfoComponent } from './components/sou-facility-info/sou-facility-info.component';
 import { SouDetailTableComponent } from './components/sou-detail-table/sou-detail-table.component';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 
 @NgModule({
@@ -35,6 +36,7 @@ import { SouDetailTableComponent } from './components/sou-detail-table/sou-detai
         MatRippleModule,
         FormsModule,
         SharedModule,
+        MatTooltipModule
     ]
 })
 export class SouOperationalAccountingSystemModule {

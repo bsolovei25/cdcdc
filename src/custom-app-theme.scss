@@ -70,7 +70,15 @@ $app-foreground: mat-palette($mat-pink, 300);
 
 $app-theme: create-wonky-theme($app-primary, $app-accent, $app-warn);
 
+
+// Define a custom typography config that overrides the font-family as well as the
+// `headlines` and `body-1` levels.
+$custom-typography: mat-typography-config(
+  $font-family: 'Tahoma',
+);
+
 // Include theme styles for core and each component used in your app.
 // Alternatively, you can import and @include the theme mixins for each component
 // that you are using.
+@include angular-material-typography($custom-typography);
 @include angular-material-theme($app-theme);

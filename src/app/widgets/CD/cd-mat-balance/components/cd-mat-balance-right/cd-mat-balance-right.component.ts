@@ -52,7 +52,8 @@ export class CdMatBalanceRightComponent implements OnInit {
             top: childPos?.top - parentPos?.top - 93,
             name: item.name,
             engUnits: item.engUnits,
-            valueDeviation: item.deviation,
+            valueDeviation: (item.deviation < 1 && item.deviation > -1) ?
+                +item.deviation.toFixed(2) : +item.deviation.toFixed(),
             valueModel: item.modelValue,
             valueFact: item.value
         };

@@ -27,10 +27,6 @@ interface ISOUValue {
 })
 export class SouInStreamsComponent implements OnInit {
 
-    valueMomentPercent: number = 0;
-    valueByHourPercent: number = 0;
-    valueTankPercent: number = 0;
-
     @Input() set flowIn(value: ISOUFlowIn[]) {
         if (value) {
             this.data = value;
@@ -56,9 +52,9 @@ export class SouInStreamsComponent implements OnInit {
             sumValueTankPercent += item.valueTank;
         });
         this.data.forEach(item => {
-            this.valueMomentPercent = +(item.valueMoment / sumValueMomentPercent * 100).toFixed();
-            this.valueByHourPercent = +(item.valueByHour / sumValueByHourPercent * 100).toFixed();
-            this.valueTankPercent = +(item.valueTank / sumValueTankPercent * 100).toFixed();
+            item.valueMomentPercent = +(item.valueMoment / sumValueMomentPercent * 100).toFixed();
+            item.valueByHourPercent = +(item.valueByHour / sumValueByHourPercent * 100).toFixed();
+            item.valueTankPercent = +(item.valueTank / sumValueTankPercent * 100).toFixed();
         });
     }
 

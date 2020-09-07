@@ -65,6 +65,15 @@ export class AstueOnpzInteractiveIndicatorsComponent extends WidgetPlatform
         super.ngOnDestroy();
     }
 
+    protected dataConnect(): void {
+        super.dataConnect();
+        this.subscriptions.push(
+            this.astueOnpzService.sharedIndicatorOptions.subscribe((options) => {
+                this.widgetService.setWidgetLiveDataFromWSOptions(this.widgetId, options);
+            })
+        );
+    }
+
     protected dataHandler(ref: any): void {
         const indicators: IAstueOnpzInteractiveIndicator[] = [];
         let colorIndex = 0;

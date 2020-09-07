@@ -25,7 +25,8 @@
           </div>
           <span class="column__block-pims__value"
                 [class.column__block-pims__value_deviation]="item.tolerance < 100"
-                [class.column__block-pims__value--no-active]="!item.isEnable">{{ item.tag }}</span>
+                [class.column__block-pims__value--no-active]="!item.isEnable"
+                [matTooltip]="item.tag">{{ item.tag }}</span>
         </div>
       </td>
       <td class="body__column column body__column--padding-disabled body__column__trust-level">
@@ -46,7 +47,7 @@
           </div>
 
           <span class="column__percent"
-                [class.column__percent_inactivity]="!item.isEnable">0%</span>
+                [class.column__percent_inactivity]="!item.isEnable">{{ item.valueMomentPercent }}%</span>
         </div>
       </td>
       <td class="body__column">
@@ -60,7 +61,7 @@
         </div>
 
         <span class="column__percent"
-              [class.column__percent_inactivity]="!item.isEnable">0%</span>
+              [class.column__percent_inactivity]="!item.isEnable">{{ item.valueByHourPercent }}%</span>
       </td>
       <td class="body__column">
         <div class="column__block">
@@ -73,7 +74,7 @@
         </div>
 
         <span class="column__percent"
-              [class.column__percent_inactivity]="!item.isEnable">0%</span>
+              [class.column__percent_inactivity]="!item.isEnable">{{ item.valueTankPercent }}%</span>
       </td>
       <td class="body__column body__column__text_grey">{{ item.valueCalculate }}</td>
       <td class="body__column body__column__text_grey">{{ item.valueMeasuring }}

@@ -179,12 +179,14 @@ export class CdMnemonicComponent implements OnInit {
             this.cdMatBalanceService.showDeviation.next(id);
             this.disabledOrEnableCircle(false, this.isSelectedEl);
             const el = this.data.find((val) => val.id === id);
-            this.isSelectedEl = { id, modal: 'top-right', deviation: +el?.deviation?.toFixed() };
+            const deviation = (el.deviation < 1 && el.deviation > -1) ?
+                +el.deviation.toFixed(2) : +el.deviation.toFixed();
+            this.isSelectedEl = { id, modal: 'top-right', deviation };
             this.disabledOrEnableCircle(true, this.isSelectedEl);
             this.drawModal(
                 x,
                 y,
-                +el?.deviation.toFixed(),
+                deviation,
                 el?.description,
                 +el?.value.toFixed(),
                 +el?.modelValue.toFixed(),

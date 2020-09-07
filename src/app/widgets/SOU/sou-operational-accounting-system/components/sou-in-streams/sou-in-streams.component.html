@@ -40,7 +40,7 @@
           </div>
 
           <span class="column__percent"
-                [class.column__percent_inactivity]="!item.isEnable">{{ valueMomentPercent }}%</span>
+                [class.column__percent_inactivity]="!item.isEnable">{{ item?.valueMomentPercent }}%</span>
         </div>
       </td>
       <td class="body__column">
@@ -54,7 +54,7 @@
         </div>
 
         <span class="column__percent"
-              [class.column__percent_inactivity]="!item.isEnable">{{ valueByHourPercent }}%</span>
+              [class.column__percent_inactivity]="!item.isEnable">{{ item?.valueByHourPercent }}%</span>
       </td>
       <td class="body__column">
         <div class="column__block">
@@ -67,7 +67,7 @@
         </div>
 
         <span class="column__percent"
-              [class.column__percent_inactivity]="!item.isEnable">{{ valueTankPercent }}%</span>
+              [class.column__percent_inactivity]="!item.isEnable">{{ item?.valueTankPercent }}%</span>
       </td>
       <td class="body__column">{{ item.productName }}</td>
       <td class="body__column column body__column--padding-disabled body__column__trust-level">
@@ -75,7 +75,8 @@
       <td class="body__column column body__column--padding-disabled">
         <div class="column__block-pims">
           <span class="column__block-pims__value"
-                [class.column__block-pims__value--no-active]="!item.isEnable">{{ item.tag }}</span>
+                [class.column__block-pims__value--no-active]="!item.isEnable" [matTooltip]="item.tag"
+          >{{ item.tag }}</span>
           <div class="column__block-pims__slide">
             <mat-slide-toggle [(ngModel)]="item.isEnable" disableRipple="true"></mat-slide-toggle>
           </div>
