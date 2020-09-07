@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, OnChanges } from '@angular/core';
 import { IPlanningChart } from '../../astue-onpz-planning-charts.component';
 import { AstueOnpzService } from '../../../astue-onpz-shared/astue-onpz.service';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Component({
     selector: 'evj-astue-onpz-planning-card',
@@ -21,6 +22,10 @@ export class AstueOnpzPlanningCardComponent implements OnChanges, OnInit {
         if (this.data.title === this.astueOnpzService.sharedPlanningGraph$.getValue().title) {
             this.astueOnpzService.setPlanningGraph(this.data, true);
         }
+    }
+
+    get sharedGraph(): Observable<IPlanningChart> {
+        return this.astueOnpzService.sharedPlanningGraph$.asObservable();
     }
 
     ngOnInit(): void {}
