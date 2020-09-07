@@ -75,7 +75,8 @@
       <td class="body__column column body__column--padding-disabled">
         <div class="column__block-pims">
           <span class="column__block-pims__value"
-                [class.column__block-pims__value--no-active]="!item.isEnable">{{ item.tag }}</span>
+                [class.column__block-pims__value--no-active]="!item.isEnable" [matTooltip]="item.tag"
+          >{{ item.tag }}</span>
           <div class="column__block-pims__slide">
             <mat-slide-toggle [(ngModel)]="item.isEnable" disableRipple="true"></mat-slide-toggle>
           </div>
