@@ -172,6 +172,10 @@
                 padding-right: 31px;
                 margin-top: 2px;
                 font-size: 14px;
+                width: 80px;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
 
                 &--no-active {
                   background-color: var(--color-sou-bg-sup);
