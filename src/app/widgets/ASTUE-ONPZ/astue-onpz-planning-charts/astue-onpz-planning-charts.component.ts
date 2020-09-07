@@ -51,7 +51,6 @@ export class AstueOnpzPlanningChartsComponent extends WidgetPlatform implements 
 
     protected dataHandler(ref: { graphs: IPlanningChart[], subscriptionOptions: any }): void {
         this.data = ref.graphs;
-        console.log(ref);
     }
 
     setOptionsWs(predictors: string[]): void {

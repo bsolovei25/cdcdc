@@ -23,7 +23,6 @@ interface IPredictors {
 export class AstueOnpzPredictorsComponent extends WidgetPlatform implements OnInit, OnDestroy {
 
     selectPredictors: SelectionModel<number> = new SelectionModel<number>(true);
-
     data: IPredictors[] = [];
 
     constructor(
