@@ -9,7 +9,8 @@
         <li class="list__item" *ngFor="let item of data" [class.list__item--no-active]="!item.isActive">
           <div class="list__item__block">
           <span class="list__item__slide">
-          <mat-slide-toggle [(ngModel)]="item.isActive" disableRipple="true"></mat-slide-toggle>
+          <mat-slide-toggle [(ngModel)]="item.isActive" (click)="selectPredictors.toggle(item.id)"
+                            disableRipple="true" (change)="changeToggle()"></mat-slide-toggle>
           </span>
             <span class="list__item__name">{{ item.name }}</span>
           </div>

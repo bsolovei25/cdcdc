@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import {
     AstueOnpzConsumptionIndicatorsWidgetType,
-    AstueOnpzConsumptionIndicatorType,
+    AstueOnpzConsumptionIndicatorType
 } from '../astue-onpz-consumption-indicators/astue-onpz-consumption-indicators.component';
 
 export interface IAstueOnpzMonitoringOptions {
@@ -19,35 +19,38 @@ export interface IAstueOnpzMonitoringCarrierOptions {
     filterValues: string;
 }
 
+export interface IAstueOnpzPredictorsOptions {
+    id: number;
+    name: string;
+    colorIndex: number;
+}
+
 @Injectable({
-    providedIn: 'root',
+    providedIn: 'root'
 })
 export class AstueOnpzService {
-    private indicatorOptions$: BehaviorSubject<
-        IAstueOnpzMonitoringCarrierOptions
-    > = new BehaviorSubject({
+    private indicatorOptions$: BehaviorSubject<IAstueOnpzMonitoringCarrierOptions> = new BehaviorSubject({
         manufactureName: null,
         unitName: null,
         itemId: null,
-        filterValues: null,
+        filterValues: null
     });
 
     private monitoringOptions$: BehaviorSubject<IAstueOnpzMonitoringOptions> = new BehaviorSubject({
         manufactureName: null,
         unitName: null,
         type: null,
-        indicatorType: null,
+        indicatorType: null
     });
 
-    public sharedMonitoringOptions: Observable<
-        IAstueOnpzMonitoringOptions
-    > = this.monitoringOptions$.asObservable();
+    public predictorsOptions$: BehaviorSubject<IAstueOnpzPredictorsOptions[]> = new BehaviorSubject([]);
 
-    public sharedIndicatorOptions: Observable<
-        IAstueOnpzMonitoringCarrierOptions
-    > = this.indicatorOptions$.asObservable();
+    public sharedMonitoringOptions: Observable<IAstueOnpzMonitoringOptions> = this.monitoringOptions$.asObservable();
 
-    constructor() {}
+    public sharedIndicatorOptions: Observable<IAstueOnpzMonitoringCarrierOptions> = this.indicatorOptions$.asObservable();
+
+    constructor() {
+    }
 
     public setMonitoringOptions(options: IAstueOnpzMonitoringOptions): void {
         this.monitoringOptions$.next(options);
@@ -100,8 +103,8 @@ export class AstueOnpzService {
             ...this.monitoringOptions$.value,
             ...{
                 indicatorType: indicatorTypeParam,
-                type: typeParam,
-            },
+                type: typeParam
+            }
         });
     }
 
