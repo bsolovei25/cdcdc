@@ -45,9 +45,9 @@ export class SouOutStreamsComponent implements OnInit {
             sumValueMomentPercent += item.valueMoment;
         });
         data.map(item => {
-            item.valueByHourPercent = +(item?.valueByHour / sumValueByHourPercent * 100).toFixed();
-            item.valueTankPercent = +(item?.valueTank / sumValueTankPercent * 100).toFixed();
-            item.valueMomentPercent = +(item?.valueMoment / sumValueMomentPercent * 100).toFixed();
+            item.valueMomentPercent = +(item.valueMoment / sumValueMomentPercent * 100).toFixed();
+            item.valueByHourPercent = +(item.valueByHour / sumValueByHourPercent * 100).toFixed();
+            item.valueTankPercent = +(item.valueTank / sumValueTankPercent * 100).toFixed();
         });
     }
 

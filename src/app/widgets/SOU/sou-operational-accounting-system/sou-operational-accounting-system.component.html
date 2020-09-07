@@ -22,7 +22,8 @@
           <evj-sou-balance-card
             [data]="{type: 'out', title: 'Сумма выхода', sumValue: data?.sumOut, perHourValue: data?.sumOutByHour}"></evj-sou-balance-card>
           <evj-sou-balance-card
-            [data]="{type: 'delta', title: 'Дельта', sumValue: data?.delta, percentageValue: data?.deltaByPersent, deviation: data?.delta > data?.balanceAllow }">
+            [data]="{type: 'delta', title: 'Дельта', sumValue: data?.delta,
+            percentageValue: data?.deltaByPersent.toFixed(), deviation: data?.delta > data?.balanceAllow }">
           </evj-sou-balance-card>
           <evj-sou-balance-card
             [data]="{type: 'balance', title: 'Допустимый баланс', sumValue: data?.balanceAllow,

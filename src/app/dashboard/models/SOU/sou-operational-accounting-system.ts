@@ -9,6 +9,9 @@ export interface ISOUFlowIn {
     tolerance: number;
     tag: string;
     isEnable: boolean;
+    valueMomentPercent: number;
+    valueByHourPercent: number;
+    valueTankPercent: number;
 }
 
 export interface ISOUFlowOut {
