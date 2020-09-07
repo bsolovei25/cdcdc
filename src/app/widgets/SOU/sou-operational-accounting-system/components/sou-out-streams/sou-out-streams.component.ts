@@ -1,26 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { ISOUInStream } from '../sou-in-streams/sou-in-streams.component';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import {
+    ISOUFlowOut,
+    ISOUSection
+} from '../../../../../dashboard/models/SOU/sou-operational-accounting-system';
 
-interface ISOUOutStream {
-    name: string;
-    firstValue: string;
-    accept: string;
-    instantaneousValue: ISOUValue;
-    valueInAnHour: ISOUValue;
-    accumulation: ISOUValue;
-    sevenValue: string;
-    trustLevel: string;
-    pims: string;
-    isActive: boolean;
-    deviation: boolean;
-    valueEnd: string[];
-}
-
-interface ISOUValue {
-    value: number;
-    percent: string;
-    engValue: string;
-}
 
 @Component({
     selector: 'evj-sou-out-streams',
@@ -29,92 +12,43 @@ interface ISOUValue {
 })
 export class SouOutStreamsComponent implements OnInit {
 
-    data: ISOUOutStream[] = [
-        {
-            name: 'Установка №1',
-            firstValue: 'знач',
-            accept: 'знач',
-            instantaneousValue: {
-                value: 345,
-                engValue: 'т/ч',
-                percent: '85%'
-            },
-            valueInAnHour: {
-                value: 1345,
-                engValue: 'т',
-                percent: '65%'
-            },
-            accumulation: {
-                value: 4345,
-                engValue: 'т',
-                percent: '35%'
-            },
-            sevenValue: 'Газ сухой',
-            trustLevel: '100%',
-            pims: 'FOIL',
-            isActive: true,
-            deviation: false,
-            valueEnd: ['Установка', 'Товарное производство', 'Бензин К-6 в ТП']
-        },
-        {
-            name: 'Установка №2',
-            firstValue: 'знач',
-            accept: 'знач',
-            instantaneousValue: {
-                value: 345,
-                engValue: 'т/ч',
-                percent: '85%'
-            },
-            valueInAnHour: {
-                value: 1345,
-                engValue: 'т',
-                percent: '65%'
-            },
-            accumulation: {
-                value: 4345,
-                engValue: 'т',
-                percent: '35%'
-            },
-            sevenValue: 'Газ сухой',
-            trustLevel: '100%',
-            pims: 'FOIL',
-            isActive: true,
-            deviation: true,
-            valueEnd: ['Установка']
-        },
-        {
-            name: 'Установка №3',
-            firstValue: 'знач',
-            accept: 'знач',
-            instantaneousValue: {
-                value: 345,
-                engValue: 'т/ч',
-                percent: '85%'
-            },
-            valueInAnHour: {
-                value: 1345,
-                engValue: 'т',
-                percent: '65%'
-            },
-            accumulation: {
-                value: 4345,
-                engValue: 'т',
-                percent: '35%'
-            },
-            sevenValue: 'Газ сухой',
-            trustLevel: '100%',
-            pims: 'FOIL',
-            isActive: true,
-            deviation: false,
-            valueEnd: ['Установка', 'Товарное производство']
+    @Input() set flowOut(data: ISOUFlowOut[]) {
+        if (data) {
+            this.data = data;
+            this.getValuePercent(this.data);
         }
+    }
 
-    ];
+    @Input() sections: ISOUSection[] = [];
+    @Output() changeSection: EventEmitter<ISOUSection> = new EventEmitter<ISOUSection>();
+
+    data: ISOUFlowOut[] = [];
 
     constructor() {
     }
 
     ngOnInit(): void {
+    }
+
+    onClickName(section: ISOUSection): void {
+        this.changeSection.emit(section);
+    }
+
+    getValuePercent(data: ISOUFlowOut[]): void {
+        let sumValueByHourPercent: number = 0;
+        let sumValueTankPercent: number = 0;
+        let sumValueMomentPercent: number = 0;
+
+        data.forEach(item => {
+            sumValueByHourPercent += item.valueByHour;
+            sumValueTankPercent += item.valueTank;
+            sumValueMomentPercent += item.valueMoment;
+        });
+        data.map(item => {
+            item.valueByHourPercent = +(item?.valueByHour / sumValueByHourPercent * 100).toFixed();
+            item.valueTankPercent = +(item?.valueTank / sumValueTankPercent * 100).toFixed();
+            item.valueMomentPercent = +(item?.valueMoment / sumValueMomentPercent * 100).toFixed();
+        });
     }
 
 }

@@ -47,6 +47,14 @@ $color-text-sub: #8C99B2;
       width: 35px;
       height: 35px;
       margin: auto 0;
+
+      &--grey {
+        fill: $color-text-sub;
+      }
+
+      &--warning {
+        fill: var(--color-cd-warning);
+      }
     }
 
     &_values {
