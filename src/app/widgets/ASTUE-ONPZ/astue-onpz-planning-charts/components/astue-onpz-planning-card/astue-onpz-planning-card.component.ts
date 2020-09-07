@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, OnChanges } from '@angular/core';
 import { IPlanningChart } from '../../astue-onpz-planning-charts.component';
+import { AstueOnpzService } from '../../../astue-onpz-shared/astue-onpz.service';
 
 @Component({
     selector: 'evj-astue-onpz-planning-card',
@@ -9,7 +10,7 @@ import { IPlanningChart } from '../../astue-onpz-planning-charts.component';
 export class AstueOnpzPlanningCardComponent implements OnChanges, OnInit {
     @Input() public data: IPlanningChart;
 
-    constructor() {}
+    constructor(private astueOnpzService: AstueOnpzService) {}
 
     ngOnChanges(): void {
         this.data.graph.forEach((item) => {
@@ -17,7 +18,14 @@ export class AstueOnpzPlanningCardComponent implements OnChanges, OnInit {
                 val.timeStamp = new Date(val.timeStamp);
             });
         });
+        if (this.data.title === this.astueOnpzService.sharedPlanningGraph$.getValue().title) {
+            this.astueOnpzService.setPlanningGraph(this.data, true);
+        }
     }
 
     ngOnInit(): void {}
+
+    graphOpen(): void {
+        this.astueOnpzService.setPlanningGraph(this.data);
+    }
 }
