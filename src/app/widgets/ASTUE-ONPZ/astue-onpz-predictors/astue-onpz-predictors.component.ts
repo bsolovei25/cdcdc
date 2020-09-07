@@ -56,6 +56,7 @@ export class AstueOnpzPredictorsComponent extends WidgetPlatform implements OnIn
             });
             this.data = ref.predictors;
         }
+        this.changeToggle();
     }
 
     changeToggle(): void {

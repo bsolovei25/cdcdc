@@ -36,9 +36,9 @@ export class AstueOnpzPlanningChartsComponent extends WidgetPlatform implements 
     ngOnInit(): void {
         super.widgetInit();
         this.subscriptions.push(
-            this.http
-                .get<IPlanningChart[]>('assets/mock/ASTUE-ONPZ/planning-charts.mock.json')
-                .subscribe((data: IPlanningChart[]) => (this.data = data)),
+            // this.http
+            //     .get<IPlanningChart[]>('assets/mock/ASTUE-ONPZ/planning-charts.mock.json')
+            //     .subscribe((data: IPlanningChart[]) => (this.data = data)),
             this.astueOnpzService.predictorsOptions$.subscribe((value) => {
                 this.setOptionsWs(value?.map(predictor => predictor?.name));
             })
