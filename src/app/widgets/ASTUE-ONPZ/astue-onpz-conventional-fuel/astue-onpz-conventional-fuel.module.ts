@@ -7,6 +7,7 @@ import { AstueOnpzMultiChartComponent } from './components/astue-onpz-multi-char
 import { SharedModule } from '../../../@shared/shared.module';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
+import { MatRippleModule } from '@angular/material/core';
 
 @NgModule({
     declarations: [
@@ -14,13 +15,14 @@ import { MatSelectModule } from '@angular/material/select';
         AstueOnpzInteractiveIndicatorsComponent,
         AstueOnpzMultiChartComponent,
     ],
-    imports: [
-        CommonModule,
-        AngularSvgIconModule,
-        SharedModule,
-        MatFormFieldModule,
-        MatSelectModule,
-    ],
+  imports: [
+    CommonModule,
+    AngularSvgIconModule,
+    SharedModule,
+    MatFormFieldModule,
+    MatSelectModule,
+    MatRippleModule
+  ]
 })
 export class AstueOnpzConventionalFuelModule {
     enterComponent = AstueOnpzConventionalFuelComponent;
