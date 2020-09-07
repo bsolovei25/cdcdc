@@ -219,7 +219,8 @@ export class IndicatorSelectorComponent implements OnInit, OnDestroy {
 
     public updateScreen(screen: IScreenSettings, newName: string): void {
         screen.updateScreen = false;
-        this.userSettings.updateScreen(screen.id, newName, screen.isHidden);
+        screen.screenName = newName;
+        this.userSettings.updateScreen(screen);
     }
 
     public addScreen(): void {
@@ -236,7 +237,7 @@ export class IndicatorSelectorComponent implements OnInit, OnDestroy {
 
     onHiddenScreen(screen: IScreenSettings): void {
         screen.isHidden = !screen.isHidden;
-        this.userSettings.updateScreen(screen.id, screen.screenName, screen.isHidden);
+        this.userSettings.updateScreen(screen);
     }
 
     isLeaveScreen(e): void {
