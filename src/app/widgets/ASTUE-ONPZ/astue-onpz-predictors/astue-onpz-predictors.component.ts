@@ -64,7 +64,7 @@ export class AstueOnpzPredictorsComponent extends WidgetPlatform implements OnIn
             const el = this.data.find(value => value.id === id);
             arr.push({ name: el?.name, id: el?.id, colorIndex: el?.colorIndex });
         });
-        this.astueOnpzService.predictorsOptions$.next(arr);
+        this.astueOnpzService.setPredictors(arr);
     }
 
 }
