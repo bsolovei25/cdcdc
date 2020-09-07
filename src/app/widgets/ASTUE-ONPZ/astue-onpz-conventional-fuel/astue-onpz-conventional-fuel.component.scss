@@ -7,6 +7,29 @@
   }
 }
 
+.header-buttons {
+  flex-grow: 1;
+  display: flex;
+  justify-content: flex-end;
+  cursor: pointer;
+  gap: 12px;
+
+  .button {
+    display: flex;
+    padding: 0 10px;
+    height: 24px;
+    background: #303549;
+    gap: 10px;
+    border-radius: 2px;
+
+    & > * {
+      color: #D7E2F2;
+      font-size: 13px;
+      margin: auto 0;
+    }
+  }
+}
+
 .container {
   position: relative;
   height: 100%;
