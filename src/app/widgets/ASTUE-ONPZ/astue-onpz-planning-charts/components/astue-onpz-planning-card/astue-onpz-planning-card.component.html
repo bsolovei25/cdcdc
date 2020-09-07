@@ -5,7 +5,7 @@
     <div class="header__unit">{{data.unitName}}</div>
     <svg-icon
       class="header__icon"
-      [class.header__icon__active]="(astueOnpzService.sharedPlanningGraph$ | async) === data"
+      [class.header__icon__active]="(astueOnpzService.sharedPlanningGraph$ | async).title === data.title"
       src="assets/icons/widgets/ASTUE-ONPZ/fullscreen.svg"
       (click)="graphOpen()"
       [svgStyle]="{ 'width.px':25, 'height.px':25}"
