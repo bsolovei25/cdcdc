@@ -4,6 +4,7 @@ import {
     AstueOnpzConsumptionIndicatorsWidgetType,
     AstueOnpzConsumptionIndicatorType
 } from '../astue-onpz-consumption-indicators/astue-onpz-consumption-indicators.component';
+import { IPlanningChart } from '../astue-onpz-planning-charts/astue-onpz-planning-charts.component';
 
 export interface IAstueOnpzMonitoringOptions {
     manufactureName: string | null;
@@ -43,17 +44,38 @@ export class AstueOnpzService {
         indicatorType: null
     });
 
-    public predictorsOptions$: BehaviorSubject<IAstueOnpzPredictorsOptions[]> = new BehaviorSubject([]);
+    public predictorsOptions$: BehaviorSubject<IAstueOnpzPredictorsOptions[]>
+        = new BehaviorSubject([]);
 
-    public sharedMonitoringOptions: Observable<IAstueOnpzMonitoringOptions> = this.monitoringOptions$.asObservable();
+    public sharedMonitoringOptions: Observable<IAstueOnpzMonitoringOptions>
+        = this.monitoringOptions$.asObservable();
 
-    public sharedIndicatorOptions: Observable<IAstueOnpzMonitoringCarrierOptions> = this.indicatorOptions$.asObservable();
+    public sharedIndicatorOptions: Observable<IAstueOnpzMonitoringCarrierOptions>
+        = this.indicatorOptions$.asObservable();
+
+    public sharedPlanningGraph$: BehaviorSubject<IPlanningChart>
+        = new BehaviorSubject(null);
 
     constructor() {
     }
 
     public setMonitoringOptions(options: IAstueOnpzMonitoringOptions): void {
         this.monitoringOptions$.next(options);
+    }
+
+    public setPredictors(arr: IAstueOnpzPredictorsOptions[]): void {
+        if (arr.some(x => x.name !== this.sharedPlanningGraph$.getValue()?.title)) {
+            this.setPlanningGraph(null);
+        }
+        this.predictorsOptions$.next(arr);
+    }
+
+    public setPlanningGraph(graph: IPlanningChart, isDemand: boolean = false): void {
+        if (this.sharedPlanningGraph$.getValue()?.title === graph?.title && !isDemand) {
+            this.sharedPlanningGraph$.next(null);
+            return;
+        }
+        this.sharedPlanningGraph$.next(graph);
     }
 
     public updateIndicatorFilter(key: string, action: 'add' | 'delete'): void {

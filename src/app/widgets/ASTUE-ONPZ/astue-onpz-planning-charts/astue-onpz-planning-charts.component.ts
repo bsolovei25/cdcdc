@@ -1,7 +1,6 @@
 import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
 import { WidgetPlatform } from '../../../dashboard/models/widget-platform';
 import { WidgetService } from '../../../dashboard/services/widget.service';
-import { HttpClient } from '@angular/common/http';
 import { IProductionTrend } from '../../../dashboard/models/production-trends.model';
 import { AstueOnpzService } from '../astue-onpz-shared/astue-onpz.service';
 
@@ -28,7 +27,6 @@ export class AstueOnpzPlanningChartsComponent extends WidgetPlatform implements 
         @Inject('isMock') public isMock: boolean,
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string,
-        private http: HttpClient
     ) {
         super(widgetService, isMock, id, uniqId);
     }
