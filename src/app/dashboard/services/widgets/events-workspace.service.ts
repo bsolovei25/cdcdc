@@ -116,7 +116,7 @@ export class EventsWorkspaceService {
 
     public readonly categories: { [id in EventsWidgetCategoryCode]: string } = {
         smotr: 'СМОТР',
-        safety: 'Безопасноть',
+        safety: 'Безопасность',
         tasks: 'Производственные задания',
         equipmentStatus: 'Состояния оборудования',
         drops: 'Сбросы',
