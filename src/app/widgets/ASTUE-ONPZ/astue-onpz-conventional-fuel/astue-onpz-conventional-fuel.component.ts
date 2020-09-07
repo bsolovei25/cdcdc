@@ -45,6 +45,12 @@ export class AstueOnpzConventionalFuelComponent extends WidgetPlatform
         super.dataConnect();
         this.subscriptions.push(
             this.astueOnpzService.sharedIndicatorOptions.subscribe((options) => {
+                if (!options?.filterValues) {
+                    return;
+                }
+                this.widgetService.setWidgetLiveDataFromWSOptions(this.widgetId, options);
+            }),
+            this.astueOnpzService.predictorsOptions$.subscribe((options) => {
                 this.widgetService.setWidgetLiveDataFromWSOptions(this.widgetId, options);
             })
         );
@@ -56,7 +62,6 @@ export class AstueOnpzConventionalFuelComponent extends WidgetPlatform
     }
 
     protected dataHandler(ref: { graphs: IMultiChartLine[] }): void {
-        console.log(ref);
         if (ref?.graphs) {
             ref.graphs.forEach((graph) => {
                 const _ = graph as any;
