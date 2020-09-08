@@ -94,8 +94,6 @@ export class CdLineChartComponent implements OnChanges {
             this.size = changes.size?.currentValue ? changes.size?.currentValue : this.size;
             this.data = changes.data?.currentValue ? changes.data?.currentValue : this.data;
             if (this.size?.width && this.size?.height && this.data) {
-                // this.data.plan = this.data.plan.slice(0, 9);
-                // this.data.fact = this.data.fact.slice(0, 9);
                 this.drawSvg();
                 this.drawSvg();
             }
@@ -105,11 +103,11 @@ export class CdLineChartComponent implements OnChanges {
     private configChartArea(): void {
         this.sizeX.min = 1;
         this.sizeX.max = this.hoursCount + 3;
-        // new Date((new Date()).getFullYear(), (new Date()).getMonth() + 1, 0).getDate();
     }
 
     private drawSvg(): void {
         this.configChartArea();
+        this.prepareData();
         // chart layout render
         this.initScale();
         this.initSvg();
@@ -117,7 +115,6 @@ export class CdLineChartComponent implements OnChanges {
         this.drawGrid();
         this.drawDayThreshold();
         // data render
-        this.prepareData();
         this.drawCurve(this.factDataset, 'fact');
         this.drawCurve(this.planDataset, 'plan');
     }
@@ -127,27 +124,11 @@ export class CdLineChartComponent implements OnChanges {
         this.planDataset = this.data?.plan ? this.data.plan : [];
         this.lowDataset = this.data?.lowBound ? this.data.lowBound : [];
         this.highDataset = this.data?.highBound ? this.data.highBound : [];
-
         this.plan = this.data && this.data.planValue ? this.data.planValue : 0;
 
-        let maxX = 0;
-        let maxY = 0;
-        let minY = 0;
-
-        // TOFIX нахождение максимальных значений проще через
-        // d3.min(), d3.max() и d3.extent()
-        [...this.factDataset, ...this.planDataset].forEach((item) => {
-            maxY = item.y >= maxY ? item.y : maxY === 0 ? item.y : maxY;
-            minY = item.y <= minY ? item.y : minY === 0 ? item.y : minY;
-        });
-        this.factDataset.forEach((item) => {
-            maxX = item.x >= maxX ? item.x : maxX === 0 ? item.x : maxX;
-        });
-
-        // this.currentHour = maxX;
-        // this.currentHour = 9;
-        this.sizeY.min = minY - 1;
-        this.sizeY.max = maxY + 1;
+        const [minY, maxY] = d3.extent([...this.factDataset, ...this.planDataset].map(el => el.y));
+        this.sizeY.min = minY - (maxY - minY) * 0.1;
+        this.sizeY.max = maxY + (maxY - minY) * 0.1;
     }
 
     private initScale(): void {
