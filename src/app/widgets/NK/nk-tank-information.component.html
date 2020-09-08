@@ -5,12 +5,13 @@
         icon="map"
     ></evj-contemporary-widget-header>-->
 
-    <evj-app-filter-menu></evj-app-filter-menu>
+    <evj-nk-tank-information-filter-menu></evj-nk-tank-information-filter-menu>
 
     <div class="cardList">
-        <evj-app-card 
+        <evj-nk-tank-information-card 
             *ngFor="let card of cardsData"
             [cardData] = "card"
-        ></evj-app-card>
+        ></evj-nk-tank-information-card>
     </div>
+    
 </div>

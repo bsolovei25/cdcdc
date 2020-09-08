@@ -1,15 +1,15 @@
-import { ICard } from './interfaces/interfaces';
+import { WidgetPlatform } from 'src/app/dashboard/models/widget-platform';
+import { ICard } from './../../dashboard/models/NK/nk-tank-information.model';
 import { WidgetService } from './../../dashboard/services/widget.service';
 import { Inject, Component, OnInit, OnDestroy } from '@angular/core';
-import { WidgetPlatform } from 'src/app/dashboard/models/widget-platform';
 import { HttpClient } from '@angular/common/http';
 
 @Component({
-    selector: 'evj-tank-information',
-    templateUrl: './tank-information.component.html',
-    styleUrls: ['./tank-information.component.scss']
+    selector: 'evj-nk-tank-information',
+    templateUrl: './nk-tank-information.component.html',
+    styleUrls: ['./nk-tank-information.component.scss']
 })
-export class TankInformationComponent extends WidgetPlatform implements OnInit, OnDestroy {
+export class NkTankInformationComponent extends WidgetPlatform implements OnInit, OnDestroy {
     cardsData: ICard[];
 
     constructor(
@@ -24,7 +24,7 @@ export class TankInformationComponent extends WidgetPlatform implements OnInit, 
 
     ngOnInit(): void {
         super.widgetInit();
-        this.http.get<ICard[]>('mock/cards.mock.json')
+        this.http.get<ICard[]>('assets/mock/NK/cards.mock.json')
             .subscribe(data => {
                 this.cardsData = [...data];
                 console.log(this.cardsData);

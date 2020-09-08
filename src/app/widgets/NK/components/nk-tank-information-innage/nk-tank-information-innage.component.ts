@@ -1,12 +1,12 @@
-import { IInnage } from './../../interfaces/interfaces';
+import { IInnage } from './../../../../dashboard/models/NK/nk-tank-information.model';
 import { Component, OnInit, Input, OnChanges } from '@angular/core';
 
 @Component({
-  selector: 'evj-app-innage',
-  templateUrl: './innage.component.html',
-  styleUrls: ['./innage.component.scss']
+  selector: 'evj-nk-tank-information-innage',
+  templateUrl: './nk-tank-information-innage.component.html',
+  styleUrls: ['./nk-tank-information-innage.component.scss']
 })
-export class InnageComponent implements OnInit, OnChanges {
+export class NkTankInformationInnageComponent implements OnInit, OnChanges {
   @Input() innageData: IInnage;
 
   higher: number;

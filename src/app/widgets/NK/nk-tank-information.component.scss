@@ -1,0 +1,26 @@
+@import 'src/app/widgets/NK/scss/vars.scss';
+
+*{
+    box-sizing: border-box;
+}
+
+.main-container {
+    width: 100%;
+    padding: 10px;
+    background: var(--color-bg-main);
+
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.cardList {
+    padding: 15px 10px;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+
+    background: #161922;
+
+    align-content: space-between;
+}

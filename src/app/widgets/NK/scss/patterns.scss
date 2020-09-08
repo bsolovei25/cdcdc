@@ -1,8 +1,0 @@
-@mixin fontCreator($lh, $fs) {
-    font-family: 'Roboto';
-    color: white;
-    font-style: normal;
-    font-weight: normal;
-    font-size: $fs;
-    line-height: $lh;
-}

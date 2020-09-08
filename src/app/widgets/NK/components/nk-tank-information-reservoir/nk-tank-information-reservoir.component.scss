@@ -1,5 +1,8 @@
-@import "src/app/widgets/NK/scss/patterns.scss";
 @import 'src/app/widgets/NK/scss/vars.scss';
+
+*{
+    box-sizing: border-box;
+}
 
 img {
     user-select: none;
@@ -36,7 +39,7 @@ img {
     height: 115px;
     width: 115px;
 
-    border: 0.5px solid $color-bg-active-bright;
+    border: 0.5px solid var(--color-aps-active)t;
     opacity: 0.4;
     border-radius: 50%;
 
@@ -73,7 +76,7 @@ img {
     justify-content: center;
     align-items: center;
 
-    border: 0.5px solid $color-bg-active-bright;
+    border: 0.5px solid var(--color-aps-active)t;
     border-radius: 50%;
 
     z-index: 1;
@@ -85,7 +88,7 @@ img {
     width: 75px;
 
     border-radius: 50%;
-    background: $color-bg-active-bright;
+    background: var(--color-aps-active)t;
     opacity: 0.4;
 }
 
@@ -171,7 +174,7 @@ img {
         width: 50%;
         position: absolute; 
         top: 0;
-        background: $color-bg-active-bright;
+        background: var(--color-aps-active)t;
     }
 
     .arrow__before {

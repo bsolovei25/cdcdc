@@ -1,11 +1,14 @@
-@import "src/app/widgets/NK/scss/patterns.scss";
 @import 'src/app/widgets/NK/scss/vars.scss';
+
+*{
+    box-sizing: border-box;
+}
 
 .innage {
     width: 68px;
     height: 150px;
 
-    background:  $color-bg-component;
+    background:  rgba(48, 53, 73, 0.25);
 
     border-radius: 0px 0px 3px 3px;
 
@@ -21,11 +24,12 @@
     justify-content: center;
     align-items: center;
 
-    background: $color-bg-component-title;
+    background: var(--color-astue-onpz-bg-data-icon);
     border-radius: 2px;
 
-    @include fontCreator(14px, 12px);
-    color: $color-border-unactive;
+    line-height: 14px;
+    font-size: 12px;
+    color: var(--color-border-unactive);
 }
 
 .innage__body {
@@ -37,8 +41,9 @@
     flex-direction: column;
 
 
-    @include fontCreator(19px, 16px);
-    color: $color-font-title;
+    line-height: 19px;
+    font-size: 16px;
+    color: var(--color-kpe-text-main);
 }
 
 .innage-border {
@@ -79,7 +84,7 @@
 .innage-axis {
     height: 100%;
     width: 1px;
-    background: $color-innage-axis;
+    background: #E8E6DD;
 
     display: flex;
     align-items: flex-end;
@@ -88,7 +93,7 @@
 
     .innage-axis__value {
         width: 1px;
-        background: $color-bg-active-bright;
+        background: var(--color-aps-active)t;
     }
 }
 
@@ -105,11 +110,11 @@
         height: 1px;
         width: 4px;
 
-        background: $color-innage-axis;
+        background: #E8E6DD;
         border-radius: 0 3px 3px 0;   
     }
 
     .innage-lines__item_active {
-        background: $color-bg-active-bright;
+        background: var(--color-aps-active)t;
     }
 }
