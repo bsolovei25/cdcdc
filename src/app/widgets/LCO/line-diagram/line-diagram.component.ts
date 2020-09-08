@@ -44,6 +44,8 @@ export class LineDiagramComponent extends WidgetPlatform implements OnInit, OnDe
                     (value.upperLimit - value.lowerLimit) * this.percentPlan);
                 value.percentFact = value.percentFact > 100 ? 100 :
                     value.percentFact < 0 ? 0 : value.percentFact;
+            } else {
+                value.percentFact = 0;
             }
         });
     }
