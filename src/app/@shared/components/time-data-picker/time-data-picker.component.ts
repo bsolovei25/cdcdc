@@ -56,7 +56,7 @@ export class TimeDataPickerComponent implements OnInit, OnChanges {
     public stepMinutes: number[] = [1, 5, 10, 15, 20, 25];
     public stepSeconds: number[] = [1, 5, 10, 15, 20, 25];
 
-    public dateControl: FormControl = new FormControl(new Date());
+    public dateControl: FormControl = new FormControl({value: new Date(), disabled: true});
 
     constructor() {}
 
