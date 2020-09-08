@@ -1,0 +1,46 @@
+@import "src/app/widgets/NK/scss/patterns.scss";
+@import 'src/app/widgets/NK/scss/vars.scss';
+
+.title {
+    height: 40px;
+    padding: 0 15px;
+
+    border-radius: 2px 2px 0 0;
+
+    display: flex;
+    align-items: center;
+
+    background: $color-lines-bg-dia;
+
+    position: relative;
+
+    span {
+        margin-left: 10px;
+        @include fontCreator(22px, 18px);
+        color: $color-font-title;
+    }
+
+    img {
+        width: 16px;
+    }
+
+    button {
+        height: 25px;
+        width: 120px;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        border-radius: 3px;
+
+        background: $color-bg-component-title;
+
+        @include fontCreator(17px, 14px);
+        color: $color-font-title;
+
+        position: absolute;
+        right: 10px;
+    }
+}
+

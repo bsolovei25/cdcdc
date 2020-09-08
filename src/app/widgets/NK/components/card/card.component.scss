@@ -1,0 +1,27 @@
+@import "src/app/widgets/NK/scss/patterns.scss";
+@import 'src/app/widgets/NK/scss/vars.scss';
+
+.card {
+    width: 360px;
+
+    margin-top: 5px;
+
+    display: flex;
+    flex-direction: column;
+    background: $color-bg-card-body;
+}
+
+.card__body {
+    width: 100%;
+    height: 220px;
+
+    position: relative;
+
+    display: flex;
+    justify-content: center;
+}
+
+.flex {
+    display: flex;
+    align-items: flex-start;
+}

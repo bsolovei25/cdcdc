@@ -1,0 +1,52 @@
+@import "src/app/widgets/NK/scss/patterns.scss";
+@import 'src/app/widgets/NK/scss/vars.scss';
+
+
+.menu-container{
+    height: 45px;
+    width: 100%;
+
+    display: flex;
+    justify-content: center;
+
+    background: rgba(39, 42, 56, 0.5);
+    border-radius: 0px 0px 2px 2px;
+}
+
+.filter-menu{
+    display: flex;
+}
+
+.filter-menu__item {    
+    height: 100%;
+
+    margin: 0 10px;
+    padding: 0 10px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    @include fontCreator(17px, 14px);
+    color: #606580;
+
+    cursor: pointer;
+    
+    position: relative;
+    
+
+    .filter-menu__item_selection {
+        height: 12px;
+        width: 100%;
+
+        border-bottom: 2px solid $color-bg-active-bright;
+        background: linear-gradient(0deg, rgba(35, 120, 217, 0.25) 0%, rgba(35, 120, 217, 0) 100%);
+
+        position: absolute;
+        bottom: 0;
+    }
+}
+
+.filter-menu__item_selected {
+    color: #ffffff;
+}

@@ -1,0 +1,28 @@
+<div class="innage">
+    <div class="innage__title">
+        <span>Взлив, СМ</span>
+    </div>
+    <div class="innage__body">
+        <div class="innage-border">
+            <div class="innage-lines">
+                <div class="innage-lines__item" 
+                *ngFor = "let i of innageDiagramCustomization" 
+                [ngClass] = "{'innage-lines__item_active': i <= diagramCustomLinesCount}"></div>
+            </div>
+
+            <div class="innage-axis">
+                <div class="innage-axis__value" [ngStyle] = "{'height': current / higher * 100 + '%'}"></div>
+            </div>
+
+            <span class="innage__higherBorder">
+                {{higher}}
+            </span>
+            <span class="innage__current" [ngStyle] = "{'height': current / higher * 100 + '%'}">
+                {{current}}
+            </span>
+            <span class="innage__lowerBorder" [ngStyle] = "{'height': lower / higher * 100 + '%' }">
+                {{lower}}
+            </span>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,9 @@
+<div class="card">
+    <evj-app-title [titleData]="cardData.title"></evj-app-title>
+    <div class="card__body">
+        <evj-app-innage [innageData]="cardData.innage"></evj-app-innage>
+        <evj-app-temperature [temperature]="cardData.temperature"></evj-app-temperature>
+        <evj-app-reservoir [volume]="cardData.volume" [isFilling] = "cardData.isFilling"></evj-app-reservoir>
+    </div>
+    <evj-app-card-info [volume]="cardData.volume"></evj-app-card-info>
+</div>

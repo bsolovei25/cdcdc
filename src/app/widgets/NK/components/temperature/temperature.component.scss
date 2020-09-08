@@ -1,0 +1,110 @@
+@import "src/app/widgets/NK/scss/patterns.scss";
+@import 'src/app/widgets/NK/scss/vars.scss';
+
+.temperature {
+    height: 150px;
+    width: 50px;
+
+    position: absolute;
+    right: 10px;
+    top: 15px;
+
+
+    border-radius: 0px 0px 3px 3px;
+
+    background: $color-bg-component;
+
+    .temperature__title {
+        height: 20px;
+        
+        background: $color-bg-component-title;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        border-radius: 2px 2px 0 0;
+
+        @include fontCreator(14px, 12px);
+        color: $color-border-unactive;
+    }
+
+    .temperature__value {
+        height: 26px;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        @include fontCreator(19px, 16px);
+        color: $color-font-title;
+    }
+}
+
+.thermometer-container {
+    height: 104px;
+    
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.thermometer {
+    height: 80px;
+    width: 5px;
+
+    border: 1px solid #292D3F;
+    border-bottom: none;
+    border-radius: 10px 10px 0 0;
+
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+
+}
+
+.thermometer-inner {
+    width: 4px;
+    margin-bottom: -5px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    background: $color-temperature-gradient;
+    border: 1px solid #222634;
+
+    border-radius: 10px 10px 0 0;
+
+    position: relative;
+    
+}
+
+.thermometer-circle {
+    height: 12px;
+    width: 12px;
+
+    margin-top: -1px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    border: 1px solid #292D3F;
+    border-radius: 50%;
+
+}
+
+.thermometer-circle__inner {
+    height: 5px;
+    width: 5px;
+
+    background: #00A99D;
+
+    border-radius: 50%;
+
+    z-index: 9000;
+
+    bottom: 0px;
+}

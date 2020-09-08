@@ -1,0 +1,16 @@
+<div class="main-container">
+    <!--<evj-contemporary-widget-header
+        [uniqId]="uniqId" 
+        [widgetTitle]="widgetTitle" 
+        icon="map"
+    ></evj-contemporary-widget-header>-->
+
+    <evj-app-filter-menu></evj-app-filter-menu>
+
+    <div class="cardList">
+        <evj-app-card 
+            *ngFor="let card of cardsData"
+            [cardData] = "card"
+        ></evj-app-card>
+    </div>
+</div>

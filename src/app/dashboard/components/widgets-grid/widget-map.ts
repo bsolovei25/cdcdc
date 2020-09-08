@@ -41,7 +41,6 @@ import { ReferenceComponent } from '../../widgets/reference/reference.component'
 import { TankCalibrationTableComponent } from '../../widgets/tank-calibration-table/tank-calibration-table.component';
 import { CustomReportPropertiesReferenceComponent } from '../../widgets/custom-report-properties-reference/custom-report-properties-reference.component';
 import { ProductionTrendComponent } from '../../widgets/production-trend/production-trend.component';
-import { TankInformationComponent } from '../../widgets/tank-information/tank-information.component';
 import { ReasonsDeviationsComponent } from '../../widgets/reasons-deviations/reasons-deviations.component';
 import { DocumentViewerComponent } from '../../widgets/document-viewer/document-viewer.component';
 import { DocumentsScansComponent } from '../../widgets/documents-scans/documents-scans.component';
@@ -103,7 +102,6 @@ export const WIDGETS = {
     'tank-calibration-table': TankCalibrationTableComponent,
     'custom-report-properties-reference': CustomReportPropertiesReferenceComponent,
     'production-trend': ProductionTrendComponent,
-    'tank-information': TankInformationComponent,
     'reasons-deviations': ReasonsDeviationsComponent,
     'document-viewer': DocumentViewerComponent,
     'documents-scans': DocumentsScansComponent,
@@ -156,6 +154,7 @@ export const WIDGETS = {
     'astue-onpz-planning-charts': WidgetContainerComponent,
     'astue-onpz-big-planning-chart': WidgetContainerComponent,
     'astue-onpz-interactive-indicators': WidgetContainerComponent,
+    'tank-information': WidgetContainerComponent,
     // TODO
     'cd-mat-balance-sensor': CdMatBalanceChartCardComponent,
     'cd-mat-balance-stream': CdMatBalanceChartCardComponent,
@@ -282,6 +281,24 @@ export const WIDGETS_LAZY = {
     },
 
     // #endregion APS
+
+    // #region NK
+
+    'tank-information': {
+        import: async () => {
+            return await import(
+                'src/app/widgets/NK/tank-information.module'
+                );
+        },
+        module: 'TankInformationModule',
+        itemCols: 19,
+        itemRows: 12,
+        minItemCols: 19,
+        minItemRows: 12,
+        preview: 'tank-information'
+    },
+
+    // #endregion NK
 
     // #region KPE
 

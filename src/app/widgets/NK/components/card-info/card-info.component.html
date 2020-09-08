@@ -1,0 +1,22 @@
+<div class="volume">
+    <div class="volume__info">
+        <span>Номинальный объем</span>
+        <span> {{volume.nominal | number:'1.0-0' | formatVolume}} т.</span>
+    </div>
+
+    <div class="free-space">
+        <div class="free-space__diagram">
+            <div class="indicator " *ngFor = "let i of volumeCustomization">
+                <div class="indicator__inner"  [ngClass]="{indicator__inner_active : i <= activeIndicatorCount}" ></div>
+            </div>
+        </div>
+        <div class="free-space__info">
+            <span>Ресурс к отгрузке</span>
+            <span> {{volume.fill | number:'1.0-0' | formatVolume}} т.</span>
+        </div>
+        <div class="free-space__info">
+            <span>Свободное место</span>
+            <span>{{volume.freeSpace | number:'1.0-0' | formatVolume}} т.</span>
+        </div>
+    </div>
+</div>
