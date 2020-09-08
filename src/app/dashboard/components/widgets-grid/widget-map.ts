@@ -160,7 +160,9 @@ export const WIDGETS = {
     'cd-mat-balance-sensor': CdMatBalanceChartCardComponent,
     'cd-mat-balance-stream': CdMatBalanceChartCardComponent,
     //
-    'line-diagram': WidgetContainerComponent
+    'line-diagram': WidgetContainerComponent,
+    'ejco-onpz-unit-sou': WidgetContainerComponent,
+    'ejco-onpz-fsb-load': WidgetContainerComponent,
 };
 
 export const WIDGETS_LAZY = {
@@ -768,6 +770,32 @@ export const WIDGETS_LAZY = {
         minItemCols: 24,
         minItemRows: 10
         // preview: 'astue-onpz-interactive-indicators',
+    },
+    'ejco-onpz-unit-sou': {
+        import: async () => {
+            return await import(
+                'src/app/widgets/EJCO-ONPZ/ejco-onpz-unit-sou/ejco-onpz-unit-sou.module'
+                );
+        },
+        module: 'EjcoOnpzUnitSouModule',
+        itemCols: 28,
+        itemRows: 7,
+        minItemCols: 28,
+        minItemRows: 7
+        // preview: 'ejco-onpz-unit-sou',
+    },
+    'ejco-onpz-fsb-load': {
+        import: async () => {
+            return await import(
+                'src/app/widgets/EJCO-ONPZ/ejco-onpz-fsb-load/ejco-onpz-fsb-load.module'
+                );
+        },
+        module: 'EjcoOnpzFsbLoadModule',
+        itemCols: 12,
+        itemRows: 7,
+        minItemCols: 12,
+        minItemRows: 7
+        // preview: 'ejco-onpz-fsb-load',
     }
 
     //#endregion ASTUE-ONPZ

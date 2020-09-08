@@ -13,6 +13,7 @@ import { EnumClaimWidgets, ClaimService } from '../../../dashboard/services/clai
 import { OverlayService } from '../../../dashboard/services/overlay.service';
 import { WidgetService } from '../../../dashboard/services/widget.service';
 import { UserSettingsService } from '../../../dashboard/services/user-settings.service';
+import { IEjcoOnpzUnit } from '../../../widgets/EJCO-ONPZ/ejco-onpz-unit-sou/ejco-onpz-unit-sou.component';
 
 @Component({
     selector: 'evj-widget-header',
@@ -43,12 +44,14 @@ export class WidgetHeaderComponent implements OnInit, OnChanges, OnDestroy {
             this.chDet.detectChanges();
         }
     }
+    @Input() public ejcoTabs?: IEjcoOnpzUnit[] = [];
     @Output() public eventProdTaskChange: EventEmitter<void> = new EventEmitter<void>();
     @Output() eventCreated: EventEmitter<boolean> = new EventEmitter<boolean>();
     @Output() eventBack: EventEmitter<null> = new EventEmitter<null>();
     @Output() public selected: EventEmitter<any> = new EventEmitter<any>();
     @Output() public selectedMenu: EventEmitter<any> = new EventEmitter<any>();
     @Output() private toggleAstueChange: EventEmitter<boolean> = new EventEmitter<boolean>();
+    @Output() public ejcoTabClicked?: EventEmitter<string | null> = new EventEmitter<string | null>();
     public readonly iconRoute: string = 'assets/icons/widget-title-icons/';
     private subscriptions: Subscription[] = [];
     claimWidgets: EnumClaimWidgets[] = [];
@@ -60,6 +63,8 @@ export class WidgetHeaderComponent implements OnInit, OnChanges, OnDestroy {
     public isReportButton: boolean = true;
 
     public filterTankInfo: boolean = false;
+
+    public ejcoActiveTab: string = '';
 
     constructor(
         public overlayService: OverlayService,
@@ -135,5 +140,14 @@ export class WidgetHeaderComponent implements OnInit, OnChanges, OnDestroy {
 
     public toggleAstueEfficiency(isInitialDataShow: boolean): void {
         this.toggleAstueChange.emit(isInitialDataShow);
+    }
+
+    public handleEjcoTabClick(caption: string | null = null): void {
+        if (!caption) {
+            this.ejcoTabClicked.emit();
+            return;
+        }
+        this.ejcoActiveTab = caption;
+        this.ejcoTabClicked.emit(caption);
     }
 }
