@@ -1,6 +1,10 @@
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { WidgetPlatform } from '../../../dashboard/models/widget-platform';
 import { WidgetService } from '../../../dashboard/services/widget.service';
+import {
+    ISOUOperationalAccountingSystem,
+    ISOUSection
+} from '../../../dashboard/models/SOU/sou-operational-accounting-system';
 
 @Component({
     selector: 'evj-sou-operational-accounting-system',
@@ -10,6 +14,9 @@ import { WidgetService } from '../../../dashboard/services/widget.service';
 export class SouOperationalAccountingSystemComponent extends WidgetPlatform implements OnInit, OnDestroy {
 
     popupElementsStates: Map<string, boolean> = new Map<string, boolean>();
+
+    isSection: ISOUSection;
+    data: ISOUOperationalAccountingSystem;
 
     constructor(protected widgetService: WidgetService,
                 @Inject('isMock') public isMock: boolean,
@@ -30,8 +37,23 @@ export class SouOperationalAccountingSystemComponent extends WidgetPlatform impl
         this.popupElementsStates.set(key, value);
     }
 
-    protected dataHandler(ref: any): void {
-        // this.data = ref.chartItems;
+    protected dataHandler(ref: ISOUOperationalAccountingSystem): void {
+        if (ref) {
+            this.data = ref;
+            this.isSection = this.data?.section[0];
+            this.data.section[0].isEnable = true;
+        }
+    }
+
+    changeSection(section: ISOUSection): void {
+        this.isSection = section;
+        this.data.section.map(value => {
+            if (value.name === section.name) {
+                value.isEnable = true;
+            } else {
+                value.isEnable = false;
+            }
+        });
     }
 
 }

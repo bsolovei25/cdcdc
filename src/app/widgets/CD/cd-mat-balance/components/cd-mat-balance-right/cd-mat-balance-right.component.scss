@@ -18,6 +18,14 @@ $color-header-bg: rgba(92, 101, 133, 0.1);
     border: 1px var(--color-cd-bg-border);
     box-sizing: border-box;
 
+    &_icon-overlay {
+      cursor: pointer;
+      position: absolute;
+      top: 22px;
+      left: -3px;
+      z-index: 10;
+    }
+
     &_header {
       display: flex;
       gap: 12px;

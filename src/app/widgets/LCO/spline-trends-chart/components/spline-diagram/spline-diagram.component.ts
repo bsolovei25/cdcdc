@@ -44,6 +44,9 @@ export class SplineDiagramComponent implements OnChanges {
     @Input()
     public data: ISplineDiagramData = null;
 
+    @Input()
+    public currentMonth: Date = new Date();
+
     @ViewChild('chart')
     private chart: ElementRef;
 
@@ -104,7 +107,7 @@ export class SplineDiagramComponent implements OnChanges {
 
     private configChartArea(): void {
         this.sizeX.max =
-            new Date((new Date()).getFullYear(), (new Date()).getMonth() + 1, 0).getDate();
+            new Date((new Date(this.currentMonth)).getFullYear(), (new Date(this.currentMonth)).getMonth() + 1, 0).getDate();
     }
 
     private drawSvg(): void {
@@ -267,7 +270,7 @@ export class SplineDiagramComponent implements OnChanges {
                     .attr('y1', this.scales.y(data.y))
                     .attr('y2', this.scales.y(this.planDataset.find((el) => el.x === data.x).y));
 
-                if (data.y > this.highDataset[data.x - 1].y || data.y < this.lowDataset[data.x - 1].y) {
+                if (data.y > this.planDataset[data.x - 1].y) {
                     this.appendCurveDataCircle(2, data.x, data.y, 'curve-value-circle-high');
 
                     this.svg.append('rect')
@@ -340,6 +343,11 @@ export class SplineDiagramComponent implements OnChanges {
     }
 
     private drawDayThreshold(): void {
+        const displayedMonth = new Date(this.currentMonth).getMonth();
+        const currentMonth = new Date().getMonth();
+        if (displayedMonth !== currentMonth) {
+            return;
+        }
         this.svg.append('line')
             .attr('class', 'day-threshold-line')
             .attr('x1', this.scales.x(this.day))

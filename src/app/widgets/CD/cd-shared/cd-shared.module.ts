@@ -14,6 +14,7 @@ import {
     NgxMatDatetimePickerModule,
     NgxMatTimepickerModule
 } from '@angular-material-components/datetime-picker';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @NgModule({
     declarations: [
@@ -33,7 +34,8 @@ import {
         MatInputModule,
         NgxMatDatetimePickerModule,
         NgxMatTimepickerModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        MatTooltipModule,
     ]
 })
 export class CDSharedModule {

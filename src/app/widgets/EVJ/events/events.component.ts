@@ -87,7 +87,7 @@ export class EventsComponent extends WidgetPlatform implements OnInit, OnDestroy
                 open: 0,
                 all: 0
             },
-            name: 'Безопасноть',
+            name: 'Безопасность',
             isActive: false,
             url: '#',
             categoryType: 'default'
@@ -212,7 +212,7 @@ export class EventsComponent extends WidgetPlatform implements OnInit, OnDestroy
         {
             id: -100,
             code: 'isNotAcknowledged',
-            name: 'Неквитировано',
+            name: 'Не квитировано',
             notificationsCount: 0,
             isActive: false
         }

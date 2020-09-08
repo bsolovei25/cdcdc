@@ -97,14 +97,18 @@
               &__value {
                 display: flex;
                 align-items: center;
+                justify-content: flex-end;
                 border-top-right-radius: 3px;
                 border-bottom-right-radius: 3px;
                 background-color: var(--color-astue-onpz-bg-data-icon);
                 height: 20px;
-                padding-left: 31px;
                 padding-right: 6px;
                 margin-top: 2px;
                 font-size: 14px;
+                width: 80px;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
 
                 &--no-active {
                   background-color: var(--color-sou-bg-sup);

@@ -1,4 +1,12 @@
-import { Component, OnInit, Output, EventEmitter, Injector, Input } from '@angular/core';
+import {
+    Component,
+    OnInit,
+    Output,
+    EventEmitter,
+    Injector,
+    Input,
+    ChangeDetectorRef, AfterViewInit, AfterContentChecked
+} from '@angular/core';
 import { WidgetService } from '../../services/widget.service';
 import { UserSettingsService } from '../../services/user-settings.service';
 import { ClaimService, EnumClaimWidgets, EnumClaimScreens } from '../../services/claim.service';
@@ -20,7 +28,7 @@ import { trigger, transition, animate, style } from '@angular/animations';
         ])
     ]
 })
-export class WidgetPanelComponent implements OnInit {
+export class WidgetPanelComponent implements OnInit, AfterContentChecked {
     public readonly WIDGETS = WIDGETS;
     public gridWidget: boolean = true;
     public fixWidget: boolean = true;
@@ -53,12 +61,12 @@ export class WidgetPanelComponent implements OnInit {
         public widgetService: WidgetService,
         public injector: Injector,
         public userSettings: UserSettingsService,
-        private claimService: ClaimService
+        private claimService: ClaimService,
+        private chDet: ChangeDetectorRef
     ) {
     }
 
     ngOnInit(): void {
-        console.log('claims');
         this.subscriptions.push(
             this.widgetService.widgetsPanel$.subscribe((dataW) => {
                 const filterWidgets: IWidget[] = [];
@@ -69,6 +77,7 @@ export class WidgetPanelComponent implements OnInit {
                 });
                 this.widgets$.next(filterWidgets);
                 this.filterWidgets$.next(filterWidgets);
+                this.chDet.detectChanges();
             }),
             this.claimService.claimWidgets$.subscribe((set) => {
                 this.claimSettingsWidgets = set;
@@ -81,6 +90,10 @@ export class WidgetPanelComponent implements OnInit {
                 this.searchWidgetsFilter();
             })
         );
+    }
+
+    ngAfterContentChecked(): void {
+        this.chDet.detectChanges();
     }
 
     async loadItem(): Promise<void> {

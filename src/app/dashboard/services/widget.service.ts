@@ -180,10 +180,10 @@ export class WidgetService {
         if (this.openedWSChannels[widgetId]) {
             this.openedWSChannels[widgetId].options = {
                 optionValues: options,
-                timeStamp: new Date(),
+                timeStamp: new Date()
             };
         }
-        this.wsAppendOptions(widgetId, this.openedWSChannels[widgetId].options);
+        this.wsAppendOptions(widgetId, this.openedWSChannels[widgetId]?.options);
     }
 
     private wsConnect(widgetId: string, options: any = null): void {
@@ -297,9 +297,14 @@ export class WidgetService {
             case 'kpe-readiness':
             case 'kpe-quality':
             case 'kpe-safety':
+            case 'sou-operational-accounting-system':
             case 'astue-onpz-consumption-indicators':
             case 'astue-onpz-menu-structure':
             case 'astue-onpz-product-charts':
+            case 'astue-onpz-predictors':
+            case 'astue-onpz-interactive-indicators':
+            case 'astue-onpz-conventional-fuel':
+            case 'astue-onpz-planning-charts':
                 return data;
         }
         console.warn(`unknown widget type ${widgetType}`);

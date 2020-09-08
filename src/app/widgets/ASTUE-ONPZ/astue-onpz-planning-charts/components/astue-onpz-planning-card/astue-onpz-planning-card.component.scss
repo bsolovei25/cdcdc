@@ -62,6 +62,14 @@
   &__icon {
     width: 25px;
     height: 25px;
+    cursor: pointer;
+    fill: #616580;
+
+    &__active {
+      ::ng-deep {
+        fill: var(--color-btn-rounded-border);
+      }
+    }
   }
 
   &__title {

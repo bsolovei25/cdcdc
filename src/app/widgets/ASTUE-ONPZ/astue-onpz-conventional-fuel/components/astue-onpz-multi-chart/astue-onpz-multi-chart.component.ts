@@ -1,4 +1,13 @@
-import { Component, Input, ViewChild, ElementRef, HostListener, OnChanges } from '@angular/core';
+import {
+    Component,
+    Input,
+    ViewChild,
+    ElementRef,
+    HostListener,
+    OnChanges,
+    Renderer2,
+    OnDestroy,
+} from '@angular/core';
 import * as d3Selection from 'd3-selection';
 import * as d3 from 'd3';
 import { IChartD3, IChartMini } from '../../../../../@shared/models/smart-scroll.model';
@@ -19,7 +28,7 @@ const lineColors: { [key: string]: string } = {
     templateUrl: './astue-onpz-multi-chart.component.html',
     styleUrls: ['./astue-onpz-multi-chart.component.scss'],
 })
-export class AstueOnpzMultiChartComponent implements OnChanges {
+export class AstueOnpzMultiChartComponent implements OnChanges, OnDestroy {
     @Input() private data: IMultiChartLine[] = [];
 
     @ViewChild('chart', { static: true }) private chart: ElementRef;
@@ -36,8 +45,11 @@ export class AstueOnpzMultiChartComponent implements OnChanges {
     public scaleFuncs: { x: any; y: any } = { x: null, y: null };
     private axis: { axisX: any; axisY: any } = { axisX: null, axisY: null };
 
-    private readonly MAX_COEF: number = 0.1;
+    private readonly MAX_COEF: number = 0.3;
     private readonly MIN_COEF: number = 0.3;
+
+    private coefs: { [key: string]: { min: number; max: number } } = {};
+    private axisLabels: { [key: string]: number[] } = {};
 
     private readonly padding: { left: number; right: number; top: number; bottom: number } = {
         left: 0,
@@ -49,17 +61,25 @@ export class AstueOnpzMultiChartComponent implements OnChanges {
     private readonly axisYWidth: number = 60;
     private readonly topMargin: number = 25;
 
-    constructor() {}
+    private listeners: (() => void)[] = [];
+
+    constructor(private renderer: Renderer2) {}
 
     public ngOnChanges(): void {
-        if (this.data.length) {
+        console.log('data:', this.data);
+
+        if (!!this.data.length) {
             this.startDrawChart();
         }
     }
 
+    public ngOnDestroy(): void {
+        this.listeners.forEach((listener) => listener());
+    }
+
     @HostListener('document:resize', ['$event'])
     public OnResize(): void {
-        if (this.data.length) {
+        if (!!this.data.length) {
             this.startDrawChart();
         }
     }
@@ -67,6 +87,7 @@ export class AstueOnpzMultiChartComponent implements OnChanges {
     private startDrawChart(): void {
         this.initData();
         this.findMinMax();
+        this.defineAxis();
         this.defineScale();
         this.transformData();
         this.drawGridlines();
@@ -80,6 +101,7 @@ export class AstueOnpzMultiChartComponent implements OnChanges {
         if (this.svg) {
             this.svg.remove();
             this.svg = undefined;
+            this.listeners.forEach((listener) => listener());
         }
 
         this.svg = d3Selection.select(this.chart.nativeElement).append('svg');
@@ -108,21 +130,66 @@ export class AstueOnpzMultiChartComponent implements OnChanges {
         this.charts = [];
 
         this.data.forEach((graph) => {
+            const key: string =
+                graph.graphType === 'fact' || graph.graphType === 'plan' ? 'main' : graph.graphType;
+            if (!this.coefs[key]) {
+                this.coefs[key] = {
+                    min: this.MIN_COEF,
+                    max: this.MAX_COEF,
+                };
+            }
+
             this.charts.push({ ...(graph as IMultiChartData) });
             const currentChart = this.charts[this.charts.length - 1];
             currentChart.maxValue = Math.round(
-                d3.max(graph.graph, (item: IChartMini) => item.value) * (1 + this.MAX_COEF)
+                d3.max(graph.graph, (item: IChartMini) => item.value) * (1 + this.coefs[key].max)
             );
             currentChart.minValue = Math.round(
-                d3.min(graph.graph, (item: IChartMini) => item.value) * (1 - this.MIN_COEF)
+                d3.min(graph.graph, (item: IChartMini) => item.value) * (1 - this.coefs[key].min)
             );
         });
 
         const plan = this.charts.find((item) => item.graphType === 'plan');
         const fact = this.charts.find((item) => item.graphType === 'fact');
-        const [min, max] = d3.extent([plan.minValue, plan.maxValue, fact.minValue, fact.maxValue]);
-        plan.minValue = fact.minValue = min;
-        plan.maxValue = fact.maxValue = max;
+        if (!!plan && !!fact) {
+            const [min, max] = d3.extent([
+                plan.minValue,
+                plan.maxValue,
+                fact.minValue,
+                fact.maxValue,
+            ]);
+            plan.minValue = fact.minValue = min;
+            plan.maxValue = fact.maxValue = max;
+        }
+    }
+
+    private defineAxis(): void {
+        let min: number = Infinity;
+        let max: number = -Infinity;
+
+        this.charts.forEach((chart) => {
+            if (chart.graphType !== 'fact' && chart.graphType !== 'plan') {
+                this.axisLabels[chart.graphType] = this.defineAxisYLabels(
+                    chart.minValue,
+                    chart.maxValue
+                );
+            } else {
+                min = chart.minValue < min ? chart.minValue : min;
+                max = chart.maxValue > max ? chart.maxValue : max;
+            }
+        });
+
+        this.axisLabels.main = this.defineAxisYLabels(min, max);
+    }
+
+    private defineAxisYLabels(min: number, max: number, countOfSteps: number = 10): number[] {
+        const arr: number[] = [];
+        const step: number = Math.round((max - min) / countOfSteps);
+        for (let i = 1; i < 10; i++) {
+            min += step;
+            arr.push(min);
+        }
+        return arr;
     }
 
     private defineScale(): void {
@@ -241,6 +308,10 @@ export class AstueOnpzMultiChartComponent implements OnChanges {
         let left = this.padding.left + this.axisYWidth * (this.charts.length - 1);
         let counter = 0;
         let isMainAxisDrawn = false;
+        let isMainLabelsDrawn: boolean = false;
+
+        const SCALE_STEP: number = 0.05;
+
         this.charts.forEach((chart) => {
             const flag = chart.graphType === 'fact' || chart.graphType === 'plan';
             if (flag && isMainAxisDrawn) {
@@ -250,6 +321,8 @@ export class AstueOnpzMultiChartComponent implements OnChanges {
             }
             const translate: string = `translate(${left},0)`;
             left -= this.axisYWidth;
+            const height: number =
+                this.graphMaxY - this.padding.top - this.padding.bottom + this.topMargin;
             const axisY = this.svg
                 .append('g')
                 .attr('transform', translate)
@@ -260,15 +333,29 @@ export class AstueOnpzMultiChartComponent implements OnChanges {
                 .attr('x', -this.axisYWidth)
                 .attr('y', this.padding.top - this.topMargin)
                 .attr('width', this.axisYWidth)
-                .attr(
-                    'height',
-                    this.graphMaxY - this.padding.top - this.padding.bottom + this.topMargin
-                );
+                .attr('height', height);
             counter++;
-            axisY
-                .call(chart.axisY)
-                .selectAll('text')
-                .attr('class', 'label');
+
+            const labels = axisY.append('g').attr('class', 'labels');
+            let y: number = this.padding.top - this.topMargin + height;
+            const step: number = height / 10;
+            if (isMainLabelsDrawn && (chart.graphType === 'plan' || chart.graphType === 'fact')) {
+                return;
+            }
+            const currentKey: string =
+                chart.graphType === 'plan' || chart.graphType === 'fact' ? 'main' : chart.graphType;
+            isMainLabelsDrawn = chart.graphType === 'plan' || chart.graphType === 'fact';
+            this.axisLabels[currentKey].forEach((item) => {
+                y -= step;
+                labels
+                    .append('text')
+                    .attr('class', 'label')
+                    .attr('x', -5)
+                    .attr('y', y + 5)
+                    .attr('text-anchor', 'end')
+                    .text(item);
+            });
+
             const legend = axisY.append('g').attr('class', 'legend');
             const stroke = flag ? '#FFFFFF' : lineColors[chart.graphType];
             const padding = 5;
@@ -333,6 +420,25 @@ export class AstueOnpzMultiChartComponent implements OnChanges {
                 .attr('y1', (this.padding.top - this.topMargin) * 0.8)
                 .attr('x2', (-this.axisYWidth * 2) / 3 + 4)
                 .attr('y2', (this.padding.top - this.topMargin) * 0.8);
+
+            const key: string =
+                chart.graphType === 'fact' || chart.graphType === 'plan' ? 'main' : chart.graphType;
+            const coefs = this.coefs[key];
+
+            this.listeners.push(
+                this.renderer.listen(buttonMinus._groups[0][0], 'click', () => {
+                    coefs.max += SCALE_STEP;
+                    coefs.min += SCALE_STEP;
+                    this.startDrawChart();
+                }),
+                this.renderer.listen(buttonPlus._groups[0][0], 'click', () => {
+                    if (!!+coefs.max.toFixed(2)) {
+                        coefs.max -= SCALE_STEP;
+                        coefs.min -= SCALE_STEP;
+                        this.startDrawChart();
+                    }
+                })
+            );
         });
 
         const axisG = this.svg.selectAll(`g.axisY`);

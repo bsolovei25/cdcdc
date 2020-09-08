@@ -86,9 +86,18 @@
         </div>
         <div class="window-container__body__right-block">
           <div class="window-container__body__input">
-            <div class="input__container">
-              <p class="input__container__title">Установленные факты:</p>
-              <textarea type="text" rows="19" [(ngModel)]="info.establishedFacts"></textarea>
+            <div class="window-container__body__input">
+              <div class="input__container">
+                <p class="input__container__title">Установленные факты:</p>
+                <mat-form-field class="input__container__form mat-select-custom">
+                  <mat-select value="ewService.event.asusEvent.category"
+                              [(value)]="info.establishedFacts">
+                    <mat-option *ngFor="let fact of allEstablishedFacts" [value]="fact.name"  [matTooltip]="fact.name">
+                      {{ fact.name }}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
             </div>
           </div>
         </div>
