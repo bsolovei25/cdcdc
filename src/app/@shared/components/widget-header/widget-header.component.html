@@ -426,6 +426,79 @@
       </div>
     </div>
   </ng-container>
+  <ng-container *ngSwitchCase="'ejco-onpz-unit-sou'">
+    <div class="ejco">
+      <div class="ejco__content drag handle">
+        <div class="ejco__icon-wrapper">
+          <ng-container *ngIf="(!code && icon)">
+            <svg-icon [src]="iconRoute + icon + '.svg'"></svg-icon>
+          </ng-container>
+        </div>
+        <span class="ejco__name text-overflow">
+          {{title}}
+        </span>
+        <span class="ejco__units">{{units}}</span>
+        <div
+          *ngIf="!isPreview  && claimWidgets.includes(EnumClaimWidgets.delete)"
+          class="delete_widget"
+          (click)="onRemoveButton()"
+          (mousedown)="$event.stopPropagation()"
+          (touchstart)="$event.stopPropagation()"
+        >
+          <svg-icon
+            style="width: 100%; height: 100%; fill: #8C99B2"
+            src="assets/icons/close_bad.svg"
+          ></svg-icon>
+        </div>
+      </div>
+
+      <div
+        (mousedown)="$event.stopPropagation()"
+        (touchstart)="$event.stopPropagation()"
+        class="ejco__buttons"
+      >
+        <ng-container *ngFor="let tab of ejcoTabs">
+          <div class="ejco__button" [class.ejco__button--active]="tab.caption === ejcoActiveTab">
+            <div class="ejco__container" (click)="handleEjcoTabClick(tab.caption)">
+              <div class="title">{{ tab.caption }}</div>
+            </div>
+          </div>
+        </ng-container>
+        <div class="ejco__button">
+          <div class="ejco__container" (click)="handleEjcoTabClick()">
+            <div class="title">В источник</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+  <ng-container *ngSwitchCase="'ejco-onpz-fsb-load'">
+    <div class="ejco">
+      <div class="ejco__content drag handle">
+        <div class="ejco__icon-wrapper">
+          <ng-container *ngIf="(!code && icon)">
+            <svg-icon [src]="iconRoute + icon + '.svg'"></svg-icon>
+          </ng-container>
+        </div>
+        <span class="ejco__name text-overflow">
+          {{title}}
+        </span>
+        <span class="ejco__units">{{units}}</span>
+        <div
+          *ngIf="!isPreview  && claimWidgets.includes(EnumClaimWidgets.delete)"
+          class="delete_widget"
+          (click)="onRemoveButton()"
+          (mousedown)="$event.stopPropagation()"
+          (touchstart)="$event.stopPropagation()"
+        >
+          <svg-icon
+            style="width: 100%; height: 100%; fill: #8C99B2"
+            src="assets/icons/close_bad.svg"
+          ></svg-icon>
+        </div>
+      </div>
+    </div>
+  </ng-container>
   <ng-container *ngSwitchDefault>
     <div class="header">
       <div class="header__content drag handle">
