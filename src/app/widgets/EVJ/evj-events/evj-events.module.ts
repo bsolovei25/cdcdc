@@ -15,9 +15,12 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { SharedModule } from '@shared/shared.module';
 import { EvjEventCardComponent } from './components/evj-event-card/evj-event-card.component';
 import { EvjEventCategoriesComponent } from './components/evj-event-categories/evj-event-categories.component';
+import { EvjEventFiltersComponent } from './components/evj-event-filters/evj-event-filters.component';
+import { MatSelectModule } from '@angular/material/select';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
-    declarations: [EvjEventsComponent, EvjEventCardComponent, EvjEventCategoriesComponent],
+    declarations: [EvjEventsComponent, EvjEventCardComponent, EvjEventCategoriesComponent, EvjEventFiltersComponent],
     imports: [
         CommonModule,
         AngularSvgIconModule,
@@ -31,7 +34,9 @@ import { EvjEventCategoriesComponent } from './components/evj-event-categories/e
         NgxMatDatetimePickerModule,
         MatDialogModule,
         MatTooltipModule,
-        SharedModule
+        SharedModule,
+        MatSelectModule,
+        ReactiveFormsModule,
     ]
 })
 export class EvjEventsModule {

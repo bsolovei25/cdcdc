@@ -1,5 +1,5 @@
 .cd-events {
-  --categories-min-height: 145px;
+  --categories-min-height: 180px;
   --filters-min-height: 40px;
   --margin-vertical: 38px;
   --line-border: 0.5px dashed var(--color-border-main-transparrent);
@@ -32,7 +32,7 @@
     display: flex;
     justify-content: space-between;
     gap: 10px;
-    min-height: var(--categories-min-height);
+    //min-height: var(--categories-min-height);
     box-sizing: border-box;
     padding: 0 20px 25px 20px;
 
@@ -138,6 +138,7 @@
     padding: var(--padding);
     box-sizing: border-box;
     padding-bottom: 0;
+    padding-top: 5px;
 
     &--display-wall {
       border-left: 0.5px dashed var(--color-border-main-transparrent);
@@ -217,7 +218,7 @@
     display: flex;
     justify-content: space-between;
     min-height: var(--filters-min-height);
-    padding: 20px 20px 16px 20px;
+    padding: 5px 20px 16px 20px;
 
     &__item {
       flex: 1 192px;
@@ -264,7 +265,7 @@
     pointer-events: fill !important;
     position: relative;
     box-sizing: border-box;
-    height: calc(var(--categories-min-height) + var(--filters-min-height));
+    //height: calc(var(--categories-min-height) + var(--filters-min-height));
     border-top: 1px solid var(--color-cd-bg-border);
     box-shadow: -1px -12px 20px 0px rgba(0, 0, 0, 0.33);
 

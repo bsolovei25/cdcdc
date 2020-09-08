@@ -1,0 +1,46 @@
+<div class="container">
+  <div class="events-filters">
+    <div class="events-filters__selections">
+      <div class="astue-mat-select">
+        <mat-form-field>
+          <mat-select panelClass="mat-balance-select"
+                      [formControl]="manufactureSelect"
+                      (selectionChange)="onManufactureSelect($event)">
+            <mat-option *ngFor="let item of ['1']" [value]="item">
+              {{ item }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="astue-mat-select">
+        <mat-form-field>
+          <mat-select panelClass="mat-balance-select"
+                      [formControl]="manufactureSelect"
+                      (selectionChange)="onManufactureSelect($event)">
+            <mat-option *ngFor="let item of ['1']" [value]="item">
+              {{ item }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="astue-mat-select">
+        <mat-form-field>
+          <mat-select panelClass="mat-balance-select"
+                      [formControl]="manufactureSelect"
+                      (selectionChange)="onManufactureSelect($event)">
+            <mat-option *ngFor="let item of ['1']" [value]="item">
+              {{ item }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <button>
+        Сбросить фильтры
+      </button>
+    </div>
+    <div class="events-filters__search">
+      <input type="text" placeholder="Поиск">
+    </div>
+
+  </div>
+</div>
