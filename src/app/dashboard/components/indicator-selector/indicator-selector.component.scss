@@ -57,7 +57,7 @@
 
 .dropdown-content {
   flex: 1;
-  width: calc(100% + 70px);
+  width: calc(100% + 100px);
 
   overflow-x: hidden;
   overflow-y: scroll;
@@ -89,18 +89,22 @@
     //display: flex;
     padding-top: 15px;
     padding-bottom: 15px;
+
     ::ng-deep {
       & .mat-form-field-appearance-legacy {
         & .mat-form-field-underline {
           background-color: var(--color-border-main) !important;
         }
       }
+
       & .mat-form-field-label {
         color: var(--color-border-main) !important;
       }
+
       & .mat-form-field-suffix img {
         margin-bottom: -4px !important;
       }
+
       .mat-form-field-suffix * {
         height: 14px !important;
         width: 14px !important;
@@ -110,10 +114,12 @@
 
   &:hover {
     transition: all 0.3s ease;
+
     .screen-card {
       background-color: var(--color-bg-sub);
     }
   }
+
   &_input {
     background: transparent;
     border: solid 0.5px var(--color-border-main);
@@ -122,21 +128,25 @@
     margin: 5px 0 5px 0;
     color: inherit;
   }
+
   &_adder {
     width: 20px;
     height: 20px;
     margin-left: 10px;
+
     &__non-active {
       background-color: var(--color-border-main);
       -webkit-mask: url("../../../../assets/icons/plus.svg") no-repeat center;
       mask: url("../../../../assets/icons/plus.svg") no-repeat center;
       pointer-events: none;
     }
+
     &__active {
       background-color: var(--color-text-sub);
       -webkit-mask: url("../../../../assets/icons/plus.svg") no-repeat center;
       mask: url("../../../../assets/icons/plus.svg") no-repeat center;
       pointer-events: all;
+
       &:hover {
         background-color: white;
         -webkit-mask: url("../../../../assets/icons/plus.svg") no-repeat center;
@@ -176,7 +186,12 @@
   padding: 10px;
   overflow: hidden;
   text-overflow: ellipsis;
+
+  &--isHidden {
+    color: var(--color-text-sub);
+  }
 }
+
 .delete_screen {
   display: inline-block;
   padding: 0px 5px;
@@ -193,6 +208,7 @@
   width: 11px;
   fill: white;
 }
+
 .update_screen {
   display: inline-block;
   padding: 0px 5px;
@@ -209,6 +225,18 @@
   fill: white;
 }
 
+.hidden_screen {
+  display: inline-block;
+  padding: 0px 5px;
+  z-index: 999;
+  width: 20px;
+  fill: white;
+
+  &:hover {
+    fill: gray;
+  }
+}
+
 .update_screen2 ::ng-deep svg {
   width: 20px;
 }
@@ -216,6 +244,7 @@
 .delete_screen:hover {
   fill: gray;
 }
+
 .update_screen:hover {
   fill: gray;
 }
@@ -223,9 +252,11 @@
 .screen_blocks {
   display: flex;
 }
+
 .screen_block {
   display: flex;
 }
+
 .update_input {
   background: transparent;
   border: solid 0.5px #5b607d;
