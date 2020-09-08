@@ -151,18 +151,36 @@
       <div class="row__cell cell cell_left">
         <evj-ui-block status="normal">
           <mat-form-field class="status">
-            <mat-label>Услуга</mat-label>
+            <mat-label>Оборудование</mat-label>
             <mat-select
               panelClass="mat-select-custom"
-              [disabled]="isCreateEvent()"
-              [(ngModel)]="ewService.event.asusEvent.service"
+              [disabled]="isCreateEvent() || !isAvailableOption('equipment')"
+              (click)="optionClick('equipment')"
+              (selectionChange)="setEquipment($event.value)"
+              [(ngModel)]="ewService.event.asusEvent.equipment"
             >
-              <mat-option *ngFor="let service of ewService.asusServices" [value]="service.name"
-                >{{ service.name }}
+              <mat-option
+                *ngFor="let equipment of ewService.asusEquipments"
+                [value]="equipment.codeSap"
+              >{{ equipment.name }}
               </mat-option>
             </mat-select>
           </mat-form-field>
         </evj-ui-block>
+<!--        <evj-ui-block status="normal">-->
+<!--          <mat-form-field class="status">-->
+<!--            <mat-label>Услуга</mat-label>-->
+<!--            <mat-select-->
+<!--              panelClass="mat-select-custom"-->
+<!--              [disabled]="isCreateEvent()"-->
+<!--              [(ngModel)]="ewService.event.asusEvent.service"-->
+<!--            >-->
+<!--              <mat-option *ngFor="let service of ewService.asusServices" [value]="service.name"-->
+<!--                >{{ service.name }}-->
+<!--              </mat-option>-->
+<!--            </mat-select>-->
+<!--          </mat-form-field>-->
+<!--        </evj-ui-block>-->
       </div>
       <div class="row__cell cell cell_right">
         <evj-ui-block status="{{ewService.event.priority.name}}">
@@ -186,41 +204,38 @@
       <div class="row__cell cell cell_left">
         <evj-ui-block status="normal">
           <mat-form-field class="status">
-            <mat-label>Оборудование</mat-label>
+<!--            [disabled]="isCreateEvent() || !isAvailableOption('eoService')"-->
+<!--            (click)="optionClick('eoService')"-->
+            <mat-label>Единица обслуживания</mat-label>
             <mat-select
               panelClass="mat-select-custom"
-              [disabled]="isCreateEvent() || !isAvailableOption('equipment')"
-              (click)="optionClick('equipment')"
-              (selectionChange)="setEquipment($event.value)"
-              [(ngModel)]="ewService.event.asusEvent.equipment"
+              disabled
+              [(ngModel)]="ewService.event.asusEvent.eoService"
             >
               <mat-option
-                *ngFor="let equipment of ewService.asusEquipments"
-                [value]="equipment.codeSap"
-                >{{ equipment.name }}
+                *ngFor="let eoService of ewService.asusEOServices"
+                [value]="eoService.codeSap"
+              >{{ eoService.name }}
               </mat-option>
             </mat-select>
           </mat-form-field>
         </evj-ui-block>
       </div>
       <div class="row__cell cell cell_right">
-        <evj-ui-block status="normal">
-          <mat-form-field class="status">
-            <mat-label>Единица обслуживания</mat-label>
-            <mat-select
-              panelClass="mat-select-custom"
-              [disabled]="isCreateEvent() || !isAvailableOption('eoService')"
-              (click)="optionClick('eoService')"
-              [(ngModel)]="ewService.event.asusEvent.eoService"
-            >
-              <mat-option
-                *ngFor="let eoService of ewService.asusEOServices"
-                [value]="eoService.codeSap"
-                >{{ eoService.name }}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
-        </evj-ui-block>
+<!--        <evj-ui-block status="normal">-->
+<!--          <mat-form-field class="status">-->
+<!--            <mat-label>Рабочая группа</mat-label>-->
+<!--            <mat-select-->
+<!--              panelClass="mat-select-custom"-->
+<!--              [disabled]="isCreateEvent()"-->
+<!--              [(ngModel)]="ewService.event.asusEvent.workGroup"-->
+<!--            >-->
+<!--              <mat-option *ngFor="let workgroup of ewService.asusWorkgroup" [value]="workgroup.name"-->
+<!--              >{{ workgroup.name }}-->
+<!--              </mat-option>-->
+<!--            </mat-select>-->
+<!--          </mat-form-field>-->
+<!--        </evj-ui-block>-->
       </div>
     </div>
     <div class="column__row row">
@@ -234,20 +249,7 @@
         </div>
       </div>
       <div class="row__cell cell cell_right">
-        <evj-ui-block status="normal">
-          <mat-form-field class="status">
-            <mat-label>Рабочая группа</mat-label>
-            <mat-select
-              panelClass="mat-select-custom"
-              [disabled]="isCreateEvent()"
-              [(ngModel)]="ewService.event.asusEvent.workGroup"
-            >
-              <mat-option *ngFor="let workgroup of ewService.asusWorkgroup" [value]="workgroup.name"
-                >{{ workgroup.name }}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
-        </evj-ui-block>
+
       </div>
     </div>
     <div class="column__row row">
@@ -273,7 +275,7 @@
     </div>
     <div class="column__row row reasons">
       <evj-events-reasons-single
-        title="Причины"
+        title="Решение"
         [isAdder]="false"
         [reason]="ewService?.event?.directReasons"
         (addReason)="isReasonsPopupOpen=true"
