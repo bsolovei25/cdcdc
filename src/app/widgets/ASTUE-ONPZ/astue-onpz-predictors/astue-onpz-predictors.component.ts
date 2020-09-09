@@ -78,14 +78,7 @@ export class AstueOnpzPredictorsComponent extends WidgetPlatform implements OnIn
     }
 
     changeToggle(item: IPredictors): void {
-        setTimeout(() => {
-            if (this.selectPredictors.selected.length < 3) {
-                this.selectPredictors.toggle(item.id);
-            } else {
-                item.isActive = !item.isActive;
-                this.cdRef.detectChanges();
-            }
-        }, 1000);
+        this.selectPredictors.toggle(item.id);
         const arr: IAstueOnpzPredictorsOptions[] = [];
         this.selectPredictors.selected.forEach(id => {
             const el = this.data.find(value => value.id === id);
