@@ -163,6 +163,7 @@ export const WIDGETS = {
     'line-diagram': WidgetContainerComponent,
     'ejco-onpz-unit-sou': WidgetContainerComponent,
     'ejco-onpz-fsb-load': WidgetContainerComponent,
+    'ejco-onpz-unit-kpe': WidgetContainerComponent,
 };
 
 export const WIDGETS_LAZY = {
@@ -796,6 +797,19 @@ export const WIDGETS_LAZY = {
         minItemCols: 12,
         minItemRows: 7
         // preview: 'ejco-onpz-fsb-load',
+    },
+    'ejco-onpz-unit-kpe': {
+        import: async () => {
+            return await import(
+                'src/app/widgets/EJCO-ONPZ/ejco-onpz-unit-kpe/ejco-onpz-unit-kpe.module'
+                );
+        },
+        module: 'EjcoOnpzUnitKpeModule',
+        itemCols: 12,
+        itemRows: 7,
+        minItemCols: 12,
+        minItemRows: 7
+        // preview: 'ejco-onpz-unit-kpe',
     }
 
     //#endregion ASTUE-ONPZ
