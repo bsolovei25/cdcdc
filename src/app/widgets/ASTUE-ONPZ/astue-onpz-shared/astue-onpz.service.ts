@@ -21,7 +21,7 @@ export interface IAstueOnpzMonitoringCarrierOptions {
 }
 
 export interface IAstueOnpzPredictorsOptions {
-    id: number;
+    id: string;
     name: string;
     colorIndex: number;
 }
