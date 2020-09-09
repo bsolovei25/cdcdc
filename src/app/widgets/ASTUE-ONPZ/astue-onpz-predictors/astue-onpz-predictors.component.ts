@@ -11,7 +11,7 @@ import { WidgetService } from '../../../dashboard/services/widget.service';
 import { SelectionModel } from '@angular/cdk/collections';
 import {
     AstueOnpzService,
-    IAstueOnpzPredictorsOptions
+    IAstueOnpzPredictorsOptions,
 } from '../astue-onpz-shared/astue-onpz.service';
 
 interface IPredictors {
@@ -25,10 +25,9 @@ interface IPredictors {
 @Component({
     selector: 'evj-astue-onpz-predictors',
     templateUrl: './astue-onpz-predictors.component.html',
-    styleUrls: ['./astue-onpz-predictors.component.scss']
+    styleUrls: ['./astue-onpz-predictors.component.scss'],
 })
 export class AstueOnpzPredictorsComponent extends WidgetPlatform implements OnInit, OnDestroy {
-
     selectPredictors: SelectionModel<string> = new SelectionModel<string>(true);
     data: IPredictors[] = [];
 
@@ -61,12 +60,13 @@ export class AstueOnpzPredictorsComponent extends WidgetPlatform implements OnIn
     changeToggle(item: IPredictors): void {
         this.selectPredictors.toggle(item.id);
         const arr: IAstueOnpzPredictorsOptions[] = [];
-        this.selectPredictors.selected.forEach(id => {
-            const el = this.data.find(value => value.id === id);
+        this.selectPredictors.selected.forEach((id) => {
+            const el = this.data.find((value) => value.id === id);
             arr.push({ name: el?.name, id: el?.id, colorIndex: el?.colorIndex });
         });
+        console.log(this.widgetId, arr);
+
         this.astueOnpzService.setPredictors(arr);
         this.cdRef.detectChanges();
     }
-
 }

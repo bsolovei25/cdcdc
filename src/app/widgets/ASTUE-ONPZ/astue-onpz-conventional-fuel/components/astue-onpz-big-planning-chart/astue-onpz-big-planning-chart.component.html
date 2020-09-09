@@ -14,12 +14,12 @@
     (touchstart)="$event.stopPropagation()"
   >
     <div class="card__header header">
-      <div class="header__tag">Meteo:SP</div>
-      <div class="header__title">Скорость ветра</div>
+      <div class="header__tag">{{info?.tag}}</div>
+      <div class="header__title">{{info?.title}}</div>
     </div>
     <div class="card-border">
       <div class="card__legend legend">
-        <div class="legend__units">Ед. измерения</div>
+        <div class="legend__units">{{info?.units}}</div>
         <div class="legend__buttons">
           <svg-icon
             class="button"
