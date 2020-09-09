@@ -15,6 +15,7 @@ import {
     IMultiChartLine,
     IMultiChartData,
 } from '../../../../../dashboard/models/ASTUE-ONPZ/astue-onpz-multi-chart.model';
+import { AsyncRender } from '../../../../../@shared/functions/async-render.function';
 
 const lineColors: { [key: string]: string } = {
     temperature: '#FFB100',
@@ -66,10 +67,10 @@ export class AstueOnpzMultiChartComponent implements OnChanges, OnDestroy {
     constructor(private renderer: Renderer2) {}
 
     public ngOnChanges(): void {
-        console.log('data:', this.data);
-
         if (!!this.data.length) {
             this.startDrawChart();
+        } else {
+            this.destroySvg();
         }
     }
 
@@ -81,11 +82,16 @@ export class AstueOnpzMultiChartComponent implements OnChanges, OnDestroy {
     public OnResize(): void {
         if (!!this.data.length) {
             this.startDrawChart();
+        } else {
+            this.destroySvg();
         }
     }
 
+    @AsyncRender
     private startDrawChart(): void {
+        this.destroySvg();
         this.initData();
+        this.normalizeData();
         this.findMinMax();
         this.defineAxis();
         this.defineScale();
@@ -97,13 +103,15 @@ export class AstueOnpzMultiChartComponent implements OnChanges, OnDestroy {
         this.drawFutureRect();
     }
 
-    private initData(): void {
+    private destroySvg(): void {
         if (this.svg) {
             this.svg.remove();
             this.svg = undefined;
             this.listeners.forEach((listener) => listener());
         }
+    }
 
+    private initData(): void {
         this.svg = d3Selection.select(this.chart.nativeElement).append('svg');
 
         this.graphMaxX = +d3Selection
@@ -124,6 +132,69 @@ export class AstueOnpzMultiChartComponent implements OnChanges, OnDestroy {
                     this.graphMaxY > 5 ? this.graphMaxY - 5 : 0
                 }`
             );
+    }
+
+    private normalizeData(): void {
+        this.data.forEach((item) => {
+            // обнуление значений милисекунд, секунд и минут
+            item.graph.forEach((val) => {
+                val.timeStamp.setMilliseconds(0);
+                val.timeStamp.setSeconds(0);
+                val.timeStamp.setMinutes(0);
+            });
+            // вычисление дат начала и конца
+            const end = item.graph[item.graph.length - 1].timeStamp;
+            const start = new Date(end);
+            start.setHours(end.getHours() - 18);
+            // фильтрация по дате начала
+            item.graph = item.graph.filter((val) => val.timeStamp.getTime() >= start.getTime());
+            // зачистка повторяющихся дат
+            const filteredArray: IChartMini[] = [];
+            item.graph.forEach((val, idx, array) => {
+                const filtered = array.filter(
+                    (el) => el.timeStamp.getTime() === val.timeStamp.getTime()
+                );
+                val.value = filtered.reduce((acc, elem) => acc + elem.value, 0) / filtered.length;
+                if (
+                    !filteredArray.length ||
+                    filteredArray[filteredArray.length - 1].timeStamp.getTime() !==
+                        val.timeStamp.getTime()
+                ) {
+                    filteredArray.push({ value: val.value, timeStamp: val.timeStamp });
+                }
+            });
+            item.graph = filteredArray;
+            // заполнение пропусков в массиве
+            const arr = item.graph;
+            for (let idx = 0; idx < arr.length; idx++) {
+                const el = arr[idx];
+                if (!!idx) {
+                    const lastEl = arr[idx - 1];
+                    let a =
+                        (el.timeStamp.getTime() - lastEl.timeStamp.getTime()) / (1000 * 60 * 60);
+                    if (a !== 1) {
+                        const array: IChartMini[] = [];
+                        const step = (el.value - lastEl.value) / a;
+                        const timestamp = lastEl.timeStamp;
+                        let hours = timestamp.getHours() + 1;
+                        let val = lastEl.value;
+                        while (a > 1) {
+                            val += step;
+                            const date = new Date(timestamp);
+                            date.setHours(hours);
+                            const newEl: IChartMini = {
+                                value: val,
+                                timeStamp: date,
+                            };
+                            array.push(newEl);
+                            hours++;
+                            a--;
+                        }
+                        arr.splice(idx, 0, ...array);
+                    }
+                }
+            }
+        });
     }
 
     private findMinMax(): void {
@@ -193,13 +264,17 @@ export class AstueOnpzMultiChartComponent implements OnChanges, OnDestroy {
     }
 
     private defineScale(): void {
-        const left = this.padding.left + this.axisYWidth * (this.charts.length - 1);
-
+        const left = this.setLeftPadding();
         const chart = this.data.find((graph) => !!graph.graph.length).graph;
+
         const year = chart[0].timeStamp.getFullYear();
         const month = chart[0].timeStamp.getMonth();
         const day = chart[0].timeStamp.getDate();
-        const domainDates = [new Date(year, month, day), new Date(year, month, day + 1)];
+        const hour = chart[0].timeStamp.getHours();
+        const domainDates = [
+            new Date(year, month, day, hour),
+            new Date(year, month, day, hour + 24),
+        ];
         const rangeX = [left, this.graphMaxX - this.padding.right];
 
         this.scaleFuncs.x = d3
@@ -275,7 +350,7 @@ export class AstueOnpzMultiChartComponent implements OnChanges, OnDestroy {
             )
             .style('color', '#272A38');
 
-        const left = this.padding.left + this.axisYWidth * (this.charts.length - 1);
+        const left = this.setLeftPadding();
 
         grid.append('line')
             .attr('x1', left)
@@ -305,7 +380,7 @@ export class AstueOnpzMultiChartComponent implements OnChanges, OnDestroy {
     }
 
     private drawAxisYLabels(): void {
-        let left = this.padding.left + this.axisYWidth * (this.charts.length - 1);
+        let left = this.setLeftPadding();
         let counter = 0;
         let isMainAxisDrawn = false;
         let isMainLabelsDrawn: boolean = false;
@@ -523,26 +598,34 @@ export class AstueOnpzMultiChartComponent implements OnChanges, OnDestroy {
                 .attr('y', y - this.axisYWidth * 0.4 + 2)
                 .attr('width', this.axisYWidth * 0.3 - 4)
                 .attr('height', this.axisYWidth * 0.3 - 4);
-            g.append('text')
-                .attr('text-anchor', 'end')
-                .attr('x', x - this.axisYWidth * 0.3)
-                .attr('y', y - this.axisYWidth * 0.15)
-                .attr('class', 'data-fact')
-                .text(fact.value);
-            g.append('text')
-                .attr('text-anchor', 'start')
-                .attr('x', x + this.axisYWidth * 0.3)
-                .attr('y', y - this.axisYWidth * 0.15)
-                .attr('class', 'data-plan')
-                .text(plan.value);
+            if (fact) {
+                g.append('text')
+                    .attr('text-anchor', 'end')
+                    .attr('x', x - this.axisYWidth * 0.3)
+                    .attr('y', y - this.axisYWidth * 0.15)
+                    .attr('class', 'data-fact')
+                    .text(fact.value.toFixed(2));
+            }
+            if (plan) {
+                g.append('text')
+                    .attr('text-anchor', 'start')
+                    .attr('x', x + this.axisYWidth * 0.3)
+                    .attr('y', y - this.axisYWidth * 0.15)
+                    .attr('class', 'data-plan')
+                    .text(plan.value.toFixed(2));
+            }
 
             const formatDate = d3.timeFormat('%d.%m.%Y | %H:%M:%S');
-            g.append('text')
-                .attr('text-anchor', 'middle')
-                .attr('x', x)
-                .attr('y', y - this.axisYWidth * 0.6)
-                .attr('class', 'data-date')
-                .text(formatDate(plan.timeStamp));
+            const value = !!plan ? plan : !!fact ? fact : undefined;
+
+            if (value) {
+                g.append('text')
+                    .attr('text-anchor', 'middle')
+                    .attr('x', x)
+                    .attr('y', y - this.axisYWidth * 0.6)
+                    .attr('class', 'data-date')
+                    .text(formatDate(value.timeStamp));
+            }
 
             let start = this.padding.top - this.topMargin;
             const step = 10;
@@ -575,7 +658,7 @@ export class AstueOnpzMultiChartComponent implements OnChanges, OnDestroy {
                 rect.append('text')
                     .attr('x', x + step * 1.5 + cardHeigh)
                     .attr('y', start + cardHeigh - step * 0.9)
-                    .text(`${val.val.value} ${val.units}`);
+                    .text(`${val.val.value.toFixed(2)} ${val.units}`);
                 rect.append('image')
                     .attr(
                         'xlink:href',
@@ -587,5 +670,12 @@ export class AstueOnpzMultiChartComponent implements OnChanges, OnDestroy {
                     .attr('height', cardHeigh - step * 1.4);
             });
         }
+    }
+
+    private setLeftPadding(): number {
+        const plan = this.charts.find((item) => item.graphType === 'plan');
+        const fact = this.charts.find((item) => item.graphType === 'fact');
+        const coef = !!plan && !!fact ? this.charts.length - 1 : this.charts.length;
+        return this.padding.left + this.axisYWidth * coef;
     }
 }
