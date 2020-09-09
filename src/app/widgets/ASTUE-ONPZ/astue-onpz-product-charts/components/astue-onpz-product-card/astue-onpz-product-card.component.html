@@ -2,11 +2,11 @@
   <div class="card__header header">
     <svg-icon
       class="header__icon"
-      src="assets/icons/widgets/ASTUE-ONPZ/{{data.iconType}}.svg"
+      src="assets/icons/widgets/ASTUE-ONPZ/{{data?.iconType}}.svg"
       [svgStyle]="{ 'width.px':25, 'height.px':25}"
     ></svg-icon>
-    <div class="header__title">{{data.productName}}</div>
-    <div class="header__unit">{{data.unitName}}</div>
+    <div class="header__title">{{data?.productName}}</div>
+    <div class="header__unit">{{data?.unitName}}</div>
     <svg-icon
       class="header__icon"
       src="assets/icons/widgets/ASTUE-ONPZ/fullscreen.svg"
@@ -19,11 +19,11 @@
       <div class="legend__units">{{data.units}}</div>
       <div class="legend__value value plan">
         <div class="value__title">План</div>
-        <div class="value__card">{{data.currentPlanValue}}</div>
+        <div class="value__card">{{data?.currentPlanValue}}</div>
       </div>
       <div class="legend__value value">
         <div class="value__title">Факт</div>
-        <div class="value__card">{{data.currentFactValue}}</div>
+        <div class="value__card">{{data?.currentFactValue}}</div>
       </div>
     </div>
     <div class="card__chart">

@@ -13,7 +13,7 @@ export class CdMatBalanceService {
     private readonly restUrl: string;
 
     showDeviation: BehaviorSubject<number> = new BehaviorSubject<number>(null);
-    charts$: BehaviorSubject<string[]> = new BehaviorSubject<string[]>([]);
+    charts$: BehaviorSubject<number[]> = new BehaviorSubject<number[]>([]);
     isOpenEvent$: BehaviorSubject<EventsWidgetNotification> =
         new BehaviorSubject<EventsWidgetNotification>(null);
 
