@@ -75,7 +75,7 @@ export class OilControlTowerComponent implements OnInit, AfterViewInit, OnChange
         const rect = this.towerPic
             .append('rect')
             .attr('fill', '#a2e2ff')
-            .attr('opacity', '0.9')
+            .attr('opacity', '0.15')
             .attr('height', tankLevelPercent * 2.2)
             .attr('width', '260px')
             .attr('x', '63')
