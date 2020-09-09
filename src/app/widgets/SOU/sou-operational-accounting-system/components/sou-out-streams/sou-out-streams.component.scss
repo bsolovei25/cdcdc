@@ -67,9 +67,7 @@
           &__trust-level {
             text-align: end;
 
-            &--no-active {
-              background-color: var(--color-sou-bg-sup);
-            }
+
           }
 
           .column {
@@ -155,6 +153,18 @@
               display: flex;
               align-items: center;
               height: 20px;
+
+              &_inactivity {
+                color: var(--color-sou-text-sub);
+              }
+
+              &_deviation {
+                background-color: var(--color-cd-warning);
+              }
+
+              &--no-active {
+                background-color: var(--color-sou-bg-sup);
+              }
             }
 
             &__block-pims {
@@ -177,11 +187,16 @@
                 overflow: hidden;
                 text-overflow: ellipsis;
 
+                &_deviation {
+                  background-color: var(--color-cd-warning);
+                }
+
                 &--no-active {
                   background-color: var(--color-sou-bg-sup);
                 }
 
               }
+
 
               &__slide {
                 margin-left: 10px;
