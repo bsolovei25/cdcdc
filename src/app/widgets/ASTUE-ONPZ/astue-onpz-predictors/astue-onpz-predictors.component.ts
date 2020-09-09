@@ -52,29 +52,10 @@ export class AstueOnpzPredictorsComponent extends WidgetPlatform implements OnIn
     }
 
     protected dataHandler(ref: { predictors: IPredictors[] }): void {
-        console.log(this.selectPredictors.selected);
-        // if (this.data.length > 0) {
-        //     ref.predictors.forEach(refs => {
-        //         this.data.map(value => {
-        //             if (refs.id === value.id) {
-        //                 value.id = refs.id;
-        //                 value.name = refs.name;
-        //                 value.label = refs.label;
-        //                 this.selectPredictors.selected.forEach((select) => {
-        //                     if (value.id === select) {
-        //                         value.isActive = true;
-        //                     } else {
-        //                         value.isActive = false;
-        //                     }
-        //                 });
-        //             }
-        //         });
-        //     });
-        // } else {
-        if (this.data.length === 0) {
-            this.data = ref.predictors;
+        this.data = ref.predictors;
+        if (ref.predictors[0]?.id === '0') {
+            console.log('ID предиктора равна 0');  // проверка данных с backend
         }
-        // }
     }
 
     changeToggle(item: IPredictors): void {
