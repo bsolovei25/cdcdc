@@ -54,12 +54,12 @@
           <mat-label>Подкатегория</mat-label>
           <mat-select
             panelClass="mat-select-custom"
-            [(ngModel)]="ewService.event?.productionTasks.subcategory"
+            [(ngModel)]="ewService.event?.productionTasks.subCategory"
             [compareWith]="compareFn"
           >
             <mat-option [value]="undefined">Не выбрана</mat-option>
-            <mat-option *ngFor="let p of ewService.subcategory" [value]="p"
-            >{{ ewService.subCategories[p.id] }}
+            <mat-option *ngFor="let p of ewService.subCategory" [value]="p"
+            >{{ p.description }}
             </mat-option>
           </mat-select>
         </mat-form-field>
@@ -97,7 +97,7 @@
     <evj-event-description
       class="left__item"
       titleName="Состав бригады:"
-      [description]="ewService.event?.description"
+      [description]="ewService.event?.shiftPassEvent?.shiftMembers"
       (changedDescription)="onChangeEventDescription($event)"
     ></evj-event-description>
     <evj-chat
@@ -111,44 +111,44 @@
     <evj-event-description
       class="left__item"
       titleName="Находящиеся в работе насосы и компрессоры"
-      [description]="ewService.event?.description"
+      [description]="ewService.event?.shiftPassEvent?.shiftMembers"
       (changedDescription)="onChangeEventDescription($event)"
     ></evj-event-description>
     <evj-event-description
       class="left__item"
       titleName="Замечания по работе и дефекты технологического оборудования
        печей, колонн, теплообменников, резервуаров, насосов и т.д."
-      [description]="ewService.event?.description"
+      [description]="ewService.event?.shiftPassEvent?.notes"
       (changedDescription)="onChangeEventDescription($event)"
     ></evj-event-description>
     <evj-event-description
       class="left__item"
       titleName="Сведения о проведение работ повышенной опасности"
-      [description]="ewService.event?.description"
+      [description]="ewService.event?.shiftPassEvent?.shiftDangerWorks"
       (changedDescription)="onChangeEventDescription($event)"
     ></evj-event-description>
     <evj-event-description
       class="left__item"
       titleName="Другие события:"
-      [description]="ewService.event?.description"
+      [description]="ewService.event?.shiftPassEvent?.shiftOtherEvents"
       (changedDescription)="onChangeEventDescription($event)"
     ></evj-event-description>
     <evj-event-description
       class="left__item"
       titleName="Состояние вентиляции"
-      [description]="ewService.event?.description"
+      [description]="ewService.event?.shiftPassEvent?.ventilationStatus"
       (changedDescription)="onChangeEventDescription($event)"
     ></evj-event-description>
     <evj-event-description
       class="left__item"
       titleName="Состояние средств пожаротушения и инд. защиты:"
-      [description]="ewService.event?.description"
+      [description]="ewService.event?.shiftPassEvent?.fireExtinguishingEquipmentStatus"
       (changedDescription)="onChangeEventDescription($event)"
     ></evj-event-description>
     <evj-event-description
       class="left__item"
       titleName="Состояние ППК и манометров"
-      [description]="ewService.event?.description"
+      [description]="ewService.event?.shiftPassEvent?.pressureGaugesStatus"
       (changedDescription)="onChangeEventDescription($event)"
     ></evj-event-description>
     <evj-event-description

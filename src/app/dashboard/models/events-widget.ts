@@ -64,6 +64,7 @@ export interface EventsWidgetNotification {
     unitName?: string;
     deviationData?: IEventDeviationData;
     asusEvent?: IEventAsus;
+    shiftPassEvent?: IEventShiftPass;
     externalId?: number;
     externalCode?: string; // код внешней системы (ID в Системе-источник)
     externalDate?: Date; // дата регистрации во внешней системе
@@ -104,6 +105,25 @@ export interface IEventAsus {
     datetimeStart?: Date;
     datetimeEnd?: Date;
     datetimeDeadline?: Date;
+}
+
+export interface IEventShiftPass {
+    id: number;
+    shiftMembers: string;
+    shiftEstablishedFacts: string;
+    notes: string;
+    shiftDangerWorks: string;
+    shiftRepairWorks: string;
+    shiftOtherEvents: string;
+    shiftInstruction: string;
+    shiftPropertyNotes: string;
+    shiftComments: string;
+    compressorsInWork: string;
+    equipmentAtRepair: string;
+    equipmentReserved: string;
+    ventilationStatus: string;
+    fireExtinguishingEquipmentStatus: string;
+    pressureGaugesStatus: string;
 }
 
 export interface IRetrievalEventDto {
