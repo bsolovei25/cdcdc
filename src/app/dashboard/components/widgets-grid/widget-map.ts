@@ -35,7 +35,6 @@ import { RingEnergyIndicatorComponent } from '../../widgets/ring-energy-indicato
 import { SolidGaugesComponent } from '../../widgets/solid-gauge-with-marker/solid-gauges/solid-gauges.component';
 import { AdminReferencesComponent } from '../../widgets/admin-references/admin-references.component';
 import { PetroleumProductsMovementComponent } from '../../widgets/petroleum-products-movement/petroleum-products-movement.component';
-import { AdminPanelComponent } from '../../widgets/admin-panel/admin-panel.component';
 import { ReportServerConfiguratorComponent } from '../../widgets/report-server-configurator/report-server-configurator.component';
 import { ReferenceComponent } from '../../widgets/reference/reference.component';
 import { TankCalibrationTableComponent } from '../../widgets/tank-calibration-table/tank-calibration-table.component';
@@ -97,7 +96,7 @@ export const WIDGETS = {
     'observation-norm-tr': ObservationNormTRComponent,
     'admin-references': AdminReferencesComponent,
     'petroleum-products-movement': PetroleumProductsMovementComponent,
-    'admin-panel': AdminPanelComponent,
+    'admin-panel': WidgetContainerComponent,
     reference: ReferenceComponent,
     'report-server-configurator': ReportServerConfiguratorComponent,
     'tank-calibration-table': TankCalibrationTableComponent,
@@ -361,6 +360,17 @@ export const WIDGETS_LAZY = {
         minItemCols: 15,
         minItemRows: 15,
         preview: 'admin-shift-schedule',
+    },
+    'admin-panel': {
+        import: async () => {
+            return await import('src/app/widgets/admin/admin-panel/admin-panel.module');
+        },
+        module: 'AdminPanelModule',
+        itemCols: 43,
+        itemRows: 28,
+        minItemCols: 43,
+        minItemRows: 28,
+        preview: 'admin-panel',
     },
 
     // #endregion Admin
@@ -922,9 +932,6 @@ export const WIDGETS_LAZY = {
     // },
     // 'petroleum-products-movement': {
     //     import: async () => await import('src/app/widgets/petroleum-products-movement/petroleum-products-movement.module'),
-    // },
-    // 'admin-panel': {
-    //     import: async () => await import('src/app/widgets/admin-panel/admin-panel.module'),
     // },
     // 'reference': {
     //     import: async () => await import('src/app/widgets/reference/reference.module'),
