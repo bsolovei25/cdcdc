@@ -67,14 +67,18 @@
         </div>
 
         <span class="column__percent"
+
               [class.column__percent_inactivity]="!item.isEnable">{{ item?.valueTankPercent }}%</span>
       </td>
       <td class="body__column">{{ item.productName }}</td>
       <td class="body__column column body__column--padding-disabled body__column__trust-level">
-        <span class="body__column column__trust-level">{{ item.tolerance }}%</span></td>
+        <span class="body__column column__trust-level"
+              [class.column__trust-level_deviation]="item.isExceedingConfInterval"
+              [class.column__trust-level--no-active]="!item.isEnable">{{ item.tolerance }}%</span></td>
       <td class="body__column column body__column--padding-disabled">
         <div class="column__block-pims">
           <span class="column__block-pims__value"
+                [class.column__block-pims__value_deviation]="item.isExceedingConfInterval"
                 [class.column__block-pims__value--no-active]="!item.isEnable" [matTooltip]="item.tag"
           >{{ item.tag }}</span>
           <div class="column__block-pims__slide">

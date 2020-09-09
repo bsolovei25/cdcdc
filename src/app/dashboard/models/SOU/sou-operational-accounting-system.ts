@@ -12,10 +12,15 @@ export interface ISOUFlowIn {
     valueMomentPercent: number;
     valueByHourPercent: number;
     valueTankPercent: number;
+    isExceedingConfInterval: boolean;
 }
 
 export interface ISOUFlowOut {
-    dscName: string[];
+    dscFlow: {
+        isEnable: boolean,
+        name: string
+    }[];
+    isExceedingConfInterval: boolean;
     productName: string;
     valueMeasuring: number;
     valueCalculate: number;
