@@ -1,5 +1,5 @@
-<ng-container [ngSwitch]="widgetType">
-  <ng-container *ngSwitchCase="'admin-shift-schedule'">
+<ng-container [ngSwitch]="true">
+  <ng-container *ngSwitchCase="widgetType === 'admin-shift-schedule'">
     <div class="header-schedule">
       <!--<div class="header-schedule">-->
       <div class="header-schedule__content">
@@ -66,7 +66,7 @@
       </div>
     </div>
   </ng-container>
-  <ng-container *ngSwitchCase="'admin-shift-schedule-old'">
+  <ng-container *ngSwitchCase="widgetType === 'admin-shift-schedule-old'">
     <div class="header-schedule">
       <!--<div class="header-schedule">-->
       <div class="header-schedule__content">
@@ -133,7 +133,7 @@
       </div>
     </div>
   </ng-container>
-  <ng-container *ngSwitchCase="'production-trend'">
+  <ng-container *ngSwitchCase="widgetType === 'production-trend'">
     <div class="header-trend">
       <div class="header-trend__content">
         <div class="header-trend__icon-wrapper">
@@ -179,7 +179,7 @@
       </div>
     </div>
   </ng-container>
-  <ng-container *ngSwitchCase="'events-workspace'">
+  <ng-container *ngSwitchCase="widgetType === 'events-workspace'">
     <div class="header-workspace">
       <div class="header-workspace__content drag handle">
         <div class="header-workspace__icon-wrapper">
@@ -257,7 +257,7 @@
       </div>
     </div>
   </ng-container>
-  <ng-container *ngSwitchCase="'report-server-configurator'">
+  <ng-container *ngSwitchCase="widgetType === 'report-server-configurator'">
     <div class="header-report-configurator">
       <div class="header-report-configurator__content drag handle">
         <div class="header-report-configurator__icon-wrapper">
@@ -301,7 +301,7 @@
       </div>
     </div>
   </ng-container>
-  <ng-container *ngSwitchCase="'tank-calibration-table'">
+  <ng-container *ngSwitchCase="widgetType === 'tank-calibration-table'">
     <div class="header-report-configurator">
       <div class="header-report-configurator__content drag handle">
         <div class="header-report-configurator__icon-wrapper">
@@ -345,7 +345,7 @@
       </div>
     </div>
   </ng-container>
-  <ng-container *ngSwitchCase="'tank-information'">
+  <ng-container *ngSwitchCase="widgetType === 'tank-information'">
     <div class="header-tank-information">
       <div class="header-tank-information__content drag handle">
         <div class="header-tank-information__icon-wrapper">
@@ -378,7 +378,7 @@
       </div>
     </div>
   </ng-container>
-  <ng-container *ngSwitchCase="'astue-efficiency'">
+  <ng-container *ngSwitchCase="widgetType === 'astue-efficiency'">
     <div class="header-efficiency">
       <div class="header-efficiency__content drag handle">
         <div class="header-efficiency__icon-wrapper">
@@ -426,7 +426,7 @@
       </div>
     </div>
   </ng-container>
-  <ng-container *ngSwitchCase="'ejco-onpz-unit-sou'">
+  <ng-container *ngSwitchCase="widgetType === 'ejco-onpz-unit-sou' || widgetType === 'ejco-onpz-unit-kpe'">
     <div class="ejco">
       <div class="ejco__content drag handle">
         <div class="ejco__icon-wrapper">
@@ -472,7 +472,7 @@
       </div>
     </div>
   </ng-container>
-  <ng-container *ngSwitchCase="'ejco-onpz-fsb-load'">
+  <ng-container *ngSwitchCase="widgetType === 'ejco-onpz-fsb-load'">
     <div class="ejco">
       <div class="ejco__content drag handle">
         <div class="ejco__icon-wrapper">
