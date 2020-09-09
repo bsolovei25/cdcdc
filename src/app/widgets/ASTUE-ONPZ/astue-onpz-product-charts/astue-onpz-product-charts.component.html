@@ -15,10 +15,11 @@
     *ngIf="!!data"
   >
     <ng-container *ngFor="let item of data">
-      <evj-astue-onpz-product-card
-        class="content__item"
-        [data]="item"
-      ></evj-astue-onpz-product-card>
+      <div class="content__item">
+        <ng-container
+          *ngComponentOutlet="chartComponent; injector: (item | fn:getInjector : 0);"
+        ></ng-container>
+      </div>
     </ng-container>
   </div>
 </div>
