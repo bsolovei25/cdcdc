@@ -18,7 +18,7 @@
     <div class="dropdown-content scroll scroll-bar">
       <div class="dropdown-content__list">
         <ng-container *ngFor="let screen of dataScreen">
-          <ng-container *ngIf="screen.isFilter">
+          <ng-container *ngIf="screen.isFilter && (isScreenEdit(screen) || !screen.isHidden)">
             <div [id]="'screen_'+screen.id" class="dropdown-component">
               <div class="screen_block">
                 <div class="screen_blocks">
@@ -28,7 +28,7 @@
                     (click)="this.setActiveScreen(screen)"
                     (click)="LoadScreen(idScreen)"
                   >
-                    <div class="screen_name">
+                    <div class="screen_name" [class.screen_name--isHidden]="screen.isHidden">
                       {{ screen.screenName }}
                     </div>
                   </div>
@@ -38,9 +38,27 @@
                     (click)="this.setActiveScreen(screen)"
                     (click)="LoadScreen(idScreen)"
                   >
-                    <input class="update_input" [(ngModel)]="newNameScreen" />
+                    <input class="update_input" [(ngModel)]="newNameScreen"/>
                   </div>
                   <div class="hover-button" *ngIf="!screen.updateScreen">
+                    <div
+                      *ngIf="isScreenEdit(screen)"
+                      class="update_screen"
+                      (click)="onHiddenScreen(screen)"
+                    >
+                      <svg-icon
+                        *ngIf="!screen.isHidden"
+                        class="hidden_screen"
+                        [svgStyle]="{'height.px':20, 'width.px':20}"
+                        src="assets/icons/login/visibility.svg"
+                      ></svg-icon>
+                      <svg-icon
+                        *ngIf="screen.isHidden"
+                        class="hidden_screen"
+                        [svgStyle]="{'height.px':20, 'width.px':20}"
+                        src="assets/icons/login/visibility_off.svg"
+                      ></svg-icon>
+                    </div>
                     <div
                       *ngIf="isScreenEdit(screen)"
                       class="update_screen"

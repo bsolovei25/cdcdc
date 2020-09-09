@@ -60,7 +60,7 @@ export class EventsWorkspaceService {
     //#region REFERENCES
     public priority: IPriority[] = [];
     public status: IStatus[] = [];
-    public subcategory: ISubcategory[] = [];
+    public subCategory: ISubcategory[] = [];
     public users: IUser[] = [];
     public category: ICategory[] = [];
     public equipmentCategory: ICategory[] = [];
@@ -121,7 +121,7 @@ export class EventsWorkspaceService {
 
     public readonly categories: { [id in EventsWidgetCategoryCode]: string } = {
         smotr: 'СМОТР',
-        safety: 'Безопасноть',
+        safety: 'Безопасность',
         tasks: 'Производственные задания',
         equipmentStatus: 'Состояния оборудования',
         drops: 'Сбросы',
@@ -321,9 +321,9 @@ export class EventsWorkspaceService {
                 throw error('no save method');
             }
             if (this.isCreateNewEvent) {
-                this.saveCreatedEvent(saveMethod);
+                await this.saveCreatedEvent(saveMethod);
             } else {
-                this.saveEditedEvent(saveMethod);
+                await this.saveEditedEvent(saveMethod);
             }
         } catch (e) {
             console.error(e);
@@ -485,11 +485,11 @@ export class EventsWorkspaceService {
                 tmPlace: null
             },
             productionTasks: {
-                subcategory: null,
-                start: null,
-                inWork: null,
-                close: null
-            }
+                subCategory: null,
+                start: undefined,
+                inWork: undefined,
+                close: undefined,
+            },
         };
     }
 
@@ -507,8 +507,7 @@ export class EventsWorkspaceService {
                 this.status = data;
             }),
             this.eventService.getSubcategory().then((data) => {
-                console.log(data);
-                this.subcategory = data;
+                this.subCategory = data.filter((item) => !!item.description);
             }),
             this.eventService.getUnits().then((data) => {
                 this.units = data;
@@ -611,5 +610,15 @@ export class EventsWorkspaceService {
             }
         });
         return files;
+    }
+
+    public async changeStatus(status: IStatus): Promise<void> {
+        this.isLoading = true;
+        try {
+            this.event = await this.eventService.incrementStatus(this.event.id, status.name);
+        } catch (error) {
+            console.log(error);
+        }
+        this.isLoading = false;
     }
 }

@@ -14,6 +14,7 @@ import { CdMatBalanceChartCardComponent } from './components/cd-mat-balance-char
 import { ApsContextMenuDirective } from '../../../dashboard/components/aps-context-menu/aps-context-menu.directive';
 import { ScenariosModule } from '../../APS/scenarios/scenarios.module';
 import { FormsModule } from '@angular/forms';
+import { MatRippleModule } from '@angular/material/core';
 
 @NgModule({
     declarations: [
@@ -32,7 +33,8 @@ import { FormsModule } from '@angular/forms';
         MatFormFieldModule,
         AngularSvgIconModule,
         ScenariosModule,
-        FormsModule
+        FormsModule,
+        MatRippleModule
     ],
     providers: [
         ApsContextMenuDirective

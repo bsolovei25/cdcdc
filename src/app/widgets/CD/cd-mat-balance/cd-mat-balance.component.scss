@@ -25,6 +25,12 @@
     background-color: var(--color-cd-bg-component);
   }
 
+  &__modal {
+    position: absolute;
+    top: 118px;
+    left: -233px;
+  }
+
   &__mnemonic {
     min-width: 1300px;
     max-width: 1300px;

@@ -162,6 +162,13 @@
 
   transition: inherit;
 
+  fill: white;
+
+
+  &:hover {
+    fill: gray;
+  }
+
   &_clickable {
     &:hover {
       cursor: pointer;

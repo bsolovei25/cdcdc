@@ -41,14 +41,12 @@ export interface IMatBalanceChartCard {
 })
 export class CdMatBalanceChartCardComponent extends WidgetPlatform
     implements OnInit, OnDestroy, AfterViewInit {
-    // TOFIX пробросить количество часов снаружи (возможно через InjectionToken)
-    @Input() public hoursCount: 8 | 24 = 8;
-
     @ViewChild('chart')
     public chartElement: ElementRef;
 
     public isLoading: boolean = true;
 
+    public hoursCount: 8 | 24;
     public data: IMatBalanceChartCard;
     public chartData: ISplineDiagramData;
     public size: ISplineDiagramSize;
@@ -65,8 +63,13 @@ export class CdMatBalanceChartCardComponent extends WidgetPlatform
         super(widgetService, isMock, id, uniqId);
     }
 
-    ngOnInit(): void {
+    public ngOnInit(): void {
         super.widgetInit();
+        this.subscriptions.push(
+            this.cdMatBalanceService.hc$.subscribe((hoursCount) => {
+                this.hoursCount = hoursCount;
+            })
+        );
     }
 
     public ngAfterViewInit(): void {
@@ -77,7 +80,7 @@ export class CdMatBalanceChartCardComponent extends WidgetPlatform
         this.cdRef.detectChanges();
     }
 
-    ngOnDestroy(): void {
+    public ngOnDestroy(): void {
         super.ngOnDestroy();
     }
 
@@ -102,6 +105,8 @@ export class CdMatBalanceChartCardComponent extends WidgetPlatform
                 timestamp: new Date(item.date)
             };
         });
+
+        this.setCurrentHour(fact); // задание текущего активного часа для отрисовки шкалы
 
         const newData: ISplineDiagramData = {
             deviationValue: data.deviation,
@@ -140,9 +145,17 @@ export class CdMatBalanceChartCardComponent extends WidgetPlatform
         return resultArray;
     }
 
+    private setCurrentHour(data: { value: number; timestamp: Date }[]): void {
+        const currHour = this.cdMatBalanceService.currentHour$.getValue();
+        const newCurrentHour = data[data.length - 1].timestamp.getHours();
+        if (currHour !== newCurrentHour) {
+            this.cdMatBalanceService.currentHour$.next(newCurrentHour);
+        }
+    }
+
     upChart(): void {
         const widgets = this.cdMatBalanceService.charts$.getValue();
-        const idx = widgets.findIndex(value => value === this.data.name);
+        const idx = widgets.findIndex((value) => value === this.data.name);
         if (idx > 0) {
             [widgets[idx - 1], widgets[idx]] = [widgets[idx], widgets[idx - 1]];
         }
@@ -160,7 +173,7 @@ export class CdMatBalanceChartCardComponent extends WidgetPlatform
 
     deleteChart(): void {
         const widgets = this.cdMatBalanceService.charts$.getValue();
-        const idx = widgets.findIndex(value => value === this.data.name);
+        const idx = widgets.findIndex((value) => value === this.data.name);
         widgets.splice(idx, 1);
         this.cdMatBalanceService.charts$.next(widgets);
     }

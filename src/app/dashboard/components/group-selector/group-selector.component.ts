@@ -30,7 +30,7 @@ export class GroupSelectorComponent implements OnInit, OnDestroy {
 
     private readonly defaultGroup: IGroupScreens = {
         id: null,
-        name: 'Все группы',
+        name: 'Без группы',
     };
 
     constructor(

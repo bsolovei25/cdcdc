@@ -1,7 +1,8 @@
 <div class="container">
   <div class="header">
     <div class="header__icon">
-      <svg-icon [svgStyle]="{'width': '100%', 'height': '100%'}" src="assets/icons/widgets/SOU/header-icons/drop.svg"></svg-icon>
+      <svg-icon [svgStyle]="{'width': '100%', 'height': '100%'}"
+                src="assets/icons/widgets/SOU/header-icons/drop.svg"></svg-icon>
     </div>
     <div class="header__label">Выработка по светлым нефтепродуктам</div>
   </div>
@@ -12,30 +13,26 @@
         <th class="cell">Значение за час</th>
         <th class="cell">Накопленное значение</th>
       </tr>
-      <ng-container *ngFor="let row of data.rows">
-              <ng-container *ngTemplateOutlet="contentRow; context: {row: row}"></ng-container>
+      <ng-container *ngFor="let row of data">
+        <ng-container *ngTemplateOutlet="contentRow; context: {row: row}"></ng-container>
       </ng-container>
-<!--      <ng-container *ngTemplateOutlet="contentRow; context: {title: 'Бензин'}"></ng-container>-->
-<!--      <ng-container *ngTemplateOutlet="contentRow; context: {title: 'ТС-1'}"></ng-container>-->
-<!--      <ng-container *ngTemplateOutlet="contentRow; context: {title: 'ДТЛ'}"></ng-container>-->
-<!--      <ng-container *ngTemplateOutlet="contentRow; context: {title: 'Всего светлых'}"></ng-container>-->
     </table>
   </div>
 </div>
 
 <ng-template #contentRow let-row="row">
   <tr class="table_row__body">
-    <td class="cell cell__title">{{row.title}}</td>
+    <td class="cell cell__title">{{ row.name }}</td>
     <td class="cell cell__content">
       <div class="values">
-        <span>{{row.perHourValue.value | spaceNumber}} т/ч</span>
-        <span>{{row.perHourValue.percentageValue}}%</span>
+        <span>{{row.valueByHour | spaceNumber}} т/ч</span>
+        <span>{{ row?.percentByHour}}%</span>
       </div>
     </td>
     <td class="cell cell__content">
       <div class="values">
-        <span>{{row.sumValue.value | spaceNumber}} т/ч</span>
-        <span>{{row.sumValue.percentageValue}}%</span>
+        <span>{{row.valueTank | spaceNumber}} т/ч</span>
+        <span>{{ row?.percentTank }}%</span>
       </div>
     </td>
   </tr>

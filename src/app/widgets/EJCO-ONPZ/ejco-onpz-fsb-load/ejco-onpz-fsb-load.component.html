@@ -1,0 +1,51 @@
+<div style="height: 100%; width: 100%;" *ngIf="!isMock">
+  <evj-widget-header
+    [title]="widgetTitle"
+    [units]="widgetUnits"
+    [code]="widgetCode"
+    [id]="widgetId"
+    [icon]="widgetIcon"
+    [uniqId]="widgetUniqId"
+    [widgetType]="widgetType"
+  ></evj-widget-header>
+
+  <evj-ejco-onpz-frame-top></evj-ejco-onpz-frame-top>
+
+  <div
+    class="content_block"
+    (mousedown)="$event.stopPropagation()"
+    (touchstart)="$event.stopPropagation()"
+  >
+    <div class="wrapper">
+      <div class="chart-container">
+        <div class="gauge-card">
+          <div class="gauge-card__content">
+            <div class="gauge-card__diagram">
+              <evj-ejco-gauge-chart [fact]="data.chartData.fact" [plan]="data.chartData.plan"></evj-ejco-gauge-chart>
+            </div>
+            <div class="gauge-card__label">
+              {{ data.chartData.label }}
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="table-container">
+        <ng-container *ngFor="let row of data.data">
+          <div class="table-container__row">
+            <div class="table-container__col title-col" [matTooltip]="row.title">
+               <span>{{ row.title }}</span>
+            </div>
+            <div class="table-container__col value-col">
+              <ng-container *ngFor="let value of row.values">
+                <div class="item" [matTooltip]="value">
+                  <span>{{ value }}</span>
+                </div>
+              </ng-container>
+            </div>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+  <evj-ejco-onpz-frame-bottom></evj-ejco-onpz-frame-bottom>
+</div>

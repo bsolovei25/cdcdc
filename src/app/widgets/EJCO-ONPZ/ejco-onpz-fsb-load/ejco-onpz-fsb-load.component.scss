@@ -1,0 +1,148 @@
+@import "../../../../mixins";
+
+.content_block {
+  overflow: hidden;
+  position: relative;
+  height: calc(100% - 37px);
+  border: 0.35px solid var(--color-axis);
+  border-style: none solid none solid;
+  pointer-events: fill;
+  font-family: Tahoma;
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+
+  .chart-container,
+  .table-conainer {
+    height: 100%;
+  }
+
+  .chart-container {
+    width: 110px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .table-container {
+    width: calc(100% - 110px);
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+
+    &__row {
+      display: flex;
+      flex-direction: row;
+      flex: 1 1;
+      border-bottom: 0.35px solid var(--color-ejco-sub-border);
+    }
+
+    :last-child {
+      border-bottom: none !important;
+    }
+
+    &__col {
+      display: flex;
+      flex-direction: row;
+    }
+
+    .title-col {
+      border-left: 0.35px solid var(--color-ejco-sub-border);
+      border-right: 0.35px solid var(--color-ejco-sub-border);
+      flex: 1 1;
+      display: flex;
+      padding-left: 1%;
+      align-items: center;
+      color: var(--color-kpe-text-main);
+      font-size: 12px;
+
+      span {
+        -webkit-line-clamp: 3;
+        @include text-overflow;
+        text-align: center;
+      }
+    }
+
+    .value-col {
+      flex: 3 3;
+      align-items: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+
+      .item {
+        border-bottom: 1px solid var(--color-ejco-sub-border);
+        flex: 1 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--color-text-sub);
+        font-size: 11px;
+
+        span {
+          -webkit-line-clamp: 3;
+          @include text-overflow;
+          text-align: center;
+        }
+      }
+
+      :last-child {
+        border-bottom: none !important;
+      }
+    }
+  }
+}
+
+.gauge-card {
+  width: 90%;
+  height: 80%;
+
+  &__content {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    flex-flow: column;
+    overflow: hidden;
+  }
+
+  &__units {
+    display: flex;
+    justify-content: space-between;
+
+    &__unit {
+      font-size: 10px;
+      line-height: 12px;
+      padding: 2px 3px;
+      border-radius: 2px;
+      background: var(--color-sou-border);
+      border: solid 1px transparent;
+      cursor: pointer;
+      color: var(--color-astue-onpz-units);
+
+      &__active {
+        border-color: var(--color-kpe-gaude-active);
+        box-sizing: border-box;
+        color: var(--color-kpe-text-main);
+      }
+    }
+  }
+
+  &__diagram {
+    flex-grow: 1;
+    width: 100px;
+    overflow: hidden;
+    margin: 0 auto;
+  }
+
+  &__label {
+    font-size: 13px;
+    line-height: 16px;
+    text-align: center;
+    margin: 0 auto;
+    color: var(--color-kpe-text-main);
+  }
+}

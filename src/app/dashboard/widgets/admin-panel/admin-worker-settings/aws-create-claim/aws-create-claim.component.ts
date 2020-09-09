@@ -5,6 +5,11 @@ import { AdminPanelService } from '../../../../services/admin-panel/admin-panel.
 import { SelectionModel } from '@angular/cdk/collections';
 import { fillDataShape } from '../../../../../@shared/common-functions';
 import { IUnitEvents } from '../../../../models/events-widget';
+import { log } from 'util';
+
+interface ICreateClaim extends IWidget {
+    isHidden: boolean;
+}
 
 @Component({
     selector: 'evj-aws-create-claim',
@@ -21,6 +26,8 @@ export class AwsCreateClaimComponent implements OnInit {
     public selectClaim: SelectionModel<IGlobalClaim> = new SelectionModel<IGlobalClaim>();
     public selectWidget: SelectionModel<IWidget> = new SelectionModel<IWidget>(true);
     public selectUnit: SelectionModel<IUnitEvents> = new SelectionModel<IUnitEvents>(true);
+
+    search: string = '';
 
     constructor(private adminService: AdminPanelService) {
     }
@@ -42,12 +49,27 @@ export class AwsCreateClaimComponent implements OnInit {
         return true;
     }
 
+    filterAllWidgets(): IUnitEvents[] {
+        return this.allUnits.filter((units) => units.name?.trim().toLowerCase()
+            .includes(this.search?.trim().toLowerCase()));
+    }
+
     public formEntitiesList(): IWidget[] {
         const additionalType = this.selectClaim?.selected[0]?.additionalType;
         if (additionalType) {
-            return this.allWidgets.filter((widget) => widget.widgetType === additionalType);
+            if (this.search) {
+                return this.allWidgets.filter((widget) => widget.widgetType === additionalType
+                    && widget?.title.trim().toLowerCase().includes(this.search?.trim().toLowerCase()));
+            } else {
+                return this.allWidgets.filter((widget) => widget.widgetType === additionalType);
+            }
         }
-        return this.allWidgets;
+        if (this.search) {
+            return this.allWidgets.filter((widget) => widget.title?.trim().toLowerCase()
+                .includes(this.search?.trim().toLowerCase()));
+        } else {
+            return this.allWidgets.filter((widget) => widget.title?.trim().toLowerCase());
+        }
     }
 
     public checkIsAllSelected(): boolean {
@@ -107,5 +129,9 @@ export class AwsCreateClaimComponent implements OnInit {
 
             this.createdClaim.emit(claims);
         }
+    }
+
+    searchFn(value: KeyboardEvent): void {
+        console.log(value);
     }
 }

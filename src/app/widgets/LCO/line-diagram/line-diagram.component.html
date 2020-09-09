@@ -1,0 +1,62 @@
+<div class="container">
+  <evj-contemporary-widget-header
+    [uniqId]="uniqId"
+    [widgetTitle]="widgetTitle"
+    icon="gantt">
+    <div class="content-container">
+      <div class="header">
+        <ul class="header__info">
+          <li class="header__info-item">
+            <div class="header__info-1"></div>
+            <span>Факт</span>
+          </li>
+          <li class="header__info-item">
+            <div class="header__info-2"></div>
+            <span>План</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </evj-contemporary-widget-header>
+
+  <div
+    class="line-diagram container-body"
+    (mousedown)="$event.stopPropagation()"
+    (touchstart)="$event.stopPropagation()"
+  >
+    <div class="line-diagram__scroll scroll-bar">
+      <div class="line-diagram__body">
+        <table>
+          <tbody>
+          <tr class="line-diagram__item" *ngFor="let item of data">
+            <td class="item__name">{{ item.name }}</td>
+            <td class="item__count">
+              <span class="item__count__text"> {{ item.lowerLimit | number: "1.0-0" }} {{ item.units }}</span>
+            </td>
+            <td class="item__graph">
+              <div class="item__graph__line">
+                <svg-icon src="assets/icons/widgets/KPE/kpe-line-diagram/circle.svg"
+                          class="line__circle"
+                          [style.left.%]="item.percentFact - 4"
+                          [svgStyle]="{ 'width.px': 25, 'height.px': 25}">
+                </svg-icon>
+                <div class="line__accept" [style.width.%]="percentPlan"></div>
+                <div class="line__divided" [style.left.%]="percentPlan"></div>
+                <div class="line__warning"
+                     [style.left.%]="percentPlan"
+                     [style.width.%]="percentDeviation"></div>
+                <div class="line__value" [style.left.%]="item.percentFact - 9">{{ item.value.toFixed() }} {{ item.units }}</div>
+              </div>
+            </td>
+            <td class="item__value">
+              <div class="item__max-graph">
+                <span class="item__count__text">{{ item.upperLimit.toFixed() }} {{ item.units }}</span>
+              </div>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

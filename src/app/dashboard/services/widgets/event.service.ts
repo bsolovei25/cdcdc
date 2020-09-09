@@ -20,7 +20,8 @@ import {
     ISaveMethodEvent,
     IRetrievalEventDto,
     IAsusTmPlace,
-    IAsusTpPlace, ISubcategory,
+    IAsusTpPlace,
+    ISubcategory,
 } from '../../models/events-widget';
 import { AppConfigService } from 'src/app/services/appConfigService';
 
@@ -49,7 +50,7 @@ export class EventService {
             return this.http
                 .get<EventsWidgetNotificationPreview[]>(
                     this.restUrl +
-                    `/api/notifications/getbyfilter?${this.getOptionString(lastId, options)}`
+                        `/api/notifications/getbyfilter?${this.getOptionString(lastId, options)}`
                 )
                 .toPromise();
         } catch (error) {
@@ -163,18 +164,9 @@ export class EventService {
 
     async getSubcategory(): Promise<ISubcategory[]> {
         try {
-            return new Promise(resolve => {
-                resolve([
-                    {
-                        id: 0,
-                        name: 'Распоряжения',
-                    },
-                    {
-                        id: 1,
-                        name: 'Прием/передача смены',
-                    },
-                ]);
-            });
+            return await this.http
+                .get<ISubcategory[]>(`${this.restUrl}/api/notification-reference/subcategory`)
+                .toPromise();
         } catch (error) {
             console.error(error);
         }
@@ -396,7 +388,7 @@ export class EventService {
             return await this.http
                 .delete<any>(
                     this.restUrl +
-                    `/api/notification-retrieval/${idEvent}/retrievalevents/${idRetr}`
+                        `/api/notification-retrieval/${idEvent}/retrievalevents/${idRetr}`
                 )
                 .toPromise();
         } catch (error) {
@@ -487,5 +479,10 @@ export class EventService {
             res += `&sortType=${options.sortType}`;
         }
         return res;
+    }
+
+    public async incrementStatus(eventId: number, status: string): Promise<any> {
+        const url: string = `${this.restUrl}/api/notifications/${eventId}/status/${status}`;
+        return this.http.put<void>(url, null).toPromise();
     }
 }

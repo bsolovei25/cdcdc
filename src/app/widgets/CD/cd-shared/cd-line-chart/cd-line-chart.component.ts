@@ -89,6 +89,8 @@ export class CdLineChartComponent implements OnChanges {
 
     public ngOnChanges(changes: SimpleChanges): void {
         setTimeout(() => {
+            // TOFIX задание координаты линии текущего часа
+            this.currentHour = this.hoursCount + 1;
             this.size = changes.size?.currentValue ? changes.size?.currentValue : this.size;
             this.data = changes.data?.currentValue ? changes.data?.currentValue : this.data;
             if (this.size?.width && this.size?.height && this.data) {
@@ -142,8 +144,8 @@ export class CdLineChartComponent implements OnChanges {
             maxX = item.x >= maxX ? item.x : maxX === 0 ? item.x : maxX;
         });
 
-        this.currentHour = maxX;
-        this.currentHour = 9;
+        // this.currentHour = maxX;
+        // this.currentHour = 9;
         this.sizeY.min = minY - 1;
         this.sizeY.max = maxY + 1;
     }
@@ -228,8 +230,19 @@ export class CdLineChartComponent implements OnChanges {
     }
 
     private drawCurve(dataset: { x: number; y: number }[], type: LineType): void {
-        // TOFIX реализовать в зависимости от количества отображаемых часов
-        dataset = dataset.slice(1, 10);
+        const arr: { x: number; y: number }[] = dataset.map((item) => {
+            return { x: item.x, y: item.y };
+        });
+
+        if (this.hoursCount === 24) {
+            dataset = arr.slice(1, this.hoursCount + 2);
+        } else {
+            const lastIdx: number = arr.length - 1;
+            dataset = arr.slice(lastIdx - this.hoursCount);
+            dataset.forEach((item, idx) => {
+                item.x = idx + 1;
+            });
+        }
 
         const lineClass: string = `line line__${type}`;
 

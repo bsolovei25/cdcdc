@@ -12,7 +12,6 @@ import { DashboardComponent } from './pages/dashboard.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ManualInputComponent } from './widgets/manual-input/manual-input.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { LineDiagramComponent } from './widgets/line-diagram/line-diagram.component';
 import { LineDatetimeComponent } from './components/line-datetime/line-datetime.component';
 import { ShiftPersonComponent } from './widgets/change-shift/shift-person/shift-person.component';
 import { PanelComponent } from './components/panel/panel.component';
@@ -136,7 +135,6 @@ import {
 } from '@angular-material-components/datetime-picker';
 import { MatButtonModule } from '@angular/material/button';
 import { NgxMatMomentModule } from '@angular-material-components/moment-adapter';
-
 import { AdminAdImportComponent } from './widgets/admin-panel/admin-ad-import/admin-ad-import.component';
 import { AddReportFileComponent } from './widgets/report-server-configurator/add-report-file/add-report-file.component';
 import { TankCalibrationTableComponent } from './widgets/tank-calibration-table/tank-calibration-table.component';
@@ -252,7 +250,6 @@ import { MenuButtonComponent } from './components/menu-button/menu-button.compon
         DashboardComponent,
         ManualInputComponent,
         ChangeShiftComponent,
-        LineDiagramComponent,
         ShiftPersonComponent,
         PanelComponent,
         WidgetsGridComponent,
@@ -451,7 +448,6 @@ import { MenuButtonComponent } from './components/menu-button/menu-button.compon
         WidgetPiesComponent,
         LineChartComponent,
         ManualInputComponent,
-        LineDiagramComponent,
         ChangeShiftComponent,
         TruncatedPieSFirstComponent,
         TruncatedPieSIconComponent,

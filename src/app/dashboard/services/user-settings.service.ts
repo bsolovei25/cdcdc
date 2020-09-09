@@ -193,7 +193,12 @@ export class UserSettingsService {
                     params
                 })
                 .toPromise();
-            if (!this.ScreenId && data[0]) {
+
+            const search = data.find((item) => item.id === this.ScreenId);
+            if (!data.length) {
+                this.ScreenId = undefined;
+                this.ScreenName = undefined;
+            } else if (!search) {
                 this.ScreenId = data[0]?.id;
             }
             this._screens$.next(data);
@@ -219,34 +224,45 @@ export class UserSettingsService {
     }
 
     public LoadScreen(id: number): Subscription {
-        localStorage.setItem('screenid', id.toString());
-        sessionStorage.setItem('screenid', id.toString());
-        this.widgetService.dashboard = [];
-        this.claimService.setClaimsByScreen(null);
-        return this.LoadScreenAsync(id, true).subscribe((item: IScreenSettings) => {
+        if (id) {
+            localStorage.setItem('screenid', id.toString());
+            sessionStorage.setItem('screenid', id.toString());
+            this.widgetService.dashboard = [];
+            this.claimService.setClaimsByScreen(null);
+            return this.LoadScreenAsync(id, true).subscribe((item: IScreenSettings) => {
+                this.router.navigate([], {
+                    queryParams: { screenId: item.id },
+                    queryParamsHandling: 'merge'
+                });
+                this.claimService.setClaimsByScreen(item.claims);
+                this.ScreenId = item.id;
+                this.ScreenName = item.screenName;
+                this.widgetService.dashboard = item.widgets.map((widget) => {
+                    const minItemCols = this.defWidgetSize(widget.widgetType)?.minItemCols ?? 6;
+                    const minItemRows = this.defWidgetSize(widget.widgetType)?.minItemRows ?? 6;
+                    return {
+                        x: widget.posX,
+                        y: widget.posY,
+                        cols: widget.sizeX < minItemCols ? minItemCols : widget.sizeX,
+                        rows: widget.sizeY < minItemRows ? minItemRows : widget.sizeY,
+                        minItemCols,
+                        minItemRows,
+                        id: widget.widgetId,
+                        widgetType: widget.widgetType,
+                        uniqid: widget.uniqueId
+                    };
+                });
+            });
+        } else {
+            this.ScreenId = undefined;
+            this.ScreenName = undefined;
+            this.widgetService.dashboard = [];
+            this.claimService.setClaimsByScreen(null);
             this.router.navigate([], {
-                queryParams: { screenId: item.id },
+                queryParams: { screenId: undefined },
                 queryParamsHandling: 'merge'
             });
-            this.claimService.setClaimsByScreen(item.claims);
-            this.ScreenId = item.id;
-            this.ScreenName = item.screenName;
-            this.widgetService.dashboard = item.widgets.map((widget) => {
-                const minItemCols = this.defWidgetSize(widget.widgetType)?.minItemCols ?? 6;
-                const minItemRows = this.defWidgetSize(widget.widgetType)?.minItemRows ?? 6;
-                return {
-                    x: widget.posX,
-                    y: widget.posY,
-                    cols: widget.sizeX < minItemCols ? minItemCols : widget.sizeX,
-                    rows: widget.sizeY < minItemRows ? minItemRows : widget.sizeY,
-                    minItemCols,
-                    minItemRows,
-                    id: widget.widgetId,
-                    widgetType: widget.widgetType,
-                    uniqid: widget.uniqueId
-                };
-            });
-        });
+        }
     }
 
     public async PushScreen(screenName: string): Promise<void> {
@@ -293,16 +309,9 @@ export class UserSettingsService {
         );
     }
 
-    public updateScreen(id: number, name: string): Subscription {
-        const userScreen: IScreenSettings = {
-            id,
-            screenName: name,
-            user: null,
-            updateScreen: null,
-            widgets: null
-        };
+    public updateScreen(screen: IScreenSettings): Subscription {
         return this.http
-            .put(this.restUrl + '/api/user-management/screen/' + id, userScreen)
+            .put(`${this.restUrl}/api/user-management/screen/${screen.id}`, screen)
             .subscribe(
                 (ans) => {
                     this.snackBar.openSnackBar('Экран успешно изменен');

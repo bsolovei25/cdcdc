@@ -34,7 +34,7 @@
       <ng-container *ngSwitchCase="2">
         <!-- Проверка на подкатегорию "Распоряжения" -->
         <evj-tasks-event
-          *ngIf="ewService?.event?.productionTasks?.subcategory?.id === 0 else shiftPass"
+          *ngIf="ewService?.event?.productionTasks?.subcategory?.id === 1000 else shiftPass"
         ></evj-tasks-event>
         <ng-template #shiftPass>
           <evj-shift-pass

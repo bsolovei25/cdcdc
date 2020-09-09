@@ -1,5 +1,4 @@
 import { LineChartComponent } from '../../widgets/line-chart/line-chart.component';
-import { LineDiagramComponent } from '../../widgets/line-diagram/line-diagram.component';
 import { ManualInputComponent } from '../../widgets/manual-input/manual-input.component';
 import { ChangeShiftComponent } from '../../widgets/change-shift/change-shift.component';
 import { EnergeticsComponent } from '../../widgets/energetics/energetics.component';
@@ -59,7 +58,6 @@ import { CdMatBalanceChartCardComponent } from '../../../widgets/CD/cd-mat-balan
 export const WIDGETS = {
     'pie-diagram': WidgetPiesComponent,
     'line-chart': LineChartComponent,
-    'line-diagram': LineDiagramComponent,
     'manual-input': ManualInputComponent,
     'shift-pass': ChangeShiftComponent,
     'shift-accept': ChangeShiftComponent,
@@ -160,8 +158,12 @@ export const WIDGETS = {
     'astue-onpz-interactive-indicators': WidgetContainerComponent,
     // TODO
     'cd-mat-balance-sensor': CdMatBalanceChartCardComponent,
-    'cd-mat-balance-stream': CdMatBalanceChartCardComponent
+    'cd-mat-balance-stream': CdMatBalanceChartCardComponent,
     //
+    'line-diagram': WidgetContainerComponent,
+    'ejco-onpz-unit-sou': WidgetContainerComponent,
+    'ejco-onpz-fsb-load': WidgetContainerComponent,
+    'ejco-onpz-unit-kpe': WidgetContainerComponent,
 };
 
 export const WIDGETS_LAZY = {
@@ -484,6 +486,19 @@ export const WIDGETS_LAZY = {
         minItemRows: 16,
         preview: 'industrial-pyramid'
     },
+
+    'line-diagram': {
+        import: async () => {
+            return await import('src/app/widgets/LCO/line-diagram/line-diagram.module');
+        },
+        module: 'LineDiagramModule',
+        itemCols: 20,
+        itemRows: 16,
+        minItemCols: 20,
+        minItemRows: 16,
+        preview: 'line-diagram'
+    },
+
     //#endregion LCO
 
     //#region SMP
@@ -605,13 +620,13 @@ export const WIDGETS_LAZY = {
         import: async () =>
             await import(
                 'src/app/widgets/ASTUE-MNPZ/astue-mnpz-efficiency/astue-mnpz-efficiency.module'
-            ),
+                ),
         module: 'AstueMnpzEfficiencyModule',
         itemCols: 58,
         itemRows: 25,
         minItemCols: 58,
         minItemRows: 20,
-        preview: 'astue-efficiency',
+        preview: 'astue-efficiency'
     },
     //#endregion ASTUE-MNPZ
 
@@ -756,6 +771,45 @@ export const WIDGETS_LAZY = {
         minItemCols: 24,
         minItemRows: 10
         // preview: 'astue-onpz-interactive-indicators',
+    },
+    'ejco-onpz-unit-sou': {
+        import: async () => {
+            return await import(
+                'src/app/widgets/EJCO-ONPZ/ejco-onpz-unit-sou/ejco-onpz-unit-sou.module'
+                );
+        },
+        module: 'EjcoOnpzUnitSouModule',
+        itemCols: 28,
+        itemRows: 7,
+        minItemCols: 28,
+        minItemRows: 7
+        // preview: 'ejco-onpz-unit-sou',
+    },
+    'ejco-onpz-fsb-load': {
+        import: async () => {
+            return await import(
+                'src/app/widgets/EJCO-ONPZ/ejco-onpz-fsb-load/ejco-onpz-fsb-load.module'
+                );
+        },
+        module: 'EjcoOnpzFsbLoadModule',
+        itemCols: 12,
+        itemRows: 7,
+        minItemCols: 12,
+        minItemRows: 7
+        // preview: 'ejco-onpz-fsb-load',
+    },
+    'ejco-onpz-unit-kpe': {
+        import: async () => {
+            return await import(
+                'src/app/widgets/EJCO-ONPZ/ejco-onpz-unit-kpe/ejco-onpz-unit-kpe.module'
+                );
+        },
+        module: 'EjcoOnpzUnitKpeModule',
+        itemCols: 12,
+        itemRows: 7,
+        minItemCols: 12,
+        minItemRows: 7
+        // preview: 'ejco-onpz-unit-kpe',
     }
 
     //#endregion ASTUE-ONPZ

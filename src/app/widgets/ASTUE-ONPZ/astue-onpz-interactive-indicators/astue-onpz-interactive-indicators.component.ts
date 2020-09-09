@@ -1,94 +1,157 @@
 import { Component, OnInit, OnDestroy, Inject, Input } from '@angular/core';
 import { WidgetPlatform } from '../../../dashboard/models/widget-platform';
 import { WidgetService } from '../../../dashboard/services/widget.service';
-import { coerceBooleanProperty } from '@angular/cdk/coercion';
-import { any } from 'codelyzer/util/function';
+import { AstueOnpzService } from '../astue-onpz-shared/astue-onpz.service';
 
 interface IAstueOnpzInteractiveIndicators {
-    labels: { id: number; name: string; icon: string }[];
+    labels: { id: number; name: string; icon: string, colorIndex: number }[];
     indicators: { name: string; value: number }[];
-    allIndicators: { name: string; icon: string }[];
+    allIndicators: { id: number; name: string; icon: string, colorIndex: number }[];
+}
+
+interface IAstueOnpzIndicatorData {
+    indicators: IAstueOnpzInteractiveIndicator[];
+    deviationValue: number;
+    factValue: number;
+    planValue: number;
+}
+
+interface IAstueOnpzInteractiveIndicator {
+    key: string;
+    value: string;
+    icon: string;
+    colorIndex: number;
+    isActive: boolean;
+    isChoosing: boolean;
 }
 
 @Component({
     selector: 'evj-astue-onpz-interactive-indicators',
     templateUrl: './astue-onpz-interactive-indicators.component.html',
-    styleUrls: ['./astue-onpz-interactive-indicators.component.scss'],
+    styleUrls: ['./astue-onpz-interactive-indicators.component.scss']
 })
 export class AstueOnpzInteractiveIndicatorsComponent extends WidgetPlatform
     implements OnInit, OnDestroy {
-    @Input() data: IAstueOnpzInteractiveIndicators = {
-        labels: [
-            {
-                id: 1,
-                name: 'Плановое значение',
-                icon: 'dsad',
-            },
-            {
-                id: 2,
-                name: 'Фактическое значение',
-                icon: 'dsad',
-            },
-            {
-                id: 3,
-                name: 'Значение температуры',
-                icon: 'dsad',
-            },
-            {
-                id: 4,
-                name: 'Значение давления',
-                icon: 'dsad',
-            },
-            {
-                id: 5,
-                name: 'Температура',
-                icon: 'dsad',
-            },
-        ],
-        indicators: [
-            {
-                name: 'Плановое значение',
-                value: 1100,
-            },
-            {
-                name: 'Текущее значение',
-                value: 1500,
-            },
-            {
-                name: 'Текущее отклонение',
-                value: 400,
-            },
-        ],
-        allIndicators: [
-            {
-                name: 'Объем',
-                icon: 'dsad',
-            },
-        ],
-    };
 
-    public DisabledLabels: Map<{ id: number; name: string; icon: string }, boolean>
-        = new Map<{id: number, name: string, icon: string}, boolean>();
+    private readonly colorIndexCount: number = 6; // доступное количество color index
+
+    public data: IAstueOnpzIndicatorData = null;
+
+    public selectValue: string = null;
+
+    get currentIndicators(): IAstueOnpzInteractiveIndicator[] {
+        return this.data?.indicators?.filter((i) => i.isActive) ?? [];
+    }
+
+    get restIndicators(): IAstueOnpzInteractiveIndicator[] {
+        return this.data?.indicators?.filter((i) => !i.isActive) ?? [];
+    }
 
     constructor(
         protected widgetService: WidgetService,
         @Inject('isMock') public isMock: boolean,
         @Inject('widgetId') public id: string,
-        @Inject('uniqId') public uniqId: string
+        @Inject('uniqId') public uniqId: string,
+        private astueOnpzService: AstueOnpzService,
     ) {
         super(widgetService, isMock, id, uniqId);
     }
 
-    ngOnInit(): void {}
+    ngOnInit(): void {
+        super.widgetInit();
+    }
 
     public ngOnDestroy(): void {
         super.ngOnDestroy();
     }
 
-    public LabelClick(element: { id: number; name: string; icon: string }): void {
-        const value = this.DisabledLabels?.get(element) ?? false;
-        this.DisabledLabels.set(element, !value);
+    protected dataConnect(): void {
+        super.dataConnect();
+        this.subscriptions.push(
+            this.astueOnpzService.sharedIndicatorOptions.subscribe((options) => {
+                this.widgetService.setWidgetLiveDataFromWSOptions(this.widgetId, options);
+            })
+        );
     }
 
-    protected dataHandler(ref: any): void {}
+    protected dataHandler(ref: any): void {
+        const indicators: IAstueOnpzInteractiveIndicator[] = [];
+        let colorIndex = 0;
+        for (const i in ref.indicators) {
+            indicators.push({
+                key: i,
+                value: ref.indicators[i],
+                icon: this.getIconByKey(i),
+                colorIndex,
+                isActive: !!this.currentIndicators?.find((ind) => ind.key === i),
+                isChoosing: !!this.currentIndicators?.find((ind) =>
+                    ind.key === i && ind.isChoosing),
+            } as IAstueOnpzInteractiveIndicator);
+            if (++colorIndex > this.colorIndexCount - 1) {
+                colorIndex = 0;
+            }
+        }
+        ref.indicators = indicators;
+        this.data = ref;
+    }
+
+    private getIconByKey(key: string): string {
+        if (key.toLowerCase().includes('press')) {
+            return 'pressure';
+        } else if (key.toLowerCase().includes('volume')) {
+            return 'volume';
+        } else if (key.toLowerCase().includes('temp')) {
+            return 'temperature';
+        }
+        return '';
+    }
+
+    public chooseIndicator(key: string): void {
+        this.selectValue = null;
+        const indicator = this.data.indicators.find((i) => i.key === key);
+        if (indicator) {
+            indicator.isActive = true;
+            indicator.isChoosing = true;
+        }
+        this.astueOnpzService.updateIndicatorFilter(key, 'add');
+    }
+
+    public deleteLabel(event: MouseEvent, key: string): void {
+        event.stopPropagation();
+        const indicator = this.data.indicators.find((i) => i.key === key);
+        if (indicator) {
+            indicator.isActive = false;
+            indicator.isChoosing = false;
+        }
+        this.astueOnpzService.updateIndicatorFilter(key, 'delete');
+    }
+
+    public toggleLabel(event: MouseEvent, key: string): void {
+        event.stopPropagation();
+        const indicator = this.data.indicators.find((i) => i.key === key);
+        if (indicator) {
+            indicator.isChoosing = !indicator.isChoosing;
+        }
+        if (indicator.isChoosing) {
+            this.astueOnpzService.updateIndicatorFilter(key, 'add');
+        } else {
+            this.astueOnpzService.updateIndicatorFilter(key, 'delete');
+        }
+    }
+
+    public getPathSvg(icon: string): string {
+        if (icon) {
+            return `assets/icons/widgets/ASTUE-ONPZ/interactive-indicators/${icon}.svg`;
+        } else {
+            return '';
+        }
+    }
+
+    public getColorTag(color: number): string {
+        return `var(--color-astue-tag-${color})`;
+    }
+
+    public getColorBgTag(color: number): string {
+        return `var(--color-astue-onpz-bg-tag-${color})`;
+    }
 }
