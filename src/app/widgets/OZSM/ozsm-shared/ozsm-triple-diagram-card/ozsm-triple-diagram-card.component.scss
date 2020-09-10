@@ -1,0 +1,122 @@
+@import "../../../../../mixins";
+
+span {
+  font-family: Tahoma;
+  font-style: normal;
+  font-weight: normal;
+}
+
+.wrapper {
+  height: calc(100% + 2px);
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+  .card-container {
+    border: 0.3px solid var(--ozsm-color-border);
+    background: var(--ozsm-color-bg-dark);
+    flex: 1 1;
+
+    .title {
+      width: calc(100% - 75px);
+      height: 25px;
+      background: var(--ozsm-color-bg-header);
+      border-bottom: 1px solid var(--ozsm-color-border);
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 10px 0 65px;
+
+      span {
+        font-size: 14px;
+      }
+
+      :first-child {
+        color: var(--ozsm-color-text-main);
+        -webkit-line-clamp: 1;
+        @include text-overflow;
+      }
+
+      :last-child {
+        color: var(--ozsm-color-active);
+      }
+    }
+
+    .content {
+      width: calc(100% - 75px);
+      height: calc(100% - 25px - 2px);
+      display: flex;
+      flex-direction: column;
+      padding: 0 10px 0 65px;
+
+      .equalizer-title {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        height: 25px;
+
+        span {
+          color: var(--ozsm-color-marker-diagram);
+        }
+
+        :first-child {
+          font-size: 10px;
+        }
+
+        :last-child {
+          font-size: 14px;
+        }
+      }
+
+      .equalizer-chart {
+        width: 100%;
+        height: calc(100% - 25px);
+        margin-bottom: 5px;
+      }
+    }
+
+    i {
+      width: 100px;
+      height: 100px;
+      border: 0.3px solid var(--ozsm-color-border);
+      border-radius: 50%;
+      background: var(--ozsm-color-bg-main);
+      position: relative;
+      top: calc(2px - 100%);
+
+      &:before {
+        z-index: 1;
+        content: "";
+        position: absolute;
+        top: -2px;
+        left: -7px;
+        height: 105px;
+        width: 55px;
+        box-sizing: border-box;
+        transform-origin: 43% 0;
+        background: var(--ozsm-color-bg-main);
+      }
+    }
+
+    &__circle {
+      float: left;
+      margin-left: -50px;
+
+      .chart {
+        position: absolute;
+        z-index: 10;
+        width: 100px;
+        height: 100px;
+      }
+    }
+  }
+
+  .tank-container {
+    width: 32px;
+    border: 0.3px solid var(--ozsm-color-border);
+    margin: 0 2px;
+  }
+}
