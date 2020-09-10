@@ -6,7 +6,7 @@ import { Component, OnInit, Input } from '@angular/core';
     styleUrls: ['./events-smotr-icon.component.scss'],
 })
 export class EventsSmotrIconComponent implements OnInit {
-    @Input() public iconType: 'escalate' | 'repeat' | 'critical' = 'escalate';
+    @Input() public iconType: 'systematic' | 'escalate' | 'repeat' | 'critical' = 'escalate';
     @Input() public counter: number = null;
     @Input() public isCritical: boolean = false;
 
@@ -21,9 +21,11 @@ export class EventsSmotrIconComponent implements OnInit {
     public defineClasses(): string {
         let classes: string = this.iconType;
         if (this.counter && this.iconType === 'escalate') {
-            classes = `${classes} ${this.iconType}_${this.counter}`;
+            classes += ` ${this.iconType}_${this.counter}`;
         } else if (this.isCritical && this.iconType === 'critical') {
-            classes = `${classes} ${this.iconType}_danger`;
+            classes += ` ${this.iconType}_danger`;
+        } else if (this.isCritical && this.iconType === 'systematic') {
+            classes += ` critical critical__warning`;
         }
         return classes;
     }
