@@ -10,7 +10,7 @@
     (mousedown)="$event.stopPropagation()"
     (touchstart)="$event.stopPropagation()"
   >
-    <ng-container>
+    <ng-container *ngFor="let item of data">
       <evj-ozsm-line-diagram></evj-ozsm-line-diagram>
     </ng-container>
   </div>

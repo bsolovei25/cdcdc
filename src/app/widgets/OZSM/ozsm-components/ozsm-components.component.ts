@@ -20,8 +20,14 @@ export class OzsmComponentsComponent extends WidgetPlatform implements OnInit {
         {
             id: '1',
             title: 'ДЕАСФ, 1 СТУПЕНИ',
-            level: 45,
+            level: 20,
             value: 248045
+        },
+        {
+            id: '2',
+            title: 'ДЕАСФ, 2 СТУПЕНИ',
+            level: 42,
+            value: 300000
         }
     ];
     constructor(
