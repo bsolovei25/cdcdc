@@ -88,7 +88,10 @@
       <td class="body__column">
 
         <ul class="column__list">
-          <li class="list__item" *ngFor="let i of item.dscFlow; let idx = index; last as isLast">
+          <li *ngFor="let i of item.dscFlow; let idx = index; last as isLast"
+              class="list__item"
+              [class.list__item_inactivity]="i.isEnable"
+          >
             <ng-container *ngIf="item.dscFlow.length > 1">
               <svg-icon
                 *ngIf="idx === 0"
@@ -127,7 +130,7 @@
         <div class="footer__items">
           <ul class="footer__list">
             <ng-container *ngFor="let item of section.flowOut">
-              <li class="footer__item" [class.footer__item_deviation]="item.tolerance < 100">{{ item.tag }}</li>
+              <li class="footer__item" [class.footer__item_deviation]="item.isExceedingConfInterval">{{ item.tag }}</li>
             </ng-container>
           </ul>
         </div>

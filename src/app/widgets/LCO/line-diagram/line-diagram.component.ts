@@ -5,7 +5,6 @@ import {
     ILineDiagramData,
     ILineDiagramDataItem
 } from '../../../dashboard/models/line-diagram';
-import { log } from 'util';
 
 @Component({
     selector: 'evj-line-diagram',
