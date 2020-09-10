@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { ozsmModel } from '../../../../dashboard/models/OZSM/ozsm-line-diagram.model';
 
 @Component({
   selector: 'evj-ozsm-line-diagram',
@@ -6,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./ozsm-line-diagram.component.scss']
 })
 export class OzsmLineDiagramComponent implements OnInit {
-
+    @Input() item: ozsmModel;
   constructor() { }
 
   ngOnInit(): void {

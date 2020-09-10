@@ -1,0 +1,55 @@
+.line-diagram {
+  height: 40px;
+  width: 92%;
+  border: 1px solid rgba(96, 101, 128, 0.25);
+  border-radius: 2px;
+  margin-top: 10px;
+  margin-left: 8px;
+  background-color: transparent;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+  &__info {
+    height: 100%;
+    width: 78%;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+  }
+  &__title {
+    position: absolute;
+    height: 14px;
+    width: 100%;
+    background-color: transparent;
+    margin-left: 8px;
+    top: 8px;
+    font-size: 12px;
+    line-height: 14px;
+  }
+  &__value {
+    height: 100%;
+    width: 22%;
+    background-color: var(--color-kpe-bg-sub);
+    border-radius: 0px 2px 2px 0px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  &__level-empty {
+    position: absolute;
+    height: 8px;
+    width: 92%;
+    margin-left: 8px;
+    bottom: 8px;
+    border: 1px solid rgba(96, 101, 128, 0.25);
+    box-sizing: border-box;
+    border-radius: 2px;
+    background-color: transparent;
+    .level {
+      height: 100%;
+      width: 75%;
+      background-color: var(--color-aps-active);
+    }
+  }
+}
