@@ -1,0 +1,53 @@
+::ng-deep {
+  .bg {
+    fill: var(--ozsm-color-bg-dark);
+    stroke: var(--ozsm-color-border);
+    stroke-width: 0.5px;
+  }
+
+  .bg-arc-default {
+    fill: var(--ozsm-color-circle-arc-bg);
+  }
+
+  .bg-arc-deviation {
+    fill: var(--ozsm-color-circle-diagram-bg-arc-deviation);
+  }
+
+  .arc-value-default {
+    fill: var(--ozsm-color-active);
+  }
+
+  .arc-value-deviation {
+    fill: var(--ozsm-color-white);
+  }
+
+  .arc-deviation {
+    fill: var(--ozsm-color-warning);
+  }
+
+  .divider {
+    width: 60px;
+    height: 1px;
+    mask: url('#mask-dash');
+    fill: var(--ozsm-color-border-l);
+  }
+
+  .value,
+  .sub-text {
+    font-style: normal;
+    font-weight: normal;
+    font-family: Tahoma;
+    text-anchor: middle;
+    dominant-baseline: middle;
+  }
+
+  .value {
+    font-size: 12px;
+    fill: var(--ozsm-color-white);
+  }
+
+  .sub-text {
+    font-size: 10px;
+    fill: var(--ozsm-color-marker-diagram);
+  }
+}
