@@ -1,0 +1,14 @@
+<div class="container pointer-event">
+  <evj-contemporary-widget-header
+    [uniqId]="widgetUniqId"
+    [widgetTitle]="widgetTitle"
+    icon="diagram"
+  >
+  </evj-contemporary-widget-header>
+  <div
+    class="container-body"
+    (mousedown)="$event.stopPropagation()"
+    (touchstart)="$event.stopPropagation()"
+  >
+  </div>
+</div>
