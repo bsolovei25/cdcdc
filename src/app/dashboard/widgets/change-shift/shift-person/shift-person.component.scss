@@ -21,16 +21,15 @@
 }
 
 .onShift__person {
-  width: 165px;
+  width: 170px;
   height: 75px;
-  margin-top: 20px;
   display: inline-flex;
   position: relative;
   border-top: 0.5px dashed var(--color-border-main-transparrent);
   font-size: 10px;
   box-sizing: border-box;
   padding-top: 5px;
-  margin: 0 7px 12px;
+  margin: 0 5px 10px 20px;
 
   .person {
     display: flex;
