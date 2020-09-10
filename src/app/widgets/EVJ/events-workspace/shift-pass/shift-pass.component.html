@@ -50,7 +50,7 @@
     </div>
     <div class="selects__item">
       <evj-ui-block status="normal">
-        <mat-form-field class="status">
+        <mat-form-field class="status" panelClass="status-select">
           <mat-label>Подкатегория</mat-label>
           <mat-select
             panelClass="mat-select-custom"
@@ -63,17 +63,6 @@
             </mat-option>
           </mat-select>
         </mat-form-field>
-      </evj-ui-block>
-    </div>
-    <div class="selects__item">
-      <evj-ui-block status="normal">
-        <div class="deadline">
-          <div class="deadline__title">Срок выполнения</div>
-          <evj-time-data-picker
-            [data]="ewService.event.deadline"
-            (dateTimePicker)="dateTimePicker($event)"
-          ></evj-time-data-picker>
-        </div>
       </evj-ui-block>
     </div>
     <div class="selects__item">
@@ -92,96 +81,62 @@
         </mat-form-field>
       </evj-ui-block>
     </div>
+    <div class="selects__item">
+      <evj-ui-block status="normal">
+        <div class="deadline">
+          <div class="deadline__title">Срок выполнения</div>
+          <evj-time-data-picker
+            [data]="ewService.event.deadline"
+            (dateTimePicker)="dateTimePicker($event)"
+          ></evj-time-data-picker>
+        </div>
+      </evj-ui-block>
+    </div>
   </div>
   <div class="workspace__left left">
     <evj-event-description
       class="left__item"
       titleName="Состав бригады:"
       [description]="ewService.event?.shiftPassEvent?.shiftMembers"
-      (changedDescription)="onChangeEventDescription($event)"
+      (changedDescription)="onChangeEventDescription($event, 'shiftMembers')"
     ></evj-event-description>
-    <evj-chat
-      [displayGraphImage]="!!ewService.event.graphValues?.graphs[0]"
-      [onClickItem]="openLineChart.bind(this)"
-      [messages]="ewService.event.facts"
-      dataTitle="Установленные факты"
-      placeholder="Укажите факты..."
-      (addingMessage)="onSendMessage($event,'facts')"
-    ></evj-chat>
+    <evj-event-description
+      class="left__item"
+      titleName="Установленные факты"
+      [description]="ewService.event?.shiftPassEvent?.shiftEstablishedFacts"
+      (changedDescription)="onChangeEventDescription($event, 'shiftEstablishedFacts')"
+    ></evj-event-description>
     <evj-event-description
       class="left__item"
       titleName="Находящиеся в работе насосы и компрессоры"
-      [description]="ewService.event?.shiftPassEvent?.shiftMembers"
-      (changedDescription)="onChangeEventDescription($event)"
+      [description]="ewService.event?.shiftPassEvent?.compressorsInWork"
+      (changedDescription)="onChangeEventDescription($event, 'compressorsInWork')"
     ></evj-event-description>
     <evj-event-description
       class="left__item"
       titleName="Замечания по работе и дефекты технологического оборудования
        печей, колонн, теплообменников, резервуаров, насосов и т.д."
       [description]="ewService.event?.shiftPassEvent?.notes"
-      (changedDescription)="onChangeEventDescription($event)"
+      (changedDescription)="onChangeEventDescription($event, 'notes')"
     ></evj-event-description>
     <evj-event-description
       class="left__item"
       titleName="Сведения о проведение работ повышенной опасности"
       [description]="ewService.event?.shiftPassEvent?.shiftDangerWorks"
-      (changedDescription)="onChangeEventDescription($event)"
+      (changedDescription)="onChangeEventDescription($event, 'shiftDangerWorks')"
+    ></evj-event-description>
+    <evj-event-description
+      class="left__item"
+      titleName="Сведения о проведении ремонтных, хозяйственных и других работ:"
+      [description]="ewService.event?.shiftPassEvent?.shiftRepairWorks "
+      (changedDescription)="onChangeEventDescription($event, 'shiftRepairWorks')"
     ></evj-event-description>
     <evj-event-description
       class="left__item"
       titleName="Другие события:"
       [description]="ewService.event?.shiftPassEvent?.shiftOtherEvents"
-      (changedDescription)="onChangeEventDescription($event)"
+      (changedDescription)="onChangeEventDescription($event, 'shiftOtherEvents')"
     ></evj-event-description>
-    <evj-event-description
-      class="left__item"
-      titleName="Состояние вентиляции"
-      [description]="ewService.event?.shiftPassEvent?.ventilationStatus"
-      (changedDescription)="onChangeEventDescription($event)"
-    ></evj-event-description>
-    <evj-event-description
-      class="left__item"
-      titleName="Состояние средств пожаротушения и инд. защиты:"
-      [description]="ewService.event?.shiftPassEvent?.fireExtinguishingEquipmentStatus"
-      (changedDescription)="onChangeEventDescription($event)"
-    ></evj-event-description>
-    <evj-event-description
-      class="left__item"
-      titleName="Состояние ППК и манометров"
-      [description]="ewService.event?.shiftPassEvent?.pressureGaugesStatus"
-      (changedDescription)="onChangeEventDescription($event)"
-    ></evj-event-description>
-    <evj-event-description
-      class="left__item"
-      titleName="Состояние СБ и ПАЗ"
-      [description]="ewService.event?.description"
-      (changedDescription)="onChangeEventDescription($event)"
-    ></evj-event-description>
-    <evj-event-description
-      class="left__item"
-      titleName="Оборудование в ремонте"
-      [description]="ewService.event?.description"
-      (changedDescription)="onChangeEventDescription($event)"
-    ></evj-event-description>
-    <evj-event-description
-      class="left__item"
-      titleName="Находящееся в резерве оборудование и его состояние "
-      [description]="ewService.event?.description"
-      (changedDescription)="onChangeEventDescription($event)"
-    ></evj-event-description>
-    <evj-event-description
-      class="left__item"
-      titleName="Тема инструктажа по ПБ, ОТ и ООС:"
-      [description]="ewService.event?.description"
-      (changedDescription)="onChangeEventDescription($event)"
-    ></evj-event-description>
-    <evj-event-description
-      class="left__item"
-      titleName="Отметки о сдаче инвентаря и имущества:"
-      [description]="ewService.event?.description"
-      (changedDescription)="onChangeEventDescription($event)"
-    ></evj-event-description>
-
     <evj-chat
       [messages]="ewService.event.comments"
       dataTitle="Комментарии"
@@ -191,38 +146,56 @@
   </div>
   <div class="workspace__right right">
     <evj-events-responsible-select class="right__item"></evj-events-responsible-select>
-    <div class="right__item labels">
-      <div class="labels__item label">
-        <div class="label__name">Создано:</div>
-        <div class="label__value">
-          {{infoFunc('start')?.date ? (infoFunc('start').date|date:"dd.MM.yyyy | hh:mm") : '-'}}
-        </div>
-      </div>
-      <div class="labels__item label">
-        <div class="label__name">Автор:</div>
-        <div class="label__value">{{infoFunc('start')?.author ? infoFunc('start').author : '-'}}</div>
-      </div>
-      <div class="labels__item label">
-        <div class="label__name">Принято в работу:</div>
-        <div class="label__value">
-          {{infoFunc('inWork')?.date ? (infoFunc('inWork').date|date:"dd.MM.yyyy | hh:mm") : '-'}}
-        </div>
-      </div>
-      <div class="labels__item label">
-        <div class="label__name">Автор:</div>
-        <div class="label__value">{{infoFunc('inWork')?.author ? infoFunc('inWork').author : '-'}}</div>
-      </div>
-      <div class="labels__item label">
-        <div class="label__name">Закрыто:</div>
-        <div class="label__value">
-          {{infoFunc('close')?.date ? (infoFunc('close').date|date:"dd.MM.yyyy | hh:mm") : '-'}}
-        </div>
-      </div>
-      <div class="labels__item label">
-        <div class="label__name">Автор:</div>
-        <div class="label__value">{{infoFunc('close')?.author ? infoFunc('close').author : '-'}}</div>
-      </div>
+    <evj-event-description
+      class="right__item"
+      titleName="Состояние вентиляции"
+      [description]="ewService.event?.shiftPassEvent?.ventilationStatus"
+      (changedDescription)="onChangeEventDescription($event, 'ventilationStatus')"
+    ></evj-event-description>
+    <evj-event-description
+      class="right__item"
+      titleName="Состояние средств пожаротушения и инд. защиты:"
+      [description]="ewService.event?.shiftPassEvent?.fireExtinguishingEquipmentStatus"
+      (changedDescription)="onChangeEventDescription($event, 'fireExtinguishingEquipmentStatus')"
+    ></evj-event-description>
+    <evj-event-description
+      class="right__item"
+      titleName="Состояние ППК и манометров"
+      [description]="ewService.event?.shiftPassEvent?.pressureGaugesStatus"
+      (changedDescription)="onChangeEventDescription($event, 'pressureGaugesStatus')"
+    ></evj-event-description>
+    <div class="block">
+      <evj-event-description
+        class="right__item"
+        titleName="Состояние СБ и ПАЗ"
+        [description]="ewService.event?.description"
+        (changedDescription)="onChangeEventDescription($event, 'description')"
+      ></evj-event-description>
+      <evj-event-description
+        class="right__item"
+        titleName="Оборудование в ремонте"
+        [description]="ewService.event?.shiftPassEvent?.equipmentAtRepair"
+        (changedDescription)="onChangeEventDescription($event, 'equipmentAtRepair')"
+      ></evj-event-description>
     </div>
+    <evj-event-description
+      class="right__item"
+      titleName="Находящееся в резерве оборудование и его состояние "
+      [description]="ewService.event?.shiftPassEvent?.equipmentReserved "
+      (changedDescription)="onChangeEventDescription($event, 'equipmentReserved')"
+    ></evj-event-description>
+    <evj-event-description
+      class="right__item"
+      titleName="Тема инструктажа по ПБ, ОТ и ООС:"
+      [description]="ewService.event?.shiftPassEvent?.shiftInstruction"
+      (changedDescription)="onChangeEventDescription($event, 'shiftInstruction')"
+    ></evj-event-description>
+    <evj-event-description
+      class="right__item"
+      titleName="Отметки о сдаче инвентаря и имущества:"
+      [description]="ewService.event?.shiftPassEvent?.shiftPropertyNotes"
+      (changedDescription)="onChangeEventDescription($event, 'shiftPropertyNotes')"
+    ></evj-event-description>
     <evj-events-correct class="right__item"></evj-events-correct>
   </div>
 </div>

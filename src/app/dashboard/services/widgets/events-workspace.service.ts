@@ -476,6 +476,24 @@ export class EventsWorkspaceService {
             unitName: null,
             facts: [],
             comments: [],
+            shiftPassEvent: {
+                id: 0,
+                notes: '',
+                shiftMembers: '',
+                compressorsInWork: '',
+                equipmentAtRepair: '',
+                equipmentReserved: '',
+                fireExtinguishingEquipmentStatus: '',
+                pressureGaugesStatus: '',
+                shiftComments: '',
+                shiftDangerWorks: '',
+                shiftEstablishedFacts: '',
+                shiftInstruction: '',
+                shiftOtherEvents: '',
+                shiftPropertyNotes: '',
+                shiftRepairWorks: '',
+                ventilationStatus: ''
+            },
             asusEvent: {
                 category: '',
                 workGroup: '',
@@ -488,8 +506,8 @@ export class EventsWorkspaceService {
                 subCategory: null,
                 start: undefined,
                 inWork: undefined,
-                close: undefined,
-            },
+                close: undefined
+            }
         };
     }
 

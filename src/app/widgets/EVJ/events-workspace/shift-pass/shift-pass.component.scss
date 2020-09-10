@@ -1,5 +1,4 @@
 
-
 .workspace {
   position: relative;
 
@@ -88,6 +87,7 @@
 
   &__item {
     height: 100%;
+    width: 100%;
   }
 }
 
@@ -120,6 +120,14 @@
       font-size: 12px;
       line-height: 120%;
       color: var(--color-text-main);
+    }
+  }
+}
+
+.status-select {
+  ::ng-deep {
+    .mat-select-disabled .mat-select-value {
+      color: var(--color-text)
     }
   }
 }
@@ -218,4 +226,9 @@ mat-form-field {
       #21222d 53%,
       #20222d 86%
   );
+}
+
+.block {
+  display: flex;
+  gap: 10px;
 }
