@@ -183,7 +183,7 @@ export class KpeGaugeChartComponent implements OnInit, OnChanges {
             .attr('y2', 3);
         addText(`${this.fact}`, 'text text__value', -2);
         addText(`\u0394 ${this.fact - this.plan}`, 'text text__deviation', 13);
-        addText(`${this.plan}`, 'text text__plan', 28);
+        addText(`${this.plan}%`, 'text text__plan', 28);
 
         function addText(text: string, cls: string, yCord: number): void {
             g.append('text')
