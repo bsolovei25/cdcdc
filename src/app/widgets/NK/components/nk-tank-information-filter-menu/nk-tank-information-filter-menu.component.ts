@@ -1,21 +1,26 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'evj-nk-tank-information-filter-menu',
   templateUrl: './nk-tank-information-filter-menu.component.html',
   styleUrls: ['./nk-tank-information-filter-menu.component.scss']
 })
-export class NkTankInformationFilterMenuComponent implements OnInit {
-  filterMenu: string[] =
-    ['АИ-92', 'ДТ ЛЕТНЕЕ', 'ДТ ЗИМНЕЕ', 'ТС-1', 'АИ-95', 'МАЗУТ', 'ГАЗОЙЛЬ', 'НЕФТЬ'];
-  selectedFilter: string = this.filterMenu[0];
+export class NkTankInformationFilterMenuComponent implements OnInit, OnChanges {
+  @Input() filterList: string[];
+  @Output() onFilter: EventEmitter<string> = new EventEmitter<string>();
+  selectedFilter: string = 'Все резервуары';
   constructor() { }
 
   chooseFilter(e: { target: { innerText: string; }; }): void {
     this.selectedFilter = e.target.innerText;
+    this.onFilter.emit(this.selectedFilter);
   }
 
   ngOnInit(): void {
+  }
+
+  ngOnChanges(): void {
+    // console.log('Массив Фильтров '  + this.filterList);
   }
 
 }

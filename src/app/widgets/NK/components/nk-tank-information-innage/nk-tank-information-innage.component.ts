@@ -7,7 +7,9 @@ import { Component, OnInit, Input, OnChanges } from '@angular/core';
   styleUrls: ['./nk-tank-information-innage.component.scss']
 })
 export class NkTankInformationInnageComponent implements OnInit, OnChanges {
-  @Input() innageData: IInnage;
+  @Input() innageMin: number;
+  @Input() innageCurrent: number;
+  @Input() innageMax: number;
 
   higher: number;
   current: number;
@@ -25,9 +27,9 @@ export class NkTankInformationInnageComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(): void {
-    this.higher = this.innageData.higherBorder;
-    this.current = this.innageData.currentValue;
-    this.lower = this.innageData.lowerBorder;
+    this.higher = this.innageMax > 0 ? this.innageMax : 1000; // Если максимальный взлив 0
+    this.current = this.innageCurrent;
+    this.lower = this.innageMin;
 
     this.diagramCustomLinesCount =
       Math.ceil(this.current / this.higher * (this.innageDiagramCustomization.length - 1));

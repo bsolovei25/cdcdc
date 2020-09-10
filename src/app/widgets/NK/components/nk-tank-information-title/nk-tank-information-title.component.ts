@@ -1,4 +1,3 @@
-import { ITitle } from './../../../../dashboard/models/NK/nk-tank-information.model';
 import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
@@ -8,7 +7,7 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class NkTankInformationTitleComponent implements OnInit {
 
-  @Input() titleData: ITitle;
+  @Input() title: string;
 
   constructor() { }
 

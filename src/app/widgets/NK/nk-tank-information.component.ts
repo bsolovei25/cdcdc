@@ -1,7 +1,7 @@
+import { ITankInformation, ITankCardValue } from './../../dashboard/models/tank-information';
 import { WidgetPlatform } from 'src/app/dashboard/models/widget-platform';
-import { ICard } from './../../dashboard/models/NK/nk-tank-information.model';
 import { WidgetService } from './../../dashboard/services/widget.service';
-import { Inject, Component, OnInit, OnDestroy } from '@angular/core';
+import { Inject, Component, OnInit, OnDestroy, OnChanges } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 @Component({
@@ -9,8 +9,30 @@ import { HttpClient } from '@angular/common/http';
     templateUrl: './nk-tank-information.component.html',
     styleUrls: ['./nk-tank-information.component.scss']
 })
-export class NkTankInformationComponent extends WidgetPlatform implements OnInit, OnDestroy {
-    cardsData: ICard[];
+export class NkTankInformationComponent extends WidgetPlatform implements
+    OnInit, OnDestroy, OnChanges {
+
+    cardsData: ITankInformation[] = []; // Вся инфа по карточкам с сервера
+    cardsDataFiltered: ITankCardValue[] = []; // Карточки отфильтрованные по type
+    filterList: string[] = ['Все резервуары']; // Список доступных фильтров
+    selectedFilter: string = 'Все резервуары';
+
+    getFilter(filter: string): void {
+        this.selectedFilter = filter;
+        console.log('Пришло: ' + filter);
+
+        this.cardsDataFiltered = [];
+
+        this.cardsData.forEach(item => {
+            if ( this.selectedFilter === 'Все резервуары' ) {
+                this.cardsDataFiltered = [...this.cardsDataFiltered, ...item.tank];
+            } else if (item.type === this.selectedFilter) {
+                this.cardsDataFiltered = [...this.cardsDataFiltered, ...item.tank];
+                //console.log('Отфильтрованные ' + this.cardsDataFiltered);
+                // console.log('cмена')
+            } 
+        });
+    }
 
     constructor(
         protected widgetService: WidgetService,
@@ -24,18 +46,56 @@ export class NkTankInformationComponent extends WidgetPlatform implements OnInit
 
     ngOnInit(): void {
         super.widgetInit();
-        this.http.get<ICard[]>('assets/mock/NK/cards.mock.json')
+
+        /*this.http.get<ITankInformation[]>('assets/mock/NK/oldCard.mock.json')
             .subscribe(data => {
-                this.cardsData = [...data];
-                console.log(this.cardsData);
-            });
+                data.forEach( (item, i) => {
+                    // Получаем массив фильтров
+                    if ( !this.filterList.includes(item.type) ) {
+                        this.filterList.push(item.type);
+                    }
+                });
+
+                this.cardsData = [...this.cardsData, ...data];
+                // Фильтруем
+                this.getFilter(this.selectedFilter);
+            });*/
+    }
+
+    ngOnChanges(): void {
     }
 
     ngOnDestroy(): void {
         super.ngOnDestroy();
     }
 
-    protected dataHandler(): void {
+    dataHandler(ref: {items: ITankInformation[]}): void {
+
+        this.cardsData = []; 
+        this.filterList = ['Все резервуары'];
+
+        ref.items.forEach( (item, i) => {
+            // Получаем массив фильтров
+            if ( !this.filterList.includes(item.type) ) {
+                this.filterList.push(item.type);
+            }
+        });
+
+        this.cardsData = [...this.cardsData, ...ref.items];
+        // Проверка соответствия фильтров
+        if (!this.filterList.includes(this.selectedFilter)) {
+            this.selectedFilter = 'Все резервуары';
+        }
+
+        // Фильтруем
+        this.getFilter(this.selectedFilter);
+
+
+        ref.items.forEach( (item, i) => {
+            if ( !this.filterList.includes(item.type) ) {
+                this.filterList.push(item.type);
+            }
+        });
 
     }
 }

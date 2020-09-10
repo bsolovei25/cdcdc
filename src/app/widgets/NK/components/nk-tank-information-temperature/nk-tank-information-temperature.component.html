@@ -5,7 +5,7 @@
 
     <div class="thermometer-container">
         <div class="thermometer">
-            <div class="thermometer-inner" [ngStyle]="{'height': temperature.current / temperature.maximal * 84 + 'px'}">
+            <div class="thermometer-inner" [ngStyle]="{'height': temperature / 100 * 84 + 'px'}">
             </div>
         </div>
         <div class="thermometer-circle">
@@ -14,6 +14,6 @@
     </div>
 
     <div class="temperature__value">
-        <span>{{temperature.current}}</span>
+        <span>{{temperature}}</span>
     </div>
 </div>

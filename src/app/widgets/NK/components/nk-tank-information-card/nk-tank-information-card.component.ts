@@ -1,5 +1,5 @@
-import { ICard } from './../../../../dashboard/models/NK/nk-tank-information.model';
-import { Component, OnInit, Input } from '@angular/core';
+import { ITankCardValue } from './../../../../dashboard/models/tank-information';
+import { Component, OnInit, Input, OnChanges } from '@angular/core';
 
 @Component({
   selector: 'evj-nk-tank-information-card',
@@ -7,13 +7,16 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['./nk-tank-information-card.component.scss']
 })
 
-export class NkTankInformationCardComponent implements OnInit {
+export class NkTankInformationCardComponent implements OnInit, OnChanges {
 
-  @Input() cardData: ICard;
+  @Input() cardData: ITankCardValue;
 
   constructor() { }
 
   ngOnInit(): void {
+  }
+  ngOnChanges(): void {
+    // console.log('КАРТА ' + this.cardData);
   }
 
 }

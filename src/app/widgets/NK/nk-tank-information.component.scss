@@ -1,26 +1,52 @@
-@import 'src/app/widgets/NK/scss/vars.scss';
-
 *{
     box-sizing: border-box;
 }
 
-.main-container {
+.container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
     width: 100%;
-    padding: 10px;
+
+    overflow: hidden;
+
     background: var(--color-bg-main);
+}
+
+.container-body{
+    height: 100%;
+    width: 100%;
 
     display: flex;
     flex-direction: column;
     flex-grow: 1;
+    
+    background: #161922;
 }
 
 .cardList {
+    height: 100%;
     padding: 15px 10px;
+    padding-bottom: 55px;
+
     display: flex;
     justify-content: space-around;
     flex-wrap: wrap;
-
-    background: #161922;
-
     align-content: space-between;
+
+    overflow: scroll;
+
+    .scroll-bar::-webkit-scrollbar {
+        width: 5px;
+    }
+      
+    .scroll-bar::-webkit-scrollbar-thumb {
+        background: var(--color-bg-sub);
+        border-radius: 5px;
+    }
+      
+    .scroll-bar::-webkit-scrollbar-track {
+        background: var(--color-bg-main);
+        border-radius: 5px;
+    }
 }

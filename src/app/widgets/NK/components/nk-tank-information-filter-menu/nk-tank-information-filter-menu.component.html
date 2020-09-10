@@ -1,6 +1,7 @@
 <div class="menu-container">
     <div class="filter-menu">
-        <div *ngFor = "let item of filterMenu" class="filter-menu__item" 
+        <div 
+            *ngFor = "let item of filterList" class="filter-menu__item" 
             [class.filter-menu__item_selected]="selectedFilter === item"
             (click) = "chooseFilter($event)"
         >

@@ -1,3 +1,5 @@
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { SharedModule } from './../../@shared/shared.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
@@ -24,7 +26,9 @@ import { NkTankInformationFilterMenuComponent } from './components/nk-tank-infor
     ],
     imports: [
         CommonModule, 
-        HttpClientModule
+        HttpClientModule,
+        MatTooltipModule,
+        SharedModule
     ]
 })
 export class NkTankInformationModule {

@@ -1,5 +1,3 @@
-@import 'src/app/widgets/NK/scss/vars.scss';
-
 *{
     box-sizing: border-box;
 }
@@ -20,7 +18,7 @@ button {
     display: flex;
     align-items: center;
 
-    background: var(--color-lines-bg-dia);
+    background: var(--color-nk-bg-sub);
 
     position: relative;
 
@@ -29,7 +27,7 @@ button {
 
         line-height: 22px;
         font-size: 18px;
-        color: var(--color-kpe-text-main);
+        color: var(--color-nk-font-title);
     }
 
     img {
@@ -46,11 +44,11 @@ button {
 
         border-radius: 3px;
 
-        background: var(--color-astue-onpz-bg-data-icon);
+        background: var(--color-nk-bg-component-title);
 
         line-height: 17px;
         font-size: 14px;
-        color: var(--color-kpe-text-main);
+        color: var(--color-nk-font-title);
 
         position: absolute;
         right: 10px;

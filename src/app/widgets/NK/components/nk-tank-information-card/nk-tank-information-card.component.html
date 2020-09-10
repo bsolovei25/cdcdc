@@ -1,9 +1,20 @@
 <div class="card">
-    <evj-nk-tank-information-title [titleData]="cardData.title"></evj-nk-tank-information-title>
+    <evj-nk-tank-information-title [title]="cardData.tankTitle"></evj-nk-tank-information-title>
     <div class="card__body">
-        <evj-nk-tank-information-innage [innageData]="cardData.innage"></evj-nk-tank-information-innage>
+        <evj-nk-tank-information-innage 
+            [innageMin]="cardData.dieValue" 
+            [innageCurrent]="cardData.currentValue"
+            [innageMax]="cardData.absolutValue"
+        ></evj-nk-tank-information-innage>
         <evj-nk-tank-information-temperature [temperature]="cardData.temperature"></evj-nk-tank-information-temperature>
-        <evj-nk-tank-information-reservoir [volume]="cardData.volume" [isFilling] = "cardData.isFilling"></evj-nk-tank-information-reservoir>
+        <evj-nk-tank-information-reservoir 
+            [volumeFillPercentage] = "cardData.fillLevelPercentage"
+            [status] = "cardData.objectStatus"
+        ></evj-nk-tank-information-reservoir>
     </div>
-    <evj-nk-tank-information-card-info [volume]="cardData.volume"></evj-nk-tank-information-card-info>
+    <evj-nk-tank-information-card-info
+        [volumeMax]="cardData.maxValue"
+        [volumeCurrent]="cardData.measuredVolume"
+        [volumeFillPercentage] = "cardData.fillLevelPercentage"
+    ></evj-nk-tank-information-card-info>
 </div>

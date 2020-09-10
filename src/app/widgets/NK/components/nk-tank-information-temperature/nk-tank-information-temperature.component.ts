@@ -1,16 +1,19 @@
 import { ITemperature } from './../../../../dashboard/models/NK/nk-tank-information.model';
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnChanges } from '@angular/core';
 
 @Component({
   selector: 'evj-nk-tank-information-temperature',
   templateUrl: './nk-tank-information-temperature.component.html',
   styleUrls: ['./nk-tank-information-temperature.component.scss']
 })
-export class NkTankInformationTemperatureComponent implements OnInit {
-  @Input() temperature: ITemperature;
+export class NkTankInformationTemperatureComponent implements OnInit, OnChanges {
+  @Input() temperature: number;
   constructor() { }
 
   ngOnInit(): void {
   }
 
+  ngOnChanges(): void {
+    // console.log('t' + this.temperature)
+  }
 }

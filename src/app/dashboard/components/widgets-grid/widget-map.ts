@@ -154,7 +154,7 @@ export const WIDGETS = {
     'astue-onpz-planning-charts': WidgetContainerComponent,
     'astue-onpz-big-planning-chart': WidgetContainerComponent,
     'astue-onpz-interactive-indicators': WidgetContainerComponent,
-    'nk-tank-information': WidgetContainerComponent,
+    'tank-information': WidgetContainerComponent,
     // TODO
     'cd-mat-balance-sensor': CdMatBalanceChartCardComponent,
     'cd-mat-balance-stream': CdMatBalanceChartCardComponent,
@@ -284,7 +284,7 @@ export const WIDGETS_LAZY = {
 
     // #region NK
 
-    'nk-tank-information': {
+    'tank-information': {
         import: async () => {
             return await import(
                 'src/app/widgets/NK/nk-tank-information.module'

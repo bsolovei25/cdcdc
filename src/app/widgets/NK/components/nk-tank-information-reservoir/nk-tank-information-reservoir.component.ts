@@ -1,4 +1,3 @@
-import { IVolume } from './../../../../dashboard/models/NK/nk-tank-information.model';
 import { Component, OnInit, Input, OnChanges } from '@angular/core';
 
 @Component({
@@ -7,10 +6,18 @@ import { Component, OnInit, Input, OnChanges } from '@angular/core';
   styleUrls: ['./nk-tank-information-reservoir.component.scss']
 })
 export class NkTankInformationReservoirComponent implements OnInit, OnChanges {
-  @Input() volume: IVolume;
-  @Input() isFilling: boolean;
+  @Input() volumeFillPercentage: number;
+  @Input() status: string;
 
-  reservoirCustomization: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14];
+  fill: number;
+  operation: object = {
+    in: 'Заполнение',
+    out: 'Отгрузка',
+    inOut: 'Проток',
+    hold: 'Отстой',
+  };
+
+  reservoirCustomization: number[] = [14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1];
 
   constructor() { }
 
@@ -18,5 +25,13 @@ export class NkTankInformationReservoirComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(): void {
+    this.fill = this.volumeFillPercentage < 100
+      ? this.volumeFillPercentage / 100
+      : 1; // На случай если бак переполнен
+
+    this.status = !!this.operation[this.status] ? this.operation[this.status] : 'Неизвестно';
+
+    // console.log('статус ' + this.status);
+    // console.log('cnfnec ', this.operation[this.status]);
   }
 }
