@@ -201,7 +201,7 @@
   color: var(--color-text-sub);
   width: 100%;
   height: 100%;
-  padding: 0 25px;
+  padding: 0 15px;
   margin: 5px 0 2px;
   box-sizing: border-box;
   border-right: 0.5px dashed var(--color-border-main-transparrent);
@@ -221,13 +221,12 @@
     box-sizing: border-box;
     padding-top: 10px;
     position: relative;
-    height: 120px;
-    min-height: 120px;
+    height: 110px;
+    min-height: 110px;
     margin-bottom: 25px;
 
     .mainWorker {
       &__avatar {
-        //flex-basis: 40%;
         min-width: 120px;
         max-width: 140px;
         height: 100%;
@@ -237,15 +236,12 @@
       }
 
       &__img {
-        width: 104.62px;
-        height: 104.62px;
+        width: 95px;
+        height: 95px;
         border-radius: 50%;
         margin-left: 15px;
         margin-top: -2px;
         margin-right: 20px;
-        //background: url("../../../../assets/pic/avatar_temp.jpg");
-        //background-repeat: no-repeat;
-        //background-size: contain;
       }
 
       &__info {
@@ -317,8 +313,8 @@
             content: "";
             position: absolute;
 
-            bottom: -20px;
-            right: -5px;
+            bottom: -21px;
+            right: -10px;
 
             height: 30px;
             width: 30px;
@@ -372,7 +368,7 @@
         display: flex;
         width: 100%;
         height: 100%;
-        min-height: 42px;
+        min-height: 20px;
         flex-direction: row-reverse;
       }
 
@@ -382,9 +378,6 @@
         overflow: hidden;
         text-overflow: ellipsis;
         margin: auto 30px
-        //min-height: 42px;
-        //line-height: 100%;
-        //margin-right: 15%;
       }
     }
   }
@@ -676,9 +669,11 @@
   }
 
   &__comment {
+    display: flex;
+    flex-flow: column;
     margin-top: 10px;
-    margin-bottom: 35px;
-    min-height: 100px;
+    margin-bottom: 15px;
+    min-height: 70px;
     flex: 1;
     .comment {
       &__title {
@@ -737,7 +732,7 @@
       }
 
       &__display {
-        min-height: 60px;
+        min-height: 30px;
         flex: 1;
         border-bottom: 0.5px solid var(--color-border-main-transparrent);
         margin-bottom: 5px;
@@ -863,8 +858,8 @@
   &__submit {
     position: relative;
     width: 100%;
-    height: 50px;
-    min-height: 50px;
+    height: 40px;
+    min-height: 40px;
     button {
       width: 100%;
       height: 100%;
