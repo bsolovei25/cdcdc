@@ -17,12 +17,12 @@ export const mockData = [
         id: '2',
         title: 'ДЕАСФ, 2 СТУПЕНИ',
         fact: 50000,
-        plan: 248045
+        plan: 248045.22
     },
     {
         id: '3',
         title: 'ПЕТРОЛАТУМ на экспорт',
-        fact: -234,
+        fact: -24,
         plan: 248045
     }
 ];

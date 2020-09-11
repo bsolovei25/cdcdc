@@ -28,12 +28,14 @@
   }
   &__value {
     height: 100%;
-    width: 22%;
+    width: 60.8px;
     background-color: var(--ozsm-color-line-bg);
     border-radius: 0px 2px 2px 0px;
     display: flex;
     justify-content: center;
     align-items: center;
+    font-size: 12px;
+    line-height: 14px;
   }
   &__level-empty {
     position: absolute;

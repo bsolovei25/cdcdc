@@ -1,3 +1,13 @@
+.line-diagrams {
+  height: 100%;
+  width: 100%;
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding-top: 10px;
+  padding-right: 5px;
+}
 .widget-container {
   height: 100%;
   width: 100%;
@@ -29,11 +39,4 @@
     overflow: hidden;
   }
 }
-.line-diagrams {
-  overflow: auto;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  padding-top: 10px;
-  padding-right: 5px;
-}
+
