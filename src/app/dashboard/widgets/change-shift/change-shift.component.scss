@@ -227,7 +227,9 @@
 
     .mainWorker {
       &__avatar {
-        flex-basis: 40%;
+        //flex-basis: 40%;
+        min-width: 120px;
+        max-width: 140px;
         height: 100%;
         box-sizing: border-box;
         border-bottom: 0.5px solid var(--color-border-main-transparrent);
@@ -240,6 +242,7 @@
         border-radius: 50%;
         margin-left: 15px;
         margin-top: -2px;
+        margin-right: 20px;
         //background: url("../../../../assets/pic/avatar_temp.jpg");
         //background-repeat: no-repeat;
         //background-size: contain;
@@ -250,14 +253,20 @@
         flex-direction: column;
         justify-content: space-between;
         height: 100%;
-        flex-basis: 60%;
-        width: 60%;
+        flex-grow: 1;
+        overflow: hidden;
       }
 
       &__row {
         display: inline-flex;
         align-items: center;
         justify-content: space-between;
+
+        &_colInfo {
+          flex-grow: 1;
+          overflow: hidden;
+        }
+
         &_colIcon {
           width: 35px;
           height: 35px;
@@ -347,10 +356,16 @@
         font-size: 20px;
         color: var(--color-text-main);
         margin-bottom: 15px;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
       }
 
       &__position {
         font-size: 16px;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
       }
 
       &__squad {

@@ -127,7 +127,7 @@
           <div class="absent__label">Отсутствуют</div>
           <ng-container *ngIf="currentShift">
             <div class="absent__people scroll-bar">
-              <div class="absent__person" *ngFor="let person of absentMembers">
+              <div *ngFor="let person of absentMembers">
                 <evj-shift-person
                   [widgetId]="widgetId"
                   [person]="person"
