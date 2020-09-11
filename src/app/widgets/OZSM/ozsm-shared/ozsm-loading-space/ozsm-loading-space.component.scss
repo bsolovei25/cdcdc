@@ -1,0 +1,20 @@
+.warehouse {
+  box-sizing: border-box;
+  height: 40px;
+  width: 614px;
+  border: 1px solid var(--ozsm-color-border);
+  border-radius: 2px;
+  display: flex;
+  justify-content: space-between;
+  &__icon {
+    width: 40px;
+    height: 100%;
+    border: 1px solid var(--ozsm-color-border);
+    background-color: var(--ozsm-color-bg-header);
+  }
+  &__value {
+    height: 100%;
+    width: 100px;
+  }
+}
+
