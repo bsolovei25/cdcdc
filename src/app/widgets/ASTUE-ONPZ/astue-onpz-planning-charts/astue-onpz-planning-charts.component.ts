@@ -17,10 +17,11 @@ export interface IPlanningChart {
 @Component({
     selector: 'evj-astue-onpz-planning-charts',
     templateUrl: './astue-onpz-planning-charts.component.html',
-    styleUrls: ['./astue-onpz-planning-charts.component.scss'],
+    styleUrls: ['./astue-onpz-planning-charts.component.scss']
 })
 export class AstueOnpzPlanningChartsComponent extends WidgetPlatform implements OnInit, OnDestroy {
     public data: IPlanningChart[] = [];
+    colors: Map<string, number>;
 
     constructor(
         protected widgetService: WidgetService,
@@ -46,6 +47,9 @@ export class AstueOnpzPlanningChartsComponent extends WidgetPlatform implements 
         this.subscriptions.push(
             this.astueOnpzService.predictorsOptions$.subscribe((value) => {
                 this.setOptionsWs(value?.map((predictor) => predictor?.id));
+            }),
+            this.astueOnpzService.colors$.subscribe((value) => {
+                this.colors = value;
             })
         );
     }
@@ -55,12 +59,13 @@ export class AstueOnpzPlanningChartsComponent extends WidgetPlatform implements 
         subscriptionOptions: any;
         multiLineChart: IMultiChartLine[];
     }): void {
+        console.log(ref);
         this.data = ref.graphs;
         const newMultiChart: IMultiChartLine[] = ref?.multiLineChart?.map((item: any) => {
             return {
                 graph: item.graph,
                 units: item.units,
-                graphType: item.multiChartTypes,
+                graphType: item.multiChartTypes
             };
         });
         this.astueOnpzService.setMultiLinePredictors(newMultiChart);

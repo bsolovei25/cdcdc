@@ -76,6 +76,7 @@ export class AstueOnpzConventionalFuelComponent extends WidgetPlatform
                         item.timeStamp = new Date(item.timeStamp);
                     });
                 });
+                console.log(ref?.graphs);
                 this.data = ref?.graphs;
                 return;
             }
