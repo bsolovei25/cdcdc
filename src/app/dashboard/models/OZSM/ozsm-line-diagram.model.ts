@@ -1,6 +1,6 @@
 export interface IOZSMLineDiagram {
-    id?: string;
+    id: string;
     title: string;
-    level: number;
-    value: number;
+    fact: number;
+    plan: number;
 }

@@ -3,15 +3,24 @@ import { IOZSMLineDiagram } from '../../../../dashboard/models/OZSM/ozsm-line-di
 
 
 @Component({
-  selector: 'evj-ozsm-line-diagram',
-  templateUrl: './ozsm-line-diagram.component.html',
-  styleUrls: ['./ozsm-line-diagram.component.scss']
+    selector: 'evj-ozsm-line-diagram',
+    templateUrl: './ozsm-line-diagram.component.html',
+    styleUrls: ['./ozsm-line-diagram.component.scss']
 })
 export class OzsmLineDiagramComponent implements OnInit {
-    @Input() item: IOZSMLineDiagram;
-  constructor() { }
+    item: IOZSMLineDiagram;
 
-  ngOnInit(): void {
-  }
+    @Input() set data(value: IOZSMLineDiagram) {
+        if (value) {
+            value.fact = value.fact / value.plan * 100;
+            this.item = value;
+        }
+    }
+
+    constructor() {
+    }
+
+    ngOnInit(): void {
+    }
 
 }

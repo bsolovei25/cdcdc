@@ -14,32 +14,26 @@ export class OzsmComponentsComponent extends WidgetPlatform implements OnInit, O
         {
             id: '0',
             title: 'Компоненты TDAE(1степень)',
-            level: 90,
-            value: 248045
+            fact: 200000,
+            plan: 248045
         },
         {
             id: '1',
             title: 'ДЕАСФ, 1 СТУПЕНИ',
-            level: 20,
-            value: 248045
+            fact: 200000,
+            plan: 248045
         },
         {
             id: '2',
             title: 'ДЕАСФ, 2 СТУПЕНИ',
-            level: 42,
-            value: 300000
+            fact: 200000,
+            plan: 248045
         },
         {
             id: '3',
             title: 'ПЕТРОЛАТУМ на экспорт',
-            level: 75,
-            value: 248045
-        },
-        {
-            id: '4',
-            title: 'РАФ. ОСТ.1 СТ.',
-            level: 100,
-            value: 248045
+            fact: 200000,
+            plan: 248045
         }
     ];
 

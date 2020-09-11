@@ -2,10 +2,10 @@
   <div class="line-diagram__info">
     <div class="line-diagram__title"><span>{{item?.title}}</span></div>
     <div class="line-diagram__level-empty">
-      <div class="level" [ngStyle]="{width: item?.level + '%'}"></div>
+      <div class="level" [ngStyle]="{width: item?.fact + '%'}"></div>
     </div>
   </div>
   <div class="line-diagram__value">
-    <span>{{ +item?.value.toFixed() | spaceNumber}}</span>
+    <span>{{ +item?.plan.toFixed() | spaceNumber}}</span>
   </div>
 </div>
