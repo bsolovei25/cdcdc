@@ -26,7 +26,7 @@ export interface EventsWidgetNotificationPreview {
     isAcknowledged?: boolean; // Квитировано
 }
 
-export interface EventsWidgetNotification {
+export interface IEventsWidgetNotification {
     id?: number;
     parentId?: number;
     itemNumber?: number;
@@ -124,6 +124,7 @@ export interface IEventShiftPass {
     ventilationStatus: string;
     fireExtinguishingEquipmentStatus: string;
     pressureGaugesStatus: string;
+    safetyAndEmergencyProtectionStatus: string;
 }
 
 export interface IRetrievalEventDto {
@@ -177,7 +178,7 @@ export interface IUnitEvents {
 
 export interface IRetrievalEvents {
     id: number;
-    innerNotification: EventsWidgetNotification;
+    innerNotification: IEventsWidgetNotification;
     timerPercentage: number;
 }
 
@@ -362,7 +363,7 @@ export interface EventsWidgetDataPreview {
 }
 
 export interface EventsWidgetData {
-    notification: EventsWidgetNotification;
+    notification: IEventsWidgetNotification;
     action: EventAction;
 }
 

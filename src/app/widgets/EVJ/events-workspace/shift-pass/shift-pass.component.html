@@ -168,8 +168,8 @@
       <evj-event-description
         class="right__item"
         titleName="Состояние СБ и ПАЗ"
-        [description]="ewService.event?.description"
-        (changedDescription)="onChangeEventDescription($event, 'description')"
+        [description]="ewService.event?.shiftPassEvent?.safetyAndEmergencyProtectionStatus "
+        (changedDescription)="onChangeEventDescription($event, 'safetyAndEmergencyProtectionStatus')"
       ></evj-event-description>
       <evj-event-description
         class="right__item"

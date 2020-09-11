@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {
-    EventsWidgetNotification,
+    IEventsWidgetNotification,
     IPriority,
     IStatus,
     IUser,
@@ -36,18 +36,18 @@ import { IChatMessageWithAttachments } from '../../../widgets/EVJ/events-workspa
     providedIn: 'root'
 })
 export class EventsWorkspaceService {
-    public event$: BehaviorSubject<EventsWidgetNotification> = new BehaviorSubject<EventsWidgetNotification>(null);
+    public event$: BehaviorSubject<IEventsWidgetNotification> = new BehaviorSubject<IEventsWidgetNotification>(null);
 
-    public set event(value: EventsWidgetNotification) {
+    public set event(value: IEventsWidgetNotification) {
         this.event$.next(value);
     }
 
-    public get event(): EventsWidgetNotification {
+    public get event(): IEventsWidgetNotification {
         return this.event$.getValue();
     }
 
     // public event: EventsWidgetNotification;
-    public originalEvent: EventsWidgetNotification;
+    public originalEvent: IEventsWidgetNotification;
     public eventHistory: number[] = [];
 
     //#region FLAGS
@@ -132,7 +132,7 @@ export class EventsWorkspaceService {
         modelCalculations: 'ЦД'
     };
 
-    private defaultEvent: EventsWidgetNotification = null;
+    private defaultEvent: IEventsWidgetNotification = null;
 
     public searchWindow$: BehaviorSubject<ISearchRetrievalWindow> = new BehaviorSubject<ISearchRetrievalWindow>(null);
     public ewAlertInfo$: BehaviorSubject<IAlertWindowModel> = new BehaviorSubject<IAlertWindowModel>(null);
@@ -293,7 +293,7 @@ export class EventsWorkspaceService {
     }
 
     private async saveCreatedEvent(saveMethod: ISaveMethodEvent): Promise<void> {
-        let event: EventsWidgetNotification = null;
+        let event: IEventsWidgetNotification = null;
         try {
             if (this.event.parentId) {
                 if (!this.checkRetrievalCategory()) {
@@ -492,7 +492,8 @@ export class EventsWorkspaceService {
                 shiftOtherEvents: '',
                 shiftPropertyNotes: '',
                 shiftRepairWorks: '',
-                ventilationStatus: ''
+                ventilationStatus: '',
+                safetyAndEmergencyProtectionStatus: ''
             },
             asusEvent: {
                 category: '',
@@ -589,8 +590,8 @@ export class EventsWorkspaceService {
     }
 
     public eventCompare(
-        event1: EventsWidgetNotification,
-        event2: EventsWidgetNotification
+        event1: IEventsWidgetNotification,
+        event2: IEventsWidgetNotification
     ): boolean {
         return JSON.stringify(event1) === JSON.stringify(event2);
     }
