@@ -120,7 +120,7 @@ export class EventsWorkspaceService {
         tasks: 'Производственные задания',
         equipmentStatus: 'Состояния оборудования',
         drops: 'Сбросы',
-        asus: 'АСУС',
+        asus: 'АСУС (КИП и АСУТП)',
         ejs: 'ЭЖС',
         indicators: 'Производственные показатели',
         resources: 'Вспомогательные ресурсы',
