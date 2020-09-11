@@ -4,12 +4,12 @@ import { WidgetService } from '../../../dashboard/services/widget.service';
 import { IOZSMLineDiagram } from '../../../dashboard/models/OZSM/ozsm-line-diagram.model';
 
 @Component({
-    selector: 'evj-ozsm-components',
-    templateUrl: './ozsm-components.component.html',
-    styleUrls: ['./ozsm-components.component.scss']
+    selector: 'evj-ozsm-line-diagrams',
+    templateUrl: './ozsm-line-diagrams.component.html',
+    styleUrls: ['./ozsm-line-diagrams.component.scss']
 })
 
-export class OzsmComponentsComponent extends WidgetPlatform implements OnInit, OnDestroy {
+export class OzsmLineDiagramsComponent extends WidgetPlatform implements OnInit, OnDestroy {
     public data: IOZSMLineDiagram[] = [
         {
             id: '0',

@@ -815,15 +815,15 @@ export const WIDGETS_LAZY = {
     'ozsm-components': {
         import: async () => {
             return await import(
-                'src/app/widgets/OZSM/ozsm-components/ozsm-components.module'
+                'src/app/widgets/OZSM/ozsm-line-diagrams/ozsm-line-diagrams.module'
                 );
         },
-        module: 'OzsmComponentsModule',
+        module: 'OzsmLineDiagramsModule',
         itemCols: 12,
         itemRows: 7,
         minItemCols: 12,
         minItemRows: 7,
-        preview: 'ozsm-components',
+        preview: 'ozsm-line-diagrams',
     }
 
     //#endregion OZSM
