@@ -20,19 +20,19 @@ export class OzsmLineDiagramsComponent extends WidgetPlatform implements OnInit,
         {
             id: '1',
             title: 'ДЕАСФ, 1 СТУПЕНИ',
-            fact: 200000,
+            fact: 300000,
             plan: 248045
         },
         {
             id: '2',
             title: 'ДЕАСФ, 2 СТУПЕНИ',
-            fact: 200000,
+            fact: 50000,
             plan: 248045
         },
         {
             id: '3',
             title: 'ПЕТРОЛАТУМ на экспорт',
-            fact: 200000,
+            fact: -234,
             plan: 248045
         }
     ];

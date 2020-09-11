@@ -3,4 +3,5 @@ export interface IOZSMLineDiagram {
     title: string;
     fact: number;
     plan: number;
+    percent?: number;
 }
