@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ozsmModel } from '../../../../dashboard/models/OZSM/ozsm-line-diagram.model';
+import { IOZSMLineDiagram } from '../../../../dashboard/models/OZSM/ozsm-line-diagram.model';
+
 
 @Component({
   selector: 'evj-ozsm-line-diagram',
@@ -7,7 +8,7 @@ import { ozsmModel } from '../../../../dashboard/models/OZSM/ozsm-line-diagram.m
   styleUrls: ['./ozsm-line-diagram.component.scss']
 })
 export class OzsmLineDiagramComponent implements OnInit {
-    @Input() item: ozsmModel;
+    @Input() item: IOZSMLineDiagram;
   constructor() { }
 
   ngOnInit(): void {

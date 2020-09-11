@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { WidgetPlatform } from '../../../dashboard/models/widget-platform';
 import { WidgetService } from '../../../dashboard/services/widget.service';
 import { IOZSMLineDiagram } from '../../../dashboard/models/OZSM/ozsm-line-diagram.model';
@@ -9,8 +9,8 @@ import { IOZSMLineDiagram } from '../../../dashboard/models/OZSM/ozsm-line-diagr
     styleUrls: ['./ozsm-components.component.scss']
 })
 
-export class OzsmComponentsComponent extends WidgetPlatform implements OnInit {
-    data: IOZSMLineDiagram[] = [
+export class OzsmComponentsComponent extends WidgetPlatform implements OnInit, OnDestroy {
+    public data: IOZSMLineDiagram[] = [
         {
             id: '0',
             title: 'Компоненты TDAE(1степень)',
@@ -28,10 +28,23 @@ export class OzsmComponentsComponent extends WidgetPlatform implements OnInit {
             title: 'ДЕАСФ, 2 СТУПЕНИ',
             level: 42,
             value: 300000
+        },
+        {
+            id: '3',
+            title: 'ПЕТРОЛАТУМ на экспорт',
+            level: 75,
+            value: 248045
+        },
+        {
+            id: '4',
+            title: 'РАФ. ОСТ.1 СТ.',
+            level: 100,
+            value: 248045
         }
     ];
+
     constructor(
-        public widgetService: WidgetService,
+        protected widgetService: WidgetService,
         @Inject('isMock') public isMock: boolean,
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string
@@ -43,13 +56,11 @@ export class OzsmComponentsComponent extends WidgetPlatform implements OnInit {
         super.widgetInit();
     }
 
-    protected async dataConnect(): Promise<void> {
-        super.dataConnect();
+    ngOnDestroy(): void {
+        super.ngOnDestroy();
     }
 
     protected dataHandler(ref: any): void {
-        if (ref) {
-        }
+        // this.data = ref.chartItems;
     }
-
 }

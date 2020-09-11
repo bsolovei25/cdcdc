@@ -44,3 +44,11 @@
     overflow-y: auto;
   }
 }
+.line-diagrams {
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding-top: 10px;
+  padding-right: 5px;
+}
