@@ -8,7 +8,7 @@ import { IOZSMLineDiagram } from '../../../../dashboard/models/OZSM/ozsm-line-di
     styleUrls: ['./ozsm-line-diagram.component.scss']
 })
 export class OzsmLineDiagramComponent implements OnInit {
-    private item: IOZSMLineDiagram;
+    item: IOZSMLineDiagram;
 
     @Input() set data(value: IOZSMLineDiagram) {
         if (value) {
