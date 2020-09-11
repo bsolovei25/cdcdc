@@ -438,10 +438,10 @@ export const WIDGETS_LAZY = {
         },
         module: 'EventsModule',
         itemCols: 32,
-        itemRows: 30,
+        itemRows: 20,
         minItemCols: 32,
-        minItemRows: 30,
-        preview: 'events'
+        minItemRows: 20,
+        preview: 'events',
     },
 
     'events-ed': {
@@ -462,10 +462,10 @@ export const WIDGETS_LAZY = {
         },
         module: 'EventsWorkspaceModule',
         itemCols: 32,
-        itemRows: 30,
+        itemRows: 20,
         minItemCols: 32,
-        minItemRows: 30,
-        preview: 'events-workspace'
+        minItemRows: 20,
+        preview: 'events-workspace',
     },
 
     // #endregion EVJ
@@ -478,11 +478,11 @@ export const WIDGETS_LAZY = {
                 );
         },
         module: 'SplineTrendsChartModule',
-        itemCols: 24,
-        itemRows: 14,
-        minItemCols: 24,
-        minItemRows: 14,
-        preview: 'spline-trends-chart'
+        itemCols: 21,
+        itemRows: 10,
+        minItemCols: 21,
+        minItemRows: 10,
+        preview: 'spline-trends-chart',
     },
 
     'industrial-pyramid': {

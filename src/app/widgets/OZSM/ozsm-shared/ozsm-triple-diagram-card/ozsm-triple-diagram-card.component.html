@@ -1,0 +1,25 @@
+<div class="wrapper">
+  <div class="card-container">
+    <div class="title">
+      <span>{{ 'Гудрон' }}</span>
+      <span>{{ 11208 | spaceNumber }}</span>
+    </div>
+    <div class="content">
+      <div class="equalizer-title">
+        <span>Накопительно:</span>
+        <span>{{ 54208 | spaceNumber }}</span>
+      </div>
+      <div class="equalizer-chart">
+        <evj-ozsm-equalizer-chart [data]="data"></evj-ozsm-equalizer-chart>
+      </div>
+    </div>
+    <i class="card-container__circle">
+      <div class="chart">
+        <evj-ozsm-circle-diagram [data]="circleData"></evj-ozsm-circle-diagram>
+      </div>
+    </i>
+  </div>
+  <div class="tank-container">
+    <evj-ozsm-storage-tank [value]="25"></evj-ozsm-storage-tank>
+  </div>
+</div>

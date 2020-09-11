@@ -29,7 +29,7 @@
             [data]="{type: 'balance', title: 'Допустимый баланс', sumValue: data?.balanceAllow,
             percentageValue: data?.balanceAllowByPercent.toFixed()}"></evj-sou-balance-card>
         </div>
-        <div class="flex-column-container">
+        <div class="flex-column-container flex-column-container__right">
           <evj-sou-out-streams [flowOut]="isSection?.flowOut" [sections]="data?.section"
                                (changeSection)="changeSection($event)" style="height: 100%"></evj-sou-out-streams>
         </div>

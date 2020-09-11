@@ -91,6 +91,10 @@
               .list__item {
                 position: relative;
 
+                &_inactivity {
+                  color: var(--color-sou-text-sub) !important;
+                }
+
                 .item {
                   &__svg {
                     position: absolute;
