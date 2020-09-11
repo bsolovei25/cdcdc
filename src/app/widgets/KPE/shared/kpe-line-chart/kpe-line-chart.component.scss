@@ -53,10 +53,12 @@
       }
 
       &_warning {
+        opacity: 0.3;
         fill: var(--color-astue-onpz-warning);
       }
 
       &_normal {
+        opacity: 0.3;
         fill: var(--color-astue-onpz-normal);
       }
     }
