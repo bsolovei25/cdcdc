@@ -14,7 +14,8 @@ export class OzsmLoadingSpaceComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.data.col = this.data.currentValue / this.data.maxValue * 10;
+        const factor: number = 10;
+        this.data.col = this.data.currentValue / this.data.maxValue * factor;
         this.data.fractional = this.data.col % 1;
     }
 }
