@@ -6,7 +6,10 @@
             [innageCurrent]="cardData.currentValue"
             [innageMax]="cardData.absolutValue"
         ></evj-nk-tank-information-innage>
-        <evj-nk-tank-information-temperature [temperature]="cardData.temperature" [maxTemperature]="cardData.maxTemperature"></evj-nk-tank-information-temperature>
+        <evj-nk-tank-information-temperature 
+            [temperature]="cardData.temperature" 
+            [maxTemperature]="cardData.maxTemperature"
+        ></evj-nk-tank-information-temperature>
         <evj-nk-tank-information-reservoir 
             [volumeFillPercentage] = "cardData.fillLevelPercentage"
             [status] = "cardData.objectStatus"
