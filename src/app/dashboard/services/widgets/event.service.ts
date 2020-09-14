@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { BehaviorSubject } from 'rxjs/index';
 import {
-    EventsWidgetNotification,
+    IEventsWidgetNotification,
     IStatus,
     ICategory,
     IEventsWidgetOptions,
@@ -80,12 +80,12 @@ export class EventService {
         }
     }
 
-    async getEvent(id: number): Promise<EventsWidgetNotification> {
+    async getEvent(id: number): Promise<IEventsWidgetNotification> {
         try {
             return (
                 this.http
                     // .get<EventsWidgetNotification>('assets/mock/SmotrEventsMock/event.json')
-                    .get<EventsWidgetNotification>(this.restUrl + '/api/notifications/' + id)
+                    .get<IEventsWidgetNotification>(this.restUrl + '/api/notifications/' + id)
                     .toPromise()
             );
         } catch (error) {
@@ -93,7 +93,7 @@ export class EventService {
         }
     }
 
-    async getSaveMethod(event: EventsWidgetNotification): Promise<ISaveMethodEvent> {
+    async getSaveMethod(event: IEventsWidgetNotification): Promise<ISaveMethodEvent> {
         try {
             const saveMethod: ISaveMethodEvent = await this.http
                 .post<ISaveMethodEvent>(`${this.restUrl}/api/notifications/save-method`, event)
@@ -110,22 +110,22 @@ export class EventService {
         }
     }
 
-    async postEvent(body: EventsWidgetNotification, saveMethod: ISaveMethodEvent): Promise<any> {
+    async postEvent(body: IEventsWidgetNotification, saveMethod: ISaveMethodEvent): Promise<any> {
         return this.http
             .post(`${saveMethod.data.url}/api/notifications`, body, saveMethod.options)
             .toPromise();
     }
 
-    async postEventRetrieval(body: EventsWidgetNotification): Promise<EventsWidgetNotification> {
+    async postEventRetrieval(body: IEventsWidgetNotification): Promise<IEventsWidgetNotification> {
         return this.http
-            .post<EventsWidgetNotification>(
+            .post<IEventsWidgetNotification>(
                 `${this.restUrl}/api/notification-retrieval/${body.parentId}/RetrievalEvents`,
                 body
             )
             .toPromise();
     }
 
-    async putEvent(body: EventsWidgetNotification, saveMethod: ISaveMethodEvent): Promise<any> {
+    async putEvent(body: IEventsWidgetNotification, saveMethod: ISaveMethodEvent): Promise<any> {
         return this.http
             .put(`${saveMethod.data.url}/api/notifications/${body.id}`, body, saveMethod.options)
             .toPromise();
@@ -398,7 +398,7 @@ export class EventService {
 
     public async escalateSmotrEvent(
         saveMethod: ISaveMethodEvent,
-        body: EventsWidgetNotification
+        body: IEventsWidgetNotification
     ): Promise<any> {
         const options = {
             headers: new HttpHeaders({
@@ -411,7 +411,7 @@ export class EventService {
 
     public async closeSmotrEvent(
         saveMethod: ISaveMethodEvent,
-        body: EventsWidgetNotification
+        body: IEventsWidgetNotification
     ): Promise<any> {
         const options = {
             headers: new HttpHeaders({

@@ -7,7 +7,7 @@ import { INavItem } from '../../../dashboard/components/aps-dropdown-menu/aps-dr
 import { UserSettingsService } from '../../../dashboard/services/user-settings.service';
 import { EventsWorkspaceService } from '../../../dashboard/services/widgets/events-workspace.service';
 import {
-    EventsWidgetNotification,
+    IEventsWidgetNotification,
     IUser
 } from '../../../dashboard/models/events-widget';
 import { EventService } from '../../../dashboard/services/widgets/event.service';
@@ -91,7 +91,7 @@ export interface IAllEstablishedFacts {
 })
 export class CdMatBalanceComponent extends WidgetPlatform implements OnInit, OnDestroy {
     data: IMatBalance;
-    openEvent: EventsWidgetNotification = this.cdMatBalanceService.isOpenEvent$.getValue();
+    openEvent: IEventsWidgetNotification = this.cdMatBalanceService.isOpenEvent$.getValue();
     modal: ICDModalWindow;
 
     public items: INavItem[] = [
@@ -200,7 +200,7 @@ export class CdMatBalanceComponent extends WidgetPlatform implements OnInit, OnD
             time.getHours(),
             time.getMinutes()
         );
-        const event: EventsWidgetNotification = {
+        const event: IEventsWidgetNotification = {
             category: this.openEvent.category,
             priority: this.openEvent.priority,
             parentId: this.openEvent.id,

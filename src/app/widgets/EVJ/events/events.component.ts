@@ -7,7 +7,7 @@ import {
 } from '../../../dashboard/models/events-widget';
 import { EventsWidgetFilter } from '../../../dashboard/models/events-widget';
 import {
-    EventsWidgetNotification,
+    IEventsWidgetNotification,
     EventsWidgetNotificationStatus
 } from '../../../dashboard/models/events-widget';
 import { WidgetService } from '../../../dashboard/services/widget.service';

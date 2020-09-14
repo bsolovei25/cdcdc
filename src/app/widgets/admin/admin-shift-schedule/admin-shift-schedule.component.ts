@@ -125,7 +125,7 @@ export class AdminShiftScheduleComponent extends WidgetPlatform
 
     //
     public alertWindow: IAlertWindowModel;
-    public inputControl: FormControl = new FormControl('');
+    public inputControl: FormControl = new FormControl({value: '', disabled: false});
 
     buttons: NodeListOf<HTMLElement>;
     nextAndPreviousMonthVar: (event: MouseEvent) => boolean | void;
