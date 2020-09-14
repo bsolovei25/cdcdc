@@ -59,13 +59,13 @@ export class AstueOnpzPlanningChartsComponent extends WidgetPlatform implements 
         subscriptionOptions: any;
         multiLineChart: IMultiChartLine[];
     }): void {
-        console.log(ref);
         this.data = ref.graphs;
         const newMultiChart: IMultiChartLine[] = ref?.multiLineChart?.map((item: any) => {
             return {
                 graph: item.graph,
                 units: item.units,
-                graphType: item.multiChartTypes
+                graphType: item.multiChartTypes,
+                tagName: item.tagName
             };
         });
         this.astueOnpzService.setMultiLinePredictors(newMultiChart);

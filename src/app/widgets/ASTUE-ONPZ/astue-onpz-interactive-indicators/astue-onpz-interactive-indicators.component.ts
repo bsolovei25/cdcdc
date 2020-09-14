@@ -18,7 +18,10 @@ interface IAstueOnpzIndicatorData {
 
 interface IAstueOnpzInteractiveIndicator {
     key: string;
-    value: string;
+    value: {
+        name: string;
+        tagName: string;
+    };
     icon: string;
     colorIndex: number;
     isActive: boolean;
@@ -36,6 +39,7 @@ export class AstueOnpzInteractiveIndicatorsComponent extends WidgetPlatform
     private readonly colorIndexCount: number = 6; // доступное количество color index
 
     public data: IAstueOnpzIndicatorData = null;
+    colors: Map<string, number>;
 
     public selectValue: string = null;
 
@@ -52,7 +56,7 @@ export class AstueOnpzInteractiveIndicatorsComponent extends WidgetPlatform
         @Inject('isMock') public isMock: boolean,
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string,
-        private astueOnpzService: AstueOnpzService,
+        private astueOnpzService: AstueOnpzService
     ) {
         super(widgetService, isMock, id, uniqId);
     }
@@ -70,11 +74,15 @@ export class AstueOnpzInteractiveIndicatorsComponent extends WidgetPlatform
         this.subscriptions.push(
             this.astueOnpzService.sharedIndicatorOptions.subscribe((options) => {
                 this.widgetService.setWidgetLiveDataFromWSOptions(this.widgetId, options);
+            }),
+            this.astueOnpzService.colors$.subscribe((value) => {
+                this.colors = value;
             })
         );
     }
 
     protected dataHandler(ref: any): void {
+        console.log(ref);
         const indicators: IAstueOnpzInteractiveIndicator[] = [];
         let colorIndex = 0;
         for (const i in ref.indicators) {
@@ -85,7 +93,7 @@ export class AstueOnpzInteractiveIndicatorsComponent extends WidgetPlatform
                 colorIndex,
                 isActive: !!this.currentIndicators?.find((ind) => ind.key === i),
                 isChoosing: !!this.currentIndicators?.find((ind) =>
-                    ind.key === i && ind.isChoosing),
+                    ind.key === i && ind.isChoosing)
             } as IAstueOnpzInteractiveIndicator);
             if (++colorIndex > this.colorIndexCount - 1) {
                 colorIndex = 0;
@@ -113,6 +121,9 @@ export class AstueOnpzInteractiveIndicatorsComponent extends WidgetPlatform
             indicator.isActive = true;
             indicator.isChoosing = true;
         }
+        if (!this.astueOnpzService.colors$.getValue()?.has(indicator?.value?.tagName)) {
+            this.astueOnpzService.addTagToColor(indicator?.value?.tagName);
+        }
         this.astueOnpzService.updateIndicatorFilter(key, 'add');
     }
 
@@ -126,32 +137,36 @@ export class AstueOnpzInteractiveIndicatorsComponent extends WidgetPlatform
         this.astueOnpzService.updateIndicatorFilter(key, 'delete');
     }
 
-    public toggleLabel(event: MouseEvent, key: string): void {
+    public toggleLabel(event: MouseEvent, item: IAstueOnpzInteractiveIndicator
+    ): void {
         event.stopPropagation();
-        const indicator = this.data.indicators.find((i) => i.key === key);
+        const indicator = this.data.indicators.find((i) => i.key === item.key);
         if (indicator) {
             indicator.isChoosing = !indicator.isChoosing;
         }
         if (indicator.isChoosing) {
-            this.astueOnpzService.updateIndicatorFilter(key, 'add');
+            this.astueOnpzService.updateIndicatorFilter(item.key, 'add');
         } else {
-            this.astueOnpzService.updateIndicatorFilter(key, 'delete');
+            this.astueOnpzService.updateIndicatorFilter(item.key, 'delete');
+            // this.astueOnpzService.deleteTagToColor(this.colors?.get(item.value.tagName), item.value.tagName);
         }
     }
 
     public getPathSvg(icon: string): string {
-        if (icon) {
-            return `assets/icons/widgets/ASTUE-ONPZ/interactive-indicators/${icon}.svg`;
-        } else {
-            return '';
+        switch (icon) {
+            case 'Температура':
+                return `assets/icons/widgets/ASTUE-ONPZ/interactive-indicators/temperature.svg`;
+            case 'Температура теплообменника':
+                return `assets/icons/widgets/ASTUE-ONPZ/interactive-indicators/heatExchanger.svg`;
+            case 'Давление':
+                return `assets/icons/widgets/ASTUE-ONPZ/interactive-indicators/aim.svg`;
+            case 'FactValue':
+                return ``;
+            case 'PlanValue':
+                return ``;
+            default:
+                return `assets/icons/widgets/ASTUE-ONPZ/interactive-indicators/aim.svg`;
         }
-    }
 
-    public getColorTag(color: number): string {
-        return `var(--color-astue-tag-${color})`;
-    }
-
-    public getColorBgTag(color: number): string {
-        return `var(--color-astue-onpz-bg-tag-${color})`;
     }
 }

@@ -55,7 +55,6 @@ export class AstueOnpzPredictorsComponent extends WidgetPlatform implements OnIn
 
     protected dataHandler(ref: { predictors: IPredictors[] }): void {
         this.data = ref.predictors;
-        console.log(ref.predictors);
         if (ref.predictors[0]?.id === '0') {
             console.log('ID предиктора равна 0');  // проверка данных с backend
         }
@@ -68,8 +67,8 @@ export class AstueOnpzPredictorsComponent extends WidgetPlatform implements OnIn
 
     changeToggle(item: IPredictors, color: number): void {
         this.selectPredictors.toggle(item.id);
-        if (this.selectPredictors.isSelected(item.id)) {
-            this.astueOnpzService.deleteTagToColor(color);
+        if (!this.selectPredictors.isSelected(item.id)) {
+            this.astueOnpzService.deleteTagToColor(color, item.tag);
         }
         const arr: IAstueOnpzPredictorsOptions[] = [];
 

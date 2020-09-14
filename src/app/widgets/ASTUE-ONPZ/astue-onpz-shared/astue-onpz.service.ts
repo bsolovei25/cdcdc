@@ -6,6 +6,7 @@ import {
 } from '../astue-onpz-consumption-indicators/astue-onpz-consumption-indicators.component';
 import { IPlanningChart } from '../astue-onpz-planning-charts/astue-onpz-planning-charts.component';
 import { IMultiChartLine } from '../../../dashboard/models/ASTUE-ONPZ/astue-onpz-multi-chart.model';
+import { log } from 'util';
 
 export interface IAstueOnpzMonitoringOptions {
     manufactureName: string | null;
@@ -53,8 +54,9 @@ export class AstueOnpzService {
         []
     );
 
-    public colors$: BehaviorSubject<Map<string, number>> = new BehaviorSubject<Map<string, number>>(new Map());
-    private colors: number[] = [1, 2, 3, 4, 5, 6];
+    public colors$: BehaviorSubject<Map<string, number>> =
+        new BehaviorSubject<Map<string, number>>(new Map());
+    private colors: number[] = [];
 
     public sharedMonitoringOptions: Observable<IAstueOnpzMonitoringOptions> = this.monitoringOptions$.asObservable();
 
@@ -69,6 +71,7 @@ export class AstueOnpzService {
     }
 
     constructor() {
+        this.colors = [1, 2, 3, 4, 5, 6];
     }
 
     public setMultiLinePredictors(value: IMultiChartLine[]): void {
@@ -166,13 +169,15 @@ export class AstueOnpzService {
 
     public addTagToColor(tag: string): void {
         const colors = this.colors$.getValue();
-        const color = this.colors[0];
-        this.colors.splice(0, 1);
+        const color = this.colors.shift();
         colors.set(tag, color);
         this.colors$.next(colors);
     }
 
-    public deleteTagToColor(color: number): void {
+    public deleteTagToColor(color: number, tag: string): void {
         this.colors.push(color);
+        const colors = this.colors$.getValue();
+        colors.delete(tag);
+        this.colors$.next(colors);
     }
 }

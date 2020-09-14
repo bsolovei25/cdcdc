@@ -69,7 +69,6 @@
           &__icon {
             min-width: 34px;
             min-height: 34px;
-            background-color: #00a99d;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -89,6 +88,7 @@
 
           &__delete {
             cursor: pointer;
+
             &::ng-deep {
               fill: var(--color-text-main);
             }
@@ -97,10 +97,12 @@
 
         &__disable {
           transition: .3s;
-          background-color: rgba(39,42,56,.5);
+          background-color: rgba(39, 42, 56, .5);
+
           .item {
             &__icon {
-              background-color: rgba(48,53,73,.5);
+              background-color: rgba(48, 53, 73, .5) !important;
+
               &::ng-deep {
                 fill: var(--color-text-sub) !important;
               }
@@ -257,5 +259,15 @@
         }
       }
     }
+  }
+}
+
+
+.background {
+  &-white {
+    background-color: white !important;
+  }
+  &-blue {
+    background-color: var(--color-btn-rounded-border) !important;
   }
 }

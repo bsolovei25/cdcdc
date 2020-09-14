@@ -4,6 +4,7 @@ export interface IMultiChartLine {
     graphType: IMultiChartTypes;
     units?: string;
     graph: IChartMini[];
+    tagName: string;
 }
 
 export interface IMultiChartData extends IMultiChartLine {
