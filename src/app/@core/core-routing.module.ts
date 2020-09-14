@@ -10,28 +10,28 @@ const routes: Routes = [
         path: '',
         canActivateChild: [AuthenticationGuard],
         children: [
-            {
-                path: 'dashboard',
-                loadChildren: () =>
-                    import('../dashboard/dashboard.module').then((m) => m.DashboardModule),
-                // canLoad: [AuthenticationGuard],
-                canActivate: [AuthenticationGuard],
-                canActivateChild: [AuthenticationGuard],
-                data: { animation: 'dashboard' },
-                runGuardsAndResolvers: 'always',
-            },
-            {
-                path: 'login',
-                component: LoginComponent,
-                data: { animation: 'login' },
-            },
-            { path: '**', redirectTo: 'dashboard', pathMatch: 'full' },
             // {
-            //     path: 'dev',
+            //     path: 'dashboard',
             //     loadChildren: () =>
             //         import('../dashboard/dashboard.module').then((m) => m.DashboardModule),
+            //     // canLoad: [AuthenticationGuard],
+            //     canActivate: [AuthenticationGuard],
+            //     canActivateChild: [AuthenticationGuard],
+            //     data: { animation: 'dashboard' },
+            //     runGuardsAndResolvers: 'always',
             // },
-            // { path: '**', redirectTo: 'dev', pathMatch: 'full' },
+            // {
+            //     path: 'login',
+            //     component: LoginComponent,
+            //     data: { animation: 'login' },
+            // },
+            // { path: '**', redirectTo: 'dashboard', pathMatch: 'full' },
+            {
+                path: 'dev',
+                loadChildren: () =>
+                    import('../dashboard/dashboard.module').then((m) => m.DashboardModule),
+            },
+            { path: '**', redirectTo: 'dev', pathMatch: 'full' },
         ],
     },
 ];

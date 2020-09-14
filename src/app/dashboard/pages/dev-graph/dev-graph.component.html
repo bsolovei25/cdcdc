@@ -1,25 +1,56 @@
 <div class="page-container">
   <div class="widget-container">
-
-
-
+    <div #graphContainer class="scale-container">
+      <div [style]="areaScale" class="abs-container">
+        <div class="graph-container">
+          <div class="top-container">
+            <div class="top-card top-card__left"></div>
+            <div class="top-card top-card__right"></div>
+          </div>
+          <div class="circle-container circle-container__group-h">
+            <div class="circle"></div>
+            <div style="margin-left: 33px" class="circle"></div>
+            <div class="circle"></div>
+          </div>
+          <div class="circle-container circle-container__group-v">
+            <div class="circle"></div>
+            <div class="circle"></div>
+            <div class="circle"></div>
+            <div class="circle"></div>
+          </div>
+          <div class="circle-container circle-container__group-q">
+            <div class="circle"></div>
+            <div class="circle"></div>
+            <div class="circle"></div>
+            <div class="circle"></div>
+          </div>
+          <div class="line-card-container line-card-container__group-clear">
+            <div class="line-card line-card__clear"></div>
+            <div class="line-card line-card__clear"></div>
+            <div class="line-card line-card__clear"></div>
+          </div>
+          <div class="line-card-container line-card-container__group-icon">
+            <div class="line-card line-card__icon"></div>
+            <div class="line-card line-card__icon"></div>
+          </div>
+          <div class="line-card-container line-card-container__group-number">
+            <div class="line-card line-card__number"></div>
+            <div class="line-card line-card__number"></div>
+            <div class="line-card line-card__number"></div>
+            <div class="line-card line-card__number"></div>
+            <div class="line-card line-card__number"></div>
+            <div class="line-card line-card__number"></div>
+          </div>
+          <div class="diagram-container">
+            <div class="diagram-card"></div>
+            <div class="diagram-card"></div>
+            <div class="diagram-card"></div>
+          </div>
+          <div class="arrow-container">
+            <svg-icon src="assets/icons/widgets/OZSM/ozsm-production-graph/graph-arrows.svg"></svg-icon>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
-
-
-
-
-<!--<div class="column-container">-->
-<!--  <evj-sou-balance-card [data]="{type: 'in', title: 'Сумма входа'}"></evj-sou-balance-card>-->
-<!--  <evj-sou-balance-card [data]="{type: 'out', title: 'Сумма выхода'}"></evj-sou-balance-card>-->
-<!--  <evj-sou-balance-card [data]="{type: 'delta', title: 'Дельта'}"></evj-sou-balance-card>-->
-<!--  <evj-sou-balance-card [data]="{type: 'balance', title: 'Допустимый баланс'}"></evj-sou-balance-card>-->
-<!--</div>-->
-
-<!--<evj-sou-production-table></evj-sou-production-table>-->
-
-<!--<evj-sou-losses-table></evj-sou-losses-table>-->
-
-<!--<evj-sou-detail-table></evj-sou-detail-table>-->
-
-<!--<evj-sou-deviation-cards></evj-sou-deviation-cards>-->
