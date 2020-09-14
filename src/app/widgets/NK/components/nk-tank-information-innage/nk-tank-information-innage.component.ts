@@ -25,7 +25,7 @@ export class NkTankInformationInnageComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(): void {
-    this.higher = this.innageMax > 0 ? this.innageMax : 1000; // Если максимальный взлив 0
+    this.higher = this.innageMax <= this.innageMin ? this.innageMin : this.innageMax;
     this.current = this.innageMin <= this.innageCurrent ? this.innageCurrent : this.innageMin;
     this.lower = this.innageMin;
 

@@ -19,6 +19,7 @@ export class ITankInformationRef {
 export interface ITankCardValue {
     absolutValue: number;
     currentValue: number;
+    maxTemperature: number;
     maxValue: number;
     minValue: number;
     objectStatus: string;
