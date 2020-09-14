@@ -176,11 +176,19 @@
       align-items: center;
 
       &__text {
+        font-size: 16px;
         background-color: var(--color-astue-onpz-bg-header);
-        padding: 5px 20px;
+        padding: 5px 15px;
         border-radius: 5px;
         white-space: nowrap;
       }
+    }
+
+    &__value {
+      flex-basis: 25%;
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
     }
 
     &__graph {
@@ -256,6 +264,7 @@
         background-color: var(--color-astue-onpz-bg-header);
         padding: 5px 20px;
         border-radius: 5px;
+        font-size: 16px;
       }
 
     }

@@ -35,13 +35,11 @@ import { RingEnergyIndicatorComponent } from '../../widgets/ring-energy-indicato
 import { SolidGaugesComponent } from '../../widgets/solid-gauge-with-marker/solid-gauges/solid-gauges.component';
 import { AdminReferencesComponent } from '../../widgets/admin-references/admin-references.component';
 import { PetroleumProductsMovementComponent } from '../../widgets/petroleum-products-movement/petroleum-products-movement.component';
-import { AdminPanelComponent } from '../../widgets/admin-panel/admin-panel.component';
 import { ReportServerConfiguratorComponent } from '../../widgets/report-server-configurator/report-server-configurator.component';
 import { ReferenceComponent } from '../../widgets/reference/reference.component';
 import { TankCalibrationTableComponent } from '../../widgets/tank-calibration-table/tank-calibration-table.component';
 import { CustomReportPropertiesReferenceComponent } from '../../widgets/custom-report-properties-reference/custom-report-properties-reference.component';
 import { ProductionTrendComponent } from '../../widgets/production-trend/production-trend.component';
-import { TankInformationComponent } from '../../widgets/tank-information/tank-information.component';
 import { ReasonsDeviationsComponent } from '../../widgets/reasons-deviations/reasons-deviations.component';
 import { DocumentViewerComponent } from '../../widgets/document-viewer/document-viewer.component';
 import { DocumentsScansComponent } from '../../widgets/documents-scans/documents-scans.component';
@@ -54,6 +52,7 @@ import { TruncatedDiagramTrafficLightComponent } from '../../widgets/truncated-d
 import { WidgetContainerComponent } from '../../widget-container/widget-container.component';
 import { AdminShiftScheduleOldComponent } from '../../widgets/admin-widget/admin-shift-schedule-old/admin-shift-schedule-old.component';
 import { CdMatBalanceChartCardComponent } from '../../../widgets/CD/cd-mat-balance/components/cd-mat-balance-chart-card/cd-mat-balance-chart-card.component';
+import { TankInformationComponent } from '../../widgets/tank-information/tank-information.component';
 
 export const WIDGETS = {
     'pie-diagram': WidgetPiesComponent,
@@ -97,19 +96,19 @@ export const WIDGETS = {
     'observation-norm-tr': ObservationNormTRComponent,
     'admin-references': AdminReferencesComponent,
     'petroleum-products-movement': PetroleumProductsMovementComponent,
-    'admin-panel': AdminPanelComponent,
+    'admin-panel': WidgetContainerComponent,
     reference: ReferenceComponent,
     'report-server-configurator': ReportServerConfiguratorComponent,
     'tank-calibration-table': TankCalibrationTableComponent,
     'custom-report-properties-reference': CustomReportPropertiesReferenceComponent,
     'production-trend': ProductionTrendComponent,
-    'tank-information': TankInformationComponent,
     'reasons-deviations': ReasonsDeviationsComponent,
     'document-viewer': DocumentViewerComponent,
     'documents-scans': DocumentsScansComponent,
     'quality-docs-panel': QualityDocsPanelComponent,
     'document-coding': DocumentCodingComponent,
     'oil-operations': OilOperationsComponent,
+    'tank-information': TankInformationComponent,
     workflow: WorkflowComponent,
     'cd-critical': CdCriticalComponent,
     'implementation-plan': WidgetContainerComponent,
@@ -154,13 +153,16 @@ export const WIDGETS = {
     'astue-onpz-consumption-indicators': WidgetContainerComponent,
     'astue-onpz-deviation-cards': WidgetContainerComponent,
     'astue-onpz-planning-charts': WidgetContainerComponent,
-    'astue-onpz-big-planning-chart': WidgetContainerComponent,
     'astue-onpz-interactive-indicators': WidgetContainerComponent,
+    'nk-tank-information': WidgetContainerComponent,
     // TODO
     'cd-mat-balance-sensor': CdMatBalanceChartCardComponent,
     'cd-mat-balance-stream': CdMatBalanceChartCardComponent,
     //
-    'line-diagram': WidgetContainerComponent
+    'line-diagram': WidgetContainerComponent,
+    'ejco-onpz-unit-sou': WidgetContainerComponent,
+    'ejco-onpz-fsb-load': WidgetContainerComponent,
+    'ejco-onpz-unit-kpe': WidgetContainerComponent,
 };
 
 export const WIDGETS_LAZY = {
@@ -174,7 +176,7 @@ export const WIDGETS_LAZY = {
         itemRows: 12,
         minItemCols: 40,
         minItemRows: 10,
-        preview: 'load-chart'
+        preview: 'load-chart',
     },
     scenarios: {
         import: async () => {
@@ -185,7 +187,7 @@ export const WIDGETS_LAZY = {
         itemRows: 10,
         minItemCols: 15,
         minItemRows: 10,
-        preview: 'scenarios'
+        preview: 'scenarios',
     },
     'aps-gantt-chart': {
         import: async () => {
@@ -196,7 +198,7 @@ export const WIDGETS_LAZY = {
         itemRows: 30,
         minItemCols: 40,
         minItemRows: 10,
-        preview: 'gant-chart'
+        preview: 'gant-chart',
     },
     'aps-recipe-diagram': {
         import: async () => {
@@ -207,7 +209,7 @@ export const WIDGETS_LAZY = {
         itemRows: 30,
         minItemCols: 40,
         minItemRows: 10,
-        preview: 'aps-recipe-diagram'
+        preview: 'aps-recipe-diagram',
     },
     'facility-deviation': {
         import: async () => {
@@ -218,7 +220,7 @@ export const WIDGETS_LAZY = {
         itemRows: 12,
         minItemCols: 40,
         minItemRows: 10,
-        preview: 'facility-deviation'
+        preview: 'facility-deviation',
     },
     'raw-motion': {
         import: async () => {
@@ -229,7 +231,7 @@ export const WIDGETS_LAZY = {
         itemRows: 12,
         minItemCols: 40,
         minItemRows: 10,
-        preview: 'raw-motion'
+        preview: 'raw-motion',
     },
     'stocks-using': {
         import: async () => {
@@ -240,7 +242,7 @@ export const WIDGETS_LAZY = {
         itemRows: 12,
         minItemCols: 30,
         minItemRows: 8,
-        preview: 'stocks-using'
+        preview: 'stocks-using',
     },
 
     'deviation-details': {
@@ -252,7 +254,7 @@ export const WIDGETS_LAZY = {
         itemRows: 20,
         minItemCols: 11,
         minItemRows: 11,
-        preview: 'deviation-details'
+        preview: 'deviation-details',
     },
     'production-details': {
         import: async () => {
@@ -263,23 +265,41 @@ export const WIDGETS_LAZY = {
         itemRows: 20,
         minItemCols: 11,
         minItemRows: 11,
-        preview: 'production-details'
+        preview: 'production-details',
     },
     'indicator-load-deviation': {
         import: async () => {
             return await import(
                 'src/app/widgets/APS/indicator-load-deviation/indicator-load-deviation.module'
-                );
+            );
         },
         module: 'IndicatorLoadDeviationModule',
         itemCols: 12,
         itemRows: 12,
         minItemCols: 11,
         minItemRows: 11,
-        preview: 'indicator-load-deviation'
+        preview: 'indicator-load-deviation',
     },
 
     // #endregion APS
+
+    // #region NK
+
+    'nk-tank-information': {
+        import: async () => {
+            return await import(
+                'src/app/widgets/NK/nk-tank-information.module'
+                );
+        },
+        module: 'NkTankInformationModule',
+        itemCols: 19,
+        itemRows: 12,
+        minItemCols: 19,
+        minItemRows: 12,
+        preview: 'nk-tank-information'
+    },
+
+    // #endregion NK
 
     // #region KPE
 
@@ -287,14 +307,14 @@ export const WIDGETS_LAZY = {
         import: async () => {
             return await import(
                 'src/app/widgets/KPE/key-performance-indicators/key-performance-indicators.module'
-                );
+            );
         },
         module: 'KeyPerformanceIndicatorsModule',
         itemCols: 19,
         itemRows: 12,
         minItemCols: 19,
         minItemRows: 12,
-        preview: 'key-performance-indicators'
+        preview: 'key-performance-indicators',
     },
     'kpe-quality': {
         import: async () => {
@@ -305,7 +325,7 @@ export const WIDGETS_LAZY = {
         itemRows: 22,
         minItemCols: 21,
         minItemRows: 22,
-        preview: 'kpe-quality'
+        preview: 'kpe-quality',
     },
     'kpe-readiness': {
         import: async () => {
@@ -316,7 +336,7 @@ export const WIDGETS_LAZY = {
         itemRows: 15,
         minItemCols: 15,
         minItemRows: 10,
-        preview: 'kpe-readiness'
+        preview: 'kpe-readiness',
     },
 
     'kpe-energetic': {
@@ -328,7 +348,7 @@ export const WIDGETS_LAZY = {
         itemRows: 7,
         minItemCols: 15,
         minItemRows: 6,
-        preview: 'kpe-energetic'
+        preview: 'kpe-energetic',
     },
 
     'kpe-safety': {
@@ -340,7 +360,7 @@ export const WIDGETS_LAZY = {
         itemRows: 7,
         minItemCols: 15,
         minItemRows: 6,
-        preview: 'default'
+        preview: 'default',
     },
 
     // #endregion KPE
@@ -351,14 +371,25 @@ export const WIDGETS_LAZY = {
         import: async () => {
             return await import(
                 'src/app/widgets/admin/admin-shift-schedule/admin-shift-schedule.module'
-                );
+            );
         },
         module: 'AdminShiftScheduleModule',
         itemCols: 15,
         itemRows: 15,
         minItemCols: 15,
         minItemRows: 15,
-        preview: 'admin-shift-schedule'
+        preview: 'admin-shift-schedule',
+    },
+    'admin-panel': {
+        import: async () => {
+            return await import('src/app/widgets/admin/admin-panel/admin-panel.module');
+        },
+        module: 'AdminPanelModule',
+        itemCols: 43,
+        itemRows: 28,
+        minItemCols: 43,
+        minItemRows: 28,
+        preview: 'admin-panel',
     },
 
     // #endregion Admin
@@ -374,7 +405,7 @@ export const WIDGETS_LAZY = {
         itemRows: 30,
         minItemCols: 32,
         minItemRows: 30,
-        preview: 'cd-events'
+        preview: 'cd-events',
     },
 
     'cd-mat-balance': {
@@ -386,21 +417,21 @@ export const WIDGETS_LAZY = {
         itemRows: 30,
         minItemCols: 40,
         minItemRows: 30,
-        preview: 'cd-mat-balance'
+        preview: 'cd-mat-balance',
     },
 
     'cd-reactor-parameters': {
         import: async () => {
             return await import(
                 'src/app/widgets/CD/cd-reactor-parameters/cd-reactor-parameters.module'
-                );
+            );
         },
         module: 'CdReactorParametersModule',
         itemCols: 15,
         itemRows: 15,
         minItemCols: 8,
         minItemRows: 8,
-        preview: 'cd-reactor-parameters'
+        preview: 'cd-reactor-parameters',
     },
 
     'cd-deviation-mat': {
@@ -412,7 +443,7 @@ export const WIDGETS_LAZY = {
         itemRows: 15,
         minItemCols: 8,
         minItemRows: 8,
-        preview: 'cd-deviation-mat'
+        preview: 'cd-deviation-mat',
     },
 
     // #endregion CD
@@ -425,10 +456,10 @@ export const WIDGETS_LAZY = {
         },
         module: 'EventsModule',
         itemCols: 32,
-        itemRows: 30,
+        itemRows: 20,
         minItemCols: 32,
-        minItemRows: 30,
-        preview: 'events'
+        minItemRows: 20,
+        preview: 'events',
     },
 
     'events-ed': {
@@ -440,7 +471,7 @@ export const WIDGETS_LAZY = {
         itemRows: 30,
         minItemCols: 32,
         minItemRows: 30,
-        preview: 'events'
+        preview: 'events',
     },
 
     'events-workspace': {
@@ -449,10 +480,10 @@ export const WIDGETS_LAZY = {
         },
         module: 'EventsWorkspaceModule',
         itemCols: 32,
-        itemRows: 30,
+        itemRows: 20,
         minItemCols: 32,
-        minItemRows: 30,
-        preview: 'events-workspace'
+        minItemRows: 20,
+        preview: 'events-workspace',
     },
 
     // #endregion EVJ
@@ -462,14 +493,14 @@ export const WIDGETS_LAZY = {
         import: async () => {
             return await import(
                 'src/app/widgets/LCO/spline-trends-chart/spline-trends-chart.module'
-                );
+            );
         },
         module: 'SplineTrendsChartModule',
-        itemCols: 24,
-        itemRows: 14,
-        minItemCols: 24,
-        minItemRows: 14,
-        preview: 'spline-trends-chart'
+        itemCols: 21,
+        itemRows: 10,
+        minItemCols: 21,
+        minItemRows: 10,
+        preview: 'spline-trends-chart',
     },
 
     'industrial-pyramid': {
@@ -481,7 +512,7 @@ export const WIDGETS_LAZY = {
         itemRows: 16,
         minItemCols: 20,
         minItemRows: 16,
-        preview: 'industrial-pyramid'
+        preview: 'industrial-pyramid',
     },
 
     'line-diagram': {
@@ -493,7 +524,7 @@ export const WIDGETS_LAZY = {
         itemRows: 16,
         minItemCols: 20,
         minItemRows: 16,
-        preview: 'line-diagram'
+        preview: 'line-diagram',
     },
 
     //#endregion LCO
@@ -507,20 +538,20 @@ export const WIDGETS_LAZY = {
         itemRows: 7,
         minItemCols: 9,
         minItemRows: 7,
-        preview: 'implementation-plan'
+        preview: 'implementation-plan',
     },
 
     'performance-progress-indicators': {
         import: async () =>
             await import(
                 'src/app/widgets/SMP/performance-progress-indicators/performance-progress-indicators.module'
-                ),
+            ),
         module: 'PerformanceProgressIndicatorsModule',
         itemCols: 9,
         itemRows: 7,
         minItemCols: 9,
         minItemRows: 7,
-        preview: 'performance-progress-indicators'
+        preview: 'performance-progress-indicators',
     },
 
     'quality-stock': {
@@ -530,7 +561,7 @@ export const WIDGETS_LAZY = {
         itemRows: 14,
         minItemCols: 14,
         minItemRows: 14,
-        preview: 'quality-stock'
+        preview: 'quality-stock',
     },
 
     'smp-events': {
@@ -540,7 +571,7 @@ export const WIDGETS_LAZY = {
         itemRows: 20,
         minItemCols: 14,
         minItemRows: 20,
-        preview: 'smp-events'
+        preview: 'smp-events',
     },
 
     'smp-events-workspace': {
@@ -551,7 +582,7 @@ export const WIDGETS_LAZY = {
         itemRows: 30,
         minItemCols: 20,
         minItemRows: 30,
-        preview: 'smp-events-workspace'
+        preview: 'smp-events-workspace',
     },
 
     'product-groups': {
@@ -562,7 +593,7 @@ export const WIDGETS_LAZY = {
         itemRows: 20,
         minItemCols: 20,
         minItemRows: 17,
-        preview: 'product-groups'
+        preview: 'product-groups',
     },
 
     'production-deviations': {
@@ -570,7 +601,7 @@ export const WIDGETS_LAZY = {
             {
                 return await import(
                     'src/app/widgets/SMP/production-deviations/production-deviations.module'
-                    );
+                );
             }
         },
         module: 'ProductionDeviationsModule',
@@ -578,7 +609,7 @@ export const WIDGETS_LAZY = {
         itemRows: 27,
         minItemCols: 37,
         minItemRows: 27,
-        preview: 'production-deviations'
+        preview: 'production-deviations',
     },
 
     'product-groups-short': {
@@ -589,7 +620,7 @@ export const WIDGETS_LAZY = {
         itemRows: 20,
         minItemCols: 20,
         minItemRows: 17,
-        preview: 'product-groups-short'
+        preview: 'product-groups-short',
     },
     //#endregion SMP
 
@@ -599,14 +630,14 @@ export const WIDGETS_LAZY = {
         import: async () => {
             return await import(
                 'src/app/widgets/SOU/sou-operational-accounting-system/sou-operational-accounting-system.module'
-                );
+            );
         },
         module: 'SouOperationalAccountingSystemModule',
         itemCols: 32,
         itemRows: 30,
         minItemCols: 32,
         minItemRows: 30,
-        preview: 'sou-operational-accounting-system'
+        preview: 'sou-operational-accounting-system',
     },
 
     // #endregion SOU
@@ -617,13 +648,13 @@ export const WIDGETS_LAZY = {
         import: async () =>
             await import(
                 'src/app/widgets/ASTUE-MNPZ/astue-mnpz-efficiency/astue-mnpz-efficiency.module'
-                ),
+            ),
         module: 'AstueMnpzEfficiencyModule',
         itemCols: 58,
         itemRows: 25,
         minItemCols: 58,
         minItemRows: 20,
-        preview: 'astue-efficiency'
+        preview: 'astue-efficiency',
     },
     //#endregion ASTUE-MNPZ
 
@@ -634,141 +665,166 @@ export const WIDGETS_LAZY = {
             return await import(
                 // tslint:disable-next-line:max-line-length
                 'src/app/widgets/ASTUE-ONPZ/astue-onpz-conventional-fuel/astue-onpz-conventional-fuel.module'
-                );
+            );
         },
         module: 'AstueOnpzConventionalFuelModule',
         itemCols: 30,
         itemRows: 18,
         minItemCols: 30,
         minItemRows: 16,
-        preview: 'astue-onpz-conventional-fuel'
+        preview: 'astue-onpz-conventional-fuel',
     },
 
     'astue-onpz-predictors': {
         import: async () => {
             return await import(
                 'src/app/widgets/ASTUE-ONPZ/astue-onpz-predictors/astue-onpz-predictors.module'
-                );
+            );
         },
         module: 'AstueOnpzPredictorsModule',
         itemCols: 13,
         itemRows: 10,
         minItemCols: 13,
         minItemRows: 10,
-        preview: 'astue-onpz-predictors'
+        preview: 'astue-onpz-predictors',
     },
 
     'astue-onpz-main-indicators': {
         import: async () => {
             return await import(
                 'src/app/widgets/ASTUE-ONPZ/astue-onpz-main-indicators/astue-onpz-main-indicators.module'
-                );
+            );
         },
         module: 'AstueOnpzMainIndicatorsModule',
         itemCols: 13,
         itemRows: 8,
         minItemCols: 13,
         minItemRows: 8,
-        preview: 'astue-onpz-main-indicators'
+        preview: 'astue-onpz-main-indicators',
     },
 
     'astue-onpz-product-charts': {
         import: async () => {
             return await import(
                 'src/app/widgets/ASTUE-ONPZ/astue-onpz-product-charts/astue-onpz-product-charts.module'
-                );
+            );
         },
         module: 'AstueOnpzProductChartsModule',
         itemCols: 32,
         itemRows: 30,
         minItemCols: 32,
         minItemRows: 30,
-        preview: 'astue-onpz-product-charts'
+        preview: 'astue-onpz-product-charts',
     },
 
     'astue-onpz-menu-structure': {
         import: async () => {
             return await import(
                 'src/app/widgets/ASTUE-ONPZ/astue-onpz-menu-structure/astue-onpz-menu-structure.module'
-                );
+            );
         },
         module: 'AstueOnpzMenuStructureModule',
         itemCols: 11,
         itemRows: 8,
         minItemCols: 11,
         minItemRows: 8,
-        preview: 'astue-onpz-menu-structure'
+        preview: 'astue-onpz-menu-structure',
     },
 
     'astue-onpz-consumption-indicators': {
         import: async () => {
             return await import(
                 'src/app/widgets/ASTUE-ONPZ/astue-onpz-consumption-indicators/astue-onpz-consumption-indicators.module'
-                );
+            );
         },
         module: 'AstueOnpzConsumptionIndicatorsModule',
         itemCols: 11,
         itemRows: 6,
         minItemCols: 11,
         minItemRows: 6,
-        preview: 'astue-onpz-consumption-indicators'
+        preview: 'astue-onpz-consumption-indicators',
     },
 
     'astue-onpz-deviation-cards': {
         import: async () => {
             return await import(
                 'src/app/widgets/ASTUE-ONPZ/astue-onpz-deviation-cards/astue-onpz-deviation-cards.module'
-                );
+            );
         },
         module: 'AstueOnpzDeviationCardsModule',
         itemCols: 13,
         itemRows: 28,
         minItemCols: 13,
         minItemRows: 23,
-        preview: 'astue-onpz-deviation-cards'
+        preview: 'astue-onpz-deviation-cards',
     },
 
     'astue-onpz-planning-charts': {
         import: async () => {
             return await import(
                 'src/app/widgets/ASTUE-ONPZ/astue-onpz-planning-charts/astue-onpz-planning-charts.module'
-                );
+            );
         },
         module: 'AstueOnpzPlanningChartsModule',
         itemCols: 30,
         itemRows: 12,
         minItemCols: 30,
-        minItemRows: 12
+        minItemRows: 12,
         // preview: 'astue-onpz-planning-charts',
-    },
-
-    'astue-onpz-big-planning-chart': {
-        import: async () => {
-            return await import(
-                'src/app/widgets/ASTUE-ONPZ/astue-onpz-big-planning-chart/astue-onpz-big-planning-chart.module'
-                );
-        },
-        module: 'AstueOnpzBigPlanningChartModule',
-        itemCols: 24,
-        itemRows: 12,
-        minItemCols: 24,
-        minItemRows: 12
-        // preview: 'astue-onpz-big-planning-chart',
     },
 
     'astue-onpz-interactive-indicators': {
         import: async () => {
             return await import(
                 'src/app/widgets/ASTUE-ONPZ/astue-onpz-interactive-indicators/astue-onpz-interactive-indicators.module'
-                );
+            );
         },
         module: 'AstueOnpzInteractiveIndicatorsModule',
         itemCols: 24,
         itemRows: 10,
         minItemCols: 24,
-        minItemRows: 10
+        minItemRows: 10,
         // preview: 'astue-onpz-interactive-indicators',
-    }
+    },
+    'ejco-onpz-unit-sou': {
+        import: async () => {
+            return await import(
+                'src/app/widgets/EJCO-ONPZ/ejco-onpz-unit-sou/ejco-onpz-unit-sou.module'
+            );
+        },
+        module: 'EjcoOnpzUnitSouModule',
+        itemCols: 28,
+        itemRows: 7,
+        minItemCols: 28,
+        minItemRows: 7,
+        // preview: 'ejco-onpz-unit-sou',
+    },
+    'ejco-onpz-fsb-load': {
+        import: async () => {
+            return await import(
+                'src/app/widgets/EJCO-ONPZ/ejco-onpz-fsb-load/ejco-onpz-fsb-load.module'
+            );
+        },
+        module: 'EjcoOnpzFsbLoadModule',
+        itemCols: 12,
+        itemRows: 7,
+        minItemCols: 12,
+        minItemRows: 7,
+        // preview: 'ejco-onpz-fsb-load',
+    },
+    'ejco-onpz-unit-kpe': {
+        import: async () => {
+            return await import(
+                'src/app/widgets/EJCO-ONPZ/ejco-onpz-unit-kpe/ejco-onpz-unit-kpe.module'
+            );
+        },
+        module: 'EjcoOnpzUnitKpeModule',
+        itemCols: 12,
+        itemRows: 7,
+        minItemCols: 12,
+        minItemRows: 7,
+        // preview: 'ejco-onpz-unit-kpe',
+    },
 
     //#endregion ASTUE-ONPZ
 
@@ -895,9 +951,6 @@ export const WIDGETS_LAZY = {
     // },
     // 'petroleum-products-movement': {
     //     import: async () => await import('src/app/widgets/petroleum-products-movement/petroleum-products-movement.module'),
-    // },
-    // 'admin-panel': {
-    //     import: async () => await import('src/app/widgets/admin-panel/admin-panel.module'),
     // },
     // 'reference': {
     //     import: async () => await import('src/app/widgets/reference/reference.module'),

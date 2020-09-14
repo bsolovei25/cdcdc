@@ -279,6 +279,7 @@ export class WidgetService {
             case 'product-groups':
             case 'product-groups-short':
             case 'tank-information':
+            case 'nk-tank-information':
             case 'table-data':
             case 'deviations-table':
             case 'triggering-critical-parameters':
@@ -305,6 +306,7 @@ export class WidgetService {
             case 'astue-onpz-interactive-indicators':
             case 'astue-onpz-conventional-fuel':
             case 'astue-onpz-planning-charts':
+            case 'astue-onpz-line-chart':
                 return data;
         }
         console.warn(`unknown widget type ${widgetType}`);

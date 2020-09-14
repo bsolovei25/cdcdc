@@ -1,19 +1,56 @@
 <div class="container">
-  <evj-contemporary-widget-header
-    [uniqId]="uniqId"
-    [widgetTitle]="widgetTitle"
-    icon="astue-predictors"
-    type="astue"
-  >
-  </evj-contemporary-widget-header>
-  <div
-    class="content"
-    (mouseenter)="onMouseEnter()"
-    (mouseleave)="onMouseExit()"
-    (mousedown)="$event.stopPropagation()"
-    (touchstart)="$event.stopPropagation()"
-  >
-    <evj-astue-onpz-multi-chart class="chart" [data]="data"></evj-astue-onpz-multi-chart>
-    <evj-smart-scroll class="scroll"></evj-smart-scroll>
-  </div>
+  <ng-container *ngIf="!planningChart else planChart">
+    <evj-contemporary-widget-header
+      [uniqId]="uniqId"
+      [widgetTitle]="widgetTitle"
+      icon="astue-predictors"
+      type="astue"
+    >
+      <div class="header-buttons">
+        <div
+          (mousedown)="$event.stopPropagation()"
+          (touchstart)="$event.stopPropagation()"
+          matRipple
+          [matRippleColor]="'white'"
+          class="button"
+        >
+          <div class="icon">
+            <svg-icon
+              src="assets/icons/widgets/ASTUE-ONPZ/astue-onpz-conventional-fuel/event.svg"
+            ></svg-icon>
+          </div>
+          <div class="label">Отработать событие</div>
+        </div>
+
+        <div
+          (mousedown)="$event.stopPropagation()"
+          (touchstart)="$event.stopPropagation()"
+          matRipple
+          [matRippleColor]="'white'"
+          class="button"
+          (click)="goToMainScreen()"
+        >
+          <div class="icon">
+            <svg-icon
+              src="assets/icons/widgets/ASTUE-ONPZ/astue-onpz-conventional-fuel/home.svg"
+            ></svg-icon>
+          </div>
+          <div class="label">Главный экран</div>
+        </div>
+      </div>
+    </evj-contemporary-widget-header>
+    <div
+      class="content"
+      (mouseenter)="onMouseEnter()"
+      (mouseleave)="onMouseExit()"
+      (mousedown)="$event.stopPropagation()"
+      (touchstart)="$event.stopPropagation()"
+    >
+      <evj-astue-onpz-multi-chart class="chart" [data]="data"></evj-astue-onpz-multi-chart>
+      <evj-smart-scroll class="scroll"></evj-smart-scroll>
+    </div>
+  </ng-container>
+  <ng-template #planChart>
+    <evj-astue-onpz-big-planning-chart></evj-astue-onpz-big-planning-chart>
+  </ng-template>
 </div>

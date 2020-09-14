@@ -12,13 +12,16 @@ export class ITankInformationRef {
     public type: string;
 
     constructor(data: ITankInformation) {
-        Object.assign<ITankInformationRef, ITankInformation, Partial<ITankInformationRef>>(this, data, {});
+        Object.assign<ITankInformationRef,
+        ITankInformation,
+        Partial<ITankInformationRef>>(this, data, {});
     }
 }
 
 export interface ITankCardValue {
     absolutValue: number;
     currentValue: number;
+    maxTemperature: number;
     maxValue: number;
     minValue: number;
     objectStatus: string;
@@ -41,6 +44,7 @@ export interface ICardAttributes {
 export class ITankCardValueRef {
     public absolutValue: number;
     public currentValue: number;
+    public maxTemperature: number;
     public dieValue: number;
     public maxValue: number;
     public measuredVolume: number;
@@ -55,7 +59,9 @@ export class ITankCardValueRef {
 
     constructor(data: ITankCardValue) {
         // if (data.measuredVolume > data.maxValue)
-        Object.assign<ITankCardValueRef, ITankCardValue, Partial<ITankCardValueRef>>(this, data, {});
+        Object.assign<ITankCardValueRef,
+        ITankCardValue,
+        Partial<ITankCardValueRef>>(this, data, {});
     }
 }
 
@@ -63,6 +69,7 @@ export const ITankValueDtoFn = (data: any): any => {
     return new ITankCardValueRef({
         absolutValue: data.absolutValue,
         currentValue: data.currentValue,
+        maxTemperature: data.maxTemperature,
         dieValue: data.dieValue,
         maxValue: data.maxValue,
         measuredVolume: data.measuredVolume,
@@ -76,7 +83,6 @@ export const ITankValueDtoFn = (data: any): any => {
         attributes: data.attributes,
     });
 };
-
 
 export const ITankInformationDtoFn = (data: any): ITankInformationRef => {
     return new ITankInformationRef({

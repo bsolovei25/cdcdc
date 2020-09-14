@@ -2,8 +2,10 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import {
     AstueOnpzConsumptionIndicatorsWidgetType,
-    AstueOnpzConsumptionIndicatorType
+    AstueOnpzConsumptionIndicatorType,
 } from '../astue-onpz-consumption-indicators/astue-onpz-consumption-indicators.component';
+import { IPlanningChart } from '../astue-onpz-planning-charts/astue-onpz-planning-charts.component';
+import { IMultiChartLine } from '../../../dashboard/models/ASTUE-ONPZ/astue-onpz-multi-chart.model';
 
 export interface IAstueOnpzMonitoringOptions {
     manufactureName: string | null;
@@ -20,40 +22,77 @@ export interface IAstueOnpzMonitoringCarrierOptions {
 }
 
 export interface IAstueOnpzPredictorsOptions {
-    id: number;
+    id: string;
     name: string;
     colorIndex: number;
 }
 
 @Injectable({
-    providedIn: 'root'
+    providedIn: 'root',
 })
 export class AstueOnpzService {
-    private indicatorOptions$: BehaviorSubject<IAstueOnpzMonitoringCarrierOptions> = new BehaviorSubject({
+    private indicatorOptions$: BehaviorSubject<
+        IAstueOnpzMonitoringCarrierOptions
+    > = new BehaviorSubject({
         manufactureName: null,
         unitName: null,
         itemId: null,
-        filterValues: null
+        filterValues: null,
     });
 
     private monitoringOptions$: BehaviorSubject<IAstueOnpzMonitoringOptions> = new BehaviorSubject({
         manufactureName: null,
         unitName: null,
         type: null,
-        indicatorType: null
+        indicatorType: null,
     });
 
-    public predictorsOptions$: BehaviorSubject<IAstueOnpzPredictorsOptions[]> = new BehaviorSubject([]);
+    public predictorsOptions$: BehaviorSubject<IAstueOnpzPredictorsOptions[]> = new BehaviorSubject(
+        []
+    );
 
-    public sharedMonitoringOptions: Observable<IAstueOnpzMonitoringOptions> = this.monitoringOptions$.asObservable();
+    public sharedMonitoringOptions: Observable<
+        IAstueOnpzMonitoringOptions
+    > = this.monitoringOptions$.asObservable();
 
-    public sharedIndicatorOptions: Observable<IAstueOnpzMonitoringCarrierOptions> = this.indicatorOptions$.asObservable();
+    public sharedIndicatorOptions: Observable<
+        IAstueOnpzMonitoringCarrierOptions
+    > = this.indicatorOptions$.asObservable();
 
-    constructor() {
+    public sharedPlanningGraph$: BehaviorSubject<IPlanningChart> = new BehaviorSubject(null);
+
+    private multiLinePredictorsChart$: BehaviorSubject<IMultiChartLine[]> = new BehaviorSubject<
+        IMultiChartLine[]
+    >(null);
+
+    get multiLinePredictors(): Observable<IMultiChartLine[]> {
+        return this.multiLinePredictorsChart$.asObservable();
+    }
+
+    constructor() {}
+
+    public setMultiLinePredictors(value: IMultiChartLine[]): void {
+        const val = !!value ? value : null;
+        this.multiLinePredictorsChart$.next(val);
     }
 
     public setMonitoringOptions(options: IAstueOnpzMonitoringOptions): void {
         this.monitoringOptions$.next(options);
+    }
+
+    public setPredictors(arr: IAstueOnpzPredictorsOptions[]): void {
+        if (arr.some((x) => x.name !== this.sharedPlanningGraph$.getValue()?.title)) {
+            this.setPlanningGraph(null);
+        }
+        this.predictorsOptions$.next(arr);
+    }
+
+    public setPlanningGraph(graph: IPlanningChart, isDemand: boolean = false): void {
+        if (this.sharedPlanningGraph$.getValue()?.title === graph?.title && !isDemand) {
+            this.sharedPlanningGraph$.next(null);
+            return;
+        }
+        this.sharedPlanningGraph$.next(graph);
     }
 
     public updateIndicatorFilter(key: string, action: 'add' | 'delete'): void {
@@ -73,7 +112,7 @@ export class AstueOnpzService {
                 }
                 break;
         }
-        const filter: string = filterArray.reduce((a, b) => `${a};${b}`);
+        const filter: string = filterArray.reduce((a, b) => `${a};${b}`, '');
         this.nextMonitoringCarrierOptions<string>('filterValues', filter);
     }
 
@@ -103,8 +142,8 @@ export class AstueOnpzService {
             ...this.monitoringOptions$.value,
             ...{
                 indicatorType: indicatorTypeParam,
-                type: typeParam
-            }
+                type: typeParam,
+            },
         });
     }
 

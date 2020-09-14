@@ -8,7 +8,7 @@ import { AuthService } from '../../../@core/service/auth.service';
 import {
     IUser,
     EventsWidgetData,
-    EventsWidgetNotification,
+    IEventsWidgetNotification,
     IStatus,
 } from '../../../dashboard/models/events-widget';
 import { IAlertWindowModel } from '../../../@shared/models/alert-window.model';
@@ -103,7 +103,7 @@ export class EventsWorkspaceComponent extends WidgetPlatform implements OnInit, 
         }
     }
 
-    private editWsElement(notification: EventsWidgetNotification): void {
+    private editWsElement(notification: IEventsWidgetNotification): void {
         this.ewService.editEvent(notification.id);
     }
 

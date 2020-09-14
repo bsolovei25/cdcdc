@@ -17,6 +17,7 @@ export interface IScreenSettings {
     isActive?: boolean;
     userScreenGroupId?: number;
     userScreenGroupName?: string;
+    isHidden?: boolean;
 }
 
 export interface IClaim {

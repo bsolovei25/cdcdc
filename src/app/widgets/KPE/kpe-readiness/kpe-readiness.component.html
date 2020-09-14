@@ -109,7 +109,7 @@
     <div class="readiness">
       <div class="readiness__header">
         <div #mainGauge class="readiness__header__gauge" [style]="gaugeWidth(mainGauge)">
-          <evj-kpe-gauge-chart [fact]="diagram?.fact" [plan]="diagram?.plan"></evj-kpe-gauge-chart>
+          <evj-kpe-gauge-chart isPercent="true" [fact]="diagram?.fact" [plan]="diagram?.plan"></evj-kpe-gauge-chart>
         </div>
         <div class="readiness__header__chart">
           <evj-kpe-deviation-diagram [data]="deviationChartData"></evj-kpe-deviation-diagram>

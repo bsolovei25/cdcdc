@@ -1,8 +1,9 @@
-import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
+import { Component, OnInit, Inject, OnDestroy, Injector } from '@angular/core';
 import { WidgetPlatform } from '../../../dashboard/models/widget-platform';
 import { WidgetService } from '../../../dashboard/services/widget.service';
 import { IProductionTrend } from '../../../dashboard/models/production-trends.model';
 import { AstueOnpzService } from '../astue-onpz-shared/astue-onpz.service';
+import { AstueOnpzProductCardComponent } from './components/astue-onpz-product-card/astue-onpz-product-card.component';
 
 export interface IAstueProductChart {
     productName: string;
@@ -12,6 +13,9 @@ export interface IAstueProductChart {
     units: string;
     currentPlanValue: number;
     currentFactValue: number;
+    planText: string;
+    factText: string;
+    isLowerEconomy: boolean;
     graphs: IProductionTrend[];
 }
 
@@ -21,7 +25,8 @@ export interface IAstueProductChart {
     styleUrls: ['./astue-onpz-product-charts.component.scss'],
 })
 export class AstueOnpzProductChartsComponent extends WidgetPlatform implements OnInit, OnDestroy {
-    public data: IAstueProductChart[] = [];
+    public data: string[] = [];
+    public readonly chartComponent: any = AstueOnpzProductCardComponent;
 
     constructor(
         protected widgetService: WidgetService,
@@ -29,6 +34,7 @@ export class AstueOnpzProductChartsComponent extends WidgetPlatform implements O
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string,
         private astueOnpzService: AstueOnpzService,
+        public injector: Injector
     ) {
         super(widgetService, isMock, id, uniqId);
     }
@@ -50,11 +56,22 @@ export class AstueOnpzProductChartsComponent extends WidgetPlatform implements O
         super.ngOnDestroy();
     }
 
-    protected dataHandler(ref: {graphs: IAstueProductChart[]}): void {
-        if (ref?.graphs?.length > 0) {
-            this.data = ref.graphs;
+    protected dataHandler(ref: { graphIds: string[] }): void {
+        if (ref?.graphIds?.length > 0) {
+            this.data = ref.graphIds;
         } else {
             this.data = [];
         }
     }
+
+    public getInjector = (idWidget: string, uniqId: string): Injector => {
+        return Injector.create({
+            providers: [
+                { provide: 'widgetId', useValue: idWidget },
+                { provide: 'uniqId', useValue: uniqId },
+                { provide: 'isMock', useValue: false },
+            ],
+            parent: this.injector,
+        });
+    };
 }

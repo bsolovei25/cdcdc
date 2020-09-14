@@ -1,5 +1,9 @@
 import { Component, OnInit, Input, OnChanges } from '@angular/core';
 import { IPlanningChart } from '../../astue-onpz-planning-charts.component';
+import { AstueOnpzService } from '../../../astue-onpz-shared/astue-onpz.service';
+import { Observable } from 'rxjs';
+import { fillDataShape } from '../../../../../@shared/common-functions';
+import { fillDataArray } from '../../../../../@shared/functions/fill-data-array.function';
 
 @Component({
     selector: 'evj-astue-onpz-planning-card',
@@ -7,17 +11,32 @@ import { IPlanningChart } from '../../astue-onpz-planning-charts.component';
     styleUrls: ['./astue-onpz-planning-card.component.scss'],
 })
 export class AstueOnpzPlanningCardComponent implements OnChanges, OnInit {
-    @Input() public data: IPlanningChart;
+    @Input() private data: IPlanningChart;
 
-    constructor() {}
+    public transformedData: IPlanningChart;
 
-    ngOnChanges(): void {
-        this.data.graph.forEach((item) => {
+    constructor(private astueOnpzService: AstueOnpzService) {}
+
+    public ngOnChanges(): void {
+        this.transformedData = fillDataShape(this.data);
+        this.transformedData.graph.forEach((item) => {
             item.graph.forEach((val) => {
                 val.timeStamp = new Date(val.timeStamp);
             });
         });
+        fillDataArray(this.transformedData.graph, 12, true);
+        if (this.data?.title === this.astueOnpzService.sharedPlanningGraph$.getValue()?.title) {
+            this.astueOnpzService.setPlanningGraph(this.data, true);
+        }
     }
 
-    ngOnInit(): void {}
+    get sharedGraph(): Observable<IPlanningChart> {
+        return this.astueOnpzService.sharedPlanningGraph$.asObservable();
+    }
+
+    public ngOnInit(): void {}
+
+    public graphOpen(): void {
+        this.astueOnpzService.setPlanningGraph(this.data);
+    }
 }

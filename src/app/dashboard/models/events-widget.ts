@@ -26,7 +26,7 @@ export interface EventsWidgetNotificationPreview {
     isAcknowledged?: boolean; // Квитировано
 }
 
-export interface EventsWidgetNotification {
+export interface IEventsWidgetNotification {
     id?: number;
     parentId?: number;
     itemNumber?: number;
@@ -64,6 +64,7 @@ export interface EventsWidgetNotification {
     unitName?: string;
     deviationData?: IEventDeviationData;
     asusEvent?: IEventAsus;
+    shiftPassEvent?: IEventShiftPass;
     externalId?: number;
     externalCode?: string; // код внешней системы (ID в Системе-источник)
     externalDate?: Date; // дата регистрации во внешней системе
@@ -106,6 +107,26 @@ export interface IEventAsus {
     datetimeDeadline?: Date;
 }
 
+export interface IEventShiftPass {
+    id: number;
+    shiftMembers: string;
+    shiftEstablishedFacts: string;
+    notes: string;
+    shiftDangerWorks: string;
+    shiftRepairWorks: string;
+    shiftOtherEvents: string;
+    shiftInstruction: string;
+    shiftPropertyNotes: string;
+    shiftComments: string;
+    compressorsInWork: string;
+    equipmentAtRepair: string;
+    equipmentReserved: string;
+    ventilationStatus: string;
+    fireExtinguishingEquipmentStatus: string;
+    pressureGaugesStatus: string;
+    safetyAndEmergencyProtectionStatus: string;
+}
+
 export interface IRetrievalEventDto {
     innerNotificationId: number;
     description: string;
@@ -119,6 +140,7 @@ export interface IRetrievalEventDto {
 export interface IEventDeviationData {
     urlOriginalSystem: string;
     isCritical: boolean;
+    systemic: boolean;
     iteration: number;
     escalateLevelNumber: number;
     tag: string;
@@ -157,7 +179,7 @@ export interface IUnitEvents {
 
 export interface IRetrievalEvents {
     id: number;
-    innerNotification: EventsWidgetNotification;
+    innerNotification: IEventsWidgetNotification;
     timerPercentage: number;
 }
 
@@ -342,7 +364,7 @@ export interface EventsWidgetDataPreview {
 }
 
 export interface EventsWidgetData {
-    notification: EventsWidgetNotification;
+    notification: IEventsWidgetNotification;
     action: EventAction;
 }
 

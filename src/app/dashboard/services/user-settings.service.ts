@@ -15,7 +15,7 @@ import { Router } from '@angular/router';
 import { IGroupScreens } from '../components/group-selector/group-selector.component';
 
 @Injectable({
-    providedIn: 'root',
+    providedIn: 'root'
 })
 export class UserSettingsService {
     private _screens$: BehaviorSubject<IScreenSettings[]> = new BehaviorSubject(null);
@@ -73,7 +73,7 @@ export class UserSettingsService {
             minItemRows,
             id: idWidget,
             uniqid: uniqId,
-            widgetType: nameWidget,
+            widgetType: nameWidget
         });
         this.addWidgetApi(uniqId);
     }
@@ -83,7 +83,8 @@ export class UserSettingsService {
         this.http
             .post(this.restUrl + '/api/user-management/widget/' + this.ScreenId, updateWidget)
             .subscribe(
-                (ans) => {},
+                (ans) => {
+                },
                 (error) => console.log(error)
             );
     }
@@ -97,7 +98,7 @@ export class UserSettingsService {
             widgetType: item.widgetType,
             sizeX: item.cols,
             sizeY: item.rows,
-            uniqueId: item.uniqid,
+            uniqueId: item.uniqid
         };
     }
 
@@ -106,7 +107,8 @@ export class UserSettingsService {
         this.http
             .put(this.restUrl + '/api/user-management/widget/' + uniqId, updateWidget)
             .subscribe(
-                (ans) => {},
+                (ans) => {
+                },
                 (error) => console.log(error)
             );
     }
@@ -188,7 +190,7 @@ export class UserSettingsService {
             }
             const data = await this.http
                 .get<IScreenSettings[]>(`${this.restUrl}/api/user-management/screens/group`, {
-                    params,
+                    params
                 })
                 .toPromise();
 
@@ -230,7 +232,7 @@ export class UserSettingsService {
             return this.LoadScreenAsync(id, true).subscribe((item: IScreenSettings) => {
                 this.router.navigate([], {
                     queryParams: { screenId: item.id },
-                    queryParamsHandling: 'merge',
+                    queryParamsHandling: 'merge'
                 });
                 this.claimService.setClaimsByScreen(item.claims);
                 this.ScreenId = item.id;
@@ -247,7 +249,7 @@ export class UserSettingsService {
                         minItemRows,
                         id: widget.widgetId,
                         widgetType: widget.widgetType,
-                        uniqid: widget.uniqueId,
+                        uniqid: widget.uniqueId
                     };
                 });
             });
@@ -258,7 +260,7 @@ export class UserSettingsService {
             this.claimService.setClaimsByScreen(null);
             this.router.navigate([], {
                 queryParams: { screenId: undefined },
-                queryParamsHandling: 'merge',
+                queryParamsHandling: 'merge'
             });
         }
     }
@@ -272,7 +274,7 @@ export class UserSettingsService {
             widgets: null,
             // экран создается в привязке к активной группе
             userScreenGroupName: this.groupName,
-            userScreenGroupId: this.groupId,
+            userScreenGroupId: this.groupId
         };
         try {
             const data: IScreenSettings = await this.http
@@ -307,16 +309,9 @@ export class UserSettingsService {
         );
     }
 
-    public updateScreen(id: number, name: string): Subscription {
-        const userScreen: IScreenSettings = {
-            id,
-            screenName: name,
-            user: null,
-            updateScreen: null,
-            widgets: null,
-        };
+    public updateScreen(screen: IScreenSettings): Subscription {
         return this.http
-            .put(this.restUrl + '/api/user-management/screen/' + id, userScreen)
+            .put(`${this.restUrl}/api/user-management/screen/${screen.id}`, screen)
             .subscribe(
                 (ans) => {
                     this.snackBar.openSnackBar('Экран успешно изменен');

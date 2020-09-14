@@ -68,6 +68,7 @@
   width: 100%;
   height: 100%;
   gap: 20px;
+  overflow: auto;
 }
 
 .flex-column-container {
@@ -78,6 +79,12 @@
   gap: 10px;
 
   &__left {
-    max-width: 810px;
+    max-width: 800px;
+    min-width: 800px;
+  }
+
+  &__right {
+    width: 100%;
+    min-width: 700px;
   }
 }
