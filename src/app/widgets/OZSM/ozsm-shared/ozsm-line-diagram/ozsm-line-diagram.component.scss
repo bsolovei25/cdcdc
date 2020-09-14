@@ -29,7 +29,6 @@
   &__value {
     height: 100%;
     width: 60.8px;
-    min-width: 60.8px;
     background-color: var(--ozsm-color-line-bg);
     border-radius: 0px 2px 2px 0px;
     display: flex;
@@ -38,6 +37,7 @@
     font-size: 12px;
     line-height: 14px;
     text-align: center;
+    box-sizing: border-box;
   }
   &__level-empty {
     position: absolute;
