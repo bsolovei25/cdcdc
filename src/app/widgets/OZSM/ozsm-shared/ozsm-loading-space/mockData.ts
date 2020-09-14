@@ -1,12 +1,4 @@
-export const mockData = [
-    {
-        id: '0',
-        currentValue: 200000,
-        maxValue: 248045
-    },
-    {
-        id: '1',
-        currentValue: 200000,
-        maxValue: 248045
-    }
-];
+export const mockData = {
+        currentValue: 240000,
+        maxValue: 500000,
+    };

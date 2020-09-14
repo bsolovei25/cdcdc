@@ -8,11 +8,13 @@ import { mockData } from './mockData';
     styleUrls: ['./ozsm-loading-space.component.scss']
 })
 export class OzsmLoadingSpaceComponent implements OnInit {
-    public data: ILoadingSpaceModel[] = mockData;
+    public data: ILoadingSpaceModel = mockData;
+
     constructor() {
     }
 
     ngOnInit(): void {
+        this.data.col = this.data.currentValue / this.data.maxValue * 10;
+        this.data.fractional = this.data.col % 1;
     }
-
 }
