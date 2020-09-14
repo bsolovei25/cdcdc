@@ -19,6 +19,8 @@
     display: flex;
     justify-content: space-between;
     padding-top: 25px;
+    margin-left: 10px;
+    margin-right: 10px;
     gap: 4px;
     flex: 1;
   }
@@ -26,13 +28,21 @@
     width: 60px;
     height: 40px;
     background-color: var(--ozsm-color-line-bg);
+    border: 1px solid var(--ozsm-color-border);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 14px;
+    line-height: 17px;
+    text-align: center;
+    box-sizing: border-box;
   }
 }
 .cell {
   width: 100%;
   height: 8px;
   border: 1px solid var(--ozsm-color-border);
-  border-radius: 2px;
   background-color: #0089FF;
+  border-radius: 2px;
 }
 
