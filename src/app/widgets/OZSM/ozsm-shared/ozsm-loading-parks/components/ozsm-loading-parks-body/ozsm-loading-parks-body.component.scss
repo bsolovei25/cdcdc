@@ -1,0 +1,52 @@
+.body {
+    height: 138px;
+    width: 411px;
+
+    display: flex;
+    justify-content: center;
+
+    background: var(--ozsm-loading-parks-color-bg-title);
+
+    border: 1px solid var(--ozsm-loading-parks-color-border-main);
+    border-top: none;
+    border-radius: 0 0 2px 2px;
+
+    position: relative;
+}
+
+.info-container {
+    display: flex;
+    justify-content: space-between;
+
+    position: absolute;
+    bottom: 0;
+}
+
+.info {
+    height: 40px;
+    width: 185px;
+    display: flex;
+    align-items: center;
+
+
+    &__title {
+        font-size: 10px;
+        line-height: 12px;
+        color: var(--ozsm-loading-parks-color-font-menu);
+    }
+
+    &__value {
+        margin-left: 25px;
+        font-size: 14px;
+        line-height: 17px;
+        color: var(--ozsm-loading-parks-color-font-main);
+    }
+}
+
+.parks-list {
+    width: 100%;
+    padding: 0 5px;
+    
+    display: flex;
+    justify-content: space-around;
+}
