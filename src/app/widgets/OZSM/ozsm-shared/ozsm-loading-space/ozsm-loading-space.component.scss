@@ -1,4 +1,4 @@
-.warehouse {
+.space {
   box-sizing: border-box;
   height: 40px;
   width: 614px;
@@ -14,7 +14,30 @@
   }
   &__value {
     height: 100%;
-    width: 100px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
   }
+  &__percent {
+    width: 60px;
+    height: 100%;
+    background-color: var(--ozsm-color-line-bg);
+  }
+}
+.cell {
+  position: absolute;
+  top: 25px;
+  width: 47px;
+  height: 8px;
+  border: 1px solid var(--ozsm-color-border);
+  border-radius: 2px;
+}
+.icon {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  width: 16px;
+  height: 16px;
 }
 
