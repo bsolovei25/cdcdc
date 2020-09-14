@@ -1,0 +1,115 @@
+*{
+    box-sizing: border-box;
+}
+
+.innage {
+    width: 68px;
+    height: 150px;
+
+    background:  var(--nk-color-bg-component);
+
+    border-radius: 0px 0px 3px 3px;
+
+    position: absolute;
+    left: 15px;
+    top: 15px;
+}
+
+.innage__title {
+    height: 20px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background: var(--nk-color-bg-component-title);
+    border-radius: 2px;
+
+    line-height: 14px;
+    font-size: 12px;
+    color: var(--nk-color-font-title-sub);
+}
+
+.innage__body {
+    height: 130px;
+    padding: 1em 3px;
+
+    display: flex;
+    flex-direction: column;
+
+
+    line-height: 19px;
+    font-size: 16px;
+    color: var(--nk-color-font-title-main);
+}
+
+.innage-border {
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;
+
+    position: relative;
+
+    span {
+        width: 100%;
+        padding-left: 5px;
+
+        display: flex;
+
+        position: absolute;
+    }
+
+    .innage__higherBorder {
+        top: -1em;
+    }
+    
+    .innage__lowerBorder{
+        bottom: -1em;
+        align-items: center;
+    }
+    
+    .innage__current {
+        bottom: 0;
+        background: var(--nk-color-bg-innage-daigram);
+    }
+}
+
+
+.innage-axis {
+    height: 100%;
+    width: 1px;
+    background: var(--nk-color-innage-axis);
+
+    display: flex;
+    align-items: flex-end;
+
+    position: absolute;
+
+    .innage-axis__value {
+        width: 1px;
+        background: var(--nk-color-active);
+    }
+}
+
+.innage-lines {
+    height: 100%;
+    
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    position: absolute;
+
+    .innage-lines__item {
+        height: 1px;
+        width: 4px;
+
+        background: var(--nk-color-innage-axis);
+        border-radius: 0 3px 3px 0;   
+    }
+
+    .innage-lines__item_active {
+        background: var(--nk-color-active);
+    }
+}
