@@ -3,13 +3,12 @@ import { ILoadingSpaceModel } from '../../../../dashboard/models/loading-space.m
 import { mockData } from './mockData';
 
 @Component({
-    selector: 'evj-ozsm-warehouse-loading',
+    selector: 'evj-ozsm-loading-space',
     templateUrl: './ozsm-loading-space.component.html',
     styleUrls: ['./ozsm-loading-space.component.scss']
 })
 export class OzsmLoadingSpaceComponent implements OnInit {
     public data: ILoadingSpaceModel[] = mockData;
-
     constructor() {
     }
 

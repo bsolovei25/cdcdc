@@ -21,6 +21,7 @@ import { OzsmLoadingSpaceComponent } from './ozsm-loading-space/ozsm-loading-spa
         OzsmCircleDiagramComponent,
         OzsmStorageTankComponent,
         OzsmEqualizerChartComponent,
+        OzsmLoadingSpaceComponent
     ],
     imports: [
         CommonModule,
