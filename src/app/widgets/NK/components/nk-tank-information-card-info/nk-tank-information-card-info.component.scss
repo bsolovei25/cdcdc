@@ -23,7 +23,7 @@
 }
 
 .free-space {
-    background: var(--color-nk-bg-component);
+    background: var(--nk-color-bg-component);
     border-radius: 2px;
 }
 
@@ -38,21 +38,21 @@
     height: 10px;
     width: 48px;
 
-    border: 1px solid var(--color-border-main);
+    border: 1px solid var(--nk-color-border-main);
     opacity: 0.5;
     border-radius: 2px;
 
-    background: var(--color-nk-bg-card-body);
+    background: var(--nk-color-bg-card-body);
 
     .indicator__inner {
         height: 100%;
         width: 100%;
 
-        border: 1px solid var(--color-bg-header-table);
+        border: 1px solid var(--nk-color-bg-volume-indicator);
         border-radius: 2px;
     }
 
     .indicator__inner_active {
-        background: var(--color-nk-active);
+        background: var(--nk-color-active);
     }
 }

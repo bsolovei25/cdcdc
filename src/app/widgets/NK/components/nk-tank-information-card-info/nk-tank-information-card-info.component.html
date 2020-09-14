@@ -6,8 +6,8 @@
 
     <div class="free-space">
         <div class="free-space__diagram">
-            <div class="indicator " *ngFor = "let i of volumeCustomization">
-                <div class="indicator__inner"  [ngClass]="{indicator__inner_active : i <= activeIndicatorCount}" ></div>
+            <div class="indicator " *ngFor = "let item of volumeCustomization; let i = index">
+                <div class="indicator__inner"  [ngClass]="{indicator__inner_active : i + 1 <= activeIndicatorCount}" ></div>
             </div>
         </div>
         <div class="free-space__info">

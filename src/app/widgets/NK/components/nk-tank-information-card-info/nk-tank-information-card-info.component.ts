@@ -20,7 +20,7 @@ export class NkTankInformationCardInfoComponent implements OnInit, OnChanges {
   freeSpace: string;
   fill: number;
 
-  volumeCustomization: number[] = [1, 2, 3, 4, 5, 6];
+  volumeCustomization: number[] = new Array(6);
 
   constructor(private spacePipe: SpaceNumber) {}
 
@@ -29,8 +29,10 @@ export class NkTankInformationCardInfoComponent implements OnInit, OnChanges {
   ngOnChanges(): void {
     this.volumeMax = this.volumeMax > 0 ? this.volumeMax : 0;
     this.volumeCurrent = this.volumeCurrent > 0 ? this.volumeCurrent : 0;
+
     this.nominal = this.spacePipe.transform(this.volumeMax);
     this.current = this.spacePipe.transform(this.volumeCurrent);
+
     this.fill = this.volumeFillPercentage < 100
       ? this.volumeFillPercentage
       : 100; // На случай если бак переполнен

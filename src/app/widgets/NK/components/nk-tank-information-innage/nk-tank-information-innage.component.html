@@ -6,10 +6,10 @@
         <div class="innage-border">
             <div class="innage-lines">
                 <div class="innage-lines__item" 
-                *ngFor = "let i of innageDiagramCustomization" 
+                *ngFor = "let item of innageDiagramCustomization; let i = index" 
                 [ngClass] = "{
                     'innage-lines__item_active':
-                    (i <= diagramCustomLinesCount || diagramCustomLinesCount === (innageDiagramCustomization.length - 1))
+                    (20 - i <= diagramCustomLinesCount || diagramCustomLinesCount === (innageDiagramCustomization.length - 1))
                 }"></div>
             </div>
 
@@ -20,10 +20,10 @@
             <span class="innage__higherBorder">
                 {{higher}}
             </span>
-            <span class="innage__current" [ngStyle] = "{'height': current / higher * 100 + '%'}">
+            <span class="innage__current" [style.alignItems] = "current / higher > 0.5 ? 'flex-start' : 'flex-end'" [ngStyle] = "{'height': current / higher * 100 + '%'}">
                 {{current}}
             </span>
-            <span class="innage__lowerBorder" [ngStyle] = "{'height': lower / higher * 100 + '%' }">
+            <span class="innage__lowerBorder">
                 {{lower}}
             </span>
         </div>

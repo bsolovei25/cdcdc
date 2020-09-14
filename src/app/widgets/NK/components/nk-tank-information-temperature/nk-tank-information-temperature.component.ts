@@ -13,7 +13,5 @@ export class NkTankInformationTemperatureComponent implements OnInit, OnChanges 
   ngOnInit(): void {
   }
 
-  ngOnChanges(): void {
-    // console.log('t' + this.temperature)
-  }
+  ngOnChanges(): void {}
 }

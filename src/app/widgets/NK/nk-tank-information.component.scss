@@ -10,7 +10,7 @@
 
     overflow: hidden;
 
-    background: var(--color-bg-main);
+    background: var(--nk-color-bg-main);
 }
 
 .container-body{
@@ -21,7 +21,7 @@
     flex-direction: column;
     flex-grow: 1;
     
-    background: #161922;
+    background: var(--nk-color-bg-body);
 }
 
 .cardList {
@@ -41,12 +41,12 @@
     }
       
     .scroll-bar::-webkit-scrollbar-thumb {
-        background: var(--color-bg-sub);
+        background: var(--nk-color-scroll-thumb);
         border-radius: 5px;
     }
       
     .scroll-bar::-webkit-scrollbar-track {
-        background: var(--color-bg-main);
+        background: var(--nk-color-bg-main);
         border-radius: 5px;
     }
 }

@@ -8,6 +8,7 @@ import { Component, OnInit, Input, OnChanges, Output, EventEmitter } from '@angu
 export class NkTankInformationFilterMenuComponent implements OnInit, OnChanges {
   @Input() filterList: string[];
   @Output() onFilter: EventEmitter<string> = new EventEmitter<string>();
+
   selectedFilter: string = 'Все резервуары';
   constructor() { }
 
@@ -16,11 +17,8 @@ export class NkTankInformationFilterMenuComponent implements OnInit, OnChanges {
     this.onFilter.emit(this.selectedFilter);
   }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
-  ngOnChanges(): void {
-    // console.log('Массив Фильтров '  + this.filterList);
-  }
+  ngOnChanges(): void {}
 
 }

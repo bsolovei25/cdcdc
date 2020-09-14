@@ -19,7 +19,6 @@ export class NkTankInformationComponent extends WidgetPlatform implements
 
     getFilter(filter: string): void {
         this.selectedFilter = filter;
-        console.log('Пришло: ' + filter);
 
         this.cardsDataFiltered = [];
 
@@ -28,9 +27,7 @@ export class NkTankInformationComponent extends WidgetPlatform implements
                 this.cardsDataFiltered = [...this.cardsDataFiltered, ...item.tank];
             } else if (item.type === this.selectedFilter) {
                 this.cardsDataFiltered = [...this.cardsDataFiltered, ...item.tank];
-                //console.log('Отфильтрованные ' + this.cardsDataFiltered);
-                // console.log('cмена')
-            } 
+            }
         });
     }
 
@@ -46,20 +43,6 @@ export class NkTankInformationComponent extends WidgetPlatform implements
 
     ngOnInit(): void {
         super.widgetInit();
-
-        /*this.http.get<ITankInformation[]>('assets/mock/NK/oldCard.mock.json')
-            .subscribe(data => {
-                data.forEach( (item, i) => {
-                    // Получаем массив фильтров
-                    if ( !this.filterList.includes(item.type) ) {
-                        this.filterList.push(item.type);
-                    }
-                });
-
-                this.cardsData = [...this.cardsData, ...data];
-                // Фильтруем
-                this.getFilter(this.selectedFilter);
-            });*/
     }
 
     ngOnChanges(): void {
@@ -70,19 +53,15 @@ export class NkTankInformationComponent extends WidgetPlatform implements
     }
 
     dataHandler(ref: {items: ITankInformation[]}): void {
+        this.cardsData = [];
+        this.filterList = [];
 
-        this.cardsData = []; 
-        this.filterList = ['Все резервуары'];
-
-        ref.items.forEach( (item, i) => {
-            // Получаем массив фильтров
-            if ( !this.filterList.includes(item.type) ) {
-                this.filterList.push(item.type);
-            }
-        });
+        // Получаем массив фильтров
+        this.filterList = ['Все резервуары', ...Array.from(new Set(ref.items.map(i => i.type)))];
 
         this.cardsData = [...this.cardsData, ...ref.items];
         // Проверка соответствия фильтров
+
         if (!this.filterList.includes(this.selectedFilter)) {
             this.selectedFilter = 'Все резервуары';
         }

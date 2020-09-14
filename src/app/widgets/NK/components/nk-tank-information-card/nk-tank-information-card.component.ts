@@ -13,10 +13,8 @@ export class NkTankInformationCardComponent implements OnInit, OnChanges {
 
   constructor() { }
 
-  ngOnInit(): void {
-  }
-  ngOnChanges(): void {
-    // console.log('КАРТА ' + this.cardData);
-  }
+  ngOnInit(): void {}
+
+  ngOnChanges(): void {}
 
 }

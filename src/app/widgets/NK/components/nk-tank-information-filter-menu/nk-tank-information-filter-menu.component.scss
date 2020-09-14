@@ -9,7 +9,7 @@
     display: flex;
     justify-content: center;
 
-    background: rgba(39, 42, 56, 0.5);
+    background: var(--nk-color-bg-filter-menu);
     border-radius: 0px 0px 2px 2px;
 }
 
@@ -29,7 +29,7 @@
 
     line-height: 17px;
     font-size: 14px;
-    color: #606580;
+    color: var(--nk-color-font-unactive-filter);
 
     cursor: pointer;
     
@@ -40,8 +40,8 @@
         height: 12px;
         width: 100%;
 
-        border-bottom: 2px solid var(--color-nk-active);
-        background: linear-gradient(0deg, rgba(35, 120, 217, 0.25) 0%, rgba(35, 120, 217, 0) 100%);
+        border-bottom: 2px solid var(--nk-color-active);
+        background: var(--nk-color-selected-filter);
 
         position: absolute;
         bottom: 0;

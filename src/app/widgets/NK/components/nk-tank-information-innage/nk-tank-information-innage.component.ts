@@ -1,4 +1,3 @@
-import { IInnage } from './../../../../dashboard/models/NK/nk-tank-information.model';
 import { Component, OnInit, Input, OnChanges } from '@angular/core';
 
 @Component({
@@ -16,8 +15,7 @@ export class NkTankInformationInnageComponent implements OnInit, OnChanges {
   lower: number;
 
 
-  innageDiagramCustomization: number[] =
-    [20, 19, 18, 17, 16, 15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1];
+  innageDiagramCustomization: number[] = new Array(20);
   diagramCustomLinesCount: number;
 
 
@@ -28,7 +26,7 @@ export class NkTankInformationInnageComponent implements OnInit, OnChanges {
 
   ngOnChanges(): void {
     this.higher = this.innageMax > 0 ? this.innageMax : 1000; // Если максимальный взлив 0
-    this.current = this.innageCurrent;
+    this.current = this.innageMin <= this.innageCurrent ? this.innageCurrent : this.innageMin;
     this.lower = this.innageMin;
 
     this.diagramCustomLinesCount =

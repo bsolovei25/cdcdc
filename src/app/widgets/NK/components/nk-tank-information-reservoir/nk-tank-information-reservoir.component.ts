@@ -1,3 +1,4 @@
+import { newArray } from '@angular/compiler/src/util';
 import { Component, OnInit, Input, OnChanges } from '@angular/core';
 
 @Component({
@@ -17,7 +18,7 @@ export class NkTankInformationReservoirComponent implements OnInit, OnChanges {
     hold: 'Отстой',
   };
 
-  reservoirCustomization: number[] = [14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1];
+  reservoirCustomization: number[] = new Array(14);
 
   constructor() { }
 
@@ -30,8 +31,5 @@ export class NkTankInformationReservoirComponent implements OnInit, OnChanges {
       : 1; // На случай если бак переполнен
 
     this.status = !!this.operation[this.status] ? this.operation[this.status] : 'Неизвестно';
-
-    // console.log('статус ' + this.status);
-    // console.log('cnfnec ', this.operation[this.status]);
   }
 }

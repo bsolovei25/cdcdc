@@ -6,7 +6,7 @@
     width: 68px;
     height: 150px;
 
-    background:  var(--color-nk-bg-component);
+    background:  var(--nk-color-bg-component);
 
     border-radius: 0px 0px 3px 3px;
 
@@ -22,18 +22,17 @@
     justify-content: center;
     align-items: center;
 
-    background: var(--color-nk-bg-component-title);
+    background: var(--nk-color-bg-component-title);
     border-radius: 2px;
 
     line-height: 14px;
     font-size: 12px;
-    color: var(--color-border-unactive);
+    color: var(--nk-color-font-title-sub);
 }
 
 .innage__body {
     height: 130px;
-    padding: 5px 3px;
-    padding-top: 1em;
+    padding: 1em 3px;
 
     display: flex;
     flex-direction: column;
@@ -41,7 +40,7 @@
 
     line-height: 19px;
     font-size: 16px;
-    color: var(--color-nk-font-title);
+    color: var(--nk-color-font-title-main);
 }
 
 .innage-border {
@@ -57,7 +56,6 @@
         padding-left: 5px;
 
         display: flex;
-        align-items: flex-start;
 
         position: absolute;
     }
@@ -67,14 +65,13 @@
     }
     
     .innage__lowerBorder{
-        bottom: 0;
-        background: rgba(0, 137, 255, 0.2);
+        bottom: -1em;
         align-items: center;
     }
     
     .innage__current {
         bottom: 0;
-        background: rgba(0, 137, 255, 0.2);
+        background: var(--nk-color-bg-innage-daigram);
     }
 }
 
@@ -82,7 +79,7 @@
 .innage-axis {
     height: 100%;
     width: 1px;
-    background: var(--color-nk-innage-axis);
+    background: var(--nk-color-innage-axis);
 
     display: flex;
     align-items: flex-end;
@@ -91,7 +88,7 @@
 
     .innage-axis__value {
         width: 1px;
-        background: var(--color-nk-active);
+        background: var(--nk-color-active);
     }
 }
 
@@ -108,11 +105,11 @@
         height: 1px;
         width: 4px;
 
-        background: var(--color-nk-innage-axis);
+        background: var(--nk-color-innage-axis);
         border-radius: 0 3px 3px 0;   
     }
 
     .innage-lines__item_active {
-        background: var(--color-nk-active);
+        background: var(--nk-color-active);
     }
 }

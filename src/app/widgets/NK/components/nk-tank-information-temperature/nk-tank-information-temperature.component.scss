@@ -13,12 +13,12 @@
 
     border-radius: 0px 0px 3px 3px;
 
-    background: var(--color-nk-bg-component);
+    background: var(--nk-color-bg-component);
 
     .temperature__title {
         height: 20px;
         
-        background: var(--color-nk-bg-component-title);
+        background: var(--nk-color-bg-component-title);
 
         display: flex;
         justify-content: center;
@@ -28,7 +28,7 @@
 
         line-height: 14px;
         font-size: 12px;
-        color: var(--color-border-unactive);
+        color: var(--nk-color-font-title-sub);
     }
 
     .temperature__value {
@@ -40,7 +40,7 @@
 
         line-height: 19px;
         font-size: 16px;
-        color: var(--color-nk-font-title);
+        color: var(--nk-color-font-title-main);
     }
 }
 
@@ -75,7 +75,7 @@
     flex-direction: column;
     align-items: center;
 
-    background: var(--color-nk-temperature-gradient);
+    background: var(--nk-color-temperature-gradient);
     border: 1px solid #222634;
 
     border-radius: 10px 10px 0 0;

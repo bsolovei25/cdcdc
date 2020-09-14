@@ -37,7 +37,7 @@ img {
     height: 115px;
     width: 115px;
 
-    border: 0.5px solid var(--color-nk-active);
+    border: 0.5px solid var(--nk-color-active);
     opacity: 0.4;
     border-radius: 50%;
 
@@ -53,7 +53,7 @@ img {
         height: 77px;
         width: 77px;
         
-        background: #0089FF;
+        background: var(--nk-color-active);
         opacity: 0.62;
     }
 
@@ -74,7 +74,7 @@ img {
     justify-content: center;
     align-items: center;
 
-    border: 0.5px solid var(--color-nk-active);
+    border: 0.5px solid var(--nk-color-active);
     border-radius: 50%;
 
     z-index: 1;
@@ -86,7 +86,7 @@ img {
     width: 75px;
 
     border-radius: 50%;
-    background: var(--color-nk-active);
+    background: var(--nk-color-active);
     opacity: 0.4;
 }
 
@@ -172,7 +172,7 @@ img {
         width: 50%;
         position: absolute; 
         top: 0;
-        background: var(--color-nk-active);
+        background: var(--nk-color-active);
     }
 
     .arrow__before {

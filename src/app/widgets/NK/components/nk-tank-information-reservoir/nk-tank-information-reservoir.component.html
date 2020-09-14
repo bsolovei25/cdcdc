@@ -2,9 +2,9 @@
 
         <div class="reservoir">
                 <div class="circles">
-                    <div class="circle" *ngFor = "let i of reservoirCustomization">
+                    <div class="circle" *ngFor = "let item of reservoirCustomization; let i = index">
                         <div class="circle__inner">
-                            <div  *ngIf = "i <= fill * reservoirCustomization.length" class="circle__lvl">
+                            <div  *ngIf = "14 - i <= fill * reservoirCustomization.length" class="circle__lvl">
                             </div>
                         </div>
                     </div>
