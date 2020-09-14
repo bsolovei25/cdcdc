@@ -530,16 +530,16 @@ export class EventsComponent extends WidgetPlatform implements OnInit, OnDestroy
         arr: EventsWidgetNotificationPreview[],
         n: number
     ): EventsWidgetNotificationPreview[][] {
-        let i = 0;
+        let i = 1;
         const result = [];
         let temp = [];
         for (const item of arr) {
             i++;
             temp.push(item);
-            if (i === n) {
+            if (i === n || i === arr.length) {
                 result.push(temp);
                 temp = [];
-                i = 0;
+                i = 1;
             }
         }
         return result;
