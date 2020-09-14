@@ -164,8 +164,8 @@ export class CdMnemonicComponent implements OnInit {
     }
 
     addLineChart(id: number): void {
-        const selectChart: string[] =
-            [...this.cdMatBalanceService.charts$.getValue(), id.toString()];
+        const selectChart: number[] =
+            [...this.cdMatBalanceService.charts$.getValue(), id];
         const setCharts = new Set(selectChart);
         this.cdMatBalanceService.charts$.next([...setCharts]);
     }

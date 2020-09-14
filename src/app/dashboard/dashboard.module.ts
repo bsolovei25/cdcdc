@@ -71,16 +71,10 @@ import { SearchListComponent } from './components/search/search-list/search-list
 import { TimeLineDiagramComponent } from './widgets/time-line-diagram/time-line-diagram.component';
 import { TimeDiagramComponent } from './widgets/time-line-diagram/time-diagram/time-diagram.component';
 import { ObservationNormTRComponent } from './widgets/observation-norm-tr/observation-norm-tr.component';
-import { AdminPanelComponent } from './widgets/admin-panel/admin-panel.component';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import {
-    MatNativeDateModule,
-    MAT_DATE_LOCALE,
-    MAT_DATE_FORMATS,
-    MatRippleModule,
-} from '@angular/material/core';
+import { MatNativeDateModule, MAT_DATE_LOCALE, MatRippleModule } from '@angular/material/core';
 import { AdminReferencesComponent } from './widgets/admin-references/admin-references.component';
 import { CardVerifierComponent } from './widgets/change-shift/card-verifier/card-verifier.component';
 import { PetroleumProductsMovementComponent } from './widgets/petroleum-products-movement/petroleum-products-movement.component';
@@ -90,16 +84,7 @@ import { PetroleumReferenceComponent } from './widgets/petroleum-products-moveme
 import { MatSelectModule } from '@angular/material/select';
 import { ScrollingModule } from '@angular/cdk-experimental/scrolling';
 import { ScrollingModule as OldScrollingModule } from '@angular/cdk/scrolling';
-import { AdminEmployeeComponent } from './widgets/admin-panel/admin-employee/admin-employee.component';
-import { AdminWorkspaceComponent } from './widgets/admin-panel/admin-workspace/admin-workspace.component';
-import { AdminClaimsComponent } from './widgets/admin-panel/admin-workspace/admin-claims/admin-claims.component';
-import { AdminWorkerSettingsComponent } from './widgets/admin-panel/admin-worker-settings/admin-worker-settings.component';
-import { AwsCardComponent } from './widgets/admin-panel/admin-worker-settings/aws-card/aws-card.component';
-import { AwsWorkspaceCardComponent } from './widgets/admin-panel/admin-worker-settings/aws-workspace-card/aws-workspace-card.component';
-import { AwsClaimCardComponent } from './widgets/admin-panel/admin-worker-settings/aws-claim-card/aws-claim-card.component';
 import { PetroleumUnityComponent } from './widgets/petroleum-products-movement/petroleum-unity/petroleum-unity.component';
-import { AdminWorkspaceCardComponent } from './widgets/admin-panel/admin-workspace/admin-workspace-card/admin-workspace-card.component';
-import { AwsSelectCardComponent } from './widgets/admin-panel/admin-worker-settings/aws-select-card/aws-select-card.component';
 import { OperationScreenLeftComponent } from './widgets/petroleum-products-movement/petroleum-reference-left/operation-screen-left/operation-screen-left.component';
 import { InfoScreenLeftComponent } from './widgets/petroleum-products-movement/petroleum-reference-left/info-screen-left/info-screen-left.component';
 import { OperationParkScreenLeftComponent } from './widgets/petroleum-products-movement/petroleum-reference-left/operation-park-screen-left/operation-park-screen-left.component';
@@ -110,24 +95,15 @@ import { OperationScreenComponent } from './widgets/petroleum-products-movement/
 import { OperationParkScreenComponent } from './widgets/petroleum-products-movement/petroleum-reference/operation-park-screen/operation-park-screen.component';
 import { InfoScreenComponent } from './widgets/petroleum-products-movement/petroleum-reference/info-screen/info-screen.component';
 import { PetroleumUnityInfoComponent } from './widgets/petroleum-products-movement/petroleum-unity-info/petroleum-unity-info.component';
-import { AwsCheckboxCardComponent } from './widgets/admin-panel/admin-worker-settings/aws-checkbox-card/aws-checkbox-card.component';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import { AwsBlockComponent } from './widgets/admin-panel/admin-worker-settings/aws-block/aws-block.component';
 import { UsbVerifierComponent } from './widgets/change-shift/usb-verifier/usb-verifier.component';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { ReportComponent } from './components/report/reports/report.component';
 import { ReportsComponent } from './components/report/reports.component';
-import { AwsAvatarComponent } from './widgets/admin-panel/admin-worker-settings/aws-avatar/aws-avatar.component';
 import { ImageCropperModule } from 'ngx-image-cropper';
-import { AwsFieldsComponent } from './widgets/admin-panel/admin-worker-settings/aws-fields/aws-fields.component';
-import { AwsWorkspacesComponent } from './widgets/admin-panel/admin-worker-settings/aws-workspaces/aws-workspaces.component';
-import { AdminGroupsComponent } from './widgets/admin-panel/admin-groups/admin-groups.component';
-import { AgGroupCardComponent } from './widgets/admin-panel/admin-groups/ag-group-card/ag-group-card.component';
-import { AgGroupWorkerCardComponent } from './widgets/admin-panel/admin-groups/ag-group-worker-card/ag-group-worker-card.component';
 import { ReferenceComponent } from './widgets/reference/reference.component';
 import { ReportServerConfiguratorComponent } from './widgets/report-server-configurator/report-server-configurator.component';
 import { DragDropModule } from '@angular/cdk/drag-drop';
-import { AwsCreateClaimComponent } from './widgets/admin-panel/admin-worker-settings/aws-create-claim/aws-create-claim.component';
 import {
     NgxMatDatetimePickerModule,
     NgxMatTimepickerModule,
@@ -135,7 +111,6 @@ import {
 } from '@angular-material-components/datetime-picker';
 import { MatButtonModule } from '@angular/material/button';
 import { NgxMatMomentModule } from '@angular-material-components/moment-adapter';
-import { AdminAdImportComponent } from './widgets/admin-panel/admin-ad-import/admin-ad-import.component';
 import { AddReportFileComponent } from './widgets/report-server-configurator/add-report-file/add-report-file.component';
 import { TankCalibrationTableComponent } from './widgets/tank-calibration-table/tank-calibration-table.component';
 import { TankCalibrationTableFilesComponent } from './widgets/tank-calibration-table/tank-calibration-table-files/tank-calibration-table-files.component';
@@ -306,23 +281,13 @@ import { MenuButtonComponent } from './components/menu-button/menu-button.compon
         SearchInputComponent,
         SearchListComponent,
         ObservationNormTRComponent,
-        AdminPanelComponent,
         AdminReferencesComponent,
         CardVerifierComponent,
         PetroleumProductsMovementComponent,
         PetroleumReferenceLeftComponent,
         PetroleumReferenceRightComponent,
         PetroleumReferenceComponent,
-        AdminEmployeeComponent,
-        AdminWorkspaceComponent,
-        AdminWorkspaceCardComponent,
-        AdminClaimsComponent,
-        AdminWorkerSettingsComponent,
-        AwsCardComponent,
-        AwsWorkspaceCardComponent,
-        AwsClaimCardComponent,
         PetroleumUnityComponent,
-        AwsSelectCardComponent,
         OperationScreenLeftComponent,
         InfoScreenLeftComponent,
         OperationParkScreenLeftComponent,
@@ -333,21 +298,11 @@ import { MenuButtonComponent } from './components/menu-button/menu-button.compon
         OperationParkScreenComponent,
         InfoScreenComponent,
         PetroleumUnityInfoComponent,
-        AwsCheckboxCardComponent,
-        AwsBlockComponent,
         UsbVerifierComponent,
         ReportComponent,
         ReportsComponent,
-        AwsAvatarComponent,
-        AwsFieldsComponent,
-        AwsWorkspacesComponent,
-        AdminGroupsComponent,
-        AgGroupCardComponent,
-        AgGroupWorkerCardComponent,
         ReferenceComponent,
         ReportServerConfiguratorComponent,
-        AwsCreateClaimComponent,
-        AdminAdImportComponent,
         AddReportFileComponent,
         TankCalibrationTableComponent,
         TankCalibrationTableFilesComponent,
@@ -484,7 +439,6 @@ import { MenuButtonComponent } from './components/menu-button/menu-button.compon
         ObservationNormTRComponent,
         AdminReferencesComponent,
         PetroleumProductsMovementComponent,
-        AdminPanelComponent,
         ReferenceComponent,
         ReportServerConfiguratorComponent,
         ReportComponent,

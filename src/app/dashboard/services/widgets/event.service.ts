@@ -21,7 +21,7 @@ import {
     IRetrievalEventDto,
     IAsusTmPlace,
     IAsusTpPlace,
-    ISubcategory,
+    ISubcategory, EventsWidgetCategoryCode
 } from '../../models/events-widget';
 import { AppConfigService } from 'src/app/services/appConfigService';
 
@@ -484,5 +484,11 @@ export class EventService {
     public async incrementStatus(eventId: number, status: string): Promise<any> {
         const url: string = `${this.restUrl}/api/notifications/${eventId}/status/${status}`;
         return this.http.put<void>(url, null).toPromise();
+    }
+
+    public async getDefaultResponsibleByType(type: EventsWidgetCategoryCode): Promise<IUser> {
+        return await this.http
+            .post<IUser>(`${this.restUrl}/api/notifications/responsible?systemType=${type}`, null)
+            .toPromise();
     }
 }

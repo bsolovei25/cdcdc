@@ -6,6 +6,7 @@ import {
     ProductionTrendType,
 } from '../../../../../dashboard/models/production-trends.model';
 import { IChartD3, IChartMini } from '../../../../../@shared/models/smart-scroll.model';
+import { AsyncRender } from '../../../../../@shared/functions/async-render.function';
 
 @Component({
     selector: 'evj-limits-chart',
@@ -51,19 +52,25 @@ export class LimitsChartComponent implements OnChanges {
     constructor() {}
 
     public ngOnChanges(): void {
-        if (this.data.length) {
+        if (!!this.data.length) {
             this.startDrawChart();
+        } else {
+            this.dropChart();
         }
     }
 
     @HostListener('document:resize', ['$event'])
     public OnResize(): void {
-        if (this.data.length) {
+        if (!!this.data.length) {
             this.startDrawChart();
+        } else {
+            this.dropChart();
         }
     }
 
+    @AsyncRender
     private startDrawChart(): void {
+        this.dropChart();
         this.initData();
         this.findMinMax();
         this.defineScale();
@@ -77,11 +84,6 @@ export class LimitsChartComponent implements OnChanges {
     }
 
     private initData(): void {
-        if (this.svg) {
-            this.svg.remove();
-            this.svg = undefined;
-        }
-
         if (this.isWithPicker) {
             this.padding.top = 70;
         }
@@ -100,7 +102,12 @@ export class LimitsChartComponent implements OnChanges {
         this.svg
             .attr('width', '100%')
             .attr('height', '100%')
-            .attr('viewBox', `0 0 ${this.graphMaxX > 0 ? this.graphMaxX : 0} ${this.graphMaxY > 5 ? this.graphMaxY - 5 : 0}`);
+            .attr(
+                'viewBox',
+                `0 0 ${this.graphMaxX > 0 ? this.graphMaxX : 0} ${
+                    this.graphMaxY > 5 ? this.graphMaxY - 5 : 0
+                }`
+            );
     }
 
     private findMinMax(): void {
@@ -123,8 +130,6 @@ export class LimitsChartComponent implements OnChanges {
     }
 
     private defineScale(): void {
-        const plan = this.data.find((chart) => chart.graphType === 'higherBorder');
-
         const domainDates = [this.dateMin, this.dateMax];
         const rangeX = [this.padding.left, this.graphMaxX - this.padding.right];
 
@@ -143,7 +148,7 @@ export class LimitsChartComponent implements OnChanges {
         this.axis.axisX = d3
             .axisBottom(this.scaleFuncs.x)
             .ticks(12)
-            .tickFormat(d3.timeFormat('%d'))
+            .tickFormat(d3.timeFormat('%H'))
             .tickSizeOuter(0);
         this.axis.axisY = d3
             .axisLeft(this.scaleFuncs.y)
@@ -377,7 +382,7 @@ export class LimitsChartComponent implements OnChanges {
                 .attr('x', x)
                 .attr('y', this.padding.top - this.topMargin - w * 0.17)
                 .attr('class', 'data-fact')
-                .text(factVal?.value ?? '');
+                .text(factVal?.value.toFixed(2) ?? '');
 
             const formatDate = d3.timeFormat('%d.%m.%Y | %H:%M:%S');
 
@@ -387,6 +392,13 @@ export class LimitsChartComponent implements OnChanges {
                 .attr('y', this.padding.top - this.topMargin - w * 0.55)
                 .attr('class', 'data-date')
                 .text(formatDate(factVal?.timeStamp ?? ''));
+        }
+    }
+
+    private dropChart(): void {
+        if (this.svg) {
+            this.svg.remove();
+            this.svg = undefined;
         }
     }
 }

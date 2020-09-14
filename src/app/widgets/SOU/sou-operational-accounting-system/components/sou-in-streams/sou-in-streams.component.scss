@@ -89,6 +89,14 @@
               display: flex;
               align-items: center;
               height: 20px;
+
+              &_deviation {
+                background-color: var(--color-cd-warning);
+              }
+
+              &--no-active {
+                background-color: var(--color-sou-bg-sup);
+              }
             }
 
             &__block-pims {
@@ -109,6 +117,10 @@
                 white-space: nowrap;
                 overflow: hidden;
                 text-overflow: ellipsis;
+
+                &_deviation {
+                  background-color: var(--color-cd-warning);
+                }
 
                 &--no-active {
                   background-color: var(--color-sou-bg-sup);

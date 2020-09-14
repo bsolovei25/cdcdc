@@ -100,6 +100,11 @@
           iconType="repeat"
           [counter]="this.ewService.event.deviationData?.iteration"
         ></evj-events-smotr-icon>
+        <evj-events-smotr-icon
+          matTooltip="Системность"
+          iconType="systematic"
+          [isCritical]="this.ewService.event.deviationData?.systemic"
+        ></evj-events-smotr-icon>
       </div>
       <div class="row__cell cell cell_right">
         <evj-ui-block status="{{ewService.event.priority.name}}">
