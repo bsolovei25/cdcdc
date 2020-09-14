@@ -14,8 +14,8 @@ export class CdMatBalanceService {
 
     showDeviation: BehaviorSubject<number> = new BehaviorSubject<number>(null);
     charts$: BehaviorSubject<number[]> = new BehaviorSubject<number[]>([]);
-    isOpenEvent$: BehaviorSubject<EventsWidgetNotification> =
-        new BehaviorSubject<EventsWidgetNotification>(null);
+    isOpenEvent$: BehaviorSubject<IEventsWidgetNotification> =
+        new BehaviorSubject<IEventsWidgetNotification>(null);
 
     public hc$: BehaviorSubject<8 | 24> = new BehaviorSubject<8 | 24>(8);
     public currentHour$: BehaviorSubject<number> = new BehaviorSubject<number>(0);
