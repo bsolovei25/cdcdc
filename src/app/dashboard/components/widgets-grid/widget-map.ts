@@ -52,6 +52,7 @@ import { TruncatedDiagramTrafficLightComponent } from '../../widgets/truncated-d
 import { WidgetContainerComponent } from '../../widget-container/widget-container.component';
 import { AdminShiftScheduleOldComponent } from '../../widgets/admin-widget/admin-shift-schedule-old/admin-shift-schedule-old.component';
 import { CdMatBalanceChartCardComponent } from '../../../widgets/CD/cd-mat-balance/components/cd-mat-balance-chart-card/cd-mat-balance-chart-card.component';
+import { TankInformationComponent } from '../../widgets/tank-information/tank-information.component';
 
 export const WIDGETS = {
     'pie-diagram': WidgetPiesComponent,
@@ -107,6 +108,7 @@ export const WIDGETS = {
     'quality-docs-panel': QualityDocsPanelComponent,
     'document-coding': DocumentCodingComponent,
     'oil-operations': OilOperationsComponent,
+    'tank-information': TankInformationComponent,
     workflow: WorkflowComponent,
     'cd-critical': CdCriticalComponent,
     'implementation-plan': WidgetContainerComponent,
@@ -152,7 +154,7 @@ export const WIDGETS = {
     'astue-onpz-deviation-cards': WidgetContainerComponent,
     'astue-onpz-planning-charts': WidgetContainerComponent,
     'astue-onpz-interactive-indicators': WidgetContainerComponent,
-    'tank-information': WidgetContainerComponent,
+    'nk-tank-information': WidgetContainerComponent,
     // TODO
     'cd-mat-balance-sensor': CdMatBalanceChartCardComponent,
     'cd-mat-balance-stream': CdMatBalanceChartCardComponent,
@@ -283,7 +285,7 @@ export const WIDGETS_LAZY = {
 
     // #region NK
 
-    'tank-information': {
+    'nk-tank-information': {
         import: async () => {
             return await import(
                 'src/app/widgets/NK/nk-tank-information.module'

@@ -279,6 +279,7 @@ export class WidgetService {
             case 'product-groups':
             case 'product-groups-short':
             case 'tank-information':
+            case 'nk-tank-information':
             case 'table-data':
             case 'deviations-table':
             case 'triggering-critical-parameters':
