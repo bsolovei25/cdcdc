@@ -1,4 +1,4 @@
-        <div class="container">
+<div class="container">
   <evj-widget-header-smp
     [uniqId]="uniqId"
     (mouseenter)="onMouseEnter()"
@@ -14,7 +14,9 @@
     (touchstart)="$event.stopPropagation()"
   >
     <div class="card__header header">
-      <div class="header__tag">{{info?.tag}}</div>
+      <div class="header__tag"
+           style.backgroundColor="var(--color-astue-onpz-bg-tag-{{ colors?.get(info.tag) }})"
+           style.color="var(--color-astue-tag-{{ colors?.get(info.tag) }})">{{info?.tag}}</div>
       <div class="header__title">{{info?.title}}</div>
     </div>
     <div class="card-border">
