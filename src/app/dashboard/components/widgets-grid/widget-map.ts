@@ -40,7 +40,6 @@ import { ReferenceComponent } from '../../widgets/reference/reference.component'
 import { TankCalibrationTableComponent } from '../../widgets/tank-calibration-table/tank-calibration-table.component';
 import { CustomReportPropertiesReferenceComponent } from '../../widgets/custom-report-properties-reference/custom-report-properties-reference.component';
 import { ProductionTrendComponent } from '../../widgets/production-trend/production-trend.component';
-import { TankInformationComponent } from '../../widgets/tank-information/tank-information.component';
 import { ReasonsDeviationsComponent } from '../../widgets/reasons-deviations/reasons-deviations.component';
 import { DocumentViewerComponent } from '../../widgets/document-viewer/document-viewer.component';
 import { DocumentsScansComponent } from '../../widgets/documents-scans/documents-scans.component';
@@ -53,6 +52,7 @@ import { TruncatedDiagramTrafficLightComponent } from '../../widgets/truncated-d
 import { WidgetContainerComponent } from '../../widget-container/widget-container.component';
 import { AdminShiftScheduleOldComponent } from '../../widgets/admin-widget/admin-shift-schedule-old/admin-shift-schedule-old.component';
 import { CdMatBalanceChartCardComponent } from '../../../widgets/CD/cd-mat-balance/components/cd-mat-balance-chart-card/cd-mat-balance-chart-card.component';
+import { TankInformationComponent } from '../../widgets/tank-information/tank-information.component';
 
 export const WIDGETS = {
     'pie-diagram': WidgetPiesComponent,
@@ -102,13 +102,13 @@ export const WIDGETS = {
     'tank-calibration-table': TankCalibrationTableComponent,
     'custom-report-properties-reference': CustomReportPropertiesReferenceComponent,
     'production-trend': ProductionTrendComponent,
-    'tank-information': TankInformationComponent,
     'reasons-deviations': ReasonsDeviationsComponent,
     'document-viewer': DocumentViewerComponent,
     'documents-scans': DocumentsScansComponent,
     'quality-docs-panel': QualityDocsPanelComponent,
     'document-coding': DocumentCodingComponent,
     'oil-operations': OilOperationsComponent,
+    'tank-information': TankInformationComponent,
     workflow: WorkflowComponent,
     'cd-critical': CdCriticalComponent,
     'implementation-plan': WidgetContainerComponent,
@@ -154,6 +154,7 @@ export const WIDGETS = {
     'astue-onpz-deviation-cards': WidgetContainerComponent,
     'astue-onpz-planning-charts': WidgetContainerComponent,
     'astue-onpz-interactive-indicators': WidgetContainerComponent,
+    'nk-tank-information': WidgetContainerComponent,
     // TODO
     'cd-mat-balance-sensor': CdMatBalanceChartCardComponent,
     'cd-mat-balance-stream': CdMatBalanceChartCardComponent,
@@ -281,6 +282,24 @@ export const WIDGETS_LAZY = {
     },
 
     // #endregion APS
+
+    // #region NK
+
+    'nk-tank-information': {
+        import: async () => {
+            return await import(
+                'src/app/widgets/NK/nk-tank-information.module'
+                );
+        },
+        module: 'NkTankInformationModule',
+        itemCols: 19,
+        itemRows: 12,
+        minItemCols: 19,
+        minItemRows: 12,
+        preview: 'nk-tank-information'
+    },
+
+    // #endregion NK
 
     // #region KPE
 
@@ -437,9 +456,9 @@ export const WIDGETS_LAZY = {
         },
         module: 'EventsModule',
         itemCols: 32,
-        itemRows: 30,
+        itemRows: 20,
         minItemCols: 32,
-        minItemRows: 30,
+        minItemRows: 20,
         preview: 'events',
     },
 
@@ -461,9 +480,9 @@ export const WIDGETS_LAZY = {
         },
         module: 'EventsWorkspaceModule',
         itemCols: 32,
-        itemRows: 30,
+        itemRows: 20,
         minItemCols: 32,
-        minItemRows: 30,
+        minItemRows: 20,
         preview: 'events-workspace',
     },
 
@@ -477,10 +496,10 @@ export const WIDGETS_LAZY = {
             );
         },
         module: 'SplineTrendsChartModule',
-        itemCols: 24,
-        itemRows: 14,
-        minItemCols: 24,
-        minItemRows: 14,
+        itemCols: 21,
+        itemRows: 10,
+        minItemCols: 21,
+        minItemRows: 10,
         preview: 'spline-trends-chart',
     },
 

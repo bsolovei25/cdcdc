@@ -7,7 +7,7 @@ import {
 } from '../../../dashboard/models/events-widget';
 import { EventsWidgetFilter } from '../../../dashboard/models/events-widget';
 import {
-    EventsWidgetNotification,
+    IEventsWidgetNotification,
     EventsWidgetNotificationStatus
 } from '../../../dashboard/models/events-widget';
 import { WidgetService } from '../../../dashboard/services/widget.service';
@@ -531,12 +531,14 @@ export class EventsComponent extends WidgetPlatform implements OnInit, OnDestroy
         n: number
     ): EventsWidgetNotificationPreview[][] {
         let i = 0;
+        let j = 0;
         const result = [];
         let temp = [];
         for (const item of arr) {
             i++;
+            j++;
             temp.push(item);
-            if (i === n) {
+            if (i === n || j === arr.length) {
                 result.push(temp);
                 temp = [];
                 i = 0;

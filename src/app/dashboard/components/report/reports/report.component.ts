@@ -113,7 +113,7 @@ export class ReportComponent implements OnInit {
 
     public dateNow: Date = new Date();
 
-    public date = new FormControl(moment());
+    public date = new FormControl({value: moment(), disabled: false});
 
     constructor(
         private reportsService: ReportsService,

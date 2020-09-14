@@ -30,6 +30,7 @@ import { AngularSvgIconModule } from 'angular-svg-icon';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { TasksEventComponent } from './tasks-event/tasks-event.component';
+import { ShiftPassComponent } from './shift-pass/shift-pass.component';
 
 @NgModule({
     declarations: [
@@ -54,6 +55,7 @@ import { TasksEventComponent } from './tasks-event/tasks-event.component';
         EventsWorkspaceButtonComponent,
         FileAttachMenuComponent,
         TasksEventComponent,
+        ShiftPassComponent,
     ],
     imports: [
         CommonModule,

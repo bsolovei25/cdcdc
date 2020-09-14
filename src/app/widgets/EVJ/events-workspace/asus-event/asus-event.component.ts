@@ -7,7 +7,7 @@ import { SnackBarService } from '../../../../dashboard/services/snack-bar.servic
 @Component({
     selector: 'evj-asus-event',
     templateUrl: './asus-event.component.html',
-    styleUrls: ['./asus-event.component.scss'],
+    styleUrls: ['./asus-event.component.scss']
 })
 export class AsusEventComponent implements OnInit {
     public reasons: string[] = [
@@ -16,7 +16,7 @@ export class AsusEventComponent implements OnInit {
         'Причина 3',
         'Причина 4',
         'Причина 5',
-        'Причина 6',
+        'Причина 6'
     ];
 
     public isReasonsPopupOpen: boolean = false;
@@ -25,9 +25,19 @@ export class AsusEventComponent implements OnInit {
         public ewService: EventsWorkspaceService,
         public eventService: EventService,
         public snackBarService: SnackBarService
-    ) {}
+    ) {
+    }
 
-    ngOnInit(): void {}
+    ngOnInit(): void {
+        this.setDefaultResponsible();
+    }
+
+    private async setDefaultResponsible(): Promise<void> {
+        if (this.ewService.isCreateNewEvent) {
+            let responsibleOperator = await this.eventService.getDefaultResponsibleByType('asus');
+            this.ewService.event = { ...this.ewService.event, responsibleOperator };
+        }
+    }
 
     public compareFn(a, b): boolean {
         return a && b && a.id === b.id;
