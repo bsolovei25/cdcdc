@@ -5,7 +5,7 @@
   <div class="cells">
     <div class="title"><span>Складские помещения</span></div>
     <div class="space__value">
-    <ng-container *ngFor="let i of arrayOfCell; index as idx">
+    <ng-container *ngFor="let i of arrayOfCells; index as idx">
       <div class="cell">
         <div class="full" *ngIf="data.percentageValue >= idx+1"></div>
         <div class="not-full" *ngIf="data.percentageValue >= idx" [ngStyle]="{width: data.percentageValue % 1 * 100 + '%'}"></div>

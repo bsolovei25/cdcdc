@@ -1,7 +1,6 @@
 import { Component, OnChanges, OnInit } from '@angular/core';
 import { ILoadingSpaceModel } from '../../../../dashboard/models/OZSM/loading-space/loading-space.model';
 import { mockData } from './mockData';
-import { newArray } from '@angular/compiler/src/util';
 
 @Component({
     selector: 'evj-ozsm-loading-space',
@@ -10,7 +9,8 @@ import { newArray } from '@angular/compiler/src/util';
 })
 export class OzsmLoadingSpaceComponent implements OnInit {
     public data: ILoadingSpaceModel = mockData;
-    public arrayOfCell: boolean [] = [true, true, true, true, true, true, true, true, true, true];
+    public len: number = 10;
+    public arrayOfCells: number [] = new Array(this.len);
 
     constructor() {
     }
