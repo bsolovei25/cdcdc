@@ -1,0 +1,74 @@
+::ng-deep {
+  .bg {
+    fill: var(--ozsm-color-bg-dark);
+    stroke: var(--ozsm-color-border);
+    stroke-width: 0.5px;
+  }
+
+  .hide-frame-corner {
+    fill: var(--ozsm-color-circle-diagram);
+  }
+
+  .bg-arc-default {
+    fill: var(--ozsm-color-circle-arc-bg);
+  }
+
+  .bg-arc-deviation {
+    fill: var(--ozsm-color-circle-diagram-bg-arc-deviation);
+  }
+
+  .arc-value-default {
+    fill: var(--ozsm-color-active);
+  }
+
+  .arc-value-deviation {
+    fill: var(--ozsm-color-white);
+  }
+
+  .arc-deviation {
+    fill: var(--ozsm-color-warning);
+  }
+
+  .unit-text,
+  .fact-text,
+  .plan-text,
+  .deviation-text {
+    text-anchor: middle;
+  }
+
+  .unit-text {
+    font-size: 6px;
+    fill: var(--ozsm-color-text-main);
+  }
+
+  .fact-text {
+    font-size: 8px;
+    fill: var(--ozsm-color-text-main);
+  }
+
+  .plan-text {
+    font-size: 6px;
+    fill: var(--ozsm-color-active);
+  }
+
+  .deviation-text {
+    font-size: 6px;
+    fill: var(--ozsm-color-warning);
+  }
+
+  .ozsm-segment-day-active {
+    fill: var(--ozsm-color-active);
+  }
+
+  .ozsm-segment-day {
+    fill: var(--ozsm-color-border);
+  }
+
+  .ozsm-segment-day-deviation {
+    fill: var(--ozsm-color-warning);
+  }
+
+  .ozsm-circle-frame {
+    fill: var(--ozsm-color-border);
+  }
+}
