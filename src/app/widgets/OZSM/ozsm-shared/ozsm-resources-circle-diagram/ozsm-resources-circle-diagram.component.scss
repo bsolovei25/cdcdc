@@ -1,0 +1,22 @@
+*{
+    box-sizing: border-box;
+}
+
+.diagram-list {
+    width: 1200px;
+    padding-top: 20px;
+
+    display: flex;
+    justify-content: space-around;
+
+    overflow: visible;
+
+    position: relative;
+}
+
+.custom-border {
+    width: 100%;
+    z-index: 1;
+    position: absolute;
+    top: 0;
+}
