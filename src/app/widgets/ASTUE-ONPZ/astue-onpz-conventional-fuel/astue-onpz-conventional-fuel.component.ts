@@ -15,7 +15,7 @@ export class AstueOnpzConventionalFuelComponent extends WidgetPlatform
     public data: IMultiChartLine[] = [];
     colors: Map<string, number>;
 
-    private isPredictorsChart: boolean = false;
+    public isPredictors: boolean = false;
 
     get planningChart(): boolean {
         return !!this.astueOnpzService.sharedPlanningGraph$.getValue();
@@ -38,24 +38,25 @@ export class AstueOnpzConventionalFuelComponent extends WidgetPlatform
 
     protected dataConnect(): void {
         super.dataConnect();
+        console.log(this.widgetType);
+        this.isPredictors = this.widgetType === 'astue-onpz-conventional-fuel-predictors';
         this.subscriptions.push(
             this.astueOnpzService.sharedIndicatorOptions.subscribe((options) => {
+                if (this.isPredictors) {
+                    return;
+                }
                 this.widgetService.setWidgetLiveDataFromWSOptions(this.widgetId, options);
-                this.isPredictorsChart = false;
             }),
-            // this.astueOnpzService.predictorsOptions$.subscribe((options) => {
-            //     this.widgetService.setWidgetLiveDataFromWSOptions(this.widgetId, options);
-            //     this.isPredictorsChart = true;
-            // }),
             this.astueOnpzService.multiLinePredictors.subscribe((data) => {
+                if (!this.isPredictors) {
+                    return;
+                }
                 if (!!data) {
-                    this.isPredictorsChart = true;
                     this.data = data;
                     this.data.forEach((item) => {
                         item.graph?.forEach((val) => (val.timeStamp = new Date(val.timeStamp)));
                     });
                 } else {
-                    this.isPredictorsChart = false;
                     this.data = [];
                 }
             }),
@@ -71,7 +72,7 @@ export class AstueOnpzConventionalFuelComponent extends WidgetPlatform
     }
 
     protected dataHandler(ref: { graphs: IMultiChartLine[] }): void {
-        if (!this.isPredictorsChart) {
+        if (!this.isPredictors) {
             if (ref?.graphs) {
                 ref.graphs.forEach((graph) => {
                     const _ = graph as any;

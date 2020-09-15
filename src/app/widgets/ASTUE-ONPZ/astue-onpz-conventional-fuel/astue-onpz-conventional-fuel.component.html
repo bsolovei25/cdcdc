@@ -6,7 +6,7 @@
       icon="astue-predictors"
       type="astue"
     >
-      <div class="header-buttons">
+      <div class="header-buttons" *ngIf="!isPredictors">
         <div
           (mousedown)="$event.stopPropagation()"
           (touchstart)="$event.stopPropagation()"
