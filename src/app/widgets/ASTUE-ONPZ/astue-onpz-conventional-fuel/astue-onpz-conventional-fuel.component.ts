@@ -4,6 +4,7 @@ import { WidgetService } from '../../../dashboard/services/widget.service';
 import { IMultiChartLine } from '../../../dashboard/models/ASTUE-ONPZ/astue-onpz-multi-chart.model';
 import { UserSettingsService } from '../../../dashboard/services/user-settings.service';
 import { AstueOnpzService } from '../astue-onpz-shared/astue-onpz.service';
+import { IMultiChartOptions } from './components/astue-onpz-multi-chart/astue-onpz-multi-chart.component';
 
 @Component({
     selector: 'evj-astue-onpz-conventional-fuel',
@@ -14,6 +15,10 @@ export class AstueOnpzConventionalFuelComponent extends WidgetPlatform
     implements OnInit, OnDestroy {
     public data: IMultiChartLine[] = [];
     colors: Map<string, number>;
+
+    public options: IMultiChartOptions = {
+        isIconsShowing: true,
+    };
 
     private isPredictorsChart: boolean = false;
 
