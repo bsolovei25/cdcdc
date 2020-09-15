@@ -35,6 +35,35 @@
   }
 }
 
+.item-color {
+  &-1 {
+    fill: var(--color-astue-tag-1);
+  }
+
+  &-2 {
+    fill: var(--color-astue-tag-2);
+  }
+
+  &-3 {
+    fill: var(--color-astue-tag-3);
+  }
+
+  &-4 {
+    fill: var(--color-astue-tag-4);
+  }
+
+  &-5 {
+    fill: var(--color-astue-tag-5);
+  }
+
+  &-6 {
+    fill: var(--color-astue-tag-6);
+  }
+  &-disabled {
+    fill: var(--color-text-sub);
+  }
+}
+
 .interactive-indicators {
   display: flex;
   justify-content: space-between;
@@ -98,6 +127,7 @@
         &__disable {
           transition: .3s;
           background-color: rgba(39, 42, 56, .5);
+
 
           .item {
             &__icon {
@@ -267,7 +297,10 @@
   &-white {
     background-color: white !important;
   }
+
   &-blue {
     background-color: var(--color-btn-rounded-border) !important;
   }
 }
+
+

@@ -67,6 +67,7 @@ export class AstueOnpzInteractiveIndicatorsComponent extends WidgetPlatform
 
     public ngOnDestroy(): void {
         super.ngOnDestroy();
+        this.astueOnpzService.clearColors();
     }
 
     protected dataConnect(): void {
@@ -82,7 +83,6 @@ export class AstueOnpzInteractiveIndicatorsComponent extends WidgetPlatform
     }
 
     protected dataHandler(ref: any): void {
-        console.log(ref);
         const indicators: IAstueOnpzInteractiveIndicator[] = [];
         let colorIndex = 0;
         for (const i in ref.indicators) {

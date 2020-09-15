@@ -30,8 +30,8 @@
                  'background-white': item.key === 'FactValue',
                  'background-blue': item.key === 'PlanValue' }">
               <svg-icon [src]="getPathSvg(item.key)"
-                        style.fill="var(--color-astue-tag-{{ colors?.get(item.value.tagName) }})"
-                        [class.item__icon__svg__disable]="!item.isChoosing"
+                        class="item-color-{{ colors?.get(item.value.tagName)}}"
+                        [ngClass]="!item.isChoosing ? 'item-color-disabled' : ''"
               ></svg-icon>
             </div>
             <div class=" item__name">{{ item.value.name }}</div>

@@ -51,6 +51,7 @@ export class AstueOnpzPredictorsComponent extends WidgetPlatform implements OnIn
 
     ngOnDestroy(): void {
         super.ngOnDestroy();
+        this.astueOnpzService.clearColors();
     }
 
     protected dataHandler(ref: { predictors: IPredictors[] }): void {

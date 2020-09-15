@@ -20,7 +20,7 @@ import { IAstueOnpzColors } from '../../../astue-onpz-shared/astue-onpz.service'
 
 const lineColors: { [key: string]: string } = {
     1: '#9362d0',
-    2: '#673ab7',
+    2: '#0ba4a4',
     3: '#8090f0',
     4: '#0f62fe',
     5: '#0089ff',

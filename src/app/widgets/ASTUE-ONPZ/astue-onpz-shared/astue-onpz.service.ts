@@ -56,7 +56,7 @@ export class AstueOnpzService {
 
     public colors$: BehaviorSubject<Map<string, number>> =
         new BehaviorSubject<Map<string, number>>(new Map());
-    private colors: number[] = [];
+    private colors: number[] = [1, 2, 3, 4, 5, 6];
 
     public sharedMonitoringOptions: Observable<IAstueOnpzMonitoringOptions> = this.monitoringOptions$.asObservable();
 
@@ -71,7 +71,6 @@ export class AstueOnpzService {
     }
 
     constructor() {
-        this.colors = [1, 2, 3, 4, 5, 6];
     }
 
     public setMultiLinePredictors(value: IMultiChartLine[]): void {
@@ -178,6 +177,13 @@ export class AstueOnpzService {
         this.colors.push(color);
         const colors = this.colors$.getValue();
         colors.delete(tag);
+        this.colors$.next(colors);
+    }
+
+    public clearColors(): void {
+        this.colors = [1, 2, 3, 4, 5, 6];
+        const colors = this.colors$.getValue();
+        colors.clear();
         this.colors$.next(colors);
     }
 }
