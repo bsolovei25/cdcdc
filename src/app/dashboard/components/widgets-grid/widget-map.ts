@@ -146,6 +146,7 @@ export const WIDGETS = {
     'cd-reactor-parameters': WidgetContainerComponent,
     'sou-operational-accounting-system': WidgetContainerComponent,
     'astue-onpz-conventional-fuel': WidgetContainerComponent,
+    'astue-onpz-conventional-fuel-predictors': WidgetContainerComponent,
     'astue-onpz-predictors': WidgetContainerComponent,
     'astue-onpz-main-indicators': WidgetContainerComponent,
     'astue-onpz-product-charts': WidgetContainerComponent,
@@ -662,6 +663,21 @@ export const WIDGETS_LAZY = {
     //#region ASTUE-ONPZ
 
     'astue-onpz-conventional-fuel': {
+        import: async () => {
+            return await import(
+                // tslint:disable-next-line:max-line-length
+                'src/app/widgets/ASTUE-ONPZ/astue-onpz-conventional-fuel/astue-onpz-conventional-fuel.module'
+                );
+        },
+        module: 'AstueOnpzConventionalFuelModule',
+        itemCols: 30,
+        itemRows: 18,
+        minItemCols: 30,
+        minItemRows: 16,
+        preview: 'astue-onpz-conventional-fuel'
+    },
+
+    'astue-onpz-conventional-fuel-predictors': {
         import: async () => {
             return await import(
                 // tslint:disable-next-line:max-line-length

@@ -19,9 +19,6 @@
     (touchstart)="$event.stopPropagation()"
   >
     <div class="wrapper">
-      <div style="width: 350px; height: 350px;">
-        <evj-ozsm-circle-diagram-full [data]="circleData"></evj-ozsm-circle-diagram-full>
-      </div>
       <div class="chart-container">
         <ng-container *ngFor="let chart of data.chartData">
           <div class="gauge-card">

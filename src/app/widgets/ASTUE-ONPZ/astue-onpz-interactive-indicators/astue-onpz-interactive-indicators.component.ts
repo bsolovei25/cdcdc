@@ -22,7 +22,6 @@ interface IAstueOnpzInteractiveIndicator {
         name: string;
         tagName: string;
     };
-    icon: string;
     colorIndex: number;
     isActive: boolean;
     isChoosing: boolean;
@@ -83,13 +82,13 @@ export class AstueOnpzInteractiveIndicatorsComponent extends WidgetPlatform
     }
 
     protected dataHandler(ref: any): void {
+        const isFirst: boolean = !!this.data;
         const indicators: IAstueOnpzInteractiveIndicator[] = [];
         let colorIndex = 0;
         for (const i in ref.indicators) {
             indicators.push({
                 key: i,
                 value: ref.indicators[i],
-                icon: this.getIconByKey(i),
                 colorIndex,
                 isActive: !!this.currentIndicators?.find((ind) => ind.key === i),
                 isChoosing: !!this.currentIndicators?.find((ind) =>
@@ -101,17 +100,13 @@ export class AstueOnpzInteractiveIndicatorsComponent extends WidgetPlatform
         }
         ref.indicators = indicators;
         this.data = ref;
-    }
-
-    private getIconByKey(key: string): string {
-        if (key.toLowerCase().includes('press')) {
-            return 'pressure';
-        } else if (key.toLowerCase().includes('volume')) {
-            return 'volume';
-        } else if (key.toLowerCase().includes('temp')) {
-            return 'temperature';
+        if (isFirst) {
+            this.data.indicators.forEach(value => {
+                if (value.key === 'FactValue' || value.key === 'PlanValue') {
+                    this.chooseIndicator(value.key);
+                }
+            });
         }
-        return '';
     }
 
     public chooseIndicator(key: string): void {
@@ -139,7 +134,7 @@ export class AstueOnpzInteractiveIndicatorsComponent extends WidgetPlatform
 
     public toggleLabel(event: MouseEvent, item: IAstueOnpzInteractiveIndicator
     ): void {
-        event.stopPropagation();
+        event?.stopPropagation();
         const indicator = this.data.indicators.find((i) => i.key === item.key);
         if (indicator) {
             indicator.isChoosing = !indicator.isChoosing;
@@ -148,7 +143,6 @@ export class AstueOnpzInteractiveIndicatorsComponent extends WidgetPlatform
             this.astueOnpzService.updateIndicatorFilter(item.key, 'add');
         } else {
             this.astueOnpzService.updateIndicatorFilter(item.key, 'delete');
-            // this.astueOnpzService.deleteTagToColor(this.colors?.get(item.value.tagName), item.value.tagName);
         }
     }
 
@@ -161,12 +155,10 @@ export class AstueOnpzInteractiveIndicatorsComponent extends WidgetPlatform
             case 'Давление':
                 return `assets/icons/widgets/ASTUE-ONPZ/interactive-indicators/aim.svg`;
             case 'FactValue':
-                return ``;
             case 'PlanValue':
                 return ``;
             default:
                 return `assets/icons/widgets/ASTUE-ONPZ/interactive-indicators/aim.svg`;
         }
-
     }
 }
