@@ -1,9 +1,20 @@
 <div class="card">
   <div class="card__title">
-    <div class="icon">{{data.icon}}</div>
+    <div class="icon">
+      <div class="icon-svg" *ngIf="data.type === 'railway'">
+        <img src="assets/icons/widgets/OZSM/ozsm-card-line-diagram/railway.svg">
+      </div>
+      <div class="icon-svg" *ngIf="data.type === 'auto'">
+        <img src="assets/icons/widgets/OZSM/ozsm-card-line-diagram/automobile.svg">
+      </div>
+      <div class="icon-line" *ngIf="data.type === 'line'">
+        <span>{{data.icon}}</span>
+      </div>
+      <ng-template #default></ng-template>
+    </div>
     <div class="name">{{data.title}}</div>
   </div>
-  <div class="card__value"><span>{{data.currentValue}}</span></div>
+  <div class="card__value"><span>{{+data?.currentValue.toFixed(2) | spaceNumber}}</span></div>
   <div class="card__line">
     <div class="line-active" [ngStyle]="{width: percentValue + '%'}"></div>
   </div>
