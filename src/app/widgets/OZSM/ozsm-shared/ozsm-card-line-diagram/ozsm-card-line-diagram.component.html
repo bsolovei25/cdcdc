@@ -1,0 +1,10 @@
+<div class="card">
+  <div class="card__title">
+    <div class="icon">{{data.icon}}</div>
+    <div class="name">{{data.title}}</div>
+  </div>
+  <div class="card__value"><span>{{data.currentValue}}</span></div>
+  <div class="card__line">
+    <div class="line-active" [ngStyle]="{width: percentValue + '%'}"></div>
+  </div>
+</div>
