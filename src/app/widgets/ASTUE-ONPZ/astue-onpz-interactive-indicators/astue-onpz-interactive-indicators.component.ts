@@ -101,6 +101,11 @@ export class AstueOnpzInteractiveIndicatorsComponent extends WidgetPlatform
         }
         ref.indicators = indicators;
         this.data = ref;
+        this.data.indicators.map(value => {
+            if (value.key === 'FactValue' || value.key === 'PlanValue') {
+                this.chooseIndicator(value.key);
+            }
+        });
     }
 
     private getIconByKey(key: string): string {
@@ -139,7 +144,7 @@ export class AstueOnpzInteractiveIndicatorsComponent extends WidgetPlatform
 
     public toggleLabel(event: MouseEvent, item: IAstueOnpzInteractiveIndicator
     ): void {
-        event.stopPropagation();
+        event?.stopPropagation();
         const indicator = this.data.indicators.find((i) => i.key === item.key);
         if (indicator) {
             indicator.isChoosing = !indicator.isChoosing;
@@ -148,7 +153,6 @@ export class AstueOnpzInteractiveIndicatorsComponent extends WidgetPlatform
             this.astueOnpzService.updateIndicatorFilter(item.key, 'add');
         } else {
             this.astueOnpzService.updateIndicatorFilter(item.key, 'delete');
-            // this.astueOnpzService.deleteTagToColor(this.colors?.get(item.value.tagName), item.value.tagName);
         }
     }
 
