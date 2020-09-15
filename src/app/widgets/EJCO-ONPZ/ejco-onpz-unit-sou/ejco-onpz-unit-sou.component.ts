@@ -7,7 +7,8 @@ import {
 } from '@angular/core';
 import { WidgetPlatform } from '../../../dashboard/models/widget-platform';
 import { WidgetService } from '../../../dashboard/services/widget.service';
-import {HttpClient} from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
+import { IOzsmCircleDiagramFull } from '../../OZSM/ozsm-shared/ozsm-circle-diagram-full/ozsm-circle-diagram-full.component';
 
 export interface IEjcoOnpzUnit {
     caption: string;
@@ -38,6 +39,13 @@ export class EjcoOnpzUnitSouComponent extends WidgetPlatform implements OnInit, 
             caption: 'АВТ-11 АБ',
         },
     ];
+
+    public circleData: IOzsmCircleDiagramFull  = {
+        fact: 5208,
+        plan: 5208,
+        unit: 'Уст. 37',
+        deviationDays: [5, 6, 9],
+    };
 
     public data: IEjcoOnpzUnitSou;
 
