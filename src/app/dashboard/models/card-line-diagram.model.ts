@@ -1,9 +1,10 @@
 export interface ICardLineDiagramModel {
-    icon?: number;
+    icon?: string;
+    num?: number;
     title: string;
     maxValue: number;
     currentValue: number;
     type?: CardLineDiagramType;
 }
 
-export type CardLineDiagramType = 'default' | 'number' | 'railway' | 'auto';
+export type CardLineDiagramType = 'default' | 'number' | 'icon';

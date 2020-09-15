@@ -38,6 +38,9 @@
   height: 100%;
   color: var(--ozsm-color-marker-diagram);
   margin-right: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .name {
   height: 100%;
@@ -50,9 +53,4 @@
   height: 100%;
   width: 75%;
   background-color: var(--ozsm-color-active);
-}
-.icon-svg {
-  display: flex;
-  align-items: center;
-  flex-direction: column;
 }
