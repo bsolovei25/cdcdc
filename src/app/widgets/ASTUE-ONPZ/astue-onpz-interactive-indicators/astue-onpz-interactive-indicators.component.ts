@@ -82,6 +82,7 @@ export class AstueOnpzInteractiveIndicatorsComponent extends WidgetPlatform
     }
 
     protected dataHandler(ref: any): void {
+        const isFirst: boolean = !!this.data;
         const indicators: IAstueOnpzInteractiveIndicator[] = [];
         let colorIndex = 0;
         for (const i in ref.indicators) {
@@ -98,14 +99,14 @@ export class AstueOnpzInteractiveIndicatorsComponent extends WidgetPlatform
             }
         }
         ref.indicators = indicators;
-        if (!this.data) {
-            ref.indicators.forEach(value => {
+        this.data = ref;
+        if (isFirst) {
+            this.data.indicators.forEach(value => {
                 if (value.key === 'FactValue' || value.key === 'PlanValue') {
                     this.chooseIndicator(value.key);
                 }
             });
         }
-        this.data = ref;
     }
 
     public chooseIndicator(key: string): void {

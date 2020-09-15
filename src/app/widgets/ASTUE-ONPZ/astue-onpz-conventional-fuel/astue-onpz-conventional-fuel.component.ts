@@ -42,8 +42,8 @@ export class AstueOnpzConventionalFuelComponent extends WidgetPlatform
 
     protected dataConnect(): void {
         super.dataConnect();
-        console.log(this.widgetType);
         this.isPredictors = this.widgetType === 'astue-onpz-conventional-fuel-predictors';
+        this.options.isIconsShowing = !this.isPredictors;
         this.subscriptions.push(
             this.astueOnpzService.sharedIndicatorOptions.subscribe((options) => {
                 if (this.isPredictors) {
