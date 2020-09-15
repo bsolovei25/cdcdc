@@ -6,31 +6,35 @@ import {
     HostListener,
     OnChanges,
     Renderer2,
-    OnDestroy,
+    OnDestroy
 } from '@angular/core';
 import * as d3Selection from 'd3-selection';
 import * as d3 from 'd3';
 import { IChartD3, IChartMini } from '../../../../../@shared/models/smart-scroll.model';
 import {
     IMultiChartLine,
-    IMultiChartData,
+    IMultiChartData
 } from '../../../../../dashboard/models/ASTUE-ONPZ/astue-onpz-multi-chart.model';
 import { AsyncRender } from '../../../../../@shared/functions/async-render.function';
+import { IAstueOnpzColors } from '../../../astue-onpz-shared/astue-onpz.service';
 
 const lineColors: { [key: string]: string } = {
-    temperature: '#FFB100',
-    heatExchanger: '#673AB7',
-    volume: '#45C5FA',
-    pressure: '#0F62FE',
+    1: '#9362d0',
+    2: '#0ba4a4',
+    3: '#8090f0',
+    4: '#0f62fe',
+    5: '#0089ff',
+    6: '#039de0'
 };
 
 @Component({
     selector: 'evj-astue-onpz-multi-chart',
     templateUrl: './astue-onpz-multi-chart.component.html',
-    styleUrls: ['./astue-onpz-multi-chart.component.scss'],
+    styleUrls: ['./astue-onpz-multi-chart.component.scss']
 })
 export class AstueOnpzMultiChartComponent implements OnChanges, OnDestroy {
     @Input() private data: IMultiChartLine[] = [];
+    @Input() private colors: Map<string, number>;
 
     @ViewChild('chart', { static: true }) private chart: ElementRef;
 
@@ -56,7 +60,7 @@ export class AstueOnpzMultiChartComponent implements OnChanges, OnDestroy {
         left: 0,
         right: 30,
         top: 120,
-        bottom: 40,
+        bottom: 40
     };
 
     private readonly axisYWidth: number = 60;
@@ -64,7 +68,8 @@ export class AstueOnpzMultiChartComponent implements OnChanges, OnDestroy {
 
     private listeners: (() => void)[] = [];
 
-    constructor(private renderer: Renderer2) {}
+    constructor(private renderer: Renderer2) {
+    }
 
     public ngOnChanges(): void {
         if (!!this.data.length) {
@@ -137,7 +142,7 @@ export class AstueOnpzMultiChartComponent implements OnChanges, OnDestroy {
     private normalizeData(): void {
         this.data.forEach((item) => {
             // обнуление значений милисекунд, секунд и минут
-            item.graph.forEach((val) => {
+            item.graph?.forEach((val) => {
                 val.timeStamp.setMilliseconds(0);
                 val.timeStamp.setSeconds(0);
                 val.timeStamp.setMinutes(0);
@@ -147,10 +152,10 @@ export class AstueOnpzMultiChartComponent implements OnChanges, OnDestroy {
             const start = new Date(end);
             start.setHours(end.getHours() - 18);
             // фильтрация по дате начала
-            item.graph = item.graph.filter((val) => val.timeStamp.getTime() >= start.getTime());
+            item.graph = item.graph?.filter((val) => val.timeStamp.getTime() >= start.getTime());
             // зачистка повторяющихся дат
             const filteredArray: IChartMini[] = [];
-            item.graph.forEach((val, idx, array) => {
+            item.graph?.forEach((val, idx, array) => {
                 const filtered = array.filter(
                     (el) => el.timeStamp.getTime() === val.timeStamp.getTime()
                 );
@@ -158,7 +163,7 @@ export class AstueOnpzMultiChartComponent implements OnChanges, OnDestroy {
                 if (
                     !filteredArray.length ||
                     filteredArray[filteredArray.length - 1].timeStamp.getTime() !==
-                        val.timeStamp.getTime()
+                    val.timeStamp.getTime()
                 ) {
                     filteredArray.push({ value: val.value, timeStamp: val.timeStamp });
                 }
@@ -184,7 +189,7 @@ export class AstueOnpzMultiChartComponent implements OnChanges, OnDestroy {
                             date.setHours(hours);
                             const newEl: IChartMini = {
                                 value: val,
-                                timeStamp: date,
+                                timeStamp: date
                             };
                             array.push(newEl);
                             hours++;
@@ -206,7 +211,7 @@ export class AstueOnpzMultiChartComponent implements OnChanges, OnDestroy {
             if (!this.coefs[key]) {
                 this.coefs[key] = {
                     min: this.MIN_COEF,
-                    max: this.MAX_COEF,
+                    max: this.MAX_COEF
                 };
             }
 
@@ -227,7 +232,7 @@ export class AstueOnpzMultiChartComponent implements OnChanges, OnDestroy {
                 plan.minValue,
                 plan.maxValue,
                 fact.minValue,
-                fact.maxValue,
+                fact.maxValue
             ]);
             plan.minValue = fact.minValue = min;
             plan.maxValue = fact.maxValue = max;
@@ -273,7 +278,7 @@ export class AstueOnpzMultiChartComponent implements OnChanges, OnDestroy {
         const hour = chart[0].timeStamp.getHours();
         const domainDates = [
             new Date(year, month, day, hour),
-            new Date(year, month, day, hour + 24),
+            new Date(year, month, day, hour + 24)
         ];
         const rangeX = [left, this.graphMaxX - this.padding.right];
 
@@ -308,7 +313,7 @@ export class AstueOnpzMultiChartComponent implements OnChanges, OnDestroy {
             item.graph.forEach((point) => {
                 item.transformedGraph.push({
                     x: this.scaleFuncs.x(point.timeStamp),
-                    y: item.scaleY(point.value),
+                    y: item.scaleY(point.value)
                 });
             });
         };
@@ -329,7 +334,7 @@ export class AstueOnpzMultiChartComponent implements OnChanges, OnDestroy {
                 .attr('class', `graph-line-${lineType}`)
                 .attr('d', line(chart.transformedGraph));
             if (flag) {
-                drawnLine.style('stroke', lineColors[chart.graphType]);
+                drawnLine.style('stroke', lineColors[this.colors?.get(chart.tagName)]);
             }
         });
     }
@@ -432,7 +437,7 @@ export class AstueOnpzMultiChartComponent implements OnChanges, OnDestroy {
             });
 
             const legend = axisY.append('g').attr('class', 'legend');
-            const stroke = flag ? '#FFFFFF' : lineColors[chart.graphType];
+            const stroke = flag ? '#FFFFFF' : lineColors[this.colors?.get(chart.tagName)];
             const padding = 5;
             legend
                 .append('line')
@@ -534,9 +539,9 @@ export class AstueOnpzMultiChartComponent implements OnChanges, OnDestroy {
             } else {
                 values.push({
                     val: chart.graph[chart.graph.length - 1],
-                    color: lineColors[chart.graphType],
+                    color: lineColors[this.colors?.get(chart.tagName)],
                     units: chart.units ?? '',
-                    iconType: chart.graphType,
+                    iconType: chart.graphType
                 });
             }
             x = chart.transformedGraph[chart.transformedGraph.length - 1].x;

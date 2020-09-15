@@ -2,10 +2,11 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import {
     AstueOnpzConsumptionIndicatorsWidgetType,
-    AstueOnpzConsumptionIndicatorType,
+    AstueOnpzConsumptionIndicatorType
 } from '../astue-onpz-consumption-indicators/astue-onpz-consumption-indicators.component';
 import { IPlanningChart } from '../astue-onpz-planning-charts/astue-onpz-planning-charts.component';
 import { IMultiChartLine } from '../../../dashboard/models/ASTUE-ONPZ/astue-onpz-multi-chart.model';
+import { log } from 'util';
 
 export interface IAstueOnpzMonitoringOptions {
     manufactureName: string | null;
@@ -27,49 +28,50 @@ export interface IAstueOnpzPredictorsOptions {
     colorIndex: number;
 }
 
+export interface IAstueOnpzColors {
+    [key: string]: number;
+}
+
 @Injectable({
-    providedIn: 'root',
+    providedIn: 'root'
 })
 export class AstueOnpzService {
-    private indicatorOptions$: BehaviorSubject<
-        IAstueOnpzMonitoringCarrierOptions
-    > = new BehaviorSubject({
+    private indicatorOptions$: BehaviorSubject<IAstueOnpzMonitoringCarrierOptions> = new BehaviorSubject({
         manufactureName: null,
         unitName: null,
         itemId: null,
-        filterValues: null,
+        filterValues: null
     });
 
     private monitoringOptions$: BehaviorSubject<IAstueOnpzMonitoringOptions> = new BehaviorSubject({
         manufactureName: null,
         unitName: null,
         type: null,
-        indicatorType: null,
+        indicatorType: null
     });
 
     public predictorsOptions$: BehaviorSubject<IAstueOnpzPredictorsOptions[]> = new BehaviorSubject(
         []
     );
 
-    public sharedMonitoringOptions: Observable<
-        IAstueOnpzMonitoringOptions
-    > = this.monitoringOptions$.asObservable();
+    public colors$: BehaviorSubject<Map<string, number>> =
+        new BehaviorSubject<Map<string, number>>(new Map());
+    private colors: number = 6;
 
-    public sharedIndicatorOptions: Observable<
-        IAstueOnpzMonitoringCarrierOptions
-    > = this.indicatorOptions$.asObservable();
+    public sharedMonitoringOptions: Observable<IAstueOnpzMonitoringOptions> = this.monitoringOptions$.asObservable();
+
+    public sharedIndicatorOptions: Observable<IAstueOnpzMonitoringCarrierOptions> = this.indicatorOptions$.asObservable();
 
     public sharedPlanningGraph$: BehaviorSubject<IPlanningChart> = new BehaviorSubject(null);
 
-    private multiLinePredictorsChart$: BehaviorSubject<IMultiChartLine[]> = new BehaviorSubject<
-        IMultiChartLine[]
-    >(null);
+    private multiLinePredictorsChart$: BehaviorSubject<IMultiChartLine[]> = new BehaviorSubject<IMultiChartLine[]>(null);
 
     get multiLinePredictors(): Observable<IMultiChartLine[]> {
         return this.multiLinePredictorsChart$.asObservable();
     }
 
-    constructor() {}
+    constructor() {
+    }
 
     public setMultiLinePredictors(value: IMultiChartLine[]): void {
         const val = !!value ? value : null;
@@ -142,8 +144,8 @@ export class AstueOnpzService {
             ...this.monitoringOptions$.value,
             ...{
                 indicatorType: indicatorTypeParam,
-                type: typeParam,
-            },
+                type: typeParam
+            }
         });
     }
 
@@ -162,5 +164,27 @@ export class AstueOnpzService {
         const val = this.indicatorOptions$.getValue();
         val.filterValues = null;
         this.indicatorOptions$.next(val);
+    }
+
+    public addTagToColor(tag: string): void {
+        const colors = this.colors$.getValue();
+        if (this.colors === 0) {
+            this.colors = 6;
+        }
+        const color = this.colors--;
+        colors.set(tag, color);
+        this.colors$.next(colors);
+    }
+
+    public deleteTagToColor(color: number, tag: string): void {
+        this.colors++;
+        const colors = this.colors$.getValue();
+        colors.delete(tag);
+        this.colors$.next(colors);
+    }
+
+    public clearColors(): void {
+        this.colors = 6;
+        this.colors$.next(new Map());
     }
 }

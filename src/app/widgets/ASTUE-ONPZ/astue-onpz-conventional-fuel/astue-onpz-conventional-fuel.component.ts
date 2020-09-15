@@ -13,6 +13,7 @@ import { AstueOnpzService } from '../astue-onpz-shared/astue-onpz.service';
 export class AstueOnpzConventionalFuelComponent extends WidgetPlatform
     implements OnInit, OnDestroy {
     public data: IMultiChartLine[] = [];
+    colors: Map<string, number>;
 
     private isPredictorsChart: boolean = false;
 
@@ -57,6 +58,9 @@ export class AstueOnpzConventionalFuelComponent extends WidgetPlatform
                     this.isPredictorsChart = false;
                     this.data = [];
                 }
+            }),
+            this.astueOnpzService.colors$.subscribe((value) => {
+                this.colors = value;
             })
         );
     }

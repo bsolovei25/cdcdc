@@ -10,12 +10,13 @@ import { fillDataArray } from '../../../../../@shared/functions/fill-data-array.
 @Component({
     selector: 'evj-astue-onpz-big-planning-chart',
     templateUrl: './astue-onpz-big-planning-chart.component.html',
-    styleUrls: ['./astue-onpz-big-planning-chart.component.scss'],
+    styleUrls: ['./astue-onpz-big-planning-chart.component.scss']
 })
 export class AstueOnpzBigPlanningChartComponent extends WidgetPlatform
     implements OnInit, OnDestroy {
     public info: IPlanningChart;
     public data: IProductionTrend[] = [];
+    colors: Map<string, number>;
 
     constructor(
         protected widgetService: WidgetService,
@@ -38,6 +39,9 @@ export class AstueOnpzBigPlanningChartComponent extends WidgetPlatform
                     this.data = this.info?.graph ?? [];
                     fillDataArray(this.data, 18, true);
                 }
+            }),
+            this.astueService.colors$.subscribe((value) => {
+                this.colors = value;
             })
         );
     }
@@ -46,5 +50,6 @@ export class AstueOnpzBigPlanningChartComponent extends WidgetPlatform
         super.ngOnDestroy();
     }
 
-    protected dataHandler(ref: any): void {}
+    protected dataHandler(ref: any): void {
+    }
 }
