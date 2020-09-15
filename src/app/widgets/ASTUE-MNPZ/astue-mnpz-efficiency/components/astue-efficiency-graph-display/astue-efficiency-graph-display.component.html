@@ -13,21 +13,27 @@
     <div class="counters__cards">
       <div class="counter-card card">
         <div class="card__title">План-план\План-факт</div>
-        <div class="card__value">1740</div>
-        <div class="label">Перерасход</div>
+        <div class="card__value">{{labels.periodPlanPlan.value}}</div>
+        <div class="label" *ngIf="labels.periodPlanPlan.statusName">
+          {{labels.periodPlanPlan.statusName}}
+        </div>
       </div>
       <div class="counter-card card">
         <div class="card__title">План-план\Факт</div>
-        <div class="card__value">47</div>
-        <div class="label"></div>
+        <div class="card__value">{{labels.periodPlanFact.value}}</div>
+        <div class="label" *ngIf="labels.periodPlanFact.statusName">
+          {{labels.periodPlanFact.statusName}}
+        </div>
       </div>
       <div class="counter-card card">
         <div class="card__title">План-факт\Факт</div>
-        <div class="card__value">520</div>
-        <div class="label">Экономия</div>
+        <div class="card__value">{{labels.periodDeviations.value}}</div>
+        <div class="label" *ngIf="labels.periodDeviations.statusName">
+          {{labels.periodDeviations.statusName}}
+        </div>
       </div>
       <div class="counter-card card_single">
-        180
+        {{labels.periodCounter.value}}
       </div>
     </div>
     <div class="counters__header">
@@ -37,26 +43,32 @@
     <div class="counters__cards">
       <div class="counter-card card">
         <div class="card__title">План-план\План-факт</div>
-        <div class="card__value">1740</div>
-        <div class="label">Перерасход</div>
+        <div class="card__value">{{labels.currentPlanPlan.value}}</div>
+        <div class="label" *ngIf="labels.currentPlanPlan.statusName">
+          {{labels.currentPlanPlan.statusName}}
+        </div>
       </div>
       <div class="counter-card card">
         <div class="card__title">План-план\Факт</div>
-        <div class="card__value">47</div>
-        <div class="label"></div>
+        <div class="card__value">{{labels.currentPlanFact.value}}</div>
+        <div class="label" *ngIf="labels.currentPlanFact.statusName">
+          {{labels.currentPlanFact.statusName}}
+        </div>
       </div>
       <div class="counter-card card">
         <div class="card__title">План-факт\Факт</div>
-        <div class="card__value">520</div>
-        <div class="label">Экономия</div>
+        <div class="card__value">{{labels.currentDeviation.value}}</div>
+        <div class="label" *ngIf="labels.currentDeviation.statusName">
+          {{labels.currentDeviation.statusName}}
+        </div>
       </div>
       <div class="counter-card card_single">
-        180
+        {{labels.currentValue.value}}
       </div>
     </div>
   </div>
   <div class="graph-display__graph graph">
-    <div class="units">Ед. измерения</div>
+    <div class="units" *ngIf="flowUnits">{{flowUnits}}</div>
     <div class="graph__container">
       <evj-line-chart-shared
         [data]="data"

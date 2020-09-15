@@ -3,6 +3,7 @@ import { WidgetPlatform } from '../../../dashboard/models/widget-platform';
 import { WidgetService } from '../../../dashboard/services/widget.service';
 import { IProductionTrend } from '../../../dashboard/models/production-trends.model';
 import { AstueOnpzService } from '../astue-onpz-shared/astue-onpz.service';
+import { IMultiChartLine } from '../../../dashboard/models/ASTUE-ONPZ/astue-onpz-multi-chart.model';
 
 export interface IPlanningChart {
     tag: string;
@@ -20,40 +21,57 @@ export interface IPlanningChart {
 })
 export class AstueOnpzPlanningChartsComponent extends WidgetPlatform implements OnInit, OnDestroy {
     public data: IPlanningChart[] = [];
+    colors: Map<string, number>;
 
     constructor(
         protected widgetService: WidgetService,
         private astueOnpzService: AstueOnpzService,
         @Inject('isMock') public isMock: boolean,
         @Inject('widgetId') public id: string,
-        @Inject('uniqId') public uniqId: string,
+        @Inject('uniqId') public uniqId: string
     ) {
         super(widgetService, isMock, id, uniqId);
     }
 
     ngOnInit(): void {
         super.widgetInit();
-
     }
 
     public ngOnDestroy(): void {
         super.ngOnDestroy();
+        this.astueOnpzService.setMultiLinePredictors(null);
     }
 
     protected dataConnect(): void {
         super.dataConnect();
         this.subscriptions.push(
             this.astueOnpzService.predictorsOptions$.subscribe((value) => {
-                this.setOptionsWs(value?.map(predictor => predictor?.name));
+                this.setOptionsWs(value?.map((predictor) => predictor?.id));
+            }),
+            this.astueOnpzService.colors$.subscribe((value) => {
+                this.colors = value;
             })
         );
     }
 
-    protected dataHandler(ref: { graphs: IPlanningChart[], subscriptionOptions: any }): void {
+    protected dataHandler(ref: {
+        graphs: IPlanningChart[];
+        subscriptionOptions: any;
+        multiLineChart: IMultiChartLine[];
+    }): void {
         this.data = ref.graphs;
+        const newMultiChart: IMultiChartLine[] = ref?.multiLineChart?.map((item: any) => {
+            return {
+                graph: item.graph,
+                units: item.units,
+                graphType: item.multiChartTypes,
+                tagName: item.tagName
+            };
+        });
+        this.astueOnpzService.setMultiLinePredictors(newMultiChart);
     }
 
-    setOptionsWs(predictors: string[]): void {
-        this.widgetService.setWidgetLiveDataFromWSOptions(this.id, { predictors });
+    setOptionsWs(predictorIds: string[]): void {
+        this.widgetService.setWidgetLiveDataFromWSOptions(this.id, { predictorIds });
     }
 }

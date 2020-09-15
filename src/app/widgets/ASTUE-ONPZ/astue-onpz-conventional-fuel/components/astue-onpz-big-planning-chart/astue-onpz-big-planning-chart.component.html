@@ -1,0 +1,44 @@
+<div class="container">
+  <evj-widget-header-smp
+    [uniqId]="uniqId"
+    (mouseenter)="onMouseEnter()"
+    (mouseleave)="onMouseExit()"
+    *ngIf="isHover"
+  >
+  </evj-widget-header-smp>
+  <div
+    class="content"
+    (mouseenter)="onMouseEnter()"
+    (mouseleave)="onMouseExit()"
+    (mousedown)="$event.stopPropagation()"
+    (touchstart)="$event.stopPropagation()"
+  >
+    <div class="card__header header">
+      <div class="header__tag"
+           style.backgroundColor="var(--color-astue-onpz-bg-tag-{{ colors?.get(info.tag) }})"
+           style.color="var(--color-astue-tag-{{ colors?.get(info.tag) }})">{{info?.tag}}</div>
+      <div class="header__title">{{info?.title}}</div>
+    </div>
+    <div class="card-border">
+      <div class="card__legend legend">
+        <div class="legend__units">{{info?.units}}</div>
+        <div class="legend__buttons">
+          <svg-icon
+            class="button"
+            src="assets/icons/widgets/ASTUE-ONPZ/astue-onpz-planning-charts/plus.svg"
+          ></svg-icon>
+          <svg-icon
+            class="button"
+            src="assets/icons/widgets/ASTUE-ONPZ/astue-onpz-planning-charts/minus.svg"
+          ></svg-icon>
+        </div>
+      </div>
+      <div class="card__chart">
+        <evj-limits-chart [data]="data" [isSpline]="false" [isWithPicker]="true"></evj-limits-chart>
+      </div>
+      <div class="card__scroll">
+        <evj-smart-scroll></evj-smart-scroll>
+      </div>
+    </div>
+  </div>
+</div>

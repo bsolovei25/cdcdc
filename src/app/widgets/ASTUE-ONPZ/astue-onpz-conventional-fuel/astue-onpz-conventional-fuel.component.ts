@@ -2,8 +2,9 @@ import { Component, OnInit, OnDestroy, Inject } from '@angular/core';
 import { WidgetPlatform } from '../../../dashboard/models/widget-platform';
 import { WidgetService } from '../../../dashboard/services/widget.service';
 import { IMultiChartLine } from '../../../dashboard/models/ASTUE-ONPZ/astue-onpz-multi-chart.model';
-import { AstueOnpzService } from '../astue-onpz-shared/astue-onpz.service';
 import { UserSettingsService } from '../../../dashboard/services/user-settings.service';
+import { AstueOnpzService } from '../astue-onpz-shared/astue-onpz.service';
+import { IMultiChartOptions } from './components/astue-onpz-multi-chart/astue-onpz-multi-chart.component';
 
 @Component({
     selector: 'evj-astue-onpz-conventional-fuel',
@@ -13,6 +14,16 @@ import { UserSettingsService } from '../../../dashboard/services/user-settings.s
 export class AstueOnpzConventionalFuelComponent extends WidgetPlatform
     implements OnInit, OnDestroy {
     public data: IMultiChartLine[] = [];
+    colors: Map<string, number>;
+
+    public isPredictors: boolean = false;
+    public options: IMultiChartOptions = {
+        isIconsShowing: false,
+    };
+
+    get planningChart(): boolean {
+        return !!this.astueOnpzService.sharedPlanningGraph$.getValue();
+    }
 
     constructor(
         protected widgetService: WidgetService,
@@ -20,7 +31,7 @@ export class AstueOnpzConventionalFuelComponent extends WidgetPlatform
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string,
         private astueOnpzService: AstueOnpzService,
-        private userSettingsService: UserSettingsService,
+        private userSettingsService: UserSettingsService
     ) {
         super(widgetService, isMock, id, uniqId);
     }
@@ -31,15 +42,30 @@ export class AstueOnpzConventionalFuelComponent extends WidgetPlatform
 
     protected dataConnect(): void {
         super.dataConnect();
+        this.isPredictors = this.widgetType === 'astue-onpz-conventional-fuel-predictors';
+        this.options.isIconsShowing = !this.isPredictors;
         this.subscriptions.push(
             this.astueOnpzService.sharedIndicatorOptions.subscribe((options) => {
-                if (!options?.filterValues) {
+                if (this.isPredictors) {
                     return;
                 }
                 this.widgetService.setWidgetLiveDataFromWSOptions(this.widgetId, options);
             }),
-            this.astueOnpzService.predictorsOptions$.subscribe((options) => {
-                this.widgetService.setWidgetLiveDataFromWSOptions(this.widgetId, options);
+            this.astueOnpzService.multiLinePredictors.subscribe((data) => {
+                if (!this.isPredictors) {
+                    return;
+                }
+                if (!!data) {
+                    this.data = data;
+                    this.data.forEach((item) => {
+                        item.graph?.forEach((val) => (val.timeStamp = new Date(val.timeStamp)));
+                    });
+                } else {
+                    this.data = [];
+                }
+            }),
+            this.astueOnpzService.colors$.subscribe((value) => {
+                this.colors = value;
             })
         );
     }
@@ -50,18 +76,20 @@ export class AstueOnpzConventionalFuelComponent extends WidgetPlatform
     }
 
     protected dataHandler(ref: { graphs: IMultiChartLine[] }): void {
-        if (ref?.graphs) {
-            ref.graphs.forEach((graph) => {
-                const _ = graph as any;
-                graph.graphType = _.multiChartTypes;
-                graph.graph.forEach((item) => {
-                    item.timeStamp = new Date(item.timeStamp);
+        if (!this.isPredictors) {
+            if (ref?.graphs) {
+                ref.graphs.forEach((graph) => {
+                    const _ = graph as any;
+                    graph.graphType = _.multiChartTypes;
+                    graph.graph.forEach((item) => {
+                        item.timeStamp = new Date(item.timeStamp);
+                    });
                 });
-            });
-            this.data = ref?.graphs;
-            return;
+                this.data = ref?.graphs;
+                return;
+            }
+            this.data = [];
         }
-        this.data = [];
     }
 
     public goToMainScreen(): void {

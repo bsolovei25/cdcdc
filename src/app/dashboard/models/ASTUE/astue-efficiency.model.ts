@@ -20,11 +20,16 @@ export interface IAsEfUnitNew extends IAsEfTable {
 }
 
 export interface IAsEfFlow extends IAsEfTable {
+    engUnits: string;
     astueFlowGraphs: IProductionTrend[];
     currentDeviation: IAsEfLabel;
     currentValue: IAsEfLabel;
+    currentPlanFact: IAsEfLabel;
+    currentPlanPlan: IAsEfLabel;
     periodDeviations: IAsEfLabel;
     periodCounter: IAsEfLabel;
+    periodPlanPlan: IAsEfLabel;
+    periodPlanFact: IAsEfLabel;
 }
 
 export interface IAsEfLabel {

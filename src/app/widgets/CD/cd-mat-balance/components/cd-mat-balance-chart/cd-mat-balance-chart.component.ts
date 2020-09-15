@@ -28,7 +28,7 @@ export class CdMatBalanceChartComponent implements OnInit, OnDestroy {
 
     private subscriptions: Subscription[] = [];
 
-    allCheckedCharts: string[] = [];
+    allCheckedCharts: number[] = [];
     allWidgets: IWidget[] = [];
 
     @Input()
@@ -88,7 +88,7 @@ export class CdMatBalanceChartComponent implements OnInit, OnDestroy {
                 const allWidgetsLoc = this.widgetService.allWidgets;
                 charts.forEach((chart) => {
                     allWidgetsLoc.forEach((value) => {
-                        if (value?.sensorId === +chart) {
+                        if (value?.sensorId === chart) {
                             this.allWidgets.push(value);
                         }
                     });

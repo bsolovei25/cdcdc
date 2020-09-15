@@ -1,0 +1,157 @@
+[
+  {
+    "day": 1,
+    "planValue": 15,
+    "factValue": 15
+  },
+  {
+    "day": 2,
+    "planValue": 15,
+    "factValue": 15
+  },
+  {
+    "day": 3,
+    "planValue": 18,
+    "factValue": 18
+  },
+  {
+    "day": 4,
+    "planValue": 18,
+    "factValue": 18
+  },
+  {
+    "day": 5,
+    "planValue": 15,
+    "factValue": 20
+  },
+  {
+    "day": 6,
+    "planValue": 15,
+    "factValue": 15
+  },
+  {
+    "day": 7,
+    "planValue": 18,
+    "factValue": 18
+  },
+  {
+    "day": 8,
+    "planValue": 18,
+    "factValue": 18
+  },
+  {
+    "day": 9,
+    "planValue": 18,
+    "factValue": 18
+  },
+  {
+    "day": 10,
+    "planValue": 15,
+    "factValue": 19
+  },
+  {
+    "day": 11,
+    "planValue": 17,
+    "factValue": 17
+  },
+  {
+    "day": 12,
+    "planValue": 14,
+    "factValue": 14
+  },
+  {
+    "day": 13,
+    "planValue": 14,
+    "factValue": 12
+  },
+  {
+    "day": 14,
+    "planValue": 14,
+    "factValue": 14
+  },
+  {
+    "day": 15,
+    "planValue": 15,
+    "factValue": 15
+  },
+  {
+    "day": 16,
+    "planValue": 15,
+    "factValue": 15
+  },
+  {
+    "day": 17,
+    "planValue": 14,
+    "factValue": 14
+  },
+  {
+    "day": 18,
+    "planValue": 16,
+    "factValue": 16
+  },
+  {
+    "day": 19,
+    "planValue": 16,
+    "factValue": 16
+  },
+  {
+    "day": 20,
+    "planValue": 12,
+    "factValue": 12
+  },
+  {
+    "day": 21,
+    "planValue": 12,
+    "factValue": 12
+  },
+  {
+    "day": 22,
+    "planValue": 12,
+    "factValue": 15
+  },
+  {
+    "day": 23,
+    "planValue": 14,
+    "factValue": 0
+  },
+  {
+    "day": 24,
+    "planValue": 14,
+    "factValue": 0
+  },
+  {
+    "day": 25,
+    "planValue": 15,
+    "factValue": 0
+  },
+  {
+    "day": 26,
+    "planValue": 14,
+    "factValue": 0
+  },
+  {
+    "day": 27,
+    "planValue": 16,
+    "factValue": 0
+  },
+  {
+    "day": 28,
+    "planValue": 16,
+    "factValue": 0
+  },
+  {
+    "day": 29,
+    "planValue": 15,
+    "factValue": 0
+  },
+  {
+    "day": 30,
+    "planValue": 14,
+    "factValue": 0
+  },
+  {
+    "day": 31,
+    "planValue": 14,
+    "factValue": 0
+  }
+]

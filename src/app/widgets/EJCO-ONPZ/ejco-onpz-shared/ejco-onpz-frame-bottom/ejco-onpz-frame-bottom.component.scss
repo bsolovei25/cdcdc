@@ -1,0 +1,38 @@
+.frame {
+  width: 100%;
+
+  &_bottom {
+    border-bottom: 0.35px solid var(--color-border-main-transparrent);
+    border-top: transparent;
+
+    &:after {
+      z-index: 1;
+      content: "";
+      position: absolute;
+      bottom: -8px;
+      right: -1px;
+      height: 12px;
+      width: 12px;
+      box-sizing: border-box;
+      transform-origin: 43% 0;
+      transform: rotate(-45deg);
+      border-top: 0.35px solid var(--color-axis);
+      background: var(--color-bg-main);
+    }
+
+    &:before {
+      z-index: 1;
+      content: "";
+      position: absolute;
+      bottom: -6px;
+      left: -1px;
+      height: 12px;
+      width: 12px;
+      box-sizing: border-box;
+      transform-origin: 43% 0;
+      transform: rotate(45deg);
+      border-top: 0.35px solid var(--color-axis);
+      background: var(--color-bg-main);
+    }
+  }
+}

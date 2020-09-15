@@ -91,13 +91,11 @@ export class AstueOnpzConsumptionIndicatorsComponent extends WidgetPlatform
     }
 
     private compare<T>(a: T[], b: T[]): boolean {
-        let flag = true;
         for (const property in a) {
             if (a[property] !== b[property]) {
-                flag = false;
-                break;
+                return false;
             }
         }
-        return flag;
+        return true;
     }
 }

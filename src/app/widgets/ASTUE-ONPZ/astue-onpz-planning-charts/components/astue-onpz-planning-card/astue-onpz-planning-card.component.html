@@ -1,20 +1,23 @@
-<div class="card" *ngIf="!!data">
+<div class="card" *ngIf="!!transformedData">
   <div class="card__header header">
-    <div class="header__tag">{{data.tag}}</div>
-    <div class="header__title">{{data.title}}</div>
-    <div class="header__unit">{{data.unitName}}</div>
+    <div class="header__tag"
+         style.backgroundColor="var(--color-astue-onpz-bg-tag-{{ color }})"
+         style.color="var(--color-astue-tag-{{ color }})"
+    >{{transformedData.tag}}</div>
+    <div class="header__title">{{transformedData.title}}</div>
+    <div class="header__unit">{{transformedData.unitName}}</div>
     <svg-icon
       class="header__icon"
-      [class.header__icon__active]="(sharedGraph | async).title === data.title"
+      [class.header__icon__active]="(sharedGraph | async)?.title === transformedData?.title"
       src="assets/icons/widgets/ASTUE-ONPZ/fullscreen.svg"
       (click)="graphOpen()"
       [svgStyle]="{ 'width.px':25, 'height.px':25}"
     ></svg-icon>
-    <div class="header__button"><span></span></div>
+    <div class="header__button"></div>
   </div>
   <div class="card-border">
     <div class="card__legend legend">
-      <div class="legend__units">{{data.units}}</div>
+      <div class="legend__units">{{transformedData.units}}</div>
       <div class="legend__buttons">
         <svg-icon
           class="button"
@@ -27,11 +30,11 @@
       </div>
       <div class="legend__value value">
         <div class="value__title">Факт</div>
-        <div class="value__card">{{data.currentFactValue}}</div>
+        <div class="value__card">{{transformedData.currentFactValue}}</div>
       </div>
     </div>
     <div class="card__chart">
-      <evj-limits-chart [data]="data.graph"></evj-limits-chart>
+      <evj-limits-chart [data]="transformedData.graph"></evj-limits-chart>
     </div>
   </div>
 </div>

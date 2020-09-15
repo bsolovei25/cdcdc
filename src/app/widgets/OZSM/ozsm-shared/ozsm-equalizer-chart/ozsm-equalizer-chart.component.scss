@@ -1,0 +1,61 @@
+:host {
+  width: 100%;
+  height: 100%;
+
+  * {
+    box-sizing: border-box;
+  }
+}
+
+.chart {
+  width: 100%;
+  height: 100%;
+}
+
+$column-width: 5px;
+
+::ng-deep {
+  .rect {
+    height: 0.7px;
+    width: 3px;
+    border-radius: 0.5px;
+  }
+
+  .rect-normal {
+    fill: var(--ozsm-color-active);
+  }
+
+  .rect-white {
+    fill: var(--ozsm-color-white);
+  }
+
+  .rect-orange {
+    fill: var(--ozsm-color-warning);
+  }
+
+  .background-col {
+    line {
+      stroke-width: $column-width;
+      border-radius: 1px;
+    }
+
+    path {
+      color: transparent;
+    }
+  }
+
+  .active {
+    color: var(--ozsm-color-circle-arc-bg);
+  }
+
+  .normal {
+    color: var(--ozsm-color-line-bg);
+  }
+
+  .step-line {
+    stroke: var(--ozsm-color-active);
+    fill: transparent;
+    stroke-width: 0.75px;
+  }
+}
+

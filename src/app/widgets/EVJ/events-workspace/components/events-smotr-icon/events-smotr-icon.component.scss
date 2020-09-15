@@ -3,6 +3,18 @@
   height: max-content;
 }
 
+.circle-container {
+  background: #20222d;
+  border-radius: 50%;
+  display: flex;
+
+  svg-icon {
+    margin: auto;
+    width: 32px;
+    height: 35px;
+  }
+}
+
 .event-icon {
   position: relative;
 
@@ -71,7 +83,23 @@
   }
 }
 
+.systematic {
+  svg-icon {
+    ::ng-deep {
+      color: #8C99B2;
+    }
+  }
+}
+
 .critical {
+  &__warning {
+    svg-icon {
+      ::ng-deep {
+        color: var(--color-deviation);
+      }
+    }
+  }
+
   &_danger {
     svg-icon {
       ::ng-deep {
