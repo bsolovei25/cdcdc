@@ -6,6 +6,7 @@ import { OzsmCircleDiagramComponent } from './ozsm-circle-diagram/ozsm-circle-di
 import { OzsmStorageTankComponent } from './ozsm-triple-diagram-card/ozsm-storage-tank/ozsm-storage-tank.component';
 import { OzsmEqualizerChartComponent } from './ozsm-equalizer-chart/ozsm-equalizer-chart.component';
 import { OzsmCircleDiagramFullComponent } from './ozsm-circle-diagram-full/ozsm-circle-diagram-full.component';
+import { OzsmMainIndicatorComponent } from './ozsm-main-indicator/ozsm-main-indicator.component';
 
 @NgModule({
     declarations: [
@@ -14,6 +15,7 @@ import { OzsmCircleDiagramFullComponent } from './ozsm-circle-diagram-full/ozsm-
         OzsmStorageTankComponent,
         OzsmEqualizerChartComponent,
         OzsmCircleDiagramFullComponent,
+        OzsmMainIndicatorComponent,
     ],
     exports: [
         OzsmTripleDiagramCardComponent,
@@ -21,6 +23,7 @@ import { OzsmCircleDiagramFullComponent } from './ozsm-circle-diagram-full/ozsm-
         OzsmStorageTankComponent,
         OzsmEqualizerChartComponent,
         OzsmCircleDiagramFullComponent,
+        OzsmMainIndicatorComponent
     ],
     imports: [
         CommonModule,

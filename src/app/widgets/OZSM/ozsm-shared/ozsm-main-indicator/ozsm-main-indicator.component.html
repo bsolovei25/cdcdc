@@ -1,0 +1,16 @@
+<div class="main-indicator">
+  <div class="main-indicator__icon">
+    <img src="assets/icons/widgets/OZSM/ozsm-main-indicators/main-indicator-logo.svg">
+  </div>
+  <div class="main-indicator__info">
+    <div class="main-indicator__title">
+      <span>{{(item?.title.length > 15) ? (item?.title | slice:0:15) + '...' : (item?.title)}}</span>
+    </div>
+    <div class="main-indicator__level-empty">
+      <div class="level" [ngStyle]="{width: item?.percent + '%'}"></div>
+    </div>
+  </div>
+  <div class="main-indicator__value">
+    <span>{{ +item?.plan.toFixed(2) | spaceNumber}}</span>
+  </div>
+</div>
