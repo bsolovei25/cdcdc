@@ -1,6 +1,7 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { ILoadingSpaceModel } from '../../../../dashboard/models/loading-space.model';
+import { Component, OnChanges, OnInit } from '@angular/core';
+import { ILoadingSpaceModel } from '../../../../dashboard/models/OZSM/loading-space/loading-space.model';
 import { mockData } from './mockData';
+import { newArray } from '@angular/compiler/src/util';
 
 @Component({
     selector: 'evj-ozsm-loading-space',
@@ -9,13 +10,13 @@ import { mockData } from './mockData';
 })
 export class OzsmLoadingSpaceComponent implements OnInit {
     public data: ILoadingSpaceModel = mockData;
+    public arrayOfCell: boolean [] = [true, true, true, true, true, true, true, true, true, true];
 
     constructor() {
     }
 
     ngOnInit(): void {
         const factor: number = 10;
-        this.data.col = this.data.currentValue / this.data.maxValue * factor;
-        this.data.fractional = this.data.col % 1;
+        this.data.percentageValue = this.data.currentValue / this.data.maxValue * factor;
     }
 }
