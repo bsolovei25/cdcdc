@@ -22,7 +22,6 @@ interface IAstueOnpzInteractiveIndicator {
         name: string;
         tagName: string;
     };
-    icon: string;
     colorIndex: number;
     isActive: boolean;
     isChoosing: boolean;
@@ -89,7 +88,6 @@ export class AstueOnpzInteractiveIndicatorsComponent extends WidgetPlatform
             indicators.push({
                 key: i,
                 value: ref.indicators[i],
-                icon: this.getIconByKey(i),
                 colorIndex,
                 isActive: !!this.currentIndicators?.find((ind) => ind.key === i),
                 isChoosing: !!this.currentIndicators?.find((ind) =>
@@ -100,23 +98,14 @@ export class AstueOnpzInteractiveIndicatorsComponent extends WidgetPlatform
             }
         }
         ref.indicators = indicators;
-        this.data = ref;
-        this.data.indicators.map(value => {
-            if (value.key === 'FactValue' || value.key === 'PlanValue') {
-                this.chooseIndicator(value.key);
-            }
-        });
-    }
-
-    private getIconByKey(key: string): string {
-        if (key.toLowerCase().includes('press')) {
-            return 'pressure';
-        } else if (key.toLowerCase().includes('volume')) {
-            return 'volume';
-        } else if (key.toLowerCase().includes('temp')) {
-            return 'temperature';
+        if (!!this.data) {
+            ref.indicators.forEach(value => {
+                if (value.key === 'FactValue' || value.key === 'PlanValue') {
+                    this.chooseIndicator(value.key);
+                }
+            });
         }
-        return '';
+        this.data = ref;
     }
 
     public chooseIndicator(key: string): void {
@@ -171,6 +160,5 @@ export class AstueOnpzInteractiveIndicatorsComponent extends WidgetPlatform
             default:
                 return `assets/icons/widgets/ASTUE-ONPZ/interactive-indicators/aim.svg`;
         }
-
     }
 }
