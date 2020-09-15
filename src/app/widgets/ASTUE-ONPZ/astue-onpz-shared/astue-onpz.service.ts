@@ -56,7 +56,7 @@ export class AstueOnpzService {
 
     public colors$: BehaviorSubject<Map<string, number>> =
         new BehaviorSubject<Map<string, number>>(new Map());
-    private colors: number[] = [1, 2, 3, 4, 5, 6];
+    private colors: number = 6;
 
     public sharedMonitoringOptions: Observable<IAstueOnpzMonitoringOptions> = this.monitoringOptions$.asObservable();
 
@@ -168,22 +168,23 @@ export class AstueOnpzService {
 
     public addTagToColor(tag: string): void {
         const colors = this.colors$.getValue();
-        const color = this.colors.shift();
+        if (this.colors === 0) {
+            this.colors = 6;
+        }
+        const color = this.colors--;
         colors.set(tag, color);
         this.colors$.next(colors);
     }
 
     public deleteTagToColor(color: number, tag: string): void {
-        this.colors.push(color);
+        this.colors++;
         const colors = this.colors$.getValue();
         colors.delete(tag);
         this.colors$.next(colors);
     }
 
     public clearColors(): void {
-        this.colors = [1, 2, 3, 4, 5, 6];
-        const colors = this.colors$.getValue();
-        colors.clear();
-        this.colors$.next(colors);
+        this.colors = 6;
+        this.colors$.next(new Map());
     }
 }
