@@ -9,7 +9,7 @@
       </ng-template>
       <ng-template ngSwitchCase="default"></ng-template>
     </div>
-    <div class="name">{{data.title}}</div>
+    <div class="name">{{(data.title.length>15) ? (data.title | slice:0:13)+'...':(data.title)}}</div>
   </div>
   <div class="card__value"><span>{{+data?.currentValue.toFixed(2) | spaceNumber}}</span></div>
   <div class="card__line">
