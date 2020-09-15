@@ -98,7 +98,7 @@ export class AstueOnpzInteractiveIndicatorsComponent extends WidgetPlatform
             }
         }
         ref.indicators = indicators;
-        if (!!this.data) {
+        if (!this.data) {
             ref.indicators.forEach(value => {
                 if (value.key === 'FactValue' || value.key === 'PlanValue') {
                     this.chooseIndicator(value.key);
@@ -154,7 +154,6 @@ export class AstueOnpzInteractiveIndicatorsComponent extends WidgetPlatform
             case 'Давление':
                 return `assets/icons/widgets/ASTUE-ONPZ/interactive-indicators/aim.svg`;
             case 'FactValue':
-                return ``;
             case 'PlanValue':
                 return ``;
             default:
