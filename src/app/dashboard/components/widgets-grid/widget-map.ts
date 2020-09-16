@@ -313,9 +313,9 @@ export const WIDGETS_LAZY = {
         },
         module: 'OzsmResourcesCircleDiagramModule',
         itemCols: 19,
-        itemRows: 4,
+        itemRows: 5,
         minItemCols: 19,
-        minItemRows: 4,
+        minItemRows: 5,
         preview: 'default'
     },
     // #endregion OZSM

@@ -10,6 +10,7 @@ import { AfterViewInit, Component, ElementRef, OnInit, Renderer2, ViewChild,
 })
 export class OzsmResourcesCircleDiagramComponent extends WidgetPlatform
   implements OnInit, AfterViewInit, OnDestroy, OnChanges {
+  listen: any;
 
   @ViewChild('scrollContainer') scrollContainer: ElementRef;
   constructor(
@@ -27,7 +28,7 @@ export class OzsmResourcesCircleDiagramComponent extends WidgetPlatform
   }
 
   horizontalScroll(scrollContainer: ElementRef): void {
-    this.renderer.listen(scrollContainer.nativeElement, 'wheel', e => {
+    this.listen = this.renderer.listen(scrollContainer.nativeElement, 'wheel', e => {
 
     const delta: number = e.deltaY || e.detail || e.wheelDelta;
     scrollContainer.nativeElement.scrollLeft += delta;
@@ -42,6 +43,7 @@ export class OzsmResourcesCircleDiagramComponent extends WidgetPlatform
 
   ngOnDestroy(): void {
       super.ngOnDestroy();
+      this.listen();
   }
 
   dataHandler(): void {}
