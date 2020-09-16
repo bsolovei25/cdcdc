@@ -53,6 +53,7 @@ import { WidgetContainerComponent } from '../../widget-container/widget-containe
 import { AdminShiftScheduleOldComponent } from '../../widgets/admin-widget/admin-shift-schedule-old/admin-shift-schedule-old.component';
 import { CdMatBalanceChartCardComponent } from '../../../widgets/CD/cd-mat-balance/components/cd-mat-balance-chart-card/cd-mat-balance-chart-card.component';
 import { TankInformationComponent } from '../../widgets/tank-information/tank-information.component';
+import { OzsmResourcesCircleDiagramComponent } from 'src/app/widgets/OZSM/ozsm-shared/ozsm-resources-circle-diagram/ozsm-resources-circle-diagram.component';
 
 export const WIDGETS = {
     'pie-diagram': WidgetPiesComponent,
@@ -156,6 +157,7 @@ export const WIDGETS = {
     'astue-onpz-planning-charts': WidgetContainerComponent,
     'astue-onpz-interactive-indicators': WidgetContainerComponent,
     'nk-tank-information': WidgetContainerComponent,
+    'ozsm-resources-circle-diagram': WidgetContainerComponent,
     // TODO
     'cd-mat-balance-sensor': CdMatBalanceChartCardComponent,
     'cd-mat-balance-stream': CdMatBalanceChartCardComponent,
@@ -300,10 +302,26 @@ export const WIDGETS_LAZY = {
         itemRows: 12,
         minItemCols: 19,
         minItemRows: 12,
-        preview: 'nk-tank-information'
+        preview: 'default'
     },
 
     // #endregion NK
+
+    // #region OZSM
+    'ozsm-resources-circle-diagram': {
+        import: async () => {
+            return await import(
+                'src/app/widgets/OZSM/ozsm-shared/ozsm-resources-circle-diagram/ozsm-resources-circle-diagram.module'
+                );
+        },
+        module: 'OzsmResourcesCircleDiagramModule',
+        itemCols: 19,
+        itemRows: 5,
+        minItemCols: 19,
+        minItemRows: 5,
+        preview: 'default'
+    },
+    // #endregion OZSM
 
     // #region KPE
 
