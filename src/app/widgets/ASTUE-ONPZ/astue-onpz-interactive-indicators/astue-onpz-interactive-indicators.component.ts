@@ -82,7 +82,7 @@ export class AstueOnpzInteractiveIndicatorsComponent extends WidgetPlatform
     }
 
     protected dataHandler(ref: any): void {
-        const isFirst: boolean = !!this.data;
+        const isHasData: boolean = this.data?.indicators?.length > 0;
         const indicators: IAstueOnpzInteractiveIndicator[] = [];
         let colorIndex = 0;
         for (const i in ref.indicators) {
@@ -100,7 +100,7 @@ export class AstueOnpzInteractiveIndicatorsComponent extends WidgetPlatform
         }
         ref.indicators = indicators;
         this.data = ref;
-        if (isFirst) {
+        if (!isHasData) {
             this.data.indicators.forEach(value => {
                 if (value.key === 'FactValue' || value.key === 'PlanValue') {
                     this.chooseIndicator(value.key);
