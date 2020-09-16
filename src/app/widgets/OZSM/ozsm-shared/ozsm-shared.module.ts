@@ -8,6 +8,7 @@ import { OzsmEqualizerChartComponent } from './ozsm-equalizer-chart/ozsm-equaliz
 import { OzsmCardLineDiagramComponent } from './ozsm-card-line-diagram/ozsm-card-line-diagram.component';
 import { OzsmCircleDiagramFullComponent } from './ozsm-circle-diagram-full/ozsm-circle-diagram-full.component';
 import { OzsmMainIndicatorComponent } from './ozsm-main-indicator/ozsm-main-indicator.component';
+import { OzsmMainToggleComponent } from '../ozsm-main-toggle/ozsm-main-toggle.component';
 
 @NgModule({
     declarations: [
@@ -18,6 +19,7 @@ import { OzsmMainIndicatorComponent } from './ozsm-main-indicator/ozsm-main-indi
         OzsmCardLineDiagramComponent,
         OzsmCircleDiagramFullComponent,
         OzsmMainIndicatorComponent,
+        OzsmMainToggleComponent,
     ],
     exports: [
         OzsmTripleDiagramCardComponent,
