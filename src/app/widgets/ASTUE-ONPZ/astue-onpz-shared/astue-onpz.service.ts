@@ -98,6 +98,7 @@ export class AstueOnpzService {
     }
 
     public updateIndicatorFilter(key: string, action: 'add' | 'delete'): void {
+        let isChange: boolean = false;
         const filterArray =
             this.indicatorOptions$
                 .getValue()
@@ -105,14 +106,21 @@ export class AstueOnpzService {
                 ?.filter((f) => f !== '') ?? [];
         switch (action) {
             case 'add':
-                filterArray.push(key);
+                if (!filterArray.includes(key)) {
+                    filterArray.push(key);
+                    isChange = true;
+                }
                 break;
             case 'delete':
                 const idx = filterArray.findIndex((f) => f === key);
                 if (idx !== -1) {
                     filterArray.splice(idx, 1);
+                    isChange = true;
                 }
                 break;
+        }
+        if (!isChange) {
+            return;
         }
         const filter: string = filterArray.reduce((a, b) => `${a};${b}`, '');
         this.nextMonitoringCarrierOptions<string>('filterValues', filter);
