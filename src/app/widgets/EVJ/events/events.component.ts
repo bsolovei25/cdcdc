@@ -302,8 +302,11 @@ export class EventsComponent extends WidgetPlatform implements OnInit, OnDestroy
         action: string;
     }): void {
         if (
-            !this.placeNames.find((place) => place === ref.notification?.unit?.name) &&
-            ref.action !== 'delete'
+            this.placeNames?.length === 0 ||
+            (
+                !this.placeNames.find((place) => place === ref.notification?.unit?.name) &&
+                ref.action !== 'delete'
+            )
         ) {
             return;
         }
