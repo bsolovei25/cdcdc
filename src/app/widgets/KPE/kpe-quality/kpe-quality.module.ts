@@ -9,11 +9,12 @@ import { OzsmSharedModule } from '../../OZSM/ozsm-shared/ozsm-shared.module';
     declarations: [
         KpeQualityComponent,
     ],
-  imports: [
-    CommonModule,
-    KpeSharedModule,
-    SharedModule
-  ]
+    imports: [
+        CommonModule,
+        KpeSharedModule,
+        SharedModule,
+        OzsmSharedModule
+    ]
 })
 export class KpeQualityModule {
     enterComponent = KpeQualityComponent;
