@@ -156,7 +156,7 @@ export const WIDGETS = {
     'astue-onpz-planning-charts': WidgetContainerComponent,
     'astue-onpz-interactive-indicators': WidgetContainerComponent,
     'nk-tank-information': WidgetContainerComponent,
-    'ozsm-resources-circle-diagram': OzsmResourcesCircleDiagramComponent,
+    'ozsm-resources-circle-diagram': WidgetContainerComponent,
     // TODO
     'cd-mat-balance-sensor': CdMatBalanceChartCardComponent,
     'cd-mat-balance-stream': CdMatBalanceChartCardComponent,
@@ -299,7 +299,7 @@ export const WIDGETS_LAZY = {
         itemRows: 12,
         minItemCols: 19,
         minItemRows: 12,
-        preview: 'nk-tank-information'
+        preview: 'default'
     },
 
     // #endregion NK
@@ -313,10 +313,10 @@ export const WIDGETS_LAZY = {
         },
         module: 'OzsmResourcesCircleDiagramModule',
         itemCols: 19,
-        itemRows: 12,
+        itemRows: 4,
         minItemCols: 19,
-        minItemRows: 12,
-        preview: 'ozsm'
+        minItemRows: 4,
+        preview: 'default'
     },
     // #endregion OZSM
 
