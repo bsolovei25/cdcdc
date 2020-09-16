@@ -9,7 +9,7 @@
   &__icon {
     position: relative;
     width: 40px;
-    height: 40px;
+    height: 100%;
     background-color: var(--ozsm-color-bg-header);
     display: flex;
     justify-content: center;
@@ -18,7 +18,7 @@
   &__value {
     display: flex;
     justify-content: space-between;
-    bottom: 7px;
+    bottom: 18%;
     margin-left: 2%;
     margin-right: 2%;
     gap: 4px;
@@ -26,7 +26,7 @@
   }
   &__percent {
     width: 60px;
-    height: 40px;
+    height: 100%;
     background-color: var(--ozsm-color-line-bg);
     display: flex;
     justify-content: center;
@@ -67,7 +67,7 @@
 }
 .title {
   padding-left: 2%;
-  top: 6px;
+  top: 25%;
   font-size: 12px;
   line-height: 14px;
 }
