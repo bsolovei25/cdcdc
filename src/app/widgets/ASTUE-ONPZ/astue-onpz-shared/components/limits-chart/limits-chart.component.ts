@@ -1,3 +1,4 @@
+
 import { Component, Input, ViewChild, ElementRef, OnChanges, HostListener } from '@angular/core';
 import * as d3Selection from 'd3-selection';
 import * as d3 from 'd3';
@@ -297,6 +298,12 @@ export class LimitsChartComponent implements OnChanges {
         const translateY: string = `translate(${this.padding.left},0)`;
         drawLabels('axisX', translateX);
         drawLabels('axisY', translateY);
+
+        this.svg.selectAll('g.axisY g.tick')._groups[0].forEach((g, idx) => {
+            if (idx % 2) {
+                g.remove();
+            }
+        });
     }
 
     private customizeAreas(): void {
