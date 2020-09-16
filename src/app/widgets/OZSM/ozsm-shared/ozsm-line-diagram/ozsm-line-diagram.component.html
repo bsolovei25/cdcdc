@@ -1,6 +1,6 @@
 <div class="line-diagram">
   <div class="line-diagram__info">
-    <div class="line-diagram__title"><span>{{(item?.title.length>15) ? (item?.title | slice:0:15)+'...':(item?.title)}}</span></div>
+    <div class="line-diagram__title"><span>{{item.title}}</span></div>
     <div class="line-diagram__level-empty">
       <div class="level" [ngStyle]="{width: item?.percent + '%'}"></div>
     </div>

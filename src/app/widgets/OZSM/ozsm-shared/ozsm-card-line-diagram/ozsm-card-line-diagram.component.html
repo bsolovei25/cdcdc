@@ -11,7 +11,7 @@
       </ng-template>
     </div>
     <div class="name" *ngIf="data.type === 'icon'; else otherTitle" [ngStyle]="iconStyleTitle">
-      {{(data.title.length > 15) ? (data.title | slice:0:13) + '...' : (data.title)}}
+      {{data.title}}
     </div>
   </div>
   <div class="card__value" *ngIf="data.type === 'icon'; else otherValue" [ngStyle]="iconStyleValue">
@@ -19,7 +19,7 @@
   </div>
   <ng-template #otherTitle>
     <div class="name">
-      {{(data.title.length > 15) ? (data.title | slice:0:13) + '...' : (data.title)}}
+      {{data.title}}
     </div>
   </ng-template>
   <ng-template #otherValue>

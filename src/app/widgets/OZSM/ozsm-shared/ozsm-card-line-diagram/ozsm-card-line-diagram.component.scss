@@ -48,6 +48,7 @@
   display: flex;
   justify-content: center;
   flex-direction: column;
+  text-overflow: ellipsis;
 }
 .line-active {
   height: 100%;
