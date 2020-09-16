@@ -5,8 +5,10 @@ import { OzsmTripleDiagramCardComponent } from './ozsm-triple-diagram-card/ozsm-
 import { OzsmCircleDiagramComponent } from './ozsm-circle-diagram/ozsm-circle-diagram.component';
 import { OzsmStorageTankComponent } from './ozsm-triple-diagram-card/ozsm-storage-tank/ozsm-storage-tank.component';
 import { OzsmEqualizerChartComponent } from './ozsm-equalizer-chart/ozsm-equalizer-chart.component';
+import { OzsmCardLineDiagramComponent } from './ozsm-card-line-diagram/ozsm-card-line-diagram.component';
 import { OzsmCircleDiagramFullComponent } from './ozsm-circle-diagram-full/ozsm-circle-diagram-full.component';
 import { OzsmLoadingSpaceComponent } from './ozsm-loading-space/ozsm-loading-space.component';
+import { OzsmMainIndicatorComponent } from './ozsm-main-indicator/ozsm-main-indicator.component';
 
 @NgModule({
     declarations: [
@@ -15,7 +17,9 @@ import { OzsmLoadingSpaceComponent } from './ozsm-loading-space/ozsm-loading-spa
         OzsmStorageTankComponent,
         OzsmEqualizerChartComponent,
         OzsmLoadingSpaceComponent,
+        OzsmCardLineDiagramComponent,
         OzsmCircleDiagramFullComponent,
+        OzsmMainIndicatorComponent,
     ],
     exports: [
         OzsmTripleDiagramCardComponent,
@@ -23,8 +27,11 @@ import { OzsmLoadingSpaceComponent } from './ozsm-loading-space/ozsm-loading-spa
         OzsmStorageTankComponent,
         OzsmEqualizerChartComponent,
         OzsmLoadingSpaceComponent,
+        OzsmCardLineDiagramComponent,
         OzsmCircleDiagramFullComponent,
+        OzsmMainIndicatorComponent
     ],
+
     imports: [
         CommonModule,
         SharedModule

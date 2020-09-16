@@ -25,6 +25,9 @@
     top: 6px;
     font-size: 12px;
     line-height: 14px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
   }
   &__value {
     height: 100%;

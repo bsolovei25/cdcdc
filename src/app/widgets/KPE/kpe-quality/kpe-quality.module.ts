@@ -12,8 +12,7 @@ import { OzsmSharedModule } from '../../OZSM/ozsm-shared/ozsm-shared.module';
   imports: [
     CommonModule,
     KpeSharedModule,
-    SharedModule,
-    OzsmSharedModule
+    SharedModule
   ]
 })
 export class KpeQualityModule {
