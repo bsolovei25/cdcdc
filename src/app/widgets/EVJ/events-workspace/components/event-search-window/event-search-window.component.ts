@@ -8,7 +8,7 @@ import {
 } from '@angular/core';
 import {
     ISearchRetrievalWindow,
-    EventsWidgetNotification,
+    IEventsWidgetNotification,
     IRetrievalEventDto,
     IEventsWidgetOptions,
     EventsWidgetNotificationPreview,
@@ -30,7 +30,7 @@ export class EventSearchWindowComponent implements OnInit, OnChanges {
 
     public readonly icon: string = 'assets/icons/widgets/events/letter.svg';
 
-    public data: EventsWidgetNotification;
+    public data: IEventsWidgetNotification;
 
     public selectId: number = null;
 

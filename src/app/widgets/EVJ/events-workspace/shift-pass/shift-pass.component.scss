@@ -1,0 +1,261 @@
+
+.workspace {
+  position: relative;
+
+  height: 100%;
+  width: calc(100% - 15px);
+
+  box-sizing: border-box;
+  padding: 0 8px;
+  margin: 0 auto;
+
+  display: grid;
+  gap: 10px;
+  grid-template-columns: repeat(2, 1fr);
+  grid-auto-rows: max-content;
+  grid-template-areas:
+    "select select"
+    "select-two select-two"
+    "left right";
+
+  overflow: auto;
+
+  font-family: Tahoma, sans-serif;
+  font-size: 12px;
+  font-weight: 100;
+  color: var(--color-text-sub);
+
+  &__selects {
+    grid-area: select;
+
+    &-two {
+      grid-area: select-two;
+    }
+  }
+
+  &__left {
+    grid-area: left;
+  }
+
+  &__right {
+    grid-area: right;
+  }
+}
+
+.selects {
+  display: grid;
+  gap: 10px;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(1, max-content);
+
+  &--four {
+    display: grid;
+    gap: 10px;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(1, max-content);
+  }
+
+  &__item {
+    height: 50px;
+  }
+}
+
+.deadline {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  padding: 0 15px;
+
+  &__title {
+    position: absolute;
+    font-size: 9px;
+    color: var(--color-text-sub) !important;
+  }
+
+  &::ng-deep {
+    * {
+      color: var(--color-text-main);
+    }
+  }
+}
+
+.left {
+  display: grid;
+  gap: 10px;
+  grid-template-columns: 1fr;
+  grid-template-rows: 130px 1fr 1fr;
+
+  &__item {
+    height: 100%;
+  }
+}
+
+.right {
+  display: grid;
+  gap: 10px;
+  grid-template-columns: 1fr;
+  grid-template-rows: 100px 100px 1fr;
+
+  &__item {
+    height: 100%;
+    width: 100%;
+  }
+}
+
+.creator {
+  width: 50%;
+  padding-left: 15px;
+
+  .creator_title {
+    color: var(--color-text-sub);
+    font-size: 10px;
+  }
+
+  .creator_body {
+    color: white;
+    font-size: 12px;
+  }
+}
+
+.labels {
+  width: 100%;
+  height: 100px;
+  box-sizing: border-box;
+  padding: 0 15px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+
+  &__item {
+    flex: 0 47%;
+  }
+
+  .label {
+    height: 28px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    &__name {
+      font-size: 10px;
+      line-height: 100%;
+      color: var(--color-text-sub);
+    }
+
+    &__value {
+      font-size: 12px;
+      line-height: 120%;
+      color: var(--color-text-main);
+    }
+  }
+}
+
+.status-select {
+  ::ng-deep {
+    .mat-select-disabled .mat-select-value {
+      color: var(--color-text)
+    }
+  }
+}
+
+// MAT-SELECT
+mat-form-field {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 0px 15px;
+  padding-bottom: 0px;
+
+  mat-label {
+    color: var(--color-text-sub);
+  }
+}
+
+::ng-deep {
+  .mat-form-field-underline {
+    height: 0 !important;
+  }
+
+  .mat-form-field-appearance-legacy .mat-form-field-ripple {
+    height: 0;
+  }
+
+  .mat-form-field-wrapper {
+    padding-bottom: 0px;
+    margin: 7px 0px;
+  }
+
+  .mat-select-value {
+    color: var(--color-text-main);
+  }
+}
+
+// END-MAT-SELECT
+
+.standard {
+  height: 100%;
+  border: 1px solid;
+  border-image: linear-gradient(90deg, transparent 0%, var(--color-standard) 100%);
+  border-image-slice: 1;
+  background-image: linear-gradient(
+      to right,
+      #6fcf97 0%,
+      #66bd8c 2%,
+      #569875 6%,
+      #477862 11%,
+      #3b5d51 17%,
+      #314743 23%,
+      #293639 30%,
+      #232a32 39%,
+      #20232e 52%,
+      #20222d 86%
+  );
+}
+
+.warning {
+  height: 100%;
+  border: 1px solid;
+  border-image: linear-gradient(90deg, transparent 0%, var(--color-warning) 100%);
+  border-image-slice: 1;
+  background-image: linear-gradient(
+      to right,
+      #f4a321 0%,
+      #e59a21 1%,
+      #bc8124 5%,
+      #966a26 9%,
+      #765628 14%,
+      #5b4629 19%,
+      #45382a 25%,
+      #342e2b 32%,
+      #28272c 41%,
+      #21232c 53%,
+      #20222d 86%
+  );
+}
+
+.danger {
+  height: 100%;
+  border: 1px solid;
+  border-image: linear-gradient(90deg, transparent 0%, var(--color-danger) 100%);
+  border-image-slice: 1;
+  background: #eb5757;
+  background-image: linear-gradient(
+      to right,
+      #eb5757 0%,
+      #e55555 0%,
+      #bc4a4d 4%,
+      #974145 9%,
+      #76383e 14%,
+      #5b3139 19%,
+      #452b34 25%,
+      #342731 32%,
+      #28242e 41%,
+      #21222d 53%,
+      #20222d 86%
+  );
+}
+
+.block {
+  display: flex;
+  gap: 10px;
+}
