@@ -870,10 +870,10 @@ export const WIDGETS_LAZY = {
         },
         module: 'OzsmMainIndicatorsModule',
         itemCols: 12,
-        itemRows: 7,
+        itemRows: 4,
         minItemCols: 12,
-        minItemRows: 7,
-        preview: 'ozsm-main-indicators',
+        minItemRows: 4,
+        preview: 'default',
     },
 
     //#endregion OZSM

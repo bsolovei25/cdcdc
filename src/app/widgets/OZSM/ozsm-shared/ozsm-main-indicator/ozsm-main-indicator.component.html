@@ -4,7 +4,9 @@
   </div>
   <div class="main-indicator__info">
     <div class="main-indicator__title">
-      <span>{{(item?.title.length > 20) ? (item?.title | slice:0:20) + '...' : (item?.title)}}</span>
+      <div class="text">
+        <span>{{item.title}}</span>
+      </div>
       <div class="text-yellow" *ngIf="item.fact != item.plan">
         <span>{{+item?.plan - item?.fact | spaceNumber}}</span>
       </div>
