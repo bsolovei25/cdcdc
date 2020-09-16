@@ -165,7 +165,8 @@ export const WIDGETS = {
     'ejco-onpz-fsb-load': WidgetContainerComponent,
     'ejco-onpz-unit-kpe': WidgetContainerComponent,
     'ozsm-components': WidgetContainerComponent,
-    'ozsm-main-indicators': WidgetContainerComponent
+    'ozsm-main-indicators': WidgetContainerComponent,
+    'oq-oil-quality': WidgetContainerComponent,
 };
 
 export const WIDGETS_LAZY = {
@@ -873,9 +874,26 @@ export const WIDGETS_LAZY = {
         minItemCols: 12,
         minItemRows: 7,
         preview: 'ozsm-main-indicators',
-    }
+    },
 
     //#endregion OZSM
+
+    //#region OQ
+
+    'oq-oil-quality': {
+        import: async () =>
+            await import(
+                'src/app/widgets/OQ/oq-oil-quality/oq-oil-quality.module'
+                ),
+        module: 'OqOilQualityModule',
+        itemCols: 10,
+        itemRows: 10,
+        minItemCols: 10,
+        minItemRows: 10,
+        preview: 'default'
+    },
+
+    //#endregion OQ
 
     // 'pie-diagram': {
     //     import: async () => await import('src/app/widgets/pie-diagram/pie-diagram.module'),
