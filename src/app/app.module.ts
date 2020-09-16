@@ -12,6 +12,7 @@ import { ErrorInterceptor } from '@core/interceptors/error.interceptor';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AuthenticationInterceptor } from '@core/interceptors/authentication.interceptor';
 import { NgxMaskModule } from 'ngx-mask';
+import { OqOilQualityComponent } from './widgets/OQ/oq-oil-quality/oq-oil-quality.component';
 
 @NgModule({
     imports: [
@@ -24,7 +25,7 @@ import { NgxMaskModule } from 'ngx-mask';
         BrowserAnimationsModule,
         NgxMaskModule.forRoot()
     ],
-    declarations: [AppComponent],
+    declarations: [AppComponent, OqOilQualityComponent],
     providers: [
         {
             provide: APP_INITIALIZER,
