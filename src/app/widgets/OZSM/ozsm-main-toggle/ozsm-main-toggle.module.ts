@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
+import { OzsmMainToggleComponent } from './ozsm-main-toggle.component';
 
 
 @NgModule({
@@ -9,4 +9,6 @@ import { CommonModule } from '@angular/common';
     CommonModule
   ]
 })
-export class OzsmMainToggleModule { }
+export class OzsmMainToggleModule {
+    enterComponent = OzsmMainToggleComponent;
+}
