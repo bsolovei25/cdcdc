@@ -10,10 +10,10 @@
     height: 74px;
     width: 72px;
 
-    border-bottom: 1px solid var(--ozsm-loading-parks-color-border-main);
+    border-bottom: 1px solid var(--ozsm-color-border);
     border-radius: 4px;
 
-    background: #1C1F2B;
+    background: var(--ozsm-color-bg-dark-no-opacity);
 
     transform: translateY(10px);
 }
@@ -27,9 +27,9 @@
     flex-direction: column;
     align-items: center;
 
-    background: #1C1F2B;
+    background: var(--ozsm-color-bg-dark-no-opacity);
 
-    border: 1px solid #303549;
+    border: 1px solid var(--ozsm-color-border-no-opacity);
     border-radius: 4px;
 
     position: relative;
@@ -38,7 +38,7 @@
         height: 8px;
         width: 68px;
 
-        background: rgba(0, 137, 255, 0.2);
+        background: var(--ozsm-color-circle-arc-bg);
 
         border-radius: 0 0 2px 2px;
     }
@@ -46,7 +46,7 @@
     .due-value {
         height: 1px;
         width: 100%;
-        border-top: 1px dashed #4B5169;
+        border-top: 1px dashed var(--ozsm-color-border-due);
 
         position: absolute;
         top: 11px;
@@ -70,12 +70,12 @@
             justify-content: center;
             align-items: center;
 
-            background: var(--ozsm-loading-parks-color-bg-active);
+            background: var(--ozsm-color-active);
 
             span {
                 font-size: 14px;
                 line-height: 17px;
-                color: #FFFFFF
+                color: var(--ozsm-color-white);
             }
         }
     }
@@ -91,20 +91,20 @@
     align-items: center;
     justify-content: center;
 
-    background: var(--ozsm-loading-parks-color-bg-information);
-    border: 1px solid var(--ozsm-loading-parks-color-border-main);
+    background: var(--ozsm-color-line-bg);
+    border: 1px solid var(--ozsm-color-border);
     border-top: none;
 
     &__title {
         font-size: 8px;
         line-height: 10px;
 
-        color:var(--ozsm-loading-parks-color-font-information);
+        color:var(--ozsm-color-font-loading-parks-information);
     }
 
     &__value {
         font-size: 10px;
         line-height: 12px;
-        color: #FFFFFF;
+        color: var(--ozsm-color-white);
     }
 }

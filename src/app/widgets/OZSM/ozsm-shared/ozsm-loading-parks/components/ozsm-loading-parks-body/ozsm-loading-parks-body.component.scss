@@ -5,9 +5,9 @@
     display: flex;
     justify-content: center;
 
-    background: var(--ozsm-loading-parks-color-bg-title);
+    background: var(--ozsm--color-bg-loading-parks-title);
 
-    border: 1px solid var(--ozsm-loading-parks-color-border-main);
+    border: 1px solid var(--ozsm-color-border);
     border-top: none;
     border-radius: 0 0 2px 2px;
 
@@ -32,14 +32,14 @@
     &__title {
         font-size: 10px;
         line-height: 12px;
-        color: var(--ozsm-loading-parks-color-font-menu);
+        color: var(--ozsm-color-marker-diagram);
     }
 
     &__value {
         margin-left: 25px;
         font-size: 14px;
         line-height: 17px;
-        color: var(--ozsm-loading-parks-color-font-main);
+        color: var(--ozsm-color-text-main);
     }
 }
 

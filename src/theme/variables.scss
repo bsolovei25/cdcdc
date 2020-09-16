@@ -379,16 +379,11 @@
   --ozsm-color-text-main: #d7e2f2;
   --ozsm-color-bg-header: rgba(39, 42, 56, 0.5);
   --ozsm-color-bg-main: #1b1e27;
-
-  //ozsm loading-parks
-  --ozsm-loading-parks-color-border-main: rgba(96, 101, 128, 0.25);
-  --ozsm-loading-parks-color-bg-title: #171a24;
-  --ozsm-loading-parks-color-bg-icon: rgba(39, 42, 56, 0.5);
-  --ozsm-loading-parks-color-font-main: #D7E2F2;
-  --ozsm-loading-parks-color-font-menu: #606580;
-  --ozsm-loading-parks-color-font-information: #00A73D;
-  --ozsm-loading-parks-color-bg-information: #272A38;
-  --ozsm-loading-parks-color-bg-active: #0089FF;
+  --ozsm--color-bg-loading-parks-title: #171a24;
+  --ozsm-color-font-loading-parks-information: #00A73D;
+  --ozsm-color-bg-dark-no-opacity: #1C1F2B;
+  --ozsm-color-border-no-opacity: #303549;
+  --ozsm-color-border-due: #4B5169;
 }
 
 $--color-active: #3fa9f5;
