@@ -111,7 +111,7 @@
         (click)="changeIsAcknowledged(cardData)"
         *ngIf="cardData?.category?.code!==0 && cardData?.category?.code!==5 && cardData?.category?.code!==6"
       >
-        {{cardData?.isAcknowledged ? 'Квитировано' : 'Неквитировано'}}
+        {{cardData?.isAcknowledged ? 'Квитировано' : 'Не квитировано'}}
       </div>
 
       <div class="notification__block__extra">

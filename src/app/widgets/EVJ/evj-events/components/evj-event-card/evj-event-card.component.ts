@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Inject, Input, OnInit, Output } from '@angular/core';
 import { EventsWidgetNotificationPreview } from '../../../../../dashboard/models/events-widget';
 import { EventService } from '../../../../../dashboard/services/widgets/event.service';
 
@@ -28,6 +28,9 @@ export class EvjEventCardComponent implements OnInit {
     }
 
     ngOnInit(): void {
+    }
+
+    close(): void {
     }
 
     public eventClick(id: number): void {

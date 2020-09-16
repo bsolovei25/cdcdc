@@ -1,7 +1,20 @@
 <div class="container">
   <div class="events-filters">
     <div class="events-filters__selections">
-      <div class="astue-mat-select">
+
+      <!--      Этот код до лучших времен когда у нас появится производство-->
+      <!--      <div class="event-mat-select">-->
+      <!--        <mat-form-field>-->
+      <!--          <mat-select panelClass="mat-balance-select"-->
+      <!--                      [formControl]="manufactureSelect"-->
+      <!--                      (selectionChange)="onManufactureSelect($event)">-->
+      <!--            <mat-option *ngFor="let item of ['1']" [value]="item">-->
+      <!--              {{ item }}-->
+      <!--            </mat-option>-->
+      <!--          </mat-select>-->
+      <!--        </mat-form-field>-->
+      <!--      </div>-->
+      <div class="event-mat-select">
         <mat-form-field>
           <mat-select panelClass="mat-balance-select"
                       [formControl]="manufactureSelect"
@@ -12,18 +25,7 @@
           </mat-select>
         </mat-form-field>
       </div>
-      <div class="astue-mat-select">
-        <mat-form-field>
-          <mat-select panelClass="mat-balance-select"
-                      [formControl]="manufactureSelect"
-                      (selectionChange)="onManufactureSelect($event)">
-            <mat-option *ngFor="let item of ['1']" [value]="item">
-              {{ item }}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
-      </div>
-      <div class="astue-mat-select">
+      <div class="event-mat-select">
         <mat-form-field>
           <mat-select panelClass="mat-balance-select"
                       [formControl]="manufactureSelect"
@@ -39,7 +41,7 @@
       </button>
     </div>
     <div class="events-filters__search">
-      <input type="text" placeholder="Поиск">
+      <input [formControl]="" type="text" placeholder="Поиск">
     </div>
 
   </div>

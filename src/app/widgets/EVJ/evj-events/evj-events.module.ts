@@ -18,10 +18,17 @@ import { EvjEventCategoriesComponent } from './components/evj-event-categories/e
 import { EvjEventFiltersComponent } from './components/evj-event-filters/evj-event-filters.component';
 import { MatSelectModule } from '@angular/material/select';
 import { ReactiveFormsModule } from '@angular/forms';
+import { PortalModule } from '@angular/cdk/portal';
+import { PlatformModule } from '@angular/cdk/platform';
+import { OverlayModule } from '@angular/cdk/overlay';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 @NgModule({
     declarations: [EvjEventsComponent, EvjEventCardComponent, EvjEventCategoriesComponent, EvjEventFiltersComponent],
     imports: [
+        OverlayModule,
+        PlatformModule,
+        PortalModule,
         CommonModule,
         AngularSvgIconModule,
         HttpClientModule,
@@ -37,7 +44,9 @@ import { ReactiveFormsModule } from '@angular/forms';
         SharedModule,
         MatSelectModule,
         ReactiveFormsModule,
-    ]
+        MatSlideToggleModule,
+    ],
+    providers: []
 })
 export class EvjEventsModule {
     enterComponent = EvjEventsComponent;

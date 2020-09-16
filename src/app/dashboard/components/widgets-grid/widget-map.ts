@@ -161,7 +161,7 @@ export const WIDGETS = {
     'cd-mat-balance-stream': CdMatBalanceChartCardComponent,
     //
     'line-diagram': WidgetContainerComponent,
-    'evj-events': WidgetContainerComponent
+    'evj-events': WidgetContainerComponent,
     'ejco-onpz-unit-sou': WidgetContainerComponent,
     'ejco-onpz-fsb-load': WidgetContainerComponent,
     'ejco-onpz-unit-kpe': WidgetContainerComponent,

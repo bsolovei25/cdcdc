@@ -1,10 +1,15 @@
 import { Component, HostListener, Inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { IAlertWindowModel } from '@shared/models/alert-window.model';
 import {
-    EventsWidgetCategory, EventsWidgetCategoryCode, EventsWidgetFilter,
-    EventsWidgetNotificationPreview, EventsWidgetNotificationStatus, IEventsWidgetOptions
+    EventsWidgetCategory,
+    EventsWidgetCategoryCode,
+    EventsWidgetFilter,
+    EventsWidgetNotificationPreview,
+    EventsWidgetNotificationStatus,
+    IEventsWidgetOptions,
+    IRetrievalEventDto
 } from '../../../dashboard/models/events-widget';
 import { EventService } from '../../../dashboard/services/widgets/event.service';
 import { EventsWorkspaceService } from '../../../dashboard/services/widgets/events-workspace.service';
@@ -13,7 +18,7 @@ import { ClaimService, EnumClaimWidgets } from '../../../dashboard/services/clai
 import { UserSettingsService } from '../../../dashboard/services/user-settings.service';
 import { WidgetService } from '../../../dashboard/services/widget.service';
 import { WidgetSettingsService } from '../../../dashboard/services/widget-settings.service';
-import { throttle } from 'rxjs/operators';
+import { debounceTime, distinctUntilChanged, throttle } from 'rxjs/operators';
 import { IEventSettings } from '../events/events.component';
 import { WidgetPlatform } from '../../../dashboard/models/widget-platform';
 
@@ -203,7 +208,7 @@ export class EvjEventsComponent extends WidgetPlatform implements OnInit, OnDest
         {
             id: -100,
             code: 'isNotAcknowledged',
-            name: 'Неквитировано',
+            name: 'Не квитировано',
             notificationsCount: 0,
             isActive: false
         }
@@ -255,6 +260,9 @@ export class EvjEventsComponent extends WidgetPlatform implements OnInit, OnDest
         this.subscriptions.push(
             this.claimService.claimWidgets$.subscribe((data) => {
                 this.claimWidgets = data;
+            }),
+            this.searchTerm.subscribe((search) => {
+                this.search(search);
             })
         );
     }
@@ -309,6 +317,16 @@ export class EvjEventsComponent extends WidgetPlatform implements OnInit, OnDest
                 this.deleteWsElement(ref.notification);
                 break;
         }
+    }
+
+    public searchTerm$: BehaviorSubject<string> = new BehaviorSubject<string>('');
+    public searchTerm: Observable<string> = this.searchTerm$.pipe(
+        debounceTime(450),
+        distinctUntilChanged()
+    );
+
+    private async search(searchString: string): Promise<void> {
+        console.log(searchString);
     }
 
     private async setWidgetSettings(settings: IEventSettings): Promise<void> {
@@ -605,5 +623,6 @@ export class EvjEventsComponent extends WidgetPlatform implements OnInit, OnDest
             setTimeout(() => this.timeout = true, 2000);
         }
     }
+
 
 }
