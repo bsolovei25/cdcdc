@@ -1,0 +1,19 @@
+<div class="container pointer-event">
+  <evj-contemporary-widget-header
+    [uniqId]="widgetUniqId"
+    [widgetTitle]="widgetTitle"
+    icon="diagram"
+  >
+  </evj-contemporary-widget-header>
+  <div
+    class="container-body"
+    (mousedown)="$event.stopPropagation()"
+    (touchstart)="$event.stopPropagation()"
+  >
+    <div class="line-diagrams">
+      <ng-container *ngFor="let item of data">
+        <evj-ozsm-line-diagram [data]="item"></evj-ozsm-line-diagram>
+      </ng-container>
+    </div>
+  </div>
+</div>

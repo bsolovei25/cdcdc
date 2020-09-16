@@ -1,0 +1,42 @@
+.line-diagrams {
+  height: 100%;
+  width: 100%;
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding-top: 10px;
+  padding-right: 5px;
+}
+.widget-container {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  padding-bottom: 10px;
+  box-sizing: border-box;
+}
+
+.content-container {
+  display: flex;
+  justify-content: space-between;
+  flex: 1;
+
+}
+
+.container {
+  display: flex;
+  flex-flow: column;
+  background-color: var(--ozsm-color-bg-dark);
+  height: 100%;
+  width: 100%;
+
+  &-body {
+    flex-grow: 1;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 10px;
+    border: 1px solid var(--color-cd-bg-border);
+    overflow: hidden;
+  }
+}
+

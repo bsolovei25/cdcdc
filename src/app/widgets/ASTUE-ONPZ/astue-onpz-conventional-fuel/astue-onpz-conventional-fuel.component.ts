@@ -4,6 +4,7 @@ import { WidgetService } from '../../../dashboard/services/widget.service';
 import { IMultiChartLine } from '../../../dashboard/models/ASTUE-ONPZ/astue-onpz-multi-chart.model';
 import { UserSettingsService } from '../../../dashboard/services/user-settings.service';
 import { AstueOnpzService } from '../astue-onpz-shared/astue-onpz.service';
+import { IMultiChartOptions } from './components/astue-onpz-multi-chart/astue-onpz-multi-chart.component';
 
 @Component({
     selector: 'evj-astue-onpz-conventional-fuel',
@@ -13,8 +14,12 @@ import { AstueOnpzService } from '../astue-onpz-shared/astue-onpz.service';
 export class AstueOnpzConventionalFuelComponent extends WidgetPlatform
     implements OnInit, OnDestroy {
     public data: IMultiChartLine[] = [];
+    colors: Map<string, number>;
 
-    private isPredictorsChart: boolean = false;
+    public isPredictors: boolean = false;
+    public options: IMultiChartOptions = {
+        isIconsShowing: false,
+    };
 
     get planningChart(): boolean {
         return !!this.astueOnpzService.sharedPlanningGraph$.getValue();
@@ -37,26 +42,30 @@ export class AstueOnpzConventionalFuelComponent extends WidgetPlatform
 
     protected dataConnect(): void {
         super.dataConnect();
+        this.isPredictors = this.widgetType === 'astue-onpz-conventional-fuel-predictors';
+        this.options.isIconsShowing = !this.isPredictors;
         this.subscriptions.push(
             this.astueOnpzService.sharedIndicatorOptions.subscribe((options) => {
+                if (this.isPredictors) {
+                    return;
+                }
                 this.widgetService.setWidgetLiveDataFromWSOptions(this.widgetId, options);
-                this.isPredictorsChart = false;
             }),
-            // this.astueOnpzService.predictorsOptions$.subscribe((options) => {
-            //     this.widgetService.setWidgetLiveDataFromWSOptions(this.widgetId, options);
-            //     this.isPredictorsChart = true;
-            // }),
             this.astueOnpzService.multiLinePredictors.subscribe((data) => {
+                if (!this.isPredictors) {
+                    return;
+                }
                 if (!!data) {
-                    this.isPredictorsChart = true;
                     this.data = data;
                     this.data.forEach((item) => {
                         item.graph?.forEach((val) => (val.timeStamp = new Date(val.timeStamp)));
                     });
                 } else {
-                    this.isPredictorsChart = false;
                     this.data = [];
                 }
+            }),
+            this.astueOnpzService.colors$.subscribe((value) => {
+                this.colors = value;
             })
         );
     }
@@ -67,7 +76,7 @@ export class AstueOnpzConventionalFuelComponent extends WidgetPlatform
     }
 
     protected dataHandler(ref: { graphs: IMultiChartLine[] }): void {
-        if (!this.isPredictorsChart) {
+        if (!this.isPredictors) {
             if (ref?.graphs) {
                 ref.graphs.forEach((graph) => {
                     const _ = graph as any;
