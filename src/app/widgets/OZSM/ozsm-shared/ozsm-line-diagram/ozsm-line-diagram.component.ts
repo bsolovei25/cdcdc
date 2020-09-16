@@ -9,7 +9,7 @@ import { IOZSMLineDiagram } from '../../../../dashboard/models/OZSM/ozsm-line-di
 })
 export class OzsmLineDiagramComponent implements OnInit {
     item: IOZSMLineDiagram;
-
+    public yellow: number = 0;
     @Input() set data(value: IOZSMLineDiagram) {
         if (value) {
             if (value.fact < 0)  {

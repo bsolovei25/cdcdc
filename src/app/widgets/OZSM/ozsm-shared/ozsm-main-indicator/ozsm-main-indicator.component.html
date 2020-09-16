@@ -4,13 +4,25 @@
   </div>
   <div class="main-indicator__info">
     <div class="main-indicator__title">
-      <span>{{(item?.title.length > 15) ? (item?.title | slice:0:15) + '...' : (item?.title)}}</span>
+      <span>{{(item?.title.length > 20) ? (item?.title | slice:0:20) + '...' : (item?.title)}}</span>
+      <div class="text-yellow" *ngIf="item.fact != item.plan">
+        <span>{{+item?.plan - item?.fact | spaceNumber}}</span>
+      </div>
+
     </div>
     <div class="main-indicator__level-empty">
-      <div class="level" [ngStyle]="{width: item?.percent + '%'}"></div>
+      <div class="level-yellow" *ngIf="item.fact != item.plan; else full" [ngStyle]="{width: '100%'}">
+        <div class="level-white" [ngStyle]="{width: item?.percent + '%'}"></div>
+      </div>
+      <ng-template #full>
+        <div class="level-full" [ngStyle]="{width: item?.percent + '%'}"></div>
+      </ng-template>
     </div>
   </div>
   <div class="main-indicator__value">
     <span>{{ +item?.plan.toFixed(2) | spaceNumber}}</span>
+    <div class="text-blue" *ngIf="item.fact != item.plan">
+        <span>{{ +item?.fact.toFixed(2) | spaceNumber}}</span>
+    </div>
   </div>
 </div>

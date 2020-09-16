@@ -5,6 +5,7 @@
   background-color: transparent;
   display: flex;
   justify-content: space-between;
+
   &__icon {
     height: 100%;
     width: 40px;
@@ -15,6 +16,7 @@
     align-items: center;
     justify-content: center;
   }
+
   &__info {
     height: 100%;;
     width: 100%;
@@ -25,16 +27,21 @@
     flex-direction: column;
     justify-content: space-around;
   }
+
   &__title {
     position: absolute;
     height: 14px;
-    width: 100%;
+    width: 90%;
     background-color: transparent;
-    left: 8px;
     top: 6px;
+    margin-left: 5%;
     font-size: 12px;
     line-height: 14px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
   }
+
   &__value {
     height: 100%;
     width: 60px;
@@ -42,12 +49,14 @@
     border: 1px solid var(--ozsm-color-border);
     border-radius: 0px 2px 2px 0px;
     display: flex;
+    flex-direction: column;
     justify-content: center;
-    align-items: center;
+    align-items: flex-end;
+    padding-right: 2.7%;
     font-size: 12px;
     line-height: 14px;
-    text-align: center;
-}
+  }
+
   &__level-empty {
     position: absolute;
     height: 20%;
@@ -58,12 +67,39 @@
     box-sizing: border-box;
     border-radius: 2px;
     background-color: transparent;
-    .level {
+
+    .level-full {
       height: 100%;
       box-sizing: border-box;
-      background-color: var(--ozsm-color-active);
       border: 1px solid var(--ozsm-color-bg-main);
       border-radius: 2px;
+      background-color: var(--ozsm-color-active);
+    }
+
+    .level-yellow {
+      height: 100%;
+      box-sizing: border-box;
+      border: 1px solid var(--ozsm-color-bg-main);
+      border-radius: 2px;
+      background-color: var(--ozsm-color-warning);
+    }
+
+    .level-white {
+      height: 100%;
+      box-sizing: border-box;
+      border-radius: 1px 0px 0px 1px;
+      background-color: var(--ozsm-color-white);
     }
   }
+}
+.text-yellow {
+  font-size: 10px;
+  line-height: 20px;
+  text-align: right;
+  color: var(--ozsm-color-warning);
+}
+.text-blue {
+  font-size: 10px;
+  line-height: 12px;
+  color: var(--ozsm-color-active);
 }
