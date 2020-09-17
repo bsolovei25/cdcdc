@@ -2,7 +2,8 @@
     <evj-contemporary-widget-header
         [uniqId]="uniqId" 
         [widgetTitle]="widgetTitle" 
-        icon="map"
+        icon="tank"
+        type="astue"
     ></evj-contemporary-widget-header>
 
     <div class="container-body" 
@@ -11,7 +12,8 @@
     >
         <evj-nk-tank-information-filter-menu
             [filterList] = "filterList"
-            (onFilter) = "getFilter($event)" 
+            (onFilter) = "getFilter($event)"
+            [selectedFilter] = "selectedFilter"
         ></evj-nk-tank-information-filter-menu>
 
         <div class="cardList">

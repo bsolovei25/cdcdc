@@ -1,4 +1,3 @@
-import { IVolume } from './../../../../dashboard/models/NK/nk-tank-information.model';
 import { SpaceNumber } from '@shared/pipes/number-space.pipe';
 import { Component, OnInit, Input, OnChanges } from '@angular/core';
 
@@ -30,15 +29,15 @@ export class NkTankInformationCardInfoComponent implements OnInit, OnChanges {
     this.volumeMax = this.volumeMax > 0 ? this.volumeMax : 0;
     this.volumeCurrent = this.volumeCurrent > 0 ? this.volumeCurrent : 0;
 
-    this.nominal = this.spacePipe.transform(this.volumeMax);
-    this.current = this.spacePipe.transform(this.volumeCurrent);
+    this.nominal = this.spacePipe.transform(this.volumeMax, 3);
+    this.current = this.spacePipe.transform(this.volumeCurrent, 3);
 
     this.fill = this.volumeFillPercentage < 100
       ? this.volumeFillPercentage
       : 100; // На случай если бак переполнен
 
     this.freeSpace = (this.volumeMax - this.volumeCurrent) > 0
-      ? this.spacePipe.transform(this.volumeMax - this.volumeCurrent)
+      ? this.spacePipe.transform(this.volumeMax - this.volumeCurrent, 3)
       : '0';
 
     this.activeIndicatorCount =
