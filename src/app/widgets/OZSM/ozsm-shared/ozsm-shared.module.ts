@@ -33,7 +33,6 @@ import { OzsmCircleDiagramFullComponent } from './ozsm-circle-diagram-full/ozsm-
         OzsmCardLineDiagramComponent,
         OzsmCircleDiagramFullComponent,
         OzsmEqualizerChartComponent,
-        OzsmLineDiagramComponent,
         OzsmLoadingSpaceComponent
     ],
     exports: [
@@ -50,7 +49,6 @@ import { OzsmCircleDiagramFullComponent } from './ozsm-circle-diagram-full/ozsm-
         OzsmCardLineDiagramComponent,
         OzsmCircleDiagramFullComponent,
         OzsmEqualizerChartComponent,
-        OzsmLineDiagramComponent,
         OzsmLoadingSpaceComponent
     ],
 
