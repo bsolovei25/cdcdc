@@ -9,6 +9,8 @@ import { OzsmCardLineDiagramComponent } from './ozsm-card-line-diagram/ozsm-card
 import { OzsmCircleDiagramFullComponent } from './ozsm-circle-diagram-full/ozsm-circle-diagram-full.component';
 import { OzsmLoadingSpaceComponent } from './ozsm-loading-space/ozsm-loading-space.component';
 import { OzsmMainIndicatorComponent } from './ozsm-main-indicator/ozsm-main-indicator.component';
+import { OzsmCirclePlanningDiagramPlanComponent } from './ozsm-circle-planning-diagram-plan/ozsm-circle-planning-diagram-plan.component';
+import { OzsmCirclePlanningDiagramCardComponent } from './ozsm-circle-planning-diagram-card/ozsm-circle-planning-diagram-card.component';
 
 @NgModule({
     declarations: [
@@ -20,6 +22,8 @@ import { OzsmMainIndicatorComponent } from './ozsm-main-indicator/ozsm-main-indi
         OzsmCardLineDiagramComponent,
         OzsmCircleDiagramFullComponent,
         OzsmMainIndicatorComponent,
+        OzsmCirclePlanningDiagramPlanComponent,
+        OzsmCirclePlanningDiagramCardComponent,
     ],
     exports: [
         OzsmTripleDiagramCardComponent,
