@@ -7,6 +7,7 @@ import { OzsmStorageTankComponent } from './ozsm-triple-diagram-card/ozsm-storag
 import { OzsmEqualizerChartComponent } from './ozsm-equalizer-chart/ozsm-equalizer-chart.component';
 import { OzsmCardLineDiagramComponent } from './ozsm-card-line-diagram/ozsm-card-line-diagram.component';
 import { OzsmCircleDiagramFullComponent } from './ozsm-circle-diagram-full/ozsm-circle-diagram-full.component';
+import { OzsmLoadingSpaceComponent } from './ozsm-loading-space/ozsm-loading-space.component';
 import { OzsmMainIndicatorComponent } from './ozsm-main-indicator/ozsm-main-indicator.component';
 import { OzsmMainToggleComponent } from '../ozsm-main-toggle/ozsm-main-toggle.component';
 
@@ -16,6 +17,7 @@ import { OzsmMainToggleComponent } from '../ozsm-main-toggle/ozsm-main-toggle.co
         OzsmCircleDiagramComponent,
         OzsmStorageTankComponent,
         OzsmEqualizerChartComponent,
+        OzsmLoadingSpaceComponent,
         OzsmCardLineDiagramComponent,
         OzsmCircleDiagramFullComponent,
         OzsmMainIndicatorComponent,
@@ -26,6 +28,7 @@ import { OzsmMainToggleComponent } from '../ozsm-main-toggle/ozsm-main-toggle.co
         OzsmCircleDiagramComponent,
         OzsmStorageTankComponent,
         OzsmEqualizerChartComponent,
+        OzsmLoadingSpaceComponent,
         OzsmCardLineDiagramComponent,
         OzsmCircleDiagramFullComponent,
         OzsmMainIndicatorComponent

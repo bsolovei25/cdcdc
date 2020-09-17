@@ -3,7 +3,6 @@ import { WidgetPlatform } from '../../../dashboard/models/widget-platform';
 import { WidgetService } from '../../../dashboard/services/widget.service';
 import { HttpClient } from '@angular/common/http';
 import { IProductionTrend } from '../../../dashboard/models/production-trends.model';
-import { IKpeGaudeData } from '../shared/kpe-gaude-chart/kpe-gaude-chart.component';
 import { IDeviationDiagramData } from '../shared/kpe-deviation-diagram/kpe-deviation-diagram.component';
 import { IBarDiagramData } from '../shared/kpe-equalizer-chart/kpe-equalizer-chart.component';
 import { KpeHelperService } from '../shared/kpe-helper.service';
@@ -31,8 +30,6 @@ export class KpeQualityComponent extends WidgetPlatform implements OnInit, OnDes
     public lineChartData: IProductionTrend[] = [];
 
     public margin = { top: 20, right: 20, bottom: 30, left: 40 };
-
-    public gaudeData: IKpeGaudeData = null;
 
     public deviationChartData: IDeviationDiagramData[] = [];
 

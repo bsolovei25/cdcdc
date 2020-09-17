@@ -152,28 +152,6 @@ export class AstueOnpzMultiChartComponent implements OnChanges, OnDestroy {
                 val.timeStamp.setSeconds(0);
                 val.timeStamp.setMinutes(0);
             });
-            // вычисление дат начала и конца
-            const end = item.graph[item.graph.length - 1].timeStamp;
-            const start = new Date(end);
-            start.setHours(end.getHours() - 18);
-            // фильтрация по дате начала
-            item.graph = item.graph?.filter((val) => val.timeStamp.getTime() >= start.getTime());
-            // зачистка повторяющихся дат
-            const filteredArray: IChartMini[] = [];
-            item.graph?.forEach((val, idx, array) => {
-                const filtered = array.filter(
-                    (el) => el.timeStamp.getTime() === val.timeStamp.getTime()
-                );
-                val.value = filtered.reduce((acc, elem) => acc + elem.value, 0) / filtered.length;
-                if (
-                    !filteredArray.length ||
-                    filteredArray[filteredArray.length - 1].timeStamp.getTime() !==
-                        val.timeStamp.getTime()
-                ) {
-                    filteredArray.push({ value: val.value, timeStamp: val.timeStamp });
-                }
-            });
-            item.graph = filteredArray;
             // заполнение пропусков в массиве
             const arr = item.graph;
             for (let idx = 0; idx < arr.length; idx++) {
@@ -204,6 +182,28 @@ export class AstueOnpzMultiChartComponent implements OnChanges, OnDestroy {
                     }
                 }
             }
+            // зачистка повторяющихся дат
+            const filteredArray: IChartMini[] = [];
+            item.graph?.forEach((val, idx, array) => {
+                const filtered = array.filter(
+                    (el) => el.timeStamp.getTime() === val.timeStamp.getTime()
+                );
+                val.value = filtered.reduce((acc, elem) => acc + elem.value, 0) / filtered.length;
+                if (
+                    !filteredArray.length ||
+                    filteredArray[filteredArray.length - 1].timeStamp.getTime() !==
+                        val.timeStamp.getTime()
+                ) {
+                    filteredArray.push({ value: val.value, timeStamp: val.timeStamp });
+                }
+            });
+            item.graph = filteredArray;
+            // вычисление дат начала и конца
+            const end = item.graph[item.graph.length - 1].timeStamp;
+            const start = new Date(end);
+            start.setHours(end.getHours() - 18);
+            // фильтрация по дате начала
+            item.graph = item.graph?.filter((val) => val.timeStamp.getTime() >= start.getTime());
         });
     }
 
@@ -219,15 +219,12 @@ export class AstueOnpzMultiChartComponent implements OnChanges, OnDestroy {
                     max: this.MAX_COEF,
                 };
             }
-
             this.charts.push({ ...(graph as IMultiChartData) });
             const currentChart = this.charts[this.charts.length - 1];
-            currentChart.maxValue = Math.round(
-                d3.max(graph.graph, (item: IChartMini) => item.value) * (1 + this.coefs[key].max)
-            );
-            currentChart.minValue = Math.round(
-                d3.min(graph.graph, (item: IChartMini) => item.value) * (1 - this.coefs[key].min)
-            );
+            const max = d3.max(graph.graph, (item: IChartMini) => item.value);
+            const min = d3.min(graph.graph, (item: IChartMini) => item.value);
+            currentChart.maxValue = max + (max - min) * this.coefs[key].max;
+            currentChart.minValue = min - (max - min) * this.coefs[key].min;
         });
 
         const plan = this.charts.find((item) => item.graphType === 'plan');
@@ -265,12 +262,23 @@ export class AstueOnpzMultiChartComponent implements OnChanges, OnDestroy {
 
     private defineAxisYLabels(min: number, max: number, countOfSteps: number = 10): number[] {
         const arr: number[] = [];
-        const step: number = Math.round((max - min) / countOfSteps);
+        const round = roundAxis(max - min);
+        const step: number = +((max - min) / countOfSteps);
         for (let i = 1; i < 10; i++) {
             min += step;
-            arr.push(min);
+            arr.push(+min.toFixed(round));
         }
         return arr;
+
+        function roundAxis(dev: number, counter: number = 0): number {
+            const epsilon: number = 4;
+            const roundVal = 10 * 0.1 ** counter;
+            if (dev > roundVal || counter > 4) {
+                return counter;
+            } else {
+                return roundAxis(dev, ++counter);
+            }
+        }
     }
 
     private defineScale(): void {
@@ -690,5 +698,9 @@ export class AstueOnpzMultiChartComponent implements OnChanges, OnDestroy {
         const fact = this.charts.find((item) => item.graphType === 'fact');
         const coef = !!plan && !!fact ? this.charts.length - 1 : this.charts.length;
         return this.padding.left + this.axisYWidth * coef;
+    }
+
+    private delta(a: number, b: number): number {
+        return a - b;
     }
 }

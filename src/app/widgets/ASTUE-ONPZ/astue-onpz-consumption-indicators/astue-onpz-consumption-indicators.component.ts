@@ -78,7 +78,7 @@ export class AstueOnpzConsumptionIndicatorsComponent extends WidgetPlatform
                     }
                 }
                 this.widgetService.setWidgetLiveDataFromWSOptions(this.widgetId, options);
-            })
+            }),
         );
     }
 

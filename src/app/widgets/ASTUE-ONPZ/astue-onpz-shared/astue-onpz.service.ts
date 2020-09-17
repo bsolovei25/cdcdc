@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import {
     AstueOnpzConsumptionIndicatorsWidgetType,
-    AstueOnpzConsumptionIndicatorType
+    AstueOnpzConsumptionIndicatorType,
 } from '../astue-onpz-consumption-indicators/astue-onpz-consumption-indicators.component';
 import { IPlanningChart } from '../astue-onpz-planning-charts/astue-onpz-planning-charts.component';
 import { IMultiChartLine } from '../../../dashboard/models/ASTUE-ONPZ/astue-onpz-multi-chart.model';
@@ -148,6 +148,14 @@ export class AstueOnpzService {
         indicatorTypeParam: AstueOnpzConsumptionIndicatorType,
         typeParam: AstueOnpzConsumptionIndicatorsWidgetType
     ): void {
+        const currentOptions = this.monitoringOptions$.getValue();
+        if (
+            currentOptions.type === typeParam &&
+            currentOptions.indicatorType === indicatorTypeParam
+        ) {
+            indicatorTypeParam = null;
+            typeParam = null;
+        }
         this.monitoringOptions$.next({
             ...this.monitoringOptions$.value,
             ...{
