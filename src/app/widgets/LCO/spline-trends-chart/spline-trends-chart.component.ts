@@ -111,7 +111,7 @@ export class SplineTrendsChartComponent extends WidgetPlatform implements OnInit
         const numOfDays = this.getNumOfDays(this.displayedMonth);
 
         const result = {
-            deviationValue: ref.deviationValue ?? 0,
+            deviationValue: ref.deviation ?? 0,
             planValue: 0,
             fact: fieldHandler(splitHandler(ref?.fact)[0]),
             plan: fieldHandler(splitHandler(ref?.plan)[0]),
