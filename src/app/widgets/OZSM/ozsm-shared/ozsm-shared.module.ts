@@ -33,7 +33,9 @@ import { OzsmCirclePlanningDiagramCardComponent } from './ozsm-circle-planning-d
         OzsmLoadingSpaceComponent,
         OzsmCardLineDiagramComponent,
         OzsmCircleDiagramFullComponent,
-        OzsmMainIndicatorComponent
+        OzsmMainIndicatorComponent,
+        OzsmCirclePlanningDiagramCardComponent,
+        OzsmCirclePlanningDiagramPlanComponent
     ],
 
     imports: [
