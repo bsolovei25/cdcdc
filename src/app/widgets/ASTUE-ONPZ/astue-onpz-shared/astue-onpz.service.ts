@@ -43,12 +43,15 @@ export class AstueOnpzService {
         filterValues: null
     });
 
-    private monitoringOptions$: BehaviorSubject<IAstueOnpzMonitoringOptions> = new BehaviorSubject({
+    public monitoringOptions$: BehaviorSubject<IAstueOnpzMonitoringOptions> = new BehaviorSubject({
         manufactureName: null,
         unitName: null,
         type: null,
         indicatorType: null
     });
+
+    public multilineChartIndicatorTitle$: BehaviorSubject<string> =
+        new BehaviorSubject<string>('');
 
     public predictorsOptions$: BehaviorSubject<IAstueOnpzPredictorsOptions[]> = new BehaviorSubject(
         []
@@ -58,13 +61,16 @@ export class AstueOnpzService {
         new BehaviorSubject<Map<string, number>>(new Map());
     private colors: number = 6;
 
-    public sharedMonitoringOptions: Observable<IAstueOnpzMonitoringOptions> = this.monitoringOptions$.asObservable();
+    public sharedMonitoringOptions: Observable<IAstueOnpzMonitoringOptions> =
+        this.monitoringOptions$.asObservable();
 
-    public sharedIndicatorOptions: Observable<IAstueOnpzMonitoringCarrierOptions> = this.indicatorOptions$.asObservable();
+    public sharedIndicatorOptions: Observable<IAstueOnpzMonitoringCarrierOptions> =
+        this.indicatorOptions$.asObservable();
 
     public sharedPlanningGraph$: BehaviorSubject<IPlanningChart> = new BehaviorSubject(null);
 
-    private multiLinePredictorsChart$: BehaviorSubject<IMultiChartLine[]> = new BehaviorSubject<IMultiChartLine[]>(null);
+    private multiLinePredictorsChart$: BehaviorSubject<IMultiChartLine[]> =
+        new BehaviorSubject<IMultiChartLine[]>(null);
 
     get multiLinePredictors(): Observable<IMultiChartLine[]> {
         return this.multiLinePredictorsChart$.asObservable();

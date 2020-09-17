@@ -64,7 +64,7 @@ export class AstueOnpzMenuStructureComponent extends WidgetPlatform implements O
             this.astueOnpzService.sharedMonitoringOptions.subscribe(options => {
                 if (options) {
                     this.manufactureSelect.setValue(options.manufactureName);
-                    this.manufactures.forEach(manufacture => {
+                    this.manufactures?.forEach(manufacture => {
                         if (manufacture.name === options.manufactureName) {
                             this.units = manufacture.units;
                             this.unitSelect.setValue(options.unitName);
