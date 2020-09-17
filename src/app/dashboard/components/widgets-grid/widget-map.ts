@@ -169,6 +169,7 @@ export const WIDGETS = {
     'ozsm-components': WidgetContainerComponent,
     'ozsm-main-indicators': WidgetContainerComponent,
     'oq-oil-quality': WidgetContainerComponent,
+    'ozsm-main-toggle': WidgetContainerComponent
 };
 
 export const WIDGETS_LAZY = {
@@ -893,6 +894,20 @@ export const WIDGETS_LAZY = {
         minItemRows: 4,
         preview: 'default',
     },
+    'ozsm-main-toggle': {
+    import: async () => {
+        return await import(
+            'src/app/widgets/OZSM/ozsm-main-indicators/ozsm-main-indicators.module'
+            );
+    },
+        module: 'OzsmMainIndicatorsModule',
+        itemCols: 4,
+        itemRows: 4,
+        minItemCols: 4,
+        minItemRows: 4,
+        preview: 'default',
+},
+
 
     //#endregion OZSM
 
