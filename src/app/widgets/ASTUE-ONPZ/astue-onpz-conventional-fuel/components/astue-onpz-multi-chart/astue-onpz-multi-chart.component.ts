@@ -16,12 +16,20 @@ import {
     IMultiChartData,
 } from '../../../../../dashboard/models/ASTUE-ONPZ/astue-onpz-multi-chart.model';
 import { AsyncRender } from '../../../../../@shared/functions/async-render.function';
+import { IAstueOnpzColors } from '../../../astue-onpz-shared/astue-onpz.service';
+
+export interface IMultiChartOptions {
+    colors?: Map<string, number>;
+    isIconsShowing?: boolean;
+}
 
 const lineColors: { [key: string]: string } = {
-    temperature: '#FFB100',
-    heatExchanger: '#673AB7',
-    volume: '#45C5FA',
-    pressure: '#0F62FE',
+    1: '#9362d0',
+    2: '#0ba4a4',
+    3: '#8090f0',
+    4: '#0f62fe',
+    5: '#0089ff',
+    6: '#039de0',
 };
 
 @Component({
@@ -31,6 +39,8 @@ const lineColors: { [key: string]: string } = {
 })
 export class AstueOnpzMultiChartComponent implements OnChanges, OnDestroy {
     @Input() private data: IMultiChartLine[] = [];
+    @Input() private colors: Map<string, number>;
+    @Input() private options: IMultiChartOptions;
 
     @ViewChild('chart', { static: true }) private chart: ElementRef;
 
@@ -137,33 +147,11 @@ export class AstueOnpzMultiChartComponent implements OnChanges, OnDestroy {
     private normalizeData(): void {
         this.data.forEach((item) => {
             // обнуление значений милисекунд, секунд и минут
-            item.graph.forEach((val) => {
+            item.graph?.forEach((val) => {
                 val.timeStamp.setMilliseconds(0);
                 val.timeStamp.setSeconds(0);
                 val.timeStamp.setMinutes(0);
             });
-            // вычисление дат начала и конца
-            const end = item.graph[item.graph.length - 1].timeStamp;
-            const start = new Date(end);
-            start.setHours(end.getHours() - 18);
-            // фильтрация по дате начала
-            item.graph = item.graph.filter((val) => val.timeStamp.getTime() >= start.getTime());
-            // зачистка повторяющихся дат
-            const filteredArray: IChartMini[] = [];
-            item.graph.forEach((val, idx, array) => {
-                const filtered = array.filter(
-                    (el) => el.timeStamp.getTime() === val.timeStamp.getTime()
-                );
-                val.value = filtered.reduce((acc, elem) => acc + elem.value, 0) / filtered.length;
-                if (
-                    !filteredArray.length ||
-                    filteredArray[filteredArray.length - 1].timeStamp.getTime() !==
-                        val.timeStamp.getTime()
-                ) {
-                    filteredArray.push({ value: val.value, timeStamp: val.timeStamp });
-                }
-            });
-            item.graph = filteredArray;
             // заполнение пропусков в массиве
             const arr = item.graph;
             for (let idx = 0; idx < arr.length; idx++) {
@@ -194,6 +182,28 @@ export class AstueOnpzMultiChartComponent implements OnChanges, OnDestroy {
                     }
                 }
             }
+            // зачистка повторяющихся дат
+            const filteredArray: IChartMini[] = [];
+            item.graph?.forEach((val, idx, array) => {
+                const filtered = array.filter(
+                    (el) => el.timeStamp.getTime() === val.timeStamp.getTime()
+                );
+                val.value = filtered.reduce((acc, elem) => acc + elem.value, 0) / filtered.length;
+                if (
+                    !filteredArray.length ||
+                    filteredArray[filteredArray.length - 1].timeStamp.getTime() !==
+                        val.timeStamp.getTime()
+                ) {
+                    filteredArray.push({ value: val.value, timeStamp: val.timeStamp });
+                }
+            });
+            item.graph = filteredArray;
+            // вычисление дат начала и конца
+            const end = item.graph[item.graph.length - 1].timeStamp;
+            const start = new Date(end);
+            start.setHours(end.getHours() - 18);
+            // фильтрация по дате начала
+            item.graph = item.graph?.filter((val) => val.timeStamp.getTime() >= start.getTime());
         });
     }
 
@@ -209,15 +219,12 @@ export class AstueOnpzMultiChartComponent implements OnChanges, OnDestroy {
                     max: this.MAX_COEF,
                 };
             }
-
             this.charts.push({ ...(graph as IMultiChartData) });
             const currentChart = this.charts[this.charts.length - 1];
-            currentChart.maxValue = Math.round(
-                d3.max(graph.graph, (item: IChartMini) => item.value) * (1 + this.coefs[key].max)
-            );
-            currentChart.minValue = Math.round(
-                d3.min(graph.graph, (item: IChartMini) => item.value) * (1 - this.coefs[key].min)
-            );
+            const max = d3.max(graph.graph, (item: IChartMini) => item.value);
+            const min = d3.min(graph.graph, (item: IChartMini) => item.value);
+            currentChart.maxValue = max + (max - min) * this.coefs[key].max;
+            currentChart.minValue = min - (max - min) * this.coefs[key].min;
         });
 
         const plan = this.charts.find((item) => item.graphType === 'plan');
@@ -255,12 +262,23 @@ export class AstueOnpzMultiChartComponent implements OnChanges, OnDestroy {
 
     private defineAxisYLabels(min: number, max: number, countOfSteps: number = 10): number[] {
         const arr: number[] = [];
-        const step: number = Math.round((max - min) / countOfSteps);
+        const round = roundAxis(max - min);
+        const step: number = +((max - min) / countOfSteps);
         for (let i = 1; i < 10; i++) {
             min += step;
-            arr.push(min);
+            arr.push(+min.toFixed(round));
         }
         return arr;
+
+        function roundAxis(dev: number, counter: number = 0): number {
+            const epsilon: number = 4;
+            const roundVal = 10 * 0.1 ** counter;
+            if (dev > roundVal || counter > 4) {
+                return counter;
+            } else {
+                return roundAxis(dev, ++counter);
+            }
+        }
     }
 
     private defineScale(): void {
@@ -329,7 +347,7 @@ export class AstueOnpzMultiChartComponent implements OnChanges, OnDestroy {
                 .attr('class', `graph-line-${lineType}`)
                 .attr('d', line(chart.transformedGraph));
             if (flag) {
-                drawnLine.style('stroke', lineColors[chart.graphType]);
+                drawnLine.style('stroke', lineColors[this.colors?.get(chart.tagName)]);
             }
         });
     }
@@ -432,7 +450,7 @@ export class AstueOnpzMultiChartComponent implements OnChanges, OnDestroy {
             });
 
             const legend = axisY.append('g').attr('class', 'legend');
-            const stroke = flag ? '#FFFFFF' : lineColors[chart.graphType];
+            const stroke = flag ? '#FFFFFF' : lineColors[this.colors?.get(chart.tagName)];
             const padding = 5;
             legend
                 .append('line')
@@ -534,7 +552,7 @@ export class AstueOnpzMultiChartComponent implements OnChanges, OnDestroy {
             } else {
                 values.push({
                     val: chart.graph[chart.graph.length - 1],
-                    color: lineColors[chart.graphType],
+                    color: lineColors[this.colors?.get(chart.tagName)],
                     units: chart.units ?? '',
                     iconType: chart.graphType,
                 });
@@ -659,15 +677,18 @@ export class AstueOnpzMultiChartComponent implements OnChanges, OnDestroy {
                     .attr('x', x + step * 1.5 + cardHeigh)
                     .attr('y', start + cardHeigh - step * 0.9)
                     .text(`${val.val.value.toFixed(2)} ${val.units}`);
-                rect.append('image')
-                    .attr(
-                        'xlink:href',
-                        `assets/icons/widgets/ASTUE-ONPZ/astue-onpz-conventional-fuel/${val.iconType}.svg`
-                    )
-                    .attr('x', x + step * 1.7)
-                    .attr('y', start + step * 0.7)
-                    .attr('width', cardHeigh - step * 1.4)
-                    .attr('height', cardHeigh - step * 1.4);
+
+                if (this.options.isIconsShowing) {
+                    rect.append('image')
+                        .attr(
+                            'xlink:href',
+                            `assets/icons/widgets/ASTUE-ONPZ/astue-onpz-conventional-fuel/${val.iconType}.svg`
+                        )
+                        .attr('x', x + step * 1.7)
+                        .attr('y', start + step * 0.7)
+                        .attr('width', cardHeigh - step * 1.4)
+                        .attr('height', cardHeigh - step * 1.4);
+                }
             });
         }
     }
@@ -677,5 +698,9 @@ export class AstueOnpzMultiChartComponent implements OnChanges, OnDestroy {
         const fact = this.charts.find((item) => item.graphType === 'fact');
         const coef = !!plan && !!fact ? this.charts.length - 1 : this.charts.length;
         return this.padding.left + this.axisYWidth * coef;
+    }
+
+    private delta(a: number, b: number): number {
+        return a - b;
     }
 }

@@ -13,6 +13,12 @@ export class ShiftPassComponent implements OnInit {
     }
 
     public ngOnInit(): void {
+        if (this.ewService.isEditEvent) {
+            this.ewService.event.priority =
+                this.ewService.priority.find(value => value.name === 'danger');
+            this.ewService.event.status =
+                this.ewService.status.find(value => value.name === 'inWork');
+        }
     }
 
     public openLineChart(): void {

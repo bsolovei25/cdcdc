@@ -1,0 +1,11 @@
+<div class="line-diagram">
+  <div class="line-diagram__info">
+    <div class="line-diagram__title"><span>{{item.title}}</span></div>
+    <div class="line-diagram__level-empty">
+      <div class="level" [ngStyle]="{width: item?.percent + '%'}"></div>
+    </div>
+  </div>
+  <div class="line-diagram__value">
+    <span>{{ +item?.plan.toFixed(2) | spaceNumber}}</span>
+  </div>
+</div>

@@ -19,19 +19,20 @@
     </div>
   </div>
 </evj-contemporary-widget-header>
-
 <div class="container">
   <div
     class="container-body"
     (mousedown)="$event.stopPropagation()"
     (touchstart)="$event.stopPropagation()"
   >
+    <evj-ozsm-loading-space></evj-ozsm-loading-space>
     <div class="quality">
       <div class="quality__header">
         <div #mainGauge class="quality__header__gauge" [style]="gaugeWidth(mainGauge)">
           <evj-kpe-gauge-chart
             [fact]="deviationDiagram?.fact"
             [plan]="deviationDiagram?.plan"
+            [deviation]="deviationDiagram?.deviation"
             isPercent="true"
           ></evj-kpe-gauge-chart>
         </div>
@@ -46,7 +47,11 @@
               <div class="card">
                 <div class="card__content">
                   <div class="card__gauge-diagram">
-                    <evj-kpe-gauge-chart background="dark" [fact]="card.gaugeChart?.fact" [plan]="card.gaugeChart?.plan"></evj-kpe-gauge-chart>
+                    <evj-kpe-gauge-chart background="dark"
+                                         [fact]="card.gaugeChart?.fact"
+                                         [plan]="card.gaugeChart?.plan"
+                                         [deviation]="card.gaugeChart?.deviation"
+                    ></evj-kpe-gauge-chart>
                     <div class="unit-selector">
                       <div class="unit-selector__unit">
                         <span>{{ card.gaugeChart.unit }}</span>
@@ -62,7 +67,6 @@
                       <span class="title-area__comment">{{ card.description }}</span>
                     </div>
                     <div class="diagram-area">
-                      <!--<evj-kpe-equalizer-chart [data]="formatData(card.equalizerChart)"></evj-kpe-equalizer-chart>-->
                       <evj-kpe-equalizer-chart [data]="formatData(card.equalizerChart)"></evj-kpe-equalizer-chart>
                     </div>
                   </div>

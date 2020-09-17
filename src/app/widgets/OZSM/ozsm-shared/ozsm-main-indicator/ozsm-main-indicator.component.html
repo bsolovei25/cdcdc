@@ -1,0 +1,30 @@
+<div class="main-indicator">
+  <div class="main-indicator__icon">
+    <img src="assets/icons/widgets/OZSM/ozsm-main-indicators/main-indicator-logo.svg">
+  </div>
+  <div class="main-indicator__info">
+    <div class="main-indicator__title">
+      <div class="text">
+        <span>{{item.title}}</span>
+      </div>
+      <div class="text-yellow" *ngIf="item.fact != item.plan">
+        <span>{{+item?.plan - item?.fact | spaceNumber}}</span>
+      </div>
+
+    </div>
+    <div class="main-indicator__level-empty">
+      <div class="level-yellow" *ngIf="item.fact != item.plan; else full" [ngStyle]="{width: '100%'}">
+        <div class="level-white" [ngStyle]="{width: item?.percent + '%'}"></div>
+      </div>
+      <ng-template #full>
+        <div class="level-full" [ngStyle]="{width: item?.percent + '%'}"></div>
+      </ng-template>
+    </div>
+  </div>
+  <div class="main-indicator__value">
+    <span>{{ +item?.plan.toFixed(2) | spaceNumber}}</span>
+    <div class="text-blue" *ngIf="item.fact != item.plan">
+        <span>{{ +item?.fact.toFixed(2) | spaceNumber}}</span>
+    </div>
+  </div>
+</div>

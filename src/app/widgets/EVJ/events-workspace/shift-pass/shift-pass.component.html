@@ -32,6 +32,23 @@
       </mat-form-field>
     </evj-ui-block>
     <div class="selects__item">
+      <evj-ui-block class="workspace__header__block" status="{{ewService.event.isAcknowledged}}">
+        <mat-form-field class="card-{{ewService.event.isAcknowledged}}">
+          <mat-label>Событие</mat-label>
+          <mat-select panelClass="mat-select-custom" [(ngModel)]="ewService.event.isAcknowledged">
+            <mat-option [value]="true">
+              Квитировано
+            </mat-option>
+            <mat-option [value]="false">
+              Не квитировано
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </evj-ui-block>
+    </div>
+  </div>
+  <div class="workspace__selects-two selects--four">
+    <div class="selects__item">
       <evj-ui-block status="normal">
         <mat-form-field class="status">
           <mat-label>Статус</mat-label>
@@ -39,7 +56,6 @@
             panelClass="mat-select-custom"
             [(ngModel)]="ewService.event.status"
             [compareWith]="compareFn"
-            [disabled]="true"
           >
             <mat-option *ngFor="let p of ewService.status" [value]="p"
             >{{ ewService.statuses[p.name] }}
@@ -65,7 +81,7 @@
         </mat-form-field>
       </evj-ui-block>
     </div>
-    <div class="selects__item">
+    <div class="selects__item" *ngIf="ewService.isEditEvent">
       <evj-ui-block status="normal">
         <mat-form-field class="status">
           <mat-label>Место</mat-label>
@@ -73,6 +89,7 @@
             panelClass="mat-select-custom"
             [(ngModel)]="ewService.event.unit"
             [compareWith]="compareFn"
+            [disabled]=""
           >
             <mat-option *ngFor="let cat of ewService.units" [value]="cat">
               {{ cat.name }}
@@ -80,6 +97,14 @@
           </mat-select>
         </mat-form-field>
       </evj-ui-block>
+    </div>
+    <div class="creator" *ngIf="!ewService.isEditEvent">
+      <div class="creator_title">
+        Место
+      </div>
+      <div class="creator_body">
+        {{ ewService.event.unit.name }}
+      </div>
     </div>
     <div class="selects__item">
       <evj-ui-block status="normal">

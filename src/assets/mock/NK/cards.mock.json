@@ -1,0 +1,208 @@
+[
+    {
+        "id": 1,
+        "temperature": {
+            "current": 73.5,
+            "maximal": 100
+        },
+        "isFilling": false,
+        "title": {
+            "name": "Резервуар 519",
+            "type": "плав. крыша" 
+        },
+        "innage": {
+            "lowerBorder": 20,
+            "higherBorder": 180,
+            "currentValue": 131
+        },
+        "volume": {
+            "nominal": 20000,
+            "freeSpace": 7600,
+            "fill": 12400
+        }
+    },
+    
+    {
+        "id": 2,
+        "temperature": {
+            "current": 10,
+            "maximal": 100
+        },
+        "isFilling": true,
+        "title": {
+            "name": "Резервуар 520",
+            "type": "плав. крыша" 
+        },
+        "innage": {
+            "lowerBorder": 20,
+            "higherBorder": 180,
+            "currentValue": 100
+        },
+        "volume": {
+            "nominal": 30000,
+            "freeSpace": 30000,
+            "fill": 0
+        }
+    },
+
+    {
+        "id": 3,
+        "temperature": {
+            "current": 40,
+            "maximal": 200
+        },
+        "isFilling": false,
+        "title": {
+            "name": "Резервуар 521",
+            "type": "плав. крыша" 
+        },
+        "innage": {
+            "lowerBorder": 20,
+            "higherBorder": 180,
+            "currentValue": 33
+        },
+        "volume": {
+            "nominal": 40000,
+            "freeSpace": 0,
+            "fill": 40000
+        }
+    },
+    
+    {
+        "id": 4,
+        "temperature": {
+            "current": 73.5,
+            "maximal": 100
+        },
+        "isFilling": false,
+        "title": {
+            "name": "Резервуар 519",
+            "type": "плав. крыша" 
+        },
+        "innage": {
+            "lowerBorder": 20,
+            "higherBorder": 180,
+            "currentValue": 131
+        },
+        "volume": {
+            "nominal": 20000,
+            "freeSpace": 7600,
+            "fill": 12400
+        }
+    },
+    
+    {
+        "id": 5,
+        "temperature": {
+            "current": 10,
+            "maximal": 100
+        },
+        "isFilling": true,
+        "title": {
+            "name": "Резервуар 520",
+            "type": "плав. крыша" 
+        },
+        "innage": {
+            "lowerBorder": 20,
+            "higherBorder": 180,
+            "currentValue": 100
+        },
+        "volume": {
+            "nominal": 30000,
+            "freeSpace": 30000,
+            "fill": 0
+        }
+    },
+
+    {
+        "id": 6,
+        "temperature": {
+            "current": 40,
+            "maximal": 200
+        },
+        "isFilling": false,
+        "title": {
+            "name": "Резервуар 521",
+            "type": "плав. крыша" 
+        },
+        "innage": {
+            "lowerBorder": 20,
+            "higherBorder": 180,
+            "currentValue": 33
+        },
+        "volume": {
+            "nominal": 40000,
+            "freeSpace": 0,
+            "fill": 40000
+        }
+    },
+
+    {
+        "id": 7,
+        "temperature": {
+            "current": 73.5,
+            "maximal": 100
+        },
+        "isFilling": false,
+        "title": {
+            "name": "Резервуар 519",
+            "type": "плав. крыша" 
+        },
+        "innage": {
+            "lowerBorder": 20,
+            "higherBorder": 180,
+            "currentValue": 131
+        },
+        "volume": {
+            "nominal": 20000,
+            "freeSpace": 7600,
+            "fill": 12400
+        }
+    },
+    
+    {
+        "id": 8,
+        "temperature": {
+            "current": 10,
+            "maximal": 100
+        },
+        "isFilling": true,
+        "title": {
+            "name": "Резервуар 520",
+            "type": "плав. крыша" 
+        },
+        "innage": {
+            "lowerBorder": 20,
+            "higherBorder": 180,
+            "currentValue": 100
+        },
+        "volume": {
+            "nominal": 30000,
+            "freeSpace": 30000,
+            "fill": 0
+        }
+    },
+
+    {
+        "id": 9,
+        "temperature": {
+            "current": 40,
+            "maximal": 200
+        },
+        "isFilling": false,
+        "title": {
+            "name": "Резервуар 521",
+            "type": "плав. крыша" 
+        },
+        "innage": {
+            "lowerBorder": 20,
+            "higherBorder": 180,
+            "currentValue": 33
+        },
+        "volume": {
+            "nominal": 40000,
+            "freeSpace": 0,
+            "fill": 40000
+        }
+    }
+]
