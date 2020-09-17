@@ -1,3 +1,4 @@
+import { OzsmMainIndicatorComponent } from './ozsm-main-indicator/ozsm-main-indicator.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SharedModule } from '@shared/shared.module';
@@ -20,6 +21,7 @@ import { OzsmLoadingParksHeaderComponent } from "./ozsm-loading-parks/components
         OzsmLoadingParksBodyComponent,
         OzsmLoadingParksDiagramComponent,
         OzsmLoadingParksHeaderComponent,
+        OzsmMainIndicatorComponent
     ],
     exports: [
         OzsmTripleDiagramCardComponent,
