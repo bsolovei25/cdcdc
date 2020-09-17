@@ -1,2 +1,0 @@
-/* Copyright © 1993-2019 Meridium, Inc. All rights reserved.  */
-define(function(require){"use strict";var a=require("./rm-relationship-definition-dto");function b(b){this.entityFamilyCaption=b.entityFamilyCaption,this.entityFamilyID=b.entityFamilyID,this.entityFamilyKey=b.entityFamilyKey,this.relationsCount=b.relationsCount,this.relationshipDefinitions=[],this.canAdd=b.canAdd;for(var c=0;c<b.relationshipDefinitions.length;c++)this.relationshipDefinitions.push(new a(b.relationshipDefinitions[c]))}return b});

@@ -1,2 +1,0 @@
-/* Copyright © 1993-2019 Meridium, Inc. All rights reserved.  */
-define(function(require,exports,module){"use strict";var a=require("system/lang/interface"),b=["unload","getSaveRequested","getLayoutChanged","getRemoveRequested","getHideRequested"];return new a(module.id,b)});
