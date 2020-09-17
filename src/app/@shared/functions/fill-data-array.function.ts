@@ -4,7 +4,8 @@ import { IChartMini } from '../models/smart-scroll.model';
 export function fillDataArray(
     data: IProductionTrend[],
     deltaTime: number = 12,
-    isFutureFilling: boolean = false
+    isFutureFilling: boolean = false,
+    isFillPlan: boolean = false
 ): void {
     data.forEach((item) => {
         // обнуление значений милисекунд, секунд и минут
@@ -65,10 +66,12 @@ export function fillDataArray(
         // фильтрация по дате начала
         item.graph = item.graph.filter((val) => val.timeStamp.getTime() >= start.getTime());
         // заполнение массива на deltaTime часов вперед
-        if (
-            isFutureFilling &&
-            (item.graphType === 'higherBorder' || item.graphType === 'lowerBorder')
-        ) {
+        const fillCharts: { [key: string]: boolean } = {
+            higherBorder: true,
+            lowerBorder: true,
+            plan: isFillPlan,
+        };
+        if (isFutureFilling && fillCharts[item.graphType]) {
             for (let i = 0; i < deltaTime; i++) {
                 const val: IChartMini = {
                     value: item.graph[item.graph.length - 1].value,
