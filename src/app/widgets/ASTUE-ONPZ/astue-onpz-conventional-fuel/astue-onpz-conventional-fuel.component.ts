@@ -66,6 +66,12 @@ export class AstueOnpzConventionalFuelComponent extends WidgetPlatform
         this.isPredictors = this.widgetType === 'astue-onpz-conventional-fuel-predictors';
         this.options.isIconsShowing = !this.isPredictors;
         this.subscriptions.push(
+            this.astueOnpzService.multilineChartIndicatorTitle$.subscribe((title) => {
+                if (this.isPredictors) {
+                    return;
+                }
+                this.widgetTitle = title;
+            }),
             this.astueOnpzService.sharedIndicatorOptions.subscribe((options) => {
                 if (this.isPredictors) {
                     return;
@@ -95,6 +101,7 @@ export class AstueOnpzConventionalFuelComponent extends WidgetPlatform
     public ngOnDestroy(): void {
         super.ngOnDestroy();
         this.astueOnpzService.dropDataStream();
+        this.astueOnpzService.multilineChartIndicatorTitle$.next('');
     }
 
     protected dataHandler(ref: { graphs: IMultiChartLine[] }): void {

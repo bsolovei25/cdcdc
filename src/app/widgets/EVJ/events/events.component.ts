@@ -3,12 +3,12 @@ import {
     EventsWidgetCategory,
     EventsWidgetCategoryCode,
     EventsWidgetNotificationPreview,
-    IEventsWidgetOptions
+    IEventsWidgetOptions,
 } from '../../../dashboard/models/events-widget';
 import { EventsWidgetFilter } from '../../../dashboard/models/events-widget';
 import {
     IEventsWidgetNotification,
-    EventsWidgetNotificationStatus
+    EventsWidgetNotificationStatus,
 } from '../../../dashboard/models/events-widget';
 import { WidgetService } from '../../../dashboard/services/widget.service';
 import { UserSettingsService } from '../../../dashboard/services/user-settings.service';
@@ -30,7 +30,7 @@ export interface IEventSettings {
 @Component({
     selector: 'evj-events',
     templateUrl: './events.component.html',
-    styleUrls: ['./events.component.scss', './cd-events.component.scss']
+    styleUrls: ['./events.component.scss', './cd-events.component.scss'],
 })
 export class EventsComponent extends WidgetPlatform implements OnInit, OnDestroy {
     @ViewChild(CdkVirtualScrollViewport) viewport: CdkVirtualScrollViewport;
@@ -53,7 +53,9 @@ export class EventsComponent extends WidgetPlatform implements OnInit, OnDestroy
     eventOverlayId: number;
     timeout: boolean = true;
 
-    public eventAlertInfo$: BehaviorSubject<IAlertWindowModel> = new BehaviorSubject<IAlertWindowModel>(null);
+    public eventAlertInfo$: BehaviorSubject<IAlertWindowModel> = new BehaviorSubject<
+        IAlertWindowModel
+    >(null);
 
     private isAllowScrollLoading: boolean = true;
 
@@ -72,12 +74,12 @@ export class EventsComponent extends WidgetPlatform implements OnInit, OnDestroy
             iconUrl: 'assets/icons/widgets/events/smotr.svg',
             notificationsCounts: {
                 open: 0,
-                all: 0
+                all: 0,
             },
             name: 'СМОТР',
             isActive: false,
             url: 'https://spb25-cce-mo1.gazprom-neft.local/BLPS_MO/ru_RU/',
-            categoryType: 'default'
+            categoryType: 'default',
         },
         {
             id: 1002,
@@ -85,12 +87,12 @@ export class EventsComponent extends WidgetPlatform implements OnInit, OnDestroy
             iconUrl: 'assets/icons/widgets/events/safety.svg',
             notificationsCounts: {
                 open: 0,
-                all: 0
+                all: 0,
             },
             name: 'Безопасность',
             isActive: false,
             url: '#',
-            categoryType: 'default'
+            categoryType: 'default',
         },
         {
             id: 1003,
@@ -98,12 +100,12 @@ export class EventsComponent extends WidgetPlatform implements OnInit, OnDestroy
             iconUrl: 'assets/icons/widgets/events/tasks.svg',
             notificationsCounts: {
                 open: 0,
-                all: 0
+                all: 0,
             },
             name: 'Производственные задания',
             isActive: false,
             url: '#',
-            categoryType: 'default'
+            categoryType: 'default',
         },
         {
             id: 1004,
@@ -111,12 +113,12 @@ export class EventsComponent extends WidgetPlatform implements OnInit, OnDestroy
             iconUrl: 'assets/icons/widgets/events/status.svg',
             notificationsCounts: {
                 open: 0,
-                all: 0
+                all: 0,
             },
             name: 'Состояния оборудования',
             isActive: false,
             url: 'http://spb99-t-merap01/meridium',
-            categoryType: 'default'
+            categoryType: 'default',
         },
         {
             id: 1005,
@@ -124,12 +126,12 @@ export class EventsComponent extends WidgetPlatform implements OnInit, OnDestroy
             iconUrl: 'assets/icons/widgets/events/drops.svg',
             notificationsCounts: {
                 open: 0,
-                all: 0
+                all: 0,
             },
             name: 'Сбросы',
             isActive: false,
             url: '#',
-            categoryType: 'default'
+            categoryType: 'default',
         },
         {
             id: 9991,
@@ -137,12 +139,12 @@ export class EventsComponent extends WidgetPlatform implements OnInit, OnDestroy
             iconUrl: 'assets/icons/widgets/events/safety.svg',
             notificationsCounts: {
                 open: 0,
-                all: 0
+                all: 0,
             },
             name: 'Безопасность',
             isActive: false,
             url: '#',
-            categoryType: 'ed'
+            categoryType: 'ed',
         },
         {
             id: 9992,
@@ -150,12 +152,12 @@ export class EventsComponent extends WidgetPlatform implements OnInit, OnDestroy
             iconUrl: 'assets/icons/widgets/events/indicators.svg',
             notificationsCounts: {
                 open: 0,
-                all: 0
+                all: 0,
             },
             name: 'Производственные показатели',
             isActive: false,
             url: '#',
-            categoryType: 'ed'
+            categoryType: 'ed',
         },
         {
             id: 9993,
@@ -163,12 +165,12 @@ export class EventsComponent extends WidgetPlatform implements OnInit, OnDestroy
             iconUrl: 'assets/icons/widgets/events/resources.svg',
             notificationsCounts: {
                 open: 0,
-                all: 0
+                all: 0,
             },
             name: 'Вспомогательные ресурсы',
             isActive: false,
             url: '#',
-            categoryType: 'ed'
+            categoryType: 'ed',
         },
         {
             id: 9994,
@@ -176,13 +178,13 @@ export class EventsComponent extends WidgetPlatform implements OnInit, OnDestroy
             iconUrl: 'assets/icons/widgets/events/tasks.svg',
             notificationsCounts: {
                 open: 0,
-                all: 0
+                all: 0,
             },
             name: 'Производственные задания',
             isActive: false,
             url: '#',
-            categoryType: 'ed'
-        }
+            categoryType: 'ed',
+        },
     ];
 
     public notifications: EventsWidgetNotificationPreview[] = [];
@@ -193,50 +195,50 @@ export class EventsComponent extends WidgetPlatform implements OnInit, OnDestroy
             code: 'all',
             name: 'Все',
             notificationsCount: 0,
-            isActive: true
+            isActive: true,
         },
         {
             id: 3002,
             code: 'closed',
             name: 'Отработано',
             notificationsCount: 0,
-            isActive: false
+            isActive: false,
         },
         {
             id: 3003,
             code: 'inWork',
             name: 'В работе',
             notificationsCount: 0,
-            isActive: false
+            isActive: false,
         },
         {
             id: -100,
             code: 'isNotAcknowledged',
             name: 'Не квитировано',
             notificationsCount: 0,
-            isActive: false
-        }
+            isActive: false,
+        },
     ];
 
     public iconStatus: { name: string; iconUrl: string }[] = [
         {
             name: 'inWork',
-            iconUrl: 'assets/icons/widgets/process/in-work.svg'
+            iconUrl: 'assets/icons/widgets/process/in-work.svg',
         },
         {
             name: 'closed',
-            iconUrl: 'assets/icons/widgets/process/closed.svg'
+            iconUrl: 'assets/icons/widgets/process/closed.svg',
         },
         {
             name: 'new',
-            iconUrl: 'assets/icons/widgets/process/in-work.svg'
-        }
+            iconUrl: 'assets/icons/widgets/process/in-work.svg',
+        },
     ];
 
     public statuses: { [id in EventsWidgetNotificationStatus]: string } = {
         new: 'Новое',
         inWork: 'В работе',
-        closed: 'Завершено'
+        closed: 'Завершено',
     };
 
     isCDEvents: boolean = false;
@@ -283,7 +285,12 @@ export class EventsComponent extends WidgetPlatform implements OnInit, OnDestroy
                 this.isCDEvents = true;
                 break;
         }
-        this.categories = this.categoriesAll.filter((cat) => cat.categoryType === filterCondition);
+        this.categories = this.categoriesAll.filter((cat) => {
+            if (filterCondition === 'ed' && cat.code === 'tasks') {
+                return false;
+            }
+            return cat.categoryType === filterCondition;
+        });
         this.placeNames = await this.eventService.getPlaces(this.id);
         this.subscriptions.push(
             this.widgetService.currentDates$.subscribe((ref) => {
@@ -303,10 +310,8 @@ export class EventsComponent extends WidgetPlatform implements OnInit, OnDestroy
     }): void {
         if (
             !(this.placeNames?.length === 0) ||
-            (
-                !this.placeNames.find((place) => place === ref.notification?.unit?.name) &&
-                ref.action !== 'delete'
-            )
+            (!this.placeNames.find((place) => place === ref.notification?.unit?.name) &&
+                ref.action !== 'delete')
         ) {
             return;
         }
@@ -379,7 +384,7 @@ export class EventsComponent extends WidgetPlatform implements OnInit, OnDestroy
             dates: this.widgetService.currentDates$.getValue(),
             placeNames: this.placeNames,
             isVideoWall: this.widgetIsVideoWall,
-            sortType: this.widgetSortType
+            sortType: this.widgetSortType,
         };
         return options;
     }
@@ -486,7 +491,7 @@ export class EventsComponent extends WidgetPlatform implements OnInit, OnDestroy
             cancelText: 'Нет',
             acceptFunction: () => this.deleteNotification(id),
             closeFunction: () => this.eventAlertInfo$.next(null),
-            cancelFunction: () => this.snackBarService.openSnackBar(`Удаление отменено!`)
+            cancelFunction: () => this.snackBarService.openSnackBar(`Удаление отменено!`),
         };
         this.eventAlertInfo$.next(info);
     }
@@ -616,7 +621,7 @@ export class EventsComponent extends WidgetPlatform implements OnInit, OnDestroy
         if (this.timeout) {
             this.timeout = false;
             this.audio.play();
-            setTimeout(() => this.timeout = true, 2000);
+            setTimeout(() => (this.timeout = true), 2000);
         }
     }
 }

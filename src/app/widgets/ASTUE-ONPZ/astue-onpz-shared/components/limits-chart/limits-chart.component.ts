@@ -1,4 +1,3 @@
-
 import { Component, Input, ViewChild, ElementRef, OnChanges, HostListener } from '@angular/core';
 import * as d3Selection from 'd3-selection';
 import * as d3 from 'd3';
@@ -8,6 +7,7 @@ import {
 } from '../../../../../dashboard/models/production-trends.model';
 import { IChartD3, IChartMini } from '../../../../../@shared/models/smart-scroll.model';
 import { AsyncRender } from '../../../../../@shared/functions/async-render.function';
+import { fillDataArray } from '../../../../../@shared/functions/fill-data-array.function';
 
 @Component({
     selector: 'evj-limits-chart',
@@ -54,6 +54,7 @@ export class LimitsChartComponent implements OnChanges {
 
     public ngOnChanges(): void {
         if (!!this.data.length) {
+            fillDataArray(this.data, 8, true, true);
             this.startDrawChart();
         } else {
             this.dropChart();

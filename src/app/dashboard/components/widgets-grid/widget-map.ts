@@ -895,18 +895,18 @@ export const WIDGETS_LAZY = {
         preview: 'default',
     },
     'ozsm-main-toggle': {
-        import: async () => {
-            return await import(
-                'src/app/widgets/OZSM/ozsm-main-toggle/ozsm-main-toggle.module'
-                );
-        },
-        module: 'OzsmMainToggleModule',
-        itemCols: 12,
+    import: async () => {
+        return await import(
+            'src/app/widgets/OZSM/ozsm-main-indicators/ozsm-main-indicators.module'
+            );
+    },
+        module: 'OzsmMainIndicatorsModule',
+        itemCols: 4,
         itemRows: 4,
-        minItemCols: 12,
+        minItemCols: 4,
         minItemRows: 4,
         preview: 'default',
-    },
+},
 
 
     //#endregion OZSM
