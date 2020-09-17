@@ -32,6 +32,7 @@ import { OzsmLoadingParksHeaderComponent } from "./ozsm-loading-parks/components
         OzsmLoadingParksBodyComponent,
         OzsmLoadingParksDiagramComponent,
         OzsmLoadingParksHeaderComponent,
+        OzsmMainIndicatorComponent
     ],
 
     imports: [
