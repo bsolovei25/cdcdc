@@ -41,6 +41,7 @@ export class AstueOnpzProductCardComponent extends WidgetPlatform implements OnI
 
     public switchToIndicatorScreen(): void {
         this.astueOnpzService.updateGraphId(this.data.itemId);
+        this.astueOnpzService.multilineChartIndicatorTitle$.next(this.data?.productName ?? '');
         this.userSettingsService.LoadScreenByWidget('astue-onpz-interactive-indicators');
     }
 
