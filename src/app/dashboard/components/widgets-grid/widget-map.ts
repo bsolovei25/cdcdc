@@ -897,10 +897,10 @@ export const WIDGETS_LAZY = {
     'ozsm-main-toggle': {
     import: async () => {
         return await import(
-            'src/app/widgets/OZSM/ozsm-main-indicators/ozsm-main-indicators.module'
+            'src/app/widgets/OZSM/ozsm-main-toggle/ozsm-main-toggle.module'
             );
     },
-        module: 'OzsmMainIndicatorsModule',
+        module: 'OzsmMainToggleModule',
         itemCols: 4,
         itemRows: 4,
         minItemCols: 4,

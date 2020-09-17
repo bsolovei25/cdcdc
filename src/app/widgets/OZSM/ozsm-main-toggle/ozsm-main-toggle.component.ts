@@ -8,6 +8,9 @@ import { WidgetService } from '../../../dashboard/services/widget.service';
     styleUrls: ['./ozsm-main-toggle.component.scss']
 })
 export class OzsmMainToggleComponent extends WidgetPlatform implements OnInit, OnDestroy {
+    public getPlan: any = document.getElementsByClassName('button plan');
+    public getScreen: any = document.getElementsByClassName('button plan');
+
     constructor(
         protected widgetService: WidgetService,
         @Inject('isMock') public isMock: boolean,
@@ -28,11 +31,7 @@ export class OzsmMainToggleComponent extends WidgetPlatform implements OnInit, O
     protected dataHandler(ref: any): void {
     }
 
-    planClicked($event: MouseEvent): void {
-        console.log('plan');
-    }
-
-    screenClicked($event: MouseEvent): void {
-        console.log('screen');
+    clicked($event: MouseEvent, type: string): void {
+        console.log(`type ${type}`);
     }
 }

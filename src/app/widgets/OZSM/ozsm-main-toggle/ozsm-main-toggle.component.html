@@ -6,7 +6,6 @@
 >
 </evj-widget-header-smp>
 <div
-  style="height: 100%"
   class="content"
   (mouseenter)="onMouseEnter()"
   (mouseleave)="onMouseExit()"
@@ -14,10 +13,10 @@
   (touchstart)="$event.stopPropagation()"
 >
   <div class="container">
-    <button (click)="planClicked($event)" class="button plan">
+    <button (click)="clicked($event, 'plan')" class="button plan">
       <span>Планирование</span>
     </button>
-    <button (click)="screenClicked($event)" class="button screen">
+    <button (click)="clicked($event, 'screen') " class="button screen">
       <span>Мониторинг</span>
     </button>
   </div>
