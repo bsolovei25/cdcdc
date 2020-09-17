@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import {
     AstueOnpzConsumptionIndicatorsWidgetType,
-    AstueOnpzConsumptionIndicatorType,
+    AstueOnpzConsumptionIndicatorType
 } from '../astue-onpz-consumption-indicators/astue-onpz-consumption-indicators.component';
 import { IPlanningChart } from '../astue-onpz-planning-charts/astue-onpz-planning-charts.component';
 import { IMultiChartLine } from '../../../dashboard/models/ASTUE-ONPZ/astue-onpz-multi-chart.model';
@@ -23,6 +23,11 @@ export interface IAstueOnpzMonitoringCarrierOptions {
 }
 
 export interface IAstueOnpzPredictorsOptions {
+    predictors: IAstueOnpzPredictor[];
+    predictorWidgetId: string;
+}
+
+export interface IAstueOnpzPredictor {
     id: string;
     name: string;
     colorIndex: number;
@@ -53,9 +58,7 @@ export class AstueOnpzService {
     public multilineChartIndicatorTitle$: BehaviorSubject<string> =
         new BehaviorSubject<string>('');
 
-    public predictorsOptions$: BehaviorSubject<IAstueOnpzPredictorsOptions[]> = new BehaviorSubject(
-        []
-    );
+    public predictorsOptions$: BehaviorSubject<IAstueOnpzPredictorsOptions> = new BehaviorSubject(null);
 
     public colors$: BehaviorSubject<Map<string, number>> =
         new BehaviorSubject<Map<string, number>>(new Map());
@@ -88,11 +91,11 @@ export class AstueOnpzService {
         this.monitoringOptions$.next(options);
     }
 
-    public setPredictors(arr: IAstueOnpzPredictorsOptions[]): void {
-        if (arr.some((x) => x.name !== this.sharedPlanningGraph$.getValue()?.title)) {
+    public setPredictors(predictorWidgetId: string, predictors: IAstueOnpzPredictor[]): void {
+        if (predictors.some((x) => x.name !== this.sharedPlanningGraph$.getValue()?.title)) {
             this.setPlanningGraph(null);
         }
-        this.predictorsOptions$.next(arr);
+        this.predictorsOptions$.next({ predictors, predictorWidgetId });
     }
 
     public setPlanningGraph(graph: IPlanningChart, isDemand: boolean = false): void {
