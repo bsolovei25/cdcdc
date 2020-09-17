@@ -1,3 +1,5 @@
+import { OzsmListPackingDiagramsItemComponent } from './ozsm-list-packing-diagrams/components/ozsm-list-packing-diagrams-item/ozsm-list-packing-diagrams-item.component';
+import { OzsmListPackingDiagramsComponent } from './ozsm-list-packing-diagrams/ozsm-list-packing-diagrams.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SharedModule } from '@shared/shared.module';
@@ -9,6 +11,7 @@ import { OzsmCardLineDiagramComponent } from './ozsm-card-line-diagram/ozsm-card
 import { OzsmCircleDiagramFullComponent } from './ozsm-circle-diagram-full/ozsm-circle-diagram-full.component';
 import { OzsmLoadingSpaceComponent } from './ozsm-loading-space/ozsm-loading-space.component';
 import { OzsmMainIndicatorComponent } from './ozsm-main-indicator/ozsm-main-indicator.component';
+import { AngularSvgIconModule } from 'angular-svg-icon';
 
 @NgModule({
     declarations: [
@@ -20,6 +23,8 @@ import { OzsmMainIndicatorComponent } from './ozsm-main-indicator/ozsm-main-indi
         OzsmCardLineDiagramComponent,
         OzsmCircleDiagramFullComponent,
         OzsmMainIndicatorComponent,
+        OzsmListPackingDiagramsComponent,
+        OzsmListPackingDiagramsItemComponent
     ],
     exports: [
         OzsmTripleDiagramCardComponent,
@@ -29,12 +34,15 @@ import { OzsmMainIndicatorComponent } from './ozsm-main-indicator/ozsm-main-indi
         OzsmLoadingSpaceComponent,
         OzsmCardLineDiagramComponent,
         OzsmCircleDiagramFullComponent,
-        OzsmMainIndicatorComponent
+        OzsmMainIndicatorComponent,
+        OzsmListPackingDiagramsComponent,
+        OzsmListPackingDiagramsItemComponent
     ],
 
     imports: [
         CommonModule,
-        SharedModule
+        SharedModule,
+        AngularSvgIconModule.forRoot()
     ],
 })
 export class OzsmSharedModule {
