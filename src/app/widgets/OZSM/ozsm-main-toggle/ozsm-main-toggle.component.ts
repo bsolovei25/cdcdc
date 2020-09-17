@@ -3,12 +3,11 @@ import { WidgetPlatform } from '../../../dashboard/models/widget-platform';
 import { WidgetService } from '../../../dashboard/services/widget.service';
 
 @Component({
-  selector: 'evj-ozsm-main-toggle',
-  templateUrl: './ozsm-main-toggle.component.html',
-  styleUrls: ['./ozsm-main-toggle.component.scss']
+    selector: 'evj-ozsm-main-toggle',
+    templateUrl: './ozsm-main-toggle.component.html',
+    styleUrls: ['./ozsm-main-toggle.component.scss']
 })
 export class OzsmMainToggleComponent extends WidgetPlatform implements OnInit, OnDestroy {
-
     constructor(
         protected widgetService: WidgetService,
         @Inject('isMock') public isMock: boolean,
@@ -27,5 +26,13 @@ export class OzsmMainToggleComponent extends WidgetPlatform implements OnInit, O
     }
 
     protected dataHandler(ref: any): void {
+    }
+
+    planClicked($event: MouseEvent): void {
+        console.log('plan');
+    }
+
+    screenClicked($event: MouseEvent): void {
+        console.log('screen');
     }
 }
