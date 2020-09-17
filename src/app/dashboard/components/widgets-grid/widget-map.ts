@@ -295,7 +295,7 @@ export const WIDGETS_LAZY = {
         itemRows: 12,
         minItemCols: 19,
         minItemRows: 12,
-        preview: 'nk-tank-information'
+        preview: 'default'
     },
 
     // #endregion NK
