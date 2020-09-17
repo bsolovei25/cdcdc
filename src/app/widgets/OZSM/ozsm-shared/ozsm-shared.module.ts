@@ -10,6 +10,7 @@ import { OzsmLoadingParksComponent } from "./ozsm-loading-parks/ozsm-loading-par
 import { OzsmLoadingParksBodyComponent } from "./ozsm-loading-parks/components/ozsm-loading-parks-body/ozsm-loading-parks-body.component";
 import { OzsmLoadingParksDiagramComponent } from "./ozsm-loading-parks/components/ozsm-loading-parks-diagram/ozsm-loading-parks-diagram.component";
 import { OzsmLoadingParksHeaderComponent } from "./ozsm-loading-parks/components/ozsm-loading-parks-header/ozsm-loading-parks-header.component";
+import { AngularSvgIconModule } from 'angular-svg-icon';
 
 @NgModule({
     declarations: [
@@ -37,7 +38,8 @@ import { OzsmLoadingParksHeaderComponent } from "./ozsm-loading-parks/components
 
     imports: [
         CommonModule,
-        SharedModule
+        SharedModule,
+        AngularSvgIconModule.forRoot()
     ],
 })
 export class OzsmSharedModule {
