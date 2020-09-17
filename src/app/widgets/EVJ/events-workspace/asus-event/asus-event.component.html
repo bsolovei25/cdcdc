@@ -68,7 +68,7 @@
               [(ngModel)]="ewService.event.asusEvent.tmPlace"
               (selectionChange)="this.setUnit($event.value)"
             >
-              <mat-option *ngFor="let p of ewService.asusUnits" [value]="p.codeSap"
+              <mat-option *ngFor="let p of ewService.asusUnits$ | async" [value]="p.codeSap"
                 >{{ p.name }}
               </mat-option>
             </mat-select>

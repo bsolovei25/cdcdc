@@ -77,6 +77,7 @@ export class EventService {
                 .toPromise();
         } catch (error) {
             console.error(error);
+            return [];
         }
     }
 
