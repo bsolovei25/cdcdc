@@ -1,3 +1,8 @@
+import { OzsmResourcesCircleDiagramVisualComponent } from './ozsm-resources-circle-diagram/components/ozsm-resources-circle-diagram-visual/ozsm-resources-circle-diagram-visual.component';
+import { OzsmResourcesCircleDiagramComponent } from 'src/app/widgets/OZSM/ozsm-shared/ozsm-resources-circle-diagram/ozsm-resources-circle-diagram.component';
+import { OzsmLineDiagramComponent } from './ozsm-line-diagram/ozsm-line-diagram.component';
+import { OzsmCardLineDiagramComponent } from './ozsm-card-line-diagram/ozsm-card-line-diagram.component';
+import { OzsmLoadingSpaceComponent } from './ozsm-loading-space/ozsm-loading-space.component';
 import { OzsmMainIndicatorComponent } from './ozsm-main-indicator/ozsm-main-indicator.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -11,6 +16,7 @@ import { OzsmLoadingParksBodyComponent } from "./ozsm-loading-parks/components/o
 import { OzsmLoadingParksDiagramComponent } from "./ozsm-loading-parks/components/ozsm-loading-parks-diagram/ozsm-loading-parks-diagram.component";
 import { OzsmLoadingParksHeaderComponent } from "./ozsm-loading-parks/components/ozsm-loading-parks-header/ozsm-loading-parks-header.component";
 import { AngularSvgIconModule } from 'angular-svg-icon';
+import { OzsmCircleDiagramFullComponent } from './ozsm-circle-diagram-full/ozsm-circle-diagram-full.component';
 
 @NgModule({
     declarations: [
@@ -22,7 +28,15 @@ import { AngularSvgIconModule } from 'angular-svg-icon';
         OzsmLoadingParksBodyComponent,
         OzsmLoadingParksDiagramComponent,
         OzsmLoadingParksHeaderComponent,
-        OzsmMainIndicatorComponent
+        OzsmMainIndicatorComponent,
+        OzsmLoadingSpaceComponent,
+        OzsmCardLineDiagramComponent,
+        OzsmCircleDiagramFullComponent,
+        OzsmEqualizerChartComponent,
+        OzsmLineDiagramComponent,
+        OzsmLoadingSpaceComponent,
+        OzsmResourcesCircleDiagramComponent,
+        OzsmResourcesCircleDiagramVisualComponent
     ],
     exports: [
         OzsmTripleDiagramCardComponent,
@@ -33,7 +47,15 @@ import { AngularSvgIconModule } from 'angular-svg-icon';
         OzsmLoadingParksBodyComponent,
         OzsmLoadingParksDiagramComponent,
         OzsmLoadingParksHeaderComponent,
-        OzsmMainIndicatorComponent
+        OzsmMainIndicatorComponent,
+        OzsmLoadingSpaceComponent,
+        OzsmCardLineDiagramComponent,
+        OzsmCircleDiagramFullComponent,
+        OzsmEqualizerChartComponent,
+        OzsmLineDiagramComponent,
+        OzsmLoadingSpaceComponent,
+        OzsmResourcesCircleDiagramComponent,
+        OzsmResourcesCircleDiagramVisualComponent
     ],
 
     imports: [
