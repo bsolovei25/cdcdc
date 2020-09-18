@@ -129,6 +129,7 @@ export class OzsmCirclePlanningDiagramPlanComponent implements OnInit, OnChanges
         }
 
         addSerif(3 * Math.PI / 4, 'serif-active');
+        addSerif(Math.PI / 4, this.fact > this. plan ?  'serif-warning' : 'serif-active');
         addSerif(1.5 * Math.PI * mainValue / this.diagramCounter + 3 * Math.PI / 4, this.fact >= this.plan ? 'serif-active' : 'serif-warning');
 
         const g = svg.append('g').attr('class', 'text');
