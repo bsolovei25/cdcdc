@@ -1,3 +1,4 @@
+<div class="container">
 <evj-widget-header-smp
   [uniqId]="uniqId"
   (mouseenter)="onMouseEnter()"
@@ -12,7 +13,7 @@
   (mousedown)="$event.stopPropagation()"
   (touchstart)="$event.stopPropagation()"
 >
-  <div class="container">
+  <div class="container-toggle">
     <button (click)="clicked($event, 'plan')" class="button plan">
       <span>Планирование</span>
     </button>
@@ -20,5 +21,6 @@
       <span>Мониторинг</span>
     </button>
   </div>
+</div>
 </div>
 
