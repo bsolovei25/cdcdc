@@ -16,7 +16,13 @@
   grid-template-areas:
     "select select"
     "select-two select-two"
-    "left right";
+    "select-three select-three"
+    "select-four select-four"
+    "comment comment"
+    "checkbox checkbox"
+    "event event"
+    "info info";
+
 
   overflow: auto;
 
@@ -31,6 +37,31 @@
     &-two {
       grid-area: select-two;
     }
+
+    &-three {
+      grid-area: select-three;
+    }
+
+    &-four {
+      grid-area: select-four;
+    }
+
+    &-comment {
+      grid-area: comment;
+    }
+
+    &-checkbox {
+      grid-area: checkbox;
+    }
+
+    &-event {
+      grid-area: event;
+    }
+
+    &-info {
+      grid-area: info;
+    }
+
   }
 
   &__left {
@@ -48,10 +79,24 @@
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(1, max-content);
 
-  &--four {
+  &--one {
     display: grid;
     gap: 10px;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(1, 1fr);
+    grid-template-rows: repeat(1, min(120px));
+  }
+
+  &--two {
+    display: grid;
+    gap: 10px;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(1, min(120px));
+  }
+
+  &--three {
+    display: grid;
+    gap: 10px;
+    grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(1, max-content);
   }
 
