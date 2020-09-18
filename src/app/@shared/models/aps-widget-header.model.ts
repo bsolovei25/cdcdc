@@ -17,4 +17,5 @@ export type ApsHeaderIconType =
     | 'safety'
     | 'performance'
     | 'energy'
-    | 'kpe-marker';
+    | 'kpe-marker'
+    | 'sliders';
