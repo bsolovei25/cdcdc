@@ -1,0 +1,34 @@
+:host {
+  width: 100%;
+  height: 100%;
+
+  * {
+    box-sizing: border-box;
+  }
+}
+
+.container {
+  position: relative;
+  height: 100%;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.content {
+  position: relative;
+  width: calc(100% - 2px);
+  height: 100%;
+
+  padding-right: 5px;
+
+  overflow: scroll;
+  display: grid;
+  gap: 20px;
+  grid-template-columns: repeat(3, 1fr);
+  grid-auto-rows: calc(50% - 10px);
+}
+.circles {
+
+}
