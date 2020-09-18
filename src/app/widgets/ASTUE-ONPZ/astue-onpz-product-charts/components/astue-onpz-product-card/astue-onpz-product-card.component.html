@@ -17,11 +17,11 @@
   <div class="card-border">
     <div class="card__legend legend">
       <div class="legend__units">{{data.units}}</div>
-      <div class="legend__value value plan">
+      <div class="legend__value value" [ngClass]="isDeviationChart?'economy':'plan'">
         <div class="value__title">{{data?.planText}}</div>
         <div class="value__card">{{data?.currentPlanValue}}</div>
       </div>
-      <div class="legend__value value">
+      <div class="legend__value value" [ngClass]="isDeviationChart?'over':''">
         <div class="value__title">{{data?.factText}}</div>
         <div class="value__card">{{data?.currentFactValue}}</div>
       </div>
