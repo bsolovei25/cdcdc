@@ -2,6 +2,12 @@
     box-sizing: border-box;
 }
 
+::ng-deep {
+  .mat-select-arrow {
+    transform: translate(-11px, 2px);
+  }
+}
+
 button {
     border: none;
     outline: none;
@@ -16,6 +22,9 @@ button {
 
     overflow: hidden;
 
+    border: 1px solid var(--ozsm-color-border);
+    border-radius: 2px;
+
     background: var(--ozsm-color-bg-main);
 }
 
@@ -23,6 +32,9 @@ button {
     height: 100%;
     width: 100%;
     padding: 20px 15px;
+
+    border-top: 1px solid var(--ozsm-color-border);
+    border-radius: 0 0 2px 2px;
 
     display: flex;
     flex-direction: column;
@@ -49,7 +61,7 @@ button {
         svg-icon {
             display: none;
         }
-        
+
         .inner-circle {
             display: none;
         }
@@ -105,7 +117,6 @@ button {
 
     .dropdown {
         height: 32px;
-        padding-right: 11px;
         margin: 12px 0;
 
         border: 1px solid var(--ozsm-color-border-select);
@@ -148,10 +159,19 @@ button {
 
 .btn-container {
     width: 100%;
-    padding-top: 12px;
-
     display: flex;
-    justify-content: space-between;
+    flex: 1;
+    align-items: flex-end;
+
+    .btn-inner {
+      padding-top: 12px;
+
+      display: flex;
+      flex: 1;
+      justify-content: space-between;
+
+      border-top: 1px solid var(--ozsm-color-border);
+    }
 
     button {
         height: 32px;
