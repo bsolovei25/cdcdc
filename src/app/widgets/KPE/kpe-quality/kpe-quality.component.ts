@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject, OnDestroy, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, Inject, OnDestroy, ElementRef } from '@angular/core';
 import { WidgetPlatform } from '../../../dashboard/models/widget-platform';
 import { WidgetService } from '../../../dashboard/services/widget.service';
 import { HttpClient } from '@angular/common/http';
@@ -17,6 +17,7 @@ export interface IKpeQualityData {
 export interface IKpeQualityCard {
     description: string;
     equalizerChart: IKpeLineChartData[];
+    equalizerChartConverted?: IBarDiagramData[];
     gaugeChart: IKpeGaugeChartData;
 }
 
@@ -35,8 +36,6 @@ export class KpeQualityComponent extends WidgetPlatform implements OnInit, OnDes
 
     public deviationDiagram: IKpeGaugeChartData = { plan: 100, fact: 100 };
 
-    public equalizerData: IBarDiagramData[] = [];
-
     public cards: IKpeQualityCard[][] = [];
 
     constructor(
@@ -53,17 +52,18 @@ export class KpeQualityComponent extends WidgetPlatform implements OnInit, OnDes
 
     public ngOnInit(): void {
         super.widgetInit();
-
-        this.http
-            .get('assets/mock/KPE/equalizer-chart.json')
-            .toPromise()
-            .then((data: IBarDiagramData[]) => {
-                this.equalizerData = data;
-            });
     }
 
     public ngOnDestroy(): void {
         super.ngOnDestroy();
+    }
+
+    public trackByFuncMain(index: number, cards: IKpeQualityCard[]): IKpeQualityCard[] {
+        return cards;
+    }
+
+    public trackByFuncCard(index: number, card: IKpeQualityCard): IKpeQualityCard {
+        return card;
     }
 
     public gaugeWidth(container: HTMLDivElement): string {
@@ -77,31 +77,30 @@ export class KpeQualityComponent extends WidgetPlatform implements OnInit, OnDes
     protected dataHandler(ref: IKpeQualityData): void {
         this.deviationDiagram = ref.deviationDiagram;
         this.deviationChartData = this.formatData(ref.deviationChart);
-        this.cards = this.sortArray(ref.cards, 2);
-    }
-
-    public formatData(data: IKpeLineChartData[]): IBarDiagramData[] {
-        return this.kpeHelperService.prepareKpeLineChartData(data);
-    }
-
-    public sortArray(
-        arr: IKpeQualityCard[],
-        n: number
-    ): IKpeQualityCard[][] {
-        let i = 0;
-        let j = 0;
-        const result = [];
-        let temp = [];
-        for (const item of arr) {
-            i++;
-            j++;
-            temp.push(item);
-            if (i === n || j === arr.length) {
-                result.push(temp);
-                temp = [];
-                i = 0;
-            }
+        const cards = this.kpeHelperService.sortArray<IKpeQualityCard>(ref.cards, 2);
+        if (!this.cards.length) {
+            cards.forEach(cardsSetNew => {
+                this.cards.push(this.prepareEqualizerData(cardsSetNew));
+            });
+        } else {
+            cards.forEach(cardsSetNew => {
+                this.cards.forEach(cardsSetExist => {
+                    if (this.kpeHelperService.compare<IKpeQualityCard>(cardsSetNew, cardsSetExist)) {
+                        this.cards.push(this.prepareEqualizerData(cardsSetNew));
+                    }
+                });
+            });
         }
-        return result;
+    }
+
+    private prepareEqualizerData(cardSet: IKpeQualityCard[]): IKpeQualityCard[] {
+        cardSet.map(card => {
+            card.equalizerChartConverted = this.formatData(card.equalizerChart);
+        });
+        return cardSet;
+    }
+
+    private formatData(data: IKpeLineChartData[]): IBarDiagramData[] {
+        return this.kpeHelperService.prepareKpeLineChartData(data);
     }
 }
