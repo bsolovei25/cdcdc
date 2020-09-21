@@ -26,6 +26,8 @@ export interface ITankCardValue {
     minValue: number;
     objectStatus: string;
     passportState: string;
+    roofType: string;
+    isPassportized: boolean;
     tankTitle: string;
     tankType: string;
     fillLevelPercentage: number;
@@ -51,6 +53,8 @@ export class ITankCardValueRef {
     public minValue: number;
     public objectStatus: string;
     public passportState: string;
+    public roofType: string;
+    public isPassportized: boolean;
     public tankTitle: string;
     public tankType: string;
     public temperature: number;
@@ -76,6 +80,8 @@ export const ITankValueDtoFn = (data: any): any => {
         minValue: data.minValue,
         objectStatus: data.objectStatus,
         passportState: data.passportState,
+        roofType: data.roofType,
+        isPassportized: data.isPassportized,
         tankTitle: data.tankTitle,
         tankType: data.tankType,
         fillLevelPercentage: data.fillLevelPercentage,

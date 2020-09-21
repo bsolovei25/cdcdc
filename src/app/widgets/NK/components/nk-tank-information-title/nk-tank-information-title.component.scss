@@ -7,6 +7,9 @@ button {
     outline: none;
     background: transparent;
     cursor: pointer;
+
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .title {
