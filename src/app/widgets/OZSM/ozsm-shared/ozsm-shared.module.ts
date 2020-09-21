@@ -10,7 +10,6 @@ import { OzsmCircleDiagramFullComponent } from './ozsm-circle-diagram-full/ozsm-
 import { OzsmLoadingSpaceComponent } from './ozsm-loading-space/ozsm-loading-space.component';
 import { OzsmMainIndicatorComponent } from './ozsm-main-indicator/ozsm-main-indicator.component';
 import { OzsmCircleDiagramIconComponent } from './ozsm-circle-diagram-icon/ozsm-cirle-diagram-icon.component';
-import { AngularSvgIconModule } from 'angular-svg-icon';
 import { OzsmMainToggleComponent } from '../ozsm-main-toggle/ozsm-main-toggle.component';
 import { MatRippleModule } from "@angular/material/core";
 import { AngularSvgIconModule } from 'angular-svg-icon';
@@ -29,7 +28,7 @@ import { OzsmListPackingDiagramsItemComponent } from './ozsm-list-packing-diagra
         OzsmMainIndicatorComponent,
         OzsmMainToggleComponent,
         OzsmListPackingDiagramsComponent,
-        OzsmListPackingDiagramsItemComponent
+        OzsmListPackingDiagramsItemComponent,
         OzsmCircleDiagramIconComponent,
         OzsmMainToggleComponent
     ],
@@ -44,7 +43,7 @@ import { OzsmListPackingDiagramsItemComponent } from './ozsm-list-packing-diagra
         OzsmMainIndicatorComponent,
         OzsmMainToggleComponent,
         OzsmListPackingDiagramsComponent,
-        OzsmListPackingDiagramsItemComponent
+        OzsmListPackingDiagramsItemComponent,
         OzsmCircleDiagramIconComponent,
         OzsmMainToggleComponent
     ],
