@@ -9,7 +9,7 @@
 
     &__title {
         height: 40px;
-        width: 145px;
+        width: 144px;
 
         display: flex;
         justify-content: center;
@@ -45,6 +45,7 @@
 .menu {
     height: 40px;
     width: 410px;
+    padding: 0 18px;
 
     display: flex;
     align-items: center;
@@ -57,6 +58,8 @@
     border-radius: 0 2px 0px 0;
 
     span {
+        width: 72px;
+        text-align: center;
         font-size: 10px;
         line-height: 12px;
         color: var(--ozsm-color-marker-diagram);

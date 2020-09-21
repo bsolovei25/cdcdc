@@ -1,3 +1,7 @@
+* {
+  box-sizing: border-box;
+}
+
 .body {
     height: 138px;
     width: 411px;
@@ -25,6 +29,8 @@
 .info {
     height: 40px;
     width: 185px;
+    padding-left: 5px;
+
     display: flex;
     align-items: center;
 
@@ -45,8 +51,8 @@
 
 .parks-list {
     width: 100%;
-    padding: 0 5px;
-    
+    padding: 0 18px;
+
     display: flex;
     justify-content: space-around;
 }
