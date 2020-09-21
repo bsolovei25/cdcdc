@@ -2,8 +2,6 @@ import { OzsmResourcesCircleDiagramVisualComponent } from './ozsm-resources-circ
 import { OzsmResourcesCircleDiagramComponent } from 'src/app/widgets/OZSM/ozsm-shared/ozsm-resources-circle-diagram/ozsm-resources-circle-diagram.component';
 import { OzsmLineDiagramComponent } from './ozsm-line-diagram/ozsm-line-diagram.component';
 import { OzsmCardLineDiagramComponent } from './ozsm-card-line-diagram/ozsm-card-line-diagram.component';
-import { OzsmLoadingSpaceComponent } from './ozsm-loading-space/ozsm-loading-space.component';
-import { OzsmMainIndicatorComponent } from './ozsm-main-indicator/ozsm-main-indicator.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SharedModule } from '@shared/shared.module';
@@ -38,7 +36,7 @@ import { MatRippleModule } from "@angular/material/core";
         OzsmCardLineDiagramComponent,
         OzsmCircleDiagramFullComponent,
         OzsmEqualizerChartComponent,
-        OzsmLoadingSpaceComponent
+        OzsmLoadingSpaceComponent,
         OzsmMainIndicatorComponent,
         OzsmMainToggleComponent
     ],
@@ -56,7 +54,9 @@ import { MatRippleModule } from "@angular/material/core";
         OzsmCardLineDiagramComponent,
         OzsmCircleDiagramFullComponent,
         OzsmEqualizerChartComponent,
-        OzsmLoadingSpaceComponent
+        OzsmLoadingSpaceComponent,
+        OzsmMainIndicatorComponent,
+        OzsmMainToggleComponent
     ],
     imports: [
         CommonModule,
