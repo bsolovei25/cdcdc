@@ -14,9 +14,13 @@
     (touchstart)="$event.stopPropagation()"
   >
     <div class="card__header header">
-      <div class="header__tag"
-           style.backgroundColor="var(--color-astue-onpz-bg-tag-{{ colors?.get(info.tag) }})"
-           style.color="var(--color-astue-tag-{{ colors?.get(info.tag) }})">{{info?.tag}}</div>
+      <div
+        class="header__tag"
+        style.backgroundColor="var(--color-astue-onpz-bg-tag-{{ colors?.get(info.tag) }})"
+        style.color="var(--color-astue-tag-{{ colors?.get(info.tag) }})"
+      >
+        {{info?.tag}}
+      </div>
       <div class="header__title">{{info?.title}}</div>
     </div>
     <div class="card-border">
@@ -34,7 +38,11 @@
         </div>
       </div>
       <div class="card__chart">
-        <evj-limits-chart [data]="data" [isSpline]="false" [isWithPicker]="true"></evj-limits-chart>
+        <evj-planning-chart
+          [data]="data"
+          [isSpline]="false"
+          [isWithPicker]="true"
+        ></evj-planning-chart>
       </div>
       <div class="card__scroll">
         <evj-smart-scroll></evj-smart-scroll>
