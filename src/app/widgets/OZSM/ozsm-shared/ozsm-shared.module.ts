@@ -13,7 +13,6 @@ import { OzsmLoadingParksComponent } from "./ozsm-loading-parks/ozsm-loading-par
 import { OzsmLoadingParksBodyComponent } from "./ozsm-loading-parks/components/ozsm-loading-parks-body/ozsm-loading-parks-body.component";
 import { OzsmLoadingParksDiagramComponent } from "./ozsm-loading-parks/components/ozsm-loading-parks-diagram/ozsm-loading-parks-diagram.component";
 import { OzsmLoadingParksHeaderComponent } from "./ozsm-loading-parks/components/ozsm-loading-parks-header/ozsm-loading-parks-header.component";
-import { AngularSvgIconModule } from 'angular-svg-icon';
 import { OzsmCircleDiagramFullComponent } from './ozsm-circle-diagram-full/ozsm-circle-diagram-full.component';
 import { OzsmLoadingSpaceComponent } from './ozsm-loading-space/ozsm-loading-space.component';
 import { OzsmMainIndicatorComponent } from './ozsm-main-indicator/ozsm-main-indicator.component';
@@ -45,8 +44,7 @@ import { OzsmListPackingDiagramsItemComponent } from './ozsm-list-packing-diagra
         OzsmMainToggleComponent,
         OzsmListPackingDiagramsComponent,
         OzsmListPackingDiagramsItemComponent,
-        OzsmCircleDiagramIconComponent,
-        OzsmMainToggleComponent
+        OzsmCircleDiagramIconComponent
     ],
     exports: [
         OzsmTripleDiagramCardComponent,
@@ -67,8 +65,7 @@ import { OzsmListPackingDiagramsItemComponent } from './ozsm-list-packing-diagra
         OzsmMainToggleComponent,
         OzsmListPackingDiagramsComponent,
         OzsmListPackingDiagramsItemComponent,
-        OzsmCircleDiagramIconComponent,
-        OzsmMainToggleComponent
+        OzsmCircleDiagramIconComponent
     ],
     imports: [
         CommonModule,
