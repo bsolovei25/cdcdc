@@ -3,9 +3,10 @@ import { IChartMini } from '../models/smart-scroll.model';
 
 export function fillDataArray(
     data: IProductionTrend[],
-    deltaTime: number = 12,
     isFutureFilling: boolean = false,
-    isFillPlan: boolean = false
+    isFillPlan: boolean = false,
+    startTime: number = null,
+    endTime: number = null,
 ): void {
     data.forEach((item) => {
         // обнуление значений милисекунд, секунд и минут
@@ -59,27 +60,33 @@ export function fillDataArray(
             }
         });
         item.graph = filteredArray;
-        // вычисление дат начала и конца
-        const end = item.graph[item.graph.length - 1].timeStamp;
-        const start = new Date(end);
-        start.setHours(end.getHours() - deltaTime);
-        // фильтрация по дате начала
-        item.graph = item.graph.filter((val) => val.timeStamp.getTime() >= start.getTime());
-        // заполнение массива на deltaTime часов вперед
+
+        // проверка режима работы
         const fillCharts: { [key: string]: boolean } = {
             higherBorder: true,
             lowerBorder: true,
             plan: isFillPlan,
         };
-        if (isFutureFilling && fillCharts[item.graphType]) {
-            for (let i = 0; i < deltaTime; i++) {
-                const val: IChartMini = {
-                    value: item.graph[item.graph.length - 1].value,
-                    timeStamp: new Date(item.graph[item.graph.length - 1].timeStamp),
-                };
-                val.timeStamp.setHours(val.timeStamp.getHours() + 1);
-                item.graph.push(val);
+        if (startTime && endTime) {
+            // заполнение массива по краям
+            if (isFutureFilling && fillCharts[item.graphType]) {
+                while (item.graph[0].timeStamp.getTime() > startTime) {
+                    item.graph.unshift({
+                        value: item.graph[0].value,
+                        timeStamp: new Date(item.graph[0].timeStamp.getTime() - 1000 * 60 * 60),
+                    });
+                }
+                while (item.graph[item.graph.length - 1].timeStamp.getTime() < endTime) {
+                    item.graph.push({
+                        value: item.graph[item.graph.length - 1].value,
+                        timeStamp: new Date(item.graph[item.graph.length - 1].timeStamp.getTime()
+                            + 1000 * 60 * 60),
+                    });
+                }
             }
+            // фильтрация по началу и окончанию периода
+            item.graph = item.graph.filter((g) => g.timeStamp.getTime() >= startTime
+                        && g.timeStamp.getTime() <= endTime);
         }
     });
 }

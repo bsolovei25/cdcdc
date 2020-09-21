@@ -61,15 +61,7 @@ export class AstueOnpzPlanningChartsComponent extends WidgetPlatform implements 
         multiLineChart: IMultiChartLine[];
     }): void {
         this.data = ref.graphs;
-        const newMultiChart: IMultiChartLine[] = ref?.multiLineChart?.map((item: any) => {
-            return {
-                graph: item.graph,
-                units: item.units,
-                graphType: item.multiChartTypes,
-                tagName: item.tagName
-            };
-        });
-        this.astueOnpzService.setMultiLinePredictors(newMultiChart);
+        this.astueOnpzService.setMultiLinePredictors(ref?.multiLineChart);
     }
 
     setOptionsWs(predictorIds: string[], predictorWidgetId: string): void {

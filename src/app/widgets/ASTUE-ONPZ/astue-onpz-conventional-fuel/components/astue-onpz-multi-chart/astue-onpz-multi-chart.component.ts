@@ -48,8 +48,6 @@ export class AstueOnpzMultiChartComponent implements OnChanges, OnDestroy {
 
     private graphMaxX: number = 0;
     private graphMaxY: number = 0;
-    private dataMax: number = 0;
-    private dataMin: number = 0;
 
     private charts: IMultiChartData[] = [];
 
@@ -698,9 +696,5 @@ export class AstueOnpzMultiChartComponent implements OnChanges, OnDestroy {
         const fact = this.charts.find((item) => item.graphType === 'fact');
         const coef = !!plan && !!fact ? this.charts.length - 1 : this.charts.length;
         return this.padding.left + this.axisYWidth * coef;
-    }
-
-    private delta(a: number, b: number): number {
-        return a - b;
     }
 }
