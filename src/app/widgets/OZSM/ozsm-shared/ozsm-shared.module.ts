@@ -1,5 +1,3 @@
-import { OzsmListPackingDiagramsItemComponent } from './ozsm-list-packing-diagrams/components/ozsm-list-packing-diagrams-item/ozsm-list-packing-diagrams-item.component';
-import { OzsmListPackingDiagramsComponent } from './ozsm-list-packing-diagrams/ozsm-list-packing-diagrams.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SharedModule } from '@shared/shared.module';
@@ -13,6 +11,9 @@ import { OzsmLoadingSpaceComponent } from './ozsm-loading-space/ozsm-loading-spa
 import { OzsmMainIndicatorComponent } from './ozsm-main-indicator/ozsm-main-indicator.component';
 import { OzsmMainToggleComponent } from '../ozsm-main-toggle/ozsm-main-toggle.component';
 import { MatRippleModule } from "@angular/material/core";
+import { AngularSvgIconModule } from 'angular-svg-icon';
+import { OzsmListPackingDiagramsComponent } from './ozsm-list-packing-diagrams/ozsm-list-packing-diagrams.component';
+import { OzsmListPackingDiagramsItemComponent } from './ozsm-list-packing-diagrams/components/ozsm-list-packing-diagrams-item/ozsm-list-packing-diagrams-item.component';
 
 @NgModule({
     declarations: [
@@ -25,6 +26,8 @@ import { MatRippleModule } from "@angular/material/core";
         OzsmCircleDiagramFullComponent,
         OzsmMainIndicatorComponent,
         OzsmMainToggleComponent,
+        OzsmListPackingDiagramsComponent,
+        OzsmListPackingDiagramsItemComponent
     ],
     exports: [
         OzsmTripleDiagramCardComponent,
@@ -42,7 +45,8 @@ import { MatRippleModule } from "@angular/material/core";
   imports: [
     CommonModule,
     SharedModule,
-    MatRippleModule
+    MatRippleModule,
+      AngularSvgIconModule
   ]
 })
 export class OzsmSharedModule {
