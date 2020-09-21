@@ -19,11 +19,9 @@
   position: relative;
   width: 100%;
   height: 100%;
-
   padding-right: 5px;
-
   overflow: scroll;
-  display: flex;
+
 }
 .diagrams {
   display: flex;
@@ -37,6 +35,7 @@
 .diagram-plan {
   display: flex;
   align-items: center;
+  flex-grow: 1;
 }
 .template {
   display: flex;
@@ -48,4 +47,14 @@
   align-items: center;
   flex-direction: row;
   height: 10%;
+}
+.arrow-top {
+  width: 100%;
+  position: relative;
+  left: 45%;
+}
+.arrow-bottom {
+  width: 100%;
+  position: relative;
+  left: 60%;
 }

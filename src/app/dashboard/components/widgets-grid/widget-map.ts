@@ -902,10 +902,10 @@ export const WIDGETS_LAZY = {
                 );
         },
         module: 'OzsmCirclePlanningDiagramModule',
-        itemCols: 12,
-        itemRows: 7,
-        minItemCols: 12,
-        minItemRows: 7,
+        itemCols: 40,
+        itemRows: 8,
+        minItemCols: 40,
+        minItemRows: 8,
         preview: 'default'
     },
     'ozsm-main-toggle': {
