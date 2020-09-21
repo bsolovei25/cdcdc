@@ -46,7 +46,8 @@ export class AstueOnpzPlanningChartsComponent extends WidgetPlatform implements 
         super.dataConnect();
         this.subscriptions.push(
             this.astueOnpzService.predictorsOptions$.subscribe((value) => {
-                this.setOptionsWs(value?.map((predictor) => predictor?.id));
+                this.setOptionsWs(value?.predictors.map((predictor) => predictor?.id),
+                    value?.predictorWidgetId);
             }),
             this.astueOnpzService.colors$.subscribe((value) => {
                 this.colors = value;
@@ -71,7 +72,10 @@ export class AstueOnpzPlanningChartsComponent extends WidgetPlatform implements 
         this.astueOnpzService.setMultiLinePredictors(newMultiChart);
     }
 
-    setOptionsWs(predictorIds: string[]): void {
-        this.widgetService.setWidgetLiveDataFromWSOptions(this.id, { predictorIds });
+    setOptionsWs(predictorIds: string[], predictorWidgetId: string): void {
+        this.widgetService.setWidgetLiveDataFromWSOptions(this.id, {
+            predictorWidgetId,
+            predictorIds
+        });
     }
 }

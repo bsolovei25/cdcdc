@@ -18,13 +18,13 @@
             </div>
 
             <span class="innage__higherBorder">
-                {{higher}}
+                {{higher | number:'0.0-1'}}
             </span>
             <span class="innage__current" [style.alignItems] = "current / higher > 0.5 ? 'flex-start' : 'flex-end'" [ngStyle] = "{'height': current / higher * 100 + '%'}">
-                {{current}}
+                {{current | number:'0.0-1'}}
             </span>
             <span class="innage__lowerBorder">
-                {{lower}}
+                {{lower | number:'0.0-1'}}
             </span>
         </div>
     </div>

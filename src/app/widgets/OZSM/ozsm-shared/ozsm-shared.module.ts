@@ -11,7 +11,8 @@ import { OzsmCardLineDiagramComponent } from './ozsm-card-line-diagram/ozsm-card
 import { OzsmCircleDiagramFullComponent } from './ozsm-circle-diagram-full/ozsm-circle-diagram-full.component';
 import { OzsmLoadingSpaceComponent } from './ozsm-loading-space/ozsm-loading-space.component';
 import { OzsmMainIndicatorComponent } from './ozsm-main-indicator/ozsm-main-indicator.component';
-import { AngularSvgIconModule } from 'angular-svg-icon';
+import { OzsmMainToggleComponent } from '../ozsm-main-toggle/ozsm-main-toggle.component';
+import { MatRippleModule } from "@angular/material/core";
 
 @NgModule({
     declarations: [
@@ -23,8 +24,7 @@ import { AngularSvgIconModule } from 'angular-svg-icon';
         OzsmCardLineDiagramComponent,
         OzsmCircleDiagramFullComponent,
         OzsmMainIndicatorComponent,
-        OzsmListPackingDiagramsComponent,
-        OzsmListPackingDiagramsItemComponent
+        OzsmMainToggleComponent,
     ],
     exports: [
         OzsmTripleDiagramCardComponent,
@@ -39,11 +39,11 @@ import { AngularSvgIconModule } from 'angular-svg-icon';
         OzsmListPackingDiagramsItemComponent
     ],
 
-    imports: [
-        CommonModule,
-        SharedModule,
-        AngularSvgIconModule.forRoot()
-    ],
+  imports: [
+    CommonModule,
+    SharedModule,
+    MatRippleModule
+  ]
 })
 export class OzsmSharedModule {
 }

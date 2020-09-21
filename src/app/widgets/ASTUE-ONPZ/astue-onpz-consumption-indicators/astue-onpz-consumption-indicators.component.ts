@@ -64,6 +64,13 @@ export class AstueOnpzConsumptionIndicatorsComponent extends WidgetPlatform
         if (this.type !== ref.type) {
             this.type = ref.type;
         }
+
+        const options = this.astueOnpzService.monitoringOptions$.getValue();
+        if (this.indicators && options.type === this.type) {
+            this.activeIndicator =
+                this.indicators.find(indicatorFromList =>
+                    indicatorFromList.type === options.indicatorType) ?? null;
+        }
     }
 
     protected dataConnect(): void {
@@ -71,11 +78,10 @@ export class AstueOnpzConsumptionIndicatorsComponent extends WidgetPlatform
         this.subscriptions.push(
             this.astueOnpzService.sharedMonitoringOptions.subscribe(options => {
                 this.activeIndicator = null;
-                if (this.indicators) {
-                    const indicator = this.indicators.find(indicatorFromList => indicatorFromList.type === options.indicatorType);
-                    if (options.type === this.type) {
-                        this.activeIndicator = indicator;
-                    }
+                if (this.indicators && options.type === this.type) {
+                    this.activeIndicator =
+                        this.indicators.find(indicatorFromList =>
+                            indicatorFromList.type === options.indicatorType) ?? null;
                 }
                 this.widgetService.setWidgetLiveDataFromWSOptions(this.widgetId, options);
             }),
