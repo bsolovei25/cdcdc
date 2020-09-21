@@ -911,14 +911,14 @@ export const WIDGETS_LAZY = {
     'ozsm-main-toggle': {
     import: async () => {
         return await import(
-            'src/app/widgets/OZSM/ozsm-main-indicators/ozsm-main-indicators.module'
+            'src/app/widgets/OZSM/ozsm-main-toggle/ozsm-main-toggle.module'
             );
     },
-        module: 'OzsmMainIndicatorsModule',
-        itemCols: 4,
-        itemRows: 4,
-        minItemCols: 4,
-        minItemRows: 4,
+        module: 'OzsmMainToggleModule',
+        itemCols: 10,
+        itemRows: 2,
+        minItemCols: 10,
+        minItemRows: 2,
         preview: 'default',
 },
 
