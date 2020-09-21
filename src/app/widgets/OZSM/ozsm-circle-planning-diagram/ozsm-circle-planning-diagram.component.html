@@ -14,11 +14,30 @@
     (touchstart)="$event.stopPropagation()"
   >
     <div class="diagrams">
-      <evj-ozsm-circle-planning-diagram-plan></evj-ozsm-circle-planning-diagram-plan>
-      <div class="diagram-card">
-        <evj-ozsm-circle-planning-diagram-card></evj-ozsm-circle-planning-diagram-card>
+      <div class="diagram-plan" *ngFor="let item of pData; index as i">
+        <evj-ozsm-circle-planning-diagram-plan [plan]="item"></evj-ozsm-circle-planning-diagram-plan>
+        <div *ngIf="item.name === 'производства'">
+          <div class="arrow">
+            <div class="arrow__tail"><img src="assets/icons/widgets/OZSM/ozsm-circle-planning-diagram/arrow-tail.svg">
+            </div>
+            <div class="arrow__line"><img src="assets/icons/widgets/OZSM/ozsm-circle-planning-diagram/arrow-line.svg">
+            </div>
+        </div>
+
+        </div>
+        <div class="template"  *ngIf="item.name === 'производства'">
+        <div class="diagram-card" *ngFor="let item of cData">
+          <evj-ozsm-circle-planning-diagram-card [card]="item"></evj-ozsm-circle-planning-diagram-card>
+          <div class="arrow">
+            <div class="arrow__tail"><img src="assets/icons/widgets/OZSM/ozsm-circle-planning-diagram/arrow-tail.svg">
+            </div>
+            <div class="arrow__line"><img src="assets/icons/widgets/OZSM/ozsm-circle-planning-diagram/arrow-line.svg">
+            </div>
+          </div>
+        </div>
+        </div>
       </div>
-      <evj-ozsm-circle-planning-diagram-plan></evj-ozsm-circle-planning-diagram-plan>
+
     </div>
   </div>
 </div>

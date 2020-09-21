@@ -13,7 +13,8 @@
 }
 
 .diagram {
-
+  width: 100%;
+  height: 100%;
 
   &::ng-deep {
     .back-arc,
@@ -30,6 +31,9 @@
     }
     .rainbow {
       fill: var(--ozsm-resources-circle-diagram-color-line);
+    }
+    .white-needle {
+      fill: var(--color-aps-active-line);
     }
 
     .end-line {
@@ -62,6 +66,10 @@
 
     .units {
       fill: var(--color-text-sub-heading);
+      font-size: 1.3px;
+    }
+    .warning {
+      fill: var(--ozsm-color-warning);
       font-size: 1.3px;
     }
 

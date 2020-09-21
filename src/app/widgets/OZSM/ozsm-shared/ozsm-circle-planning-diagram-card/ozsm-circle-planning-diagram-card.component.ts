@@ -1,4 +1,12 @@
-import { Component, OnInit, ViewChild, ElementRef, OnDestroy, AfterViewInit } from '@angular/core';
+import {
+    Component,
+    OnInit,
+    ViewChild,
+    ElementRef,
+    OnDestroy,
+    AfterViewInit,
+    Input
+} from '@angular/core';
 import * as d3Selection from 'd3-selection';
 import * as d3 from 'd3';
 import { ICircleData } from '../../../../dashboard/models/OZSM/ozsm-circle-planning-diagram.model';
@@ -11,19 +19,7 @@ import { ICircleData } from '../../../../dashboard/models/OZSM/ozsm-circle-plann
 
 export class OzsmCirclePlanningDiagramCardComponent implements OnInit, OnDestroy, AfterViewInit {
     @ViewChild('diagram', { static: true }) private diagram: ElementRef;
-    private data: ICircleData[] =
-        [{
-            name: 'Выработка',
-            value: 1126658,
-            deviation: 1140062,
-            percentValue: 72,
-        },
-            {
-                name: 'Смешивание',
-                value: 1126658,
-                deviation: 1140062,
-                percentValue: 100,
-            }];
+    @Input() card: ICircleData;
 
     public activeData: ICircleData;
     private svgBody: any;
@@ -31,7 +27,7 @@ export class OzsmCirclePlanningDiagramCardComponent implements OnInit, OnDestroy
     constructor() { }
 
     ngOnInit(): void {
-        this.activeData = this.data.shift();
+        this.activeData = this.card;
     }
     ngOnDestroy(): void {
     }
@@ -47,9 +43,9 @@ export class OzsmCirclePlanningDiagramCardComponent implements OnInit, OnDestroy
     private drawDiagram(): void {
         this.svgBody = d3Selection.select(this.diagram.nativeElement).append('svg');
         this.svgBody
-            .attr('width', '75%')
-            .attr('height', '75%')
-            .attr('viewBox', '0 0 400 200');
+            .attr('width', '100%')
+            .attr('height', '100%')
+            .attr('viewBox', '0 0 200 200');
 
         const indicator = this.svgBody.append('g').attr('class', 'indicator');
         indicator
@@ -88,7 +84,7 @@ export class OzsmCirclePlanningDiagramCardComponent implements OnInit, OnDestroy
         this.drawInnerGaude(innerGaude, this.activeData.percentValue);
         const text = gaude.append('g').attr('class', 'gaude-text');
         this.drawTextInGaude(text);
-        gaude.style('transform', 'translate(25%, 51%) scale(9)');
+        gaude.style('transform', 'translate(50%, 50%) scale(9)');
     }
     private drawBigGaude(block: any, data: any): void {
         const svg = block;
@@ -114,7 +110,7 @@ export class OzsmCirclePlanningDiagramCardComponent implements OnInit, OnDestroy
 
         this.drawArc(pie([1]), 'back-arc', arc, svg); // отрисовка внешней дуги
         this.drawArc(pie([1]), 'deviation-arc', innerArc, svg); // отрисовка подвижной дуги
-        this.drawArc(lastPie([data]), 'needle-arc', innerArc, svg); // отрисовка подвижной дуги
+        this.drawArc(lastPie([data]), this.activeData.deviation < 0 ? 'white-needle' : 'needle-arc', innerArc, svg); // отрисовка подвижной дуги
         this.drawArc(pie(new Array(120)), 'dashed-arc', dashedArc, svg); // отрисовка пунктирной дуги
     }
 
@@ -147,11 +143,12 @@ export class OzsmCirclePlanningDiagramCardComponent implements OnInit, OnDestroy
             .text('ТН');
         block
             .append('text')
-            .attr('class', 'units')
+            // .attr('class', 'units')
+            .attr('class', this.activeData.deviation < 0 ? 'warning' : 'units')
             .attr('text-anchor', 'middle')
             .attr('x', 0)
             .attr('y', 5)
-            .text('0');
+            .text(this.activeData.deviation);
 
         block
             .append('text')

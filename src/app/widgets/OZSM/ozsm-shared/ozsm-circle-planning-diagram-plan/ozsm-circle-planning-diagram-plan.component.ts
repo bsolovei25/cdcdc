@@ -1,7 +1,16 @@
-import { Component, OnInit, OnDestroy, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
+import {
+    Component,
+    OnInit,
+    OnDestroy,
+    AfterViewInit,
+    ViewChild,
+    ElementRef,
+    Input
+} from '@angular/core';
 import * as d3Selection from 'd3-selection';
 import * as d3 from 'd3';
 import { ICircleData } from 'src/app/dashboard/models/OZSM/ozsm-circle-planning-diagram.model';
+import { planData } from '../../ozsm-circle-planning-diagram/ozsm-circle-planning-diagam-mock';
 
 @Component({
     selector: 'evj-ozsm-circle-planning-diagram-plan',
@@ -10,13 +19,7 @@ import { ICircleData } from 'src/app/dashboard/models/OZSM/ozsm-circle-planning-
 })
 export class OzsmCirclePlanningDiagramPlanComponent implements OnInit, OnDestroy, AfterViewInit {
     @ViewChild('diagram', { static: true }) private diagram: ElementRef;
-    private data: ICircleData =
-        {
-            name: 'производства',
-            value: 1126658,
-            deviation: 1140062,
-            percentValue: 25,
-        };
+    @Input() plan: ICircleData;
 
     public activeData: ICircleData;
     private svgBody: any;
@@ -24,7 +27,7 @@ export class OzsmCirclePlanningDiagramPlanComponent implements OnInit, OnDestroy
     constructor() { }
 
     ngOnInit(): void {
-        this.activeData = this.data;
+        this.activeData = this.plan;
     }
     ngOnDestroy(): void {
     }
@@ -42,7 +45,7 @@ export class OzsmCirclePlanningDiagramPlanComponent implements OnInit, OnDestroy
         this.svgBody
             .attr('width', '100%')
             .attr('height', '100%')
-            .attr('viewBox', '0 0 400 200');
+            .attr('viewBox', '0 0 200 200');
 
         const indicator = this.svgBody.append('g').attr('class', 'indicator');
         indicator
@@ -81,7 +84,7 @@ export class OzsmCirclePlanningDiagramPlanComponent implements OnInit, OnDestroy
         this.drawInnerGaude(innerGaude, this.activeData.percentValue);
         const text = gaude.append('g').attr('class', 'gaude-text');
         this.drawTextInGaude(text);
-        gaude.style('transform', 'translate(25%, 51%) scale(9)');
+        gaude.style('transform', 'translate(50%, 50%) scale(9)');
     }
     private drawBigGaude(block: any, data: any): void {
         const svg = block;
