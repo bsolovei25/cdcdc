@@ -123,4 +123,34 @@ export class KpeHelperService {
 
         return data;
     }
+
+    public compare<T>(a: T[], b: T[]): boolean {
+        for (const property in a) {
+            if (a[property] !== b[property]) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public sortArray<T>(
+        arr: T[],
+        n: number
+    ): T[][] {
+        let i = 0;
+        let j = 0;
+        const result = [];
+        let temp = [];
+        for (const item of arr) {
+            i++;
+            j++;
+            temp.push(item);
+            if (i === n || j === arr.length) {
+                result.push(temp);
+                temp = [];
+                i = 0;
+            }
+        }
+        return result;
+    }
 }
