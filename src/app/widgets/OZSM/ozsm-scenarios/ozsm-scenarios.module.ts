@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 
 import { AngularSvgIconModule } from 'angular-svg-icon';
 import { OzsmScenariosComponent } from './ozsm-scenarios.component';
+import { MatRippleModule } from "@angular/material/core";
 
 
 
@@ -14,7 +15,8 @@ import { OzsmScenariosComponent } from './ozsm-scenarios.component';
     CommonModule,
     AngularSvgIconModule.forRoot(),
     MatSelectModule,
-    SharedModule
+    SharedModule,
+    MatRippleModule
   ]
 })
 export class OzsmScenariosModule {
