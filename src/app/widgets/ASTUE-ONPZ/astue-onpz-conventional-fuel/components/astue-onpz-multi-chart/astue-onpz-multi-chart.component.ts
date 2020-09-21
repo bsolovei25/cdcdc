@@ -10,13 +10,13 @@ import {
 } from '@angular/core';
 import * as d3Selection from 'd3-selection';
 import * as d3 from 'd3';
-import { IChartD3, IChartMini } from '../../../../../@shared/models/smart-scroll.model';
+import { IChartD3, IChartMini } from '@shared/models/smart-scroll.model';
 import {
     IMultiChartLine,
     IMultiChartData,
 } from '../../../../../dashboard/models/ASTUE-ONPZ/astue-onpz-multi-chart.model';
-import { AsyncRender } from '../../../../../@shared/functions/async-render.function';
-import { IAstueOnpzColors } from '../../../astue-onpz-shared/astue-onpz.service';
+import { AsyncRender } from '@shared/functions/async-render.function';
+import { fillDataArrayChart } from '@shared/functions/fill-data-array.function';
 
 export interface IMultiChartOptions {
     colors?: Map<string, number>;
@@ -48,8 +48,6 @@ export class AstueOnpzMultiChartComponent implements OnChanges, OnDestroy {
 
     private graphMaxX: number = 0;
     private graphMaxY: number = 0;
-    private dataMax: number = 0;
-    private dataMin: number = 0;
 
     private charts: IMultiChartData[] = [];
 
@@ -145,66 +143,16 @@ export class AstueOnpzMultiChartComponent implements OnChanges, OnDestroy {
     }
 
     private normalizeData(): void {
-        this.data.forEach((item) => {
-            // обнуление значений милисекунд, секунд и минут
-            item.graph?.forEach((val) => {
-                val.timeStamp.setMilliseconds(0);
-                val.timeStamp.setSeconds(0);
-                val.timeStamp.setMinutes(0);
-            });
-            // заполнение пропусков в массиве
-            const arr = item.graph;
-            for (let idx = 0; idx < arr.length; idx++) {
-                const el = arr[idx];
-                if (!!idx) {
-                    const lastEl = arr[idx - 1];
-                    let a =
-                        (el.timeStamp.getTime() - lastEl.timeStamp.getTime()) / (1000 * 60 * 60);
-                    if (a !== 1) {
-                        const array: IChartMini[] = [];
-                        const step = (el.value - lastEl.value) / a;
-                        const timestamp = lastEl.timeStamp;
-                        let hours = timestamp.getHours() + 1;
-                        let val = lastEl.value;
-                        while (a > 1) {
-                            val += step;
-                            const date = new Date(timestamp);
-                            date.setHours(hours);
-                            const newEl: IChartMini = {
-                                value: val,
-                                timeStamp: date,
-                            };
-                            array.push(newEl);
-                            hours++;
-                            a--;
-                        }
-                        arr.splice(idx, 0, ...array);
-                    }
-                }
-            }
-            // зачистка повторяющихся дат
-            const filteredArray: IChartMini[] = [];
-            item.graph?.forEach((val, idx, array) => {
-                const filtered = array.filter(
-                    (el) => el.timeStamp.getTime() === val.timeStamp.getTime()
-                );
-                val.value = filtered.reduce((acc, elem) => acc + elem.value, 0) / filtered.length;
-                if (
-                    !filteredArray.length ||
-                    filteredArray[filteredArray.length - 1].timeStamp.getTime() !==
-                        val.timeStamp.getTime()
-                ) {
-                    filteredArray.push({ value: val.value, timeStamp: val.timeStamp });
-                }
-            });
-            item.graph = filteredArray;
-            // вычисление дат начала и конца
-            const end = item.graph[item.graph.length - 1].timeStamp;
-            const start = new Date(end);
-            start.setHours(end.getHours() - 18);
-            // фильтрация по дате начала
-            item.graph = item.graph?.filter((val) => val.timeStamp.getTime() >= start.getTime());
-        });
+        const currentDatetime = new Date();
+        currentDatetime.setMinutes(0, 0 , 0);
+        const domainDates = [
+            currentDatetime.getTime() - 16 * 1000 * 60 * 60,
+            currentDatetime.getTime() + 4 * 1000 * 60 * 60,
+        ];
+        this.data = this.data.filter((item) => item.graph?.length > 0);
+        this.data.forEach((item) =>
+            item.graph = fillDataArrayChart(item.graph, domainDates[0], domainDates[1],
+                item.graphType === 'plan'));
     }
 
     private findMinMax(): void {
@@ -271,9 +219,9 @@ export class AstueOnpzMultiChartComponent implements OnChanges, OnDestroy {
         return arr;
 
         function roundAxis(dev: number, counter: number = 0): number {
-            const epsilon: number = 4;
+            const eps: number = 4;
             const roundVal = 10 * 0.1 ** counter;
-            if (dev > roundVal || counter > 4) {
+            if (dev > roundVal || counter > eps) {
                 return counter;
             } else {
                 return roundAxis(dev, ++counter);
@@ -283,15 +231,11 @@ export class AstueOnpzMultiChartComponent implements OnChanges, OnDestroy {
 
     private defineScale(): void {
         const left = this.setLeftPadding();
-        const chart = this.data.find((graph) => !!graph.graph.length).graph;
-
-        const year = chart[0].timeStamp.getFullYear();
-        const month = chart[0].timeStamp.getMonth();
-        const day = chart[0].timeStamp.getDate();
-        const hour = chart[0].timeStamp.getHours();
+        const currentDatetime = new Date();
+        currentDatetime.setMinutes(0, 0 , 0);
         const domainDates = [
-            new Date(year, month, day, hour),
-            new Date(year, month, day, hour + 24),
+            new Date(currentDatetime.getTime() - 16 * 1000 * 60 * 60),
+            new Date(currentDatetime.getTime() + 4 * 1000 * 60 * 60),
         ];
         const rangeX = [left, this.graphMaxX - this.padding.right];
 
@@ -335,6 +279,7 @@ export class AstueOnpzMultiChartComponent implements OnChanges, OnDestroy {
 
     private drawChart(): void {
         this.charts.forEach((chart) => {
+            console.log(chart);
             const line = d3
                 .line()
                 .x((item: IChartD3) => item.x)
@@ -543,21 +488,28 @@ export class AstueOnpzMultiChartComponent implements OnChanges, OnDestroy {
         const values = [];
         let plan: IChartMini;
         let fact: IChartMini;
-        let x: number;
+        const currentDatetime: Date = new Date();
+        currentDatetime.setMinutes(0, 0, 0);
+        const x: number = this.scaleFuncs.x(currentDatetime);
         this.charts.forEach((chart) => {
+            const filterChart = chart.graph
+                .filter((item) => item.timeStamp.getTime() <= currentDatetime.getTime());
+            const statValue =
+                filterChart?.length > 0
+                    ? filterChart[filterChart.length - 1] ?? 0
+                    : chart?.graph[0] ?? 0;
             if (chart.graphType === 'plan') {
                 plan = chart.graph[chart.graph.length - 1];
             } else if (chart.graphType === 'fact') {
                 fact = chart.graph[chart.graph.length - 1];
             } else {
                 values.push({
-                    val: chart.graph[chart.graph.length - 1],
+                    val: statValue,
                     color: lineColors[this.colors?.get(chart.tagName)],
                     units: chart.units ?? '',
                     iconType: chart.graphType,
                 });
             }
-            x = chart.transformedGraph[chart.transformedGraph.length - 1].x;
         });
 
         const y = (this.padding.top - this.topMargin) * 0.7;
@@ -634,21 +586,20 @@ export class AstueOnpzMultiChartComponent implements OnChanges, OnDestroy {
             }
 
             const formatDate = d3.timeFormat('%d.%m.%Y | %H:%M:%S');
-            const value = !!plan ? plan : !!fact ? fact : undefined;
-
+            const value = plan || fact || null;
             if (value) {
                 g.append('text')
                     .attr('text-anchor', 'middle')
                     .attr('x', x)
                     .attr('y', y - this.axisYWidth * 0.6)
                     .attr('class', 'data-date')
-                    .text(formatDate(value.timeStamp));
+                    .text(formatDate(currentDatetime));
             }
 
             let start = this.padding.top - this.topMargin;
             const step = 10;
             const cardWidth = this.axisYWidth * 2;
-            const cardHeigh = this.axisYWidth * 0.5;
+            const cardHeight = this.axisYWidth * 0.5;
 
             values.forEach((val) => {
                 const rect = g.append('g').attr('class', 'val');
@@ -657,37 +608,38 @@ export class AstueOnpzMultiChartComponent implements OnChanges, OnDestroy {
                     .attr('class', 'bg')
                     .style('opacity', 0.25);
 
-                start += step + cardHeigh;
+                start += step + cardHeight;
 
                 bg.append('rect')
                     .attr('x', x + step)
                     .attr('y', start)
                     .attr('width', cardWidth)
-                    .attr('height', cardHeigh)
+                    .attr('height', cardHeight)
                     .attr('rx', 5);
                 bg.append('rect')
                     .attr('x', x + step * 1.5)
                     .attr('y', start + step * 0.5)
-                    .attr('width', cardHeigh - step)
-                    .attr('height', cardHeigh - step)
+                    .attr('width', cardHeight - step)
+                    .attr('height', cardHeight - step)
                     .attr('rx', 5)
                     .style('fill', val.color);
 
                 rect.append('text')
-                    .attr('x', x + step * 1.5 + cardHeigh)
-                    .attr('y', start + cardHeigh - step * 0.9)
+                    .attr('x', x + step * 1.5 + cardHeight)
+                    .attr('y', start + cardHeight - step * 0.9)
                     .text(`${val.val.value.toFixed(2)} ${val.units}`);
 
                 if (this.options.isIconsShowing) {
                     rect.append('image')
                         .attr(
                             'xlink:href',
-                            `assets/icons/widgets/ASTUE-ONPZ/astue-onpz-conventional-fuel/${val.iconType}.svg`
+                            `assets/icons/widgets/ASTUE-ONPZ/astue-onpz-conventional-fuel/` +
+                            `${val.iconType}.svg`
                         )
                         .attr('x', x + step * 1.7)
                         .attr('y', start + step * 0.7)
-                        .attr('width', cardHeigh - step * 1.4)
-                        .attr('height', cardHeigh - step * 1.4);
+                        .attr('width', cardHeight - step * 1.4)
+                        .attr('height', cardHeight - step * 1.4);
                 }
             });
         }
@@ -696,11 +648,7 @@ export class AstueOnpzMultiChartComponent implements OnChanges, OnDestroy {
     private setLeftPadding(): number {
         const plan = this.charts.find((item) => item.graphType === 'plan');
         const fact = this.charts.find((item) => item.graphType === 'fact');
-        const coef = !!plan && !!fact ? this.charts.length - 1 : this.charts.length;
-        return this.padding.left + this.axisYWidth * coef;
-    }
-
-    private delta(a: number, b: number): number {
-        return a - b;
+        const cf = !!plan && !!fact ? this.charts.length - 1 : this.charts.length;
+        return this.padding.left + this.axisYWidth * cf;
     }
 }

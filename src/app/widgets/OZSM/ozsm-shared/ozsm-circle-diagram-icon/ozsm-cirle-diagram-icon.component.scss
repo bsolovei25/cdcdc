@@ -1,0 +1,82 @@
+*{
+    box-sizing: border-box;
+}
+
+.main {
+    height: 88px;
+    width: 182px;
+    padding: 0 14px;
+
+    display: flex;
+    align-items: center;
+
+    background: var(--ozsm-color-bg-dark);
+
+    border: 1px solid var(--ozsm-color-border);
+    border-radius: 2px;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.information {
+    height: 48px;
+    width: 71px;
+    margin-left: 14px;
+
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+}
+
+.information__main {
+    width: 75px;
+    font-size: 12px;
+    line-height: 14px;
+
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+    color: var(--ozsm-color-marker-diagram);
+}
+
+.information__sub {
+    font-size: 14px;
+    line-height: 17px;
+    color: white;
+}
+
+.main__svg {
+    position: absolute;
+}
+
+// svg
+::ng-deep {
+    .active {
+        fill: var(--ozsm-color-active);
+    }
+    
+    .big-circle {
+        fill: var(--ozsm-color-circle-diagram-icon-bg-sub);
+    }
+    
+    .small-circle {
+        fill: var(--ozsm-color-circle-diagram-inner-bg);
+    }
+    
+    .unactive {
+        fill: var(--ozsm-color-circle-arc-bg);
+    }
+    
+    .transparent {
+        fill: transparent;
+    }
+    
+    .white {
+        fill: #ffffff; 
+    }
+}
