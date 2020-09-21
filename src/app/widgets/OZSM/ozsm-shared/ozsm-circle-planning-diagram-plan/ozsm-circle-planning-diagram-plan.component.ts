@@ -1,160 +1,245 @@
-import {
-    Component,
-    ElementRef,
-    Input,
-    OnChanges,
-    OnInit,
-    SimpleChanges,
-    ViewChild
-} from '@angular/core';
-import { newArray } from '@angular/compiler/src/util';
+import { Component, OnInit, OnDestroy, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
+import * as d3Selection from 'd3-selection';
 import * as d3 from 'd3';
-import { AsyncRender } from '@shared/functions/async-render.function';
+import { ICircleData } from 'src/app/dashboard/models/OZSM/ozsm-circle-planning-diagram.model';
 
 @Component({
     selector: 'evj-ozsm-circle-planning-diagram-plan',
     templateUrl: './ozsm-circle-planning-diagram-plan.component.html',
     styleUrls: ['./ozsm-circle-planning-diagram-plan.component.scss']
 })
-export class OzsmCirclePlanningDiagramPlanComponent implements OnInit, OnChanges {
+export class OzsmCirclePlanningDiagramPlanComponent implements OnInit, OnDestroy, AfterViewInit {
+    @ViewChild('diagram', { static: true }) private diagram: ElementRef;
+    private data: ICircleData =
+        {
+            name: 'производства',
+            value: 1126658,
+            deviation: 1140062,
+            percentValue: 25,
+        };
 
-    private readonly defaultImg: string = '';
-    private readonly diagramCounter: number = 100;
-    private readonly tickDensity: number = 80 / this.diagramCounter;
+    public activeData: ICircleData;
+    private svgBody: any;
 
-    @ViewChild('chart') chart: ElementRef;
+    constructor() { }
 
-    @Input() fact: number = 1126658;
-    @Input() plan: number = 1440962;
-    @Input() difference: number = 0;
-    @Input() name: string = 'производства';
-    @Input() img: string = this.defaultImg;
-    @Input() background: 'lite' | 'dark' = 'lite';
-    @Input() isPercent: boolean = false;
-
-    public ngOnInit(): void {
-        this.chartInit();
+    ngOnInit(): void {
+        this.activeData = this.data;
     }
-
-    public ngOnChanges(changes: SimpleChanges): void {
-        this.chartInit();
+    ngOnDestroy(): void {
     }
-
-    private chartInit(): void {
-        this.dataHandler();
-        const mainValue = this.fact > this.plan
-            ? this.plan / this.fact * 100
-            : this.fact / this.plan * 100;
-        const subValue = Math.abs(this.fact - this.plan);
-        this.bindChart(mainValue, subValue);
+    ngAfterViewInit(): void {
+        this.drawWidget();
     }
-
-    private dataHandler(): void {
-        this.img = this.img?.length > 0 ? this.img : this.defaultImg;
-    }
-
-    private getTick(percent: number): number {
-        return this.tickDensity * percent;
-    }
-
-    @AsyncRender
-    private bindChart(mainValue: number, subValue: number): void {
-        const tickMain = this.getTick(mainValue);
-        const tickSub = this.getTick(subValue);
-
-        const width = 155;
-        const height = 155;
-        const diagramWidth = 7;
-
-        const outerRadius = width / 2 - 2;
-        const innerRadius = outerRadius - diagramWidth;
-
-        function createPie(startAngel: number, endAngel: number): d3.Pie {
-            return d3.pie()
-                .startAngle(startAngel)
-                .endAngle(endAngel)
-                .value(1);
+    private drawWidget(): void {
+        if (this.svgBody) {
+            this.svgBody.remove();
         }
+        this.drawDiagram();
+    }
+    private drawDiagram(): void {
+        this.svgBody = d3Selection.select(this.diagram.nativeElement).append('svg');
+        this.svgBody
+            .attr('width', '100%')
+            .attr('height', '100%')
+            .attr('viewBox', '0 0 400 200');
 
-        const backPie = createPie(-3 * Math.PI / 4, 3 * Math.PI / 4);
-        const mainPie = createPie(-3 * Math.PI / 4, 1.5 * Math.PI * mainValue / this.diagramCounter - 3 * Math.PI / 4);
-        const subPie = createPie(1.5 * Math.PI * mainValue / this.diagramCounter - 3 * Math.PI / 4, 3 * Math.PI / 4);
+        const indicator = this.svgBody.append('g').attr('class', 'indicator');
+        indicator
+            .append('circle')
+            .attr('cx', 100)
+            .attr('cy', 100)
+            .attr('r', 100)
+            .attr('fill', '#161A28')
+            .attr('stroke', '#272A38')
+            .attr('stroke-width', 1);
+        indicator
+            .append('image')
+            .attr(
+                'xlink:href',
+                'assets/icons/widgets/OZSM/ozsm-circle-planning-diagram/diagram-frame.svg'
+            )
+            .attr('x', 5)
+            .attr('y', 0)
+            .attr('width', 190)
+            .attr('height', 55);
+        indicator
+            .append('image')
+            .attr(
+                'xlink:href',
+                'assets/icons/widgets/OZSM/ozsm-circle-planning-diagram/diagram-frame.svg'
+            )
+            .attr('x', 5)
+            .attr('y', -200)
+            .attr('width', 190)
+            .attr('height', 55)
+            .style('transform', 'scaleY(-1)');
 
-        const arc: d3.Arc = d3.arc()
-            .outerRadius(outerRadius)
-            .innerRadius(innerRadius)
-            .padAngle(0.025);
+        const gaude = indicator.append('g').attr('class', 'gaude');
+        this.drawBigGaude(gaude, this.activeData.percentValue);
+        const innerGaude = gaude.append('g').attr('class', 'innerGaude');
+        this.drawInnerGaude(innerGaude, this.activeData.percentValue);
+        const text = gaude.append('g').attr('class', 'gaude-text');
+        this.drawTextInGaude(text);
+        gaude.style('transform', 'translate(25%, 51%) scale(9)');
+    }
+    private drawBigGaude(block: any, data: any): void {
+        const svg = block;
+        const min = 7.5;
+        const max = 10;
+        const innerMin = 8;
+        const innerMax = 9.5;
+        const startAngle = (-1.5 * Math.PI) / 2;
+        const endAngle = (1.5 * Math.PI) / 2;
+        // масштабирующая функция (перевод чисел в градусы)
+        const scale = d3
+            .scaleLinear()
+            .domain([0, 100]) // числовой диапазон
+            .range([0, 270]); // диапазон угла
 
-        const backArc: d3.Arc = d3.arc()
-            .outerRadius(outerRadius + 4)
-            .innerRadius(innerRadius - 4);
+        const arc = this.defineArc(min, max);
+        const innerArc = this.defineArc(innerMin, innerMax);
+        const dashedArc = this.defineArc(min, max, 0.015); // функция верхней пунктирной дуги
 
-        d3.select(this.chart.nativeElement).selectAll('*').remove();
-
-        const svg = d3.select(this.chart.nativeElement).append('svg')
-            .attr('viewBox', `0 0 192 192`)
-            .append('g')
-            .style('background', 'red')
-            .attr('transform', 'translate(' + width / 2 + ',' + height / 2 + ')');
-
-        function drawDiagram(className: string, pie: any, fig: d3.Arc = arc): void {
-            svg.append('g')
-                .attr('class', className)
-                .selectAll('path')
-                .data(pie())
-                .enter()
-                .append('path')
-                .attr('d', fig);
-        }
-
-        drawDiagram('background', () => backPie([null]), backArc);
-        drawDiagram('sub', () => subPie(this.fact > this.plan ? [null] : newArray(tickSub)));
-        drawDiagram('main', () => mainPie(newArray(tickMain)));
-
-        function addSerif(angle: number, className: 'serif-active' | 'serif-warning'): void {
-            const lineOut = 4;
-            const lineWidth = 2;
-            svg.append('g')
-                .attr('class', className)
-                .selectAll('.needle')
-                .data([null])
-                .enter()
-                .append('line')
-                .attr('x1', (innerRadius - lineOut) * Math.cos(angle))
-                .attr('x2', (outerRadius + lineOut) * Math.cos(angle))
-                .attr('y1', (innerRadius - lineOut) * Math.sin(angle))
-                .attr('y2', (outerRadius + lineOut) * Math.sin(angle))
-                .classed('needle', true)
-                .style('stroke-width', lineWidth);
-        }
-
-        addSerif(3 * Math.PI / 4, 'serif-active');
-        addSerif(Math.PI / 4, this.fact > this. plan ?  'serif-warning' : 'serif-active');
-        addSerif(1.5 * Math.PI * mainValue / this.diagramCounter + 3 * Math.PI / 4, this.fact >= this.plan ? 'serif-active' : 'serif-warning');
-
-        const g = svg.append('g').attr('class', 'text');
-
-        g.append('line')
-            .attr('class', 'line')
-            .attr('x1', -14)
-            .attr('y1', 3)
-            .attr('x2', 14)
-            .attr('y2', 3);
-        addText(`${this.fact}`, 'text text__value', -5);
-        addText(`План`, 'text text__name', 60);
-        addText(`${this.name}`, 'text text__name', 72);
-        addText(`${this.plan}`, 'text text__plan', 20);
-        addText(`${this.difference}`, 'text text__difference', 40);
-        addText(`TH`, 'text text__TH', -30);
+        const pie = this.definePie(startAngle, endAngle); // функция для внешней дуги
+        const endAngleFn = (d) => (scale(d) * Math.PI) / 180 - (1.5 * Math.PI) / 2;
+        const lastPie = this.definePie(startAngle, endAngleFn); // функция дуги, которая следует за ползунком
 
 
-        function addText(text: string, cls: string, yCord: number): void {
-            g.append('text')
-                .attr('class', cls)
-                .attr('text-anchor', 'middle')
-                .attr('x', 0)
-                .attr('y', yCord)
-                .text(text);
-        }
+        this.drawArc(pie([1]), 'back-arc', arc, svg); // отрисовка внешней дуги
+        this.drawArc(pie([1]), 'deviation-arc', innerArc, svg); // отрисовка подвижной дуги
+        this.drawArc(lastPie([data]), 'needle-arc', innerArc, svg); // отрисовка подвижной дуги
+        this.drawArc(pie(new Array(120)), 'dashed-arc', dashedArc, svg.append('g')); // отрисовка пунктирной дуги
+
+        // позиция бегунка в положении 0
+        const needlePos = {
+            x1: -min * Math.cos(Math.PI / 4),
+            x2: -max * Math.cos(Math.PI / 4),
+            y1: min * Math.sin(Math.PI / 4),
+            y2: max * Math.sin(Math.PI / 4),
+        };
+        // отрисовка линий начала и конца
+        const lines = svg.append('g').attr('class', 'lines');
+        this.drawNeedle([0], 'end-line', 'line1', lines, needlePos, scale); // бегунок начальный
+        this.drawNeedle([100], 'end-line', 'line2', lines, needlePos, scale); // бегунок крайний
+        this.drawNeedle([data], 'needle', 'needle', svg, needlePos, scale); // бегунок со значением percentValue
+    }
+
+    private drawInnerGaude(block: any, data: any): void {
+        const svg = block;
+        const rainbowMin = 6.6;
+        const rainbowMax = 7.0;
+        const startAngle = (-1.5 * Math.PI) / 2;
+        const endAngle = (1.5 * Math.PI) / 2;
+        const scale = d3
+            .scaleLinear()
+            .domain([0, 100]) // числовой диапазон
+            .range([0, 270]); // диапазон угла
+
+        const pie = this.definePie(startAngle, endAngle); // функция дуги
+
+        const rainbowArc = this.defineArc(rainbowMin, rainbowMax, 0.05); // параметры дуги
+        const rainbowG = svg.append('g').attr('class', 'rainbow');
+        this.drawArc(pie(new Array(40)), 'rainbow-arc', rainbowArc, rainbowG); // отрисовка дуги
+    }
+
+    private drawTextInGaude(block: any): void {
+        block
+            .append('text')
+            .attr('class', 'value')
+            .attr('text-anchor', 'middle')
+            .attr('x', 0)
+            .attr('y', -1.2)
+            .text(this.activeData.value);
+        block
+            .append('text')
+            .attr('class', 'deviation')
+            .attr('text-anchor', 'middle')
+            .attr('x', 0)
+            .attr('y', 1.2)
+            .text(this.activeData.deviation);
+        block
+            .append('text')
+            .attr('class', 'units')
+            .attr('text-anchor', 'middle')
+            .attr('x', 0)
+            .attr('y', 4)
+            .text('0');
+        block
+            .append('text')
+            .attr('class', 'units')
+            .attr('text-anchor', 'middle')
+            .attr('x', 0)
+            .attr('y', -4)
+            .text('ТН');
+
+        block
+            .append('text')
+            .attr('class', 'name')
+            .attr('text-anchor', 'middle')
+            .attr('x', 0)
+            .attr('y', 8)
+            .text(this.activeData.name);
+        block
+            .append('text')
+            .attr('class', 'name')
+            .attr('text-anchor', 'middle')
+            .attr('x', 0)
+            .attr('y', 6.5)
+            .text('План');
+    }
+
+    private defineArc(
+        innerRad: number,
+        outerRad: number,
+        padAngle: number = 0,
+        cornerRadius: number = 0
+    ): any {
+        return d3
+            .arc()
+            .innerRadius(innerRad)
+            .outerRadius(outerRad)
+            .cornerRadius(cornerRadius)
+            .padAngle(padAngle);
+    }
+
+    private definePie(startAngle: any, endAngle: any, val: any = (d) => 1): any {
+        return d3
+            .pie()
+            .startAngle(startAngle)
+            .endAngle(endAngle)
+            .value(val);
+    }
+
+    private drawArc(dataFn: any, cls: string, arcFn: any, block: any): any {
+        block
+            .selectAll('.arc')
+            .data(dataFn)
+            .enter()
+            .append('path')
+            .attr('class', cls)
+            .attr('d', arcFn);
+    }
+
+    private drawNeedle(
+        data: any[],
+        cls: string,
+        classed: string,
+        block: any,
+        needlePos: any,
+        scaleFn: any
+    ): any {
+        block
+            .selectAll(`.needle`)
+            .data(data)
+            .enter()
+            .append('line')
+            .attr('class', cls)
+            .attr('x1', needlePos.x1)
+            .attr('x2', needlePos.x2)
+            .attr('y1', needlePos.y1)
+            .attr('y2', needlePos.y2)
+            .classed(classed, true)
+            .style('transform', (d) => `rotate(${scaleFn(d)}deg)`);
     }
 }

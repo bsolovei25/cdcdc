@@ -13,7 +13,13 @@
     (mousedown)="$event.stopPropagation()"
     (touchstart)="$event.stopPropagation()"
   >
-<evj-ozsm-circle-planning-diagram-plan></evj-ozsm-circle-planning-diagram-plan>
+    <div class="diagrams">
+      <evj-ozsm-circle-planning-diagram-plan></evj-ozsm-circle-planning-diagram-plan>
+      <div class="diagram-card">
+        <evj-ozsm-circle-planning-diagram-card></evj-ozsm-circle-planning-diagram-card>
+      </div>
+      <evj-ozsm-circle-planning-diagram-plan></evj-ozsm-circle-planning-diagram-plan>
+    </div>
   </div>
 </div>
 
