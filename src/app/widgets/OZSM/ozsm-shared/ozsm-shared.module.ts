@@ -9,6 +9,8 @@ import { OzsmCardLineDiagramComponent } from './ozsm-card-line-diagram/ozsm-card
 import { OzsmCircleDiagramFullComponent } from './ozsm-circle-diagram-full/ozsm-circle-diagram-full.component';
 import { OzsmLoadingSpaceComponent } from './ozsm-loading-space/ozsm-loading-space.component';
 import { OzsmMainIndicatorComponent } from './ozsm-main-indicator/ozsm-main-indicator.component';
+import { OzsmMainToggleComponent } from '../ozsm-main-toggle/ozsm-main-toggle.component';
+import { MatRippleModule } from "@angular/material/core";
 
 @NgModule({
     declarations: [
@@ -20,6 +22,7 @@ import { OzsmMainIndicatorComponent } from './ozsm-main-indicator/ozsm-main-indi
         OzsmCardLineDiagramComponent,
         OzsmCircleDiagramFullComponent,
         OzsmMainIndicatorComponent,
+        OzsmMainToggleComponent,
     ],
     exports: [
         OzsmTripleDiagramCardComponent,
@@ -32,10 +35,11 @@ import { OzsmMainIndicatorComponent } from './ozsm-main-indicator/ozsm-main-indi
         OzsmMainIndicatorComponent
     ],
 
-    imports: [
-        CommonModule,
-        SharedModule
-    ],
+  imports: [
+    CommonModule,
+    SharedModule,
+    MatRippleModule
+  ]
 })
 export class OzsmSharedModule {
 }

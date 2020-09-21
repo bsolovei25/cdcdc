@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { AppConfigService } from 'src/app/services/appConfigService';
-import { tryCatch } from 'rxjs/internal-compatibility';
 
 /*
 
