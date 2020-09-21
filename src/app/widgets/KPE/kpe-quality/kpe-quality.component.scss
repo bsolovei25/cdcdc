@@ -222,24 +222,24 @@
 
   &__unit {
     width: 41px;
-    height: 16px;
-    background: rgba(0, 137, 255, 0.2);
-    border: 0.75px solid var(--color-aps-active);
-    border-radius: 2px 0 0 2px;
+    height: 18px;
+    background: var(--color-sou-border);
+    border-radius: 2px;
 
     span {
-      color: var(--color-kpe-text-main);
+      color: var(--color-astue-onpz-units);
     }
   }
 
   &__sign {
     width: 20px;
-    height: 18px;
-    background: var(--color-sou-border);
-    border-radius: 0 2px 2px 0;
+    height: 16px;
+    background: rgba(0, 137, 255, 0.2);
+    border: 0.75px solid var(--color-aps-active);
+    border-radius: 2px;
 
     span {
-      color: var(--color-kpe-eq-chart-title);
+      color: var(--color-kpe-text-main);
     }
   }
 }

@@ -9,6 +9,8 @@ import { OzsmCardLineDiagramComponent } from './ozsm-card-line-diagram/ozsm-card
 import { OzsmCircleDiagramFullComponent } from './ozsm-circle-diagram-full/ozsm-circle-diagram-full.component';
 import { OzsmLoadingSpaceComponent } from './ozsm-loading-space/ozsm-loading-space.component';
 import { OzsmMainIndicatorComponent } from './ozsm-main-indicator/ozsm-main-indicator.component';
+import { OzsmCircleDiagramIconComponent } from './ozsm-circle-diagram-icon/ozsm-cirle-diagram-icon.component';
+import { AngularSvgIconModule } from 'angular-svg-icon';
 import { OzsmMainToggleComponent } from '../ozsm-main-toggle/ozsm-main-toggle.component';
 import { MatRippleModule } from "@angular/material/core";
 import { AngularSvgIconModule } from 'angular-svg-icon';
@@ -28,6 +30,8 @@ import { OzsmListPackingDiagramsItemComponent } from './ozsm-list-packing-diagra
         OzsmMainToggleComponent,
         OzsmListPackingDiagramsComponent,
         OzsmListPackingDiagramsItemComponent
+        OzsmCircleDiagramIconComponent,
+        OzsmMainToggleComponent
     ],
     exports: [
         OzsmTripleDiagramCardComponent,
@@ -38,15 +42,18 @@ import { OzsmListPackingDiagramsItemComponent } from './ozsm-list-packing-diagra
         OzsmCardLineDiagramComponent,
         OzsmCircleDiagramFullComponent,
         OzsmMainIndicatorComponent,
+        OzsmMainToggleComponent,
         OzsmListPackingDiagramsComponent,
         OzsmListPackingDiagramsItemComponent
+        OzsmCircleDiagramIconComponent,
+        OzsmMainToggleComponent
     ],
 
   imports: [
     CommonModule,
     SharedModule,
     MatRippleModule,
-      AngularSvgIconModule
+    AngularSvgIconModule
   ]
 })
 export class OzsmSharedModule {

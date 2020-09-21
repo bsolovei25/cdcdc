@@ -383,6 +383,27 @@
   // ejco
   --color-ejco-sub-border: #3C4053;
 
+  //NK
+  --nk-color-bg-main: #1b1e27;
+  --nk-color-bg-sub: #272a38;
+  --nk-color-bg-body: #161922;
+  --nk-color-bg-component: rgba(48, 53, 73, 0.25);
+  --nk-color-bg-card-body: #1e212d;
+  --nk-color-bg-component-title: #303549;
+  --nk-color-font-title-main: #D7E2F2;
+  --nk-color-font-title-sub: #8c99b2;
+  --nk-color-bg-innage-daigram: rgba(0, 137, 255, 0.2);
+  --nk-color-border-main: #5b607d;
+  --nk-color-bg-filter-menu: rgba(39, 42, 56, 0.5);
+  --nk-color-selected-filter: linear-gradient(0deg, rgba(35, 120, 217, 0.25) 0%, rgba(35, 120, 217, 0) 100%);
+  --nk-color-font-unactive-filter: #606580;
+  --nk-color-active: #0089FF;
+  --nk-color-table-main: #1b1f2c;
+  --nk-color-bg-volume-indicator: #1b1f2c;
+  --nk-color-temperature-gradient: linear-gradient(0deg,  #00A99D 4.3px, #F4A321 39px, #FF0000 84px);
+  --nk-color-innage-axis: #E8E6DD;
+  --nk-color-scroll-thumb: #272b35;
+
   // ozsm
   --ozsm-color-circle-diagram-bg-arc-deviation: rgba(247, 147, 30, 0.2);
   --ozsm-color-tank-storage-bg: rgb(18, 48, 80);
@@ -398,8 +419,14 @@
   --ozsm-color-text-main: #d7e2f2;
   --ozsm-color-bg-header: rgba(39, 42, 56, 0.5);
   --ozsm-color-bg-main: #1b1e27;
+  --ozsm-color-circle-diagram-icon-bg-sub: #1C1F2B;
+  --ozsm-color-circle-diagram-inner-bg: #171a24;
+
+  
   --ozsm-color-loading-space-bg-sub: #1c1f2b;
   --ozsm-color-bg-innage-diagram: rgba(0, 137, 255, 0.2);
+  --ozsm-color-border-select: #4B5169;
+  --ozsm-color-bg-btn: #303549;
   --ozsm-color-bg-main-toggle: #303549;
   --ozsm-color-bg-packing-list: #141721;
   --ozsm-color-border-packing-list: #282c39;
