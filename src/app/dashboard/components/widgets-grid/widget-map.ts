@@ -167,6 +167,7 @@ export const WIDGETS = {
     'ejco-onpz-fsb-load': WidgetContainerComponent,
     'ejco-onpz-unit-kpe': WidgetContainerComponent,
     'ozsm-components': WidgetContainerComponent,
+    'ozsm-diagrams': WidgetContainerComponent,
     'ozsm-main-indicators': WidgetContainerComponent,
     'oq-oil-quality': WidgetContainerComponent,
     'ozsm-main-toggle': WidgetContainerComponent
@@ -880,6 +881,19 @@ export const WIDGETS_LAZY = {
         minItemCols: 12,
         minItemRows: 7,
         preview: 'ozsm-line-diagrams',
+    },
+    'ozsm-diagrams': {
+        import: async () => {
+            return await import(
+                'src/app/widgets/OZSM/ozsm-diagrams-widget/ozsm-diagrams-widget.module'
+                );
+        },
+        module: 'OzsmDiagramsWidgetModule',
+        itemCols: 13,
+        itemRows: 24,
+        minItemCols: 13,
+        minItemRows: 24,
+        // preview: 'ozsm-diagrams',
     },
     'ozsm-main-indicators': {
         import: async () => {

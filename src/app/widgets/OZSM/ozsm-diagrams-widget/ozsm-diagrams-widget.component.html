@@ -1,0 +1,102 @@
+<evj-widget-header-smp
+  [uniqId]="uniqId"
+  (mouseenter)="onMouseEnter()"
+  (mouseleave)="onMouseExit()"
+  *ngIf="isHover"
+>
+</evj-widget-header-smp>
+
+<div class="wrapper"
+     (mouseenter)="onMouseEnter()"
+     (mouseleave)="onMouseExit()"
+     (mousedown)="$event.stopPropagation()"
+     (touchstart)="$event.stopPropagation()">
+  <div class="vertical-connector"></div>
+  <ng-container *ngTemplateOutlet="card1"></ng-container>
+  <ng-container *ngTemplateOutlet="card2"></ng-container>
+  <ng-container *ngTemplateOutlet="card3"></ng-container>
+</div>
+
+<ng-template #card1>
+  <div class="card">
+    <div class="card__main-chart-section">
+      <div class="container">
+        <evj-ozsm-circle-diagram-full [data]="circleDiagramData"></evj-ozsm-circle-diagram-full>
+        <div class="connector-triple-top"></div>
+        <div class="connector-triple-bottom"></div>
+        <div class="circle-divider"></div>
+      </div>
+      <div class="placeholder-triple">
+        <div class="connector"></div>
+        <div class="connector-middle"></div>
+        <div class="connector"></div>
+      </div>
+    </div>
+    <div class="card__sub-charts-section">
+      <div class="container">
+        <evj-ozsm-diagrams-card></evj-ozsm-diagrams-card>
+      </div>
+      <div class="container">
+        <evj-ozsm-diagrams-card></evj-ozsm-diagrams-card>
+      </div>
+      <div class="container">
+        <evj-ozsm-diagrams-card></evj-ozsm-diagrams-card>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #card2>
+  <div class="card">
+    <div class="card__main-chart-section">
+      <div class="container">
+        <evj-ozsm-circle-diagram-full [data]="circleDiagramData"></evj-ozsm-circle-diagram-full>
+        <div class="arrow-divider"></div>
+        <div class="connector-two-top"></div>
+        <div class="connector-two-bottom"></div>
+        <div class="circle-divider"></div>
+      </div>
+      <div class="placeholder-two">
+        <div class="connector"></div>
+        <div class="connector"></div>
+      </div>
+    </div>
+    <div class="card__sub-charts-section">
+      <div class="container">
+        <evj-ozsm-diagrams-card></evj-ozsm-diagrams-card>
+      </div>
+      <div class="container">
+        <evj-ozsm-diagrams-card></evj-ozsm-diagrams-card>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #card3>
+  <div class="card">
+    <div class="card__main-chart-section">
+      <div class="container">
+        <evj-ozsm-circle-diagram-full [data]="circleDiagramData"></evj-ozsm-circle-diagram-full>
+        <div class="arrow-divider"></div>
+        <div class="connector-triple-top"></div>
+        <div class="connector-triple-bottom"></div>
+      </div>
+      <div class="placeholder-triple">
+        <div class="connector"></div>
+        <div class="connector-middle"></div>
+        <div class="connector"></div>
+      </div>
+    </div>
+    <div class="card__sub-charts-section">
+      <div class="container">
+        <evj-ozsm-diagrams-card></evj-ozsm-diagrams-card>
+      </div>
+      <div class="container">
+        <evj-ozsm-diagrams-card></evj-ozsm-diagrams-card>
+      </div>
+      <div class="container">
+        <evj-ozsm-diagrams-card></evj-ozsm-diagrams-card>
+      </div>
+    </div>
+  </div>
+</ng-template>
