@@ -16,7 +16,7 @@ export class KpeGaugeChartComponent implements OnInit, OnChanges {
 
     @ViewChild('chart') chart: ElementRef;
 
-    @Input() fact: number = 1 ;
+    @Input() fact: number = 0 ;
     @Input() plan: number = 0;
     @Input() deviation: number = 0;
     @Input() img: string = this.defaultImg;
