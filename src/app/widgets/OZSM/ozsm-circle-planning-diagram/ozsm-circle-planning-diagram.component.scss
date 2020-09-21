@@ -31,11 +31,13 @@
 .diagram-card {
   display: flex;
   align-items: center;
+  gap: 4px;
 }
 .diagram-plan {
   display: flex;
   align-items: center;
   flex-grow: 1;
+  gap: 4px;
 }
 .template {
   display: flex;
@@ -46,15 +48,16 @@
   justify-content: space-between;
   align-items: center;
   flex-direction: row;
-  height: 10%;
 }
 .arrow-top {
   width: 100%;
   position: relative;
-  left: 45%;
+  left: 44%;
+  bottom: 0;
 }
 .arrow-bottom {
   width: 100%;
   position: relative;
-  left: 60%;
+  left: 62%;
+  top: 0;
 }
