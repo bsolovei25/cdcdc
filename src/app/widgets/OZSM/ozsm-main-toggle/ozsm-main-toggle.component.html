@@ -14,10 +14,10 @@
   (touchstart)="$event.stopPropagation()"
 >
   <div class="container-toggle">
-    <button (click)="clicked($event, 'plan')" class="button plan">
+    <button matRipple [matRippleColor]="'white'" (click)="clicked($event, 'plan')" class="button plan">
       <span>Планирование</span>
     </button>
-    <button (click)="clicked($event, 'screen') " class="button screen">
+    <button matRipple [matRippleColor]="'white'" (click)="clicked($event, 'screen') " class="button screen">
       <span>Мониторинг</span>
     </button>
   </div>

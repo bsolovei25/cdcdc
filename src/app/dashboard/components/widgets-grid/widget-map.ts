@@ -901,10 +901,10 @@ export const WIDGETS_LAZY = {
             );
     },
         module: 'OzsmMainToggleModule',
-        itemCols: 6,
-        itemRows: 3,
+        itemCols: 10,
+        itemRows: 2,
         minItemCols: 10,
-        minItemRows: 5,
+        minItemRows: 2,
         preview: 'default',
 },
 
