@@ -257,15 +257,13 @@
   //NK
   --nk-color-bg-main: #1b1e27;
   --nk-color-bg-sub: #272a38;
-  --nk-color-bg-body: #161922;
   --nk-color-bg-component: rgba(48, 53, 73, 0.25);
-  --nk-color-bg-card-body: #1e212d;
+  --nk-color-bg-card-body: rgba(39, 42, 56, 0.5);
   --nk-color-bg-component-title: #303549;
   --nk-color-font-title-main: #D7E2F2;
   --nk-color-font-title-sub: #8c99b2;
   --nk-color-bg-innage-daigram: rgba(0, 137, 255, 0.2);
   --nk-color-border-main: #5b607d;
-  --nk-color-bg-filter-menu: rgba(39, 42, 56, 0.5);
   --nk-color-selected-filter: linear-gradient(0deg, rgba(35, 120, 217, 0.25) 0%, rgba(35, 120, 217, 0) 100%);
   --nk-color-font-unactive-filter: #606580;
   --nk-color-active: #0089FF;
@@ -322,7 +320,7 @@
 
   // SOU
   --color-sou-bg: rgba(18, 21, 30, 0.5);
-  --color-sou-bg-header: var(--nk-color-bg-filter-menu);
+  --color-sou-bg-header: var(--nk-color-bg-card-body);
   --color-sou-border: rgba(96, 101, 128, 0.25);
   --color-sou-button: rgba(48, 53, 73, 0.5);
   --color-sou-bg-sup: #252836;
@@ -405,6 +403,20 @@
   --ozsm-color-bg-dark-no-opacity: #1C1F2B;
   --ozsm-color-border-no-opacity: #303549;
   --ozsm-color-border-due: #4B5169;
+  --ozsm-color-loading-space-bg-sub: #1c1f2b;
+  --ozsm-color-bg-innage-diagram: rgba(0, 137, 255, 0.2);
+  --ozsm-color-bg-main-toggle: #303549;
+
+  --ozsm-color-circle-diagram: rgb(23, 25, 35);
+
+  // ozsm-resources-circle-diagram 
+  --ozsm-resources-circle-diagram-color-border-main: #313445;
+  --ozsm-resources-circle-diagram-color-bg-main: #171a24;
+  --ozsm-resources-circle-diagram-color-bg-info-title: rgba(39, 42, 56, 0.5);
+  --ozsm-resources-circle-diagram-color-bg-info-list: rgba(18, 21, 30, 0.5);
+  --ozsm-resources-circle-diagram-color-font-main: #D7E2F2;
+  --ozsm-resources-circle-diagram-color-font-sub: #606580;
+  --ozsm-resources-circle-diagram-color-active: #0089FF;
 }
 
 $--color-active: #3fa9f5;

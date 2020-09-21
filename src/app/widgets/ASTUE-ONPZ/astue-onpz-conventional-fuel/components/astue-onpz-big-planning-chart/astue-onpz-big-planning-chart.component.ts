@@ -37,7 +37,6 @@ export class AstueOnpzBigPlanningChartComponent extends WidgetPlatform
                         item.graph.forEach((val) => (val.timeStamp = new Date(val.timeStamp)))
                     );
                     this.data = this.info?.graph ?? [];
-                    fillDataArray(this.data, 18, true);
                 }
             }),
             this.astueService.colors$.subscribe((value) => {

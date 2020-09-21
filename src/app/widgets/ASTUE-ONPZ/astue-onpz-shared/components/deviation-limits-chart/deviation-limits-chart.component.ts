@@ -56,6 +56,7 @@ export class DeviationLimitsChartComponent implements OnChanges {
 
     public ngOnChanges(): void {
         if (!!this.data.length) {
+            this.normalizeData();
             this.startDrawChart();
         } else {
             this.dropChart();
@@ -74,7 +75,6 @@ export class DeviationLimitsChartComponent implements OnChanges {
     @AsyncRender
     private startDrawChart(): void {
         this.dropChart();
-        this.normalizeData();
         this.initData();
         this.findMinMax();
         this.defineScale();

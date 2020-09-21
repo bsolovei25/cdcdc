@@ -1,4 +1,4 @@
-import { Component, Input, ViewChild, ElementRef, OnChanges, HostListener } from '@angular/core';
+import { Component, ElementRef, HostListener, Input, OnChanges, ViewChild } from '@angular/core';
 import * as d3Selection from 'd3-selection';
 import * as d3 from 'd3';
 import {
@@ -7,14 +7,13 @@ import {
 } from '../../../../../dashboard/models/production-trends.model';
 import { IChartD3, IChartMini } from '../../../../../@shared/models/smart-scroll.model';
 import { AsyncRender } from '../../../../../@shared/functions/async-render.function';
-import { fillDataArray } from '../../../../../@shared/functions/fill-data-array.function';
 
 @Component({
-    selector: 'evj-limits-chart',
-    templateUrl: './limits-chart.component.html',
-    styleUrls: ['./limits-chart.component.scss'],
+    selector: 'evj-planning-chart',
+    templateUrl: './planning-chart.component.html',
+    styleUrls: ['./planning-chart.component.scss'],
 })
-export class LimitsChartComponent implements OnChanges {
+export class PlanningChartComponent implements OnChanges {
     @Input() private data: IProductionTrend[] = [];
     @Input() private isSpline: boolean = true;
     @Input() private isWithPicker: boolean = false;
@@ -54,7 +53,7 @@ export class LimitsChartComponent implements OnChanges {
 
     public ngOnChanges(): void {
         if (!!this.data.length) {
-            fillDataArray(this.data, 12, true, true);
+            this.normalizeData();
             this.startDrawChart();
         } else {
             this.dropChart();
@@ -110,6 +109,86 @@ export class LimitsChartComponent implements OnChanges {
                     this.graphMaxY > 5 ? this.graphMaxY - 5 : 0
                 }`
             );
+    }
+
+    private normalizeData(): void {
+        const border = this.data.find(
+            (item) => item.graphType === 'higherBorder' || item.graphType === 'lowerBorder'
+        );
+        const now = border.graph[border.graph.length - 1].timeStamp;
+
+        this.data.forEach((item) => {
+            // обнуление значений милисекунд, секунд и минут
+            item.graph.forEach((val) => {
+                val.timeStamp.setMilliseconds(0);
+                val.timeStamp.setSeconds(0);
+                val.timeStamp.setMinutes(0);
+            });
+            // заполнение пропусков в массиве
+            const arr = item.graph;
+            for (let idx = 0; idx < arr.length; idx++) {
+                const el = arr[idx];
+                if (!!idx) {
+                    const lastEl = arr[idx - 1];
+                    let a =
+                        (el.timeStamp.getTime() - lastEl.timeStamp.getTime()) / (1000 * 60 * 60);
+                    if (a !== 1) {
+                        const array: IChartMini[] = [];
+                        const step = (el.value - lastEl.value) / a;
+                        const timestamp = lastEl.timeStamp;
+                        let hours = timestamp.getHours() + 1;
+                        let val = lastEl.value;
+                        while (a > 1) {
+                            val += step;
+                            const date = new Date(timestamp);
+                            date.setHours(hours);
+                            const newEl: IChartMini = {
+                                value: val,
+                                timeStamp: date,
+                            };
+                            array.push(newEl);
+                            hours++;
+                            a--;
+                        }
+                        arr.splice(idx, 0, ...array);
+                    }
+                }
+            }
+            // зачистка повторяющихся дат
+            const filteredArray: IChartMini[] = [];
+            item.graph.forEach((val, idx, array) => {
+                const filtered = array.filter(
+                    (el) => el.timeStamp.getTime() === val.timeStamp.getTime()
+                );
+                val.value = filtered.reduce((acc, elem) => acc + elem.value, 0) / filtered.length;
+                if (
+                    !filteredArray.length ||
+                    filteredArray[filteredArray.length - 1].timeStamp.getTime() !==
+                        val.timeStamp.getTime()
+                ) {
+                    filteredArray.push({ value: val.value, timeStamp: val.timeStamp });
+                }
+            });
+            item.graph = filteredArray;
+            // вычисление дат начала и конца
+            const deltaTimeEnd = this.isWithPicker ? 72 : 12;
+            const deltaTimeStart = 12;
+
+            now.setMilliseconds(0);
+            now.setSeconds(0);
+            now.setMinutes(0);
+
+            const end = new Date(now);
+            const start = new Date(now);
+            end.setHours(now.getHours() + deltaTimeEnd);
+            start.setHours(now.getHours() - deltaTimeStart);
+            // фильтрация по дате начала
+            item.graph = item.graph.filter(
+                (val) =>
+                    val.timeStamp.getTime() >= start.getTime() &&
+                    val.timeStamp.getTime() <= end.getTime()
+            );
+        });
     }
 
     private findMinMax(): void {
@@ -224,17 +303,13 @@ export class LimitsChartComponent implements OnChanges {
 
     private drawPoints(): void {
         const pointsG = this.svg.append('g').attr('class', 'chart-points');
+        const idx =
+            this.chartData.find(
+                (item) => item.graphType === 'lowerBorder' || item.graphType === 'higherBorder'
+            ).graph.length - 1;
         this.chartData.forEach((item) => {
             if (item.graphType !== 'fact' && item.graphType !== 'plan') {
                 return;
-            }
-            if (item.graphType === 'plan') {
-                pointsG
-                    .append('circle')
-                    .attr('class', 'point point_plan')
-                    .attr('cx', item.graph[item.graph.length - 1].x)
-                    .attr('cy', item.graph[item.graph.length - 1].y)
-                    .attr('r', 4);
             } else {
                 const g = pointsG.append('g').attr('class', 'fact-point');
                 let r = 9;
@@ -242,13 +317,14 @@ export class LimitsChartComponent implements OnChanges {
                 for (let i = 0; i < 3; i++) {
                     g.append('circle')
                         .attr('class', 'point point_fact')
-                        .attr('cx', item.graph[item.graph.length - 1].x)
-                        .attr('cy', item.graph[item.graph.length - 1].y)
+                        .attr('cx', item.graph[idx].x)
+                        .attr('cy', item.graph[idx].y)
                         .attr('r', r)
                         .style('opacity', opacity);
                     r -= 3;
                     opacity += 0.33;
                 }
+                g.style('transform', 'translateY(5px)');
             }
         });
     }
@@ -331,7 +407,10 @@ export class LimitsChartComponent implements OnChanges {
     }
 
     private drawFutureRect(): void {
-        const fact = this.chartData.find((chart) => chart.graphType === 'fact')?.graph ?? [];
+        const fact =
+            this.chartData.find(
+                (chart) => chart.graphType === 'higherBorder' || chart.graphType === 'lowerBorder'
+            )?.graph ?? [];
         const x = fact[fact.length - 1].x;
         const y = this.padding.top;
         const y2 = this.graphMaxY - this.padding.bottom;
@@ -358,7 +437,7 @@ export class LimitsChartComponent implements OnChanges {
             const g = this.svg.append('g').attr('class', 'picker');
             g.append('rect')
                 .attr('x', x)
-                .attr('y', this.padding.top - this.topMargin)
+                .attr('y', this.padding.top)
                 .attr('width', width)
                 .attr('height', height)
                 .attr('class', 'future');

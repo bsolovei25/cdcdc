@@ -17,7 +17,10 @@
     </div>
     <evj-nk-tank-information-card-info
         [volumeMax]="cardData.maxValue"
-        [volumeCurrent]="cardData.measuredVolume"
+        [volumeCurrent]=(bigNum)
         [volumeFillPercentage] = "cardData.fillLevelPercentage"
     ></evj-nk-tank-information-card-info>
 </div>
+
+
+<!-- // [volumeCurrent]="cardData.measuredVolume" -->
