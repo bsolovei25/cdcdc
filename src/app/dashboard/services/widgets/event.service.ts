@@ -46,11 +46,12 @@ export class EventService {
         lastId: number,
         options: IEventsWidgetOptions
     ): Promise<EventsWidgetNotificationPreview[]> {
+        const routeAdder = options.categoriesType === 'ed' ? '/ed' : '';
         try {
             return this.http
                 .get<EventsWidgetNotificationPreview[]>(
                     this.restUrl +
-                        `/api/notifications/getbyfilter?${this.getOptionString(lastId, options)}`
+                        `/api/notifications/getbyfilter${routeAdder}?${this.getOptionString(lastId, options)}`
                 )
                 .toPromise();
         } catch (error) {
@@ -59,10 +60,11 @@ export class EventService {
     }
 
     public async getStats(options: IEventsWidgetOptions): Promise<EventsWidgetsStats> {
+        const routeAdder = options.categoriesType === 'ed' ? '/ed' : '';
         try {
             return this.http
                 .get<EventsWidgetsStats>(
-                    this.restUrl + `/api/notifications/stats?${this.getOptionString(0, options)}`
+                    this.restUrl + `/api/notifications/stats${routeAdder}?${this.getOptionString(0, options)}`
                 )
                 .toPromise();
         } catch (error) {
@@ -444,9 +446,14 @@ export class EventService {
                 `fromDateTime=${options.dates?.fromDateTime.toISOString()}&` +
                 `toDateTime=${options.dates?.toDateTime.toISOString()}`;
         }
-        if (options.categories?.length > 0) {
+        if (options.categories?.length > 0 && options.categoriesType === 'default') {
             for (const category of options.categories) {
                 res += `&categoryIds=${category}`;
+            }
+        }
+        if (options.categories?.length > 0 && options.categoriesType === 'ed') {
+            for (const category of options.categories) {
+                res += `&dispatcherCategoryIds=${category}`;
             }
         }
         if (options.placeNames?.length > 0) {
