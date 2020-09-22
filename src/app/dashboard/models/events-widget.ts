@@ -24,6 +24,8 @@ export interface EventsWidgetNotificationPreview {
     source?: any;
     externalId?: number;
     isAcknowledged?: boolean; // Квитировано
+    shiftPassEstablishedFacts?: string;
+    subCategory?: ISubcategory;
 }
 
 export interface IEventsWidgetNotification {
