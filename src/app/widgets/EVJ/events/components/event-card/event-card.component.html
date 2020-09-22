@@ -41,7 +41,7 @@
           {{ cardData?.category.name === 'tasks' ? cardData?.subCategory?.description : (cardData?.description || '-') }}
         </span>
         <span class="notification__info-facts">
-          {{  cardData?.category.name === 'tasks' ? cardData?.shiftPassEstablishedFacts : (cardData?.facts[0] ? cardData?.facts[0].comment : '-') }}
+          {{  cardData?.category.name === 'tasks' ? cardData?.shiftPassEstablishedFacts : (cardData?.facts[0]?.comment || '-') }}
         </span>
       </div>
       <div
