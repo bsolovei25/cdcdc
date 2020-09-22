@@ -25,7 +25,7 @@ export class KpeEnergyTabComponent implements OnInit {
     }
 
     get deviationValue(): number {
-        return Math.abs(this.data.fact - this.data.plan);
+        return this.data.deviation;
     }
 
     get iconPath(): string {

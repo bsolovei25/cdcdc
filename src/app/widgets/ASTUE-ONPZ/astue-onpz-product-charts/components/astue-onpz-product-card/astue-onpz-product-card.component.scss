@@ -158,3 +158,15 @@
     color: var(--color-astue-onpz-plan);
   }
 }
+
+.economy {
+  * {
+    color: var(--color-astue-onpz-normal);
+  }
+}
+
+.over {
+  * {
+    color: var(--color-astue-onpz-warning);
+  }
+}

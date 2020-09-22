@@ -1,0 +1,142 @@
+*{
+    box-sizing: border-box;
+}
+
+.diagram {
+    width: 270px;
+
+    display: flex;
+    align-items: center;
+}
+
+.diagram-visual {
+    height: 70px;
+    width: 70px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    border: 1px solid var(--ozsm-resources-circle-diagram-color-border-main);
+    border-radius: 50%;
+
+    background: var(--ozsm-resources-circle-diagram-color-bg-main);
+
+    z-index: 20;
+
+    position: relative;
+}
+
+.diagram-info {
+    transform: translateX(-22px);
+    z-index: 19;
+}
+
+.diagram-info-title {
+    height: 25px;
+    width: 193px;
+    padding-left: 40px;
+
+    background: var(--ozsm-resources-circle-diagram-color-bg-info-title);
+
+    display: flex;
+    align-items: center;
+
+    border: 1px solid var(--ozsm-resources-circle-diagram-color-border-main);
+    border-radius: 0 2px 0 0;
+
+    font-size: 14px;
+    line-height: 17px;
+    color: var(--ozsm-resources-circle-diagram-color-font-main);
+
+    position: relative;
+}
+
+.diagram-info-list {
+    height: 40px;
+    width: 193px;
+    padding-left: 40px;
+
+    background: var(--ozsm-resources-circle-diagram-color-bg-info-list);
+
+    display: flex;
+    align-items: center;
+
+    border: 1px solid var(--ozsm-resources-circle-diagram-color-border-main);
+    border-top: none;
+    border-radius: 0 0 2px 0 ;
+
+    font-size: 14px;
+    line-height: 17px;
+    color: var(--ozsm-resources-circle-diagram-color-font-main);
+}
+
+.button {
+    width: 25px;
+    height: 25px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    transform: rotate(90deg);
+
+    position: absolute;
+    right: 10px;
+
+    cursor: pointer;
+}
+
+.diagram-info-list-item {
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-around;
+
+    .item__unit {
+        font-size: 12px;
+        line-height: 14px;
+        color: var(--ozsm-resources-circle-diagram-color-font-sub);
+    }
+}
+
+.indicator-line {
+    height: 58px;
+    width: 58px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    border: 2px solid var(--ozsm-resources-circle-diagram-color-font-sub);
+
+    border-radius: 50%;
+
+    .circle-indicator {
+        height: 6px;
+        width: 6px;
+        margin-bottom: 2px;
+
+        border-radius: 50%;
+
+        background: var(--ozsm-resources-circle-diagram-color-active);
+    }
+
+    .item__value{
+        font-size: 16px;
+        line-height: 16px;
+
+        color: var(--ozsm-resources-circle-diagram-color-font-main);
+    }
+
+    .item__unit {
+        font-size: 10px;
+        line-height: 12px;
+        color: var(--ozsm-resources-circle-diagram-color-font-sub);
+    }
+
+}
+

@@ -71,7 +71,7 @@ export class EventsWorkspaceService {
     public asusServices: IAsusService[] = [];
     public asusEOServices: IAsusEOService[] = [];
     public asusEquipments: IAsusTpPlace[] = [];
-    public asusUnits: IAsusTmPlace[] = [];
+    public asusUnits$: BehaviorSubject<IAsusTmPlace[]> = new BehaviorSubject<IAsusTmPlace[]>([]);
     public smotrReference: ISmotrReference = null;
     public category$: BehaviorSubject<ICategory[]> = new BehaviorSubject<ICategory[]>([]);
     public categoryPipe: Observable<ICategory[]> = this.category$.pipe(
@@ -570,7 +570,7 @@ export class EventsWorkspaceService {
                 this.asusServices = data;
             }),
             this.eventService.getAsusUnits(saveMethod).then((data) => {
-                this.asusUnits = data;
+                this.asusUnits$.next(data);
             })
         );
         try {

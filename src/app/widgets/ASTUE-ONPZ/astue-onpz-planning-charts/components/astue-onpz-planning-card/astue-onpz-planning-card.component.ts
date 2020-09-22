@@ -3,7 +3,6 @@ import { IPlanningChart } from '../../astue-onpz-planning-charts.component';
 import { AstueOnpzService } from '../../../astue-onpz-shared/astue-onpz.service';
 import { Observable } from 'rxjs';
 import { fillDataShape } from '../../../../../@shared/common-functions';
-import { fillDataArray } from '../../../../../@shared/functions/fill-data-array.function';
 
 @Component({
     selector: 'evj-astue-onpz-planning-card',
@@ -26,10 +25,8 @@ export class AstueOnpzPlanningCardComponent implements OnChanges, OnInit {
                 val.timeStamp = new Date(val.timeStamp);
             });
         });
-        fillDataArray(this.transformedData.graph, 12, true);
         if (this.data?.title === this.astueOnpzService.sharedPlanningGraph$.getValue()?.title) {
             this.astueOnpzService.setPlanningGraph(this.data, true);
-            console.log(this.data);
         }
     }
 
