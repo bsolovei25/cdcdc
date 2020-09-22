@@ -108,7 +108,7 @@
               {{claim.claimName}}
               <div class="claim__button claim__button-toggle"></div>
             </div>
-            <div class="claim__items">
+            <div class="claim__items" *ngIf="claim.claimName">
               <div class="claim__item" *ngFor="let item of allEntitiesInSpecialType(claim)">
                 {{findEntityByClaimValue(item)}}
                 <div

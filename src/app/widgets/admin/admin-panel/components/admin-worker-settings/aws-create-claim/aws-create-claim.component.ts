@@ -24,7 +24,7 @@ export class AwsCreateClaimComponent implements OnInit {
     public allWidgets: IWidget[] = [];
     public allUnits: IUnitEvents[] = [];
 
-    public selectClaim: SelectionModel<IGlobalClaim> = new SelectionModel<IGlobalClaim>();
+    public selectClaim: SelectionModel<IGlobalClaim> = new SelectionModel<IGlobalClaim>(true);
     public selectWidget: SelectionModel<IWidget> = new SelectionModel<IWidget>(true);
     public selectUnit: SelectionModel<IUnitEvents> = new SelectionModel<IUnitEvents>(true);
 
@@ -118,27 +118,37 @@ export class AwsCreateClaimComponent implements OnInit {
 
     public onSave(): void {
         const selectedClaim: IGlobalClaim = this.selectClaim.selected[0];
-        if (this.selectClaim.hasValue() && this.selectWidget.hasValue()) {
+        if (this.selectClaim.hasValue()) {
+            const selectedClaims: IGlobalClaim[] = this.selectClaim.selected;
             const selectedWidgets: IWidget[] = this.selectWidget.selected;
             const claims: IGlobalClaim[] = [];
+            selectedClaims.forEach((claim) => {
+                claims.push(claim);
+            });
 
             selectedWidgets.forEach((widget) => {
                 const claim: IGlobalClaim = fillDataShape(selectedClaim);
                 claim.value = widget.id;
                 claims.push(claim);
+                console.log('1');
             });
 
             this.createdClaim.emit(claims);
         }
 
         if (this.selectClaim.hasValue() && this.selectUnit.hasValue()) {
+            const selectedClaims: IGlobalClaim[] = this.selectClaim.selected;
             const selectedUnits: IUnitEvents[] = this.selectUnit.selected;
             const claims: IGlobalClaim[] = [];
+            selectedClaims.forEach((claim) => {
+                claims.push(claim);
+            });
 
             selectedUnits.forEach((unit) => {
                 const claim: IGlobalClaim = fillDataShape(selectedClaim);
                 claim.value = unit.id.toString();
                 claims.push(claim);
+                console.log('2');
             });
 
             this.createdClaim.emit(claims);

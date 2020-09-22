@@ -7,7 +7,7 @@
             class="card"
             *ngIf="claimsFilter(claim)"
             [ngClass]="{'card_active':selectClaim.isSelected(claim)}"
-            (click)="selectClaim.select(claim)"
+            (click)="selectClaim.toggle(claim)"
           >
             {{claim.claimName}}
           </div>
