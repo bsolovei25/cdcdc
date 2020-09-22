@@ -4,8 +4,7 @@ import { IPlanningChart } from '../../../astue-onpz-planning-charts/astue-onpz-p
 import { IProductionTrend } from '../../../../../dashboard/models/production-trends.model';
 import { WidgetService } from '../../../../../dashboard/services/widget.service';
 import { AstueOnpzService } from '../../../astue-onpz-shared/astue-onpz.service';
-import { fillDataShape } from '../../../../../@shared/common-functions';
-import { fillDataArray } from '../../../../../@shared/functions/fill-data-array.function';
+import { fillDataShape } from '@shared/common-functions';
 
 @Component({
     selector: 'evj-astue-onpz-big-planning-chart',

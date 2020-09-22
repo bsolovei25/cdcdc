@@ -517,7 +517,10 @@ export class EventsWorkspaceService {
         dataLoadQueue.push(
             this.eventService.getCategory().then((data) => {
                 this.category = data;
-                this.category$.next(data);
+                // TODO Здесь костыль с ЦД
+                const idx = this.category.findIndex(value => value.name === 'modelCalculations');
+                this.category.splice(idx, 1);
+                this.category$.next(this.category);
             }),
             this.eventService.getUser().then((data) => {
                 this.users = data;

@@ -55,28 +55,7 @@ export class KpeSafetyComponent extends WidgetPlatform implements OnInit {
 
     protected dataHandler(ref: IKpeSafetyData): void {
         this.deviationChartData = this.kpeHelperService.prepareKpeLineChartData(ref.deviationChart);
-        this.gaugeCards = this.sortArray(ref.gaugeCards, 4);
+        this.gaugeCards = this.kpeHelperService.sortArray<IKpeSafetyCard>(ref.gaugeCards, 4);
         this.deviationDiagramData = ref.deviationDiagram;
-    }
-
-    public sortArray(
-        arr: IKpeSafetyCard[],
-        n: number
-    ): IKpeSafetyCard[][] {
-        let i = 0;
-        let j = 0;
-        const result = [];
-        let temp = [];
-        for (const item of arr) {
-            i++;
-            j++;
-            temp.push(item);
-            if (i === n || j === arr.length) {
-                result.push(temp);
-                temp = [];
-                i = 0;
-            }
-        }
-        return result;
     }
 }
