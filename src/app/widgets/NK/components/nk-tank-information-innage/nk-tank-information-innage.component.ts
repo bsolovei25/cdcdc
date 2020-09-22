@@ -15,7 +15,7 @@ export class NkTankInformationInnageComponent implements OnInit, OnChanges {
   lower: number;
 
 
-  innageDiagramCustomization: number[] = new Array(20);
+  innageDiagramCustomization: number[] = new Array(30);
   diagramCustomLinesCount: number;
 
 
