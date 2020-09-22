@@ -13,7 +13,8 @@ export class NkTankInformationComponent extends WidgetPlatform implements
     OnInit, OnDestroy, OnChanges {
 
     cardsData: ITankInformation[] = []; // Вся инфа по карточкам с сервера
-    cardsDataFiltered: ITankCardValue[] = []; // Карточки отфильтрованные по name
+    cardsDataFiltered: ITankCardValue[] = [];
+    // Карточки отфильтрованные по name
     filterList: string[] = ['Все резервуары']; // Список доступных фильтров
     selectedFilter: string = 'Все резервуары';
 

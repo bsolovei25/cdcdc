@@ -3,6 +3,9 @@
 }
 
 .pasport {
+    height: 36px;
+    width: 36px;
+
     display: flex;
     align-items: center;
     justify-content: center;
@@ -10,8 +13,8 @@
     border-radius: 50%;
 
     position: absolute;
-    bottom: 155px;
-    right: 18px;
+    bottom: 160px;
+    right: 17px;
 
     span {
         font-size: 14px;

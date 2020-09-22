@@ -19,9 +19,9 @@
         ></evj-nk-tank-information-reservoir>
     </div>
     <evj-nk-tank-information-card-info
-        [volumeMax]="cardData.maxValue"
-        [volumeCurrent]="cardData.measuredVolume"
-        [volumeFillPercentage]="cardData.fillLevelPercentage"
+        [volumeMax]="cardData.nominalValue"
+        [volumeCurrent]="cardData.resourceForShipment"
+        [volumeFillPercentage]="cardData.freeSpace"
     ></evj-nk-tank-information-card-info>
     <evj-nk-tank-information-pasport
         [isPassportized]="cardData.isPassportized"
