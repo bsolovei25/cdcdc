@@ -134,7 +134,7 @@ export class EventsComponent extends WidgetPlatform implements OnInit, OnDestroy
             categoryType: 'default',
         },
         {
-            id: 9991,
+            id: 6001,
             code: 'safety',
             iconUrl: 'assets/icons/widgets/events/safety.svg',
             notificationsCounts: {
@@ -147,7 +147,7 @@ export class EventsComponent extends WidgetPlatform implements OnInit, OnDestroy
             categoryType: 'ed',
         },
         {
-            id: 9992,
+            id: 6002,
             code: 'indicators',
             iconUrl: 'assets/icons/widgets/events/indicators.svg',
             notificationsCounts: {
@@ -160,7 +160,7 @@ export class EventsComponent extends WidgetPlatform implements OnInit, OnDestroy
             categoryType: 'ed',
         },
         {
-            id: 9993,
+            id: 6003,
             code: 'resources',
             iconUrl: 'assets/icons/widgets/events/resources.svg',
             notificationsCounts: {
@@ -392,6 +392,7 @@ export class EventsComponent extends WidgetPlatform implements OnInit, OnDestroy
             placeNames: this.placeNames,
             isVideoWall: this.widgetIsVideoWall,
             sortType: this.widgetSortType,
+            categoriesType: this.widgetType === 'events-ed' ? 'ed' : 'default',
         };
         return options;
     }
@@ -586,12 +587,24 @@ export class EventsComponent extends WidgetPlatform implements OnInit, OnDestroy
         }
         const stats = await this.eventService.getStats(options);
         this.categories.forEach((c) => {
-            c.notificationsCounts.all = stats.statsByCategory.find(
-                (sc) => sc.category.id === c.id
-            )?.totalCount;
-            c.notificationsCounts.open = stats.statsByCategory.find(
-                (sc) => sc.category.id === c.id
-            )?.unclosedCount;
+            switch (options.categoriesType) {
+                case 'default':
+                    c.notificationsCounts.all = stats.statsByCategory.find(
+                        (sc) => sc.category.id === c.id
+                    )?.totalCount;
+                    c.notificationsCounts.open = stats.statsByCategory.find(
+                        (sc) => sc.category.id === c.id
+                    )?.unclosedCount;
+                    break;
+                case 'ed':
+                    c.notificationsCounts.all = stats.statsByDispatcherScreenCategory.find(
+                        (sc) => sc.category.id === c.id
+                    )?.totalCount;
+                    c.notificationsCounts.open = stats.statsByDispatcherScreenCategory.find(
+                        (sc) => sc.category.id === c.id
+                    )?.unclosedCount;
+                    break;
+            }
         });
         this.filters.forEach((f) => {
             switch (f.code) {
