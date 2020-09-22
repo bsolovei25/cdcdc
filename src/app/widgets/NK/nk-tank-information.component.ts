@@ -13,7 +13,8 @@ export class NkTankInformationComponent extends WidgetPlatform implements
     OnInit, OnDestroy, OnChanges {
 
     cardsData: ITankInformation[] = []; // Вся инфа по карточкам с сервера
-    cardsDataFiltered: ITankCardValue[] = []; // Карточки отфильтрованные по name
+    cardsDataFiltered: ITankCardValue[] = [];
+    // Карточки отфильтрованные по name
     filterList: string[] = ['Все резервуары']; // Список доступных фильтров
     selectedFilter: string = 'Все резервуары';
 
@@ -59,7 +60,7 @@ export class NkTankInformationComponent extends WidgetPlatform implements
 
     protected dataConnect(): void {
         super.dataConnect();
-        const interval = 2000;
+        const interval = 10000;
 
         if (this.widgetIsVideoWall) {
             this.timer = setInterval(() => {
