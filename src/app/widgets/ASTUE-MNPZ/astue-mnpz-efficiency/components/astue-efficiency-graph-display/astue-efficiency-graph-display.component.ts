@@ -17,10 +17,14 @@ import { AppConfigService } from '../../../../../services/appConfigService';
 import { AstueEfficiencyService } from '../../../../../dashboard/services/ASTUE/astue-efficiency.service';
 
 interface ILabels {
-    periodCounter: IAsEfLabel;
-    periodDeviations: IAsEfLabel;
-    currentValue: IAsEfLabel;
     currentDeviation: IAsEfLabel;
+    currentValue: IAsEfLabel;
+    currentPlanFact: IAsEfLabel;
+    currentPlanPlan: IAsEfLabel;
+    periodDeviations: IAsEfLabel;
+    periodCounter: IAsEfLabel;
+    periodPlanPlan: IAsEfLabel;
+    periodPlanFact: IAsEfLabel;
 }
 
 @Component({
@@ -40,16 +44,24 @@ export class AstueEfficiencyGraphDisplayComponent extends LineChartPlatform<IPro
         },
         periodDeviations: {
             value: 0,
-            status: 'danger',
-            statusName: 'Перерасход',
+        },
+        currentPlanFact: {
+            value: 0,
+        },
+        currentPlanPlan: {
+            value: 0,
+        },
+        periodPlanPlan: {
+            value: 0,
+        },
+        periodPlanFact: {
+            value: 0,
         },
         currentValue: {
             value: 0,
         },
         currentDeviation: {
             value: 0,
-            status: 'warning',
-            statusName: 'Экономия',
         },
     };
 
@@ -201,6 +213,10 @@ export class AstueEfficiencyGraphDisplayComponent extends LineChartPlatform<IPro
 
     private readonly restUrl: string = null;
 
+    get flowUnits(): string {
+        return this.AsEfService.currentFlow?.engUnits;
+    }
+
     constructor(
         public widgetService: WidgetService,
         private appConfigService: AppConfigService,
@@ -245,16 +261,24 @@ export class AstueEfficiencyGraphDisplayComponent extends LineChartPlatform<IPro
                         },
                         periodDeviations: {
                             value: flow.periodDeviations.value,
-                            status: 'danger',
-                            statusName: 'Перерасход',
+                        },
+                        currentPlanFact: {
+                            value: flow.currentPlanFact.value,
+                        },
+                        currentPlanPlan: {
+                            value: flow.currentPlanPlan.value,
+                        },
+                        periodPlanPlan: {
+                            value: flow.periodPlanPlan.value,
+                        },
+                        periodPlanFact: {
+                            value: flow.periodPlanFact.value,
                         },
                         currentValue: {
                             value: flow.currentValue.value,
                         },
                         currentDeviation: {
                             value: flow.currentDeviation.value,
-                            status: 'warning',
-                            statusName: 'Экономия',
                         },
                     };
                     this.data = this.chartDataMap(flow.astueFlowGraphs);
@@ -266,16 +290,24 @@ export class AstueEfficiencyGraphDisplayComponent extends LineChartPlatform<IPro
                         },
                         periodDeviations: {
                             value: 0,
-                            status: 'danger',
-                            statusName: 'Перерасход',
+                        },
+                        currentPlanFact: {
+                            value: 0,
+                        },
+                        currentPlanPlan: {
+                            value: 0,
+                        },
+                        periodPlanPlan: {
+                            value: 0,
+                        },
+                        periodPlanFact: {
+                            value: 0,
                         },
                         currentValue: {
                             value: 0,
                         },
                         currentDeviation: {
                             value: 0,
-                            status: 'warning',
-                            statusName: 'Экономия',
                         },
                     };
                     this.data = [];

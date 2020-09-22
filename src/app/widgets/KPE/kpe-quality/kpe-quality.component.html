@@ -19,7 +19,6 @@
     </div>
   </div>
 </evj-contemporary-widget-header>
-
 <div class="container">
   <div
     class="container-body"
@@ -32,6 +31,7 @@
           <evj-kpe-gauge-chart
             [fact]="deviationDiagram?.fact"
             [plan]="deviationDiagram?.plan"
+            [deviation]="deviationDiagram?.deviation"
             isPercent="true"
           ></evj-kpe-gauge-chart>
         </div>
@@ -39,14 +39,18 @@
           <evj-kpe-deviation-diagram [data]="deviationChartData"></evj-kpe-deviation-diagram>
         </div>
       </div>
-      <ng-container *ngFor="let main of cards">
+      <ng-container *ngFor="let main of cards; trackBy: trackByFuncMain">
         <div class="quality__main">
-          <ng-container *ngFor="let card of main">
+          <ng-container *ngFor="let card of main; trackBy: trackByFuncCard">
             <div class="quality__main__gauge element-container">
               <div class="card">
                 <div class="card__content">
                   <div class="card__gauge-diagram">
-                    <evj-kpe-gauge-chart background="dark" [fact]="card.gaugeChart?.fact" [plan]="card.gaugeChart?.plan"></evj-kpe-gauge-chart>
+                    <evj-kpe-gauge-chart background="dark"
+                                         [fact]="card.gaugeChart?.fact"
+                                         [plan]="card.gaugeChart?.plan"
+                                         [deviation]="card.gaugeChart?.deviation"
+                    ></evj-kpe-gauge-chart>
                     <div class="unit-selector">
                       <div class="unit-selector__unit">
                         <span>{{ card.gaugeChart.unit }}</span>
@@ -62,8 +66,7 @@
                       <span class="title-area__comment">{{ card.description }}</span>
                     </div>
                     <div class="diagram-area">
-                      <!--<evj-kpe-equalizer-chart [data]="formatData(card.equalizerChart)"></evj-kpe-equalizer-chart>-->
-                      <evj-kpe-equalizer-chart [data]="formatData(card.equalizerChart)"></evj-kpe-equalizer-chart>
+                      <evj-kpe-equalizer-chart [data]="card.equalizerChartConverted"></evj-kpe-equalizer-chart>
                     </div>
                   </div>
                 </div>

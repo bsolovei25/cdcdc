@@ -378,11 +378,15 @@ export interface IEventsWidgetOptions {
     description?: string;
     isVideoWall?: boolean;
     sortType?: SortTypeEvents;
+    categoriesType?: EventsWidgetOptionsCategoryType;
 }
+
+export type EventsWidgetOptionsCategoryType = 'ed' | 'default';
 
 export interface EventsWidgetsStats {
     statsByCategory: EventsWidgetsStatsCategory[];
     statsByStatus: EventsWidgetsStatsStatus[];
+    statsByDispatcherScreenCategory: EventsWidgetsStatsCategory[];
 }
 
 export interface EventsWidgetsStatsCategory {

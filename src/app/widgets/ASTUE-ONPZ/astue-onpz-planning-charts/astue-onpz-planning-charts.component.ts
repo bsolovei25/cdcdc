@@ -17,10 +17,11 @@ export interface IPlanningChart {
 @Component({
     selector: 'evj-astue-onpz-planning-charts',
     templateUrl: './astue-onpz-planning-charts.component.html',
-    styleUrls: ['./astue-onpz-planning-charts.component.scss'],
+    styleUrls: ['./astue-onpz-planning-charts.component.scss']
 })
 export class AstueOnpzPlanningChartsComponent extends WidgetPlatform implements OnInit, OnDestroy {
     public data: IPlanningChart[] = [];
+    colors: Map<string, number>;
 
     constructor(
         protected widgetService: WidgetService,
@@ -45,7 +46,11 @@ export class AstueOnpzPlanningChartsComponent extends WidgetPlatform implements 
         super.dataConnect();
         this.subscriptions.push(
             this.astueOnpzService.predictorsOptions$.subscribe((value) => {
-                this.setOptionsWs(value?.map((predictor) => predictor?.id));
+                this.setOptionsWs(value?.predictors.map((predictor) => predictor?.id),
+                    value?.predictorWidgetId);
+            }),
+            this.astueOnpzService.colors$.subscribe((value) => {
+                this.colors = value;
             })
         );
     }
@@ -56,17 +61,13 @@ export class AstueOnpzPlanningChartsComponent extends WidgetPlatform implements 
         multiLineChart: IMultiChartLine[];
     }): void {
         this.data = ref.graphs;
-        const newMultiChart: IMultiChartLine[] = ref?.multiLineChart?.map((item: any) => {
-            return {
-                graph: item.graph,
-                units: item.units,
-                graphType: item.multiChartTypes,
-            };
-        });
-        this.astueOnpzService.setMultiLinePredictors(newMultiChart);
+        this.astueOnpzService.setMultiLinePredictors(ref?.multiLineChart);
     }
 
-    setOptionsWs(predictorIds: string[]): void {
-        this.widgetService.setWidgetLiveDataFromWSOptions(this.id, { predictorIds });
+    setOptionsWs(predictorIds: string[], predictorWidgetId: string): void {
+        this.widgetService.setWidgetLiveDataFromWSOptions(this.id, {
+            predictorWidgetId,
+            predictorIds
+        });
     }
 }

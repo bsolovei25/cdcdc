@@ -6,7 +6,7 @@
       icon="astue-predictors"
       type="astue"
     >
-      <div class="header-buttons">
+      <div class="header-buttons" *ngIf="!isPredictors">
         <div
           (mousedown)="$event.stopPropagation()"
           (touchstart)="$event.stopPropagation()"
@@ -46,7 +46,12 @@
       (mousedown)="$event.stopPropagation()"
       (touchstart)="$event.stopPropagation()"
     >
-      <evj-astue-onpz-multi-chart class="chart" [data]="data"></evj-astue-onpz-multi-chart>
+      <evj-astue-onpz-multi-chart
+        class="chart"
+        [data]="data"
+        [colors]="colors"
+        [options]="options"
+      ></evj-astue-onpz-multi-chart>
       <evj-smart-scroll class="scroll"></evj-smart-scroll>
     </div>
   </ng-container>

@@ -15,6 +15,7 @@
   grid-auto-rows: max-content;
   grid-template-areas:
     "select select"
+    "select-two select-two"
     "left right";
 
   overflow: auto;
@@ -26,6 +27,10 @@
 
   &__selects {
     grid-area: select;
+
+    &-two {
+      grid-area: select-two;
+    }
   }
 
   &__left {
@@ -41,7 +46,14 @@
   display: grid;
   gap: 10px;
   grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: repeat(2, max-content);
+  grid-template-rows: repeat(1, max-content);
+
+  &--four {
+    display: grid;
+    gap: 10px;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(1, max-content);
+  }
 
   &__item {
     height: 50px;
@@ -88,6 +100,21 @@
   &__item {
     height: 100%;
     width: 100%;
+  }
+}
+
+.creator {
+  width: 50%;
+  padding-left: 15px;
+
+  .creator_title {
+    color: var(--color-text-sub);
+    font-size: 10px;
+  }
+
+  .creator_body {
+    color: white;
+    font-size: 12px;
   }
 }
 

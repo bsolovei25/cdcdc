@@ -1,0 +1,271 @@
+.content-container {
+  height: 100%;
+  width: 100%;
+  margin-left: -22px;
+}
+
+.wrapper {
+  background-color: var(--color-kpe-gauge-circle);
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  height: 100%;
+
+  .vertical-connector {
+    position: absolute;
+    height: 50%;
+    width: 1px;
+    background: var(--ozsm-color-marker-diagram);
+    left: 83px;
+  }
+
+  .card {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+
+    &__main-chart-section {
+      width: 230px;
+      display: flex;
+      align-items: center;
+
+      .container {
+        width: 156px;
+        margin-left: 5px;
+        position: relative;
+
+        .connector-triple-bottom {
+          width: 35px;
+          height: 1px;
+          background: var(--ozsm-color-marker-diagram);
+          float: right;
+          transform: rotate(45deg);
+          position: absolute;
+          right: -5px;
+          bottom: 9px;
+
+          &:before {
+            z-index: 3;
+            content: "";
+            position: absolute;
+            height: 7px;
+            width: 7px;
+            box-sizing: border-box;
+            transform-origin: 43% 0;
+            border-radius: 50%;
+            border: 1px solid var(--ozsm-color-marker-diagram);
+            background: var(--color-kpe-gauge-circle);
+            top: -3px;
+            left: 0;
+          }
+        }
+
+        .connector-triple-top {
+          width: 35px;
+          height: 1px;
+          background: var(--ozsm-color-marker-diagram);
+          float: right;
+          transform: rotate(-45deg);
+          position: absolute;
+          right: -5px;
+          top: 8px;
+
+          &:before {
+            z-index: 3;
+            content: "";
+            position: absolute;
+            height: 7px;
+            width: 7px;
+            box-sizing: border-box;
+            transform-origin: 43% 0;
+            border-radius: 50%;
+            border: 1px solid var(--ozsm-color-marker-diagram);
+            background: var(--color-kpe-gauge-circle);
+            top: -3px;
+            left: 0;
+          }
+        }
+
+        .connector-two-bottom {
+          width: 25px;
+          height: 1px;
+          background: var(--ozsm-color-marker-diagram);
+          float: right;
+          transform: rotate(45deg);
+          position: absolute;
+          right: -19px;
+          bottom: 47px;
+
+          &:before {
+            z-index: 3;
+            content: "";
+            position: absolute;
+            height: 7px;
+            width: 7px;
+            box-sizing: border-box;
+            transform-origin: 43% 0;
+            border-radius: 50%;
+            border: 1px solid var(--ozsm-color-marker-diagram);
+            background: var(--color-kpe-gauge-circle);
+            top: -3px;
+            left: 0;
+          }
+        }
+
+        .connector-two-top {
+          width: 25px;
+          height: 1px;
+          background: var(--ozsm-color-marker-diagram);
+          float: right;
+          transform: rotate(-45deg);
+          position: absolute;
+          right: -19px;
+          top: 47px;
+
+          &:before {
+            z-index: 3;
+            content: "";
+            position: absolute;
+            height: 7px;
+            width: 7px;
+            box-sizing: border-box;
+            transform-origin: 43% 0;
+            border-radius: 50%;
+            border: 1px solid var(--ozsm-color-marker-diagram);
+            background: var(--color-kpe-gauge-circle);
+            top: -3px;
+            left: 0;
+          }
+        }
+      }
+
+      .placeholder-triple {
+        width: calc(100% - 161px);
+        display: flex;
+        justify-content: space-around;
+        flex-direction: column;
+        height: 100%;
+
+        .connector {
+          width: calc(100% - 5px);
+          height: 1px;
+          background: var(--ozsm-color-marker-diagram);
+          position: relative;
+
+          &:after {
+            z-index: 3;
+            content: "";
+            position: absolute;
+            height: 7px;
+            width: 7px;
+            box-sizing: border-box;
+            transform-origin: 43% 0;
+            border-radius: 50%;
+            border: 1px solid var(--ozsm-color-marker-diagram);
+            background: var(--color-kpe-gauge-circle);
+            top: -3px;
+            right: 0.5px;
+          }
+        }
+
+        .connector-middle {
+          width: calc(100% - 5px);
+          height: 1px;
+          background: var(--ozsm-color-marker-diagram);
+          position: relative;
+
+          &:before,
+          &:after {
+            z-index: 3;
+            content: "";
+            position: absolute;
+            height: 7px;
+            width: 7px;
+            box-sizing: border-box;
+            transform-origin: 43% 0;
+            border-radius: 50%;
+            border: 1px solid var(--ozsm-color-marker-diagram);
+            background: var(--color-kpe-gauge-circle);
+            top: -3px;
+          }
+
+          &:before {
+            left: 0;
+          }
+
+          &:after {
+            right: 0.5px;
+          }
+        }
+      }
+
+      .placeholder-two {
+        width: calc(100% - 161px);
+        display: flex;
+        justify-content: space-around;
+        flex-direction: column;
+        height: 100%;
+
+        .connector {
+          width: calc(100% - 20px);
+          height: 1px;
+          background: var(--ozsm-color-marker-diagram);
+          position: relative;
+          margin-left: 15px;
+
+          &:after {
+            z-index: 3;
+            content: "";
+            position: absolute;
+            height: 7px;
+            width: 7px;
+            box-sizing: border-box;
+            transform-origin: 43% 0;
+            border-radius: 50%;
+            border: 1px solid var(--ozsm-color-marker-diagram);
+            background: var(--color-kpe-gauge-circle);
+            top: -3px;
+            right: 0.5px;
+          }
+        }
+      }
+    }
+
+    &__sub-charts-section {
+      flex: 1 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 4px;
+
+      .container {
+        width: calc(100% - 43px);
+        margin: 20px 5px 0 38px;
+      }
+    }
+  }
+}
+
+.circle-divider {
+  position: absolute;
+  height: 7px;
+  width: 7px;
+  box-sizing: border-box;
+  border-radius: 50%;
+  border: 1px solid var(--ozsm-color-marker-diagram);
+  background: var(--color-kpe-gauge-circle);
+  bottom: -4px;
+  left: calc(50% - 3px);
+}
+
+.arrow-divider {
+  position: absolute;
+  top: -6px;
+  left: calc(50% - 5px);
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 6px solid var(--ozsm-color-marker-diagram)
+}

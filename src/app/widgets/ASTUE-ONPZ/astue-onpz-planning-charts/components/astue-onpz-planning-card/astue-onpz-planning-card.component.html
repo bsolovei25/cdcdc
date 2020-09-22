@@ -1,6 +1,9 @@
 <div class="card" *ngIf="!!transformedData">
   <div class="card__header header">
-    <div class="header__tag">{{transformedData.tag}}</div>
+    <div class="header__tag"
+         style.backgroundColor="var(--color-astue-onpz-bg-tag-{{ color }})"
+         style.color="var(--color-astue-tag-{{ color }})"
+    >{{transformedData.tag}}</div>
     <div class="header__title">{{transformedData.title}}</div>
     <div class="header__unit">{{transformedData.unitName}}</div>
     <svg-icon
@@ -8,9 +11,9 @@
       [class.header__icon__active]="(sharedGraph | async)?.title === transformedData?.title"
       src="assets/icons/widgets/ASTUE-ONPZ/fullscreen.svg"
       (click)="graphOpen()"
-      [svgStyle]="{ 'width.px':25, 'height.px':25}"
+      [svgStyle]="{ 'width.px': 25, 'height.px': 25 }"
     ></svg-icon>
-    <div class="header__button"><span></span></div>
+    <div class="header__button"></div>
   </div>
   <div class="card-border">
     <div class="card__legend legend">
@@ -31,7 +34,11 @@
       </div>
     </div>
     <div class="card__chart">
-      <evj-limits-chart [data]="transformedData.graph"></evj-limits-chart>
+      <evj-planning-chart
+        [data]="transformedData.graph"
+        [intervalHours]="[12, 12]"
+      >
+      </evj-planning-chart>
     </div>
   </div>
 </div>

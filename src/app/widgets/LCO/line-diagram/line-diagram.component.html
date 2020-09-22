@@ -44,7 +44,9 @@
                 <div class="line__divided" [style.left.%]="percentPlan"></div>
                 <div class="line__warning"
                      [style.left.%]="percentPlan"
-                     [style.width.%]="percentDeviation"></div>
+                     [style.width.%]="percentDeviation"
+                ></div>
+                <div class="line__value line__value_warning" [style.left.%]="percentPlan + 2">{{ item.upperBound.toFixed() }} {{ item.units }}</div>
                 <div class="line__value" [style.left.%]="item.percentFact - 9">{{ item.value.toFixed() }} {{ item.units }}</div>
               </div>
             </td>

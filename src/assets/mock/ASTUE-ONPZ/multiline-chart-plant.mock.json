@@ -1,0 +1,75 @@
+{
+    "channelId": "838c89e0-eb53-11ea-b2f7-e72c129a4a19",
+    "data": {
+        "graphs": [
+            {
+                "graph": [
+                    { "value": 25.837177, "timeStamp": "2020-09-14T12:30:02Z" },
+                    { "value": 26.062779, "timeStamp": "2020-09-14T22:30:02Z" },
+                    { "value": 25.221655, "timeStamp": "2020-09-15T08:30:02Z" },
+                    { "value": 25.417375999999997, "timeStamp": "2020-09-15T18:30:02Z" },
+                    { "value": 25.417375999999997, "timeStamp": "2020-09-16T04:30:02Z" }
+                ],
+                "multiChartTypes": "fact",
+                "type": "FactValue",
+                "tagName": "-FactValue"
+            },
+            {
+                "graph": [{ "value": 24.494, "timeStamp": "2020-09-15T14:30:22Z" }],
+                "multiChartTypes": "plan",
+                "type": "PlanValue",
+                "tagName": "-PlanValue"
+            },
+            {
+                "graph": [
+                    { "value": 5, "timeStamp": "2020-09-14T12:30:02Z" },
+                    { "value": 5, "timeStamp": "2020-09-16T14:30:02Z" }
+                ],
+                "multiChartTypes": "temperature",
+                "type": "",
+                "tagName": ""
+            },
+            {
+                "graph": [
+                    { "value": 75.818985, "timeStamp": "2020-09-14T12:30:02Z" },
+                    { "value": 75.818985, "timeStamp": "2020-09-14T22:30:02Z" },
+                    { "value": 75.818985, "timeStamp": "2020-09-15T08:30:02Z" },
+                    { "value": 75.818985, "timeStamp": "2020-09-15T18:30:02Z" },
+                    { "value": 75.818985, "timeStamp": "2020-09-16T04:30:02Z" }
+                ],
+                "multiChartTypes": "pressure",
+                "type": "E-34 \u0443\u0440\u043E\u0432\u0435\u043D\u044C",
+                "tagName": "AVT10:LC475"
+            },
+            {
+                "graph": [
+                    { "value": 55, "timeStamp": "2020-09-14T12:30:02Z" },
+                    { "value": 55, "timeStamp": "2020-09-16T14:30:02Z" }
+                ],
+                "multiChartTypes": "temperature",
+                "type": "",
+                "tagName": "Meteo:VV"
+            },
+            {
+                "graph": [
+                    { "value": 55.1321564, "timeStamp": "2020-09-14T12:30:02Z" },
+                    { "value": 55.1321564, "timeStamp": "2020-09-14T22:30:02Z" },
+                    { "value": 55.1321564, "timeStamp": "2020-09-15T08:30:02Z" },
+                    { "value": 55.1321564, "timeStamp": "2020-09-15T18:30:02Z" },
+                    { "value": 55.1321564, "timeStamp": "2020-09-16T04:30:02Z" }
+                ],
+                "multiChartTypes": "temperature",
+                "type": "\u0423\u0440\u043E\u0432\u0435\u043D\u044C \u0432 \u041A-2",
+                "tagName": "AVT10:LI1423"
+            }
+        ],
+        "widgetType": "astue-onpz-conventional-fuel",
+        "subscriptionOptions": {
+            "manufactureName": "\u041F\u0440\u043E\u0438\u0437\u0432\u043E\u0434\u0441\u0442\u0432\u043E \u21161",
+            "unitName": "\u0410\u0412\u0422-10",
+            "itemId": "3e509d70-e91f-11ea-957a-915228fbed37",
+            "filterValues": ";FactValue;PlanValue;\u0423\u0440\u043E\u0432\u0435\u043D\u044C \u0432 \u041A-2;E-34 \u0443\u0440\u043E\u0432\u0435\u043D\u044C",
+            "timeStamp": "2020-09-15T14:19:29Z"
+        }
+    }
+}
