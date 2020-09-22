@@ -505,9 +505,6 @@ export class EventsWorkspaceService {
             },
             productionTasks: {
                 subCategory: null,
-                start: undefined,
-                inWork: undefined,
-                close: undefined
             }
         };
     }
