@@ -60,7 +60,7 @@ export class NkTankInformationComponent extends WidgetPlatform implements
 
     protected dataConnect(): void {
         super.dataConnect();
-        const interval = 2000;
+        const interval = 10000;
 
         if (this.widgetIsVideoWall) {
             this.timer = setInterval(() => {
