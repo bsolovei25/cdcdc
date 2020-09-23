@@ -13,6 +13,7 @@ export interface ISOUFlowIn {
     valueByHourPercent: number;
     valueTankPercent: number;
     isExceedingConfInterval: boolean;
+    accuracy: number;
 }
 
 export interface ISOUFlowOut {
@@ -30,9 +31,7 @@ export interface ISOUFlowOut {
     tolerance: number;
     tag: string;
     isEnable: boolean;
-    valueMomentPercent: number;
-    valueByHourPercent: number;
-    valueTankPercent: number;
+    accuracy: number;
 }
 
 export interface ISOUSection {
@@ -57,12 +56,11 @@ export interface ISOULosses {
 }
 
 export interface ISOUProduct {
-    name: string;
-    productType: string;
-    valueByHour: number;
-    valueTank: number;
-    percentByHour: number;
-    percentTank: number;
+    productName: string;
+    day: number;
+    dayPercent: number;
+    hour: number;
+    hourPercent: number;
 }
 
 export interface ISOUNotificationCards {
@@ -75,19 +73,20 @@ export interface ISOUNotificationCards {
 export interface ISOUOperationalAccountingSystem {
     name: string;
     flowIn: ISOUFlowIn[];
-    summIn: number;
-    summInByHour: number;
+    sumInByDay: number;
+    sumInByHour: number;
     section: ISOUSection[];
-    sumOut: number;
+    sumOutByDay: number;
     sumOutByHour: number;
     delta: number;
     balanceAllow: number;
     losses: ISOULosses;
     undefinedLosses: number;
-    products: ISOUProduct[];
+    lightProducts: ISOUProduct[];
     title: string;
     widgetType: string;
     deltaByPersent: number;
     balanceAllowByPercent: number;
     notificationCards: ISOUNotificationCards[];
+    lampOn: boolean;
 }

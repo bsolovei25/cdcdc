@@ -27,35 +27,12 @@ interface ISOUValue {
 })
 export class SouInStreamsComponent implements OnInit {
 
-    @Input() set flowIn(value: ISOUFlowIn[]) {
-        if (value) {
-            this.data = value;
-            this.getPercentValue(value);
-        }
-    }
-
-    data: ISOUFlowIn[] = [];
+    @Input() flowIn: ISOUFlowIn[] = [];
 
     constructor() {
     }
 
     ngOnInit(): void {
-    }
-
-    getPercentValue(data: ISOUFlowIn[]): void {
-        let sumValueMomentPercent: number = 0;
-        let sumValueByHourPercent: number = 0;
-        let sumValueTankPercent: number = 0;
-        this.data.forEach(item => {
-            sumValueMomentPercent += item.valueMoment;
-            sumValueByHourPercent += item.valueByHour;
-            sumValueTankPercent += item.valueTank;
-        });
-        this.data.forEach(item => {
-            item.valueMomentPercent = +(item.valueMoment / sumValueMomentPercent * 100).toFixed();
-            item.valueByHourPercent = +(item.valueByHour / sumValueByHourPercent * 100).toFixed();
-            item.valueTankPercent = +(item.valueTank / sumValueTankPercent * 100).toFixed();
-        });
     }
 
 }
