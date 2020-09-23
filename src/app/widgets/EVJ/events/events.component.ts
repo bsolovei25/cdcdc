@@ -3,12 +3,12 @@ import {
     EventsWidgetCategory,
     EventsWidgetCategoryCode,
     EventsWidgetNotificationPreview,
-    IEventsWidgetOptions,
+    IEventsWidgetOptions
 } from '../../../dashboard/models/events-widget';
 import { EventsWidgetFilter } from '../../../dashboard/models/events-widget';
 import {
     IEventsWidgetNotification,
-    EventsWidgetNotificationStatus,
+    EventsWidgetNotificationStatus
 } from '../../../dashboard/models/events-widget';
 import { WidgetService } from '../../../dashboard/services/widget.service';
 import { UserSettingsService } from '../../../dashboard/services/user-settings.service';
@@ -30,7 +30,7 @@ export interface IEventSettings {
 @Component({
     selector: 'evj-events',
     templateUrl: './events.component.html',
-    styleUrls: ['./events.component.scss', './cd-events.component.scss'],
+    styleUrls: ['./events.component.scss', './cd-events.component.scss']
 })
 export class EventsComponent extends WidgetPlatform implements OnInit, OnDestroy {
     @ViewChild(CdkVirtualScrollViewport) viewport: CdkVirtualScrollViewport;
@@ -53,9 +53,7 @@ export class EventsComponent extends WidgetPlatform implements OnInit, OnDestroy
     eventOverlayId: number;
     timeout: boolean = true;
 
-    public eventAlertInfo$: BehaviorSubject<IAlertWindowModel> = new BehaviorSubject<
-        IAlertWindowModel
-    >(null);
+    public eventAlertInfo$: BehaviorSubject<IAlertWindowModel> = new BehaviorSubject<IAlertWindowModel>(null);
 
     private isAllowScrollLoading: boolean = true;
 
@@ -74,12 +72,12 @@ export class EventsComponent extends WidgetPlatform implements OnInit, OnDestroy
             iconUrl: 'assets/icons/widgets/events/smotr.svg',
             notificationsCounts: {
                 open: 0,
-                all: 0,
+                all: 0
             },
             name: 'СМОТР',
             isActive: false,
             url: 'https://spb25-cce-mo1.gazprom-neft.local/BLPS_MO/ru_RU/',
-            categoryType: 'default',
+            categoryType: 'default'
         },
         {
             id: 1002,
@@ -87,12 +85,12 @@ export class EventsComponent extends WidgetPlatform implements OnInit, OnDestroy
             iconUrl: 'assets/icons/widgets/events/safety.svg',
             notificationsCounts: {
                 open: 0,
-                all: 0,
+                all: 0
             },
             name: 'Безопасность',
             isActive: false,
             url: '#',
-            categoryType: 'default',
+            categoryType: 'default'
         },
         {
             id: 1003,
@@ -100,12 +98,12 @@ export class EventsComponent extends WidgetPlatform implements OnInit, OnDestroy
             iconUrl: 'assets/icons/widgets/events/tasks.svg',
             notificationsCounts: {
                 open: 0,
-                all: 0,
+                all: 0
             },
             name: 'Производственные задания',
             isActive: false,
             url: '#',
-            categoryType: 'default',
+            categoryType: 'default'
         },
         {
             id: 1004,
@@ -113,12 +111,12 @@ export class EventsComponent extends WidgetPlatform implements OnInit, OnDestroy
             iconUrl: 'assets/icons/widgets/events/status.svg',
             notificationsCounts: {
                 open: 0,
-                all: 0,
+                all: 0
             },
             name: 'Состояния оборудования',
             isActive: false,
             url: 'http://spb99-t-merap01/meridium',
-            categoryType: 'default',
+            categoryType: 'default'
         },
         {
             id: 1005,
@@ -126,51 +124,51 @@ export class EventsComponent extends WidgetPlatform implements OnInit, OnDestroy
             iconUrl: 'assets/icons/widgets/events/drops.svg',
             notificationsCounts: {
                 open: 0,
-                all: 0,
+                all: 0
             },
             name: 'Сбросы',
             isActive: false,
             url: '#',
-            categoryType: 'default',
+            categoryType: 'default'
         },
         {
-            id: 9991,
+            id: 6001,
             code: 'safety',
             iconUrl: 'assets/icons/widgets/events/safety.svg',
             notificationsCounts: {
                 open: 0,
-                all: 0,
+                all: 0
             },
             name: 'Безопасность',
             isActive: false,
             url: '#',
-            categoryType: 'ed',
+            categoryType: 'ed'
         },
         {
-            id: 9992,
+            id: 6002,
             code: 'indicators',
             iconUrl: 'assets/icons/widgets/events/indicators.svg',
             notificationsCounts: {
                 open: 0,
-                all: 0,
+                all: 0
             },
             name: 'Производственные показатели',
             isActive: false,
             url: '#',
-            categoryType: 'ed',
+            categoryType: 'ed'
         },
         {
-            id: 9993,
+            id: 6003,
             code: 'resources',
             iconUrl: 'assets/icons/widgets/events/resources.svg',
             notificationsCounts: {
                 open: 0,
-                all: 0,
+                all: 0
             },
             name: 'Вспомогательные ресурсы',
             isActive: false,
             url: '#',
-            categoryType: 'ed',
+            categoryType: 'ed'
         },
         {
             id: 9994,
@@ -178,13 +176,13 @@ export class EventsComponent extends WidgetPlatform implements OnInit, OnDestroy
             iconUrl: 'assets/icons/widgets/events/tasks.svg',
             notificationsCounts: {
                 open: 0,
-                all: 0,
+                all: 0
             },
             name: 'Производственные задания',
             isActive: false,
             url: '#',
-            categoryType: 'ed',
-        },
+            categoryType: 'ed'
+        }
     ];
 
     public notifications: EventsWidgetNotificationPreview[] = [];
@@ -195,50 +193,50 @@ export class EventsComponent extends WidgetPlatform implements OnInit, OnDestroy
             code: 'all',
             name: 'Все',
             notificationsCount: 0,
-            isActive: true,
+            isActive: true
         },
         {
             id: 3002,
             code: 'closed',
             name: 'Отработано',
             notificationsCount: 0,
-            isActive: false,
+            isActive: false
         },
         {
             id: 3003,
             code: 'inWork',
             name: 'В работе',
             notificationsCount: 0,
-            isActive: false,
+            isActive: false
         },
         {
             id: -100,
             code: 'isNotAcknowledged',
             name: 'Не квитировано',
             notificationsCount: 0,
-            isActive: false,
-        },
+            isActive: false
+        }
     ];
 
     public iconStatus: { name: string; iconUrl: string }[] = [
         {
             name: 'inWork',
-            iconUrl: 'assets/icons/widgets/process/in-work.svg',
+            iconUrl: 'assets/icons/widgets/process/in-work.svg'
         },
         {
             name: 'closed',
-            iconUrl: 'assets/icons/widgets/process/closed.svg',
+            iconUrl: 'assets/icons/widgets/process/closed.svg'
         },
         {
             name: 'new',
-            iconUrl: 'assets/icons/widgets/process/in-work.svg',
-        },
+            iconUrl: 'assets/icons/widgets/process/in-work.svg'
+        }
     ];
 
     public statuses: { [id in EventsWidgetNotificationStatus]: string } = {
         new: 'Новое',
         inWork: 'В работе',
-        closed: 'Завершено',
+        closed: 'Завершено'
     };
 
     public isCDEvents: boolean = false;
@@ -306,7 +304,7 @@ export class EventsComponent extends WidgetPlatform implements OnInit, OnDestroy
             this.appendEventStream$.asObservable().pipe(
                 debounceTime(1000),
                 distinctUntilChanged()
-            ).subscribe(this.getStats.bind(this)),
+            ).subscribe(this.getStats.bind(this))
         );
         await this.getWidgetSettings();
     }
@@ -392,6 +390,7 @@ export class EventsComponent extends WidgetPlatform implements OnInit, OnDestroy
             placeNames: this.placeNames,
             isVideoWall: this.widgetIsVideoWall,
             sortType: this.widgetSortType,
+            categoriesType: this.widgetType === 'events-ed' ? 'ed' : 'default'
         };
         return options;
     }
@@ -462,7 +461,8 @@ export class EventsComponent extends WidgetPlatform implements OnInit, OnDestroy
                     return { ...n, iconUrl, statusName, iconUrlStatus };
                 });
             this.notifications = this.notifications.concat(notifications);
-            this.countNotificationsDivCapacity();;
+            this.countNotificationsDivCapacity();
+            ;
         }
     }
 
@@ -498,7 +498,7 @@ export class EventsComponent extends WidgetPlatform implements OnInit, OnDestroy
             cancelText: 'Нет',
             acceptFunction: () => this.deleteNotification(id),
             closeFunction: () => this.eventAlertInfo$.next(null),
-            cancelFunction: () => this.snackBarService.openSnackBar(`Удаление отменено!`),
+            cancelFunction: () => this.snackBarService.openSnackBar(`Удаление отменено!`)
         };
         this.eventAlertInfo$.next(info);
     }
@@ -586,12 +586,24 @@ export class EventsComponent extends WidgetPlatform implements OnInit, OnDestroy
         }
         const stats = await this.eventService.getStats(options);
         this.categories.forEach((c) => {
-            c.notificationsCounts.all = stats.statsByCategory.find(
-                (sc) => sc.category.id === c.id
-            )?.totalCount;
-            c.notificationsCounts.open = stats.statsByCategory.find(
-                (sc) => sc.category.id === c.id
-            )?.unclosedCount;
+            switch (options.categoriesType) {
+                case 'default':
+                    c.notificationsCounts.all = stats.statsByCategory.find(
+                        (sc) => sc.category.id === c.id
+                    )?.totalCount;
+                    c.notificationsCounts.open = stats.statsByCategory.find(
+                        (sc) => sc.category.id === c.id
+                    )?.unclosedCount;
+                    break;
+                case 'ed':
+                    c.notificationsCounts.all = stats.statsByDispatcherScreenCategory.find(
+                        (sc) => sc.category.id === c.id
+                    )?.totalCount;
+                    c.notificationsCounts.open = stats.statsByDispatcherScreenCategory.find(
+                        (sc) => sc.category.id === c.id
+                    )?.unclosedCount;
+                    break;
+            }
         });
         this.filters.forEach((f) => {
             switch (f.code) {

@@ -279,7 +279,6 @@ export class AstueOnpzMultiChartComponent implements OnChanges, OnDestroy {
 
     private drawChart(): void {
         this.charts.forEach((chart) => {
-            console.log(chart);
             const line = d3
                 .line()
                 .x((item: IChartD3) => item.x)
