@@ -112,10 +112,10 @@ export class AstueOnpzConventionalFuelComponent extends WidgetPlatform
     }
 
     private multilineDataMapper(ref: IMultiChartLine[]): IMultiChartLine[] {
-        ref.forEach((graph) => {
+        ref?.forEach((graph) => {
             const _ = graph as any;
             graph.graphType = graph.graphType ?? _.multiChartTypes;
-            graph.graph.forEach((item) => {
+            graph.graph?.forEach((item) => {
                 item.timeStamp = new Date(item.timeStamp);
             });
         });

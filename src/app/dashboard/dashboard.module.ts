@@ -209,6 +209,7 @@ import { GroupSelectorComponent } from './components/group-selector/group-select
 import { GroupSelectorRowComponent } from './components/group-selector/group-selector-row/group-selector-row.component';
 import { IndicatorDiagramComponent } from './components/indicator-diagram/indicator-diagram.component';
 import { MenuButtonComponent } from './components/menu-button/menu-button.component';
+import { MatBadgeModule } from '@angular/material/badge';
 
 @NgModule({
     declarations: [
@@ -486,6 +487,7 @@ import { MenuButtonComponent } from './components/menu-button/menu-button.compon
         MatTooltipModule,
         MatMenuModule,
         MatRippleModule,
+        MatBadgeModule
     ],
     bootstrap: [],
     providers: [
