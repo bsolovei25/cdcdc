@@ -1,8 +1,8 @@
 import { Component, OnInit, Inject, ViewChild, ElementRef, OnDestroy } from '@angular/core';
-import { WidgetService } from '../../services/widget.service';
+import { WidgetService } from '../../../dashboard/services/widget.service';
 import { EventEmitter } from '@angular/core';
-import { OilControls, OilProducts } from '../../models/oil-control';
-import { WidgetPlatform } from '../../models/widget-platform';
+import { OilControls, OilProducts } from '../../../dashboard/models/oil-control';
+import { WidgetPlatform } from '../../../dashboard/models/widget-platform';
 import { HttpClient } from '@angular/common/http';
 import { fillDataShape } from '@shared/common-functions';
 

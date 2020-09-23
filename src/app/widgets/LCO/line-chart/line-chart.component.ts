@@ -15,11 +15,11 @@ import * as d3Shape from 'd3-shape';
 import * as d3Array from 'd3-array';
 import * as d3Axis from 'd3-axis';
 import * as d3Format from 'd3-format';
-import { Mock } from 'src/app/dashboard/widgets/line-chart/mock';
+import { Mock } from 'src/app/widgets/LCO/line-chart/mock';
 import { Subscription } from 'rxjs';
-import { LineChartData, LineChartGraph, LineChartGraphValue } from '../../models/line-chart';
-import { WidgetService } from '../../services/widget.service';
-import { WidgetPlatform } from '../../models/widget-platform';
+import { LineChartData, LineChartGraph, LineChartGraphValue } from '../../../dashboard/models/line-chart';
+import { WidgetService } from '../../../dashboard/services/widget.service';
+import { WidgetPlatform } from '../../../dashboard/models/widget-platform';
 import { HttpClient } from '@angular/common/http';
 
 @Component({

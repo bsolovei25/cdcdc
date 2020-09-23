@@ -6,7 +6,6 @@ import { SharedModule } from '../@shared/shared.module';
 import { AngularSvgIconModule } from 'angular-svg-icon';
 import { PeriodSelectorComponent } from './components/period-selector/period-selector.component';
 import { IndicatorSelectorComponent } from './components/indicator-selector/indicator-selector.component';
-import { LineChartComponent } from './widgets/line-chart/line-chart.component';
 import { DndModule } from 'ngx-drag-drop';
 import { DashboardComponent } from './pages/dashboard.component';
 import { HttpClientModule } from '@angular/common/http';
@@ -51,7 +50,6 @@ import { SemicircleEnergyComponent } from './widgets/semicircle-energy/semicircl
 import { ProductStocksComponent } from './widgets/product-stocks/product-stocks.component';
 import { PolarChartComponent } from './widgets/polar-chart/polar-chart.component';
 import { DeviationCircleDiagramComponent } from './widgets/deviation-circle-diagram/deviation-circle-diagram.component';
-import { OilControlComponent } from './widgets/oil-control/oil-control.component';
 import { PaginatorComponent } from './components/paginator/paginator.component';
 import { PaginatorDirective } from './components/paginator/paginator.directive';
 import { SearchComponent } from './components/search/search.component';
@@ -198,8 +196,6 @@ import { WorkflowTableComponent } from './widgets/workflow/workflow-table/workfl
 import { WorkflowListComponent } from './widgets/workflow/workflow-list/workflow-list.component';
 import { ProductionTrendInstallationsComponent } from './widgets/production-trend/components/production-trend-installations/production-trend-installations.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { OilControlTableComponent } from './widgets/oil-control/components/oil-control-table/oil-control-table.component';
-import { OilControlTowerComponent } from './widgets/oil-control/components/oil-control-tower/oil-control-tower.component';
 import { WidgetPanelComponent } from './components/widget-panel/widget-panel.component';
 import { MatMenuModule } from '@angular/material/menu';
 import { TruncatedDiagramTrafficLightComponent } from './widgets/truncated-diagram-traffic-light/truncated-diagram-traffic-light.component';
@@ -221,7 +217,6 @@ import { MenuButtonComponent } from './components/menu-button/menu-button.compon
         PeriodSelectorComponent,
         IndicatorSelectorComponent,
         LineDatetimeComponent,
-        LineChartComponent,
         DashboardComponent,
         ManualInputComponent,
         ChangeShiftComponent,
@@ -263,7 +258,6 @@ import { MenuButtonComponent } from './components/menu-button/menu-button.compon
         ProductStocksComponent,
         PolarChartComponent,
         DeviationCircleDiagramComponent,
-        OilControlComponent,
         PaginatorComponent,
         PaginatorDirective,
         SearchComponent,
@@ -383,8 +377,6 @@ import { MenuButtonComponent } from './components/menu-button/menu-button.compon
         WorkflowTableComponent,
         WorkflowListComponent,
         ProductionTrendInstallationsComponent,
-        OilControlTableComponent,
-        OilControlTowerComponent,
         WidgetPanelComponent,
         WidgetContainerComponent,
         PerformanceBarComponent,
@@ -399,9 +391,7 @@ import { MenuButtonComponent } from './components/menu-button/menu-button.compon
         MenuButtonComponent,
     ],
     entryComponents: [
-        LineChartComponent,
         WidgetPiesComponent,
-        LineChartComponent,
         ManualInputComponent,
         ChangeShiftComponent,
         TruncatedPieSFirstComponent,
@@ -429,7 +419,6 @@ import { MenuButtonComponent } from './components/menu-button/menu-button.compon
         PolarChartComponent,
         SemicircleEnergyComponent,
         DeviationCircleDiagramComponent,
-        OilControlComponent,
         CircleBlockDiagramComponent,
         ColumnChartStackedComponent,
         FlameDiagramComponent,
@@ -459,7 +448,7 @@ import { MenuButtonComponent } from './components/menu-button/menu-button.compon
         PanelComponent,
         AdminShiftScheduleOldComponent,
     ],
-    exports: [HomeComponent, PerformanceBarComponent, MatRippleModule],
+    exports: [HomeComponent, PerformanceBarComponent, MatRippleModule, WidgetPreviewComponent],
     imports: [
         CommonModule,
         SharedModule,

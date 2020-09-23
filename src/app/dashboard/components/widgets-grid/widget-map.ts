@@ -1,4 +1,4 @@
-import { LineChartComponent } from '../../widgets/line-chart/line-chart.component';
+import { LineChartComponent } from '../../../widgets/LCO/line-chart/line-chart.component';
 import { ManualInputComponent } from '../../widgets/manual-input/manual-input.component';
 import { ChangeShiftComponent } from '../../widgets/change-shift/change-shift.component';
 import { EnergeticsComponent } from '../../widgets/energetics/energetics.component';
@@ -25,7 +25,7 @@ import { ProductStocksComponent } from '../../widgets/product-stocks/product-sto
 import { PolarChartComponent } from '../../widgets/polar-chart/polar-chart.component';
 import { SemicircleEnergyComponent } from '../../widgets/semicircle-energy/semicircle-energy.component';
 import { DeviationCircleDiagramComponent } from '../../widgets/deviation-circle-diagram/deviation-circle-diagram.component';
-import { OilControlComponent } from '../../widgets/oil-control/oil-control.component';
+import { OilControlComponent } from '../../../widgets/LCO/oil-control/oil-control.component';
 import { CircleBlockDiagramComponent } from '../../widgets/circle-block-diagram/circle-block-diagram.component';
 import { ColumnChartStackedComponent } from '../../widgets/column-chart-stacked/column-chart-stacked.component';
 import { TimeLineDiagramComponent } from '../../widgets/time-line-diagram/time-line-diagram.component';
@@ -57,7 +57,7 @@ import { OzsmResourcesCircleDiagramComponent } from 'src/app/widgets/OZSM/ozsm-s
 
 export const WIDGETS = {
     'pie-diagram': WidgetPiesComponent,
-    'line-chart': LineChartComponent,
+    'line-chart': WidgetContainerComponent,
     'manual-input': ManualInputComponent,
     'shift-pass': ChangeShiftComponent,
     'shift-accept': ChangeShiftComponent,
@@ -87,7 +87,6 @@ export const WIDGETS = {
     'polar-chart': PolarChartComponent,
     'semicircle-energy': SemicircleEnergyComponent,
     'deviation-circle-diagram': DeviationCircleDiagramComponent,
-    'oil-control': OilControlComponent,
     'circle-block-diagram': CircleBlockDiagramComponent,
     'column-chart-stacked': ColumnChartStackedComponent,
     'flame-diagram': FlameDiagramComponent,
@@ -171,7 +170,8 @@ export const WIDGETS = {
     'ozsm-main-indicators': WidgetContainerComponent,
     'oq-oil-quality': WidgetContainerComponent,
     'ozsm-main-toggle': WidgetContainerComponent,
-    'ozsm-scenarios': WidgetContainerComponent
+    'ozsm-scenarios': WidgetContainerComponent,
+    'oil-control': WidgetContainerComponent
 };
 
 export const WIDGETS_LAZY = {
@@ -550,6 +550,28 @@ export const WIDGETS_LAZY = {
         minItemCols: 20,
         minItemRows: 16,
         preview: 'line-diagram'
+    },
+    'line-chart': {
+        import: async () => {
+            return await import('src/app/widgets/LCO/line-chart/line-chart.module');
+        },
+        module: 'LineChartModule',
+        itemCols: 20,
+        itemRows: 16,
+        minItemCols: 20,
+        minItemRows: 16,
+        preview: 'line-chart'
+    },
+    'oil-control': {
+        import: async () => {
+            return await import('src/app/widgets/LCO/oil-control/oil-control.module');
+        },
+        module: 'OilControlModule',
+        itemCols: 20,
+        itemRows: 16,
+        minItemCols: 20,
+        minItemRows: 16,
+        preview: 'oil-control'
     },
 
     //#endregion LCO
