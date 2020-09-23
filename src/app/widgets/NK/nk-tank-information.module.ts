@@ -11,6 +11,7 @@ import { NkTankInformationInnageComponent } from './components/nk-tank-informati
 import { NkTankInformationCardInfoComponent } from './components/nk-tank-information-card-info/nk-tank-information-card-info.component';
 import { NkTankInformationCardComponent } from './components/nk-tank-information-card/nk-tank-information-card.component';
 import { NkTankInformationFilterMenuComponent } from './components/nk-tank-information-filter-menu/nk-tank-information-filter-menu.component';
+import { NkTankInformationPasportComponent } from './components/nk-tank-information-pasport/nk-tank-information-pasport.component';
 
 
 @NgModule({
@@ -22,7 +23,8 @@ import { NkTankInformationFilterMenuComponent } from './components/nk-tank-infor
         NkTankInformationInnageComponent,
         NkTankInformationCardInfoComponent,
         NkTankInformationCardComponent,
-        NkTankInformationFilterMenuComponent
+        NkTankInformationFilterMenuComponent,
+        NkTankInformationPasportComponent
     ],
     imports: [
         CommonModule, 

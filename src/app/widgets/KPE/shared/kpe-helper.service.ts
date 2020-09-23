@@ -125,9 +125,11 @@ export class KpeHelperService {
     }
 
     public compare<T>(a: T[], b: T[]): boolean {
-        for (const property in a) {
-            if (a[property] !== b[property]) {
-                return false;
+        for (const item in a) {
+            for (const property in a[item]) {
+                if (a[item][property] !== b[item][property]) {
+                    return false;
+                }
             }
         }
         return true;

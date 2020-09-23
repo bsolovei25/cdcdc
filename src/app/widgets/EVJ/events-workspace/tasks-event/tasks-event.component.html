@@ -121,32 +121,32 @@
       <div class="labels__item label">
         <div class="label__name">Создано:</div>
         <div class="label__value">
-          {{infoFunc('start')?.date?(infoFunc('start').date|date:"dd.MM.yyyy | hh:mm"):'-'}}
+          {{(ewService.event.productionTasks.createdAt | date: "yyyy.MM.dd | HH:mm") || '-'}}
         </div>
       </div>
       <div class="labels__item label">
         <div class="label__name">Автор:</div>
-        <div class="label__value">{{infoFunc('start')?.author?infoFunc('start').author:'-'}}</div>
+        <div class="label__value">{{ewService.event.productionTasks?.createdBy?.displayName || '-'}}</div>
       </div>
       <div class="labels__item label">
         <div class="label__name">Принято в работу:</div>
         <div class="label__value">
-          {{infoFunc('inWork')?.date?(infoFunc('inWork').date|date:"dd.MM.yyyy | hh:mm"):'-'}}
+          {{(ewService.event.productionTasks.acceptedAt | date: "yyyy.MM.dd | HH:mm") || '-'}}
         </div>
       </div>
       <div class="labels__item label">
         <div class="label__name">Автор:</div>
-        <div class="label__value">{{infoFunc('inWork')?.author?infoFunc('inWork').author:'-'}}</div>
+        <div class="label__value">{{ewService.event.productionTasks?.acceptedBy?.displayName || '-'}}</div>
       </div>
       <div class="labels__item label">
         <div class="label__name">Закрыто:</div>
         <div class="label__value">
-          {{infoFunc('close')?.date?(infoFunc('close').date|date:"dd.MM.yyyy | hh:mm"):'-'}}
+          {{(ewService.event.productionTasks?.closedAt | date: "yyyy.MM.dd | HH:mm") || '-'}}
         </div>
       </div>
       <div class="labels__item label">
         <div class="label__name">Автор:</div>
-        <div class="label__value">{{infoFunc('close')?.author?infoFunc('close').author:'-'}}</div>
+        <div class="label__value">{{ewService.event.productionTasks?.closedBy?.displayName || '-'}}</div>
       </div>
     </div>
     <evj-events-correct class="right__item"></evj-events-correct>

@@ -26,12 +26,17 @@ export interface ITankCardValue {
     minValue: number;
     objectStatus: string;
     passportState: string;
+    roofType: string;
+    isPassportized: boolean;
     tankTitle: string;
     tankType: string;
+    nominalValue: number;
     fillLevelPercentage: number;
     measuredVolume: number;
     temperature: number;
     dieValue: number;
+    resourceForShipment: number;
+    freeSpace: number;
     attributes: ICardAttributes[];
 }
 
@@ -48,13 +53,18 @@ export class ITankCardValueRef {
     public dieValue: number;
     public maxValue: number;
     public measuredVolume: number;
+    public nominalValue: number;
     public minValue: number;
     public objectStatus: string;
     public passportState: string;
+    public roofType: string;
+    public isPassportized: boolean;
     public tankTitle: string;
     public tankType: string;
     public temperature: number;
     public fillLevelPercentage: number;
+    public resourceForShipment: number;
+    public freeSpace: number;
     public attributes: ICardAttributes[];
 
     constructor(data: ITankCardValue) {
@@ -76,9 +86,14 @@ export const ITankValueDtoFn = (data: any): any => {
         minValue: data.minValue,
         objectStatus: data.objectStatus,
         passportState: data.passportState,
+        roofType: data.roofType,
+        isPassportized: data.isPassportized,
         tankTitle: data.tankTitle,
         tankType: data.tankType,
+        nominalValue: data.nominalValue,
         fillLevelPercentage: data.fillLevelPercentage,
+        resourceForShipment: data.resourceForShipment,
+        freeSpace: data.freeSpace,
         temperature: data.temperature,
         attributes: data.attributes,
     });
