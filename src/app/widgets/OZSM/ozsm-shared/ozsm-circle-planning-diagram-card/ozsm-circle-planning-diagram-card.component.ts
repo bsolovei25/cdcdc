@@ -23,6 +23,7 @@ export class OzsmCirclePlanningDiagramCardComponent implements OnInit, OnDestroy
 
     public activeData: ICircleData;
     private svgBody: any;
+    public percentValue: number;
 
     constructor() { }
 

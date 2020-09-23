@@ -917,9 +917,9 @@ export const WIDGETS_LAZY = {
                 );
         },
         module: 'OzsmCirclePlanningDiagramModule',
-        itemCols: 40,
+        itemCols: 25,
         itemRows: 5,
-        minItemCols: 40,
+        minItemCols: 25,
         minItemRows: 5,
         preview: 'default'
     },
