@@ -30,13 +30,13 @@
     cursor: default;
     color: white;
     border: none;
-    background-image: url(../../../../assets/pic/OilControl/not_critical_button.svg);
+    background-image: url(../../../../../../assets/pic/OilControl/not_critical_button.svg);
     background-repeat: no-repeat;
     background-size: 100% 100%;
   }
 
   .critical:disabled {
-    background-image: url(../../../../assets/pic/OilControl/critical_button.svg);
+    background-image: url(../../../../../../assets/pic/OilControl/critical_button.svg);
   }
 
   .paginator-button:not(:disabled):hover {

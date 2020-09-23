@@ -163,7 +163,6 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, OnDes
         @Inject('isMock') public isMock: boolean,
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string,
-        @Inject('resizeWidget') public resizeWidget: EventEmitter<MouseEvent>
     ) {
         super(widgetService, isMock, id, uniqId);
     }

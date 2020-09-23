@@ -50,8 +50,7 @@ import { SemicircleEnergyComponent } from './widgets/semicircle-energy/semicircl
 import { ProductStocksComponent } from './widgets/product-stocks/product-stocks.component';
 import { PolarChartComponent } from './widgets/polar-chart/polar-chart.component';
 import { DeviationCircleDiagramComponent } from './widgets/deviation-circle-diagram/deviation-circle-diagram.component';
-import { PaginatorComponent } from './components/paginator/paginator.component';
-import { PaginatorDirective } from './components/paginator/paginator.directive';
+import { PaginatorDirective } from '../widgets/LCO/oil-control/components/paginator/paginator.directive';
 import { SearchComponent } from './components/search/search.component';
 import { WidgetPreviewComponent } from './components/widget-preview/widget-preview.component';
 import { DashboardRoutingModule } from './dashboard-routing.module';
@@ -258,7 +257,6 @@ import { MenuButtonComponent } from './components/menu-button/menu-button.compon
         ProductStocksComponent,
         PolarChartComponent,
         DeviationCircleDiagramComponent,
-        PaginatorComponent,
         PaginatorDirective,
         SearchComponent,
         CircleBlockDiagramComponent,
