@@ -13,7 +13,7 @@
         <th class="cell">Значение за час</th>
         <th class="cell">Накопленное значение</th>
       </tr>
-      <ng-container *ngFor="let row of data">
+      <ng-container *ngFor="let row of products">
         <ng-container *ngTemplateOutlet="contentRow; context: {row: row}"></ng-container>
       </ng-container>
     </table>
@@ -22,17 +22,17 @@
 
 <ng-template #contentRow let-row="row">
   <tr class="table_row__body">
-    <td class="cell cell__title">{{ row.name }}</td>
+    <td class="cell cell__title">{{ row.productName }}</td>
     <td class="cell cell__content">
       <div class="values">
-        <span>{{row.valueByHour | spaceNumber}} т/ч</span>
-        <span>{{ row?.percentByHour}}%</span>
+        <span>{{row.hour | spaceNumber}} т</span>
+        <span>{{ row?.hourPercent}}%</span>
       </div>
     </td>
     <td class="cell cell__content">
       <div class="values">
-        <span>{{row.valueTank | spaceNumber}} т/ч</span>
-        <span>{{ row?.percentTank }}%</span>
+        <span>{{row.day | spaceNumber}} т</span>
+        <span>{{ row?.dayPercent }}%</span>
       </div>
     </td>
   </tr>
