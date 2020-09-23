@@ -903,9 +903,9 @@ export const WIDGETS_LAZY = {
         },
         module: 'OzsmCirclePlanningDiagramModule',
         itemCols: 40,
-        itemRows: 8,
+        itemRows: 5,
         minItemCols: 40,
-        minItemRows: 8,
+        minItemRows: 5,
         preview: 'default'
     },
     'ozsm-main-toggle': {
