@@ -18,6 +18,7 @@
     .graph-line {
       &-fact,
       &-plan,
+      &-forecast,
       &-other {
         fill: none;
         opacity: 1;
@@ -25,10 +26,12 @@
       }
 
       &-fact,
+      &-forecast,
       &-plan {
         stroke-width: 2;
       }
 
+      &-forecast,
       &-other {
         stroke-dasharray: 5 5;
       }
