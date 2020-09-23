@@ -194,7 +194,9 @@ export class AstueOnpzMultiChartComponent implements OnChanges, OnDestroy {
         let max: number = -Infinity;
 
         this.charts.forEach((chart) => {
-            if (chart.graphType !== 'fact' && chart.graphType !== 'plan') {
+            if (chart.graphType !== 'fact' && chart.graphType !== 'plan'
+                && chart.graphType !== 'forecast'
+            ) {
                 this.axisLabels[chart.graphType] = this.defineAxisYLabels(
                     chart.minValue,
                     chart.maxValue
@@ -245,12 +247,24 @@ export class AstueOnpzMultiChartComponent implements OnChanges, OnDestroy {
             .rangeRound(rangeX);
 
         const rangeY = [this.padding.top, this.graphMaxY - this.padding.bottom];
+        const mainChartGroup = ['fact', 'plan', 'forecast'];
+        const filterChartArray = this.charts.filter((x) =>
+            mainChartGroup.includes(x.graphType));
+        const domainMain = [d3.max(filterChartArray.map((x) => x.maxValue)),
+            d3.min(filterChartArray.map((x) => x.minValue))];
         this.charts.forEach((item) => {
-            const domain = [item.maxValue, item.minValue];
-            item.scaleY = d3
-                .scaleLinear()
-                .domain(domain)
-                .range(rangeY);
+            if (!mainChartGroup.includes(item.graphType)) {
+                const domain = [item.maxValue, item.minValue];
+                item.scaleY = d3
+                    .scaleLinear()
+                    .domain(domain)
+                    .range(rangeY);
+            } else {
+                item.scaleY = d3
+                    .scaleLinear()
+                    .domain(domainMain)
+                    .range(rangeY);
+            }
             item.axisY = d3
                 .axisLeft(item.scaleY)
                 .ticks(5)
@@ -376,12 +390,15 @@ export class AstueOnpzMultiChartComponent implements OnChanges, OnDestroy {
             const labels = axisY.append('g').attr('class', 'labels');
             let y: number = this.padding.top - this.topMargin + height;
             const step: number = height / 10;
-            if (isMainLabelsDrawn && (chart.graphType === 'plan' || chart.graphType === 'fact' || chart.graphType === 'forecast')) {
+            if (isMainLabelsDrawn && (chart.graphType === 'plan' || chart.graphType === 'fact'
+                || chart.graphType === 'forecast')
+            ) {
                 return;
             }
             const currentKey: string =
                 chart.graphType === 'plan' || chart.graphType === 'fact' || chart.graphType === 'forecast' ? 'main' : chart.graphType;
-            isMainLabelsDrawn = chart.graphType === 'plan' || chart.graphType === 'fact' || chart.graphType === 'forecast';
+            isMainLabelsDrawn = chart.graphType === 'plan' || chart.graphType === 'fact'
+                || chart.graphType === 'forecast';
             this.axisLabels[currentKey].forEach((item) => {
                 y -= step;
                 labels
@@ -501,12 +518,14 @@ export class AstueOnpzMultiChartComponent implements OnChanges, OnDestroy {
                 plan = chart.graph[chart.graph.length - 1];
             } else if (chart.graphType === 'fact') {
                 fact = chart.graph[chart.graph.length - 1];
+            } else if (chart.graphType === 'forecast') {
+                // TODO add some
             } else {
                 values.push({
                     val: statValue,
                     color: lineColors[this.colors?.get(chart.tagName)],
                     units: chart.units ?? '',
-                    iconType: chart.graphType,
+                    iconType: chart.graphType ?? 'volume',
                 });
             }
         });
