@@ -648,7 +648,6 @@ export class AstueOnpzMultiChartComponent implements OnChanges, OnDestroy {
         const filterGraphTypes: IMultiChartTypes[] = ['plan', 'fact', 'forecast'];
         const padding = this.charts.map((item) =>
             item.graphType).filter((x) => filterGraphTypes.includes(x))?.length ?? 0;
-        console.log('padding', padding);
         const cf =  this.charts.length - (padding > 0 ? padding - 1 : 0);
         return this.padding.left + this.axisYWidth * cf;
     }
