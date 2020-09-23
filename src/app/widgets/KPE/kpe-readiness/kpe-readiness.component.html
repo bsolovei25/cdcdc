@@ -109,7 +109,11 @@
     <div class="readiness">
       <div class="readiness__header">
         <div #mainGauge class="readiness__header__gauge" [style]="gaugeWidth(mainGauge)">
-          <evj-kpe-gauge-chart isPercent="true" [fact]="diagram?.fact" [plan]="diagram?.plan"></evj-kpe-gauge-chart>
+          <evj-kpe-gauge-chart isPercent="true"
+                               [fact]="diagram?.fact"
+                               [plan]="diagram?.plan"
+                               [deviation]="diagram?.deviation"
+          ></evj-kpe-gauge-chart>
         </div>
         <div class="readiness__header__chart">
           <evj-kpe-deviation-diagram [data]="deviationChartData"></evj-kpe-deviation-diagram>
@@ -126,7 +130,11 @@
                     <div class="gauge-card__units__unit gauge-card__units__unit__active">%</div>
                   </div>
                   <div class="gauge-card__gauge">
-                    <evj-kpe-gauge-chart background="dark" [fact]="gaugeCards[0]?.fact" [plan]="gaugeCards[0]?.plan"></evj-kpe-gauge-chart>
+                    <evj-kpe-gauge-chart background="dark"
+                                         [fact]="gaugeCards[0]?.fact"
+                                         [plan]="gaugeCards[0]?.plan"
+                                         [deviation]="gaugeCards[0]?.deviation"
+                    ></evj-kpe-gauge-chart>
                   </div>
                   <div class="gauge-card__title">
                     {{ gaugeCards[0]?.title }}
@@ -142,7 +150,11 @@
                     <div class="gauge-card__units__unit gauge-card__units__unit__active">%</div>
                   </div>
                   <div class="gauge-card__gauge">
-                    <evj-kpe-gauge-chart background="dark" [fact]="gaugeCards[1]?.fact" [plan]="gaugeCards[1]?.plan"></evj-kpe-gauge-chart>
+                    <evj-kpe-gauge-chart background="dark"
+                                         [fact]="gaugeCards[1]?.fact"
+                                         [plan]="gaugeCards[1]?.plan"
+                                         [deviation]="gaugeCards[1]?.deviation"
+                    ></evj-kpe-gauge-chart>
                   </div>
                   <div class="gauge-card__title">
                     {{ gaugeCards[1]?.title }}
@@ -158,8 +170,8 @@
               <div class="chart-card__title">
                 <span class="label">{{ chartCard?.progressChart.title }}</span>
                 <div class="units">
-                  <div class="units__unit units__unit__active">{{ chartCard?.progressChart.unit }}</div>
-                  <div class="units__unit">%</div>
+                  <div class="units__unit">{{ chartCard?.progressChart.unit }}</div>
+                  <div class="units__unit units__unit__active">%</div>
                 </div>
               </div>
               <div class="chart-card__diagram">
@@ -182,8 +194,8 @@
                     <div class="chart-card__title">
                       <span class="label">{{ card?.progressChart.title }}</span>
                       <div class="units">
-                        <div class="units__unit units__unit__active">{{ card?.progressChart.unit }}</div>
-                        <div class="units__unit">%</div>
+                        <div class="units__unit">{{ card?.progressChart.unit }}</div>
+                        <div class="units__unit units__unit__active">%</div>
                       </div>
                     </div>
                     <div class="chart-card__diagram">

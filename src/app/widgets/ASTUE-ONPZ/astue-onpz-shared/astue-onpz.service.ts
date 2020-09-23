@@ -23,6 +23,11 @@ export interface IAstueOnpzMonitoringCarrierOptions {
 }
 
 export interface IAstueOnpzPredictorsOptions {
+    predictors: IAstueOnpzPredictor[];
+    predictorWidgetId: string;
+}
+
+export interface IAstueOnpzPredictor {
     id: string;
     name: string;
     colorIndex: number;
@@ -43,28 +48,32 @@ export class AstueOnpzService {
         filterValues: null
     });
 
-    private monitoringOptions$: BehaviorSubject<IAstueOnpzMonitoringOptions> = new BehaviorSubject({
+    public monitoringOptions$: BehaviorSubject<IAstueOnpzMonitoringOptions> = new BehaviorSubject({
         manufactureName: null,
         unitName: null,
         type: null,
         indicatorType: null
     });
 
-    public predictorsOptions$: BehaviorSubject<IAstueOnpzPredictorsOptions[]> = new BehaviorSubject(
-        []
-    );
+    public multilineChartIndicatorTitle$: BehaviorSubject<string> =
+        new BehaviorSubject<string>('');
+
+    public predictorsOptions$: BehaviorSubject<IAstueOnpzPredictorsOptions> = new BehaviorSubject(null);
 
     public colors$: BehaviorSubject<Map<string, number>> =
         new BehaviorSubject<Map<string, number>>(new Map());
     private colors: number = 6;
 
-    public sharedMonitoringOptions: Observable<IAstueOnpzMonitoringOptions> = this.monitoringOptions$.asObservable();
+    public sharedMonitoringOptions: Observable<IAstueOnpzMonitoringOptions> =
+        this.monitoringOptions$.asObservable();
 
-    public sharedIndicatorOptions: Observable<IAstueOnpzMonitoringCarrierOptions> = this.indicatorOptions$.asObservable();
+    public sharedIndicatorOptions: Observable<IAstueOnpzMonitoringCarrierOptions> =
+        this.indicatorOptions$.asObservable();
 
     public sharedPlanningGraph$: BehaviorSubject<IPlanningChart> = new BehaviorSubject(null);
 
-    private multiLinePredictorsChart$: BehaviorSubject<IMultiChartLine[]> = new BehaviorSubject<IMultiChartLine[]>(null);
+    private multiLinePredictorsChart$: BehaviorSubject<IMultiChartLine[]> =
+        new BehaviorSubject<IMultiChartLine[]>(null);
 
     get multiLinePredictors(): Observable<IMultiChartLine[]> {
         return this.multiLinePredictorsChart$.asObservable();
@@ -82,11 +91,11 @@ export class AstueOnpzService {
         this.monitoringOptions$.next(options);
     }
 
-    public setPredictors(arr: IAstueOnpzPredictorsOptions[]): void {
-        if (arr.some((x) => x.name !== this.sharedPlanningGraph$.getValue()?.title)) {
+    public setPredictors(predictorWidgetId: string, predictors: IAstueOnpzPredictor[]): void {
+        if (predictors.some((x) => x.name !== this.sharedPlanningGraph$.getValue()?.title)) {
             this.setPlanningGraph(null);
         }
-        this.predictorsOptions$.next(arr);
+        this.predictorsOptions$.next({ predictors, predictorWidgetId });
     }
 
     public setPlanningGraph(graph: IPlanningChart, isDemand: boolean = false): void {
@@ -148,6 +157,14 @@ export class AstueOnpzService {
         indicatorTypeParam: AstueOnpzConsumptionIndicatorType,
         typeParam: AstueOnpzConsumptionIndicatorsWidgetType
     ): void {
+        const currentOptions = this.monitoringOptions$.getValue();
+        if (
+            currentOptions.type === typeParam &&
+            currentOptions.indicatorType === indicatorTypeParam
+        ) {
+            indicatorTypeParam = null;
+            typeParam = null;
+        }
         this.monitoringOptions$.next({
             ...this.monitoringOptions$.value,
             ...{

@@ -10,15 +10,6 @@ import { SnackBarService } from '../../../../dashboard/services/snack-bar.servic
     styleUrls: ['./asus-event.component.scss']
 })
 export class AsusEventComponent implements OnInit {
-    public reasons: string[] = [
-        'Причина 1',
-        'Причина 2',
-        'Причина 3',
-        'Причина 4',
-        'Причина 5',
-        'Причина 6'
-    ];
-
     public isReasonsPopupOpen: boolean = false;
 
     constructor(
@@ -30,12 +21,24 @@ export class AsusEventComponent implements OnInit {
 
     ngOnInit(): void {
         this.setDefaultResponsible();
+        this.setDefaultUnit();
     }
 
     private async setDefaultResponsible(): Promise<void> {
         if (this.ewService.isCreateNewEvent) {
-            let responsibleOperator = await this.eventService.getDefaultResponsibleByType('asus');
+            const responsibleOperator = await this.eventService.getDefaultResponsibleByType('asus');
             this.ewService.event = { ...this.ewService.event, responsibleOperator };
+        }
+    }
+
+    private setDefaultUnit(): void {
+        if (this.ewService.isCreateNewEvent) {
+            this.ewService.asusUnits$.subscribe((units) => {
+                const asusEvent = this.ewService.event.asusEvent;
+                asusEvent.tmPlace =
+                    units?.find((u) => u.name.toLowerCase().includes('гфу-2'))?.codeSap;
+                this.ewService.event = {...this.ewService.event, asusEvent };
+            });
         }
     }
 

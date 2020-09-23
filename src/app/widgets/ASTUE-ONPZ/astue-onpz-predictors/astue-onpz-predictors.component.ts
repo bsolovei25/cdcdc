@@ -9,7 +9,7 @@ import { WidgetPlatform } from '../../../dashboard/models/widget-platform';
 import { WidgetService } from '../../../dashboard/services/widget.service';
 import { SelectionModel } from '@angular/cdk/collections';
 import {
-    AstueOnpzService, IAstueOnpzColors,
+    AstueOnpzService, IAstueOnpzColors, IAstueOnpzPredictor,
     IAstueOnpzPredictorsOptions
 } from '../astue-onpz-shared/astue-onpz.service';
 
@@ -71,8 +71,7 @@ export class AstueOnpzPredictorsComponent extends WidgetPlatform implements OnIn
         if (!this.selectPredictors.isSelected(item.id)) {
             this.astueOnpzService.deleteTagToColor(color, item.tag);
         }
-        const arr: IAstueOnpzPredictorsOptions[] = [];
-
+        const arr: IAstueOnpzPredictor[] = [];
         this.selectPredictors.selected.forEach((id) => {
             const el: IPredictors = this.data.find((value) => value.id === id);
             arr.push({ name: el?.name, id: el?.id, colorIndex: el?.colorIndex });
@@ -81,7 +80,7 @@ export class AstueOnpzPredictorsComponent extends WidgetPlatform implements OnIn
             }
         });
 
-        this.astueOnpzService.setPredictors(arr);
+        this.astueOnpzService.setPredictors(this.id, arr);
         this.cdRef.detectChanges();
     }
 }

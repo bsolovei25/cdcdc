@@ -18,6 +18,7 @@ export class KpeEnergyDiagramComponent implements OnInit {
 
     @Input() fact: number = 0;
     @Input() plan: number = 0;
+    @Input() deviation: number = 0;
     @Input() img: string = this.defaultImg;
 
     public ngOnInit(): void {

@@ -71,7 +71,7 @@ export class EventsWorkspaceService {
     public asusServices: IAsusService[] = [];
     public asusEOServices: IAsusEOService[] = [];
     public asusEquipments: IAsusTpPlace[] = [];
-    public asusUnits: IAsusTmPlace[] = [];
+    public asusUnits$: BehaviorSubject<IAsusTmPlace[]> = new BehaviorSubject<IAsusTmPlace[]>([]);
     public smotrReference: ISmotrReference = null;
     public category$: BehaviorSubject<ICategory[]> = new BehaviorSubject<ICategory[]>([]);
     public categoryPipe: Observable<ICategory[]> = this.category$.pipe(
@@ -505,9 +505,6 @@ export class EventsWorkspaceService {
             },
             productionTasks: {
                 subCategory: null,
-                start: undefined,
-                inWork: undefined,
-                close: undefined
             }
         };
     }
@@ -517,7 +514,10 @@ export class EventsWorkspaceService {
         dataLoadQueue.push(
             this.eventService.getCategory().then((data) => {
                 this.category = data;
-                this.category$.next(data);
+                // TODO Здесь костыль с ЦД
+                const idx = this.category.findIndex(value => value.name === 'modelCalculations');
+                this.category.splice(idx, 1);
+                this.category$.next(this.category);
             }),
             this.eventService.getUser().then((data) => {
                 this.users = data;
@@ -570,7 +570,7 @@ export class EventsWorkspaceService {
                 this.asusServices = data;
             }),
             this.eventService.getAsusUnits(saveMethod).then((data) => {
-                this.asusUnits = data;
+                this.asusUnits$.next(data);
             })
         );
         try {

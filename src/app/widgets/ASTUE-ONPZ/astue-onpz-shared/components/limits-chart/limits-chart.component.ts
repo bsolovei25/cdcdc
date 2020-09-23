@@ -7,6 +7,7 @@ import {
 } from '../../../../../dashboard/models/production-trends.model';
 import { IChartD3, IChartMini } from '../../../../../@shared/models/smart-scroll.model';
 import { AsyncRender } from '../../../../../@shared/functions/async-render.function';
+import { fillDataArray } from '../../../../../@shared/functions/fill-data-array.function';
 
 @Component({
     selector: 'evj-limits-chart',
@@ -44,8 +45,7 @@ export class LimitsChartComponent implements OnChanges {
         bottom: 40,
     };
 
-    private readonly MAX_COEF: number = 0.1;
-    private readonly MIN_COEF: number = 0.3;
+    private static DELTA_CF: number = 0.1;
 
     private readonly topMargin: number = 25;
 
@@ -53,6 +53,8 @@ export class LimitsChartComponent implements OnChanges {
 
     public ngOnChanges(): void {
         if (!!this.data.length) {
+            this.getOxArea();
+            fillDataArray(this.data, true, true, this.dateMin.getTime(), this.dateMax.getTime());
             this.startDrawChart();
         } else {
             this.dropChart();
@@ -83,6 +85,16 @@ export class LimitsChartComponent implements OnChanges {
         this.customizeAreas();
     }
 
+    private getOxArea(): void {
+        const factChart = this.data.find((g) => g.graphType === 'fact').graph;
+        const centerTimestamp = new Date(factChart[factChart.length - 1].timeStamp);
+        centerTimestamp.setMinutes(0, 0, 0);
+        const maxDate = centerTimestamp.getTime() + 1000 * 60 * 60 * 12;
+        const minDate = centerTimestamp.getTime() - 1000 * 60 * 60 * 12;
+        this.dateMax = new Date(maxDate);
+        this.dateMin = new Date(minDate);
+    }
+
     private initData(): void {
         if (this.isWithPicker) {
             this.padding.top = 70;
@@ -111,22 +123,9 @@ export class LimitsChartComponent implements OnChanges {
     }
 
     private findMinMax(): void {
-        const maxValues: number[] = [];
-        const minValues: number[] = [];
-        const minDate: Date[] = [];
-        const maxDate: Date[] = [];
-
-        this.data.forEach((graph) => {
-            maxValues.push(d3.max(graph.graph, (item: IChartMini) => item.value));
-            minValues.push(d3.min(graph.graph, (item: IChartMini) => item.value));
-            maxDate.push(d3.max(graph.graph, (item: IChartMini) => item.timeStamp));
-            minDate.push(d3.min(graph.graph, (item: IChartMini) => item.timeStamp));
-        });
-
-        this.dataMax = d3.max(maxValues) * (1 + this.MAX_COEF);
-        this.dataMin = d3.min(minValues) * (1 - this.MIN_COEF);
-        this.dateMax = d3.max(maxDate);
-        this.dateMin = d3.min(minDate);
+        [this.dataMin, this.dataMax] = d3.extent(this.data.flatMap((x) => x.graph).map((x) => x.value));
+        this.dataMin -= (this.dataMax - this.dataMin) * LimitsChartComponent.DELTA_CF;
+        this.dataMax += (this.dataMax - this.dataMin) * LimitsChartComponent.DELTA_CF;
     }
 
     private defineScale(): void {
@@ -297,6 +296,12 @@ export class LimitsChartComponent implements OnChanges {
         const translateY: string = `translate(${this.padding.left},0)`;
         drawLabels('axisX', translateX);
         drawLabels('axisY', translateY);
+
+        this.svg.selectAll('g.axisY g.tick')._groups[0].forEach((g, idx) => {
+            if (idx % 2) {
+                g.remove();
+            }
+        });
     }
 
     private customizeAreas(): void {

@@ -8,11 +8,11 @@ import { SharedModule } from '@shared/shared.module';
     declarations: [
         KpeQualityComponent,
     ],
-  imports: [
-    CommonModule,
-    KpeSharedModule,
-    SharedModule
-  ]
+    imports: [
+        CommonModule,
+        KpeSharedModule,
+        SharedModule
+    ]
 })
 export class KpeQualityModule {
     enterComponent = KpeQualityComponent;

@@ -7,18 +7,21 @@ import { Component, OnInit, Input, OnChanges, Output, EventEmitter } from '@angu
 })
 export class NkTankInformationFilterMenuComponent implements OnInit, OnChanges {
   @Input() filterList: string[];
+  @Input() selectedFilter: string;
   @Output() onFilter: EventEmitter<string> = new EventEmitter<string>();
 
-  selectedFilter: string = 'Все резервуары';
+  selected: string = 'Все резервуары';
   constructor() { }
 
   chooseFilter(e: { target: { innerText: string; }; }): void {
-    this.selectedFilter = e.target.innerText;
-    this.onFilter.emit(this.selectedFilter);
+    this.selected = e.target.innerText;
+    this.onFilter.emit(this.selected);
   }
 
   ngOnInit(): void {}
 
-  ngOnChanges(): void {}
+  ngOnChanges(): void {
+    this.selected = this.selectedFilter;
+  }
 
 }

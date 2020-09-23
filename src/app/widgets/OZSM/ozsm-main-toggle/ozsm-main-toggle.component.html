@@ -1,0 +1,26 @@
+<div class="container">
+<evj-widget-header-smp
+  [uniqId]="uniqId"
+  (mouseenter)="onMouseEnter()"
+  (mouseleave)="onMouseExit()"
+  *ngIf="isHover"
+>
+</evj-widget-header-smp>
+<div
+  class="content"
+  (mouseenter)="onMouseEnter()"
+  (mouseleave)="onMouseExit()"
+  (mousedown)="$event.stopPropagation()"
+  (touchstart)="$event.stopPropagation()"
+>
+  <div class="container-toggle">
+    <button matRipple [matRippleColor]="'white'" (click)="clicked($event, 'plan')" class="button plan">
+      <span>Планирование</span>
+    </button>
+    <button matRipple [matRippleColor]="'white'" (click)="clicked($event, 'screen') " class="button screen">
+      <span>Мониторинг</span>
+    </button>
+  </div>
+</div>
+</div>
+
