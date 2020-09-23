@@ -5,6 +5,7 @@ import { AngularSvgIconModule } from 'angular-svg-icon';import { OilControlCompo
 import { OilControlTowerComponent } from './components/oil-control-tower/oil-control-tower.component';
 import { OilControlTableComponent } from './components/oil-control-table/oil-control-table.component';
 import { PaginatorComponent } from './components/paginator/paginator.component';
+import { DashboardModule } from '../../../dashboard/dashboard.module';
 
 
 @NgModule({
@@ -15,6 +16,7 @@ import { PaginatorComponent } from './components/paginator/paginator.component';
         CommonModule,
         SharedModule,
         AngularSvgIconModule,
+        DashboardModule
     ],
     exports: [
     ],
