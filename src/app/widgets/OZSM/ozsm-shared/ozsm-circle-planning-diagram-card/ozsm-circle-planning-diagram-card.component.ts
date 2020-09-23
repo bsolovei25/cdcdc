@@ -44,8 +44,8 @@ export class OzsmCirclePlanningDiagramCardComponent implements OnInit, OnDestroy
     private drawDiagram(): void {
         this.svgBody = d3Selection.select(this.diagram.nativeElement).append('svg');
         this.svgBody
-            .attr('width', '100%')
-            .attr('height', '100%')
+            .attr('width', 150)
+            .attr('height', 150)
             .attr('viewBox', '0 0 200 200');
 
         const indicator = this.svgBody.append('g').attr('class', 'indicator');

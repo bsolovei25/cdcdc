@@ -10,36 +10,39 @@
   max-height: 300px;
 }
 .arrow-top {
-  position: relative;
-  left: 45%;
+position: absolute;
+  left: 570px;
+  width: 1200px;
+  height: 200px;
 }
 .arrow-bottom {
+  position: absolute;
+  top: 210px;
+  left: 770px;
+  width: 1200px;
+  height: 200px;
+}
+.all {
   position: relative;
-  left: 65%;
 }
 .diagrams {
+  position: absolute;
+  top: 20px;
   display: flex;
-  align-items: center;
-  justify-content: space-between;
+  align-items: stretch;
+  justify-content: flex-start;
 }
-.diagram-card {
+.diagram{
   display: flex;
   align-items: center;
-}
-.diagram-plan {
-  display: flex;
-  align-items: center;
+  flex-grow: 1;
 }
 .template {
   display: flex;
   align-items: center;
 }
-.arrow-tail {
+.template-arrow {
+  display: flex;
   align-items: center;
-  flex-grow: 1;
 }
-.arrow-tip {
-  align-items: center;
-  flex-grow: 3;
- }
 

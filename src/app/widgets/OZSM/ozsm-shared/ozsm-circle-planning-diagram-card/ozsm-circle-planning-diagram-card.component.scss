@@ -1,4 +1,7 @@
 .diagram {
+  height: 100%;
+  width: 100%;
+
   &::ng-deep {
     .back-arc,
     .dashed-arc {

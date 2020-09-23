@@ -13,21 +13,26 @@
     (mousedown)="$event.stopPropagation()"
     (touchstart)="$event.stopPropagation()"
   >
+    <div class="all">
       <div class="arrow-top">
         <img src="assets/icons/widgets/OZSM/ozsm-circle-planning-diagram/arrow-top.svg" width="25%">
       </div>
       <div class="diagrams">
-        <evj-ozsm-circle-planning-diagram-plan [plan]="pData[0]"></evj-ozsm-circle-planning-diagram-plan>
-        <div class="arrow__tail"><img src="assets/icons/widgets/OZSM/ozsm-circle-planning-diagram/arrow-tail.svg">
-        </div>
-        <div class="arrow__tip"><img src="assets/icons/widgets/OZSM/ozsm-circle-planning-diagram/arrow-line.svg">
-        </div>
         <div class="template">
-          <div class="diagram-card" *ngFor="let item of cData">
-            <evj-ozsm-circle-planning-diagram-card [card]="item"></evj-ozsm-circle-planning-diagram-card>
-            <div class="arrow__tail"><img src="assets/icons/widgets/OZSM/ozsm-circle-planning-diagram/arrow-tail.svg">
+          <evj-ozsm-circle-planning-diagram-plan [plan]="pData[0]"></evj-ozsm-circle-planning-diagram-plan>
+          <div class="diagram" *ngFor="let item of cData; i as index">
+            <div class="template-arrow" *ngIf="item.name === 'Выработка'">
+              <div class="arrow__tail"><img src="assets/icons/widgets/OZSM/ozsm-circle-planning-diagram/arrow-tail.svg">
+              </div>
+              <div class="arrow__tip"><img src="assets/icons/widgets/OZSM/ozsm-circle-planning-diagram/arrow-line.svg">
+              </div>
             </div>
-            <div class="arrow__tip"><img src="assets/icons/widgets/OZSM/ozsm-circle-planning-diagram/arrow-line.svg">
+            <evj-ozsm-circle-planning-diagram-card [card]="item"></evj-ozsm-circle-planning-diagram-card>
+            <div class="template-arrow">
+              <div class="arrow__tail"><img src="assets/icons/widgets/OZSM/ozsm-circle-planning-diagram/arrow-tail.svg">
+              </div>
+              <div class="arrow__tip"><img src="assets/icons/widgets/OZSM/ozsm-circle-planning-diagram/arrow-line.svg">
+              </div>
             </div>
           </div>
           <evj-ozsm-circle-planning-diagram-plan [plan]="pData[1]"></evj-ozsm-circle-planning-diagram-plan>
@@ -37,5 +42,6 @@
         <img src="assets/icons/widgets/OZSM/ozsm-circle-planning-diagram/arrow-bottom.svg" width="25%">
       </div>
   </div>
+</div>
 </div>
 
