@@ -46,8 +46,10 @@ export class AstueOnpzPlanningChartsComponent extends WidgetPlatform implements 
         super.dataConnect();
         this.subscriptions.push(
             this.astueOnpzService.predictorsOptions$.subscribe((value) => {
-                this.setOptionsWs(value?.predictors.map((predictor) => predictor?.id),
-                    value?.predictorWidgetId);
+                if (value) {
+                    this.setOptionsWs(value?.predictors.map((predictor) => predictor?.id),
+                        value?.predictorWidgetId);
+                }
             }),
             this.astueOnpzService.colors$.subscribe((value) => {
                 this.colors = value;
@@ -61,15 +63,7 @@ export class AstueOnpzPlanningChartsComponent extends WidgetPlatform implements 
         multiLineChart: IMultiChartLine[];
     }): void {
         this.data = ref.graphs;
-        const newMultiChart: IMultiChartLine[] = ref?.multiLineChart?.map((item: any) => {
-            return {
-                graph: item.graph,
-                units: item.units,
-                graphType: item.multiChartTypes,
-                tagName: item.tagName
-            };
-        });
-        this.astueOnpzService.setMultiLinePredictors(newMultiChart);
+        this.astueOnpzService.setMultiLinePredictors(ref?.multiLineChart);
     }
 
     setOptionsWs(predictorIds: string[], predictorWidgetId: string): void {

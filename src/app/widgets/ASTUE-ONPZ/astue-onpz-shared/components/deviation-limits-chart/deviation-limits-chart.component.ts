@@ -8,7 +8,6 @@ import { AsyncRender } from '../../../../../@shared/functions/async-render.funct
 import * as d3Selection from 'd3-selection';
 import * as d3 from 'd3';
 import { fillDataArray } from '../../../../../@shared/functions/fill-data-array.function';
-import { ItemSizeAverager } from '@angular/cdk-experimental/scrolling';
 
 @Component({
     selector: 'evj-deviation-limits-chart',
@@ -56,6 +55,7 @@ export class DeviationLimitsChartComponent implements OnChanges {
 
     public ngOnChanges(): void {
         if (!!this.data.length) {
+            this.getOxArea();
             this.normalizeData();
             this.startDrawChart();
         } else {
@@ -87,6 +87,16 @@ export class DeviationLimitsChartComponent implements OnChanges {
         this.customizeAreas();
     }
 
+    private getOxArea(): void {
+        const factChart = this.data.find((g) => g.graphType === 'fact').graph;
+        const centerTimestamp = new Date(factChart[factChart.length - 1].timeStamp);
+        centerTimestamp.setMinutes(0, 0, 0);
+        const maxDate = centerTimestamp.getTime() + 1000 * 60 * 60 * 12;
+        const minDate = centerTimestamp.getTime() - 1000 * 60 * 60 * 12;
+        this.dateMax = new Date(maxDate);
+        this.dateMin = new Date(minDate);
+    }
+
     private initData(): void {
         if (this.isWithPicker) {
             this.padding.top = 70;
@@ -115,7 +125,7 @@ export class DeviationLimitsChartComponent implements OnChanges {
     }
 
     private normalizeData(): void {
-        fillDataArray(this.data, 8, true);
+        fillDataArray(this.data, true, true, this.dateMin.getTime(), this.dateMax.getTime());
         const fact = this.data.find((item) => item.graphType === 'fact');
         const hb = this.data.find((item) => item.graphType === 'higherBorder');
         const lb = this.data.find((item) => item.graphType === 'lowerBorder');
@@ -178,8 +188,6 @@ export class DeviationLimitsChartComponent implements OnChanges {
 
         this.dataMax = d3.max(maxValues) * (1 + this.MAX_COEF);
         this.dataMin = d3.min(minValues) * (1 + this.MIN_COEF);
-        this.dateMax = d3.max(maxDate);
-        this.dateMin = d3.min(minDate);
     }
 
     private defineScale(): void {

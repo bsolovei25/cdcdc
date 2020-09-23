@@ -167,10 +167,12 @@ export const WIDGETS = {
     'ejco-onpz-fsb-load': WidgetContainerComponent,
     'ejco-onpz-unit-kpe': WidgetContainerComponent,
     'ozsm-components': WidgetContainerComponent,
+    'ozsm-diagrams': WidgetContainerComponent,
     'ozsm-main-indicators': WidgetContainerComponent,
     'oq-oil-quality': WidgetContainerComponent,
     'ozsm-circle-planning-diagram': WidgetContainerComponent,
-    'ozsm-main-toggle': WidgetContainerComponent
+    'ozsm-main-toggle': WidgetContainerComponent,
+    'ozsm-scenarios': WidgetContainerComponent
 };
 
 export const WIDGETS_LAZY = {
@@ -882,6 +884,19 @@ export const WIDGETS_LAZY = {
         minItemRows: 7,
         preview: 'ozsm-line-diagrams'
     },
+    'ozsm-diagrams': {
+        import: async () => {
+            return await import(
+                'src/app/widgets/OZSM/ozsm-diagrams-widget/ozsm-diagrams-widget.module'
+                );
+        },
+        module: 'OzsmDiagramsWidgetModule',
+        itemCols: 13,
+        itemRows: 24,
+        minItemCols: 13,
+        minItemRows: 24,
+        // preview: 'ozsm-diagrams',
+    },
     'ozsm-main-indicators': {
         import: async () => {
             return await import(
@@ -911,17 +926,28 @@ export const WIDGETS_LAZY = {
     'ozsm-main-toggle': {
     import: async () => {
         return await import(
-            'src/app/widgets/OZSM/ozsm-main-indicators/ozsm-main-indicators.module'
+            'src/app/widgets/OZSM/ozsm-main-toggle/ozsm-main-toggle.module'
             );
     },
-        module: 'OzsmMainIndicatorsModule',
-        itemCols: 4,
-        itemRows: 4,
-        minItemCols: 4,
-        minItemRows: 4,
+        module: 'OzsmMainToggleModule',
+        itemCols: 10,
+        itemRows: 2,
+        minItemCols: 10,
+        minItemRows: 2,
         preview: 'default',
 },
 
+    'ozsm-scenarios': {
+        import: async () => {
+            return await import('src/app/widgets/OZSM/ozsm-scenarios/ozsm-scenarios.module');
+        },
+        module: 'OzsmScenariosModule',
+        itemCols: 15,
+        itemRows: 10,
+        minItemCols: 15,
+        minItemRows: 10,
+        preview: 'default'
+    },
 
     //#endregion OZSM
 

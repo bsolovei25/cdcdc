@@ -82,15 +82,7 @@ export class AstueOnpzConventionalFuelComponent extends WidgetPlatform
                 if (!this.isPredictors) {
                     return;
                 }
-                if (!!data) {
-                    this.data = data;
-                    this.data.forEach((item) => {
-                        item.graphType = (item as any).multiChartTypes;
-                        item.graph?.forEach((val) => (val.timeStamp = new Date(val.timeStamp)));
-                    });
-                } else {
-                    this.data = [];
-                }
+                this.data = !!data ? this.multilineDataMapper(data) : [];
             }),
             this.astueOnpzService.colors$.subscribe((value) => {
                 this.colors = value;
@@ -101,20 +93,14 @@ export class AstueOnpzConventionalFuelComponent extends WidgetPlatform
     public ngOnDestroy(): void {
         super.ngOnDestroy();
         this.astueOnpzService.dropDataStream();
+        this.astueOnpzService.sharedPlanningGraph$.next(null);
         this.astueOnpzService.multilineChartIndicatorTitle$.next('');
     }
 
     protected dataHandler(ref: { graphs: IMultiChartLine[] }): void {
         if (!this.isPredictors) {
             if (ref?.graphs) {
-                ref.graphs.forEach((graph) => {
-                    const _ = graph as any;
-                    graph.graphType = _.multiChartTypes;
-                    graph.graph.forEach((item) => {
-                        item.timeStamp = new Date(item.timeStamp);
-                    });
-                });
-                this.data = ref?.graphs;
+                this.data = this.multilineDataMapper(ref.graphs);
                 return;
             }
             this.data = [];
@@ -123,5 +109,16 @@ export class AstueOnpzConventionalFuelComponent extends WidgetPlatform
 
     public goToMainScreen(): void {
         this.userSettingsService.LoadScreenByWidget('astue-onpz-menu-structure');
+    }
+
+    private multilineDataMapper(ref: IMultiChartLine[]): IMultiChartLine[] {
+        ref?.forEach((graph) => {
+            const _ = graph as any;
+            graph.graphType = graph.graphType ?? _.multiChartTypes;
+            graph.graph?.forEach((item) => {
+                item.timeStamp = new Date(item.timeStamp);
+            });
+        });
+        return ref;
     }
 }

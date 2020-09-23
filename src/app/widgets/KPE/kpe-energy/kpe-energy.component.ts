@@ -42,8 +42,15 @@ export class KpeEnergyComponent extends WidgetPlatform implements OnInit {
         super.widgetInit();
     }
 
-    protected dataHandler(ref: any): void {
+    protected dataHandler(ref: IKpeEnergy): void {
         this.data = ref;
+        if (this.kpeHelperService.compare<IKpeEnergyTab>(this.data.tabs, ref.tabs)) {
+            this.data.tabs = ref.tabs;
+        }
+        if (this.kpeHelperService.compare<IKpeLineChartData>(this.data.chart, ref.chart)) {
+            this.data.chart = ref.chart;
+        }
+        this.data.diagram = ref.diagram;
         this.deviationChartData = this.kpeHelperService.prepareKpeLineChartData(this.data.chart);
     }
 
