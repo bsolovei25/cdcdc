@@ -1,0 +1,26 @@
+<div class="container">
+    <evj-contemporary-widget-header
+        [uniqId]="uniqId" 
+        [widgetTitle]="widgetTitle" 
+        icon="tank"
+        type="astue"
+    ></evj-contemporary-widget-header>
+
+    <div class="container-body" 
+        (mousedown)="$event.stopPropagation()"
+        (touchstart)="$event.stopPropagation()"
+    >
+        <evj-nk-tank-information-filter-menu
+            [filterList] = "filterList"
+            (onFilter) = "getFilter($event)"
+            [selectedFilter] = "selectedFilter"
+        ></evj-nk-tank-information-filter-menu>
+
+        <div class="cardList">
+            <evj-nk-tank-information-card 
+                *ngFor="let card of cardsDataFiltered"
+                [cardData] = "card"
+            ></evj-nk-tank-information-card>
+        </div>
+    </div>
+</div>

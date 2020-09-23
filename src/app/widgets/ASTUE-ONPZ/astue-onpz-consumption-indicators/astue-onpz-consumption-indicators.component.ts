@@ -58,11 +58,17 @@ export class AstueOnpzConsumptionIndicatorsComponent extends WidgetPlatform
     }
 
     protected dataHandler(ref: IAstueOnpzConsumptionIndicators): void {
-        if (this.compare<IAstueOnpzIndicator>(this.indicators, ref.indicators)) {
+        if (JSON.stringify(this.indicators) !== JSON.stringify(ref.indicators)) {
             this.indicators = ref.indicators;
         }
         if (this.type !== ref.type) {
             this.type = ref.type;
+        }
+        const options = this.astueOnpzService.monitoringOptions$.getValue();
+        if (this.indicators && options.type === this.type) {
+            this.activeIndicator =
+                this.indicators.find(indicatorFromList =>
+                    indicatorFromList.type === options.indicatorType) ?? null;
         }
     }
 
@@ -71,14 +77,13 @@ export class AstueOnpzConsumptionIndicatorsComponent extends WidgetPlatform
         this.subscriptions.push(
             this.astueOnpzService.sharedMonitoringOptions.subscribe(options => {
                 this.activeIndicator = null;
-                if (this.indicators) {
-                    const indicator = this.indicators.find(indicatorFromList => indicatorFromList.type === options.indicatorType);
-                    if (options.type === this.type) {
-                        this.activeIndicator = indicator;
-                    }
+                if (this.indicators && options.type === this.type) {
+                    this.activeIndicator =
+                        this.indicators.find(indicatorFromList =>
+                            indicatorFromList.type === options.indicatorType) ?? null;
                 }
                 this.widgetService.setWidgetLiveDataFromWSOptions(this.widgetId, options);
-            })
+            }),
         );
     }
 
@@ -88,14 +93,5 @@ export class AstueOnpzConsumptionIndicatorsComponent extends WidgetPlatform
 
     public setIndicator(indicator: IAstueOnpzIndicator): void {
         this.astueOnpzService.updateIndicator(indicator.type, this.type);
-    }
-
-    private compare<T>(a: T[], b: T[]): boolean {
-        for (const property in a) {
-            if (a[property] !== b[property]) {
-                return false;
-            }
-        }
-        return true;
     }
 }

@@ -1,0 +1,22 @@
+<div class="volume">
+    <div class="volume__info">
+        <span>Номинальный объем</span>
+        <span> {{volumeMax | spaceNumber: 3}} т.</span>
+    </div>
+
+    <div class="free-space">
+        <div class="free-space__diagram">
+            <div class="indicator " *ngFor = "let item of volumeCustomization; let i = index">
+                <div class="indicator__inner"  [ngClass]="{indicator__inner_active : i + 1 <= activeIndicatorCount}" ></div>
+            </div>
+        </div>
+        <div class="free-space__info">
+            <span>Ресурс к отгрузке</span>
+            <span> {{volumeCurrent | spaceNumber: 3}} т.</span>
+        </div>
+        <div class="free-space__info">
+            <span>Свободное место</span>
+            <span>{{freeSpace}} т.</span>
+        </div>
+    </div>
+</div>

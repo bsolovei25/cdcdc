@@ -4,7 +4,6 @@ import { WidgetService } from '../../../dashboard/services/widget.service';
 import { IProductionTrend } from '../../../dashboard/models/production-trends.model';
 import { AstueOnpzService } from '../astue-onpz-shared/astue-onpz.service';
 import { AstueOnpzProductCardComponent } from './components/astue-onpz-product-card/astue-onpz-product-card.component';
-import { IClassExclusionDescriptor } from 'tslint/lib/rules/completed-docs/classExclusion';
 
 export interface IAstueProductChart {
     productName: string;
@@ -14,6 +13,9 @@ export interface IAstueProductChart {
     units: string;
     currentPlanValue: number;
     currentFactValue: number;
+    planText: string;
+    factText: string;
+    isLowerEconomy: boolean;
     graphs: IProductionTrend[];
 }
 
@@ -32,7 +34,7 @@ export class AstueOnpzProductChartsComponent extends WidgetPlatform implements O
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string,
         private astueOnpzService: AstueOnpzService,
-        public injector: Injector,
+        public injector: Injector
     ) {
         super(widgetService, isMock, id, uniqId);
     }
@@ -54,7 +56,7 @@ export class AstueOnpzProductChartsComponent extends WidgetPlatform implements O
         super.ngOnDestroy();
     }
 
-    protected dataHandler(ref: {graphIds: string[]}): void {
+    protected dataHandler(ref: { graphIds: string[] }): void {
         if (ref?.graphIds?.length > 0) {
             this.data = ref.graphIds;
         } else {

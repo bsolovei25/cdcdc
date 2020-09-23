@@ -39,7 +39,7 @@ export class AdminShiftBrigadeComponent {
 
     public isOpen: boolean = true;
 
-    public inputControl: FormControl = new FormControl('');
+    public inputControl: FormControl = new FormControl({value: '', disabled: false});
 
     @Input() color: string = '';
 

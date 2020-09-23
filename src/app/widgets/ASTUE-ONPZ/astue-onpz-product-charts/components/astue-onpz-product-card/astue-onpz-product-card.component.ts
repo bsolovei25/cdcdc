@@ -1,8 +1,4 @@
-import {
-    Component,
-    OnInit,
-    Inject, OnDestroy
-} from '@angular/core';
+import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
 import { IAstueProductChart } from '../../astue-onpz-product-charts.component';
 import { UserSettingsService } from '../../../../../dashboard/services/user-settings.service';
 import { AstueOnpzService } from '../../../astue-onpz-shared/astue-onpz.service';
@@ -12,10 +8,12 @@ import { WidgetService } from '../../../../../dashboard/services/widget.service'
 @Component({
     selector: 'evj-astue-onpz-product-card',
     templateUrl: './astue-onpz-product-card.component.html',
-    styleUrls: ['./astue-onpz-product-card.component.scss']
+    styleUrls: ['./astue-onpz-product-card.component.scss'],
 })
 export class AstueOnpzProductCardComponent extends WidgetPlatform implements OnInit, OnDestroy {
     public data: IAstueProductChart;
+
+    public isDeviationChart: boolean = false;
 
     constructor(
         private userSettingsService: UserSettingsService,
@@ -23,7 +21,7 @@ export class AstueOnpzProductCardComponent extends WidgetPlatform implements OnI
         protected widgetService: WidgetService,
         @Inject('isMock') public isMock: boolean,
         @Inject('widgetId') public id: string,
-        @Inject('uniqId') public uniqId: string
+        @Inject('uniqId') public uniqId: string,
     ) {
         super(widgetService, isMock, id, uniqId);
     }
@@ -43,6 +41,7 @@ export class AstueOnpzProductCardComponent extends WidgetPlatform implements OnI
 
     public switchToIndicatorScreen(): void {
         this.astueOnpzService.updateGraphId(this.data.itemId);
+        this.astueOnpzService.multilineChartIndicatorTitle$.next(this.data?.productName ?? '');
         this.userSettingsService.LoadScreenByWidget('astue-onpz-interactive-indicators');
     }
 
@@ -50,6 +49,7 @@ export class AstueOnpzProductCardComponent extends WidgetPlatform implements OnI
         if (!ref?.itemId) {
             return;
         }
+        this.isDeviationChart = (ref as any).subscriptionOptions.type === 'Deviation';
         this.data = ref;
         this.data?.graphs?.forEach((item) => {
             item?.graph?.forEach((val) => {

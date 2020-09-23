@@ -11,8 +11,8 @@ import { SharedModule } from '@shared/shared.module';
     imports: [
         CommonModule,
         KpeSharedModule,
-        SharedModule,
-    ],
+        SharedModule
+    ]
 })
 export class KpeQualityModule {
     enterComponent = KpeQualityComponent;

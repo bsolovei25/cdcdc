@@ -1,0 +1,60 @@
+* {
+    box-sizing: border-box;
+}
+
+button {
+    border: none;
+    outline: none;
+    background: transparent;
+    cursor: pointer;
+}
+
+.title {
+    height: 40px;
+    padding: 0 15px;
+
+    border-radius: 2px 2px 0 0;
+
+    display: flex;
+    align-items: center;
+
+    background: var(--nk-color-bg-sub);
+
+    position: relative;
+
+    .reservoir-name {
+        margin-left: 10px;
+
+        line-height: 22px;
+        font-size: 18px;
+        color: var(--nk-color-font-title-main);
+    }
+
+    img {
+        width: 16px;
+    }
+}
+
+.roof-type {
+    height: 25px;
+    width: 120px;
+    padding: 3px 5px;
+
+    text-align: center;
+    vertical-align: middle;
+
+    border-radius: 3px;
+
+    background: var(--nk-color-bg-component-title);
+
+    line-height: 17px;
+    font-size: 14px;
+    color: var(--nk-color-font-title-main);
+
+    position: absolute;
+    right: 10px;
+
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}

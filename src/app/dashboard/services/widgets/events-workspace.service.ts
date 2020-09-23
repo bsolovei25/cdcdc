@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {
-    EventsWidgetNotification,
+    IEventsWidgetNotification,
     IPriority,
     IStatus,
     IUser,
@@ -18,8 +18,7 @@ import {
     IRetrievalEventDto,
     ISearchRetrievalWindow,
     IAsusTpPlace,
-    IAsusTmPlace,
-    ISubcategory,
+    IAsusTmPlace, ISubcategory
 } from '../../models/events-widget';
 import { EventService } from './event.service';
 import { SnackBarService } from '../snack-bar.service';
@@ -34,20 +33,21 @@ import { FileAttachMenuService } from '../file-attach-menu.service';
 import { IChatMessageWithAttachments } from '../../../widgets/EVJ/events-workspace/components/chat/chat.component';
 
 @Injectable({
-    providedIn: 'root',
+    providedIn: 'root'
 })
 export class EventsWorkspaceService {
-    public event$: BehaviorSubject<EventsWidgetNotification> = new BehaviorSubject<
-        EventsWidgetNotification
-    >(null);
-    public set event(value: EventsWidgetNotification) {
+    public event$: BehaviorSubject<IEventsWidgetNotification> = new BehaviorSubject<IEventsWidgetNotification>(null);
+
+    public set event(value: IEventsWidgetNotification) {
         this.event$.next(value);
     }
-    public get event(): EventsWidgetNotification {
+
+    public get event(): IEventsWidgetNotification {
         return this.event$.getValue();
     }
+
     // public event: EventsWidgetNotification;
-    public originalEvent: EventsWidgetNotification;
+    public originalEvent: IEventsWidgetNotification;
     public eventHistory: number[] = [];
 
     //#region FLAGS
@@ -71,7 +71,7 @@ export class EventsWorkspaceService {
     public asusServices: IAsusService[] = [];
     public asusEOServices: IAsusEOService[] = [];
     public asusEquipments: IAsusTpPlace[] = [];
-    public asusUnits: IAsusTmPlace[] = [];
+    public asusUnits$: BehaviorSubject<IAsusTmPlace[]> = new BehaviorSubject<IAsusTmPlace[]>([]);
     public smotrReference: ISmotrReference = null;
     public category$: BehaviorSubject<ICategory[]> = new BehaviorSubject<ICategory[]>([]);
     public categoryPipe: Observable<ICategory[]> = this.category$.pipe(
@@ -105,13 +105,18 @@ export class EventsWorkspaceService {
     public readonly statuses: { [id in EventsWidgetNotificationStatus]: string } = {
         new: 'Новое',
         inWork: 'В работе',
-        closed: 'Завершено',
+        closed: 'Завершено'
+    };
+
+    public readonly subCategories: { [id in number]: string } = {
+        0: 'Распоряжения',
+        1: 'Прием/передача смены'
     };
 
     public readonly priorities: { [id in EventsWidgetNotificationPriority]: string } = {
         danger: 'Высокий',
         warning: 'Средний',
-        standard: 'Стандартный',
+        standard: 'Стандартный'
     };
 
     public readonly categories: { [id in EventsWidgetCategoryCode]: string } = {
@@ -124,24 +129,21 @@ export class EventsWorkspaceService {
         ejs: 'ЭЖС',
         indicators: 'Производственные показатели',
         resources: 'Вспомогательные ресурсы',
-        modelCalculations: 'ЦД',
+        modelCalculations: 'ЦД'
     };
 
-    private defaultEvent: EventsWidgetNotification = null;
+    private defaultEvent: IEventsWidgetNotification = null;
 
-    public searchWindow$: BehaviorSubject<ISearchRetrievalWindow> = new BehaviorSubject<
-        ISearchRetrievalWindow
-    >(null);
-    public ewAlertInfo$: BehaviorSubject<IAlertWindowModel> = new BehaviorSubject<
-        IAlertWindowModel
-    >(null);
+    public searchWindow$: BehaviorSubject<ISearchRetrievalWindow> = new BehaviorSubject<ISearchRetrievalWindow>(null);
+    public ewAlertInfo$: BehaviorSubject<IAlertWindowModel> = new BehaviorSubject<IAlertWindowModel>(null);
 
     constructor(
         private eventService: EventService,
         private snackBarService: SnackBarService,
         private avatarConfiguratorService: AvatarConfiguratorService,
         private fileAttachMenuService: FileAttachMenuService
-    ) {}
+    ) {
+    }
 
     public async loadItem(id: number = null): Promise<void> {
         this.isLoading = true;
@@ -237,7 +239,7 @@ export class EventsWorkspaceService {
             this.event.category = {
                 id: null,
                 name: null,
-                code: null,
+                code: null
             };
         }
         this.originalEvent = { ...this.event };
@@ -250,6 +252,7 @@ export class EventsWorkspaceService {
         }
         return this.checkRetrievalCategory();
     }
+
     public checkRetrievalCategory(): boolean {
         switch (this.event.category.name) {
             case 'smotr':
@@ -290,7 +293,7 @@ export class EventsWorkspaceService {
     }
 
     private async saveCreatedEvent(saveMethod: ISaveMethodEvent): Promise<void> {
-        let event: EventsWidgetNotification = null;
+        let event: IEventsWidgetNotification = null;
         try {
             if (this.event.parentId) {
                 if (!this.checkRetrievalCategory()) {
@@ -371,7 +374,7 @@ export class EventsWorkspaceService {
                 comment: msg.msg,
                 createdAt: new Date(),
                 displayName: this.currentAuthUser.displayName,
-                attachedFiles: attachments,
+                attachedFiles: attachments
             };
             this.event[category].push(fullComment);
             this.isLoading = false;
@@ -402,6 +405,7 @@ export class EventsWorkspaceService {
         }
         this.isLoading = false;
     }
+
     public async closeEvent(message: IChatMessageWithAttachments): Promise<void> {
         if (!this.event.originalId) {
             return;
@@ -421,12 +425,14 @@ export class EventsWorkspaceService {
         }
         this.isLoading = false;
     }
+
     public async updateEvent(): Promise<void> {
         if (this.event.originalId) {
             // const a = this.eventService.closeSmotrEvent(this.event.originalId);
             // console.log(a);
         }
     }
+
     // TODO #SMOTR region end
 
     public setDefaultEvent(): void {
@@ -437,7 +443,7 @@ export class EventsWorkspaceService {
             category: {
                 id: 0,
                 name: null,
-                code: null,
+                code: null
             },
             description: '',
             deviationReason: '',
@@ -458,10 +464,10 @@ export class EventsWorkspaceService {
             status: this.status
                 ? this.status[0]
                 : {
-                      id: 0,
-                      name: null,
-                      code: null,
-                  },
+                    id: 0,
+                    name: null,
+                    code: null
+                },
             equipmentCategory: null,
             deadline: new Date(),
             graphValues: null,
@@ -470,20 +476,36 @@ export class EventsWorkspaceService {
             unitName: null,
             facts: [],
             comments: [],
+            shiftPassEvent: {
+                id: 0,
+                notes: '',
+                shiftMembers: '',
+                compressorsInWork: '',
+                equipmentAtRepair: '',
+                equipmentReserved: '',
+                fireExtinguishingEquipmentStatus: '',
+                pressureGaugesStatus: '',
+                shiftComments: '',
+                shiftDangerWorks: '',
+                shiftEstablishedFacts: '',
+                shiftInstruction: '',
+                shiftOtherEvents: '',
+                shiftPropertyNotes: '',
+                shiftRepairWorks: '',
+                ventilationStatus: '',
+                safetyAndEmergencyProtectionStatus: ''
+            },
             asusEvent: {
                 category: '',
                 workGroup: '',
                 service: '',
                 eoService: null,
                 equipment: null,
-                tmPlace: null,
+                tmPlace: null
             },
             productionTasks: {
                 subCategory: null,
-                start: undefined,
-                inWork: undefined,
-                close: undefined,
-            },
+            }
         };
     }
 
@@ -492,7 +514,10 @@ export class EventsWorkspaceService {
         dataLoadQueue.push(
             this.eventService.getCategory().then((data) => {
                 this.category = data;
-                this.category$.next(data);
+                // TODO Здесь костыль с ЦД
+                const idx = this.category.findIndex(value => value.name === 'modelCalculations');
+                this.category.splice(idx, 1);
+                this.category$.next(this.category);
             }),
             this.eventService.getUser().then((data) => {
                 this.users = data;
@@ -545,7 +570,7 @@ export class EventsWorkspaceService {
                 this.asusServices = data;
             }),
             this.eventService.getAsusUnits(saveMethod).then((data) => {
-                this.asusUnits = data;
+                this.asusUnits$.next(data);
             })
         );
         try {
@@ -565,8 +590,8 @@ export class EventsWorkspaceService {
     }
 
     public eventCompare(
-        event1: EventsWidgetNotification,
-        event2: EventsWidgetNotification
+        event1: IEventsWidgetNotification,
+        event2: IEventsWidgetNotification
     ): boolean {
         return JSON.stringify(event1) === JSON.stringify(event2);
     }

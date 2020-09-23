@@ -1,0 +1,30 @@
+<div class="card">
+    <evj-nk-tank-information-title 
+        [title]="cardData.tankTitle"
+        [roofType]="cardData.roofType"
+    ></evj-nk-tank-information-title>
+    <div class="card__body">
+        <evj-nk-tank-information-innage 
+            [innageMin]="cardData.minValue"
+            [innageCurrent]="cardData.currentValue"
+            [innageMax]="cardData.maxValue"
+        ></evj-nk-tank-information-innage>
+        <evj-nk-tank-information-temperature 
+            [temperature]="cardData.temperature"
+            [maxTemperature]="cardData.maxTemperature"
+        ></evj-nk-tank-information-temperature>
+        <evj-nk-tank-information-reservoir 
+            [volumeFillPercentage]="cardData.fillLevelPercentage"
+            [status]="cardData.objectStatus"
+        ></evj-nk-tank-information-reservoir>
+    </div>
+    <evj-nk-tank-information-card-info
+        [volumeMax]="cardData.nominalValue"
+        [volumeCurrent]="cardData.resourceForShipment"
+        [volumeFillPercentage]="cardData.freeSpace"
+    ></evj-nk-tank-information-card-info>
+    <evj-nk-tank-information-pasport
+        [isPassportized]="cardData.isPassportized"
+    >
+    </evj-nk-tank-information-pasport>
+</div>

@@ -1,0 +1,30 @@
+*{
+    box-sizing: border-box;
+}
+
+.card {
+    width: 360px;
+
+    margin-top: 5px;
+
+    display: flex;
+    flex-direction: column;
+    background: var(--nk-color-bg-card-body);
+
+    position: relative;
+}
+
+.card__body {
+    width: 100%;
+    height: 220px;
+
+    position: relative;
+
+    display: flex;
+    justify-content: center;
+}
+
+.flex {
+    display: flex;
+    align-items: flex-start;
+}

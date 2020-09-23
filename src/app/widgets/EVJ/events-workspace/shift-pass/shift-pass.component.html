@@ -1,0 +1,226 @@
+<div class="workspace">
+  <div class="workspace__selects selects">
+    <div class="selects__item">
+      <evj-ui-block status="normal">
+        <mat-form-field class="categories_selectbox">
+          <mat-label>Категория</mat-label>
+          <mat-select
+            panelClass="mat-select-custom"
+            [(ngModel)]="ewService.event.category"
+            [compareWith]="compareFn"
+            (selectionChange)="ewService.changeCategory()"
+          >
+            <mat-option *ngFor="let cat of ewService.category" [value]="cat">
+              {{ ewService.categories[cat.name] }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </evj-ui-block>
+    </div>
+    <evj-ui-block status="{{ewService.event.priority.name}}" class="selects__item">
+      <mat-form-field class="{{ewService.event.priority.name}}">
+        <mat-label>Приоритет</mat-label>
+        <mat-select
+          panelClass="mat-select-custom"
+          [(ngModel)]="ewService.event.priority"
+          [compareWith]="compareFn"
+        >
+          <mat-option *ngFor="let p of ewService.priority" [value]="p"
+          >{{ ewService.priorities[p.name] }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </evj-ui-block>
+    <div class="selects__item">
+      <evj-ui-block class="workspace__header__block" status="{{ewService.event.isAcknowledged}}">
+        <mat-form-field class="card-{{ewService.event.isAcknowledged}}">
+          <mat-label>Событие</mat-label>
+          <mat-select panelClass="mat-select-custom" [(ngModel)]="ewService.event.isAcknowledged">
+            <mat-option [value]="true">
+              Квитировано
+            </mat-option>
+            <mat-option [value]="false">
+              Не квитировано
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </evj-ui-block>
+    </div>
+  </div>
+  <div class="workspace__selects-two selects--four">
+    <div class="selects__item">
+      <evj-ui-block status="normal">
+        <mat-form-field class="status">
+          <mat-label>Статус</mat-label>
+          <mat-select
+            panelClass="mat-select-custom"
+            [(ngModel)]="ewService.event.status"
+            [compareWith]="compareFn"
+          >
+            <mat-option *ngFor="let p of ewService.status" [value]="p"
+            >{{ ewService.statuses[p.name] }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </evj-ui-block>
+    </div>
+    <div class="selects__item">
+      <evj-ui-block status="normal">
+        <mat-form-field class="status" panelClass="status-select">
+          <mat-label>Подкатегория</mat-label>
+          <mat-select
+            panelClass="mat-select-custom"
+            [(ngModel)]="ewService.event?.productionTasks.subCategory"
+            [compareWith]="compareFn"
+          >
+            <mat-option [value]="undefined">Не выбрана</mat-option>
+            <mat-option *ngFor="let p of ewService.subCategory" [value]="p"
+            >{{ p.description }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </evj-ui-block>
+    </div>
+    <div class="selects__item" *ngIf="ewService.isEditEvent">
+      <evj-ui-block status="normal">
+        <mat-form-field class="status">
+          <mat-label>Место</mat-label>
+          <mat-select
+            panelClass="mat-select-custom"
+            [(ngModel)]="ewService.event.unit"
+            [compareWith]="compareFn"
+            [disabled]=""
+          >
+            <mat-option *ngFor="let cat of ewService.units" [value]="cat">
+              {{ cat.name }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </evj-ui-block>
+    </div>
+    <div class="creator" *ngIf="!ewService.isEditEvent">
+      <div class="creator_title">
+        Место
+      </div>
+      <div class="creator_body">
+        {{ ewService.event.unit.name }}
+      </div>
+    </div>
+    <div class="selects__item">
+      <evj-ui-block status="normal">
+        <div class="deadline">
+          <div class="deadline__title">Срок выполнения</div>
+          <evj-time-data-picker
+            [data]="ewService.event.deadline"
+            (dateTimePicker)="dateTimePicker($event)"
+          ></evj-time-data-picker>
+        </div>
+      </evj-ui-block>
+    </div>
+  </div>
+  <div class="workspace__left left">
+    <evj-event-description
+      class="left__item"
+      titleName="Состав бригады:"
+      [description]="ewService.event?.shiftPassEvent?.shiftMembers"
+      (changedDescription)="onChangeEventDescription($event, 'shiftMembers')"
+    ></evj-event-description>
+    <evj-event-description
+      class="left__item"
+      titleName="Установленные факты"
+      [description]="ewService.event?.shiftPassEvent?.shiftEstablishedFacts"
+      (changedDescription)="onChangeEventDescription($event, 'shiftEstablishedFacts')"
+    ></evj-event-description>
+    <evj-event-description
+      class="left__item"
+      titleName="Находящиеся в работе насосы и компрессоры"
+      [description]="ewService.event?.shiftPassEvent?.compressorsInWork"
+      (changedDescription)="onChangeEventDescription($event, 'compressorsInWork')"
+    ></evj-event-description>
+    <evj-event-description
+      class="left__item"
+      titleName="Замечания по работе и дефекты технологического оборудования
+       печей, колонн, теплообменников, резервуаров, насосов и т.д."
+      [description]="ewService.event?.shiftPassEvent?.notes"
+      (changedDescription)="onChangeEventDescription($event, 'notes')"
+    ></evj-event-description>
+    <evj-event-description
+      class="left__item"
+      titleName="Сведения о проведение работ повышенной опасности"
+      [description]="ewService.event?.shiftPassEvent?.shiftDangerWorks"
+      (changedDescription)="onChangeEventDescription($event, 'shiftDangerWorks')"
+    ></evj-event-description>
+    <evj-event-description
+      class="left__item"
+      titleName="Сведения о проведении ремонтных, хозяйственных и других работ:"
+      [description]="ewService.event?.shiftPassEvent?.shiftRepairWorks "
+      (changedDescription)="onChangeEventDescription($event, 'shiftRepairWorks')"
+    ></evj-event-description>
+    <evj-event-description
+      class="left__item"
+      titleName="Другие события:"
+      [description]="ewService.event?.shiftPassEvent?.shiftOtherEvents"
+      (changedDescription)="onChangeEventDescription($event, 'shiftOtherEvents')"
+    ></evj-event-description>
+    <evj-chat
+      [messages]="ewService.event.comments"
+      dataTitle="Комментарии"
+      placeholder="Напишите свой комментарий..."
+      (addingMessage)="onSendMessage($event,'comments')"
+    ></evj-chat>
+  </div>
+  <div class="workspace__right right">
+    <evj-events-responsible-select class="right__item"></evj-events-responsible-select>
+    <evj-event-description
+      class="right__item"
+      titleName="Состояние вентиляции"
+      [description]="ewService.event?.shiftPassEvent?.ventilationStatus"
+      (changedDescription)="onChangeEventDescription($event, 'ventilationStatus')"
+    ></evj-event-description>
+    <evj-event-description
+      class="right__item"
+      titleName="Состояние средств пожаротушения и инд. защиты:"
+      [description]="ewService.event?.shiftPassEvent?.fireExtinguishingEquipmentStatus"
+      (changedDescription)="onChangeEventDescription($event, 'fireExtinguishingEquipmentStatus')"
+    ></evj-event-description>
+    <evj-event-description
+      class="right__item"
+      titleName="Состояние ППК и манометров"
+      [description]="ewService.event?.shiftPassEvent?.pressureGaugesStatus"
+      (changedDescription)="onChangeEventDescription($event, 'pressureGaugesStatus')"
+    ></evj-event-description>
+    <div class="block">
+      <evj-event-description
+        class="right__item"
+        titleName="Состояние СБ и ПАЗ"
+        [description]="ewService.event?.shiftPassEvent?.safetyAndEmergencyProtectionStatus "
+        (changedDescription)="onChangeEventDescription($event, 'safetyAndEmergencyProtectionStatus')"
+      ></evj-event-description>
+      <evj-event-description
+        class="right__item"
+        titleName="Оборудование в ремонте"
+        [description]="ewService.event?.shiftPassEvent?.equipmentAtRepair"
+        (changedDescription)="onChangeEventDescription($event, 'equipmentAtRepair')"
+      ></evj-event-description>
+    </div>
+    <evj-event-description
+      class="right__item"
+      titleName="Находящееся в резерве оборудование и его состояние "
+      [description]="ewService.event?.shiftPassEvent?.equipmentReserved "
+      (changedDescription)="onChangeEventDescription($event, 'equipmentReserved')"
+    ></evj-event-description>
+    <evj-event-description
+      class="right__item"
+      titleName="Тема инструктажа по ПБ, ОТ и ООС:"
+      [description]="ewService.event?.shiftPassEvent?.shiftInstruction"
+      (changedDescription)="onChangeEventDescription($event, 'shiftInstruction')"
+    ></evj-event-description>
+    <evj-event-description
+      class="right__item"
+      titleName="Отметки о сдаче инвентаря и имущества:"
+      [description]="ewService.event?.shiftPassEvent?.shiftPropertyNotes"
+      (changedDescription)="onChangeEventDescription($event, 'shiftPropertyNotes')"
+    ></evj-event-description>
+    <evj-events-correct class="right__item"></evj-events-correct>
+  </div>
+</div>

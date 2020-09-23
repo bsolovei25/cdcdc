@@ -6,14 +6,14 @@ import {
     AfterViewInit,
     Input,
     Output,
-    EventEmitter,
+    EventEmitter
 } from '@angular/core';
 import { EventsWorkspaceService } from '../../../../../dashboard/services/widgets/events-workspace.service';
 
 @Component({
     selector: 'evj-event-description',
     templateUrl: './event-description.component.html',
-    styleUrls: ['./event-description.component.scss'],
+    styleUrls: ['./event-description.component.scss']
 })
 export class EventDescriptionComponent implements OnInit, AfterViewInit {
     @Input() public description: string = '';
@@ -24,9 +24,11 @@ export class EventDescriptionComponent implements OnInit, AfterViewInit {
 
     @ViewChild('textarea') private textarea: ElementRef;
 
-    constructor(public ewService: EventsWorkspaceService) {}
+    constructor(public ewService: EventsWorkspaceService) {
+    }
 
-    public ngOnInit(): void {}
+    public ngOnInit(): void {
+    }
 
     public ngAfterViewInit(): void {
         this.disableTextarea();

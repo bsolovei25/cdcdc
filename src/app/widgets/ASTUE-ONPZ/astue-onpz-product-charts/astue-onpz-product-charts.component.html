@@ -1,27 +1,29 @@
-<div class="container">
-  <evj-widget-header-smp
-    [uniqId]="uniqId"
-    (mouseenter)="onMouseEnter()"
-    (mouseleave)="onMouseExit()"
-    *ngIf="isHover"
-  >
-  </evj-widget-header-smp>
+<div class="widget-container">
+  <div class="container">
+    <evj-widget-header-smp
+      [uniqId]="uniqId"
+      (mouseenter)="onMouseEnter()"
+      (mouseleave)="onMouseExit()"
+      *ngIf="isHover"
+    >
+    </evj-widget-header-smp>
 
-  <div
-    class="content"
-    (mouseenter)="onMouseEnter()"
-    (mouseleave)="onMouseExit()"
-    (mousedown)="$event.stopPropagation()"
-    (touchstart)="$event.stopPropagation()"
-  >
-    <ng-container *ngIf="!!data">
-      <ng-container *ngFor="let item of data">
-        <div class="content__item">
-          <ng-container
-            *ngComponentOutlet="chartComponent; injector: (item | fn:getInjector : 0);"
-          ></ng-container>
-        </div>
+    <div
+      class="content"
+      (mouseenter)="onMouseEnter()"
+      (mouseleave)="onMouseExit()"
+      (mousedown)="$event.stopPropagation()"
+      (touchstart)="$event.stopPropagation()"
+    >
+      <ng-container *ngIf="!!data">
+        <ng-container *ngFor="let item of data">
+          <div class="content__item">
+            <ng-container
+              *ngComponentOutlet="chartComponent; injector: (item | fn:getInjector : 0);"
+            ></ng-container>
+          </div>
+        </ng-container>
       </ng-container>
-    </ng-container>
+    </div>
   </div>
 </div>

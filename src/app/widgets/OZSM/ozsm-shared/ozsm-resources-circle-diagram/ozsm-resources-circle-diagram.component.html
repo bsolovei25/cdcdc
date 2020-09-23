@@ -1,0 +1,43 @@
+<div class="container">
+    <evj-widget-header-smp
+        [uniqId]="uniqId"
+        (mouseenter)="onMouseEnter()"
+        (mouseleave)="onMouseExit()"
+        *ngIf="isHover"
+    >
+    </evj-widget-header-smp>
+    <div class="diagram-list"
+        (mouseenter)="onMouseEnter()"
+        (mouseleave)="onMouseExit()"
+        (mousedown)="$event.stopPropagation()"
+        (touchstart)="$event.stopPropagation()"
+    >
+        <div class="custom-border-right">
+            <div class="custom-border__inner-circle">
+            </div>
+        </div>
+
+        <div class="custom-border-left">
+            <div class="custom-border__inner-circle">
+            </div>
+        </div>
+        <div class="diagram-list__items" #scrollContainer>
+            <evj-ozsm-resources-circle-diagram-visual
+                [percentage] = "99"
+                [title] = "'Вода'"
+            ></evj-ozsm-resources-circle-diagram-visual>
+            <evj-ozsm-resources-circle-diagram-visual
+                [percentage] = "99"
+                [title] = "'Теплоэнергия'"
+            ></evj-ozsm-resources-circle-diagram-visual>
+            <evj-ozsm-resources-circle-diagram-visual
+                [percentage] = "99"
+                [title] = "'Топливо'"
+            ></evj-ozsm-resources-circle-diagram-visual>
+            <evj-ozsm-resources-circle-diagram-visual
+                [percentage] = "99"
+                [title] = "'Электроэнергия'"
+            ></evj-ozsm-resources-circle-diagram-visual>
+        </div>
+    </div>
+</div>

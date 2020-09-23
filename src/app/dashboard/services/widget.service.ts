@@ -279,6 +279,7 @@ export class WidgetService {
             case 'product-groups':
             case 'product-groups-short':
             case 'tank-information':
+            case 'nk-tank-information':
             case 'table-data':
             case 'deviations-table':
             case 'triggering-critical-parameters':
@@ -304,6 +305,7 @@ export class WidgetService {
             case 'astue-onpz-predictors':
             case 'astue-onpz-interactive-indicators':
             case 'astue-onpz-conventional-fuel':
+            case 'astue-onpz-conventional-fuel-indicators':
             case 'astue-onpz-planning-charts':
             case 'astue-onpz-line-chart':
                 return data;

@@ -13,7 +13,7 @@ import { FormControl } from '@angular/forms';
 })
 export class ScenariosComponent extends WidgetPlatform implements OnInit, OnDestroy {
 
-    public selectScenario: FormControl = new FormControl('');
+    public selectScenario: FormControl = new FormControl({value: '', disabled: false});
 
     public scenarios: string[] = ['НГРУ_июнь_20_Куляшов_15.05_13.44'];
 

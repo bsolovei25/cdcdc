@@ -1,0 +1,21 @@
+<evj-widget-header-smp
+  [uniqId]="uniqId"
+  (mouseenter)="onMouseEnter()"
+  (mouseleave)="onMouseExit()"
+  *ngIf="isHover"
+>
+</evj-widget-header-smp>
+<div
+  style="height: 100%"
+  class="content"
+  (mouseenter)="onMouseEnter()"
+  (mouseleave)="onMouseExit()"
+  (mousedown)="$event.stopPropagation()"
+  (touchstart)="$event.stopPropagation()"
+>
+  <div class="main-indicators">
+    <ng-container *ngFor="let item of data">
+      <evj-ozsm-main-indicator [data]="item"></evj-ozsm-main-indicator>
+    </ng-container>
+  </div>
+</div>

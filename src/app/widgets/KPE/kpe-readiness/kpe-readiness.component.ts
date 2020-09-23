@@ -75,10 +75,12 @@ export class KpeReadinessComponent extends WidgetPlatform implements OnInit, OnD
 
     protected dataHandler(ref: IKpeReadinessData): void {
         this.deviationChartData = this.kpeHelperService.prepareKpeLineChartData(ref.deviationChart);
-        this.gaugeCards = ref.gaugeCards;
+        if (this.kpeHelperService.compare<IKpeGaugeChartData>(this.gaugeCards, ref.gaugeCards)) {
+            this.gaugeCards = ref.gaugeCards;
+        }
         this.chartCards = ref.chartCards as IKpeReadinessChartCard[];
         this.chartCard = this.chartCards.shift();
-        this.chartCards = this.sortArray(this.chartCards, 2) as IKpeReadinessChartCard[][];
+        this.chartCards = this.kpeHelperService.sortArray<IKpeReadinessChartCard>(this.chartCards, 2) as IKpeReadinessChartCard[][];
         this.diagram = ref.deviationDiagram;
     }
 
@@ -93,27 +95,6 @@ export class KpeReadinessComponent extends WidgetPlatform implements OnInit, OnD
     public prepareTrendData(data: IProductionTrend[]): IProductionTrend[] | void {
         if (!data) { return; }
         return this.kpeHelperService.prepareKpeTrendChartData(data);
-    }
-
-    public sortArray(
-        arr: IKpeReadinessChartCard[],
-        n: number
-    ): IKpeReadinessChartCard[][] {
-        let i = 0;
-        let j = 0;
-        const result = [];
-        let temp = [];
-        for (const item of arr) {
-            i++;
-            j++;
-            temp.push(item);
-            if (i === n || j === arr.length) {
-                result.push(temp);
-                temp = [];
-                i = 0;
-            }
-        }
-        return result;
     }
 
     public rowHeight(container: HTMLDivElement): string {

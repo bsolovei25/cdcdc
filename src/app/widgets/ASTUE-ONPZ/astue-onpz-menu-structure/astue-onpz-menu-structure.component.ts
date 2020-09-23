@@ -58,6 +58,23 @@ export class AstueOnpzMenuStructureComponent extends WidgetPlatform implements O
         this.setUnitSelectValue();
     }
 
+    protected dataConnect(): void {
+        super.dataConnect();
+        this.subscriptions.push(
+            this.astueOnpzService.sharedMonitoringOptions.subscribe(options => {
+                if (options) {
+                    this.manufactureSelect.setValue(options.manufactureName);
+                    this.manufactures?.forEach(manufacture => {
+                        if (manufacture.name === options.manufactureName) {
+                            this.units = manufacture.units;
+                            this.unitSelect.setValue(options.unitName);
+                        }
+                    });
+                }
+            }),
+        );
+    }
+
     public ngOnDestroy(): void {
         super.ngOnDestroy();
     }
