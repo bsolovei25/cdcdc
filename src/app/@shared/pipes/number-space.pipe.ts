@@ -23,7 +23,7 @@ export class SpaceNumber implements PipeTransform {
                 .replace(/^ /, '') + numAfterDots;
         } catch (e) {
             console.log(e, +value);
-            return value.toString();
+            return value?.toString();
         }
     }
 }

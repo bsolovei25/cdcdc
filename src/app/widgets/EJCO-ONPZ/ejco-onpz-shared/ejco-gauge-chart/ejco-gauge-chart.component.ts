@@ -18,6 +18,7 @@ export class EjcoGaugeChartComponent implements OnInit, OnChanges {
 
     @Input() fact: number = 0;
     @Input() plan: number = 0;
+    @Input() deviation: number;
     @Input() img: string = this.defaultImg;
     @Input() background: 'lite' | 'dark' = 'lite';
 
@@ -182,7 +183,7 @@ export class EjcoGaugeChartComponent implements OnInit, OnChanges {
             .attr('x2', 14)
             .attr('y2', 3);
         addText(`${this.fact}`, 'text text__value', -2);
-        addText(`\u0394 ${this.fact - this.plan}`, 'text text__deviation', 13);
+        addText(`\u0394 ${this.deviation || this.fact - this.plan}`, 'text text__deviation', 13);
         addText(`${this.plan}%`, 'text text__plan', 28);
 
         function addText(text: string, cls: string, yCord: number): void {

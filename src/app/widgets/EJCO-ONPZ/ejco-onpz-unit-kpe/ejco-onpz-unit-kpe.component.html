@@ -22,24 +22,32 @@
         <div class="gauge-card">
           <div class="gauge-card__content">
             <div class="gauge-card__diagram-main">
-              <evj-ejco-gauge-chart [fact]="data.chartData.fact" [plan]="data.chartData.plan"></evj-ejco-gauge-chart>
+              <evj-ejco-gauge-chart
+                [fact]="data?.chartData?.fact"
+                [plan]="data?.chartData?.fact"
+                [deviation]="data?.chartData?.deviation"
+              ></evj-ejco-gauge-chart>
             </div>
             <div class="gauge-card__label">
-              {{ data.chartData.label }}
+              {{ data?.chartData?.title }}
             </div>
           </div>
         </div>
       </div>
       <div class="devider"></div>
       <div class="cards-container">
-        <ng-container *ngFor="let chart of data.chartCards">
+        <ng-container *ngFor="let chart of data?.chartCards">
           <div class="gauge-card">
             <div class="gauge-card__content">
               <div class="gauge-card__diagram">
-                <evj-ejco-gauge-chart [fact]="chart.fact" [plan]="chart.plan"></evj-ejco-gauge-chart>
+                <evj-ejco-gauge-chart
+                  [fact]="chart?.fact"
+                  [plan]="chart?.plan"
+                  [deviation]="chart?.deviation"
+                ></evj-ejco-gauge-chart>
               </div>
               <div class="gauge-card__label">
-                {{ chart.label }}
+                {{ chart?.title }}
               </div>
             </div>
           </div>

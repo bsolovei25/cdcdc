@@ -69,7 +69,7 @@
       <div
         class="notifications"
         #notifications
-        [ngClass]="widgetIsVideoWall ? 'notifications--display-wall' : 'notifications--display-standart'"
+        [ngClass]="widgetIsVideoWall ? 'notifications--display-wall' : widgetType === 'events-ed' ? 'notifications--display-ed' : 'notifications--display-standart'"
       >
         <cdk-virtual-scroll-viewport
           [itemSize]="isList ? 180 : 111"
@@ -100,7 +100,7 @@
         </cdk-virtual-scroll-viewport>
       </div>
       <ng-container *ngIf="!widgetIsVideoWall">
-        <div class="controls">
+        <div class="controls" [class.controls__ed]="widgetType === 'events-ed'">
           <div class="controls__line controls__line_left">
             <div class="controls__circle controls__circle_left"></div>
           </div>
@@ -168,7 +168,7 @@
                   <div class="line__circle line__circle__right"></div>
                 </div>
 
-                <div class="workspace__submit">
+                <div class="workspace__submit" *ngIf="widgetType !== 'events-ed'">
                   <div class="submit__frame submit__frame-left"></div>
                   <div class="submit__frame submit__frame-right"></div>
                   <button

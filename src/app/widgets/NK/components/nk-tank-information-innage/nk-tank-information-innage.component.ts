@@ -6,16 +6,22 @@ import { Component, OnInit, Input, OnChanges } from '@angular/core';
   styleUrls: ['./nk-tank-information-innage.component.scss']
 })
 export class NkTankInformationInnageComponent implements OnInit, OnChanges {
-  @Input() innageMin: number;
-  @Input() innageCurrent: number;
-  @Input() innageMax: number;
+  @Input() set innageMin(data: number) {
+    this.lower = data;
+  }
+  @Input() set innageCurrent(data: number) {
+    this.current = this.lower <= data ? data : this.lower;
+  }
+  @Input() set innageMax(data: number) {
+    this.higher = data <= this.lower ? this.lower : data;
+  }
 
-  higher: number;
-  current: number;
-  lower: number;
+  higher: number = 1;
+  current: number = 0;
+  lower: number = 0;
 
 
-  innageDiagramCustomization: number[] = new Array(20);
+  innageDiagramCustomization: number[] = new Array(30);
   diagramCustomLinesCount: number;
 
 
@@ -25,10 +31,6 @@ export class NkTankInformationInnageComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(): void {
-    this.higher = this.innageMax <= this.innageMin ? this.innageMin : this.innageMax;
-    this.current = this.innageMin <= this.innageCurrent ? this.innageCurrent : this.innageMin;
-    this.lower = this.innageMin;
-
     this.diagramCustomLinesCount =
       Math.ceil(this.current / this.higher * (this.innageDiagramCustomization.length - 1));
   }
