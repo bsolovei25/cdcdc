@@ -4,11 +4,11 @@ import { TruncPieWidget } from 'src/app/dashboard/models/widget.model';
 declare var d3: any;
 
 @Component({
-    selector: 'evj-truncated-pie-icon',
-    templateUrl: './truncated-pie-icon.component.html',
-    styleUrls: ['./truncated-pie-icon.component.scss'],
+    selector: 'evj-truncated-diagram-counter-item',
+    templateUrl: './truncated-diagram-counter-item.component.html',
+    styleUrls: ['./truncated-diagram-counter-item.component.scss'],
 })
-export class TruncatedPieIconComponent implements OnInit {
+export class TruncatedDiagramCounterItemComponent implements OnInit {
     public RADIUS: number;
 
     public procent: number;

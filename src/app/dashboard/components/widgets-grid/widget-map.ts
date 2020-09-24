@@ -3,8 +3,8 @@ import { ManualInputComponent } from '../../widgets/manual-input/manual-input.co
 import { ChangeShiftComponent } from '../../widgets/change-shift/change-shift.component';
 import { EnergeticsComponent } from '../../widgets/energetics/energetics.component';
 import { WidgetPiesComponent } from '../../../widgets/LCO/widgets-pie/widget-pies/widget-pies.component';
-import { TruncatedPieSFirstComponent } from '../../widgets/truncated-pie-first/truncated-pie-s-first/truncated-pie-s-first.component';
-import { TruncatedPieSIconComponent } from '../../widgets/truncated-pie-icon/truncated-pie-s-icon/truncated-pie-s-icon.component';
+import { TruncatedPieSFirstComponent } from '../../../widgets/LCO/truncated-pie-first/truncated-pie-s-first/truncated-pie-s-first.component';
+import { TruncatedPieSIconComponent } from '../../../widgets/LCO/truncated-pie-icon/truncated-pie-s-icon/truncated-pie-s-icon.component';
 import { PointDiagramComponent } from '../../widgets/point-diagram/point-diagram.component';
 import { BarChartsComponent } from '../../widgets/bar-chart/bar-charts/bar-charts.component';
 import { SuspenseMachineComponent } from '../../widgets/suspense-machine/suspense-machine.component';
@@ -61,9 +61,6 @@ export const WIDGETS = {
     'shift-pass': ChangeShiftComponent,
     'shift-accept': ChangeShiftComponent,
     'events-workspace': WidgetContainerComponent,
-    'truncated-diagram-percentage': TruncatedPieSFirstComponent,
-    'truncated-diagram-traffic-light': WidgetContainerComponent,
-    'truncated-diagram-counter': TruncatedPieSIconComponent,
     'point-diagram': PointDiagramComponent,
     'industrial-pyramid': WidgetContainerComponent,
     'bar-chart': BarChartsComponent,
@@ -170,7 +167,10 @@ export const WIDGETS = {
     'oq-oil-quality': WidgetContainerComponent,
     'ozsm-main-toggle': WidgetContainerComponent,
     'ozsm-scenarios': WidgetContainerComponent,
-    'oil-control': WidgetContainerComponent
+    'oil-control': WidgetContainerComponent,
+    'truncated-diagram-percentage': WidgetContainerComponent,
+    'truncated-diagram-traffic-light': WidgetContainerComponent,
+    'truncated-diagram-counter': WidgetContainerComponent,
 };
 
 export const WIDGETS_LAZY = {
@@ -604,6 +604,28 @@ export const WIDGETS_LAZY = {
         minItemCols: 13,
         minItemRows: 16,
         preview: 'truncated-diagram-traffic-light'
+    },
+    'truncated-diagram-percentage': {
+        import: async () => {
+            return await import('src/app/widgets/LCO/truncated-diagram-traffic-light/truncated-diagram-traffic-light.module');
+        },
+        module: 'TruncatedDiagramPercentageModule',
+        itemCols: 13,
+        itemRows: 16,
+        minItemCols: 13,
+        minItemRows: 16,
+        preview: 'truncated-diagram-percentage'
+    },
+    'truncated-diagram-counter': {
+        import: async () => {
+            return await import('src/app/widgets/LCO/truncated-diagram-traffic-light/truncated-diagram-traffic-light.module');
+        },
+        module: 'TruncatedDiagramCounterModule',
+        itemCols: 13,
+        itemRows: 16,
+        minItemCols: 13,
+        minItemRows: 16,
+        preview: 'truncated-diagram-counter'
     },
     //#endregion LCO
 

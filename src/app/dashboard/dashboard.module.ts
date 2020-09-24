@@ -17,10 +17,6 @@ import { PanelComponent } from './components/panel/panel.component';
 import { WidgetsGridComponent } from './components/widgets-grid/widgets-grid.component';
 import { GridsterModule } from 'angular-gridster2';
 import { UserInfoComponent } from './components/user-info/user-info.component';
-import { TruncatedPieFirstComponent } from './widgets/truncated-pie-first/truncated-pie-first/truncated-pie-first.component';
-import { TruncatedPieSFirstComponent } from './widgets/truncated-pie-first/truncated-pie-s-first/truncated-pie-s-first.component';
-import { TruncatedPieSIconComponent } from './widgets/truncated-pie-icon/truncated-pie-s-icon/truncated-pie-s-icon.component';
-import { TruncatedPieIconComponent } from './widgets/truncated-pie-icon/truncated-pie-icon/truncated-pie-icon.component';
 import { PointDiagramComponent } from './widgets/point-diagram/point-diagram.component';
 import { OneColumnComponent } from './widgets/point-diagram/one-column/one-column.component';
 import { BarChartsComponent } from './widgets/bar-chart/bar-charts/bar-charts.component';
@@ -221,10 +217,6 @@ import { MatBadgeModule } from '@angular/material/badge';
         UserInfoComponent,
         PointDiagramComponent,
         OneColumnComponent,
-        TruncatedPieFirstComponent,
-        TruncatedPieSFirstComponent,
-        TruncatedPieSIconComponent,
-        TruncatedPieIconComponent,
         BarChartsComponent,
         BarChartComponent,
         SuspenseMachineComponent,
@@ -382,8 +374,6 @@ import { MatBadgeModule } from '@angular/material/badge';
     entryComponents: [
         ManualInputComponent,
         ChangeShiftComponent,
-        TruncatedPieSFirstComponent,
-        TruncatedPieSIconComponent,
         PointDiagramComponent,
         BarChartsComponent,
         SuspenseMachineComponent,

@@ -1,0 +1,16 @@
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { TruncatedDiagramCounterItemComponent } from './truncated-diagram-counter-item/truncated-diagram-counter-item.component';
+import { TruncatedDiagramCounterComponent } from './truncated-diagram-counter.component';
+
+
+
+@NgModule({
+  declarations: [TruncatedDiagramCounterItemComponent, TruncatedDiagramCounterComponent],
+  imports: [
+    CommonModule
+  ]
+})
+export class TruncatedDiagramCounterModule {
+    enterComponent = TruncatedDiagramCounterComponent;
+}

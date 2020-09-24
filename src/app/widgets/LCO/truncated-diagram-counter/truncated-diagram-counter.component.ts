@@ -1,13 +1,13 @@
 import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
 import { WidgetService } from 'src/app/dashboard/services/widget.service';
-import { WidgetPlatform } from '../../../models/widget-platform';
+import { WidgetPlatform } from '../../../dashboard/models/widget-platform';
 
 @Component({
-    selector: 'evj-truncated-pie-s-icon',
-    templateUrl: './truncated-pie-s-icon.component.html',
-    styleUrls: ['./truncated-pie-s-icon.component.scss'],
+    selector: 'evj-truncated-diagram-counter',
+    templateUrl: './truncated-diagram-counter.component.html',
+    styleUrls: ['./truncated-diagram-counter.component.scss'],
 })
-export class TruncatedPieSIconComponent extends WidgetPlatform implements OnInit, OnDestroy {
+export class TruncatedDiagramCounterComponent extends WidgetPlatform implements OnInit, OnDestroy {
     public static itemCols: number = 29;
     public static itemRows: number = 7;
     public static minItemCols: number = 29;
