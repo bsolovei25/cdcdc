@@ -1,89 +1,3 @@
-<!--<div class="container">-->
-<!--  <evj-contemporary-widget-header type="kpe" [uniqId]="uniqId" [widgetTitle]="widgetTitle">-->
-<!--    <div class="content-container">-->
-<!--      <div class="header">-->
-<!--        <ul class="header__info">-->
-<!--          <li class="header__info-item">-->
-<!--            <div class="header__info-1"></div>-->
-<!--            <span>Факт</span>-->
-<!--          </li>-->
-<!--          <li class="header__info-item">-->
-<!--            <div class="header__info-2"></div>-->
-<!--            <span>План</span>-->
-<!--          </li>-->
-<!--        </ul>-->
-<!--      </div>-->
-<!--    </div>-->
-<!--  </evj-contemporary-widget-header>-->
-<!--  <div-->
-<!--    class="container-body"-->
-<!--    (mousedown)="$event.stopPropagation()"-->
-<!--    (touchstart)="$event.stopPropagation()"-->
-<!--  >-->
-<!--    <div class="readiness">-->
-<!--      <div class="readiness__header">-->
-<!--        <div class="readiness__header__circle-diagram">-->
-<!--          <evj-kpe-gauge-chart></evj-kpe-gauge-chart>-->
-<!--        </div>-->
-<!--        <div class="readiness__header__line-diagram">-->
-<!--          <evj-kpe-line-chart [data]="lineChartData" isLineCircle="true"></evj-kpe-line-chart>-->
-<!--        </div>-->
-<!--      </div>-->
-<!--      <div class="readiness__body">-->
-<!--        <div class="readiness__body__circle-diagram__first card">-->
-<!--          <evj-kpe-gauge-chart></evj-kpe-gauge-chart>-->
-<!--        </div>-->
-<!--        <div class="readiness__body__circle-diagram__second card">-->
-<!--          <evj-kpe-gauge-chart></evj-kpe-gauge-chart>-->
-<!--        </div>-->
-<!--        <div class="readiness__body__line-diagram card">-->
-<!--          <evj-kpe-line-diagram [isCritical]="false"></evj-kpe-line-diagram>-->
-<!--          <evj-kpe-line-chart [data]="lineChartData"></evj-kpe-line-chart>-->
-<!--        </div>-->
-<!--        <div class="readiness__body__line-diagram card">-->
-<!--          <evj-kpe-line-diagram [isCritical]="false"></evj-kpe-line-diagram>-->
-<!--          <evj-kpe-line-chart [data]="lineChartData"></evj-kpe-line-chart>-->
-<!--        </div>-->
-<!--        <div class="readiness__body__line-diagram card">-->
-<!--          <evj-kpe-line-diagram-->
-<!--            [isCritical]="true"-->
-<!--            class="readiness__body__"-->
-<!--          ></evj-kpe-line-diagram>-->
-<!--          <evj-kpe-line-chart [data]="lineChartData"></evj-kpe-line-chart>-->
-<!--        </div>-->
-<!--        <div class="readiness__body__line-diagram card">-->
-<!--          <evj-kpe-line-diagram-->
-<!--            [isCritical]="false"-->
-<!--            class="readiness__body__"-->
-<!--          ></evj-kpe-line-diagram>-->
-<!--          <evj-kpe-line-chart [data]="lineChartData"></evj-kpe-line-chart>-->
-<!--        </div>-->
-<!--        <div class="readiness__body__line-diagram card">-->
-<!--          <evj-kpe-line-diagram-->
-<!--            [isCritical]="true"-->
-<!--            class="readiness__body__"-->
-<!--          ></evj-kpe-line-diagram>-->
-<!--          <evj-kpe-line-chart [data]="lineChartData"></evj-kpe-line-chart>-->
-<!--        </div>-->
-<!--        <div class="readiness__body__line-diagram card">-->
-<!--          <evj-kpe-line-diagram-->
-<!--            [isCritical]="false"-->
-<!--            class="readiness__body__"-->
-<!--          ></evj-kpe-line-diagram>-->
-<!--          <evj-kpe-line-chart [data]="lineChartData"></evj-kpe-line-chart>-->
-<!--        </div>-->
-<!--        <div class="readiness__body__line-diagram card">-->
-<!--          <evj-kpe-line-diagram-->
-<!--            [isCritical]="false"-->
-<!--            class="readiness__body__"-->
-<!--          ></evj-kpe-line-diagram>-->
-<!--          <evj-kpe-line-chart [data]="lineChartData"></evj-kpe-line-chart>-->
-<!--        </div>-->
-<!--      </div>-->
-<!--    </div>-->
-<!--  </div>-->
-<!--</div>-->
-
 <div class="container">
   <evj-contemporary-widget-header type="kpe" icon="performance" [uniqId]="uniqId" [widgetTitle]="widgetTitle">
     <div class="content-container">
@@ -126,8 +40,13 @@
               <div class="gauge-card">
                 <div class="gauge-card__content">
                   <div class="gauge-card__units">
-                    <div class="gauge-card__units__unit">{{ gaugeCards[0]?.unit }}</div>
-                    <div class="gauge-card__units__unit gauge-card__units__unit__active">%</div>
+                    <div class="gauge-card__units__unit"
+                         [class.gauge-card__units__unit_active]="gaugeCards[0]?.unit"
+                    >
+                      {{ gaugeCards[0]?.unit || 'ед.изм'}}</div>
+                    <div class="gauge-card__units__unit"
+                         [class.gauge-card__units__unit_active]="!gaugeCards[0]?.unit"
+                    >%</div>
                   </div>
                   <div class="gauge-card__gauge">
                     <evj-kpe-gauge-chart background="dark"
@@ -146,8 +65,13 @@
               <div class="gauge-card">
                 <div class="gauge-card__content">
                   <div class="gauge-card__units">
-                    <div class="gauge-card__units__unit">{{ gaugeCards[1]?.unit }}</div>
-                    <div class="gauge-card__units__unit gauge-card__units__unit__active">%</div>
+                    <div class="gauge-card__units__unit"
+                         [class.gauge-card__units__unit_active]="gaugeCards[1]?.unit"
+                    >
+                      {{ gaugeCards[1]?.unit || 'ед.изм'}}</div>
+                    <div class="gauge-card__units__unit"
+                         [class.gauge-card__units__unit_active]="!gaugeCards[1]?.unit"
+                    >%</div>
                   </div>
                   <div class="gauge-card__gauge">
                     <evj-kpe-gauge-chart background="dark"
@@ -170,8 +94,12 @@
               <div class="chart-card__title">
                 <span class="label">{{ chartCard?.progressChart.title }}</span>
                 <div class="units">
-                  <div class="units__unit">{{ chartCard?.progressChart.unit }}</div>
-                  <div class="units__unit units__unit__active">%</div>
+                  <div class="units__unit"
+                       [class.units__unit_active]="chartCard?.progressChart.unit"
+                  >{{ chartCard?.progressChart.unit || 'ед.изм'}}</div>
+                  <div class="units__unit"
+                       [class.units__unit_active]="!chartCard?.progressChart.unit"
+                  >%</div>
                 </div>
               </div>
               <div class="chart-card__diagram">
@@ -194,8 +122,12 @@
                     <div class="chart-card__title">
                       <span class="label">{{ card?.progressChart.title }}</span>
                       <div class="units">
-                        <div class="units__unit">{{ card?.progressChart.unit }}</div>
-                        <div class="units__unit units__unit__active">%</div>
+                        <div class="units__unit"
+                             [class.units__unit_active]="card?.progressChart.unit"
+                        >{{ card?.progressChart.unit || 'ед.изм' }}</div>
+                        <div class="units__unit"
+                             [class.units__unit_active]="!card?.progressChart.unit"
+                        >%</div>
                       </div>
                     </div>
                     <div class="chart-card__diagram">
