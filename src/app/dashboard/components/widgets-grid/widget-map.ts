@@ -2,7 +2,7 @@ import { LineChartComponent } from '../../../widgets/LCO/line-chart/line-chart.c
 import { ManualInputComponent } from '../../widgets/manual-input/manual-input.component';
 import { ChangeShiftComponent } from '../../widgets/change-shift/change-shift.component';
 import { EnergeticsComponent } from '../../widgets/energetics/energetics.component';
-import { WidgetPiesComponent } from '../../widgets/widgets-pie/widget-pies/widget-pies.component';
+import { WidgetPiesComponent } from '../../../widgets/LCO/widgets-pie/widget-pies/widget-pies.component';
 import { TruncatedPieSFirstComponent } from '../../widgets/truncated-pie-first/truncated-pie-s-first/truncated-pie-s-first.component';
 import { TruncatedPieSIconComponent } from '../../widgets/truncated-pie-icon/truncated-pie-s-icon/truncated-pie-s-icon.component';
 import { PointDiagramComponent } from '../../widgets/point-diagram/point-diagram.component';
@@ -53,10 +53,9 @@ import { WidgetContainerComponent } from '../../widget-container/widget-containe
 import { AdminShiftScheduleOldComponent } from '../../widgets/admin-widget/admin-shift-schedule-old/admin-shift-schedule-old.component';
 import { CdMatBalanceChartCardComponent } from '../../../widgets/CD/cd-mat-balance/components/cd-mat-balance-chart-card/cd-mat-balance-chart-card.component';
 import { TankInformationComponent } from '../../widgets/tank-information/tank-information.component';
-import { OzsmResourcesCircleDiagramComponent } from 'src/app/widgets/OZSM/ozsm-shared/ozsm-resources-circle-diagram/ozsm-resources-circle-diagram.component';
 
 export const WIDGETS = {
-    'pie-diagram': WidgetPiesComponent,
+    'pie-diagram': WidgetContainerComponent,
     'line-chart': WidgetContainerComponent,
     'manual-input': ManualInputComponent,
     'shift-pass': ChangeShiftComponent,
@@ -584,6 +583,17 @@ export const WIDGETS_LAZY = {
         minItemRows: 16,
         preview: 'polar-chart'
 },
+    'pie-diagram': {
+        import: async () => {
+            return await import('src/app/widgets/LCO/widgets-pie/widget-pies/widget-pies.module');
+        },
+        module: 'WidgetPiesModule',
+        itemCols: 20,
+        itemRows: 16,
+        minItemCols: 20,
+        minItemRows: 16,
+        preview: 'pie-diagram'
+    },
 
     //#endregion LCO
 

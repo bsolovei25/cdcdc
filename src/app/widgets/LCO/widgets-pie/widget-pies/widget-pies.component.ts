@@ -1,6 +1,6 @@
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { WidgetService } from 'src/app/dashboard/services/widget.service';
-import { WidgetPlatform } from '../../../models/widget-platform';
+import { WidgetPlatform } from '../../../../dashboard/models/widget-platform';
 
 @Component({
     selector: 'evj-widget-pies',

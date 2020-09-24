@@ -17,8 +17,6 @@ import { PanelComponent } from './components/panel/panel.component';
 import { WidgetsGridComponent } from './components/widgets-grid/widgets-grid.component';
 import { GridsterModule } from 'angular-gridster2';
 import { UserInfoComponent } from './components/user-info/user-info.component';
-import { WidgetPiesComponent } from './widgets/widgets-pie/widget-pies/widget-pies.component';
-import { WidgetsPieComponent } from './widgets/widgets-pie/widget-pie-circle/widget-pie.component';
 import { TruncatedPieFirstComponent } from './widgets/truncated-pie-first/truncated-pie-first/truncated-pie-first.component';
 import { TruncatedPieSFirstComponent } from './widgets/truncated-pie-first/truncated-pie-s-first/truncated-pie-s-first.component';
 import { TruncatedPieSIconComponent } from './widgets/truncated-pie-icon/truncated-pie-s-icon/truncated-pie-s-icon.component';
@@ -223,8 +221,6 @@ import { MatBadgeModule } from '@angular/material/badge';
         PanelComponent,
         WidgetsGridComponent,
         UserInfoComponent,
-        WidgetPiesComponent,
-        WidgetsPieComponent,
         PointDiagramComponent,
         OneColumnComponent,
         TruncatedPieFirstComponent,
@@ -388,7 +384,6 @@ import { MatBadgeModule } from '@angular/material/badge';
         MenuButtonComponent,
     ],
     entryComponents: [
-        WidgetPiesComponent,
         ManualInputComponent,
         ChangeShiftComponent,
         TruncatedPieSFirstComponent,
