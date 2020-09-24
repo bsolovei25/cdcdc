@@ -20,27 +20,31 @@
   >
     <div class="wrapper">
       <div class="chart-container">
-        <ng-container *ngFor="let chart of data.chartData">
+        <ng-container *ngFor="let chart of data?.chartData">
           <div class="gauge-card">
             <div class="gauge-card__content">
               <div class="gauge-card__diagram">
-                <evj-ejco-gauge-chart [fact]="chart.fact" [plan]="chart.plan"></evj-ejco-gauge-chart>
+                <evj-ejco-gauge-chart
+                  [fact]="chart?.fact"
+                  [plan]="chart?.plan"
+                  [deviation]="chart?.deviation"
+                ></evj-ejco-gauge-chart>
               </div>
               <div class="gauge-card__label">
-                {{ chart.label }}
+                {{ chart.title }}
               </div>
             </div>
           </div>
         </ng-container>
       </div>
       <div class="table-container">
-        <ng-container *ngFor="let row of data.data">
+        <ng-container *ngFor="let row of tableData">
           <div class="table-container__row">
-            <div class="table-container__col title-col" [matTooltip]="row.title">
-              <span>{{ row.title }}</span>
+            <div class="table-container__col title-col" [matTooltip]="row?.title">
+              <span>{{ row?.title }}</span>
             </div>
             <div class="table-container__col value-col">
-              <ng-container *ngFor="let value of row.values">
+              <ng-container *ngFor="let value of row?.values">
                 <div class="item" [matTooltip]="value">
                   <span>{{ value }}</span>
                 </div>

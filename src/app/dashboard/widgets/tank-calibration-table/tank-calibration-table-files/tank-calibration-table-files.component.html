@@ -127,7 +127,7 @@
                   <ng-container
                                 *ngIf="element?.action === 'Таблица градуировки' && element.newValue !== '-'">
                     <a style="color: white"
-                       href="http://deploy.funcoff.club:6555/api/graduation-table/graduation/tanks/{{selectId}}/table/{{element.tableId}}">{{ element?.newValue }}</a>
+                       href="{{restUrl}}api/graduation-table/graduation/tanks/{{selectId}}/table/{{element.tableId}}">{{ element?.newValue }}</a>
                   </ng-container>
                 </td>
                 <td class="name">
