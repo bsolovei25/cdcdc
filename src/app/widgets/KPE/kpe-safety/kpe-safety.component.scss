@@ -78,10 +78,9 @@
       border-radius: 2px;
       background: var(--color-sou-border);
       border: solid 1px transparent;
-      cursor: pointer;
       color: var(--color-astue-onpz-units);
 
-      &__active {
+      &_active {
         border-color: var(--color-kpe-gaude-active);
         box-sizing: border-box;
         color: var(--color-kpe-text-main);

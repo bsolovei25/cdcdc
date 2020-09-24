@@ -11,7 +11,7 @@
       [class.header__icon__active]="(sharedGraph | async)?.title === transformedData?.title"
       src="assets/icons/widgets/ASTUE-ONPZ/fullscreen.svg"
       (click)="graphOpen()"
-      [svgStyle]="{ 'width.px':25, 'height.px':25}"
+      [svgStyle]="{ 'width.px': 25, 'height.px': 25 }"
     ></svg-icon>
     <div class="header__button"></div>
   </div>
@@ -34,7 +34,11 @@
       </div>
     </div>
     <div class="card__chart">
-      <evj-planning-chart [data]="transformedData.graph"></evj-planning-chart>
+      <evj-planning-chart
+        [data]="transformedData.graph"
+        [intervalHours]="[12, 12]"
+      >
+      </evj-planning-chart>
     </div>
   </div>
 </div>

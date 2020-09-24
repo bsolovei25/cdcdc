@@ -1,1 +1,4 @@
-<div class="indicator-diagram"></div>
+<div class="indicator-diagram"
+     [matBadge]="data?.notification?.notificationsCount"
+     [matBadgeHidden]="data?.notification?.notificationsCount === 0"
+></div>

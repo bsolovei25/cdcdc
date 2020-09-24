@@ -12,17 +12,10 @@ import {
 })
 export class SouOutStreamsComponent implements OnInit {
 
-    @Input() set flowOut(data: ISOUFlowOut[]) {
-        if (data) {
-            this.data = data;
-            this.getValuePercent(this.data);
-        }
-    }
+    @Input() flowOut: ISOUFlowOut[] = [];
 
     @Input() sections: ISOUSection[] = [];
     @Output() changeSection: EventEmitter<ISOUSection> = new EventEmitter<ISOUSection>();
-
-    data: ISOUFlowOut[] = [];
 
     constructor() {
     }
@@ -32,23 +25,6 @@ export class SouOutStreamsComponent implements OnInit {
 
     onClickName(section: ISOUSection): void {
         this.changeSection.emit(section);
-    }
-
-    getValuePercent(data: ISOUFlowOut[]): void {
-        let sumValueByHourPercent: number = 0;
-        let sumValueTankPercent: number = 0;
-        let sumValueMomentPercent: number = 0;
-
-        data.forEach(item => {
-            sumValueByHourPercent += item.valueByHour;
-            sumValueTankPercent += item.valueTank;
-            sumValueMomentPercent += item.valueMoment;
-        });
-        data.map(item => {
-            item.valueMomentPercent = +(item.valueMoment / sumValueMomentPercent * 100).toFixed();
-            item.valueByHourPercent = +(item.valueByHour / sumValueByHourPercent * 100).toFixed();
-            item.valueTankPercent = +(item.valueTank / sumValueTankPercent * 100).toFixed();
-        });
     }
 
 }

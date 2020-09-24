@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild, ElementRef, Input, EventEmitter, Output, 
 import { SelectionModel } from '@angular/cdk/collections';
 import { TankCalibrationTableService } from '../../../services/widgets/tank-calibration-table.service';
 import { ICalibrationTable } from '../tank-calibration-table.component';
+import { AppConfigService } from '../../../../services/appConfigService';
 
 
 interface IDataSource extends ICalibrationTable {
@@ -23,6 +24,8 @@ interface ITanksHistory {
     styleUrls: ['./tank-calibration-table-files.component.scss'],
 })
 export class TankCalibrationTableFilesComponent implements OnInit {
+
+    public readonly restUrl: string = '';
 
     static itemCols: number = 18;
     static itemRows: number = 14;
@@ -56,8 +59,11 @@ export class TankCalibrationTableFilesComponent implements OnInit {
     @ViewChild('tableRight4') tableRight4: ElementRef;
 
     constructor(
+        private appConfigService: AppConfigService,
         private calibrationService: TankCalibrationTableService,
-    ) { }
+    ) {
+        this.restUrl = this.appConfigService.restUrl;
+    }
     ngOnInit(): void {
         if (this.localeData.length === 0) {
             this.loadHistory();

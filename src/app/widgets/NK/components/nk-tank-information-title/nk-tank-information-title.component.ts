@@ -6,7 +6,7 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['./nk-tank-information-title.component.scss']
 })
 export class NkTankInformationTitleComponent implements OnInit {
-
+  @Input() roofType: string;
   @Input() title: string;
 
   constructor() { }

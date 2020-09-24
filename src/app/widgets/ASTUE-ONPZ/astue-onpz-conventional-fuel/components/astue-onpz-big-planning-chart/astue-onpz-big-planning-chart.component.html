@@ -1,15 +1,6 @@
 <div class="container">
-  <evj-widget-header-smp
-    [uniqId]="uniqId"
-    (mouseenter)="onMouseEnter()"
-    (mouseleave)="onMouseExit()"
-    *ngIf="isHover"
-  >
-  </evj-widget-header-smp>
   <div
     class="content"
-    (mouseenter)="onMouseEnter()"
-    (mouseleave)="onMouseExit()"
     (mousedown)="$event.stopPropagation()"
     (touchstart)="$event.stopPropagation()"
   >
@@ -22,6 +13,8 @@
         {{info?.tag}}
       </div>
       <div class="header__title">{{info?.title}}</div>
+      <div style="flex-grow: 1"></div>
+      <div class="header__title">{{info?.unitName}}</div>
     </div>
     <div class="card-border">
       <div class="card__legend legend">
@@ -42,6 +35,7 @@
           [data]="data"
           [isSpline]="false"
           [isWithPicker]="true"
+          [intervalHours]="[12, 72]"
         ></evj-planning-chart>
       </div>
       <div class="card__scroll">

@@ -308,6 +308,10 @@ export class WidgetService {
             case 'astue-onpz-conventional-fuel-indicators':
             case 'astue-onpz-planning-charts':
             case 'astue-onpz-line-chart':
+            case 'evj-header':
+            case 'ejco-onpz-unit-kpe':
+            case 'ejco-onpz-unit-sou':
+            case 'ejco-onpz-fsb-load':
                 return data;
         }
         console.warn(`unknown widget type ${widgetType}`);

@@ -96,6 +96,7 @@
       background: var(--color-sou-bg);
       border-radius: 2px;
       height: calc(100% - 50px);
+      max-height: 45px;
       padding: 5px;
     }
 
@@ -199,8 +200,29 @@
   }
 }
 
+.units {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
-.unit-selector {
+  &__unit {
+    font-size: 10px;
+    line-height: 12px;
+    padding: 2px 5px;
+    border-radius: 2px;
+    background: var(--color-sou-border);
+    border: solid 1px transparent;
+    color: var(--color-astue-onpz-units);
+
+    &_active {
+      border-color: var(--color-kpe-gaude-active);
+      box-sizing: border-box;
+      color: var(--color-kpe-text-main);
+    }
+  }
+}
+
+/*.unit-selector {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -242,5 +264,5 @@
       color: var(--color-kpe-text-main);
     }
   }
-}
+}*/
 

@@ -8,6 +8,7 @@ import {
     ViewChild
 } from '@angular/core';
 import * as d3 from 'd3';
+import { AsyncRender } from '@shared/functions/async-render.function';
 
 export type LineType = 'fact' | 'plan';
 
@@ -25,6 +26,9 @@ export interface IDeviationDiagramData {
 export class KpeDeviationDiagramComponent implements OnChanges {
     @Input()
     public data: IDeviationDiagramData[] = [];
+
+    @Input()
+    public currentMonth: Date = new Date();
 
     @ViewChild('chart')
     private chart: ElementRef;
@@ -63,16 +67,15 @@ export class KpeDeviationDiagramComponent implements OnChanges {
 
 
     public ngOnChanges(changes: SimpleChanges): void {
-        if (this.data && this.chart) {
-            this.drawSvg();
-        }
+        this.drawSvg();
     }
 
     private configChartArea(): void {
         this.sizeX.max =
-            new Date((new Date()).getFullYear(), (new Date()).getMonth() + 1, 0).getDate();
+            new Date((new Date(this.currentMonth)).getFullYear(), (new Date(this.currentMonth)).getMonth() + 1, 0).getDate();
     }
 
+    @AsyncRender
     private drawSvg(): void {
         this.configChartArea();
         this.prepareData();
@@ -113,6 +116,8 @@ export class KpeDeviationDiagramComponent implements OnChanges {
         this.day = maxX;
         this.sizeY.min = minY - 0.5;
         this.sizeY.max = maxY + 0.5;
+
+        this.planDataset.splice(-(this.planDataset.length - this.sizeX.max));
     }
 
     private drawRectLeft(): void {

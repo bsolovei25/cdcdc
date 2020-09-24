@@ -3,6 +3,7 @@ import {
     ElementRef, HostListener,
     Input,
     OnChanges,
+    OnInit,
     SimpleChanges, ViewChild
 } from '@angular/core';
 import * as d3 from 'd3';
@@ -19,7 +20,7 @@ export interface IBarDiagramData {
     templateUrl: './kpe-equalizer-chart.component.html',
     styleUrls: ['./kpe-equalizer-chart.component.scss']
 })
-export class KpeEqualizerChartComponent implements OnChanges {
+export class KpeEqualizerChartComponent implements OnChanges, OnInit {
     @Input()
     public data: IBarDiagramData[] = [];
 
@@ -51,15 +52,20 @@ export class KpeEqualizerChartComponent implements OnChanges {
     private dataset: { x: number; y: number }[] = [];
 
     public ngOnChanges(changes: SimpleChanges): void {
-        this.configChartArea();
-        this.prepareData();
-
-        if (this.data.length && this.chart) {
+        if (changes) {
             this.drawSvg();
         }
     }
 
+    public ngOnInit(): void {
+        this.drawSvg();
+    }
+
+    @AsyncRender
     private drawSvg(): void {
+        this.configChartArea();
+        this.prepareData();
+
         this.initScale();
         this.initSvg();
         this.drawAxises();

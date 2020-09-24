@@ -1,10 +1,7 @@
-import { OzsmResourcesCircleDiagramVisualComponent } from './ozsm-resources-circle-diagram/components/ozsm-resources-circle-diagram-visual/ozsm-resources-circle-diagram-visual.component';
-import { OzsmResourcesCircleDiagramComponent } from 'src/app/widgets/OZSM/ozsm-shared/ozsm-resources-circle-diagram/ozsm-resources-circle-diagram.component';
-import { OzsmLineDiagramComponent } from './ozsm-line-diagram/ozsm-line-diagram.component';
-import { OzsmCardLineDiagramComponent } from './ozsm-card-line-diagram/ozsm-card-line-diagram.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SharedModule } from '@shared/shared.module';
+import { OzsmCardLineDiagramComponent } from './ozsm-card-line-diagram/ozsm-card-line-diagram.component';
 import { OzsmTripleDiagramCardComponent } from './ozsm-triple-diagram-card/ozsm-triple-diagram-card.component';
 import { OzsmCircleDiagramComponent } from './ozsm-circle-diagram/ozsm-circle-diagram.component';
 import { OzsmStorageTankComponent } from './ozsm-triple-diagram-card/ozsm-storage-tank/ozsm-storage-tank.component';
@@ -15,13 +12,13 @@ import { OzsmLoadingParksDiagramComponent } from "./ozsm-loading-parks/component
 import { OzsmLoadingParksHeaderComponent } from "./ozsm-loading-parks/components/ozsm-loading-parks-header/ozsm-loading-parks-header.component";
 import { OzsmCircleDiagramFullComponent } from './ozsm-circle-diagram-full/ozsm-circle-diagram-full.component';
 import { OzsmLoadingSpaceComponent } from './ozsm-loading-space/ozsm-loading-space.component';
-import { OzsmMainIndicatorComponent } from './ozsm-main-indicator/ozsm-main-indicator.component';
 import { OzsmCircleDiagramIconComponent } from './ozsm-circle-diagram-icon/ozsm-cirle-diagram-icon.component';
-import { OzsmMainToggleComponent } from '../ozsm-main-toggle/ozsm-main-toggle.component';
 import { MatRippleModule } from "@angular/material/core";
 import { AngularSvgIconModule } from 'angular-svg-icon';
 import { OzsmListPackingDiagramsComponent } from './ozsm-list-packing-diagrams/ozsm-list-packing-diagrams.component';
 import { OzsmListPackingDiagramsItemComponent } from './ozsm-list-packing-diagrams/components/ozsm-list-packing-diagrams-item/ozsm-list-packing-diagrams-item.component';
+import { OzsmGraphCircleDiagramComponent } from "./ozsm-graph-circle-diagram/ozsm-graph-circle-diagram.component";
+
 
 
 @NgModule({
@@ -34,7 +31,6 @@ import { OzsmListPackingDiagramsItemComponent } from './ozsm-list-packing-diagra
         OzsmLoadingParksBodyComponent,
         OzsmLoadingParksDiagramComponent,
         OzsmLoadingParksHeaderComponent,
-        OzsmMainIndicatorComponent,
         OzsmLoadingSpaceComponent,
         OzsmCardLineDiagramComponent,
         OzsmCircleDiagramFullComponent,
@@ -44,9 +40,13 @@ import { OzsmListPackingDiagramsItemComponent } from './ozsm-list-packing-diagra
         OzsmMainToggleComponent,
         OzsmListPackingDiagramsComponent,
         OzsmListPackingDiagramsItemComponent,
-        OzsmCircleDiagramIconComponent
+        OzsmCircleDiagramIconComponent,
+        OzsmCircleDiagramIconComponent,
+        OzsmGraphCircleDiagramComponent
     ],
     exports: [
+        AngularSvgIconModule,
+        MatRippleModule,
         OzsmTripleDiagramCardComponent,
         OzsmCircleDiagramComponent,
         OzsmStorageTankComponent,
@@ -55,7 +55,6 @@ import { OzsmListPackingDiagramsItemComponent } from './ozsm-list-packing-diagra
         OzsmLoadingParksBodyComponent,
         OzsmLoadingParksDiagramComponent,
         OzsmLoadingParksHeaderComponent,
-        OzsmMainIndicatorComponent,
         OzsmLoadingSpaceComponent,
         OzsmCardLineDiagramComponent,
         OzsmCircleDiagramFullComponent,
@@ -65,7 +64,9 @@ import { OzsmListPackingDiagramsItemComponent } from './ozsm-list-packing-diagra
         OzsmMainToggleComponent,
         OzsmListPackingDiagramsComponent,
         OzsmListPackingDiagramsItemComponent,
-        OzsmCircleDiagramIconComponent
+        OzsmCircleDiagramIconComponent,
+        OzsmCircleDiagramIconComponent,
+        OzsmGraphCircleDiagramComponent
     ],
     imports: [
         CommonModule,
