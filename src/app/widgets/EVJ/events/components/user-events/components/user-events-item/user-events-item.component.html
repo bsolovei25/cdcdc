@@ -1,0 +1,26 @@
+<div class="container">
+    <div class="event">
+        <div class="header">
+            <span class="header__number">149</span>
+            <span class="header__title">АВТ-10</span>
+            <span class="header__data">19.07.2020 02:23</span>
+            <div class="header__indicators">
+                <span class = 'indicator-text'
+                    [style.color] = "'var(--evj-color-font-' + eventStatus + ')'"
+                >В работе</span>
+                <svg-icon
+                    src = 'assets/icons/widgets/process/in-work.svg'
+                    [style.fill] = "'var(--evj-color-font-' + eventStatus + ')'"
+                ></svg-icon>
+                <svg-icon
+                    src = "assets/icons/widgets/events/{{icon2}}.svg"
+                    [style.fill] = "'var(--evj-color-bg-active)'"
+                ></svg-icon>
+            </div>
+        </div>
+        <div class = "information">
+            КПЭ по качеству
+        </div>
+    </div>
+</div>
+

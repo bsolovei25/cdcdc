@@ -18,6 +18,16 @@ export class IndicatorDiagramComponent implements OnInit, OnDestroy {
     };
     widgetId: string;
 
+    menu: boolean = true;
+
+    openMenu(): void {
+        this.menu = true;
+    }
+
+    closeMenu(val: boolean): void {
+        this.menu = val;
+    }
+
     public subscriptions: Subscription[] = [];
 
     constructor(protected widgetService: WidgetService) {

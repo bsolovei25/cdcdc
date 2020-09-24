@@ -1,0 +1,90 @@
+* {
+    box-sizing: border-box;
+}
+
+.treangle {
+    height: 26px;
+    width: 26px;
+
+    border-radius: 2px;
+    background: var(--evj-color-bg-main);
+
+    position: absolute;
+    z-index: 2;
+
+    transform: skew(30deg, -60deg);
+
+    top: 75px;
+    right: 45px;
+}
+
+.container {
+    height: 446px;
+    width: 451px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+
+    background: var(--evj-color-bg-main);
+
+    position: absolute;
+    top: 70px;
+    right: 30px;
+
+    z-index: 3;
+}
+
+.title {
+    height: 40px;
+    width: 100%;
+    padding: 0 10px;
+
+    display: flex;
+    align-items: center;
+    
+    &__icon {
+        fill: var(--evj-color-font-default);
+    }
+
+    &__text {
+        padding: 0 17px;
+        flex: 1;
+
+        font-size: 12px;
+        line-height: 14px;
+
+        color: var(--evj-color-font-main)
+    }
+}
+
+.close-btn {
+    cursor: pointer;
+
+    fill: var(--evj-color-font-default);
+}
+
+.body-container {
+    flex: 1;
+
+    margin: 8px 0;
+    padding: 0 8px;
+    overflow-y: auto;
+
+    &::-webkit-scrollbar {
+        width: 5px;
+    }
+      
+    &::-webkit-scrollbar-thumb {
+        background: #282B38;
+    }
+      
+    &::-webkit-scrollbar-track {
+        background: var(--evj-color-bg-main);
+    }
+}
+
+.events-list {
+    display: flex;
+    flex-direction: column;
+}
