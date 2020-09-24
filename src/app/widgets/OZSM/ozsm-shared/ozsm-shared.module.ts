@@ -18,6 +18,7 @@ import { OzsmMainIndicatorComponent } from './ozsm-main-indicator/ozsm-main-indi
 import { OzsmCircleDiagramIconComponent } from './ozsm-circle-diagram-icon/ozsm-cirle-diagram-icon.component';
 import { OzsmMainToggleComponent } from '../ozsm-main-toggle/ozsm-main-toggle.component';
 import { MatRippleModule } from "@angular/material/core";
+import { OzsmGraphCircleDiagramComponent } from "./ozsm-graph-circle-diagram/ozsm-graph-circle-diagram.component";
 
 
 @NgModule({
@@ -38,9 +39,11 @@ import { MatRippleModule } from "@angular/material/core";
         OzsmLoadingSpaceComponent,
         OzsmMainIndicatorComponent,
         OzsmCircleDiagramIconComponent,
-        OzsmMainToggleComponent
+        OzsmGraphCircleDiagramComponent,
     ],
     exports: [
+        AngularSvgIconModule,
+        MatRippleModule,
         OzsmTripleDiagramCardComponent,
         OzsmCircleDiagramComponent,
         OzsmStorageTankComponent,
@@ -57,7 +60,7 @@ import { MatRippleModule } from "@angular/material/core";
         OzsmLoadingSpaceComponent,
         OzsmMainIndicatorComponent,
         OzsmCircleDiagramIconComponent,
-        OzsmMainToggleComponent
+        OzsmGraphCircleDiagramComponent,
     ],
     imports: [
         CommonModule,

@@ -215,7 +215,6 @@ import { GroupSelectorComponent } from './components/group-selector/group-select
 import { GroupSelectorRowComponent } from './components/group-selector/group-selector-row/group-selector-row.component';
 import { IndicatorDiagramComponent } from './components/indicator-diagram/indicator-diagram.component';
 import { MenuButtonComponent } from './components/menu-button/menu-button.component';
-import { GraphCircleDiagramComponent } from './pages/dev-graph/components/graph-circle-diagram/graph-circle-diagram.component';
 import { MatBadgeModule } from '@angular/material/badge';
 
 @NgModule({
@@ -400,7 +399,6 @@ import { MatBadgeModule } from '@angular/material/badge';
         GroupSelectorRowComponent,
         IndicatorDiagramComponent,
         MenuButtonComponent,
-        GraphCircleDiagramComponent
     ],
     entryComponents: [
         LineChartComponent,

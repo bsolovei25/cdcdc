@@ -910,18 +910,18 @@ export const WIDGETS_LAZY = {
         preview: 'default',
     },
     'ozsm-main-toggle': {
-    import: async () => {
-        return await import(
-            'src/app/widgets/OZSM/ozsm-main-toggle/ozsm-main-toggle.module'
+        import: async () => {
+            return await import(
+                'src/app/widgets/OZSM/ozsm-planning-main/ozsm-planning-main.module'
             );
-    },
-        module: 'OzsmMainToggleModule',
+        },
+        module: 'OzsmPlanningMainModule',
         itemCols: 10,
         itemRows: 2,
         minItemCols: 10,
         minItemRows: 2,
         preview: 'default',
-},
+    },
 
     'ozsm-scenarios': {
         import: async () => {
