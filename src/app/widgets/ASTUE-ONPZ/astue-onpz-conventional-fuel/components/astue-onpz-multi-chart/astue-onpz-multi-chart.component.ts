@@ -17,6 +17,7 @@ import {
 } from '../../../../../dashboard/models/ASTUE-ONPZ/astue-onpz-multi-chart.model';
 import { AsyncRender } from '@shared/functions/async-render.function';
 import { fillDataArrayChart } from '@shared/functions/fill-data-array.function';
+import { filter } from "rxjs/operators";
 
 export interface IMultiChartOptions {
     colors?: Map<string, number>;
@@ -153,7 +154,11 @@ export class AstueOnpzMultiChartComponent implements OnChanges, OnDestroy {
         this.data.forEach((item) =>
             item.graph = fillDataArrayChart(item.graph, domainDates[0], domainDates[1],
                 item.graphType === 'plan'));
-        this.data = this.data.filter((x) => x?.graph?.length > 0);
+        const filterData = this.data.filter((x) => x?.graph?.length > 0);
+        if (filterData.length !== this.data.length) {
+            console.error('BACK ERROR: Timeline is not in interval!!!');
+        }
+        this.data = filterData;
     }
 
     private findMinMax(): void {
