@@ -37,7 +37,6 @@ export class EvjEventsComponent extends WidgetPlatform implements OnInit, OnDest
     @HostListener('document:resize', ['$event'])
     OnResize(): void {
         this.countNotificationsDivCapacity();
-        this.getData();
     }
 
     public claimWidgets: EnumClaimWidgets[] = [];
@@ -238,6 +237,9 @@ export class EvjEventsComponent extends WidgetPlatform implements OnInit, OnDest
 
     isCDEvents: boolean = false;
 
+    public appendEventStream$: BehaviorSubject<EventsWidgetNotificationPreview> =
+        new BehaviorSubject<EventsWidgetNotificationPreview>(null);
+
     private readonly defaultIconPath: string = 'assets/icons/widgets/events/smotr.svg';
 
     constructor(
@@ -262,9 +264,9 @@ export class EvjEventsComponent extends WidgetPlatform implements OnInit, OnDest
             this.claimService.claimWidgets$.subscribe((data) => {
                 this.claimWidgets = data;
             }),
-            this.searchTerm.subscribe((search) => {
-                this.search(search);
-            })
+            // this.searchTerm.subscribe((search) => {
+            //     this.search(search);
+            // })
         );
     }
 
@@ -283,7 +285,12 @@ export class EvjEventsComponent extends WidgetPlatform implements OnInit, OnDest
                 this.isCDEvents = true;
                 break;
         }
-        this.categories = this.categoriesAll.filter((cat) => cat.categoryType === filterCondition);
+        this.categories = this.categoriesAll.filter((cat) => {
+            if (filterCondition === 'ed' && cat.code === 'tasks') {
+                return false;
+            }
+            return cat.categoryType === filterCondition;
+        });
         this.placeNames = await this.eventService.getPlaces(this.id);
         this.subscriptions.push(
             this.widgetService.currentDates$.subscribe((ref) => {
@@ -292,7 +299,11 @@ export class EvjEventsComponent extends WidgetPlatform implements OnInit, OnDest
             }),
             this.eventService.currentEventId$.subscribe((ref) => {
                 this.selectedId = ref;
-            })
+            }),
+            this.appendEventStream$.asObservable().pipe(
+                debounceTime(1000),
+                distinctUntilChanged()
+            ).subscribe(this.getStats.bind(this))
         );
         await this.getWidgetSettings();
     }
@@ -302,6 +313,7 @@ export class EvjEventsComponent extends WidgetPlatform implements OnInit, OnDest
         action: string;
     }): void {
         if (
+            this.placeNames.length !== 0 &&
             !this.placeNames.find((place) => place === ref.notification?.unit?.name) &&
             ref.action !== 'delete'
         ) {
@@ -320,23 +332,11 @@ export class EvjEventsComponent extends WidgetPlatform implements OnInit, OnDest
         }
     }
 
-    public searchTerm$: BehaviorSubject<string> = new BehaviorSubject<string>('');
-    public searchTerm: Observable<string> = this.searchTerm$.pipe(
-        debounceTime(450),
-        distinctUntilChanged()
-    );
-
-    nameTrackFn = (_: number, item: EventsWidgetNotificationPreview) => item.id;
-
-    async search(searchString: string): Promise<void> {
-        console.log(searchString);
-    }
-
     private async setWidgetSettings(settings: IEventSettings): Promise<void> {
         try {
             await this.widgetSettingsService.saveSettings<IEventSettings>(this.uniqId, settings);
         } catch (e) {
-            console.log('Event widget save settings error: ', e);
+            console.warn('Event widget save settings error: ', e);
         }
     }
 
@@ -388,7 +388,8 @@ export class EvjEventsComponent extends WidgetPlatform implements OnInit, OnDest
             dates: this.widgetService.currentDates$.getValue(),
             placeNames: this.placeNames,
             isVideoWall: this.widgetIsVideoWall,
-            sortType: this.widgetSortType
+            sortType: this.widgetSortType,
+            categoriesType: this.widgetType === 'events-ed' ? 'ed' : 'default'
         };
         return options;
     }
@@ -403,10 +404,11 @@ export class EvjEventsComponent extends WidgetPlatform implements OnInit, OnDest
             this.playAudio();
         }
         const idx = this.notifications.findIndex((n) => notification.sortIndex <= n.sortIndex);
-        if (idx === -1) {
+        if (this.notifications.length > 0 && idx === -1) {
             return;
         }
-        if (notification.category && notification.category.name) {
+        this.appendEventStream$.next(notification);
+        if (notification?.category?.name) {
             notification.iconUrl = this.getNotificationIcon(notification.category.name);
             notification.iconUrlStatus = this.getStatusIcon(notification.status.name);
             notification.statusName = this.statuses[notification.status.name]; // TODO check
@@ -427,16 +429,17 @@ export class EvjEventsComponent extends WidgetPlatform implements OnInit, OnDest
 
     private editWsElement(notification: EventsWidgetNotificationPreview): void {
         const idx = this.notifications.findIndex((n) => n.id === notification.id);
-        if (idx >= 0) {
-            if (notification.category && notification.category.name) {
-                notification.iconUrl = this.getNotificationIcon(notification.category.name);
-                notification.iconUrlStatus = this.getStatusIcon(notification.status.name);
-                notification.statusName = this.statuses[notification.status.name]; // TODO check
-            }
-            this.notifications[idx] = notification;
-            this.notifications = this.notifications.slice();
-            this.countNotificationsDivCapacity();
+        if (idx === -1) {
+            return;
         }
+        if (notification?.category?.name) {
+            notification.iconUrl = this.getNotificationIcon(notification.category.name);
+            notification.iconUrlStatus = this.getStatusIcon(notification.status.name);
+            notification.statusName = this.statuses[notification.status.name]; // TODO check
+        }
+        this.notifications[idx] = notification;
+        this.notifications = this.notifications.slice();
+        this.countNotificationsDivCapacity();
     }
 
     private getStatusIcon(name: string): string {
@@ -453,11 +456,12 @@ export class EvjEventsComponent extends WidgetPlatform implements OnInit, OnDest
                 .map((n) => {
                     const iconUrl = this.getNotificationIcon(n.category.name);
                     const iconUrlStatus = this.getStatusIcon(n.status?.name);
-                    const statusName = n.status?.name ? this.statuses[n.status.name] : ''; // TODO check
+                    const statusName = n.status?.name ? this.statuses[n.status.name] : ''; // TODO
                     return { ...n, iconUrl, statusName, iconUrlStatus };
                 });
             this.notifications = this.notifications.concat(notifications);
             this.countNotificationsDivCapacity();
+            ;
         }
     }
 
@@ -478,7 +482,6 @@ export class EvjEventsComponent extends WidgetPlatform implements OnInit, OnDest
     // Удаление виджета
     public async onRemoveButton(): Promise<void> {
         await this.userSettings.removeItem(this.uniqId);
-        // this.widgetService.removeItemService(this.uniqId);
     }
 
     public async eventClick(eventId?: number): Promise<void> {
@@ -521,7 +524,7 @@ export class EvjEventsComponent extends WidgetPlatform implements OnInit, OnDest
         window.open(url);
     }
 
-    async scrollHandler(event: any): Promise<void> {
+    public async scrollHandler(event: any): Promise<void> {
         if (
             event.target.offsetHeight + event.target.scrollTop + 100 >= event.target.scrollHeight &&
             this.notifications.length &&
@@ -541,12 +544,14 @@ export class EvjEventsComponent extends WidgetPlatform implements OnInit, OnDest
         n: number
     ): EventsWidgetNotificationPreview[][] {
         let i = 0;
+        let j = 0;
         const result = [];
         let temp = [];
         for (const item of arr) {
             i++;
+            j++;
             temp.push(item);
-            if (i === n) {
+            if (i === n || j === arr.length) {
                 result.push(temp);
                 temp = [];
                 i = 0;
@@ -561,6 +566,10 @@ export class EvjEventsComponent extends WidgetPlatform implements OnInit, OnDest
             this.clearNotifications();
         }
         const options = this.getCurrentOptions();
+        if (!options.placeNames) {
+            this.isAllowScrollLoading = true;
+            return;
+        }
         const ans = await this.eventService.getBatchData(lastId, options);
         this.appendNotifications(ans);
         this.isAllowScrollLoading = true;
@@ -571,14 +580,29 @@ export class EvjEventsComponent extends WidgetPlatform implements OnInit, OnDest
 
     private async getStats(): Promise<void> {
         const options = this.getCurrentOptions();
+        if (!options.placeNames) {
+            return;
+        }
         const stats = await this.eventService.getStats(options);
         this.categories.forEach((c) => {
-            c.notificationsCounts.all = stats.statsByCategory.find(
-                (sc) => sc.category.id === c.id
-            )?.totalCount;
-            c.notificationsCounts.open = stats.statsByCategory.find(
-                (sc) => sc.category.id === c.id
-            )?.unclosedCount;
+            switch (options.categoriesType) {
+                case 'default':
+                    c.notificationsCounts.all = stats.statsByCategory.find(
+                        (sc) => sc.category.id === c.id
+                    )?.totalCount;
+                    c.notificationsCounts.open = stats.statsByCategory.find(
+                        (sc) => sc.category.id === c.id
+                    )?.unclosedCount;
+                    break;
+                case 'ed':
+                    c.notificationsCounts.all = stats.statsByDispatcherScreenCategory.find(
+                        (sc) => sc.category.id === c.id
+                    )?.totalCount;
+                    c.notificationsCounts.open = stats.statsByDispatcherScreenCategory.find(
+                        (sc) => sc.category.id === c.id
+                    )?.unclosedCount;
+                    break;
+            }
         });
         this.filters.forEach((f) => {
             switch (f.code) {
@@ -621,7 +645,7 @@ export class EvjEventsComponent extends WidgetPlatform implements OnInit, OnDest
         if (this.timeout) {
             this.timeout = false;
             this.audio.play();
-            setTimeout(() => this.timeout = true, 2000);
+            setTimeout(() => (this.timeout = true), 2000);
         }
     }
 
