@@ -1,21 +1,20 @@
 import {
     Component,
-    OnInit,
     Inject,
     OnDestroy,
     AfterViewInit
 } from '@angular/core';
 import { WidgetPlatform } from '../../../dashboard/models/widget-platform';
 import { WidgetService } from '../../../dashboard/services/widget.service';
-import {HttpClient} from '@angular/common/http';
+import {EjcoOnpzHelperService} from '../ejco-onpz-shared/ejco-onpz-helper.service';
 
 
-export interface IEjcoOnpzUnitSou {
-    chartData: { label: string, fact: number, plan: number };
-    data: IEjcoOnpzUnitSouTableRow[];
+export interface IEjcoOnpzFsbLoad {
+    chartData: { title: string, fact: number, plan: number, deviation: number };
+    data: IEjcoOnpzFsbLoadData[];
 }
 
-export interface IEjcoOnpzUnitSouTableRow {
+export interface IEjcoOnpzFsbLoadData {
     title: string;
     values: string[];
 }
@@ -25,40 +24,34 @@ export interface IEjcoOnpzUnitSouTableRow {
     templateUrl: './ejco-onpz-fsb-load.component.html',
     styleUrls: ['./ejco-onpz-fsb-load.component.scss']
 })
-export class EjcoOnpzFsbLoadComponent extends WidgetPlatform implements OnInit, OnDestroy, AfterViewInit {
+export class EjcoOnpzFsbLoadComponent extends WidgetPlatform implements OnDestroy, AfterViewInit {
 
-    public data: IEjcoOnpzUnitSou;
+    public data: IEjcoOnpzFsbLoad = { chartData: null, data: null };
 
     public widgetIcon: string = 'ejco';
 
     constructor(
         public widgetService: WidgetService,
+        public ejcoOnpzHelperService: EjcoOnpzHelperService,
         @Inject('isMock') public isMock: boolean,
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string,
-        private http: HttpClient,
     ) {
         super(widgetService, isMock, id, uniqId);
-    }
-
-    public ngOnInit(): void {
-        this.mockDataConnect();
-    }
-
-    public async mockDataConnect(): Promise<any> {
-        this.data = await this.http.get<any>('assets/mock/EJCO/ejco-fsb-load.json').toPromise();
-        return this.data;
     }
 
     public ngAfterViewInit(): void {
         super.widgetInit();
     }
 
-    protected dataHandler(ref: any): void {
-        console.log(ref);
-    }
-
     public ngOnDestroy(): void {
         super.ngOnDestroy();
+    }
+
+    protected dataHandler(ref: IEjcoOnpzFsbLoad): void {
+        if (this.ejcoOnpzHelperService.compareObjects(this.data.chartData, ref.chartData)) {
+            this.data.chartData = ref.chartData;
+        }
+        this.data.data = ref.data;
     }
 }

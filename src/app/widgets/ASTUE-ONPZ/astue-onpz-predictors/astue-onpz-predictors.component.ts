@@ -9,8 +9,7 @@ import { WidgetPlatform } from '../../../dashboard/models/widget-platform';
 import { WidgetService } from '../../../dashboard/services/widget.service';
 import { SelectionModel } from '@angular/cdk/collections';
 import {
-    AstueOnpzService, IAstueOnpzColors, IAstueOnpzPredictor,
-    IAstueOnpzPredictorsOptions
+    AstueOnpzService, IAstueOnpzPredictor
 } from '../astue-onpz-shared/astue-onpz.service';
 
 interface IPredictors {
@@ -52,6 +51,15 @@ export class AstueOnpzPredictorsComponent extends WidgetPlatform implements OnIn
     ngOnDestroy(): void {
         super.ngOnDestroy();
         this.astueOnpzService.clearColors();
+    }
+
+    protected async dataConnect(): Promise<void> {
+        super.dataConnect();
+        this.setOptionsWs(this.id);
+    }
+
+    setOptionsWs(predictorWidgetId: string): void {
+        this.astueOnpzService.setPredictors(predictorWidgetId, []);
     }
 
     protected dataHandler(ref: { predictors: IPredictors[] }): void {
