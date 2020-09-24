@@ -8,10 +8,6 @@ import { WidgetPlatform } from 'src/app/dashboard/models/widget-platform';
     styleUrls: ['./truncated-diagram-percentage.component.scss'],
 })
 export class TruncatedDiagramPercentageComponent extends WidgetPlatform implements OnInit, OnDestroy {
-    public static itemCols: number = 16;
-    public static itemRows: number = 12;
-    public static minItemCols: number = 16;
-    public static minItemRows: number = 12;
 
     public datas: any = [
         { name: 'Статическое Оборудование 1', plan: 5, value: 28 },

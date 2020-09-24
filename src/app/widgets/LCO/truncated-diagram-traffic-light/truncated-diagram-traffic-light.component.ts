@@ -28,11 +28,6 @@ export class TruncatedDiagramTrafficLightComponent extends WidgetPlatform implem
     public expandedPanels: Map<number, boolean> = new Map<number, boolean>();
     public data: ITruncatedDiagramInputData[] = [];
 
-    public static itemCols: number = 13;
-    public static itemRows: number = 16;
-    public static minItemCols: number = 13;
-    public static minItemRows: number = 16;
-
     constructor(
         public widgetService: WidgetService,
         @Inject('isMock') public isMock: boolean,

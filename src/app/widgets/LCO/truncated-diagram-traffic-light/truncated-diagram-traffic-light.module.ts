@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { TruncatedDiagramTrafficLightComponent } from './truncated-diagram-traffic-light.component';
 import { PieDiagramComponent } from './components/pie-diagram/pie-diagram.component';
 import { SharedModule } from '@shared/shared.module';
-import { DashboardModule } from '../../../dashboard/dashboard.module';
 import { AngularSvgIconModule } from 'angular-svg-icon';
 
 
@@ -13,7 +12,6 @@ import { AngularSvgIconModule } from 'angular-svg-icon';
   imports: [
     CommonModule,
     SharedModule,
-    DashboardModule,
     AngularSvgIconModule
   ]
 })
