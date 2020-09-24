@@ -28,9 +28,8 @@
       padding: 0 5px;
       background: var(--color-sou-border);
       border: solid 1px transparent;
-      cursor: pointer;
     }
-    &__active {
+    &_active {
       background: var(--color-bg-active);
       border: solid 1px var(--color-aps-active);
       color: var(--color-kpe-text-main);
