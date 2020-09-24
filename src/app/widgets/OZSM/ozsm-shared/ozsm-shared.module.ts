@@ -1,8 +1,7 @@
-import { DashboardModule } from './../../../dashboard/dashboard.module';
-import { OzsmCardLineDiagramComponent } from './ozsm-card-line-diagram/ozsm-card-line-diagram.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SharedModule } from '@shared/shared.module';
+import { OzsmCardLineDiagramComponent } from './ozsm-card-line-diagram/ozsm-card-line-diagram.component';
 import { OzsmTripleDiagramCardComponent } from './ozsm-triple-diagram-card/ozsm-triple-diagram-card.component';
 import { OzsmCircleDiagramComponent } from './ozsm-circle-diagram/ozsm-circle-diagram.component';
 import { OzsmStorageTankComponent } from './ozsm-triple-diagram-card/ozsm-storage-tank/ozsm-storage-tank.component';
@@ -14,9 +13,7 @@ import { OzsmLoadingParksHeaderComponent } from "./ozsm-loading-parks/components
 import { AngularSvgIconModule } from 'angular-svg-icon';
 import { OzsmCircleDiagramFullComponent } from './ozsm-circle-diagram-full/ozsm-circle-diagram-full.component';
 import { OzsmLoadingSpaceComponent } from './ozsm-loading-space/ozsm-loading-space.component';
-import { OzsmMainIndicatorComponent } from './ozsm-main-indicator/ozsm-main-indicator.component';
 import { OzsmCircleDiagramIconComponent } from './ozsm-circle-diagram-icon/ozsm-cirle-diagram-icon.component';
-import { OzsmMainToggleComponent } from '../ozsm-main-toggle/ozsm-main-toggle.component';
 import { MatRippleModule } from "@angular/material/core";
 import { OzsmGraphCircleDiagramComponent } from "./ozsm-graph-circle-diagram/ozsm-graph-circle-diagram.component";
 
@@ -31,7 +28,6 @@ import { OzsmGraphCircleDiagramComponent } from "./ozsm-graph-circle-diagram/ozs
         OzsmLoadingParksBodyComponent,
         OzsmLoadingParksDiagramComponent,
         OzsmLoadingParksHeaderComponent,
-        OzsmMainIndicatorComponent,
         OzsmLoadingSpaceComponent,
         OzsmCardLineDiagramComponent,
         OzsmCircleDiagramFullComponent,
@@ -56,7 +52,6 @@ import { OzsmGraphCircleDiagramComponent } from "./ozsm-graph-circle-diagram/ozs
         OzsmCircleDiagramFullComponent,
         OzsmEqualizerChartComponent,
         OzsmLoadingSpaceComponent,
-        OzsmMainIndicatorComponent,
         OzsmCircleDiagramIconComponent,
         OzsmGraphCircleDiagramComponent,
     ],
