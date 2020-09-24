@@ -48,7 +48,7 @@ import { DocumentCodingComponent } from '../../widgets/document-coding/document-
 import { OilOperationsComponent } from '../../widgets/oil-operations/oil-operations.component';
 import { WorkflowComponent } from '../../widgets/workflow/workflow.component';
 import { CdCriticalComponent } from '../../widgets/cd-critical/cd-critical.component';
-import { TruncatedDiagramTrafficLightComponent } from '../../widgets/truncated-diagram-traffic-light/truncated-diagram-traffic-light.component';
+import { TruncatedDiagramTrafficLightComponent } from '../../../widgets/LCO/truncated-diagram-traffic-light/truncated-diagram-traffic-light.component';
 import { WidgetContainerComponent } from '../../widget-container/widget-container.component';
 import { AdminShiftScheduleOldComponent } from '../../widgets/admin-widget/admin-shift-schedule-old/admin-shift-schedule-old.component';
 import { CdMatBalanceChartCardComponent } from '../../../widgets/CD/cd-mat-balance/components/cd-mat-balance-chart-card/cd-mat-balance-chart-card.component';
@@ -62,7 +62,7 @@ export const WIDGETS = {
     'shift-accept': ChangeShiftComponent,
     'events-workspace': WidgetContainerComponent,
     'truncated-diagram-percentage': TruncatedPieSFirstComponent,
-    'truncated-diagram-traffic-light': TruncatedDiagramTrafficLightComponent,
+    'truncated-diagram-traffic-light': WidgetContainerComponent,
     'truncated-diagram-counter': TruncatedPieSIconComponent,
     'point-diagram': PointDiagramComponent,
     'industrial-pyramid': WidgetContainerComponent,
@@ -594,7 +594,17 @@ export const WIDGETS_LAZY = {
         minItemRows: 16,
         preview: 'pie-diagram'
     },
-
+    'truncated-diagram-traffic-light': {
+        import: async () => {
+            return await import('src/app/widgets/LCO/truncated-diagram-traffic-light/truncated-diagram-traffic-light.module');
+        },
+        module: 'TruncatedDiagramTrafficLightModule',
+        itemCols: 13,
+        itemRows: 16,
+        minItemCols: 13,
+        minItemRows: 16,
+        preview: 'truncated-diagram-traffic-light'
+    },
     //#endregion LCO
 
     //#region SMP
