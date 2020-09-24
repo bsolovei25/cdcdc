@@ -21,11 +21,12 @@ import { WidgetSettingsService } from '../../../dashboard/services/widget-settin
 import { debounceTime, distinctUntilChanged, throttle } from 'rxjs/operators';
 import { IEventSettings } from '../events/events.component';
 import { WidgetPlatform } from '../../../dashboard/models/widget-platform';
+import { animate, style, transition, trigger } from '@angular/animations';
 
 @Component({
     selector: 'evj-evj-events',
     templateUrl: './evj-events.component.html',
-    styleUrls: ['./evj-events.component.scss']
+    styleUrls: ['./evj-events.component.scss'],
 })
 export class EvjEventsComponent extends WidgetPlatform implements OnInit, OnDestroy {
 
@@ -325,7 +326,9 @@ export class EvjEventsComponent extends WidgetPlatform implements OnInit, OnDest
         distinctUntilChanged()
     );
 
-    private async search(searchString: string): Promise<void> {
+    nameTrackFn = (_: number, item: EventsWidgetNotificationPreview) => item.id;
+
+    async search(searchString: string): Promise<void> {
         console.log(searchString);
     }
 
@@ -424,7 +427,6 @@ export class EvjEventsComponent extends WidgetPlatform implements OnInit, OnDest
 
     private editWsElement(notification: EventsWidgetNotificationPreview): void {
         const idx = this.notifications.findIndex((n) => n.id === notification.id);
-        console.log(idx);
         if (idx >= 0) {
             if (notification.category && notification.category.name) {
                 notification.iconUrl = this.getNotificationIcon(notification.category.name);
@@ -502,7 +504,6 @@ export class EvjEventsComponent extends WidgetPlatform implements OnInit, OnDest
             await this.eventService.deleteEvent(id);
             this.ewService.event = null;
             const idx = this.notifications.findIndex((n) => n.id === id);
-            console.log(idx);
             if (idx >= 0) {
                 this.notifications.splice(idx, 1);
                 this.notifications = this.notifications.slice();
@@ -520,7 +521,7 @@ export class EvjEventsComponent extends WidgetPlatform implements OnInit, OnDest
         window.open(url);
     }
 
-    public async scrollHandler(event: any): Promise<void> {
+    async scrollHandler(event: any): Promise<void> {
         if (
             event.target.offsetHeight + event.target.scrollTop + 100 >= event.target.scrollHeight &&
             this.notifications.length &&
@@ -624,5 +625,13 @@ export class EvjEventsComponent extends WidgetPlatform implements OnInit, OnDest
         }
     }
 
+    async sortByFilter(unitNames: string,
+                       categoryIds: number[],
+                       statusIds: number[],
+                       description: string
+    ): Promise<void> {
+        await this.eventService.getEventsFilter(unitNames, categoryIds,
+            statusIds, description);
+    }
 
 }

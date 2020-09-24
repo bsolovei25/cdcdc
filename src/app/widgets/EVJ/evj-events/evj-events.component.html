@@ -4,7 +4,25 @@
     [uniqId]="uniqId"
     [widgetTitle]="widgetTitle"
     icon="letter"
-  ></evj-contemporary-widget-header>
+  >
+    <div
+      class="content-container"
+      (mousedown)="$event.stopPropagation()"
+      (touchstart)="$event.stopPropagation()"
+    >
+      <div (click)="viewChanger(false)">
+        <svg-icon [ngClass]="{'list': !isList}" class="header__icon" src="assets/pic/list.svg">
+        </svg-icon>
+      </div>
+      <div (click)="viewChanger(true)">
+        <svg-icon
+          [ngClass]="{'blocks': isList}"
+          class="header__icon"
+          src="assets/pic/blocks.svg"
+        ></svg-icon>
+      </div>
+    </div>
+  </evj-contemporary-widget-header>
   <evj-frame-top class="frame-top" *ngIf="widgetIsVideoWall"></evj-frame-top>
   <evj-alert-window [info]="eventAlertInfo$ | async"></evj-alert-window>
   <div
@@ -13,7 +31,7 @@
     (touchstart)="$event.stopPropagation()"
   >
     <div class="cd-events">
-      <evj-evj-event-filters (search)="search($event)"></evj-evj-event-filters>
+      <evj-evj-event-filters></evj-evj-event-filters>
       <div
         class="notifications"
         #notifications
@@ -28,6 +46,7 @@
           <ng-container *cdkVirtualFor="let n of notificationsGrouped">
             <evj-evj-event-card
               [cardDataArr]="n"
+              [viewType]="isList ? 'block' : 'list'"
               (cardClick)="eventClick($event)"
               [cardActiveId]="selectedId || eventOverlayId"
               (cardDeleteClick)="deleteClick($event)"
@@ -41,7 +60,6 @@
           <div class="controls__line controls__line_left">
             <div class="controls__circle controls__circle_left"></div>
           </div>
-
           <div class="filters">
             <div
               class="filter filters__item"

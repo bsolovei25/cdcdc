@@ -19,6 +19,8 @@ import { TemplatePortalDirective } from '@angular/cdk/portal';
 })
 export class EvjEventCategoriesComponent implements OnInit {
 
+    public subCategory: string[] = [];
+
     public categoryActive: boolean = false;
 
     overlayRef: OverlayRef;
@@ -43,8 +45,11 @@ export class EvjEventCategoriesComponent implements OnInit {
     }
 
     onCLickItem(data: EventsWidgetCategory): void {
-        this.categoryActive = true;
+        if (!data.isActive && this.subCategory.length) {
+            this.openTemplateOverlay();
+        }
         this.categoryClick.emit(data);
+
     }
 
     // Переход в систему источник

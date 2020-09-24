@@ -521,7 +521,7 @@ export const WIDGETS_LAZY = {
         itemRows: 30,
         minItemCols: 32,
         minItemRows: 30,
-        preview: 'evj-events'
+        preview: 'cd-events'
     },
 
     // #endregion EVJ

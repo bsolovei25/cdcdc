@@ -1,12 +1,11 @@
 <ng-template cdk-portal #overlayTemplate="cdkPortal">
   <div class="overlay-container mat-elevation-z5">
-    <ng-container *ngFor="let item of [1, 2]">
+    <ng-container *ngFor="let item of subCategory">
       <div class="item">
         <div class="item__slide">
           <mat-slide-toggle disableRipple="true"></mat-slide-toggle>
         </div>
         <div class="item__text" [class.item__text_disabled]>
-          Обход каждые два часа
         </div>
         <div class="item__btn">
           <button>В систему источник</button>
@@ -18,7 +17,7 @@
 <div class="categories">
   <div class="categories__item"
        [class.categories__item--active]="data?.isActive"
-       (click)="onCLickItem(data)" cdkOverlayOrigin (click)="openTemplateOverlay()">
+       (click)="onCLickItem(data)" cdkOverlayOrigin>
     <div class="categories__item__name">{{data?.name}}</div>
     <div class="categories__item__footer">
       <div class="categories__item__footer__icon">

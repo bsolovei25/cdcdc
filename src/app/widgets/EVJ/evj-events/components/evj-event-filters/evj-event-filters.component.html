@@ -1,7 +1,6 @@
 <div class="container">
   <div class="events-filters">
     <div class="events-filters__selections">
-
       <!--      Этот код до лучших времен когда у нас появится производство-->
       <!--      <div class="event-mat-select">-->
       <!--        <mat-form-field>-->
@@ -17,10 +16,10 @@
       <div class="event-mat-select">
         <mat-form-field>
           <mat-select panelClass="mat-balance-select"
-                      [formControl]="manufactureSelect"
-                      (selectionChange)="onManufactureSelect($event)">
-            <mat-option *ngFor="let item of ['1']" [value]="item">
-              {{ item }}
+                      [formControl]="unitsSelect"
+                      (selectionChange)="onUnitsSelect($event)">
+            <mat-option *ngFor="let item of units" [value]="item">
+              {{ item.name }}
             </mat-option>
           </mat-select>
         </mat-form-field>
@@ -28,20 +27,20 @@
       <div class="event-mat-select">
         <mat-form-field>
           <mat-select panelClass="mat-balance-select"
-                      [formControl]="manufactureSelect"
-                      (selectionChange)="onManufactureSelect($event)">
-            <mat-option *ngFor="let item of ['1']" [value]="item">
-              {{ item }}
+                      [formControl]="prioritySelect"
+                      (selectionChange)="onPrioritySelect($event)">
+            <mat-option *ngFor="let item of priority" [value]="item">
+              {{ ewService.priorities[item.name] }}
             </mat-option>
           </mat-select>
         </mat-form-field>
       </div>
-      <button>
+      <button (click)="resetFilters()">
         Сбросить фильтры
       </button>
     </div>
     <div class="events-filters__search">
-      <input [formControl]="" type="text" placeholder="Поиск">
+      <input [formControl]="searchControl" type="text" placeholder="Поиск">
     </div>
 
   </div>

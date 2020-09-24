@@ -1,11 +1,17 @@
 import { Component, EventEmitter, Inject, Input, OnInit, Output } from '@angular/core';
 import { EventsWidgetNotificationPreview } from '../../../../../dashboard/models/events-widget';
 import { EventService } from '../../../../../dashboard/services/widgets/event.service';
+import { animate, style, transition, trigger } from '@angular/animations';
+
+export const fadeAnimation = trigger('fadeAnimation', [
+    transition(':enter', [style({ opacity: 0 }), animate('150ms', style({ opacity: 1 }))]),
+]);
 
 @Component({
     selector: 'evj-evj-event-card',
     templateUrl: './evj-event-card.component.html',
-    styleUrls: ['./evj-event-card.component.scss']
+    styleUrls: ['./evj-event-card.component.scss'],
+    animations: [fadeAnimation]
 })
 export class EvjEventCardComponent implements OnInit {
 
@@ -13,10 +19,10 @@ export class EvjEventCardComponent implements OnInit {
     public cardDataArr: EventsWidgetNotificationPreview[];
 
     @Input()
-    public cardActiveId: number = 0;
+    public viewType: 'block' | 'list';
 
     @Input()
-    public isCdEvents: boolean = false;
+    public cardActiveId: number = 0;
 
     @Output()
     public cardClick: EventEmitter<number> = new EventEmitter<number>();
