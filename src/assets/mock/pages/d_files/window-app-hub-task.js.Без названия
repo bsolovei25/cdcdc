@@ -1,2 +1,0 @@
-/* Copyright © 1993-2019 Meridium, Inc. All rights reserved.  */
-define(["require","exports","system/lang/object","app-hub/global/global-meridium-app-hub"],function(require,exports,a,b){"use strict";var c=window;return function(){function d(){}return d.prototype.execute=function(){c.meridium||(c.meridium=a.resolve(b.GlobalMeridiumAppHub))},d}()});

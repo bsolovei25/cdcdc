@@ -13,11 +13,11 @@
   <script src="assets/libs/ckeditor/ckeditor.js"></script>
   <script>
     function UnityListener() {
-      const funName = arguments[0] ?? '';
+      const funName = arguments[0] || '';
       const dictParams = {};
       for (let i in arguments) {
         if (i != 0) {
-          dictParams["param" + i?.toString()] = arguments[i];
+          dictParams["param" + i.toString()] = arguments[i];
         }
       }
       const event = new CustomEvent(funName, { detail: dictParams });

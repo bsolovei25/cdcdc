@@ -1,2 +1,0 @@
-/* Copyright © 1993-2019 Meridium, Inc. All rights reserved.  */
-define(function(require){"use strict";var a=require("mi-assert"),b=require("./i-task"),c=require("application/window-event-handler");function d(){this.windowEventHandler=Object.resolve(c),a.implementsInterface(this,b,"this")}return d.prototype.execute=function(){this.windowEventHandler.load()},d});

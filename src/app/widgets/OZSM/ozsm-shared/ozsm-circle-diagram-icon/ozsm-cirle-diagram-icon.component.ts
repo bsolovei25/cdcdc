@@ -11,7 +11,9 @@ import * as d3 from 'd3';
 export class OzsmCircleDiagramIconComponent implements OnInit, OnChanges {
   @ViewChild('chart') chart: ElementRef;
   @Input() innerIcon: ozsmDiagramInnerIcon = 'cap';
-  @Input() diagramValue: number = 120;
+  @Input() diagramValue: number = 360;
+  @Input() titleText: string = '';
+  @Input() innerValue: number = 0;
 
 
   ngOnInit(): void {
@@ -57,7 +59,7 @@ export class OzsmCircleDiagramIconComponent implements OnInit, OnChanges {
           .style('transform', `rotate(${180 + i}deg)`)
           .attr('width', 1)
           .attr('height', 4)
-          .attr('class', i <  this.diagramValue ? 'active' : 'unactive');
+          .attr('class', i <=  +this.diagramValue ? 'active' : 'unactive');
       }
     }
 
@@ -69,6 +71,7 @@ export class OzsmCircleDiagramIconComponent implements OnInit, OnChanges {
       .style('transform', `rotate(${this.diagramValue}deg)`)
       .attr('width', 1)
       .attr('height', 6)
-      .attr('class',  this.diagramValue === 360 ? 'transparent' : 'white');
+      .attr('class',  (+this.diagramValue !== 360) ? 'white' : 'transparent');
+
   }
 }

@@ -1,2 +1,0 @@
-/* Copyright © 1993-2019 Meridium, Inc. All rights reserved.  */
-define(["require","exports","./limit-dto"],function(require,exports,a){"use strict";var b=function(){function b(b){b=b||{},this.lower1=new a.LimitDTO(b.lower1),this.lower2=new a.LimitDTO(b.lower2),this.lower3=new a.LimitDTO(b.lower3),this.upper1=new a.LimitDTO(b.upper1),this.upper2=new a.LimitDTO(b.upper2),this.upper3=new a.LimitDTO(b.upper3)}return b}();exports.LimitsDTO=b});

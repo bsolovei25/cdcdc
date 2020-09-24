@@ -1,11 +1,11 @@
 .space {
-  height: 40px;
+  height: 38px;
   width: 100%;
   border: 1px solid var(--ozsm-color-border);
   border-radius: 2px;
   display: flex;
   justify-content: space-between;
-  background-color: var(--ozsm-color-loading-space-bg-sub);
+  background-color: var(--ozsm-color-bg-dark);
   &__icon {
     position: relative;
     width: 40px;
@@ -38,6 +38,7 @@
 }
 .cells {
   width: 100%;
+  padding-top: 6px;
   display: flex;
   justify-content: space-around;
   flex-direction: column;

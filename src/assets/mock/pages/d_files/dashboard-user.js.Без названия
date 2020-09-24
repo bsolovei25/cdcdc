@@ -1,2 +1,0 @@
-/* Copyright © 1993-2019 Meridium, Inc. All rights reserved.  */
-define(function(require){"use strict";var a=require("application/application-context");function b(){}return b.prototype.language=function b(){return a.session.licensedCultureId},b.prototype.usesDefaultLanguage=function a(){var b=this.language();return!b||"en"===b},b});
