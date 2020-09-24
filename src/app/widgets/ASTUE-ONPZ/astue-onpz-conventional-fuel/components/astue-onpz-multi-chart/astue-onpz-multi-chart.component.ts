@@ -153,6 +153,7 @@ export class AstueOnpzMultiChartComponent implements OnChanges, OnDestroy {
         this.data.forEach((item) =>
             item.graph = fillDataArrayChart(item.graph, domainDates[0], domainDates[1],
                 item.graphType === 'plan'));
+        this.data = this.data.filter((x) => x?.graph?.length > 0);
     }
 
     private findMinMax(): void {
@@ -512,8 +513,8 @@ export class AstueOnpzMultiChartComponent implements OnChanges, OnDestroy {
                 .filter((item) => item.timeStamp.getTime() <= currentDatetime.getTime());
             const statValue =
                 filterChart?.length > 0
-                    ? filterChart[filterChart.length - 1] ?? 0
-                    : chart?.graph[0] ?? 0;
+                    ? filterChart[filterChart.length - 1]
+                    : chart?.graph[0] ?? null;
             if (chart.graphType === 'plan') {
                 plan = chart.graph[chart.graph.length - 1];
             } else if (chart.graphType === 'fact') {
@@ -529,6 +530,7 @@ export class AstueOnpzMultiChartComponent implements OnChanges, OnDestroy {
                 });
             }
         });
+        console.log('charts', values);
 
         const y = (this.padding.top - this.topMargin) * 0.7;
         const y2 = this.graphMaxY - this.padding.bottom;
@@ -645,7 +647,7 @@ export class AstueOnpzMultiChartComponent implements OnChanges, OnDestroy {
                 rect.append('text')
                     .attr('x', x + step * 1.5 + cardHeight)
                     .attr('y', start + cardHeight - step * 0.9)
-                    .text(`${val.val.value.toFixed(2)} ${val.units}`);
+                    .text(`${val.val.value?.toFixed(2)} ${val.units}`);
 
                 if (this.options.isIconsShowing) {
                     rect.append('image')
