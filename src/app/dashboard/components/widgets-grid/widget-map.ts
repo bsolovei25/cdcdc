@@ -1,4 +1,4 @@
-import { ManualInputComponent } from '../../widgets/manual-input/manual-input.component';
+import { ManualInputComponent } from '../../../widgets/EVJ/manual-input/manual-input.component';
 import { ChangeShiftComponent } from '../../widgets/change-shift/change-shift.component';
 import { EnergeticsComponent } from '../../widgets/energetics/energetics.component';
 import { PointDiagramComponent } from '../../widgets/point-diagram/point-diagram.component';
@@ -50,7 +50,6 @@ import { TankInformationComponent } from '../../widgets/tank-information/tank-in
 export const WIDGETS = {
     'pie-diagram': WidgetContainerComponent,
     'line-chart': WidgetContainerComponent,
-    'manual-input': ManualInputComponent,
     'shift-pass': ChangeShiftComponent,
     'shift-accept': ChangeShiftComponent,
     'events-workspace': WidgetContainerComponent,
@@ -165,6 +164,7 @@ export const WIDGETS = {
     'ring-factory-diagram': WidgetContainerComponent,
     'ring-energy-indicator': WidgetContainerComponent,
     'ozsm-planning-main': WidgetContainerComponent,
+    'manual-input': WidgetContainerComponent,
 };
 
 export const WIDGETS_LAZY = {
@@ -550,9 +550,9 @@ export const WIDGETS_LAZY = {
         },
         module: 'LineChartModule',
         itemCols: 20,
-        itemRows: 16,
-        minItemCols: 20,
-        minItemRows: 16,
+        itemRows: 13,
+        minItemCols: 17,
+        minItemRows: 7,
         preview: 'line-chart'
     },
     'oil-control': {
@@ -560,10 +560,10 @@ export const WIDGETS_LAZY = {
             return await import('src/app/widgets/LCO/oil-control/oil-control.module');
         },
         module: 'OilControlModule',
-        itemCols: 20,
-        itemRows: 16,
-        minItemCols: 20,
-        minItemRows: 16,
+        itemCols: 31,
+        itemRows: 9,
+        minItemCols: 31,
+        minItemRows: 9,
         preview: 'oil-control'
     },
     'polar-chart': {
@@ -1056,9 +1056,26 @@ export const WIDGETS_LAZY = {
         minItemCols: 10,
         minItemRows: 10,
         preview: 'default'
-    }
+    },
 
     //#endregion OQ
+    // #region EJV
+
+    'manual-input': {
+        import: async () => {
+            return await import(
+                'src/app/widgets/EVJ/manual-input/manual-input.module'
+                );
+        },
+        module: 'ManualInputModule',
+        itemCols: 45,
+        itemRows: 20,
+        minItemCols: 35,
+        minItemRows: 13,
+        preview: 'manual-input'
+    },
+    //#endregion EJV
+
 
     // 'pie-diagram': {
     //     import: async () => await import('src/app/widgets/pie-diagram/pie-diagram.module'),

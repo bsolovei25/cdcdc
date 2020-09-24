@@ -9,13 +9,13 @@ import {
     AfterViewInit,
 } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { IMachine_MI, IGroup_MI } from '../../models/manual-input.model';
-import { WidgetService } from '../../services/widget.service';
+import { IMachine_MI, IGroup_MI } from '../../../dashboard/models/manual-input.model';
+import { WidgetService } from '../../../dashboard/services/widget.service';
 import { AppConfigService } from 'src/app/services/appConfigService';
-import { WidgetSettingsService } from '../../services/widget-settings.service';
-import { WidgetPlatform } from '../../models/widget-platform';
+import { WidgetSettingsService } from '../../../dashboard/services/widget-settings.service';
+import { WidgetPlatform } from '../../../dashboard/models/widget-platform';
 import { trigger, style, state, transition, animate, group } from '@angular/animations';
-import { ManualInputService } from '../../services/widgets/manual-input.service';
+import { ManualInputService } from '../../../dashboard/services/widgets/manual-input.service';
 
 @Component({
     selector: 'evj-manual-input',
@@ -53,11 +53,6 @@ export class ManualInputComponent extends WidgetPlatform
     scrollTruckWidth: number;
 
     widthTruckScroll: number;
-
-    public static itemCols: number = 45;
-    public static itemRows: number = 20;
-    public static minItemCols: number = 35;
-    public static minItemRows: number = 13;
 
     public title: string;
     public previewTitle: string;

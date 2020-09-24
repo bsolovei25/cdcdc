@@ -10,7 +10,6 @@ import { IndicatorSelectorComponent } from './components/indicator-selector/indi
 import { DndModule } from 'ngx-drag-drop';
 import { DashboardComponent } from './pages/dashboard.component';
 import { HttpClientModule } from '@angular/common/http';
-import { ManualInputComponent } from './widgets/manual-input/manual-input.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LineDatetimeComponent } from './components/line-datetime/line-datetime.component';
 import { ShiftPersonComponent } from './widgets/change-shift/shift-person/shift-person.component';
@@ -207,7 +206,6 @@ import { MatBadgeModule } from '@angular/material/badge';
         IndicatorSelectorComponent,
         LineDatetimeComponent,
         DashboardComponent,
-        ManualInputComponent,
         ChangeShiftComponent,
         ShiftPersonComponent,
         PanelComponent,
@@ -367,7 +365,6 @@ import { MatBadgeModule } from '@angular/material/badge';
         MenuButtonComponent,
     ],
     entryComponents: [
-        ManualInputComponent,
         ChangeShiftComponent,
         PointDiagramComponent,
         BarChartsComponent,

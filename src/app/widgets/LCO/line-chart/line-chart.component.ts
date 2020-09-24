@@ -44,11 +44,6 @@ export class LineChartComponent extends WidgetPlatform implements OnInit, OnDest
         upperLimit: null,
     };
 
-    public static itemCols: number = 20;
-    public static itemRows: number = 13;
-    public static minItemCols: number = 17;
-    public static minItemRows: number = 7;
-
     @ViewChild('chart', { static: true }) private chartContainer: ElementRef;
 
     margin = { top: 10, right: -50, bottom: 20, left: 50 };
