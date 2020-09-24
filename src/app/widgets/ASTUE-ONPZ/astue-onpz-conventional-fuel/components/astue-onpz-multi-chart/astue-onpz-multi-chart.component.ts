@@ -17,6 +17,7 @@ import {
 } from '../../../../../dashboard/models/ASTUE-ONPZ/astue-onpz-multi-chart.model';
 import { AsyncRender } from '@shared/functions/async-render.function';
 import { fillDataArrayChart } from '@shared/functions/fill-data-array.function';
+import { filter } from "rxjs/operators";
 
 export interface IMultiChartOptions {
     colors?: Map<string, number>;
@@ -153,14 +154,20 @@ export class AstueOnpzMultiChartComponent implements OnChanges, OnDestroy {
         this.data.forEach((item) =>
             item.graph = fillDataArrayChart(item.graph, domainDates[0], domainDates[1],
                 item.graphType === 'plan'));
+        const filterData = this.data.filter((x) => x?.graph?.length > 0);
+        if (filterData.length !== this.data.length) {
+            console.error('BACK ERROR: Timeline is not in interval!!!');
+        }
+        this.data = filterData;
     }
 
     private findMinMax(): void {
         this.charts = [];
 
         this.data.forEach((graph) => {
-            const key: string =
-                graph.graphType === 'fact' || graph.graphType === 'plan' || graph.graphType === 'forecast' ? 'main' : graph.graphType;
+            const key: string = graph.graphType === 'fact'
+                || graph.graphType === 'plan'
+                || graph.graphType === 'forecast' ? 'main' : graph.graphType;
             if (!this.coefs[key]) {
                 this.coefs[key] = {
                     min: this.MIN_COEF,
@@ -512,8 +519,8 @@ export class AstueOnpzMultiChartComponent implements OnChanges, OnDestroy {
                 .filter((item) => item.timeStamp.getTime() <= currentDatetime.getTime());
             const statValue =
                 filterChart?.length > 0
-                    ? filterChart[filterChart.length - 1] ?? 0
-                    : chart?.graph[0] ?? 0;
+                    ? filterChart[filterChart.length - 1]
+                    : chart?.graph[0] ?? null;
             if (chart.graphType === 'plan') {
                 plan = chart.graph[chart.graph.length - 1];
             } else if (chart.graphType === 'fact') {
@@ -529,6 +536,7 @@ export class AstueOnpzMultiChartComponent implements OnChanges, OnDestroy {
                 });
             }
         });
+        console.log('charts', values);
 
         const y = (this.padding.top - this.topMargin) * 0.7;
         const y2 = this.graphMaxY - this.padding.bottom;
@@ -645,7 +653,7 @@ export class AstueOnpzMultiChartComponent implements OnChanges, OnDestroy {
                 rect.append('text')
                     .attr('x', x + step * 1.5 + cardHeight)
                     .attr('y', start + cardHeight - step * 0.9)
-                    .text(`${val.val.value.toFixed(2)} ${val.units}`);
+                    .text(`${val.val.value?.toFixed(2)} ${val.units}`);
 
                 if (this.options.isIconsShowing) {
                     rect.append('image')
