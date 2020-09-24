@@ -164,6 +164,7 @@ export const WIDGETS = {
     'truncated-diagram-counter': WidgetContainerComponent,
     'ring-factory-diagram': WidgetContainerComponent,
     'ring-energy-indicator': WidgetContainerComponent,
+    'ozsm-planning-main': WidgetContainerComponent,
 };
 
 export const WIDGETS_LAZY = {
@@ -999,18 +1000,19 @@ export const WIDGETS_LAZY = {
         minItemRows: 4,
         preview: 'default'
     },
+
     'ozsm-main-toggle': {
         import: async () => {
             return await import(
                 'src/app/widgets/OZSM/ozsm-main-toggle/ozsm-main-toggle.module'
-                );
+            );
         },
         module: 'OzsmMainToggleModule',
         itemCols: 10,
         itemRows: 2,
         minItemCols: 10,
         minItemRows: 2,
-        preview: 'default'
+        preview: 'default',
     },
 
     'ozsm-scenarios': {
@@ -1023,6 +1025,20 @@ export const WIDGETS_LAZY = {
         minItemCols: 15,
         minItemRows: 10,
         preview: 'default'
+    },
+
+    'ozsm-planning-main': {
+        import: async () => {
+            return await import(
+                'src/app/widgets/OZSM/ozsm-planning-main/ozsm-planning-main.module'
+                );
+        },
+        module: 'OzsmPlanningMainModule',
+        itemCols: 10,
+        itemRows: 2,
+        minItemCols: 10,
+        minItemRows: 2,
+        preview: 'default',
     },
 
     //#endregion OZSM
