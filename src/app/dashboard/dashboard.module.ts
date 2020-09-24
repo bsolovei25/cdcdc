@@ -1,8 +1,9 @@
+import { SharedModule } from './../@shared/shared.module';
+import { OzsmSharedModule } from './../widgets/OZSM/ozsm-shared/ozsm-shared.module';
 import { ChangeShiftComponent } from './widgets/change-shift/change-shift.component';
 import { NgModule, LOCALE_ID } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HomeComponent } from './pages/home/home.component';
-import { SharedModule } from '../@shared/shared.module';
 import { AngularSvgIconModule } from 'angular-svg-icon';
 import { PeriodSelectorComponent } from './components/period-selector/period-selector.component';
 import { IndicatorSelectorComponent } from './components/indicator-selector/indicator-selector.component';
@@ -214,6 +215,7 @@ import { GroupSelectorComponent } from './components/group-selector/group-select
 import { GroupSelectorRowComponent } from './components/group-selector/group-selector-row/group-selector-row.component';
 import { IndicatorDiagramComponent } from './components/indicator-diagram/indicator-diagram.component';
 import { MenuButtonComponent } from './components/menu-button/menu-button.component';
+import { GraphCircleDiagramComponent } from './pages/dev-graph/components/graph-circle-diagram/graph-circle-diagram.component';
 
 @NgModule({
     declarations: [
@@ -397,6 +399,7 @@ import { MenuButtonComponent } from './components/menu-button/menu-button.compon
         GroupSelectorRowComponent,
         IndicatorDiagramComponent,
         MenuButtonComponent,
+        GraphCircleDiagramComponent
     ],
     entryComponents: [
         LineChartComponent,
@@ -457,7 +460,7 @@ import { MenuButtonComponent } from './components/menu-button/menu-button.compon
         OilOperationsComponent,
         WorkflowComponent,
         PanelComponent,
-        AdminShiftScheduleOldComponent,
+        AdminShiftScheduleOldComponent
     ],
     exports: [HomeComponent, PerformanceBarComponent, MatRippleModule],
     imports: [
@@ -499,6 +502,7 @@ import { MenuButtonComponent } from './components/menu-button/menu-button.compon
         MatTooltipModule,
         MatMenuModule,
         MatRippleModule,
+        OzsmSharedModule
     ],
     bootstrap: [],
     providers: [

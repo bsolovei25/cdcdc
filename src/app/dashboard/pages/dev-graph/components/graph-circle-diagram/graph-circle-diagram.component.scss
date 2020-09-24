@@ -1,0 +1,53 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    border-radius: 50%;
+    position: relative;
+
+    span {
+        text-align: center;
+        position: absolute;
+    }
+
+    .value,
+    .title-text {
+        color: var(--ozsm-color-text-main);
+    }
+  
+    .value {
+        font-size: 16px;
+        line-height: 16px;
+
+        transform: translateY(0.7em);
+    }
+  
+    .title-text {
+        width: 96px;
+
+        font-size: 10px;
+        line-height: 12px;
+
+        transform: translateY(-1.2em);
+    }
+}
+
+::ng-deep {
+    .bg {
+      fill: var(--ozsm-color-bg-dark);
+      stroke: var(--ozsm-color-border);
+      stroke-width: 0.5px;
+    }
+  
+    .bg-arc-default {
+      fill: var(--ozsm-color-circle-arc-bg);
+    }
+  
+    .arc-value-default {
+      fill: var(--ozsm-color-active);
+    }
+  
+}
+  

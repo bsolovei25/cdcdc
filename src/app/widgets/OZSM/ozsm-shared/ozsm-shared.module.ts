@@ -1,6 +1,4 @@
-import { OzsmResourcesCircleDiagramVisualComponent } from './ozsm-resources-circle-diagram/components/ozsm-resources-circle-diagram-visual/ozsm-resources-circle-diagram-visual.component';
-import { OzsmResourcesCircleDiagramComponent } from 'src/app/widgets/OZSM/ozsm-shared/ozsm-resources-circle-diagram/ozsm-resources-circle-diagram.component';
-import { OzsmLineDiagramComponent } from './ozsm-line-diagram/ozsm-line-diagram.component';
+import { DashboardModule } from './../../../dashboard/dashboard.module';
 import { OzsmCardLineDiagramComponent } from './ozsm-card-line-diagram/ozsm-card-line-diagram.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
