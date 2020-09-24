@@ -160,7 +160,7 @@
                         [svgStyle]="{ 'width.px':27, 'height.px':27 }"
                       ></svg-icon>
                       <a
-                        href="http://deploy.funcoff.club:6555/api/graduation-table/graduation/tanks/{{elementChildren.uid}}/table"
+                        href="api/graduation-table/graduation/tanks/{{elementChildren.uid}}/table"
                         download
                       >
                         <svg-icon
@@ -242,7 +242,7 @@
                     ></svg-icon>
                     <a
                       *ngIf="element.uid !== 'last-row'"
-                      href="http://deploy.funcoff.club:6555/api/graduation-table/graduation/tanks/{{element.uid}}/table"
+                      href="api/graduation-table/graduation/tanks/{{element.uid}}/table"
                       download
                     >
                       <svg-icon
