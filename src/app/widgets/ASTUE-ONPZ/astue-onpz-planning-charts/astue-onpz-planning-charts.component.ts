@@ -46,8 +46,10 @@ export class AstueOnpzPlanningChartsComponent extends WidgetPlatform implements 
         super.dataConnect();
         this.subscriptions.push(
             this.astueOnpzService.predictorsOptions$.subscribe((value) => {
-                this.setOptionsWs(value?.predictors.map((predictor) => predictor?.id),
-                    value?.predictorWidgetId);
+                if (value) {
+                    this.setOptionsWs(value?.predictors.map((predictor) => predictor?.id),
+                        value?.predictorWidgetId);
+                }
             }),
             this.astueOnpzService.colors$.subscribe((value) => {
                 this.colors = value;

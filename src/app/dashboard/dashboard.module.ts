@@ -216,6 +216,7 @@ import { GroupSelectorRowComponent } from './components/group-selector/group-sel
 import { IndicatorDiagramComponent } from './components/indicator-diagram/indicator-diagram.component';
 import { MenuButtonComponent } from './components/menu-button/menu-button.component';
 import { GraphCircleDiagramComponent } from './pages/dev-graph/components/graph-circle-diagram/graph-circle-diagram.component';
+import { MatBadgeModule } from '@angular/material/badge';
 
 @NgModule({
     declarations: [
@@ -503,6 +504,7 @@ import { GraphCircleDiagramComponent } from './pages/dev-graph/components/graph-
         MatMenuModule,
         MatRippleModule,
         OzsmSharedModule
+        MatBadgeModule
     ],
     bootstrap: [],
     providers: [

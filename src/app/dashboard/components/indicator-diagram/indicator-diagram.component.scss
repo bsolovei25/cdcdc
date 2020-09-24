@@ -10,3 +10,23 @@
   background-repeat: no-repeat;
   background-size: contain;
 }
+
+::ng-deep {
+  .mat-badge-medium.mat-badge-overlap.mat-badge-after .mat-badge-content {
+    right: 5px;
+    top: 6px;
+  }
+
+  .mat-badge-content {
+    font-size: 10px;
+    font-weight: 400;
+    color: var(--color-text-main);
+    background: var(--color-badge-notification-header);
+  }
+
+  .mat-badge-medium .mat-badge-content {
+    width: 18px;
+    height: 18px;
+    line-height: 18px;
+  }
+}

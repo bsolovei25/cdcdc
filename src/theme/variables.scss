@@ -269,9 +269,10 @@
   --nk-color-active: #0089FF;
   --nk-color-table-main: #1b1f2c;
   --nk-color-bg-volume-indicator: #1b1f2c;
-  --nk-color-temperature-gradient: linear-gradient(0deg,  #00A99D 4.3px, #F4A321 39px, #FF0000 84px);
+  --nk-color-temperature-gradient: linear-gradient(0deg, #00A99D 4.3px, #F4A321 39px, #FF0000 84px);
   --nk-color-innage-axis: #E8E6DD;
   --nk-color-scroll-thumb: #272b35;
+  --nk-color-bg-innage-min: #0C5395;
 
   // new
   --color-gray80: #272a38;
@@ -400,7 +401,7 @@
   --nk-color-active: #0089FF;
   --nk-color-table-main: #1b1f2c;
   --nk-color-bg-volume-indicator: #1b1f2c;
-  --nk-color-temperature-gradient: linear-gradient(0deg,  #00A99D 4.3px, #F4A321 39px, #FF0000 84px);
+  --nk-color-temperature-gradient: linear-gradient(0deg, #00A99D 4.3px, #F4A321 39px, #FF0000 84px);
   --nk-color-innage-axis: #E8E6DD;
   --nk-color-scroll-thumb: #272b35;
 
@@ -436,7 +437,7 @@
 
   --ozsm-color-circle-diagram: rgb(23, 25, 35);
 
-  // ozsm-resources-circle-diagram 
+  // ozsm-resources-circle-diagram
   --ozsm-resources-circle-diagram-color-border-main: #313445;
   --ozsm-resources-circle-diagram-color-bg-main: #171a24;
   --ozsm-resources-circle-diagram-color-bg-info-title: rgba(39, 42, 56, 0.5);
@@ -444,6 +445,9 @@
   --ozsm-resources-circle-diagram-color-font-main: #D7E2F2;
   --ozsm-resources-circle-diagram-color-font-sub: #606580;
   --ozsm-resources-circle-diagram-color-active: #0089FF;
+
+
+  --color-badge-notification-header: #DA2329;
 }
 
 $--color-active: #3fa9f5;

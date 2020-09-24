@@ -18,6 +18,7 @@ export interface IMultiChartData extends IMultiChartLine {
 export type IMultiChartTypes =
     | 'plan'
     | 'fact'
+    | 'forecast'
     | 'temperature'
     | 'heatExchanger'
     | 'volume'
