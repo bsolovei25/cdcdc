@@ -21,10 +21,14 @@
         <div class="gauge-card">
           <div class="gauge-card__content">
             <div class="gauge-card__diagram">
-              <evj-ejco-gauge-chart [fact]="data.chartData.fact" [plan]="data.chartData.plan"></evj-ejco-gauge-chart>
+              <evj-ejco-gauge-chart
+                [fact]="data?.chartData?.fact"
+                [plan]="data?.chartData?.plan"
+                [deviation]="data?.chartData?.deviation"
+              ></evj-ejco-gauge-chart>
             </div>
             <div class="gauge-card__label">
-              {{ data.chartData.label }}
+              {{ data?.chartData?.title }}
             </div>
           </div>
         </div>
