@@ -8,15 +8,13 @@ import { Component, OnInit, Input, OnChanges } from '@angular/core';
 export class NkTankInformationCardInfoComponent implements OnInit, OnChanges {
 
   @Input() set volumeMax(data: number) {
-    this.nominal = data > 0 ? data : 0;
+    this.nominal = data;
   }
   @Input() set volumeCurrent(data: number) {
-    this.current = data > 0 ? data : 0;
+    this.current = data;
   }
-  @Input() set volumeFillPercentage(data: number) {
-    // this.fill = data < 100
-    // ? data
-    // : 100; // На случай если бак переполнен
+  @Input() set volumeFreeSpace(data: number) {
+    this.freeSpace = data;
   }
 
   activeIndicatorCount: number;
@@ -32,10 +30,6 @@ export class NkTankInformationCardInfoComponent implements OnInit, OnChanges {
   ngOnInit(): void {}
 
   ngOnChanges(): void {
-    this.freeSpace = (this.nominal - this.current) > 0
-      ? (this.nominal - this.current)
-      : 0;
-
     this.fill = this.current / this.nominal * 100;
 
     this.activeIndicatorCount =
