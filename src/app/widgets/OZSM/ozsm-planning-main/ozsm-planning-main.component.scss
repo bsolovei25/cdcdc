@@ -1,16 +1,11 @@
 $bg-color: rgba(18, 21, 30, 0.5);
 $br-color: rgba(96, 101, 128, 0.25);
 
-.page-container {
+.padding-container {
+  height: 100%;
   width: 100%;
-  height: 60em;
-  display: flex;
-}
-
-.widget-container {
-  width: 1220px;
-  height: 500px;
-  margin: auto;
+  padding: 10px;
+  box-sizing: border-box;
 }
 
 .column-container {

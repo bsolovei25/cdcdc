@@ -1,6 +1,7 @@
 import {
-    Component,
+    Component, ElementRef, ViewChild
 } from '@angular/core';
+
 
 @Component({
     selector: 'evj-dev-graph',
