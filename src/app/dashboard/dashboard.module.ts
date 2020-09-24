@@ -48,7 +48,6 @@ import { TriggeringCriticalParametersComponent } from './widgets/triggering-crit
 import { CircleFactoryDiagramComponent } from './widgets/circle-factory-diagram/circle-factory-diagram.component';
 import { SemicircleEnergyComponent } from './widgets/semicircle-energy/semicircle-energy.component';
 import { ProductStocksComponent } from './widgets/product-stocks/product-stocks.component';
-import { PolarChartComponent } from './widgets/polar-chart/polar-chart.component';
 import { DeviationCircleDiagramComponent } from './widgets/deviation-circle-diagram/deviation-circle-diagram.component';
 import { PaginatorDirective } from '../widgets/LCO/oil-control/components/paginator/paginator.directive';
 import { SearchComponent } from './components/search/search.component';
@@ -256,7 +255,6 @@ import { MatBadgeModule } from '@angular/material/badge';
         CircleFactoryDiagramComponent,
         SemicircleEnergyComponent,
         ProductStocksComponent,
-        PolarChartComponent,
         DeviationCircleDiagramComponent,
         PaginatorDirective,
         SearchComponent,
@@ -415,7 +413,6 @@ import { MatBadgeModule } from '@angular/material/badge';
         TriggeringCriticalParametersComponent,
         CircleFactoryDiagramComponent,
         ProductStocksComponent,
-        PolarChartComponent,
         SemicircleEnergyComponent,
         DeviationCircleDiagramComponent,
         CircleBlockDiagramComponent,

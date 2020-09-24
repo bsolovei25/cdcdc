@@ -22,7 +22,7 @@ import { DeviationsTableComponent } from '../../widgets/deviations-table/deviati
 import { TriggeringCriticalParametersComponent } from '../../widgets/triggering-critical-parameters/triggering-critical-parameters.component';
 import { CircleFactoryDiagramComponent } from '../../widgets/circle-factory-diagram/circle-factory-diagram.component';
 import { ProductStocksComponent } from '../../widgets/product-stocks/product-stocks.component';
-import { PolarChartComponent } from '../../widgets/polar-chart/polar-chart.component';
+import { PolarChartComponent } from '../../../widgets/LCO/polar-chart/polar-chart.component';
 import { SemicircleEnergyComponent } from '../../widgets/semicircle-energy/semicircle-energy.component';
 import { DeviationCircleDiagramComponent } from '../../widgets/deviation-circle-diagram/deviation-circle-diagram.component';
 import { OilControlComponent } from '../../../widgets/LCO/oil-control/oil-control.component';
@@ -84,7 +84,7 @@ export const WIDGETS = {
     'triggering-critical-parameters': TriggeringCriticalParametersComponent,
     'circle-factory-diagram': CircleFactoryDiagramComponent,
     'product-stocks': ProductStocksComponent,
-    'polar-chart': PolarChartComponent,
+    'polar-chart': WidgetContainerComponent,
     'semicircle-energy': SemicircleEnergyComponent,
     'deviation-circle-diagram': DeviationCircleDiagramComponent,
     'circle-block-diagram': CircleBlockDiagramComponent,
@@ -573,6 +573,17 @@ export const WIDGETS_LAZY = {
         minItemRows: 16,
         preview: 'oil-control'
     },
+    'polar-chart': {
+    import: async () => {
+        return await import('src/app/widgets/LCO/polar-chart/polar-chart.module');
+    },
+        module: 'PolarChartModule',
+        itemCols: 20,
+        itemRows: 16,
+        minItemCols: 20,
+        minItemRows: 16,
+        preview: 'polar-chart'
+},
 
     //#endregion LCO
 
