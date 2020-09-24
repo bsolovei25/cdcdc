@@ -503,7 +503,7 @@ import { MatBadgeModule } from '@angular/material/badge';
         MatTooltipModule,
         MatMenuModule,
         MatRippleModule,
-        OzsmSharedModule
+        OzsmSharedModule,
         MatBadgeModule
     ],
     bootstrap: [],
