@@ -1,2 +1,0 @@
-/* Copyright © 1993-2019 Meridium, Inc. All rights reserved.  */
-define(function a(require){"use strict";var b=require("system/ui/dialog-box"),c=require("system/globalization/translator"),d=require("mi-assert");function e(a,b){return d.ok(a),f(a,b).show()}function f(a,e){d.ok(a);var f=Object.resolve(c);return new b(a,f.translate("EDIT_WIDGET"),{buttons:[{name:f.translate("SAVE"),value:"save",cssClass:"btn-primary"},{name:f.translate("CANCEL"),value:"cancel",cssClass:"btn-default"}],height:e.height||"60%",width:e.width||"50%"})}return{show:e}});

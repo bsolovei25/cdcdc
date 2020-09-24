@@ -1,2 +1,0 @@
-/* Copyright © 1993-2019 Meridium, Inc. All rights reserved.  */
-define(function(require){"use strict";var a=require("ui/elements/chart/models/standard-chart"),b=require("ui/elements/chart/models/time-series-chart"),c=require("ui/elements/chart/models/stock-chart"),d=require("ui/elements/chart/models/heat-map-chart");function e(){}return e.create=function(e,f,g){return f&&f.stock===!0?new c(e,f,g):f&&f.heatmap.enabled===!0?new d(e,f,g):f&&"timeSeries"===f.chartType?new b(e,f,g):f?new a(e,f,g):void 0},e});

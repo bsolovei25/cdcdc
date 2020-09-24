@@ -1,2 +1,0 @@
-/* Copyright © 1993-2019 Meridium, Inc. All rights reserved.  */
-define(function(require){"use strict";var a=require("mithril"),b=require("system/mithril/html-tags"),c=require("system/mithril/bootstrap-tags"),d=require("system/globalization/translator");function e(a){return a.visible()?f(a):b.span()}function f(a){var e=a.localize.bind(a),f=a.disabled(),g=Object.resolve(d),h=g.translate("LOCALIZE_PHRASE").replace("{0}",a.phrase());return c.inputGroupButton([c.iconButton({onclick:e,disabled:f,title:h},[b.icon(".icon-translation")])])}return e});

@@ -1,2 +1,0 @@
-/* Copyright © 1993-2019 Meridium, Inc. All rights reserved.  */
-define(function(require){"use strict";var a=require("./rm-entity-dto");function b(b){this.key=b.relationshipKey,this.familyKey=b.relationshipFamilyKey,this.definitionKey=b.relationshipDefinitionKey,this.predecessor=new a(b.predecessor),this.successor=new a(b.successor)}return b});

@@ -1,2 +1,0 @@
-/* Copyright © 1993-2019 Meridium, Inc. All rights reserved.  */
-define(function(require){"use strict";var a=require("system/lang/converter");function b(b){b=b||{},this.isAssetIdSelected=a.toBoolean(b.isAssetIdSelected),this.isSystem=a.toBoolean(b.isSystem)}return b});
