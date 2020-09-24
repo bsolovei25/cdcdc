@@ -1,3 +1,5 @@
+import { OzsmMainToggleComponent } from './../ozsm-main-toggle/ozsm-main-toggle.component';
+import { OzsmMainIndicatorComponent } from './ozsm-main-indicator/ozsm-main-indicator.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SharedModule } from '@shared/shared.module';
@@ -45,8 +47,6 @@ import { OzsmGraphCircleDiagramComponent } from "./ozsm-graph-circle-diagram/ozs
         OzsmGraphCircleDiagramComponent
     ],
     exports: [
-        AngularSvgIconModule,
-        MatRippleModule,
         OzsmTripleDiagramCardComponent,
         OzsmCircleDiagramComponent,
         OzsmStorageTankComponent,
