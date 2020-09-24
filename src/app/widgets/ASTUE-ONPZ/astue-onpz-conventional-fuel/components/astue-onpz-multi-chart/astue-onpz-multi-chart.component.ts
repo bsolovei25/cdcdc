@@ -165,8 +165,9 @@ export class AstueOnpzMultiChartComponent implements OnChanges, OnDestroy {
         this.charts = [];
 
         this.data.forEach((graph) => {
-            const key: string =
-                graph.graphType === 'fact' || graph.graphType === 'plan' || graph.graphType === 'forecast' ? 'main' : graph.graphType;
+            const key: string = graph.graphType === 'fact'
+                || graph.graphType === 'plan'
+                || graph.graphType === 'forecast' ? 'main' : graph.graphType;
             if (!this.coefs[key]) {
                 this.coefs[key] = {
                     min: this.MIN_COEF,
