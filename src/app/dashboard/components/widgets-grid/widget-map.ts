@@ -2,9 +2,6 @@ import { LineChartComponent } from '../../../widgets/LCO/line-chart/line-chart.c
 import { ManualInputComponent } from '../../widgets/manual-input/manual-input.component';
 import { ChangeShiftComponent } from '../../widgets/change-shift/change-shift.component';
 import { EnergeticsComponent } from '../../widgets/energetics/energetics.component';
-import { WidgetPiesComponent } from '../../../widgets/LCO/widgets-pie/widget-pies/widget-pies.component';
-import { TruncatedPieSFirstComponent } from '../../../widgets/LCO/truncated-pie-first/truncated-pie-s-first/truncated-pie-s-first.component';
-import { TruncatedPieSIconComponent } from '../../../widgets/LCO/truncated-pie-icon/truncated-pie-s-icon/truncated-pie-s-icon.component';
 import { PointDiagramComponent } from '../../widgets/point-diagram/point-diagram.component';
 import { BarChartsComponent } from '../../widgets/bar-chart/bar-charts/bar-charts.component';
 import { SuspenseMachineComponent } from '../../widgets/suspense-machine/suspense-machine.component';
@@ -22,10 +19,8 @@ import { DeviationsTableComponent } from '../../widgets/deviations-table/deviati
 import { TriggeringCriticalParametersComponent } from '../../widgets/triggering-critical-parameters/triggering-critical-parameters.component';
 import { CircleFactoryDiagramComponent } from '../../widgets/circle-factory-diagram/circle-factory-diagram.component';
 import { ProductStocksComponent } from '../../widgets/product-stocks/product-stocks.component';
-import { PolarChartComponent } from '../../../widgets/LCO/polar-chart/polar-chart.component';
 import { SemicircleEnergyComponent } from '../../widgets/semicircle-energy/semicircle-energy.component';
 import { DeviationCircleDiagramComponent } from '../../widgets/deviation-circle-diagram/deviation-circle-diagram.component';
-import { OilControlComponent } from '../../../widgets/LCO/oil-control/oil-control.component';
 import { CircleBlockDiagramComponent } from '../../widgets/circle-block-diagram/circle-block-diagram.component';
 import { ColumnChartStackedComponent } from '../../widgets/column-chart-stacked/column-chart-stacked.component';
 import { TimeLineDiagramComponent } from '../../widgets/time-line-diagram/time-line-diagram.component';
@@ -170,7 +165,7 @@ export const WIDGETS = {
     'oil-control': WidgetContainerComponent,
     'truncated-diagram-percentage': WidgetContainerComponent,
     'truncated-diagram-traffic-light': WidgetContainerComponent,
-    'truncated-diagram-counter': WidgetContainerComponent,
+    'truncated-diagram-counter': WidgetContainerComponent
 };
 
 export const WIDGETS_LAZY = {
@@ -483,7 +478,7 @@ export const WIDGETS_LAZY = {
         itemRows: 20,
         minItemCols: 32,
         minItemRows: 20,
-        preview: 'events',
+        preview: 'events'
     },
 
     'events-ed': {
@@ -507,7 +502,7 @@ export const WIDGETS_LAZY = {
         itemRows: 20,
         minItemCols: 32,
         minItemRows: 20,
-        preview: 'events-workspace',
+        preview: 'events-workspace'
     },
 
     // #endregion EVJ
@@ -524,7 +519,7 @@ export const WIDGETS_LAZY = {
         itemRows: 10,
         minItemCols: 21,
         minItemRows: 10,
-        preview: 'spline-trends-chart',
+        preview: 'spline-trends-chart'
     },
 
     'industrial-pyramid': {
@@ -573,16 +568,16 @@ export const WIDGETS_LAZY = {
         preview: 'oil-control'
     },
     'polar-chart': {
-    import: async () => {
-        return await import('src/app/widgets/LCO/polar-chart/polar-chart.module');
-    },
+        import: async () => {
+            return await import('src/app/widgets/LCO/polar-chart/polar-chart.module');
+        },
         module: 'PolarChartModule',
         itemCols: 20,
         itemRows: 16,
         minItemCols: 20,
         minItemRows: 16,
         preview: 'polar-chart'
-},
+    },
     'pie-diagram': {
         import: async () => {
             return await import('src/app/widgets/LCO/widgets-pie/widget-pies/widget-pies.module');
@@ -607,24 +602,24 @@ export const WIDGETS_LAZY = {
     },
     'truncated-diagram-percentage': {
         import: async () => {
-            return await import('src/app/widgets/LCO/truncated-diagram-traffic-light/truncated-diagram-traffic-light.module');
+            return await import('src/app/widgets/LCO/truncated-diagram-percentage/truncated-diagram-percentage.module');
         },
         module: 'TruncatedDiagramPercentageModule',
-        itemCols: 13,
-        itemRows: 16,
-        minItemCols: 13,
-        minItemRows: 16,
+        itemCols: 16,
+        itemRows: 12,
+        minItemCols: 16,
+        minItemRows: 12,
         preview: 'truncated-diagram-percentage'
     },
     'truncated-diagram-counter': {
         import: async () => {
-            return await import('src/app/widgets/LCO/truncated-diagram-traffic-light/truncated-diagram-traffic-light.module');
+            return await import('src/app/widgets/LCO/truncated-diagram-counter/truncated-diagram-counter.module');
         },
         module: 'TruncatedDiagramCounterModule',
-        itemCols: 13,
-        itemRows: 16,
-        minItemCols: 13,
-        minItemRows: 16,
+        itemCols: 29,
+        itemRows: 7,
+        minItemCols: 29,
+        minItemRows: 7,
         preview: 'truncated-diagram-counter'
     },
     //#endregion LCO
@@ -956,7 +951,7 @@ export const WIDGETS_LAZY = {
         itemRows: 7,
         minItemCols: 12,
         minItemRows: 7,
-        preview: 'ozsm-line-diagrams',
+        preview: 'ozsm-line-diagrams'
     },
     'ozsm-diagrams': {
         import: async () => {
@@ -968,7 +963,7 @@ export const WIDGETS_LAZY = {
         itemCols: 13,
         itemRows: 24,
         minItemCols: 13,
-        minItemRows: 24,
+        minItemRows: 24
         // preview: 'ozsm-diagrams',
     },
     'ozsm-main-indicators': {
@@ -982,21 +977,21 @@ export const WIDGETS_LAZY = {
         itemRows: 4,
         minItemCols: 12,
         minItemRows: 4,
-        preview: 'default',
+        preview: 'default'
     },
     'ozsm-main-toggle': {
-    import: async () => {
-        return await import(
-            'src/app/widgets/OZSM/ozsm-main-toggle/ozsm-main-toggle.module'
-            );
-    },
+        import: async () => {
+            return await import(
+                'src/app/widgets/OZSM/ozsm-main-toggle/ozsm-main-toggle.module'
+                );
+        },
         module: 'OzsmMainToggleModule',
         itemCols: 10,
         itemRows: 2,
         minItemCols: 10,
         minItemRows: 2,
-        preview: 'default',
-},
+        preview: 'default'
+    },
 
     'ozsm-scenarios': {
         import: async () => {
@@ -1025,7 +1020,7 @@ export const WIDGETS_LAZY = {
         minItemCols: 10,
         minItemRows: 10,
         preview: 'default'
-    },
+    }
 
     //#endregion OQ
 

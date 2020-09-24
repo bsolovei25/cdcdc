@@ -3,11 +3,11 @@ import { WidgetService } from 'src/app/dashboard/services/widget.service';
 import { WidgetPlatform } from 'src/app/dashboard/models/widget-platform';
 
 @Component({
-    selector: 'evj-truncated-pie-s-first',
-    templateUrl: './truncated-pie-s-first.component.html',
-    styleUrls: ['./truncated-pie-s-first.component.scss'],
+    selector: 'evj-truncated-diagram-percentage',
+    templateUrl: './truncated-diagram-percentage.component.html',
+    styleUrls: ['./truncated-diagram-percentage.component.scss'],
 })
-export class TruncatedPieSFirstComponent extends WidgetPlatform implements OnInit, OnDestroy {
+export class TruncatedDiagramPercentageComponent extends WidgetPlatform implements OnInit, OnDestroy {
     public static itemCols: number = 16;
     public static itemRows: number = 12;
     public static minItemCols: number = 16;

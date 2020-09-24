@@ -1,19 +1,19 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TruncatedPieFirstComponent } from './truncated-pie-first.component';
+import { TruncatedDiagramPercentageItemComponent } from './truncated-diagram-percentage-item.component';
 
 describe('TruncatedPieComponent', () => {
-    let component: TruncatedPieFirstComponent;
-    let fixture: ComponentFixture<TruncatedPieFirstComponent>;
+    let component: TruncatedDiagramPercentageItemComponent;
+    let fixture: ComponentFixture<TruncatedDiagramPercentageItemComponent>;
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            declarations: [TruncatedPieFirstComponent],
+            declarations: [TruncatedDiagramPercentageItemComponent],
         }).compileComponents();
     }));
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(TruncatedPieFirstComponent);
+        fixture = TestBed.createComponent(TruncatedDiagramPercentageItemComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
     });

@@ -4,11 +4,11 @@ import { PieWidget } from 'src/app/dashboard/models/widget.model';
 declare var d3: any;
 
 @Component({
-    selector: 'evj-truncated-pie-first',
-    templateUrl: './truncated-pie-first.component.html',
-    styleUrls: ['./truncated-pie-first.component.scss'],
+    selector: 'evj-truncated-diagram-percentage-item',
+    templateUrl: './truncated-diagram-percentage-item.component.html',
+    styleUrls: ['./truncated-diagram-percentage-item.component.scss'],
 })
-export class TruncatedPieFirstComponent implements OnInit {
+export class TruncatedDiagramPercentageItemComponent implements OnInit {
     public RADIUS: number;
 
     public arrayWord: any = [];
