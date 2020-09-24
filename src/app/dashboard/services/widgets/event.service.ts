@@ -58,7 +58,6 @@ export class EventService {
     ): Promise<EventsWidgetNotificationPreview[]> {
         const routeAdder = options.categoriesType === 'ed' ? '/ed' : '';
         try {
-            console.log('11111111');
             return this.http
                 .get<EventsWidgetNotificationPreview[]>(
                     this.restUrl +
