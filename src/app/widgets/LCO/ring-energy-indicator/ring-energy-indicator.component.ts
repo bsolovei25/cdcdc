@@ -1,7 +1,7 @@
 import { Component, ElementRef, ViewChild, Inject, OnDestroy, OnInit } from '@angular/core';
-import { WidgetService } from '../../services/widget.service';
-import { RingEnegryIndicatorModel } from '../../models/ring-energy-indicator';
-import { WidgetPlatform } from '../../models/widget-platform';
+import { WidgetService } from '../../../dashboard/services/widget.service';
+import { RingEnegryIndicatorModel } from '../../../dashboard/models/ring-energy-indicator';
+import { WidgetPlatform } from '../../../dashboard/models/widget-platform';
 
 declare var d3: any;
 
@@ -15,11 +15,6 @@ export class RingEnergyIndicatorComponent extends WidgetPlatform
     @ViewChild('circleFactory') CircleFactory: ElementRef;
 
     public readonly RADIUS: number = 50;
-
-    public static itemCols: number = 8;
-    public static itemRows: number = 10;
-    public static minItemCols: number = 8;
-    public static minItemRows: number = 10;
 
     public pic: string;
 

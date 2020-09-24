@@ -1,4 +1,3 @@
-import { LineChartComponent } from '../../../widgets/LCO/line-chart/line-chart.component';
 import { ManualInputComponent } from '../../widgets/manual-input/manual-input.component';
 import { ChangeShiftComponent } from '../../widgets/change-shift/change-shift.component';
 import { EnergeticsComponent } from '../../widgets/energetics/energetics.component';
@@ -9,7 +8,7 @@ import { EnterpriseMapComponent } from '../../widgets/map-enterprise/enterprise-
 import { CircleDiagramComponent } from '../../widgets/circle-diagram/circle-diagram.component';
 import { MapEcologyComponent } from '../../widgets/map-ecology/map-ecology.component';
 import { UnityTemplateComponent } from '../../widgets/unity-template/unity-template.component';
-import { RingSFactoryDiagramComponent } from '../../widgets/ring-factory-diagrams/ring-s-factory-diagram/ring-s-factory-diagram.component';
+import { RingFactoryDiagramsComponent } from '../../../widgets/LCO/ring-factory-diagrams/ring-factory-diagrams.component';
 import { OperationEfficiencyComponent } from '../../widgets/operation-efficiency/operation-efficiency.component';
 import { EcologySafetyComponent } from '../../widgets/ecology-safety/ecology-safety.component';
 import { CalendarPlanComponent } from '../../widgets/calendar-plan/calendar-plan.component';
@@ -26,7 +25,7 @@ import { ColumnChartStackedComponent } from '../../widgets/column-chart-stacked/
 import { TimeLineDiagramComponent } from '../../widgets/time-line-diagram/time-line-diagram.component';
 import { FlameDiagramComponent } from '../../widgets/flame-diagram/flame-diagram.component';
 import { ObservationNormTRComponent } from '../../widgets/observation-norm-tr/observation-norm-tr.component';
-import { RingEnergyIndicatorComponent } from '../../widgets/ring-energy-indicator/ring-energy-indicator.component';
+import { RingEnergyIndicatorComponent } from '../../../widgets/LCO/ring-energy-indicator/ring-energy-indicator.component';
 import { SolidGaugesComponent } from '../../widgets/solid-gauge-with-marker/solid-gauges/solid-gauges.component';
 import { AdminReferencesComponent } from '../../widgets/admin-references/admin-references.component';
 import { PetroleumProductsMovementComponent } from '../../widgets/petroleum-products-movement/petroleum-products-movement.component';
@@ -43,7 +42,6 @@ import { DocumentCodingComponent } from '../../widgets/document-coding/document-
 import { OilOperationsComponent } from '../../widgets/oil-operations/oil-operations.component';
 import { WorkflowComponent } from '../../widgets/workflow/workflow.component';
 import { CdCriticalComponent } from '../../widgets/cd-critical/cd-critical.component';
-import { TruncatedDiagramTrafficLightComponent } from '../../../widgets/LCO/truncated-diagram-traffic-light/truncated-diagram-traffic-light.component';
 import { WidgetContainerComponent } from '../../widget-container/widget-container.component';
 import { AdminShiftScheduleOldComponent } from '../../widgets/admin-widget/admin-shift-schedule-old/admin-shift-schedule-old.component';
 import { CdMatBalanceChartCardComponent } from '../../../widgets/CD/cd-mat-balance/components/cd-mat-balance-chart-card/cd-mat-balance-chart-card.component';
@@ -66,7 +64,6 @@ export const WIDGETS = {
     'operation-efficiency': OperationEfficiencyComponent,
     'ecology-safety': EcologySafetyComponent,
     'calendar-plan': CalendarPlanComponent,
-    'ring-factory-diagram': RingSFactoryDiagramComponent,
     'chain-map': ChainMapComponent,
     energetics: EnergeticsComponent,
     'dispatcher-screen': DispatcherScreenComponent,
@@ -81,7 +78,6 @@ export const WIDGETS = {
     'circle-block-diagram': CircleBlockDiagramComponent,
     'column-chart-stacked': ColumnChartStackedComponent,
     'flame-diagram': FlameDiagramComponent,
-    'ring-energy-indicator': RingEnergyIndicatorComponent,
     'time-line-diagram': TimeLineDiagramComponent,
     'solid-gauge-with-marker': SolidGaugesComponent,
     'observation-norm-tr': ObservationNormTRComponent,
@@ -165,7 +161,9 @@ export const WIDGETS = {
     'oil-control': WidgetContainerComponent,
     'truncated-diagram-percentage': WidgetContainerComponent,
     'truncated-diagram-traffic-light': WidgetContainerComponent,
-    'truncated-diagram-counter': WidgetContainerComponent
+    'truncated-diagram-counter': WidgetContainerComponent,
+    'ring-factory-diagram': WidgetContainerComponent,
+    'ring-energy-indicator': WidgetContainerComponent,
 };
 
 export const WIDGETS_LAZY = {
@@ -621,6 +619,28 @@ export const WIDGETS_LAZY = {
         minItemCols: 29,
         minItemRows: 7,
         preview: 'truncated-diagram-counter'
+    },
+    'ring-factory-diagram': {
+        import: async () => {
+            return await import('src/app/widgets/LCO/ring-factory-diagrams/ring-factory-diagrams.module');
+        },
+        module: 'RingFactoryDiagramsModule',
+        itemCols: 35,
+        itemRows: 23,
+        minItemCols: 12,
+        minItemRows: 12,
+        preview: 'ring-factory-diagram'
+    },
+    'ring-energy-indicator': {
+        import: async () => {
+            return await import('src/app/widgets/LCO/ring-energy-indicator/ring-energy-indicator.module');
+        },
+        module: 'RingEnergyIndicatorModule',
+        itemCols: 8,
+        itemRows: 10,
+        minItemCols: 8,
+        minItemRows: 10,
+        preview: 'ring-energy-indicator'
     },
     //#endregion LCO
 

@@ -28,8 +28,6 @@ import { OperationEfficiencyComponent } from './widgets/operation-efficiency/ope
 import { MapEcologyComponent } from './widgets/map-ecology/map-ecology.component';
 import { UnityTemplateComponent } from './widgets/unity-template/unity-template.component';
 import { PowIndexPipe } from './pipes/pow-index.pipe';
-import { RingFactoryDiagramComponent } from './widgets/ring-factory-diagrams/ring-factory-diagram/ring-factory-diagram.component';
-import { RingSFactoryDiagramComponent } from './widgets/ring-factory-diagrams/ring-s-factory-diagram/ring-s-factory-diagram.component';
 import { CalendarPlanComponent } from './widgets/calendar-plan/calendar-plan.component';
 import { EcologySafetyComponent } from './widgets/ecology-safety/ecology-safety.component';
 import { ChainMapComponent } from './widgets/chain-map/chain-map.component';
@@ -51,7 +49,6 @@ import { ColumnChartStackedComponent } from './widgets/column-chart-stacked/colu
 import { CcsOneColumnComponent } from './widgets/column-chart-stacked/ccs-one-column/ccs-one-column.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { FlameDiagramComponent } from './widgets/flame-diagram/flame-diagram.component';
-import { RingEnergyIndicatorComponent } from './widgets/ring-energy-indicator/ring-energy-indicator.component';
 import { SolidGaugesComponent } from './widgets/solid-gauge-with-marker/solid-gauges/solid-gauges.component';
 import { SolidGaugeWithMarkerComponent } from './widgets/solid-gauge-with-marker/solid-gauge-with-marker/solid-gauge-with-marker.component';
 import { SearchFilterComponent } from './components/search/search-filter/search-filter.component';
@@ -227,8 +224,6 @@ import { MatBadgeModule } from '@angular/material/badge';
         MapEcologyComponent,
         DetailedLineDiagramComponent,
         OperationEfficiencyComponent,
-        RingFactoryDiagramComponent,
-        RingSFactoryDiagramComponent,
         CalendarPlanComponent,
         EcologySafetyComponent,
         ChainMapComponent,
@@ -246,7 +241,6 @@ import { MatBadgeModule } from '@angular/material/badge';
         ColumnChartStackedComponent,
         CcsOneColumnComponent,
         FlameDiagramComponent,
-        RingEnergyIndicatorComponent,
         WidgetPreviewComponent,
         TimeLineDiagramComponent,
         TimeDiagramComponent,
@@ -384,9 +378,7 @@ import { MatBadgeModule } from '@angular/material/badge';
         OperationEfficiencyComponent,
         CalendarPlanComponent,
         EcologySafetyComponent,
-        RingFactoryDiagramComponent,
         EnergeticsComponent,
-        RingSFactoryDiagramComponent,
         ChainMapComponent,
         DispatcherScreenComponent,
         DeviationsTableComponent,
@@ -398,7 +390,6 @@ import { MatBadgeModule } from '@angular/material/badge';
         CircleBlockDiagramComponent,
         ColumnChartStackedComponent,
         FlameDiagramComponent,
-        RingEnergyIndicatorComponent,
         TimeLineDiagramComponent,
         SolidGaugesComponent,
         ObservationNormTRComponent,

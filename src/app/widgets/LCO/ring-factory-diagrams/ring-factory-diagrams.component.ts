@@ -1,19 +1,15 @@
 import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
 import { UserSettingsService } from 'src/app/dashboard/services/user-settings.service';
 import { WidgetService } from 'src/app/dashboard/services/widget.service';
-import { RingFactoryWidget } from '../../../models/widget.model';
+import { RingFactoryWidget } from '../../../dashboard/models/widget.model';
 import { WidgetPlatform } from 'src/app/dashboard/models/widget-platform';
 
 @Component({
-    selector: 'evj-ring-s-factory-diagram',
-    templateUrl: './ring-s-factory-diagram.component.html',
-    styleUrls: ['./ring-s-factory-diagram.component.scss'],
+    selector: 'evj-ring-factory-diagrams',
+    templateUrl: './ring-factory-diagrams.component.html',
+    styleUrls: ['./ring-factory-diagrams.component.scss'],
 })
-export class RingSFactoryDiagramComponent extends WidgetPlatform implements OnInit, OnDestroy {
-    public static itemCols: number = 35;
-    public static itemRows: number = 23;
-    public static minItemCols: number = 12;
-    public static minItemRows: number = 12;
+export class RingFactoryDiagramsComponent extends WidgetPlatform implements OnInit, OnDestroy {
 
     datas: RingFactoryWidget[] = [
         {
