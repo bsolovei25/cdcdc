@@ -56,5 +56,8 @@ export class AstueOnpzProductCardComponent extends WidgetPlatform implements OnI
                 val.timeStamp = new Date(val.timeStamp);
             });
         });
+        this.data?.labels?.forEach((x) =>
+            x.value = x?.type === 'economy' || x?.type === 'exceed'
+                ? Math.abs(x?.value ?? 0) : x?.value ?? 0);
     }
 }

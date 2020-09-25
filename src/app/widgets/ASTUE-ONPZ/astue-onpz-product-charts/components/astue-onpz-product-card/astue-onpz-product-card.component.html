@@ -17,14 +17,12 @@
   <div class="card-border">
     <div class="card__legend legend">
       <div class="legend__units">{{data.units}}</div>
-      <div class="legend__value value" [ngClass]="isDeviationChart?'economy':'plan'">
-        <div class="value__title">{{data?.planText}}</div>
-        <div class="value__card">{{data?.currentPlanValue}}</div>
-      </div>
-      <div class="legend__value value" [ngClass]="isDeviationChart?'over':''">
-        <div class="value__title">{{data?.factText}}</div>
-        <div class="value__card">{{data?.currentFactValue}}</div>
-      </div>
+      <ng-container *ngFor="let label of data.labels">
+        <div class="legend__value value" [ngClass]="label.type">
+          <div class="value__title">{{label?.text || '-'}}</div>
+          <div class="value__card">{{ +label?.value }}</div>
+        </div>
+      </ng-container>
     </div>
     <div class="card__chart">
       <evj-limits-chart
@@ -38,6 +36,6 @@
 <ng-template #deviation>
   <evj-deviation-limits-chart
     [data]="data.graphs"
-    [isLowerEconomy]="data.isLowerEconomy"
+    [isLowerEconomy]="data.isEconomy"
   ></evj-deviation-limits-chart>
 </ng-template>

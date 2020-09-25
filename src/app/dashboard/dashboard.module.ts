@@ -1,8 +1,8 @@
+import { SharedModule } from './../@shared/shared.module';
 import { ChangeShiftComponent } from './widgets/change-shift/change-shift.component';
 import { NgModule, LOCALE_ID } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HomeComponent } from './pages/home/home.component';
-import { SharedModule } from '../@shared/shared.module';
 import { AngularSvgIconModule } from 'angular-svg-icon';
 import { PeriodSelectorComponent } from './components/period-selector/period-selector.component';
 import { IndicatorSelectorComponent } from './components/indicator-selector/indicator-selector.component';
@@ -35,7 +35,7 @@ import { DetailedLineDiagramComponent } from './components/detailed-line-diagram
 import { OperationEfficiencyComponent } from './widgets/operation-efficiency/operation-efficiency.component';
 import { MapEcologyComponent } from './widgets/map-ecology/map-ecology.component';
 import { UnityTemplateComponent } from './widgets/unity-template/unity-template.component';
-import { PowIndexPipe } from './pipes/pow-index.pipe';
+import { PowIndexPipe } from '@shared/pipes/pow-index.pipe';
 import { RingFactoryDiagramComponent } from './widgets/ring-factory-diagrams/ring-factory-diagram/ring-factory-diagram.component';
 import { RingSFactoryDiagramComponent } from './widgets/ring-factory-diagrams/ring-s-factory-diagram/ring-s-factory-diagram.component';
 import { CalendarPlanComponent } from './widgets/calendar-plan/calendar-plan.component';
@@ -458,7 +458,7 @@ import { MatBadgeModule } from '@angular/material/badge';
         OilOperationsComponent,
         WorkflowComponent,
         PanelComponent,
-        AdminShiftScheduleOldComponent,
+        AdminShiftScheduleOldComponent
     ],
     exports: [HomeComponent, PerformanceBarComponent, MatRippleModule],
     imports: [

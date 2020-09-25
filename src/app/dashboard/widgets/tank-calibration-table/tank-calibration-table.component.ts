@@ -9,6 +9,7 @@ import { TanksTableComponent } from './tanks-table/tanks-table.component';
 import { SnackBarService } from '../../services/snack-bar.service';
 import { FormControl, Validators } from '@angular/forms';
 import { IInputOptions } from '../../../@shared/models/input.model';
+import { AppConfigService } from "@core/service/app-config.service";
 
 export interface ICalibrationTable {
     uid: string;
@@ -40,6 +41,8 @@ interface IDataSource extends ICalibrationTable {
     styleUrls: ['./tank-calibration-table.component.scss'],
 })
 export class TankCalibrationTableComponent extends WidgetPlatform implements OnInit, OnDestroy {
+    public readonly restUrl: string = '';
+
     columnsToDisplay: string[] = [
         'Наименование',
         'Дата начала калибровки',
@@ -103,12 +106,14 @@ export class TankCalibrationTableComponent extends WidgetPlatform implements OnI
         private calibrationService: TankCalibrationTableService,
         private dialog: MatDialog,
         public snackBar: SnackBarService,
+        public appConfigService: AppConfigService,
         @Inject('isMock') public isMock: boolean,
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string
     ) {
         super(widgetService, isMock, id, uniqId);
         this.widgetIcon = 'grad';
+        this.restUrl = appConfigService.restUrl;
     }
 
     ngOnInit(): void {

@@ -1,2 +1,0 @@
-/* Copyright © 1993-2019 Meridium, Inc. All rights reserved.  */
-define(function a(require){"use strict";var b=require("../models/hyperlink"),c=require("mi-assert");function d(a){return c.instanceOf(a,b),{text:a.text(),url:a.url(),uniqueID:a.uniqueID()}}function e(a){return c.isArray(a),a.map(d)}function f(a,d){return c.ok(a,"parent"),c.ok(d,"data"),c.ok(d.text,"data.text"),c.ok(d.url,"data.url"),new b(a,d.text,d.url,d.uniqueID,d.caption)}function g(a,b){return c.ok(b),b.map(f.bind(null,a))}return{serialize:d,serializeAll:e,deserialize:f,deserializeAll:g}});

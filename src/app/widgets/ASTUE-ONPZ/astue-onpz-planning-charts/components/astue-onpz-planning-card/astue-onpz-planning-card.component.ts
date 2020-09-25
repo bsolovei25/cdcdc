@@ -2,7 +2,7 @@ import { Component, OnInit, Input, OnChanges } from '@angular/core';
 import { IPlanningChart } from '../../astue-onpz-planning-charts.component';
 import { AstueOnpzService } from '../../../astue-onpz-shared/astue-onpz.service';
 import { Observable } from 'rxjs';
-import { fillDataShape } from '../../../../../@shared/common-functions';
+import { fillDataShape } from '@shared/functions/common-functions';
 
 @Component({
     selector: 'evj-astue-onpz-planning-card',

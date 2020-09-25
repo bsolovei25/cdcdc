@@ -1,3 +1,6 @@
+$bg-color: rgba(18, 21, 30, 0.5);
+$br-color: rgba(96, 101, 128, 0.25);
+
 .page-container {
   width: 100%;
   height: 60em;
@@ -5,8 +8,8 @@
 }
 
 .widget-container {
-  width: 351px;
-  height: 800px;
+  width: 1220px;
+  height: 500px;
   margin: auto;
 }
 
@@ -14,4 +17,155 @@
   display: flex;
   flex-flow: column;
   gap: 20px;
+}
+
+.abs-container {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+}
+
+.scale-container {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.graph-container {
+  position: relative;
+  width: 1220px;
+  height: 660px;
+
+  .arrow-container {
+    position: absolute;
+    top: 60px;
+    left: 56px;
+  }
+
+  .circle-container {
+    display: flex;
+    justify-content: space-between;
+
+    &__group-h {
+      position: absolute;
+      top: 80px;
+      left: 330px;
+      width: 477px;
+      height: 120px;
+    }
+
+    &__group-v {
+      position: absolute;
+      flex-flow: column;
+      top: 80px;
+      left: 0px;
+      width: 120px;
+      height: 579px;
+    }
+
+    &__group-q {
+      position: absolute;
+      flex-flow: row wrap;
+      top: 386px;
+      left: 191px;
+      width: 310px;
+      height: 280px;
+      row-gap: 40px;
+    }
+  }
+
+  .line-card-container {
+    position: absolute;
+    display: flex;
+    justify-content: space-between;
+
+    &__group-clear {
+      top: 230px;
+      left: 246px;
+      width: 485px;
+      height: 59px;
+    }
+
+    &__group-icon {
+      flex-flow: column;
+      top: 208px;
+      left: 1078px;
+      width: 150px;
+      height: 170px;
+    }
+
+    &__group-number {
+      top: 438px;
+      left: 573px;
+      width: 655px;
+      height: 59px;
+    }
+  }
+
+  .diagram-container {
+    position: absolute;
+    display: flex;
+    justify-content: space-between;
+    left: 585px;
+    top: 567px;
+    width: 586px;
+    height: 88px;
+  }
+
+  .top-container {
+    width: 100%;
+    height: 40px;
+    display: flex;
+    justify-content: space-between;
+  }
+}
+
+.circle {
+  width: 120px;
+  height: 120px;
+  background: $bg-color;
+  border: solid 1px $br-color;
+  border-radius: 50%;
+}
+
+.line-card {
+  background: $bg-color;
+  border: solid 1px $br-color;
+  border-radius: 2px;
+
+  &__clear {
+    width: 115px;
+    height: 59px;
+  }
+  &__icon {
+    width: 150px;
+    height: 72px;
+  }
+  &__number {
+    width: 95px;
+    height: 59px;
+  }
+}
+
+.diagram-card {
+  background: $bg-color;
+  border: solid 1px $br-color;
+  border-radius: 2px;
+  width: 182px;
+  height: 88px;
+}
+
+.top-card {
+  background: $bg-color;
+  //border: solid 1px $br-color;
+  border-radius: 2px;
+  height: 40px;
+
+  &__left {
+    width: 614px;
+  }
+
+  &__right {
+    width: 594px;
+  }
 }

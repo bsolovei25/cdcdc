@@ -1,2 +1,0 @@
-/* Copyright © 1993-2019 Meridium, Inc. All rights reserved.  */
-define(function(){"use strict";function a(a,b){this.offlineForms=b?b:[],this.offlineFormData=a}return a});

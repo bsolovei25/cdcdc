@@ -1,0 +1,169 @@
+*{
+    box-sizing: border-box;
+}
+
+.diagram {
+    margin: 15px 0;
+
+    display: flex;
+    align-items: center;
+
+    &__number{
+        width: 56px;
+        height: 56px;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        border-radius: 50%;
+        border: 1px solid var(--ozsm-color-border-packing-list);
+        background: var(--ozsm-color-bg-packing-list);
+
+        span {
+            font-size: 20px;
+            line-height: 16px;
+            color: var(--ozsm-color-marker-diagram);
+        }
+    }
+}
+
+.diagram-information {
+    height: 40px;
+    width: 230px;
+
+    display: flex;
+    align-items: center;
+
+    border: 1px solid var(--ozsm-color-border-packing-list);
+    border-left: none;
+    border-radius: 0 2px 2px 0;
+    background: var(--ozsm-color-bg-packing-list);
+    
+    transform: translateX(-9px);
+
+    position: relative;
+}
+
+.information-indicator {
+    width: 165px;
+    padding-right: 10px;
+    
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.indicator-values {
+    width: 100%;
+
+    display: flex;
+    justify-content: space-between;
+    
+    span {
+        font-size: 12px;
+        line-height: 14px;
+        color: var(--ozsm-color-marker-diagram);
+    }
+}
+
+.indicator-line {
+    height: 6px;
+    width: 100%;
+
+    margin-top: 4px;
+
+    border: 1px solid var(--ozsm-color-border);
+    border-radius: 2px;
+
+    &__inner {
+        height: 4px;
+
+        border: 1px solid var(--ozsm-color-bg-packing-list);
+        background: var(--ozsm-color-circle-arc-bg);
+
+        &_value {
+            height: 2px;
+            width: 70%;
+
+            //border-radius: 1px;
+            background: var(--ozsm-color-active);
+        }
+    }
+}
+
+.information__text {
+    height: 40px;
+    width: 100%;
+    padding: 5px 10px;
+
+    flex: 1;
+
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: center;
+
+    background: var(--ozsm-color-line-bg);
+    border-radius: 0 2px 2px 0;
+
+    transform: translateX(1px);
+
+    span {
+        font-size: 10px;
+        line-height: 12px;
+        color: var(--ozsm-color-text-main);
+
+        &:first-child {
+            font-size: 12px;
+            line-height: 14px;
+            color: var(--ozsm-color-active);
+        }
+    }
+}
+
+.information-overboard {
+    width: 80px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    position: absolute;
+    bottom: -20px;
+    left: 5px;
+
+    &__item {
+
+        span {
+            font-size: 12px;
+            line-height: 14px;
+            color: var(--ozsm-color-white);
+        }
+
+        .units {
+            margin-left: 2px;
+
+            font-size: 10px;
+            line-height: 12px;
+            color: var(--ozsm-color-marker-diagram);
+        }
+    }
+}
+
+// SVG
+
+::ng-deep{
+    .white {
+        fill: white;
+    }
+    
+    .transparent {
+        fill: transparent;
+        stroke: var(--ozsm-color-bg-packing-arc);
+    }
+    
+    .packing-marker {
+        fill: var(--ozsm-color-bg-packing-marker);
+    }
+}

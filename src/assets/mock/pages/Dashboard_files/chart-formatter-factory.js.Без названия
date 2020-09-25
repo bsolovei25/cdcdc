@@ -1,2 +1,0 @@
-/* Copyright © 1993-2019 Meridium, Inc. All rights reserved.  */
-define(["require","exports","./standard-chart-formatter","./stock-chart-formatter","./heatmap-chart-formatter"],function(require,exports,a,b,c){"use strict";return function(){function d(){}return d.create=function(d){return d&&d.stock===!0?new b.StockChartFormatter(d):d&&d.heatmap.enabled===!0?new c.HeatmapChartFormatter(d):d?new a.StandardChartFormatter(d):void 0},d}()});

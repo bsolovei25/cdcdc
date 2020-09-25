@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, OnChanges } from '@angular/core';
 import { IUser } from '../../../dashboard/models/events-widget';
 import { AdminPanelService } from '../../../dashboard/services/admin-panel/admin-panel.service';
-import { AvatarConfiguratorService } from '../../../dashboard/services/avatar-configurator.service';
+import { AvatarConfiguratorService } from '@core/service/avatar-configurator.service';
 
 @Component({
     selector: 'evj-worker-card',

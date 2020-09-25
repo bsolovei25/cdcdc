@@ -1,2 +1,0 @@
-/* Copyright © 1993-2019 Meridium, Inc. All rights reserved.  */
-define(function(){"use strict";var a=require("system/lang/converter");function b(b){b=b||{},this.red=a.toString(b.red),this.orange=a.toString(b.orange),this.yellow=a.toString(b.yellow)}return b});

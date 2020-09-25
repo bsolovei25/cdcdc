@@ -13,7 +13,7 @@ import {
 } from '@shared/components/popover-overlay/popover-overlay.service';
 import { FileAttachMenuComponent } from '../file-attach-menu/file-attach-menu.component';
 import { IMessageFileAttachment } from '@shared/models/message.model';
-import { AppConfigService } from 'src/app/services/appConfigService';
+import { AppConfigService } from '@core/service/app-config.service';
 
 export interface IChatMessageWithAttachments {
     msg: string;

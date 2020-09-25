@@ -1,2 +1,0 @@
-/* Copyright © 1993-2019 Meridium, Inc. All rights reserved.  */
-define(function(require){"use strict";var a=require("ramda"),b=require("application/application-context"),c=require("./services/home-service");function d(){this.service=Object.resolve(c)}d.prototype.execute=function(){return this.service.getHomePage().then(e)};function e(c){"#"===a.head(c)&&(b.homeRoute=c.slice(1))}return d});

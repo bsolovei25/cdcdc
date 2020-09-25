@@ -1,0 +1,128 @@
+.container {
+  padding: 0 20px;
+  box-sizing: border-box;
+}
+
+.events-filters {
+  display: flex;
+  height: 60px;
+
+  &__selections {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex: 10;
+
+    button {
+      cursor: pointer;
+      width: 100%;
+      max-width: 150px;
+      font-size: 13px;
+      height: 30px;
+      color: var(--color-text-sub);
+      border-radius: 3px;
+
+      border: 0;
+      background-color: var(--color-aps-border);
+      transition: all 200ms;
+
+      &:focus {
+        outline: 0;
+      }
+
+      &:hover {
+        background-color: var(--color-bg-sub-workflow);
+      }
+      &:active {
+        background-color: var(--color-bg-btn);
+      }
+    }
+  }
+
+  &__search {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    width: 100%;
+    flex: 1;
+
+    input[type="text"] {
+      font-size: 13px;
+      border: 1px solid var(--color-astue-mat-select-border);
+      border-radius: 3px;
+      background-color: var(--color-astue-mat-select-bg);
+      outline: none;
+      color: var(--color-text-main);
+      height: 26px;
+      padding-left: 8px;
+      margin-left: 10px;
+
+      &::placeholder {
+        color: var(--color-border-main-transparrent);
+      }
+    }
+
+    //input {
+    //  color: var(--color-text-sub);
+    //  font-size: 14px;
+    //
+    //  &:hover {
+    //    cursor: pointer;
+    //    color: var(--color-active);
+    //    text-decoration: underline;
+    //  }
+    //}
+  }
+}
+
+
+.event-mat-select {
+  border: 1px solid var(--color-astue-mat-select-border);
+  background-color: var(--color-astue-mat-select-bg);
+  border-radius: 2px;
+  height: 28px;
+  min-width: 50px;
+
+  ::ng-deep {
+    .mat-form-field {
+      width: 100%;
+    }
+
+    .mat-form-field-underline {
+      height: 0 !important;
+    }
+
+    .mat-form-field-appearance-legacy .mat-form-field-ripple {
+      height: 0;
+    }
+
+    .mat-form-field-appearance-legacy .mat-form-field-infix {
+      padding: 0;
+      display: flex;
+      padding-top: 5px;
+    }
+
+    .mat-form-field-wrapper {
+      padding-bottom: 0;
+      margin: 0;
+    }
+
+    .mat-form-field-infix {
+      border-top: none;
+    }
+
+    .mat-select {
+      width: 100% !important;
+    }
+
+    .mat-select-value-text {
+      margin-left: 15px;
+      font-size: 13px;
+      color: var(--color-kpe-text-main);
+    }
+
+    .mat-select-arrow-wrapper {
+      padding: 7px 14px;
+    }
+  }
+}

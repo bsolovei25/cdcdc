@@ -1,6 +1,5 @@
 .card {
-  height: 17%;
-  width: 33%;
+  height: 100%;
   background-color: var(--ozsm-color-bg-dark);
   border: 1px solid var(--ozsm-color-border);
   display: flex;
@@ -26,12 +25,12 @@
   }
   &__line {
     width: 80%;
-    height: 5%;
+    height: 4px;
     background-color: var(--ozsm-color-bg-innage-diagram);
     margin-left: 10%;
     margin-right: 10%;
     border-radius: 1px;
-    margin-bottom: 7%;
+    margin-bottom: 8px;
   }
 }
 .icon {
