@@ -8,57 +8,57 @@
 
 <ng-template #list let-cardData="cardData">
   <div
-    class="notification notifications__item"
+    class="notification"
     (click)="eventClick(cardData?.id)"
-    [class.selected]="cardData?.id === cardActiveId"
+    [class.notification--active]="cardData?.id === cardActiveId"
+    [ngClass]="'notification--' + cardData?.priority?.name"
   >
     <div class="notification__header">
-      <span class="notification__number" [ngClass]="'notification__number_' + cardData?.priority">
+      <span class="notification__header__number">
         {{ cardData?.id }}
       </span>
-      <span class="notification__name" *ngIf="cardData?.eventType">
+      <span *ngIf="cardData?.eventType"
+            class="notification__header__name">
         {{ cardData?.eventType?.name }}
       </span>
-      <div class="line notification__line notification__line_top notification__line_top-first">
-        <div class="line__circle line__circle__left"></div>
-        <div class="line__circle line__circle__right"></div>
+      <div class="notification__header__line--unit">
+        <div></div>
       </div>
-      <span class="notification__unit">
+      <span class="notification__header__unit">
         {{ cardData?.unit?.name || '-' }}
       </span>
-      <div class="line notification__line notification__line_top">
-        <div class="line__circle line__circle__left"></div>
-        <div class="line__circle line__circle__right"></div>
+      <div class="notification__header__line">
+        <div></div>
       </div>
-      <span class="notification__date-time">
+      <span class="notification__header__date-time">
         {{ cardData?.eventDateTime | date: 'dd.MM.yyyy HH:mm' }}
       </span>
     </div>
 
     <div class="notification__body">
-      <div class="notification__info">
-        <span class="notification__info-description">
-          {{ cardData?.category.name === 'tasks' ? cardData?.subCategory?.description : (cardData?.description || '-') }}
+      <div class="notification__body__info">
+        <span class="notification__body__info-description">
+          {{ cardData?.description || '-' }}
         </span>
-        <span class="notification__info-facts">
-          {{  cardData?.category.name === 'tasks' ? cardData?.shiftPassEstablishedFacts : (cardData?.facts[0]?.comment || '-') }}
+        <span class="notification__body__info-facts">
+          {{ cardData?.facts[0] ? cardData?.facts[0].comment : '-' }}
         </span>
       </div>
       <div
-        class="notification__extra"
+        class="notification__body__extra"
         (mousedown)="$event.stopPropagation()"
         (touchstart)="$event.stopPropagation()"
       >
         <span
-          class="notification__status"
-          [ngClass]=" cardData?.priority?.name ?
-         'notification__status_' + cardData?.priority?.name :
-         'notification__status_standard'"
+          class="notification__body__status"
+          [ngClass]="cardData?.priority?.name ?
+          'notification__body__icon_' + cardData?.priority?.name :
+           'notification__body__icon_standard'"
         >
           {{ cardData?.statusName }}
         </span>
         <svg-icon
-          class="notification__icon"
+          class="notification__body__icon"
           [applyCss]="true"
           [src]="cardData?.iconUrl"
           [ngClass]="cardData?.priority?.name ?
@@ -67,29 +67,24 @@
         ></svg-icon>
         <svg-icon
           *ngIf="!cardData?.source"
-          class="notification__icon_delete"
+          class="notification__body__icon--delete"
           [applyCss]="true"
           src="assets/icons/remove.svg"
           (click)="deleteClick(cardData?.id)"
           (mousedown)="$event.stopPropagation()"
           (touchstart)="$event.stopPropagation()"
-          [svgStyle]="{ 'width.px':16, 'height.px':16 }"
+          [svgStyle]="{ 'width.px':'14', 'height.px':'14' }"
         >
         </svg-icon>
-        <span *ngIf="!cardData?.source" class="notification__icon_delete__mock"></span>
+        <span *ngIf="!cardData?.source" class="notification__body__icon--delete__mock"></span>
       </div>
-    </div>
-    <div class="line notification__line notification__line_bottom">
-      <div class="line__circle line__circle__left"></div>
-      <div class="line__circle line__circle__right"></div>
     </div>
   </div>
 </ng-template>
 
 <ng-template #block let-cardData="cardData">
   <div
-    class="notification__block notifications__block__item"
-    [class.notification-event]="!isCdEvents" [class.notification-cd-event]="isCdEvents"
+    class="notification__block notifications__block__item notification-event"
     [class.selected-block]="cardData?.id === cardActiveId"
     (click)="eventClick(cardData?.id)"
   >
@@ -162,8 +157,18 @@
     <div class="notification__block__footer">
       <span class="notification__block__footer-text">Начало события:</span>
       <span class="notification__block__footer-date-time"
-      >{{ cardData?.eventDateTime | date: 'dd.MM.yyyy HH:mm' }}</span
-      >
+      >{{ cardData?.eventDateTime | date: 'dd.MM.yyyy HH:mm' }}
+      </span>
     </div>
   </div>
 </ng-template>
+
+
+
+
+
+
+
+
+
+

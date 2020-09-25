@@ -33,7 +33,7 @@ export class AwsCardComponent implements OnInit {
 
     private isCloseClick: boolean = false;
 
-    public inputFormControl: FormControl = new FormControl();
+    public inputFormControl: FormControl = new FormControl({value: '', disabled: true});
 
     public placeholder: string = '';
 
