@@ -14,38 +14,11 @@
     <div class="body-container">
         <div class="events-list">
             <evj-user-events-item
+                *ngFor="let card of data"
+                [cardData] = "card"
                 [icon2] = "'smotr'"
-                [eventStatus] = "'default'" 
-            ></evj-user-events-item>
-    
-            <evj-user-events-item
-                [icon2] = "'smotr'"
-                [eventStatus] = "'default'"            
-            ></evj-user-events-item>
-    
-            <evj-user-events-item
-                [icon2] = "'drops'"
-                [eventStatus] = "'danger'"               
-            ></evj-user-events-item>
-    
-            <evj-user-events-item
-                [icon2] = "'smotr'"
-                [eventStatus] = "'normal'"     
-            ></evj-user-events-item>
-    
-            <evj-user-events-item
-                [icon2] = "'smotr'"
-                [eventStatus] = "'danger'"              
-            ></evj-user-events-item>
-    
-            <evj-user-events-item
-                [icon2] = "'drops'"
-                [eventStatus] = "'normal'"            
-            ></evj-user-events-item>
-    
-            <evj-user-events-item
-                [icon2] = "'drops'"
-                [eventStatus] = "'normal'"              
+                [eventStatus] = "'default'"
+                (click) = "openWorkspace(card.id)"
             ></evj-user-events-item>
         </div>
     </div>

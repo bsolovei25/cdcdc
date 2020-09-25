@@ -1,4 +1,7 @@
-import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import { EventsWorkspaceService } from './../../../../../dashboard/services/widgets/events-workspace.service';
+import { UserSettingsService } from 'src/app/dashboard/services/user-settings.service';
+import { IEventsWidgetNotification } from './../../../../../dashboard/models/events-widget';
+import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
 
 @Component({
   selector: 'evj-user-events',
@@ -7,8 +10,17 @@ import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 })
 export class UserEventsComponent implements OnInit {
   @Output() onClose: EventEmitter<boolean> = new EventEmitter<boolean>();
+  @Input() data: IEventsWidgetNotification;
 
-  constructor() { }
+  constructor(
+    private userSettings: UserSettingsService,
+    private ewService: EventsWorkspaceService) {
+  }
+
+  public async openWorkspace(id: number): Promise<void> {
+     await this.userSettings.LoadScreenByWidget('events-workspace');
+     this.ewService.editEvent(+id);
+  }
 
   ngOnInit(): void {
   }

@@ -44,7 +44,7 @@
     align-items: center;
     
     &__icon {
-        fill: var(--evj-color-font-default);
+        fill: var(--evj-color-font-standard);
     }
 
     &__text {
@@ -61,7 +61,7 @@
 .close-btn {
     cursor: pointer;
 
-    fill: var(--evj-color-font-default);
+    fill: var(--evj-color-font-standard);
 }
 
 .body-container {

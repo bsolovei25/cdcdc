@@ -1,16 +1,16 @@
 <div class="container">
     <div class="event">
         <div class="header">
-            <span class="header__number">149</span>
+            <span class="header__number">{{cardData.id}}</span>
             <span class="header__title">АВТ-10</span>
-            <span class="header__data">19.07.2020 02:23</span>
+            <span class="header__data">{{cardData.eventDateTime}}</span>
             <div class="header__indicators">
                 <span class = 'indicator-text'
-                    [style.color] = "'var(--evj-color-font-' + eventStatus + ')'"
-                >В работе</span>
+                    [style.color] = "'var(--evj-color-font-' + cardData.priority.name + ')'"
+                >{{cardData.status.description}}</span>
                 <svg-icon
-                    src = 'assets/icons/widgets/process/in-work.svg'
-                    [style.fill] = "'var(--evj-color-font-' + eventStatus + ')'"
+                    [src] = status(cardData.status.name)
+                    [style.fill] = "'var(--evj-color-font-' + cardData.priority.name + ')'"
                 ></svg-icon>
                 <svg-icon
                     src = "assets/icons/widgets/events/{{icon2}}.svg"
@@ -19,7 +19,7 @@
             </div>
         </div>
         <div class = "information">
-            КПЭ по качеству
+            {{cardData.category.description}}
         </div>
     </div>
 </div>

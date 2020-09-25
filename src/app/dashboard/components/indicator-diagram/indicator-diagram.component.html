@@ -6,5 +6,6 @@
 </div>
 <evj-user-events
      *ngIf="menu"
-     (onClose)="toggleMenu()"  
+     (onClose)="toggleMenu()"
+     [data] = "data.notification.notifications" 
 ></evj-user-events>
