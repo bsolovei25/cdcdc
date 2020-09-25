@@ -36,7 +36,7 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, OnDes
 
     public data: OilProducts[] = [];
 
-    storageXY: IOilControlCoords[] = [
+    readonly storageXY: IOilControlCoords[] = [
         {
             x: 400,
             y: 220
@@ -60,7 +60,7 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, OnDes
         }
     ];
 
-    productXY: IOilControlCoords[] = [
+    readonly productXY: IOilControlCoords[] = [
         {
             point: 1,
             x: 200,
@@ -192,7 +192,7 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, OnDes
             const updateTimeInSec =
                 (ref.updateTimeInSec ?? 0) === 0 ? this.defaultTimeInSec : ref.updateTimeInSec;
             this.toggleIntervalTimer =
-                setInterval(this.toggleInterval.bind(this), updateTimeInSec * 1000);
+                setInterval(this.toggleInterval.bind(this), updateTimeInSec * 1000 * 100000000);
         }
     }
 
@@ -493,7 +493,7 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, OnDes
                 .attr('text-anchor', 'middle')
                 .attr('class', 'textProduct')
                 .attr('fill', '#a2e2ff')
-                .text(data[this.indexProduct].operations);
+                .text(this.tempData.find(x => x.name === this.savePositionProduct).operations);
 
             let critical = svgMenu
                 .append('text')
@@ -515,7 +515,7 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, OnDes
                 .attr('text-anchor', 'middle')
                 .attr('class', 'textProduct')
                 .attr('fill', 'orange')
-                .text(data[this.indexProduct].criticalOperations);
+                .text(this.tempData.find(x => x.name === this.savePositionProduct).criticalOperations);
 
             for (let item of leftBorder) {
                 item.classList.remove('st5');
@@ -550,7 +550,7 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, OnDes
                 .attr('text-anchor', 'middle')
                 .attr('class', 'textProduct')
                 .attr('fill', '#a2e2ff')
-                .text(data[this.indexProduct].operations);
+                .text(this.tempData.find(x => x.name === this.savePositionProduct).operations);
 
             for (let item of leftBorderC) {
                 item.classList.remove('st5-critical');
