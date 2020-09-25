@@ -214,7 +214,6 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, OnDes
         this.checkSocket = true;
         this.data = ref.products;
         this.tempData = ref.products.map(p => fillDataShape(p));
-        console.log(ref.products);
         if (this.svgMenu) {
             this.clearProduct();
             this.tankersPicture.remove();
