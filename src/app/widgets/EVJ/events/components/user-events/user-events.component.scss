@@ -72,15 +72,20 @@
     overflow-y: auto;
 
     &::-webkit-scrollbar {
-        width: 5px;
+        width: 3px;
     }
       
     &::-webkit-scrollbar-thumb {
-        background: #282B38;
+        background: var(--evj-color-bg-thumb);
+        border-radius: 0;
     }
       
     &::-webkit-scrollbar-track {
         background: var(--evj-color-bg-main);
+    }
+
+    &::-webkit-scrollbar-track-piece {
+        background: var(--evj-color-bg-main); 
     }
 }
 

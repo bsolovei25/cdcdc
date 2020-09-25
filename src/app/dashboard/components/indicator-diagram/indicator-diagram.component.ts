@@ -20,13 +20,10 @@ export class IndicatorDiagramComponent implements OnInit, OnDestroy {
 
     menu: boolean = true;
 
-    openMenu(): void {
-        this.menu = true;
+    toggleMenu(): void {
+        this.menu = !this.menu;
     }
 
-    closeMenu(val: boolean): void {
-        this.menu = val;
-    }
 
     public subscriptions: Subscription[] = [];
 
