@@ -89,6 +89,7 @@ export interface IUserImported {
     id: number;
     email?: string;
     concurrencyStamp: string;
+    photoId: string;
 }
 
 export interface IUserLdapDto {
