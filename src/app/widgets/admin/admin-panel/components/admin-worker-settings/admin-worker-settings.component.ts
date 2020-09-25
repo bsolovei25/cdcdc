@@ -15,7 +15,7 @@ import { base64ToFile } from 'ngx-image-cropper';
 @Component({
     selector: 'evj-admin-worker-settings',
     templateUrl: './admin-worker-settings.component.html',
-    styleUrls: ['./admin-worker-settings.component.scss'],
+    styleUrls: ['./admin-worker-settings.component.scss']
 })
 export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
     @Input() public isCreateNewUser: boolean = false;
@@ -46,8 +46,8 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
         icon: {
             src: 'assets/icons/search-icon.svg',
             svgStyle: { 'width.px': 17, 'height.px': 17 },
-            isClickable: false,
-        },
+            isClickable: false
+        }
     };
 
     public searchingFieldName: string = '';
@@ -58,7 +58,7 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
         isShow: false,
         isCreatePassword: true,
         acceptFunction: this.onSetWorkerPassword.bind(this),
-        closeFunction: () => (this.passwordOptions.isShow = false),
+        closeFunction: () => (this.passwordOptions.isShow = false)
     };
     //#endregion
 
@@ -84,7 +84,8 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
     constructor(
         private adminService: AdminPanelService,
         private materialController: SnackBarService
-    ) {}
+    ) {
+    }
 
     public ngOnInit(): void {
         if (this.isCreateNewUser) {
@@ -285,6 +286,7 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
     private async onImportWorker(): Promise<void> {
         const user = await this.adminService.importUserFromLdap(this.worker).toPromise();
         this.worker.id = user.id;
+        this.worker.photoId = user?.photoId;
     }
 
     public onClickButton(isSaveClicked: boolean): void {
@@ -308,7 +310,7 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
             firstName: 'Имя',
             lastName: 'Фамилия',
             login: 'Логин',
-            email: 'Эл.почта',
+            email: 'Эл.почта'
         };
 
         let snackbarMessage: string = '';
