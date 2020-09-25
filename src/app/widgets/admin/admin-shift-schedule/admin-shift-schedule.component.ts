@@ -33,7 +33,7 @@ import {
 import { SnackBarService } from '../../../dashboard/services/snack-bar.service';
 import { WidgetService } from '../../../dashboard/services/widget.service';
 import { WidgetPlatform } from '../../../dashboard/models/widget-platform';
-import { fillDataShape } from '../../../@shared/common-functions';
+import { fillDataShape } from '@shared/functions/common-functions';
 import { Moment } from 'moment';
 import {
     NgxMatDateFormats,

@@ -8,7 +8,7 @@ import {
     Param_MI,
     IValue,
 } from '../../models/manual-input.model';
-import { AppConfigService } from 'src/app/services/appConfigService';
+import { AppConfigService } from '@core/service/app-config.service';
 
 @Injectable({ providedIn: 'root' })
 export class ManualInputService {

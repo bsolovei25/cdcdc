@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { IUserGridItem, IScreenSettings } from '../models/user-settings.model';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { WIDGETS, WIDGETS_LAZY } from '../components/widgets-grid/widget-map';
-import { AppConfigService } from 'src/app/services/appConfigService';
+import { AppConfigService } from '@core/service/app-config.service';
 import { Observable, BehaviorSubject, throwError, Subscription } from 'rxjs';
 import { filter, catchError } from 'rxjs/operators';
 import { IParamWidgetsGrid } from '../components/widgets-grid/widgets-grid.component';

@@ -5,7 +5,7 @@ import { AppComponent } from './app.component';
 import { CoreModule } from './@core/core.module';
 import { SharedModule } from './@shared/shared.module';
 import { AngularSvgIconModule } from 'angular-svg-icon';
-import { AppConfigService } from './services/appConfigService';
+import { AppConfigService } from '@core/service/app-config.service';
 import { RouterModule } from '@angular/router';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ErrorInterceptor } from '@core/interceptors/error.interceptor';

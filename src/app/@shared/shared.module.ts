@@ -4,7 +4,7 @@ import { HeaderComponent } from './layout/header/header.component';
 import { ContentComponent } from './layout/content/content.component';
 import { FnPipe } from './pipes/fn_pipe';
 import { DateFormatPipe } from './pipes/data-format.pipe';
-import { PreLoaderComponent } from './preloader/preloader.component';
+import { PreLoaderComponent } from './components/preloader/preloader.component';
 import { UiElementsComponent } from './layout/ui-elements.component';
 import { ButtonComponent } from './components/button/button.component';
 import { WorkerCardComponent } from './components/worker-card/worker-card.component';

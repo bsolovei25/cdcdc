@@ -3,9 +3,9 @@ import { AuthService } from '@core/service/auth.service';
 import { Router } from '@angular/router';
 import { IUser } from '../../models/events-widget';
 import { Subscription } from 'rxjs';
-import { AppConfigService } from '../../../services/appConfigService';
+import { AppConfigService } from '@core/service/app-config.service';
 import { OverlayService } from '../../services/overlay.service';
-import { AvatarConfiguratorService } from '../../services/avatar-configurator.service';
+import { AvatarConfiguratorService } from '@core/service/avatar-configurator.service';
 
 @Component({
     selector: 'evj-user-info',

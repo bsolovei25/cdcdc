@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild, ElementRef, Input, EventEmitter, Output, 
 import { SelectionModel } from '@angular/cdk/collections';
 import { TankCalibrationTableService } from '../../../services/widgets/tank-calibration-table.service';
 import { ICalibrationTable } from '../tank-calibration-table.component';
-import { AppConfigService } from '../../../../services/appConfigService';
+import { AppConfigService } from '@core/service/app-config.service';
 
 
 interface IDataSource extends ICalibrationTable {
