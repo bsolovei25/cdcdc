@@ -1,3 +1,4 @@
+import { MatRippleModule } from '@angular/material/core';
 import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { OzsmMainToggleComponent } from "./ozsm-main-toggle.component";
@@ -11,6 +12,7 @@ import { SharedModule } from "@shared/shared.module";
         CommonModule,
         SharedModule,
         OzsmSharedModule,
+        MatRippleModule
     ]
 })
 export class OzsmMainToggleModule {
