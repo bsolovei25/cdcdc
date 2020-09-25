@@ -2,7 +2,7 @@ import { AfterViewInit, Component, HostListener, Inject, OnDestroy, OnInit } fro
 import { Subscription } from 'rxjs';
 import { WidgetService } from '../../../services/widget.service';
 import { PlatformLocation } from '@angular/common';
-import { UnityLoader } from '../../dispatcher-screen/UnityLoader';
+import { UnityLoader } from '@shared/functions/UnityLoader';
 import { PetroleumScreenService } from '../../../services/widgets/petroleum-screen.service';
 import { ITransfer, ObjectType } from '../../../models/petroleum-products-movement.model';
 
