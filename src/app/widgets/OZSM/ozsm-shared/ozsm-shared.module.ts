@@ -38,8 +38,6 @@ import { OzsmGraphCircleDiagramComponent } from "./ozsm-graph-circle-diagram/ozs
         OzsmCircleDiagramFullComponent,
         OzsmEqualizerChartComponent,
         OzsmLoadingSpaceComponent,
-        OzsmMainIndicatorComponent,
-        OzsmMainToggleComponent,
         OzsmListPackingDiagramsComponent,
         OzsmListPackingDiagramsItemComponent,
         OzsmCircleDiagramIconComponent,
