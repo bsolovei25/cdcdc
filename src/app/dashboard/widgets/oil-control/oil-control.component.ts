@@ -134,7 +134,7 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, OnDes
     public savePosition: boolean = false;
     public savePositionProduct: string;
     public savePositionStorage: string;
-    public saveCurrentPage: number;
+    public saveCurrentPage: number = 1;
 
     public saveDataStorage: any = [];
 
@@ -180,10 +180,6 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, OnDes
     async mockDataConnect(): Promise<any> {
         const widgetData = await this.http.get<any>('assets/mock/OilOperationsMock/lco.json').toPromise();
         return widgetData.data;
-    }
-
-    protected async dataConnect(): Promise<void> {
-        super.dataConnect();
     }
 
     protected dataHandler(ref: any): void {
