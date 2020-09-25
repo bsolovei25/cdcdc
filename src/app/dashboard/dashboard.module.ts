@@ -36,7 +36,7 @@ import { DetailedLineDiagramComponent } from './components/detailed-line-diagram
 import { OperationEfficiencyComponent } from './widgets/operation-efficiency/operation-efficiency.component';
 import { MapEcologyComponent } from './widgets/map-ecology/map-ecology.component';
 import { UnityTemplateComponent } from './widgets/unity-template/unity-template.component';
-import { PowIndexPipe } from './pipes/pow-index.pipe';
+import { PowIndexPipe } from '@shared/pipes/pow-index.pipe';
 import { RingFactoryDiagramComponent } from './widgets/ring-factory-diagrams/ring-factory-diagram/ring-factory-diagram.component';
 import { RingSFactoryDiagramComponent } from './widgets/ring-factory-diagrams/ring-s-factory-diagram/ring-s-factory-diagram.component';
 import { CalendarPlanComponent } from './widgets/calendar-plan/calendar-plan.component';

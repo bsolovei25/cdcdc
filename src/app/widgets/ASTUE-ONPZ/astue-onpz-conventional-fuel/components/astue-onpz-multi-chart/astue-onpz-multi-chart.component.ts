@@ -17,7 +17,6 @@ import {
 } from '../../../../../dashboard/models/ASTUE-ONPZ/astue-onpz-multi-chart.model';
 import { AsyncRender } from '@shared/functions/async-render.function';
 import { fillDataArrayChart } from '@shared/functions/fill-data-array.function';
-import { filter } from "rxjs/operators";
 
 export interface IMultiChartOptions {
     colors?: Map<string, number>;
@@ -45,15 +44,15 @@ export class AstueOnpzMultiChartComponent implements OnChanges, OnDestroy {
 
     @ViewChild('chart', { static: true }) private chart: ElementRef;
 
-    private svg;
+    private svg: d3Selection;
 
     private graphMaxX: number = 0;
     private graphMaxY: number = 0;
 
     private charts: IMultiChartData[] = [];
 
-    public scaleFuncs: { x: any; y: any } = { x: null, y: null };
-    private axis: { axisX: any; axisY: any } = { axisX: null, axisY: null };
+    public scaleFuncs: { x: d3.scaleTime; y: d3.scaleLinear } = { x: null, y: null };
+    private axis: { axisX: d3.axisBottom; axisY: d3Selection } = { axisX: null, axisY: null };
 
     private readonly MAX_COEF: number = 0.3;
     private readonly MIN_COEF: number = 0.3;
@@ -181,19 +180,15 @@ export class AstueOnpzMultiChartComponent implements OnChanges, OnDestroy {
             currentChart.maxValue = max + (max - min) * this.coefs[key].max;
             currentChart.minValue = min - (max - min) * this.coefs[key].min;
         });
-
-        const plan = this.charts.find((item) => item.graphType === 'plan');
-        const fact = this.charts.find((item) => item.graphType === 'fact');
-        if (!!plan && !!fact) {
-            const [min, max] = d3.extent([
-                plan.minValue,
-                plan.maxValue,
-                fact.minValue,
-                fact.maxValue,
-            ]);
-            plan.minValue = fact.minValue = min;
-            plan.maxValue = fact.maxValue = max;
-        }
+        const mainChartGroup = ['fact', 'plan', 'forecast'];
+        const filterChartArray = this.charts.filter((x) =>
+            mainChartGroup.includes(x.graphType));
+        const domainMain = [d3.max(filterChartArray.map((x) => x.maxValue)),
+            d3.min(filterChartArray.map((x) => x.minValue))];
+        filterChartArray.forEach((x) => {
+            x.minValue = domainMain[1];
+            x.maxValue = domainMain[0];
+        });
     }
 
     private defineAxis(): void {
@@ -254,24 +249,12 @@ export class AstueOnpzMultiChartComponent implements OnChanges, OnDestroy {
             .rangeRound(rangeX);
 
         const rangeY = [this.padding.top, this.graphMaxY - this.padding.bottom];
-        const mainChartGroup = ['fact', 'plan', 'forecast'];
-        const filterChartArray = this.charts.filter((x) =>
-            mainChartGroup.includes(x.graphType));
-        const domainMain = [d3.max(filterChartArray.map((x) => x.maxValue)),
-            d3.min(filterChartArray.map((x) => x.minValue))];
         this.charts.forEach((item) => {
-            if (!mainChartGroup.includes(item.graphType)) {
-                const domain = [item.maxValue, item.minValue];
-                item.scaleY = d3
-                    .scaleLinear()
-                    .domain(domain)
-                    .range(rangeY);
-            } else {
-                item.scaleY = d3
-                    .scaleLinear()
-                    .domain(domainMain)
-                    .range(rangeY);
-            }
+            const domain = [item.maxValue, item.minValue];
+            item.scaleY = d3
+                .scaleLinear()
+                .domain(domain)
+                .range(rangeY);
             item.axisY = d3
                 .axisLeft(item.scaleY)
                 .ticks(5)

@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { PreloaderService } from '../../@core/service/preloader.service';
+import { PreloaderService } from '@core/service/preloader.service';
 
 @Component({
     selector: 'evj-preloader',

@@ -23,7 +23,7 @@ import {
     IAsusTpPlace,
     ISubcategory, EventsWidgetCategoryCode
 } from '../../models/events-widget';
-import { AppConfigService } from 'src/app/services/appConfigService';
+import { AppConfigService } from '@core/service/app-config.service';
 
 export interface IEventsFilter {
     unitNames?: string;

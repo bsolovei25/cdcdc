@@ -4,7 +4,7 @@ import { EventEmitter } from '@angular/core';
 import { OilControls, OilProducts } from '../../models/oil-control';
 import { WidgetPlatform } from '../../models/widget-platform';
 import { HttpClient } from '@angular/common/http';
-import { fillDataShape } from '@shared/common-functions';
+import { fillDataShape } from '@shared/functions/common-functions';
 
 export interface IOilControlCoords {
     x: number;
