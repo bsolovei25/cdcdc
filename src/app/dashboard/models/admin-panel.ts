@@ -2,6 +2,7 @@ import { IUser } from './events-widget';
 import { IWidget } from './widget.model';
 import { IWorker } from './worker';
 import { IBrigade } from './shift.model';
+import { IUnits } from './admin-shift-schedule';
 
 export interface IAdminPanel {
     person: IUser;
@@ -63,6 +64,8 @@ export interface IGlobalClaim {
     claimValueType?: string;
     value?: string;
     additionalType?: string;
+    widgets?: IWidget[];
+    units?: IUnits[];
 }
 
 export interface IUserLdap {

@@ -24,7 +24,7 @@ export class AwsCreateClaimComponent implements OnInit {
     public allWidgets: IWidget[] = [];
     public allUnits: IUnitEvents[] = [];
 
-    public selectClaim: SelectionModel<IGlobalClaim> = new SelectionModel<IGlobalClaim>(true);
+    public selectClaim: SelectionModel<IGlobalClaim> = new SelectionModel<IGlobalClaim>();
     public selectWidget: SelectionModel<IWidget> = new SelectionModel<IWidget>(true);
     public selectUnit: SelectionModel<IUnitEvents> = new SelectionModel<IUnitEvents>(true);
 
@@ -39,7 +39,8 @@ export class AwsCreateClaimComponent implements OnInit {
     }
 
     public claimsFilter(claim: IGlobalClaim): boolean {
-        return !(claim.claimValueType === 'screen');
+       // claim.widgets = this.allWidgets;
+       return !(claim.claimValueType === 'screen');
     }
 
     public itemsFilter(): boolean {

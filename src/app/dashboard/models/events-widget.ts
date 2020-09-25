@@ -180,6 +180,7 @@ export interface IUnitEvents {
     name: string;
     createdAt?: Date;
     createdById?: number;
+    isActive?: string;
 }
 
 export interface IRetrievalEvents {
