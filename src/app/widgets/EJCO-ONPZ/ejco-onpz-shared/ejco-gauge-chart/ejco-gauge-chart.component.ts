@@ -18,6 +18,8 @@ export class EjcoGaugeChartComponent implements OnInit, OnChanges {
 
     @Input() fact: number = 0;
     @Input() plan: number = 0;
+    @Input() deviation: number;
+    @Input() displayType: 'limited' | null = null;
     @Input() img: string = this.defaultImg;
     @Input() background: 'lite' | 'dark' = 'lite';
 
@@ -175,15 +177,18 @@ export class EjcoGaugeChartComponent implements OnInit, OnChanges {
 
         const g = svg.append('g').attr('class', 'text');
 
-        g.append('line')
-            .attr('class', 'line')
-            .attr('x1', -14)
-            .attr('y1', 3)
-            .attr('x2', 14)
-            .attr('y2', 3);
-        addText(`${this.fact}`, 'text text__value', -2);
-        addText(`\u0394 ${this.fact - this.plan}`, 'text text__deviation', 13);
-        addText(`${this.plan}%`, 'text text__plan', 28);
+        addText(`${this.fact}`, 'text text__value', this.displayType ? 3 : -2);
+        if (!this.displayType) {
+            g.append('line')
+                .attr('class', 'line')
+                .attr('x1', -14)
+                .attr('y1', 3)
+                .attr('x2', 14)
+                .attr('y2', 3);
+
+            addText(`\u0394 ${this.deviation || this.fact - this.plan}`, 'text text__deviation', 13);
+            addText(`${this.plan}%`, 'text text__plan', 28);
+        }
 
         function addText(text: string, cls: string, yCord: number): void {
             g.append('text')

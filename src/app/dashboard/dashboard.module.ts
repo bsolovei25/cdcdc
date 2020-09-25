@@ -1,8 +1,9 @@
+import { SharedModule } from './../@shared/shared.module';
+import { OzsmSharedModule } from './../widgets/OZSM/ozsm-shared/ozsm-shared.module';
 import { ChangeShiftComponent } from './widgets/change-shift/change-shift.component';
 import { NgModule, LOCALE_ID } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HomeComponent } from './pages/home/home.component';
-import { SharedModule } from '../@shared/shared.module';
 import { AngularSvgIconModule } from 'angular-svg-icon';
 import { PeriodSelectorComponent } from './components/period-selector/period-selector.component';
 import { IndicatorSelectorComponent } from './components/indicator-selector/indicator-selector.component';
@@ -458,7 +459,7 @@ import { MatBadgeModule } from '@angular/material/badge';
         OilOperationsComponent,
         WorkflowComponent,
         PanelComponent,
-        AdminShiftScheduleOldComponent,
+        AdminShiftScheduleOldComponent
     ],
     exports: [HomeComponent, PerformanceBarComponent, MatRippleModule],
     imports: [
@@ -500,6 +501,7 @@ import { MatBadgeModule } from '@angular/material/badge';
         MatTooltipModule,
         MatMenuModule,
         MatRippleModule,
+        OzsmSharedModule,
         MatBadgeModule
     ],
     bootstrap: [],

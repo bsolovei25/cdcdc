@@ -1,2 +1,0 @@
-/* Copyright © 1993-2019 Meridium, Inc. All rights reserved.  */
-define(function(){"use strict";function a(a){this.hyperLinkKey=a.hyperLinkKey,this.familyKey=a.familyKey,this.url=a.url,this.sequence=a.sequence,this.defaultText=a.defaultText,this.parentMenuKey=a.parentMenuKey,this.condition=a.condition,this.isDefaultMenu=a.isDefaultMenu,this.displayText=a.displayText,this.environment=a.environment,this.children=b(a.children)}function b(b){for(var c=[],d=0;d<b.length;d++)c.push(new a(b[d]));return c}return a});

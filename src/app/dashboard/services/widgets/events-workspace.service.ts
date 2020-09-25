@@ -584,6 +584,10 @@ export class EventsWorkspaceService {
         console.log(this.event.category);
         console.log(this.event);
 
+        if (this.event.category.name === 'tasks') {
+            const el = this.subCategory.find(value => value.code === '0');
+            this.event.productionTasks.subCategory = el;
+        }
         if (this.event.category.name === 'asus') {
             await this.asusReferencesLoad();
         }

@@ -1,2 +1,0 @@
-/* Copyright © 1993-2019 Meridium, Inc. All rights reserved.  */
-define(function(require){"use strict";var a=require("text!../views/kpi-widget-editor.html");function b(){this.region=null}return b.html=a,b.prototype.attach=function(a){this.region=a},b.prototype.detach=function(){this.region=null},b});

@@ -13,10 +13,11 @@ import * as d3 from 'd3';
 import { IChartD3, IChartMini } from '@shared/models/smart-scroll.model';
 import {
     IMultiChartLine,
-    IMultiChartData,
+    IMultiChartData, IMultiChartTypes
 } from '../../../../../dashboard/models/ASTUE-ONPZ/astue-onpz-multi-chart.model';
 import { AsyncRender } from '@shared/functions/async-render.function';
 import { fillDataArrayChart } from '@shared/functions/fill-data-array.function';
+import { filter } from "rxjs/operators";
 
 export interface IMultiChartOptions {
     colors?: Map<string, number>;
@@ -153,14 +154,20 @@ export class AstueOnpzMultiChartComponent implements OnChanges, OnDestroy {
         this.data.forEach((item) =>
             item.graph = fillDataArrayChart(item.graph, domainDates[0], domainDates[1],
                 item.graphType === 'plan'));
+        const filterData = this.data.filter((x) => x?.graph?.length > 0);
+        if (filterData.length !== this.data.length) {
+            console.error('BACK ERROR: Timeline is not in interval!!!');
+        }
+        this.data = filterData;
     }
 
     private findMinMax(): void {
         this.charts = [];
 
         this.data.forEach((graph) => {
-            const key: string =
-                graph.graphType === 'fact' || graph.graphType === 'plan' ? 'main' : graph.graphType;
+            const key: string = graph.graphType === 'fact'
+                || graph.graphType === 'plan'
+                || graph.graphType === 'forecast' ? 'main' : graph.graphType;
             if (!this.coefs[key]) {
                 this.coefs[key] = {
                     min: this.MIN_COEF,
@@ -194,7 +201,9 @@ export class AstueOnpzMultiChartComponent implements OnChanges, OnDestroy {
         let max: number = -Infinity;
 
         this.charts.forEach((chart) => {
-            if (chart.graphType !== 'fact' && chart.graphType !== 'plan') {
+            if (chart.graphType !== 'fact' && chart.graphType !== 'plan'
+                && chart.graphType !== 'forecast'
+            ) {
                 this.axisLabels[chart.graphType] = this.defineAxisYLabels(
                     chart.minValue,
                     chart.maxValue
@@ -245,12 +254,24 @@ export class AstueOnpzMultiChartComponent implements OnChanges, OnDestroy {
             .rangeRound(rangeX);
 
         const rangeY = [this.padding.top, this.graphMaxY - this.padding.bottom];
+        const mainChartGroup = ['fact', 'plan', 'forecast'];
+        const filterChartArray = this.charts.filter((x) =>
+            mainChartGroup.includes(x.graphType));
+        const domainMain = [d3.max(filterChartArray.map((x) => x.maxValue)),
+            d3.min(filterChartArray.map((x) => x.minValue))];
         this.charts.forEach((item) => {
-            const domain = [item.maxValue, item.minValue];
-            item.scaleY = d3
-                .scaleLinear()
-                .domain(domain)
-                .range(rangeY);
+            if (!mainChartGroup.includes(item.graphType)) {
+                const domain = [item.maxValue, item.minValue];
+                item.scaleY = d3
+                    .scaleLinear()
+                    .domain(domain)
+                    .range(rangeY);
+            } else {
+                item.scaleY = d3
+                    .scaleLinear()
+                    .domain(domainMain)
+                    .range(rangeY);
+            }
             item.axisY = d3
                 .axisLeft(item.scaleY)
                 .ticks(5)
@@ -284,7 +305,7 @@ export class AstueOnpzMultiChartComponent implements OnChanges, OnDestroy {
                 .x((item: IChartD3) => item.x)
                 .y((item: IChartD3) => item.y);
 
-            const flag = chart.graphType !== 'plan' && chart.graphType !== 'fact';
+            const flag = chart.graphType !== 'plan' && chart.graphType !== 'fact' && chart.graphType !== 'forecast';
             const lineType = flag ? 'other' : chart.graphType;
             const drawnLine = this.svg
                 .append('path')
@@ -350,7 +371,7 @@ export class AstueOnpzMultiChartComponent implements OnChanges, OnDestroy {
         const SCALE_STEP: number = 0.05;
 
         this.charts.forEach((chart) => {
-            const flag = chart.graphType === 'fact' || chart.graphType === 'plan';
+            const flag = chart.graphType === 'fact' || chart.graphType === 'plan' || chart.graphType === 'forecast';
             if (flag && isMainAxisDrawn) {
                 return;
             } else if (flag) {
@@ -376,12 +397,15 @@ export class AstueOnpzMultiChartComponent implements OnChanges, OnDestroy {
             const labels = axisY.append('g').attr('class', 'labels');
             let y: number = this.padding.top - this.topMargin + height;
             const step: number = height / 10;
-            if (isMainLabelsDrawn && (chart.graphType === 'plan' || chart.graphType === 'fact')) {
+            if (isMainLabelsDrawn && (chart.graphType === 'plan' || chart.graphType === 'fact'
+                || chart.graphType === 'forecast')
+            ) {
                 return;
             }
             const currentKey: string =
-                chart.graphType === 'plan' || chart.graphType === 'fact' ? 'main' : chart.graphType;
-            isMainLabelsDrawn = chart.graphType === 'plan' || chart.graphType === 'fact';
+                chart.graphType === 'plan' || chart.graphType === 'fact' || chart.graphType === 'forecast' ? 'main' : chart.graphType;
+            isMainLabelsDrawn = chart.graphType === 'plan' || chart.graphType === 'fact'
+                || chart.graphType === 'forecast';
             this.axisLabels[currentKey].forEach((item) => {
                 y -= step;
                 labels
@@ -459,7 +483,7 @@ export class AstueOnpzMultiChartComponent implements OnChanges, OnDestroy {
                 .attr('y2', (this.padding.top - this.topMargin) * 0.8);
 
             const key: string =
-                chart.graphType === 'fact' || chart.graphType === 'plan' ? 'main' : chart.graphType;
+                chart.graphType === 'fact' || chart.graphType === 'plan' || chart.graphType === 'forecast' ? 'main' : chart.graphType;
             const coefs = this.coefs[key];
 
             this.listeners.push(
@@ -495,21 +519,24 @@ export class AstueOnpzMultiChartComponent implements OnChanges, OnDestroy {
                 .filter((item) => item.timeStamp.getTime() <= currentDatetime.getTime());
             const statValue =
                 filterChart?.length > 0
-                    ? filterChart[filterChart.length - 1] ?? 0
-                    : chart?.graph[0] ?? 0;
+                    ? filterChart[filterChart.length - 1]
+                    : chart?.graph[0] ?? null;
             if (chart.graphType === 'plan') {
                 plan = chart.graph[chart.graph.length - 1];
             } else if (chart.graphType === 'fact') {
                 fact = chart.graph[chart.graph.length - 1];
+            } else if (chart.graphType === 'forecast') {
+                // TODO add some
             } else {
                 values.push({
                     val: statValue,
                     color: lineColors[this.colors?.get(chart.tagName)],
                     units: chart.units ?? '',
-                    iconType: chart.graphType,
+                    iconType: chart.graphType ?? 'volume',
                 });
             }
         });
+        console.log('charts', values);
 
         const y = (this.padding.top - this.topMargin) * 0.7;
         const y2 = this.graphMaxY - this.padding.bottom;
@@ -626,7 +653,7 @@ export class AstueOnpzMultiChartComponent implements OnChanges, OnDestroy {
                 rect.append('text')
                     .attr('x', x + step * 1.5 + cardHeight)
                     .attr('y', start + cardHeight - step * 0.9)
-                    .text(`${val.val.value.toFixed(2)} ${val.units}`);
+                    .text(`${val.val.value?.toFixed(2)} ${val.units}`);
 
                 if (this.options.isIconsShowing) {
                     rect.append('image')
@@ -645,9 +672,10 @@ export class AstueOnpzMultiChartComponent implements OnChanges, OnDestroy {
     }
 
     private setLeftPadding(): number {
-        const plan = this.charts.find((item) => item.graphType === 'plan');
-        const fact = this.charts.find((item) => item.graphType === 'fact');
-        const cf = !!plan && !!fact ? this.charts.length - 1 : this.charts.length;
+        const filterGraphTypes: IMultiChartTypes[] = ['plan', 'fact', 'forecast'];
+        const padding = this.charts.map((item) =>
+            item.graphType).filter((x) => filterGraphTypes.includes(x))?.length ?? 0;
+        const cf =  this.charts.length - (padding > 0 ? padding - 1 : 0);
         return this.padding.left + this.axisYWidth * cf;
     }
 }
