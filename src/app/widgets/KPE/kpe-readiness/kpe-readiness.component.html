@@ -103,7 +103,7 @@
                 </div>
               </div>
               <div class="chart-card__diagram">
-                <evj-kpe-line-diagram [fact]="chartCard?.progressChart.fact" [plan]="chartCard?.progressChart.plan"></evj-kpe-line-diagram>
+                <evj-kpe-line-diagram [fact]="chartCard?.progressChart.fact" [plan]="chartCard?.progressChart.plan" [deviation]="chartCard?.progressChart.deviation"></evj-kpe-line-diagram>
               </div>
               <div class="chart-card__chart">
                 <evj-kpe-line-chart [data]="prepareTrendData(chartCard?.trendChart)"></evj-kpe-line-chart>
@@ -131,7 +131,7 @@
                       </div>
                     </div>
                     <div class="chart-card__diagram">
-                      <evj-kpe-line-diagram [fact]="card?.progressChart.fact" [plan]="card?.progressChart.plan"></evj-kpe-line-diagram>
+                      <evj-kpe-line-diagram [fact]="card?.progressChart.fact" [plan]="card?.progressChart.plan" [deviation]="card?.progressChart.deviation"></evj-kpe-line-diagram>
                     </div>
                     <div class="chart-card__chart">
                       <evj-kpe-line-chart [data]="prepareTrendData(card?.trendChart)"></evj-kpe-line-chart>
