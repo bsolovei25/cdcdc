@@ -13,12 +13,10 @@ interface ICreateClaim extends IWidget {
 @Component({
     selector: 'evj-aws-create-claim',
     templateUrl: './aws-create-claim.component.html',
-    styleUrls: ['./aws-create-claim.component.scss'],
+    styleUrls: ['./aws-create-claim.component.scss']
 })
 export class AwsCreateClaimComponent implements OnInit {
-    @Output() private createdClaim: EventEmitter<IGlobalClaim[]> = new EventEmitter<
-        IGlobalClaim[]
-    >();
+    @Output() private createdClaim: EventEmitter<IGlobalClaim[]> = new EventEmitter<IGlobalClaim[]>();
 
     public allClaims: IGlobalClaim[] = [];
     public allWidgets: IWidget[] = [];
@@ -30,17 +28,26 @@ export class AwsCreateClaimComponent implements OnInit {
 
     search: string = '';
 
-    constructor(private adminService: AdminPanelService) {}
+    constructor(private adminService: AdminPanelService) {
+    }
 
     ngOnInit(): void {
         this.allClaims = this.adminService.specialClaims;
         this.allWidgets = this.adminService.allWidgets.filter((value) => !value.isHidden);
         this.allUnits = this.adminService.units;
+        this.allClaims.forEach((value) => {
+            if (value.claimValueType === 'widget') {
+                value.widgets = this.allWidgets.filter((item) => item.widgetType === value.claimValueType);
+            } else {
+                value.units = this.allUnits;
+            }
+        });
     }
 
     public claimsFilter(claim: IGlobalClaim): boolean {
-       // claim.widgets = this.allWidgets;
-       return !(claim.claimValueType === 'screen');
+        // claim.widgets = this.allWidgets;
+
+        return !(claim.claimValueType === 'screen');
     }
 
     public itemsFilter(): boolean {

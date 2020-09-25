@@ -1,4 +1,4 @@
-import { IUser } from './events-widget';
+import { IUnitEvents, IUser } from './events-widget';
 import { IWidget } from './widget.model';
 import { IWorker } from './worker';
 import { IBrigade } from './shift.model';
@@ -65,7 +65,7 @@ export interface IGlobalClaim {
     value?: string;
     additionalType?: string;
     widgets?: IWidget[];
-    units?: IUnits[];
+    units?: IUnitEvents[];
 }
 
 export interface IUserLdap {
