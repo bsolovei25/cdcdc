@@ -1,0 +1,45 @@
+<ng-template cdk-portal #overlayTemplate="cdkPortal">
+  <div class="overlay-container mat-elevation-z5">
+    <ng-container *ngFor="let item of subCategory">
+      <div class="item">
+        <div class="item__slide">
+          <mat-slide-toggle disableRipple="true"></mat-slide-toggle>
+        </div>
+        <div class="item__text" [class.item__text_disabled]>
+        </div>
+        <div class="item__btn">
+          <button>В систему источник</button>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+</ng-template>
+<div class="categories">
+  <div class="categories__item"
+       [class.categories__item--active]="data?.isActive"
+       (click)="onCLickItem(data)" cdkOverlayOrigin>
+    <div class="categories__item__name">{{data?.name}}</div>
+    <div class="categories__item__footer">
+      <div class="categories__item__footer__icon">
+        <svg-icon class="categories__item__footer__icon"
+                  [class.categories__item__footer__icon--active]="data?.isActive"
+                  [applyCss]="true"
+                  [src]="data.iconUrl"></svg-icon>
+      </div>
+      <div class="categories__item__footer__value">
+        <span class="counts__count">{{data?.notificationsCounts?.open}}</span>
+        <span class="counts__count">/</span>
+        <span class="counts__count">{{data?.notificationsCounts?.all}}</span>
+      </div>
+    </div>
+  </div>
+  <div class="categories__link">
+    <button
+      class="categories__link__btn"
+      [disabled]="data?.url === '#'"
+      (click)="onClickUrl($event, data?.url)"
+    >
+      В систему источник
+    </button>
+  </div>
+</div>

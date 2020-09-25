@@ -163,6 +163,7 @@ export const WIDGETS = {
     'cd-mat-balance-stream': CdMatBalanceChartCardComponent,
     //
     'line-diagram': WidgetContainerComponent,
+    'evj-events': WidgetContainerComponent,
     'ejco-onpz-unit-sou': WidgetContainerComponent,
     'ejco-onpz-fsb-load': WidgetContainerComponent,
     'ejco-onpz-unit-kpe': WidgetContainerComponent,
@@ -510,6 +511,18 @@ export const WIDGETS_LAZY = {
         minItemCols: 32,
         minItemRows: 20,
         preview: 'events-workspace',
+    },
+
+    'evj-events': {
+        import: async () => {
+            return await import('src/app/widgets/EVJ/evj-events/evj-events.module');
+        },
+        module: 'EvjEventsModule',
+        itemCols: 32,
+        itemRows: 30,
+        minItemCols: 32,
+        minItemRows: 30,
+        preview: 'cd-events'
     },
 
     // #endregion EVJ
