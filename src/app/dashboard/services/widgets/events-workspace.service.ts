@@ -22,8 +22,8 @@ import {
 } from '../../models/events-widget';
 import { EventService } from './event.service';
 import { SnackBarService } from '../snack-bar.service';
-import { fillDataShape } from '@shared/common-functions';
-import { AvatarConfiguratorService } from '../avatar-configurator.service';
+import { fillDataShape } from '@shared/functions/common-functions';
+import { AvatarConfiguratorService } from '@core/service/avatar-configurator.service';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { IAlertWindowModel } from '@shared/models/alert-window.model';
 import { filter, map } from 'rxjs/operators';
@@ -505,9 +505,6 @@ export class EventsWorkspaceService {
             },
             productionTasks: {
                 subCategory: null,
-                start: undefined,
-                inWork: undefined,
-                close: undefined
             }
         };
     }
@@ -587,6 +584,10 @@ export class EventsWorkspaceService {
         console.log(this.event.category);
         console.log(this.event);
 
+        if (this.event.category.name === 'tasks') {
+            const el = this.subCategory.find(value => value.code === '0');
+            this.event.productionTasks.subCategory = el;
+        }
         if (this.event.category.name === 'asus') {
             await this.asusReferencesLoad();
         }

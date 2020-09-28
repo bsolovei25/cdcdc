@@ -15,7 +15,7 @@
     </thead>
     <tbody class="table__body">
     <tr class="body__row"
-        *ngFor="let item of data; let idx = index"
+        *ngFor="let item of flowIn; let idx = index"
         [class.body__row_inactivity]="!item.isEnable">
       <td class="body__column">{{ item.srcName }}
         <svg-icon
@@ -40,7 +40,7 @@
           </div>
 
           <span class="column__percent"
-                [class.column__percent_inactivity]="!item.isEnable">{{ item?.valueMomentPercent }}%</span>
+                [class.column__percent_inactivity]="!item.isEnable">{{ item?.accuracy }}%</span>
         </div>
       </td>
       <td class="body__column">
@@ -54,7 +54,7 @@
         </div>
 
         <span class="column__percent"
-              [class.column__percent_inactivity]="!item.isEnable">{{ item?.valueByHourPercent }}%</span>
+              [class.column__percent_inactivity]="!item.isEnable">{{ item?.accuracy }}%</span>
       </td>
       <td class="body__column">
         <div class="column__block">
@@ -68,7 +68,7 @@
 
         <span class="column__percent"
 
-              [class.column__percent_inactivity]="!item.isEnable">{{ item?.valueTankPercent }}%</span>
+              [class.column__percent_inactivity]="!item.isEnable">{{ item?.accuracy }}%</span>
       </td>
       <td class="body__column">{{ item.productName }}</td>
       <td class="body__column column body__column--padding-disabled body__column__trust-level">

@@ -386,6 +386,12 @@
     height: calc(100% - var(--filters-min-height) - var(--categories-min-height) - var(--padding));
   }
 
+  &--display-ed {
+    border: 0.5px solid var(--color-border-main);
+    border-radius: 5px;
+    height: calc(100% - var(--categories-min-height) - var(--padding));
+  }
+
   &__list {
     width: 100%;
     height: 100%;
@@ -498,6 +504,10 @@
   position: relative;
   box-sizing: border-box;
   height: calc(var(--categories-min-height) + var(--filters-min-height));
+
+  &__ed {
+    height: var(--categories-min-height);
+  }
 
   &__line {
     position: absolute;

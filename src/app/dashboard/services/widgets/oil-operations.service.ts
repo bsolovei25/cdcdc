@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { IDatesInterval, WidgetService } from '../widget.service';
-import { AppConfigService } from '../../../services/appConfigService';
+import { AppConfigService } from '@core/service/app-config.service';
 
 interface IOilOperationTransferRest {
     id: number;

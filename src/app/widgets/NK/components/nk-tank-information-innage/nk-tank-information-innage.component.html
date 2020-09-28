@@ -9,23 +9,28 @@
                 *ngFor = "let item of innageDiagramCustomization; let i = index" 
                 [ngClass] = "{
                     'innage-lines__item_active':
-                    (20 - i <= diagramCustomLinesCount || diagramCustomLinesCount === (innageDiagramCustomization.length - 1))
+                    (30 - i <= diagramCustomLinesCount || diagramCustomLinesCount === (innageDiagramCustomization.length - 1))
                 }"></div>
-            </div>
-
-            <div class="innage-axis">
-                <div class="innage-axis__value" [ngStyle] = "{'height': current / higher * 100 + '%'}"></div>
             </div>
 
             <span class="innage__higherBorder">
                 {{higher | number:'0.0-1'}}
             </span>
-            <span class="innage__current" [style.alignItems] = "current / higher > 0.5 ? 'flex-start' : 'flex-end'" [ngStyle] = "{'height': current / higher * 100 + '%'}">
+            <span class="innage__current" 
+                [style.alignItems] = "current / higher > 0.5 ? 'flex-start' : 'flex-end'" 
+                [style.height] = "higher > 0 ? current / higher * 100 + '%' : 100 + '%'" 
+            >
                 {{current | number:'0.0-1'}}
             </span>
             <span class="innage__lowerBorder">
                 {{lower | number:'0.0-1'}}
             </span>
+
+            <div class="innage-axis">
+                <div class="innage-axis__value" 
+                    [style.height] = "higher > 0 ? current / higher * 100 + '%' : 100 + '%'"
+                ></div>
+            </div>
         </div>
     </div>
 </div>

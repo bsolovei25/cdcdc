@@ -9,11 +9,18 @@
   font-style: normal;
 }
 
+html {
+  min-height: 100%;
+  max-height: -webkit-fill-available;
+}
+
 body {
   font-family: "Tahoma";
   color: var(--color-text-main);
   background: var(--color-bg-main);
   overflow: hidden;
+  display: flex;
+  flex-flow: column;
 }
 
 .scroll-bar::-webkit-scrollbar {

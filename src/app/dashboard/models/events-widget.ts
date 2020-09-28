@@ -24,6 +24,8 @@ export interface EventsWidgetNotificationPreview {
     source?: any;
     externalId?: number;
     isAcknowledged?: boolean; // Квитировано
+    shiftPassEstablishedFacts?: string;
+    subCategory?: ISubcategory;
 }
 
 export interface IEventsWidgetNotification {
@@ -74,9 +76,12 @@ export interface IEventsWidgetNotification {
 
 export interface IEventProductionTask {
     subCategory?: ISubcategory; // Подкатегория
-    start?: IEventStep; // Создано
-    inWork?: IEventStep; // Принято в работу
-    close?: IEventStep; // Закрыто
+    createdAt?: Date;
+    createdBy?: IUser;
+    acceptedAt?: Date;
+    acceptedBy?: IUser;
+    closedAt?: Date;
+    closedBy?: IUser;
 }
 
 export interface IEventCd {
@@ -251,12 +256,14 @@ export interface ICategory {
     id: number;
     name: EventsWidgetCategoryCode;
     code: string;
+    description?: string;
 }
 
 export interface IStatus {
     id: number;
     name: EventsWidgetNotificationStatus;
     code: string;
+    description?: string;
 }
 
 export interface ISubcategory {

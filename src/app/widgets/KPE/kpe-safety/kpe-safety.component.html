@@ -23,7 +23,7 @@
     <div class="readiness">
       <div class="readiness__header">
         <div #mainGauge class="readiness__header__gauge" [style]="gaugeWidth(mainGauge)">
-          <evj-kpe-gauge-chart isPercent="true"
+          <evj-kpe-gauge-chart #gaugeChart isPercent="true"
                                [fact]="deviationDiagramData?.fact"
                                [plan]="deviationDiagramData?.plan"
                                [deviation]="deviationDiagramData?.deviation"
@@ -40,8 +40,12 @@
               <div class="gauge-card">
                 <div class="gauge-card__content">
                   <div class="gauge-card__units">
-                    <div class="gauge-card__units__unit">{{ card?.unit }}</div>
-                    <div class="gauge-card__units__unit gauge-card__units__unit__active">%</div>
+                    <div class="gauge-card__units__unit"
+                         [class.gauge-card__units__unit_active]="card?.unit"
+                    >{{ card?.unit || 'ед.изм'}}</div>
+                    <div class="gauge-card__units__unit"
+                         [class.gauge-card__units__unit_active]="!card?.unit"
+                    >%</div>
                   </div>
                   <div class="gauge-card__diagram">
                     <evj-kpe-gauge-chart

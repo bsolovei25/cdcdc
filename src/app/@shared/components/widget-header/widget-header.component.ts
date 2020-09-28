@@ -7,6 +7,7 @@ import {
     OnChanges,
     OnDestroy,
     ChangeDetectorRef,
+    SimpleChanges,
 } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { EnumClaimWidgets, ClaimService } from '../../../dashboard/services/claim.service';
@@ -64,7 +65,7 @@ export class WidgetHeaderComponent implements OnInit, OnChanges, OnDestroy {
 
     public filterTankInfo: boolean = false;
 
-    public ejcoActiveTab: string = '';
+    public ejcoActiveTab: string | null = null;
 
     constructor(
         public overlayService: OverlayService,
@@ -74,12 +75,15 @@ export class WidgetHeaderComponent implements OnInit, OnChanges, OnDestroy {
         private chDet: ChangeDetectorRef
     ) {}
 
-    public ngOnChanges(): void {
+    public ngOnChanges(changes: SimpleChanges): void {
         this.filterTankInfo = this.tankInfo;
         this.createIcon = this.isEventOpen;
+        if (changes.ejcoTabs && this.ejcoTabs && !this.ejcoActiveTab) {
+            this.handleEjcoTabClick(this.ejcoTabs[0].caption);
+        }
     }
 
-    ngOnInit(): void {
+    public ngOnInit(): void {
         this.subscriptions.push(
             this.claimService.claimWidgets$.subscribe((data) => {
                 this.claimWidgets = data;
@@ -87,7 +91,7 @@ export class WidgetHeaderComponent implements OnInit, OnChanges, OnDestroy {
         );
     }
 
-    ngOnDestroy(): void {
+    public ngOnDestroy(): void {
         if (this.subscriptions.length > 0) {
             for (const subscribe of this.subscriptions) {
                 subscribe.unsubscribe();

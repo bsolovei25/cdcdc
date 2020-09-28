@@ -37,6 +37,8 @@
   --color-table-header: #292b38;
   --color-bg-report: #1f222b;
 
+  --color-bg-btn: #232735;
+
   // Переделать под прозрачность
   --color-border-active-hover: #1e2b3a;
 
@@ -269,9 +271,10 @@
   --nk-color-active: #0089FF;
   --nk-color-table-main: #1b1f2c;
   --nk-color-bg-volume-indicator: #1b1f2c;
-  --nk-color-temperature-gradient: linear-gradient(0deg,  #00A99D 4.3px, #F4A321 39px, #FF0000 84px);
+  --nk-color-temperature-gradient: linear-gradient(0deg, #00A99D 4.3px, #F4A321 39px, #FF0000 84px);
   --nk-color-innage-axis: #E8E6DD;
   --nk-color-scroll-thumb: #272b35;
+  --nk-color-bg-innage-min: #0C5395;
 
   // new
   --color-gray80: #272a38;
@@ -400,7 +403,7 @@
   --nk-color-active: #0089FF;
   --nk-color-table-main: #1b1f2c;
   --nk-color-bg-volume-indicator: #1b1f2c;
-  --nk-color-temperature-gradient: linear-gradient(0deg,  #00A99D 4.3px, #F4A321 39px, #FF0000 84px);
+  --nk-color-temperature-gradient: linear-gradient(0deg, #00A99D 4.3px, #F4A321 39px, #FF0000 84px);
   --nk-color-innage-axis: #E8E6DD;
   --nk-color-scroll-thumb: #272b35;
 
@@ -430,13 +433,17 @@
 
   --ozsm-color-loading-space-bg-sub: #1c1f2b;
   --ozsm-color-bg-innage-diagram: rgba(0, 137, 255, 0.2);
+  --ozsm-color-bg-data-icon: #303549;
   --ozsm-color-border-select: #4B5169;
   --ozsm-color-bg-btn: #303549;
   --ozsm-color-bg-main-toggle: #303549;
-
+  --ozsm-color-bg-packing-list: #141721;
+  --ozsm-color-border-packing-list: #282c39;
+  --ozsm-color-bg-packing-marker: #303549;
+  --ozsm-color-bg-packing-arc: #292d3b;
   --ozsm-color-circle-diagram: rgb(23, 25, 35);
 
-  // ozsm-resources-circle-diagram 
+  // ozsm-resources-circle-diagram
   --ozsm-resources-circle-diagram-color-border-main: #313445;
   --ozsm-resources-circle-diagram-color-bg-main: #171a24;
   --ozsm-resources-circle-diagram-color-bg-info-title: rgba(39, 42, 56, 0.5);
@@ -444,6 +451,22 @@
   --ozsm-resources-circle-diagram-color-font-main: #D7E2F2;
   --ozsm-resources-circle-diagram-color-font-sub: #606580;
   --ozsm-resources-circle-diagram-color-active: #0089FF;
+  --ozsm-resources-circle-diagram-color-back: #1b1f2c;
+  --ozsm-resources-circle-diagram-color-line: #3c4257;
+  --ozsm-resources-circle-diagram-color-back-line: #111626;
+
+  --color-badge-notification-header: #DA2329;
+
+  // Header events
+  --header-events-color-bg-main: #161922;
+  --header-events-color-font-main: #D7E2F2;
+  --header-events-color-bg-item-main: rgba(31, 34, 46, 0.6);
+  --header-events-color-font-standard: #606580;
+  --header-events-color-font-warning: #F7931E;
+  --header-events-color-font-danger:#FF0000;
+  --header-events-color-bg-active: #0089FF;
+  --header-events-color-bg-hover: #1F222E;
+  --header-events-color-bg-thumb: rgb(40, 43, 56, 0.46);
 }
 
 $--color-active: #3fa9f5;

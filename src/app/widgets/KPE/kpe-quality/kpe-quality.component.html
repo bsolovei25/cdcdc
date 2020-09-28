@@ -51,12 +51,13 @@
                                          [plan]="card.gaugeChart?.plan"
                                          [deviation]="card.gaugeChart?.deviation"
                     ></evj-kpe-gauge-chart>
-                    <div class="unit-selector">
-                      <div class="unit-selector__unit">
-                        <span>{{ card.gaugeChart.unit }}</span>
-                      </div>
-                      <div class="unit-selector__sign">
-                        <span>%</span>
+                    <div class="units">
+                      <div class="units__unit"
+                           [class.units__unit_active]="card?.gaugeChart?.unit"
+                      >{{ card?.gaugeChart?.unit || 'ед.изм' }}</div>
+                      <div class="units__unit"
+                           [class.units__unit_active]="!card?.gaugeChart?.unit"
+                      >%
                       </div>
                     </div>
                   </div>

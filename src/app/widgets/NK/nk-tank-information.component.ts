@@ -97,6 +97,5 @@ export class NkTankInformationComponent extends WidgetPlatform implements
                 this.filterList.push(item.name);
             }
         });
-
     }
 }

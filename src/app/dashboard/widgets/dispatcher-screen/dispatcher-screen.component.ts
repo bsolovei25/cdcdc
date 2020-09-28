@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, HostListener, Inject, OnDestroy, OnInit } from '@angular/core';
-import { UnityLoader } from './UnityLoader.js';
+import { UnityLoader } from '@shared/functions/UnityLoader.js';
 import { PlatformLocation } from '@angular/common';
 import { WidgetService } from '../../services/widget.service';
 import { WidgetSettingsService } from '../../services/widget-settings.service';

@@ -2,8 +2,8 @@ import { Component, OnInit, Input, ViewChild, ElementRef, OnChanges } from '@ang
 import { Shift, ShiftMember } from 'src/app/dashboard/models/shift.model';
 import { ShiftService } from '../../../services/shift.service';
 import { SnackBarService } from '../../../services/snack-bar.service';
-import { AppConfigService } from '../../../../services/appConfigService';
-import { AvatarConfiguratorService } from '../../../services/avatar-configurator.service';
+import { AppConfigService } from '@core/service/app-config.service';
+import { AvatarConfiguratorService } from '@core/service/avatar-configurator.service';
 import { IAlertWindowModel } from '@shared/models/alert-window.model';
 
 interface IMapper { code: string; name: string; }

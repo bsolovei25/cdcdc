@@ -1,2 +1,0 @@
-/* Copyright © 1993-2019 Meridium, Inc. All rights reserved.  */
-define(["require","exports","system/lang/object","catalog/catalog-dialog"],function(require,exports,a){"use strict";var b=require("catalog/catalog-dialog"),c=function(){function c(){this.catalog=a.resolve(b)}return c.prototype.openDialog=function(){return this.catalog.show({itemTypes:["Query","Graph"]})},c}();exports.CatalogBrowser=c});

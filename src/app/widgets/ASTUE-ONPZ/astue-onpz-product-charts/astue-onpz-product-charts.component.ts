@@ -11,13 +11,16 @@ export interface IAstueProductChart {
     iconType: string;
     itemId: string;
     units: string;
-    currentPlanValue: number;
-    currentFactValue: number;
-    planText: string;
-    factText: string;
-    isLowerEconomy: boolean;
+    isEconomy: boolean;
+    labels: {
+        text: string;
+        value: number;
+        type: AstueProductChartType;
+    }[];
     graphs: IProductionTrend[];
 }
+
+export type AstueProductChartType = 'fact' | 'plan' | 'exceed' | 'economy';
 
 @Component({
     selector: 'evj-astue-onpz-product-charts',

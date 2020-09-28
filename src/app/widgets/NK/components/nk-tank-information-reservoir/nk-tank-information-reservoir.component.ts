@@ -7,10 +7,17 @@ import { Component, OnInit, Input, OnChanges } from '@angular/core';
   styleUrls: ['./nk-tank-information-reservoir.component.scss']
 })
 export class NkTankInformationReservoirComponent implements OnInit, OnChanges {
-  @Input() volumeFillPercentage: number;
+  @Input() set innageMax(data: number) {
+    this.higher = data;
+  }
+  @Input() set innageCurrent(data: number) {
+    this.current = data;
+  }
   @Input() status: string;
 
-  fill: number;
+  higher: number;
+  current: number;
+
   operation: object = {
     in: 'Заполнение',
     out: 'Отгрузка',
@@ -26,10 +33,6 @@ export class NkTankInformationReservoirComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(): void {
-    this.fill = this.volumeFillPercentage < 100
-      ? this.volumeFillPercentage / 100
-      : 1; // На случай если бак переполнен
-
     this.status = !!this.operation[this.status] ? this.operation[this.status] : 'Неизвестно';
   }
 }

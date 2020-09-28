@@ -1,4 +1,3 @@
-import { SpaceNumber } from '@shared/pipes/number-space.pipe';
 import { Component, OnInit, Input, OnChanges } from '@angular/core';
 
 @Component({
@@ -8,32 +7,30 @@ import { Component, OnInit, Input, OnChanges } from '@angular/core';
 })
 export class NkTankInformationCardInfoComponent implements OnInit, OnChanges {
 
-  @Input() volumeMax: number = 0;
-  @Input() volumeCurrent: number = 0;
-  @Input() volumeFillPercentage: number = 0;
+  @Input() set volumeMax(data: number) {
+    this.nominal = data;
+  }
+  @Input() set volumeCurrent(data: number) {
+    this.current = data;
+  }
+  @Input() set volumeFreeSpace(data: number) {
+    this.freeSpace = data;
+  }
 
   activeIndicatorCount: number;
-
-  freeSpace: string;
+  nominal: number;
+  current: number;
+  freeSpace: number;
   fill: number;
 
   volumeCustomization: number[] = new Array(6);
 
-  constructor(private spacePipe: SpaceNumber) {}
+  constructor() {}
 
   ngOnInit(): void {}
 
   ngOnChanges(): void {
-    this.volumeMax = this.volumeMax > 0 ? this.volumeMax : 0;
-    this.volumeCurrent = this.volumeCurrent > 0 ? this.volumeCurrent : 0;
-
-    this.fill = this.volumeFillPercentage < 100
-      ? this.volumeFillPercentage
-      : 100; // На случай если бак переполнен
-
-    this.freeSpace = (this.volumeMax - this.volumeCurrent) > 0
-      ? this.spacePipe.transform(this.volumeMax - this.volumeCurrent, 3)
-      : '0';
+    this.fill = this.current / this.nominal * 100;
 
     this.activeIndicatorCount =
       Math.round(this.fill * this.volumeCustomization.length) / 100;

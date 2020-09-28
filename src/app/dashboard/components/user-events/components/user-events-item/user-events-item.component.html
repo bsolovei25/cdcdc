@@ -1,0 +1,26 @@
+<div class="container">
+    <div class="event">
+        <div class="header">
+            <span class="header__number">{{cardData.id}}</span>
+            <span class="header__title">{{cardData.unit? cardData.unit.name : 'Не известно'}}</span>
+            <span class="header__data">{{cardData.eventDateTime | date:"dd.MM.yyyy HH:MM"}}</span>
+            <div class="header__indicators">
+                <span class = 'indicator-text'
+                    [style.color] = "'var(--header-events-color-font-' + cardData.priority.name + ')'"
+                >{{cardData.status.description}}</span>
+                <svg-icon
+                    [src] = status(cardData.status.name)
+                    [style.fill] = "'var(--header-events-color-font-' + cardData.priority.name + ')'"
+                ></svg-icon>
+                <svg-icon
+                    src = "assets/icons/widgets/events/{{icon2}}.svg"
+                    [style.fill] = "'var(--header-events-color-bg-active)'"
+                ></svg-icon>
+            </div>
+        </div>
+        <div class = "information">
+            <span>{{cardData.description}} JKSDBFAKLSJDFH voiqlweudfhvablseifhavwleoifhwebvolIEB</span>
+        </div>
+    </div>
+</div>
+

@@ -1,2 +1,0 @@
-/* Copyright © 1993-2019 Meridium, Inc. All rights reserved.  */
-define(["require","exports","./base-chart-formatter"],function(require,exports,a){"use strict";var b=function(a){__extends(b,a);function b(b){return a.call(this,b)||this}return b}(a.BaseChartFormatter);exports.StandardChartFormatter=b});

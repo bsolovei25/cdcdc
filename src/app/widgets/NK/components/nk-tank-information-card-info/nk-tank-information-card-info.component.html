@@ -1,7 +1,10 @@
 <div class="volume">
     <div class="volume__info">
         <span>Номинальный объем</span>
-        <span> {{volumeMax | spaceNumber: 3}} т.</span>
+        <div class="value-info">
+            <span> {{+nominal | spaceNumber:3}} </span> 
+            <span class = "units">т.</span>
+        </div>
     </div>
 
     <div class="free-space">
@@ -12,11 +15,17 @@
         </div>
         <div class="free-space__info">
             <span>Ресурс к отгрузке</span>
-            <span> {{volumeCurrent | spaceNumber: 3}} т.</span>
+            <div class="value-info">
+                <span> {{+current | spaceNumber:3}} </span> 
+                <span class = "units">т.</span>
+            </div>
         </div>
         <div class="free-space__info">
             <span>Свободное место</span>
-            <span>{{freeSpace}} т.</span>
+            <div class="value-info">
+                <span> {{+freeSpace | spaceNumber:3}} </span> 
+                <span class = "units">т.</span>
+            </div>
         </div>
     </div>
 </div>

@@ -1,2 +1,0 @@
-/* Copyright © 1993-2019 Meridium, Inc. All rights reserved.  */
-define(function(require){"use strict";var a=require("text!dashboard/views/calendar-widget/calendar-widget-editor.html");function b(){}return b.html=a,b});
