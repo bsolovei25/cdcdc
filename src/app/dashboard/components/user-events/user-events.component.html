@@ -1,0 +1,28 @@
+<div class="container">
+    <div class="title">
+        <svg-icon 
+            src = 'assets/icons/widgets/events/letter.svg'
+            class = 'title__icon'
+        ></svg-icon>
+        <span class="title__text">Новые события</span>
+        <svg-icon
+            src = 'assets/icons/close.svg'
+            class = 'close-btn'
+            (click)="toggleMenu()"
+        ></svg-icon>
+    </div>
+    <div class="body-container">
+        <div class="events-list">
+            <evj-user-events-item
+                *ngFor="let card of data"
+                [cardData] = "card"
+                [icon2] = "'smotr'"
+                (click) = "openWorkspace(card.id)"
+            ></evj-user-events-item>
+        </div>
+    </div>
+</div>
+
+<div class="treangle">
+</div>
+
