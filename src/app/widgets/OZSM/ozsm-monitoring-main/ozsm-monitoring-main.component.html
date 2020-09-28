@@ -1,0 +1,94 @@
+<evj-widget-header-smp
+  [uniqId]="uniqId"
+  (mouseenter)="onMouseEnter()"
+  (mouseleave)="onMouseExit()"
+  *ngIf="isHover"
+>
+</evj-widget-header-smp>
+
+<div class="padding-container"
+     (mouseenter)="onMouseEnter()"
+     (mouseleave)="onMouseExit()"
+     (mousedown)="$event.stopPropagation()"
+     (touchstart)="$event.stopPropagation()"
+>
+  <div #graphContainer class="scale-container">
+    <div [style]="styleTransform" class="abs-container">
+      <div class="graph-container">
+        <div class="top-container">
+          <div class="top-card top-card__left">
+            <evj-ozsm-loading-space></evj-ozsm-loading-space>
+          </div>
+          <div class="top-card top-card__right">
+            <evj-ozsm-loading-parks></evj-ozsm-loading-parks>
+          </div>
+        </div>
+        <div class="card-container card-container__group-v">
+          <ng-container *ngFor="let card of [1,2,3,4,5]">
+            <evj-ozsm-triple-diagram-card></evj-ozsm-triple-diagram-card>
+          </ng-container>
+        </div>
+        <div class="card-container card-container__group-q">
+          <evj-ozsm-list-packing-diagrams></evj-ozsm-list-packing-diagrams>
+        </div>
+        <div class="line-card-container line-card-container__group-widgets">
+          <div class="widget-card">
+            <div class="widget-card__header">
+              <span class="icon">
+                <svg-icon src="assets/icons/widgets/OZSM/ozsm-monitoring-main/icon.svg"></svg-icon>
+              </span>
+              <span class="title">Налив по направлениям</span>
+              <span class="icon">
+                <svg-icon src='assets/icons/widgets/OZSM/ozsm-list-packing-diagrams/menuDots.svg'></svg-icon>
+              </span>
+            </div>
+            <div class="widget-card__body">
+              <ng-container *ngFor="let card of [1,2]">
+                <evj-ozsm-card-line-diagram></evj-ozsm-card-line-diagram>
+              </ng-container>
+            </div>
+          </div>
+          <div class="widget-card">
+            <div class="widget-card__header">
+              <span class="icon">
+                <svg-icon src="assets/icons/widgets/OZSM/ozsm-monitoring-main/icon.svg"></svg-icon>
+              </span>
+              <span class="title">Отгрузка по направлениям</span>
+              <span class="icon">
+                <svg-icon src='assets/icons/widgets/OZSM/ozsm-list-packing-diagrams/menuDots.svg'></svg-icon>
+              </span>
+            </div>
+            <div class="widget-card__body">
+              <ng-container *ngFor="let card of [1,2]">
+                <evj-ozsm-card-line-diagram></evj-ozsm-card-line-diagram>
+              </ng-container>
+            </div>
+          </div>
+        </div>
+        <div class="diagram-container">
+          <div class="diagram-card">
+            <evj-ozsm-cirle-diagram-icon
+              diagramValue = 360
+              innerValue = 35658
+              titleText = 'Изготовление крышек'
+              innerIcon='cap'
+            ></evj-ozsm-cirle-diagram-icon>
+          </div>
+          <div class="diagram-card">
+            <evj-ozsm-cirle-diagram-icon
+              diagramValue = 0
+              innerValue = 35658
+              titleText = 'Изготовление канистр'
+              innerIcon='canister'
+            ></evj-ozsm-cirle-diagram-icon>
+          </div>
+        </div>
+        <div class="arrow-container">
+          <svg-icon
+            src="assets/icons/widgets/OZSM/ozsm-monitoring-main/monitoring-graph-arrows.svg"></svg-icon>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

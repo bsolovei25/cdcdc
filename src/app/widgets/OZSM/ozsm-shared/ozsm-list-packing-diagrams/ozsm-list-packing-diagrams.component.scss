@@ -4,7 +4,7 @@
 
 .header {
     height: 40px;
-    width: 410px;
+    width: 100%;
     padding: 0 15px;
 
     background: var(--ozsm-color-bg-header);
@@ -42,9 +42,8 @@
 
 .body {
     max-height: 530px;
-    width: 410px;
-    padding: 0 15px;
-    padding-bottom: 30px;
+    width: 100%;
+    padding: 0 15px 50px 30px;
 
     display: flex;
     flex-direction: column;
