@@ -175,6 +175,7 @@ export const WIDGETS = {
     'ozsm-main-toggle': WidgetContainerComponent,
     'ozsm-scenarios': WidgetContainerComponent,
     'ozsm-planning-main': WidgetContainerComponent,
+    'ozsm-monitoring-main': WidgetContainerComponent
 };
 
 export const WIDGETS_LAZY = {
@@ -957,6 +958,18 @@ export const WIDGETS_LAZY = {
             return await import('src/app/widgets/OZSM/ozsm-scenarios/ozsm-scenarios.module');
         },
         module: 'OzsmScenariosModule',
+        itemCols: 15,
+        itemRows: 10,
+        minItemCols: 15,
+        minItemRows: 10,
+        preview: 'default'
+    },
+
+    'ozsm-monitoring-main': {
+        import: async () => {
+            return await import('src/app/widgets/OZSM/ozsm-monitoring-main/ozsm-monitoring-main.module');
+        },
+        module: 'OzsmMonitoringMainModule',
         itemCols: 15,
         itemRows: 10,
         minItemCols: 15,
