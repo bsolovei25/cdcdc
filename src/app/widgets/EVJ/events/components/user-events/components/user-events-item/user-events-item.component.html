@@ -3,7 +3,7 @@
         <div class="header">
             <span class="header__number">{{cardData.id}}</span>
             <span class="header__title">АВТ-10</span>
-            <span class="header__data">{{cardData.eventDateTime}}</span>
+            <span class="header__data">{{cardData.eventDateTime | date:"dd.MM.yyyy HH:MM"}}</span>
             <div class="header__indicators">
                 <span class = 'indicator-text'
                     [style.color] = "'var(--evj-color-font-' + cardData.priority.name + ')'"
