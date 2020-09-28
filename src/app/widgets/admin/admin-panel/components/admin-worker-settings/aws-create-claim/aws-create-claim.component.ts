@@ -59,38 +59,17 @@ export class AwsCreateClaimComponent implements OnInit {
         return !(claim.claimValueType === 'screen');
     }
 
-    public itemsFilter(): boolean {
-        if (this.selectClaim.hasValue()) {
-            return this.selectClaim.selected[0].claimValueType === 'widget';
-        }
-        return true;
-    }
-
     // start Выбрать все===
     public checkIsAllSelected(): boolean {
-        if (this.itemsFilter()) {
-            return this.selectWidget.selected.length === this.allWidgets.length;
-        } else {
-            return this.selectUnit.selected.length === this.allUnits.length;
-        }
+        return this.selectClaim?.selected[0]?.widgets?.length === this.allWidgets.length
+        || this.selectClaim?.selected[0]?.units?.length === this.allUnits.length;
     }
 
     public onClickListButton(): void {
-        const isAllSelected: boolean = this.checkIsAllSelected();
+        const selectedClaim: IGlobalClaim = this.selectClaim.selected[0];
 
-        if (this.itemsFilter()) {
-            if (isAllSelected) {
-                this.selectWidget.clear();
-            } else {
-                this.allWidgets.forEach((item) => item.isActive = !item.isActive);
-            }
-        } else {
-            if (isAllSelected) {
-                this.selectUnit.clear();
-            } else {
-                this.allUnits.forEach((item) => this.selectUnit.select(item));
-            }
-        }
+        selectedClaim?.widgets?.forEach((value) => value.isActive = true);
+        selectedClaim?.units?.forEach((value) => value.isActive = true);
     }
 
     // end ===Выбрать все===
@@ -100,16 +79,17 @@ export class AwsCreateClaimComponent implements OnInit {
     }
 
     public onSave(): void {
-        const items: IGlobalClaim[] = [];
+        const claims: IGlobalClaim[] = [];
         this.allClaims.forEach((value) => {
             if (value?.widgets?.filter((v) => v.isActive).length) {
-                items.push(value);
+                claims.push(value);
             }
             if (value?.units?.filter((v) => v.isActive).length) {
-                items.push(value);
+                claims.push(value);
             }
         });
-        console.log(items);
+        console.log(claims);
+        this.createdClaim.emit(claims);
     }
 
     searchFn(value: KeyboardEvent): void {

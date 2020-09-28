@@ -190,11 +190,11 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
         let entity: IUnitEvents | IWidget;
         switch (claim.claimValueType) {
             case 'unit':
-                entity = this.adminService.units.find((item) => item.id === +claim.value);
-                return entity ? entity.name : '';
+                entity = this.adminService.units.find((item) =>  item.isActive);
+                return entity ? entity.name : 'unit';
             case 'widget':
-                entity = this.adminService.allWidgets.find((item) => item.id === claim.value);
-                return entity ? entity.title : '';
+                entity = this.adminService.allWidgets.find((item) =>  item.isActive);
+                return entity ? entity.title : 'widget';
         }
     }
 
