@@ -7,7 +7,7 @@
             class="card"
             *ngIf="claimsFilter(claim)"
             [ngClass]="{'card_active':selectClaim.isSelected(claim)}"
-            (click)="selectClaim.toggle(claim)"
+            (click)="selectClaim.select(claim)"
           >
             {{claim.claimName}}
           </div>
@@ -22,22 +22,20 @@
     </div>
     <div class="items">
       <div class="list" *ngIf="selectClaim.hasValue()">
-        <ng-container *ngIf="itemsFilter()">
+        <ng-container *ngFor="let widget of selectClaim?.selected[0]?.widgets">
           <div
             class="card"
-            *ngFor="let widget of formEntitiesList()"
-            [ngClass]="{card_active:selectWidget.isSelected(widget)}"
-            (click)="selectWidget.toggle(widget)"
+            [ngClass]="{'card_active': widget.isActive}"
+            (click)="changeActiveWidget(widget)"
           >
             {{widget.title}}
           </div>
         </ng-container>
-        <ng-container *ngIf="!itemsFilter()">
+        <ng-container *ngFor="let unit of selectClaim?.selected[0]?.units">
           <div
             class="card"
-            *ngFor="let unit of filterAllWidgets()"
-            [ngClass]="{'card_active':selectUnit.isSelected(unit)}"
-            (click)="selectUnit.toggle(unit)"
+            [ngClass]="{'card_active': unit.isActive}"
+            (click)="changeActiveUnit(unit)"
           >
             {{unit.name}}
           </div>

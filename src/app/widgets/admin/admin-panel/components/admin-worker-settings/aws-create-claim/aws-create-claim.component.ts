@@ -37,16 +37,25 @@ export class AwsCreateClaimComponent implements OnInit {
         this.allUnits = this.adminService.units;
         this.allClaims.forEach((value) => {
             if (value.claimValueType === 'widget') {
-                value.widgets = this.allWidgets.filter((item) => item.widgetType === value.claimValueType);
+                const copyWidgets: IWidget[] = this.allWidgets.map(v => fillDataShape(v));
+                value.widgets = copyWidgets;
             } else {
-                value.units = this.allUnits;
+                const copyUnits: IUnitEvents[] = this.allUnits.map(v => fillDataShape(v));
+                value.units = copyUnits;
             }
+
         });
     }
 
-    public claimsFilter(claim: IGlobalClaim): boolean {
-        // claim.widgets = this.allWidgets;
+    public changeActiveWidget(widget: IWidget): void {
+        widget.isActive = !widget.isActive;
+    }
 
+    public changeActiveUnit(unit: IUnitEvents): void {
+        unit.isActive = !unit.isActive;
+    }
+
+    public claimsFilter(claim: IGlobalClaim): boolean {
         return !(claim.claimValueType === 'screen');
     }
 
@@ -57,46 +66,10 @@ export class AwsCreateClaimComponent implements OnInit {
         return true;
     }
 
-    filterAllWidgets(): IUnitEvents[] {
-        return this.allUnits.filter((units) =>
-            units.name
-                ?.trim()
-                .toLowerCase()
-                .includes(this.search?.trim().toLowerCase())
-        );
-    }
-
-    public formEntitiesList(): IWidget[] {
-        const additionalType = this.selectClaim?.selected[0]?.additionalType;
-        if (additionalType) {
-            if (this.search) {
-                return this.allWidgets.filter(
-                    (widget) =>
-                        widget.widgetType === additionalType &&
-                        widget?.title
-                            .trim()
-                            .toLowerCase()
-                            .includes(this.search?.trim().toLowerCase())
-                );
-            } else {
-                return this.allWidgets.filter((widget) => widget.widgetType === additionalType);
-            }
-        }
-        if (this.search) {
-            return this.allWidgets.filter((widget) =>
-                widget.title
-                    ?.trim()
-                    .toLowerCase()
-                    .includes(this.search?.trim().toLowerCase())
-            );
-        } else {
-            return this.allWidgets.filter((widget) => widget.title?.trim().toLowerCase());
-        }
-    }
-
+    // start Выбрать все===
     public checkIsAllSelected(): boolean {
         if (this.itemsFilter()) {
-            return this.selectWidget.selected.length === this.formEntitiesList().length;
+            return this.selectWidget.selected.length === this.allWidgets.length;
         } else {
             return this.selectUnit.selected.length === this.allUnits.length;
         }
@@ -109,7 +82,7 @@ export class AwsCreateClaimComponent implements OnInit {
             if (isAllSelected) {
                 this.selectWidget.clear();
             } else {
-                this.formEntitiesList().forEach((item) => this.selectWidget.select(item));
+                this.allWidgets.forEach((item) => item.isActive = !item.isActive);
             }
         } else {
             if (isAllSelected) {
@@ -120,50 +93,27 @@ export class AwsCreateClaimComponent implements OnInit {
         }
     }
 
+    // end ===Выбрать все===
+
     public onBack(): void {
         this.createdClaim.emit(null);
     }
 
     public onSave(): void {
-        const selectedClaim: IGlobalClaim = this.selectClaim.selected[0];
-        if (this.selectClaim.hasValue()) {
-            const selectedClaims: IGlobalClaim[] = this.selectClaim.selected;
-            const selectedWidgets: IWidget[] = this.selectWidget.selected;
-            const claims: IGlobalClaim[] = [];
-            selectedClaims.forEach((claim) => {
-                claims.push(claim);
-            });
-
-            selectedWidgets.forEach((widget) => {
-                const claim: IGlobalClaim = fillDataShape(selectedClaim);
-                claim.value = widget.id;
-                claims.push(claim);
-                console.log('1');
-            });
-
-            this.createdClaim.emit(claims);
-        }
-
-        if (this.selectClaim.hasValue() && this.selectUnit.hasValue()) {
-            const selectedClaims: IGlobalClaim[] = this.selectClaim.selected;
-            const selectedUnits: IUnitEvents[] = this.selectUnit.selected;
-            const claims: IGlobalClaim[] = [];
-            selectedClaims.forEach((claim) => {
-                claims.push(claim);
-            });
-
-            selectedUnits.forEach((unit) => {
-                const claim: IGlobalClaim = fillDataShape(selectedClaim);
-                claim.value = unit.id.toString();
-                claims.push(claim);
-                console.log('2');
-            });
-
-            this.createdClaim.emit(claims);
-        }
+        const items: IGlobalClaim[] = [];
+        this.allClaims.forEach((value) => {
+            if (value?.widgets?.filter((v) => v.isActive).length) {
+                items.push(value);
+            }
+            if (value?.units?.filter((v) => v.isActive).length) {
+                items.push(value);
+            }
+        });
+        console.log(items);
     }
 
     searchFn(value: KeyboardEvent): void {
         console.log(value);
     }
+
 }
