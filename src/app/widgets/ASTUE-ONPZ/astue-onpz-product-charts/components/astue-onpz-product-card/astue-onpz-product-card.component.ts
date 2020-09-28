@@ -4,6 +4,8 @@ import { UserSettingsService } from '../../../../../dashboard/services/user-sett
 import { AstueOnpzService } from '../../../astue-onpz-shared/astue-onpz.service';
 import { WidgetPlatform } from '../../../../../dashboard/models/widget-platform';
 import { WidgetService } from '../../../../../dashboard/services/widget.service';
+import { HttpClient } from "@angular/common/http";
+import { fillDataShape } from "@shared/functions/common-functions";
 
 @Component({
     selector: 'evj-astue-onpz-product-card',
@@ -16,6 +18,7 @@ export class AstueOnpzProductCardComponent extends WidgetPlatform implements OnI
     public isDeviationChart: boolean = false;
 
     constructor(
+        private http: HttpClient,
         private userSettingsService: UserSettingsService,
         private astueOnpzService: AstueOnpzService,
         protected widgetService: WidgetService,
@@ -37,6 +40,12 @@ export class AstueOnpzProductCardComponent extends WidgetPlatform implements OnI
                 this.widgetService.setWidgetLiveDataFromWSOptions(this.widgetId, ref);
             })
         );
+    }
+
+    private async getMockData(): Promise<void> {
+        const ref = await this.http.get<IAstueProductChart>('assets/mock/ASTUE-ONPZ/product-charts.mock.json').toPromise();
+        console.log(fillDataShape(ref));
+        setTimeout(() => this.dataHandler(ref), 5000);
     }
 
     public switchToIndicatorScreen(): void {
