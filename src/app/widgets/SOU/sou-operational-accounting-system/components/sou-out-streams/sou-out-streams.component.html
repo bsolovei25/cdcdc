@@ -31,7 +31,8 @@
       <td class="body__column column body__column--padding-disabled body__column__trust-level">
         <span class="body__column column__trust-level"
               [class.column__trust-level_deviation]="item.isExceedingConfInterval"
-              [class.column__trust-level--no-active]="!item.isEnable">{{ item.tolerance }}%</span></td>
+              [class.column__trust-level--no-active]="!item.isEnable">{{ item.tolerance }}%</span>
+      </td>
       <td class="body__column">{{ item.productName }}</td>
       <td
         class="body__column">
@@ -47,7 +48,8 @@
           </div>
 
           <span class="column__percent"
-                [class.column__percent_inactivity]="!item.isEnable">{{ item?.accuracy }}%</span>
+                [class.column__percent_inactivity]="!item.isEnable">{{ item?.valueMomentPercent }}
+            %</span>
         </div>
       </td>
       <td class="body__column">
@@ -61,7 +63,8 @@
         </div>
 
         <span class="column__percent"
-              [class.column__percent_inactivity]="!item.isEnable">{{ item?.accuracy }}%</span>
+              [class.column__percent_inactivity]="!item.isEnable">{{ item?.valueByHourPercent }}
+          %</span>
       </td>
       <td class="body__column">
         <div class="column__block">
@@ -74,7 +77,8 @@
         </div>
 
         <span class="column__percent"
-              [class.column__percent_inactivity]="!item.isEnable">{{ item?.accuracy }}%</span>
+              [class.column__percent_inactivity]="!item.isEnable">{{ item?.valueTankPercent }}
+          %</span>
       </td>
       <td class="body__column body__column__text_grey">{{ item.valueCalculate }}</td>
       <td class="body__column body__column__text_grey">{{ item.valueMeasuring }}
@@ -90,7 +94,7 @@
         <ul class="column__list">
           <li *ngFor="let i of item.dscFlow; let idx = index; last as isLast"
               class="list__item"
-              [class.list__item_inactivity]="i.isEnable"
+              [class.list__item_inactivity]="!i.isEnable"
           >
             <ng-container *ngIf="item.dscFlow.length > 1">
               <svg-icon
@@ -130,14 +134,15 @@
         <div class="footer__items">
           <ul class="footer__list">
             <ng-container *ngFor="let item of section.flowOut">
-              <li class="footer__item" [class.footer__item_deviation]="item.isExceedingConfInterval">{{ item.tag }}</li>
+              <li class="footer__item"
+                  [class.footer__item_deviation]="item.isExceedingConfInterval">{{ item.tag }}</li>
             </ng-container>
           </ul>
         </div>
         <div class="footer__block-btn">
           <div class="footer__btn"
                matRipple
-               [matRippleColor]="'black'" (click)="onClickName(section)">
+               [matRippleColor]="'black'">
             <svg-icon
               src="assets/icons/widgets/SOU/sou-in-streams/factory.svg"
               [svgStyle]="{ 'width.px': 17, 'height.px': 16 }"

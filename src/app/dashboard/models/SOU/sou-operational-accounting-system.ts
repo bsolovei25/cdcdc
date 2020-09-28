@@ -22,6 +22,9 @@ export interface ISOUFlowOut {
         name: string
     }[];
     isExceedingConfInterval: boolean;
+    valueByHourPercent: number;
+    valueMomentPercent: number;
+    valueTankPercent: number;
     productName: string;
     valueMeasuring: number;
     valueCalculate: number;
