@@ -18,7 +18,7 @@
         </div>
         <div class="flex-column-container cards">
           <evj-sou-facility-info [data]="isSection"
-                                 [count]="data?.notificationCards.length"
+                                 [count]="data?.notificationCards?.length ? data?.notificationCards?.length : 0"
                                  (openPanel)="togglePopupElement('deviation', true)"></evj-sou-facility-info>
           <evj-sou-balance-card
             [data]="{type: 'in', title: 'Сумма входа', sumValue: data?.sumInByDay , perHourValue: data?.sumInByHour }"></evj-sou-balance-card>
