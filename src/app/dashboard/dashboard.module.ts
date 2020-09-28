@@ -1,5 +1,4 @@
 import { SharedModule } from './../@shared/shared.module';
-import { OzsmSharedModule } from './../widgets/OZSM/ozsm-shared/ozsm-shared.module';
 import { ChangeShiftComponent } from './widgets/change-shift/change-shift.component';
 import { NgModule, LOCALE_ID } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -501,7 +500,6 @@ import { MatBadgeModule } from '@angular/material/badge';
         MatTooltipModule,
         MatMenuModule,
         MatRippleModule,
-        OzsmSharedModule,
         MatBadgeModule
     ],
     bootstrap: [],
