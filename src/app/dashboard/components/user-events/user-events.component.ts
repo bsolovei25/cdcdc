@@ -1,6 +1,6 @@
-import { EventsWorkspaceService } from './../../../../../dashboard/services/widgets/events-workspace.service';
+import { EventsWorkspaceService } from './../../services/widgets/events-workspace.service';
+import { IEventsWidgetNotification } from './../../models/events-widget';
 import { UserSettingsService } from 'src/app/dashboard/services/user-settings.service';
-import { IEventsWidgetNotification } from './../../../../../dashboard/models/events-widget';
 import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
 
 @Component({

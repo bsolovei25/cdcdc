@@ -1,5 +1,5 @@
-import { UserEventsItemComponent } from './../widgets/EVJ/events/components/user-events/components/user-events-item/user-events-item.component';
-import { UserEventsComponent } from './../widgets/EVJ/events/components/user-events/user-events.component';
+import { UserEventsComponent } from './components/user-events/user-events.component';
+import { UserEventsItemComponent } from './components/user-events/components/user-events-item/user-events-item.component';
 import { SharedModule } from './../@shared/shared.module';
 import { OzsmSharedModule } from './../widgets/OZSM/ozsm-shared/ozsm-shared.module';
 import { ChangeShiftComponent } from './widgets/change-shift/change-shift.component';

@@ -1,4 +1,5 @@
-import { IEventsWidgetNotification } from './../../../../../../../dashboard/models/events-widget';
+import { IEventsWidgetNotification } from './../../../../models/events-widget';
+
 import { Component, Input, OnInit } from '@angular/core';
 
 @Component({

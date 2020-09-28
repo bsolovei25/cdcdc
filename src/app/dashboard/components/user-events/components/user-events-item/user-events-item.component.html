@@ -6,20 +6,20 @@
             <span class="header__data">{{cardData.eventDateTime | date:"dd.MM.yyyy HH:MM"}}</span>
             <div class="header__indicators">
                 <span class = 'indicator-text'
-                    [style.color] = "'var(--evj-color-font-' + cardData.priority.name + ')'"
+                    [style.color] = "'var(--header-events-color-font-' + cardData.priority.name + ')'"
                 >{{cardData.status.description}}</span>
                 <svg-icon
                     [src] = status(cardData.status.name)
-                    [style.fill] = "'var(--evj-color-font-' + cardData.priority.name + ')'"
+                    [style.fill] = "'var(--header-events-color-font-' + cardData.priority.name + ')'"
                 ></svg-icon>
                 <svg-icon
                     src = "assets/icons/widgets/events/{{icon2}}.svg"
-                    [style.fill] = "'var(--evj-color-bg-active)'"
+                    [style.fill] = "'var(--header-events-color-bg-active)'"
                 ></svg-icon>
             </div>
         </div>
         <div class = "information">
-            {{cardData.category.description}}
+            <span>{{cardData.description}} JKSDBFAKLSJDFH voiqlweudfhvablseifhavwleoifhwebvolIEB</span>
         </div>
     </div>
 </div>
