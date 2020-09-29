@@ -40,6 +40,12 @@ export class SouOperationalAccountingSystemComponent extends WidgetPlatform impl
     protected dataHandler(ref: ISOUOperationalAccountingSystem): void {
         if (ref) {
             this.data = ref;
+            this.data?.flowIn?.sort((a, b) => a?.order - b?.order);
+            this.data?.section?.forEach(value => {
+                value?.flowOut?.sort((a, b) => a?.order - b?.order);
+            });
+            this.data?.lightProducts?.sort((a, b) => a?.order - b?.order);
+            this.data?.section?.sort((a, b) => a?.order - b?.order);
             this.isSection = this.data?.section[0];
             this.data.section[0].isEnable = true;
         }

@@ -142,7 +142,8 @@
         <div class="footer__block-btn">
           <div class="footer__btn"
                matRipple
-               [matRippleColor]="'black'">
+               [matRippleColor]="'black'"
+               (click)="onClickName(section)">
             <svg-icon
               src="assets/icons/widgets/SOU/sou-in-streams/factory.svg"
               [svgStyle]="{ 'width.px': 17, 'height.px': 16 }"
