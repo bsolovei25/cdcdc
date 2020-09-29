@@ -4,7 +4,7 @@ import { filter, map } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 import { GridsterItem } from 'angular-gridster2';
 import { IWidget } from '../models/widget.model';
-import { AppConfigService } from 'src/app/services/appConfigService';
+import { AppConfigService } from '@core/service/app-config.service';
 import { EventsWidgetDataPreview } from '../models/events-widget';
 import { LineChartData } from '../models/line-chart';
 import { WebSocketSubject } from 'rxjs/internal/observable/dom/WebSocketSubject';

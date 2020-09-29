@@ -24,7 +24,7 @@ import { CdEventCategoriesComponent } from './components/cd-event-categories/cd-
         EventsComponent,
         EventCardComponent,
         CdEventCardComponent,
-        CdEventCategoriesComponent,
+        CdEventCategoriesComponent
     ],
     imports: [
         CommonModule,

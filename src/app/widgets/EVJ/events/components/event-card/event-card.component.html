@@ -38,10 +38,10 @@
     <div class="notification__body">
       <div class="notification__info">
         <span class="notification__info-description">
-          {{ cardData?.category.name === 'tasks' ? cardData?.subCategory?.description : (cardData?.description || '-') }}
+          {{ cardData?.subCategory?.name === 'shiftPassing' ? cardData?.subCategory?.description : (cardData?.description || '-') }}
         </span>
         <span class="notification__info-facts">
-          {{  cardData?.category.name === 'tasks' ? cardData?.shiftPassEstablishedFacts : (cardData?.facts[0]?.comment || '-') }}
+          {{  cardData?.subCategory?.name === 'shiftPassing' ? cardData?.shiftPassEstablishedFacts : (cardData?.facts[0]?.comment || '-') }}
         </span>
       </div>
       <div
@@ -51,7 +51,9 @@
       >
         <span
           class="notification__status"
-          [ngClass]="'notification__status_' + cardData?.priority?.name"
+          [ngClass]=" cardData?.priority?.name ?
+         'notification__status_' + cardData?.priority?.name :
+         'notification__status_standard'"
         >
           {{ cardData?.statusName }}
         </span>
@@ -59,7 +61,9 @@
           class="notification__icon"
           [applyCss]="true"
           [src]="cardData?.iconUrl"
-          [ngClass]="'notification__icon_' + cardData?.priority?.name"
+          [ngClass]="cardData?.priority?.name ?
+          'notification__body__icon_' + cardData?.priority?.name :
+           'notification__body__icon_standard'"
         ></svg-icon>
         <svg-icon
           *ngIf="!cardData?.source"
@@ -106,7 +110,7 @@
         (click)="changeIsAcknowledged(cardData)"
         *ngIf="cardData?.category?.code!==0 && cardData?.category?.code!==5 && cardData?.category?.code!==6"
       >
-        {{cardData?.isAcknowledged ? 'Квитировано' : 'Неквитировано'}}
+        {{cardData?.isAcknowledged ? 'Квитировано' : 'Не квитировано'}}
       </div>
 
       <div class="notification__block__extra">

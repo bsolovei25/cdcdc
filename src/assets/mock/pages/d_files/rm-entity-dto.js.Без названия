@@ -1,2 +1,0 @@
-/* Copyright © 1993-2019 Meridium, Inc. All rights reserved.  */
-define(function(){"use strict";var a=require("knockout");function b(b){b=b||{},this.caption=b.caption,this.familyCaption=b.familyCaption,this.familyID=b.familyID,this.familyKey=b.familyKey,this.id=a.observable(b.id),this.key=b.key}return b});

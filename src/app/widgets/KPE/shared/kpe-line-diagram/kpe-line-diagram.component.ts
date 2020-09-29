@@ -13,6 +13,9 @@ export class KpeLineDiagramComponent implements OnInit, OnChanges {
     @Input()
     public fact: number = 100;
 
+    @Input()
+    public deviation: number = 100;
+
     percentDeviation: number;
     percentFact: number;
     percentPlan: number;

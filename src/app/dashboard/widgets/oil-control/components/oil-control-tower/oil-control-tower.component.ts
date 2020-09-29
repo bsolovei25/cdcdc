@@ -51,7 +51,6 @@ export class OilControlTowerComponent implements OnInit, AfterViewInit, OnChange
     public drawBak(el): void {
         let tankLevelPercent;
         const value = Math.round(this.data?.valueStorage);
-        console.log(this.data.tankLevel);
         tankLevelPercent =
             (this.data.tankLevel < 0) ? 0 : (this.data.tankLevel > 100) ? 100 : this.data.tankLevel;
         this.isCriticalArrow = false;

@@ -23,8 +23,4 @@ export class SouOutStreamsComponent implements OnInit {
     ngOnInit(): void {
     }
 
-    onClickName(section: ISOUSection): void {
-        this.changeSection.emit(section);
-    }
-
 }

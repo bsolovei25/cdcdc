@@ -10,13 +10,13 @@ export class NkTankInformationInnageComponent implements OnInit, OnChanges {
     this.lower = data;
   }
   @Input() set innageCurrent(data: number) {
-    this.current = this.lower <= data ? data : this.lower;
+    this.current = data;
   }
   @Input() set innageMax(data: number) {
-    this.higher = data <= this.lower ? this.lower : data;
+    this.higher = data;
   }
 
-  higher: number = 1;
+  higher: number = 0;
   current: number = 0;
   lower: number = 0;
 

@@ -138,18 +138,22 @@ export class WidgetsGridComponent implements OnInit, OnDestroy {
 
     public onResize(): void {
         clearTimeout(this.sizeTimeout);
-        this.sizeTimeout = setTimeout(() => this.sizeGrid(), 1000);
+        this.sizeTimeout = setTimeout(() => this.sizeGrid(), 1500);
     }
 
     public sizeGrid(): void {
         const widthScreen = document.getElementById('gridSize').clientWidth;
-        const heigthScreen = document.getElementById('gridSize').clientHeight;
+        const heightScreen = document.getElementById('gridSize').clientHeight;
+        // TODO костыль
+        if (heightScreen < 10 || widthScreen < 10) {
+            return;
+        }
         const widthScreenDefault = 1920;
-        const heigthScreenDefault = 909;
+        const heightScreenDefault = 909;
         this.ColWidth = 19.85;
         this.RowHeight = 19.9;
         this.ColWidth *= (widthScreen - 660) / (widthScreenDefault - 660);
-        this.RowHeight *= (heigthScreen - 329) / (heigthScreenDefault - 329);
+        this.RowHeight *= (heightScreen - 329) / (heightScreenDefault - 329);
 
         this.options.fixedColWidth = this.ColWidth;
         this.options.fixedRowHeight = this.RowHeight;
@@ -158,7 +162,7 @@ export class WidgetsGridComponent implements OnInit, OnDestroy {
 
         const event = new Event('resizeGrid');
         document.dispatchEvent(event);
-        setTimeout(() => this.resizeGridsterElement(), 1000);
+        setTimeout(() => this.resizeGridsterElement(), 1500);
     }
 
     public resizeGridsterElement(): void {

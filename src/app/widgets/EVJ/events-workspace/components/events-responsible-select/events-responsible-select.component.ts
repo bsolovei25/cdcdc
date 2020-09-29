@@ -13,7 +13,7 @@ import { EventsWorkspaceService } from '../../../../../dashboard/services/widget
 export class EventsResponsibleSelectComponent implements OnInit {
     @Input() private isRetrieval: boolean = false;
 
-    filter: FormControl = new FormControl('');
+    filter: FormControl = new FormControl({value: '', disabled: true});
 
     public responsible: IUser = null;
 

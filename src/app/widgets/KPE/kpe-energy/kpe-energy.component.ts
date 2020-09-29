@@ -20,7 +20,8 @@ export interface IKpeEnergy {
 })
 export class KpeEnergyComponent extends WidgetPlatform implements OnInit {
 
-    @ViewChild('gauge')
+    // static true fix expression has been checked
+    @ViewChild('gauge', {static: true})
     public gaugeElement: ElementRef;
 
     public data: IKpeEnergy = { tabs: null, chart: null, diagram: null };

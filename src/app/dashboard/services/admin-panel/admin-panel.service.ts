@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { AppConfigService } from '../../../services/appConfigService';
+import { AppConfigService } from '@core/service/app-config.service';
 import {
     IClaim,
     IWorkspace,
@@ -13,9 +13,9 @@ import {
 } from '../../models/admin-panel';
 import { IUser, IUnitEvents } from '../../models/events-widget';
 import { IWidget } from '../../models/widget.model';
-import { fillDataShape } from '../../../@shared/common-functions';
+import { fillDataShape } from '@shared/functions/common-functions';
 import { AuthService } from '@core/service/auth.service';
-import { AvatarConfiguratorService } from '../avatar-configurator.service';
+import { AvatarConfiguratorService } from '@core/service/avatar-configurator.service';
 import { IAlertWindowModel } from '../../../@shared/models/alert-window.model';
 
 @Injectable({

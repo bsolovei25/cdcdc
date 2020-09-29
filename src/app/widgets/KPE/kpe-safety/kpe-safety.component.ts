@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, Inject, OnInit, ViewChild } from "@angular/core";
 import { IDeviationDiagramData } from '../shared/kpe-deviation-diagram/kpe-deviation-diagram.component';
 import { WidgetPlatform } from '../../../dashboard/models/widget-platform';
 import { WidgetService } from '../../../dashboard/services/widget.service';
@@ -24,13 +24,17 @@ export interface IKpeSafetyCard {
     templateUrl: './kpe-safety.component.html',
     styleUrls: ['./kpe-safety.component.scss']
 })
-export class KpeSafetyComponent extends WidgetPlatform implements OnInit {
+export class KpeSafetyComponent extends WidgetPlatform implements OnInit, AfterViewInit {
+
+    @ViewChild('mainGauge') public gaugeChart: ElementRef;
 
     public deviationChartData: IDeviationDiagramData[] = [];
 
     public deviationDiagramData: IKpeGaugeChartData = { plan: 100, fact: 100 };
 
     public gaugeCards: IKpeSafetyCard[][] = [];
+
+    private isRendered: boolean = false;
 
     constructor(protected widgetService: WidgetService,
                 private kpeHelperService: KpeHelperService,
@@ -45,8 +49,15 @@ export class KpeSafetyComponent extends WidgetPlatform implements OnInit {
         super.widgetInit();
     }
 
+    public ngAfterViewInit(): void {
+        queueMicrotask(() => this.isRendered = true);
+    }
+
     public gaugeWidth(container: HTMLDivElement): string {
         if (!(container?.offsetHeight > 0)) {
+            return;
+        }
+        if (!this.isRendered) {
             return;
         }
         const height = container.offsetHeight;

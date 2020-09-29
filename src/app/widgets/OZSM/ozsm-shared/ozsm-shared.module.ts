@@ -12,6 +12,8 @@ import { OzsmLoadingParksDiagramComponent } from "./ozsm-loading-parks/component
 import { OzsmLoadingParksHeaderComponent } from "./ozsm-loading-parks/components/ozsm-loading-parks-header/ozsm-loading-parks-header.component";
 import { OzsmCircleDiagramFullComponent } from './ozsm-circle-diagram-full/ozsm-circle-diagram-full.component';
 import { OzsmLoadingSpaceComponent } from './ozsm-loading-space/ozsm-loading-space.component';
+import { OzsmCirclePlanningDiagramPlanComponent } from './ozsm-circle-planning-diagram-plan/ozsm-circle-planning-diagram-plan.component';
+import { OzsmCirclePlanningDiagramCardComponent } from './ozsm-circle-planning-diagram-card/ozsm-circle-planning-diagram-card.component';
 import { OzsmCircleDiagramIconComponent } from './ozsm-circle-diagram-icon/ozsm-cirle-diagram-icon.component';
 import { MatRippleModule } from "@angular/material/core";
 import { AngularSvgIconModule } from 'angular-svg-icon';
@@ -36,6 +38,8 @@ import { OzsmGraphCircleDiagramComponent } from "./ozsm-graph-circle-diagram/ozs
         OzsmCircleDiagramFullComponent,
         OzsmEqualizerChartComponent,
         OzsmLoadingSpaceComponent,
+        OzsmCirclePlanningDiagramPlanComponent,
+        OzsmCirclePlanningDiagramCardComponent,
         OzsmListPackingDiagramsComponent,
         OzsmListPackingDiagramsItemComponent,
         OzsmCircleDiagramIconComponent,
@@ -54,6 +58,8 @@ import { OzsmGraphCircleDiagramComponent } from "./ozsm-graph-circle-diagram/ozs
         OzsmLoadingSpaceComponent,
         OzsmCardLineDiagramComponent,
         OzsmCircleDiagramFullComponent,
+        OzsmCirclePlanningDiagramCardComponent,
+        OzsmCirclePlanningDiagramPlanComponent,
         OzsmEqualizerChartComponent,
         OzsmLoadingSpaceComponent,
         OzsmListPackingDiagramsComponent,
