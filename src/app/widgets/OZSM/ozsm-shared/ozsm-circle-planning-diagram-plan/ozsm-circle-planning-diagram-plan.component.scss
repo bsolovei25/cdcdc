@@ -36,7 +36,7 @@
 
     .value {
       fill: var(--color-text-main);
-      font-size: 1.7px;
+      font-size: 2px;
     }
 
     .deviation {
@@ -47,6 +47,10 @@
     .units {
       fill: var(--color-text-sub-heading);
       font-size: 1.3px;
+    }
+    .th {
+      fill: var(--color-text-sub-heading);
+      font-size: 1px;
     }
 
     .name {
