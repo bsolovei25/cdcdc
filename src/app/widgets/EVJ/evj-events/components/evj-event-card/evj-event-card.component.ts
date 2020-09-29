@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Inject, Input, OnInit, Output } from '@angular/core';
-import { EventsWidgetNotificationPreview } from '../../../../../dashboard/models/events-widget';
+import { IEventsWidgetNotificationPreview } from '../../../../../dashboard/models/events-widget';
 import { EventService } from '../../../../../dashboard/services/widgets/event.service';
 import { animate, style, transition, trigger } from '@angular/animations';
 
@@ -16,7 +16,7 @@ export const fadeAnimation = trigger('fadeAnimation', [
 export class EvjEventCardComponent implements OnInit {
 
     @Input()
-    public cardDataArr: EventsWidgetNotificationPreview[];
+    public cardDataArr: IEventsWidgetNotificationPreview[];
 
     @Input()
     public viewType: 'block' | 'list';
@@ -47,7 +47,7 @@ export class EvjEventCardComponent implements OnInit {
         this.cardDeleteClick.emit(id);
     }
 
-    public async changeIsAcknowledged(eventCard: EventsWidgetNotificationPreview): Promise<void> {
+    public async changeIsAcknowledged(eventCard: IEventsWidgetNotificationPreview): Promise<void> {
         eventCard.isAcknowledged = !eventCard.isAcknowledged;
         try {
             const a = await this.eventService.changeEventIsAcknowledged(
