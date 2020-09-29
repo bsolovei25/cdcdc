@@ -8,6 +8,7 @@ import {
 import { IChartD3, IChartMini } from '../../../../../@shared/models/smart-scroll.model';
 import { AsyncRender } from '../../../../../@shared/functions/async-render.function';
 import { fillDataArray } from '../../../../../@shared/functions/fill-data-array.function';
+import { fillDataShape } from "@shared/functions/common-functions";
 
 @Component({
     selector: 'evj-limits-chart',
@@ -55,6 +56,7 @@ export class LimitsChartComponent implements OnChanges {
         if (!!this.data.length) {
             this.getOxArea();
             fillDataArray(this.data, true, true, this.dateMin.getTime(), this.dateMax.getTime());
+            console.log(this.data);
             this.startDrawChart();
         } else {
             this.dropChart();
@@ -86,7 +88,13 @@ export class LimitsChartComponent implements OnChanges {
     }
 
     private getOxArea(): void {
-        const factChart = this.data.find((g) => g.graphType === 'fact').graph;
+        const isFilterData = this.data.find((item) => item.graphType === 'fact').graph
+            .filter((x) => x.timeStamp.getTime() < new Date().getTime()).length > 0;
+        let factChart = this.data.find((g) => g.graphType === 'fact').graph;
+        if (isFilterData) {
+            factChart = factChart.filter((x) => x.timeStamp.getTime() < new Date().getTime());
+            this.data.find((g) => g.graphType === 'fact').graph = factChart;
+        }
         const centerTimestamp = new Date(factChart[factChart.length - 1].timeStamp);
         centerTimestamp.setMinutes(0, 0, 0);
         const maxDate = centerTimestamp.getTime() + 1000 * 60 * 60 * 12;

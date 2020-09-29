@@ -9,7 +9,7 @@ import { TanksTableComponent } from './tanks-table/tanks-table.component';
 import { SnackBarService } from '../../services/snack-bar.service';
 import { FormControl, Validators } from '@angular/forms';
 import { IInputOptions } from '../../../@shared/models/input.model';
-import { AppConfigService } from "../../../services/appConfigService";
+import { AppConfigService } from "@core/service/app-config.service";
 
 export interface ICalibrationTable {
     uid: string;

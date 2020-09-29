@@ -43,7 +43,9 @@
       >
         <span
           class="notification__body__status"
-          [ngClass]="'notification__body__status_' + cardData?.priority?.name"
+          [ngClass]="cardData?.priority?.name ?
+          'notification__body__icon_' + cardData?.priority?.name :
+           'notification__body__icon_standard'"
         >
           {{ cardData?.statusName }}
         </span>
@@ -51,7 +53,9 @@
           class="notification__body__icon"
           [applyCss]="true"
           [src]="cardData?.iconUrl"
-          [ngClass]="'notification__body__icon_' + cardData?.priority?.name"
+          [ngClass]="cardData?.priority?.name ?
+          'notification__body__icon_' + cardData?.priority?.name :
+           'notification__body__icon_standard'"
         ></svg-icon>
         <svg-icon
           *ngIf="!cardData?.source"

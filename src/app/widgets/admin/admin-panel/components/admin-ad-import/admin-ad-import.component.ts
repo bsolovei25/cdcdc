@@ -6,7 +6,7 @@ import { Subscription } from 'rxjs';
 import { AdminPanelService } from '../../../../../dashboard/services/admin-panel/admin-panel.service';
 import { SnackBarService } from '../../../../../dashboard/services/snack-bar.service';
 import { IUser } from '../../../../../dashboard/models/events-widget';
-import { fillDataShape } from '../../../../../@shared/common-functions';
+import { fillDataShape } from '@shared/functions/common-functions';
 
 @Component({
     selector: 'evj-admin-ad-import',

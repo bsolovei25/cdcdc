@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject } from 'rxjs';
-import { AppConfigService } from '../../services/appConfigService';
+import { AppConfigService } from '@core/service/app-config.service';
 import { IUnits } from '../models/admin-shift-schedule';
 import { IClaim } from '../models/user-settings.model';
 

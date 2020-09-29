@@ -9,7 +9,7 @@ import {
 import { AdminShiftScheduleService } from 'src/app/dashboard/services/widgets/admin-shift-schedule.service';
 import { IAbsent } from '../../admin-shift-schedule.component';
 import { IUser } from '../../../../../dashboard/models/events-widget';
-import { AvatarConfiguratorService } from '../../../../../dashboard/services/avatar-configurator.service';
+import { AvatarConfiguratorService } from '@core/service/avatar-configurator.service';
 import { SnackBarService } from '../../../../../dashboard/services/snack-bar.service';
 import { IAlertWindowModel } from '../../../../../@shared/models/alert-window.model';
 

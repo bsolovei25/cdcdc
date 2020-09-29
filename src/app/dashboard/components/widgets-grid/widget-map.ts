@@ -163,6 +163,7 @@ export const WIDGETS = {
     'cd-mat-balance-stream': CdMatBalanceChartCardComponent,
     //
     'line-diagram': WidgetContainerComponent,
+    'evj-events': WidgetContainerComponent,
     'ejco-onpz-unit-sou': WidgetContainerComponent,
     'ejco-onpz-fsb-load': WidgetContainerComponent,
     'ejco-onpz-unit-kpe': WidgetContainerComponent,
@@ -170,9 +171,11 @@ export const WIDGETS = {
     'ozsm-diagrams': WidgetContainerComponent,
     'ozsm-main-indicators': WidgetContainerComponent,
     'oq-oil-quality': WidgetContainerComponent,
+    'ozsm-circle-planning-diagram': WidgetContainerComponent,
     'ozsm-main-toggle': WidgetContainerComponent,
     'ozsm-scenarios': WidgetContainerComponent,
     'ozsm-planning-main': WidgetContainerComponent,
+    'ozsm-monitoring-main': WidgetContainerComponent
 };
 
 export const WIDGETS_LAZY = {
@@ -485,7 +488,7 @@ export const WIDGETS_LAZY = {
         itemRows: 20,
         minItemCols: 32,
         minItemRows: 20,
-        preview: 'events',
+        preview: 'events'
     },
 
     'events-ed': {
@@ -509,7 +512,19 @@ export const WIDGETS_LAZY = {
         itemRows: 20,
         minItemCols: 32,
         minItemRows: 20,
-        preview: 'events-workspace',
+        preview: 'events-workspace'
+    },
+
+    'evj-events': {
+        import: async () => {
+            return await import('src/app/widgets/EVJ/evj-events/evj-events.module');
+        },
+        module: 'EvjEventsModule',
+        itemCols: 32,
+        itemRows: 30,
+        minItemCols: 32,
+        minItemRows: 30,
+        preview: 'cd-events'
     },
 
     // #endregion EVJ
@@ -526,7 +541,7 @@ export const WIDGETS_LAZY = {
         itemRows: 10,
         minItemCols: 21,
         minItemRows: 10,
-        preview: 'spline-trends-chart',
+        preview: 'spline-trends-chart'
     },
 
     'industrial-pyramid': {
@@ -882,7 +897,7 @@ export const WIDGETS_LAZY = {
         itemRows: 7,
         minItemCols: 12,
         minItemRows: 7,
-        preview: 'ozsm-line-diagrams',
+        preview: 'ozsm-line-diagrams'
     },
     'ozsm-diagrams': {
         import: async () => {
@@ -908,7 +923,20 @@ export const WIDGETS_LAZY = {
         itemRows: 4,
         minItemCols: 12,
         minItemRows: 4,
-        preview: 'default',
+        preview: 'default'
+    },
+    'ozsm-circle-planning-diagram': {
+        import: async () => {
+            return await import(
+                'src/app/widgets/OZSM/ozsm-circle-planning-diagram/ozsm-circle-planning-diagram.module'
+                );
+        },
+        module: 'OzsmCirclePlanningDiagramModule',
+        itemCols: 25,
+        itemRows: 5,
+        minItemCols: 25,
+        minItemRows: 5,
+        preview: 'default'
     },
 
     'ozsm-main-toggle': {
@@ -930,6 +958,18 @@ export const WIDGETS_LAZY = {
             return await import('src/app/widgets/OZSM/ozsm-scenarios/ozsm-scenarios.module');
         },
         module: 'OzsmScenariosModule',
+        itemCols: 15,
+        itemRows: 10,
+        minItemCols: 15,
+        minItemRows: 10,
+        preview: 'default'
+    },
+
+    'ozsm-monitoring-main': {
+        import: async () => {
+            return await import('src/app/widgets/OZSM/ozsm-monitoring-main/ozsm-monitoring-main.module');
+        },
+        module: 'OzsmMonitoringMainModule',
         itemCols: 15,
         itemRows: 10,
         minItemCols: 15,
@@ -966,7 +1006,7 @@ export const WIDGETS_LAZY = {
         minItemCols: 10,
         minItemRows: 10,
         preview: 'default'
-    },
+    }
 
     //#endregion OQ
 

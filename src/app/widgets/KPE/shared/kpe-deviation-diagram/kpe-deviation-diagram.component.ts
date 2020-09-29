@@ -86,13 +86,18 @@ export class KpeDeviationDiagramComponent implements OnChanges {
         this.drawRectLeft();
         this.drawCurve(this.planDataset, 'plan-curve');
         this.drawCurve(this.factDataset, 'fact-curve');
-        this.drawDayThreshold();
-        this.drawDeviations();
+        if (this.data) {
+            this.prepareData();
+            this.drawDeviations();
+            this.drawDayThreshold();
+        }
     }
 
     private prepareData(): void {
         this.factDataset = [];
         this.planDataset = [];
+
+        if (!this.data) { return; }
 
         this.data.forEach(item => {
             if (item.factValue !== 0) {

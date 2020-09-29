@@ -47,7 +47,8 @@ export class KpeHelperService {
         return dataArray;
     }
 
-    public prepareKpeLineChartData(data: IKpeLineChartData[]): IDeviationDiagramData[] | IBarDiagramData[] {
+    public prepareKpeLineChartData(data: IKpeLineChartData[] | null): IDeviationDiagramData[] | IBarDiagramData[] {
+        if (!data) { return; }
         function fieldHandler(field: {value: number, timeStamp: string}[]): {x: number, y: number}[] {
             field = field.filter(el => new Date(el.timeStamp).getMonth() === new Date().getMonth());
             return field?.map(el => {return {

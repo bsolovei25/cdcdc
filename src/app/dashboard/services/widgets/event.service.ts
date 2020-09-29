@@ -7,7 +7,7 @@ import {
     ICategory,
     IEventsWidgetOptions,
     EventsWidgetsStats,
-    EventsWidgetNotificationPreview,
+    IEventsWidgetNotificationPreview,
     IRetrievalEvents,
     IUnitEvents,
     IUser,
@@ -23,10 +23,17 @@ import {
     IAsusTpPlace,
     ISubcategory, EventsWidgetCategoryCode
 } from '../../models/events-widget';
-import { AppConfigService } from 'src/app/services/appConfigService';
+import { AppConfigService } from '@core/service/app-config.service';
+
+export interface IEventsFilter {
+    unitNames?: string;
+    description?: string;
+    categoryIds?: number[];
+    priority: string;
+}
 
 @Injectable({
-    providedIn: 'root',
+    providedIn: 'root'
 })
 export class EventService {
     private readonly restUrl: string;
@@ -34,7 +41,10 @@ export class EventService {
     private readonly isDomenAuth: boolean;
     private readonly batchSize: number = 50;
 
+    private filterEvent: IEventsFilter;
+
     public currentEventId$: BehaviorSubject<number> = new BehaviorSubject<number>(null);
+    public eventFilters$: BehaviorSubject<IEventsFilter> = new BehaviorSubject<IEventsFilter>(null);
 
     constructor(public http: HttpClient, configService: AppConfigService) {
         this.restUrl = configService.restUrl;
@@ -45,13 +55,13 @@ export class EventService {
     async getBatchData(
         lastId: number,
         options: IEventsWidgetOptions
-    ): Promise<EventsWidgetNotificationPreview[]> {
+    ): Promise<IEventsWidgetNotificationPreview[]> {
         const routeAdder = options.categoriesType === 'ed' ? '/ed' : '';
         try {
             return this.http
-                .get<EventsWidgetNotificationPreview[]>(
+                .get<IEventsWidgetNotificationPreview[]>(
                     this.restUrl +
-                        `/api/notifications/getbyfilter${routeAdder}?${this.getOptionString(lastId, options)}`
+                    `/api/notifications/getbyfilter${routeAdder}?${this.getOptionString(lastId, options)}`
                 )
                 .toPromise();
         } catch (error) {
@@ -103,8 +113,8 @@ export class EventService {
                 .toPromise();
             saveMethod.options = {
                 headers: new HttpHeaders({
-                    AuthenticationType: saveMethod.data.authenticationType,
-                }),
+                    AuthenticationType: saveMethod.data.authenticationType
+                })
             };
             return saveMethod;
         } catch (error) {
@@ -391,7 +401,7 @@ export class EventService {
             return await this.http
                 .delete<any>(
                     this.restUrl +
-                        `/api/notification-retrieval/${idEvent}/retrievalevents/${idRetr}`
+                    `/api/notification-retrieval/${idEvent}/retrievalevents/${idRetr}`
                 )
                 .toPromise();
         } catch (error) {
@@ -405,8 +415,8 @@ export class EventService {
     ): Promise<any> {
         const options = {
             headers: new HttpHeaders({
-                AuthenticationType: saveMethod.data.authenticationType,
-            }),
+                AuthenticationType: saveMethod.data.authenticationType
+            })
         };
         const url: string = `${saveMethod.data.url}/api/monitoring/escalatedeviation`;
         return await this.http.post(url, body, options).toPromise();
@@ -418,8 +428,8 @@ export class EventService {
     ): Promise<any> {
         const options = {
             headers: new HttpHeaders({
-                AuthenticationType: saveMethod.data.authenticationType,
-            }),
+                AuthenticationType: saveMethod.data.authenticationType
+            })
         };
         const url: string = `${saveMethod.data.url}/api/monitoring/closedeviation`;
         return await this.http.post(url, body, options).toPromise();
@@ -498,5 +508,44 @@ export class EventService {
         return await this.http
             .post<IUser>(`${this.restUrl}/api/notifications/responsible?systemType=${type}`, null)
             .toPromise();
+    }
+
+    async getEventsFilter(unitNames?: string,
+                          categoryIds?: number[],
+                          statusIds?: number[],
+                          description?: string
+    ): Promise<IUnitEvents[]> {
+        let searchString: string = '';
+        if (this.filterEvent.unitNames) {
+            searchString += `UnitName=${this.filterEvent.unitNames}`;
+        }
+        if (categoryIds) {
+            categoryIds.forEach(value => {
+                searchString += `CategoryIds=${value}`;
+            });
+        }
+        if (statusIds) {
+            statusIds.forEach(value => {
+                searchString += `StatusIds=${value}`;
+            });
+        }
+        if (description) {
+            searchString += `Description=${description}`;
+        }
+        try {
+            return this.http
+                .get<IUnitEvents[]>(this.restUrl + `/api/notifications/getbyfilter?${searchString}`)
+                .toPromise();
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+    setEventPriority(priority: string): void {
+        this.filterEvent.priority = priority;
+    }
+
+    setEventUnit(unit: string): void {
+        this.filterEvent.unitNames = unit;
     }
 }

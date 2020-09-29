@@ -4,7 +4,7 @@ import { HttpEvent, HttpInterceptor, HttpHandler, HttpRequest } from '@angular/c
 // RxJS
 import { Observable } from 'rxjs';
 import { AuthService } from '@core/service/auth.service';
-import { AppConfigService } from '../../services/appConfigService';
+import { AppConfigService } from '../service/app-config.service';
 // Local modules
 
 @Injectable({

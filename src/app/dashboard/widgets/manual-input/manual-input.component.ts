@@ -11,7 +11,7 @@ import {
 import { HttpClient } from '@angular/common/http';
 import { IMachine_MI, IGroup_MI } from '../../models/manual-input.model';
 import { WidgetService } from '../../services/widget.service';
-import { AppConfigService } from 'src/app/services/appConfigService';
+import { AppConfigService } from '@core/service/app-config.service';
 import { WidgetSettingsService } from '../../services/widget-settings.service';
 import { WidgetPlatform } from '../../models/widget-platform';
 import { trigger, style, state, transition, animate, group } from '@angular/animations';

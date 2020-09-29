@@ -6,7 +6,10 @@ import {
     IMultiChartTypes,
 } from '../../../dashboard/models/ASTUE-ONPZ/astue-onpz-multi-chart.model';
 import { UserSettingsService } from '../../../dashboard/services/user-settings.service';
-import { AstueOnpzService } from '../astue-onpz-shared/astue-onpz.service';
+import {
+    AstueOnpzService,
+    IAstueOnpzMonitoringCarrierOptions
+} from '../astue-onpz-shared/astue-onpz.service';
 import { IMultiChartOptions } from './components/astue-onpz-multi-chart/astue-onpz-multi-chart.component';
 import { HttpClient } from '@angular/common/http';
 
@@ -19,6 +22,7 @@ export class AstueOnpzConventionalFuelComponent extends WidgetPlatform
     implements OnInit, OnDestroy {
     public data: IMultiChartLine[] = [];
     colors: Map<string, number>;
+    public unitName: string = '';
 
     public isPredictors: boolean = false;
     public options: IMultiChartOptions = {
@@ -76,6 +80,7 @@ export class AstueOnpzConventionalFuelComponent extends WidgetPlatform
                 if (this.isPredictors) {
                     return;
                 }
+                this.unitName = options.unitName;
                 this.widgetService.setWidgetLiveDataFromWSOptions(this.widgetId, options);
             }),
             this.astueOnpzService.multiLinePredictors.subscribe((data) => {
