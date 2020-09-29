@@ -1,8 +1,8 @@
-import { Component, OnDestroy, OnInit, Inject, ViewChild, HostListener, ElementRef } from "@angular/core";
+import { Component, OnDestroy, OnInit, Inject, ViewChild, HostListener, ElementRef } from '@angular/core';
 import {
     EventsWidgetCategory,
     EventsWidgetCategoryCode,
-    EventsWidgetNotificationPreview,
+    IEventsWidgetNotificationPreview,
     IEventsWidgetOptions
 } from '../../../dashboard/models/events-widget';
 import { EventsWidgetFilter } from '../../../dashboard/models/events-widget';
@@ -58,7 +58,7 @@ export class EventsComponent extends WidgetPlatform implements OnInit, OnDestroy
 
     public previewTitle: string;
 
-    public notificationsGrouped: EventsWidgetNotificationPreview[][];
+    public notificationsGrouped: IEventsWidgetNotificationPreview[][];
 
     public placeNames: string[] = [];
 
@@ -184,7 +184,7 @@ export class EventsComponent extends WidgetPlatform implements OnInit, OnDestroy
         }
     ];
 
-    public notifications: EventsWidgetNotificationPreview[] = [];
+    public notifications: IEventsWidgetNotificationPreview[] = [];
 
     public filters: EventsWidgetFilter[] = [
         {
@@ -240,8 +240,8 @@ export class EventsComponent extends WidgetPlatform implements OnInit, OnDestroy
 
     public isCDEvents: boolean = false;
 
-    public appendEventStream$: BehaviorSubject<EventsWidgetNotificationPreview> =
-        new BehaviorSubject<EventsWidgetNotificationPreview>(null);
+    public appendEventStream$: BehaviorSubject<IEventsWidgetNotificationPreview> =
+        new BehaviorSubject<IEventsWidgetNotificationPreview>(null);
 
     private readonly defaultIconPath: string = 'assets/icons/widgets/events/smotr.svg';
 
@@ -309,7 +309,7 @@ export class EventsComponent extends WidgetPlatform implements OnInit, OnDestroy
     }
 
     protected dataHandler(ref: {
-        notification: EventsWidgetNotificationPreview;
+        notification: IEventsWidgetNotificationPreview;
         action: string;
     }): void {
         if (
@@ -317,6 +317,29 @@ export class EventsComponent extends WidgetPlatform implements OnInit, OnDestroy
             !this.placeNames.find((place) => place === ref.notification?.unit?.name) &&
             ref.action !== 'delete'
         ) {
+            return;
+        }
+        const isCheckCategories: boolean =
+            this.categories.some((x) => x.isActive && x.id === ref.notification.category.id)
+            || !this.categories.filter((x) => x.isActive).length;
+        let filtersIds: number[] = [];
+        switch (this.filters.find((x) => x.isActive).code) {
+            case 'all':
+                filtersIds = [3001, 3002];
+                break;
+            case 'closed':
+                filtersIds = [3003];
+                break;
+            case 'inWork':
+                filtersIds = [3002];
+                break;
+            case 'isNotAcknowledged':
+                filtersIds = [-100];
+                break;
+        }
+        const isCheckFilters: boolean = filtersIds.some((x) => x === ref.notification.status.id)
+            || (filtersIds.some((x) => x === -100) && !ref.notification.isAcknowledged);
+        if (!isCheckFilters || !isCheckCategories) {
             return;
         }
         switch (ref.action) {
@@ -398,7 +421,7 @@ export class EventsComponent extends WidgetPlatform implements OnInit, OnDestroy
         this.countNotificationsDivCapacity();
     }
 
-    private addWsElement(notification: EventsWidgetNotificationPreview): void {
+    private addWsElement(notification: IEventsWidgetNotificationPreview): void {
         if (this.isSound) {
             this.playAudio();
         }
@@ -410,14 +433,14 @@ export class EventsComponent extends WidgetPlatform implements OnInit, OnDestroy
         if (notification?.category?.name) {
             notification.iconUrl = this.getNotificationIcon(notification.category.name);
             notification.iconUrlStatus = this.getStatusIcon(notification.status.name);
-            notification.statusName = this.statuses[notification.status.name]; // TODO check
+            notification.statusName = this.statuses[notification.status.name]; // TODO add default
         }
         this.notifications.splice(idx, 0, notification);
         this.notifications = this.notifications.slice();
         this.countNotificationsDivCapacity();
     }
 
-    private deleteWsElement(notification: EventsWidgetNotificationPreview): void {
+    private deleteWsElement(notification: IEventsWidgetNotificationPreview): void {
         const idx = this.notifications.findIndex((n) => n.id === notification.id);
         if (idx >= 0) {
             this.notifications.splice(idx, 1);
@@ -426,7 +449,7 @@ export class EventsComponent extends WidgetPlatform implements OnInit, OnDestroy
         }
     }
 
-    private editWsElement(notification: EventsWidgetNotificationPreview): void {
+    private editWsElement(notification: IEventsWidgetNotificationPreview): void {
         const idx = this.notifications.findIndex((n) => n.id === notification.id);
         if (idx === -1) {
             return;
@@ -448,7 +471,7 @@ export class EventsComponent extends WidgetPlatform implements OnInit, OnDestroy
         }
     }
 
-    private appendNotifications(remoteNotifications: EventsWidgetNotificationPreview[]): void {
+    private appendNotifications(remoteNotifications: IEventsWidgetNotificationPreview[]): void {
         if (remoteNotifications?.length > 0) {
             const notifications = remoteNotifications
                 .filter((n) => n.category && n.category.name)
@@ -537,9 +560,9 @@ export class EventsComponent extends WidgetPlatform implements OnInit, OnDestroy
     }
 
     public sortArray(
-        arr: EventsWidgetNotificationPreview[],
+        arr: IEventsWidgetNotificationPreview[],
         n: number
-    ): EventsWidgetNotificationPreview[][] {
+    ): IEventsWidgetNotificationPreview[][] {
         let i = 0;
         let j = 0;
         const result = [];
