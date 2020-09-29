@@ -337,8 +337,9 @@ export class EventsComponent extends WidgetPlatform implements OnInit, OnDestroy
                 filtersIds = [-100];
                 break;
         }
-        const isCheckFilters: boolean = filtersIds.some((x) => x === ref.notification.status.id);
-        if (isCheckFilters && isCheckCategories) {
+        const isCheckFilters: boolean = filtersIds.some((x) => x === ref.notification.status.id)
+            || (filtersIds.some((x) => x === -100) && !ref.notification.isAcknowledged);
+        if (!isCheckFilters || !isCheckCategories) {
             return;
         }
         switch (ref.action) {
