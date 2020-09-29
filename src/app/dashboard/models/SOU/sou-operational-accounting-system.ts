@@ -14,6 +14,7 @@ export interface ISOUFlowIn {
     valueTankPercent: number;
     isExceedingConfInterval: boolean;
     accuracy: number;
+    order: number;
 }
 
 export interface ISOUFlowOut {
@@ -35,12 +36,14 @@ export interface ISOUFlowOut {
     tag: string;
     isEnable: boolean;
     accuracy: number;
+    order: number;
 }
 
 export interface ISOUSection {
     name: string;
     flowOut: ISOUFlowOut[];
     isEnable?: boolean;
+    order: number;
 }
 
 export interface ISOUIdent {
@@ -64,6 +67,7 @@ export interface ISOUProduct {
     dayPercent: number;
     hour: number;
     hourPercent: number;
+    order: number;
 }
 
 export interface ISOUNotificationCards {
