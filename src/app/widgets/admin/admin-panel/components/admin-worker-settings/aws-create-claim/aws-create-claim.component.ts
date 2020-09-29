@@ -4,8 +4,9 @@ import { IGlobalClaim } from '../../../../../../dashboard/models/admin-panel';
 import { IUnitEvents } from '../../../../../../dashboard/models/events-widget';
 import { SelectionModel } from '@angular/cdk/collections';
 import { AdminPanelService } from '../../../../../../dashboard/services/admin-panel/admin-panel.service';
-import { fillDataShape } from '../../../../../../@shared/common-functions';
+import { fillDataShape } from '@shared/common-functions';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
+import { falseIfMissing } from 'protractor/built/util';
 
 interface ICreateClaim extends IWidget {
     isHidden: boolean;
@@ -17,7 +18,9 @@ interface ICreateClaim extends IWidget {
     styleUrls: ['./aws-create-claim.component.scss']
 })
 export class AwsCreateClaimComponent implements OnInit {
-    @Output() private createdClaim: EventEmitter<IGlobalClaim[]> = new EventEmitter<IGlobalClaim[]>();
+
+    @Output() private createdClaim: EventEmitter<IGlobalClaim[]>
+        = new EventEmitter<IGlobalClaim[]>();
 
     public allClaims: IGlobalClaim[] = [];
     public allWidgets: IWidget[] = [];
@@ -28,6 +31,7 @@ export class AwsCreateClaimComponent implements OnInit {
     public selectUnit: SelectionModel<IUnitEvents> = new SelectionModel<IUnitEvents>(true);
 
     search: string = '';
+    public selectCounter: number = 0;
 
     constructor(private adminService: AdminPanelService) {
     }
@@ -52,32 +56,51 @@ export class AwsCreateClaimComponent implements OnInit {
         widget.isActive = !widget.isActive;
     }
 
+    // Клик на Виджет
     public changeActiveUnit(unit: IUnitEvents): void {
         unit.isActive = !unit.isActive;
     }
 
+    // Клик на Юнит
     public claimsFilter(claim: IGlobalClaim): boolean {
         return !(claim.claimValueType === 'screen');
     }
 
-    // start Выбрать все===
+    // start Выбрать все
     public checkIsAllSelected(): boolean {
-        this.selectClaim?.selected[0]?.widgets?.filter((v) => v.isActive).length === this.allWidgets.length
-        || this.selectClaim?.selected[0]?.units?.filter((v) => v.isActive).length === this.allUnits.length;
+        return this.selectClaim?.selected[0]?.widgets?.length === this.allWidgets.length
+            || this.selectClaim?.selected[0]?.units?.filter((v) =>
+                v.isActive).length === this.allUnits.length;
     }
 
     public onClickListButton(): void {
         const selectedClaim: IGlobalClaim = this.selectClaim.selected[0];
-        selectedClaim?.widgets?.forEach((value) => value.isActive = !value.isActive);
-        selectedClaim?.units?.forEach((value) => value.isActive = !value.isActive);
+        this.selectCounter++;
+        if (this.selectCounter % 2 === 1) {
+            selectedClaim?.widgets?.forEach((value) => {
+                value.isActive = true;
+            });
+            selectedClaim?.units?.forEach((value) => {
+                value.isActive = true;
+            });
+        }
+        if (this.selectCounter % 2 === 0) {
+            selectedClaim?.widgets?.forEach((value) => {
+                value.isActive = false;
+            });
+            selectedClaim?.units?.forEach((value) => {
+                value.isActive = false;
+            });
+        }
     }
 
-    // end ===Выбрать все===
+    // end Выбрать все
 
     public onBack(): void {
         this.createdClaim.emit(null);
     }
 
+    // Сохранить
     public onSave(): void {
         const claims: IGlobalClaim[] = [];
         this.allClaims.forEach((value) => {

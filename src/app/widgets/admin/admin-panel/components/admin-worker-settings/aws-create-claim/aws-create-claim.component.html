@@ -18,7 +18,7 @@
       <input type="text" placeholder="Поиск" [(ngModel)]="search" (keyup)="searchFn($event)">
     </div>
     <div class="list-button" *ngIf="selectClaim.hasValue()" (click)="onClickListButton()">
-      {{!checkIsAllSelected() ? 'Выделить все' : 'Снять выделение'}}
+      Выделить все
     </div>
     <div class="items">
       <div class="list" *ngIf="selectClaim.hasValue()">

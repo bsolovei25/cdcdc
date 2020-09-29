@@ -109,15 +109,38 @@
               <div class="claim__button claim__button-toggle"></div>
             </div>
             <div class="claim__items" *ngIf="claim.claimName">
-              <div class="claim__item" *ngFor="let item of allEntitiesInSpecialType(claim)">
-                {{findEntityByClaimValue(item)}}
-                <div
-                  class="claim__button claim__button-delete"
-                  (click)="onRemoveSpecialClaim(item)"
-                >
-                  <img src="assets/icons/widgets/admin/admin-groups/delete-icon.svg" />
-                </div>
-              </div>
+              <ng-container *ngFor="let item of workerSpecialClaims">
+
+                <ng-container *ngIf="item.claimValueType === 'widget'">
+                  <ng-container *ngFor="let nameCard of item.widgets">
+                  <div class="claim__item" *ngIf="nameCard.isActive">
+                      {{nameCard.title}}
+                    <div
+                      class="claim__button claim__button-delete"
+                      (click)="onRemoveSpecialClaim(nameCard)"
+                    >
+                      <img src="assets/icons/widgets/admin/admin-groups/delete-icon.svg" />
+                    </div>
+                  </div>
+                  </ng-container>
+                </ng-container>
+
+                <ng-container *ngIf="item.claimValueType === 'unit'">
+                  <ng-container *ngFor="let nameCard of item.units">
+                    <div class="claim__item" *ngIf="nameCard.isActive">
+                      {{nameCard.name}}
+                      <div
+                        class="claim__button claim__button-delete"
+                        (click)="onRemoveSpecialClaim(nameCard)"
+                      >
+                        <img src="assets/icons/widgets/admin/admin-groups/delete-icon.svg" />
+                      </div>
+                    </div>
+                  </ng-container>
+                </ng-container>
+
+              </ng-container>
+
             </div>
           </div>
         </ng-container>
