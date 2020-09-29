@@ -256,12 +256,14 @@ export interface ICategory {
     id: number;
     name: EventsWidgetCategoryCode;
     code: string;
+    description?: string;
 }
 
 export interface IStatus {
     id: number;
     name: EventsWidgetNotificationStatus;
     code: string;
+    description?: string;
 }
 
 export interface ISubcategory {

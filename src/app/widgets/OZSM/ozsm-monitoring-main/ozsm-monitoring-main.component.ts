@@ -1,37 +1,44 @@
 import {
     Component,
-    ElementRef,
-    HostListener,
+    OnInit,
     Inject,
     OnDestroy,
-    OnInit,
-    ViewChild
+    ViewChild,
+    ElementRef,
+    HostListener
 } from '@angular/core';
 import { WidgetPlatform } from '../../../dashboard/models/widget-platform';
 import { WidgetService } from '../../../dashboard/services/widget.service';
+import { IOzsmCircleDiagramFull } from '../ozsm-shared/ozsm-circle-diagram-full/ozsm-circle-diagram-full.component';
 
 @Component({
-    selector: 'evj-ozsm-planning-main',
-    templateUrl: './ozsm-planning-main.component.html',
-    styleUrls: ['./ozsm-planning-main.component.scss']
+    selector: 'evj-ozsm-monitoring-main',
+    templateUrl: './ozsm-monitoring-main.component.html',
+    styleUrls: ['./ozsm-monitoring-main.component.scss'],
 })
-export class OzsmPlanningMainComponent extends WidgetPlatform implements OnInit, OnDestroy {
+export class OzsmMonitoringMainComponent extends WidgetPlatform implements OnInit, OnDestroy {
 
-    @ViewChild('graphContainer')
-    public graphContainer: ElementRef;
-
-    private readonly staticWidth: number = 1220;
-    private readonly staticHeight: number = 660;
+    public circleDiagramData: IOzsmCircleDiagramFull = {
+        fact: 80,
+        plan: 100,
+        unit: 'Test',
+        deviationDays: [1, 3, 4],
+    };
 
     public styleTransform: string = '';
+
+    @ViewChild('graphContainer') public graphContainer: ElementRef;
 
     @HostListener('document:resize', ['$event'])
     public onResize(): void {
         this.resize();
     }
 
+    private readonly staticWidth: number = 1220;
+    private readonly staticHeight: number = 660;
+
     constructor(
-        protected widgetService: WidgetService,
+        public widgetService: WidgetService,
         @Inject('isMock') public isMock: boolean,
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string
@@ -42,6 +49,9 @@ export class OzsmPlanningMainComponent extends WidgetPlatform implements OnInit,
     public ngOnInit(): void {
         super.widgetInit();
         this.resize();
+    }
+
+    protected dataHandler(ref: any): void {
     }
 
     public ngOnDestroy(): void {
@@ -57,8 +67,5 @@ export class OzsmPlanningMainComponent extends WidgetPlatform implements OnInit,
             / this.staticWidth;
         const scale: number = scaleX < scaleY ? scaleX : scaleY;
         this.styleTransform = `transform: translate(-50%, -50%) scale(${scale})`;
-    }
-
-    protected dataHandler(ref: any): void {
     }
 }

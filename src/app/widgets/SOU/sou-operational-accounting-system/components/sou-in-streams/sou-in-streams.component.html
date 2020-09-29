@@ -40,7 +40,7 @@
           </div>
 
           <span class="column__percent"
-                [class.column__percent_inactivity]="!item.isEnable">{{ item?.accuracy }}%</span>
+                [class.column__percent_inactivity]="!item.isEnable">{{ item?.valueMomentPercent }}%</span>
         </div>
       </td>
       <td class="body__column">
@@ -54,7 +54,7 @@
         </div>
 
         <span class="column__percent"
-              [class.column__percent_inactivity]="!item.isEnable">{{ item?.accuracy }}%</span>
+              [class.column__percent_inactivity]="!item.isEnable">{{ item?.valueByHourPercent }}%</span>
       </td>
       <td class="body__column">
         <div class="column__block">
@@ -67,8 +67,7 @@
         </div>
 
         <span class="column__percent"
-
-              [class.column__percent_inactivity]="!item.isEnable">{{ item?.accuracy }}%</span>
+              [class.column__percent_inactivity]="!item.isEnable">{{ item?.valueTankPercent }}%</span>
       </td>
       <td class="body__column">{{ item.productName }}</td>
       <td class="body__column column body__column--padding-disabled body__column__trust-level">

@@ -88,7 +88,13 @@ export class DeviationLimitsChartComponent implements OnChanges {
     }
 
     private getOxArea(): void {
-        const factChart = this.data.find((g) => g.graphType === 'fact').graph;
+        const isFilterData = this.data.find((item) => item.graphType === 'fact').graph
+            .filter((x) => x.timeStamp.getTime() < new Date().getTime()).length > 0;
+        let factChart = this.data.find((g) => g.graphType === 'fact').graph;
+        if (isFilterData) {
+            factChart = factChart.filter((x) => x.timeStamp.getTime() < new Date().getTime());
+            this.data.find((g) => g.graphType === 'fact').graph = factChart;
+        }
         const centerTimestamp = new Date(factChart[factChart.length - 1].timeStamp);
         centerTimestamp.setMinutes(0, 0, 0);
         const maxDate = centerTimestamp.getTime() + 1000 * 60 * 60 * 12;
@@ -125,7 +131,15 @@ export class DeviationLimitsChartComponent implements OnChanges {
     }
 
     private normalizeData(): void {
+        const isFilterData = this.data.find((item) => item.graphType === 'fact').graph
+            .filter((x) => x.timeStamp.getTime() < new Date().getTime()).length > 0;
+        if (isFilterData) {
+            this.data.find((item) => item.graphType === 'fact').graph =
+                this.data.find((item) => item.graphType === 'fact').graph
+                    .filter((x) => x.timeStamp.getTime() < new Date().getTime());
+        }
         fillDataArray(this.data, true, true, this.dateMin.getTime(), this.dateMax.getTime());
+        console.log(this.data);
         const fact = this.data.find((item) => item.graphType === 'fact');
         const hb = this.data.find((item) => item.graphType === 'higherBorder');
         const lb = this.data.find((item) => item.graphType === 'lowerBorder');

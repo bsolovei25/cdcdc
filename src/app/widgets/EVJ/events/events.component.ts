@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit, Inject, ViewChild, HostListener } from '@angular/core';
+import { Component, OnDestroy, OnInit, Inject, ViewChild, HostListener, ElementRef } from "@angular/core";
 import {
     EventsWidgetCategory,
     EventsWidgetCategoryCode,
@@ -7,7 +7,6 @@ import {
 } from '../../../dashboard/models/events-widget';
 import { EventsWidgetFilter } from '../../../dashboard/models/events-widget';
 import {
-    IEventsWidgetNotification,
     EventsWidgetNotificationStatus
 } from '../../../dashboard/models/events-widget';
 import { WidgetService } from '../../../dashboard/services/widget.service';
@@ -15,7 +14,7 @@ import { UserSettingsService } from '../../../dashboard/services/user-settings.s
 import { EventService } from '../../../dashboard/services/widgets/event.service';
 import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
 import { WidgetPlatform } from '../../../dashboard/models/widget-platform';
-import { debounceTime, distinctUntilChanged, throttle } from 'rxjs/operators';
+import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { SnackBarService } from '../../../dashboard/services/snack-bar.service';
 import { EventsWorkspaceService } from '../../../dashboard/services/widgets/events-workspace.service';
 import { IAlertWindowModel } from '@shared/models/alert-window.model';
@@ -35,7 +34,7 @@ export interface IEventSettings {
 export class EventsComponent extends WidgetPlatform implements OnInit, OnDestroy {
     @ViewChild(CdkVirtualScrollViewport) viewport: CdkVirtualScrollViewport;
 
-    @ViewChild('notifications') notificationsDiv: any;
+    @ViewChild('notifications') notificationsDiv: ElementRef;
 
     @HostListener('document:resize', ['$event'])
     OnResize(): void {
@@ -294,7 +293,7 @@ export class EventsComponent extends WidgetPlatform implements OnInit, OnDestroy
         });
         this.placeNames = await this.eventService.getPlaces(this.id);
         this.subscriptions.push(
-            this.widgetService.currentDates$.subscribe((ref) => {
+            this.widgetService.currentDates$.subscribe(() => {
                 this.getData();
                 this.getStats();
             }),
@@ -383,7 +382,7 @@ export class EventsComponent extends WidgetPlatform implements OnInit, OnDestroy
     }
 
     private getCurrentOptions(): IEventsWidgetOptions {
-        const options: IEventsWidgetOptions = {
+        return {
             categories: this.categories.filter((c) => c.isActive)?.map((c) => c.id),
             filter: this.filters.find((f) => f.isActive).code,
             dates: this.widgetService.currentDates$.getValue(),
@@ -391,8 +390,7 @@ export class EventsComponent extends WidgetPlatform implements OnInit, OnDestroy
             isVideoWall: this.widgetIsVideoWall,
             sortType: this.widgetSortType,
             categoriesType: this.widgetType === 'events-ed' ? 'ed' : 'default'
-        };
-        return options;
+        } as IEventsWidgetOptions;
     }
 
     private clearNotifications(): void {
@@ -462,7 +460,6 @@ export class EventsComponent extends WidgetPlatform implements OnInit, OnDestroy
                 });
             this.notifications = this.notifications.concat(notifications);
             this.countNotificationsDivCapacity();
-            ;
         }
     }
 
@@ -525,14 +522,13 @@ export class EventsComponent extends WidgetPlatform implements OnInit, OnDestroy
         window.open(url);
     }
 
-    public async scrollHandler(event: any): Promise<void> {
+    public async scrollHandler(event: {target: {offsetHeight: number, scrollTop: number, scrollHeight: number}}): Promise<void> {
         if (
-            event.target.offsetHeight + event.target.scrollTop + 100 >= event.target.scrollHeight &&
-            this.notifications.length &&
-            this.isAllowScrollLoading
+            event.target.offsetHeight + event.target.scrollTop + 100 >= event.target.scrollHeight
+            && this.notifications.length
+            && this.isAllowScrollLoading
         ) {
-            console.log('end scroll');
-            throttle(await this.getData(this.notifications[this.notifications.length - 1].id));
+            await this.getData(this.notifications[this.notifications.length - 1].id);
         }
     }
 
@@ -561,7 +557,7 @@ export class EventsComponent extends WidgetPlatform implements OnInit, OnDestroy
         return result;
     }
 
-    private async getData(lastId: number = 0): Promise<any> {
+    private async getData(lastId: number = 0): Promise<void> {
         this.isAllowScrollLoading = false;
         if (lastId === 0) {
             this.clearNotifications();

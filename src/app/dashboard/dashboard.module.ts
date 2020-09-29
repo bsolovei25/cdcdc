@@ -1,3 +1,5 @@
+import { UserEventsComponent } from './components/user-events/user-events.component';
+import { UserEventsItemComponent } from './components/user-events/components/user-events-item/user-events-item.component';
 import { SharedModule } from './../@shared/shared.module';
 import { ChangeShiftComponent } from './widgets/change-shift/change-shift.component';
 import { NgModule, LOCALE_ID } from '@angular/core';
@@ -398,6 +400,8 @@ import { MatBadgeModule } from '@angular/material/badge';
         GroupSelectorRowComponent,
         IndicatorDiagramComponent,
         MenuButtonComponent,
+        UserEventsComponent,
+        UserEventsItemComponent
     ],
     entryComponents: [
         LineChartComponent,
