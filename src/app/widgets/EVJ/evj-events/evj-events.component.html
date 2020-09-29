@@ -31,7 +31,8 @@
     (touchstart)="$event.stopPropagation()"
   >
     <div class="cd-events">
-      <evj-evj-event-filters></evj-evj-event-filters>
+      <evj-evj-event-filters (outPriority)="priorityOfFilter($event)"
+                             (outUnits)="unitsOfFilter($event)"></evj-evj-event-filters>
       <div
         class="notifications"
         #notifications

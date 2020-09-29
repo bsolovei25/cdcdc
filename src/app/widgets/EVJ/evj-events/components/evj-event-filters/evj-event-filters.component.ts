@@ -4,6 +4,7 @@ import { MatSelectChange } from '@angular/material/select';
 import { IPriority, IUnitEvents } from '../../../../../dashboard/models/events-widget';
 import { EventService } from '../../../../../dashboard/services/widgets/event.service';
 import { EventsWorkspaceService } from '../../../../../dashboard/services/widgets/events-workspace.service';
+import { IUnits } from '../../../../../dashboard/models/admin-shift-schedule';
 
 @Component({
     selector: 'evj-evj-event-filters',
@@ -19,6 +20,8 @@ export class EvjEventFiltersComponent implements OnInit {
     priority: IPriority[] = [];
 
     @Output() search: EventEmitter<string> = new EventEmitter<string>();
+    @Output() outUnits: EventEmitter<IUnits> = new EventEmitter<IUnits>();
+    @Output() outPriority: EventEmitter<IPriority> = new EventEmitter<IPriority>();
 
     constructor(private eventService: EventService,
                 public ewService: EventsWorkspaceService) {
@@ -28,10 +31,10 @@ export class EvjEventFiltersComponent implements OnInit {
         this.searchControl.valueChanges.subscribe(value => {
             this.search.emit(value);
         });
-        // this.loadData();
         this.searchControl.valueChanges.subscribe(value => {
             // this.eventService.getEventsFilter(null, null, null, value);
         });
+        this.loadData();
     }
 
     resetFilters(): void {
@@ -40,10 +43,12 @@ export class EvjEventFiltersComponent implements OnInit {
     }
 
     public onUnitsSelect(event: MatSelectChange): void {
-        // this.eventService.getEventsFilter(null, null, null, value);
+        this.outUnits.emit(event.value);
+        // this.eventService.getEventsFilter(null, null, null, event.value);
     }
 
     public onPrioritySelect(event: MatSelectChange): void {
+        this.outPriority.emit(event.value);
     }
 
     async loadData(): Promise<void> {

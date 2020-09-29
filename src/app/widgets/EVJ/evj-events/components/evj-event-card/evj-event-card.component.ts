@@ -1,10 +1,14 @@
 import { Component, EventEmitter, Inject, Input, OnInit, Output } from '@angular/core';
-import { EventsWidgetNotificationPreview } from '../../../../../dashboard/models/events-widget';
+import {
+    EventsWidgetNotificationPreview,
+    EventsWidgetNotificationStatus
+} from '../../../../../dashboard/models/events-widget';
 import { EventService } from '../../../../../dashboard/services/widgets/event.service';
 import { animate, style, transition, trigger } from '@angular/animations';
+import { SelectionModel } from '@angular/cdk/collections';
 
 export const fadeAnimation = trigger('fadeAnimation', [
-    transition(':enter', [style({ opacity: 0 }), animate('150ms', style({ opacity: 1 }))]),
+    transition(':enter', [style({ opacity: 0 }), animate('150ms', style({ opacity: 1 }))])
 ]);
 
 @Component({
@@ -14,6 +18,14 @@ export const fadeAnimation = trigger('fadeAnimation', [
     animations: [fadeAnimation]
 })
 export class EvjEventCardComponent implements OnInit {
+
+    expandedElement: SelectionModel<string> = new SelectionModel(true);
+
+    public statuses: { [id in EventsWidgetNotificationStatus]: string } = {
+        new: 'Новое',
+        inWork: 'В работе',
+        closed: 'Завершено'
+    };
 
     @Input()
     public cardDataArr: EventsWidgetNotificationPreview[];

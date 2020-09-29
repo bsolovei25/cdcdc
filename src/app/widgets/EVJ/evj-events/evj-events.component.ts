@@ -8,7 +8,7 @@ import {
     EventsWidgetFilter,
     EventsWidgetNotificationPreview,
     EventsWidgetNotificationStatus,
-    IEventsWidgetOptions,
+    IEventsWidgetOptions, IPriority,
     IRetrievalEventDto
 } from '../../../dashboard/models/events-widget';
 import { EventService } from '../../../dashboard/services/widgets/event.service';
@@ -22,11 +22,12 @@ import { debounceTime, distinctUntilChanged, throttle } from 'rxjs/operators';
 import { IEventSettings } from '../events/events.component';
 import { WidgetPlatform } from '../../../dashboard/models/widget-platform';
 import { animate, style, transition, trigger } from '@angular/animations';
+import { IUnits } from '../../../dashboard/models/admin-shift-schedule';
 
 @Component({
     selector: 'evj-evj-events',
     templateUrl: './evj-events.component.html',
-    styleUrls: ['./evj-events.component.scss'],
+    styleUrls: ['./evj-events.component.scss']
 })
 export class EvjEventsComponent extends WidgetPlatform implements OnInit, OnDestroy {
 
@@ -214,6 +215,10 @@ export class EvjEventsComponent extends WidgetPlatform implements OnInit, OnDest
         }
     ];
 
+    public priority: IPriority;
+    public units: IUnits;
+    public description: string;
+
     public iconStatus: { name: string; iconUrl: string }[] = [
         {
             name: 'inWork',
@@ -263,7 +268,7 @@ export class EvjEventsComponent extends WidgetPlatform implements OnInit, OnDest
         this.subscriptions.push(
             this.claimService.claimWidgets$.subscribe((data) => {
                 this.claimWidgets = data;
-            }),
+            })
             // this.searchTerm.subscribe((search) => {
             //     this.search(search);
             // })
@@ -389,7 +394,10 @@ export class EvjEventsComponent extends WidgetPlatform implements OnInit, OnDest
             placeNames: this.placeNames,
             isVideoWall: this.widgetIsVideoWall,
             sortType: this.widgetSortType,
-            categoriesType: this.widgetType === 'events-ed' ? 'ed' : 'default'
+            categoriesType: this.widgetType === 'events-ed' ? 'ed' : 'default',
+            priority: this.priority,
+            units: this.units,
+            description: this.description
         };
         return options;
     }
@@ -461,7 +469,6 @@ export class EvjEventsComponent extends WidgetPlatform implements OnInit, OnDest
                 });
             this.notifications = this.notifications.concat(notifications);
             this.countNotificationsDivCapacity();
-            ;
         }
     }
 
@@ -584,6 +591,7 @@ export class EvjEventsComponent extends WidgetPlatform implements OnInit, OnDest
             return;
         }
         const stats = await this.eventService.getStats(options);
+        console.log(stats);
         this.categories.forEach((c) => {
             switch (options.categoriesType) {
                 case 'default':
@@ -656,6 +664,20 @@ export class EvjEventsComponent extends WidgetPlatform implements OnInit, OnDest
     ): Promise<void> {
         await this.eventService.getEventsFilter(unitNames, categoryIds,
             statusIds, description);
+    }
+
+    priorityOfFilter(priority: IPriority): void {
+        console.log(priority);
+        this.priority = priority;
+        this.getData();
+        this.getStats();
+    }
+
+    unitsOfFilter(units: IUnits): void {
+        console.log(units);
+        this.units = units;
+        this.getData();
+        this.getStats();
     }
 
 }

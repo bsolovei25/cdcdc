@@ -2,6 +2,7 @@ import { LineChartData } from './line-chart';
 import { IGlobalClaim } from './admin-panel';
 import { IMessage } from '../../@shared/models/message.model';
 import { HttpHeaders } from '@angular/common/http';
+import { IUnits } from './admin-shift-schedule';
 
 export interface EventsWidgetNotificationPreview {
     id: number;
@@ -26,6 +27,7 @@ export interface EventsWidgetNotificationPreview {
     isAcknowledged?: boolean; // Квитировано
     shiftPassEstablishedFacts?: string;
     subCategory?: ISubcategory;
+    retrievalEvents: [];
 }
 
 export interface IEventsWidgetNotification {
@@ -384,6 +386,8 @@ export interface IEventsWidgetOptions {
     isVideoWall?: boolean;
     sortType?: SortTypeEvents;
     categoriesType?: EventsWidgetOptionsCategoryType;
+    priority?: IPriority;
+    units?: IUnits;
 }
 
 export type EventsWidgetOptionsCategoryType = 'ed' | 'default';
