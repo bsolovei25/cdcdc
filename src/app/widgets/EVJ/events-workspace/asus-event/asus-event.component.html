@@ -243,8 +243,7 @@
         <div class="label">
           <div class="label__title">Автор</div>
           <div class="label__text">
-            {{this.ewService.event.fixedBy?.displayName ? this.ewService.event.fixedBy.displayName :
-            'Не установлен'}}
+            {{this.ewService.event.asusEvent?.consumer || 'Не установлен'}}
           </div>
         </div>
       </div>
