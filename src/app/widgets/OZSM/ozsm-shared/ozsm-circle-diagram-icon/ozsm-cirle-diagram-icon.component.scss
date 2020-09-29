@@ -50,7 +50,7 @@
     color: white;
 }
 
-.main__svg {
+.main__icon {
     position: absolute;
 }
 
@@ -59,24 +59,24 @@
     .active {
         fill: var(--ozsm-color-active);
     }
-    
+
     .big-circle {
         fill: var(--ozsm-color-circle-diagram-icon-bg-sub);
     }
-    
+
     .small-circle {
         fill: var(--ozsm-color-circle-diagram-inner-bg);
     }
-    
+
     .unactive {
         fill: var(--ozsm-color-circle-arc-bg);
     }
-    
+
     .transparent {
         fill: transparent;
     }
-    
+
     .white {
-        fill: #ffffff; 
+        fill: #ffffff;
     }
 }
