@@ -183,18 +183,18 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
     }
 
     public allEntitiesInSpecialType(claim: IGlobalClaim): IGlobalClaim[] {
-        return this.workerSpecialClaims.filter((item) => item.claimType === claim.claimType);
+            return this.workerSpecialClaims.filter((item) => item.claimType === claim.claimType);
     }
 
     public findEntityByClaimValue(claim: IGlobalClaim): string {
-        let entity: IUnitEvents | IWidget;
+        let entity: IUnitEvents[] | IWidget[];
         switch (claim.claimValueType) {
             case 'unit':
-                entity = this.adminService.units.find((item) =>  item.isActive);
-                return entity ? entity.name : 'unit';
+                entity = this.adminService.units.filter((item) =>  item.isActive);
+                return entity ? 'entity.name' : 'unit';
             case 'widget':
-                entity = this.adminService.allWidgets.find((item) =>  item.isActive);
-                return entity ? entity.title : 'widget';
+                entity = this.adminService.allWidgets.filter((item) =>  item.isActive);
+                return entity ? 'entity.title' : 'widget';
         }
     }
 

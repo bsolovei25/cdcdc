@@ -5,6 +5,7 @@ import { IUnitEvents } from '../../../../../../dashboard/models/events-widget';
 import { SelectionModel } from '@angular/cdk/collections';
 import { AdminPanelService } from '../../../../../../dashboard/services/admin-panel/admin-panel.service';
 import { fillDataShape } from '../../../../../../@shared/common-functions';
+import { coerceBooleanProperty } from '@angular/cdk/coercion';
 
 interface ICreateClaim extends IWidget {
     isHidden: boolean;
@@ -61,15 +62,14 @@ export class AwsCreateClaimComponent implements OnInit {
 
     // start Выбрать все===
     public checkIsAllSelected(): boolean {
-        return this.selectClaim?.selected[0]?.widgets?.length === this.allWidgets.length
-        || this.selectClaim?.selected[0]?.units?.length === this.allUnits.length;
+        this.selectClaim?.selected[0]?.widgets?.filter((v) => v.isActive).length === this.allWidgets.length
+        || this.selectClaim?.selected[0]?.units?.filter((v) => v.isActive).length === this.allUnits.length;
     }
 
     public onClickListButton(): void {
         const selectedClaim: IGlobalClaim = this.selectClaim.selected[0];
-
-        selectedClaim?.widgets?.forEach((value) => value.isActive = true);
-        selectedClaim?.units?.forEach((value) => value.isActive = true);
+        selectedClaim?.widgets?.forEach((value) => value.isActive = !value.isActive);
+        selectedClaim?.units?.forEach((value) => value.isActive = !value.isActive);
     }
 
     // end ===Выбрать все===
