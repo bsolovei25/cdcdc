@@ -375,10 +375,11 @@ export class WidgetService {
         );
         this.ws.asObservable().subscribe((data) => {
             if (
-                data?.data &&
-                this.isMatchingPeriod(data?.data?.selectedPeriod) &&
-                this.isMatchingOptions(data?.subscriptionOptions?.timeStamp, data?.channelId)
+                data?.data
+                && this.isMatchingPeriod(data?.data?.selectedPeriod)
+                && this.isMatchingOptions(data?.data?.subscriptionOptions?.timeStamp, data?.channelId)
             ) {
+                console.log(data);
                 this.widgetsSocketObservable.next(data);
             }
         });
@@ -400,8 +401,8 @@ export class WidgetService {
         if (!incoming) {
             return (this.openedWSChannels[widgetId]?.options ?? null) === null;
         }
-        return new Date(this.openedWSChannels[widgetId]?.options?.timeStamp).getTime() ===
-            new Date(incoming).getTime();
+        return (Math.abs(new Date(this.openedWSChannels[widgetId]?.options?.timeStamp).getTime() -
+            new Date(incoming).getTime()) < 1000);
     }
 
     private reconnectWs(): void {
