@@ -5,10 +5,9 @@ import {
     IProductionTrend,
     ProductionTrendType,
 } from '../../../../../dashboard/models/production-trends.model';
-import { IChartD3, IChartMini } from '../../../../../@shared/models/smart-scroll.model';
-import { AsyncRender } from '../../../../../@shared/functions/async-render.function';
-import { fillDataArray } from '../../../../../@shared/functions/fill-data-array.function';
-import { fillDataShape } from "@shared/functions/common-functions";
+import { IChartD3 } from '@shared/models/smart-scroll.model';
+import { AsyncRender } from '@shared/functions/async-render.function';
+import { fillDataArray } from '@shared/functions/fill-data-array.function';
 
 @Component({
     selector: 'evj-limits-chart',
@@ -27,7 +26,7 @@ export class LimitsChartComponent implements OnChanges {
         graph: IChartD3[];
     }[] = [];
 
-    private svg;
+    private svg: d3Selection = null;
 
     private graphMaxX: number = 0;
     private graphMaxY: number = 0;
@@ -87,6 +86,7 @@ export class LimitsChartComponent implements OnChanges {
         this.customizeAreas();
     }
 
+    // TODO add historical condition
     private getOxArea(): void {
         const isFilterData = this.data.find((item) => item.graphType === 'fact').graph
             .filter((x) => x.timeStamp.getTime() < new Date().getTime()).length > 0;
@@ -342,7 +342,7 @@ export class LimitsChartComponent implements OnChanges {
         const y2 = this.graphMaxY - this.padding.bottom;
         const width = this.graphMaxX - this.padding.right - x;
         const height = this.graphMaxY - this.padding.top - this.padding.bottom;
-        if (!this.isWithPicker && width > 0) {
+        if (width > 0) {
             this.svg
                 .append('rect')
                 .attr('x', x)
@@ -357,54 +357,6 @@ export class LimitsChartComponent implements OnChanges {
                 .attr('x2', x)
                 .attr('y2', y2)
                 .attr('class', 'future-line');
-        } else if (width > 0) {
-            const w = 60;
-
-            const g = this.svg.append('g').attr('class', 'picker');
-            g.append('rect')
-                .attr('x', x)
-                .attr('y', this.padding.top - this.topMargin)
-                .attr('width', width)
-                .attr('height', height)
-                .attr('class', 'future');
-            g.append('line')
-                .attr('x1', x)
-                .attr('y1', this.padding.top - this.topMargin)
-                .attr('x2', x)
-                .attr('y2', y2)
-                .attr('class', 'future-with-line');
-            g.append('line')
-                .attr('x1', x - this.topMargin / 2)
-                .attr('y1', this.padding.top - this.topMargin)
-                .attr('x2', x + this.topMargin / 2)
-                .attr('y2', this.padding.top - this.topMargin)
-                .attr('class', 'future-with-line future-with-line_hor');
-            g.append('rect')
-                .attr('x', x - w)
-                .attr('y', this.padding.top - this.topMargin - w * 0.5)
-                .attr('width', w * 2)
-                .attr('height', w * 0.5)
-                .attr('rx', 5)
-                .attr('class', 'data');
-
-            const factG = this.data.find((item) => item.graphType === 'fact').graph ?? [];
-            const factVal = factG.length ? factG[factG.length - 1] : null;
-
-            g.append('text')
-                .attr('text-anchor', 'middle')
-                .attr('x', x)
-                .attr('y', this.padding.top - this.topMargin - w * 0.17)
-                .attr('class', 'data-fact')
-                .text(factVal?.value.toFixed(2) ?? '');
-
-            const formatDate = d3.timeFormat('%d.%m.%Y | %H:%M:%S');
-
-            g.append('text')
-                .attr('text-anchor', 'middle')
-                .attr('x', x)
-                .attr('y', this.padding.top - this.topMargin - w * 0.55)
-                .attr('class', 'data-date')
-                .text(formatDate(factVal?.timeStamp ?? ''));
         }
     }
 
