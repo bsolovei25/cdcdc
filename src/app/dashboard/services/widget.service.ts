@@ -215,6 +215,7 @@ export class WidgetService {
         this.ws.next({
             actionType: 'appendOptions',
             channelId: widgetId,
+            selectedPeriod: this.currentDates$.getValue(),
             options
         });
     }
