@@ -250,30 +250,25 @@ export class PlanningChartComponent implements OnChanges {
 
     private drawPoints(): void {
         const pointsG = this.svg.append('g').attr('class', 'chart-points');
-        const idx =
-            this.chartData.find(
-                (item) => item.graphType === 'lowerBorder' || item.graphType === 'higherBorder'
-            ).graph.length - 1;
-        this.chartData.forEach((item) => {
-            if (item.graphType !== 'fact' && item.graphType !== 'plan') {
-                return;
-            } else if (!!item.graph[idx]) {
-                const g = pointsG.append('g').attr('class', 'fact-point');
-                let r = 9;
-                let opacity = 0.33;
-                for (let i = 0; i < 3; i++) {
-                    g.append('circle')
-                        .attr('class', 'point point_fact')
-                        .attr('cx', item.graph[idx].x)
-                        .attr('cy', item.graph[idx].y)
-                        .attr('r', r)
-                        .style('opacity', opacity);
-                    r -= 3;
-                    opacity += 0.33;
-                }
-                g.style('transform', 'translateY(5px)');
+        const item = this.chartData
+            .find((x) => x.graphType === 'fact')
+            .graph.filter((x) => x.x < this.scaleFuncs.x(new Date())).slice(-1)[0];
+        if (item) {
+            const g = pointsG.append('g').attr('class', 'fact-point');
+            let r = 9;
+            let opacity = 0.33;
+            for (let i = 0; i < 3; i++) {
+                g.append('circle')
+                    .attr('class', 'point point_fact')
+                    .attr('cx', item.x)
+                    .attr('cy', item.y)
+                    .attr('r', r)
+                    .style('opacity', opacity);
+                r -= 3;
+                opacity += 0.33;
             }
-        });
+            g.style('transform', 'translateY(5)');
+        }
     }
 
     private drawGridlines(): void {
@@ -356,16 +351,15 @@ export class PlanningChartComponent implements OnChanges {
     private drawFutureRect(): void {
         const currentDatetime: Date = new Date();
         currentDatetime.setMinutes(0, 0, 0);
-        const fact =
-            this.chartData.find(
-                (chart) => chart.graphType === 'higherBorder' || chart.graphType === 'lowerBorder'
-            )?.graph ?? [];
+        const fact = this.chartData
+            .find((chart) => chart.graphType === 'fact')
+            ?.graph.filter((f) => f.x <= this.scaleFuncs.x(new Date())) ?? [];
         const x = fact[fact.length - 1]?.x;
         const y = this.padding.top;
         const y2 = this.graphMaxY - this.padding.bottom;
         const width = this.graphMaxX - this.padding.right - x;
         const height = this.graphMaxY - this.padding.top - this.padding.bottom;
-        if (!this.isWithPicker && width > 0) {
+        if (!this.isWithPicker && width > 0 && fact[fact.length - 1]?.x) {
             this.svg
                 .append('rect')
                 .attr('x', x)
