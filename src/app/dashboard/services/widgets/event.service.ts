@@ -496,6 +496,17 @@ export class EventService {
         if (options.sortType) {
             res += `&sortType=${options.sortType}`;
         }
+        if (options.units) {
+            res += `&unitNames=${options.units.name}`;
+        }
+        if (options.priority) {
+            res += `&priorityIds=${options.priority.id}`;
+        }
+        if (options.subCategory) {
+            options.subCategory.forEach(value => {
+                res += `&subcategoryIds=${value.id}`;
+            });
+        }
         return res;
     }
 

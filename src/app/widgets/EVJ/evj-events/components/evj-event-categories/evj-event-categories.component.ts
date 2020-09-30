@@ -7,10 +7,10 @@ import {
     ViewChild,
     ViewContainerRef
 } from '@angular/core';
-import { EventsWidgetCategory } from '../../../../../dashboard/models/events-widget';
+import { EventsWidgetCategory, ISubcategory } from '../../../../../dashboard/models/events-widget';
 import { CdkOverlayOrigin, Overlay, OverlayConfig, OverlayRef } from '@angular/cdk/overlay';
-import { TemplatePortalDirective } from '@angular/cdk/portal';
-
+import { CdkPortal } from '@angular/cdk/portal';
+import { SelectionModel } from '@angular/cdk/collections';
 
 @Component({
     selector: 'evj-evj-event-categories',
@@ -19,15 +19,16 @@ import { TemplatePortalDirective } from '@angular/cdk/portal';
 })
 export class EvjEventCategoriesComponent implements OnInit {
 
-    public subCategory: string[] = [];
-
     public categoryActive: boolean = false;
+    private timerHwnd: number;
 
     overlayRef: OverlayRef;
-    @ViewChild('overlayTemplate') overlayTemplate: TemplatePortalDirective;
+    activeCategory: number = 0;
+    @ViewChild('overlayTemplate') overlayTemplate: CdkPortal;
     @ViewChild(CdkOverlayOrigin, { static: false }) private overlayOrigin: CdkOverlayOrigin;
 
     @Input() data: EventsWidgetCategory;
+    @Input() subCategoriesSelected: SelectionModel<ISubcategory>;
 
     @Output()
     public categoryClick: EventEmitter<EventsWidgetCategory> =
@@ -35,6 +36,9 @@ export class EvjEventCategoriesComponent implements OnInit {
 
     @Output()
     public categoryDeleteClick: EventEmitter<number> = new EventEmitter<number>();
+
+    @Output()
+    public toggleSubCategory: EventEmitter<ISubcategory> = new EventEmitter<ISubcategory>();
 
     constructor(public overlay: Overlay,
                 public viewContainerRef: ViewContainerRef
@@ -45,11 +49,32 @@ export class EvjEventCategoriesComponent implements OnInit {
     }
 
     onCLickItem(data: EventsWidgetCategory): void {
-        if (!data.isActive && this.subCategory.length) {
+        this.categoryClick.emit(data);
+    }
+
+    openOverlay(): void {
+        if (this.data?.subCategories?.length && !this.activeCategory) {
+            this.activeCategory = this.data.id;
             this.openTemplateOverlay();
         }
-        this.categoryClick.emit(data);
+        if (this.activeCategory !== this.data.id) {
+            this.overlayRef?.dispose();
+        }
+    }
 
+    resetSetTimeout(): void {
+        clearTimeout(this.timerHwnd);
+        this.timerHwnd = 0;
+    }
+
+    closeOverlay(): void {
+        if (!this.timerHwnd) {
+            this.timerHwnd = window.setTimeout(() => {
+                this.overlayRef?.dispose();
+                this.activeCategory = 0;
+                this.resetSetTimeout();
+            }, 150);
+        }
     }
 
     // Переход в систему источник
@@ -73,14 +98,16 @@ export class EvjEventCategoriesComponent implements OnInit {
         const overlayConfig = new OverlayConfig({
             positionStrategy
         });
-
-        overlayConfig.hasBackdrop = true;
         this.overlayRef = this.overlay.create(overlayConfig);
         this.overlayRef.backdropClick().subscribe(() => {
             this.overlayRef.dispose();
         });
 
         this.overlayRef.attach(this.overlayTemplate);
+    }
+
+    toggle(subCategory: ISubcategory): void {
+        this.toggleSubCategory.emit(subCategory);
     }
 
 }

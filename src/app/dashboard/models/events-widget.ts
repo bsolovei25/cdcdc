@@ -271,6 +271,8 @@ export interface ISubcategory {
     name?: string;
     code?: string;
     description?: string;
+    parentCategory: EventsWidgetCategory;
+    parentCategoryId: number;
 }
 
 interface IEventStep {
@@ -358,6 +360,7 @@ export interface EventsWidgetCategory {
     url?: string;
 
     categoryType?: 'default' | 'ed';
+    subCategories?: ISubcategory[]; // only front
 }
 
 export interface EventsWidgetNotificationsCounter {
@@ -388,6 +391,7 @@ export interface IEventsWidgetOptions {
     categoriesType?: EventsWidgetOptionsCategoryType;
     priority?: IPriority;
     units?: IUnits;
+    subCategory?: ISubcategory[];
 }
 
 export type EventsWidgetOptionsCategoryType = 'ed' | 'default';

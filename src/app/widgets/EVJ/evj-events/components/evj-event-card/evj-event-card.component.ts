@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Inject, Input, OnInit, Output } from '@angular/core';
 import {
     EventsWidgetNotificationPreview,
-    EventsWidgetNotificationStatus
+    EventsWidgetNotificationStatus, ISubcategory
 } from '../../../../../dashboard/models/events-widget';
 import { EventService } from '../../../../../dashboard/services/widgets/event.service';
 import { animate, style, transition, trigger } from '@angular/animations';
@@ -19,7 +19,7 @@ export const fadeAnimation = trigger('fadeAnimation', [
 })
 export class EvjEventCardComponent implements OnInit {
 
-    expandedElement: SelectionModel<string> = new SelectionModel(true);
+    @Input() expandedElement: SelectionModel<number> = new SelectionModel<number>(true);
 
     public statuses: { [id in EventsWidgetNotificationStatus]: string } = {
         new: 'Новое',
@@ -41,6 +41,9 @@ export class EvjEventCardComponent implements OnInit {
 
     @Output()
     public cardDeleteClick: EventEmitter<number> = new EventEmitter<number>();
+
+    @Output()
+    public selectionExpandedElement: EventEmitter<number> = new EventEmitter<number>();
 
     constructor(private eventService: EventService) {
     }
@@ -69,6 +72,10 @@ export class EvjEventCardComponent implements OnInit {
         } catch (error) {
             console.error('EVENT CARD ERROR -> IsAcknowledged', error);
         }
+    }
+
+    public toggle(id: number): void {
+        this.expandedElement.toggle(id);
     }
 
 }

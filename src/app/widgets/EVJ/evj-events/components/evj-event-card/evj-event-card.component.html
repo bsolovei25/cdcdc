@@ -17,14 +17,15 @@
           'notification--' + cardData?.priority?.name : '')"
   >
     <svg-icon
-      (click)="expandedElement.toggle(cardData.id)"
+      *ngIf="cardData.retrievalEvents.length"
+      (click)="toggle(cardData.id)"
       class="notification__toggle"
       [applyCss]="true"
       src="assets/icons/widgets/EVJ/event/toggle.svg"
       [ngClass]="cardData?.priority?.name ?
       'notification__body__icon_' + cardData?.priority?.name :
       'notification__body__icon_standard'"
-      [class.notification__toggle--open]="expandedElement.isSelected(cardData?.id)"
+      [class.notification__toggle--open]="expandedElement?.isSelected(cardData?.id)"
     ></svg-icon>
     <div class="notification__vertical-line"
          [ngClass]="cardData?.priority?.name ?
@@ -98,7 +99,7 @@
     </div>
   </div>
 
-  <ng-container *ngIf="expandedElement.isSelected(cardData.id)">
+  <ng-container *ngIf="expandedElement?.isSelected(cardData.id)">
     <ng-container *ngFor="let retrievalEvent of cardData.retrievalEvents; first as first">
       <div
         class="notification notification__children"
