@@ -22,23 +22,23 @@
     </div>
     <div class="items">
       <div class="list" *ngIf="selectClaim.hasValue()">
-        <ng-container *ngFor="let widget of selectClaim?.selected[0]?.widgets">
-          <div
-            class="card"
-            [ngClass]="{'card_active': widget.isActive}"
-            (click)="changeActiveWidget(widget)"
-          >
-            {{widget.title}}
-          </div>
+        <ng-container *ngFor="let widget of selectClaim?.selected[0]?.widgets | searchWidget: search">
+            <div
+              class="card"
+              [ngClass]="{'card_active': widget.isActive}"
+              (click)="changeActiveWidget(widget)"
+            >
+              {{widget.title}}
+            </div>
         </ng-container>
-        <ng-container *ngFor="let unit of selectClaim?.selected[0]?.units">
-          <div
-            class="card"
-            [ngClass]="{'card_active': unit.isActive}"
-            (click)="changeActiveUnit(unit)"
-          >
-            {{unit.name}}
-          </div>
+        <ng-container *ngFor="let unit of selectClaim?.selected[0]?.units | searchUnit: search">
+            <div
+              class="card"
+              [ngClass]="{'card_active': unit.isActive}"
+              (click)="changeActiveUnit(unit)"
+            >
+              {{unit.name}}
+            </div>
         </ng-container>
       </div>
     </div>

@@ -183,10 +183,6 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
         return isWorkerHasClaim && isClaimNotForScreen;
     }
 
-    public allEntitiesInSpecialType(claim: IGlobalClaim): IGlobalClaim[] {
-        return this.workerSpecialClaims.filter((item) => item.claimType === claim.claimType);
-    }
-
     public createSpecialClaim(): void {
         this.isCreateClaim = true;
     }
