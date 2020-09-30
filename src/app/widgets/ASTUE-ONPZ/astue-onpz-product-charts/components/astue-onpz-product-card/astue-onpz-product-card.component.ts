@@ -4,8 +4,8 @@ import { UserSettingsService } from '../../../../../dashboard/services/user-sett
 import { AstueOnpzService } from '../../../astue-onpz-shared/astue-onpz.service';
 import { WidgetPlatform } from '../../../../../dashboard/models/widget-platform';
 import { WidgetService } from '../../../../../dashboard/services/widget.service';
-import { HttpClient } from "@angular/common/http";
-import { fillDataShape } from "@shared/functions/common-functions";
+import { HttpClient } from '@angular/common/http';
+import { fillDataShape } from '@shared/functions/common-functions';
 
 @Component({
     selector: 'evj-astue-onpz-product-card',
