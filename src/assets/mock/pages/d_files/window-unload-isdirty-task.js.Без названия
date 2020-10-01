@@ -1,2 +1,0 @@
-/* Copyright © 1993-2019 Meridium, Inc. All rights reserved.  */
-define(function(require){"use strict";var a=require("shell/navigation-view-model"),b=require("ramda"),c;function d(){}return d.prototype.execute=function(d){var e;if(c=b.defaultTo(c,Object.resolve(a)),e=c.WindowBeforeUnload())return d.returnValue=e,e},d});

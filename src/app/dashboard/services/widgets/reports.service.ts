@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { AppConfigService } from '../../../services/appConfigService';
+import { AppConfigService } from '@core/service/app-config.service';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { IAlertWindowModel } from '@shared/models/alert-window.model';
 import { IFolder } from '../../models/report-server';

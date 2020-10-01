@@ -1,9 +1,3 @@
-@import "custom-app-theme.scss";
-
-@import "~normalize.css";
-@import "theme/variables";
-@import "theme/theme";
-
 // Widgets
 @import "theme/widgets/line-chart";
 @import "theme/widgets/admin-shift-schedule.scss";
@@ -11,6 +5,13 @@
 @import "theme/widgets/admin-panel.scss";
 @import "theme/widgets/time-data-picker.scss";
 
+// Angular Material
+@import "custom-app-theme.scss";
+
+// Our theme
+@import "~normalize.css";
+@import "theme/variables";
+@import "theme/theme";
 
 // Lib
 @import '~angular-tree-component/dist/angular-tree-component.css';

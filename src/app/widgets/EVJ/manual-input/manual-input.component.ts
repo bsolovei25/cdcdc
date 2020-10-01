@@ -9,13 +9,13 @@ import {
     AfterViewInit,
 } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { IMachine_MI, IGroup_MI } from '../../../dashboard/models/manual-input.model';
-import { WidgetService } from '../../../dashboard/services/widget.service';
-import { AppConfigService } from 'src/app/services/appConfigService';
-import { WidgetSettingsService } from '../../../dashboard/services/widget-settings.service';
-import { WidgetPlatform } from '../../../dashboard/models/widget-platform';
 import { trigger, style, state, transition, animate, group } from '@angular/animations';
 import { ManualInputService } from '../../../dashboard/services/widgets/manual-input.service';
+import { WidgetPlatform } from '../../../dashboard/models/widget-platform';
+import { IGroup_MI, IMachine_MI } from '../../../dashboard/models/manual-input.model';
+import { WidgetService } from '../../../dashboard/services/widget.service';
+import { WidgetSettingsService } from '../../../dashboard/services/widget-settings.service';
+import { AppConfigService } from '@core/service/app-config.service';
 
 @Component({
     selector: 'evj-manual-input',

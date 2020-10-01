@@ -18,7 +18,7 @@ import {
 } from '../../models/shift.model';
 import { WidgetPlatform } from '../../models/widget-platform';
 import { SnackBarService } from '../../services/snack-bar.service';
-import { AvatarConfiguratorService } from '../../services/avatar-configurator.service';
+import { AvatarConfiguratorService } from '@core/service/avatar-configurator.service';
 
 @Component({
     selector: 'evj-change-shift',

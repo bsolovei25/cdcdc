@@ -10,7 +10,6 @@ import { Component, OnInit, Input, OnChanges } from '@angular/core';
 export class NkTankInformationCardComponent implements OnInit, OnChanges {
 
   @Input() cardData: ITankCardValue;
-  bigNum: number = 1243200.9123;
 
   constructor() { }
 

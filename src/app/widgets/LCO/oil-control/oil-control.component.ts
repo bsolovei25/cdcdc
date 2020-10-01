@@ -4,7 +4,7 @@ import { EventEmitter } from '@angular/core';
 import { OilControls, OilProducts } from '../../../dashboard/models/oil-control';
 import { WidgetPlatform } from '../../../dashboard/models/widget-platform';
 import { HttpClient } from '@angular/common/http';
-import { fillDataShape } from '@shared/common-functions';
+import { fillDataShape } from '@shared/functions/common-functions';
 
 export interface IOilControlCoords {
     x: number;
@@ -32,7 +32,7 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, OnDes
 
     public data: OilProducts[] = [];
 
-    storageXY: IOilControlCoords[] = [
+    readonly storageXY: IOilControlCoords[] = [
         {
             x: 400,
             y: 220
@@ -56,7 +56,7 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, OnDes
         }
     ];
 
-    productXY: IOilControlCoords[] = [
+    readonly productXY: IOilControlCoords[] = [
         {
             point: 1,
             x: 200,
@@ -130,7 +130,7 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, OnDes
     public savePosition: boolean = false;
     public savePositionProduct: string;
     public savePositionStorage: string;
-    public saveCurrentPage: number;
+    public saveCurrentPage: number = 1;
 
     public saveDataStorage: any = [];
 
@@ -177,17 +177,13 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, OnDes
         return widgetData.data;
     }
 
-    protected async dataConnect(): Promise<void> {
-        super.dataConnect();
-    }
-
     protected dataHandler(ref: any): void {
         this.drawOilControlSocket(ref);
         if (!this.toggleIntervalTimer) {
             const updateTimeInSec =
                 (ref.updateTimeInSec ?? 0) === 0 ? this.defaultTimeInSec : ref.updateTimeInSec;
             this.toggleIntervalTimer =
-                setInterval(this.toggleInterval.bind(this), updateTimeInSec * 1000);
+                setInterval(this.toggleInterval.bind(this), updateTimeInSec * 1000 * 100000000);
         }
     }
 
@@ -209,7 +205,6 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, OnDes
         this.checkSocket = true;
         this.data = ref.products;
         this.tempData = ref.products.map(p => fillDataShape(p));
-        console.log(ref.products);
         if (this.svgMenu) {
             this.clearProduct();
             this.tankersPicture.remove();
@@ -488,7 +483,7 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, OnDes
                 .attr('text-anchor', 'middle')
                 .attr('class', 'textProduct')
                 .attr('fill', '#a2e2ff')
-                .text(data[this.indexProduct].operations);
+                .text(this.tempData.find(x => x.name === this.savePositionProduct).operations);
 
             let critical = svgMenu
                 .append('text')
@@ -510,7 +505,7 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, OnDes
                 .attr('text-anchor', 'middle')
                 .attr('class', 'textProduct')
                 .attr('fill', 'orange')
-                .text(data[this.indexProduct].criticalOperations);
+                .text(this.tempData.find(x => x.name === this.savePositionProduct).criticalOperations);
 
             for (let item of leftBorder) {
                 item.classList.remove('st5');
@@ -545,7 +540,7 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, OnDes
                 .attr('text-anchor', 'middle')
                 .attr('class', 'textProduct')
                 .attr('fill', '#a2e2ff')
-                .text(data[this.indexProduct].operations);
+                .text(this.tempData.find(x => x.name === this.savePositionProduct).operations);
 
             for (let item of leftBorderC) {
                 item.classList.remove('st5-critical');

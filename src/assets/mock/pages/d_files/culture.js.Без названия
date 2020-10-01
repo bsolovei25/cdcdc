@@ -1,2 +1,0 @@
-/* Copyright © 1993-2019 Meridium, Inc. All rights reserved.  */
-define(function(require){"use strict";var a=require("lodash");function b(a,b){this.id=a,this.name=b}return b.fromJson=function a(c){return new b(c.id,c.name)},b.fromJsonArray=function c(d){return a.map(d,b.fromJson)},b.prototype.toString=function a(){return this.name+" ("+this.id+")"},b});

@@ -1,2 +1,0 @@
-/* Copyright © 1993-2019 Meridium, Inc. All rights reserved.  */
-define(["require","exports","system/lang/converter"],function(require,exports){"use strict";var a=require("system/lang/converter"),b=function(){function b(b){b=b||{},this.taskKeys=b.taskKeys,this.dateTime=a.toDateString(b.dateTime)}return b}();exports.ResetNextDateDTO=b});

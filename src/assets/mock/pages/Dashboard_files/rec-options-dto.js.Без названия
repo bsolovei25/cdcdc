@@ -1,2 +1,0 @@
-/* Copyright © 1993-2019 Meridium, Inc. All rights reserved.  */
-define(function(require){"use strict";var a=require("system/lang/converter"),b=require("rounds/common/dto/picklist-dto");function c(a){a=a||{},this.priority=b.fromDataCollection(a.priority),this.status=b.fromDataCollection(a.status),this.assignedUserName=b.fromDataCollection(a.assignedUserName),this.familyId="MI_OPR_REC"}return c.fromDataCollection=function a(b){for(var d=[],e=0;e<b.length;e++)d[d.length]=new c(b[e]);return d},c});

@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { SnackBarService } from '../../../services/snack-bar.service';
 import { IReportTemplate } from 'src/app/dashboard/models/report-server';
-import { AppConfigService } from '../../../../services/appConfigService';
+import { AppConfigService } from '@core/service/app-config.service';
 import { ReportsService } from '../../../services/widgets/reports.service';
 import { MatDatepicker } from '@angular/material/datepicker';
 import { FormControl } from '@angular/forms';

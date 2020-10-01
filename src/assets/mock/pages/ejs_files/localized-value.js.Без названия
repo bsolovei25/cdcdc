@@ -1,2 +1,0 @@
-/* Copyright © 1993-2019 Meridium, Inc. All rights reserved.  */
-define(function(require){"use strict";var a=require("mithril"),b=require("mi-assert");function c(c,d){b.ok(c,"culture"),b.isString(d,"phrase"),this.culture=a.prop(c),this.phrase=a.prop(d),this.selected=a.prop(!1)}return c.fromCulture=function a(b){return new c(b,"")},c.getPhraseOrDefault=function(a,b){return c.hasPhrase(a)?a.phrase():b},c.hasPhrase=function(a){return!!a&&!!a.phrase()},c});

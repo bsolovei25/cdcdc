@@ -1,2 +1,0 @@
-/* Copyright © 1993-2019 Meridium, Inc. All rights reserved.  */
-define(["require","exports","application/application-context","text!../../config/apps-config.json"],function(require,exports,a){"use strict";var b=require("text!../../config/apps-config.json");return function(){function c(){}return c.prototype.execute=function(){a.isAppHub||(a.apps=JSON.parse(b).apps)},c}()});
