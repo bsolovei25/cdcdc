@@ -1096,7 +1096,7 @@ export const WIDGETS_LAZY = {
         minItemCols: 10,
         minItemRows: 10,
         preview: 'default'
-    }
+    },
 
     //#endregion OQ
     // #region EJV
