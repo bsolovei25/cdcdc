@@ -5,7 +5,6 @@ import { WidgetPiesComponent } from '../../widgets/widgets-pie/widget-pies/widge
 import { TruncatedPieSFirstComponent } from '../../widgets/truncated-pie-first/truncated-pie-s-first/truncated-pie-s-first.component';
 import { TruncatedPieSIconComponent } from '../../widgets/truncated-pie-icon/truncated-pie-s-icon/truncated-pie-s-icon.component';
 import { PointDiagramComponent } from '../../widgets/point-diagram/point-diagram.component';
-import { BarChartsComponent } from '../../widgets/bar-chart/bar-charts/bar-charts.component';
 import { SuspenseMachineComponent } from '../../widgets/suspense-machine/suspense-machine.component';
 import { EnterpriseMapComponent } from '../../widgets/map-enterprise/enterprise-map.component';
 import { CircleDiagramComponent } from '../../widgets/circle-diagram/circle-diagram.component';
@@ -64,7 +63,6 @@ export const WIDGETS = {
     'truncated-diagram-counter': TruncatedPieSIconComponent,
     'point-diagram': PointDiagramComponent,
     'industrial-pyramid': WidgetContainerComponent,
-    'bar-chart': BarChartsComponent,
     'enterprise-map': EnterpriseMapComponent,
     'circle-diagram': CircleDiagramComponent,
     'unity-template': UnityTemplateComponent,
@@ -175,6 +173,7 @@ export const WIDGETS = {
     'ozsm-monitoring-main': WidgetContainerComponent,
     'shift-pass': WidgetContainerComponent,
     'shift-accept': WidgetContainerComponent,
+    'bar-chart': WidgetContainerComponent
 };
 
 export const WIDGETS_LAZY = {
@@ -586,6 +585,17 @@ export const WIDGETS_LAZY = {
         minItemCols: 20,
         minItemRows: 16,
         preview: 'line-diagram'
+    },
+    'bar-chart': {
+        import: async () => {
+            return await import('src/app/widgets/LCO/bar-chart/bar-charts/bar-charts.module');
+        },
+        module: 'BarChartsModule',
+        itemCols: 38,
+        itemRows: 10,
+        minItemCols: 10,
+        minItemRows: 10,
+        preview: 'bar-chart'
     },
 
     //#endregion LCO

@@ -1,7 +1,7 @@
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { WidgetService } from 'src/app/dashboard/services/widget.service';
 import { UserSettingsService } from 'src/app/dashboard/services/user-settings.service';
-import { WidgetPlatform } from '../../../models/widget-platform';
+import { WidgetPlatform } from '../../../../dashboard/models/widget-platform';
 
 @Component({
     selector: 'evj-bar-charts',
@@ -10,12 +10,6 @@ import { WidgetPlatform } from '../../../models/widget-platform';
 })
 export class BarChartsComponent extends WidgetPlatform implements OnInit, OnDestroy {
     public data: any[] = [];
-
-    public static itemCols: number = 38;
-    public static itemRows: number = 10;
-
-    public static minItemCols: number = 10;
-    public static minItemRows: number = 10;
 
     constructor(
         private userSettings: UserSettingsService,

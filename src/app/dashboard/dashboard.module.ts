@@ -29,8 +29,6 @@ import { TruncatedPieIconComponent } from './widgets/truncated-pie-icon/truncate
 import { PieDiagramComponent } from './widgets/truncated-diagram-traffic-light/components/pie-diagram/pie-diagram.component';
 import { PointDiagramComponent } from './widgets/point-diagram/point-diagram.component';
 import { OneColumnComponent } from './widgets/point-diagram/one-column/one-column.component';
-import { BarChartsComponent } from './widgets/bar-chart/bar-charts/bar-charts.component';
-import { BarChartComponent } from './widgets/bar-chart/bar-chart/bar-chart.component';
 import { SuspenseMachineComponent } from './widgets/suspense-machine/suspense-machine.component';
 import { EnterpriseMapComponent } from './widgets/map-enterprise/enterprise-map.component';
 import { DetailedLineDiagramComponent } from './components/detailed-line-diagram/detailed-line-diagram.component';
@@ -240,8 +238,6 @@ import { MatBadgeModule } from '@angular/material/badge';
         TruncatedPieIconComponent,
         PieDiagramComponent,
         TruncatedDiagramTrafficLightComponent,
-        BarChartsComponent,
-        BarChartComponent,
         SuspenseMachineComponent,
         CircleDiagramComponent,
         UnityTemplateComponent,
@@ -408,7 +404,6 @@ import { MatBadgeModule } from '@angular/material/badge';
         TruncatedPieSIconComponent,
         TruncatedDiagramTrafficLightComponent,
         PointDiagramComponent,
-        BarChartsComponent,
         SuspenseMachineComponent,
         CircleDiagramComponent,
         MapEcologyComponent,
