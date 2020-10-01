@@ -1,4 +1,12 @@
-import { Component, HostListener, Inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import {
+    ChangeDetectorRef,
+    Component,
+    HostListener,
+    Inject,
+    OnDestroy,
+    OnInit,
+    ViewChild
+} from '@angular/core';
 import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { IAlertWindowModel } from '@shared/models/alert-window.model';
@@ -45,7 +53,7 @@ export class EvjEventsComponent extends WidgetPlatform implements OnInit, OnDest
     public EnumClaimWidgets: typeof EnumClaimWidgets = EnumClaimWidgets;
 
     expandedElement: SelectionModel<number> = new SelectionModel<number>(true);
-    subCategoriesSelected: SelectionModel<ISubcategory> = new SelectionModel<ISubcategory>(true);
+    subCategoriesSelected: SelectionModel<number> = new SelectionModel<number>(true);
     subcategories: ISubcategory[] = [];
 
     isList: boolean = false;
@@ -274,9 +282,6 @@ export class EvjEventsComponent extends WidgetPlatform implements OnInit, OnDest
             this.claimService.claimWidgets$.subscribe((data) => {
                 this.claimWidgets = data;
             })
-            // this.searchTerm.subscribe((search) => {
-            //     this.search(search);
-            // })
         );
     }
 
@@ -386,7 +391,7 @@ export class EvjEventsComponent extends WidgetPlatform implements OnInit, OnDest
 
     public onCategoryClick(category: EventsWidgetCategory): void {
         category.isActive = !category.isActive;
-        if (category?.subCategories?.length) {
+        if (!category.isActive) {
             this.subCategoriesSelected.clear();
         }
         this.getData();
@@ -712,8 +717,8 @@ export class EvjEventsComponent extends WidgetPlatform implements OnInit, OnDest
         this.getStats();
     }
 
-    toggleSubcategory(subCategory: ISubcategory): void {
-        this.subCategoriesSelected.toggle(subCategory);
+    toggleSubcategory(id: number): void {
+        this.subCategoriesSelected.toggle(id);
         this.getData();
         this.getStats();
     }

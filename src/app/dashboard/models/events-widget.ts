@@ -391,7 +391,7 @@ export interface IEventsWidgetOptions {
     categoriesType?: EventsWidgetOptionsCategoryType;
     priority?: IPriority;
     units?: IUnits;
-    subCategory?: ISubcategory[];
+    subCategory?: number[];
 }
 
 export type EventsWidgetOptionsCategoryType = 'ed' | 'default';

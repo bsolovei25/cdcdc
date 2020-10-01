@@ -504,7 +504,7 @@ export class EventService {
         }
         if (options.subCategory) {
             options.subCategory.forEach(value => {
-                res += `&subcategoryIds=${value.id}`;
+                res += `&subcategoryIds=${value}`;
             });
         }
         return res;

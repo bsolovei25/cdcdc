@@ -51,7 +51,6 @@ export class EvjEventFiltersComponent implements OnInit {
 
     public onUnitsSelect(event: MatSelectChange): void {
         this.outUnits.emit(event.value);
-        // this.eventService.getEventsFilter(null, null, null, event.value);
     }
 
     public onPrioritySelect(event: MatSelectChange): void {

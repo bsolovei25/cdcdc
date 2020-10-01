@@ -5,8 +5,8 @@
     <ng-container *ngFor="let item of data?.subCategories">
       <div class="item">
         <div class="item__slide">
-          <mat-slide-toggle [checked]="subCategoriesSelected.isSelected(item)"
-                            (toggleChange)="toggle(item)" disableRipple="true"></mat-slide-toggle>
+          <mat-slide-toggle [checked]="subCategoriesSelected.isSelected(item.id)"
+                            (toggleChange)="toggle(item.id)" disableRipple="true"></mat-slide-toggle>
         </div>
         <div class="item__text" [class.item__text_disabled]>
           {{ item.description }}

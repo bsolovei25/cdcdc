@@ -105,7 +105,10 @@
         class="notification notification__children"
         (click)="eventClick(retrievalEvent?.id)"
         [class.notification--active]="retrievalEvent?.id === cardActiveId"
-        [ngClass]="'notification--' + retrievalEvent?.priority?.name"
+        [ngClass]="retrievalEvent?.id === cardActiveId ?
+        'notification--active_' + retrievalEvent?.priority?.name :
+        (retrievalEvent?.priority?.name ?
+          'notification--' + retrievalEvent?.priority?.name : '')"
       >
         <svg-icon
           *ngIf="first"

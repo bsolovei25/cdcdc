@@ -28,17 +28,15 @@ export class EvjEventCategoriesComponent implements OnInit {
     @ViewChild(CdkOverlayOrigin, { static: false }) private overlayOrigin: CdkOverlayOrigin;
 
     @Input() data: EventsWidgetCategory;
-    @Input() subCategoriesSelected: SelectionModel<ISubcategory>;
+    @Input() subCategoriesSelected: SelectionModel<number>;
 
     @Output()
     public categoryClick: EventEmitter<EventsWidgetCategory> =
         new EventEmitter<EventsWidgetCategory>();
-
     @Output()
     public categoryDeleteClick: EventEmitter<number> = new EventEmitter<number>();
-
     @Output()
-    public toggleSubCategory: EventEmitter<ISubcategory> = new EventEmitter<ISubcategory>();
+    public toggleSubCategory: EventEmitter<number> = new EventEmitter<number>();
 
     constructor(public overlay: Overlay,
                 public viewContainerRef: ViewContainerRef
@@ -53,6 +51,7 @@ export class EvjEventCategoriesComponent implements OnInit {
     }
 
     openOverlay(): void {
+        this.resetSetTimeout();
         if (this.data?.subCategories?.length && !this.activeCategory) {
             this.activeCategory = this.data.id;
             this.openTemplateOverlay();
@@ -106,8 +105,11 @@ export class EvjEventCategoriesComponent implements OnInit {
         this.overlayRef.attach(this.overlayTemplate);
     }
 
-    toggle(subCategory: ISubcategory): void {
-        this.toggleSubCategory.emit(subCategory);
+    toggle(id: number): void {
+        this.toggleSubCategory.emit(id);
+        if (!this.data.isActive) {
+            this.categoryClick.emit(this.data);
+        }
     }
 
 }

@@ -19,29 +19,21 @@ export const fadeAnimation = trigger('fadeAnimation', [
 })
 export class EvjEventCardComponent implements OnInit {
 
-    @Input() expandedElement: SelectionModel<number> = new SelectionModel<number>(true);
-
     public statuses: { [id in EventsWidgetNotificationStatus]: string } = {
         new: 'Новое',
         inWork: 'В работе',
         closed: 'Завершено'
     };
 
-    @Input()
-    public cardDataArr: EventsWidgetNotificationPreview[];
-
-    @Input()
-    public viewType: 'block' | 'list';
-
-    @Input()
-    public cardActiveId: number = 0;
+    @Input() expandedElement: SelectionModel<number> = new SelectionModel<number>(true);
+    @Input() public cardDataArr: EventsWidgetNotificationPreview[];
+    @Input() public viewType: 'block' | 'list';
+    @Input() public cardActiveId: number = 0;
 
     @Output()
     public cardClick: EventEmitter<number> = new EventEmitter<number>();
-
     @Output()
     public cardDeleteClick: EventEmitter<number> = new EventEmitter<number>();
-
     @Output()
     public selectionExpandedElement: EventEmitter<number> = new EventEmitter<number>();
 
@@ -49,9 +41,6 @@ export class EvjEventCardComponent implements OnInit {
     }
 
     ngOnInit(): void {
-    }
-
-    close(): void {
     }
 
     public eventClick(id: number): void {
