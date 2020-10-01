@@ -345,6 +345,29 @@ export class EvjEventsComponent extends WidgetPlatform implements OnInit, OnDest
         ) {
             return;
         }
+        const isCheckCategories: boolean =
+            this.categories.some((x) => x.isActive && x.id === ref.notification.category.id)
+            || !this.categories.filter((x) => x.isActive).length;
+        let filtersIds: number[] = [];
+        switch (this.filters.find((x) => x.isActive).code) {
+            case 'all':
+                filtersIds = [3001, 3002];
+                break;
+            case 'closed':
+                filtersIds = [3003];
+                break;
+            case 'inWork':
+                filtersIds = [3002];
+                break;
+            case 'isNotAcknowledged':
+                filtersIds = [-100];
+                break;
+        }
+        const isCheckFilters: boolean = filtersIds.some((x) => x === ref.notification.status.id)
+            || (filtersIds.some((x) => x === -100) && !ref.notification.isAcknowledged);
+        if (!isCheckFilters || !isCheckCategories) {
+            return;
+        }
         switch (ref.action) {
             case 'add':
                 this.addWsElement(ref.notification);
