@@ -20,6 +20,8 @@ export interface IAstueOnpzMonitoringCarrierOptions {
     unitName: string;
     itemId: string;
     filterValues: string;
+    type: AstueOnpzConsumptionIndicatorsWidgetType | null;
+    indicatorType: AstueOnpzConsumptionIndicatorType | null;
 }
 
 export interface IAstueOnpzPredictorsOptions {
@@ -45,7 +47,9 @@ export class AstueOnpzService {
         manufactureName: null,
         unitName: null,
         itemId: null,
-        filterValues: null
+        filterValues: null,
+        type: null,
+        indicatorType: null,
     });
 
     public monitoringOptions$: BehaviorSubject<IAstueOnpzMonitoringOptions> = new BehaviorSubject({
@@ -151,6 +155,7 @@ export class AstueOnpzService {
 
     public updateType(typeParam: AstueOnpzConsumptionIndicatorsWidgetType): void {
         this.nextMonitoringOptions<AstueOnpzConsumptionIndicatorsWidgetType>('type', typeParam);
+        this.nextMonitoringCarrierOptions<AstueOnpzConsumptionIndicatorsWidgetType>('type', typeParam);
     }
 
     public updateIndicator(
@@ -167,6 +172,13 @@ export class AstueOnpzService {
         }
         this.monitoringOptions$.next({
             ...this.monitoringOptions$.value,
+            ...{
+                indicatorType: indicatorTypeParam,
+                type: typeParam
+            }
+        });
+        this.indicatorOptions$.next({
+            ...this.indicatorOptions$.value,
             ...{
                 indicatorType: indicatorTypeParam,
                 type: typeParam
