@@ -18,7 +18,7 @@ import {
     IScheduleShift,
     IUnits
 } from '../../../models/admin-shift-schedule';
-import { fillDataShape } from '../../../../@shared/common-functions';
+import { fillDataShape } from '@shared/functions/common-functions';
 import { MatCalendar } from '@angular/material/datepicker';
 import { WidgetPlatform } from '../../../models/widget-platform';
 import { SnackBarService } from '../../../services/snack-bar.service';

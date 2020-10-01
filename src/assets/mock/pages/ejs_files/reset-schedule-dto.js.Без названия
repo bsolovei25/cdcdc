@@ -1,2 +1,0 @@
-/* Copyright © 1993-2019 Meridium, Inc. All rights reserved.  */
-define(["require","exports"],function(require,exports){"use strict";var a=function(){function a(a){a=a||{},this.taskKeys=a.taskKeys,this.schedule=a.schedule}return a}();exports.ResetScheduleDTO=a});

@@ -1,0 +1,67 @@
+.diagram {
+  &::ng-deep {
+    .back-arc,
+    .dashed-arc {
+      fill: var(--color-aps-gaude-back);
+    }
+
+    .needle-arc {
+      fill: var(--color-aps-active);
+    }
+
+    .deviation-arc {
+      fill: var(--ozsm-color-bg-innage-diagram);
+    }
+    .rainbow {
+      fill: var(--color-aps-gaude-line);
+    }
+
+    .end-line {
+      stroke: var(--color-aps-gaude-line);
+      stroke-width: 0.3px;
+    }
+
+    .needle {
+      stroke: var(--color-aps-active-line);
+      stroke-width: 0.3px;
+    }
+
+    .arc-line {
+      fill: var(--color-aps-gaude-back-line);
+    }
+
+    .circle-needle {
+      fill: var(--color-aps-active);
+    }
+
+    .value {
+      fill: var(--color-text-main);
+      font-size: 2px;
+    }
+
+    .deviation {
+      fill: var(--color-aps-active);
+      font-size: 1.5px;
+    }
+
+    .units {
+      fill: var(--color-text-sub-heading);
+      font-size: 1.3px;
+    }
+    .th {
+      fill: var(--color-text-sub-heading);
+      font-size: 1px;
+    }
+
+    .name {
+      fill: var(--color-text-main);
+      font-size: 1.5px;
+    }
+
+    .card {
+      &:hover {
+        cursor: pointer;
+      }
+    }
+  }
+}

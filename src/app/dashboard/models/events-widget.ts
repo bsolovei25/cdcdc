@@ -4,7 +4,7 @@ import { IMessage } from '../../@shared/models/message.model';
 import { HttpHeaders } from '@angular/common/http';
 import { IUnits } from './admin-shift-schedule';
 
-export interface EventsWidgetNotificationPreview {
+export interface IEventsWidgetNotificationPreview {
     id: number;
     originalId: string;
     itemNumber: number;
@@ -258,12 +258,14 @@ export interface ICategory {
     id: number;
     name: EventsWidgetCategoryCode;
     code: string;
+    description?: string;
 }
 
 export interface IStatus {
     id: number;
     name: EventsWidgetNotificationStatus;
     code: string;
+    description?: string;
 }
 
 export interface ISubcategory {
@@ -369,7 +371,7 @@ export interface EventsWidgetNotificationsCounter {
 }
 
 export interface EventsWidgetDataPreview {
-    notification: EventsWidgetNotificationPreview;
+    notification: IEventsWidgetNotificationPreview;
     action: EventAction;
 }
 

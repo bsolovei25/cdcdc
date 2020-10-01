@@ -7,7 +7,7 @@ import {
     ICategory,
     IEventsWidgetOptions,
     EventsWidgetsStats,
-    EventsWidgetNotificationPreview,
+    IEventsWidgetNotificationPreview,
     IRetrievalEvents,
     IUnitEvents,
     IUser,
@@ -23,7 +23,7 @@ import {
     IAsusTpPlace,
     ISubcategory, EventsWidgetCategoryCode
 } from '../../models/events-widget';
-import { AppConfigService } from 'src/app/services/appConfigService';
+import { AppConfigService } from '@core/service/app-config.service';
 
 export interface IEventsFilter {
     unitNames?: string;
@@ -55,11 +55,11 @@ export class EventService {
     async getBatchData(
         lastId: number,
         options: IEventsWidgetOptions
-    ): Promise<EventsWidgetNotificationPreview[]> {
+    ): Promise<IEventsWidgetNotificationPreview[]> {
         const routeAdder = options.categoriesType === 'ed' ? '/ed' : '';
         try {
             return this.http
-                .get<EventsWidgetNotificationPreview[]>(
+                .get<IEventsWidgetNotificationPreview[]>(
                     this.restUrl +
                     `/api/notifications/getbyfilter${routeAdder}?${this.getOptionString(lastId, options)}`
                 )

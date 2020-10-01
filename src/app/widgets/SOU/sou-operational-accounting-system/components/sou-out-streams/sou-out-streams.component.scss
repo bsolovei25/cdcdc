@@ -14,10 +14,6 @@
 
     &__header {
       .header {
-        &__row {
-
-        }
-
         &__column {
           font-size: 11px;
           vertical-align: bottom;
@@ -26,14 +22,8 @@
           &__diff {
             min-width: 85px;
           }
-
           &__trust-value {
             max-width: 50px;
-
-          }
-
-          &:first-of-type {
-            /* min-width: 100px;*/
           }
         }
       }

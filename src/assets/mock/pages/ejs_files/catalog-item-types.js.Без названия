@@ -1,2 +1,0 @@
-/* Copyright © 1993-2019 Meridium, Inc. All rights reserved.  */
-define(function(require){"use strict";function a(){return[{value:-12,text:"DataLoaderTemplate"},{value:-11,text:"Script"},{value:-10,text:"RScript"},{value:-9,text:"Dashboard"},{value:-5,text:"Dataset"},{value:-7,text:"Explorer"},{value:-2,text:"Graph"},{value:-6,text:"MetricView"},{value:-8,text:"Project"},{value:-1,text:"Query"},{value:-3,text:"Report"},{value:-4,text:"Search"}]}return a()});

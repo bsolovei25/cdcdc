@@ -1,2 +1,0 @@
-/* Copyright © 1993-2019 Meridium, Inc. All rights reserved.  */
-define(function(require){"use strict";var a=require("mi-assert"),b=require("./i-task"),c=require("toastr");function d(){a.implementsInterface(this,b,"this")}return d.prototype.execute=function(){c.options={positionClass:"toast-top-center",timeOut:"5000",showDuration:"300",hideDuration:"1000",showMethod:"fadeIn",hideMethod:"fadeOut",closeButton:!0}},d});

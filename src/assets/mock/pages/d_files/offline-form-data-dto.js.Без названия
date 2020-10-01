@@ -1,2 +1,0 @@
-/* Copyright © 1993-2019 Meridium, Inc. All rights reserved.  */
-define(function(){"use strict";function a(){this.familyKey="",this.familyId="",this.familyCaption="",this.relationshipFamilyId="",this.formKey="",this.hasReferenceDocRelationship=!1,this.records=[]}return a});

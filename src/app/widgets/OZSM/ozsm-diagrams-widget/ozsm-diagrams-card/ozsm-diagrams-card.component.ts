@@ -122,7 +122,7 @@ export class OzsmDiagramsCardComponent implements OnInit, OnChanges {
         const k = this.data.fact * 1.4 / this.data.plan;
         const arcWidth = 2;
 
-        this.appendCircle(this.diagramOptions.diameter, 'bg');
+        this.appendCircle(this.diagramOptions.diameter, 'bg-diagram-card');
 
         const arc = d3.arc()
             .innerRadius(this.diagramOptions.diameter - 5)

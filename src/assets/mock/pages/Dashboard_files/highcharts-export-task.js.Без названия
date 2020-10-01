@@ -1,2 +1,0 @@
-/* Copyright © 1993-2019 Meridium, Inc. All rights reserved.  */
-define(["require","exports"],function(require,exports){"use strict";var a=window;return function(){function b(){}return b.prototype.execute=function(){a.Highcharts.setOptions({exporting:{enabled:!1}})},b}()});

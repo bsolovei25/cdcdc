@@ -1,1358 +1,624 @@
-[
+{
+  "isDeviationChart": false,
+  "isEconomy": false,
+  "group": "\u0423\u0441\u043B\u043E\u0432\u043D\u043E\u0435 \u0442\u043E\u043F\u043B\u0438\u0432\u043E",
+  "sortIndex": 3,
+  "productName": "\u0423\u0441\u043B\u043E\u0432\u043D\u043E\u0435 \u0442\u043E\u043F\u043B\u0438\u0432\u043E",
+  "unitName": "\u0410\u0412\u0422-10",
+  "iconType": "electro",
+  "units": "\u0442 \u0443\u0441\u043B.\u0442\u043E\u043F\u043B/\u0447",
+  "labels": [
     {
-        "productName": "Электроэнергия",
-        "unitName": "АВТ-10",
-        "iconType": "electro",
-        "units": "Ед. измерения",
-        "currentPlanValue": 500,
-        "currentFactValue": 450,
-        "graph": [
-            {
-                "graphType": "plan",
-                "graphStyle": "main",
-                "graph": [
-                    {
-                        "value": 1000,
-                        "timeStamp": "2020-01-31T21:00:00.000Z"
-                    },
-                    {
-                        "value": 700,
-                        "timeStamp": "2020-02-01T21:00:00.000Z"
-                    },
-                    {
-                        "value": 900,
-                        "timeStamp": "2020-02-02T21:00:00.000Z"
-                    },
-                    {
-                        "value": 800,
-                        "timeStamp": "2020-02-03T21:00:00.000Z"
-                    },
-                    {
-                        "value": 1200,
-                        "timeStamp": "2020-02-04T21:00:00.000Z"
-                    },
-                    {
-                        "value": 1100,
-                        "timeStamp": "2020-02-05T21:00:00.000Z"
-                    },
-                    {
-                        "value": 800,
-                        "timeStamp": "2020-02-06T21:00:00.000Z"
-                    },
-                    {
-                        "value": 1000,
-                        "timeStamp": "2020-02-07T21:00:00.000Z"
-                    }
-                ]
-            },
-            {
-                "graphType": "fact",
-                "graphStyle": "main",
-                "graph": [
-                    {
-                        "value": 800,
-                        "timeStamp": "2020-01-31T21:00:00.000Z"
-                    },
-                    {
-                        "value": 1000,
-                        "timeStamp": "2020-02-01T21:00:00.000Z"
-                    },
-                    {
-                        "value": 700,
-                        "timeStamp": "2020-02-02T21:00:00.000Z"
-                    },
-                    {
-                        "value": 900,
-                        "timeStamp": "2020-02-03T21:00:00.000Z"
-                    },
-                    {
-                        "value": 800,
-                        "timeStamp": "2020-02-04T21:00:00.000Z"
-                    },
-                    {
-                        "value": 900,
-                        "timeStamp": "2020-02-05T21:00:00.000Z"
-                    },
-                    {
-                        "value": 1100,
-                        "timeStamp": "2020-02-06T21:00:00.000Z"
-                    },
-                    {
-                        "value": 1200,
-                        "timeStamp": "2020-02-07T21:00:00.000Z"
-                    }
-                ]
-            },
-            {
-                "graphType": "higherBorder",
-                "graphStyle": "area",
-                "graph": [
-                    {
-                        "value": 1300,
-                        "timeStamp": "2020-01-31T21:00:00.000Z"
-                    },
-                    {
-                        "value": 1400,
-                        "timeStamp": "2020-02-01T21:00:00.000Z"
-                    },
-                    {
-                        "value": 1500,
-                        "timeStamp": "2020-02-02T21:00:00.000Z"
-                    },
-                    {
-                        "value": 1100,
-                        "timeStamp": "2020-02-03T21:00:00.000Z"
-                    },
-                    {
-                        "value": 1300,
-                        "timeStamp": "2020-02-04T21:00:00.000Z"
-                    },
-                    {
-                        "value": 1400,
-                        "timeStamp": "2020-02-05T21:00:00.000Z"
-                    },
-                    {
-                        "value": 1200,
-                        "timeStamp": "2020-02-06T21:00:00.000Z"
-                    },
-                    {
-                        "value": 1500,
-                        "timeStamp": "2020-02-07T21:00:00.000Z"
-                    },
-                    {
-                        "value": 1100,
-                        "timeStamp": "2020-02-08T21:00:00.000Z"
-                    },
-                    {
-                        "value": 1500,
-                        "timeStamp": "2020-02-09T21:00:00.000Z"
-                    },
-                    {
-                        "value": 1400,
-                        "timeStamp": "2020-02-10T21:00:00.000Z"
-                    },
-                    {
-                        "value": 1200,
-                        "timeStamp": "2020-02-11T21:00:00.000Z"
-                    },
-                    {
-                        "value": 1400,
-                        "timeStamp": "2020-02-12T21:00:00.000Z"
-                    },
-                    {
-                        "value": 1100,
-                        "timeStamp": "2020-02-13T21:00:00.000Z"
-                    },
-                    {
-                        "value": 1500,
-                        "timeStamp": "2020-02-14T21:00:00.000Z"
-                    },
-                    {
-                        "value": 1400,
-                        "timeStamp": "2020-02-15T21:00:00.000Z"
-                    }
-                ]
-            },
-            {
-                "graphType": "lowerBorder",
-                "graphStyle": "area",
-                "graph": [
-                    {
-                        "value": 500,
-                        "timeStamp": "2020-01-31T21:00:00.000Z"
-                    },
-                    {
-                        "value": 600,
-                        "timeStamp": "2020-02-01T21:00:00.000Z"
-                    },
-                    {
-                        "value": 400,
-                        "timeStamp": "2020-02-02T21:00:00.000Z"
-                    },
-                    {
-                        "value": 500,
-                        "timeStamp": "2020-02-03T21:00:00.000Z"
-                    },
-                    {
-                        "value": 700,
-                        "timeStamp": "2020-02-04T21:00:00.000Z"
-                    },
-                    {
-                        "value": 400,
-                        "timeStamp": "2020-02-05T21:00:00.000Z"
-                    },
-                    {
-                        "value": 500,
-                        "timeStamp": "2020-02-06T21:00:00.000Z"
-                    },
-                    {
-                        "value": 800,
-                        "timeStamp": "2020-02-07T21:00:00.000Z"
-                    },
-                    {
-                        "value": 500,
-                        "timeStamp": "2020-02-08T21:00:00.000Z"
-                    },
-                    {
-                        "value": 500,
-                        "timeStamp": "2020-02-09T21:00:00.000Z"
-                    },
-                    {
-                        "value": 400,
-                        "timeStamp": "2020-02-10T21:00:00.000Z"
-                    },
-                    {
-                        "value": 700,
-                        "timeStamp": "2020-02-11T21:00:00.000Z"
-                    },
-                    {
-                        "value": 500,
-                        "timeStamp": "2020-02-12T21:00:00.000Z"
-                    },
-                    {
-                        "value": 600,
-                        "timeStamp": "2020-02-13T21:00:00.000Z"
-                    },
-                    {
-                        "value": 300,
-                        "timeStamp": "2020-02-14T21:00:00.000Z"
-                    },
-                    {
-                        "value": 500,
-                        "timeStamp": "2020-02-15T21:00:00.000Z"
-                    }
-                ]
-            }
-        ]
+      "text": "\u0424\u0430\u043A\u0442",
+      "value": 24.81,
+      "type": "fact"
     },
     {
-        "productName": "Электроэнергия",
-        "unitName": "АВТ-10",
-        "iconType": "electro",
-        "units": "Ед. измерения",
-        "currentPlanValue": 500,
-        "currentFactValue": 450,
-        "graph": [
-            {
-                "graphType": "plan",
-                "graphStyle": "main",
-                "graph": [
-                    {
-                        "value": 1000,
-                        "timeStamp": "2020-01-31T21:00:00.000Z"
-                    },
-                    {
-                        "value": 700,
-                        "timeStamp": "2020-02-01T21:00:00.000Z"
-                    },
-                    {
-                        "value": 900,
-                        "timeStamp": "2020-02-02T21:00:00.000Z"
-                    },
-                    {
-                        "value": 800,
-                        "timeStamp": "2020-02-03T21:00:00.000Z"
-                    },
-                    {
-                        "value": 1200,
-                        "timeStamp": "2020-02-04T21:00:00.000Z"
-                    },
-                    {
-                        "value": 1100,
-                        "timeStamp": "2020-02-05T21:00:00.000Z"
-                    },
-                    {
-                        "value": 800,
-                        "timeStamp": "2020-02-06T21:00:00.000Z"
-                    },
-                    {
-                        "value": 1000,
-                        "timeStamp": "2020-02-07T21:00:00.000Z"
-                    }
-                ]
-            },
-            {
-                "graphType": "fact",
-                "graphStyle": "main",
-                "graph": [
-                    {
-                        "value": 800,
-                        "timeStamp": "2020-01-31T21:00:00.000Z"
-                    },
-                    {
-                        "value": 1000,
-                        "timeStamp": "2020-02-01T21:00:00.000Z"
-                    },
-                    {
-                        "value": 700,
-                        "timeStamp": "2020-02-02T21:00:00.000Z"
-                    },
-                    {
-                        "value": 900,
-                        "timeStamp": "2020-02-03T21:00:00.000Z"
-                    },
-                    {
-                        "value": 800,
-                        "timeStamp": "2020-02-04T21:00:00.000Z"
-                    },
-                    {
-                        "value": 900,
-                        "timeStamp": "2020-02-05T21:00:00.000Z"
-                    },
-                    {
-                        "value": 1100,
-                        "timeStamp": "2020-02-06T21:00:00.000Z"
-                    },
-                    {
-                        "value": 1200,
-                        "timeStamp": "2020-02-07T21:00:00.000Z"
-                    }
-                ]
-            },
-            {
-                "graphType": "higherBorder",
-                "graphStyle": "area",
-                "graph": [
-                    {
-                        "value": 1300,
-                        "timeStamp": "2020-01-31T21:00:00.000Z"
-                    },
-                    {
-                        "value": 1400,
-                        "timeStamp": "2020-02-01T21:00:00.000Z"
-                    },
-                    {
-                        "value": 1500,
-                        "timeStamp": "2020-02-02T21:00:00.000Z"
-                    },
-                    {
-                        "value": 1100,
-                        "timeStamp": "2020-02-03T21:00:00.000Z"
-                    },
-                    {
-                        "value": 1300,
-                        "timeStamp": "2020-02-04T21:00:00.000Z"
-                    },
-                    {
-                        "value": 1400,
-                        "timeStamp": "2020-02-05T21:00:00.000Z"
-                    },
-                    {
-                        "value": 1200,
-                        "timeStamp": "2020-02-06T21:00:00.000Z"
-                    },
-                    {
-                        "value": 1500,
-                        "timeStamp": "2020-02-07T21:00:00.000Z"
-                    },
-                    {
-                        "value": 1100,
-                        "timeStamp": "2020-02-08T21:00:00.000Z"
-                    },
-                    {
-                        "value": 1500,
-                        "timeStamp": "2020-02-09T21:00:00.000Z"
-                    },
-                    {
-                        "value": 1400,
-                        "timeStamp": "2020-02-10T21:00:00.000Z"
-                    },
-                    {
-                        "value": 1200,
-                        "timeStamp": "2020-02-11T21:00:00.000Z"
-                    },
-                    {
-                        "value": 1400,
-                        "timeStamp": "2020-02-12T21:00:00.000Z"
-                    },
-                    {
-                        "value": 1100,
-                        "timeStamp": "2020-02-13T21:00:00.000Z"
-                    },
-                    {
-                        "value": 1500,
-                        "timeStamp": "2020-02-14T21:00:00.000Z"
-                    },
-                    {
-                        "value": 1400,
-                        "timeStamp": "2020-02-15T21:00:00.000Z"
-                    }
-                ]
-            },
-            {
-                "graphType": "lowerBorder",
-                "graphStyle": "area",
-                "graph": [
-                    {
-                        "value": 500,
-                        "timeStamp": "2020-01-31T21:00:00.000Z"
-                    },
-                    {
-                        "value": 600,
-                        "timeStamp": "2020-02-01T21:00:00.000Z"
-                    },
-                    {
-                        "value": 400,
-                        "timeStamp": "2020-02-02T21:00:00.000Z"
-                    },
-                    {
-                        "value": 500,
-                        "timeStamp": "2020-02-03T21:00:00.000Z"
-                    },
-                    {
-                        "value": 700,
-                        "timeStamp": "2020-02-04T21:00:00.000Z"
-                    },
-                    {
-                        "value": 400,
-                        "timeStamp": "2020-02-05T21:00:00.000Z"
-                    },
-                    {
-                        "value": 500,
-                        "timeStamp": "2020-02-06T21:00:00.000Z"
-                    },
-                    {
-                        "value": 800,
-                        "timeStamp": "2020-02-07T21:00:00.000Z"
-                    },
-                    {
-                        "value": 500,
-                        "timeStamp": "2020-02-08T21:00:00.000Z"
-                    },
-                    {
-                        "value": 500,
-                        "timeStamp": "2020-02-09T21:00:00.000Z"
-                    },
-                    {
-                        "value": 400,
-                        "timeStamp": "2020-02-10T21:00:00.000Z"
-                    },
-                    {
-                        "value": 700,
-                        "timeStamp": "2020-02-11T21:00:00.000Z"
-                    },
-                    {
-                        "value": 500,
-                        "timeStamp": "2020-02-12T21:00:00.000Z"
-                    },
-                    {
-                        "value": 600,
-                        "timeStamp": "2020-02-13T21:00:00.000Z"
-                    },
-                    {
-                        "value": 300,
-                        "timeStamp": "2020-02-14T21:00:00.000Z"
-                    },
-                    {
-                        "value": 500,
-                        "timeStamp": "2020-02-15T21:00:00.000Z"
-                    }
-                ]
-            }
-        ]
-    },
-    {
-        "productName": "Электроэнергия",
-        "unitName": "АВТ-10",
-        "iconType": "electro",
-        "units": "Ед. измерения",
-        "currentPlanValue": 500,
-        "currentFactValue": 450,
-        "graph": [
-            {
-                "graphType": "plan",
-                "graphStyle": "main",
-                "graph": [
-                    {
-                        "value": 1000,
-                        "timeStamp": "2020-01-31T21:00:00.000Z"
-                    },
-                    {
-                        "value": 700,
-                        "timeStamp": "2020-02-01T21:00:00.000Z"
-                    },
-                    {
-                        "value": 900,
-                        "timeStamp": "2020-02-02T21:00:00.000Z"
-                    },
-                    {
-                        "value": 800,
-                        "timeStamp": "2020-02-03T21:00:00.000Z"
-                    },
-                    {
-                        "value": 1200,
-                        "timeStamp": "2020-02-04T21:00:00.000Z"
-                    },
-                    {
-                        "value": 1100,
-                        "timeStamp": "2020-02-05T21:00:00.000Z"
-                    },
-                    {
-                        "value": 800,
-                        "timeStamp": "2020-02-06T21:00:00.000Z"
-                    },
-                    {
-                        "value": 1000,
-                        "timeStamp": "2020-02-07T21:00:00.000Z"
-                    }
-                ]
-            },
-            {
-                "graphType": "fact",
-                "graphStyle": "main",
-                "graph": [
-                    {
-                        "value": 800,
-                        "timeStamp": "2020-01-31T21:00:00.000Z"
-                    },
-                    {
-                        "value": 1000,
-                        "timeStamp": "2020-02-01T21:00:00.000Z"
-                    },
-                    {
-                        "value": 700,
-                        "timeStamp": "2020-02-02T21:00:00.000Z"
-                    },
-                    {
-                        "value": 900,
-                        "timeStamp": "2020-02-03T21:00:00.000Z"
-                    },
-                    {
-                        "value": 800,
-                        "timeStamp": "2020-02-04T21:00:00.000Z"
-                    },
-                    {
-                        "value": 900,
-                        "timeStamp": "2020-02-05T21:00:00.000Z"
-                    },
-                    {
-                        "value": 1100,
-                        "timeStamp": "2020-02-06T21:00:00.000Z"
-                    },
-                    {
-                        "value": 1200,
-                        "timeStamp": "2020-02-07T21:00:00.000Z"
-                    }
-                ]
-            },
-            {
-                "graphType": "higherBorder",
-                "graphStyle": "area",
-                "graph": [
-                    {
-                        "value": 1300,
-                        "timeStamp": "2020-01-31T21:00:00.000Z"
-                    },
-                    {
-                        "value": 1400,
-                        "timeStamp": "2020-02-01T21:00:00.000Z"
-                    },
-                    {
-                        "value": 1500,
-                        "timeStamp": "2020-02-02T21:00:00.000Z"
-                    },
-                    {
-                        "value": 1100,
-                        "timeStamp": "2020-02-03T21:00:00.000Z"
-                    },
-                    {
-                        "value": 1300,
-                        "timeStamp": "2020-02-04T21:00:00.000Z"
-                    },
-                    {
-                        "value": 1400,
-                        "timeStamp": "2020-02-05T21:00:00.000Z"
-                    },
-                    {
-                        "value": 1200,
-                        "timeStamp": "2020-02-06T21:00:00.000Z"
-                    },
-                    {
-                        "value": 1500,
-                        "timeStamp": "2020-02-07T21:00:00.000Z"
-                    },
-                    {
-                        "value": 1100,
-                        "timeStamp": "2020-02-08T21:00:00.000Z"
-                    },
-                    {
-                        "value": 1500,
-                        "timeStamp": "2020-02-09T21:00:00.000Z"
-                    },
-                    {
-                        "value": 1400,
-                        "timeStamp": "2020-02-10T21:00:00.000Z"
-                    },
-                    {
-                        "value": 1200,
-                        "timeStamp": "2020-02-11T21:00:00.000Z"
-                    },
-                    {
-                        "value": 1400,
-                        "timeStamp": "2020-02-12T21:00:00.000Z"
-                    },
-                    {
-                        "value": 1100,
-                        "timeStamp": "2020-02-13T21:00:00.000Z"
-                    },
-                    {
-                        "value": 1500,
-                        "timeStamp": "2020-02-14T21:00:00.000Z"
-                    },
-                    {
-                        "value": 1400,
-                        "timeStamp": "2020-02-15T21:00:00.000Z"
-                    }
-                ]
-            },
-            {
-                "graphType": "lowerBorder",
-                "graphStyle": "area",
-                "graph": [
-                    {
-                        "value": 500,
-                        "timeStamp": "2020-01-31T21:00:00.000Z"
-                    },
-                    {
-                        "value": 600,
-                        "timeStamp": "2020-02-01T21:00:00.000Z"
-                    },
-                    {
-                        "value": 400,
-                        "timeStamp": "2020-02-02T21:00:00.000Z"
-                    },
-                    {
-                        "value": 500,
-                        "timeStamp": "2020-02-03T21:00:00.000Z"
-                    },
-                    {
-                        "value": 700,
-                        "timeStamp": "2020-02-04T21:00:00.000Z"
-                    },
-                    {
-                        "value": 400,
-                        "timeStamp": "2020-02-05T21:00:00.000Z"
-                    },
-                    {
-                        "value": 500,
-                        "timeStamp": "2020-02-06T21:00:00.000Z"
-                    },
-                    {
-                        "value": 800,
-                        "timeStamp": "2020-02-07T21:00:00.000Z"
-                    },
-                    {
-                        "value": 500,
-                        "timeStamp": "2020-02-08T21:00:00.000Z"
-                    },
-                    {
-                        "value": 500,
-                        "timeStamp": "2020-02-09T21:00:00.000Z"
-                    },
-                    {
-                        "value": 400,
-                        "timeStamp": "2020-02-10T21:00:00.000Z"
-                    },
-                    {
-                        "value": 700,
-                        "timeStamp": "2020-02-11T21:00:00.000Z"
-                    },
-                    {
-                        "value": 500,
-                        "timeStamp": "2020-02-12T21:00:00.000Z"
-                    },
-                    {
-                        "value": 600,
-                        "timeStamp": "2020-02-13T21:00:00.000Z"
-                    },
-                    {
-                        "value": 300,
-                        "timeStamp": "2020-02-14T21:00:00.000Z"
-                    },
-                    {
-                        "value": 500,
-                        "timeStamp": "2020-02-15T21:00:00.000Z"
-                    }
-                ]
-            }
-        ]
-    },
-    {
-        "productName": "Электроэнергия",
-        "unitName": "АВТ-10",
-        "iconType": "electro",
-        "units": "Ед. измерения",
-        "currentPlanValue": 500,
-        "currentFactValue": 450,
-        "graph": [
-            {
-                "graphType": "plan",
-                "graphStyle": "main",
-                "graph": [
-                    {
-                        "value": 1000,
-                        "timeStamp": "2020-01-31T21:00:00.000Z"
-                    },
-                    {
-                        "value": 700,
-                        "timeStamp": "2020-02-01T21:00:00.000Z"
-                    },
-                    {
-                        "value": 900,
-                        "timeStamp": "2020-02-02T21:00:00.000Z"
-                    },
-                    {
-                        "value": 800,
-                        "timeStamp": "2020-02-03T21:00:00.000Z"
-                    },
-                    {
-                        "value": 1200,
-                        "timeStamp": "2020-02-04T21:00:00.000Z"
-                    },
-                    {
-                        "value": 1100,
-                        "timeStamp": "2020-02-05T21:00:00.000Z"
-                    },
-                    {
-                        "value": 800,
-                        "timeStamp": "2020-02-06T21:00:00.000Z"
-                    },
-                    {
-                        "value": 1000,
-                        "timeStamp": "2020-02-07T21:00:00.000Z"
-                    }
-                ]
-            },
-            {
-                "graphType": "fact",
-                "graphStyle": "main",
-                "graph": [
-                    {
-                        "value": 800,
-                        "timeStamp": "2020-01-31T21:00:00.000Z"
-                    },
-                    {
-                        "value": 1000,
-                        "timeStamp": "2020-02-01T21:00:00.000Z"
-                    },
-                    {
-                        "value": 700,
-                        "timeStamp": "2020-02-02T21:00:00.000Z"
-                    },
-                    {
-                        "value": 900,
-                        "timeStamp": "2020-02-03T21:00:00.000Z"
-                    },
-                    {
-                        "value": 800,
-                        "timeStamp": "2020-02-04T21:00:00.000Z"
-                    },
-                    {
-                        "value": 900,
-                        "timeStamp": "2020-02-05T21:00:00.000Z"
-                    },
-                    {
-                        "value": 1100,
-                        "timeStamp": "2020-02-06T21:00:00.000Z"
-                    },
-                    {
-                        "value": 1200,
-                        "timeStamp": "2020-02-07T21:00:00.000Z"
-                    }
-                ]
-            },
-            {
-                "graphType": "higherBorder",
-                "graphStyle": "area",
-                "graph": [
-                    {
-                        "value": 1300,
-                        "timeStamp": "2020-01-31T21:00:00.000Z"
-                    },
-                    {
-                        "value": 1400,
-                        "timeStamp": "2020-02-01T21:00:00.000Z"
-                    },
-                    {
-                        "value": 1500,
-                        "timeStamp": "2020-02-02T21:00:00.000Z"
-                    },
-                    {
-                        "value": 1100,
-                        "timeStamp": "2020-02-03T21:00:00.000Z"
-                    },
-                    {
-                        "value": 1300,
-                        "timeStamp": "2020-02-04T21:00:00.000Z"
-                    },
-                    {
-                        "value": 1400,
-                        "timeStamp": "2020-02-05T21:00:00.000Z"
-                    },
-                    {
-                        "value": 1200,
-                        "timeStamp": "2020-02-06T21:00:00.000Z"
-                    },
-                    {
-                        "value": 1500,
-                        "timeStamp": "2020-02-07T21:00:00.000Z"
-                    },
-                    {
-                        "value": 1100,
-                        "timeStamp": "2020-02-08T21:00:00.000Z"
-                    },
-                    {
-                        "value": 1500,
-                        "timeStamp": "2020-02-09T21:00:00.000Z"
-                    },
-                    {
-                        "value": 1400,
-                        "timeStamp": "2020-02-10T21:00:00.000Z"
-                    },
-                    {
-                        "value": 1200,
-                        "timeStamp": "2020-02-11T21:00:00.000Z"
-                    },
-                    {
-                        "value": 1400,
-                        "timeStamp": "2020-02-12T21:00:00.000Z"
-                    },
-                    {
-                        "value": 1100,
-                        "timeStamp": "2020-02-13T21:00:00.000Z"
-                    },
-                    {
-                        "value": 1500,
-                        "timeStamp": "2020-02-14T21:00:00.000Z"
-                    },
-                    {
-                        "value": 1400,
-                        "timeStamp": "2020-02-15T21:00:00.000Z"
-                    }
-                ]
-            },
-            {
-                "graphType": "lowerBorder",
-                "graphStyle": "area",
-                "graph": [
-                    {
-                        "value": 500,
-                        "timeStamp": "2020-01-31T21:00:00.000Z"
-                    },
-                    {
-                        "value": 600,
-                        "timeStamp": "2020-02-01T21:00:00.000Z"
-                    },
-                    {
-                        "value": 400,
-                        "timeStamp": "2020-02-02T21:00:00.000Z"
-                    },
-                    {
-                        "value": 500,
-                        "timeStamp": "2020-02-03T21:00:00.000Z"
-                    },
-                    {
-                        "value": 700,
-                        "timeStamp": "2020-02-04T21:00:00.000Z"
-                    },
-                    {
-                        "value": 400,
-                        "timeStamp": "2020-02-05T21:00:00.000Z"
-                    },
-                    {
-                        "value": 500,
-                        "timeStamp": "2020-02-06T21:00:00.000Z"
-                    },
-                    {
-                        "value": 800,
-                        "timeStamp": "2020-02-07T21:00:00.000Z"
-                    },
-                    {
-                        "value": 500,
-                        "timeStamp": "2020-02-08T21:00:00.000Z"
-                    },
-                    {
-                        "value": 500,
-                        "timeStamp": "2020-02-09T21:00:00.000Z"
-                    },
-                    {
-                        "value": 400,
-                        "timeStamp": "2020-02-10T21:00:00.000Z"
-                    },
-                    {
-                        "value": 700,
-                        "timeStamp": "2020-02-11T21:00:00.000Z"
-                    },
-                    {
-                        "value": 500,
-                        "timeStamp": "2020-02-12T21:00:00.000Z"
-                    },
-                    {
-                        "value": 600,
-                        "timeStamp": "2020-02-13T21:00:00.000Z"
-                    },
-                    {
-                        "value": 300,
-                        "timeStamp": "2020-02-14T21:00:00.000Z"
-                    },
-                    {
-                        "value": 500,
-                        "timeStamp": "2020-02-15T21:00:00.000Z"
-                    }
-                ]
-            }
-        ]
-    },
-    {
-        "productName": "Электроэнергия",
-        "unitName": "АВТ-10",
-        "iconType": "electro",
-        "units": "Ед. измерения",
-        "currentPlanValue": 500,
-        "currentFactValue": 450,
-        "graph": [
-            {
-                "graphType": "plan",
-                "graphStyle": "main",
-                "graph": [
-                    {
-                        "value": 1000,
-                        "timeStamp": "2020-01-31T21:00:00.000Z"
-                    },
-                    {
-                        "value": 700,
-                        "timeStamp": "2020-02-01T21:00:00.000Z"
-                    },
-                    {
-                        "value": 900,
-                        "timeStamp": "2020-02-02T21:00:00.000Z"
-                    },
-                    {
-                        "value": 800,
-                        "timeStamp": "2020-02-03T21:00:00.000Z"
-                    },
-                    {
-                        "value": 1200,
-                        "timeStamp": "2020-02-04T21:00:00.000Z"
-                    },
-                    {
-                        "value": 1100,
-                        "timeStamp": "2020-02-05T21:00:00.000Z"
-                    },
-                    {
-                        "value": 800,
-                        "timeStamp": "2020-02-06T21:00:00.000Z"
-                    },
-                    {
-                        "value": 1000,
-                        "timeStamp": "2020-02-07T21:00:00.000Z"
-                    }
-                ]
-            },
-            {
-                "graphType": "fact",
-                "graphStyle": "main",
-                "graph": [
-                    {
-                        "value": 800,
-                        "timeStamp": "2020-01-31T21:00:00.000Z"
-                    },
-                    {
-                        "value": 1000,
-                        "timeStamp": "2020-02-01T21:00:00.000Z"
-                    },
-                    {
-                        "value": 700,
-                        "timeStamp": "2020-02-02T21:00:00.000Z"
-                    },
-                    {
-                        "value": 900,
-                        "timeStamp": "2020-02-03T21:00:00.000Z"
-                    },
-                    {
-                        "value": 800,
-                        "timeStamp": "2020-02-04T21:00:00.000Z"
-                    },
-                    {
-                        "value": 900,
-                        "timeStamp": "2020-02-05T21:00:00.000Z"
-                    },
-                    {
-                        "value": 1100,
-                        "timeStamp": "2020-02-06T21:00:00.000Z"
-                    },
-                    {
-                        "value": 1200,
-                        "timeStamp": "2020-02-07T21:00:00.000Z"
-                    }
-                ]
-            },
-            {
-                "graphType": "higherBorder",
-                "graphStyle": "area",
-                "graph": [
-                    {
-                        "value": 1300,
-                        "timeStamp": "2020-01-31T21:00:00.000Z"
-                    },
-                    {
-                        "value": 1400,
-                        "timeStamp": "2020-02-01T21:00:00.000Z"
-                    },
-                    {
-                        "value": 1500,
-                        "timeStamp": "2020-02-02T21:00:00.000Z"
-                    },
-                    {
-                        "value": 1100,
-                        "timeStamp": "2020-02-03T21:00:00.000Z"
-                    },
-                    {
-                        "value": 1300,
-                        "timeStamp": "2020-02-04T21:00:00.000Z"
-                    },
-                    {
-                        "value": 1400,
-                        "timeStamp": "2020-02-05T21:00:00.000Z"
-                    },
-                    {
-                        "value": 1200,
-                        "timeStamp": "2020-02-06T21:00:00.000Z"
-                    },
-                    {
-                        "value": 1500,
-                        "timeStamp": "2020-02-07T21:00:00.000Z"
-                    },
-                    {
-                        "value": 1100,
-                        "timeStamp": "2020-02-08T21:00:00.000Z"
-                    },
-                    {
-                        "value": 1500,
-                        "timeStamp": "2020-02-09T21:00:00.000Z"
-                    },
-                    {
-                        "value": 1400,
-                        "timeStamp": "2020-02-10T21:00:00.000Z"
-                    },
-                    {
-                        "value": 1200,
-                        "timeStamp": "2020-02-11T21:00:00.000Z"
-                    },
-                    {
-                        "value": 1400,
-                        "timeStamp": "2020-02-12T21:00:00.000Z"
-                    },
-                    {
-                        "value": 1100,
-                        "timeStamp": "2020-02-13T21:00:00.000Z"
-                    },
-                    {
-                        "value": 1500,
-                        "timeStamp": "2020-02-14T21:00:00.000Z"
-                    },
-                    {
-                        "value": 1400,
-                        "timeStamp": "2020-02-15T21:00:00.000Z"
-                    }
-                ]
-            },
-            {
-                "graphType": "lowerBorder",
-                "graphStyle": "area",
-                "graph": [
-                    {
-                        "value": 500,
-                        "timeStamp": "2020-01-31T21:00:00.000Z"
-                    },
-                    {
-                        "value": 600,
-                        "timeStamp": "2020-02-01T21:00:00.000Z"
-                    },
-                    {
-                        "value": 400,
-                        "timeStamp": "2020-02-02T21:00:00.000Z"
-                    },
-                    {
-                        "value": 500,
-                        "timeStamp": "2020-02-03T21:00:00.000Z"
-                    },
-                    {
-                        "value": 700,
-                        "timeStamp": "2020-02-04T21:00:00.000Z"
-                    },
-                    {
-                        "value": 400,
-                        "timeStamp": "2020-02-05T21:00:00.000Z"
-                    },
-                    {
-                        "value": 500,
-                        "timeStamp": "2020-02-06T21:00:00.000Z"
-                    },
-                    {
-                        "value": 800,
-                        "timeStamp": "2020-02-07T21:00:00.000Z"
-                    },
-                    {
-                        "value": 500,
-                        "timeStamp": "2020-02-08T21:00:00.000Z"
-                    },
-                    {
-                        "value": 500,
-                        "timeStamp": "2020-02-09T21:00:00.000Z"
-                    },
-                    {
-                        "value": 400,
-                        "timeStamp": "2020-02-10T21:00:00.000Z"
-                    },
-                    {
-                        "value": 700,
-                        "timeStamp": "2020-02-11T21:00:00.000Z"
-                    },
-                    {
-                        "value": 500,
-                        "timeStamp": "2020-02-12T21:00:00.000Z"
-                    },
-                    {
-                        "value": 600,
-                        "timeStamp": "2020-02-13T21:00:00.000Z"
-                    },
-                    {
-                        "value": 300,
-                        "timeStamp": "2020-02-14T21:00:00.000Z"
-                    },
-                    {
-                        "value": 500,
-                        "timeStamp": "2020-02-15T21:00:00.000Z"
-                    }
-                ]
-            }
-        ]
-    },
-    {
-        "productName": "Электроэнергия",
-        "unitName": "АВТ-10",
-        "iconType": "electro",
-        "units": "Ед. измерения",
-        "currentPlanValue": 500,
-        "currentFactValue": 450,
-        "graph": [
-            {
-                "graphType": "plan",
-                "graphStyle": "main",
-                "graph": [
-                    {
-                        "value": 1000,
-                        "timeStamp": "2020-01-31T21:00:00.000Z"
-                    },
-                    {
-                        "value": 700,
-                        "timeStamp": "2020-02-01T21:00:00.000Z"
-                    },
-                    {
-                        "value": 900,
-                        "timeStamp": "2020-02-02T21:00:00.000Z"
-                    },
-                    {
-                        "value": 800,
-                        "timeStamp": "2020-02-03T21:00:00.000Z"
-                    },
-                    {
-                        "value": 1200,
-                        "timeStamp": "2020-02-04T21:00:00.000Z"
-                    },
-                    {
-                        "value": 1100,
-                        "timeStamp": "2020-02-05T21:00:00.000Z"
-                    },
-                    {
-                        "value": 800,
-                        "timeStamp": "2020-02-06T21:00:00.000Z"
-                    },
-                    {
-                        "value": 1000,
-                        "timeStamp": "2020-02-07T21:00:00.000Z"
-                    }
-                ]
-            },
-            {
-                "graphType": "fact",
-                "graphStyle": "main",
-                "graph": [
-                    {
-                        "value": 800,
-                        "timeStamp": "2020-01-31T21:00:00.000Z"
-                    },
-                    {
-                        "value": 1000,
-                        "timeStamp": "2020-02-01T21:00:00.000Z"
-                    },
-                    {
-                        "value": 700,
-                        "timeStamp": "2020-02-02T21:00:00.000Z"
-                    },
-                    {
-                        "value": 900,
-                        "timeStamp": "2020-02-03T21:00:00.000Z"
-                    },
-                    {
-                        "value": 800,
-                        "timeStamp": "2020-02-04T21:00:00.000Z"
-                    },
-                    {
-                        "value": 900,
-                        "timeStamp": "2020-02-05T21:00:00.000Z"
-                    },
-                    {
-                        "value": 1100,
-                        "timeStamp": "2020-02-06T21:00:00.000Z"
-                    },
-                    {
-                        "value": 1200,
-                        "timeStamp": "2020-02-07T21:00:00.000Z"
-                    }
-                ]
-            },
-            {
-                "graphType": "higherBorder",
-                "graphStyle": "area",
-                "graph": [
-                    {
-                        "value": 1300,
-                        "timeStamp": "2020-01-31T21:00:00.000Z"
-                    },
-                    {
-                        "value": 1400,
-                        "timeStamp": "2020-02-01T21:00:00.000Z"
-                    },
-                    {
-                        "value": 1500,
-                        "timeStamp": "2020-02-02T21:00:00.000Z"
-                    },
-                    {
-                        "value": 1100,
-                        "timeStamp": "2020-02-03T21:00:00.000Z"
-                    },
-                    {
-                        "value": 1300,
-                        "timeStamp": "2020-02-04T21:00:00.000Z"
-                    },
-                    {
-                        "value": 1400,
-                        "timeStamp": "2020-02-05T21:00:00.000Z"
-                    },
-                    {
-                        "value": 1200,
-                        "timeStamp": "2020-02-06T21:00:00.000Z"
-                    },
-                    {
-                        "value": 1500,
-                        "timeStamp": "2020-02-07T21:00:00.000Z"
-                    },
-                    {
-                        "value": 1100,
-                        "timeStamp": "2020-02-08T21:00:00.000Z"
-                    },
-                    {
-                        "value": 1500,
-                        "timeStamp": "2020-02-09T21:00:00.000Z"
-                    },
-                    {
-                        "value": 1400,
-                        "timeStamp": "2020-02-10T21:00:00.000Z"
-                    },
-                    {
-                        "value": 1200,
-                        "timeStamp": "2020-02-11T21:00:00.000Z"
-                    },
-                    {
-                        "value": 1400,
-                        "timeStamp": "2020-02-12T21:00:00.000Z"
-                    },
-                    {
-                        "value": 1100,
-                        "timeStamp": "2020-02-13T21:00:00.000Z"
-                    },
-                    {
-                        "value": 1500,
-                        "timeStamp": "2020-02-14T21:00:00.000Z"
-                    },
-                    {
-                        "value": 1400,
-                        "timeStamp": "2020-02-15T21:00:00.000Z"
-                    }
-                ]
-            },
-            {
-                "graphType": "lowerBorder",
-                "graphStyle": "area",
-                "graph": [
-                    {
-                        "value": 500,
-                        "timeStamp": "2020-01-31T21:00:00.000Z"
-                    },
-                    {
-                        "value": 600,
-                        "timeStamp": "2020-02-01T21:00:00.000Z"
-                    },
-                    {
-                        "value": 400,
-                        "timeStamp": "2020-02-02T21:00:00.000Z"
-                    },
-                    {
-                        "value": 500,
-                        "timeStamp": "2020-02-03T21:00:00.000Z"
-                    },
-                    {
-                        "value": 700,
-                        "timeStamp": "2020-02-04T21:00:00.000Z"
-                    },
-                    {
-                        "value": 400,
-                        "timeStamp": "2020-02-05T21:00:00.000Z"
-                    },
-                    {
-                        "value": 500,
-                        "timeStamp": "2020-02-06T21:00:00.000Z"
-                    },
-                    {
-                        "value": 800,
-                        "timeStamp": "2020-02-07T21:00:00.000Z"
-                    },
-                    {
-                        "value": 500,
-                        "timeStamp": "2020-02-08T21:00:00.000Z"
-                    },
-                    {
-                        "value": 500,
-                        "timeStamp": "2020-02-09T21:00:00.000Z"
-                    },
-                    {
-                        "value": 400,
-                        "timeStamp": "2020-02-10T21:00:00.000Z"
-                    },
-                    {
-                        "value": 700,
-                        "timeStamp": "2020-02-11T21:00:00.000Z"
-                    },
-                    {
-                        "value": 500,
-                        "timeStamp": "2020-02-12T21:00:00.000Z"
-                    },
-                    {
-                        "value": 600,
-                        "timeStamp": "2020-02-13T21:00:00.000Z"
-                    },
-                    {
-                        "value": 300,
-                        "timeStamp": "2020-02-14T21:00:00.000Z"
-                    },
-                    {
-                        "value": 500,
-                        "timeStamp": "2020-02-15T21:00:00.000Z"
-                    }
-                ]
-            }
-        ]
+      "text": "\u041F\u043B\u0430\u043D",
+      "value": 24.5,
+      "type": "plan"
     }
-]
+  ],
+  "itemId": "3e509d70-e91f-11ea-957a-915228fbed37",
+  "graphs": [
+    {
+      "graphType": "plan",
+      "graphStyle": "main",
+      "graph": [
+        {
+          "value": 24.494,
+          "timeStamp": "2020-09-27T12:28:27Z"
+        },
+        {
+          "value": 24.494,
+          "timeStamp": "2020-09-27T13:28:27Z"
+        },
+        {
+          "value": 24.494,
+          "timeStamp": "2020-09-27T14:28:27Z"
+        },
+        {
+          "value": 24.494,
+          "timeStamp": "2020-09-27T15:28:27Z"
+        },
+        {
+          "value": 24.494,
+          "timeStamp": "2020-09-27T16:28:27Z"
+        },
+        {
+          "value": 24.494,
+          "timeStamp": "2020-09-27T17:28:27Z"
+        },
+        {
+          "value": 24.494,
+          "timeStamp": "2020-09-27T18:28:27Z"
+        },
+        {
+          "value": 24.494,
+          "timeStamp": "2020-09-27T19:28:27Z"
+        },
+        {
+          "value": 24.494,
+          "timeStamp": "2020-09-27T20:28:27Z"
+        },
+        {
+          "value": 24.494,
+          "timeStamp": "2020-09-27T21:28:27Z"
+        },
+        {
+          "value": 24.494,
+          "timeStamp": "2020-09-27T22:28:27Z"
+        },
+        {
+          "value": 24.494,
+          "timeStamp": "2020-09-27T23:28:27Z"
+        },
+        {
+          "value": 24.494,
+          "timeStamp": "2020-09-28T00:28:27Z"
+        },
+        {
+          "value": 24.494,
+          "timeStamp": "2020-09-28T01:28:27Z"
+        },
+        {
+          "value": 24.494,
+          "timeStamp": "2020-09-28T02:28:27Z"
+        },
+        {
+          "value": 24.494,
+          "timeStamp": "2020-09-28T03:28:27Z"
+        },
+        {
+          "value": 24.494,
+          "timeStamp": "2020-09-28T04:28:27Z"
+        },
+        {
+          "value": 24.494,
+          "timeStamp": "2020-09-28T05:28:27Z"
+        },
+        {
+          "value": 24.494,
+          "timeStamp": "2020-09-28T06:28:27Z"
+        },
+        {
+          "value": 24.494,
+          "timeStamp": "2020-09-28T07:28:27Z"
+        },
+        {
+          "value": 24.494,
+          "timeStamp": "2020-09-28T08:28:27Z"
+        },
+        {
+          "value": 24.494,
+          "timeStamp": "2020-09-28T09:28:27Z"
+        },
+        {
+          "value": 24.494,
+          "timeStamp": "2020-09-28T10:28:27Z"
+        },
+        {
+          "value": 24.494,
+          "timeStamp": "2020-09-28T11:28:27Z"
+        },
+        {
+          "value": 24.494,
+          "timeStamp": "2020-09-28T12:28:27Z"
+        },
+        {
+          "value": 24.494,
+          "timeStamp": "2020-09-28T13:28:27Z"
+        },
+        {
+          "value": 24.494,
+          "timeStamp": "2020-09-28T14:28:27Z"
+        },
+        {
+          "value": 24.494,
+          "timeStamp": "2020-09-28T15:28:27Z"
+        },
+        {
+          "value": 24.494,
+          "timeStamp": "2020-09-28T16:28:27Z"
+        },
+        {
+          "value": 24.494,
+          "timeStamp": "2020-09-28T17:28:27Z"
+        },
+        {
+          "value": 24.494,
+          "timeStamp": "2020-09-28T18:28:27Z"
+        },
+        {
+          "value": 24.494,
+          "timeStamp": "2020-09-28T19:28:27Z"
+        },
+        {
+          "value": 24.494,
+          "timeStamp": "2020-09-28T20:28:27Z"
+        },
+        {
+          "value": 24.494,
+          "timeStamp": "2020-09-28T21:28:27Z"
+        },
+        {
+          "value": 24.494,
+          "timeStamp": "2020-09-28T22:28:27Z"
+        },
+        {
+          "value": 24.494,
+          "timeStamp": "2020-09-28T23:28:27Z"
+        },
+        {
+          "value": 24.494,
+          "timeStamp": "2020-09-29T00:28:27Z"
+        },
+        {
+          "value": 24.494,
+          "timeStamp": "2020-09-29T01:28:27Z"
+        },
+        {
+          "value": 24.494,
+          "timeStamp": "2020-09-29T02:28:27Z"
+        },
+        {
+          "value": 24.494,
+          "timeStamp": "2020-09-29T03:28:27Z"
+        },
+        {
+          "value": 24.494,
+          "timeStamp": "2020-09-29T04:28:27Z"
+        },
+        {
+          "value": 24.494,
+          "timeStamp": "2020-09-29T05:28:27Z"
+        },
+        {
+          "value": 24.494,
+          "timeStamp": "2020-09-29T06:28:27Z"
+        },
+        {
+          "value": 24.494,
+          "timeStamp": "2020-09-29T07:28:27Z"
+        },
+        {
+          "value": 24.494,
+          "timeStamp": "2020-09-29T08:28:27Z"
+        },
+        {
+          "value": 24.494,
+          "timeStamp": "2020-09-29T09:28:27Z"
+        },
+        {
+          "value": 24.494,
+          "timeStamp": "2020-09-29T10:28:27Z"
+        },
+        {
+          "value": 24.494,
+          "timeStamp": "2020-09-29T11:28:27Z"
+        },
+        {
+          "value": 24.494,
+          "timeStamp": "2020-09-29T12:28:27Z"
+        },
+        {
+          "value": 24.494,
+          "timeStamp": "2020-09-29T13:28:27Z"
+        }
+      ]
+    },
+    {
+      "graphType": "fact",
+      "graphStyle": "main",
+      "graph": [
+        {
+          "value": 25.858941,
+          "timeStamp": "2020-09-27T12:28:27Z"
+        },
+        {
+          "value": 25.260778000000002,
+          "timeStamp": "2020-09-27T12:30:00Z"
+        },
+        {
+          "value": 23.893622,
+          "timeStamp": "2020-09-27T13:20:00Z"
+        },
+        {
+          "value": 25.869748,
+          "timeStamp": "2020-09-27T13:20:38Z"
+        },
+        {
+          "value": 24.970251,
+          "timeStamp": "2020-09-27T13:30:00Z"
+        },
+        {
+          "value": 24.354079,
+          "timeStamp": "2020-09-27T13:40:38Z"
+        },
+        {
+          "value": 26.053614999999997,
+          "timeStamp": "2020-09-27T14:20:38Z"
+        },
+        {
+          "value": 24.676045,
+          "timeStamp": "2020-09-27T14:30:00Z"
+        },
+        {
+          "value": 24.351914999999998,
+          "timeStamp": "2020-09-27T15:00:00Z"
+        },
+        {
+          "value": 25.993641,
+          "timeStamp": "2020-09-27T15:10:00Z"
+        },
+        {
+          "value": 25.674122,
+          "timeStamp": "2020-09-27T15:20:38Z"
+        },
+        {
+          "value": 24.672677,
+          "timeStamp": "2020-09-27T15:30:00Z"
+        },
+        {
+          "value": 27.076791999999998,
+          "timeStamp": "2020-09-27T16:20:38Z"
+        },
+        {
+          "value": 24.769548,
+          "timeStamp": "2020-09-27T16:30:00Z"
+        },
+        {
+          "value": 26.729433,
+          "timeStamp": "2020-09-27T16:50:38Z"
+        },
+        {
+          "value": 24.407484,
+          "timeStamp": "2020-09-27T17:00:38Z"
+        },
+        {
+          "value": 24.685778,
+          "timeStamp": "2020-09-27T17:20:38Z"
+        },
+        {
+          "value": 24.5038,
+          "timeStamp": "2020-09-27T17:30:00Z"
+        },
+        {
+          "value": 25.63449,
+          "timeStamp": "2020-09-27T17:40:38Z"
+        },
+        {
+          "value": 23.763344999999997,
+          "timeStamp": "2020-09-27T17:50:38Z"
+        },
+        {
+          "value": 24.834541,
+          "timeStamp": "2020-09-27T18:20:38Z"
+        },
+        {
+          "value": 24.37201,
+          "timeStamp": "2020-09-27T18:30:00Z"
+        },
+        {
+          "value": 25.484382,
+          "timeStamp": "2020-09-27T18:40:38Z"
+        },
+        {
+          "value": 24.29097,
+          "timeStamp": "2020-09-27T19:10:38Z"
+        },
+        {
+          "value": 24.477344,
+          "timeStamp": "2020-09-27T19:20:38Z"
+        },
+        {
+          "value": 23.796445,
+          "timeStamp": "2020-09-27T19:30:00Z"
+        },
+        {
+          "value": 23.796445,
+          "timeStamp": "2020-09-27T19:30:38Z"
+        },
+        {
+          "value": 25.819462,
+          "timeStamp": "2020-09-27T19:40:38Z"
+        },
+        {
+          "value": 25.070144,
+          "timeStamp": "2020-09-27T20:20:38Z"
+        },
+        {
+          "value": 24.819404,
+          "timeStamp": "2020-09-27T20:30:00Z"
+        },
+        {
+          "value": 25.239447000000002,
+          "timeStamp": "2020-09-27T20:50:38Z"
+        },
+        {
+          "value": 24.361085,
+          "timeStamp": "2020-09-27T21:10:38Z"
+        },
+        {
+          "value": 24.754172,
+          "timeStamp": "2020-09-27T21:20:38Z"
+        },
+        {
+          "value": 24.984969,
+          "timeStamp": "2020-09-27T21:30:00Z"
+        },
+        {
+          "value": 23.726889,
+          "timeStamp": "2020-09-27T21:40:38Z"
+        },
+        {
+          "value": 26.118879,
+          "timeStamp": "2020-09-27T22:00:00Z"
+        },
+        {
+          "value": 23.91075,
+          "timeStamp": "2020-09-27T22:20:38Z"
+        },
+        {
+          "value": 24.209217,
+          "timeStamp": "2020-09-27T22:30:00Z"
+        },
+        {
+          "value": 23.579674,
+          "timeStamp": "2020-09-27T23:10:00Z"
+        },
+        {
+          "value": 26.15473,
+          "timeStamp": "2020-09-27T23:20:00Z"
+        },
+        {
+          "value": 24.26908,
+          "timeStamp": "2020-09-27T23:20:38Z"
+        },
+        {
+          "value": 25.747871999999997,
+          "timeStamp": "2020-09-27T23:30:00Z"
+        },
+        {
+          "value": 23.355571,
+          "timeStamp": "2020-09-27T23:50:38Z"
+        },
+        {
+          "value": 26.606182,
+          "timeStamp": "2020-09-28T00:00:00Z"
+        },
+        {
+          "value": 23.482113,
+          "timeStamp": "2020-09-28T00:20:38Z"
+        },
+        {
+          "value": 24.513527999999997,
+          "timeStamp": "2020-09-28T00:30:00Z"
+        },
+        {
+          "value": 26.405863,
+          "timeStamp": "2020-09-28T00:40:00Z"
+        },
+        {
+          "value": 23.006374,
+          "timeStamp": "2020-09-28T00:50:00Z"
+        },
+        {
+          "value": 25.073723,
+          "timeStamp": "2020-09-28T01:20:38Z"
+        },
+        {
+          "value": 24.979868000000003,
+          "timeStamp": "2020-09-28T01:30:00Z"
+        },
+        {
+          "value": 27.006617,
+          "timeStamp": "2020-09-28T02:00:38Z"
+        },
+        {
+          "value": 23.67179,
+          "timeStamp": "2020-09-28T02:20:00Z"
+        },
+        {
+          "value": 25.292195,
+          "timeStamp": "2020-09-28T02:20:38Z"
+        },
+        {
+          "value": 24.895492,
+          "timeStamp": "2020-09-28T02:30:00Z"
+        },
+        {
+          "value": 24.423893,
+          "timeStamp": "2020-09-28T02:40:38Z"
+        },
+        {
+          "value": 27.110082000000002,
+          "timeStamp": "2020-09-28T03:20:38Z"
+        },
+        {
+          "value": 25.589717,
+          "timeStamp": "2020-09-28T03:30:00Z"
+        },
+        {
+          "value": 26.589548999999998,
+          "timeStamp": "2020-09-28T03:30:38Z"
+        },
+        {
+          "value": 24.022921,
+          "timeStamp": "2020-09-28T04:20:00Z"
+        },
+        {
+          "value": 25.075991,
+          "timeStamp": "2020-09-28T04:20:38Z"
+        },
+        {
+          "value": 24.581293,
+          "timeStamp": "2020-09-28T04:30:00Z"
+        },
+        {
+          "value": 22.272324,
+          "timeStamp": "2020-09-28T04:30:38Z"
+        },
+        {
+          "value": 26.35156,
+          "timeStamp": "2020-09-28T05:10:00Z"
+        },
+        {
+          "value": 25.008965,
+          "timeStamp": "2020-09-28T05:20:38Z"
+        },
+        {
+          "value": 25.919147,
+          "timeStamp": "2020-09-28T05:30:00Z"
+        },
+        {
+          "value": 23.699002,
+          "timeStamp": "2020-09-28T05:50:38Z"
+        },
+        {
+          "value": 26.808382,
+          "timeStamp": "2020-09-28T06:10:00Z"
+        },
+        {
+          "value": 24.344426,
+          "timeStamp": "2020-09-28T06:20:38Z"
+        },
+        {
+          "value": 25.130759,
+          "timeStamp": "2020-09-28T06:30:00Z"
+        },
+        {
+          "value": 23.921976,
+          "timeStamp": "2020-09-28T06:40:38Z"
+        },
+        {
+          "value": 25.674219,
+          "timeStamp": "2020-09-28T07:00:00Z"
+        },
+        {
+          "value": 24.727842,
+          "timeStamp": "2020-09-28T07:20:38Z"
+        },
+        {
+          "value": 24.243769,
+          "timeStamp": "2020-09-28T07:30:00Z"
+        },
+        {
+          "value": 25.040141000000002,
+          "timeStamp": "2020-09-28T07:50:38Z"
+        },
+        {
+          "value": 22.97341,
+          "timeStamp": "2020-09-28T08:00:38Z"
+        },
+        {
+          "value": 24.794287,
+          "timeStamp": "2020-09-28T08:20:38Z"
+        },
+        {
+          "value": 27.59336,
+          "timeStamp": "2020-09-28T08:30:00Z"
+        },
+        {
+          "value": 27.59336,
+          "timeStamp": "2020-09-28T08:30:38Z"
+        },
+        {
+          "value": 24.292879,
+          "timeStamp": "2020-09-28T09:20:38Z"
+        },
+        {
+          "value": 25.366268,
+          "timeStamp": "2020-09-28T09:30:00Z"
+        },
+        {
+          "value": 25.366268,
+          "timeStamp": "2020-09-28T09:30:38Z"
+        },
+        {
+          "value": 23.487782,
+          "timeStamp": "2020-09-28T10:10:38Z"
+        },
+        {
+          "value": 24.787506,
+          "timeStamp": "2020-09-28T10:20:38Z"
+        },
+        {
+          "value": 23.797126000000002,
+          "timeStamp": "2020-09-28T10:30:00Z"
+        },
+        {
+          "value": 23.797126000000002,
+          "timeStamp": "2020-09-28T10:30:38Z"
+        },
+        {
+          "value": 25.008025,
+          "timeStamp": "2020-09-28T10:40:38Z"
+        },
+        {
+          "value": 23.996745,
+          "timeStamp": "2020-09-28T10:50:38Z"
+        },
+        {
+          "value": 23.996745,
+          "timeStamp": "2020-09-29T14:28:27Z"
+        }
+      ]
+    },
+    {
+      "graphType": "higherBorder",
+      "graphStyle": "common",
+      "graph": [
+        {
+          "value": 25.304323200000002,
+          "timeStamp": "2020-09-27T12:28:27Z"
+        },
+        {
+          "value": 25.304323200000002,
+          "timeStamp": "2020-09-29T14:28:27Z"
+        }
+      ]
+    },
+    {
+      "graphType": "lowerBorder",
+      "graphStyle": "common",
+      "graph": [
+        {
+          "value": 24.3119968,
+          "timeStamp": "2020-09-27T12:28:27Z"
+        },
+        {
+          "value": 24.3119968,
+          "timeStamp": "2020-09-29T14:28:27Z"
+        }
+      ]
+    }
+  ],
+  "subscriptionOptions": {
+    "manufactureName": "\u041F\u0440\u043E\u0438\u0437\u0432\u043E\u0434\u0441\u0442\u0432\u043E \u21161",
+    "unitName": "\u0410\u0412\u0422-10",
+    "type": "Consumption",
+    "indicatorType": "Absolute",
+    "timeStamp": "2020-09-28T14:28:27Z"
+  }
+}

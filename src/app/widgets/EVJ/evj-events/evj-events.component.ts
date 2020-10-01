@@ -14,7 +14,7 @@ import {
     EventsWidgetCategory,
     EventsWidgetCategoryCode,
     EventsWidgetFilter,
-    EventsWidgetNotificationPreview,
+    IEventsWidgetNotificationPreview,
     EventsWidgetNotificationStatus,
     IEventsWidgetOptions, IPriority,
     IRetrievalEventDto, ISubcategory
@@ -69,7 +69,7 @@ export class EvjEventsComponent extends WidgetPlatform implements OnInit, OnDest
 
     public previewTitle: string;
 
-    public notificationsGrouped: EventsWidgetNotificationPreview[][];
+    public notificationsGrouped: IEventsWidgetNotificationPreview[][];
 
     public placeNames: string[] = [];
 
@@ -195,7 +195,7 @@ export class EvjEventsComponent extends WidgetPlatform implements OnInit, OnDest
         }
     ];
 
-    public notifications: EventsWidgetNotificationPreview[] = [];
+    public notifications: IEventsWidgetNotificationPreview[] = [];
 
     public filters: EventsWidgetFilter[] = [
         {
@@ -255,8 +255,8 @@ export class EvjEventsComponent extends WidgetPlatform implements OnInit, OnDest
 
     isCDEvents: boolean = false;
 
-    public appendEventStream$: BehaviorSubject<EventsWidgetNotificationPreview> =
-        new BehaviorSubject<EventsWidgetNotificationPreview>(null);
+    public appendEventStream$: BehaviorSubject<IEventsWidgetNotificationPreview> =
+        new BehaviorSubject<IEventsWidgetNotificationPreview>(null);
 
     private readonly defaultIconPath: string = 'assets/icons/widgets/events/smotr.svg';
 
@@ -335,7 +335,7 @@ export class EvjEventsComponent extends WidgetPlatform implements OnInit, OnDest
     }
 
     protected dataHandler(ref: {
-        notification: EventsWidgetNotificationPreview;
+        notification: IEventsWidgetNotificationPreview;
         action: string;
     }): void {
         if (
@@ -437,7 +437,7 @@ export class EvjEventsComponent extends WidgetPlatform implements OnInit, OnDest
         this.countNotificationsDivCapacity();
     }
 
-    private addWsElement(notification: EventsWidgetNotificationPreview): void {
+    private addWsElement(notification: IEventsWidgetNotificationPreview): void {
         if (this.isSound) {
             this.playAudio();
         }
@@ -456,7 +456,7 @@ export class EvjEventsComponent extends WidgetPlatform implements OnInit, OnDest
         this.countNotificationsDivCapacity();
     }
 
-    private deleteWsElement(notification: EventsWidgetNotificationPreview): void {
+    private deleteWsElement(notification: IEventsWidgetNotificationPreview): void {
         const idx = this.notifications.findIndex((n) => n.id === notification.id);
         if (idx >= 0) {
             this.notifications.splice(idx, 1);
@@ -465,7 +465,7 @@ export class EvjEventsComponent extends WidgetPlatform implements OnInit, OnDest
         }
     }
 
-    private editWsElement(notification: EventsWidgetNotificationPreview): void {
+    private editWsElement(notification: IEventsWidgetNotificationPreview): void {
         const idx = this.notifications.findIndex((n) => n.id === notification.id);
         if (idx === -1) {
             return;
@@ -487,7 +487,7 @@ export class EvjEventsComponent extends WidgetPlatform implements OnInit, OnDest
         }
     }
 
-    private appendNotifications(remoteNotifications: EventsWidgetNotificationPreview[]): void {
+    private appendNotifications(remoteNotifications: IEventsWidgetNotificationPreview[]): void {
         if (remoteNotifications?.length > 0) {
             const notifications = remoteNotifications
                 .filter((n) => n.category && n.category.name)
@@ -577,9 +577,9 @@ export class EvjEventsComponent extends WidgetPlatform implements OnInit, OnDest
     }
 
     public sortArray(
-        arr: EventsWidgetNotificationPreview[],
+        arr: IEventsWidgetNotificationPreview[],
         n: number
-    ): EventsWidgetNotificationPreview[][] {
+    ): IEventsWidgetNotificationPreview[][] {
         let i = 0;
         let j = 0;
         const result = [];

@@ -1,23 +1,224 @@
 <div class="workspace">
-<!--  <div *ngIf="ewService.isCreateNewEvent" class="select-container">-->
-<!--    <evj-ui-block status="normal">-->
-<!--      <mat-form-field class="categories_selectbox">-->
-<!--        <mat-label>Категория</mat-label>-->
-<!--        <mat-select-->
-<!--          panelClass="mat-select-custom"-->
-<!--          [(ngModel)]="ewService.event.category"-->
-<!--          [disabled]="!ewService.isCreateNewEvent"-->
-<!--          (selectionChange)="ewService.changeCategory()"-->
-<!--        >-->
-<!--          <mat-option *ngFor="let cat of ewService.categoryPipe | async" [value]="cat">-->
-<!--            {{ ewService.categories[cat.name] }}-->
-<!--          </mat-option>-->
-<!--        </mat-select>-->
-<!--      </mat-form-field>-->
-<!--    </evj-ui-block>-->
-<!--  </div>-->
-<!--  <div class="container">-->
-<!--    <iframe (load)="iFrameModify()" name="ejsFrame" id="frame" [src]="frameUrl | safeUrl"></iframe>-->
-<!--  </div>-->
+  <div class="workspace__selects selects">
+    <div class="selects__item">
+      <evj-ui-block status="normal">
+        <mat-form-field class="categories_selectbox">
+          <mat-label>Категория</mat-label>
+          <mat-select
+            panelClass="mat-select-custom"
+            [(ngModel)]="ewService.event.category"
+            [compareWith]="compareFn"
+            (selectionChange)="ewService.changeCategory()"
+          >
+            <mat-option *ngFor="let cat of ewService.category" [value]="cat">
+              {{ ewService.categories[cat.name] }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </evj-ui-block>
+    </div>
+    <div class="selects__item creator">
+      <div class="creator_title">
+        Номер журнала
+      </div>
+      <div class="creator_body">
+        3421341241234
+      </div>
+    </div>
+    <div class="selects__item">
+      <evj-ui-block status="normal">
+        <div class=" creator">
+          <div class="creator_title">
+            Номер журнала
+          </div>
+        </div>
+      </evj-ui-block>
+    </div>
+  </div>
+  <div class="workspace__selects-two selects--three">
+    <div class="selects__item">
+      <evj-ui-block status="normal">
+        <div class="deadline">
+          <div class="deadline__title">Срок выполнения</div>
+          <evj-time-data-picker
+            [data]="ewService.event.deadline"
+            (dateTimePicker)="dateTimePicker($event)"
+          ></evj-time-data-picker>
+        </div>
+      </evj-ui-block>
+    </div>
+    <div class="selects__item">
+      <evj-ui-block status="normal">
+        <div class="creator">
+          <div class="creator_title">
+            Место обнаружения
+          </div>
+          <div class="creator_body">
+            3421341241234
+          </div>
+        </div>
+      </evj-ui-block>
+    </div>
+    <div class="selects__item">
+      <evj-ui-block status="normal">
+        <div class="creator">
+          <div class="creator_title">
+            Влияние на производительность
+          </div>
+          <div class="creator_body">
+            3421341241234
+          </div>
+        </div>
+      </evj-ui-block>
+    </div>
+  </div>
+  <div class="workspace__selects-three selects--three">
+    <div class="selects__item">
+      <evj-ui-block status="normal">
+        <div class="creator">
+          <div class="creator_title">
+            ID оборудования
+          </div>
+          <div class="creator_body">
+            00000010030202030
+          </div>
+        </div>
+      </evj-ui-block>
+    </div>
+    <div class="selects__item">
+      <evj-ui-block status="normal">
+        <div class="creator">
+          <div class="creator_title">
+            Оборудование
+          </div>
+          <div class="creator_body">
+            -
+          </div>
+        </div>
+      </evj-ui-block>
+    </div>
+    <div class="selects__item">
+      <evj-ui-block status="normal">
+        <div class="creator">
+          <div class="creator_title">
+            Вид технического объекта, тип ЕО
+          </div>
+          <div class="creator_body">
+            -
+          </div>
+        </div>
+      </evj-ui-block>
+    </div>
+  </div>
+  <div class="workspace__selects-four selects--three">
+    <div class="selects__item">
+      <evj-ui-block status="normal">
+        <div class="creator">
+          <div class="creator_title">
+            Техническое место
+          </div>
+          <div class="creator_body">
+            5684-23434-2342D-JDJS
+          </div>
+        </div>
+      </evj-ui-block>
+    </div>
+    <div class="selects__item">
+      <evj-ui-block status="normal">
+        <div class="creator">
+          <div class="creator_title">
+            Описание технического места
+          </div>
+          <div class="creator_body">
+            -
+          </div>
+        </div>
+      </evj-ui-block>
+    </div>
+    <div class="selects__item">
+      <evj-ui-block status="normal">
+        <div class="creator">
+          <div class="creator_title">
+            Влияние на производительность, тип ТМ
+          </div>
+          <div class="creator_body">
+            -
+          </div>
+        </div>
+      </evj-ui-block>
+    </div>
+  </div>
+  <div class="workspace__selects-comment selects--one">
+    <evj-ui-block status="normal">
+      <div class="creator">
+        <div class="creator_title">
+          Комментарий оператора/инициатора
+        </div>
+        <div class="creator_body">
+          Система управления операционной деятельностью СУОД помогает повысить эффективность работы
+          технологических объектов.
+        </div>
+      </div>
+    </evj-ui-block>
+  </div>
+  <div class="workspace__selects-checkbox selects--two">
+    <evj-ui-block status="normal">
+      <div class="creator">
+        <div class="creator_title">
+          Обращение в ЭНЕРГОСЕВРИС
+        </div>
+        <div class="creator_body">
+          Подать напряжение
+        </div>
+      </div>
+    </evj-ui-block>
+    <evj-ui-block status="normal">
+      <div class="creator">
+        <div class="creator_title">
+          Обращение в Автоматика-сервис
+        </div>
+        <div class="creator_body">
+          Отключение/подключение позиции
+        </div>
+      </div>
+    </evj-ui-block>
+  </div>
+  <div class="workspace__selects-event selects--one">
+    <evj-ui-block status="normal">
+      <div class="creator">
+        <div class="creator_title">
+          Компенсирующие мероприятия
+        </div>
+        <div class="creator_body">
+          Сформировать рабочую группу по организации....
+        </div>
+      </div>
+    </evj-ui-block>
+  </div>
+  <div class="workspace__selects-info selects--three">
+    <div class="creator">
+      <div class="creator_title">
+        ФИО оператора
+      </div>
+      <div class="creator_body">
+        Смирной Андрей Петрович
+      </div>
+    </div>
+    <div class="creator">
+      <div class="creator_title">
+        Дата создания события
+      </div>
+      <div class="creator_body">
+        25.02.2020 | 13.23
+      </div>
+    </div>
+    <div class="creator">
+      <div class="creator_title">
+        Дата изменения события
+      </div>
+      <div class="creator_body">
+        25.02.2020 | 13.23
+      </div>
+    </div>
+  </div>
 </div>
-

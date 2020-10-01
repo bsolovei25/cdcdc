@@ -8,7 +8,7 @@ import {
 } from '@angular/core';
 import { AdminShiftScheduleService } from 'src/app/dashboard/services/widgets/admin-shift-schedule.service';
 import { IUser } from '../../../../../models/events-widget';
-import { AvatarConfiguratorService } from '../../../../../services/avatar-configurator.service';
+import { AvatarConfiguratorService } from '@core/service/avatar-configurator.service';
 import { SnackBarService } from '../../../../../services/snack-bar.service';
 import { IAlertWindowModel } from '../../../../../../@shared/models/alert-window.model';
 import { IAbsent } from '../../../../../../widgets/admin/admin-shift-schedule/admin-shift-schedule.component';

@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { EventsWidgetNotificationPreview } from '../../../../../dashboard/models/events-widget';
+import { IEventsWidgetNotificationPreview } from '../../../../../dashboard/models/events-widget';
 import { EventService } from '../../../../../dashboard/services/widgets/event.service';
 
 @Component({
@@ -10,7 +10,7 @@ import { EventService } from '../../../../../dashboard/services/widgets/event.se
 export class CdEventCardComponent implements OnInit {
 
     @Input()
-    public cardDataArr: EventsWidgetNotificationPreview[];
+    public cardDataArr: IEventsWidgetNotificationPreview[];
 
     @Input()
     public cardActiveId: number = 0;
@@ -38,7 +38,7 @@ export class CdEventCardComponent implements OnInit {
         this.cardDeleteClick.emit(id);
     }
 
-    public async changeIsAcknowledged(eventCard: EventsWidgetNotificationPreview): Promise<void> {
+    public async changeIsAcknowledged(eventCard: IEventsWidgetNotificationPreview): Promise<void> {
         eventCard.isAcknowledged = !eventCard.isAcknowledged;
         try {
             const a = await this.eventService.changeEventIsAcknowledged(

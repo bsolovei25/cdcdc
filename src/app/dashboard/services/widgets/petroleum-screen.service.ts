@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { filter } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
-import { AppConfigService } from '../../../services/appConfigService';
+import { AppConfigService } from '@core/service/app-config.service';
 import {
     IPetroleumObject, ITankAttribute, ITankInfo, ITankParam,
     ITransfer, ITransferFilter,

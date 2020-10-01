@@ -1,2 +1,0 @@
-/* Copyright © 1993-2019 Meridium, Inc. All rights reserved.  */
-define(function(require){"use strict";var a=require("./rm-relationship-group-dto");function b(b){this.rootEntity=b.rootEntity,this.relationshipGroup=[];for(var c=0;c<b.relationshipGroup.length;c++)this.relationshipGroup.push(new a(b.relationshipGroup[c]))}return b});

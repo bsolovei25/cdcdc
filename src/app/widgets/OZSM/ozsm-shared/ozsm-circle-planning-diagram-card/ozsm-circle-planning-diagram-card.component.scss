@@ -1,0 +1,77 @@
+.diagram {
+  height: 100%;
+  width: 100%;
+
+  &::ng-deep {
+    .back-arc,
+    .dashed-arc {
+      fill: var(--ozsm-resources-circle-diagram-color-back);
+    }
+
+    .needle-arc {
+      fill: var(--ozsm-resources-circle-diagram-color-active);
+    }
+
+    .deviation-arc {
+      fill: var(--ozsm-color-bg-innage-diagram);
+    }
+    .rainbow {
+      fill: var(--ozsm-resources-circle-diagram-color-line);
+    }
+    .white-needle {
+      fill: var(--color-aps-active-line);
+    }
+
+    .end-line {
+      stroke: var(--color-aps-gaude-line);
+      stroke-width: 0.3px;
+    }
+
+    .needle {
+      stroke: var(--color-aps-active-line);
+      stroke-width: 0.3px;
+    }
+
+    .arc-line {
+      fill: var(--color-aps-gaude-back-line);
+    }
+
+    .circle-needle {
+      fill: var(--color-aps-active);
+    }
+
+    .value {
+      fill: var(--color-text-main);
+      font-size: 1.7px;
+    }
+
+    .deviation {
+      fill: var(--color-aps-active);
+      font-size: 1.5px;
+    }
+
+    .units {
+      fill: var(--color-text-sub-heading);
+      font-size: 1.3px;
+    }
+    .th {
+      fill: var(--color-text-sub-heading);
+      font-size: 1px;
+    }
+    .warning {
+      fill: var(--ozsm-color-warning);
+      font-size: 1.3px;
+    }
+
+    .name {
+      fill: var(--color-text-main);
+      font-size: 1.5px;
+    }
+
+    .card {
+      &:hover {
+        cursor: pointer;
+      }
+    }
+  }
+}

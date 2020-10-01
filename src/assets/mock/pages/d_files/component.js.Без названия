@@ -1,2 +1,0 @@
-/* Copyright © 1993-2019 Meridium, Inc. All rights reserved.  */
-define(function(require){"use strict";var a=require("knockout"),b=require("ui/elements/kpi-widget/kpi-widget-view-model");a.components.register("kpi-widget",{viewModel:{createViewModel:function(a,c){return new b(a,c.element)}},template:{require:"text!ui/elements/kpi-widget/kpi-widget-view.html"}})});
