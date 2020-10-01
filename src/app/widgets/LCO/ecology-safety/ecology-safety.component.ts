@@ -1,9 +1,9 @@
 import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { WidgetService } from '../../services/widget.service';
-import { IEcologySafety } from '../../models/ecology-safety';
-import { IWidget } from '../../models/widget.model';
-import { WidgetPlatform } from '../../models/widget-platform';
+import { WidgetService } from '../../../dashboard/services/widget.service';
+import { IEcologySafety } from '../../../dashboard/models/ecology-safety';
+import { IWidget } from '../../../dashboard/models/widget.model';
+import { WidgetPlatform } from '../../../dashboard/models/widget-platform';
 
 @Component({
     selector: 'evj-ecology-safety',

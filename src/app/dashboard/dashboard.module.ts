@@ -30,7 +30,6 @@ import { MapEcologyComponent } from './widgets/map-ecology/map-ecology.component
 import { UnityTemplateComponent } from './widgets/unity-template/unity-template.component';
 import { PowIndexPipe } from '@shared/pipes/pow-index.pipe';
 import { CalendarPlanComponent } from './widgets/calendar-plan/calendar-plan.component';
-import { EcologySafetyComponent } from './widgets/ecology-safety/ecology-safety.component';
 import { ChainMapComponent } from './widgets/chain-map/chain-map.component';
 import { DispatcherScreenComponent } from './widgets/dispatcher-screen/dispatcher-screen.component';
 import { EnergeticsComponent } from './widgets/energetics/energetics.component';
@@ -225,7 +224,6 @@ import { MatBadgeModule } from '@angular/material/badge';
         DetailedLineDiagramComponent,
         OperationEfficiencyComponent,
         CalendarPlanComponent,
-        EcologySafetyComponent,
         ChainMapComponent,
         DispatcherScreenComponent,
         EnergeticsComponent,
@@ -378,7 +376,6 @@ import { MatBadgeModule } from '@angular/material/badge';
         EnterpriseMapComponent,
         OperationEfficiencyComponent,
         CalendarPlanComponent,
-        EcologySafetyComponent,
         EnergeticsComponent,
         ChainMapComponent,
         DispatcherScreenComponent,

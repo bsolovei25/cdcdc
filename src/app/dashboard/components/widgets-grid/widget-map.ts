@@ -10,7 +10,7 @@ import { MapEcologyComponent } from '../../widgets/map-ecology/map-ecology.compo
 import { UnityTemplateComponent } from '../../widgets/unity-template/unity-template.component';
 import { RingFactoryDiagramsComponent } from '../../../widgets/LCO/ring-factory-diagrams/ring-factory-diagrams.component';
 import { OperationEfficiencyComponent } from '../../widgets/operation-efficiency/operation-efficiency.component';
-import { EcologySafetyComponent } from '../../widgets/ecology-safety/ecology-safety.component';
+import { EcologySafetyComponent } from '../../../widgets/LCO/ecology-safety/ecology-safety.component';
 import { CalendarPlanComponent } from '../../widgets/calendar-plan/calendar-plan.component';
 import { ChainMapComponent } from '../../widgets/chain-map/chain-map.component';
 import { DispatcherScreenComponent } from '../../widgets/dispatcher-screen/dispatcher-screen.component';
@@ -48,20 +48,15 @@ import { CdMatBalanceChartCardComponent } from '../../../widgets/CD/cd-mat-balan
 import { TankInformationComponent } from '../../widgets/tank-information/tank-information.component';
 
 export const WIDGETS = {
-    'pie-diagram': WidgetContainerComponent,
-    'line-chart': WidgetContainerComponent,
     'shift-pass': ChangeShiftComponent,
     'shift-accept': ChangeShiftComponent,
-    'events-workspace': WidgetContainerComponent,
     'point-diagram': PointDiagramComponent,
-    'industrial-pyramid': WidgetContainerComponent,
     'bar-chart': BarChartsComponent,
     'enterprise-map': EnterpriseMapComponent,
     'circle-diagram': CircleDiagramComponent,
     'unity-template': UnityTemplateComponent,
     'map-ecology': MapEcologyComponent,
     'operation-efficiency': OperationEfficiencyComponent,
-    'ecology-safety': EcologySafetyComponent,
     'calendar-plan': CalendarPlanComponent,
     'chain-map': ChainMapComponent,
     energetics: EnergeticsComponent,
@@ -71,7 +66,6 @@ export const WIDGETS = {
     'triggering-critical-parameters': TriggeringCriticalParametersComponent,
     'circle-factory-diagram': CircleFactoryDiagramComponent,
     'product-stocks': ProductStocksComponent,
-    'polar-chart': WidgetContainerComponent,
     'semicircle-energy': SemicircleEnergyComponent,
     'deviation-circle-diagram': DeviationCircleDiagramComponent,
     'circle-block-diagram': CircleBlockDiagramComponent,
@@ -82,7 +76,6 @@ export const WIDGETS = {
     'observation-norm-tr': ObservationNormTRComponent,
     'admin-references': AdminReferencesComponent,
     'petroleum-products-movement': PetroleumProductsMovementComponent,
-    'admin-panel': WidgetContainerComponent,
     reference: ReferenceComponent,
     'report-server-configurator': ReportServerConfiguratorComponent,
     'tank-calibration-table': TankCalibrationTableComponent,
@@ -167,7 +160,14 @@ export const WIDGETS = {
     'ring-energy-indicator': WidgetContainerComponent,
     'ozsm-planning-main': WidgetContainerComponent,
     'manual-input': WidgetContainerComponent,
-    'ozsm-monitoring-main': WidgetContainerComponent
+    'ozsm-monitoring-main': WidgetContainerComponent,
+    'pie-diagram': WidgetContainerComponent,
+    'line-chart': WidgetContainerComponent,
+    'polar-chart': WidgetContainerComponent,
+    'admin-panel': WidgetContainerComponent,
+    'industrial-pyramid': WidgetContainerComponent,
+    'events-workspace': WidgetContainerComponent,
+    'ecology-safety': WidgetContainerComponent,
 };
 
 export const WIDGETS_LAZY = {
@@ -658,6 +658,17 @@ export const WIDGETS_LAZY = {
         minItemRows: 10,
         preview: 'ring-energy-indicator'
     },
+    'ecology-safety': {
+        import: async () => {
+            return await import('src/app/widgets/LCO/ecology-safety/ecology-safety.module');
+        },
+        module: 'EcologySafetyModule',
+        itemCols: 24,
+        itemRows: 5,
+        minItemCols: 24,
+        minItemRows: 5,
+        preview: 'ecology-safety'
+    },
     //#endregion LCO
 
     //#region SMP
@@ -1033,14 +1044,14 @@ export const WIDGETS_LAZY = {
         import: async () => {
             return await import(
                 'src/app/widgets/OZSM/ozsm-main-toggle/ozsm-main-toggle.module'
-            );
+                );
         },
         module: 'OzsmMainToggleModule',
         itemCols: 10,
         itemRows: 2,
         minItemCols: 10,
         minItemRows: 2,
-        preview: 'default',
+        preview: 'default'
     },
 
     'ozsm-scenarios': {
@@ -1078,7 +1089,7 @@ export const WIDGETS_LAZY = {
         itemRows: 2,
         minItemCols: 10,
         minItemRows: 2,
-        preview: 'default',
+        preview: 'default'
     },
 
     //#endregion OZSM
@@ -1113,7 +1124,7 @@ export const WIDGETS_LAZY = {
         minItemCols: 35,
         minItemRows: 13,
         preview: 'manual-input'
-    },
+    }
     //#endregion EJV
 
 
