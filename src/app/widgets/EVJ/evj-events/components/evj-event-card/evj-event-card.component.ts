@@ -1,7 +1,7 @@
-import { Component, EventEmitter, Inject, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import {
-    EventsWidgetNotificationPreview,
-    EventsWidgetNotificationStatus, ISubcategory
+    IEventsWidgetNotificationPreview,
+    EventsWidgetNotificationStatus
 } from '../../../../../dashboard/models/events-widget';
 import { EventService } from '../../../../../dashboard/services/widgets/event.service';
 import { animate, style, transition, trigger } from '@angular/animations';
@@ -26,7 +26,7 @@ export class EvjEventCardComponent implements OnInit {
     };
 
     @Input() expandedElement: SelectionModel<number> = new SelectionModel<number>(true);
-    @Input() public cardDataArr: EventsWidgetNotificationPreview[];
+    @Input() public cardDataArr: IEventsWidgetNotificationPreview[];
     @Input() public viewType: 'block' | 'list';
     @Input() public cardActiveId: number = 0;
 
@@ -51,7 +51,7 @@ export class EvjEventCardComponent implements OnInit {
         this.cardDeleteClick.emit(id);
     }
 
-    public async changeIsAcknowledged(eventCard: EventsWidgetNotificationPreview): Promise<void> {
+    public async changeIsAcknowledged(eventCard: IEventsWidgetNotificationPreview): Promise<void> {
         eventCard.isAcknowledged = !eventCard.isAcknowledged;
         try {
             const a = await this.eventService.changeEventIsAcknowledged(
