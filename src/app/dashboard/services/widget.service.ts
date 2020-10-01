@@ -376,16 +376,18 @@ export class WidgetService {
         this.ws.asObservable().subscribe((data) => {
             if (
                 data?.data
-                && this.isMatchingPeriod(data?.data?.selectedPeriod)
+                && this.isMatchingPeriod(data?.data?.selectedPeriod, data?.data?.isHistoricalSupport)
                 && this.isMatchingOptions(data?.data?.subscriptionOptions?.timeStamp, data?.channelId)
             ) {
-                console.log(data);
                 this.widgetsSocketObservable.next(data);
             }
         });
     }
 
-    private isMatchingPeriod(incoming: IDatesInterval): boolean {
+    private isMatchingPeriod(incoming: IDatesInterval, isHistoricalSupport: boolean): boolean {
+        if (!isHistoricalSupport) {
+            return true;
+        }
         if (!incoming) {
             return this.currentDates$.getValue() === null;
         }
@@ -399,7 +401,7 @@ export class WidgetService {
 
     private isMatchingOptions(incoming: Date, widgetId: string): boolean {
         if (!incoming) {
-            return (this.openedWSChannels[widgetId]?.options ?? null) === null;
+            return true;
         }
         return (Math.abs(new Date(this.openedWSChannels[widgetId]?.options?.timeStamp).getTime() -
             new Date(incoming).getTime()) < 1000);
