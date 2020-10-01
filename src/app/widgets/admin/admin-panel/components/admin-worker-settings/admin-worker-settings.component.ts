@@ -322,8 +322,36 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
         if (this.checkForRequiredFields()) {
             this.isDataLoading = true;
             try {
+                const newArray: IGlobalClaim[] = [];
+                this.workerSpecialClaims?.forEach(v => v?.widgets?.forEach(w =>
+                    newArray?.push({
+                        claimType: v?.claimType,
+                        value: w?.id,
+                        claimValueType: v?.claimValueType,
+                        claimName: v?.claimName,
+                        additionalType: v?.additionalType,
+                        claimCategory: v?.claimCategory,
+                        claimCategoryName: v?.claimCategoryName,
+                        claimValueTypeName: v?.claimValueTypeName,
+                        description: v?.description,
+                        specification: v?.specification
+                    })
+                ));
+                this.workerSpecialClaims?.forEach(v => v?.units?.forEach(w =>
+                newArray.push({
+                    claimType: v?.claimType,
+                    value: w?.id.toString(),
+                    claimValueType: v?.claimValueType,
+                    claimName: v?.claimName,
+                    additionalType: v?.additionalType,
+                    claimCategory: v?.claimCategory,
+                    claimCategoryName: v?.claimCategoryName,
+                    claimValueTypeName: v?.claimValueTypeName,
+                    description: v?.description,
+                    specification: v?.specification
+                })));
                 this.worker.displayName = this.adminService.generateDisplayName(this.worker);
-                this.worker.claims = this.workerGeneralClaims.concat(this.workerSpecialClaims);
+                this.worker.claims = this.workerGeneralClaims.concat(newArray);
 
                 if (this.workerPhoto) {
                     this.worker.photoId = await this.adminService.pushWorkerPhoto(
