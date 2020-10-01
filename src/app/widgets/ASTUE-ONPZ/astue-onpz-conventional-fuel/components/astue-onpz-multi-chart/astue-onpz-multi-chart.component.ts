@@ -6,7 +6,7 @@ import {
     HostListener,
     OnChanges,
     Renderer2,
-    OnDestroy,
+    OnDestroy, OnInit
 } from '@angular/core';
 import * as d3Selection from 'd3-selection';
 import * as d3 from 'd3';
@@ -17,6 +17,9 @@ import {
 } from '../../../../../dashboard/models/ASTUE-ONPZ/astue-onpz-multi-chart.model';
 import { AsyncRender } from '@shared/functions/async-render.function';
 import { fillDataArrayChart } from '@shared/functions/fill-data-array.function';
+import { Subscription } from 'rxjs';
+import { IDatesInterval, WidgetService } from '../../../../../dashboard/services/widget.service';
+import { dateFormatLocale } from '@shared/functions/universal-time-fromat.function';
 
 export interface IMultiChartOptions {
     colors?: Map<string, number>;
@@ -37,7 +40,9 @@ const lineColors: { [key: string]: string } = {
     templateUrl: './astue-onpz-multi-chart.component.html',
     styleUrls: ['./astue-onpz-multi-chart.component.scss'],
 })
-export class AstueOnpzMultiChartComponent implements OnChanges, OnDestroy {
+export class AstueOnpzMultiChartComponent implements OnInit, OnChanges, OnDestroy {
+    private subscriptions: Subscription[] = [];
+
     @Input() private data: IMultiChartLine[] = [];
     @Input() private colors: Map<string, number>;
     @Input() private options: IMultiChartOptions;
@@ -72,7 +77,18 @@ export class AstueOnpzMultiChartComponent implements OnChanges, OnDestroy {
 
     private listeners: (() => void)[] = [];
 
-    constructor(private renderer: Renderer2) {}
+    get currentDates(): IDatesInterval {
+        return this.widgetService.currentDates$.getValue();
+    }
+
+    constructor(private renderer: Renderer2, private widgetService: WidgetService) {}
+
+    // TODO think about it
+    public ngOnInit(): void {
+        this.subscriptions.push(
+            this.widgetService.currentDates$.subscribe((ref) => !!ref)
+        );
+    }
 
     public ngOnChanges(): void {
         if (!!this.data.length) {
@@ -142,17 +158,25 @@ export class AstueOnpzMultiChartComponent implements OnChanges, OnDestroy {
             );
     }
 
+    // TODO add period check ++
     private normalizeData(): void {
-        const currentDatetime = new Date();
-        currentDatetime.setMinutes(0, 0 , 0);
-        const domainDates = [
-            currentDatetime.getTime() - 16 * 1000 * 60 * 60,
-            currentDatetime.getTime() + 4 * 1000 * 60 * 60,
-        ];
-        this.data = this.data.filter((item) => item.graph?.length > 0);
-        this.data.forEach((item) =>
-            item.graph = fillDataArrayChart(item.graph, domainDates[0], domainDates[1],
-                item.graphType === 'plan'));
+        if (!!this.currentDates) {
+            // TODO do some
+            console.log('historical');
+        } else {
+            console.log('realtime');
+            this.data = this.data.filter((item) => item.graph?.length > 0);
+            const currentDatetime = new Date();
+            currentDatetime.setMinutes(0, 0 , 0);
+            const domainDates = [
+                currentDatetime.getTime() - 16 * 1000 * 60 * 60,
+                currentDatetime.getTime() + 4 * 1000 * 60 * 60,
+            ];
+            this.data.forEach((item) =>
+                item.graph = fillDataArrayChart(item.graph, domainDates[0], domainDates[1],
+                    item.graphType === 'plan'));
+        }
+
         const filterData = this.data.filter((x) => x?.graph?.length > 0);
         if (filterData.length !== this.data.length) {
             console.error('BACK ERROR: Timeline is not in interval!!!');
@@ -234,14 +258,23 @@ export class AstueOnpzMultiChartComponent implements OnChanges, OnDestroy {
     }
 
     private defineScale(): void {
-        const left = this.setLeftPadding();
-        const currentDatetime = new Date();
-        currentDatetime.setMinutes(0, 0 , 0);
-        const domainDates = [
-            new Date(currentDatetime.getTime() - 16 * 1000 * 60 * 60),
-            new Date(currentDatetime.getTime() + 4 * 1000 * 60 * 60),
-        ];
+        const left = this.leftPadding;
+
+        // TODO add historical domain dates region ++
         const rangeX = [left, this.graphMaxX - this.padding.right];
+        let domainDates: Date[] = [];
+        if (!!this.currentDates) {
+            // for historical data set dt interval
+            domainDates = [this.currentDates.fromDateTime, this.currentDates.toDateTime];
+        } else {
+            // for realtime data set dt interval [-16, +4]
+            const currentDatetime = new Date();
+            currentDatetime.setMinutes(0, 0 , 0);
+            domainDates = [
+                new Date(currentDatetime.getTime() - 16 * 1000 * 60 * 60),
+                new Date(currentDatetime.getTime() + 4 * 1000 * 60 * 60),
+            ];
+        }
 
         this.scaleFuncs.x = d3
             .scaleTime()
@@ -261,11 +294,18 @@ export class AstueOnpzMultiChartComponent implements OnChanges, OnDestroy {
                 .tickSize(0);
         });
 
-        this.axis.axisX = d3
-            .axisBottom(this.scaleFuncs.x)
-            .ticks(24)
-            .tickFormat(d3.timeFormat('%H'))
-            .tickSizeOuter(0);
+        // TODO delete time format for historical ++
+        if (!!this.currentDates) {
+            this.axis.axisX = d3.axisBottom(this.scaleFuncs.x)
+                .ticks(24)
+                .tickFormat(dateFormatLocale())
+                .tickSizeOuter(0);
+        } else {
+            this.axis.axisX = d3.axisBottom(this.scaleFuncs.x)
+                .ticks(24)
+                .tickFormat(d3.timeFormat('%H'))
+                .tickSizeOuter(0);
+        }
     }
 
     private transformData(): void {
@@ -316,7 +356,7 @@ export class AstueOnpzMultiChartComponent implements OnChanges, OnDestroy {
             )
             .style('color', '#272A38');
 
-        const left = this.setLeftPadding();
+        const left = this.leftPadding;
 
         grid.append('line')
             .attr('x1', left)
@@ -346,7 +386,7 @@ export class AstueOnpzMultiChartComponent implements OnChanges, OnDestroy {
     }
 
     private drawAxisYLabels(): void {
-        let left = this.setLeftPadding();
+        let left = this.leftPadding;
         let counter = 0;
         let isMainAxisDrawn = false;
         let isMainLabelsDrawn: boolean = false;
@@ -654,7 +694,7 @@ export class AstueOnpzMultiChartComponent implements OnChanges, OnDestroy {
         }
     }
 
-    private setLeftPadding(): number {
+    private get leftPadding(): number {
         const filterGraphTypes: IMultiChartTypes[] = ['plan', 'fact', 'forecast'];
         const padding = this.charts.map((item) =>
             item.graphType).filter((x) => filterGraphTypes.includes(x))?.length ?? 0;
