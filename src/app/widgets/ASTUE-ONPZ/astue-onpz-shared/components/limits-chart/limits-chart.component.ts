@@ -26,7 +26,7 @@ export class LimitsChartComponent implements OnChanges {
         graph: IChartD3[];
     }[] = [];
 
-    private svg: d3Selection;
+    private svg: d3Selection = null;
 
     private graphMaxX: number = 0;
     private graphMaxY: number = 0;
