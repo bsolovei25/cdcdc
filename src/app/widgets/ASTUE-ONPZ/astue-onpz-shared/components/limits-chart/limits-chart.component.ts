@@ -9,6 +9,7 @@ import { IChartD3 } from '@shared/models/smart-scroll.model';
 import { AsyncRender } from '@shared/functions/async-render.function';
 import { fillDataArray } from '@shared/functions/fill-data-array.function';
 import { IDatesInterval, WidgetService } from '../../../../../dashboard/services/widget.service';
+import { dateFormatLocale } from '@shared/functions/universal-time-fromat.function';
 
 @Component({
     selector: 'evj-limits-chart',
@@ -165,11 +166,20 @@ export class LimitsChartComponent implements OnChanges {
             .range(rangeY);
 
         // TODO add time format
-        this.axis.axisX = d3
-            .axisBottom(this.scaleFuncs.x)
-            .ticks(12)
-            .tickFormat(d3.timeFormat('%H'))
-            .tickSizeOuter(0);
+        if (!!this.currentDates) {
+            this.axis.axisX = d3
+                .axisBottom(this.scaleFuncs.x)
+                .ticks(8)
+                .tickFormat(dateFormatLocale())
+                .tickSizeOuter(0);
+        } else {
+            this.axis.axisX = d3
+                .axisBottom(this.scaleFuncs.x)
+                .ticks(12)
+                .tickFormat(d3.timeFormat('%H'))
+                .tickSizeOuter(0);
+        }
+
         this.axis.axisY = d3
             .axisLeft(this.scaleFuncs.y)
             .ticks(5)

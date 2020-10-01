@@ -3,12 +3,13 @@ import {
     IProductionTrend,
     ProductionTrendType,
 } from '../../../../../dashboard/models/production-trends.model';
-import { IChartD3, IChartMini } from '@shared/models/smart-scroll.model';
+import { IChartD3 } from '@shared/models/smart-scroll.model';
 import { AsyncRender } from '@shared/functions/async-render.function';
 import * as d3Selection from 'd3-selection';
 import * as d3 from 'd3';
 import { fillDataArray } from '@shared/functions/fill-data-array.function';
 import { IDatesInterval, WidgetService } from '../../../../../dashboard/services/widget.service';
+import { dateFormatLocale } from '@shared/functions/universal-time-fromat.function';
 
 @Component({
     selector: 'evj-deviation-limits-chart',
@@ -85,7 +86,6 @@ export class DeviationLimitsChartComponent implements OnChanges {
         this.drawAxisLabels();
         this.drawFutureRect();
         this.drawPoints();
-        this.customizeAreas();
     }
 
     // TODO add dt interval historical ++
@@ -134,6 +134,7 @@ export class DeviationLimitsChartComponent implements OnChanges {
 
     // TODO delete fillDataArray ++
     private normalizeData(): void {
+        this.data = [this.data.find((x) => x.graphType === 'fact')];
         if (this.currentDates) {
             // TODO add some mb
         } else {
@@ -146,53 +147,10 @@ export class DeviationLimitsChartComponent implements OnChanges {
             }
             fillDataArray(this.data, true, true, this.dateMin.getTime(), this.dateMax.getTime());
         }
-
-        const fact = this.data.find((item) => item.graphType === 'fact');
-        const hb = this.data.find((item) => item.graphType === 'higherBorder');
-        const lb = this.data.find((item) => item.graphType === 'lowerBorder');
-        const newFact: IProductionTrend = {
-            graphType: fact.graphType,
-            graphStyle: fact.graphStyle,
-            graph: [],
-        };
-
-        fact.graph.forEach((item, idx) => {
-            if (item.value > hb.graph[idx].value) {
-                newFact.graph.push({
-                    timeStamp: item.timeStamp,
-                    value: item.value - hb.graph[idx].value,
-                });
-                return;
-            } else if (item.value < lb.graph[idx].value) {
-                newFact.graph.push({
-                    timeStamp: item.timeStamp,
-                    value: item.value - lb.graph[idx].value,
-                });
-                return;
-            }
-            newFact.graph.push({ timeStamp: item.timeStamp, value: 0 });
+        this.data.push({
+            graphType: 'higherBorder', // TODO change to plan
+            graph: [{value: 0, timeStamp: this.dateMin}, {value: 0, timeStamp: this.dateMax}]
         });
-        const newHB: IProductionTrend = {
-            graphType: hb.graphType,
-            graphStyle: hb.graphStyle,
-            graph: hb.graph.map((item) => {
-                return {
-                    value: 0,
-                    timeStamp: item.timeStamp,
-                };
-            }),
-        };
-        const newLB: IProductionTrend = {
-            graphType: lb.graphType,
-            graphStyle: lb.graphStyle,
-            graph: lb.graph.map((item) => {
-                return {
-                    value: 0,
-                    timeStamp: item.timeStamp,
-                };
-            }),
-        };
-        this.data = [newFact, newHB, newLB];
     }
 
     private findMinMax(): void {
@@ -210,20 +168,27 @@ export class DeviationLimitsChartComponent implements OnChanges {
             .domain(domainDates)
             .rangeRound(rangeX);
 
-        const max = d3.max([Math.abs(this.dataMax), Math.abs(this.dataMin)]);
-        const domainValues = [max, -max];
+        const domainValues = [this.dataMax, this.dataMin];
         const rangeY = [this.padding.top, this.graphMaxY - this.padding.bottom];
         this.scaleFuncs.y = d3
             .scaleLinear()
             .domain(domainValues)
             .range(rangeY);
 
-        // TODO add time format
-        this.axis.axisX = d3
-            .axisBottom(this.scaleFuncs.x)
-            .ticks(12)
-            .tickFormat(d3.timeFormat('%H'))
-            .tickSizeOuter(0);
+        // TODO add time format ++
+        if (!!this.currentDates) {
+            this.axis.axisX = d3
+                .axisBottom(this.scaleFuncs.x)
+                .ticks(8)
+                .tickFormat(dateFormatLocale())
+                .tickSizeOuter(0);
+        } else {
+            this.axis.axisX = d3
+                .axisBottom(this.scaleFuncs.x)
+                .ticks(12)
+                .tickFormat(d3.timeFormat('%H'))
+                .tickSizeOuter(0);
+        }
         this.axis.axisY = d3
             .axisLeft(this.scaleFuncs.y)
             .ticks(5)
@@ -255,76 +220,64 @@ export class DeviationLimitsChartComponent implements OnChanges {
     }
 
     private drawChart(): void {
-        this.chartData.forEach((chart) => {
-            const curve = this.isSpline ? d3.curveBasis : d3.curveLinear;
-            const line = d3
-                .line()
-                .x((item: IChartD3) => item.x)
-                .y((item: IChartD3) => item.y)
-                .curve(curve);
+        const chartFact = this.chartData.find((x) => x.graphType === 'fact');
+        const chartPlan = this.chartData.find((x) => x.graphType === 'higherBorder');
+        const curve = this.isSpline ? d3.curveBasis : d3.curveLinear;
 
-            const areaBottom = d3
-                .area()
-                .x((item: IChartD3) => item.x)
-                .y0(this.graphMaxY - this.padding.bottom)
-                .y1((item: IChartD3) => item.y)
-                .curve(curve);
+        const line = d3
+            .line()
+            .x((item: IChartD3) => item.x)
+            .y((item: IChartD3) => item.y)
+            .curve(curve);
+        const areaBottom = d3
+            .area()
+            .x((item: IChartD3) => item.x)
+            .y0(this.graphMaxY - this.padding.bottom)
+            .y1((item: IChartD3) => item.y)
+            .curve(curve);
+        const areaTop = d3
+            .area()
+            .x((item: IChartD3) => item.x)
+            .y0((item: IChartD3) => item.y)
+            .y1(this.padding.top)
+            .curve(curve);
 
-            const areaTop = d3
-                .area()
-                .x((item: IChartD3) => item.x)
-                .y0((item: IChartD3) => item.y)
-                .y1(this.padding.top)
-                .curve(curve);
+        this.svg
+            .append('path')
+            .attr('class', `graph-line-${chartFact.graphType}`)
+            .attr('d', line(chartFact.graph));
 
-            const opacity: number = 1;
+        this.svg
+            .append('path')
+            .attr('class', `graph-line-plan`)
+            .attr('d', line(chartPlan.graph));
 
-            if (chart.graphType !== 'higherBorder') {
-                this.svg
-                    .append('path')
-                    .attr('class', `graph-line-${chart.graphType}`)
-                    .attr('d', line(chart.graph));
-            }
-
-            if (chart.graphType === 'higherBorder' || chart.graphType === 'lowerBorder') {
-                const areaFn = chart.graphType === 'lowerBorder' ? areaBottom : areaTop;
-                this.svg
-                    .append('path')
-                    .attr('class', `graph-area-${chart.graphType}`)
-                    .attr('d', areaFn(chart.graph));
-            }
-        });
+        const areaFn = this.isLowerEconomy ? areaBottom : areaTop;
+        this.svg
+            .append('path')
+            .attr('class', `graph-area_${this.isLowerEconomy ? 'normal' : 'warning'}`)
+            .attr('d', areaFn(chartPlan.graph));
     }
 
     private drawPoints(): void {
         const pointsG = this.svg.append('g').attr('class', 'chart-points');
-        this.chartData.forEach((item) => {
-            if (item.graphType !== 'fact' && item.graphType !== 'plan') {
-                return;
-            }
-            if (item.graphType === 'plan') {
-                pointsG
-                    .append('circle')
-                    .attr('class', 'point point_plan')
-                    .attr('cx', item.graph[item.graph.length - 1].x)
-                    .attr('cy', item.graph[item.graph.length - 1].y)
-                    .attr('r', 4);
-            } else {
-                const g = pointsG.append('g').attr('class', 'fact-point');
-                let r = 9;
-                let opacity = 0.33;
-                for (let i = 0; i < 3; i++) {
-                    g.append('circle')
-                        .attr('class', 'point point_fact')
-                        .attr('cx', item.graph[item.graph.length - 1].x)
-                        .attr('cy', item.graph[item.graph.length - 1].y)
-                        .attr('r', r)
-                        .style('opacity', opacity);
-                    r -= 3;
-                    opacity += 0.33;
-                }
-            }
-        });
+        const item = this.chartData.find((x) => x.graphType === 'fact');
+        if (!item) {
+            return;
+        }
+        const g = pointsG.append('g').attr('class', 'fact-point');
+        let r = 9;
+        let opacity = 0.33;
+        for (let i = 0; i < 3; i++) {
+            g.append('circle')
+                .attr('class', 'point point_fact')
+                .attr('cx', item.graph[item.graph.length - 1].x)
+                .attr('cy', item.graph[item.graph.length - 1].y)
+                .attr('r', r)
+                .style('opacity', opacity);
+            r -= 3;
+            opacity += 0.33;
+        }
     }
 
     private drawGridlines(): void {
@@ -373,29 +326,6 @@ export class DeviationLimitsChartComponent implements OnChanges {
         const translateY: string = `translate(${this.padding.left},0)`;
         drawLabels('axisX', translateX);
         drawLabels('axisY', translateY);
-    }
-
-    private customizeAreas(): void {
-        const fact = this.data.find((item) => item.graphType === 'fact')?.graph ?? [];
-        const lastIdx: number = fact.length - 1;
-
-        const setBorderColor = (border: 'lowerBorder' | 'higherBorder') => {
-            const val = (border === 'higherBorder') === this.isLowerEconomy ? 'warning' : 'normal';
-            const colorLine: string = `graph-line_${val}`;
-            const colorArea: string = `graph-area_${val}`;
-            this.svg
-                .select('path.graph-line-lowerBorder')
-                .attr('class', `graph-line-lowerBorder ${colorLine}`);
-            this.svg
-                .select(`path.graph-area-${border}`)
-                .attr('class', `graph-area-${border} ${colorArea}`);
-        };
-
-        if (fact[lastIdx].value > 0) {
-            setBorderColor('higherBorder');
-        } else if (fact[lastIdx].value < 0) {
-            setBorderColor('lowerBorder');
-        }
     }
 
     // TODO disable to historical ++
