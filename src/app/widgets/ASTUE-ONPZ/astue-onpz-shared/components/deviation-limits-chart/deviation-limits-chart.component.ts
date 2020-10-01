@@ -3,12 +3,12 @@ import {
     IProductionTrend,
     ProductionTrendType,
 } from '../../../../../dashboard/models/production-trends.model';
-import { IChartD3, IChartMini } from '../../../../../@shared/models/smart-scroll.model';
-import { AsyncRender } from '../../../../../@shared/functions/async-render.function';
+import { IChartD3, IChartMini } from '@shared/models/smart-scroll.model';
+import { AsyncRender } from '@shared/functions/async-render.function';
 import * as d3Selection from 'd3-selection';
 import * as d3 from 'd3';
-import { fillDataArray } from '../../../../../@shared/functions/fill-data-array.function';
-import { IDatesInterval, WidgetService } from "../../../../../dashboard/services/widget.service";
+import { fillDataArray } from '@shared/functions/fill-data-array.function';
+import { IDatesInterval, WidgetService } from '../../../../../dashboard/services/widget.service';
 
 @Component({
     selector: 'evj-deviation-limits-chart',
