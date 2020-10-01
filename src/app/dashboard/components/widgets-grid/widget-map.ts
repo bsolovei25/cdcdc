@@ -293,7 +293,7 @@ export const WIDGETS_LAZY = {
     'nk-tank-information': {
         import: async () => {
             return await import(
-                'src/app/widgets/NK/nk-tank-information.module'
+                'src/app/widgets/NK/nk-tank-information/nk-tank-information.module'
                 );
         },
         module: 'NkTankInformationModule',

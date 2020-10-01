@@ -1,5 +1,5 @@
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { SharedModule } from './../../@shared/shared.module';
+import { SharedModule } from '@shared/shared.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
@@ -16,7 +16,7 @@ import { NkTankInformationPasportComponent } from './components/nk-tank-informat
 
 @NgModule({
     declarations: [
-        NkTankInformationComponent,    
+        NkTankInformationComponent,
         NkTankInformationReservoirComponent,
         NkTankInformationTitleComponent,
         NkTankInformationTemperatureComponent,
@@ -27,7 +27,7 @@ import { NkTankInformationPasportComponent } from './components/nk-tank-informat
         NkTankInformationPasportComponent
     ],
     imports: [
-        CommonModule, 
+        CommonModule,
         HttpClientModule,
         MatTooltipModule,
         SharedModule
