@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, ViewChild, ElementRef, OnChanges } from '@angular/core';
 import { Shift, ShiftMember } from 'src/app/dashboard/models/shift.model';
-import { ShiftService } from '../../../services/shift.service';
-import { SnackBarService } from '../../../services/snack-bar.service';
+import { ShiftService } from '../../../../dashboard/services/shift.service';
+import { SnackBarService } from '../../../../dashboard/services/snack-bar.service';
 import { AppConfigService } from '@core/service/app-config.service';
 import { AvatarConfiguratorService } from '@core/service/avatar-configurator.service';
 import { IAlertWindowModel } from '@shared/models/alert-window.model';

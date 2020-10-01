@@ -1,6 +1,5 @@
 import { LineChartComponent } from '../../widgets/line-chart/line-chart.component';
 import { ManualInputComponent } from '../../widgets/manual-input/manual-input.component';
-import { ChangeShiftComponent } from '../../widgets/change-shift/change-shift.component';
 import { EnergeticsComponent } from '../../widgets/energetics/energetics.component';
 import { WidgetPiesComponent } from '../../widgets/widgets-pie/widget-pies/widget-pies.component';
 import { TruncatedPieSFirstComponent } from '../../widgets/truncated-pie-first/truncated-pie-s-first/truncated-pie-s-first.component';
@@ -59,8 +58,6 @@ export const WIDGETS = {
     'pie-diagram': WidgetPiesComponent,
     'line-chart': LineChartComponent,
     'manual-input': ManualInputComponent,
-    'shift-pass': ChangeShiftComponent,
-    'shift-accept': ChangeShiftComponent,
     'events-workspace': WidgetContainerComponent,
     'truncated-diagram-percentage': TruncatedPieSFirstComponent,
     'truncated-diagram-traffic-light': TruncatedDiagramTrafficLightComponent,
@@ -175,7 +172,9 @@ export const WIDGETS = {
     'ozsm-main-toggle': WidgetContainerComponent,
     'ozsm-scenarios': WidgetContainerComponent,
     'ozsm-planning-main': WidgetContainerComponent,
-    'ozsm-monitoring-main': WidgetContainerComponent
+    'ozsm-monitoring-main': WidgetContainerComponent,
+    'shift-pass': WidgetContainerComponent,
+    'shift-accept': WidgetContainerComponent,
 };
 
 export const WIDGETS_LAZY = {
@@ -526,7 +525,28 @@ export const WIDGETS_LAZY = {
         minItemRows: 30,
         preview: 'cd-events'
     },
-
+    'shift-pass': {
+        import: async () => {
+            return await import('src/app/widgets/EVJ/change-shift/change-shift.module');
+        },
+        module: 'ChangeShiftModule',
+        itemCols: 15,
+        itemRows: 30,
+        minItemCols: 15,
+        minItemRows: 23,
+        preview: 'change-shift'
+    },
+    'shift-accept': {
+        import: async () => {
+            return await import('src/app/widgets/EVJ/change-shift/change-shift.module');
+        },
+        module: 'ChangeShiftModule',
+        itemCols: 15,
+        itemRows: 30,
+        minItemCols: 15,
+        minItemRows: 23,
+        preview: 'change-shift'
+    },
     // #endregion EVJ
 
     //#region LCO

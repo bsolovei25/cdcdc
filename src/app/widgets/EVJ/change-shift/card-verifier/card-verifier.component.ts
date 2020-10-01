@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { IVerifyWindow, ShiftMember } from '../../../models/shift.model';
-import { ShiftService } from '../../../services/shift.service';
-import { IUser } from '../../../models/events-widget';
+import { IVerifyWindow, ShiftMember } from '../../../../dashboard/models/shift.model';
+import { ShiftService } from '../../../../dashboard/services/shift.service';
+import { IUser } from '../../../../dashboard/models/events-widget';
 
 @Component({
     selector: 'evj-card-verifier',

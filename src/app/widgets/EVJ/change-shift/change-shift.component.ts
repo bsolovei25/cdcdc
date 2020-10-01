@@ -7,17 +7,17 @@ import {
     HostListener,
     OnDestroy,
 } from '@angular/core';
-import { ShiftService } from '../../services/shift.service';
-import { WidgetService } from '../../services/widget.service';
+import { ShiftService } from '../../../dashboard/services/shift.service';
+import { WidgetService } from '../../../dashboard/services/widget.service';
 import {
     ICommentRequired,
     IVerifyWindow,
     Shift,
     ShiftComment,
     ShiftMember,
-} from '../../models/shift.model';
-import { WidgetPlatform } from '../../models/widget-platform';
-import { SnackBarService } from '../../services/snack-bar.service';
+} from '../../../dashboard/models/shift.model';
+import { WidgetPlatform } from '../../../dashboard/models/widget-platform';
+import { SnackBarService } from '../../../dashboard/services/snack-bar.service';
 import { AvatarConfiguratorService } from '@core/service/avatar-configurator.service';
 
 @Component({
@@ -53,11 +53,6 @@ export class ChangeShiftComponent extends WidgetPlatform implements OnInit, OnDe
     public verifyInfo: IVerifyWindow = null;
 
     public unitId: number = null;
-
-    public static itemCols: number = 15;
-    public static itemRows: number = 30;
-    public static minItemCols: number = 15;
-    public static minItemRows: number = 23;
 
     public photoPathMain: string = 'assets/icons/widgets/admin/default_avatar2.svg';
 

@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { IVerifyWindow } from '../../../models/shift.model';
-import { ShiftService } from '../../../services/shift.service';
+import { IVerifyWindow } from '../../../../dashboard/models/shift.model';
+import { ShiftService } from '../../../../dashboard/services/shift.service';
 
 @Component({
     selector: 'evj-usb-verifier',
