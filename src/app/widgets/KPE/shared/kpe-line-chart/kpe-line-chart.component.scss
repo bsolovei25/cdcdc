@@ -12,6 +12,13 @@
   height: 100%;
 
   &::ng-deep {
+
+    .graph-line-warning1 {
+      stroke-width: 1;
+      fill: none;
+      stroke: var(--color-astue-onpz-warning);
+    }
+
     .graph-line {
       &-fact,
       &-plan,
@@ -80,7 +87,6 @@
         fill: var(--color-astue-onpz-fact);
       }
     }
-
     .future {
       fill: #1c1f2b;
       opacity: 0.5;

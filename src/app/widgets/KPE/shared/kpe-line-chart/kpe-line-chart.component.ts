@@ -1,3 +1,4 @@
+import { style } from '@angular/animations';
 import {
     Component,
     ViewChild,
@@ -54,6 +55,8 @@ export class KpeLineChartComponent implements OnChanges, AfterViewInit {
         bottom: 0,
     };
 
+    private lastPointColor: string = 'point point_fact';
+
     constructor() {}
 
     public ngAfterViewInit(): void {
@@ -78,9 +81,9 @@ export class KpeLineChartComponent implements OnChanges, AfterViewInit {
         this.findMinMax();
         this.defineScale();
         this.transformData();
-        this.drawChart();
-        this.drawFutureRect();
-        this.drawPoints();
+        this.drawChart(); // Сами графики
+        this.drawFutureRect(); // боковая линия
+        this.drawPoints(); // Рисует последние точки
         this.customizeAreas();
     }
 
@@ -181,7 +184,7 @@ export class KpeLineChartComponent implements OnChanges, AfterViewInit {
 
     private drawChart(): void {
         this.chartData.forEach((chart) => {
-            const curve = d3.curveBasis;
+            const curve = d3.curveMonotoneX;
             const line = d3
                 .line()
                 .x((item: IChartD3) => item.x)
@@ -207,12 +210,44 @@ export class KpeLineChartComponent implements OnChanges, AfterViewInit {
                 .attr('class', `graph-line-${chart.graphType}`)
                 .attr('d', line(chart.graph));
 
-            if (chart.graphType === 'higherBorder' || chart.graphType === 'lowerBorder') {
-                const areaFn = chart.graphType === 'lowerBorder' ? areaBottom : areaTop;
+
+            let className: string;
+            const fact = this.chartData.find(
+                (factChart) => factChart.graphType === 'fact'
+            )?.graph ?? [];
+
+            const lastPointX = fact[fact.length - 1].x;
+            const lastPointY = fact[fact.length - 1].y;
+
+
+            if (chart.graphType === 'higherBorder') {
+                if ( chart.graph.find(item => item.x === lastPointX)?.y >= lastPointY ) {
+                    className = 'graph-area-higherBorder graph-area_warning';
+                    this.lastPointColor = 'graph-area_warning';
+
+                } else {
+                    className = 'graph-area-higherBorder';
+                }
+
                 this.svg
                     .append('path')
-                    .attr('class', `graph-area-${chart.graphType}`)
-                    .attr('d', areaFn(chart.graph));
+                    .attr('class', className)
+                    .attr('d', areaTop(chart.graph));
+            }
+
+            if (chart.graphType === 'lowerBorder') {
+                if ( chart.graph.find(item => item.x === lastPointX)?.y < lastPointY ) {
+                    className = 'graph-area-lowerBorder graph-area_warning';
+                    this.lastPointColor = 'graph-area_warning';
+
+                } else {
+                    className = 'graph-area-lowerBorder';
+                }
+
+                this.svg
+                    .append('path')
+                    .attr('class', className)
+                    .attr('d', areaBottom(chart.graph));
             }
         });
     }
@@ -236,7 +271,7 @@ export class KpeLineChartComponent implements OnChanges, AfterViewInit {
                 let opacity = 0.05;
                 for (let i = 0; i < 4; i++) {
                     g.append('circle')
-                        .attr('class', 'point point_fact')
+                        .attr('class', this.lastPointColor)
                         .attr('cx', item.graph[item.graph.length - 1].x)
                         .attr('cy', item.graph[item.graph.length - 1].y)
                         .attr('r', r)
@@ -248,28 +283,129 @@ export class KpeLineChartComponent implements OnChanges, AfterViewInit {
         });
     }
 
+    private ColorizeDraw(ColorizeCoordinates: IChartD3[]): void {
+        const curve = d3.curveMonotoneX;
+        const line = d3
+            .line()
+            .x((value: IChartD3) => value.x)
+            .y((value: IChartD3) => value.y)
+            .curve(curve);
+
+        this.svg
+            .append('path')
+            .attr('d', line(ColorizeCoordinates))
+            .style('fill', 'none')
+            .style('stroke-width', 2)
+            .style('stroke', 'var(--color-astue-onpz-warning)');
+    }
+
     private customizeAreas(): void {
-        const fact = this.data.find((item) => item.graphType === 'fact')?.graph ?? [];
-        const higher = this.data.find((item) => item.graphType === 'higherBorder')?.graph ?? [];
-        const lower = this.data.find((item) => item.graphType === 'lowerBorder')?.graph ?? [];
-        fact.forEach((val, idx) => {
-            if (higher[idx] && higher[idx].value < val.value) {
-                this.svg
-                    .select('path.graph-line-higherBorder')
-                    .attr('class', 'graph-line-higherBorder graph-line_warning');
-                this.svg
-                    .select('path.graph-area-higherBorder')
-                    .attr('class', 'graph-area-higherBorder graph-area_warning');
-            } else if (lower[idx] && lower[idx].value > val.value) {
-                this.svg
-                    .select('path.graph-line-lowerBorder')
-                    .attr('class', 'graph-line-lowerBorder graph-line_normal');
-                this.svg
-                    .select('path.graph-area-lowerBorder')
-                    .attr('class', 'graph-area-lowerBorder graph-area_normal');
+        let ColorizeCoordinates: IChartD3[] = []; // Координаты кторые надо закрасить
+
+        const fact = this.chartData.find((chart) => chart.graphType === 'fact')?.graph ?? [];
+        const lowerBorder = this.chartData.find((chart) => chart.graphType === 'lowerBorder')?.graph ?? [];
+        const higherBorder = this.chartData.find((chart) => chart.graphType === 'higherBorder')?.graph ?? [];
+
+        fact.forEach( (item, i) => {
+            if (i > 0) {
+                // Уравнение участка нижней границы
+                const k1 = (lowerBorder[i].y - lowerBorder[i - 1].y) / (lowerBorder[i].x - lowerBorder[i - 1].x);
+                const b1 = -k1 * lowerBorder[i - 1].x + lowerBorder[i - 1].y;
+                // Уравнение участка фактической кривой
+                const k2 = (item.y - fact[i - 1].y) / (item.x - fact[i - 1].x);
+                const b2 = -k2 * fact[i - 1].x + fact[i - 1].y;
+
+                const x = (b2 - b1) / (k1 - k2);
+                if (!!x && x <= item.x && x >= fact[i - 1].x) {
+                    if (k1 >= k2) {
+                        ColorizeCoordinates.push({
+                            x: fact[i - 1].x,
+                            y: fact[i - 1].y
+                        }, {
+                            x,
+                            y: k2 * x + b2
+                        });
+
+                    } else {
+                        this.ColorizeDraw(ColorizeCoordinates);
+                        ColorizeCoordinates = [];
+
+                        ColorizeCoordinates.push({
+                            x,
+                            y: k2 * x + b2
+                        }, {
+                            x: item.x,
+                            y: item.y
+                        });
+                    }
+
+                } else if (k2 === k1 && b2 === b1) {
+                    ColorizeCoordinates.push({
+                        x: fact[i - 1].x,
+                        y: fact[i - 1].y
+                    }, {
+                        x: item.x,
+                        y: item.y
+                    });
+                } else {
+                    this.ColorizeDraw(ColorizeCoordinates);
+                }
             }
         });
+
+        this.ColorizeDraw(ColorizeCoordinates);
+        ColorizeCoordinates = [];
+
+        fact.forEach( (item, i) => {
+            if (i > 0) {
+                // Уравнение участка верхней границы
+                const k1 = (higherBorder[i].y - higherBorder[i - 1].y) / (higherBorder[i].x - higherBorder[i - 1].x);
+                const b1 = -k1 * higherBorder[i - 1].x + higherBorder[i - 1].y;
+                // Уравнение участка фактической кривой
+                const k2 = (item.y - fact[i - 1].y) / (item.x - fact[i - 1].x);
+                const b2 = -k2 * fact[i - 1].x + fact[i - 1].y;
+
+                const x = (b2 - b1) / (k1 - k2);
+                if (!!x && x <= item.x && x >= fact[i - 1].x) {
+                    if (k1 < k2) {
+                        ColorizeCoordinates.push({
+                            x: fact[i - 1].x,
+                            y: fact[i - 1].y
+                        }, {
+                            x,
+                            y: k2 * x + b2
+                        });
+                    } else {
+                        this.ColorizeDraw(ColorizeCoordinates);
+                        ColorizeCoordinates = [];
+
+                        ColorizeCoordinates.push({
+                            x,
+                            y: k2 * x + b2
+                        }, {
+                            x: item.x,
+                            y: item.y
+                        });
+
+                    }
+                } else if (k2 === k1 && b2 === b1) {
+                    ColorizeCoordinates.push({
+                        x: fact[i - 1].x,
+                        y: fact[i - 1].y
+                    }, {
+                        x: item.x,
+                        y: item.y
+                    });
+                } else {
+                    this.ColorizeDraw(ColorizeCoordinates);
+                }
+            }
+        });
+
+        this.ColorizeDraw(ColorizeCoordinates)
+        ColorizeCoordinates = [];
     }
+
 
     private drawFutureRect(): void {
         const fact = this.chartData.find((chart) => chart.graphType === 'fact')?.graph ?? [];
@@ -303,4 +439,5 @@ export class KpeLineChartComponent implements OnChanges, AfterViewInit {
             .attr('height', this.graphMaxY - this.padding.top - this.padding.bottom)
             .attr('class', 'border-rect');
     }
+
 }
