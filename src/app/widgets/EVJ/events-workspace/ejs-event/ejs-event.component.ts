@@ -13,8 +13,6 @@ export class EjsEventComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit(): void {
-        window.open('http://spb99-t-merap01/meridium/');
-        this.ewService.goBackEvent();
     }
 
     ngOnDestroy(): void {
@@ -33,7 +31,7 @@ export class EjsEventComponent implements OnInit, OnDestroy {
         this.ewService.sendMessageToEvent(message, msgType);
     }
 
-    public compareFn<T extends {id: number}>(a: T, b: T): boolean {
+    public compareFn<T extends { id: number }>(a: T, b: T): boolean {
         return a && b && a.id === b.id;
     }
 

@@ -461,7 +461,6 @@ export class EvjEventsComponent extends WidgetPlatform implements OnInit, OnDest
                 });
             this.notifications = this.notifications.concat(notifications);
             this.countNotificationsDivCapacity();
-            ;
         }
     }
 
