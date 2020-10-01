@@ -13,12 +13,6 @@
 
   &::ng-deep {
 
-    .graph-line-warning1 {
-      stroke-width: 1;
-      fill: none;
-      stroke: var(--color-astue-onpz-warning);
-    }
-
     .graph-line {
       &-fact,
       &-plan,
