@@ -37,7 +37,9 @@
           </mat-select>
         </mat-form-field>
       </div>
-      <button (click)="resetFilters()">
+      <button matRipple
+              [matRippleColor]="'white'"
+              (click)="resetFilters()">
         Сбросить фильтры
       </button>
     </div>
