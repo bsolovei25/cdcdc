@@ -295,6 +295,7 @@ export class WidgetService {
             case 'ejco-onpz-unit-kpe':
             case 'ejco-onpz-unit-sou':
             case 'ejco-onpz-fsb-load':
+            case 'astue-onpz-main-indicators':
                 return data;
         }
         console.warn(`unknown widget type ${widgetType}`);
