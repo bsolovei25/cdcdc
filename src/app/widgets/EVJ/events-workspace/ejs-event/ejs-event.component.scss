@@ -104,16 +104,28 @@
     min-width: 50px;
     height: 100%;
 
-    &.left-block {
+    &_left{
+      width: 39.3%;
+    }
+    &_right {
+      width: 81.3%;
       display: flex;
-      width: 30%;
     }
 
-    &.right-block {
+    &.first-block {
       display: flex;
-      width: 70%;
+      width: 100%;
     }
 
+  }
+}
+
+.item_right{
+  &_left {
+    width: 30%;
+  }
+  &_right {
+    width: 70%;
   }
 }
 

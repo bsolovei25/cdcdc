@@ -1,7 +1,7 @@
 <div class="workspace">
   <div class="workspace__selects selects">
-    <div class="selects__item left-block">
-      <evj-ui-block status="normal">
+    <div class="selects__item first-block">
+      <evj-ui-block class="selects__item_left" status="normal">
         <mat-form-field class="categories_selectbox">
           <mat-label>Категория</mat-label>
           <mat-select
@@ -16,28 +16,28 @@
           </mat-select>
         </mat-form-field>
       </evj-ui-block>
-    </div>
-    <div class="selects__item right-block">
-      <div class="creator">
-        <div class="creator_title">
-          Номер журнала
-        </div>
-        <div class="creator_body">
-          {{ ewService.event?.ejsData?.ejsFailCodeChr }}
-        </div>
-      </div>
-      <evj-ui-block status="normal">
-        <div class="creator creator_link">
-          <div class="creator_body creator_body-center">
-            Перейти к карточке ЭЖС
+      <div class="selects__item_right">
+        <div class="creator item_right_left">
+          <div class="creator_title">
+            Номер журнала
           </div>
-          <svg-icon
-            class="creator_icon"
-            src="assets/icons/widgets/EVJ/event/ejs-event/link.svg"
-            [svgStyle]="{ 'width.px':28, 'height.px':28 }"
-          ></svg-icon>
+          <div class="creator_body">
+            {{ ewService.event?.ejsData?.ejsFailCodeChr }}
+          </div>
         </div>
-      </evj-ui-block>
+        <evj-ui-block class="item_right_right" status="normal">
+          <div class="creator creator_link">
+            <div class="creator_body creator_body-center">
+              Перейти к карточке ЭЖС
+            </div>
+            <svg-icon
+              class="creator_icon"
+              src="assets/icons/widgets/EVJ/event/ejs-event/link.svg"
+              [svgStyle]="{ 'width.px':28, 'height.px':28 }"
+            ></svg-icon>
+          </div>
+        </evj-ui-block>
+      </div>
     </div>
   </div>
   <div class="workspace__selects-two selects--three">
@@ -97,7 +97,7 @@
             Оборудование
           </div>
           <div class="creator_body">
-            {{ ewService.event?.ejsData?.ejsEquiIdChr }}
+            {{ ewService.event?.ejsData?.ejsEquiChr  }}
           </div>
         </div>
       </evj-ui-block>
@@ -185,7 +185,7 @@
           Обращение в Автоматика-сервис
         </div>
         <mat-checkbox class="creator_checkbox" color="primary"
-                      [checked]="ewService.event?.ejsData?.ejsEnerNotiFlg">
+                      [checked]="ewService.event?.ejsData?.ejsAutoServNotiFlg">
         </mat-checkbox>
         <div class="creator_body">
           {{ ewService.event?.ejsData?.ejsAutoServNotiCommTx }}
