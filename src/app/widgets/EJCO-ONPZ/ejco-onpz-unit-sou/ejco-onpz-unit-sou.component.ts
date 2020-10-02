@@ -70,7 +70,11 @@ export class EjcoOnpzUnitSouComponent extends WidgetPlatform implements OnDestro
         const tabs = [];
         ref.data.forEach(item => tabs.push({ caption: item.title }));
         if (this.ejcoOnpzHelperService.compareArrayOfObjects(this.tabs, tabs)) {
-            this.tabs = tabs;
+            this.tabs = tabs.sort((a, b) => {
+                const textA = a.caption.toUpperCase();
+                const textB = b.caption.toUpperCase();
+                return textA.localeCompare(textB);
+            });
         }
         this.data.data = ref.data;
     }
