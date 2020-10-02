@@ -322,10 +322,10 @@ export const WIDGETS_LAZY = {
                 );
         },
         module: 'OzsmResourcesCircleDiagramModule',
-        itemCols: 40,
-        itemRows: 3,
-        minItemCols: 40,
-        minItemRows: 3,
+        itemCols: 38,
+        itemRows: 4,
+        minItemCols: 38,
+        minItemRows: 4,
         preview: 'default'
     },
     // #endregion OZSM
@@ -932,10 +932,10 @@ export const WIDGETS_LAZY = {
                 );
         },
         module: 'OzsmCirclePlanningDiagramModule',
-        itemCols: 40,
-        itemRows: 7,
-        minItemCols: 40,
-        minItemRows: 7,
+        itemCols: 38,
+        itemRows: 6,
+        minItemCols: 38,
+        minItemRows: 6,
         preview: 'default'
     },
 
@@ -959,9 +959,9 @@ export const WIDGETS_LAZY = {
         },
         module: 'OzsmScenariosModule',
         itemCols: 11,
-        itemRows: 6,
+        itemRows: 7,
         minItemCols: 11,
-        minItemRows: 6,
+        minItemRows: 7,
         preview: 'default'
     },
 
@@ -970,9 +970,9 @@ export const WIDGETS_LAZY = {
             return await import('src/app/widgets/OZSM/ozsm-monitoring-main/ozsm-monitoring-main.module');
         },
         module: 'OzsmMonitoringMainModule',
-        itemCols: 40,
+        itemCols: 38,
         itemRows: 20,
-        minItemCols: 40,
+        minItemCols: 38,
         minItemRows: 20,
         preview: 'default'
     },
@@ -984,10 +984,10 @@ export const WIDGETS_LAZY = {
                 );
         },
         module: 'OzsmPlanningMainModule',
-        itemCols: 40,
-        itemRows: 20,
-        minItemCols: 40,
-        minItemRows: 20,
+        itemCols: 38,
+        itemRows: 19,
+        minItemCols: 38,
+        minItemRows: 19,
         preview: 'default',
     },
 
