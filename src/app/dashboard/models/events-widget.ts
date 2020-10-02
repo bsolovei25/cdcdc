@@ -69,11 +69,35 @@ export interface IEventsWidgetNotification {
     deviationData?: IEventDeviationData;
     asusEvent?: IEventAsus;
     shiftPassEvent?: IEventShiftPass;
-    externalId?: number;
+    ejsData?: IEventsEjs;
+    externalId?:
+        number;
     externalCode?: string; // код внешней системы (ID в Системе-источник)
     externalDate?: Date; // дата регистрации во внешней системе
     cdData?: IEventCd;
     productionTasks?: IEventProductionTask;
+}
+
+export interface IEventsEjs {
+    ejsFailCodeChr: string;
+    ejsDetaDateAndTimeDt: Date;
+    ejsDeteMethChr: string;
+    ejsStopReduce: string;
+    ejsEquiIdChr: string;
+    ejsEquiChr: string;
+    ejsFuncLocaChr: string;
+    ejsEnerNotiCommTx: string;
+    ejsEnerNotiFlg: boolean;
+    ejsAutoServNotiCommTx: string;
+    ejsAutoServNotiFlg: boolean;
+    ejsDateOfCreaDt: Date;
+    ejsDateOfUpdaDt: Date;
+    ejsEquiChrEO: string;
+    ejsFuncLocaDescChr: string;
+    ejsStopReduceTM: string;
+    ejsOperInitCommTx: string;
+    ejsMitiConsWorkTx: string;
+    ejsNameOfOperChr: string;
 }
 
 export interface IEventProductionTask {
