@@ -67,7 +67,7 @@ export class AstueOnpzMultiChartComponent implements OnInit, OnChanges, OnDestro
 
     private readonly padding: { left: number; right: number; top: number; bottom: number } = {
         left: 0,
-        right: 30,
+        right: 1,
         top: 120,
         bottom: 40,
     };
