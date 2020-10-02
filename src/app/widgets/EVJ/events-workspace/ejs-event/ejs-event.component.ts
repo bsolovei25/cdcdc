@@ -39,5 +39,10 @@ export class EjsEventComponent implements OnInit, OnDestroy {
         this.ewService.setDeadlineToEvent(date);
     }
 
+    onClickEjs(): void {
+        window.open('http://spb99-t-merap01/meridium/');
+        this.ewService.goBackEvent();
+    }
+
 
 }
