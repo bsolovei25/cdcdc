@@ -12,6 +12,14 @@ import { fillDataShape } from '@shared/functions/common-functions';
 export class AstueOnpzPlanningCardComponent implements OnChanges, OnInit {
     @Input() private data: IPlanningChart;
     @Input() color: number = 1;
+    public scaleCounter: number = 1;
+    set scale(isMinus: boolean) {
+        let counter = this.scaleCounter + (+isMinus || -1);
+        if (counter < 0) {
+            counter = 0;
+        }
+        this.scaleCounter = counter;
+    }
 
     public transformedData: IPlanningChart;
 
