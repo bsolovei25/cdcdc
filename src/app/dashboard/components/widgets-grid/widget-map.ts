@@ -907,9 +907,9 @@ export const WIDGETS_LAZY = {
         },
         module: 'OzsmDiagramsWidgetModule',
         itemCols: 12,
-        itemRows: 22,
+        itemRows: 24,
         minItemCols: 12,
-        minItemRows: 22,
+        minItemRows: 24,
         // preview: 'ozsm-diagrams',
     },
     'ozsm-main-indicators': {
