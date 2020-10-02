@@ -383,6 +383,11 @@ export class AstueOnpzMultiChartComponent implements OnInit, OnChanges, OnDestro
 
         const translateX: string = `translate(0,${this.graphMaxY - this.padding.bottom})`;
         drawLabels('axisX', translateX);
+        this.svg.selectAll('g.axisX g.tick')._groups[0].forEach((g, idx) => {
+            if (idx % 2) {
+                g.remove();
+            }
+        });
     }
 
     private drawAxisYLabels(): void {
@@ -530,7 +535,11 @@ export class AstueOnpzMultiChartComponent implements OnInit, OnChanges, OnDestro
         axisG.selectAll('g.tick line').remove();
     }
 
+    // TODO clear on currentDates
     private drawFutureRect(): void {
+        if (!!this.currentDates) {
+            return;
+        }
         const values = [];
         let plan: IChartMini;
         let fact: IChartMini;
