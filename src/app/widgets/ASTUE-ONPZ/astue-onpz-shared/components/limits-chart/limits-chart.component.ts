@@ -48,8 +48,6 @@ export class LimitsChartComponent implements OnChanges {
 
     private static DELTA_CF: number = 0.1;
 
-    private readonly topMargin: number = 25;
-
     get currentDates(): IDatesInterval {
         return this.widgetService.currentDates$.getValue();
     }
@@ -165,7 +163,7 @@ export class LimitsChartComponent implements OnChanges {
             .domain(domainValues)
             .range(rangeY);
 
-        // TODO add time format
+        // TODO add time format ++
         if (!!this.currentDates) {
             this.axis.axisX = d3
                 .axisBottom(this.scaleFuncs.x)
@@ -183,7 +181,8 @@ export class LimitsChartComponent implements OnChanges {
         this.axis.axisY = d3
             .axisLeft(this.scaleFuncs.y)
             .ticks(5)
-            .tickSize(0);
+            .tickSize(0)
+            .tickFormat(d3.format('d'));
     }
 
     private transformData(): void {
@@ -232,8 +231,6 @@ export class LimitsChartComponent implements OnChanges {
                 .y0((item: IChartD3) => item.y)
                 .y1(this.padding.top)
                 .curve(curve);
-
-            const opacity: number = 1;
 
             this.svg
                 .append('path')
@@ -359,6 +356,9 @@ export class LimitsChartComponent implements OnChanges {
     }
 
     private drawFutureRect(): void {
+        if (!!this.currentDates) {
+            return;
+        }
         const fact = this.chartData.find((chart) => chart.graphType === 'fact')?.graph ?? [];
         const x = fact[fact.length - 1].x;
         const y = this.padding.top;

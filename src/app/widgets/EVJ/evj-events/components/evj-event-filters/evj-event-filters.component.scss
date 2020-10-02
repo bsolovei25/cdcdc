@@ -33,6 +33,7 @@
       &:hover {
         background-color: var(--color-bg-sub-workflow);
       }
+
       &:active {
         background-color: var(--color-bg-btn);
       }
@@ -58,7 +59,7 @@
       margin-left: 10px;
 
       &::placeholder {
-        color: var(--color-border-main-transparrent);
+        color: var(--color-aps-button-color);
       }
     }
 
@@ -73,6 +74,7 @@
     //  }
     //}
   }
+
 }
 
 
@@ -124,5 +126,20 @@
     .mat-select-arrow-wrapper {
       padding: 7px 14px;
     }
+
+    .mat-form-field-appearance-legacy.mat-form-field-can-float.mat-form-field-should-float
+    .mat-form-field-label, .mat-form-field-appearance-legacy.mat-form-field-can-float
+    .mat-input-server:focus + .mat-form-field-label-wrapper .mat-form-field-label {
+      display: none;
+    }
+
+    .mat-form-field-appearance-legacy .mat-form-field-label {
+      color: var(--color-aps-button-color);
+      font-size: 13px;
+      margin-left: 12px;
+      margin-top: 4px;
+    }
   }
 }
+
+

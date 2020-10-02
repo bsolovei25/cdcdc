@@ -44,7 +44,6 @@ export class AstueOnpzProductCardComponent extends WidgetPlatform implements OnI
 
     private async getMockData(): Promise<void> {
         const ref = await this.http.get<IAstueProductChart>('assets/mock/ASTUE-ONPZ/product-charts.mock.json').toPromise();
-        console.log(fillDataShape(ref));
         setTimeout(() => this.dataHandler(ref), 5000);
     }
 
@@ -68,5 +67,9 @@ export class AstueOnpzProductCardComponent extends WidgetPlatform implements OnI
         this.data?.labels?.forEach((x) =>
             x.value = x?.type === 'economy' || x?.type === 'exceed'
                 ? Math.abs(x?.value ?? 0) : x?.value ?? 0);
+    }
+
+    ngOnDestroy(): void {
+        super.ngOnDestroy();
     }
 }

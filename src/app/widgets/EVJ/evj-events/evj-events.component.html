@@ -31,14 +31,17 @@
     (touchstart)="$event.stopPropagation()"
   >
     <div class="cd-events">
-      <evj-evj-event-filters></evj-evj-event-filters>
+      <evj-evj-event-filters (outPriority)="priorityOfFilter($event)"
+                             (outUnits)="unitsOfFilter($event)"
+                             (description)="searchFilter($event)"></evj-evj-event-filters>
       <div
         class="notifications"
         #notifications
         [ngClass]="widgetIsVideoWall ? 'notifications--display-wall' : 'notifications--display-standart'"
       >
         <cdk-virtual-scroll-viewport
-          [itemSize]="isList ? 180 : 111"
+          [itemSize]="isList ? null : 111"
+          autosize
           class="scroll-bar"
           [ngClass]="isList ? 'notifications__block__list' : 'notifications__list'"
           (scroll)="scrollHandler($event)"
@@ -50,6 +53,8 @@
               (cardClick)="eventClick($event)"
               [cardActiveId]="selectedId || eventOverlayId"
               (cardDeleteClick)="deleteClick($event)"
+              [expandedElement]="expandedElement"
+              (selectionExpandedElement)="toggle($event)"
             >
             </evj-evj-event-card>
           </ng-container>
@@ -81,8 +86,10 @@
               <evj-evj-event-categories
                 class="categories__item"
                 [data]="c"
+                [subCategoriesSelected]="subCategoriesSelected"
                 (categoryClick)="onCategoryClick($event)"
                 (categoryDeleteClick)="deleteClick($event)"
+                (toggleSubCategory)="toggleSubcategory($event)"
               >
               </evj-evj-event-categories>
             </ng-container>

@@ -5,7 +5,7 @@ import {
     EventEmitter,
     Injector,
     Input,
-    ChangeDetectorRef, AfterViewInit, AfterContentChecked
+    ChangeDetectorRef, AfterViewInit, AfterContentChecked, OnDestroy, Type
 } from '@angular/core';
 import { WidgetService } from '../../services/widget.service';
 import { UserSettingsService } from '../../services/user-settings.service';
@@ -14,6 +14,7 @@ import { Subscription, BehaviorSubject } from 'rxjs';
 import { WIDGETS } from '../widgets-grid/widget-map';
 import { IWidget } from '../../models/widget.model';
 import { trigger, transition, animate, style } from '@angular/animations';
+import { WidgetPlatform } from '../../models/widget-platform';
 
 @Component({
     selector: 'evj-widget-panel',
@@ -28,8 +29,8 @@ import { trigger, transition, animate, style } from '@angular/animations';
         ])
     ]
 })
-export class WidgetPanelComponent implements OnInit, AfterContentChecked {
-    public readonly WIDGETS = WIDGETS;
+export class WidgetPanelComponent implements OnInit, AfterContentChecked, OnDestroy {
+    public readonly WIDGETS: {[key: string]: Type<unknown>} = WIDGETS;
     public gridWidget: boolean = true;
     public fixWidget: boolean = true;
 
@@ -40,7 +41,7 @@ export class WidgetPanelComponent implements OnInit, AfterContentChecked {
 
     private claimSettingsWidgets: EnumClaimWidgets[] = [];
     public claimSettingsScreens: EnumClaimScreens[] = [];
-    EnumClaimScreens = EnumClaimScreens;
+    EnumClaimScreens: typeof EnumClaimScreens = EnumClaimScreens;
 
     search: string = '';
     filters: string[] = [];
@@ -53,7 +54,6 @@ export class WidgetPanelComponent implements OnInit, AfterContentChecked {
     }
 
     @Output() toggleClick: EventEmitter<string> = new EventEmitter<string>();
-
     @Output() swap: EventEmitter<boolean> = new EventEmitter<boolean>();
     @Output() grid: EventEmitter<boolean> = new EventEmitter<boolean>();
 
@@ -96,13 +96,15 @@ export class WidgetPanelComponent implements OnInit, AfterContentChecked {
         this.chDet.detectChanges();
     }
 
-    async loadItem(): Promise<void> {
+    ngOnDestroy(): void {
+        this.subscriptions.forEach((x) => x.unsubscribe());
+        this.subscriptions = null;
     }
 
     dragStartHandler(event: DragEvent, item: string): void {
         event.dataTransfer.setData('text/plain', item);
         event.dataTransfer.dropEffect = 'copy';
-        this.toggleClick.emit('widgets');
+        this.toggleClick.emit('widgets'); // close panel on start drag
     }
 
     public dataById(item: IWidget): string {
@@ -204,5 +206,5 @@ export class WidgetPanelComponent implements OnInit, AfterContentChecked {
             ],
             parent: this.injector
         });
-    };
+    }
 }

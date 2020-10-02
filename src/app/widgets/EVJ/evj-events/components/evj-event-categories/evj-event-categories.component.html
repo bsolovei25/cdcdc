@@ -1,11 +1,15 @@
 <ng-template cdk-portal #overlayTemplate="cdkPortal">
-  <div class="overlay-container mat-elevation-z5">
-    <ng-container *ngFor="let item of subCategory">
+  <div class="overlay-container mat-elevation-z5"
+       (mouseenter)="resetSetTimeout()"
+       (mouseleave)="closeOverlay()">
+    <ng-container *ngFor="let item of data?.subCategories">
       <div class="item">
         <div class="item__slide">
-          <mat-slide-toggle disableRipple="true"></mat-slide-toggle>
+          <mat-slide-toggle [checked]="subCategoriesSelected.isSelected(item.id)"
+                            (toggleChange)="toggle(item.id)" disableRipple="true"></mat-slide-toggle>
         </div>
         <div class="item__text" [class.item__text_disabled]>
+          {{ item.description }}
         </div>
         <div class="item__btn">
           <button>В систему источник</button>
@@ -17,7 +21,10 @@
 <div class="categories">
   <div class="categories__item"
        [class.categories__item--active]="data?.isActive"
-       (click)="onCLickItem(data)" cdkOverlayOrigin>
+       (click)="onCLickItem(data)" cdkOverlayOrigin matRipple
+       (mouseenter)="openOverlay()"
+       (mouseleave)="closeOverlay()"
+       [matRippleColor]="'white'">
     <div class="categories__item__name">{{data?.name}}</div>
     <div class="categories__item__footer">
       <div class="categories__item__footer__icon">
@@ -35,6 +42,8 @@
   </div>
   <div class="categories__link">
     <button
+      matRipple
+      [matRippleColor]="'white'"
       class="categories__link__btn"
       [disabled]="data?.url === '#'"
       (click)="onClickUrl($event, data?.url)"
