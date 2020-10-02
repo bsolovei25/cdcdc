@@ -15,6 +15,7 @@
       <!--      </div>-->
       <div class="event-mat-select">
         <mat-form-field>
+          <mat-label>Установка</mat-label>
           <mat-select panelClass="mat-balance-select"
                       [formControl]="unitsSelect"
                       (selectionChange)="onUnitsSelect($event)">
@@ -26,6 +27,7 @@
       </div>
       <div class="event-mat-select">
         <mat-form-field>
+          <mat-label>Приоритет</mat-label>
           <mat-select panelClass="mat-balance-select"
                       [formControl]="prioritySelect"
                       (selectionChange)="onPrioritySelect($event)">
@@ -35,7 +37,9 @@
           </mat-select>
         </mat-form-field>
       </div>
-      <button (click)="resetFilters()">
+      <button matRipple
+              [matRippleColor]="'white'"
+              (click)="resetFilters()">
         Сбросить фильтры
       </button>
     </div>

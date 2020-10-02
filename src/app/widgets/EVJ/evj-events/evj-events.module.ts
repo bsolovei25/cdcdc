@@ -22,6 +22,7 @@ import { PortalModule } from '@angular/cdk/portal';
 import { PlatformModule } from '@angular/cdk/platform';
 import { OverlayModule } from '@angular/cdk/overlay';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatRippleModule } from '@angular/material/core';
 
 @NgModule({
     declarations: [EvjEventsComponent, EvjEventCardComponent, EvjEventCategoriesComponent, EvjEventFiltersComponent],
@@ -45,6 +46,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
         MatSelectModule,
         ReactiveFormsModule,
         MatSlideToggleModule,
+        MatRippleModule
     ],
     providers: []
 })
