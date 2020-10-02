@@ -21,7 +21,6 @@ export class AstueMnpzEfficiencyComponent extends WidgetPlatform implements OnIn
     public isInitialDataShow: boolean = true;
 
     public data: IAsEfProduct[] = [];
-
     public units: IAsEfUnitNew[] = [];
 
     public selection: SelectionModel<IAsEfProduct> = new SelectionModel<IAsEfProduct>();

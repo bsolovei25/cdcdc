@@ -2,7 +2,6 @@ import { IEventsWidgetNotification } from './../../models/events-widget';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { WidgetService } from '../../services/widget.service';
-import { log } from 'util';
 
 @Component({
     selector: 'evj-indicator-diagram',
@@ -47,7 +46,6 @@ export class IndicatorDiagramComponent implements OnInit, OnDestroy {
                         this.widgetService.getWidgetLiveDataFromWS(this.widgetId, 'evj-header')
                             .subscribe(value => {
                                 this.data = value;
-                                console.log(this.data);
                             })
                     );
                 }

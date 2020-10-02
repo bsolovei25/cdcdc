@@ -253,7 +253,6 @@ export class AstueEfficiencyGraphDisplayComponent extends LineChartPlatform<IPro
         this.subs.push(
             this.AsEfService.selection$.subscribe(() => {
                 const flow = this.AsEfService.currentFlow;
-
                 if (flow) {
                     this.labels = {
                         periodCounter: {

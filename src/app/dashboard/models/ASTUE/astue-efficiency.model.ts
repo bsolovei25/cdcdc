@@ -21,7 +21,6 @@ export interface IAsEfUnitNew extends IAsEfTable {
 
 export interface IAsEfFlow extends IAsEfTable {
     engUnits: string;
-    astueFlowGraphs: IProductionTrend[];
     currentDeviation: IAsEfLabel;
     currentValue: IAsEfLabel;
     currentPlanFact: IAsEfLabel;
@@ -30,6 +29,7 @@ export interface IAsEfFlow extends IAsEfTable {
     periodCounter: IAsEfLabel;
     periodPlanPlan: IAsEfLabel;
     periodPlanFact: IAsEfLabel;
+    astueFlowGraphs: IProductionTrend[];
 }
 
 export interface IAsEfLabel {
@@ -84,12 +84,13 @@ export interface IAsEfUnit extends IAsEfTempl {
 
 export interface IAsEfInitialDataBlock extends IAsEfTempl {
     value?: number;
-    status?: string;
-    data: IAsEfInitialDataRow[];
+    tag: string;
+    rows: IAsEfInitialDataRow[];
 }
 
 export interface IAsEfInitialDataRow extends IAsEfTempl {
     value: number;
+    tag: string;
 }
 
 export interface IAsEfTableBlock extends IAsEfTempl {

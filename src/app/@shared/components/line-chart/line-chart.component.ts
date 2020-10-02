@@ -5,13 +5,13 @@ import {
     OnChanges,
     HostListener,
     Input,
-    OnInit,
+    OnInit
 } from '@angular/core';
 import * as d3Selection from 'd3-selection';
 import * as d3 from 'd3';
 import {
     IProductionTrend,
-    ProductionTrendType,
+    ProductionTrendType
 } from '../../../dashboard/models/production-trends.model';
 import { IChartD3, IChartMini, IPointTank } from '../../models/smart-scroll.model';
 import { ChartStyleType, ChartStyle, IChartStyle } from '../../models/line-chart-style.model';
@@ -21,7 +21,7 @@ import { setLimits } from '../../functions/set-limits.function';
 @Component({
     selector: 'evj-line-chart-shared',
     templateUrl: './line-chart.component.html',
-    styleUrls: ['./line-chart.component.scss'],
+    styleUrls: ['./line-chart.component.scss']
 })
 export class LineChartComponent implements OnChanges, OnInit {
     @Input() public data: IProductionTrend[] = [];
@@ -38,10 +38,10 @@ export class LineChartComponent implements OnChanges, OnInit {
 
     private readonly chartStroke: { [key: string]: string } = {
         plan: '#ffffff',
-        fact: '#3fa9f5',
+        fact: '#3fa9f5'
     };
 
-    private svg = null;
+    private svg: any = null;
 
     private chartData: {
         graphType: ProductionTrendType;
@@ -63,10 +63,11 @@ export class LineChartComponent implements OnChanges, OnInit {
         top: 20,
         right: 65,
         bottom: 30,
-        left: 65,
+        left: 65
     };
 
-    constructor() {}
+    constructor() {
+    }
 
     public ngOnChanges(): void {
         setTimeout(() => this.graphInit(), 0);
@@ -173,13 +174,13 @@ export class LineChartComponent implements OnChanges, OnInit {
         } = {
             graphType: chart.graphType,
             graphStyle: chart.graphStyle,
-            graph: [],
+            graph: []
         };
 
         chart.graph.forEach((item) => {
             chartData.graph.push({
                 x: this.scaleFuncs.x(item.timeStamp),
-                y: this.scaleFuncs.y(item.value),
+                y: this.scaleFuncs.y(item.value)
             });
         });
 
@@ -354,7 +355,7 @@ export class LineChartComponent implements OnChanges, OnInit {
                 'среда',
                 'четверг',
                 'пятница',
-                'суббота',
+                'суббота'
             ],
             shortDays: ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'],
             months: [
@@ -369,7 +370,7 @@ export class LineChartComponent implements OnChanges, OnInit {
                 'Сентябрь',
                 'Октябрь',
                 'Ноябрь',
-                'Декабрь',
+                'Декабрь'
             ],
             shortMonths: [
                 'Янв',
@@ -383,8 +384,8 @@ export class LineChartComponent implements OnChanges, OnInit {
                 'Сен',
                 'Окт',
                 'Ноя',
-                'Дек',
-            ],
+                'Дек'
+            ]
         });
 
         const formatMillisecond = locale.format('.%L');
@@ -400,17 +401,17 @@ export class LineChartComponent implements OnChanges, OnInit {
             (d3.timeSecond(date) < date
                 ? formatMillisecond
                 : d3.timeMinute(date) < date
-                ? formatSecond
-                : d3.timeHour(date) < date
-                ? formatMinute
-                : d3.timeDay(date) < date
-                ? formatHour
-                : d3.timeMonth(date) < date
-                ? d3.timeWeek(date) < date
-                    ? formatDay
-                    : formatWeek
-                : d3.timeYear(date) < date
-                ? formatMonth
-                : formatYear)(date);
+                    ? formatSecond
+                    : d3.timeHour(date) < date
+                        ? formatMinute
+                        : d3.timeDay(date) < date
+                            ? formatHour
+                            : d3.timeMonth(date) < date
+                                ? d3.timeWeek(date) < date
+                                    ? formatDay
+                                    : formatWeek
+                                : d3.timeYear(date) < date
+                                    ? formatMonth
+                                    : formatYear)(date);
     }
 }
