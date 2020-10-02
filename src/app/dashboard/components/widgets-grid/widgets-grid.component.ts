@@ -47,7 +47,7 @@ export class WidgetsGridComponent implements OnInit, OnDestroy {
     // To fix template errors;
     private isUserAction: boolean = false;
 
-    private sizeTimeout: any;
+    private sizeTimeout: ReturnType<typeof setTimeout>;
 
     public ColWidth: number;
     public RowHeight: number;
@@ -71,7 +71,7 @@ export class WidgetsGridComponent implements OnInit, OnDestroy {
                 if (value) {
                     this.claimSettings = value;
                     this.options = null;
-                    this.loaditem();
+                    this.loadItem();
                 }
             })
         );
@@ -83,7 +83,7 @@ export class WidgetsGridComponent implements OnInit, OnDestroy {
         });
     }
 
-    private loaditem(): void {
+    private loadItem(): void {
         this.options = {
             gridType: GridType.Fixed,
             displayGrid: DisplayGrid.None,
@@ -211,8 +211,7 @@ export class WidgetsGridComponent implements OnInit, OnDestroy {
             return;
         }
         this.isUserAction = true;
-        const dataTrasfer = new DataTransfer();
-        e.currentTarget.dispatchEvent(new DragEvent('dragstart', { dataTransfer: dataTrasfer }));
+        e.currentTarget.dispatchEvent(new DragEvent('dragstart', { dataTransfer: new DataTransfer() }));
     }
 
     public resizeStop(
@@ -232,15 +231,11 @@ export class WidgetsGridComponent implements OnInit, OnDestroy {
 
     public dragStop(item: GridsterItem, e: MouseEvent): void {
         setTimeout(() => this.isUserAction = false, 1000);
-        // if (!e) return;
-        // const dataTrasfer = new DataTransfer();
-        // e.currentTarget.dispatchEvent(new DragEvent('dragstop', { dataTransfer: dataTrasfer }));
-        // this.widgetService.draggingItem = null;
     }
 
-    public dragStartHandler(ev, i): void {
-        ev.dataTransfer.setData('text/plain', i);
-        ev.dataTransfer.dropEffect = 'move';
+    public dragStartHandler(e: DragEvent, i): void {
+        e.dataTransfer.setData('text/plain', i);
+        e.dataTransfer.dropEffect = 'move';
     }
 
     public changedOptions(): void {

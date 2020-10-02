@@ -28,7 +28,7 @@ export class DeviationLimitsChartComponent implements OnChanges {
         graph: IChartD3[];
     }[] = [];
 
-    private svg;
+    private svg: d3Selection;
 
     private graphMaxX: number = 0;
     private graphMaxY: number = 0;
@@ -134,7 +134,6 @@ export class DeviationLimitsChartComponent implements OnChanges {
 
     // TODO delete fillDataArray ++
     private normalizeData(): void {
-        this.data = [this.data.find((x) => x.graphType === 'fact')];
         if (this.currentDates) {
             // TODO add some mb
         } else {
@@ -148,7 +147,7 @@ export class DeviationLimitsChartComponent implements OnChanges {
             fillDataArray(this.data, true, true, this.dateMin.getTime(), this.dateMax.getTime());
         }
         this.data.push({
-            graphType: 'higherBorder', // TODO change to plan
+            graphType: 'plan', // TODO change to plan
             graph: [{value: 0, timeStamp: this.dateMin}, {value: 0, timeStamp: this.dateMax}]
         });
     }
@@ -192,7 +191,8 @@ export class DeviationLimitsChartComponent implements OnChanges {
         this.axis.axisY = d3
             .axisLeft(this.scaleFuncs.y)
             .ticks(5)
-            .tickSize(0);
+            .tickSize(0)
+            .tickFormat(d3.format('d'));
     }
 
     private transformData(): void {
@@ -221,7 +221,9 @@ export class DeviationLimitsChartComponent implements OnChanges {
 
     private drawChart(): void {
         const chartFact = this.chartData.find((x) => x.graphType === 'fact');
-        const chartPlan = this.chartData.find((x) => x.graphType === 'higherBorder');
+        const chartPlan = this.chartData.find((x) => x.graphType === 'plan');
+        const higherBorder = this.chartData.find((x) => x.graphType === 'higherBorder');
+        const lowerBorder = this.chartData.find((x) => x.graphType === 'lowerBorder');
         const curve = this.isSpline ? d3.curveBasis : d3.curveLinear;
 
         const line = d3
@@ -251,6 +253,16 @@ export class DeviationLimitsChartComponent implements OnChanges {
             .append('path')
             .attr('class', `graph-line-plan`)
             .attr('d', line(chartPlan.graph));
+
+        this.svg
+            .append('path')
+            .attr('class', `graph-line-plan`)
+            .attr('d', line(higherBorder?.graph));
+
+        this.svg
+            .append('path')
+            .attr('class', `graph-line-plan`)
+            .attr('d', line(lowerBorder?.graph));
 
         const areaFn = this.isLowerEconomy ? areaBottom : areaTop;
         this.svg
@@ -302,7 +314,6 @@ export class DeviationLimitsChartComponent implements OnChanges {
                     .axisLeft(this.scaleFuncs.y)
                     .ticks(5)
                     .tickSize(-(this.graphMaxX - this.padding.left - this.padding.right))
-                    .tickFormat('')
             )
             .style('color', '#272A38');
     }
@@ -330,7 +341,7 @@ export class DeviationLimitsChartComponent implements OnChanges {
 
     // TODO disable to historical ++
     private drawFutureRect(): void {
-        if (this.currentDates) {
+        if (!!this.currentDates) {
             return;
         }
         const fact = this.chartData.find((chart) => chart.graphType === 'fact')?.graph ?? [];
