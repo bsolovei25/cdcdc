@@ -5,7 +5,7 @@
            (mousedown)="$event.stopPropagation()"
            (touchstart)="$event.stopPropagation()"
            (click)="onPredictClick()"
-           [style]="{ cursor: this.uniqId ? 'not-allowed' : 'pointer' }"
+           [style]="{ cursor: !!this.uniqId ? 'pointer' : 'not-allowed' }"
            matRipple
            [matRippleColor]="'black'">
         <svg-icon class="header__icon"

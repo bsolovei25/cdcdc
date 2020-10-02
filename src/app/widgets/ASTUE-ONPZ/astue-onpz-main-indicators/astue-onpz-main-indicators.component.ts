@@ -62,7 +62,7 @@ export class AstueOnpzMainIndicatorsComponent extends WidgetPlatform implements 
     }
 
     public async onPredictClick(): Promise<void> {
-        if (this.unitId) {
+        if (!!this.unitId) {
             const response = await this.astueOnpzService.predict(this.unitId);
         }
     }
