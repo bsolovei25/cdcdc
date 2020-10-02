@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { IPointDiagramElement } from '../../../models/point-diagram';
+import { IPointDiagramElement } from '../../../../dashboard/models/point-diagram';
 
 @Component({
     selector: 'evj-one-column',

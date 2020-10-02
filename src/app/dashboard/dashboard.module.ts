@@ -27,8 +27,6 @@ import { TruncatedPieSFirstComponent } from './widgets/truncated-pie-first/trunc
 import { TruncatedPieSIconComponent } from './widgets/truncated-pie-icon/truncated-pie-s-icon/truncated-pie-s-icon.component';
 import { TruncatedPieIconComponent } from './widgets/truncated-pie-icon/truncated-pie-icon/truncated-pie-icon.component';
 import { PieDiagramComponent } from './widgets/truncated-diagram-traffic-light/components/pie-diagram/pie-diagram.component';
-import { PointDiagramComponent } from './widgets/point-diagram/point-diagram.component';
-import { OneColumnComponent } from './widgets/point-diagram/one-column/one-column.component';
 import { SuspenseMachineComponent } from './widgets/suspense-machine/suspense-machine.component';
 import { EnterpriseMapComponent } from './widgets/map-enterprise/enterprise-map.component';
 import { DetailedLineDiagramComponent } from './components/detailed-line-diagram/detailed-line-diagram.component';
@@ -229,8 +227,6 @@ import { MatBadgeModule } from '@angular/material/badge';
         UserInfoComponent,
         WidgetPiesComponent,
         WidgetsPieComponent,
-        PointDiagramComponent,
-        OneColumnComponent,
         TruncatedPieFirstComponent,
         TruncatedPieSFirstComponent,
         TruncatedPieSIconComponent,
@@ -401,7 +397,6 @@ import { MatBadgeModule } from '@angular/material/badge';
         TruncatedPieSFirstComponent,
         TruncatedPieSIconComponent,
         TruncatedDiagramTrafficLightComponent,
-        PointDiagramComponent,
         SuspenseMachineComponent,
         CircleDiagramComponent,
         MapEcologyComponent,
@@ -451,7 +446,7 @@ import { MatBadgeModule } from '@angular/material/badge';
         PanelComponent,
         AdminShiftScheduleOldComponent
     ],
-    exports: [HomeComponent, PerformanceBarComponent, MatRippleModule],
+    exports: [HomeComponent, PerformanceBarComponent, PowIndexPipe],
     imports: [
         CommonModule,
         SharedModule,

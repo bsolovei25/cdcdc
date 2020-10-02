@@ -1,8 +1,8 @@
 import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
-import { WidgetService } from '../../services/widget.service';
+import { WidgetService } from '../../../dashboard/services/widget.service';
 import { Subscription } from 'rxjs';
-import { IPointDiagramElement } from '../../models/point-diagram';
-import { WidgetPlatform } from '../../models/widget-platform';
+import { IPointDiagramElement } from '../../../dashboard/models/point-diagram';
+import { WidgetPlatform } from '../../../dashboard/models/widget-platform';
 
 @Component({
     selector: 'evj-point-diagram',

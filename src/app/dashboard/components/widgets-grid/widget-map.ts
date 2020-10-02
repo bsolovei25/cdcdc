@@ -4,7 +4,6 @@ import { EnergeticsComponent } from '../../widgets/energetics/energetics.compone
 import { WidgetPiesComponent } from '../../widgets/widgets-pie/widget-pies/widget-pies.component';
 import { TruncatedPieSFirstComponent } from '../../widgets/truncated-pie-first/truncated-pie-s-first/truncated-pie-s-first.component';
 import { TruncatedPieSIconComponent } from '../../widgets/truncated-pie-icon/truncated-pie-s-icon/truncated-pie-s-icon.component';
-import { PointDiagramComponent } from '../../widgets/point-diagram/point-diagram.component';
 import { SuspenseMachineComponent } from '../../widgets/suspense-machine/suspense-machine.component';
 import { EnterpriseMapComponent } from '../../widgets/map-enterprise/enterprise-map.component';
 import { CircleDiagramComponent } from '../../widgets/circle-diagram/circle-diagram.component';
@@ -60,7 +59,6 @@ export const WIDGETS = {
     'truncated-diagram-percentage': TruncatedPieSFirstComponent,
     'truncated-diagram-traffic-light': TruncatedDiagramTrafficLightComponent,
     'truncated-diagram-counter': TruncatedPieSIconComponent,
-    'point-diagram': PointDiagramComponent,
     'industrial-pyramid': WidgetContainerComponent,
     'enterprise-map': EnterpriseMapComponent,
     'circle-diagram': CircleDiagramComponent,
@@ -173,6 +171,7 @@ export const WIDGETS = {
     'shift-accept': WidgetContainerComponent,
     'bar-chart': WidgetContainerComponent,
     'chain-map': WidgetContainerComponent,
+    'point-diagram': WidgetContainerComponent,
 };
 
 export const WIDGETS_LAZY = {
@@ -606,6 +605,17 @@ export const WIDGETS_LAZY = {
         minItemCols: 32,
         minItemRows: 20,
         preview: 'chain-map'
+    },
+    'point-diagram': {
+        import: async () => {
+            return await import('src/app/widgets/LCO/point-diagram/point-diagram.module');
+        },
+        module: 'PointDiagramModule',
+        itemCols: 19,
+        itemRows: 16,
+        minItemCols: 19,
+        minItemRows: 16,
+        preview: 'point-diagram'
     },
 
     //#endregion LCO
