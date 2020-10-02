@@ -14,8 +14,6 @@
 
     .header {
       &__btn {
-        cursor: pointer;
-
         font-size: 13px;
         color: var(--color-kpe-gaude-main);
 
@@ -47,7 +45,7 @@
     z-index: 1;
     position: relative;
 
-    width: 100%;
+    width: calc(100% - 5px);
     height: calc(100% - 40px);
 
     background-size: auto;
@@ -56,7 +54,6 @@
     .main-indicators {
       margin: 10px;
       margin-left: 15px;
-      overflow: auto;
       padding-right: 5px;
 
       &__table {
@@ -94,7 +91,7 @@
             border-bottom: 1px solid var(--color-aps-border-main);
 
             &__name {
-              min-width: 245px;
+              min-width: 230px;
               text-align: left;
               padding-left: 15px;
             }

@@ -16,6 +16,14 @@ export class AstueOnpzBigPlanningChartComponent extends WidgetPlatform
     public info: IPlanningChart;
     public data: IProductionTrend[] = [];
     colors: Map<string, number>;
+    public scaleCounter: number = 5;
+    set scale(isMinus: boolean) {
+        let counter = this.scaleCounter + (+isMinus || -1);
+        if (counter < 0) {
+            counter = 0;
+        }
+        this.scaleCounter = counter;
+    }
 
     constructor(
         protected widgetService: WidgetService,

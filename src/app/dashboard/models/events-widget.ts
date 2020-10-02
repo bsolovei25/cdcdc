@@ -2,6 +2,7 @@ import { LineChartData } from './line-chart';
 import { IGlobalClaim } from './admin-panel';
 import { IMessage } from '../../@shared/models/message.model';
 import { HttpHeaders } from '@angular/common/http';
+import { IUnits } from './admin-shift-schedule';
 
 export interface IEventsWidgetNotificationPreview {
     id: number;
@@ -26,6 +27,7 @@ export interface IEventsWidgetNotificationPreview {
     isAcknowledged?: boolean; // Квитировано
     shiftPassEstablishedFacts?: string;
     subCategory?: ISubcategory;
+    retrievalEvents: [];
 }
 
 export interface IEventsWidgetNotification {
@@ -67,11 +69,35 @@ export interface IEventsWidgetNotification {
     deviationData?: IEventDeviationData;
     asusEvent?: IEventAsus;
     shiftPassEvent?: IEventShiftPass;
-    externalId?: number;
+    ejsData?: IEventsEjs;
+    externalId?:
+        number;
     externalCode?: string; // код внешней системы (ID в Системе-источник)
     externalDate?: Date; // дата регистрации во внешней системе
     cdData?: IEventCd;
     productionTasks?: IEventProductionTask;
+}
+
+export interface IEventsEjs {
+    ejsFailCodeChr: string;
+    ejsDetaDateAndTimeDt: Date;
+    ejsDeteMethChr: string;
+    ejsStopReduce: string;
+    ejsEquiIdChr: string;
+    ejsEquiChr: string;
+    ejsFuncLocaChr: string;
+    ejsEnerNotiCommTx: string;
+    ejsEnerNotiFlg: boolean;
+    ejsAutoServNotiCommTx: string;
+    ejsAutoServNotiFlg: boolean;
+    ejsDateOfCreaDt: Date;
+    ejsDateOfUpdaDt: Date;
+    ejsEquiChrEO: string;
+    ejsFuncLocaDescChr: string;
+    ejsStopReduceTM: string;
+    ejsOperInitCommTx: string;
+    ejsMitiConsWorkTx: string;
+    ejsNameOfOperChr: string;
 }
 
 export interface IEventProductionTask {
@@ -271,6 +297,8 @@ export interface ISubcategory {
     name?: string;
     code?: string;
     description?: string;
+    parentCategory: EventsWidgetCategory;
+    parentCategoryId: number;
 }
 
 interface IEventStep {
@@ -358,6 +386,7 @@ export interface EventsWidgetCategory {
     url?: string;
 
     categoryType?: 'default' | 'ed';
+    subCategories?: ISubcategory[]; // only front
 }
 
 export interface EventsWidgetNotificationsCounter {
@@ -386,6 +415,9 @@ export interface IEventsWidgetOptions {
     isVideoWall?: boolean;
     sortType?: SortTypeEvents;
     categoriesType?: EventsWidgetOptionsCategoryType;
+    priority?: IPriority;
+    units?: IUnits;
+    subCategory?: number[];
 }
 
 export type EventsWidgetOptionsCategoryType = 'ed' | 'default';

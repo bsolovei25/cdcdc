@@ -318,10 +318,10 @@ export const WIDGETS_LAZY = {
                 );
         },
         module: 'OzsmResourcesCircleDiagramModule',
-        itemCols: 19,
-        itemRows: 5,
-        minItemCols: 19,
-        minItemRows: 5,
+        itemCols: 40,
+        itemRows: 3,
+        minItemCols: 40,
+        minItemRows: 3,
         preview: 'default'
     },
     // #endregion OZSM
@@ -943,10 +943,10 @@ export const WIDGETS_LAZY = {
                 );
         },
         module: 'OzsmLineDiagramsModule',
-        itemCols: 12,
-        itemRows: 7,
-        minItemCols: 12,
-        minItemRows: 7,
+        itemCols: 11,
+        itemRows: 10,
+        minItemCols: 11,
+        minItemRows: 10,
         preview: 'ozsm-line-diagrams'
     },
     'ozsm-diagrams': {
@@ -956,9 +956,9 @@ export const WIDGETS_LAZY = {
                 );
         },
         module: 'OzsmDiagramsWidgetModule',
-        itemCols: 13,
+        itemCols: 12,
         itemRows: 24,
-        minItemCols: 13,
+        minItemCols: 12,
         minItemRows: 24,
         // preview: 'ozsm-diagrams',
     },
@@ -969,10 +969,10 @@ export const WIDGETS_LAZY = {
                 );
         },
         module: 'OzsmMainIndicatorsModule',
-        itemCols: 12,
-        itemRows: 4,
-        minItemCols: 12,
-        minItemRows: 4,
+        itemCols: 11,
+        itemRows: 3,
+        minItemCols: 11,
+        minItemRows: 3,
         preview: 'default'
     },
     'ozsm-circle-planning-diagram': {
@@ -982,10 +982,10 @@ export const WIDGETS_LAZY = {
                 );
         },
         module: 'OzsmCirclePlanningDiagramModule',
-        itemCols: 25,
-        itemRows: 5,
-        minItemCols: 25,
-        minItemRows: 5,
+        itemCols: 40,
+        itemRows: 7,
+        minItemCols: 40,
+        minItemRows: 7,
         preview: 'default'
     },
 
@@ -996,9 +996,9 @@ export const WIDGETS_LAZY = {
             );
         },
         module: 'OzsmMainToggleModule',
-        itemCols: 10,
+        itemCols: 11,
         itemRows: 2,
-        minItemCols: 10,
+        minItemCols: 11,
         minItemRows: 2,
         preview: 'default',
     },
@@ -1008,10 +1008,10 @@ export const WIDGETS_LAZY = {
             return await import('src/app/widgets/OZSM/ozsm-scenarios/ozsm-scenarios.module');
         },
         module: 'OzsmScenariosModule',
-        itemCols: 15,
-        itemRows: 10,
-        minItemCols: 15,
-        minItemRows: 10,
+        itemCols: 11,
+        itemRows: 6,
+        minItemCols: 11,
+        minItemRows: 6,
         preview: 'default'
     },
 
@@ -1020,10 +1020,10 @@ export const WIDGETS_LAZY = {
             return await import('src/app/widgets/OZSM/ozsm-monitoring-main/ozsm-monitoring-main.module');
         },
         module: 'OzsmMonitoringMainModule',
-        itemCols: 15,
-        itemRows: 10,
-        minItemCols: 15,
-        minItemRows: 10,
+        itemCols: 40,
+        itemRows: 20,
+        minItemCols: 40,
+        minItemRows: 20,
         preview: 'default'
     },
 
@@ -1034,10 +1034,10 @@ export const WIDGETS_LAZY = {
                 );
         },
         module: 'OzsmPlanningMainModule',
-        itemCols: 10,
-        itemRows: 2,
-        minItemCols: 10,
-        minItemRows: 2,
+        itemCols: 40,
+        itemRows: 20,
+        minItemCols: 40,
+        minItemRows: 20,
         preview: 'default',
     },
 
