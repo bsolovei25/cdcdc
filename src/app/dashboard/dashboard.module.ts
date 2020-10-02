@@ -40,7 +40,6 @@ import { RingFactoryDiagramComponent } from './widgets/ring-factory-diagrams/rin
 import { RingSFactoryDiagramComponent } from './widgets/ring-factory-diagrams/ring-s-factory-diagram/ring-s-factory-diagram.component';
 import { CalendarPlanComponent } from './widgets/calendar-plan/calendar-plan.component';
 import { EcologySafetyComponent } from './widgets/ecology-safety/ecology-safety.component';
-import { ChainMapComponent } from './widgets/chain-map/chain-map.component';
 import { DispatcherScreenComponent } from './widgets/dispatcher-screen/dispatcher-screen.component';
 import { EnergeticsComponent } from './widgets/energetics/energetics.component';
 import { CircleDiagramComponent } from './widgets/circle-diagram/circle-diagram.component';
@@ -250,7 +249,6 @@ import { MatBadgeModule } from '@angular/material/badge';
         RingSFactoryDiagramComponent,
         CalendarPlanComponent,
         EcologySafetyComponent,
-        ChainMapComponent,
         DispatcherScreenComponent,
         EnergeticsComponent,
         DeviationsTableComponent,
@@ -415,7 +413,6 @@ import { MatBadgeModule } from '@angular/material/badge';
         RingFactoryDiagramComponent,
         EnergeticsComponent,
         RingSFactoryDiagramComponent,
-        ChainMapComponent,
         DispatcherScreenComponent,
         DeviationsTableComponent,
         TriggeringCriticalParametersComponent,

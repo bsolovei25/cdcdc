@@ -14,7 +14,6 @@ import { RingSFactoryDiagramComponent } from '../../widgets/ring-factory-diagram
 import { OperationEfficiencyComponent } from '../../widgets/operation-efficiency/operation-efficiency.component';
 import { EcologySafetyComponent } from '../../widgets/ecology-safety/ecology-safety.component';
 import { CalendarPlanComponent } from '../../widgets/calendar-plan/calendar-plan.component';
-import { ChainMapComponent } from '../../widgets/chain-map/chain-map.component';
 import { DispatcherScreenComponent } from '../../widgets/dispatcher-screen/dispatcher-screen.component';
 import { DeviationsTableComponent } from '../../widgets/deviations-table/deviations-table.component';
 import { TriggeringCriticalParametersComponent } from '../../widgets/triggering-critical-parameters/triggering-critical-parameters.component';
@@ -71,7 +70,6 @@ export const WIDGETS = {
     'ecology-safety': EcologySafetyComponent,
     'calendar-plan': CalendarPlanComponent,
     'ring-factory-diagram': RingSFactoryDiagramComponent,
-    'chain-map': ChainMapComponent,
     energetics: EnergeticsComponent,
     'dispatcher-screen': DispatcherScreenComponent,
     'table-data': SuspenseMachineComponent,
@@ -173,7 +171,8 @@ export const WIDGETS = {
     'ozsm-monitoring-main': WidgetContainerComponent,
     'shift-pass': WidgetContainerComponent,
     'shift-accept': WidgetContainerComponent,
-    'bar-chart': WidgetContainerComponent
+    'bar-chart': WidgetContainerComponent,
+    'chain-map': WidgetContainerComponent,
 };
 
 export const WIDGETS_LAZY = {
@@ -596,6 +595,17 @@ export const WIDGETS_LAZY = {
         minItemCols: 10,
         minItemRows: 10,
         preview: 'bar-chart'
+    },
+    'chain-map': {
+        import: async () => {
+            return await import('src/app/widgets/LCO/chain-map/chain-map.module');
+        },
+        module: 'ChainMapModule',
+        itemCols: 32,
+        itemRows: 20,
+        minItemCols: 32,
+        minItemRows: 20,
+        preview: 'chain-map'
     },
 
     //#endregion LCO

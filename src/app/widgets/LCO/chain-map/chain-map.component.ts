@@ -1,6 +1,6 @@
 import { Component, Inject, ElementRef, ViewChild, OnDestroy, OnInit } from '@angular/core';
-import { WidgetService } from '../../services/widget.service';
-import { WidgetPlatform } from '../../models/widget-platform';
+import { WidgetService } from '../../../dashboard/services/widget.service';
+import { WidgetPlatform } from '../../../dashboard/models/widget-platform';
 declare var d3: any;
 
 @Component({
@@ -247,13 +247,6 @@ export class ChainMapComponent extends WidgetPlatform implements OnInit, OnDestr
     public mass1;
     public mass2;
     public check: boolean = true;
-
-
-    public static itemCols: number = 32;
-    public static itemRows: number = 20;
-
-    public static minItemCols: number = 32;
-    public static minItemRows: number = 20;
 
     constructor(
         public widgetService: WidgetService,
