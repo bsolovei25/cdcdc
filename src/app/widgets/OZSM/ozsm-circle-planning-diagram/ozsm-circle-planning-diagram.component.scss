@@ -41,7 +41,7 @@
   display: flex;
   align-items: center;
   &__line {
-    height: 1.5px;
+    height: 1px;
     flex-grow: 1;
     min-width: 5px;
     background-color: var(--ozsm-color-marker-diagram);
