@@ -644,7 +644,6 @@ export class EvjEventsComponent extends WidgetPlatform implements OnInit, OnDest
             return;
         }
         const stats = await this.eventService.getStats(options);
-        console.log(stats);
         this.categories.forEach((c) => {
             switch (options.categoriesType) {
                 case 'default':
@@ -720,21 +719,18 @@ export class EvjEventsComponent extends WidgetPlatform implements OnInit, OnDest
     }
 
     priorityOfFilter(priority: IPriority): void {
-        console.log(priority);
         this.priority = priority;
         this.getData();
         this.getStats();
     }
 
     unitsOfFilter(units: IUnits): void {
-        console.log(units);
         this.units = units;
         this.getData();
         this.getStats();
     }
 
     searchFilter(search: string): void {
-        console.log(search);
         this.description = search;
         this.getData();
         this.getStats();

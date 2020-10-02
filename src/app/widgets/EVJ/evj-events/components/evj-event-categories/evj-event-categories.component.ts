@@ -71,7 +71,6 @@ export class EvjEventCategoriesComponent implements OnInit {
             this.timerHwnd = window.setTimeout(() => {
                 this.overlayRef?.dispose();
                 this.activeCategory = 0;
-                this.resetSetTimeout();
             }, 150);
         }
     }
