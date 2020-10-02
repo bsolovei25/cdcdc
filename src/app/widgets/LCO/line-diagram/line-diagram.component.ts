@@ -38,9 +38,17 @@ export class LineDiagramComponent extends WidgetPlatform implements OnInit, OnDe
     protected dataHandler(ref: ILineDiagramData): void {
         this.data = ref.items;
         this.data.map(value => {
+            const k1 = value.value < value.upperBound ? 1 : 0;
+            const k2 = 1 - k1;
+
             if (value.value > 0) {
-                value.percentFact = ((value.value - value.lowerLimit) /
-                    (value.upperLimit - value.lowerLimit) * this.percentPlan);
+                if (value.upperLimit > value.upperBound) {
+                    value.percentFact =
+                    k1 * (value.value / value.upperBound) * this.percentPlan
+                    + k2 * (this.percentPlan + (value.value - value.upperBound) / (value.upperLimit - value.upperBound) * this.percentDeviation);
+                } else {
+                    value.percentFact = 100;
+                }
                 value.percentFact = value.percentFact > 100 ? 100 :
                     value.percentFact < 0 ? 0 : value.percentFact;
             } else {
