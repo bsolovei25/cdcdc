@@ -9,7 +9,7 @@ import { EventsWidgetDataPreview } from '../models/events-widget';
 import { LineChartData } from '../models/line-chart';
 import { WebSocketSubject } from 'rxjs/internal/observable/dom/WebSocketSubject';
 import { webSocket } from 'rxjs/internal/observable/dom/webSocket';
-import { AuthService } from '../../@core/service/auth.service';
+import { AuthService } from '@core/service/auth.service';
 import * as moment from 'moment';
 import { SnackBarService } from './snack-bar.service';
 
@@ -18,14 +18,14 @@ export interface IDatesInterval {
     toDateTime: Date;
 }
 
-interface IWebSocket {
-    actionType: 'authenticate' | 'subscribe' | 'unsubscribe' | 'getPeriodData' | 'appendOptions';
+interface IWebSocket<TData, TOption> {
+    actionType: 'authenticate' | 'subscribe' | 'unsubscribe' | 'appendOptions';
     channelId: string;
     selectedPeriod?: IDatesInterval;
     token?: string; // Bearer token for authenticate actionType
-    data?: any;
-    options?: any;
-    subscriptionOptions?: any;
+    data?: TData;
+    options?: IWebSocketOptions<TOption>;
+    subscriptionOptions?: any; // return option from back
 }
 
 interface IWebSocketOptions<T> {
@@ -42,24 +42,23 @@ export class WidgetService {
     private readonly reconnectInterval: number;
 
     private widgetsSocketObservable: BehaviorSubject<any> = new BehaviorSubject(null);
-    public ws: WebSocketSubject<IWebSocket> = null;
+    public ws: WebSocketSubject<IWebSocket<any, IWebSocketOptions<any>>> = null;
 
     public draggingItem: GridsterItem;
     public dashboard: GridsterItem[] = [];
 
-    private _widgets$: BehaviorSubject<IWidget[]> = new BehaviorSubject([]);
-    public widgets$: Observable<IWidget[]> = this._widgets$
+    private widgets$: BehaviorSubject<IWidget[]> = new BehaviorSubject([]);
+    public widgets: Observable<IWidget[]> = this.widgets$
         .asObservable()
         .pipe(filter((item) => item !== null));
-    public widgetsPanel$: Observable<IWidget[]> = this._widgets$.asObservable().pipe(
+    public widgetsPanel$: Observable<IWidget[]> = this.widgets$.asObservable().pipe(
         filter((item) => item !== null),
         map((widgets) => widgets.filter((widget) => widget.isClaim))
     );
 
-    private reconnectWsTimer: any;
-    private reconnectRestTimer: any;
+    private reconnectWsTimer: ReturnType<typeof setTimeout>;
+    private reconnectRestTimer: ReturnType<typeof setTimeout>;
 
-    private currentDates: IDatesInterval = null;
     public currentDates$: BehaviorSubject<IDatesInterval> = new BehaviorSubject<IDatesInterval>(
         null
     );
@@ -80,14 +79,14 @@ export class WidgetService {
         this.reconnectInterval = configService.reconnectInterval * 1000;
 
         this.currentDates$.subscribe((ref) => {
-            this.wsSetParams(ref);
+            this.dashboard.forEach((el) => this.wsAppendOptions(el.id, this.openedWSChannels[el.id]?.options));
         });
 
         setInterval(() => this.reloadPage(), 1800000);
     }
 
     public get allWidgets(): IWidget[] {
-        return this._widgets$.getValue();
+        return this.widgets$.getValue();
     }
 
     private getAvailableWidgets(): Observable<IWidget[]> {
@@ -140,7 +139,7 @@ export class WidgetService {
     }
 
     getName(widgetId: string): string {
-        const widgetNames: IWidget = this._widgets$.getValue().find((x) => x.id === widgetId);
+        const widgetNames: IWidget = this.widgets$.getValue().find((x) => x.id === widgetId);
         if (widgetNames) {
             return widgetNames.widgetType;
         }
@@ -148,18 +147,17 @@ export class WidgetService {
 
     removeItemService(uniqId: string): void {
         const idx = this.dashboard.findIndex((item) => item.uniqid === uniqId) ?? null;
-        if (idx === null) {
-            return;
+        if (idx !== -1) {
+            this.dashboard.splice(idx, 1);
         }
-        this.dashboard.splice(idx, 1);
     }
 
     getWidgetChannel(widgetId: string): Observable<IWidget> {
-        return this.widgets$.pipe(map((i) => i.find((x) => x.id === widgetId)));
+        return this.widgets.pipe(map((i) => i.find((x) => x.id === widgetId)));
     }
 
     getWidgetLiveDataFromWS(widgetId: string, widgetType: string): Observable<any> {
-        this.wsConnect(widgetId);
+        this.wsRealtimeData(widgetId);
         if (this.openedWSChannels[widgetId]) {
             this.openedWSChannels[widgetId].count++;
         } else {
@@ -186,25 +184,9 @@ export class WidgetService {
         this.wsAppendOptions(widgetId, this.openedWSChannels[widgetId]?.options);
     }
 
-    private wsConnect(widgetId: string, options: any = null): void {
-        if (this.currentDates$.getValue() !== null) {
-            this.wsPeriodData(widgetId, options);
-        } else {
-            this.wsRealtimeData(widgetId, options);
-        }
-    }
-
     private wsRealtimeData(widgetId: string, options: any = null): void {
         this.ws.next({
             actionType: 'subscribe',
-            channelId: widgetId,
-            options
-        });
-    }
-
-    private wsPeriodData(widgetId: string, options: any = null): void {
-        this.ws.next({
-            actionType: 'getPeriodData',
             channelId: widgetId,
             selectedPeriod: this.currentDates$.getValue(),
             options
@@ -215,6 +197,7 @@ export class WidgetService {
         this.ws.next({
             actionType: 'appendOptions',
             channelId: widgetId,
+            selectedPeriod: this.currentDates$.getValue(),
             options
         });
     }
@@ -332,7 +315,7 @@ export class WidgetService {
     public getRest(): void {
         this.getAvailableWidgets().subscribe(
             (data) => {
-                this._widgets$.next(data);
+                this.widgets$.next(data);
                 if (this.reconnectRestTimer) {
                     clearInterval(this.reconnectRestTimer);
                 }
@@ -392,18 +375,21 @@ export class WidgetService {
         );
         this.ws.asObservable().subscribe((data) => {
             if (
-                data?.data &&
-                this.isMatchingPeriod(data?.data?.selectedPeriod)
-                // this.isMatchingOptions(data?.subscriptionOptions?.timeStamp, data?.channelId)
+                data?.data
+                && this.isMatchingPeriod(data?.data?.selectedPeriod, data?.data?.isHistoricalSupport)
+                && this.isMatchingOptions(data?.data?.subscriptionOptions?.timeStamp, data?.channelId)
             ) {
                 this.widgetsSocketObservable.next(data);
             }
         });
     }
 
-    private isMatchingPeriod(incoming: IDatesInterval): boolean {
+    private isMatchingPeriod(incoming: IDatesInterval, isHistoricalSupport: boolean): boolean {
+        if (!isHistoricalSupport) {
+            return true;
+        }
         if (!incoming) {
-            return this.currentDates === null;
+            return this.currentDates$.getValue() === null;
         }
         return (
             new Date(incoming.fromDateTime).getTime() ===
@@ -415,10 +401,10 @@ export class WidgetService {
 
     private isMatchingOptions(incoming: Date, widgetId: string): boolean {
         if (!incoming) {
-            return (this.openedWSChannels[widgetId]?.options ?? null) === null;
+            return true;
         }
-        return new Date(this.openedWSChannels[widgetId]?.options?.timeStamp).getTime() ===
-            new Date(incoming).getTime();
+        return (Math.abs(new Date(this.openedWSChannels[widgetId]?.options?.timeStamp).getTime() -
+            new Date(incoming).getTime()) < 1000);
     }
 
     private reconnectWs(): void {
@@ -430,14 +416,8 @@ export class WidgetService {
         this.reconnectWsTimer = setInterval(() => {
             this.initWS();
             this.dashboard.forEach((el) =>
-                this.wsConnect(el.id, this.openedWSChannels[el.id]?.options));
+                this.wsRealtimeData(el.id, this.openedWSChannels[el.id]?.options));
         }, this.reconnectInterval);
-    }
-
-    public wsSetParams(Dates: IDatesInterval = null): void {
-        this.dashboard.forEach((el) => this.wsDisconnect(el.id));
-        this.dashboard.forEach((el) =>
-            this.wsConnect(el.id, this.openedWSChannels[el.id]?.options));
     }
 
     public reloadPage(): void {
