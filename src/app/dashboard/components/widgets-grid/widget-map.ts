@@ -45,7 +45,6 @@ import { CdCriticalComponent } from '../../widgets/cd-critical/cd-critical.compo
 import { WidgetContainerComponent } from '../../widget-container/widget-container.component';
 import { AdminShiftScheduleOldComponent } from '../../widgets/admin-widget/admin-shift-schedule-old/admin-shift-schedule-old.component';
 import { CdMatBalanceChartCardComponent } from '../../../widgets/CD/cd-mat-balance/components/cd-mat-balance-chart-card/cd-mat-balance-chart-card.component';
-import { TankInformationComponent } from '../../widgets/tank-information/tank-information.component';
 
 export const WIDGETS = {
     'shift-pass': ChangeShiftComponent,
