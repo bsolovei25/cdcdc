@@ -7,7 +7,6 @@ import { TruncatedPieSIconComponent } from '../../widgets/truncated-pie-icon/tru
 import { SuspenseMachineComponent } from '../../widgets/suspense-machine/suspense-machine.component';
 import { EnterpriseMapComponent } from '../../widgets/map-enterprise/enterprise-map.component';
 import { CircleDiagramComponent } from '../../widgets/circle-diagram/circle-diagram.component';
-import { MapEcologyComponent } from '../../widgets/map-ecology/map-ecology.component';
 import { UnityTemplateComponent } from '../../widgets/unity-template/unity-template.component';
 import { RingSFactoryDiagramComponent } from '../../widgets/ring-factory-diagrams/ring-s-factory-diagram/ring-s-factory-diagram.component';
 import { OperationEfficiencyComponent } from '../../widgets/operation-efficiency/operation-efficiency.component';
@@ -49,7 +48,6 @@ import { WidgetContainerComponent } from '../../widget-container/widget-containe
 import { AdminShiftScheduleOldComponent } from '../../widgets/admin-widget/admin-shift-schedule-old/admin-shift-schedule-old.component';
 import { CdMatBalanceChartCardComponent } from '../../../widgets/CD/cd-mat-balance/components/cd-mat-balance-chart-card/cd-mat-balance-chart-card.component';
 import { TankInformationComponent } from '../../widgets/tank-information/tank-information.component';
-import { OzsmResourcesCircleDiagramComponent } from 'src/app/widgets/OZSM/ozsm-shared/ozsm-resources-circle-diagram/ozsm-resources-circle-diagram.component';
 
 export const WIDGETS = {
     'pie-diagram': WidgetPiesComponent,
@@ -63,7 +61,6 @@ export const WIDGETS = {
     'enterprise-map': EnterpriseMapComponent,
     'circle-diagram': CircleDiagramComponent,
     'unity-template': UnityTemplateComponent,
-    'map-ecology': MapEcologyComponent,
     'operation-efficiency': OperationEfficiencyComponent,
     'ecology-safety': EcologySafetyComponent,
     'calendar-plan': CalendarPlanComponent,
@@ -172,6 +169,7 @@ export const WIDGETS = {
     'bar-chart': WidgetContainerComponent,
     'chain-map': WidgetContainerComponent,
     'point-diagram': WidgetContainerComponent,
+    'map-ecology': WidgetContainerComponent,
 };
 
 export const WIDGETS_LAZY = {
@@ -616,6 +614,17 @@ export const WIDGETS_LAZY = {
         minItemCols: 19,
         minItemRows: 16,
         preview: 'point-diagram'
+    },
+    'map-ecology': {
+        import: async () => {
+            return await import('src/app/widgets/LCO/map-ecology/map-ecology.module');
+        },
+        module: 'MapEcologyModule',
+        itemCols: 32,
+        itemRows: 15,
+        minItemCols: 32,
+        minItemRows: 15,
+        preview: 'map-ecology'
     },
 
     //#endregion LCO

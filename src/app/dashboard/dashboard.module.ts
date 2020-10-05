@@ -1,7 +1,6 @@
 import { UserEventsComponent } from './components/user-events/user-events.component';
 import { UserEventsItemComponent } from './components/user-events/components/user-events-item/user-events-item.component';
 import { SharedModule } from './../@shared/shared.module';
-import { ChangeShiftComponent } from '../widgets/EVJ/change-shift/change-shift.component';
 import { NgModule, LOCALE_ID } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HomeComponent } from './pages/home/home.component';
@@ -15,7 +14,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { ManualInputComponent } from './widgets/manual-input/manual-input.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LineDatetimeComponent } from './components/line-datetime/line-datetime.component';
-import { ShiftPersonComponent } from '../widgets/EVJ/change-shift/shift-person/shift-person.component';
 import { PanelComponent } from './components/panel/panel.component';
 import { WidgetsGridComponent } from './components/widgets-grid/widgets-grid.component';
 import { GridsterModule } from 'angular-gridster2';
@@ -31,7 +29,6 @@ import { SuspenseMachineComponent } from './widgets/suspense-machine/suspense-ma
 import { EnterpriseMapComponent } from './widgets/map-enterprise/enterprise-map.component';
 import { DetailedLineDiagramComponent } from './components/detailed-line-diagram/detailed-line-diagram.component';
 import { OperationEfficiencyComponent } from './widgets/operation-efficiency/operation-efficiency.component';
-import { MapEcologyComponent } from './widgets/map-ecology/map-ecology.component';
 import { UnityTemplateComponent } from './widgets/unity-template/unity-template.component';
 import { PowIndexPipe } from '@shared/pipes/pow-index.pipe';
 import { RingFactoryDiagramComponent } from './widgets/ring-factory-diagrams/ring-factory-diagram/ring-factory-diagram.component';
@@ -73,7 +70,6 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatNativeDateModule, MAT_DATE_LOCALE, MatRippleModule } from '@angular/material/core';
 import { AdminReferencesComponent } from './widgets/admin-references/admin-references.component';
-import { CardVerifierComponent } from '../widgets/EVJ/change-shift/card-verifier/card-verifier.component';
 import { PetroleumProductsMovementComponent } from './widgets/petroleum-products-movement/petroleum-products-movement.component';
 import { PetroleumReferenceLeftComponent } from './widgets/petroleum-products-movement/petroleum-reference-left/petroleum-reference-left.component';
 import { PetroleumReferenceRightComponent } from './widgets/petroleum-products-movement/petroleum-reference-right/petroleum-reference-right.component';
@@ -93,7 +89,6 @@ import { OperationParkScreenComponent } from './widgets/petroleum-products-movem
 import { InfoScreenComponent } from './widgets/petroleum-products-movement/petroleum-reference/info-screen/info-screen.component';
 import { PetroleumUnityInfoComponent } from './widgets/petroleum-products-movement/petroleum-unity-info/petroleum-unity-info.component';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import { UsbVerifierComponent } from '../widgets/EVJ/change-shift/usb-verifier/usb-verifier.component';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { ReportComponent } from './components/report/reports/report.component';
 import { ReportsComponent } from './components/report/reports.component';
@@ -238,7 +233,6 @@ import { MatBadgeModule } from '@angular/material/badge';
         UnityTemplateComponent,
         EnterpriseMapComponent,
         PowIndexPipe,
-        MapEcologyComponent,
         DetailedLineDiagramComponent,
         OperationEfficiencyComponent,
         RingFactoryDiagramComponent,
@@ -399,7 +393,6 @@ import { MatBadgeModule } from '@angular/material/badge';
         TruncatedDiagramTrafficLightComponent,
         SuspenseMachineComponent,
         CircleDiagramComponent,
-        MapEcologyComponent,
         UnityTemplateComponent,
         EnterpriseMapComponent,
         OperationEfficiencyComponent,

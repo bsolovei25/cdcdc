@@ -10,10 +10,6 @@ declare var d3: any;
     styleUrls: ['./map-ecology.component.scss'],
 })
 export class MapEcologyComponent extends WidgetPlatform implements OnInit, OnDestroy {
-    public static itemCols: number = 32;
-    public static itemRows: number = 15;
-    public static minItemCols: number = 32;
-    public static minItemRows: number = 15;
 
     public startY: number = 55.6611;
     public startX: number = 37.7726;
