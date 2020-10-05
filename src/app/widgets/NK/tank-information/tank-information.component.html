@@ -1,6 +1,3 @@
-<evj-widget-preview [title]="widgetTitle" [code]="widgetCode" [previewTitle]="widgetType" *ngIf="isMock">
-</evj-widget-preview>
-
 <div class="container" *ngIf="!isMock">
     <evj-widget-header [title]="widgetTitle" [units]="widgetUnits" [code]="widgetCode" [id]="id" [uniqId]="uniqId"
         [widgetType]="widgetType" [icon]="widgetIcon" [tankInfo]="isFilterTable" (selected)="openFilterTable($event)"></evj-widget-header>

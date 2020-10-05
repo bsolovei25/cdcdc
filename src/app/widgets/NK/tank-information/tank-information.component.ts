@@ -1,12 +1,12 @@
 import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
-import { WidgetService } from '../../services/widget.service';
-import { WidgetPlatform } from '../../models/widget-platform';
+import { WidgetService } from '../../../dashboard/services/widget.service';
+import { WidgetPlatform } from '../../../dashboard/models/widget-platform';
 import {
     ITankInformation,
     ITankInformationDtoFn,
     ITankFilter,
     ITankResaultFilter
-} from '../../models/tank-information';
+} from '../../../dashboard/models/tank-information';
 
 @Component({
     selector: 'evj-tank-information',

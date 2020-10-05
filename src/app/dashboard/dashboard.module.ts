@@ -136,11 +136,6 @@ import { ProductionTrendCardInfoComponent } from './widgets/production-trend/com
 import { SystemPeriodDateYearComponent } from './widgets/report-server-configurator/popup-system-options/system-period-edit/system-period-date/system-period-date-year/system-period-date-year.component';
 import { SystemPeriodDateMonthComponent } from './widgets/report-server-configurator/popup-system-options/system-period-edit/system-period-date/system-period-date-month/system-period-date-month.component';
 import { SystemPeriodDateDayComponent } from './widgets/report-server-configurator/popup-system-options/system-period-edit/system-period-date/system-period-date-day/system-period-date-day.component';
-import { TankInformationComponent } from './widgets/tank-information/tank-information.component';
-import { TankCardComponent } from './widgets/tank-information/components/tank-card/tank-card.component';
-import { TankLineComponent } from './widgets/tank-information/components/tank-line/tank-line.component';
-import { TankFillingComponent } from './widgets/tank-information/components/tank-filling/tank-filling.component';
-import { TankFilterComponent } from './widgets/tank-information/components/tank-filter/tank-filter.component';
 import { ReasonsDeviationsComponent } from './widgets/reasons-deviations/reasons-deviations.component';
 import { ReasonsDeviationsLineChartComponent } from './widgets/reasons-deviations/components/reasons-deviations-line-chart/reasons-deviations-line-chart.component';
 import { ReasonsDeviationsInfoContentComponent } from './widgets/reasons-deviations/components/reasons-deviations-info-content/reasons-deviations-info-content.component';
@@ -303,11 +298,6 @@ import { MatBadgeModule } from '@angular/material/badge';
         SystemPeriodDateYearComponent,
         SystemPeriodDateMonthComponent,
         SystemPeriodDateDayComponent,
-        TankInformationComponent,
-        TankCardComponent,
-        TankLineComponent,
-        TankFillingComponent,
-        TankFilterComponent,
         ReasonsDeviationsComponent,
         ReasonsDeviationsLineChartComponent,
         ReasonsDeviationsInfoContentComponent,
@@ -402,7 +392,6 @@ import { MatBadgeModule } from '@angular/material/badge';
         UploadDropComponent,
         TanksTableComponent,
         CustomReportPropertiesReferenceComponent,
-        TankInformationComponent,
         ReasonsDeviationsComponent,
         DocumentsScansComponent,
         QualityDocsPanelComponent,

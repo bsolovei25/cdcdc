@@ -87,7 +87,6 @@ export const WIDGETS = {
     'quality-docs-panel': QualityDocsPanelComponent,
     'document-coding': DocumentCodingComponent,
     'oil-operations': OilOperationsComponent,
-    'tank-information': TankInformationComponent,
     workflow: WorkflowComponent,
     'cd-critical': CdCriticalComponent,
     'implementation-plan': WidgetContainerComponent,
@@ -168,6 +167,7 @@ export const WIDGETS = {
     'industrial-pyramid': WidgetContainerComponent,
     'events-workspace': WidgetContainerComponent,
     'ecology-safety': WidgetContainerComponent,
+    'tank-information': WidgetContainerComponent
 };
 
 export const WIDGETS_LAZY = {
@@ -301,6 +301,19 @@ export const WIDGETS_LAZY = {
         itemRows: 12,
         minItemCols: 19,
         minItemRows: 12,
+        preview: 'default'
+    },
+    'tank-information': {
+        import: async () => {
+            return await import(
+                'src/app/widgets/NK/tank-information/tank-information.module'
+                );
+        },
+        module: 'TankInformationModule',
+        itemCols: 36,
+        itemRows: 14,
+        minItemCols: 36,
+        minItemRows: 14,
         preview: 'default'
     },
 
