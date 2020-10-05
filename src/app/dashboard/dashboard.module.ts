@@ -402,7 +402,7 @@ import { MatBadgeModule } from '@angular/material/badge';
         PanelComponent,
         AdminShiftScheduleOldComponent
     ],
-    exports: [HomeComponent, PerformanceBarComponent, MatRippleModule, WidgetPreviewComponent],
+    exports: [HomeComponent, PerformanceBarComponent, WidgetPreviewComponent, PowIndexPipe],
     imports: [
         CommonModule,
         SharedModule,
