@@ -6,17 +6,20 @@ import { IUser } from '../../../../dashboard/models/events-widget';
 @Component({
     selector: 'evj-card-verifier',
     templateUrl: './card-verifier.component.html',
-    styleUrls: ['./card-verifier.component.scss'],
+    styleUrls: ['./card-verifier.component.scss']
 })
 export class CardVerifierComponent implements OnInit {
     @Input() public verifyInfo: IVerifyWindow;
 
-    constructor(public shiftService: ShiftService) {}
+    constructor(public shiftService: ShiftService) {
+    }
 
-    ngOnInit() {}
+    ngOnInit() {
+    }
 
     public result(): void {
-        setTimeout(() => {});
+        setTimeout(() => {
+        });
     }
 
     public closeVerifyWindow(): void {
