@@ -211,7 +211,7 @@ export const WIDGETS_LAZY = {
         itemRows: 30,
         minItemCols: 40,
         minItemRows: 10,
-        preview: 'gant-chart'
+        preview: 'aps-gantt-chart'
     },
     'aps-recipe-diagram': {
         import: async () => {
@@ -309,7 +309,7 @@ export const WIDGETS_LAZY = {
         itemRows: 12,
         minItemCols: 19,
         minItemRows: 12,
-        preview: 'default'
+        preview: 'nk-tank-information'
     },
 
     // #endregion NK
@@ -326,7 +326,7 @@ export const WIDGETS_LAZY = {
         itemRows: 4,
         minItemCols: 38,
         minItemRows: 4,
-        preview: 'default'
+        preview: 'ozsm-resources-circle-diagram'
     },
     // #endregion OZSM
 
@@ -389,7 +389,7 @@ export const WIDGETS_LAZY = {
         itemRows: 7,
         minItemCols: 15,
         minItemRows: 6,
-        preview: 'default'
+        preview: 'kpe-safety'
     },
 
     // #endregion KPE
@@ -825,8 +825,8 @@ export const WIDGETS_LAZY = {
         itemCols: 30,
         itemRows: 12,
         minItemCols: 30,
-        minItemRows: 12
-        // preview: 'astue-onpz-planning-charts',
+        minItemRows: 12,
+        preview: 'astue-onpz-planning-charts',
     },
 
     'astue-onpz-interactive-indicators': {
@@ -839,8 +839,8 @@ export const WIDGETS_LAZY = {
         itemCols: 24,
         itemRows: 10,
         minItemCols: 24,
-        minItemRows: 10
-        // preview: 'astue-onpz-interactive-indicators',
+        minItemRows: 10,
+        preview: 'astue-onpz-interactive-indicators',
     },
     'ejco-onpz-unit-sou': {
         import: async () => {
@@ -852,8 +852,8 @@ export const WIDGETS_LAZY = {
         itemCols: 28,
         itemRows: 7,
         minItemCols: 28,
-        minItemRows: 7
-        // preview: 'ejco-onpz-unit-sou',
+        minItemRows: 7,
+        preview: 'ejco-onpz-unit-sou',
     },
     'ejco-onpz-fsb-load': {
         import: async () => {
@@ -865,8 +865,8 @@ export const WIDGETS_LAZY = {
         itemCols: 12,
         itemRows: 7,
         minItemCols: 12,
-        minItemRows: 7
-        // preview: 'ejco-onpz-fsb-load',
+        minItemRows: 7,
+        preview: 'ejco-onpz-fsb-load',
     },
     'ejco-onpz-unit-kpe': {
         import: async () => {
@@ -878,8 +878,8 @@ export const WIDGETS_LAZY = {
         itemCols: 12,
         itemRows: 7,
         minItemCols: 12,
-        minItemRows: 7
-        // preview: 'ejco-onpz-unit-kpe',
+        minItemRows: 7,
+        preview: 'ejco-onpz-unit-kpe',
     },
 
     //#endregion ASTUE-ONPZ
@@ -910,7 +910,7 @@ export const WIDGETS_LAZY = {
         itemRows: 24,
         minItemCols: 12,
         minItemRows: 24,
-        // preview: 'ozsm-diagrams',
+        preview: 'ozsm-diagrams',
     },
     'ozsm-main-indicators': {
         import: async () => {
@@ -923,7 +923,7 @@ export const WIDGETS_LAZY = {
         itemRows: 3,
         minItemCols: 11,
         minItemRows: 3,
-        preview: 'default'
+        preview: 'ozsm-main-indicators'
     },
     'ozsm-circle-planning-diagram': {
         import: async () => {
@@ -936,7 +936,7 @@ export const WIDGETS_LAZY = {
         itemRows: 6,
         minItemCols: 38,
         minItemRows: 6,
-        preview: 'default'
+        preview: 'ozsm-circle-planning-diagram'
     },
 
     'ozsm-main-toggle': {
@@ -950,7 +950,7 @@ export const WIDGETS_LAZY = {
         itemRows: 2,
         minItemCols: 11,
         minItemRows: 2,
-        preview: 'default',
+        preview: 'ozsm-main-toggle',
     },
 
     'ozsm-scenarios': {
@@ -962,7 +962,7 @@ export const WIDGETS_LAZY = {
         itemRows: 7,
         minItemCols: 11,
         minItemRows: 7,
-        preview: 'default'
+        preview: 'ozsm-scenarios'
     },
 
     'ozsm-monitoring-main': {
@@ -974,7 +974,7 @@ export const WIDGETS_LAZY = {
         itemRows: 20,
         minItemCols: 38,
         minItemRows: 20,
-        preview: 'default'
+        preview: 'ozsm-monitoring-main'
     },
 
     'ozsm-planning-main': {
@@ -988,7 +988,7 @@ export const WIDGETS_LAZY = {
         itemRows: 19,
         minItemCols: 38,
         minItemRows: 19,
-        preview: 'default',
+        preview: 'ozsm-planning-main',
     },
 
     //#endregion OZSM
@@ -1005,7 +1005,7 @@ export const WIDGETS_LAZY = {
         itemRows: 10,
         minItemCols: 10,
         minItemRows: 10,
-        preview: 'default'
+        preview: 'oq-oil-quality'
     }
 
     //#endregion OQ
