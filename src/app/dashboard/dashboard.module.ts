@@ -26,7 +26,6 @@ import { TruncatedPieSIconComponent } from './widgets/truncated-pie-icon/truncat
 import { TruncatedPieIconComponent } from './widgets/truncated-pie-icon/truncated-pie-icon/truncated-pie-icon.component';
 import { PieDiagramComponent } from './widgets/truncated-diagram-traffic-light/components/pie-diagram/pie-diagram.component';
 import { SuspenseMachineComponent } from './widgets/suspense-machine/suspense-machine.component';
-import { EnterpriseMapComponent } from './widgets/map-enterprise/enterprise-map.component';
 import { DetailedLineDiagramComponent } from './components/detailed-line-diagram/detailed-line-diagram.component';
 import { OperationEfficiencyComponent } from './widgets/operation-efficiency/operation-efficiency.component';
 import { UnityTemplateComponent } from './widgets/unity-template/unity-template.component';
@@ -231,7 +230,6 @@ import { MatBadgeModule } from '@angular/material/badge';
         SuspenseMachineComponent,
         CircleDiagramComponent,
         UnityTemplateComponent,
-        EnterpriseMapComponent,
         PowIndexPipe,
         DetailedLineDiagramComponent,
         OperationEfficiencyComponent,
@@ -394,7 +392,6 @@ import { MatBadgeModule } from '@angular/material/badge';
         SuspenseMachineComponent,
         CircleDiagramComponent,
         UnityTemplateComponent,
-        EnterpriseMapComponent,
         OperationEfficiencyComponent,
         CalendarPlanComponent,
         EcologySafetyComponent,

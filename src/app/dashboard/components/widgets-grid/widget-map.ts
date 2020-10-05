@@ -5,7 +5,6 @@ import { WidgetPiesComponent } from '../../widgets/widgets-pie/widget-pies/widge
 import { TruncatedPieSFirstComponent } from '../../widgets/truncated-pie-first/truncated-pie-s-first/truncated-pie-s-first.component';
 import { TruncatedPieSIconComponent } from '../../widgets/truncated-pie-icon/truncated-pie-s-icon/truncated-pie-s-icon.component';
 import { SuspenseMachineComponent } from '../../widgets/suspense-machine/suspense-machine.component';
-import { EnterpriseMapComponent } from '../../widgets/map-enterprise/enterprise-map.component';
 import { CircleDiagramComponent } from '../../widgets/circle-diagram/circle-diagram.component';
 import { UnityTemplateComponent } from '../../widgets/unity-template/unity-template.component';
 import { RingSFactoryDiagramComponent } from '../../widgets/ring-factory-diagrams/ring-s-factory-diagram/ring-s-factory-diagram.component';
@@ -58,7 +57,6 @@ export const WIDGETS = {
     'truncated-diagram-traffic-light': TruncatedDiagramTrafficLightComponent,
     'truncated-diagram-counter': TruncatedPieSIconComponent,
     'industrial-pyramid': WidgetContainerComponent,
-    'enterprise-map': EnterpriseMapComponent,
     'circle-diagram': CircleDiagramComponent,
     'unity-template': UnityTemplateComponent,
     'operation-efficiency': OperationEfficiencyComponent,
@@ -170,6 +168,7 @@ export const WIDGETS = {
     'chain-map': WidgetContainerComponent,
     'point-diagram': WidgetContainerComponent,
     'map-ecology': WidgetContainerComponent,
+    'enterprise-map': WidgetContainerComponent,
 };
 
 export const WIDGETS_LAZY = {
@@ -626,6 +625,18 @@ export const WIDGETS_LAZY = {
         minItemRows: 15,
         preview: 'map-ecology'
     },
+    'enterprise-map': {
+        import: async () => {
+            return await import('src/app/widgets/LCO/map-enterprise/enterprise-map.module');
+        },
+        module: 'EnterpriseMapModule',
+        itemCols: 30,
+        itemRows: 21,
+        minItemCols: 25,
+        minItemRows: 18,
+        preview: 'enterprise-map'
+    },
+
 
     //#endregion LCO
 

@@ -8,9 +8,9 @@ import {
     OnDestroy,
 } from '@angular/core';
 
-import { WidgetService } from '../../services/widget.service';
-import { IEnterpriseMap } from '../../models/enterprise-map';
-import { WidgetPlatform } from '../../models/widget-platform';
+import { IEnterpriseMap } from 'src/app/dashboard/models/enterprise-map';
+import { WidgetService } from 'src/app/dashboard/services/widget.service';
+import { WidgetPlatform } from 'src/app/dashboard/models/widget-platform';
 
 export interface IBuilding {
     id: number;
@@ -295,11 +295,6 @@ export class EnterpriseMapComponent extends WidgetPlatform
     };
 
     @ViewChild('maps') maps: ElementRef;
-
-    public static itemCols: number = 30;
-    public static itemRows: number = 21;
-    public static minItemCols: number = 25;
-    public static minItemRows: number = 18;
 
     constructor(
         protected widgetService: WidgetService,
