@@ -313,7 +313,7 @@ export const WIDGETS_LAZY = {
         itemRows: 14,
         minItemCols: 36,
         minItemRows: 14,
-        preview: 'default'
+        preview: 'tank-information'
     },
 
     // #endregion NK

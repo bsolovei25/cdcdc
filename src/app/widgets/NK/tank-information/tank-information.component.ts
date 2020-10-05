@@ -14,10 +14,6 @@ import {
     styleUrls: ['./tank-information.component.scss']
 })
 export class TankInformationComponent extends WidgetPlatform implements OnInit, OnDestroy {
-    public static itemCols: number = 36;
-    public static itemRows: number = 14;
-    public static minItemCols: number = 36;
-    public static minItemRows: number = 14;
 
     public data: ITankInformation[];
 

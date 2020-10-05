@@ -193,6 +193,7 @@ import { GroupSelectorRowComponent } from './components/group-selector/group-sel
 import { IndicatorDiagramComponent } from './components/indicator-diagram/indicator-diagram.component';
 import { MenuButtonComponent } from './components/menu-button/menu-button.component';
 import { MatBadgeModule } from '@angular/material/badge';
+import { TankFilterComponent } from '../widgets/NK/tank-information/components/tank-filter/tank-filter.component';
 
 @NgModule({
     declarations: [
@@ -353,7 +354,8 @@ import { MatBadgeModule } from '@angular/material/badge';
         IndicatorDiagramComponent,
         MenuButtonComponent,
         UserEventsComponent,
-        UserEventsItemComponent
+        UserEventsItemComponent,
+        TankFilterComponent
     ],
     entryComponents: [
         ChangeShiftComponent,
@@ -402,7 +404,7 @@ import { MatBadgeModule } from '@angular/material/badge';
         PanelComponent,
         AdminShiftScheduleOldComponent
     ],
-    exports: [HomeComponent, PerformanceBarComponent, WidgetPreviewComponent, PowIndexPipe],
+    exports: [HomeComponent, PerformanceBarComponent, WidgetPreviewComponent, PowIndexPipe, TankFilterComponent],
     imports: [
         CommonModule,
         SharedModule,
