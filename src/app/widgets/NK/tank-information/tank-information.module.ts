@@ -8,7 +8,7 @@ import { SharedModule } from '@shared/shared.module';
 import { TankInformationComponent } from './tank-information.component';
 import { AngularSvgIconModule } from 'angular-svg-icon';
 import { DashboardModule } from 'src/app/dashboard/dashboard.module';
-import { MatTooltip } from '@angular/material/tooltip';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 
 @NgModule({
@@ -17,7 +17,7 @@ import { MatTooltip } from '@angular/material/tooltip';
   imports: [
     CommonModule,
     SharedModule,
-    MatTooltip,
+    MatTooltipModule,
     AngularSvgIconModule,
     DashboardModule,
   ]
