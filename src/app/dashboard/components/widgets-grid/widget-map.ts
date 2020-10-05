@@ -1,18 +1,10 @@
 import { ManualInputComponent } from '../../../widgets/EVJ/manual-input/manual-input.component';
-import { ChangeShiftComponent } from '../../widgets/change-shift/change-shift.component';
 import { EnergeticsComponent } from '../../widgets/energetics/energetics.component';
-import { PointDiagramComponent } from '../../widgets/point-diagram/point-diagram.component';
-import { BarChartsComponent } from '../../widgets/bar-chart/bar-charts/bar-charts.component';
 import { SuspenseMachineComponent } from '../../widgets/suspense-machine/suspense-machine.component';
-import { EnterpriseMapComponent } from '../../widgets/map-enterprise/enterprise-map.component';
 import { CircleDiagramComponent } from '../../widgets/circle-diagram/circle-diagram.component';
-import { MapEcologyComponent } from '../../widgets/map-ecology/map-ecology.component';
 import { UnityTemplateComponent } from '../../widgets/unity-template/unity-template.component';
-import { RingFactoryDiagramsComponent } from '../../../widgets/LCO/ring-factory-diagrams/ring-factory-diagrams.component';
 import { OperationEfficiencyComponent } from '../../widgets/operation-efficiency/operation-efficiency.component';
-import { EcologySafetyComponent } from '../../../widgets/LCO/ecology-safety/ecology-safety.component';
 import { CalendarPlanComponent } from '../../widgets/calendar-plan/calendar-plan.component';
-import { ChainMapComponent } from '../../widgets/chain-map/chain-map.component';
 import { DispatcherScreenComponent } from '../../widgets/dispatcher-screen/dispatcher-screen.component';
 import { DeviationsTableComponent } from '../../widgets/deviations-table/deviations-table.component';
 import { TriggeringCriticalParametersComponent } from '../../widgets/triggering-critical-parameters/triggering-critical-parameters.component';
@@ -25,8 +17,6 @@ import { ColumnChartStackedComponent } from '../../widgets/column-chart-stacked/
 import { TimeLineDiagramComponent } from '../../widgets/time-line-diagram/time-line-diagram.component';
 import { FlameDiagramComponent } from '../../widgets/flame-diagram/flame-diagram.component';
 import { ObservationNormTRComponent } from '../../widgets/observation-norm-tr/observation-norm-tr.component';
-import { RingEnergyIndicatorComponent } from '../../../widgets/LCO/ring-energy-indicator/ring-energy-indicator.component';
-import { SolidGaugesComponent } from '../../widgets/solid-gauge-with-marker/solid-gauges/solid-gauges.component';
 import { AdminReferencesComponent } from '../../widgets/admin-references/admin-references.component';
 import { PetroleumProductsMovementComponent } from '../../widgets/petroleum-products-movement/petroleum-products-movement.component';
 import { ReportServerConfiguratorComponent } from '../../widgets/report-server-configurator/report-server-configurator.component';
@@ -47,17 +37,15 @@ import { AdminShiftScheduleOldComponent } from '../../widgets/admin-widget/admin
 import { CdMatBalanceChartCardComponent } from '../../../widgets/CD/cd-mat-balance/components/cd-mat-balance-chart-card/cd-mat-balance-chart-card.component';
 
 export const WIDGETS = {
-    'shift-pass': ChangeShiftComponent,
-    'shift-accept': ChangeShiftComponent,
-    'point-diagram': PointDiagramComponent,
-    'bar-chart': BarChartsComponent,
-    'enterprise-map': EnterpriseMapComponent,
+    'pie-diagram': WidgetContainerComponent,
+    'line-chart': WidgetContainerComponent,
+    'manual-input': ManualInputComponent,
+    'events-workspace': WidgetContainerComponent,
+    'industrial-pyramid': WidgetContainerComponent,
     'circle-diagram': CircleDiagramComponent,
     'unity-template': UnityTemplateComponent,
-    'map-ecology': MapEcologyComponent,
     'operation-efficiency': OperationEfficiencyComponent,
     'calendar-plan': CalendarPlanComponent,
-    'chain-map': ChainMapComponent,
     energetics: EnergeticsComponent,
     'dispatcher-screen': DispatcherScreenComponent,
     'table-data': SuspenseMachineComponent,
@@ -71,7 +59,6 @@ export const WIDGETS = {
     'column-chart-stacked': ColumnChartStackedComponent,
     'flame-diagram': FlameDiagramComponent,
     'time-line-diagram': TimeLineDiagramComponent,
-    'solid-gauge-with-marker': SolidGaugesComponent,
     'observation-norm-tr': ObservationNormTRComponent,
     'admin-references': AdminReferencesComponent,
     'petroleum-products-movement': PetroleumProductsMovementComponent,
@@ -157,16 +144,15 @@ export const WIDGETS = {
     'ring-factory-diagram': WidgetContainerComponent,
     'ring-energy-indicator': WidgetContainerComponent,
     'ozsm-planning-main': WidgetContainerComponent,
-    'manual-input': WidgetContainerComponent,
     'ozsm-monitoring-main': WidgetContainerComponent,
-    'pie-diagram': WidgetContainerComponent,
-    'line-chart': WidgetContainerComponent,
-    'polar-chart': WidgetContainerComponent,
-    'admin-panel': WidgetContainerComponent,
-    'industrial-pyramid': WidgetContainerComponent,
-    'events-workspace': WidgetContainerComponent,
-    'ecology-safety': WidgetContainerComponent,
-    'tank-information': WidgetContainerComponent
+    'shift-pass': WidgetContainerComponent,
+    'shift-accept': WidgetContainerComponent,
+    'bar-chart': WidgetContainerComponent,
+    'chain-map': WidgetContainerComponent,
+    'point-diagram': WidgetContainerComponent,
+    'map-ecology': WidgetContainerComponent,
+    'enterprise-map': WidgetContainerComponent,
+    'solid-gauge-with-marker': WidgetContainerComponent,
 };
 
 export const WIDGETS_LAZY = {
@@ -530,7 +516,28 @@ export const WIDGETS_LAZY = {
         minItemRows: 30,
         preview: 'cd-events'
     },
-
+    'shift-pass': {
+        import: async () => {
+            return await import('src/app/widgets/EVJ/change-shift/change-shift.module');
+        },
+        module: 'ChangeShiftModule',
+        itemCols: 15,
+        itemRows: 30,
+        minItemCols: 15,
+        minItemRows: 23,
+        preview: 'change-shift'
+    },
+    'shift-accept': {
+        import: async () => {
+            return await import('src/app/widgets/EVJ/change-shift/change-shift.module');
+        },
+        module: 'ChangeShiftModule',
+        itemCols: 15,
+        itemRows: 30,
+        minItemCols: 15,
+        minItemRows: 23,
+        preview: 'change-shift'
+    },
     // #endregion EVJ
 
     //#region LCO
@@ -571,6 +578,74 @@ export const WIDGETS_LAZY = {
         minItemRows: 16,
         preview: 'line-diagram'
     },
+    'bar-chart': {
+        import: async () => {
+            return await import('src/app/widgets/LCO/bar-chart/bar-charts/bar-charts.module');
+        },
+        module: 'BarChartsModule',
+        itemCols: 38,
+        itemRows: 10,
+        minItemCols: 10,
+        minItemRows: 10,
+        preview: 'bar-chart'
+    },
+    'chain-map': {
+        import: async () => {
+            return await import('src/app/widgets/LCO/chain-map/chain-map.module');
+        },
+        module: 'ChainMapModule',
+        itemCols: 32,
+        itemRows: 20,
+        minItemCols: 32,
+        minItemRows: 20,
+        preview: 'chain-map'
+    },
+    'point-diagram': {
+        import: async () => {
+            return await import('src/app/widgets/LCO/point-diagram/point-diagram.module');
+        },
+        module: 'PointDiagramModule',
+        itemCols: 19,
+        itemRows: 16,
+        minItemCols: 19,
+        minItemRows: 16,
+        preview: 'point-diagram'
+    },
+    'map-ecology': {
+        import: async () => {
+            return await import('src/app/widgets/LCO/map-ecology/map-ecology.module');
+        },
+        module: 'MapEcologyModule',
+        itemCols: 32,
+        itemRows: 15,
+        minItemCols: 32,
+        minItemRows: 15,
+        preview: 'map-ecology'
+    },
+    'enterprise-map': {
+        import: async () => {
+            return await import('src/app/widgets/LCO/map-enterprise/enterprise-map.module');
+        },
+        module: 'EnterpriseMapModule',
+        itemCols: 30,
+        itemRows: 21,
+        minItemCols: 25,
+        minItemRows: 18,
+        preview: 'enterprise-map'
+    },
+    'solid-gauge-with-marker': {
+        import: async () => {
+            return await import('src/app/widgets/LCO/solid-gauge-with-marker/solid-gauges/solid-gauges.module');
+        },
+        module: 'SolidGaugesModule',
+        itemCols: 18,
+        itemRows: 10,
+        minItemCols: 9,
+        minItemRows: 10,
+        preview: 'solid-gauge-with-marker'
+    },
+
+
     'line-chart': {
         import: async () => {
             return await import('src/app/widgets/LCO/line-chart/line-chart.module');
