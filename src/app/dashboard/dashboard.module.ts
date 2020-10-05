@@ -56,8 +56,6 @@ import { CcsOneColumnComponent } from './widgets/column-chart-stacked/ccs-one-co
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { FlameDiagramComponent } from './widgets/flame-diagram/flame-diagram.component';
 import { RingEnergyIndicatorComponent } from './widgets/ring-energy-indicator/ring-energy-indicator.component';
-import { SolidGaugesComponent } from './widgets/solid-gauge-with-marker/solid-gauges/solid-gauges.component';
-import { SolidGaugeWithMarkerComponent } from './widgets/solid-gauge-with-marker/solid-gauge-with-marker/solid-gauge-with-marker.component';
 import { SearchFilterComponent } from './components/search/search-filter/search-filter.component';
 import { SearchInputComponent } from './components/search/search-input/search-input.component';
 import { SearchListComponent } from './components/search/search-list/search-list.component';
@@ -258,8 +256,6 @@ import { MatBadgeModule } from '@angular/material/badge';
         WidgetPreviewComponent,
         TimeLineDiagramComponent,
         TimeDiagramComponent,
-        SolidGaugesComponent,
-        SolidGaugeWithMarkerComponent,
         SearchFilterComponent,
         SearchInputComponent,
         SearchListComponent,
@@ -412,7 +408,6 @@ import { MatBadgeModule } from '@angular/material/badge';
         FlameDiagramComponent,
         RingEnergyIndicatorComponent,
         TimeLineDiagramComponent,
-        SolidGaugesComponent,
         ObservationNormTRComponent,
         AdminReferencesComponent,
         PetroleumProductsMovementComponent,

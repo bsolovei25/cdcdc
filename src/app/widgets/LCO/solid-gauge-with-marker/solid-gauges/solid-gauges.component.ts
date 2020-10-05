@@ -8,10 +8,6 @@ import { WidgetPlatform } from 'src/app/dashboard/models/widget-platform';
     styleUrls: ['./solid-gauges.component.scss'],
 })
 export class SolidGaugesComponent extends WidgetPlatform implements OnInit, OnDestroy {
-    public static itemCols: number = 18;
-    public static itemRows: number = 10;
-    public static minItemCols: number = 9;
-    public static minItemRows: number = 10;
 
     public datas: any = [
         { name: 'СУГ', fact: 11.5, percent: 50, value: 14.5 },

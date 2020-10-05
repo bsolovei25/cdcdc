@@ -26,7 +26,6 @@ import { TimeLineDiagramComponent } from '../../widgets/time-line-diagram/time-l
 import { FlameDiagramComponent } from '../../widgets/flame-diagram/flame-diagram.component';
 import { ObservationNormTRComponent } from '../../widgets/observation-norm-tr/observation-norm-tr.component';
 import { RingEnergyIndicatorComponent } from '../../widgets/ring-energy-indicator/ring-energy-indicator.component';
-import { SolidGaugesComponent } from '../../widgets/solid-gauge-with-marker/solid-gauges/solid-gauges.component';
 import { AdminReferencesComponent } from '../../widgets/admin-references/admin-references.component';
 import { PetroleumProductsMovementComponent } from '../../widgets/petroleum-products-movement/petroleum-products-movement.component';
 import { ReportServerConfiguratorComponent } from '../../widgets/report-server-configurator/report-server-configurator.component';
@@ -79,7 +78,6 @@ export const WIDGETS = {
     'flame-diagram': FlameDiagramComponent,
     'ring-energy-indicator': RingEnergyIndicatorComponent,
     'time-line-diagram': TimeLineDiagramComponent,
-    'solid-gauge-with-marker': SolidGaugesComponent,
     'observation-norm-tr': ObservationNormTRComponent,
     'admin-references': AdminReferencesComponent,
     'petroleum-products-movement': PetroleumProductsMovementComponent,
@@ -169,6 +167,7 @@ export const WIDGETS = {
     'point-diagram': WidgetContainerComponent,
     'map-ecology': WidgetContainerComponent,
     'enterprise-map': WidgetContainerComponent,
+    'solid-gauge-with-marker': WidgetContainerComponent,
 };
 
 export const WIDGETS_LAZY = {
@@ -635,6 +634,17 @@ export const WIDGETS_LAZY = {
         minItemCols: 25,
         minItemRows: 18,
         preview: 'enterprise-map'
+    },
+    'solid-gauge-with-marker': {
+        import: async () => {
+            return await import('src/app/widgets/LCO/solid-gauge-with-marker/solid-gauges/solid-gauges.module');
+        },
+        module: 'SolidGaugesModule',
+        itemCols: 18,
+        itemRows: 10,
+        minItemCols: 9,
+        minItemRows: 10,
+        preview: 'solid-gauge-with-marker'
     },
 
 
