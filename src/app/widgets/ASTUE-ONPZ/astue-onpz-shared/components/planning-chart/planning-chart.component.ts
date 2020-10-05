@@ -9,6 +9,8 @@ import { IChartD3, IChartMini } from '@shared/models/smart-scroll.model';
 import { AsyncRender } from '@shared/functions/async-render.function';
 import { fillDataArrayChart } from '@shared/functions/fill-data-array.function';
 import { newArray } from '@angular/compiler/src/util';
+import { IDatesInterval, WidgetService } from '../../../../../dashboard/services/widget.service';
+import { dateFormatLocale } from '@shared/functions/universal-time-fromat.function';
 
 @Component({
     selector: 'evj-planning-chart',
@@ -20,6 +22,10 @@ export class PlanningChartComponent implements OnChanges {
     @Input() private isSpline: boolean = true;
     @Input() private isWithPicker: boolean = false;
     @Input() private intervalHours: number[] = [];
+    @Input() set size(value: number) {
+        this.deltaCf = PlanningChartComponent.STEP_CF * value;
+        // this.drawChart();
+    }
 
     private dateTimeInterval: Date[] = null;
 
@@ -49,12 +55,16 @@ export class PlanningChartComponent implements OnChanges {
         bottom: 40,
     };
 
-    private readonly MAX_COEF: number = 0.1;
-    private readonly MIN_COEF: number = 0.3;
+    private deltaCf: number = 0.1;
+    private static STEP_CF: number = 0.05;
 
     private readonly topMargin: number = 25;
 
-    constructor() {}
+    private get currentDates(): IDatesInterval {
+        return this.widgetService.currentDates$.getValue();
+    }
+
+    constructor(private widgetService: WidgetService) {}
 
     public ngOnChanges(): void {
         this.initInterval();
@@ -64,6 +74,10 @@ export class PlanningChartComponent implements OnChanges {
         } else {
             this.dropChart();
         }
+    }
+
+    public changeScale(isPlus: boolean): void {
+        this.deltaCf += (+isPlus || -1) * PlanningChartComponent.STEP_CF;
     }
 
     @HostListener('document:resize', ['$event'])
@@ -98,7 +112,6 @@ export class PlanningChartComponent implements OnChanges {
             1000 * 60 * 60 * this.intervalHours[0]);
         this.dateTimeInterval[1] = new Date(currentDatetime.getTime() +
             1000 * 60 * 60 * this.intervalHours[1]);
-        console.log(this.dateTimeInterval);
     }
 
     private initData(): void {
@@ -128,7 +141,11 @@ export class PlanningChartComponent implements OnChanges {
             );
     }
 
+    // TODO cancel normalize data
     private normalizeData(): void {
+        if (this.currentDates) {
+            return;
+        }
         this.data.forEach((item) => {
             item.graph = fillDataArrayChart(
                 item.graph,
@@ -139,20 +156,17 @@ export class PlanningChartComponent implements OnChanges {
     }
 
     private findMinMax(): void {
-        const maxValues: number[] = [];
-        const minValues: number[] = [];
         const minDate: Date[] = [];
         const maxDate: Date[] = [];
 
         this.data.forEach((graph) => {
-            maxValues.push(d3.max(graph.graph, (item: IChartMini) => item.value));
-            minValues.push(d3.min(graph.graph, (item: IChartMini) => item.value));
             maxDate.push(d3.max(graph.graph, (item: IChartMini) => item.timeStamp));
             minDate.push(d3.min(graph.graph, (item: IChartMini) => item.timeStamp));
         });
 
-        this.dataMax = d3.max(maxValues) * (1 + this.MAX_COEF);
-        this.dataMin = d3.min(minValues) * (1 - this.MIN_COEF);
+        [this.dataMin, this.dataMax] = d3.extent(this.data.flatMap((x) => x.graph).map((x) => x.value));
+        this.dataMin -= (this.dataMax - this.dataMin) * this.deltaCf;
+        this.dataMax += (this.dataMax - this.dataMin) * this.deltaCf;
         this.dateMax = d3.max(maxDate);
         this.dateMin = d3.min(minDate);
     }
@@ -173,11 +187,19 @@ export class PlanningChartComponent implements OnChanges {
             .domain(domainValues)
             .range(rangeY);
 
-        this.axis.axisX = d3
-            .axisBottom(this.scaleFuncs.x)
-            .ticks(12)
-            .tickFormat(d3.timeFormat('%H'))
-            .tickSizeOuter(0);
+        if (!!this.currentDates) {
+            this.axis.axisX = d3
+                .axisBottom(this.scaleFuncs.x)
+                .ticks(12)
+                .tickFormat(dateFormatLocale())
+                .tickSizeOuter(0);
+        } else {
+            this.axis.axisX = d3
+                .axisBottom(this.scaleFuncs.x)
+                .ticks(12)
+                .tickFormat(d3.timeFormat('%H'))
+                .tickSizeOuter(0);
+        }
         this.axis.axisY = d3
             .axisLeft(this.scaleFuncs.y)
             .ticks(5)
@@ -249,10 +271,13 @@ export class PlanningChartComponent implements OnChanges {
     }
 
     private drawPoints(): void {
+        if (this.currentDates) {
+            return;
+        }
         const pointsG = this.svg.append('g').attr('class', 'chart-points');
         const item = this.chartData
             .find((x) => x.graphType === 'fact')
-            .graph.filter((x) => x.x < this.scaleFuncs.x(new Date())).slice(-1)[0];
+            ?.graph.filter((x) => x.x < this.scaleFuncs.x(new Date())).slice(-1)[0];
         if (item) {
             const g = pointsG.append('g').attr('class', 'fact-point');
             let r = 9;
@@ -323,6 +348,11 @@ export class PlanningChartComponent implements OnChanges {
                 g.remove();
             }
         });
+        this.svg.selectAll('g.axisX g.tick')._groups[0].forEach((g, idx) => {
+            if (idx % 2 && this.currentDates && !this.isWithPicker) {
+                g.remove();
+            }
+        });
     }
 
     private customizeAreas(): void {
@@ -349,6 +379,9 @@ export class PlanningChartComponent implements OnChanges {
     }
 
     private drawFutureRect(): void {
+        if (this.currentDates) {
+            return;
+        }
         const currentDatetime: Date = new Date();
         currentDatetime.setMinutes(0, 0, 0);
         const fact = this.chartData

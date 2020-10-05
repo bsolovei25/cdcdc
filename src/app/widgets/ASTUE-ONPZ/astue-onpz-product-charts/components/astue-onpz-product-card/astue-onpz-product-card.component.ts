@@ -6,6 +6,8 @@ import { WidgetPlatform } from '../../../../../dashboard/models/widget-platform'
 import { WidgetService } from '../../../../../dashboard/services/widget.service';
 import { HttpClient } from '@angular/common/http';
 import { fillDataShape } from '@shared/functions/common-functions';
+import { AstueOnpzHeaderIcon } from '../../../../../dashboard/models/ASTUE-ONPZ/astue-onpz-header-icon.model';
+import { ArrayType } from '@angular/compiler';
 
 @Component({
     selector: 'evj-astue-onpz-product-card',

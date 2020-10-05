@@ -16,9 +16,7 @@
           <ng-container *ngFor="let element of dataSource">
             <tr *ngIf="!element.isInvisible && element?.childredTanks?.length > 0"
                 class="table__tr"
-                (click)="expandedElement.isSelected(element.uid) ?
-                   expandedElement.deselect(element.uid)
-                  : expandedElement.select(element.uid)">
+                (click)="expandedElement.toggle(element.uid)">
               <td class="name">
                 <svg-icon class="name__icon"
                           src="assets/icons/widgets/calibration-table/arrow-name.svg"
