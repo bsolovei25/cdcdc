@@ -1,0 +1,48 @@
+<div style="height: 100%; width: 100%;">
+  <evj-widget-header
+    [title]="widgetTitle"
+    [units]="widgetUnits"
+    [code]="widgetCode"
+    [id]="widgetId"
+    [icon]="widgetIcon"
+    [uniqId]="widgetUniqId"
+  ></evj-widget-header>
+
+  <evj-frame-top></evj-frame-top>
+
+  <ng-container>
+    <div
+      class="content_block"
+      (mousedown)="$event.stopPropagation()"
+      (touchstart)="$event.stopPropagation()"
+    >
+      <div class="wrapper">
+        <ng-container *ngFor="let item of data; let i = index;">
+          <div class="panel" [@expandCollapse]="isPanelClosed(i)">
+            <div class="panel__header" (click)="togglePanel(i)">
+              <svg-icon
+                src="assets/icons/widgets/truncated-diagram/tank.svg"
+                class="panel__header_icon"
+                [svgStyle]="{ 'width.px':12, 'height.px':15 }">
+              </svg-icon>
+              <span class="panel__header_tank-name">{{ item.name }}</span>
+              <svg-icon
+                [src]="isPanelClosed(i) ? 'assets/icons/widgets/truncated-diagram/collapse-panel.svg' : 'assets/icons/widgets/truncated-diagram/expand-panel.svg'"
+                class="panel__header_arrow"
+                [ngClass]="{'panel__header_arrow--expanded': isPanelClosed(i)}"
+                [svgStyle]="{ 'width.px':12, 'height.px':7 }">
+              </svg-icon>
+            </div>
+            <div class="panel__body" *ngIf="!isPanelClosed(i)">
+              <ng-container *ngFor="let pie of item.items">
+                <evj-pie-diagram [data]="pie"></evj-pie-diagram>
+              </ng-container>
+            </div>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+  </ng-container>
+
+  <evj-frame-bottom></evj-frame-bottom>
+</div>
