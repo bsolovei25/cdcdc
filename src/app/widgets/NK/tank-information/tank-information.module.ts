@@ -7,9 +7,7 @@ import { TankLineComponent } from './components/tank-line/tank-line.component';
 import { SharedModule } from '@shared/shared.module';
 import { TankInformationComponent } from './tank-information.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { DashboardModule } from 'src/app/dashboard/dashboard.module';
 import { AngularSvgIconModule } from 'angular-svg-icon';
-
 
 
 @NgModule({
@@ -19,7 +17,6 @@ import { AngularSvgIconModule } from 'angular-svg-icon';
     SharedModule,
     MatTooltipModule,
     AngularSvgIconModule,
-    DashboardModule
   ]
 })
 export class TankInformationModule {
