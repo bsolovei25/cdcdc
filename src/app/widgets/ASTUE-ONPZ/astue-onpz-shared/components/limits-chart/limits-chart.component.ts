@@ -8,6 +8,8 @@ import {
 import { IChartD3 } from '@shared/models/smart-scroll.model';
 import { AsyncRender } from '@shared/functions/async-render.function';
 import { fillDataArray } from '@shared/functions/fill-data-array.function';
+import { IDatesInterval, WidgetService } from '../../../../../dashboard/services/widget.service';
+import { dateFormatLocale } from '@shared/functions/universal-time-fromat.function';
 
 @Component({
     selector: 'evj-limits-chart',
@@ -17,7 +19,6 @@ import { fillDataArray } from '@shared/functions/fill-data-array.function';
 export class LimitsChartComponent implements OnChanges {
     @Input() private data: IProductionTrend[] = [];
     @Input() private isSpline: boolean = true;
-    @Input() private isWithPicker: boolean = false;
 
     @ViewChild('chart', { static: true }) private chart: ElementRef;
 
@@ -47,15 +48,16 @@ export class LimitsChartComponent implements OnChanges {
 
     private static DELTA_CF: number = 0.1;
 
-    private readonly topMargin: number = 25;
+    get currentDates(): IDatesInterval {
+        return this.widgetService.currentDates$.getValue();
+    }
 
-    constructor() {}
+    constructor(private widgetService: WidgetService) {}
 
     public ngOnChanges(): void {
         if (!!this.data.length) {
             this.getOxArea();
-            fillDataArray(this.data, true, true, this.dateMin.getTime(), this.dateMax.getTime());
-            console.log(this.data);
+            this.normalizeData();
             this.startDrawChart();
         } else {
             this.dropChart();
@@ -86,28 +88,37 @@ export class LimitsChartComponent implements OnChanges {
         this.customizeAreas();
     }
 
-    // TODO add historical condition
-    private getOxArea(): void {
-        const isFilterData = this.data.find((item) => item.graphType === 'fact').graph
-            .filter((x) => x.timeStamp.getTime() < new Date().getTime()).length > 0;
-        let factChart = this.data.find((g) => g.graphType === 'fact').graph;
-        if (isFilterData) {
-            factChart = factChart.filter((x) => x.timeStamp.getTime() < new Date().getTime());
-            this.data.find((g) => g.graphType === 'fact').graph = factChart;
+    // TODO delete fillDataArray ++
+    private normalizeData(): void {
+        if (this.currentDates) {
+            // TODO add some mb
+        } else {
+            fillDataArray(this.data, true, true, this.dateMin.getTime(), this.dateMax.getTime());
         }
-        const centerTimestamp = new Date(factChart[factChart.length - 1].timeStamp);
-        centerTimestamp.setMinutes(0, 0, 0);
-        const maxDate = centerTimestamp.getTime() + 1000 * 60 * 60 * 12;
-        const minDate = centerTimestamp.getTime() - 1000 * 60 * 60 * 12;
-        this.dateMax = new Date(maxDate);
-        this.dateMin = new Date(minDate);
+    }
+
+    // TODO add dt interval historical ++
+    private getOxArea(): void {
+        if (this.currentDates) {
+            [this.dateMin, this.dateMax] = d3.extent(this.data.flatMap((x) => x.graph).map((x) => x.timeStamp));
+        } else {
+            const isFilterData = this.data.find((item) => item.graphType === 'fact').graph
+                .filter((x) => x.timeStamp.getTime() < new Date().getTime()).length > 0;
+            let factChart = this.data.find((g) => g.graphType === 'fact').graph;
+            if (isFilterData) {
+                factChart = factChart.filter((x) => x.timeStamp.getTime() < new Date().getTime());
+                this.data.find((g) => g.graphType === 'fact').graph = factChart;
+            }
+            const centerTimestamp = new Date(factChart[factChart.length - 1].timeStamp);
+            centerTimestamp.setMinutes(0, 0, 0);
+            const maxDate = centerTimestamp.getTime() + 1000 * 60 * 60 * 12;
+            const minDate = centerTimestamp.getTime() - 1000 * 60 * 60 * 12;
+            this.dateMax = new Date(maxDate);
+            this.dateMin = new Date(minDate);
+        }
     }
 
     private initData(): void {
-        if (this.isWithPicker) {
-            this.padding.top = 70;
-        }
-
         this.svg = d3Selection.select(this.chart.nativeElement).append('svg');
 
         this.graphMaxX = +d3Selection
@@ -152,15 +163,26 @@ export class LimitsChartComponent implements OnChanges {
             .domain(domainValues)
             .range(rangeY);
 
-        this.axis.axisX = d3
-            .axisBottom(this.scaleFuncs.x)
-            .ticks(12)
-            .tickFormat(d3.timeFormat('%H'))
-            .tickSizeOuter(0);
+        // TODO add time format ++
+        if (!!this.currentDates) {
+            this.axis.axisX = d3
+                .axisBottom(this.scaleFuncs.x)
+                .ticks(8)
+                .tickFormat(dateFormatLocale())
+                .tickSizeOuter(0);
+        } else {
+            this.axis.axisX = d3
+                .axisBottom(this.scaleFuncs.x)
+                .ticks(12)
+                .tickFormat(d3.timeFormat('%H'))
+                .tickSizeOuter(0);
+        }
+
         this.axis.axisY = d3
             .axisLeft(this.scaleFuncs.y)
             .ticks(5)
-            .tickSize(0);
+            .tickSize(0)
+            .tickFormat(d3.format('d'));
     }
 
     private transformData(): void {
@@ -209,8 +231,6 @@ export class LimitsChartComponent implements OnChanges {
                 .y0((item: IChartD3) => item.y)
                 .y1(this.padding.top)
                 .curve(curve);
-
-            const opacity: number = 1;
 
             this.svg
                 .append('path')
@@ -336,6 +356,9 @@ export class LimitsChartComponent implements OnChanges {
     }
 
     private drawFutureRect(): void {
+        if (!!this.currentDates) {
+            return;
+        }
         const fact = this.chartData.find((chart) => chart.graphType === 'fact')?.graph ?? [];
         const x = fact[fact.length - 1].x;
         const y = this.padding.top;

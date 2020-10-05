@@ -1,7 +1,7 @@
 import { LineChartOptions } from './line-chart';
 import { SortTypeEvents } from './events-widget';
 
-export interface WidgetGridsterSettings {
+export interface IWidgetGridsterSettings {
     itemRows: string;
     itemCols: string;
 }

@@ -6,6 +6,8 @@ import { WidgetPlatform } from '../../../../../dashboard/models/widget-platform'
 import { WidgetService } from '../../../../../dashboard/services/widget.service';
 import { HttpClient } from '@angular/common/http';
 import { fillDataShape } from '@shared/functions/common-functions';
+import { AstueOnpzHeaderIcon } from '../../../../../dashboard/models/ASTUE-ONPZ/astue-onpz-header-icon.model';
+import { ArrayType } from '@angular/compiler';
 
 @Component({
     selector: 'evj-astue-onpz-product-card',
@@ -44,7 +46,6 @@ export class AstueOnpzProductCardComponent extends WidgetPlatform implements OnI
 
     private async getMockData(): Promise<void> {
         const ref = await this.http.get<IAstueProductChart>('assets/mock/ASTUE-ONPZ/product-charts.mock.json').toPromise();
-        console.log(fillDataShape(ref));
         setTimeout(() => this.dataHandler(ref), 5000);
     }
 
@@ -68,5 +69,9 @@ export class AstueOnpzProductCardComponent extends WidgetPlatform implements OnI
         this.data?.labels?.forEach((x) =>
             x.value = x?.type === 'economy' || x?.type === 'exceed'
                 ? Math.abs(x?.value ?? 0) : x?.value ?? 0);
+    }
+
+    ngOnDestroy(): void {
+        super.ngOnDestroy();
     }
 }

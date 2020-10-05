@@ -15,7 +15,7 @@
     height: 100%;
     padding-top: 20px;
 
-    border-top: 1px solid var(--ozsm-resources-circle-diagram-color-border-main);
+    border-top: 1px solid var(--ozsm-color-marker-diagram);
 
     position: relative;
 }
@@ -43,7 +43,7 @@
     &::-webkit-scrollbar-thumb{
         background: var(--ozsm-resources-circle-diagram-color-border-main);
         border-radius: 2px;
-    }  
+    }
     &::-webkit-scrollbar-track {
         background: var(--ozsm-resources-circle-diagram-color-bg-main);
         border-radius: 2px;
@@ -54,8 +54,8 @@
     height: 20px;
     width: 20px;
 
-    border-top: 1px solid var(--ozsm-resources-circle-diagram-color-border-main);
-    border-right: 1px solid var(--ozsm-resources-circle-diagram-color-border-main);
+    border-top: 1.2px solid var(--ozsm-color-marker-diagram);
+    border-right: 1.2px solid var(--ozsm-color-marker-diagram);
 
     transform: skew(45deg, 0);
 
@@ -73,7 +73,7 @@
         height: 7px;
         width: 7px;
 
-        border: 1px solid var(--ozsm-resources-circle-diagram-color-border-main);
+        border: 1px solid var(--ozsm-color-marker-diagram);
         border-radius: 50%;
 
         transform: skew(-45deg, 0) translate(8px, 6px);
@@ -84,8 +84,8 @@
     height: 20px;
     width: 20px;
 
-    border-top: 1px solid var(--ozsm-resources-circle-diagram-color-border-main);
-    border-left: 1px solid var(--ozsm-resources-circle-diagram-color-border-main);
+    border-top: 1.2px solid var(--ozsm-color-marker-diagram);
+    border-left: 1.2px solid var(--ozsm-color-marker-diagram);
 
     transform: skew(-45deg, 0);
 
@@ -103,7 +103,7 @@
         height: 7px;
         width: 7px;
 
-        border: 1px solid var(--ozsm-resources-circle-diagram-color-border-main);
+        border: 1px solid var(--ozsm-color-marker-diagram);
         border-radius: 50%;
 
         transform: skew(45deg, 0) translate(-8px, 6px);

@@ -2,6 +2,10 @@
   <evj-contemporary-widget-header [uniqId]="uniqId" [widgetTitle]="widgetTitle" icon="astue-indicators" type="astue">
     <div class="container__header">
       <div class="header__btn"
+           (mousedown)="$event.stopPropagation()"
+           (touchstart)="$event.stopPropagation()"
+           (click)="onPredictClick()"
+           [style]="{ cursor: !!this.uniqId ? 'pointer' : 'not-allowed' }"
            matRipple
            [matRippleColor]="'black'">
         <svg-icon class="header__icon"

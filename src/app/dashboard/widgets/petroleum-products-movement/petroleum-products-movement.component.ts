@@ -18,7 +18,6 @@ export class PetroleumProductsMovementComponent extends WidgetPlatform
     public static minItemRows: number = 30;
 
     public typeScreen: string = 'info';
-    protected isRealtimeData: boolean = false;
 
     private refreshTimeoutSecs: number = 45;
 
@@ -30,6 +29,7 @@ export class PetroleumProductsMovementComponent extends WidgetPlatform
         @Inject('uniqId') public uniqId: string
     ) {
         super(widgetService, isMock, id, uniqId);
+        this.isRealtimeData = false;
     }
 
     public ngOnInit(): void {

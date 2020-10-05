@@ -23,7 +23,6 @@
     "event event"
     "info info";
 
-
   overflow: auto;
 
   font-family: Tahoma, sans-serif;
@@ -76,7 +75,7 @@
 .selects {
   display: grid;
   gap: 10px;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(1, 1fr);
   grid-template-rows: repeat(1, max-content);
 
   &--one {
@@ -101,7 +100,32 @@
   }
 
   &__item {
-    height: 50px;
+    min-height: 50px;
+    min-width: 50px;
+    height: 100%;
+
+    &_left{
+      width: 39.3%;
+    }
+    &_right {
+      width: 81.3%;
+      display: flex;
+    }
+
+    &.first-block {
+      display: flex;
+      width: 100%;
+    }
+
+  }
+}
+
+.item_right{
+  &_left {
+    width: 30%;
+  }
+  &_right {
+    width: 70%;
   }
 }
 
@@ -149,17 +173,38 @@
 }
 
 .creator {
-  width: 50%;
+  position: relative;
   padding-left: 15px;
 
-  .creator_title {
+  &_title {
     color: var(--color-text-sub);
     font-size: 10px;
+    padding-top: 4px;
   }
 
-  .creator_body {
+  &_body {
     color: white;
     font-size: 12px;
+
+    &-center {
+      padding-top: 13px;
+    }
+  }
+
+  &_checkbox {
+    position: absolute;
+    right: 10px;
+    top: 5px
+  }
+
+  &_icon {
+    position: absolute;
+    right: 10px;
+    top: 11px;
+  }
+
+  &_link {
+    cursor: pointer;
   }
 }
 
@@ -208,7 +253,7 @@
 mat-form-field {
   box-sizing: border-box;
   width: 100%;
-  padding: 0px 15px;
+  padding: 0 15px;
   padding-bottom: 0px;
 
   mat-label {
@@ -232,6 +277,10 @@ mat-form-field {
 
   .mat-select-value {
     color: var(--color-text-main);
+  }
+
+  .mat-form-field-appearance-legacy .mat-form-field-wrapper {
+    padding-bottom: 0;
   }
 }
 
