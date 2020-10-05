@@ -6,6 +6,9 @@ import { TankFilterComponent } from './components/tank-filter/tank-filter.compon
 import { TankLineComponent } from './components/tank-line/tank-line.component';
 import { SharedModule } from '@shared/shared.module';
 import { TankInformationComponent } from './tank-information.component';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { DashboardModule } from 'src/app/dashboard/dashboard.module';
+import { AngularSvgIconModule } from 'angular-svg-icon';
 
 
 
@@ -13,7 +16,10 @@ import { TankInformationComponent } from './tank-information.component';
   declarations: [TankInformationComponent, TankCardComponent, TankFillingComponent, TankFilterComponent, TankLineComponent],
   imports: [
     CommonModule,
-    SharedModule
+    SharedModule,
+    MatTooltipModule,
+    AngularSvgIconModule,
+    DashboardModule
   ]
 })
 export class TankInformationModule {
