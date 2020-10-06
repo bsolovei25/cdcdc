@@ -1,5 +1,4 @@
 import { ManualInputComponent } from '../../../widgets/EVJ/manual-input/manual-input.component';
-import { EnergeticsComponent } from '../../widgets/energetics/energetics.component';
 import { SuspenseMachineComponent } from '../../widgets/suspense-machine/suspense-machine.component';
 import { UnityTemplateComponent } from '../../widgets/unity-template/unity-template.component';
 import { OperationEfficiencyComponent } from '../../widgets/operation-efficiency/operation-efficiency.component';
@@ -37,7 +36,6 @@ export const WIDGETS = {
     'unity-template': UnityTemplateComponent,
     'operation-efficiency': OperationEfficiencyComponent,
     'calendar-plan': CalendarPlanComponent,
-    energetics: EnergeticsComponent,
     'dispatcher-screen': DispatcherScreenComponent,
     'table-data': SuspenseMachineComponent,
     'deviations-table': DeviationsTableComponent,
@@ -145,6 +143,7 @@ export const WIDGETS = {
     'circle-diagram': WidgetContainerComponent,
     'circle-factory-diagram': WidgetContainerComponent,
     'observation-norm-tr': WidgetContainerComponent,
+    'energetics': WidgetContainerComponent,
 };
 
 export const WIDGETS_LAZY = {
@@ -837,6 +836,17 @@ export const WIDGETS_LAZY = {
         minItemCols: 13,
         minItemRows: 8,
         preview: 'circle-factory-diagram'
+    },
+    'energetics': {
+        import: async () => {
+            return await import('src/app/widgets/LCO/energetics/energetics.module');
+        },
+        module: 'EnergeticsModule',
+        itemCols: 24,
+        itemRows: 18,
+        minItemCols: 24,
+        minItemRows: 18,
+        preview: 'energetics'
     },
     //#endregion LCO
 

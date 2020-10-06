@@ -23,7 +23,6 @@ import { UnityTemplateComponent } from './widgets/unity-template/unity-template.
 import { PowIndexPipe } from '@shared/pipes/pow-index.pipe';
 import { CalendarPlanComponent } from './widgets/calendar-plan/calendar-plan.component';
 import { DispatcherScreenComponent } from './widgets/dispatcher-screen/dispatcher-screen.component';
-import { EnergeticsComponent } from './widgets/energetics/energetics.component';
 import { DeviationsTableComponent } from './widgets/deviations-table/deviations-table.component';
 import { ProductStocksComponent } from './widgets/product-stocks/product-stocks.component';
 import { DeviationCircleDiagramComponent } from './widgets/deviation-circle-diagram/deviation-circle-diagram.component';
@@ -190,7 +189,6 @@ import { TankFilterComponent } from '../widgets/NK/tank-information/components/t
         OperationEfficiencyComponent,
         CalendarPlanComponent,
         DispatcherScreenComponent,
-        EnergeticsComponent,
         DeviationsTableComponent,
         ProductStocksComponent,
         DeviationCircleDiagramComponent,
@@ -315,7 +313,6 @@ import { TankFilterComponent } from '../widgets/NK/tank-information/components/t
         UnityTemplateComponent,
         OperationEfficiencyComponent,
         CalendarPlanComponent,
-        EnergeticsComponent,
         DispatcherScreenComponent,
         DeviationsTableComponent,
         ProductStocksComponent,

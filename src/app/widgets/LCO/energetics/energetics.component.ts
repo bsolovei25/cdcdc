@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
-import { WidgetService } from '../../services/widget.service';
+import { WidgetService } from 'src/app/dashboard/services/widget.service';
 import {
     IEnergeticsEndsLine,
     IEnergeticsCoordinates,
@@ -7,8 +7,8 @@ import {
     IEnergeticsGraph,
     IEnergeticsCard,
     IEnergeticsCircleDiagram,
-} from '../../models/energetics';
-import { WidgetPlatform } from '../../models/widget-platform';
+} from 'src/app/dashboard/models/energetics';
+import { WidgetPlatform } from 'src/app/dashboard/models/widget-platform';
 
 @Component({
     selector: 'evj-energetics',
@@ -16,10 +16,6 @@ import { WidgetPlatform } from '../../models/widget-platform';
     styleUrls: ['./energetics.component.scss'],
 })
 export class EnergeticsComponent extends WidgetPlatform implements OnInit, OnDestroy {
-    public static itemCols: number = 24;
-    public static itemRows: number = 18;
-    public static minItemCols: number = 24;
-    public static minItemRows: number = 18;
 
     /* Приблизительная структура, получаемая с бека */
 
