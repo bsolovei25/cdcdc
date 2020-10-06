@@ -25,7 +25,7 @@ import { CdMatBalanceChartCardComponent } from '../../../widgets/CD/cd-mat-balan
 export const WIDGETS = {
     'pie-diagram': WidgetContainerComponent,
     'line-chart': WidgetContainerComponent,
-    'manual-input': ManualInputComponent,
+    'manual-input': WidgetContainerComponent,
     'events-workspace': WidgetContainerComponent,
     'industrial-pyramid': WidgetContainerComponent,
     'unity-template': UnityTemplateComponent,
