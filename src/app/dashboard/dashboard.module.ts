@@ -120,8 +120,6 @@ import { ReasonsDeviationsTankLevelComponent } from './widgets/reasons-deviation
 import { ProductionTrendGraphComponent } from './widgets/production-trend/components/production-trend-graph/production-trend-graph.component';
 import { DocumentViewerComponent } from './widgets/document-viewer/document-viewer.component';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
-import { DocumentsScansComponent } from './widgets/documents-scans/documents-scans.component';
-import { DocumentsScansReportComponent } from './widgets/documents-scans/components/documents-scans-report/documents-scans-report.component';
 import { QualityDocsPanelComponent } from './widgets/quality-docs-panel/quality-docs-panel.component';
 import { QualityDocsRecordComponent } from './widgets/quality-docs-panel/components/quality-docs-record/quality-docs-record.component';
 import { DocumentCodingComponent } from './widgets/document-coding/document-coding.component';
@@ -255,8 +253,6 @@ import { TankFilterComponent } from '../widgets/NK/tank-information/components/t
         ReasonsDeviationsTankLevelComponent,
         ProductionTrendGraphComponent,
         DocumentViewerComponent,
-        DocumentsScansComponent,
-        DocumentsScansReportComponent,
         QualityDocsPanelComponent,
         QualityDocsRecordComponent,
         DocumentCodingComponent,
@@ -320,7 +316,6 @@ import { TankFilterComponent } from '../widgets/NK/tank-information/components/t
         TanksTableComponent,
         CustomReportPropertiesReferenceComponent,
         ReasonsDeviationsComponent,
-        DocumentsScansComponent,
         QualityDocsPanelComponent,
         DocumentCodingComponent,
         ReportTreeComponent,

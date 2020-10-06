@@ -7,10 +7,10 @@ import {
     OnDestroy,
     OnInit,
 } from '@angular/core';
-import { WidgetService } from '../../services/widget.service';
-import { WidgetPlatform } from '../../models/widget-platform';
-import { DocumentsScansService } from '../../services/oil-control-services/documents-scans.service';
-import { IDocumentsScans } from '../../models/oil-document.model';
+import { WidgetService } from 'src/app/dashboard/services/widget.service';
+import { WidgetPlatform } from 'src/app/dashboard/models/widget-platform';
+import { DocumentsScansService } from 'src/app/dashboard/services/oil-control-services/documents-scans.service';
+import { IDocumentsScans } from 'src/app/dashboard/models/oil-document.model';
 
 @Component({
     selector: 'evj-documents-scans',
@@ -19,10 +19,6 @@ import { IDocumentsScans } from '../../models/oil-document.model';
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DocumentsScansComponent extends WidgetPlatform implements OnInit, OnDestroy {
-    public static itemCols: number = 16;
-    public static itemRows: number = 15;
-    public static minItemCols: number = 16;
-    public static minItemRows: number = 12;
 
     public data: IDocumentsScans[] = [];
     //     {

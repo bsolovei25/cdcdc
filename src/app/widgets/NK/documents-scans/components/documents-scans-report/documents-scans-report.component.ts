@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { SnackBarService } from 'src/app/dashboard/services/snack-bar.service';
 import { DocumentsScansService } from 'src/app/dashboard/services/oil-control-services/documents-scans.service';
-import { IDocumentsScans } from '../../../../models/oil-document.model';
+import { IDocumentsScans } from 'src/app/dashboard/models/oil-document.model';
 
 @Component({
   selector: 'evj-documents-scans-report',

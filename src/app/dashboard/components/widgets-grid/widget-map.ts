@@ -15,7 +15,6 @@ import { CustomReportPropertiesReferenceComponent } from '../../widgets/custom-r
 import { ProductionTrendComponent } from '../../widgets/production-trend/production-trend.component';
 import { ReasonsDeviationsComponent } from '../../widgets/reasons-deviations/reasons-deviations.component';
 import { DocumentViewerComponent } from '../../widgets/document-viewer/document-viewer.component';
-import { DocumentsScansComponent } from '../../widgets/documents-scans/documents-scans.component';
 import { QualityDocsPanelComponent } from '../../widgets/quality-docs-panel/quality-docs-panel.component';
 import { DocumentCodingComponent } from '../../widgets/document-coding/document-coding.component';
 import { OilOperationsComponent } from '../../widgets/oil-operations/oil-operations.component';
@@ -46,7 +45,6 @@ export const WIDGETS = {
     'production-trend': ProductionTrendComponent,
     'reasons-deviations': ReasonsDeviationsComponent,
     'document-viewer': DocumentViewerComponent,
-    'documents-scans': DocumentsScansComponent,
     'quality-docs-panel': QualityDocsPanelComponent,
     'document-coding': DocumentCodingComponent,
     'oil-operations': OilOperationsComponent,
@@ -137,10 +135,11 @@ export const WIDGETS = {
     'circle-diagram': WidgetContainerComponent,
     'circle-factory-diagram': WidgetContainerComponent,
     'observation-norm-tr': WidgetContainerComponent,
-    'energetics': WidgetContainerComponent,
+    energetics: WidgetContainerComponent,
     'calendar-plan': WidgetContainerComponent,
     'operation-efficiency': WidgetContainerComponent,
     'dispatcher-screen': WidgetContainerComponent,
+    'documents-scans': WidgetContainerComponent,
 };
 
 export const WIDGETS_LAZY = {
@@ -288,6 +287,19 @@ export const WIDGETS_LAZY = {
         minItemCols: 36,
         minItemRows: 14,
         preview: 'tank-information'
+    },
+    'documents-scans': {
+        import: async () => {
+            return await import(
+                'src/app/widgets/NK/documents-scans/documents-scans.module'
+                );
+        },
+        module: 'DocumentsScansModule',
+        itemCols: 16,
+        itemRows: 15,
+        minItemCols: 16,
+        minItemRows: 12,
+        preview: 'documents-scans'
     },
 
     // #endregion NK
@@ -834,7 +846,7 @@ export const WIDGETS_LAZY = {
         minItemRows: 8,
         preview: 'circle-factory-diagram'
     },
-    'energetics': {
+    energetics: {
         import: async () => {
             return await import('src/app/widgets/LCO/energetics/energetics.module');
         },
