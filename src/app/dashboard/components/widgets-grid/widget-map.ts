@@ -7,10 +7,8 @@ import { OperationEfficiencyComponent } from '../../widgets/operation-efficiency
 import { CalendarPlanComponent } from '../../widgets/calendar-plan/calendar-plan.component';
 import { DispatcherScreenComponent } from '../../widgets/dispatcher-screen/dispatcher-screen.component';
 import { DeviationsTableComponent } from '../../widgets/deviations-table/deviations-table.component';
-import { TriggeringCriticalParametersComponent } from '../../widgets/triggering-critical-parameters/triggering-critical-parameters.component';
 import { CircleFactoryDiagramComponent } from '../../widgets/circle-factory-diagram/circle-factory-diagram.component';
 import { ProductStocksComponent } from '../../widgets/product-stocks/product-stocks.component';
-import { SemicircleEnergyComponent } from '../../widgets/semicircle-energy/semicircle-energy.component';
 import { DeviationCircleDiagramComponent } from '../../widgets/deviation-circle-diagram/deviation-circle-diagram.component';
 import { CircleBlockDiagramComponent } from '../../widgets/circle-block-diagram/circle-block-diagram.component';
 import { ColumnChartStackedComponent } from '../../widgets/column-chart-stacked/column-chart-stacked.component';
@@ -48,10 +46,8 @@ export const WIDGETS = {
     'dispatcher-screen': DispatcherScreenComponent,
     'table-data': SuspenseMachineComponent,
     'deviations-table': DeviationsTableComponent,
-    'triggering-critical-parameters': TriggeringCriticalParametersComponent,
     'circle-factory-diagram': CircleFactoryDiagramComponent,
     'product-stocks': ProductStocksComponent,
-    'semicircle-energy': SemicircleEnergyComponent,
     'deviation-circle-diagram': DeviationCircleDiagramComponent,
     'circle-block-diagram': CircleBlockDiagramComponent,
     'column-chart-stacked': ColumnChartStackedComponent,
@@ -151,6 +147,8 @@ export const WIDGETS = {
     'solid-gauge-with-marker': WidgetContainerComponent,
     'admin-references': WidgetContainerComponent,
     'admin-shift-schedule-old': WidgetContainerComponent,
+    'triggering-critical-parameters': WidgetContainerComponent,
+    'semicircle-energy': WidgetContainerComponent,
 };
 
 export const WIDGETS_LAZY = {
@@ -777,6 +775,28 @@ export const WIDGETS_LAZY = {
         minItemCols: 24,
         minItemRows: 5,
         preview: 'ecology-safety'
+    },
+    'triggering-critical-parameters': {
+        import: async () => {
+            return await import('src/app/widgets/LCO/triggering-critical-parameters/triggering-critical-parameters.module');
+        },
+        module: 'TriggeringCriticalParametersModule',
+        itemCols: 18,
+        itemRows: 30,
+        minItemCols: 15,
+        minItemRows: 30,
+        preview: 'triggering-critical-parameters'
+    },
+    'semicircle-energy': {
+        import: async () => {
+            return await import('src/app/widgets/LCO/semicircle-energy/semicircle-energy.module');
+        },
+        module: 'SemicircleEnergyModule',
+        itemCols: 13,
+        itemRows: 9,
+        minItemCols: 13,
+        minItemRows: 9,
+        preview: 'semicircle-energy'
     },
     //#endregion LCO
 

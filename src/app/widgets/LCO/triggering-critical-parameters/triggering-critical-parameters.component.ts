@@ -1,8 +1,9 @@
 import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { EventService } from '../../services/widgets/event.service';
-import { WidgetService } from '../../services/widget.service';
-import { WidgetPlatform } from '../../models/widget-platform';
+import { WidgetPlatform } from 'src/app/dashboard/models/widget-platform';
+import { WidgetService } from 'src/app/dashboard/services/widget.service';
+import { EventService } from 'src/app/dashboard/services/widgets/event.service';
+
 
 export interface ITriggeringCriticalParameters {
     equipment: string;
@@ -26,11 +27,6 @@ export class TriggeringCriticalParametersComponent extends WidgetPlatform
     isLoading: boolean = true;
 
     data: ITriggeringCriticalParameters[] = [];
-
-    public static itemCols: number = 18;
-    public static itemRows: number = 30;
-    public static minItemCols: number = 15;
-    public static minItemRows: number = 30;
 
     constructor(
         private eventService: EventService,

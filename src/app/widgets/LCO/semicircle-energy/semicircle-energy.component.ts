@@ -1,13 +1,13 @@
 import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
-import { WidgetService } from '../../services/widget.service';
+import { WidgetService } from 'src/app/dashboard/services/widget.service';
 import {
     EnergyCircleDiagram,
     Production,
     SemicircleEnergy,
     CenterCoords,
     LimitLine,
-} from '../../models/semicircle-energy';
-import { WidgetPlatform } from '../../models/widget-platform';
+} from 'src/app/dashboard/models/semicircle-energy';
+import { WidgetPlatform } from 'src/app/dashboard/models/widget-platform';
 
 @Component({
     selector: 'evj-semicircle-energy',
@@ -80,11 +80,6 @@ export class SemicircleEnergyComponent extends WidgetPlatform implements OnInit,
     public diagramLogo: string;
     public diagramLogoDanger: string;
     public isWarning: boolean = false;
-
-    public static itemCols: number = 13;
-    public static itemRows: number = 9;
-    public static minItemCols: number = 13;
-    public static minItemRows: number = 9;
 
     constructor(
         protected widgetService: WidgetService,
