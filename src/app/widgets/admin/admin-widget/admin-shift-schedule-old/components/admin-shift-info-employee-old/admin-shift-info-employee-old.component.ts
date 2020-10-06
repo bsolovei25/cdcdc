@@ -7,11 +7,11 @@ import {
     EventEmitter,
 } from '@angular/core';
 import { AdminShiftScheduleService } from 'src/app/dashboard/services/widgets/admin-shift-schedule.service';
-import { IUser } from '../../../../../models/events-widget';
 import { AvatarConfiguratorService } from '@core/service/avatar-configurator.service';
-import { SnackBarService } from '../../../../../services/snack-bar.service';
 import { IAlertWindowModel } from '../../../../../../@shared/models/alert-window.model';
 import { IAbsent } from '../../../../../../widgets/admin/admin-shift-schedule/admin-shift-schedule.component';
+import { IUser } from 'src/app/dashboard/models/events-widget';
+import { SnackBarService } from 'src/app/dashboard/services/snack-bar.service';
 
 
 @Component({

@@ -169,11 +169,6 @@ import { WidgetPanelComponent } from './components/widget-panel/widget-panel.com
 import { MatMenuModule } from '@angular/material/menu';
 import { WidgetContainerComponent } from './widget-container/widget-container.component';
 import { PerformanceBarComponent } from './components/performance-bar/performance-bar.component';
-import { AdminShiftScheduleOldComponent } from './widgets/admin-widget/admin-shift-schedule-old/admin-shift-schedule-old.component';
-import { AdminShiftListEmployeesOldComponent } from './widgets/admin-widget/admin-shift-schedule-old/components/admin-shift-list-employees-old/admin-shift-list-employees-old.component';
-import { AdminShiftInfoEmployeeOldComponent } from './widgets/admin-widget/admin-shift-schedule-old/components/admin-shift-info-employee-old/admin-shift-info-employee-old.component';
-import { AdminShiftCardOldComponent } from './widgets/admin-widget/admin-shift-schedule-old/components/admin-shift-card-old/admin-shift-card-old.component';
-import { AdminShiftBrigadeOldComponent } from './widgets/admin-widget/admin-shift-schedule-old/components/admin-shift-brigade-old/admin-shift-brigade-old.component';
 import { GroupSelectorComponent } from './components/group-selector/group-selector.component';
 import { GroupSelectorRowComponent } from './components/group-selector/group-selector-row/group-selector-row.component';
 import { IndicatorDiagramComponent } from './components/indicator-diagram/indicator-diagram.component';
@@ -319,11 +314,6 @@ import { TankFilterComponent } from '../widgets/NK/tank-information/components/t
         WidgetPanelComponent,
         WidgetContainerComponent,
         PerformanceBarComponent,
-        AdminShiftScheduleOldComponent,
-        AdminShiftListEmployeesOldComponent,
-        AdminShiftInfoEmployeeOldComponent,
-        AdminShiftCardOldComponent,
-        AdminShiftBrigadeOldComponent,
         GroupSelectorComponent,
         GroupSelectorRowComponent,
         IndicatorDiagramComponent,
@@ -369,7 +359,6 @@ import { TankFilterComponent } from '../widgets/NK/tank-information/components/t
         OilOperationsComponent,
         WorkflowComponent,
         PanelComponent,
-        AdminShiftScheduleOldComponent
     ],
     exports: [HomeComponent, PerformanceBarComponent, WidgetPreviewComponent, PowIndexPipe, TankFilterComponent],
     imports: [

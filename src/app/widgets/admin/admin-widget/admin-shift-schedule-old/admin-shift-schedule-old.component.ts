@@ -7,29 +7,21 @@ import {
     OnInit,
     AfterContentChecked
 } from '@angular/core';
-import { WidgetService } from '../../../services/widget.service';
 import * as moment from 'moment';
 import { DateAdapter } from '@angular/material/core';
-import { IUser } from '../../../models/events-widget';
 import { SelectionModel } from '@angular/cdk/collections';
-import {
-    IBrigadeWithUsersDto,
-    IScheduleShiftDay,
-    IScheduleShift,
-    IUnits
-} from '../../../models/admin-shift-schedule';
 import { fillDataShape } from '@shared/functions/common-functions';
 import { MatCalendar } from '@angular/material/datepicker';
-import { WidgetPlatform } from '../../../models/widget-platform';
-import { SnackBarService } from '../../../services/snack-bar.service';
-import {
-    AdminShiftScheduleService,
-    IDropItem
-} from '../../../services/widgets/admin-shift-schedule.service';
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
 import { IAlertWindowModel } from '../../../../@shared/models/alert-window.model';
 import { FormControl } from '@angular/forms';
 import { IAbsent } from '../../../../widgets/admin/admin-shift-schedule/admin-shift-schedule.component';
+import { IUser } from 'src/app/dashboard/models/events-widget';
+import { IBrigadeWithUsersDto, IScheduleShift, IScheduleShiftDay, IUnits } from 'src/app/dashboard/models/admin-shift-schedule';
+import { AdminShiftScheduleService, IDropItem } from 'src/app/dashboard/services/widgets/admin-shift-schedule.service';
+import { WidgetService } from 'src/app/dashboard/services/widget.service';
+import { SnackBarService } from 'src/app/dashboard/services/snack-bar.service';
+import { WidgetPlatform } from 'src/app/dashboard/models/widget-platform';
 
 @Component({
     selector: 'evj-admin-shift-schedule-old',
@@ -43,12 +35,6 @@ export class AdminShiftScheduleOldComponent extends WidgetPlatform
     isLoading: boolean = true;
 
     isSelectMenu: boolean = true;
-
-    public static itemCols: number = 38;
-    public static itemRows: number = 25;
-
-    public static minItemCols: number = 38;
-    public static minItemRows: number = 25;
 
     activeUsers: SelectionModel<IUser> = new SelectionModel(true);
 

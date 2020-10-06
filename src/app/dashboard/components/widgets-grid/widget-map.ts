@@ -32,7 +32,6 @@ import { OilOperationsComponent } from '../../widgets/oil-operations/oil-operati
 import { WorkflowComponent } from '../../widgets/workflow/workflow.component';
 import { CdCriticalComponent } from '../../widgets/cd-critical/cd-critical.component';
 import { WidgetContainerComponent } from '../../widget-container/widget-container.component';
-import { AdminShiftScheduleOldComponent } from '../../widgets/admin-widget/admin-shift-schedule-old/admin-shift-schedule-old.component';
 import { CdMatBalanceChartCardComponent } from '../../../widgets/CD/cd-mat-balance/components/cd-mat-balance-chart-card/cd-mat-balance-chart-card.component';
 
 export const WIDGETS = {
@@ -87,7 +86,6 @@ export const WIDGETS = {
     'aps-gantt-chart': WidgetContainerComponent,
     scenarios: WidgetContainerComponent,
     'admin-shift-schedule': WidgetContainerComponent,
-    'admin-shift-schedule-old': AdminShiftScheduleOldComponent,
     'facility-deviation': WidgetContainerComponent,
     'raw-motion': WidgetContainerComponent,
     'stocks-using': WidgetContainerComponent,
@@ -152,6 +150,7 @@ export const WIDGETS = {
     'enterprise-map': WidgetContainerComponent,
     'solid-gauge-with-marker': WidgetContainerComponent,
     'admin-references': WidgetContainerComponent,
+    'admin-shift-schedule-old': WidgetContainerComponent,
 };
 
 export const WIDGETS_LAZY = {
@@ -396,6 +395,19 @@ export const WIDGETS_LAZY = {
         itemRows: 15,
         minItemCols: 15,
         minItemRows: 15,
+        preview: 'admin-shift-schedule'
+    },
+    'admin-shift-schedule-old': {
+        import: async () => {
+            return await import(
+                'src/app/widgets/admin/admin-widget/admin-shift-schedule-old/admin-shift-shedule-old.module'
+                );
+        },
+        module: 'AdminShiftSheduleOldModule',
+        itemCols: 38,
+        itemRows: 25,
+        minItemCols: 38,
+        minItemRows: 25,
         preview: 'admin-shift-schedule'
     },
     'admin-panel': {
