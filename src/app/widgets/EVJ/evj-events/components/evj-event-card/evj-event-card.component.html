@@ -200,84 +200,91 @@
 </ng-template>
 
 <ng-template #block let-cardData="cardData">
-  <div
-    class="notification__block notifications__block__item notification-event"
-    [class.selected-block]="cardData?.id === cardActiveId"
-    (click)="eventClick(cardData?.id)"
+  <evj-evj-event-card-block style="flex: 1 1 340px"
+                            [data]="cardData"
+                            [cardActiveId]="cardActiveId"
+                            (cardClick)="eventClick($event)"
+                            (cardDeleteClick)="deleteClick($event)"
   >
-    <div class="notification__block__header">
-      <span
-        class="notification__block__number"
-        [ngClass]="'notification__number_' + cardData?.priority"
-      >
-        {{ cardData?.id }}
-      </span>
-      <span class="notification__block__unit">
-        {{ cardData?.unit?.name || '-' }}
-      </span>
+  </evj-evj-event-card-block>
+  <!--  <div-->
+  <!--    class="notification__block notifications__block__item notification-event"-->
+  <!--    [class.selected-block]="cardData?.id === cardActiveId"-->
+  <!--    (click)="eventClick(cardData?.id)"-->
+  <!--  >-->
+  <!--    <div class="notification__block__header">-->
+  <!--      <span-->
+  <!--        class="notification__block__number"-->
+  <!--        [ngClass]="'notification__number_' + cardData?.priority"-->
+  <!--      >-->
+  <!--        {{ cardData?.id }}-->
+  <!--      </span>-->
+  <!--      <span class="notification__block__unit">-->
+  <!--        {{ cardData?.unit?.name || '-' }}-->
+  <!--      </span>-->
 
-      <div
-        class="label-button"
-        [class.label-button_active]="cardData?.isAcknowledged"
-        (click)="changeIsAcknowledged(cardData)"
-        *ngIf="cardData?.category?.code!==0 && cardData?.category?.code!==5 && cardData?.category?.code!==6"
-      >
-        {{cardData?.isAcknowledged ? 'Квитировано' : 'Не квитировано'}}
-      </div>
+  <!--      <div-->
+  <!--        class="label-button"-->
+  <!--        [class.label-button_active]="cardData?.isAcknowledged"-->
+  <!--        (click)="changeIsAcknowledged(cardData)"-->
+  <!--        *ngIf="cardData?.category?.code!==0 && cardData?.category?.code!==5 && cardData?.category?.code!==6"-->
+  <!--      >-->
+  <!--        {{cardData?.isAcknowledged ? 'Квитировано' : 'Не квитировано'}}-->
+  <!--      </div>-->
 
-      <div class="notification__block__extra">
-        <span
-          class="notification__block__status"
-          [ngClass]="'notification__block__status_' + cardData?.priority?.name"
-        >
-          {{ cardData?.statusName }}
-        </span>
-        <span class="notification__block__status">
-          <svg-icon
-            [applyCss]="true"
-            [src]="cardData?.iconUrlStatus"
-            [ngClass]="'notification__block__icon_' + cardData?.priority?.name"
-            [svgStyle]="{'fill':'rgb(63, 168, 243)'}"
-          >
-          </svg-icon>
-        </span>
-        <span *ngIf="!cardData?.source" class="notification__block__status">
-          <svg-icon
-            class="notification__block__icon notification__block__icon_delete"
-            [applyCss]="true"
-            src="assets/icons/remove.svg"
-            (click)="deleteClick(cardData?.id)"
-            [svgStyle]="{ 'width.px':14, 'height.px':14 }"
-          >
-          </svg-icon>
-        </span>
-        <span class="notification__block__span__icon">
-          <svg-icon
-            [applyCss]="true"
-            class="notification__block__icon__right"
-            [src]="cardData?.iconUrl"
-            [ngClass]="'notification__block__icon_'"
-            [svgStyle]="{'fill':'rgb(63, 168, 243)'}"
-          >
-          </svg-icon>
-        </span>
-      </div>
-    </div>
-    <div class="notification__block__body">
-      <span class="notification__block__description">
-        {{ cardData?.description }}
-      </span>
-      <span class="notification__block__facts">
-        {{ cardData?.facts[0] ? cardData?.facts[0].comment : '-' }}
-      </span>
-    </div>
-    <div class="notification__block__footer">
-      <span class="notification__block__footer-text">Начало события:</span>
-      <span class="notification__block__footer-date-time"
-      >{{ cardData?.eventDateTime | date: 'dd.MM.yyyy HH:mm' }}
-      </span>
-    </div>
-  </div>
+  <!--      <div class="notification__block__extra">-->
+  <!--        <span-->
+  <!--          class="notification__block__status"-->
+  <!--          [ngClass]="'notification__block__status_' + cardData?.priority?.name"-->
+  <!--        >-->
+  <!--          {{ cardData?.statusName }}-->
+  <!--        </span>-->
+  <!--        <span class="notification__block__status">-->
+  <!--          <svg-icon-->
+  <!--            [applyCss]="true"-->
+  <!--            [src]="cardData?.iconUrlStatus"-->
+  <!--            [ngClass]="'notification__block__icon_' + cardData?.priority?.name"-->
+  <!--            [svgStyle]="{'fill':'rgb(63, 168, 243)'}"-->
+  <!--          >-->
+  <!--          </svg-icon>-->
+  <!--        </span>-->
+  <!--        <span *ngIf="!cardData?.source" class="notification__block__status">-->
+  <!--          <svg-icon-->
+  <!--            class="notification__block__icon notification__block__icon_delete"-->
+  <!--            [applyCss]="true"-->
+  <!--            src="assets/icons/remove.svg"-->
+  <!--            (click)="deleteClick(cardData?.id)"-->
+  <!--            [svgStyle]="{ 'width.px':14, 'height.px':14 }"-->
+  <!--          >-->
+  <!--          </svg-icon>-->
+  <!--        </span>-->
+  <!--        <span class="notification__block__span__icon">-->
+  <!--          <svg-icon-->
+  <!--            [applyCss]="true"-->
+  <!--            class="notification__block__icon__right"-->
+  <!--            [src]="cardData?.iconUrl"-->
+  <!--            [ngClass]="'notification__block__icon_'"-->
+  <!--            [svgStyle]="{'fill':'rgb(63, 168, 243)'}"-->
+  <!--          >-->
+  <!--          </svg-icon>-->
+  <!--        </span>-->
+  <!--      </div>-->
+  <!--    </div>-->
+  <!--    <div class="notification__block__body">-->
+  <!--      <span class="notification__block__description">-->
+  <!--        {{ cardData?.description }}-->
+  <!--      </span>-->
+  <!--      <span class="notification__block__facts">-->
+  <!--        {{ cardData?.facts[0] ? cardData?.facts[0].comment : '-' }}-->
+  <!--      </span>-->
+  <!--    </div>-->
+  <!--    <div class="notification__block__footer">-->
+  <!--      <span class="notification__block__footer-text">Начало события:</span>-->
+  <!--      <span class="notification__block__footer-date-time"-->
+  <!--      >{{ cardData?.eventDateTime | date: 'dd.MM.yyyy HH:mm' }}-->
+  <!--      </span>-->
+  <!--    </div>-->
+  <!--  </div>-->
 </ng-template>
 
 
