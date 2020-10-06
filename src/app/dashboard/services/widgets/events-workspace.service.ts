@@ -126,7 +126,7 @@ export class EventsWorkspaceService {
         equipmentStatus: 'Состояния оборудования',
         drops: 'Сбросы',
         asus: 'АСУС (КИП и АСУТП)',
-        ejs: 'ЭЖС',
+        ejs: 'Электронный журнал событий',
         indicators: 'Производственные показатели',
         resources: 'Вспомогательные ресурсы',
         modelCalculations: 'ЦД'

@@ -463,10 +463,17 @@
   --header-events-color-bg-item-main: rgba(27, 30, 41);
   --header-events-color-font-standard: #606580;
   --header-events-color-font-warning: #F7931E;
-  --header-events-color-font-danger:#FF0000;
+  --header-events-color-font-danger: #FF0000;
   --header-events-color-bg-active: #0089FF;
   --header-events-color-bg-hover: #1F222E;
   --header-events-color-bg-thumb: rgb(40, 43, 56, 0.46);
+
+  // event
+  --color-events-bg-card: #141721;
+  --color-events-border: #35394A;
+  --color-events-btn: #202330;
+  --color-events-bg-filters: #181B25;
+
 }
 
 $--color-active: #3fa9f5;
