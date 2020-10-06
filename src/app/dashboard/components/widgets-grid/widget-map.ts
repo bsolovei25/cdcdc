@@ -17,7 +17,6 @@ import { ColumnChartStackedComponent } from '../../widgets/column-chart-stacked/
 import { TimeLineDiagramComponent } from '../../widgets/time-line-diagram/time-line-diagram.component';
 import { FlameDiagramComponent } from '../../widgets/flame-diagram/flame-diagram.component';
 import { ObservationNormTRComponent } from '../../widgets/observation-norm-tr/observation-norm-tr.component';
-import { AdminReferencesComponent } from '../../widgets/admin-references/admin-references.component';
 import { PetroleumProductsMovementComponent } from '../../widgets/petroleum-products-movement/petroleum-products-movement.component';
 import { ReportServerConfiguratorComponent } from '../../widgets/report-server-configurator/report-server-configurator.component';
 import { ReferenceComponent } from '../../widgets/reference/reference.component';
@@ -60,7 +59,6 @@ export const WIDGETS = {
     'flame-diagram': FlameDiagramComponent,
     'time-line-diagram': TimeLineDiagramComponent,
     'observation-norm-tr': ObservationNormTRComponent,
-    'admin-references': AdminReferencesComponent,
     'petroleum-products-movement': PetroleumProductsMovementComponent,
     reference: ReferenceComponent,
     'report-server-configurator': ReportServerConfiguratorComponent,
@@ -153,6 +151,7 @@ export const WIDGETS = {
     'map-ecology': WidgetContainerComponent,
     'enterprise-map': WidgetContainerComponent,
     'solid-gauge-with-marker': WidgetContainerComponent,
+    'admin-references': WidgetContainerComponent,
 };
 
 export const WIDGETS_LAZY = {
@@ -409,6 +408,17 @@ export const WIDGETS_LAZY = {
         minItemCols: 43,
         minItemRows: 28,
         preview: 'admin-panel'
+    },
+    'admin-references': {
+        import: async () => {
+            return await import('src/app/widgets/admin/admin-references/admin-references.module');
+        },
+        module: 'AdminReferencesModule',
+        itemCols: 32,
+        itemRows: 15,
+        minItemCols: 29,
+        minItemRows: 13,
+        preview: 'admin-references'
     },
 
     // #endregion Admin

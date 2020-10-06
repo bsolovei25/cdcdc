@@ -50,7 +50,6 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatNativeDateModule, MAT_DATE_LOCALE, MatRippleModule } from '@angular/material/core';
-import { AdminReferencesComponent } from './widgets/admin-references/admin-references.component';
 import { PetroleumProductsMovementComponent } from './widgets/petroleum-products-movement/petroleum-products-movement.component';
 import { PetroleumReferenceLeftComponent } from './widgets/petroleum-products-movement/petroleum-reference-left/petroleum-reference-left.component';
 import { PetroleumReferenceRightComponent } from './widgets/petroleum-products-movement/petroleum-reference-right/petroleum-reference-right.component';
@@ -223,7 +222,6 @@ import { TankFilterComponent } from '../widgets/NK/tank-information/components/t
         SearchInputComponent,
         SearchListComponent,
         ObservationNormTRComponent,
-        AdminReferencesComponent,
         PetroleumProductsMovementComponent,
         PetroleumReferenceLeftComponent,
         PetroleumReferenceRightComponent,
@@ -353,7 +351,6 @@ import { TankFilterComponent } from '../widgets/NK/tank-information/components/t
         FlameDiagramComponent,
         TimeLineDiagramComponent,
         ObservationNormTRComponent,
-        AdminReferencesComponent,
         PetroleumProductsMovementComponent,
         ReferenceComponent,
         ReportServerConfiguratorComponent,

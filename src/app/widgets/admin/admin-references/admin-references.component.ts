@@ -1,10 +1,10 @@
 import { Component, OnInit, Inject, OnDestroy, ElementRef, ViewChild, HostListener } from '@angular/core';
-import { WidgetService } from '../../services/widget.service';
+import { WidgetPlatform } from 'src/app/dashboard/models/widget-platform';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
-import { IReferenceTypes, IReferenceColumnsType } from '../../models/references';
-import { WidgetPlatform } from '../../models/widget-platform';
 import { Subscription } from 'rxjs';
-import { ReferencesService } from '../../services/widgets/references.service';
+import { IReferenceColumnsType, IReferenceTypes } from 'src/app/dashboard/models/references';
+import { WidgetService } from 'src/app/dashboard/services/widget.service';
+import { ReferencesService } from 'src/app/dashboard/services/widgets/references.service';
 
 @Component({
     selector: 'evj-admin-references',
@@ -13,12 +13,6 @@ import { ReferencesService } from '../../services/widgets/references.service';
 })
 export class AdminReferencesComponent extends WidgetPlatform implements OnInit, OnDestroy {
     @ViewChild('adminRefereneTable') public testBlock: ElementRef;
-
-    static itemCols = 32;
-    static itemRows = 15;
-
-    public static minItemCols: number = 29;
-    public static minItemRows: number = 13;
 
     isLoading: boolean = false;
 
