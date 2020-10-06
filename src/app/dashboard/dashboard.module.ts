@@ -19,7 +19,6 @@ import { UserInfoComponent } from './components/user-info/user-info.component';
 import { SuspenseMachineComponent } from './widgets/suspense-machine/suspense-machine.component';
 import { UnityTemplateComponent } from './widgets/unity-template/unity-template.component';
 import { PowIndexPipe } from '@shared/pipes/pow-index.pipe';
-import { DispatcherScreenComponent } from './widgets/dispatcher-screen/dispatcher-screen.component';
 import { DeviationsTableComponent } from './widgets/deviations-table/deviations-table.component';
 import { ProductStocksComponent } from './widgets/product-stocks/product-stocks.component';
 import { DeviationCircleDiagramComponent } from './widgets/deviation-circle-diagram/deviation-circle-diagram.component';
@@ -182,7 +181,6 @@ import { TankFilterComponent } from '../widgets/NK/tank-information/components/t
         SuspenseMachineComponent,
         UnityTemplateComponent,
         PowIndexPipe,
-        DispatcherScreenComponent,
         DeviationsTableComponent,
         ProductStocksComponent,
         DeviationCircleDiagramComponent,
@@ -305,7 +303,6 @@ import { TankFilterComponent } from '../widgets/NK/tank-information/components/t
     entryComponents: [
         SuspenseMachineComponent,
         UnityTemplateComponent,
-        DispatcherScreenComponent,
         DeviationsTableComponent,
         ProductStocksComponent,
         DeviationCircleDiagramComponent,

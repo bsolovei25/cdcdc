@@ -1,9 +1,9 @@
 import { AfterViewInit, Component, HostListener, Inject, OnDestroy, OnInit } from '@angular/core';
 import { UnityLoader } from '@shared/functions/UnityLoader.js';
 import { PlatformLocation } from '@angular/common';
-import { WidgetService } from '../../services/widget.service';
-import { WidgetSettingsService } from '../../services/widget-settings.service';
-import { WidgetPlatform } from '../../models/widget-platform';
+import { WidgetService } from 'src/app/dashboard/services/widget.service';
+import { WidgetSettingsService } from 'src/app/dashboard/services/widget-settings.service';
+import { WidgetPlatform } from 'src/app/dashboard/models/widget-platform';
 import { error } from '@angular/compiler/src/util';
 
 @Component({
@@ -17,11 +17,6 @@ export class DispatcherScreenComponent extends WidgetPlatform implements AfterVi
     isStart: boolean;
 
     private canvas: HTMLCanvasElement;
-
-    public static itemCols: number = 64;
-    public static itemRows: number = 30;
-    public static minItemCols: number = 50;
-    public static minItemRows: number = 30;
 
     constructor(
         public widgetService: WidgetService,

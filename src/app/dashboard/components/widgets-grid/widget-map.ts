@@ -1,7 +1,6 @@
 import { ManualInputComponent } from '../../../widgets/EVJ/manual-input/manual-input.component';
 import { SuspenseMachineComponent } from '../../widgets/suspense-machine/suspense-machine.component';
 import { UnityTemplateComponent } from '../../widgets/unity-template/unity-template.component';
-import { DispatcherScreenComponent } from '../../widgets/dispatcher-screen/dispatcher-screen.component';
 import { DeviationsTableComponent } from '../../widgets/deviations-table/deviations-table.component';
 import { ProductStocksComponent } from '../../widgets/product-stocks/product-stocks.component';
 import { DeviationCircleDiagramComponent } from '../../widgets/deviation-circle-diagram/deviation-circle-diagram.component';
@@ -32,7 +31,6 @@ export const WIDGETS = {
     'events-workspace': WidgetContainerComponent,
     'industrial-pyramid': WidgetContainerComponent,
     'unity-template': UnityTemplateComponent,
-    'dispatcher-screen': DispatcherScreenComponent,
     'table-data': SuspenseMachineComponent,
     'deviations-table': DeviationsTableComponent,
     'product-stocks': ProductStocksComponent,
@@ -142,6 +140,7 @@ export const WIDGETS = {
     'energetics': WidgetContainerComponent,
     'calendar-plan': WidgetContainerComponent,
     'operation-efficiency': WidgetContainerComponent,
+    'dispatcher-screen': WidgetContainerComponent,
 };
 
 export const WIDGETS_LAZY = {
@@ -1323,9 +1322,25 @@ export const WIDGETS_LAZY = {
         minItemCols: 35,
         minItemRows: 13,
         preview: 'manual-input'
-    }
+    },
     //#endregion EJV
 
+      // #region ED
+
+      'dispatcher-screen': {
+        import: async () => {
+            return await import(
+                'src/app/widgets/ED/dispatcher-screen/dispatcher-screen.module'
+                );
+        },
+        module: 'DispatcherScreenModule',
+        itemCols: 64,
+        itemRows: 30,
+        minItemCols: 50,
+        minItemRows: 30,
+        preview: 'dispatcher-screen'
+    }
+    //#endregion ED
 
     // 'pie-diagram': {
     //     import: async () => await import('src/app/widgets/pie-diagram/pie-diagram.module'),
