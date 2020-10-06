@@ -1,12 +1,11 @@
 import { Component, HostListener, Inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { PdfViewerComponent } from 'ng2-pdf-viewer';
-import { WidgetPlatform } from '../../models/widget-platform';
-import { WidgetService } from '../../services/widget.service';
+import { WidgetPlatform } from 'src/app/dashboard/models/widget-platform';
+import { WidgetService } from 'src/app/dashboard/services/widget.service';
 import { MatDialog } from '@angular/material/dialog';
-import { TanksTableComponent } from '../tank-calibration-table/tanks-table/tanks-table.component';
 import { DocumentViewerFullscreenComponent } from './document-viewer-fullscreen/document-viewer-fullscreen.component';
 import { stringify } from 'querystring';
-import { DocumentsScansService } from '../../services/oil-control-services/documents-scans.service';
+import { DocumentsScansService } from 'src/app/dashboard/services/oil-control-services/documents-scans.service';
 
 export interface IDocumentViewer {
     src: string;
@@ -46,11 +45,6 @@ export class DocumentViewerComponent extends WidgetPlatform implements OnInit, O
         }
         return this._scalePercent;
     }
-
-    public static itemCols: number = 16;
-    public static itemRows: number = 15;
-    public static minItemCols: number = 16;
-    public static minItemRows: number = 12;
 
     constructor(
         public oilDocumentService: DocumentsScansService,

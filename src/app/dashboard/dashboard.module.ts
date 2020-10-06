@@ -118,7 +118,6 @@ import { ReasonsDeviationsInfoTankComponent } from './widgets/reasons-deviations
 import { ReasonsDeviationsPicTankComponent } from './widgets/reasons-deviations/components/reasons-deviations-pic-tank/reasons-deviations-pic-tank.component';
 import { ReasonsDeviationsTankLevelComponent } from './widgets/reasons-deviations/components/reasons-deviations-tank-level/reasons-deviations-tank-level.component';
 import { ProductionTrendGraphComponent } from './widgets/production-trend/components/production-trend-graph/production-trend-graph.component';
-import { DocumentViewerComponent } from './widgets/document-viewer/document-viewer.component';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { QualityDocsPanelComponent } from './widgets/quality-docs-panel/quality-docs-panel.component';
 import { QualityDocsRecordComponent } from './widgets/quality-docs-panel/components/quality-docs-record/quality-docs-record.component';
@@ -146,7 +145,6 @@ import { OilOperationsLineComponent } from './widgets/oil-operations/components/
 import { ReportFileSelectBoxComponent } from './widgets/report-server-configurator/report-file-select-box/report-file-select-box.component';
 import { OilOperationsAdjustmentComponent } from './widgets/oil-operations/components/oil-operations-adjustment/oil-operations-adjustment.component';
 import { OilOperationsFreeShipmentComponent } from './widgets/oil-operations/components/oil-operations-free-shipment/oil-operations-free-shipment.component';
-import { DocumentViewerFullscreenComponent } from './widgets/document-viewer/document-viewer-fullscreen/document-viewer-fullscreen.component';
 import { CdCriticalComponent } from './widgets/cd-critical/cd-critical.component';
 import { WorkflowTableComponent } from './widgets/workflow/workflow-table/workflow-table.component';
 import { WorkflowListComponent } from './widgets/workflow/workflow-list/workflow-list.component';
@@ -252,7 +250,6 @@ import { TankFilterComponent } from '../widgets/NK/tank-information/components/t
         ReasonsDeviationsPicTankComponent,
         ReasonsDeviationsTankLevelComponent,
         ProductionTrendGraphComponent,
-        DocumentViewerComponent,
         QualityDocsPanelComponent,
         QualityDocsRecordComponent,
         DocumentCodingComponent,
@@ -277,10 +274,8 @@ import { TankFilterComponent } from '../widgets/NK/tank-information/components/t
         OilOperationsLineMenuComponent,
         OilOperationsLineComponent,
         ReportFileSelectBoxComponent,
-        DocumentViewerFullscreenComponent,
         OilOperationsAdjustmentComponent,
         OilOperationsFreeShipmentComponent,
-        DocumentViewerFullscreenComponent,
         CdCriticalComponent,
         WorkflowTableComponent,
         WorkflowListComponent,

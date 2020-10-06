@@ -12,6 +12,7 @@ import { WidgetPlatform } from 'src/app/dashboard/models/widget-platform';
 import { DocumentsScansService } from 'src/app/dashboard/services/oil-control-services/documents-scans.service';
 import { IDocumentsScans } from 'src/app/dashboard/models/oil-document.model';
 
+
 @Component({
     selector: 'evj-documents-scans',
     templateUrl: './documents-scans.component.html',

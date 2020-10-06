@@ -1,8 +1,8 @@
 import { Component, HostListener, Inject, OnInit, ViewChild } from '@angular/core';
 import { PdfViewerComponent } from 'ng2-pdf-viewer';
-import { WidgetService } from '../../../services/widget.service';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { IDocumentViewer } from '../document-viewer.component';
+
 
 @Component({
   selector: 'evj-document-viewer-fullscreen',

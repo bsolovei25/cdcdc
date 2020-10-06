@@ -14,7 +14,6 @@ import { TankCalibrationTableComponent } from '../../widgets/tank-calibration-ta
 import { CustomReportPropertiesReferenceComponent } from '../../widgets/custom-report-properties-reference/custom-report-properties-reference.component';
 import { ProductionTrendComponent } from '../../widgets/production-trend/production-trend.component';
 import { ReasonsDeviationsComponent } from '../../widgets/reasons-deviations/reasons-deviations.component';
-import { DocumentViewerComponent } from '../../widgets/document-viewer/document-viewer.component';
 import { QualityDocsPanelComponent } from '../../widgets/quality-docs-panel/quality-docs-panel.component';
 import { DocumentCodingComponent } from '../../widgets/document-coding/document-coding.component';
 import { OilOperationsComponent } from '../../widgets/oil-operations/oil-operations.component';
@@ -44,7 +43,6 @@ export const WIDGETS = {
     'custom-report-properties-reference': CustomReportPropertiesReferenceComponent,
     'production-trend': ProductionTrendComponent,
     'reasons-deviations': ReasonsDeviationsComponent,
-    'document-viewer': DocumentViewerComponent,
     'quality-docs-panel': QualityDocsPanelComponent,
     'document-coding': DocumentCodingComponent,
     'oil-operations': OilOperationsComponent,
@@ -140,6 +138,7 @@ export const WIDGETS = {
     'operation-efficiency': WidgetContainerComponent,
     'dispatcher-screen': WidgetContainerComponent,
     'documents-scans': WidgetContainerComponent,
+    'document-viewer': WidgetContainerComponent,
 };
 
 export const WIDGETS_LAZY = {
@@ -300,6 +299,19 @@ export const WIDGETS_LAZY = {
         minItemCols: 16,
         minItemRows: 12,
         preview: 'documents-scans'
+    },
+    'document-viewer': {
+        import: async () => {
+            return await import(
+                'src/app/widgets/NK/document-viewer/document-viewer.module'
+                );
+        },
+        module: 'DocumentViewerModule',
+        itemCols: 16,
+        itemRows: 15,
+        minItemCols: 16,
+        minItemRows: 12,
+        preview: 'document-viewer'
     },
 
     // #endregion NK
