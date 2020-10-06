@@ -33,7 +33,6 @@ import { PaginatorDirective } from '../widgets/LCO/oil-control/components/pagina
 import { SearchComponent } from './components/search/search.component';
 import { WidgetPreviewComponent } from './components/widget-preview/widget-preview.component';
 import { DashboardRoutingModule } from './dashboard-routing.module';
-import { CircleBlockDiagramComponent } from './widgets/circle-block-diagram/circle-block-diagram.component';
 import { ColumnChartStackedComponent } from './widgets/column-chart-stacked/column-chart-stacked.component';
 import { CcsOneColumnComponent } from './widgets/column-chart-stacked/ccs-one-column/ccs-one-column.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
@@ -202,7 +201,6 @@ import { TankFilterComponent } from '../widgets/NK/tank-information/components/t
         DeviationCircleDiagramComponent,
         PaginatorDirective,
         SearchComponent,
-        CircleBlockDiagramComponent,
         ColumnChartStackedComponent,
         CcsOneColumnComponent,
         FlameDiagramComponent,
@@ -330,7 +328,6 @@ import { TankFilterComponent } from '../widgets/NK/tank-information/components/t
         CircleFactoryDiagramComponent,
         ProductStocksComponent,
         DeviationCircleDiagramComponent,
-        CircleBlockDiagramComponent,
         ColumnChartStackedComponent,
         FlameDiagramComponent,
         TimeLineDiagramComponent,

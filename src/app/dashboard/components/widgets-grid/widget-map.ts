@@ -10,7 +10,6 @@ import { DeviationsTableComponent } from '../../widgets/deviations-table/deviati
 import { CircleFactoryDiagramComponent } from '../../widgets/circle-factory-diagram/circle-factory-diagram.component';
 import { ProductStocksComponent } from '../../widgets/product-stocks/product-stocks.component';
 import { DeviationCircleDiagramComponent } from '../../widgets/deviation-circle-diagram/deviation-circle-diagram.component';
-import { CircleBlockDiagramComponent } from '../../widgets/circle-block-diagram/circle-block-diagram.component';
 import { ColumnChartStackedComponent } from '../../widgets/column-chart-stacked/column-chart-stacked.component';
 import { TimeLineDiagramComponent } from '../../widgets/time-line-diagram/time-line-diagram.component';
 import { FlameDiagramComponent } from '../../widgets/flame-diagram/flame-diagram.component';
@@ -49,7 +48,6 @@ export const WIDGETS = {
     'circle-factory-diagram': CircleFactoryDiagramComponent,
     'product-stocks': ProductStocksComponent,
     'deviation-circle-diagram': DeviationCircleDiagramComponent,
-    'circle-block-diagram': CircleBlockDiagramComponent,
     'column-chart-stacked': ColumnChartStackedComponent,
     'flame-diagram': FlameDiagramComponent,
     'time-line-diagram': TimeLineDiagramComponent,
@@ -149,6 +147,7 @@ export const WIDGETS = {
     'admin-shift-schedule-old': WidgetContainerComponent,
     'triggering-critical-parameters': WidgetContainerComponent,
     'semicircle-energy': WidgetContainerComponent,
+    'circle-block-diagram': WidgetContainerComponent,
 };
 
 export const WIDGETS_LAZY = {
@@ -797,6 +796,17 @@ export const WIDGETS_LAZY = {
         minItemCols: 13,
         minItemRows: 9,
         preview: 'semicircle-energy'
+    },
+    'circle-block-diagram': {
+        import: async () => {
+            return await import('src/app/widgets/LCO/circle-block-diagram/circle-block-diagram.module');
+        },
+        module: 'CircleBlockDiagramModule',
+        itemCols: 10,
+        itemRows: 10,
+        minItemCols: 10,
+        minItemRows: 10,
+        preview: 'circle-block-diagram'
     },
     //#endregion LCO
 

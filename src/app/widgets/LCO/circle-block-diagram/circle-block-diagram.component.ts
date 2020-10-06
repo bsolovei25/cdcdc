@@ -1,8 +1,8 @@
 import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
-import { WidgetService } from '../../services/widget.service';
 import { Subscription } from 'rxjs';
-import { IBlockDiagram, IBlockDiagramMock } from '../../models/circle-block-diagram';
-import { WidgetPlatform } from '../../models/widget-platform';
+import { IBlockDiagram, IBlockDiagramMock } from 'src/app/dashboard/models/circle-block-diagram';
+import { WidgetPlatform } from 'src/app/dashboard/models/widget-platform';
+import { WidgetService } from 'src/app/dashboard/services/widget.service';
 
 @Component({
     selector: 'evj-circle-block-diagram',
@@ -36,12 +36,6 @@ export class CircleBlockDiagramComponent extends WidgetPlatform implements OnIni
     public centerY: string = '25';
 
     public radius: string = '12';
-
-    public static itemCols: number = 10;
-    public static itemRows: number = 10;
-
-    public static minItemCols: number = 10;
-    public static minItemRows: number = 10;
 
     constructor(
         protected widgetService: WidgetService,
