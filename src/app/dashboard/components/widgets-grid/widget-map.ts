@@ -11,7 +11,6 @@ import { DeviationCircleDiagramComponent } from '../../widgets/deviation-circle-
 import { ColumnChartStackedComponent } from '../../widgets/column-chart-stacked/column-chart-stacked.component';
 import { TimeLineDiagramComponent } from '../../widgets/time-line-diagram/time-line-diagram.component';
 import { FlameDiagramComponent } from '../../widgets/flame-diagram/flame-diagram.component';
-import { ObservationNormTRComponent } from '../../widgets/observation-norm-tr/observation-norm-tr.component';
 import { PetroleumProductsMovementComponent } from '../../widgets/petroleum-products-movement/petroleum-products-movement.component';
 import { ReportServerConfiguratorComponent } from '../../widgets/report-server-configurator/report-server-configurator.component';
 import { ReferenceComponent } from '../../widgets/reference/reference.component';
@@ -47,7 +46,6 @@ export const WIDGETS = {
     'column-chart-stacked': ColumnChartStackedComponent,
     'flame-diagram': FlameDiagramComponent,
     'time-line-diagram': TimeLineDiagramComponent,
-    'observation-norm-tr': ObservationNormTRComponent,
     'petroleum-products-movement': PetroleumProductsMovementComponent,
     reference: ReferenceComponent,
     'report-server-configurator': ReportServerConfiguratorComponent,
@@ -146,6 +144,7 @@ export const WIDGETS = {
     'circle-block-diagram': WidgetContainerComponent,
     'circle-diagram': WidgetContainerComponent,
     'circle-factory-diagram': WidgetContainerComponent,
+    'observation-norm-tr': WidgetContainerComponent,
 };
 
 export const WIDGETS_LAZY = {
@@ -825,6 +824,17 @@ export const WIDGETS_LAZY = {
         itemCols: 14,
         itemRows: 8,
         minItemCols: 14,
+        minItemRows: 8,
+        preview: 'circle-factory-diagram'
+    },
+    'observation-norm-tr': {
+        import: async () => {
+            return await import('src/app/widgets/LCO/observation-norm-tr/observation-norm-tr.module');
+        },
+        module: 'ObservationNormTRModule',
+        itemCols: 13,
+        itemRows: 8,
+        minItemCols: 13,
         minItemRows: 8,
         preview: 'circle-factory-diagram'
     },

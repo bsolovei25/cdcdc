@@ -9,9 +9,9 @@ import {
     AfterViewInit,
 } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { WidgetService } from '../../services/widget.service';
-import { IObservationNormTR } from '../../models/observation-norm-tr';
-import { WidgetPlatform } from '../../models/widget-platform';
+import { WidgetService } from 'src/app/dashboard/services/widget.service';
+import { IObservationNormTR } from 'src/app/dashboard/models/observation-norm-tr';
+import { WidgetPlatform } from 'src/app/dashboard/models/widget-platform';
 
 @Component({
     selector: 'evj-observation-norm-tr',
@@ -20,10 +20,6 @@ import { WidgetPlatform } from '../../models/widget-platform';
 })
 export class ObservationNormTRComponent extends WidgetPlatform
     implements OnInit, OnDestroy, AfterViewInit {
-    public static itemCols: number = 13;
-    public static itemRows: number = 8;
-    public static minItemCols: number = 13;
-    public static minItemRows: number = 8;
 
     circleRadius: string = (35).toString();
     minRadius: number = 47;

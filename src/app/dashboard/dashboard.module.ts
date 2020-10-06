@@ -40,7 +40,6 @@ import { SearchInputComponent } from './components/search/search-input/search-in
 import { SearchListComponent } from './components/search/search-list/search-list.component';
 import { TimeLineDiagramComponent } from './widgets/time-line-diagram/time-line-diagram.component';
 import { TimeDiagramComponent } from './widgets/time-line-diagram/time-diagram/time-diagram.component';
-import { ObservationNormTRComponent } from './widgets/observation-norm-tr/observation-norm-tr.component';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -206,7 +205,6 @@ import { TankFilterComponent } from '../widgets/NK/tank-information/components/t
         SearchFilterComponent,
         SearchInputComponent,
         SearchListComponent,
-        ObservationNormTRComponent,
         PetroleumProductsMovementComponent,
         PetroleumReferenceLeftComponent,
         PetroleumReferenceRightComponent,
@@ -325,7 +323,6 @@ import { TankFilterComponent } from '../widgets/NK/tank-information/components/t
         ColumnChartStackedComponent,
         FlameDiagramComponent,
         TimeLineDiagramComponent,
-        ObservationNormTRComponent,
         PetroleumProductsMovementComponent,
         ReferenceComponent,
         ReportServerConfiguratorComponent,
