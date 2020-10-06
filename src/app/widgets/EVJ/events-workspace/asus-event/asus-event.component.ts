@@ -73,7 +73,7 @@ export class AsusEventComponent implements OnInit {
     }
 
     public async setUnit(event: string): Promise<void> {
-        if (!!event.trim()) {
+        if (!(!!event.trim())) {
             return;
         }
         this.ewService.isLoading = true;
