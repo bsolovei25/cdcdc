@@ -1,7 +1,6 @@
 import { UserEventsComponent } from './components/user-events/user-events.component';
 import { UserEventsItemComponent } from './components/user-events/components/user-events-item/user-events-item.component';
 import { SharedModule } from './../@shared/shared.module';
-import { ChangeShiftComponent } from './widgets/change-shift/change-shift.component';
 import { NgModule, LOCALE_ID } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HomeComponent } from './pages/home/home.component';
@@ -13,24 +12,16 @@ import { DashboardComponent } from './pages/dashboard.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LineDatetimeComponent } from './components/line-datetime/line-datetime.component';
-import { ShiftPersonComponent } from './widgets/change-shift/shift-person/shift-person.component';
 import { PanelComponent } from './components/panel/panel.component';
 import { WidgetsGridComponent } from './components/widgets-grid/widgets-grid.component';
 import { GridsterModule } from 'angular-gridster2';
 import { UserInfoComponent } from './components/user-info/user-info.component';
-import { PointDiagramComponent } from './widgets/point-diagram/point-diagram.component';
-import { OneColumnComponent } from './widgets/point-diagram/one-column/one-column.component';
-import { BarChartsComponent } from './widgets/bar-chart/bar-charts/bar-charts.component';
-import { BarChartComponent } from './widgets/bar-chart/bar-chart/bar-chart.component';
 import { SuspenseMachineComponent } from './widgets/suspense-machine/suspense-machine.component';
-import { EnterpriseMapComponent } from './widgets/map-enterprise/enterprise-map.component';
 import { DetailedLineDiagramComponent } from './components/detailed-line-diagram/detailed-line-diagram.component';
 import { OperationEfficiencyComponent } from './widgets/operation-efficiency/operation-efficiency.component';
-import { MapEcologyComponent } from './widgets/map-ecology/map-ecology.component';
 import { UnityTemplateComponent } from './widgets/unity-template/unity-template.component';
 import { PowIndexPipe } from '@shared/pipes/pow-index.pipe';
 import { CalendarPlanComponent } from './widgets/calendar-plan/calendar-plan.component';
-import { ChainMapComponent } from './widgets/chain-map/chain-map.component';
 import { DispatcherScreenComponent } from './widgets/dispatcher-screen/dispatcher-screen.component';
 import { EnergeticsComponent } from './widgets/energetics/energetics.component';
 import { CircleDiagramComponent } from './widgets/circle-diagram/circle-diagram.component';
@@ -49,8 +40,6 @@ import { ColumnChartStackedComponent } from './widgets/column-chart-stacked/colu
 import { CcsOneColumnComponent } from './widgets/column-chart-stacked/ccs-one-column/ccs-one-column.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { FlameDiagramComponent } from './widgets/flame-diagram/flame-diagram.component';
-import { SolidGaugesComponent } from './widgets/solid-gauge-with-marker/solid-gauges/solid-gauges.component';
-import { SolidGaugeWithMarkerComponent } from './widgets/solid-gauge-with-marker/solid-gauge-with-marker/solid-gauge-with-marker.component';
 import { SearchFilterComponent } from './components/search/search-filter/search-filter.component';
 import { SearchInputComponent } from './components/search/search-input/search-input.component';
 import { SearchListComponent } from './components/search/search-list/search-list.component';
@@ -62,7 +51,6 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatNativeDateModule, MAT_DATE_LOCALE, MatRippleModule } from '@angular/material/core';
 import { AdminReferencesComponent } from './widgets/admin-references/admin-references.component';
-import { CardVerifierComponent } from './widgets/change-shift/card-verifier/card-verifier.component';
 import { PetroleumProductsMovementComponent } from './widgets/petroleum-products-movement/petroleum-products-movement.component';
 import { PetroleumReferenceLeftComponent } from './widgets/petroleum-products-movement/petroleum-reference-left/petroleum-reference-left.component';
 import { PetroleumReferenceRightComponent } from './widgets/petroleum-products-movement/petroleum-reference-right/petroleum-reference-right.component';
@@ -82,7 +70,6 @@ import { OperationParkScreenComponent } from './widgets/petroleum-products-movem
 import { InfoScreenComponent } from './widgets/petroleum-products-movement/petroleum-reference/info-screen/info-screen.component';
 import { PetroleumUnityInfoComponent } from './widgets/petroleum-products-movement/petroleum-unity-info/petroleum-unity-info.component';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import { UsbVerifierComponent } from './widgets/change-shift/usb-verifier/usb-verifier.component';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { ReportComponent } from './components/report/reports/report.component';
 import { ReportsComponent } from './components/report/reports.component';
@@ -202,25 +189,19 @@ import { TankFilterComponent } from '../widgets/NK/tank-information/components/t
         IndicatorSelectorComponent,
         LineDatetimeComponent,
         DashboardComponent,
-        ChangeShiftComponent,
-        ShiftPersonComponent,
         PanelComponent,
         WidgetsGridComponent,
         UserInfoComponent,
-        PointDiagramComponent,
-        OneColumnComponent,
-        BarChartsComponent,
-        BarChartComponent,
+        PanelComponent,
+        WidgetsGridComponent,
+        UserInfoComponent,
         SuspenseMachineComponent,
         CircleDiagramComponent,
         UnityTemplateComponent,
-        EnterpriseMapComponent,
         PowIndexPipe,
-        MapEcologyComponent,
         DetailedLineDiagramComponent,
         OperationEfficiencyComponent,
         CalendarPlanComponent,
-        ChainMapComponent,
         DispatcherScreenComponent,
         EnergeticsComponent,
         DeviationsTableComponent,
@@ -238,14 +219,11 @@ import { TankFilterComponent } from '../widgets/NK/tank-information/components/t
         WidgetPreviewComponent,
         TimeLineDiagramComponent,
         TimeDiagramComponent,
-        SolidGaugesComponent,
-        SolidGaugeWithMarkerComponent,
         SearchFilterComponent,
         SearchInputComponent,
         SearchListComponent,
         ObservationNormTRComponent,
         AdminReferencesComponent,
-        CardVerifierComponent,
         PetroleumProductsMovementComponent,
         PetroleumReferenceLeftComponent,
         PetroleumReferenceRightComponent,
@@ -261,7 +239,6 @@ import { TankFilterComponent } from '../widgets/NK/tank-information/components/t
         OperationParkScreenComponent,
         InfoScreenComponent,
         PetroleumUnityInfoComponent,
-        UsbVerifierComponent,
         ReportComponent,
         ReportsComponent,
         ReferenceComponent,
@@ -358,18 +335,12 @@ import { TankFilterComponent } from '../widgets/NK/tank-information/components/t
         TankFilterComponent
     ],
     entryComponents: [
-        ChangeShiftComponent,
-        PointDiagramComponent,
-        BarChartsComponent,
         SuspenseMachineComponent,
         CircleDiagramComponent,
-        MapEcologyComponent,
         UnityTemplateComponent,
-        EnterpriseMapComponent,
         OperationEfficiencyComponent,
         CalendarPlanComponent,
         EnergeticsComponent,
-        ChainMapComponent,
         DispatcherScreenComponent,
         DeviationsTableComponent,
         TriggeringCriticalParametersComponent,
@@ -381,7 +352,6 @@ import { TankFilterComponent } from '../widgets/NK/tank-information/components/t
         ColumnChartStackedComponent,
         FlameDiagramComponent,
         TimeLineDiagramComponent,
-        SolidGaugesComponent,
         ObservationNormTRComponent,
         AdminReferencesComponent,
         PetroleumProductsMovementComponent,

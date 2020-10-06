@@ -1,0 +1,38 @@
+<div class="poser">
+  <div class="back">
+    <div class="photo">
+      <div class="img"></div>
+    </div>
+    <div class="block-top">
+      <div class="fio-text text-formatter">
+        {{ verifyInfo?.user?.lastName }} {{ verifyInfo?.user?.firstName?.charAt(0).toUpperCase()
+        }}.{{ verifyInfo?.user.middleName?.charAt(0).toUpperCase() }}.
+      </div>
+      <div class="type-text text-formatter">
+        {{ verifyInfo?.user?.positionDescription }}
+      </div>
+    </div>
+
+    <div class="block-middle text-formatter" *ngIf="verifyInfo?.result !== null">
+      {{ verifyInfo?.result ? 'Успешно!' : 'Не успешно!' }}
+    </div>
+    <div class="block-middle text-formatter" *ngIf="verifyInfo?.result === null">
+      Ожидание...
+    </div>
+
+    <div class="block-bottom">
+      <div class="text text-formatter">
+        Приложите Вашу карточку к считывателю!
+      </div>
+      <div class="loader">
+        <img class="loader-img" src="../../../../../assets/gif/card-verify.gif" />
+      </div>
+    </div>
+    <div class="exit" (click)="closeVerifyWindow()">
+      <img
+        class="exit-img"
+        src="../../../../../assets/icons/widgets/change-shift/close-button.svg"
+      />
+    </div>
+  </div>
+</div>
