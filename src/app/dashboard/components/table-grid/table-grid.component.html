@@ -28,8 +28,8 @@
       <ng-template #defaultFooter>
         <div class="bottom-block__other-button">
           <!--FILTER-->
-          <ng-container *ngIf="filter">
-            <evj-table-grid-filter [filter]="activeFilter" (clickFilter)="openFilter($event)"></evj-table-grid-filter>
+          <ng-container *ngFor="let filter of filters">
+            <evj-table-grid-filter [filter]="filter" (onFilterClick)="openFilter($event)"></evj-table-grid-filter>
           </ng-container>
           <!--INPUT-->
           <ng-container *ngIf="search">

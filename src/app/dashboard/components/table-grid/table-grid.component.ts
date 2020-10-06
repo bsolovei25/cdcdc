@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, ContentChildren, QueryList, HostListener, ViewChild, ElementRef, AfterViewInit, TemplateRef, EventEmitter, Output } from '@angular/core';
 import { ColumnGridComponent } from './components/column-grid/column-grid.component';
+import { ITableGridFilter } from './components/table-grid-filter/table-grid-filter.component';
 
 @Component({
   selector: 'evj-table-grid',
@@ -12,18 +13,18 @@ export class TableGridComponent implements OnInit, AfterViewInit {
   @Input() data: any;
   @Input() scrollLeft: boolean; // side scroll for contant
   @Input() search: boolean; // search-input in footer
-  @Input() filter: boolean; // filter-button in footer
+  @Input() filters: ITableGridFilter[]; // filter-buttons in footer
   @Input() addButton: boolean; // add-button in footer
   @Input() itemFixed: boolean; // Do active item
-  @Input() saveButton: boolean; //Save button in footer
+  @Input() saveButton: boolean; // Save button in footer
   @Input() templateFooter: TemplateRef<any>; // Template footer
   @Input() deleteButton: boolean; // in progress...
   @Input() activeFilter: boolean;
 
   @Output() clickSave: EventEmitter<boolean> = new EventEmitter<boolean>();
-  @Output() clickFilter: EventEmitter<boolean> = new EventEmitter<boolean>();
+  @Output() clickFilter: EventEmitter<string> = new EventEmitter<string>();
   @Output() item: EventEmitter<any> = new EventEmitter<any>();
-  @Output() deleteItem: EventEmitter<any> = new EventEmitter<any>(); //in progress...
+  @Output() deleteItem: EventEmitter<any> = new EventEmitter<any>(); // in progress...
 
   objectKeys = Object.keys;
 
@@ -97,7 +98,7 @@ export class TableGridComponent implements OnInit, AfterViewInit {
     this.clickSave.emit(event);
   }
 
-  openFilter(event: boolean): void {
+  openFilter(event: string): void {
     this.clickFilter.emit(event);
   }
 

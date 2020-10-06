@@ -11,8 +11,8 @@
                 <!-- LEFT-SIDE -->
                 <ng-container *ngIf="!filter.line">
                     <div class='left-side'>
-                        <evj-table-grid [scrollLeft]="true" [data]="data.tableLeft" [search]="true"
-                            [activeFilter]="filter.isFilter" [filter]="true" (clickFilter)="openFilter($event)">
+                        <evj-table-grid [scrollLeft]="true" [data]="data.tableLeft"
+                            [activeFilter]="filter.isFilter" [filters]="availableFilters" (clickFilter)="openFilter($event)">
                             <evj-column-grid key="number" name="№" [width]="7"></evj-column-grid>
                             <evj-column-grid key="rR" name="Р-р" [width]="7"></evj-column-grid>
                             <evj-column-grid key="product" name="Продукт" [width]="20">

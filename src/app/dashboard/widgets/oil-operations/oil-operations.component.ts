@@ -3,6 +3,7 @@ import { IDatesInterval, WidgetService } from '../../services/widget.service';
 import { WidgetPlatform } from '../../models/widget-platform';
 import { ILeftOilTable, IOilOperations, IRightOilTable } from '../../models/oil-operations';
 import { OilOperationsService } from '../../services/widgets/oil-operations.service';
+import { ITableGridFilter } from '../../components/table-grid/components/table-grid-filter/table-grid-filter.component';
 
 export interface IOilOperationsButton {
     isFilter: boolean;
@@ -27,6 +28,17 @@ export class OilOperationsComponent extends WidgetPlatform implements OnInit, On
     public isOpenShipment: boolean = false;
 
     private currentDates: IDatesInterval;
+
+    public availableFilters: ITableGridFilter[] = [
+        {
+            name: 'Продукты',
+            type: 'products',
+        },
+        {
+            name: 'Группы',
+            type: 'groups',
+        },
+    ];
 
     public data: IOilOperations = {
         tableLeft: [
@@ -307,7 +319,8 @@ export class OilOperationsComponent extends WidgetPlatform implements OnInit, On
         super.ngOnDestroy();
     }
 
-    openFilter(open: boolean): void {
+    openFilter(open: string): void {
+        console.log(open);
         this.active('isFilter');
     }
 

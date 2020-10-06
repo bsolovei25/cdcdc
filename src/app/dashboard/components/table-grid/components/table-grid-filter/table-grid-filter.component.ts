@@ -1,29 +1,45 @@
-import { Component, OnInit, Output, EventEmitter, Input, OnChanges } from '@angular/core';
-import { filter } from 'rxjs/operators';
+import {
+    Component,
+    OnInit,
+    Output,
+    EventEmitter,
+    Input,
+    OnChanges
+} from '@angular/core';
+
+export interface ITableGridFilter {
+    name: string;
+    type: string;
+}
 
 @Component({
-  selector: 'evj-table-grid-filter',
-  templateUrl: './table-grid-filter.component.html',
-  styleUrls: ['./table-grid-filter.component.scss']
+    selector: 'evj-table-grid-filter',
+    templateUrl: './table-grid-filter.component.html',
+    styleUrls: ['./table-grid-filter.component.scss']
 })
+
 export class TableGridFilterComponent implements OnInit, OnChanges {
-  @Output() clickFilter: EventEmitter<boolean> = new EventEmitter<boolean>();
-  @Input() filter: boolean;
 
-  public isFilter: boolean = false;
+    @Output()
+    public onFilterClick: EventEmitter<string> = new EventEmitter<string>();
 
-  constructor() { }
+    @Input()
+    public filter: ITableGridFilter;
 
-  ngOnInit(): void {
-  }
+    public isFilter: boolean = false;
 
-  ngOnChanges(): void {
-    this.isFilter = this.filter;
-  }
+    constructor() {
+    }
 
-  onFilter(): void {
-    this.isFilter = true;
-    this.clickFilter.emit(true);
-  }
+    public ngOnInit(): void {
+    }
 
+    public ngOnChanges(): void {
+        this.isFilter = !!this.filter;
+    }
+
+    public onClick(type: string): void {
+        this.isFilter = true;
+        this.onFilterClick.emit(type);
+    }
 }
