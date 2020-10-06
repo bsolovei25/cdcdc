@@ -1,7 +1,7 @@
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
-import { WidgetService } from '../../services/widget.service';
-import { ICalendarPlanGraph, ICalendarPlanData } from '../../models/calendar-plan';
-import { WidgetPlatform } from '../../models/widget-platform';
+import { WidgetService } from 'src/app/dashboard/services/widget.service';
+import { ICalendarPlanGraph, ICalendarPlanData } from 'src/app/dashboard/models/calendar-plan';
+import { WidgetPlatform } from 'src/app/dashboard/models/widget-platform';
 
 @Component({
     selector: 'evj-calendar-plan',
@@ -50,11 +50,6 @@ export class CalendarPlanComponent extends WidgetPlatform implements OnInit, OnD
             isBetter: true, // флаг улучшение
         },
     ];
-
-    public static itemCols: number = 32;
-    public static itemRows: number = 10;
-    public static minItemCols: number = 24;
-    public static minItemRows: number = 10;
 
     constructor(
         protected widgetService: WidgetService,

@@ -1,8 +1,6 @@
 import { ManualInputComponent } from '../../../widgets/EVJ/manual-input/manual-input.component';
 import { SuspenseMachineComponent } from '../../widgets/suspense-machine/suspense-machine.component';
 import { UnityTemplateComponent } from '../../widgets/unity-template/unity-template.component';
-import { OperationEfficiencyComponent } from '../../widgets/operation-efficiency/operation-efficiency.component';
-import { CalendarPlanComponent } from '../../widgets/calendar-plan/calendar-plan.component';
 import { DispatcherScreenComponent } from '../../widgets/dispatcher-screen/dispatcher-screen.component';
 import { DeviationsTableComponent } from '../../widgets/deviations-table/deviations-table.component';
 import { ProductStocksComponent } from '../../widgets/product-stocks/product-stocks.component';
@@ -34,8 +32,6 @@ export const WIDGETS = {
     'events-workspace': WidgetContainerComponent,
     'industrial-pyramid': WidgetContainerComponent,
     'unity-template': UnityTemplateComponent,
-    'operation-efficiency': OperationEfficiencyComponent,
-    'calendar-plan': CalendarPlanComponent,
     'dispatcher-screen': DispatcherScreenComponent,
     'table-data': SuspenseMachineComponent,
     'deviations-table': DeviationsTableComponent,
@@ -144,6 +140,8 @@ export const WIDGETS = {
     'circle-factory-diagram': WidgetContainerComponent,
     'observation-norm-tr': WidgetContainerComponent,
     'energetics': WidgetContainerComponent,
+    'calendar-plan': WidgetContainerComponent,
+    'operation-efficiency': WidgetContainerComponent,
 };
 
 export const WIDGETS_LAZY = {
@@ -847,6 +845,28 @@ export const WIDGETS_LAZY = {
         minItemCols: 24,
         minItemRows: 18,
         preview: 'energetics'
+    },
+    'calendar-plan': {
+        import: async () => {
+            return await import('src/app/widgets/LCO/calendar-plan/calendar-plan.module');
+        },
+        module: 'CalendarPlanModule',
+        itemCols: 32,
+        itemRows: 10,
+        minItemCols: 24,
+        minItemRows: 10,
+        preview: 'calendar-plan'
+    },
+    'operation-efficiency': {
+        import: async () => {
+            return await import('src/app/widgets/LCO/operation-efficiency/operation-efficiency.module');
+        },
+        module: 'OperationEfficiencyModule',
+        itemCols: 24,
+        itemRows: 6,
+        minItemCols: 24,
+        minItemRows: 6,
+        preview: 'operation-efficiency'
     },
     //#endregion LCO
 

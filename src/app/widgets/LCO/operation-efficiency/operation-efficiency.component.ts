@@ -1,8 +1,8 @@
 import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { WidgetService } from '../../services/widget.service';
-import { IOperationEfficiency } from '../../models/operation-efficiency';
-import { WidgetPlatform } from '../../models/widget-platform';
+import { WidgetService } from 'src/app/dashboard/services/widget.service';
+import { IOperationEfficiency } from 'src/app/dashboard/models/operation-efficiency';
+import { WidgetPlatform } from 'src/app/dashboard/models/widget-platform';
 
 @Component({
     selector: 'evj-operation-efficiency',
@@ -10,10 +10,7 @@ import { WidgetPlatform } from '../../models/widget-platform';
     styleUrls: ['./operation-efficiency.component.scss'],
 })
 export class OperationEfficiencyComponent extends WidgetPlatform implements OnInit, OnDestroy {
-    public static itemCols: number = 24;
-    public static itemRows: number = 6;
-    public static minItemCols: number = 24;
-    public static minItemRows: number = 6;
+
     /* Приблизительная структура, получаемая с бека */
 
     public data: IOperationEfficiency = {

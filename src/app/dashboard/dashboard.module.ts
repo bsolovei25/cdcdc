@@ -17,11 +17,8 @@ import { WidgetsGridComponent } from './components/widgets-grid/widgets-grid.com
 import { GridsterModule } from 'angular-gridster2';
 import { UserInfoComponent } from './components/user-info/user-info.component';
 import { SuspenseMachineComponent } from './widgets/suspense-machine/suspense-machine.component';
-import { DetailedLineDiagramComponent } from './components/detailed-line-diagram/detailed-line-diagram.component';
-import { OperationEfficiencyComponent } from './widgets/operation-efficiency/operation-efficiency.component';
 import { UnityTemplateComponent } from './widgets/unity-template/unity-template.component';
 import { PowIndexPipe } from '@shared/pipes/pow-index.pipe';
-import { CalendarPlanComponent } from './widgets/calendar-plan/calendar-plan.component';
 import { DispatcherScreenComponent } from './widgets/dispatcher-screen/dispatcher-screen.component';
 import { DeviationsTableComponent } from './widgets/deviations-table/deviations-table.component';
 import { ProductStocksComponent } from './widgets/product-stocks/product-stocks.component';
@@ -185,9 +182,6 @@ import { TankFilterComponent } from '../widgets/NK/tank-information/components/t
         SuspenseMachineComponent,
         UnityTemplateComponent,
         PowIndexPipe,
-        DetailedLineDiagramComponent,
-        OperationEfficiencyComponent,
-        CalendarPlanComponent,
         DispatcherScreenComponent,
         DeviationsTableComponent,
         ProductStocksComponent,
@@ -311,8 +305,6 @@ import { TankFilterComponent } from '../widgets/NK/tank-information/components/t
     entryComponents: [
         SuspenseMachineComponent,
         UnityTemplateComponent,
-        OperationEfficiencyComponent,
-        CalendarPlanComponent,
         DispatcherScreenComponent,
         DeviationsTableComponent,
         ProductStocksComponent,
