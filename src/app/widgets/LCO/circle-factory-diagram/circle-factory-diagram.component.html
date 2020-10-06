@@ -1,12 +1,4 @@
-<evj-widget-preview
-  [title]="widgetTitle"
-  [icon]="widgetIcon"
-  [code]="widgetCode"
-  [previewTitle]="widgetType"
-  *ngIf="isMock"
-></evj-widget-preview>
-
-<div style="height: 100%; width: 100%;" [class.activeHeader]="clicked" *ngIf="!isMock">
+<div style="height: 100%; width: 100%;" [class.activeHeader]="clicked">
   <evj-widget-header
     [title]="widgetTitle"
     [units]="widgetUnits"

@@ -6,7 +6,6 @@ import { OperationEfficiencyComponent } from '../../widgets/operation-efficiency
 import { CalendarPlanComponent } from '../../widgets/calendar-plan/calendar-plan.component';
 import { DispatcherScreenComponent } from '../../widgets/dispatcher-screen/dispatcher-screen.component';
 import { DeviationsTableComponent } from '../../widgets/deviations-table/deviations-table.component';
-import { CircleFactoryDiagramComponent } from '../../widgets/circle-factory-diagram/circle-factory-diagram.component';
 import { ProductStocksComponent } from '../../widgets/product-stocks/product-stocks.component';
 import { DeviationCircleDiagramComponent } from '../../widgets/deviation-circle-diagram/deviation-circle-diagram.component';
 import { ColumnChartStackedComponent } from '../../widgets/column-chart-stacked/column-chart-stacked.component';
@@ -43,7 +42,6 @@ export const WIDGETS = {
     'dispatcher-screen': DispatcherScreenComponent,
     'table-data': SuspenseMachineComponent,
     'deviations-table': DeviationsTableComponent,
-    'circle-factory-diagram': CircleFactoryDiagramComponent,
     'product-stocks': ProductStocksComponent,
     'deviation-circle-diagram': DeviationCircleDiagramComponent,
     'column-chart-stacked': ColumnChartStackedComponent,
@@ -147,6 +145,7 @@ export const WIDGETS = {
     'semicircle-energy': WidgetContainerComponent,
     'circle-block-diagram': WidgetContainerComponent,
     'circle-diagram': WidgetContainerComponent,
+    'circle-factory-diagram': WidgetContainerComponent,
 };
 
 export const WIDGETS_LAZY = {
@@ -817,6 +816,17 @@ export const WIDGETS_LAZY = {
         minItemCols: 8,
         minItemRows: 7,
         preview: 'circle-diagram'
+    },
+    'circle-factory-diagram': {
+        import: async () => {
+            return await import('src/app/widgets/LCO/circle-factory-diagram/circle-factory-diagram.module');
+        },
+        module: 'CircleFactoryDiagramModule',
+        itemCols: 14,
+        itemRows: 8,
+        minItemCols: 14,
+        minItemRows: 8,
+        preview: 'circle-factory-diagram'
     },
     //#endregion LCO
 

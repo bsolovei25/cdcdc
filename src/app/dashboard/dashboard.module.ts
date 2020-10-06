@@ -25,7 +25,6 @@ import { CalendarPlanComponent } from './widgets/calendar-plan/calendar-plan.com
 import { DispatcherScreenComponent } from './widgets/dispatcher-screen/dispatcher-screen.component';
 import { EnergeticsComponent } from './widgets/energetics/energetics.component';
 import { DeviationsTableComponent } from './widgets/deviations-table/deviations-table.component';
-import { CircleFactoryDiagramComponent } from './widgets/circle-factory-diagram/circle-factory-diagram.component';
 import { ProductStocksComponent } from './widgets/product-stocks/product-stocks.component';
 import { DeviationCircleDiagramComponent } from './widgets/deviation-circle-diagram/deviation-circle-diagram.component';
 import { PaginatorDirective } from '../widgets/LCO/oil-control/components/paginator/paginator.directive';
@@ -194,7 +193,6 @@ import { TankFilterComponent } from '../widgets/NK/tank-information/components/t
         DispatcherScreenComponent,
         EnergeticsComponent,
         DeviationsTableComponent,
-        CircleFactoryDiagramComponent,
         ProductStocksComponent,
         DeviationCircleDiagramComponent,
         PaginatorDirective,
@@ -322,7 +320,6 @@ import { TankFilterComponent } from '../widgets/NK/tank-information/components/t
         EnergeticsComponent,
         DispatcherScreenComponent,
         DeviationsTableComponent,
-        CircleFactoryDiagramComponent,
         ProductStocksComponent,
         DeviationCircleDiagramComponent,
         ColumnChartStackedComponent,

@@ -7,8 +7,8 @@ import {
     OnInit,
     AfterViewInit,
 } from '@angular/core';
-import { WidgetService } from '../../services/widget.service';
-import { WidgetPlatform } from '../../models/widget-platform';
+import { WidgetService } from 'src/app/dashboard/services/widget.service';
+import { WidgetPlatform } from 'src/app/dashboard/models/widget-platform';
 
 declare var d3: any;
 
@@ -22,12 +22,6 @@ export class CircleFactoryDiagramComponent extends WidgetPlatform
     @ViewChild('circleFactory') circleFactory: ElementRef;
 
     public readonly RADIUS: number = 42;
-
-    public static itemCols: number = 14;
-    public static itemRows: number = 8;
-
-    public static minItemCols: number = 14;
-    public static minItemRows: number = 8;
 
     public clicked: boolean = false;
 
