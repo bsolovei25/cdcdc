@@ -1,7 +1,6 @@
 import { ManualInputComponent } from '../../../widgets/EVJ/manual-input/manual-input.component';
 import { EnergeticsComponent } from '../../widgets/energetics/energetics.component';
 import { SuspenseMachineComponent } from '../../widgets/suspense-machine/suspense-machine.component';
-import { CircleDiagramComponent } from '../../widgets/circle-diagram/circle-diagram.component';
 import { UnityTemplateComponent } from '../../widgets/unity-template/unity-template.component';
 import { OperationEfficiencyComponent } from '../../widgets/operation-efficiency/operation-efficiency.component';
 import { CalendarPlanComponent } from '../../widgets/calendar-plan/calendar-plan.component';
@@ -37,7 +36,6 @@ export const WIDGETS = {
     'manual-input': ManualInputComponent,
     'events-workspace': WidgetContainerComponent,
     'industrial-pyramid': WidgetContainerComponent,
-    'circle-diagram': CircleDiagramComponent,
     'unity-template': UnityTemplateComponent,
     'operation-efficiency': OperationEfficiencyComponent,
     'calendar-plan': CalendarPlanComponent,
@@ -148,6 +146,7 @@ export const WIDGETS = {
     'triggering-critical-parameters': WidgetContainerComponent,
     'semicircle-energy': WidgetContainerComponent,
     'circle-block-diagram': WidgetContainerComponent,
+    'circle-diagram': WidgetContainerComponent,
 };
 
 export const WIDGETS_LAZY = {
@@ -807,6 +806,17 @@ export const WIDGETS_LAZY = {
         minItemCols: 10,
         minItemRows: 10,
         preview: 'circle-block-diagram'
+    },
+    'circle-diagram': {
+        import: async () => {
+            return await import('src/app/widgets/LCO/circle-diagram/circle-diagram.module');
+        },
+        module: 'CircleDiagramModule',
+        itemCols: 11,
+        itemRows: 9,
+        minItemCols: 8,
+        minItemRows: 7,
+        preview: 'circle-diagram'
     },
     //#endregion LCO
 

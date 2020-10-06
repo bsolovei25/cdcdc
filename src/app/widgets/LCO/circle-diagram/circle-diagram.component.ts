@@ -1,6 +1,6 @@
 import { Component, OnDestroy, Inject, ElementRef, ViewChild, OnInit } from '@angular/core';
-import { WidgetService } from '../../services/widget.service';
-import { WidgetPlatform } from '../../models/widget-platform';
+import { WidgetService } from 'src/app/dashboard/services/widget.service';
+import { WidgetPlatform } from 'src/app/dashboard/models/widget-platform';
 
 declare var d3: any;
 
@@ -23,11 +23,6 @@ export class CircleDiagramComponent extends WidgetPlatform implements OnDestroy,
     };
 
     public readonly RADIUS: number = 40;
-
-    public static itemCols: number = 11;
-    public static itemRows: number = 9;
-    public static minItemCols: number = 8;
-    public static minItemRows: number = 7;
 
     @ViewChild('myCircle') myCircle: ElementRef;
 

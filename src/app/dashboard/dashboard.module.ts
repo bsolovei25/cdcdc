@@ -24,7 +24,6 @@ import { PowIndexPipe } from '@shared/pipes/pow-index.pipe';
 import { CalendarPlanComponent } from './widgets/calendar-plan/calendar-plan.component';
 import { DispatcherScreenComponent } from './widgets/dispatcher-screen/dispatcher-screen.component';
 import { EnergeticsComponent } from './widgets/energetics/energetics.component';
-import { CircleDiagramComponent } from './widgets/circle-diagram/circle-diagram.component';
 import { DeviationsTableComponent } from './widgets/deviations-table/deviations-table.component';
 import { CircleFactoryDiagramComponent } from './widgets/circle-factory-diagram/circle-factory-diagram.component';
 import { ProductStocksComponent } from './widgets/product-stocks/product-stocks.component';
@@ -187,7 +186,6 @@ import { TankFilterComponent } from '../widgets/NK/tank-information/components/t
         WidgetsGridComponent,
         UserInfoComponent,
         SuspenseMachineComponent,
-        CircleDiagramComponent,
         UnityTemplateComponent,
         PowIndexPipe,
         DetailedLineDiagramComponent,
@@ -318,7 +316,6 @@ import { TankFilterComponent } from '../widgets/NK/tank-information/components/t
     ],
     entryComponents: [
         SuspenseMachineComponent,
-        CircleDiagramComponent,
         UnityTemplateComponent,
         OperationEfficiencyComponent,
         CalendarPlanComponent,
