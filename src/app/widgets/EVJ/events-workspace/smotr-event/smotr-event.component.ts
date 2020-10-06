@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import { IChatMessageWithAttachments } from '../components/chat/chat.component';
 import { EventsWorkspaceService } from '../../../../dashboard/services/widgets/events-workspace.service';
 import { EventService } from '../../../../dashboard/services/widgets/event.service';
@@ -9,6 +9,9 @@ import { EventService } from '../../../../dashboard/services/widgets/event.servi
     styleUrls: ['./smotr-event.component.scss'],
 })
 export class SmotrEventComponent implements OnInit {
+    @Input()
+    public noOverflow: boolean = false;
+
     public isEscalatePopupOpen: boolean = false;
     public isClosePopupOpen: boolean = false;
     public isReasonsPopupOpen: boolean = false;

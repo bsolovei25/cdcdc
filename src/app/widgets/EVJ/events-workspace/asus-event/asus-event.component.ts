@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import { IChatMessageWithAttachments } from '../components/chat/chat.component';
 import { EventsWorkspaceService } from '../../../../dashboard/services/widgets/events-workspace.service';
 import { EventService } from '../../../../dashboard/services/widgets/event.service';
@@ -10,6 +10,9 @@ import { SnackBarService } from '../../../../dashboard/services/snack-bar.servic
     styleUrls: ['./asus-event.component.scss']
 })
 export class AsusEventComponent implements OnInit {
+    @Input()
+    public noOverflow: boolean = false;
+
     public isReasonsPopupOpen: boolean = false;
 
     constructor(

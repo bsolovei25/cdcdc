@@ -33,6 +33,8 @@ export class AstueOnpzMainIndicatorsComponent extends WidgetPlatform implements 
 
     public unitId: number | null = null;
 
+    // TODO: double? NextPlanValue - может быть пустым, если предсказания нет
+
     constructor(
         protected widgetService: WidgetService,
         private astueOnpzService: AstueOnpzService,

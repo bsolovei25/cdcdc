@@ -32,6 +32,8 @@ export class UserSettingsService {
     public ScreenId: number;
     public ScreenName: string;
 
+    private widgetsOnScreen: Map<string, string> = new Map<string, string>();
+
     constructor(
         private widgetService: WidgetService,
         private http: HttpClient,
@@ -83,7 +85,8 @@ export class UserSettingsService {
         this.http
             .post(this.restUrl + '/api/user-management/widget/' + this.ScreenId, updateWidget)
             .subscribe(
-                (ans) => {
+                (ans: IUserGridItem) => {
+                    this.setWidgetOnScreen(ans.widgetType, ans.uniqueId);
                 },
                 (error) => console.log(error)
             );
@@ -128,6 +131,12 @@ export class UserSettingsService {
             console.error(`widget delete error: ${e}`);
         } finally {
             this.overlayService.setIsLoad(false);
+            this.widgetsOnScreen.forEach((key, val) => {
+                if (key === widgetId) {
+                    this.unsetWidgetOnScreen(val);
+                    return;
+                }
+            });
         }
     }
 
@@ -238,6 +247,7 @@ export class UserSettingsService {
                 this.ScreenId = item.id;
                 this.ScreenName = item.screenName;
                 this.widgetService.dashboard = item.widgets.map((widget) => {
+                    this.setWidgetOnScreen(widget.widgetType, widget.uniqueId);
                     const minItemCols = this.defWidgetSize(widget.widgetType)?.minItemCols ?? 6;
                     const minItemRows = this.defWidgetSize(widget.widgetType)?.minItemRows ?? 6;
                     return {
@@ -323,6 +333,18 @@ export class UserSettingsService {
 
     public clearScreens(): void {
         this._screens$.next(null);
+    }
+
+    public isWidgetAvailableOnScreen(widgetType: string): boolean {
+        return this.widgetsOnScreen.has(widgetType);
+    }
+
+    private setWidgetOnScreen(widgetType: string, widgetId: string): void {
+        this.widgetsOnScreen.set(widgetType, widgetId);
+    }
+
+    private unsetWidgetOnScreen(widgetType: string): void {
+        this.widgetsOnScreen.delete(widgetType);
     }
 
     private async getScreenByWidgetType(widgetType: string): Promise<number> {

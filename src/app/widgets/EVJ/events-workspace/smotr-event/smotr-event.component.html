@@ -1,5 +1,6 @@
 <div
   class="workspace scroll scroll-bar"
+  [style]="{overflow: noOverflow ? 'auto' : 'visible'}"
   (mousedown)="$event.stopPropagation()"
   (touchstart)="$event.stopPropagation()"
 >

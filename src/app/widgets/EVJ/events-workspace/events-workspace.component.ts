@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, Inject, HostListener } from '@angular/core';
+import {Component, OnInit, OnDestroy, Inject, HostListener, Input} from '@angular/core';
 import { WidgetPlatform } from '../../../dashboard/models/widget-platform';
 import { EventsWorkspaceService } from '../../../dashboard/services/widgets/events-workspace.service';
 import { EventService } from '../../../dashboard/services/widgets/event.service';
@@ -39,6 +39,9 @@ export class EventsWorkspaceComponent extends WidgetPlatform implements OnInit, 
 
         return flagCat && !flagStat && flagSubcat ? message : '';
     }
+
+    @Input()
+    public displayContainer: boolean = true;
 
     constructor(
         public ewService: EventsWorkspaceService,
