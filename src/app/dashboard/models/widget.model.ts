@@ -22,7 +22,6 @@ export interface IWidget {
     categories?: string[];
     isClaim: boolean;
     isVideoWall?: boolean;
-    sortType?: SortTypeEvents;
     isHidden?: boolean;
     sensorId?: number;
     attributes?: any;

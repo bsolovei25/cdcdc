@@ -11,8 +11,7 @@ export abstract class WidgetPlatform implements OnDestroy {
     public widgetIcon?: string;
     public widgetOptions?: any; // TODO line-chart
     public widgetIsVideoWall?: boolean = false;
-    public widgetSortType?: SortTypeEvents = null;
-    public attributes: any = null;
+    public attributes: { [key: string]: string } = null;
 
     protected isRealtimeData: boolean = true;
 
@@ -55,7 +54,6 @@ export abstract class WidgetPlatform implements OnDestroy {
                     this.widgetOptions = ref.widgetOptions;
                     this.widgetUnits = ref.units;
                     this.widgetIsVideoWall = ref.isVideoWall ?? false;
-                    this.widgetSortType = ref.sortType ?? 'default';
                     this.attributes = ref.attributes;
                     if (!this.isMock) {
                         console.log(this.widgetType);
