@@ -75,6 +75,9 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
         { provide: MAT_DATE_LOCALE, useValue: 'ru-RU' },
         { provide: MatDialogRef, useValue: {} },
         { provide: MAT_DIALOG_DATA, useValue: [] }
+    ],
+    exports: [
+        EventsWorkspaceComponent
     ]
 })
 export class EventsWorkspaceModule {

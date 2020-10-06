@@ -243,6 +243,8 @@ export class EventsComponent extends WidgetPlatform implements OnInit, OnDestroy
     public appendEventStream$: BehaviorSubject<IEventsWidgetNotificationPreview> =
         new BehaviorSubject<IEventsWidgetNotificationPreview>(null);
 
+    public isPreviewOpened: boolean = false;
+
     private readonly defaultIconPath: string = 'assets/icons/widgets/events/smotr.svg';
 
     constructor(
@@ -507,7 +509,14 @@ export class EventsComponent extends WidgetPlatform implements OnInit, OnDestroy
 
     public async eventClick(eventId?: number): Promise<void> {
         this.selectedId = eventId;
+        this.isPreviewOpened = !this.userSettings.isWidgetAvailableOnScreen('events-workspace');
         await this.ewService.editEvent(eventId);
+    }
+
+    public closeEventPreview(): void {
+        this.isPreviewOpened = false;
+        this.selectedId = null;
+        this.ewService.event = null;
     }
 
     public deleteClick(id: number): void {
