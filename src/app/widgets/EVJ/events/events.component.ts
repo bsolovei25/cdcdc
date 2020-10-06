@@ -293,6 +293,14 @@ export class EventsComponent extends WidgetPlatform implements OnInit, OnDestroy
             }
             return cat.categoryType === filterCondition;
         });
+
+        this.filters = this.filters.filter((x) => {
+            if (!this.attributes.acknowledgment && x.code === 'isNotAcknowledged') {
+                return false;
+            }
+            return true;
+        });
+
         this.placeNames = await this.eventService.getPlaces(this.id);
         this.subscriptions.push(
             this.widgetService.currentDates$.subscribe(() => {

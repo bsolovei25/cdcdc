@@ -25,6 +25,7 @@ export interface IWidget {
     sortType?: SortTypeEvents;
     isHidden?: boolean;
     sensorId?: number;
+    attributes?: any;
 }
 
 export interface RingFactoryWidget {
