@@ -153,6 +153,7 @@ export const WIDGETS = {
     'map-ecology': WidgetContainerComponent,
     'enterprise-map': WidgetContainerComponent,
     'solid-gauge-with-marker': WidgetContainerComponent,
+    'admin-panel': WidgetContainerComponent
 };
 
 export const WIDGETS_LAZY = {
