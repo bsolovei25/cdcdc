@@ -25,6 +25,14 @@ export class AsusEventComponent implements OnInit {
     ngOnInit(): void {
         this.setDefaultResponsible();
         this.setDefaultUnit();
+        this.setExistReferences();
+    }
+
+    private async setExistReferences(): Promise<void> {
+        if (!this.ewService.isCreateNewEvent) {
+            this.setUnit(this.ewService.event.asusEvent.tmPlace);
+            this.setEquipment(this.ewService.event.asusEvent.equipment);
+        }
     }
 
     private async setDefaultResponsible(): Promise<void> {
@@ -65,6 +73,9 @@ export class AsusEventComponent implements OnInit {
     }
 
     public async setUnit(event: string): Promise<void> {
+        if (!(!!event.trim())) {
+            return;
+        }
         this.ewService.isLoading = true;
         try {
             const saveMethod = await this.eventService.getSaveMethod(this.ewService.event);
@@ -72,8 +83,8 @@ export class AsusEventComponent implements OnInit {
                 event,
                 saveMethod
             );
-            this.ewService.event.asusEvent.equipment = null;
-            this.ewService.event.asusEvent.eoService = null;
+            // this.ewService.event.asusEvent.equipment = null;
+            // this.ewService.event.asusEvent.eoService = null;
         } catch (e) {
             console.error(e);
         } finally {
@@ -82,6 +93,12 @@ export class AsusEventComponent implements OnInit {
     }
 
     public async setEquipment(event: string): Promise<void> {
+        if (!(!!event.trim())) {
+            event = this.ewService.event.asusEvent.tmPlace;
+            if (!(!!event.trim())) {
+                return;
+            }
+        }
         this.ewService.isLoading = true;
         try {
             const saveMethod = await this.eventService.getSaveMethod(this.ewService.event);
@@ -89,7 +106,7 @@ export class AsusEventComponent implements OnInit {
                 event,
                 saveMethod
             );
-            this.ewService.event.asusEvent.eoService = null;
+            // this.ewService.event.asusEvent.eoService = null;
         } catch (e) {
             console.error(e);
         } finally {
