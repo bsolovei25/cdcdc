@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import { EventsWorkspaceService } from '../../../../dashboard/services/widgets/events-workspace.service';
 import { IChatMessageWithAttachments } from '../components/chat/chat.component';
 
@@ -9,12 +9,13 @@ import { IChatMessageWithAttachments } from '../components/chat/chat.component';
 })
 export class EjsEventComponent implements OnInit, OnDestroy {
 
+    @Input()
+    public noOverflow: boolean = false;
+
     constructor(public ewService: EventsWorkspaceService) {
     }
 
     ngOnInit(): void {
-        window.open('http://spb99-t-merap01/meridium/');
-        this.ewService.goBackEvent();
     }
 
     ngOnDestroy(): void {
@@ -33,12 +34,16 @@ export class EjsEventComponent implements OnInit, OnDestroy {
         this.ewService.sendMessageToEvent(message, msgType);
     }
 
-    public compareFn<T extends {id: number}>(a: T, b: T): boolean {
+    public compareFn<T extends { id: number }>(a: T, b: T): boolean {
         return a && b && a.id === b.id;
     }
 
     public dateTimePicker(date: Date): void {
         this.ewService.setDeadlineToEvent(date);
+    }
+
+    onClickEjs(): void {
+        window.open('http://spb99-t-merap01/meridium/');
     }
 
 

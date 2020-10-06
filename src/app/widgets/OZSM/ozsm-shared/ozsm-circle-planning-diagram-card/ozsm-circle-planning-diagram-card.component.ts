@@ -54,7 +54,7 @@ export class OzsmCirclePlanningDiagramCardComponent implements OnInit, OnDestroy
             .attr('cx', 100)
             .attr('cy', 100)
             .attr('r', 100)
-            .attr('fill', '#161A28')
+            .attr('fill', '#171A24')
             .attr('stroke', '#272A38')
             .attr('stroke-width', 1);
         indicator
@@ -63,9 +63,9 @@ export class OzsmCirclePlanningDiagramCardComponent implements OnInit, OnDestroy
                 'xlink:href',
                 'assets/icons/widgets/OZSM/ozsm-circle-planning-diagram/diagram-frame.svg'
             )
-            .attr('x', 5)
+            .attr('x', 12)
             .attr('y', 0)
-            .attr('width', 190)
+            .attr('width', 188)
             .attr('height', 55);
         indicator
             .append('image')
@@ -73,9 +73,9 @@ export class OzsmCirclePlanningDiagramCardComponent implements OnInit, OnDestroy
                 'xlink:href',
                 'assets/icons/widgets/OZSM/ozsm-circle-planning-diagram/diagram-frame.svg'
             )
-            .attr('x', 5)
+            .attr('x', 12)
             .attr('y', -200)
-            .attr('width', 190)
+            .attr('width', 188)
             .attr('height', 55)
             .style('transform', 'scaleY(-1)');
 
@@ -137,7 +137,7 @@ export class OzsmCirclePlanningDiagramCardComponent implements OnInit, OnDestroy
             .text(this.activeData.value);
         block
             .append('text')
-            .attr('class', 'units')
+            .attr('class', 'th')
             .attr('text-anchor', 'middle')
             .attr('x', 0)
             .attr('y', -5)

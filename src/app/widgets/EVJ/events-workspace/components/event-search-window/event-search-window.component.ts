@@ -11,7 +11,7 @@ import {
     IEventsWidgetNotification,
     IRetrievalEventDto,
     IEventsWidgetOptions,
-    EventsWidgetNotificationPreview
+    IEventsWidgetNotificationPreview
 } from 'src/app/dashboard/models/events-widget';
 import { EventService } from 'src/app/dashboard/services/widgets/event.service';
 import { BehaviorSubject, Observable } from 'rxjs';

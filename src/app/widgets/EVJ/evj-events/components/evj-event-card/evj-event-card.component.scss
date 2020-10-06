@@ -1,8 +1,10 @@
 .notification {
   cursor: pointer;
+  position: relative;
   border: 1px solid var(--color-cd-bg-border);
   border-left: 2px solid var(--color-cd-bg-border-sub);
   padding: 15px 30px;
+  padding-left: 55px;
   margin-bottom: 10px;
   margin-right: 5px;
   color: var(--color-kpe-gaude-deviation);
@@ -11,10 +13,70 @@
     visibility: visible;
   }
 
+  &__children {
+    margin-left: 40px;
+    padding-left: 30px;
+  }
+
+  &__line-child {
+    position: absolute;
+    left: -25px;
+    top: -55px;
+
+    &.first {
+      left: -25px;
+      top: -14px;
+    }
+  }
+
+  &__toggle {
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    top: 42%;
+    left: 12px;
+    transition: all 200ms;
+
+    &--open {
+      transform: rotate(45deg);
+    }
+
+    &_danger {
+      stroke: var(--color-danger-transparent);
+    }
+
+    &_warning {
+      stroke: var(--color-warning-transparent);
+    }
+
+    &_standard {
+      stroke: var(--color-cd-bg-border-sub);
+    }
+  }
+
+  &__vertical-line {
+    position: absolute;
+    width: 1px;
+    top: 0;
+    left: 40px;
+    height: 100%;
+
+    &_danger {
+      background-color: var(--color-danger-transparent);
+    }
+
+    &_warning {
+      background-color: var(--color-warning-transparent);
+    }
+
+    &_standard {
+      background-color: var(--color-cd-bg-border-sub);
+    }
+  }
+
   &--danger {
     border-left: 2px solid var(--color-danger);
     background: linear-gradient(90deg, rgba(235, 87, 87, 0.2329306722689075) 0%, rgba(53, 34, 43, 0) 21%);
-    background-color: var(--color-cd-bg-component);
   }
 
   &--warning {
@@ -23,10 +85,28 @@
   }
 
   &--active {
-    border: 1px solid var(--color-kpe-gaude-active);
-    border-left: 2px solid var(--color-kpe-gaude-active);
-    background: linear-gradient(90deg, rgba(0, 137, 255, 0.2497373949579832) 0%, rgba(53, 34, 43, 0) 21%);
+    //border: 1px solid var(--color-kpe-gaude-active);
+    //border-left: 2px solid var(--color-kpe-gaude-active);
+    //background: linear-gradient(90deg, rgba(0, 137, 255, 0.2497373949579832) 0%, rgba(53, 34, 43, 0) 21%);
     color: var(--color-text-main);
+
+    &_danger {
+      border: 1px solid var(--color-danger);
+      border-left: 2px solid var(--color-danger);
+      background: linear-gradient(90deg, rgba(235, 87, 87, 0.2329306722689075) 0%, rgba(53, 34, 43, 0) 21%);
+    }
+
+    &_warning {
+      border: 1px solid var(--color-warning);
+      border-left: 2px solid var(--color-warning);
+      background: linear-gradient(90deg, rgba(255, 140, 0, 0.29735644257703087) 0%, rgba(53, 34, 43, 0) 21%);
+    }
+
+    &_standard {
+      stroke: var(--color-cd-bg-border-sub);
+      border: 1px solid var(--color-cd-bg-border-sub);
+      border-left: 2px solid var(--color-cd-bg-border-sub);
+    }
   }
 
   &__header {
@@ -88,6 +168,7 @@
     &__info {
       display: flex;
       flex-direction: column;
+      width: 100%;
 
       &__info-facts {
         color: var(--color-text-main);
@@ -97,6 +178,12 @@
         font-size: 14px;
         color: var(--color-text-sub);
         margin-right: 10px;
+
+        &_children {
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
       }
     }
 
@@ -395,4 +482,10 @@
 .block-container {
   display: flex;
   flex-wrap: wrap;
+}
+
+::ng-deep {
+  .cdk-virtual-scroll-orientation-vertical .cdk-virtual-scroll-content-wrapper {
+    width: 100%;
+  }
 }

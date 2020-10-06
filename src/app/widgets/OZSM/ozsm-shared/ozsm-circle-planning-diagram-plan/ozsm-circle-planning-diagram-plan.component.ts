@@ -43,8 +43,8 @@ export class OzsmCirclePlanningDiagramPlanComponent implements OnInit, OnDestroy
     private drawDiagram(): void {
         this.svgBody = d3Selection.select(this.diagram.nativeElement).append('svg');
         this.svgBody
-            .attr('width', 200)
-            .attr('height', 200)
+            .attr('width', 168)
+            .attr('height', 168)
             .attr('viewBox', '0 0 200 200');
 
         const indicator = this.svgBody.append('g').attr('class', 'indicator');
@@ -53,7 +53,7 @@ export class OzsmCirclePlanningDiagramPlanComponent implements OnInit, OnDestroy
             .attr('cx', 100)
             .attr('cy', 100)
             .attr('r', 100)
-            .attr('fill', '#161A28')
+            .attr('fill', '#171A24')
             .attr('stroke', '#272A38')
             .attr('stroke-width', 1);
         indicator
@@ -62,9 +62,9 @@ export class OzsmCirclePlanningDiagramPlanComponent implements OnInit, OnDestroy
                 'xlink:href',
                 'assets/icons/widgets/OZSM/ozsm-circle-planning-diagram/diagram-frame.svg'
             )
-            .attr('x', 5)
+            .attr('x', 12)
             .attr('y', 0)
-            .attr('width', 190)
+            .attr('width', 188)
             .attr('height', 55);
         indicator
             .append('image')
@@ -72,10 +72,21 @@ export class OzsmCirclePlanningDiagramPlanComponent implements OnInit, OnDestroy
                 'xlink:href',
                 'assets/icons/widgets/OZSM/ozsm-circle-planning-diagram/diagram-frame.svg'
             )
-            .attr('x', 5)
+            .attr('x', 12)
             .attr('y', -200)
-            .attr('width', 190)
+            .attr('width', 188)
             .attr('height', 55)
+            .style('transform', 'scaleY(-1)');
+        indicator
+            .append('image')
+            .attr(
+                'xlink:href',
+                'assets/icons/widgets/OZSM/ozsm-circle-planning-diagram/stroke-line.svg'
+            )
+            .attr('x', 65)
+            .attr('y', -105)
+            .attr('width', 70)
+            .attr('height', 20)
             .style('transform', 'scaleY(-1)');
 
         const gaude = indicator.append('g').attr('class', 'gaude');
@@ -131,7 +142,7 @@ export class OzsmCirclePlanningDiagramPlanComponent implements OnInit, OnDestroy
     private drawInnerGaude(block: any, data: any): void {
         const svg = block;
         const rainbowMin = 6.6;
-        const rainbowMax = 7.0;
+        const rainbowMax = 6.9;
         const startAngle = (-1.5 * Math.PI) / 2;
         const endAngle = (1.5 * Math.PI) / 2;
         const scale = d3
@@ -141,9 +152,9 @@ export class OzsmCirclePlanningDiagramPlanComponent implements OnInit, OnDestroy
 
         const pie = this.definePie(startAngle, endAngle); // функция дуги
 
-        const rainbowArc = this.defineArc(rainbowMin, rainbowMax, 0.05); // параметры дуги
+        const rainbowArc = this.defineArc(rainbowMin, rainbowMax, 0.025); // параметры дуги
         const rainbowG = svg.append('g').attr('class', 'rainbow');
-        this.drawArc(pie(new Array(40)), 'rainbow-arc', rainbowArc, rainbowG); // отрисовка дуги
+        this.drawArc(pie(new Array(65)), 'rainbow-arc', rainbowArc, rainbowG); // отрисовка дуги
     }
 
     private drawTextInGaude(block: any): void {
@@ -170,7 +181,7 @@ export class OzsmCirclePlanningDiagramPlanComponent implements OnInit, OnDestroy
             .text('0');
         block
             .append('text')
-            .attr('class', 'units')
+            .attr('class', 'th')
             .attr('text-anchor', 'middle')
             .attr('x', 0)
             .attr('y', -4)

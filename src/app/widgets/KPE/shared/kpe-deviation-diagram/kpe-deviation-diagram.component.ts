@@ -35,7 +35,7 @@ export class KpeDeviationDiagramComponent implements OnChanges {
 
     @HostListener('document:resize', ['$event'])
     public OnResize(): void {
-        if (this.data && this.chart) {
+        if (this.data && this.data.length && this.chart) {
             this.drawSvg();
         }
     }
@@ -65,9 +65,12 @@ export class KpeDeviationDiagramComponent implements OnChanges {
 
     private svg: any = null;
 
+    private readonly DELTA: number = 0.05;
 
     public ngOnChanges(changes: SimpleChanges): void {
-        this.drawSvg();
+        if (this.data && this.data.length && this.chart) {
+            this.drawSvg();
+        }
     }
 
     private configChartArea(): void {
@@ -77,17 +80,17 @@ export class KpeDeviationDiagramComponent implements OnChanges {
 
     @AsyncRender
     private drawSvg(): void {
-        this.configChartArea();
         this.prepareData();
+        this.configChartArea();
         this.initScale();
         this.initSvg();
         this.drawAxises();
         this.drawGrid();
         this.drawRectLeft();
+        this.drawDeviations();
+        this.drawDayThreshold();
         this.drawCurve(this.planDataset, 'plan-curve');
         this.drawCurve(this.factDataset, 'fact-curve');
-        this.drawDayThreshold();
-        this.drawDeviations();
     }
 
     private prepareData(): void {
@@ -101,32 +104,23 @@ export class KpeDeviationDiagramComponent implements OnChanges {
             this.planDataset.push({x: item.day, y: item.planValue});
         });
 
-        let maxX = 0;
-        let maxY = 0;
-        let minY = 0;
-
-        [...this.factDataset, ...this.planDataset].forEach(item => {
-            maxY = item.y >= maxY ? item.y : maxY === 0 ? item.y : maxY;
-            minY = item.y <= minY ? item.y : minY === 0 ? item.y : minY;
-        });
-        this.factDataset.forEach(item => {
-            maxX = item.x >= maxX ? item.x : maxX === 0 ? item.x : maxX;
-        });
-
-        this.day = maxX;
-        this.sizeY.min = minY - 0.5;
-        this.sizeY.max = maxY + 0.5;
-
-        this.planDataset.splice(-(this.planDataset.length - this.sizeX.max));
+        if (this.factDataset.length && this.planDataset.length) {
+            [this.sizeY.min, this.sizeY.max] = d3.extent([...this.factDataset, ...this.planDataset].map(item => item.y));
+            this.sizeY.min -= (this.sizeY.max - this.sizeY.min) * this.DELTA;
+            this.sizeY.max += (this.sizeY.max - this.sizeY.min) * this.DELTA;
+            this.day = d3.max(this.factDataset.map(item => item.x));
+        }
     }
 
     private drawRectLeft(): void {
-        this.svg.append('rect')
-            .attr('x', this.scales.x(this.day))
-            .attr('y', this.scales.y(this.sizeY.max))
-            .attr('width', this.scales.x(this.sizeX.max) - this.scales.x(this.day))
-            .attr('height', this.scales.y(this.sizeY.min) - this.scales.y(this.sizeY.max) - 0.5)
-            .attr('class', 'rect-left');
+        if (this.factDataset.length) {
+            this.svg.append('rect')
+                .attr('x', this.scales.x(this.day))
+                .attr('y', this.scales.y(this.sizeY.max))
+                .attr('width', this.scales.x(this.sizeX.max) - this.scales.x(this.day))
+                .attr('height', this.scales.y(this.sizeY.min) - this.scales.y(this.sizeY.max) - 0.5)
+                .attr('class', 'rect-left');
+        }
     }
 
     private initScale(): void {

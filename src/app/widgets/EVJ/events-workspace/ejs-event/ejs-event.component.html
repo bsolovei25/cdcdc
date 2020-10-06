@@ -1,7 +1,7 @@
-<div class="workspace">
+<div class="workspace" [style]="{overflow: noOverflow ? 'auto' : 'visible'}">
   <div class="workspace__selects selects">
-    <div class="selects__item">
-      <evj-ui-block status="normal">
+    <div class="selects__item first-block">
+      <evj-ui-block class="selects__item_left" status="normal">
         <mat-form-field class="categories_selectbox">
           <mat-label>Категория</mat-label>
           <mat-select
@@ -16,23 +16,28 @@
           </mat-select>
         </mat-form-field>
       </evj-ui-block>
-    </div>
-    <div class="selects__item creator">
-      <div class="creator_title">
-        Номер журнала
-      </div>
-      <div class="creator_body">
-        3421341241234
-      </div>
-    </div>
-    <div class="selects__item">
-      <evj-ui-block status="normal">
-        <div class=" creator">
+      <div class="selects__item_right">
+        <div class="creator item_right_left">
           <div class="creator_title">
             Номер журнала
           </div>
+          <div class="creator_body">
+            {{ ewService.event?.ejsData?.ejsFailCodeChr }}
+          </div>
         </div>
-      </evj-ui-block>
+        <evj-ui-block class="item_right_right" status="normal" (click)="onClickEjs()">
+          <div class="creator creator_link">
+            <div class="creator_body creator_body-center">
+              Перейти к карточке ЭЖС
+            </div>
+            <svg-icon
+              class="creator_icon"
+              src="assets/icons/widgets/EVJ/event/ejs-event/link.svg"
+              [svgStyle]="{ 'width.px':28, 'height.px':28 }"
+            ></svg-icon>
+          </div>
+        </evj-ui-block>
+      </div>
     </div>
   </div>
   <div class="workspace__selects-two selects--three">
@@ -51,10 +56,10 @@
       <evj-ui-block status="normal">
         <div class="creator">
           <div class="creator_title">
-            Место обнаружения
+            Метод обнаружения
           </div>
           <div class="creator_body">
-            3421341241234
+            {{ ewService.event?.ejsData?.ejsDeteMethChr }}
           </div>
         </div>
       </evj-ui-block>
@@ -66,7 +71,7 @@
             Влияние на производительность
           </div>
           <div class="creator_body">
-            3421341241234
+            {{ ewService.event?.ejsData?.ejsStopReduce }}
           </div>
         </div>
       </evj-ui-block>
@@ -80,7 +85,7 @@
             ID оборудования
           </div>
           <div class="creator_body">
-            00000010030202030
+            {{ ewService.event?.ejsData?.ejsEquiIdChr }}
           </div>
         </div>
       </evj-ui-block>
@@ -92,7 +97,7 @@
             Оборудование
           </div>
           <div class="creator_body">
-            -
+            {{ ewService.event?.ejsData?.ejsEquiChr  }}
           </div>
         </div>
       </evj-ui-block>
@@ -104,7 +109,7 @@
             Вид технического объекта, тип ЕО
           </div>
           <div class="creator_body">
-            -
+            {{ ewService.event?.ejsData?.ejsEquiChrEO }}
           </div>
         </div>
       </evj-ui-block>
@@ -118,7 +123,7 @@
             Техническое место
           </div>
           <div class="creator_body">
-            5684-23434-2342D-JDJS
+            {{ ewService.event?.ejsData?.ejsFuncLocaChr }}
           </div>
         </div>
       </evj-ui-block>
@@ -130,7 +135,7 @@
             Описание технического места
           </div>
           <div class="creator_body">
-            -
+            {{ ewService.event?.ejsData?.ejsFuncLocaDescChr }}
           </div>
         </div>
       </evj-ui-block>
@@ -142,7 +147,7 @@
             Влияние на производительность, тип ТМ
           </div>
           <div class="creator_body">
-            -
+            {{ ewService.event?.ejsData?.ejsStopReduceTM }}
           </div>
         </div>
       </evj-ui-block>
@@ -155,8 +160,7 @@
           Комментарий оператора/инициатора
         </div>
         <div class="creator_body">
-          Система управления операционной деятельностью СУОД помогает повысить эффективность работы
-          технологических объектов.
+          {{ ewService.event?.ejsData?.ejsOperInitCommTx }}
         </div>
       </div>
     </evj-ui-block>
@@ -167,8 +171,11 @@
         <div class="creator_title">
           Обращение в ЭНЕРГОСЕВРИС
         </div>
+        <mat-checkbox class="creator_checkbox" color="primary"
+                      [checked]="ewService.event?.ejsData?.ejsEnerNotiFlg">
+        </mat-checkbox>
         <div class="creator_body">
-          Подать напряжение
+          {{ ewService.event?.ejsData?.ejsEnerNotiCommTx }}
         </div>
       </div>
     </evj-ui-block>
@@ -177,8 +184,11 @@
         <div class="creator_title">
           Обращение в Автоматика-сервис
         </div>
+        <mat-checkbox class="creator_checkbox" color="primary"
+                      [checked]="ewService.event?.ejsData?.ejsAutoServNotiFlg">
+        </mat-checkbox>
         <div class="creator_body">
-          Отключение/подключение позиции
+          {{ ewService.event?.ejsData?.ejsAutoServNotiCommTx }}
         </div>
       </div>
     </evj-ui-block>
@@ -190,7 +200,7 @@
           Компенсирующие мероприятия
         </div>
         <div class="creator_body">
-          Сформировать рабочую группу по организации....
+          {{ ewService.event?.ejsData?.ejsMitiConsWorkTx }}
         </div>
       </div>
     </evj-ui-block>
@@ -201,7 +211,7 @@
         ФИО оператора
       </div>
       <div class="creator_body">
-        Смирной Андрей Петрович
+        {{ ewService.event?.ejsData?.ejsNameOfOperChr }}
       </div>
     </div>
     <div class="creator">
@@ -209,7 +219,7 @@
         Дата создания события
       </div>
       <div class="creator_body">
-        25.02.2020 | 13.23
+        {{ ewService.event?.ejsData?.ejsDateOfCreaDt | date:"dd.MM.yyyy | HH:mm"  }}
       </div>
     </div>
     <div class="creator">
@@ -217,7 +227,7 @@
         Дата изменения события
       </div>
       <div class="creator_body">
-        25.02.2020 | 13.23
+        {{ ewService.event?.ejsData?.ejsDateOfUpdaDt | date:"dd.MM.yyyy | HH:mm"  }}
       </div>
     </div>
   </div>

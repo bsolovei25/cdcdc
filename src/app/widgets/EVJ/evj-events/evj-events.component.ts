@@ -1,4 +1,12 @@
-import { Component, HostListener, Inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import {
+    ChangeDetectorRef,
+    Component,
+    HostListener,
+    Inject,
+    OnDestroy,
+    OnInit,
+    ViewChild
+} from '@angular/core';
 import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { IAlertWindowModel } from '@shared/models/alert-window.model';
@@ -6,10 +14,10 @@ import {
     EventsWidgetCategory,
     EventsWidgetCategoryCode,
     EventsWidgetFilter,
-    EventsWidgetNotificationPreview,
+    IEventsWidgetNotificationPreview,
     EventsWidgetNotificationStatus,
-    IEventsWidgetOptions,
-    IRetrievalEventDto
+    IEventsWidgetOptions, IPriority,
+    IRetrievalEventDto, ISubcategory
 } from '../../../dashboard/models/events-widget';
 import { EventService } from '../../../dashboard/services/widgets/event.service';
 import { EventsWorkspaceService } from '../../../dashboard/services/widgets/events-workspace.service';
@@ -22,11 +30,13 @@ import { debounceTime, distinctUntilChanged, throttle } from 'rxjs/operators';
 import { IEventSettings } from '../events/events.component';
 import { WidgetPlatform } from '../../../dashboard/models/widget-platform';
 import { animate, style, transition, trigger } from '@angular/animations';
+import { IUnits } from '../../../dashboard/models/admin-shift-schedule';
+import { SelectionModel } from '@angular/cdk/collections';
 
 @Component({
     selector: 'evj-evj-events',
     templateUrl: './evj-events.component.html',
-    styleUrls: ['./evj-events.component.scss'],
+    styleUrls: ['./evj-events.component.scss']
 })
 export class EvjEventsComponent extends WidgetPlatform implements OnInit, OnDestroy {
 
@@ -42,6 +52,10 @@ export class EvjEventsComponent extends WidgetPlatform implements OnInit, OnDest
     public claimWidgets: EnumClaimWidgets[] = [];
     public EnumClaimWidgets: typeof EnumClaimWidgets = EnumClaimWidgets;
 
+    expandedElement: SelectionModel<number> = new SelectionModel<number>(true);
+    subCategoriesSelected: SelectionModel<number> = new SelectionModel<number>(true);
+    subcategories: ISubcategory[] = [];
+
     isList: boolean = false;
     isSound: boolean = !!localStorage.getItem('sound');
     audio: HTMLAudioElement = new Audio('assets/sound/event/message.mp3');
@@ -55,7 +69,7 @@ export class EvjEventsComponent extends WidgetPlatform implements OnInit, OnDest
 
     public previewTitle: string;
 
-    public notificationsGrouped: EventsWidgetNotificationPreview[][];
+    public notificationsGrouped: IEventsWidgetNotificationPreview[][];
 
     public placeNames: string[] = [];
 
@@ -181,7 +195,7 @@ export class EvjEventsComponent extends WidgetPlatform implements OnInit, OnDest
         }
     ];
 
-    public notifications: EventsWidgetNotificationPreview[] = [];
+    public notifications: IEventsWidgetNotificationPreview[] = [];
 
     public filters: EventsWidgetFilter[] = [
         {
@@ -214,6 +228,10 @@ export class EvjEventsComponent extends WidgetPlatform implements OnInit, OnDest
         }
     ];
 
+    public priority: IPriority;
+    public units: IUnits;
+    public description: string;
+
     public iconStatus: { name: string; iconUrl: string }[] = [
         {
             name: 'inWork',
@@ -237,8 +255,8 @@ export class EvjEventsComponent extends WidgetPlatform implements OnInit, OnDest
 
     isCDEvents: boolean = false;
 
-    public appendEventStream$: BehaviorSubject<EventsWidgetNotificationPreview> =
-        new BehaviorSubject<EventsWidgetNotificationPreview>(null);
+    public appendEventStream$: BehaviorSubject<IEventsWidgetNotificationPreview> =
+        new BehaviorSubject<IEventsWidgetNotificationPreview>(null);
 
     private readonly defaultIconPath: string = 'assets/icons/widgets/events/smotr.svg';
 
@@ -263,10 +281,7 @@ export class EvjEventsComponent extends WidgetPlatform implements OnInit, OnDest
         this.subscriptions.push(
             this.claimService.claimWidgets$.subscribe((data) => {
                 this.claimWidgets = data;
-            }),
-            // this.searchTerm.subscribe((search) => {
-            //     this.search(search);
-            // })
+            })
         );
     }
 
@@ -276,6 +291,7 @@ export class EvjEventsComponent extends WidgetPlatform implements OnInit, OnDest
 
     protected async dataConnect(): Promise<void> {
         super.dataConnect();
+        this.subcategories = await this.eventService.getSubcategory();
         let filterCondition: 'default' | 'ed' = 'default';
         switch (this.widgetType) {
             case 'events-ed':
@@ -290,6 +306,16 @@ export class EvjEventsComponent extends WidgetPlatform implements OnInit, OnDest
                 return false;
             }
             return cat.categoryType === filterCondition;
+        });
+        this.subcategories.forEach(subCategory => {
+            this.categories.forEach(category => {
+                if (!category?.subCategories) {
+                    category.subCategories = [];
+                }
+                if (subCategory.parentCategoryId === category.id) {
+                    category.subCategories.push(subCategory);
+                }
+            });
         });
         this.placeNames = await this.eventService.getPlaces(this.id);
         this.subscriptions.push(
@@ -309,7 +335,7 @@ export class EvjEventsComponent extends WidgetPlatform implements OnInit, OnDest
     }
 
     protected dataHandler(ref: {
-        notification: EventsWidgetNotificationPreview;
+        notification: IEventsWidgetNotificationPreview;
         action: string;
     }): void {
         if (
@@ -317,6 +343,29 @@ export class EvjEventsComponent extends WidgetPlatform implements OnInit, OnDest
             !this.placeNames.find((place) => place === ref.notification?.unit?.name) &&
             ref.action !== 'delete'
         ) {
+            return;
+        }
+        const isCheckCategories: boolean =
+            this.categories.some((x) => x.isActive && x.id === ref.notification.category.id)
+            || !this.categories.filter((x) => x.isActive).length;
+        let filtersIds: number[] = [];
+        switch (this.filters.find((x) => x.isActive).code) {
+            case 'all':
+                filtersIds = [3001, 3002];
+                break;
+            case 'closed':
+                filtersIds = [3003];
+                break;
+            case 'inWork':
+                filtersIds = [3002];
+                break;
+            case 'isNotAcknowledged':
+                filtersIds = [-100];
+                break;
+        }
+        const isCheckFilters: boolean = filtersIds.some((x) => x === ref.notification.status.id)
+            || (filtersIds.some((x) => x === -100) && !ref.notification.isAcknowledged);
+        if (!isCheckFilters || !isCheckCategories) {
             return;
         }
         switch (ref.action) {
@@ -330,6 +379,11 @@ export class EvjEventsComponent extends WidgetPlatform implements OnInit, OnDest
                 this.deleteWsElement(ref.notification);
                 break;
         }
+    }
+
+    public toggle(id: number): void {
+        this.expandedElement.toggle(id);
+        setTimeout(() => this.viewport?.checkViewportSize(), 0);
     }
 
     private async setWidgetSettings(settings: IEventSettings): Promise<void> {
@@ -360,6 +414,9 @@ export class EvjEventsComponent extends WidgetPlatform implements OnInit, OnDest
 
     public onCategoryClick(category: EventsWidgetCategory): void {
         category.isActive = !category.isActive;
+        if (!category.isActive) {
+            this.subCategoriesSelected.clear();
+        }
         this.getData();
         this.getStats();
     }
@@ -389,7 +446,11 @@ export class EvjEventsComponent extends WidgetPlatform implements OnInit, OnDest
             placeNames: this.placeNames,
             isVideoWall: this.widgetIsVideoWall,
             sortType: this.widgetSortType,
-            categoriesType: this.widgetType === 'events-ed' ? 'ed' : 'default'
+            categoriesType: this.widgetType === 'events-ed' ? 'ed' : 'default',
+            priority: this.priority,
+            units: this.units,
+            description: this.description,
+            subCategory: this.subCategoriesSelected.selected
         };
         return options;
     }
@@ -399,7 +460,7 @@ export class EvjEventsComponent extends WidgetPlatform implements OnInit, OnDest
         this.countNotificationsDivCapacity();
     }
 
-    private addWsElement(notification: EventsWidgetNotificationPreview): void {
+    private addWsElement(notification: IEventsWidgetNotificationPreview): void {
         if (this.isSound) {
             this.playAudio();
         }
@@ -418,7 +479,7 @@ export class EvjEventsComponent extends WidgetPlatform implements OnInit, OnDest
         this.countNotificationsDivCapacity();
     }
 
-    private deleteWsElement(notification: EventsWidgetNotificationPreview): void {
+    private deleteWsElement(notification: IEventsWidgetNotificationPreview): void {
         const idx = this.notifications.findIndex((n) => n.id === notification.id);
         if (idx >= 0) {
             this.notifications.splice(idx, 1);
@@ -427,7 +488,7 @@ export class EvjEventsComponent extends WidgetPlatform implements OnInit, OnDest
         }
     }
 
-    private editWsElement(notification: EventsWidgetNotificationPreview): void {
+    private editWsElement(notification: IEventsWidgetNotificationPreview): void {
         const idx = this.notifications.findIndex((n) => n.id === notification.id);
         if (idx === -1) {
             return;
@@ -449,7 +510,7 @@ export class EvjEventsComponent extends WidgetPlatform implements OnInit, OnDest
         }
     }
 
-    private appendNotifications(remoteNotifications: EventsWidgetNotificationPreview[]): void {
+    private appendNotifications(remoteNotifications: IEventsWidgetNotificationPreview[]): void {
         if (remoteNotifications?.length > 0) {
             const notifications = remoteNotifications
                 .filter((n) => n.category && n.category.name)
@@ -461,7 +522,6 @@ export class EvjEventsComponent extends WidgetPlatform implements OnInit, OnDest
                 });
             this.notifications = this.notifications.concat(notifications);
             this.countNotificationsDivCapacity();
-            ;
         }
     }
 
@@ -540,9 +600,9 @@ export class EvjEventsComponent extends WidgetPlatform implements OnInit, OnDest
     }
 
     public sortArray(
-        arr: EventsWidgetNotificationPreview[],
+        arr: IEventsWidgetNotificationPreview[],
         n: number
-    ): EventsWidgetNotificationPreview[][] {
+    ): IEventsWidgetNotificationPreview[][] {
         let i = 0;
         let j = 0;
         const result = [];
@@ -656,6 +716,30 @@ export class EvjEventsComponent extends WidgetPlatform implements OnInit, OnDest
     ): Promise<void> {
         await this.eventService.getEventsFilter(unitNames, categoryIds,
             statusIds, description);
+    }
+
+    priorityOfFilter(priority: IPriority): void {
+        this.priority = priority;
+        this.getData();
+        this.getStats();
+    }
+
+    unitsOfFilter(units: IUnits): void {
+        this.units = units;
+        this.getData();
+        this.getStats();
+    }
+
+    searchFilter(search: string): void {
+        this.description = search;
+        this.getData();
+        this.getStats();
+    }
+
+    toggleSubcategory(id: number): void {
+        this.subCategoriesSelected.toggle(id);
+        this.getData();
+        this.getStats();
     }
 
 }

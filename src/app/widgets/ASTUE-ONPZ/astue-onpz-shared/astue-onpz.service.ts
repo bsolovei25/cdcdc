@@ -6,7 +6,8 @@ import {
 } from '../astue-onpz-consumption-indicators/astue-onpz-consumption-indicators.component';
 import { IPlanningChart } from '../astue-onpz-planning-charts/astue-onpz-planning-charts.component';
 import { IMultiChartLine } from '../../../dashboard/models/ASTUE-ONPZ/astue-onpz-multi-chart.model';
-import { log } from 'util';
+import { HttpClient } from '@angular/common/http';
+import { AppConfigService } from '@core/service/app-config.service';
 
 export interface IAstueOnpzMonitoringOptions {
     manufactureName: string | null;
@@ -20,6 +21,8 @@ export interface IAstueOnpzMonitoringCarrierOptions {
     unitName: string;
     itemId: string;
     filterValues: string;
+    type: AstueOnpzConsumptionIndicatorsWidgetType | null;
+    indicatorType: AstueOnpzConsumptionIndicatorType | null;
 }
 
 export interface IAstueOnpzPredictorsOptions {
@@ -45,8 +48,12 @@ export class AstueOnpzService {
         manufactureName: null,
         unitName: null,
         itemId: null,
-        filterValues: null
+        filterValues: null,
+        type: null,
+        indicatorType: null,
     });
+
+    private restUrl: string;
 
     public monitoringOptions$: BehaviorSubject<IAstueOnpzMonitoringOptions> = new BehaviorSubject({
         manufactureName: null,
@@ -79,7 +86,11 @@ export class AstueOnpzService {
         return this.multiLinePredictorsChart$.asObservable();
     }
 
-    constructor() {
+    constructor(
+        private http: HttpClient,
+        private configService: AppConfigService,
+    ) {
+        this.restUrl = configService.restUrl;
     }
 
     public setMultiLinePredictors(value: IMultiChartLine[]): void {
@@ -151,6 +162,7 @@ export class AstueOnpzService {
 
     public updateType(typeParam: AstueOnpzConsumptionIndicatorsWidgetType): void {
         this.nextMonitoringOptions<AstueOnpzConsumptionIndicatorsWidgetType>('type', typeParam);
+        this.nextMonitoringCarrierOptions<AstueOnpzConsumptionIndicatorsWidgetType>('type', typeParam);
     }
 
     public updateIndicator(
@@ -167,6 +179,13 @@ export class AstueOnpzService {
         }
         this.monitoringOptions$.next({
             ...this.monitoringOptions$.value,
+            ...{
+                indicatorType: indicatorTypeParam,
+                type: typeParam
+            }
+        });
+        this.indicatorOptions$.next({
+            ...this.indicatorOptions$.value,
             ...{
                 indicatorType: indicatorTypeParam,
                 type: typeParam
@@ -211,5 +230,18 @@ export class AstueOnpzService {
     public clearColors(): void {
         this.colors = 6;
         this.colors$.next(new Map());
+    }
+
+    public async predict(unitIdValue: number): Promise<void>  {
+        try {
+            return await this.http
+                .post<void>(`${this.restUrl}/api/predictor/predict`, {
+                    unitId: unitIdValue,
+                })
+                .toPromise();
+        } catch (e) {
+            console.error(e);
+            return null;
+        }
     }
 }

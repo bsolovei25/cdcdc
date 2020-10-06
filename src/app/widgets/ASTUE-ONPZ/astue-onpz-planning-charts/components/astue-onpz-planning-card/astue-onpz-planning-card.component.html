@@ -20,10 +20,12 @@
       <div class="legend__units">{{transformedData.units}}</div>
       <div class="legend__buttons">
         <svg-icon
+          (click)="scale = false"
           class="button"
           src="assets/icons/widgets/ASTUE-ONPZ/astue-onpz-planning-charts/plus.svg"
         ></svg-icon>
         <svg-icon
+          (click)="scale = true"
           class="button"
           src="assets/icons/widgets/ASTUE-ONPZ/astue-onpz-planning-charts/minus.svg"
         ></svg-icon>
@@ -37,6 +39,7 @@
       <evj-planning-chart
         [data]="transformedData.graph"
         [intervalHours]="[12, 12]"
+        [size]="scaleCounter"
       >
       </evj-planning-chart>
     </div>

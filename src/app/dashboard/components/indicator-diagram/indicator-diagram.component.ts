@@ -37,7 +37,7 @@ export class IndicatorDiagramComponent implements OnInit, OnDestroy {
 
     ngOnInit(): void {
         this.subscriptions.push(
-            this.widgetService.widgets$.subscribe(widgets => {
+            this.widgetService.widgets.subscribe(widgets => {
                 if (widgets?.length) {
                     if (!this.widgetId) {
                         this.widgetId = widgets

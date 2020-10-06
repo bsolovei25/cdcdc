@@ -21,19 +21,13 @@
         stroke: var(--color-astue-onpz-fact);
       }
 
-      &-fact,
-      &-plan {
+      &-fact {
         stroke-width: 2;
       }
 
-      &-lowerBorder,
-      &-higherBorder {
+      &-plan {
         stroke-dasharray: 2 1;
         stroke: var(--color-astue-onpz-limit);
-      }
-
-      &-plan {
-        stroke: var(--color-astue-onpz-plan);
       }
 
       &_warning {
@@ -46,17 +40,13 @@
     }
 
     .graph-area {
-      &-higherBorder,
-      &-lowerBorder {
-        fill: var(--color-astue-onpz-area);
-        opacity: 0.2;
-      }
-
       &_warning {
+        opacity: 0.2;
         fill: var(--color-astue-onpz-warning);
       }
 
       &_normal {
+        opacity: 0.2;
         fill: var(--color-astue-onpz-normal);
       }
     }

@@ -8,6 +8,7 @@ import {
 import { WidgetPlatform } from '../../../dashboard/models/widget-platform';
 import { WidgetService } from '../../../dashboard/services/widget.service';
 import { AstueOnpzService } from '../astue-onpz-shared/astue-onpz.service';
+import { ObjectDeepEqual, ArrayOfObjectsDeepEqual } from '@shared/functions/deep-equal.function';
 
 export type AstueOnpzConsumptionIndicatorsWidgetType = 'Deviation' | 'Consumption';
 
@@ -58,7 +59,10 @@ export class AstueOnpzConsumptionIndicatorsComponent extends WidgetPlatform
     }
 
     protected dataHandler(ref: IAstueOnpzConsumptionIndicators): void {
-        if (JSON.stringify(this.indicators) !== JSON.stringify(ref.indicators)) {
+        if (!this.indicators.length) {
+            this.indicators = ref.indicators;
+        }
+        if (!ArrayOfObjectsDeepEqual(this.indicators, ref.indicators)) {
             this.indicators = ref.indicators;
         }
         if (this.type !== ref.type) {

@@ -65,6 +65,7 @@
     (mousedown)="$event.stopPropagation()"
     (touchstart)="$event.stopPropagation()"
   >
+    <evj-event-preview [isPreviewOpened]="isPreviewOpened" (close)="closeEventPreview()"></evj-event-preview>
     <div [class.events]="!isCDEvents" [class.cd-events]="isCDEvents">
       <div
         class="notifications"

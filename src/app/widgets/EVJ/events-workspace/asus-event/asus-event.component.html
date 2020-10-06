@@ -1,4 +1,4 @@
-<div class="asus" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
+<div class="asus" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()" [style]="{overflow: noOverflow ? 'auto' : 'visible'}">
   <div class="asus__column column column_left">
     <div class="column__row row">
       <div class="row__cell cell cell_left">
@@ -243,8 +243,7 @@
         <div class="label">
           <div class="label__title">Автор</div>
           <div class="label__text">
-            {{this.ewService.event.fixedBy?.displayName ? this.ewService.event.fixedBy.displayName :
-            'Не установлен'}}
+            {{this.ewService.event.asusEvent?.consumer || 'Не установлен'}}
           </div>
         </div>
       </div>
