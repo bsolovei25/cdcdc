@@ -140,6 +140,7 @@ import { SystemPeriodDateYearComponent } from '../widgets/admin/report-server-co
 import { SystemPeriodDateMonthComponent } from '../widgets/admin/report-server-configurator/popup-system-options/system-period-edit/system-period-date/system-period-date-month/system-period-date-month.component';
 import { SystemPeriodDateDayComponent } from '../widgets/admin/report-server-configurator/popup-system-options/system-period-edit/system-period-date/system-period-date-day/system-period-date-day.component';
 import { SystemPeriodDateComponent } from '../widgets/admin/report-server-configurator/popup-system-options/system-period-edit/system-period-date/system-period-date.component';
+import { ReportServerConfiguratorModule } from '../widgets/admin/report-server-configurator/report-server-configurator.module';
 
 @NgModule({
     declarations: [
@@ -316,7 +317,8 @@ import { SystemPeriodDateComponent } from '../widgets/admin/report-server-config
         MatTooltipModule,
         MatMenuModule,
         MatRippleModule,
-        MatBadgeModule
+        MatBadgeModule,
+        ReportServerConfiguratorModule
     ],
     bootstrap: [],
     providers: [
