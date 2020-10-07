@@ -17,7 +17,6 @@ import { WidgetsGridComponent } from './components/widgets-grid/widgets-grid.com
 import { GridsterModule } from 'angular-gridster2';
 import { UserInfoComponent } from './components/user-info/user-info.component';
 import { SuspenseMachineComponent } from './widgets/suspense-machine/suspense-machine.component';
-import { UnityTemplateComponent } from './widgets/unity-template/unity-template.component';
 import { PowIndexPipe } from '@shared/pipes/pow-index.pipe';
 import { DeviationsTableComponent } from './widgets/deviations-table/deviations-table.component';
 import { ProductStocksComponent } from './widgets/product-stocks/product-stocks.component';
@@ -29,7 +28,6 @@ import { DashboardRoutingModule } from './dashboard-routing.module';
 import { ColumnChartStackedComponent } from './widgets/column-chart-stacked/column-chart-stacked.component';
 import { CcsOneColumnComponent } from './widgets/column-chart-stacked/ccs-one-column/ccs-one-column.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { FlameDiagramComponent } from './widgets/flame-diagram/flame-diagram.component';
 import { SearchFilterComponent } from './components/search/search-filter/search-filter.component';
 import { SearchInputComponent } from './components/search/search-input/search-input.component';
 import { SearchListComponent } from './components/search/search-list/search-list.component';
@@ -175,7 +173,6 @@ import { TankFilterComponent } from '../widgets/NK/tank-information/components/t
         WidgetsGridComponent,
         UserInfoComponent,
         SuspenseMachineComponent,
-        UnityTemplateComponent,
         PowIndexPipe,
         DeviationsTableComponent,
         ProductStocksComponent,
@@ -184,7 +181,6 @@ import { TankFilterComponent } from '../widgets/NK/tank-information/components/t
         SearchComponent,
         ColumnChartStackedComponent,
         CcsOneColumnComponent,
-        FlameDiagramComponent,
         WidgetPreviewComponent,
         TimeLineDiagramComponent,
         TimeDiagramComponent,
@@ -293,12 +289,10 @@ import { TankFilterComponent } from '../widgets/NK/tank-information/components/t
     ],
     entryComponents: [
         SuspenseMachineComponent,
-        UnityTemplateComponent,
         DeviationsTableComponent,
         ProductStocksComponent,
         DeviationCircleDiagramComponent,
         ColumnChartStackedComponent,
-        FlameDiagramComponent,
         TimeLineDiagramComponent,
         PetroleumProductsMovementComponent,
         ReferenceComponent,

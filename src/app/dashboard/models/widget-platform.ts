@@ -2,7 +2,7 @@ import { Inject, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { WidgetService } from '../services/widget.service';
 
-export abstract class WidgetPlatform<T> implements OnDestroy {
+export abstract class WidgetPlatform<T=unknown> implements OnDestroy {
     public widgetCode?: string;
     public widgetTitle?: string;
     public widgetUnits?: string;

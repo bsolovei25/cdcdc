@@ -1,12 +1,10 @@
 import { ManualInputComponent } from '../../../widgets/EVJ/manual-input/manual-input.component';
 import { SuspenseMachineComponent } from '../../widgets/suspense-machine/suspense-machine.component';
-import { UnityTemplateComponent } from '../../widgets/unity-template/unity-template.component';
 import { DeviationsTableComponent } from '../../widgets/deviations-table/deviations-table.component';
 import { ProductStocksComponent } from '../../widgets/product-stocks/product-stocks.component';
 import { DeviationCircleDiagramComponent } from '../../widgets/deviation-circle-diagram/deviation-circle-diagram.component';
 import { ColumnChartStackedComponent } from '../../widgets/column-chart-stacked/column-chart-stacked.component';
 import { TimeLineDiagramComponent } from '../../widgets/time-line-diagram/time-line-diagram.component';
-import { FlameDiagramComponent } from '../../widgets/flame-diagram/flame-diagram.component';
 import { PetroleumProductsMovementComponent } from '../../widgets/petroleum-products-movement/petroleum-products-movement.component';
 import { ReportServerConfiguratorComponent } from '../../widgets/report-server-configurator/report-server-configurator.component';
 import { ReferenceComponent } from '../../widgets/reference/reference.component';
@@ -28,13 +26,13 @@ export const WIDGETS = {
     'manual-input': WidgetContainerComponent,
     'events-workspace': WidgetContainerComponent,
     'industrial-pyramid': WidgetContainerComponent,
-    'unity-template': UnityTemplateComponent,
+    'unity-template': WidgetContainerComponent,
     'table-data': SuspenseMachineComponent,
     'deviations-table': DeviationsTableComponent,
     'product-stocks': ProductStocksComponent,
     'deviation-circle-diagram': DeviationCircleDiagramComponent,
     'column-chart-stacked': ColumnChartStackedComponent,
-    'flame-diagram': FlameDiagramComponent,
+    'flame-diagram': WidgetContainerComponent,
     'time-line-diagram': TimeLineDiagramComponent,
     'petroleum-products-movement': PetroleumProductsMovementComponent,
     reference: ReferenceComponent,
@@ -1364,8 +1362,39 @@ export const WIDGETS_LAZY = {
         minItemCols: 50,
         minItemRows: 30,
         preview: 'dispatcher-screen'
-    }
+    },
     //#endregion ED
+    
+    //#region others
+    'flame-diagram': {
+        import: async () => {
+            return await import(
+                'src/app/widgets/others/flame-diagram/flame-diagram.module'
+            );
+        },
+        module: 'FlameDiagramModule',
+        itemCols: 15,
+        itemRows: 15,
+        minItemCols: 15,
+        minItemRows: 15,
+        preview: 'flame-diagram'
+    },
+    'unity-template': {
+        import: async () => {
+            return await import(
+                'src/app/widgets/others/unity-template/unity-template.module'
+            );
+        },
+        module: 'UnityTemplateModule',
+        itemCols: 15,
+        itemRows: 15,
+        minItemCols: 15,
+        minItemRows: 15,
+        preview: 'unity-template'
+    }
+
+    //#endregion others
+
 
     // 'pie-diagram': {
     //     import: async () => await import('src/app/widgets/pie-diagram/pie-diagram.module'),

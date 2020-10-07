@@ -1,15 +1,16 @@
 import { Component, HostListener, Inject, OnInit, OnDestroy, AfterViewInit } from '@angular/core';
 import { UnityLoader } from './UnityLoader.js';
 import { PlatformLocation } from '@angular/common';
-import { WidgetService } from '../../services/widget.service';
+import { WidgetService } from 'src/app/dashboard/services/widget.service';
 import { Subscription } from 'rxjs';
+import { WidgetPlatform } from 'src/app/dashboard/models/widget-platform';
 
 @Component({
     selector: 'evj-unity-template',
     templateUrl: './unity-template.component.html',
     styleUrls: ['./unity-template.component.scss'],
 })
-export class UnityTemplateComponent implements OnInit {
+export class UnityTemplateComponent extends WidgetPlatform implements OnInit, OnDestroy {
     private baseUrl: string;
     private unityInstance: any;
     isStart: boolean;
@@ -17,12 +18,9 @@ export class UnityTemplateComponent implements OnInit {
     title: string;
     public previewTitle: string = 'unity-template';
 
-    private subscriptions: Subscription[] = [];
+    public subscriptions: Subscription[] = [];
 
     private canvas: HTMLCanvasElement;
-
-    static itemCols = 15;
-    static itemRows = 15;
 
     constructor(
         public widgetService: WidgetService,
@@ -31,6 +29,7 @@ export class UnityTemplateComponent implements OnInit {
         @Inject('uniqId') public uniqId: string,
         platformLocation: PlatformLocation
     ) {
+        super(widgetService, isMock, id, uniqId);
         const location = (platformLocation as any).location;
         this.baseUrl = location.origin + location.pathname.replace('dashboard', '');
         this.subscriptions.push(
@@ -40,7 +39,9 @@ export class UnityTemplateComponent implements OnInit {
         );
     }
 
-    ngOnInit() {}
+    ngOnInit() {
+        super.widgetInit();
+    }
 
     ngOnDestroy() {
         if (this.subscriptions) {
@@ -51,16 +52,7 @@ export class UnityTemplateComponent implements OnInit {
         if (this.unityInstance) {
             this.unityInstance.Quit(() => console.log('destroy'));
         }
-    }
-
-    ngAfterViewInit() {
-        this.showMock(this.isMock);
-    }
-
-    private showMock(show) {
-        if (!show) {
-            this.InitUnity();
-        }
+        super.ngOnDestroy();
     }
 
     @HostListener('document:resize', ['$event'])
@@ -107,5 +99,8 @@ export class UnityTemplateComponent implements OnInit {
             this.canvas.width = this.canvas.parentElement.offsetWidth;
             this.canvas.height = this.canvas.parentElement.offsetHeight;
         }
+    }
+    protected dataHandler(ref: any): void {
+        // this.data = ref.chartItems;
     }
 }
