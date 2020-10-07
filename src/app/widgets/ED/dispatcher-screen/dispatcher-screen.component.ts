@@ -4,7 +4,7 @@ import { PlatformLocation } from '@angular/common';
 import { WidgetService } from 'src/app/dashboard/services/widget.service';
 import { WidgetSettingsService } from 'src/app/dashboard/services/widget-settings.service';
 import { WidgetPlatform } from 'src/app/dashboard/models/widget-platform';
-import { error } from '@angular/compiler/src/util';
+import { AsyncRender } from '@shared/functions/async-render.function';
 
 @Component({
     selector: 'evj-dispatcher-screen',
@@ -51,7 +51,7 @@ export class DispatcherScreenComponent extends WidgetPlatform<unknown> implement
     }
 
     @HostListener('document:resize', ['$event'])
-    public OnResize(event): void {
+    public OnResize(): void {
         this.resize();
     }
 
@@ -105,6 +105,7 @@ export class DispatcherScreenComponent extends WidgetPlatform<unknown> implement
         );
     }
 
+    @AsyncRender
     private resize(): void {
         this.canvas = document.getElementById('#canvas') as HTMLCanvasElement;
         if (this.canvas) {
