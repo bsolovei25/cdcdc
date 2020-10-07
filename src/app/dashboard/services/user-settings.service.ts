@@ -13,6 +13,7 @@ import { SnackBarService } from './snack-bar.service';
 import { OverlayService } from './overlay.service';
 import { Router } from '@angular/router';
 import { IGroupScreens } from '../components/group-selector/group-selector.component';
+import { Title } from '@angular/platform-browser';
 
 @Injectable({
     providedIn: 'root'
@@ -31,6 +32,7 @@ export class UserSettingsService {
 
     public ScreenId: number;
     public ScreenName: string;
+    readonly projectName: string;
 
     private widgetsOnScreen: Map<string, string> = new Map<string, string>();
 
@@ -41,9 +43,11 @@ export class UserSettingsService {
         private configService: AppConfigService,
         private snackBar: SnackBarService,
         private overlayService: OverlayService,
-        private router: Router
+        private router: Router,
+        private titleService: Title
     ) {
         this.restUrl = configService.restUrl;
+        this.projectName = configService.projectName;
     }
 
     public create_UUID(): string {
@@ -262,6 +266,7 @@ export class UserSettingsService {
                         uniqid: widget.uniqueId
                     };
                 });
+                this.setTitle(`${this.projectName} - ${this.ScreenName}`);
             });
         } else {
             this.ScreenId = undefined;
@@ -358,5 +363,9 @@ export class UserSettingsService {
 
     private defWidgetSize(widgetType: string): any {
         return WIDGETS_LAZY[widgetType] ?? WIDGETS[widgetType];
+    }
+
+    public setTitle(newTitle: string): void {
+        this.titleService.setTitle(newTitle);
     }
 }

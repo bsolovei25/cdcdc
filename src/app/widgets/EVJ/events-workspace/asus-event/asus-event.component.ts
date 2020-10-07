@@ -30,6 +30,7 @@ export class AsusEventComponent implements OnInit {
 
     private async setExistReferences(): Promise<void> {
         if (!this.ewService.isCreateNewEvent) {
+            console.log(this.ewService.event);
             this.setUnit(this.ewService.event.asusEvent.tmPlace);
             this.setEquipment(this.ewService.event.asusEvent.equipment);
         }
@@ -73,7 +74,7 @@ export class AsusEventComponent implements OnInit {
     }
 
     public async setUnit(event: string): Promise<void> {
-        if (!(!!event.trim())) {
+        if (!(!!event?.trim())) {
             return;
         }
         this.ewService.isLoading = true;
@@ -93,9 +94,9 @@ export class AsusEventComponent implements OnInit {
     }
 
     public async setEquipment(event: string): Promise<void> {
-        if (!(!!event.trim())) {
+        if (!(!!event?.trim())) {
             event = this.ewService.event.asusEvent.tmPlace;
-            if (!(!!event.trim())) {
+            if (!(!!event?.trim())) {
                 return;
             }
         }

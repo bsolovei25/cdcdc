@@ -1,0 +1,624 @@
+<div class="container pointer-event">
+  <evj-widget-header
+    [title]="widgetTitle"
+    [units]="widgetUnits"
+    [code]="widgetCode"
+    [icon]="widgetIcon"
+    [id]="widgetId"
+    [uniqId]="widgetUniqId"
+  ></evj-widget-header>
+
+  <evj-frame-top></evj-frame-top>
+
+  <ng-container>
+    <div
+      class="energetics"
+      (mousedown)="$event.stopPropagation()"
+      (touchstart)="$event.stopPropagation()"
+    >
+      <div class="energetics__container">
+        <evj-detailed-line-diagram class="dld" [data]="data"></evj-detailed-line-diagram>
+        <div class="energetics__energy">
+          <div class="energetics__graphic">
+            <div class="energetics__round">
+              <svg width="100%" height="100%" viewBox="0 0 50 50">
+                <!-- termo dia -->
+                <circle
+                  [attr.cx]="centerX"
+                  [attr.cy]="centerY"
+                  [attr.r]="termoRadius"
+                  [attr.fill]="colorMain"
+                ></circle>
+                <circle
+                  [attr.cx]="centerX"
+                  [attr.cy]="centerY"
+                  [attr.r]="termoRadius"
+                  fill="transparent"
+                  [attr.stroke]="colorBg"
+                  stroke-width="2"
+                  [attr.stroke-dasharray]="diaCounter(termoRadius)"
+                  stroke-dashoffset="0"
+                ></circle>
+                <circle
+                  [attr.cx]="centerX"
+                  [attr.cy]="centerY"
+                  [attr.r]="termoRadius"
+                  fill="transparent"
+                  [attr.stroke]="diaFill(energyCircleDiagram.termo)"
+                  stroke-width="0.7"
+                  [attr.stroke-dasharray]="
+                    diaLine(termoRadius, energyCircleDiagram.termo)
+                  "
+                  [attr.stroke-dashoffset]="
+                    diaOffset(termoRadius, energyCircleDiagram.termo)
+                  "
+                ></circle>
+                <circle
+                  *ngIf="
+                    energyCircleDiagram.termo > energyCircleDiagram.upperLimit
+                  "
+                  [attr.cx]="centerX"
+                  [attr.cy]="centerY"
+                  [attr.r]="termoRadius"
+                  fill="transparent"
+                  [attr.stroke]="diaFill(energyCircleDiagram.upperLimit)"
+                  stroke-width="0.7"
+                  [attr.stroke-dasharray]="
+                    diaLine(termoRadius, energyCircleDiagram.upperLimit)
+                  "
+                  [attr.stroke-dashoffset]="
+                    diaOffset(termoRadius, energyCircleDiagram.upperLimit)
+                  "
+                ></circle>
+
+                <!-- electro dia -->
+                <circle
+                  [attr.cx]="centerX"
+                  [attr.cy]="centerY"
+                  [attr.r]="electroRadius"
+                  [attr.fill]="colorMain"
+                ></circle>
+                <circle
+                  [attr.cx]="centerX"
+                  [attr.cy]="centerY"
+                  [attr.r]="electroRadius"
+                  fill="transparent"
+                  [attr.stroke]="colorBg"
+                  stroke-width="2"
+                  [attr.stroke-dasharray]="diaCounter(electroRadius)"
+                  stroke-dashoffset="0"
+                ></circle>
+                <circle
+                  [attr.cx]="centerX"
+                  [attr.cy]="centerY"
+                  [attr.r]="electroRadius"
+                  fill="transparent"
+                  [attr.stroke]="diaFill(energyCircleDiagram.electro)"
+                  stroke-width="0.7"
+                  [attr.stroke-dasharray]="
+                    diaLine(electroRadius, energyCircleDiagram.electro)
+                  "
+                  [attr.stroke-dashoffset]="
+                    diaOffset(electroRadius, energyCircleDiagram.electro)
+                  "
+                ></circle>
+                <circle
+                  *ngIf="
+                    energyCircleDiagram.electro > energyCircleDiagram.upperLimit
+                  "
+                  [attr.cx]="centerX"
+                  [attr.cy]="centerY"
+                  [attr.r]="electroRadius"
+                  fill="transparent"
+                  [attr.stroke]="diaFill(energyCircleDiagram.upperLimit)"
+                  stroke-width="0.7"
+                  [attr.stroke-dasharray]="
+                    diaLine(electroRadius, energyCircleDiagram.upperLimit)
+                  "
+                  [attr.stroke-dashoffset]="
+                    diaOffset(electroRadius, energyCircleDiagram.upperLimit)
+                  "
+                ></circle>
+
+                <!-- fuel dia -->
+                <circle
+                  [attr.cx]="centerX"
+                  [attr.cy]="centerY"
+                  [attr.r]="fuelRadius"
+                  [attr.fill]="colorMain"
+                ></circle>
+                <circle
+                  [attr.cx]="centerX"
+                  [attr.cy]="centerY"
+                  [attr.r]="fuelRadius"
+                  fill="transparent"
+                  [attr.stroke]="colorBg"
+                  stroke-width="2"
+                  [attr.stroke-dasharray]="diaCounter(fuelRadius)"
+                  stroke-dashoffset="0"
+                ></circle>
+                <circle
+                  [attr.cx]="centerX"
+                  [attr.cy]="centerY"
+                  [attr.r]="fuelRadius"
+                  fill="transparent"
+                  [attr.stroke]="diaFill(energyCircleDiagram.fuel)"
+                  stroke-width="0.7"
+                  [attr.stroke-dasharray]="
+                    diaLine(fuelRadius, energyCircleDiagram.fuel)
+                  "
+                  [attr.stroke-dashoffset]="
+                    diaOffset(fuelRadius, energyCircleDiagram.fuel)
+                  "
+                ></circle>
+                <circle
+                  *ngIf="
+                    energyCircleDiagram.fuel > energyCircleDiagram.upperLimit
+                  "
+                  [attr.cx]="centerX"
+                  [attr.cy]="centerY"
+                  [attr.r]="fuelRadius"
+                  fill="transparent"
+                  [attr.stroke]="diaFill(energyCircleDiagram.upperLimit)"
+                  stroke-width="0.7"
+                  [attr.stroke-dasharray]="
+                    diaLine(fuelRadius, energyCircleDiagram.upperLimit)
+                  "
+                  [attr.stroke-dashoffset]="
+                    diaOffset(fuelRadius, energyCircleDiagram.upperLimit)
+                  "
+                ></circle>
+
+                <!-- Точки на концах линий -->
+                <circle
+                  [attr.cx]="
+                    diaEndsLine(energyCircleDiagram.termo, termoRadius).xCen
+                  "
+                  [attr.cy]="
+                    diaEndsLine(energyCircleDiagram.termo, termoRadius).yCen
+                  "
+                  [attr.r]="radPoint"
+                  fill="colorBg"
+                  [attr.stroke]="diaFill(energyCircleDiagram.termo)"
+                  stroke-width="0.3"
+                ></circle>
+                <circle
+                  [attr.cx]="
+                    diaEndsLine(energyCircleDiagram.electro, electroRadius).xCen
+                  "
+                  [attr.cy]="
+                    diaEndsLine(energyCircleDiagram.electro, electroRadius).yCen
+                  "
+                  [attr.r]="radPoint"
+                  fill="colorBg"
+                  [attr.stroke]="diaFill(energyCircleDiagram.electro)"
+                  stroke-width="0.3"
+                ></circle>
+                <circle
+                  [attr.cx]="
+                    diaEndsLine(energyCircleDiagram.fuel, fuelRadius).xCen
+                  "
+                  [attr.cy]="
+                    diaEndsLine(energyCircleDiagram.fuel, fuelRadius).yCen
+                  "
+                  [attr.r]="radPoint"
+                  fill="colorBg"
+                  [attr.stroke]="diaFill(energyCircleDiagram.fuel)"
+                  stroke-width="0.3"
+                ></circle>
+
+                <line
+                  [attr.x1]="diaLimits(energyCircleDiagram.lowerLimit).x1"
+                  [attr.y1]="diaLimits(energyCircleDiagram.lowerLimit).y1"
+                  [attr.x2]="diaLimits(energyCircleDiagram.lowerLimit).x2"
+                  [attr.y2]="diaLimits(energyCircleDiagram.lowerLimit).y2"
+                  [attr.stroke]="colorNormal"
+                  stroke-width="0.2"
+                  stroke-dasharray="1 1"
+                />
+                <line
+                  [attr.x1]="diaLimits(energyCircleDiagram.upperLimit).x1"
+                  [attr.y1]="diaLimits(energyCircleDiagram.upperLimit).y1"
+                  [attr.x2]="diaLimits(energyCircleDiagram.upperLimit).x2"
+                  [attr.y2]="diaLimits(energyCircleDiagram.upperLimit).y2"
+                  [attr.stroke]="colorNormal"
+                  stroke-width="0.2"
+                  stroke-dasharray="1 1"
+                />
+
+                <!-- logo dia -->
+                <image
+                  x="15"
+                  y="15"
+                  width="20"
+                  height="20"
+                  xlink:href="assets/icons/widgets/energetics/dia_logo.svg"
+                />
+
+                <!-- labels dia -->
+
+                <!-- termo -->
+                <image
+                  x="53%"
+                  y="1.2"
+                  width="2.7"
+                  height="2.7"
+                  xlink:href="assets/icons/widgets/energetics/termo.svg"
+                  *ngIf="
+                    !(
+                      energyCircleDiagram.termo >
+                        energyCircleDiagram.upperLimit ||
+                      energyCircleDiagram.termo < energyCircleDiagram.lowerLimit
+                    )
+                  "
+                />
+                <image
+                  x="53%"
+                  y="1.2"
+                  width="2.7"
+                  height="2.7"
+                  xlink:href="assets/icons/widgets/energetics/termo_danger.svg"
+                  *ngIf="
+                    energyCircleDiagram.termo >
+                      energyCircleDiagram.upperLimit ||
+                    energyCircleDiagram.termo < energyCircleDiagram.lowerLimit
+                  "
+                />
+                <text x="61%" y="3.6" class="svg__txt">Тепловая</text>
+
+                <!-- electro -->
+                <image
+                  x="53%"
+                  y="4.5"
+                  width="2.7"
+                  height="2.7"
+                  xlink:href="assets/icons/widgets/energetics/electro.svg"
+                  *ngIf="
+                    !(
+                      energyCircleDiagram.electro >
+                        energyCircleDiagram.upperLimit ||
+                      energyCircleDiagram.electro <
+                        energyCircleDiagram.lowerLimit
+                    )
+                  "
+                />
+                <image
+                  x="53%"
+                  y="4.5"
+                  width="2.7"
+                  height="2.7"
+                  xlink:href="assets/icons/widgets/energetics/electro_danger.svg"
+                  *ngIf="
+                    energyCircleDiagram.electro >
+                      energyCircleDiagram.upperLimit ||
+                    energyCircleDiagram.electro < energyCircleDiagram.lowerLimit
+                  "
+                />
+                <text x="61%" y="6.6" class="svg__txt">Электро</text>
+
+                <!-- fuel -->
+                <image
+                  x="53%"
+                  y="7.7"
+                  width="2.7"
+                  height="2.7"
+                  xlink:href="assets/icons/widgets/energetics/fuel.svg"
+                  *ngIf="
+                    !(
+                      energyCircleDiagram.fuel >
+                        energyCircleDiagram.upperLimit ||
+                      energyCircleDiagram.fuel < energyCircleDiagram.lowerLimit
+                    )
+                  "
+                />
+                <image
+                  x="53%"
+                  y="7.7"
+                  width="2.7"
+                  height="2.7"
+                  xlink:href="assets/icons/widgets/energetics/fuel_danger.svg"
+                  *ngIf="
+                    energyCircleDiagram.fuel > energyCircleDiagram.upperLimit ||
+                    energyCircleDiagram.fuel < energyCircleDiagram.lowerLimit
+                  "
+                />
+
+                <text
+                  class="limitLabel"
+                  [attr.x]="
+                    diaLimitsLabels(energyCircleDiagram.lowerLimit, true).x
+                  "
+                  [attr.y]="
+                    diaLimitsLabels(energyCircleDiagram.lowerLimit, true).y
+                  "
+                >
+                  {{ energyCircleDiagram.lowerLimit }}%
+                </text>
+                <text
+                  class="limitLabel"
+                  [attr.x]="diaLimitsLabels(energyCircleDiagram.upperLimit).x"
+                  [attr.y]="diaLimitsLabels(energyCircleDiagram.upperLimit).y"
+                >
+                  {{ energyCircleDiagram.upperLimit }}%
+                </text>
+                <text x="61%" y="9.8" class="svg__txt">Топливо</text>
+              </svg>
+            </div>
+          </div>
+
+          <div class="energetics__cards">
+            <div class="card" [ngClass]="{'danger':isTermoCardDanger}">
+              <div class="card__border"></div>
+              <div class="card__logo">
+                <img
+                  src="assets/icons/widgets/energetics/termo.svg"
+                  alt=""
+                  *ngIf="!isTermoCardDanger"
+                />
+                <img
+                  src="assets/icons/widgets/energetics/termo_danger.svg"
+                  alt=""
+                  *ngIf="isTermoCardDanger"
+                />
+              </div>
+              <div class="card__counters">
+                <div class="card__counter">
+                  <img
+                    class="rotate"
+                    src="assets/icons/widgets/calendar-plan/deviat.svg"
+                    alt=""
+                    *ngIf="!isTermoCardDanger"
+                  />
+                  <img
+                    class="rotate"
+                    src="assets/icons/widgets/calendar-plan/deviat_danger.svg"
+                    alt=""
+                    *ngIf="isTermoCardDanger"
+                  />
+                  <div class="number">
+                    0.100
+                    <div class="units">Гкал/тонн</div>
+                  </div>
+                </div>
+                <div class="card__counter">
+                  <img
+                    class="rotate"
+                    src="assets/icons/widgets/calendar-plan/deviat.svg"
+                    alt=""
+                    *ngIf="!isTermoCardDanger"
+                  />
+                  <img
+                    class="rotate"
+                    src="assets/icons/widgets/calendar-plan/deviat_danger.svg"
+                    alt=""
+                    *ngIf="isTermoCardDanger"
+                  />
+                  <div class="number">
+                    142.8
+                    <div class="units">тыс. Гкал</div>
+                  </div>
+                </div>
+              </div>
+              <div class="card__dia">
+                <div class="graph__line">
+                  <div class="line line__marking line__marking-0"></div>
+                  <div class="line line__marking line__marking-50"></div>
+                  <div class="line line__marking line__marking-100"></div>
+                  <div class="line line__limit line__limit-higher"></div>
+                  <svg width="100%" height="100%">
+                    <rect
+                      x="0"
+                      y="2px"
+                      [attr.width]="drawGraph(termoCard)"
+                      height="4px"
+                      rx="3px"
+                      ry="3px"
+                      [attr.fill]="colorDeviation"
+                    />
+                    <rect
+                      x="0"
+                      y="2px"
+                      [attr.width]="
+                        termoCard.plan - termoCard.curValue > 0
+                          ? drawGraph(termoCard)
+                          : '80%'
+                      "
+                      height="4px"
+                      rx="3px"
+                      ry="3px"
+                      [attr.fill]="
+                        termoCard.plan - termoCard.curValue > 0
+                          ? colorNormal
+                          : colorFull
+                      "
+                    />
+                  </svg>
+                </div>
+              </div>
+            </div>
+            <div class="card" [ngClass]="{'danger':isElectroCardDanger}">
+              <div class="card__border"></div>
+              <div class="card__logo">
+                <img
+                  src="assets/icons/widgets/energetics/electro.svg"
+                  alt=""
+                  *ngIf="!isElectroCardDanger"
+                />
+                <img
+                  src="assets/icons/widgets/energetics/electro_danger.svg"
+                  alt=""
+                  *ngIf="isElectroCardDanger"
+                />
+              </div>
+              <div class="card__counters">
+                <div class="card__counter">
+                  <img
+                    class="rotate"
+                    src="assets/icons/widgets/calendar-plan/deviat.svg"
+                    alt=""
+                    *ngIf="!isElectroCardDanger"
+                  />
+                  <img
+                    class="rotate"
+                    src="assets/icons/widgets/calendar-plan/deviat_danger.svg"
+                    alt=""
+                    *ngIf="isElectroCardDanger"
+                  />
+                  <div class="number">
+                    17.7
+                    <div class="units">млн. кВТ/ч</div>
+                  </div>
+                </div>
+                <div class="card__counter">
+                  <img
+                    class="rotate"
+                    src="assets/icons/widgets/calendar-plan/deviat.svg"
+                    alt=""
+                    *ngIf="!isElectroCardDanger"
+                  />
+                  <img
+                    class="rotate"
+                    src="assets/icons/widgets/calendar-plan/deviat_danger.svg"
+                    alt=""
+                    *ngIf="isElectroCardDanger"
+                  />
+                  <div class="number">
+                    49.9
+                    <div class="units">кВТ*ч/тонн</div>
+                  </div>
+                </div>
+              </div>
+              <div class="card__dia">
+                <div class="graph__line">
+                  <div class="line line__marking line__marking-0"></div>
+                  <div class="line line__marking line__marking-50"></div>
+                  <div class="line line__marking line__marking-100"></div>
+                  <div class="line line__limit line__limit-higher"></div>
+                  <svg width="100%" height="100%">
+                    <rect
+                      x="0"
+                      y="2px"
+                      [attr.width]="drawGraph(electroCard)"
+                      height="4px"
+                      rx="3px"
+                      ry="3px"
+                      [attr.fill]="colorDeviation"
+                    />
+                    <rect
+                      x="0"
+                      y="2px"
+                      [attr.width]="
+                        electroCard.plan - electroCard.curValue > 0
+                          ? drawGraph(electroCard)
+                          : '80%'
+                      "
+                      height="4px"
+                      rx="3px"
+                      ry="3px"
+                      [attr.fill]="
+                        electroCard.plan - electroCard.curValue > 0
+                          ? colorNormal
+                          : colorFull
+                      "
+                    />
+                  </svg>
+                </div>
+              </div>
+            </div>
+            <div class="card" [ngClass]="{'danger':isFuelCardDanger}">
+              <div class="card__border"></div>
+              <div class="card__logo">
+                <img
+                  src="assets/icons/widgets/energetics/fuel.svg"
+                  alt=""
+                  *ngIf="!isFuelCardDanger"
+                />
+                <img
+                  src="assets/icons/widgets/energetics/fuel_danger.svg"
+                  alt=""
+                  *ngIf="isFuelCardDanger"
+                />
+              </div>
+              <div class="card__counters">
+                <div class="card__counter">
+                  <img
+                    class="rotate"
+                    src="assets/icons/widgets/calendar-plan/deviat.svg"
+                    alt=""
+                    *ngIf="!isFuelCardDanger"
+                  />
+                  <img
+                    class="rotate"
+                    src="assets/icons/widgets/calendar-plan/deviat_danger.svg"
+                    alt=""
+                    *ngIf="isFuelCardDanger"
+                  />
+                  <div class="number">
+                    85.3
+                    <div class="units">тыс.т.у.т.</div>
+                  </div>
+                </div>
+                <div class="card__counter">
+                  <img
+                    class="rotate"
+                    src="assets/icons/widgets/calendar-plan/deviat.svg"
+                    alt=""
+                    *ngIf="!isFuelCardDanger"
+                  />
+                  <img
+                    class="rotate"
+                    src="assets/icons/widgets/calendar-plan/deviat_danger.svg"
+                    alt=""
+                    *ngIf="isFuelCardDanger"
+                  />
+                  <div class="number">
+                    59.9
+                    <div class="units">кг.у.т/тонн</div>
+                  </div>
+                </div>
+              </div>
+              <div class="card__dia">
+                <div class="graph__line">
+                  <div class="line line__marking line__marking-0"></div>
+                  <div class="line line__marking line__marking-50"></div>
+                  <div class="line line__marking line__marking-100"></div>
+                  <div class="line line__limit line__limit-higher"></div>
+                  <svg width="100%" height="100%">
+                    <rect
+                      x="0"
+                      y="2px"
+                      [attr.width]="drawGraph(fuelCard)"
+                      height="4px"
+                      rx="3px"
+                      ry="3px"
+                      [attr.fill]="colorDeviation"
+                    />
+                    <rect
+                      x="0"
+                      y="2px"
+                      [attr.width]="
+                        fuelCard.plan - fuelCard.curValue > 0
+                          ? drawGraph(fuelCard)
+                          : '80%'
+                      "
+                      height="4px"
+                      rx="3px"
+                      ry="3px"
+                      [attr.fill]="
+                        fuelCard.plan - fuelCard.curValue > 0
+                          ? colorNormal
+                          : colorFull
+                      "
+                    />
+                  </svg>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+
+  <evj-frame-bottom></evj-frame-bottom>
+</div>

@@ -6,5 +6,6 @@
     "reconnectInterval": 5,
     "shiftFree": "not-all",
     "isDomenAuth": true,
-    "authorizationHeader": "AsPlatform-Authorization"
+    "authorizationHeader": "AsPlatform-Authorization",
+    "projectName": "Evj"
 }
