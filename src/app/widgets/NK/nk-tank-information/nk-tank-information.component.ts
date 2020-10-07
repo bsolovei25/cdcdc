@@ -9,7 +9,7 @@ import { HttpClient } from '@angular/common/http';
     templateUrl: './nk-tank-information.component.html',
     styleUrls: ['./nk-tank-information.component.scss']
 })
-export class NkTankInformationComponent extends WidgetPlatform implements
+export class NkTankInformationComponent extends WidgetPlatform<unknown> implements
     OnInit, OnDestroy, OnChanges {
 
     cardsData: ITankInformation[] = []; // Вся инфа по карточкам с сервера

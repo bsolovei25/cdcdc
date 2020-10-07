@@ -15,7 +15,7 @@ import { IParams } from '../cd-mat-balance/cd-mat-balance.component';
     templateUrl: './cd-reactor-parameters.component.html',
     styleUrls: ['./cd-reactor-parameters.component.scss']
 })
-export class CdReactorParametersComponent extends WidgetPlatform implements OnInit, OnDestroy {
+export class CdReactorParametersComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
     dataSourceQuality: IAPSRecipeDiagram[] = DATASOURCE;
     data: IParams[] = [];
     columnsToDisplay: IColumnsToDisplay[] = [

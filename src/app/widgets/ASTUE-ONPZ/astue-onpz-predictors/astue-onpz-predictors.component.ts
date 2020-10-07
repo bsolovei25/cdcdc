@@ -28,7 +28,7 @@ interface IPredictors {
     templateUrl: './astue-onpz-predictors.component.html',
     styleUrls: ['./astue-onpz-predictors.component.scss']
 })
-export class AstueOnpzPredictorsComponent extends WidgetPlatform implements OnInit, OnDestroy {
+export class AstueOnpzPredictorsComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
     selectPredictors: SelectionModel<string> = new SelectionModel<string>(true);
     data: IPredictors[] = [];
     colors: Map<string, number>;

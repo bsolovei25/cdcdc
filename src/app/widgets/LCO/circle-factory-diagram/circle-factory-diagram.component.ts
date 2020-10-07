@@ -17,7 +17,7 @@ declare var d3: any;
     templateUrl: './circle-factory-diagram.component.html',
     styleUrls: ['./circle-factory-diagram.component.scss'],
 })
-export class CircleFactoryDiagramComponent extends WidgetPlatform
+export class CircleFactoryDiagramComponent extends WidgetPlatform<unknown>
     implements OnInit, AfterViewInit, OnDestroy {
     @ViewChild('circleFactory') circleFactory: ElementRef;
 

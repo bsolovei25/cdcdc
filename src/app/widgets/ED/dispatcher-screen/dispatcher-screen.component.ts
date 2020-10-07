@@ -4,14 +4,14 @@ import { PlatformLocation } from '@angular/common';
 import { WidgetService } from 'src/app/dashboard/services/widget.service';
 import { WidgetSettingsService } from 'src/app/dashboard/services/widget-settings.service';
 import { WidgetPlatform } from 'src/app/dashboard/models/widget-platform';
-import { error } from '@angular/compiler/src/util';
+import { AsyncRender } from '@shared/functions/async-render.function';
 
 @Component({
     selector: 'evj-dispatcher-screen',
     templateUrl: './dispatcher-screen.component.html',
     styleUrls: ['./dispatcher-screen.component.scss']
 })
-export class DispatcherScreenComponent extends WidgetPlatform implements AfterViewInit, OnDestroy {
+export class DispatcherScreenComponent extends WidgetPlatform<unknown> implements AfterViewInit, OnDestroy {
     private readonly baseUrl: string;
     private unityInstance: any;
     isStart: boolean;
@@ -51,7 +51,7 @@ export class DispatcherScreenComponent extends WidgetPlatform implements AfterVi
     }
 
     @HostListener('document:resize', ['$event'])
-    public OnResize(event): void {
+    public OnResize(): void {
         this.resize();
     }
 
@@ -105,6 +105,7 @@ export class DispatcherScreenComponent extends WidgetPlatform implements AfterVi
         );
     }
 
+    @AsyncRender
     private resize(): void {
         this.canvas = document.getElementById('#canvas') as HTMLCanvasElement;
         if (this.canvas) {

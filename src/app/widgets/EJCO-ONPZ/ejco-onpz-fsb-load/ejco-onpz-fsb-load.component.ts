@@ -24,7 +24,7 @@ export interface IEjcoOnpzFsbLoadData {
     templateUrl: './ejco-onpz-fsb-load.component.html',
     styleUrls: ['./ejco-onpz-fsb-load.component.scss']
 })
-export class EjcoOnpzFsbLoadComponent extends WidgetPlatform implements OnDestroy, AfterViewInit {
+export class EjcoOnpzFsbLoadComponent extends WidgetPlatform<unknown> implements OnDestroy, AfterViewInit {
 
     public data: IEjcoOnpzFsbLoad = { chartData: null, data: null };
 

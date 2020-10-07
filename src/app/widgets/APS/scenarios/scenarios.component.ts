@@ -11,7 +11,7 @@ import { FormControl } from '@angular/forms';
     templateUrl: './scenarios.component.html',
     styleUrls: ['./scenarios.component.scss'],
 })
-export class ScenariosComponent extends WidgetPlatform implements OnInit, OnDestroy {
+export class ScenariosComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
 
     public selectScenario: FormControl = new FormControl({value: '', disabled: false});
 

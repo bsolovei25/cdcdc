@@ -26,7 +26,7 @@ export interface IKpeQualityCard {
     templateUrl: './kpe-quality.component.html',
     styleUrls: ['./kpe-quality.component.scss'],
 })
-export class KpeQualityComponent extends WidgetPlatform implements OnInit, OnDestroy {
+export class KpeQualityComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
 
     public lineChartData: IProductionTrend[] = [];
 

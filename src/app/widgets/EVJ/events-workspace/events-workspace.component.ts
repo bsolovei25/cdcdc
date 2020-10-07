@@ -29,7 +29,7 @@ import {
         },
     ],
 })
-export class EventsWorkspaceComponent extends WidgetPlatform implements OnInit, OnDestroy {
+export class EventsWorkspaceComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
     get eventProdButton(): string {
         const flagCat: boolean = this.ewService.event?.category?.code === '2';
         const flagStat: boolean = this.ewService.event?.status?.name === 'closed';

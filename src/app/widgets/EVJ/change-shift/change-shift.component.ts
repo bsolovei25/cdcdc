@@ -25,7 +25,7 @@ import { AvatarConfiguratorService } from '@core/service/avatar-configurator.ser
     templateUrl: './change-shift.component.html',
     styleUrls: ['./change-shift.component.scss'],
 })
-export class ChangeShiftComponent extends WidgetPlatform implements OnInit, OnDestroy {
+export class ChangeShiftComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
     @ViewChild('input') input: ElementRef;
     @ViewChild('scroll') scroll: ElementRef;
     @ViewChild('allPeople') allPeople: ElementRef;

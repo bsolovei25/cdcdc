@@ -8,7 +8,7 @@ declare var d3: any;
     templateUrl: './chain-map.component.html',
     styleUrls: ['./chain-map.component.scss'],
 })
-export class ChainMapComponent extends WidgetPlatform implements OnInit, OnDestroy {
+export class ChainMapComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
     @ViewChild('chain') chain: ElementRef;
 
     public dataStyle = {

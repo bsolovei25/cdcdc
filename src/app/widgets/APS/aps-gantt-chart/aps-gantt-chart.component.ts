@@ -64,7 +64,7 @@ export interface IAPSGanttTank {
     templateUrl: './aps-gantt-chart.component.html',
     styleUrls: ['./aps-gantt-chart.component.scss']
 })
-export class ApsGanttChartComponent extends WidgetPlatform implements OnInit, OnDestroy {
+export class ApsGanttChartComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
 
     dataSource: IAPSGanttTank[] = DATASOURCE;
 

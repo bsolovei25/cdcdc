@@ -9,7 +9,7 @@ import { IAlertWindowModel } from '@shared/models/alert-window.model';
     templateUrl: './petroleum-products-movement.component.html',
     styleUrls: ['./petroleum-products-movement.component.scss'],
 })
-export class PetroleumProductsMovementComponent extends WidgetPlatform
+export class PetroleumProductsMovementComponent extends WidgetPlatform<unknown>
     implements OnInit, OnDestroy {
 
     public static itemCols: number = 64;

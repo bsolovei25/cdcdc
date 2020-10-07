@@ -13,7 +13,7 @@ import {
     templateUrl: './tank-information.component.html',
     styleUrls: ['./tank-information.component.scss']
 })
-export class TankInformationComponent extends WidgetPlatform implements OnInit, OnDestroy {
+export class TankInformationComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
 
     public data: ITankInformation[];
 

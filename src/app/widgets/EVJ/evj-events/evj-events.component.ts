@@ -17,7 +17,7 @@ import {
     IEventsWidgetNotificationPreview,
     EventsWidgetNotificationStatus,
     IEventsWidgetOptions, IPriority,
-    IRetrievalEventDto, ISubcategory
+    IRetrievalEventDto, ISubcategory, IEventsWidgetAttributes
 } from '../../../dashboard/models/events-widget';
 import { EventService } from '../../../dashboard/services/widgets/event.service';
 import { EventsWorkspaceService } from '../../../dashboard/services/widgets/events-workspace.service';
@@ -38,7 +38,7 @@ import { SelectionModel } from '@angular/cdk/collections';
     templateUrl: './evj-events.component.html',
     styleUrls: ['./evj-events.component.scss']
 })
-export class EvjEventsComponent extends WidgetPlatform implements OnInit, OnDestroy {
+export class EvjEventsComponent extends WidgetPlatform<IEventsWidgetAttributes> implements OnInit, OnDestroy {
 
     @ViewChild(CdkVirtualScrollViewport) viewport: CdkVirtualScrollViewport;
 
@@ -444,8 +444,8 @@ export class EvjEventsComponent extends WidgetPlatform implements OnInit, OnDest
             filter: this.filters.find((f) => f.isActive).code,
             dates: this.widgetService.currentDates$.getValue(),
             placeNames: this.placeNames,
-            isVideoWall: this.widgetIsVideoWall,
-            sortType: this.widgetSortType,
+            isVideoWall: !!this.attributes?.IsVideoWall,
+            sortType: this.attributes?.SortType ?? 'default',
             categoriesType: this.widgetType === 'events-ed' ? 'ed' : 'default',
             priority: this.priority,
             units: this.units,

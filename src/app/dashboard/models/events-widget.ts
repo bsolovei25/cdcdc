@@ -4,6 +4,12 @@ import { IMessage } from '../../@shared/models/message.model';
 import { HttpHeaders } from '@angular/common/http';
 import { IUnits } from './admin-shift-schedule';
 
+export interface IEventsWidgetAttributes {
+    Acknowledgment: boolean;
+    IsVideoWall: boolean;
+    SortType: SortTypeEvents;
+}
+
 export interface IEventsWidgetNotificationPreview {
     id: number;
     originalId: string;

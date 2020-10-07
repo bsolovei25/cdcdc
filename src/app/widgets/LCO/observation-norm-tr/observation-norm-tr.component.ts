@@ -18,7 +18,7 @@ import { WidgetPlatform } from 'src/app/dashboard/models/widget-platform';
     templateUrl: './observation-norm-tr.component.html',
     styleUrls: ['./observation-norm-tr.component.scss'],
 })
-export class ObservationNormTRComponent extends WidgetPlatform
+export class ObservationNormTRComponent extends WidgetPlatform<unknown>
     implements OnInit, OnDestroy, AfterViewInit {
 
     circleRadius: string = (35).toString();

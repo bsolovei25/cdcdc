@@ -18,7 +18,7 @@ interface IAstueOnpzDeviationCards {
     templateUrl: './astue-onpz-deviation-cards.component.html',
     styleUrls: ['./astue-onpz-deviation-cards.component.scss'],
 })
-export class AstueOnpzDeviationCardsComponent extends WidgetPlatform implements OnInit {
+export class AstueOnpzDeviationCardsComponent extends WidgetPlatform<unknown> implements OnInit {
     data: IAstueOnpzDeviationCards[] = [];
 
     constructor(

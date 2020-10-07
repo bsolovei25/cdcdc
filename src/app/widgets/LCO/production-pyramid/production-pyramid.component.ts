@@ -8,7 +8,7 @@ import { WidgetService } from '../../../dashboard/services/widget.service';
     templateUrl: './production-pyramid.component.html',
     styleUrls: ['./production-pyramid.component.scss'],
 })
-export class ProductionPyramidComponent extends WidgetPlatform implements OnInit, OnDestroy {
+export class ProductionPyramidComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
     public array: IProductionPyramid[] = [
         {
             cardTitle: 'Без пожара',

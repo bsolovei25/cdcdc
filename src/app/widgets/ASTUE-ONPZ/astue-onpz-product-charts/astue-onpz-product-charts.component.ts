@@ -28,7 +28,7 @@ export type AstueProductChartType = 'fact' | 'plan' | 'exceed' | 'economy';
     templateUrl: './astue-onpz-product-charts.component.html',
     styleUrls: ['./astue-onpz-product-charts.component.scss'],
 })
-export class AstueOnpzProductChartsComponent extends WidgetPlatform implements OnInit, OnDestroy {
+export class AstueOnpzProductChartsComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
     public data: string[] = [];
     public readonly chartComponent: any = AstueOnpzProductCardComponent;
 

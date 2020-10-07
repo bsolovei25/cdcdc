@@ -19,7 +19,7 @@ declare var d3: any;
     templateUrl: './oil-control.component.html',
     styleUrls: ['./oil-control.component.scss']
 })
-export class OilControlComponent extends WidgetPlatform implements OnInit, OnDestroy {
+export class OilControlComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
     @ViewChild('oilIcon') oilIcon: ElementRef;
     @ViewChild('oilCircle') oilCircle: ElementRef;
     @ViewChild('borders') borders: ElementRef;

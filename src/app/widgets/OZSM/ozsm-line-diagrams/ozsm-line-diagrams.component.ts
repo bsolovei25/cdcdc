@@ -10,7 +10,7 @@ import { mockData } from './ozsm-line-diagram-mock';
     styleUrls: ['./ozsm-line-diagrams.component.scss']
 })
 
-export class OzsmLineDiagramsComponent extends WidgetPlatform implements OnInit, OnDestroy {
+export class OzsmLineDiagramsComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
     public data: IOZSMLineDiagram[] = mockData;
 
     constructor(

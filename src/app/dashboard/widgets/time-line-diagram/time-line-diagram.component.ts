@@ -8,7 +8,7 @@ import { WidgetPlatform } from '../../models/widget-platform';
     templateUrl: './time-line-diagram.component.html',
     styleUrls: ['./time-line-diagram.component.scss'],
 })
-export class TimeLineDiagramComponent extends WidgetPlatform implements OnInit, OnDestroy {
+export class TimeLineDiagramComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
     public data: TimeLineDataInput = {
         values: [],
     };

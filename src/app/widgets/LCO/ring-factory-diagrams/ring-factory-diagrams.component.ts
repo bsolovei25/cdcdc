@@ -9,7 +9,7 @@ import { WidgetPlatform } from 'src/app/dashboard/models/widget-platform';
     templateUrl: './ring-factory-diagrams.component.html',
     styleUrls: ['./ring-factory-diagrams.component.scss'],
 })
-export class RingFactoryDiagramsComponent extends WidgetPlatform implements OnInit, OnDestroy {
+export class RingFactoryDiagramsComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
 
     datas: RingFactoryWidget[] = [
         {

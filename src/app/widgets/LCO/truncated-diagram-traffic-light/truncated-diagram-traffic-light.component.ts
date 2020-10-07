@@ -24,7 +24,7 @@ export interface ITruncatedDiagramInputData {
         )
     ],
 })
-export class TruncatedDiagramTrafficLightComponent extends WidgetPlatform implements OnInit, OnDestroy {
+export class TruncatedDiagramTrafficLightComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
     public expandedPanels: Map<number, boolean> = new Map<number, boolean>();
     public data: ITruncatedDiagramInputData[] = [];
 

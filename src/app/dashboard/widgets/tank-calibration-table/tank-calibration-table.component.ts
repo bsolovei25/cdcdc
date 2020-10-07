@@ -40,7 +40,7 @@ interface IDataSource extends ICalibrationTable {
     templateUrl: './tank-calibration-table.component.html',
     styleUrls: ['./tank-calibration-table.component.scss'],
 })
-export class TankCalibrationTableComponent extends WidgetPlatform implements OnInit, OnDestroy {
+export class TankCalibrationTableComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
     public readonly restUrl: string = '';
 
     columnsToDisplay: string[] = [

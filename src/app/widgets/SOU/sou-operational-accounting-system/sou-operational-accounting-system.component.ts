@@ -11,7 +11,7 @@ import {
     templateUrl: './sou-operational-accounting-system.component.html',
     styleUrls: ['./sou-operational-accounting-system.component.scss']
 })
-export class SouOperationalAccountingSystemComponent extends WidgetPlatform implements OnInit, OnDestroy {
+export class SouOperationalAccountingSystemComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
 
     popupElementsStates: Map<string, boolean> = new Map<string, boolean>();
 

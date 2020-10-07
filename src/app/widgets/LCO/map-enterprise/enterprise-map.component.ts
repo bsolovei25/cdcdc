@@ -258,7 +258,7 @@ const bulds: IBuilding[] = [
     templateUrl: './enterprise-map.component.html',
     styleUrls: ['./enterprise-map.component.scss'],
 })
-export class EnterpriseMapComponent extends WidgetPlatform
+export class EnterpriseMapComponent extends WidgetPlatform<unknown>
     implements OnInit, OnDestroy, AfterViewInit {
     values: IValue[] = [];
     data: IEnterpriseMap = {

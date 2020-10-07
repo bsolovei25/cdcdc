@@ -18,7 +18,7 @@ export interface IDocumentViewer {
   templateUrl: './document-viewer.component.html',
   styleUrls: ['./document-viewer.component.scss']
 })
-export class DocumentViewerComponent extends WidgetPlatform implements OnInit, OnDestroy {
+export class DocumentViewerComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
     @ViewChild(PdfViewerComponent) pdfViewport: PdfViewerComponent;
 
     public src: string;

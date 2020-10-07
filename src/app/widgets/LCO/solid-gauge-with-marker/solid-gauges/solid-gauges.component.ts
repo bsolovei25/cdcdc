@@ -7,7 +7,7 @@ import { WidgetPlatform } from 'src/app/dashboard/models/widget-platform';
     templateUrl: './solid-gauges.component.html',
     styleUrls: ['./solid-gauges.component.scss'],
 })
-export class SolidGaugesComponent extends WidgetPlatform implements OnInit, OnDestroy {
+export class SolidGaugesComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
 
     public datas: any = [
         { name: 'СУГ', fact: 11.5, percent: 50, value: 14.5 },
