@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy, Inject, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { SelectionModel } from '@angular/cdk/collections';
-import { TankCalibrationTableService } from '../../../services/widgets/tank-calibration-table.service';
+import { TankCalibrationTableService } from 'src/app/dashboard/services/widgets/tank-calibration-table.service';
 
 export interface ICalibrationTable {
     uid: string;

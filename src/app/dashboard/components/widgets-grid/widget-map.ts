@@ -7,7 +7,6 @@ import { ColumnChartStackedComponent } from '../../widgets/column-chart-stacked/
 import { TimeLineDiagramComponent } from '../../widgets/time-line-diagram/time-line-diagram.component';
 import { PetroleumProductsMovementComponent } from '../../widgets/petroleum-products-movement/petroleum-products-movement.component';
 import { ReferenceComponent } from '../../widgets/reference/reference.component';
-import { TankCalibrationTableComponent } from '../../widgets/tank-calibration-table/tank-calibration-table.component';
 import { CustomReportPropertiesReferenceComponent } from '../../widgets/custom-report-properties-reference/custom-report-properties-reference.component';
 import { ReasonsDeviationsComponent } from '../../widgets/reasons-deviations/reasons-deviations.component';
 import { QualityDocsPanelComponent } from '../../widgets/quality-docs-panel/quality-docs-panel.component';
@@ -34,7 +33,7 @@ export const WIDGETS = {
     'petroleum-products-movement': PetroleumProductsMovementComponent,
     reference: ReferenceComponent,
     'report-server-configurator': WidgetContainerComponent,
-    'tank-calibration-table': TankCalibrationTableComponent,
+    'tank-calibration-table': WidgetContainerComponent,
     'custom-report-properties-reference': CustomReportPropertiesReferenceComponent,
     'production-trend': WidgetContainerComponent,
     'reasons-deviations': ReasonsDeviationsComponent,
@@ -308,6 +307,19 @@ export const WIDGETS_LAZY = {
         minItemCols: 16,
         minItemRows: 12,
         preview: 'document-viewer'
+    },
+    'tank-calibration-table': {
+        import: async () => {
+            return await import(
+                'src/app/widgets/NK/tank-calibration-table/tank-calibration-table.module'
+                );
+        },
+        module: 'TankCalibrationTableModule',
+        itemCols: 40,
+        itemRows: 20,
+        minItemCols: 40,
+        minItemRows: 10,
+        preview: 'tank-calibration-table'
     },
 
     // #endregion NK

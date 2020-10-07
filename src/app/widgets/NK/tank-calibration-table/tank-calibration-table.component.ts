@@ -1,14 +1,14 @@
 import { Component, OnInit, Inject, OnDestroy, ChangeDetectorRef } from '@angular/core';
-import { WidgetService } from '../../services/widget.service';
-import { WidgetPlatform } from '../../models/widget-platform';
+import { WidgetService } from 'src/app/dashboard/services/widget.service';
+import { WidgetPlatform } from 'src/app/dashboard/models/widget-platform';
 import { SelectionModel } from '@angular/cdk/collections';
-import { TankCalibrationTableService } from '../../services/widgets/tank-calibration-table.service';
+import { TankCalibrationTableService } from 'src/app/dashboard/services/widgets/tank-calibration-table.service';
 import { UploadFormComponent } from './upload-form/upload-form.component';
 import { MatDialog } from '@angular/material/dialog';
 import { TanksTableComponent } from './tanks-table/tanks-table.component';
-import { SnackBarService } from '../../services/snack-bar.service';
+import { SnackBarService } from 'src/app/dashboard/services/snack-bar.service';
 import { FormControl, Validators } from '@angular/forms';
-import { IInputOptions } from '../../../@shared/models/input.model';
+import { IInputOptions } from '@shared/models/input.model';
 import { AppConfigService } from "@core/service/app-config.service";
 
 export interface ICalibrationTable {
@@ -49,11 +49,6 @@ export class TankCalibrationTableComponent extends WidgetPlatform<unknown> imple
         'Дата окончания калибровки',
         'Действия с калибровками',
     ];
-
-    public static itemCols: number = 40;
-    public static itemRows: number = 20;
-    public static minItemCols: number = 40;
-    public static minItemRows: number = 10;
 
     expandedElement: SelectionModel<any> = new SelectionModel(true);
     chooseElement: SelectionModel<string> = new SelectionModel(false);

@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef, Input, EventEmitter, Output, ChangeDetectorRef } from '@angular/core';
 import { SelectionModel } from '@angular/cdk/collections';
-import { TankCalibrationTableService } from '../../../services/widgets/tank-calibration-table.service';
+import { TankCalibrationTableService } from 'src/app/dashboard/services/widgets/tank-calibration-table.service';
 import { ICalibrationTable } from '../tank-calibration-table.component';
 import { AppConfigService } from '@core/service/app-config.service';
 

@@ -69,12 +69,7 @@ import {
 } from '@angular-material-components/datetime-picker';
 import { MatButtonModule } from '@angular/material/button';
 import { NgxMatMomentModule } from '@angular-material-components/moment-adapter';
-import { TankCalibrationTableComponent } from './widgets/tank-calibration-table/tank-calibration-table.component';
-import { TankCalibrationTableFilesComponent } from './widgets/tank-calibration-table/tank-calibration-table-files/tank-calibration-table-files.component';
-import { UploadDropComponent } from './widgets/tank-calibration-table/upload-form/upload-drop/upload-drop.component';
 import { MatDialogModule, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { TanksTableComponent } from './widgets/tank-calibration-table/tanks-table/tanks-table.component';
-import { UploadFormComponent } from './widgets/tank-calibration-table/upload-form/upload-form.component';
 import { CustomReportPropertiesReferenceComponent } from './widgets/custom-report-properties-reference/custom-report-properties-reference.component';
 import { CustomReportOptionsComponent } from './widgets/custom-report-properties-reference/custom-report-options/custom-report-options.component';
 import { MatChipsModule } from '@angular/material/chips';
@@ -128,10 +123,6 @@ import { IndicatorDiagramComponent } from './components/indicator-diagram/indica
 import { MenuButtonComponent } from './components/menu-button/menu-button.component';
 import { MatBadgeModule } from '@angular/material/badge';
 import { TankFilterComponent } from '../widgets/NK/tank-information/components/tank-filter/tank-filter.component';
-import { SystemPeriodDateYearComponent } from '../widgets/admin/report-server-configurator/popup-system-options/system-period-edit/system-period-date/system-period-date-year/system-period-date-year.component';
-import { SystemPeriodDateMonthComponent } from '../widgets/admin/report-server-configurator/popup-system-options/system-period-edit/system-period-date/system-period-date-month/system-period-date-month.component';
-import { SystemPeriodDateDayComponent } from '../widgets/admin/report-server-configurator/popup-system-options/system-period-edit/system-period-date/system-period-date-day/system-period-date-day.component';
-import { SystemPeriodDateComponent } from '../widgets/admin/report-server-configurator/popup-system-options/system-period-edit/system-period-date/system-period-date.component';
 import { ReportServerConfiguratorModule } from '../widgets/admin/report-server-configurator/report-server-configurator.module';
 
 @NgModule({
@@ -180,11 +171,6 @@ import { ReportServerConfiguratorModule } from '../widgets/admin/report-server-c
         ReportComponent,
         ReportsComponent,
         ReferenceComponent,
-        TankCalibrationTableComponent,
-        TankCalibrationTableFilesComponent,
-        UploadFormComponent,
-        UploadDropComponent,
-        TanksTableComponent,
         CustomReportPropertiesReferenceComponent,
         CustomReportOptionsComponent,
         FilterPopupComponent,
@@ -244,10 +230,6 @@ import { ReportServerConfiguratorModule } from '../widgets/admin/report-server-c
         ReferenceComponent,
         ReportComponent,
         ReportsComponent,
-        TankCalibrationTableComponent,
-        UploadFormComponent,
-        UploadDropComponent,
-        TanksTableComponent,
         CustomReportPropertiesReferenceComponent,
         ReasonsDeviationsComponent,
         QualityDocsPanelComponent,
