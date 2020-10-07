@@ -139,6 +139,7 @@ export const WIDGETS = {
     'dispatcher-screen': WidgetContainerComponent,
     'documents-scans': WidgetContainerComponent,
     'document-viewer': WidgetContainerComponent,
+    'admin-panel': WidgetContainerComponent
 };
 
 export const WIDGETS_LAZY = {
