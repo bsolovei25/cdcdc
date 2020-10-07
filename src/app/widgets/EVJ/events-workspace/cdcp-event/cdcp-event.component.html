@@ -2,6 +2,7 @@
   class="workspace scroll scroll-bar"
   (mousedown)="$event.stopPropagation()"
   (touchstart)="$event.stopPropagation()"
+  [style]="{overflow: noOverflow ? 'auto' : 'visible'}"
 >
   <div class="workspace__header">
     <evj-ui-block class="workspace__header__block" status="normal">
