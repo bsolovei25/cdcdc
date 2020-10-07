@@ -84,7 +84,8 @@ export class KpeLineChartComponent implements OnChanges, AfterViewInit {
         this.drawChart(); // Сами графики
         this.drawFutureRect(); // боковая линия
         this.drawPoints(); // Рисует последние точки
-        this.customizeAreas();
+        this.customizeAreas('lower');
+        this.customizeAreas('higher');
     }
 
     private initData(): void {
@@ -299,25 +300,34 @@ export class KpeLineChartComponent implements OnChanges, AfterViewInit {
             .style('stroke', 'var(--color-astue-onpz-warning)');
     }
 
-    private customizeAreas(): void {
+    private customizeAreas(borderType: string): void {
+        // borderType это тип границы, чтобы узнать нижнюю рассматриваем или верхнюю
         let ColorizeCoordinates: IChartD3[] = []; // Координаты кторые надо закрасить
+        let coeff: number; // Принимает значения 1 или -1, это чтоб не переписывать неравенства
+        let border: IChartD3[]; // Координаты границы
 
         const fact = this.chartData.find((chart) => chart.graphType === 'fact')?.graph ?? [];
-        const lowerBorder = this.chartData.find((chart) => chart.graphType === 'lowerBorder')?.graph ?? [];
-        const higherBorder = this.chartData.find((chart) => chart.graphType === 'higherBorder')?.graph ?? [];
+
+        if (borderType === 'lower') {
+            border = this.chartData.find((chart) => chart.graphType === 'lowerBorder')?.graph ?? [];
+            coeff = 1;
+        } else {
+            border = this.chartData.find((chart) => chart.graphType === 'higherBorder')?.graph ?? [];
+            coeff = -1;
+        }
 
         fact.forEach( (item, i) => {
             if (i > 0) {
                 // Уравнение участка нижней границы
-                const k1 = (lowerBorder[i].y - lowerBorder[i - 1].y) / (lowerBorder[i].x - lowerBorder[i - 1].x);
-                const b1 = -k1 * lowerBorder[i - 1].x + lowerBorder[i - 1].y;
+                const k1 = (border[i].y - border[i - 1].y) / (border[i].x - border[i - 1].x);
+                const b1 = -k1 * border[i - 1].x + border[i - 1].y;
                 // Уравнение участка фактической кривой
                 const k2 = (item.y - fact[i - 1].y) / (item.x - fact[i - 1].x);
                 const b2 = -k2 * fact[i - 1].x + fact[i - 1].y;
 
                 const x = (b2 - b1) / (k1 - k2);
                 if (!!x && x <= item.x && x >= fact[i - 1].x) {
-                    if (k1 >= k2) {
+                    if (coeff * k1 >= k2 * coeff) {
                         ColorizeCoordinates.push({
                             x: fact[i - 1].x,
                             y: fact[i - 1].y
@@ -339,7 +349,7 @@ export class KpeLineChartComponent implements OnChanges, AfterViewInit {
                         });
                     }
 
-                } else if (k2 === k1 && b2 === b1) {
+                } else if (coeff * item.y >= border[i].y * coeff) {
                     ColorizeCoordinates.push({
                         x: fact[i - 1].x,
                         y: fact[i - 1].y
@@ -354,56 +364,6 @@ export class KpeLineChartComponent implements OnChanges, AfterViewInit {
         });
 
         this.ColorizeDraw(ColorizeCoordinates);
-        ColorizeCoordinates = [];
-
-        fact.forEach( (item, i) => {
-            if (i > 0) {
-                // Уравнение участка верхней границы
-                const k1 = (higherBorder[i].y - higherBorder[i - 1].y) / (higherBorder[i].x - higherBorder[i - 1].x);
-                const b1 = -k1 * higherBorder[i - 1].x + higherBorder[i - 1].y;
-                // Уравнение участка фактической кривой
-                const k2 = (item.y - fact[i - 1].y) / (item.x - fact[i - 1].x);
-                const b2 = -k2 * fact[i - 1].x + fact[i - 1].y;
-
-                const x = (b2 - b1) / (k1 - k2);
-                if (!!x && x <= item.x && x >= fact[i - 1].x) {
-                    if (k1 < k2) {
-                        ColorizeCoordinates.push({
-                            x: fact[i - 1].x,
-                            y: fact[i - 1].y
-                        }, {
-                            x,
-                            y: k2 * x + b2
-                        });
-                    } else {
-                        this.ColorizeDraw(ColorizeCoordinates);
-                        ColorizeCoordinates = [];
-
-                        ColorizeCoordinates.push({
-                            x,
-                            y: k2 * x + b2
-                        }, {
-                            x: item.x,
-                            y: item.y
-                        });
-
-                    }
-                } else if (k2 === k1 && b2 === b1) {
-                    ColorizeCoordinates.push({
-                        x: fact[i - 1].x,
-                        y: fact[i - 1].y
-                    }, {
-                        x: item.x,
-                        y: item.y
-                    });
-                } else {
-                    this.ColorizeDraw(ColorizeCoordinates);
-                }
-            }
-        });
-
-        this.ColorizeDraw(ColorizeCoordinates)
-        ColorizeCoordinates = [];
     }
 
 
