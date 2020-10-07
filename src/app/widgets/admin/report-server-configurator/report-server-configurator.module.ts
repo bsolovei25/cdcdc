@@ -55,6 +55,10 @@ import { TreeModule } from 'angular-tree-component';
     SystemPathEditComponent,
     SystemPathUserComponent,
     SystemPeriodEditComponent,
+    SystemPeriodDateYearComponent,
+        SystemPeriodDateMonthComponent,
+        SystemPeriodDateDayComponent,
+        SystemPeriodDateComponent,
   ],
   imports: [
     CommonModule,
@@ -77,6 +81,12 @@ import { TreeModule } from 'angular-tree-component';
     ReactiveFormsModule,
     MatSelectModule,
     TreeModule
+  ],
+  exports: [
+        SystemPeriodDateYearComponent,
+        SystemPeriodDateMonthComponent,
+        SystemPeriodDateDayComponent,
+        SystemPeriodDateComponent,
   ]
 })
 export class ReportServerConfiguratorModule {
