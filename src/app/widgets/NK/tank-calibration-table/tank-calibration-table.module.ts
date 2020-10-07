@@ -7,6 +7,9 @@ import { TankCalibrationTableFilesComponent } from './tank-calibration-table-fil
 import { SharedModule } from '@shared/shared.module';
 import { UploadDropComponent } from './upload-form/upload-drop/upload-drop.component';
 import { AngularSvgIconModule } from 'angular-svg-icon';
+import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { InputComponent } from '@shared/components/input/input.component';
+import { DashboardModule } from 'src/app/dashboard/dashboard.module';
 
 
 
@@ -16,13 +19,15 @@ import { AngularSvgIconModule } from 'angular-svg-icon';
     TankCalibrationTableFilesComponent,
     TanksTableComponent,
     UploadFormComponent,
-    UploadDropComponent
+    UploadDropComponent,
   ],
   imports: [
     CommonModule,
     SharedModule,
-    AngularSvgIconModule
-  ]
+    AngularSvgIconModule,
+    DashboardModule,
+    ReactiveFormsModule
+    ]
 })
 export class TankCalibrationTableModule {
   enterComponent = TankCalibrationTableComponent;
