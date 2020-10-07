@@ -5,9 +5,9 @@ import { HttpHeaders } from '@angular/common/http';
 import { IUnits } from './admin-shift-schedule';
 
 export interface IEventsWidgetAttributes {
-    acknowledgment: boolean;
-    isVideoWall: boolean;
-    sortType: SortTypeEvents;
+    Acknowledgment: boolean;
+    IsVideoWall: boolean;
+    SortType: SortTypeEvents;
 }
 
 export interface IEventsWidgetNotificationPreview {

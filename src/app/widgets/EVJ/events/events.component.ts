@@ -293,8 +293,9 @@ export class EventsComponent extends WidgetPlatform<IEventsWidgetAttributes> imp
             return cat.categoryType === filterCondition;
         });
 
+        console.log(this.attributes);
         this.filters = this.filters.filter((x) => {
-            if (!this.attributes?.acknowledgment && x.code === 'isNotAcknowledged') {
+            if (!this.attributes?.Acknowledgment && x.code === 'isNotAcknowledged') {
                 return false;
             }
             return true;
@@ -419,8 +420,8 @@ export class EventsComponent extends WidgetPlatform<IEventsWidgetAttributes> imp
             filter: this.filters.find((f) => f.isActive).code,
             dates: this.widgetService.currentDates$.getValue(),
             placeNames: this.placeNames,
-            isVideoWall: !!this.attributes?.isVideoWall,
-            sortType: this.attributes?.sortType ?? 'default',
+            isVideoWall: !!this.attributes?.IsVideoWall,
+            sortType: this.attributes?.SortType ?? 'default',
             categoriesType: this.widgetType === 'events-ed' ? 'ed' : 'default'
         } as IEventsWidgetOptions;
     }
