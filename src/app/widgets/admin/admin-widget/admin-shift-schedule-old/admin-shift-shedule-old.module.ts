@@ -1,12 +1,7 @@
-import { NgModule, LOCALE_ID } from '@angular/core';
+import { LOCALE_ID, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SharedModule } from '../../../@shared/shared.module';
+import { SharedModule } from '@shared/shared.module';
 import { AngularSvgIconModule } from 'angular-svg-icon';
-import { AdminShiftScheduleComponent } from './admin-shift-schedule.component';
-import { AdminShiftBrigadeComponent } from './components/admin-shift-brigade/admin-shift-brigade.component';
-import { AdminShiftCardComponent } from './components/admin-shift-card/admin-shift-card.component';
-import { AdminShiftInfoEmployeeComponent } from './components/admin-shift-info-employee/admin-shift-info-employee.component';
-import { AdminShiftListEmployeesComponent } from './components/admin-shift-list-employees/admin-shift-list-employees.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { MatMenuModule } from '@angular/material/menu';
@@ -22,14 +17,22 @@ import { NgxMatMomentModule } from '@angular-material-components/moment-adapter'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { OverlayModule } from '@angular/cdk/overlay';
+import { AdminShiftScheduleOldComponent } from './admin-shift-schedule-old.component';
+import { AdminShiftBrigadeOldComponent } from './components/admin-shift-brigade-old/admin-shift-brigade-old.component';
+import { AdminShiftInfoEmployeeOldComponent } from './components/admin-shift-info-employee-old/admin-shift-info-employee-old.component';
+import { AdminShiftCardOldComponent } from './components/admin-shift-card-old/admin-shift-card-old.component';
+import { AdminShiftListEmployeesOldComponent } from './components/admin-shift-list-employees-old/admin-shift-list-employees-old.component';
+import { DashboardModule } from 'src/app/dashboard/dashboard.module';
+
+
 
 @NgModule({
   declarations: [
-    AdminShiftScheduleComponent,
-    AdminShiftBrigadeComponent,
-    AdminShiftInfoEmployeeComponent,
-    AdminShiftCardComponent,
-    AdminShiftListEmployeesComponent
+    AdminShiftScheduleOldComponent,
+    AdminShiftBrigadeOldComponent,
+    AdminShiftInfoEmployeeOldComponent,
+    AdminShiftCardOldComponent,
+    AdminShiftListEmployeesOldComponent
   ],
   imports: [
     CommonModule,
@@ -48,6 +51,7 @@ import { OverlayModule } from '@angular/cdk/overlay';
     NgxMatMomentModule,
     MatFormFieldModule,
     MatIconModule,
+    DashboardModule,
     FormsModule,
     MatInputModule,
     OverlayModule,
@@ -60,6 +64,6 @@ import { OverlayModule } from '@angular/cdk/overlay';
     { provide: MAT_DIALOG_DATA, useValue: [] },
   ],
 })
-export class AdminShiftScheduleModule {
-  enterComponent = AdminShiftScheduleComponent;
+export class AdminShiftSheduleOldModule {
+  enterComponent = AdminShiftScheduleOldComponent;
 }

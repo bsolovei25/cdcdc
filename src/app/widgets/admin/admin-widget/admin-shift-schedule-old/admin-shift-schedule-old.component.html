@@ -1,0 +1,231 @@
+<div class="container pointer-event">
+  <evj-loading-shade [isLoading]="isLoading"></evj-loading-shade>
+  <evj-widget-header
+    [title]="widgetTitle"
+    [units]="widgetUnits"
+    [code]="widgetCode"
+    [id]="id"
+    [uniqId]="uniqId"
+    [icon]="widgetIcon"
+    [widgetType]="widgetType"
+    [isEventOpen]="isSelectMenu"
+    [select]="allUnits"
+    (selected)="selectedUnits($event)"
+    (selectedMenu)="selectedMenu($event)"
+  ></evj-widget-header>
+  <evj-frame-top></evj-frame-top>
+
+  <div
+    class="content"
+    (mousedown)="$event.stopPropagation()"
+    (touchstart)="$event.stopPropagation()"
+  >
+    <evj-alert-window [info]="alertWindow"></evj-alert-window>
+
+    <ng-container *ngIf="isSelectMenu">
+      <div class="content__blocks" cdkDropListGroup>
+        <div class="block-left">
+          <div class="block-top">
+            <evj-admin-shift-card-old class="calendar" titleBlock="Календарь дежурств">
+              <section>
+                <mat-calendar
+                  #calendar
+                  [dateClass]="dateClass()"
+                  [(selected)]="selectedDay && selectedDay.date"
+                  (selectedChange)="dateChanged($event)"
+                  ngClass="calendar-red"
+                  locale="ru"
+                ></mat-calendar>
+                <div class="calendar__footer">
+                  <div class="calendar__footer__title">Обозначения</div>
+                  <ul class="calendar__footer__list-items">
+                    <li
+                      class="calendar__footer__list-item"
+                      *ngFor="let brigade of allBrigade"
+                      class="{{brigadeColor(brigade)}}"
+                    >
+                      {{brigade.brigadeNumber}}
+                    </li>
+                  </ul>
+                  <div class="calendar__footer__info-items">
+                    <div class="calendar__footer__info-item">
+                      <svg-icon
+                        [svgStyle]="{'height.px':17}"
+                        src="assets/icons/widgets/admin-shift-schedule/calendar-active-orange.svg"
+                      ></svg-icon>
+                      <span class="calendar__footer__info-item__text"> Бригады не заданы</span>
+                    </div>
+                    <div class="calendar__footer__info-item">
+                      <svg-icon
+                        [svgStyle]="{'height.px':17}"
+                        src="assets/icons/widgets/admin-shift-schedule/brigade_on.svg"
+                      ></svg-icon>
+                      <span class="calendar__footer__info-item__text"> Бригады заданы</span>
+                    </div>
+                  </div>
+                </div>
+              </section>
+            </evj-admin-shift-card-old>
+            <evj-admin-shift-card-old class="main-team" titleBlock="Смена">
+              <section class="main-team__section">
+                <p class="title">Главный в бригаде</p>
+                <div class="main-team__section__container">
+                  <ul class="list">
+                    <li class="list__item" *ngFor="let i of selectedShift?.shiftMembers;">
+                      <ng-container *ngIf="i.position === 'responsible' && !i.isAdditionalMember">
+                        <evj-admin-shift-info-employee-old
+                          [data]="i.employee"
+                          [absentReason]="i.absentReason"
+                          [allStatus]="allStatus"
+                        ></evj-admin-shift-info-employee-old>
+                      </ng-container>
+                    </li>
+                  </ul>
+                </div>
+                <p class="title">Основной состав бригады</p>
+                <div class="main-team__section__container">
+                  <ul class="list">
+                    <li class="list__item" *ngFor="let i of selectedShift?.shiftMembers;">
+                      <ng-container *ngIf="i.position !== 'responsible' && !i.isAdditionalMember">
+                        <evj-admin-shift-info-employee-old
+                          [data]="i.employee"
+                          [absentReason]="i.absentReason"
+                          [allStatus]="allStatus"
+                        ></evj-admin-shift-info-employee-old>
+                      </ng-container>
+                    </li>
+                  </ul>
+                </div>
+              </section>
+            </evj-admin-shift-card-old>
+          </div>
+          <div class="block-bottom" *ngIf="selectedDay">
+            <evj-admin-shift-card-old class="duty-schedule" titleBlock="График дежурств">
+              <section>
+                <div class="date-today">
+                  <p>{{ selectedDay.date | date:'d MMMM yyyy' }}</p>
+                </div>
+                <div
+                  *ngFor="let shift of selectedDay.items; let idx = index"
+                  class="shift-today"
+                  [class.shift-today--active]="selectedShift?.id === shift.id"
+                  (click)="selectShift(shift)"
+                >
+                  <p>{{ idx + 1 }} смена</p>
+                  <p>
+                    {{ shift.start | date:'HH.mm' }} - {{ shift.end | date:'HH.mm' }}
+                  </p>
+                  <p
+                    *ngIf="!shift.brigadeId"
+                    class="btn shift-today-item"
+                    (click)="openOverlay($event, shift, true)"
+                    [matMenuTriggerFor]="menu2"
+                  >
+                    Назначить
+                  </p>
+                  <p
+                    *ngIf="shift.brigadeId"
+                    class="btn shift-today-item"
+                    (click)="openOverlay($event, shift, true)"
+                    [matTooltip]="shift.brigadeName"
+                    [matMenuTriggerFor]="menu2"
+                  >
+                    {{ shift.brigadeName }}
+                  </p>
+                  <div
+                    *ngIf="shift.brigadeId"
+                    class="icon-delete"
+                    matTooltip="Удалить бригаду"
+                    (click)="deleteBrigadeFromShift($event, shift)"
+                  >
+                    <svg-icon
+                      src="assets/icons/widgets/admin-shift-schedule/garbage.svg"
+                      [svgStyle]="{ 'width.px':10, 'height.px':15 }"
+                    ></svg-icon>
+                  </div>
+                  <mat-menu #menu2="matMenu" class="customize-menu">
+                    <button
+                      mat-menu-item
+                      *ngFor="let b of allBrigade"
+                      (click)="onChooseBrigade(b, selectedDay)"
+                    >
+                      {{ b.brigadeNumber }}
+                    </button>
+                  </mat-menu>
+                </div>
+              </section>
+            </evj-admin-shift-card-old>
+
+            <evj-admin-shift-card-old class="additional-team" titleBlock="Дополнительный состав бригады">
+              <section class="additional-team__section">
+                <div class="additional-team__section__container">
+                  <div
+                    class="list"
+                    cdkDropList
+                    [cdkDropListData]="selectedShift?.shiftMembers"
+                    (cdkDropListDropped)="moveToDropAdditionalShift($event)"
+                    id="dop"
+                  >
+                    <ng-container *ngFor="let i of selectedShift?.shiftMembers">
+                      <ng-container *ngIf="i.isAdditionalMember">
+                        <evj-admin-shift-info-employee-old
+                          class="list__item"
+                          [data]="i.employee"
+                          (deleteMemberFromShift)="deleteMemberFromBrigade($event)"
+                          garbageShift="true"
+                          cdkDrag
+                        ></evj-admin-shift-info-employee-old>
+                      </ng-container>
+                    </ng-container>
+                  </div>
+                </div>
+              </section>
+            </evj-admin-shift-card-old>
+          </div>
+        </div>
+        <div class="block-right">
+          <evj-admin-shift-list-employees-old [data]="allUsersUnit"></evj-admin-shift-list-employees-old>
+        </div>
+      </div>
+    </ng-container>
+    <ng-container *ngIf="!isSelectMenu">
+      <div class="control-block" cdkDropListGroup>
+        <div class="control-block__left-side">
+          <div class="content-menu">
+            Изменение состава бригад
+            <svg-icon
+              matTooltip="Добавить бригаду"
+              (click)="postBrigade()"
+              class="content-menu__icon"
+              src="assets/icons/SVG/add_button.svg"
+              [svgStyle]="{ 'width.px':15, 'height.px':15 }"
+            ></svg-icon>
+          </div>
+          <div class="content-brigade">
+            <div class="content-brigade__scroll">
+              <div class="content-brigade__left">
+                <div class="content-brigade__block" *ngFor="let item of leftBrigades">
+                  <evj-admin-shift-brigade-old [data]="item" [color]="brigadeColor(item)">
+                  </evj-admin-shift-brigade-old>
+                </div>
+              </div>
+              <div class="content-brigade__right">
+                <div class="content-brigade__block" *ngFor="let item of rightBrigades">
+                  <evj-admin-shift-brigade-old [data]="item" [color]="brigadeColor(item)">
+                  </evj-admin-shift-brigade-old>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="control-block__right-side">
+          <div style="height: calc(100% - 24px);">
+            <evj-admin-shift-list-employees-old [data]="allUsersUnit"></evj-admin-shift-list-employees-old>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+
+  <evj-frame-bottom></evj-frame-bottom>
+</div>

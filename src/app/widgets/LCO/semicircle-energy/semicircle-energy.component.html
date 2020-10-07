@@ -1,0 +1,355 @@
+<div class="container pointer-event">
+  <evj-widget-header
+    [title]="widgetTitle"
+    [units]="widgetUnits"
+    [code]="widgetCode"
+    [id]="id"
+    [uniqId]="uniqId"
+    [icon]="widgetIcon"
+  ></evj-widget-header>
+
+  <evj-frame-top></evj-frame-top>
+
+  <ng-container>
+    <evj-loading-shade [isLoading]="isDataLoading"></evj-loading-shade>
+    <div class="semicircle">
+      <div class="semicircle-container" style.visibility="{{isDataLoading?'hidden':'visible'}}">
+        <div class="diagram">
+          <svg width="100%" height="100%" viewBox="0 0 50 50">
+            <!-- production1 dia -->
+            <circle
+              [attr.cx]="centerX"
+              [attr.cy]="centerY"
+              [attr.r]="radProd1"
+              [attr.fill]="colorMain"
+            ></circle>
+            <circle
+              [attr.cx]="centerX"
+              [attr.cy]="centerY"
+              [attr.r]="radProd1"
+              fill="transparent"
+              [attr.stroke]="colorBg"
+              stroke-width="2"
+              [attr.stroke-dasharray]="diaCounter(radProd1)"
+              [attr.stroke-dashoffset]="diaOffset(radProd1, 100)"
+            ></circle>
+            <circle
+              [attr.cx]="centerX"
+              [attr.cy]="centerY"
+              [attr.r]="radProd1"
+              fill="transparent"
+              [attr.stroke]="diaFill(energyCircleDiagram.production1)"
+              stroke-width="0.7"
+              [attr.stroke-dasharray]="
+              diaLine(radProd1, energyCircleDiagram.production1)
+            "
+              [attr.stroke-dashoffset]="
+              diaOffset(radProd1, energyCircleDiagram.production1)
+            "
+            ></circle>
+            <circle
+              *ngIf="
+              energyCircleDiagram.production1 > energyCircleDiagram.upperLimit
+            "
+              [attr.cx]="centerX"
+              [attr.cy]="centerY"
+              [attr.r]="radProd1"
+              fill="transparent"
+              [attr.stroke]="diaFill(energyCircleDiagram.upperLimit)"
+              stroke-width="0.7"
+              [attr.stroke-dasharray]="
+              diaLine(radProd1, energyCircleDiagram.upperLimit)
+            "
+              [attr.stroke-dashoffset]="
+              diaOffset(radProd1, energyCircleDiagram.upperLimit)
+            "
+            ></circle>
+
+            <!-- production2 dia -->
+            <circle
+              [attr.cx]="centerX"
+              [attr.cy]="centerY"
+              [attr.r]="radProd2"
+              [attr.fill]="colorMain"
+            ></circle>
+            <circle
+              [attr.cx]="centerX"
+              [attr.cy]="centerY"
+              [attr.r]="radProd2"
+              fill="transparent"
+              [attr.stroke]="colorBg"
+              stroke-width="2"
+              [attr.stroke-dasharray]="diaCounter(radProd2)"
+              [attr.stroke-dashoffset]="diaOffset(radProd2, 100)"
+            ></circle>
+            <circle
+              [attr.cx]="centerX"
+              [attr.cy]="centerY"
+              [attr.r]="radProd2"
+              fill="transparent"
+              [attr.stroke]="diaFill(energyCircleDiagram.production2)"
+              stroke-width="0.7"
+              [attr.stroke-dasharray]="
+              diaLine(radProd2, energyCircleDiagram.production2)
+            "
+              [attr.stroke-dashoffset]="
+              diaOffset(radProd2, energyCircleDiagram.production2)
+            "
+            ></circle>
+            <circle
+              *ngIf="
+              energyCircleDiagram.production2 > energyCircleDiagram.upperLimit
+            "
+              [attr.cx]="centerX"
+              [attr.cy]="centerY"
+              [attr.r]="radProd2"
+              fill="transparent"
+              [attr.stroke]="diaFill(energyCircleDiagram.upperLimit)"
+              stroke-width="0.7"
+              [attr.stroke-dasharray]="
+              diaLine(radProd2, energyCircleDiagram.upperLimit)
+            "
+              [attr.stroke-dashoffset]="
+              diaOffset(radProd2, energyCircleDiagram.upperLimit)
+            "
+            ></circle>
+
+            <!-- production3 dia -->
+            <circle
+              [attr.cx]="centerX"
+              [attr.cy]="centerY"
+              [attr.r]="radProd3"
+              [attr.fill]="colorMain"
+            ></circle>
+            <circle
+              [attr.cx]="centerX"
+              [attr.cy]="centerY"
+              [attr.r]="radProd3"
+              fill="transparent"
+              [attr.stroke]="colorBg"
+              stroke-width="2"
+              [attr.stroke-dasharray]="diaCounter(radProd3)"
+              [attr.stroke-dashoffset]="diaOffset(radProd3, 100)"
+            ></circle>
+            <circle
+              [attr.cx]="centerX"
+              [attr.cy]="centerY"
+              [attr.r]="radProd3"
+              fill="transparent"
+              [attr.stroke]="diaFill(energyCircleDiagram.production3)"
+              stroke-width="0.7"
+              [attr.stroke-dasharray]="
+              diaLine(radProd3, energyCircleDiagram.production3)
+            "
+              [attr.stroke-dashoffset]="
+              diaOffset(radProd3, energyCircleDiagram.production3)
+            "
+            ></circle>
+            <circle
+              *ngIf="
+              energyCircleDiagram.production3 > energyCircleDiagram.upperLimit
+            "
+              [attr.cx]="centerX"
+              [attr.cy]="centerY"
+              [attr.r]="radProd3"
+              fill="transparent"
+              [attr.stroke]="diaFill(energyCircleDiagram.upperLimit)"
+              stroke-width="0.7"
+              [attr.stroke-dasharray]="
+              diaLine(radProd3, energyCircleDiagram.upperLimit)
+            "
+              [attr.stroke-dashoffset]="
+              diaOffset(radProd3, energyCircleDiagram.upperLimit)
+            "
+            ></circle>
+
+            <!-- production4 dia -->
+            <circle
+              [attr.cx]="centerX"
+              [attr.cy]="centerY"
+              [attr.r]="radProd4"
+              [attr.fill]="colorMain"
+            ></circle>
+            <circle
+              [attr.cx]="centerX"
+              [attr.cy]="centerY"
+              [attr.r]="radProd4"
+              fill="transparent"
+              [attr.stroke]="colorBg"
+              stroke-width="2"
+              [attr.stroke-dasharray]="diaCounter(radProd4)"
+              [attr.stroke-dashoffset]="diaOffset(radProd4, 100)"
+            ></circle>
+            <circle
+              [attr.cx]="centerX"
+              [attr.cy]="centerY"
+              [attr.r]="radProd4"
+              fill="transparent"
+              [attr.stroke]="diaFill(energyCircleDiagram.production4)"
+              stroke-width="0.7"
+              [attr.stroke-dasharray]="
+              diaLine(radProd4, energyCircleDiagram.production4)
+            "
+              [attr.stroke-dashoffset]="
+              diaOffset(radProd4, energyCircleDiagram.production4)
+            "
+            ></circle>
+            <circle
+              *ngIf="
+              energyCircleDiagram.production4 > energyCircleDiagram.upperLimit
+            "
+              [attr.cx]="centerX"
+              [attr.cy]="centerY"
+              [attr.r]="radProd4"
+              fill="transparent"
+              [attr.stroke]="diaFill(energyCircleDiagram.upperLimit)"
+              stroke-width="0.7"
+              [attr.stroke-dasharray]="
+              diaLine(radProd4, energyCircleDiagram.upperLimit)
+            "
+              [attr.stroke-dashoffset]="
+              diaOffset(radProd4, energyCircleDiagram.upperLimit)
+            "
+            ></circle>
+
+            <!-- Точки на концах линий -->
+            <circle
+              *ngIf="energyCircleDiagram.production1"
+              [attr.cx]="
+              diaEndsLine(energyCircleDiagram.production1, radProd1).xCen
+            "
+              [attr.cy]="
+              diaEndsLine(energyCircleDiagram.production1, radProd1).yCen
+            "
+              [attr.r]="radPoint"
+              fill="colorBg"
+              [attr.stroke]="diaFill(energyCircleDiagram.production1)"
+              stroke-width="0.3"
+            ></circle>
+            <circle
+              *ngIf="energyCircleDiagram.production2"
+              [attr.cx]="
+              diaEndsLine(energyCircleDiagram.production2, radProd2).xCen
+            "
+              [attr.cy]="
+              diaEndsLine(energyCircleDiagram.production2, radProd2).yCen
+            "
+              [attr.r]="radPoint"
+              fill="colorBg"
+              [attr.stroke]="diaFill(energyCircleDiagram.production2)"
+              stroke-width="0.3"
+            ></circle>
+            <circle
+              *ngIf="energyCircleDiagram.production3"
+              [attr.cx]="
+              diaEndsLine(energyCircleDiagram.production3, radProd3).xCen
+            "
+              [attr.cy]="
+              diaEndsLine(energyCircleDiagram.production3, radProd3).yCen
+            "
+              [attr.r]="radPoint"
+              fill="colorBg"
+              [attr.stroke]="diaFill(energyCircleDiagram.production3)"
+              stroke-width="0.3"
+            ></circle>
+            <circle
+              *ngIf="energyCircleDiagram.production4"
+              [attr.cx]="
+              diaEndsLine(energyCircleDiagram.production4, radProd4).xCen
+            "
+              [attr.cy]="
+              diaEndsLine(energyCircleDiagram.production4, radProd4).yCen
+            "
+              [attr.r]="radPoint"
+              fill="colorBg"
+              [attr.stroke]="diaFill(energyCircleDiagram.production4)"
+              stroke-width="0.3"
+            ></circle>
+
+            <line
+              [attr.x1]="diaLimits(energyCircleDiagram.lowerLimit).x1"
+              [attr.y1]="diaLimits(energyCircleDiagram.lowerLimit).y1"
+              [attr.x2]="diaLimits(energyCircleDiagram.lowerLimit).x2"
+              [attr.y2]="diaLimits(energyCircleDiagram.lowerLimit).y2"
+              [attr.stroke]="colorNormal"
+              stroke-width="0.2"
+              stroke-dasharray="1 1"
+            />
+            <line
+              [attr.x1]="diaLimits(energyCircleDiagram.upperLimit).x1"
+              [attr.y1]="diaLimits(energyCircleDiagram.upperLimit).y1"
+              [attr.x2]="diaLimits(energyCircleDiagram.upperLimit).x2"
+              [attr.y2]="diaLimits(energyCircleDiagram.upperLimit).y2"
+              [attr.stroke]="colorNormal"
+              stroke-width="0.2"
+              stroke-dasharray="1 1"
+            />
+
+            <!-- logo dia -->
+            <image
+              *ngIf="!isWarning"
+              x="21"
+              y="20"
+              width="7"
+              height="7"
+              [attr.xlink:href]="diagramLogo"
+            />
+            <image
+              *ngIf="isWarning"
+              x="21"
+              y="20"
+              width="7"
+              height="7"
+              [attr.xlink:href]="diagramLogoDanger"
+            />
+
+            <text
+              [attr.x]="diaLimits(energyCircleDiagram.lowerLimit).x2"
+              [attr.y]="diaLimits(energyCircleDiagram.lowerLimit).y2"
+            >
+              {{ energyCircleDiagram.lowerLimit }}%
+            </text>
+            <text
+              [attr.x]="diaLimits(energyCircleDiagram.upperLimit).x2"
+              [attr.y]="diaLimits(energyCircleDiagram.upperLimit).y2"
+            >
+              {{ energyCircleDiagram.upperLimit }}%
+            </text>
+          </svg>
+        </div>
+        <div class="table">
+          <div class="col">
+            <div class="row empty"></div>
+            <div class="row row-name">План</div>
+            <div class="row row-name row-name-warning">Факт</div>
+          </div>
+          <div class="col" *ngFor="let production of productionList">
+            <div
+              class="row col-name"
+              [ngClass]="{
+              'col-name-warning':
+                (production.fact / production.plan) * 100 < lowerLimit ||
+                (production.fact / production.plan) * 100 > upperLimit
+            }"
+            >
+              {{ production.name }}
+            </div>
+            <div class="row numbers">{{ production.plan }}</div>
+            <div
+              class="row numbers numbers-fact"
+              [ngClass]="{
+              'numbers-warning':
+                (production.fact / production.plan) * 100 < lowerLimit ||
+                (production.fact / production.plan) * 100 > upperLimit
+            }"
+            >
+              {{ production.fact }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+
+  <evj-frame-bottom></evj-frame-bottom>
+</div>
