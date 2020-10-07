@@ -34,13 +34,8 @@
 }
 
 .container-operation-filter {
-    direction: ltr;
-    position: absolute;
-    left: 30px;
-    top: 10%;
     height: 75%;
-    z-index: 999;
-    width: 15%;
+    width: 300px;
     box-shadow: 0 0 10px var(--color-oil-popup-shadow);
     border-radius: 20px;
 }

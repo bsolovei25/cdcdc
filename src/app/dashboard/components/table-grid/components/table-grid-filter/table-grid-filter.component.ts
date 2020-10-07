@@ -6,6 +6,8 @@ import {
     Input,
     OnChanges
 } from '@angular/core';
+import { OilOperationsFilterComponent } from '../../../../widgets/oil-operations/components/oil-operations-filter/oil-operations-filter.component';
+import {PopoverOverlayService} from '@shared/components/popover-overlay/popover-overlay.service';
 
 export interface ITableGridFilter {
     name: string;
@@ -28,7 +30,9 @@ export class TableGridFilterComponent implements OnInit, OnChanges {
 
     public isFilter: boolean = false;
 
-    constructor() {
+    constructor(
+        private popoverOverlayService: PopoverOverlayService,
+    ) {
     }
 
     public ngOnInit(): void {
@@ -40,6 +44,44 @@ export class TableGridFilterComponent implements OnInit, OnChanges {
 
     public onClick(type: string): void {
         this.isFilter = true;
-        this.onFilterClick.emit(type);
+        // this.onFilterClick.emit(type);
+        const element = document.getElementById(type);
+        this.openPopover(element);
+    }
+
+    private openPopover(origin): void {
+        const popoverRef = this.popoverOverlayService.open({
+            content: OilOperationsFilterComponent,
+            origin,
+            data: [
+                {
+                    id: 1,
+                    name: 'Мазут'
+                },
+                {
+                    id: 2,
+                    name: 'Мазут'
+                },
+                {
+                    id: 3,
+                    name: 'Мазут'
+                },
+                {
+                    id: 4,
+                    name: 'Мазут'
+                },
+                {
+                    id: 5,
+                    name: 'Мазут'
+                }
+            ],
+        });
+        // this.isFilePopoverOpened = true;
+
+        popoverRef.afterClosed$.subscribe(res => {
+            // this.isFilePopoverOpened = false;
+            if (res && res.data) {
+            }
+        });
     }
 }
