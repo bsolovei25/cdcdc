@@ -55,10 +55,6 @@ import { TreeModule } from 'angular-tree-component';
     SystemPathEditComponent,
     SystemPathUserComponent,
     SystemPeriodEditComponent,
-    SystemPeriodDateComponent,
-    SystemPeriodDateDayComponent,
-    SystemPeriodDateMonthComponent,
-    SystemPeriodDateYearComponent
   ],
   imports: [
     CommonModule,

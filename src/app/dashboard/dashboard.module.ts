@@ -136,6 +136,10 @@ import { IndicatorDiagramComponent } from './components/indicator-diagram/indica
 import { MenuButtonComponent } from './components/menu-button/menu-button.component';
 import { MatBadgeModule } from '@angular/material/badge';
 import { TankFilterComponent } from '../widgets/NK/tank-information/components/tank-filter/tank-filter.component';
+import { SystemPeriodDateYearComponent } from '../widgets/admin/report-server-configurator/popup-system-options/system-period-edit/system-period-date/system-period-date-year/system-period-date-year.component';
+import { SystemPeriodDateMonthComponent } from '../widgets/admin/report-server-configurator/popup-system-options/system-period-edit/system-period-date/system-period-date-month/system-period-date-month.component';
+import { SystemPeriodDateDayComponent } from '../widgets/admin/report-server-configurator/popup-system-options/system-period-edit/system-period-date/system-period-date-day/system-period-date-day.component';
+import { SystemPeriodDateComponent } from '../widgets/admin/report-server-configurator/popup-system-options/system-period-edit/system-period-date/system-period-date.component';
 
 @NgModule({
     declarations: [
@@ -191,6 +195,7 @@ import { TankFilterComponent } from '../widgets/NK/tank-information/components/t
         CustomReportPropertiesReferenceComponent,
         CustomReportOptionsComponent,
         FilterPopupComponent,
+
         TransferTableComponent,
         ProductionTrendComponent,
         DevGraphComponent,
@@ -199,6 +204,9 @@ import { TankFilterComponent } from '../widgets/NK/tank-information/components/t
         FacilityComponent,
         ProductionTrendPanelComponent,
         ProductionTrendCardInfoComponent,
+        SystemPeriodDateYearComponent,
+        SystemPeriodDateMonthComponent,
+        SystemPeriodDateDayComponent,
         ReasonsDeviationsComponent,
         ReasonsDeviationsLineChartComponent,
         ReasonsDeviationsInfoContentComponent,
@@ -266,7 +274,16 @@ import { TankFilterComponent } from '../widgets/NK/tank-information/components/t
         OilOperationsComponent,
         PanelComponent,
     ],
-    exports: [HomeComponent, PerformanceBarComponent, WidgetPreviewComponent, PowIndexPipe, TankFilterComponent],
+    exports: [HomeComponent,
+        PerformanceBarComponent,
+        WidgetPreviewComponent,
+        PowIndexPipe,
+        TankFilterComponent,
+        SystemPeriodDateYearComponent,
+        SystemPeriodDateMonthComponent,
+        SystemPeriodDateDayComponent,
+        SystemPeriodDateComponent,
+    ],
     imports: [
         CommonModule,
         SharedModule,
