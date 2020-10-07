@@ -21,13 +21,10 @@ export class HomeComponent implements OnInit, OnDestroy {
         private userSettings: UserSettingsService,
         private claimService: ClaimService,
         public overlayService: OverlayService,
-        private titleService: Title,
-        private configService: AppConfigService,
         // public route: ActivatedRoute,
         public router: Router
     ) {
         this.applicationCreate();
-        this.projectName = configService.projectName;
     }
 
     ngOnInit(): void {
@@ -37,7 +34,6 @@ export class HomeComponent implements OnInit, OnDestroy {
         document.addEventListener('fullscreenchange', () => {
             this.fullscreen = !!document.fullscreenElement;
         });
-        this.titleService.setTitle(this.projectName);
         // const answer = this.route.snapshot.queryParamMap.get('screenId');
         // this.router.navigate([], { queryParams: {screenId: 1}});
     }

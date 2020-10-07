@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
+import { Title } from '@angular/platform-browser';
 
 @Injectable({
     providedIn: 'root'
@@ -10,12 +11,15 @@ export class AppConfigService {
     private appConfig: any;
     restUrl$: BehaviorSubject<any> = new BehaviorSubject<any>(null);
 
-    constructor(private http: HttpClient) {
+    constructor(private http: HttpClient,
+                private titleService: Title
+    ) {
     }
 
     public async loadAppConfig(): Promise<void> {
         this.appConfig = await this.http.get('assets/config.json').toPromise();
         this.restUrl$.next(this.appConfig.restUrl);
+        this.titleService.setTitle(this.projectName);
     }
 
     get wsUrl(): string {
