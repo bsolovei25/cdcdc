@@ -1,4 +1,4 @@
-<div class="indicator-selector" (mouseenter)="ScreenActive()" (mouseleave)="ScreenDisable()">
+<div class="indicator-selector" (mouseenter)="screenActive()" (mouseleave)="screenDisable()">
   <svg-icon class="indicator-selector__icon" src="assets/icons/screen.svg"></svg-icon>
 
   <span class="indicator-selector__name">
@@ -26,7 +26,7 @@
                     class="screen-card"
                     *ngIf="!screen.updateScreen"
                     (click)="this.setActiveScreen(screen)"
-                    (click)="LoadScreen(idScreen)"
+                    (click)="loadScreen(idScreen)"
                   >
                     <div class="screen_name" [class.screen_name--isHidden]="screen.isHidden">
                       {{ screen.screenName }}
@@ -36,7 +36,7 @@
                     class="screen-card"
                     *ngIf="!!screen.updateScreen"
                     (click)="this.setActiveScreen(screen)"
-                    (click)="LoadScreen(idScreen)"
+                    (click)="loadScreen(idScreen)"
                   >
                     <input class="update_input" [(ngModel)]="newNameScreen"/>
                   </div>
