@@ -140,7 +140,7 @@ export const WIDGETS = {
     'documents-scans': WidgetContainerComponent,
     'document-viewer': WidgetContainerComponent,
     'admin-panel': WidgetContainerComponent,
-    'polar-chart': WidgetContainerComponent,
+    'polar-chart': WidgetContainerComponent
 };
 
 export const WIDGETS_LAZY = {
