@@ -3,56 +3,41 @@ import { IOilFilter } from 'src/app/dashboard/models/oil-operations';
 import { PopoverRef} from '@shared/components/popover-overlay/popover-overlay.ref';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
+export interface IOilFilterInput {
+    title: string;
+    data: IOilFilter[];
+}
+
 @Component({
   selector: 'evj-oil-operations-filter',
   templateUrl: './oil-operations-filter.component.html',
   styleUrls: ['./oil-operations-filter.component.scss']
 })
 export class OilOperationsFilterComponent implements OnInit {
-  // @Input() public data: IOilFilter[];
-  @Output() public closeFilter: EventEmitter<boolean> = new EventEmitter<boolean>();
-
-  public data1: IOilFilter[] = [
-      {
-          id: 1,
-          name: 'Мазут'
-      },
-      {
-          id: 2,
-          name: 'Мазут'
-      },
-      {
-          id: 3,
-          name: 'Мазут'
-      },
-      {
-          id: 4,
-          name: 'Мазут'
-      },
-      {
-          id: 5,
-          name: 'Мазут'
-      }
-  ];
+  @Output()
+  public closeFilter: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   public activeItemId: number;
 
+  public filterTitle: string;
+
   constructor(
       private popoverRef: PopoverRef,
-      @Inject(MAT_DIALOG_DATA) public data: any,
+      @Inject(MAT_DIALOG_DATA) public data: IOilFilterInput,
   ) {
       this.popoverRef.overlay.backdropClick().subscribe(() => {
           this.popoverRef.close('backdropClick', null);
       });
       if (this.popoverRef.data) {
-          // this.filesToUpload = this.popoverRef.data;
+          this.data = this.popoverRef.data.data;
+          this.filterTitle = this.popoverRef.data.title;
       }
   }
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
   }
 
-  active(item: IOilFilter): void {
+  public onOptionSelect(item: IOilFilter): void {
     if (this.activeItemId === item.id) {
       this.activeItemId = null;
     } else {
@@ -60,12 +45,11 @@ export class OilOperationsFilterComponent implements OnInit {
     }
   }
 
-  exit(): void {
-    this.closeFilter.emit(false);
+  public close(): void {
+      this.popoverRef.close('close', null);
   }
 
-  save(): void {
+  public onSaveClick(): void {
     this.closeFilter.emit(false);
   }
-
 }

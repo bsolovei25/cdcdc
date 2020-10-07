@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
 import { IDatesInterval, WidgetService } from '../../services/widget.service';
 import { WidgetPlatform } from '../../models/widget-platform';
-import { ILeftOilTable, IOilOperations, IRightOilTable } from '../../models/oil-operations';
+import { ILeftOilTable, IOilFilter, IOilOperations, IRightOilTable } from '../../models/oil-operations';
 import { OilOperationsService } from '../../services/widgets/oil-operations.service';
 import { ITableGridFilter } from '../../components/table-grid/components/table-grid-filter/table-grid-filter.component';
 
@@ -29,14 +29,58 @@ export class OilOperationsComponent extends WidgetPlatform implements OnInit, On
 
     private currentDates: IDatesInterval;
 
-    public availableFilters: ITableGridFilter[] = [
+    public availableFilters: ITableGridFilter<IOilFilter>[] = [
         {
             name: 'Продукты',
             type: 'products',
+            data: [
+                {
+                    id: 1,
+                    name: 'Мазут'
+                },
+                {
+                    id: 2,
+                    name: 'Мазут'
+                },
+                {
+                    id: 3,
+                    name: 'Мазут'
+                },
+                {
+                    id: 4,
+                    name: 'Мазут'
+                },
+                {
+                    id: 5,
+                    name: 'Мазут'
+                }
+            ],
         },
         {
             name: 'Группы',
             type: 'groups',
+            data: [
+                {
+                    id: 1,
+                    name: 'Группа'
+                },
+                {
+                    id: 2,
+                    name: 'Группа'
+                },
+                {
+                    id: 3,
+                    name: 'Группа'
+                },
+                {
+                    id: 4,
+                    name: 'Группа'
+                },
+                {
+                    id: 5,
+                    name: 'Группа'
+                }
+            ],
         },
     ];
 

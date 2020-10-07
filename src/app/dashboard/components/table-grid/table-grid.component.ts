@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, ContentChildren, QueryList, HostListener, ViewChild, ElementRef, AfterViewInit, TemplateRef, EventEmitter, Output } from '@angular/core';
 import { ColumnGridComponent } from './components/column-grid/column-grid.component';
 import { ITableGridFilter } from './components/table-grid-filter/table-grid-filter.component';
+import { IOilFilter } from '../../models/oil-operations';
 
 @Component({
   selector: 'evj-table-grid',
@@ -13,7 +14,7 @@ export class TableGridComponent implements OnInit, AfterViewInit {
   @Input() data: any;
   @Input() scrollLeft: boolean; // side scroll for contant
   @Input() search: boolean; // search-input in footer
-  @Input() filters: ITableGridFilter[]; // filter-buttons in footer
+  @Input() filters: ITableGridFilter<IOilFilter>[]; // filter-buttons in footer
   @Input() addButton: boolean; // add-button in footer
   @Input() itemFixed: boolean; // Do active item
   @Input() saveButton: boolean; // Save button in footer

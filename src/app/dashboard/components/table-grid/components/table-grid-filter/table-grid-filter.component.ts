@@ -6,12 +6,17 @@ import {
     Input,
     OnChanges
 } from '@angular/core';
-import { OilOperationsFilterComponent } from '../../../../widgets/oil-operations/components/oil-operations-filter/oil-operations-filter.component';
-import {PopoverOverlayService} from '@shared/components/popover-overlay/popover-overlay.service';
+import {
+    IOilFilterInput,
+    OilOperationsFilterComponent
+} from '../../../../widgets/oil-operations/components/oil-operations-filter/oil-operations-filter.component';
+import { PopoverOverlayService } from '@shared/components/popover-overlay/popover-overlay.service';
+import { IOilFilter } from '../../../../models/oil-operations';
 
-export interface ITableGridFilter {
+export interface ITableGridFilter<T> {
     name: string;
     type: string;
+    data?: T[];
 }
 
 @Component({
@@ -26,9 +31,9 @@ export class TableGridFilterComponent implements OnInit, OnChanges {
     public onFilterClick: EventEmitter<string> = new EventEmitter<string>();
 
     @Input()
-    public filter: ITableGridFilter;
+    public filter: ITableGridFilter<IOilFilter>;
 
-    public isFilter: boolean = false;
+    public isPopoverOpened: boolean = false;
 
     constructor(
         private popoverOverlayService: PopoverOverlayService,
@@ -39,47 +44,27 @@ export class TableGridFilterComponent implements OnInit, OnChanges {
     }
 
     public ngOnChanges(): void {
-        this.isFilter = !!this.filter;
     }
 
     public onClick(type: string): void {
-        this.isFilter = true;
         // this.onFilterClick.emit(type);
         const element = document.getElementById(type);
         this.openPopover(element);
     }
 
-    private openPopover(origin): void {
+    private openPopover(origin: HTMLElement): void {
         const popoverRef = this.popoverOverlayService.open({
             content: OilOperationsFilterComponent,
             origin,
-            data: [
-                {
-                    id: 1,
-                    name: 'Мазут'
-                },
-                {
-                    id: 2,
-                    name: 'Мазут'
-                },
-                {
-                    id: 3,
-                    name: 'Мазут'
-                },
-                {
-                    id: 4,
-                    name: 'Мазут'
-                },
-                {
-                    id: 5,
-                    name: 'Мазут'
-                }
-            ],
+            data: {
+                title: this.filter.name,
+                data: this.filter?.data,
+            } as IOilFilterInput,
         });
-        // this.isFilePopoverOpened = true;
+        this.isPopoverOpened = true;
 
         popoverRef.afterClosed$.subscribe(res => {
-            // this.isFilePopoverOpened = false;
+            this.isPopoverOpened = false;
             if (res && res.data) {
             }
         });
