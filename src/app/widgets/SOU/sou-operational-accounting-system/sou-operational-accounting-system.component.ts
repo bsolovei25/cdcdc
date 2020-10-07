@@ -46,19 +46,26 @@ export class SouOperationalAccountingSystemComponent extends WidgetPlatform impl
             });
             this.data?.lightProducts?.sort((a, b) => a?.order - b?.order);
             this.data?.section?.sort((a, b) => a?.order - b?.order);
-            this.isSection = this.data?.section[0];
-            this.data.section[0].isEnable = true;
+          
+            if (!this.isSection) {
+                this.isSection = this.data?.section[0];
+                this.data.section[0].isEnable = true;
+            } else {
+                this.data?.section.forEach(value => {
+                    if (value.name === this.isSection.name) {
+                        this.isSection = value;
+                        value.isEnable = true;
+                    }
+                });
+            }
+
         }
     }
 
     changeSection(section: ISOUSection): void {
         this.isSection = section;
         this.data.section.map(value => {
-            if (value.name === section.name) {
-                value.isEnable = true;
-            } else {
-                value.isEnable = false;
-            }
+            value.isEnable = value.name === section.name;
         });
     }
 
