@@ -14,7 +14,7 @@ import { ArrayType } from '@angular/compiler';
     templateUrl: './astue-onpz-product-card.component.html',
     styleUrls: ['./astue-onpz-product-card.component.scss'],
 })
-export class AstueOnpzProductCardComponent extends WidgetPlatform implements OnInit, OnDestroy {
+export class AstueOnpzProductCardComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
     public data: IAstueProductChart;
 
     public isDeviationChart: boolean = false;

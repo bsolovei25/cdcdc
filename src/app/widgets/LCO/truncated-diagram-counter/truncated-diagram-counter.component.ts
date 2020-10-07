@@ -7,7 +7,7 @@ import { WidgetPlatform } from '../../../dashboard/models/widget-platform';
     templateUrl: './truncated-diagram-counter.component.html',
     styleUrls: ['./truncated-diagram-counter.component.scss'],
 })
-export class TruncatedDiagramCounterComponent extends WidgetPlatform implements OnInit, OnDestroy {
+export class TruncatedDiagramCounterComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
     public static itemCols: number = 29;
     public static itemRows: number = 7;
     public static minItemCols: number = 29;

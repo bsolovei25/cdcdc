@@ -1,9 +1,8 @@
 import { Inject, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { WidgetService } from '../services/widget.service';
-import { SortTypeEvents } from './events-widget';
 
-export abstract class WidgetPlatform implements OnDestroy {
+export abstract class WidgetPlatform<T> implements OnDestroy {
     public widgetCode?: string;
     public widgetTitle?: string;
     public widgetUnits?: string;
@@ -11,7 +10,7 @@ export abstract class WidgetPlatform implements OnDestroy {
     public widgetIcon?: string;
     public widgetOptions?: any; // TODO line-chart
     public widgetIsVideoWall?: boolean = false;
-    public attributes: { [key: string]: string } = null;
+    public attributes: T = null;
 
     protected isRealtimeData: boolean = true;
 

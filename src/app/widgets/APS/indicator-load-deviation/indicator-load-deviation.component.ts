@@ -25,7 +25,7 @@ export interface IApsIndicatorLoad {
     templateUrl: './indicator-load-deviation.component.html',
     styleUrls: ['./indicator-load-deviation.component.scss'],
 })
-export class IndicatorLoadDeviationComponent extends WidgetPlatform
+export class IndicatorLoadDeviationComponent extends WidgetPlatform<unknown>
     implements OnInit, AfterViewInit, OnDestroy {
     @ViewChild('menu', { static: true }) private menu: ElementRef;
     @ViewChild('diagram', { static: true }) private diagram: ElementRef;

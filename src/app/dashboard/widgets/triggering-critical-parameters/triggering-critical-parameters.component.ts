@@ -21,7 +21,7 @@ export interface ITriggeringCriticalParameters {
     templateUrl: './triggering-critical-parameters.component.html',
     styleUrls: ['./triggering-critical-parameters.component.scss'],
 })
-export class TriggeringCriticalParametersComponent extends WidgetPlatform
+export class TriggeringCriticalParametersComponent extends WidgetPlatform<unknown>
     implements OnInit, OnDestroy {
     isLoading: boolean = true;
 

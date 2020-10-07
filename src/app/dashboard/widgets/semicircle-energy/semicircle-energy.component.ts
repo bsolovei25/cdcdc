@@ -14,7 +14,7 @@ import { WidgetPlatform } from '../../models/widget-platform';
     templateUrl: './semicircle-energy.component.html',
     styleUrls: ['./semicircle-energy.component.scss'],
 })
-export class SemicircleEnergyComponent extends WidgetPlatform implements OnInit, OnDestroy {
+export class SemicircleEnergyComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
     public isDataLoading: boolean = true;
 
     /* Параметры для круговых диаграмм */

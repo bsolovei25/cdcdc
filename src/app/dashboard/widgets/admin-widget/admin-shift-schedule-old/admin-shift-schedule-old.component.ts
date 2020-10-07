@@ -36,7 +36,7 @@ import { IAbsent } from '../../../../widgets/admin/admin-shift-schedule/admin-sh
     templateUrl: './admin-shift-schedule-old.component.html',
     styleUrls: ['./admin-shift-schedule-old.component.scss']
 })
-export class AdminShiftScheduleOldComponent extends WidgetPlatform
+export class AdminShiftScheduleOldComponent extends WidgetPlatform<unknown>
     implements OnInit, OnDestroy, AfterContentChecked {
     defaultLocale: string = 'ru-RU';
 

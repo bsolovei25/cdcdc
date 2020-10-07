@@ -9,7 +9,7 @@ import { SelectionModel } from '@angular/cdk/collections';
     templateUrl: './raw-motion.component.html',
     styleUrls: ['./raw-motion.component.scss'],
 })
-export class RawMotionComponent extends WidgetPlatform implements OnInit, OnDestroy {
+export class RawMotionComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
     public data: IRawMotion = {
         units: 'тн',
         upperLimit: 100,

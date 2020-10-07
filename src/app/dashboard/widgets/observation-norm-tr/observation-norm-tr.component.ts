@@ -18,7 +18,7 @@ import { WidgetPlatform } from '../../models/widget-platform';
     templateUrl: './observation-norm-tr.component.html',
     styleUrls: ['./observation-norm-tr.component.scss'],
 })
-export class ObservationNormTRComponent extends WidgetPlatform
+export class ObservationNormTRComponent extends WidgetPlatform<unknown>
     implements OnInit, OnDestroy, AfterViewInit {
     public static itemCols: number = 13;
     public static itemRows: number = 8;

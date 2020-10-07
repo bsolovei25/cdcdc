@@ -31,7 +31,7 @@ export interface IEventSettings {
     templateUrl: './events.component.html',
     styleUrls: ['./events.component.scss', './cd-events.component.scss']
 })
-export class EventsComponent extends WidgetPlatform implements OnInit, OnDestroy {
+export class EventsComponent extends WidgetPlatform<IEventsWidgetAttributes> implements OnInit, OnDestroy {
     @ViewChild(CdkVirtualScrollViewport) viewport: CdkVirtualScrollViewport;
 
     @ViewChild('notifications') notificationsDiv: ElementRef;
@@ -39,14 +39,7 @@ export class EventsComponent extends WidgetPlatform implements OnInit, OnDestroy
     @HostListener('document:resize', ['$event'])
     OnResize(): void {
         this.countNotificationsDivCapacity();
-        // this.getData();
     }
-
-    private eventsAttributes: IEventsWidgetAttributes = {
-        acknowledgment: true,
-        isVideoWall: false,
-        sortType: 'default',
-    };
 
     public claimWidgets: EnumClaimWidgets[] = [];
     public EnumClaimWidgets: typeof EnumClaimWidgets = EnumClaimWidgets;
@@ -282,24 +275,8 @@ export class EventsComponent extends WidgetPlatform implements OnInit, OnDestroy
         super.ngOnDestroy();
     }
 
-    private parseAttributes(dict: {[key: string]: string}, target: IEventsWidgetAttributes): void {
-        Object.keys(dict).forEach((key) => {
-            let value = null;
-            try {
-                value = JSON.parse(dict[key]?.toLowerCase());
-            } catch {
-                value = dict[key];
-                value = value[0].toLowerCase() + value.slice(1);
-            }
-            target[key] = value;
-        });
-    }
-
     protected async dataConnect(): Promise<void> {
         super.dataConnect();
-        this.parseAttributes(this.attributes, this.eventsAttributes);
-        console.log(this.eventsAttributes);
-        console.log(this.attributes);
         let filterCondition: 'default' | 'ed' = 'default';
         switch (this.widgetType) {
             case 'events-ed':
@@ -317,7 +294,7 @@ export class EventsComponent extends WidgetPlatform implements OnInit, OnDestroy
         });
 
         this.filters = this.filters.filter((x) => {
-            if (!this.eventsAttributes?.acknowledgment && x.code === 'isNotAcknowledged') {
+            if (!this.attributes?.acknowledgment && x.code === 'isNotAcknowledged') {
                 return false;
             }
             return true;
@@ -442,8 +419,8 @@ export class EventsComponent extends WidgetPlatform implements OnInit, OnDestroy
             filter: this.filters.find((f) => f.isActive).code,
             dates: this.widgetService.currentDates$.getValue(),
             placeNames: this.placeNames,
-            isVideoWall: !!this.eventsAttributes?.isVideoWall,
-            sortType: this.eventsAttributes?.sortType ?? 'default',
+            isVideoWall: !!this.attributes?.isVideoWall,
+            sortType: this.attributes?.sortType ?? 'default',
             categoriesType: this.widgetType === 'events-ed' ? 'ed' : 'default'
         } as IEventsWidgetOptions;
     }

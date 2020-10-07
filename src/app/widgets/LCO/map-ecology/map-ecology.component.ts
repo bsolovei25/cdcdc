@@ -9,7 +9,7 @@ declare var d3: any;
     templateUrl: './map-ecology.component.html',
     styleUrls: ['./map-ecology.component.scss'],
 })
-export class MapEcologyComponent extends WidgetPlatform implements OnInit, OnDestroy {
+export class MapEcologyComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
 
     public startY: number = 55.6611;
     public startX: number = 37.7726;

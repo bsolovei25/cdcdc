@@ -18,7 +18,7 @@ import { IDocumentsScans } from '../../models/oil-document.model';
     styleUrls: ['./documents-scans.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class DocumentsScansComponent extends WidgetPlatform implements OnInit, OnDestroy {
+export class DocumentsScansComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
     public static itemCols: number = 16;
     public static itemRows: number = 15;
     public static minItemCols: number = 16;

@@ -8,7 +8,7 @@ import { ReportsService } from '../../services/widgets/reports.service';
   templateUrl: './custom-report-properties-reference.component.html',
   styleUrls: ['./custom-report-properties-reference.component.scss']
 })
-export class CustomReportPropertiesReferenceComponent extends WidgetPlatform implements OnInit, OnDestroy {
+export class CustomReportPropertiesReferenceComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
   @ViewChild('propertiesRefereneTable') public testBlock: ElementRef;
   @ViewChild('customOptions') public testBlock2: ElementRef;
 

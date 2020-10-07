@@ -8,7 +8,7 @@ import { WidgetPlatform } from '../../../../dashboard/models/widget-platform';
     templateUrl: './bar-charts.component.html',
     styleUrls: ['./bar-charts.component.scss'],
 })
-export class BarChartsComponent extends WidgetPlatform implements OnInit, OnDestroy {
+export class BarChartsComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
     public data: any[] = [];
 
     constructor(

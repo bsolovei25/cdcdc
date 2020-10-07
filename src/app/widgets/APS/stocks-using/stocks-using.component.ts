@@ -9,7 +9,7 @@ import { DATASOURCE } from './mock';
     templateUrl: './stocks-using.component.html',
     styleUrls: ['./stocks-using.component.scss'],
 })
-export class StocksUsingComponent extends WidgetPlatform implements OnInit, OnDestroy {
+export class StocksUsingComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
     public data: IStocksUsingElement[] = [];
 
     constructor(

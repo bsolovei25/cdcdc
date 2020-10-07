@@ -9,7 +9,7 @@ declare var d3: any;
     templateUrl: './circle-diagram.component.html',
     styleUrls: ['./circle-diagram.component.scss'],
 })
-export class CircleDiagramComponent extends WidgetPlatform implements OnDestroy, OnInit {
+export class CircleDiagramComponent extends WidgetPlatform<unknown> implements OnDestroy, OnInit {
     private x: number = 175;
     private y: number = 40;
 

@@ -9,7 +9,7 @@ import { WidgetPlatform } from '../../models/widget-platform';
     templateUrl: './operation-efficiency.component.html',
     styleUrls: ['./operation-efficiency.component.scss'],
 })
-export class OperationEfficiencyComponent extends WidgetPlatform implements OnInit, OnDestroy {
+export class OperationEfficiencyComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
     public static itemCols: number = 24;
     public static itemRows: number = 6;
     public static minItemCols: number = 24;

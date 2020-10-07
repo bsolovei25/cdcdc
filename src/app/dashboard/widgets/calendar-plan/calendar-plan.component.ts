@@ -8,7 +8,7 @@ import { WidgetPlatform } from '../../models/widget-platform';
     templateUrl: './calendar-plan.component.html',
     styleUrls: ['./calendar-plan.component.scss'],
 })
-export class CalendarPlanComponent extends WidgetPlatform implements OnInit, OnDestroy {
+export class CalendarPlanComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
     public data: ICalendarPlanGraph = {
         plan: 1000,
         lowerBorder: 0.03,

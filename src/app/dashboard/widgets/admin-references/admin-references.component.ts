@@ -11,7 +11,7 @@ import { ReferencesService } from '../../services/widgets/references.service';
     templateUrl: './admin-references.component.html',
     styleUrls: ['./admin-references.component.scss'],
 })
-export class AdminReferencesComponent extends WidgetPlatform implements OnInit, OnDestroy {
+export class AdminReferencesComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
     @ViewChild('adminRefereneTable') public testBlock: ElementRef;
 
     static itemCols = 32;

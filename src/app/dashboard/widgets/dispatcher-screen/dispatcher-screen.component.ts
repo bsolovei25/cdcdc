@@ -11,7 +11,7 @@ import { error } from '@angular/compiler/src/util';
     templateUrl: './dispatcher-screen.component.html',
     styleUrls: ['./dispatcher-screen.component.scss']
 })
-export class DispatcherScreenComponent extends WidgetPlatform implements AfterViewInit, OnDestroy {
+export class DispatcherScreenComponent extends WidgetPlatform<unknown> implements AfterViewInit, OnDestroy {
     private readonly baseUrl: string;
     private unityInstance: any;
     isStart: boolean;

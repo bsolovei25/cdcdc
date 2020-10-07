@@ -12,7 +12,7 @@ import { combineLatest } from 'rxjs';
     templateUrl: './admin-panel.component.html',
     styleUrls: ['./admin-panel.component.scss'],
 })
-export class AdminPanelComponent extends WidgetPlatform implements OnInit, OnDestroy {
+export class AdminPanelComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
     //#region WIDGET_PROPS
     public title: string = 'Панель администратора';
     public previewTitle: string = 'admin-panel';

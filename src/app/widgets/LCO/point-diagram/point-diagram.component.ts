@@ -9,7 +9,7 @@ import { WidgetPlatform } from '../../../dashboard/models/widget-platform';
     templateUrl: './point-diagram.component.html',
     styleUrls: ['./point-diagram.component.scss'],
 })
-export class PointDiagramComponent extends WidgetPlatform implements OnInit, OnDestroy {
+export class PointDiagramComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
     pointDiagramElements: IPointDiagramElement[] = [
         {
             norm: 0.2,

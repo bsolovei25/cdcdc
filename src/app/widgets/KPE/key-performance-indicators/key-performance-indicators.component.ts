@@ -16,7 +16,7 @@ export interface IKpeGaugeChartData {
     templateUrl: './key-performance-indicators.component.html',
     styleUrls: ['./key-performance-indicators.component.scss'],
 })
-export class KeyPerformanceIndicatorsComponent extends WidgetPlatform implements OnInit, OnDestroy {
+export class KeyPerformanceIndicatorsComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
     public sourceData: IKpeGaugeChartData;
     public diagramData: IKpeGaugeChartPage;
 

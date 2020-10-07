@@ -89,7 +89,7 @@ export interface IAllEstablishedFacts {
     templateUrl: './cd-mat-balance.component.html',
     styleUrls: ['./cd-mat-balance.component.scss']
 })
-export class CdMatBalanceComponent extends WidgetPlatform implements OnInit, OnDestroy {
+export class CdMatBalanceComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
     data: IMatBalance;
     openEvent: IEventsWidgetNotification = this.cdMatBalanceService.isOpenEvent$.getValue();
     modal: ICDModalWindow;

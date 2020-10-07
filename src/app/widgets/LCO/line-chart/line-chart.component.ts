@@ -27,7 +27,7 @@ import { HttpClient } from '@angular/common/http';
     templateUrl: './line-chart.component.html',
     styleUrls: ['./line-chart.component.scss'],
 })
-export class LineChartComponent extends WidgetPlatform implements OnInit, OnDestroy {
+export class LineChartComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
     public position?: string = 'default';
 
     public data: LineChartData;

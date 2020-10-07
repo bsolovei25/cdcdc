@@ -15,7 +15,7 @@ import { WidgetPlatform } from '../../models/widget-platform';
     templateUrl: './energetics.component.html',
     styleUrls: ['./energetics.component.scss'],
 })
-export class EnergeticsComponent extends WidgetPlatform implements OnInit, OnDestroy {
+export class EnergeticsComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
     public static itemCols: number = 24;
     public static itemRows: number = 18;
     public static minItemCols: number = 24;

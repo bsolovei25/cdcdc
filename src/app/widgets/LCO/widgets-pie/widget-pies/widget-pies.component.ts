@@ -7,7 +7,7 @@ import { WidgetPlatform } from '../../../../dashboard/models/widget-platform';
     templateUrl: './widget-pies.component.html',
     styleUrls: ['./widget-pies.component.scss'],
 })
-export class WidgetPiesComponent extends WidgetPlatform implements OnInit, OnDestroy {
+export class WidgetPiesComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
     public datas = [];
 
     public static itemCols: number = 31;

@@ -44,7 +44,7 @@ import { AppConfigService } from '@core/service/app-config.service';
         ]),
     ],
 })
-export class ManualInputComponent extends WidgetPlatform
+export class ManualInputComponent extends WidgetPlatform<unknown>
     implements OnInit, OnDestroy, AfterViewInit {
     @ViewChild('truckScroll') truckScroll: ElementRef;
     @ViewChild('scroll') scroll: ElementRef;

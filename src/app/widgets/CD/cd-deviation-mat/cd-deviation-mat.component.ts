@@ -14,7 +14,7 @@ import { IStreams } from '../cd-mat-balance/cd-mat-balance.component';
     templateUrl: './cd-deviation-mat.component.html',
     styleUrls: ['./cd-deviation-mat.component.scss']
 })
-export class CdDeviationMatComponent extends WidgetPlatform implements OnInit, OnDestroy {
+export class CdDeviationMatComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
     data: IStreams[] = [];
     columnsToDisplay: IColumnsToDisplay[] = [
         { name: 'Мат. поток', date: new Date() },

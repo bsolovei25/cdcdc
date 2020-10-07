@@ -9,7 +9,7 @@ declare var d3: any;
     templateUrl: './polar-chart.component.html',
     styleUrls: ['./polar-chart.component.scss'],
 })
-export class PolarChartComponent extends WidgetPlatform implements OnInit, OnDestroy {
+export class PolarChartComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
     @ViewChild('polar') Polar: ElementRef;
 
     public static itemCols: number = 20;

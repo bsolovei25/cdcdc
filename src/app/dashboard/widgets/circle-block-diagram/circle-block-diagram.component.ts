@@ -9,7 +9,7 @@ import { WidgetPlatform } from '../../models/widget-platform';
     templateUrl: './circle-block-diagram.component.html',
     styleUrls: ['./circle-block-diagram.component.scss'],
 })
-export class CircleBlockDiagramComponent extends WidgetPlatform implements OnInit, OnDestroy {
+export class CircleBlockDiagramComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
     public blockDiagram: IBlockDiagram = {
         improvement: 0, // улучшение в %
         disabled: 0, // отключенные блокировки в %

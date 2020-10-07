@@ -9,7 +9,7 @@ import { mockData } from './ozsm-main-indicator-mock';
   templateUrl: './ozsm-main-indicators.component.html',
   styleUrls: ['./ozsm-main-indicators.component.scss']
 })
-export class OzsmMainIndicatorsComponent extends WidgetPlatform implements OnInit, OnDestroy {
+export class OzsmMainIndicatorsComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
     public data: IOZSMMainIndicator[] = mockData;
 
     constructor(

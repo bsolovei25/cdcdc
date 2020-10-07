@@ -32,7 +32,7 @@ interface IAstueOnpzInteractiveIndicator {
     templateUrl: './astue-onpz-interactive-indicators.component.html',
     styleUrls: ['./astue-onpz-interactive-indicators.component.scss']
 })
-export class AstueOnpzInteractiveIndicatorsComponent extends WidgetPlatform
+export class AstueOnpzInteractiveIndicatorsComponent extends WidgetPlatform<unknown>
     implements OnInit, OnDestroy {
 
     private readonly colorIndexCount: number = 6; // доступное количество color index

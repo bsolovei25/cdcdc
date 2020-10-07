@@ -38,7 +38,7 @@ import { SelectionModel } from '@angular/cdk/collections';
     templateUrl: './evj-events.component.html',
     styleUrls: ['./evj-events.component.scss']
 })
-export class EvjEventsComponent extends WidgetPlatform implements OnInit, OnDestroy {
+export class EvjEventsComponent extends WidgetPlatform<IEventsWidgetAttributes> implements OnInit, OnDestroy {
 
     @ViewChild(CdkVirtualScrollViewport) viewport: CdkVirtualScrollViewport;
 
@@ -48,12 +48,6 @@ export class EvjEventsComponent extends WidgetPlatform implements OnInit, OnDest
     OnResize(): void {
         this.countNotificationsDivCapacity();
     }
-
-    private eventsAttributes: IEventsWidgetAttributes = {
-        acknowledgment: true,
-        isVideoWall: false,
-        sortType: 'default',
-    };
 
     public claimWidgets: EnumClaimWidgets[] = [];
     public EnumClaimWidgets: typeof EnumClaimWidgets = EnumClaimWidgets;
@@ -295,22 +289,8 @@ export class EvjEventsComponent extends WidgetPlatform implements OnInit, OnDest
         super.ngOnDestroy();
     }
 
-    private parseAttributes(dict: {[key: string]: string}, target: IEventsWidgetAttributes): void {
-        Object.keys(dict).forEach((key) => {
-            let value = null;
-            try {
-                value = JSON.parse(dict[key]?.toLowerCase());
-            } catch {
-                value = dict[key];
-                value = value[0].toLowerCase() + value.slice(1);
-            }
-            target[key] = value;
-        });
-    }
-
     protected async dataConnect(): Promise<void> {
         super.dataConnect();
-        this.parseAttributes(this.attributes, this.eventsAttributes);
         this.subcategories = await this.eventService.getSubcategory();
         let filterCondition: 'default' | 'ed' = 'default';
         switch (this.widgetType) {
@@ -464,8 +444,8 @@ export class EvjEventsComponent extends WidgetPlatform implements OnInit, OnDest
             filter: this.filters.find((f) => f.isActive).code,
             dates: this.widgetService.currentDates$.getValue(),
             placeNames: this.placeNames,
-            isVideoWall: !!this.eventsAttributes?.isVideoWall,
-            sortType: this.eventsAttributes?.sortType ?? 'default',
+            isVideoWall: !!this.attributes?.isVideoWall,
+            sortType: this.attributes?.sortType ?? 'default',
             categoriesType: this.widgetType === 'events-ed' ? 'ed' : 'default',
             priority: this.priority,
             units: this.units,

@@ -26,7 +26,7 @@ interface IAstueOnpzMainIndicatorsRaw {
     templateUrl: './astue-onpz-main-indicators.component.html',
     styleUrls: ['./astue-onpz-main-indicators.component.scss']
 })
-export class AstueOnpzMainIndicatorsComponent extends WidgetPlatform implements OnInit, OnDestroy {
+export class AstueOnpzMainIndicatorsComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
 
     public data: IAstueOnpzMainIndicators[] = [];
     public dataRaw: IAstueOnpzMainIndicatorsRaw;
