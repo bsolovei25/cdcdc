@@ -9,7 +9,6 @@ import { PetroleumProductsMovementComponent } from '../../widgets/petroleum-prod
 import { ReferenceComponent } from '../../widgets/reference/reference.component';
 import { TankCalibrationTableComponent } from '../../widgets/tank-calibration-table/tank-calibration-table.component';
 import { CustomReportPropertiesReferenceComponent } from '../../widgets/custom-report-properties-reference/custom-report-properties-reference.component';
-import { ProductionTrendComponent } from '../../widgets/production-trend/production-trend.component';
 import { ReasonsDeviationsComponent } from '../../widgets/reasons-deviations/reasons-deviations.component';
 import { QualityDocsPanelComponent } from '../../widgets/quality-docs-panel/quality-docs-panel.component';
 import { DocumentCodingComponent } from '../../widgets/document-coding/document-coding.component';
@@ -37,7 +36,7 @@ export const WIDGETS = {
     'report-server-configurator': WidgetContainerComponent,
     'tank-calibration-table': TankCalibrationTableComponent,
     'custom-report-properties-reference': CustomReportPropertiesReferenceComponent,
-    'production-trend': ProductionTrendComponent,
+    'production-trend': WidgetContainerComponent,
     'reasons-deviations': ReasonsDeviationsComponent,
     'quality-docs-panel': QualityDocsPanelComponent,
     'document-coding': DocumentCodingComponent,
@@ -1038,6 +1037,18 @@ export const WIDGETS_LAZY = {
         itemCols: 58,
         itemRows: 25,
         minItemCols: 58,
+        minItemRows: 20,
+        preview: 'astue-efficiency'
+    },
+    'production-trend': {
+        import: async () =>
+            await import(
+                'src/app/widgets/ASTUE-MNPZ/production-trend/production-trend.module'
+                ),
+        module: 'ProductionTrendModule',
+        itemCols: 32,
+        itemRows: 20,
+        minItemCols: 32,
         minItemRows: 20,
         preview: 'astue-efficiency'
     },

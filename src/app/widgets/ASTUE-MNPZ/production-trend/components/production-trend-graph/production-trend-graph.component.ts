@@ -1,7 +1,7 @@
 import { Component, Input, OnChanges, OnInit, OnDestroy } from '@angular/core';
-import { IProductionTrend } from '../../../../models/production-trends.model';
-import { LineChartPlatform } from '../../../../models/linechart-platform';
-import { IDatesInterval, WidgetService } from '../../../../services/widget.service';
+import { IProductionTrend } from 'src/app/dashboard/models/production-trends.model';
+import { LineChartPlatform } from 'src/app/dashboard/models/linechart-platform';
+import { IDatesInterval, WidgetService } from 'src/app/dashboard/services/widget.service';
 import { HttpClient } from '@angular/common/http';
 import { AppConfigService } from '@core/service/app-config.service';
 import { Observable } from 'rxjs';

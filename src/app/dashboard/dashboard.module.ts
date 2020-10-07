@@ -84,20 +84,13 @@ import { TreeModule } from 'angular-tree-component';
 import { FilterPopupComponent } from './widgets/petroleum-products-movement/components/filter-popup/filter-popup.component';
 import { NgxMaskModule } from 'ngx-mask';
 import { TransferTableComponent } from './widgets/petroleum-products-movement/components/transfer-table/transfer-table.component';
-import { ProductionTrendComponent } from './widgets/production-trend/production-trend.component';
 import { DevGraphComponent } from './pages/dev-graph/dev-graph.component';
-import { MainIconComponent } from './widgets/production-trend/components/main-icon/main-icon.component';
-import { ProductionTrendFacilitiesComponent } from './widgets/production-trend/components/production-trend-facilities/production-trend-facilities.component';
-import { FacilityComponent } from './widgets/production-trend/components/facility/facility.component';
-import { ProductionTrendPanelComponent } from './widgets/production-trend/components/production-trend-panel/production-trend-panel.component';
-import { ProductionTrendCardInfoComponent } from './widgets/production-trend/components/production-trend-card-info/production-trend-card-info.component';
 import { ReasonsDeviationsComponent } from './widgets/reasons-deviations/reasons-deviations.component';
 import { ReasonsDeviationsLineChartComponent } from './widgets/reasons-deviations/components/reasons-deviations-line-chart/reasons-deviations-line-chart.component';
 import { ReasonsDeviationsInfoContentComponent } from './widgets/reasons-deviations/components/reasons-deviations-info-content/reasons-deviations-info-content.component';
 import { ReasonsDeviationsInfoTankComponent } from './widgets/reasons-deviations/components/reasons-deviations-info-tank/reasons-deviations-info-tank.component';
 import { ReasonsDeviationsPicTankComponent } from './widgets/reasons-deviations/components/reasons-deviations-pic-tank/reasons-deviations-pic-tank.component';
 import { ReasonsDeviationsTankLevelComponent } from './widgets/reasons-deviations/components/reasons-deviations-tank-level/reasons-deviations-tank-level.component';
-import { ProductionTrendGraphComponent } from './widgets/production-trend/components/production-trend-graph/production-trend-graph.component';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { QualityDocsPanelComponent } from './widgets/quality-docs-panel/quality-docs-panel.component';
 import { QualityDocsRecordComponent } from './widgets/quality-docs-panel/components/quality-docs-record/quality-docs-record.component';
@@ -124,7 +117,6 @@ import { OilOperationsLineComponent } from './widgets/oil-operations/components/
 import { OilOperationsAdjustmentComponent } from './widgets/oil-operations/components/oil-operations-adjustment/oil-operations-adjustment.component';
 import { OilOperationsFreeShipmentComponent } from './widgets/oil-operations/components/oil-operations-free-shipment/oil-operations-free-shipment.component';
 import { CdCriticalComponent } from './widgets/cd-critical/cd-critical.component';
-import { ProductionTrendInstallationsComponent } from './widgets/production-trend/components/production-trend-installations/production-trend-installations.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { WidgetPanelComponent } from './components/widget-panel/widget-panel.component';
 import { MatMenuModule } from '@angular/material/menu';
@@ -198,20 +190,13 @@ import { ReportServerConfiguratorModule } from '../widgets/admin/report-server-c
         FilterPopupComponent,
 
         TransferTableComponent,
-        ProductionTrendComponent,
         DevGraphComponent,
-        MainIconComponent,
-        ProductionTrendFacilitiesComponent,
-        FacilityComponent,
-        ProductionTrendPanelComponent,
-        ProductionTrendCardInfoComponent,
         ReasonsDeviationsComponent,
         ReasonsDeviationsLineChartComponent,
         ReasonsDeviationsInfoContentComponent,
         ReasonsDeviationsInfoTankComponent,
         ReasonsDeviationsPicTankComponent,
         ReasonsDeviationsTankLevelComponent,
-        ProductionTrendGraphComponent,
         QualityDocsPanelComponent,
         QualityDocsRecordComponent,
         DocumentCodingComponent,
@@ -237,7 +222,6 @@ import { ReportServerConfiguratorModule } from '../widgets/admin/report-server-c
         OilOperationsAdjustmentComponent,
         OilOperationsFreeShipmentComponent,
         CdCriticalComponent,
-        ProductionTrendInstallationsComponent,
         WidgetPanelComponent,
         WidgetContainerComponent,
         PerformanceBarComponent,

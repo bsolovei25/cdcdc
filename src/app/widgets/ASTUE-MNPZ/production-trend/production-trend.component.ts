@@ -1,7 +1,7 @@
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
-import { WidgetPlatform } from '../../models/widget-platform';
-import { WidgetService } from '../../services/widget.service';
-import { IProductionTrend } from '../../models/production-trends.model';
+import { WidgetPlatform } from 'src/app/dashboard/models/widget-platform';
+import { WidgetService } from 'src/app/dashboard/services/widget.service';
+import { IProductionTrend } from 'src/app/dashboard/models/production-trends.model';
 import { BehaviorSubject } from 'rxjs';
 
 interface IUnit {
@@ -15,11 +15,6 @@ interface IUnit {
     styleUrls: ['./production-trend.component.scss'],
 })
 export class ProductionTrendComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
-    public static itemCols: number = 32;
-    public static itemRows: number = 20;
-
-    public static minItemCols: number = 32;
-    public static minItemRows: number = 20;
 
     public readonly allUnits: IUnit[] = [
         {
