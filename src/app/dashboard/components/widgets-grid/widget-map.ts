@@ -6,7 +6,6 @@ import { DeviationCircleDiagramComponent } from '../../widgets/deviation-circle-
 import { ColumnChartStackedComponent } from '../../widgets/column-chart-stacked/column-chart-stacked.component';
 import { TimeLineDiagramComponent } from '../../widgets/time-line-diagram/time-line-diagram.component';
 import { PetroleumProductsMovementComponent } from '../../widgets/petroleum-products-movement/petroleum-products-movement.component';
-import { ReportServerConfiguratorComponent } from '../../widgets/report-server-configurator/report-server-configurator.component';
 import { ReferenceComponent } from '../../widgets/reference/reference.component';
 import { TankCalibrationTableComponent } from '../../widgets/tank-calibration-table/tank-calibration-table.component';
 import { CustomReportPropertiesReferenceComponent } from '../../widgets/custom-report-properties-reference/custom-report-properties-reference.component';
@@ -35,7 +34,7 @@ export const WIDGETS = {
     'time-line-diagram': TimeLineDiagramComponent,
     'petroleum-products-movement': PetroleumProductsMovementComponent,
     reference: ReferenceComponent,
-    'report-server-configurator': ReportServerConfiguratorComponent,
+    'report-server-configurator': WidgetContainerComponent,
     'tank-calibration-table': TankCalibrationTableComponent,
     'custom-report-properties-reference': CustomReportPropertiesReferenceComponent,
     'production-trend': ProductionTrendComponent,
@@ -455,6 +454,18 @@ export const WIDGETS_LAZY = {
         minItemRows: 20,
         preview: 'workflow'
     },
+    'report-server-configurator': {
+        import: async () => {
+            return await import('src/app/widgets/admin/report-server-configurator/report-server-configurator.module');
+        },
+        module: 'ReportServerConfiguratorModule',
+        itemCols: 32,
+        itemRows: 15,
+        minItemCols: 27,
+        minItemRows: 15,
+        preview: 'report-server-configurator'
+    },
+
 
 
     // #endregion Admin

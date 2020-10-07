@@ -2,7 +2,7 @@ import { Component, OnInit, EventEmitter, Output, Input, OnChanges, OnDestroy } 
 import { timeInterval } from 'rxjs/operators';
 import { SnackBarService } from 'src/app/dashboard/services/snack-bar.service';
 import { IPostSystemOptionsTemplate } from 'src/app/dashboard/models/report-server';
-import { ReportServerConfiguratorService } from '../../../../services/widgets/report-server-configurator.service';
+import { ReportServerConfiguratorService } from 'src/app/dashboard/services/widgets/report-server-configurator.service';
 
 @Component({
   selector: 'evj-system-period-edit',

@@ -61,7 +61,6 @@ import { ReportComponent } from './components/report/reports/report.component';
 import { ReportsComponent } from './components/report/reports.component';
 import { ImageCropperModule } from 'ngx-image-cropper';
 import { ReferenceComponent } from './widgets/reference/reference.component';
-import { ReportServerConfiguratorComponent } from './widgets/report-server-configurator/report-server-configurator.component';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import {
     NgxMatDatetimePickerModule,
@@ -70,7 +69,6 @@ import {
 } from '@angular-material-components/datetime-picker';
 import { MatButtonModule } from '@angular/material/button';
 import { NgxMatMomentModule } from '@angular-material-components/moment-adapter';
-import { AddReportFileComponent } from './widgets/report-server-configurator/add-report-file/add-report-file.component';
 import { TankCalibrationTableComponent } from './widgets/tank-calibration-table/tank-calibration-table.component';
 import { TankCalibrationTableFilesComponent } from './widgets/tank-calibration-table/tank-calibration-table-files/tank-calibration-table-files.component';
 import { UploadDropComponent } from './widgets/tank-calibration-table/upload-form/upload-drop/upload-drop.component';
@@ -78,26 +76,13 @@ import { MatDialogModule, MatDialogRef, MAT_DIALOG_DATA } from '@angular/materia
 import { TanksTableComponent } from './widgets/tank-calibration-table/tanks-table/tanks-table.component';
 import { UploadFormComponent } from './widgets/tank-calibration-table/upload-form/upload-form.component';
 import { CustomReportPropertiesReferenceComponent } from './widgets/custom-report-properties-reference/custom-report-properties-reference.component';
-import { PopupUserOptionsComponent } from './widgets/report-server-configurator/popup-user-options/popup-user-options.component';
-import { NecessaryParamComponent } from './widgets/report-server-configurator/popup-user-options/necessary-param/necessary-param.component';
-import { AdditionalParamComponent } from './widgets/report-server-configurator/popup-user-options/additional-param/additional-param.component';
 import { CustomReportOptionsComponent } from './widgets/custom-report-properties-reference/custom-report-options/custom-report-options.component';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatIconModule } from '@angular/material/icon';
 import { TreeModule } from 'angular-tree-component';
-import { PopupSystemOptionsComponent } from './widgets/report-server-configurator/popup-system-options/popup-system-options.component';
-import { SystemPeriodEditComponent } from './widgets/report-server-configurator/popup-system-options/system-period-edit/system-period-edit.component';
-import { SystemParameterValuesAutogenerationComponent } from './widgets/report-server-configurator/popup-system-options/system-parameter-values-autogeneration/system-parameter-values-autogeneration.component';
-import { SystemReportSheetsComponent } from './widgets/report-server-configurator/popup-system-options/system-report-sheets/system-report-sheets.component';
-import { SystemMacroEditComponent } from './widgets/report-server-configurator/popup-system-options/system-macro-edit/system-macro-edit.component';
-import { SystemPathEditComponent } from './widgets/report-server-configurator/popup-system-options/system-path-edit/system-path-edit.component';
-import { SystemAutogenerateComponent } from './widgets/report-server-configurator/popup-system-options/system-autogenerate/system-autogenerate.component';
-import { SystemPathUserComponent } from './widgets/report-server-configurator/popup-system-options/system-path-edit/system-path-user/system-path-user.component';
-import { ParameterAutogenerationComponent } from './widgets/report-server-configurator/popup-system-options/system-parameter-values-autogeneration/parameter-autogeneration/parameter-autogeneration.component';
 import { FilterPopupComponent } from './widgets/petroleum-products-movement/components/filter-popup/filter-popup.component';
 import { NgxMaskModule } from 'ngx-mask';
-import { SystemPeriodDateComponent } from './widgets/report-server-configurator/popup-system-options/system-period-edit/system-period-date/system-period-date.component';
 import { TransferTableComponent } from './widgets/petroleum-products-movement/components/transfer-table/transfer-table.component';
 import { ProductionTrendComponent } from './widgets/production-trend/production-trend.component';
 import { DevGraphComponent } from './pages/dev-graph/dev-graph.component';
@@ -106,9 +91,6 @@ import { ProductionTrendFacilitiesComponent } from './widgets/production-trend/c
 import { FacilityComponent } from './widgets/production-trend/components/facility/facility.component';
 import { ProductionTrendPanelComponent } from './widgets/production-trend/components/production-trend-panel/production-trend-panel.component';
 import { ProductionTrendCardInfoComponent } from './widgets/production-trend/components/production-trend-card-info/production-trend-card-info.component';
-import { SystemPeriodDateYearComponent } from './widgets/report-server-configurator/popup-system-options/system-period-edit/system-period-date/system-period-date-year/system-period-date-year.component';
-import { SystemPeriodDateMonthComponent } from './widgets/report-server-configurator/popup-system-options/system-period-edit/system-period-date/system-period-date-month/system-period-date-month.component';
-import { SystemPeriodDateDayComponent } from './widgets/report-server-configurator/popup-system-options/system-period-edit/system-period-date/system-period-date-day/system-period-date-day.component';
 import { ReasonsDeviationsComponent } from './widgets/reasons-deviations/reasons-deviations.component';
 import { ReasonsDeviationsLineChartComponent } from './widgets/reasons-deviations/components/reasons-deviations-line-chart/reasons-deviations-line-chart.component';
 import { ReasonsDeviationsInfoContentComponent } from './widgets/reasons-deviations/components/reasons-deviations-info-content/reasons-deviations-info-content.component';
@@ -139,7 +121,6 @@ import { OilOperationsTankFilterComponent } from './widgets/oil-operations/compo
 import { OilOperationsLineChartComponent } from './widgets/oil-operations/components/oil-operations-line-chart/oil-operations-line-chart.component';
 import { OilOperationsLineMenuComponent } from './widgets/oil-operations/components/oil-operations-line-menu/oil-operations-line-menu.component';
 import { OilOperationsLineComponent } from './widgets/oil-operations/components/oil-operations-line/oil-operations-line.component';
-import { ReportFileSelectBoxComponent } from './widgets/report-server-configurator/report-file-select-box/report-file-select-box.component';
 import { OilOperationsAdjustmentComponent } from './widgets/oil-operations/components/oil-operations-adjustment/oil-operations-adjustment.component';
 import { OilOperationsFreeShipmentComponent } from './widgets/oil-operations/components/oil-operations-free-shipment/oil-operations-free-shipment.component';
 import { CdCriticalComponent } from './widgets/cd-critical/cd-critical.component';
@@ -202,29 +183,14 @@ import { TankFilterComponent } from '../widgets/NK/tank-information/components/t
         ReportComponent,
         ReportsComponent,
         ReferenceComponent,
-        ReportServerConfiguratorComponent,
-        AddReportFileComponent,
         TankCalibrationTableComponent,
         TankCalibrationTableFilesComponent,
         UploadFormComponent,
         UploadDropComponent,
         TanksTableComponent,
         CustomReportPropertiesReferenceComponent,
-        PopupUserOptionsComponent,
-        NecessaryParamComponent,
-        AdditionalParamComponent,
         CustomReportOptionsComponent,
-        PopupSystemOptionsComponent,
-        SystemPeriodEditComponent,
-        SystemParameterValuesAutogenerationComponent,
-        SystemReportSheetsComponent,
-        SystemMacroEditComponent,
-        SystemPathEditComponent,
-        SystemAutogenerateComponent,
-        SystemPathUserComponent,
-        ParameterAutogenerationComponent,
         FilterPopupComponent,
-        SystemPeriodDateComponent,
         TransferTableComponent,
         ProductionTrendComponent,
         DevGraphComponent,
@@ -233,9 +199,6 @@ import { TankFilterComponent } from '../widgets/NK/tank-information/components/t
         FacilityComponent,
         ProductionTrendPanelComponent,
         ProductionTrendCardInfoComponent,
-        SystemPeriodDateYearComponent,
-        SystemPeriodDateMonthComponent,
-        SystemPeriodDateDayComponent,
         ReasonsDeviationsComponent,
         ReasonsDeviationsLineChartComponent,
         ReasonsDeviationsInfoContentComponent,
@@ -265,7 +228,6 @@ import { TankFilterComponent } from '../widgets/NK/tank-information/components/t
         OilOperationsLineChartComponent,
         OilOperationsLineMenuComponent,
         OilOperationsLineComponent,
-        ReportFileSelectBoxComponent,
         OilOperationsAdjustmentComponent,
         OilOperationsFreeShipmentComponent,
         CdCriticalComponent,
@@ -290,7 +252,6 @@ import { TankFilterComponent } from '../widgets/NK/tank-information/components/t
         TimeLineDiagramComponent,
         PetroleumProductsMovementComponent,
         ReferenceComponent,
-        ReportServerConfiguratorComponent,
         ReportComponent,
         ReportsComponent,
         TankCalibrationTableComponent,
