@@ -1,159 +1,166 @@
+@import 'src/mixins';
+
 ::-webkit-scrollbar {
-    width: 4px;
-    height: 4px;
-    margin-left: 50px;
-    margin-right: 50px;
+  width: 4px;
+  height: 4px;
+  margin-left: 50px;
+  margin-right: 50px;
 }
 
 ::-webkit-scrollbar-track:vertical {
-    width: 4px;
-    height: 4px;
-    border-radius: 25px;
+  width: 4px;
+  height: 4px;
+  border-radius: 25px;
 }
 
 :hover::-webkit-scrollbar-thumb {
-    background-color: var(--color-border-active);
-    border-radius: 25px;
+  background-color: var(--color-border-active);
+  border-radius: 25px;
 }
 
 ::-webkit-scrollbar-thumb {
-    width: 10px;
-    border-radius: 25px;
-    background-color: var(--color-border-main);
+  width: 10px;
+  border-radius: 25px;
+  background-color: var(--color-border-main);
 }
 
 ::-webkit-scrollbar-track {
-    border-radius: 25px;
+  border-radius: 25px;
 }
+
 ::-webkit-scrollbar-track-piece {
-    border-radius: 25px;
+  border-radius: 25px;
 }
 
 ::-webkit-resizer {
-    background-color: var(--color-border-active);
+  background-color: var(--color-border-active);
 }
 
 .container-operation-filter {
-    height: 75%;
-    width: 300px;
-    box-shadow: 0 0 10px var(--color-oil-popup-shadow);
-    border-radius: 20px;
+  height: 40vh;
+  width: 300px;
+  box-shadow: 0 0 10px var(--color-oil-popup-shadow);
+  border-radius: 20px;
 }
 
 .title {
-    position: relative;
-    height: 40px;
+  position: relative;
+  height: 40px;
+  width: 100%;
+  background-color: var(--color-oil-table);
+  color: var(--color-text-main);
+  text-align: center;
+  line-height: 40px;
+  font-size: 12px;
+  display: flex;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+
+  &__button-close {
+    cursor: pointer;
+    width: 40px;
+    margin-top: 7px;
+    margin-left: 20px;
+  }
+
+  &__name {
+    font-size: 14px;
     width: 100%;
-    background-color: var(--color-oil-table);
-    color: var(--color-text-main);
+    white-space: nowrap;
+    padding: 5px;
+    padding-left: 0px;
+    padding-right: 28px;
+    padding-top: 0;
+    text-overflow: ellipsis;
+    overflow: hidden;
     text-align: center;
-    line-height: 40px;
-    font-size: 12px;
-    display: flex;
-    border-top-left-radius: 20px;
-    border-top-right-radius: 20px;
-
-    &__button-close {
-        cursor: pointer;
-        width: 40px;
-        margin-top: 7px;
-        margin-left: 20px;
-    }
-
-    &__name {
-        font-size: 14px;
-        width: 100%;
-        white-space: nowrap;
-        padding: 5px;
-        padding-left: 0px;
-        padding-right: 28px;
-        padding-top: 0;
-        text-overflow: ellipsis;
-        overflow: hidden;
-        text-align: center;
-    }
+  }
 }
 
 .content {
+  overflow: auto;
+  overflow-x: hidden;
+  height: calc(100% - 90px);
+  background-color: var(--color-bg-main);
+  border-top: 2px solid black;
+  border-bottom: 2px solid black;
+  font-size: 14px;
+
+  .content-block {
     overflow: auto;
     overflow-x: hidden;
-    height: calc(100% - 90px);
-    background-color: var(--color-bg-main);
-    border-top: 2px solid black;
-    border-bottom: 2px solid black;
-    font-size: 14px;
+    height: 100%;
+    width: calc(100% - 5px);
 
-    .content-block {
-        overflow: auto;
-        overflow-x: hidden;
-        height: 100%;
-        width: calc(100% - 5px);
+    .item {
+      font-size: 14px;
+      cursor: pointer;
+      height: 40px;
+      line-height: 40px;
+      display: flex;
+      border-bottom: 2px solid var(--color-oil-popup-shadow);
 
-        .item {
-            font-size: 14px;
-            cursor: pointer;
-            height: 40px;
-            line-height: 40px;
-            display: flex;
-            border-bottom: 2px solid var(--color-oil-popup-shadow);
+      &__shadow-block {
+        cursor: pointer;
+        background-color: var(--color-bg-main);
+        height: auto;
+      }
 
-            &__shadow-block {
-                cursor: pointer;
-                background-color: var(--color-bg-main);
-                height: auto;
-            }
+      &__i {
+        display: flex;
+        border-bottom: 1px solid var(--color-oil-popup-shadow);
+        height: 40px;
+        line-height: 40px;
 
-            &__i {
-                display: flex;
-                border-bottom: 1px solid var(--color-oil-popup-shadow);
-                height: 40px;
-                line-height: 40px;
-                &:hover {
-                    background: var(--color-bg-active);
-                }
-                .name-param {
-                    padding-left: 25px;
-                    width: 100%;
-                    border-right: 1px solid var(--color-table-main);
-                }
-            }
+        &:hover {
+          background: var(--color-bg-active);
         }
+
+        .name-param {
+          padding-left: 25px;
+          width: 100%;
+          border-right: 1px solid var(--color-table-main);
+          @include text-overflow;
+          -webkit-line-clamp: 1;
+        }
+      }
     }
+  }
 }
 
 .bottom {
+  position: relative;
+  height: 35px;
+  padding-top: 10px;
+  width: 100%;
+  background-color: #1b1f2c;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+
+  &__block {
+    margin: 0 auto;
+    width: 45%;
+    height: 80%;
+    font-size: 15px;
+    display: flex;
+    border: 1px solid white;
+    border-radius: 20px;
+
+    &:hover {
+      cursor: pointer;
+      border: 1px solid var(--color-border-active);
+      color: var(--color-border-active);
+    }
+  }
+
+  &__save-block {
+    display: flex;
     position: relative;
-    height: 35px;
-    padding-top: 10px;
-    width: 100%;
-    background-color: #1b1f2c;
-    border-bottom-left-radius: 20px;
-    border-bottom-right-radius: 20px;
-
-    &__block {
-        margin: 0 auto;
-        width: 45%;
-        height: 80%;
-        font-size: 15px;
-        display: flex;
-        border: 1px solid white;
-        border-radius: 20px;
-
-        &:hover {
-            cursor: pointer;
-            border: 1px solid var(--color-border-active);
-            color: var(--color-border-active);
-        }
-    }
-
-    &__save-block {
-        display: flex;
-        position: relative;
-        margin: 0 auto;
-        align-items: center;
-    }
+    margin: 0 auto;
+    align-items: center;
+  }
 }
 
 .active {
-    color: var(--color-border-active);
+  color: var(--color-border-active);
 }

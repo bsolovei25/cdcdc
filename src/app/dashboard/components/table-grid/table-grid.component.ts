@@ -23,7 +23,7 @@ export class TableGridComponent implements OnInit, AfterViewInit {
   @Input() activeFilter: boolean;
 
   @Output() clickSave: EventEmitter<boolean> = new EventEmitter<boolean>();
-  @Output() clickFilter: EventEmitter<string> = new EventEmitter<string>();
+  @Output() clickFilter: EventEmitter<IOilFilter> = new EventEmitter<IOilFilter>();
   @Output() item: EventEmitter<any> = new EventEmitter<any>();
   @Output() deleteItem: EventEmitter<any> = new EventEmitter<any>(); // in progress...
 
@@ -99,7 +99,7 @@ export class TableGridComponent implements OnInit, AfterViewInit {
     this.clickSave.emit(event);
   }
 
-  openFilter(event: string): void {
+  public filterSelect(event: any): void {
     this.clickFilter.emit(event);
   }
 

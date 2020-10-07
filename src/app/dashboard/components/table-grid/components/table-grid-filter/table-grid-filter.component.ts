@@ -19,6 +19,11 @@ export interface ITableGridFilter<T> {
     data?: T[];
 }
 
+export interface ITableGridActiveFilter {
+    type: string;
+    filter: IOilFilter;
+}
+
 @Component({
     selector: 'evj-table-grid-filter',
     templateUrl: './table-grid-filter.component.html',
@@ -26,14 +31,17 @@ export interface ITableGridFilter<T> {
 })
 
 export class TableGridFilterComponent implements OnInit, OnChanges {
-
     @Output()
-    public onFilterClick: EventEmitter<string> = new EventEmitter<string>();
+    public filterSelect: EventEmitter<ITableGridActiveFilter> = new EventEmitter<ITableGridActiveFilter>();
 
     @Input()
     public filter: ITableGridFilter<IOilFilter>;
 
     public isPopoverOpened: boolean = false;
+
+    public filterTitle: string;
+
+    public activeFilter: IOilFilter;
 
     constructor(
         private popoverOverlayService: PopoverOverlayService,
@@ -44,10 +52,14 @@ export class TableGridFilterComponent implements OnInit, OnChanges {
     }
 
     public ngOnChanges(): void {
+        this.updateFilterTitle();
+    }
+
+    private updateFilterTitle(): void {
+        this.filterTitle = this.activeFilter ? this.activeFilter.name : this.filter?.name;
     }
 
     public onClick(type: string): void {
-        // this.onFilterClick.emit(type);
         const element = document.getElementById(type);
         this.openPopover(element);
     }
@@ -59,6 +71,8 @@ export class TableGridFilterComponent implements OnInit, OnChanges {
             data: {
                 title: this.filter.name,
                 data: this.filter?.data,
+                type: this.filter?.type,
+                activeFilter: this.activeFilter,
             } as IOilFilterInput,
         });
         this.isPopoverOpened = true;
@@ -66,6 +80,14 @@ export class TableGridFilterComponent implements OnInit, OnChanges {
         popoverRef.afterClosed$.subscribe(res => {
             this.isPopoverOpened = false;
             if (res && res.data) {
+                this.activeFilter = res.data.activeFilter;
+                this.updateFilterTitle();
+                this.filterSelect.emit({
+                    type: res.data.type,
+                    filter: res.data.activeFilter,
+                });
+            } else {
+                this.filterTitle = this.filter.name;
             }
         });
     }

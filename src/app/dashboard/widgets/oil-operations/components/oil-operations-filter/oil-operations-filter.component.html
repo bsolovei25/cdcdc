@@ -12,7 +12,7 @@
                 <ng-container *ngFor="let item of data">
                     <div class="item__shadow-block">
                             <div class="item__i" (click)="onOptionSelect(item)">
-                                <div class="name-param" [class.active]="activeItemId === item.id">
+                                <div class="name-param" [class.active]="activeItem?.id === item.id">
                                     {{ item.name }}
                                 </div>
                             </div>

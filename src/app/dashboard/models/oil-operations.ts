@@ -47,6 +47,8 @@ export interface IRightOilTable {
 export interface IOilFilter {
     id: number;
     name: string;
+    createdAt?: string;
+    isActual?: boolean;
 }
 
 export interface IOilFilterTanks {

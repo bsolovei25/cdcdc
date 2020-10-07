@@ -332,8 +332,8 @@ export class OilOperationsComponent extends WidgetPlatform implements OnInit, On
         super.ngOnDestroy();
     }
 
-    openFilter(open: string): void {
-        console.log(open);
+    openFilter(open: any): void {
+        console.log(open, 'main component');
         this.active('isFilter');
     }
 
