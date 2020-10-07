@@ -12,7 +12,7 @@ import {
     QueryList,
     HostListener,
 } from '@angular/core';
-import { WidgetService } from '../../services/widget.service';
+import { WidgetService } from 'src/app/dashboard/services/widget.service';
 import {
     GridsterConfig,
     GridsterItem,
@@ -20,11 +20,11 @@ import {
     GridsterItemComponentInterface,
     GridsterItemComponent,
 } from 'angular-gridster2';
-import { WorkflowService } from '../../services/widgets/workflow.service';
-import { IAlertWindowModel } from '../../../@shared/models/alert-window.model';
-import { SnackBarService } from '../../services/snack-bar.service';
-import { IAlertInputModel } from '../../../@shared/models/alert-input.model';
-import { WidgetPlatform } from '../../models/widget-platform';
+import { WorkflowService } from 'src/app/dashboard/services/widgets/workflow.service';
+import { IAlertWindowModel } from '@shared/models/alert-window.model';
+import { SnackBarService } from 'src/app/dashboard/services/snack-bar.service';
+import { IAlertInputModel } from '@shared/models/alert-input.model';
+import { WidgetPlatform } from 'src/app/dashboard/models/widget-platform';
 import { FormControl } from '@angular/forms';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { MatChipInputEvent } from '@angular/material/chips';
@@ -33,7 +33,7 @@ import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 import { IWorkspaceTable } from './workflow-table/workflow-table.component';
 import { IModules, IScenarios } from './workflow-list/workflow-list.component';
 import { MatSelectChange } from '@angular/material/select';
-import { WorkflowActions, WorkflowActionsNameMap } from '../../models/workflow.model';
+import { WorkflowActions, WorkflowActionsNameMap } from 'src/app/dashboard/models/workflow.model';
 import { trigger, transition, style, animate } from '@angular/animations';
 
 declare let LeaderLine: any;

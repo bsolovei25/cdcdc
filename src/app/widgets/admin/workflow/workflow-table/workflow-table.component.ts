@@ -8,9 +8,9 @@ import {
     AfterContentInit,
 } from '@angular/core';
 import { SelectionModel } from '@angular/cdk/collections';
-import { IUser } from '../../../models/events-widget';
-import { EventService } from '../../../services/widgets/event.service';
+import { EventService } from 'src/app/dashboard/services/widgets/event.service';
 import { AvatarConfiguratorService } from '@core/service/avatar-configurator.service';
+import { IUser } from 'src/app/dashboard/models/events-widget';
 
 export interface IWorkspaceTable {
     height?: number;

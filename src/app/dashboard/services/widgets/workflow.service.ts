@@ -8,9 +8,9 @@ import {
     IActionEmail,
     IActionTable,
     IActionEmailProps,
-} from '../../widgets/workflow/workflow.component';
+} from 'src/app/widgets/admin/workflow/workflow.component';
 import { BehaviorSubject } from 'rxjs';
-import { IModules, IScenarios } from '../../widgets/workflow/workflow-list/workflow-list.component';
+import { IModules, IScenarios } from 'src/app/widgets/admin/workflow/workflow-list/workflow-list.component';
 
 @Injectable({
     providedIn: 'root',

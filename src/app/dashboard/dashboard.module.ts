@@ -132,7 +132,6 @@ import { OilOperationsComponent } from './widgets/oil-operations/oil-operations.
 import { TableGridInputComponent } from './components/table-grid/components/table-grid-input/table-grid-input.component';
 import { TableGridFilterComponent } from './components/table-grid/components/table-grid-filter/table-grid-filter.component';
 import { TableGridSaveButtonComponent } from './components/table-grid/components/table-grid-save-button/table-grid-save-button.component';
-import { WorkflowComponent } from './widgets/workflow/workflow.component';
 import { OilOperationsReceivedOperationsComponent } from './widgets/oil-operations/components/oil-operations-received-operations/oil-operations-received-operations.component';
 import { OilOperationsShipmentFormationComponent } from './widgets/oil-operations/components/oil-operations-shipment-formation/oil-operations-shipment-formation.component';
 import { OilOperationsFilterComponent } from './widgets/oil-operations/components/oil-operations-filter/oil-operations-filter.component';
@@ -144,8 +143,6 @@ import { ReportFileSelectBoxComponent } from './widgets/report-server-configurat
 import { OilOperationsAdjustmentComponent } from './widgets/oil-operations/components/oil-operations-adjustment/oil-operations-adjustment.component';
 import { OilOperationsFreeShipmentComponent } from './widgets/oil-operations/components/oil-operations-free-shipment/oil-operations-free-shipment.component';
 import { CdCriticalComponent } from './widgets/cd-critical/cd-critical.component';
-import { WorkflowTableComponent } from './widgets/workflow/workflow-table/workflow-table.component';
-import { WorkflowListComponent } from './widgets/workflow/workflow-list/workflow-list.component';
 import { ProductionTrendInstallationsComponent } from './widgets/production-trend/components/production-trend-installations/production-trend-installations.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { WidgetPanelComponent } from './components/widget-panel/widget-panel.component';
@@ -261,7 +258,6 @@ import { TankFilterComponent } from '../widgets/NK/tank-information/components/t
         TableGridInputComponent,
         TableGridFilterComponent,
         TableGridSaveButtonComponent,
-        WorkflowComponent,
         OilOperationsReceivedOperationsComponent,
         OilOperationsShipmentFormationComponent,
         OilOperationsFilterComponent,
@@ -273,8 +269,6 @@ import { TankFilterComponent } from '../widgets/NK/tank-information/components/t
         OilOperationsAdjustmentComponent,
         OilOperationsFreeShipmentComponent,
         CdCriticalComponent,
-        WorkflowTableComponent,
-        WorkflowListComponent,
         ProductionTrendInstallationsComponent,
         WidgetPanelComponent,
         WidgetContainerComponent,
@@ -309,7 +303,6 @@ import { TankFilterComponent } from '../widgets/NK/tank-information/components/t
         DocumentCodingComponent,
         ReportTreeComponent,
         OilOperationsComponent,
-        WorkflowComponent,
         PanelComponent,
     ],
     exports: [HomeComponent, PerformanceBarComponent, WidgetPreviewComponent, PowIndexPipe, TankFilterComponent],

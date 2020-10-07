@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { IAlertWindowModel } from '../../../../@shared/models/alert-window.model';
-import { WorkflowService } from '../../../services/widgets/workflow.service';
-import { SnackBarService } from '../../../services/snack-bar.service';
+import { WorkflowService } from 'src/app/dashboard/services/widgets/workflow.service';
+import { SnackBarService } from 'src/app/dashboard/services/snack-bar.service';
 import { MatSelectChange } from '@angular/material/select';
 import { ICreateConnection } from '../workflow.component';
 import { Subscription } from 'rxjs';

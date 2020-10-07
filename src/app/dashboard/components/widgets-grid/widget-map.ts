@@ -15,7 +15,6 @@ import { ReasonsDeviationsComponent } from '../../widgets/reasons-deviations/rea
 import { QualityDocsPanelComponent } from '../../widgets/quality-docs-panel/quality-docs-panel.component';
 import { DocumentCodingComponent } from '../../widgets/document-coding/document-coding.component';
 import { OilOperationsComponent } from '../../widgets/oil-operations/oil-operations.component';
-import { WorkflowComponent } from '../../widgets/workflow/workflow.component';
 import { CdCriticalComponent } from '../../widgets/cd-critical/cd-critical.component';
 import { WidgetContainerComponent } from '../../widget-container/widget-container.component';
 import { CdMatBalanceChartCardComponent } from '../../../widgets/CD/cd-mat-balance/components/cd-mat-balance-chart-card/cd-mat-balance-chart-card.component';
@@ -44,7 +43,7 @@ export const WIDGETS = {
     'quality-docs-panel': QualityDocsPanelComponent,
     'document-coding': DocumentCodingComponent,
     'oil-operations': OilOperationsComponent,
-    workflow: WorkflowComponent,
+    workflow: WidgetContainerComponent,
     'cd-critical': CdCriticalComponent,
     'implementation-plan': WidgetContainerComponent,
     'performance-progress-indicators': WidgetContainerComponent,
@@ -445,6 +444,18 @@ export const WIDGETS_LAZY = {
         minItemRows: 13,
         preview: 'admin-references'
     },
+    'workflow': {
+        import: async () => {
+            return await import('src/app/widgets/admin/workflow/workflow.module');
+        },
+        module: 'WorkflowModule',
+        itemCols: 30,
+        itemRows: 20,
+        minItemCols: 30,
+        minItemRows: 20,
+        preview: 'workflow'
+    },
+
 
     // #endregion Admin
 
