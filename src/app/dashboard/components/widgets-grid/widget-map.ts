@@ -734,9 +734,9 @@ export const WIDGETS_LAZY = {
         },
         module: 'TruncatedDiagramTrafficLightModule',
         itemCols: 13,
-        itemRows: 5,
+        itemRows: 15,
         minItemCols: 13,
-        minItemRows: 16,
+        minItemRows: 5,
         preview: 'truncated-diagram-traffic-light'
     },
     'truncated-diagram-percentage': {
