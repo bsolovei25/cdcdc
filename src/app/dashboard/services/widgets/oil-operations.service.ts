@@ -92,6 +92,15 @@ export class OilOperationsService {
         return await this.getShipmentListRequest(query);
     }
 
+    public async getFilterList<T>(filter: 'products' | 'groups'): Promise<T>  {
+        try {
+            return await this.http.get<T>(`${this.restUrl}/api/oil-control/${filter}`).toPromise();
+        } catch (e) {
+            console.error(e);
+            return null;
+        }
+    }
+
     private getFilterString(
         startTime: Date,
         endTime: Date,

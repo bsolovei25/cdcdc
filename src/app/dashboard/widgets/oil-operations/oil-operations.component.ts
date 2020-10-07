@@ -33,54 +33,12 @@ export class OilOperationsComponent extends WidgetPlatform implements OnInit, On
         {
             name: 'Продукты',
             type: 'products',
-            data: [
-                {
-                    id: 1,
-                    name: 'Мазут'
-                },
-                {
-                    id: 2,
-                    name: 'Мазут'
-                },
-                {
-                    id: 3,
-                    name: 'Мазут'
-                },
-                {
-                    id: 4,
-                    name: 'Мазут'
-                },
-                {
-                    id: 5,
-                    name: 'Мазут'
-                }
-            ],
+            data: null,
         },
         {
             name: 'Группы',
             type: 'groups',
-            data: [
-                {
-                    id: 1,
-                    name: 'Группа'
-                },
-                {
-                    id: 2,
-                    name: 'Группа'
-                },
-                {
-                    id: 3,
-                    name: 'Группа'
-                },
-                {
-                    id: 4,
-                    name: 'Группа'
-                },
-                {
-                    id: 5,
-                    name: 'Группа'
-                }
-            ],
+            data: null,
         },
     ];
 
@@ -283,8 +241,10 @@ export class OilOperationsComponent extends WidgetPlatform implements OnInit, On
         this.widgetIcon = 'reference';
     }
 
-    ngOnInit(): void {
+    public ngOnInit(): void {
         super.widgetInit();
+        this.getFilterList('products');
+        this.getFilterList('groups');
     }
 
     protected dataHandler(ref: any): void {
@@ -296,6 +256,15 @@ export class OilOperationsComponent extends WidgetPlatform implements OnInit, On
         this.subscriptions.push(
             this.widgetService.currentDates$.subscribe(this.onDatesChange.bind(this))
         );
+    }
+
+    private async getFilterList(filter: 'products' | 'groups'): Promise<any> {
+        const values = await this.oilOperationService.getFilterList<any>(filter);
+        this.availableFilters.map(availableFilter => {
+            if (availableFilter.type === filter) {
+                availableFilter.data = values;
+            }
+        });
     }
 
     // TODO вынести проверку на null в сервис
