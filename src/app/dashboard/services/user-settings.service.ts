@@ -32,7 +32,7 @@ export class UserSettingsService {
 
     public ScreenId: number;
     public ScreenName: string;
-    private projectName: string;
+    readonly projectName: string;
 
     private widgetsOnScreen: Map<string, string> = new Map<string, string>();
 

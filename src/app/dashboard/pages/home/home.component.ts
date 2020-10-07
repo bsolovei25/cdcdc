@@ -4,24 +4,30 @@ import { UserSettingsService } from '../../services/user-settings.service';
 import { ClaimService } from '../../services/claim.service';
 import { OverlayService } from '../../services/overlay.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Title } from '@angular/platform-browser';
+import { AppConfigService } from '@core/service/app-config.service';
 
 @Component({
     selector: 'evj-home',
     templateUrl: './home.component.html',
-    styleUrls: ['./home.component.scss'],
+    styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit, OnDestroy {
     fullscreen: boolean = false;
+    readonly projectName: string;
 
     constructor(
         private widgetService: WidgetService,
         private userSettings: UserSettingsService,
         private claimService: ClaimService,
         public overlayService: OverlayService,
+        private titleService: Title,
+        private configService: AppConfigService,
         // public route: ActivatedRoute,
-        public router: Router,
+        public router: Router
     ) {
         this.applicationCreate();
+        this.projectName = configService.projectName;
     }
 
     ngOnInit(): void {
@@ -31,6 +37,7 @@ export class HomeComponent implements OnInit, OnDestroy {
         document.addEventListener('fullscreenchange', () => {
             this.fullscreen = !!document.fullscreenElement;
         });
+        this.titleService.setTitle(this.projectName);
         // const answer = this.route.snapshot.queryParamMap.get('screenId');
         // this.router.navigate([], { queryParams: {screenId: 1}});
     }
@@ -46,7 +53,7 @@ export class HomeComponent implements OnInit, OnDestroy {
             const queryParamsStr = localStorage.getItem('queryParams');
             if (queryParamsStr?.length > 0) {
                 const queryParams = JSON.parse(queryParamsStr);
-                await this.router.navigate([], {queryParams});
+                await this.router.navigate([], { queryParams });
                 localStorage.removeItem('queryParams');
             }
             localStorage.setItem('refresh-dashboard', 'false');
