@@ -15,7 +15,7 @@ import { WidgetPlatform } from 'src/app/dashboard/models/widget-platform';
     templateUrl: './energetics.component.html',
     styleUrls: ['./energetics.component.scss'],
 })
-export class EnergeticsComponent extends WidgetPlatform implements OnInit, OnDestroy {
+export class EnergeticsComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
 
     /* Приблизительная структура, получаемая с бека */
 

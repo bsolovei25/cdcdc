@@ -9,7 +9,7 @@ import { WidgetPlatform } from 'src/app/dashboard/models/widget-platform';
     templateUrl: './operation-efficiency.component.html',
     styleUrls: ['./operation-efficiency.component.scss'],
 })
-export class OperationEfficiencyComponent extends WidgetPlatform implements OnInit, OnDestroy {
+export class OperationEfficiencyComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
 
     /* Приблизительная структура, получаемая с бека */
 
