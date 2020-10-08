@@ -190,6 +190,13 @@ export class OilOperationsComponent extends WidgetPlatform implements OnInit, On
         return await this.oilOperationService.getTransferList(lastId, options);
     }
 
+    public async appendOperations(lastId: number): Promise<void> {
+        const operations = await this.getLeftTable(lastId);
+        if (operations.length) {
+            this.data.tableLeft = this.data.tableLeft.concat(operations);
+        }
+    }
+
     public async getRightTable(): Promise<IRightOilTable[]> {
         const oilShipment = await this.oilOperationService.getShipmentList(this.currentDates);
         console.log(oilShipment);

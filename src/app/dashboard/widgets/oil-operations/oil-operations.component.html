@@ -17,6 +17,7 @@
                           [activeFilter]="filter.isFilter"
                           [filters]="availableFilters"
                           (clickFilter)="openFilter($event)"
+                          (scrollReachedItemId)="appendOperations($event)"
                         >
                             <evj-column-grid key="transferNumber" name="№" [width]="7"></evj-column-grid>
                             <evj-column-grid key="tankNumber" name="Р-р" [width]="7"></evj-column-grid>

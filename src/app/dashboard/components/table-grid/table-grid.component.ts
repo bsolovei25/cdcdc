@@ -27,6 +27,9 @@ export class TableGridComponent implements OnInit, AfterViewInit {
   @Output() item: EventEmitter<any> = new EventEmitter<any>();
   @Output() deleteItem: EventEmitter<any> = new EventEmitter<any>(); // in progress...
 
+  @Output()
+  public scrollReachedItemId: EventEmitter<number> = new EventEmitter<number>();
+
   objectKeys = Object.keys;
 
   public activeItemId: number;
@@ -40,15 +43,15 @@ export class TableGridComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
     this.dataSave = this.data;
-    this.setStyleScroll();
+    // this.setStyleScroll();
   }
 
   @HostListener('document:resize', ['$event'])
   OnResize(event): void {
-    this.setStyleScroll();
+    // this.setStyleScroll();
   }
 
-  setStyleScroll(): void {
+  /*setStyleScroll(): void {
     const scroll = this.table.nativeElement;
     if (scroll) {
       if (scroll.scrollHeight !== scroll.clientHeight) {
@@ -69,7 +72,7 @@ export class TableGridComponent implements OnInit, AfterViewInit {
         }
       }
     }
-  }
+  }*/
 
   columnsByKey(item): string {
     return item.key;
@@ -110,4 +113,12 @@ export class TableGridComponent implements OnInit, AfterViewInit {
     }
   }
 
+    public async scrollHandler(event: { target: { offsetHeight: number, scrollTop: number, scrollHeight: number } }): Promise<void> {
+        if (
+            event.target.offsetHeight + event.target.scrollTop + 100 >= event.target.scrollHeight
+            && this.data.length
+        ) {
+            this.scrollReachedItemId.emit(this.data[this.data.length - 1].transferNumber);
+        }
+    }
 }
