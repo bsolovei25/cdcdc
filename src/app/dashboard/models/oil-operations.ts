@@ -15,6 +15,7 @@ export enum operationTransferStatus {
 }
 
 export interface IOilOperationTransfer {
+    id: number;
     deviation: number;
     endTime: Date;
     mass: number;
