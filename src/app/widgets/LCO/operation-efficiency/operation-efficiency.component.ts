@@ -2,7 +2,7 @@ import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { WidgetService } from 'src/app/dashboard/services/widget.service';
 import { IOperationEfficiency } from 'src/app/dashboard/models/operation-efficiency';
-import { WidgetPlatform } from 'src/app/dashboard/models/widget-platform';
+import { WidgetPlatform } from 'src/app/dashboard/models/@PLATFORM/widget-platform';
 
 @Component({
     selector: 'evj-operation-efficiency',

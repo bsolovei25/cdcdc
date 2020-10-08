@@ -1,5 +1,5 @@
 import {Component, OnInit, OnDestroy, Inject, HostListener, Input} from '@angular/core';
-import { WidgetPlatform } from '../../../dashboard/models/widget-platform';
+import { WidgetPlatform } from '../../../dashboard/models/@PLATFORM/widget-platform';
 import { EventsWorkspaceService } from '../../../dashboard/services/widgets/events-workspace.service';
 import { EventService } from '../../../dashboard/services/widgets/event.service';
 import { WidgetService } from '../../../dashboard/services/widget.service';

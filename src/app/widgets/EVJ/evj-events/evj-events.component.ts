@@ -27,7 +27,7 @@ import { WidgetService } from '../../../dashboard/services/widget.service';
 import { WidgetSettingsService } from '../../../dashboard/services/widget-settings.service';
 import { debounceTime, distinctUntilChanged, throttle } from 'rxjs/operators';
 import { IEventSettings } from '../events/events.component';
-import { WidgetPlatform } from '../../../dashboard/models/widget-platform';
+import { WidgetPlatform } from '../../../dashboard/models/@PLATFORM/widget-platform';
 import { IUnits } from '../../../dashboard/models/admin-shift-schedule';
 import { SelectionModel } from '@angular/cdk/collections';
 

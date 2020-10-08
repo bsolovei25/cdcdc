@@ -7,7 +7,7 @@ import {
 import { SelectionModel } from '@angular/cdk/collections';
 import { WidgetService } from '../../../dashboard/services/widget.service';
 import { AstueEfficiencyService } from '../../../dashboard/services/ASTUE/astue-efficiency.service';
-import { WidgetPlatform } from '../../../dashboard/models/widget-platform';
+import { WidgetPlatform } from '../../../dashboard/models/@PLATFORM/widget-platform';
 
 @Component({
     selector: 'evj-astue-mnpz-efficiency',

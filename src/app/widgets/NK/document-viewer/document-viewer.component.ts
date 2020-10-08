@@ -1,6 +1,6 @@
 import { Component, HostListener, Inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { PdfViewerComponent } from 'ng2-pdf-viewer';
-import { WidgetPlatform } from 'src/app/dashboard/models/widget-platform';
+import { WidgetPlatform } from 'src/app/dashboard/models/@PLATFORM/widget-platform';
 import { WidgetService } from 'src/app/dashboard/services/widget.service';
 import { MatDialog } from '@angular/material/dialog';
 import { DocumentViewerFullscreenComponent } from './document-viewer-fullscreen/document-viewer-fullscreen.component';

@@ -1,8 +1,7 @@
-import { IEventsWidgetNotification } from './../../models/events-widget';
+import { IEventsWidgetNotification } from '../../../models/events-widget';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { WidgetService } from '../../services/widget.service';
-import { log } from 'util';
+import { WidgetService } from '../../../services/widget.service';
 
 @Component({
     selector: 'evj-indicator-diagram',
