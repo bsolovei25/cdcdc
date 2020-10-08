@@ -23,9 +23,10 @@ import { PlatformModule } from '@angular/cdk/platform';
 import { OverlayModule } from '@angular/cdk/overlay';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatRippleModule } from '@angular/material/core';
+import { EvjEventCardBlockComponent } from './components/evj-event-card-block/evj-event-card-block.component';
 
 @NgModule({
-    declarations: [EvjEventsComponent, EvjEventCardComponent, EvjEventCategoriesComponent, EvjEventFiltersComponent],
+    declarations: [EvjEventsComponent, EvjEventCardComponent, EvjEventCategoriesComponent, EvjEventFiltersComponent, EvjEventCardBlockComponent],
     imports: [
         OverlayModule,
         PlatformModule,
