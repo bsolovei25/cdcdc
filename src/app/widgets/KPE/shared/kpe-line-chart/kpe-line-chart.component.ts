@@ -217,38 +217,24 @@ export class KpeLineChartComponent implements OnChanges, AfterViewInit {
                 (factChart) => factChart.graphType === 'fact'
             )?.graph ?? [];
 
-            const lastPointX = fact[fact.length - 1].x;
-            const lastPointY = fact[fact.length - 1].y;
+            const lastPoint: IChartD3 = fact[fact.length - 1];
 
+            if (chart.graphType === 'higherBorder' || chart.graphType === 'lowerBorder') {
+                const areaFn = chart.graphType === 'lowerBorder' ? areaBottom : areaTop;
 
-            if (chart.graphType === 'higherBorder') {
-                if ( chart.graph.find(item => item.x === lastPointX)?.y >= lastPointY ) {
-                    className = 'graph-area-higherBorder graph-area_warning';
+                if ( areaFn === areaBottom && chart.graph.find(item => item.x === lastPoint.x)?.y < lastPoint.y
+                || areaFn === areaTop && chart.graph.find(item => item.x === lastPoint.x)?.y >= lastPoint.y) {
+                    className = 'graph-area-border graph-area_warning';
                     this.lastPointColor = 'graph-area_warning';
 
                 } else {
-                    className = 'graph-area-higherBorder';
+                    className = 'graph-area-border';
                 }
 
                 this.svg
                     .append('path')
                     .attr('class', className)
-                    .attr('d', areaTop(chart.graph));
-            }
-
-            if (chart.graphType === 'lowerBorder') {
-                if ( chart.graph.find(item => item.x === lastPointX)?.y < lastPointY ) {
-                    className = 'graph-area-lowerBorder graph-area_warning';
-                    this.lastPointColor = 'graph-area_warning';
-
-                } else {
-                    className = 'graph-area-lowerBorder';
-                }
-
-                this.svg
-                    .append('path')
-                    .attr('class', className)
-                    .attr('d', areaBottom(chart.graph));
+                    .attr('d', areaFn(chart.graph));
             }
         });
     }

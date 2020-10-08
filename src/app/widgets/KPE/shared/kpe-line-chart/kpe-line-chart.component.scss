@@ -48,8 +48,7 @@
     }
 
     .graph-area {
-      &-higherBorder,
-      &-lowerBorder {
+      &-border {
         fill: var(--color-astue-onpz-area);
       }
 
