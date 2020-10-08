@@ -47,7 +47,7 @@ export class EvjEventsComponent extends WidgetPlatform implements OnInit, OnDest
         this.countNotificationsDivCapacity();
     }
 
-    idAllSubCategory: number = 12345;
+    idAllSubCategory: number = 0;
 
     public claimWidgets: EnumClaimWidgets[] = [];
     public EnumClaimWidgets: typeof EnumClaimWidgets = EnumClaimWidgets;
