@@ -2,32 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { IDatesInterval, WidgetService } from '../widget.service';
 import { AppConfigService } from '@core/service/app-config.service';
-
-interface IOilOperationTransferRest {
-    id: number;
-    tank: {
-        id: string,
-        omsUid: string,
-        afUid: string,
-        name: string,
-        enabled: boolean,
-        limitHours: number,
-        deletedAt: Date
-    };
-    product: string;
-    passport: {
-        id: number;
-        fileUid: string;
-    };
-    startTime: Date;
-    endTime: Date;
-    mass: number;
-    deviation: number;
-    status: string; // TODO status
-    published: boolean;
-    omsTransferUid: string;
-    deletedAt: Date;
-}
+import { IOilOperationTransfer } from '../../models/oil-operations';
 
 interface IOilShipmentRest {
     id: number;
@@ -67,12 +42,20 @@ interface IOilShipmentRest {
     massEnd: number;
 }
 
+export interface IOilOperationsOptions {
+    dates?: { startTime: Date; endTime: Date };
+    product?: string;
+    group?: string;
+}
+
 @Injectable({
   providedIn: 'root'
 })
 export class OilOperationsService {
 
     private readonly restUrl: string;
+
+    private readonly BATCH_SIZE: number = 50;
 
     constructor(
         private configService: AppConfigService,
@@ -82,9 +65,20 @@ export class OilOperationsService {
         this.restUrl = configService.restUrl;
     }
 
-    public async getTransferList(dates: IDatesInterval, group: string = null, product: string = null): Promise<IOilOperationTransferRest[]> {
-        const query = this.getFilterString(dates.fromDateTime, dates.toDateTime, group, product);
-        return await this.getTransferListRequest(query);
+    public async getTransferList(
+        lastId: number,
+        options: IOilOperationsOptions
+    ): Promise<IOilOperationTransfer[]> {
+        try {
+            return this.http
+                .get<IOilOperationTransfer[]>(
+                    this.restUrl +
+                    `/api/oil-control/transfers?${this.getOptionString(lastId, options)}`
+                )
+                .toPromise();
+        } catch (error) {
+            console.error(error);
+        }
     }
 
     public async getShipmentList(dates: IDatesInterval): Promise<IOilShipmentRest[]> {
@@ -93,6 +87,15 @@ export class OilOperationsService {
     }
 
     public async getFilterList<T>(filter: 'products' | 'groups'): Promise<T>  {
+        try {
+            return await this.http.get<T>(`${this.restUrl}/api/oil-control/${filter}`).toPromise();
+        } catch (e) {
+            console.error(e);
+            return null;
+        }
+    }
+
+    public async getOperations<T>(filter: 'products' | 'groups'): Promise<T>  {
         try {
             return await this.http.get<T>(`${this.restUrl}/api/oil-control/${filter}`).toPromise();
         } catch (e) {
@@ -122,17 +125,26 @@ export class OilOperationsService {
         return requestQuery;
     }
 
-    private async getTransferListRequest(query: string): Promise<IOilOperationTransferRest[]> {
-        return this.http
-            // .get<IOilOperationTransferRest[]>(`${this.restUrl}/api/oil-control/transfer${query}`)
-            .get<IOilOperationTransferRest[]>(`assets/mock/OilOperationsMock/transfers.json`)
-            .toPromise();
-    }
-
     private async getShipmentListRequest(query: string): Promise<IOilShipmentRest[]> {
         return this.http
             // .get<IOilShipmentRest[]>(`${this.restUrl}/api/oil-control/shipment${query}`)
             .get<IOilShipmentRest[]>(`assets/mock/OilOperationsMock/shipments.json`)
             .toPromise();
+    }
+
+    private getOptionString(lastId: number, options: IOilOperationsOptions): string {
+        let res = `take=${this.BATCH_SIZE}&lastId=${lastId}&`;
+        if (options.dates) {
+            res +=
+                `startTime=${options.dates?.startTime.toISOString()}&` +
+                `endTime=${options.dates?.endTime.toISOString()}`;
+        }
+        if (options.group) {
+            res += `&group=${options.group}`;
+        }
+        if (options.product) {
+            res += `&product=${options.product}`;
+        }
+        return res;
     }
 }

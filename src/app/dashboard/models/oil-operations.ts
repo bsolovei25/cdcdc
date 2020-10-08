@@ -1,5 +1,5 @@
 export interface IOilOperations { /// ALL DATA
-    tableLeft: ILeftOilTable[];
+    tableLeft: IOilOperationTransfer[];
     received: IOilReceived[];
     shipment: IOilShipment[];
     tableRight: IRightOilTable[];
@@ -7,17 +7,36 @@ export interface IOilOperations { /// ALL DATA
     filterTanks: IOilFilterTanks[];
 }
 
+export enum operationTransferStatus {
+    opened= 'opened', // Операция завершена, но к ней еще не привязаны отгрузки.
+    closedNoShipment= 'closedNoShipment', // Операция завершена и итоговый дебаланс в пределах норм рассчитанных погрешностей.
+    closed= 'closed', // Операция завершена, текущий дебаланс превышает нормы рассчитанных погрешностей, величина отклонения показана в поле Deviation.
+    closedWithDebalance= 'closedWithDebalance',
+}
+
+export interface IOilOperationTransfer {
+    deviation: number;
+    endTime: Date;
+    mass: number;
+    originalId: string;
+    product: string;
+    published: boolean;
+    startTime: Date;
+    status: operationTransferStatus;
+    tankNumber: string;
+    transferNumber: number;
+}
+
 export interface ILeftOilTable {
-    id: number;
     number: number;
-    rR: number;
+    rR: string;
     product: string;
     passport: number;
     dateFrom: Date; /// Date
     dateTo: Date; /// Date
     mass: number;
     deviation: number;
-    status: string;
+    status: operationTransferStatus;
 }
 
 export interface IOilReceived {

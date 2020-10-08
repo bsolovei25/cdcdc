@@ -50,10 +50,6 @@ export class OilOperationsFilterComponent implements OnInit {
     }
 
     public close(): void {
-        if (this.activeItem) {
-            this.onSaveClick();
-            return;
-        }
         this.popoverRef.close('backdropClick', null);
     }
 

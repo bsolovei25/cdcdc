@@ -1,8 +1,13 @@
 import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
 import { IDatesInterval, WidgetService } from '../../services/widget.service';
 import { WidgetPlatform } from '../../models/widget-platform';
-import { ILeftOilTable, IOilFilter, IOilOperations, IRightOilTable } from '../../models/oil-operations';
-import { OilOperationsService } from '../../services/widgets/oil-operations.service';
+import {
+    IOilFilter,
+    IOilOperations,
+    IOilOperationTransfer,
+    IRightOilTable
+} from '../../models/oil-operations';
+import { IOilOperationsOptions, OilOperationsService } from '../../services/widgets/oil-operations.service';
 import { ITableGridFilter } from '../../components/table-grid/components/table-grid-filter/table-grid-filter.component';
 
 export interface IOilOperationsButton {
@@ -43,56 +48,7 @@ export class OilOperationsComponent extends WidgetPlatform implements OnInit, On
     ];
 
     public data: IOilOperations = {
-        tableLeft: [
-            // {
-            //     id: 1,
-            //     number: 4643,
-            //     rR: 442,
-            //     product: 'ДТ ЕВРО сорт F, вид III(ДТ-Е-К5)',
-            //     passport: 168,
-            //     dateFrom: new Date(),
-            //     dateTo: new Date(),
-            //     mass: 4223.23,
-            //     deviation: 3.3,
-            //     status: 'open'
-            // },
-            // {
-            //     id: 2,
-            //     number: 4643,
-            //     rR: 442,
-            //     product: 'ДТ ЕВРО сорт F, вид III(ДТ-Е-К5)',
-            //     passport: 168,
-            //     dateFrom: new Date(),
-            //     dateTo: new Date(),
-            //     mass: 4223.23,
-            //     deviation: 3.3,
-            //     status: 'close'
-            // },
-            // {
-            //     id: 3,
-            //     number: 4643,
-            //     rR: 442,
-            //     product: 'ДТ ЕВРО сорт F, вид III(ДТ-Е-К5)',
-            //     passport: 168,
-            //     dateFrom: new Date(),
-            //     dateTo: new Date(),
-            //     mass: 4223.23,
-            //     deviation: 3.3,
-            //     status: 'close&norm'
-            // },
-            // {
-            //     id: 4,
-            //     number: 4643,
-            //     rR: 442,
-            //     product: 'ДТ ЕВРО сорт F, вид III(ДТ-Е-К5)',
-            //     passport: 168,
-            //     dateFrom: new Date(),
-            //     dateTo: new Date(),
-            //     mass: 4223.23,
-            //     deviation: 3.3,
-            //     status: 'close&critical'
-            // }
-        ],
+        tableLeft: [],
         received: [
             {
                 id: 1,
@@ -133,70 +89,8 @@ export class OilOperationsComponent extends WidgetPlatform implements OnInit, On
                 type: 'adjust'
             }
         ],
-        tableRight: [
-            // {
-            //     id: 1,
-            //     direction: 'A-т ср.364',
-            //     rRRiser: 3432,
-            //     dok: 2334,
-            //     mass: 4223.32,
-            //     pasport: 168,
-            //     shipment: 3212,
-            //     note: 'Tруба'
-            // },
-            // {
-            //     id: 2,
-            //     direction: 'A-т ср.364',
-            //     rRRiser: 3432,
-            //     dok: 2334,
-            //     mass: 4223.32,
-            //     pasport: 168,
-            //     shipment: 3212,
-            //     note: ''
-            // },
-            // {
-            //     id: 3,
-            //     direction: 'A-т ср.364',
-            //     rRRiser: 3432,
-            //     dok: 2334,
-            //     mass: 4223.32,
-            //     pasport: 168,
-            //     shipment: 3212,
-            //     note: ''
-            // },
-            // {
-            //     id: 4,
-            //     direction: 'A-т ср.364',
-            //     rRRiser: 3432,
-            //     dok: 2334,
-            //     mass: 4223.32,
-            //     pasport: 168,
-            //     shipment: 3212,
-            //     note: 'Tруба'
-            // }
-        ],
-        filter: [
-            {
-                id: 1,
-                name: 'Мазут'
-            },
-            {
-                id: 2,
-                name: 'Мазут'
-            },
-            {
-                id: 3,
-                name: 'Мазут'
-            },
-            {
-                id: 4,
-                name: 'Мазут'
-            },
-            {
-                id: 5,
-                name: 'Мазут'
-            }
-        ],
+        tableRight: [],
+        filter: [],
         filterTanks: [
             {
                 id: 1,
@@ -282,7 +176,7 @@ export class OilOperationsComponent extends WidgetPlatform implements OnInit, On
         const dataLoadQueue: Promise<void>[] = [];
         dataLoadQueue.push(
             this.getLeftTable().then((ref) => {
-                this.data.tableLeft = ref.slice(0, 10);
+                this.data.tableLeft = ref;
             }),
             this.getRightTable().then((ref) => {
                 this.data.tableRight = ref;
@@ -291,22 +185,9 @@ export class OilOperationsComponent extends WidgetPlatform implements OnInit, On
         await Promise.all(dataLoadQueue);
     }
 
-    public async getLeftTable(): Promise<ILeftOilTable[]> {
-        const oilOperations = await this.oilOperationService.getTransferList(this.currentDates);
-        return oilOperations.map<ILeftOilTable>((o) => {
-            return {
-                id: o.id,
-                number: 0, // TODO
-                rR: 0, // TODO
-                product: o.product,
-                passport: o.passport?.id ?? null,
-                dateFrom: new Date(o.startTime),
-                dateTo: new Date(o.endTime),
-                mass: o.mass,
-                deviation: o.deviation,
-                status: o.status
-            };
-        });
+    public async getLeftTable(lastId: number = 0): Promise<IOilOperationTransfer[]> {
+        const options = this.getOptions();
+        return await this.oilOperationService.getTransferList(lastId, options);
     }
 
     public async getRightTable(): Promise<IRightOilTable[]> {
@@ -326,7 +207,14 @@ export class OilOperationsComponent extends WidgetPlatform implements OnInit, On
         });
     }
 
-
+    private getOptions(): IOilOperationsOptions {
+        return {
+            dates: {
+                startTime: this.currentDates.fromDateTime,
+                endTime: this.currentDates.toDateTime,
+            }
+        };
+    }
 
     ngOnDestroy(): void {
         super.ngOnDestroy();
@@ -361,11 +249,7 @@ export class OilOperationsComponent extends WidgetPlatform implements OnInit, On
 
     active(itemActive: string): void {
         Object.keys(this.filter).forEach(key => {
-            if (key === itemActive) {
-                this.filter[key] = true;
-            } else {
-                this.filter[key] = false;
-            }
+            this.filter[key] = key === itemActive;
         });
     }
 

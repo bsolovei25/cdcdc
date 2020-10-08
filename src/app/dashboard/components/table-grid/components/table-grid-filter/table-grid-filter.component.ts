@@ -56,7 +56,7 @@ export class TableGridFilterComponent implements OnInit, OnChanges {
     }
 
     private updateFilterTitle(): void {
-        this.filterTitle = this.activeFilter ? this.activeFilter.name : this.filter?.name;
+        this.filterTitle = this.activeFilter?.name ? this.activeFilter?.name : this.filter?.name;
     }
 
     public onClick(type: string): void {
@@ -79,15 +79,13 @@ export class TableGridFilterComponent implements OnInit, OnChanges {
 
         popoverRef.afterClosed$.subscribe(res => {
             this.isPopoverOpened = false;
-            if (res && res.data) {
+            if (res && res.data && res.type === 'close') {
                 this.activeFilter = res.data.activeFilter;
-                this.updateFilterTitle();
                 this.filterSelect.emit({
                     type: res.data.type,
                     filter: res.data.activeFilter,
                 });
-            } else {
-                this.filterTitle = this.filter.name;
+                this.updateFilterTitle();
             }
         });
     }
