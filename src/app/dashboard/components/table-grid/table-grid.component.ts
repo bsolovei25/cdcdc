@@ -64,12 +64,13 @@ export class TableGridComponent implements OnInit, AfterViewInit, OnChanges {
 
   public ngAfterViewInit(): void {
     this.dataSave = this.data;
-    // this.setStyleScroll();
+    this.setStyleScroll();
   }
 
   @HostListener('document:resize', ['$event'])
   public OnResize(): void {
     this.viewportCheck();
+    this.setStyleScroll();
   }
 
   private viewportCheck(): void {
@@ -78,7 +79,7 @@ export class TableGridComponent implements OnInit, AfterViewInit, OnChanges {
       }
   }
 
-  /*setStyleScroll(): void {
+  setStyleScroll(): void {
     const scroll = this.table.nativeElement;
     if (scroll) {
       if (scroll.scrollHeight !== scroll.clientHeight) {
@@ -99,7 +100,7 @@ export class TableGridComponent implements OnInit, AfterViewInit, OnChanges {
         }
       }
     }
-  }*/
+  }
 
   columnsByKey(item): string {
     return item.key;
