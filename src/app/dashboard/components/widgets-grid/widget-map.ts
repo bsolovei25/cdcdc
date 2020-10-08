@@ -132,7 +132,8 @@ export const WIDGETS = {
     'dispatcher-screen': WidgetContainerComponent,
     'documents-scans': WidgetContainerComponent,
     'document-viewer': WidgetContainerComponent,
-    'admin-panel': WidgetContainerComponent
+    'admin-panel': WidgetContainerComponent,
+    'polar-chart': WidgetContainerComponent
 };
 
 export const WIDGETS_LAZY = {
@@ -776,9 +777,9 @@ export const WIDGETS_LAZY = {
         },
         module: 'TruncatedDiagramTrafficLightModule',
         itemCols: 13,
-        itemRows: 16,
+        itemRows: 15,
         minItemCols: 13,
-        minItemRows: 16,
+        minItemRows: 5,
         preview: 'truncated-diagram-traffic-light'
     },
     'truncated-diagram-percentage': {
