@@ -11,7 +11,8 @@ import {
     TemplateRef,
     EventEmitter,
     Output,
-    OnChanges, SimpleChanges,
+    OnChanges,
+    SimpleChanges,
 } from '@angular/core';
 import { ColumnGridComponent } from './components/column-grid/column-grid.component';
 import { ITableGridFilter } from './components/table-grid-filter/table-grid-filter.component';
