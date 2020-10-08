@@ -1,10 +1,10 @@
 import { AfterViewInit, Component, HostListener, Inject, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { WidgetService } from '../../../services/widget.service';
+import { WidgetService } from 'src/app/dashboard/services/widget.service';
 import { PlatformLocation } from '@angular/common';
 import { UnityLoader } from '@shared/functions/UnityLoader';
-import { PetroleumScreenService } from '../../../services/widgets/petroleum-screen.service';
-import { ITransfer, ObjectType } from '../../../models/petroleum-products-movement.model';
+import { PetroleumScreenService } from 'src/app/dashboard/services/widgets/petroleum-screen.service';
+import { ITransfer, ObjectType } from 'src/app/dashboard/models/petroleum-products-movement.model';
 
 @Component({
     selector: 'evj-petroleum-unity',

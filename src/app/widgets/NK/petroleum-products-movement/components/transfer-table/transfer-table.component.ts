@@ -1,26 +1,21 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input, OnInit, Output } from '@angular/core';
+import { IUdTableDict } from '../../petroleum-reference/petroleum-reference.component';
 import { ITransfer } from 'src/app/dashboard/models/petroleum-products-movement.model';
-import { PetroleumScreenService } from '../../../../services/widgets/petroleum-screen.service';
-import { IUdTableDict } from '../petroleum-reference.component';
-import { IFilterSetting } from '../../components/filter-popup/filter-popup.component';
+import { IFilterSetting } from '../filter-popup/filter-popup.component';
+import { PetroleumScreenService } from 'src/app/dashboard/services/widgets/petroleum-screen.service';
 
 @Component({
-    selector: 'evj-info-screen',
-    templateUrl: './info-screen.component.html',
-    styleUrls: ['./info-screen.component.scss'],
+  selector: 'evj-transfer-table',
+  templateUrl: './transfer-table.component.html',
+  styleUrls: ['./transfer-table.component.scss']
 })
-export class InfoScreenComponent implements OnInit {
-    @Input() title: string[];
-    @Input() keys: string[];
+export class TransferTableComponent {
     @Input() dictionary: IUdTableDict[] = [];
-    @Input() filterSetting: IFilterSetting;
+    @Input() transfers: ITransfer[] = [];
 
-    constructor(public petroleumService: PetroleumScreenService) {}
-
-    ngOnInit(): void {}
+    constructor(private petroleumService: PetroleumScreenService) { }
 
     public transferClick(uid: string): void {
-        console.log(uid);
         this.petroleumService.chooseTransfer(uid, true);
     }
 
@@ -34,7 +29,10 @@ export class InfoScreenComponent implements OnInit {
     public setSortFilter(isUp: boolean, item: IUdTableDict): void {
         this.petroleumService.sortTransfersByColumn(item.key, item.type, isUp);
     }
-
+    public setTextFilter(text: string, item: IUdTableDict): void {
+        console.log(text);
+        this.petroleumService.filterTransfersByColumn(item.key, text);
+    }
     public getFilterParams(item: IUdTableDict): IFilterSetting {
         const currentFilter = this.petroleumService.currentFilter;
         const filterSetting: IFilterSetting = {
@@ -46,6 +44,9 @@ export class InfoScreenComponent implements OnInit {
             currentFilter.sortFilter.isUp
                 ? filterSetting.isUp = true
                 : filterSetting.isDown = true;
+        }
+        if (item.key === currentFilter?.textFilter?.key) {
+            filterSetting.text = currentFilter.textFilter.value;
         }
         return filterSetting;
     }

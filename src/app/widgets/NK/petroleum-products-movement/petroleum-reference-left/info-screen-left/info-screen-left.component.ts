@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ITankInfo } from 'src/app/dashboard/models/petroleum-products-movement.model';
-import { PetroleumScreenService } from '../../../../services/widgets/petroleum-screen.service';
+import { PetroleumScreenService } from 'src/app/dashboard/services/widgets/petroleum-screen.service';
 
 @Component({
     selector: 'evj-info-screen-left',

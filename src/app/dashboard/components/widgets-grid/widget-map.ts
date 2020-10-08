@@ -5,7 +5,6 @@ import { ProductStocksComponent } from '../../widgets/product-stocks/product-sto
 import { DeviationCircleDiagramComponent } from '../../widgets/deviation-circle-diagram/deviation-circle-diagram.component';
 import { ColumnChartStackedComponent } from '../../widgets/column-chart-stacked/column-chart-stacked.component';
 import { TimeLineDiagramComponent } from '../../widgets/time-line-diagram/time-line-diagram.component';
-import { PetroleumProductsMovementComponent } from '../../widgets/petroleum-products-movement/petroleum-products-movement.component';
 import { ReferenceComponent } from '../../widgets/reference/reference.component';
 import { CustomReportPropertiesReferenceComponent } from '../../widgets/custom-report-properties-reference/custom-report-properties-reference.component';
 import { ReasonsDeviationsComponent } from '../../widgets/reasons-deviations/reasons-deviations.component';
@@ -30,7 +29,7 @@ export const WIDGETS = {
     'column-chart-stacked': ColumnChartStackedComponent,
     'flame-diagram': WidgetContainerComponent,
     'time-line-diagram': TimeLineDiagramComponent,
-    'petroleum-products-movement': PetroleumProductsMovementComponent,
+    'petroleum-products-movement': WidgetContainerComponent,
     reference: ReferenceComponent,
     'report-server-configurator': WidgetContainerComponent,
     'tank-calibration-table': WidgetContainerComponent,
@@ -320,6 +319,19 @@ export const WIDGETS_LAZY = {
         minItemCols: 40,
         minItemRows: 10,
         preview: 'tank-calibration-table'
+    },
+    'petroleum-products-movement': {
+        import: async () => {
+            return await import(
+                'src/app/widgets/NK/petroleum-products-movement/petroleum-products-movement.module'
+                );
+        },
+        module: 'PetroleumProductsMovementModule',
+        itemCols: 64,
+        itemRows: 30,
+        minItemCols: 64,
+        minItemRows: 30,
+        preview: 'petroleum-products-movement'
     },
 
     // #endregion NK

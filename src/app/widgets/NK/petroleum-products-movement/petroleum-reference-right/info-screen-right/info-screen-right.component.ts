@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { PetroleumScreenService } from 'src/app/dashboard/services/widgets/petroleum-screen.service';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
-import { TransfersFilter } from '../../../../models/petroleum-products-movement.model';
+import { TransfersFilter } from 'src/app/dashboard/models/petroleum-products-movement.model';
 import { filter } from 'rxjs/operators';
 
 @Component({

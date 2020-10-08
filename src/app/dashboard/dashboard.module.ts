@@ -37,24 +37,9 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatNativeDateModule, MAT_DATE_LOCALE, MatRippleModule } from '@angular/material/core';
-import { PetroleumProductsMovementComponent } from './widgets/petroleum-products-movement/petroleum-products-movement.component';
-import { PetroleumReferenceLeftComponent } from './widgets/petroleum-products-movement/petroleum-reference-left/petroleum-reference-left.component';
-import { PetroleumReferenceRightComponent } from './widgets/petroleum-products-movement/petroleum-reference-right/petroleum-reference-right.component';
-import { PetroleumReferenceComponent } from './widgets/petroleum-products-movement/petroleum-reference/petroleum-reference.component';
 import { MatSelectModule } from '@angular/material/select';
 import { ScrollingModule } from '@angular/cdk-experimental/scrolling';
 import { ScrollingModule as OldScrollingModule } from '@angular/cdk/scrolling';
-import { PetroleumUnityComponent } from './widgets/petroleum-products-movement/petroleum-unity/petroleum-unity.component';
-import { OperationScreenLeftComponent } from './widgets/petroleum-products-movement/petroleum-reference-left/operation-screen-left/operation-screen-left.component';
-import { InfoScreenLeftComponent } from './widgets/petroleum-products-movement/petroleum-reference-left/info-screen-left/info-screen-left.component';
-import { OperationParkScreenLeftComponent } from './widgets/petroleum-products-movement/petroleum-reference-left/operation-park-screen-left/operation-park-screen-left.component';
-import { OperationScreenRightComponent } from './widgets/petroleum-products-movement/petroleum-reference-right/operation-screen-right/operation-screen-right.component';
-import { InfoScreenRightComponent } from './widgets/petroleum-products-movement/petroleum-reference-right/info-screen-right/info-screen-right.component';
-import { OperationParkScreenRightComponent } from './widgets/petroleum-products-movement/petroleum-reference-right/operation-park-screen-right/operation-park-screen-right.component';
-import { OperationScreenComponent } from './widgets/petroleum-products-movement/petroleum-reference/operation-screen/operation-screen.component';
-import { OperationParkScreenComponent } from './widgets/petroleum-products-movement/petroleum-reference/operation-park-screen/operation-park-screen.component';
-import { InfoScreenComponent } from './widgets/petroleum-products-movement/petroleum-reference/info-screen/info-screen.component';
-import { PetroleumUnityInfoComponent } from './widgets/petroleum-products-movement/petroleum-unity-info/petroleum-unity-info.component';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { ReportComponent } from './components/report/reports/report.component';
@@ -76,9 +61,7 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatIconModule } from '@angular/material/icon';
 import { TreeModule } from 'angular-tree-component';
-import { FilterPopupComponent } from './widgets/petroleum-products-movement/components/filter-popup/filter-popup.component';
 import { NgxMaskModule } from 'ngx-mask';
-import { TransferTableComponent } from './widgets/petroleum-products-movement/components/transfer-table/transfer-table.component';
 import { DevGraphComponent } from './pages/dev-graph/dev-graph.component';
 import { ReasonsDeviationsComponent } from './widgets/reasons-deviations/reasons-deviations.component';
 import { ReasonsDeviationsLineChartComponent } from './widgets/reasons-deviations/components/reasons-deviations-line-chart/reasons-deviations-line-chart.component';
@@ -153,29 +136,11 @@ import { ReportServerConfiguratorModule } from '../widgets/admin/report-server-c
         SearchFilterComponent,
         SearchInputComponent,
         SearchListComponent,
-        PetroleumProductsMovementComponent,
-        PetroleumReferenceLeftComponent,
-        PetroleumReferenceRightComponent,
-        PetroleumReferenceComponent,
-        PetroleumUnityComponent,
-        OperationScreenLeftComponent,
-        InfoScreenLeftComponent,
-        OperationParkScreenLeftComponent,
-        OperationScreenRightComponent,
-        InfoScreenRightComponent,
-        OperationParkScreenRightComponent,
-        OperationScreenComponent,
-        OperationParkScreenComponent,
-        InfoScreenComponent,
-        PetroleumUnityInfoComponent,
         ReportComponent,
         ReportsComponent,
         ReferenceComponent,
         CustomReportPropertiesReferenceComponent,
         CustomReportOptionsComponent,
-        FilterPopupComponent,
-
-        TransferTableComponent,
         DevGraphComponent,
         ReasonsDeviationsComponent,
         ReasonsDeviationsLineChartComponent,
@@ -226,7 +191,6 @@ import { ReportServerConfiguratorModule } from '../widgets/admin/report-server-c
         DeviationCircleDiagramComponent,
         ColumnChartStackedComponent,
         TimeLineDiagramComponent,
-        PetroleumProductsMovementComponent,
         ReferenceComponent,
         ReportComponent,
         ReportsComponent,

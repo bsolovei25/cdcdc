@@ -4,7 +4,7 @@ import {
     IFacilityInfo,
     IPetroleumObject,
 } from 'src/app/dashboard/models/petroleum-products-movement.model';
-import { PetroleumScreenService } from '../../../../services/widgets/petroleum-screen.service';
+import { PetroleumScreenService } from 'src/app/dashboard/services/widgets/petroleum-screen.service';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 
 @Component({

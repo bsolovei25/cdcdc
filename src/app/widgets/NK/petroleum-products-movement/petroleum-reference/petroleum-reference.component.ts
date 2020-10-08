@@ -1,7 +1,7 @@
 import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { transition, trigger, animate, style } from '@angular/animations';
 import { IFilterSetting } from '../components/filter-popup/filter-popup.component';
-import { PetroleumScreenService } from '../../../services/widgets/petroleum-screen.service';
+import { PetroleumScreenService } from 'src/app/dashboard/services/widgets/petroleum-screen.service';
 
 export interface IUdTableDict {
     key: string;
