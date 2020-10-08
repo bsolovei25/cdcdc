@@ -168,6 +168,7 @@
               justify-content: flex-start;
               color: var(--color-border-main);
               margin-left: 16px;
+              white-space: nowrap;
 
               &_inactivity {
                 color: var(--color-sou-text-sub);

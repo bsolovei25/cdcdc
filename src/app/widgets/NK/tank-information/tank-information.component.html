@@ -1,0 +1,20 @@
+<div class="container" *ngIf="!isMock">
+    <evj-widget-header [title]="widgetTitle" [units]="widgetUnits" [code]="widgetCode" [id]="id" [uniqId]="uniqId"
+        [widgetType]="widgetType" [icon]="widgetIcon" [tankInfo]="isFilterTable" (selected)="openFilterTable($event)"></evj-widget-header>
+
+    <evj-frame-top></evj-frame-top>
+
+    <div class="content" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
+        <div class="scroll-container">
+            <!--LINE TANK-->
+            <div *ngFor="let item of data">
+                <evj-tank-line [data]="item"></evj-tank-line>
+            </div>
+            <!--FILTER-->
+            <div *ngIf="isFilterTable">
+                <evj-tank-filter [data]="sendFilterData" [filterData]="filterData" (closeFilter)="closeFilter($event)"></evj-tank-filter>
+            </div>
+        </div>
+    </div>
+    <evj-frame-bottom></evj-frame-bottom>
+</div>

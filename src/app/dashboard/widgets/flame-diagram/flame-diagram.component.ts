@@ -8,7 +8,7 @@ import { WidgetPlatform } from '../../models/widget-platform';
     templateUrl: './flame-diagram.component.html',
     styleUrls: ['./flame-diagram.component.scss'],
 })
-export class FlameDiagramComponent extends WidgetPlatform implements OnInit, OnDestroy {
+export class FlameDiagramComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
     public static itemCols: number = 20;
     public static itemRows: number = 16;
 

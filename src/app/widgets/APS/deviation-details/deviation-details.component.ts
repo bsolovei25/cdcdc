@@ -17,7 +17,7 @@ export interface IDeviation {
     templateUrl: './deviation-details.component.html',
     styleUrls: ['./deviation-details.component.scss'],
 })
-export class DeviationDetailsComponent extends WidgetPlatform implements OnInit {
+export class DeviationDetailsComponent extends WidgetPlatform<unknown> implements OnInit {
 
     public deviations: IDeviation[] = [
         {

@@ -4,6 +4,8 @@ import { MatSelectChange } from '@angular/material/select';
 import { IPriority, IUnitEvents } from '../../../../../dashboard/models/events-widget';
 import { EventService } from '../../../../../dashboard/services/widgets/event.service';
 import { EventsWorkspaceService } from '../../../../../dashboard/services/widgets/events-workspace.service';
+import { IUnits } from '../../../../../dashboard/models/admin-shift-schedule';
+import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 
 @Component({
     selector: 'evj-evj-event-filters',
@@ -19,6 +21,9 @@ export class EvjEventFiltersComponent implements OnInit {
     priority: IPriority[] = [];
 
     @Output() search: EventEmitter<string> = new EventEmitter<string>();
+    @Output() outUnits: EventEmitter<IUnits> = new EventEmitter<IUnits>();
+    @Output() outPriority: EventEmitter<IPriority> = new EventEmitter<IPriority>();
+    @Output() description: EventEmitter<string> = new EventEmitter<string>();
 
     constructor(private eventService: EventService,
                 public ewService: EventsWorkspaceService) {
@@ -28,22 +33,28 @@ export class EvjEventFiltersComponent implements OnInit {
         this.searchControl.valueChanges.subscribe(value => {
             this.search.emit(value);
         });
-        // this.loadData();
-        this.searchControl.valueChanges.subscribe(value => {
-            // this.eventService.getEventsFilter(null, null, null, value);
-        });
+        this.searchControl.valueChanges.pipe(
+            debounceTime(1000),
+            distinctUntilChanged())
+            .subscribe(value => {
+                this.description.emit(value);
+            });
+        this.loadData();
     }
 
     resetFilters(): void {
         this.unitsSelect.setValue(null);
         this.prioritySelect.setValue(null);
+        this.outUnits.emit(null);
+        this.outPriority.emit(null);
     }
 
     public onUnitsSelect(event: MatSelectChange): void {
-        // this.eventService.getEventsFilter(null, null, null, value);
+        this.outUnits.emit(event.value);
     }
 
     public onPrioritySelect(event: MatSelectChange): void {
+        this.outPriority.emit(event.value);
     }
 
     async loadData(): Promise<void> {

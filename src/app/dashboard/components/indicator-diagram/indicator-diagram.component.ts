@@ -47,7 +47,6 @@ export class IndicatorDiagramComponent implements OnInit, OnDestroy {
                         this.widgetService.getWidgetLiveDataFromWS(this.widgetId, 'evj-header')
                             .subscribe(value => {
                                 this.data = value;
-                                console.log(this.data);
                             })
                     );
                 }

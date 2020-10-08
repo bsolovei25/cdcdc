@@ -10,7 +10,7 @@ import { cardData, planData } from './ozsm-circle-planning-diagam-mock';
   styleUrls: ['./ozsm-circle-planning-diagram.component.scss']
 })
 export class OzsmCirclePlanningDiagramComponent
-    extends WidgetPlatform implements OnInit, OnDestroy {
+    extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
     public cData: ICircleData[] = cardData;
     public pData: ICircleData[] = planData;
     constructor(

@@ -1,0 +1,30 @@
+<div style="height: 100%; width: 100%;">
+  <evj-widget-header
+    [title]="widgetTitle"
+    [units]="widgetUnits"
+    [code]="widgetCode"
+    [id]="widgetId"
+    [icon]="widgetIcon"
+    [uniqId]="widgetUniqId"
+  ></evj-widget-header>
+
+  <evj-frame-top></evj-frame-top>
+
+  <ng-container>
+    <div
+      class="content_block"
+      (mousedown)="$event.stopPropagation()"
+      (touchstart)="$event.stopPropagation()"
+    >
+      <div class="blocks">
+        <div style="display: flex; height: 100%;">
+          <div *ngFor="let data of datas;" class="block">
+            <evj-truncated-diagram-counter-item [data]="data"></evj-truncated-diagram-counter-item>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+
+  <evj-frame-bottom></evj-frame-bottom>
+</div>

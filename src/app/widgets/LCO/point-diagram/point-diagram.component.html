@@ -1,0 +1,49 @@
+<div
+  class="container pointer-event"
+  [ngStyle]="{
+    width: containerIsMock()
+  }"
+  *ngIf="!isMock"
+>
+  <evj-widget-header
+    [title]="widgetTitle"
+    [units]="widgetUnits"
+    [code]="widgetCode"
+    [id]="id"
+    [uniqId]="uniqId"
+    [icon]="widgetIcon"
+  ></evj-widget-header>
+
+  <evj-frame-top></evj-frame-top>
+
+  <ng-container>
+    <div
+      class="point-diagram"
+      (mousedown)="$event.stopPropagation()"
+      (touchstart)="$event.stopPropagation()"
+    >
+      <div class="title">
+        <div class="title__name" [innerHTML]="'Норматив, мг/м^3' | powIndex"></div>
+        <div class="title__percent">ПДК 100%</div>
+      </div>
+      <div class="line">
+        <div class="circle circle__left circle__left-top line__circle"></div>
+        <div class="circle circle__right circle__right-top line__circle"></div>
+      </div>
+      <div class="body scroll-bar">
+        <div class="row">
+          <div class="row__items" *ngFor="let item of pointDiagramElements">
+            <evj-one-column [item]="item" [isDiagram]="false"></evj-one-column>
+          </div>
+        </div>
+        <div class="diagrams scroll-bar">
+          <div class="diagrams__item" *ngFor="let item of pointDiagramElements">
+            <evj-one-column [item]="item" [isDiagram]="true"></evj-one-column>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+
+  <evj-frame-bottom></evj-frame-bottom>
+</div>

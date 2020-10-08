@@ -25,7 +25,7 @@ export interface IDeviationsTableDto {
     templateUrl: './deviations-table.component.html',
     styleUrls: ['./deviations-table.component.scss'],
 })
-export class DeviationsTableComponent extends WidgetPlatform implements OnInit, OnDestroy {
+export class DeviationsTableComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
     data: IDeviationsTable[] = [];
 
     public consumptionUnitsOfMeasure: string = '';

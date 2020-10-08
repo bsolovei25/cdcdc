@@ -7,7 +7,7 @@ import { WidgetService } from '../../../dashboard/services/widget.service';
     templateUrl: './ozsm-main-toggle.component.html',
     styleUrls: ['./ozsm-main-toggle.component.scss']
 })
-export class OzsmMainToggleComponent extends WidgetPlatform implements OnInit, OnDestroy {
+export class OzsmMainToggleComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
     public getPlan: any = document.getElementsByClassName('button plan');
     public getScreen: any = document.getElementsByClassName('button plan');
 

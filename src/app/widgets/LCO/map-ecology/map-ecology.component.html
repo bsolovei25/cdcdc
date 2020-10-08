@@ -1,0 +1,66 @@
+<div style="height: 100%; width: 100%;">
+  <evj-widget-header
+    [title]="widgetTitle"
+    [units]="widgetUnits"
+    [code]="widgetCode"
+    [id]="widgetId"
+    [uniqId]="widgetUniqId"
+  ></evj-widget-header>
+
+  <evj-frame-top></evj-frame-top>
+
+  <ng-container>
+    <div
+      class="content_block"
+      (mousedown)="$event.stopPropagation()"
+      (touchstart)="$event.stopPropagation()"
+    >
+      <div class="blocks">
+        <div class="container_map">
+          <div class="map">
+            <div #myCircle class="map2" id="mapsvg"></div>
+            <div class="infomap"><img src="assets/pic/point.svg" /> Точка контроля</div>
+          </div>
+          <div class="table_map">
+            <div class="info_block">
+              <div class="indicators">
+                Контролируемые показатели
+              </div>
+              <div class="indicators_value">
+                ПДК м.р., мг/м3
+              </div>
+              <div class="change_point">
+                <div class="button_left" (click)="backPoint(this.namePoint)">
+                  <img src="assets/pic/mapButtonLeft.svg" />
+                </div>
+                <div class="name_point">{{this.namePoint}}</div>
+                <div class="button_right" (click)="nextPoint(this.namePoint)">
+                  <img src="assets/pic/mapButtonRight.svg" />
+                </div>
+              </div>
+            </div>
+            <ng-container *ngFor="let data of datas">
+              <ng-container *ngIf="data.name === this.namePoint">
+                <div class="value_block" *ngFor="let item of data.attributes">
+                  <div
+                    class="value_name"
+                    [class.notActive]="item.value === 0"
+                    [innerHTML]="item.name"
+                  ></div>
+                  <div class="value" [class.notActive]="item.value === 0">
+                    {{item.pdk ? item.value: '----'}}
+                  </div>
+                  <div class="value_point" [class.notActive]="item.value === 0">
+                    {{item.value ? item.value: 'не обнаружен' }}
+                  </div>
+                </div>
+              </ng-container>
+            </ng-container>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+
+  <evj-frame-bottom></evj-frame-bottom>
+</div>

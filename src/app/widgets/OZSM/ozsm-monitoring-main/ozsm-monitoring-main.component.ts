@@ -16,7 +16,7 @@ import { IOzsmCircleDiagramFull } from '../ozsm-shared/ozsm-circle-diagram-full/
     templateUrl: './ozsm-monitoring-main.component.html',
     styleUrls: ['./ozsm-monitoring-main.component.scss'],
 })
-export class OzsmMonitoringMainComponent extends WidgetPlatform implements OnInit, OnDestroy {
+export class OzsmMonitoringMainComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
 
     public circleDiagramData: IOzsmCircleDiagramFull = {
         fact: 80,

@@ -17,7 +17,7 @@ export interface IImplementationPlan {
   templateUrl: './implementation-plan.component.html',
   styleUrls: ['./implementation-plan.component.scss']
 })
-export class ImplementationPlanComponent extends WidgetPlatform implements OnInit, OnDestroy {
+export class ImplementationPlanComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
 
   public data: IImplementationPlan[] = [];
 

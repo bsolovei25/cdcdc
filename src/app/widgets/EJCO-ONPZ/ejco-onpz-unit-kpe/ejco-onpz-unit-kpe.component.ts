@@ -25,7 +25,7 @@ export interface IEjcoOnpzUnitKpe {
     templateUrl: './ejco-onpz-unit-kpe.component.html',
     styleUrls: ['./ejco-onpz-unit-kpe.component.scss']
 })
-export class EjcoOnpzUnitKpeComponent extends WidgetPlatform implements OnDestroy, AfterViewInit {
+export class EjcoOnpzUnitKpeComponent extends WidgetPlatform<unknown> implements OnDestroy, AfterViewInit {
 
     public data: IEjcoOnpzUnitKpe = { chartData: null, chartCards: null };
 

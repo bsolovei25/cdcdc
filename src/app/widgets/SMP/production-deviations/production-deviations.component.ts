@@ -8,7 +8,7 @@ import { WidgetService } from '../../../dashboard/services/widget.service';
     templateUrl: './production-deviations.component.html',
     styleUrls: ['./production-deviations.component.scss'],
 })
-export class ProductionDeviationsComponent extends WidgetPlatform implements OnInit, OnDestroy {
+export class ProductionDeviationsComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
     public isDataLoading: boolean = true;
 
     public data: IProductionDeviationsGraph[] = null;

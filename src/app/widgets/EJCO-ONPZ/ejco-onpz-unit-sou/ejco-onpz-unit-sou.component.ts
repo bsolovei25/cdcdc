@@ -27,7 +27,7 @@ export interface IEjcoOnpzUnitSouTableRow {
     templateUrl: './ejco-onpz-unit-sou.component.html',
     styleUrls: ['./ejco-onpz-unit-sou.component.scss']
 })
-export class EjcoOnpzUnitSouComponent extends WidgetPlatform implements OnDestroy, AfterViewInit {
+export class EjcoOnpzUnitSouComponent extends WidgetPlatform<unknown> implements OnDestroy, AfterViewInit {
 
     public tabs: IEjcoOnpzUnit[] = [];
 
@@ -70,7 +70,11 @@ export class EjcoOnpzUnitSouComponent extends WidgetPlatform implements OnDestro
         const tabs = [];
         ref.data.forEach(item => tabs.push({ caption: item.title }));
         if (this.ejcoOnpzHelperService.compareArrayOfObjects(this.tabs, tabs)) {
-            this.tabs = tabs;
+            this.tabs = tabs.sort((a, b) => {
+                const textA = a.caption.toUpperCase();
+                const textB = b.caption.toUpperCase();
+                return textA.localeCompare(textB);
+            });
         }
         this.data.data = ref.data;
     }

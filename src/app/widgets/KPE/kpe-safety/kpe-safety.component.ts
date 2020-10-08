@@ -24,7 +24,7 @@ export interface IKpeSafetyCard {
     templateUrl: './kpe-safety.component.html',
     styleUrls: ['./kpe-safety.component.scss']
 })
-export class KpeSafetyComponent extends WidgetPlatform implements OnInit, AfterViewInit {
+export class KpeSafetyComponent extends WidgetPlatform<unknown> implements OnInit, AfterViewInit {
 
     @ViewChild('mainGauge') public gaugeChart: ElementRef;
 

@@ -8,7 +8,7 @@ import { LazyService } from '../../widgets/lazy.service';
     templateUrl: './widget-container.component.html',
     styleUrls: ['./widget-container.component.scss']
 })
-export class WidgetContainerComponent extends WidgetPlatform implements OnInit, OnDestroy {
+export class WidgetContainerComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
     @ViewChild('container', { read: ViewContainerRef }) private container: ViewContainerRef;
     public isLoading: boolean = true;
     public previewTitle: string = null;

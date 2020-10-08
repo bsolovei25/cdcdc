@@ -31,6 +31,7 @@ import { MAT_DATE_LOCALE } from '@angular/material/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { TasksEventComponent } from './tasks-event/tasks-event.component';
 import { ShiftPassComponent } from './shift-pass/shift-pass.component';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 @NgModule({
     declarations: [
@@ -55,7 +56,7 @@ import { ShiftPassComponent } from './shift-pass/shift-pass.component';
         EventsWorkspaceButtonComponent,
         FileAttachMenuComponent,
         TasksEventComponent,
-        ShiftPassComponent,
+        ShiftPassComponent
     ],
     imports: [
         CommonModule,
@@ -67,13 +68,17 @@ import { ShiftPassComponent } from './shift-pass/shift-pass.component';
         MatInputModule,
         MatSelectModule,
         MatTooltipModule,
+        MatCheckboxModule
     ],
     providers: [
         { provide: LOCALE_ID, useValue: 'ru-RU' },
         { provide: MAT_DATE_LOCALE, useValue: 'ru-RU' },
         { provide: MatDialogRef, useValue: {} },
-        { provide: MAT_DIALOG_DATA, useValue: [] },
+        { provide: MAT_DIALOG_DATA, useValue: [] }
     ],
+    exports: [
+        EventsWorkspaceComponent
+    ]
 })
 export class EventsWorkspaceModule {
     enterComponent = EventsWorkspaceComponent;

@@ -7,7 +7,7 @@ import { WidgetService } from '../../../dashboard/services/widget.service';
     templateUrl: './oq-oil-quality.component.html',
     styleUrls: ['./oq-oil-quality.component.scss']
 })
-export class OqOilQualityComponent extends WidgetPlatform implements OnInit {
+export class OqOilQualityComponent extends WidgetPlatform<unknown> implements OnInit {
 
     public readonly defaultUrl: string = 'http://msk25-cvtrdev/';
 

@@ -37,7 +37,7 @@ export interface IKpeReadinessGauge {
     templateUrl: './kpe-readiness.component.html',
     styleUrls: ['./kpe-readiness.component.scss']
 })
-export class KpeReadinessComponent extends WidgetPlatform implements OnInit, OnDestroy {
+export class KpeReadinessComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
 
     @ViewChildren('gauges')
     public gaugesElements: QueryList<HTMLDivElement>;

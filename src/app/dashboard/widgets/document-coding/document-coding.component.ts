@@ -14,7 +14,7 @@ export interface IDocumentFilter {
   templateUrl: './document-coding.component.html',
   styleUrls: ['./document-coding.component.scss']
 })
-export class DocumentCodingComponent extends WidgetPlatform implements OnInit, OnDestroy {
+export class DocumentCodingComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
   public static itemCols: number = 48;
   public static itemRows: number = 15;
   public static minItemCols: number = 36;

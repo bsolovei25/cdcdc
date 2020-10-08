@@ -31,7 +31,7 @@
       <td class="body__column column body__column--padding-disabled body__column__trust-level">
         <span class="body__column column__trust-level"
               [class.column__trust-level_deviation]="item.isExceedingConfInterval"
-              [class.column__trust-level--no-active]="!item.isEnable">{{ item.tolerance }}%</span>
+              [class.column__trust-level--no-active]="!item.isEnable">{{ item.tolerance | spaceNumber: 1}}%</span>
       </td>
       <td class="body__column">{{ item.productName }}</td>
       <td
@@ -43,7 +43,7 @@
               src="assets/icons/widgets/SOU/sou-in-streams/lightning.svg"
               [svgStyle]="{ 'width.px': 8, 'height.px': 12 }"
             ></svg-icon>
-            <span class="column__value">{{ item.valueMoment | spaceNumber }}</span>
+            <span class="column__value">{{ item.valueMoment }}</span>
             <span class="column__eng-value">т/ч</span>
           </div>
 
@@ -58,7 +58,7 @@
             src="assets/icons/widgets/SOU/sou-in-streams/stopwatch.svg"
             [svgStyle]="{ 'width.px': 8, 'height.px': 9 }"
           ></svg-icon>
-          <span class="column__value">{{ item.valueByHour | spaceNumber }}</span>
+          <span class="column__value">{{ item.valueByHour }}</span>
           <span class="column__eng-value">т</span>
         </div>
 
@@ -72,7 +72,7 @@
             src="assets/icons/widgets/SOU/sou-in-streams/accum.svg"
             [svgStyle]="{ 'width.px': 8, 'height.px': 9 }"
           ></svg-icon>
-          <span class="column__value"> {{ item.valueTank | spaceNumber }}</span>
+          <span class="column__value"> {{ item.valueTank }}</span>
           <span class="column__eng-value">т</span>
         </div>
 

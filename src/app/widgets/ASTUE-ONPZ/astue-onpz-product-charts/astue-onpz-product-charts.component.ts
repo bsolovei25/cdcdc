@@ -4,11 +4,12 @@ import { WidgetService } from '../../../dashboard/services/widget.service';
 import { IProductionTrend } from '../../../dashboard/models/production-trends.model';
 import { AstueOnpzService } from '../astue-onpz-shared/astue-onpz.service';
 import { AstueOnpzProductCardComponent } from './components/astue-onpz-product-card/astue-onpz-product-card.component';
+import { AstueOnpzHeaderIcon } from '../../../dashboard/models/ASTUE-ONPZ/astue-onpz-header-icon.model';
 
 export interface IAstueProductChart {
     productName: string;
     unitName: string;
-    iconType: string;
+    iconType: AstueOnpzHeaderIcon;
     itemId: string;
     units: string;
     isEconomy: boolean;
@@ -27,7 +28,7 @@ export type AstueProductChartType = 'fact' | 'plan' | 'exceed' | 'economy';
     templateUrl: './astue-onpz-product-charts.component.html',
     styleUrls: ['./astue-onpz-product-charts.component.scss'],
 })
-export class AstueOnpzProductChartsComponent extends WidgetPlatform implements OnInit, OnDestroy {
+export class AstueOnpzProductChartsComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
     public data: string[] = [];
     public readonly chartComponent: any = AstueOnpzProductCardComponent;
 

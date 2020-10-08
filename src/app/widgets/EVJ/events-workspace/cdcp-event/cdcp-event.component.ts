@@ -1,5 +1,5 @@
-import { Component, OnInit, ViewChild, ElementRef, HostListener } from '@angular/core';
-import { IInputOptions } from '../../../../@shared/models/input.model';
+import {Component, OnInit, Input} from '@angular/core';
+import { IInputOptions } from '@shared/models/input.model';
 import { IChatMessageWithAttachments } from '../components/chat/chat.component';
 import { EventsWorkspaceService } from '../../../../dashboard/services/widgets/events-workspace.service';
 import { UserSettingsService } from '../../../../dashboard/services/user-settings.service';
@@ -12,6 +12,9 @@ import { SnackBarService } from '../../../../dashboard/services/snack-bar.servic
     styleUrls: ['./cdcp-event.component.scss']
 })
 export class CdcpEventComponent implements OnInit {
+    @Input()
+    public noOverflow: boolean = false;
+
     public inputOptions: IInputOptions = {
         type: 'text',
         state: 'normal',

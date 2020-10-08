@@ -32,7 +32,7 @@ export interface IAstueOnpzIndicator {
     templateUrl: './astue-onpz-consumption-indicators.component.html',
     styleUrls: ['./astue-onpz-consumption-indicators.component.scss'],
 })
-export class AstueOnpzConsumptionIndicatorsComponent extends WidgetPlatform
+export class AstueOnpzConsumptionIndicatorsComponent extends WidgetPlatform<unknown>
     implements OnInit, OnDestroy, AfterViewInit {
 
     public type: AstueOnpzConsumptionIndicatorsWidgetType | null = null;

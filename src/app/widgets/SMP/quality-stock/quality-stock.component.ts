@@ -21,7 +21,7 @@ export interface IQualityStockCircle {
   templateUrl: './quality-stock.component.html',
   styleUrls: ['./quality-stock.component.scss']
 })
-export class QualityStockComponent extends WidgetPlatform implements OnInit, OnDestroy {
+export class QualityStockComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
 
 
   public dataSecurity: IQualityStockSecurity;

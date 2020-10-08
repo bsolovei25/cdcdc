@@ -13,6 +13,7 @@ import { SnackBarService } from './snack-bar.service';
 import { OverlayService } from './overlay.service';
 import { Router } from '@angular/router';
 import { IGroupScreens } from '../components/group-selector/group-selector.component';
+import { Title } from '@angular/platform-browser';
 
 @Injectable({
     providedIn: 'root'
@@ -31,6 +32,9 @@ export class UserSettingsService {
 
     public ScreenId: number;
     public ScreenName: string;
+    readonly projectName: string;
+
+    private widgetsOnScreen: Map<string, string> = new Map<string, string>();
 
     constructor(
         private widgetService: WidgetService,
@@ -39,9 +43,11 @@ export class UserSettingsService {
         private configService: AppConfigService,
         private snackBar: SnackBarService,
         private overlayService: OverlayService,
-        private router: Router
+        private router: Router,
+        private titleService: Title
     ) {
         this.restUrl = configService.restUrl;
+        this.projectName = configService.projectName;
     }
 
     public create_UUID(): string {
@@ -83,7 +89,8 @@ export class UserSettingsService {
         this.http
             .post(this.restUrl + '/api/user-management/widget/' + this.ScreenId, updateWidget)
             .subscribe(
-                (ans) => {
+                (ans: IUserGridItem) => {
+                    this.setWidgetOnScreen(ans.widgetType, ans.uniqueId);
                 },
                 (error) => console.log(error)
             );
@@ -128,6 +135,12 @@ export class UserSettingsService {
             console.error(`widget delete error: ${e}`);
         } finally {
             this.overlayService.setIsLoad(false);
+            this.widgetsOnScreen.forEach((key, val) => {
+                if (key === widgetId) {
+                    this.unsetWidgetOnScreen(val);
+                    return;
+                }
+            });
         }
     }
 
@@ -238,6 +251,7 @@ export class UserSettingsService {
                 this.ScreenId = item.id;
                 this.ScreenName = item.screenName;
                 this.widgetService.dashboard = item.widgets.map((widget) => {
+                    this.setWidgetOnScreen(widget.widgetType, widget.uniqueId);
                     const minItemCols = this.defWidgetSize(widget.widgetType)?.minItemCols ?? 6;
                     const minItemRows = this.defWidgetSize(widget.widgetType)?.minItemRows ?? 6;
                     return {
@@ -252,6 +266,7 @@ export class UserSettingsService {
                         uniqid: widget.uniqueId
                     };
                 });
+                this.setTitle(`${this.projectName} - ${this.ScreenName}`);
             });
         } else {
             this.ScreenId = undefined;
@@ -325,6 +340,18 @@ export class UserSettingsService {
         this._screens$.next(null);
     }
 
+    public isWidgetAvailableOnScreen(widgetType: string): boolean {
+        return this.widgetsOnScreen.has(widgetType);
+    }
+
+    private setWidgetOnScreen(widgetType: string, widgetId: string): void {
+        this.widgetsOnScreen.set(widgetType, widgetId);
+    }
+
+    private unsetWidgetOnScreen(widgetType: string): void {
+        this.widgetsOnScreen.delete(widgetType);
+    }
+
     private async getScreenByWidgetType(widgetType: string): Promise<number> {
         const screen = await this.http
             .get<IScreenSettings>(
@@ -336,5 +363,9 @@ export class UserSettingsService {
 
     private defWidgetSize(widgetType: string): any {
         return WIDGETS_LAZY[widgetType] ?? WIDGETS[widgetType];
+    }
+
+    public setTitle(newTitle: string): void {
+        this.titleService.setTitle(newTitle);
     }
 }

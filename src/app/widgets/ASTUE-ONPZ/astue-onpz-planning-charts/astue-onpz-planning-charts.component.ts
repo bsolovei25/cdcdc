@@ -19,7 +19,7 @@ export interface IPlanningChart {
     templateUrl: './astue-onpz-planning-charts.component.html',
     styleUrls: ['./astue-onpz-planning-charts.component.scss']
 })
-export class AstueOnpzPlanningChartsComponent extends WidgetPlatform implements OnInit, OnDestroy {
+export class AstueOnpzPlanningChartsComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
     public data: IPlanningChart[] = [];
     colors: Map<string, number>;
 

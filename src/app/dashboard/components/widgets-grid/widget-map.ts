@@ -1,39 +1,12 @@
-import { LineChartComponent } from '../../widgets/line-chart/line-chart.component';
-import { ManualInputComponent } from '../../widgets/manual-input/manual-input.component';
-import { ChangeShiftComponent } from '../../widgets/change-shift/change-shift.component';
-import { EnergeticsComponent } from '../../widgets/energetics/energetics.component';
-import { WidgetPiesComponent } from '../../widgets/widgets-pie/widget-pies/widget-pies.component';
-import { TruncatedPieSFirstComponent } from '../../widgets/truncated-pie-first/truncated-pie-s-first/truncated-pie-s-first.component';
-import { TruncatedPieSIconComponent } from '../../widgets/truncated-pie-icon/truncated-pie-s-icon/truncated-pie-s-icon.component';
-import { PointDiagramComponent } from '../../widgets/point-diagram/point-diagram.component';
-import { BarChartsComponent } from '../../widgets/bar-chart/bar-charts/bar-charts.component';
+import { ManualInputComponent } from '../../../widgets/EVJ/manual-input/manual-input.component';
 import { SuspenseMachineComponent } from '../../widgets/suspense-machine/suspense-machine.component';
-import { EnterpriseMapComponent } from '../../widgets/map-enterprise/enterprise-map.component';
-import { CircleDiagramComponent } from '../../widgets/circle-diagram/circle-diagram.component';
-import { MapEcologyComponent } from '../../widgets/map-ecology/map-ecology.component';
 import { UnityTemplateComponent } from '../../widgets/unity-template/unity-template.component';
-import { RingSFactoryDiagramComponent } from '../../widgets/ring-factory-diagrams/ring-s-factory-diagram/ring-s-factory-diagram.component';
-import { OperationEfficiencyComponent } from '../../widgets/operation-efficiency/operation-efficiency.component';
-import { EcologySafetyComponent } from '../../widgets/ecology-safety/ecology-safety.component';
-import { CalendarPlanComponent } from '../../widgets/calendar-plan/calendar-plan.component';
-import { ChainMapComponent } from '../../widgets/chain-map/chain-map.component';
-import { DispatcherScreenComponent } from '../../widgets/dispatcher-screen/dispatcher-screen.component';
 import { DeviationsTableComponent } from '../../widgets/deviations-table/deviations-table.component';
-import { TriggeringCriticalParametersComponent } from '../../widgets/triggering-critical-parameters/triggering-critical-parameters.component';
-import { CircleFactoryDiagramComponent } from '../../widgets/circle-factory-diagram/circle-factory-diagram.component';
 import { ProductStocksComponent } from '../../widgets/product-stocks/product-stocks.component';
-import { PolarChartComponent } from '../../widgets/polar-chart/polar-chart.component';
-import { SemicircleEnergyComponent } from '../../widgets/semicircle-energy/semicircle-energy.component';
 import { DeviationCircleDiagramComponent } from '../../widgets/deviation-circle-diagram/deviation-circle-diagram.component';
-import { OilControlComponent } from '../../widgets/oil-control/oil-control.component';
-import { CircleBlockDiagramComponent } from '../../widgets/circle-block-diagram/circle-block-diagram.component';
 import { ColumnChartStackedComponent } from '../../widgets/column-chart-stacked/column-chart-stacked.component';
 import { TimeLineDiagramComponent } from '../../widgets/time-line-diagram/time-line-diagram.component';
 import { FlameDiagramComponent } from '../../widgets/flame-diagram/flame-diagram.component';
-import { ObservationNormTRComponent } from '../../widgets/observation-norm-tr/observation-norm-tr.component';
-import { RingEnergyIndicatorComponent } from '../../widgets/ring-energy-indicator/ring-energy-indicator.component';
-import { SolidGaugesComponent } from '../../widgets/solid-gauge-with-marker/solid-gauges/solid-gauges.component';
-import { AdminReferencesComponent } from '../../widgets/admin-references/admin-references.component';
 import { PetroleumProductsMovementComponent } from '../../widgets/petroleum-products-movement/petroleum-products-movement.component';
 import { ReportServerConfiguratorComponent } from '../../widgets/report-server-configurator/report-server-configurator.component';
 import { ReferenceComponent } from '../../widgets/reference/reference.component';
@@ -41,75 +14,38 @@ import { TankCalibrationTableComponent } from '../../widgets/tank-calibration-ta
 import { CustomReportPropertiesReferenceComponent } from '../../widgets/custom-report-properties-reference/custom-report-properties-reference.component';
 import { ProductionTrendComponent } from '../../widgets/production-trend/production-trend.component';
 import { ReasonsDeviationsComponent } from '../../widgets/reasons-deviations/reasons-deviations.component';
-import { DocumentViewerComponent } from '../../widgets/document-viewer/document-viewer.component';
-import { DocumentsScansComponent } from '../../widgets/documents-scans/documents-scans.component';
 import { QualityDocsPanelComponent } from '../../widgets/quality-docs-panel/quality-docs-panel.component';
 import { DocumentCodingComponent } from '../../widgets/document-coding/document-coding.component';
 import { OilOperationsComponent } from '../../widgets/oil-operations/oil-operations.component';
 import { WorkflowComponent } from '../../widgets/workflow/workflow.component';
 import { CdCriticalComponent } from '../../widgets/cd-critical/cd-critical.component';
-import { TruncatedDiagramTrafficLightComponent } from '../../widgets/truncated-diagram-traffic-light/truncated-diagram-traffic-light.component';
 import { WidgetContainerComponent } from '../../widget-container/widget-container.component';
-import { AdminShiftScheduleOldComponent } from '../../widgets/admin-widget/admin-shift-schedule-old/admin-shift-schedule-old.component';
 import { CdMatBalanceChartCardComponent } from '../../../widgets/CD/cd-mat-balance/components/cd-mat-balance-chart-card/cd-mat-balance-chart-card.component';
-import { TankInformationComponent } from '../../widgets/tank-information/tank-information.component';
-import { OzsmResourcesCircleDiagramComponent } from 'src/app/widgets/OZSM/ozsm-shared/ozsm-resources-circle-diagram/ozsm-resources-circle-diagram.component';
 
 export const WIDGETS = {
-    'pie-diagram': WidgetPiesComponent,
-    'line-chart': LineChartComponent,
-    'manual-input': ManualInputComponent,
-    'shift-pass': ChangeShiftComponent,
-    'shift-accept': ChangeShiftComponent,
+    'pie-diagram': WidgetContainerComponent,
+    'line-chart': WidgetContainerComponent,
+    'manual-input': WidgetContainerComponent,
     'events-workspace': WidgetContainerComponent,
-    'truncated-diagram-percentage': TruncatedPieSFirstComponent,
-    'truncated-diagram-traffic-light': TruncatedDiagramTrafficLightComponent,
-    'truncated-diagram-counter': TruncatedPieSIconComponent,
-    'point-diagram': PointDiagramComponent,
     'industrial-pyramid': WidgetContainerComponent,
-    'bar-chart': BarChartsComponent,
-    'enterprise-map': EnterpriseMapComponent,
-    'circle-diagram': CircleDiagramComponent,
     'unity-template': UnityTemplateComponent,
-    'map-ecology': MapEcologyComponent,
-    'operation-efficiency': OperationEfficiencyComponent,
-    'ecology-safety': EcologySafetyComponent,
-    'calendar-plan': CalendarPlanComponent,
-    'ring-factory-diagram': RingSFactoryDiagramComponent,
-    'chain-map': ChainMapComponent,
-    energetics: EnergeticsComponent,
-    'dispatcher-screen': DispatcherScreenComponent,
     'table-data': SuspenseMachineComponent,
     'deviations-table': DeviationsTableComponent,
-    'triggering-critical-parameters': TriggeringCriticalParametersComponent,
-    'circle-factory-diagram': CircleFactoryDiagramComponent,
     'product-stocks': ProductStocksComponent,
-    'polar-chart': PolarChartComponent,
-    'semicircle-energy': SemicircleEnergyComponent,
     'deviation-circle-diagram': DeviationCircleDiagramComponent,
-    'oil-control': OilControlComponent,
-    'circle-block-diagram': CircleBlockDiagramComponent,
     'column-chart-stacked': ColumnChartStackedComponent,
     'flame-diagram': FlameDiagramComponent,
-    'ring-energy-indicator': RingEnergyIndicatorComponent,
     'time-line-diagram': TimeLineDiagramComponent,
-    'solid-gauge-with-marker': SolidGaugesComponent,
-    'observation-norm-tr': ObservationNormTRComponent,
-    'admin-references': AdminReferencesComponent,
     'petroleum-products-movement': PetroleumProductsMovementComponent,
-    'admin-panel': WidgetContainerComponent,
     reference: ReferenceComponent,
     'report-server-configurator': ReportServerConfiguratorComponent,
     'tank-calibration-table': TankCalibrationTableComponent,
     'custom-report-properties-reference': CustomReportPropertiesReferenceComponent,
     'production-trend': ProductionTrendComponent,
     'reasons-deviations': ReasonsDeviationsComponent,
-    'document-viewer': DocumentViewerComponent,
-    'documents-scans': DocumentsScansComponent,
     'quality-docs-panel': QualityDocsPanelComponent,
     'document-coding': DocumentCodingComponent,
     'oil-operations': OilOperationsComponent,
-    'tank-information': TankInformationComponent,
     workflow: WorkflowComponent,
     'cd-critical': CdCriticalComponent,
     'implementation-plan': WidgetContainerComponent,
@@ -126,7 +62,6 @@ export const WIDGETS = {
     'aps-gantt-chart': WidgetContainerComponent,
     scenarios: WidgetContainerComponent,
     'admin-shift-schedule': WidgetContainerComponent,
-    'admin-shift-schedule-old': AdminShiftScheduleOldComponent,
     'facility-deviation': WidgetContainerComponent,
     'raw-motion': WidgetContainerComponent,
     'stocks-using': WidgetContainerComponent,
@@ -174,8 +109,38 @@ export const WIDGETS = {
     'ozsm-circle-planning-diagram': WidgetContainerComponent,
     'ozsm-main-toggle': WidgetContainerComponent,
     'ozsm-scenarios': WidgetContainerComponent,
+    'oil-control': WidgetContainerComponent,
+    'truncated-diagram-percentage': WidgetContainerComponent,
+    'truncated-diagram-traffic-light': WidgetContainerComponent,
+    'truncated-diagram-counter': WidgetContainerComponent,
+    'ring-factory-diagram': WidgetContainerComponent,
+    'ring-energy-indicator': WidgetContainerComponent,
     'ozsm-planning-main': WidgetContainerComponent,
-    'ozsm-monitoring-main': WidgetContainerComponent
+    'ozsm-monitoring-main': WidgetContainerComponent,
+    'shift-pass': WidgetContainerComponent,
+    'shift-accept': WidgetContainerComponent,
+    'bar-chart': WidgetContainerComponent,
+    'chain-map': WidgetContainerComponent,
+    'point-diagram': WidgetContainerComponent,
+    'map-ecology': WidgetContainerComponent,
+    'enterprise-map': WidgetContainerComponent,
+    'solid-gauge-with-marker': WidgetContainerComponent,
+    'admin-references': WidgetContainerComponent,
+    'admin-shift-schedule-old': WidgetContainerComponent,
+    'triggering-critical-parameters': WidgetContainerComponent,
+    'semicircle-energy': WidgetContainerComponent,
+    'circle-block-diagram': WidgetContainerComponent,
+    'circle-diagram': WidgetContainerComponent,
+    'circle-factory-diagram': WidgetContainerComponent,
+    'observation-norm-tr': WidgetContainerComponent,
+    energetics: WidgetContainerComponent,
+    'calendar-plan': WidgetContainerComponent,
+    'operation-efficiency': WidgetContainerComponent,
+    'dispatcher-screen': WidgetContainerComponent,
+    'documents-scans': WidgetContainerComponent,
+    'document-viewer': WidgetContainerComponent,
+    'admin-panel': WidgetContainerComponent,
+    'polar-chart': WidgetContainerComponent
 };
 
 export const WIDGETS_LAZY = {
@@ -211,7 +176,7 @@ export const WIDGETS_LAZY = {
         itemRows: 30,
         minItemCols: 40,
         minItemRows: 10,
-        preview: 'gant-chart'
+        preview: 'aps-gantt-chart'
     },
     'aps-recipe-diagram': {
         import: async () => {
@@ -301,7 +266,7 @@ export const WIDGETS_LAZY = {
     'nk-tank-information': {
         import: async () => {
             return await import(
-                'src/app/widgets/NK/nk-tank-information.module'
+                'src/app/widgets/NK/nk-tank-information/nk-tank-information.module'
                 );
         },
         module: 'NkTankInformationModule',
@@ -309,7 +274,46 @@ export const WIDGETS_LAZY = {
         itemRows: 12,
         minItemCols: 19,
         minItemRows: 12,
-        preview: 'default'
+        preview: 'nk-tank-information'
+    },
+    'tank-information': {
+        import: async () => {
+            return await import(
+                'src/app/widgets/NK/tank-information/tank-information.module'
+                );
+        },
+        module: 'TankInformationModule',
+        itemCols: 36,
+        itemRows: 14,
+        minItemCols: 36,
+        minItemRows: 14,
+        preview: 'tank-information'
+    },
+    'documents-scans': {
+        import: async () => {
+            return await import(
+                'src/app/widgets/NK/documents-scans/documents-scans.module'
+                );
+        },
+        module: 'DocumentsScansModule',
+        itemCols: 16,
+        itemRows: 15,
+        minItemCols: 16,
+        minItemRows: 12,
+        preview: 'documents-scans'
+    },
+    'document-viewer': {
+        import: async () => {
+            return await import(
+                'src/app/widgets/NK/document-viewer/document-viewer.module'
+                );
+        },
+        module: 'DocumentViewerModule',
+        itemCols: 16,
+        itemRows: 15,
+        minItemCols: 16,
+        minItemRows: 12,
+        preview: 'document-viewer'
     },
 
     // #endregion NK
@@ -322,11 +326,11 @@ export const WIDGETS_LAZY = {
                 );
         },
         module: 'OzsmResourcesCircleDiagramModule',
-        itemCols: 19,
-        itemRows: 5,
-        minItemCols: 19,
-        minItemRows: 5,
-        preview: 'default'
+        itemCols: 38,
+        itemRows: 4,
+        minItemCols: 38,
+        minItemRows: 4,
+        preview: 'ozsm-resources-circle-diagram'
     },
     // #endregion OZSM
 
@@ -389,7 +393,7 @@ export const WIDGETS_LAZY = {
         itemRows: 7,
         minItemCols: 15,
         minItemRows: 6,
-        preview: 'default'
+        preview: 'kpe-safety'
     },
 
     // #endregion KPE
@@ -409,6 +413,19 @@ export const WIDGETS_LAZY = {
         minItemRows: 15,
         preview: 'admin-shift-schedule'
     },
+    'admin-shift-schedule-old': {
+        import: async () => {
+            return await import(
+                'src/app/widgets/admin/admin-widget/admin-shift-schedule-old/admin-shift-shedule-old.module'
+                );
+        },
+        module: 'AdminShiftSheduleOldModule',
+        itemCols: 38,
+        itemRows: 25,
+        minItemCols: 38,
+        minItemRows: 25,
+        preview: 'admin-shift-schedule'
+    },
     'admin-panel': {
         import: async () => {
             return await import('src/app/widgets/admin/admin-panel/admin-panel.module');
@@ -419,6 +436,17 @@ export const WIDGETS_LAZY = {
         minItemCols: 43,
         minItemRows: 28,
         preview: 'admin-panel'
+    },
+    'admin-references': {
+        import: async () => {
+            return await import('src/app/widgets/admin/admin-references/admin-references.module');
+        },
+        module: 'AdminReferencesModule',
+        itemCols: 32,
+        itemRows: 15,
+        minItemCols: 29,
+        minItemRows: 13,
+        preview: 'admin-references'
     },
 
     // #endregion Admin
@@ -526,7 +554,28 @@ export const WIDGETS_LAZY = {
         minItemRows: 30,
         preview: 'cd-events'
     },
-
+    'shift-pass': {
+        import: async () => {
+            return await import('src/app/widgets/EVJ/change-shift/change-shift.module');
+        },
+        module: 'ChangeShiftModule',
+        itemCols: 15,
+        itemRows: 30,
+        minItemCols: 15,
+        minItemRows: 23,
+        preview: 'change-shift'
+    },
+    'shift-accept': {
+        import: async () => {
+            return await import('src/app/widgets/EVJ/change-shift/change-shift.module');
+        },
+        module: 'ChangeShiftModule',
+        itemCols: 15,
+        itemRows: 30,
+        minItemCols: 15,
+        minItemRows: 23,
+        preview: 'change-shift'
+    },
     // #endregion EVJ
 
     //#region LCO
@@ -567,7 +616,283 @@ export const WIDGETS_LAZY = {
         minItemRows: 16,
         preview: 'line-diagram'
     },
+    'bar-chart': {
+        import: async () => {
+            return await import('src/app/widgets/LCO/bar-chart/bar-charts/bar-charts.module');
+        },
+        module: 'BarChartsModule',
+        itemCols: 38,
+        itemRows: 10,
+        minItemCols: 10,
+        minItemRows: 10,
+        preview: 'bar-chart'
+    },
+    'chain-map': {
+        import: async () => {
+            return await import('src/app/widgets/LCO/chain-map/chain-map.module');
+        },
+        module: 'ChainMapModule',
+        itemCols: 32,
+        itemRows: 20,
+        minItemCols: 32,
+        minItemRows: 20,
+        preview: 'chain-map'
+    },
+    'point-diagram': {
+        import: async () => {
+            return await import('src/app/widgets/LCO/point-diagram/point-diagram.module');
+        },
+        module: 'PointDiagramModule',
+        itemCols: 19,
+        itemRows: 16,
+        minItemCols: 19,
+        minItemRows: 16,
+        preview: 'point-diagram'
+    },
+    'map-ecology': {
+        import: async () => {
+            return await import('src/app/widgets/LCO/map-ecology/map-ecology.module');
+        },
+        module: 'MapEcologyModule',
+        itemCols: 32,
+        itemRows: 15,
+        minItemCols: 32,
+        minItemRows: 15,
+        preview: 'map-ecology'
+    },
+    'enterprise-map': {
+        import: async () => {
+            return await import('src/app/widgets/LCO/map-enterprise/enterprise-map.module');
+        },
+        module: 'EnterpriseMapModule',
+        itemCols: 30,
+        itemRows: 21,
+        minItemCols: 25,
+        minItemRows: 18,
+        preview: 'enterprise-map'
+    },
+    'solid-gauge-with-marker': {
+        import: async () => {
+            return await import('src/app/widgets/LCO/solid-gauge-with-marker/solid-gauges/solid-gauges.module');
+        },
+        module: 'SolidGaugesModule',
+        itemCols: 18,
+        itemRows: 10,
+        minItemCols: 9,
+        minItemRows: 10,
+        preview: 'solid-gauge-with-marker'
+    },
 
+
+    'line-chart': {
+        import: async () => {
+            return await import('src/app/widgets/LCO/line-chart/line-chart.module');
+        },
+        module: 'LineChartModule',
+        itemCols: 20,
+        itemRows: 13,
+        minItemCols: 17,
+        minItemRows: 7,
+        preview: 'line-chart'
+    },
+    'oil-control': {
+        import: async () => {
+            return await import('src/app/widgets/LCO/oil-control/oil-control.module');
+        },
+        module: 'OilControlModule',
+        itemCols: 31,
+        itemRows: 9,
+        minItemCols: 31,
+        minItemRows: 9,
+        preview: 'oil-control'
+    },
+    'polar-chart': {
+        import: async () => {
+            return await import('src/app/widgets/LCO/polar-chart/polar-chart.module');
+        },
+        module: 'PolarChartModule',
+        itemCols: 20,
+        itemRows: 16,
+        minItemCols: 20,
+        minItemRows: 16,
+        preview: 'polar-chart'
+    },
+    'pie-diagram': {
+        import: async () => {
+            return await import('src/app/widgets/LCO/widgets-pie/widget-pies/widget-pies.module');
+        },
+        module: 'WidgetPiesModule',
+        itemCols: 20,
+        itemRows: 16,
+        minItemCols: 20,
+        minItemRows: 16,
+        preview: 'pie-diagram'
+    },
+    'truncated-diagram-traffic-light': {
+        import: async () => {
+            return await import('src/app/widgets/LCO/truncated-diagram-traffic-light/truncated-diagram-traffic-light.module');
+        },
+        module: 'TruncatedDiagramTrafficLightModule',
+        itemCols: 13,
+        itemRows: 15,
+        minItemCols: 13,
+        minItemRows: 5,
+        preview: 'truncated-diagram-traffic-light'
+    },
+    'truncated-diagram-percentage': {
+        import: async () => {
+            return await import('src/app/widgets/LCO/truncated-diagram-percentage/truncated-diagram-percentage.module');
+        },
+        module: 'TruncatedDiagramPercentageModule',
+        itemCols: 16,
+        itemRows: 12,
+        minItemCols: 16,
+        minItemRows: 12,
+        preview: 'truncated-diagram-percentage'
+    },
+    'truncated-diagram-counter': {
+        import: async () => {
+            return await import('src/app/widgets/LCO/truncated-diagram-counter/truncated-diagram-counter.module');
+        },
+        module: 'TruncatedDiagramCounterModule',
+        itemCols: 29,
+        itemRows: 7,
+        minItemCols: 29,
+        minItemRows: 7,
+        preview: 'truncated-diagram-counter'
+    },
+    'ring-factory-diagram': {
+        import: async () => {
+            return await import('src/app/widgets/LCO/ring-factory-diagrams/ring-factory-diagrams.module');
+        },
+        module: 'RingFactoryDiagramsModule',
+        itemCols: 35,
+        itemRows: 23,
+        minItemCols: 12,
+        minItemRows: 12,
+        preview: 'ring-factory-diagram'
+    },
+    'ring-energy-indicator': {
+        import: async () => {
+            return await import('src/app/widgets/LCO/ring-energy-indicator/ring-energy-indicator.module');
+        },
+        module: 'RingEnergyIndicatorModule',
+        itemCols: 8,
+        itemRows: 10,
+        minItemCols: 8,
+        minItemRows: 10,
+        preview: 'ring-energy-indicator'
+    },
+    'ecology-safety': {
+        import: async () => {
+            return await import('src/app/widgets/LCO/ecology-safety/ecology-safety.module');
+        },
+        module: 'EcologySafetyModule',
+        itemCols: 24,
+        itemRows: 5,
+        minItemCols: 24,
+        minItemRows: 5,
+        preview: 'ecology-safety'
+    },
+    'triggering-critical-parameters': {
+        import: async () => {
+            return await import('src/app/widgets/LCO/triggering-critical-parameters/triggering-critical-parameters.module');
+        },
+        module: 'TriggeringCriticalParametersModule',
+        itemCols: 18,
+        itemRows: 30,
+        minItemCols: 15,
+        minItemRows: 30,
+        preview: 'triggering-critical-parameters'
+    },
+    'semicircle-energy': {
+        import: async () => {
+            return await import('src/app/widgets/LCO/semicircle-energy/semicircle-energy.module');
+        },
+        module: 'SemicircleEnergyModule',
+        itemCols: 13,
+        itemRows: 9,
+        minItemCols: 13,
+        minItemRows: 9,
+        preview: 'semicircle-energy'
+    },
+    'circle-block-diagram': {
+        import: async () => {
+            return await import('src/app/widgets/LCO/circle-block-diagram/circle-block-diagram.module');
+        },
+        module: 'CircleBlockDiagramModule',
+        itemCols: 10,
+        itemRows: 10,
+        minItemCols: 10,
+        minItemRows: 10,
+        preview: 'circle-block-diagram'
+    },
+    'circle-diagram': {
+        import: async () => {
+            return await import('src/app/widgets/LCO/circle-diagram/circle-diagram.module');
+        },
+        module: 'CircleDiagramModule',
+        itemCols: 11,
+        itemRows: 9,
+        minItemCols: 8,
+        minItemRows: 7,
+        preview: 'circle-diagram'
+    },
+    'circle-factory-diagram': {
+        import: async () => {
+            return await import('src/app/widgets/LCO/circle-factory-diagram/circle-factory-diagram.module');
+        },
+        module: 'CircleFactoryDiagramModule',
+        itemCols: 14,
+        itemRows: 8,
+        minItemCols: 14,
+        minItemRows: 8,
+        preview: 'circle-factory-diagram'
+    },
+    'observation-norm-tr': {
+        import: async () => {
+            return await import('src/app/widgets/LCO/observation-norm-tr/observation-norm-tr.module');
+        },
+        module: 'ObservationNormTRModule',
+        itemCols: 13,
+        itemRows: 8,
+        minItemCols: 13,
+        minItemRows: 8,
+        preview: 'circle-factory-diagram'
+    },
+    energetics: {
+        import: async () => {
+            return await import('src/app/widgets/LCO/energetics/energetics.module');
+        },
+        module: 'EnergeticsModule',
+        itemCols: 24,
+        itemRows: 18,
+        minItemCols: 24,
+        minItemRows: 18,
+        preview: 'energetics'
+    },
+    'calendar-plan': {
+        import: async () => {
+            return await import('src/app/widgets/LCO/calendar-plan/calendar-plan.module');
+        },
+        module: 'CalendarPlanModule',
+        itemCols: 32,
+        itemRows: 10,
+        minItemCols: 24,
+        minItemRows: 10,
+        preview: 'calendar-plan'
+    },
+    'operation-efficiency': {
+        import: async () => {
+            return await import('src/app/widgets/LCO/operation-efficiency/operation-efficiency.module');
+        },
+        module: 'OperationEfficiencyModule',
+        itemCols: 24,
+        itemRows: 6,
+        minItemCols: 24,
+        minItemRows: 6,
+        preview: 'operation-efficiency'
+    },
     //#endregion LCO
 
     //#region SMP
@@ -825,8 +1150,8 @@ export const WIDGETS_LAZY = {
         itemCols: 30,
         itemRows: 12,
         minItemCols: 30,
-        minItemRows: 12
-        // preview: 'astue-onpz-planning-charts',
+        minItemRows: 12,
+        preview: 'astue-onpz-planning-charts',
     },
 
     'astue-onpz-interactive-indicators': {
@@ -839,8 +1164,8 @@ export const WIDGETS_LAZY = {
         itemCols: 24,
         itemRows: 10,
         minItemCols: 24,
-        minItemRows: 10
-        // preview: 'astue-onpz-interactive-indicators',
+        minItemRows: 10,
+        preview: 'astue-onpz-interactive-indicators',
     },
     'ejco-onpz-unit-sou': {
         import: async () => {
@@ -852,8 +1177,8 @@ export const WIDGETS_LAZY = {
         itemCols: 28,
         itemRows: 7,
         minItemCols: 28,
-        minItemRows: 7
-        // preview: 'ejco-onpz-unit-sou',
+        minItemRows: 7,
+        preview: 'ejco-onpz-unit-sou',
     },
     'ejco-onpz-fsb-load': {
         import: async () => {
@@ -865,8 +1190,8 @@ export const WIDGETS_LAZY = {
         itemCols: 12,
         itemRows: 7,
         minItemCols: 12,
-        minItemRows: 7
-        // preview: 'ejco-onpz-fsb-load',
+        minItemRows: 7,
+        preview: 'ejco-onpz-fsb-load',
     },
     'ejco-onpz-unit-kpe': {
         import: async () => {
@@ -878,8 +1203,8 @@ export const WIDGETS_LAZY = {
         itemCols: 12,
         itemRows: 7,
         minItemCols: 12,
-        minItemRows: 7
-        // preview: 'ejco-onpz-unit-kpe',
+        minItemRows: 7,
+        preview: 'ejco-onpz-unit-kpe',
     },
 
     //#endregion ASTUE-ONPZ
@@ -893,10 +1218,10 @@ export const WIDGETS_LAZY = {
                 );
         },
         module: 'OzsmLineDiagramsModule',
-        itemCols: 12,
-        itemRows: 7,
-        minItemCols: 12,
-        minItemRows: 7,
+        itemCols: 11,
+        itemRows: 10,
+        minItemCols: 11,
+        minItemRows: 10,
         preview: 'ozsm-line-diagrams'
     },
     'ozsm-diagrams': {
@@ -906,11 +1231,11 @@ export const WIDGETS_LAZY = {
                 );
         },
         module: 'OzsmDiagramsWidgetModule',
-        itemCols: 13,
+        itemCols: 12,
         itemRows: 24,
-        minItemCols: 13,
+        minItemCols: 12,
         minItemRows: 24,
-        // preview: 'ozsm-diagrams',
+        preview: 'ozsm-diagrams',
     },
     'ozsm-main-indicators': {
         import: async () => {
@@ -919,11 +1244,11 @@ export const WIDGETS_LAZY = {
                 );
         },
         module: 'OzsmMainIndicatorsModule',
-        itemCols: 12,
-        itemRows: 4,
-        minItemCols: 12,
-        minItemRows: 4,
-        preview: 'default'
+        itemCols: 11,
+        itemRows: 3,
+        minItemCols: 11,
+        minItemRows: 3,
+        preview: 'ozsm-main-indicators'
     },
     'ozsm-circle-planning-diagram': {
         import: async () => {
@@ -932,25 +1257,25 @@ export const WIDGETS_LAZY = {
                 );
         },
         module: 'OzsmCirclePlanningDiagramModule',
-        itemCols: 25,
-        itemRows: 5,
-        minItemCols: 25,
-        minItemRows: 5,
-        preview: 'default'
+        itemCols: 38,
+        itemRows: 6,
+        minItemCols: 38,
+        minItemRows: 6,
+        preview: 'ozsm-circle-planning-diagram'
     },
 
     'ozsm-main-toggle': {
         import: async () => {
             return await import(
                 'src/app/widgets/OZSM/ozsm-main-toggle/ozsm-main-toggle.module'
-            );
+                );
         },
         module: 'OzsmMainToggleModule',
-        itemCols: 10,
+        itemCols: 11,
         itemRows: 2,
-        minItemCols: 10,
+        minItemCols: 11,
         minItemRows: 2,
-        preview: 'default',
+        preview: 'ozsm-main-toggle',
     },
 
     'ozsm-scenarios': {
@@ -958,11 +1283,11 @@ export const WIDGETS_LAZY = {
             return await import('src/app/widgets/OZSM/ozsm-scenarios/ozsm-scenarios.module');
         },
         module: 'OzsmScenariosModule',
-        itemCols: 15,
-        itemRows: 10,
-        minItemCols: 15,
-        minItemRows: 10,
-        preview: 'default'
+        itemCols: 11,
+        itemRows: 7,
+        minItemCols: 11,
+        minItemRows: 7,
+        preview: 'ozsm-scenarios'
     },
 
     'ozsm-monitoring-main': {
@@ -970,11 +1295,11 @@ export const WIDGETS_LAZY = {
             return await import('src/app/widgets/OZSM/ozsm-monitoring-main/ozsm-monitoring-main.module');
         },
         module: 'OzsmMonitoringMainModule',
-        itemCols: 15,
-        itemRows: 10,
-        minItemCols: 15,
-        minItemRows: 10,
-        preview: 'default'
+        itemCols: 38,
+        itemRows: 20,
+        minItemCols: 38,
+        minItemRows: 20,
+        preview: 'ozsm-monitoring-main'
     },
 
     'ozsm-planning-main': {
@@ -984,11 +1309,11 @@ export const WIDGETS_LAZY = {
                 );
         },
         module: 'OzsmPlanningMainModule',
-        itemCols: 10,
-        itemRows: 2,
-        minItemCols: 10,
-        minItemRows: 2,
-        preview: 'default',
+        itemCols: 38,
+        itemRows: 19,
+        minItemCols: 38,
+        minItemRows: 19,
+        preview: 'ozsm-planning-main',
     },
 
     //#endregion OZSM
@@ -1005,10 +1330,43 @@ export const WIDGETS_LAZY = {
         itemRows: 10,
         minItemCols: 10,
         minItemRows: 10,
-        preview: 'default'
-    }
+        preview: 'oq-oil-quality'
+    },
 
     //#endregion OQ
+    // #region EJV
+
+    'manual-input': {
+        import: async () => {
+            return await import(
+                'src/app/widgets/EVJ/manual-input/manual-input.module'
+                );
+        },
+        module: 'ManualInputModule',
+        itemCols: 45,
+        itemRows: 20,
+        minItemCols: 35,
+        minItemRows: 13,
+        preview: 'manual-input'
+    },
+    //#endregion EJV
+
+      // #region ED
+
+      'dispatcher-screen': {
+        import: async () => {
+            return await import(
+                'src/app/widgets/ED/dispatcher-screen/dispatcher-screen.module'
+                );
+        },
+        module: 'DispatcherScreenModule',
+        itemCols: 64,
+        itemRows: 30,
+        minItemCols: 50,
+        minItemRows: 30,
+        preview: 'dispatcher-screen'
+    }
+    //#endregion ED
 
     // 'pie-diagram': {
     //     import: async () => await import('src/app/widgets/pie-diagram/pie-diagram.module'),
