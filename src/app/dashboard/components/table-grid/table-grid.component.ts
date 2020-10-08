@@ -1,16 +1,32 @@
-import { Component, OnInit, Input, ContentChildren, QueryList, HostListener, ViewChild, ElementRef, AfterViewInit, TemplateRef, EventEmitter, Output } from '@angular/core';
+import {
+    Component,
+    OnInit,
+    Input,
+    ContentChildren,
+    QueryList,
+    HostListener,
+    ViewChild,
+    ElementRef,
+    AfterViewInit,
+    TemplateRef,
+    EventEmitter,
+    Output,
+    OnChanges, SimpleChanges,
+} from '@angular/core';
 import { ColumnGridComponent } from './components/column-grid/column-grid.component';
 import { ITableGridFilter } from './components/table-grid-filter/table-grid-filter.component';
 import { IOilFilter } from '../../models/oil-operations';
+import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
 
 @Component({
   selector: 'evj-table-grid',
   templateUrl: './table-grid.component.html',
   styleUrls: ['./table-grid.component.scss']
 })
-export class TableGridComponent implements OnInit, AfterViewInit {
+export class TableGridComponent implements OnInit, AfterViewInit, OnChanges {
   @ViewChild('table') public table: ElementRef;
   @ContentChildren(ColumnGridComponent) columns: QueryList<ColumnGridComponent>;
+  @ViewChild(CdkVirtualScrollViewport) viewport: CdkVirtualScrollViewport;
   @Input() data: any;
   @Input() scrollLeft: boolean; // side scroll for contant
   @Input() search: boolean; // search-input in footer
@@ -41,14 +57,24 @@ export class TableGridComponent implements OnInit, AfterViewInit {
 
   }
 
-  ngAfterViewInit(): void {
+  public ngOnChanges(changes: SimpleChanges): void {
+      this.viewportCheck();
+  }
+
+  public ngAfterViewInit(): void {
     this.dataSave = this.data;
     // this.setStyleScroll();
   }
 
   @HostListener('document:resize', ['$event'])
-  OnResize(event): void {
-    // this.setStyleScroll();
+  public OnResize(): void {
+    this.viewportCheck();
+  }
+
+  private viewportCheck(): void {
+      if (this.data?.length > 0) {
+          this.viewport?.checkViewportSize();
+      }
   }
 
   /*setStyleScroll(): void {
