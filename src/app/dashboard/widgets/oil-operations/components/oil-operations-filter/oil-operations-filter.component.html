@@ -8,8 +8,8 @@
             <div class="title__name">{{ filterTitle }}</div>
         </div>
         <div class="content">
-          <cdk-virtual-scroll-viewport autosize class="content-block">
-            <ng-container *cdkVirtualFor="let item of data">
+          <cdk-virtual-scroll-viewport [itemSize]="41" class="content-block">
+            <ng-container *cdkVirtualFor="let item of filterData">
               <div class="item__shadow-block">
                 <div class="item__i" (click)="onOptionSelect(item)">
                   <div class="name-param" [class.active]="activeItem?.id === item.id">

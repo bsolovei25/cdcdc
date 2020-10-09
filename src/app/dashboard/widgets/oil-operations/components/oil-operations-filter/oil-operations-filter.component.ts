@@ -1,7 +1,7 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import {Component, OnInit, Inject, ViewChild, AfterViewInit} from '@angular/core';
 import { IOilFilter } from 'src/app/dashboard/models/oil-operations';
 import { PopoverRef } from '@shared/components/popover-overlay/popover-overlay.ref';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
 
 export interface IOilFilterInput {
     title: string;
@@ -20,7 +20,7 @@ export interface IOilFilterOutput {
     templateUrl: './oil-operations-filter.component.html',
     styleUrls: ['./oil-operations-filter.component.scss']
 })
-export class OilOperationsFilterComponent implements OnInit {
+export class OilOperationsFilterComponent implements OnInit, AfterViewInit {
     public activeItem: IOilFilter = {
         id: null,
         name: null,
@@ -28,21 +28,38 @@ export class OilOperationsFilterComponent implements OnInit {
 
     public filterTitle: string;
 
+    public filterData: IOilFilter[];
+
+    @ViewChild(CdkVirtualScrollViewport)
+    public viewPort: CdkVirtualScrollViewport;
+
     constructor(
         private popoverRef: PopoverRef,
-        @Inject(MAT_DIALOG_DATA) public data: IOilFilterInput,
     ) {
         this.popoverRef.overlay.backdropClick().subscribe(() => {
             this.close();
         });
         if (this.popoverRef.data) {
-            this.data = this.popoverRef.data.data;
+            this.filterData = this.popoverRef.data.data;
             this.filterTitle = this.popoverRef.data.title;
             this.activeItem = this.popoverRef.data.activeFilter ? this.popoverRef.data.activeFilter : this.activeItem;
         }
     }
 
     public ngOnInit(): void {
+    }
+
+    public ngAfterViewInit(): void {
+        setTimeout( () => {
+            this.scrollToActive();
+        }, 0);
+    }
+
+    private scrollToActive(): void {
+        const selectedIndex = this.filterData.findIndex(elem => elem.id === this.activeItem.id);
+        if (selectedIndex > -1) {
+            this.viewPort.scrollToIndex(selectedIndex, 'auto' );
+        }
     }
 
     public onOptionSelect(item: IOilFilter): void {
