@@ -8,17 +8,17 @@
             <div class="title__name">{{ filterTitle }}</div>
         </div>
         <div class="content">
-            <div class="content-block">
-                <ng-container *ngFor="let item of data">
-                    <div class="item__shadow-block">
-                            <div class="item__i" (click)="onOptionSelect(item)">
-                                <div class="name-param" [class.active]="activeItem?.id === item.id">
-                                    {{ item.name }}
-                                </div>
-                            </div>
-                    </div>
-                </ng-container>
-            </div>
+          <cdk-virtual-scroll-viewport autosize class="content-block">
+            <ng-container *cdkVirtualFor="let item of data">
+              <div class="item__shadow-block">
+                <div class="item__i" (click)="onOptionSelect(item)">
+                  <div class="name-param" [class.active]="activeItem?.id === item.id">
+                    {{ item.name }}
+                  </div>
+                </div>
+              </div>
+            </ng-container>
+          </cdk-virtual-scroll-viewport>
         </div>
         <div class="bottom">
             <div class="bottom__block">

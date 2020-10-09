@@ -238,7 +238,6 @@ export class OilOperationsComponent extends WidgetPlatform implements OnInit, On
     }
 
     public openFilter(open: any): void {
-        console.log(open, 'main component');
         const value = open.filter ? open.filter.name : null;
         switch (open.type) {
             case 'product':
