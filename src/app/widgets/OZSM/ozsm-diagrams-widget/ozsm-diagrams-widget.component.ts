@@ -8,7 +8,7 @@ import { IOzsmCircleDiagramFull } from '../ozsm-shared/ozsm-circle-diagram-full/
     templateUrl: './ozsm-diagrams-widget.component.html',
     styleUrls: ['./ozsm-diagrams-widget.component.scss'],
 })
-export class OzsmDiagramsWidgetComponent extends WidgetPlatform implements OnInit, OnDestroy {
+export class OzsmDiagramsWidgetComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
 
     public circleDiagramData: IOzsmCircleDiagramFull = {
         fact: 80,

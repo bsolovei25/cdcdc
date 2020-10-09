@@ -7,7 +7,7 @@ import { WidgetService } from '../../services/widget.service';
   templateUrl: './cd-critical.component.html',
   styleUrls: ['./cd-critical.component.scss']
 })
-export class CdCriticalComponent extends WidgetPlatform implements OnInit, OnDestroy {
+export class CdCriticalComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
 
     constructor(
         protected widgetService: WidgetService,

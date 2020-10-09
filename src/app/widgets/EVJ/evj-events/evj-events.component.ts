@@ -1,5 +1,4 @@
 import {
-    ChangeDetectorRef,
     Component,
     HostListener,
     Inject,
@@ -17,7 +16,7 @@ import {
     IEventsWidgetNotificationPreview,
     EventsWidgetNotificationStatus,
     IEventsWidgetOptions, IPriority,
-    IRetrievalEventDto, ISubcategory
+    IRetrievalEventDto, ISubcategory, IEventsWidgetAttributes
 } from '../../../dashboard/models/events-widget';
 import { EventService } from '../../../dashboard/services/widgets/event.service';
 import { EventsWorkspaceService } from '../../../dashboard/services/widgets/events-workspace.service';
@@ -29,7 +28,6 @@ import { WidgetSettingsService } from '../../../dashboard/services/widget-settin
 import { debounceTime, distinctUntilChanged, throttle } from 'rxjs/operators';
 import { IEventSettings } from '../events/events.component';
 import { WidgetPlatform } from '../../../dashboard/models/widget-platform';
-import { animate, style, transition, trigger } from '@angular/animations';
 import { IUnits } from '../../../dashboard/models/admin-shift-schedule';
 import { SelectionModel } from '@angular/cdk/collections';
 
@@ -38,7 +36,7 @@ import { SelectionModel } from '@angular/cdk/collections';
     templateUrl: './evj-events.component.html',
     styleUrls: ['./evj-events.component.scss']
 })
-export class EvjEventsComponent extends WidgetPlatform implements OnInit, OnDestroy {
+export class EvjEventsComponent extends WidgetPlatform<IEventsWidgetAttributes> implements OnInit, OnDestroy {
 
     @ViewChild(CdkVirtualScrollViewport) viewport: CdkVirtualScrollViewport;
 
@@ -49,12 +47,14 @@ export class EvjEventsComponent extends WidgetPlatform implements OnInit, OnDest
         this.countNotificationsDivCapacity();
     }
 
+    idAllSubCategory: number = 0;
+
     public claimWidgets: EnumClaimWidgets[] = [];
     public EnumClaimWidgets: typeof EnumClaimWidgets = EnumClaimWidgets;
 
     expandedElement: SelectionModel<number> = new SelectionModel<number>(true);
     subCategoriesSelected: SelectionModel<number> = new SelectionModel<number>(true);
-    subcategories: ISubcategory[] = [];
+    subCategories: ISubcategory[] = [];
 
     isList: boolean = false;
     isSound: boolean = !!localStorage.getItem('sound');
@@ -258,6 +258,8 @@ export class EvjEventsComponent extends WidgetPlatform implements OnInit, OnDest
     public appendEventStream$: BehaviorSubject<IEventsWidgetNotificationPreview> =
         new BehaviorSubject<IEventsWidgetNotificationPreview>(null);
 
+    public isPreviewOpened: boolean = false;
+
     private readonly defaultIconPath: string = 'assets/icons/widgets/events/smotr.svg';
 
     constructor(
@@ -291,7 +293,7 @@ export class EvjEventsComponent extends WidgetPlatform implements OnInit, OnDest
 
     protected async dataConnect(): Promise<void> {
         super.dataConnect();
-        this.subcategories = await this.eventService.getSubcategory();
+        this.subCategories = await this.eventService.getSubcategory();
         let filterCondition: 'default' | 'ed' = 'default';
         switch (this.widgetType) {
             case 'events-ed':
@@ -307,15 +309,25 @@ export class EvjEventsComponent extends WidgetPlatform implements OnInit, OnDest
             }
             return cat.categoryType === filterCondition;
         });
-        this.subcategories.forEach(subCategory => {
-            this.categories.forEach(category => {
+        this.subCategories.forEach((subCategory, index) => {
+            this.categories.forEach((category) => {
                 if (!category?.subCategories) {
-                    category.subCategories = [];
+                    category.subCategories = [{
+                        name: 'Показать все события',
+                        code: '100',
+                        description: 'Показать все события',
+                        id: this.idAllSubCategory,
+                        parentCategory: null,
+                        parentCategoryId: category.id
+                    }];
                 }
                 if (subCategory.parentCategoryId === category.id) {
                     category.subCategories.push(subCategory);
                 }
             });
+        });
+        this.categories.forEach(value => {
+            value.subCategories.reverse();
         });
         this.placeNames = await this.eventService.getPlaces(this.id);
         this.subscriptions.push(
@@ -444,13 +456,13 @@ export class EvjEventsComponent extends WidgetPlatform implements OnInit, OnDest
             filter: this.filters.find((f) => f.isActive).code,
             dates: this.widgetService.currentDates$.getValue(),
             placeNames: this.placeNames,
-            isVideoWall: this.widgetIsVideoWall,
-            sortType: this.widgetSortType,
+            isVideoWall: !!this.attributes?.IsVideoWall,
+            sortType: this.attributes?.SortType ?? 'default',
             categoriesType: this.widgetType === 'events-ed' ? 'ed' : 'default',
             priority: this.priority,
             units: this.units,
             description: this.description,
-            subCategory: this.subCategoriesSelected.selected
+            subCategory: this.subCategoriesSelected.selected.filter(value => value !== 12345)
         };
         return options;
     }
@@ -546,7 +558,14 @@ export class EvjEventsComponent extends WidgetPlatform implements OnInit, OnDest
 
     public async eventClick(eventId?: number): Promise<void> {
         this.selectedId = eventId;
+        this.isPreviewOpened = !this.userSettings.isWidgetAvailableOnScreen('events-workspace');
         await this.ewService.editEvent(eventId);
+    }
+
+    public closeEventPreview(): void {
+        this.isPreviewOpened = false;
+        this.selectedId = null;
+        this.ewService.event = null;
     }
 
     public deleteClick(id: number): void {
@@ -737,9 +756,27 @@ export class EvjEventsComponent extends WidgetPlatform implements OnInit, OnDest
     }
 
     toggleSubcategory(id: number): void {
-        this.subCategoriesSelected.toggle(id);
+        if (id === this.idAllSubCategory) {
+            if (!this.subCategoriesSelected.isSelected(id)) {
+                this.subCategories.forEach(value => {
+                    this.subCategoriesSelected.select(value.id);
+                });
+                this.subCategoriesSelected.select(id);
+            } else {
+                this.subCategoriesSelected.clear();
+            }
+        } else {
+            if (!this.subCategoriesSelected.isSelected(id)) {
+                this.subCategoriesSelected.select(id);
+                if (this.subCategoriesSelected.selected.length === this.subCategories.length) {
+                    this.subCategoriesSelected.select(this.idAllSubCategory);
+                }
+            } else {
+                this.subCategoriesSelected.toggle(id);
+                this.subCategoriesSelected.deselect(this.idAllSubCategory);
+            }
+        }
         this.getData();
         this.getStats();
     }
-
 }

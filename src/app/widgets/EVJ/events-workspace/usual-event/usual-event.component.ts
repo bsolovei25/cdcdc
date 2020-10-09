@@ -1,5 +1,5 @@
-import { Component, OnInit, ViewChild, ElementRef, HostListener } from '@angular/core';
-import { IInputOptions } from '../../../../@shared/models/input.model';
+import {Component, OnInit, ViewChild, ElementRef, HostListener, Input} from '@angular/core';
+import { IInputOptions } from '@shared/models/input.model';
 import { IChatMessageWithAttachments } from '../components/chat/chat.component';
 import { EventsWorkspaceService } from '../../../../dashboard/services/widgets/events-workspace.service';
 
@@ -9,6 +9,9 @@ import { EventsWorkspaceService } from '../../../../dashboard/services/widgets/e
     styleUrls: ['./usual-event.component.scss'],
 })
 export class UsualEventComponent implements OnInit {
+    @Input()
+    public noOverflow: boolean = false;
+
     @ViewChild('progress') progress: ElementRef;
 
     public inputOptions: IInputOptions = {

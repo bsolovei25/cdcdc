@@ -118,6 +118,7 @@ export class WidgetService {
         console.log('minTime: ' + Math.min.apply(null, arr));
     }
 
+    // TODO delete
     mapData(data: IWidget[]): IWidget[] {
         return data.map((item: IWidget) => {
             return {
@@ -131,9 +132,9 @@ export class WidgetService {
                 categories: item.categories,
                 isClaim: item.isClaim,
                 isVideoWall: item.isVideoWall,
-                sortType: item.sortType,
                 isHidden: item.isHidden,
-                sensorId: item.sensorId
+                sensorId: item.sensorId,
+                attributes: item.attributes,
             };
         });
     }

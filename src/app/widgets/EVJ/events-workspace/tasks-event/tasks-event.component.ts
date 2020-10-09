@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import { EventsWorkspaceService } from '../../../../dashboard/services/widgets/events-workspace.service';
 import { IChatMessageWithAttachments } from '../components/chat/chat.component';
 
@@ -8,6 +8,8 @@ import { IChatMessageWithAttachments } from '../components/chat/chat.component';
     styleUrls: ['./tasks-event.component.scss'],
 })
 export class TasksEventComponent implements OnInit {
+    @Input()
+    public noOverflow: boolean = false;
     constructor(public ewService: EventsWorkspaceService) {}
 
     public ngOnInit(): void {

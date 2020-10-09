@@ -18,7 +18,7 @@ export interface IKpeEnergy {
     templateUrl: './kpe-energy.component.html',
     styleUrls: ['./kpe-energy.component.scss']
 })
-export class KpeEnergyComponent extends WidgetPlatform implements OnInit {
+export class KpeEnergyComponent extends WidgetPlatform<unknown> implements OnInit {
 
     // static true fix expression has been checked
     @ViewChild('gauge', {static: true})

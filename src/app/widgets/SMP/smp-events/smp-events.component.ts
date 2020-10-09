@@ -11,7 +11,7 @@ import { SmpEventsService } from '../../../dashboard/services/widgets/smp-events
     templateUrl: './smp-events.component.html',
     styleUrls: ['./smp-events.component.scss'],
 })
-export class SmpEventsComponent extends WidgetPlatform implements OnInit, OnDestroy {
+export class SmpEventsComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
     public stats: ISmpEventStatus[] = [];
     public cards: ISmpEventCard[] = [];
 

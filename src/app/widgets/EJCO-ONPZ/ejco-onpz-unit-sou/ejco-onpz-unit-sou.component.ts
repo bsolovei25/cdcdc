@@ -27,7 +27,7 @@ export interface IEjcoOnpzUnitSouTableRow {
     templateUrl: './ejco-onpz-unit-sou.component.html',
     styleUrls: ['./ejco-onpz-unit-sou.component.scss']
 })
-export class EjcoOnpzUnitSouComponent extends WidgetPlatform implements OnDestroy, AfterViewInit {
+export class EjcoOnpzUnitSouComponent extends WidgetPlatform<unknown> implements OnDestroy, AfterViewInit {
 
     public tabs: IEjcoOnpzUnit[] = [];
 

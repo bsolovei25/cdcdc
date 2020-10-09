@@ -7,7 +7,7 @@ import { WidgetPlatform } from '../../../dashboard/models/widget-platform';
     templateUrl: './facility-deviation.component.html',
     styleUrls: ['./facility-deviation.component.scss'],
 })
-export class FacilityDeviationComponent extends WidgetPlatform implements OnInit, OnDestroy {
+export class FacilityDeviationComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
     constructor(
         protected widgetService: WidgetService,
         @Inject('isMock') public isMock: boolean,

@@ -18,7 +18,7 @@ import { HttpClient } from '@angular/common/http';
     templateUrl: './astue-onpz-conventional-fuel.component.html',
     styleUrls: ['./astue-onpz-conventional-fuel.component.scss'],
 })
-export class AstueOnpzConventionalFuelComponent extends WidgetPlatform
+export class AstueOnpzConventionalFuelComponent extends WidgetPlatform<unknown>
     implements OnInit, OnDestroy {
     public data: IMultiChartLine[] = [];
     colors: Map<string, number>;

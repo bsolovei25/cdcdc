@@ -23,8 +23,6 @@
     "event event"
     "info info";
 
-  overflow: auto;
-
   font-family: Tahoma, sans-serif;
   font-size: 12px;
   font-weight: 100;
@@ -97,6 +95,7 @@
     gap: 10px;
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(1, max-content);
+    position: relative;
   }
 
   &__item {
@@ -352,4 +351,16 @@ mat-form-field {
 .block {
   display: flex;
   gap: 10px;
+}
+
+.info-text {
+  color: var(--color-text-main);
+  position: absolute;
+  top: -20px;
+  left: 15px;
+  font-size: 14px;
+}
+
+.margin {
+  margin-top: 50px;
 }

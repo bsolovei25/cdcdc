@@ -22,7 +22,7 @@ export interface IQualityDocsRecord {
   templateUrl: './quality-docs-panel.component.html',
   styleUrls: ['./quality-docs-panel.component.scss']
 })
-export class QualityDocsPanelComponent extends WidgetPlatform implements OnInit, OnDestroy {
+export class QualityDocsPanelComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
   public static itemCols: number = 48;
     public static itemRows: number = 15;
     public static minItemCols: number = 36;

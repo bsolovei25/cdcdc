@@ -37,7 +37,7 @@ import { ReportServerConfiguratorService } from '../../services/widgets/report-s
     ],
     providers: [TreeDraggedElement]
 })
-export class ReportServerConfiguratorComponent extends WidgetPlatform implements OnInit, OnDestroy {
+export class ReportServerConfiguratorComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
     @ViewChild(TreeComponent) private tree: TreeComponent;
 
     public static itemCols: number = 32;

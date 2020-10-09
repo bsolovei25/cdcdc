@@ -17,7 +17,7 @@ export interface IProductionDetails {
     templateUrl: './production-details.component.html',
     styleUrls: ['./production-details.component.scss'],
 })
-export class ProductionDetailsComponent extends WidgetPlatform implements OnInit {
+export class ProductionDetailsComponent extends WidgetPlatform<unknown> implements OnInit {
 
     public details: IProductionDetails[] = [
         {

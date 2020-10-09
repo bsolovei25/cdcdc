@@ -126,7 +126,7 @@ export class EventsWorkspaceService {
         equipmentStatus: 'Состояния оборудования',
         drops: 'Сбросы',
         asus: 'АСУС (КИП и АСУТП)',
-        ejs: 'ЭЖС',
+        ejs: 'Электронный журнал событий',
         indicators: 'Производственные показатели',
         resources: 'Вспомогательные ресурсы',
         modelCalculations: 'ЦД'
@@ -167,24 +167,9 @@ export class EventsWorkspaceService {
         this.event.comments = await this.processAttachments(this.event.comments);
         this.event.facts = await this.processAttachments(this.event.facts);
         this.originalEvent = { ...this.event };
-        const dataLoadQueue: Promise<void>[] = [];
         if (this.event.category.name === 'asus') {
             await this.asusReferencesLoad();
-            const saveMethod = await this.eventService.getSaveMethod(this.event);
-            dataLoadQueue.push(
-                this.eventService
-                    .getAsusEquipments(this.event.asusEvent.tmPlace, saveMethod)
-                    .then((data) => {
-                        this.asusEquipments = data;
-                    }),
-                this.eventService
-                    .getAsusEOServices(this.event.asusEvent.equipment, saveMethod)
-                    .then((data) => {
-                        this.asusEOServices = data;
-                    })
-            );
         }
-        await Promise.all(dataLoadQueue);
     }
 
     public async goBackEvent(isContinue: boolean = false): Promise<void> {

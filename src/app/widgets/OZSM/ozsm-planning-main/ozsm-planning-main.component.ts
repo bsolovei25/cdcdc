@@ -15,7 +15,7 @@ import { WidgetService } from '../../../dashboard/services/widget.service';
     templateUrl: './ozsm-planning-main.component.html',
     styleUrls: ['./ozsm-planning-main.component.scss']
 })
-export class OzsmPlanningMainComponent extends WidgetPlatform implements OnInit, OnDestroy {
+export class OzsmPlanningMainComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
 
     @ViewChild('graphContainer')
     public graphContainer: ElementRef;

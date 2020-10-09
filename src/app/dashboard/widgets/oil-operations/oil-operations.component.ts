@@ -17,7 +17,7 @@ export interface IOilOperationsButton {
     templateUrl: './oil-operations.component.html',
     styleUrls: ['./oil-operations.component.scss']
 })
-export class OilOperationsComponent extends WidgetPlatform implements OnInit, OnDestroy {
+export class OilOperationsComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
     public static itemCols: number = 64;
     public static itemRows: number = 16;
     public static minItemCols: number = 54;

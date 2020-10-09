@@ -1,0 +1,55 @@
+<div class="reservoir-card">
+
+        <div class="reservoir">
+                <div class="circles">
+                    <div class="circle" *ngFor = "let item of reservoirCustomization; let i = index">
+                        <div class="circle__inner">
+                            <div  *ngIf = "14 - i <= current / higher * reservoirCustomization.length" class="circle__lvl">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <img class = 'reservoir__cap2' src="../../../../../../assets/icons/widgets/NK/cap2.svg" alt="">
+                <img class = 'reservoir__cap' src="../../../../../../assets/icons/widgets/NK/cap.svg" alt="">
+                <img class = 'reservoir__bottom' src="../../../../../../assets/icons/widgets/NK/reserviorBottom.svg" alt="">
+                <img class = 'reservoir__cap4' src="../../../../../../assets/icons/widgets/NK/cap4.svg" alt="">
+                <img class = 'reservoir__cap3' src="../../../../../../assets/icons/widgets/NK/cap3.svg" alt="">
+                <img class = 'reservoir__stand' src="../../../../../../assets/icons/widgets/NK/stand.svg" alt="">
+        </div>
+        <div class="btn"
+            [matTooltip] = "status"
+        >
+            <div class="top-btn" [style.opacity] = "status === 'Заполнение' || status === 'Проток'? '1': '0.08' ">
+                <div class="arrow btn__arrow1">
+                    <div class="arrow__after"></div>
+                    <div class="arrow__before"></div>
+                </div>
+                <div class="arrow btn__arrow2">
+                    <div class="arrow__after"></div>
+                    <div class="arrow__before"></div>
+                </div>
+                <div class="arrow btn__arrow3">
+                    <div class="arrow__after"></div>
+                    <div class="arrow__before"></div>
+                </div>
+            </div>
+            <div class="bottom-btn" [style.opacity] = "status === 'Отгрузка' || status === 'Проток'? '1': '0.08' ">
+                <div class="arrow btn__arrow1">
+                    <div class="arrow__after"></div>
+                    <div class="arrow__before"></div>
+                </div>
+                <div class="arrow btn__arrow2">
+                    <div class="arrow__after"></div>
+                    <div class="arrow__before"></div>
+                </div>
+                <div class="arrow btn__arrow3">
+                    <div class="arrow__after"></div>
+                    <div class="arrow__before"></div>
+                </div>
+            </div>
+        </div>
+</div>
+
+
+

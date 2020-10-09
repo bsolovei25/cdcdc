@@ -1,0 +1,10 @@
+<div class="event-preview" *ngIf="isPreviewOpened">
+  <div class="event-preview__header">
+    <svg-icon class="title-icon" src="assets/icons/widgets/EVJ/events-preview/event-details-icon.svg" (click)="onClose()"></svg-icon>
+    <span class="title">Предпросмотр события</span>
+    <svg-icon class="close-icon" src="assets/icons/widgets/EVJ/events-preview/close-icon.svg" (click)="onClose()"></svg-icon>
+  </div>
+  <div class="event-preview__body">
+    <evj-events-workspace [displayContainer]="false"></evj-events-workspace>
+  </div>
+</div>

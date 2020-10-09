@@ -26,12 +26,14 @@ interface IAstueOnpzMainIndicatorsRaw {
     templateUrl: './astue-onpz-main-indicators.component.html',
     styleUrls: ['./astue-onpz-main-indicators.component.scss']
 })
-export class AstueOnpzMainIndicatorsComponent extends WidgetPlatform implements OnInit, OnDestroy {
+export class AstueOnpzMainIndicatorsComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
 
     public data: IAstueOnpzMainIndicators[] = [];
     public dataRaw: IAstueOnpzMainIndicatorsRaw;
 
     public unitId: number | null = null;
+
+    // TODO: double? NextPlanValue - может быть пустым, если предсказания нет
 
     constructor(
         protected widgetService: WidgetService,

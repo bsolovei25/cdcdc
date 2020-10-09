@@ -1,0 +1,65 @@
+<div class="container pointer-event">
+  <evj-widget-header
+    [title]="widgetTitle"
+    [units]="widgetUnits"
+    [code]="widgetCode"
+    [icon]="widgetIcon"
+    [id]="widgetId"
+    [uniqId]="widgetUniqId"
+  ></evj-widget-header>
+
+  <evj-frame-top></evj-frame-top>
+
+  <ng-container>
+    <div
+      class="eco-dia"
+      (mousedown)="$event.stopPropagation()"
+      (touchstart)="$event.stopPropagation()"
+    >
+      <div class="dl-dia">
+        <div class="dl-dia__graph">
+          <div class="graph__line">
+            <div class="line line__marking line__marking-0"></div>
+            <div class="line line__marking line__marking-50"></div>
+            <div class="line line__limit line__limit-lower">
+              <div class="label label__limit label__limit-lower">
+                0%
+              </div>
+            </div>
+            <div
+              class="line line__limit line__limit-higher"
+              [ngStyle]="{ left: (data.plan / data.maxValue) * 100 + '%' }"
+            >
+              <div class="label label__limit label__limit-higher">100%</div>
+            </div>
+            <svg width="100%" height="100%">
+              <rect
+                x="0"
+                y="2px"
+                [attr.width]="drawGraph((data.curValue / data.maxValue) * 100)"
+                height="8px"
+                rx="3px"
+                ry="3px"
+                [attr.fill]="fillGraph(data.curValue>=data.plan)"
+              />
+            </svg>
+          </div>
+        </div>
+        <div class="dl-dia__deviation">
+          <div class="deviation__worse">
+            Отклонение
+            <span>{{ data.plan - data.curValue > 0 ? -(data.plan - data.curValue) : 0 }}</span>
+            <img src="../../../../assets/icons/widgets/calendar-plan/deviat_danger.svg" alt="" />
+          </div>
+          <div class="deviation__better">
+            Улучшение
+            <span>{{ data.plan - data.curValue < 0 ? -(data.plan - data.curValue) : 0 }}</span>
+            <img src="../../../../assets/icons/widgets/calendar-plan/deviat.svg" alt="" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+
+  <evj-frame-bottom></evj-frame-bottom>
+</div>

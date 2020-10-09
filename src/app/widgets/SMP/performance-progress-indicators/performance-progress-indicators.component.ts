@@ -10,7 +10,7 @@ import { IProgressIndicators } from '../../../dashboard/models/SMP/performance-p
   templateUrl: './performance-progress-indicators.component.html',
   styleUrls: ['./performance-progress-indicators.component.scss']
 })
-export class PerformanceProgressIndicatorsComponent extends WidgetPlatform implements OnInit, OnDestroy {
+export class PerformanceProgressIndicatorsComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
 
   public data: IProgressIndicators;
 

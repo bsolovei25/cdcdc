@@ -8,7 +8,7 @@ import { WidgetPlatform } from 'src/app/dashboard/models/widget-platform';
   templateUrl: './ozsm-scenarios.component.html',
   styleUrls: ['./ozsm-scenarios.component.scss']
 })
-export class OzsmScenariosComponent extends WidgetPlatform implements OnInit, OnDestroy {
+export class OzsmScenariosComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
 
   scenarios: string[] = [
     'НГПП_9192747 - 27.05.2020',

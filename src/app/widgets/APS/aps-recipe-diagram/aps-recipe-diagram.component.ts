@@ -34,7 +34,7 @@ export interface IColumnsToDisplay {
     styleUrls: ['./aps-recipe-diagram.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ApsRecipeDiagramComponent extends WidgetPlatform implements OnInit, OnDestroy {
+export class ApsRecipeDiagramComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
 
     dataSource: IAPSRecipeDiagram[] = DATASOURCE;
 

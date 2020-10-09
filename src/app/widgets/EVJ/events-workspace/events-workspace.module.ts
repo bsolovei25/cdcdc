@@ -1,7 +1,7 @@
 import { NgModule, LOCALE_ID } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { EventsWorkspaceComponent } from './events-workspace.component';
-import { SharedModule } from '../../../@shared/shared.module';
+import { SharedModule } from '@shared/shared.module';
 import { LineChartWorkspaceComponent } from './components/line-chart-workspace/line-chart-workspace.component';
 import { ChatComponent } from './components/chat/chat.component';
 import { EventDescriptionComponent } from './components/event-description/event-description.component';
@@ -75,6 +75,9 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
         { provide: MAT_DATE_LOCALE, useValue: 'ru-RU' },
         { provide: MatDialogRef, useValue: {} },
         { provide: MAT_DIALOG_DATA, useValue: [] }
+    ],
+    exports: [
+        EventsWorkspaceComponent
     ]
 })
 export class EventsWorkspaceModule {

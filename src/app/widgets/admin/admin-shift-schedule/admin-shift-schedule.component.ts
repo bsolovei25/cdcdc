@@ -66,7 +66,7 @@ const CUSTOM_DATE_FORMATS: NgxMatDateFormats = {
     styleUrls: ['./admin-shift-schedule.component.scss'],
     providers: [{ provide: NGX_MAT_DATE_FORMATS, useValue: CUSTOM_DATE_FORMATS }],
 })
-export class AdminShiftScheduleComponent extends WidgetPlatform
+export class AdminShiftScheduleComponent extends WidgetPlatform<unknown>
     implements OnInit, OnDestroy, AfterContentChecked {
     defaultLocale: string = 'ru-RU';
 

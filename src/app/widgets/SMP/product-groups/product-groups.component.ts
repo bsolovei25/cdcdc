@@ -8,7 +8,7 @@ import { IProducts } from '../../../dashboard/models/SMP/product-groups.model';
     templateUrl: './product-groups.component.html',
     styleUrls: ['./product-groups.component.scss'],
 })
-export class ProductGroupsComponent extends WidgetPlatform implements OnInit, OnDestroy {
+export class ProductGroupsComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
     data: IProducts[] = [];
 
     constructor(

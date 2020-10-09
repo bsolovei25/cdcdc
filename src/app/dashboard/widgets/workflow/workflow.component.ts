@@ -137,7 +137,7 @@ const fadeAnimation = trigger('fadeAnimation', [
     animations: [fadeAnimation],
     providers: [{ provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { appearance: 'fill' } }],
 })
-export class WorkflowComponent extends WidgetPlatform implements OnInit, OnDestroy, AfterViewInit {
+export class WorkflowComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy, AfterViewInit {
     public ColWidth: number = 1;
     public RowHeight: number = 1;
 
