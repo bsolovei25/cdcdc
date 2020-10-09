@@ -15,7 +15,7 @@
       </div>
     </div>
     <div class="search" *ngIf="selectClaim.hasValue()">
-      <input type="text" placeholder="Поиск" [(ngModel)]="search" (keyup)="searchFn($event)">
+      <input type="text" placeholder="Поиск" [(ngModel)]="search">
     </div>
     <div class="list-button" *ngIf="selectClaim.hasValue()" (click)="onClickListButton()">
       Выделить все

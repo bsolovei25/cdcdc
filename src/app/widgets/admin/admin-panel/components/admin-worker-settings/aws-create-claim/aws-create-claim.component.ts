@@ -104,18 +104,13 @@ export class AwsCreateClaimComponent implements OnInit {
         const claims: IGlobalClaim[] = [];
         this.allClaims.forEach((value) => {
             if (value?.widgets?.filter((v) => v.isActive).length) {
-                claims.push(value);
+                    claims.push(value);
             }
             if (value?.units?.filter((v) => v.isActive).length) {
-                claims.push(value);
+                    claims.push(value);
             }
         });
         console.log(claims);
         this.createdClaim.emit(claims);
     }
-
-    searchFn(value: KeyboardEvent): void {
-        console.log(value);
-    }
-
 }

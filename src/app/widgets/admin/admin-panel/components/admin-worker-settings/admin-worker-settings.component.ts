@@ -124,7 +124,6 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
                         }
                     });
                     console.log(this.workerSpecialClaims);
-
                 })
             );
         }
@@ -231,7 +230,6 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
     }
 
     public onRemoveSpecialClaim(w: IWidget | IUnitEvents): void {
-        w.isActive = false;
         this.isDataChanged = true;
     }
 
@@ -349,7 +347,7 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
         if (this.isCreateNewUser) {
             this.adminService.setDefaultActiveWorker();
         }
-        this.closeWorkerSettings.emit(null);
+        this.closeWorkerSettings.emit();
     }
 
     public async onSave(): Promise<void> {
@@ -357,33 +355,38 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
             this.isDataLoading = true;
             try {
                 const newArray: IGlobalClaim[] = [];
-                this.workerSpecialClaims?.forEach(v => v?.widgets?.forEach(w =>
-                    newArray?.push({
-                        claimType: v?.claimType,
-                        value: w?.id,
-                        claimValueType: v?.claimValueType,
-                        claimName: v?.claimName,
-                        additionalType: v?.additionalType,
-                        claimCategory: v?.claimCategory,
-                        claimCategoryName: v?.claimCategoryName,
-                        claimValueTypeName: v?.claimValueTypeName,
-                        description: v?.description,
-                        specification: v?.specification
-                    })
-                ));
-                this.workerSpecialClaims?.forEach(v => v?.units?.forEach(w =>
-                    newArray.push({
-                        claimType: v?.claimType,
-                        value: w?.id.toString(),
-                        claimValueType: v?.claimValueType,
-                        claimName: v?.claimName,
-                        additionalType: v?.additionalType,
-                        claimCategory: v?.claimCategory,
-                        claimCategoryName: v?.claimCategoryName,
-                        claimValueTypeName: v?.claimValueTypeName,
-                        description: v?.description,
-                        specification: v?.specification
-                    })));
+                this.workerSpecialClaims?.forEach(v => v?.widgets?.forEach(w => {
+                    if (w.isActive) {
+                        newArray?.push({
+                            claimType: v?.claimType,
+                            value: w?.id,
+                            claimValueType: v?.claimValueType,
+                            claimName: v?.claimName,
+                            additionalType: v?.additionalType,
+                            claimCategory: v?.claimCategory,
+                            claimCategoryName: v?.claimCategoryName,
+                            claimValueTypeName: v?.claimValueTypeName,
+                            description: v?.description,
+                            specification: v?.specification
+                        });
+                    }
+                }));
+                this.workerSpecialClaims?.forEach(v => v?.units?.forEach(w => {
+                    if (w.isActive) {
+                        newArray.push({
+                            claimType: v?.claimType,
+                            value: w?.id.toString(),
+                            claimValueType: v?.claimValueType,
+                            claimName: v?.claimName,
+                            additionalType: v?.additionalType,
+                            claimCategory: v?.claimCategory,
+                            claimCategoryName: v?.claimCategoryName,
+                            claimValueTypeName: v?.claimValueTypeName,
+                            description: v?.description,
+                            specification: v?.specification
+                        });
+                    }
+                }));
                 this.worker.displayName = this.adminService.generateDisplayName(this.worker);
                 this.worker.claims = this.workerGeneralClaims.concat(newArray);
 
