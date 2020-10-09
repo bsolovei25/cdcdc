@@ -24,9 +24,18 @@ import { OverlayModule } from '@angular/cdk/overlay';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatRippleModule } from '@angular/material/core';
 import { EvjEventCardBlockComponent } from './components/evj-event-card-block/evj-event-card-block.component';
+import { EvjEventPreviewComponent } from './components/evj-event-preview/evj-event-preview.component';
+import { EventsWorkspaceModule } from '../events-workspace/events-workspace.module';
 
 @NgModule({
-    declarations: [EvjEventsComponent, EvjEventCardComponent, EvjEventCategoriesComponent, EvjEventFiltersComponent, EvjEventCardBlockComponent],
+    declarations: [
+        EvjEventsComponent,
+        EvjEventCardComponent,
+        EvjEventCategoriesComponent,
+        EvjEventFiltersComponent,
+        EvjEventCardBlockComponent,
+        EvjEventPreviewComponent,
+    ],
     imports: [
         OverlayModule,
         PlatformModule,
@@ -47,7 +56,8 @@ import { EvjEventCardBlockComponent } from './components/evj-event-card-block/ev
         MatSelectModule,
         ReactiveFormsModule,
         MatSlideToggleModule,
-        MatRippleModule
+        MatRippleModule,
+        EventsWorkspaceModule,
     ],
     providers: []
 })
