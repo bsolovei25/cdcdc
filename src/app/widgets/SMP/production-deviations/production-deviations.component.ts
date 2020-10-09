@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy, Inject } from '@angular/core';
-import { WidgetPlatform } from '../../../dashboard/models/widget-platform';
+import { WidgetPlatform } from '../../../dashboard/models/@PLATFORM/widget-platform';
 import { IProductionDeviationsGraph } from '../../../dashboard/models/SMP/production-deviations.model';
 import { WidgetService } from '../../../dashboard/services/widget.service';
 

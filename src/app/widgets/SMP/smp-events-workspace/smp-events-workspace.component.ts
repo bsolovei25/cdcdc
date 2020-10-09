@@ -1,5 +1,5 @@
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
-import { WidgetPlatform } from '../../../dashboard/models/widget-platform';
+import { WidgetPlatform } from '../../../dashboard/models/@PLATFORM/widget-platform';
 import { ISmpEvent } from '../../../dashboard/models/SMP/smp-events.model';
 import { ISelectValue } from '../../../@shared/components/select/select.component';
 import { ISmpEventsMessageModel } from '../../../@shared/models/smp-events-message.model';

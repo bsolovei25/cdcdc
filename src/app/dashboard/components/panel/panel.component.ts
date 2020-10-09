@@ -1,8 +1,6 @@
-import { Component, OnInit, Injector, Output, EventEmitter, OnDestroy } from '@angular/core';
-import { WidgetService } from '../../services/widget.service';
+import { Component, OnInit, Output, EventEmitter, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { WIDGETS } from '../widgets-grid/widget-map';
-import { UserSettingsService } from '../../services/user-settings.service';
 import { ClaimService, EnumClaimScreens, EnumClaimWidgets } from '../../services/claim.service';
 import { trigger, style, transition, animate } from '@angular/animations';
 
@@ -20,17 +18,13 @@ export const fadeAnimation = trigger('fadeAnimation', [
     animations: [fadeAnimation],
 })
 export class PanelComponent implements OnInit, OnDestroy {
-    public readonly WIDGETS = WIDGETS;
-
+    public readonly WIDGETS: typeof WIDGETS = WIDGETS;
     public active: boolean = false;
-
-    isWidgets: isChoosePanel;
-
+    public isWidgets: isChoosePanel;
     public claimSettingsScreens: EnumClaimScreens[] = [];
-    EnumClaimScreens = EnumClaimScreens;
-
+    public EnumClaimScreens: typeof EnumClaimScreens = EnumClaimScreens;
     public claimSettingsWidgets: EnumClaimWidgets[] = [];
-    EnumClaimWidgets = EnumClaimWidgets;
+    public EnumClaimWidgets: typeof EnumClaimWidgets = EnumClaimWidgets;
 
     private subscriptions: Subscription[] = [];
 

@@ -21,7 +21,7 @@ import { IBrigadeWithUsersDto, IScheduleShift, IScheduleShiftDay, IUnits } from 
 import { AdminShiftScheduleService, IDropItem } from 'src/app/dashboard/services/widgets/admin-shift-schedule.service';
 import { WidgetService } from 'src/app/dashboard/services/widget.service';
 import { SnackBarService } from 'src/app/dashboard/services/snack-bar.service';
-import { WidgetPlatform } from 'src/app/dashboard/models/widget-platform';
+import { WidgetPlatform } from 'src/app/dashboard/models/@PLATFORM/widget-platform';
 
 @Component({
     selector: 'evj-admin-shift-schedule-old',

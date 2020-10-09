@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
 import { IDatesInterval, WidgetService } from '../../services/widget.service';
-import { WidgetPlatform } from '../../models/widget-platform';
+import { WidgetPlatform } from '../../models/@PLATFORM/widget-platform';
 import { ILeftOilTable, IOilOperations, IRightOilTable } from '../../models/oil-operations';
 import { OilOperationsService } from '../../services/widgets/oil-operations.service';
 

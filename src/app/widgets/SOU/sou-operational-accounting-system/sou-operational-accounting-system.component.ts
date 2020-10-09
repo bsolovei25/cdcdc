@@ -1,5 +1,5 @@
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
-import { WidgetPlatform } from '../../../dashboard/models/widget-platform';
+import { WidgetPlatform } from '../../../dashboard/models/@PLATFORM/widget-platform';
 import { WidgetService } from '../../../dashboard/services/widget.service';
 import {
     ISOUOperationalAccountingSystem,
@@ -46,7 +46,7 @@ export class SouOperationalAccountingSystemComponent extends WidgetPlatform<unkn
             });
             this.data?.lightProducts?.sort((a, b) => a?.order - b?.order);
             this.data?.section?.sort((a, b) => a?.order - b?.order);
-          
+
             if (!this.isSection) {
                 this.isSection = this.data?.section[0];
                 this.data.section[0].isEnable = true;

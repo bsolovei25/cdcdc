@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
 import { WidgetService } from '../../services/widget.service';
 import { DeviationCircleDiagram, ICenterOfPoint } from '../../models/deviation-circle-diagram';
-import { WidgetPlatform } from '../../models/widget-platform';
+import { WidgetPlatform } from '../../models/@PLATFORM/widget-platform';
 
 @Component({
     selector: 'evj-deviation-circle-diagram',

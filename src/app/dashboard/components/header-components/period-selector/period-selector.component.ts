@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { HeaderDataService } from '../../services/header-data.service';
-import { WidgetService } from '../../services/widget.service';
-import { SnackBarService } from '../../services/snack-bar.service';
+import { HeaderDataService } from '../../../services/header-data.service';
+import { WidgetService } from '../../../services/widget.service';
+import { SnackBarService } from '../../../services/snack-bar.service';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({

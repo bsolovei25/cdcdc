@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy, Inject } from '@angular/core';
-import { WidgetPlatform } from '../../../dashboard/models/widget-platform';
+import { WidgetPlatform } from '../../../dashboard/models/@PLATFORM/widget-platform';
 import { WidgetService } from '../../../dashboard/services/widget.service';
 import { IRawMotion, IRawMotionHeader } from '../../../dashboard/models/APS/raw-motion.model';
 import { SelectionModel } from '@angular/cdk/collections';

@@ -13,7 +13,7 @@ import { WidgetService } from '../../../dashboard/services/widget.service';
 import { UserSettingsService } from '../../../dashboard/services/user-settings.service';
 import { EventService } from '../../../dashboard/services/widgets/event.service';
 import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
-import { WidgetPlatform } from '../../../dashboard/models/widget-platform';
+import { WidgetPlatform } from '../../../dashboard/models/@PLATFORM/widget-platform';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { SnackBarService } from '../../../dashboard/services/snack-bar.service';
 import { EventsWorkspaceService } from '../../../dashboard/services/widgets/events-workspace.service';

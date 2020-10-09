@@ -21,6 +21,7 @@ export interface IDatesInterval {
 interface IWebSocket<TData, TOption> {
     actionType: 'authenticate' | 'subscribe' | 'unsubscribe' | 'appendOptions';
     channelId: string;
+    subChannelId?: string;
     selectedPeriod?: IDatesInterval;
     token?: string; // Bearer token for authenticate actionType
     data?: TData;
@@ -29,7 +30,7 @@ interface IWebSocket<TData, TOption> {
 }
 
 interface IWebSocketOptions<T> {
-    timeStamp: Date;
+    timeStamp: number;
     optionValues: T;
 }
 
@@ -41,8 +42,8 @@ export class WidgetService {
     private readonly restUrl: string;
     private readonly reconnectInterval: number;
 
-    private widgetsSocketObservable: BehaviorSubject<any> = new BehaviorSubject(null);
     public ws: WebSocketSubject<IWebSocket<any, IWebSocketOptions<any>>> = null;
+    private widgetsSocketObservable: BehaviorSubject<any> = new BehaviorSubject(null);
 
     public draggingItem: GridsterItem;
     public dashboard: GridsterItem[] = [];
@@ -59,14 +60,11 @@ export class WidgetService {
     private reconnectWsTimer: ReturnType<typeof setTimeout>;
     private reconnectRestTimer: ReturnType<typeof setTimeout>;
 
-    public currentDates$: BehaviorSubject<IDatesInterval> = new BehaviorSubject<IDatesInterval>(
-        null
-    );
-
-    filterWidgets$: BehaviorSubject<string[]> = new BehaviorSubject<string[]>([]);
+    public currentDates$: BehaviorSubject<IDatesInterval> = new BehaviorSubject<IDatesInterval>(null);
+    public filterWidgets$: BehaviorSubject<string[]> = new BehaviorSubject<string[]>([]);
 
     // открытые каналы ws на текущем экране
-    private openedWSChannels: { [key: string]: { count: number, options: IWebSocketOptions<any> } } = {};
+    private openedWsChannels: { [key: string]: { count: number, options: IWebSocketOptions<any>, parentChannelId?: string } } = {};
 
     constructor(
         public http: HttpClient,
@@ -79,7 +77,18 @@ export class WidgetService {
         this.reconnectInterval = configService.reconnectInterval * 1000;
 
         this.currentDates$.subscribe((ref) => {
-            this.dashboard.forEach((el) => this.wsAppendOptions(el.id, this.openedWSChannels[el.id]?.options));
+            this.dashboard.forEach((el) => {
+                // tslint:disable-next-line:forin
+                for (const channel in this.openedWsChannels) {
+                    let widgetId = channel;
+                    let channelId = null;
+                    if (!!this.openedWsChannels[channel].parentChannelId) {
+                        widgetId = this.openedWsChannels[channel].parentChannelId;
+                        channelId = channel;
+                    }
+                    this.wsAppendOptions(widgetId, this.openedWsChannels[channel]?.options, channelId);
+                }
+            });
         });
 
         setInterval(() => this.reloadPage(), 1800000);
@@ -157,12 +166,13 @@ export class WidgetService {
         return this.widgets.pipe(map((i) => i.find((x) => x.id === widgetId)));
     }
 
+    // TODO delete and change to getChannelLiveDataFromWs
     getWidgetLiveDataFromWS(widgetId: string, widgetType: string): Observable<any> {
-        this.wsRealtimeData(widgetId);
-        if (this.openedWSChannels[widgetId]) {
-            this.openedWSChannels[widgetId].count++;
+        this.wsConnect(widgetId);
+        if (this.openedWsChannels[widgetId]) {
+            this.openedWsChannels[widgetId].count++;
         } else {
-            this.openedWSChannels[widgetId] = {
+            this.openedWsChannels[widgetId] = {
                 count: 1,
                 options: null
             };
@@ -175,50 +185,85 @@ export class WidgetService {
         );
     }
 
-    setWidgetLiveDataFromWSOptions<T>(widgetId: string, options: T): void {
-        if (this.openedWSChannels[widgetId]) {
-            this.openedWSChannels[widgetId].options = {
-                optionValues: options,
-                timeStamp: new Date()
+    getChannelLiveDataFromWs<T>(channelId: string, widgetId: string): Observable<T> {
+        this.wsConnect(widgetId, null, channelId);
+        if (this.openedWsChannels[channelId]) {
+            this.openedWsChannels[channelId].count++;
+        } else {
+            this.openedWsChannels[channelId] = {
+                count: 1,
+                parentChannelId: widgetId,
+                options: null
             };
         }
-        this.wsAppendOptions(widgetId, this.openedWSChannels[widgetId]?.options);
+        return this.widgetsSocketObservable.pipe(
+            filter((ref) => ref?.channelId === widgetId && ref.subChannelId === channelId),
+            map((ref) => ref?.data ?? null),
+            filter((ref) => ref !== null)
+        );
     }
 
-    private wsRealtimeData(widgetId: string, options: any = null): void {
+    setChannelLiveDataFromWsOptions<T>(widgetId: string, options: T, channelId: string = null): void {
+        if (this.openedWsChannels[widgetId]) {
+            this.openedWsChannels[widgetId].options = {
+                optionValues: options,
+                timeStamp: new Date().getTime()
+            };
+        }
+        this.wsAppendOptions(widgetId, this.openedWsChannels[widgetId]?.options, channelId);
+    }
+
+    private wsConnect(widgetId: string, options: any = null, channelId: string = null): void {
         this.ws.next({
             actionType: 'subscribe',
             channelId: widgetId,
+            subChannelId: channelId,
             selectedPeriod: this.currentDates$.getValue(),
             options
         });
     }
 
-    private wsAppendOptions(widgetId: string, options: any): void {
+    private wsAppendOptions(widgetId: string, options: any, channelId: string = null): void {
         this.ws.next({
             actionType: 'appendOptions',
             channelId: widgetId,
+            subChannelId: channelId,
             selectedPeriod: this.currentDates$.getValue(),
             options
         });
     }
 
-    public wsDisconnect(widgetId: string): void {
+    public wsDisconnect(widgetId: string, channelId: string = null): void {
         this.ws.next({
             actionType: 'unsubscribe',
-            channelId: widgetId
+            channelId: widgetId,
+            subChannelId: channelId,
         });
     }
 
+    // TODO delete channels by widget
     public removeWidget(widgetId: string): void {
-        if (!this.openedWSChannels[widgetId]) {
+        if (!this.openedWsChannels[widgetId]) {
             return;
         }
-        if (this.openedWSChannels[widgetId].count === 1) {
-            delete this.openedWSChannels[widgetId];
+        if (this.openedWsChannels[widgetId].count === 1) {
             this.wsDisconnect(widgetId);
-        } else if (this.openedWSChannels[widgetId]) {
-            this.openedWSChannels[widgetId].count--;
+            delete this.openedWsChannels[widgetId];
+        } else if (this.openedWsChannels[widgetId]) {
+            this.openedWsChannels[widgetId].count--;
+        }
+    }
+
+    // TODO
+    public removeChannel(widgetId: string, channelId: string): void {
+        if (!this.openedWsChannels[channelId]) {
+            return;
+        }
+        if (this.openedWsChannels[channelId].count <= 1) {
+            this.wsDisconnect(widgetId, channelId);
+            delete this.openedWsChannels[channelId];
+        } else if (this.openedWsChannels[channelId]) {
+            this.openedWsChannels[channelId].count--;
         }
     }
 
@@ -226,87 +271,20 @@ export class WidgetService {
         switch (widgetType) {
             case 'events':
                 return this.mapEventsWidgetDataPreview(data as EventsWidgetDataPreview);
-
             case 'line-chart':
                 return this.mapLineChartData(data as LineChartData);
-
-            case 'manual-input':
-            case 'line-diagram':
-            case 'pie-diagram':
-            case 'truncated-diagram-counter':
-            case 'truncated-diagram-percentage':
-            case 'bar-chart':
-            case 'map-ecology':
-            case 'ring-factory-diagram':
-            case 'semicircle-energy':
-            case 'dispatcher-screen':
-            case 'point-diagram':
-            case 'circle-diagram':
-            case 'polar-chart':
-            case 'solid-gauge-with-marker':
-            case 'circle-block-diagram':
-            case 'deviation-circle-diagram':
-            case 'time-line-diagram':
-            case 'ring-energy-indicator':
-            case 'calendar-plan':
-            case 'operation-efficiency':
-            case 'ecology-safety':
-            case 'energetics':
-            case 'oil-control':
-            case 'shift-pass':
-            case 'shift-accept':
-            case 'column-chart-stacked':
-            case 'events-workspace':
-            case 'implementation-plan':
-            case 'performance-progress-indicators':
-            case 'quality-stock':
-            case 'product-groups':
-            case 'product-groups-short':
-            case 'tank-information':
-            case 'nk-tank-information':
-            case 'table-data':
-            case 'deviations-table':
-            case 'triggering-critical-parameters':
-            case 'production-trend':
-            case 'production-deviations':
-            case 'truncated-diagram-traffic-light':
-            case 'astue-efficiency':
-            case 'spline-trends-chart':
-            case 'cd-mat-balance':
-            case 'cd-deviation-mat':
-            case 'cd-reactor-parameters':
-            case 'cd-mat-balance-sensor':
-            case 'cd-mat-balance-stream':
-            case 'key-performance-indicators':
-            case 'kpe-energetic':
-            case 'kpe-readiness':
-            case 'kpe-quality':
-            case 'kpe-safety':
-            case 'sou-operational-accounting-system':
-            case 'astue-onpz-consumption-indicators':
-            case 'astue-onpz-menu-structure':
-            case 'astue-onpz-product-charts':
-            case 'astue-onpz-predictors':
-            case 'astue-onpz-interactive-indicators':
-            case 'astue-onpz-conventional-fuel':
-            case 'astue-onpz-conventional-fuel-indicators':
-            case 'astue-onpz-planning-charts':
-            case 'astue-onpz-line-chart':
-            case 'evj-header':
-            case 'ejco-onpz-unit-kpe':
-            case 'ejco-onpz-unit-sou':
-            case 'ejco-onpz-fsb-load':
-            case 'astue-onpz-main-indicators':
+            default:
                 return data;
         }
-        console.warn(`unknown widget type ${widgetType}`);
     }
 
+    // TODO replace to event widget
     private mapEventsWidgetDataPreview(data: EventsWidgetDataPreview): EventsWidgetDataPreview {
         data.notification.eventDateTime = new Date(data.notification.eventDateTime);
         return data;
     }
 
+    // TODO replace to line-chart widget
     private mapLineChartData(data: LineChartData): LineChartData {
         data.graphs.forEach((g) => {
             g.values.forEach((v) => (v.date = new Date(v.date)));
@@ -401,12 +379,11 @@ export class WidgetService {
         );
     }
 
-    private isMatchingOptions(incoming: Date, widgetId: string): boolean {
+    private isMatchingOptions(incoming: number, widgetId: string): boolean {
         if (!incoming) {
             return true;
         }
-        return (Math.abs(new Date(this.openedWSChannels[widgetId]?.options?.timeStamp).getTime() -
-            new Date(incoming).getTime()) < 1000);
+        return (this.openedWsChannels[widgetId]?.options?.timeStamp === incoming);
     }
 
     private reconnectWs(): void {
@@ -417,8 +394,16 @@ export class WidgetService {
         this.materialController.openSnackBar('Переподключение к данным реального времени');
         this.reconnectWsTimer = setInterval(() => {
             this.initWS();
-            this.dashboard.forEach((el) =>
-                this.wsRealtimeData(el.id, this.openedWSChannels[el.id]?.options));
+            // tslint:disable-next-line:forin
+            for (const channel in this.openedWsChannels) {
+                let widgetId = channel;
+                let channelId = null;
+                if (!!this.openedWsChannels[channel].parentChannelId) {
+                    widgetId = this.openedWsChannels[channel].parentChannelId;
+                    channelId = channel;
+                }
+                this.wsConnect(widgetId, this.openedWsChannels[channel]?.options, channelId);
+            }
         }, this.reconnectInterval);
     }
 

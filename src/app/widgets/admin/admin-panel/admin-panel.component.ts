@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy, Inject } from '@angular/core';
-import { WidgetPlatform } from '../../../dashboard/models/widget-platform';
+import { WidgetPlatform } from '../../../dashboard/models/@PLATFORM/widget-platform';
 import { IButtonImgSrc, IWorkspace } from '../../../dashboard/models/admin-panel';
 import { IInputOptions } from '../../../@shared/models/input.model';
 import { IUser, IUnitEvents } from '../../../dashboard/models/events-widget';

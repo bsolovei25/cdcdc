@@ -32,7 +32,7 @@ import {
 } from '../../../dashboard/services/widgets/admin-shift-schedule.service';
 import { SnackBarService } from '../../../dashboard/services/snack-bar.service';
 import { WidgetService } from '../../../dashboard/services/widget.service';
-import { WidgetPlatform } from '../../../dashboard/models/widget-platform';
+import { WidgetPlatform } from '../../../dashboard/models/@PLATFORM/widget-platform';
 import { fillDataShape } from '@shared/functions/common-functions';
 import { Moment } from 'moment';
 import {

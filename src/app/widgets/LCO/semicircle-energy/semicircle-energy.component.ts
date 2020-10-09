@@ -7,7 +7,7 @@ import {
     CenterCoords,
     LimitLine,
 } from 'src/app/dashboard/models/semicircle-energy';
-import { WidgetPlatform } from 'src/app/dashboard/models/widget-platform';
+import { WidgetPlatform } from 'src/app/dashboard/models/@PLATFORM/widget-platform';
 
 @Component({
     selector: 'evj-semicircle-energy',

@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy, Inject, ViewChild, HostListener } from '@angular/core';
 import { WidgetService } from '../../services/widget.service';
 import { trigger, state, style, animate, transition } from '@angular/animations';
-import { WidgetPlatform } from '../../models/widget-platform';
+import { WidgetPlatform } from '../../models/@PLATFORM/widget-platform';
 import { SnackBarService } from '../../services/snack-bar.service';
 import { ITreeState, ITreeOptions, TreeDraggedElement, TreeComponent } from 'angular-tree-component';
 import { IReportTemplate, ITreeFolderMap, ITemplate, ISystemOptions, IReportFile, ISystemOptionsTemplate, IFolder, IPostSystemOptionsTemplate } from '../../models/report-server';

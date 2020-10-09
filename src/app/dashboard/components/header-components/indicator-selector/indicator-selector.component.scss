@@ -136,21 +136,21 @@
 
     &__non-active {
       background-color: var(--color-border-main);
-      -webkit-mask: url("../../../../assets/icons/plus.svg") no-repeat center;
-      mask: url("../../../../assets/icons/plus.svg") no-repeat center;
+      -webkit-mask: url("../../../../../assets/icons/plus.svg") no-repeat center;
+      mask: url("../../../../../assets/icons/plus.svg") no-repeat center;
       pointer-events: none;
     }
 
     &__active {
       background-color: var(--color-text-sub);
-      -webkit-mask: url("../../../../assets/icons/plus.svg") no-repeat center;
-      mask: url("../../../../assets/icons/plus.svg") no-repeat center;
+      -webkit-mask: url("../../../../../assets/icons/plus.svg") no-repeat center;
+      mask: url("../../../../../assets/icons/plus.svg") no-repeat center;
       pointer-events: all;
 
       &:hover {
         background-color: white;
-        -webkit-mask: url("../../../../assets/icons/plus.svg") no-repeat center;
-        mask: url("../../../../assets/icons/plus.svg") no-repeat center;
+        -webkit-mask: url("../../../../../assets/icons/plus.svg") no-repeat center;
+        mask: url("../../../../../assets/icons/plus.svg") no-repeat center;
       }
     }
   }
