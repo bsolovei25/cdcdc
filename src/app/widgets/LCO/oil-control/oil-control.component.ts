@@ -183,7 +183,7 @@ export class OilControlComponent extends WidgetPlatform<unknown> implements OnIn
             const updateTimeInSec =
                 (ref.updateTimeInSec ?? 0) === 0 ? this.defaultTimeInSec : ref.updateTimeInSec;
             this.toggleIntervalTimer =
-                setInterval(this.toggleInterval.bind(this), updateTimeInSec * 1000 * 100000000);
+                setInterval(this.toggleInterval.bind(this), updateTimeInSec * 1000);
         }
     }
 
