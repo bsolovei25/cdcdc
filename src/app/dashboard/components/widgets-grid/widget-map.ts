@@ -1350,7 +1350,6 @@ export const WIDGETS_LAZY = {
         minItemRows: 10,
         preview: 'oq-oil-quality'
     },
-
     //#endregion OQ
     // #region EJV
 
