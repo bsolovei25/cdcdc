@@ -1356,19 +1356,19 @@ export const WIDGETS_LAZY = {
     //#endregion OQ
     // #region EJV
 
-    'manual-input': {
-        import: async () => {
-            return await import(
-                'src/app/widgets/EVJ/manual-input/manual-input.module'
-                );
-        },
-        module: 'ManualInputModule',
-        itemCols: 45,
-        itemRows: 20,
-        minItemCols: 35,
-        minItemRows: 13,
-        preview: 'manual-input'
-    },
+    // 'manual-input': {
+    //     import: async () => {
+    //         return await import(
+    //             'src/app/widgets/EVJ/manual-input/manual-input.module'
+    //             );
+    //     },
+    //     module: 'ManualInputModule',
+    //     itemCols: 45,
+    //     itemRows: 20,
+    //     minItemCols: 35,
+    //     minItemRows: 13,
+    //     preview: 'manual-input'
+    // },
     //#endregion EJV
 
       // #region ED
