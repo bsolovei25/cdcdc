@@ -123,6 +123,9 @@ export class OilOperationsComponent extends WidgetPlatform implements OnInit, On
         free: false
     };
 
+    public filterGroup: string | null = null;
+    public filterProduct: string | null = null;
+
     constructor(
         protected widgetService: WidgetService,
         private oilOperationService: OilOperationsService,
@@ -215,20 +218,39 @@ export class OilOperationsComponent extends WidgetPlatform implements OnInit, On
     }
 
     private getOptions(): IOilOperationsOptions {
-        return {
+        const options: IOilOperationsOptions = {
             dates: {
                 startTime: this.currentDates.fromDateTime,
                 endTime: this.currentDates.toDateTime,
             }
         };
+        if (this.filterGroup) {
+            options.group = this.filterGroup;
+        }
+        if (this.filterProduct) {
+            options.product = this.filterProduct;
+        }
+        return options;
     }
 
     ngOnDestroy(): void {
         super.ngOnDestroy();
     }
 
-    openFilter(open: any): void {
+    public openFilter(open: any): void {
         console.log(open, 'main component');
+        const value = open.filter ? open.filter.name : null;
+        switch (open.type) {
+            case 'product':
+                this.filterProduct = value;
+                break;
+            case 'group':
+                this.filterGroup = value;
+                break;
+        }
+        this.getLeftTable().then((result) => {
+            this.data.tableLeft = result;
+        });
         this.active('isFilter');
     }
 

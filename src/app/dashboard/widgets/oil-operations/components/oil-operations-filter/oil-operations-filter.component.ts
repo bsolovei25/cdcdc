@@ -55,7 +55,7 @@ export class OilOperationsFilterComponent implements OnInit {
 
     public onSaveClick(): void {
         this.popoverRef.close('close', {
-            type: this.popoverRef.data.type,
+            type: this.popoverRef.data.type.slice(0, -1),
             activeFilter: this.activeItem,
         } as IOilFilterOutput);
     }
