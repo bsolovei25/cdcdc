@@ -74,3 +74,13 @@ export interface IValue {
     id: string;
     value: string;
 }
+
+export interface IHours {
+    hour: string;
+    value: string;
+}
+
+export interface IHistory {
+    day: string;
+    hours: IHours[];
+}

@@ -467,8 +467,20 @@
   --header-events-color-bg-active: #0089FF;
   --header-events-color-bg-hover: #1F222E;
   --header-events-color-bg-thumb: rgb(40, 43, 56, 0.46);
-}
 
+  // EVJ
+  --evj-color-bg-footer: #272A38;
+  --evj-color-bg-main: #12151E;
+  --evj-color-item-bg-main: #1C202C;
+  --evj-color-scrollbar-thumb: #282D3C;
+  --evj-color-white: #ffffff;
+  --evj-color-item-text-sub: #61657F;
+  --evj-color-item-text-filter: #8D99B2;
+
+  --evj-color-active: #0089FF;
+  --evj-color-bg-btn: rgba(48, 53, 73, 0.5);
+  --evj-color-bg-filter: rgba(39, 42, 56, 0.5);
+}
 $--color-active: #3fa9f5;
 $--color-danger: #eb5757;
 $--color-warning: #f4a321;
