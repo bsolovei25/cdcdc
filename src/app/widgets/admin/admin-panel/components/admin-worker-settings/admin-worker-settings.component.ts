@@ -93,7 +93,6 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
         }
 
         this.alert = this.adminService.settingsAlert;
-
         this.subscriptions.push(
             this.adminService.activeWorker$.subscribe((worker: IUser) => {
                 this.worker = fillDataShape(worker);
@@ -110,6 +109,22 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
                 }),
                 this.adminService.getWorkerSpecialClaims(this.worker.id).subscribe((claims) => {
                     this.workerSpecialClaims = claims.data;
+
+                    this.workerSpecialClaims.forEach((value) => {
+                        if (value.claimValueType === 'widget') {
+                            if (!value.widgets) {
+                                value.widgets = [];
+                            }
+                            value.widgets.push(this.findEntityByClaimValueWidget(value));
+                        } else {
+                            if (!value.units) {
+                                value.units = [];
+                            }
+                            value.units.push(this.findEntityByClaimValueUnit(value));
+                        }
+                    });
+                    console.log(this.workerSpecialClaims);
+
                 })
             );
         }
@@ -182,6 +197,25 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
         const isClaimNotForScreen: boolean = !claim.claimType.includes('screen');
         return isWorkerHasClaim && isClaimNotForScreen;
     }
+
+    public findEntityByClaimValueUnit(claim: IGlobalClaim): IUnitEvents {
+        let entity: IUnitEvents | IWidget;
+        switch (claim.claimValueType) {
+            case 'unit':
+                entity = this.adminService.units.find((item) => item.id === +claim.value);
+                return entity;
+        }
+    }
+
+    public findEntityByClaimValueWidget(claim: IGlobalClaim): IWidget {
+        let entity: IUnitEvents | IWidget;
+        switch (claim.claimValueType) {
+            case 'widget':
+                entity = this.adminService.allWidgets.find((item) => item.id === claim.value);
+                return entity;
+        }
+    }
+
 
     public createSpecialClaim(): void {
         this.isCreateClaim = true;
@@ -338,18 +372,18 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
                     })
                 ));
                 this.workerSpecialClaims?.forEach(v => v?.units?.forEach(w =>
-                newArray.push({
-                    claimType: v?.claimType,
-                    value: w?.id.toString(),
-                    claimValueType: v?.claimValueType,
-                    claimName: v?.claimName,
-                    additionalType: v?.additionalType,
-                    claimCategory: v?.claimCategory,
-                    claimCategoryName: v?.claimCategoryName,
-                    claimValueTypeName: v?.claimValueTypeName,
-                    description: v?.description,
-                    specification: v?.specification
-                })));
+                    newArray.push({
+                        claimType: v?.claimType,
+                        value: w?.id.toString(),
+                        claimValueType: v?.claimValueType,
+                        claimName: v?.claimName,
+                        additionalType: v?.additionalType,
+                        claimCategory: v?.claimCategory,
+                        claimCategoryName: v?.claimCategoryName,
+                        claimValueTypeName: v?.claimValueTypeName,
+                        description: v?.description,
+                        specification: v?.specification
+                    })));
                 this.worker.displayName = this.adminService.generateDisplayName(this.worker);
                 this.worker.claims = this.workerGeneralClaims.concat(newArray);
 
