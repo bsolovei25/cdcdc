@@ -123,8 +123,6 @@ export const WIDGETS = {
     'ring-energy-indicator': WidgetContainerComponent,
     'ozsm-planning-main': WidgetContainerComponent,
     'ozsm-monitoring-main': WidgetContainerComponent,
-    'shift-pass': WidgetContainerComponent,
-    'shift-accept': WidgetContainerComponent,
     'bar-chart': WidgetContainerComponent,
     'chain-map': WidgetContainerComponent,
     'point-diagram': WidgetContainerComponent,

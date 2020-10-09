@@ -1,3 +1,4 @@
+import { WidgetPlatform } from 'src/app/dashboard/models/widget-platform';
 import {
     Component,
     Output,
@@ -13,7 +14,6 @@ import { HttpClient } from '@angular/common/http';
 import { AppConfigService } from '@core/service/app-config.service';
 import { trigger, style, state, transition, animate, group } from '@angular/animations';
 import { ManualInputService } from './../../../dashboard/services/widgets/manual-input.service';
-import { WidgetPlatform } from 'src/app/dashboard/models/widget-platform';
 import { WidgetSettingsService } from './../../../dashboard/services/widget-settings.service';
 import { WidgetService } from 'src/app/dashboard/services/widget.service';
 import { IHistory, IMachine_MI, IGroup_MI } from './../../../dashboard/models/manual-input.model';
@@ -45,7 +45,7 @@ import { IHistory, IMachine_MI, IGroup_MI } from './../../../dashboard/models/ma
         ]),
     ],
 })
-export class EvjManualInputComponent extends WidgetPlatform
+export class EvjManualInputComponent extends WidgetPlatform<unknown>
     implements OnInit, OnDestroy, AfterViewInit, OnChanges {
     @ViewChild('truckScroll') truckScroll: ElementRef;
     @ViewChild('scroll') scroll: ElementRef;
