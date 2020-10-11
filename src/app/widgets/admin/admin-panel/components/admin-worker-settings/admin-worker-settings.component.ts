@@ -116,12 +116,18 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
                                 value.widgets = [];
                             }
                             value.widgets.push(this.findEntityByClaimValueWidget(value));
-                            value.widgets.forEach(w => w.isActive = true);
                         } else {
                             if (!value.units) {
                                 value.units = [];
                             }
                             value.units.push(this.findEntityByClaimValueUnit(value));
+                        }
+                    });
+
+                    this.workerSpecialClaims.forEach(value => {
+                        if (value.claimValueType === 'widget') {
+                            value.widgets.forEach(w => w.isActive = true);
+                        } else {
                             value.units.forEach(u => u.isActive = true);
                         }
                     });

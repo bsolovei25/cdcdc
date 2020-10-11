@@ -95,8 +95,7 @@ export class AwsCreateClaimComponent implements OnInit {
     // end Выбрать все
 
     public onBack(): void {
-        const claims: IGlobalClaim[] = [];
-        this.createdClaim.emit(claims);
+        this.createdClaim.emit([]);
     }
 
     // Сохранить
