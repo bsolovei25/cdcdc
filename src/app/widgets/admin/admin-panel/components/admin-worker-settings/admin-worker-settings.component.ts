@@ -116,13 +116,23 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
                                 value.widgets = [];
                             }
                             value.widgets.push(this.findEntityByClaimValueWidget(value));
+                            value.widgets.forEach(w => w.isActive = true);
                         } else {
                             if (!value.units) {
                                 value.units = [];
                             }
                             value.units.push(this.findEntityByClaimValueUnit(value));
+                            value.units.forEach(u => u.isActive = true);
                         }
                     });
+                    // // каждому присвоить isActive
+                    // this.workerSpecialClaims.forEach(value => {
+                    //     if (value.claimValueType === 'widget') {
+                    //         value.widgets.forEach(w => w.isActive = true);
+                    //     } else {
+                    //         value.units.forEach(u => u.isActive = true);
+                    //     }
+                    // });
                     console.log(this.workerSpecialClaims);
                 })
             );
@@ -229,7 +239,11 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
         this.isDataChanged = true;
     }
 
-    public onRemoveSpecialClaim(w: IWidget | IUnitEvents): void {
+    public onRemoveSpecialClaim(claim: IGlobalClaim): void {
+        const index: number = this.workerSpecialClaims.findIndex(
+            (item) => item.claimType === claim.claimType
+        );
+        this.workerSpecialClaims.splice(index, 1);
         this.isDataChanged = true;
     }
 

@@ -114,7 +114,7 @@
 
                 <ng-container *ngIf="item.claimValueType === 'widget'">
                   <ng-container *ngFor="let nameCard of item.widgets">
-                  <div class="claim__item" *ngIf="claim.claimType === item.claimType">
+                  <div class="claim__item" *ngIf="claim.claimType === item.claimType && nameCard.isActive">
                       {{nameCard.title}}
                     <div
                       class="claim__button claim__button-delete"
@@ -128,7 +128,7 @@
 
                 <ng-container *ngIf="item.claimValueType === 'unit'">
                   <ng-container *ngFor="let nameCard of item.units">
-                    <div class="claim__item" *ngIf="claim.claimType === item.claimType">
+                    <div class="claim__item" *ngIf="claim.claimType === item.claimType && nameCard.isActive">
                     {{nameCard.name}}
                       <div
                         class="claim__button claim__button-delete"
