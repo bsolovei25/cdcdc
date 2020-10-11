@@ -5,6 +5,8 @@ import { IUnitEvents } from '../../../../../../dashboard/models/events-widget';
 import { SelectionModel } from '@angular/cdk/collections';
 import { AdminPanelService } from '../../../../../../dashboard/services/admin-panel/admin-panel.service';
 import { fillDataShape } from '@shared/functions/common-functions';
+import { viewClassName } from '@angular/compiler';
+import { FileAttachMenuService } from 'src/app/dashboard/services/file-attach-menu.service';
 
 interface ICreateClaim extends IWidget {
     isHidden: boolean;
@@ -29,7 +31,7 @@ export class AwsCreateClaimComponent implements OnInit {
     public selectUnit: SelectionModel<IUnitEvents> = new SelectionModel<IUnitEvents>(true);
 
     search: string = '';
-    public selectCounter: number = 0;
+    public selectCounter: boolean;
 
     constructor(private adminService: AdminPanelService) {
     }
@@ -66,29 +68,37 @@ export class AwsCreateClaimComponent implements OnInit {
 
     // start Выбрать все
     public checkIsAllSelected(): boolean {
-        return this.selectClaim?.selected[0]?.widgets?.length === this.allWidgets.length
-            || this.selectClaim?.selected[0]?.units?.filter((v) =>
-                v.isActive).length === this.allUnits.length;
+        this.selectClaim.selected[0].widgets?.forEach(v => {
+            if (v.isActive) {
+                this.selectCounter = true;
+            }
+        });
+        this.selectClaim.selected[0].units?.forEach(v => {
+            if (v.isActive) {
+                this.selectCounter = true;
+            }
+        });
+        return this.selectCounter;
     }
-
     public onClickListButton(): void {
         const selectedClaim: IGlobalClaim = this.selectClaim.selected[0];
-        this.selectCounter++;
-        if (this.selectCounter % 2 === 1) {
-            selectedClaim?.widgets?.forEach((value) => {
-                value.isActive = true;
-            });
-            selectedClaim?.units?.forEach((value) => {
-                value.isActive = true;
-            });
-        }
-        if (this.selectCounter % 2 === 0) {
+        if (selectedClaim.widgets?.find(v => v.isActive)
+        || selectedClaim.units?.find(v => v.isActive)) {
             selectedClaim?.widgets?.forEach((value) => {
                 value.isActive = false;
             });
             selectedClaim?.units?.forEach((value) => {
                 value.isActive = false;
             });
+            this.selectCounter = false;
+        } else {
+            selectedClaim?.widgets?.forEach((value) => {
+                value.isActive = true;
+            });
+            selectedClaim?.units?.forEach((value) => {
+                value.isActive = true;
+            });
+            this.selectCounter = true;
         }
     }
 
@@ -107,6 +117,22 @@ export class AwsCreateClaimComponent implements OnInit {
             }
             if (value?.units?.filter((v) => v.isActive).length) {
                     claims.push(value);
+            }
+        });
+        claims.forEach((v) => {
+            if (v.claimValueType === 'widget') {
+                v.widgets?.forEach(w => {
+                    if (w.isActive !== true) {
+                        w.title = '';
+                    }
+                });
+            }
+            if (v.claimValueType === 'unit') {
+                v.units?.forEach(u => {
+                    if (u.isActive !== true) {
+                        u.name = '';
+                    }
+                });
             }
         });
         console.log(claims);

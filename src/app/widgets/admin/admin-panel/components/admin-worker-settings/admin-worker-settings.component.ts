@@ -123,14 +123,6 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
                             value.units.push(this.findEntityByClaimValueUnit(value));
                         }
                     });
-
-                    this.workerSpecialClaims.forEach(value => {
-                        if (value.claimValueType === 'widget') {
-                            value.widgets.forEach(w => w.isActive = true);
-                        } else {
-                            value.units.forEach(u => u.isActive = true);
-                        }
-                    });
                     console.log(this.workerSpecialClaims);
                 })
             );
@@ -431,7 +423,7 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
                 this.materialController.openSnackBar('Данные сохранены');
                 this.isDataChanged = false;
             } catch (error) {
-                console.log(error.error);
+                console.log(error);
             } finally {
                 this.isDataLoading = false;
             }
