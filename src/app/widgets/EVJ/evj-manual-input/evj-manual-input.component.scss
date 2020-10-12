@@ -573,6 +573,7 @@ input {
 }
 
 input.data {
+  box-sizing: border-box;
   font-size: 14px;
   max-width: 100px;
   height: 30px;
@@ -582,42 +583,8 @@ input.data {
   pointer-events: none;
   text-align: center;
   vertical-align: middle;
+  cursor: pointer;
 
-  &_comment {
-    pointer-events: fill;
-  }
-
-  &_active {
-    pointer-events: fill;
-    border-radius: 3px;
-    border-color: transparent;
-    border-bottom: solid 2px var(--color-warning);
-
-    &__saving {
-      border-color: transparent;
-      border-bottom: solid 2px var(--color-border-active);
-      //  border-color: transparent;
-    }
-
-    &__error {
-      border-color: transparent;
-      border-bottom: solid 2px var(--color-danger);
-      //   border-color: var(--color-danger);
-    }
-
-    &__warning {
-      //  border-color: var(--color-warning);
-      border-color: transparent;
-      border-bottom: solid 2px var(--color-warning);
-      animation: blink 1s;
-      animation-iteration-count: 3;
-    }
-    @keyframes blink {
-      50% {
-        border-color: transparent;
-      }
-    }
-  }
   &_notActive {
     border-color: transparent;
   }
@@ -628,6 +595,43 @@ input.data {
 
   &:focus {
     outline: none;
+  }
+
+  &_comment {
+    pointer-events: fill;
+  }
+
+  &_choose {
+    border-color: var(--evj-color-active);
+    border: solid 2px;
+  }
+
+  &_active {
+    pointer-events: fill;
+    border-radius: 3px;
+    border-bottom: solid 2px var(--color-warning);
+
+    &__saving {
+      border-bottom: solid 2px var(--color-border-active);
+      //  border-color: transparent;
+    }
+
+    &__error {
+      border-bottom: solid 2px var(--color-danger);
+      //   border-color: var(--color-danger);
+    }
+
+    &__warning {
+      //  border-color: var(--color-warning);
+      border-bottom: solid 2px var(--color-warning);
+      animation: blink 1s;
+      animation-iteration-count: 3;
+    }
+    @keyframes blink {
+      50% {
+        border-color: transparent;
+      }
+    }
   }
 }
 
@@ -764,6 +768,11 @@ input.data {
       color: var(--evj-color-item-text-sub);
       font-size: 14px;
       margin-left: 54px;
+      
+      white-space: nowrap;
+      text-align: left;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
   }
 

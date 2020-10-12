@@ -164,6 +164,7 @@
                                 (change)="onChangeValue(i.id)"
                                 (focusout)="onUnfocusValue(i.id)"
                                 (click)="onChooseGroup(machineIdx, groupsIdx, paramsIdx)"
+                                [class.data_choose]="i.id === historicalData?.groups?.params?.id"
                               />
                             </div>
                             <div class="item-block__value">{{i.minValue}}</div>

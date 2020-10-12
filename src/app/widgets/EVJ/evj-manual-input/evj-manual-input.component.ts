@@ -263,16 +263,23 @@ export class EvjManualInputComponent extends WidgetPlatform<unknown>
             }
         }
         this.data = this.manualInputService.LoadData(this.data, data.machines);
-        this.filteredData = this.data;
-        this.historicalData = {
-            ...this.filteredData[0],
-            groups: {
-                ...this.filteredData[0]?.groups[0],
-                params: {
-                    ...this.filteredData[0]?.groups[0]?.params[0]
+
+        if (this.filteredData.length === 0) {
+            debugger;
+            this.filteredData = this.data;
+        }
+
+        if (!this.historicalData) {
+            this.historicalData = {
+                ...this.filteredData[0],
+                groups: {
+                    ...this.filteredData[0]?.groups[0],
+                    params: {
+                        ...this.filteredData[0]?.groups[0]?.params[0]
+                    }
                 }
-            }
-        };
+            };
+        }
     }
 
     getWidth(): void {
