@@ -1,65 +1,69 @@
+@import 'src/mixins';
+
 .active-filter {
-    &:after {
-        border: 1px solid var(--color-active) !important;
-        border-left: none !important;
-    }
+  &:after {
+    border: 1px solid var(--color-active) !important;
+    border-left: none !important;
+  }
 
-    .filter-button__text {
-        border: 1px solid !important;
-        border-image: linear-gradient(to left, var(--color-active), transparent) !important;
-        border-image-slice: 1 !important;
-        border-right: none !important;
-        border-right: none;
+  .filter-button__text {
+    border: 1px solid !important;
+    border-image: linear-gradient(to left, var(--color-active), transparent) !important;
+    border-image-slice: 1 !important;
+    border-right: none !important;
+    border-right: none;
 
-        .icon {
-            margin-top: 5px;
-            transform: rotate(180deg);
-        }
+    .icon {
+      margin-top: 5px;
+      transform: rotate(180deg);
     }
+  }
 }
 
 .filter-button {
-    cursor: pointer;
-    position: relative;
-    height: 30px;
-    width: 160px;
+  cursor: pointer;
+  position: relative;
+  height: 30px;
+  width: 160px;
+  display: flex;
+
+  &:after {
+    content: "";
+    position: absolute;
+    height: 28px;
+    width: 14px;
+    top: 0px;
+    right: 4px;
+    border: 1px solid var(--color-text-main);
+    border-left: none;
+    border-top-right-radius: 25px;
+    border-bottom-right-radius: 25px;
+  }
+
+  &__icon {
+    position: absolute;
+    width: 30px;
+  }
+
+  &__text {
     display: flex;
+    width: calc(100% - 20px);
+    justify-content: space-between;
+    align-items: center;
+    font-size: 12px;
+    border: 1px solid;
+    border-image: linear-gradient(90deg, transparent 10%, var(--color-text-main) 100%);
+    border-image-slice: 1;
+    border-right: none;
 
-    &:after {
-        content: "";
-        position: absolute;
-        height: 28px;
-        width: 14px;
-        top: 0px;
-        right: 4px;
-        border: 1px solid var(--color-text-main);
-        border-left: none;
-        border-top-right-radius: 25px;
-        border-bottom-right-radius: 25px;
+    .icon {
+      width: 10px;
     }
 
-    &__icon {
-        position: absolute;
-        width: 30px;
+    .name {
+      margin-left: 35px;
+      @include text-overflow;
+      -webkit-line-clamp: 1;
     }
-
-    &__text {
-        display: flex;
-        width: calc(100% - 20px);
-        justify-content: space-between;
-        align-items: center;
-        font-size: 12px;
-        border: 1px solid;
-        border-image: linear-gradient(90deg, transparent 10%, var(--color-text-main) 100%);
-        border-image-slice: 1;
-        border-right: none;
-
-        .icon {
-            width: 10px;
-        }
-
-        .name {
-            margin-left: 35px;
-        }
-    }
+  }
 }
