@@ -48,7 +48,6 @@
           </svg>
         </div>
       </div>
-      <div id="saveBar"></div>
       <div class="table__menu">
         <div class="set-button all-settings-button" (click)="onAllSettings()" [class.active]="allSettings" *ngIf="!isHistorical">
           Все установки
@@ -135,8 +134,13 @@
                     </div>
                     <div class="item-container" [@Branch]="(item?.open) ? 'expanded' : 'collapsed'">
                       <ng-container *ngFor="let i of item?.params; let paramsIdx = index">
-                        <div class="items">
-                          <div class="item-block">
+                        <div 
+                          class="items"
+                          [class.items_selected]="i.id === historicalData?.groups?.params?.id" 
+                        >
+                          <div 
+                            class="item-block"
+                          >
                             <div 
                               class="name"
                             >
@@ -164,7 +168,6 @@
                                 (change)="onChangeValue(i.id)"
                                 (focusout)="onUnfocusValue(i.id)"
                                 (click)="onChooseGroup(machineIdx, groupsIdx, paramsIdx)"
-                                [class.data_choose]="i.id === historicalData?.groups?.params?.id"
                               />
                             </div>
                             <div class="item-block__value">{{i.minValue}}</div>
@@ -216,7 +219,7 @@
         <div class="container-footer"></div>
       </div>
 
-      <div class="historical-block" (mousemove)="getWidth()">
+      <div class="historical-block" *ngIf="isHistorical" (mousemove)="getWidth()">
         <div class="historical-header">
           <div class="historical-header__item param" (click)="onShowMachine(historicalData)">
             <svg-icon
@@ -237,7 +240,7 @@
           </div>
         </div>
         <div>
-          <div class="machine-name" (click)="onShowMachine(historicalData)" [style.width]="timeWidth + 544 + 'px'">
+          <div class="machine-name" (click)="onShowMachine(historicalData)" [style.width]="timeWidth + 542 + 'px'">
             <svg-icon
               src="assets/icons/widgets/manual-input/arrow_down.svg"
               [svgStyle]="{ 'width.px':10, 'height.px':10 }"

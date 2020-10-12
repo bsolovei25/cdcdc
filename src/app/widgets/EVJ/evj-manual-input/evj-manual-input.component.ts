@@ -265,7 +265,11 @@ export class EvjManualInputComponent extends WidgetPlatform<unknown>
         this.data = this.manualInputService.LoadData(this.data, data.machines);
 
         if (this.filteredData.length === 0) {
-            this.filteredData = this.data;
+            if (!this.chooseSetting) {
+                this.filteredData = this.data;
+            } else {
+                this.onSettings(this.chooseSetting);
+            }
         }
 
         if (!this.historicalData) {

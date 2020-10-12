@@ -199,6 +199,9 @@ input {
   overflow: hidden;
   background: var(--evj-color-bg-main);
 
+  display: flex;
+  flex-direction: column;
+
   &__menu {
     box-sizing: border-box;
 
@@ -286,7 +289,6 @@ input {
 
   &__container {
     margin: 0 auto;
-    flex: 1;
     height: calc(100% - 49px);
 
     .container-header {
@@ -444,6 +446,8 @@ input {
       background: var(--evj-color-bg-main);
 
       .items {
+        box-sizing: border-box;
+
         flex: 1;
         margin-bottom: 1px;
         display: flex;
@@ -451,6 +455,12 @@ input {
 
         position: relative;
         background: var(--evj-color-bg-machine-item);
+        
+        &_selected {
+          border-left: 3px solid var(--evj-color-active);
+          background: var(--nk-color-bg-selected);
+        }
+
         .item-block {
           height: 45px;
           padding-left: 94px;
@@ -637,13 +647,10 @@ input.data {
 
 .historical-block {
   box-sizing: border-box;
-  height: calc(100% - 80px);
-  margin-bottom: 1px;
-
   display: flex;
   flex-direction: column;
-
-  flex: 1;
+  flex-grow: 1;
+  margin-bottom: 1px;
 
   overflow-x: scroll;
   overflow-y: hidden;
