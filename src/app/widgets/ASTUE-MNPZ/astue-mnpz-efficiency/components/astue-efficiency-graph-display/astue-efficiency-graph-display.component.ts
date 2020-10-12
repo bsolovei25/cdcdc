@@ -66,20 +66,6 @@ export class AstueEfficiencyGraphDisplayComponent extends LineChartPlatform<IPro
     protected async restGraphHandler(ref: IDatesInterval): Promise<IProductionTrend[]> {
         console.log(ref);
         return;
-        // try {
-        //     return (
-        //         await this.http
-        //             .get<IWsData<IProductionTrend>>(
-        //                 `${this.restUrl}/api/widget-data/` +
-        //                     `ed2b05ac-79c5-11ea-92fa-bc5ff45fe692?FromDateTime=` +
-        //                     `${ref.fromDateTime.toISOString()}&ToDateTime=${ref.toDateTime.toISOString()}`
-        //             )
-        //             .toPromise()
-        //     )?.data?.items;
-        // } catch (e) {
-        //     console.error(e);
-        //     return null;
-        // }
     }
 
     public ngOnChanges(): void {
@@ -108,98 +94,11 @@ export class AstueEfficiencyGraphDisplayComponent extends LineChartPlatform<IPro
                         this.labels.currentPlanFact.value += unit.currentPlanFact.value;
                         this.labels.currentValue.value += unit.currentValue.value;
                         this.labels.currentDeviation.value += unit.currentDeviation.value;
-                        // this.labels = {
-                        //     periodCounter: {
-                        //         value: unit.periodCounter.value
-                        //     },
-                        //     periodDeviations: {
-                        //         value: 111111
-                        //     },
-                        //     currentPlanFact: {
-                        //         value: unit.currentPlanFact.value
-                        //     },
-                        //     currentPlanPlan: {
-                        //         value: unit.currentPlanPlan.value
-                        //     },
-                        //     periodPlanPlan: {
-                        //         value: unit.periodPlanPlan.value
-                        //     },
-                        //     periodPlanFact: {
-                        //         value: unit.periodPlanFact.value
-                        //     },
-                        //     currentValue: {
-                        //         value: unit.currentValue.value
-                        //     },
-                        //     currentDeviation: {
-                        //         value: unit.currentDeviation.value
-                        //     }
-                        // };
+
                     });
                 } else {
                     this.resetLabel();
                 }
-
-            }),
-            this.AsEfService.selection$.subscribe(() => {
-                const flow = this.AsEfService.currentFlow;
-                const unit = this.AsEfService.currentUnit;
-                // if (flow) {
-                //     this.labels = {
-                //         periodCounter: {
-                //             value: unit.periodCounter.value
-                //         },
-                //         periodDeviations: {
-                //             value: unit.periodDeviations.value
-                //         },
-                //         currentPlanFact: {
-                //             value: unit.currentPlanFact.value
-                //         },
-                //         currentPlanPlan: {
-                //             value: unit.currentPlanPlan.value
-                //         },
-                //         periodPlanPlan: {
-                //             value: unit.periodPlanPlan.value
-                //         },
-                //         periodPlanFact: {
-                //             value: unit.periodPlanFact.value
-                //         },
-                //         currentValue: {
-                //             value: unit.currentValue.value
-                //         },
-                //         currentDeviation: {
-                //             value: unit.currentDeviation.value
-                //         }
-                //     };
-                //     // this.data = this.chartDataMap(flow.astueFlowGraphs);
-                // } else {
-                //     this.labels = {
-                //         periodCounter: {
-                //             value: 0
-                //         },
-                //         periodDeviations: {
-                //             value: 0
-                //         },
-                //         currentPlanFact: {
-                //             value: 0
-                //         },
-                //         currentPlanPlan: {
-                //             value: 0
-                //         },
-                //         periodPlanPlan: {
-                //             value: 0
-                //         },
-                //         periodPlanFact: {
-                //             value: 0
-                //         },
-                //         currentValue: {
-                //             value: 0
-                //         },
-                //         currentDeviation: {
-                //             value: 0
-                //         }
-                //     };
-                //     // this.data = [];
-                // }
             })
         );
     }
