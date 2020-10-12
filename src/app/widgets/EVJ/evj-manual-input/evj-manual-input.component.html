@@ -219,74 +219,77 @@
         <div class="container-footer"></div>
       </div>
 
-      <div class="historical-block" *ngIf="isHistorical" (mousemove)="getWidth()">
-        <div class="historical-header">
-          <div class="historical-header__item param" (click)="onShowMachine(historicalData)">
-            <svg-icon
-              src="assets/icons/widgets/manual-input/arrow_down.svg"
-              [svgStyle]="{ 'width.px':10, 'height.px':10, 'cursor':'pointer'}"
-              [style.transform]="historicalData?.open? 'rotate(0deg)':'rotate(-90deg)'">
-            </svg-icon>
-            <span>Параметры</span>
-          </div>
-          <div class="historical-header__item units">Единицы иземерения</div>
-          <div class="historical-header__item time">
-            <div class="time__item" *ngFor="let history of historicalDataValues">
-              <span class="day">{{history.day}}</span>
-              <div class="hours">
-                <div class="hours__item" *ngFor="let hour of history.hours">{{hour.hour}}</div>
-              </div> 
+      <ng-container *ngIf="isHistorical">
+        <div class="historical-block" (mousemove)="getWidth()">
+          <div class="historical-header">
+            <div class="historical-header__item param" (click)="onShowMachine(historicalData)">
+              <svg-icon
+                src="assets/icons/widgets/manual-input/arrow_down.svg"
+                [svgStyle]="{ 'width.px':10, 'height.px':10, 'cursor':'pointer'}"
+                [style.transform]="historicalData?.open? 'rotate(0deg)':'rotate(-90deg)'">
+              </svg-icon>
+              <span>Параметры</span>
+            </div>
+            <div class="historical-header__item units">Единицы иземерения</div>
+            <div class="historical-header__item time">
+              <div class="time__item" *ngFor="let history of historicalDataValues">
+                <span class="day">{{history.day}}</span>
+                <div class="hours">
+                  <div class="hours__item" *ngFor="let hour of history.hours">{{hour.hour}}</div>
+                </div> 
+              </div>
             </div>
           </div>
-        </div>
-        <div>
-          <div class="machine-name" (click)="onShowMachine(historicalData)" [style.width]="timeWidth + 542 + 'px'">
-            <svg-icon
-              src="assets/icons/widgets/manual-input/arrow_down.svg"
-              [svgStyle]="{ 'width.px':10, 'height.px':10 }"
-              [style.transform]="historicalData?.open? 'rotate(0deg)':'rotate(-90deg)'">
-            ></svg-icon>
-            <div 
-              class="machine-name__title"
-            >
-              {{historicalData?.name}}
-            </div>
-          </div>
-          <div [@Branch]="(historicalData?.open) ? 'expanded' : 'collapsed'">
-            <div class="machine-name group-name" (click)="onShowMachine(historicalData?.groups)" [style.width]="timeWidth + 582 + 'px'">
+          <div>
+            <div class="machine-name" (click)="onShowMachine(historicalData)" [style.width]="timeWidth + 542 + 'px'">
               <svg-icon
                 src="assets/icons/widgets/manual-input/arrow_down.svg"
                 [svgStyle]="{ 'width.px':10, 'height.px':10 }"
-                [style.transform]="historicalData?.groups?.open? 'rotate(0deg)':'rotate(-90deg)'">
+                [style.transform]="historicalData?.open? 'rotate(0deg)':'rotate(-90deg)'">
               ></svg-icon>
-              <div class="machine-name__title">
-                {{historicalData?.groups?.name}}
+              <div 
+                class="machine-name__title"
+              >
+                {{historicalData?.name}}
               </div>
             </div>
-            <div [@Branch]="(historicalData?.groups?.open) ? 'expanded' : 'collapsed'">
-              <div class="historical-body">
-                <div 
-                  class="historical-header__item param"
-                >
-                  <span>{{historicalData?.groups?.params?.name}}</span>
+            <div [@Branch]="(historicalData?.open) ? 'expanded' : 'collapsed'">
+              <div class="machine-name group-name" (click)="onShowMachine(historicalData?.groups)" [style.width]="timeWidth + 582 + 'px'">
+                <svg-icon
+                  src="assets/icons/widgets/manual-input/arrow_down.svg"
+                  [svgStyle]="{ 'width.px':10, 'height.px':10 }"
+                  [style.transform]="historicalData?.groups?.open? 'rotate(0deg)':'rotate(-90deg)'">
+                ></svg-icon>
+                <div class="machine-name__title">
+                  {{historicalData?.groups?.name}}
                 </div>
-                <div class="historical-header__item units">{{historicalData?.groups?.params?.unit}}</div>
-                <div class="historical-header__item time" #time>
-                  <div class="time__item" *ngFor="let history of historicalDataValues" (click)="activateEditMode()">
-                    <div class="hours">
-                      <ng-container *ngFor="let hour of history.hours">
-                        <div class="hours__item" *ngIf="!editMode">{{hour.value}}</div>
-                        <input class="hours__item" *ngIf="editMode" placeholder={{hour.value}}>
-                      </ng-container>
-                    </div> 
+              </div>
+              <div [@Branch]="(historicalData?.groups?.open) ? 'expanded' : 'collapsed'">
+                <div class="historical-body">
+                  <div 
+                    class="historical-header__item param"
+                  >
+                    <span>{{historicalData?.groups?.params?.name}}</span>
+                  </div>
+                  <div class="historical-header__item units">{{historicalData?.groups?.params?.unit}}</div>
+                  <div class="historical-header__item time" #time>
+                    <div class="time__item" *ngFor="let history of historicalDataValues" (click)="activateEditMode()">
+                      <div class="hours">
+                        <ng-container *ngFor="let hour of history.hours">
+                          <div class="hours__item" *ngIf="!editMode">{{hour.value}}</div>
+                          <input class="hours__item" *ngIf="editMode" placeholder={{hour.value}}>
+                        </ng-container>
+                      </div> 
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-      <div class="container-footer"></div>
+        <div class="container-footer"></div>
+      </ng-container>
+
     </div>
   </div>
 </ng-container>
