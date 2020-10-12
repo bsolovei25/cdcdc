@@ -16,7 +16,7 @@ import {
     ShiftComment,
     ShiftMember,
 } from '../../../dashboard/models/shift.model';
-import { WidgetPlatform } from '../../../dashboard/models/widget-platform';
+import { WidgetPlatform } from '../../../dashboard/models/@PLATFORM/widget-platform';
 import { SnackBarService } from '../../../dashboard/services/snack-bar.service';
 import { AvatarConfiguratorService } from '@core/service/avatar-configurator.service';
 
@@ -25,7 +25,7 @@ import { AvatarConfiguratorService } from '@core/service/avatar-configurator.ser
     templateUrl: './change-shift.component.html',
     styleUrls: ['./change-shift.component.scss'],
 })
-export class ChangeShiftComponent extends WidgetPlatform implements OnInit, OnDestroy {
+export class ChangeShiftComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
     @ViewChild('input') input: ElementRef;
     @ViewChild('scroll') scroll: ElementRef;
     @ViewChild('allPeople') allPeople: ElementRef;

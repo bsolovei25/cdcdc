@@ -1,6 +1,8 @@
 .container {
   padding: 0 20px;
   box-sizing: border-box;
+  background-color: var(--color-events-bg-filters);
+  overflow: hidden;
 }
 
 .events-filters {
@@ -23,7 +25,7 @@
       border-radius: 3px;
 
       border: 0;
-      background-color: var(--color-aps-border);
+      background-color: var(--color-events-btn);
       transition: all 200ms;
 
       &:focus {
@@ -51,7 +53,7 @@
       font-size: 13px;
       border: 1px solid var(--color-astue-mat-select-border);
       border-radius: 3px;
-      background-color: var(--color-astue-mat-select-bg);
+      background-color: var(--header-events-color-bg-main);
       outline: none;
       color: var(--color-text-main);
       height: 26px;
@@ -80,7 +82,7 @@
 
 .event-mat-select {
   border: 1px solid var(--color-astue-mat-select-border);
-  background-color: var(--color-astue-mat-select-bg);
+  background-color: var(--header-events-color-bg-main);
   border-radius: 2px;
   height: 28px;
   min-width: 50px;

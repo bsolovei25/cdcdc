@@ -1,41 +1,31 @@
-import { UserEventsComponent } from './components/user-events/user-events.component';
-import { UserEventsItemComponent } from './components/user-events/components/user-events-item/user-events-item.component';
+import { UserEventsComponent } from './components/header-components/user-events/user-events.component';
+import { UserEventsItemComponent } from './components/header-components/user-events/components/user-events-item/user-events-item.component';
 import { SharedModule } from './../@shared/shared.module';
 import { NgModule, LOCALE_ID } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HomeComponent } from './pages/home/home.component';
 import { AngularSvgIconModule } from 'angular-svg-icon';
-import { PeriodSelectorComponent } from './components/period-selector/period-selector.component';
-import { IndicatorSelectorComponent } from './components/indicator-selector/indicator-selector.component';
+import { PeriodSelectorComponent } from './components/header-components/period-selector/period-selector.component';
+import { IndicatorSelectorComponent } from './components/header-components/indicator-selector/indicator-selector.component';
 import { DndModule } from 'ngx-drag-drop';
 import { DashboardComponent } from './pages/dashboard.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { LineDatetimeComponent } from './components/line-datetime/line-datetime.component';
+import { LineDatetimeComponent } from './components/header-components/line-datetime/line-datetime.component';
 import { PanelComponent } from './components/panel/panel.component';
 import { WidgetsGridComponent } from './components/widgets-grid/widgets-grid.component';
 import { GridsterModule } from 'angular-gridster2';
-import { UserInfoComponent } from './components/user-info/user-info.component';
+import { UserInfoComponent } from './components/header-components/user-info/user-info.component';
 import { SuspenseMachineComponent } from './widgets/suspense-machine/suspense-machine.component';
-import { DetailedLineDiagramComponent } from './components/detailed-line-diagram/detailed-line-diagram.component';
-import { OperationEfficiencyComponent } from './widgets/operation-efficiency/operation-efficiency.component';
 import { UnityTemplateComponent } from './widgets/unity-template/unity-template.component';
 import { PowIndexPipe } from '@shared/pipes/pow-index.pipe';
-import { CalendarPlanComponent } from './widgets/calendar-plan/calendar-plan.component';
-import { DispatcherScreenComponent } from './widgets/dispatcher-screen/dispatcher-screen.component';
-import { EnergeticsComponent } from './widgets/energetics/energetics.component';
-import { CircleDiagramComponent } from './widgets/circle-diagram/circle-diagram.component';
 import { DeviationsTableComponent } from './widgets/deviations-table/deviations-table.component';
-import { TriggeringCriticalParametersComponent } from './widgets/triggering-critical-parameters/triggering-critical-parameters.component';
-import { CircleFactoryDiagramComponent } from './widgets/circle-factory-diagram/circle-factory-diagram.component';
-import { SemicircleEnergyComponent } from './widgets/semicircle-energy/semicircle-energy.component';
 import { ProductStocksComponent } from './widgets/product-stocks/product-stocks.component';
 import { DeviationCircleDiagramComponent } from './widgets/deviation-circle-diagram/deviation-circle-diagram.component';
 import { PaginatorDirective } from '../widgets/LCO/oil-control/components/paginator/paginator.directive';
 import { SearchComponent } from './components/search/search.component';
 import { WidgetPreviewComponent } from './components/widget-preview/widget-preview.component';
 import { DashboardRoutingModule } from './dashboard-routing.module';
-import { CircleBlockDiagramComponent } from './widgets/circle-block-diagram/circle-block-diagram.component';
 import { ColumnChartStackedComponent } from './widgets/column-chart-stacked/column-chart-stacked.component';
 import { CcsOneColumnComponent } from './widgets/column-chart-stacked/ccs-one-column/ccs-one-column.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
@@ -45,12 +35,10 @@ import { SearchInputComponent } from './components/search/search-input/search-in
 import { SearchListComponent } from './components/search/search-list/search-list.component';
 import { TimeLineDiagramComponent } from './widgets/time-line-diagram/time-line-diagram.component';
 import { TimeDiagramComponent } from './widgets/time-line-diagram/time-diagram/time-diagram.component';
-import { ObservationNormTRComponent } from './widgets/observation-norm-tr/observation-norm-tr.component';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatNativeDateModule, MAT_DATE_LOCALE, MatRippleModule } from '@angular/material/core';
-import { AdminReferencesComponent } from './widgets/admin-references/admin-references.component';
 import { PetroleumProductsMovementComponent } from './widgets/petroleum-products-movement/petroleum-products-movement.component';
 import { PetroleumReferenceLeftComponent } from './widgets/petroleum-products-movement/petroleum-reference-left/petroleum-reference-left.component';
 import { PetroleumReferenceRightComponent } from './widgets/petroleum-products-movement/petroleum-reference-right/petroleum-reference-right.component';
@@ -130,10 +118,7 @@ import { ReasonsDeviationsInfoTankComponent } from './widgets/reasons-deviations
 import { ReasonsDeviationsPicTankComponent } from './widgets/reasons-deviations/components/reasons-deviations-pic-tank/reasons-deviations-pic-tank.component';
 import { ReasonsDeviationsTankLevelComponent } from './widgets/reasons-deviations/components/reasons-deviations-tank-level/reasons-deviations-tank-level.component';
 import { ProductionTrendGraphComponent } from './widgets/production-trend/components/production-trend-graph/production-trend-graph.component';
-import { DocumentViewerComponent } from './widgets/document-viewer/document-viewer.component';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
-import { DocumentsScansComponent } from './widgets/documents-scans/documents-scans.component';
-import { DocumentsScansReportComponent } from './widgets/documents-scans/components/documents-scans-report/documents-scans-report.component';
 import { QualityDocsPanelComponent } from './widgets/quality-docs-panel/quality-docs-panel.component';
 import { QualityDocsRecordComponent } from './widgets/quality-docs-panel/components/quality-docs-record/quality-docs-record.component';
 import { DocumentCodingComponent } from './widgets/document-coding/document-coding.component';
@@ -160,7 +145,6 @@ import { OilOperationsLineComponent } from './widgets/oil-operations/components/
 import { ReportFileSelectBoxComponent } from './widgets/report-server-configurator/report-file-select-box/report-file-select-box.component';
 import { OilOperationsAdjustmentComponent } from './widgets/oil-operations/components/oil-operations-adjustment/oil-operations-adjustment.component';
 import { OilOperationsFreeShipmentComponent } from './widgets/oil-operations/components/oil-operations-free-shipment/oil-operations-free-shipment.component';
-import { DocumentViewerFullscreenComponent } from './widgets/document-viewer/document-viewer-fullscreen/document-viewer-fullscreen.component';
 import { CdCriticalComponent } from './widgets/cd-critical/cd-critical.component';
 import { WorkflowTableComponent } from './widgets/workflow/workflow-table/workflow-table.component';
 import { WorkflowListComponent } from './widgets/workflow/workflow-list/workflow-list.component';
@@ -170,15 +154,10 @@ import { WidgetPanelComponent } from './components/widget-panel/widget-panel.com
 import { MatMenuModule } from '@angular/material/menu';
 import { WidgetContainerComponent } from './widget-container/widget-container.component';
 import { PerformanceBarComponent } from './components/performance-bar/performance-bar.component';
-import { AdminShiftScheduleOldComponent } from './widgets/admin-widget/admin-shift-schedule-old/admin-shift-schedule-old.component';
-import { AdminShiftListEmployeesOldComponent } from './widgets/admin-widget/admin-shift-schedule-old/components/admin-shift-list-employees-old/admin-shift-list-employees-old.component';
-import { AdminShiftInfoEmployeeOldComponent } from './widgets/admin-widget/admin-shift-schedule-old/components/admin-shift-info-employee-old/admin-shift-info-employee-old.component';
-import { AdminShiftCardOldComponent } from './widgets/admin-widget/admin-shift-schedule-old/components/admin-shift-card-old/admin-shift-card-old.component';
-import { AdminShiftBrigadeOldComponent } from './widgets/admin-widget/admin-shift-schedule-old/components/admin-shift-brigade-old/admin-shift-brigade-old.component';
-import { GroupSelectorComponent } from './components/group-selector/group-selector.component';
-import { GroupSelectorRowComponent } from './components/group-selector/group-selector-row/group-selector-row.component';
-import { IndicatorDiagramComponent } from './components/indicator-diagram/indicator-diagram.component';
-import { MenuButtonComponent } from './components/menu-button/menu-button.component';
+import { GroupSelectorComponent } from './components/header-components/group-selector/group-selector.component';
+import { GroupSelectorRowComponent } from './components/header-components/group-selector/group-selector-row/group-selector-row.component';
+import { IndicatorDiagramComponent } from './components/header-components/indicator-diagram/indicator-diagram.component';
+import { MenuButtonComponent } from './components/header-components/menu-button/menu-button.component';
 import { MatBadgeModule } from '@angular/material/badge';
 import { TankFilterComponent } from '../widgets/NK/tank-information/components/tank-filter/tank-filter.component';
 
@@ -196,23 +175,13 @@ import { TankFilterComponent } from '../widgets/NK/tank-information/components/t
         WidgetsGridComponent,
         UserInfoComponent,
         SuspenseMachineComponent,
-        CircleDiagramComponent,
         UnityTemplateComponent,
         PowIndexPipe,
-        DetailedLineDiagramComponent,
-        OperationEfficiencyComponent,
-        CalendarPlanComponent,
-        DispatcherScreenComponent,
-        EnergeticsComponent,
         DeviationsTableComponent,
-        TriggeringCriticalParametersComponent,
-        CircleFactoryDiagramComponent,
-        SemicircleEnergyComponent,
         ProductStocksComponent,
         DeviationCircleDiagramComponent,
         PaginatorDirective,
         SearchComponent,
-        CircleBlockDiagramComponent,
         ColumnChartStackedComponent,
         CcsOneColumnComponent,
         FlameDiagramComponent,
@@ -222,8 +191,6 @@ import { TankFilterComponent } from '../widgets/NK/tank-information/components/t
         SearchFilterComponent,
         SearchInputComponent,
         SearchListComponent,
-        ObservationNormTRComponent,
-        AdminReferencesComponent,
         PetroleumProductsMovementComponent,
         PetroleumReferenceLeftComponent,
         PetroleumReferenceRightComponent,
@@ -283,9 +250,6 @@ import { TankFilterComponent } from '../widgets/NK/tank-information/components/t
         ReasonsDeviationsPicTankComponent,
         ReasonsDeviationsTankLevelComponent,
         ProductionTrendGraphComponent,
-        DocumentViewerComponent,
-        DocumentsScansComponent,
-        DocumentsScansReportComponent,
         QualityDocsPanelComponent,
         QualityDocsRecordComponent,
         DocumentCodingComponent,
@@ -310,10 +274,8 @@ import { TankFilterComponent } from '../widgets/NK/tank-information/components/t
         OilOperationsLineMenuComponent,
         OilOperationsLineComponent,
         ReportFileSelectBoxComponent,
-        DocumentViewerFullscreenComponent,
         OilOperationsAdjustmentComponent,
         OilOperationsFreeShipmentComponent,
-        DocumentViewerFullscreenComponent,
         CdCriticalComponent,
         WorkflowTableComponent,
         WorkflowListComponent,
@@ -321,11 +283,6 @@ import { TankFilterComponent } from '../widgets/NK/tank-information/components/t
         WidgetPanelComponent,
         WidgetContainerComponent,
         PerformanceBarComponent,
-        AdminShiftScheduleOldComponent,
-        AdminShiftListEmployeesOldComponent,
-        AdminShiftInfoEmployeeOldComponent,
-        AdminShiftCardOldComponent,
-        AdminShiftBrigadeOldComponent,
         GroupSelectorComponent,
         GroupSelectorRowComponent,
         IndicatorDiagramComponent,
@@ -336,24 +293,13 @@ import { TankFilterComponent } from '../widgets/NK/tank-information/components/t
     ],
     entryComponents: [
         SuspenseMachineComponent,
-        CircleDiagramComponent,
         UnityTemplateComponent,
-        OperationEfficiencyComponent,
-        CalendarPlanComponent,
-        EnergeticsComponent,
-        DispatcherScreenComponent,
         DeviationsTableComponent,
-        TriggeringCriticalParametersComponent,
-        CircleFactoryDiagramComponent,
         ProductStocksComponent,
-        SemicircleEnergyComponent,
         DeviationCircleDiagramComponent,
-        CircleBlockDiagramComponent,
         ColumnChartStackedComponent,
         FlameDiagramComponent,
         TimeLineDiagramComponent,
-        ObservationNormTRComponent,
-        AdminReferencesComponent,
         PetroleumProductsMovementComponent,
         ReferenceComponent,
         ReportServerConfiguratorComponent,
@@ -365,14 +311,12 @@ import { TankFilterComponent } from '../widgets/NK/tank-information/components/t
         TanksTableComponent,
         CustomReportPropertiesReferenceComponent,
         ReasonsDeviationsComponent,
-        DocumentsScansComponent,
         QualityDocsPanelComponent,
         DocumentCodingComponent,
         ReportTreeComponent,
         OilOperationsComponent,
         WorkflowComponent,
         PanelComponent,
-        AdminShiftScheduleOldComponent
     ],
     exports: [HomeComponent, PerformanceBarComponent, WidgetPreviewComponent, PowIndexPipe, TankFilterComponent],
     imports: [

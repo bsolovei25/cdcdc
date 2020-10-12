@@ -10,7 +10,7 @@ import {
 
 import { IEnterpriseMap } from 'src/app/dashboard/models/enterprise-map';
 import { WidgetService } from 'src/app/dashboard/services/widget.service';
-import { WidgetPlatform } from 'src/app/dashboard/models/widget-platform';
+import { WidgetPlatform } from 'src/app/dashboard/models/@PLATFORM/widget-platform';
 
 export interface IBuilding {
     id: number;
@@ -258,7 +258,7 @@ const bulds: IBuilding[] = [
     templateUrl: './enterprise-map.component.html',
     styleUrls: ['./enterprise-map.component.scss'],
 })
-export class EnterpriseMapComponent extends WidgetPlatform
+export class EnterpriseMapComponent extends WidgetPlatform<unknown>
     implements OnInit, OnDestroy, AfterViewInit {
     values: IValue[] = [];
     data: IEnterpriseMap = {

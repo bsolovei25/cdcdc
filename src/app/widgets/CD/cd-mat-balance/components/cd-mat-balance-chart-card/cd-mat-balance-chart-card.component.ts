@@ -9,7 +9,7 @@ import {
     Inject,
     Input, ChangeDetectorRef
 } from '@angular/core';
-import { WidgetPlatform } from '../../../../../dashboard/models/widget-platform';
+import { WidgetPlatform } from '../../../../../dashboard/models/@PLATFORM/widget-platform';
 import {
     ISplineDiagramData,
     ISplineDiagramSize
@@ -39,7 +39,7 @@ export interface IMatBalanceChartCard {
     templateUrl: './cd-mat-balance-chart-card.component.html',
     styleUrls: ['./cd-mat-balance-chart-card.component.scss']
 })
-export class CdMatBalanceChartCardComponent extends WidgetPlatform
+export class CdMatBalanceChartCardComponent extends WidgetPlatform<unknown>
     implements OnInit, OnDestroy, AfterViewInit {
     @ViewChild('chart')
     public chartElement: ElementRef;

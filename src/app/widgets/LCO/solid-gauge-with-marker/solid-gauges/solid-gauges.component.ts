@@ -1,13 +1,13 @@
 import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
 import { WidgetService } from 'src/app/dashboard/services/widget.service';
-import { WidgetPlatform } from 'src/app/dashboard/models/widget-platform';
+import { WidgetPlatform } from 'src/app/dashboard/models/@PLATFORM/widget-platform';
 
 @Component({
     selector: 'evj-solid-gauges',
     templateUrl: './solid-gauges.component.html',
     styleUrls: ['./solid-gauges.component.scss'],
 })
-export class SolidGaugesComponent extends WidgetPlatform implements OnInit, OnDestroy {
+export class SolidGaugesComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
 
     public datas: any = [
         { name: 'СУГ', fact: 11.5, percent: 50, value: 14.5 },

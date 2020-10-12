@@ -8,7 +8,7 @@ import {
     HostListener,
     OnDestroy,
 } from '@angular/core';
-import { WidgetPlatform } from '../../../dashboard/models/widget-platform';
+import { WidgetPlatform } from '../../../dashboard/models/@PLATFORM/widget-platform';
 import { WidgetService } from '../../../dashboard/services/widget.service';
 import { IApsLoadChart, IApsLoad } from '../../../dashboard/models/APS/load-chart.model';
 import { HttpClient } from '@angular/common/http';
@@ -18,7 +18,7 @@ import { HttpClient } from '@angular/common/http';
     templateUrl: './load-chart.component.html',
     styleUrls: ['./load-chart.component.scss'],
 })
-export class LoadChartComponent extends WidgetPlatform implements OnInit, OnDestroy {
+export class LoadChartComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
     @ViewChild('grid_hor', { static: true }) private gridHor: ElementRef;
     @ViewChild('grid_ver', { static: true }) private gridVer: ElementRef;
     @ViewChild('canvas', { static: true }) private canvas: ElementRef;

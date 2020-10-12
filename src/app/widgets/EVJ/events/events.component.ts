@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit, Inject, ViewChild, HostListener, ElementRef } from '@angular/core';
 import {
     EventsWidgetCategory,
-    EventsWidgetCategoryCode,
+    EventsWidgetCategoryCode, IEventsWidgetAttributes,
     IEventsWidgetNotificationPreview,
     IEventsWidgetOptions
 } from '../../../dashboard/models/events-widget';
@@ -13,7 +13,7 @@ import { WidgetService } from '../../../dashboard/services/widget.service';
 import { UserSettingsService } from '../../../dashboard/services/user-settings.service';
 import { EventService } from '../../../dashboard/services/widgets/event.service';
 import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
-import { WidgetPlatform } from '../../../dashboard/models/widget-platform';
+import { WidgetPlatform } from '../../../dashboard/models/@PLATFORM/widget-platform';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { SnackBarService } from '../../../dashboard/services/snack-bar.service';
 import { EventsWorkspaceService } from '../../../dashboard/services/widgets/events-workspace.service';
@@ -31,7 +31,7 @@ export interface IEventSettings {
     templateUrl: './events.component.html',
     styleUrls: ['./events.component.scss', './cd-events.component.scss']
 })
-export class EventsComponent extends WidgetPlatform implements OnInit, OnDestroy {
+export class EventsComponent extends WidgetPlatform<IEventsWidgetAttributes> implements OnInit, OnDestroy {
     @ViewChild(CdkVirtualScrollViewport) viewport: CdkVirtualScrollViewport;
 
     @ViewChild('notifications') notificationsDiv: ElementRef;
@@ -39,7 +39,6 @@ export class EventsComponent extends WidgetPlatform implements OnInit, OnDestroy
     @HostListener('document:resize', ['$event'])
     OnResize(): void {
         this.countNotificationsDivCapacity();
-        // this.getData();
     }
 
     public claimWidgets: EnumClaimWidgets[] = [];
@@ -293,6 +292,15 @@ export class EventsComponent extends WidgetPlatform implements OnInit, OnDestroy
             }
             return cat.categoryType === filterCondition;
         });
+
+        console.log(this.attributes);
+        this.filters = this.filters.filter((x) => {
+            if (!this.attributes?.Acknowledgment && x.code === 'isNotAcknowledged') {
+                return false;
+            }
+            return true;
+        });
+
         this.placeNames = await this.eventService.getPlaces(this.id);
         this.subscriptions.push(
             this.widgetService.currentDates$.subscribe(() => {
@@ -412,8 +420,8 @@ export class EventsComponent extends WidgetPlatform implements OnInit, OnDestroy
             filter: this.filters.find((f) => f.isActive).code,
             dates: this.widgetService.currentDates$.getValue(),
             placeNames: this.placeNames,
-            isVideoWall: this.widgetIsVideoWall,
-            sortType: this.widgetSortType,
+            isVideoWall: !!this.attributes?.IsVideoWall,
+            sortType: this.attributes?.SortType ?? 'default',
             categoriesType: this.widgetType === 'events-ed' ? 'ed' : 'default'
         } as IEventsWidgetOptions;
     }

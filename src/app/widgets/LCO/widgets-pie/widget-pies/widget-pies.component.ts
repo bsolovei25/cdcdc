@@ -1,13 +1,13 @@
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { WidgetService } from 'src/app/dashboard/services/widget.service';
-import { WidgetPlatform } from '../../../../dashboard/models/widget-platform';
+import { WidgetPlatform } from '../../../../dashboard/models/@PLATFORM/widget-platform';
 
 @Component({
     selector: 'evj-widget-pies',
     templateUrl: './widget-pies.component.html',
     styleUrls: ['./widget-pies.component.scss'],
 })
-export class WidgetPiesComponent extends WidgetPlatform implements OnInit, OnDestroy {
+export class WidgetPiesComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
     public datas = [];
 
     public static itemCols: number = 31;

@@ -1,14 +1,14 @@
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { WidgetService } from 'src/app/dashboard/services/widget.service';
 import { UserSettingsService } from 'src/app/dashboard/services/user-settings.service';
-import { WidgetPlatform } from '../../../../dashboard/models/widget-platform';
+import { WidgetPlatform } from '../../../../dashboard/models/@PLATFORM/widget-platform';
 
 @Component({
     selector: 'evj-bar-charts',
     templateUrl: './bar-charts.component.html',
     styleUrls: ['./bar-charts.component.scss'],
 })
-export class BarChartsComponent extends WidgetPlatform implements OnInit, OnDestroy {
+export class BarChartsComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
     public data: any[] = [];
 
     constructor(

@@ -1,6 +1,6 @@
 import { Component, Inject, ElementRef, ViewChild, OnDestroy, OnInit } from '@angular/core';
 import { WidgetService } from '../../../dashboard/services/widget.service';
-import { WidgetPlatform } from '../../../dashboard/models/widget-platform';
+import { WidgetPlatform } from '../../../dashboard/models/@PLATFORM/widget-platform';
 declare var d3: any;
 
 @Component({
@@ -8,7 +8,7 @@ declare var d3: any;
     templateUrl: './chain-map.component.html',
     styleUrls: ['./chain-map.component.scss'],
 })
-export class ChainMapComponent extends WidgetPlatform implements OnInit, OnDestroy {
+export class ChainMapComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
     @ViewChild('chain') chain: ElementRef;
 
     public dataStyle = {

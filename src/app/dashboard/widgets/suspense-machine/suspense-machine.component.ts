@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
 import { WidgetService } from '../../services/widget.service';
-import { WidgetPlatform } from '../../models/widget-platform';
+import { WidgetPlatform } from '../../models/@PLATFORM/widget-platform';
 
 export interface ISuspenseMachine {
     date: Date;
@@ -22,7 +22,7 @@ export interface ITableData {
     templateUrl: './suspense-machine.component.html',
     styleUrls: ['./suspense-machine.component.scss'],
 })
-export class SuspenseMachineComponent extends WidgetPlatform implements OnInit, OnDestroy {
+export class SuspenseMachineComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
     data: ITableData;
     displayedColumns: { id: number; caption: string }[] = [];
 

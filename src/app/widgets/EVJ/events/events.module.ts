@@ -44,7 +44,7 @@ import { EventsWorkspaceModule } from '../events-workspace/events-workspace.modu
         MatTooltipModule,
         SharedModule,
         EventsWorkspaceModule,
-    ]
+    ],
 })
 export class EventsModule {
     enterComponent = EventsComponent;

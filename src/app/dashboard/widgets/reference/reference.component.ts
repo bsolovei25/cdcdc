@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy, Inject, ViewChild, ElementRef, HostListener } from '@angular/core';
 import { WidgetService } from '../../services/widget.service';
 import { IReferenceTypes } from '../../models/references';
-import { WidgetPlatform } from '../../models/widget-platform';
+import { WidgetPlatform } from '../../models/@PLATFORM/widget-platform';
 import { SnackBarService } from '../../services/snack-bar.service';
 import { ReferencesService } from '../../services/widgets/references.service';
 
@@ -10,7 +10,7 @@ import { ReferencesService } from '../../services/widgets/references.service';
     templateUrl: './reference.component.html',
     styleUrls: ['./reference.component.scss'],
 })
-export class ReferenceComponent extends WidgetPlatform implements OnInit, OnDestroy {
+export class ReferenceComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
     @ViewChild('refereneTable') public testBlock: ElementRef;
 
     public static itemCols: number = 32;

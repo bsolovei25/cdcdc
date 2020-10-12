@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
 import { WidgetService } from 'src/app/dashboard/services/widget.service';
-import { WidgetPlatform } from 'src/app/dashboard/models/widget-platform';
+import { WidgetPlatform } from 'src/app/dashboard/models/@PLATFORM/widget-platform';
 import { IPieChartInputData } from './components/pie-diagram/pie-diagram.component';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 
@@ -24,7 +24,7 @@ export interface ITruncatedDiagramInputData {
         )
     ],
 })
-export class TruncatedDiagramTrafficLightComponent extends WidgetPlatform implements OnInit, OnDestroy {
+export class TruncatedDiagramTrafficLightComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
     public expandedPanels: Map<number, boolean> = new Map<number, boolean>();
     public data: ITruncatedDiagramInputData[] = [];
 

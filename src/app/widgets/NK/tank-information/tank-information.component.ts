@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
 import { WidgetService } from '../../../dashboard/services/widget.service';
-import { WidgetPlatform } from '../../../dashboard/models/widget-platform';
+import { WidgetPlatform } from '../../../dashboard/models/@PLATFORM/widget-platform';
 import {
     ITankInformation,
     ITankInformationDtoFn,
@@ -13,7 +13,7 @@ import {
     templateUrl: './tank-information.component.html',
     styleUrls: ['./tank-information.component.scss']
 })
-export class TankInformationComponent extends WidgetPlatform implements OnInit, OnDestroy {
+export class TankInformationComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
 
     public data: ITankInformation[];
 

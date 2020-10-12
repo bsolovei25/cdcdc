@@ -1,0 +1,59 @@
+<div class="card-block" (click)="eventClick(data?.id)">
+  <div class="card-block__header header">
+    <div class="header__left-block">
+      <div class="header__id">{{ data?.id }}</div>
+      <div class="header__unit">{{ data?.unit?.name }}</div>
+
+    </div>
+    <div class="header__right-block">
+      <div class="header__status"
+           [ngClass]="'header__status_' + data?.priority?.name">
+        {{ data?.statusName }}</div>
+      <div class="header__icons">
+        <div class="header__icons icon">
+          <svg-icon
+            [applyCss]="true"
+            [src]="data?.iconUrlStatus"
+            [ngClass]="'icon__status_' + data?.priority?.name"
+          >
+          </svg-icon>
+          <svg-icon
+            class="icon__category"
+            [applyCss]="true"
+            [src]="data?.iconUrl">
+          </svg-icon>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card-block__body" [class.card-block__body--active]="data?.id === cardActiveId">
+    <div class="body__description">
+      {{ data?.description }}
+    </div>
+    <div class="body__facts">
+      {{ data?.facts[0] ? data?.facts[0].comment : '-' }}
+    </div>
+  </div>
+  <div class="card-block__footer footer">
+    <div class="footer__left-block">
+      <div class="footer__time-title">Начало события:</div>
+      <div class="footer__time">{{ data?.eventDateTime | date:"dd.MM.yyyy HH:mm" }}</div>
+    </div>
+    <div class="footer__right-block">
+      <div matRipple
+           [matRippleColor]="'white'"
+           class="footer__critical" (click)="changeIsAcknowledged($event, data)">
+        {{ data?.isAcknowledged ? 'Квитировано' : 'Не квитировано' }}
+      </div>
+      <svg-icon
+        class="footer__remove"
+        [applyCss]="true"
+        src="assets/icons/remove.svg"
+        (click)="deleteClick(data?.id)"
+        [svgStyle]="{ 'width.px':10, 'height.px':13 }"
+      >
+      </svg-icon>
+    </div>
+  </div>
+</div>

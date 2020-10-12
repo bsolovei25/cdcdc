@@ -2,7 +2,7 @@ import { Component, OnInit, Inject, ViewChild, ElementRef, OnDestroy } from '@an
 import { WidgetService } from '../../../dashboard/services/widget.service';
 import { EventEmitter } from '@angular/core';
 import { OilControls, OilProducts } from '../../../dashboard/models/oil-control';
-import { WidgetPlatform } from '../../../dashboard/models/widget-platform';
+import { WidgetPlatform } from '../../../dashboard/models/@PLATFORM/widget-platform';
 import { HttpClient } from '@angular/common/http';
 import { fillDataShape } from '@shared/functions/common-functions';
 
@@ -19,7 +19,7 @@ declare var d3: any;
     templateUrl: './oil-control.component.html',
     styleUrls: ['./oil-control.component.scss']
 })
-export class OilControlComponent extends WidgetPlatform implements OnInit, OnDestroy {
+export class OilControlComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
     @ViewChild('oilIcon') oilIcon: ElementRef;
     @ViewChild('oilCircle') oilCircle: ElementRef;
     @ViewChild('borders') borders: ElementRef;
@@ -183,7 +183,7 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, OnDes
             const updateTimeInSec =
                 (ref.updateTimeInSec ?? 0) === 0 ? this.defaultTimeInSec : ref.updateTimeInSec;
             this.toggleIntervalTimer =
-                setInterval(this.toggleInterval.bind(this), updateTimeInSec * 1000 * 100000000);
+                setInterval(this.toggleInterval.bind(this), updateTimeInSec * 1000);
         }
     }
 

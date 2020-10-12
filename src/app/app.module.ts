@@ -12,10 +12,7 @@ import { ErrorInterceptor } from '@core/interceptors/error.interceptor';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AuthenticationInterceptor } from '@core/interceptors/authentication.interceptor';
 import { NgxMaskModule } from 'ngx-mask';
-import { OzsmMainIndicatorsComponent } from './widgets/OZSM/ozsm-main-indicators/ozsm-main-indicators.component';
 import { OzsmSharedModule } from './widgets/OZSM/ozsm-shared/ozsm-shared.module';
-import { OqOilQualityComponent } from './widgets/OQ/oq-oil-quality/oq-oil-quality.component';
-import { OzsmGraphCircleDiagramComponent } from './widgets/OZSM/ozsm-shared/ozsm-graph-circle-diagram/ozsm-graph-circle-diagram.component';
 
 @NgModule({
   imports: [

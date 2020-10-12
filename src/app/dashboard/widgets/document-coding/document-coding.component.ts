@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy, Inject } from '@angular/core';
-import { WidgetPlatform } from '../../models/widget-platform';
+import { WidgetPlatform } from '../../models/@PLATFORM/widget-platform';
 import { WidgetService } from '../../services/widget.service';
 import { DocumentCodingService } from '../../services/oil-control-services/document-coding.service';
 
@@ -14,7 +14,7 @@ export interface IDocumentFilter {
   templateUrl: './document-coding.component.html',
   styleUrls: ['./document-coding.component.scss']
 })
-export class DocumentCodingComponent extends WidgetPlatform implements OnInit, OnDestroy {
+export class DocumentCodingComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
   public static itemCols: number = 48;
   public static itemRows: number = 15;
   public static minItemCols: number = 36;

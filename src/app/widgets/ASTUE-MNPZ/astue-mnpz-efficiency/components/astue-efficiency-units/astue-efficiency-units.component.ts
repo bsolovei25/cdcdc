@@ -6,17 +6,17 @@ import { AstueEfficiencyService } from '../../../../../dashboard/services/ASTUE/
 @Component({
     selector: 'evj-astue-efficiency-units',
     templateUrl: './astue-efficiency-units.component.html',
-    styleUrls: ['./astue-efficiency-units.component.scss'],
+    styleUrls: ['./astue-efficiency-units.component.scss']
 })
 export class AstueEfficiencyUnitsComponent implements OnChanges {
     @Input() public isInitialDataShow: boolean = true;
     @Input() public units: IAsEfUnitNew[] = [];
 
     public isClicked: boolean = false;
-
     public unitSelection: SelectionModel<IAsEfUnitNew> = new SelectionModel<IAsEfUnitNew>(true);
 
-    constructor(private AsEfService: AstueEfficiencyService) {}
+    constructor(private AsEfService: AstueEfficiencyService) {
+    }
 
     public ngOnChanges(): void {
         this.unitSelection.clear();
@@ -29,7 +29,9 @@ export class AstueEfficiencyUnitsComponent implements OnChanges {
 
     public onSelectUnit(unit: IAsEfUnitNew): void {
         this.unitSelection.toggle(unit);
+        this.AsEfService.selectionUnit$.next(this.unitSelection.selected);
         this.AsEfService.toggleUnit(unit.name);
+        this.AsEfService.currentUnit = unit;
     }
 
     public onClickSelectAll(): void {

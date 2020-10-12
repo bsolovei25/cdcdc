@@ -19,7 +19,7 @@ import { Mock } from 'src/app/widgets/LCO/line-chart/mock';
 import { Subscription } from 'rxjs';
 import { LineChartData, LineChartGraph, LineChartGraphValue } from '../../../dashboard/models/line-chart';
 import { WidgetService } from '../../../dashboard/services/widget.service';
-import { WidgetPlatform } from '../../../dashboard/models/widget-platform';
+import { WidgetPlatform } from '../../../dashboard/models/@PLATFORM/widget-platform';
 import { HttpClient } from '@angular/common/http';
 
 @Component({
@@ -27,7 +27,7 @@ import { HttpClient } from '@angular/common/http';
     templateUrl: './line-chart.component.html',
     styleUrls: ['./line-chart.component.scss'],
 })
-export class LineChartComponent extends WidgetPlatform implements OnInit, OnDestroy {
+export class LineChartComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
     public position?: string = 'default';
 
     public data: LineChartData;

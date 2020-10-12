@@ -1,5 +1,5 @@
 import { Component, Inject, OnDestroy, OnInit, Renderer2 } from '@angular/core';
-import { WidgetPlatform } from '../../../dashboard/models/widget-platform';
+import { WidgetPlatform } from '../../../dashboard/models/@PLATFORM/widget-platform';
 import { WidgetService } from '../../../dashboard/services/widget.service';
 import { CdMatBalanceService } from '../../../dashboard/services/widgets/CD/cd-mat-balance.service';
 import { ICDModalWindow } from '../cd-shared/cd-modal-window/cd-modal-window.component';
@@ -89,7 +89,7 @@ export interface IAllEstablishedFacts {
     templateUrl: './cd-mat-balance.component.html',
     styleUrls: ['./cd-mat-balance.component.scss']
 })
-export class CdMatBalanceComponent extends WidgetPlatform implements OnInit, OnDestroy {
+export class CdMatBalanceComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
     data: IMatBalance;
     openEvent: IEventsWidgetNotification = this.cdMatBalanceService.isOpenEvent$.getValue();
     modal: ICDModalWindow;

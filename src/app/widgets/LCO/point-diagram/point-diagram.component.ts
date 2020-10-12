@@ -2,14 +2,14 @@ import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
 import { WidgetService } from '../../../dashboard/services/widget.service';
 import { Subscription } from 'rxjs';
 import { IPointDiagramElement } from '../../../dashboard/models/point-diagram';
-import { WidgetPlatform } from '../../../dashboard/models/widget-platform';
+import { WidgetPlatform } from '../../../dashboard/models/@PLATFORM/widget-platform';
 
 @Component({
     selector: 'evj-point-diagram',
     templateUrl: './point-diagram.component.html',
     styleUrls: ['./point-diagram.component.scss'],
 })
-export class PointDiagramComponent extends WidgetPlatform implements OnInit, OnDestroy {
+export class PointDiagramComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
     pointDiagramElements: IPointDiagramElement[] = [
         {
             norm: 0.2,

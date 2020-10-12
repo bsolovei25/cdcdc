@@ -1,13 +1,13 @@
 import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
 import { WidgetService } from 'src/app/dashboard/services/widget.service';
-import { WidgetPlatform } from 'src/app/dashboard/models/widget-platform';
+import { WidgetPlatform } from 'src/app/dashboard/models/@PLATFORM/widget-platform';
 
 @Component({
     selector: 'evj-truncated-diagram-percentage',
     templateUrl: './truncated-diagram-percentage.component.html',
     styleUrls: ['./truncated-diagram-percentage.component.scss'],
 })
-export class TruncatedDiagramPercentageComponent extends WidgetPlatform implements OnInit, OnDestroy {
+export class TruncatedDiagramPercentageComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
 
     public datas: any = [
         { name: 'Статическое Оборудование 1', plan: 5, value: 28 },

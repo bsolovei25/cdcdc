@@ -5,7 +5,7 @@ import {
     OnDestroy,
     AfterViewInit,
 } from '@angular/core';
-import { WidgetPlatform } from '../../../dashboard/models/widget-platform';
+import { WidgetPlatform } from '../../../dashboard/models/@PLATFORM/widget-platform';
 import { WidgetService } from '../../../dashboard/services/widget.service';
 import { AstueOnpzService } from '../astue-onpz-shared/astue-onpz.service';
 import { ObjectDeepEqual, ArrayOfObjectsDeepEqual } from '@shared/functions/deep-equal.function';
@@ -32,7 +32,7 @@ export interface IAstueOnpzIndicator {
     templateUrl: './astue-onpz-consumption-indicators.component.html',
     styleUrls: ['./astue-onpz-consumption-indicators.component.scss'],
 })
-export class AstueOnpzConsumptionIndicatorsComponent extends WidgetPlatform
+export class AstueOnpzConsumptionIndicatorsComponent extends WidgetPlatform<unknown>
     implements OnInit, OnDestroy, AfterViewInit {
 
     public type: AstueOnpzConsumptionIndicatorsWidgetType | null = null;
@@ -86,7 +86,7 @@ export class AstueOnpzConsumptionIndicatorsComponent extends WidgetPlatform
                         this.indicators.find(indicatorFromList =>
                             indicatorFromList.type === options.indicatorType) ?? null;
                 }
-                this.widgetService.setWidgetLiveDataFromWSOptions(this.widgetId, options);
+                this.widgetService.setChannelLiveDataFromWsOptions(this.widgetId, options);
             }),
         );
     }

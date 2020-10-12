@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
 import { IDatesInterval, WidgetService } from '../../services/widget.service';
 import { PetroleumScreenService } from '../../services/widgets/petroleum-screen.service';
-import { WidgetPlatform } from '../../models/widget-platform';
+import { WidgetPlatform } from '../../models/@PLATFORM/widget-platform';
 import { IAlertWindowModel } from '@shared/models/alert-window.model';
 
 @Component({
@@ -9,7 +9,7 @@ import { IAlertWindowModel } from '@shared/models/alert-window.model';
     templateUrl: './petroleum-products-movement.component.html',
     styleUrls: ['./petroleum-products-movement.component.scss'],
 })
-export class PetroleumProductsMovementComponent extends WidgetPlatform
+export class PetroleumProductsMovementComponent extends WidgetPlatform<unknown>
     implements OnInit, OnDestroy {
 
     public static itemCols: number = 64;

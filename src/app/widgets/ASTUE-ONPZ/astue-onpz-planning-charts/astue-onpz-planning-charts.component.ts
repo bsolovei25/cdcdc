@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
-import { WidgetPlatform } from '../../../dashboard/models/widget-platform';
+import { WidgetPlatform } from '../../../dashboard/models/@PLATFORM/widget-platform';
 import { WidgetService } from '../../../dashboard/services/widget.service';
 import { IProductionTrend } from '../../../dashboard/models/production-trends.model';
 import { AstueOnpzService } from '../astue-onpz-shared/astue-onpz.service';
@@ -19,7 +19,7 @@ export interface IPlanningChart {
     templateUrl: './astue-onpz-planning-charts.component.html',
     styleUrls: ['./astue-onpz-planning-charts.component.scss']
 })
-export class AstueOnpzPlanningChartsComponent extends WidgetPlatform implements OnInit, OnDestroy {
+export class AstueOnpzPlanningChartsComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
     public data: IPlanningChart[] = [];
     colors: Map<string, number>;
 
@@ -67,7 +67,7 @@ export class AstueOnpzPlanningChartsComponent extends WidgetPlatform implements 
     }
 
     setOptionsWs(predictorIds: string[], predictorWidgetId: string): void {
-        this.widgetService.setWidgetLiveDataFromWSOptions(this.id, {
+        this.widgetService.setChannelLiveDataFromWsOptions(this.id, {
             predictorWidgetId,
             predictorIds
         });

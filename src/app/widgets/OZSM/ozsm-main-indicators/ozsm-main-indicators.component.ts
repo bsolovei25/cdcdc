@@ -1,6 +1,6 @@
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { WidgetService } from '../../../dashboard/services/widget.service';
-import { WidgetPlatform } from '../../../dashboard/models/widget-platform';
+import { WidgetPlatform } from '../../../dashboard/models/@PLATFORM/widget-platform';
 import { IOZSMMainIndicator } from '../../../dashboard/models/OZSM/ozsm-main-indicator.model';
 import { mockData } from './ozsm-main-indicator-mock';
 
@@ -9,7 +9,7 @@ import { mockData } from './ozsm-main-indicator-mock';
   templateUrl: './ozsm-main-indicators.component.html',
   styleUrls: ['./ozsm-main-indicators.component.scss']
 })
-export class OzsmMainIndicatorsComponent extends WidgetPlatform implements OnInit, OnDestroy {
+export class OzsmMainIndicatorsComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
     public data: IOZSMMainIndicator[] = mockData;
 
     constructor(

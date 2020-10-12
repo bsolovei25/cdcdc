@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, ElementRef, Inject, OnInit, ViewChild } from "@angular/core";
 import { IDeviationDiagramData } from '../shared/kpe-deviation-diagram/kpe-deviation-diagram.component';
-import { WidgetPlatform } from '../../../dashboard/models/widget-platform';
+import { WidgetPlatform } from '../../../dashboard/models/@PLATFORM/widget-platform';
 import { WidgetService } from '../../../dashboard/services/widget.service';
 import { IKpeGaugeChartData, IKpeLineChartData } from '../shared/kpe-charts.model';
 import { KpeHelperService } from '../shared/kpe-helper.service';
@@ -24,7 +24,7 @@ export interface IKpeSafetyCard {
     templateUrl: './kpe-safety.component.html',
     styleUrls: ['./kpe-safety.component.scss']
 })
-export class KpeSafetyComponent extends WidgetPlatform implements OnInit, AfterViewInit {
+export class KpeSafetyComponent extends WidgetPlatform<unknown> implements OnInit, AfterViewInit {
 
     @ViewChild('mainGauge') public gaugeChart: ElementRef;
 

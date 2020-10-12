@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { WidgetPlatform } from '../../../dashboard/models/widget-platform';
+import { WidgetPlatform } from '../../../dashboard/models/@PLATFORM/widget-platform';
 import { WidgetService } from '../../../dashboard/services/widget.service';
 import {
     IApsProgressBarSettings
@@ -17,7 +17,7 @@ export interface IProductionDetails {
     templateUrl: './production-details.component.html',
     styleUrls: ['./production-details.component.scss'],
 })
-export class ProductionDetailsComponent extends WidgetPlatform implements OnInit {
+export class ProductionDetailsComponent extends WidgetPlatform<unknown> implements OnInit {
 
     public details: IProductionDetails[] = [
         {

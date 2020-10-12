@@ -1,7 +1,7 @@
 import { Component, ElementRef, ViewChild, Inject, OnDestroy, OnInit } from '@angular/core';
 import { WidgetService } from '../../../dashboard/services/widget.service';
 import { RingEnegryIndicatorModel } from '../../../dashboard/models/ring-energy-indicator';
-import { WidgetPlatform } from '../../../dashboard/models/widget-platform';
+import { WidgetPlatform } from '../../../dashboard/models/@PLATFORM/widget-platform';
 
 declare var d3: any;
 
@@ -10,7 +10,7 @@ declare var d3: any;
     templateUrl: './ring-energy-indicator.component.html',
     styleUrls: ['./ring-energy-indicator.component.scss'],
 })
-export class RingEnergyIndicatorComponent extends WidgetPlatform
+export class RingEnergyIndicatorComponent extends WidgetPlatform<unknown>
     implements OnInit, OnDestroy {
     @ViewChild('circleFactory') CircleFactory: ElementRef;
 

@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy, Inject } from '@angular/core';
-import { WidgetPlatform } from 'src/app/dashboard/models/widget-platform';
+import { WidgetPlatform } from 'src/app/dashboard/models/@PLATFORM/widget-platform';
 import { WidgetService } from 'src/app/dashboard/services/widget.service';
 import { IProgressIndicators } from '../../../dashboard/models/SMP/performance-progress-indicators.model';
 
@@ -10,7 +10,7 @@ import { IProgressIndicators } from '../../../dashboard/models/SMP/performance-p
   templateUrl: './performance-progress-indicators.component.html',
   styleUrls: ['./performance-progress-indicators.component.scss']
 })
-export class PerformanceProgressIndicatorsComponent extends WidgetPlatform implements OnInit, OnDestroy {
+export class PerformanceProgressIndicatorsComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
 
   public data: IProgressIndicators;
 
