@@ -313,11 +313,11 @@ export class EvjManualInputComponent extends WidgetPlatform<unknown>
     onShowAllSettings(): void {
         if (this.allSettings === true) {
             this.openAllSettings = !this.openAllSettings;
-            this.data?.forEach((item) => item.open = this.openAllSettings);
+            this.filteredData?.forEach((item) => item.open = this.openAllSettings);
             this.OnManualInputSendSettings(this.saveDataObj());
         } else {
             this.openAllMachine = !this.openAllMachine;
-            this.data.find((el) => el.name === this.chooseSetting.name)
+            this.filteredData?.find((el) => el.name === this.chooseSetting.name)
                 ?.groups.forEach((item) => item.open = this.openAllMachine);
             this.OnManualInputSendSettings(this.saveDataObj());
         }
