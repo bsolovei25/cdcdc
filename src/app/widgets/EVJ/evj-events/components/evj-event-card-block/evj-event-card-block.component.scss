@@ -101,6 +101,7 @@
       &__facts {
         @include text-overflow;
         -webkit-line-clamp: 2;
+        color: var(--color-border-unactive);
       }
     }
   }
