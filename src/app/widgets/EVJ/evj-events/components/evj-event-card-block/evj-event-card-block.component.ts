@@ -34,7 +34,7 @@ export class EvjEventCardBlockComponent implements OnInit {
         event.stopPropagation();
         eventCard.isAcknowledged = !eventCard.isAcknowledged;
         try {
-            const a = await this.eventService.changeEventIsAcknowledged(
+            await this.eventService.changeEventIsAcknowledged(
                 eventCard.id,
                 eventCard.isAcknowledged
             );

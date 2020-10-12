@@ -1,3 +1,5 @@
+@import "../../../../../../mixins";
+
 .card-block {
   display: flex;
   flex-direction: column;
@@ -92,18 +94,13 @@
 
     .body {
       &__description {
+        @include text-overflow;
         -webkit-line-clamp: 2;
-        display: -webkit-box;
-        -webkit-box-orient: vertical;
-        overflow: hidden;
       }
 
       &__facts {
+        @include text-overflow;
         -webkit-line-clamp: 2;
-        display: -webkit-box;
-        -webkit-box-orient: vertical;
-        overflow: hidden;
-        color: var(--color-border-unactive);
       }
     }
   }
