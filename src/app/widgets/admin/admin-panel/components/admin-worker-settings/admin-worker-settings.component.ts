@@ -124,6 +124,18 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
                         }
                     });
                     console.log(this.workerSpecialClaims);
+                    // this.workerSpecialClaims?.forEach(value => {
+                    // value?.units?.map(u => {
+                    //     if (value.units !== []) {
+                    //         u.isActive = true;
+                    //     }
+                    // });
+                    // value?.widgets?.map(w => {
+                    //     if (value.widgets !== []) {
+                    //         w.isActive = true;
+                    //     }
+                    // });
+                    // });
                 })
             );
         }
@@ -360,7 +372,7 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
             try {
                 const newArray: IGlobalClaim[] = [];
                 this.workerSpecialClaims?.forEach(v => v?.widgets?.forEach(w => {
-                    if (w.isActive) {
+                    if (w?.isActive) {
                         newArray?.push({
                             claimType: v?.claimType,
                             value: w?.id,
@@ -375,11 +387,11 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
                         });
                     }
                 }));
-                this.workerSpecialClaims?.forEach(v => v?.units?.forEach(w => {
-                    if (w.isActive) {
+                this.workerSpecialClaims?.forEach(v => v?.units?.forEach(u => {
+                    if (u?.isActive) {
                         newArray.push({
                             claimType: v?.claimType,
-                            value: w?.id.toString(),
+                            value: u?.id.toString(),
                             claimValueType: v?.claimValueType,
                             claimName: v?.claimName,
                             additionalType: v?.additionalType,
