@@ -18,7 +18,7 @@
             </span>
             <span class="innage__current" 
                 [style.alignItems] = "current / higher > 0.5 ? 'flex-start' : 'flex-end'" 
-                [style.height] = "higher > 0 ? current / higher * 100 + '%' : 100 + '%'" 
+                [style.height] = "higher > 0 && current / higher < 1 ? current / higher * 100 + '%' : 100 + '%'" 
             >
                 {{current | number:'0.0-1'}}
             </span>
@@ -28,7 +28,7 @@
 
             <div class="innage-axis">
                 <div class="innage-axis__value" 
-                    [style.height] = "higher > 0 ? current / higher * 100 + '%' : 100 + '%'"
+                    [style.height] = "higher > 0 && current / higher < 1 ? current / higher * 100 + '%' : 100 + '%'"
                 ></div>
             </div>
         </div>
