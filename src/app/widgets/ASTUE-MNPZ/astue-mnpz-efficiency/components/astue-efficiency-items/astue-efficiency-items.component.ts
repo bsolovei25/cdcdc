@@ -7,7 +7,7 @@ import { AstueEfficiencyService } from '../../../../../dashboard/services/ASTUE/
 @Component({
     selector: 'evj-astue-efficiency-items',
     templateUrl: './astue-efficiency-items.component.html',
-    styleUrls: ['./astue-efficiency-items.component.scss'],
+    styleUrls: ['./astue-efficiency-items.component.scss']
 })
 export class AstueEfficiencyItemsComponent implements OnChanges, OnDestroy {
     @Input() public data: IAsEfProduct[] = [];
@@ -20,7 +20,8 @@ export class AstueEfficiencyItemsComponent implements OnChanges, OnDestroy {
 
     private subscriptions: Subscription[] = [];
 
-    constructor(private AsEfService: AstueEfficiencyService) {}
+    constructor(private AsEfService: AstueEfficiencyService) {
+    }
 
     public ngOnChanges(): void {
         this.iconMap();
@@ -50,6 +51,8 @@ export class AstueEfficiencyItemsComponent implements OnChanges, OnDestroy {
         this.AsEfService.clearOpenedUnits();
         this.AsEfService.clearUnits();
         this.selectProduct.emit(product.name);
+        this.AsEfService.selectionUnit$.next([]);
+        this.AsEfService.selectionFlow$.next([]);
     }
 
     public iconMap(): void {

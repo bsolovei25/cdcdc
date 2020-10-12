@@ -33,8 +33,7 @@ export class LineChartComponent implements OnChanges, OnInit {
 
     @ViewChild('chart') private chart: ElementRef;
 
-    private readonly MAX_COEF: number = 0.1;
-    private readonly MIN_COEF: number = 0.3;
+    private DELTA_CF: number = 0.1;
 
     private readonly chartStroke: { [key: string]: string } = {
         plan: '#ffffff',
@@ -79,6 +78,7 @@ export class LineChartComponent implements OnChanges, OnInit {
 
     private graphInit(): void {
         if (!this.data?.length) {
+            this.svg?.remove();
             return;
         }
         this.findMinMax();
@@ -120,16 +120,9 @@ export class LineChartComponent implements OnChanges, OnInit {
             this.data.forEach((graph) => (graph.graph = setLimits(graph.graph, this.limits)));
         }
 
-        const maxValues: number[] = [];
-        const minValues: number[] = [];
-
-        this.data.forEach((graph) => {
-            maxValues.push(d3.max(graph.graph, (item: IChartMini) => item.value));
-            minValues.push(d3.min(graph.graph, (item: IChartMini) => item.value));
-        });
-
-        this.dataMax = d3.max(maxValues) * (1 + this.MAX_COEF);
-        this.dataMin = d3.min(minValues) * (1 - this.MIN_COEF);
+        [this.dataMin, this.dataMax] = d3.extent(this.data.flatMap((x) => x.graph).map((x) => x.value));
+        this.dataMin -= (this.dataMax - this.dataMin) * this.DELTA_CF;
+        this.dataMax += (this.dataMax - this.dataMin) * this.DELTA_CF;
     }
 
     private transformData(): void {
@@ -189,7 +182,6 @@ export class LineChartComponent implements OnChanges, OnInit {
 
     private drawGraph(): void {
         const chartStyle = new ChartStyle();
-
         this.chartData.forEach((chart) => {
             const line = d3
                 .line()

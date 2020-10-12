@@ -1,16 +1,16 @@
 <div class="block" [ngClass]="{'block_open':isOpen}">
   <div matRipple matRippleColor="white" class="block__main main" (click)="onClick()">
-    <img class="arrow" src="assets/icons/widgets/ASTUE/astue-efficiency/units/arrow.svg"/>
+    <img class="arrow" src="assets/icons/widgets/ASTUE/astue-efficiency/units/arrow.svg" />
     <div class="cell cell_title">
       {{block.name}}
-      <!--      <div class="cell__status" *ngIf="block.status">{{block.status}}</div>-->
+      <!--<div class="cell__status" *ngIf="block.status">{{block.status}}</div>-->
     </div>
     <div class="cell cell_value">{{block.value}}</div>
   </div>
   <div class="block__item" *ngFor="let item of block.rows">
     <div class="cell cell_title">
       {{item.name}}
-      <div class="cell__status" >{{block.tag}}</div>
+      <div class="cell__status">{{block.tag}}</div>
     </div>
     <div class="cell cell_value">{{item.value}}</div>
   </div>
