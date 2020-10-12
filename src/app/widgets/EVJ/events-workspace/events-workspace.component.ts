@@ -1,5 +1,5 @@
-import { Component, OnInit, OnDestroy, Inject, HostListener } from '@angular/core';
-import { WidgetPlatform } from '../../../dashboard/models/widget-platform';
+import {Component, OnInit, OnDestroy, Inject, HostListener, Input} from '@angular/core';
+import { WidgetPlatform } from '../../../dashboard/models/@PLATFORM/widget-platform';
 import { EventsWorkspaceService } from '../../../dashboard/services/widgets/events-workspace.service';
 import { EventService } from '../../../dashboard/services/widgets/event.service';
 import { WidgetService } from '../../../dashboard/services/widget.service';
@@ -29,7 +29,7 @@ import {
         },
     ],
 })
-export class EventsWorkspaceComponent extends WidgetPlatform implements OnInit, OnDestroy {
+export class EventsWorkspaceComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
     get eventProdButton(): string {
         const flagCat: boolean = this.ewService.event?.category?.code === '2';
         const flagStat: boolean = this.ewService.event?.status?.name === 'closed';
@@ -39,6 +39,9 @@ export class EventsWorkspaceComponent extends WidgetPlatform implements OnInit, 
 
         return flagCat && !flagStat && flagSubcat ? message : '';
     }
+
+    @Input()
+    public displayContainer: boolean = true;
 
     constructor(
         public ewService: EventsWorkspaceService,

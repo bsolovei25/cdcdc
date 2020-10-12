@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
-import { WidgetPlatform } from '../../../dashboard/models/widget-platform';
+import { WidgetPlatform } from '../../../dashboard/models/@PLATFORM/widget-platform';
 import { WidgetService } from '../../../dashboard/services/widget.service';
 import { IKpeGaugeChartPage } from './components/gauge-diagram/gauge-diagram.component';
 
@@ -16,7 +16,7 @@ export interface IKpeGaugeChartData {
     templateUrl: './key-performance-indicators.component.html',
     styleUrls: ['./key-performance-indicators.component.scss'],
 })
-export class KeyPerformanceIndicatorsComponent extends WidgetPlatform implements OnInit, OnDestroy {
+export class KeyPerformanceIndicatorsComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
     public sourceData: IKpeGaugeChartData;
     public diagramData: IKpeGaugeChartPage;
 

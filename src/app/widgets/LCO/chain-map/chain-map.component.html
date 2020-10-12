@@ -1,0 +1,2316 @@
+<div style="height: 100%; width: 100%;" *ngIf="!isMock">
+  <evj-widget-header
+    [title]="widgetTitle"
+    [units]="widgetUnits"
+    [code]="widgetCode"
+    [id]="widgetId"
+    [uniqId]="widgetUniqId"
+    [icon]="widgetIcon"
+  ></evj-widget-header>
+
+  <evj-frame-top></evj-frame-top>
+
+  <ng-container>
+    <div
+      class="content_block"
+      (mousedown)="$event.stopPropagation()"
+      (touchstart)="$event.stopPropagation()"
+    >
+      <div class="blocks">
+        <div class="container_map">
+          <div class="map" #chain>
+            <svg
+              xmlns:svg="http://www.w3.org/2000/svg"
+              xmlns="http://www.w3.org/2000/svg"
+              xmlns:xlink="http://www.w3.org/1999/xlink"
+              version="1.1"
+              id="Слой_1"
+              x="0px"
+              y="0px"
+              viewBox="30 240 595.3 841.9"
+              style="enable-background:new 0 0 595.3 841.9;"
+            >
+              <g id="XMLID_1887_">
+                <g id="XMLID_436_">
+                  <text
+                    id="XMLID_437_"
+                    item-circle-id="0"
+                    transform="matrix(1 0 0 1 87.0952 282.9877)"
+                    class="st0 st1"
+                  >
+                    Нефть
+                  </text>
+                </g>
+              </g>
+              <line
+                id="XMLID_762_"
+                class="st3"
+                x1="110.7"
+                y1="311.29999"
+                x2="123.3"
+                y2="318.60001"
+                item-line-id="0"
+                style="fill:none;stroke:#a7dcf8;stroke-width:1.75020003;stroke-miterlimit:10"
+              />
+              <line
+                id="XMLID_761_"
+                class="st3"
+                x1="165.39999"
+                y1="295.60001"
+                x2="175.8"
+                y2="301.60001"
+                item-line-id="41"
+                style="fill:none;stroke:#a7dcf8;stroke-width:1.75020003;stroke-miterlimit:10"
+              />
+              <line
+                id="XMLID_760_"
+                class="st3"
+                x1="124.3"
+                y1="319.20001"
+                x2="137.89999"
+                y2="327.10001"
+                item-line-id="31"
+                style="fill:none;stroke:#5c617e;stroke-width:0.87510002;stroke-miterlimit:10"
+              />
+              <line
+                id="XMLID_759_"
+                class="st3"
+                x1="83.400002"
+                y1="343.10001"
+                x2="93.900002"
+                y2="349.10001"
+                item-line-id="21"
+                style="fill:none;stroke:#a7dcf8;stroke-width:1.75020003;stroke-miterlimit:10"
+              />
+              <line
+                id="XMLID_758_"
+                class="st3"
+                x1="152.3"
+                y1="382.60001"
+                x2="43.400002"
+                y2="446"
+                item-line-id="221"
+                style="fill:none;stroke:#5c617e;stroke-width:0.87510002;stroke-miterlimit:10"
+              />
+              <line
+                id="XMLID_757_"
+                class="st3"
+                x1="235"
+                y1="461.70001"
+                x2="125.3"
+                y2="525.40002"
+                item-line-id="2215"
+                style="fill:none;stroke:#5c617e;stroke-width:0.87510002;stroke-miterlimit:10"
+              />
+              <line
+                id="XMLID_756_"
+                class="st3"
+                x1="248.60001"
+                y1="533.09998"
+                x2="208.2"
+                y2="557"
+                item-line-id="2219"
+                style="fill:none;stroke:#5c617e;stroke-width:0.87510002;stroke-miterlimit:10"
+              />
+              <g id="XMLID_755_">
+                <g id="XMLID_424_">
+                  <line
+                    id="XMLID_427_"
+                    class="st3"
+                    x1="127.3"
+                    y1="368.39999"
+                    x2="148"
+                    y2="380.29999"
+                    item-line-id="22"
+                    style="fill:none;stroke:#a7dcf8;stroke-width:1.75020003;stroke-miterlimit:10"
+                  />
+                  <g id="XMLID_425_">
+                    <polygon
+                      id="XMLID_426_"
+                      item-line-id="22"
+                      class="st5"
+                      points="151.3,382.2 148.7,377.6 146.1,382.2 "
+                      style="fill:#a7dcf8"
+                    />
+                  </g>
+                </g>
+              </g>
+              <g id="XMLID_754_">
+                <g id="XMLID_419_">
+                  <line
+                    id="XMLID_422_"
+                    class="st3"
+                    x1="193.7"
+                    y1="501.20001"
+                    x2="201.39999"
+                    y2="505.5"
+                    item-line-id="225"
+                    style="fill:none;stroke:#a7dcf8;stroke-width:1.75020003;stroke-miterlimit:10"
+                  />
+                  <g id="XMLID_420_">
+                    <polygon
+                      id="XMLID_421_"
+                      item-line-id="225"
+                      class="st5"
+                      points="204.7,507.4 202,502.9 199.4,507.4 "
+                      style="fill:#a7dcf8"
+                    />
+                  </g>
+                </g>
+              </g>
+              <g id="XMLID_753_">
+                <g id="XMLID_414_">
+                  <line
+                    id="XMLID_417_"
+                    class="st3"
+                    x1="248.60001"
+                    y1="469.5"
+                    x2="255.60001"
+                    item-line-id="227"
+                    y2="473.70001"
+                    style="fill:none;stroke:#a7dcf8;stroke-width:1.75020003;stroke-miterlimit:10"
+                  />
+                  <g id="XMLID_415_">
+                    <polygon
+                      id="XMLID_416_"
+                      class="st5"
+                      item-line-id="227"
+                      points="256.3,471.1 253.6,475.6 258.9,475.6 "
+                      style="fill:#a7dcf8"
+                    />
+                  </g>
+                </g>
+              </g>
+              <line
+                id="XMLID_752_"
+                class="st3"
+                x1="247.89999"
+                y1="406.39999"
+                x2="259.70001"
+                y2="413.10001"
+                item-line-id="3511"
+                style="fill:none;stroke:#5c617e;stroke-width:0.87510002;stroke-miterlimit:10"
+              />
+              <line
+                id="XMLID_751_"
+                class="st3"
+                x1="302.5"
+                y1="375"
+                x2="313.89999"
+                y2="381.39999"
+                item-line-id="3521"
+                style="fill:none;stroke:#5c617e;stroke-width:0.87510002;stroke-miterlimit:10"
+              />
+              <g id="XMLID_750_">
+                <g id="XMLID_408_">
+                  <line
+                    id="XMLID_412_"
+                    class="st3"
+                    x1="250.3"
+                    y1="392"
+                    x2="257.39999"
+                    item-line-id="34"
+                    y2="396.29999"
+                    style="fill:none;stroke:#a7dcf8;stroke-width:1.75020003;stroke-miterlimit:10"
+                  />
+                  <g id="XMLID_410_">
+                    <polygon
+                      id="XMLID_411_"
+                      class="st5"
+                      item-line-id="34"
+                      points="260.6,398.3 258.1,393.7 255.4,398.1 "
+                      style="fill:#a7dcf8"
+                    />
+                  </g>
+                </g>
+              </g>
+              <g id="XMLID_749_">
+                <g id="XMLID_403_">
+                  <line
+                    id="XMLID_406_"
+                    class="st3"
+                    x1="237.39999"
+                    y1="526.59998"
+                    x2="244.60001"
+                    item-line-id="226"
+                    y2="530.59998"
+                    style="fill:none;stroke:#a7dcf8;stroke-width:1.75020003;stroke-miterlimit:10"
+                  />
+                  <g id="XMLID_404_">
+                    <polygon
+                      id="XMLID_405_"
+                      class="st5"
+                      item-line-id="226"
+                      points="247.9,532.5 245.2,528 242.7,532.5 "
+                      style="fill:#a7dcf8"
+                    />
+                  </g>
+                </g>
+              </g>
+              <g id="XMLID_748_" item-line-id="229">
+                <g id="XMLID_398_">
+                  <line
+                    id="XMLID_401_"
+                    class="st3"
+                    x1="291.79999"
+                    y1="494.79999"
+                    x2="299"
+                    y2="498.79999"
+                    item-line-id="229"
+                    style="fill:none;stroke:#a7dcf8;stroke-width:1.75020003;stroke-miterlimit:10"
+                  />
+                  <g id="XMLID_399_">
+                    <polygon
+                      id="XMLID_400_"
+                      class="st5"
+                      item-line-id="229"
+                      points="302.3,500.7 299.6,496.2 297,500.7 "
+                      style="fill:#a7dcf8"
+                    />
+                  </g>
+                </g>
+              </g>
+              <g id="XMLID_747_">
+                <g id="XMLID_387_">
+                  <line
+                    id="XMLID_395_"
+                    class="st3"
+                    x1="344.70001"
+                    y1="477.10001"
+                    x2="351.60001"
+                    y2="481"
+                    item-line-id="24"
+                    style="fill:none;stroke:#a7dcf8;stroke-width:1.75020003;stroke-miterlimit:10"
+                  />
+                  <g id="XMLID_388_">
+                    <polygon
+                      id="XMLID_389_"
+                      class="st5"
+                      item-line-id="24"
+                      points="354.9,482.8 352.2,478.3 349.7,482.9 "
+                      style="fill:#a7dcf8"
+                    />
+                  </g>
+                </g>
+              </g>
+              <g id="XMLID_746_" item-line-id="26">
+                <g id="XMLID_382_">
+                  <line
+                    id="XMLID_385_"
+                    class="st3"
+                    x1="443.20001"
+                    y1="470.79999"
+                    x2="450"
+                    y2="474.89999"
+                    item-line-id="26"
+                    style="fill:none;stroke:#a7dcf8;stroke-width:1.75020003;stroke-miterlimit:10"
+                  />
+                  <g id="XMLID_383_">
+                    <polygon
+                      item-line-id="26"
+                      id="XMLID_384_"
+                      class="st5"
+                      points="453.2,476.8 450.7,472.2 448,476.7 "
+                      style="fill:#a7dcf8"
+                    />
+                  </g>
+                </g>
+              </g>
+              <g id="XMLID_745_">
+                <g id="XMLID_330_">
+                  <line
+                    id="XMLID_340_"
+                    class="st3"
+                    x1="399.79999"
+                    y1="509.29999"
+                    x2="419.79999"
+                    y2="520.5"
+                    item-line-id="29"
+                    style="fill:none;stroke:#a7dcf8;stroke-width:1.75020003;stroke-miterlimit:10"
+                  />
+                  <g id="XMLID_338_">
+                    <polygon
+                      id="XMLID_339_"
+                      item-line-id="29"
+                      class="st5"
+                      points="423.1,522.3 420.4,517.8 417.8,522.4 "
+                      style="fill:#a7dcf8"
+                    />
+                  </g>
+                </g>
+              </g>
+              <g id="XMLID_744_">
+                <g id="XMLID_318_">
+                  <line
+                    id="XMLID_328_"
+                    class="st3"
+                    x1="454"
+                    y1="477.39999"
+                    item-line-id="30"
+                    x2="473.20001"
+                    y2="488.20001"
+                    style="fill:none;stroke:#a7dcf8;stroke-width:1.75020003;stroke-miterlimit:10"
+                  />
+                  <g id="XMLID_319_">
+                    <polygon
+                      id="XMLID_327_"
+                      class="st5"
+                      item-line-id="30"
+                      points="476.5,490 473.8,485.5 471.3,490.1 "
+                      style="fill:#a7dcf8"
+                    />
+                  </g>
+                </g>
+              </g>
+              <g id="XMLID_743_">
+                <g id="XMLID_306_">
+                  <line
+                    id="XMLID_316_"
+                    class="st3"
+                    x1="508.29999"
+                    y1="445.5"
+                    x2="527.70001"
+                    y2="456.39999"
+                    item-line-id="28"
+                    style="fill:none;stroke:#a7dcf8;stroke-width:1.75020003;stroke-miterlimit:10"
+                  />
+                  <g id="XMLID_307_">
+                    <polygon
+                      id="XMLID_308_"
+                      class="st5"
+                      item-line-id="28"
+                      points="530.9,458.2 528.3,453.7 525.7,458.3 "
+                      style="fill:#a7dcf8"
+                    />
+                  </g>
+                </g>
+              </g>
+              <g id="XMLID_742_">
+                <g id="XMLID_294_">
+                  <line
+                    id="XMLID_303_"
+                    class="st3"
+                    x1="386"
+                    y1="485.20001"
+                    x2="404.79999"
+                    y2="474.39999"
+                    item-line-id="25"
+                    style="fill:none;stroke:#a7dcf8;stroke-width:1.75020003;stroke-miterlimit:10"
+                  />
+                  <g id="XMLID_295_">
+                    <polygon
+                      id="XMLID_302_"
+                      class="st5"
+                      item-line-id="25"
+                      points="408,472.5 402.8,472.5 405.4,477.1 "
+                      style="fill:#a7dcf8"
+                    />
+                  </g>
+                </g>
+              </g>
+              <g id="XMLID_741_">
+                <g id="XMLID_281_">
+                  <line
+                    id="XMLID_284_"
+                    class="st3"
+                    x1="346.5"
+                    y1="463.20001"
+                    x2="353.5"
+                    item-line-id="3525"
+                    y2="467.10001"
+                    style="fill:none;stroke:#a7dcf8;stroke-width:1.75020003;stroke-miterlimit:10"
+                  />
+                  <g id="XMLID_282_">
+                    <polygon
+                      id="XMLID_283_"
+                      item-line-id="3525"
+                      class="st5"
+                      points="356.8,469 354.1,464.5 351.5,469 "
+                      style="fill:#a7dcf8"
+                    />
+                  </g>
+                </g>
+              </g>
+              <g id="XMLID_740_">
+                <g id="XMLID_251_">
+                  <line
+                    id="XMLID_273_"
+                    class="st3"
+                    x1="412.20001"
+                    y1="374.70001"
+                    x2="418.20001"
+                    item-line-id="4611"
+                    y2="378.29999"
+                    style="fill:none;stroke:#a7dcf8;stroke-width:1.75020003;stroke-miterlimit:10"
+                  />
+                  <g id="XMLID_262_">
+                    <polygon
+                      item-line-id="4611"
+                      id="XMLID_269_"
+                      class="st5"
+                      points="418.9,375.7 416.2,380.2 421.5,380.3 "
+                      style="fill:#a7dcf8"
+                    />
+                  </g>
+                </g>
+              </g>
+              <g id="XMLID_739_">
+                <g id="XMLID_173_">
+                  <line
+                    id="XMLID_188_"
+                    class="st3"
+                    item-line-id="3523"
+                    x1="401.39999"
+                    y1="431.60001"
+                    x2="408.20001"
+                    y2="435.5"
+                    style="fill:none;stroke:#a7dcf8;stroke-width:1.75020003;stroke-miterlimit:10"
+                  />
+                  <g id="XMLID_174_">
+                    <polygon
+                      id="XMLID_177_"
+                      item-line-id="3523"
+                      class="st5"
+                      points="408.8,432.8 406.2,437.4 411.5,437.3 "
+                      style="fill:#a7dcf8"
+                    />
+                  </g>
+                </g>
+              </g>
+              <g id="XMLID_738_">
+                <g id="XMLID_167_">
+                  <line
+                    id="XMLID_171_"
+                    class="st3"
+                    x1="412.39999"
+                    y1="406.20001"
+                    x2="435.10001"
+                    item-line-id="4613"
+                    y2="419.39999"
+                    style="fill:none;stroke:#a7dcf8;stroke-width:1.75020003;stroke-miterlimit:10"
+                  />
+                  <g id="XMLID_168_">
+                    <polygon
+                      id="XMLID_170_"
+                      item-line-id="4613"
+                      class="st5"
+                      points="435.8,416.7 433.1,421.3 438.4,421.3 "
+                      style="fill:#a7dcf8"
+                    />
+                  </g>
+                </g>
+              </g>
+              <g id="XMLID_737_">
+                <g id="XMLID_152_">
+                  <line
+                    id="XMLID_155_"
+                    class="st3"
+                    x1="357.20001"
+                    item-line-id="451"
+                    y1="374.60001"
+                    x2="363.10001"
+                    y2="371.5"
+                    style="fill:none;stroke:#a7dcf8;stroke-width:1.75020003;stroke-miterlimit:10"
+                  />
+                  <g id="XMLID_153_">
+                    <polygon
+                      id="XMLID_154_"
+                      class="st5"
+                      item-line-id="451"
+                      points="366.5,369.7 361.2,369.5 363.7,374.2 "
+                      style="fill:#a7dcf8"
+                    />
+                  </g>
+                </g>
+              </g>
+              <g id="XMLID_736_">
+                <g id="XMLID_137_">
+                  <line
+                    id="XMLID_149_"
+                    class="st3"
+                    x1="412.20001"
+                    y1="374.70001"
+                    x2="445.60001"
+                    item-line-id="4621"
+                    y2="355.29999"
+                    style="fill:none;stroke:#a7dcf8;stroke-width:1.75020003;stroke-miterlimit:10"
+                  />
+                  <g id="XMLID_141_">
+                    <polygon
+                      id="XMLID_148_"
+                      class="st5"
+                      item-line-id="4621"
+                      points="448.9,353.4 443.7,353.4 446.3,357.9 "
+                      style="fill:#a7dcf8"
+                    />
+                  </g>
+                </g>
+              </g>
+              <g id="XMLID_735_">
+                <g id="XMLID_129_">
+                  <line
+                    id="XMLID_135_"
+                    class="st3"
+                    item-line-id="3514"
+                    x1="275.89999"
+                    y1="454.20001"
+                    x2="326.39999"
+                    y2="483.39999"
+                    style="fill:none;stroke:#a7dcf8;stroke-width:1.75020003;stroke-miterlimit:10"
+                  />
+                  <g id="XMLID_131_">
+                    <polygon
+                      id="XMLID_132_"
+                      item-line-id="3514"
+                      class="st5"
+                      points="329.7,485.2 327,480.7 324.4,485.2 "
+                      style="fill:#a7dcf8"
+                    />
+                  </g>
+                </g>
+              </g>
+              <g id="XMLID_734_">
+                <g id="XMLID_124_">
+                  <line
+                    id="XMLID_127_"
+                    class="st3"
+                    item-line-id="3522"
+                    x1="346.20001"
+                    y1="399.79999"
+                    x2="364"
+                    y2="410.20001"
+                    style="fill:none;stroke:#a7dcf8;stroke-width:1.75020003;stroke-miterlimit:10"
+                  />
+                  <g id="XMLID_125_">
+                    <polygon
+                      id="XMLID_126_"
+                      class="st5"
+                      item-line-id="3522"
+                      points="367.3,412 364.7,407.5 362,412 "
+                      style="fill:#a7dcf8"
+                    />
+                  </g>
+                </g>
+              </g>
+              <g id="XMLID_733_">
+                <g id="XMLID_105_">
+                  <line
+                    id="XMLID_121_"
+                    class="st3"
+                    x1="369.29999"
+                    item-line-id="3524"
+                    y1="431.70001"
+                    x2="351.29999"
+                    y2="441.89999"
+                    style="fill:none;stroke:#a7dcf8;stroke-width:1.75020003;stroke-miterlimit:10"
+                  />
+                  <g id="XMLID_119_">
+                    <polygon
+                      id="XMLID_120_"
+                      item-line-id="3524"
+                      class="st5"
+                      points="348,443.8 353.3,443.8 350.7,439.2 "
+                      style="fill:#a7dcf8"
+                    />
+                  </g>
+                </g>
+              </g>
+              <line
+                id="XMLID_732_"
+                class="st3"
+                x1="43.099998"
+                y1="446.10001"
+                x2="56.5"
+                y2="453.89999"
+                item-line-id="22111"
+                style="fill:none;stroke:#5c617e;stroke-width:0.87510002;stroke-miterlimit:10"
+              />
+              <line
+                id="XMLID_731_"
+                class="st3"
+                x1="97.800003"
+                y1="414.5"
+                x2="111.4"
+                y2="422.29999"
+                item-line-id="22131"
+                style="fill:none;stroke:#5c617e;stroke-width:0.87510002;stroke-miterlimit:10"
+              />
+              <line
+                id="XMLID_730_"
+                class="st3"
+                x1="138.8"
+                y1="438.29999"
+                x2="206.3"
+                y2="477.20001"
+                item-line-id="22132"
+                style="fill:none;stroke:#5c617e;stroke-width:0.87510002;stroke-miterlimit:10"
+              />
+              <line
+                id="XMLID_729_"
+                class="st3"
+                x1="139.5"
+                y1="517.5"
+                x2="208.2"
+                y2="557"
+                item-line-id="2218"
+                style="fill:none;stroke:#5c617e;stroke-width:0.87510002;stroke-miterlimit:10"
+              />
+              <line
+                id="XMLID_728_"
+                class="st3"
+                x1="125.2"
+                y1="525.29999"
+                x2="111.6"
+                y2="517.20001"
+                item-line-id="2216"
+                style="fill:none;stroke:#5c617e;stroke-width:0.87510002;stroke-miterlimit:10"
+              />
+              <line
+                id="XMLID_727_"
+                class="st3"
+                x1="70.400002"
+                y1="430.39999"
+                x2="138.89999"
+                y2="469.79999"
+                item-line-id="22121"
+                style="fill:none;stroke:#5c617e;stroke-width:0.87510002;stroke-miterlimit:10"
+              />
+              <line
+                id="XMLID_726_"
+                class="st3"
+                x1="83.900002"
+                y1="469.60001"
+                x2="152.89999"
+                y2="509.39999"
+                item-line-id="22112"
+                style="fill:none;stroke:#5c617e;stroke-width:0.87510002;stroke-miterlimit:10"
+              />
+              <line
+                id="XMLID_725_"
+                class="st3"
+                x1="209.60001"
+                y1="321"
+                x2="302.5"
+                y2="375"
+                item-line-id="42"
+                style="fill:none;stroke:#a7dcf8;stroke-width:1.75020003;stroke-miterlimit:10"
+              />
+              <line
+                id="XMLID_724_"
+                class="st3"
+                x1="329.89999"
+                y1="358.89999"
+                x2="384.70001"
+                y2="390.60001"
+                item-line-id="45"
+                style="fill:none;stroke:#a7dcf8;stroke-width:1.75020003;stroke-miterlimit:10"
+              />
+              <line
+                id="XMLID_723_"
+                class="st3"
+                x1="125.2"
+                y1="398.39999"
+                x2="193.60001"
+                y2="438.20001"
+                item-line-id="22141"
+                style="fill:none;stroke:#5c617e;stroke-width:0.87510002;stroke-miterlimit:10"
+              />
+              <line
+                id="XMLID_722_"
+                class="st3"
+                x1="221.10001"
+                y1="454.10001"
+                x2="234.10001"
+                y2="461.39999"
+                item-line-id="22142"
+                style="fill:none;stroke:#5c617e;stroke-width:0.87510002;stroke-miterlimit:10"
+              />
+              <line
+                id="XMLID_721_"
+                class="st3"
+                x1="220.89999"
+                y1="469.70001"
+                x2="234.39999"
+                y2="477.60001"
+                item-line-id="2217"
+                style="fill:none;stroke:#5c617e;stroke-width:0.87510002;stroke-miterlimit:10"
+              />
+              <line
+                id="XMLID_720_"
+                class="st3"
+                x1="166.3"
+                y1="485.60001"
+                x2="179"
+                y2="492.89999"
+                item-line-id="22122"
+                style="fill:none;stroke:#5c617e;stroke-width:0.87510002;stroke-miterlimit:10"
+              />
+              <line
+                id="XMLID_719_"
+                class="st3"
+                x1="248.3"
+                y1="454"
+                x2="261.89999"
+                y2="445.70001"
+                item-line-id="223"
+                style="fill:none;stroke:#a7dcf8;stroke-width:1.75020003;stroke-miterlimit:10"
+              />
+              <line
+                id="XMLID_718_"
+                class="st3"
+                x1="412.39999"
+                y1="406.20001"
+                x2="423.5"
+                y2="399.89999"
+                item-line-id="4612"
+                style="fill:none;stroke:#a7dcf8;stroke-width:1.75020003;stroke-miterlimit:10"
+              />
+              <line
+                id="XMLID_717_"
+                class="st3"
+                x1="248.3"
+                y1="453.7"
+                item-line-id="228"
+                x2="261.9"
+                y2="461.8"
+              />
+              <line
+                id="XMLID_716_"
+                class="st3"
+                x1="439.60001"
+                y1="422.29999"
+                x2="466.60001"
+                y2="438"
+                item-line-id="48"
+                style="fill:none;stroke:#a7dcf8;stroke-width:1.75020003;stroke-miterlimit:10"
+              />
+              <line
+                id="XMLID_715_"
+                class="st3"
+                x1="291.70001"
+                y1="431.60001"
+                x2="302.89999"
+                y2="438.20001"
+                item-line-id="3512"
+                style="fill:none;stroke:#a7dcf8;stroke-width:1.75020003;stroke-miterlimit:10"
+              />
+              <line
+                id="XMLID_714_"
+                class="st3"
+                x1="275.70001"
+                y1="454"
+                x2="302.89999"
+                y2="438.20001"
+                item-line-id="3513"
+                style="fill:none;stroke:#a7dcf8;stroke-width:1.75020003;stroke-miterlimit:10"
+              />
+              <line
+                id="XMLID_713_"
+                class="st3"
+                x1="384.60001"
+                y1="390.70001"
+                x2="412.20001"
+                y2="374.70001"
+                item-line-id="46"
+                style="fill:none;stroke:#a7dcf8;stroke-width:1.75020003;stroke-miterlimit:10"
+              />
+              <line
+                id="XMLID_712_"
+                class="st3"
+                x1="220.8"
+                y1="422.20001"
+                x2="329.89999"
+                y2="358.89999"
+                item-line-id="35"
+                style="fill:none;stroke:#a7dcf8;stroke-width:1.75020003;stroke-miterlimit:10"
+              />
+              <line
+                id="XMLID_711_"
+                class="st3"
+                x1="193.7"
+                y1="501.5"
+                x2="261.89999"
+                y2="461.79999"
+                item-line-id="224"
+                style="fill:none;stroke:#a7dcf8;stroke-width:1.75020003;stroke-miterlimit:10"
+              />
+              <line
+                id="XMLID_710_"
+                class="st3"
+                x1="248.60001"
+                y1="533.09998"
+                x2="439.60001"
+                y2="422.29999"
+                item-line-id="23"
+                style="fill:none;stroke:#a7dcf8;stroke-width:1.75020003;stroke-miterlimit:10"
+              />
+              <line
+                id="XMLID_709_"
+                class="st3"
+                x1="399.79999"
+                y1="508.60001"
+                x2="508.70001"
+                y2="445.39999"
+                item-line-id="27"
+                style="fill:none;stroke:#a7dcf8;stroke-width:1.75020003;stroke-miterlimit:10"
+              />
+              <line
+                id="XMLID_708_"
+                class="st3"
+                x1="466.60001"
+                y1="438"
+                x2="576.40002"
+                y2="374.29999"
+                style="fill:none;stroke:#a7dcf8;stroke-width:1.75020003;stroke-miterlimit:10"
+                item-line-id="47"
+              />
+              <line
+                id="XMLID_707_"
+                class="st3"
+                x1="165.5"
+                y1="343"
+                x2="179.2"
+                y2="350.89999"
+                item-line-id="32"
+                style="fill:none;stroke:#5c617e;stroke-width:0.87510002;stroke-miterlimit:10"
+              />
+              <line
+                id="XMLID_706_"
+                class="st3"
+                x1="439.70001"
+                y1="358.70001"
+                x2="494.5"
+                y2="390.29999"
+                item-line-id="4622"
+                style="fill:none;stroke:#5c617e;stroke-width:0.87510002;stroke-miterlimit:10"
+              />
+              <line
+                id="XMLID_705_"
+                class="st3"
+                x1="535.20001"
+                y1="382.60001"
+                x2="548.40002"
+                y2="390.39999"
+                item-line-id="4624"
+                style="fill:none;stroke:#5c617e;stroke-width:0.87510002;stroke-miterlimit:10"
+              />
+              <line
+                id="XMLID_704_"
+                class="st3"
+                x1="343.10001"
+                y1="256"
+                x2="398"
+                y2="288"
+                style="fill:none;stroke:#5c617e;stroke-width:0.87510002;stroke-miterlimit:10"
+                item-line-id="4213"
+              />
+              <line
+                id="XMLID_703_"
+                class="st3"
+                x1="220.10001"
+                y1="327.29999"
+                x2="247.7"
+                y2="311"
+                item-line-id="4211"
+                style="fill:none;stroke:#5c617e;stroke-width:0.87510002;stroke-miterlimit:10"
+              />
+              <line
+                id="XMLID_702_"
+                class="st3"
+                x1="274.89999"
+                y1="295.29999"
+                x2="343"
+                y2="256"
+                item-line-id="4212"
+                style="fill:none;stroke:#5c617e;stroke-width:0.87510002;stroke-miterlimit:10"
+              />
+              <g id="XMLID_1706_">
+                <g id="XMLID_165_">
+                  <g id="XMLID_258_" class="st6" style="enable-background:new">
+                    <image
+                      item-circle-id="1"
+                      class="st50"
+                      href="assets/pic/chain2.png"
+                      style="width: 66px; height: 55px; x:77; y:331;"
+                    ></image>
+                    <image
+                      item-circle-id="1"
+                      href="assets/pic/Icons3D/12.png"
+                      class="st60"
+                      style="width: 25px; height: 50px; x:98; y:331;"
+                    ></image>
+                  </g>
+                </g>
+              </g>
+              <g id="XMLID_1691_">
+                <g id="XMLID_164_">
+                  <g id="XMLID_247_" class="st6" style="enable-background:new">
+                    <g id="XMLID_259_" class="st8" clip-path="url(#XMLID_79_)">
+                      <image
+                        item-circle-id="0"
+                        class="st50"
+                        href="assets/pic/chain4.png"
+                        style="width: 66px; height: 50px; x:63; y:277;"
+                      ></image>
+                      <image
+                        item-circle-id="0"
+                        href="assets/pic/Icons3D/Tube.png"
+                        class="st60"
+                        style="width: 25px; height: 50px; x:84; y:277;"
+                      ></image>
+                    </g>
+                  </g>
+                </g>
+              </g>
+              <g id="XMLID_1689_">
+                <text
+                  id="XMLID_699_"
+                  item-circle-id="2"
+                  transform="matrix(1 0 0 1 143.728 317.3871)"
+                  class="st0 st1"
+                >
+                  ЭЛОУ-2
+                </text>
+              </g>
+              <g id="XMLID_1658_">
+                <g id="XMLID_773_">
+                  <g id="XMLID_787_" class="st6" style="enable-background:new">
+                    <g id="XMLID_789_" class="st11" clip-path="url(#XMLID_80_)">
+                      <image
+                        item-circle-id="2"
+                        class="st50"
+                        href="assets/pic/chain2.png"
+                        style="width: 62px; height: 55px; x:120; y:308;"
+                      ></image>
+                      <image
+                        item-circle-id="2"
+                        class="st60"
+                        href="assets/pic/Icons3D/12.png"
+                        class="st60"
+                        style="width: 25px; height: 50px; x:140; y:308;"
+                      ></image>
+                    </g>
+                  </g>
+                </g>
+              </g>
+              <g id="XMLID_1627_">
+                <g id="XMLID_791_">
+                  <g id="XMLID_806_" class="st6" style="enable-background:new">
+                    <g id="XMLID_808_" class="st13" clip-path="url(#XMLID_81_)">
+                      <image
+                        item-circle-id="5"
+                        class="st50"
+                        href="assets/pic/chain2.png"
+                        style="width: 60px; height: 50px; x:231; y:278;"
+                      ></image>
+                      <image
+                        item-circle-id="5"
+                        href="assets/pic/Icons3D/8.png"
+                        class="st60"
+                        style="width: 25px; height: 50px; x:250; y:276;"
+                      ></image>
+                    </g>
+                  </g>
+                </g>
+              </g>
+              <g id="XMLID_1625_">
+                <text
+                  id="XMLID_680_"
+                  item-circle-id="4"
+                  transform="matrix(1 0 0 1 186.831 341.1313)"
+                  class="st0 st1"
+                >
+                  АВТ-3
+                </text>
+              </g>
+              <g id="XMLID_1594_">
+                <g id="XMLID_810_">
+                  <g id="XMLID_825_" class="st6" style="enable-background:new">
+                    <g id="XMLID_827_" class="st14" clip-path="url(#XMLID_82_)">
+                      <image
+                        item-circle-id="4"
+                        class="st50"
+                        href="assets/pic/chain2.png"
+                        style="width: 58px; height: 55px; x:163; y:331;"
+                      ></image>
+                      <image
+                        item-circle-id="4"
+                        class="st60"
+                        href="assets/pic/Icons3D/12.png"
+                        class="st60"
+                        style="width: 25px; height: 50px; x:180; y:331;"
+                      ></image>
+                    </g>
+                  </g>
+                </g>
+              </g>
+              <g id="XMLID_1563_">
+                <g id="XMLID_829_">
+                  <g id="XMLID_844_" class="st6" style="enable-background:new">
+                    <g id="XMLID_846_" class="st15" clip-path="url(#XMLID_106_)">
+                      <image
+                        item-circle-id="24"
+                        class="st50"
+                        href="assets/pic/chain2.png"
+                        style="width: 66px; height: 55px; x:489; y:347;"
+                      ></image>
+                      <image
+                        item-circle-id="24"
+                        class="st60"
+                        href="assets/pic/Icons3D/1.png"
+                        class="st60"
+                        style="width: 25px; height: 50px; x:509; y:347;"
+                      ></image>
+                    </g>
+                  </g>
+                </g>
+              </g>
+              <line
+                id="XMLID_661_"
+                class="st3"
+                x1="206.5"
+                y1="366.70001"
+                x2="218.39999"
+                y2="373.60001"
+                item-line-id="32"
+                style="fill:none;stroke:#5c617e;stroke-width:0.87510002;stroke-miterlimit:10"
+              />
+              <line
+                id="XMLID_660_"
+                class="st3"
+                x1="494.5"
+                y1="390.29999"
+                x2="508.10001"
+                y2="382.10001"
+                item-line-id="4623"
+                style="fill:none;stroke:#5c617e;stroke-width:0.87510002;stroke-miterlimit:10"
+              />
+              <g id="XMLID_1559_">
+                <text
+                  id="XMLID_659_"
+                  item-circle-id="6"
+                  transform="matrix(1 0 0 1 56.3608 444.2724)"
+                  class="st0 st1"
+                >
+                  Блок ВТ (АТВБ)
+                </text>
+              </g>
+              <g id="XMLID_1528_">
+                <g id="XMLID_848_">
+                  <g id="XMLID_863_" class="st6" style="enable-background:new">
+                    <g id="XMLID_865_" class="st17" clip-path="url(#XMLID_429_)">
+                      <image
+                        item-circle-id="6"
+                        class="st50"
+                        href="assets/pic/chain2.png"
+                        style="width: 63px; height: 55px; x:40; y:434;"
+                      ></image>
+                      <image
+                        item-circle-id="6"
+                        class="st60"
+                        href="assets/pic/Icons3D/0.png"
+                        class="st60"
+                        style="width: 25px; height: 50px; x:57; y:434;"
+                      ></image>
+                    </g>
+                  </g>
+                </g>
+              </g>
+              <g id="XMLID_1526_">
+                <text
+                  id="XMLID_649_"
+                  item-circle-id="11"
+                  transform="matrix(1 0 0 1 81.2011 491.6962)"
+                  class="st0 st1"
+                >
+                  Реагентное хоз-во
+                </text>
+              </g>
+              <g id="XMLID_1495_">
+                <g id="XMLID_867_">
+                  <g id="XMLID_882_" class="st6" style="enable-background:new">
+                    <g id="XMLID_884_" class="st18" clip-path="url(#XMLID_430_)">
+                      <image
+                        item-circle-id="11"
+                        class="st50"
+                        href="assets/pic/chain2.png"
+                        style="width: 66px; height: 55px; x:62; y:480;"
+                      ></image>
+                      <image
+                        item-circle-id="11"
+                        class="st60"
+                        href="assets/pic/Icons3D/8.png"
+                        class="st60"
+                        style="width: 25px; height: 50px; x:82; y:480;"
+                      ></image>
+                    </g>
+                  </g>
+                </g>
+              </g>
+              <g id="XMLID_1493_">
+                <text
+                  id="XMLID_639_"
+                  item-circle-id="12"
+                  transform="matrix(1 0 0 1 148.3207 460.0644)"
+                  class="st0 st1"
+                >
+                  УПБ
+                </text>
+              </g>
+              <g id="XMLID_1462_">
+                <g id="XMLID_885_">
+                  <g id="XMLID_902_" class="st6" style="enable-background:new">
+                    <g id="XMLID_904_" class="st19" clip-path="url(#XMLID_431_)">
+                      <image
+                        item-circle-id="12"
+                        class="st50"
+                        href="assets/pic/chain2.png"
+                        style="width: 66px; height: 55px; x:120; y:450;"
+                      ></image>
+                      <image
+                        item-circle-id="12"
+                        class="st60"
+                        href="assets/pic/Icons3D/1.png"
+                        class="st60"
+                        style="width: 25px; height: 50px; x:140; y:450;"
+                      ></image>
+                    </g>
+                  </g>
+                </g>
+              </g>
+              <g id="XMLID_1460_">
+                <text
+                  id="XMLID_629_"
+                  item-circle-id="13"
+                  transform="matrix(1 0 0 1 202.8735 428.4355)"
+                  class="st0 st1"
+                >
+                  УПС
+                </text>
+              </g>
+              <g id="XMLID_1429_">
+                <g id="XMLID_898_">
+                  <g id="XMLID_944_" class="st6" style="enable-background:new">
+                    <g id="XMLID_947_" class="st20" clip-path="url(#XMLID_432_)">
+                      <image
+                        item-circle-id="13"
+                        class="st50"
+                        href="assets/pic/chain2.png"
+                        style="width: 66px; height: 55px; x:174; y:418;"
+                      ></image>
+                      <image
+                        item-circle-id="13"
+                        class="st60"
+                        href="assets/pic/Icons3D/8.png"
+                        class="st60"
+                        style="width: 25px; height: 50px; x:194; y:418;"
+                      ></image>
+                    </g>
+                  </g>
+                </g>
+              </g>
+              <g id="XMLID_1427_">
+                <text
+                  id="XMLID_619_"
+                  item-circle-id="7"
+                  transform="matrix(1 0 0 1 120.9067 411.9731)"
+                  class="st0 st1"
+                >
+                  УПВ
+                </text>
+              </g>
+              <g id="XMLID_1396_">
+                <g id="XMLID_900_">
+                  <g id="XMLID_950_" class="st6" style="enable-background:new">
+                    <g id="XMLID_967_" class="st21" clip-path="url(#XMLID_434_)">
+                      <image
+                        item-circle-id="7"
+                        class="st50"
+                        href="assets/pic/chain2.png"
+                        style="width: 66px; height: 55px; x:92; y:403;"
+                      ></image>
+                      <image
+                        item-circle-id="7"
+                        class="st60"
+                        href="assets/pic/Icons3D/10.png"
+                        class="st60"
+                        style="width: 25px; height: 50px; x:112; y:403;"
+                      ></image>
+                    </g>
+                  </g>
+                </g>
+              </g>
+              <line
+                id="XMLID_609_"
+                class="st3"
+                x1="83.400002"
+                y1="343.10001"
+                x2="165.39999"
+                y2="295.39999"
+                item-line-id="1"
+                style="fill:none;stroke:#a7dcf8;stroke-width:1.75020003;stroke-miterlimit:10"
+              />
+              <g id="XMLID_1380_">
+                <g id="XMLID_163_">
+                  <g id="XMLID_236_" class="st6" style="enable-background:new">
+                    <g id="XMLID_248_" class="st22" clip-path="url(#XMLID_435_)">
+                      <image
+                        item-circle-id="3"
+                        class="st50"
+                        href="assets/pic/chain4.png"
+                        style="width: 66px; height: 50px; x:159; y:286;"
+                      ></image>
+                      <image
+                        item-circle-id="3"
+                        href="assets/pic/Icons3D/12.png"
+                        class="st60"
+                        style="width: 25px; height: 50px; x:180; y:286;"
+                      ></image>
+                    </g>
+                  </g>
+                </g>
+              </g>
+              <g id="XMLID_1378_">
+                <text
+                  id="XMLID_607_"
+                  item-circle-id="1"
+                  transform="matrix(1 0 0 1 97.8691 341.2397)"
+                  class="st0 st1"
+                >
+                  ЭЛОУ-АВТ-6
+                </text>
+              </g>
+              <g id="XMLID_1363_">
+                <g id="XMLID_162_">
+                  <g id="XMLID_216_" class="st6" style="enable-background:new">
+                    <g id="XMLID_237_" class="st23" clip-path="url(#XMLID_438_)">
+                      <image
+                        item-circle-id="19"
+                        class="st50"
+                        href="assets/pic/chain2.png"
+                        style="width: 66px; height: 55px; x:187; y:489;"
+                      ></image>
+                      <image
+                        item-circle-id="19"
+                        class="st60"
+                        href="assets/pic/Icons3D/8.png"
+                        class="st60"
+                        style="width: 25px; height: 50px; x:207; y:489;"
+                      ></image>
+                    </g>
+                  </g>
+                </g>
+              </g>
+              <g id="XMLID_1361_">
+                <text
+                  id="XMLID_605_"
+                  item-circle-id="19"
+                  transform="matrix(1 0 0 1 216.9892 499.5087)"
+                  class="st0 st1"
+                >
+                  КЦА
+                </text>
+              </g>
+              <g id="XMLID_1346_">
+                <g id="XMLID_161_">
+                  <g id="XMLID_208_" class="st6" style="enable-background:new">
+                    <g id="XMLID_220_" class="st24" clip-path="url(#XMLID_439_)">
+                      <image
+                        item-circle-id="20"
+                        class="st50"
+                        href="assets/pic/chain2.png"
+                        style="width: 66px; height: 55px; x:242; y:458;"
+                      ></image>
+                      <image
+                        item-circle-id="20"
+                        class="st60"
+                        href="assets/pic/Icons3D/8.png"
+                        class="st60"
+                        style="width: 25px; height: 50px; x:262; y:458;"
+                      ></image>
+                    </g>
+                  </g>
+                </g>
+              </g>
+              <g id="XMLID_1341_">
+                <g id="XMLID_133_">
+                  <text
+                    id="XMLID_134_"
+                    item-circle-id="20"
+                    transform="matrix(1 0 0 1 270.1249 467.7802)"
+                    class="st0 st1"
+                  >
+                    МТБЭ
+                  </text>
+                </g>
+              </g>
+              <g id="XMLID_1326_">
+                <g id="XMLID_160_">
+                  <g id="XMLID_201_" class="st6" style="enable-background:new">
+                    <g id="XMLID_210_" class="st25" clip-path="url(#XMLID_440_)">
+                      <image
+                        item-circle-id="15"
+                        class="st50"
+                        href="assets/pic/chain2.png"
+                        style="width: 66px; height: 55px; x:243; y:395;"
+                      ></image>
+                      <image
+                        item-circle-id="15"
+                        class="st60"
+                        href="assets/pic/Icons3D/4.png"
+                        class="st60"
+                        style="width: 25px; height: 50px; x:263; y:395;"
+                      ></image>
+                    </g>
+                  </g>
+                </g>
+              </g>
+              <g id="XMLID_1311_">
+                <g id="XMLID_159_">
+                  <g id="XMLID_196_" class="st6" style="enable-background:new">
+                    <g id="XMLID_205_" class="st26" clip-path="url(#XMLID_441_)">
+                      <image
+                        item-circle-id="9"
+                        class="st50"
+                        href="assets/pic/chain2.png"
+                        style="width: 66px; height: 55px; x:201; y:355;"
+                      ></image>
+                      <image
+                        item-circle-id="9"
+                        href="assets/pic/Icons3D/8.png"
+                        class="st60"
+                        style="width: 25px; height: 50px; x:221; y:355;"
+                      ></image>
+                    </g>
+                  </g>
+                </g>
+              </g>
+              <g id="XMLID_1309_">
+                <text
+                  id="XMLID_600_"
+                  item-circle-id="15"
+                  transform="matrix(1 0 0 1 269.3227 404.5902)"
+                  class="st0 st1"
+                >
+                  ГФУ-2
+                </text>
+              </g>
+              <g id="XMLID_1294_">
+                <g id="XMLID_158_">
+                  <g id="XMLID_189_" class="st6" style="enable-background:new">
+                    <g id="XMLID_202_" class="st27" clip-path="url(#XMLID_442_)">
+                      <image
+                        item-circle-id="16"
+                        class="st50"
+                        href="assets/pic/chain2.png"
+                        style="width: 66px; height: 55px; x:296; y:363;"
+                      ></image>
+                      <image
+                        item-circle-id="16"
+                        class="st60"
+                        href="assets/pic/Icons3D/5.png"
+                        class="st60"
+                        style="width: 25px; height: 50px; x:316; y:363;"
+                      ></image>
+                    </g>
+                  </g>
+                </g>
+              </g>
+              <g id="XMLID_1279_">
+                <g id="XMLID_157_">
+                  <g id="XMLID_184_" class="st6" style="enable-background:new">
+                    <g id="XMLID_197_" class="st28" clip-path="url(#XMLID_443_)">
+                      <image
+                        item-circle-id="17"
+                        class="st50"
+                        href="assets/pic/chain2.png"
+                        style="width: 66px; height: 55px; x:350; y:332;"
+                      ></image>
+                      <image
+                        item-circle-id="17"
+                        class="st60"
+                        href="assets/pic/Icons3D/6.png"
+                        class="st60"
+                        style="width: 25px; height: 50px; x:370; y:332;"
+                      ></image>
+                    </g>
+                  </g>
+                </g>
+              </g>
+              <g id="XMLID_1264_">
+                <g id="XMLID_156_">
+                  <g id="XMLID_180_" class="st6" style="enable-background:new">
+                    <g id="XMLID_193_" class="st29" clip-path="url(#XMLID_444_)">
+                      <image
+                        item-circle-id="23"
+                        class="st50"
+                        href="assets/pic/chain2.png"
+                        style="width: 66px; height: 55px; x:404; y:362;"
+                      ></image>
+                      <image
+                        item-circle-id="23"
+                        class="st60"
+                        href="assets/pic/Icons3D/3.png"
+                        class="st60"
+                        style="width: 25px; height: 50px; x:424; y:362;"
+                      ></image>
+                    </g>
+                  </g>
+                </g>
+              </g>
+              <g id="XMLID_1262_">
+                <text
+                  id="XMLID_596_"
+                  item-circle-id="16"
+                  transform="matrix(1 0 0 1 320.9404 372.7563)"
+                  class="st0 st1"
+                >
+                  Г-43-107
+                </text>
+              </g>
+              <g id="XMLID_1247_">
+                <g id="XMLID_144_">
+                  <g id="XMLID_176_" class="st6" style="enable-background:new">
+                    <g id="XMLID_190_" class="st30" clip-path="url(#XMLID_445_)">
+                      <image
+                        item-circle-id="22"
+                        class="st50"
+                        href="assets/pic/chain2.png"
+                        style="width: 66px; height: 55px; x:350; y:394;"
+                      ></image>
+                      <image
+                        item-circle-id="22"
+                        class="st60"
+                        href="assets/pic/Icons3D/6.png"
+                        class="st60"
+                        style="width: 25px; height: 50px; x:370; y:394;"
+                      ></image>
+                    </g>
+                  </g>
+                </g>
+              </g>
+              <g id="XMLID_1245_">
+                <text
+                  id="XMLID_594_"
+                  item-circle-id="22"
+                  transform="matrix(1 0 0 1 378.1044 404.7104)"
+                  class="st0 st1"
+                >
+                  ГОБКК
+                </text>
+              </g>
+              <g id="XMLID_1230_">
+                <g id="XMLID_142_">
+                  <g id="XMLID_175_" class="st6" style="enable-background:new">
+                    <g id="XMLID_185_" class="st31" clip-path="url(#XMLID_446_)">
+                      <image
+                        item-circle-id="28"
+                        class="st50"
+                        href="assets/pic/chain2.png"
+                        style="width: 66px; height: 55px; x:459; y:472;"
+                      ></image>
+                      <image
+                        item-circle-id="28"
+                        class="st60"
+                        href="assets/pic/Icons3D/Cistern.png"
+                        class="st60"
+                        style="width: 25px; height: 50px; x:479; y:472;"
+                      ></image>
+                    </g>
+                  </g>
+                </g>
+              </g>
+              <g id="XMLID_1228_">
+                <text
+                  id="XMLID_592_"
+                  item-circle-id="28"
+                  transform="matrix(1 0 0 1 481.2861 483.4482)"
+                  class="st0 st1"
+                >
+                  ЖД эстакажы
+                </text>
+              </g>
+              <g id="XMLID_1213_">
+                <g id="XMLID_140_">
+                  <g id="XMLID_178_" class="st6" style="enable-background:new">
+                    <g id="XMLID_181_" class="st32" clip-path="url(#XMLID_448_)">
+                      <image
+                        item-circle-id="29"
+                        class="st50"
+                        href="assets/pic/chain2.png"
+                        style="width: 66px; height: 55px; x:513; y:440;"
+                      ></image>
+                      <image
+                        item-circle-id="29"
+                        class="st60"
+                        href="assets/pic/Icons3D/Tug.png"
+                        class="st60"
+                        style="width: 32px; height: 50px; x:528; y:443;"
+                      ></image>
+                    </g>
+                  </g>
+                </g>
+              </g>
+              <g id="XMLID_1211_">
+                <text
+                  id="XMLID_590_"
+                  item-circle-id="29"
+                  transform="matrix(1 0 0 1 534.0595 448.996)"
+                  class="st0 st1"
+                >
+                  АВТО эстакажы
+                </text>
+              </g>
+              <g id="XMLID_1196_">
+                <g id="XMLID_139_">
+                  <g id="XMLID_179_" class="st6" style="enable-background:new">
+                    <g id="XMLID_209_" class="st33" clip-path="url(#XMLID_449_)">
+                      <image
+                        item-circle-id="27"
+                        class="st50"
+                        href="assets/pic/chain2.png"
+                        style="width: 66px; height: 55px; x:406; y:504;"
+                      ></image>
+                      <image
+                        item-circle-id="27"
+                        class="st60"
+                        href="assets/pic/Icons3D/Tube.png"
+                        class="st60"
+                        style="width: 25px; height: 50px; x:426; y:504;"
+                      ></image>
+                    </g>
+                  </g>
+                </g>
+              </g>
+              <g id="XMLID_1194_">
+                <text
+                  id="XMLID_588_"
+                  item-circle-id="27"
+                  transform="matrix(1 0 0 1 414.7382 515.1357)"
+                  class="st0 st1"
+                >
+                  Трубопровод транснефть
+                </text>
+              </g>
+              <g id="XMLID_1192_">
+                <text
+                  id="XMLID_587_"
+                  item-circle-id="25"
+                  transform="matrix(1 0 0 1 361.7685 475.6015)"
+                  class="st0 st1"
+                >
+                  АССБ и КТ
+                </text>
+              </g>
+              <g id="XMLID_1177_" item-circle-id="26">
+                <g id="XMLID_150_">
+                  <g id="XMLID_212_" class="st6" style="enable-background:new">
+                    <g id="XMLID_229_" class="st35" clip-path="url(#XMLID_450_)">
+                      <image
+                        item-circle-id="26"
+                        class="st50"
+                        href="assets/pic/chain2.png"
+                        style="width: 66px; height: 55px; x:391; y:435;"
+                      ></image>
+                      <image
+                        item-circle-id="26"
+                        class="st60"
+                        href="assets/pic/Icons3D/2.png"
+                        class="st60"
+                        style="width: 25px; height: 50px; x:411; y:435;"
+                      ></image>
+                    </g>
+                  </g>
+                </g>
+              </g>
+              <g id="XMLID_1175_">
+                <text
+                  id="XMLID_585_"
+                  item-circle-id="26"
+                  transform="matrix(1 0 0 1 412.6894 443.9257)"
+                  class="st0 st1"
+                >
+                  Парк Б,Р и ДТ
+                </text>
+              </g>
+              <g id="XMLID_1160_">
+                <g id="XMLID_169_">
+                  <g id="XMLID_454_" class="st6" style="enable-background:new">
+                    <g id="XMLID_468_" class="st36" clip-path="url(#XMLID_451_)">
+                      <image
+                        item-circle-id="21"
+                        class="st50"
+                        href="assets/pic/chain2.png"
+                        style="width: 66px; height: 55px; x:300; y:426;"
+                      ></image>
+                      <image
+                        item-circle-id="21"
+                        class="st60"
+                        href="assets/pic/Icons3D/7.png"
+                        class="st60"
+                        style="width: 25px; height: 50px; x:320; y:426;"
+                      ></image>
+                    </g>
+                  </g>
+                </g>
+              </g>
+              <g id="XMLID_1158_">
+                <text
+                  id="XMLID_583_"
+                  item-circle-id="21"
+                  transform="matrix(1 0 0 1 324.455 436.2108)"
+                  class="st0 st1"
+                >
+                  ТАМЭ
+                </text>
+              </g>
+              <g id="XMLID_1156_">
+                <text
+                  id="XMLID_582_"
+                  item-circle-id="3"
+                  transform="matrix(1 0 0 1 167.183 293.5561)"
+                  class="st0 st1"
+                >
+                  С.100 КУПН ЭЛОУ-АВТ-6
+                </text>
+              </g>
+              <line
+                id="XMLID_581_"
+                class="st3"
+                x1="152.3"
+                y1="382.60001"
+                x2="261.89999"
+                y2="445.70001"
+                item-line-id="222"
+                style="fill:none;stroke:#a7dcf8;stroke-width:1.75020003;stroke-miterlimit:10"
+              />
+              <line
+                id="XMLID_580_"
+                item-line-id="44"
+                class="st3"
+                x1="411.5"
+                y1="279.5"
+                x2="576.79999"
+                y2="374.60001"
+                style="fill:none;stroke:#a7dcf8;stroke-width:1.75020003;stroke-miterlimit:10"
+              />
+              <circle
+                id="XMLID_579_"
+                class="st37"
+                item-line-id="222"
+                cx="152.3"
+                cy="382.6"
+                r="0.7"
+              />
+              <circle
+                id="XMLID_578_"
+                item-circle-id="1"
+                class="st38"
+                cx="127.3"
+                cy="368.4"
+                r="1.3"
+              />
+              <circle id="XMLID_577_" class="st38" cx="250.3" cy="392" item-circle-id="9" r="1.3" />
+              <circle
+                id="XMLID_576_"
+                class="st38"
+                cx="237.4"
+                cy="526.6"
+                item-circle-id="19"
+                r="1.3"
+              />
+              <circle
+                id="XMLID_575_"
+                item-circle-id="20"
+                class="st38"
+                cx="291.8"
+                cy="494.8"
+                r="1.3"
+              />
+              <circle
+                id="XMLID_574_"
+                class="st38"
+                cx="346.5"
+                cy="463.2"
+                item-circle-id="21"
+                r="1.3"
+              />
+              <circle
+                id="XMLID_573_"
+                class="st38"
+                item-circle-id="9"
+                cx="291.7"
+                cy="431.6"
+                r="1.3"
+              />
+              <circle
+                id="XMLID_566_"
+                class="st38"
+                item-circle-id="22"
+                cx="369.2"
+                cy="431.8"
+                r="1.3"
+              />
+              <circle
+                id="XMLID_565_"
+                class="st38"
+                item-circle-id="23"
+                cx="423.5"
+                cy="399.9"
+                r="1.3"
+              />
+              <circle
+                id="XMLID_564_"
+                class="st38"
+                cx="401.4"
+                item-circle-id="22"
+                cy="431.6"
+                r="1.3"
+              />
+              <circle
+                id="XMLID_563_"
+                class="st38"
+                item-circle-id="26"
+                cx="443.2"
+                cy="470.8"
+                r="1.3"
+              />
+              <circle
+                id="XMLID_562_"
+                class="st37"
+                item-line-id="221"
+                cx="97.5"
+                cy="414.5"
+                r="0.7"
+              />
+              <circle id="XMLID_561_" class="st37" cx="83.5" item-line-id="1" cy="343.1" r="0.7" />
+              <circle id="XMLID_560_" class="st37" item-line-id="1" cx="124.3" cy="319.2" r="0.7" />
+              <circle id="XMLID_542_" item-line-id="1" class="st37" cx="165.4" cy="295.4" r="0.7" />
+              <circle
+                id="XMLID_523_"
+                class="st37"
+                item-line-id="221"
+                cx="70.4"
+                cy="430.4"
+                r="0.7"
+              />
+              <circle
+                id="XMLID_504_"
+                item-line-id="2215"
+                class="st37"
+                cx="152.9"
+                cy="509.4"
+                r="0.7"
+              />
+              <circle
+                id="XMLID_485_"
+                item-line-id="2215"
+                class="st37"
+                cx="180.1"
+                cy="493.5"
+                r="0.7"
+              />
+              <circle
+                id="XMLID_466_"
+                class="st37"
+                item-line-id="2215"
+                cx="207.6"
+                cy="477.7"
+                r="0.7"
+              />
+              <circle
+                id="XMLID_447_"
+                item-line-id="2215"
+                class="st37"
+                cx="235"
+                cy="461.7"
+                r="0.7"
+              />
+              <circle
+                id="XMLID_428_"
+                class="st37"
+                item-line-id="2215"
+                cx="125.3"
+                cy="525.4"
+                r="0.7"
+              />
+              <circle
+                id="XMLID_409_"
+                class="st37"
+                cx="220.7"
+                item-line-id="222"
+                cy="422.2"
+                r="0.7"
+              />
+              <circle
+                id="XMLID_396_"
+                item-line-id="35"
+                class="st37"
+                cx="247.9"
+                cy="406.4"
+                r="0.7"
+              />
+              <circle id="XMLID_394_" item-line-id="35" class="st37" cx="302.5" cy="375" r="0.7" />
+              <circle
+                id="XMLID_393_"
+                item-line-id="45"
+                class="st37"
+                cx="357.2"
+                cy="374.6"
+                r="0.7"
+              />
+              <circle
+                id="XMLID_392_"
+                item-line-id="46"
+                class="st37"
+                cx="412.2"
+                cy="374.8"
+                r="0.7"
+              />
+              <circle
+                id="XMLID_391_"
+                item-line-id="4621"
+                class="st37"
+                cx="439.9"
+                cy="358.7"
+                r="0.7"
+              />
+              <g id="XMLID_390_">
+                <g id="XMLID_107_">
+                  <line
+                    id="XMLID_112_"
+                    class="st3"
+                    x1="275"
+                    y1="359"
+                    x2="294.5"
+                    y2="347.70001"
+                    item-line-id="4231"
+                    style="fill:none;stroke:#a7dcf8;stroke-width:1.75020003;stroke-miterlimit:10"
+                  />
+                  <g id="XMLID_108_">
+                    <polygon
+                      id="XMLID_109_"
+                      item-line-id="4231"
+                      class="st5"
+                      points="297.8,345.8 292.5,345.8 295.2,350.3 "
+                      style="fill:#a7dcf8"
+                    />
+                  </g>
+                </g>
+              </g>
+              <g id="XMLID_380_">
+                <g id="XMLID_94_">
+                  <line
+                    id="XMLID_99_"
+                    class="st3"
+                    item-line-id="441"
+                    x1="329.70001"
+                    y1="359"
+                    x2="390.70001"
+                    y2="323.5"
+                    style="fill:none;stroke:#a7dcf8;stroke-width:1.75020003;stroke-miterlimit:10"
+                  />
+                  <g id="XMLID_95_">
+                    <polygon
+                      id="XMLID_96_"
+                      class="st5"
+                      item-line-id="441"
+                      points="391.4,326.1 394,321.6 388.8,321.6 "
+                      style="fill:#a7dcf8"
+                    />
+                  </g>
+                </g>
+              </g>
+              <g id="XMLID_379_" item-line-id="452">
+                <g id="XMLID_89_">
+                  <line
+                    id="XMLID_92_"
+                    class="st3"
+                    x1="400.60001"
+                    item-line-id="452"
+                    y1="349.70001"
+                    x2="463"
+                    y2="313.20001"
+                    style="fill:none;stroke:#a7dcf8;stroke-width:1.75020003;stroke-miterlimit:10"
+                  />
+                  <g id="XMLID_90_">
+                    <polygon
+                      id="XMLID_91_"
+                      item-line-id="452"
+                      class="st5"
+                      points="466.3,311.3 461.1,311.3 463.7,315.8 "
+                      style="fill:#a7dcf8"
+                    />
+                  </g>
+                </g>
+              </g>
+              <g id="XMLID_378_">
+                <g id="XMLID_84_">
+                  <line
+                    id="XMLID_87_"
+                    class="st3"
+                    item-line-id="4232"
+                    x1="332.79999"
+                    y1="325.60001"
+                    x2="408.39999"
+                    y2="281.60001"
+                    style="fill:none;stroke:#a7dcf8;stroke-width:1.75020003;stroke-miterlimit:10"
+                  />
+                  <g id="XMLID_85_">
+                    <polygon
+                      id="XMLID_86_"
+                      class="st5"
+                      item-line-id="4232"
+                      points="411.7,279.7 406.4,279.7 409.1,284.2 "
+                      style="fill:#a7dcf8"
+                    />
+                  </g>
+                </g>
+              </g>
+              <circle id="XMLID_377_" item-line-id="42" class="st37" cx="275" cy="359" r="0.7" />
+              <circle id="XMLID_376_" class="st37" item-line-id="35" cx="330" cy="358.9" r="0.7" />
+              <circle
+                id="XMLID_375_"
+                class="st37"
+                cx="411.5"
+                item-line-id="44"
+                cy="279.5"
+                r="0.7"
+              />
+              <circle
+                id="XMLID_374_"
+                class="st37"
+                cx="466.3"
+                item-line-id="44"
+                cy="311.3"
+                r="0.7"
+              />
+              <circle
+                id="XMLID_373_"
+                item-line-id="23"
+                class="st37"
+                cx="439.6"
+                cy="422.6"
+                r="0.7"
+              />
+              <circle id="XMLID_372_" class="st37" item-line-id="23" cx="248.8" cy="533" r="0.7" />
+              <circle
+                id="XMLID_371_"
+                class="st37"
+                cx="303.7"
+                item-line-id="23"
+                cy="501.2"
+                r="0.7"
+              />
+              <circle
+                id="XMLID_370_"
+                class="st37"
+                cx="330.8"
+                item-line-id="23"
+                cy="485.5"
+                r="0.7"
+              />
+              <circle
+                id="XMLID_369_"
+                class="st37"
+                item-line-id="23"
+                cx="344.8"
+                cy="477.1"
+                r="0.7"
+              />
+              <circle id="XMLID_368_" class="st37" item-line-id="23" cx="358" cy="469.7" r="0.7" />
+              <circle id="XMLID_367_" class="st37" item-line-id="23" cx="412.4" cy="438" r="0.7" />
+              <circle id="XMLID_366_" item-line-id="27" class="st37" cx="453.9" cy="477" r="0.7" />
+              <circle id="XMLID_365_" item-line-id="27" class="st37" cx="399.5" cy="509" r="0.7" />
+              <circle
+                id="XMLID_364_"
+                item-line-id="27"
+                class="st37"
+                cx="508.7"
+                cy="445.8"
+                r="0.7"
+              />
+              <circle
+                id="XMLID_363_"
+                item-circle-id="3"
+                class="st38"
+                cx="209.2"
+                cy="320.6"
+                r="1.3"
+              />
+              <circle
+                id="XMLID_362_"
+                item-line-id="224"
+                class="st37"
+                cx="193.7"
+                cy="501.5"
+                r="0.7"
+              />
+              <g id="XMLID_1082_">
+                <g id="XMLID_113_">
+                  <text
+                    id="XMLID_114_"
+                    item-circle-id="9"
+                    transform="matrix(1 0 0 1 227.1874 364.849)"
+                    class="st0 st1"
+                  >
+                    Л-22/4
+                  </text>
+                </g>
+              </g>
+              <g id="XMLID_1077_">
+                <g id="XMLID_110_">
+                  <text
+                    id="XMLID_111_"
+                    item-circle-id="23"
+                    transform="matrix(1 0 0 1 424.3232 372.8764)"
+                    class="st0 st1"
+                  >
+                    ЛЧ-35-11-1000
+                  </text>
+                </g>
+              </g>
+              <g id="XMLID_1072_">
+                <g id="XMLID_115_">
+                  <text
+                    id="XMLID_116_"
+                    item-circle-id="17"
+                    transform="matrix(1 0 0 1 368.8085 341.0473)"
+                    class="st0 st1"
+                  >
+                    ЛЧ-35-11-300М
+                  </text>
+                </g>
+              </g>
+              <g id="XMLID_1067_">
+                <g id="XMLID_118_">
+                  <text
+                    id="XMLID_138_"
+                    item-circle-id="5"
+                    transform="matrix(1 0 0 1 254.2148 285.8852)"
+                    class="st0 st1"
+                  >
+                    Л-24/5
+                  </text>
+                </g>
+              </g>
+              <line
+                id="XMLID_351_"
+                class="st3"
+                x1="247.7"
+                y1="342.79999"
+                x2="329.39999"
+                y2="295.39999"
+                item-line-id="4221"
+                style="fill:none;stroke:#5c617e;stroke-width:0.87510002;stroke-miterlimit:10"
+              />
+              <line
+                id="XMLID_350_"
+                class="st3"
+                x1="356.70001"
+                y1="279.70001"
+                x2="370.60001"
+                y2="272"
+                item-line-id="4222"
+                style="fill:none;stroke:#5c617e;stroke-width:0.87510002;stroke-miterlimit:10"
+              />
+              <g id="XMLID_1034_">
+                <g id="XMLID_899_">
+                  <g id="XMLID_913_" class="st6" style="enable-background:new">
+                    <g id="XMLID_915_" class="st41" clip-path="url(#XMLID_459_)">
+                      <image
+                        item-circle-id="8"
+                        class="st50"
+                        href="assets/pic/chain2.png"
+                        style="width: 66px; height: 55px; x:310; y:260;"
+                      ></image>
+                      <image
+                        item-circle-id="8"
+                        class="st60"
+                        href="assets/pic/Icons3D/1.png"
+                        class="st60"
+                        style="width: 25px; height: 50px; x:330; y:260;"
+                      ></image>
+                    </g>
+                  </g>
+                </g>
+              </g>
+              <g id="XMLID_1029_">
+                <g id="XMLID_143_">
+                  <text
+                    id="XMLID_145_"
+                    item-circle-id="8"
+                    transform="matrix(1 0 0 1 332.2167 270.2143)"
+                    class="st0 st1"
+                  >
+                    Л-24-2000
+                  </text>
+                </g>
+              </g>
+              <g id="XMLID_1014_" item-circle-id="18">
+                <g id="XMLID_146_">
+                  <g id="XMLID_473_" class="st6" style="enable-background:new">
+                    <g id="XMLID_475_" class="st42" clip-path="url(#XMLID_460_)">
+                      <image
+                        item-circle-id="18"
+                        class="st50"
+                        href="assets/pic/chain2.png"
+                        style="width: 66px; height: 55px; x:431; y:316;"
+                      ></image>
+                      <image
+                        item-circle-id="18"
+                        class="st60"
+                        href="assets/pic/Icons3D/11.png"
+                        class="st60"
+                        style="width: 25px; height: 50px; x:451; y:316;"
+                      ></image>
+                    </g>
+                  </g>
+                </g>
+              </g>
+              <g id="XMLID_1009_">
+                <g id="XMLID_456_">
+                  <text
+                    id="XMLID_457_"
+                    item-circle-id="14"
+                    transform="matrix(1 0 0 1 394.8437 294.433)"
+                    class="st0 st1"
+                  >
+                    С-200 КУПН СТО
+                  </text>
+                </g>
+              </g>
+              <g id="XMLID_994_">
+                <g id="XMLID_469_">
+                  <g id="XMLID_482_" class="st6" style="enable-background:new">
+                    <g id="XMLID_488_" class="st43" clip-path="url(#XMLID_491_)">
+                      <image
+                        item-circle-id="10"
+                        class="st50"
+                        href="assets/pic/chain2.png"
+                        style="width: 66px; height: 55px; x:281; y:309;"
+                      ></image>
+                      <image
+                        item-circle-id="10"
+                        class="st60"
+                        href="assets/pic/Icons3D/11.png"
+                        class="st60"
+                        style="width: 25px; height: 50px; x:301; y:309;"
+                      ></image>
+                    </g>
+                  </g>
+                </g>
+              </g>
+              <g id="XMLID_989_">
+                <g id="XMLID_463_">
+                  <text
+                    id="XMLID_467_"
+                    item-circle-id="10"
+                    transform="matrix(1 0 0 1 301.2568 317.1)"
+                    class="st0 st1"
+                  >
+                    Изомеризация
+                  </text>
+                </g>
+              </g>
+              <g id="XMLID_974_">
+                <g id="XMLID_471_">
+                  <g id="XMLID_481_" class="st6" style="enable-background:new">
+                    <g id="XMLID_483_" class="st44" clip-path="url(#XMLID_492_)">
+                      <image
+                        item-circle-id="14"
+                        class="st50"
+                        href="assets/pic/chain2.png"
+                        style="width: 66px; height: 55px; x:377; y:284;"
+                      ></image>
+                      <image
+                        item-circle-id="14"
+                        class="st60"
+                        href="assets/pic/Icons3D/11.png"
+                        class="st60"
+                        style="width: 25px; height: 50px; x:397; y:284;"
+                      ></image>
+                    </g>
+                  </g>
+                </g>
+              </g>
+              <g id="XMLID_969_">
+                <g id="XMLID_464_">
+                  <text
+                    id="XMLID_465_"
+                    item-circle-id="18"
+                    transform="matrix(1 0 0 1 449.4355 325.2055)"
+                    class="st0 st1"
+                  >
+                    С-400 КУПН ГФУ
+                  </text>
+                </g>
+              </g>
+              <g id="XMLID_964_">
+                <g id="XMLID_461_">
+                  <text
+                    id="XMLID_462_"
+                    item-circle-id="24"
+                    transform="matrix(1 0 0 1 509.8915 357.7035)"
+                    class="st0 st1"
+                  >
+                    С-300 КУПН
+                  </text>
+                </g>
+              </g>
+              <circle id="XMLID_66_" item-line-id="42" class="st37" cx="247.7" cy="342.8" r="0.7" />
+              <g id="XMLID_948_" item-circle-id="25">
+                <g id="XMLID_470_">
+                  <g id="XMLID_476_" class="st6" style="enable-background:new">
+                    <g id="XMLID_478_" class="st45" clip-path="url(#XMLID_494_)">
+                      <image
+                        item-circle-id="25"
+                        class="st50"
+                        href="assets/pic/chain2.png"
+                        style="width: 66px; height: 55px; x:337; y:466;"
+                      ></image>
+                      <image
+                        item-circle-id="25"
+                        class="st60"
+                        href="assets/pic/Icons3D/2.png"
+                        class="st60"
+                        style="width: 25px; height: 50px; x:357; y:466;"
+                      ></image>
+                    </g>
+                  </g>
+                </g>
+              </g>
+              <circle
+                id="XMLID_64_"
+                class="st38"
+                cx="387.3"
+                item-circle-id="25"
+                cy="484.6"
+                r="1.3"
+              />
+              <circle id="XMLID_63_" class="st38" cx="332.6" item-circle-id="10" cy="326" r="1.3" />
+              <circle
+                id="XMLID_62_"
+                item-circle-id="17"
+                class="st38"
+                cx="400.6"
+                cy="349.7"
+                r="1.3"
+              />
+              <circle
+                id="XMLID_61_"
+                class="st38"
+                cx="346.2"
+                cy="399.9"
+                item-circle-id="16"
+                r="1.3"
+              />
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+
+  <evj-frame-bottom></evj-frame-bottom>
+</div>

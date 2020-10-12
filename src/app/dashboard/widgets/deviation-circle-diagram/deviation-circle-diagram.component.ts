@@ -1,14 +1,14 @@
 import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
 import { WidgetService } from '../../services/widget.service';
 import { DeviationCircleDiagram, ICenterOfPoint } from '../../models/deviation-circle-diagram';
-import { WidgetPlatform } from '../../models/widget-platform';
+import { WidgetPlatform } from '../../models/@PLATFORM/widget-platform';
 
 @Component({
     selector: 'evj-deviation-circle-diagram',
     templateUrl: './deviation-circle-diagram.component.html',
     styleUrls: ['./deviation-circle-diagram.component.scss'],
 })
-export class DeviationCircleDiagramComponent extends WidgetPlatform implements OnInit, OnDestroy {
+export class DeviationCircleDiagramComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
     public deviationCircleDiagram: DeviationCircleDiagram = {
         deviation: 0, // отклонение в %
         improvement: 0, // улучшение в %

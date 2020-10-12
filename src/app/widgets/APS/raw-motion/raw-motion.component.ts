@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy, Inject } from '@angular/core';
-import { WidgetPlatform } from '../../../dashboard/models/widget-platform';
+import { WidgetPlatform } from '../../../dashboard/models/@PLATFORM/widget-platform';
 import { WidgetService } from '../../../dashboard/services/widget.service';
 import { IRawMotion, IRawMotionHeader } from '../../../dashboard/models/APS/raw-motion.model';
 import { SelectionModel } from '@angular/cdk/collections';
@@ -9,7 +9,7 @@ import { SelectionModel } from '@angular/cdk/collections';
     templateUrl: './raw-motion.component.html',
     styleUrls: ['./raw-motion.component.scss'],
 })
-export class RawMotionComponent extends WidgetPlatform implements OnInit, OnDestroy {
+export class RawMotionComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
     public data: IRawMotion = {
         units: 'тн',
         upperLimit: 100,

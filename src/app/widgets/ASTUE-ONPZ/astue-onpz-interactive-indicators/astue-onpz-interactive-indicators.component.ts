@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy, Inject, Input } from '@angular/core';
-import { WidgetPlatform } from '../../../dashboard/models/widget-platform';
+import { WidgetPlatform } from '../../../dashboard/models/@PLATFORM/widget-platform';
 import { WidgetService } from '../../../dashboard/services/widget.service';
 import { AstueOnpzService } from '../astue-onpz-shared/astue-onpz.service';
 
@@ -32,7 +32,7 @@ interface IAstueOnpzInteractiveIndicator {
     templateUrl: './astue-onpz-interactive-indicators.component.html',
     styleUrls: ['./astue-onpz-interactive-indicators.component.scss']
 })
-export class AstueOnpzInteractiveIndicatorsComponent extends WidgetPlatform
+export class AstueOnpzInteractiveIndicatorsComponent extends WidgetPlatform<unknown>
     implements OnInit, OnDestroy {
 
     private readonly colorIndexCount: number = 6; // доступное количество color index
@@ -73,7 +73,7 @@ export class AstueOnpzInteractiveIndicatorsComponent extends WidgetPlatform
         super.dataConnect();
         this.subscriptions.push(
             this.astueOnpzService.sharedIndicatorOptions.subscribe((options) => {
-                this.widgetService.setWidgetLiveDataFromWSOptions(this.widgetId, options);
+                this.widgetService.setChannelLiveDataFromWsOptions(this.widgetId, options);
             }),
             this.astueOnpzService.colors$.subscribe((value) => {
                 this.colors = value;

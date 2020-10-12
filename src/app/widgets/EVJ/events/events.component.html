@@ -12,11 +12,11 @@
         <div class="header__icon-wrapper">
           <svg-icon class="header__icon" src="assets/icons/widgets/events/letter.svg"></svg-icon>
         </div>
-        <div *ngIf="!isMock" class="header__icon-wrapper" (click)="viewChanger(false)">
+        <div class="header__icon-wrapper" (click)="viewChanger(false)">
           <svg-icon [ngClass]="{'list': !isList}" class="header__icon" src="assets/pic/list.svg">
           </svg-icon>
         </div>
-        <div *ngIf="!isMock" class="header__icon-wrapper" (click)="viewChanger(true)">
+        <div class="header__icon-wrapper" (click)="viewChanger(true)">
           <svg-icon
             [ngClass]="{'blocks': isList}"
             class="header__icon"
@@ -65,6 +65,7 @@
     (mousedown)="$event.stopPropagation()"
     (touchstart)="$event.stopPropagation()"
   >
+    <evj-event-preview [isPreviewOpened]="isPreviewOpened" (close)="closeEventPreview()"></evj-event-preview>
     <div [class.events]="!isCDEvents" [class.cd-events]="isCDEvents">
       <div
         class="notifications"

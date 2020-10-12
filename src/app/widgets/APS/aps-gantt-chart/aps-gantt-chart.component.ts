@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
-import { WidgetPlatform } from '../../../dashboard/models/widget-platform';
+import { WidgetPlatform } from '../../../dashboard/models/@PLATFORM/widget-platform';
 import { WidgetService } from '../../../dashboard/services/widget.service';
 import { SelectionModel } from '@angular/cdk/collections';
 import { DATASOURCE } from './mock';
@@ -64,7 +64,7 @@ export interface IAPSGanttTank {
     templateUrl: './aps-gantt-chart.component.html',
     styleUrls: ['./aps-gantt-chart.component.scss']
 })
-export class ApsGanttChartComponent extends WidgetPlatform implements OnInit, OnDestroy {
+export class ApsGanttChartComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
 
     dataSource: IAPSGanttTank[] = DATASOURCE;
 

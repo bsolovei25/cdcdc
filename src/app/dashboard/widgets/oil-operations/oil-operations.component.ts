@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
 import { IDatesInterval, WidgetService } from '../../services/widget.service';
-import { WidgetPlatform } from '../../models/widget-platform';
+import { WidgetPlatform } from '../../models/@PLATFORM/widget-platform';
 import { ILeftOilTable, IOilOperations, IRightOilTable } from '../../models/oil-operations';
 import { OilOperationsService } from '../../services/widgets/oil-operations.service';
 
@@ -17,7 +17,7 @@ export interface IOilOperationsButton {
     templateUrl: './oil-operations.component.html',
     styleUrls: ['./oil-operations.component.scss']
 })
-export class OilOperationsComponent extends WidgetPlatform implements OnInit, OnDestroy {
+export class OilOperationsComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
     public static itemCols: number = 64;
     public static itemRows: number = 16;
     public static minItemCols: number = 54;

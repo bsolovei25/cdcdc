@@ -1,5 +1,5 @@
 import { Component, Inject, Input, OnDestroy, OnInit } from '@angular/core';
-import { WidgetPlatform } from '../../../dashboard/models/widget-platform';
+import { WidgetPlatform } from '../../../dashboard/models/@PLATFORM/widget-platform';
 import { WidgetService } from '../../../dashboard/services/widget.service';
 import {
     IAPSRecipeDiagram,
@@ -15,7 +15,7 @@ import { IParams } from '../cd-mat-balance/cd-mat-balance.component';
     templateUrl: './cd-reactor-parameters.component.html',
     styleUrls: ['./cd-reactor-parameters.component.scss']
 })
-export class CdReactorParametersComponent extends WidgetPlatform implements OnInit, OnDestroy {
+export class CdReactorParametersComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
     dataSourceQuality: IAPSRecipeDiagram[] = DATASOURCE;
     data: IParams[] = [];
     columnsToDisplay: IColumnsToDisplay[] = [

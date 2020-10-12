@@ -1,5 +1,5 @@
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
-import { WidgetPlatform } from '../../../dashboard/models/widget-platform';
+import { WidgetPlatform } from '../../../dashboard/models/@PLATFORM/widget-platform';
 import { ISmpEvent } from '../../../dashboard/models/SMP/smp-events.model';
 import { ISelectValue } from '../../../@shared/components/select/select.component';
 import { ISmpEventsMessageModel } from '../../../@shared/models/smp-events-message.model';
@@ -11,7 +11,7 @@ import { SmpEventsService } from '../../../dashboard/services/widgets/smp-events
     templateUrl: './smp-events-workspace.component.html',
     styleUrls: ['./smp-events-workspace.component.scss'],
 })
-export class SmpEventsWorkspaceComponent extends WidgetPlatform implements OnInit, OnDestroy {
+export class SmpEventsWorkspaceComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
     public isLoading: boolean = false;
 
     public data: ISmpEvent;

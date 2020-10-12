@@ -1,0 +1,23 @@
+<div class="container pointer-event">
+  <evj-widget-header
+    [title]="widgetTitle"
+    [id]="widgetId"
+    [units]="widgetUnits"
+    [icon]="widgetIcon"
+    [uniqId]="widgetUniqId"
+  ></evj-widget-header>
+
+  <evj-frame-top></evj-frame-top>
+
+  <div
+    class="content"
+    (mousedown)="$event.stopPropagation()"
+    (touchstart)="$event.stopPropagation()"
+  >
+    <div class="cb">
+      <div #myCircle class="item-b"></div>
+    </div>
+  </div>
+
+  <evj-frame-bottom></evj-frame-bottom>
+</div>

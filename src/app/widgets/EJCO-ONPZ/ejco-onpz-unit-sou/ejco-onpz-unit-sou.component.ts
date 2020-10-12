@@ -4,7 +4,7 @@ import {
     OnDestroy,
     AfterViewInit
 } from '@angular/core';
-import { WidgetPlatform } from '../../../dashboard/models/widget-platform';
+import { WidgetPlatform } from '../../../dashboard/models/@PLATFORM/widget-platform';
 import { WidgetService } from '../../../dashboard/services/widget.service';
 import { EjcoOnpzHelperService } from '../ejco-onpz-shared/ejco-onpz-helper.service';
 
@@ -27,7 +27,7 @@ export interface IEjcoOnpzUnitSouTableRow {
     templateUrl: './ejco-onpz-unit-sou.component.html',
     styleUrls: ['./ejco-onpz-unit-sou.component.scss']
 })
-export class EjcoOnpzUnitSouComponent extends WidgetPlatform implements OnDestroy, AfterViewInit {
+export class EjcoOnpzUnitSouComponent extends WidgetPlatform<unknown> implements OnDestroy, AfterViewInit {
 
     public tabs: IEjcoOnpzUnit[] = [];
 

@@ -1,14 +1,14 @@
 import { Component, Inject, OnInit, OnDestroy } from '@angular/core';
 import { WidgetService } from '../../services/widget.service';
 import { Subscription } from 'rxjs';
-import { WidgetPlatform } from '../../models/widget-platform';
+import { WidgetPlatform } from '../../models/@PLATFORM/widget-platform';
 
 @Component({
     selector: 'evj-flame-diagram',
     templateUrl: './flame-diagram.component.html',
     styleUrls: ['./flame-diagram.component.scss'],
 })
-export class FlameDiagramComponent extends WidgetPlatform implements OnInit, OnDestroy {
+export class FlameDiagramComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
     public static itemCols: number = 20;
     public static itemRows: number = 16;
 

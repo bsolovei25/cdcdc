@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy, Inject } from '@angular/core';
-import { WidgetPlatform } from '../../../dashboard/models/widget-platform';
+import { WidgetPlatform } from '../../../dashboard/models/@PLATFORM/widget-platform';
 import { WidgetService } from '../../../dashboard/services/widget.service';
 import {
     ILineDiagramData,
@@ -11,7 +11,7 @@ import {
     templateUrl: './line-diagram.component.html',
     styleUrls: ['./line-diagram.component.scss']
 })
-export class LineDiagramComponent extends WidgetPlatform implements OnInit, OnDestroy {
+export class LineDiagramComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
 
     percentDeviation: number = 33.3;  // 50% суммы плана
     percentPlan: number = 66.6;

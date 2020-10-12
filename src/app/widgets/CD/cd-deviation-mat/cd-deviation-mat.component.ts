@@ -1,5 +1,5 @@
 import { Component, Inject, OnDestroy, OnInit, Input } from '@angular/core';
-import { WidgetPlatform } from '../../../dashboard/models/widget-platform';
+import { WidgetPlatform } from '../../../dashboard/models/@PLATFORM/widget-platform';
 import { WidgetService } from '../../../dashboard/services/widget.service';
 import {
     IAPSRecipeDiagram,
@@ -14,7 +14,7 @@ import { IStreams } from '../cd-mat-balance/cd-mat-balance.component';
     templateUrl: './cd-deviation-mat.component.html',
     styleUrls: ['./cd-deviation-mat.component.scss']
 })
-export class CdDeviationMatComponent extends WidgetPlatform implements OnInit, OnDestroy {
+export class CdDeviationMatComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
     data: IStreams[] = [];
     columnsToDisplay: IColumnsToDisplay[] = [
         { name: 'Мат. поток', date: new Date() },

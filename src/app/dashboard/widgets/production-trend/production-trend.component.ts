@@ -1,5 +1,5 @@
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
-import { WidgetPlatform } from '../../models/widget-platform';
+import { WidgetPlatform } from '../../models/@PLATFORM/widget-platform';
 import { WidgetService } from '../../services/widget.service';
 import { IProductionTrend } from '../../models/production-trends.model';
 import { BehaviorSubject } from 'rxjs';
@@ -14,7 +14,7 @@ interface IUnit {
     templateUrl: './production-trend.component.html',
     styleUrls: ['./production-trend.component.scss'],
 })
-export class ProductionTrendComponent extends WidgetPlatform implements OnInit, OnDestroy {
+export class ProductionTrendComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
     public static itemCols: number = 32;
     public static itemRows: number = 20;
 

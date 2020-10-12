@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy, Inject, ViewChild, ElementRef, HostListener } from '@angular/core';
 import { WidgetService } from '../../services/widget.service';
-import { WidgetPlatform } from '../../models/widget-platform';
+import { WidgetPlatform } from '../../models/@PLATFORM/widget-platform';
 import { ReportsService } from '../../services/widgets/reports.service';
 
 @Component({
@@ -8,7 +8,7 @@ import { ReportsService } from '../../services/widgets/reports.service';
   templateUrl: './custom-report-properties-reference.component.html',
   styleUrls: ['./custom-report-properties-reference.component.scss']
 })
-export class CustomReportPropertiesReferenceComponent extends WidgetPlatform implements OnInit, OnDestroy {
+export class CustomReportPropertiesReferenceComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
   @ViewChild('propertiesRefereneTable') public testBlock: ElementRef;
   @ViewChild('customOptions') public testBlock2: ElementRef;
 

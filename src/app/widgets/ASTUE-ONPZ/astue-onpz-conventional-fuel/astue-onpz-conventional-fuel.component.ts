@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy, Inject } from '@angular/core';
-import { WidgetPlatform } from '../../../dashboard/models/widget-platform';
+import { WidgetPlatform } from '../../../dashboard/models/@PLATFORM/widget-platform';
 import { WidgetService } from '../../../dashboard/services/widget.service';
 import {
     IMultiChartLine,
@@ -18,7 +18,7 @@ import { HttpClient } from '@angular/common/http';
     templateUrl: './astue-onpz-conventional-fuel.component.html',
     styleUrls: ['./astue-onpz-conventional-fuel.component.scss'],
 })
-export class AstueOnpzConventionalFuelComponent extends WidgetPlatform
+export class AstueOnpzConventionalFuelComponent extends WidgetPlatform<unknown>
     implements OnInit, OnDestroy {
     public data: IMultiChartLine[] = [];
     colors: Map<string, number>;
@@ -81,7 +81,7 @@ export class AstueOnpzConventionalFuelComponent extends WidgetPlatform
                     return;
                 }
                 this.unitName = options.unitName;
-                this.widgetService.setWidgetLiveDataFromWSOptions(this.widgetId, options);
+                this.widgetService.setChannelLiveDataFromWsOptions(this.widgetId, options);
             }),
             this.astueOnpzService.multiLinePredictors.subscribe((data) => {
                 if (!this.isPredictors) {

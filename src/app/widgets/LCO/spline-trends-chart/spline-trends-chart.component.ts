@@ -5,7 +5,7 @@ import {
     OnDestroy,
     AfterViewInit
 } from '@angular/core';
-import { WidgetPlatform } from '../../../dashboard/models/widget-platform';
+import { WidgetPlatform } from '../../../dashboard/models/@PLATFORM/widget-platform';
 import { WidgetService } from '../../../dashboard/services/widget.service';
 import {
     ISplineDiagramData
@@ -16,7 +16,7 @@ import {
     templateUrl: './spline-trends-chart.component.html',
     styleUrls: ['./spline-trends-chart.component.scss']
 })
-export class SplineTrendsChartComponent extends WidgetPlatform implements OnInit, OnDestroy, AfterViewInit {
+export class SplineTrendsChartComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy, AfterViewInit {
 
     public data: ISplineDiagramData;
 

@@ -13,8 +13,7 @@ import {
 export class SouOutStreamsComponent implements OnInit {
 
     @Input() flowOut: ISOUFlowOut[] = [];
-
-    @Input() sections: ISOUSection[] = [];
+    @Input() sections: ISOUSection;
     @Output() changeSection: EventEmitter<ISOUSection> = new EventEmitter<ISOUSection>();
 
     constructor() {

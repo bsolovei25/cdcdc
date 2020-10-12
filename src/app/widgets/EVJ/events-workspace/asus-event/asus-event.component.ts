@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import { IChatMessageWithAttachments } from '../components/chat/chat.component';
 import { EventsWorkspaceService } from '../../../../dashboard/services/widgets/events-workspace.service';
 import { EventService } from '../../../../dashboard/services/widgets/event.service';
@@ -10,6 +10,9 @@ import { SnackBarService } from '../../../../dashboard/services/snack-bar.servic
     styleUrls: ['./asus-event.component.scss']
 })
 export class AsusEventComponent implements OnInit {
+    @Input()
+    public noOverflow: boolean = false;
+
     public isReasonsPopupOpen: boolean = false;
 
     constructor(
@@ -22,6 +25,15 @@ export class AsusEventComponent implements OnInit {
     ngOnInit(): void {
         this.setDefaultResponsible();
         this.setDefaultUnit();
+        this.setExistReferences();
+    }
+
+    private async setExistReferences(): Promise<void> {
+        if (!this.ewService.isCreateNewEvent) {
+            console.log(this.ewService.event);
+            this.setUnit(this.ewService.event.asusEvent.tmPlace);
+            this.setEquipment(this.ewService.event.asusEvent.equipment);
+        }
     }
 
     private async setDefaultResponsible(): Promise<void> {
@@ -62,6 +74,9 @@ export class AsusEventComponent implements OnInit {
     }
 
     public async setUnit(event: string): Promise<void> {
+        if (!(!!event?.trim())) {
+            return;
+        }
         this.ewService.isLoading = true;
         try {
             const saveMethod = await this.eventService.getSaveMethod(this.ewService.event);
@@ -69,8 +84,8 @@ export class AsusEventComponent implements OnInit {
                 event,
                 saveMethod
             );
-            this.ewService.event.asusEvent.equipment = null;
-            this.ewService.event.asusEvent.eoService = null;
+            // this.ewService.event.asusEvent.equipment = null;
+            // this.ewService.event.asusEvent.eoService = null;
         } catch (e) {
             console.error(e);
         } finally {
@@ -79,6 +94,12 @@ export class AsusEventComponent implements OnInit {
     }
 
     public async setEquipment(event: string): Promise<void> {
+        if (!(!!event?.trim())) {
+            event = this.ewService.event.asusEvent.tmPlace;
+            if (!(!!event?.trim())) {
+                return;
+            }
+        }
         this.ewService.isLoading = true;
         try {
             const saveMethod = await this.eventService.getSaveMethod(this.ewService.event);
@@ -86,7 +107,7 @@ export class AsusEventComponent implements OnInit {
                 event,
                 saveMethod
             );
-            this.ewService.event.asusEvent.eoService = null;
+            // this.ewService.event.asusEvent.eoService = null;
         } catch (e) {
             console.error(e);
         } finally {

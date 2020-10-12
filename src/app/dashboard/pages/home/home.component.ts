@@ -4,14 +4,17 @@ import { UserSettingsService } from '../../services/user-settings.service';
 import { ClaimService } from '../../services/claim.service';
 import { OverlayService } from '../../services/overlay.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Title } from '@angular/platform-browser';
+import { AppConfigService } from '@core/service/app-config.service';
 
 @Component({
     selector: 'evj-home',
     templateUrl: './home.component.html',
-    styleUrls: ['./home.component.scss'],
+    styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit, OnDestroy {
     fullscreen: boolean = false;
+    readonly projectName: string;
 
     constructor(
         private widgetService: WidgetService,
@@ -19,7 +22,7 @@ export class HomeComponent implements OnInit, OnDestroy {
         private claimService: ClaimService,
         public overlayService: OverlayService,
         // public route: ActivatedRoute,
-        public router: Router,
+        public router: Router
     ) {
         this.applicationCreate();
     }
@@ -46,7 +49,7 @@ export class HomeComponent implements OnInit, OnDestroy {
             const queryParamsStr = localStorage.getItem('queryParams');
             if (queryParamsStr?.length > 0) {
                 const queryParams = JSON.parse(queryParamsStr);
-                await this.router.navigate([], {queryParams});
+                await this.router.navigate([], { queryParams });
                 localStorage.removeItem('queryParams');
             }
             localStorage.setItem('refresh-dashboard', 'false');

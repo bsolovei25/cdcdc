@@ -24,7 +24,7 @@ import { WorkflowService } from '../../services/widgets/workflow.service';
 import { IAlertWindowModel } from '../../../@shared/models/alert-window.model';
 import { SnackBarService } from '../../services/snack-bar.service';
 import { IAlertInputModel } from '../../../@shared/models/alert-input.model';
-import { WidgetPlatform } from '../../models/widget-platform';
+import { WidgetPlatform } from '../../models/@PLATFORM/widget-platform';
 import { FormControl } from '@angular/forms';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { MatChipInputEvent } from '@angular/material/chips';
@@ -137,7 +137,7 @@ const fadeAnimation = trigger('fadeAnimation', [
     animations: [fadeAnimation],
     providers: [{ provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { appearance: 'fill' } }],
 })
-export class WorkflowComponent extends WidgetPlatform implements OnInit, OnDestroy, AfterViewInit {
+export class WorkflowComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy, AfterViewInit {
     public ColWidth: number = 1;
     public RowHeight: number = 1;
 
