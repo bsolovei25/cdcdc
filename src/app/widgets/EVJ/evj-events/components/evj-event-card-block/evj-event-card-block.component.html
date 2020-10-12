@@ -41,7 +41,9 @@
       <div class="footer__time">{{ data?.eventDateTime | date:"dd.MM.yyyy HH:mm" }}</div>
     </div>
     <div class="footer__right-block">
-      <div class="footer__critical">
+      <div matRipple
+           [matRippleColor]="'white'"
+           class="footer__critical" (click)="changeIsAcknowledged($event, data)">
         {{ data?.isAcknowledged ? 'Квитировано' : 'Не квитировано' }}
       </div>
       <svg-icon

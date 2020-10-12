@@ -21,9 +21,10 @@
 <div class="categories">
   <div class="categories__item"
        [class.categories__item--active]="data?.isActive"
-       (click)="onCLickItem(data)" cdkOverlayOrigin matRipple
+       (click)="onCLickItem(data)" cdkOverlayOrigin
        (mouseenter)="openOverlay()"
        (mouseleave)="closeOverlay()"
+       matRipple
        [matRippleColor]="'white'">
     <div class="categories__item__name">{{data?.name}}</div>
     <div class="categories__item__footer">

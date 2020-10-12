@@ -32,7 +32,8 @@
       }
 
       &__unit {
-        margin-left: 10px;
+        margin-left: 15px;
+        font-weight: bold;
       }
 
       &__status {
@@ -91,11 +92,18 @@
 
     .body {
       &__description {
-
+        -webkit-line-clamp: 2;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
       }
 
       &__facts {
-
+        -webkit-line-clamp: 2;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        color: var(--color-border-unactive);
       }
     }
   }
@@ -119,11 +127,12 @@
       &__time {
 
         &-title {
-          font-size: 14px;
+          font-size: 12px;
         }
       }
 
       &__critical {
+        cursor: pointer;
         background-color: var(--color-oil-border);
         padding: 5px 15px;
         border-radius: 2px;
