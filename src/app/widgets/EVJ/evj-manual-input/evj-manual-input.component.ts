@@ -265,7 +265,6 @@ export class EvjManualInputComponent extends WidgetPlatform<unknown>
         this.data = this.manualInputService.LoadData(this.data, data.machines);
 
         if (this.filteredData.length === 0) {
-            debugger;
             this.filteredData = this.data;
         }
 
