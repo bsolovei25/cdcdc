@@ -1,6 +1,7 @@
 import { WidgetPiesComponent } from './../../../widgets/LCO/widgets-pie/widget-pies/widget-pies.component';
 import { LineChartComponent } from './../../../@shared/components/line-chart/line-chart.component';
 import { ChangeShiftComponent } from './../../../widgets/EVJ/change-shift/change-shift.component';
+import { ManualInputComponent } from '../../../widgets/EVJ/manual-input/manual-input.component';
 import { SuspenseMachineComponent } from '../../widgets/suspense-machine/suspense-machine.component';
 import { UnityTemplateComponent } from '../../widgets/unity-template/unity-template.component';
 import { DeviationsTableComponent } from '../../widgets/deviations-table/deviations-table.component';
@@ -29,6 +30,7 @@ export const WIDGETS = {
     'line-chart': LineChartComponent,
     'shift-pass': ChangeShiftComponent,
     'shift-accept': ChangeShiftComponent,
+    /*'manual-input': ManualInputComponent,*/
     'events-workspace': WidgetContainerComponent,
     'industrial-pyramid': WidgetContainerComponent,
     'unity-template': UnityTemplateComponent,
@@ -566,8 +568,22 @@ export const WIDGETS_LAZY = {
         itemRows: 30,
         minItemCols: 32,
         minItemRows: 30,
-        preview: 'default'
+        preview: 'manual-input'
     },
+
+    // 'manual-input': {
+    //     import: async () => {
+    //         return await import(
+    //             'src/app/widgets/EVJ/manual-input/manual-input.module'
+    //             );
+    //     },
+    //     module: 'ManualInputModule',
+    //     itemCols: 45,
+    //     itemRows: 20,
+    //     minItemCols: 35,
+    //     minItemRows: 13,
+    //     preview: 'manual-input'
+    // },
 
     'shift-pass': {
         import: async () => {
@@ -580,6 +596,7 @@ export const WIDGETS_LAZY = {
         minItemRows: 23,
         preview: 'change-shift'
     },
+
     'shift-accept': {
         import: async () => {
             return await import('src/app/widgets/EVJ/change-shift/change-shift.module');
