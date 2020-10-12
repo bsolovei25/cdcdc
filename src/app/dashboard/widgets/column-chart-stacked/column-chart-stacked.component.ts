@@ -1,14 +1,14 @@
 import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
 import { WidgetService } from '../../services/widget.service';
 import { IColumnChartStacked, IColumnChartStackedDataWS } from '../../models/column-chart-stacked';
-import { WidgetPlatform } from '../../models/widget-platform';
+import { WidgetPlatform } from '../../models/@PLATFORM/widget-platform';
 
 @Component({
     selector: 'evj-column-chart-stacked',
     templateUrl: './column-chart-stacked.component.html',
     styleUrls: ['./column-chart-stacked.component.scss'],
 })
-export class ColumnChartStackedComponent extends WidgetPlatform implements OnInit, OnDestroy {
+export class ColumnChartStackedComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
     public cols: IColumnChartStacked[] = [];
 
     public static itemCols: number = 24;

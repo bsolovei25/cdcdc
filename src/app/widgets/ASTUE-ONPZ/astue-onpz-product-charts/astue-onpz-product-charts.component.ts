@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject, OnDestroy, Injector } from '@angular/core';
-import { WidgetPlatform } from '../../../dashboard/models/widget-platform';
+import { WidgetPlatform } from '../../../dashboard/models/@PLATFORM/widget-platform';
 import { WidgetService } from '../../../dashboard/services/widget.service';
 import { IProductionTrend } from '../../../dashboard/models/production-trends.model';
 import { AstueOnpzService } from '../astue-onpz-shared/astue-onpz.service';
@@ -28,7 +28,7 @@ export type AstueProductChartType = 'fact' | 'plan' | 'exceed' | 'economy';
     templateUrl: './astue-onpz-product-charts.component.html',
     styleUrls: ['./astue-onpz-product-charts.component.scss'],
 })
-export class AstueOnpzProductChartsComponent extends WidgetPlatform implements OnInit, OnDestroy {
+export class AstueOnpzProductChartsComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
     public data: string[] = [];
     public readonly chartComponent: any = AstueOnpzProductCardComponent;
 
@@ -51,7 +51,7 @@ export class AstueOnpzProductChartsComponent extends WidgetPlatform implements O
         super.dataConnect();
         this.subscriptions.push(
             this.astueOnpzService.sharedMonitoringOptions.subscribe((ref) => {
-                this.widgetService.setWidgetLiveDataFromWSOptions(this.widgetId, ref);
+                this.widgetService.setChannelLiveDataFromWsOptions(this.widgetId, ref);
             })
         );
     }

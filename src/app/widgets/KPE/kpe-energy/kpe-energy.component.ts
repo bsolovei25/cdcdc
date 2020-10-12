@@ -1,6 +1,6 @@
 import { Component, ElementRef, Inject, OnInit, ViewChild } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { WidgetPlatform } from '../../../dashboard/models/widget-platform';
+import { WidgetPlatform } from '../../../dashboard/models/@PLATFORM/widget-platform';
 import { WidgetService } from '../../../dashboard/services/widget.service';
 import { IKpeEnergyTab } from './components/kpe-energy-tab/kpe-energy-tab.component';
 import { IDeviationDiagramData } from '../shared/kpe-deviation-diagram/kpe-deviation-diagram.component';
@@ -18,7 +18,7 @@ export interface IKpeEnergy {
     templateUrl: './kpe-energy.component.html',
     styleUrls: ['./kpe-energy.component.scss']
 })
-export class KpeEnergyComponent extends WidgetPlatform implements OnInit {
+export class KpeEnergyComponent extends WidgetPlatform<unknown> implements OnInit {
 
     // static true fix expression has been checked
     @ViewChild('gauge', {static: true})

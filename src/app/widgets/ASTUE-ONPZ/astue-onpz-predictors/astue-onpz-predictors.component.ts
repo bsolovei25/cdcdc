@@ -5,7 +5,7 @@ import {
     OnDestroy,
     OnInit
 } from '@angular/core';
-import { WidgetPlatform } from '../../../dashboard/models/widget-platform';
+import { WidgetPlatform } from '../../../dashboard/models/@PLATFORM/widget-platform';
 import { WidgetService } from '../../../dashboard/services/widget.service';
 import { SelectionModel } from '@angular/cdk/collections';
 import {
@@ -28,7 +28,7 @@ interface IPredictors {
     templateUrl: './astue-onpz-predictors.component.html',
     styleUrls: ['./astue-onpz-predictors.component.scss']
 })
-export class AstueOnpzPredictorsComponent extends WidgetPlatform implements OnInit, OnDestroy {
+export class AstueOnpzPredictorsComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
     selectPredictors: SelectionModel<string> = new SelectionModel<string>(true);
     data: IPredictors[] = [];
     colors: Map<string, number>;

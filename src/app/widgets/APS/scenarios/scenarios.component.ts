@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit, OnDestroy } from '@angular/core';
-import { WidgetPlatform } from '../../../dashboard/models/widget-platform';
+import { WidgetPlatform } from '../../../dashboard/models/@PLATFORM/widget-platform';
 import { WidgetService } from '../../../dashboard/services/widget.service';
 import {
     IApsProgressBarSettings
@@ -11,7 +11,7 @@ import { FormControl } from '@angular/forms';
     templateUrl: './scenarios.component.html',
     styleUrls: ['./scenarios.component.scss'],
 })
-export class ScenariosComponent extends WidgetPlatform implements OnInit, OnDestroy {
+export class ScenariosComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
 
     public selectScenario: FormControl = new FormControl({value: '', disabled: false});
 

@@ -18,13 +18,16 @@ import { EventCardComponent } from './components/event-card/event-card.component
 import { SharedModule } from '@shared/shared.module';
 import { CdEventCardComponent } from './components/cd-event-card/cd-event-card.component';
 import { CdEventCategoriesComponent } from './components/cd-event-categories/cd-event-categories.component';
+import { EventPreviewComponent } from './components/event-preview/event-preview.component';
+import { EventsWorkspaceModule } from '../events-workspace/events-workspace.module';
 
 @NgModule({
     declarations: [
         EventsComponent,
         EventCardComponent,
         CdEventCardComponent,
-        CdEventCategoriesComponent
+        CdEventCategoriesComponent,
+        EventPreviewComponent,
     ],
     imports: [
         CommonModule,
@@ -39,8 +42,9 @@ import { CdEventCategoriesComponent } from './components/cd-event-categories/cd-
         NgxMatDatetimePickerModule,
         MatDialogModule,
         MatTooltipModule,
-        SharedModule
-    ]
+        SharedModule,
+        EventsWorkspaceModule,
+    ],
 })
 export class EventsModule {
     enterComponent = EventsComponent;

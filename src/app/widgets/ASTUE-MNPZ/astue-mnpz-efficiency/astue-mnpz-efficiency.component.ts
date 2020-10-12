@@ -7,14 +7,14 @@ import {
 import { SelectionModel } from '@angular/cdk/collections';
 import { WidgetService } from '../../../dashboard/services/widget.service';
 import { AstueEfficiencyService } from '../../../dashboard/services/ASTUE/astue-efficiency.service';
-import { WidgetPlatform } from '../../../dashboard/models/widget-platform';
+import { WidgetPlatform } from '../../../dashboard/models/@PLATFORM/widget-platform';
 
 @Component({
     selector: 'evj-astue-mnpz-efficiency',
     templateUrl: './astue-mnpz-efficiency.component.html',
     styleUrls: ['./astue-mnpz-efficiency.component.scss'],
 })
-export class AstueMnpzEfficiencyComponent extends WidgetPlatform implements OnInit, OnDestroy {
+export class AstueMnpzEfficiencyComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
     public isLoading: boolean = true;
 
     public isGraphDisplay: boolean = true;

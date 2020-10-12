@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy, Inject } from '@angular/core';
-import { WidgetPlatform } from 'src/app/dashboard/models/widget-platform';
+import { WidgetPlatform } from 'src/app/dashboard/models/@PLATFORM/widget-platform';
 import { WidgetService } from 'src/app/dashboard/services/widget.service';
 
 export interface IQualityStockSecurity {
@@ -21,7 +21,7 @@ export interface IQualityStockCircle {
   templateUrl: './quality-stock.component.html',
   styleUrls: ['./quality-stock.component.scss']
 })
-export class QualityStockComponent extends WidgetPlatform implements OnInit, OnDestroy {
+export class QualityStockComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
 
 
   public dataSecurity: IQualityStockSecurity;

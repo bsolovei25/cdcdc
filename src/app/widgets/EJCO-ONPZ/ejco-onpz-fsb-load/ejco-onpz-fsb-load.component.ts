@@ -4,7 +4,7 @@ import {
     OnDestroy,
     AfterViewInit
 } from '@angular/core';
-import { WidgetPlatform } from '../../../dashboard/models/widget-platform';
+import { WidgetPlatform } from '../../../dashboard/models/@PLATFORM/widget-platform';
 import { WidgetService } from '../../../dashboard/services/widget.service';
 import {EjcoOnpzHelperService} from '../ejco-onpz-shared/ejco-onpz-helper.service';
 
@@ -24,7 +24,7 @@ export interface IEjcoOnpzFsbLoadData {
     templateUrl: './ejco-onpz-fsb-load.component.html',
     styleUrls: ['./ejco-onpz-fsb-load.component.scss']
 })
-export class EjcoOnpzFsbLoadComponent extends WidgetPlatform implements OnDestroy, AfterViewInit {
+export class EjcoOnpzFsbLoadComponent extends WidgetPlatform<unknown> implements OnDestroy, AfterViewInit {
 
     public data: IEjcoOnpzFsbLoad = { chartData: null, data: null };
 

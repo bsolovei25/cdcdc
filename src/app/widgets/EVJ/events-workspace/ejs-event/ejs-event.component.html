@@ -1,4 +1,4 @@
-<div class="workspace">
+<div class="workspace" [style]="{overflow: noOverflow ? 'auto' : 'visible'}">
   <div class="workspace__selects selects">
     <div class="selects__item first-block">
       <evj-ui-block class="selects__item_left" status="normal">
@@ -44,7 +44,7 @@
     <div class="selects__item">
       <evj-ui-block status="normal">
         <div class="deadline">
-          <div class="deadline__title">Срок выполнения</div>
+          <div class="deadline__title">Дата и время обнаружения</div>
           <evj-time-data-picker
             [data]="ewService.event.deadline"
             (dateTimePicker)="dateTimePicker($event)"
@@ -205,7 +205,8 @@
       </div>
     </evj-ui-block>
   </div>
-  <div class="workspace__selects-info selects--three">
+  <div class="workspace__selects-info selects--three margin">
+    <div class="info-text">Служебная информация</div>
     <div class="creator">
       <div class="creator_title">
         ФИО оператора

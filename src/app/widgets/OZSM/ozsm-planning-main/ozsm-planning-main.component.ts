@@ -7,7 +7,7 @@ import {
     OnInit,
     ViewChild
 } from '@angular/core';
-import { WidgetPlatform } from '../../../dashboard/models/widget-platform';
+import { WidgetPlatform } from '../../../dashboard/models/@PLATFORM/widget-platform';
 import { WidgetService } from '../../../dashboard/services/widget.service';
 
 @Component({
@@ -15,7 +15,7 @@ import { WidgetService } from '../../../dashboard/services/widget.service';
     templateUrl: './ozsm-planning-main.component.html',
     styleUrls: ['./ozsm-planning-main.component.scss']
 })
-export class OzsmPlanningMainComponent extends WidgetPlatform implements OnInit, OnDestroy {
+export class OzsmPlanningMainComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
 
     @ViewChild('graphContainer')
     public graphContainer: ElementRef;

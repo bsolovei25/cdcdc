@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import { EventsWorkspaceService } from '../../../../dashboard/services/widgets/events-workspace.service';
 import { IChatMessageWithAttachments } from '../components/chat/chat.component';
 
@@ -8,6 +8,9 @@ import { IChatMessageWithAttachments } from '../components/chat/chat.component';
     styleUrls: ['./ejs-event.component.scss']
 })
 export class EjsEventComponent implements OnInit, OnDestroy {
+
+    @Input()
+    public noOverflow: boolean = false;
 
     constructor(public ewService: EventsWorkspaceService) {
     }

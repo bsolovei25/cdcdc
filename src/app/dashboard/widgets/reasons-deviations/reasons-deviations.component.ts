@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
-import { WidgetPlatform } from '../../models/widget-platform';
+import { WidgetPlatform } from '../../models/@PLATFORM/widget-platform';
 import { WidgetService } from '../../services/widget.service';
 
 @Component({
@@ -7,7 +7,7 @@ import { WidgetService } from '../../services/widget.service';
   templateUrl: './reasons-deviations.component.html',
   styleUrls: ['./reasons-deviations.component.scss']
 })
-export class ReasonsDeviationsComponent extends WidgetPlatform implements OnInit, OnDestroy {
+export class ReasonsDeviationsComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
 
   public static itemCols: number = 28;
   public static itemRows: number = 14;

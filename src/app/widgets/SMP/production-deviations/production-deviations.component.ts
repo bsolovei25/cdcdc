@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy, Inject } from '@angular/core';
-import { WidgetPlatform } from '../../../dashboard/models/widget-platform';
+import { WidgetPlatform } from '../../../dashboard/models/@PLATFORM/widget-platform';
 import { IProductionDeviationsGraph } from '../../../dashboard/models/SMP/production-deviations.model';
 import { WidgetService } from '../../../dashboard/services/widget.service';
 
@@ -8,7 +8,7 @@ import { WidgetService } from '../../../dashboard/services/widget.service';
     templateUrl: './production-deviations.component.html',
     styleUrls: ['./production-deviations.component.scss'],
 })
-export class ProductionDeviationsComponent extends WidgetPlatform implements OnInit, OnDestroy {
+export class ProductionDeviationsComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
     public isDataLoading: boolean = true;
 
     public data: IProductionDeviationsGraph[] = null;

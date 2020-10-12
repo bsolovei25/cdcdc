@@ -8,6 +8,7 @@ export interface IReferenceTypes {
     description?: string;
     columns?: IReferenceColumns[];
     open?: boolean;
+    openEdit?: boolean;
 }
 
 export interface IReferenceColumns {
@@ -26,6 +27,7 @@ export interface IReferenceColumns {
     columnOrder?: number;
     isUnique: boolean;
     open?: boolean;
+    openEdit?: boolean;
 }
 
 export interface IReferenceData {

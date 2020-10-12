@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy, Inject } from '@angular/core';
-import { WidgetPlatform } from '../../../dashboard/models/widget-platform';
+import { WidgetPlatform } from '../../../dashboard/models/@PLATFORM/widget-platform';
 import { IButtonImgSrc, IWorkspace } from '../../../dashboard/models/admin-panel';
 import { IInputOptions } from '../../../@shared/models/input.model';
 import { IUser, IUnitEvents } from '../../../dashboard/models/events-widget';
@@ -12,7 +12,7 @@ import { combineLatest } from 'rxjs';
     templateUrl: './admin-panel.component.html',
     styleUrls: ['./admin-panel.component.scss'],
 })
-export class AdminPanelComponent extends WidgetPlatform implements OnInit, OnDestroy {
+export class AdminPanelComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
     //#region WIDGET_PROPS
     public title: string = 'Панель администратора';
     public previewTitle: string = 'admin-panel';

@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, Inject, OnDestroy, OnInit } from '@angular/core';
-import { WidgetPlatform } from 'src/app/dashboard/models/widget-platform';
+import { WidgetPlatform } from 'src/app/dashboard/models/@PLATFORM/widget-platform';
 import { WidgetService } from 'src/app/dashboard/services/widget.service';
 import { DATASOURCE } from './mock';
 import { SelectionModel } from '@angular/cdk/collections';
@@ -34,7 +34,7 @@ export interface IColumnsToDisplay {
     styleUrls: ['./aps-recipe-diagram.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ApsRecipeDiagramComponent extends WidgetPlatform implements OnInit, OnDestroy {
+export class ApsRecipeDiagramComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
 
     dataSource: IAPSRecipeDiagram[] = DATASOURCE;
 

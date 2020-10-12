@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, Inject, OnDestroy, OnInit } from '@angular/core';
-import { WidgetPlatform } from '../../../dashboard/models/widget-platform';
+import { WidgetPlatform } from '../../../dashboard/models/@PLATFORM/widget-platform';
 import { WidgetService } from '../../../dashboard/services/widget.service';
 import { FormControl } from '@angular/forms';
 import { MatSelectChange } from '@angular/material/select';
@@ -25,7 +25,7 @@ export interface IAstueOnpzMenuUnit {
     templateUrl: './astue-onpz-menu-structure.component.html',
     styleUrls: ['./astue-onpz-menu-structure.component.scss']
 })
-export class AstueOnpzMenuStructureComponent extends WidgetPlatform implements OnInit, OnDestroy, AfterViewInit {
+export class AstueOnpzMenuStructureComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy, AfterViewInit {
 
     public manufactures: IAstueOnpzMenuManufacture[];
 

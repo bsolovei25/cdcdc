@@ -1,5 +1,5 @@
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
-import { WidgetPlatform } from '../../../dashboard/models/widget-platform';
+import { WidgetPlatform } from '../../../dashboard/models/@PLATFORM/widget-platform';
 import { WidgetService } from '../../../dashboard/services/widget.service';
 
 @Component({
@@ -7,7 +7,7 @@ import { WidgetService } from '../../../dashboard/services/widget.service';
     templateUrl: './ozsm-main-toggle.component.html',
     styleUrls: ['./ozsm-main-toggle.component.scss']
 })
-export class OzsmMainToggleComponent extends WidgetPlatform implements OnInit, OnDestroy {
+export class OzsmMainToggleComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
     public getPlan: any = document.getElementsByClassName('button plan');
     public getScreen: any = document.getElementsByClassName('button plan');
 

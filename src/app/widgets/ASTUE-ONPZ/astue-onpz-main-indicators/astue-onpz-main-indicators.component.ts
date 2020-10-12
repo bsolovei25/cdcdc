@@ -1,7 +1,7 @@
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { WidgetService } from '../../../dashboard/services/widget.service';
 import { AstueOnpzService } from '../astue-onpz-shared/astue-onpz.service';
-import { WidgetPlatform } from '../../../dashboard/models/widget-platform';
+import { WidgetPlatform } from '../../../dashboard/models/@PLATFORM/widget-platform';
 import { ObjectDeepEqual } from '@shared/functions/deep-equal.function';
 
 interface IAstueOnpzMainIndicators {
@@ -26,12 +26,14 @@ interface IAstueOnpzMainIndicatorsRaw {
     templateUrl: './astue-onpz-main-indicators.component.html',
     styleUrls: ['./astue-onpz-main-indicators.component.scss']
 })
-export class AstueOnpzMainIndicatorsComponent extends WidgetPlatform implements OnInit, OnDestroy {
+export class AstueOnpzMainIndicatorsComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
 
     public data: IAstueOnpzMainIndicators[] = [];
     public dataRaw: IAstueOnpzMainIndicatorsRaw;
 
     public unitId: number | null = null;
+
+    // TODO: double? NextPlanValue - может быть пустым, если предсказания нет
 
     constructor(
         protected widgetService: WidgetService,
