@@ -3,6 +3,7 @@ import {
     IAsEfProduct,
     IAsEfUnitNew,
     IAsEfFlow,
+    IAsEfTable
 } from '../../../dashboard/models/ASTUE/astue-efficiency.model';
 import { SelectionModel } from '@angular/cdk/collections';
 import { WidgetService } from '../../../dashboard/services/widget.service';
@@ -12,7 +13,7 @@ import { WidgetPlatform } from '../../../dashboard/models/@PLATFORM/widget-platf
 @Component({
     selector: 'evj-astue-mnpz-efficiency',
     templateUrl: './astue-mnpz-efficiency.component.html',
-    styleUrls: ['./astue-mnpz-efficiency.component.scss'],
+    styleUrls: ['./astue-mnpz-efficiency.component.scss']
 })
 export class AstueMnpzEfficiencyComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
     public isLoading: boolean = true;
@@ -21,8 +22,8 @@ export class AstueMnpzEfficiencyComponent extends WidgetPlatform<unknown> implem
     public isInitialDataShow: boolean = true;
 
     public data: IAsEfProduct[] = [];
-
     public units: IAsEfUnitNew[] = [];
+    public initialData: IAsEfTable[] = [];
 
     public selection: SelectionModel<IAsEfProduct> = new SelectionModel<IAsEfProduct>();
     public selectionUnits: SelectionModel<IAsEfUnitNew> = new SelectionModel<IAsEfUnitNew>(false);
@@ -40,6 +41,14 @@ export class AstueMnpzEfficiencyComponent extends WidgetPlatform<unknown> implem
 
     public ngOnInit(): void {
         super.widgetInit();
+        this.subscriptions.push(
+            this.AsEfService.selectionFlow$.subscribe(value => {
+                this.initialData = [];
+                value?.forEach(flow => {
+                    this.initialData = [...this.initialData, ...flow.initialData];
+                });
+            })
+        );
     }
 
     public ngOnDestroy(): void {
@@ -47,8 +56,6 @@ export class AstueMnpzEfficiencyComponent extends WidgetPlatform<unknown> implem
     }
 
     protected dataHandler(ref: any): void {
-        console.log(ref);
-
         this.data = ref.products;
         this.isLoading = false;
     }

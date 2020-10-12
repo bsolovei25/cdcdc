@@ -1,9 +1,11 @@
 <div class="items">
   <div class="items__header header">
-    <div class="header__item item" [class.item_active]="direction==='in'" (click)="direction='in'">
+    <div matRipple matRippleColor="white" class="header__item item"
+         [class.item_active]="direction==='in'" (click)="direction='in'">
       Потребление
     </div>
     <div
+      matRipple matRippleColor="white"
       class="header__item item"
       [class.item_active]="direction==='out'"
       (click)="direction='out'"
