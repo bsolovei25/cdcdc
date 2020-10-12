@@ -17,6 +17,7 @@ import { IChartD3, IChartMini, IPointTank } from '../../models/smart-scroll.mode
 import { ChartStyleType, ChartStyle, IChartStyle } from '../../models/line-chart-style.model';
 import { IDatesInterval } from '../../../dashboard/services/widget.service';
 import { setLimits } from '../../functions/set-limits.function';
+import { dateFormatLocale } from '@shared/functions/universal-time-fromat.function';
 
 @Component({
     selector: 'evj-line-chart-shared',
@@ -73,7 +74,7 @@ export class LineChartComponent implements OnChanges, OnInit {
     }
 
     public ngOnInit(): void {
-        this.dateFormatLocale();
+        dateFormatLocale();
     }
 
     private graphInit(): void {
@@ -153,7 +154,7 @@ export class LineChartComponent implements OnChanges, OnInit {
         this.axis.axisX = d3
             .axisBottom(this.scaleFuncs.x)
             .ticks(7)
-            .tickFormat(this.dateFormatLocale())
+            .tickFormat(dateFormatLocale())
             .tickSizeOuter(0);
         this.axis.axisY = d3
             .axisLeft(this.scaleFuncs.y)
@@ -334,76 +335,4 @@ export class LineChartComponent implements OnChanges, OnInit {
             .style('stroke', '#8c99b2');
     }
 
-    private dateFormatLocale(): (date: Date) => string {
-        const locale = d3.timeFormatLocale({
-            dateTime: '%A, %e %B %Y г. %X',
-            date: '%d.%m.%Y',
-            time: '%H:%M:%S',
-            periods: ['', ''],
-            days: [
-                'воскресенье',
-                'понедельник',
-                'вторник',
-                'среда',
-                'четверг',
-                'пятница',
-                'суббота'
-            ],
-            shortDays: ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'],
-            months: [
-                'Январь',
-                'Февраль',
-                'Март',
-                'Апрель',
-                'Май',
-                'Июнь',
-                'Июль',
-                'Август',
-                'Сентябрь',
-                'Октябрь',
-                'Ноябрь',
-                'Декабрь'
-            ],
-            shortMonths: [
-                'Янв',
-                'Фев',
-                'Мар',
-                'Апр',
-                'Май',
-                'Июн',
-                'Июл',
-                'Авг',
-                'Сен',
-                'Окт',
-                'Ноя',
-                'Дек'
-            ]
-        });
-
-        const formatMillisecond = locale.format('.%L');
-        const formatSecond = locale.format(':%S');
-        const formatMinute = locale.format('%H:%M');
-        const formatHour = locale.format('%H %p');
-        const formatDay = locale.format('%d %b');
-        const formatWeek = locale.format('%b %d ');
-        const formatMonth = locale.format('%B');
-        const formatYear = locale.format('%Y');
-
-        return (date) =>
-            (d3.timeSecond(date) < date
-                ? formatMillisecond
-                : d3.timeMinute(date) < date
-                    ? formatSecond
-                    : d3.timeHour(date) < date
-                        ? formatMinute
-                        : d3.timeDay(date) < date
-                            ? formatHour
-                            : d3.timeMonth(date) < date
-                                ? d3.timeWeek(date) < date
-                                    ? formatDay
-                                    : formatWeek
-                                : d3.timeYear(date) < date
-                                    ? formatMonth
-                                    : formatYear)(date);
-    }
 }

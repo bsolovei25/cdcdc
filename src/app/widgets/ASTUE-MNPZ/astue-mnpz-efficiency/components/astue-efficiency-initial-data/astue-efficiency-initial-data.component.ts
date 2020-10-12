@@ -25,10 +25,10 @@ export class AstueEfficiencyInitialDataComponent implements OnInit, OnDestroy {
         this.subscriptions.push(
             combineLatest([this.AsEfService.selectionUnit$, this.AsEfService.selectionFlow$]).subscribe(results => {
                 this.data = [];
-                results?.forEach(data => {
-                    data?.forEach(value => {
-                        this.data = [...this.data, ...value.initialData];
-                    });
+                results?.flat()?.forEach(data => {
+                    if (data) {
+                        this.data = [...this.data, ...data?.initialData];
+                    }
                 });
             })
         );

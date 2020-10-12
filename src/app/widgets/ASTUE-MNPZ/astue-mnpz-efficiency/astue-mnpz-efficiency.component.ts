@@ -49,7 +49,6 @@ export class AstueMnpzEfficiencyComponent extends WidgetPlatform<unknown> implem
                 });
             })
         );
-
     }
 
     public ngOnDestroy(): void {
@@ -57,8 +56,6 @@ export class AstueMnpzEfficiencyComponent extends WidgetPlatform<unknown> implem
     }
 
     protected dataHandler(ref: any): void {
-        console.log(ref);
-
         this.data = ref.products;
         this.isLoading = false;
     }
