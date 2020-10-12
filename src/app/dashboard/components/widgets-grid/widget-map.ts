@@ -28,7 +28,7 @@ import { CdMatBalanceChartCardComponent } from '../../../widgets/CD/cd-mat-balan
 export const WIDGETS = {
     'pie-diagram': WidgetPiesComponent,
     'line-chart': LineChartComponent,
-    // 'manual-input': ManualInputComponent,
+    'manual-input': ManualInputComponent,
     'shift-pass': ChangeShiftComponent,
     'shift-accept': ChangeShiftComponent,
     'events-workspace': WidgetContainerComponent,
@@ -104,7 +104,7 @@ export const WIDGETS = {
     //
     'line-diagram': WidgetContainerComponent,
     'evj-events': WidgetContainerComponent,
-    'manual-input': WidgetContainerComponent,
+    // 'manual-input': WidgetContainerComponent,
     'ejco-onpz-unit-sou': WidgetContainerComponent,
     'ejco-onpz-fsb-load': WidgetContainerComponent,
     'ejco-onpz-unit-kpe': WidgetContainerComponent,
@@ -559,17 +559,17 @@ export const WIDGETS_LAZY = {
         preview: 'cd-events'
     },
 
-    'manual-input': {
-        import: async () => {
-            return await import('src/app/widgets/EVJ/evj-manual-input/evj-manual-input.module');
-        },
-        module: 'EvjManualInputModule',
-        itemCols: 32,
-        itemRows: 30,
-        minItemCols: 32,
-        minItemRows: 30,
-        preview: 'default'
-    },
+    // 'manual-input': {
+    //     import: async () => {
+    //         return await import('src/app/widgets/EVJ/evj-manual-input/evj-manual-input.module');
+    //     },
+    //     module: 'EvjManualInputModule',
+    //     itemCols: 32,
+    //     itemRows: 30,
+    //     minItemCols: 32,
+    //     minItemRows: 30,
+    //     preview: 'default'
+    // },
 
     'shift-pass': {
         import: async () => {
@@ -1353,19 +1353,19 @@ export const WIDGETS_LAZY = {
     //#endregion OQ
     // #region EJV
 
-    // 'manual-input': {
-    //     import: async () => {
-    //         return await import(
-    //             'src/app/widgets/EVJ/manual-input/manual-input.module'
-    //             );
-    //     },
-    //     module: 'ManualInputModule',
-    //     itemCols: 45,
-    //     itemRows: 20,
-    //     minItemCols: 35,
-    //     minItemRows: 13,
-    //     preview: 'manual-input'
-    // },
+    'manual-input': {
+        import: async () => {
+            return await import(
+                'src/app/widgets/EVJ/manual-input/manual-input.module'
+                );
+        },
+        module: 'ManualInputModule',
+        itemCols: 45,
+        itemRows: 20,
+        minItemCols: 35,
+        minItemRows: 13,
+        preview: 'manual-input'
+    },
     //#endregion EJV
 
       // #region ED
