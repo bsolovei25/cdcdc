@@ -91,7 +91,7 @@ export class OilOperationsService {
             return await this.http.get<T>(`${this.restUrl}/api/oil-control/${filter}`).toPromise();
         } catch (e) {
             console.error(e);
-            return null;
+            return new Promise<T>(resolve => []);
         }
     }
 
@@ -100,7 +100,7 @@ export class OilOperationsService {
             return await this.http.get<T>(`${this.restUrl}/api/oil-control/${filter}`).toPromise();
         } catch (e) {
             console.error(e);
-            return null;
+            return new Promise<T>(resolve => []);
         }
     }
 

@@ -155,9 +155,10 @@ export class OilOperationsComponent extends WidgetPlatform<unknown> implements O
         );
     }
 
-    private async getFilterList(filter: 'products' | 'groups'): Promise<any> {
-        const values = await this.oilOperationService.getFilterList<any>(filter);
-        this.availableFilters.map(availableFilter => {
+    private async getFilterList(filter: 'products' | 'groups'): Promise<void> {
+        const values = await this.oilOperationService.getFilterList<IOilFilter[]>(filter);
+        console.log(values, filter);
+        this.availableFilters.forEach(availableFilter => {
             if (availableFilter.type === filter) {
                 availableFilter.data = values;
             }

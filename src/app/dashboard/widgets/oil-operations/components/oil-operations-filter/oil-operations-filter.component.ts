@@ -2,6 +2,7 @@ import {Component, OnInit, Inject, ViewChild, AfterViewInit} from '@angular/core
 import { IOilFilter } from 'src/app/dashboard/models/oil-operations';
 import { PopoverRef } from '@shared/components/popover-overlay/popover-overlay.ref';
 import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
+import {AsyncRender} from "@shared/functions/async-render.function";
 
 export interface IOilFilterInput {
     title: string;
@@ -50,11 +51,10 @@ export class OilOperationsFilterComponent implements OnInit, AfterViewInit {
     }
 
     public ngAfterViewInit(): void {
-        setTimeout( () => {
-            this.scrollToActive();
-        }, 0);
+        this.scrollToActive();
     }
 
+    @AsyncRender
     private scrollToActive(): void {
         const selectedIndex = this.filterData.findIndex(elem => elem.id === this.activeItem.id);
         if (selectedIndex > -1) {

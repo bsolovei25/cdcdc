@@ -16,7 +16,7 @@ import {
 } from '@angular/core';
 import { ColumnGridComponent } from './components/column-grid/column-grid.component';
 import { ITableGridFilter } from './components/table-grid-filter/table-grid-filter.component';
-import { IOilFilter } from '../../models/oil-operations';
+import { IOilFilter, IOilOperationTransfer } from '../../models/oil-operations';
 import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
 
 @Component({
@@ -28,7 +28,7 @@ export class TableGridComponent implements OnInit, AfterViewInit, OnChanges {
   @ViewChild('table') public table: ElementRef;
   @ContentChildren(ColumnGridComponent) columns: QueryList<ColumnGridComponent>;
   @ViewChild(CdkVirtualScrollViewport) viewport: CdkVirtualScrollViewport;
-  @Input() data: any;
+  @Input() data: IOilOperationTransfer[];
   @Input() scrollLeft: boolean; // side scroll for contant
   @Input() search: boolean; // search-input in footer
   @Input() filters: ITableGridFilter<IOilFilter>[]; // filter-buttons in footer
