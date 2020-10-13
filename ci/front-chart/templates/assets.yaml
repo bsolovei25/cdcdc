@@ -6,9 +6,9 @@ metadata:
 data:
   assets: |
     {
-        "wsUrl": "wss://deploy.funcoff.club/ws",
-        "restUrl": "https://deploy.funcoff.club",
-        "fileStorage": "https:/deploy.funcoff.club",
+        "wsUrl": "wss://evj.funcoff.club/ws",
+        "restUrl": "https://evj.funcoff.club",
+        "fileStorage": "https:/evj.funcoff.club",
         "smotrUrl": "http://192.168.0.17:6937",
         "reconnectInterval": 5,
         "shiftFree": "not-all",

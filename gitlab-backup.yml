@@ -1,20 +1,20 @@
 ---
-include:
-  - ci/templates.yml
+before_script:
+- echo $CI_JOB_STAGE
+- date
+- ls
+- pwd
 
+after_script:
+- date
+  #- env
 
 variables:
-  GIT_DEPTH: 8
-  DOCKER_HOST: tcp://docker:2375
-  # This will instruct Docker not to start over TLS.
-  DOCKER_TLS_CERTDIR: ""
-  DOCKER_BUILDKIT: 1
-  # Registry configs
-  DEPLOY_DOMAIN: ml.funcoff.club:30602
-  GIT_SSL_NO_VERIFY: "1"
-  SCP_HOST: root@${DEPLOY_DOMAIN}
-  ROCKETCHAT_HOOKS: "/home/gitlab-runner/rocket.integrations"
-  DYNAMIC_ENV: "/root/dynamic-environment-creator"
+    GIT_SSL_NO_VERIFY: "1"
+    DEPLOY_DOMAIN: deploy.funcoff.club
+    SCP_HOST: root@${DEPLOY_DOMAIN}
+    ROCKETCHAT_HOOKS: "/home/gitlab-runner/rocket.integrations"
+    DYNAMIC_ENV: "/root/dynamic-environment-creator"
 
 stages:
     - prebuild
@@ -33,17 +33,7 @@ stages:
         - build2-cup-front
 
 
-build-front:
-  extends: .build-angular
-  variables:
-    DOCKERFILE: "./docker/Dockerfile.k8s"
-    SERVICE_NAME: "front"
-    DOCKER_REPO: evj
-  only:
-    - devops
-
-
-.docker build:
+docker build:
     <<: *init
     stage: prebuild
     script:
@@ -78,7 +68,7 @@ build-front:
     only:
         - merge_requests
 
-.build artifact:
+build artifact:
     <<: *init
     stage: build
     script:
@@ -96,7 +86,7 @@ build-front:
         paths:
             - ./public
 
-.deploy review:
+deploy review:
     <<: *init
     stage: deploy-review
     script:
@@ -115,7 +105,7 @@ build-front:
         url: https://$DYNAMIC_ENVIRONMENT_URL
         on_stop: stop-review
 
-.stop-review:
+stop-review:
     <<: *init
     variables:
         GIT_STRATEGY: none
@@ -129,7 +119,7 @@ build-front:
         name: review/${CI_COMMIT_REF_SLUG}
         action: stop
 
-.staging:
+staging:
     <<: *init
     stage: staging
     environment:
@@ -149,7 +139,7 @@ build-front:
         - develop
 
 
-.export to zyfra:
+export to zyfra:
     <<: *init
     stage: export-images
     script:
@@ -165,7 +155,7 @@ build-front:
       - zyfra
       - dev
 
-.prod:
+prod:
     <<: *init
     stage: deploy
     environment:
@@ -182,7 +172,7 @@ build-front:
     only:
         - master
 
-.release maker:
+release maker:
     <<: *init
     stage: release
     script:
@@ -195,7 +185,7 @@ build-front:
     when:
         manual
 
-.clean on failure:
+clean on failure:
     <<: *init
     stage: clean-on-failure
     script:
