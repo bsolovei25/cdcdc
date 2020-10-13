@@ -106,6 +106,7 @@ deploy-front-mr:
     - helm upgrade 
         --install ${RELEASE} ${CHART}
         --set "microservice.image.imageTag=${IMG_VERSION}"
+        --set "microservice.ingress.site=${CI_MERGE_REQUEST_SOURCE_BRANCH_NAME}"
         --namespace ${NS}
   environment:
     name: review/${CI_COMMIT_REF_SLUG}
@@ -115,18 +116,19 @@ deploy-front-mr:
     - merge_requests
 
 stop-k8s-review:
-    <<: *init
-    variables:
-        GIT_STRATEGY: none
-    stage: deploy-review
-    only:
-        - merge_requests
-    script:
-        - ssh ${SCP_HOST} "cd /root/dynamic-environment-creator ; python3 main.py -d destroy -e $CI_COMMIT_REF_SLUG"
-    when: manual
-    environment:
-        name: review/${CI_COMMIT_REF_SLUG}
-        action: stop
+  extends: .deploy-to-k8s 
+  variables:
+    GIT_STRATEGY: none
+    NS: "${CI_COMMIT_REF_SLUG}-evj"
+  only:
+      - merge_requests
+  script:
+    - kubectl version
+    - kubectl delete ns ${NS} || true
+  when: manual
+  environment:
+    name: review/${CI_COMMIT_REF_SLUG}
+    action: stop
       
 .docker build:
     <<: *init

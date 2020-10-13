@@ -40,12 +40,13 @@
     DOCKER_BASE_NAME: ${DOCKERHUB_URL}/${DOCKER_REPO}/${SERVICE_NAME}
     DOCKER_IMG: ${DOCKERHUB_URL}/${DOCKER_REPO}/${SERVICE_NAME}:${CI_COMMIT_SHA}
     LATEST_IMG: ${DOCKERHUB_URL}/${DOCKER_REPO}/${SERVICE_NAME}:latest
-    DOCKER_MR_IMG: ${DOCKERHUB_URL}/${DOCKER_REPO}/${SERVICE_NAME}:{CI_MERGE_REQUEST_SOURCE_BRANCH_SHA}
+    DOCKER_MR_IMG: ${DOCKERHUB_URL}/${DOCKER_REPO}/${SERVICE_NAME}:{CI_MERGE_REQUEST_SOURCE_BRANCH_NAME}
 
   script:
     - echo "==== Pulling inline-caches ===="
     - env
     - echo ${LATEST_IMG}
+    - echo ${DOCKER_MR_IMG}
     - docker pull ${LATEST_IMG}-cache || true
       #- docker pull ${LATEST_IMG} || true
       #- docker pull ${DOCKER_IMG}-cache || docker pull ${LATEST_IMG}-cache || true
