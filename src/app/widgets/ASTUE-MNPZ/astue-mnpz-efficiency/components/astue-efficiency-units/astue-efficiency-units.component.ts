@@ -25,6 +25,20 @@ export class AstueEfficiencyUnitsComponent implements OnChanges {
                 this.unitSelection.select(unit);
             }
         });
+        // const flows = this.AsEfService.selectionFlow$.getValue();
+        // this.AsEfService.selectionFlow$.next([]);
+        // this.units?.forEach((unit) => {
+        //     unit?.flows.forEach(flow => {
+        //         flows?.map(flowsS => {
+        //             if (flow.name === flowsS.name) {
+        //                 return flow;
+        //             }
+        //             return flowsS;
+        //         });
+        //     });
+        // });
+        // this.AsEfService.selectionFlow$.next([]);
+        // this.AsEfService.selectionFlow$.next(flows);
     }
 
     public onSelectUnit(unit: IAsEfUnitNew): void {
