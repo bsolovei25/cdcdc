@@ -21,7 +21,7 @@ export abstract class WidgetPlatform<T> implements OnDestroy {
 
     public isHover: boolean = false;
     public subscriptions: Subscription[] = [];
-    protected hoverTimer: any;
+    protected hoverTimer: number;
 
     protected constructor(
         protected widgetService: WidgetService,
