@@ -5,11 +5,11 @@ import {
     Input,
     OnDestroy,
     OnInit,
-    Output,
+    Output
 } from '@angular/core';
 import {
     ISplineDiagramData,
-    ISplineDiagramSize,
+    ISplineDiagramSize
 } from '../../../../LCO/spline-trends-chart/components/spline-diagram/spline-diagram.component';
 import { HttpClient } from '@angular/common/http';
 import { CdMatBalanceService } from '../../../../../dashboard/services/widgets/CD/cd-mat-balance.service';
@@ -17,19 +17,25 @@ import { WidgetService } from '../../../../../dashboard/services/widget.service'
 import { WIDGETS } from '../../../../../dashboard/components/widgets-grid/widget-map';
 import { Subscription, BehaviorSubject, combineLatest } from 'rxjs';
 import { IWidget } from '../../../../../dashboard/models/widget.model';
+import { CdMatBalanceChartCardComponent } from '../cd-mat-balance-chart-card/cd-mat-balance-chart-card.component';
 
 @Component({
     selector: 'evj-cd-mat-balance-chart',
     templateUrl: './cd-mat-balance-chart.component.html',
-    styleUrls: ['./cd-mat-balance-chart.component.scss'],
+    styleUrls: ['./cd-mat-balance-chart.component.scss']
 })
 export class CdMatBalanceChartComponent implements OnInit, OnDestroy {
     public readonly WIDGETS = WIDGETS;
+    public readonly chartComponent: typeof CdMatBalanceChartCardComponent = CdMatBalanceChartCardComponent;
 
     private subscriptions: Subscription[] = [];
 
     allCheckedCharts: number[] = [];
     allWidgets: IWidget[] = [];
+    matBalanceWidgetId: string;
+
+    @Input()
+    public widgetId: string = null;
 
     @Input()
     public data: ISplineDiagramData = null;
@@ -44,6 +50,7 @@ export class CdMatBalanceChartComponent implements OnInit, OnDestroy {
     get toggleArea(): boolean {
         return this.toggleAreaValue;
     }
+
     set toggleArea(val: boolean) {
         this.toggleAreaValue = val;
         this.toggleAreaChange.emit(this.toggleAreaValue);
@@ -64,12 +71,12 @@ export class CdMatBalanceChartComponent implements OnInit, OnDestroy {
     public readonly selectValues: { value: number; title: string }[] = [
         {
             value: 8,
-            title: '8 часов',
+            title: '8 часов'
         },
         {
             value: 24,
-            title: '24 часа',
-        },
+            title: '24 часа'
+        }
     ];
 
     public isMenuOpen: boolean = false;
@@ -78,8 +85,9 @@ export class CdMatBalanceChartComponent implements OnInit, OnDestroy {
         public http: HttpClient,
         private cdMatBalanceService: CdMatBalanceService,
         public widgetService: WidgetService,
-        public injector: Injector,
-    ) {}
+        public injector: Injector
+    ) {
+    }
 
     ngOnInit(): void {
         this.subscriptions.push(
@@ -102,7 +110,7 @@ export class CdMatBalanceChartComponent implements OnInit, OnDestroy {
             }),
             combineLatest([
                 this.cdMatBalanceService.hc$,
-                this.cdMatBalanceService.currentHour$,
+                this.cdMatBalanceService.currentHour$
             ]).subscribe(([hc, currentHour]) => {
                 const begin: number = currentHour - (hc - 1);
                 const end: number = currentHour + 2;
@@ -120,14 +128,13 @@ export class CdMatBalanceChartComponent implements OnInit, OnDestroy {
         this.subscriptions.forEach((sub) => sub.unsubscribe());
     }
 
-    public getInjector = (idWidget: string, uniqId: string): Injector => {
+    public getInjector = (idWidget: string, channelId: string): Injector => {
         return Injector.create({
             providers: [
                 { provide: 'widgetId', useValue: idWidget },
-                { provide: 'uniqId', useValue: uniqId },
-                { provide: 'isMock', useValue: false },
+                { provide: 'channelId', useValue: channelId }
             ],
-            parent: this.injector,
+            parent: this.injector
         });
     };
 
@@ -149,12 +156,12 @@ export class CdMatBalanceChartComponent implements OnInit, OnDestroy {
             if (i === 50) {
                 testData.push({
                     value: 0,
-                    timestamp: new Date(new Date().setHours(new Date().getHours() + (i - 50))),
+                    timestamp: new Date(new Date().setHours(new Date().getHours() + (i - 50)))
                 });
             }
             testData.push({
                 value: i,
-                timestamp: new Date(new Date().setHours(new Date().getHours() + (i - 50))),
+                timestamp: new Date(new Date().setHours(new Date().getHours() + (i - 50)))
             });
         }
         testData.forEach((el) => (el.timestamp = this.dateHourRound(el.timestamp)));
@@ -181,7 +188,7 @@ export class CdMatBalanceChartComponent implements OnInit, OnDestroy {
         const resultArray: { x: number; y: number }[] = normArray.map((el) => {
             return {
                 y: el.value,
-                x: (el.timestamp.getTime() - normArray[0].timestamp.getTime()) / (60 * 60 * 1000),
+                x: (el.timestamp.getTime() - normArray[0].timestamp.getTime()) / (60 * 60 * 1000)
             };
         });
     }
@@ -243,7 +250,7 @@ export class CdMatBalanceChartComponent implements OnInit, OnDestroy {
             } else {
                 el = {
                     x: idx + 1,
-                    y: prev.y + ((idx + 1 - prev.x) / (next.x - prev.x)) * (next.y - prev.y),
+                    y: prev.y + ((idx + 1 - prev.x) / (next.x - prev.x)) * (next.y - prev.y)
                 };
             }
             dataArray[idx] = el;

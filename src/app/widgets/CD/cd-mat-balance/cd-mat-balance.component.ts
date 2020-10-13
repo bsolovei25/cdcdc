@@ -52,6 +52,7 @@ export interface ISensors {
     max: number;
     min: number;
     modelValue: number;
+    widgetId: string;
 }
 
 export interface IStreams {
@@ -184,7 +185,6 @@ export class CdMatBalanceComponent extends WidgetPlatform<unknown> implements On
             this.data = ref;
         }
     }
-
 
     async saveEvents(
         responsibleOperator: IUser,

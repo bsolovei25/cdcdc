@@ -7,15 +7,15 @@ import {
     ElementRef,
     Injector,
     Inject,
-    Input, ChangeDetectorRef
+    ChangeDetectorRef
 } from '@angular/core';
-import { WidgetPlatform } from '../../../../../dashboard/models/@PLATFORM/widget-platform';
 import {
     ISplineDiagramData,
     ISplineDiagramSize
 } from '../../../../LCO/spline-trends-chart/components/spline-diagram/spline-diagram.component';
 import { WidgetService } from '../../../../../dashboard/services/widget.service';
 import { CdMatBalanceService } from '../../../../../dashboard/services/widgets/CD/cd-mat-balance.service';
+import { ChannelPlatform } from 'src/app/dashboard/models/@PLATFORM/channel-platform';
 
 export interface IMatBalanceChartCard {
     id: number;
@@ -39,13 +39,12 @@ export interface IMatBalanceChartCard {
     templateUrl: './cd-mat-balance-chart-card.component.html',
     styleUrls: ['./cd-mat-balance-chart-card.component.scss']
 })
-export class CdMatBalanceChartCardComponent extends WidgetPlatform<unknown>
+export class CdMatBalanceChartCardComponent extends ChannelPlatform<any, any>
     implements OnInit, OnDestroy, AfterViewInit {
     @ViewChild('chart')
     public chartElement: ElementRef;
 
     public isLoading: boolean = true;
-
     public hoursCount: 8 | 24;
     public data: IMatBalanceChartCard;
     public chartData: ISplineDiagramData;
@@ -56,15 +55,14 @@ export class CdMatBalanceChartCardComponent extends WidgetPlatform<unknown>
         public injector: Injector,
         private cdMatBalanceService: CdMatBalanceService,
         private cdRef: ChangeDetectorRef,
-        @Inject('isMock') public isMock: boolean,
-        @Inject('widgetId') public id: string,
-        @Inject('uniqId') public uniqId: string
+        @Inject('widgetId') public widgetId: string,
+        @Inject('channelId') public channelId: string
     ) {
-        super(widgetService, isMock, id, uniqId);
+        super(widgetId, channelId, widgetService);
     }
 
     public ngOnInit(): void {
-        super.widgetInit();
+        super.ngOnInit();
         this.subscriptions.push(
             this.cdMatBalanceService.hc$.subscribe((hoursCount) => {
                 this.hoursCount = hoursCount;
@@ -155,7 +153,7 @@ export class CdMatBalanceChartCardComponent extends WidgetPlatform<unknown>
 
     upChart(): void {
         const widgets = this.cdMatBalanceService.charts$.getValue();
-        const idx = widgets.findIndex((value) => value === this.data.id);
+        const idx = widgets.findIndex((value) => value === this.data.widgetId);
         if (idx > 0) {
             [widgets[idx - 1], widgets[idx]] = [widgets[idx], widgets[idx - 1]];
         }
@@ -164,7 +162,7 @@ export class CdMatBalanceChartCardComponent extends WidgetPlatform<unknown>
 
     downChart(): void {
         const widgets = this.cdMatBalanceService.charts$.getValue();
-        const idx = widgets.findIndex(value => value === this.data.id);
+        const idx = widgets.findIndex(value => value === this.data.widgetId);
         if (idx < widgets.length - 1) {
             [widgets[idx + 1], widgets[idx]] = [widgets[idx], widgets[idx + 1]];
         }
@@ -173,7 +171,7 @@ export class CdMatBalanceChartCardComponent extends WidgetPlatform<unknown>
 
     deleteChart(): void {
         const widgets = this.cdMatBalanceService.charts$.getValue();
-        const idx = widgets.findIndex((value) => value === this.data.id);
+        const idx = widgets.findIndex((value) => value === this.data.widgetId);
         widgets.splice(idx, 1);
         this.cdMatBalanceService.charts$.next(widgets);
     }

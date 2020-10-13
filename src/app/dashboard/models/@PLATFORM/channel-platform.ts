@@ -4,18 +4,19 @@ import { WidgetService } from '../../services/widget.service';
 
 export abstract class ChannelPlatform<T, O = null> implements OnInit, OnDestroy {
 
-    private subscriptions: Subscription[] = [];
+    public subscriptions: Subscription[] = [];
 
     protected constructor(
         @Inject('widgetId') public widgetId: string,
         @Inject('channelId') public channelId: string,
-        private widgetService: WidgetService,
-    ) { }
+        protected widgetService: WidgetService
+    ) {
+    }
 
     ngOnInit(): void {
         this.subscriptions.push(
             this.widgetService.getChannelLiveDataFromWs(this.channelId, this.widgetId)
-                .subscribe(this.dataHandler.bind(this)),
+                .subscribe(this.dataHandler.bind(this))
         );
     }
 
