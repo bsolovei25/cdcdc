@@ -69,7 +69,7 @@ deploy-front-stage:
     - develop
     - master
 
-deploy-front-mr:
+.deploy-front-mr:
   extends: .deploy-to-k8s
   variables:
     NS: "${CI_COMMIT_BRANCH}-evj"
