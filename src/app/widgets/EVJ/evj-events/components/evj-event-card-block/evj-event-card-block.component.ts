@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { IEventsWidgetNotificationPreview } from '../../../../../dashboard/models/events-widget';
+import { EventService } from '../../../../../dashboard/services/widgets/event.service';
 
 @Component({
     selector: 'evj-evj-event-card-block',
@@ -15,7 +16,7 @@ export class EvjEventCardBlockComponent implements OnInit {
     @Output()
     public cardClick: EventEmitter<number> = new EventEmitter<number>();
 
-    constructor() {
+    constructor(private eventService: EventService) {
     }
 
     ngOnInit(): void {
@@ -27,6 +28,19 @@ export class EvjEventCardBlockComponent implements OnInit {
 
     public deleteClick(id: number): void {
         this.cardDeleteClick.emit(id);
+    }
+
+    public async changeIsAcknowledged(event: MouseEvent, eventCard: IEventsWidgetNotificationPreview): Promise<void> {
+        event.stopPropagation();
+        eventCard.isAcknowledged = !eventCard.isAcknowledged;
+        try {
+            await this.eventService.changeEventIsAcknowledged(
+                eventCard.id,
+                eventCard.isAcknowledged
+            );
+        } catch (error) {
+            console.error('EVENT CARD ERROR -> IsAcknowledged', error);
+        }
     }
 
 }
