@@ -10,7 +10,7 @@ metadata:
   name: {{ include "fullname" . }}
 spec:
   rules:
-  - host: evj.funcoff.club
+  - host: {{ include "route" . }}
     http:
       paths:
       - path: /
