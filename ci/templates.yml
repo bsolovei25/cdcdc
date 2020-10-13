@@ -62,6 +62,7 @@
       --cache-from ${LATEST_IMG}-cache
       --cache-from ${LATEST_IMG}
       --tag ${DOCKER_IMG}
+      --tag ${LATEST_IMG}
       .
       --file ${DOCKERFILE}
     - echo "==== Pushig docker images ===="
