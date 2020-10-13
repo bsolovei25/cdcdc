@@ -37,12 +37,14 @@
     DOCKERHUB_URL: registry.funcoff.club
     DOCKER_REPO: evj
     SERVICE_NAME: "microservice"
-    DOCKER_BASE_NAME: ${DOCKERHUB_URL}/${DOCKER_REPO}/${SERVICE_NAME}
-    DOCKER_IMG: ${DOCKER_BASE_NAME}:${CI_COMMIT_SHA}
-    LATEST_IMG: ${DOCKER_BASE_NAME}:latest
+    DOCKER_BASE_NAME: "${DOCKERHUB_URL}/${DOCKER_REPO}/${SERVICE_NAME}"
+    DOCKER_IMG: "${DOCKER_BASE_NAME}:${CI_COMMIT_SHA}"
+    LATEST_IMG: "${DOCKER_BASE_NAME}:latest"
 
   script:
     - echo "==== Pulling inline-caches ===="
+    - env
+    - echo ${LATEST_IMG}
     - docker pull ${LATEST_IMG}-cache || true
       #- docker pull ${LATEST_IMG} || true
       #- docker pull ${DOCKER_IMG}-cache || docker pull ${LATEST_IMG}-cache || true
