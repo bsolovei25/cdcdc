@@ -26,7 +26,7 @@
     - master
     - devops
 
-.build-angular-mr:
+.build-angular:
   stage: build
   services:
     - docker:19.03.13-dind
@@ -71,53 +71,5 @@
       #- docker push ${DOCKER_IMG}
     - echo "====== Stage  succeeded ======"
   only:
-    - merge_requests
-
-.build-angular-default:
-  stage: build
-  services:
-    - docker:19.03.13-dind
-  tags:
-    - gl-docker-build
-  variables:
-    DOCKERFILE: "Dockerfile"
-    DOCKERHUB_URL: registry.funcoff.club
-    DOCKER_REPO: evj
-    SERVICE_NAME: "microservice"
-    DOCKER_IMG: ${DOCKERHUB_URL}/${DOCKER_REPO}/${SERVICE_NAME}:${CI_COMMIT_SHA}
-    LATEST_IMG: ${DOCKERHUB_URL}/${DOCKER_REPO}/${SERVICE_NAME}:latest
-    BRACH_IMG: ${DOCKERHUB_URL}/${DOCKER_REPO}/${SERVICE_NAME}:${CI_COMMIT_BRANCH}
-
-  script:
-    - echo "==== Pulling inline-caches ===="
-    - docker pull ${LATEST_IMG}-cache || true
-    - docker pull ${LATEST_IMG} || true
-    - echo "==== Building docker images ===="
-    - >
-      docker build
-      --pull
-      --build-arg BUILDKIT_INLINE_CACHE=1 
-      --cache-from ${LATEST_IMG}-cache
-      --tag ${LATEST_IMG}-cache
-      .
-      -f ${DOCKERFILE}
-      --target base
-    - >
-      docker build
-      --pull
-      --build-arg BUILDKIT_INLINE_CACHE=1 
-      --cache-from ${LATEST_IMG}-cache
-      --cache-from ${LATEST_IMG}
-      --tag ${LATEST_IMG}
-      --tag ${BRANCH_IMG}
-      --tag ${DOCKER_IMG}
-      .
-      -f ${DOCKERFILE}
-    - echo "==== Pushig docker images ===="
-    - docker push ${LATEST_IMG}
-    - docker push ${BRACH_IMG}
-    - docker push ${LATEST_IMG}-cache
-      #- docker push ${DOCKER_IMG}
-    - echo "====== Stage  succeeded ======"
-  only:
     - devops
+

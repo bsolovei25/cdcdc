@@ -47,8 +47,8 @@ build-front:
   only:
     - devops
 
-build-front-other:
-  extends: .build-angular-mr
+.build-front-other:
+  extends: .build-angular
   variables:
     DOCKERFILE: "./docker/Dockerfile.k8s"
     SERVICE_NAME: "front"
@@ -62,7 +62,7 @@ build-front-other:
     - branches
 
 build-front-mr:
-  extends: .build-angular-mr
+  extends: .build-angular
   variables:
     DOCKERFILE: "./docker/Dockerfile.k8s"
     SERVICE_NAME: "front"
