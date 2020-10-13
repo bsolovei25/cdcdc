@@ -25,13 +25,11 @@ import { CdMatBalanceChartCardComponent } from '../cd-mat-balance-chart-card/cd-
     styleUrls: ['./cd-mat-balance-chart.component.scss']
 })
 export class CdMatBalanceChartComponent implements OnInit, OnDestroy {
-    public readonly WIDGETS = WIDGETS;
     public readonly chartComponent: typeof CdMatBalanceChartCardComponent = CdMatBalanceChartCardComponent;
 
     private subscriptions: Subscription[] = [];
 
-    allCheckedCharts: number[] = [];
-    allWidgets: IWidget[] = [];
+    allCheckedCharts: string[] = [];
     matBalanceWidgetId: string;
 
     @Input()
@@ -92,15 +90,6 @@ export class CdMatBalanceChartComponent implements OnInit, OnDestroy {
     ngOnInit(): void {
         this.subscriptions.push(
             this.cdMatBalanceService.charts$.subscribe((charts) => {
-                this.allWidgets = [];
-                const allWidgetsLoc = this.widgetService.allWidgets;
-                charts.forEach((chart) => {
-                    allWidgetsLoc.forEach((value) => {
-                        if (value?.sensorId === chart) {
-                            this.allWidgets.push(value);
-                        }
-                    });
-                });
                 this.allCheckedCharts = charts;
             }),
             this.cdMatBalanceService.showDeviation.subscribe((value) => {

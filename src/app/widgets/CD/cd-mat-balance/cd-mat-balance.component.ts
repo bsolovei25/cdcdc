@@ -67,6 +67,7 @@ export interface IStreams {
     totalDeviation: number;
     totalModelValue: number;
     totalValue: number;
+    widgetId: string;
 }
 
 export interface IModalDeviation {
