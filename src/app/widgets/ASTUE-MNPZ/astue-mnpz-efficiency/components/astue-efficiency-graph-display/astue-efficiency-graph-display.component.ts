@@ -80,7 +80,6 @@ export class AstueEfficiencyGraphDisplayComponent extends LineChartPlatform<IPro
                     arr = [...arr, ...this.chartDataMap(flow?.astueFlowGraphs)];
                 });
                 this.data = arr;
-                console.log(this.data);
             }),
             this.AsEfService.selectionUnit$.subscribe(units => {
                 this.resetLabel();
