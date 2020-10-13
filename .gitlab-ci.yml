@@ -36,7 +36,7 @@ stages:
 
 
 build-front:
-  extends: .build-angular-mr
+  extends: .build-angular
   variables:
     DOCKERFILE: "./docker/Dockerfile.k8s"
     SERVICE_NAME: "front"
