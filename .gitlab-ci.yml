@@ -66,8 +66,6 @@ build-front-mr:
     DOCKERFILE: "./docker/Dockerfile.k8s"
     SERVICE_NAME: "front"
     DOCKER_REPO: evj
-  before_script:
-    - docker pull ${DOCKER_MR_IMG} || true
   after_script:
     - echo ${DOCKER_MR_IMG}
     - docker push ${DOCKER_MR_IMG}

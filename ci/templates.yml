@@ -57,7 +57,6 @@
       --cache-from ${LATEST_IMG}-cache
       --build-arg BUILDKIT_INLINE_CACHE=1 
       --tag ${LATEST_IMG}-cache
-      --tag ${DOCKER_IMG}-cache
       .
       -f ${DOCKERFILE}
     - >
@@ -66,8 +65,7 @@
       --build-arg BUILDKIT_INLINE_CACHE=1 
       --cache-from ${LATEST_IMG}-cache
       --cache-from ${LATEST_IMG}
-      --cache-from ${DOCKER_MR_IMG}
-      --tag ${DOCKER_IMG}
+      --tag ${DOCKER_MR_IMG}
       --tag ${LATEST_IMG}
       .
       --file ${DOCKERFILE}
