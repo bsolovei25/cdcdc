@@ -52,7 +52,7 @@ export interface ISensors {
     max: number;
     min: number;
     modelValue: number;
-    widgetId: string;
+    subChannelId: string;
 }
 
 export interface IStreams {
@@ -67,7 +67,7 @@ export interface IStreams {
     totalDeviation: number;
     totalModelValue: number;
     totalValue: number;
-    widgetId: string;
+    subChannelId: string;
 }
 
 export interface IModalDeviation {

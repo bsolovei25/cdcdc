@@ -40,7 +40,7 @@ export class CdMatBalanceRightComponent implements OnInit {
         const childPos = document.getElementById(`el-${idx}`)?.getBoundingClientRect();
         const selectChart: string[] = [
             ...this.cdMatBalanceService.charts$?.getValue(),
-            item?.widgetId
+            item?.subChannelId
         ];
         const setCharts = new Set(selectChart);
         this.cdMatBalanceService.charts$.next([...setCharts]);
@@ -63,7 +63,7 @@ export class CdMatBalanceRightComponent implements OnInit {
     clickItem(item: IStreams): void {
         const selectChart: string[] = [
             ...this.cdMatBalanceService.charts$?.getValue(),
-            item?.widgetId
+            item?.subChannelId
         ];
         const setCharts = new Set(selectChart);
         this.cdMatBalanceService.charts$.next([...setCharts]);

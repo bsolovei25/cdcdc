@@ -146,7 +146,7 @@ export class CdMnemonicComponent implements OnInit {
             const el: ISensors = this.data.find((val) => val.id === +id);
             circle.addEventListener('click',
                 (e) => {
-                    this.addLineChart(+id, el?.widgetId);
+                    this.addLineChart(+id, el?.subChannelId);
                 });
             this.renderer2?.removeClass(circle, 'svg__circle--deviation');
 
@@ -158,7 +158,7 @@ export class CdMnemonicComponent implements OnInit {
                     +circle.getAttribute('cx'),
                     +circle.getAttribute('cy'),
                     dev,
-                    el.widgetId
+                    el.subChannelId
                 );
             }
         });
@@ -265,7 +265,7 @@ export class CdMnemonicComponent implements OnInit {
                 const el = this.data.find((val) => val.id === +id);
                 engUnit.addEventListener('click',
                     () => {
-                        this.addLineChart(+id, el.widgetId);
+                        this.addLineChart(+id, el.subChannelId);
                     });
 
                 if (el) {
@@ -292,7 +292,7 @@ export class CdMnemonicComponent implements OnInit {
             const el = this.data.find((val) => val.id === +id);
             text.addEventListener('click',
                 (e) => {
-                    this.addLineChart(+id, el.widgetId);
+                    this.addLineChart(+id, el.subChannelId);
                 });
             let value = 0;
             if (el?.value) {
