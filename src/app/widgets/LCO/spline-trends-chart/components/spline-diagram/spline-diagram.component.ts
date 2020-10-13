@@ -94,6 +94,8 @@ export class SplineDiagramComponent implements OnChanges {
 
     private svg: any = null;
 
+    private readonly DELTA: number = 0.05;
+
     constructor(
     ) {
     }
@@ -132,21 +134,12 @@ export class SplineDiagramComponent implements OnChanges {
 
         this.plan = this.data && this.data.planValue ? this.data.planValue : 0;
 
-        let maxX = 0;
-        let maxY = 0;
-        let minY = 0;
-
-        [...this.factDataset, ...this.planDataset].forEach(item => {
-            maxY = item.y >= maxY ? item.y : maxY === 0 ? item.y : maxY;
-            minY = item.y <= minY ? item.y : minY === 0 ? item.y : minY;
-        });
-        this.factDataset.forEach(item => {
-            maxX = item.x >= maxX ? item.x : maxX === 0 ? item.x : maxX;
-        });
-
-        this.day = maxX;
-        this.sizeY.min = minY - ( 0.03 * minY );
-        this.sizeY.max = maxY + ( 0.03 * maxY );
+        if (this.factDataset.length && this.planDataset.length) {
+            [this.sizeY.min, this.sizeY.max] = d3.extent([...this.factDataset, ...this.planDataset].map(item => item.y));
+            this.sizeY.min -= (this.sizeY.max - this.sizeY.min) * this.DELTA;
+            this.sizeY.max += (this.sizeY.max - this.sizeY.min) * this.DELTA;
+            this.day = d3.max(this.factDataset.map(item => item.x));
+        }
     }
 
     private initScale(): void {
