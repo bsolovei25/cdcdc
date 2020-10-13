@@ -26,7 +26,7 @@ RUN npm run-script build --prod
 RUN cd /app/dist/evj; sed -i 's/base href="\/"/base href="\/AS-PlatformaCUP\/"/' index.html
 
 # ready to prod image
-FROM nginx:1.19.1 AS webserver
+FROM nginx:1.19.1-alpine AS webserver
 EXPOSE 80
 COPY --from=build /app/dist/evj /usr/share/nginx/html
 CMD ["nginx", "-g", "daemon off;"]

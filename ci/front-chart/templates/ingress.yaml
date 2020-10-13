@@ -1,0 +1,20 @@
+{{- $mbo :=  .Values.microservice.name -}}
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  annotations:
+    nginx.ingress.kubernetes.io/proxy-body-size: 30m
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "3600"
+    nginx.ingress.kubernetes.io/proxy-send-timeout: "3600"
+  name: {{ include "fullname" . }}
+spec:
+  rules:
+  - host: evj.funcoff.club
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: {{ $mbo }}
+          servicePort: 80
+

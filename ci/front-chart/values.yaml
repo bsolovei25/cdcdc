@@ -1,0 +1,23 @@
+microservice:
+  name: front
+  
+  tag: latest
+
+  labels:
+    tier: frontend
+
+  deployment:
+    replicas: 1
+    strategies: RollingUpdate
+    nodelabels:
+      app: frontend
+
+  image:
+    dockerhubUrl: registry.funcoff.club
+    imageRepo: evj/front
+    imageTag: latest
+
+  service:
+    type: NodePort
+    port: 30080
+
