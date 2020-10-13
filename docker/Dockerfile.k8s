@@ -1,5 +1,5 @@
 # base image
-FROM node:lts-buster as base
+FROM registry.funcoff.club/libs/node:lts-buster as base
 WORKDIR /app
 ENV PATH /app/node_modules/.bin:$PATH
 COPY ./package.json /app/package.json
