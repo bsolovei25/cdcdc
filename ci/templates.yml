@@ -57,7 +57,7 @@
       -f ${DOCKERFILE}
     - >
       docker build
-      --taget webserver
+      --target webserver
       --build-arg BUILDKIT_INLINE_CACHE=1 
       --cache-from ${LATEST_IMG}-cache
       --cache-from ${LATEST_IMG}
