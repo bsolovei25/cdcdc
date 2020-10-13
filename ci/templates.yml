@@ -48,24 +48,22 @@
     - echo "==== Building docker images ===="
     - >
       docker build
-      --pull
-      --build-arg BUILDKIT_INLINE_CACHE=1 
+      --target base
       --cache-from ${LATEST_IMG}-cache
-      --cache-from ${LATEST_IMG}
+      --build-arg BUILDKIT_INLINE_CACHE=1 
       --tag ${LATEST_IMG}-cache
       --tag ${DOCKER_IMG}-cache
       .
       -f ${DOCKERFILE}
-      --target base
     - >
       docker build
-      --pull
+      --taget webserver
       --build-arg BUILDKIT_INLINE_CACHE=1 
       --cache-from ${LATEST_IMG}-cache
       --cache-from ${LATEST_IMG}
       --tag ${DOCKER_IMG}
       .
-      -f ${DOCKERFILE}
+      --file ${DOCKERFILE}
     - echo "==== Pushig docker images ===="
     - docker push ${DOCKER_IMG}
     - docker push ${DOCKER_IMG}-cache

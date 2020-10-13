@@ -9,6 +9,7 @@ variables:
   # This will instruct Docker not to start over TLS.
   DOCKER_TLS_CERTDIR: ""
   DOCKER_BUILDKIT: 1
+  DOCKER_DRIVER: overlay2
   # Registry configs
   DEPLOY_DOMAIN: ml.funcoff.club:30602
   GIT_SSL_NO_VERIFY: "1"
@@ -69,7 +70,7 @@ deploy-front-stage:
     - develop
     - master
 
-.deploy-front-mr:
+deploy-front-mr:
   extends: .deploy-to-k8s
   variables:
     NS: "${CI_COMMIT_BRANCH}-evj"
@@ -89,9 +90,9 @@ deploy-front-stage:
     url: https://${DEPLOY_DOMAIN}
     on_stop: stop-k8s-review
   only:
-    - mergerequests
+    - merge_requests
 
-.stop-k8s-review:
+stop-k8s-review:
     <<: *init
     variables:
         GIT_STRATEGY: none

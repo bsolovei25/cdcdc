@@ -6,13 +6,13 @@ metadata:
 data:
   assets: |
     {
-        "wsUrl": "wss://evj.funcoff.club/ws",
-        "restUrl": "https://evj.funcoff.club",
-        "fileStorage": "https:/evj.funcoff.club",
+        "wsUrl": "wss://{{ include "route" . }}/ws",
+        "restUrl": "https://{{ include "route" . }}",
+        "fileStorage": "https://{{ include "route" . }}",
         "smotrUrl": "http://192.168.0.17:6937",
         "reconnectInterval": 5,
         "shiftFree": "not-all",
         "isDomenAuth": true,
         "authorizationHeader": "AsPlatform-Authorization",
-        "projectName": "Evj"
+        "projectName": "{{ .Values.microservice.ingress.site }}"
     }

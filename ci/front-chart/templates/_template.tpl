@@ -22,3 +22,9 @@
   {{- $imageTag := .Values.microservice.image.imageTag -}}
   {{- $imageRegistry -}}/{{- $imageRepo -}}:{{- $imageTag -}}
 {{- end -}}
+
+{{- define "route" -}}
+  {{- $domain := .Values.microservice.ingress.domain -}}
+  {{- $site := .Values.microservice.ingress.site -}}
+  {{- $site -}}.{{- $domain -}}
+{{- end -}}

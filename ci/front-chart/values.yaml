@@ -21,3 +21,7 @@ microservice:
     type: NodePort
     port: 30080
 
+  ingress:
+    port: 443
+    domain: funcoff.club
+    site: evj
