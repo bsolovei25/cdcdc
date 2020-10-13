@@ -90,7 +90,7 @@ build-front-mr:
 deploy-front-mr:
   extends: .deploy-to-k8s
   variables:
-    NS: "${CI_COMMIT_BRANCH}-evj"
+    NS: "${CI_COMMIT_REF_SLUG}-evj"
     IMG_VERSION: "${CI_COMMIT_SHORT_SHA}"
     CHART: "./ci/front-chart"
     RELEASE: "front"
