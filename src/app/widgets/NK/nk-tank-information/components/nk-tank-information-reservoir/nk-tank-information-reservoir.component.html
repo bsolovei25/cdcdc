@@ -2,8 +2,12 @@
 
         <div class="reservoir">
                 <div class="circles">
-                    <div class="circle" *ngFor = "let item of reservoirCustomization; let i = index">
-                        <div class="circle__inner">
+                    <div 
+                        class="circle" 
+                        *ngFor = "let item of reservoirCustomization; let i = index"
+                        [class.repair]="isRepair"
+                    >
+                        <div class="circle__inner" *ngIf="!isRepair">
                             <div  
                                 *ngIf = "14 - i <= current / higher * reservoirCustomization.length" 
                                 class="circle__lvl"
@@ -11,17 +15,30 @@
                             >
                             </div>
                         </div>
+
+                        <div class="circle__inner circle__inner_repair" *ngIf="isRepair">
+                        </div>
                     </div>
                 </div>
 
-                <img class = 'reservoir__cap2' src="../../../../../../assets/icons/widgets/NK/cap2.svg" alt="">
-                <img class = 'reservoir__cap' src="../../../../../../assets/icons/widgets/NK/cap.svg" alt="">
-                <img class = 'reservoir__bottom' src="../../../../../../assets/icons/widgets/NK/reserviorBottom.svg" alt="">
-                <img class = 'reservoir__cap4' src="../../../../../../assets/icons/widgets/NK/cap4.svg" alt="">
-                <img class = 'reservoir__cap3' src="../../../../../../assets/icons/widgets/NK/cap3.svg" alt="">
-                <img class = 'reservoir__stand' src="../../../../../../assets/icons/widgets/NK/stand.svg" alt="">
+                <img class = 'reservoir__cap2' src="assets/icons/widgets/NK/cap2.svg" alt="">
+                <img class = 'reservoir__cap' src="assets/icons/widgets/NK/cap.svg" alt="">
+                <img class = 'reservoir__bottom' src="assets/icons/widgets/NK/reserviorBottom.svg" alt="">
+                <img class = 'reservoir__cap4' src="assets/icons/widgets/NK/cap4.svg" alt="">
+                <img class = 'reservoir__cap3' src="assets/icons/widgets/NK/cap3.svg" alt="">
+                <svg-icon
+                    *ngIf="!isRepair"
+                    class = 'reservoir__stand' 
+                    src="assets/icons/widgets/NK/stand.svg"
+                ></svg-icon>
+                <svg-icon
+                    *ngIf="isRepair"
+                    class = 'reservoir__stand' 
+                    src="assets/icons/widgets/NK/standRepair.svg"
+            ></svg-icon>
         </div>
         <div class="btn"
+            *ngIf="!isRepair"
             [matTooltip] = "status"
         >
             <div class="top-btn" [style.opacity] = "status === 'Заполнение' || status === 'Проток'? '1': '0.08' ">

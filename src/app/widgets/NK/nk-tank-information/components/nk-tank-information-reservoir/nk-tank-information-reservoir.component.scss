@@ -64,6 +64,10 @@ img {
     &:not(:first-child) {
         margin-top: -110px;
     }
+
+    &_repair {
+        border: 0.5px solid var(--nk-color-font-title-sub);
+    }
 }
 
 .circle__inner {
@@ -78,6 +82,9 @@ img {
     border-radius: 50%;
 
     z-index: 1;
+    &_repair {
+        border: 0.5px solid var(--nk-color-font-title-sub);
+    }
 }
 
 .circle__lvl {
@@ -196,4 +203,8 @@ img {
     .arrow__before, .arrow__after {
         opacity: 0.55;
     }
+}
+
+.repair {
+    border: 0.5px solid var(--nk-color-font-title-sub); 
 }
