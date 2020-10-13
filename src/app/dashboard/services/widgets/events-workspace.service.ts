@@ -81,6 +81,7 @@ export class EventsWorkspaceService {
                 if (this.isCreateNewEvent) {
                     switch (cat.name) {
                         case 'smotr':
+                        case 'ejs':
                             return false;
                         default:
                             return true;
@@ -566,12 +567,9 @@ export class EventsWorkspaceService {
     }
 
     public async changeCategory(): Promise<void> {
-        console.log(this.event.category);
-        console.log(this.event);
-
         if (this.event.category.name === 'tasks') {
-            const el = this.subCategory.find(value => value.code === '0');
-            this.event.productionTasks.subCategory = el;
+            this.event.productionTasks.subCategory =
+                this.subCategory?.find(value => value.code === '0');
         }
         if (this.event.category.name === 'asus') {
             await this.asusReferencesLoad();
@@ -582,6 +580,9 @@ export class EventsWorkspaceService {
         event1: IEventsWidgetNotification,
         event2: IEventsWidgetNotification
     ): boolean {
+        if (!event1) {
+            return true;
+        }
         return JSON.stringify(event1) === JSON.stringify(event2);
     }
 
