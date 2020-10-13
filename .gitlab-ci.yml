@@ -96,7 +96,7 @@ deploy-front-mr:
   extends: .deploy-to-k8s
   variables:
     NS: "${CI_COMMIT_REF_SLUG}-evj"
-    IMG_VERSION: "latest"
+    IMG_VERSION: "${CI_MERGE_REQUEST_SOURCE_BRANCH_NAME}"
     CHART: "./ci/front-chart"
     RELEASE: "front"
     DEPLOY_DOMAIN: "https://${CI_COMMIT_REF_SLUG}-evj.funcoff.club"
