@@ -39,7 +39,7 @@ export interface IMatBalanceChartCard {
     templateUrl: './cd-mat-balance-chart-card.component.html',
     styleUrls: ['./cd-mat-balance-chart-card.component.scss']
 })
-export class CdMatBalanceChartCardComponent extends ChannelPlatform<any, any>
+export class CdMatBalanceChartCardComponent extends ChannelPlatform<IMatBalanceChartCard>
     implements OnInit, OnDestroy, AfterViewInit {
     @ViewChild('chart')
     public chartElement: ElementRef;
@@ -83,10 +83,8 @@ export class CdMatBalanceChartCardComponent extends ChannelPlatform<any, any>
     }
 
     protected dataHandler(ref: IMatBalanceChartCard): void {
-        if (ref) {
-            this.getData(ref);
-            this.isLoading = false;
-        }
+        this.getData(ref);
+        this.isLoading = false;
     }
 
     private async getData(data: IMatBalanceChartCard): Promise<void> {

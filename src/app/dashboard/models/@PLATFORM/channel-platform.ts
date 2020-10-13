@@ -14,6 +14,9 @@ export abstract class ChannelPlatform<T, O = null> implements OnInit, OnDestroy 
     }
 
     ngOnInit(): void {
+        if (!this.widgetId || !this.channelId) {
+            return;
+        }
         this.subscriptions.push(
             this.widgetService.getChannelLiveDataFromWs(this.channelId, this.widgetId)
                 .subscribe(this.dataHandler.bind(this))
