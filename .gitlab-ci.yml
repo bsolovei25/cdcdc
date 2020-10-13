@@ -72,11 +72,11 @@ deploy-front-stage:
 deploy-front-mr:
   extends: .deploy-to-k8s
   variables:
-    NS: "${CI_COMMIT_BRANCH}"
-    IMG_VERSION: "latest"
+    NS: "${CI_COMMIT_BRANCH}-evj"
+    IMG_VERSION: "${CI_COMMIT_SHORT_SHA}"
     CHART: "./ci/front-chart"
     RELEASE: "front"
-    DEPLOY_DOMAIN: "https://${CI_COMMIT_BRANCH}-evj.funcoff.club"
+    DEPLOY_DOMAIN: "https://${CI_COMMIT_REF_SLUG}-evj.funcoff.club"
   script:
     - kubectl version
     - kubectl create ns ${NS}
@@ -87,10 +87,24 @@ deploy-front-mr:
   environment:
     name: merge-review
     url: https://${DEPLOY_DOMAIN}
+    on_stop: stop-k8s-review
   only:
-    - develop
-    - master
+    - mergerequests
 
+.stop-k8s-review:
+    <<: *init
+    variables:
+        GIT_STRATEGY: none
+    stage: deploy-review
+    only:
+        - merge_requests
+    script:
+        - ssh ${SCP_HOST} "cd /root/dynamic-environment-creator ; python3 main.py -d destroy -e $CI_COMMIT_REF_SLUG"
+    when: manual
+    environment:
+        name: review/${CI_COMMIT_REF_SLUG}
+        action: stop
+      
 .docker build:
     <<: *init
     stage: prebuild
