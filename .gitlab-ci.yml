@@ -67,10 +67,10 @@ build-front-mr:
     SERVICE_NAME: "front"
     DOCKER_REPO: evj
   before_script:
-    - docker pull ${DOCKER_BASE_NAME}:${CI_MERGE_REQUEST_SOURCE_BRANCH_SHA} || true
+    - docker pull ${DOCKER_MR_IMG} || true
   after_script:
-    - echo ${DOCKER_BASE_NAME}:${CI_MERGE_REQUEST_SOURCE_BRANCH_SHA}
-    - docker push ${DOCKER_BASE_NAME}:${CI_MERGE_REQUEST_SOURCE_BRANCH_SHA}
+    - echo ${DOCKER_MR_IMG}
+    - docker push ${DOCKER_MR_IMG}
   only:
     - merge_requests
 

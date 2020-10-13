@@ -37,9 +37,10 @@
     DOCKERHUB_URL: registry.funcoff.club
     DOCKER_REPO: evj
     SERVICE_NAME: "microservice"
-    DOCKER_BASE_NAME: "${DOCKERHUB_URL}/${DOCKER_REPO}/${SERVICE_NAME}"
-    DOCKER_IMG: "${DOCKER_BASE_NAME}:${CI_COMMIT_SHA}"
-    LATEST_IMG: "${DOCKER_BASE_NAME}:latest"
+    DOCKER_BASE_NAME: ${DOCKERHUB_URL}/${DOCKER_REPO}/${SERVICE_NAME}
+    DOCKER_IMG: ${DOCKERHUB_URL}/${DOCKER_REPO}/${SERVICE_NAME}:${CI_COMMIT_SHA}
+    LATEST_IMG: ${DOCKERHUB_URL}/${DOCKER_REPO}/${SERVICE_NAME}:latest
+    DOCKER_MR_IMG: ${DOCKERHUB_URL}/${DOCKER_REPO}/${SERVICE_NAME}:{CI_MERGE_REQUEST_SOURCE_BRANCH_SHA}
 
   script:
     - echo "==== Pulling inline-caches ===="
@@ -64,7 +65,7 @@
       --build-arg BUILDKIT_INLINE_CACHE=1 
       --cache-from ${LATEST_IMG}-cache
       --cache-from ${LATEST_IMG}
-      --cache-from ${DOCKER_BASE_NAME}:${CI_MERGE_REQUEST_SOURCE_BRANCH_SHA}
+      --cache-from ${DOCKER_MR_IMG}
       --tag ${DOCKER_IMG}
       --tag ${LATEST_IMG}
       .
