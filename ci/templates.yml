@@ -65,8 +65,8 @@
       .
       --file ${DOCKERFILE}
     - echo "==== Pushig docker images ===="
-    - docker push ${DOCKER_IMG}
-    - docker push ${DOCKER_IMG}-cache
+    - docker push ${LATEST_IMG}
+    - docker push ${LATEST_IMG}-cache
       #- docker push ${DOCKER_IMG}
     - echo "====== Stage  succeeded ======"
   only:

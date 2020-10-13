@@ -35,7 +35,7 @@ stages:
 
 
 build-front:
-  extends: .build-angular-default
+  extends: .build-angular-mr
   variables:
     DOCKERFILE: "./docker/Dockerfile.k8s"
     SERVICE_NAME: "front"
@@ -55,7 +55,7 @@ build-front-mr:
 
 
 
-deploy-front-stage:
+.deploy-front-stage:
   extends: .deploy-to-k8s
   variables:
     NS: "evj"
@@ -68,6 +68,7 @@ deploy-front-stage:
     url: https://${DEPLOY_DOMAIN}
   only:
     - develop
+    - devops
     - master
 
 deploy-front-mr:
