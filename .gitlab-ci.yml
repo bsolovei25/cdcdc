@@ -34,7 +34,6 @@ stages:
     tags:
         - build2-cup-front
 
-
 build-front:
   extends: .build-angular
   variables:
