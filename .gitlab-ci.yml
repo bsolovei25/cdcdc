@@ -58,7 +58,7 @@ deploy-front-stage:
   extends: .deploy-to-k8s
   variables:
     NS: "evj"
-    IMG_VERSION: "latest"
+    IMG_VERSION: "latest" # switch to branches?
     CHART: "./ci/front-chart"
     RELEASE: "front"
     DEPLOY_DOMAIN: "https://evj.funcoff.club"
@@ -69,16 +69,23 @@ deploy-front-stage:
     - develop
     - master
 
-deploy-front-branches:
+deploy-front-mr:
   extends: .deploy-to-k8s
   variables:
-    NS: "evj"
+    NS: "${CI_COMMIT_BRANCH}"
     IMG_VERSION: "latest"
     CHART: "./ci/front-chart"
     RELEASE: "front"
-    DEPLOY_DOMAIN: "https://evj.funcoff.club"
+    DEPLOY_DOMAIN: "https://${CI_COMMIT_BRANCH}-evj.funcoff.club"
+  script:
+    - kubectl version
+    - kubectl create ns ${NS}
+    - helm upgrade 
+        --install ${RELEASE} ${CHART}
+        --set "microservice.image.imageTag=${IMG_VERSION}"
+        --namespace ${NS}
   environment:
-    name: production
+    name: merge-review
     url: https://${DEPLOY_DOMAIN}
   only:
     - develop
