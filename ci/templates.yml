@@ -42,16 +42,15 @@
 
   script:
     - echo "==== Pulling inline-caches ===="
-    - docker pull ${DOCKER_IMG}-cache || docker pull ${LATEST_IMG}-cache || true
+    - docker pull docker pull ${LATEST_IMG}-cache || true
+      #- docker pull ${DOCKER_IMG}-cache || docker pull ${LATEST_IMG}-cache || true
     - echo "==== Building docker images ===="
     - >
       docker build
       --pull
       --build-arg BUILDKIT_INLINE_CACHE=1 
-      --cache-from ${DOCKER_IMG}-cache
       --cache-from ${LATEST_IMG}-cache
       --tag ${LATEST_IMG}-cache
-      --tag ${DOCKER_IMG}-cache
       .
       -f ${DOCKERFILE}
       --target base
@@ -60,7 +59,6 @@
       --pull
       --build-arg BUILDKIT_INLINE_CACHE=1 
       --cache-from ${LATEST_IMG}-cache
-      --cache-from ${DOCKER_IMG}-cache
       --tag ${LATEST_IMG}
       --tag ${DOCKER_IMG}
       .
