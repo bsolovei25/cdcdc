@@ -1,3 +1,31 @@
+.deploy-to-k8s:
+  tags:
+    - gl-docker-build
+  variables:
+    NS: "default"
+    RELEASE: "default"
+    CHART: "path/to/chart"
+    IMG_VERSION: "latest"
+    DEPLOY_DOMAIN: "url"
+  stage: deploy
+  image: dtzar/helm-kubectl:3.3.4
+  before_script:
+    - mkdir /root/.kube && echo "${KUBECTL_AUTH_CONFIG}" > /root/.kube/config
+    - mkdir -p $HOME/.docker && echo "${DOCKER_AUTH_CONFIG}" > $HOME/.docker/config.json && chmod 600 $HOME/.docker/config.json
+  script:
+    - kubectl version
+    - helm upgrade 
+        --install ${RELEASE} ${CHART}
+        --set "microservice.image.imageTag=${IMG_VERSION}"
+        --namespace ${NS}
+  environment:
+    name: production
+    url: https://${DEPLOY_DOMAIN}
+  only:
+    - develop
+    - master
+    - devops
+
 .build-angular:
   stage: build
   services:

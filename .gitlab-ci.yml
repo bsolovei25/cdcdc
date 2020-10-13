@@ -42,6 +42,20 @@ build-front:
   only:
     - devops
 
+deploy-front:
+  extends: .deploy-to-k8s
+  variables:
+    NS: "evj"
+    IMG_VERSION: "latest"
+    CHART: "./ci/front-chart"
+    RELEASE: "front"
+    DEPLOY_DOMAIN: "https://evj.funcoff.club"
+  environment:
+    name: production
+    url: https://${DEPLOY_DOMAIN}
+  only:
+    - devops
+
 
 .docker build:
     <<: *init
@@ -63,6 +77,9 @@ build-front:
           #- master
           #- develop
         - merge_requests
+
+
+
 
 .testing website:
     <<: *init
