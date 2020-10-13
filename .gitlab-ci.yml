@@ -86,7 +86,7 @@ deploy-front-mr:
         --set "microservice.image.imageTag=${IMG_VERSION}"
         --namespace ${NS}
   environment:
-    name: merge-review
+    name: review/${CI_COMMIT_REF_SLUG}
     url: https://${DEPLOY_DOMAIN}
     on_stop: stop-k8s-review
   only:
