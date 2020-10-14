@@ -1,0 +1,409 @@
+{
+  "data": {
+    "statePark": {
+      "maxRest": 301064.919,
+      "freeRest": 301064.919,
+      "allRest": 0,
+      "passportrest": 9933.068,
+      "deathRest": 36613.2
+    },
+    "shipment": {
+      "maxRest": 301064.919,
+      "factAll": 2600,
+      "fact": 2600,
+      "nFact": 0,
+      "deathRest": 36613.2
+    },
+    "circle": [
+      {
+        "id": 0,
+        "title": "выработка",
+        "value": 845102.89,
+        "icon": "production",
+        "prodPlanPer": 92.019043,
+        "critical": 2,
+        "days": [
+          {
+            "day": 1,
+            "critical": 0
+          },
+          {
+            "day": 1,
+            "critical": 1
+          },
+          {
+            "day": 1,
+            "critical": 0
+          },
+          {
+            "day": 1,
+            "critical": 2
+          },
+          {
+            "day": 1,
+            "critical": 2
+          },
+          {
+            "day": 1,
+            "critical": 2
+          },
+          {
+            "day": 1,
+            "critical": 2
+          },
+          {
+            "day": 1,
+            "critical": 2
+          },
+          {
+            "day": 1,
+            "critical": 0
+          },
+          {
+            "day": 1,
+            "critical": 2
+          },
+          {
+            "day": 1,
+            "critical": 0
+          },
+          {
+            "day": 1,
+            "critical": 2
+          },
+          {
+            "day": 1,
+            "critical": 2
+          },
+          {
+            "day": 1,
+            "critical": 2
+          },
+          {
+            "day": 1,
+            "critical": 0
+          },
+          {
+            "day": 1,
+            "critical": 1
+          },
+          {
+            "day": 1,
+            "critical": 2
+          },
+          {
+            "day": 1,
+            "critical": 0
+          },
+          {
+            "day": 1,
+            "critical": 2
+          },
+          {
+            "day": 1,
+            "critical": 2
+          },
+          {
+            "day": 1,
+            "critical": 1
+          },
+          {
+            "day": 1,
+            "critical": 0
+          },
+          {
+            "day": 1,
+            "critical": 1
+          },
+          {
+            "day": 1,
+            "critical": 2
+          },
+          {
+            "day": 1,
+            "critical": 2
+          },
+          {
+            "day": 1,
+            "critical": 2
+          },
+          {
+            "day": 1,
+            "critical": 2
+          },
+          {
+            "day": 1,
+            "critical": 2
+          },
+          {
+            "day": 1,
+            "critical": 2
+          },
+          {
+            "day": 1,
+            "critical": 0
+          }
+        ]
+      },
+      {
+        "id": 0,
+        "title": "паспортизация",
+        "value": 844569.81,
+        "icon": "passportization",
+        "prodPlanPer": 92.444358,
+        "critical": 2,
+        "days": [
+          {
+            "day": 1,
+            "critical": 0
+          },
+          {
+            "day": 1,
+            "critical": 1
+          },
+          {
+            "day": 1,
+            "critical": 0
+          },
+          {
+            "day": 1,
+            "critical": 2
+          },
+          {
+            "day": 1,
+            "critical": 2
+          },
+          {
+            "day": 1,
+            "critical": 2
+          },
+          {
+            "day": 1,
+            "critical": 2
+          },
+          {
+            "day": 1,
+            "critical": 2
+          },
+          {
+            "day": 1,
+            "critical": 0
+          },
+          {
+            "day": 1,
+            "critical": 2
+          },
+          {
+            "day": 1,
+            "critical": 0
+          },
+          {
+            "day": 1,
+            "critical": 2
+          },
+          {
+            "day": 1,
+            "critical": 2
+          },
+          {
+            "day": 1,
+            "critical": 2
+          },
+          {
+            "day": 1,
+            "critical": 0
+          },
+          {
+            "day": 1,
+            "critical": 1
+          },
+          {
+            "day": 1,
+            "critical": 2
+          },
+          {
+            "day": 1,
+            "critical": 0
+          },
+          {
+            "day": 1,
+            "critical": 2
+          },
+          {
+            "day": 1,
+            "critical": 2
+          },
+          {
+            "day": 1,
+            "critical": 1
+          },
+          {
+            "day": 1,
+            "critical": 0
+          },
+          {
+            "day": 1,
+            "critical": 1
+          },
+          {
+            "day": 1,
+            "critical": 2
+          },
+          {
+            "day": 1,
+            "critical": 2
+          },
+          {
+            "day": 1,
+            "critical": 2
+          },
+          {
+            "day": 1,
+            "critical": 2
+          },
+          {
+            "day": 1,
+            "critical": 2
+          },
+          {
+            "day": 1,
+            "critical": 2
+          },
+          {
+            "day": 1,
+            "critical": 0
+          }
+        ]
+      },
+      {
+        "id": 0,
+        "title": "отгрузка",
+        "value": 345255.68,
+        "icon": "shipment",
+        "prodPlanPer": 39.820107,
+        "critical": 2,
+        "days": [
+          {
+            "day": 1,
+            "critical": 0
+          },
+          {
+            "day": 1,
+            "critical": 1
+          },
+          {
+            "day": 1,
+            "critical": 0
+          },
+          {
+            "day": 1,
+            "critical": 2
+          },
+          {
+            "day": 1,
+            "critical": 0
+          },
+          {
+            "day": 1,
+            "critical": 1
+          },
+          {
+            "day": 1,
+            "critical": 2
+          },
+          {
+            "day": 1,
+            "critical": 2
+          },
+          {
+            "day": 1,
+            "critical": 0
+          },
+          {
+            "day": 1,
+            "critical": 2
+          },
+          {
+            "day": 1,
+            "critical": 0
+          },
+          {
+            "day": 1,
+            "critical": 2
+          },
+          {
+            "day": 1,
+            "critical": 1
+          },
+          {
+            "day": 1,
+            "critical": 0
+          },
+          {
+            "day": 1,
+            "critical": 0
+          },
+          {
+            "day": 1,
+            "critical": 2
+          },
+          {
+            "day": 1,
+            "critical": 1
+          },
+          {
+            "day": 1,
+            "critical": 0
+          },
+          {
+            "day": 1,
+            "critical": 2
+          },
+          {
+            "day": 1,
+            "critical": 2
+          },
+          {
+            "day": 1,
+            "critical": 1
+          },
+          {
+            "day": 1,
+            "critical": 0
+          },
+          {
+            "day": 1,
+            "critical": 2
+          },
+          {
+            "day": 1,
+            "critical": 2
+          },
+          {
+            "day": 1,
+            "critical": 2
+          },
+          {
+            "day": 1,
+            "critical": 2
+          },
+          {
+            "day": 1,
+            "critical": 2
+          },
+          {
+            "day": 1,
+            "critical": 2
+          },
+          {
+            "day": 1,
+            "critical": 2
+          },
+          {
+            "day": 1,
+            "critical": 0
+          }
+        ]
+      }
+    ]
+  },

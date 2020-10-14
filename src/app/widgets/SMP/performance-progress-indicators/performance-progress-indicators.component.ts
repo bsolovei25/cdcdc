@@ -1,7 +1,11 @@
 import { Component, OnInit, OnDestroy, Inject } from '@angular/core';
 import { WidgetPlatform } from 'src/app/dashboard/models/@PLATFORM/widget-platform';
 import { WidgetService } from 'src/app/dashboard/services/widget.service';
-import { IProgressIndicators } from '../../../dashboard/models/SMP/performance-progress-indicators.model';
+import {
+    IPerfCircleDay, IPerfProgCircle,
+    IProgressIndicators
+} from '../../../dashboard/models/SMP/performance-progress-indicators.model';
+import { Subscription } from 'rxjs';
 
 
 
@@ -13,6 +17,10 @@ import { IProgressIndicators } from '../../../dashboard/models/SMP/performance-p
 export class PerformanceProgressIndicatorsComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
 
   public data: IProgressIndicators;
+  public perfCircleDay: IPerfCircleDay[];
+  public perfProgCircle: IPerfProgCircle[];
+  public perfProgPark: IPerfProgCircle;
+  private subscription: Subscription[] = [];
 
   constructor(
     protected widgetService: WidgetService,
@@ -25,10 +33,13 @@ export class PerformanceProgressIndicatorsComponent extends WidgetPlatform<unkno
 
   public ngOnInit(): void {
     super.widgetInit();
+
+    this.subscription.push();
   }
 
   public ngOnDestroy(): void {
     super.ngOnDestroy();
+    this.subscriptions.forEach((subs: Subscription) => subs.unsubscribe());
   }
 
   protected dataHandler(ref: any): void {
