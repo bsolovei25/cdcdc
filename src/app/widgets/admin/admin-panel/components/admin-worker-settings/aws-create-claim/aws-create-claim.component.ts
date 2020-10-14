@@ -39,9 +39,7 @@ export class AwsCreateClaimComponent implements OnInit {
         this.allClaims = this.adminService.specialClaims;
         this.allWidgets = this.adminService.allWidgets.filter((value) => !value.isHidden);
         this.allUnits = this.adminService.units;
-        console.log(this.allClaims, this.workerSpecialClaims);
         this.allClaims.forEach((value) => {
-
             const copyWidgets: IWidget[] = this.allWidgets.map(v => fillDataShape(v));
             if (value.claimValueType === 'widget') {
                 value.widgets = copyWidgets;
@@ -128,7 +126,7 @@ export class AwsCreateClaimComponent implements OnInit {
     // end Выбрать все
 
     public onBack(): void {
-        this.createdClaim.emit([]);
+        this.createdClaim.emit();
     }
 
     // Сохранить

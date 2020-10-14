@@ -9,7 +9,7 @@ export class SearchWidgetPipe implements PipeTransform {
         if (!search.trim()) {
             return widgets;
         }
-        return widgets.filter(widget => {
+        return widgets?.filter(widget => {
             return widget?.title?.toLowerCase().includes(search.toLowerCase());
         });
     }

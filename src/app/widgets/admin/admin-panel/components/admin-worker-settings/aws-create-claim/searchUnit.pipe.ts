@@ -9,7 +9,7 @@ export class SearchUnitPipe implements PipeTransform {
         if (!search.trim()) {
             return units;
         }
-        return units.filter(unit => {
+        return units?.filter(unit => {
             return unit?.name?.toLowerCase().includes(search.toLowerCase());
         });
     }

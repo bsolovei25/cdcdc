@@ -124,19 +124,6 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
                             value.units.push(this.findEntityByClaimValueUnit(value));
                         }
                     });
-                    console.log(this.workerSpecialClaims);
-                    // this.workerSpecialClaims?.forEach(value => {
-                    // value?.units?.map(u => {
-                    //     if (value.units !== []) {
-                    //         u.isActive = true;
-                    //     }
-                    // });
-                    // value?.widgets?.map(w => {
-                    //     if (value.widgets !== []) {
-                    //         w.isActive = true;
-                    //     }
-                    // });
-                    // });
                 })
             );
         }
@@ -234,12 +221,15 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
     }
 
     public onCreateSpecialClaim(claims: IGlobalClaim[]): void {
-        this.workerSpecialClaims = [];
-        claims.forEach((claim) => {
-            this.workerSpecialClaims.push(claim);
-        });
+        if (claims) {
+            this.workerSpecialClaims = [];
+            claims.forEach((claim) => {
+                this.workerSpecialClaims.push(claim);
+            });
+            this.isDataChanged = true;
+        }
         this.isCreateClaim = false;
-        this.isDataChanged = true;
+
     }
 
     public onRemoveSpecialClaim(claim: IWidget | IUnitEvents): void {
