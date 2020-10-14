@@ -44,8 +44,11 @@ build-front:
     - docker info
   after_script:
     - echo "==== Pushig docker images ===="
-      echo $DOCKER_IMG $DOCKER_MR_IMG
-    - docker tag ${DOCKER_MR_IMG} ${LATEST_IMG} ${DOCKER_IMG}
+    - echo $DOCKER_IMG $DOCKER_MR_IMG
+    - docker tag ${DOCKER_MR_IMG} ${LATEST_IMG}
+    - docker tag ${DOCKER_MR_IMG} ${DOCKER_IMG}
+    - docker push ${DOCKER_IMG}
+    - docker push ${LATEST_IMG}
     - echo "====== Stage  succeeded ======"
   only:
     - merge_requests
@@ -64,7 +67,7 @@ build-front:
   only:
     - branches
 
-build-front-mr:
+.build-front-mr:
   extends: .build-angular
   variables:
     DOCKERFILE: "./docker/Dockerfile.k8s"
