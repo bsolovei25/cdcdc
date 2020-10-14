@@ -29,33 +29,31 @@
     - master
     - devops
 
-.build-angular-img:
+.packing:
+  stage: packing
+  tags:
+    - gl-docker-socket
+  variables:
+    OUTPUT_DIST: "/share/build-${CI_BUILD_ID}"
+  script:
+    - echo "==== ng build --prod to ${OUTPUT_DIST} ===="
+    - env
+  only:
+    - devops
+
+.ng-build:
   stage: build
   image: registry.funcoff.club/evj/front-cache:14.10.2020
   tags:
     - gl-docker-socket
   variables:
-    DOCKERFILE: "Dockerfile"
-    DOCKERHUB_URL: registry.funcoff.club
-    DOCKER_REPO: evj
-    SERVICE_NAME: "microservice"
-    DOCKER_BASE_NAME: ${DOCKERHUB_URL}/${DOCKER_REPO}/${SERVICE_NAME}
-    DOCKER_IMG: ${DOCKERHUB_URL}/${DOCKER_REPO}/${SERVICE_NAME}:${CI_COMMIT_SHA}
-    LATEST_IMG: ${DOCKERHUB_URL}/${DOCKER_REPO}/${SERVICE_NAME}:latest
-    DOCKER_MR_IMG: ${DOCKERHUB_URL}/${DOCKER_REPO}/${SERVICE_NAME}:${CI_MERGE_REQUEST_SOURCE_BRANCH_NAME}
-
+    OUTPUT_DIST: "/share/build-${CI_BUILD_ID}"
   script:
-    - env
-    - echo "==== Pulling inline-caches ===="
-    - ls
-    - pwd
-    - ls /
-    - ls /share
-    - ng || true
-    - ng build --prod 
-      #- ng build --prod --output-path /share/build-${CI_BUILD_ID} 
+    - echo "==== ng build --prod to ${OUTPUT_DIST} ===="
+    - ng build --prod --output-path ${OUTPUT_DIST}
   only:
     - devops
+
 .build-angular:
   stage: build
   tags:
