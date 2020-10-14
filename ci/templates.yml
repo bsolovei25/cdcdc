@@ -42,7 +42,7 @@
 
   script:
     - echo "==== Pulling inline-caches ===="
-    - if [ -z $DOCKER_MR_IMG ]; then DOCKER_MR_IMG=${LATEST_IMG}; fi
+    - if [ -z $CI_MERGE_REQUEST_SOURCE_BRANCH_NAME ]; then DOCKER_MR_IMG=${LATEST_IMG}; fi
     - echo $DOCKER_MR_IMG
       #- env
     - echo "==== Building docker images ===="
