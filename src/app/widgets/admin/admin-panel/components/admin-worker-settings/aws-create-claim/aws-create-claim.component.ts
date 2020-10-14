@@ -40,9 +40,8 @@ export class AwsCreateClaimComponent implements OnInit {
         this.allWidgets = this.adminService.allWidgets.filter((value) => !value.isHidden);
         this.allUnits = this.adminService.units;
         this.allClaims.forEach((value) => {
-            const copyWidgets: IWidget[] = this.allWidgets.map(v => fillDataShape(v));
             if (value.claimValueType === 'widget') {
-                value.widgets = copyWidgets;
+                const copyWidgets: IWidget[] = this.allWidgets.map(v => fillDataShape(v));
                 this.workerSpecialClaims.forEach(workerClaim => {
                     if (workerClaim.claimType === value.claimType && workerClaim.claimValueType === 'widget') {
                         copyWidgets.forEach(valueW => {
@@ -54,6 +53,7 @@ export class AwsCreateClaimComponent implements OnInit {
                         });
                     }
                 });
+                value.widgets = copyWidgets;
             } else {
                 const copyUnits: IUnitEvents[] = this.allUnits.map(v => fillDataShape(v));
                 this.workerSpecialClaims.forEach(workerClaim => {
@@ -66,8 +66,8 @@ export class AwsCreateClaimComponent implements OnInit {
                             });
                         });
                     }
-                    value.units = copyUnits;
                 });
+                value.units = copyUnits;
             }
         });
     }
