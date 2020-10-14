@@ -44,12 +44,24 @@
     - echo "==== Pulling inline-caches ===="
       #- env
     - echo "==== Building docker images ===="
+
+    - >
+      docker build
+      --target base
+      --cache-from ${DOCKER_MR_IMG}-cache
+      --build-arg BUILDKIT_INLINE_CACHE=1 
+      --tag ${DOCKER_MR_IMG}-cache
+      .
+      --file ${DOCKERFILE}
     - >
       docker build
       --target webserver
-      --tag ${LATEST_IMG}
+      --build-arg BUILDKIT_INLINE_CACHE=1 
+      --cache-from ${DOCKER_MR_IMG}-cache
+      --tag ${DOCKER_MR_IMG}
       .
       --file ${DOCKERFILE}
+
   only:
     - devops
 
