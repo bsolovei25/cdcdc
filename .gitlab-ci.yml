@@ -130,7 +130,7 @@ stop-k8s-review:
   extends: .deploy-to-k8s 
   variables:
     GIT_STRATEGY: none
-    NS: "$evj-{CI_COMMIT_REF_SLUG}"
+    NS: "evj-${CI_COMMIT_REF_SLUG}"
   only:
       - merge_requests
   script:
