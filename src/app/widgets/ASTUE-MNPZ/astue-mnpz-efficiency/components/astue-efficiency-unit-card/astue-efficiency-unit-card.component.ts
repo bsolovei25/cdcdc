@@ -46,6 +46,10 @@ export class AstueEfficiencyUnitCardComponent implements OnChanges {
 
     public onSelectUnit(): void {
         this.selectUnit.emit();
+        this.unit.flows.forEach(flow => {
+            this.AsEfService.cardSelection.deselect(flow);
+        });
+        this.AsEfService.selectionFlow$.next(this.AsEfService.cardSelection.selected);
     }
 
     public onSelectFlow(flow: IAsEfFlow): void {
