@@ -2,12 +2,11 @@ import { Component, OnInit, OnDestroy, Inject } from '@angular/core';
 import { WidgetPlatform } from 'src/app/dashboard/models/@PLATFORM/widget-platform';
 import { WidgetService } from 'src/app/dashboard/services/widget.service';
 import {
-    IPerfCircleDay, IPerfProgCircle,
+    IPerfCircleDay, IPerfProgCircle, IPerfProgPark,
     IProgressIndicators
 } from '../../../dashboard/models/SMP/performance-progress-indicators.model';
 import { Subscription } from 'rxjs';
 import { SmpService } from '../../../dashboard/services/widgets/smp.service';
-
 
 
 @Component({
@@ -17,12 +16,12 @@ import { SmpService } from '../../../dashboard/services/widgets/smp.service';
 })
 export class PerformanceProgressIndicatorsComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
 
+  private subscription: Subscription[] = [];
+  data: IProgressIndicators;
   public progressIndicators: IProgressIndicators;
   public perfCircleDay: IPerfCircleDay[];
   public perfProgCircle: IPerfProgCircle[];
-  public perfProgPark: IPerfProgCircle;
-  private subscription: Subscription[] = [];
-
+  public perfProgPark: IPerfProgPark;
   constructor(
     protected widgetService: WidgetService,
     private smpService: SmpService,
@@ -38,16 +37,20 @@ export class PerformanceProgressIndicatorsComponent extends WidgetPlatform<unkno
 
     this.subscription.push(
         this.smpService.getProductionProgress()
-            .subscribe(value => this.progressIndicators = value.data)
+            .subscribe((value) => {
+                }
+            )
     );
+    console.log(`this progress Indicators ${this.smpService.getProductionProgress()}`);
   }
 
   public ngOnDestroy(): void {
     super.ngOnDestroy();
-    this.subscriptions.forEach((subs: Subscription) => subs.unsubscribe());
+    this.subscription.forEach((subs: Subscription) => subs.unsubscribe());
   }
 
   protected dataHandler(ref: any): void {
+      this.data = ref;
   }
 
 }
