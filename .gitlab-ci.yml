@@ -40,13 +40,15 @@ build-front:
     DOCKERFILE: "./docker/Dockerfile.k8s"
     SERVICE_NAME: "front"
     DOCKER_REPO: evj
+  before_script:
+    - docker info
   after_script:
     - echo "==== Pushig docker images ===="
-    - echo ${LATEST_IMG}
-    - docker push ${LATEST_IMG}
+      echo $DOCKER_IMG $DOCKER_MR_IMG
+    - docker tag ${DOCKER_MR_IMG} ${LATEST_IMG} ${DOCKER_IMG}
     - echo "====== Stage  succeeded ======"
   only:
-    - devops
+    - merge_requests
 
 .build-front-other:
   extends: .build-angular
@@ -54,8 +56,6 @@ build-front:
     DOCKERFILE: "./docker/Dockerfile.k8s"
     SERVICE_NAME: "front"
     DOCKER_REPO: evj
-  before_script:
-    - docker info
   after_script:
     - echo ${DOCKER_IMG}
     - docker push ${DOCKER_IMG}
