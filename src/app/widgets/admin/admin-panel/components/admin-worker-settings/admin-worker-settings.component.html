@@ -159,6 +159,7 @@
   <evj-alert-password [options]="passwordOptions"></evj-alert-password>
   <evj-aws-create-claim
     class="admin__popup"
+    [workerSpecialClaims]="workerSpecialClaims"
     [ngClass]="{'admin__popup_active':isCreateClaim}"
     *ngIf="isCreateClaim"
     (createdClaim)="onCreateSpecialClaim($event)"
