@@ -46,7 +46,6 @@
     - echo $DOCKER_MR_IMG
       #- env
     - echo "==== Building docker images ===="
-
     - >
       docker build
       --target base
@@ -63,7 +62,6 @@
       --tag ${DOCKER_MR_IMG}
       .
       --file ${DOCKERFILE}
-
   only:
     - devops
 
