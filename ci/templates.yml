@@ -72,6 +72,23 @@
     - echo $DOCKER_MR_IMG
       #- env
     - echo "==== Building docker images ===="
+
+    - >
+      docker build
+      --target base
+      --cache-from ${DOCKER_MR_IMG}-cache
+      --build-arg BUILDKIT_INLINE_CACHE=1 
+      --tag ${DOCKER_MR_IMG}-cache
+      .
+      --file ${DOCKERFILE}
+    - >
+      docker build
+      --target base
+      --cache-from ${DOCKER_MR_IMG}-cache
+      --build-arg BUILDKIT_INLINE_CACHE=1 
+      --tag ${DOCKER_MR_IMG}-cache
+      .
+      --file ${DOCKERFILE}
     - >
       docker build
       --target base
@@ -88,6 +105,7 @@
       --tag ${DOCKER_MR_IMG}
       .
       --file ${DOCKERFILE}
+
   only:
     - devops
 
