@@ -1,6 +1,6 @@
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { WidgetService } from '../../../dashboard/services/widget.service';
-import { WidgetPlatform } from '../../../dashboard/models/widget-platform';
+import { WidgetPlatform } from '../../../dashboard/models/@PLATFORM/widget-platform';
 import { ICircleData } from '../../../dashboard/models/OZSM/ozsm-circle-planning-diagram.model';
 import { cardData, planData } from './ozsm-circle-planning-diagam-mock';
 

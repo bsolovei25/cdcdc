@@ -1,5 +1,5 @@
 import { WidgetService } from 'src/app/dashboard/services/widget.service';
-import { WidgetPlatform } from 'src/app/dashboard/models/widget-platform';
+import { WidgetPlatform } from 'src/app/dashboard/models/@PLATFORM/widget-platform';
 import { AfterViewInit, Component, ElementRef, OnInit, Renderer2, ViewChild,
   OnDestroy, OnChanges, Inject } from '@angular/core';
 

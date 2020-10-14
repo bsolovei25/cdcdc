@@ -1,7 +1,7 @@
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { WidgetService } from '../../../dashboard/services/widget.service';
 import { AstueOnpzService } from '../astue-onpz-shared/astue-onpz.service';
-import { WidgetPlatform } from '../../../dashboard/models/widget-platform';
+import { WidgetPlatform } from '../../../dashboard/models/@PLATFORM/widget-platform';
 import { ObjectDeepEqual } from '@shared/functions/deep-equal.function';
 
 interface IAstueOnpzMainIndicators {

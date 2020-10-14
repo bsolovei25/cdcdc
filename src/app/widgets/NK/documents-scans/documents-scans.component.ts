@@ -8,7 +8,7 @@ import {
     OnInit,
 } from '@angular/core';
 import { WidgetService } from 'src/app/dashboard/services/widget.service';
-import { WidgetPlatform } from 'src/app/dashboard/models/widget-platform';
+import { WidgetPlatform } from 'src/app/dashboard/models/@PLATFORM/widget-platform';
 import { DocumentsScansService } from 'src/app/dashboard/services/oil-control-services/documents-scans.service';
 import { IDocumentsScans } from 'src/app/dashboard/models/oil-document.model';
 

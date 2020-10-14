@@ -52,7 +52,7 @@ export class EvjEventCategoriesComponent implements OnInit {
 
     openOverlay(): void {
         this.resetSetTimeout();
-        if (this.data?.subCategories?.length && !this.activeCategory) {
+        if (this.data?.subCategories?.length > 1 && !this.activeCategory) {
             this.activeCategory = this.data.id;
             this.openTemplateOverlay();
         }

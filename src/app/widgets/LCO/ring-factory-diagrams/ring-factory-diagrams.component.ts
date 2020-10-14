@@ -2,7 +2,7 @@ import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
 import { UserSettingsService } from 'src/app/dashboard/services/user-settings.service';
 import { WidgetService } from 'src/app/dashboard/services/widget.service';
 import { RingFactoryWidget } from '../../../dashboard/models/widget.model';
-import { WidgetPlatform } from 'src/app/dashboard/models/widget-platform';
+import { WidgetPlatform } from 'src/app/dashboard/models/@PLATFORM/widget-platform';
 
 @Component({
     selector: 'evj-ring-factory-diagrams',

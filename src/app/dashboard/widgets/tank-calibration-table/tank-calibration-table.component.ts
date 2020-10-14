@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { WidgetService } from '../../services/widget.service';
-import { WidgetPlatform } from '../../models/widget-platform';
+import { WidgetPlatform } from '../../models/@PLATFORM/widget-platform';
 import { SelectionModel } from '@angular/cdk/collections';
 import { TankCalibrationTableService } from '../../services/widgets/tank-calibration-table.service';
 import { UploadFormComponent } from './upload-form/upload-form.component';

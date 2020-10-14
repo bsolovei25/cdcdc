@@ -8,7 +8,7 @@ import {
     IEnergeticsCard,
     IEnergeticsCircleDiagram,
 } from 'src/app/dashboard/models/energetics';
-import { WidgetPlatform } from 'src/app/dashboard/models/widget-platform';
+import { WidgetPlatform } from 'src/app/dashboard/models/@PLATFORM/widget-platform';
 
 @Component({
     selector: 'evj-energetics',
