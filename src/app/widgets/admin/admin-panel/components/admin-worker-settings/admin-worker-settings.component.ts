@@ -11,6 +11,7 @@ import { AdminPanelService } from '../../../../../dashboard/services/admin-panel
 import { SnackBarService } from '../../../../../dashboard/services/snack-bar.service';
 import { fillDataShape } from '@shared/functions/common-functions';
 import { base64ToFile } from 'ngx-image-cropper';
+import { IUnits } from '../../../../../dashboard/models/admin-shift-schedule';
 
 @Component({
     selector: 'evj-admin-worker-settings',
@@ -241,11 +242,27 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
         this.isDataChanged = true;
     }
 
-    public onRemoveSpecialClaim(claim: IGlobalClaim): void {
-        const index: number = this.workerSpecialClaims.findIndex(
-            (item) => item.claimType === claim.claimType
-        );
-        this.workerSpecialClaims.splice(index, 1);
+    public onRemoveSpecialClaim(claim: IWidget | IUnits): void {
+        let index: number;
+        this.workerSpecialClaims.forEach(workerClaim => {
+            index = -1;
+            workerClaim?.units?.forEach((unit, i) => {
+                if (unit.id === claim.id) {
+                    index = i;
+                }
+            });
+            workerClaim?.widgets?.findIndex((widget, i) => {
+                if (widget.id === claim.id) {
+                    index = i;
+                }
+            });
+            if (index > -1) {
+                workerClaim?.widgets?.splice(index, 1);
+                workerClaim?.units?.splice(index, 1);
+            }
+            index = -1;
+        });
+        // this.workerSpecialClaims.splice(index, 1);
         this.isDataChanged = true;
     }
 
