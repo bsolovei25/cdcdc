@@ -50,7 +50,8 @@
     - ls
     - pwd
     - ls /
-    - ls /cache
+    - ls /share
+    - ng || true
   only:
     - devops
 .build-angular:
