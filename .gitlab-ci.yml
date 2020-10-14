@@ -2,7 +2,6 @@
 include:
   - ci/templates.yml
 
-
 variables:
   GIT_DEPTH: 8
   #DOCKER_HOST: tcp://docker:2375
@@ -28,7 +27,6 @@ stages:
     - deploy
     - release
     - clean-on-failure
-
 
 .init_template: &init
     tags:
@@ -96,10 +94,6 @@ deploy-front-stage:
   environment:
     name: production
     url: https://${DEPLOY_DOMAIN}
-  only:
-    - develop
-    - devops
-    - master
 
 deploy-front-mr:
   extends: .deploy-to-k8s
@@ -109,14 +103,7 @@ deploy-front-mr:
     CHART: "./ci/front-chart"
     RELEASE: "front"
     DEPLOY_DOMAIN: "https://evj-${CI_MERGE_REQUEST_SOURCE_BRANCH_NAME}.funcoff.club"
-  script:
-    - kubectl version
-    - kubectl create ns ${NS} || true
-    - helm upgrade 
-        --install ${RELEASE} ${CHART}
-        --set "microservice.image.imageTag=${IMG_VERSION}"
-        --set "microservice.ingress.site=${CI_MERGE_REQUEST_SOURCE_BRANCH_NAME}"
-        --namespace ${NS}
+    INGRESS_SITE: "evj-${CI_MERGE_REQUEST_SOURCE_BRANCH_NAME}"
   environment:
     name: review/${CI_COMMIT_REF_SLUG}
     url: "https://evj-${CI_MERGE_REQUEST_SOURCE_BRANCH_NAME}.funcoff.club"
