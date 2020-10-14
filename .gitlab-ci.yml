@@ -77,7 +77,7 @@ ng-build-mr:
     DOCKER_REPO: evj
   after_script:
     - echo ${DOCKER_IMG}
-  dependencies: []
+  #dependencies: []
   only:
     - merge_requests
 
