@@ -29,6 +29,29 @@
     - master
     - devops
 
+.build-angular-img:
+  stage: build
+  image: registry.funcoff.club/evj/front-cache:14.10.2020
+  tags:
+    - gl-docker-socket
+  variables:
+    DOCKERFILE: "Dockerfile"
+    DOCKERHUB_URL: registry.funcoff.club
+    DOCKER_REPO: evj
+    SERVICE_NAME: "microservice"
+    DOCKER_BASE_NAME: ${DOCKERHUB_URL}/${DOCKER_REPO}/${SERVICE_NAME}
+    DOCKER_IMG: ${DOCKERHUB_URL}/${DOCKER_REPO}/${SERVICE_NAME}:${CI_COMMIT_SHA}
+    LATEST_IMG: ${DOCKERHUB_URL}/${DOCKER_REPO}/${SERVICE_NAME}:latest
+    DOCKER_MR_IMG: ${DOCKERHUB_URL}/${DOCKER_REPO}/${SERVICE_NAME}:${CI_MERGE_REQUEST_SOURCE_BRANCH_NAME}
+
+  script:
+    - env
+    - echo "==== Pulling inline-caches ===="
+    - ls
+    - pwd
+    - ls /build/
+  only:
+    - devops
 .build-angular:
   stage: build
   tags:
