@@ -52,7 +52,8 @@
     - env
     - echo "==== ng build --prod to ${OUTPUT_DIST} ===="
     #- ln -s /app/node_modules .
-    - ng build --prod --output-path ${OUTPUT_DIST}
+    - ng build --prod --output-path ${OUTPUT_DIST} || npm install && ng build --prod
+    #- ng build --prod --output-path ${OUTPUT_DIST}
   only:
     - devops
 
