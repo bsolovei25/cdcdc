@@ -5,9 +5,9 @@ include:
 
 variables:
   GIT_DEPTH: 8
-  DOCKER_HOST: tcp://docker:2375
-  # This will instruct Docker not to start over TLS.
-  DOCKER_TLS_CERTDIR: ""
+  #DOCKER_HOST: tcp://docker:2375
+  ## This will instruct Docker not to start over TLS.
+  #DOCKER_TLS_CERTDIR: ""
   DOCKER_BUILDKIT: 1
   COMPOSE_DOCKER_CLI_BUILD: 1 
   DOCKER_DRIVER: overlay2
@@ -54,6 +54,8 @@ build-front:
     DOCKERFILE: "./docker/Dockerfile.k8s"
     SERVICE_NAME: "front"
     DOCKER_REPO: evj
+  before_script:
+    - docker info
   after_script:
     - echo ${DOCKER_IMG}
     - docker push ${DOCKER_IMG}

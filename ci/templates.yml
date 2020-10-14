@@ -42,7 +42,7 @@
 
   script:
     - echo "==== Pulling inline-caches ===="
-    - env
+      #- env
     - echo "==== Building docker images ===="
     - >
       docker build
