@@ -8,13 +8,15 @@ import { Component, OnInit, Input, OnChanges } from '@angular/core';
 })
 
 export class NkTankInformationCardComponent implements OnInit, OnChanges {
-
   @Input() cardData: ITankCardValue;
+  isRepair: boolean;
 
   constructor() { }
 
   ngOnInit(): void {}
 
-  ngOnChanges(): void {}
+  ngOnChanges(): void {
+    this.isRepair = this.cardData.objectStatus === 'repair' ? true : false;
+  }
 
 }

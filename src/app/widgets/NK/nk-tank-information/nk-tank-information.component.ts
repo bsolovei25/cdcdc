@@ -91,7 +91,6 @@ export class NkTankInformationComponent extends WidgetPlatform<unknown> implemen
         // Фильтруем
         this.getFilter(this.selectedFilter);
 
-
         ref.items.forEach( (item, i) => {
             if ( !this.filterList.includes(item.name) ) {
                 this.filterList.push(item.name);

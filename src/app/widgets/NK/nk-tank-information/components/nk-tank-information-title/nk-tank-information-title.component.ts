@@ -8,9 +8,9 @@ import { Component, OnInit, Input } from '@angular/core';
 export class NkTankInformationTitleComponent implements OnInit {
   @Input() roofType: string;
   @Input() title: string;
+  @Input() isRepair: boolean;
 
   constructor() { }
-
   ngOnInit(): void {
   }
 
