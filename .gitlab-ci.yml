@@ -45,9 +45,6 @@ build-front:
   after_script:
     - echo "==== Pushig docker images ===="
     - echo $DOCKER_IMG $DOCKER_MR_IMG
-    - docker tag ${DOCKER_MR_IMG} ${LATEST_IMG}
-    - docker tag ${DOCKER_MR_IMG} ${DOCKER_IMG}
-    - docker push ${DOCKER_IMG}
     - docker push ${LATEST_IMG}
     - echo "====== Stage  succeeded ======"
   only:
