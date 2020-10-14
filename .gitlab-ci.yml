@@ -65,6 +65,10 @@ install_dependencies:
 
 ng-build-mr:
   extends: .ng-build
+  cache: 
+    key: $CI_COMMIT_REF_SLUG-$CI_PROJECT_DIR
+    paths:
+      - node_modules/
   variables:
     DOCKERFILE: "./docker/Dockerfile.k8s"
     SERVICE_NAME: "front"
