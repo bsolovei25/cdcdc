@@ -1,29 +1,29 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { BehaviorSubject } from 'rxjs/index';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { BehaviorSubject } from 'rxjs';
 import {
-    IEventsWidgetNotification,
-    IStatus,
-    ICategory,
-    IEventsWidgetOptions,
+    EventsWidgetCategoryCode,
     EventsWidgetsStats,
-    IEventsWidgetNotificationPreview,
-    IRetrievalEvents,
-    IUnitEvents,
-    IUser,
-    IPriority,
-    IAsusService,
-    IAsusEOService,
     IAsusCategories,
-    IAsusWorkgroup,
-    ISmotrReference,
-    ISaveMethodEvent,
-    IRetrievalEventDto,
+    IAsusEOService,
+    IAsusService,
     IAsusTmPlace,
     IAsusTpPlace,
-    ISubcategory, EventsWidgetCategoryCode
+    IAsusWorkgroup,
+    ICategory,
+    IEventsWidgetNotification,
+    IEventsWidgetNotificationPreview,
+    IEventsWidgetOptions,
+    IPriority,
+    ISaveMethodEvent,
+    ISmotrReference,
+    IStatus,
+    ISubcategory,
+    IUnitEvents,
+    IUser
 } from '../../models/events-widget';
 import { AppConfigService } from '@core/service/app-config.service';
+import { ClaimService, EnumClaimGlobal } from '../claim.service';
 
 export interface IEventsFilter {
     unitNames?: string;
@@ -46,7 +46,10 @@ export class EventService {
     public currentEventId$: BehaviorSubject<number> = new BehaviorSubject<number>(null);
     public eventFilters$: BehaviorSubject<IEventsFilter> = new BehaviorSubject<IEventsFilter>(null);
 
-    constructor(public http: HttpClient, configService: AppConfigService) {
+    constructor(
+        public http: HttpClient,
+        private configService: AppConfigService,
+    ) {
         this.restUrl = configService.restUrl;
         this.smotrUrl = configService.smotrUrl;
         this.isDomenAuth = configService.isDomenAuth;
@@ -144,7 +147,7 @@ export class EventService {
             .toPromise();
     }
 
-    async deleteEvent(id: number): Promise<any> {
+    async deleteEvent(id: number): Promise<unknown> {
         return this.http.delete(this.restUrl + '/api/notifications/' + id).toPromise();
     }
 

@@ -18,6 +18,11 @@ export enum EnumClaimScreens {
     report = 'report',
 }
 
+export enum EnumClaimGlobal {
+    EventsDelete = 'eventsDelete',
+    EventsChangeCategory = 'eventsChangeCategory',
+}
+
 export interface IClaimAll {
     data: {
         aimType: string;
@@ -33,12 +38,15 @@ export interface IClaimAll {
     providedIn: 'root',
 })
 export class ClaimService {
-    public claimWidgets$: BehaviorSubject<EnumClaimWidgets[]> = new BehaviorSubject<
-        EnumClaimWidgets[]
+    public claimWidgets$: BehaviorSubject<EnumClaimWidgets[]> =
+        new BehaviorSubject<EnumClaimWidgets[]
     >([]);
-    public claimScreens$: BehaviorSubject<EnumClaimScreens[]> = new BehaviorSubject<
-        EnumClaimScreens[]
+    public claimScreens$: BehaviorSubject<EnumClaimScreens[]> =
+        new BehaviorSubject<EnumClaimScreens[]
     >([]);
+
+    public claimGlobal$: BehaviorSubject<EnumClaimGlobal[]> =
+        new BehaviorSubject<EnumClaimGlobal[]>([]);
 
     private readonly restUrl: string;
 
@@ -78,7 +86,9 @@ export class ClaimService {
 
     public async getClaim(): Promise<void> {
         const allUserClaims = await this.getClaimAll();
+        console.log('allUserClaims', allUserClaims);
         const claimsScreen: EnumClaimScreens[] = [];
+        const claimsGlobal: EnumClaimGlobal[] = [];
         allUserClaims.data.forEach((claim) => {
             switch (claim.claimType) {
                 case 'screensAdmin':
@@ -88,9 +98,17 @@ export class ClaimService {
                 case 'reportsView':
                     claimsScreen.push(EnumClaimScreens.report);
                     break;
+                case 'eventsDelete':
+                    claimsGlobal.push(EnumClaimGlobal.EventsDelete);
+                    break;
+                case 'eventsChangeCategory':
+                    claimsGlobal.push(EnumClaimGlobal.EventsChangeCategory);
+                    break;
             }
         });
         this.claimScreens$.next(claimsScreen);
+        this.claimGlobal$.next(claimsGlobal);
+        console.log('claimGlobal$', claimsGlobal);
     }
 
     async getClaimAll(): Promise<{ data: IClaim[] }> {

@@ -34,8 +34,6 @@ export class EvjEventCategoriesComponent implements OnInit {
     public categoryClick: EventEmitter<EventsWidgetCategory> =
         new EventEmitter<EventsWidgetCategory>();
     @Output()
-    public categoryDeleteClick: EventEmitter<number> = new EventEmitter<number>();
-    @Output()
     public toggleSubCategory: EventEmitter<number> = new EventEmitter<number>();
 
     constructor(public overlay: Overlay,
