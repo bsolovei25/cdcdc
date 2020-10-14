@@ -52,6 +52,7 @@ stages:
 
 install_dependencies:
   stage: prebuild
+  image: registry.funcoff.club/evj/front-cache:14.10.2020
   cache: 
     key: $CI_COMMIT_REF_SLUG-$CI_PROJECT_DIR
     paths:
@@ -62,7 +63,7 @@ install_dependencies:
     changes:
       - package-lock.json
 
-ng-build:
+.ng-build:
   extends: .ng-build
   variables:
     DOCKERFILE: "./docker/Dockerfile.k8s"
@@ -73,7 +74,7 @@ ng-build:
   only:
     - merge_requests
 
-docker-packing:
+.docker-packing:
   extends: .packing
   only:
     - merge_requests
