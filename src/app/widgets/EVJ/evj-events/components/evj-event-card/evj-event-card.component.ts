@@ -47,7 +47,8 @@ export class EvjEventCardComponent implements OnInit {
         this.cardClick.emit(id);
     }
 
-    public deleteClick(id: number): void {
+    public deleteClick(event: MouseEvent, id: number): void {
+        event?.stopPropagation();
         this.cardDeleteClick.emit(id);
     }
 
@@ -63,7 +64,8 @@ export class EvjEventCardComponent implements OnInit {
         }
     }
 
-    public toggle(id: number): void {
+    public toggle(event: MouseEvent, id: number): void {
+        event.stopPropagation();
         this.expandedElement.toggle(id);
     }
 

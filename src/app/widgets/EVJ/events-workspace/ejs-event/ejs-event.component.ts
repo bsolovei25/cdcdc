@@ -16,6 +16,10 @@ export class EjsEventComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit(): void {
+        if (this.ewService.isCreateNewEvent) {
+            this.onClickEjs();
+            this.ewService.goBackEvent();
+        }
     }
 
     ngOnDestroy(): void {
@@ -45,6 +49,4 @@ export class EjsEventComponent implements OnInit, OnDestroy {
     onClickEjs(): void {
         window.open('http://spb99-t-merap01/meridium/');
     }
-
-
 }
