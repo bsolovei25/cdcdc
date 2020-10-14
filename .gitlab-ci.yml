@@ -84,7 +84,7 @@ build-front-mr:
 
 
 
-.deploy-front-stage:
+deploy-front-stage:
   extends: .deploy-to-k8s
   variables:
     NS: "evj"
@@ -92,6 +92,7 @@ build-front-mr:
     CHART: "./ci/front-chart"
     RELEASE: "front"
     DEPLOY_DOMAIN: "https://evj.funcoff.club"
+    INGRESS_SITE: "evj"
   environment:
     name: production
     url: https://${DEPLOY_DOMAIN}
