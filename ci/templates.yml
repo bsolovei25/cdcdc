@@ -52,7 +52,8 @@
     - ls /
     - ls /share
     - ng || true
-    - ng build --prod --output-path /share/build-${CI_BUILD_ID} 
+    - ng build --prod 
+      #- ng build --prod --output-path /share/build-${CI_BUILD_ID} 
   only:
     - devops
 .build-angular:
