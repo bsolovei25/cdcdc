@@ -63,7 +63,7 @@ install_dependencies:
     changes:
       - package-lock.json
 
-.ng-build-tst:
+ng-build-mr:
   extends: .ng-build
   variables:
     DOCKERFILE: "./docker/Dockerfile.k8s"
