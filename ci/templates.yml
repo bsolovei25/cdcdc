@@ -28,6 +28,33 @@
 
 .build-angular:
   stage: build
+  tags:
+    - gl-docker-socket
+  variables:
+    DOCKERFILE: "Dockerfile"
+    DOCKERHUB_URL: registry.funcoff.club
+    DOCKER_REPO: evj
+    SERVICE_NAME: "microservice"
+    DOCKER_BASE_NAME: ${DOCKERHUB_URL}/${DOCKER_REPO}/${SERVICE_NAME}
+    DOCKER_IMG: ${DOCKERHUB_URL}/${DOCKER_REPO}/${SERVICE_NAME}:${CI_COMMIT_SHA}
+    LATEST_IMG: ${DOCKERHUB_URL}/${DOCKER_REPO}/${SERVICE_NAME}:latest
+    DOCKER_MR_IMG: ${DOCKERHUB_URL}/${DOCKER_REPO}/${SERVICE_NAME}:${CI_MERGE_REQUEST_SOURCE_BRANCH_NAME}
+
+  script:
+    - echo "==== Pulling inline-caches ===="
+    - env
+    - echo "==== Building docker images ===="
+    - >
+      docker build
+      --target webserver
+      --tag ${LATEST_IMG}
+      .
+      --file ${DOCKERFILE}
+  only:
+    - devops
+
+.build-angular-dind:
+  stage: build
   services:
     - docker:19.03.13-dind
   tags:
