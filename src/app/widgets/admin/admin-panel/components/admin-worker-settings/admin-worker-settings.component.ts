@@ -242,7 +242,7 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
         this.isDataChanged = true;
     }
 
-    public onRemoveSpecialClaim(claim: IWidget | IUnits): void {
+    public onRemoveSpecialClaim(claim: IWidget | IUnitEvents): void {
         let index: number;
         this.workerSpecialClaims.forEach(workerClaim => {
             index = -1;
