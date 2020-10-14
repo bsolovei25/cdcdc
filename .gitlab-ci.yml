@@ -83,6 +83,7 @@ ng-build-mr:
   only:
     - merge_requests
 
+
 .build-front-mr:
   extends: .build-angular
   variables:
