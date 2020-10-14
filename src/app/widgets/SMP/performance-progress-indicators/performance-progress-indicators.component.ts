@@ -6,6 +6,7 @@ import {
     IProgressIndicators
 } from '../../../dashboard/models/SMP/performance-progress-indicators.model';
 import { Subscription } from 'rxjs';
+import { SmpService } from '../../../dashboard/services/widgets/smp.service';
 
 
 
@@ -16,7 +17,7 @@ import { Subscription } from 'rxjs';
 })
 export class PerformanceProgressIndicatorsComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
 
-  public data: IProgressIndicators;
+  public progressIndicators: IProgressIndicators;
   public perfCircleDay: IPerfCircleDay[];
   public perfProgCircle: IPerfProgCircle[];
   public perfProgPark: IPerfProgCircle;
@@ -24,6 +25,7 @@ export class PerformanceProgressIndicatorsComponent extends WidgetPlatform<unkno
 
   constructor(
     protected widgetService: WidgetService,
+    private smpService: SmpService,
     @Inject('isMock') public isMock: boolean,
     @Inject('widgetId') public id: string,
     @Inject('uniqId') public uniqId: string
@@ -34,7 +36,10 @@ export class PerformanceProgressIndicatorsComponent extends WidgetPlatform<unkno
   public ngOnInit(): void {
     super.widgetInit();
 
-    this.subscription.push();
+    this.subscription.push(
+        this.smpService.getProductionProgress()
+            .subscribe(value => this.progressIndicators = value.data)
+    );
   }
 
   public ngOnDestroy(): void {
@@ -43,7 +48,6 @@ export class PerformanceProgressIndicatorsComponent extends WidgetPlatform<unkno
   }
 
   protected dataHandler(ref: any): void {
-    this.data = ref;
   }
 
 }

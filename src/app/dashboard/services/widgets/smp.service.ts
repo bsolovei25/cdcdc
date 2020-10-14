@@ -18,8 +18,8 @@ export class SmpService {
     constructor(private http: HttpClient, private configService: AppConfigService) {
         this.restUrl = configService.restUrl;
     }
-    public getProductionProgress(): Observable<IProgressIndicators> {
+    public getProductionProgress(): Observable<{data: IProgressIndicators}> {
         const url: string = `assets/mock/SMP/productionProgress`;
-        return this.http.get<IProgressIndicators>(url);
+        return this.http.get<{data: IProgressIndicators}>(url);
     }
 }
