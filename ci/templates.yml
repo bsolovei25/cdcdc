@@ -49,7 +49,9 @@
   variables:
     OUTPUT_DIST: "/share/build-${CI_BUILD_ID}"
   script:
+    - env
     - echo "==== ng build --prod to ${OUTPUT_DIST} ===="
+    - ln -s /app/node_modules .
     - ng build --prod --output-path ${OUTPUT_DIST}
   only:
     - devops
