@@ -11,7 +11,7 @@
   <div class="line-charts">
     <div class="header">
       <div class="header__interface">
-        <img class="icon" src="assets/pic/diagram.svg"/>
+        <img class="icon" src="assets/pic/diagram.svg" />
         <div class="title">Анализ трендов</div>
         <div
           class="buttons"
@@ -32,7 +32,7 @@
             </mat-form-field>
           </div>
           <div class="button button_menu" (click)="toggleMenu()">
-            <img src="assets/pic/menu.svg"/>
+            <img src="assets/pic/menu.svg" />
           </div>
         </div>
       </div>
@@ -65,16 +65,15 @@
     </div>
     <div class="body">
       <div class="scroll-container">
+        <ng-container *ngFor="let item of allCheckedCharts">
+        </ng-container>
         <!-- TODO  -->
         <ng-container
-          *ngFor="let item of allWidgets"
+          *ngFor="let item of allCheckedCharts"
         >
           <ng-container
-            *ngIf="item.widgetType === 'cd-mat-balance-sensor' || item.widgetType === 'cd-mat-balance-stream'">
-            <ng-container
-              *ngComponentOutlet="WIDGETS[item.widgetType]; injector: (item.id | fn:getInjector : item?.uniqid);"
-            >
-            </ng-container>
+            *ngComponentOutlet="chartComponent; injector: (widgetId | fn:getInjector :  item);"
+          >
           </ng-container>
         </ng-container>
         <!-- TODO  -->
