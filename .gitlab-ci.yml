@@ -50,6 +50,18 @@ stages:
     - develop
     - devops
 
+install_dependencies:
+  stage: prebuild
+  cache: 
+    key: $CI_COMMIT_REF_SLUG-$CI_PROJECT_DIR
+    paths:
+      - node_modules/
+  script:
+    - npm ci
+  only:
+    changes:
+      - package-lock.json
+
 ng-build:
   extends: .ng-build
   variables:
