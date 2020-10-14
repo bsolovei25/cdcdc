@@ -32,7 +32,7 @@ stages:
     tags:
         - build2-cup-front
 
-build-front:
+.build-front:
   extends: .build-angular
   variables:
     DOCKERFILE: "./docker/Dockerfile.k8s"
@@ -49,7 +49,7 @@ build-front:
     - develop
     - devops
 
-.build-front-img:
+build-front-img:
   extends: .build-angular-img
   variables:
     DOCKERFILE: "./docker/Dockerfile.k8s"
