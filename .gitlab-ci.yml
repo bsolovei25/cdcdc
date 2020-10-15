@@ -85,6 +85,8 @@ ng-build-mr:
 
 docker-packing-tst:
   extends: .packing
+  variables:
+    SERVICE_NAME: "microservice"
   only:
     - merge_requests
 
