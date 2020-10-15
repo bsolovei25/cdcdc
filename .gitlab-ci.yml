@@ -54,7 +54,7 @@ install_dependencies:
   stage: prebuild
   image: registry.funcoff.club/evj/front-cache:14.10.2020
   cache: 
-    key: $CI_PROJECT_DIR
+    key: one-key-to-rule-them-all
     paths:
       - node_modules/
   script:
@@ -68,7 +68,7 @@ ng-build-mr:
   extends: .ng-build
   cache: 
     #key: $CI_COMMIT_REF_SLUG-$CI_PROJECT_DIR
-    key: $CI_PROJECT_DIR
+    key: one-key-to-rule-them-all
     paths:
       - node_modules/
   variables:

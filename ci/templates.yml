@@ -48,12 +48,14 @@
     - gl-docker-socket
   variables:
     OUTPUT_DIST: "/share/build-${CI_BUILD_ID}"
+  before_script:
+    - if [ ! -d "node_modules" ]; then npm install; fi
   script:
     - env
     - echo "==== ng build --prod to ${OUTPUT_DIST} ===="
     #- ln -s /app/node_modules .
-    - ng build --prod --output-path ${OUTPUT_DIST} || npm install && ng build --prod
-    #- ng build --prod --output-path ${OUTPUT_DIST}
+    #- ng build --prod --output-path ${OUTPUT_DIST} || npm install && ng build --prod
+    - ng build --prod --output-path ${OUTPUT_DIST}
   only:
     - devops
 
