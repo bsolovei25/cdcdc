@@ -32,7 +32,7 @@ export interface IPerfProgPark {
 }
 export interface IProgressIndicatorsFB {
     statePark: IPerfProgParkFB; /// Состояние парка
-    shipment: IPerfProgParkFB; /// Отгрузка
+    shipment: IPerfProgShipmentFB; /// Отгрузка
     circle: IPerfProgCircleFB[]; /// Массив кругов с визуализацией дней
 }
 
@@ -52,6 +52,13 @@ export interface IPerfCircleDayFB {
 }
 
 export interface IPerfProgParkFB {
+    maxRest: number;
+    freeRest: number;
+    allRest: number;
+    passportrest: number;
+    deathRest: number;
+}
+export interface IPerfProgShipmentFB {
     maxRest: number;
     factAll: number;
     fact: number;

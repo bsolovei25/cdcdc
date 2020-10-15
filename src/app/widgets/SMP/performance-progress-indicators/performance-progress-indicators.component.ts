@@ -38,16 +38,16 @@ export class PerformanceProgressIndicatorsComponent extends WidgetPlatform<unkno
                     const newShipment: IPerfProgPark = {
                         capacity: value.data.shipment.maxRest,
                         balance: value.data.shipment.deathRest,
-                        certified: value.data.shipment.fact,
+                        certified: value.data.shipment.nFact,
                         planLevel: value.data.shipment.factAll,
-                        factLevel: value.data.shipment.nFact,
+                        factLevel: value.data.shipment.fact,
                     };
                     const newStatePark: IPerfProgPark = {
                         capacity: value.data.statePark.maxRest,
                         balance: value.data.statePark.deathRest,
-                        certified: value.data.statePark.fact,
-                        planLevel: value.data.statePark.factAll,
-                        factLevel: value.data.statePark.nFact,
+                        certified: value.data.statePark.passportrest,
+                        planLevel: value.data.statePark.allRest,
+                        factLevel: value.data.statePark.freeRest,
                     };
                     const newCircles: IPerfProgCircle[] = [];
                     const month: IPerfCircleDay[] = [];
@@ -64,7 +64,7 @@ export class PerformanceProgressIndicatorsComponent extends WidgetPlatform<unkno
                             value: circle.value,
                             icon: circle.icon,
                             piePercent: circle.prodPlanPer,
-                            gaugePercent: circle.prodPlanPer,
+                            gaugePercent: 100,
                             isCritical: !!circle.critical,
                             days: month
                         });
