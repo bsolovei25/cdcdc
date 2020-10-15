@@ -134,7 +134,7 @@ deploy-front-mr:
   only:
     - merge_requests
 
-.stop-k8s-review:
+stop-k8s-review:
   extends: .deploy-to-k8s 
   variables:
     GIT_STRATEGY: none
