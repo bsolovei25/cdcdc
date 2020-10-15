@@ -20,7 +20,11 @@ import { EventsWorkspaceService } from '../../../dashboard/services/widgets/even
 import { IAlertWindowModel } from '@shared/models/alert-window.model';
 import { BehaviorSubject } from 'rxjs';
 import { WidgetSettingsService } from '../../../dashboard/services/widget-settings.service';
-import { ClaimService, EnumClaimWidgets } from '../../../dashboard/services/claim.service';
+import {
+    ClaimService,
+    EnumClaimGlobal,
+    EnumClaimWidgets
+} from '../../../dashboard/services/claim.service';
 
 export interface IEventSettings {
     viewType: 'list' | 'cards';
@@ -245,6 +249,11 @@ export class EventsComponent extends WidgetPlatform<IEventsWidgetAttributes> imp
     public isPreviewOpened: boolean = false;
 
     private readonly defaultIconPath: string = 'assets/icons/widgets/events/smotr.svg';
+
+    get isClaimDelete(): boolean {
+        return this.claimService.claimGlobal$?.value
+            ?.some((x) => x === EnumClaimGlobal.EventsDelete);
+    }
 
     constructor(
         private eventService: EventService,
@@ -528,6 +537,10 @@ export class EventsComponent extends WidgetPlatform<IEventsWidgetAttributes> imp
     }
 
     public deleteClick(id: number): void {
+        if (!this.isClaimDelete) {
+            this.snackBarService.openSnackBar(`У вас недостаточно прав для удаления событий`, 'snackbar-red');
+            return;
+        }
         const info: IAlertWindowModel = {
             isShow: true,
             questionText: 'Вы уверены что хотите удалить событие?',

@@ -12,6 +12,7 @@
   height: 100%;
 
   &::ng-deep {
+
     .graph-line {
       &-fact,
       &-plan,
@@ -47,8 +48,7 @@
     }
 
     .graph-area {
-      &-higherBorder,
-      &-lowerBorder {
+      &-border {
         fill: var(--color-astue-onpz-area);
       }
 
@@ -80,7 +80,6 @@
         fill: var(--color-astue-onpz-fact);
       }
     }
-
     .future {
       fill: #1c1f2b;
       opacity: 0.5;

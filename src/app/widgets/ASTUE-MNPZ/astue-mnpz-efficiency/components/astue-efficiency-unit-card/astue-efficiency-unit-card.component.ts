@@ -1,15 +1,16 @@
-import { Component, Input, Output, EventEmitter, OnChanges } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnChanges, OnInit } from '@angular/core';
 import { SelectionModel } from '@angular/cdk/collections';
 import {
     IAsEfUnitNew,
-    IAsEfFlow,
+    IAsEfFlow
 } from '../../../../../dashboard/models/ASTUE/astue-efficiency.model';
 import { AstueEfficiencyService } from '../../../../../dashboard/services/ASTUE/astue-efficiency.service';
+import { log } from 'util';
 
 @Component({
     selector: 'evj-astue-efficiency-unit-card',
     templateUrl: './astue-efficiency-unit-card.component.html',
-    styleUrls: ['./astue-efficiency-unit-card.component.scss'],
+    styleUrls: ['./astue-efficiency-unit-card.component.scss']
 })
 export class AstueEfficiencyUnitCardComponent implements OnChanges {
     @Input() public unit: IAsEfUnitNew;
@@ -19,21 +20,12 @@ export class AstueEfficiencyUnitCardComponent implements OnChanges {
     public isClicked: boolean = false;
     public isOpen: boolean = false;
 
-    public cardSelection: SelectionModel<IAsEfFlow> = new SelectionModel<IAsEfFlow>(true);
+    @Input() cardSelection: SelectionModel<IAsEfFlow> = this.AsEfService.cardSelection;
 
-    constructor(private AsEfService: AstueEfficiencyService) {}
+    constructor(private AsEfService: AstueEfficiencyService) {
+    }
 
     public ngOnChanges(): void {
-        this.cardSelection.clear();
-        const unit = this.AsEfService.isUnitSelected(this.unit);
-        if (unit) {
-            this.isClicked = true;
-            this.unit.flows.forEach((flow) => {
-                if (unit.includes(flow.name)) {
-                    this.cardSelection.select(flow);
-                }
-            });
-        }
         this.isOpen = this.AsEfService.isCardOpen(this.unit.name);
     }
 
@@ -49,10 +41,10 @@ export class AstueEfficiencyUnitCardComponent implements OnChanges {
     public onSelectFlow(flow: IAsEfFlow): void {
         const isAddFlow = this.AsEfService.toggleFlow(this.unit.name, flow.name);
         if (isAddFlow) {
-            this.cardSelection.select(flow);
+            this.AsEfService.cardSelection.select(flow);
             this.AsEfService.currentFlow = flow;
         } else {
-            this.cardSelection.deselect(flow);
+            this.AsEfService.cardSelection.deselect(flow);
             const len = this.AsEfService.isUnitSelected(this.unit)?.length;
             if (len) {
                 const lastFlow = this.AsEfService.isUnitSelected(this.unit)[length - 1];
@@ -63,6 +55,8 @@ export class AstueEfficiencyUnitCardComponent implements OnChanges {
                 this.AsEfService.currentFlow = null;
             }
         }
+        this.AsEfService.selectionFlow$.next(this.AsEfService.cardSelection.selected);
+        this.cardSelection = this.AsEfService.cardSelection;
         this.AsEfService.selection$.next();
     }
 }

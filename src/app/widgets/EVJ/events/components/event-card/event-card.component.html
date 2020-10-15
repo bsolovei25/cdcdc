@@ -70,7 +70,7 @@
           class="notification__icon_delete"
           [applyCss]="true"
           src="assets/icons/remove.svg"
-          (click)="deleteClick(cardData?.id)"
+          (click)="deleteClick($event, cardData?.id)"
           (mousedown)="$event.stopPropagation()"
           (touchstart)="$event.stopPropagation()"
           [svgStyle]="{ 'width.px':16, 'height.px':16 }"
@@ -134,7 +134,7 @@
             class="notification__block__icon notification__block__icon_delete"
             [applyCss]="true"
             src="assets/icons/remove.svg"
-            (click)="deleteClick(cardData?.id)"
+            (click)="deleteClick($event, cardData?.id)"
             [svgStyle]="{ 'width.px':14, 'height.px':14 }"
           >
           </svg-icon>

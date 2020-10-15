@@ -178,7 +178,7 @@ export class WidgetService {
             };
         }
         return this.widgetsSocketObservable.pipe(
-            filter((ref) => ref && ref.channelId === widgetId),
+            filter((ref) => ref?.channelId === widgetId),
             map((ref) => {
                 return this.mapWidgetData(ref.data, widgetType);
             })
@@ -197,7 +197,7 @@ export class WidgetService {
             };
         }
         return this.widgetsSocketObservable.pipe(
-            filter((ref) => ref?.channelId === widgetId && ref.subChannelId === channelId),
+            filter((ref) => ref?.channelId === channelId),
             map((ref) => ref?.data ?? null),
             filter((ref) => ref !== null)
         );

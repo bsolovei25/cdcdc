@@ -62,7 +62,7 @@
           class="notification__body__icon--delete"
           [applyCss]="true"
           src="assets/icons/remove.svg"
-          (click)="deleteClick(cardData?.id)"
+          (click)="deleteClick($event, cardData?.id)"
           (mousedown)="$event.stopPropagation()"
           (touchstart)="$event.stopPropagation()"
           [svgStyle]="{ 'width.px':'14', 'height.px':'14' }"

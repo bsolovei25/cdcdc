@@ -41,14 +41,16 @@
       <div class="footer__time">{{ data?.eventDateTime | date:"dd.MM.yyyy HH:mm" }}</div>
     </div>
     <div class="footer__right-block">
-      <div class="footer__critical">
+      <div matRipple
+           [matRippleColor]="'white'"
+           class="footer__critical" (click)="changeIsAcknowledged($event, data)">
         {{ data?.isAcknowledged ? 'Квитировано' : 'Не квитировано' }}
       </div>
       <svg-icon
         class="footer__remove"
         [applyCss]="true"
         src="assets/icons/remove.svg"
-        (click)="deleteClick(data?.id)"
+        (click)="deleteClick($event, data?.id)"
         [svgStyle]="{ 'width.px':10, 'height.px':13 }"
       >
       </svg-icon>

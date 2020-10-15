@@ -15,6 +15,13 @@ export class AsusEventComponent implements OnInit {
 
     public isReasonsPopupOpen: boolean = false;
 
+    public get registrationDate(): Date {
+        if (!this.ewService.event?.externalDate) {
+            return null;
+        }
+        return new Date(this.ewService.event?.externalDate);
+    }
+
     constructor(
         public ewService: EventsWorkspaceService,
         public eventService: EventService,
@@ -146,18 +153,5 @@ export class AsusEventComponent implements OnInit {
                 );
                 break;
         }
-    }
-
-    public showDate(dateIso: string): string {
-        if (!dateIso) {
-            return '';
-        }
-        const date = new Date(dateIso);
-        const day = date.getDate();
-        const month = date.getMonth() + 1;
-        const year = date.getFullYear();
-        const hours = date.getHours();
-        const minutes = date.getMinutes();
-        return `${day}.${month}.${year} | ${hours}:${minutes}`;
     }
 }
