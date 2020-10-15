@@ -118,7 +118,7 @@ docker-packing-tst:
     name: production
     url: https://${DEPLOY_DOMAIN}
 
-.deploy-front-mr:
+deploy-front-mr:
   extends: .deploy-to-k8s
   variables:
     NS: "evj-${CI_COMMIT_REF_SLUG}"

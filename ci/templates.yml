@@ -35,11 +35,24 @@
     - gl-docker-socket
   variables:
     OUTPUT_DIST: "/share/build-${CI_BUILD_ID}"
+    DOCKERHUB_URL: registry.funcoff.club
+    DOCKER_REPO: evj
+    SERVICE_NAME: "microservice"
+    DOCKER_BASE_NAME: ${DOCKERHUB_URL}/${DOCKER_REPO}/${SERVICE_NAME}
+    LATEST_IMG: ${DOCKERHUB_URL}/${DOCKER_REPO}/${SERVICE_NAME}:latest
+    DOCKER_MR_IMG: ${DOCKERHUB_URL}/${DOCKER_REPO}/${SERVICE_NAME}:${CI_MERGE_REQUEST_SOURCE_BRANCH_NAME}
+    DOCKERFILE_PACK: "./docker/Dockerfile.packing"
   script:
     - echo "==== ng build --prod to ${OUTPUT_DIST} ===="
+    - if [ -z $CI_MERGE_REQUEST_SOURCE_BRANCH_NAME ]; then DOCKER_MR_IMG=${LATEST_IMG}; fi
+    - echo $DOCKER_MR_IMG
     - env
-    - docker build -f docker/Dockerfile.packing -t registry.funcoff.club/evj/front:mr
-    - docker push registry.funcoff.club/evj/front:mr
+    - >
+      docker build
+      --file ${DOCKERFILE_PACK} 
+      --tag ${DOCKER_MR_IMG}
+      .
+    - docker push ${DOCKER_MR_IMG}:mr
   only:
     - devops
 
