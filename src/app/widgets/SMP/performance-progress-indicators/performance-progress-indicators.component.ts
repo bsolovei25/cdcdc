@@ -2,8 +2,8 @@ import { Component, OnInit, OnDestroy, Inject } from '@angular/core';
 import { WidgetPlatform } from 'src/app/dashboard/models/@PLATFORM/widget-platform';
 import { WidgetService } from 'src/app/dashboard/services/widget.service';
 import {
-    IPerfCircleDay, IPerfProgCircle, IPerfProgPark,
-    IProgressIndicators
+    IPerfCircleDay, IPerfCircleDayFB, IPerfProgCircle, IPerfProgCircleFB, IPerfProgPark, IPerfProgParkFB,
+    IProgressIndicators, IProgressIndicatorsFB
 } from '../../../dashboard/models/SMP/performance-progress-indicators.model';
 import { Subscription } from 'rxjs';
 import { SmpService } from '../../../dashboard/services/widgets/smp.service';
@@ -17,11 +17,8 @@ import { SmpService } from '../../../dashboard/services/widgets/smp.service';
 export class PerformanceProgressIndicatorsComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
 
   private subscription: Subscription[] = [];
-  data: IProgressIndicators;
   public progressIndicators: IProgressIndicators;
-  public perfCircleDay: IPerfCircleDay[];
-  public perfProgCircle: IPerfProgCircle[];
-  public perfProgPark: IPerfProgPark;
+
   constructor(
     protected widgetService: WidgetService,
     private smpService: SmpService,
@@ -38,29 +35,53 @@ export class PerformanceProgressIndicatorsComponent extends WidgetPlatform<unkno
     this.subscription.push(
         this.smpService.getProductionProgress()
             .subscribe((value) => {
-                this.progressIndicators = value.data; // Получены данные с бэка и записаны в this.progressIndicators
-                const array: IPerfProgCircle[] = []; // Создан массив типа обьектов Circle
-                // Проход в цикле по каждому circle с бэка
-                // Нужно запушить в новый массив array map-данные с бэка
-                this.progressIndicators.circle.forEach((circle) => {
-                   array.push({
-                       title: circle.title,
-                       id: circle.id,
-                       value: circle.value,
-                       icon: circle.icon,
-                       gaugePercent: circle.gaugePercent,
-                       piePercent: circle.piePercent,
-                       isCritical: circle.isCritical,
-                       days: circle.days
-                   });
-                });
+                    const newShipment: IPerfProgPark = {
+                        capacity: value.data.shipment.maxRest,
+                        balance: value.data.shipment.deathRest,
+                        certified: value.data.shipment.fact,
+                        planLevel: value.data.shipment.factAll,
+                        factLevel: value.data.shipment.nFact,
+                    };
+                    const newStatePark: IPerfProgPark = {
+                        capacity: value.data.statePark.maxRest,
+                        balance: value.data.statePark.deathRest,
+                        certified: value.data.statePark.fact,
+                        planLevel: value.data.statePark.factAll,
+                        factLevel: value.data.statePark.nFact,
+                    };
+                    const newCircles: IPerfProgCircle[] = [];
+                    const month: IPerfCircleDay[] = [];
+                    value.data.circle.forEach((circle) => {
+                        circle.days.forEach((d) => {
+                            month.push({
+                                day: d.day,
+                                state: d.critical.toString()
+                            });
+                        });
+                        newCircles.push({
+                            title: circle.title,
+                            id: circle.id,
+                            value: circle.value,
+                            icon: circle.icon,
+                            piePercent: circle.prodPlanPer,
+                            gaugePercent: circle.prodPlanPer,
+                            isCritical: !!circle.critical,
+                            days: month
+                        });
+                    });
+                    this.progressIndicators = {
+                        shipment: newShipment,
+                        statePark: newStatePark,
+                        circle: newCircles
+                    };
             })
     );
+    console.log(`this.progressIndicators: ${this.progressIndicators}`);
   }
 
   public ngOnDestroy(): void {
     super.ngOnDestroy();
-    this.subscription.forEach((subs: Subscription) => subs.unsubscribe());
+    this.subscription.forEach((sub: Subscription) => sub.unsubscribe());
   }
 
   protected dataHandler(ref: any): void {
