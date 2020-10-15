@@ -1,34 +1,3 @@
-.deploy-to-k8s:
-  tags:
-    - gl-docker-build
-  variables:
-    NS: "default"
-    RELEASE: "default"
-    CHART: "path/to/chart"
-    IMG_VERSION: "latest"
-    DEPLOY_DOMAIN: "url"
-    INGRESS_SITE: "default"
-  stage: deploy
-  image: dtzar/helm-kubectl:3.3.4
-  before_script:
-    - mkdir /root/.kube && echo "${KUBECTL_AUTH_CONFIG}" > /root/.kube/config
-    - mkdir -p $HOME/.docker && echo "${DOCKER_AUTH_CONFIG}" > $HOME/.docker/config.json && chmod 600 $HOME/.docker/config.json
-  script:
-    - kubectl version
-    - kubectl create ns ${NS} || true
-    - helm upgrade 
-        --install ${RELEASE} ${CHART}
-        --set "microservice.image.imageTag=${IMG_VERSION}"
-        --set "microservice.ingress.site=${INGRESS_SITE}"
-        --namespace ${NS}
-  environment:
-    name: production
-    url: https://${DEPLOY_DOMAIN}
-  only:
-    - develop
-    - master
-    - devops
-
 .packing:
   stage: packing
   tags:
