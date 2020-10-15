@@ -20,7 +20,7 @@ export class AstueEfficiencyUnitCardComponent implements OnChanges {
     public isClicked: boolean = false;
     public isOpen: boolean = false;
 
-    @Input() cardSelection: SelectionModel<IAsEfFlow>;
+    @Input() cardSelection: SelectionModel<IAsEfFlow> = this.AsEfService.cardSelection;
 
     constructor(private AsEfService: AstueEfficiencyService) {
     }
