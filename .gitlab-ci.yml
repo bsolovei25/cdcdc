@@ -90,8 +90,11 @@ deploy-front:
 deliver-to-deploy:
   extends: .packing 
   stage: deploy
+  image:
+    name: gitlab.funcoff.club:4567/oaovd/osspu/evj/back/runners:alpine
   variables:
     DEPLOY_DOMAIN: deploy.funcoff.club
+    GIT_STRATEGY: none
     DEPLOY_PATH: "/var/www/angular.local/public"
     CMD_REPLACE: sed -i -E "s/(<title>Evj)(<\/title>)/\1 | ${CI_COMMIT_SHORT_SHA} \2/g" /var/www/angular.local/public/index.html
   script:
