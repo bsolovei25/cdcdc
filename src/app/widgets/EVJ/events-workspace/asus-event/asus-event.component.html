@@ -264,7 +264,7 @@
         <div class="label">
           <div class="label__title">Дата регистрации</div>
           <div class="label__text">
-            {{showDate(this.ewService.event?.externalDate)}}
+            {{ registrationDate ? (registrationDate | date:"dd.MM.yyyy | HH:mm") : '-' }}
           </div>
         </div>
       </div>
