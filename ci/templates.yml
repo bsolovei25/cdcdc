@@ -1,0 +1,182 @@
+.deploy-to-k8s:
+  tags:
+    - gl-docker-build
+  variables:
+    NS: "default"
+    RELEASE: "default"
+    CHART: "path/to/chart"
+    IMG_VERSION: "latest"
+    DEPLOY_DOMAIN: "url"
+    INGRESS_SITE: "default"
+  stage: deploy
+  image: dtzar/helm-kubectl:3.3.4
+  before_script:
+    - mkdir /root/.kube && echo "${KUBECTL_AUTH_CONFIG}" > /root/.kube/config
+    - mkdir -p $HOME/.docker && echo "${DOCKER_AUTH_CONFIG}" > $HOME/.docker/config.json && chmod 600 $HOME/.docker/config.json
+  script:
+    - kubectl version
+    - kubectl create ns ${NS} || true
+    - helm upgrade 
+        --install ${RELEASE} ${CHART}
+        --set "microservice.image.imageTag=${IMG_VERSION}"
+        --set "microservice.ingress.site=${INGRESS_SITE}"
+        --namespace ${NS}
+  environment:
+    name: production
+    url: https://${DEPLOY_DOMAIN}
+  only:
+    - develop
+    - master
+    - devops
+
+.packing:
+  stage: packing
+  tags:
+    - gl-docker-socket
+  variables:
+    OUTPUT_DIST: "/share/build-${CI_BUILD_ID}"
+    DOCKERHUB_URL: registry.funcoff.club
+    DOCKER_REPO: evj
+    SERVICE_NAME: "microservice"
+    DOCKER_BASE_NAME: ${DOCKERHUB_URL}/${DOCKER_REPO}/${SERVICE_NAME}
+    LATEST_IMG: ${DOCKERHUB_URL}/${DOCKER_REPO}/${SERVICE_NAME}:latest
+    DOCKER_MR_IMG: ${DOCKERHUB_URL}/${DOCKER_REPO}/${SERVICE_NAME}:${CI_MERGE_REQUEST_SOURCE_BRANCH_NAME}
+    DOCKERFILE_PACK: "./docker/Dockerfile.packing"
+  script:
+    - echo "==== ng build --prod to ${OUTPUT_DIST} ===="
+    - if [ -z $CI_MERGE_REQUEST_SOURCE_BRANCH_NAME ]; then export DOCKER_MR_IMG=${LATEST_IMG}; fi
+    - echo $DOCKER_MR_IMG
+    - env
+    - >
+      docker build
+      --file ${DOCKERFILE_PACK} 
+      --tag ${DOCKER_MR_IMG}
+      .
+    - docker push ${DOCKER_MR_IMG}
+  only:
+    - devops
+
+.ng-build:
+  stage: build
+  image: registry.funcoff.club/evj/front-cache:14.10.2020
+  tags:
+    - gl-docker-socket
+  variables:
+    OUTPUT_DIST: "/share/build-${CI_BUILD_ID}"
+  before_script:
+    - if [ ! -d "node_modules" ]; then npm install; fi
+  script:
+    - env
+    - echo "==== ng build --prod to ${OUTPUT_DIST} ===="
+    #- ln -s /app/node_modules .
+    #- ng build --prod --output-path ${OUTPUT_DIST} || npm install && ng build --prod
+    - ng build #--prod
+  only:
+    - devops
+
+.build-angular:
+  stage: build
+  tags:
+    - gl-docker-socket
+  variables:
+    DOCKERFILE: "Dockerfile"
+    DOCKERHUB_URL: registry.funcoff.club
+    DOCKER_REPO: evj
+    SERVICE_NAME: "microservice"
+    DOCKER_BASE_NAME: ${DOCKERHUB_URL}/${DOCKER_REPO}/${SERVICE_NAME}
+    DOCKER_IMG: ${DOCKERHUB_URL}/${DOCKER_REPO}/${SERVICE_NAME}:${CI_COMMIT_SHA}
+    LATEST_IMG: ${DOCKERHUB_URL}/${DOCKER_REPO}/${SERVICE_NAME}:latest
+    DOCKER_MR_IMG: ${DOCKERHUB_URL}/${DOCKER_REPO}/${SERVICE_NAME}:${CI_MERGE_REQUEST_SOURCE_BRANCH_NAME}
+
+  script:
+    - echo "==== Pulling inline-caches ===="
+    - if [ -z $CI_MERGE_REQUEST_SOURCE_BRANCH_NAME ]; then DOCKER_MR_IMG=${LATEST_IMG}; fi
+    - echo $DOCKER_MR_IMG
+      #- env
+    - echo "==== Building docker images ===="
+
+    - >
+      docker build
+      --target base
+      --cache-from ${DOCKER_MR_IMG}-cache
+      --build-arg BUILDKIT_INLINE_CACHE=1 
+      --tag ${DOCKER_MR_IMG}-cache
+      .
+      --file ${DOCKERFILE}
+    - >
+      docker build
+      --target base
+      --cache-from ${DOCKER_MR_IMG}-cache
+      --build-arg BUILDKIT_INLINE_CACHE=1 
+      --tag ${DOCKER_MR_IMG}-cache
+      .
+      --file ${DOCKERFILE}
+    - >
+      docker build
+      --target base
+      --cache-from ${DOCKER_MR_IMG}-cache
+      --build-arg BUILDKIT_INLINE_CACHE=1 
+      --tag ${DOCKER_MR_IMG}-cache
+      .
+      --file ${DOCKERFILE}
+    - >
+      docker build
+      --target webserver
+      --build-arg BUILDKIT_INLINE_CACHE=1 
+      --cache-from ${DOCKER_MR_IMG}-cache
+      --tag ${DOCKER_MR_IMG}
+      .
+      --file ${DOCKERFILE}
+
+  only:
+    - devops
+
+.build-angular-dind:
+  stage: build
+  services:
+    - docker:19.03.13-dind
+  tags:
+    - gl-docker-build
+  variables:
+    DOCKERFILE: "Dockerfile"
+    DOCKERHUB_URL: registry.funcoff.club
+    DOCKER_REPO: evj
+    SERVICE_NAME: "microservice"
+    DOCKER_BASE_NAME: ${DOCKERHUB_URL}/${DOCKER_REPO}/${SERVICE_NAME}
+    DOCKER_IMG: ${DOCKERHUB_URL}/${DOCKER_REPO}/${SERVICE_NAME}:${CI_COMMIT_SHA}
+    LATEST_IMG: ${DOCKERHUB_URL}/${DOCKER_REPO}/${SERVICE_NAME}:latest
+    DOCKER_MR_IMG: ${DOCKERHUB_URL}/${DOCKER_REPO}/${SERVICE_NAME}:${CI_MERGE_REQUEST_SOURCE_BRANCH_NAME}
+
+  script:
+    - echo "==== Pulling inline-caches ===="
+    - env
+    - echo ${LATEST_IMG}
+    - echo ${DOCKER_MR_IMG}
+    - docker pull ${LATEST_IMG}-cache || true
+      #- docker pull ${LATEST_IMG} || true
+      #- docker pull ${DOCKER_IMG}-cache || docker pull ${LATEST_IMG}-cache || true
+    - echo "==== Building docker images ===="
+    - >
+      docker build
+      --target base
+      --cache-from ${LATEST_IMG}-cache
+      --build-arg BUILDKIT_INLINE_CACHE=1 
+      --tag ${LATEST_IMG}-cache
+      .
+      -f ${DOCKERFILE}
+    - >
+      docker build
+      --target webserver
+      --build-arg BUILDKIT_INLINE_CACHE=1 
+      --cache-from ${LATEST_IMG}-cache
+      --cache-from ${LATEST_IMG}
+      --tag ${DOCKER_MR_IMG}
+      --tag ${LATEST_IMG}
+      .
+      --file ${DOCKERFILE}
+    - echo "==== Pushig docker images ===="
+    - docker push ${LATEST_IMG}-cache
+    - echo "====== Stage  succeeded ======"
+  only:
+    - devops
+

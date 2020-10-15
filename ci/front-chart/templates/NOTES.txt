@@ -1,0 +1,7 @@
+Congratulations ! You installed {{ .Chart.Name }} chart sucessfully.
+Release name is {{ .Release.Name }}
+
+You can access the your application at the following urls :
+  http://192.168.0.201:{{ .Values.microservice.service.port }}
+  https://{{ include "route" . }}
+Have fun!

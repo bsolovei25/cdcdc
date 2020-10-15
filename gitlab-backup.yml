@@ -1,27 +1,25 @@
 ---
-include:
-  - ci/templates.yml
+before_script:
+- echo $CI_JOB_STAGE
+- date
+- ls
+- pwd
+
+after_script:
+- date
+  #- env
 
 variables:
-  GIT_DEPTH: 8
-  #DOCKER_HOST: tcp://docker:2375
-  ## This will instruct Docker not to start over TLS.
-  #DOCKER_TLS_CERTDIR: ""
-  DOCKER_BUILDKIT: 1
-  COMPOSE_DOCKER_CLI_BUILD: 1 
-  DOCKER_DRIVER: overlay2
-  # Registry configs
-  DEPLOY_DOMAIN: ml.funcoff.club:30602
-  GIT_SSL_NO_VERIFY: "1"
-  SCP_HOST: root@${DEPLOY_DOMAIN}
-  ROCKETCHAT_HOOKS: "/home/gitlab-runner/rocket.integrations"
-  DYNAMIC_ENV: "/root/dynamic-environment-creator"
+    GIT_SSL_NO_VERIFY: "1"
+    DEPLOY_DOMAIN: deploy.funcoff.club
+    SCP_HOST: root@${DEPLOY_DOMAIN}
+    ROCKETCHAT_HOOKS: "/home/gitlab-runner/rocket.integrations"
+    DYNAMIC_ENV: "/root/dynamic-environment-creator"
 
 stages:
     - prebuild
     - test
     - build
-    - packing
     - deploy-review
     - staging
     - export-images
@@ -29,130 +27,13 @@ stages:
     - release
     - clean-on-failure
 
+
 .init_template: &init
     tags:
         - build2-cup-front
 
-.build-front:
-  extends: .build-angular
-  variables:
-    DOCKERFILE: "./docker/Dockerfile.k8s"
-    SERVICE_NAME: "front"
-    DOCKER_REPO: evj
-  before_script:
-    - docker info
-  after_script:
-    - echo "==== Pushig docker images ===="
-    - echo $DOCKER_IMG $DOCKER_MR_IMG
-    - docker push ${LATEST_IMG}
-    - echo "====== Stage  succeeded ======"
-  only:
-    - develop
-    - devops
 
-install_dependencies:
-  stage: prebuild
-  image: registry.funcoff.club/evj/front-cache:14.10.2020
-  cache: 
-    key: one-key-to-rule-them-all
-    paths:
-      - node_modules/
-  script:
-    - npm ci
-  only:
-    changes:
-      - package-lock.json
-
-
-ng-build-mr:
-  extends: .ng-build
-  cache: 
-    #key: $CI_COMMIT_REF_SLUG-$CI_PROJECT_DIR
-    key: one-key-to-rule-them-all
-    paths:
-      - node_modules/
-  variables:
-    DOCKERFILE: "./docker/Dockerfile.k8s"
-    SERVICE_NAME: "front"
-    DOCKER_REPO: evj
-  after_script:
-    - echo ${DOCKER_IMG}
-  artifacts:
-    paths:
-      - ./dist
-  only:
-    - merge_requests
-
-docker-packing-tst:
-  extends: .packing
-  variables:
-    SERVICE_NAME: "microservice"
-  only:
-    - merge_requests
-
-
-.build-front-mr:
-  extends: .build-angular
-  variables:
-    DOCKERFILE: "./docker/Dockerfile.k8s"
-    SERVICE_NAME: "front"
-    DOCKER_REPO: evj
-  after_script:
-    - echo "==== Pushig docker images ===="
-    - echo ${DOCKER_MR_IMG}
-    - docker push ${DOCKER_MR_IMG}
-    - echo "====== Stage  succeeded ======"
-  only:
-    - merge_requests
-
-
-
-.deploy-front-stage:
-  extends: .deploy-to-k8s
-  variables:
-    NS: "evj"
-    IMG_VERSION: "latest" # switch to branches?
-    CHART: "./ci/front-chart"
-    RELEASE: "front"
-    DEPLOY_DOMAIN: "https://evj.funcoff.club"
-    INGRESS_SITE: "evj"
-  environment:
-    name: production
-    url: https://${DEPLOY_DOMAIN}
-
-deploy-front-mr:
-  extends: .deploy-to-k8s
-  variables:
-    NS: "evj-${CI_COMMIT_REF_SLUG}"
-    IMG_VERSION: "${CI_MERGE_REQUEST_SOURCE_BRANCH_NAME}"
-    CHART: "./ci/front-chart"
-    RELEASE: "front"
-    DEPLOY_DOMAIN: "https://evj-${CI_MERGE_REQUEST_SOURCE_BRANCH_NAME}.funcoff.club"
-    INGRESS_SITE: "evj-${CI_MERGE_REQUEST_SOURCE_BRANCH_NAME}"
-  dependencies: []
-  environment:
-    name: review/${CI_COMMIT_REF_SLUG}
-    url: "https://evj-${CI_MERGE_REQUEST_SOURCE_BRANCH_NAME}.funcoff.club"
-    on_stop: stop-k8s-review
-  only:
-    - merge_requests
-
-stop-k8s-review:
-  extends: .deploy-to-k8s 
-  variables:
-    GIT_STRATEGY: none
-    NS: "evj-${CI_COMMIT_REF_SLUG}"
-  only:
-      - merge_requests
-  script:
-    - kubectl version
-    - kubectl delete ns ${NS} || true
-  when: manual
-  environment:
-    name: review/${CI_COMMIT_REF_SLUG}
-    action: stop
-      
-.docker build:
+docker build:
     <<: *init
     stage: prebuild
     script:
@@ -173,9 +54,6 @@ stop-k8s-review:
           #- develop
         - merge_requests
 
-
-
-
 .testing website:
     <<: *init
     stage: test
@@ -190,7 +68,7 @@ stop-k8s-review:
     only:
         - merge_requests
 
-.build artifact:
+build artifact:
     <<: *init
     stage: build
     script:
@@ -208,7 +86,7 @@ stop-k8s-review:
         paths:
             - ./public
 
-.deploy review:
+deploy review:
     <<: *init
     stage: deploy-review
     script:
@@ -227,7 +105,7 @@ stop-k8s-review:
         url: https://$DYNAMIC_ENVIRONMENT_URL
         on_stop: stop-review
 
-.stop-review:
+stop-review:
     <<: *init
     variables:
         GIT_STRATEGY: none
@@ -241,7 +119,7 @@ stop-k8s-review:
         name: review/${CI_COMMIT_REF_SLUG}
         action: stop
 
-.staging:
+staging:
     <<: *init
     stage: staging
     environment:
@@ -261,7 +139,7 @@ stop-k8s-review:
         - develop
 
 
-.export to zyfra:
+export to zyfra:
     <<: *init
     stage: export-images
     script:
@@ -277,7 +155,7 @@ stop-k8s-review:
       - zyfra
       - dev
 
-.prod:
+prod:
     <<: *init
     stage: deploy
     environment:
@@ -294,7 +172,7 @@ stop-k8s-review:
     only:
         - master
 
-.release maker:
+release maker:
     <<: *init
     stage: release
     script:
@@ -307,7 +185,7 @@ stop-k8s-review:
     when:
         manual
 
-.clean on failure:
+clean on failure:
     <<: *init
     stage: clean-on-failure
     script:
