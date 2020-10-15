@@ -1,16 +1,9 @@
+import { IImplementationPlan } from './../../../dashboard/models/SMP/implementation-plan.model';
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit, OnDestroy, Inject } from '@angular/core';
 import { WidgetPlatform } from 'src/app/dashboard/models/@PLATFORM/widget-platform';
 import { WidgetService } from 'src/app/dashboard/services/widget.service';
 
-export interface IImplementationPlan {
-  id: number;
-  title: string;
-  value: number;
-  deviation: string;
-  deviationPercent: number;
-  factTankLevel: number;
-  planTankLevel: number;
-}
 
 @Component({
   selector: 'evj-implementation-plan',
@@ -21,29 +14,9 @@ export class ImplementationPlanComponent extends WidgetPlatform<unknown> impleme
 
   public data: IImplementationPlan[] = [];
 
-  public data2: IImplementationPlan[] = [
-    {
-      id: 1,
-      title: 'Нефть1',
-      value: 1232421,
-      deviation: '+0,2',
-      deviationPercent: 10,
-      factTankLevel: 10,
-      planTankLevel: 40,
-    },
-    {
-      id: 2,
-      title: 'КГС2',
-      value: 1232421,
-      deviation: '+0,2',
-      deviationPercent: 20,
-      factTankLevel: 10,
-      planTankLevel: 30,
-    }
-  ];
-
   constructor(
     protected widgetService: WidgetService,
+    private http: HttpClient,
     @Inject('isMock') public isMock: boolean,
     @Inject('widgetId') public id: string,
     @Inject('uniqId') public uniqId: string
@@ -53,6 +26,11 @@ export class ImplementationPlanComponent extends WidgetPlatform<unknown> impleme
 
   public ngOnInit(): void {
     super.widgetInit();
+
+    this.http.get('assets/mock/SMP/implementation-plan/implementation-plan.mock.json')
+      .subscribe((data: IImplementationPlan[]) => {
+        this.data = data;
+    });
   }
 
   public ngOnDestroy(): void {
@@ -60,7 +38,6 @@ export class ImplementationPlanComponent extends WidgetPlatform<unknown> impleme
   }
 
   protected dataHandler(ref: any): void {
-    this.data = ref.items;
   }
 
 }
