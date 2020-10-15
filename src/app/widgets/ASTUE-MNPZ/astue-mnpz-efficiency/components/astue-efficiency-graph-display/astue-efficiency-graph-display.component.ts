@@ -138,7 +138,7 @@ export class AstueEfficiencyGraphDisplayComponent extends LineChartPlatform<IPro
 
     private chartDataMap(data: any): IProductionTrend[] {
         const ret: IProductionTrend[] = [];
-        data.forEach((chart) => {
+        data?.forEach((chart) => {
             const mapped: IProductionTrend = {
                 graphType: chart.productionTrendStyle,
                 graphStyle: chart.chartStyleType,
