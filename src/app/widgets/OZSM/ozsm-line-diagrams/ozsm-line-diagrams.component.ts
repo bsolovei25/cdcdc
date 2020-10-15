@@ -1,5 +1,5 @@
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
-import { WidgetPlatform } from '../../../dashboard/models/widget-platform';
+import { WidgetPlatform } from '../../../dashboard/models/@PLATFORM/widget-platform';
 import { WidgetService } from '../../../dashboard/services/widget.service';
 import { IOZSMLineDiagram } from '../../../dashboard/models/OZSM/ozsm-line-diagram.model';
 import { mockData } from './ozsm-line-diagram-mock';

@@ -1,7 +1,7 @@
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 
 import { SelectionModel } from '@angular/cdk/collections';
-import { WidgetPlatform } from '../../../dashboard/models/widget-platform';
+import { WidgetPlatform } from '../../../dashboard/models/@PLATFORM/widget-platform';
 import { ISmpEventStatus, ISmpEventCard } from '../../../dashboard/models/SMP/smp-events.model';
 import { WidgetService } from '../../../dashboard/services/widget.service';
 import { SmpEventsService } from '../../../dashboard/services/widgets/smp-events.service';

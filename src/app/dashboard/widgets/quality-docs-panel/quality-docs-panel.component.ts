@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject, HostListener, OnDestroy } from '@angular/core';
-import { WidgetPlatform } from '../../models/widget-platform';
+import { WidgetPlatform } from '../../models/@PLATFORM/widget-platform';
 import { WidgetService } from '../../services/widget.service';
 
 export interface IQualityDocsRecord {

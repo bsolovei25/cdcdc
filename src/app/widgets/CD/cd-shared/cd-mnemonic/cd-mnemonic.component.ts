@@ -143,35 +143,36 @@ export class CdMnemonicComponent implements OnInit {
         const circles = document.querySelectorAll('.svg__circle');
         circles.forEach((circle) => {
             const id = circle.getAttribute('id-circle');
+            const el: ISensors = this.data.find((val) => val.id === +id);
             circle.addEventListener('click',
                 (e) => {
-                    this.addLineChart(+id);
-                    // console.log(id);
+                    this.addLineChart(+id, el?.subChannelId);
                 });
             this.renderer2?.removeClass(circle, 'svg__circle--deviation');
-            const elDeviation = this.data.find((val) => val.id === +id)?.deviation;
-            if (elDeviation) {
-                const dev = elDeviation <= 0 ? true : false;
+
+            if (el?.deviation) {
+                const dev = el?.deviation <= 0;
                 this.renderer2.addClass(circle, 'svg__circle--deviation');
                 this.addCircleDeviation(
                     +id,
                     +circle.getAttribute('cx'),
                     +circle.getAttribute('cy'),
-                    dev
+                    dev,
+                    el.subChannelId
                 );
             }
         });
     }
 
-    addLineChart(id: number): void {
-        const selectChart: number[] =
-            [...this.cdMatBalanceService.charts$.getValue(), id];
+    addLineChart(id: number, widgetId: string): void {
+        const selectChart: string[] =
+            [...this.cdMatBalanceService.charts$.getValue(), widgetId];
         const setCharts = new Set(selectChart);
         this.cdMatBalanceService.charts$.next([...setCharts]);
     }
 
-    clickIcon(id: number, x?: number, y?: number): void {
-        this.addLineChart(id);
+    clickIcon(id: number, x: number, y: number, widgetId: string): void {
+        this.addLineChart(id, widgetId);
         if (this.isSelectedEl?.id === id) {
             this.isSelectedEl = null;
         } else {
@@ -195,7 +196,7 @@ export class CdMnemonicComponent implements OnInit {
         }
     }
 
-    addCircleDeviation(id: number, x: number, y: number, isDown: boolean = false, callBack?: () => null): void {
+    addCircleDeviation(id: number, x: number, y: number, isDown: boolean = false, widgetId: string, callBack?: () => null): void {
         const locX = x - 28; // Разница в svg
         const locY = y - 7;
         this.modalIcons.push({
@@ -203,9 +204,9 @@ export class CdMnemonicComponent implements OnInit {
             x: locX,
             y: locY,
             callBack: () => {
-                this.clickIcon(id, x, y);
+                this.clickIcon(id, x, y, widgetId);
             },
-            isVisible: (this.isSelectedEl?.id !== id) ? true : false,
+            isVisible: (this.isSelectedEl?.id !== id),
             isDown
         });
     }
@@ -261,12 +262,13 @@ export class CdMnemonicComponent implements OnInit {
         const engUnits = document.querySelectorAll('.svg__circle__eng-units');
         engUnits.forEach((engUnit) => {
                 const id = engUnit.getAttribute('id-eng-units');
+                const el = this.data.find((val) => val.id === +id);
                 engUnit.addEventListener('click',
                     () => {
-                        this.addLineChart(+id);
+                        this.addLineChart(+id, el.subChannelId);
                     });
-                const valueEngUnits = this.data.find((val) => val.id === +id)?.engUnits;
-                if (valueEngUnits) {
+
+                if (el) {
                     let x = +engUnit.getAttribute('x');
                     if (engUnit.textContent.trim() === 'м³/ч') {
                         x = x + 10;
@@ -277,7 +279,7 @@ export class CdMnemonicComponent implements OnInit {
                     const finalX = this.calculationAxisX(x);
                     this.renderer2.setAttribute(engUnit, 'x', finalX);
                     this.renderer2.setAttribute(engUnit, 'text-anchor', 'middle');
-                    this.renderer2.setProperty(engUnit, 'textContent', valueEngUnits);
+                    this.renderer2.setProperty(engUnit, 'textContent', el.engUnits);
                 }
             }
         );
@@ -287,11 +289,11 @@ export class CdMnemonicComponent implements OnInit {
         const texts = document.querySelectorAll('.svg__circle__value');
         texts.forEach((text) => {
             const id = text.getAttribute('id-text');
+            const el = this.data.find((val) => val.id === +id);
             text.addEventListener('click',
                 (e) => {
-                    this.addLineChart(+id);
+                    this.addLineChart(+id, el.subChannelId);
                 });
-            const el = this.data.find((val) => val.id === +id);
             let value = 0;
             if (el?.value) {
                 value = +el?.value.toFixed(1);

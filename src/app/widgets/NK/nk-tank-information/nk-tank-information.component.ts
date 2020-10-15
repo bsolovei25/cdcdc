@@ -1,5 +1,5 @@
 import { ITankInformation, ITankCardValue } from '../../../dashboard/models/tank-information';
-import { WidgetPlatform } from 'src/app/dashboard/models/widget-platform';
+import { WidgetPlatform } from 'src/app/dashboard/models/@PLATFORM/widget-platform';
 import { WidgetService } from '../../../dashboard/services/widget.service';
 import { Inject, Component, OnInit, OnDestroy, OnChanges } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
@@ -18,7 +18,7 @@ export class NkTankInformationComponent extends WidgetPlatform<unknown> implemen
     filterList: string[] = ['Все резервуары']; // Список доступных фильтров
     selectedFilter: string = 'Все резервуары';
 
-    timer: any;
+    timer: ReturnType<typeof setTimeout>;
     count: number = 0;
 
 
@@ -90,7 +90,6 @@ export class NkTankInformationComponent extends WidgetPlatform<unknown> implemen
 
         // Фильтруем
         this.getFilter(this.selectedFilter);
-
 
         ref.items.forEach( (item, i) => {
             if ( !this.filterList.includes(item.name) ) {

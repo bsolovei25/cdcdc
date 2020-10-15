@@ -4,7 +4,7 @@ import {
     OnDestroy,
     AfterViewInit
 } from '@angular/core';
-import { WidgetPlatform } from '../../../dashboard/models/widget-platform';
+import { WidgetPlatform } from '../../../dashboard/models/@PLATFORM/widget-platform';
 import { WidgetService } from '../../../dashboard/services/widget.service';
 import {EjcoOnpzHelperService} from '../ejco-onpz-shared/ejco-onpz-helper.service';
 

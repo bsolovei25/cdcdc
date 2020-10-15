@@ -11,7 +11,7 @@ import {
 import { Subscription } from 'rxjs';
 import { WidgetService } from 'src/app/dashboard/services/widget.service';
 import { IObservationNormTR } from 'src/app/dashboard/models/observation-norm-tr';
-import { WidgetPlatform } from 'src/app/dashboard/models/widget-platform';
+import { WidgetPlatform } from 'src/app/dashboard/models/@PLATFORM/widget-platform';
 
 @Component({
     selector: 'evj-observation-norm-tr',

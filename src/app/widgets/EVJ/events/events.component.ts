@@ -13,14 +13,18 @@ import { WidgetService } from '../../../dashboard/services/widget.service';
 import { UserSettingsService } from '../../../dashboard/services/user-settings.service';
 import { EventService } from '../../../dashboard/services/widgets/event.service';
 import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
-import { WidgetPlatform } from '../../../dashboard/models/widget-platform';
+import { WidgetPlatform } from '../../../dashboard/models/@PLATFORM/widget-platform';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { SnackBarService } from '../../../dashboard/services/snack-bar.service';
 import { EventsWorkspaceService } from '../../../dashboard/services/widgets/events-workspace.service';
 import { IAlertWindowModel } from '@shared/models/alert-window.model';
 import { BehaviorSubject } from 'rxjs';
 import { WidgetSettingsService } from '../../../dashboard/services/widget-settings.service';
-import { ClaimService, EnumClaimWidgets } from '../../../dashboard/services/claim.service';
+import {
+    ClaimService,
+    EnumClaimGlobal,
+    EnumClaimWidgets
+} from '../../../dashboard/services/claim.service';
 
 export interface IEventSettings {
     viewType: 'list' | 'cards';
@@ -245,6 +249,11 @@ export class EventsComponent extends WidgetPlatform<IEventsWidgetAttributes> imp
     public isPreviewOpened: boolean = false;
 
     private readonly defaultIconPath: string = 'assets/icons/widgets/events/smotr.svg';
+
+    get isClaimDelete(): boolean {
+        return this.claimService.claimGlobal$?.value
+            ?.some((x) => x === EnumClaimGlobal.EventsDelete);
+    }
 
     constructor(
         private eventService: EventService,
@@ -528,6 +537,10 @@ export class EventsComponent extends WidgetPlatform<IEventsWidgetAttributes> imp
     }
 
     public deleteClick(id: number): void {
+        if (!this.isClaimDelete) {
+            this.snackBarService.openSnackBar(`У вас недостаточно прав для удаления событий`, 'snackbar-red');
+            return;
+        }
         const info: IAlertWindowModel = {
             isShow: true,
             questionText: 'Вы уверены что хотите удалить событие?',
