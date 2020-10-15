@@ -26,7 +26,8 @@
 
 .ng-build:
   stage: build
-  image: registry.funcoff.club/evj/front-cache:14.10.2020
+  image: registry.funcoff.club/libs/node:slim
+  #image: registry.funcoff.club/evj/front-cache:14.10.2020
   tags:
     - gl-docker-socket
   variables:
