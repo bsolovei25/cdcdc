@@ -1,4 +1,3 @@
-import { WidgetPlatform } from 'src/app/dashboard/models/widget-platform';
 import {
     Component,
     Output,
@@ -17,6 +16,7 @@ import { ManualInputService } from './../../../dashboard/services/widgets/manual
 import { WidgetSettingsService } from './../../../dashboard/services/widget-settings.service';
 import { WidgetService } from 'src/app/dashboard/services/widget.service';
 import { IHistory, IMachine_MI, IGroup_MI } from './../../../dashboard/models/manual-input.model';
+import { WidgetPlatform } from 'src/app/dashboard/models/widget-platform';
 
 @Component({
     selector: 'evj-evj-manual-input',
