@@ -64,31 +64,28 @@ install_dependencies:
       - package.json
 
 
-ng-build-mr:
+ng-build:
   extends: .ng-build
   cache: 
     #key: $CI_COMMIT_REF_SLUG-$CI_PROJECT_DIR
     key: one-key-to-rule-them-all
     paths:
       - node_modules/
-  variables:
-    DOCKERFILE: "./docker/Dockerfile.k8s"
-    SERVICE_NAME: "front"
-    DOCKER_REPO: evj
   after_script:
     - echo ${DOCKER_IMG}
-  artifacts:
-    paths:
-      - ./dist
   only:
     - merge_requests
+    - develop
+    - devops
 
 docker-packing-tst:
   extends: .packing
   variables:
-    SERVICE_NAME: "microservice"
+    SERVICE_NAME: "front"
   only:
     - merge_requests
+    - devops
+    - develop
 
 
 .build-front-mr:
@@ -120,6 +117,23 @@ docker-packing-tst:
     name: production
     url: https://${DEPLOY_DOMAIN}
 
+deploy-front:
+  extends: .deploy-to-k8s
+  variables:
+    NS: "evj"
+    IMG_VERSION: "latest"
+    CHART: "./ci/front-chart"
+    RELEASE: "front"
+    DEPLOY_DOMAIN: "https://evj.funcoff.club"
+    INGRESS_SITE: "evj"
+  dependencies: []
+  environment:
+    name: staging
+    url: "https://evj.funcoff.club"
+    on_stop: stop-k8s-review
+  only:
+    - merge_requests
+      
 deploy-front-mr:
   extends: .deploy-to-k8s
   variables:

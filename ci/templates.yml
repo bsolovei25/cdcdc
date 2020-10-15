@@ -34,7 +34,6 @@
   tags:
     - gl-docker-socket
   variables:
-    OUTPUT_DIST: "/share/build-${CI_BUILD_ID}"
     DOCKERHUB_URL: registry.funcoff.club
     DOCKER_REPO: evj
     SERVICE_NAME: "microservice"
@@ -46,13 +45,13 @@
     - echo "==== ng build --prod to ${OUTPUT_DIST} ===="
     - if [ -z $CI_MERGE_REQUEST_SOURCE_BRANCH_NAME ]; then export DOCKER_MR_IMG=${LATEST_IMG}; fi
     - echo $DOCKER_MR_IMG
-    - env
     - >
       docker build
       --file ${DOCKERFILE_PACK} 
       --tag ${DOCKER_MR_IMG}
       .
     - docker push ${DOCKER_MR_IMG}
+    - echo ${DOCKER_MR_IMG}
   only:
     - devops
 
@@ -66,11 +65,15 @@
   before_script:
     - if [ ! -d "node_modules" ]; then npm install; fi
   script:
-    - env
-    - echo "==== ng build --prod to ${OUTPUT_DIST} ===="
-    #- ln -s /app/node_modules .
-    #- ng build --prod --output-path ${OUTPUT_DIST} || npm install && ng build --prod
-    - ng build #--prod
+    - echo "==== ng build stage  ===="
+    - >
+      if [ -z $CI_MERGE_REQUEST_SOURCE_BRANCH_NAME ]; 
+        then ng build; 
+      else 
+        ng build --prod; fi
+  artifacts:
+    paths:
+      - ./dist
   only:
     - devops
 
