@@ -129,6 +129,8 @@ deploy-front-mr:
     RELEASE: "front"
     DEPLOY_DOMAIN: "https://evj-${CI_MERGE_REQUEST_SOURCE_BRANCH_NAME}.funcoff.club"
     INGRESS_SITE: "evj-${CI_MERGE_REQUEST_SOURCE_BRANCH_NAME}"
+  dependencies:
+    - null
   environment:
     name: review/${CI_COMMIT_REF_SLUG}
     url: "https://evj-${CI_MERGE_REQUEST_SOURCE_BRANCH_NAME}.funcoff.club"
