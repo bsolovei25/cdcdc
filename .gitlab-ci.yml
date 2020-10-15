@@ -54,7 +54,7 @@ install_dependencies:
   stage: prebuild
   image: registry.funcoff.club/evj/front-cache:14.10.2020
   cache: 
-    key: $CI_PROJECT_DIR
+    key: one-key-to-rule-them-all
     paths:
       - node_modules/
   script:
@@ -68,7 +68,7 @@ ng-build-mr:
   extends: .ng-build
   cache: 
     #key: $CI_COMMIT_REF_SLUG-$CI_PROJECT_DIR
-    key: $CI_PROJECT_DIR
+    key: one-key-to-rule-them-all
     paths:
       - node_modules/
   variables:
@@ -77,12 +77,16 @@ ng-build-mr:
     DOCKER_REPO: evj
   after_script:
     - echo ${DOCKER_IMG}
-  dependencies: []
+  artifacts:
+    paths:
+      - ./dist
   only:
     - merge_requests
 
-.docker-packing-tst:
+docker-packing-tst:
   extends: .packing
+  variables:
+    SERVICE_NAME: "microservice"
   only:
     - merge_requests
 
@@ -116,7 +120,7 @@ ng-build-mr:
     name: production
     url: https://${DEPLOY_DOMAIN}
 
-.deploy-front-mr:
+deploy-front-mr:
   extends: .deploy-to-k8s
   variables:
     NS: "evj-${CI_COMMIT_REF_SLUG}"
@@ -125,6 +129,7 @@ ng-build-mr:
     RELEASE: "front"
     DEPLOY_DOMAIN: "https://evj-${CI_MERGE_REQUEST_SOURCE_BRANCH_NAME}.funcoff.club"
     INGRESS_SITE: "evj-${CI_MERGE_REQUEST_SOURCE_BRANCH_NAME}"
+  dependencies: []
   environment:
     name: review/${CI_COMMIT_REF_SLUG}
     url: "https://evj-${CI_MERGE_REQUEST_SOURCE_BRANCH_NAME}.funcoff.club"
@@ -132,7 +137,7 @@ ng-build-mr:
   only:
     - merge_requests
 
-.stop-k8s-review:
+stop-k8s-review:
   extends: .deploy-to-k8s 
   variables:
     GIT_STRATEGY: none
