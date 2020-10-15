@@ -26,6 +26,7 @@ stages:
     - staging
     - export-images
     - deploy
+    - alerting
     - release
     - clean-on-failure
 
@@ -102,13 +103,28 @@ deliver-to-deploy:
     - mv ./dist/evj public
     - scp -r ./public root@${DEPLOY_DOMAIN}:${DEPLOY_PATH//\/public}
     - ssh root@${DEPLOY_DOMAIN} $CMD_REPLACE
-      #- ssh root@${DEPLOY_DOMAIN} "sed -i  's/:5555/:6555/g' /var/www/angular-staging.local/public/assets/config.json || sleep 0.1"
       #- ssh root@${DEPLOY_DOMAIN} nginx -s reload
-      #- cd ${ROCKETCHAT_HOOKS} ; git pull origin master --no-edit ; python3 rockethooks.py
   only:
     - develop
     - devops
       
+rockerhooks:
+  tags:
+    - gl-docker-socket
+  stage: alerting
+  image:
+    name: registry.funcoff.club/devops/rockethooks:latest
+  variables:
+    DEPLOY_DOMAIN: deploy.funcoff.club
+    GIT_STRATEGY: none
+    HOOKS: "/app/rockethooks.py"
+  dependencies: []
+  script:
+    - python $HOOKS
+  only:
+    - develop
+    - devops
+
 deploy-front-mr:
   extends: .deploy-to-k8s
   variables:
