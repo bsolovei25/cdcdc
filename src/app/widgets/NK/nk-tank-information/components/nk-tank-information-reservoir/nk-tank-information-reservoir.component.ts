@@ -14,6 +14,7 @@ export class NkTankInformationReservoirComponent implements OnInit, OnChanges {
     this.current = data;
   }
   @Input() status: string;
+  @Input() isRepair: boolean;
 
   higher: number;
   current: number;

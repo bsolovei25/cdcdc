@@ -13,6 +13,7 @@
           [(ngModel)]="ewService.event.category"
           [compareWith]="compareFn"
           (selectionChange)="ewService.changeCategory()"
+          [disabled]="!ewService.isCategoryEdit"
         >
           <mat-option *ngFor="let cat of ewService.categoryPipe | async" [value]="cat">
             {{ ewService.categories[cat.name] }}
