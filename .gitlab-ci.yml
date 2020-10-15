@@ -163,7 +163,6 @@ stop-k8s-review:
     script:
         - echo "Prebuild checking... Getting docker container rdy."
         - docker container stop ${CI_PROJECT_NAME} || sleep 0.1
-        - env
         - docker build . -t ${CI_PROJECT_NAME} -f Dockerfile.prod
         - docker stop ${CI_PROJECT_NAME} || sleep 0.1
         - docker container rm ${CI_PROJECT_NAME} || sleep 0.1

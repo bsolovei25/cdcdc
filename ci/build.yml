@@ -47,7 +47,7 @@
   only:
     - devops
 
-.build-angular:
+.build-angular-docker:
   stage: build
   tags:
     - gl-docker-socket
@@ -65,25 +65,7 @@
     - echo "==== Pulling inline-caches ===="
     - if [ -z $CI_MERGE_REQUEST_SOURCE_BRANCH_NAME ]; then DOCKER_MR_IMG=${LATEST_IMG}; fi
     - echo $DOCKER_MR_IMG
-      #- env
     - echo "==== Building docker images ===="
-
-    - >
-      docker build
-      --target base
-      --cache-from ${DOCKER_MR_IMG}-cache
-      --build-arg BUILDKIT_INLINE_CACHE=1 
-      --tag ${DOCKER_MR_IMG}-cache
-      .
-      --file ${DOCKERFILE}
-    - >
-      docker build
-      --target base
-      --cache-from ${DOCKER_MR_IMG}-cache
-      --build-arg BUILDKIT_INLINE_CACHE=1 
-      --tag ${DOCKER_MR_IMG}-cache
-      .
-      --file ${DOCKERFILE}
     - >
       docker build
       --target base
