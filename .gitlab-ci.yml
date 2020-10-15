@@ -61,7 +61,7 @@ install_dependencies:
     - npm ci
   only:
     changes:
-      - package-lock.json
+      - package.json
 
 
 ng-build-mr:
