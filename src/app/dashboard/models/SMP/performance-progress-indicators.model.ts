@@ -1,3 +1,6 @@
+export interface IGetData {
+    data: IProgressIndicators;
+}
 export interface IProgressIndicators {
     statePark: IPerfProgPark; /// Состояние парка
     shipment: IPerfProgPark; /// Отгрузка

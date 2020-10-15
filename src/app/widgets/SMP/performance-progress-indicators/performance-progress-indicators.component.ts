@@ -38,10 +38,24 @@ export class PerformanceProgressIndicatorsComponent extends WidgetPlatform<unkno
     this.subscription.push(
         this.smpService.getProductionProgress()
             .subscribe((value) => {
-                }
-            )
+                this.progressIndicators = value.data; // Получены данные с бэка и записаны в this.progressIndicators
+                const array: IPerfProgCircle[] = []; // Создан массив типа обьектов Circle
+                // Проход в цикле по каждому circle с бэка
+                // Нужно запушить в новый массив array map-данные с бэка
+                this.progressIndicators.circle.forEach((circle) => {
+                   array.push({
+                       title: circle.title,
+                       id: circle.id,
+                       value: circle.value,
+                       icon: circle.icon,
+                       gaugePercent: circle.gaugePercent,
+                       piePercent: circle.piePercent,
+                       isCritical: circle.isCritical,
+                       days: circle.days
+                   });
+                });
+            })
     );
-    console.log(`this progress Indicators ${this.smpService.getProductionProgress()}`);
   }
 
   public ngOnDestroy(): void {
@@ -50,7 +64,7 @@ export class PerformanceProgressIndicatorsComponent extends WidgetPlatform<unkno
   }
 
   protected dataHandler(ref: any): void {
-      this.data = ref;
+      // this.data = ref;
   }
 
 }

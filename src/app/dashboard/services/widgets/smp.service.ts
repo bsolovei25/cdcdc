@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { AppConfigService } from '@core/service/app-config.service';
 import {
-    IProgressIndicators
+    IGetData,
 } from '../../models/SMP/performance-progress-indicators.model';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -16,8 +16,8 @@ export class SmpService {
     constructor(private http: HttpClient, private configService: AppConfigService) {
         this.restUrl = configService.restUrl;
     }
-    public getProductionProgress(): Observable<IProgressIndicators> {
+    public getProductionProgress(): Observable<IGetData> {
         const url: string = `assets/mock/SMP/productionProgress.json`;
-        return this.http.get<IProgressIndicators>(url);
+        return this.http.get<IGetData>(url);
     }
 }
