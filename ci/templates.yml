@@ -38,6 +38,8 @@
   script:
     - echo "==== ng build --prod to ${OUTPUT_DIST} ===="
     - env
+    - docker build -f docker/Dockerfile.packing -t registry.funcoff.club/evj/front:mr
+    - docker push registry.funcoff.club/evj/front:mr
   only:
     - devops
 
