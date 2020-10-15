@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { SelectionModel } from '@angular/cdk/collections';
 import { FormControl } from '@angular/forms';
-import { UserSettingsService } from '../../services/user-settings.service';
+import { UserSettingsService } from '../../../services/user-settings.service';
 import { Router, ActivatedRoute } from '@angular/router';
 
 export interface IGroupScreens {

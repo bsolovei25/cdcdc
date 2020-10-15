@@ -43,7 +43,8 @@ export class EventCardComponent implements OnInit, OnDestroy {
         this.cardClick.emit(id);
     }
 
-    public deleteClick(id: number): void {
+    public deleteClick(event: MouseEvent, id: number): void {
+        event?.stopPropagation();
         this.cardDeleteClick.emit(id);
     }
 

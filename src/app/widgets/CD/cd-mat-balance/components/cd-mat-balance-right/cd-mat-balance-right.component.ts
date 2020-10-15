@@ -38,9 +38,9 @@ export class CdMatBalanceRightComponent implements OnInit {
     clickItemDeviation(event: MouseEvent, item: IStreams, idx: number): void {
         const parentPos = document.getElementById('parentPos')?.getBoundingClientRect();
         const childPos = document.getElementById(`el-${idx}`)?.getBoundingClientRect();
-        const selectChart: number[] = [
+        const selectChart: string[] = [
             ...this.cdMatBalanceService.charts$?.getValue(),
-            item?.id
+            item?.subChannelId
         ];
         const setCharts = new Set(selectChart);
         this.cdMatBalanceService.charts$.next([...setCharts]);
@@ -61,9 +61,9 @@ export class CdMatBalanceRightComponent implements OnInit {
     }
 
     clickItem(item: IStreams): void {
-        const selectChart: number[] = [
+        const selectChart: string[] = [
             ...this.cdMatBalanceService.charts$?.getValue(),
-            item?.id
+            item?.subChannelId
         ];
         const setCharts = new Set(selectChart);
         this.cdMatBalanceService.charts$.next([...setCharts]);

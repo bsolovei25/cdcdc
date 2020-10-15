@@ -16,7 +16,7 @@ import {
     ShiftComment,
     ShiftMember,
 } from '../../../dashboard/models/shift.model';
-import { WidgetPlatform } from '../../../dashboard/models/widget-platform';
+import { WidgetPlatform } from '../../../dashboard/models/@PLATFORM/widget-platform';
 import { SnackBarService } from '../../../dashboard/services/snack-bar.service';
 import { AvatarConfiguratorService } from '@core/service/avatar-configurator.service';
 

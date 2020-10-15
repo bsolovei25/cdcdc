@@ -7,9 +7,9 @@ import {
     Renderer2,
     OnDestroy
 } from '@angular/core';
-import { HeaderDataService } from '../../services/header-data.service';
+import { HeaderDataService } from '../../../services/header-data.service';
 import { Subscription } from 'rxjs';
-import { IHeaderDate } from '../../models/i-header-date';
+import { IHeaderDate } from '../../../models/i-header-date';
 
 @Component({
     selector: 'evj-line-datetime',

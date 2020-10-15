@@ -21,13 +21,17 @@ import {
 import { EventService } from '../../../dashboard/services/widgets/event.service';
 import { EventsWorkspaceService } from '../../../dashboard/services/widgets/events-workspace.service';
 import { SnackBarService } from '../../../dashboard/services/snack-bar.service';
-import { ClaimService, EnumClaimWidgets } from '../../../dashboard/services/claim.service';
+import {
+    ClaimService,
+    EnumClaimGlobal,
+    EnumClaimWidgets
+} from '../../../dashboard/services/claim.service';
 import { UserSettingsService } from '../../../dashboard/services/user-settings.service';
 import { WidgetService } from '../../../dashboard/services/widget.service';
 import { WidgetSettingsService } from '../../../dashboard/services/widget-settings.service';
 import { debounceTime, distinctUntilChanged, throttle } from 'rxjs/operators';
 import { IEventSettings } from '../events/events.component';
-import { WidgetPlatform } from '../../../dashboard/models/widget-platform';
+import { WidgetPlatform } from '../../../dashboard/models/@PLATFORM/widget-platform';
 import { IUnits } from '../../../dashboard/models/admin-shift-schedule';
 import { SelectionModel } from '@angular/cdk/collections';
 
@@ -261,6 +265,11 @@ export class EvjEventsComponent extends WidgetPlatform<IEventsWidgetAttributes> 
     public isPreviewOpened: boolean = false;
 
     private readonly defaultIconPath: string = 'assets/icons/widgets/events/smotr.svg';
+
+    get isClaimDelete(): boolean {
+        return this.claimService.claimGlobal$?.value
+            ?.some((x) => x === EnumClaimGlobal.EventsDelete);
+    }
 
     constructor(
         private eventService: EventService,
@@ -569,6 +578,10 @@ export class EvjEventsComponent extends WidgetPlatform<IEventsWidgetAttributes> 
     }
 
     public deleteClick(id: number): void {
+        if (!this.isClaimDelete) {
+            this.snackBarService.openSnackBar(`У вас недостаточно прав для удаления событий`, 'snackbar-red');
+            return;
+        }
         const info: IAlertWindowModel = {
             isShow: true,
             questionText: 'Вы уверены что хотите удалить событие?',

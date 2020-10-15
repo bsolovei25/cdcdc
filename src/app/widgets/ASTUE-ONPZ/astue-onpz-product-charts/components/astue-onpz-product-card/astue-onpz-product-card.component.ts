@@ -2,7 +2,7 @@ import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
 import { IAstueProductChart } from '../../astue-onpz-product-charts.component';
 import { UserSettingsService } from '../../../../../dashboard/services/user-settings.service';
 import { AstueOnpzService } from '../../../astue-onpz-shared/astue-onpz.service';
-import { WidgetPlatform } from '../../../../../dashboard/models/widget-platform';
+import { WidgetPlatform } from '../../../../../dashboard/models/@PLATFORM/widget-platform';
 import { WidgetService } from '../../../../../dashboard/services/widget.service';
 import { HttpClient } from '@angular/common/http';
 import { fillDataShape } from '@shared/functions/common-functions';
@@ -39,7 +39,7 @@ export class AstueOnpzProductCardComponent extends WidgetPlatform<unknown> imple
         super.dataConnect();
         this.subscriptions.push(
             this.astueOnpzService.sharedMonitoringOptions.subscribe((ref) => {
-                this.widgetService.setWidgetLiveDataFromWSOptions(this.widgetId, ref);
+                this.widgetService.setChannelLiveDataFromWsOptions(this.widgetId, ref);
             })
         );
     }

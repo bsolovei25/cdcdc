@@ -18,7 +18,7 @@
   >
     <svg-icon
       *ngIf="cardData.retrievalEvents.length"
-      (click)="toggle(cardData.id)"
+      (click)="toggle($event, cardData.id)"
       class="notification__toggle"
       [applyCss]="true"
       src="assets/icons/widgets/EVJ/event/toggle.svg"
@@ -88,9 +88,7 @@
           class="notification__body__icon--delete"
           [applyCss]="true"
           src="assets/icons/remove.svg"
-          (click)="deleteClick(cardData?.id)"
-          (mousedown)="$event.stopPropagation()"
-          (touchstart)="$event.stopPropagation()"
+          (click)="deleteClick($event, cardData?.id)"
           [svgStyle]="{ 'width.px':'14', 'height.px':'14' }"
         >
         </svg-icon>
@@ -184,7 +182,7 @@
               class="notification__body__icon--delete"
               [applyCss]="true"
               src="assets/icons/remove.svg"
-              (click)="deleteClick(retrievalEvent?.id)"
+              (click)="deleteClick($event, retrievalEvent?.id)"
               (mousedown)="$event.stopPropagation()"
               (touchstart)="$event.stopPropagation()"
               [svgStyle]="{ 'width.px':'14', 'height.px':'14' }"
@@ -204,7 +202,7 @@
                             [data]="cardData"
                             [cardActiveId]="cardActiveId"
                             (cardClick)="eventClick($event)"
-                            (cardDeleteClick)="deleteClick($event)"
+                            (cardDeleteClick)="deleteClick(null, $event)"
   >
   </evj-evj-event-card-block>
 </ng-template>

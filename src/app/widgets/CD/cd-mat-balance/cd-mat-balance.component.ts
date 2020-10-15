@@ -1,5 +1,5 @@
 import { Component, Inject, OnDestroy, OnInit, Renderer2 } from '@angular/core';
-import { WidgetPlatform } from '../../../dashboard/models/widget-platform';
+import { WidgetPlatform } from '../../../dashboard/models/@PLATFORM/widget-platform';
 import { WidgetService } from '../../../dashboard/services/widget.service';
 import { CdMatBalanceService } from '../../../dashboard/services/widgets/CD/cd-mat-balance.service';
 import { ICDModalWindow } from '../cd-shared/cd-modal-window/cd-modal-window.component';
@@ -52,6 +52,7 @@ export interface ISensors {
     max: number;
     min: number;
     modelValue: number;
+    subChannelId: string;
 }
 
 export interface IStreams {
@@ -66,6 +67,7 @@ export interface IStreams {
     totalDeviation: number;
     totalModelValue: number;
     totalValue: number;
+    subChannelId: string;
 }
 
 export interface IModalDeviation {
@@ -184,7 +186,6 @@ export class CdMatBalanceComponent extends WidgetPlatform<unknown> implements On
             this.data = ref;
         }
     }
-
 
     async saveEvents(
         responsibleOperator: IUser,

@@ -12,7 +12,7 @@ import { GridsterItem } from 'angular-gridster2';
 import { SnackBarService } from './snack-bar.service';
 import { OverlayService } from './overlay.service';
 import { Router } from '@angular/router';
-import { IGroupScreens } from '../components/group-selector/group-selector.component';
+import { IGroupScreens } from '../components/header-components/group-selector/group-selector.component';
 import { Title } from '@angular/platform-browser';
 
 @Injectable({

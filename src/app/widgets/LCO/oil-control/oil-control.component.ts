@@ -2,7 +2,7 @@ import { Component, OnInit, Inject, ViewChild, ElementRef, OnDestroy } from '@an
 import { WidgetService } from '../../../dashboard/services/widget.service';
 import { EventEmitter } from '@angular/core';
 import { OilControls, OilProducts } from '../../../dashboard/models/oil-control';
-import { WidgetPlatform } from '../../../dashboard/models/widget-platform';
+import { WidgetPlatform } from '../../../dashboard/models/@PLATFORM/widget-platform';
 import { HttpClient } from '@angular/common/http';
 import { fillDataShape } from '@shared/functions/common-functions';
 

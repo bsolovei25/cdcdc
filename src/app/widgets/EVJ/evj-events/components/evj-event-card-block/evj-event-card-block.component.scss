@@ -1,3 +1,5 @@
+@import "../../../../../../mixins";
+
 .card-block {
   display: flex;
   flex-direction: column;
@@ -32,7 +34,8 @@
       }
 
       &__unit {
-        margin-left: 10px;
+        margin-left: 15px;
+        font-weight: bold;
       }
 
       &__status {
@@ -91,11 +94,14 @@
 
     .body {
       &__description {
-
+        @include text-overflow;
+        -webkit-line-clamp: 2;
       }
 
       &__facts {
-
+        @include text-overflow;
+        -webkit-line-clamp: 2;
+        color: var(--color-border-unactive);
       }
     }
   }
@@ -119,11 +125,12 @@
       &__time {
 
         &-title {
-          font-size: 14px;
+          font-size: 12px;
         }
       }
 
       &__critical {
+        cursor: pointer;
         background-color: var(--color-oil-border);
         padding: 5px 15px;
         border-radius: 2px;

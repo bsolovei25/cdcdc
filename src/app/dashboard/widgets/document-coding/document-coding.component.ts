@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy, Inject } from '@angular/core';
-import { WidgetPlatform } from '../../models/widget-platform';
+import { WidgetPlatform } from '../../models/@PLATFORM/widget-platform';
 import { WidgetService } from '../../services/widget.service';
 import { DocumentCodingService } from '../../services/oil-control-services/document-coding.service';
 
