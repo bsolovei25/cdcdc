@@ -36,7 +36,7 @@ stages:
 
 install_dependencies:
   stage: prebuild
-  image: registry.funcoff.club/evj/front-cache:14.10.2020
+  image: registry.funcoff.club/libs/node:slim
   cache: 
     key: one-key-to-rule-them-all
     paths:
@@ -157,6 +157,15 @@ stop-k8s-review:
     name: review/${CI_COMMIT_REF_SLUG}
     action: stop
       
+export to zyfra:
+  extends: .deploy-to-zyfra
+  variables:
+    GIT_STRATEGY: none
+    SERVICE_NAME: "frontend"
+    EXTERNAL_DOCKER_IMG: "onpz.local/evj/frontend"
+  only:
+    - devops-zyfra
+
 .docker build:
     <<: *init
     stage: prebuild
@@ -254,21 +263,6 @@ stop-k8s-review:
     only:
         - develop
 
-.export to zyfra:
-    <<: *init
-    stage: export-images
-    script:
-      - if [[ -z $CI_ZYFRA_TAG  ]]; then echo "Add \$CI_ZYFRA_TAG variable to pipelines! Exiting (1)"; exit 1; fi
-      - docker build -f Dockerfile.k8s . -t onpz.local/evj/frontend:${CI_ZYFRA_TAG} # make env with tags
-      - docker save -o ./frontend-${CI_ZYFRA_TAG}.img onpz.local/evj/frontend:${CI_ZYFRA_TAG}
-      - xz -T0 -9 ./frontend-${CI_ZYFRA_TAG}.img
-    artifacts:
-        paths:
-            - ./frontend-${CI_ZYFRA_TAG}.img.xz
-    when: manual
-    only:
-      - zyfra
-      - dev
 
 .prod:
     <<: *init
