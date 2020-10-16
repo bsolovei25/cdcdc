@@ -52,6 +52,7 @@ export interface ISensors {
     max: number;
     min: number;
     modelValue: number;
+    subChannelId: string;
 }
 
 export interface IStreams {
@@ -66,6 +67,7 @@ export interface IStreams {
     totalDeviation: number;
     totalModelValue: number;
     totalValue: number;
+    subChannelId: string;
 }
 
 export interface IModalDeviation {
@@ -184,7 +186,6 @@ export class CdMatBalanceComponent extends WidgetPlatform<unknown> implements On
             this.data = ref;
         }
     }
-
 
     async saveEvents(
         responsibleOperator: IUser,

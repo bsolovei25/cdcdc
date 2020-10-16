@@ -183,21 +183,21 @@
 <!--        </evj-ui-block>-->
       </div>
       <div class="row__cell cell cell_right">
-        <evj-ui-block status="{{ewService.event.priority.name}}">
-          <mat-form-field class="{{ewService.event.priority.name}}">
-            <mat-label>Приоритет</mat-label>
-            <mat-select
-              panelClass="mat-select-custom"
-              [(ngModel)]="ewService.event.priority"
-              [compareWith]="compareFn"
-              [disabled]="true"
-            >
-              <mat-option *ngFor="let p of ewService.priority" [value]="p"
-                >{{ ewService.priorities[p.name] }}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
-        </evj-ui-block>
+<!--        <evj-ui-block status="{{ewService.event.priority.name}}">-->
+<!--          <mat-form-field class="{{ewService.event.priority.name}}">-->
+<!--            <mat-label>Приоритет</mat-label>-->
+<!--            <mat-select-->
+<!--              panelClass="mat-select-custom"-->
+<!--              [(ngModel)]="ewService.event.priority"-->
+<!--              [compareWith]="compareFn"-->
+<!--              [disabled]="true"-->
+<!--            >-->
+<!--              <mat-option *ngFor="let p of ewService.priority" [value]="p"-->
+<!--                >{{ ewService.priorities[p.name] }}-->
+<!--              </mat-option>-->
+<!--            </mat-select>-->
+<!--          </mat-form-field>-->
+<!--        </evj-ui-block>-->
       </div>
     </div>
     <div class="column__row row">
@@ -264,7 +264,7 @@
         <div class="label">
           <div class="label__title">Дата регистрации</div>
           <div class="label__text">
-            {{showDate(this.ewService.event?.externalDate)}}
+            {{ registrationDate ? (registrationDate | date:"dd.MM.yyyy | HH:mm") : '-' }}
           </div>
         </div>
       </div>

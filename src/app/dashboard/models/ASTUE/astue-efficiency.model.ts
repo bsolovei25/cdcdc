@@ -35,6 +35,7 @@ export interface IAsEfFlow extends IAsEfTable {
     engUnits: string;
     astueFlowGraphs: IProductionTrend[];
     initialData: IAsEfTable[];
+    id: string;
 }
 
 export interface IAsEfLabel {

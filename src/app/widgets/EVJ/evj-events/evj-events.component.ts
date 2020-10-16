@@ -21,7 +21,11 @@ import {
 import { EventService } from '../../../dashboard/services/widgets/event.service';
 import { EventsWorkspaceService } from '../../../dashboard/services/widgets/events-workspace.service';
 import { SnackBarService } from '../../../dashboard/services/snack-bar.service';
-import { ClaimService, EnumClaimWidgets } from '../../../dashboard/services/claim.service';
+import {
+    ClaimService,
+    EnumClaimGlobal,
+    EnumClaimWidgets
+} from '../../../dashboard/services/claim.service';
 import { UserSettingsService } from '../../../dashboard/services/user-settings.service';
 import { WidgetService } from '../../../dashboard/services/widget.service';
 import { WidgetSettingsService } from '../../../dashboard/services/widget-settings.service';
@@ -262,6 +266,11 @@ export class EvjEventsComponent extends WidgetPlatform<IEventsWidgetAttributes> 
 
     private readonly defaultIconPath: string = 'assets/icons/widgets/events/smotr.svg';
 
+    get isClaimDelete(): boolean {
+        return this.claimService.claimGlobal$?.value
+            ?.some((x) => x === EnumClaimGlobal.EventsDelete);
+    }
+
     constructor(
         private eventService: EventService,
         private ewService: EventsWorkspaceService,
@@ -485,6 +494,10 @@ export class EvjEventsComponent extends WidgetPlatform<IEventsWidgetAttributes> 
             notification.iconUrl = this.getNotificationIcon(notification.category.name);
             notification.iconUrlStatus = this.getStatusIcon(notification.status.name);
             notification.statusName = this.statuses[notification.status.name]; // TODO check
+            notification?.retrievalEvents.forEach(value => {
+                value.iconUrl = this.getNotificationIcon(value.category.name);
+                value.iconUrlStatus = this.getStatusIcon(value.status.name);
+            });
         }
         this.notifications.splice(idx, 0, notification);
         this.notifications = this.notifications.slice();
@@ -509,6 +522,10 @@ export class EvjEventsComponent extends WidgetPlatform<IEventsWidgetAttributes> 
             notification.iconUrl = this.getNotificationIcon(notification.category.name);
             notification.iconUrlStatus = this.getStatusIcon(notification.status.name);
             notification.statusName = this.statuses[notification.status.name]; // TODO check
+            notification?.retrievalEvents.forEach(value => {
+                value.iconUrl = this.getNotificationIcon(value.category.name);
+                value.iconUrlStatus = this.getStatusIcon(value.status.name);
+            });
         }
         this.notifications[idx] = notification;
         this.notifications = this.notifications.slice();
@@ -530,6 +547,10 @@ export class EvjEventsComponent extends WidgetPlatform<IEventsWidgetAttributes> 
                     const iconUrl = this.getNotificationIcon(n.category.name);
                     const iconUrlStatus = this.getStatusIcon(n.status?.name);
                     const statusName = n.status?.name ? this.statuses[n.status.name] : ''; // TODO
+                    n?.retrievalEvents.forEach(value => {
+                        value.iconUrl = this.getNotificationIcon(value.category.name);
+                        value.iconUrlStatus = this.getStatusIcon(value.status.name);
+                    });
                     return { ...n, iconUrl, statusName, iconUrlStatus };
                 });
             this.notifications = this.notifications.concat(notifications);
@@ -569,6 +590,10 @@ export class EvjEventsComponent extends WidgetPlatform<IEventsWidgetAttributes> 
     }
 
     public deleteClick(id: number): void {
+        if (!this.isClaimDelete) {
+            this.snackBarService.openSnackBar(`У вас недостаточно прав для удаления событий`, 'snackbar-red');
+            return;
+        }
         const info: IAlertWindowModel = {
             isShow: true,
             questionText: 'Вы уверены что хотите удалить событие?',

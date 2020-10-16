@@ -8,6 +8,7 @@ import { Component, OnInit, Input, OnChanges } from '@angular/core';
 export class NkTankInformationTemperatureComponent implements OnInit, OnChanges {
   @Input() temperature: number;
   @Input() maxTemperature: number;
+  @Input() isRepair: boolean;
 
   constructor() { }
 

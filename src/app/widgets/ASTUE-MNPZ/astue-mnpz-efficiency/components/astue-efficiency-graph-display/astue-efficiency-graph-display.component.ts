@@ -80,7 +80,6 @@ export class AstueEfficiencyGraphDisplayComponent extends LineChartPlatform<IPro
                     arr = [...arr, ...this.chartDataMap(flow?.astueFlowGraphs)];
                 });
                 this.data = arr;
-                console.log(this.data);
             }),
             this.AsEfService.selectionUnit$.subscribe(units => {
                 this.resetLabel();
@@ -139,7 +138,7 @@ export class AstueEfficiencyGraphDisplayComponent extends LineChartPlatform<IPro
 
     private chartDataMap(data: any): IProductionTrend[] {
         const ret: IProductionTrend[] = [];
-        data.forEach((chart) => {
+        data?.forEach((chart) => {
             const mapped: IProductionTrend = {
                 graphType: chart.productionTrendStyle,
                 graphStyle: chart.chartStyleType,

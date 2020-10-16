@@ -15,6 +15,7 @@ export class NkTankInformationInnageComponent implements OnInit, OnChanges {
   @Input() set innageMax(data: number) {
     this.higher = data;
   }
+  @Input() isRepair: boolean;
 
   higher: number = 0;
   current: number = 0;

@@ -1,3 +1,4 @@
+import { AngularSvgIconModule } from 'angular-svg-icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { SharedModule } from '@shared/shared.module';
 import { NgModule } from '@angular/core';
@@ -30,7 +31,8 @@ import { NkTankInformationPasportComponent } from './components/nk-tank-informat
         CommonModule,
         HttpClientModule,
         MatTooltipModule,
-        SharedModule
+        SharedModule,
+        AngularSvgIconModule
     ]
 })
 export class NkTankInformationModule {
