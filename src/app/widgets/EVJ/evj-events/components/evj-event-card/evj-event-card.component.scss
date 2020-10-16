@@ -7,7 +7,7 @@
   padding-left: 55px;
   margin-bottom: 10px;
   margin-right: 5px;
-  color: var(--color-kpe-gaude-deviation);
+  color: var(--color-event-card-font-sub);
   background-color: var(--color-events-bg-card);
 
   &:hover &__body__icon--delete {
@@ -94,7 +94,7 @@
     //border: 1px solid var(--color-kpe-gaude-active);
     //border-left: 2px solid var(--color-kpe-gaude-active);
     //background: linear-gradient(90deg, rgba(0, 137, 255, 0.2497373949579832) 0%, rgba(53, 34, 43, 0) 21%);
-    color: var(--color-text-main);
+    color: var(--header-events-color-font-main);
 
     &_danger {
       border: 1px solid var(--color-danger);
@@ -119,6 +119,7 @@
   &__header {
     display: flex;
     justify-content: space-between;
+    align-items: center;
 
     &__number {
       font-size: 13px;
@@ -145,7 +146,7 @@
 
     &__line {
       flex: 1;
-      margin: 6px 10px 0 10px;
+      margin: 2px 10px 0 10px;
 
       div {
         border-top: 1px solid var(--color-cd-bg-border);
@@ -153,7 +154,7 @@
 
       &--unit {
         flex: 1;
-        margin: 6px 10px 0 10px;
+        margin: 2px 10px 0 10px;
         max-width: 10%;
 
         div {
@@ -177,8 +178,9 @@
       flex-direction: column;
       width: 100%;
 
-      &__info-facts {
-        color: var(--color-text-main);
+      &-facts {
+        font-size: 10px;
+        margin-top: 8px;
       }
 
       &-description {
@@ -195,8 +197,16 @@
     }
 
     &__extra {
-      min-width: 115px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      flex: 1;
+      white-space: nowrap;
       text-align: end;
+
+      &_end-time {
+        margin-top: 5px;
+      }
     }
 
     &__status {
@@ -219,8 +229,8 @@
 
     &__icon {
       margin-right: 10px;
-      width: 26px;
-      height: 26px;
+      width: 20px;
+      height: 20px;
 
       &_danger {
         stroke: var(--color-danger);
@@ -237,6 +247,7 @@
       &--delete {
         visibility: hidden;
         fill: var(--color-border-unactive);
+        stroke: none;
 
         &:hover {
           fill: var(--color-border-active);

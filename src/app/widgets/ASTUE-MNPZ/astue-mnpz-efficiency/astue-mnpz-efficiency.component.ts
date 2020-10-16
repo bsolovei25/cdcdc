@@ -45,7 +45,9 @@ export class AstueMnpzEfficiencyComponent extends WidgetPlatform<unknown> implem
             this.AsEfService.selectionFlow$.subscribe(value => {
                 this.initialData = [];
                 value?.forEach(flow => {
-                    this.initialData = [...this.initialData, ...flow.initialData];
+                    if (flow?.initialData) {
+                        this.initialData = [...this.initialData, ...flow?.initialData];
+                    }
                 });
             })
         );

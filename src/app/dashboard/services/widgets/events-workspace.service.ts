@@ -149,7 +149,7 @@ export class EventsWorkspaceService {
         private snackBarService: SnackBarService,
         private avatarConfiguratorService: AvatarConfiguratorService,
         private fileAttachMenuService: FileAttachMenuService,
-        private claimService: ClaimService,
+        private claimService: ClaimService
     ) {
     }
 
@@ -497,8 +497,9 @@ export class EventsWorkspaceService {
                 tmPlace: null
             },
             productionTasks: {
-                subCategory: null,
-            }
+                subCategory: null
+            },
+            eventEndDateTime: null
         };
     }
 
