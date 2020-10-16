@@ -29,3 +29,34 @@
     - develop
     - master
     - devops
+
+.deploy-to-zyfra:
+  tags:
+    - gl-docker-socket
+  image:
+    name: registry.funcoff.club/devops/dind:1.0.0
+  stage: deploy
+  variables:
+    TAG: "$CI_RELEASE_TAG"
+    DOCKERHUB_URL: registry.funcoff.club
+    DOCKER_REPO: evj
+    SERVICE_NAME: "microservice"
+    EXTERNAL_DOCKER_IMG: "some/place"
+    DOCKER_BASE_NAME: ${DOCKERHUB_URL}/${DOCKER_REPO}/${SERVICE_NAME}
+    LATEST_IMG: ${DOCKERHUB_URL}/${DOCKER_REPO}/${SERVICE_NAME}:latest
+    DOCKER_MR_IMG: ${DOCKERHUB_URL}/${DOCKER_REPO}/${SERVICE_NAME}:${CI_MERGE_REQUEST_SOURCE_BRANCH_NAME}
+    DOCKERFILE_PACK: "./docker/Dockerfile.packing"
+
+  script:
+    - if [[ -z $TAG  ]]; then echo "Add \$CI_RELEASE_TAG variable to pipelines! Exiting (1)"; exit 1; fi
+    - docker pull ${LATEST_IMG}
+    - docker tag ${LATEST_IMG} ${EXTERNAL_DOCKER_IMG}:${TAG} 
+    - docker save -o ./${SERVICE_NAME}-${TAG}.img ${EXTERNAL_DOCKER_IMG}:${TAG}
+    - xz -T0 -9 ./${SERVICE_NAME}-${TAG}.img
+  artifacts:
+    paths:
+      - ./${SERVICE_NAME}-${TAG}.img.xz
+  when: manual
+  only:
+    - zyfra
+    - dev
