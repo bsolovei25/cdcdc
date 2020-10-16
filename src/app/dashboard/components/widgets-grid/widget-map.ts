@@ -5,7 +5,6 @@ import { ProductStocksComponent } from '../../widgets/product-stocks/product-sto
 import { DeviationCircleDiagramComponent } from '../../widgets/deviation-circle-diagram/deviation-circle-diagram.component';
 import { ColumnChartStackedComponent } from '../../widgets/column-chart-stacked/column-chart-stacked.component';
 import { TimeLineDiagramComponent } from '../../widgets/time-line-diagram/time-line-diagram.component';
-import { CustomReportPropertiesReferenceComponent } from '../../widgets/custom-report-properties-reference/custom-report-properties-reference.component';
 import { ReasonsDeviationsComponent } from '../../widgets/reasons-deviations/reasons-deviations.component';
 import { QualityDocsPanelComponent } from '../../widgets/quality-docs-panel/quality-docs-panel.component';
 import { DocumentCodingComponent } from '../../widgets/document-coding/document-coding.component';
@@ -31,7 +30,6 @@ export const WIDGETS = {
     'petroleum-products-movement': WidgetContainerComponent,
     'report-server-configurator': WidgetContainerComponent,
     'tank-calibration-table': WidgetContainerComponent,
-    'custom-report-properties-reference': CustomReportPropertiesReferenceComponent,
     'production-trend': WidgetContainerComponent,
     'reasons-deviations': ReasonsDeviationsComponent,
     'quality-docs-panel': QualityDocsPanelComponent,
@@ -133,6 +131,7 @@ export const WIDGETS = {
     'admin-panel': WidgetContainerComponent,
     'polar-chart': WidgetContainerComponent,
     reference: WidgetContainerComponent,
+    'custom-report-properties-reference': WidgetContainerComponent,
 };
 
 export const WIDGETS_LAZY = {
@@ -498,6 +497,17 @@ export const WIDGETS_LAZY = {
         minItemCols: 27,
         minItemRows: 15,
         preview: 'reference'
+    },
+    'custom-report-properties-reference': {
+        import: async () => {
+            return await import('src/app/widgets/admin/custom-report-properties-reference/custom-report-properties-reference.module');
+        },
+        module: 'CustomReportPropertiesReferenceModule',
+        itemCols: 32,
+        itemRows: 15,
+        minItemCols: 27,
+        minItemRows: 15,
+        preview: 'custom-report-properties-reference'
     },
 
 

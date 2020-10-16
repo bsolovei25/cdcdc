@@ -54,8 +54,6 @@ import {
 import { MatButtonModule } from '@angular/material/button';
 import { NgxMatMomentModule } from '@angular-material-components/moment-adapter';
 import { MatDialogModule, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { CustomReportPropertiesReferenceComponent } from './widgets/custom-report-properties-reference/custom-report-properties-reference.component';
-import { CustomReportOptionsComponent } from './widgets/custom-report-properties-reference/custom-report-options/custom-report-options.component';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatIconModule } from '@angular/material/icon';
@@ -137,8 +135,6 @@ import { ReportServerConfiguratorModule } from '../widgets/admin/report-server-c
         SearchListComponent,
         ReportComponent,
         ReportsComponent,
-        CustomReportPropertiesReferenceComponent,
-        CustomReportOptionsComponent,
         DevGraphComponent,
         ReasonsDeviationsComponent,
         ReasonsDeviationsLineChartComponent,
@@ -191,7 +187,6 @@ import { ReportServerConfiguratorModule } from '../widgets/admin/report-server-c
         TimeLineDiagramComponent,
         ReportComponent,
         ReportsComponent,
-        CustomReportPropertiesReferenceComponent,
         ReasonsDeviationsComponent,
         QualityDocsPanelComponent,
         DocumentCodingComponent,

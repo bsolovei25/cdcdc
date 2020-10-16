@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy, Inject, ViewChild, ElementRef, HostListener } from '@angular/core';
-import { WidgetService } from '../../services/widget.service';
-import { WidgetPlatform } from '../../models/widget-platform';
-import { ReportsService } from '../../services/widgets/reports.service';
+import { WidgetService } from '../../../dashboard/services/widget.service';
+import { WidgetPlatform } from '../../../dashboard/models/widget-platform';
+import { ReportsService } from '../../../dashboard/services/widgets/reports.service';
 
 @Component({
   selector: 'evj-custom-report-properties-reference',
@@ -12,11 +12,6 @@ export class CustomReportPropertiesReferenceComponent extends WidgetPlatform<unk
   @ViewChild('propertiesRefereneTable') public testBlock: ElementRef;
   @ViewChild('customOptions') public testBlock2: ElementRef;
 
-  public static itemCols: number = 32;
-  public static itemRows: number = 15;
-
-  public static minItemCols: number = 27;
-  public static minItemRows: number = 15;
 
   indexColumn: number = null;
   idReferenceClick: number;
