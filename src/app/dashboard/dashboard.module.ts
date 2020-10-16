@@ -167,7 +167,7 @@ import { ReportServerConfiguratorModule } from '../widgets/admin/report-server-c
         PerformanceBarComponent,
         WidgetPreviewComponent,
         PowIndexPipe,
-        TankFilterComponent, TableGridInputComponent
+        TankFilterComponent, TableGridInputComponent, ColumnGridComponent, TableGridComponent
     ],
     imports: [
         CommonModule,
