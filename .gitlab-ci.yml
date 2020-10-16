@@ -108,23 +108,6 @@ deliver-to-deploy:
     - develop
     - devops
       
-rockethooks:
-  tags:
-    - gl-docker-socket
-  stage: alerting
-  image:
-    name: registry.funcoff.club/devops/rockethooks:latest
-  variables:
-    DEPLOY_DOMAIN: deploy.funcoff.club
-    GIT_STRATEGY: none
-    HOOKS: "/app/rockethooks.py"
-  dependencies: []
-  script:
-    - python $HOOKS
-  only:
-    - develop
-    - devops
-
 deploy-front-mr:
   extends: .deploy-to-k8s
   variables:
@@ -157,6 +140,36 @@ stop-k8s-review:
     name: review/${CI_COMMIT_REF_SLUG}
     action: stop
       
+success-pipelines:
+  tags:
+    - gl-docker-socket
+  stage: alerting
+  image:
+    name: registry.funcoff.club/devops/rockethooks:latest
+  variables:
+    DEPLOY_DOMAIN: deploy.funcoff.club
+    GIT_STRATEGY: none
+    HOOKS: "/app/rockethooks.py"
+  dependencies: []
+  script:
+    - python $HOOKS
+  only:
+    - develop
+    - devops
+
+failed-pipelines:
+  stage: alerting
+  image:
+    name: registry.funcoff.club/devops/rockethooks:latest
+  variables:
+    DEPLOY_DOMAIN: deploy.funcoff.club
+    GIT_STRATEGY: none
+    HOOKS: "/app/rockethooks.py"
+  dependencies: []
+  script:
+    - python $HOOKS failed
+  when: on_failure
+
 export to zyfra:
   extends: .deploy-to-zyfra
   variables:
@@ -165,6 +178,8 @@ export to zyfra:
     EXTERNAL_DOCKER_IMG: "onpz.local/evj/frontend"
   only:
     - devops-zyfra
+    - devops
+    - develop
 
 .docker build:
     <<: *init
@@ -293,6 +308,7 @@ export to zyfra:
         - master
     when:
         manual
+
 
 .clean on failure:
     <<: *init
