@@ -75,7 +75,7 @@ export class OilOperationsFreeShipmentComponent implements OnInit {
           ]
         }
       ]
-    }
+    };
 
 
   public activeItemId: number;

@@ -75,19 +75,9 @@ import { DocumentCodingTableRecordComponent } from './widgets/document-coding/co
 import { DocumentCodingFilterComponent } from './widgets/document-coding/components/document-coding-filter/document-coding-filter.component';
 import { TableGridComponent } from './components/table-grid/table-grid.component';
 import { ColumnGridComponent } from './components/table-grid/components/column-grid/column-grid.component';
-import { OilOperationsComponent } from './widgets/oil-operations/oil-operations.component';
 import { TableGridInputComponent } from './components/table-grid/components/table-grid-input/table-grid-input.component';
 import { TableGridFilterComponent } from './components/table-grid/components/table-grid-filter/table-grid-filter.component';
 import { TableGridSaveButtonComponent } from './components/table-grid/components/table-grid-save-button/table-grid-save-button.component';
-import { OilOperationsReceivedOperationsComponent } from './widgets/oil-operations/components/oil-operations-received-operations/oil-operations-received-operations.component';
-import { OilOperationsShipmentFormationComponent } from './widgets/oil-operations/components/oil-operations-shipment-formation/oil-operations-shipment-formation.component';
-import { OilOperationsFilterComponent } from './widgets/oil-operations/components/oil-operations-filter/oil-operations-filter.component';
-import { OilOperationsTankFilterComponent } from './widgets/oil-operations/components/oil-operations-tank-filter/oil-operations-tank-filter.component';
-import { OilOperationsLineChartComponent } from './widgets/oil-operations/components/oil-operations-line-chart/oil-operations-line-chart.component';
-import { OilOperationsLineMenuComponent } from './widgets/oil-operations/components/oil-operations-line-menu/oil-operations-line-menu.component';
-import { OilOperationsLineComponent } from './widgets/oil-operations/components/oil-operations-line/oil-operations-line.component';
-import { OilOperationsAdjustmentComponent } from './widgets/oil-operations/components/oil-operations-adjustment/oil-operations-adjustment.component';
-import { OilOperationsFreeShipmentComponent } from './widgets/oil-operations/components/oil-operations-free-shipment/oil-operations-free-shipment.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { WidgetPanelComponent } from './components/widget-panel/widget-panel.component';
 import { MatMenuModule } from '@angular/material/menu';
@@ -146,19 +136,9 @@ import { ReportServerConfiguratorModule } from '../widgets/admin/report-server-c
         DocumentCodingFilterComponent,
         TableGridComponent,
         ColumnGridComponent,
-        OilOperationsComponent,
         TableGridInputComponent,
         TableGridFilterComponent,
         TableGridSaveButtonComponent,
-        OilOperationsReceivedOperationsComponent,
-        OilOperationsShipmentFormationComponent,
-        OilOperationsFilterComponent,
-        OilOperationsTankFilterComponent,
-        OilOperationsLineChartComponent,
-        OilOperationsLineMenuComponent,
-        OilOperationsLineComponent,
-        OilOperationsAdjustmentComponent,
-        OilOperationsFreeShipmentComponent,
         WidgetPanelComponent,
         WidgetContainerComponent,
         PerformanceBarComponent,
@@ -181,14 +161,13 @@ import { ReportServerConfiguratorModule } from '../widgets/admin/report-server-c
         QualityDocsPanelComponent,
         DocumentCodingComponent,
         ReportTreeComponent,
-        OilOperationsComponent,
         PanelComponent,
     ],
     exports: [HomeComponent,
         PerformanceBarComponent,
         WidgetPreviewComponent,
         PowIndexPipe,
-        TankFilterComponent,
+        TankFilterComponent, TableGridInputComponent
     ],
     imports: [
         CommonModule,

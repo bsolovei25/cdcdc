@@ -1,7 +1,4 @@
-<evj-widget-preview [title]="widgetTitle" [icon]="widgetIcon" [previewTitle]="widgetType" *ngIf="isMock">
-</evj-widget-preview>
-
-<ng-container *ngIf="!isMock">
+<ng-container>
     <div class="container">
         <evj-widget-header [title]="widgetTitle" [units]="widgetUnits" [code]="widgetCode" [icon]="widgetIcon"
             [id]="widgetId" [uniqId]="widgetUniqId" [widgetType]="widgetType"></evj-widget-header>
@@ -88,7 +85,7 @@
                                             src="assets/icons/widgets/oil-control-all/oil-operations/background-pic.svg"
                                             [svgStyle]="{ 'width.px':65, 'height.px':40, 'margin-top.px': 5 }">
                                         </svg-icon>
-                                        <img src="assets/pic/Icons3D/Cistern.png" class="icon-cistern">
+                                        <img src="../../../../assets/pic/Icons3D/Cistern.png" class="icon-cistern">
                                     </div>
                                     <div class="direction__name"> {{ data.direction }} </div>
                                 </div>

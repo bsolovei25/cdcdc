@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NGX_MAT_DATE_FORMATS } from '@angular-material-components/datetime-picker';
-import { CUSTOM_DATE_FORMATS } from '../../../../../@shared/components/time-data-picker/time-data-picker.component';
+import { CUSTOM_DATE_FORMATS } from '@shared/components/time-data-picker/time-data-picker.component';
 
 @Component({
     selector: 'evj-oil-operations-line-menu',

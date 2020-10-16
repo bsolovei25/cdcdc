@@ -1,8 +1,8 @@
 import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
-import { IDatesInterval, WidgetService } from '../../services/widget.service';
-import { WidgetPlatform } from '../../models/widget-platform';
-import { ILeftOilTable, IOilOperations, IRightOilTable } from '../../models/oil-operations';
-import { OilOperationsService } from '../../services/widgets/oil-operations.service';
+import { IDatesInterval, WidgetService } from '../../../dashboard/services/widget.service';
+import { WidgetPlatform } from '../../../dashboard/models/widget-platform';
+import { ILeftOilTable, IOilOperations, IRightOilTable } from '../../../dashboard/models/oil-operations';
+import { OilOperationsService } from '../../../dashboard/services/widgets/oil-operations.service';
 
 export interface IOilOperationsButton {
     isFilter: boolean;
@@ -18,10 +18,6 @@ export interface IOilOperationsButton {
     styleUrls: ['./oil-operations.component.scss']
 })
 export class OilOperationsComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
-    public static itemCols: number = 64;
-    public static itemRows: number = 16;
-    public static minItemCols: number = 54;
-    public static minItemRows: number = 16;
 
     public isOpenReceived: boolean = false;
     public isOpenShipment: boolean = false;
