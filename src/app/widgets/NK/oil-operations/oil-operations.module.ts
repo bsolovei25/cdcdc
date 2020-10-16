@@ -42,7 +42,10 @@ import { DashboardModule } from '../../../dashboard/dashboard.module';
         MatIconModule,
         NgxMatDatetimePickerModule,
         MatFormFieldModule,
-        DashboardModule
+        DashboardModule,
+    ],
+    exports: [
+        OilOperationsFilterComponent
     ]
 })
 export class OilOperationsModule {

@@ -1,12 +1,12 @@
 import { Component, OnInit, OnDestroy, Inject, ViewChild, HostListener } from '@angular/core';
 import { WidgetService } from 'src/app/dashboard/services/widget.service';
 import { trigger, state, style, animate, transition } from '@angular/animations';
-import { WidgetPlatform } from 'src/app/dashboard/models/widget-platform';
 import { SnackBarService } from 'src/app/dashboard/services/snack-bar.service';
 import { ITreeState, ITreeOptions, TreeDraggedElement, TreeComponent } from 'angular-tree-component';
 import { IReportTemplate, ITreeFolderMap, ITemplate, ISystemOptions, IReportFile, ISystemOptionsTemplate, IFolder, IPostSystemOptionsTemplate } from 'src/app/dashboard/models/report-server';
 import { Subscription } from 'rxjs';
 import { ReportServerConfiguratorService } from 'src/app/dashboard/services/widgets/report-server-configurator.service';
+import { WidgetPlatform } from '../../../dashboard/models/@PLATFORM/widget-platform';
 
 
 @Component({

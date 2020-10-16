@@ -24,7 +24,6 @@ import { WorkflowService } from 'src/app/dashboard/services/widgets/workflow.ser
 import { IAlertWindowModel } from '@shared/models/alert-window.model';
 import { SnackBarService } from 'src/app/dashboard/services/snack-bar.service';
 import { IAlertInputModel } from '@shared/models/alert-input.model';
-import { WidgetPlatform } from 'src/app/dashboard/models/widget-platform';
 import { FormControl } from '@angular/forms';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { MatChipInputEvent } from '@angular/material/chips';
@@ -35,6 +34,7 @@ import { IModules, IScenarios } from './workflow-list/workflow-list.component';
 import { MatSelectChange } from '@angular/material/select';
 import { WorkflowActions, WorkflowActionsNameMap } from 'src/app/dashboard/models/workflow.model';
 import { trigger, transition, style, animate } from '@angular/animations';
+import { WidgetPlatform } from 'src/app/dashboard/models/@PLATFORM/widget-platform';
 
 declare let LeaderLine: any;
 

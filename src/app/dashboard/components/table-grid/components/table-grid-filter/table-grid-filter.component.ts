@@ -7,11 +7,11 @@ import {
     OnChanges
 } from '@angular/core';
 import {
-    IOilFilterInput,
     OilOperationsFilterComponent
-} from '../../../../widgets/oil-operations/components/oil-operations-filter/oil-operations-filter.component';
+} from 'src/app/widgets/NK/oil-operations/components/oil-operations-filter/oil-operations-filter.component';
 import { PopoverOverlayService } from '@shared/components/popover-overlay/popover-overlay.service';
 import { IOilFilter } from '../../../../models/oil-operations';
+import { IOilFilterInput} from 'src/app/widgets/NK/oil-operations/components/oil-operations-filter/oil-operations-filter.component';
 
 export interface ITableGridFilter<T> {
     name: string;

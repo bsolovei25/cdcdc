@@ -3,7 +3,7 @@ import { UnityLoader } from './UnityLoader.js';
 import { PlatformLocation } from '@angular/common';
 import { WidgetService } from 'src/app/dashboard/services/widget.service';
 import { Subscription } from 'rxjs';
-import { WidgetPlatform } from 'src/app/dashboard/models/widget-platform';
+import { WidgetPlatform } from 'src/app/dashboard/models/@PLATFORM/widget-platform';
 
 @Component({
     selector: 'evj-unity-template',

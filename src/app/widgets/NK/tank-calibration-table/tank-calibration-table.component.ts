@@ -1,6 +1,5 @@
 import { Component, OnInit, Inject, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { WidgetService } from 'src/app/dashboard/services/widget.service';
-import { WidgetPlatform } from 'src/app/dashboard/models/widget-platform';
 import { SelectionModel } from '@angular/cdk/collections';
 import { TankCalibrationTableService } from 'src/app/dashboard/services/widgets/tank-calibration-table.service';
 import { UploadFormComponent } from './upload-form/upload-form.component';
@@ -10,6 +9,7 @@ import { SnackBarService } from 'src/app/dashboard/services/snack-bar.service';
 import { FormControl, Validators } from '@angular/forms';
 import { IInputOptions } from '@shared/models/input.model';
 import { AppConfigService } from "@core/service/app-config.service";
+import { WidgetPlatform } from 'src/app/dashboard/models/@PLATFORM/widget-platform';
 
 export interface ICalibrationTable {
     uid: string;
