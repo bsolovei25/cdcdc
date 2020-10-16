@@ -33,7 +33,7 @@ export interface IEventsWidgetNotificationPreview {
     isAcknowledged?: boolean; // Квитировано
     shiftPassEstablishedFacts?: string;
     subCategory?: ISubcategory;
-    retrievalEvents: [];
+    retrievalEvents: IEventsWidgetNotificationPreview[];
 }
 
 export interface IEventsWidgetNotification {
