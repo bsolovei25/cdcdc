@@ -31,8 +31,6 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { SearchFilterComponent } from './components/search/search-filter/search-filter.component';
 import { SearchInputComponent } from './components/search/search-input/search-input.component';
 import { SearchListComponent } from './components/search/search-list/search-list.component';
-import { TimeLineDiagramComponent } from './widgets/time-line-diagram/time-line-diagram.component';
-import { TimeDiagramComponent } from './widgets/time-line-diagram/time-diagram/time-diagram.component';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -128,8 +126,6 @@ import { ReportServerConfiguratorModule } from '../widgets/admin/report-server-c
         ColumnChartStackedComponent,
         CcsOneColumnComponent,
         WidgetPreviewComponent,
-        TimeLineDiagramComponent,
-        TimeDiagramComponent,
         SearchFilterComponent,
         SearchInputComponent,
         SearchListComponent,
@@ -184,7 +180,6 @@ import { ReportServerConfiguratorModule } from '../widgets/admin/report-server-c
         ProductStocksComponent,
         DeviationCircleDiagramComponent,
         ColumnChartStackedComponent,
-        TimeLineDiagramComponent,
         ReportComponent,
         ReportsComponent,
         ReasonsDeviationsComponent,

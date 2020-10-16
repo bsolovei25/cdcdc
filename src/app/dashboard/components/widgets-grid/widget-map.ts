@@ -4,7 +4,7 @@ import { DeviationsTableComponent } from '../../widgets/deviations-table/deviati
 import { ProductStocksComponent } from '../../widgets/product-stocks/product-stocks.component';
 import { DeviationCircleDiagramComponent } from '../../widgets/deviation-circle-diagram/deviation-circle-diagram.component';
 import { ColumnChartStackedComponent } from '../../widgets/column-chart-stacked/column-chart-stacked.component';
-import { TimeLineDiagramComponent } from '../../widgets/time-line-diagram/time-line-diagram.component';
+import { TimeLineDiagramComponent } from '../../../widgets/LCO/time-line-diagram/time-line-diagram.component';
 import { ReasonsDeviationsComponent } from '../../widgets/reasons-deviations/reasons-deviations.component';
 import { QualityDocsPanelComponent } from '../../widgets/quality-docs-panel/quality-docs-panel.component';
 import { DocumentCodingComponent } from '../../widgets/document-coding/document-coding.component';
@@ -26,7 +26,6 @@ export const WIDGETS = {
     'deviation-circle-diagram': DeviationCircleDiagramComponent,
     'column-chart-stacked': ColumnChartStackedComponent,
     'flame-diagram': WidgetContainerComponent,
-    'time-line-diagram': TimeLineDiagramComponent,
     'petroleum-products-movement': WidgetContainerComponent,
     'report-server-configurator': WidgetContainerComponent,
     'tank-calibration-table': WidgetContainerComponent,
@@ -132,6 +131,7 @@ export const WIDGETS = {
     'polar-chart': WidgetContainerComponent,
     reference: WidgetContainerComponent,
     'custom-report-properties-reference': WidgetContainerComponent,
+    'time-line-diagram': WidgetContainerComponent,
 };
 
 export const WIDGETS_LAZY = {
@@ -465,7 +465,7 @@ export const WIDGETS_LAZY = {
         minItemRows: 13,
         preview: 'admin-references'
     },
-    'workflow': {
+    workflow: {
         import: async () => {
             return await import('src/app/widgets/admin/workflow/workflow.module');
         },
@@ -955,6 +955,17 @@ export const WIDGETS_LAZY = {
         minItemCols: 24,
         minItemRows: 6,
         preview: 'operation-efficiency'
+    },
+    'time-line-diagram': {
+        import: async () => {
+            return await import('src/app/widgets/LCO/time-line-diagram/time-line-diagram.module');
+        },
+        module: 'TimeLineDiagramModule',
+        itemCols: 20,
+        itemRows: 9,
+        minItemCols: 25,
+        minItemRows: 8,
+        preview: 'time-line-diagram'
     },
     //#endregion LCO
 

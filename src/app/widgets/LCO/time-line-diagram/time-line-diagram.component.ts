@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
-import { TimeLineDataInput } from '../../models/time-line-diagram';
-import { WidgetService } from '../../services/widget.service';
-import { WidgetPlatform } from '../../models/widget-platform';
+import { TimeLineDataInput } from '../../../dashboard/models/time-line-diagram';
+import { WidgetService } from '../../../dashboard/services/widget.service';
+import { WidgetPlatform } from '../../../dashboard/models/widget-platform';
 
 @Component({
     selector: 'evj-time-line-diagram',
@@ -27,11 +27,6 @@ export class TimeLineDiagramComponent extends WidgetPlatform<unknown> implements
             },
         ],
     };
-
-    public static itemCols: number = 20;
-    public static itemRows: number = 9;
-    public static minItemCols: number = 15;
-    public static minItemRows: number = 8;
 
     constructor(
         protected widgetService: WidgetService,
