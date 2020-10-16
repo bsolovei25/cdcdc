@@ -24,6 +24,7 @@ export interface IWidget {
     isVideoWall?: boolean;
     isHidden?: boolean;
     sensorId?: number;
+    isActive?: boolean;
     attributes?: any;
 }
 

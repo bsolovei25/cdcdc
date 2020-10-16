@@ -212,6 +212,7 @@ export interface IUnitEvents {
     name: string;
     createdAt?: Date;
     createdById?: number;
+    isActive?: boolean;
 }
 
 export interface IRetrievalEvents {
