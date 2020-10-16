@@ -108,7 +108,7 @@ deliver-to-deploy:
     - develop
     - devops
       
-rockerhooks:
+rockethooks:
   tags:
     - gl-docker-socket
   stage: alerting
