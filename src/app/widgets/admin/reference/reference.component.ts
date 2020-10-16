@@ -1,9 +1,9 @@
 import { Component, OnInit, OnDestroy, Inject, ViewChild, ElementRef, HostListener } from '@angular/core';
-import { WidgetService } from '../../services/widget.service';
-import { IReferenceTypes } from '../../models/references';
-import { WidgetPlatform } from '../../models/widget-platform';
-import { SnackBarService } from '../../services/snack-bar.service';
-import { ReferencesService } from '../../services/widgets/references.service';
+import { WidgetService } from '../../../dashboard/services/widget.service';
+import { IReferenceTypes } from '../../../dashboard/models/references';
+import { WidgetPlatform } from '../../../dashboard/models/widget-platform';
+import { SnackBarService } from '../../../dashboard/services/snack-bar.service';
+import { ReferencesService } from '../../../dashboard/services/widgets/references.service';
 
 @Component({
     selector: 'evj-reference',
@@ -12,12 +12,6 @@ import { ReferencesService } from '../../services/widgets/references.service';
 })
 export class ReferenceComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
     @ViewChild('refereneTable') public testBlock: ElementRef;
-
-    public static itemCols: number = 32;
-    public static itemRows: number = 15;
-
-    public static minItemCols: number = 27;
-    public static minItemRows: number = 15;
 
     isLoading: boolean = false;
 

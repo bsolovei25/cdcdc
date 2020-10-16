@@ -45,7 +45,6 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { ReportComponent } from './components/report/reports/report.component';
 import { ReportsComponent } from './components/report/reports.component';
 import { ImageCropperModule } from 'ngx-image-cropper';
-import { ReferenceComponent } from './widgets/reference/reference.component';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import {
     NgxMatDatetimePickerModule,
@@ -138,7 +137,6 @@ import { ReportServerConfiguratorModule } from '../widgets/admin/report-server-c
         SearchListComponent,
         ReportComponent,
         ReportsComponent,
-        ReferenceComponent,
         CustomReportPropertiesReferenceComponent,
         CustomReportOptionsComponent,
         DevGraphComponent,
@@ -191,7 +189,6 @@ import { ReportServerConfiguratorModule } from '../widgets/admin/report-server-c
         DeviationCircleDiagramComponent,
         ColumnChartStackedComponent,
         TimeLineDiagramComponent,
-        ReferenceComponent,
         ReportComponent,
         ReportsComponent,
         CustomReportPropertiesReferenceComponent,

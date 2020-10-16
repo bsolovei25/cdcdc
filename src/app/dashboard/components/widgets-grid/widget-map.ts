@@ -5,7 +5,6 @@ import { ProductStocksComponent } from '../../widgets/product-stocks/product-sto
 import { DeviationCircleDiagramComponent } from '../../widgets/deviation-circle-diagram/deviation-circle-diagram.component';
 import { ColumnChartStackedComponent } from '../../widgets/column-chart-stacked/column-chart-stacked.component';
 import { TimeLineDiagramComponent } from '../../widgets/time-line-diagram/time-line-diagram.component';
-import { ReferenceComponent } from '../../widgets/reference/reference.component';
 import { CustomReportPropertiesReferenceComponent } from '../../widgets/custom-report-properties-reference/custom-report-properties-reference.component';
 import { ReasonsDeviationsComponent } from '../../widgets/reasons-deviations/reasons-deviations.component';
 import { QualityDocsPanelComponent } from '../../widgets/quality-docs-panel/quality-docs-panel.component';
@@ -30,7 +29,6 @@ export const WIDGETS = {
     'flame-diagram': WidgetContainerComponent,
     'time-line-diagram': TimeLineDiagramComponent,
     'petroleum-products-movement': WidgetContainerComponent,
-    reference: ReferenceComponent,
     'report-server-configurator': WidgetContainerComponent,
     'tank-calibration-table': WidgetContainerComponent,
     'custom-report-properties-reference': CustomReportPropertiesReferenceComponent,
@@ -133,7 +131,8 @@ export const WIDGETS = {
     'documents-scans': WidgetContainerComponent,
     'document-viewer': WidgetContainerComponent,
     'admin-panel': WidgetContainerComponent,
-    'polar-chart': WidgetContainerComponent
+    'polar-chart': WidgetContainerComponent,
+    reference: WidgetContainerComponent,
 };
 
 export const WIDGETS_LAZY = {
@@ -488,6 +487,17 @@ export const WIDGETS_LAZY = {
         minItemCols: 27,
         minItemRows: 15,
         preview: 'report-server-configurator'
+    },
+    reference: {
+        import: async () => {
+            return await import('src/app/widgets/admin/reference/reference.module');
+        },
+        module: 'ReferenceModule',
+        itemCols: 32,
+        itemRows: 15,
+        minItemCols: 27,
+        minItemRows: 15,
+        preview: 'reference'
     },
 
 
@@ -1422,7 +1432,7 @@ export const WIDGETS_LAZY = {
         preview: 'dispatcher-screen'
     },
     //#endregion ED
-    
+
     //#region others
     'flame-diagram': {
         import: async () => {
