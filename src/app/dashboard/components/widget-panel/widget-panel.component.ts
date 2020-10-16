@@ -14,7 +14,7 @@ import { Subscription, BehaviorSubject } from 'rxjs';
 import { WIDGETS } from '../widgets-grid/widget-map';
 import { IWidget } from '../../models/widget.model';
 import { trigger, transition, animate, style } from '@angular/animations';
-import { WidgetPlatform } from '../../models/widget-platform';
+import { WidgetPlatform } from '../../models/@PLATFORM/widget-platform';
 
 @Component({
     selector: 'evj-widget-panel',

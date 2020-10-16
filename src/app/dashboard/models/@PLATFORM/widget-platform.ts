@@ -1,6 +1,6 @@
 import { Inject, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { WidgetService } from '../services/widget.service';
+import { WidgetService } from '../../services/widget.service';
 
 export abstract class WidgetPlatform<T = unknown> implements OnDestroy {
     public widgetCode?: string;
@@ -21,7 +21,7 @@ export abstract class WidgetPlatform<T = unknown> implements OnDestroy {
 
     public isHover: boolean = false;
     public subscriptions: Subscription[] = [];
-    protected hoverTimer: any;
+    protected hoverTimer: number;
 
     protected constructor(
         protected widgetService: WidgetService,

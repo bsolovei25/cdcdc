@@ -16,6 +16,7 @@ export class NkTankInformationCardInfoComponent implements OnInit, OnChanges {
   @Input() set volumeFreeSpace(data: number) {
     this.freeSpace = data;
   }
+  @Input() isRepair: boolean;
 
   activeIndicatorCount: number;
   nominal: number;

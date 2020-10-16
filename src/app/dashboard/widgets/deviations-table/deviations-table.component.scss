@@ -14,11 +14,13 @@
   height: 200px;
   border-left: dashed 0.5px var(--color-border-main);
   border-right: dashed 0.5px var(--color-border-main);
+
   .line {
     color: var(--color-text-sub-heading);
     margin: 0 auto;
     padding-left: 160px;
   }
+
   &-container {
     height: 100%;
     width: 100%;
@@ -26,6 +28,7 @@
     flex-direction: row;
     justify-content: center;
   }
+
   img {
     width: 80%;
     height: 100%;
@@ -34,13 +37,18 @@
 
 table {
   border-spacing: 0;
-  display: flex;
-  justify-content: space-between;
-  flex-direction: column;
+  width: 100%;
 
   thead {
     padding-left: 10px;
   }
+  .border {
+    th {
+      border-bottom: 1px solid var(--color-bg-sub);
+      height: 30px;
+    }
+  }
+
 }
 
 .table {
@@ -65,6 +73,7 @@ table {
   &__header {
     border-bottom: 1px solid var(--color-bg-sub);
     padding-bottom: 10px;
+
     .mb {
       margin-bottom: 3px;
     }
@@ -84,13 +93,11 @@ table {
     font-size: 12px;
     color: var(--color-text-sub);
     font-weight: 100;
-    display: flex;
-    flex-grow: 1;
 
     min-width: 35px;
 
     &__items {
-      display: flex;
+      //display: flex;
     }
 
     &__equipment {
@@ -116,7 +123,7 @@ table {
     }
 
     &__icon {
-      margin-left: 20px;
+      padding-left: 3%;
       min-width: 40px;
     }
 
@@ -141,8 +148,8 @@ table {
 
   &__item {
     text-align: left;
-    display: flex;
-    justify-content: space-between;
+    //display: flex;
+    //justify-content: space-between;
   }
 
   .item {
@@ -151,8 +158,6 @@ table {
     font-weight: 100;
     padding-top: 8px;
     padding-bottom: 8px;
-    display: flex;
-    flex-grow: 1;
 
     &__equipment {
       min-width: 110px;
@@ -160,6 +165,7 @@ table {
 
     &__energy {
       min-width: 40px;
+
       &_procent {
         min-width: 40px;
       }
@@ -167,6 +173,7 @@ table {
 
     &__consumption {
       min-width: 40px;
+
       &_procent {
         min-width: 40px;
       }
@@ -174,6 +181,7 @@ table {
 
     &__fuel {
       min-width: 40px;
+
       &_procent {
         min-width: 20px;
       }
@@ -203,6 +211,7 @@ tr {
   color: var(--color-text-sub);
   border-left: var(--border-style-dashed);
   border-right: var(--border-style-dashed);
+
   tr {
     height: 20%;
   }

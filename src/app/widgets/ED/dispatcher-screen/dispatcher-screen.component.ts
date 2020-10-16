@@ -3,7 +3,7 @@ import { UnityLoader } from '@shared/functions/UnityLoader.js';
 import { PlatformLocation } from '@angular/common';
 import { WidgetService } from 'src/app/dashboard/services/widget.service';
 import { WidgetSettingsService } from 'src/app/dashboard/services/widget-settings.service';
-import { WidgetPlatform } from 'src/app/dashboard/models/widget-platform';
+import { WidgetPlatform } from 'src/app/dashboard/models/@PLATFORM/widget-platform';
 import { AsyncRender } from '@shared/functions/async-render.function';
 
 @Component({

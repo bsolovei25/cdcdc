@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy, Inject, ViewChild, ElementRef, HostListener } from '@angular/core';
 import { WidgetService } from '../../../dashboard/services/widget.service';
 import { IReferenceTypes } from '../../../dashboard/models/references';
-import { WidgetPlatform } from '../../../dashboard/models/widget-platform';
+import { WidgetPlatform } from 'src/app/dashboard/models/@PLATFORM/widget-platform';
 import { SnackBarService } from '../../../dashboard/services/snack-bar.service';
 import { ReferencesService } from '../../../dashboard/services/widgets/references.service';
 

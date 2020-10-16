@@ -15,7 +15,7 @@ export class ChartStyle {
     };
 
     public readonly common: IChartStyle = {
-        lineWidth: 0.5,
+        lineWidth: 1,
         lineColor: this.chartColors.white,
         lineType: 'solid',
     };

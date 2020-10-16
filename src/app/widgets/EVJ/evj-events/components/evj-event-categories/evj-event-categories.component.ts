@@ -34,8 +34,6 @@ export class EvjEventCategoriesComponent implements OnInit {
     public categoryClick: EventEmitter<EventsWidgetCategory> =
         new EventEmitter<EventsWidgetCategory>();
     @Output()
-    public categoryDeleteClick: EventEmitter<number> = new EventEmitter<number>();
-    @Output()
     public toggleSubCategory: EventEmitter<number> = new EventEmitter<number>();
 
     constructor(public overlay: Overlay,
@@ -52,7 +50,7 @@ export class EvjEventCategoriesComponent implements OnInit {
 
     openOverlay(): void {
         this.resetSetTimeout();
-        if (this.data?.subCategories?.length && !this.activeCategory) {
+        if (this.data?.subCategories?.length > 1 && !this.activeCategory) {
             this.activeCategory = this.data.id;
             this.openTemplateOverlay();
         }

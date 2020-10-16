@@ -30,6 +30,7 @@
     (mousedown)="$event.stopPropagation()"
     (touchstart)="$event.stopPropagation()"
   >
+    <evj-evj-event-preview [isPreviewOpened]="isPreviewOpened" (close)="closeEventPreview()"></evj-evj-event-preview>
     <div class="cd-events">
       <evj-evj-event-filters (outPriority)="priorityOfFilter($event)"
                              (outUnits)="unitsOfFilter($event)"
@@ -88,7 +89,6 @@
                 [data]="c"
                 [subCategoriesSelected]="subCategoriesSelected"
                 (categoryClick)="onCategoryClick($event)"
-                (categoryDeleteClick)="deleteClick($event)"
                 (toggleSubCategory)="toggleSubcategory($event)"
               >
               </evj-evj-event-categories>

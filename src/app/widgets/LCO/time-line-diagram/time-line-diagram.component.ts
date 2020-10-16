@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
+import { WidgetPlatform } from 'src/app/dashboard/models/@PLATFORM/widget-platform';
 import { TimeLineDataInput } from '../../../dashboard/models/time-line-diagram';
 import { WidgetService } from '../../../dashboard/services/widget.service';
-import { WidgetPlatform } from '../../../dashboard/models/widget-platform';
 
 @Component({
     selector: 'evj-time-line-diagram',

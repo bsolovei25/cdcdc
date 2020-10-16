@@ -11,7 +11,7 @@
   width: 100%;
   height: calc(100% - var(--margin-vertical));
   top: var(--margin-vertical);
-  background-color: var(--color-cd-bg-component);
+  background-color: var(--header-events-color-bg-main);
   border: 1px solid var(--color-cd-bg-border);
 
   .frame-top {
@@ -150,7 +150,7 @@
     &--display-standart {
       border: none;
       height: calc(100% - var(--filters-min-height) - var(--categories-min-height) - var(--padding));
-      background-color: var(--color-cd-bg-component);
+      background-color: var(--header-events-color-bg-main);
     }
 
     &__list {
@@ -220,6 +220,7 @@
     justify-content: space-between;
     min-height: var(--filters-min-height);
     padding: 5px 20px 16px 20px;
+    overflow: hidden;
 
     &__item {
       flex: 1 192px;
@@ -239,6 +240,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    white-space: nowrap;
 
     padding: 12px 18px 10px 12px;
     border-bottom: 2px solid var(--color-border-main-transparrent);

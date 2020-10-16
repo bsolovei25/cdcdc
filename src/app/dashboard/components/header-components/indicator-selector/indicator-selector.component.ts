@@ -1,12 +1,12 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { UserSettingsService } from '../../services/user-settings.service';
+import { UserSettingsService } from '../../../services/user-settings.service';
 import { Subscription } from 'rxjs';
-import { IScreenSettings } from '../../models/user-settings.model';
-import { ClaimService, EnumClaimScreens } from '../../services/claim.service';
-import { OverlayService } from '../../services/overlay.service';
-import { SnackBarService } from '../../services/snack-bar.service';
+import { IScreenSettings } from '../../../models/user-settings.model';
+import { ClaimService, EnumClaimScreens } from '../../../services/claim.service';
+import { OverlayService } from '../../../services/overlay.service';
+import { SnackBarService } from '../../../services/snack-bar.service';
 import { IAlertWindowModel } from '@shared/models/alert-window.model';
-import { IInputOptions } from '../../../@shared/models/input.model';
+import { IInputOptions } from '@shared/models/input.model';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({

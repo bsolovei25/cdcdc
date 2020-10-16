@@ -5,7 +5,7 @@ import {
     OnInit, QueryList,
     ViewChildren,
 } from '@angular/core';
-import { WidgetPlatform } from '../../../dashboard/models/widget-platform';
+import { WidgetPlatform } from '../../../dashboard/models/@PLATFORM/widget-platform';
 import { WidgetService } from '../../../dashboard/services/widget.service';
 import { IProductionTrend } from '../../../dashboard/models/production-trends.model';
 import { IDeviationDiagramData } from '../shared/kpe-deviation-diagram/kpe-deviation-diagram.component';

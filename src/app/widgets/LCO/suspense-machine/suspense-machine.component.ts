@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
-import { WidgetService } from '../../../dashboard/services/widget.service';
-import { WidgetPlatform } from '../../../dashboard/models/widget-platform';
+import { WidgetPlatform } from 'src/app/dashboard/models/@PLATFORM/widget-platform';
+import { WidgetService } from 'src/app/dashboard/services/widget.service';
 
 export interface ISuspenseMachine {
     date: Date;

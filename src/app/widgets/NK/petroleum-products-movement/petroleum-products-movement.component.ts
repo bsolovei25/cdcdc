@@ -1,8 +1,8 @@
 import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
 import { IDatesInterval, WidgetService } from 'src/app/dashboard/services/widget.service';
 import { PetroleumScreenService } from 'src/app/dashboard/services/widgets/petroleum-screen.service';
-import { WidgetPlatform } from 'src/app/dashboard/models/widget-platform';
 import { IAlertWindowModel } from '@shared/models/alert-window.model';
+import { WidgetPlatform } from 'src/app/dashboard/models/@PLATFORM/widget-platform';
 
 @Component({
     selector: 'evj-petroleum-products-movement',

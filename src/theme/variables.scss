@@ -275,6 +275,8 @@
   --nk-color-innage-axis: #E8E6DD;
   --nk-color-scroll-thumb: #272b35;
   --nk-color-bg-innage-min: #0C5395;
+  --nk-color-bg-lvl-last: #00549D;
+  --nk-color-white: #ffffff;
 
   // new
   --color-gray80: #272a38;
@@ -463,10 +465,24 @@
   --header-events-color-bg-item-main: rgba(27, 30, 41);
   --header-events-color-font-standard: #606580;
   --header-events-color-font-warning: #F7931E;
-  --header-events-color-font-danger:#FF0000;
+  --header-events-color-font-danger: #FF0000;
   --header-events-color-bg-active: #0089FF;
   --header-events-color-bg-hover: #1F222E;
   --header-events-color-bg-thumb: rgb(40, 43, 56, 0.46);
+
+  // event
+  --color-events-bg-card: #141721;
+  --color-events-border: #35394A;
+  --color-events-btn: #202330;
+  --color-events-bg-filters: #181B25;
+  --color-event-card-bg-sub: #1E212D;
+  --color-event-card-bg-body: #1A1D28;
+  --color-event-card-gradient: #222633;
+  --color-event-card-gradient-danger: rgba(235, 87, 87, 0.2329306722689075);
+  --color-event-card-gradient-warning: rgba(255, 140, 0, 0.29735644257703087);
+  --color-event-card-font-sub: #8C99B2;
+  --evj-events-preview: rgba(39, 42, 56, 0.5);
+
 }
 
 $--color-active: #3fa9f5;

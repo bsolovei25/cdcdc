@@ -7,6 +7,7 @@ import { Component, OnInit, Input, OnChanges } from '@angular/core';
 })
 export class NkTankInformationPasportComponent implements OnInit, OnChanges {
   @Input() isPassportized: boolean;
+  @Input() isRepair: boolean;
   indicatorText: string;
 
   constructor() { }

@@ -8,14 +8,20 @@
                 <!-- LEFT-SIDE -->
                 <ng-container *ngIf="!filter.line">
                     <div class='left-side'>
-                        <evj-table-grid [scrollLeft]="true" [data]="data.tableLeft" [search]="true"
-                            [activeFilter]="filter.isFilter" [filter]="true" (clickFilter)="openFilter($event)">
-                            <evj-column-grid key="number" name="№" [width]="7"></evj-column-grid>
-                            <evj-column-grid key="rR" name="Р-р" [width]="7"></evj-column-grid>
+                        <evj-table-grid
+                          [scrollLeft]="true"
+                          [data]="data.tableLeft"
+                          [activeFilter]="filter.isFilter"
+                          [filters]="availableFilters"
+                          (clickFilter)="openFilter($event)"
+                          (scrollReachedItemId)="appendOperations($event)"
+                        >
+                            <evj-column-grid key="transferNumber" name="№" [width]="7"></evj-column-grid>
+                            <evj-column-grid key="tankNumber" name="Р-р" [width]="7"></evj-column-grid>
                             <evj-column-grid key="product" name="Продукт" [width]="20">
                             </evj-column-grid>
-                            <evj-column-grid key="pasport" name="Паспорт" [width]="12" [template]="pasport">
-                                <ng-template #pasport let-data="data">
+                            <evj-column-grid key="passport" name="Паспорт" [width]="12" [template]="passport">
+                                <ng-template #passport let-data="data">
                                     <div class="pasport">
                                         <div class="pasport__icon">
                                             <svg-icon
@@ -27,14 +33,14 @@
                                     </div>
                                 </ng-template>
                             </evj-column-grid>
-                            <evj-column-grid key="dateFrom" name="Дата начала" [width]="14" [template]="date">
+                            <evj-column-grid key="startDate" name="Дата начала" [width]="14" [template]="date">
                               <ng-template #date let-data="data">
-                                {{ data.dateFrom | date:"dd.MM.yyyy | HH:mm" }}
+                                {{ data.startTime | date:"dd.MM.yyyy | HH:mm" }}
                               </ng-template>
                             </evj-column-grid>
-                            <evj-column-grid key="dateTo" name="Дата окончания" [width]="14" [template]="date">
+                            <evj-column-grid key="endDate" name="Дата окончания" [width]="14" [template]="date">
                               <ng-template #date let-data="data">
-                                {{ data.dateTo | date:"dd.MM.yyyy | HH:mm" }}
+                                {{ data.endTime | date:"dd.MM.yyyy | HH:mm" }}
                               </ng-template>
                             </evj-column-grid>
                             <evj-column-grid key="mass" name="Масса" [width]="7"></evj-column-grid>
@@ -95,8 +101,8 @@
                         <evj-column-grid key="dok" name="Док. №" [width]="8">
                         </evj-column-grid>
                         <evj-column-grid key="mass" name="Масса" [width]="8"></evj-column-grid>
-                        <evj-column-grid key="pasport" name="Паспорт" [width]="13" [template]="pasport">
-                            <ng-template #pasport let-data="data">
+                        <evj-column-grid key="pasport" name="Паспорт" [width]="13" [template]="passport">
+                            <ng-template #passport let-data="data">
                                 <div class="pasport">
                                     <div class="pasport__icon">
                                         <svg-icon src="assets/icons/widgets/oil-control-all/quality-docs-panel/pdf.svg"
@@ -110,12 +116,6 @@
                         <evj-column-grid key="note" name="Примечание" [width]="25"></evj-column-grid>
                     </evj-table-grid>
                 </div>
-            </div>
-
-            <!-- RIGHT-SIDE -->
-            <div *ngIf="filter.isFilter">
-                <evj-oil-operations-filter [data]="data.filter" (closeFilter)="disabled()">
-                </evj-oil-operations-filter>
             </div>
 
             <!-- RIGHT-SIDE -->

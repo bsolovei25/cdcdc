@@ -5,23 +5,24 @@ import {
     OnChanges,
     HostListener,
     Input,
-    OnInit,
+    OnInit
 } from '@angular/core';
 import * as d3Selection from 'd3-selection';
 import * as d3 from 'd3';
 import {
     IProductionTrend,
-    ProductionTrendType,
+    ProductionTrendType
 } from '../../../dashboard/models/production-trends.model';
 import { IChartD3, IChartMini, IPointTank } from '../../models/smart-scroll.model';
 import { ChartStyleType, ChartStyle, IChartStyle } from '../../models/line-chart-style.model';
 import { IDatesInterval } from '../../../dashboard/services/widget.service';
 import { setLimits } from '../../functions/set-limits.function';
+import { dateFormatLocale } from '@shared/functions/universal-time-fromat.function';
 
 @Component({
     selector: 'evj-line-chart-shared',
     templateUrl: './line-chart.component.html',
-    styleUrls: ['./line-chart.component.scss'],
+    styleUrls: ['./line-chart.component.scss']
 })
 export class LineChartComponent implements OnChanges, OnInit {
     @Input() public data: IProductionTrend[] = [];
@@ -33,15 +34,14 @@ export class LineChartComponent implements OnChanges, OnInit {
 
     @ViewChild('chart') private chart: ElementRef;
 
-    private readonly MAX_COEF: number = 0.1;
-    private readonly MIN_COEF: number = 0.3;
+    private DELTA_CF: number = 0.1;
 
     private readonly chartStroke: { [key: string]: string } = {
         plan: '#ffffff',
-        fact: '#3fa9f5',
+        fact: '#3fa9f5'
     };
 
-    private svg = null;
+    private svg: any = null;
 
     private chartData: {
         graphType: ProductionTrendType;
@@ -63,21 +63,23 @@ export class LineChartComponent implements OnChanges, OnInit {
         top: 20,
         right: 65,
         bottom: 30,
-        left: 65,
+        left: 65
     };
 
-    constructor() {}
+    constructor() {
+    }
 
     public ngOnChanges(): void {
         setTimeout(() => this.graphInit(), 0);
     }
 
     public ngOnInit(): void {
-        this.dateFormatLocale();
+        dateFormatLocale();
     }
 
     private graphInit(): void {
         if (!this.data?.length) {
+            this.svg?.remove();
             return;
         }
         this.findMinMax();
@@ -119,16 +121,9 @@ export class LineChartComponent implements OnChanges, OnInit {
             this.data.forEach((graph) => (graph.graph = setLimits(graph.graph, this.limits)));
         }
 
-        const maxValues: number[] = [];
-        const minValues: number[] = [];
-
-        this.data.forEach((graph) => {
-            maxValues.push(d3.max(graph.graph, (item: IChartMini) => item.value));
-            minValues.push(d3.min(graph.graph, (item: IChartMini) => item.value));
-        });
-
-        this.dataMax = d3.max(maxValues) * (1 + this.MAX_COEF);
-        this.dataMin = d3.min(minValues) * (1 - this.MIN_COEF);
+        [this.dataMin, this.dataMax] = d3.extent(this.data.flatMap((x) => x.graph).map((x) => x.value));
+        this.dataMin -= (this.dataMax - this.dataMin) * this.DELTA_CF;
+        this.dataMax += (this.dataMax - this.dataMin) * this.DELTA_CF;
     }
 
     private transformData(): void {
@@ -159,7 +154,7 @@ export class LineChartComponent implements OnChanges, OnInit {
         this.axis.axisX = d3
             .axisBottom(this.scaleFuncs.x)
             .ticks(7)
-            .tickFormat(this.dateFormatLocale())
+            .tickFormat(dateFormatLocale())
             .tickSizeOuter(0);
         this.axis.axisY = d3
             .axisLeft(this.scaleFuncs.y)
@@ -173,13 +168,13 @@ export class LineChartComponent implements OnChanges, OnInit {
         } = {
             graphType: chart.graphType,
             graphStyle: chart.graphStyle,
-            graph: [],
+            graph: []
         };
 
         chart.graph.forEach((item) => {
             chartData.graph.push({
                 x: this.scaleFuncs.x(item.timeStamp),
-                y: this.scaleFuncs.y(item.value),
+                y: this.scaleFuncs.y(item.value)
             });
         });
 
@@ -188,7 +183,6 @@ export class LineChartComponent implements OnChanges, OnInit {
 
     private drawGraph(): void {
         const chartStyle = new ChartStyle();
-
         this.chartData.forEach((chart) => {
             const line = d3
                 .line()
@@ -341,76 +335,4 @@ export class LineChartComponent implements OnChanges, OnInit {
             .style('stroke', '#8c99b2');
     }
 
-    private dateFormatLocale(): (date: Date) => string {
-        const locale = d3.timeFormatLocale({
-            dateTime: '%A, %e %B %Y г. %X',
-            date: '%d.%m.%Y',
-            time: '%H:%M:%S',
-            periods: ['', ''],
-            days: [
-                'воскресенье',
-                'понедельник',
-                'вторник',
-                'среда',
-                'четверг',
-                'пятница',
-                'суббота',
-            ],
-            shortDays: ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'],
-            months: [
-                'Январь',
-                'Февраль',
-                'Март',
-                'Апрель',
-                'Май',
-                'Июнь',
-                'Июль',
-                'Август',
-                'Сентябрь',
-                'Октябрь',
-                'Ноябрь',
-                'Декабрь',
-            ],
-            shortMonths: [
-                'Янв',
-                'Фев',
-                'Мар',
-                'Апр',
-                'Май',
-                'Июн',
-                'Июл',
-                'Авг',
-                'Сен',
-                'Окт',
-                'Ноя',
-                'Дек',
-            ],
-        });
-
-        const formatMillisecond = locale.format('.%L');
-        const formatSecond = locale.format(':%S');
-        const formatMinute = locale.format('%H:%M');
-        const formatHour = locale.format('%H %p');
-        const formatDay = locale.format('%d %b');
-        const formatWeek = locale.format('%b %d ');
-        const formatMonth = locale.format('%B');
-        const formatYear = locale.format('%Y');
-
-        return (date) =>
-            (d3.timeSecond(date) < date
-                ? formatMillisecond
-                : d3.timeMinute(date) < date
-                ? formatSecond
-                : d3.timeHour(date) < date
-                ? formatMinute
-                : d3.timeDay(date) < date
-                ? formatHour
-                : d3.timeMonth(date) < date
-                ? d3.timeWeek(date) < date
-                    ? formatDay
-                    : formatWeek
-                : d3.timeYear(date) < date
-                ? formatMonth
-                : formatYear)(date);
-    }
 }

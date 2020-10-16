@@ -1,6 +1,6 @@
 import { Component, ElementRef, ViewChild, Inject, OnInit, OnDestroy } from '@angular/core';
 import { WidgetService } from '../../../dashboard/services/widget.service';
-import { WidgetPlatform } from '../../../dashboard/models/widget-platform';
+import { WidgetPlatform } from '../../../dashboard/models/@PLATFORM/widget-platform';
 
 declare var d3: any;
 

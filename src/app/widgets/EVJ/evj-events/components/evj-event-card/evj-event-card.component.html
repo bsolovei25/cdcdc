@@ -18,7 +18,7 @@
   >
     <svg-icon
       *ngIf="cardData.retrievalEvents.length"
-      (click)="toggle(cardData.id)"
+      (click)="toggle($event, cardData.id)"
       class="notification__toggle"
       [applyCss]="true"
       src="assets/icons/widgets/EVJ/event/toggle.svg"
@@ -67,34 +67,39 @@
         (mousedown)="$event.stopPropagation()"
         (touchstart)="$event.stopPropagation()"
       >
-        <span
-          class="notification__body__status"
-          [ngClass]="cardData?.priority?.name ?
+        <div class="">
+            <span
+              class="notification__body__status"
+              [ngClass]="cardData?.priority?.name ?
           'notification__body__icon_' + cardData?.priority?.name :
            'notification__body__icon_standard'"
-        >
+            >
           {{ cardData?.statusName }}
         </span>
-        <svg-icon
-          class="notification__body__icon"
-          [applyCss]="true"
-          [src]="cardData?.iconUrl"
-          [ngClass]="cardData?.priority?.name ?
+          <svg-icon
+            class="notification__body__icon"
+            [applyCss]="true"
+            [src]="cardData?.iconUrl"
+            [ngClass]="cardData?.priority?.name ?
           'notification__body__icon_' + cardData?.priority?.name :
            'notification__body__icon_standard'"
-        ></svg-icon>
-        <svg-icon
-          *ngIf="!cardData?.source"
-          class="notification__body__icon--delete"
-          [applyCss]="true"
-          src="assets/icons/remove.svg"
-          (click)="deleteClick(cardData?.id)"
-          (mousedown)="$event.stopPropagation()"
-          (touchstart)="$event.stopPropagation()"
-          [svgStyle]="{ 'width.px':'14', 'height.px':'14' }"
-        >
-        </svg-icon>
-        <span *ngIf="!cardData?.source" class="notification__body__icon--delete__mock"></span>
+          ></svg-icon>
+          <svg-icon
+            *ngIf="!cardData?.source"
+            class="notification__body__icon--delete"
+            [applyCss]="true"
+            src="assets/icons/remove.svg"
+            (click)="deleteClick($event, cardData?.id)"
+            [svgStyle]="{ 'width.px':'14', 'height.px':'14' }"
+          >
+          </svg-icon>
+          <span *ngIf="!cardData?.source" class="notification__body__icon--delete__mock"></span>
+        </div>
+        <div class="notification__body__extra_end-time">
+          <span class="notification__header__date-time">
+        {{ cardData?.eventEndDateTime | date: 'dd.MM.yyyy HH:mm' }}
+         </span>
+        </div>
       </div>
     </div>
   </div>
@@ -163,36 +168,43 @@
             (mousedown)="$event.stopPropagation()"
             (touchstart)="$event.stopPropagation()"
           >
-        <span
-          class="notification__body__status"
-          [ngClass]="cardData?.priority?.name ?
+            <div> <span
+              class="notification__body__status"
+              [ngClass]="cardData?.priority?.name ?
           'notification__body__icon_' + cardData?.priority?.name :
            'notification__body__icon_standard'"
-        >
+            >
           {{ statuses[retrievalEvent?.status.name] }}
         </span>
-            <svg-icon
-              class="notification__body__icon"
-              [applyCss]="true"
-              [src]="retrievalEvent?.iconUrl"
-              [ngClass]="retrievalEvent?.priority?.name ?
+              <svg-icon
+                class="notification__body__icon"
+                [applyCss]="true"
+                [src]="retrievalEvent?.iconUrl"
+                [ngClass]="retrievalEvent?.priority?.name ?
           'notification__body__icon_' + retrievalEvent?.priority?.name :
            'notification__body__icon_standard'"
-            ></svg-icon>
-            <svg-icon
-              *ngIf="!retrievalEvent?.source"
-              class="notification__body__icon--delete"
-              [applyCss]="true"
-              src="assets/icons/remove.svg"
-              (click)="deleteClick(retrievalEvent?.id)"
-              (mousedown)="$event.stopPropagation()"
-              (touchstart)="$event.stopPropagation()"
-              [svgStyle]="{ 'width.px':'14', 'height.px':'14' }"
-            >
-            </svg-icon>
-            <span *ngIf="!retrievalEvent?.source"
-                  class="notification__body__icon--delete__mock"></span>
+              ></svg-icon>
+              <svg-icon
+                *ngIf="!retrievalEvent?.source"
+                class="notification__body__icon--delete"
+                [applyCss]="true"
+                src="assets/icons/remove.svg"
+                (click)="deleteClick($event, retrievalEvent?.id)"
+                (mousedown)="$event.stopPropagation()"
+                (touchstart)="$event.stopPropagation()"
+                [svgStyle]="{ 'width.px':'14', 'height.px':'14' }"
+              >
+              </svg-icon>
+              <span *ngIf="!retrievalEvent?.source"
+                    class="notification__body__icon--delete__mock"></span>
+            </div>
+            <div class="notification__body__extra_end-time">
+          <span class="notification__header__date-time">
+        {{ retrievalEvent?.eventEndDateTime | date: 'dd.MM.yyyy HH:mm' }}
+         </span>
+            </div>
           </div>
+
         </div>
       </div>
     </ng-container>
@@ -200,84 +212,13 @@
 </ng-template>
 
 <ng-template #block let-cardData="cardData">
-  <div
-    class="notification__block notifications__block__item notification-event"
-    [class.selected-block]="cardData?.id === cardActiveId"
-    (click)="eventClick(cardData?.id)"
+  <evj-evj-event-card-block style="flex: 1 1 340px"
+                            [data]="cardData"
+                            [cardActiveId]="cardActiveId"
+                            (cardClick)="eventClick($event)"
+                            (cardDeleteClick)="deleteClick(null, $event)"
   >
-    <div class="notification__block__header">
-      <span
-        class="notification__block__number"
-        [ngClass]="'notification__number_' + cardData?.priority"
-      >
-        {{ cardData?.id }}
-      </span>
-      <span class="notification__block__unit">
-        {{ cardData?.unit?.name || '-' }}
-      </span>
-
-      <div
-        class="label-button"
-        [class.label-button_active]="cardData?.isAcknowledged"
-        (click)="changeIsAcknowledged(cardData)"
-        *ngIf="cardData?.category?.code!==0 && cardData?.category?.code!==5 && cardData?.category?.code!==6"
-      >
-        {{cardData?.isAcknowledged ? 'Квитировано' : 'Не квитировано'}}
-      </div>
-
-      <div class="notification__block__extra">
-        <span
-          class="notification__block__status"
-          [ngClass]="'notification__block__status_' + cardData?.priority?.name"
-        >
-          {{ cardData?.statusName }}
-        </span>
-        <span class="notification__block__status">
-          <svg-icon
-            [applyCss]="true"
-            [src]="cardData?.iconUrlStatus"
-            [ngClass]="'notification__block__icon_' + cardData?.priority?.name"
-            [svgStyle]="{'fill':'rgb(63, 168, 243)'}"
-          >
-          </svg-icon>
-        </span>
-        <span *ngIf="!cardData?.source" class="notification__block__status">
-          <svg-icon
-            class="notification__block__icon notification__block__icon_delete"
-            [applyCss]="true"
-            src="assets/icons/remove.svg"
-            (click)="deleteClick(cardData?.id)"
-            [svgStyle]="{ 'width.px':14, 'height.px':14 }"
-          >
-          </svg-icon>
-        </span>
-        <span class="notification__block__span__icon">
-          <svg-icon
-            [applyCss]="true"
-            class="notification__block__icon__right"
-            [src]="cardData?.iconUrl"
-            [ngClass]="'notification__block__icon_'"
-            [svgStyle]="{'fill':'rgb(63, 168, 243)'}"
-          >
-          </svg-icon>
-        </span>
-      </div>
-    </div>
-    <div class="notification__block__body">
-      <span class="notification__block__description">
-        {{ cardData?.description }}
-      </span>
-      <span class="notification__block__facts">
-        {{ cardData?.facts[0] ? cardData?.facts[0].comment : '-' }}
-      </span>
-    </div>
-    <div class="notification__block__footer">
-      <span class="notification__block__footer-text">Начало события:</span>
-      <span class="notification__block__footer-date-time"
-      >{{ cardData?.eventDateTime | date: 'dd.MM.yyyy HH:mm' }}
-      </span>
-    </div>
-  </div>
+  </evj-evj-event-card-block>
 </ng-template>
 
 
