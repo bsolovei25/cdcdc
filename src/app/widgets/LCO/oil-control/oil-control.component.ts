@@ -182,8 +182,8 @@ export class OilControlComponent extends WidgetPlatform<unknown> implements OnIn
         if (!this.toggleIntervalTimer) {
             const updateTimeInSec =
                 (ref.updateTimeInSec ?? 0) === 0 ? this.defaultTimeInSec : ref.updateTimeInSec;
-            this.toggleIntervalTimer =
-                setInterval(this.toggleInterval.bind(this), updateTimeInSec * 1000);
+            // this.toggleIntervalTimer =
+            //     setInterval(this.toggleInterval.bind(this), updateTimeInSec * 1000);
         }
     }
 
@@ -709,9 +709,10 @@ export class OilControlComponent extends WidgetPlatform<unknown> implements OnIn
                             .attr('class', 'textProduct')
                             .text(nameSlicer(textProduct.name, 17))
                             .on('click', () => {
-                                this.onButtonChangeProduct(textProduct.name);
-                                this.countClickChangeStorage = 0;
+                                const previousProduct = this.savePositionProduct;
                                 this.savePositionProduct = textProduct.name;
+                                this.onButtonChangeProduct(textProduct.name, previousProduct);
+                                this.countClickChangeStorage = 0;
                             });
                         this.htmlProduct = textProduct.name;
                     }
@@ -803,7 +804,7 @@ export class OilControlComponent extends WidgetPlatform<unknown> implements OnIn
         }
     }
 
-    public onButtonChangeProduct(index: string): void {
+    public onButtonChangeProduct(index: string, previousIndex: string = null): void {
         this.clearProduct();
         if (this.countClickChange === 0 && !this.checkSocket) {
             this.changeMassiv(index, this.data);
@@ -833,7 +834,7 @@ export class OilControlComponent extends WidgetPlatform<unknown> implements OnIn
         );
         // this.drawBak(this.oilBak.nativeElement);
         this.drawPicture(this.oilIcon?.nativeElement);
-        if (this.savePositionProduct && this.savePositionProduct !== index) {
+        if (previousIndex && previousIndex !== index) {
             this.saveCurrentPage = 1;
         }
     }
@@ -1107,9 +1108,10 @@ export class OilControlComponent extends WidgetPlatform<unknown> implements OnIn
         if (!product) {
             product = this.tempData[0]?.name;
         }
-        this.onButtonChangeProduct(product);
-        this.countClickChangeStorage = 0;
+        const previousProduct = this.savePositionProduct;
         this.savePositionProduct = product;
+        this.onButtonChangeProduct(product, previousProduct);
+        this.countClickChangeStorage = 0;
         this.savePositionStorage = null;
         this.nextStorage();
     }

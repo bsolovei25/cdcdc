@@ -42,7 +42,7 @@ export class OilControlTableComponent implements OnInit, OnChanges {
     }
 
     ngOnChanges(changes: SimpleChanges): void {
-        queueMicrotask(() => this.maxPage = this.data?.operations?.length ?? 1);
+        this.maxPage = this.data?.operations?.length ?? 1;
     }
 
     onNextOperation(event: number): void {
