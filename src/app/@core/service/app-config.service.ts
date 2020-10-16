@@ -74,6 +74,13 @@ export class AppConfigService {
         return this.appConfig.smotrUrl;
     }
 
+    get smpUrl(): string {
+        if (!this.appConfig) {
+            throw Error('Config file not loaded!');
+        }
+        return this.appConfig.smpUrl;
+    }
+
     get reconnectInterval(): number {
         if (!this.appConfig) {
             throw Error('Config file not loaded!');
