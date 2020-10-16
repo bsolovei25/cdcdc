@@ -6,7 +6,7 @@ data:
   site: |
     server {
         listen 80;
-        server_name evj.funcoff.club;
+        server_name localhost;
 
         client_max_body_size 20M;
 
