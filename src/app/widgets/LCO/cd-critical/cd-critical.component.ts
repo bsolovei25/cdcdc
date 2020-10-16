@@ -1,6 +1,6 @@
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
-import { WidgetPlatform } from '../../models/widget-platform';
-import { WidgetService } from '../../services/widget.service';
+import { WidgetPlatform } from '../../../dashboard/models/widget-platform';
+import { WidgetService } from '../../../dashboard/services/widget.service';
 
 @Component({
   selector: 'evj-cd-critical',

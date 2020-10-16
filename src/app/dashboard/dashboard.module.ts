@@ -88,7 +88,6 @@ import { OilOperationsLineMenuComponent } from './widgets/oil-operations/compone
 import { OilOperationsLineComponent } from './widgets/oil-operations/components/oil-operations-line/oil-operations-line.component';
 import { OilOperationsAdjustmentComponent } from './widgets/oil-operations/components/oil-operations-adjustment/oil-operations-adjustment.component';
 import { OilOperationsFreeShipmentComponent } from './widgets/oil-operations/components/oil-operations-free-shipment/oil-operations-free-shipment.component';
-import { CdCriticalComponent } from './widgets/cd-critical/cd-critical.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { WidgetPanelComponent } from './components/widget-panel/widget-panel.component';
 import { MatMenuModule } from '@angular/material/menu';
@@ -160,7 +159,6 @@ import { ReportServerConfiguratorModule } from '../widgets/admin/report-server-c
         OilOperationsLineComponent,
         OilOperationsAdjustmentComponent,
         OilOperationsFreeShipmentComponent,
-        CdCriticalComponent,
         WidgetPanelComponent,
         WidgetContainerComponent,
         PerformanceBarComponent,

@@ -6,7 +6,6 @@ import { ReasonsDeviationsComponent } from '../../widgets/reasons-deviations/rea
 import { QualityDocsPanelComponent } from '../../widgets/quality-docs-panel/quality-docs-panel.component';
 import { DocumentCodingComponent } from '../../widgets/document-coding/document-coding.component';
 import { OilOperationsComponent } from '../../widgets/oil-operations/oil-operations.component';
-import { CdCriticalComponent } from '../../widgets/cd-critical/cd-critical.component';
 import { WidgetContainerComponent } from '../../widget-container/widget-container.component';
 import { CdMatBalanceChartCardComponent } from '../../../widgets/CD/cd-mat-balance/components/cd-mat-balance-chart-card/cd-mat-balance-chart-card.component';
 
@@ -31,7 +30,6 @@ export const WIDGETS = {
     'document-coding': DocumentCodingComponent,
     'oil-operations': OilOperationsComponent,
     workflow: WidgetContainerComponent,
-    'cd-critical': CdCriticalComponent,
     'implementation-plan': WidgetContainerComponent,
     'performance-progress-indicators': WidgetContainerComponent,
     'quality-stock': WidgetContainerComponent,
@@ -129,6 +127,7 @@ export const WIDGETS = {
     'custom-report-properties-reference': WidgetContainerComponent,
     'time-line-diagram': WidgetContainerComponent,
     'suspense-machine': WidgetContainerComponent,
+    'cd-critical': WidgetContainerComponent,
 };
 
 export const WIDGETS_LAZY = {
@@ -974,6 +973,17 @@ export const WIDGETS_LAZY = {
         minItemCols: 14,
         minItemRows: 10,
         preview: 'table-data'
+    },
+    'cd-critical': {
+        import: async () => {
+            return await import('src/app/widgets/LCO/cd-critical/cd-critical.module');
+        },
+        module: 'CdCriticalModule',
+        itemCols: 10,
+        itemRows: 10,
+        minItemCols: 10,
+        minItemRows: 10,
+        preview: 'cd-critical'
     },
     //#endregion LCO
 
