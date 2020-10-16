@@ -1,7 +1,10 @@
 import { Component, OnInit, Input, ViewChild, ElementRef, OnChanges, ChangeDetectionStrategy } from '@angular/core';
 import * as d3 from 'd3';
 import { SpaceNumber } from '@shared/pipes/number-space.pipe';
-import { IPerfProgCircle } from '../../../../../dashboard/models/SMP/performance-progress-indicators.model';
+import {
+    IPerfProgCircle,
+    IPerfProgCircleFB
+} from '../../../../../dashboard/models/SMP/performance-progress-indicators.model';
 
 @Component({
   selector: 'evj-performance-progress-circle',
@@ -188,7 +191,7 @@ export class PerformanceProgressCircleComponent implements OnInit, OnChanges {
   }
 
   draw(data, el, gaugemap, indicator): void {
-    this.config.majorTicks = this.data.days.length;
+    this.config.majorTicks = 31;
     this.gauge({
       size: 295,
       clipWidth: 300,
@@ -258,11 +261,11 @@ export class PerformanceProgressCircleComponent implements OnInit, OnChanges {
       })
       .attr('fill', (d, i) => {
         const status = this.data?.days.find(e => e.day - 1 === i)?.state;
-        if (status === 'normal') {
+        if (status === '0') {
           return 'var(--color-active)';
-        } else if (status === 'warning') {
+        } else if (status === '1') {
           return 'var(--color-warning)';
-        } else if (status === 'danger') {
+        } else if (status === '2') {
           return 'var(--color-danger)';
         } else {
           return 'var(--color-smp-blue)';

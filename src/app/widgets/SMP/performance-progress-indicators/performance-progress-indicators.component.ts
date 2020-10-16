@@ -64,7 +64,7 @@ export class PerformanceProgressIndicatorsComponent extends WidgetPlatform<unkno
                             value: circle.value,
                             icon: circle.icon,
                             piePercent: circle.prodPlanPer,
-                            gaugePercent: 100,
+                            gaugePercent: 0,
                             isCritical: !!circle.critical,
                             days: month
                         });
