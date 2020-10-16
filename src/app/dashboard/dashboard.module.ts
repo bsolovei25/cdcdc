@@ -16,7 +16,6 @@ import { PanelComponent } from './components/panel/panel.component';
 import { WidgetsGridComponent } from './components/widgets-grid/widgets-grid.component';
 import { GridsterModule } from 'angular-gridster2';
 import { UserInfoComponent } from './components/user-info/user-info.component';
-import { SuspenseMachineComponent } from './widgets/suspense-machine/suspense-machine.component';
 import { PowIndexPipe } from '@shared/pipes/pow-index.pipe';
 import { DeviationsTableComponent } from './widgets/deviations-table/deviations-table.component';
 import { ProductStocksComponent } from './widgets/product-stocks/product-stocks.component';
@@ -116,7 +115,6 @@ import { ReportServerConfiguratorModule } from '../widgets/admin/report-server-c
         PanelComponent,
         WidgetsGridComponent,
         UserInfoComponent,
-        SuspenseMachineComponent,
         PowIndexPipe,
         DeviationsTableComponent,
         ProductStocksComponent,
@@ -175,7 +173,6 @@ import { ReportServerConfiguratorModule } from '../widgets/admin/report-server-c
         TankFilterComponent
     ],
     entryComponents: [
-        SuspenseMachineComponent,
         DeviationsTableComponent,
         ProductStocksComponent,
         DeviationCircleDiagramComponent,

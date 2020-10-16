@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
-import { WidgetService } from '../../services/widget.service';
-import { WidgetPlatform } from '../../models/widget-platform';
+import { WidgetService } from '../../../dashboard/services/widget.service';
+import { WidgetPlatform } from '../../../dashboard/models/widget-platform';
 
 export interface ISuspenseMachine {
     date: Date;
@@ -26,10 +26,6 @@ export class SuspenseMachineComponent extends WidgetPlatform<unknown> implements
     data: ITableData;
     displayedColumns: { id: number; caption: string }[] = [];
 
-    public static itemCols: number = 64;
-    public static itemRows: number = 15;
-    public static minItemCols: number = 14;
-    public static minItemRows: number = 10;
 
     constructor(
         public widgetService: WidgetService,

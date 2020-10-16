@@ -1,10 +1,7 @@
-import { ManualInputComponent } from '../../../widgets/EVJ/manual-input/manual-input.component';
-import { SuspenseMachineComponent } from '../../widgets/suspense-machine/suspense-machine.component';
 import { DeviationsTableComponent } from '../../widgets/deviations-table/deviations-table.component';
 import { ProductStocksComponent } from '../../widgets/product-stocks/product-stocks.component';
 import { DeviationCircleDiagramComponent } from '../../widgets/deviation-circle-diagram/deviation-circle-diagram.component';
 import { ColumnChartStackedComponent } from '../../widgets/column-chart-stacked/column-chart-stacked.component';
-import { TimeLineDiagramComponent } from '../../../widgets/LCO/time-line-diagram/time-line-diagram.component';
 import { ReasonsDeviationsComponent } from '../../widgets/reasons-deviations/reasons-deviations.component';
 import { QualityDocsPanelComponent } from '../../widgets/quality-docs-panel/quality-docs-panel.component';
 import { DocumentCodingComponent } from '../../widgets/document-coding/document-coding.component';
@@ -20,7 +17,6 @@ export const WIDGETS = {
     'events-workspace': WidgetContainerComponent,
     'industrial-pyramid': WidgetContainerComponent,
     'unity-template': WidgetContainerComponent,
-    'table-data': SuspenseMachineComponent,
     'deviations-table': DeviationsTableComponent,
     'product-stocks': ProductStocksComponent,
     'deviation-circle-diagram': DeviationCircleDiagramComponent,
@@ -132,6 +128,7 @@ export const WIDGETS = {
     reference: WidgetContainerComponent,
     'custom-report-properties-reference': WidgetContainerComponent,
     'time-line-diagram': WidgetContainerComponent,
+    'suspense-machine': WidgetContainerComponent,
 };
 
 export const WIDGETS_LAZY = {
@@ -966,6 +963,17 @@ export const WIDGETS_LAZY = {
         minItemCols: 25,
         minItemRows: 8,
         preview: 'time-line-diagram'
+    },
+    'suspense-machine': {
+        import: async () => {
+            return await import('src/app/widgets/LCO/suspense-machine/suspense-machine.module');
+        },
+        module: 'SuspenseMachineModule',
+        itemCols: 64,
+        itemRows: 15,
+        minItemCols: 14,
+        minItemRows: 10,
+        preview: 'table-data'
     },
     //#endregion LCO
 
