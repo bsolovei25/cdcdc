@@ -38,9 +38,9 @@
     - echo "==== ng build stage  ===="
     - >
       if [ -z $CI_MERGE_REQUEST_SOURCE_BRANCH_NAME ]; 
-        then npm run-script build-dev; 
+        then npm run-script build; 
       else 
-        npm run-script build; fi
+        npm run-script build-dev; fi
   artifacts:
     paths:
       - ./dist
