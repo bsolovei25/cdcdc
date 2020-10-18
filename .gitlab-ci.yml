@@ -46,6 +46,10 @@ install_dependencies:
   script:
     - npm ci
   only:
+    refs:
+      - merge_requests
+      - develop
+      - devops
     changes:
       - package.json
 
@@ -137,6 +141,7 @@ stop-k8s-review:
   script:
     - kubectl version
     - kubectl delete ns ${NS} || true
+  dependencies: []
   when: manual
   environment:
     name: review/${CI_COMMIT_REF_SLUG}
