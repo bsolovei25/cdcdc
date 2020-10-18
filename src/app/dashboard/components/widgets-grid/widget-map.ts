@@ -4,7 +4,7 @@ import { DeviationCircleDiagramComponent } from '../../widgets/deviation-circle-
 import { ColumnChartStackedComponent } from '../../widgets/column-chart-stacked/column-chart-stacked.component';
 import { ReasonsDeviationsComponent } from '../../widgets/reasons-deviations/reasons-deviations.component';
 import { QualityDocsPanelComponent } from '../../widgets/quality-docs-panel/quality-docs-panel.component';
-import { DocumentCodingComponent } from '../../widgets/document-coding/document-coding.component';
+import { DocumentCodingComponent } from '../../../widgets/NK/document-coding/document-coding.component';
 import { WidgetContainerComponent } from '../../widget-container/widget-container.component';
 import { CdMatBalanceChartCardComponent } from '../../../widgets/CD/cd-mat-balance/components/cd-mat-balance-chart-card/cd-mat-balance-chart-card.component';
 
@@ -26,7 +26,6 @@ export const WIDGETS = {
     'production-trend': WidgetContainerComponent,
     'reasons-deviations': ReasonsDeviationsComponent,
     'quality-docs-panel': QualityDocsPanelComponent,
-    'document-coding': DocumentCodingComponent,
     workflow: WidgetContainerComponent,
     'implementation-plan': WidgetContainerComponent,
     'performance-progress-indicators': WidgetContainerComponent,
@@ -127,6 +126,7 @@ export const WIDGETS = {
     'suspense-machine': WidgetContainerComponent,
     'cd-critical': WidgetContainerComponent,
     'oil-operations': WidgetContainerComponent,
+    'document-coding': WidgetContainerComponent,
 };
 
 export const WIDGETS_LAZY = {
@@ -339,6 +339,19 @@ export const WIDGETS_LAZY = {
         minItemCols: 54,
         minItemRows: 16,
         preview: 'oil-operations'
+    },
+    'document-coding': {
+        import: async () => {
+            return await import(
+                'src/app/widgets/NK/document-coding/document-coding.module'
+                );
+        },
+        module: 'DocumentCodingComponent',
+        itemCols: 48,
+        itemRows: 15,
+        minItemCols: 36,
+        minItemRows: 12,
+        preview: 'document-coding'
     },
 
     // #endregion NK

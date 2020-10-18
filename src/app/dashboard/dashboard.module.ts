@@ -66,13 +66,7 @@ import { ReasonsDeviationsTankLevelComponent } from './widgets/reasons-deviation
 import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { QualityDocsPanelComponent } from './widgets/quality-docs-panel/quality-docs-panel.component';
 import { QualityDocsRecordComponent } from './widgets/quality-docs-panel/components/quality-docs-record/quality-docs-record.component';
-import { DocumentCodingComponent } from './widgets/document-coding/document-coding.component';
-import { DocumentCodingTableComponent } from './widgets/document-coding/components/document-coding-table/document-coding-table.component';
-import { DocumentCodingTanksComponent } from './widgets/document-coding/components/document-coding-tanks/document-coding-tanks.component';
-import { DocumentCodingMenuComponent } from './widgets/document-coding/components/document-coding-menu/document-coding-menu.component';
 import { ReportTreeComponent } from './components/report/report-tree/report-tree.component';
-import { DocumentCodingTableRecordComponent } from './widgets/document-coding/components/document-coding-table-record/document-coding-table-record.component';
-import { DocumentCodingFilterComponent } from './widgets/document-coding/components/document-coding-filter/document-coding-filter.component';
 import { TableGridComponent } from './components/table-grid/table-grid.component';
 import { ColumnGridComponent } from './components/table-grid/components/column-grid/column-grid.component';
 import { TableGridInputComponent } from './components/table-grid/components/table-grid-input/table-grid-input.component';
@@ -127,13 +121,7 @@ import { ReportServerConfiguratorModule } from '../widgets/admin/report-server-c
         ReasonsDeviationsTankLevelComponent,
         QualityDocsPanelComponent,
         QualityDocsRecordComponent,
-        DocumentCodingComponent,
-        DocumentCodingTableComponent,
-        DocumentCodingTanksComponent,
-        DocumentCodingMenuComponent,
         ReportTreeComponent,
-        DocumentCodingTableRecordComponent,
-        DocumentCodingFilterComponent,
         TableGridComponent,
         ColumnGridComponent,
         TableGridInputComponent,
@@ -159,7 +147,6 @@ import { ReportServerConfiguratorModule } from '../widgets/admin/report-server-c
         ReportsComponent,
         ReasonsDeviationsComponent,
         QualityDocsPanelComponent,
-        DocumentCodingComponent,
         ReportTreeComponent,
         PanelComponent,
     ],

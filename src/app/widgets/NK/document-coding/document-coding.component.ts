@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy, Inject } from '@angular/core';
-import { WidgetPlatform } from '../../models/@PLATFORM/widget-platform';
-import { WidgetService } from '../../services/widget.service';
-import { DocumentCodingService } from '../../services/oil-control-services/document-coding.service';
+import { WidgetPlatform } from '../../../dashboard/models/@PLATFORM/widget-platform';
+import { WidgetService } from '../../../dashboard/services/widget.service';
+import { DocumentCodingService } from '../../../dashboard/services/oil-control-services/document-coding.service';
 
 export interface IDocumentFilter {
   isFilterGroup: boolean;
@@ -15,10 +15,6 @@ export interface IDocumentFilter {
   styleUrls: ['./document-coding.component.scss']
 })
 export class DocumentCodingComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
-  public static itemCols: number = 48;
-  public static itemRows: number = 15;
-  public static minItemCols: number = 36;
-  public static minItemRows: number = 12;
 
   filter: IDocumentFilter = {
     isFilterGroup: false,
