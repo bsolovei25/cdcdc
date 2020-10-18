@@ -6,7 +6,7 @@ import {
     ISmpEvent,
     ISmpEventCard,
     ISmpEventStatusStatistics,
-} from '../../models/SMP/smp-events.model';
+} from '../../../models/SMP/smp-events.model';
 
 @Injectable({
     providedIn: 'root',
