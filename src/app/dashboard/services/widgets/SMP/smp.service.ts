@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AppConfigService } from '@core/service/app-config.service';
+import { IGetData } from '../../../models/SMP/performance-progress-indicators.model';
 
 @Injectable({
     providedIn: 'root'
@@ -28,8 +29,8 @@ export class SmpService {
             .toPromise();
     }
 
-    async getProductionProgress(): Promise<any[]> {
-        return this.http.get<any[]>(this.smpUrl + `/api/smp/getProductionProgress`, this.options)
+    async getProductionProgress(): Promise<IGetData> {
+        return this.http.get<IGetData>(this.smpUrl + `/api/smp/getProductionProgress`, this.options)
             .toPromise();
     }
 

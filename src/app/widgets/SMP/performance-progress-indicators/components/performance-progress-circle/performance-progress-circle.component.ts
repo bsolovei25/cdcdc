@@ -191,7 +191,7 @@ export class PerformanceProgressCircleComponent implements OnInit, OnChanges {
   }
 
   draw(data, el, gaugemap, indicator): void {
-    this.config.majorTicks = 31;
+    this.config.majorTicks = this.data.days.length;
     this.gauge({
       size: 295,
       clipWidth: 300,
