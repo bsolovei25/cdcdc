@@ -37,6 +37,9 @@ stages:
 install_dependencies:
   stage: prebuild
   image: registry.funcoff.club/libs/node:slim
+  tags:
+    - gl-docker-socket
+    - gl-front-docker-socket-2
   cache: 
     key: one-key-to-rule-them-all
     paths:
@@ -143,6 +146,7 @@ stop-k8s-review:
 success-pipelines:
   tags:
     - gl-docker-socket
+    - gl-front-docker-socket-2
   stage: alerting
   image:
     name: registry.funcoff.club/devops/rockethooks:latest
@@ -159,6 +163,9 @@ success-pipelines:
 
 failed-pipelines:
   stage: alerting
+  tags:
+    - gl-docker-socket
+    - gl-front-docker-socket-2
   image:
     name: registry.funcoff.club/devops/rockethooks:latest
   variables:

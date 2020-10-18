@@ -10,6 +10,7 @@ data:
         "restUrl": "https://{{ include "route" . }}",
         "fileStorage": "https://{{ include "route" . }}",
         "smotrUrl": "http://192.168.0.17:6937",
+        "smpUrl": "http://192.168.0.17:6780",
         "reconnectInterval": 5,
         "shiftFree": "not-all",
         "isDomenAuth": true,

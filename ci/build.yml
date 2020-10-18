@@ -2,6 +2,7 @@
   stage: packing
   tags:
     - gl-docker-socket
+    - gl-front-docker-socker-2
   variables:
     DOCKERHUB_URL: registry.funcoff.club
     DOCKER_REPO: evj
@@ -30,6 +31,7 @@
   #image: registry.funcoff.club/evj/front-cache:14.10.2020
   tags:
     - gl-docker-socket
+    - gl-front-docker-socker-2
   variables:
     OUTPUT_DIST: "/share/build-${CI_BUILD_ID}"
   before_script:
@@ -51,6 +53,7 @@
   stage: build
   tags:
     - gl-docker-socket
+    - gl-front-docker-socker-2
   variables:
     DOCKERFILE: "Dockerfile"
     DOCKERHUB_URL: registry.funcoff.club
