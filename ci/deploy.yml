@@ -1,7 +1,7 @@
 ---
 .deploy-to-k8s:
   tags:
-    - gl-docker-build
+    - gl-docker-socket
   variables:
     NS: "default"
     RELEASE: "default"
