@@ -15,32 +15,30 @@
       </div>
     </div>
     <div class="search" *ngIf="selectClaim.hasValue()">
-      <input type="text" placeholder="Поиск" [(ngModel)]="search" (keyup)="searchFn($event)">
+      <input type="text" placeholder="Поиск" [(ngModel)]="search">
     </div>
     <div class="list-button" *ngIf="selectClaim.hasValue()" (click)="onClickListButton()">
       {{!checkIsAllSelected() ? 'Выделить все' : 'Снять выделение'}}
     </div>
     <div class="items">
       <div class="list" *ngIf="selectClaim.hasValue()">
-        <ng-container *ngIf="itemsFilter()">
-          <div
-            class="card"
-            *ngFor="let widget of formEntitiesList()"
-            [ngClass]="{'card_active':selectWidget.isSelected(widget)}"
-            (click)="selectWidget.toggle(widget)"
-          >
-            {{widget.title}}
-          </div>
+        <ng-container *ngFor="let widget of selectClaim?.selected[0]?.widgets | searchWidget: search">
+            <div
+              class="card"
+              [ngClass]="{'card_active': widget.isActive}"
+              (click)="changeActiveWidget(widget)"
+            >
+              {{widget.title}}
+            </div>
         </ng-container>
-        <ng-container *ngIf="!itemsFilter()">
-          <div
-            class="card"
-            *ngFor="let unit of filterAllWidgets()"
-            [ngClass]="{'card_active':selectUnit.isSelected(unit)}"
-            (click)="selectUnit.toggle(unit)"
-          >
-            {{unit.name}}
-          </div>
+        <ng-container *ngFor="let unit of selectClaim?.selected[0]?.units | searchUnit: search">
+            <div
+              class="card"
+              [ngClass]="{'card_active': unit.isActive}"
+              (click)="changeActiveUnit(unit)"
+            >
+              {{unit.name}}
+            </div>
         </ng-container>
       </div>
     </div>

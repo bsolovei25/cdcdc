@@ -4,7 +4,7 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { WidgetPlatform } from '../../../dashboard/models/@PLATFORM/widget-platform';
 import { ISmpEventStatus, ISmpEventCard } from '../../../dashboard/models/SMP/smp-events.model';
 import { WidgetService } from '../../../dashboard/services/widget.service';
-import { SmpEventsService } from '../../../dashboard/services/widgets/smp-events.service';
+import { SmpEventsService } from '../../../dashboard/services/widgets/SMP/smp-events.service';
 
 @Component({
     selector: 'evj-smp-events',

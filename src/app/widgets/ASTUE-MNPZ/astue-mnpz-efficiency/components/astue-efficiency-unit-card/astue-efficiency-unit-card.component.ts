@@ -20,22 +20,12 @@ export class AstueEfficiencyUnitCardComponent implements OnChanges {
     public isClicked: boolean = false;
     public isOpen: boolean = false;
 
-    public cardSelection: SelectionModel<IAsEfFlow> = new SelectionModel<IAsEfFlow>(true);
+    @Input() cardSelection: SelectionModel<IAsEfFlow> = this.AsEfService.cardSelection;
 
     constructor(private AsEfService: AstueEfficiencyService) {
     }
 
     public ngOnChanges(): void {
-        this.cardSelection.clear();
-        const unit = this.AsEfService.isUnitSelected(this.unit);
-        if (unit) {
-            this.isClicked = true;
-            this.unit.flows.forEach((flow) => {
-                if (unit.includes(flow.name)) {
-                    this.cardSelection.select(flow);
-                }
-            });
-        }
         this.isOpen = this.AsEfService.isCardOpen(this.unit.name);
     }
 
@@ -46,21 +36,15 @@ export class AstueEfficiencyUnitCardComponent implements OnChanges {
 
     public onSelectUnit(): void {
         this.selectUnit.emit();
-        this.unit.flows.forEach(flow => {
-            this.AsEfService.cardSelection.deselect(flow);
-        });
-        this.AsEfService.selectionFlow$.next(this.AsEfService.cardSelection.selected);
     }
 
     public onSelectFlow(flow: IAsEfFlow): void {
         const isAddFlow = this.AsEfService.toggleFlow(this.unit.name, flow.name);
         if (isAddFlow) {
             this.AsEfService.cardSelection.select(flow);
-            this.cardSelection.select(flow);
             this.AsEfService.currentFlow = flow;
         } else {
             this.AsEfService.cardSelection.deselect(flow);
-            this.cardSelection.deselect(flow);
             const len = this.AsEfService.isUnitSelected(this.unit)?.length;
             if (len) {
                 const lastFlow = this.AsEfService.isUnitSelected(this.unit)[length - 1];
@@ -72,6 +56,7 @@ export class AstueEfficiencyUnitCardComponent implements OnChanges {
             }
         }
         this.AsEfService.selectionFlow$.next(this.AsEfService.cardSelection.selected);
+        this.cardSelection = this.AsEfService.cardSelection;
         this.AsEfService.selection$.next();
     }
 }

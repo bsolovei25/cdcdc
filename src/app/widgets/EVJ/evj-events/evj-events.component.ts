@@ -494,6 +494,10 @@ export class EvjEventsComponent extends WidgetPlatform<IEventsWidgetAttributes> 
             notification.iconUrl = this.getNotificationIcon(notification.category.name);
             notification.iconUrlStatus = this.getStatusIcon(notification.status.name);
             notification.statusName = this.statuses[notification.status.name]; // TODO check
+            notification?.retrievalEvents.forEach(value => {
+                value.iconUrl = this.getNotificationIcon(value.category.name);
+                value.iconUrlStatus = this.getStatusIcon(value.status.name);
+            });
         }
         this.notifications.splice(idx, 0, notification);
         this.notifications = this.notifications.slice();
@@ -518,6 +522,10 @@ export class EvjEventsComponent extends WidgetPlatform<IEventsWidgetAttributes> 
             notification.iconUrl = this.getNotificationIcon(notification.category.name);
             notification.iconUrlStatus = this.getStatusIcon(notification.status.name);
             notification.statusName = this.statuses[notification.status.name]; // TODO check
+            notification?.retrievalEvents.forEach(value => {
+                value.iconUrl = this.getNotificationIcon(value.category.name);
+                value.iconUrlStatus = this.getStatusIcon(value.status.name);
+            });
         }
         this.notifications[idx] = notification;
         this.notifications = this.notifications.slice();
@@ -539,6 +547,10 @@ export class EvjEventsComponent extends WidgetPlatform<IEventsWidgetAttributes> 
                     const iconUrl = this.getNotificationIcon(n.category.name);
                     const iconUrlStatus = this.getStatusIcon(n.status?.name);
                     const statusName = n.status?.name ? this.statuses[n.status.name] : ''; // TODO
+                    n?.retrievalEvents.forEach(value => {
+                        value.iconUrl = this.getNotificationIcon(value.category.name);
+                        value.iconUrlStatus = this.getStatusIcon(value.status.name);
+                    });
                     return { ...n, iconUrl, statusName, iconUrlStatus };
                 });
             this.notifications = this.notifications.concat(notifications);
