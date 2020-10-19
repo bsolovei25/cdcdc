@@ -2,7 +2,7 @@ import { DeviationsTableComponent } from '../../widgets/deviations-table/deviati
 import { ProductStocksComponent } from '../../widgets/product-stocks/product-stocks.component';
 import { DeviationCircleDiagramComponent } from '../../widgets/deviation-circle-diagram/deviation-circle-diagram.component';
 import { ColumnChartStackedComponent } from '../../widgets/column-chart-stacked/column-chart-stacked.component';
-import { ReasonsDeviationsComponent } from '../../widgets/reasons-deviations/reasons-deviations.component';
+import { ReasonsDeviationsComponent } from '../../../widgets/NK/reasons-deviations/reasons-deviations.component';
 import { QualityDocsPanelComponent } from '../../../widgets/NK/quality-docs-panel/quality-docs-panel.component';
 import { DocumentCodingComponent } from '../../../widgets/NK/document-coding/document-coding.component';
 import { WidgetContainerComponent } from '../../widget-container/widget-container.component';
@@ -24,7 +24,6 @@ export const WIDGETS = {
     'report-server-configurator': WidgetContainerComponent,
     'tank-calibration-table': WidgetContainerComponent,
     'production-trend': WidgetContainerComponent,
-    'reasons-deviations': ReasonsDeviationsComponent,
     workflow: WidgetContainerComponent,
     'implementation-plan': WidgetContainerComponent,
     'performance-progress-indicators': WidgetContainerComponent,
@@ -127,6 +126,7 @@ export const WIDGETS = {
     'oil-operations': WidgetContainerComponent,
     'document-coding': WidgetContainerComponent,
     'quality-docs-panel': WidgetContainerComponent,
+    'reasons-deviations': WidgetContainerComponent,
 };
 
 export const WIDGETS_LAZY = {
@@ -365,6 +365,19 @@ export const WIDGETS_LAZY = {
         minItemCols: 36,
         minItemRows: 12,
         preview: 'quality-docs-panel'
+    },
+    'reasons-deviations': {
+        import: async () => {
+            return await import(
+                'src/app/widgets/NK/reasons-deviations/reasons-deviations.module'
+                );
+        },
+        module: 'ReasonsDeviationsModule',
+        itemCols: 28,
+        itemRows: 14,
+        minItemCols: 26,
+        minItemRows: 14,
+        preview: 'reasons-deviations'
     },
 
     // #endregion NK

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { IProductionTrend } from '../../../../models/production-trends.model';
-import { IPointTank } from '../../../../../@shared/models/smart-scroll.model';
+import { IProductionTrend } from '../../../../../dashboard/models/production-trends.model';
+import { IPointTank } from '@shared/models/smart-scroll.model';
 
 @Component({
     selector: 'evj-reasons-deviations-line-chart',

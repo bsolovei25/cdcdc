@@ -57,12 +57,6 @@ import { MatIconModule } from '@angular/material/icon';
 import { TreeModule } from 'angular-tree-component';
 import { NgxMaskModule } from 'ngx-mask';
 import { DevGraphComponent } from './pages/dev-graph/dev-graph.component';
-import { ReasonsDeviationsComponent } from './widgets/reasons-deviations/reasons-deviations.component';
-import { ReasonsDeviationsLineChartComponent } from './widgets/reasons-deviations/components/reasons-deviations-line-chart/reasons-deviations-line-chart.component';
-import { ReasonsDeviationsInfoContentComponent } from './widgets/reasons-deviations/components/reasons-deviations-info-content/reasons-deviations-info-content.component';
-import { ReasonsDeviationsInfoTankComponent } from './widgets/reasons-deviations/components/reasons-deviations-info-tank/reasons-deviations-info-tank.component';
-import { ReasonsDeviationsPicTankComponent } from './widgets/reasons-deviations/components/reasons-deviations-pic-tank/reasons-deviations-pic-tank.component';
-import { ReasonsDeviationsTankLevelComponent } from './widgets/reasons-deviations/components/reasons-deviations-tank-level/reasons-deviations-tank-level.component';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { ReportTreeComponent } from './components/report/report-tree/report-tree.component';
 import { TableGridComponent } from './components/table-grid/table-grid.component';
@@ -112,12 +106,6 @@ import { DocumentCodingModule } from '../widgets/NK/document-coding/document-cod
         ReportComponent,
         ReportsComponent,
         DevGraphComponent,
-        ReasonsDeviationsComponent,
-        ReasonsDeviationsLineChartComponent,
-        ReasonsDeviationsInfoContentComponent,
-        ReasonsDeviationsInfoTankComponent,
-        ReasonsDeviationsPicTankComponent,
-        ReasonsDeviationsTankLevelComponent,
         ReportTreeComponent,
         TableGridComponent,
         ColumnGridComponent,
@@ -142,7 +130,6 @@ import { DocumentCodingModule } from '../widgets/NK/document-coding/document-cod
         ColumnChartStackedComponent,
         ReportComponent,
         ReportsComponent,
-        ReasonsDeviationsComponent,
         ReportTreeComponent,
         PanelComponent,
     ],

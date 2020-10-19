@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
-import { WidgetPlatform } from '../../models/@PLATFORM/widget-platform';
-import { WidgetService } from '../../services/widget.service';
+import { WidgetPlatform } from '../../../dashboard/models/@PLATFORM/widget-platform';
+import { WidgetService } from '../../../dashboard/services/widget.service';
 
 @Component({
   selector: 'evj-reasons-deviations',
@@ -8,11 +8,6 @@ import { WidgetService } from '../../services/widget.service';
   styleUrls: ['./reasons-deviations.component.scss']
 })
 export class ReasonsDeviationsComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
-
-  public static itemCols: number = 28;
-  public static itemRows: number = 14;
-  public static minItemCols: number = 26;
-  public static minItemRows: number = 14;
 
   constructor(
     public widgetService: WidgetService,
