@@ -23,6 +23,7 @@ export class PerformanceProgressCircleComponent implements OnInit, OnChanges {
 
   public criticalValue: number = 64; /// временные константы
   public indicator: number;
+  public daysInMonth: number = 31;
 
   public svg;
   public r;
@@ -191,7 +192,7 @@ export class PerformanceProgressCircleComponent implements OnInit, OnChanges {
   }
 
   draw(data, el, gaugemap, indicator): void {
-    this.config.majorTicks = this.data.days.length;
+    this.config.majorTicks = this.daysInMonth;
     this.gauge({
       size: 295,
       clipWidth: 300,

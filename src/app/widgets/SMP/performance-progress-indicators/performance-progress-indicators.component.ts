@@ -6,8 +6,8 @@ import {
     IPerfCircleDay,
     IPerfProgCircle,
     IPerfProgPark,
-    IProgressIndicators,
-} from '../../../dashboard/models/SMP/performance-progress-indicators.model';
+    IProgressIndicators
+} from 'src/app/dashboard/models/SMP/performance-progress-indicators.model';
 import { SmpService } from '../../../dashboard/services/widgets/SMP/smp.service';
 
 
@@ -21,8 +21,8 @@ export class PerformanceProgressIndicatorsComponent extends WidgetPlatform<unkno
     public progressIndicators: IProgressIndicators;
 
     constructor(
-        protected widgetService: WidgetService,
         private smpService: SmpService,
+        protected widgetService: WidgetService,
         @Inject('isMock') public isMock: boolean,
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string

@@ -28,120 +28,68 @@
             "critical": 0
           },
           {
-            "day": 1,
+            "day": 2,
             "critical": 1
           },
           {
-            "day": 1,
+            "day": 3,
             "critical": 0
           },
           {
-            "day": 1,
+            "day": 4,
             "critical": 2
           },
           {
-            "day": 1,
+            "day": 5,
             "critical": 2
           },
           {
-            "day": 1,
+            "day": 6,
             "critical": 2
           },
           {
-            "day": 1,
+            "day": 7,
             "critical": 2
           },
           {
-            "day": 1,
+            "day": 8,
             "critical": 2
           },
           {
-            "day": 1,
+            "day": 9,
             "critical": 0
           },
           {
-            "day": 1,
+            "day": 10,
             "critical": 2
           },
           {
-            "day": 1,
+            "day": 11,
             "critical": 0
           },
           {
-            "day": 1,
+            "day": 12,
             "critical": 2
           },
           {
-            "day": 1,
+            "day": 13,
             "critical": 2
           },
           {
-            "day": 1,
+            "day": 14,
             "critical": 2
           },
           {
-            "day": 1,
+            "day": 15,
             "critical": 0
           },
           {
-            "day": 1,
+            "day": 16,
             "critical": 1
           },
           {
-            "day": 1,
+            "day": 17,
             "critical": 2
-          },
-          {
-            "day": 1,
-            "critical": 0
-          },
-          {
-            "day": 1,
-            "critical": 2
-          },
-          {
-            "day": 1,
-            "critical": 2
-          },
-          {
-            "day": 1,
-            "critical": 1
-          },
-          {
-            "day": 1,
-            "critical": 0
-          },
-          {
-            "day": 1,
-            "critical": 1
-          },
-          {
-            "day": 1,
-            "critical": 2
-          },
-          {
-            "day": 1,
-            "critical": 2
-          },
-          {
-            "day": 1,
-            "critical": 2
-          },
-          {
-            "day": 1,
-            "critical": 2
-          },
-          {
-            "day": 1,
-            "critical": 2
-          },
-          {
-            "day": 1,
-            "critical": 2
-          },
-          {
-            "day": 1,
-            "critical": 0
           }
         ]
       },
