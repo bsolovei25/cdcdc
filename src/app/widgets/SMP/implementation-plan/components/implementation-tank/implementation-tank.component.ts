@@ -14,8 +14,8 @@ export class ImplementationTankComponent implements OnInit {
     this.title = data.title;
   }
 
-  planTankLevel: number;
-  factTankLevel: number;
+  planTankLevel: number = 0;
+  factTankLevel: number = 0;
   title: string;
 
   constructor() { }
