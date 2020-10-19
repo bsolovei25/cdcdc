@@ -1,0 +1,40 @@
+<div style="height: 100%; width: 100%;" *ngIf="!isMock">
+  <evj-widget-header
+    [title]="widgetTitle"
+    [units]="widgetUnits"
+    [code]="widgetCode"
+    [id]="widgetId"
+    [uniqId]="widgetUniqId"
+  ></evj-widget-header>
+  <div class="container_widget">
+    <evj-frame-top></evj-frame-top>
+    <div
+      class="content_block"
+      (mousedown)="$event.stopPropagation()"
+      (touchstart)="$event.stopPropagation()"
+    >
+      <evj-loading-shade [isLoading]="petroleumService.isLoad$ | async"></evj-loading-shade>
+      <evj-alert-window [info]="petroleumService.alertWindow$ | async"></evj-alert-window>
+      <div class="blocks">
+        <div class="components">
+          <div class="left_block">
+            <evj-petroleum-reference-left
+              [typeScreen]="typeScreen"
+              [titlePark]="this.petroleumService.client"
+            >
+            </evj-petroleum-reference-left>
+          </div>
+          <div class="middle_block">
+            <evj-petroleum-reference [typeScreen]="typeScreen"></evj-petroleum-reference>
+          </div>
+          <div class="right_block">
+            <evj-petroleum-reference-right
+              [typeScreen]="typeScreen"
+            ></evj-petroleum-reference-right>
+          </div>
+        </div>
+      </div>
+    </div>
+    <evj-frame-bottom></evj-frame-bottom>
+  </div>
+</div>

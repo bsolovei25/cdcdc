@@ -1,5 +1,5 @@
+import { IImplementationPlan } from './../../../../../dashboard/models/SMP/implementation-plan.model';
 import { Component, OnInit, Input } from '@angular/core';
-import { IImplementationPlan } from '../../implementation-plan.component';
 
 @Component({
   selector: 'evj-implementations',

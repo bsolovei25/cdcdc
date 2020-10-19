@@ -1,0 +1,39 @@
+<ng-container>
+    <div class="container">
+        <evj-widget-header [title]="widgetTitle" [units]="widgetUnits" [code]="widgetCode" [id]="widgetId"
+            [uniqId]="widgetUniqId" [widgetType]="widgetType" [icon]="widgetIcon"></evj-widget-header>
+        <evj-frame-top></evj-frame-top>
+        <div class="body-container" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
+            <evj-alert-window [info]="oilService.alertWindow$ | async"></evj-alert-window>
+            <div class="block block_top">
+                <div class='left-side'>
+                    <evj-document-coding-table (filterGroup)="openFilter($event, 'isFilterGroup')"
+                        (filterProduct)="openFilter($event, 'isFilterProduct')"
+                        [isFilterProduct]="filter.isFilterProduct" [isFilterGroup]="filter.isFilterGroup">
+                    </evj-document-coding-table>
+                </div>
+                <div class='right-side'>
+                    <evj-document-coding-tanks (filterTanks)="openFilter($event, 'isFilterTanks')"
+                        [isFilterTanks]="filter.isFilterTanks">
+                    </evj-document-coding-tanks>
+                </div>
+            </div>
+            <div class="block block_bottom">
+                <evj-document-coding-menu></evj-document-coding-menu>
+            </div>
+            <div *ngIf="filter.isFilterGroup" class="filterGroup">
+                <evj-document-coding-filter title="Лаборатория" (close)="closeFilter($event)">
+                </evj-document-coding-filter>
+            </div>
+
+            <div *ngIf="filter.isFilterProduct" class="filterProduct">
+                <evj-document-coding-filter title="Продукты" (close)="closeFilter($event)"></evj-document-coding-filter>
+            </div>
+
+            <div *ngIf="filter.isFilterTanks" class="filterTanks">
+                <evj-tank-filter (close)="closeFilter($event)"></evj-tank-filter>
+            </div>
+        </div>
+        <evj-frame-bottom></evj-frame-bottom>
+    </div>
+</ng-container>
