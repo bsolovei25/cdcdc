@@ -34,7 +34,7 @@ export class CdEventCardComponent implements OnInit {
         this.cardClick.emit(id);
     }
 
-    public deleteClick(id: number): void {
+    public deleteClick(event: MouseEvent, id: number): void {
         this.cardDeleteClick.emit(id);
     }
 

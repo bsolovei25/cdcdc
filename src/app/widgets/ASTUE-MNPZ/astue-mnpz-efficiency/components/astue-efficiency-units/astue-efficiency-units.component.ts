@@ -1,6 +1,9 @@
 import { Component, Input, OnChanges } from '@angular/core';
 import { SelectionModel } from '@angular/cdk/collections';
-import { IAsEfUnitNew } from '../../../../../dashboard/models/ASTUE/astue-efficiency.model';
+import {
+    IAsEfFlow,
+    IAsEfUnitNew
+} from '../../../../../dashboard/models/ASTUE/astue-efficiency.model';
 import { AstueEfficiencyService } from '../../../../../dashboard/services/ASTUE/astue-efficiency.service';
 
 @Component({
@@ -14,6 +17,7 @@ export class AstueEfficiencyUnitsComponent implements OnChanges {
 
     public isClicked: boolean = false;
     public unitSelection: SelectionModel<IAsEfUnitNew> = new SelectionModel<IAsEfUnitNew>(true);
+    public cardSelection: SelectionModel<IAsEfFlow> = new SelectionModel<IAsEfFlow>(true);
 
     constructor(private AsEfService: AstueEfficiencyService) {
     }
@@ -25,24 +29,29 @@ export class AstueEfficiencyUnitsComponent implements OnChanges {
                 this.unitSelection.select(unit);
             }
         });
-        // const flows = this.AsEfService.selectionFlow$.getValue();
-        // this.AsEfService.selectionFlow$.next([]);
-        // this.units?.forEach((unit) => {
-        //     unit?.flows.forEach(flow => {
-        //         flows?.map(flowsS => {
-        //             if (flow.name === flowsS.name) {
-        //                 return flow;
-        //             }
-        //             return flowsS;
-        //         });
-        //     });
-        // });
-        // this.AsEfService.selectionFlow$.next([]);
-        // this.AsEfService.selectionFlow$.next(flows);
+        let flows = this.AsEfService.selectionFlow$.getValue();
+        this.units?.forEach((unit) => {
+            unit?.flows.forEach(flow => {
+                flows = flows?.map(flowsS => ((flow?.id === flowsS?.id) ? flow : flowsS));
+            });
+        });
+        if (flows) {
+            this.AsEfService.cardSelection.clear();
+            this.AsEfService.cardSelection.select(...flows);
+            this.cardSelection = this.AsEfService.cardSelection;
+            this.AsEfService.selectionFlow$.next(flows);
+        }
     }
 
     public onSelectUnit(unit: IAsEfUnitNew): void {
         this.unitSelection.toggle(unit);
+        if (!this.unitSelection.isSelected(unit)) {
+            unit.flows.forEach(flow => {
+                this.AsEfService.cardSelection.deselect(flow);
+                this.cardSelection = this.AsEfService.cardSelection;
+            });
+            this.AsEfService.selectionFlow$.next(this.AsEfService.cardSelection.selected);
+        }
         this.AsEfService.selectionUnit$.next(this.unitSelection.selected);
         this.AsEfService.toggleUnit(unit.name);
         this.AsEfService.currentUnit = unit;

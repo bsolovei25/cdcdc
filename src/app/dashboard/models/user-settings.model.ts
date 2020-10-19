@@ -53,6 +53,8 @@ export type ClaimType =
     | 'screenWidgetDel'
     | 'screensWidgetDel'
     | 'reportsView'
+    | 'eventsDelete'
+    | 'eventsChangeCategory'
     | string;
 
 export type ClaimCategory = 'allow' | 'deny';

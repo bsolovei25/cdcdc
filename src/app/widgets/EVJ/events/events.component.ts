@@ -1,4 +1,12 @@
-import { Component, OnDestroy, OnInit, Inject, ViewChild, HostListener, ElementRef } from '@angular/core';
+import {
+    Component,
+    OnDestroy,
+    OnInit,
+    Inject,
+    ViewChild,
+    HostListener,
+    ElementRef
+} from '@angular/core';
 import {
     EventsWidgetCategory,
     EventsWidgetCategoryCode, IEventsWidgetAttributes,
@@ -20,7 +28,11 @@ import { EventsWorkspaceService } from '../../../dashboard/services/widgets/even
 import { IAlertWindowModel } from '@shared/models/alert-window.model';
 import { BehaviorSubject } from 'rxjs';
 import { WidgetSettingsService } from '../../../dashboard/services/widget-settings.service';
-import { ClaimService, EnumClaimWidgets } from '../../../dashboard/services/claim.service';
+import {
+    ClaimService,
+    EnumClaimGlobal,
+    EnumClaimWidgets
+} from '../../../dashboard/services/claim.service';
 
 export interface IEventSettings {
     viewType: 'list' | 'cards';
@@ -246,6 +258,11 @@ export class EventsComponent extends WidgetPlatform<IEventsWidgetAttributes> imp
 
     private readonly defaultIconPath: string = 'assets/icons/widgets/events/smotr.svg';
 
+    get isClaimDelete(): boolean {
+        return this.claimService.claimGlobal$?.value
+            ?.some((x) => x === EnumClaimGlobal.EventsDelete);
+    }
+
     constructor(
         private eventService: EventService,
         private ewService: EventsWorkspaceService,
@@ -444,6 +461,10 @@ export class EventsComponent extends WidgetPlatform<IEventsWidgetAttributes> imp
             notification.iconUrl = this.getNotificationIcon(notification.category.name);
             notification.iconUrlStatus = this.getStatusIcon(notification.status.name);
             notification.statusName = this.statuses[notification.status.name]; // TODO add default
+            notification?.retrievalEvents.forEach(value => {
+                value.iconUrl = this.getNotificationIcon(value.category.name);
+                value.iconUrlStatus = this.getStatusIcon(value.status.name);
+            });
         }
         this.notifications.splice(idx, 0, notification);
         this.notifications = this.notifications.slice();
@@ -468,6 +489,10 @@ export class EventsComponent extends WidgetPlatform<IEventsWidgetAttributes> imp
             notification.iconUrl = this.getNotificationIcon(notification.category.name);
             notification.iconUrlStatus = this.getStatusIcon(notification.status.name);
             notification.statusName = this.statuses[notification.status.name]; // TODO check
+            notification?.retrievalEvents.forEach(value => {
+                value.iconUrl = this.getNotificationIcon(value.category.name);
+                value.iconUrlStatus = this.getStatusIcon(value.status.name);
+            });
         }
         this.notifications[idx] = notification;
         this.notifications = this.notifications.slice();
@@ -489,6 +514,10 @@ export class EventsComponent extends WidgetPlatform<IEventsWidgetAttributes> imp
                     const iconUrl = this.getNotificationIcon(n.category.name);
                     const iconUrlStatus = this.getStatusIcon(n.status?.name);
                     const statusName = n.status?.name ? this.statuses[n.status.name] : ''; // TODO
+                    n?.retrievalEvents.forEach(value => {
+                        value.iconUrl = this.getNotificationIcon(value.category.name);
+                        value.iconUrlStatus = this.getStatusIcon(value.status.name);
+                    });
                     return { ...n, iconUrl, statusName, iconUrlStatus };
                 });
             this.notifications = this.notifications.concat(notifications);
@@ -528,6 +557,10 @@ export class EventsComponent extends WidgetPlatform<IEventsWidgetAttributes> imp
     }
 
     public deleteClick(id: number): void {
+        if (!this.isClaimDelete) {
+            this.snackBarService.openSnackBar(`У вас недостаточно прав для удаления событий`, 'snackbar-red');
+            return;
+        }
         const info: IAlertWindowModel = {
             isShow: true,
             questionText: 'Вы уверены что хотите удалить событие?',
@@ -562,7 +595,7 @@ export class EventsComponent extends WidgetPlatform<IEventsWidgetAttributes> imp
         window.open(url);
     }
 
-    public async scrollHandler(event: {target: {offsetHeight: number, scrollTop: number, scrollHeight: number}}): Promise<void> {
+    public async scrollHandler(event: { target: { offsetHeight: number, scrollTop: number, scrollHeight: number } }): Promise<void> {
         if (
             event.target.offsetHeight + event.target.scrollTop + 100 >= event.target.scrollHeight
             && this.notifications.length

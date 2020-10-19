@@ -1,24 +1,25 @@
 import { Injectable } from '@angular/core';
 import {
+    EventsWidgetCategoryCode,
+    EventsWidgetNotificationPriority,
+    EventsWidgetNotificationStatus,
+    IAsusCategories,
+    IAsusEOService,
+    IAsusService,
+    IAsusTmPlace,
+    IAsusTpPlace,
+    IAsusWorkgroup,
+    ICategory,
     IEventsWidgetNotification,
     IPriority,
-    IStatus,
-    IUser,
-    ICategory,
-    IUnitEvents,
-    EventsWidgetNotificationStatus,
-    EventsWidgetNotificationPriority,
-    EventsWidgetCategoryCode,
-    IAsusService,
-    IAsusEOService,
-    IAsusWorkgroup,
-    IAsusCategories,
-    ISmotrReference,
-    ISaveMethodEvent,
     IRetrievalEventDto,
+    ISaveMethodEvent,
     ISearchRetrievalWindow,
-    IAsusTpPlace,
-    IAsusTmPlace, ISubcategory
+    ISmotrReference,
+    IStatus,
+    ISubcategory,
+    IUnitEvents,
+    IUser
 } from '../../models/events-widget';
 import { EventService } from './event.service';
 import { SnackBarService } from '../snack-bar.service';
@@ -31,6 +32,7 @@ import { error } from '@angular/compiler/src/util';
 import { IMessage, IMessageFileAttachment } from '@shared/models/message.model';
 import { FileAttachMenuService } from '../file-attach-menu.service';
 import { IChatMessageWithAttachments } from '../../../widgets/EVJ/events-workspace/components/chat/chat.component';
+import { ClaimService, EnumClaimGlobal } from '../claim.service';
 
 @Injectable({
     providedIn: 'root'
@@ -81,7 +83,6 @@ export class EventsWorkspaceService {
                 if (this.isCreateNewEvent) {
                     switch (cat.name) {
                         case 'smotr':
-                        case 'ejs':
                             return false;
                         default:
                             return true;
@@ -138,11 +139,17 @@ export class EventsWorkspaceService {
     public searchWindow$: BehaviorSubject<ISearchRetrievalWindow> = new BehaviorSubject<ISearchRetrievalWindow>(null);
     public ewAlertInfo$: BehaviorSubject<IAlertWindowModel> = new BehaviorSubject<IAlertWindowModel>(null);
 
+    get isCategoryEdit(): boolean {
+        return this.isCreateNewEvent
+            || this.claimService.claimGlobal$.value.some((x) => x === EnumClaimGlobal.EventsChangeCategory);
+    }
+
     constructor(
         private eventService: EventService,
         private snackBarService: SnackBarService,
         private avatarConfiguratorService: AvatarConfiguratorService,
-        private fileAttachMenuService: FileAttachMenuService
+        private fileAttachMenuService: FileAttachMenuService,
+        private claimService: ClaimService
     ) {
     }
 
@@ -490,8 +497,9 @@ export class EventsWorkspaceService {
                 tmPlace: null
             },
             productionTasks: {
-                subCategory: null,
-            }
+                subCategory: null
+            },
+            eventEndDateTime: null
         };
     }
 

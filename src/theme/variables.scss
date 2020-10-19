@@ -281,6 +281,8 @@
   --nk-color-innage-axis: #E8E6DD;
   --nk-color-scroll-thumb: #272b35;
   --nk-color-bg-innage-min: #0C5395;
+  --nk-color-bg-lvl-last: #00549D;
+  --nk-color-white: #ffffff;
 
   // new
   --color-gray80: #272a38;
@@ -484,7 +486,9 @@
   --color-event-card-gradient: #222633;
   --color-event-card-gradient-danger: rgba(235, 87, 87, 0.2329306722689075);
   --color-event-card-gradient-warning: rgba(255, 140, 0, 0.29735644257703087);
+  --color-event-card-font-sub: #8C99B2;
   --evj-events-preview: rgba(39, 42, 56, 0.5);
+
 }
 
 $--color-active: #3fa9f5;
