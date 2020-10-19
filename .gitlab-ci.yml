@@ -75,8 +75,10 @@ docker-packing:
     SERVICE_NAME: "front"
   after_script:
     - env
+    - echo $DOCKER_BASE_NAME
+    - echo $CI_COMMIT_REF_SLUG
     - > 
-      if [ $CI_COMMIT_REF_SLUG == "master-tst" ]; then
+      if [[ $CI_COMMIT_REF_SLUG == "master-tst" ]]; then
       echo $DOCKER_BASE_NAME
       docker tag ${DOCKER_MR_IMG} ${DOCKER_BASE_NAME}:$CI_COMMIT_REF_SLUG
       docker push ${DOCKER_BASE_NAME}:${CI_COMMIT_REF_SLUG}
