@@ -50,6 +50,7 @@ install_dependencies:
       - merge_requests
       - develop
       - devops
+      - master-tst
     changes:
       - package.json
 
@@ -66,15 +67,25 @@ ng-build:
     - merge_requests
     - develop
     - devops
+    - master-tst
 
-docker-packing-tst:
+docker-packing:
   extends: .packing
   variables:
     SERVICE_NAME: "front"
+  after_script:
+    - env
+    - > 
+      if [ $CI_COMMIT_REF_SLUG == "master-tst" ]; then
+      echo $DOCKER_BASE_NAME
+      docker tag ${DOCKER_MR_IMG} ${DOCKER_BASE_NAME}:$CI_COMMIT_REF_SLUG
+      docker push ${DOCKER_BASE_NAME}:${CI_COMMIT_REF_SLUG}
+      fi
   only:
     - merge_requests
     - devops
     - develop
+    - master-tst
 
 deploy-front:
   extends: .deploy-to-k8s
@@ -93,6 +104,7 @@ deploy-front:
     - devops
     - develop
     - master
+    - master-tst
 
 deliver-to-deploy:
   extends: .packing 
@@ -163,6 +175,7 @@ success-pipelines:
   only:
     - develop
     - devops
+    - master-tst
 
 failed-pipelines:
   stage: alerting
@@ -178,6 +191,10 @@ failed-pipelines:
   script:
     - python $HOOKS failed
   when: on_failure
+  only:
+    - develop
+    - devops
+    - master-tst
 
 export to zyfra:
   extends: .deploy-to-zyfra
@@ -189,6 +206,8 @@ export to zyfra:
     - devops-zyfra
     - devops
     - develop
+    - master-tst
+
 
 .docker build:
     <<: *init
@@ -310,7 +329,7 @@ export to zyfra:
     stage: release
     script:
         - env
-        - cd ./release_notes
+        - cd ./ci/release_notes
         - python3 release-notes.py
         - bash upload_release.sh
     only:
