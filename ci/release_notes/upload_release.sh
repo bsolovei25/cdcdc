@@ -28,16 +28,16 @@ while read -r line; do
 done < "${DESCRIPTION_FILE_PATH}"
 
 echo $DESCRIPTION
-curl --request POST\
-     --header 'Content-Type: application/json'\
-     --header "Private-Token: ${GITLAB_TOKEN}"\
-     --data-binary "{\"name\": \"${RELEASE_NAME//\"/}\", \"tag_name\": \"${TAGNAME_BACK//\"/}\", \"description\": \"${DESCRIPTION}\"}"\
-     "https://${GITLAB_HOST}/api/v4/projects/26/releases"
-
-# the same for another project
-#echo $DESCRIPTION
-curl --request POST\
-     --header 'Content-Type: application/json'\
-     --header "Private-Token: ${GITLAB_TOKEN}"\
-     --data-binary "{\"name\": \"${RELEASE_NAME//\"/}\", \"tag_name\": \"${TAGNAME_FRONT//\"/}\", \"description\": \"${DESCRIPTION}\"}"\
-     "https://${GITLAB_HOST}/api/v4/projects/25/releases"
+# curl --request POST\
+#      --header 'Content-Type: application/json'\
+#      --header "Private-Token: ${GITLAB_TOKEN}"\
+#      --data-binary "{\"name\": \"${RELEASE_NAME//\"/}\", \"tag_name\": \"${TAGNAME_BACK//\"/}\", \"description\": \"${DESCRIPTION}\"}"\
+#      "https://${GITLAB_HOST}/api/v4/projects/26/releases"
+#
+# # the same for another project
+# #echo $DESCRIPTION
+# curl --request POST\
+#      --header 'Content-Type: application/json'\
+#      --header "Private-Token: ${GITLAB_TOKEN}"\
+#      --data-binary "{\"name\": \"${RELEASE_NAME//\"/}\", \"tag_name\": \"${TAGNAME_FRONT//\"/}\", \"description\": \"${DESCRIPTION}\"}"\
+#      "https://${GITLAB_HOST}/api/v4/projects/25/releases"

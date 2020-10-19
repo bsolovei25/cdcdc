@@ -50,7 +50,7 @@ install_dependencies:
       - merge_requests
       - develop
       - devops
-      - master-tst
+      - master
     changes:
       - package.json
 
@@ -67,7 +67,7 @@ ng-build:
     - merge_requests
     - develop
     - devops
-    - master-tst
+    - master
 
 docker-packing:
   extends: .packing
@@ -85,7 +85,7 @@ docker-packing:
     - merge_requests
     - devops
     - develop
-    - master-tst
+    - master
 
 deploy-front:
   extends: .deploy-to-k8s
@@ -104,7 +104,6 @@ deploy-front:
     - devops
     - develop
     - master
-    - master-tst
 
 deliver-to-deploy:
   extends: .packing 
@@ -175,7 +174,7 @@ success-pipelines:
   only:
     - develop
     - devops
-    - master-tst
+    - master
 
 failed-pipelines:
   stage: alerting
@@ -194,7 +193,7 @@ failed-pipelines:
   only:
     - develop
     - devops
-    - master-tst
+    - master
 
 export to zyfra:
   extends: .deploy-to-zyfra
@@ -206,8 +205,12 @@ export to zyfra:
     - devops-zyfra
     - devops
     - develop
-    - master-tst
+    - master
 
+.release-notes-maker:
+  extends: .release-notes
+  when:
+      manual
 
 .docker build:
     <<: *init

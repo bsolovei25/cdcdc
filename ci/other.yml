@@ -1,0 +1,18 @@
+---
+.release-notes:
+  tags:
+    - gl-docker-socket
+  image:
+    name: registry.funcoff.club/devops/release-notes:latest
+  variables:
+    RELEASE_NOTE_PATH: "/app/"
+  stage: aux
+  before_script:
+    - mkdir -p $HOME/.docker && echo "${DOCKER_AUTH_CONFIG}" > $HOME/.docker/config.json && chmod 600 $HOME/.docker/config.json
+  script:
+    - cd $RELEASE_NOTE_PATH;
+    - python release-notes.py
+    - bash upload_release.sh
+  only:
+    - master
+    - devops
