@@ -2,6 +2,7 @@
 include:
   - ci/build.yml
   - ci/deploy.yml
+  - ci/other.yml
 
 variables:
   GIT_DEPTH: 8
