@@ -1,0 +1,24 @@
+# base image
+FROM node:lts-buster as base
+
+WORKDIR /app
+
+# add '/app/node_moudles/.bin' to $PATH
+ENV PATH /app/node_modules/.bin:$PATH
+
+# install and cache app dependencies
+COPY ./package.json /app/package.json
+RUN npm install
+
+# build image
+FROM node:lts-buster as build
+WORKDIR /app
+COPY --from=base /app ./
+ADD src ./src/
+COPY angular.json karma.conf.js tsconfig.app.json tsconfig.json tslint.json tsconfig.spec.json  ./
+COPY ./config.json ./src/assets/config.json
+COPY ./package2.json ./package.json
+EXPOSE 4200
+CMD npm run-script start-dev
+
+
