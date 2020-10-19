@@ -57,8 +57,9 @@ export class PerformanceProgressIndicatorsComponent extends WidgetPlatform<unkno
             factLevel: value.data.statePark.freeRest
         };
         const newCircles: IPerfProgCircle[] = [];
-        const month: IPerfCircleDay[] = [];
+        let month: IPerfCircleDay[] = [];
         value.data.circle.forEach((circle) => {
+            month = [];
             circle.days.forEach((d) => {
                 month.push({
                     day: d.day,
