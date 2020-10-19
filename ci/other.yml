@@ -6,9 +6,9 @@
     name: registry.funcoff.club/devops/release-notes:latest
   variables:
     RELEASE_NOTE_PATH: "/app/"
+    GIT_STRATEGY: none
+  dependencies: []
   stage: release
-  before_script:
-    - mkdir -p $HOME/.docker && echo "${DOCKER_AUTH_CONFIG}" > $HOME/.docker/config.json && chmod 600 $HOME/.docker/config.json
   script:
     - cd $RELEASE_NOTE_PATH;
     - python release-notes.py
@@ -16,3 +16,21 @@
   only:
     - master
     - devops
+      
+.alerting-template:
+  tags:
+    - gl-docker-socket
+  stage: alerting
+  image:
+    name: registry.funcoff.club/devops/rockethooks:latest
+  variables:
+    DEPLOY_DOMAIN: deploy.funcoff.club
+    GIT_STRATEGY: none
+    HOOKS: "/app/rockethooks.py"
+  dependencies: []
+  script:
+    - python $HOOKS
+  only:
+    - develop
+    - devops
+    - master

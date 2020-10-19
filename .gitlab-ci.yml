@@ -75,12 +75,13 @@ docker-packing:
   variables:
     SERVICE_NAME: "front"
   after_script:
-    - echo $DOCKER_BASE_NAME
-    - echo $CI_COMMIT_REF_SLUG
+    - echo "========= additional tagging for master branch ========"
     - > 
-      if [[ $CI_COMMIT_REF_SLUG == "master-tst" ]]; then
+      if [[ $CI_COMMIT_REF_SLUG == "master" ]]; then
       docker tag ${DOCKER_BASE_NAME}:latest ${DOCKER_BASE_NAME}:$CI_COMMIT_REF_SLUG ;
+      docker tag ${DOCKER_BASE_NAME}:latest ${DOCKER_BASE_NAME}:$CI_COMMIT_REF_SLUG-${CI_COMMIT_SHORT_SHA} ;
       docker push ${DOCKER_BASE_NAME}:${CI_COMMIT_REF_SLUG}; 
+      docker push ${DOCKER_BASE_NAME}:${CI_COMMIT_REF_SLUG}-${CI_COMMIT_SHORT_SHA}; 
       fi
   only:
     - merge_requests
@@ -160,16 +161,7 @@ stop-k8s-review:
     action: stop
       
 success-pipelines:
-  tags:
-    - gl-docker-socket
-  stage: alerting
-  image:
-    name: registry.funcoff.club/devops/rockethooks:latest
-  variables:
-    DEPLOY_DOMAIN: deploy.funcoff.club
-    GIT_STRATEGY: none
-    HOOKS: "/app/rockethooks.py"
-  dependencies: []
+  extends: .alerting-template
   script:
     - python $HOOKS
   only:
@@ -178,16 +170,7 @@ success-pipelines:
     - master
 
 failed-pipelines:
-  stage: alerting
-  tags:
-    - gl-docker-socket
-  image:
-    name: registry.funcoff.club/devops/rockethooks:latest
-  variables:
-    DEPLOY_DOMAIN: deploy.funcoff.club
-    GIT_STRATEGY: none
-    HOOKS: "/app/rockethooks.py"
-  dependencies: []
+  extends: .alerting-template
   script:
     - python $HOOKS failed
   when: on_failure
