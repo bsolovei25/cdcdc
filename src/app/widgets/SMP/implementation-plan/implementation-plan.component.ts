@@ -28,8 +28,8 @@ export class ImplementationPlanComponent extends WidgetPlatform<unknown> impleme
     super.widgetInit();
 
     this.http.get('assets/mock/SMP/implementation-plan/implementation-plan.mock.json')
-      .subscribe((data: IImplementationPlan[]) => {
-        this.data = data;
+      .subscribe((data: {data: IImplementationPlan[]}) => {
+        this.data = data.data;
     });
   }
 
