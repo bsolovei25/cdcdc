@@ -115,14 +115,14 @@ deliver-to-deploy:
   variables:
     DEPLOY_DOMAIN: deploy.funcoff.club
     GIT_STRATEGY: none
-    DEPLOY_PATH: "/var/www/angular.local/public"
+    DEPLOY_PATH: "/var/www/angular-staging.local/public"
     CMD_REPLACE: sed -i -E "s/(<title>Evj)(<\/title>)/\1 | ${CI_COMMIT_SHORT_SHA} \2/g" /var/www/angular.local/public/index.html
   script:
     - ssh root@${DEPLOY_DOMAIN} rm -rf $DEPLOY_PATH
     - mv ./dist/evj public
     - scp -r ./public root@${DEPLOY_DOMAIN}:${DEPLOY_PATH//\/public}
     - ssh root@${DEPLOY_DOMAIN} $CMD_REPLACE
-      #- ssh root@${DEPLOY_DOMAIN} nginx -s reload
+    - ssh root@${DEPLOY_DOMAIN} nginx -s reload
   only:
     - develop
     - devops

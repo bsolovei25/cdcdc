@@ -1,3 +1,0 @@
-python_gitlab==1.14.0
-Jinja2==2.10.3
-gitlab==1.0.2
