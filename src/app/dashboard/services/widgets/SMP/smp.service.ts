@@ -1,3 +1,4 @@
+import { IAllCrude } from './../../../models/SMP/implementation-plan.model';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AppConfigService } from '@core/service/app-config.service';
@@ -33,8 +34,8 @@ export class SmpService {
             .toPromise();
     }
 
-    async getAllCrude(): Promise<any[]> {
-        return this.http.get<any[]>(this.smpUrl + `/api/smp/getAllCrude`, this.options)
+    async getAllCrude(): Promise<IAllCrude> {
+        return this.http.get<IAllCrude>(this.smpUrl + `/api/smp/getAllCrude`, this.options)
             .toPromise();
     }
 

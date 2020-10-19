@@ -1,4 +1,5 @@
-import { IImplementationPlan } from './../../../dashboard/models/SMP/implementation-plan.model';
+import { SmpService } from './../../../dashboard/services/widgets/SMP/smp.service';
+import { IImplementationPlan, IAllCrude } from './../../../dashboard/models/SMP/implementation-plan.model';
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit, OnDestroy, Inject } from '@angular/core';
 import { WidgetPlatform } from 'src/app/dashboard/models/@PLATFORM/widget-platform';
@@ -17,6 +18,7 @@ export class ImplementationPlanComponent extends WidgetPlatform<unknown> impleme
   constructor(
     protected widgetService: WidgetService,
     private http: HttpClient,
+    private smpService: SmpService,
     @Inject('isMock') public isMock: boolean,
     @Inject('widgetId') public id: string,
     @Inject('uniqId') public uniqId: string
@@ -24,11 +26,17 @@ export class ImplementationPlanComponent extends WidgetPlatform<unknown> impleme
     super(widgetService, isMock, id, uniqId);
   }
 
+  private async getData(): Promise<void> {
+    this.data = (await this.smpService.getAllCrude())?.data;
+  }
+
   public ngOnInit(): void {
     super.widgetInit();
 
+    // this.getData();
+
     this.http.get('assets/mock/SMP/implementation-plan/implementation-plan.mock.json')
-      .subscribe((data: {data: IImplementationPlan[]}) => {
+      .subscribe((data: IAllCrude) => {
         this.data = data.data;
     });
   }
