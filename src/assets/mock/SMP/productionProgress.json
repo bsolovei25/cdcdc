@@ -90,6 +90,54 @@
           {
             "day": 17,
             "critical": 2
+          },
+          {
+            "day": 18,
+            "critical": 0
+          },
+          {
+            "day": 19,
+            "critical": 2
+          },
+          {
+            "day": 20,
+            "critical": 2
+          },
+          {
+            "day": 1,
+            "critical": 0
+          },
+          {
+            "day": 1,
+            "critical": 0
+          },
+          {
+            "day": 1,
+            "critical": 0
+          },
+          {
+            "day": 1,
+            "critical": 0
+          },
+          {
+            "day": 1,
+            "critical": 0
+          },
+          {
+            "day": 1,
+            "critical": 0
+          },
+          {
+            "day": 1,
+            "critical": 0
+          },
+          {
+            "day": 1,
+            "critical": 0
+          },
+          {
+            "day": 1,
+            "critical": 0
           }
         ]
       },
@@ -216,6 +264,10 @@
           {
             "day": 1,
             "critical": 2
+          },
+          {
+            "day": 1,
+            "critical": 0
           },
           {
             "day": 1,

@@ -37,7 +37,6 @@ export class PerformanceProgressIndicatorsComponent extends WidgetPlatform<unkno
 
     private async getPerformanceProgressIndicators(): Promise<void> {
         const data = await this.smpService.getProductionProgress();
-        console.log(`data: ${data}`);
         this.dataProcessing(data);
     }
 
