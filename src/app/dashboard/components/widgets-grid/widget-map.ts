@@ -3,7 +3,7 @@ import { ProductStocksComponent } from '../../widgets/product-stocks/product-sto
 import { DeviationCircleDiagramComponent } from '../../widgets/deviation-circle-diagram/deviation-circle-diagram.component';
 import { ColumnChartStackedComponent } from '../../widgets/column-chart-stacked/column-chart-stacked.component';
 import { ReasonsDeviationsComponent } from '../../widgets/reasons-deviations/reasons-deviations.component';
-import { QualityDocsPanelComponent } from '../../widgets/quality-docs-panel/quality-docs-panel.component';
+import { QualityDocsPanelComponent } from '../../../widgets/NK/quality-docs-panel/quality-docs-panel.component';
 import { DocumentCodingComponent } from '../../../widgets/NK/document-coding/document-coding.component';
 import { WidgetContainerComponent } from '../../widget-container/widget-container.component';
 import { CdMatBalanceChartCardComponent } from '../../../widgets/CD/cd-mat-balance/components/cd-mat-balance-chart-card/cd-mat-balance-chart-card.component';
@@ -25,7 +25,6 @@ export const WIDGETS = {
     'tank-calibration-table': WidgetContainerComponent,
     'production-trend': WidgetContainerComponent,
     'reasons-deviations': ReasonsDeviationsComponent,
-    'quality-docs-panel': QualityDocsPanelComponent,
     workflow: WidgetContainerComponent,
     'implementation-plan': WidgetContainerComponent,
     'performance-progress-indicators': WidgetContainerComponent,
@@ -127,6 +126,7 @@ export const WIDGETS = {
     'cd-critical': WidgetContainerComponent,
     'oil-operations': WidgetContainerComponent,
     'document-coding': WidgetContainerComponent,
+    'quality-docs-panel': WidgetContainerComponent,
 };
 
 export const WIDGETS_LAZY = {
@@ -346,12 +346,25 @@ export const WIDGETS_LAZY = {
                 'src/app/widgets/NK/document-coding/document-coding.module'
                 );
         },
-        module: 'DocumentCodingComponent',
+        module: 'DocumentCodingModule',
         itemCols: 48,
         itemRows: 15,
         minItemCols: 36,
         minItemRows: 12,
         preview: 'document-coding'
+    },
+    'quality-docs-panel': {
+        import: async () => {
+            return await import(
+                'src/app/widgets/NK/quality-docs-panel/quality-docs-panel.module'
+                );
+        },
+        module: 'QualityDocsPanelModule',
+        itemCols: 48,
+        itemRows: 15,
+        minItemCols: 36,
+        minItemRows: 12,
+        preview: 'quality-docs-panel'
     },
 
     // #endregion NK

@@ -9,8 +9,10 @@ import { DocumentCodingTanksComponent } from './components/document-coding-tanks
 import { SharedModule } from '@shared/shared.module';
 import { AngularSvgIconModule } from 'angular-svg-icon';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatFormFieldControl, MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
+import { DashboardModule } from '../../../dashboard/dashboard.module';
+import { MatInput, MatInputModule } from '@angular/material/input';
 
 
 @NgModule({
@@ -22,15 +24,20 @@ import { MatIconModule } from '@angular/material/icon';
         DocumentCodingTableRecordComponent,
         DocumentCodingTanksComponent
     ],
+    exports: [
+        DocumentCodingFilterComponent
+    ],
     imports: [
         CommonModule,
         SharedModule,
         AngularSvgIconModule,
         MatDatepickerModule,
         MatFormFieldModule,
+        MatInputModule,
         MatIconModule,
+        DashboardModule
     ]
 })
 export class DocumentCodingModule {
-    enterComponent = DocumentCodingModule;
+    enterComponent = DocumentCodingComponent;
 }

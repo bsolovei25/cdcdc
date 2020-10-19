@@ -64,8 +64,6 @@ import { ReasonsDeviationsInfoTankComponent } from './widgets/reasons-deviations
 import { ReasonsDeviationsPicTankComponent } from './widgets/reasons-deviations/components/reasons-deviations-pic-tank/reasons-deviations-pic-tank.component';
 import { ReasonsDeviationsTankLevelComponent } from './widgets/reasons-deviations/components/reasons-deviations-tank-level/reasons-deviations-tank-level.component';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
-import { QualityDocsPanelComponent } from './widgets/quality-docs-panel/quality-docs-panel.component';
-import { QualityDocsRecordComponent } from './widgets/quality-docs-panel/components/quality-docs-record/quality-docs-record.component';
 import { ReportTreeComponent } from './components/report/report-tree/report-tree.component';
 import { TableGridComponent } from './components/table-grid/table-grid.component';
 import { ColumnGridComponent } from './components/table-grid/components/column-grid/column-grid.component';
@@ -84,6 +82,7 @@ import { MenuButtonComponent } from './components/header-components/menu-button/
 import { MatBadgeModule } from '@angular/material/badge';
 import { TankFilterComponent } from '../widgets/NK/tank-information/components/tank-filter/tank-filter.component';
 import { ReportServerConfiguratorModule } from '../widgets/admin/report-server-configurator/report-server-configurator.module';
+import { DocumentCodingModule } from '../widgets/NK/document-coding/document-coding.module';
 
 @NgModule({
     declarations: [
@@ -119,8 +118,6 @@ import { ReportServerConfiguratorModule } from '../widgets/admin/report-server-c
         ReasonsDeviationsInfoTankComponent,
         ReasonsDeviationsPicTankComponent,
         ReasonsDeviationsTankLevelComponent,
-        QualityDocsPanelComponent,
-        QualityDocsRecordComponent,
         ReportTreeComponent,
         TableGridComponent,
         ColumnGridComponent,
@@ -146,7 +143,6 @@ import { ReportServerConfiguratorModule } from '../widgets/admin/report-server-c
         ReportComponent,
         ReportsComponent,
         ReasonsDeviationsComponent,
-        QualityDocsPanelComponent,
         ReportTreeComponent,
         PanelComponent,
     ],
@@ -154,7 +150,8 @@ import { ReportServerConfiguratorModule } from '../widgets/admin/report-server-c
         PerformanceBarComponent,
         WidgetPreviewComponent,
         PowIndexPipe,
-        TankFilterComponent, TableGridInputComponent, ColumnGridComponent, TableGridComponent
+        TankFilterComponent,
+        TableGridInputComponent, ColumnGridComponent, TableGridComponent
     ],
     imports: [
         CommonModule,
@@ -196,7 +193,7 @@ import { ReportServerConfiguratorModule } from '../widgets/admin/report-server-c
         MatMenuModule,
         MatRippleModule,
         MatBadgeModule,
-        ReportServerConfiguratorModule
+        ReportServerConfiguratorModule,
     ],
     bootstrap: [],
     providers: [
