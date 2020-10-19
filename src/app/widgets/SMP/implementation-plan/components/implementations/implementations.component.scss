@@ -1,13 +1,12 @@
 .container-implementations {
     height: 100%;
-    width: 100%;
     display: flex;
+}
 
-    .block-pie{
-        width: 100%;
-    }
+.block-tank {
+    padding-bottom: 1em;
 
-    .block-tank{
-        width: 80%;
-    }
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
