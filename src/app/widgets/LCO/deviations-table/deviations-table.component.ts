@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
-import { WidgetService } from '../../services/widget.service';
-import { WidgetPlatform } from '../../models/@PLATFORM/widget-platform';
+import { WidgetService } from '../../../dashboard/services/widget.service';
+import { WidgetPlatform } from '../../../dashboard/models/@PLATFORM/widget-platform';
 
 export interface IDeviationsTable {
     equipment: string;
@@ -33,12 +33,6 @@ export class DeviationsTableComponent extends WidgetPlatform<unknown> implements
     public fuelUnitsOfMeasure: string = '';
 
     public isDataLoading: boolean = true;
-
-    public static itemCols: number = 20;
-    public static itemRows: number = 30;
-
-    public static minItemCols: number = 20;
-    public static minItemRows: number = 10;
 
     constructor(
         protected widgetService: WidgetService,

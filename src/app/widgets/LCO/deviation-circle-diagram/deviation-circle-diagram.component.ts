@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
-import { WidgetService } from '../../services/widget.service';
-import { DeviationCircleDiagram, ICenterOfPoint } from '../../models/deviation-circle-diagram';
-import { WidgetPlatform } from '../../models/@PLATFORM/widget-platform';
+import { WidgetService } from '../../../dashboard/services/widget.service';
+import { DeviationCircleDiagram, ICenterOfPoint } from '../../../dashboard/models/deviation-circle-diagram';
+import { WidgetPlatform } from '../../../dashboard/models/@PLATFORM/widget-platform';
 
 @Component({
     selector: 'evj-deviation-circle-diagram',
@@ -30,11 +30,6 @@ export class DeviationCircleDiagramComponent extends WidgetPlatform<unknown> imp
 
     public radius: string = '19';
     public radPoint: string = '0.8';
-
-    public static itemCols: number = 12;
-    public static itemRows: number = 9;
-    public static minItemCols: number = 9;
-    public static minItemRows: number = 8;
 
     constructor(
         protected widgetService: WidgetService,

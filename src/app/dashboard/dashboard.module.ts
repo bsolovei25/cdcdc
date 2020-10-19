@@ -17,15 +17,10 @@ import { WidgetsGridComponent } from './components/widgets-grid/widgets-grid.com
 import { GridsterModule } from 'angular-gridster2';
 import { UserInfoComponent } from './components/header-components/user-info/user-info.component';
 import { PowIndexPipe } from '@shared/pipes/pow-index.pipe';
-import { DeviationsTableComponent } from './widgets/deviations-table/deviations-table.component';
-import { ProductStocksComponent } from './widgets/product-stocks/product-stocks.component';
-import { DeviationCircleDiagramComponent } from './widgets/deviation-circle-diagram/deviation-circle-diagram.component';
 import { PaginatorDirective } from '../widgets/LCO/oil-control/components/paginator/paginator.directive';
 import { SearchComponent } from './components/search/search.component';
 import { WidgetPreviewComponent } from './components/widget-preview/widget-preview.component';
 import { DashboardRoutingModule } from './dashboard-routing.module';
-import { ColumnChartStackedComponent } from './widgets/column-chart-stacked/column-chart-stacked.component';
-import { CcsOneColumnComponent } from './widgets/column-chart-stacked/ccs-one-column/ccs-one-column.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { SearchFilterComponent } from './components/search/search-filter/search-filter.component';
 import { SearchInputComponent } from './components/search/search-input/search-input.component';
@@ -92,13 +87,8 @@ import { DocumentCodingModule } from '../widgets/NK/document-coding/document-cod
         WidgetsGridComponent,
         UserInfoComponent,
         PowIndexPipe,
-        DeviationsTableComponent,
-        ProductStocksComponent,
-        DeviationCircleDiagramComponent,
         PaginatorDirective,
         SearchComponent,
-        ColumnChartStackedComponent,
-        CcsOneColumnComponent,
         WidgetPreviewComponent,
         SearchFilterComponent,
         SearchInputComponent,
@@ -124,10 +114,6 @@ import { DocumentCodingModule } from '../widgets/NK/document-coding/document-cod
         TankFilterComponent
     ],
     entryComponents: [
-        DeviationsTableComponent,
-        ProductStocksComponent,
-        DeviationCircleDiagramComponent,
-        ColumnChartStackedComponent,
         ReportComponent,
         ReportsComponent,
         ReportTreeComponent,

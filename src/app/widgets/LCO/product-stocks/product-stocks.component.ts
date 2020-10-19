@@ -8,9 +8,9 @@ import {
     AfterViewInit,
     Renderer2,
 } from '@angular/core';
-import { WidgetService } from '../../services/widget.service';
-import { UserSettingsService } from '../../services/user-settings.service';
-import { WidgetPlatform } from '../../models/@PLATFORM/widget-platform';
+import { WidgetService } from '../../../dashboard/services/widget.service';
+import { UserSettingsService } from '../../../dashboard/services/user-settings.service';
+import { WidgetPlatform } from '../../../dashboard/models/@PLATFORM/widget-platform';
 
 export interface IProductStocks {
     stocks: number;
@@ -26,10 +26,6 @@ export interface IProductStocks {
 })
 export class ProductStocksComponent extends WidgetPlatform<unknown>
     implements OnInit, OnDestroy, AfterViewInit {
-    public static itemCols: number = 17;
-    public static itemRows: number = 7;
-    public static minItemCols: number = 17;
-    public static minItemRows: number = 7;
 
     data: IProductStocks = {
         stocks: 1667,

@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
-import { WidgetService } from '../../services/widget.service';
-import { IColumnChartStacked, IColumnChartStackedDataWS } from '../../models/column-chart-stacked';
-import { WidgetPlatform } from '../../models/@PLATFORM/widget-platform';
+import { WidgetService } from '../../../dashboard/services/widget.service';
+import { IColumnChartStacked, IColumnChartStackedDataWS } from '../../../dashboard/models/column-chart-stacked';
+import { WidgetPlatform } from '../../../dashboard/models/@PLATFORM/widget-platform';
 
 @Component({
     selector: 'evj-column-chart-stacked',
@@ -10,12 +10,6 @@ import { WidgetPlatform } from '../../models/@PLATFORM/widget-platform';
 })
 export class ColumnChartStackedComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
     public cols: IColumnChartStacked[] = [];
-
-    public static itemCols: number = 24;
-    public static itemRows: number = 12;
-
-    public static minItemCols: number = 16;
-    public static minItemRows: number = 9;
 
     constructor(
         protected widgetService: WidgetService,

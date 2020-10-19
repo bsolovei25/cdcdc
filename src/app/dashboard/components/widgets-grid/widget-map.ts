@@ -1,7 +1,7 @@
-import { DeviationsTableComponent } from '../../widgets/deviations-table/deviations-table.component';
-import { ProductStocksComponent } from '../../widgets/product-stocks/product-stocks.component';
-import { DeviationCircleDiagramComponent } from '../../widgets/deviation-circle-diagram/deviation-circle-diagram.component';
-import { ColumnChartStackedComponent } from '../../widgets/column-chart-stacked/column-chart-stacked.component';
+import { DeviationsTableComponent } from '../../../widgets/LCO/deviations-table/deviations-table.component';
+import { ProductStocksComponent } from '../../../widgets/LCO/product-stocks/product-stocks.component';
+import { DeviationCircleDiagramComponent } from '../../../widgets/LCO/deviation-circle-diagram/deviation-circle-diagram.component';
+import { ColumnChartStackedComponent } from '../../../widgets/LCO/column-chart-stacked/column-chart-stacked.component';
 import { ReasonsDeviationsComponent } from '../../../widgets/NK/reasons-deviations/reasons-deviations.component';
 import { QualityDocsPanelComponent } from '../../../widgets/NK/quality-docs-panel/quality-docs-panel.component';
 import { DocumentCodingComponent } from '../../../widgets/NK/document-coding/document-coding.component';
@@ -15,10 +15,6 @@ export const WIDGETS = {
     'events-workspace': WidgetContainerComponent,
     'industrial-pyramid': WidgetContainerComponent,
     'unity-template': WidgetContainerComponent,
-    'deviations-table': DeviationsTableComponent,
-    'product-stocks': ProductStocksComponent,
-    'deviation-circle-diagram': DeviationCircleDiagramComponent,
-    'column-chart-stacked': ColumnChartStackedComponent,
     'flame-diagram': WidgetContainerComponent,
     'petroleum-products-movement': WidgetContainerComponent,
     'report-server-configurator': WidgetContainerComponent,
@@ -127,6 +123,10 @@ export const WIDGETS = {
     'document-coding': WidgetContainerComponent,
     'quality-docs-panel': WidgetContainerComponent,
     'reasons-deviations': WidgetContainerComponent,
+    'column-chart-stacked': WidgetContainerComponent,
+    'product-stocks': WidgetContainerComponent,
+    'deviations-table': WidgetContainerComponent,
+    'deviation-circle-diagram': WidgetContainerComponent,
 };
 
 export const WIDGETS_LAZY = {
@@ -1035,6 +1035,50 @@ export const WIDGETS_LAZY = {
         minItemCols: 10,
         minItemRows: 10,
         preview: 'cd-critical'
+    },
+    'column-chart-stacked': {
+        import: async () => {
+            return await import('src/app/widgets/LCO/column-chart-stacked/column-chart-stacked.module');
+        },
+        module: 'ColumnChartStackedModule',
+        itemCols: 24,
+        itemRows: 12,
+        minItemCols: 16,
+        minItemRows: 9,
+        preview: 'column-chart-stacked'
+    },
+    'product-stocks': {
+        import: async () => {
+            return await import('src/app/widgets/LCO/product-stocks/product-stocks.module');
+        },
+        module: 'ProductStocksModule',
+        itemCols: 17,
+        itemRows: 7,
+        minItemCols: 17,
+        minItemRows: 7,
+        preview: 'product-stocks'
+    },
+    'deviation-circle-diagram': {
+        import: async () => {
+            return await import('src/app/widgets/LCO/deviation-circle-diagram/deviation-circle-diagram.module');
+        },
+        module: 'DeviationCircleDiagramModule',
+        itemCols: 12,
+        itemRows: 9,
+        minItemCols: 9,
+        minItemRows: 8,
+        preview: 'deviation-circle-diagram'
+    },
+    'deviations-table': {
+        import: async () => {
+            return await import('src/app/widgets/LCO/deviations-table/deviations-table.module');
+        },
+        module: 'DeviationsTableModule',
+        itemCols: 20,
+        itemRows: 30,
+        minItemCols: 20,
+        minItemRows: 10,
+        preview: 'deviations-table'
     },
     //#endregion LCO
 
