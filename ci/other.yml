@@ -6,7 +6,7 @@
     name: registry.funcoff.club/devops/release-notes:latest
   variables:
     RELEASE_NOTE_PATH: "/app/"
-  stage: aux
+  stage: release
   before_script:
     - mkdir -p $HOME/.docker && echo "${DOCKER_AUTH_CONFIG}" > $HOME/.docker/config.json && chmod 600 $HOME/.docker/config.json
   script:

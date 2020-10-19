@@ -208,7 +208,7 @@ export to zyfra:
     - develop
     - master
 
-.release-notes-maker:
+release-notes-maker:
   extends: .release-notes
   when:
       manual
