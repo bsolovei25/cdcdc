@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, OnChanges, Output, EventEmitter } from '@angular/core';
-import { ITankFilter, ITankFilterTanks, ITankResaultFilter } from 'src/app/dashboard/models/tank-information';
+import { ITankFilter, ITankFilterTanks, ITankResaultFilter } from 'src/app/dashboard/models/NK/tank-information';
 
 @Component({
   selector: 'evj-tank-filter',

@@ -10,7 +10,7 @@ import { AdminShiftScheduleService } from 'src/app/dashboard/services/widgets/ad
 import { AvatarConfiguratorService } from '@core/service/avatar-configurator.service';
 import { IAlertWindowModel } from '../../../../../../@shared/models/alert-window.model';
 import { IAbsent } from '../../../../../../widgets/admin/admin-shift-schedule/admin-shift-schedule.component';
-import { IUser } from 'src/app/dashboard/models/events-widget';
+import { IUser } from 'src/app/dashboard/models/EVJ/events-widget';
 import { SnackBarService } from 'src/app/dashboard/services/snack-bar.service';
 
 

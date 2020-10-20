@@ -1,8 +1,8 @@
-import { LineChartData } from './line-chart';
-import { IGlobalClaim } from './admin-panel';
-import { IMessage } from '../../@shared/models/message.model';
+import { LineChartData } from '../line-chart';
+import { IGlobalClaim } from '../ADMIN/admin-panel';
+import { IMessage } from '@shared/models/message.model';
 import { HttpHeaders } from '@angular/common/http';
-import { IUnits } from './admin-shift-schedule';
+import { IUnits } from '../ADMIN/admin-shift-schedule';
 
 export interface IEventsWidgetAttributes {
     Acknowledgment: boolean;

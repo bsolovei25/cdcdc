@@ -4,7 +4,7 @@ import { WidgetService } from '../../../dashboard/services/widget.service';
 import {
     ILineDiagramData,
     ILineDiagramDataItem
-} from '../../../dashboard/models/line-diagram';
+} from '../../../dashboard/models/LCO/line-diagram';
 
 @Component({
     selector: 'evj-line-diagram',

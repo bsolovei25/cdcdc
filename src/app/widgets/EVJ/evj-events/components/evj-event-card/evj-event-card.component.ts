@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import {
     IEventsWidgetNotificationPreview,
     EventsWidgetNotificationStatus
-} from '../../../../../dashboard/models/events-widget';
+} from '../../../../../dashboard/models/EVJ/events-widget';
 import { EventService } from '../../../../../dashboard/services/widgets/event.service';
 import { animate, style, transition, trigger } from '@angular/animations';
 import { SelectionModel } from '@angular/cdk/collections';

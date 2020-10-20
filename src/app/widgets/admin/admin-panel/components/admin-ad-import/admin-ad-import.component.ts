@@ -1,11 +1,11 @@
 import { Component, OnInit, Output, EventEmitter, OnDestroy } from '@angular/core';
-import { IUserLdapDto, IUserLdap } from '../../../../../dashboard/models/admin-panel';
+import { IUserLdapDto, IUserLdap } from '../../../../../dashboard/models/ADMIN/admin-panel';
 import { IInputOptions } from '../../../../../@shared/models/input.model';
 import { SelectionModel } from '@angular/cdk/collections';
 import { Subscription } from 'rxjs';
 import { AdminPanelService } from '../../../../../dashboard/services/admin-panel/admin-panel.service';
 import { SnackBarService } from '../../../../../dashboard/services/snack-bar.service';
-import { IUser } from '../../../../../dashboard/models/events-widget';
+import { IUser } from '../../../../../dashboard/models/EVJ/events-widget';
 import { fillDataShape } from '@shared/functions/common-functions';
 
 @Component({

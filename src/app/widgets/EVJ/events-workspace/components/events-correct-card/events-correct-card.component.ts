@@ -3,7 +3,7 @@ import { IAlertWindowModel } from '@shared/models/alert-window.model';
 import {
     IRetrievalEventDto,
     EventsWidgetNotificationStatus,
-} from '../../../../../dashboard/models/events-widget';
+} from '../../../../../dashboard/models/EVJ/events-widget';
 import { EventsWorkspaceService } from '../../../../../dashboard/services/widgets/events-workspace.service';
 
 @Component({

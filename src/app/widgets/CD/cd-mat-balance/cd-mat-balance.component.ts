@@ -9,7 +9,7 @@ import { EventsWorkspaceService } from '../../../dashboard/services/widgets/even
 import {
     IEventsWidgetNotification,
     IUser
-} from '../../../dashboard/models/events-widget';
+} from '../../../dashboard/models/EVJ/events-widget';
 import { EventService } from '../../../dashboard/services/widgets/event.service';
 import { SnackBarService } from '../../../dashboard/services/snack-bar.service';
 import { AuthService } from '@core/service/auth.service';

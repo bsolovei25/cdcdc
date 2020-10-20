@@ -1,6 +1,6 @@
 import { Component, Input, OnInit, Output } from '@angular/core';
 import { IUdTableDict } from '../../petroleum-reference/petroleum-reference.component';
-import { ITransfer } from 'src/app/dashboard/models/petroleum-products-movement.model';
+import { ITransfer } from 'src/app/dashboard/models/NK/petroleum-products-movement.model';
 import { IFilterSetting } from '../filter-popup/filter-popup.component';
 import { PetroleumScreenService } from 'src/app/dashboard/services/widgets/petroleum-screen.service';
 

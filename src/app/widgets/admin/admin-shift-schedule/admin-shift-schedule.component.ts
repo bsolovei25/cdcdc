@@ -17,14 +17,14 @@ import { MatCalendar } from '@angular/material/datepicker';
 
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
 import { FormControl, Validators } from '@angular/forms';
-import { IUser } from '../../../dashboard/models/events-widget';
+import { IUser } from '../../../dashboard/models/EVJ/events-widget';
 import {
     IScheduleShiftDay,
     IScheduleShift,
     IBrigadeWithUsersDto,
     IUnits,
     IUnitSettings,
-} from '../../../dashboard/models/admin-shift-schedule';
+} from '../../../dashboard/models/ADMIN/admin-shift-schedule';
 import { IAlertWindowModel } from '../../../@shared/models/alert-window.model';
 import {
     AdminShiftScheduleService,

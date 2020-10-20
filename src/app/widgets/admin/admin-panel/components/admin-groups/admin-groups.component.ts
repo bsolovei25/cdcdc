@@ -1,6 +1,6 @@
 import { Component, OnInit, Output, EventEmitter, OnDestroy } from '@angular/core';
-import { IButtonImgSrc, IWorkspace, IGroup, IGlobalClaim } from '../../../../../dashboard/models/admin-panel';
-import { IUser, IUnitEvents } from '../../../../../dashboard/models/events-widget';
+import { IButtonImgSrc, IWorkspace, IGroup, IGlobalClaim } from '../../../../../dashboard/models/ADMIN/admin-panel';
+import { IUser, IUnitEvents } from '../../../../../dashboard/models/EVJ/events-widget';
 import { IInputOptions } from '../../../../../@shared/models/input.model';
 import { SelectionModel } from '@angular/cdk/collections';
 import { IAlertWindowModel } from '../../../../../@shared/models/alert-window.model';

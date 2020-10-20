@@ -1,7 +1,7 @@
 import { Component, OnInit, ElementRef, ViewChild, Input, OnChanges, ChangeDetectionStrategy } from '@angular/core';
 import * as d3 from 'd3';
 import { IQualityStockCircle } from '../../quality-stock.component';
-import { IEnergeticsCircleDiagram, IEnergeticsLimits, IEnergeticsCoordinates, IEnergeticsEndsLine } from 'src/app/dashboard/models/energetics';
+import { IEnergeticsCircleDiagram, IEnergeticsLimits, IEnergeticsCoordinates, IEnergeticsEndsLine } from 'src/app/dashboard/models/LCO/energetics';
 
 @Component({
   selector: 'evj-quality-stock-circle',

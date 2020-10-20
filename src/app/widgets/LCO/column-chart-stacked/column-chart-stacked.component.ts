@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
 import { WidgetService } from '../../../dashboard/services/widget.service';
-import { IColumnChartStacked, IColumnChartStackedDataWS } from '../../../dashboard/models/column-chart-stacked';
+import { IColumnChartStacked, IColumnChartStackedDataWS } from '../../../dashboard/models/LCO/column-chart-stacked';
 import { WidgetPlatform } from '../../../dashboard/models/@PLATFORM/widget-platform';
 
 @Component({

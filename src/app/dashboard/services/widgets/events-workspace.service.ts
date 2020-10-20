@@ -20,7 +20,7 @@ import {
     ISubcategory,
     IUnitEvents,
     IUser
-} from '../../models/events-widget';
+} from '../../models/EVJ/events-widget';
 import { EventService } from './event.service';
 import { SnackBarService } from '../snack-bar.service';
 import { fillDataShape } from '@shared/functions/common-functions';

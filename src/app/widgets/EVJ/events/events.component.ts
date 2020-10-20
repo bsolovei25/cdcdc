@@ -12,11 +12,11 @@ import {
     EventsWidgetCategoryCode, IEventsWidgetAttributes,
     IEventsWidgetNotificationPreview,
     IEventsWidgetOptions
-} from '../../../dashboard/models/events-widget';
-import { EventsWidgetFilter } from '../../../dashboard/models/events-widget';
+} from '../../../dashboard/models/EVJ/events-widget';
+import { EventsWidgetFilter } from '../../../dashboard/models/EVJ/events-widget';
 import {
     EventsWidgetNotificationStatus
-} from '../../../dashboard/models/events-widget';
+} from '../../../dashboard/models/EVJ/events-widget';
 import { WidgetService } from '../../../dashboard/services/widget.service';
 import { UserSettingsService } from '../../../dashboard/services/user-settings.service';
 import { EventService } from '../../../dashboard/services/widgets/event.service';

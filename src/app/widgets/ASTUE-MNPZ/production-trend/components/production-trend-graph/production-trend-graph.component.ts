@@ -1,5 +1,5 @@
 import { Component, Input, OnChanges, OnInit, OnDestroy } from '@angular/core';
-import { IProductionTrend } from 'src/app/dashboard/models/production-trends.model';
+import { IProductionTrend } from 'src/app/dashboard/models/LCO/production-trends.model';
 import { LineChartPlatform } from 'src/app/dashboard/models/@PLATFORM/linechart-platform';
 import { IDatesInterval, WidgetService } from 'src/app/dashboard/services/widget.service';
 import { HttpClient } from '@angular/common/http';

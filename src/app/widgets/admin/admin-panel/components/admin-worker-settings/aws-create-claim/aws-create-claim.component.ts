@@ -1,7 +1,7 @@
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { IWidget } from '../../../../../../dashboard/models/widget.model';
-import { IGlobalClaim } from '../../../../../../dashboard/models/admin-panel';
-import { IUnitEvents } from '../../../../../../dashboard/models/events-widget';
+import { IGlobalClaim } from '../../../../../../dashboard/models/ADMIN/admin-panel';
+import { IUnitEvents } from '../../../../../../dashboard/models/EVJ/events-widget';
 import { SelectionModel } from '@angular/cdk/collections';
 import { AdminPanelService } from '../../../../../../dashboard/services/admin-panel/admin-panel.service';
 import { fillDataShape } from '@shared/functions/common-functions';

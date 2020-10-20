@@ -10,7 +10,7 @@ import {
     EventsWidgetData,
     IEventsWidgetNotification,
     IStatus,
-} from '../../../dashboard/models/events-widget';
+} from '../../../dashboard/models/EVJ/events-widget';
 import { IAlertWindowModel } from '../../../@shared/models/alert-window.model';
 import {
     MomentDateAdapter,

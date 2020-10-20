@@ -10,8 +10,8 @@ import {
     IUserLdapDto,
     IUserLdap,
     IUserImported,
-} from '../../models/admin-panel';
-import { IUser, IUnitEvents } from '../../models/events-widget';
+} from '../../models/ADMIN/admin-panel';
+import { IUser, IUnitEvents } from '../../models/EVJ/events-widget';
 import { IWidget } from '../../models/widget.model';
 import { fillDataShape } from '@shared/functions/common-functions';
 import { AuthService } from '@core/service/auth.service';

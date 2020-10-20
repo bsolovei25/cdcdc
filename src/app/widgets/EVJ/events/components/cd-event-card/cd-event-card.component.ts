@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { IEventsWidgetNotificationPreview } from '../../../../../dashboard/models/events-widget';
+import { IEventsWidgetNotificationPreview } from '../../../../../dashboard/models/EVJ/events-widget';
 import { EventService } from '../../../../../dashboard/services/widgets/event.service';
 
 @Component({

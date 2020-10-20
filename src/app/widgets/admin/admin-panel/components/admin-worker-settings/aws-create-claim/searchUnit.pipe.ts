@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { IUnitEvents } from '../../../../../../dashboard/models/events-widget';
+import { IUnitEvents } from '../../../../../../dashboard/models/EVJ/events-widget';
 
 @Pipe({
     name: 'searchUnit'

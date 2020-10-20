@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy, Inject } from '@angular/core';
 import { WidgetPlatform } from '../../../dashboard/models/@PLATFORM/widget-platform';
-import { IProductionPyramid } from '../../../dashboard/models/production-pyramid';
+import { IProductionPyramid } from '../../../dashboard/models/LCO/production-pyramid';
 import { WidgetService } from '../../../dashboard/services/widget.service';
 
 @Component({

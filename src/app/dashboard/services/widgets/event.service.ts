@@ -21,7 +21,7 @@ import {
     ISubcategory,
     IUnitEvents,
     IUser
-} from '../../models/events-widget';
+} from '../../models/EVJ/events-widget';
 import { AppConfigService } from '@core/service/app-config.service';
 import { ClaimService, EnumClaimGlobal } from '../claim.service';
 

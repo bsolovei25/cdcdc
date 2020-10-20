@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { IInputOptions } from '../../../../../@shared/models/input.model';
-import { IWorkspace } from '../../../../../dashboard/models/admin-panel';
+import { IWorkspace } from '../../../../../dashboard/models/ADMIN/admin-panel';
 import { Subscription } from 'rxjs';
 import { AdminPanelService } from '../../../../../dashboard/services/admin-panel/admin-panel.service';
 

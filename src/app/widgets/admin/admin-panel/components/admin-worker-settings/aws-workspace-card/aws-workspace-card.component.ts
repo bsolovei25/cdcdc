@@ -11,7 +11,7 @@ import {
     IWorkspace,
     IGlobalClaim,
     ScreenClaimsEnum,
-} from '../../../../../../dashboard/models/admin-panel';
+} from '../../../../../../dashboard/models/ADMIN/admin-panel';
 import { SelectionModel } from '@angular/cdk/collections';
 import { FormControl } from '@angular/forms';
 import { AdminPanelService } from '../../../../../../dashboard/services/admin-panel/admin-panel.service';

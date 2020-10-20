@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, AfterViewInit } from '@angular/core';
-import { IColumnChartStacked } from '../../../../dashboard/models/column-chart-stacked';
+import { IColumnChartStacked } from '../../../../dashboard/models/LCO/column-chart-stacked';
 import { IBlockDiagramColumn } from '../../../../dashboard/models/circle-block-diagram';
 
 @Component({

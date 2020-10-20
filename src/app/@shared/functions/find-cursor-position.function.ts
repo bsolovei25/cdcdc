@@ -1,4 +1,4 @@
-import { ProductionTrendType } from '../../dashboard/models/production-trends.model';
+import { ProductionTrendType } from '../../dashboard/models/LCO/production-trends.model';
 
 export function findCursorPosition(
     posX: number,

@@ -12,7 +12,7 @@ import {
     IRetrievalEventDto,
     IEventsWidgetOptions,
     IEventsWidgetNotificationPreview
-} from 'src/app/dashboard/models/events-widget';
+} from 'src/app/dashboard/models/EVJ/events-widget';
 import { EventService } from 'src/app/dashboard/services/widgets/event.service';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';

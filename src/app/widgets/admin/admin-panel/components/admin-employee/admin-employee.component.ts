@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, OnDestroy } from '@angular/core';
-import { IUser } from '../../../../../dashboard/models/events-widget';
+import { IUser } from '../../../../../dashboard/models/EVJ/events-widget';
 import { Subscription } from 'rxjs';
 import { AdminPanelService } from '../../../../../dashboard/services/admin-panel/admin-panel.service';
 

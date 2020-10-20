@@ -10,7 +10,7 @@ import {
 import { SelectionModel } from '@angular/cdk/collections';
 import { EventService } from 'src/app/dashboard/services/widgets/event.service';
 import { AvatarConfiguratorService } from '@core/service/avatar-configurator.service';
-import { IUser } from 'src/app/dashboard/models/events-widget';
+import { IUser } from 'src/app/dashboard/models/EVJ/events-widget';
 
 export interface IWorkspaceTable {
     height?: number;

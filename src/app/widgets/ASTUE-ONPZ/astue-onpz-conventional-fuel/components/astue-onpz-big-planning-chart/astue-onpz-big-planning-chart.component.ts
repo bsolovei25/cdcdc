@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy, Inject } from '@angular/core';
 import { WidgetPlatform } from '../../../../../dashboard/models/@PLATFORM/widget-platform';
 import { IPlanningChart } from '../../../astue-onpz-planning-charts/astue-onpz-planning-charts.component';
-import { IProductionTrend } from '../../../../../dashboard/models/production-trends.model';
+import { IProductionTrend } from '../../../../../dashboard/models/LCO/production-trends.model';
 import { WidgetService } from '../../../../../dashboard/services/widget.service';
 import { AstueOnpzService } from '../../../astue-onpz-shared/astue-onpz.service';
 import { fillDataShape } from '@shared/functions/common-functions';

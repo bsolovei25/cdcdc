@@ -32,7 +32,7 @@ import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 import { IWorkspaceTable } from './workflow-table/workflow-table.component';
 import { IModules, IScenarios } from './workflow-list/workflow-list.component';
 import { MatSelectChange } from '@angular/material/select';
-import { WorkflowActions, WorkflowActionsNameMap } from 'src/app/dashboard/models/workflow.model';
+import { WorkflowActions, WorkflowActionsNameMap } from 'src/app/dashboard/models/ADMIN/workflow.model';
 import { trigger, transition, style, animate } from '@angular/animations';
 import { WidgetPlatform } from 'src/app/dashboard/models/@PLATFORM/widget-platform';
 
