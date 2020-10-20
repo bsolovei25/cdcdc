@@ -599,7 +599,7 @@ export class AdminShiftScheduleComponent extends WidgetPlatform<unknown>
         this.inputControl.setValue('');
         this.alertWindow = {
             isShow: true,
-            questionText: 'Введите название новой бригадды',
+            questionText: 'Введите название новой бригады',
             acceptText: ' Добавить',
             cancelText: 'Отмена',
             input: {

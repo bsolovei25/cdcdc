@@ -13,8 +13,9 @@ export class AlertWindowComponent implements OnInit {
     public readonly attentionTitle: string = 'Обратите внимание';
     public readonly editTitle: string = 'Редактирование информации';
 
-    public readonly attentionIcon: string = 'assets/icons/widgets/alert-window/notice.svg';
-    public readonly editIcon: string = 'assets/icons/widgets/alert-window/edit-icon.svg';
+    public readonly attentionIcon: string = 'assets/icons/widgets/alert-window/attention.svg';
+    public readonly editIcon: string = 'assets/icons/widgets/alert-window/edit.svg';
+    public readonly closeIcon: string = 'assets/icons/widgets/alert-window/close.svg';
 
     constructor() {}
 

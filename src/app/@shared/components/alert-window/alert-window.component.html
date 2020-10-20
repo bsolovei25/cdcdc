@@ -8,21 +8,31 @@
       <div class="confirm-container__body confirm-container-body">
         <div
           class="confirm-container-body__header confirm-container-body-header"
-          *ngIf="!info.input;else input"
+          *ngIf="!info.input; else input"
         >
           <div class="confirm-container-body-header__icon">
             <img [src]="attentionIcon" />
           </div>
-          <span>{{attentionTitle}}</span>
+          <div class="confirm-container-body-header__title">
+            <span>{{attentionTitle}}</span>
+          </div>
+          <div class="confirm-container-body-header__close">
+            <img [src]="closeIcon" />
+          </div>
         </div>
         <ng-template #input>
           <div class="confirm-container-body__header confirm-container-body-header">
             <div
               class="confirm-container-body-header__icon confirm-container-body-header__icon_input"
             >
-              <img [src]="editIcon" />
+              <img [src]="editIcon"/>
             </div>
-            <span>{{editTitle}}</span>
+            <div class="confirm-container-body-header__title">
+              <span>{{editTitle}}</span>
+            </div>
+            <div class="confirm-container-body-header__close">
+              <img [src]="closeIcon" />
+            </div>
           </div>
         </ng-template>
 
@@ -30,7 +40,9 @@
           class="confirm-container-body__content"
           [ngClass]="{'confirm-container-body__content_prompt':!!info.input}"
         >
-          <p [innerHTML]="info?.questionText | replaceLineBreak"></p>
+          <div class="confirm-container-body__input-text">
+            <span [innerHTML]="info?.questionText | replaceLineBreak"></span>
+          </div>
           <input
             type="text"
             class="input"
@@ -47,7 +59,6 @@
             [textButton]="info?.acceptText"
             (click)="accept()"
             [isChangingState]="false"
-            [isRounded]="true"
             [type]="'primary'"
           ></evj-button>
         </div>
@@ -56,10 +67,13 @@
             [textButton]="info?.cancelText"
             (click)="cancel()"
             [isChangingState]="false"
-            [isRounded]="true"
           ></evj-button>
         </div>
       </div>
+      <div class="alert-line" *ngIf="!info.input; else inputLine"></div>
+      <ng-template #inputLine>
+        <div class="edit-line"></div>
+      </ng-template>
     </div>
   </div>
 </ng-container>
