@@ -3,12 +3,10 @@ import { WidgetPlatform } from '../../../dashboard/models/@PLATFORM/widget-platf
 import { WidgetService } from '../../../dashboard/services/widget.service';
 import {
     IMultiChartLine,
-    IMultiChartTypes,
 } from '../../../dashboard/models/ASTUE-ONPZ/astue-onpz-multi-chart.model';
 import { UserSettingsService } from '../../../dashboard/services/user-settings.service';
 import {
     AstueOnpzService,
-    IAstueOnpzMonitoringCarrierOptions
 } from '../astue-onpz-shared/astue-onpz.service';
 import { IMultiChartOptions } from './components/astue-onpz-multi-chart/astue-onpz-multi-chart.component';
 import { HttpClient } from '@angular/common/http';
@@ -18,16 +16,19 @@ import { HttpClient } from '@angular/common/http';
     templateUrl: './astue-onpz-conventional-fuel.component.html',
     styleUrls: ['./astue-onpz-conventional-fuel.component.scss'],
 })
-export class AstueOnpzConventionalFuelComponent extends WidgetPlatform<unknown>
-    implements OnInit, OnDestroy {
+export class AstueOnpzConventionalFuelComponent extends WidgetPlatform implements OnInit, OnDestroy {
+
     public data: IMultiChartLine[] = [];
-    colors: Map<string, number>;
+    public colors: Map<string, number>;
     public unitName: string = '';
 
     public isPredictors: boolean = false;
     public options: IMultiChartOptions = {
         isIconsShowing: false,
     };
+
+    public sbWidth: number = 100;
+    public sbLeft: number = 0;
 
     get planningChart(): boolean {
         return !!this.astueOnpzService.sharedPlanningGraph$.getValue();
@@ -47,22 +48,21 @@ export class AstueOnpzConventionalFuelComponent extends WidgetPlatform<unknown>
 
     public ngOnInit(): void {
         this.widgetInit();
-
-        // this.http
-        //     .get('assets/mock/ASTUE-ONPZ/multiline-chart-plant.mock.json')
-        //     .subscribe((data: any) => {
-        //         data.data.graphs.forEach((item: IMultiChartLine) => {
-        //             item.graphType = (item as any).multiChartTypes;
-        //             item.graph.forEach((val) => {
-        //                 val.timeStamp = new Date(val.timeStamp);
-        //             });
-        //         });
-        //         // data.data.graphs = data.data.graphs.filter(
-        //         //     (item: IMultiChartLine) => item.graphType === 'fact'
-        //         // );
-        //         this.data = data.data.graphs;
-        //         console.log('mock-data:', data.data);
-        //     });
+        this.http
+            .get('assets/mock/ASTUE-ONPZ/multiline-chart-plant.mock.json')
+            .subscribe((data: any) => {
+                data.data.graphs.forEach((item: IMultiChartLine) => {
+                    item.graphType = (item as any).multiChartTypes;
+                    item.graph.forEach((val) => {
+                        val.timeStamp = new Date(val.timeStamp);
+                    });
+                });
+                // data.data.graphs = data.data.graphs.filter(
+                //     (item: IMultiChartLine) => item.graphType === 'fact'
+                // );
+                this.data = data.data.graphs;
+                console.log('mock-data:', data.data);
+            });
     }
 
     protected dataConnect(): void {

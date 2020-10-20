@@ -8,7 +8,7 @@ import {
     OnDestroy
 } from '@angular/core';
 import { IAsEfLabel } from '../../../../../dashboard/models/ASTUE/astue-efficiency.model';
-import { LineChartPlatform } from '../../../../../dashboard/models/linechart-platform';
+import { LineChartPlatform } from '../../../../../dashboard/models/@PLATFORM/linechart-platform';
 import { IProductionTrend } from '../../../../../dashboard/models/production-trends.model';
 import { IDatesInterval, WidgetService } from '../../../../../dashboard/services/widget.service';
 import { Subscription } from 'rxjs';

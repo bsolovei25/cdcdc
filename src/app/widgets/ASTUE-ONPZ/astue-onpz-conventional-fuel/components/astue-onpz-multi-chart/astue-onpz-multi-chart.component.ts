@@ -83,6 +83,17 @@ export class AstueOnpzMultiChartComponent implements OnInit, OnChanges, OnDestro
 
     constructor(private renderer: Renderer2, private widgetService: WidgetService) {}
 
+    private tempFunction(): void {
+        // TODO: change scale function -> transform data -> draw chart ->
+        // this.svg
+        //     .select('axisX')
+        //     .attr('transform', translate)
+        //     .attr('class', axis)
+        //     .call(this.axis[axis])
+        //     .selectAll('text')
+        //     .attr('class', 'label');
+    }
+
     // TODO think about it
     public ngOnInit(): void {
         this.subscriptions.push(
@@ -100,6 +111,7 @@ export class AstueOnpzMultiChartComponent implements OnInit, OnChanges, OnDestro
 
     public ngOnDestroy(): void {
         this.listeners.forEach((listener) => listener());
+        this.subscriptions.forEach(x => x.unsubscribe());
     }
 
     @HostListener('document:resize', ['$event'])
