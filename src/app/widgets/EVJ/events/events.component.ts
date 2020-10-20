@@ -364,7 +364,7 @@ export class EventsComponent extends WidgetPlatform<IEventsWidgetAttributes> imp
                 filtersIds = [-100];
                 break;
         }
-        const isCheckFilters: boolean = filtersIds.some((x) => x === ref.notification.status.id)
+        const isCheckFilters: boolean = ref.action !== 'add' || filtersIds.some((x) => x === ref.notification.status.id)
             || (filtersIds.some((x) => x === -100) && !ref.notification.isAcknowledged);
         if (!isCheckFilters || !isCheckCategories) {
             return;
