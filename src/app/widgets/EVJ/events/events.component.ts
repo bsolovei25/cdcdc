@@ -495,17 +495,18 @@ export class EventsComponent extends WidgetPlatform<IEventsWidgetAttributes> imp
             });
         }
         this.notifications[idx] = notification;
-        if (this.getCurrentOptions().categoriesType === 'ed') {
-            this.editWsElementEd(idx, notification);
-        }
+        this.editWsElementEd(idx, notification);
         this.notifications = this.notifications.slice();
         this.countNotificationsDivCapacity();
         this.getStats();
     }
 
     private editWsElementEd(idx: number, notification: IEventsWidgetNotificationPreview): void {
-        const category = this.getCurrentOptions().filter;
-        switch (category) {
+        const options = this.getCurrentOptions();
+        if (options.categoriesType !== 'ed') {
+            return;
+        }
+        switch (options.filter) {
             case 'inWork':
                 if (notification.isAcknowledged) {
                     this.notifications.splice(idx, 1);
