@@ -170,6 +170,10 @@ export class WidgetService {
 
     // TODO delete and change to getChannelLiveDataFromWs
     getWidgetLiveDataFromWS(widgetId: string, widgetType: string): Observable<any> {
+        if (!widgetId || !widgetType) {
+            return;
+        }
+
         this.wsConnect(widgetId);
         if (this.openedWsChannels[widgetId]) {
             this.openedWsChannels[widgetId].count++;
@@ -188,6 +192,9 @@ export class WidgetService {
     }
 
     getChannelLiveDataFromWs<T>(channelId: string, widgetId: string): Observable<T> {
+        if (!widgetId || !channelId) {
+            return;
+        }
         this.wsConnect(widgetId, null, channelId);
         if (this.openedWsChannels[channelId]) {
             this.openedWsChannels[channelId].count++;
@@ -206,6 +213,9 @@ export class WidgetService {
     }
 
     setChannelLiveDataFromWsOptions<T>(widgetId: string, options: T, channelId: string = null): void {
+        if (!widgetId) {
+            return;
+        }
         if (this.openedWsChannels[widgetId]) {
             this.openedWsChannels[widgetId].options = {
                 optionValues: options,
