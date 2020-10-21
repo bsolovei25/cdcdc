@@ -19,17 +19,19 @@ import { IProductGroups } from '../../../../../dashboard/models/SMP/product-grou
 })
 export class ProductGroupsLeftComponent implements OnInit, OnChanges {
   @Input() set dataProductGroups(data: IProductGroups) {
-    (data.passRest < 0) ? this.planTankLevel = 0 : (data.passRest > 100) ? this.planTankLevel = 100 : this.planTankLevel = data.passRest;
-    (data.allRest < 0) ? this.factTankLevel = 0 : (data.allRest > 100) ? this.factTankLevel = 100 : this.factTankLevel = data.allRest;
+    // (data.passRest < 0) ? this.planTankLevel = 0 : (data.passRest > 100) ? this.planTankLevel = 100 : this.planTankLevel = data.passRest;
+    // (data.allRest < 0) ? this.factTankLevel = 0 : (data.allRest > 100) ? this.factTankLevel = 100 : this.factTankLevel = data.allRest;
     this.data = data;
 }
-    planTankLevel: number;
-    factTankLevel: number;
+    planTankLevel: number = 24;
+    factTankLevel: number = 90;
     data: IProductGroups;
 
+    date: any = new Date();
+
     public readonly RADIUS: number = 29;
-    public config = {
-        daysCount: 30,
+    public config: any = {
+        daysCount: 32 - new Date(this.date.getFullYear(), this.date.getMonth(), 32).getDate(),
         interval: Math.PI / 120
     };
 

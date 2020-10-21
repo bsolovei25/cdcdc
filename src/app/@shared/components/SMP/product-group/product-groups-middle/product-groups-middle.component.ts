@@ -21,13 +21,13 @@ import { IProductsItems } from '../../../../../dashboard/models/SMP/product-grou
 export class ProductGroupsMiddleComponent implements OnInit, OnChanges {
     @ViewChild('circle', { static: true }) circle: ElementRef;
     @Input() set dataProductsItems(data: IProductsItems) {
-        (data.passRest < 0) ? this.planTankLevel = 0 : (data.passRest > 100) ? this.planTankLevel = 100 : this.planTankLevel = data.passRest;
-        (data.allRest < 0) ? this.factTankLevel = 0 : (data.allRest > 100) ? this.factTankLevel = 100 : this.factTankLevel = data.allRest;
+        // (data.passRest < 0) ? this.planTankLevel = 0 : (data.passRest > 100) ? this.planTankLevel = 100 : this.planTankLevel = data.passRest;
+        // (data.allRest < 0) ? this.factTankLevel = 0 : (data.allRest > 100) ? this.factTankLevel = 100 : this.factTankLevel = data.allRest;
         this.data = data;
     }
 
-    planTankLevel: number;
-    factTankLevel: number;
+    planTankLevel: number = 50;
+    factTankLevel: number = 70;
     data: IProductsItems;
 
     gaugemap: any = {};
@@ -55,6 +55,8 @@ export class ProductGroupsMiddleComponent implements OnInit, OnChanges {
     public range;
     public ticks;
 
+    date: any = new Date();
+
     /// CONFIG GAUGE(!!!)
     public config = {
         size: 190,
@@ -75,7 +77,7 @@ export class ProductGroupsMiddleComponent implements OnInit, OnChanges {
 
         transitionMs: 750,
 
-        majorTicks: 30, /// CHANGE VALUE PIE GAUGE  (!!!! меняем значение в зависимости количества дней в месяце)
+        majorTicks: new Date(this.date.getFullYear(), this.date.getMonth(), 32).getDate(),
         labelFormat: d3.format('d'),
         labelInset: 10,
 

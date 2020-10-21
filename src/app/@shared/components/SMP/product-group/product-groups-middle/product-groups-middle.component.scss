@@ -1,3 +1,7 @@
+*{
+  box-sizing: border-box;
+}
+
 %warning {
   fill: rgba(244, 163, 33, 0.2);
   stroke: #f4a321;
@@ -11,7 +15,7 @@
 }
 
 .reservoir-container {
-  width: 27px;
+  width: 25px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -21,12 +25,12 @@
   font-size: 10px;
   line-height: 12px;
 
-  background: var(--color-bg-main);
-
   position: absolute;
-  right: -23px;
-  top: 19px;
-  z-index: 99;
+  right: 27px;
+  top: 29px;
+
+  transform: translate(44px, -10px);
+  z-index: 90;
 }
 
 .bottom,
@@ -41,14 +45,14 @@
 
     &__inner {
         &_fact {
-            width: 11px;
+            width: 9px;
             background: var(--color-smp-free);
 
             position: absolute;
             bottom: 0;
         }
         &_plan {
-            width: 11px;
+            width: 9px;
             background: var(--color-smp-rest);
             
             position: absolute;
@@ -58,26 +62,26 @@
 }
 
 .top {
-    height: 4px;
+    height: 6px;
     padding-bottom: 0;
     border: 1px solid var(--color-smp-checkbox);
     border-bottom: none;
 
-    transform: skewX(45deg) translate(-4px, 1px);
+    transform: skewX(45deg) translate(-3px, 0px);
 
 }
 
 .bottom {
-    height: 4px;
+    height: 6px;
     padding-top: 0;
     border: 1px solid var(--color-smp-checkbox);
     border-top: none;
 
-    transform: skewX(-45deg) translate(-4px, -1px);
+    transform: skewX(-45deg) translate(-3px, 0px);
 }
 
 .mid {
-    height: 28px;
+    height: 30px;
     padding: 0 2px;
     border-left: 1px solid var(--color-smp-checkbox);
     border-right: 1px solid var(--color-smp-checkbox);
@@ -132,9 +136,9 @@
   position: absolute;
   width: 4px;
   height: 4px;
-  margin-top: 36px;
+  margin-top: 37px;
   border-radius: 15px;
-  margin-left: 238px;
+  margin-left: 231px;
   background: var(--color-bg-main);
   border: 1px solid var(--color-border-main);
   z-index: 999;
