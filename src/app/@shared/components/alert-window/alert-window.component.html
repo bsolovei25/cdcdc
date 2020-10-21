@@ -15,11 +15,13 @@
           <div class="confirm-container-body-header__title">
             <span>{{attentionTitle}}</span>
           </div>
-          <div class="confirm-container-body-header__close">
-            <img [src]="closeIcon" />
+          <div class="confirm-container-body-header__close" (click)="cancel()">
+            <div class="close-button" (click)="cancel()">
+              <img [src]="closeIcon" />
+            </div>
           </div>
         </div>
-
+        <div class="alert-line active"></div>
         <div
           class="confirm-container-body__content"
           [ngClass]="{'confirm-container-body__content_prompt':!!info.input}"
@@ -47,9 +49,12 @@
               <span>{{editTitle}}</span>
             </div>
             <div class="confirm-container-body-header__close">
-              <img [src]="closeIcon" />
+              <div class="close-button" (click)="cancel()">
+                <img [src]="closeIcon" />
+              </div>
             </div>
           </div>
+          <div class="edit-line"></div>
           <div
             class="confirm-container-body__content"
             [ngClass]="{'confirm-container-body__content_prompt':!!info.input}"
@@ -85,10 +90,6 @@
           ></evj-button>
         </div>
       </div>
-      <div class="alert-line" *ngIf="!info.input; else inputLine"></div>
-      <ng-template #inputLine>
-        <div class="edit-line"></div>
-      </ng-template>
     </div>
   </div>
 </ng-container>

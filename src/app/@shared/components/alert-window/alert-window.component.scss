@@ -28,8 +28,19 @@ $input-color: #8A98B3;
   top: 4px;
   width: 4px;
   height: 215px;
-  background-color: $alert-color;
   border-radius: 29px;
+}
+.active {
+  background-color: #0089FF;
+}
+.successful {
+  background-color: #0D9E3F;
+}
+.warning {
+  background-color: #F28B4A;
+}
+.dangerous {
+  background-color: #E7292B;
 }
 .edit-line {
   z-index: 9999;
@@ -37,7 +48,7 @@ $input-color: #8A98B3;
   left: 4px;
   top: 4px;
   width: 4px;
-  height: 215px;
+  height: 274px;
   background-color: var(--color-new-header-active);
   border-radius: 29px;
 }
@@ -112,7 +123,7 @@ $input-color: #8A98B3;
     align-items: flex-start;
     text-align: start;
     overflow: hidden;
-    margin-top: 13px;
+    padding-top: 28px;
     padding-left: 86px;
     span {
       font-style: normal;
@@ -154,10 +165,10 @@ $input-color: #8A98B3;
     border: 1px solid var(--color-border-unactive);
     padding: 0 20px;
     margin: 0;
-    margin-top: 20px;
+    margin-top: 10px;
     outline: none;
 
-    text-align: center;
+    text-align: start;
     font-size: 14px;
     color: var(--color-text-main);
 
@@ -174,5 +185,13 @@ $input-color: #8A98B3;
     &_invalid {
       border-color: var(--color-danger);
     }
+  }
+  .close-button {
+    height: 40px;
+    width: 40px;
+    background-color: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 }
