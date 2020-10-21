@@ -1,0 +1,194 @@
+---
+before_script:
+- echo $CI_JOB_STAGE
+- date
+- ls
+- pwd
+
+after_script:
+- date
+  #- env
+
+variables:
+    GIT_SSL_NO_VERIFY: "1"
+    DEPLOY_DOMAIN: deploy.funcoff.club
+    SCP_HOST: root@${DEPLOY_DOMAIN}
+    ROCKETCHAT_HOOKS: "/home/gitlab-runner/rocket.integrations"
+    DYNAMIC_ENV: "/root/dynamic-environment-creator"
+
+stages:
+    - prebuild
+    - test
+    - build
+    - deploy-review
+    - staging
+    - export-images
+    - deploy
+    - release
+    - clean-on-failure
+
+
+.init_template: &init
+    tags:
+        - build2-cup-front
+
+
+docker build:
+    <<: *init
+    stage: prebuild
+    script:
+        - echo "Prebuild checking... Getting docker container rdy."
+        - docker container stop ${CI_PROJECT_NAME} || sleep 0.1
+        - env
+        - docker build . -t ${CI_PROJECT_NAME} -f Dockerfile.prod
+        - docker stop ${CI_PROJECT_NAME} || sleep 0.1
+        - docker container rm ${CI_PROJECT_NAME} || sleep 0.1
+        - docker run --rm --name ${CI_PROJECT_NAME} -d ${CI_PROJECT_NAME} ; docker exec ${CI_PROJECT_NAME} ng build
+        - docker cp ${CI_PROJECT_NAME}:/app/dist/evj ./public
+        - docker container stop ${CI_PROJECT_NAME} || sleep 0.1
+    artifacts:
+        paths:
+            - ./public
+    only:
+          #- master
+          #- develop
+        - merge_requests
+
+.testing website:
+    <<: *init
+    stage: test
+    script:
+        - echo "Doing some tests... Someone should add unit tests or whatever here"
+          #- docker run -v $(pwd):/app -v /app/node_modules -d  --rm --name ${CI_PROJECT_NAME} -it ${CI_PROJECT_NAME}
+
+          #- docker run --rm --name ${CI_PROJECT_NAME} -p 8004:4200 -d ${CI_PROJECT_NAME}
+          #- ./init-docker.sh
+        - ls
+        - ls public
+    only:
+        - merge_requests
+
+build artifact:
+    <<: *init
+    stage: build
+    script:
+        - docker build . -t ${CI_PROJECT_NAME}_prod -f Dockerfile.prod
+        - docker stop ${CI_PROJECT_NAME}_prod || sleep 0.1
+        - docker container rm ${CI_PROJECT_NAME}_prod || sleep 0.1
+        - docker run --rm --name ${CI_PROJECT_NAME}_prod  -d ${CI_PROJECT_NAME}_prod ; docker exec ${CI_PROJECT_NAME}_prod ng build --prod
+        - docker cp ${CI_PROJECT_NAME}_prod:/app/dist/evj ./public
+        - docker container stop ${CI_PROJECT_NAME}_prod
+    only:
+        - master
+        - develop
+          #- merge_requests
+    artifacts:
+        paths:
+            - ./public
+
+deploy review:
+    <<: *init
+    stage: deploy-review
+    script:
+        - sed -i -E "s/(<title>Evj)(<\/title>)/\1  |  ${CI_COMMIT_SHORT_SHA}\2/g" ./public/index.html
+        - scp -r ./public root@${DEPLOY_DOMAIN}:/root/dynamic-environment-creator
+        - ssh ${SCP_HOST} "cd /root/dynamic-environment-creator ; git pull origin master --no-edit ; python3 main.py -d create -e $CI_COMMIT_REF_SLUG"
+        - scp ${SCP_HOST}:/root/dynamic-environment-creator/deploy.env .
+        - ssh ${SCP_HOST} "nginx -s reload"
+    artifacts:
+        reports:
+            dotenv: deploy.env 
+    only:
+        - merge_requests
+    environment:
+        name: review/${CI_COMMIT_REF_SLUG}
+        url: https://$DYNAMIC_ENVIRONMENT_URL
+        on_stop: stop-review
+
+stop-review:
+    <<: *init
+    variables:
+        GIT_STRATEGY: none
+    stage: deploy-review
+    only:
+        - merge_requests
+    script:
+        - ssh ${SCP_HOST} "cd /root/dynamic-environment-creator ; python3 main.py -d destroy -e $CI_COMMIT_REF_SLUG"
+    when: manual
+    environment:
+        name: review/${CI_COMMIT_REF_SLUG}
+        action: stop
+
+staging:
+    <<: *init
+    stage: staging
+    environment:
+        name: staging
+        url: http://${DEPLOY_DOMAIN}:88
+    variables:
+        CMD_REPLACE: sed -i -E "s/(<title>Evj)(<\/title>)/\1 | ${CI_COMMIT_SHORT_SHA} \2/g" /var/www/angular-staging.local/public/index.html
+    script:
+        - env
+        - ssh root@${DEPLOY_DOMAIN} rm -rf /var/www/angular-staging.local/public
+        - scp -r ./public root@${DEPLOY_DOMAIN}:/var/www/angular-staging.local
+        - ssh root@${DEPLOY_DOMAIN} $CMD_REPLACE
+        - ssh root@${DEPLOY_DOMAIN} "sed -i  's/:5555/:6555/g' /var/www/angular-staging.local/public/assets/config.json || sleep 0.1"
+        - ssh root@${DEPLOY_DOMAIN} nginx -s reload
+        - cd ${ROCKETCHAT_HOOKS} ; git pull origin master --no-edit ; python3 rockethooks.py
+    only:
+        - develop
+
+
+export to zyfra:
+    <<: *init
+    stage: export-images
+    script:
+      - if [[ -z $CI_ZYFRA_TAG  ]]; then echo "Add \$CI_ZYFRA_TAG variable to pipelines! Exiting (1)"; exit 1; fi
+      - docker build -f Dockerfile.k8s . -t onpz.local/evj/frontend:${CI_ZYFRA_TAG} # make env with tags
+      - docker save -o ./frontend-${CI_ZYFRA_TAG}.img onpz.local/evj/frontend:${CI_ZYFRA_TAG}
+      - xz -T0 -9 ./frontend-${CI_ZYFRA_TAG}.img
+    artifacts:
+        paths:
+            - ./frontend-${CI_ZYFRA_TAG}.img.xz
+    when: manual
+    only:
+      - zyfra
+      - dev
+
+prod:
+    <<: *init
+    stage: deploy
+    environment:
+        name: prod
+        url: http://${DEPLOY_DOMAIN}:80
+    variables:
+        CMD_REPLACE: sed -i -E "s/(<title>Evj)(<\/title>)/\1 | ${CI_COMMIT_SHORT_SHA} \2/g" /var/www/angular.local/public/index.html
+    script:
+        - ssh root@${DEPLOY_DOMAIN} rm -rf /var/www/angular.local/public
+        - scp -r ./public root@${DEPLOY_DOMAIN}:/var/www/angular.local
+        - ssh root@${DEPLOY_DOMAIN} $CMD_REPLACE
+        - ssh root@${DEPLOY_DOMAIN} "sed -i  's/:6555/:5555/g' /var/www/angular.local/public/assets/config.json || sleep 0.1"
+        - ssh root@${DEPLOY_DOMAIN} nginx -s reload
+    only:
+        - master
+
+release maker:
+    <<: *init
+    stage: release
+    script:
+        - env
+        - cd ./release_notes
+        - python3 release-notes.py
+        - bash upload_release.sh
+    only:
+        - master
+    when:
+        manual
+
+clean on failure:
+    <<: *init
+    stage: clean-on-failure
+    script:
+        - docker container stop ${CI_PROJECT_NAME} || sleep 0.1
+          #- cd ${ROCKETCHAT_HOOKS} ; python3 rockethooks.py failed
+    when: on_failure

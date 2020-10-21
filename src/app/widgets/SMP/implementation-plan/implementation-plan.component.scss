@@ -36,25 +36,108 @@
 }
 
 .content {
-  width: calc(100% - 2px);
-  height: calc(100% - 32px);
   display: flex;
+  flex: 1;
   background: var(--color-bg-header-table);
   border-left: 0.8px solid var(--color-smp-border);
 
   .block-fabric {
-    height: 100%;
-    width: 30px;
-    margin-left: 5px;
+    flex: 1;
+    padding: 0 5px;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: space-between;
+    align-items: flex-start;
+
+    .icon-block {
+      width: 100%;
+
+      display: flex;
+      align-items: center;
+
+      .checkbox {
+        height: 9px;
+        width: 9px;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        border: 1px solid var(--color-smp-checkbox);
+        border-radius: 50%;
+
+        &__inner {
+          display: none;
+        }
+
+        &_checked {
+          .checkbox__inner {
+            display: block;
+
+            height: 4px;
+            width: 4px;
+
+            border-radius: 50%;
+  
+            background: var(--color-smp-white);
+          }
+        }
+      }
+
+    }
+  }
+
+  .arrow-container {
+    display: flex;
     align-items: center;
+    flex: 1;
+
+    .line {
+      box-sizing: border-box;
+      height: 1px;
+  
+      flex: 1;
+  
+      border-top: 1px solid var(--color-smp-checkbox);
+    }
+
+    .arrow {
+      width: 0;
+      height: 0;
+      border-top :3px solid transparent;
+      border-bottom: 3px solid transparent;
+      border-left: 3px solid var(--color-smp-checkbox);
+    }
+  }
+
+  .custom-circles {
+    box-sizing: border-box;
+    padding: 22px 1px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    
+    .circle {
+      width: 4px;
+      height: 4px;
+
+      border: 1px solid var(--color-smp-checkbox);
+      border-radius: 50%;
+    }
+
+    .line {
+      box-sizing: border-box;
+      width: 1px;
+
+      flex: 1;
+      border-right: 1px solid var(--color-smp-checkbox);
+    }
+
   }
 
   .block-pie {
     height: 100%;
-    width: calc(100% - 35px);
     display: flex;
   }
 }

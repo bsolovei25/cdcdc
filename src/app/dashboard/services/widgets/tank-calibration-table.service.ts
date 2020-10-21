@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { AppConfigService } from '@core/service/app-config.service';
-import { ICalibrationTable } from '../../widgets/tank-calibration-table/tank-calibration-table.component';
+import { ICalibrationTable } from 'src/app/widgets/NK/tank-calibration-table/tank-calibration-table.component';
 
 @Injectable({
     providedIn: 'root',

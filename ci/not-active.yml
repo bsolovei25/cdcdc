@@ -1,0 +1,20 @@
+---
+# build with dind setup; good for autoscaling and running on k8s envs
+.build-front:
+  extends: .build-angular
+  variables:
+    DOCKERFILE: "./docker/Dockerfile.k8s"
+    SERVICE_NAME: "front"
+    DOCKER_REPO: evj
+  before_script:
+    - docker info
+  after_script:
+    - echo "==== Pushig docker images ===="
+    - echo $DOCKER_IMG $DOCKER_MR_IMG
+    - docker push ${LATEST_IMG}
+    - echo "====== Stage  succeeded ======"
+  only:
+    - develop
+    - devops
+
+
