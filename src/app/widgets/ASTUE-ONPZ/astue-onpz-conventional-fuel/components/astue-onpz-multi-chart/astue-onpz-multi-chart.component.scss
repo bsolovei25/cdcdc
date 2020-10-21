@@ -1,6 +1,7 @@
 :host {
   width: 100%;
   height: 100%;
+
   * {
     box-sizing: border-box;
   }
@@ -19,6 +20,8 @@
       &-fact,
       &-plan,
       &-forecast,
+      &-higherBorder,
+      &-lowerBorder,
       &-other {
         fill: none;
         opacity: 1;
@@ -36,8 +39,16 @@
         stroke-dasharray: 5 5;
       }
 
+      fill: none;
+
       &-plan {
         stroke: var(--color-astue-onpz-plan);
+      }
+
+      &-higherBorder,
+      &-lowerBorder {
+        stroke-dasharray: 2 2;
+        stroke: var(--color-aps-bg-icon);
       }
     }
 
