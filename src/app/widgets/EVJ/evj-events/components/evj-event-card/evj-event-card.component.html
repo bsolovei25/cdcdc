@@ -67,32 +67,39 @@
         (mousedown)="$event.stopPropagation()"
         (touchstart)="$event.stopPropagation()"
       >
-        <span
-          class="notification__body__status"
-          [ngClass]="cardData?.priority?.name ?
+        <div class="">
+            <span
+              class="notification__body__status"
+              [ngClass]="cardData?.priority?.name ?
           'notification__body__icon_' + cardData?.priority?.name :
            'notification__body__icon_standard'"
-        >
+            >
           {{ cardData?.statusName }}
         </span>
-        <svg-icon
-          class="notification__body__icon"
-          [applyCss]="true"
-          [src]="cardData?.iconUrl"
-          [ngClass]="cardData?.priority?.name ?
+          <svg-icon
+            class="notification__body__icon"
+            [applyCss]="true"
+            [src]="cardData?.iconUrl"
+            [ngClass]="cardData?.priority?.name ?
           'notification__body__icon_' + cardData?.priority?.name :
            'notification__body__icon_standard'"
-        ></svg-icon>
-        <svg-icon
-          *ngIf="!cardData?.source"
-          class="notification__body__icon--delete"
-          [applyCss]="true"
-          src="assets/icons/remove.svg"
-          (click)="deleteClick($event, cardData?.id)"
-          [svgStyle]="{ 'width.px':'14', 'height.px':'14' }"
-        >
-        </svg-icon>
-        <span *ngIf="!cardData?.source" class="notification__body__icon--delete__mock"></span>
+          ></svg-icon>
+          <svg-icon
+            *ngIf="!cardData?.source"
+            class="notification__body__icon--delete"
+            [applyCss]="true"
+            src="assets/icons/remove.svg"
+            (click)="deleteClick($event, cardData?.id)"
+            [svgStyle]="{ 'width.px':'14', 'height.px':'14' }"
+          >
+          </svg-icon>
+          <span *ngIf="!cardData?.source" class="notification__body__icon--delete__mock"></span>
+        </div>
+        <div class="notification__body__extra_end-time">
+          <span class="notification__header__date-time">
+        {{ cardData?.eventEndDateTime | date: 'dd.MM.yyyy HH:mm' }}
+         </span>
+        </div>
       </div>
     </div>
   </div>
@@ -161,36 +168,43 @@
             (mousedown)="$event.stopPropagation()"
             (touchstart)="$event.stopPropagation()"
           >
-        <span
-          class="notification__body__status"
-          [ngClass]="cardData?.priority?.name ?
+            <div> <span
+              class="notification__body__status"
+              [ngClass]="cardData?.priority?.name ?
           'notification__body__icon_' + cardData?.priority?.name :
            'notification__body__icon_standard'"
-        >
+            >
           {{ statuses[retrievalEvent?.status.name] }}
         </span>
-            <svg-icon
-              class="notification__body__icon"
-              [applyCss]="true"
-              [src]="retrievalEvent?.iconUrl"
-              [ngClass]="retrievalEvent?.priority?.name ?
+              <svg-icon
+                class="notification__body__icon"
+                [applyCss]="true"
+                [src]="retrievalEvent?.iconUrl"
+                [ngClass]="retrievalEvent?.priority?.name ?
           'notification__body__icon_' + retrievalEvent?.priority?.name :
            'notification__body__icon_standard'"
-            ></svg-icon>
-            <svg-icon
-              *ngIf="!retrievalEvent?.source"
-              class="notification__body__icon--delete"
-              [applyCss]="true"
-              src="assets/icons/remove.svg"
-              (click)="deleteClick($event, retrievalEvent?.id)"
-              (mousedown)="$event.stopPropagation()"
-              (touchstart)="$event.stopPropagation()"
-              [svgStyle]="{ 'width.px':'14', 'height.px':'14' }"
-            >
-            </svg-icon>
-            <span *ngIf="!retrievalEvent?.source"
-                  class="notification__body__icon--delete__mock"></span>
+              ></svg-icon>
+              <svg-icon
+                *ngIf="!retrievalEvent?.source"
+                class="notification__body__icon--delete"
+                [applyCss]="true"
+                src="assets/icons/remove.svg"
+                (click)="deleteClick($event, retrievalEvent?.id)"
+                (mousedown)="$event.stopPropagation()"
+                (touchstart)="$event.stopPropagation()"
+                [svgStyle]="{ 'width.px':'14', 'height.px':'14' }"
+              >
+              </svg-icon>
+              <span *ngIf="!retrievalEvent?.source"
+                    class="notification__body__icon--delete__mock"></span>
+            </div>
+            <div class="notification__body__extra_end-time">
+          <span class="notification__header__date-time">
+        {{ retrievalEvent?.eventEndDateTime | date: 'dd.MM.yyyy HH:mm' }}
+         </span>
+            </div>
           </div>
+
         </div>
       </div>
     </ng-container>

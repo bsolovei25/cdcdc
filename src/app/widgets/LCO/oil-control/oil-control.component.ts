@@ -171,9 +171,16 @@ export class OilControlComponent extends WidgetPlatform<unknown> implements OnIn
         super.ngOnDestroy();
     }
 
+    // protected async dataConnect(): Promise<void> {
+    //     super.dataConnect();
+    //     const data = await this.mockDataConnect();
+    //     this.drawOilControlSocket(data);
+    // }
+
     // for test
     async mockDataConnect(): Promise<any> {
         const widgetData = await this.http.get<any>('assets/mock/OilOperationsMock/lco.json').toPromise();
+        console.log(widgetData.data);
         return widgetData.data;
     }
 
@@ -709,9 +716,10 @@ export class OilControlComponent extends WidgetPlatform<unknown> implements OnIn
                             .attr('class', 'textProduct')
                             .text(nameSlicer(textProduct.name, 17))
                             .on('click', () => {
-                                this.onButtonChangeProduct(textProduct.name);
-                                this.countClickChangeStorage = 0;
+                                const previousProduct = this.savePositionProduct;
                                 this.savePositionProduct = textProduct.name;
+                                this.onButtonChangeProduct(textProduct.name, previousProduct);
+                                this.countClickChangeStorage = 0;
                             });
                         this.htmlProduct = textProduct.name;
                     }
@@ -803,7 +811,7 @@ export class OilControlComponent extends WidgetPlatform<unknown> implements OnIn
         }
     }
 
-    public onButtonChangeProduct(index: string): void {
+    public onButtonChangeProduct(index: string, previousIndex: string = null): void {
         this.clearProduct();
         if (this.countClickChange === 0 && !this.checkSocket) {
             this.changeMassiv(index, this.data);
@@ -833,7 +841,7 @@ export class OilControlComponent extends WidgetPlatform<unknown> implements OnIn
         );
         // this.drawBak(this.oilBak.nativeElement);
         this.drawPicture(this.oilIcon?.nativeElement);
-        if (this.savePositionProduct && this.savePositionProduct !== index) {
+        if (previousIndex && previousIndex !== index) {
             this.saveCurrentPage = 1;
         }
     }
@@ -916,7 +924,7 @@ export class OilControlComponent extends WidgetPlatform<unknown> implements OnIn
         clears.forEach((el) => el.remove());
     }
 
-    public changeMassiv(el, data): void {
+    public changeMassiv(el: string, data): void {
         let move: 'next' | 'prev';
         let newIndexProduct = 0;
         const indexProduct = 1 + data.findIndex(x => x.name === el);
@@ -934,11 +942,12 @@ export class OilControlComponent extends WidgetPlatform<unknown> implements OnIn
             }
         } else {
             move = 'prev';
-            if (indexProduct === 1) {
-                newIndexProduct = 2;
-            } else {
-                newIndexProduct = 1;
-            }
+            newIndexProduct = 1;
+            // if (indexProduct === 1) {
+            //     newIndexProduct = 2;
+            // } else {
+            //     newIndexProduct = 1;
+            // }
         }
         this.shiftMassiv(newIndexProduct, move);
     }
@@ -1107,9 +1116,10 @@ export class OilControlComponent extends WidgetPlatform<unknown> implements OnIn
         if (!product) {
             product = this.tempData[0]?.name;
         }
-        this.onButtonChangeProduct(product);
-        this.countClickChangeStorage = 0;
+        const previousProduct = this.savePositionProduct;
         this.savePositionProduct = product;
+        this.onButtonChangeProduct(product, previousProduct);
+        this.countClickChangeStorage = 0;
         this.savePositionStorage = null;
         this.nextStorage();
     }

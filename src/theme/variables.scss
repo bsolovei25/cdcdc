@@ -132,6 +132,7 @@
   --color-smp-events-chats: rgba(38, 65, 95, 0.17);
   --color-smp-events-header: rgba(95, 101, 128, 0.1);
 
+
   --color-smp-ev-ws-grad1: #192330;
   --color-smp-ev-ws-grad2: rgba(40, 92, 133, 1);
   --color-smp-ev-ws-grad3: rgba(63, 169, 245, 1);
@@ -139,7 +140,6 @@
   --color-smp-danger: #d00100;
   --color-smp-warning: #ff9700;
   --color-smp-active: #6ba4ef;
-
   
   --color-smp-checkbox: rgba(95, 101, 128, 0.55);
   --color-smp-white: #ffffff;
@@ -494,7 +494,9 @@
   --color-event-card-gradient: #222633;
   --color-event-card-gradient-danger: rgba(235, 87, 87, 0.2329306722689075);
   --color-event-card-gradient-warning: rgba(255, 140, 0, 0.29735644257703087);
+  --color-event-card-font-sub: #8C99B2;
   --evj-events-preview: rgba(39, 42, 56, 0.5);
+
 }
 
 $--color-active: #3fa9f5;

@@ -1,4 +1,12 @@
-import { Component, OnDestroy, OnInit, Inject, ViewChild, HostListener, ElementRef } from '@angular/core';
+import {
+    Component,
+    OnDestroy,
+    OnInit,
+    Inject,
+    ViewChild,
+    HostListener,
+    ElementRef
+} from '@angular/core';
 import {
     EventsWidgetCategory,
     EventsWidgetCategoryCode, IEventsWidgetAttributes,
@@ -356,7 +364,7 @@ export class EventsComponent extends WidgetPlatform<IEventsWidgetAttributes> imp
                 filtersIds = [-100];
                 break;
         }
-        const isCheckFilters: boolean = filtersIds.some((x) => x === ref.notification.status.id)
+        const isCheckFilters: boolean = ref.action !== 'add' || filtersIds.some((x) => x === ref.notification.status.id)
             || (filtersIds.some((x) => x === -100) && !ref.notification.isAcknowledged);
         if (!isCheckFilters || !isCheckCategories) {
             return;
@@ -453,6 +461,10 @@ export class EventsComponent extends WidgetPlatform<IEventsWidgetAttributes> imp
             notification.iconUrl = this.getNotificationIcon(notification.category.name);
             notification.iconUrlStatus = this.getStatusIcon(notification.status.name);
             notification.statusName = this.statuses[notification.status.name]; // TODO add default
+            notification?.retrievalEvents.forEach(value => {
+                value.iconUrl = this.getNotificationIcon(value.category.name);
+                value.iconUrlStatus = this.getStatusIcon(value.status.name);
+            });
         }
         this.notifications.splice(idx, 0, notification);
         this.notifications = this.notifications.slice();
@@ -477,10 +489,35 @@ export class EventsComponent extends WidgetPlatform<IEventsWidgetAttributes> imp
             notification.iconUrl = this.getNotificationIcon(notification.category.name);
             notification.iconUrlStatus = this.getStatusIcon(notification.status.name);
             notification.statusName = this.statuses[notification.status.name]; // TODO check
+            notification?.retrievalEvents.forEach(value => {
+                value.iconUrl = this.getNotificationIcon(value.category.name);
+                value.iconUrlStatus = this.getStatusIcon(value.status.name);
+            });
         }
         this.notifications[idx] = notification;
+        this.editWsElementEd(idx, notification);
         this.notifications = this.notifications.slice();
         this.countNotificationsDivCapacity();
+        this.getStats();
+    }
+
+    private editWsElementEd(idx: number, notification: IEventsWidgetNotificationPreview): void {
+        const options = this.getCurrentOptions();
+        if (options.categoriesType !== 'ed') {
+            return;
+        }
+        switch (options.filter) {
+            case 'inWork':
+                if (notification.isAcknowledged) {
+                    this.notifications.splice(idx, 1);
+                }
+                break;
+            case 'closed':
+                if (!notification.isAcknowledged) {
+                    this.notifications.splice(idx, 1);
+                }
+                break;
+        }
     }
 
     private getStatusIcon(name: string): string {
@@ -498,6 +535,10 @@ export class EventsComponent extends WidgetPlatform<IEventsWidgetAttributes> imp
                     const iconUrl = this.getNotificationIcon(n.category.name);
                     const iconUrlStatus = this.getStatusIcon(n.status?.name);
                     const statusName = n.status?.name ? this.statuses[n.status.name] : ''; // TODO
+                    n?.retrievalEvents.forEach(value => {
+                        value.iconUrl = this.getNotificationIcon(value.category.name);
+                        value.iconUrlStatus = this.getStatusIcon(value.status.name);
+                    });
                     return { ...n, iconUrl, statusName, iconUrlStatus };
                 });
             this.notifications = this.notifications.concat(notifications);
@@ -575,7 +616,7 @@ export class EventsComponent extends WidgetPlatform<IEventsWidgetAttributes> imp
         window.open(url);
     }
 
-    public async scrollHandler(event: {target: {offsetHeight: number, scrollTop: number, scrollHeight: number}}): Promise<void> {
+    public async scrollHandler(event: { target: { offsetHeight: number, scrollTop: number, scrollHeight: number } }): Promise<void> {
         if (
             event.target.offsetHeight + event.target.scrollTop + 100 >= event.target.scrollHeight
             && this.notifications.length
