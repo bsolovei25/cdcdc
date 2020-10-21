@@ -212,6 +212,9 @@ export class WidgetService {
     }
 
     setChannelLiveDataFromWsOptions<T>(widgetId: string, options: T, channelId: string = null): void {
+        if (!widgetId) {
+            return;
+        }
         if (this.openedWsChannels[widgetId]) {
             this.openedWsChannels[widgetId].options = {
                 optionValues: options,
