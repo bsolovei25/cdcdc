@@ -195,6 +195,26 @@ release-notes-maker:
   extends: .release-notes
   when:
       manual
+      
+get-factory-artifacts:
+  extends: .packing 
+  stage: release
+  image:
+    name: gitlab.funcoff.club:4567/oaovd/osspu/evj/back/runners:alpine
+  variables:
+    DEPLOY_DOMAIN: deploy.funcoff.club
+    GIT_STRATEGY: none
+    DEPLOY_PATH: "/var/www/angular-staging.local/public"
+    CMD_REPLACE: sed -i -E "s/(<title>Evj)(<\/title>)/\1 | ${CI_COMMIT_SHORT_SHA} \2/g" /var/www/angular.local/public/index.html
+  script:
+    - scp root@${DEPLOY_DOMAIN}:${DEPLOY_PATH} ./
+  artifacts:
+    paths:
+      - ./public
+  when:
+      manual
+  only:
+    - master
 
 .docker build:
     <<: *init
