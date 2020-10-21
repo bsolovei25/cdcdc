@@ -4,26 +4,6 @@ import { ChangeShiftComponent } from './../../../widgets/EVJ/change-shift/change
 /*import { ManualInputComponent } from '../../../widgets/EVJ/manual-input/manual-input.component';*/
 import { WidgetContainerComponent } from '../../widget-container/widget-container.component';
 import { CdMatBalanceChartCardComponent } from '../../../widgets/CD/cd-mat-balance/components/cd-mat-balance-chart-card/cd-mat-balance-chart-card.component';
-import { SuspenseMachineComponent } from '../../../widgets/LCO/suspense-machine/suspense-machine.component';
-import { CdCriticalComponent } from '../../../widgets/LCO/cd-critical/cd-critical.component';
-import { WorkflowComponent } from '../../../widgets/admin/workflow/workflow.component';
-import { OilOperationsComponent } from '../../../widgets/NK/oil-operations/oil-operations.component';
-import { UnityTemplateComponent } from '../../../widgets/others/unity-template/unity-template.component';
-import { DeviationsTableComponent } from '../../../widgets/LCO/deviations-table/deviations-table.component';
-import { ProductStocksComponent } from '../../../widgets/LCO/product-stocks/product-stocks.component';
-import { DeviationCircleDiagramComponent } from '../../../widgets/LCO/deviation-circle-diagram/deviation-circle-diagram.component';
-import { ColumnChartStackedComponent } from '../../../widgets/LCO/column-chart-stacked/column-chart-stacked.component';
-import { TimeLineDiagramComponent } from '../../../widgets/LCO/time-line-diagram/time-line-diagram.component';
-import { FlameDiagramComponent } from '../../../widgets/others/flame-diagram/flame-diagram.component';
-import { PetroleumProductsMovementComponent } from '../../../widgets/NK/petroleum-products-movement/petroleum-products-movement.component';
-import { ReportServerConfiguratorComponent } from '../../../widgets/admin/report-server-configurator/report-server-configurator.component';
-import { ReferenceComponent } from '../../../widgets/admin/reference/reference.component';
-import { TankCalibrationTableComponent } from '../../../widgets/NK/tank-calibration-table/tank-calibration-table.component';
-import { CustomReportPropertiesReferenceComponent } from '../../../widgets/admin/custom-report-properties-reference/custom-report-properties-reference.component';
-import { ProductionTrendComponent } from '../../../widgets/ASTUE-MNPZ/production-trend/production-trend.component';
-import { ReasonsDeviationsComponent } from '../../../widgets/NK/reasons-deviations/reasons-deviations.component';
-import { QualityDocsPanelComponent } from '../../../widgets/NK/quality-docs-panel/quality-docs-panel.component';
-import { DocumentCodingComponent } from '../../../widgets/NK/document-coding/document-coding.component';
 
 export const WIDGETS = {
     'pie-diagram': WidgetPiesComponent,
