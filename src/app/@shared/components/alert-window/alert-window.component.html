@@ -5,11 +5,10 @@
     (touchstart)="$event.stopPropagation()"
   >
     <div class="confirm-container">
-      <div class="confirm-container__body confirm-container-body">
-        <div
-          class="confirm-container-body__header confirm-container-body-header"
-          *ngIf="!info.input; else input"
-        >
+      <div class="confirm-container__body confirm-container-body"
+           *ngIf="!info.input; else input"
+      >
+        <div class="confirm-container-body-header">
           <div class="confirm-container-body-header__icon">
             <img [src]="attentionIcon" />
           </div>
@@ -20,21 +19,6 @@
             <img [src]="closeIcon" />
           </div>
         </div>
-        <ng-template #input>
-          <div class="confirm-container-body__header confirm-container-body-header">
-            <div
-              class="confirm-container-body-header__icon confirm-container-body-header__icon_input"
-            >
-              <img [src]="editIcon"/>
-            </div>
-            <div class="confirm-container-body-header__title">
-              <span>{{editTitle}}</span>
-            </div>
-            <div class="confirm-container-body-header__close">
-              <img [src]="closeIcon" />
-            </div>
-          </div>
-        </ng-template>
 
         <div
           class="confirm-container-body__content"
@@ -53,6 +37,37 @@
           />
         </div>
       </div>
+      <ng-template #input>
+        <div class="confirm-container__body-input confirm-container-body">
+          <div class="confirm-container-body-header">
+            <div class="confirm-container-body-header__icon">
+              <img [src]="editIcon" />
+            </div>
+            <div class="confirm-container-body-header__title">
+              <span>{{editTitle}}</span>
+            </div>
+            <div class="confirm-container-body-header__close">
+              <img [src]="closeIcon" />
+            </div>
+          </div>
+          <div
+            class="confirm-container-body__content"
+            [ngClass]="{'confirm-container-body__content_prompt':!!info.input}"
+          >
+            <div class="confirm-container-body__input-text">
+              <span [innerHTML]="info?.questionText | replaceLineBreak"></span>
+            </div>
+            <input
+              type="text"
+              class="input"
+              [ngClass]="setInputStyle()"
+              [formControl]="info.input.formControl"
+              [placeholder]="info.input.placeholder"
+              *ngIf="!!info.input"
+            />
+          </div>
+        </div>
+      </ng-template>
       <div class="confirm-container__footer">
         <div class="button-container">
           <evj-button

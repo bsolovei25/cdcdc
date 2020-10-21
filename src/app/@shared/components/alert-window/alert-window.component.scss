@@ -1,5 +1,4 @@
 $border-radius: 21px;
-$width: 600px;
 $font-size: 18px;
 $alert-color: #E7292B;
 $question-color: #D7E2F2;
@@ -44,129 +43,102 @@ $input-color: #8A98B3;
 }
 
 .confirm-container {
-  max-width: $width;
   width: 516px;
   position: relative;
 
   background-color: var(--color-aw-container-body-transparent);
   box-shadow: 0 0 35px var(--color-aw-container-shadow-transparent);
+  border-radius: 4px;
 
   &__body {
     width: 100%;
-    height: 151px;
+    height: 167px;
+    border-radius: 4px;
 
     background-color: var(--color-aw-container-body-transparent);
   }
-  &-body__input-text {
-    width: 320px;
-    height: 17px;
+  &__body-input {
+    width: 100%;
+    height: 226px;
+    border-radius: 4px;
+
+    background-color: var(--color-aw-container-body-transparent);
   }
 
-  &-body__header {
-    width: 100%;
-    height: 62px;
-
-    background-color: transparent;
+  &-body-header {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
+    width: 516px;
+    height: 62px;
+    border-radius: 4px 4px 0 0;
 
-    span {
-      height: 42px;
-
-      display: flex;
-      align-items: center;
-      font-style: normal;
-      font-weight: bold;
-      font-size: $font-size;
-      line-height: 16px;
-      color: white;
-    }
-  }
-
-  &-body__content {
-    height: 89px;
-
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    overflow: hidden;
-
-    span {
-      display: flex;
-      align-items: center;
-      font-style: normal;
-      font-weight: normal;
-      font-size: $font-size;
-      line-height: 18px;
-      color: $question-color;
-    }
-
-    &_prompt {
-      span {
-      color: $input-color;
-      line-height: 17px;
-      font-size: 14px;
-      }
-    }
-  }
-
-  &-body-header__icon {
-    width: 90px;
-    height: 100%;
-
-    background-color: transparent;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    img {
-      margin: auto;
-    }
-
-    &_input {
+    &__icon {
+      height: 100%;
+      width: 86px;
+      border-radius: 4px;
       background-color: transparent;
       display: flex;
       justify-content: center;
       align-items: center;
+    }
+    &__close {
+      height: 100%;
+      width: 86px;
+      border-radius: 4px;
+      background-color: transparent;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
 
-      img {
-        margin: auto;
-      }
+    &__title {
+      height: 100%;
+      width: 344px;
+      background-color: transparent;
+      display: flex;
+      align-items: center;
+      font-style: normal;
+      font-weight: bold;
+      font-size: 18px;
+      line-height: 16px;
     }
   }
-  &-body-header__close {
-    width: 60px;
-    height: 100%;
 
-    background-color: transparent;
+  &-body__content {
+    height: 105px;
+
     display: flex;
-    justify-content: center;
-    align-items: center;
-
-    img {
-      margin: auto;
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: start;
+    overflow: hidden;
+    margin-top: 13px;
+    padding-left: 86px;
+    span {
+      font-style: normal;
+      font-weight: normal;
+      font-size: $font-size;
+      line-height: 22px;
+      color: $question-color;
     }
   }
-  &-body-header__title {
-    height: 100%;
-    flex-grow: 4;
-
-    background-color: transparent;
-    display: flex;
-    align-items: center;
+  &-body__input-text {
+    span {
+      font-style: normal;
+      font-weight: normal;
+      font-size: 14px;
+      line-height: 17px;
+      color: $input-color;
+    }
   }
 
   &__footer {
-    height: 72px;
+    height: 56px;
     display: flex;
     flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    background-color: var(--color-aw-container-body-transparent);
+    justify-content: flex-start;
+    padding-left: 86px;
+    border-radius: 0 0 4px 4px;
 
     .button-container {
       width: 150px;
