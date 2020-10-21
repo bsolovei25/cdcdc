@@ -206,11 +206,9 @@ get-factory-artifacts:
     GIT_STRATEGY: none
     DEPLOY_PATH: "/var/www/angular-staging.local/public"
     CMD_REPLACE: sed -i -E "s/(<title>Evj)(<\/title>)/\1 | ${CI_COMMIT_SHORT_SHA} \2/g" /var/www/angular.local/public/index.html
-  script:
-    - scp root@${DEPLOY_DOMAIN}:${DEPLOY_PATH} ./
   artifacts:
     paths:
-      - ./public
+      - ./dist
   when:
       manual
   only:
