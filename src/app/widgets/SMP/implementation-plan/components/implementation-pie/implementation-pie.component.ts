@@ -1,5 +1,5 @@
+import { IImplementationPlan } from './../../../../../dashboard/models/SMP/implementation-plan.model';
 import { Component, OnInit, Input, ViewChild, ElementRef, OnChanges, ChangeDetectionStrategy } from '@angular/core';
-import { IImplementationPlan } from '../../implementation-plan.component';
 import { SpaceNumber } from '@shared/pipes/number-space.pipe';
 import * as d3 from 'd3';
 
@@ -49,8 +49,6 @@ export class ImplementationPieComponent implements OnInit, OnChanges {
     this.svg = d3
       .select(el)
       .append('svg')
-      .attr('min-width', '100px')
-      .attr('viewBox', '2 0 93 100');
 
     let group = this.svg.append('g').attr('transform', 'translate(50 ,50)');
 
@@ -92,8 +90,9 @@ export class ImplementationPieComponent implements OnInit, OnChanges {
       .attr('font-size', '13px')
       .attr('font-family', "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
       .attr('y', '68')
-      .attr('x', '35')
+      .attr('x', '50')
       .attr('fill', 'green')
+      .attr('text-anchor', 'middle')
       .text(data.deviation);
   }
 
