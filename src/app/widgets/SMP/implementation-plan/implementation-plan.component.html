@@ -15,31 +15,72 @@
     (touchstart)="$event.stopPropagation()"
   >
     <div class="block-fabric">
-      <div class="icon active-icon">
-        <svg-icon
-          src="assets/icons/widgets/SMP/fabric.svg"
-          [svgStyle]="{ 'width.px':50, 'height.px':30}"
-        >
-        </svg-icon>
-        <div class="icon__text">МНПЗ</div>
+      <div class="icon-block">
+        <div class="icon active-icon">
+          <svg-icon
+            src="assets/icons/widgets/SMP/fabric.svg"
+            [svgStyle]="{ 'width.px':50, 'height.px':30}"
+          >
+          </svg-icon>
+          <div class="icon__text">МНПЗ</div>
+        </div>
+        <div class="checkbox checkbox_checked">
+          <div class="checkbox__inner"></div>
+        </div>
+        <div class="arrow-container">
+            <div class="line"></div>
+            <div class="arrow"></div>
+        </div>
       </div>
-      <div class="icon">
-        <svg-icon
-          src="assets/icons/widgets/SMP/fabric.svg"
-          [svgStyle]="{ 'width.px':50, 'height.px':30}"
-        >
-        </svg-icon>
-        <div class="icon__text">ОНПЗ</div>
+      <div class="icon-block">
+        <div class="icon active-icon">
+          <svg-icon
+            src="assets/icons/widgets/SMP/fabric.svg"
+            [svgStyle]="{ 'width.px':50, 'height.px':30}"
+          >
+          </svg-icon>
+          <div class="icon__text">ОНПЗ</div>
+        </div>
+        <div class="checkbox checkbox_checked">
+          <div class="checkbox__inner"></div>
+        </div>
+        <div class="arrow-container">
+          <div class="line"></div>
+          <div class="arrow"></div>
+        </div>
       </div>
-      <div class="icon">
-        <svg-icon
-          src="assets/icons/widgets/SMP/fabric.svg"
-          [svgStyle]="{ 'width.px':50, 'height.px':30}"
-        >
-        </svg-icon>
-        <div class="icon__text">ЯНОС</div>
+      <div class="icon-block">
+        <div class="icon active-icon">
+          <svg-icon
+            src="assets/icons/widgets/SMP/fabric.svg"
+            [svgStyle]="{ 'width.px':50, 'height.px':30}"
+          >
+          </svg-icon>
+          <div class="icon__text">ЯНОС</div>
+        </div>
+        <div class="checkbox checkbox_checked">
+          <div class="checkbox__inner"></div>
+        </div>
+        <div class="arrow-container">
+          <div class="line"></div>
+          <div class="arrow"></div>
+        </div>
       </div>
     </div>
+
+    <div class="custom-circles">
+      <div class="circle"></div>
+      <div class="line"></div>
+      <div class="circle"></div>
+      <div class="line"></div>
+      <div class="circle"></div>
+    </div>
+
+    <div class="arrow-container">
+      <div class="line"></div>
+      <div class="arrow"></div>
+    </div>
+
     <div class="block-pie">
       <ng-container *ngFor="let item of data">
         <evj-implementations [data]="item"></evj-implementations>

@@ -2,28 +2,28 @@ import { WidgetPiesComponent } from './../../../widgets/LCO/widgets-pie/widget-p
 import { LineChartComponent } from './../../../@shared/components/line-chart/line-chart.component';
 import { ChangeShiftComponent } from './../../../widgets/EVJ/change-shift/change-shift.component';
 /*import { ManualInputComponent } from '../../../widgets/EVJ/manual-input/manual-input.component';*/
-import { SuspenseMachineComponent } from '../../widgets/suspense-machine/suspense-machine.component';
-import { UnityTemplateComponent } from '../../widgets/unity-template/unity-template.component';
-import { DeviationsTableComponent } from '../../widgets/deviations-table/deviations-table.component';
-import { ProductStocksComponent } from '../../widgets/product-stocks/product-stocks.component';
-import { DeviationCircleDiagramComponent } from '../../widgets/deviation-circle-diagram/deviation-circle-diagram.component';
-import { ColumnChartStackedComponent } from '../../widgets/column-chart-stacked/column-chart-stacked.component';
-import { TimeLineDiagramComponent } from '../../widgets/time-line-diagram/time-line-diagram.component';
-import { FlameDiagramComponent } from '../../widgets/flame-diagram/flame-diagram.component';
-import { PetroleumProductsMovementComponent } from '../../widgets/petroleum-products-movement/petroleum-products-movement.component';
-import { ReportServerConfiguratorComponent } from '../../widgets/report-server-configurator/report-server-configurator.component';
-import { ReferenceComponent } from '../../widgets/reference/reference.component';
-import { TankCalibrationTableComponent } from '../../widgets/tank-calibration-table/tank-calibration-table.component';
-import { CustomReportPropertiesReferenceComponent } from '../../widgets/custom-report-properties-reference/custom-report-properties-reference.component';
-import { ProductionTrendComponent } from '../../widgets/production-trend/production-trend.component';
-import { ReasonsDeviationsComponent } from '../../widgets/reasons-deviations/reasons-deviations.component';
-import { QualityDocsPanelComponent } from '../../widgets/quality-docs-panel/quality-docs-panel.component';
-import { DocumentCodingComponent } from '../../widgets/document-coding/document-coding.component';
-import { OilOperationsComponent } from '../../widgets/oil-operations/oil-operations.component';
-import { WorkflowComponent } from '../../widgets/workflow/workflow.component';
-import { CdCriticalComponent } from '../../widgets/cd-critical/cd-critical.component';
 import { WidgetContainerComponent } from '../../widget-container/widget-container.component';
 import { CdMatBalanceChartCardComponent } from '../../../widgets/CD/cd-mat-balance/components/cd-mat-balance-chart-card/cd-mat-balance-chart-card.component';
+import { SuspenseMachineComponent } from '../../../widgets/LCO/suspense-machine/suspense-machine.component';
+import { CdCriticalComponent } from '../../../widgets/LCO/cd-critical/cd-critical.component';
+import { WorkflowComponent } from '../../../widgets/admin/workflow/workflow.component';
+import { OilOperationsComponent } from '../../../widgets/NK/oil-operations/oil-operations.component';
+import { UnityTemplateComponent } from '../../../widgets/others/unity-template/unity-template.component';
+import { DeviationsTableComponent } from '../../../widgets/LCO/deviations-table/deviations-table.component';
+import { ProductStocksComponent } from '../../../widgets/LCO/product-stocks/product-stocks.component';
+import { DeviationCircleDiagramComponent } from '../../../widgets/LCO/deviation-circle-diagram/deviation-circle-diagram.component';
+import { ColumnChartStackedComponent } from '../../../widgets/LCO/column-chart-stacked/column-chart-stacked.component';
+import { TimeLineDiagramComponent } from '../../../widgets/LCO/time-line-diagram/time-line-diagram.component';
+import { FlameDiagramComponent } from '../../../widgets/others/flame-diagram/flame-diagram.component';
+import { PetroleumProductsMovementComponent } from '../../../widgets/NK/petroleum-products-movement/petroleum-products-movement.component';
+import { ReportServerConfiguratorComponent } from '../../../widgets/admin/report-server-configurator/report-server-configurator.component';
+import { ReferenceComponent } from '../../../widgets/admin/reference/reference.component';
+import { TankCalibrationTableComponent } from '../../../widgets/NK/tank-calibration-table/tank-calibration-table.component';
+import { CustomReportPropertiesReferenceComponent } from '../../../widgets/admin/custom-report-properties-reference/custom-report-properties-reference.component';
+import { ProductionTrendComponent } from '../../../widgets/ASTUE-MNPZ/production-trend/production-trend.component';
+import { ReasonsDeviationsComponent } from '../../../widgets/NK/reasons-deviations/reasons-deviations.component';
+import { QualityDocsPanelComponent } from '../../../widgets/NK/quality-docs-panel/quality-docs-panel.component';
+import { DocumentCodingComponent } from '../../../widgets/NK/document-coding/document-coding.component';
 
 export const WIDGETS = {
     'pie-diagram': WidgetPiesComponent,
@@ -33,26 +33,13 @@ export const WIDGETS = {
     /*'manual-input': ManualInputComponent,*/
     'events-workspace': WidgetContainerComponent,
     'industrial-pyramid': WidgetContainerComponent,
-    'unity-template': UnityTemplateComponent,
-    'table-data': SuspenseMachineComponent,
-    'deviations-table': DeviationsTableComponent,
-    'product-stocks': ProductStocksComponent,
-    'deviation-circle-diagram': DeviationCircleDiagramComponent,
-    'column-chart-stacked': ColumnChartStackedComponent,
-    'flame-diagram': FlameDiagramComponent,
-    'time-line-diagram': TimeLineDiagramComponent,
-    'petroleum-products-movement': PetroleumProductsMovementComponent,
-    reference: ReferenceComponent,
-    'report-server-configurator': ReportServerConfiguratorComponent,
-    'tank-calibration-table': TankCalibrationTableComponent,
-    'custom-report-properties-reference': CustomReportPropertiesReferenceComponent,
-    'production-trend': ProductionTrendComponent,
-    'reasons-deviations': ReasonsDeviationsComponent,
-    'quality-docs-panel': QualityDocsPanelComponent,
-    'document-coding': DocumentCodingComponent,
-    'oil-operations': OilOperationsComponent,
-    workflow: WorkflowComponent,
-    'cd-critical': CdCriticalComponent,
+    'unity-template': WidgetContainerComponent,
+    'flame-diagram': WidgetContainerComponent,
+    'petroleum-products-movement': WidgetContainerComponent,
+    'report-server-configurator': WidgetContainerComponent,
+    'tank-calibration-table': WidgetContainerComponent,
+    'production-trend': WidgetContainerComponent,
+    workflow: WidgetContainerComponent,
     'implementation-plan': WidgetContainerComponent,
     'performance-progress-indicators': WidgetContainerComponent,
     'quality-stock': WidgetContainerComponent,
@@ -144,7 +131,20 @@ export const WIDGETS = {
     'documents-scans': WidgetContainerComponent,
     'document-viewer': WidgetContainerComponent,
     'admin-panel': WidgetContainerComponent,
-    'polar-chart': WidgetContainerComponent
+    'polar-chart': WidgetContainerComponent,
+    reference: WidgetContainerComponent,
+    'custom-report-properties-reference': WidgetContainerComponent,
+    'time-line-diagram': WidgetContainerComponent,
+    'suspense-machine': WidgetContainerComponent,
+    'cd-critical': WidgetContainerComponent,
+    'oil-operations': WidgetContainerComponent,
+    'document-coding': WidgetContainerComponent,
+    'quality-docs-panel': WidgetContainerComponent,
+    'reasons-deviations': WidgetContainerComponent,
+    'column-chart-stacked': WidgetContainerComponent,
+    'product-stocks': WidgetContainerComponent,
+    'deviations-table': WidgetContainerComponent,
+    'deviation-circle-diagram': WidgetContainerComponent,
 };
 
 export const WIDGETS_LAZY = {
@@ -319,6 +319,84 @@ export const WIDGETS_LAZY = {
         minItemRows: 12,
         preview: 'document-viewer'
     },
+    'tank-calibration-table': {
+        import: async () => {
+            return await import(
+                'src/app/widgets/NK/tank-calibration-table/tank-calibration-table.module'
+                );
+        },
+        module: 'TankCalibrationTableModule',
+        itemCols: 40,
+        itemRows: 20,
+        minItemCols: 40,
+        minItemRows: 10,
+        preview: 'tank-calibration-table'
+    },
+    'petroleum-products-movement': {
+        import: async () => {
+            return await import(
+                'src/app/widgets/NK/petroleum-products-movement/petroleum-products-movement.module'
+                );
+        },
+        module: 'PetroleumProductsMovementModule',
+        itemCols: 64,
+        itemRows: 30,
+        minItemCols: 64,
+        minItemRows: 30,
+        preview: 'petroleum-products-movement'
+    },
+    'oil-operations': {
+        import: async () => {
+            return await import(
+                'src/app/widgets/NK/oil-operations/oil-operations.module'
+                );
+        },
+        module: 'OilOperationsModule',
+        itemCols: 64,
+        itemRows: 16,
+        minItemCols: 54,
+        minItemRows: 16,
+        preview: 'oil-operations'
+    },
+    'document-coding': {
+        import: async () => {
+            return await import(
+                'src/app/widgets/NK/document-coding/document-coding.module'
+                );
+        },
+        module: 'DocumentCodingModule',
+        itemCols: 48,
+        itemRows: 15,
+        minItemCols: 36,
+        minItemRows: 12,
+        preview: 'document-coding'
+    },
+    'quality-docs-panel': {
+        import: async () => {
+            return await import(
+                'src/app/widgets/NK/quality-docs-panel/quality-docs-panel.module'
+                );
+        },
+        module: 'QualityDocsPanelModule',
+        itemCols: 48,
+        itemRows: 15,
+        minItemCols: 36,
+        minItemRows: 12,
+        preview: 'quality-docs-panel'
+    },
+    'reasons-deviations': {
+        import: async () => {
+            return await import(
+                'src/app/widgets/NK/reasons-deviations/reasons-deviations.module'
+                );
+        },
+        module: 'ReasonsDeviationsModule',
+        itemCols: 28,
+        itemRows: 14,
+        minItemCols: 26,
+        minItemRows: 14,
+        preview: 'reasons-deviations'
+    },
 
     // #endregion NK
 
@@ -452,6 +530,52 @@ export const WIDGETS_LAZY = {
         minItemRows: 13,
         preview: 'admin-references'
     },
+    workflow: {
+        import: async () => {
+            return await import('src/app/widgets/admin/workflow/workflow.module');
+        },
+        module: 'WorkflowModule',
+        itemCols: 30,
+        itemRows: 20,
+        minItemCols: 30,
+        minItemRows: 20,
+        preview: 'workflow'
+    },
+    'report-server-configurator': {
+        import: async () => {
+            return await import('src/app/widgets/admin/report-server-configurator/report-server-configurator.module');
+        },
+        module: 'ReportServerConfiguratorModule',
+        itemCols: 32,
+        itemRows: 15,
+        minItemCols: 27,
+        minItemRows: 15,
+        preview: 'report-server-configurator'
+    },
+    reference: {
+        import: async () => {
+            return await import('src/app/widgets/admin/reference/reference.module');
+        },
+        module: 'ReferenceModule',
+        itemCols: 32,
+        itemRows: 15,
+        minItemCols: 27,
+        minItemRows: 15,
+        preview: 'reference'
+    },
+    'custom-report-properties-reference': {
+        import: async () => {
+            return await import('src/app/widgets/admin/custom-report-properties-reference/custom-report-properties-reference.module');
+        },
+        module: 'CustomReportPropertiesReferenceModule',
+        itemCols: 32,
+        itemRows: 15,
+        minItemCols: 27,
+        minItemRows: 15,
+        preview: 'custom-report-properties-reference'
+    },
+
+
 
     // #endregion Admin
 
@@ -926,6 +1050,83 @@ export const WIDGETS_LAZY = {
         minItemRows: 6,
         preview: 'operation-efficiency'
     },
+    'time-line-diagram': {
+        import: async () => {
+            return await import('src/app/widgets/LCO/time-line-diagram/time-line-diagram.module');
+        },
+        module: 'TimeLineDiagramModule',
+        itemCols: 20,
+        itemRows: 9,
+        minItemCols: 25,
+        minItemRows: 8,
+        preview: 'time-line-diagram'
+    },
+    'suspense-machine': {
+        import: async () => {
+            return await import('src/app/widgets/LCO/suspense-machine/suspense-machine.module');
+        },
+        module: 'SuspenseMachineModule',
+        itemCols: 64,
+        itemRows: 15,
+        minItemCols: 14,
+        minItemRows: 10,
+        preview: 'table-data'
+    },
+    'cd-critical': {
+        import: async () => {
+            return await import('src/app/widgets/LCO/cd-critical/cd-critical.module');
+        },
+        module: 'CdCriticalModule',
+        itemCols: 10,
+        itemRows: 10,
+        minItemCols: 10,
+        minItemRows: 10,
+        preview: 'cd-critical'
+    },
+    'column-chart-stacked': {
+        import: async () => {
+            return await import('src/app/widgets/LCO/column-chart-stacked/column-chart-stacked.module');
+        },
+        module: 'ColumnChartStackedModule',
+        itemCols: 24,
+        itemRows: 12,
+        minItemCols: 16,
+        minItemRows: 9,
+        preview: 'column-chart-stacked'
+    },
+    'product-stocks': {
+        import: async () => {
+            return await import('src/app/widgets/LCO/product-stocks/product-stocks.module');
+        },
+        module: 'ProductStocksModule',
+        itemCols: 17,
+        itemRows: 7,
+        minItemCols: 17,
+        minItemRows: 7,
+        preview: 'product-stocks'
+    },
+    'deviation-circle-diagram': {
+        import: async () => {
+            return await import('src/app/widgets/LCO/deviation-circle-diagram/deviation-circle-diagram.module');
+        },
+        module: 'DeviationCircleDiagramModule',
+        itemCols: 12,
+        itemRows: 9,
+        minItemCols: 9,
+        minItemRows: 8,
+        preview: 'deviation-circle-diagram'
+    },
+    'deviations-table': {
+        import: async () => {
+            return await import('src/app/widgets/LCO/deviations-table/deviations-table.module');
+        },
+        module: 'DeviationsTableModule',
+        itemCols: 20,
+        itemRows: 30,
+        minItemCols: 20,
+        minItemRows: 10,
+        preview: 'deviations-table'
+    },
     //#endregion LCO
 
     //#region SMP
@@ -1052,6 +1253,18 @@ export const WIDGETS_LAZY = {
         itemCols: 58,
         itemRows: 25,
         minItemCols: 58,
+        minItemRows: 20,
+        preview: 'astue-efficiency'
+    },
+    'production-trend': {
+        import: async () =>
+            await import(
+                'src/app/widgets/ASTUE-MNPZ/production-trend/production-trend.module'
+                ),
+        module: 'ProductionTrendModule',
+        itemCols: 32,
+        itemRows: 20,
+        minItemCols: 32,
         minItemRows: 20,
         preview: 'astue-efficiency'
     },
@@ -1381,8 +1594,39 @@ export const WIDGETS_LAZY = {
         minItemCols: 50,
         minItemRows: 30,
         preview: 'dispatcher-screen'
-    }
+    },
     //#endregion ED
+
+    //#region others
+    'flame-diagram': {
+        import: async () => {
+            return await import(
+                'src/app/widgets/others/flame-diagram/flame-diagram.module'
+            );
+        },
+        module: 'FlameDiagramModule',
+        itemCols: 15,
+        itemRows: 15,
+        minItemCols: 15,
+        minItemRows: 15,
+        preview: 'flame-diagram'
+    },
+    'unity-template': {
+        import: async () => {
+            return await import(
+                'src/app/widgets/others/unity-template/unity-template.module'
+            );
+        },
+        module: 'UnityTemplateModule',
+        itemCols: 15,
+        itemRows: 15,
+        minItemCols: 15,
+        minItemRows: 15,
+        preview: 'unity-template'
+    }
+
+    //#endregion others
+
 
     // 'pie-diagram': {
     //     import: async () => await import('src/app/widgets/pie-diagram/pie-diagram.module'),

@@ -1,0 +1,30 @@
+<ng-container>
+  <evj-widget-header
+    [title]="widgetTitle"
+    [units]="widgetUnits"
+    [code]="widgetCode"
+    [id]="widgetId"
+    [uniqId]="widgetUniqId"
+  ></evj-widget-header>
+  <evj-frame-top></evj-frame-top>
+  <div
+    class="body-container"
+    (mousedown)="$event.stopPropagation()"
+    (touchstart)="$event.stopPropagation()"
+  >
+    <div class="flame-container">
+      <div style="padding-top:80.000%; position:relative;" *ngIf="!isMock">
+        <img
+          src="assets/gif/flame.gif"
+          width="100%"
+          height="100%"
+          style="position:absolute;top:0;left:0;"
+          frameBorder="0"
+          allowFullScreen
+        />
+      </div>
+      <div class="mock-container" *ngIf="isMock"></div>
+    </div>
+  </div>
+  <evj-frame-bottom></evj-frame-bottom>
+</ng-container>

@@ -122,6 +122,8 @@
   // SMP
   --color-smp-tank-fact: rgb(0, 121, 222);
   --color-smp-tank-plan: rgb(0, 75, 134);
+  --color-smp-free: #183D61;
+  --color-smp-rest: #008AFC;
   --color-smp-border: rgba(91, 96, 125, 0.5);
   --color-smp-text-sub: rgb(95, 101, 128);
   --color-smp-pie-normal: rgb(127, 169, 191);
@@ -130,6 +132,7 @@
   --color-smp-events-chats: rgba(38, 65, 95, 0.17);
   --color-smp-events-header: rgba(95, 101, 128, 0.1);
 
+
   --color-smp-ev-ws-grad1: #192330;
   --color-smp-ev-ws-grad2: rgba(40, 92, 133, 1);
   --color-smp-ev-ws-grad3: rgba(63, 169, 245, 1);
@@ -137,6 +140,9 @@
   --color-smp-danger: #d00100;
   --color-smp-warning: #ff9700;
   --color-smp-active: #6ba4ef;
+
+  --color-smp-checkbox: rgba(95, 101, 128, 0.55);
+  --color-smp-white: #ffffff;
 
   // APS
   --color-aps-warning: #ff931e;

@@ -18,14 +18,14 @@
         <div class="frame-top"></div>
       </div>
       <evj-performance-progress-park
-        [data]="data?.statePark"
+        [data]="progressIndicators?.statePark"
         title="Состояние парка"
       ></evj-performance-progress-park>
       <div class="frame-bottom"></div>
     </div>
     <div class="content__middle">
       <evj-performance-progress-line-circle
-        [data]="data?.circle"
+        [data]="progressIndicators?.circle"
       ></evj-performance-progress-line-circle>
     </div>
     <div class="content__right">
@@ -33,7 +33,7 @@
         <div class="frame-top"></div>
       </div>
       <evj-performance-progress-park
-        [data]="data?.shipment"
+        [data]="progressIndicators?.shipment"
         title="Отгрузка"
       ></evj-performance-progress-park>
       <div class="frame-bottom"></div>

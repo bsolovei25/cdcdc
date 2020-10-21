@@ -1,0 +1,95 @@
+<div class="container">
+  <evj-widget-header [title]="widgetTitle" [units]="widgetUnits" [code]="widgetCode" [id]="id" [uniqId]="uniqId"
+    [icon]="widgetIcon"></evj-widget-header>
+
+  <evj-frame-top></evj-frame-top>
+
+  <div class="content" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
+    <evj-loading-shade [isLoading]="isLoading"></evj-loading-shade>
+    <evj-alert-window [info]="reportService.alertWindow$ | async"></evj-alert-window>
+    <div class="references">
+      <div class="reference-left">
+        <div class="title-reference">Наименование параметра</div>
+        <div class="reference-container">
+          <div id="leftScrollReportRef" class="scroll-block">
+            <ng-container *ngFor="let item of data; let i= index">
+              <div class="reference-container__block">
+                <div *ngIf="!item.openEdit" class="reference-container__block-info"
+                  [class.block-active]="item.id === idReferenceClick" (click)="onClickReference(item, i)">
+                  <div class="reference-container__name">{{item.name}}</div>
+                  <div class="reference-container__button-edit" (click)="onEdit(item)">
+                    <svg-icon *ngIf="item.id === idReferenceClick" class="indicator-selector__collapse"
+                      src="assets/icons/widgets/references/edit_white.svg"></svg-icon>
+                  </div>
+                </div>
+                <div *ngIf="item.openEdit" class="reference-container__block-info" [class.block-active]="item.open">
+                  <div class="reference-container__add-block-input">
+                    <input type="text" [(ngModel)]="item.name" placeholder="Новое наименование..." />
+                  </div>
+                  <div class="reference-container__add-block-icon" (click)="editOptions(item)">
+                    <svg-icon src="assets/icons/widgets/references/accept.svg" class="add_button_icon"></svg-icon>
+                  </div>
+                </div>
+                <div class="reference-container__button-remove" (click)="deleteReference(item)"
+                  *ngIf="item.id === idReferenceClick">
+                </div>
+              </div>
+            </ng-container>
+            <div *ngIf="isClickPushReference" class="reference-container__add-block">
+              <div class="reference-container__add-block-input">
+                <input type="text" [(ngModel)]="newRecordInReference" placeholder="Введите имя параметра..." />
+              </div>
+              <div class="reference-container__add-block-icon" (click)="onPushReference()">
+                <svg-icon src="assets/icons/widgets/references/accept.svg" class="add_button_icon"></svg-icon>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="bottom-reference-left">
+          <div class="bottom-reference-left__block">
+            <div class="bottom-reference-left__button-add" (click)="onPushBlockInReference()">
+              <svg-icon *ngIf="!isClickPushReference" src="assets/icons/widgets/references/add_white.svg"
+                class="add_button_icon"></svg-icon>
+
+              <svg-icon *ngIf="isClickPushReference" class="indicator-selector__collapse"
+                src="assets/icons/widgets/references/add_blue.svg"></svg-icon>
+            </div>
+            <div class="bottom-reference-left__input-block">
+              <div class="bottom-reference-left__button-search">
+                <svg-icon *ngIf="!isRefInput" class="button_filter_icon"
+                  src="assets/icons/widgets/references/search_white.svg"></svg-icon>
+
+                <svg-icon *ngIf="isRefInput" class="indicator-selector__collapse"
+                  src="assets/icons/widgets/references/search_blue.svg"></svg-icon>
+              </div>
+              <div class="bottom-reference-left__input" [class.bottom-reference-left__input-active]="isRefInput">
+                <input type="text" (focus)="isRefInput = true" (blur)="isRefInput = false"
+                  (keyup)="searchReference($event)" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="reference-right">
+        <div class="title-reference" [class.isLongBlock]="isLongBlock">
+          <div class="title-reference__title-name">Свойство</div>
+          <div class="title-reference__title-type">Значение</div>
+        </div>
+        <div class="references-container-scroll-block">
+          <div  id="rightScrollReportRef" class="reference-container-value"
+            [class.isLongBlock]="isLongBlock" #propertiesRefereneTable>
+            <ng-container *ngIf="indexColumn !== undefined && indexColumn !== null">
+              <evj-custom-report-options [data]="this.data[this.indexColumn]" #customOptions></evj-custom-report-options>
+            </ng-container>
+          </div>
+        </div>
+        <div class="bottom-reference-right" [class.isLongBlock]="isLongBlock">
+          <div class="bottom-reference-right__block">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <evj-frame-bottom></evj-frame-bottom>
+</div>
