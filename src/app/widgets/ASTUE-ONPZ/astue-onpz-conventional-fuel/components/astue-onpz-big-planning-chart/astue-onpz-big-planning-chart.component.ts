@@ -11,11 +11,13 @@ import { fillDataShape } from '@shared/functions/common-functions';
     templateUrl: './astue-onpz-big-planning-chart.component.html',
     styleUrls: ['./astue-onpz-big-planning-chart.component.scss']
 })
-export class AstueOnpzBigPlanningChartComponent extends WidgetPlatform<unknown>
-    implements OnInit, OnDestroy {
+export class AstueOnpzBigPlanningChartComponent extends WidgetPlatform implements OnInit, OnDestroy {
+
+    public sbLeft: number = 0;
+    public sbWidth: number = 100;
     public info: IPlanningChart;
     public data: IProductionTrend[] = [];
-    colors: Map<string, number>;
+    public colors: Map<string, number>;
     public scaleCounter: number = 5;
     set scale(isMinus: boolean) {
         let counter = this.scaleCounter + (+isMinus || -1);

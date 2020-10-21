@@ -18,6 +18,8 @@ import { dateFormatLocale } from '@shared/functions/universal-time-fromat.functi
     styleUrls: ['./planning-chart.component.scss'],
 })
 export class PlanningChartComponent implements OnChanges {
+
+    @Input() private scroll: { left: number, right: number } = { left: 0, right: 100 };
     @Input() private data: IProductionTrend[] = [];
     @Input() private isSpline: boolean = true;
     @Input() private isWithPicker: boolean = false;
@@ -172,8 +174,13 @@ export class PlanningChartComponent implements OnChanges {
     }
 
     private defineScale(): void {
-        const domainDates = [this.dateMin, this.dateMax];
+        let domainDates = [this.dateMin, this.dateMax];
         const rangeX = [this.padding.left, this.graphMaxX - this.padding.right];
+        const deltaDomainDates = domainDates[1].getTime() - domainDates[0].getTime();
+        domainDates = [
+            new Date(domainDates[0].getTime() + this.scroll.left / 100 * deltaDomainDates),
+            new Date(domainDates[1].getTime() - this.scroll.right / 100 * deltaDomainDates),
+        ];
 
         this.scaleFuncs.x = d3
             .scaleTime()
