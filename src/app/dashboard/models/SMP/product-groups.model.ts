@@ -48,3 +48,56 @@ export interface ITypeProductDay {
     day: number; // день месяца
     state: string; /// состояние дня. enum - normal, warning, critical, disabled
 }
+
+
+// ------------ Новые модели ------------ //
+export interface IDataProgressGroup {
+    data: {
+        items: IProductGroups[];
+    }
+}
+
+export interface IProductGroups {
+    id: number; // Номер позиции в списке
+    groupName: string; // Наименование группы продуктов
+    devProduction: number; // Верхнее числовое значение (на макете 187863)
+    devPassport: number; // Нижнее числовое значение (на макете 187863)
+    passRest: number; // Паспортизованный остаток, голубое закрашивание на резервуаре
+    allRest: number; // Весь остаток, синее закрашивание на резервуаре
+    pointStatus: number; // Статус точки (левее от наименования)
+    criticalProd: number; // Уровень критичности выработка (левая верхняя иконка от двух чисел)
+    criticalPass: number; // уровень критичности паспортизация (левая нижняя иконка от двух чисел)
+    criticalShip: number; // Уровень критичности отгрузка (правая верхняя иконка от двух чисел)
+    criticalRazn: number; // Уровень критичности разнарядки (правая средняя иконка от двух чисел)
+    criticalTank: number; // Уровень критичности состояния резервуарного парка (правая нижняя иконка от двух чисел)
+    shipOf: number; // Оформленная отгрузка, самая правая часть виджета групп
+    shipN: number; // Неоформленная отгрузка
+    shipAll: number; // Вся отгрузка (цифра внутри круга)
+    shipPlanPercent: number; // Дуга, процент выполнения плана по отгрузке
+    passPlanPercent: number; // Дуга, процент выполнения плана по паспортизации (самая левая часть)
+    pieStatus: number; // Уровень критичности круговой диаграммы (цвет окрашивания)
+    daysGroup: IDayGroup[]; // Круг в левой части
+    daysShip: IDayGroup[]; // Круг в правой части, отгрузка
+    products: IProductsItems[];
+    typeImage?: string; // Добавлено фронтом для определения внутренней иконки
+}
+
+export interface IProductsItems {
+    id: number;
+    title: string;
+    passPlanPercent: number;
+    pieStatus: number;
+    criticalProd: number;
+    criticalPass: number;
+    criticalShip: number;
+    criticalRazn: number;
+    criticalTank: number;
+    passRest: number;
+    allRest: number;
+    days: IDayGroup[];
+}
+
+export interface IDayGroup {
+    day: number;
+    critical: number;
+}

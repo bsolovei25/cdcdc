@@ -9,7 +9,7 @@ import {
 } from '@angular/core';
 import * as d3 from 'd3';
 import { SpaceNumber } from '@shared/pipes/number-space.pipe';
-import { IProducts } from '../../../../../dashboard/models/SMP/product-groups.model';
+import { IProductGroups } from '../../../../../dashboard/models/SMP/product-groups.model';
 
 @Component({
     selector: 'evj-product-groups-left',
@@ -18,13 +18,30 @@ import { IProducts } from '../../../../../dashboard/models/SMP/product-groups.mo
     styleUrls: ['./product-groups-left.component.scss'],
 })
 export class ProductGroupsLeftComponent implements OnInit, OnChanges {
-    public readonly RADIUS = 29;
+  @Input() set dataProductGroups(data: IProductGroups) {
+    (data.passRest < 0) ? this.planTankLevel = 0 : (data.passRest > 100) ? this.planTankLevel = 100 : this.planTankLevel = data.passRest;
+    (data.allRest < 0) ? this.factTankLevel = 0 : (data.allRest > 100) ? this.factTankLevel = 100 : this.factTankLevel = data.allRest;
+    this.data = data;
+}
+    planTankLevel: number;
+    factTankLevel: number;
+    data: IProductGroups;
 
-    @Input() public data: IProducts;
-    @Input() isActive: boolean;
+    public readonly RADIUS: number = 29;
+    public config = {
+        daysCount: 30,
+        interval: Math.PI / 120
+    };
+
     @Input() public imageType: string;
 
     percent: number;
+
+    status: string[] = [
+        'normal',
+        'warning',
+        'danger'
+    ];
 
     @ViewChild('myCircle', { static: true }) myCircle: ElementRef;
 
@@ -41,7 +58,8 @@ export class ProductGroupsLeftComponent implements OnInit, OnChanges {
         this.d3Circle(this.data, this.myCircle.nativeElement);
     }
 
-    private d3Circle(data, el): void {
+    private d3Circle(data: IProductGroups, el): void {
+        const performance = data.passPlanPercent;
         const imageActive =
             'assets/icons/widgets/SMP/product-group-planning/icons_circle/' +
             data.typeImage +
@@ -53,23 +71,23 @@ export class ProductGroupsLeftComponent implements OnInit, OnChanges {
 
         const planPercent = 100;
 
-        const mass = [data.performance + 35, planPercent - data.performance];
+        const mass = [performance, planPercent - performance];
 
         let color: any;
 
-        this.percent = data.performance < 0 ? 0 : data.performance;
+        this.percent = performance < 0 ? 0 : performance;
 
-        const newValue = this.spacePipe.transform(data.groupValue);
-        const criticalNewValue = this.spacePipe.transform(data.groupValueTwo);
+        const newValue = this.spacePipe.transform(data.devProduction);
+        const criticalNewValue = this.spacePipe.transform(data.devPassport);
 
         color = d3.scaleOrdinal().range(['var(--color-border-active)', 'orange']);
 
         if (this.percent === 100) {
-            color = d3.scaleOrdinal().range(['var(--color-border-active)']);
+            color = d3.scaleOrdinal().range(['var(--color-smp-left-gauge)']);
         } else if (this.percent === 0) {
-            color = d3.scaleOrdinal().range(['orange']);
+            color = d3.scaleOrdinal().range(['var(--color-smp-gauge-back)']);
         } else {
-            color = d3.scaleOrdinal().range(['var(--color-border-active)', 'orange']);
+            color = d3.scaleOrdinal().range(['var(--color-smp-left-gauge)', 'var(--color-smp-gauge-back)']);
         }
 
         const filterName: string[] = this.textFilter(data.groupName);
@@ -97,7 +115,7 @@ export class ProductGroupsLeftComponent implements OnInit, OnChanges {
 
         const arc = d3
             .arc()
-            .innerRadius(32)
+            .innerRadius(31)
             .outerRadius(this.RADIUS);
 
         const pie = d3
@@ -119,28 +137,11 @@ export class ProductGroupsLeftComponent implements OnInit, OnChanges {
 
             .attr('fill', (d) => color(d.index));
 
-        const pieBack = this.svg
-            .append('image')
-            .attr('xlink:href', 'assets/icons/widgets/SMP/product-group-planning/onLeftCircle.svg')
-            .attr('height', '112px')
-            .attr('width', '82px')
-            .attr('x', '131')
-            .attr('y', '-7');
-
-        const valueCircle = this.svg
-            .append('text')
-            .attr('font-size', '12px')
-            .attr('x', '172')
-            .attr('y', '75')
-            .attr('text-anchor', 'middle')
-            .attr('fill', 'white')
-            .text(this.percent + '%');
-
         if (filterName.length !== 1) {
             const name1 = this.svg
                 .append('text')
                 .attr('font-size', '20px')
-                .attr('x', '30')
+                .attr('x', '50')
                 .attr('y', '50')
                 .attr('fill', 'white')
                 .text(filterName[0]);
@@ -148,7 +149,7 @@ export class ProductGroupsLeftComponent implements OnInit, OnChanges {
             const name2 = this.svg
                 .append('text')
                 .attr('font-size', '20px')
-                .attr('x', '30')
+                .attr('x', '50')
                 .attr('y', '70')
                 .attr('fill', 'white')
                 .text('/' + filterName[1]);
@@ -165,9 +166,9 @@ export class ProductGroupsLeftComponent implements OnInit, OnChanges {
         const point = this.svg
             .append('image')
             .attr('xlink:href', () => {
-                if (data.pointStatus === 'danger') {
+                if (data.pointStatus === 2) {
                     return 'assets/icons/widgets/SMP/product-group-planning/left-side/danger-point.svg';
-                } else if (data.pointStatus === 'warning') {
+                } else if (data.pointStatus === 1) {
                     return 'assets/icons/widgets/SMP/product-group-planning/left-side/warning-point.svg';
                 } else {
                     return 'assets/icons/widgets/SMP/product-group-planning/left-side/normal-point.svg';
@@ -175,7 +176,7 @@ export class ProductGroupsLeftComponent implements OnInit, OnChanges {
             })
             .attr('height', '15px')
             .attr('width', () => {
-                if (data.pointStatus === 'normal') {
+                if (data.pointStatus === 0) {
                     return '8px';
                 } else {
                     return '32px';
@@ -210,11 +211,28 @@ export class ProductGroupsLeftComponent implements OnInit, OnChanges {
 
         const arrow = this.svg
             .append('image')
-            .attr('xlink:href', 'assets/icons/widgets/SMP/product-group-planning/arrow.svg')
+            .attr('xlink:href', `assets/icons/widgets/SMP/product-group-planning/arrow${data.pointStatus}.svg`)
             .attr('height', '35px')
             .attr('width', '35px')
             .attr('x', '405')
             .attr('y', '32');
+
+        const pi = Math.PI;
+
+        for (let i = 0; i < this.config.daysCount; i++) {
+            const arcDay = d3.arc()
+                .innerRadius(33)
+                .outerRadius(35)
+                .startAngle(i * (2 * pi - this.config.daysCount * this.config.interval) / this.config.daysCount + i * this.config.interval)
+                .endAngle((i + 1) * (2 * pi - this.config.daysCount * this.config.interval) / this.config.daysCount + i * this.config.interval)
+
+            const dayStatus = this.status[this.data.daysGroup.find(item => item.day === i + 1)?.critical] ?? 'unknown';
+
+            group
+                .append('path')
+                .attr('d', arcDay)
+                .attr('fill', `var(--color-smp-days-${dayStatus})`);
+        }
     }
 
     textFilter(text: string): string[] {

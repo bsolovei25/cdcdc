@@ -122,6 +122,8 @@
   // SMP
   --color-smp-tank-fact: rgb(0, 121, 222);
   --color-smp-tank-plan: rgb(0, 75, 134);
+  --color-smp-free: #183D61;
+  --color-smp-rest: #008AFC;
   --color-smp-border: rgba(91, 96, 125, 0.5);
   --color-smp-text-sub: rgb(95, 101, 128);
   --color-smp-pie-normal: rgb(127, 169, 191);
@@ -137,6 +139,18 @@
   --color-smp-danger: #d00100;
   --color-smp-warning: #ff9700;
   --color-smp-active: #6ba4ef;
+
+  
+  --color-smp-checkbox: rgba(95, 101, 128, 0.55);
+  --color-smp-white: #ffffff;
+
+  --color-smp-left-gauge: #7FA9BF;
+  --color-smp-gauge-back: rgba(39, 42, 56);
+
+  --color-smp-days-normal: #0089FF;
+  --color-smp-days-warning: #F4A321;
+  --color-smp-days-danger: #DC0000;
+  --color-smp-days-unknown: rgba(39 , 42, 56, 1);
 
   // APS
   --color-aps-warning: #ff931e;

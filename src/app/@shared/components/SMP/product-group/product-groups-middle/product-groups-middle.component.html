@@ -2,8 +2,8 @@
   <div #circle class="item-b"></div>
 
   <div class="back-image"
-       [class.back-image__warning]="data.pieStatus === 'warning'"
-       [class.back-image__danger]="data.pieStatus === 'danger'">
+       [class.back-image__warning]="data.pieStatus === 1"
+       [class.back-image__danger]="data.pieStatus === 2">
     <svg-icon src="assets/icons/widgets/SMP/circle-back.svg" [svgStyle]="{ 'width.px':69, 'height.px':69 }">
     </svg-icon>
   </div>
@@ -22,30 +22,62 @@
     </svg-icon>
   </div>
 
-  <div class="left-top-button {{data.productFiling}}">
+  <div class="left-top-button {{status[data.criticalProd]}}">
     <svg-icon src="assets/icons/widgets/SMP/product-group-planning/middle-side/middle-left-top-button.svg"
       [svgStyle]="{ 'width.px':24, 'height.px':20 }"></svg-icon>
   </div>
-  <div class="left-bottom-button {{data.productUpdate}}">
+    <div class="left-bottom-button {{status[data.criticalProd]}}"> <!-- нет данных -->
     <svg-icon src="assets/icons/widgets/SMP/product-group-planning/middle-side/middle-left-bottom-button.svg"
       [svgStyle]="{ 'width.px':24, 'height.px':20 }"></svg-icon>
   </div>
-  <div class="left-button {{data.productCrowded}}">
+  <div class="left-button {{status[data.criticalPass]}}">
     <svg-icon src="assets/icons/widgets/SMP/product-group-planning/middle-side/middle-left-big-button.svg"
       [svgStyle]="{ 'width.px':24, 'height.px':42 }"></svg-icon>
   </div>
   <!--RIGHT-BUTTON-->
-  <div class="right-top-button {{data.productFlask}}">
+  <div class="right-top-button {{status[data.criticalRazn]}}">
     <svg-icon src="assets/icons/widgets/SMP/product-group-planning/middle-side/middle-right-top-button.svg"
       [svgStyle]="{ 'width.px':24, 'height.px':20 }"></svg-icon>
   </div>
-  <div class="right-bottom-button {{data.productList}}">
+  <div class="right-bottom-button {{status[data.criticalShip]}}">
     <svg-icon src="assets/icons/widgets/SMP/product-group-planning/middle-side/middle-right-bottom-button.svg"
       [svgStyle]="{ 'width.px':24, 'height.px':20 }"></svg-icon>
   </div>
-  <div class="right-button {{data.productBuild}}">
+  <div class="right-button {{status[data.criticalTank]}}">
     <svg-icon src="assets/icons/widgets/SMP/product-group-planning/middle-side/middle-right-big-button.svg"
       [svgStyle]="{ 'width.px':24, 'height.px':42 }"></svg-icon>
+  </div>
+  <div class="reservoir-container">
+    <div class="top">
+        <div 
+            class="top__inner_fact"
+            [style.height.%]="factTankLevel > 87.5? 8 * (factTankLevel - 87.5) : 0"
+        ></div>
+        <div 
+            class="top__inner_plan"
+            [style.height.%]="planTankLevel > 87.5? 8 * (planTankLevel - 87.5) : 0"
+        ></div>
+    </div>
+    <div class="mid">
+        <div
+            class="mid__inner_fact"
+            [style.height.%]="factTankLevel >= 87.5? 100: factTankLevel >= 12.5? 4/3 * (factTankLevel - 12.5) : 0"
+        ></div>
+        <div
+            class="mid__inner_plan"
+            [style.height.%]="planTankLevel >= 87.5? 100: factTankLevel >= 12.5? 4/3 * (planTankLevel - 12.5) : 0"
+        ></div>
+        <div class="mid-line mid-line__top"></div>
+        <div class="mid-line mid-line__bottom"></div>
+    </div>
+    <div class="bottom">
+        <div
+            class="bottom__inner_fact"
+            [style.height.%]="factTankLevel >= 12.5? 100: 8 * factTankLevel"></div>
+        <div
+            class="bottom__inner_plan"
+            [style.height.%]="planTankLevel >= 12.5? 100: 8 * planTankLevel"></div>
+    </div>
   </div>
   <!--circle-->
   <div class="point_right"></div>

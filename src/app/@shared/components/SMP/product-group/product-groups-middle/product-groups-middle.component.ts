@@ -1,3 +1,4 @@
+import { IDayGroup } from './../../../../../dashboard/models/SMP/product-groups.model';
 import {
     Component,
     OnInit,
@@ -9,7 +10,7 @@ import {
 } from '@angular/core';
 import * as d3 from 'd3';
 import { SpaceNumber } from '@shared/pipes/number-space.pipe';
-import { ITypeProduct } from '../../../../../dashboard/models/SMP/product-groups.model';
+import { IProductsItems } from '../../../../../dashboard/models/SMP/product-groups.model';
 
 @Component({
     selector: 'evj-product-groups-middle',
@@ -19,9 +20,23 @@ import { ITypeProduct } from '../../../../../dashboard/models/SMP/product-groups
 })
 export class ProductGroupsMiddleComponent implements OnInit, OnChanges {
     @ViewChild('circle', { static: true }) circle: ElementRef;
-    @Input() data: ITypeProduct;
+    @Input() set dataProductsItems(data: IProductsItems) {
+        (data.passRest < 0) ? this.planTankLevel = 0 : (data.passRest > 100) ? this.planTankLevel = 100 : this.planTankLevel = data.passRest;
+        (data.allRest < 0) ? this.factTankLevel = 0 : (data.allRest > 100) ? this.factTankLevel = 100 : this.factTankLevel = data.allRest;
+        this.data = data;
+    }
+
+    planTankLevel: number;
+    factTankLevel: number;
+    data: IProductsItems;
 
     gaugemap: any = {};
+
+    status: string[] = [
+        'normal',
+        'warning',
+        'danger'
+    ]
 
     public readonly RADIUS: number = 36.5; /// PieCircle Radius
     public defaultPercent: number = 100;
@@ -89,22 +104,22 @@ export class ProductGroupsMiddleComponent implements OnInit, OnChanges {
 
     // CirclePie RENDERING
 
-    public d3Circle(data, el): void {
-        const summ = this.defaultPercent - data.piePercent;
-        const mass = [data.piePercent, summ];
+    public d3Circle(data: IProductsItems, el): void {
+        const summ = this.defaultPercent - data.passPlanPercent;
+        const mass = [data.passPlanPercent, summ];
         let color: any;
 
         if (summ === 0) {
             color = d3.scaleOrdinal().range(['var(--color-oil-circle-disable)']);
-        } else if (data.pieStatus === 'warning') {
+        } else if (data.pieStatus === 1) {
             color = d3
                 .scaleOrdinal()
                 .range(['var(--color-warning)', 'var(--color-oil-circle-disable)']);
-        } else if (data.pieStatus === 'normal') {
+        } else if (data.pieStatus === 0) {
             color = d3
                 .scaleOrdinal()
                 .range(['var(--color-smp-pie-normal)', 'var(--color-oil-circle-disable)']);
-        } else if (data.pieStatus === 'danger') {
+        } else if (data.pieStatus === 2) {
             color = d3
                 .scaleOrdinal()
                 .range(['var(--color-smp-danger)', 'var(--color-oil-circle-disable)']);
@@ -168,7 +183,7 @@ export class ProductGroupsMiddleComponent implements OnInit, OnChanges {
     //     return (this.config.majorTicks * percent) / 100;
     // }
 
-    draw(data, el, gaugemap): void {
+    draw(data: IProductsItems , el, gaugemap): void {
         this.config.majorTicks = this.data.days.length;
         this.gauge(
             {
@@ -209,7 +224,7 @@ export class ProductGroupsMiddleComponent implements OnInit, OnChanges {
         return svg !== undefined;
     }
 
-    render(container, data): void {
+    render(container, data: IProductsItems): void {
         this.svg = d3
             .select(container)
             .append('svg:svg')
@@ -225,7 +240,7 @@ export class ProductGroupsMiddleComponent implements OnInit, OnChanges {
             .attr('transform', centerTx);
 
         const reverseData = [].concat(data.days).reverse();
-        const pointPie = reverseData.find((e) => e.state !== 'disabled')?.day;
+        const pointPie = reverseData.find((e: IDayGroup) => e.critical !== 4)?.day; // 4 пока по приколу
 
         this.pointId = arcs
             .selectAll('path')
@@ -241,12 +256,12 @@ export class ProductGroupsMiddleComponent implements OnInit, OnChanges {
                 }
             })
             .attr('fill', (d, i) => {
-                const status = this.data.days.find((e) => e.day - 1 === i)?.state;
-                if (status === 'normal') {
+                const status = this.data.days.find((e) => e.day - 1 === i)?.critical;
+                if (status === 0) {
                     return 'var(--color-active)';
-                } else if (status === 'warning') {
+                } else if (status === 1) {
                     return 'var(--color-warning)';
-                } else if (status === 'danger') {
+                } else if (status === 2) {
                     return 'var(--color-danger)';
                 } else {
                     return 'var(--color-smp-blue)';
@@ -301,7 +316,7 @@ export class ProductGroupsMiddleComponent implements OnInit, OnChanges {
         for (prop in configuration) {
             this.config[prop] = configuration[prop];
         }
-
+        
         this.range = this.config.maxAngle - this.config.minAngle;
         this.r = this.config.size / 2;
         this.pointerHeadLength = Math.round(this.r * this.config.pointerHeadLengthPercent);
