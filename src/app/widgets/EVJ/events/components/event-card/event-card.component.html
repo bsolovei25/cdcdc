@@ -107,7 +107,7 @@
       <div
         class="label-button"
         [class.label-button_active]="cardData?.isAcknowledged"
-        (click)="changeIsAcknowledged(cardData)"
+        (click)="changeIsAcknowledged($event, cardData)"
         *ngIf="cardData?.category?.code!==0 && cardData?.category?.code!==5 && cardData?.category?.code!==6"
       >
         {{cardData?.isAcknowledged ? 'Квитировано' : 'Не квитировано'}}
