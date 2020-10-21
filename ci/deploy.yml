@@ -54,6 +54,7 @@
     - docker save -o ./${SERVICE_NAME}-${TAG}.img ${EXTERNAL_DOCKER_IMG}:${TAG}
     - xz -T0 -9 ./${SERVICE_NAME}-${TAG}.img
   artifacts:
+    expire_in: 12 hrs
     paths:
       - ./${SERVICE_NAME}-${TAG}.img.xz
   when: manual
