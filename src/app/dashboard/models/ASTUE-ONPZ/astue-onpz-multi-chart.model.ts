@@ -22,4 +22,6 @@ export type IMultiChartTypes =
     | 'temperature'
     | 'heatExchanger'
     | 'volume'
-    | 'pressure';
+    | 'pressure'
+    | 'higherBorder'
+    | 'lowerBorder';
