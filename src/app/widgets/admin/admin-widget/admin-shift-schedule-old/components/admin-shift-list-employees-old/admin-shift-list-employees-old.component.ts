@@ -6,7 +6,7 @@ import {
     ChangeDetectorRef,
 } from '@angular/core';
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
-import { AdminShiftScheduleService } from 'src/app/dashboard/services/widgets/admin-shift-schedule.service';
+import { AdminShiftScheduleService } from 'src/app/dashboard/services/widgets/admin-panel/admin-shift-schedule.service';
 import { IUser } from 'src/app/dashboard/models/EVJ/events-widget';
 
 interface IShiftList extends IUser {

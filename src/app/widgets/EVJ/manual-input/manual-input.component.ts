@@ -10,7 +10,7 @@ import {
 } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { trigger, style, state, transition, animate, group } from '@angular/animations';
-import { ManualInputService } from '../../../dashboard/services/widgets/manual-input.service';
+import { ManualInputService } from '../../../dashboard/services/widgets/EVJ/manual-input.service';
 import { WidgetPlatform } from '../../../dashboard/models/@PLATFORM/widget-platform';
 import { IGroup_MI, IMachine_MI } from '../../../dashboard/models/EVJ/manual-input.model';
 import { WidgetService } from '../../../dashboard/services/widget.service';

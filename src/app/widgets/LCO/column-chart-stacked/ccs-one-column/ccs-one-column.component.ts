@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, AfterViewInit } from '@angular/core';
 import { IColumnChartStacked } from '../../../../dashboard/models/LCO/column-chart-stacked';
-import { IBlockDiagramColumn } from '../../../../dashboard/models/circle-block-diagram';
+import { IBlockDiagramColumn } from '../../../../dashboard/models/LCO/circle-block-diagram';
 
 @Component({
     selector: 'evj-ccs-one-column',

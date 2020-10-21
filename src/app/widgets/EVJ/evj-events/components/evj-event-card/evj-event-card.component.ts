@@ -3,7 +3,7 @@ import {
     IEventsWidgetNotificationPreview,
     EventsWidgetNotificationStatus
 } from '../../../../../dashboard/models/EVJ/events-widget';
-import { EventService } from '../../../../../dashboard/services/widgets/event.service';
+import { EventService } from '../../../../../dashboard/services/widgets/EVJ/event.service';
 import { animate, style, transition, trigger } from '@angular/animations';
 import { SelectionModel } from '@angular/cdk/collections';
 

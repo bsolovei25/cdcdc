@@ -20,9 +20,9 @@ import {
     ISubcategory,
     IUnitEvents,
     IUser
-} from '../../models/EVJ/events-widget';
+} from '../../../models/EVJ/events-widget';
 import { EventService } from './event.service';
-import { SnackBarService } from '../snack-bar.service';
+import { SnackBarService } from '../../snack-bar.service';
 import { fillDataShape } from '@shared/functions/common-functions';
 import { AvatarConfiguratorService } from '@core/service/avatar-configurator.service';
 import { BehaviorSubject, Observable } from 'rxjs';
@@ -30,9 +30,9 @@ import { IAlertWindowModel } from '@shared/models/alert-window.model';
 import { filter, map } from 'rxjs/operators';
 import { error } from '@angular/compiler/src/util';
 import { IMessage, IMessageFileAttachment } from '@shared/models/message.model';
-import { FileAttachMenuService } from '../file-attach-menu.service';
-import { IChatMessageWithAttachments } from '../../../widgets/EVJ/events-workspace/components/chat/chat.component';
-import { ClaimService, EnumClaimGlobal } from '../claim.service';
+import { FileAttachMenuService } from '../../file-attach-menu.service';
+import { IChatMessageWithAttachments } from '../../../../widgets/EVJ/events-workspace/components/chat/chat.component';
+import { ClaimService, EnumClaimGlobal } from '../../claim.service';
 
 @Injectable({
     providedIn: 'root'

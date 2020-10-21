@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { IUser } from '../../../../../dashboard/models/EVJ/events-widget';
 import { Subscription } from 'rxjs';
-import { AdminPanelService } from '../../../../../dashboard/services/admin-panel/admin-panel.service';
+import { AdminPanelService } from '../../../../../dashboard/services/widgets/admin-panel/admin-panel.service';
 
 @Component({
     selector: 'evj-admin-employee',

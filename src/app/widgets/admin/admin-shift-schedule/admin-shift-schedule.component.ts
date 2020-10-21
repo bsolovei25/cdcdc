@@ -29,7 +29,7 @@ import { IAlertWindowModel } from '../../../@shared/models/alert-window.model';
 import {
     AdminShiftScheduleService,
     IDropItem,
-} from '../../../dashboard/services/widgets/admin-shift-schedule.service';
+} from '../../../dashboard/services/widgets/admin-panel/admin-shift-schedule.service';
 import { SnackBarService } from '../../../dashboard/services/snack-bar.service';
 import { WidgetService } from '../../../dashboard/services/widget.service';
 import { WidgetPlatform } from '../../../dashboard/models/@PLATFORM/widget-platform';

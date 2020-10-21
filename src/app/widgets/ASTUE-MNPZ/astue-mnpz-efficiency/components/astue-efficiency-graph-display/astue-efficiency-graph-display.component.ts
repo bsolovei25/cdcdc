@@ -13,7 +13,7 @@ import { IProductionTrend } from '../../../../../dashboard/models/LCO/production
 import { IDatesInterval, WidgetService } from '../../../../../dashboard/services/widget.service';
 import { Subscription } from 'rxjs';
 import { AppConfigService } from '@core/service/app-config.service';
-import { AstueEfficiencyService } from '../../../../../dashboard/services/ASTUE/astue-efficiency.service';
+import { AstueEfficiencyService } from '../../../../../dashboard/services/widgets/ASTUE/astue-efficiency.service';
 
 interface ILabels {
     currentDeviation: IAsEfLabel;

@@ -21,9 +21,9 @@ import {
     ISubcategory,
     IUnitEvents,
     IUser
-} from '../../models/EVJ/events-widget';
+} from '../../../models/EVJ/events-widget';
 import { AppConfigService } from '@core/service/app-config.service';
-import { ClaimService, EnumClaimGlobal } from '../claim.service';
+import { ClaimService, EnumClaimGlobal } from '../../claim.service';
 
 export interface IEventsFilter {
     unitNames?: string;

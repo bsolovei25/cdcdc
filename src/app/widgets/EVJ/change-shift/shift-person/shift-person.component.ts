@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, ViewChild, ElementRef, OnChanges } from '@angular/core';
 import { Shift, ShiftMember } from 'src/app/dashboard/models/EVJ/shift.model';
-import { ShiftService } from '../../../../dashboard/services/shift.service';
+import { ShiftService } from '../../../../dashboard/services/widgets/EVJ/shift.service';
 import { SnackBarService } from '../../../../dashboard/services/snack-bar.service';
 import { AppConfigService } from '@core/service/app-config.service';
 import { AvatarConfiguratorService } from '@core/service/avatar-configurator.service';

@@ -7,12 +7,12 @@ import {
     IBrigadeWithUsersDto,
     IUnits,
     IUnitSettings,
-} from '../../models/ADMIN/admin-shift-schedule';
+} from '../../../models/ADMIN/admin-shift-schedule';
 import { IAlertWindowModel } from '@shared/models/alert-window.model';
 import { BehaviorSubject } from 'rxjs';
 import { CdkDropList, CdkDrag } from '@angular/cdk/drag-drop';
-import { IUser } from '../../models/EVJ/events-widget';
-import { IAbsent } from '../../../widgets/admin/admin-shift-schedule/admin-shift-schedule.component';
+import { IUser } from '../../../models/EVJ/events-widget';
+import { IAbsent } from '../../../../widgets/admin/admin-shift-schedule/admin-shift-schedule.component';
 
 export interface IDropItem {
     container: CdkDropList;

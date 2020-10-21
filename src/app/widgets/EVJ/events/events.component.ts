@@ -19,12 +19,12 @@ import {
 } from '../../../dashboard/models/EVJ/events-widget';
 import { WidgetService } from '../../../dashboard/services/widget.service';
 import { UserSettingsService } from '../../../dashboard/services/user-settings.service';
-import { EventService } from '../../../dashboard/services/widgets/event.service';
+import { EventService } from '../../../dashboard/services/widgets/EVJ/event.service';
 import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
 import { WidgetPlatform } from '../../../dashboard/models/@PLATFORM/widget-platform';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { SnackBarService } from '../../../dashboard/services/snack-bar.service';
-import { EventsWorkspaceService } from '../../../dashboard/services/widgets/events-workspace.service';
+import { EventsWorkspaceService } from '../../../dashboard/services/widgets/EVJ/events-workspace.service';
 import { IAlertWindowModel } from '@shared/models/alert-window.model';
 import { BehaviorSubject } from 'rxjs';
 import { WidgetSettingsService } from '../../../dashboard/services/widget-settings.service';

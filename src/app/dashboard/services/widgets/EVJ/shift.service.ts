@@ -6,14 +6,14 @@ import {
     ShiftPass,
     VerifyWindowActions,
     VerifyWindowType
-} from '../models/EVJ/shift.model';
+} from '../../../models/EVJ/shift.model';
 import { HttpClient } from '@angular/common/http';
 import { AppConfigService } from '@core/service/app-config.service';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
-import { IUser } from '../models/EVJ/events-widget';
+import { IUser } from '../../../models/EVJ/events-widget';
 import { IAlertWindowModel } from '@shared/models/alert-window.model';
-import { SnackBarService } from './snack-bar.service';
+import { SnackBarService } from '../../snack-bar.service';
 
 @Injectable({
     providedIn: 'root'

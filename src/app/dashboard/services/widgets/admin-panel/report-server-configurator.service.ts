@@ -6,7 +6,7 @@ import {
   IFileTemplate, IReportTemplate,
   ITemplateFolder, ISystemOptions, IReportFile,
   IFolder, IPostSystemOptionsTemplate
-} from '../../models/report-server';
+} from '../../../models/ADMIN/report-server';
 import { IAlertWindowModel } from '@shared/models/alert-window.model';
 
 

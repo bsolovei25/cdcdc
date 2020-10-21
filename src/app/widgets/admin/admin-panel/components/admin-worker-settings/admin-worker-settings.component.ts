@@ -7,7 +7,7 @@ import { IGlobalClaim, IWorkspace } from '../../../../../dashboard/models/ADMIN/
 import { Subscription } from 'rxjs';
 import { IWidget } from '../../../../../dashboard/models/widget.model';
 import { SelectionModel } from '@angular/cdk/collections';
-import { AdminPanelService } from '../../../../../dashboard/services/admin-panel/admin-panel.service';
+import { AdminPanelService } from '../../../../../dashboard/services/widgets/admin-panel/admin-panel.service';
 import { SnackBarService } from '../../../../../dashboard/services/snack-bar.service';
 import { fillDataShape } from '@shared/functions/common-functions';
 import { base64ToFile } from 'ngx-image-cropper';

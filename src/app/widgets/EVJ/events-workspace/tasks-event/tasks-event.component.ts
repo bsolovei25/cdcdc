@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import { EventsWorkspaceService } from '../../../../dashboard/services/widgets/events-workspace.service';
+import { EventsWorkspaceService } from '../../../../dashboard/services/widgets/EVJ/events-workspace.service';
 import { IChatMessageWithAttachments } from '../components/chat/chat.component';
 
 @Component({

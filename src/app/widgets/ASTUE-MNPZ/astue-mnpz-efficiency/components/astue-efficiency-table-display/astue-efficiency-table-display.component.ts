@@ -9,7 +9,7 @@ import {
     IAsEfScript,
     IAsEfTableRow,
 } from '../../../../../dashboard/models/ASTUE/astue-efficiency.model';
-import { AstueEfficiencyService } from '../../../../../dashboard/services/ASTUE/astue-efficiency.service';
+import { AstueEfficiencyService } from '../../../../../dashboard/services/widgets/ASTUE/astue-efficiency.service';
 
 @Component({
     selector: 'evj-astue-efficiency-table-display',

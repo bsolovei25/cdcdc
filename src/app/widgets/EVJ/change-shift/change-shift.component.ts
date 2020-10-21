@@ -7,7 +7,7 @@ import {
     HostListener,
     OnDestroy,
 } from '@angular/core';
-import { ShiftService } from '../../../dashboard/services/shift.service';
+import { ShiftService } from '../../../dashboard/services/widgets/EVJ/shift.service';
 import { WidgetService } from '../../../dashboard/services/widget.service';
 import {
     ICommentRequired,

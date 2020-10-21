@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { IChatMessageWithAttachments } from '../components/chat/chat.component';
-import { EventsWorkspaceService } from '../../../../dashboard/services/widgets/events-workspace.service';
+import { EventsWorkspaceService } from '../../../../dashboard/services/widgets/EVJ/events-workspace.service';
 
 @Component({
     selector: 'evj-shift-pass',

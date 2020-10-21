@@ -14,7 +14,7 @@ import {
 } from '../../../../../../dashboard/models/ADMIN/admin-panel';
 import { SelectionModel } from '@angular/cdk/collections';
 import { FormControl } from '@angular/forms';
-import { AdminPanelService } from '../../../../../../dashboard/services/admin-panel/admin-panel.service';
+import { AdminPanelService } from '../../../../../../dashboard/services/widgets/admin-panel/admin-panel.service';
 import { fillDataShape } from '@shared/functions/common-functions';
 
 @Component({

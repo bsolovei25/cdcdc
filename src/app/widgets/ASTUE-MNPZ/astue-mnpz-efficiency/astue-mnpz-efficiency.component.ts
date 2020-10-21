@@ -7,7 +7,7 @@ import {
 } from '../../../dashboard/models/ASTUE/astue-efficiency.model';
 import { SelectionModel } from '@angular/cdk/collections';
 import { WidgetService } from '../../../dashboard/services/widget.service';
-import { AstueEfficiencyService } from '../../../dashboard/services/ASTUE/astue-efficiency.service';
+import { AstueEfficiencyService } from '../../../dashboard/services/widgets/ASTUE/astue-efficiency.service';
 import { WidgetPlatform } from '../../../dashboard/models/@PLATFORM/widget-platform';
 
 @Component({

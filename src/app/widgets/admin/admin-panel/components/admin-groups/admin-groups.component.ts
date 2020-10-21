@@ -5,7 +5,7 @@ import { IInputOptions } from '../../../../../@shared/models/input.model';
 import { SelectionModel } from '@angular/cdk/collections';
 import { IAlertWindowModel } from '../../../../../@shared/models/alert-window.model';
 import { Subscription, combineLatest } from 'rxjs';
-import { AdminPanelService } from '../../../../../dashboard/services/admin-panel/admin-panel.service';
+import { AdminPanelService } from '../../../../../dashboard/services/widgets/admin-panel/admin-panel.service';
 import { SnackBarService } from '../../../../../dashboard/services/snack-bar.service';
 import { IWidget } from '../../../../../dashboard/models/widget.model';
 import { FormControl, Validators } from '@angular/forms';

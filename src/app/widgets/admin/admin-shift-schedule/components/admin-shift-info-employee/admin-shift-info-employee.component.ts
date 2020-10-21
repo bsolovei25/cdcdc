@@ -6,7 +6,7 @@ import {
     EventEmitter,
     Output,
 } from '@angular/core';
-import { AdminShiftScheduleService } from 'src/app/dashboard/services/widgets/admin-shift-schedule.service';
+import { AdminShiftScheduleService } from 'src/app/dashboard/services/widgets/admin-panel/admin-shift-schedule.service';
 import { IAbsent } from '../../admin-shift-schedule.component';
 import { IUser } from '../../../../../dashboard/models/EVJ/events-widget';
 import { AvatarConfiguratorService } from '@core/service/avatar-configurator.service';

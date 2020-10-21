@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { IVerifyWindow, ShiftMember } from '../../../../dashboard/models/EVJ/shift.model';
-import { ShiftService } from '../../../../dashboard/services/shift.service';
+import { ShiftService } from '../../../../dashboard/services/widgets/EVJ/shift.service';
 import { IUser } from '../../../../dashboard/models/EVJ/events-widget';
 
 @Component({

@@ -18,8 +18,8 @@ import {
     IEventsWidgetOptions, IPriority,
     IRetrievalEventDto, ISubcategory, IEventsWidgetAttributes
 } from '../../../dashboard/models/EVJ/events-widget';
-import { EventService } from '../../../dashboard/services/widgets/event.service';
-import { EventsWorkspaceService } from '../../../dashboard/services/widgets/events-workspace.service';
+import { EventService } from '../../../dashboard/services/widgets/EVJ/event.service';
+import { EventsWorkspaceService } from '../../../dashboard/services/widgets/EVJ/events-workspace.service';
 import { SnackBarService } from '../../../dashboard/services/snack-bar.service';
 import {
     ClaimService,

@@ -1,6 +1,6 @@
 import { Component, OnInit, Output, EventEmitter, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { WIDGETS } from '../widgets-grid/widget-map';
+import { WIDGETS } from '../../../widgets/widget-map';
 import { ClaimService, EnumClaimScreens, EnumClaimWidgets } from '../../services/claim.service';
 import { trigger, style, transition, animate } from '@angular/animations';
 

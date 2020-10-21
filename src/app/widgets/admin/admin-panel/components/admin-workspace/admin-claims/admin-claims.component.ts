@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription, BehaviorSubject } from 'rxjs';
 import { mergeMap } from 'rxjs/operators';
 import { IGlobalClaim } from '../../../../../../dashboard/models/ADMIN/admin-panel';
-import { AdminPanelService } from '../../../../../../dashboard/services/admin-panel/admin-panel.service';
+import { AdminPanelService } from '../../../../../../dashboard/services/widgets/admin-panel/admin-panel.service';
 
 @Component({
     selector: 'evj-admin-claims',

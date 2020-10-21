@@ -20,7 +20,7 @@ import {
     GridsterItemComponentInterface,
     GridsterItemComponent,
 } from 'angular-gridster2';
-import { WorkflowService } from 'src/app/dashboard/services/widgets/workflow.service';
+import { WorkflowService } from 'src/app/dashboard/services/widgets/admin-panel/workflow.service';
 import { IAlertWindowModel } from '@shared/models/alert-window.model';
 import { SnackBarService } from 'src/app/dashboard/services/snack-bar.service';
 import { IAlertInputModel } from '@shared/models/alert-input.model';

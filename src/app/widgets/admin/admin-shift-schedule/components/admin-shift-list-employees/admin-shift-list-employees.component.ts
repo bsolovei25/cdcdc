@@ -7,7 +7,7 @@ import {
 } from '@angular/core';
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
 import { IUser } from '../../../../../dashboard/models/EVJ/events-widget';
-import { AdminShiftScheduleService } from '../../../../../dashboard/services/widgets/admin-shift-schedule.service';
+import { AdminShiftScheduleService } from '../../../../../dashboard/services/widgets/admin-panel/admin-shift-schedule.service';
 
 interface IShiftList extends IUser {
     isNotVisible?: boolean;

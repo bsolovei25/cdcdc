@@ -4,7 +4,7 @@ import { IUnitEvents } from '../../../../../../dashboard/models/EVJ/events-widge
 import { SelectionModel } from '@angular/cdk/collections';
 import { FormControl } from '@angular/forms';
 import { Subscription } from 'rxjs';
-import { AdminPanelService } from '../../../../../../dashboard/services/admin-panel/admin-panel.service';
+import { AdminPanelService } from '../../../../../../dashboard/services/widgets/admin-panel/admin-panel.service';
 
 @Component({
     selector: 'evj-aws-select-card',

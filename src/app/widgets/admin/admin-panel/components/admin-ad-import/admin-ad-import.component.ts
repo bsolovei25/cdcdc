@@ -3,7 +3,7 @@ import { IUserLdapDto, IUserLdap } from '../../../../../dashboard/models/ADMIN/a
 import { IInputOptions } from '../../../../../@shared/models/input.model';
 import { SelectionModel } from '@angular/cdk/collections';
 import { Subscription } from 'rxjs';
-import { AdminPanelService } from '../../../../../dashboard/services/admin-panel/admin-panel.service';
+import { AdminPanelService } from '../../../../../dashboard/services/widgets/admin-panel/admin-panel.service';
 import { SnackBarService } from '../../../../../dashboard/services/snack-bar.service';
 import { IUser } from '../../../../../dashboard/models/EVJ/events-widget';
 import { fillDataShape } from '@shared/functions/common-functions';
