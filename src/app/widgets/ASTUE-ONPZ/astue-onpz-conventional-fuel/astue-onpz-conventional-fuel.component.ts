@@ -48,21 +48,21 @@ export class AstueOnpzConventionalFuelComponent extends WidgetPlatform implement
 
     public ngOnInit(): void {
         this.widgetInit();
-        this.http
-            .get('assets/mock/ASTUE-ONPZ/multiline-chart-plant.mock.json')
-            .subscribe((data: any) => {
-                data.data.graphs.forEach((item: IMultiChartLine) => {
-                    item.graphType = (item as any).multiChartTypes;
-                    item.graph.forEach((val) => {
-                        val.timeStamp = new Date(val.timeStamp);
-                    });
-                });
-                // data.data.graphs = data.data.graphs.filter(
-                //     (item: IMultiChartLine) => item.graphType === 'fact'
-                // );
-                this.data = data.data.graphs;
-                console.log('mock-data:', data.data);
-            });
+        // this.http
+        //     .get('assets/mock/ASTUE-ONPZ/multiline-chart-plant.mock.json')
+        //     .subscribe((data: any) => {
+        //         data.data.graphs.forEach((item: IMultiChartLine) => {
+        //             item.graphType = (item as any).multiChartTypes;
+        //             item.graph.forEach((val) => {
+        //                 val.timeStamp = new Date(val.timeStamp);
+        //             });
+        //         });
+        //         // data.data.graphs = data.data.graphs.filter(
+        //         //     (item: IMultiChartLine) => item.graphType === 'fact'
+        //         // );
+        //         this.data = data.data.graphs;
+        //         console.log('mock-data:', data.data);
+        //     });
     }
 
     protected dataConnect(): void {
