@@ -171,9 +171,16 @@ export class OilControlComponent extends WidgetPlatform<unknown> implements OnIn
         super.ngOnDestroy();
     }
 
+    // protected async dataConnect(): Promise<void> {
+    //     super.dataConnect();
+    //     const data = await this.mockDataConnect();
+    //     this.drawOilControlSocket(data);
+    // }
+
     // for test
     async mockDataConnect(): Promise<any> {
         const widgetData = await this.http.get<any>('assets/mock/OilOperationsMock/lco.json').toPromise();
+        console.log(widgetData.data);
         return widgetData.data;
     }
 
@@ -917,7 +924,7 @@ export class OilControlComponent extends WidgetPlatform<unknown> implements OnIn
         clears.forEach((el) => el.remove());
     }
 
-    public changeMassiv(el, data): void {
+    public changeMassiv(el: string, data): void {
         let move: 'next' | 'prev';
         let newIndexProduct = 0;
         const indexProduct = 1 + data.findIndex(x => x.name === el);
@@ -935,11 +942,12 @@ export class OilControlComponent extends WidgetPlatform<unknown> implements OnIn
             }
         } else {
             move = 'prev';
-            if (indexProduct === 1) {
-                newIndexProduct = 2;
-            } else {
-                newIndexProduct = 1;
-            }
+            newIndexProduct = 1;
+            // if (indexProduct === 1) {
+            //     newIndexProduct = 2;
+            // } else {
+            //     newIndexProduct = 1;
+            // }
         }
         this.shiftMassiv(newIndexProduct, move);
     }

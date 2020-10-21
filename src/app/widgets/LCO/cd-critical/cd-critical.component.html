@@ -1,0 +1,18 @@
+<ng-container>
+  <div class="container">
+    <evj-widget-header-smp
+      [uniqId]="uniqId"
+      (mouseenter)="onMouseEnter()"
+      (mouseleave)="onMouseExit()"
+      *ngIf="isHover"
+    ></evj-widget-header-smp>
+    <div class="img-container"
+      (mouseenter)="onMouseEnter()"
+      (mouseleave)="onMouseExit()"
+      (mousedown)="$event.stopPropagation()"
+      (touchstart)="$event.stopPropagation()"
+    >
+      <img style="height: 100%; width: 100%" src="assets/pic/cd-critical.jpg" />
+    </div>
+  </div>
+</ng-container>

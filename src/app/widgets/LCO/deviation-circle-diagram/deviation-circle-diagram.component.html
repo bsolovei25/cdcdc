@@ -1,0 +1,191 @@
+<div class="container pointer-event" *ngIf="!isMock">
+  <evj-widget-header
+    [title]="widgetTitle"
+    [units]="widgetUnits"
+    [code]="widgetCode"
+    [id]="widgetId"
+    [uniqId]="widgetUniqId"
+  ></evj-widget-header>
+
+  <evj-frame-top></evj-frame-top>
+
+  <ng-container>
+    <div class="devi-circle">
+      <div class="diagram">
+        <svg width="100%" height="100%" viewBox="0 0 50 50">
+          <!-- outer contour dia -->
+          <image
+            x="0"
+            y="0"
+            width="50"
+            height="50"
+            xlink:href="assets/icons/widgets/deviation-circle-diagram/outer_contour.svg"
+          />
+
+          <circle
+            [attr.cx]="centerX"
+            [attr.cy]="centerY"
+            [attr.r]="radius"
+            [attr.fill]="colorMain"
+          ></circle>
+          <circle
+            [attr.cx]="centerX"
+            [attr.cy]="centerY"
+            [attr.r]="radius"
+            fill="transparent"
+            [attr.stroke]="colorBg"
+            stroke-width="3"
+          ></circle>
+
+          <!-- deviation line -->
+          <circle
+            [attr.cx]="centerX"
+            [attr.cy]="centerY"
+            [attr.r]="radius"
+            fill="transparent"
+            [attr.stroke]="colorDeviation"
+            stroke-width="2"
+            [attr.stroke-dasharray]="
+              diaLine(radius, deviationCircleDiagram.deviation)
+            "
+            [attr.stroke-dashoffset]="
+              diaOffset(radius, deviationCircleDiagram.deviation)
+            "
+            style="transition: 0.25s;"
+          ></circle>
+
+          <!-- improvement line -->
+          <circle
+            [attr.cx]="centerX"
+            [attr.cy]="centerY"
+            [attr.r]="radius"
+            fill="transparent"
+            [attr.stroke]="colorFull"
+            stroke-width="2"
+            [attr.stroke-dasharray]="
+              diaLine(radius, deviationCircleDiagram.improvement)
+            "
+            [attr.stroke-dashoffset]="
+              diaOffset(radius, deviationCircleDiagram.improvement)
+            "
+            style="transition: 0.5s;"
+          ></circle>
+
+          <!-- dynamic points -->
+          <circle
+            [attr.cx]="
+              diaLinePoint(deviationCircleDiagram.improvement, true).xCen
+            "
+            [attr.cy]="
+              diaLinePoint(deviationCircleDiagram.improvement, true).yCen
+            "
+            [attr.r]="radPoint"
+            fill="colorMain"
+            [attr.stroke]="colorFull"
+            stroke-width="0.5"
+          ></circle>
+          <circle
+            [attr.cx]="
+              diaLinePoint(deviationCircleDiagram.deviation, false).xCen
+            "
+            [attr.cy]="
+              diaLinePoint(deviationCircleDiagram.deviation, false).yCen
+            "
+            [attr.r]="radPoint"
+            fill="colorMain"
+            [attr.stroke]="colorDeviation"
+            stroke-width="0.5"
+          ></circle>
+
+          <!-- start dia -->
+          <line
+            [attr.x1]="centerX"
+            [attr.y1]="3"
+            [attr.x2]="centerX"
+            [attr.y2]="9"
+            [attr.stroke]="colorFull"
+            stroke-width="0.5"
+          />
+          <circle
+            [attr.cx]="centerX"
+            [attr.cy]="3"
+            [attr.r]="radPoint"
+            fill="colorMain"
+            [attr.stroke]="colorFull"
+            stroke-width="0.5"
+          ></circle>
+          <circle
+            [attr.cx]="centerX"
+            [attr.cy]="9"
+            [attr.r]="radPoint"
+            fill="colorMain"
+            [attr.stroke]="colorFull"
+            stroke-width="0.5"
+          ></circle>
+
+          <text [attr.x]="25" [attr.y]="27" text-anchor="middle" class="svg__txt">
+            {{ deviationCircleDiagram.maxValue }}%
+          </text>
+        </svg>
+      </div>
+      <div class="counters">
+        <svg width="100%" height="100%" viewBox="0 0 50 50">
+          <text
+            [attr.x]="45"
+            [attr.y]="5"
+            [attr.fill]="colorDeviation"
+            text-anchor="end"
+            class="svg__name"
+          >
+            Отклонение
+          </text>
+          <text
+            [attr.x]="45"
+            [attr.y]="33"
+            [attr.fill]="colorFull"
+            text-anchor="end"
+            class="svg__name"
+          >
+            Улучшение
+          </text>
+          <text
+            [attr.x]="33"
+            [attr.y]="18"
+            [attr.fill]="colorDeviation"
+            text-anchor="end"
+            class="svg__numbers"
+          >
+            +{{ deviationCircleDiagram.deviation }}
+          </text>
+          <text
+            [attr.x]="33"
+            [attr.y]="46"
+            [attr.fill]="colorFull"
+            text-anchor="end"
+            class="svg__numbers"
+          >
+            -{{ deviationCircleDiagram.improvement }}
+          </text>
+          <image
+            x="-45"
+            y="-47"
+            width="8"
+            height="8"
+            xlink:href="assets/icons/widgets/calendar-plan/deviat.svg"
+            style="transform: rotate(180deg);"
+          />
+          <image
+            x="-45"
+            y="-19"
+            width="8"
+            height="8"
+            xlink:href="assets/icons/widgets/calendar-plan/deviat_danger.svg"
+            style="transform: rotate(180deg);"
+          />
+        </svg>
+      </div>
+    </div>
+  </ng-container>
+
+  <evj-frame-bottom></evj-frame-bottom>
+</div>

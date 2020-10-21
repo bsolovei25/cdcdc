@@ -12,6 +12,7 @@ import { webSocket } from 'rxjs/internal/observable/dom/webSocket';
 import { AuthService } from '@core/service/auth.service';
 import * as moment from 'moment';
 import { SnackBarService } from './snack-bar.service';
+import { IError } from '../models/error';
 
 export interface IDatesInterval {
     fromDateTime: Date;
@@ -27,6 +28,7 @@ interface IWebSocket<TData, TOption> {
     data?: TData;
     options?: IWebSocketOptions<TOption>;
     subscriptionOptions?: any; // return option from back
+    error?: IError;
 }
 
 interface IWebSocketOptions<T> {
@@ -143,7 +145,7 @@ export class WidgetService {
                 isVideoWall: item.isVideoWall,
                 isHidden: item.isHidden,
                 sensorId: item.sensorId,
-                attributes: item.attributes,
+                attributes: item.attributes
             };
         });
     }
@@ -237,7 +239,7 @@ export class WidgetService {
         this.ws.next({
             actionType: 'unsubscribe',
             channelId: widgetId,
-            subChannelId: channelId,
+            subChannelId: channelId
         });
     }
 
@@ -339,7 +341,10 @@ export class WidgetService {
         });
         this.ws.subscribe(
             (msg) => {
-                console.log('message received: ' + msg);
+                console.log('message received');
+                if (msg?.error) {
+                    this.materialController.openSnackBar(msg.error.message.message);
+                }
                 if (this.reconnectWsTimer) {
                     clearInterval(this.reconnectWsTimer);
                 }
