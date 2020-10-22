@@ -1,58 +1,77 @@
-import { Component, OnInit, Input, Output, EventEmitter, OnChanges } from '@angular/core';
+import { Component, OnInit, OnChanges, ViewChild, AfterViewInit } from '@angular/core';
+import { PopoverRef } from '@shared/components/popover-overlay/popover-overlay.ref';
+import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
+import { AsyncRender } from '@shared/functions/async-render.function';
 
 export interface IDocumentCodingFilterSection {
-  id: number;
-  name: string;
-  isActive: boolean;
+    id: number;
+    name: string;
 }
 
 @Component({
-  selector: 'evj-document-coding-filter',
-  templateUrl: './document-coding-filter.component.html',
-  styleUrls: ['./document-coding-filter.component.scss']
+    selector: 'evj-document-coding-filter',
+    templateUrl: './document-coding-filter.component.html',
+    styleUrls: ['./document-coding-filter.component.scss']
 })
-export class DocumentCodingFilterComponent implements OnInit, OnChanges {
-  @Output() public close: EventEmitter<boolean> = new EventEmitter<boolean>();
-  @Input() public title: string;
+export class DocumentCodingFilterComponent implements OnInit, OnChanges, AfterViewInit {
+    public filterTitle: string;
 
-  public dataParam: IDocumentCodingFilterSection[] = [
-    {
-      id: 1,
-      name: 'Товарные НП',
-      isActive: true,
-    },
-    {
-      id: 2,
-      name: 'Исследования нефти',
-      isActive: false,
-    },
-    {
-      id: 3,
-      name: 'Топливо и битум',
-      isActive: false,
-    },
+    public filterData: IDocumentCodingFilterSection[] = [];
 
-  ];
+    public activeItems: Map<number, IDocumentCodingFilterSection> = new Map();
 
-  constructor() { }
+    @ViewChild(CdkVirtualScrollViewport)
+    public viewPort: CdkVirtualScrollViewport;
 
-  ngOnInit(): void {
-  }
+    constructor(
+        private popoverRef: PopoverRef,
+    ) {
+        this.popoverRef.overlay.backdropClick().subscribe(() => {
+            this.close();
+        });
+        if (this.popoverRef.data) {
+            this.filterTitle = this.popoverRef.data.title;
+            this.filterData = this.popoverRef.data.data;
+            this.popoverRef.data.activeFilters?.forEach(filter => {
+                this.activeItems.set(filter.id, filter);
+            });
+        }
+    }
 
-  ngOnChanges(): void {
+    ngOnInit(): void {
+    }
 
-  }
+    ngOnChanges(): void {
+    }
 
-  save(): void {
-    this.close.emit(false);
-  }
+    public ngAfterViewInit(): void {
+        this.scrollToActive();
+    }
 
-  exit(): void {
-    this.close.emit(false);
-  }
+    @AsyncRender
+    private scrollToActive(): void {
+        if (this.activeItems.size > 0) {
+            const selectedIndex = this.filterData.findIndex(elem => this.activeItems.has(elem.id));
+            if (selectedIndex > -1) {
+                this.viewPort.scrollToIndex(selectedIndex, 'auto' );
+            }
+        }
+    }
 
-  changeSwap(i: IDocumentCodingFilterSection): void {
-    i.isActive = !i.isActive;
-  }
+    public changeSwap(item: IDocumentCodingFilterSection): void {
+        this.activeItems.has(item.id) ? this.activeItems.delete(item.id) : this.activeItems.set(item.id, item);
+    }
 
+    public close(): void {
+        this.popoverRef.close('backdropClick', {
+            type: this.popoverRef.data.type,
+        });
+    }
+
+    public onSaveClick(): void {
+        this.popoverRef.close('close', {
+            type: this.popoverRef.data.type,
+            activeFilters: Array.from(this.activeItems.values()),
+        });
+    }
 }

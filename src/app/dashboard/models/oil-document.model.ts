@@ -1,13 +1,20 @@
-// export interface IDocumentsScans {
-//     id: number;
-//     name: string;
-//     date: Date; /// Date
-//     isActive?: boolean;
-// }
+export interface IDocumentsScan {
+    id: number;
+    externalId?: string;
+    name: string;
+    date: Date;
+    path?: string;
+}
 
-export interface IDocumentsScans {
+export interface IDocumentsTank {
+  enabled?: boolean;
+  id: string;
+  limitHours?: number;
+  name: string;
+}
+
+export interface IDocumentsLaboratory {
     id: number;
     name: string;
-    date: Date; /// Date
-    isActive?: boolean;
+    shortName: string;
 }
