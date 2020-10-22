@@ -16,20 +16,19 @@ export class AstueOnpzBigPlanningChartComponent extends WidgetPlatform implement
 
     public sbLeft: number = 0;
     public sbWidth: number = 100;
+    public scrollData: IChartMini[] = [];
+    public scrollLimits: IDatesInterval = null;
+
     public info: IPlanningChart;
     public data: IProductionTrend[] = [];
     public colors: Map<string, number>;
     public scaleCounter: number = 5;
-    public scrollLimits: IDatesInterval = null;
     set scale(isMinus: boolean) {
         let counter = this.scaleCounter + (+isMinus || -1);
         if (counter < 0) {
             counter = 0;
         }
         this.scaleCounter = counter;
-    }
-    get scrollData(): IChartMini[] {
-        return this.data?.find((x) => x.graphType === 'plan')?.graph ?? [];
     }
 
     constructor(

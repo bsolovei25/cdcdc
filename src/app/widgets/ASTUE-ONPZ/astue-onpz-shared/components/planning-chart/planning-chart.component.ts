@@ -1,4 +1,12 @@
-import { Component, ElementRef, HostListener, Input, OnChanges, ViewChild } from '@angular/core';
+import {
+    Component,
+    ElementRef, EventEmitter,
+    HostListener,
+    Input,
+    OnChanges,
+    Output,
+    ViewChild
+} from '@angular/core';
 import * as d3Selection from 'd3-selection';
 import * as d3 from 'd3';
 import {
@@ -27,6 +35,7 @@ export class PlanningChartComponent implements OnChanges {
     @Input() set size(value: number) {
         this.deltaCf = PlanningChartComponent.STEP_CF * value;
     }
+    @Output() scrollData: EventEmitter<IChartMini[]> = new EventEmitter<IChartMini[]>(true);
 
     private dateTimeInterval: Date[] = null;
 
@@ -75,6 +84,7 @@ export class PlanningChartComponent implements OnChanges {
         } else {
             this.dropChart();
         }
+        this.scrollData.emit(this.data?.find(x => x.graphType === 'fact')?.graph ?? []);
     }
 
     public changeScale(isPlus: boolean): void {
@@ -258,8 +268,6 @@ export class PlanningChartComponent implements OnChanges {
                 .y0((item: IChartD3) => item.y)
                 .y1(this.padding.top)
                 .curve(curve);
-
-            const opacity: number = 1;
 
             this.svg
                 .append('path')

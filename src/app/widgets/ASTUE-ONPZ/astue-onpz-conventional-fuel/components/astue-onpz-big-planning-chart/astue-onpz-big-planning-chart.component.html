@@ -40,10 +40,11 @@
           [intervalHours]="[12, 72]"
           [size]="scaleCounter"
           [scroll]="{left: sbLeft, right: 100 - sbLeft - sbWidth}"
+          (scrollData)="scrollData = $event"
         ></evj-planning-chart>
       </div>
       <div class="card__scroll">
-        <evj-smart-scroll [limits]="scrollLimits" [data]="scrollData" [(sbThumbLeft)]="sbLeft" [(sbThumbWidth)]="sbWidth" ></evj-smart-scroll>
+        <evj-smart-scroll  [limits]="scrollLimits" [data]="scrollData" [(sbThumbLeft)]="sbLeft" [(sbThumbWidth)]="sbWidth" ></evj-smart-scroll>
       </div>
     </div>
   </div>
