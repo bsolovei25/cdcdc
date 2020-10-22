@@ -248,6 +248,7 @@ export class SmartScrollComponent implements AfterViewInit, OnChanges, OnDestroy
     // выставление скролла по левой стороне
     private setScrollbarLeftPosition(percent: number): void {
         this.renderer.setStyle(this.sbThumb.nativeElement, 'left', `${percent}%`);
+        this.sbThumbLeftChange.emit(percent);
     }
     //#endregion SUPPORT
 

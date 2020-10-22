@@ -5,8 +5,8 @@
       <evj-line-chart-track *ngIf="data?.length" [data]="data" [limits]="limits"></evj-line-chart-track>
       <div class="sb__thumb" #sbThumb>
         <div class="thumb-body" #sbThumbBody></div>
-        <div class="resizer resizer_left" #resizerLeft></div>
-        <div class="resizer resizer_right" #resizerRight></div>
+        <div (mousedown)="$event.stopPropagation()" class="resizer resizer_left" #resizerLeft></div>
+        <div (mousedown)="$event.stopPropagation()" class="resizer resizer_right" #resizerRight></div>
       </div>
     </div>
     <div class="sb__button sb__button_right" #btnRight></div>
