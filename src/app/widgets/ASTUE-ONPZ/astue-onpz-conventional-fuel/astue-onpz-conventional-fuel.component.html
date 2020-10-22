@@ -54,7 +54,7 @@
         [options]="options"
         [scroll]="{left: sbLeft, right: 100 - sbLeft - sbWidth}"
       ></evj-astue-onpz-multi-chart>
-      <evj-smart-scroll [(sbThumbLeft)]="sbLeft" [(sbThumbWidth)]="sbWidth" class="scroll"></evj-smart-scroll>
+      <evj-smart-scroll [limits]="scrollLimits" [data]="scrollData" [(sbThumbLeft)]="sbLeft" [(sbThumbWidth)]="sbWidth" class="scroll"></evj-smart-scroll>
     </div>
   </ng-container>
   <ng-template #planChart>

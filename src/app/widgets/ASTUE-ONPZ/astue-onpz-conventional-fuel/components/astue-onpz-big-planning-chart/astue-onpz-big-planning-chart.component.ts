@@ -2,9 +2,10 @@ import { Component, OnInit, OnDestroy, Inject } from '@angular/core';
 import { WidgetPlatform } from '../../../../../dashboard/models/@PLATFORM/widget-platform';
 import { IPlanningChart } from '../../../astue-onpz-planning-charts/astue-onpz-planning-charts.component';
 import { IProductionTrend } from '../../../../../dashboard/models/LCO/production-trends.model';
-import { WidgetService } from '../../../../../dashboard/services/widget.service';
+import { IDatesInterval, WidgetService } from '../../../../../dashboard/services/widget.service';
 import { AstueOnpzService } from '../../../astue-onpz-shared/astue-onpz.service';
 import { fillDataShape } from '@shared/functions/common-functions';
+import { IChartMini } from '@shared/models/smart-scroll.model';
 
 @Component({
     selector: 'evj-astue-onpz-big-planning-chart',
@@ -19,12 +20,16 @@ export class AstueOnpzBigPlanningChartComponent extends WidgetPlatform implement
     public data: IProductionTrend[] = [];
     public colors: Map<string, number>;
     public scaleCounter: number = 5;
+    public scrollLimits: IDatesInterval = null;
     set scale(isMinus: boolean) {
         let counter = this.scaleCounter + (+isMinus || -1);
         if (counter < 0) {
             counter = 0;
         }
         this.scaleCounter = counter;
+    }
+    get scrollData(): IChartMini[] {
+        return this.data?.find((x) => x.graphType === 'plan')?.graph ?? [];
     }
 
     constructor(
@@ -50,7 +55,8 @@ export class AstueOnpzBigPlanningChartComponent extends WidgetPlatform implement
             }),
             this.astueService.colors$.subscribe((value) => {
                 this.colors = value;
-            })
+            }),
+            this.widgetService.currentDates$.subscribe((ref) => this.scrollLimits = ref),
         );
     }
 

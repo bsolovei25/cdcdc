@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy, Inject } from '@angular/core';
 import { WidgetPlatform } from '../../../dashboard/models/@PLATFORM/widget-platform';
-import { WidgetService } from '../../../dashboard/services/widget.service';
+import { IDatesInterval, WidgetService } from '../../../dashboard/services/widget.service';
 import {
     IMultiChartLine,
 } from '../../../dashboard/models/ASTUE-ONPZ/astue-onpz-multi-chart.model';
@@ -10,6 +10,7 @@ import {
 } from '../astue-onpz-shared/astue-onpz.service';
 import { IMultiChartOptions } from './components/astue-onpz-multi-chart/astue-onpz-multi-chart.component';
 import { HttpClient } from '@angular/common/http';
+import { IChartMini } from '@shared/models/smart-scroll.model';
 
 @Component({
     selector: 'evj-astue-onpz-conventional-fuel',
@@ -29,9 +30,14 @@ export class AstueOnpzConventionalFuelComponent extends WidgetPlatform implement
 
     public sbWidth: number = 100;
     public sbLeft: number = 0;
+    public scrollLimits: IDatesInterval = null;
 
     get planningChart(): boolean {
         return !!this.astueOnpzService.sharedPlanningGraph$.getValue();
+    }
+
+    get scrollData(): IChartMini[] {
+        return this.data?.find((x) => x.graphType === 'plan')?.graph ?? [];
     }
 
     constructor(
@@ -48,6 +54,9 @@ export class AstueOnpzConventionalFuelComponent extends WidgetPlatform implement
 
     public ngOnInit(): void {
         this.widgetInit();
+        this.subscriptions.push(
+            this.widgetService.currentDates$.subscribe((ref) => this.scrollLimits = ref),
+        );
         // this.http
         //     .get('assets/mock/ASTUE-ONPZ/multiline-chart-plant.mock.json')
         //     .subscribe((data: any) => {
