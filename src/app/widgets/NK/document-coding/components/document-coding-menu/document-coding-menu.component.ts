@@ -1,37 +1,91 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { DocumentCodingService } from 'src/app/dashboard/services/oil-control-services/document-coding.service';
 import { SnackBarService } from 'src/app/dashboard/services/snack-bar.service';
+import { IDocumentsScan, IDocumentsTank } from '../../../../../dashboard/models/oil-document.model';
+import { IDocumentCodingTableRecord } from '../document-coding-table/document-coding-table.component';
+import { FormControl } from '@angular/forms';
+
+export interface IEncodedFileToSave {
+    productId: number;
+    tankId: string;
+    importedFileId: string;
+    qualityDocumentId: number;
+    passportDate: string;
+}
 
 @Component({
-  selector: 'evj-document-coding-menu',
-  templateUrl: './document-coding-menu.component.html',
-  styleUrls: ['./document-coding-menu.component.scss']
+    selector: 'evj-document-coding-menu',
+    templateUrl: './document-coding-menu.component.html',
+    styleUrls: ['./document-coding-menu.component.scss']
 })
-export class DocumentCodingMenuComponent implements OnInit {
+export class DocumentCodingMenuComponent implements OnInit, OnChanges {
 
-  public dateNow: Date = new Date();
+    public date: Date;
 
-  constructor(
-    public oilService: DocumentCodingService,
-    public snackBar: SnackBarService,
-  ) { }
+    @Input()
+    public document: IDocumentsScan | null = null;
 
-  ngOnInit(): void {
-  }
+    @Input()
+    public tank: IDocumentsTank | null = null;
 
-  saveFile(): void {
-    const windowsParam = {
-      isShow: true,
-      questionText: 'Вы уверены, что хотите сохранить файл?',
-      acceptText: 'Да',
-      cancelText: 'Нет',
-      acceptFunction: () => this.snackBar.openSnackBar(
-        'Файл сохранен',
-      ),
-      closeFunction: () => this.oilService.closeAlert(),
-      cancelFunction: () => {},
-    };
-    this.oilService.alertWindow$.next(windowsParam);
-  }
+    @Input()
+    public product: IDocumentCodingTableRecord | null = null;
+
+    public passportId: FormControl = new FormControl();
+
+    public passportDate: FormControl = new FormControl();
+
+    constructor(
+        public oilService: DocumentCodingService,
+        public snackBar: SnackBarService,
+        private documentCodingService: DocumentCodingService,
+    ) {
+    }
+
+    public ngOnInit(): void {
+       this.passportId.setValue('0');
+       this.passportDate.setValue(new Date());
+    }
+
+    public ngOnChanges(changes: SimpleChanges): void {
+        this.passportDate.setValue(this.document ? new Date(this.document.date) : new Date());
+    }
+
+    public saveFile(): Promise<void> {
+        if (!this.tank || !this.document || !this.product) {
+            this.snackBar.openSnackBar('Резервуар, Продукт и Документ - должны быть выбраны');
+            return;
+        }
+        const windowsParam = {
+            isShow: true,
+            questionText: 'Вы уверены, что хотите сохранить файл?',
+            acceptText: 'Да',
+            cancelText: 'Нет',
+            acceptFunction: () => {
+                const file: IEncodedFileToSave = {
+                    productId: this.product.id,
+                    tankId: this.tank.id,
+                    importedFileId: this.document.id === 0 ? this.document.externalId : this.document.id.toString(),
+                    qualityDocumentId: parseInt(this.passportId.value, 0),
+                    passportDate: new Date(this.passportDate.value).toISOString(),
+                };
+                const result = this.documentCodingService.passportSave(file);
+                result.catch(error => {
+                    this.snackBar.openSnackBar(
+                        'Ошибка ' + error.code, 'snackbar-red'
+                    );
+                });
+                result.then(response => {
+                    this.snackBar.openSnackBar(
+                        'Файл сохранен',
+                    );
+                });
+            },
+            closeFunction: () => this.oilService.closeAlert(),
+            cancelFunction: () => {
+            },
+        };
+        this.oilService.alertWindow$.next(windowsParam);
+    }
 
 }

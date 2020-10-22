@@ -1,182 +1,190 @@
+@import 'src/mixins';
+
 .coding-menu {
-    height: 100%;
-    display: flex;
-    padding-left: 20px;
-    padding-right: 10px;
- 
+  height: 100%;
+  display: flex;
+  padding-left: 20px;
+  padding-right: 10px;
 
-    &__file {
-        width: 35%;
 
-        .file-block {
-            height: 70%;
-            background: var(--color-oil-border);
-            border-top-left-radius: 100px;
-            border-bottom-left-radius: 100px;
-            display: flex;
-            align-items: center;
+  &__file {
+    width: 35%;
 
-            &__title {
-                height: 15px;
-                line-height: 15px;
-                margin-left: 35px;
-                font-size: 12px;
-                color: var(--color-text-sub);
-            }
-            &__name {
-                margin-left: 35px;
-                height: calc(100% - 17px);
-                margin-top: 5px;
-                display: flex;
-                align-items: center;
-                font-size: 14px;
-            }
-        }
-    }
+    .file-block {
+      height: 70%;
+      background: var(--color-oil-border);
+      border-top-left-radius: 100px;
+      border-bottom-left-radius: 100px;
+      display: flex;
+      align-items: center;
 
-    &__new-file {
-        width: 40%;
-        .new-file-block {
-            height: 70%;
-            display: flex;
-            background: var(--color-oil-border);
-            font-size: 14px;
-
-            &__pasport {
-                width: 20%;
-
-                display: flex;
-                align-items: center;
-
-                .left-side {
-                    width: 80%;
-                    text-overflow: ellipsis;
-                    overflow: hidden;
-                }
-
-                .right-side {
-                    margin-top: 5px;
-                    width: 20%;
-
-                    &__button {
-                        cursor: pointer;
-                    }
-                }
-            }
-            &__product {
-                width: 22%;
-                display: flex;
-                align-items: center;
-            }
-            &__tank {
-                width: 22%;
-                display: flex;
-                align-items: center;
-            }
-            &__data {
-                width: 36%;
-
-                ::ng-deep {
-                    .mat-form-field {
-                        width: 100px;
-                        margin: 0 auto;
-                        margin-left: 10px;
-                    }
-
-                    .mat-icon {
-                        margin-top: -25px;
-                    }
-
-                    .mat-form-field-infix {
-                        margin-top: 3px;
-                    }
-
-                    .mat-form-field-underline {
-                        display: none;
-                    }
-
-                    .mat-form-field-label {
-                        font-size: 16px;
-                        color: var(--color-text-sub);
-                    }
-
-                    .mat-form-field-flex{
-                        margin-top: 6px;
-                    }
-                }
-            }
-
-            .title-info {
-                height: 15px;
-                line-height: 15px;
-                margin-left: 15px;
-                font-size: 12px;
-                color: var(--color-text-sub);
-                margin-top: 1px;
-            }
-            .value-info {
-                margin-left: 15px;
-                height: calc(100% - 25px);
-                margin-top: 5px;
-                text-overflow: ellipsis;
-                overflow: hidden;
-            }
-
-            .block-value{
-                width: 100%;
-            }
-        }
-
-        .m-title {
-            margin-left: 15px !important;
-        }
-    }
-
-    &__save-button {
-        width: 25%;
-
-        .save {
-            height: 70%;
-            width: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background: var(--color-oil-border);
-            border-top-right-radius: 100px;
-            border-bottom-right-radius: 100px;
-
-            .save-block {
-                cursor: pointer;
-                height: 100%;
-                display: flex;
-                width: 100%;
-                align-items: center;
-                justify-content: flex-end;
-                font-size: 12px;
-
-                &__name {
-                    width: 50%;
-                    margin-right: 10px;
-                    height: 30px;
-                    line-height: 30px;
-                    text-align: center;
-                    border-radius: 25px;
-                    border: 1px solid var(--color-text-main);
-
-                    &:hover {
-                        border: 1px solid var(--color-active);
-                        color: var(--color-active);
-                    }
-                }
-            }
-        }
-    }
-
-    .title {
-        font-weight: bold;
-        height: 30%;
+      &__title {
+        height: 15px;
+        line-height: 15px;
         margin-left: 35px;
-        font-size: 13px;
+        font-size: 12px;
         color: var(--color-text-sub);
+      }
+
+      &__name {
+        margin-left: 35px;
+        height: calc(100% - 17px);
+        margin-top: 5px;
+        display: flex;
+        align-items: center;
+        font-size: 14px;
+      }
     }
+  }
+
+  &__new-file {
+    width: 40%;
+
+    .new-file-block {
+      height: 70%;
+      display: flex;
+      background: var(--color-oil-border);
+      font-size: 14px;
+
+      &__pasport {
+        width: 20%;
+
+        display: flex;
+        align-items: center;
+
+        .left-side {
+          width: 80%;
+          text-overflow: ellipsis;
+          overflow: hidden;
+        }
+
+        .right-side {
+          margin-top: 5px;
+          width: 20%;
+
+          &__button {
+            cursor: pointer;
+          }
+        }
+      }
+
+      &__product {
+        width: 22%;
+        display: flex;
+        align-items: center;
+      }
+
+      &__tank {
+        width: 22%;
+        display: flex;
+        align-items: center;
+      }
+
+      &__data {
+        width: 36%;
+
+        ::ng-deep {
+          .mat-form-field {
+            width: 100px;
+            margin: 0 auto;
+            margin-left: 10px;
+          }
+
+          .mat-icon {
+            margin-top: -25px;
+          }
+
+          .mat-form-field-infix {
+            margin-top: 3px;
+          }
+
+          .mat-form-field-underline {
+            display: none;
+          }
+
+          .mat-form-field-label {
+            font-size: 16px;
+            color: var(--color-text-sub);
+          }
+
+          .mat-form-field-flex {
+            margin-top: 6px;
+          }
+        }
+      }
+
+      .title-info {
+        height: 15px;
+        line-height: 15px;
+        margin-left: 15px;
+        font-size: 12px;
+        color: var(--color-text-sub);
+        margin-top: 1px;
+      }
+
+      .value-info {
+        margin-left: 15px;
+        height: calc(100% - 25px);
+        margin-top: 5px;
+        @include text-overflow;
+        -webkit-line-clamp: 1;
+      }
+
+      .block-value {
+        width: 100%;
+      }
+    }
+
+    .m-title {
+      margin-left: 15px !important;
+    }
+  }
+
+  &__save-button {
+    width: 25%;
+
+    .save {
+      height: 70%;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: var(--color-oil-border);
+      border-top-right-radius: 100px;
+      border-bottom-right-radius: 100px;
+
+      .save-block {
+        cursor: pointer;
+        height: 100%;
+        display: flex;
+        width: 100%;
+        align-items: center;
+        justify-content: flex-end;
+        font-size: 12px;
+
+        &__name {
+          width: 50%;
+          margin-right: 10px;
+          height: 30px;
+          line-height: 30px;
+          text-align: center;
+          border-radius: 25px;
+          border: 1px solid var(--color-text-main);
+
+          &:hover {
+            border: 1px solid var(--color-active);
+            color: var(--color-active);
+          }
+        }
+      }
+    }
+  }
+
+  .title {
+    font-weight: bold;
+    height: 30%;
+    margin-left: 35px;
+    font-size: 13px;
+    color: var(--color-text-sub);
+  }
 }
