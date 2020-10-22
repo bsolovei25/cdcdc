@@ -364,7 +364,7 @@ export class EventsComponent extends WidgetPlatform<IEventsWidgetAttributes> imp
                 filtersIds = [-100];
                 break;
         }
-        const isCheckFilters: boolean = filtersIds.some((x) => x === ref.notification.status.id)
+        const isCheckFilters: boolean = ref.action !== 'add' || filtersIds.some((x) => x === ref.notification.status.id)
             || (filtersIds.some((x) => x === -100) && !ref.notification.isAcknowledged);
         if (!isCheckFilters || !isCheckCategories) {
             return;
@@ -495,8 +495,29 @@ export class EventsComponent extends WidgetPlatform<IEventsWidgetAttributes> imp
             });
         }
         this.notifications[idx] = notification;
+        this.editWsElementEd(idx, notification);
         this.notifications = this.notifications.slice();
         this.countNotificationsDivCapacity();
+        this.getStats();
+    }
+
+    private editWsElementEd(idx: number, notification: IEventsWidgetNotificationPreview): void {
+        const options = this.getCurrentOptions();
+        if (options.categoriesType !== 'ed') {
+            return;
+        }
+        switch (options.filter) {
+            case 'inWork':
+                if (notification.isAcknowledged) {
+                    this.notifications.splice(idx, 1);
+                }
+                break;
+            case 'closed':
+                if (!notification.isAcknowledged) {
+                    this.notifications.splice(idx, 1);
+                }
+                break;
+        }
     }
 
     private getStatusIcon(name: string): string {

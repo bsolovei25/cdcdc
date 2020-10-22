@@ -48,7 +48,8 @@ export class EventCardComponent implements OnInit, OnDestroy {
         this.cardDeleteClick.emit(id);
     }
 
-    public async changeIsAcknowledged(eventCard: IEventsWidgetNotificationPreview): Promise<void> {
+    public async changeIsAcknowledged(event: MouseEvent, eventCard: IEventsWidgetNotificationPreview): Promise<void> {
+        event.stopPropagation();
         eventCard.isAcknowledged = !eventCard.isAcknowledged;
         try {
             const a = await this.eventService.changeEventIsAcknowledged(

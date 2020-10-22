@@ -47,17 +47,17 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    align-items: flex-start;
 
     .icon-block {
-      width: 100%;
+      flex-shrink: 1;
 
       display: flex;
       align-items: center;
 
       .checkbox {
-        height: 9px;
-        width: 9px;
+        box-sizing: border-box;
+        height: 10px;
+        width: 10px;
 
         display: flex;
         justify-content: center;
@@ -72,14 +72,14 @@
 
         &_checked {
           .checkbox__inner {
-            display: block;
-
+            display: flex;
             height: 4px;
             width: 4px;
 
-            border-radius: 50%;
+            border-radius:50%;
   
             background: var(--color-smp-white);
+            position: absolute;
           }
         }
       }
@@ -137,7 +137,7 @@
   }
 
   .block-pie {
-    height: 100%;
+    flex-shrink: 1;
     display: flex;
   }
 }

@@ -2,6 +2,7 @@ import { IAllCrude } from './../../../models/SMP/implementation-plan.model';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AppConfigService } from '@core/service/app-config.service';
+import { IGetData } from '../../../models/SMP/performance-progress-indicators.model';
 
 @Injectable({
     providedIn: 'root'
@@ -14,7 +15,7 @@ export class SmpService {
         })
     };
 
-    constructor(private http: HttpClient, private configService: AppConfigService) {
+    constructor( private configService: AppConfigService, private http: HttpClient) {
         this.smpUrl = configService.smpUrl;
         console.log();
         a;
@@ -29,8 +30,9 @@ export class SmpService {
             .toPromise();
     }
 
-    async getProductionProgress(): Promise<any[]> {
-        return this.http.get<any[]>(this.smpUrl + `/api/smp/getProductionProgress`, this.options)
+    async getProductionProgress(): Promise<IGetData> {
+        return this.http.get<IGetData>(`assets/mock/SMP/productionProgress.json`)// расскомментить для проверки
+        // return this.http.get<IGetData>(this.smpUrl + `/api/smp/getProductionProgress`, this.options)
             .toPromise();
     }
 
