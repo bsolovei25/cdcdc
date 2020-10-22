@@ -1,5 +1,5 @@
 import { LineChartOptions } from './line-chart';
-import { SortTypeEvents } from './events-widget';
+import { SortTypeEvents } from './EVJ/events-widget';
 
 export interface IWidgetGridsterSettings {
     itemRows: string;

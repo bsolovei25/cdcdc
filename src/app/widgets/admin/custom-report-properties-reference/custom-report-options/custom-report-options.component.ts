@@ -4,7 +4,7 @@ import { MatChipInputEvent } from '@angular/material/chips';
 import { FormControl } from '@angular/forms';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
-import { ReportsService } from '../../../../dashboard/services/widgets/reports.service';
+import { ReportsService } from '../../../../dashboard/services/widgets/admin-panel/reports.service';
 
 @Component({
   selector: 'evj-custom-report-options',

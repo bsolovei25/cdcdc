@@ -1,12 +1,12 @@
-import { DeviationsTableComponent } from '../../../widgets/LCO/deviations-table/deviations-table.component';
-import { ProductStocksComponent } from '../../../widgets/LCO/product-stocks/product-stocks.component';
-import { DeviationCircleDiagramComponent } from '../../../widgets/LCO/deviation-circle-diagram/deviation-circle-diagram.component';
-import { ColumnChartStackedComponent } from '../../../widgets/LCO/column-chart-stacked/column-chart-stacked.component';
-import { ReasonsDeviationsComponent } from '../../../widgets/NK/reasons-deviations/reasons-deviations.component';
-import { QualityDocsPanelComponent } from '../../../widgets/NK/quality-docs-panel/quality-docs-panel.component';
-import { DocumentCodingComponent } from '../../../widgets/NK/document-coding/document-coding.component';
-import { WidgetContainerComponent } from '../../widget-container/widget-container.component';
-import { CdMatBalanceChartCardComponent } from '../../../widgets/CD/cd-mat-balance/components/cd-mat-balance-chart-card/cd-mat-balance-chart-card.component';
+import { DeviationsTableComponent } from './LCO/deviations-table/deviations-table.component';
+import { ProductStocksComponent } from './LCO/product-stocks/product-stocks.component';
+import { DeviationCircleDiagramComponent } from './LCO/deviation-circle-diagram/deviation-circle-diagram.component';
+import { ColumnChartStackedComponent } from './LCO/column-chart-stacked/column-chart-stacked.component';
+import { ReasonsDeviationsComponent } from './NK/reasons-deviations/reasons-deviations.component';
+import { QualityDocsPanelComponent } from './NK/quality-docs-panel/quality-docs-panel.component';
+import { DocumentCodingComponent } from './NK/document-coding/document-coding.component';
+import { WidgetContainerComponent } from '../dashboard/widget-container/widget-container.component';
+import { CdMatBalanceChartCardComponent } from './CD/cd-mat-balance/components/cd-mat-balance-chart-card/cd-mat-balance-chart-card.component';
 
 export const WIDGETS = {
     'pie-diagram': WidgetContainerComponent,

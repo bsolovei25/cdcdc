@@ -10,7 +10,7 @@ import {
 } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { WidgetService } from 'src/app/dashboard/services/widget.service';
-import { IObservationNormTR } from 'src/app/dashboard/models/observation-norm-tr';
+import { IObservationNormTR } from 'src/app/dashboard/models/LCO/observation-norm-tr';
 import { WidgetPlatform } from 'src/app/dashboard/models/@PLATFORM/widget-platform';
 
 @Component({

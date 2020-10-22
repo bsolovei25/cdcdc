@@ -1,4 +1,4 @@
-import { ITankInformation, ITankCardValue } from '../../../dashboard/models/tank-information';
+import { ITankInformation, ITankCardValue } from '../../../dashboard/models/NK/tank-information';
 import { WidgetPlatform } from 'src/app/dashboard/models/@PLATFORM/widget-platform';
 import { WidgetService } from '../../../dashboard/services/widget.service';
 import { Inject, Component, OnInit, OnDestroy, OnChanges } from '@angular/core';

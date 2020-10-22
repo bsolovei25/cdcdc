@@ -2,7 +2,7 @@ import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { SelectionModel } from '@angular/cdk/collections';
 import { IAsEfInitialDataBlock } from '../../../../../dashboard/models/ASTUE/astue-efficiency.model';
 import { forkJoin, combineLatest, Subscription } from 'rxjs';
-import { AstueEfficiencyService } from '../../../../../dashboard/services/ASTUE/astue-efficiency.service';
+import { AstueEfficiencyService } from '../../../../../dashboard/services/widgets/ASTUE/astue-efficiency.service';
 
 @Component({
     selector: 'evj-astue-efficiency-initial-data',

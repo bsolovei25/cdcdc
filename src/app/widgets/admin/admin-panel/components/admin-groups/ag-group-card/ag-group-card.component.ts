@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { IGroup } from '../../../../../../dashboard/models/admin-panel';
+import { IGroup } from '../../../../../../dashboard/models/ADMIN/admin-panel';
 
 @Component({
     selector: 'evj-ag-group-card',

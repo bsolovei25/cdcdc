@@ -7,7 +7,7 @@ import {
     NgModuleRef,
     StaticProvider
 } from '@angular/core';
-import { WIDGETS_LAZY } from '../dashboard/components/widgets-grid/widget-map';
+import { WIDGETS_LAZY } from './widget-map';
 
 interface IInjectParameters {
     [key: string]: any;

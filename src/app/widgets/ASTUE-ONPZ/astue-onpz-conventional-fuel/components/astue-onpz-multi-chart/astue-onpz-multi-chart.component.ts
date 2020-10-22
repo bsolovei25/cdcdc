@@ -46,6 +46,7 @@ export class AstueOnpzMultiChartComponent implements OnInit, OnChanges, OnDestro
     @Input() private data: IMultiChartLine[] = [];
     @Input() private colors: Map<string, number>;
     @Input() private options: IMultiChartOptions;
+    @Input() private scroll: { left: number, right: number } = { left: 0, right: 100 };
 
     @ViewChild('chart', { static: true }) private chart: ElementRef;
 
@@ -84,6 +85,17 @@ export class AstueOnpzMultiChartComponent implements OnInit, OnChanges, OnDestro
     constructor(private renderer: Renderer2, private widgetService: WidgetService) {
     }
 
+    private tempFunction(): void {
+        // TODO: change scale function -> transform data -> draw chart ->
+        // this.svg
+        //     .select('axisX')
+        //     .attr('transform', translate)
+        //     .attr('class', axis)
+        //     .call(this.axis[axis])
+        //     .selectAll('text')
+        //     .attr('class', 'label');
+    }
+
     // TODO think about it
     public ngOnInit(): void {
         this.subscriptions.push(
@@ -101,6 +113,7 @@ export class AstueOnpzMultiChartComponent implements OnInit, OnChanges, OnDestro
 
     public ngOnDestroy(): void {
         this.listeners.forEach((listener) => listener());
+        this.subscriptions.forEach(x => x.unsubscribe());
     }
 
     @HostListener('document:resize', ['$event'])
@@ -279,6 +292,13 @@ export class AstueOnpzMultiChartComponent implements OnInit, OnChanges, OnDestro
                 new Date(currentDatetime.getTime() + 4 * 1000 * 60 * 60)
             ];
         }
+
+        // TODO: scroll
+        const deltaDomainDates = domainDates[1].getTime() - domainDates[0].getTime();
+        domainDates = [
+            new Date(domainDates[0].getTime() + this.scroll.left / 100 * deltaDomainDates),
+            new Date(domainDates[1].getTime() - this.scroll.right / 100 * deltaDomainDates),
+        ];
 
         this.scaleFuncs.x = d3
             .scaleTime()

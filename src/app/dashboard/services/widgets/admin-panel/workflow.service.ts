@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { AppConfigService } from '@core/service/app-config.service';
-import { IFolderReport } from '../../components/report/reports.component';
+import { IFolderReport } from '../../../components/report/reports.component';
 import {
     IActions,
     IActionsScenario,

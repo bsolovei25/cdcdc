@@ -6,7 +6,7 @@ import {
     ITankInformationDtoFn,
     ITankFilter,
     ITankResaultFilter
-} from '../../../dashboard/models/tank-information';
+} from '../../../dashboard/models/NK/tank-information';
 
 @Component({
     selector: 'evj-tank-information',

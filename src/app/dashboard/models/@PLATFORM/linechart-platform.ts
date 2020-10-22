@@ -1,8 +1,8 @@
 import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
-import { IDatesInterval, WidgetService } from '../services/widget.service';
+import { IDatesInterval, WidgetService } from '../../services/widget.service';
 import { OnDestroy, OnInit } from '@angular/core';
-import { IProductionTrend } from './production-trends.model';
+import { IProductionTrend } from '../LCO/production-trends.model';
 import { IChartMini } from '@shared/models/smart-scroll.model';
 
 export type SmartGraphType = 'realtime' | 'rest';

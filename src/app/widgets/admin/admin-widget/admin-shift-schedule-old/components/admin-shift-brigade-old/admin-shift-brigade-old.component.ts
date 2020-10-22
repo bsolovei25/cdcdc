@@ -1,10 +1,10 @@
 import { Component, Input } from '@angular/core';
 import { trigger, state, style, transition, animate } from '@angular/animations';
-import { AdminShiftScheduleService } from 'src/app/dashboard/services/widgets/admin-shift-schedule.service';
+import { AdminShiftScheduleService } from 'src/app/dashboard/services/widgets/admin-panel/admin-shift-schedule.service';
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
 import { IAlertWindowModel } from '../../../../../../@shared/models/alert-window.model';
 import { FormControl } from '@angular/forms';
-import { IBrigadeWithUsersDto } from 'src/app/dashboard/models/admin-shift-schedule';
+import { IBrigadeWithUsersDto } from 'src/app/dashboard/models/ADMIN/admin-shift-schedule';
 import { SnackBarService } from 'src/app/dashboard/services/snack-bar.service';
 
 @Component({

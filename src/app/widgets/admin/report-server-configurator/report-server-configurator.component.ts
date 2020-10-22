@@ -3,9 +3,9 @@ import { WidgetService } from 'src/app/dashboard/services/widget.service';
 import { trigger, state, style, animate, transition } from '@angular/animations';
 import { SnackBarService } from 'src/app/dashboard/services/snack-bar.service';
 import { ITreeState, ITreeOptions, TreeDraggedElement, TreeComponent } from 'angular-tree-component';
-import { IReportTemplate, ITreeFolderMap, ITemplate, ISystemOptions, IReportFile, ISystemOptionsTemplate, IFolder, IPostSystemOptionsTemplate } from 'src/app/dashboard/models/report-server';
+import { IReportTemplate, ITreeFolderMap, ITemplate, ISystemOptions, IReportFile, ISystemOptionsTemplate, IFolder, IPostSystemOptionsTemplate } from 'src/app/dashboard/models/ADMIN/report-server';
 import { Subscription } from 'rxjs';
-import { ReportServerConfiguratorService } from 'src/app/dashboard/services/widgets/report-server-configurator.service';
+import { ReportServerConfiguratorService } from 'src/app/dashboard/services/widgets/admin-panel/report-server-configurator.service';
 import { WidgetPlatform } from '../../../dashboard/models/@PLATFORM/widget-platform';
 
 

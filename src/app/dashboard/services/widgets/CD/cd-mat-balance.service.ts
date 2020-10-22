@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { IEventsWidgetNotification } from '../../../models/events-widget';
+import { IEventsWidgetNotification } from '../../../models/EVJ/events-widget';
 import { HttpClient } from '@angular/common/http';
-import { IScheduleShiftDay } from '../../../models/admin-shift-schedule';
+import { IScheduleShiftDay } from '../../../models/ADMIN/admin-shift-schedule';
 import { AppConfigService } from '@core/service/app-config.service';
 import { IAllEstablishedFacts } from '../../../../widgets/CD/cd-mat-balance/cd-mat-balance.component';
 
