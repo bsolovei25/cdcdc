@@ -9,7 +9,7 @@
   &.ng-dirty {
     .input-container_focus:not(.input-container_warning):not(.input-container_danger) {
       --input-text-color: var(--color-text-main);
-      --input-additional-color: #0D9E3F;
+      --input-additional-color: var(--color-active);
     }
 
     &.ng-touched.ng-invalid {

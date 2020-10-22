@@ -49,9 +49,10 @@ $font-size: 14px;
   }
   &-body__input {
     width: $width;
-    height: 50px;
+    height: 71px;
     padding-left: 35px;
     padding-right: 35px;
+    padding-bottom: 21px;
     box-sizing: border-box;
 
     background-color: var(--color-aw-container-body-transparent);
@@ -59,12 +60,10 @@ $font-size: 14px;
     flex-direction: column;
     justify-content: flex-end;
     align-items: center;
-
-    border-bottom: 1px solid red;
   }
 
   &-body__content {
-    height: 503px;
+    height: 482px;
 
     .block {
       height: 100%;
@@ -79,6 +78,7 @@ $font-size: 14px;
       padding-left: 25px;
       padding-right: 15px;
       padding-bottom: 0;
+      margin-bottom: 14px;
 
       ::ng-deep {
         .card {
@@ -88,8 +88,7 @@ $font-size: 14px;
           }
         }
         .card-normal {
-          border-radius: 12px;
-          height: 100px;
+          height: 151px;
           cursor: pointer;
           border: solid 1px transparent;
           &:before {
@@ -119,12 +118,8 @@ $font-size: 14px;
           display: none !important;
         }
 
-        .description__title {
-          line-height: 20px;
-        }
-
         .description__text {
-          line-height: 15px;
+          line-height: 17px;
         }
       }
     }
@@ -165,8 +160,6 @@ $font-size: 14px;
     padding-top: 38px;
     padding-left: 35px;
 
-    border-top: 1px solid red;
-
     .button-container {
       width: 186px;
       height: 40px;
@@ -189,35 +182,26 @@ $font-size: 14px;
   justify-content: center;
 }
 
-//::-webkit-scrollbar {
-//  width: 4px;
-//  height: 4px;
-//}
-//
-//::-webkit-scrollbar-track:vertical {
-//  width: 4px;
-//  height: 4px;
-//  border-radius: 25px;
-//}
-//
-//:hover::-webkit-scrollbar-thumb {
-//  background-color: var(--color-border-active);
-//  border-radius: 25px;
-//}
-//
-//::-webkit-scrollbar-thumb {
-//  width: 10px;
-//  border-radius: 25px;
-//  background-color: var(--color-border-main);
-//}
-//
-//::-webkit-scrollbar-track {
-//  border-radius: 25px;
-//}
-//::-webkit-scrollbar-track-piece {
-//  border-radius: 25px;
-//}
-//
-//::-webkit-resizer {
-//  background-color: var(--color-border-active);
-//}
+::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+
+::-webkit-scrollbar-track:vertical {
+  width: 4px;
+  height: 4px;
+  border-radius: 25px;
+}
+
+::-webkit-scrollbar-thumb {
+  width: 10px;
+  border-radius: 25px;
+  background-color: var(--color-border-main);
+}
+
+::-webkit-scrollbar-track {
+  border-radius: 25px;
+}
+::-webkit-scrollbar-track-piece {
+  border-radius: 25px;
+}
