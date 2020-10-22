@@ -46,6 +46,10 @@ $font-size: 14px;
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 18px;
+    line-height: 16px;
   }
   &-body__input {
     width: $width;
@@ -138,7 +142,7 @@ $font-size: 14px;
     height: 62px;
 
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
   }
   &-body-header__close {
