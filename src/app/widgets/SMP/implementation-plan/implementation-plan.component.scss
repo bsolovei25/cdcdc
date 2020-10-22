@@ -186,6 +186,10 @@
   margin-top: 10px;
   margin-bottom: 10px;
 
+  ::ng-deep path {
+    fill: var(--color-border-main);
+  }
+
   &__text {
     position: absolute;
     bottom: 0;
@@ -197,6 +201,6 @@
 
 .active-icon {
   ::ng-deep path {
-    fill: #00a99d;
+    fill: var(--color-standard);
   }
 }
