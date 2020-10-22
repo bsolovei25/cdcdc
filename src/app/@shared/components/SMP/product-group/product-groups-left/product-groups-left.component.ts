@@ -167,15 +167,7 @@ export class ProductGroupsLeftComponent implements OnInit, OnChanges {
 
         const point = this.svg
             .append('image')
-            .attr('xlink:href', () => {
-                if (data.pointStatus === 2) {
-                    return 'assets/icons/widgets/SMP/product-group-planning/left-side/danger-point.svg';
-                } else if (data.pointStatus === 1) {
-                    return 'assets/icons/widgets/SMP/product-group-planning/left-side/warning-point.svg';
-                } else {
-                    return 'assets/icons/widgets/SMP/product-group-planning/left-side/normal-point.svg';
-                }
-            })
+            .attr('xlink:href', `assets/icons/widgets/SMP/product-group-planning/left-side/${this.status[data.pointStatus]}-point.svg`)
             .attr('height', '15px')
             .attr('width', () => {
                 if (data.pointStatus === 0) {

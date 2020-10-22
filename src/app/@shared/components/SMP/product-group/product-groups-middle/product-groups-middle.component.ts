@@ -36,7 +36,13 @@ export class ProductGroupsMiddleComponent implements OnInit, OnChanges {
         'normal',
         'warning',
         'danger'
-    ]
+    ];
+
+    dayStatus: string[] = [
+        'active',
+        'warning',
+        'danger'
+    ];
 
     public readonly RADIUS: number = 36.5; /// PieCircle Radius
     public defaultPercent: number = 100;
@@ -113,18 +119,10 @@ export class ProductGroupsMiddleComponent implements OnInit, OnChanges {
 
         if (summ === 0) {
             color = d3.scaleOrdinal().range(['var(--color-oil-circle-disable)']);
-        } else if (data.pieStatus === 1) {
+        } else {
             color = d3
                 .scaleOrdinal()
-                .range(['var(--color-warning)', 'var(--color-oil-circle-disable)']);
-        } else if (data.pieStatus === 0) {
-            color = d3
-                .scaleOrdinal()
-                .range(['var(--color-smp-pie-normal)', 'var(--color-oil-circle-disable)']);
-        } else if (data.pieStatus === 2) {
-            color = d3
-                .scaleOrdinal()
-                .range(['var(--color-smp-danger)', 'var(--color-oil-circle-disable)']);
+                .range([`var(--color-${this.status[data.pieStatus]})`, 'var(--color-oil-circle-disable)']);
         }
 
         this.svgCircle = d3
@@ -259,12 +257,8 @@ export class ProductGroupsMiddleComponent implements OnInit, OnChanges {
             })
             .attr('fill', (d, i) => {
                 const status = this.data.days.find((e) => e.day - 1 === i)?.critical;
-                if (status === 0) {
-                    return 'var(--color-active)';
-                } else if (status === 1) {
-                    return 'var(--color-warning)';
-                } else if (status === 2) {
-                    return 'var(--color-danger)';
+                if (this.dayStatus[status]) {
+                    return `var(--color-${this.dayStatus[status]})`;
                 } else {
                     return 'var(--color-smp-blue)';
                 }
