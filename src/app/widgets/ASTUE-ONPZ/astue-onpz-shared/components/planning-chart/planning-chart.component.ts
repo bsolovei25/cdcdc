@@ -109,6 +109,7 @@ export class PlanningChartComponent implements OnChanges {
         this.transformData();
         this.drawGridlines();
         this.drawChart();
+        this.drawMask();
         this.drawAxisLabels();
         this.drawFutureRect();
         this.drawPoints();
@@ -282,6 +283,38 @@ export class PlanningChartComponent implements OnChanges {
                     .attr('d', areaFn(chart.graph));
             }
         });
+    }
+
+    private drawMask(): void {
+        if (this.isWithPicker) {
+            const mask = this.svg
+                .append('mask')
+                .attr('width', this.graphMaxX)
+                .attr('height', this.graphMaxY)
+                .attr('id', 'planning-mask');
+            mask.append('rect')
+                .attr('x', 0)
+                .attr('y', 0)
+                .attr('width', this.graphMaxX)
+                .attr('height', this.graphMaxY)
+                .style('fill', 'white')
+                .style('opacity', 1);
+            mask.append('rect')
+                .attr('x', this.padding.left)
+                .attr('y', this.padding.top)
+                .attr('width', this.graphMaxX - this.padding.right - this.padding.left)
+                .attr('height', this.graphMaxY - this.padding.bottom - this.padding.top)
+                .style('fill', 'black');
+
+            this.svg
+                .append('rect')
+                .attr('x', 0)
+                .attr('y', 0)
+                .attr('width', this.graphMaxX)
+                .attr('height', this.graphMaxY)
+                .attr('mask', 'url(#planning-mask)')
+                .style('fill', 'var(--color-astue-onpz-bg-axis-2)');
+        }
     }
 
     private drawPoints(): void {
