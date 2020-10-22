@@ -26,7 +26,6 @@ export class PlanningChartComponent implements OnChanges {
     @Input() private intervalHours: number[] = [];
     @Input() set size(value: number) {
         this.deltaCf = PlanningChartComponent.STEP_CF * value;
-        // this.drawChart();
     }
 
     private dateTimeInterval: Date[] = null;
