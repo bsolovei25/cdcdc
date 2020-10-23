@@ -5,6 +5,8 @@ import { IProductionTrend } from '../../../dashboard/models/LCO/production-trend
 import { AstueOnpzService } from '../astue-onpz-shared/astue-onpz.service';
 import { AstueOnpzProductCardComponent } from './components/astue-onpz-product-card/astue-onpz-product-card.component';
 import { AstueOnpzHeaderIcon } from '../../../dashboard/models/ASTUE-ONPZ/astue-onpz-header-icon.model';
+import { HttpClient } from "@angular/common/http";
+import { AppConfigService } from "@core/service/app-config.service";
 
 export interface IAstueProductChart {
     productName: string;
@@ -31,6 +33,7 @@ export type AstueProductChartType = 'fact' | 'plan' | 'exceed' | 'economy';
 export class AstueOnpzProductChartsComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
     public data: string[] = [];
     public readonly chartComponent: any = AstueOnpzProductCardComponent;
+    private readonly restUrl: string;
 
     constructor(
         protected widgetService: WidgetService,
@@ -38,9 +41,12 @@ export class AstueOnpzProductChartsComponent extends WidgetPlatform<unknown> imp
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string,
         private astueOnpzService: AstueOnpzService,
-        public injector: Injector
+        public injector: Injector,
+        private http: HttpClient,
+        private appConfigService: AppConfigService,
     ) {
         super(widgetService, isMock, id, uniqId);
+        this.restUrl = appConfigService.restUrl;
     }
 
     public ngOnInit(): void {
@@ -54,6 +60,25 @@ export class AstueOnpzProductChartsComponent extends WidgetPlatform<unknown> imp
                 this.widgetService.setChannelLiveDataFromWsOptions(this.widgetId, ref);
             })
         );
+        this.tempRequest(this.widgetId);
+    }
+    // chartId: "3f8b51da-f5b9-11ea-b282-c46516bdb871"
+    // id: "22648c38-b7f5-579f-3b65-f5a92ee2ac96"
+    // manufactureName: "Производство №1"
+    // name: "Пар водяной"
+    // type: "Deviation"
+    // typeValue: "Absolute"
+    // unitName: "ФСБ"
+    // widgetId: "51f1368d-dae0-11e
+    //
+
+    // TODO: move to service
+    private async tempRequest(widgetId: string): Promise<void> {
+        console.log('start req');
+        const response = await this.http.get<any>(`${this.restUrl}/api/widget-data/${widgetId}`).toPromise();
+        console.log(response);
+        console.log(response.data.subChannels.filter(x => x.manufactureName === 'Производство №1'
+            && x.type === 'Deviation' && x.typeValue === 'Absolute' && x.unitName === 'АВТ-10'));
     }
 
     public ngOnDestroy(): void {
