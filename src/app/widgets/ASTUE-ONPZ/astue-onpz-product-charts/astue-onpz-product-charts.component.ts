@@ -2,7 +2,10 @@ import { Component, OnInit, Inject, OnDestroy, Injector } from '@angular/core';
 import { WidgetPlatform } from '../../../dashboard/models/@PLATFORM/widget-platform';
 import { WidgetService } from '../../../dashboard/services/widget.service';
 import { IProductionTrend } from '../../../dashboard/models/LCO/production-trends.model';
-import { AstueOnpzService } from '../astue-onpz-shared/astue-onpz.service';
+import {
+    AstueOnpzService,
+    IAstueOnpzMonitoringOptions
+} from '../astue-onpz-shared/astue-onpz.service';
 import { AstueOnpzProductCardComponent } from './components/astue-onpz-product-card/astue-onpz-product-card.component';
 import { AstueOnpzHeaderIcon } from '../../../dashboard/models/ASTUE-ONPZ/astue-onpz-header-icon.model';
 import { HttpClient } from "@angular/common/http";
@@ -31,7 +34,7 @@ export type AstueProductChartType = 'fact' | 'plan' | 'exceed' | 'economy';
     styleUrls: ['./astue-onpz-product-charts.component.scss'],
 })
 export class AstueOnpzProductChartsComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
-    public data: string[] = [];
+    public data: any[] = [];
     public readonly chartComponent: any = AstueOnpzProductCardComponent;
     private readonly restUrl: string;
 
@@ -58,27 +61,18 @@ export class AstueOnpzProductChartsComponent extends WidgetPlatform<unknown> imp
         this.subscriptions.push(
             this.astueOnpzService.sharedMonitoringOptions.subscribe((ref) => {
                 this.widgetService.setChannelLiveDataFromWsOptions(this.widgetId, ref);
+                this.tempRequest(this.widgetId, ref);
             })
         );
-        this.tempRequest(this.widgetId);
     }
-    // chartId: "3f8b51da-f5b9-11ea-b282-c46516bdb871"
-    // id: "22648c38-b7f5-579f-3b65-f5a92ee2ac96"
-    // manufactureName: "Производство №1"
-    // name: "Пар водяной"
-    // type: "Deviation"
-    // typeValue: "Absolute"
-    // unitName: "ФСБ"
-    // widgetId: "51f1368d-dae0-11e
-    //
 
     // TODO: move to service
-    private async tempRequest(widgetId: string): Promise<void> {
+    private async tempRequest(widgetId: string, options: IAstueOnpzMonitoringOptions): Promise<void> {
         console.log('start req');
-        const response = await this.http.get<any>(`${this.restUrl}/api/widget-data/${widgetId}`).toPromise();
-        console.log(response);
-        console.log(response.data.subChannels.filter(x => x.manufactureName === 'Производство №1'
-            && x.type === 'Deviation' && x.typeValue === 'Absolute' && x.unitName === 'АВТ-10'));
+        let response = await this.http.get<any>(`${this.restUrl}/api/widget-data/${widgetId}`).toPromise();
+        response = response.data.subChannels.filter(x => x.manufactureName === options.manufactureName
+            && x.type === options.type && x.typeValue === options.indicatorType && x.unitName === options.unitName);
+        this.data = response;
     }
 
     public ngOnDestroy(): void {
@@ -86,21 +80,20 @@ export class AstueOnpzProductChartsComponent extends WidgetPlatform<unknown> imp
     }
 
     protected dataHandler(ref: { graphIds: string[] }): void {
-        if (ref?.graphIds?.length > 0) {
-            this.data = ref.graphIds;
-        } else {
-            this.data = [];
-        }
+        // if (ref?.graphIds?.length > 0) {
+        //     this.data = ref.graphIds;
+        // } else {
+        //     this.data = [];
+        // }
     }
 
-    public getInjector = (idWidget: string, uniqId: string): Injector => {
+    public getInjector = (widgetId: string, channelId: string): Injector => {
         return Injector.create({
             providers: [
-                { provide: 'widgetId', useValue: idWidget },
-                { provide: 'uniqId', useValue: uniqId },
-                { provide: 'isMock', useValue: false },
+                { provide: 'widgetId', useValue: widgetId },
+                { provide: 'channelId', useValue: channelId },
             ],
             parent: this.injector,
         });
-    };
+    }
 }

@@ -2,19 +2,16 @@ import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
 import { IAstueProductChart } from '../../astue-onpz-product-charts.component';
 import { UserSettingsService } from '../../../../../dashboard/services/user-settings.service';
 import { AstueOnpzService } from '../../../astue-onpz-shared/astue-onpz.service';
-import { WidgetPlatform } from '../../../../../dashboard/models/@PLATFORM/widget-platform';
 import { WidgetService } from '../../../../../dashboard/services/widget.service';
 import { HttpClient } from '@angular/common/http';
-import { fillDataShape } from '@shared/functions/common-functions';
-import { AstueOnpzHeaderIcon } from '../../../../../dashboard/models/ASTUE-ONPZ/astue-onpz-header-icon.model';
-import { ArrayType } from '@angular/compiler';
+import { ChannelPlatform } from '../../../../../dashboard/models/@PLATFORM/channel-platform';
 
 @Component({
     selector: 'evj-astue-onpz-product-card',
     templateUrl: './astue-onpz-product-card.component.html',
     styleUrls: ['./astue-onpz-product-card.component.scss'],
 })
-export class AstueOnpzProductCardComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
+export class AstueOnpzProductCardComponent extends ChannelPlatform<IAstueProductChart> implements OnInit, OnDestroy {
     public data: IAstueProductChart;
 
     public isDeviationChart: boolean = false;
@@ -24,24 +21,14 @@ export class AstueOnpzProductCardComponent extends WidgetPlatform<unknown> imple
         private userSettingsService: UserSettingsService,
         private astueOnpzService: AstueOnpzService,
         protected widgetService: WidgetService,
-        @Inject('isMock') public isMock: boolean,
-        @Inject('widgetId') public id: string,
-        @Inject('uniqId') public uniqId: string,
+        @Inject('widgetId') public widgetId: string,
+        @Inject('channelId') public channelId: string,
     ) {
-        super(widgetService, isMock, id, uniqId);
+        super(widgetId, channelId, widgetService);
     }
 
     ngOnInit(): void {
-        super.widgetInit();
-    }
-
-    protected dataConnect(): void {
-        super.dataConnect();
-        this.subscriptions.push(
-            this.astueOnpzService.sharedMonitoringOptions.subscribe((ref) => {
-                this.widgetService.setChannelLiveDataFromWsOptions(this.widgetId, ref);
-            })
-        );
+        super.ngOnInit();
     }
 
     private async getMockData(): Promise<void> {
@@ -59,7 +46,7 @@ export class AstueOnpzProductCardComponent extends WidgetPlatform<unknown> imple
         if (!ref?.itemId) {
             return;
         }
-        this.isDeviationChart = (ref as any).subscriptionOptions.type === 'Deviation';
+        // this.isDeviationChart = (ref as any).subscriptionOptions.type === 'Deviation';
         this.data = ref;
         this.data?.graphs?.forEach((item) => {
             item?.graph?.forEach((val) => {

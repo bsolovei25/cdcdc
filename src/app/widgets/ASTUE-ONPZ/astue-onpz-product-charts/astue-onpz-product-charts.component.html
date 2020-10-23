@@ -19,7 +19,7 @@
         <ng-container *ngFor="let item of data">
           <div class="content__item">
             <ng-container
-              *ngComponentOutlet="chartComponent; injector: (item | fn:getInjector : 0);"
+              *ngComponentOutlet="chartComponent; injector: (widgetId | fn:getInjector : item.id);"
             ></ng-container>
           </div>
         </ng-container>
