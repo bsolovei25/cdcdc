@@ -61,7 +61,7 @@
         <div class="table-header__item">{{isInitialDataShow ? 'Наименование' : 'Показатели'}}</div>
         <div class="table-header__item">Итого</div>
         <div class="table-header__item" *ngFor="let value of dates">
-          {{value.date|date:'dd.MM'}}
+          {{  currentDate ? (value.date | date:'dd.mm.yyyy hh:MM') : (value.date | date:'dd.MM') }}
         </div>
       </div>
 
