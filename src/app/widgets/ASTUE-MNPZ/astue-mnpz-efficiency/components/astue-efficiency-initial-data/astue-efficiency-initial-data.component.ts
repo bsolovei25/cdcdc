@@ -27,6 +27,13 @@ export class AstueEfficiencyInitialDataComponent implements OnInit, OnDestroy {
                 this.data = [];
                 results?.flat()?.forEach(data => {
                     if (data) {
+                        if (data?.periodCounter) {
+                        data.initialData.forEach(value => {
+                                if (!value.name.includes(data.name)) {
+                                    value.name = `${value.name} ${data.name}`;
+                                }
+                            });
+                        }
                         this.data = [...this.data, ...data?.initialData];
                     }
                 });
