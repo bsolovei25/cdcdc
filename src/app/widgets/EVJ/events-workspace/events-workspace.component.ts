@@ -1,7 +1,7 @@
 import {Component, OnInit, OnDestroy, Inject, HostListener, Input} from '@angular/core';
 import { WidgetPlatform } from '../../../dashboard/models/@PLATFORM/widget-platform';
-import { EventsWorkspaceService } from '../../../dashboard/services/widgets/events-workspace.service';
-import { EventService } from '../../../dashboard/services/widgets/event.service';
+import { EventsWorkspaceService } from '../../../dashboard/services/widgets/EVJ/events-workspace.service';
+import { EventService } from '../../../dashboard/services/widgets/EVJ/event.service';
 import { WidgetService } from '../../../dashboard/services/widget.service';
 import { DateAdapter, MAT_DATE_LOCALE } from '@angular/material/core';
 import { AuthService } from '../../../@core/service/auth.service';
@@ -10,7 +10,7 @@ import {
     EventsWidgetData,
     IEventsWidgetNotification,
     IStatus,
-} from '../../../dashboard/models/events-widget';
+} from '../../../dashboard/models/EVJ/events-widget';
 import { IAlertWindowModel } from '../../../@shared/models/alert-window.model';
 import {
     MomentDateAdapter,

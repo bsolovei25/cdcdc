@@ -2,7 +2,7 @@ import { Component, OnInit, Inject, OnDestroy, ElementRef } from '@angular/core'
 import { WidgetPlatform } from '../../../dashboard/models/@PLATFORM/widget-platform';
 import { WidgetService } from '../../../dashboard/services/widget.service';
 import { HttpClient } from '@angular/common/http';
-import { IProductionTrend } from '../../../dashboard/models/production-trends.model';
+import { IProductionTrend } from '../../../dashboard/models/LCO/production-trends.model';
 import { IDeviationDiagramData } from '../shared/kpe-deviation-diagram/kpe-deviation-diagram.component';
 import { IBarDiagramData } from '../shared/kpe-equalizer-chart/kpe-equalizer-chart.component';
 import { KpeHelperService } from '../shared/kpe-helper.service';

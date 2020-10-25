@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { EventsWidgetCategory, ICategory } from '../../../../../dashboard/models/events-widget';
+import { EventsWidgetCategory, ICategory } from '../../../../../dashboard/models/EVJ/events-widget';
 
 @Component({
     selector: 'evj-cd-event-categories',

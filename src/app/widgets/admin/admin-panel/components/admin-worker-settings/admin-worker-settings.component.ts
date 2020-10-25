@@ -1,17 +1,17 @@
 import { Component, OnInit, Output, EventEmitter, OnDestroy, Input } from '@angular/core';
-import { IUser, IUnitEvents } from '../../../../../dashboard/models/events-widget';
+import { IUser, IUnitEvents } from '../../../../../dashboard/models/EVJ/events-widget';
 import { IAlertWindowModel } from '../../../../../@shared/models/alert-window.model';
 import { IInputOptions } from '../../../../../@shared/models/input.model';
 import { IAlertPasswordModel } from '../../../../../@shared/models/alert-password.model';
-import { IGlobalClaim, IWorkspace } from '../../../../../dashboard/models/admin-panel';
+import { IGlobalClaim, IWorkspace } from '../../../../../dashboard/models/ADMIN/admin-panel';
 import { Subscription } from 'rxjs';
 import { IWidget } from '../../../../../dashboard/models/widget.model';
 import { SelectionModel } from '@angular/cdk/collections';
-import { AdminPanelService } from '../../../../../dashboard/services/admin-panel/admin-panel.service';
+import { AdminPanelService } from '../../../../../dashboard/services/widgets/admin-panel/admin-panel.service';
 import { SnackBarService } from '../../../../../dashboard/services/snack-bar.service';
 import { fillDataShape } from '@shared/functions/common-functions';
 import { base64ToFile } from 'ngx-image-cropper';
-import { IUnits } from '../../../../../dashboard/models/admin-shift-schedule';
+import { IUnits } from '../../../../../dashboard/models/ADMIN/admin-shift-schedule';
 
 @Component({
     selector: 'evj-admin-worker-settings',

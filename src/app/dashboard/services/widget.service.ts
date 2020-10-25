@@ -5,7 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import { GridsterItem } from 'angular-gridster2';
 import { IWidget } from '../models/widget.model';
 import { AppConfigService } from '@core/service/app-config.service';
-import { EventsWidgetDataPreview } from '../models/events-widget';
+import { EventsWidgetDataPreview } from '../models/EVJ/events-widget';
 import { LineChartData } from '../models/line-chart';
 import { WebSocketSubject } from 'rxjs/internal/observable/dom/WebSocketSubject';
 import { webSocket } from 'rxjs/internal/observable/dom/webSocket';

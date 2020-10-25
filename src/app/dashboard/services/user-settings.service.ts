@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { IUserGridItem, IScreenSettings } from '../models/user-settings.model';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { WIDGETS, WIDGETS_LAZY } from '../components/widgets-grid/widget-map';
+import { WIDGETS, WIDGETS_LAZY } from '../../widgets/widget-map';
 import { AppConfigService } from '@core/service/app-config.service';
 import { Observable, BehaviorSubject, throwError, Subscription } from 'rxjs';
 import { filter, catchError } from 'rxjs/operators';
@@ -19,8 +19,8 @@ import { Title } from '@angular/platform-browser';
     providedIn: 'root'
 })
 export class UserSettingsService {
-    private _screens$: BehaviorSubject<IScreenSettings[]> = new BehaviorSubject(null);
-    public screens$: Observable<IScreenSettings[]> = this._screens$
+    private screens$: BehaviorSubject<IScreenSettings[]> = new BehaviorSubject(null);
+    public screensShared: Observable<IScreenSettings[]> = this.screens$
         .asObservable()
         .pipe(filter((item) => item !== null));
 
@@ -52,12 +52,13 @@ export class UserSettingsService {
 
     public create_UUID(): string {
         let dt = new Date().getTime();
-        const uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (c) => {
+        return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (c) => {
+            // tslint:disable-next-line:no-bitwise
             const r = (dt + Math.random() * 16) % 16 | 0;
             dt = Math.floor(dt / 16);
+            // tslint:disable-next-line:no-bitwise
             return (c === 'x' ? r : (r & 0x3) | 0x8).toString(16);
         });
-        return uuid;
     }
 
     public addCellByPosition(idWidget: string, nameWidget: string, param: IParamWidgetsGrid): void {
@@ -214,14 +215,14 @@ export class UserSettingsService {
             } else if (!search) {
                 this.ScreenId = data[0]?.id;
             }
-            this._screens$.next(data);
+            this.screens$.next(data);
         } catch (e) {
             console.log('Error: could not get screen!');
         }
     }
 
     private LoadScreenAsync(id: number, loadDefault: boolean): Observable<any> {
-        const dataScreen = this._screens$.getValue();
+        const dataScreen = this.screens$.getValue();
         if (dataScreen?.length > 0) {
             return this.http.get(this.restUrl + '/api/user-management/screen/' + id).pipe(
                 catchError((err) => {
@@ -337,7 +338,7 @@ export class UserSettingsService {
     }
 
     public clearScreens(): void {
-        this._screens$.next(null);
+        this.screens$.next(null);
     }
 
     public isWidgetAvailableOnScreen(widgetType: string): boolean {
@@ -361,7 +362,7 @@ export class UserSettingsService {
         return screen?.id ?? null;
     }
 
-    private defWidgetSize(widgetType: string): any {
+    private defWidgetSize = (widgetType: string): any => {
         return WIDGETS_LAZY[widgetType] ?? WIDGETS[widgetType];
     }
 

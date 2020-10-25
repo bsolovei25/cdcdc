@@ -1,27 +1,26 @@
 import { Component, OnInit, OnDestroy, Inject } from '@angular/core';
 import { WidgetPlatform } from '../../../dashboard/models/@PLATFORM/widget-platform';
-import { WidgetService } from '../../../dashboard/services/widget.service';
+import { IDatesInterval, WidgetService } from '../../../dashboard/services/widget.service';
 import {
     IMultiChartLine,
-    IMultiChartTypes,
 } from '../../../dashboard/models/ASTUE-ONPZ/astue-onpz-multi-chart.model';
 import { UserSettingsService } from '../../../dashboard/services/user-settings.service';
 import {
     AstueOnpzService,
-    IAstueOnpzMonitoringCarrierOptions
 } from '../astue-onpz-shared/astue-onpz.service';
 import { IMultiChartOptions } from './components/astue-onpz-multi-chart/astue-onpz-multi-chart.component';
 import { HttpClient } from '@angular/common/http';
+import { IChartMini } from '@shared/models/smart-scroll.model';
 
 @Component({
     selector: 'evj-astue-onpz-conventional-fuel',
     templateUrl: './astue-onpz-conventional-fuel.component.html',
     styleUrls: ['./astue-onpz-conventional-fuel.component.scss'],
 })
-export class AstueOnpzConventionalFuelComponent extends WidgetPlatform<unknown>
-    implements OnInit, OnDestroy {
+export class AstueOnpzConventionalFuelComponent extends WidgetPlatform implements OnInit, OnDestroy {
+
     public data: IMultiChartLine[] = [];
-    colors: Map<string, number>;
+    public colors: Map<string, number>;
     public unitName: string = '';
 
     public isPredictors: boolean = false;
@@ -29,8 +28,16 @@ export class AstueOnpzConventionalFuelComponent extends WidgetPlatform<unknown>
         isIconsShowing: false,
     };
 
+    public sbWidth: number = 100;
+    public sbLeft: number = 0;
+    public scrollLimits: IDatesInterval = null;
+
     get planningChart(): boolean {
         return !!this.astueOnpzService.sharedPlanningGraph$.getValue();
+    }
+
+    get scrollData(): IChartMini[] {
+        return this.data?.find((x) => x.graphType === 'plan')?.graph ?? [];
     }
 
     constructor(
@@ -47,7 +54,9 @@ export class AstueOnpzConventionalFuelComponent extends WidgetPlatform<unknown>
 
     public ngOnInit(): void {
         this.widgetInit();
-
+        this.subscriptions.push(
+            this.widgetService.currentDates$.subscribe((ref) => this.scrollLimits = ref),
+        );
         // this.http
         //     .get('assets/mock/ASTUE-ONPZ/multiline-chart-plant.mock.json')
         //     .subscribe((data: any) => {

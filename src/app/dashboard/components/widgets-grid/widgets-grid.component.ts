@@ -1,5 +1,5 @@
 import { Component, OnInit, Injector, Inject, OnDestroy } from '@angular/core';
-import { WIDGETS } from './widget-map';
+import { WIDGETS } from '../../../widgets/widget-map';
 import { WidgetModel } from '../../models/widget.model';
 import {
     GridsterConfig,

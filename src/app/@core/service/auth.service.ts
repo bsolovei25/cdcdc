@@ -6,7 +6,7 @@ import { BehaviorSubject } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { AppConfigService } from '@core/service/app-config.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { IUser } from '../../dashboard/models/events-widget';
+import { IUser } from '../../dashboard/models/EVJ/events-widget';
 import { SnackBarService } from '../../dashboard/services/snack-bar.service';
 
 import { JSEncrypt } from 'jsencrypt';

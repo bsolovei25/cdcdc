@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter, OnChanges } from '@angular/core';
-import { EventsWorkspaceService } from '../../../../../dashboard/services/widgets/events-workspace.service';
+import { EventsWorkspaceService } from '../../../../../dashboard/services/widgets/EVJ/events-workspace.service';
 
 @Component({
     selector: 'evj-events-list-window',

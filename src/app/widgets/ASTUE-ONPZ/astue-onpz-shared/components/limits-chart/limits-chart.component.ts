@@ -4,7 +4,7 @@ import * as d3 from 'd3';
 import {
     IProductionTrend,
     ProductionTrendType,
-} from '../../../../../dashboard/models/production-trends.model';
+} from '../../../../../dashboard/models/LCO/production-trends.model';
 import { IChartD3 } from '@shared/models/smart-scroll.model';
 import { AsyncRender } from '@shared/functions/async-render.function';
 import { fillDataArray } from '@shared/functions/fill-data-array.function';

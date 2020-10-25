@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { IAsEfUnitNew, IAsEfFlow } from '../../models/ASTUE/astue-efficiency.model';
+import { IAsEfUnitNew, IAsEfFlow } from '../../../models/ASTUE/astue-efficiency.model';
 import { BehaviorSubject } from 'rxjs';
-import { SnackBarService } from '../snack-bar.service';
+import { SnackBarService } from '../../snack-bar.service';
 import { SelectionModel } from '@angular/cdk/collections';
 
 @Injectable({

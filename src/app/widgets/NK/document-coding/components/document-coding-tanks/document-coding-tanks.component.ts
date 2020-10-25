@@ -1,64 +1,38 @@
-import { Component, OnInit, HostListener, Output, Input, EventEmitter } from '@angular/core';
-
-export interface IDocumentCodingTanks {
-  id: number;
-  name: string;
-}
+import { Component, OnInit, HostListener, Output, Input, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
+import { IDocumentsTank } from '../../../../../dashboard/models/oil-document.model';
 
 @Component({
   selector: 'evj-document-coding-tanks',
   templateUrl: './document-coding-tanks.component.html',
   styleUrls: ['./document-coding-tanks.component.scss']
 })
-export class DocumentCodingTanksComponent implements OnInit {
-  @Output() public filterTanks: EventEmitter<boolean> = new EventEmitter<boolean>();
+export class DocumentCodingTanksComponent implements OnInit, OnChanges {
+  @Output() public selectedTank: EventEmitter<IDocumentsTank | null> = new EventEmitter<IDocumentsTank | null>();
   @Input() public isFilterTanks: boolean;
 
-  public data: IDocumentCodingTanks[] = [
-    {
-      id: 1,
-      name: 'Р-232'
-    },
-    {
-      id: 2,
-      name: 'Р-232'
-    },
-    {
-      id: 3,
-      name: 'Р-232'
-    },
-    {
-      id: 4,
-      name: 'Р-232'
-    },
-    {
-      id: 5,
-      name: 'Р-232'
-    },
-    {
-      id: 6,
-      name: 'Р-232'
-    },
-    {
-      id: 7,
-      name: 'Р-232'
-    },
-  ];
+  @Input()
+  public data: IDocumentsTank[] = [];
 
-  public activeRecordId: number;
+  public filteredData: IDocumentsTank[] = [];
+
+  public activeRecordId: string | null;
 
   constructor() { }
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.setStyleScroll();
+  }
+
+  public ngOnChanges(changes: SimpleChanges): void {
+      this.filteredData = this.data;
   }
 
   @HostListener('document:resize', ['$event'])
-  OnResize(event): void {
+  public OnResize(): void {
     this.setStyleScroll();
   }
 
-  setStyleScroll(): void {
+  public setStyleScroll(): void {
     const scroll = document.getElementById('scrollDocCodingTanks');
     if (scroll) {
       if (scroll.scrollHeight !== scroll.clientHeight) {
@@ -71,17 +45,12 @@ export class DocumentCodingTanksComponent implements OnInit {
     }
   }
 
-  activeRecord(id: number): void {
-    if (id === this.activeRecordId) {
-      this.activeRecordId = null;
-    } else {
-      this.activeRecordId = id;
-    }
+  public onClick(tank: IDocumentsTank): void {
+      this.activeRecordId = tank.id === this.activeRecordId ? null : tank.id;
+      this.selectedTank.emit(this.activeRecordId ? tank : null);
   }
 
-  openFilterTanks() {
-    this.isFilterTanks = true;
-    this.filterTanks.emit(true);
+  public onSearchChange(event: string): void {
+      this.filteredData = event ? this.data.filter(item => item.name.includes(event)) : this.data;
   }
-
 }

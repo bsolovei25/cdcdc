@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import { EventsWorkspaceService } from '../../../../dashboard/services/widgets/events-workspace.service';
+import { EventsWorkspaceService } from '../../../../dashboard/services/widgets/EVJ/events-workspace.service';
 import { IChatMessageWithAttachments } from '../components/chat/chat.component';
 
 @Component({
@@ -31,7 +31,7 @@ export class TasksEventComponent implements OnInit {
     }
 
     public compareFn(a, b): boolean {
-        return a && b && a.id === b.id;
+        return a?.id === b?.id;
     }
 
     public infoFunc(infoType: 'start' | 'inWork' | 'close'): any {

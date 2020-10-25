@@ -2,8 +2,8 @@ import { Component, OnInit, Input } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
-import { IUser } from '../../../../../dashboard/models/events-widget';
-import { EventsWorkspaceService } from '../../../../../dashboard/services/widgets/events-workspace.service';
+import { IUser } from '../../../../../dashboard/models/EVJ/events-widget';
+import { EventsWorkspaceService } from '../../../../../dashboard/services/widgets/EVJ/events-workspace.service';
 
 @Component({
     selector: 'evj-events-responsible-select',

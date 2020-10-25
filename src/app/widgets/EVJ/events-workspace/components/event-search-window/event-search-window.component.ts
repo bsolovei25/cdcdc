@@ -12,12 +12,12 @@ import {
     IRetrievalEventDto,
     IEventsWidgetOptions,
     IEventsWidgetNotificationPreview
-} from 'src/app/dashboard/models/events-widget';
-import { EventService } from 'src/app/dashboard/services/widgets/event.service';
+} from 'src/app/dashboard/models/EVJ/events-widget';
+import { EventService } from 'src/app/dashboard/services/widgets/EVJ/event.service';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { IAlertWindowModel } from '@shared/models/alert-window.model';
-import { EventsWorkspaceService } from '../../../../../dashboard/services/widgets/events-workspace.service';
+import { EventsWorkspaceService } from '../../../../../dashboard/services/widgets/EVJ/events-workspace.service';
 
 @Component({
     selector: 'evj-event-search-window',

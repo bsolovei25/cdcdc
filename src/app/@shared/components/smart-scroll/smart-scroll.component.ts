@@ -19,6 +19,7 @@ import { IDatesInterval } from '../../../dashboard/services/widget.service';
     styleUrls: ['./smart-scroll.component.scss'],
 })
 export class SmartScrollComponent implements AfterViewInit, OnChanges, OnDestroy {
+
     @Input() private sbThumbWidth: number = 40; // ширина бегунка в процентах
     @Input() private sbThumbLeft: number = 40; // положение левой части скролла в процентах
     @Input() public data: IChartMini[] = [
@@ -247,6 +248,7 @@ export class SmartScrollComponent implements AfterViewInit, OnChanges, OnDestroy
     // выставление скролла по левой стороне
     private setScrollbarLeftPosition(percent: number): void {
         this.renderer.setStyle(this.sbThumb.nativeElement, 'left', `${percent}%`);
+        this.sbThumbLeftChange.emit(percent);
     }
     //#endregion SUPPORT
 

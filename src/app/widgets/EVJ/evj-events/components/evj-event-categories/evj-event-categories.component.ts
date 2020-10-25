@@ -7,7 +7,7 @@ import {
     ViewChild,
     ViewContainerRef
 } from '@angular/core';
-import { EventsWidgetCategory, ISubcategory } from '../../../../../dashboard/models/events-widget';
+import { EventsWidgetCategory, ISubcategory } from '../../../../../dashboard/models/EVJ/events-widget';
 import { CdkOverlayOrigin, Overlay, OverlayConfig, OverlayRef } from '@angular/cdk/overlay';
 import { CdkPortal } from '@angular/cdk/portal';
 import { SelectionModel } from '@angular/cdk/collections';

@@ -4,17 +4,20 @@
     </div>
     <div class="coding-tanks__container">
         <div id="scrollDocCodingTanks" class="scroll-block">
-            <div *ngFor="let item of data" class="name" (click)="activeRecord(item.id)" [class.active]="activeRecordId === item.id">
+            <div *ngFor="let item of filteredData" class="name" (click)="onClick(item)" [class.active]="activeRecordId === item.id">
                 {{ item.name }}
             </div>
         </div>
     </div>
     <div class="coding-tanks__bottom">
-        <div class="bottom-block" (click)="openFilterTanks()">
+        <!--<div class="bottom-block" (click)="openFilterTanks()">
             <div class="filter-button">
                 <svg-icon *ngIf="isFilterTanks" src="assets/icons/widgets/oil-control-all/document-coding/filter-blue.svg"></svg-icon>
                 <svg-icon *ngIf="!isFilterTanks" src="assets/icons/widgets/oil-control-all/document-coding/filter.svg"></svg-icon>
             </div>
-        </div>
+        </div>-->
+      <div class="search-input">
+        <evj-circle-input (searchChange)="onSearchChange($event)" style="height: 75%;"></evj-circle-input>
+      </div>
     </div>
 </div>

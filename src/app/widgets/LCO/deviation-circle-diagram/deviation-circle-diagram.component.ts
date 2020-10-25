@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
 import { WidgetService } from '../../../dashboard/services/widget.service';
-import { DeviationCircleDiagram, ICenterOfPoint } from '../../../dashboard/models/deviation-circle-diagram';
+import { DeviationCircleDiagram, ICenterOfPoint } from '../../../dashboard/models/LCO/deviation-circle-diagram';
 import { WidgetPlatform } from '../../../dashboard/models/@PLATFORM/widget-platform';
 
 @Component({

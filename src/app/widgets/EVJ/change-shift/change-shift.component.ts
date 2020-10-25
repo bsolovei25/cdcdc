@@ -7,7 +7,7 @@ import {
     HostListener,
     OnDestroy,
 } from '@angular/core';
-import { ShiftService } from '../../../dashboard/services/shift.service';
+import { ShiftService } from '../../../dashboard/services/widgets/EVJ/shift.service';
 import { WidgetService } from '../../../dashboard/services/widget.service';
 import {
     ICommentRequired,
@@ -15,7 +15,7 @@ import {
     Shift,
     ShiftComment,
     ShiftMember,
-} from '../../../dashboard/models/shift.model';
+} from '../../../dashboard/models/EVJ/shift.model';
 import { WidgetPlatform } from '../../../dashboard/models/@PLATFORM/widget-platform';
 import { SnackBarService } from '../../../dashboard/services/snack-bar.service';
 import { AvatarConfiguratorService } from '@core/service/avatar-configurator.service';

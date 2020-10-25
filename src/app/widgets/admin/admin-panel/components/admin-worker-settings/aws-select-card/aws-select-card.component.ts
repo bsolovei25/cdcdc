@@ -1,10 +1,10 @@
 import { Component, OnInit, Output, Input, EventEmitter, OnDestroy } from '@angular/core';
-import { IWorkerOptionAdminPanel } from '../../../../../../dashboard/models/admin-panel';
-import { IUnitEvents } from '../../../../../../dashboard/models/events-widget';
+import { IWorkerOptionAdminPanel } from '../../../../../../dashboard/models/ADMIN/admin-panel';
+import { IUnitEvents } from '../../../../../../dashboard/models/EVJ/events-widget';
 import { SelectionModel } from '@angular/cdk/collections';
 import { FormControl } from '@angular/forms';
 import { Subscription } from 'rxjs';
-import { AdminPanelService } from '../../../../../../dashboard/services/admin-panel/admin-panel.service';
+import { AdminPanelService } from '../../../../../../dashboard/services/widgets/admin-panel/admin-panel.service';
 
 @Component({
     selector: 'evj-aws-select-card',

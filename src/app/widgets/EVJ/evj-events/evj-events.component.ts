@@ -17,9 +17,9 @@ import {
     EventsWidgetNotificationStatus,
     IEventsWidgetOptions, IPriority,
     IRetrievalEventDto, ISubcategory, IEventsWidgetAttributes
-} from '../../../dashboard/models/events-widget';
-import { EventService } from '../../../dashboard/services/widgets/event.service';
-import { EventsWorkspaceService } from '../../../dashboard/services/widgets/events-workspace.service';
+} from '../../../dashboard/models/EVJ/events-widget';
+import { EventService } from '../../../dashboard/services/widgets/EVJ/event.service';
+import { EventsWorkspaceService } from '../../../dashboard/services/widgets/EVJ/events-workspace.service';
 import { SnackBarService } from '../../../dashboard/services/snack-bar.service';
 import {
     ClaimService,
@@ -32,7 +32,7 @@ import { WidgetSettingsService } from '../../../dashboard/services/widget-settin
 import { debounceTime, distinctUntilChanged, throttle } from 'rxjs/operators';
 import { IEventSettings } from '../events/events.component';
 import { WidgetPlatform } from '../../../dashboard/models/@PLATFORM/widget-platform';
-import { IUnits } from '../../../dashboard/models/admin-shift-schedule';
+import { IUnits } from '../../../dashboard/models/ADMIN/admin-shift-schedule';
 import { SelectionModel } from '@angular/cdk/collections';
 
 @Component({
