@@ -125,6 +125,7 @@ $input-color: #8A98B3;
     overflow: hidden;
     padding-top: 28px;
     padding-left: 86px;
+    padding-right: 112px;
     span {
       font-style: normal;
       font-weight: normal;
@@ -193,5 +194,6 @@ $input-color: #8A98B3;
     display: flex;
     align-items: center;
     justify-content: center;
+    cursor: pointer;
   }
 }

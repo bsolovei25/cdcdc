@@ -1,6 +1,7 @@
 $border-radius: 21px;
 $width: 464px;
 $font-size: 14px;
+$color-scroll: #282B38;
 
 .loading-shade {
   position: absolute;
@@ -68,20 +69,19 @@ $font-size: 14px;
 
   &-body__content {
     height: 482px;
+    display: flex;
+    justify-content: center;
 
     .block {
       height: 100%;
-      width: 100%;
+      width: 85%;
       overflow: auto;
       overflow-x: hidden;
     }
 
     /// Styling CARD-RETRIEVAL
     .card {
-      padding-top: 5px;
-      padding-left: 25px;
-      padding-right: 15px;
-      padding-bottom: 0;
+      margin-top: 5px;
       margin-bottom: 14px;
 
       ::ng-deep {
@@ -184,6 +184,7 @@ $font-size: 14px;
   display: flex;
   align-items: center;
   justify-content: center;
+  cursor: pointer;
 }
 
 ::-webkit-scrollbar {
@@ -191,21 +192,14 @@ $font-size: 14px;
   height: 4px;
 }
 
-::-webkit-scrollbar-track:vertical {
+::-webkit-scrollbar-track {
   width: 4px;
   height: 4px;
-  border-radius: 25px;
+  border-radius: 5px;
 }
 
 ::-webkit-scrollbar-thumb {
   width: 10px;
-  border-radius: 25px;
-  background-color: var(--color-border-main);
-}
-
-::-webkit-scrollbar-track {
-  border-radius: 25px;
-}
-::-webkit-scrollbar-track-piece {
-  border-radius: 25px;
+  border-radius: 5px;
+  background-color: $color-scroll;
 }
