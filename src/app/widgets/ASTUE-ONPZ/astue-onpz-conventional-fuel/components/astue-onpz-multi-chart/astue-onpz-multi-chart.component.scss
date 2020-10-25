@@ -1,6 +1,7 @@
 :host {
   width: 100%;
   height: 100%;
+
   * {
     box-sizing: border-box;
   }
@@ -110,6 +111,14 @@
       }
     }
 
+    .big-rect {
+      fill: var(--color-astue-onpz-bg-data);
+    }
+
+    .small-rect {
+      fill: var(--color-astue-onpz-bg-data-icon);
+    }
+
     .data {
       fill: var(--color-astue-onpz-bg-data);
 
@@ -118,6 +127,7 @@
       &-date {
         font-size: 13px;
         fill: var(--color-astue-onpz-fact);
+        z-index: 10;
       }
 
       &-date {

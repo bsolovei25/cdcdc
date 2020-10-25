@@ -290,12 +290,11 @@ export class LineChartPickerDirective implements OnDestroy {
                     return;
                 }
                 this.svg.select('.mouse-over').style('opacity', 1);
-
-                const factY = this.scaleFuncs.y.invert(posFact.y);
-                const factX = this.scaleFuncs.x.invert(posFact.x);
-                const planY = posPlan ? this.scaleFuncs.y.invert(posPlan.y) : null;
-                const borderTopY = borderTop ? this.scaleFuncs.y.invert(borderTop.y) : null;
-                const borderBotY = borderBottom ? this.scaleFuncs.y.invert(borderBottom.y) : null;
+                const factY = this.scaleFuncs?.y?.invert(posFact.y);
+                const factX = this.scaleFuncs?.x?.invert(posFact.x);
+                const planY = posPlan ? this.scaleFuncs?.y?.invert(posPlan.y) : null;
+                const borderTopY = borderTop ? this.scaleFuncs?.y?.invert(borderTop.y) : null;
+                const borderBotY = borderBottom ? this.scaleFuncs?.y?.invert(borderBottom.y) : null;
 
                 this.svg
                     .select('.mouse-line')
@@ -341,6 +340,7 @@ export class LineChartPickerDirective implements OnDestroy {
                     .attr('x1', x - infoFramePaddings.longerAngle)
                     .attr('x2', x - infoFramePaddings.longer);
 
+                console.log(factY.toFixed(0));
                 this.svg
                     .select('g.mouse-info .mouse-graph-value')
                     .attr('x', x - infoFramePaddings.nearText)

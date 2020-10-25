@@ -117,11 +117,11 @@
         class="dropdown-component_input"
         [(ngModel)]="tempScreen"
         (ngModelChange)="onChangeAdder()"
-        (keyup.enter)="this.addScreen()"
+        (keyup.enter)="addScreen()"
       />
       <div
         class="dropdown-component_adder"
-        (click)="this.addScreen()"
+        (click)="addScreen()"
         [class.dropdown-component_adder__non-active]="!isReadyAdd"
         [class.dropdown-component_adder__active]="isReadyAdd"
       ></div>
