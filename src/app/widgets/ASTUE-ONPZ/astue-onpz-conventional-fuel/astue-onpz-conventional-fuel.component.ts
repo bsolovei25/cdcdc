@@ -355,10 +355,10 @@ export class AstueOnpzConventionalFuelComponent extends WidgetPlatform<unknown>
     protected dataHandler(ref: { graphs: IMultiChartLine[] }): void {
         if (!this.isPredictors) {
             if (ref?.graphs) {
-                // this.data = this.multilineDataMapper(ref.graphs);
+                this.data = this.multilineDataMapper(ref.graphs);
                 return;
             }
-            // this.data = [];
+            this.data = [];
         }
     }
 
