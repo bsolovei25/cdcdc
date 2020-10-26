@@ -49,6 +49,7 @@ export class AstueOnpzProductChartsComponent extends WidgetPlatform<unknown> imp
         private appConfigService: AppConfigService,
     ) {
         super(widgetService, isMock, id, uniqId);
+        this.isRealtimeData = false;
         this.restUrl = appConfigService.restUrl;
     }
 
@@ -60,19 +61,9 @@ export class AstueOnpzProductChartsComponent extends WidgetPlatform<unknown> imp
         super.dataConnect();
         this.subscriptions.push(
             this.astueOnpzService.sharedMonitoringOptions.subscribe((ref) => {
-                this.widgetService.setChannelLiveDataFromWsOptions(this.widgetId, ref);
-                this.tempRequest(this.widgetId, ref);
+                this.getData(ref);
             })
         );
-    }
-
-    // TODO: move to service
-    private async tempRequest(widgetId: string, options: IAstueOnpzMonitoringOptions): Promise<void> {
-        console.log('start req');
-        let response = await this.http.get<any>(`${this.restUrl}/api/widget-data/${widgetId}`).toPromise();
-        response = response.data.subChannels.filter(x => x.manufactureName === options.manufactureName
-            && x.type === options.type && x.typeValue === options.indicatorType && x.unitName === options.unitName);
-        this.data = response;
     }
 
     public ngOnDestroy(): void {
@@ -80,11 +71,10 @@ export class AstueOnpzProductChartsComponent extends WidgetPlatform<unknown> imp
     }
 
     protected dataHandler(ref: { graphIds: string[] }): void {
-        // if (ref?.graphIds?.length > 0) {
-        //     this.data = ref.graphIds;
-        // } else {
-        //     this.data = [];
-        // }
+    }
+
+    private async getData(options: IAstueOnpzMonitoringOptions): Promise<void> {
+        this.data = await this.astueOnpzService.getProductChannels(this.widgetId, options);
     }
 
     public getInjector = (widgetId: string, channelId: string): Injector => {
