@@ -1,0 +1,149 @@
+.events-workspace__scroll {
+  ::-webkit-scrollbar {
+    width: 1px;
+    height: 4px;
+  }
+  ::-webkit-scrollbar:vertical {
+    width: 4px;
+    height: 100%;
+    border-radius: 40px;
+  }
+  ::-webkit-scrollbar-track {
+    border-radius: 40px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    background-color: var(--color-border-unactive);
+  }
+  ::-webkit-scrollbar-track-piece {
+    border: 1px solid #8c99b2;
+    border-radius: 40px;
+    background-color: rgb(27, 30, 39);
+  }
+  ::-webkit-scrollbar-thumb {
+    height: 50px;
+    background-color: var(--color-border-unactive);
+    border-radius: 40px;
+  }
+  ::-webkit-scrollbar-corner {
+    background-color: var(--color-border-unactive);
+  }
+  ::-webkit-resizer {
+    background-color: var(--color-border-unactive);
+  }
+}
+
+$border-size: 4px;
+
+:host {
+  position: relative;
+  display: block;
+  height: 100%;
+  width: 100%;
+}
+
+.container {
+  position: relative;
+  width: 100%;
+  height: calc(100% - 1px);
+  box-sizing: border-box;
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  line-height: 24px;
+}
+
+.container-widget {
+  height: calc(100% - 56px);
+  width: calc(100% - 2px);
+  border-right: 0.5px dashed var(--color-border-main-transparrent);
+  border-left: 0.5px dashed var(--color-border-main-transparrent);
+}
+
+.workspace {
+  &__submit {
+    text-align: center;
+    position: relative;
+    width: 100%;
+    height: 50px;
+    min-height: 50px;
+    font-size: 0.875rem;
+  }
+
+  &__mock {
+    height: 100%;
+    display: flex;
+    flex: 1;
+
+    .workspace__submit {
+      margin: auto;
+      width: 500px;
+    }
+  }
+}
+
+///CREATE EVENT
+#overlay-retrieval {
+  position: fixed;
+  display: block;
+  width: 100%;
+  height: calc(100% - 45px);
+  top: 36px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 6;
+  cursor: pointer;
+
+  overflow: hidden;
+  overflow-x: auto;
+}
+
+/// GRAPH OPEN
+#overlay-chart {
+  position: fixed;
+  display: block;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.2);
+  z-index: 2;
+  cursor: pointer;
+
+  .overlay-chart {
+    &__body {
+      font-family: Tahoma;
+      font-size: 12px;
+      font-weight: 100;
+      color: var(--color-text-sub);
+
+      background-color: var(--color-bg-main);
+      min-height: 300px;
+      max-width: 90%;
+      // display: flex;
+      margin: 0 auto;
+      margin-top: 20%;
+      cursor: default;
+
+      border-radius: 5px;
+      border: 1px solid var(--color-border-main);
+      padding: 10px;
+    }
+  }
+}
+
+.no-edit-shield {
+  position: absolute;
+  float: left;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: calc(100% - 44px);
+  background: none;
+  cursor: not-allowed;
+  z-index: 2;
+}

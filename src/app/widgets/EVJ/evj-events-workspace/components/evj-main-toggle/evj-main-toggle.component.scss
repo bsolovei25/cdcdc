@@ -1,0 +1,14 @@
+.main {
+  width: 100%;
+  height: 61px;
+  background-color: var(--color-new-header-bg);
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  &__button {
+      width: 150px;
+      height: 30px;
+      margin: auto;
+  }
+}

@@ -1,0 +1,266 @@
+.workspace {
+  position: relative;
+
+  height: 100%;
+  width: calc(100% - 15px);
+
+  box-sizing: border-box;
+  padding: 0 8px;
+  margin: 0 auto;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+
+  position: relative;
+
+  font-family: Tahoma, sans-serif;
+  font-size: 12px;
+  font-weight: 100;
+  color: var(--color-text-sub);
+
+  // GRID
+  &__column {
+    width: 50%;
+    height: 100%;
+  }
+
+  .column {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    box-sizing: border-box;
+
+    &_left {
+      padding-right: 10px;
+      align-items: flex-start;
+    }
+
+    &_right {
+      padding-left: 10px;
+      align-items: flex-end;
+    }
+
+    &__row {
+      width: 100%;
+      height: 50px;
+    }
+  }
+
+  .row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+    margin-bottom: 10px;
+
+    &__cell {
+      width: 50%;
+      height: 100%;
+    }
+  }
+
+  .cell {
+    box-sizing: border-box;
+
+    &_left {
+      padding-right: 4px;
+    }
+
+    &_right {
+      padding-left: 4px;
+    }
+  }
+  // END-GRID
+
+  // ELEMENTS
+  .description {
+    height: 165px;
+  }
+
+  .chat {
+    height: 100%;
+    flex-grow: 1;
+  }
+
+  .information {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    flex: 1;
+
+    box-sizing: border-box;
+    padding: 0px 15px;
+
+    &_uniq {
+      justify-content: center;
+    }
+  }
+
+  .label {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+
+    &__title {
+      line-height: 150%;
+      font-size: 10px;
+      color: var(--colot-text-sub);
+    }
+
+    &__text {
+      font-size: 12px;
+      color: var(--color-text-main);
+      line-height: 120%;
+    }
+  }
+
+  .responsible {
+    height: 100px;
+  }
+
+  .reasons {
+    height: 100px;
+  }
+
+  .events-correct {
+    height: 100%;
+    flex-grow: 1;
+  }
+
+  .events-icons {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+  // END-ELEMENTS
+
+  // MAT-SELECT
+  mat-form-field {
+    box-sizing: border-box;
+    width: 100%;
+    padding: 0px 15px;
+    padding-bottom: 0px;
+
+    mat-label {
+      color: var(--color-text-sub);
+    }
+  }
+
+  ::ng-deep {
+    .mat-form-field-underline {
+      height: 0 !important;
+    }
+    .mat-form-field-appearance-legacy .mat-form-field-ripple {
+      height: 0;
+    }
+
+    .mat-form-field-wrapper {
+      padding-bottom: 0px;
+      margin: 7px 0px;
+    }
+
+    .mat-select-value {
+      color: var(--color-text-main);
+    }
+  }
+  // END-MAT-SELECT
+
+  .standard {
+    border: 1px solid;
+    border-image: linear-gradient(90deg, transparent 0%, var(--color-standard) 100%);
+    border-image-slice: 1;
+    background-image: linear-gradient(
+      to right,
+      #6fcf97 0%,
+      #66bd8c 2%,
+      #569875 6%,
+      #477862 11%,
+      #3b5d51 17%,
+      #314743 23%,
+      #293639 30%,
+      #232a32 39%,
+      #20232e 52%,
+      #20222d 86%
+    );
+  }
+
+  .warning {
+    border: 1px solid;
+    border-image: linear-gradient(90deg, transparent 0%, var(--color-warning) 100%);
+    border-image-slice: 1;
+    background-image: linear-gradient(
+      to right,
+      #f4a321 0%,
+      #e59a21 1%,
+      #bc8124 5%,
+      #966a26 9%,
+      #765628 14%,
+      #5b4629 19%,
+      #45382a 25%,
+      #342e2b 32%,
+      #28272c 41%,
+      #21232c 53%,
+      #20222d 86%
+    );
+  }
+
+  .danger {
+    border: 1px solid;
+    border-image: linear-gradient(90deg, transparent 0%, var(--color-danger) 100%);
+    border-image-slice: 1;
+    background: #eb5757;
+    background-image: linear-gradient(
+      to right,
+      #eb5757 0%,
+      #e55555 0%,
+      #bc4a4d 4%,
+      #974145 9%,
+      #76383e 14%,
+      #5b3139 19%,
+      #452b34 25%,
+      #342731 32%,
+      #28242e 41%,
+      #21222d 53%,
+      #20222d 86%
+    );
+  }
+
+  &__popup {
+    position: absolute;
+    z-index: 5;
+
+    width: 100%;
+    height: 100%;
+
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    margin: auto;
+
+    transform: scale(0);
+    transform-origin: center;
+
+    opacity: 0;
+    transition: opacity 0.5s;
+
+    background: var(--color-bg-main-opacity);
+
+    &_active {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+}
+
+::ng-deep .mat-tooltip {
+  font-size: 12px;
+  background-color: var(--color-bg-main);
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.349);
+}

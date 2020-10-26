@@ -1,0 +1,42 @@
+<ng-container *ngIf="info?.isShow">
+  <div class="loading-shade loading-shade__blur" (mousedown)="$event.stopPropagation()"
+    (touchstart)="$event.stopPropagation()">
+    <div class="confirm-container">
+      <div class="confirm-container__body confirm-container-body">
+        <div class="confirm-container-body__header confirm-container-body-header">
+          <div class="confirm-container-body-header__icon">
+            <svg-icon [src]="icon"
+              [svgStyle]="{ 'width.px':15, 'height.px':15 , 'margin-top.px':5, 'margin-left.px': 1}">
+            </svg-icon>
+          </div>
+          <div class="confirm-container-body-header__title">
+            <span>Поиск событий</span>
+          </div>
+          <div class="confirm-container-body-header__input">
+            <evj-circle-input (searchChange)="searchTerm$.next($event)" placeholder="Поиск события по краткому описанию"></evj-circle-input>
+          </div>
+        </div>
+
+        <div class="confirm-container-body__content">
+          <div class="block">
+            <ng-container *ngFor="let retrieval of results">
+              <div class="card" (click)="selectCard(retrieval)" [class.active]="selectId === retrieval.innerNotificationId">
+                <evj-events-correct-card [isClickable]="false" [event]="retrieval"></evj-events-correct-card>
+              </div>
+            </ng-container>
+          </div>
+        </div>
+      </div>
+      <div class="confirm-container__footer">
+        <div class="button-container">
+          <evj-button [textButton]="'Подтвердить'" (click)="accept()" [isChangingState]="false" [isRounded]="true"
+            [type]="'primary'"></evj-button>
+        </div>
+        <div class="button-container">
+          <evj-button [textButton]="'Отменить'" (click)="cancel()" [isChangingState]="false" [isRounded]="true">
+          </evj-button>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-container>

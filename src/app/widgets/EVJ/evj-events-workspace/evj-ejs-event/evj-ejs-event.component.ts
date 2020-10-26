@@ -1,0 +1,52 @@
+import {Component, Input, OnDestroy, OnInit} from '@angular/core';
+import { EventsWorkspaceService } from '../../../../dashboard/services/widgets/EVJ/events-workspace.service';
+import { IChatMessageWithAttachments } from '../components/evj-chat/evj-chat.component';
+
+@Component({
+    selector: 'evj-ejs-event',
+    templateUrl: './evj-ejs-event.component.html',
+    styleUrls: ['./evj-ejs-event.component.scss']
+})
+export class EvjEjsEventComponent implements OnInit, OnDestroy {
+
+    @Input()
+    public noOverflow: boolean = false;
+
+    constructor(public ewService: EventsWorkspaceService) {
+    }
+
+    ngOnInit(): void {
+        if (this.ewService.isCreateNewEvent) {
+            this.onClickEjs();
+            this.ewService.goBackEvent();
+        }
+    }
+
+    ngOnDestroy(): void {
+    }
+
+    public onChangeEventDescription(description: string, el?: string): void {
+        if (el) {
+            this.ewService.event.shiftPassEvent[el] = description;
+        }
+    }
+
+    public onSendMessage(
+        message: IChatMessageWithAttachments,
+        msgType: 'comments' | 'facts'
+    ): void {
+        this.ewService.sendMessageToEvent(message, msgType);
+    }
+
+    public compareFn<T extends { id: number }>(a: T, b: T): boolean {
+        return a && b && a.id === b.id;
+    }
+
+    public dateTimePicker(date: Date): void {
+        this.ewService.setDeadlineToEvent(date);
+    }
+
+    onClickEjs(): void {
+        window.open('http://spb99-t-merap01/meridium/');
+    }
+}

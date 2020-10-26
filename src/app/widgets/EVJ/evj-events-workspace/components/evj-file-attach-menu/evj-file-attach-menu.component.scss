@@ -1,0 +1,108 @@
+@import "../../../../../../mixins";
+
+.container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+
+  ul {
+    width: 202px;
+    max-width: 202px;
+    padding: 0;
+    margin: 7px 13px 7px 0;
+
+    li {
+      width: 100%;
+      height: 45px;
+      line-height: 45px;
+      list-style: none;
+      background-color: var(--color-bg-card);
+      margin-bottom: 2px;
+      cursor: pointer;
+      border-left: 2.5px solid transparent;
+
+      .container_icon {
+        margin: 0 32px 0 16px;
+      }
+
+      &:hover {
+        background-color: var(--color-bg-active);
+        border-left: 2.5px solid var(--color-border-active);
+        -webkit-transition: background-color 100ms linear;
+        -ms-transition: background-color 100ms linear;
+        transition: background-color 100ms linear;
+      }
+
+      span {
+        font-size: 14px;
+      }
+    }
+  }
+
+  &_files {
+    width: 220px;
+
+    h5 {
+      color: var(--color-text-sub);
+      font-size: 9px;
+    }
+
+    &__list {
+      display: flex;
+      max-height: 162px;
+      overflow-y: scroll;
+      flex-wrap: wrap;
+
+      .list-item {
+        width: 80px;
+        height: 28px;
+        border-radius: 5px;
+        margin: 0 8px 8px 0;
+        background: var(--color-aw-container-body-transparent);
+        position: relative;
+        padding: 9px;
+
+        &__icon {
+          margin: 0 10px 2px 0;
+          float: left;
+        }
+
+        &__name,
+        &__size {
+          font-size: 9px;
+          float: left;
+          cursor: default;
+        }
+
+        &__name {
+          width: 100%;
+          @include text-overflow;
+          -webkit-line-clamp: 1;
+        }
+
+        &__size {
+          width: 40px;
+          margin-top: 3px;
+        }
+
+        &__delete-icon {
+          cursor: pointer;
+          fill: var(--color-text-main);
+          position: absolute;
+          top: 2px;
+          right: 5px;
+
+          &:hover {
+            fill: var(--color-bg-active-bright);
+          }
+        }
+      }
+    }
+  }
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgb(39, 43, 53);
+}

@@ -1,0 +1,184 @@
+:host {
+  width: inherit;
+  height: inherit;
+}
+
+.card {
+  position: relative;
+
+  width: inherit;
+  height: inherit;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: flex-start;
+
+  * {
+    font-size: 10px;
+    color: var(--color-text-main);
+  }
+
+  &__hidden-layout {
+    position: absolute;
+    z-index: 2;
+
+    width: 100%;
+    height: calc(100% - 28px);
+
+    top: 0;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  &__description {
+    width: calc(100% - 100px);
+    height: calc(100% - 3px);
+  }
+
+  &__info {
+    width: 100px;
+    height: calc(100% - 3px);
+  }
+
+  &__check {
+    position: absolute;
+
+    width: 15px;
+    height: 15px;
+
+    bottom: 10px;
+    left: 10px;
+  }
+
+  &__progress {
+    position: absolute;
+    width: 100%;
+    height: 3px;
+
+    bottom: 0px;
+
+    .line {
+      height: 100%;
+
+      &_danger {
+        background: var(--color-danger);
+      }
+
+      &_warning {
+        background: var(--color-warning);
+      }
+
+      &_standart {
+        background: var(--color-standard);
+      }
+    }
+  }
+
+  .description {
+    position: relative;
+
+    box-sizing: border-box;
+    padding: 5px 15px 15px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+
+    overflow: hidden;
+
+    &__title {
+      width: 100%;
+      height: max-content;
+      color: var(--color-text-sub);
+    }
+
+    &__text {
+      width: 100%;
+      height: max-content;
+      color: var(--color-text-main);
+    }
+  }
+
+  .info {
+    box-sizing: border-box;
+    padding: 5px 10px 25px 0px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-end;
+
+    * {
+      line-height: 20px;
+    }
+
+    .info__title {
+      color: var(--color-text-sub);
+      line-height: 100%;
+    }
+
+    .info__text {
+      margin: 2px 0px;
+      text-align: right;
+      line-height: 100%;
+    }
+
+    .info__status {
+      &_danger {
+        color: var(--color-danger);
+      }
+
+      &_warning {
+        color: var(--color-warning);
+      }
+
+      &_standart {
+        color: var(--color-standard);
+      }
+    }
+
+    .info__due-date,
+    .info__responsible {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: flex-end;
+      margin-bottom: 5px;
+    }
+
+    .info__buttons {
+      position: absolute;
+      bottom: 5px;
+      width: 75px;
+      height: 20px;
+
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+    }
+  }
+
+  .button {
+    position: relative;
+
+    width: 20px;
+    height: 20px;
+
+    ::ng-deep * {
+      fill: var(--color-text-sub);
+    }
+
+    &:hover {
+      cursor: pointer;
+
+      ::ng-deep * {
+        fill: var(--color-active);
+      }
+    }
+  }
+}
