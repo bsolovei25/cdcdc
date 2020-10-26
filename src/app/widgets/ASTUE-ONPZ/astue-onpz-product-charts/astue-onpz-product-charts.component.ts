@@ -8,8 +8,7 @@ import {
 } from '../astue-onpz-shared/astue-onpz.service';
 import { AstueOnpzProductCardComponent } from './components/astue-onpz-product-card/astue-onpz-product-card.component';
 import { AstueOnpzHeaderIcon } from '../../../dashboard/models/ASTUE-ONPZ/astue-onpz-header-icon.model';
-import { HttpClient } from "@angular/common/http";
-import { AppConfigService } from "@core/service/app-config.service";
+import { BehaviorSubject } from 'rxjs';
 
 export interface IAstueProductChart {
     productName: string;
@@ -33,10 +32,10 @@ export type AstueProductChartType = 'fact' | 'plan' | 'exceed' | 'economy';
     templateUrl: './astue-onpz-product-charts.component.html',
     styleUrls: ['./astue-onpz-product-charts.component.scss'],
 })
-export class AstueOnpzProductChartsComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
-    public data: any[] = [];
-    public readonly chartComponent: any = AstueOnpzProductCardComponent;
-    private readonly restUrl: string;
+export class AstueOnpzProductChartsComponent extends WidgetPlatform implements OnInit, OnDestroy {
+    public data$: BehaviorSubject<string[]> = new BehaviorSubject<string[]>([]);
+    public readonly chartComponent: typeof AstueOnpzProductCardComponent = AstueOnpzProductCardComponent;
+    private currentOptions: IAstueOnpzMonitoringOptions = null;
 
     constructor(
         protected widgetService: WidgetService,
@@ -44,13 +43,10 @@ export class AstueOnpzProductChartsComponent extends WidgetPlatform<unknown> imp
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string,
         private astueOnpzService: AstueOnpzService,
-        public injector: Injector,
-        private http: HttpClient,
-        private appConfigService: AppConfigService,
+        private injector: Injector,
     ) {
         super(widgetService, isMock, id, uniqId);
         this.isRealtimeData = false;
-        this.restUrl = appConfigService.restUrl;
     }
 
     public ngOnInit(): void {
@@ -61,6 +57,7 @@ export class AstueOnpzProductChartsComponent extends WidgetPlatform<unknown> imp
         super.dataConnect();
         this.subscriptions.push(
             this.astueOnpzService.sharedMonitoringOptions.subscribe((ref) => {
+                this.currentOptions = ref;
                 this.getData(ref);
             })
         );
@@ -74,7 +71,7 @@ export class AstueOnpzProductChartsComponent extends WidgetPlatform<unknown> imp
     }
 
     private async getData(options: IAstueOnpzMonitoringOptions): Promise<void> {
-        this.data = await this.astueOnpzService.getProductChannels(this.widgetId, options);
+        this.data$.next(await this.astueOnpzService.getProductChannels(this.widgetId, options));
     }
 
     public getInjector = (widgetId: string, channelId: string): Injector => {
@@ -82,6 +79,7 @@ export class AstueOnpzProductChartsComponent extends WidgetPlatform<unknown> imp
             providers: [
                 { provide: 'widgetId', useValue: widgetId },
                 { provide: 'channelId', useValue: channelId },
+                { provide: 'isDeviation', useValue: this.currentOptions?.type === 'Deviation' },
             ],
             parent: this.injector,
         });

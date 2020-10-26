@@ -14,8 +14,6 @@ import { ChannelPlatform } from '../../../../../dashboard/models/@PLATFORM/chann
 export class AstueOnpzProductCardComponent extends ChannelPlatform<IAstueProductChart> implements OnInit, OnDestroy {
     public data: IAstueProductChart;
 
-    public isDeviationChart: boolean = false;
-
     constructor(
         private http: HttpClient,
         private userSettingsService: UserSettingsService,
@@ -23,6 +21,7 @@ export class AstueOnpzProductCardComponent extends ChannelPlatform<IAstueProduct
         protected widgetService: WidgetService,
         @Inject('widgetId') public widgetId: string,
         @Inject('channelId') public channelId: string,
+        @Inject('isDeviation') public isDeviationChart: string,
     ) {
         super(widgetId, channelId, widgetService);
     }
@@ -31,6 +30,7 @@ export class AstueOnpzProductCardComponent extends ChannelPlatform<IAstueProduct
         super.ngOnInit();
     }
 
+    // for test
     private async getMockData(): Promise<void> {
         const ref = await this.http.get<IAstueProductChart>('assets/mock/ASTUE-ONPZ/product-charts.mock.json').toPromise();
         setTimeout(() => this.dataHandler(ref), 5000);
@@ -46,7 +46,6 @@ export class AstueOnpzProductCardComponent extends ChannelPlatform<IAstueProduct
         if (!ref?.itemId) {
             return;
         }
-        // this.isDeviationChart = (ref as any).subscriptionOptions.type === 'Deviation';
         this.data = ref;
         this.data?.graphs?.forEach((item) => {
             item?.graph?.forEach((val) => {
