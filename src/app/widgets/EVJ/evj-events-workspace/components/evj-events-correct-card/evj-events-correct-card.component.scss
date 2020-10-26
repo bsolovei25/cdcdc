@@ -10,71 +10,61 @@
   height: inherit;
 
   display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: flex-start;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  border-bottom: 2px solid var(--color-standard);
 
-  * {
-    font-size: 10px;
-    color: var(--color-text-main);
-  }
+  border-radius: 2px 2px 0 0;
 
-  &__hidden-layout {
-    position: absolute;
-    z-index: 2;
-
+  &__header {
     width: 100%;
-    height: calc(100% - 28px);
-
-    top: 0;
-
-    &:hover {
-      cursor: pointer;
+    height: 45px;
+    background-color: var(--color-new-header-bg);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    box-sizing: border-box;
+    padding-left: 17px;
+    padding-right: 24px;
+    border-radius: 2px 2px 0 0;
+    &__clock {
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
   }
-
-  &__description {
-    width: calc(100% - 100px);
-    height: calc(100% - 3px);
+  .image {
+    height: 17px;
+    width: 17px;
   }
 
   &__info {
-    width: 100px;
-    height: calc(100% - 3px);
-  }
-
-  &__check {
-    position: absolute;
-
-    width: 15px;
-    height: 15px;
-
-    bottom: 10px;
-    left: 10px;
-  }
-
-  &__progress {
-    position: absolute;
     width: 100%;
-    height: 3px;
+    height: 74px;
+    background-color: var(--header-events-color-bg-hover);
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    font-size: 12px;
+    line-height: 14px;
+  }
 
-    bottom: 0px;
-
-    .line {
-      height: 100%;
-
-      &_danger {
-        background: var(--color-danger);
-      }
-
-      &_warning {
-        background: var(--color-warning);
-      }
-
-      &_standart {
-        background: var(--color-standard);
-      }
-    }
+  &__period {
+    width: 391px;
+    height: 31px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    box-sizing: border-box;
+    padding-bottom: 10px;
+    padding-left: 20px;
+    padding-right: 10px;
+    font-size: 12px;
+    line-height: 14px;
+    color: var(--color-cd-text-sub-2);
   }
 
   .description {
@@ -97,88 +87,77 @@
     }
 
     &__text {
-      width: 100%;
-      height: max-content;
-      color: var(--color-text-main);
+      width: 344px;
+      height: 68px;
+      color: var(--header-events-color-font-main);
+      font-style: normal;
+      font-weight: normal;
+      font-size: 12px;
+      line-height: 17px;
+      max-lines: 3;
+      overflow: hidden;
+      box-sizing: border-box;
+      padding-left: 20px;
+      padding-top: 4px;
     }
   }
 
-  .info {
-    box-sizing: border-box;
-    padding: 5px 10px 25px 0px;
+  .header__progress {
+    margin-right: 9px;
+    color: var(--color-text-sub);
 
+    &_danger {
+      color: var(--color-danger);
+    }
+
+    &_warning {
+      color: var(--color-warning);
+    }
+  }
+
+  .info__due-date,
+  .info__responsible {
     display: flex;
     flex-direction: column;
-    justify-content: flex-end;
+    justify-content: flex-start;
     align-items: flex-end;
+    margin-bottom: 5px;
+  }
+}
 
-    * {
-      line-height: 20px;
-    }
+.progress {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-end;
+  width: 74px;
+  height: 100%;
+}
 
-    .info__title {
-      color: var(--color-text-sub);
-      line-height: 100%;
-    }
+.button {
+  position: relative;
 
-    .info__text {
-      margin: 2px 0px;
-      text-align: right;
-      line-height: 100%;
-    }
+  width: 20px;
+  height: 20px;
 
-    .info__status {
-      &_danger {
-        color: var(--color-danger);
-      }
-
-      &_warning {
-        color: var(--color-warning);
-      }
-
-      &_standart {
-        color: var(--color-standard);
-      }
-    }
-
-    .info__due-date,
-    .info__responsible {
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-start;
-      align-items: flex-end;
-      margin-bottom: 5px;
-    }
-
-    .info__buttons {
-      position: absolute;
-      bottom: 5px;
-      width: 75px;
-      height: 20px;
-
-      display: flex;
-      flex-direction: row;
-      justify-content: space-between;
-      align-items: center;
-    }
+  ::ng-deep * {
+    fill: var(--color-text-sub);
   }
 
-  .button {
-    position: relative;
-
-    width: 20px;
-    height: 20px;
+  &:hover {
+    cursor: pointer;
 
     ::ng-deep * {
-      fill: var(--color-text-sub);
-    }
-
-    &:hover {
-      cursor: pointer;
-
-      ::ng-deep * {
-        fill: var(--color-active);
-      }
+      fill: var(--color-active);
     }
   }
+}
+.period__buttons {
+  width: 75px;
+  height: 20px;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
 }

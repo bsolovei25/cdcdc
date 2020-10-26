@@ -127,6 +127,7 @@ export const WIDGETS = {
     'product-stocks': WidgetContainerComponent,
     'deviations-table': WidgetContainerComponent,
     'deviation-circle-diagram': WidgetContainerComponent,
+    'evj-events-workspace': WidgetContainerComponent,
 };
 
 export const WIDGETS_LAZY = {
@@ -641,17 +642,17 @@ export const WIDGETS_LAZY = {
         preview: 'events'
     },
 
-    // 'events-workspace': {
-    //     import: async () => {
-    //         return await import('src/app/widgets/EVJ/events-workspace/events-workspace.module');
-    //     },
-    //     module: 'EventsWorkspaceModule',
-    //     itemCols: 32,
-    //     itemRows: 20,
-    //     minItemCols: 32,
-    //     minItemRows: 20,
-    //     preview: 'events-workspace'
-    // },
+    'events-workspace': {
+        import: async () => {
+            return await import('src/app/widgets/EVJ/events-workspace/events-workspace.module');
+        },
+        module: 'EventsWorkspaceModule',
+        itemCols: 32,
+        itemRows: 20,
+        minItemCols: 32,
+        minItemRows: 20,
+        preview: 'events-workspace'
+    },
 
     'evj-events': {
         import: async () => {
@@ -664,7 +665,7 @@ export const WIDGETS_LAZY = {
         minItemRows: 30,
         preview: 'cd-events'
     },
-    'events-workspace': {
+    'evj-events-workspace': {
         import: async () => {
             return await import('src/app/widgets/EVJ/evj-events-workspace/evj-events-workspace.module');
         },

@@ -1,33 +1,46 @@
+<!--      <div class="info__buttons">-->
+<!--        <div class="button button__link" (click)="onClickUnlink()">-->
+<!--          <svg-icon-->
+<!--            src="assets/icons/chain-break.svg"-->
+<!--            [svgStyle]="{ 'width.px':18, 'height.px':18}">-->
+<!--          </svg-icon>-->
+<!--        </div>-->
+<!--        <div class="button button__delete" (click)="onClickDelete()">-->
+<!--          <svg-icon-->
+<!--            src="assets/icons/widgets/workspace/delete.svg"-->
+<!--            [svgStyle]="{ 'width.px':18, 'height.px':18 }"-->
+<!--          ></svg-icon>-->
+<!--        </div>-->
+<!--        <div class="button button__edit" (click)="onClickEdit()">-->
+<!--          <svg-icon-->
+<!--            src="assets/icons/widgets/workspace/edit.svg"-->
+<!--            [svgStyle]="{ 'position': 'absolute', 'width.px':25, 'height.px':25, 'left.px':-3, 'top.px':-3 }"-->
+<!--          ></svg-icon>-->
+<!--        </div>-->
+<!--      </div>-->
 <evj-ui-block status="normal">
-  <div class="card">
-    <div class="card__hidden-layout" (click)="onClickCard()"></div>
-    <div class="card__description description">
-      <div class="description__title">Краткое описание</div>
-      <div class="description__text">{{event.description}}</div>
-      <div
-        class="card__check"
-        *ngIf="event.isAcknowledged && ewService.event.category.code!=='0'"
-      >
-        <svg-icon
-          src="assets/icons/widgets/workspace/accept.svg"
-          [svgStyle]="{ 'width.px':15, 'height.px':15 }"
-        >
-        </svg-icon>
+  <div class="card" (click)="onClickCard()">
+    <div class="card__header" *ngIf="event.fixedByName">
+      <div class="header__text">{{event.fixedByName}}</div>
+      <div class="progress">
+        <div class="header__progress" *ngIf="event.status?.name">
+          {{event.status.name}}
+        </div>
+        <div class="header__clock">
+          <div class="image">
+            <img src="assets/icons/widgets/workspace/clock.svg">
+          </div>
+        </div>
       </div>
     </div>
-    <div class="card__info info">
-      <div *ngIf="event.status?.name" ngClass="info__status_{{statusesColors[event.status.name]}}">
-        {{ewService.statuses[event.status.name]}}
+    <div class="card__info">
+      <div class="description__text">{{event.description}}</div>
+    </div>
+    <div class="card__period" *ngIf="event.deadline">
+      <div class="period__text">
+        <span>Срок исполнения: {{event?.deadline|date:'dd.MM.yyyy | HH:mm'}}</span>
       </div>
-      <div class="info__due-date" *ngIf="event.deadline">
-        <div class="info__title">Срок исполнения</div>
-        <div class="info__text">{{event?.deadline|date:'dd.MM.yyyy | HH:mm'}}</div>
-      </div>
-      <div class="info__responsible" *ngIf="event.fixedByName">
-        <div class="info__title">Ответственный</div>
-        <div class="info__text">{{event.fixedByName}}</div>
-      </div>
-      <div class="info__buttons">
+      <div class="period__buttons">
         <div class="button button__link" (click)="onClickUnlink()">
           <svg-icon
             src="assets/icons/chain-break.svg"
@@ -47,13 +60,6 @@
           ></svg-icon>
         </div>
       </div>
-    </div>
-    <div class="card__progress" *ngIf="event.status?.name">
-      <div
-        class="line"
-        ngClass="line_{{statusesColors[event.status.name]}}"
-        [style.width.%]="event.timerPercentage ? event.timerPercentage : 0"
-      ></div>
     </div>
   </div>
 </evj-ui-block>
