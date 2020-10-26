@@ -4,6 +4,8 @@ import { WidgetService } from '../../../dashboard/services/widget.service';
 import { FormControl } from '@angular/forms';
 import { MatSelectChange } from '@angular/material/select';
 import { AstueOnpzService } from '../astue-onpz-shared/astue-onpz.service';
+import { deepEqual } from 'assert';
+import { ObjectDeepEqual } from '@shared/functions/deep-equal.function';
 
 interface IAstueOnpzMenuStructure {
     manufactures: IAstueOnpzMenuManufacture[];
@@ -25,7 +27,7 @@ export interface IAstueOnpzMenuUnit {
     templateUrl: './astue-onpz-menu-structure.component.html',
     styleUrls: ['./astue-onpz-menu-structure.component.scss']
 })
-export class AstueOnpzMenuStructureComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy, AfterViewInit {
+export class AstueOnpzMenuStructureComponent extends WidgetPlatform<IAstueOnpzMenuStructure> implements OnInit, OnDestroy, AfterViewInit {
 
     public manufactures: IAstueOnpzMenuManufacture[];
 
@@ -53,6 +55,9 @@ export class AstueOnpzMenuStructureComponent extends WidgetPlatform<unknown> imp
     }
 
     protected dataHandler(ref: IAstueOnpzMenuStructure): void {
+        if (ObjectDeepEqual(this.manufactures, ref.manufactures)) {
+            return;
+        }
         this.manufactures = ref.manufactures;
         this.setManufactureSelectValue();
         this.setUnitSelectValue();
