@@ -7,15 +7,10 @@ import { IChatMessageWithAttachments } from '../components/chat/chat.component';
     templateUrl: './tasks-event.component.html',
     styleUrls: ['./tasks-event.component.scss'],
 })
-export class TasksEventComponent implements OnInit {
+export class TasksEventComponent {
     @Input()
     public noOverflow: boolean = false;
     constructor(public ewService: EventsWorkspaceService) {}
-
-    public ngOnInit(): void {
-        this.ewService.event.status =
-            this.ewService.status.find(value => value.name === 'new');
-    }
 
     public openLineChart(): void {
         this.ewService.isOverlayChartOpen = true;
