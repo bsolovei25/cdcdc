@@ -344,13 +344,13 @@ export class LineChartPickerDirective implements OnDestroy {
                 this.svg
                     .select('g.mouse-info .mouse-graph-value')
                     .attr('x', x - infoFramePaddings.nearText)
-                    .text(factY.toFixed(0));
+                    .text(factY.toFixed(1));
 
                 if (planY) {
                     this.svg
                         .select('g.mouse-info .mouse-graph-deviation')
                         .attr('x', x + infoFramePaddings.nearText)
-                        .text((factY - planY).toFixed(0));
+                        .text((factY - planY).toFixed(1));
                 }
 
                 const formatDate = d3.timeFormat('%d.%m.%Y | %H:%M:%S');

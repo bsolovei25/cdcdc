@@ -5,32 +5,62 @@
     (touchstart)="$event.stopPropagation()"
   >
     <div class="confirm-container">
-      <div class="confirm-container__body confirm-container-body">
-        <div
-          class="confirm-container-body__header confirm-container-body-header"
-          *ngIf="!info.input;else input"
-        >
+      <div class="confirm-container__body confirm-container-body"
+           *ngIf="!info.input; else input"
+      >
+        <div class="confirm-container-body-header">
           <div class="confirm-container-body-header__icon">
-            <img [src]="attentionIcon" />
+            <ng-container [ngSwitch]="info.status">
+              <ng-template ngSwitchCase="1">
+                <img src="assets/icons/widgets/alert-window/attention-active.svg" />
+              </ng-template>
+              <ng-template ngSwitchCase="2">
+                <img src="assets/icons/widgets/alert-window/attention-success.svg" />
+              </ng-template>
+              <ng-template ngSwitchCase="3">
+                <img src="assets/icons/widgets/alert-window/attention-warning.svg" />
+              </ng-template>
+              <ng-template ngSwitchCase="4">
+                <img src="assets/icons/widgets/alert-window/attention-danger.svg" />
+              </ng-template>
+              <ng-template ngSwitchDefault>
+                <img src="assets/icons/widgets/alert-window/attention-active.svg" />
+              </ng-template>
+            </ng-container>
           </div>
-          <span>{{attentionTitle}}</span>
-        </div>
-        <ng-template #input>
-          <div class="confirm-container-body__header confirm-container-body-header">
-            <div
-              class="confirm-container-body-header__icon confirm-container-body-header__icon_input"
-            >
-              <img [src]="editIcon" />
+          <div class="confirm-container-body-header__title">
+            <span>{{attentionTitle}}</span>
+          </div>
+          <div class="confirm-container-body-header__close">
+            <div class="close-button" (click)="cancel()">
+              <img [src]="closeIcon" />
             </div>
-            <span>{{editTitle}}</span>
           </div>
-        </ng-template>
-
+        </div>
+        <ng-container [ngSwitch]="info.status">
+          <ng-template ngSwitchCase="1">
+            <div class="alert-line active"></div>
+          </ng-template>
+          <ng-template ngSwitchCase="2">
+            <div class="alert-line success"></div>
+          </ng-template>
+          <ng-template ngSwitchCase="3">
+            <div class="alert-line warning"></div>
+          </ng-template>
+          <ng-template ngSwitchCase="4">
+            <div class="alert-line danger"></div>
+          </ng-template>
+          <ng-template ngSwitchDefault>
+            <div class="alert-line active"></div>
+          </ng-template>
+        </ng-container>
         <div
           class="confirm-container-body__content"
           [ngClass]="{'confirm-container-body__content_prompt':!!info.input}"
         >
-          <p [innerHTML]="info?.questionText | replaceLineBreak"></p>
+          <div class="confirm-container-body__input-text">
+            <span [innerHTML]="info?.questionText | replaceLineBreak"></span>
+          </div>
           <input
             type="text"
             class="input"
@@ -41,13 +71,46 @@
           />
         </div>
       </div>
+      <ng-template #input>
+        <div class="confirm-container__body-input confirm-container-body">
+          <div class="confirm-container-body-header">
+            <div class="confirm-container-body-header__icon">
+              <img [src]="editIcon" />
+            </div>
+            <div class="confirm-container-body-header__title">
+              <span>{{editTitle}}</span>
+            </div>
+            <div class="confirm-container-body-header__close">
+              <div class="close-button" (click)="cancel()">
+                <img [src]="closeIcon" />
+              </div>
+            </div>
+          </div>
+          <div class="edit-line"></div>
+          <div
+            class="confirm-container-body__content"
+            [ngClass]="{'confirm-container-body__content_prompt':!!info.input}"
+          >
+            <div class="confirm-container-body__input-text">
+              <span [innerHTML]="info?.questionText | replaceLineBreak"></span>
+            </div>
+            <input
+              type="text"
+              class="input"
+              [ngClass]="setInputStyle()"
+              [formControl]="info.input.formControl"
+              [placeholder]="info.input.placeholder"
+              *ngIf="!!info.input"
+            />
+          </div>
+        </div>
+      </ng-template>
       <div class="confirm-container__footer">
         <div class="button-container">
           <evj-button
             [textButton]="info?.acceptText"
             (click)="accept()"
             [isChangingState]="false"
-            [isRounded]="true"
             [type]="'primary'"
           ></evj-button>
         </div>
@@ -56,7 +119,6 @@
             [textButton]="info?.cancelText"
             (click)="cancel()"
             [isChangingState]="false"
-            [isRounded]="true"
           ></evj-button>
         </div>
       </div>

@@ -15,11 +15,11 @@
       (mousedown)="$event.stopPropagation()"
       (touchstart)="$event.stopPropagation()"
     >
-      <ng-container *ngIf="!!data">
-        <ng-container *ngFor="let item of data">
+      <ng-container *ngIf="!!(data$ | async)">
+        <ng-container *ngFor="let item of (data$ | async)">
           <div class="content__item">
             <ng-container
-              *ngComponentOutlet="chartComponent; injector: (item | fn:getInjector : 0);"
+              *ngComponentOutlet="chartComponent; injector: (widgetId | fn:getInjector : item);"
             ></ng-container>
           </div>
         </ng-container>
