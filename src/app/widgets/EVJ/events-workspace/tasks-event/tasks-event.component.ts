@@ -1,6 +1,8 @@
 import {Component, Input, OnInit} from '@angular/core';
 import { EventsWorkspaceService } from '../../../../dashboard/services/widgets/EVJ/events-workspace.service';
 import { IChatMessageWithAttachments } from '../components/chat/chat.component';
+import { map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 @Component({
     selector: 'evj-tasks-event',
@@ -8,8 +10,12 @@ import { IChatMessageWithAttachments } from '../components/chat/chat.component';
     styleUrls: ['./tasks-event.component.scss'],
 })
 export class TasksEventComponent {
-    @Input()
-    public noOverflow: boolean = false;
+    @Input() public noOverflow: boolean = false;
+    public isClosedObserver: Observable<boolean> =
+        this.ewService.event$.asObservable().pipe(
+            map((x) => x.status.name === 'closed'),
+        );
+
     constructor(public ewService: EventsWorkspaceService) {}
 
     public openLineChart(): void {
