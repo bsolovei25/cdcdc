@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, OnChanges } from '@angular/core';
-import { TimeLineItemInput } from 'src/app/dashboard/models/time-line-diagram';
+import { TimeLineItemInput } from 'src/app/dashboard/models/LCO/time-line-diagram';
 
 @Component({
     selector: 'evj-time-diagram',

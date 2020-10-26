@@ -1,10 +1,18 @@
-import { Component, ElementRef, HostListener, Input, OnChanges, ViewChild } from '@angular/core';
+import {
+    Component,
+    ElementRef, EventEmitter,
+    HostListener,
+    Input,
+    OnChanges,
+    Output,
+    ViewChild
+} from '@angular/core';
 import * as d3Selection from 'd3-selection';
 import * as d3 from 'd3';
 import {
     IProductionTrend,
     ProductionTrendType,
-} from '../../../../../dashboard/models/production-trends.model';
+} from '../../../../../dashboard/models/LCO/production-trends.model';
 import { IChartD3, IChartMini } from '@shared/models/smart-scroll.model';
 import { AsyncRender } from '@shared/functions/async-render.function';
 import { fillDataArrayChart } from '@shared/functions/fill-data-array.function';
@@ -18,14 +26,16 @@ import { dateFormatLocale } from '@shared/functions/universal-time-fromat.functi
     styleUrls: ['./planning-chart.component.scss'],
 })
 export class PlanningChartComponent implements OnChanges {
+
+    @Input() private scroll: { left: number, right: number } = { left: 0, right: 100 };
     @Input() private data: IProductionTrend[] = [];
     @Input() private isSpline: boolean = true;
     @Input() private isWithPicker: boolean = false;
     @Input() private intervalHours: number[] = [];
     @Input() set size(value: number) {
         this.deltaCf = PlanningChartComponent.STEP_CF * value;
-        // this.drawChart();
     }
+    @Output() scrollData: EventEmitter<IChartMini[]> = new EventEmitter<IChartMini[]>(true);
 
     private dateTimeInterval: Date[] = null;
 
@@ -74,6 +84,7 @@ export class PlanningChartComponent implements OnChanges {
         } else {
             this.dropChart();
         }
+        this.scrollData.emit(this.data?.find(x => x.graphType === 'fact')?.graph ?? []);
     }
 
     public changeScale(isPlus: boolean): void {
@@ -98,6 +109,7 @@ export class PlanningChartComponent implements OnChanges {
         this.transformData();
         this.drawGridlines();
         this.drawChart();
+        this.drawMask();
         this.drawAxisLabels();
         this.drawFutureRect();
         this.drawPoints();
@@ -172,8 +184,13 @@ export class PlanningChartComponent implements OnChanges {
     }
 
     private defineScale(): void {
-        const domainDates = [this.dateMin, this.dateMax];
+        let domainDates = [this.dateMin, this.dateMax];
         const rangeX = [this.padding.left, this.graphMaxX - this.padding.right];
+        const deltaDomainDates = domainDates[1].getTime() - domainDates[0].getTime();
+        domainDates = [
+            new Date(domainDates[0].getTime() + this.scroll.left / 100 * deltaDomainDates),
+            new Date(domainDates[1].getTime() - this.scroll.right / 100 * deltaDomainDates),
+        ];
 
         this.scaleFuncs.x = d3
             .scaleTime()
@@ -253,8 +270,6 @@ export class PlanningChartComponent implements OnChanges {
                 .y1(this.padding.top)
                 .curve(curve);
 
-            const opacity: number = 1;
-
             this.svg
                 .append('path')
                 .attr('class', `graph-line-${chart.graphType}`)
@@ -268,6 +283,38 @@ export class PlanningChartComponent implements OnChanges {
                     .attr('d', areaFn(chart.graph));
             }
         });
+    }
+
+    private drawMask(): void {
+        if (this.isWithPicker) {
+            const mask = this.svg
+                .append('mask')
+                .attr('width', this.graphMaxX)
+                .attr('height', this.graphMaxY)
+                .attr('id', 'planning-mask');
+            mask.append('rect')
+                .attr('x', 0)
+                .attr('y', 0)
+                .attr('width', this.graphMaxX)
+                .attr('height', this.graphMaxY)
+                .style('fill', 'white')
+                .style('opacity', 1);
+            mask.append('rect')
+                .attr('x', this.padding.left)
+                .attr('y', this.padding.top)
+                .attr('width', this.graphMaxX - this.padding.right - this.padding.left)
+                .attr('height', this.graphMaxY - this.padding.bottom - this.padding.top)
+                .style('fill', 'black');
+
+            this.svg
+                .append('rect')
+                .attr('x', 0)
+                .attr('y', 0)
+                .attr('width', this.graphMaxX)
+                .attr('height', this.graphMaxY)
+                .attr('mask', 'url(#planning-mask)')
+                .style('fill', 'var(--color-astue-onpz-bg-axis-2)');
+        }
     }
 
     private drawPoints(): void {

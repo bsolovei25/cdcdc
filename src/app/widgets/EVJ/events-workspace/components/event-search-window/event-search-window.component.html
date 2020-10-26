@@ -3,18 +3,21 @@
     (touchstart)="$event.stopPropagation()">
     <div class="confirm-container">
       <div class="confirm-container__body confirm-container-body">
-        <div class="confirm-container-body__header confirm-container-body-header">
+        <div class="confirm-container-body__header">
           <div class="confirm-container-body-header__icon">
-            <svg-icon [src]="icon"
-              [svgStyle]="{ 'width.px':15, 'height.px':15 , 'margin-top.px':5, 'margin-left.px': 1}">
-            </svg-icon>
+            <img src="assets/icons/widgets/events/mail.svg" />
           </div>
           <div class="confirm-container-body-header__title">
             <span>Поиск событий</span>
           </div>
-          <div class="confirm-container-body-header__input">
-            <evj-circle-input (searchChange)="searchTerm$.next($event)" placeholder="Поиск события по краткому описанию"></evj-circle-input>
+          <div class="confirm-container-body-header__close">
+            <div class="close-button" (click)="cancel()">
+              <img src="assets/icons/widgets/alert-window/close.svg" />
+            </div>
           </div>
+        </div>
+        <div class="confirm-container-body__input">
+          <evj-rectangle-input (searchChange)="searchTerm$.next($event)" placeholder="Поиск"></evj-rectangle-input>
         </div>
 
         <div class="confirm-container-body__content">
@@ -29,11 +32,11 @@
       </div>
       <div class="confirm-container__footer">
         <div class="button-container">
-          <evj-button [textButton]="'Подтвердить'" (click)="accept()" [isChangingState]="false" [isRounded]="true"
+          <evj-button [textButton]="'Подтвердить'" (click)="accept()" [isChangingState]="false"
             [type]="'primary'"></evj-button>
         </div>
         <div class="button-container">
-          <evj-button [textButton]="'Отменить'" (click)="cancel()" [isChangingState]="false" [isRounded]="true">
+          <evj-button [textButton]="'Отменить'" (click)="cancel()" [isChangingState]="false">
           </evj-button>
         </div>
       </div>

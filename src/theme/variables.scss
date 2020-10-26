@@ -140,9 +140,17 @@
   --color-smp-danger: #d00100;
   --color-smp-warning: #ff9700;
   --color-smp-active: #6ba4ef;
-
+  
   --color-smp-checkbox: rgba(95, 101, 128, 0.55);
   --color-smp-white: #ffffff;
+
+  --color-smp-left-gauge: #7FA9BF;
+  --color-smp-gauge-back: rgba(39, 42, 56);
+
+  --color-smp-days-normal: #0089FF;
+  --color-smp-days-warning: #F4A321;
+  --color-smp-days-danger: #DC0000;
+  --color-smp-days-unknown: rgba(39 , 42, 56, 1);
 
   // APS
   --color-aps-warning: #ff931e;
@@ -357,14 +365,14 @@
   --color-astue-onpz-bg-scroll: #1f222e;
 
   --color-astue-onpz-bg-axis-1: #1b1e2a;
-  --color-astue-onpz-bg-axis-2: none;
+  --color-astue-onpz-bg-axis-2: #171a24;
 
   --color-astue-onpz-bg-data: #232737;
   --color-astue-onpz-bg-data-icon: #303549;
 
   // @shared/alert-window (aw)
   --color-aw-container-shadow-transparent: rgba(0, 0, 0, 0.25);
-  --color-aw-container-body-transparent: rgba(39, 43, 53, 0.75);
+  --color-aw-container-body-transparent: #1c1e2b;
   --color-aw-header-bg: #272b35;
   --color-aw-red-icon-bg: #ff0106;
   --color-aw-shade-bg-transparent: rgba(0, 0, 0, 0.15);
@@ -372,6 +380,7 @@
   // @shared/button (btn)
   --color-btn-rounded-border: #3fa9f5;
   --color-btn-rounded-disabled-transparent: rgba(255, 255, 255, 0.1);
+  --color-alert-button: #252939;
 
   // astue-onpz
   --color-astue-onpz-header-bg: rgb(34, 36, 50);

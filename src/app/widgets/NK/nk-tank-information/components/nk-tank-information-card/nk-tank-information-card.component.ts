@@ -1,4 +1,4 @@
-import { ITankCardValue } from '../../../../../dashboard/models/tank-information';
+import { ITankCardValue } from '../../../../../dashboard/models/NK/tank-information';
 import { Component, OnInit, Input, OnChanges } from '@angular/core';
 
 @Component({

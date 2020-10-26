@@ -1,0 +1,2451 @@
+{
+  "data": {
+    "items": [
+      {
+        "id": 1,
+        "groupName": "Бензины",
+        "devProduction": -1267753.9,
+        "devPassport": -91193.9,
+        "passRest": 862694.686,
+        "allRest": 0,
+        "pointStatus": 2,
+        "criticalProd": 2,
+        "criticalPass": 2,
+        "criticalShip": 2,
+        "criticalRazn": 0,
+        "criticalTank": 0,
+        "shipOf": 104968,
+        "shipN": 0,
+        "shipAll": 104968,
+        "shipPlanPercent": 43.383913,
+        "passPlanPercent": 100.371734,
+        "pieStatus": 2,
+        "daysGroup": [
+          {
+            "day": 2,
+            "critical": 2
+          },
+          {
+            "day": 3,
+            "critical": 2
+          },
+          {
+            "day": 4,
+            "critical": 2
+          },
+          {
+            "day": 5,
+            "critical": 0
+          },
+          {
+            "day": 6,
+            "critical": 0
+          },
+          {
+            "day": 9,
+            "critical": 0
+          },
+          {
+            "day": 10,
+            "critical": 2
+          },
+          {
+            "day": 11,
+            "critical": 2
+          },
+          {
+            "day": 12,
+            "critical": 1
+          },
+          {
+            "day": 13,
+            "critical": 2
+          },
+          {
+            "day": 16,
+            "critical": 0
+          },
+          {
+            "day": 17,
+            "critical": 2
+          },
+          {
+            "day": 18,
+            "critical": 2
+          },
+          {
+            "day": 19,
+            "critical": 0
+          },
+          {
+            "day": 20,
+            "critical": 1
+          },
+          {
+            "day": 23,
+            "critical": 1
+          },
+          {
+            "day": 24,
+            "critical": 1
+          },
+          {
+            "day": 25,
+            "critical": 0
+          },
+          {
+            "day": 26,
+            "critical": 2
+          },
+          {
+            "day": 27,
+            "critical": 2
+          },
+          {
+            "day": 30,
+            "critical": 0
+          },
+          {
+            "day": 31,
+            "critical": 2
+          }
+        ],
+        "daysShip": [
+          {
+            "day": 2,
+            "critical": 2
+          },
+          {
+            "day": 3,
+            "critical": 0
+          },
+          {
+            "day": 4,
+            "critical": 0
+          },
+          {
+            "day": 5,
+            "critical": 0
+          },
+          {
+            "day": 6,
+            "critical": 0
+          },
+          {
+            "day": 9,
+            "critical": 0
+          },
+          {
+            "day": 10,
+            "critical": 0
+          },
+          {
+            "day": 11,
+            "critical": 0
+          },
+          {
+            "day": 12,
+            "critical": 0
+          },
+          {
+            "day": 13,
+            "critical": 2
+          },
+          {
+            "day": 16,
+            "critical": 0
+          },
+          {
+            "day": 17,
+            "critical": 0
+          },
+          {
+            "day": 18,
+            "critical": 2
+          },
+          {
+            "day": 19,
+            "critical": 2
+          },
+          {
+            "day": 20,
+            "critical": 0
+          },
+          {
+            "day": 23,
+            "critical": 1
+          },
+          {
+            "day": 24,
+            "critical": 1
+          },
+          {
+            "day": 25,
+            "critical": 2
+          },
+          {
+            "day": 26,
+            "critical": 1
+          },
+          {
+            "day": 27,
+            "critical": 0
+          },
+          {
+            "day": 30,
+            "critical": 2
+          },
+          {
+            "day": 31,
+            "critical": 0
+          }
+        ],
+        "products": []
+      },
+      {
+        "id": 2,
+        "groupName": "ДТ",
+        "devProduction": -1134838.6,
+        "devPassport": -79100.9,
+        "passRest": 809140,
+        "allRest": 1856,
+        "pointStatus": 2,
+        "criticalProd": 2,
+        "criticalPass": 2,
+        "criticalShip": 2,
+        "criticalRazn": 0,
+        "criticalTank": 0,
+        "shipOf": 111847,
+        "shipN": 0,
+        "shipAll": 111847,
+        "shipPlanPercent": 39.732927,
+        "passPlanPercent": 102.566847,
+        "pieStatus": 2,
+        "daysGroup": [
+          {
+            "day": 2,
+            "critical": 0
+          },
+          {
+            "day": 3,
+            "critical": 2
+          },
+          {
+            "day": 4,
+            "critical": 2
+          },
+          {
+            "day": 5,
+            "critical": 2
+          },
+          {
+            "day": 6,
+            "critical": 2
+          },
+          {
+            "day": 9,
+            "critical": 0
+          },
+          {
+            "day": 10,
+            "critical": 2
+          },
+          {
+            "day": 11,
+            "critical": 1
+          },
+          {
+            "day": 12,
+            "critical": 1
+          },
+          {
+            "day": 13,
+            "critical": 2
+          },
+          {
+            "day": 16,
+            "critical": 1
+          },
+          {
+            "day": 17,
+            "critical": 2
+          },
+          {
+            "day": 18,
+            "critical": 2
+          },
+          {
+            "day": 19,
+            "critical": 2
+          },
+          {
+            "day": 20,
+            "critical": 2
+          },
+          {
+            "day": 23,
+            "critical": 0
+          },
+          {
+            "day": 24,
+            "critical": 2
+          },
+          {
+            "day": 25,
+            "critical": 1
+          },
+          {
+            "day": 26,
+            "critical": 0
+          },
+          {
+            "day": 27,
+            "critical": 0
+          },
+          {
+            "day": 30,
+            "critical": 0
+          },
+          {
+            "day": 31,
+            "critical": 2
+          }
+        ],
+        "daysShip": [
+          {
+            "day": 2,
+            "critical": 2
+          },
+          {
+            "day": 3,
+            "critical": 2
+          },
+          {
+            "day": 4,
+            "critical": 1
+          },
+          {
+            "day": 5,
+            "critical": 0
+          },
+          {
+            "day": 6,
+            "critical": 0
+          },
+          {
+            "day": 9,
+            "critical": 1
+          },
+          {
+            "day": 10,
+            "critical": 0
+          },
+          {
+            "day": 11,
+            "critical": 2
+          },
+          {
+            "day": 12,
+            "critical": 0
+          },
+          {
+            "day": 13,
+            "critical": 0
+          },
+          {
+            "day": 16,
+            "critical": 0
+          },
+          {
+            "day": 17,
+            "critical": 0
+          },
+          {
+            "day": 18,
+            "critical": 0
+          },
+          {
+            "day": 19,
+            "critical": 1
+          },
+          {
+            "day": 20,
+            "critical": 0
+          },
+          {
+            "day": 23,
+            "critical": 2
+          },
+          {
+            "day": 24,
+            "critical": 2
+          },
+          {
+            "day": 25,
+            "critical": 0
+          },
+          {
+            "day": 26,
+            "critical": 2
+          },
+          {
+            "day": 27,
+            "critical": 0
+          },
+          {
+            "day": 30,
+            "critical": 2
+          },
+          {
+            "day": 31,
+            "critical": 2
+          }
+        ],
+        "products": []
+      },
+      {
+        "id": 3,
+        "groupName": "ТС",
+        "devProduction": -659268.54,
+        "devPassport": -36921.39,
+        "passRest": 394834,
+        "allRest": 6381,
+        "pointStatus": 2,
+        "criticalProd": 2,
+        "criticalPass": 2,
+        "criticalShip": 2,
+        "criticalRazn": 0,
+        "criticalTank": 2,
+        "shipOf": 61332.81,
+        "shipN": 0,
+        "shipAll": 61332.81,
+        "shipPlanPercent": 118.593132,
+        "passPlanPercent": 110.205035,
+        "pieStatus": 2,
+        "daysGroup": [
+          {
+            "day": 2,
+            "critical": 2
+          },
+          {
+            "day": 3,
+            "critical": 2
+          },
+          {
+            "day": 4,
+            "critical": 0
+          },
+          {
+            "day": 5,
+            "critical": 2
+          },
+          {
+            "day": 6,
+            "critical": 0
+          },
+          {
+            "day": 9,
+            "critical": 2
+          },
+          {
+            "day": 10,
+            "critical": 2
+          },
+          {
+            "day": 11,
+            "critical": 0
+          },
+          {
+            "day": 12,
+            "critical": 2
+          },
+          {
+            "day": 13,
+            "critical": 0
+          },
+          {
+            "day": 16,
+            "critical": 2
+          },
+          {
+            "day": 17,
+            "critical": 2
+          },
+          {
+            "day": 18,
+            "critical": 0
+          },
+          {
+            "day": 19,
+            "critical": 2
+          },
+          {
+            "day": 20,
+            "critical": 2
+          },
+          {
+            "day": 23,
+            "critical": 0
+          },
+          {
+            "day": 24,
+            "critical": 2
+          },
+          {
+            "day": 25,
+            "critical": 0
+          },
+          {
+            "day": 26,
+            "critical": 2
+          },
+          {
+            "day": 27,
+            "critical": 2
+          },
+          {
+            "day": 30,
+            "critical": 2
+          },
+          {
+            "day": 31,
+            "critical": 0
+          }
+        ],
+        "daysShip": [
+          {
+            "day": 2,
+            "critical": 0
+          },
+          {
+            "day": 3,
+            "critical": 0
+          },
+          {
+            "day": 4,
+            "critical": 0
+          },
+          {
+            "day": 5,
+            "critical": 1
+          },
+          {
+            "day": 6,
+            "critical": 1
+          },
+          {
+            "day": 9,
+            "critical": 0
+          },
+          {
+            "day": 10,
+            "critical": 0
+          },
+          {
+            "day": 11,
+            "critical": 0
+          },
+          {
+            "day": 12,
+            "critical": 0
+          },
+          {
+            "day": 13,
+            "critical": 0
+          },
+          {
+            "day": 16,
+            "critical": 1
+          },
+          {
+            "day": 17,
+            "critical": 2
+          },
+          {
+            "day": 18,
+            "critical": 2
+          },
+          {
+            "day": 19,
+            "critical": 1
+          },
+          {
+            "day": 20,
+            "critical": 2
+          },
+          {
+            "day": 23,
+            "critical": 0
+          },
+          {
+            "day": 24,
+            "critical": 0
+          },
+          {
+            "day": 25,
+            "critical": 0
+          },
+          {
+            "day": 26,
+            "critical": 0
+          },
+          {
+            "day": 27,
+            "critical": 2
+          },
+          {
+            "day": 30,
+            "critical": 0
+          },
+          {
+            "day": 31,
+            "critical": 0
+          }
+        ],
+        "products": [
+          {
+            "id": 251210160,
+            "title": "ТС-1 в/с",
+            "passPlanPercent": 110.205035,
+            "pieStatus": 2,
+            "criticalProd": 2,
+            "criticalPass": 2,
+            "criticalShip": 2,
+            "criticalRazn": 0,
+            "criticalTank": 2,
+            "passRest": 394834,
+            "allRest": 6381,
+            "days": [
+              {
+                "day": 16,
+                "critical": 2
+              },
+              {
+                "day": 17,
+                "critical": 2
+              },
+              {
+                "day": 18,
+                "critical": 0
+              },
+              {
+                "day": 19,
+                "critical": 2
+              },
+              {
+                "day": 20,
+                "critical": 2
+              },
+              {
+                "day": 23,
+                "critical": 0
+              },
+              {
+                "day": 24,
+                "critical": 2
+              },
+              {
+                "day": 25,
+                "critical": 0
+              },
+              {
+                "day": 26,
+                "critical": 2
+              },
+              {
+                "day": 27,
+                "critical": 2
+              },
+              {
+                "day": 30,
+                "critical": 2
+              },
+              {
+                "day": 31,
+                "critical": 0
+              },
+              {
+                "day": 2,
+                "critical": 2
+              },
+              {
+                "day": 3,
+                "critical": 2
+              },
+              {
+                "day": 4,
+                "critical": 0
+              },
+              {
+                "day": 5,
+                "critical": 2
+              },
+              {
+                "day": 6,
+                "critical": 0
+              },
+              {
+                "day": 9,
+                "critical": 2
+              },
+              {
+                "day": 10,
+                "critical": 2
+              },
+              {
+                "day": 11,
+                "critical": 0
+              },
+              {
+                "day": 12,
+                "critical": 2
+              },
+              {
+                "day": 13,
+                "critical": 0
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": 4,
+        "groupName": "Судовое/Мазут",
+        "devProduction": -1584358.58,
+        "devPassport": -105549.86,
+        "passRest": 1610750.759,
+        "allRest": 7629.457,
+        "pointStatus": 2,
+        "criticalProd": 2,
+        "criticalPass": 2,
+        "criticalShip": 2,
+        "criticalRazn": 0,
+        "criticalTank": 0,
+        "shipOf": 51954.39,
+        "shipN": 0,
+        "shipAll": 51954.39,
+        "shipPlanPercent": 53.636406,
+        "passPlanPercent": 96.365317,
+        "pieStatus": 2,
+        "daysGroup": [
+          {
+            "day": 2,
+            "critical": 2
+          },
+          {
+            "day": 3,
+            "critical": 2
+          },
+          {
+            "day": 4,
+            "critical": 2
+          },
+          {
+            "day": 5,
+            "critical": 2
+          },
+          {
+            "day": 6,
+            "critical": 2
+          },
+          {
+            "day": 9,
+            "critical": 2
+          },
+          {
+            "day": 10,
+            "critical": 2
+          },
+          {
+            "day": 11,
+            "critical": 2
+          },
+          {
+            "day": 12,
+            "critical": 2
+          },
+          {
+            "day": 13,
+            "critical": 2
+          },
+          {
+            "day": 16,
+            "critical": 2
+          },
+          {
+            "day": 17,
+            "critical": 1
+          },
+          {
+            "day": 18,
+            "critical": 2
+          },
+          {
+            "day": 19,
+            "critical": 2
+          },
+          {
+            "day": 20,
+            "critical": 2
+          },
+          {
+            "day": 23,
+            "critical": 2
+          },
+          {
+            "day": 24,
+            "critical": 2
+          },
+          {
+            "day": 25,
+            "critical": 2
+          },
+          {
+            "day": 26,
+            "critical": 2
+          },
+          {
+            "day": 27,
+            "critical": 2
+          },
+          {
+            "day": 30,
+            "critical": 1
+          },
+          {
+            "day": 31,
+            "critical": 1
+          }
+        ],
+        "daysShip": [
+          {
+            "day": 2,
+            "critical": 0
+          },
+          {
+            "day": 3,
+            "critical": 0
+          },
+          {
+            "day": 4,
+            "critical": 0
+          },
+          {
+            "day": 5,
+            "critical": 0
+          },
+          {
+            "day": 6,
+            "critical": 0
+          },
+          {
+            "day": 9,
+            "critical": 0
+          },
+          {
+            "day": 10,
+            "critical": 0
+          },
+          {
+            "day": 11,
+            "critical": 0
+          },
+          {
+            "day": 12,
+            "critical": 0
+          },
+          {
+            "day": 13,
+            "critical": 0
+          },
+          {
+            "day": 16,
+            "critical": 0
+          },
+          {
+            "day": 17,
+            "critical": 0
+          },
+          {
+            "day": 18,
+            "critical": 2
+          },
+          {
+            "day": 19,
+            "critical": 0
+          },
+          {
+            "day": 20,
+            "critical": 2
+          },
+          {
+            "day": 23,
+            "critical": 2
+          },
+          {
+            "day": 24,
+            "critical": 2
+          },
+          {
+            "day": 25,
+            "critical": 0
+          },
+          {
+            "day": 26,
+            "critical": 2
+          },
+          {
+            "day": 27,
+            "critical": 0
+          },
+          {
+            "day": 30,
+            "critical": 1
+          },
+          {
+            "day": 31,
+            "critical": 0
+          }
+        ],
+        "products": [
+          {
+            "id": 252111310,
+            "title": "Мазут 100, 3,00%",
+            "passPlanPercent": 96.365317,
+            "pieStatus": 2,
+            "criticalProd": 2,
+            "criticalPass": 2,
+            "criticalShip": 2,
+            "criticalRazn": 0,
+            "criticalTank": 0,
+            "passRest": 1534679.759,
+            "allRest": 7629.457,
+            "days": [
+              {
+                "day": 2,
+                "critical": 2
+              },
+              {
+                "day": 3,
+                "critical": 2
+              },
+              {
+                "day": 4,
+                "critical": 2
+              },
+              {
+                "day": 5,
+                "critical": 2
+              },
+              {
+                "day": 6,
+                "critical": 2
+              },
+              {
+                "day": 9,
+                "critical": 2
+              },
+              {
+                "day": 10,
+                "critical": 2
+              },
+              {
+                "day": 11,
+                "critical": 2
+              },
+              {
+                "day": 12,
+                "critical": 2
+              },
+              {
+                "day": 13,
+                "critical": 2
+              },
+              {
+                "day": 16,
+                "critical": 2
+              },
+              {
+                "day": 17,
+                "critical": 1
+              },
+              {
+                "day": 18,
+                "critical": 2
+              },
+              {
+                "day": 19,
+                "critical": 2
+              },
+              {
+                "day": 20,
+                "critical": 2
+              },
+              {
+                "day": 23,
+                "critical": 2
+              },
+              {
+                "day": 24,
+                "critical": 2
+              },
+              {
+                "day": 25,
+                "critical": 2
+              },
+              {
+                "day": 26,
+                "critical": 2
+              },
+              {
+                "day": 27,
+                "critical": 2
+              },
+              {
+                "day": 30,
+                "critical": 1
+              },
+              {
+                "day": 31,
+                "critical": 1
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": 5,
+        "groupName": "Битумы",
+        "devProduction": -1672098.82,
+        "devPassport": -118944.79,
+        "passRest": 123652.574,
+        "allRest": 2177.518,
+        "pointStatus": 2,
+        "criticalProd": 2,
+        "criticalPass": 2,
+        "criticalShip": 2,
+        "criticalRazn": 0,
+        "criticalTank": 2,
+        "shipOf": 6601.48,
+        "shipN": 0,
+        "shipAll": 6601.48,
+        "shipPlanPercent": 4.003156,
+        "passPlanPercent": 60.833869,
+        "pieStatus": 2,
+        "daysGroup": [
+          {
+            "day": 2,
+            "critical": 1
+          },
+          {
+            "day": 3,
+            "critical": 1
+          },
+          {
+            "day": 4,
+            "critical": 2
+          },
+          {
+            "day": 5,
+            "critical": 2
+          },
+          {
+            "day": 6,
+            "critical": 2
+          },
+          {
+            "day": 9,
+            "critical": 1
+          },
+          {
+            "day": 10,
+            "critical": 2
+          },
+          {
+            "day": 11,
+            "critical": 1
+          },
+          {
+            "day": 12,
+            "critical": 2
+          },
+          {
+            "day": 13,
+            "critical": 2
+          },
+          {
+            "day": 16,
+            "critical": 1
+          },
+          {
+            "day": 17,
+            "critical": 1
+          },
+          {
+            "day": 18,
+            "critical": 2
+          },
+          {
+            "day": 19,
+            "critical": 1
+          },
+          {
+            "day": 20,
+            "critical": 2
+          },
+          {
+            "day": 23,
+            "critical": 2
+          },
+          {
+            "day": 24,
+            "critical": 2
+          },
+          {
+            "day": 25,
+            "critical": 2
+          },
+          {
+            "day": 26,
+            "critical": 2
+          },
+          {
+            "day": 27,
+            "critical": 2
+          },
+          {
+            "day": 30,
+            "critical": 2
+          },
+          {
+            "day": 31,
+            "critical": 2
+          }
+        ],
+        "daysShip": [
+          {
+            "day": 2,
+            "critical": 0
+          },
+          {
+            "day": 3,
+            "critical": 0
+          },
+          {
+            "day": 4,
+            "critical": 0
+          },
+          {
+            "day": 5,
+            "critical": 0
+          },
+          {
+            "day": 6,
+            "critical": 0
+          },
+          {
+            "day": 9,
+            "critical": 0
+          },
+          {
+            "day": 10,
+            "critical": 0
+          },
+          {
+            "day": 11,
+            "critical": 0
+          },
+          {
+            "day": 12,
+            "critical": 0
+          },
+          {
+            "day": 13,
+            "critical": 0
+          },
+          {
+            "day": 16,
+            "critical": 0
+          },
+          {
+            "day": 17,
+            "critical": 0
+          },
+          {
+            "day": 18,
+            "critical": 0
+          },
+          {
+            "day": 19,
+            "critical": 2
+          },
+          {
+            "day": 20,
+            "critical": 2
+          },
+          {
+            "day": 23,
+            "critical": 0
+          },
+          {
+            "day": 24,
+            "critical": 1
+          },
+          {
+            "day": 25,
+            "critical": 0
+          },
+          {
+            "day": 26,
+            "critical": 0
+          },
+          {
+            "day": 27,
+            "critical": 0
+          },
+          {
+            "day": 30,
+            "critical": 1
+          },
+          {
+            "day": 31,
+            "critical": 2
+          }
+        ],
+        "products": [
+          {
+            "id": 256121612,
+            "title": "БНД 70/100",
+            "passPlanPercent": 67.442921,
+            "pieStatus": 2,
+            "criticalProd": 2,
+            "criticalPass": 2,
+            "criticalShip": 0,
+            "criticalRazn": 0,
+            "criticalTank": 0,
+            "passRest": 73090.54,
+            "allRest": 1813.421,
+            "days": [
+              {
+                "day": 2,
+                "critical": 1
+              },
+              {
+                "day": 3,
+                "critical": 1
+              },
+              {
+                "day": 4,
+                "critical": 0
+              },
+              {
+                "day": 5,
+                "critical": 1
+              },
+              {
+                "day": 6,
+                "critical": 1
+              },
+              {
+                "day": 9,
+                "critical": 1
+              },
+              {
+                "day": 10,
+                "critical": 1
+              },
+              {
+                "day": 11,
+                "critical": 1
+              },
+              {
+                "day": 12,
+                "critical": 0
+              },
+              {
+                "day": 13,
+                "critical": 1
+              },
+              {
+                "day": 16,
+                "critical": 1
+              },
+              {
+                "day": 17,
+                "critical": 0
+              },
+              {
+                "day": 18,
+                "critical": 0
+              },
+              {
+                "day": 19,
+                "critical": 1
+              },
+              {
+                "day": 20,
+                "critical": 1
+              },
+              {
+                "day": 23,
+                "critical": 1
+              },
+              {
+                "day": 24,
+                "critical": 1
+              },
+              {
+                "day": 25,
+                "critical": 1
+              },
+              {
+                "day": 26,
+                "critical": 0
+              },
+              {
+                "day": 27,
+                "critical": 1
+              },
+              {
+                "day": 30,
+                "critical": 0
+              },
+              {
+                "day": 31,
+                "critical": 0
+              }
+            ]
+          },
+          {
+            "id": 258641512,
+            "title": "Гудрон, в.2",
+            "passPlanPercent": 101.391098,
+            "pieStatus": 2,
+            "criticalProd": 2,
+            "criticalPass": 2,
+            "criticalShip": 2,
+            "criticalRazn": 0,
+            "criticalTank": 2,
+            "passRest": 7368.882,
+            "allRest": 364.097,
+            "days": [
+              {
+                "day": 2,
+                "critical": 1
+              },
+              {
+                "day": 3,
+                "critical": 0
+              },
+              {
+                "day": 4,
+                "critical": 1
+              },
+              {
+                "day": 5,
+                "critical": 1
+              },
+              {
+                "day": 6,
+                "critical": 2
+              },
+              {
+                "day": 9,
+                "critical": 0
+              },
+              {
+                "day": 10,
+                "critical": 2
+              },
+              {
+                "day": 11,
+                "critical": 0
+              },
+              {
+                "day": 12,
+                "critical": 2
+              },
+              {
+                "day": 13,
+                "critical": 0
+              },
+              {
+                "day": 16,
+                "critical": 0
+              },
+              {
+                "day": 17,
+                "critical": 1
+              },
+              {
+                "day": 18,
+                "critical": 2
+              },
+              {
+                "day": 19,
+                "critical": 0
+              },
+              {
+                "day": 20,
+                "critical": 1
+              },
+              {
+                "day": 23,
+                "critical": 1
+              },
+              {
+                "day": 24,
+                "critical": 1
+              },
+              {
+                "day": 25,
+                "critical": 1
+              },
+              {
+                "day": 26,
+                "critical": 1
+              },
+              {
+                "day": 27,
+                "critical": 1
+              },
+              {
+                "day": 30,
+                "critical": 1
+              },
+              {
+                "day": 31,
+                "critical": 2
+              }
+            ]
+          },
+          {
+            "id": 256120051,
+            "title": "БНД 60/90",
+            "passPlanPercent": 35.922491,
+            "pieStatus": 2,
+            "criticalProd": 2,
+            "criticalPass": 2,
+            "criticalShip": 0,
+            "criticalRazn": 0,
+            "criticalTank": 0,
+            "passRest": 31345.189,
+            "allRest": 0,
+            "days": [
+              {
+                "day": 25,
+                "critical": 2
+              },
+              {
+                "day": 26,
+                "critical": 2
+              },
+              {
+                "day": 27,
+                "critical": 2
+              },
+              {
+                "day": 30,
+                "critical": 2
+              },
+              {
+                "day": 31,
+                "critical": 1
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": 6,
+        "groupName": "СУГ",
+        "devProduction": -229460,
+        "devPassport": -16364,
+        "passRest": 29754.568,
+        "allRest": 813.346,
+        "pointStatus": 2,
+        "criticalProd": 2,
+        "criticalPass": 2,
+        "criticalShip": 2,
+        "criticalRazn": 0,
+        "criticalTank": 2,
+        "shipOf": 4202.96,
+        "shipN": 0,
+        "shipAll": 4202.96,
+        "shipPlanPercent": 25.393712,
+        "passPlanPercent": 55.019612,
+        "pieStatus": 2,
+        "daysGroup": [
+          {
+            "day": 2,
+            "critical": 1
+          },
+          {
+            "day": 3,
+            "critical": 1
+          },
+          {
+            "day": 4,
+            "critical": 2
+          },
+          {
+            "day": 5,
+            "critical": 2
+          },
+          {
+            "day": 6,
+            "critical": 0
+          },
+          {
+            "day": 9,
+            "critical": 1
+          },
+          {
+            "day": 10,
+            "critical": 2
+          },
+          {
+            "day": 11,
+            "critical": 2
+          },
+          {
+            "day": 12,
+            "critical": 1
+          },
+          {
+            "day": 13,
+            "critical": 0
+          },
+          {
+            "day": 16,
+            "critical": 0
+          },
+          {
+            "day": 17,
+            "critical": 1
+          },
+          {
+            "day": 18,
+            "critical": 1
+          },
+          {
+            "day": 19,
+            "critical": 0
+          },
+          {
+            "day": 20,
+            "critical": 2
+          },
+          {
+            "day": 23,
+            "critical": 1
+          },
+          {
+            "day": 24,
+            "critical": 1
+          },
+          {
+            "day": 25,
+            "critical": 0
+          },
+          {
+            "day": 26,
+            "critical": 1
+          },
+          {
+            "day": 27,
+            "critical": 2
+          },
+          {
+            "day": 30,
+            "critical": 2
+          },
+          {
+            "day": 31,
+            "critical": 2
+          }
+        ],
+        "daysShip": [
+          {
+            "day": 2,
+            "critical": 0
+          },
+          {
+            "day": 3,
+            "critical": 0
+          },
+          {
+            "day": 4,
+            "critical": 0
+          },
+          {
+            "day": 5,
+            "critical": 0
+          },
+          {
+            "day": 6,
+            "critical": 0
+          },
+          {
+            "day": 9,
+            "critical": 0
+          },
+          {
+            "day": 10,
+            "critical": 0
+          },
+          {
+            "day": 11,
+            "critical": 0
+          },
+          {
+            "day": 12,
+            "critical": 0
+          },
+          {
+            "day": 13,
+            "critical": 0
+          },
+          {
+            "day": 16,
+            "critical": 0
+          },
+          {
+            "day": 17,
+            "critical": 0
+          },
+          {
+            "day": 18,
+            "critical": 1
+          },
+          {
+            "day": 19,
+            "critical": 1
+          },
+          {
+            "day": 20,
+            "critical": 0
+          },
+          {
+            "day": 23,
+            "critical": 2
+          },
+          {
+            "day": 24,
+            "critical": 0
+          },
+          {
+            "day": 25,
+            "critical": 2
+          },
+          {
+            "day": 26,
+            "critical": 0
+          },
+          {
+            "day": 27,
+            "critical": 1
+          },
+          {
+            "day": 30,
+            "critical": 2
+          },
+          {
+            "day": 31,
+            "critical": 0
+          }
+        ],
+        "products": [
+          {
+            "id": 272350254,
+            "title": "ФББ (№6)",
+            "passPlanPercent": 99.901295,
+            "pieStatus": 2,
+            "criticalProd": 2,
+            "criticalPass": 2,
+            "criticalShip": 2,
+            "criticalRazn": 0,
+            "criticalTank": 0,
+            "passRest": 9730.464,
+            "allRest": 339.332,
+            "days": [
+              {
+                "day": 2,
+                "critical": 0
+              },
+              {
+                "day": 3,
+                "critical": 0
+              },
+              {
+                "day": 4,
+                "critical": 2
+              },
+              {
+                "day": 5,
+                "critical": 2
+              },
+              {
+                "day": 6,
+                "critical": 0
+              },
+              {
+                "day": 9,
+                "critical": 1
+              },
+              {
+                "day": 10,
+                "critical": 2
+              },
+              {
+                "day": 11,
+                "critical": 2
+              },
+              {
+                "day": 12,
+                "critical": 1
+              },
+              {
+                "day": 13,
+                "critical": 0
+              },
+              {
+                "day": 16,
+                "critical": 0
+              },
+              {
+                "day": 17,
+                "critical": 0
+              },
+              {
+                "day": 18,
+                "critical": 1
+              },
+              {
+                "day": 19,
+                "critical": 0
+              },
+              {
+                "day": 20,
+                "critical": 0
+              },
+              {
+                "day": 23,
+                "critical": 0
+              },
+              {
+                "day": 24,
+                "critical": 0
+              },
+              {
+                "day": 25,
+                "critical": 0
+              },
+              {
+                "day": 26,
+                "critical": 0
+              },
+              {
+                "day": 27,
+                "critical": 2
+              },
+              {
+                "day": 30,
+                "critical": 2
+              },
+              {
+                "day": 31,
+                "critical": 2
+              }
+            ]
+          },
+          {
+            "id": 272361526,
+            "title": "ПБТ",
+            "passPlanPercent": 87.7133,
+            "pieStatus": 2,
+            "criticalProd": 2,
+            "criticalPass": 2,
+            "criticalShip": 2,
+            "criticalRazn": 0,
+            "criticalTank": 0,
+            "passRest": 8318.895,
+            "allRest": 171.247,
+            "days": [
+              {
+                "day": 2,
+                "critical": 1
+              },
+              {
+                "day": 3,
+                "critical": 1
+              },
+              {
+                "day": 4,
+                "critical": 0
+              },
+              {
+                "day": 5,
+                "critical": 1
+              },
+              {
+                "day": 6,
+                "critical": 0
+              },
+              {
+                "day": 9,
+                "critical": 1
+              },
+              {
+                "day": 10,
+                "critical": 2
+              },
+              {
+                "day": 11,
+                "critical": 0
+              },
+              {
+                "day": 12,
+                "critical": 0
+              },
+              {
+                "day": 13,
+                "critical": 0
+              },
+              {
+                "day": 16,
+                "critical": 0
+              },
+              {
+                "day": 17,
+                "critical": 1
+              },
+              {
+                "day": 18,
+                "critical": 0
+              },
+              {
+                "day": 19,
+                "critical": 0
+              },
+              {
+                "day": 20,
+                "critical": 2
+              },
+              {
+                "day": 23,
+                "critical": 1
+              },
+              {
+                "day": 24,
+                "critical": 1
+              },
+              {
+                "day": 25,
+                "critical": 0
+              },
+              {
+                "day": 26,
+                "critical": 1
+              },
+              {
+                "day": 27,
+                "critical": 2
+              },
+              {
+                "day": 30,
+                "critical": 1
+              },
+              {
+                "day": 31,
+                "critical": 1
+              }
+            ]
+          },
+          {
+            "id": 272390516,
+            "title": "ПБА",
+            "passPlanPercent": 99.027249,
+            "pieStatus": 2,
+            "criticalProd": 2,
+            "criticalPass": 2,
+            "criticalShip": 2,
+            "criticalRazn": 0,
+            "criticalTank": 2,
+            "passRest": 11110.923,
+            "allRest": 302.767,
+            "days": [
+              {
+                "day": 2,
+                "critical": 0
+              },
+              {
+                "day": 3,
+                "critical": 0
+              },
+              {
+                "day": 4,
+                "critical": 0
+              },
+              {
+                "day": 5,
+                "critical": 0
+              },
+              {
+                "day": 6,
+                "critical": 0
+              },
+              {
+                "day": 9,
+                "critical": 0
+              },
+              {
+                "day": 10,
+                "critical": 0
+              },
+              {
+                "day": 11,
+                "critical": 0
+              },
+              {
+                "day": 12,
+                "critical": 0
+              },
+              {
+                "day": 13,
+                "critical": 0
+              },
+              {
+                "day": 16,
+                "critical": 0
+              },
+              {
+                "day": 17,
+                "critical": 0
+              },
+              {
+                "day": 18,
+                "critical": 0
+              },
+              {
+                "day": 19,
+                "critical": 0
+              },
+              {
+                "day": 20,
+                "critical": 0
+              },
+              {
+                "day": 23,
+                "critical": 0
+              },
+              {
+                "day": 24,
+                "critical": 0
+              },
+              {
+                "day": 25,
+                "critical": 0
+              },
+              {
+                "day": 26,
+                "critical": 1
+              },
+              {
+                "day": 27,
+                "critical": 0
+              },
+              {
+                "day": 30,
+                "critical": 0
+              },
+              {
+                "day": 31,
+                "critical": 0
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": 8,
+        "groupName": "Прочие",
+        "devProduction": -182561.26,
+        "devPassport": -12558.16,
+        "passRest": 97614.713,
+        "allRest": 2009.027,
+        "pointStatus": 2,
+        "criticalProd": 2,
+        "criticalPass": 2,
+        "criticalShip": 2,
+        "criticalRazn": 0,
+        "criticalTank": 2,
+        "shipOf": 4349.04,
+        "shipN": 0,
+        "shipAll": 4349.04,
+        "shipPlanPercent": 32.093868,
+        "passPlanPercent": 102.846626,
+        "pieStatus": 2,
+        "daysGroup": [
+          {
+            "day": 2,
+            "critical": 1
+          },
+          {
+            "day": 3,
+            "critical": 2
+          },
+          {
+            "day": 4,
+            "critical": 2
+          },
+          {
+            "day": 5,
+            "critical": 0
+          },
+          {
+            "day": 6,
+            "critical": 2
+          },
+          {
+            "day": 9,
+            "critical": 2
+          },
+          {
+            "day": 10,
+            "critical": 2
+          },
+          {
+            "day": 11,
+            "critical": 1
+          },
+          {
+            "day": 12,
+            "critical": 2
+          },
+          {
+            "day": 13,
+            "critical": 2
+          },
+          {
+            "day": 16,
+            "critical": 0
+          },
+          {
+            "day": 17,
+            "critical": 2
+          },
+          {
+            "day": 18,
+            "critical": 2
+          },
+          {
+            "day": 19,
+            "critical": 2
+          },
+          {
+            "day": 20,
+            "critical": 2
+          },
+          {
+            "day": 23,
+            "critical": 1
+          },
+          {
+            "day": 24,
+            "critical": 0
+          },
+          {
+            "day": 25,
+            "critical": 0
+          },
+          {
+            "day": 26,
+            "critical": 2
+          },
+          {
+            "day": 27,
+            "critical": 0
+          },
+          {
+            "day": 30,
+            "critical": 1
+          },
+          {
+            "day": 31,
+            "critical": 2
+          }
+        ],
+        "daysShip": [
+          {
+            "day": 2,
+            "critical": 0
+          },
+          {
+            "day": 3,
+            "critical": 0
+          },
+          {
+            "day": 4,
+            "critical": 0
+          },
+          {
+            "day": 5,
+            "critical": 0
+          },
+          {
+            "day": 6,
+            "critical": 0
+          },
+          {
+            "day": 9,
+            "critical": 0
+          },
+          {
+            "day": 10,
+            "critical": 0
+          },
+          {
+            "day": 11,
+            "critical": 0
+          },
+          {
+            "day": 12,
+            "critical": 0
+          },
+          {
+            "day": 13,
+            "critical": 0
+          },
+          {
+            "day": 16,
+            "critical": 0
+          },
+          {
+            "day": 17,
+            "critical": 0
+          },
+          {
+            "day": 18,
+            "critical": 0
+          },
+          {
+            "day": 19,
+            "critical": 2
+          },
+          {
+            "day": 20,
+            "critical": 0
+          },
+          {
+            "day": 23,
+            "critical": 1
+          },
+          {
+            "day": 24,
+            "critical": 1
+          },
+          {
+            "day": 25,
+            "critical": 2
+          },
+          {
+            "day": 26,
+            "critical": 0
+          },
+          {
+            "day": 27,
+            "critical": 0
+          },
+          {
+            "day": 30,
+            "critical": 2
+          },
+          {
+            "day": 31,
+            "critical": 2
+          }
+        ],
+        "products": [
+          {
+            "id": 251933115,
+            "title": "Фр. 420",
+            "passPlanPercent": 109.473419,
+            "pieStatus": 2,
+            "criticalProd": 2,
+            "criticalPass": 2,
+            "criticalShip": 2,
+            "criticalRazn": 0,
+            "criticalTank": 2,
+            "passRest": 33283.136,
+            "allRest": 903.674,
+            "days": [
+              {
+                "day": 2,
+                "critical": 0
+              },
+              {
+                "day": 3,
+                "critical": 0
+              },
+              {
+                "day": 4,
+                "critical": 2
+              },
+              {
+                "day": 5,
+                "critical": 0
+              },
+              {
+                "day": 6,
+                "critical": 2
+              },
+              {
+                "day": 9,
+                "critical": 2
+              },
+              {
+                "day": 10,
+                "critical": 2
+              },
+              {
+                "day": 11,
+                "critical": 0
+              },
+              {
+                "day": 12,
+                "critical": 0
+              },
+              {
+                "day": 13,
+                "critical": 2
+              },
+              {
+                "day": 16,
+                "critical": 0
+              },
+              {
+                "day": 17,
+                "critical": 2
+              },
+              {
+                "day": 18,
+                "critical": 2
+              },
+              {
+                "day": 19,
+                "critical": 2
+              },
+              {
+                "day": 20,
+                "critical": 2
+              },
+              {
+                "day": 23,
+                "critical": 1
+              },
+              {
+                "day": 24,
+                "critical": 0
+              },
+              {
+                "day": 25,
+                "critical": 0
+              },
+              {
+                "day": 26,
+                "critical": 2
+              },
+              {
+                "day": 27,
+                "critical": 0
+              },
+              {
+                "day": 30,
+                "critical": 1
+              },
+              {
+                "day": 31,
+                "critical": 2
+              }
+            ]
+          },
+          {
+            "id": 2112221302,
+            "title": "Сера гж 9998",
+            "passPlanPercent": 94.63114,
+            "pieStatus": 2,
+            "criticalProd": 2,
+            "criticalPass": 2,
+            "criticalShip": 2,
+            "criticalRazn": 0,
+            "criticalTank": 0,
+            "passRest": 42314.353,
+            "allRest": 548.553,
+            "days": [
+              {
+                "day": 2,
+                "critical": 1
+              },
+              {
+                "day": 3,
+                "critical": 0
+              },
+              {
+                "day": 4,
+                "critical": 0
+              },
+              {
+                "day": 5,
+                "critical": 0
+              },
+              {
+                "day": 6,
+                "critical": 0
+              },
+              {
+                "day": 9,
+                "critical": 0
+              },
+              {
+                "day": 10,
+                "critical": 0
+              },
+              {
+                "day": 11,
+                "critical": 1
+              },
+              {
+                "day": 12,
+                "critical": 0
+              },
+              {
+                "day": 13,
+                "critical": 0
+              },
+              {
+                "day": 16,
+                "critical": 0
+              },
+              {
+                "day": 17,
+                "critical": 0
+              },
+              {
+                "day": 18,
+                "critical": 0
+              },
+              {
+                "day": 19,
+                "critical": 0
+              },
+              {
+                "day": 20,
+                "critical": 0
+              },
+              {
+                "day": 23,
+                "critical": 0
+              },
+              {
+                "day": 24,
+                "critical": 0
+              },
+              {
+                "day": 25,
+                "critical": 0
+              },
+              {
+                "day": 26,
+                "critical": 0
+              },
+              {
+                "day": 27,
+                "critical": 0
+              },
+              {
+                "day": 30,
+                "critical": 0
+              },
+              {
+                "day": 31,
+                "critical": 0
+              }
+            ]
+          },
+          {
+            "id": 2112221518,
+            "title": "Сера тг 9998",
+            "passPlanPercent": 108.592777,
+            "pieStatus": 2,
+            "criticalProd": 2,
+            "criticalPass": 2,
+            "criticalShip": 2,
+            "criticalRazn": 0,
+            "criticalTank": 0,
+            "passRest": 22017.224,
+            "allRest": 556.8,
+            "days": [
+              {
+                "day": 2,
+                "critical": 1
+              },
+              {
+                "day": 3,
+                "critical": 2
+              },
+              {
+                "day": 4,
+                "critical": 2
+              },
+              {
+                "day": 5,
+                "critical": 0
+              },
+              {
+                "day": 6,
+                "critical": 0
+              },
+              {
+                "day": 9,
+                "critical": 0
+              },
+              {
+                "day": 10,
+                "critical": 0
+              },
+              {
+                "day": 11,
+                "critical": 0
+              },
+              {
+                "day": 12,
+                "critical": 2
+              },
+              {
+                "day": 13,
+                "critical": 0
+              },
+              {
+                "day": 16,
+                "critical": 0
+              },
+              {
+                "day": 17,
+                "critical": 2
+              },
+              {
+                "day": 18,
+                "critical": 2
+              },
+              {
+                "day": 31,
+                "critical": 2
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

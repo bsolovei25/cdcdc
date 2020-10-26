@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
 import { WidgetService } from '../../../dashboard/services/widget.service';
 import { Subscription } from 'rxjs';
-import { IPointDiagramElement } from '../../../dashboard/models/point-diagram';
+import { IPointDiagramElement } from '../../../dashboard/models/LCO/point-diagram';
 import { WidgetPlatform } from '../../../dashboard/models/@PLATFORM/widget-platform';
 
 @Component({

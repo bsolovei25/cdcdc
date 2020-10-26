@@ -12,4 +12,5 @@ export interface IAlertWindowModel {
         formControl: FormControl;
         placeholder: string;
     };
+    status?: number; // active, success, warning, danger
 }

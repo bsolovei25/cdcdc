@@ -5,7 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import { GridsterItem } from 'angular-gridster2';
 import { IWidget } from '../models/widget.model';
 import { AppConfigService } from '@core/service/app-config.service';
-import { EventsWidgetDataPreview } from '../models/events-widget';
+import { EventsWidgetDataPreview } from '../models/EVJ/events-widget';
 import { LineChartData } from '../models/line-chart';
 import { WebSocketSubject } from 'rxjs/internal/observable/dom/WebSocketSubject';
 import { webSocket } from 'rxjs/internal/observable/dom/webSocket';
@@ -173,7 +173,6 @@ export class WidgetService {
         if (!widgetId || !widgetType) {
             return;
         }
-
         this.wsConnect(widgetId);
         if (this.openedWsChannels[widgetId]) {
             this.openedWsChannels[widgetId].count++;
@@ -225,7 +224,7 @@ export class WidgetService {
         this.wsAppendOptions(widgetId, this.openedWsChannels[widgetId]?.options, channelId);
     }
 
-    private wsConnect(widgetId: string, options: any = null, channelId: string = null): void {
+    private wsConnect(widgetId: string, options: IWebSocketOptions<any> = null, channelId: string = null): void {
         this.ws.next({
             actionType: 'subscribe',
             channelId: widgetId,

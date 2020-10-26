@@ -1,4 +1,4 @@
-import { IUser } from './events-widget';
+import { IUser } from './EVJ/events-widget';
 
 export interface IGroupScreensSettings {
     id: number;

@@ -2,7 +2,7 @@ import {Component, OnInit, Inject, ViewChild, AfterViewInit} from '@angular/core
 import { IOilFilter } from 'src/app/dashboard/models/oil-operations';
 import { PopoverRef } from '@shared/components/popover-overlay/popover-overlay.ref';
 import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
-import {AsyncRender} from "@shared/functions/async-render.function";
+import { AsyncRender } from '@shared/functions/async-render.function';
 
 export interface IOilFilterInput {
     title: string;

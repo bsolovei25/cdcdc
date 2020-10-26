@@ -1,5 +1,5 @@
 import { Component, OnInit, LOCALE_ID } from '@angular/core';
-import { IReasonsDeviationsInfo } from 'src/app/dashboard/models/reasons-deviations';
+import { IReasonsDeviationsInfo } from 'src/app/dashboard/models/LCO/reasons-deviations';
 
 @Component({
   selector: 'evj-reasons-deviations-info-content',

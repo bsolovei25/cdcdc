@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { ITankInfo } from 'src/app/dashboard/models/petroleum-products-movement.model';
+import { ITankInfo } from 'src/app/dashboard/models/NK/petroleum-products-movement.model';
 import { PetroleumScreenService } from 'src/app/dashboard/services/widgets/petroleum-screen.service';
 
 @Component({

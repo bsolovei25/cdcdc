@@ -3,7 +3,7 @@ import { OverlayService } from '../../../services/overlay.service';
 import { Router } from '@angular/router';
 import { AuthService } from '@core/service/auth.service';
 import { IAlertPasswordModel } from '@shared/models/alert-password.model';
-import { IUser } from '../../../models/events-widget';
+import { IUser } from '../../../models/EVJ/events-widget';
 import { Subscription } from 'rxjs';
 
 interface IMenuItem {

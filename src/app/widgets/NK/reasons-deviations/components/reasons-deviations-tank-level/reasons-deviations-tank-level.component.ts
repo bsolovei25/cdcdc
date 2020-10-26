@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { IReasonsTankerCard } from 'src/app/dashboard/models/reasons-deviations';
+import { IReasonsTankerCard } from 'src/app/dashboard/models/LCO/reasons-deviations';
 
 @Component({
   selector: 'evj-reasons-deviations-tank-level',

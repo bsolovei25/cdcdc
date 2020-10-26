@@ -9,10 +9,13 @@ import { DocumentCodingTanksComponent } from './components/document-coding-tanks
 import { SharedModule } from '@shared/shared.module';
 import { AngularSvgIconModule } from 'angular-svg-icon';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatFormFieldControl, MatFormFieldModule } from '@angular/material/form-field';
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { DashboardModule } from '../../../dashboard/dashboard.module';
-import { MatInput, MatInputModule } from '@angular/material/input';
+import { MatInputModule } from '@angular/material/input';
+import { ScrollingModule } from '@angular/cdk/scrolling';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -35,7 +38,11 @@ import { MatInput, MatInputModule } from '@angular/material/input';
         MatFormFieldModule,
         MatInputModule,
         MatIconModule,
-        DashboardModule
+        DashboardModule,
+        ScrollingModule,
+        MatTooltipModule,
+        ReactiveFormsModule,
+        ReactiveFormsModule,
     ]
 })
 export class DocumentCodingModule {

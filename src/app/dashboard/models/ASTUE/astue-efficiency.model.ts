@@ -1,4 +1,4 @@
-import { IProductionTrend } from '../production-trends.model';
+import { IProductionTrend } from '../LCO/production-trends.model';
 
 //#region NEW_MODELS
 export interface IAsEfProduct {

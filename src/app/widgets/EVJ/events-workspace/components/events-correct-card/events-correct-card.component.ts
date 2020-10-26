@@ -3,8 +3,8 @@ import { IAlertWindowModel } from '@shared/models/alert-window.model';
 import {
     IRetrievalEventDto,
     EventsWidgetNotificationStatus,
-} from '../../../../../dashboard/models/events-widget';
-import { EventsWorkspaceService } from '../../../../../dashboard/services/widgets/events-workspace.service';
+} from '../../../../../dashboard/models/EVJ/events-widget';
+import { EventsWorkspaceService } from '../../../../../dashboard/services/widgets/EVJ/events-workspace.service';
 
 @Component({
     selector: 'evj-events-correct-card',

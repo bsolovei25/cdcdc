@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy, ViewContainerRef } from '@angular/core';
 import { AuthService } from '@core/service/auth.service';
 import { Router } from '@angular/router';
-import { IUser } from '../../../models/events-widget';
+import { IUser } from '../../../models/EVJ/events-widget';
 import { Subscription } from 'rxjs';
 import { AppConfigService } from '@core/service/app-config.service';
 import { OverlayService } from '../../../services/overlay.service';

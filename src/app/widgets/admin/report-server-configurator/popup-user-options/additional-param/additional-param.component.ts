@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter, OnChanges, ChangeDetectorRef } from '@angular/core';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { SnackBarService } from 'src/app/dashboard/services/snack-bar.service';
-import { ReportServerConfiguratorService } from 'src/app/dashboard/services/widgets/report-server-configurator.service';
+import { ReportServerConfiguratorService } from 'src/app/dashboard/services/widgets/admin-panel/report-server-configurator.service';
 
 @Component({
   selector: 'evj-additional-param',

@@ -25,6 +25,7 @@
           panelClass="mat-select-custom"
           [(ngModel)]="ewService.event.priority"
           [compareWith]="compareFn"
+          [disabled]="!ewService.isCreateNewEvent"
         >
           <mat-option *ngFor="let p of ewService.priority" [value]="p"
             >{{ ewService.priorities[p.name] }}
@@ -57,6 +58,7 @@
             panelClass="mat-select-custom"
             [(ngModel)]="ewService.event?.productionTasks.subCategory"
             [compareWith]="compareFn"
+            [disabled]="!ewService.isCreateNewEvent"
           >
             <mat-option [value]="undefined">Не выбрана</mat-option>
             <mat-option *ngFor="let p of ewService.subCategory" [value]="p"
@@ -73,6 +75,7 @@
           <evj-time-data-picker
             [data]="ewService.event.deadline"
             (dateTimePicker)="dateTimePicker($event)"
+            [disabled]="!ewService.isCreateNewEvent"
           ></evj-time-data-picker>
         </div>
       </evj-ui-block>
@@ -85,6 +88,7 @@
             panelClass="mat-select-custom"
             [(ngModel)]="ewService.event.unit"
             [compareWith]="compareFn"
+            [disabled]="!ewService.isCreateNewEvent"
           >
             <mat-option *ngFor="let cat of ewService.units" [value]="cat">
               {{ cat.name }}
@@ -99,25 +103,29 @@
       class="left__item"
       titleName="Распоряжения"
       [description]="ewService.event?.description"
+      [disabled]="!ewService.isCreateNewEvent"
       (changedDescription)="onChangeEventDescription($event)"
     ></evj-event-description>
     <evj-chat
       [displayGraphImage]="!!ewService.event.graphValues?.graphs[0]"
       [onClickItem]="openLineChart.bind(this)"
       [messages]="ewService.event.facts"
+      [disabled]="isClosedObserver | async"
       dataTitle="Установленные факты"
       placeholder="Укажите факты..."
       (addingMessage)="onSendMessage($event,'facts')"
     ></evj-chat>
     <evj-chat
       [messages]="ewService.event.comments"
+      [disabled]="isClosedObserver | async"
       dataTitle="Комментарии"
       placeholder="Напишите свой комментарий..."
       (addingMessage)="onSendMessage($event,'comments')"
     ></evj-chat>
   </div>
   <div class="workspace__right right">
-    <evj-events-responsible-select class="right__item"></evj-events-responsible-select>
+    <!--          TODO: set disabled-->
+    <evj-events-responsible-select class="right__item" [disabled]="!ewService.isCreateNewEvent"></evj-events-responsible-select>
     <div class="right__item labels">
       <div class="labels__item label">
         <div class="label__name">Создано:</div>
@@ -150,6 +158,6 @@
         <div class="label__value">{{ewService.event.productionTasks?.closedBy?.displayName || '-'}}</div>
       </div>
     </div>
-    <evj-events-correct class="right__item"></evj-events-correct>
+    <evj-events-correct [disabled]="isClosedObserver | async" class="right__item"></evj-events-correct>
   </div>
 </div>

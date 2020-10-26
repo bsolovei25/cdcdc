@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { IProductionTrend } from '../../../../../dashboard/models/production-trends.model';
+import { IProductionTrend } from '../../../../../dashboard/models/LCO/production-trends.model';
 import { IPointTank } from '@shared/models/smart-scroll.model';
 
 @Component({

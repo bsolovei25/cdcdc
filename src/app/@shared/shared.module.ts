@@ -67,6 +67,7 @@ import {
 } from '@angular-material-components/datetime-picker';
 import { NgxMatMomentModule } from '@angular-material-components/moment-adapter';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
+import { RectangleInputComponent } from './components/rectangle-input/rectangle-input.component';
 
 @NgModule({
     declarations: [
@@ -115,6 +116,7 @@ import { MAT_DATE_LOCALE } from '@angular/material/core';
         ProductGroupsRightComponent,
         ProductGroupsTableComponent,
         TimeDataPickerComponent,
+        RectangleInputComponent,
     ],
     exports: [
         HeaderComponent,
@@ -154,6 +156,7 @@ import { MAT_DATE_LOCALE } from '@angular/material/core';
         ApsProgressBarComponent,
         ProductGroupsTableComponent,
         TimeDataPickerComponent,
+        RectangleInputComponent
     ],
     imports: [
         CommonModule,

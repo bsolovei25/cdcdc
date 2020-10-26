@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { IWorkspace, IGlobalClaim } from '../../../../../../dashboard/models/admin-panel';
+import { IWorkspace, IGlobalClaim } from '../../../../../../dashboard/models/ADMIN/admin-panel';
 import { IInputOptions } from '../../../../../../@shared/models/input.model';
-import { AdminPanelService } from '../../../../../../dashboard/services/admin-panel/admin-panel.service';
+import { AdminPanelService } from '../../../../../../dashboard/services/widgets/admin-panel/admin-panel.service';
 
 @Component({
     selector: 'evj-aws-workspaces',

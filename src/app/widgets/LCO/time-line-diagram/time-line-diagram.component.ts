@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
 import { WidgetPlatform } from 'src/app/dashboard/models/@PLATFORM/widget-platform';
-import { TimeLineDataInput } from '../../../dashboard/models/time-line-diagram';
+import { TimeLineDataInput } from '../../../dashboard/models/LCO/time-line-diagram';
 import { WidgetService } from '../../../dashboard/services/widget.service';
 
 @Component({

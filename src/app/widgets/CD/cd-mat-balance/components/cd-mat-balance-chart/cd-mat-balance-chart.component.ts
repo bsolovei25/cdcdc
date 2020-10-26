@@ -14,7 +14,7 @@ import {
 import { HttpClient } from '@angular/common/http';
 import { CdMatBalanceService } from '../../../../../dashboard/services/widgets/CD/cd-mat-balance.service';
 import { WidgetService } from '../../../../../dashboard/services/widget.service';
-import { WIDGETS } from '../../../../../dashboard/components/widgets-grid/widget-map';
+import { WIDGETS } from '../../../../widget-map';
 import { Subscription, BehaviorSubject, combineLatest } from 'rxjs';
 import { IWidget } from '../../../../../dashboard/models/widget.model';
 import { CdMatBalanceChartCardComponent } from '../cd-mat-balance-chart-card/cd-mat-balance-chart-card.component';

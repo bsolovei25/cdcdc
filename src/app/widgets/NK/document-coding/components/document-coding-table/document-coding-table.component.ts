@@ -1,104 +1,158 @@
 import { Component, OnInit, HostListener, Output, EventEmitter, Input } from '@angular/core';
+import { PopoverOverlayService } from '@shared/components/popover-overlay/popover-overlay.service';
+import { DocumentCodingFilterComponent } from '../document-coding-filter/document-coding-filter.component';
+import { DocumentCodingService } from '../../../../../dashboard/services/oil-control-services/document-coding.service';
+import { IDocumentsLaboratory } from '../../../../../dashboard/models/oil-document.model';
 
 export interface IDocumentCodingTableRecord {
-  id: number;
-  sap: number;
-  product: string;
-  gost: string;
-  codeOKPD: string;
+    id: number;
+    sapCode: number;
+    name: string;
+    gost: string;
+    okpd2Code: string;
+    isActual?: boolean;
 }
 
+export interface IDocumentCodingFilter {
+    id: number;
+    name: string;
+    createdAt?: string;
+    isActual?: boolean;
+}
+
+export interface IDocumentCodingTableFilter<T> {
+    name: string;
+    type: IDocumentCodingFilterType;
+    data?: T[];
+}
+
+export type IDocumentCodingFilterType = 'groups' | 'laboratories';
+
 @Component({
-  selector: 'evj-document-coding-table',
-  templateUrl: './document-coding-table.component.html',
-  styleUrls: ['./document-coding-table.component.scss']
+    selector: 'evj-document-coding-table',
+    templateUrl: './document-coding-table.component.html',
+    styleUrls: ['./document-coding-table.component.scss']
 })
 export class DocumentCodingTableComponent implements OnInit {
-  @Output() public filterGroup: EventEmitter<boolean> = new EventEmitter<boolean>();
-  @Output() public filterProduct: EventEmitter<boolean> = new EventEmitter<boolean>();
-  @Input() public isFilterGroup: boolean;
-  @Input() public isFilterProduct: boolean;
+    @Output() public selectedProduct: EventEmitter<IDocumentCodingTableRecord | null> = new EventEmitter<IDocumentCodingTableRecord | null>();
 
-  public data: IDocumentCodingTableRecord[] = [
-    {
-      id: 1,
-      sap: 32425325325,
-      product: 'ДТ ЕВРО сорт F, вид III(ДТ-Е-К5) ДТ ЕВРО сорт F, вид III(ДТ-Е-К5)',
-      gost: 'ГОСТ №44246-44 с изм. №1-5',
-      codeOKPD: '19.3.233.232'
-    },
-    {
-      id: 2,
-      sap: 32425325325,
-      product: 'ДТ ЕВРО сорт F, вид III(ДТ-Е-К5) ДТ ЕВРО сорт F, вид III(ДТ-Е-К5)',
-      gost: 'ГОСТ №44246-44 с изм. №1-5',
-      codeOKPD: '19.3.233.232'
-    },
-    {
-      id: 3,
-      sap: 32425325325,
-      product: 'ДТ ЕВРО сорт F, вид III(ДТ-Е-К5) ДТ ЕВРО сорт F, вид III(ДТ-Е-К5)',
-      gost: 'ГОСТ №44246-44 с изм. №1-5',
-      codeOKPD: '19.3.233.232'
-    },
-    {
-      id: 4,
-      sap: 32425325325,
-      product: 'ДТ ЕВРО сорт F, вид III(ДТ-Е-К5) ДТ ЕВРО сорт F, вид III(ДТ-Е-К5)',
-      gost: 'ГОСТ №44246-44 с изм. №1-5',
-      codeOKPD: '19.3.233.232'
-    },
-    {
-      id: 5,
-      sap: 32425325325,
-      product: 'ДТ ЕВРО сорт F, вид III(ДТ-Е-К5) ДТ ЕВРО сорт F, вид III(ДТ-Е-К5)',
-      gost: 'ГОСТ №44246-44 с изм. №1-5',
-      codeOKPD: '19.3.233.232'
-    },
-  ];
+    public isFilterGroup: boolean = false;
 
-  constructor() { }
+    public isFilterLab: boolean = false;
 
-  public activeRecordId: number;
+    public filterTitle: string;
 
-  ngOnInit(): void {
-    this.setStyleScroll();
-  }
+    public activeRecordId: number;
 
-  @HostListener('document:resize', ['$event'])
-  OnResize(event): void {
-    this.setStyleScroll();
-  }
+    public isPopoverOpened: Map<IDocumentCodingFilterType, boolean> = new Map();
 
-  setStyleScroll(): void {
-    const scroll = document.getElementById('scrollDocCodingTable');
-    if (scroll) {
-      if (scroll.scrollHeight !== scroll.clientHeight) {
-        scroll.classList.remove('scrollON');
-        scroll.classList.add('scrollOFF');
-      } else {
-        scroll.classList.remove('scrollOFF');
-        scroll.classList.add('scrollON');
-      }
+    public activeFilters: Map<IDocumentCodingFilterType, IDocumentCodingFilter[]> = new Map();
+
+    public filters: IDocumentCodingTableFilter<IDocumentCodingFilter>[] = [
+        {
+            name: 'Лаборатория',
+            type: 'laboratories',
+            data: [],
+        },
+        {
+            name: 'Группы продуктов',
+            type: 'groups',
+            data: [],
+        }
+    ];
+
+    public data: IDocumentCodingTableRecord[] = [];
+
+    constructor(
+        private popoverOverlayService: PopoverOverlayService,
+        private documentCodingService: DocumentCodingService,
+    ) {
     }
-  }
 
-  activeRecord(id: number): void {
-    if (id === this.activeRecordId) {
-      this.activeRecordId = null;
-    } else {
-      this.activeRecordId = id;
+    ngOnInit(): void {
+        this.setStyleScroll();
+        this.getFilterList('laboratories');
+        this.getFilterList('groups');
+        this.getProductList();
     }
-  }
 
-  openFilterGroup(): void {
-    this.isFilterGroup = true;
-    this.filterGroup.emit(true);
-  }
+    @HostListener('document:resize', ['$event'])
+    public OnResize(): void {
+        this.setStyleScroll();
+    }
 
-  openFilterProduct(): void {
-    this.isFilterProduct = true;
-    this.filterProduct.emit(true);
-  }
+    setStyleScroll(): void {
+        const scroll = document.getElementById('scrollDocCodingTable');
+        if (scroll) {
+            if (scroll.scrollHeight !== scroll.clientHeight) {
+                scroll.classList.remove('scrollON');
+                scroll.classList.add('scrollOFF');
+            } else {
+                scroll.classList.remove('scrollOFF');
+                scroll.classList.add('scrollON');
+            }
+        }
+    }
 
+    public onClick(product: IDocumentCodingTableRecord): void {
+        this.activeRecordId = product.id === this.activeRecordId ? null : product.id;
+        this.selectedProduct.emit(this.activeRecordId ? product : null);
+    }
+
+    private async getFilterList(filter: 'laboratories' | 'groups'): Promise<void> {
+        const values = await this.documentCodingService.getFilterList<IDocumentsLaboratory>(filter);
+        this.filters.forEach(availableFilter => {
+            if (availableFilter.type === filter) {
+                availableFilter.data = values;
+            }
+        });
+    }
+
+    private async getProductList(): Promise<void> {
+        const labs = this.getActiveFilterArrayByType('laboratories');
+        const groups = this.getActiveFilterArrayByType('groups');
+        this.data = await this.documentCodingService.getProductListByFilter<IDocumentCodingTableRecord>(labs, groups);
+    }
+
+    public openFilter(filter: IDocumentCodingTableFilter<IDocumentCodingFilter>): void {
+        const element = document.getElementById(filter.type + '-doc-coding');
+        this.openPopover(element, filter);
+    }
+
+    private openPopover(origin: HTMLElement, filter: IDocumentCodingTableFilter<IDocumentCodingFilter>): void {
+        const popoverRef = this.popoverOverlayService.open({
+            content: DocumentCodingFilterComponent,
+            origin,
+            data: {
+                title: filter.name,
+                data: filter.data,
+                type: filter.type,
+                activeFilters: this.getActiveFilterArrayByType(filter.type),
+            },
+        });
+        this.isPopoverOpened.set(filter.type, true);
+        if (filter.type === 'laboratories') {
+            this.isFilterLab = true;
+        }
+        if (filter.type === 'groups') {
+            this.isFilterGroup = true;
+        }
+
+        popoverRef.afterClosed$.subscribe(res => {
+            console.log(res);
+            this.isPopoverOpened.set(res?.data?.type, false);
+            if (res && res.data && res.type === 'close') {
+                this.activeFilters.set(res?.data?.type, res.data.activeFilters);
+                this.getProductList();
+            }
+        });
+    }
+
+    public getFilterCountData(type: IDocumentCodingFilterType): number {
+        return this.activeFilters.get(type)?.length;
+    }
+
+    private getActiveFilterArrayByType(type: IDocumentCodingFilterType): IDocumentCodingFilter[] {
+        return this.activeFilters.has(type) ? Array.from(this.activeFilters.get(type).values()) : [];
+    }
 }
