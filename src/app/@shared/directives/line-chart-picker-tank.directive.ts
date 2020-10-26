@@ -1,6 +1,6 @@
 import { Directive, Input, ElementRef, Renderer2, HostListener, OnDestroy } from '@angular/core';
 import * as d3Selection from 'd3-selection';
-import { ProductionTrendType } from '../../dashboard/models/production-trends.model';
+import { ProductionTrendType } from '../../dashboard/models/LCO/production-trends.model';
 import { lineBreakTankName } from '../functions/line-break.function';
 import { findCursorPosition } from '../functions/find-cursor-position.function';
 

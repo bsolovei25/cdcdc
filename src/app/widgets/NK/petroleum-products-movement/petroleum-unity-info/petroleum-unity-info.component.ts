@@ -4,7 +4,7 @@ import { WidgetService } from 'src/app/dashboard/services/widget.service';
 import { PlatformLocation } from '@angular/common';
 import { UnityLoader } from '@shared/functions/UnityLoader';
 import { PetroleumScreenService } from 'src/app/dashboard/services/widgets/petroleum-screen.service';
-import { ITankInfo } from 'src/app/dashboard/models/petroleum-products-movement.model';
+import { ITankInfo } from 'src/app/dashboard/models/NK/petroleum-products-movement.model';
 
 @Component({
     selector: 'evj-petroleum-unity-info',

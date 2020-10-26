@@ -5,7 +5,7 @@ import {
     ChangeDetectionStrategy,
     OnChanges
 } from '@angular/core';
-import { ITankCardValue } from 'src/app/dashboard/models/tank-information';
+import { ITankCardValue } from 'src/app/dashboard/models/NK/tank-information';
 import { TooltipService } from '@shared/components/tooltip/service/tooltip.service';
 
 @Component({

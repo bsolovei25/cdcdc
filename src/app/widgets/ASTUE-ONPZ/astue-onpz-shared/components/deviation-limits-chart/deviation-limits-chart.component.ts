@@ -2,7 +2,7 @@ import { Component, OnChanges, Input, ViewChild, ElementRef, HostListener } from
 import {
     IProductionTrend,
     ProductionTrendType,
-} from '../../../../../dashboard/models/production-trends.model';
+} from '../../../../../dashboard/models/LCO/production-trends.model';
 import { IChartD3 } from '@shared/models/smart-scroll.model';
 import { AsyncRender } from '@shared/functions/async-render.function';
 import * as d3Selection from 'd3-selection';

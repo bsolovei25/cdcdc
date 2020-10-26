@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, ChangeDetectionStrategy, OnChanges } from '@angular/core';
-import { ITankInformation } from 'src/app/dashboard/models/tank-information';
+import { ITankInformation } from 'src/app/dashboard/models/NK/tank-information';
 
 @Component({
   selector: 'evj-tank-line',

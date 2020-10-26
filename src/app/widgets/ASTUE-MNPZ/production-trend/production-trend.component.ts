@@ -1,6 +1,6 @@
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { WidgetService } from 'src/app/dashboard/services/widget.service';
-import { IProductionTrend } from 'src/app/dashboard/models/production-trends.model';
+import { IProductionTrend } from 'src/app/dashboard/models/LCO/production-trends.model';
 import { BehaviorSubject } from 'rxjs';
 import { WidgetPlatform } from 'src/app/dashboard/models/@PLATFORM/widget-platform';
 

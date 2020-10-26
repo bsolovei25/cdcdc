@@ -7,19 +7,21 @@ import {
     IAsEfCell,
     IAsEfTableBlock,
     IAsEfScript,
-    IAsEfTableRow,
+    IAsEfTableRow
 } from '../../../../../dashboard/models/ASTUE/astue-efficiency.model';
-import { AstueEfficiencyService } from '../../../../../dashboard/services/ASTUE/astue-efficiency.service';
+import { AstueEfficiencyService } from '../../../../../dashboard/services/widgets/ASTUE/astue-efficiency.service';
+import { WidgetService } from '../../../../../dashboard/services/widget.service';
 
 @Component({
     selector: 'evj-astue-efficiency-table-display',
     templateUrl: './astue-efficiency-table-display.component.html',
-    styleUrls: ['./astue-efficiency-table-display.component.scss'],
+    styleUrls: ['./astue-efficiency-table-display.component.scss']
 })
 export class AstueEfficiencyTableDisplayComponent implements OnInit, OnDestroy {
     @Input() public isInitialDataShow: boolean = true;
     @Input() public allData: IAsEfUnitNew[] = [];
     @Output() private toggleDisplay: EventEmitter<true> = new EventEmitter<true>();
+
 
     public displayData: IAsEfTable[] = [];
     public dates: IAsEfCell[] = [];
@@ -32,53 +34,53 @@ export class AstueEfficiencyTableDisplayComponent implements OnInit, OnDestroy {
                 {
                     date: new Date(2020, 5, 1),
                     value: '1.1123',
-                    isEditable: false,
+                    isEditable: false
                 },
                 {
                     date: new Date(2020, 5, 2),
                     value: '1.1123',
-                    isEditable: false,
+                    isEditable: false
                 },
                 {
                     date: new Date(2020, 5, 3),
                     value: '1.1123',
-                    isEditable: false,
+                    isEditable: false
                 },
                 {
                     date: new Date(2020, 5, 4),
                     value: '1.1123',
-                    isEditable: false,
+                    isEditable: false
                 },
                 {
                     date: new Date(2020, 5, 5),
                     value: '1.1123',
-                    isEditable: false,
+                    isEditable: false
                 },
                 {
                     date: new Date(2020, 5, 6),
                     value: '1.1123',
-                    isEditable: false,
+                    isEditable: false
                 },
                 {
                     date: new Date(2020, 5, 7),
                     value: '1.1123',
-                    isEditable: false,
+                    isEditable: false
                 },
                 {
                     date: new Date(2020, 5, 8),
                     value: '1.1123',
-                    isEditable: false,
+                    isEditable: false
                 },
                 {
                     date: new Date(2020, 5, 9),
                     value: '1.1123',
-                    isEditable: false,
+                    isEditable: false
                 },
                 {
                     date: new Date(2020, 5, 10),
                     value: '1.1123',
-                    isEditable: false,
-                },
+                    isEditable: false
+                }
             ],
             children: [
                 {
@@ -88,54 +90,54 @@ export class AstueEfficiencyTableDisplayComponent implements OnInit, OnDestroy {
                         {
                             date: new Date(2020, 5, 1),
                             value: '8.888',
-                            isEditable: false,
+                            isEditable: false
                         },
                         {
                             date: new Date(2020, 5, 2),
                             value: '8.888',
-                            isEditable: false,
+                            isEditable: false
                         },
                         {
                             date: new Date(2020, 5, 3),
                             value: '8.888',
-                            isEditable: false,
+                            isEditable: false
                         },
                         {
                             date: new Date(2020, 5, 4),
                             value: '8.888',
-                            isEditable: false,
+                            isEditable: false
                         },
                         {
                             date: new Date(2020, 5, 5),
                             value: '8.888',
-                            isEditable: false,
+                            isEditable: false
                         },
                         {
                             date: new Date(2020, 5, 6),
                             value: '8.888',
-                            isEditable: false,
+                            isEditable: false
                         },
                         {
                             date: new Date(2020, 5, 7),
                             value: '8.888',
-                            isEditable: false,
+                            isEditable: false
                         },
                         {
                             date: new Date(2020, 5, 8),
                             value: '8.888',
-                            isEditable: false,
+                            isEditable: false
                         },
                         {
                             date: new Date(2020, 5, 9),
                             value: '8.888',
-                            isEditable: false,
+                            isEditable: false
                         },
                         {
                             date: new Date(2020, 5, 10),
                             value: '8.888',
-                            isEditable: false,
-                        },
-                    ],
+                            isEditable: false
+                        }
+                    ]
                 },
                 {
                     name: 'Фактическая переработка',
@@ -144,56 +146,56 @@ export class AstueEfficiencyTableDisplayComponent implements OnInit, OnDestroy {
                         {
                             date: new Date(2020, 5, 1),
                             value: '4.1',
-                            isEditable: false,
+                            isEditable: false
                         },
                         {
                             date: new Date(2020, 5, 2),
                             value: '4.1',
-                            isEditable: false,
+                            isEditable: false
                         },
                         {
                             date: new Date(2020, 5, 3),
                             value: '4.1',
-                            isEditable: false,
+                            isEditable: false
                         },
                         {
                             date: new Date(2020, 5, 4),
                             value: '4.1',
-                            isEditable: false,
+                            isEditable: false
                         },
                         {
                             date: new Date(2020, 5, 5),
                             value: '4.1',
-                            isEditable: false,
+                            isEditable: false
                         },
                         {
                             date: new Date(2020, 5, 6),
                             value: '4.1',
-                            isEditable: false,
+                            isEditable: false
                         },
                         {
                             date: new Date(2020, 5, 7),
                             value: '4.1',
-                            isEditable: false,
+                            isEditable: false
                         },
                         {
                             date: new Date(2020, 5, 8),
                             value: '4.1',
-                            isEditable: false,
+                            isEditable: false
                         },
                         {
                             date: new Date(2020, 5, 9),
                             value: '4.1',
-                            isEditable: false,
+                            isEditable: false
                         },
                         {
                             date: new Date(2020, 5, 10),
                             value: '4.1',
-                            isEditable: false,
-                        },
-                    ],
-                },
-            ],
+                            isEditable: false
+                        }
+                    ]
+                }
+            ]
         },
         {
             name: 'ЭЛОУ-АВТ-6 Поток №1',
@@ -206,54 +208,54 @@ export class AstueEfficiencyTableDisplayComponent implements OnInit, OnDestroy {
                         {
                             date: new Date(2020, 5, 1),
                             value: '8.888',
-                            isEditable: true,
+                            isEditable: true
                         },
                         {
                             date: new Date(2020, 5, 2),
                             value: '8.888',
-                            isEditable: true,
+                            isEditable: true
                         },
                         {
                             date: new Date(2020, 5, 3),
                             value: '8.888',
-                            isEditable: true,
+                            isEditable: true
                         },
                         {
                             date: new Date(2020, 5, 4),
                             value: '8.888',
-                            isEditable: true,
+                            isEditable: true
                         },
                         {
                             date: new Date(2020, 5, 5),
                             value: '8.888',
-                            isEditable: true,
+                            isEditable: true
                         },
                         {
                             date: new Date(2020, 5, 6),
                             value: '8.888',
-                            isEditable: true,
+                            isEditable: true
                         },
                         {
                             date: new Date(2020, 5, 7),
                             value: '8.888',
-                            isEditable: true,
+                            isEditable: true
                         },
                         {
                             date: new Date(2020, 5, 8),
                             value: '8.888',
-                            isEditable: true,
+                            isEditable: true
                         },
                         {
                             date: new Date(2020, 5, 9),
                             value: '8.888',
-                            isEditable: true,
+                            isEditable: true
                         },
                         {
                             date: new Date(2020, 5, 10),
                             value: '8.888',
-                            isEditable: true,
-                        },
-                    ],
+                            isEditable: true
+                        }
+                    ]
                 },
                 {
                     name: 'Плотность',
@@ -262,54 +264,54 @@ export class AstueEfficiencyTableDisplayComponent implements OnInit, OnDestroy {
                         {
                             date: new Date(2020, 5, 1),
                             value: '4.1',
-                            isEditable: false,
+                            isEditable: false
                         },
                         {
                             date: new Date(2020, 5, 2),
                             value: '4.1',
-                            isEditable: false,
+                            isEditable: false
                         },
                         {
                             date: new Date(2020, 5, 3),
                             value: '4.1',
-                            isEditable: false,
+                            isEditable: false
                         },
                         {
                             date: new Date(2020, 5, 4),
                             value: '4.1',
-                            isEditable: false,
+                            isEditable: false
                         },
                         {
                             date: new Date(2020, 5, 5),
                             value: '4.1',
-                            isEditable: false,
+                            isEditable: false
                         },
                         {
                             date: new Date(2020, 5, 6),
                             value: '4.1',
-                            isEditable: false,
+                            isEditable: false
                         },
                         {
                             date: new Date(2020, 5, 7),
                             value: '4.1',
-                            isEditable: false,
+                            isEditable: false
                         },
                         {
                             date: new Date(2020, 5, 8),
                             value: '4.1',
-                            isEditable: false,
+                            isEditable: false
                         },
                         {
                             date: new Date(2020, 5, 9),
                             value: '4.1',
-                            isEditable: false,
+                            isEditable: false
                         },
                         {
                             date: new Date(2020, 5, 10),
                             value: '4.1',
-                            isEditable: false,
-                        },
-                    ],
+                            isEditable: false
+                        }
+                    ]
                 },
                 {
                     name: 'Теплотворная способность',
@@ -318,57 +320,57 @@ export class AstueEfficiencyTableDisplayComponent implements OnInit, OnDestroy {
                         {
                             date: new Date(2020, 5, 1),
                             value: '4.1',
-                            isEditable: false,
+                            isEditable: false
                         },
                         {
                             date: new Date(2020, 5, 2),
                             value: '4.1',
-                            isEditable: false,
+                            isEditable: false
                         },
                         {
                             date: new Date(2020, 5, 3),
                             value: '4.1',
-                            isEditable: false,
+                            isEditable: false
                         },
                         {
                             date: new Date(2020, 5, 4),
                             value: '4.1',
-                            isEditable: false,
+                            isEditable: false
                         },
                         {
                             date: new Date(2020, 5, 5),
                             value: '4.1',
-                            isEditable: false,
+                            isEditable: false
                         },
                         {
                             date: new Date(2020, 5, 6),
                             value: '4.1',
-                            isEditable: false,
+                            isEditable: false
                         },
                         {
                             date: new Date(2020, 5, 7),
                             value: '4.1',
-                            isEditable: false,
+                            isEditable: false
                         },
                         {
                             date: new Date(2020, 5, 8),
                             value: '4.1',
-                            isEditable: false,
+                            isEditable: false
                         },
                         {
                             date: new Date(2020, 5, 9),
                             value: '4.1',
-                            isEditable: false,
+                            isEditable: false
                         },
                         {
                             date: new Date(2020, 5, 10),
                             value: '4.1',
-                            isEditable: false,
-                        },
-                    ],
-                },
-            ],
-        },
+                            isEditable: false
+                        }
+                    ]
+                }
+            ]
+        }
     ];
 
     public deviationsData: IAsEfTableBlock[] = [
@@ -383,54 +385,54 @@ export class AstueEfficiencyTableDisplayComponent implements OnInit, OnDestroy {
                         {
                             date: new Date(2020, 5, 1),
                             value: '8.888',
-                            isEditable: false,
+                            isEditable: false
                         },
                         {
                             date: new Date(2020, 5, 2),
                             value: '8.888',
-                            isEditable: false,
+                            isEditable: false
                         },
                         {
                             date: new Date(2020, 5, 3),
                             value: '8.888',
-                            isEditable: false,
+                            isEditable: false
                         },
                         {
                             date: new Date(2020, 5, 4),
                             value: '8.888',
-                            isEditable: false,
+                            isEditable: false
                         },
                         {
                             date: new Date(2020, 5, 5),
                             value: '8.888',
-                            isEditable: false,
+                            isEditable: false
                         },
                         {
                             date: new Date(2020, 5, 6),
                             value: '8.888',
-                            isEditable: false,
+                            isEditable: false
                         },
                         {
                             date: new Date(2020, 5, 7),
                             value: '8.888',
-                            isEditable: false,
+                            isEditable: false
                         },
                         {
                             date: new Date(2020, 5, 8),
                             value: '8.888',
-                            isEditable: false,
+                            isEditable: false
                         },
                         {
                             date: new Date(2020, 5, 9),
                             value: '8.888',
-                            isEditable: false,
+                            isEditable: false
                         },
                         {
                             date: new Date(2020, 5, 10),
                             value: '8.888',
-                            isEditable: false,
-                        },
-                    ],
+                            isEditable: false
+                        }
+                    ]
                 },
                 {
                     name: 'Ед. изм.',
@@ -439,56 +441,56 @@ export class AstueEfficiencyTableDisplayComponent implements OnInit, OnDestroy {
                         {
                             date: new Date(2020, 5, 1),
                             value: '4.1',
-                            isEditable: false,
+                            isEditable: false
                         },
                         {
                             date: new Date(2020, 5, 2),
                             value: '4.1',
-                            isEditable: false,
+                            isEditable: false
                         },
                         {
                             date: new Date(2020, 5, 3),
                             value: '4.1',
-                            isEditable: false,
+                            isEditable: false
                         },
                         {
                             date: new Date(2020, 5, 4),
                             value: '4.1',
-                            isEditable: false,
+                            isEditable: false
                         },
                         {
                             date: new Date(2020, 5, 5),
                             value: '4.1',
-                            isEditable: false,
+                            isEditable: false
                         },
                         {
                             date: new Date(2020, 5, 6),
                             value: '4.1',
-                            isEditable: false,
+                            isEditable: false
                         },
                         {
                             date: new Date(2020, 5, 7),
                             value: '4.1',
-                            isEditable: false,
+                            isEditable: false
                         },
                         {
                             date: new Date(2020, 5, 8),
                             value: '4.1',
-                            isEditable: false,
+                            isEditable: false
                         },
                         {
                             date: new Date(2020, 5, 9),
                             value: '4.1',
-                            isEditable: false,
+                            isEditable: false
                         },
                         {
                             date: new Date(2020, 5, 10),
                             value: '4.1',
-                            isEditable: false,
-                        },
-                    ],
-                },
-            ],
+                            isEditable: false
+                        }
+                    ]
+                }
+            ]
         },
         {
             name: 'Бизнес-план',
@@ -501,54 +503,54 @@ export class AstueEfficiencyTableDisplayComponent implements OnInit, OnDestroy {
                         {
                             date: new Date(2020, 5, 1),
                             value: '8.888',
-                            isEditable: true,
+                            isEditable: true
                         },
                         {
                             date: new Date(2020, 5, 2),
                             value: '8.888',
-                            isEditable: true,
+                            isEditable: true
                         },
                         {
                             date: new Date(2020, 5, 3),
                             value: '8.888',
-                            isEditable: true,
+                            isEditable: true
                         },
                         {
                             date: new Date(2020, 5, 4),
                             value: '8.888',
-                            isEditable: true,
+                            isEditable: true
                         },
                         {
                             date: new Date(2020, 5, 5),
                             value: '8.888',
-                            isEditable: true,
+                            isEditable: true
                         },
                         {
                             date: new Date(2020, 5, 6),
                             value: '8.888',
-                            isEditable: true,
+                            isEditable: true
                         },
                         {
                             date: new Date(2020, 5, 7),
                             value: '8.888',
-                            isEditable: true,
+                            isEditable: true
                         },
                         {
                             date: new Date(2020, 5, 8),
                             value: '8.888',
-                            isEditable: true,
+                            isEditable: true
                         },
                         {
                             date: new Date(2020, 5, 9),
                             value: '8.888',
-                            isEditable: true,
+                            isEditable: true
                         },
                         {
                             date: new Date(2020, 5, 10),
                             value: '8.888',
-                            isEditable: true,
-                        },
-                    ],
+                            isEditable: true
+                        }
+                    ]
                 },
                 {
                     name: 'Ед. изм.',
@@ -557,90 +559,90 @@ export class AstueEfficiencyTableDisplayComponent implements OnInit, OnDestroy {
                         {
                             date: new Date(2020, 5, 1),
                             value: '4.1',
-                            isEditable: false,
+                            isEditable: false
                         },
                         {
                             date: new Date(2020, 5, 2),
                             value: '4.1',
-                            isEditable: false,
+                            isEditable: false
                         },
                         {
                             date: new Date(2020, 5, 3),
                             value: '4.1',
-                            isEditable: false,
+                            isEditable: false
                         },
                         {
                             date: new Date(2020, 5, 4),
                             value: '4.1',
-                            isEditable: false,
+                            isEditable: false
                         },
                         {
                             date: new Date(2020, 5, 5),
                             value: '4.1',
-                            isEditable: false,
+                            isEditable: false
                         },
                         {
                             date: new Date(2020, 5, 6),
                             value: '4.1',
-                            isEditable: false,
+                            isEditable: false
                         },
                         {
                             date: new Date(2020, 5, 7),
                             value: '4.1',
-                            isEditable: false,
+                            isEditable: false
                         },
                         {
                             date: new Date(2020, 5, 8),
                             value: '4.1',
-                            isEditable: false,
+                            isEditable: false
                         },
                         {
                             date: new Date(2020, 5, 9),
                             value: '4.1',
-                            isEditable: false,
+                            isEditable: false
                         },
                         {
                             date: new Date(2020, 5, 10),
                             value: '4.1',
-                            isEditable: false,
-                        },
-                    ],
-                },
-            ],
-        },
+                            isEditable: false
+                        }
+                    ]
+                }
+            ]
+        }
     ];
 
     public scripts: IAsEfScript[] = [
         {
             name: 'Иванов И.И.',
             fromDateTime: new Date(2020, 1, 3, 14, 44, 23),
-            toDateTime: new Date(2020, 1, 7, 21, 23, 45),
+            toDateTime: new Date(2020, 1, 7, 21, 23, 45)
         },
         {
             name: 'Петров П.П.',
             fromDateTime: new Date(2020, 1, 3, 14, 44, 23),
-            toDateTime: new Date(2020, 1, 7, 21, 23, 45),
+            toDateTime: new Date(2020, 1, 7, 21, 23, 45)
         },
         {
             name: 'Сидоров С.С.',
             fromDateTime: new Date(2020, 1, 3, 14, 44, 23),
-            toDateTime: new Date(2020, 1, 7, 21, 23, 45),
+            toDateTime: new Date(2020, 1, 7, 21, 23, 45)
         },
         {
             name: 'Иванов И.И.',
             fromDateTime: new Date(2020, 1, 3, 14, 44, 23),
-            toDateTime: new Date(2020, 1, 7, 21, 23, 45),
+            toDateTime: new Date(2020, 1, 7, 21, 23, 45)
         },
         {
             name: 'Петров П.П.',
             fromDateTime: new Date(2020, 1, 3, 14, 44, 23),
-            toDateTime: new Date(2020, 1, 7, 21, 23, 45),
+            toDateTime: new Date(2020, 1, 7, 21, 23, 45)
         },
         {
             name: 'Сидоров С.С.',
             fromDateTime: new Date(2020, 1, 3, 14, 44, 23),
-            toDateTime: new Date(2020, 1, 7, 21, 23, 45),
-        },
+            toDateTime: new Date(2020, 1, 7, 21, 23, 45)
+        }
     ];
 
     public isDropdownOpen: boolean = false;
@@ -652,9 +654,13 @@ export class AstueEfficiencyTableDisplayComponent implements OnInit, OnDestroy {
 
     public scriptSelection: SelectionModel<any> = new SelectionModel<any>();
 
+    currentDate: boolean = false;
+
     private subscriptions: Subscription[] = [];
 
-    constructor(public AsEfService: AstueEfficiencyService) {}
+    constructor(public AsEfService: AstueEfficiencyService,
+                private widgetService: WidgetService) {
+    }
 
     public ngOnInit(): void {
         this.subscriptions.push(
@@ -664,6 +670,7 @@ export class AstueEfficiencyTableDisplayComponent implements OnInit, OnDestroy {
                 this.dataMapping();
                 this.defineDates();
                 this.defineSum();
+                this.currentDate = this.widgetService.currentDates$.getValue() === null;
             })
         );
     }

@@ -9,7 +9,7 @@ import {
 } from '@angular/core';
 import { SelectionModel } from '@angular/cdk/collections';
 import { FormControl, Validators } from '@angular/forms';
-import { IWorkerOptionAdminPanel } from '../../../../../../dashboard/models/admin-panel';
+import { IWorkerOptionAdminPanel } from '../../../../../../dashboard/models/ADMIN/admin-panel';
 
 @Component({
     selector: 'evj-aws-card',

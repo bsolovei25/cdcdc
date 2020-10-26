@@ -1,7 +1,10 @@
+import { IProductGroups, IDataProgressGroup } from './../../../dashboard/models/SMP/product-groups.model';
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit, OnDestroy, Inject } from '@angular/core';
 import { WidgetPlatform } from 'src/app/dashboard/models/@PLATFORM/widget-platform';
 import { WidgetService } from 'src/app/dashboard/services/widget.service';
-import { IProducts } from '../../../dashboard/models/SMP/product-groups.model';
+import { SmpService } from '../../../dashboard/services/widgets/SMP/smp.service';
+
 
 @Component({
     selector: 'evj-product-groups',
@@ -9,10 +12,12 @@ import { IProducts } from '../../../dashboard/models/SMP/product-groups.model';
     styleUrls: ['./product-groups.component.scss'],
 })
 export class ProductGroupsComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
-    data: IProducts[] = [];
+    data: IProductGroups[] = [];
 
     constructor(
         protected widgetService: WidgetService,
+        private http: HttpClient,
+        private smpService: SmpService,
         @Inject('isMock') public isMock: boolean,
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string
@@ -23,10 +28,21 @@ export class ProductGroupsComponent extends WidgetPlatform<unknown> implements O
 
     ngOnInit(): void {
         super.widgetInit();
+
+        // this.getData();
+
+        this.http
+            .get('assets/mock/SMP/product-groups/product-groups.mock.json')
+            .subscribe((data: IDataProgressGroup) => {
+                this.data = data.data.items;
+            });
+    }
+
+    private async getData(): Promise<void> {
+        this.data = (await this.smpService.getDataProgressGroup())?.data.items;
     }
 
     protected dataHandler(ref: any): void {
-        this.data = ref.items;
     }
 
     ngOnDestroy(): void {

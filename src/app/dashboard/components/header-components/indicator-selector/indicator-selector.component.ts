@@ -85,7 +85,7 @@ export class IndicatorSelectorComponent implements OnInit, OnDestroy {
             this.userSettings.ScreenId = Number(screenIdFromRoute);
         }
         this.subscriptions.push(
-            this.userSettings.screens$.subscribe((screens) => {
+            this.userSettings.screensShared.subscribe((screens) => {
                 if (!screens?.length) {
                     this.idScreen = undefined;
                     this.nameScreen = 'СОЗДАЙТЕ ЭКРАН!';

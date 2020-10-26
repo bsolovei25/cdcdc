@@ -91,7 +91,7 @@ export class ImplementationPieComponent implements OnInit, OnChanges {
       .attr('font-family', "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
       .attr('y', '68')
       .attr('x', '50')
-      .attr('fill', 'green')
+      .attr('fill', 'var(--color-standard)')
       .attr('text-anchor', 'middle')
       .text(data.deviation);
   }

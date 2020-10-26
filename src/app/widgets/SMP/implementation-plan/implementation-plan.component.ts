@@ -24,6 +24,7 @@ export class ImplementationPlanComponent extends WidgetPlatform<unknown> impleme
     @Inject('uniqId') public uniqId: string
   ) {
     super(widgetService, isMock, id, uniqId);
+    this.isRealtimeData = false;
   }
 
   private async getData(): Promise<void> {
