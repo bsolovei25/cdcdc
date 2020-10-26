@@ -47,6 +47,7 @@ export class AstueOnpzMultiChartComponent implements OnInit, OnChanges, OnDestro
     @Input() private data: IMultiChartLine[] = [];
     @Input() private colors: Map<string, number>;
     @Input() private options: IMultiChartOptions;
+    @Input() private scroll: { left: number, right: number } = { left: 0, right: 100 };
 
     @ViewChild('chart', { static: true }) private chart: ElementRef;
 
@@ -87,6 +88,17 @@ export class AstueOnpzMultiChartComponent implements OnInit, OnChanges, OnDestro
     constructor(private renderer: Renderer2, private widgetService: WidgetService) {
     }
 
+    private tempFunction(): void {
+        // TODO: change scale function -> transform data -> draw chart ->
+        // this.svg
+        //     .select('axisX')
+        //     .attr('transform', translate)
+        //     .attr('class', axis)
+        //     .call(this.axis[axis])
+        //     .selectAll('text')
+        //     .attr('class', 'label');
+    }
+
     // TODO think about it
     public ngOnInit(): void {
         this.subscriptions.push(
@@ -104,9 +116,7 @@ export class AstueOnpzMultiChartComponent implements OnInit, OnChanges, OnDestro
 
     public ngOnDestroy(): void {
         this.listeners.forEach((listener) => listener());
-        this.subscriptions.forEach(value => {
-            value.unsubscribe();
-        });
+        this.subscriptions.forEach(x => x.unsubscribe());
     }
 
     @HostListener('document:resize', ['$event'])
@@ -210,7 +220,9 @@ export class AstueOnpzMultiChartComponent implements OnInit, OnChanges, OnDestro
         this.data.forEach((graph) => {
             const key: string = graph.graphType === 'fact'
             || graph.graphType === 'plan'
-            || graph.graphType === 'forecast' ? 'main' : graph.graphType;
+            || graph.graphType === 'forecast'
+            || graph.graphType === 'higherBorder'
+            || graph.graphType === 'lowerBorder' ? 'main' : graph.graphType;
             if (!this.coefs[key]) {
                 this.coefs[key] = {
                     min: this.MIN_COEF,
@@ -224,7 +236,7 @@ export class AstueOnpzMultiChartComponent implements OnInit, OnChanges, OnDestro
             currentChart.maxValue = max + (max - min) * this.coefs[key].max;
             currentChart.minValue = min - (max - min) * this.coefs[key].min;
         });
-        const mainChartGroup = ['fact', 'plan', 'forecast'];
+        const mainChartGroup = ['fact', 'plan', 'forecast', 'higherBorder', 'lowerBorder'];
         const filterChartArray = this.charts.filter((x) =>
             mainChartGroup.includes(x.graphType));
         const domainMain = [d3.max(filterChartArray.map((x) => x.maxValue)),
@@ -241,7 +253,8 @@ export class AstueOnpzMultiChartComponent implements OnInit, OnChanges, OnDestro
 
         this.charts.forEach((chart) => {
             if (chart.graphType !== 'fact' && chart.graphType !== 'plan'
-                && chart.graphType !== 'forecast'
+                && chart.graphType !== 'forecast' && chart.graphType !== 'higherBorder'
+                && chart.graphType !== 'lowerBorder'
             ) {
                 this.axisLabels[chart.graphType] = this.defineAxisYLabels(
                     chart.minValue,
@@ -295,6 +308,13 @@ export class AstueOnpzMultiChartComponent implements OnInit, OnChanges, OnDestro
                 new Date(currentDatetime.getTime() + 4 * 1000 * 60 * 60)
             ];
         }
+
+        // TODO: scroll
+        const deltaDomainDates = domainDates[1].getTime() - domainDates[0].getTime();
+        domainDates = [
+            new Date(domainDates[0].getTime() + this.scroll.left / 100 * deltaDomainDates),
+            new Date(domainDates[1].getTime() - this.scroll.right / 100 * deltaDomainDates),
+        ];
 
         this.scaleFuncs.x = d3
             .scaleTime()
@@ -353,7 +373,11 @@ export class AstueOnpzMultiChartComponent implements OnInit, OnChanges, OnDestro
                 .x((item: IChartD3) => item.x)
                 .y((item: IChartD3) => item.y);
 
-            const flag = chart.graphType !== 'plan' && chart.graphType !== 'fact' && chart.graphType !== 'forecast';
+            const flag = chart.graphType !== 'plan'
+                && chart.graphType !== 'fact'
+                && chart.graphType !== 'forecast'
+                && chart.graphType !== 'higherBorder'
+                && chart.graphType !== 'lowerBorder';
             const lineType = flag ? 'other' : chart.graphType;
             const drawnLine = this.svg
                 .append('path')
@@ -424,7 +448,11 @@ export class AstueOnpzMultiChartComponent implements OnInit, OnChanges, OnDestro
         const SCALE_STEP: number = 0.05;
 
         this.charts.forEach((chart) => {
-            const flag = chart.graphType === 'fact' || chart.graphType === 'plan' || chart.graphType === 'forecast';
+            const flag = chart.graphType === 'fact'
+                || chart.graphType === 'plan'
+                || chart.graphType === 'forecast'
+                || chart.graphType === 'higherBorder'
+                || chart.graphType === 'lowerBorder';
             if (flag && isMainAxisDrawn) {
                 return;
             } else if (flag) {
@@ -450,15 +478,27 @@ export class AstueOnpzMultiChartComponent implements OnInit, OnChanges, OnDestro
             const labels = axisY.append('g').attr('class', 'labels');
             let y: number = this.padding.top - this.topMargin + height;
             const step: number = height / 10;
-            if (isMainLabelsDrawn && (chart.graphType === 'plan' || chart.graphType === 'fact'
-                || chart.graphType === 'forecast')
+            if (isMainLabelsDrawn && (
+                chart.graphType === 'plan'
+                || chart.graphType === 'fact'
+                || chart.graphType === 'forecast'
+                || chart.graphType === 'higherBorder'
+                || chart.graphType === 'lowerBorder')
             ) {
                 return;
             }
             const currentKey: string =
-                chart.graphType === 'plan' || chart.graphType === 'fact' || chart.graphType === 'forecast' ? 'main' : chart.graphType;
-            isMainLabelsDrawn = chart.graphType === 'plan' || chart.graphType === 'fact'
-                || chart.graphType === 'forecast';
+                chart.graphType === 'plan'
+                || chart.graphType === 'fact'
+                || chart.graphType === 'forecast'
+                || chart.graphType === 'higherBorder'
+                || chart.graphType === 'lowerBorder'
+                    ? 'main' : chart.graphType;
+            isMainLabelsDrawn = chart.graphType === 'plan'
+                || chart.graphType === 'fact'
+                || chart.graphType === 'forecast'
+                || chart.graphType === 'higherBorder'
+                || chart.graphType === 'lowerBorder';
             this.axisLabels[currentKey].forEach((item) => {
                 y -= step;
                 labels
@@ -538,7 +578,9 @@ export class AstueOnpzMultiChartComponent implements OnInit, OnChanges, OnDestro
             const key: string =
                 chart.graphType === 'fact'
                 || chart.graphType === 'plan'
-                || chart.graphType === 'forecast' ? 'main' : chart.graphType;
+                || chart.graphType === 'forecast'
+                || chart.graphType === 'higherBorder'
+                || chart.graphType === 'lowerBorder' ? 'main' : chart.graphType;
             const coefs = this.coefs[key];
 
             this.listeners.push(
@@ -671,10 +713,177 @@ export class AstueOnpzMultiChartComponent implements OnInit, OnChanges, OnDestro
         //     }
         // });
         // }
+        // if (!!this.currentDates) {
+        //     return;
+        // }
+        // const values = [];
+        // let plan: IChartMini;
+        // let fact: IChartMini;
+        // const currentDatetime: Date = new Date();
+        // currentDatetime.setMinutes(0, 0, 0);
+        // const x: number = this.scaleFuncs.x(currentDatetime);
+        // this.charts.forEach((chart) => {
+        //     const filterChart = chart.graph
+        //         .filter((item) => item.timeStamp.getTime() <= currentDatetime.getTime());
+        //     const statValue =
+        //         filterChart?.length > 0
+        //             ? filterChart[filterChart.length - 1]
+        //             : chart?.graph[0] ?? null;
+        //     if (chart.graphType === 'plan') {
+        //         plan = chart.graph[chart.graph.length - 1];
+        //     } else if (chart.graphType === 'fact') {
+        //         fact = chart.graph[chart.graph.length - 1];
+        //     } else if (chart.graphType === 'higherBorder') {
+        //         fact = chart.graph[chart.graph.length - 1];
+        //     } else if (chart.graphType === 'lowerBorder') {
+        //         fact = chart.graph[chart.graph.length - 1];
+        //     } else if (chart.graphType === 'forecast') {
+        //         // TODO add some
+        //     } else {
+        //         values.push({
+        //             val: statValue,
+        //             color: lineColors[this.colors?.get(chart.tagName)],
+        //             units: chart.units ?? '',
+        //             iconType: chart.graphType ?? 'volume'
+        //         });
+        //     }
+        // });
+
+        // const y = (this.padding.top - this.topMargin) * 0.7;
+        // const y2 = this.graphMaxY - this.padding.bottom;
+        // const width = this.graphMaxX - this.padding.right - x;
+        // const height = this.graphMaxY - this.padding.top - this.padding.bottom + this.topMargin;
+        // if (width > 0) {
+        //     const g = this.svg.append('g').attr('class', 'picker');
+        //     g.append('rect')
+        //         .attr('x', x)
+        //         .attr('y', this.padding.top - this.topMargin)
+        //         .attr('width', width)
+        //         .attr('height', height)
+        //         .attr('class', 'future');
+        //     g.append('line')
+        //         .attr('x1', x)
+        //         .attr('y1', y)
+        //         .attr('x2', x)
+        //         .attr('y2', y2)
+        //         .attr('class', 'future-line');
+        //     g.append('line')
+        //         .attr('x1', x - this.topMargin / 2)
+        //         .attr('y1', y)
+        //         .attr('x2', x + this.topMargin / 2)
+        //         .attr('y2', y)
+        //         .attr('class', 'future-line future-line_hor');
+        //     g.append('rect')
+        //         .attr('x', x - this.axisYWidth * 1.25)
+        //         .attr('y', y - this.axisYWidth * 0.5)
+        //         .attr('width', this.axisYWidth * 2.5)
+        //         .attr('height', this.axisYWidth * 0.5)
+        //         .attr('rx', 5)
+        //         .attr('class', 'data');
+        //     g.append('rect')
+        //         .attr('x', x - (this.axisYWidth * 0.3) / 2)
+        //         .attr('y', y - this.axisYWidth * 0.4)
+        //         .attr('width', this.axisYWidth * 0.3)
+        //         .attr('height', this.axisYWidth * 0.3)
+        //         .attr('rx', 5)
+        //         .attr('class', 'data-icon');
+        //     g.append('image')
+        //         .attr(
+        //             'xlink:href',
+        //             'assets/icons/widgets/ASTUE-ONPZ/astue-onpz-conventional-fuel/poly.svg'
+        //         )
+        //         .attr('x', x - (this.axisYWidth * 0.3) / 2 + 1)
+        //         .attr('y', y - this.axisYWidth * 0.4 + 3)
+        //         .attr('width', this.axisYWidth * 0.3 - 8)
+        //         .attr('height', this.axisYWidth * 0.3 - 8);
+        //     g.append('image')
+        //         .attr(
+        //             'xlink:href',
+        //             'assets/icons/widgets/ASTUE-ONPZ/astue-onpz-conventional-fuel/poly.svg'
+        //         )
+        //         .attr('x', x - (this.axisYWidth * 0.3) / 2 + 2)
+        //         .attr('y', y - this.axisYWidth * 0.4 + 2)
+        //         .attr('width', this.axisYWidth * 0.3 - 4)
+        //         .attr('height', this.axisYWidth * 0.3 - 4);
+        //     if (fact) {
+        //         g.append('text')
+        //             .attr('text-anchor', 'end')
+        //             .attr('x', x - this.axisYWidth * 0.3)
+        //             .attr('y', y - this.axisYWidth * 0.15)
+        //             .attr('class', 'data-fact')
+        //             .text(fact.value.toFixed(2));
+        //     }
+        //     if (plan) {
+        //         g.append('text')
+        //             .attr('text-anchor', 'start')
+        //             .attr('x', x + this.axisYWidth * 0.3)
+        //             .attr('y', y - this.axisYWidth * 0.15)
+        //             .attr('class', 'data-plan')
+        //             .text(plan.value.toFixed(2));
+        //     }
+
+        //     const formatDate = d3.timeFormat('%d.%m.%Y | %H:%M:%S');
+        //     const value = plan || fact || null;
+        //     if (value) {
+        //         g.append('text')
+        //             .attr('text-anchor', 'middle')
+        //             .attr('x', x)
+        //             .attr('y', y - this.axisYWidth * 0.6)
+        //             .attr('class', 'data-date')
+        //             .text(formatDate(currentDatetime));
+        //     }
+
+        //     let start = this.padding.top - this.topMargin;
+        //     const step = 10;
+        //     const cardWidth = this.axisYWidth * 2;
+        //     const cardHeight = this.axisYWidth * 0.5;
+
+        //     values.forEach((val) => {
+        //         const rect = g.append('g').attr('class', 'val');
+        //         const bg = rect
+        //             .append('g')
+        //             .attr('class', 'bg')
+        //             .style('opacity', 0.25);
+
+        //         start += step + cardHeight;
+
+        //         bg.append('rect')
+        //             .attr('x', x + step)
+        //             .attr('y', start)
+        //             .attr('width', cardWidth)
+        //             .attr('height', cardHeight)
+        //             .attr('rx', 5);
+        //         bg.append('rect')
+        //             .attr('x', x + step * 1.5)
+        //             .attr('y', start + step * 0.5)
+        //             .attr('width', cardHeight - step)
+        //             .attr('height', cardHeight - step)
+        //             .attr('rx', 5)
+        //             .style('fill', val.color);
+
+        //         rect.append('text')
+        //             .attr('x', x + step * 1.5 + cardHeight)
+        //             .attr('y', start + cardHeight - step * 0.9)
+        //             .text(`${val.val.value?.toFixed(2)} ${val.units}`);
+
+        //         if (this.options.isIconsShowing) {
+        //             rect.append('image')
+        //                 .attr(
+        //                     'xlink:href',
+        //                     `assets/icons/widgets/ASTUE-ONPZ/astue-onpz-conventional-fuel/` +
+        //                     `${val.iconType}.svg`
+        //                 )
+        //                 .attr('x', x + step * 1.7)
+        //                 .attr('y', start + step * 0.7)
+        //                 .attr('width', cardHeight - step * 1.4)
+        //                 .attr('height', cardHeight - step * 1.4);
+        //         }
+        //     });
+        // }
     }
 
     private get leftPadding(): number {
-        const filterGraphTypes: IMultiChartTypes[] = ['plan', 'fact', 'forecast'];
+        const filterGraphTypes: IMultiChartTypes[] = ['plan', 'fact', 'forecast', 'higherBorder', 'lowerBorder'];
         const padding = this.charts.map((item) =>
             item.graphType).filter((x) => filterGraphTypes.includes(x))?.length ?? 0;
         const cf = this.charts.length - (padding > 0 ? padding - 1 : 0);

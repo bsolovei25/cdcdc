@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
-import { IReasonsTankers } from 'src/app/dashboard/models/reasons-deviations';
+import { IReasonsTankers } from 'src/app/dashboard/models/LCO/reasons-deviations';
 
 declare var d3: any;
 

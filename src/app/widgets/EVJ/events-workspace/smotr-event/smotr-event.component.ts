@@ -1,7 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import { IChatMessageWithAttachments } from '../components/chat/chat.component';
-import { EventsWorkspaceService } from '../../../../dashboard/services/widgets/events-workspace.service';
-import { EventService } from '../../../../dashboard/services/widgets/event.service';
+import { EventsWorkspaceService } from '../../../../dashboard/services/widgets/EVJ/events-workspace.service';
+import { EventService } from '../../../../dashboard/services/widgets/EVJ/event.service';
 
 @Component({
     selector: 'evj-smotr-event',

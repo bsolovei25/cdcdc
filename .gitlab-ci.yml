@@ -1,45 +1,207 @@
 ---
-before_script:
-- echo $CI_JOB_STAGE
-- date
-- ls
-- pwd
-
-after_script:
-- date
-  #- env
+include:
+  - ci/build.yml
+  - ci/deploy.yml
+  - ci/other.yml
 
 variables:
-    GIT_SSL_NO_VERIFY: "1"
-    DEPLOY_DOMAIN: deploy.funcoff.club
-    SCP_HOST: root@${DEPLOY_DOMAIN}
-    ROCKETCHAT_HOOKS: "/home/gitlab-runner/rocket.integrations"
-    DYNAMIC_ENV: "/root/dynamic-environment-creator"
+  GIT_DEPTH: 8
+  #DOCKER_HOST: tcp://docker:2375
+  ## This will instruct Docker not to start over TLS.
+  #DOCKER_TLS_CERTDIR: ""
+  DOCKER_BUILDKIT: 1
+  COMPOSE_DOCKER_CLI_BUILD: 1 
+  DOCKER_DRIVER: overlay2
+  # Registry configs
+  GIT_SSL_NO_VERIFY: "1"
+  SCP_HOST: root@${DEPLOY_DOMAIN}
+  ROCKETCHAT_HOOKS: "/home/gitlab-runner/rocket.integrations"
+  DYNAMIC_ENV: "/root/dynamic-environment-creator"
 
 stages:
     - prebuild
     - test
     - build
+    - packing
     - deploy-review
     - staging
     - export-images
     - deploy
+    - alerting
     - release
     - clean-on-failure
-
 
 .init_template: &init
     tags:
         - build2-cup-front
 
+install_dependencies:
+  stage: prebuild
+  image: registry.funcoff.club/libs/node:slim
+  tags:
+    - gl-docker-socket
+  cache: 
+    key: one-key-to-rule-them-all
+    paths:
+      - node_modules/
+  script:
+    - npm ci
+  only:
+    refs:
+      - merge_requests
+      - develop
+      - devops
+      - master
+    changes:
+      - package.json
 
-docker build:
+ng-build:
+  extends: .ng-build
+  cache: 
+    #key: $CI_COMMIT_REF_SLUG-$CI_PROJECT_DIR
+    key: one-key-to-rule-them-all
+    paths:
+      - node_modules/
+  after_script:
+    - echo ${DOCKER_IMG}
+  only:
+    - merge_requests
+    - develop
+    - devops
+    - master
+
+docker-packing:
+  extends: .packing
+  variables:
+    SERVICE_NAME: "front"
+  after_script:
+    - echo "========= additional tagging for master branch ========"
+    - > 
+      if [[ $CI_COMMIT_REF_SLUG == "master" ]]; then
+      docker tag ${DOCKER_BASE_NAME}:latest ${DOCKER_BASE_NAME}:$CI_COMMIT_REF_SLUG ;
+      docker tag ${DOCKER_BASE_NAME}:latest ${DOCKER_BASE_NAME}:$CI_COMMIT_REF_SLUG-${CI_COMMIT_SHORT_SHA} ;
+      docker push ${DOCKER_BASE_NAME}:${CI_COMMIT_REF_SLUG}; 
+      docker push ${DOCKER_BASE_NAME}:${CI_COMMIT_REF_SLUG}-${CI_COMMIT_SHORT_SHA}; 
+      fi
+  only:
+    - merge_requests
+    - devops
+    - develop
+    - master
+
+deploy-front:
+  extends: .deploy-to-k8s
+  variables:
+    NS: "evj"
+    IMG_VERSION: "latest"
+    CHART: "./ci/front-chart"
+    RELEASE: "front"
+    DEPLOY_DOMAIN: "https://evj.funcoff.club"
+    INGRESS_SITE: "evj"
+  dependencies: []
+  environment:
+    name: staging
+    url: "https://evj.funcoff.club"
+  only:
+    - devops
+    - develop
+    - master
+
+deliver-to-deploy:
+  extends: .packing 
+  stage: deploy
+  image:
+    name: gitlab.funcoff.club:4567/oaovd/osspu/evj/back/runners:alpine
+  variables:
+    DEPLOY_DOMAIN: deploy.funcoff.club
+    GIT_STRATEGY: none
+    DEPLOY_PATH: "/var/www/angular-staging.local/public"
+    CMD_REPLACE: sed -i -E "s/(<title>Evj)(<\/title>)/\1 | ${CI_COMMIT_SHORT_SHA} \2/g" /var/www/angular.local/public/index.html
+  script:
+    - ssh root@${DEPLOY_DOMAIN} rm -rf $DEPLOY_PATH
+    - mv ./dist/evj public
+    - scp -r ./public root@${DEPLOY_DOMAIN}:${DEPLOY_PATH//\/public}
+    - ssh root@${DEPLOY_DOMAIN} $CMD_REPLACE
+    - ssh root@${DEPLOY_DOMAIN} nginx -s reload
+  only:
+    - develop
+    - devops
+      
+deploy-front-mr:
+  extends: .deploy-to-k8s
+  variables:
+    NS: "evj-${CI_COMMIT_REF_SLUG}"
+    IMG_VERSION: "${CI_COMMIT_REF_SLUG}"
+    CHART: "./ci/front-chart"
+    RELEASE: "front"
+    DEPLOY_DOMAIN: "https://evj-${CI_COMMIT_REF_SLUG}.funcoff.club"
+    INGRESS_SITE: "evj-${CI_COMMIT_REF_SLUG}"
+  dependencies: []
+  environment:
+    name: review/${CI_COMMIT_REF_SLUG}
+    url: "https://evj-${CI_COMMIT_REF_SLUG}.funcoff.club"
+    on_stop: stop-k8s-review
+  only:
+    - merge_requests
+
+stop-k8s-review:
+  extends: .deploy-to-k8s 
+  variables:
+    GIT_STRATEGY: none
+    NS: "evj-${CI_COMMIT_REF_SLUG}"
+  only:
+      - merge_requests
+  script:
+    - kubectl version
+    - kubectl delete ns ${NS} || true
+  dependencies: []
+  when: manual
+  environment:
+    name: review/${CI_COMMIT_REF_SLUG}
+    action: stop
+      
+success-pipelines:
+  extends: .alerting-template
+  script:
+    - python $HOOKS
+  only:
+    - develop
+    - devops
+    - master
+
+failed-pipelines:
+  extends: .alerting-template
+  script:
+    - python $HOOKS failed
+  when: on_failure
+  only:
+    - develop
+    - devops
+    - master
+
+export to zyfra:
+  extends: .deploy-to-zyfra
+  variables:
+    GIT_STRATEGY: none
+    SERVICE_NAME: "frontend"
+    EXTERNAL_DOCKER_IMG: "onpz.local/evj/frontend"
+  only:
+    - devops-zyfra
+    - devops
+    - develop
+    - master
+
+release-notes-maker:
+  extends: .release-notes
+  when:
+      manual
+
+.docker build:
     <<: *init
     stage: prebuild
     script:
         - echo "Prebuild checking... Getting docker container rdy."
         - docker container stop ${CI_PROJECT_NAME} || sleep 0.1
-        - env
         - docker build . -t ${CI_PROJECT_NAME} -f Dockerfile.prod
         - docker stop ${CI_PROJECT_NAME} || sleep 0.1
         - docker container rm ${CI_PROJECT_NAME} || sleep 0.1
@@ -50,25 +212,19 @@ docker build:
         paths:
             - ./public
     only:
-          #- master
-          #- develop
         - merge_requests
+
 
 .testing website:
     <<: *init
     stage: test
     script:
         - echo "Doing some tests... Someone should add unit tests or whatever here"
-          #- docker run -v $(pwd):/app -v /app/node_modules -d  --rm --name ${CI_PROJECT_NAME} -it ${CI_PROJECT_NAME}
-
-          #- docker run --rm --name ${CI_PROJECT_NAME} -p 8004:4200 -d ${CI_PROJECT_NAME}
-          #- ./init-docker.sh
         - ls
-        - ls public
     only:
         - merge_requests
 
-build artifact:
+.build artifact:
     <<: *init
     stage: build
     script:
@@ -81,12 +237,11 @@ build artifact:
     only:
         - master
         - develop
-          #- merge_requests
     artifacts:
         paths:
             - ./public
 
-deploy review:
+.deploy review:
     <<: *init
     stage: deploy-review
     script:
@@ -105,7 +260,7 @@ deploy review:
         url: https://$DYNAMIC_ENVIRONMENT_URL
         on_stop: stop-review
 
-stop-review:
+.stop-review:
     <<: *init
     variables:
         GIT_STRATEGY: none
@@ -119,7 +274,7 @@ stop-review:
         name: review/${CI_COMMIT_REF_SLUG}
         action: stop
 
-staging:
+.staging:
     <<: *init
     stage: staging
     environment:
@@ -139,23 +294,7 @@ staging:
         - develop
 
 
-export to zyfra:
-    <<: *init
-    stage: export-images
-    script:
-      - if [[ -z $CI_ZYFRA_TAG  ]]; then echo "Add \$CI_ZYFRA_TAG variable to pipelines! Exiting (1)"; exit 1; fi
-      - docker build -f Dockerfile.k8s . -t onpz.local/evj/frontend:${CI_ZYFRA_TAG} # make env with tags
-      - docker save -o ./frontend-${CI_ZYFRA_TAG}.img onpz.local/evj/frontend:${CI_ZYFRA_TAG}
-      - xz -T0 -9 ./frontend-${CI_ZYFRA_TAG}.img
-    artifacts:
-        paths:
-            - ./frontend-${CI_ZYFRA_TAG}.img.xz
-    when: manual
-    only:
-      - zyfra
-      - dev
-
-prod:
+.prod:
     <<: *init
     stage: deploy
     environment:
@@ -172,12 +311,12 @@ prod:
     only:
         - master
 
-release maker:
+.release maker:
     <<: *init
     stage: release
     script:
         - env
-        - cd ./release_notes
+        - cd ./ci/release_notes
         - python3 release-notes.py
         - bash upload_release.sh
     only:
@@ -185,7 +324,8 @@ release maker:
     when:
         manual
 
-clean on failure:
+
+.clean on failure:
     <<: *init
     stage: clean-on-failure
     script:

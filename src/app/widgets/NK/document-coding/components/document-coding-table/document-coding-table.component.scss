@@ -73,17 +73,18 @@
 
         .bottom-block {
             display: flex;
-            padding-left: 20px;
             position: relative;
+            justify-content: flex-start;
+            width: 100%;
 
             .edit-button {
                 cursor: pointer;
-                position: absolute;
                 height: 30px;
-                left: 15px;
-                width: 160px;
+                width: 180px;
                 display: flex;
                 margin-top: 5px;
+                padding-left: 20px;
+                position: relative;
 
                 border: 1px solid;
                 border-image: linear-gradient(90deg, transparent 10%, var(--color-text-main) 100%);

@@ -4,7 +4,7 @@ import {
     Input, OnDestroy
 } from '@angular/core';
 import { PetroleumScreenService } from 'src/app/dashboard/services/widgets/petroleum-screen.service';
-import { ITankAttribute } from 'src/app/dashboard/models/petroleum-products-movement.model';
+import { ITankAttribute } from 'src/app/dashboard/models/NK/petroleum-products-movement.model';
 import { SnackBarService } from 'src/app/dashboard/services/snack-bar.service';
 import { Subscription } from 'rxjs';
 

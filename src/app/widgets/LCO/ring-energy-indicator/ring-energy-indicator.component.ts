@@ -1,6 +1,6 @@
 import { Component, ElementRef, ViewChild, Inject, OnDestroy, OnInit } from '@angular/core';
 import { WidgetService } from '../../../dashboard/services/widget.service';
-import { RingEnegryIndicatorModel } from '../../../dashboard/models/ring-energy-indicator';
+import { RingEnegryIndicatorModel } from '../../../dashboard/models/LCO/ring-energy-indicator';
 import { WidgetPlatform } from '../../../dashboard/models/@PLATFORM/widget-platform';
 
 declare var d3: any;

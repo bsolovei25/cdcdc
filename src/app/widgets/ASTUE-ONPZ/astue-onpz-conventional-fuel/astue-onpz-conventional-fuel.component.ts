@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy, Inject } from '@angular/core';
 import { WidgetPlatform } from '../../../dashboard/models/@PLATFORM/widget-platform';
-import { WidgetService } from '../../../dashboard/services/widget.service';
+import { IDatesInterval, WidgetService } from '../../../dashboard/services/widget.service';
 import {
     IMultiChartLine,
     IMultiChartTypes
@@ -8,10 +8,10 @@ import {
 import { UserSettingsService } from '../../../dashboard/services/user-settings.service';
 import {
     AstueOnpzService,
-    IAstueOnpzMonitoringCarrierOptions
 } from '../astue-onpz-shared/astue-onpz.service';
 import { IMultiChartOptions } from './components/astue-onpz-multi-chart/astue-onpz-multi-chart.component';
 import { HttpClient } from '@angular/common/http';
+import { IChartMini } from '@shared/models/smart-scroll.model';
 
 
 const a: any = {
@@ -266,10 +266,10 @@ const a: any = {
     templateUrl: './astue-onpz-conventional-fuel.component.html',
     styleUrls: ['./astue-onpz-conventional-fuel.component.scss']
 })
-export class AstueOnpzConventionalFuelComponent extends WidgetPlatform<unknown>
-    implements OnInit, OnDestroy {
+export class AstueOnpzConventionalFuelComponent extends WidgetPlatform implements OnInit, OnDestroy {
+
     public data: IMultiChartLine[] = [];
-    colors: Map<string, number>;
+    public colors: Map<string, number>;
     public unitName: string = '';
 
     public isPredictors: boolean = false;
@@ -277,8 +277,16 @@ export class AstueOnpzConventionalFuelComponent extends WidgetPlatform<unknown>
         isIconsShowing: false
     };
 
+    public sbWidth: number = 100;
+    public sbLeft: number = 0;
+    public scrollLimits: IDatesInterval = null;
+
     get planningChart(): boolean {
         return !!this.astueOnpzService.sharedPlanningGraph$.getValue();
+    }
+
+    get scrollData(): IChartMini[] {
+        return this.data?.find((x) => x.graphType === 'plan')?.graph ?? [];
     }
 
     constructor(
@@ -296,8 +304,10 @@ export class AstueOnpzConventionalFuelComponent extends WidgetPlatform<unknown>
         this.widgetInit();
 
         this.data = !!a ? this.multilineDataMapper(a.graphs) : [];
-        console.log(this.data);
 
+        this.subscriptions.push(
+            this.widgetService.currentDates$.subscribe((ref) => this.scrollLimits = ref),
+        );
         // this.http
         //     .get('assets/mock/ASTUE-ONPZ/multiline-chart-plant.mock.json')
         //     .subscribe((data: any) => {
@@ -320,25 +330,25 @@ export class AstueOnpzConventionalFuelComponent extends WidgetPlatform<unknown>
         this.isPredictors = this.widgetType === 'astue-onpz-conventional-fuel-predictors';
         this.options.isIconsShowing = !this.isPredictors;
         this.subscriptions.push(
-            //     this.astueOnpzService.multilineChartIndicatorTitle$.subscribe((title) => {
-            //         if (this.isPredictors) {
-            //             return;
-            //         }
-            //         this.widgetTitle = title;
-            //     }),
-            //     this.astueOnpzService.sharedIndicatorOptions.subscribe((options) => {
-            //         if (this.isPredictors) {
-            //             return;
-            //         }
-            //         this.unitName = options.unitName;
-            //         this.widgetService.setChannelLiveDataFromWsOptions(this.widgetId, options);
-            //     }),
-            //     this.astueOnpzService.multiLinePredictors.subscribe((data) => {
-            //         if (!this.isPredictors) {
-            //             return;
-            //         }
-            //         this.data = !!data ? this.multilineDataMapper(data) : [];
-            //     }),
+                this.astueOnpzService.multilineChartIndicatorTitle$.subscribe((title) => {
+                    if (this.isPredictors) {
+                        return;
+                    }
+                    this.widgetTitle = title;
+                }),
+                this.astueOnpzService.sharedIndicatorOptions.subscribe((options) => {
+                    if (this.isPredictors) {
+                        return;
+                    }
+                    this.unitName = options.unitName;
+                    this.widgetService.setChannelLiveDataFromWsOptions(this.widgetId, options);
+                }),
+                this.astueOnpzService.multiLinePredictors.subscribe((data) => {
+                    if (!this.isPredictors) {
+                        return;
+                    }
+                    this.data = !!data ? this.multilineDataMapper(data) : [];
+                }),
             this.astueOnpzService.colors$.subscribe((value) => {
                 this.colors = value;
             })

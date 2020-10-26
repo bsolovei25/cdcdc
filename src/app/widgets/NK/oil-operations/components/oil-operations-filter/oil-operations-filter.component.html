@@ -13,7 +13,7 @@
               <div class="item__shadow-block">
                 <div class="item__i" (click)="onOptionSelect(item)">
                   <div class="name-param" [class.active]="activeItem?.id === item.id">
-                    {{ item.name }}
+                    {{ item.name || '-' }}
                   </div>
                 </div>
               </div>

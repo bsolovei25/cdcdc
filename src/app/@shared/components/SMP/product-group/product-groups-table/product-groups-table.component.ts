@@ -9,7 +9,7 @@ import {
     ChangeDetectionStrategy,
     AfterViewChecked,
 } from '@angular/core';
-import { IProducts } from '../../../../../dashboard/models/SMP/product-groups.model';
+import { IProductGroups } from '../../../../../dashboard/models/SMP/product-groups.model';
 
 @Component({
     selector: 'evj-product-groups-table',
@@ -21,9 +21,9 @@ export class ProductGroupsTableComponent implements OnInit, OnChanges, AfterView
     @ViewChild('lines') lines: ElementRef;
 
     @Input() widgetType: string;
-    @Input() data: IProducts[];
+    @Input() data: IProductGroups[];
 
-    public datas: IProducts[] = [];
+    public datas: IProductGroups[] = [];
 
     scrollLine: boolean = false;
 
@@ -51,7 +51,7 @@ export class ProductGroupsTableComponent implements OnInit, OnChanges, AfterView
         } catch (error) {}
     }
 
-    map(data: IProducts[]): IProducts[] {
+    map(data: IProductGroups[]): IProductGroups[] {
         this.datas = [];
         for (const item of data) {
             switch (item.groupName.toLowerCase()) {
@@ -109,7 +109,7 @@ export class ProductGroupsTableComponent implements OnInit, OnChanges, AfterView
         document.getElementById('topscroll').scrollLeft = event.currentTarget.scrollLeft;
     }
 
-    rowsById(item: IProducts): number {
+    rowsById(item: IProductGroups): number {
         return item.id;
     }
 }

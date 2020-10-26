@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
-import { IEventsWidgetNotificationPreview } from '../../../../../dashboard/models/events-widget';
-import { EventService } from '../../../../../dashboard/services/widgets/event.service';
+import { IEventsWidgetNotificationPreview } from '../../../../../dashboard/models/EVJ/events-widget';
+import { EventService } from '../../../../../dashboard/services/widgets/EVJ/event.service';
 
 @Component({
     selector: 'evj-event-card',
@@ -48,7 +48,8 @@ export class EventCardComponent implements OnInit, OnDestroy {
         this.cardDeleteClick.emit(id);
     }
 
-    public async changeIsAcknowledged(eventCard: IEventsWidgetNotificationPreview): Promise<void> {
+    public async changeIsAcknowledged(event: MouseEvent, eventCard: IEventsWidgetNotificationPreview): Promise<void> {
+        event.stopPropagation();
         eventCard.isAcknowledged = !eventCard.isAcknowledged;
         try {
             const a = await this.eventService.changeEventIsAcknowledged(

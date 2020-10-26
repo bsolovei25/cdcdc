@@ -28,11 +28,6 @@ export class GroupSelectorComponent implements OnInit, OnDestroy {
 
     public selector: SelectionModel<IGroupScreens> = new SelectionModel<IGroupScreens>();
 
-    private readonly defaultGroup: IGroupScreens = {
-        id: null,
-        name: 'Без группы',
-    };
-
     constructor(
         private userSettingsService: UserSettingsService,
         private router: Router,
@@ -141,7 +136,6 @@ export class GroupSelectorComponent implements OnInit, OnDestroy {
 
     private async getGroups(): Promise<IGroupScreens[]> {
         const groups = await this.userSettingsService.GetGroups();
-        groups.unshift(this.defaultGroup);
         return groups;
     }
 }

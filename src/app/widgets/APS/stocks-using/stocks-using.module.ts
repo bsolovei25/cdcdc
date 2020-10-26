@@ -17,3 +17,4 @@ import { AngularSvgIconModule } from 'angular-svg-icon';
 export class StocksUsingModule {
     enterComponent = StocksUsingComponent;
 }
+

@@ -5,12 +5,12 @@ import { CdMatBalanceService } from '../../../dashboard/services/widgets/CD/cd-m
 import { ICDModalWindow } from '../cd-shared/cd-modal-window/cd-modal-window.component';
 import { INavItem } from '../../../dashboard/components/aps-dropdown-menu/aps-dropdown-menu.component';
 import { UserSettingsService } from '../../../dashboard/services/user-settings.service';
-import { EventsWorkspaceService } from '../../../dashboard/services/widgets/events-workspace.service';
+import { EventsWorkspaceService } from '../../../dashboard/services/widgets/EVJ/events-workspace.service';
 import {
     IEventsWidgetNotification,
     IUser
-} from '../../../dashboard/models/events-widget';
-import { EventService } from '../../../dashboard/services/widgets/event.service';
+} from '../../../dashboard/models/EVJ/events-widget';
+import { EventService } from '../../../dashboard/services/widgets/EVJ/event.service';
 import { SnackBarService } from '../../../dashboard/services/snack-bar.service';
 import { AuthService } from '@core/service/auth.service';
 import { ICdIndicatorLoad } from './components/cd-mat-balance-gauge/cd-mat-balance-gauge.component';

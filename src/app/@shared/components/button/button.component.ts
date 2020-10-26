@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { IButtonImgSrc } from '../../../dashboard/models/admin-panel';
+import { IButtonImgSrc } from '../../../dashboard/models/ADMIN/admin-panel';
 
 type ButtonType = 'default' | 'primary';
 

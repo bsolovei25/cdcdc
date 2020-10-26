@@ -1,0 +1,63 @@
+---
+.deploy-to-k8s:
+  tags:
+    - gl-docker-socket
+  variables:
+    NS: "default"
+    RELEASE: "default"
+    CHART: "path/to/chart"
+    IMG_VERSION: "latest"
+    DEPLOY_DOMAIN: "url"
+    INGRESS_SITE: "default"
+  stage: deploy
+  image: dtzar/helm-kubectl:3.3.4
+  before_script:
+    - mkdir /root/.kube && echo "${KUBECTL_AUTH_CONFIG}" > /root/.kube/config
+    - mkdir -p $HOME/.docker && echo "${DOCKER_AUTH_CONFIG}" > $HOME/.docker/config.json && chmod 600 $HOME/.docker/config.json
+  script:
+    - kubectl version
+    - kubectl create ns ${NS} || true
+    - helm upgrade 
+        --install ${RELEASE} ${CHART}
+        --set "microservice.image.imageTag=${IMG_VERSION}"
+        --set "microservice.ingress.site=${INGRESS_SITE}"
+        --namespace ${NS}
+  environment:
+    name: production
+    url: https://${DEPLOY_DOMAIN}
+  only:
+    - develop
+    - master
+    - devops
+
+.deploy-to-zyfra:
+  tags:
+    - gl-docker-socket
+  image:
+    name: registry.funcoff.club/devops/dind:1.0.0
+  stage: deploy
+  variables:
+    TAG: "$CI_RELEASE_TAG"
+    DOCKERHUB_URL: registry.funcoff.club
+    DOCKER_REPO: evj
+    SERVICE_NAME: "microservice"
+    EXTERNAL_DOCKER_IMG: "some/place"
+    DOCKER_BASE_NAME: ${DOCKERHUB_URL}/${DOCKER_REPO}/${SERVICE_NAME}
+    LATEST_IMG: ${DOCKERHUB_URL}/${DOCKER_REPO}/${SERVICE_NAME}:latest
+    DOCKER_MR_IMG: ${DOCKERHUB_URL}/${DOCKER_REPO}/${SERVICE_NAME}:${CI_MERGE_REQUEST_SOURCE_BRANCH_NAME}
+    DOCKERFILE_PACK: "./docker/Dockerfile.packing"
+
+  script:
+    - if [[ -z $TAG  ]]; then echo "Add \$CI_RELEASE_TAG variable to pipelines! Exiting (1)"; exit 1; fi
+    - docker pull ${LATEST_IMG}
+    - docker tag ${LATEST_IMG} ${EXTERNAL_DOCKER_IMG}:${TAG} 
+    - docker save -o ./${SERVICE_NAME}-${TAG}.img ${EXTERNAL_DOCKER_IMG}:${TAG}
+    - xz -T0 -9 ./${SERVICE_NAME}-${TAG}.img
+  artifacts:
+    expire_in: 12 hrs
+    paths:
+      - ./${SERVICE_NAME}-${TAG}.img.xz
+  when: manual
+  only:
+    - zyfra
+    - dev

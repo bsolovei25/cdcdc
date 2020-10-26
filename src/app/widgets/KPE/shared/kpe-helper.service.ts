@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { IKpeLineChartData } from './kpe-charts.model';
 import { IBarDiagramData } from './kpe-equalizer-chart/kpe-equalizer-chart.component';
 import { IDeviationDiagramData } from './kpe-deviation-diagram/kpe-deviation-diagram.component';
-import { IProductionTrend } from '../../../dashboard/models/production-trends.model';
+import { IProductionTrend } from '../../../dashboard/models/LCO/production-trends.model';
 
 @Injectable()
 export class KpeHelperService {

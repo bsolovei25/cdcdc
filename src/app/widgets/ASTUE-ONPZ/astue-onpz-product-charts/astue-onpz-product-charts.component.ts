@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject, OnDestroy, Injector } from '@angular/core';
 import { WidgetPlatform } from '../../../dashboard/models/@PLATFORM/widget-platform';
 import { WidgetService } from '../../../dashboard/services/widget.service';
-import { IProductionTrend } from '../../../dashboard/models/production-trends.model';
+import { IProductionTrend } from '../../../dashboard/models/LCO/production-trends.model';
 import { AstueOnpzService } from '../astue-onpz-shared/astue-onpz.service';
 import { AstueOnpzProductCardComponent } from './components/astue-onpz-product-card/astue-onpz-product-card.component';
 import { AstueOnpzHeaderIcon } from '../../../dashboard/models/ASTUE-ONPZ/astue-onpz-header-icon.model';

@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter, OnChanges } from '@angular/core';
 import { SelectionModel } from '@angular/cdk/collections';
-import { IUser } from '../../../../../../dashboard/models/events-widget';
+import { IUser } from '../../../../../../dashboard/models/EVJ/events-widget';
 
 @Component({
     selector: 'evj-ag-group-worker-card',

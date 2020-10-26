@@ -1,5 +1,5 @@
 import { Component, Input, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
-import { SolidGaugeWithMarkerItem } from 'src/app/dashboard/models/solid-gauge-with-marker';
+import { SolidGaugeWithMarkerItem } from 'src/app/dashboard/models/LCO/solid-gauge-with-marker';
 
 declare var d3: any;
 
