@@ -8,11 +8,18 @@ export interface IOilOperations { /// ALL DATA
 }
 
 export enum operationTransferStatus {
-    opened= 'opened', // Операция завершена, но к ней еще не привязаны отгрузки.
-    closedNoShipment= 'closedNoShipment', // Операция завершена и итоговый дебаланс в пределах норм рассчитанных погрешностей.
-    closed= 'closed', // Операция завершена, текущий дебаланс превышает нормы рассчитанных погрешностей, величина отклонения показана в поле Deviation.
+    opened= 'opened',
+    closedNoShipment= 'closedNoShipment',
+    closed= 'closed',
     closedWithDebalance= 'closedWithDebalance',
 }
+
+export const operationTransferStatusNameMap: {[key: string]: string} = {
+    [operationTransferStatus.opened]: 'Операция не завершена',
+    [operationTransferStatus.closedNoShipment]: 'Операция завершена, отгрузки не привязаны',
+    [operationTransferStatus.closed]: 'Операция завершена, дебаланс в пределах норм рассчитанных погрешностей',
+    [operationTransferStatus.closedWithDebalance]: 'Операция завершена, дебаланс превышает нормы рассчитанных погрешностей. Величина указана в поле Отклонение',
+};
 
 export interface IOilOperationTransfer {
     id: number;
