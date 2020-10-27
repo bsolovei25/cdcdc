@@ -102,8 +102,15 @@
     }
   }
 
-  .header__progress {
+  .status {
+    height: 48px;
+    width: 80px;
     margin-right: 9px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+
     color: var(--color-text-sub);
 
     &_danger {
@@ -123,26 +130,14 @@
     align-items: flex-end;
     margin-bottom: 5px;
   }
-
-  .info__buttons {
-    position: absolute;
-    bottom: 5px;
-    width: 75px;
-    height: 20px;
-
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-  }
 }
 
-.progress {
+.header__progress {
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: flex-end;
-  width: 74px;
+  width: 100px;
   height: 100%;
 }
 
@@ -164,3 +159,13 @@
     }
   }
 }
+.period__buttons {
+  width: 75px;
+  height: 20px;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
