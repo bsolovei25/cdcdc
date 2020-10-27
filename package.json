@@ -11,7 +11,8 @@
     "e2e": "ng e2e",
     "fix-prettier": "prettier --write src/**/*.{ts,html,scss}",
     "prettier": "prettier --check src/**/*.{ts,html,scss}",
-    "prettier:fix:json": "prettier --write *.json"
+    "prettier:fix:json": "prettier --write *.json",
+    "postinstall": "ngcc"
   },
   "husky": {
     "hooks": {}
