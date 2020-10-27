@@ -166,7 +166,6 @@ import { RectangleInputComponent } from './components/rectangle-input/rectangle-
         CKEditorModule,
         FormsModule,
         AngularSvgIconModule,
-        AngularSvgIconModule,
         MatSelectModule,
         ReactiveFormsModule,
         MatProgressSpinnerModule,

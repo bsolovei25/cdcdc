@@ -49,7 +49,7 @@ import { MatDialogModule, MatDialogRef, MAT_DIALOG_DATA } from '@angular/materia
 import { MatChipsModule } from '@angular/material/chips';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatIconModule } from '@angular/material/icon';
-import { TreeModule } from 'angular-tree-component';
+import { TreeModule } from '@circlon/angular-tree-component';
 import { NgxMaskModule } from 'ngx-mask';
 import { DevGraphComponent } from './pages/dev-graph/dev-graph.component';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
