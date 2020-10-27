@@ -625,6 +625,10 @@ export class AstueOnpzMultiChartComponent implements OnInit, OnChanges, OnDestro
                 plan = chart.graph[chart.graph.length - 1];
             } else if (chart.graphType === 'fact') {
                 fact = chart.graph[chart.graph.length - 1];
+            } else if (chart.graphType === 'higherBorder') {
+                fact = chart.graph[chart.graph.length - 1];
+            } else if (chart.graphType === 'lowerBorder') {
+                fact = chart.graph[chart.graph.length - 1];
             } else if (chart.graphType === 'forecast') {
                 // TODO add some
             } else {
@@ -1181,6 +1185,10 @@ export class AstueOnpzMultiChartComponent implements OnInit, OnChanges, OnDestro
                     if (chart.graphType === 'plan') {
                         plan = chart.graph[chart.graph.length - 1];
                     } else if (chart.graphType === 'fact') {
+                        fact = chart.graph[chart.graph.length - 1];
+                    } else if (chart.graphType === 'higherBorder') {
+                        fact = chart.graph[chart.graph.length - 1];
+                    } else if (chart.graphType === 'lowerBorder') {
                         fact = chart.graph[chart.graph.length - 1];
                     } else if (chart.graphType === 'forecast') {
                         // TODO add some
