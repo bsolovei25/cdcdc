@@ -1,0 +1,17 @@
+<div class="event-mat-select" [ngClass]="type">
+  <mat-form-field appearance="none" [class.disabled]="disabled">
+    <mat-label>{{ label }}</mat-label>
+    <mat-select
+      panelClass="mat-balance-select"
+      (valueChange)="onSelect($event)"
+      [value]="items[0]?.value"
+      [disabled]="disabled"
+    >
+      <ng-container *ngFor="let item of items">
+        <mat-option [value]="item.value">
+          {{ item.label }}
+        </mat-option>
+      </ng-container>
+    </mat-select>
+  </mat-form-field>
+</div>
