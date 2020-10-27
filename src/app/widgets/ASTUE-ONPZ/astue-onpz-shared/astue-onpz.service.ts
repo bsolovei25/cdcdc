@@ -246,9 +246,9 @@ export class AstueOnpzService {
     }
 
     public async getProductChannels(widgetId: string, options: IAstueOnpzMonitoringOptions): Promise<string[]> {
-        const response = await this.http.get<{data: {subChannels: any[]}}>(`${this.restUrl}/api/widget-data/${widgetId}`).toPromise();
-        return response.data?.subChannels?.filter(x => x.manufactureName === options.manufactureName
-            && x.type === options.type && x.typeValue === options.indicatorType && x.unitName === options.unitName)
-            ?.map(x => x.id) ?? [];
+        const response = await this.http
+            .get<{id: string}[]>(`${this.restUrl}/api/widget-data/${widgetId}/sub-channels?UnitName=${options.unitName}&ManufactureName=${options.manufactureName}&Type=${options.type}&TypeValue=${options.indicatorType}`)
+            .toPromise();
+        return response?.map(x => x.id) ?? [];
     }
 }

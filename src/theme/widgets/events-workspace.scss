@@ -15,15 +15,15 @@
 }
 
 .mat-select-arrow {
-  color: var(--color-text-main) !important;
+  background-color: var(--color-text-sub);
   width: 13px !important;
-  height: 10px !important;
+  height: 7px !important;
   border-left: none !important;
   border-right: none !important;
   border-top: none !important;
   margin: 0 !important;
-  background-image: url("./assets/icons/widgets/workspace/arrow-work.svg");
-  background-repeat: no-repeat;
+  -webkit-mask-image: url("./assets/icons/widgets/workspace/arrow-work.svg");
+  mask-image: url("./assets/icons/widgets/workspace/arrow-work.svg");
 }
 
 ::-webkit-scrollbar {

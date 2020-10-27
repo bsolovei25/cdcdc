@@ -46,7 +46,6 @@ export class AstueOnpzProductChartsComponent extends WidgetPlatform implements O
         private injector: Injector,
     ) {
         super(widgetService, isMock, id, uniqId);
-        this.isRealtimeData = false;
     }
 
     public ngOnInit(): void {
