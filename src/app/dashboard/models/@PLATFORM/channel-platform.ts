@@ -1,7 +1,9 @@
-import { Inject, OnDestroy, OnInit } from '@angular/core';
+import { Directive, Inject, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { WidgetService } from '../../services/widget.service';
 
+@Directive()
+// tslint:disable-next-line:directive-class-suffix
 export abstract class ChannelPlatform<T, O = null> implements OnInit, OnDestroy {
 
     public subscriptions: Subscription[] = [];

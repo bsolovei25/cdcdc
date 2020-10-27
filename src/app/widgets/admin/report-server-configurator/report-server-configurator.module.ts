@@ -34,7 +34,7 @@ import { SystemPeriodDateMonthComponent } from './popup-system-options/system-pe
 import { SystemPeriodDateYearComponent } from './popup-system-options/system-period-edit/system-period-date/system-period-date-year/system-period-date-year.component';
 import { SystemPeriodEditComponent } from './popup-system-options/system-period-edit/system-period-edit.component';
 import { DashboardModule } from 'src/app/dashboard/dashboard.module';
-import { TreeModule } from 'angular-tree-component';
+import { TreeModule } from '@circlon/angular-tree-component';
 
 
 
