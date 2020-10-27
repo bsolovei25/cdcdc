@@ -90,7 +90,7 @@ export interface IAsEfUnit extends IAsEfTempl {
 
 export interface IAsEfInitialDataBlock extends IAsEfTempl {
     value?: number;
-    tag: string;
+    tag?: string;
     rows: IAsEfInitialDataRow[];
 }
 
