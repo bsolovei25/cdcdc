@@ -15,7 +15,6 @@ export class ButtonComponent implements OnInit {
     @Input() public isActive: boolean = false;
     @Input() public isChangingState: boolean = false;
     @Input() public disabled: boolean = false;
-    @Input() public isRounded: boolean = false;
     @Input() public type: ButtonType = 'default';
 
     public isButtonHover: boolean = false;

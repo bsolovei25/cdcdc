@@ -17,6 +17,7 @@ import { EventsWorkspaceService } from '../../../../../dashboard/services/widget
 })
 export class EventDescriptionComponent implements OnInit, AfterViewInit {
     @Input() public description: string = '';
+    @Input() public disabled: boolean = false;
     @Input() public isRetrievalEvent: boolean = false;
     @Input() titleName: string = 'Краткое описание';
 

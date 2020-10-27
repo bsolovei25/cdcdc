@@ -140,7 +140,7 @@
   --color-smp-danger: #d00100;
   --color-smp-warning: #ff9700;
   --color-smp-active: #6ba4ef;
-  
+
   --color-smp-checkbox: rgba(95, 101, 128, 0.55);
   --color-smp-white: #ffffff;
 
@@ -372,7 +372,7 @@
 
   // @shared/alert-window (aw)
   --color-aw-container-shadow-transparent: rgba(0, 0, 0, 0.25);
-  --color-aw-container-body-transparent: rgba(39, 43, 53, 0.75);
+  --color-aw-container-body-transparent: #1c1e2b;
   --color-aw-header-bg: #272b35;
   --color-aw-red-icon-bg: #ff0106;
   --color-aw-shade-bg-transparent: rgba(0, 0, 0, 0.15);
@@ -380,6 +380,7 @@
   // @shared/button (btn)
   --color-btn-rounded-border: #3fa9f5;
   --color-btn-rounded-disabled-transparent: rgba(255, 255, 255, 0.1);
+  --color-alert-button: #252939;
 
   // astue-onpz
   --color-astue-onpz-header-bg: rgb(34, 36, 50);
@@ -496,6 +497,12 @@
   --color-event-card-gradient-warning: rgba(255, 140, 0, 0.29735644257703087);
   --color-event-card-font-sub: #8C99B2;
   --evj-events-preview: rgba(39, 42, 56, 0.5);
+
+  // events workspace
+  --evj-events-workspace-critical: #DB0000;
+  --evj-events-workspace-critical-bg: rgba(219, 0, 0, 0.15);
+  --evj-events-workspace-minor: #F8921C;
+  --evj-events-workspace-minor-bg: rgba(248, 146, 28, 0.15);
 
 }
 

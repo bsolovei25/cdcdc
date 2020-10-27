@@ -77,3 +77,17 @@ select:-webkit-autofill:focus {
     background-color: var(--color-danger) !important;
   }
 }
+
+.mat-input-element:disabled, .mat-form-field-type-mat-native-select.mat-form-field-disabled .mat-form-field-infix::after {
+  color: var(--color-text-sub) !important;
+}
+
+.mat-select-disabled .mat-select-value {
+  color: var(--color-text-sub);
+}
+
+textarea {
+  &:disabled {
+    color: var(--color-text-sub) !important;
+  }
+}

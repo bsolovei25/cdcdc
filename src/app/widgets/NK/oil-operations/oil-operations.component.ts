@@ -5,7 +5,8 @@ import {
     IOilFilter,
     IOilOperations,
     IOilOperationTransfer,
-    IRightOilTable
+    IRightOilTable,
+    operationTransferStatusNameMap,
 } from 'src/app/dashboard/models/oil-operations';
 import { IOilOperationsOptions, OilOperationsService } from 'src/app/dashboard/services/widgets/oil-operations.service';
 import { ITableGridFilter } from 'src/app/dashboard/components/table-grid/components/table-grid-filter/table-grid-filter.component';
@@ -212,6 +213,10 @@ export class OilOperationsComponent extends WidgetPlatform<unknown> implements O
                 note: s.note,
             };
         });
+    }
+
+    public getStatusDescription(status: string): string {
+        return operationTransferStatusNameMap[status];
     }
 
     private getOptions(): IOilOperationsOptions {

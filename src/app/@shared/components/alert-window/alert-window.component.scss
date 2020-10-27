@@ -1,6 +1,8 @@
 $border-radius: 21px;
-$width: 500px;
-$font-size: 14px;
+$font-size: 18px;
+$alert-color: #E7292B;
+$question-color: #D7E2F2;
+$input-color: #8A98B3;
 
 .loading-shade {
   position: absolute;
@@ -19,119 +21,155 @@ $font-size: 14px;
     transition: backdrop-filter 0.5s;
   }
 }
+.alert-line {
+  z-index: 9999;
+  position: absolute;
+  left: 4px;
+  top: 4px;
+  width: 4px;
+  height: 215px;
+  border-radius: 29px;
+}
+.active {
+  background-color: #0089FF;
+}
+.success {
+  background-color: #0D9E3F;
+}
+.warning {
+  background-color: #F28B4A;
+}
+.danger {
+  background-color: #E7292B;
+}
+.edit-line {
+  z-index: 9999;
+  position: absolute;
+  left: 4px;
+  top: 4px;
+  width: 4px;
+  height: 274px;
+  background-color: var(--color-new-header-active);
+  border-radius: 29px;
+}
 
 .confirm-container {
-  max-width: $width;
-  width: 90%;
-  height: 300px;
+  width: 516px;
+  position: relative;
 
-  background-color: var(--color-bg-main-dark);
+  background-color: var(--color-aw-container-body-transparent);
   box-shadow: 0 0 35px var(--color-aw-container-shadow-transparent);
-  border-radius: $border-radius;
+  border-radius: 4px;
 
   &__body {
     width: 100%;
-    height: 220px;
+    height: 167px;
+    border-radius: 4px;
 
     background-color: var(--color-aw-container-body-transparent);
-    border-radius: $border-radius;
+  }
+  &__body-input {
+    width: 100%;
+    height: 226px;
+    border-radius: 4px;
+
+    background-color: var(--color-aw-container-body-transparent);
   }
 
-  &-body__header {
-    width: 100%;
-    height: 42px;
+  &-body-header {
+    display: flex;
+    flex-direction: row;
+    width: 516px;
+    height: 62px;
+    border-radius: 4px 4px 0 0;
 
-    background-color: var(--color-aw-header-bg);
-    border-radius: $border-radius;
+    &__icon {
+      height: 100%;
+      width: 86px;
+      border-radius: 4px;
+      background-color: transparent;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    &__close {
+      height: 100%;
+      width: 86px;
+      border-radius: 4px;
+      background-color: transparent;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
 
-    span {
-      height: 42px;
-
+    &__title {
+      height: 100%;
+      width: 344px;
+      background-color: transparent;
       display: flex;
       align-items: center;
       font-style: normal;
-      font-weight: normal;
-      font-size: $font-size;
-      color: white;
+      font-weight: bold;
+      font-size: 18px;
+      line-height: 16px;
     }
   }
 
   &-body__content {
-    height: 178px;
+    height: 105px;
 
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center;
-    text-align: center;
+    align-items: flex-start;
+    text-align: start;
     overflow: hidden;
-
-    p {
-      color: white;
+    padding-left: 86px;
+    padding-right: 112px;
+    span {
+      font-style: normal;
+      font-weight: normal;
       font-size: $font-size;
-      line-height: 17px;
-      margin: auto;
-    }
-
-    &_prompt {
-      p {
-        margin: 0 auto;
-      }
+      line-height: 22px;
+      color: $question-color;
     }
   }
-
-  &-body-header__icon {
-    width: 42px;
-    height: 42px;
-
-    background-color: var(--color-aw-red-icon-bg);
-    border-radius: 50%;
-    float: left;
-    margin-right: 18px;
-
-    img {
-      margin: 9px 5px 0 5px;
-    }
-
-    &_input {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-
-      background: var(--color-active);
-
-      img {
-        width: 15px;
-        height: 15px;
-        margin: 0;
-      }
+  &-body__input-text {
+    span {
+      font-style: normal;
+      font-weight: normal;
+      font-size: 14px;
+      line-height: 17px;
+      color: $input-color;
     }
   }
 
   &__footer {
-    height: 80px;
+    height: 56px;
     display: flex;
-    align-items: center;
+    flex-direction: row;
+    justify-content: flex-start;
+    padding-left: 86px;
+    border-radius: 0 0 4px 4px;
 
     .button-container {
-      width: 168px;
-      height: 44px;
-      margin: auto;
+      width: 150px;
+      height: 40px;
+      margin-right: 20px;
     }
   }
 
   .input {
-    width: 80%;
-    height: 45px;
+    width: 320px;
+    height: 36px;
     box-sizing: border-box;
     border: 1px solid var(--color-border-unactive);
-    border-radius: 33px;
     padding: 0 20px;
     margin: 0;
-    margin-top: 20px;
+    margin-top: 10px;
     outline: none;
 
-    text-align: center;
+    text-align: start;
     font-size: 14px;
     color: var(--color-text-main);
 
@@ -148,5 +186,14 @@ $font-size: 14px;
     &_invalid {
       border-color: var(--color-danger);
     }
+  }
+  .close-button {
+    height: 40px;
+    width: 40px;
+    background-color: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
   }
 }
