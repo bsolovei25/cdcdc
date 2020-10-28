@@ -8,7 +8,7 @@
 .main-tittle {
   font-size: 13px;
   line-height: 16px;
-  color: #8A98B3;
+  color: var(--evj-events-workspace-item-title);
 
   position: absolute;
   top: -1.5em;
@@ -26,8 +26,8 @@
 
   margin-top: 15px;
   margin-bottom: 10px;
-  background: #171a24;
-  border: 1px solid rgba(96, 101, 128, 0.25);
+  background: var(--evj-events-workspace-responsible-bg);
+  border: 1px solid var(--evj-events-workspace-item-border);
   border-radius: 2px;
 
 
@@ -46,7 +46,7 @@
     }
 
     .mat-select-arrow {
-      background: #FFFFFF;
+      background: var(--evj-events-workspace-white);
     }
 
   }
@@ -55,7 +55,7 @@
     display: flex;
     justify-content: space-between;
     position: absolute;
-    background: #171a24;
+    background: var(--evj-events-workspace-responsible-bg);
     height: 100%;
     width: 88%;
     z-index: 1;
@@ -76,11 +76,11 @@
         line-height: 14px;
 
         &__name {
-          color: #FFFFFF;
+          color: var(--evj-events-workspace-white);
         }
 
         &__position {
-          color: #616580;
+          color: var(--evj-events-workspace-text-sub);
         }
 
       }
@@ -96,11 +96,11 @@
         width: 100%;
         font-size: 12px;
         line-height: 14px;
-        color: #FFFFFF;
+        color: var(--evj-events-workspace-white);
       }
 
       .brigade_user_text {
-        color: white;
+        color: var(--evj-events-workspace-white);
         font-size: 11px;
         width: 100%;
         @include text-overflow;
