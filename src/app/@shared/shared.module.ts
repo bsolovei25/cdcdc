@@ -68,7 +68,7 @@ import {
 import { NgxMatMomentModule } from '@angular-material-components/moment-adapter';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
 import { RectangleInputComponent } from './components/rectangle-input/rectangle-input.component';
-import { NewButtonComponent } from '@shared/components/new-button/new-button.component';
+import { RectButtonComponent } from '@shared/components/rect-button/rect-button.component';
 
 @NgModule({
     declarations: [
@@ -118,7 +118,7 @@ import { NewButtonComponent } from '@shared/components/new-button/new-button.com
         ProductGroupsTableComponent,
         TimeDataPickerComponent,
         RectangleInputComponent,
-        NewButtonComponent
+        RectButtonComponent
     ],
     exports: [
         HeaderComponent,
@@ -159,7 +159,7 @@ import { NewButtonComponent } from '@shared/components/new-button/new-button.com
         ProductGroupsTableComponent,
         TimeDataPickerComponent,
         RectangleInputComponent,
-        NewButtonComponent
+        RectButtonComponent
     ],
     imports: [
         CommonModule,

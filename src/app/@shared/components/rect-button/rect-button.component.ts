@@ -4,11 +4,11 @@ import { IButtonImgSrc } from '../../../dashboard/models/ADMIN/admin-panel';
 type ButtonType = 'default' | 'primary';
 
 @Component({
-    selector: 'evj-new-button',
-    templateUrl: './new-button.component.html',
-    styleUrls: ['./new-button.component.scss'],
+    selector: 'evj-rect-button',
+    templateUrl: './rect-button.component.html',
+    styleUrls: ['./rect-button.component.scss'],
 })
-export class NewButtonComponent implements OnInit {
+export class RectButtonComponent implements OnInit {
     @Input() public isSmallButton: boolean = false;
     @Input() public textButton: string = '';
     @Input() public imgSrc: IButtonImgSrc = null;
