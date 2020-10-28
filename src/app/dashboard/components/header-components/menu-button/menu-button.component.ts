@@ -61,7 +61,7 @@ export class MenuButtonComponent implements OnInit, OnDestroy {
             },
             {
                 name: 'Изменение темы',
-                action: this.switchTheme.bind(this),
+                action: this.themeService.changeTheme.bind(this.themeService),
             },
             {
                 name: 'Выйти',
@@ -71,7 +71,7 @@ export class MenuButtonComponent implements OnInit, OnDestroy {
     }
 
     private switchTheme(): void {
-        console.log(this.themeService.theme);
+        // console.log(this.themeService.theme);
         this.themeService.changeTheme();
     }
 
