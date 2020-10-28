@@ -107,19 +107,19 @@
       </ng-template>
       <div class="confirm-container__footer">
         <div class="button-container">
-          <evj-button
+          <evj-rect-button
             [textButton]="info?.acceptText"
             (click)="accept()"
             [isChangingState]="false"
             [type]="'primary'"
-          ></evj-button>
+          ></evj-rect-button>
         </div>
         <div class="button-container">
-          <evj-button
+          <evj-rect-button
             [textButton]="info?.cancelText"
             (click)="cancel()"
             [isChangingState]="false"
-          ></evj-button>
+          ></evj-rect-button>
         </div>
       </div>
     </div>
