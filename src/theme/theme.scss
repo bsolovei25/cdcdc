@@ -1,3 +1,6 @@
+@import "dark-variables.scss";
+@import "light-variables.scss";
+
 @font-face {
   font-family: "Tahoma";
   src: url("../assets/fonts/Tahoma/Tahoma.eot");
@@ -89,5 +92,16 @@ select:-webkit-autofill:focus {
 textarea {
   &:disabled {
     color: var(--color-text-sub) !important;
+  }
+}
+
+:root {
+  .theme-light {
+    @include variables-light();
+    //@include angular-material-theme(theme-light);
+  }
+  .theme-dark {
+    @include variables-dark();
+    //@include angular-material-theme(theme-dark);
   }
 }
