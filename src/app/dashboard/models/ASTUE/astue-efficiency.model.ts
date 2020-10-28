@@ -1,4 +1,4 @@
-import { IProductionTrend } from '../production-trends.model';
+import { IProductionTrend } from '../LCO/production-trends.model';
 
 //#region NEW_MODELS
 export interface IAsEfProduct {
@@ -90,7 +90,7 @@ export interface IAsEfUnit extends IAsEfTempl {
 
 export interface IAsEfInitialDataBlock extends IAsEfTempl {
     value?: number;
-    tag: string;
+    tag?: string;
     rows: IAsEfInitialDataRow[];
 }
 

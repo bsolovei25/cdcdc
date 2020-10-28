@@ -17,19 +17,19 @@ import { MatCalendar } from '@angular/material/datepicker';
 
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
 import { FormControl, Validators } from '@angular/forms';
-import { IUser } from '../../../dashboard/models/events-widget';
+import { IUser } from '../../../dashboard/models/EVJ/events-widget';
 import {
     IScheduleShiftDay,
     IScheduleShift,
     IBrigadeWithUsersDto,
     IUnits,
     IUnitSettings,
-} from '../../../dashboard/models/admin-shift-schedule';
+} from '../../../dashboard/models/ADMIN/admin-shift-schedule';
 import { IAlertWindowModel } from '../../../@shared/models/alert-window.model';
 import {
     AdminShiftScheduleService,
     IDropItem,
-} from '../../../dashboard/services/widgets/admin-shift-schedule.service';
+} from '../../../dashboard/services/widgets/admin-panel/admin-shift-schedule.service';
 import { SnackBarService } from '../../../dashboard/services/snack-bar.service';
 import { WidgetService } from '../../../dashboard/services/widget.service';
 import { WidgetPlatform } from '../../../dashboard/models/@PLATFORM/widget-platform';
@@ -599,7 +599,7 @@ export class AdminShiftScheduleComponent extends WidgetPlatform<unknown>
         this.inputControl.setValue('');
         this.alertWindow = {
             isShow: true,
-            questionText: 'Введите название новой бригадды',
+            questionText: 'Введите название новой бригады',
             acceptText: ' Добавить',
             cancelText: 'Отмена',
             input: {

@@ -1,7 +1,7 @@
 import {Component, OnInit, Input} from '@angular/core';
 import { IInputOptions } from '@shared/models/input.model';
 import { IChatMessageWithAttachments } from '../components/chat/chat.component';
-import { EventsWorkspaceService } from '../../../../dashboard/services/widgets/events-workspace.service';
+import { EventsWorkspaceService } from '../../../../dashboard/services/widgets/EVJ/events-workspace.service';
 import { UserSettingsService } from '../../../../dashboard/services/user-settings.service';
 import { CdMatBalanceService } from '../../../../dashboard/services/widgets/CD/cd-mat-balance.service';
 import { SnackBarService } from '../../../../dashboard/services/snack-bar.service';

@@ -21,14 +21,14 @@
               <tr class="item-b">
                 <td class="fix-left">
                   <div class="group_product">
-                    <evj-product-groups-left [data]="items" (click)="isClickedFunc(items)" [isActive]="items.isActive">
+                    <evj-product-groups-left [dataProductGroups]="items" (click)="isClickedFunc(items)">
                     </evj-product-groups-left>
                   </div>
                 </td>
                 <td class="move">
                   <div class="product">
                     <ng-container *ngFor="let item of items.products; let i = index; ">
-                      <evj-product-groups-middle [data]="item">
+                      <evj-product-groups-middle [dataProductsItems]="item">
                       </evj-product-groups-middle>
                     </ng-container>
                   </div>

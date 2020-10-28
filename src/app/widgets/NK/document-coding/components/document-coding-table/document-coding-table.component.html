@@ -7,40 +7,30 @@
     </div>
     <div class="coding-table__container">
         <div id="scrollDocCodingTable" class="scroll-block" >
-            <div *ngFor="let item of data" class="record-table" (click)="activeRecord(item.id)" [class.active]="activeRecordId === item.id">
-                <div class="short">{{ item.sap }}</div>
-                <div class="big">{{ item.product }}</div>
-                <div class="middle gost">{{ item.gost }}</div>
-                <div class="short">{{ item.codeOKPD }}</div>
+            <div *ngFor="let item of data" class="record-table" (click)="onClick(item)" [class.active]="activeRecordId === item.id">
+                <div class="short">{{ item.sapCode || '-' }}</div>
+                <div class="big">{{ item.name || '-' }}</div>
+                <div class="middle gost">{{ item.gost || '-' }}</div>
+                <div class="short">{{ item.okpd2Code || '-' }}</div>
             </div>
         </div>
     </div>
     <div class="coding-table__bottom">
         <div class="bottom-block">
-            <div class="edit-button" (click)="openFilterGroup()" [class.active-filter]="isFilterGroup">
+          <ng-container *ngFor="let filter of filters">
+            <div class="edit-button" (click)="openFilter(filter)" [class.active-filter]="isPopoverOpened.get(filter.type)" [attr.id]="filter.type + '-doc-coding'">
                 <div class="edit-button__icon">
-                    <svg-icon *ngIf="isFilterGroup" src="assets/icons/widgets/oil-control-all/document-coding/filter-blue.svg"></svg-icon>
-                    <svg-icon *ngIf="!isFilterGroup" src="assets/icons/widgets/oil-control-all/document-coding/filter.svg"></svg-icon>
+                    <svg-icon *ngIf="isPopoverOpened.get(filter.type)" src="assets/icons/widgets/oil-control-all/document-coding/filter-blue.svg"></svg-icon>
+                    <svg-icon *ngIf="!isPopoverOpened.get(filter.type)" src="assets/icons/widgets/oil-control-all/document-coding/filter.svg"></svg-icon>
                 </div>
                 <div class="edit-button__text">
-                    <div class="name">Лаборатория</div>
+                    <div class="name">{{ filter.name }} {{ getFilterCountData(filter.type) || '' }}</div>
                     <div class="icon">
                         <svg-icon src="assets/icons/widgets/oil-control-all/document-coding/arrow.svg"></svg-icon>
                     </div>
                 </div>
             </div>
-            <div class="filter-button" (click)="openFilterProduct()" [class.active-filter]="isFilterProduct">
-                <div class="filter-button__icon">
-                    <svg-icon *ngIf="isFilterProduct" src="assets/icons/widgets/oil-control-all/document-coding/filter-blue.svg"></svg-icon>
-                    <svg-icon *ngIf="!isFilterProduct" src="assets/icons/widgets/oil-control-all/document-coding/filter.svg"></svg-icon>
-                </div>
-                <div class="filter-button__text">
-                    <div class="name">Продукты</div>
-                    <div class="icon">
-                        <svg-icon src="assets/icons/widgets/oil-control-all/document-coding/arrow.svg"></svg-icon>
-                    </div>
-                </div>
-            </div>
+          </ng-container>
         </div>
     </div>
 </div>

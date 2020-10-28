@@ -1,8 +1,11 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { SelectionModel } from '@angular/cdk/collections';
-import { IAsEfInitialDataBlock } from '../../../../../dashboard/models/ASTUE/astue-efficiency.model';
+import {
+    IAsEfInitialDataBlock,
+    IAsEfUnitNew
+} from '../../../../../dashboard/models/ASTUE/astue-efficiency.model';
 import { forkJoin, combineLatest, Subscription } from 'rxjs';
-import { AstueEfficiencyService } from '../../../../../dashboard/services/ASTUE/astue-efficiency.service';
+import { AstueEfficiencyService } from '../../../../../dashboard/services/widgets/ASTUE/astue-efficiency.service';
 
 @Component({
     selector: 'evj-astue-efficiency-initial-data',
@@ -27,7 +30,14 @@ export class AstueEfficiencyInitialDataComponent implements OnInit, OnDestroy {
                 this.data = [];
                 results?.flat()?.forEach(data => {
                     if (data) {
-                        this.data = [...this.data, ...data?.initialData];
+                        if ((data as IAsEfUnitNew)?.periodCounter) {
+                        data.initialData.forEach(value => {
+                                if (!value.name.includes(data.name)) {
+                                    value.name = `${value.name} ${data.name}`;
+                                }
+                            });
+                        }
+                        this.data = ([...this.data, ...data?.initialData] as any);
                     }
                 });
             })

@@ -244,4 +244,11 @@ export class AstueOnpzService {
             return null;
         }
     }
+
+    public async getProductChannels(widgetId: string, options: IAstueOnpzMonitoringOptions): Promise<string[]> {
+        const response = await this.http
+            .get<{id: string}[]>(`${this.restUrl}/api/widget-data/${widgetId}/sub-channels?UnitName=${options.unitName}&ManufactureName=${options.manufactureName}&Type=${options.type}&TypeValue=${options.indicatorType}`)
+            .toPromise();
+        return response?.map(x => x.id) ?? [];
+    }
 }

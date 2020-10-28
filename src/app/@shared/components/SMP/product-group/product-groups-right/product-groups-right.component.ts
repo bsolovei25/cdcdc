@@ -9,7 +9,7 @@ import {
 } from '@angular/core';
 import * as d3 from 'd3';
 import { SpaceNumber } from '@shared/pipes/number-space.pipe';
-import { IProducts } from '../../../../../dashboard/models/SMP/product-groups.model';
+import { IProductGroups } from '../../../../../dashboard/models/SMP/product-groups.model';
 
 @Component({
     selector: 'evj-product-groups-right',
@@ -62,7 +62,7 @@ export class ProductGroupsRightComponent implements OnInit, OnChanges {
 
     public progressWidth: number = 185;
 
-    @Input() public data: IProducts;
+    @Input() public data: IProductGroups;
 
     @ViewChild('myCircle', { static: true }) myCircle: ElementRef;
 
@@ -77,12 +77,13 @@ export class ProductGroupsRightComponent implements OnInit, OnChanges {
         this.d3Block(this.data, this.myCircle.nativeElement);
     }
 
-    public d3Block(data, el): void {
+    public d3Block(data: IProductGroups, el): void {
         let color: any;
+        const performance = data.shipPlanPercent;
 
-        if (data.groupDeviationShipPerformance === 0) {
+        if (performance === 0) {
             color = d3.scaleOrdinal().range(['var(--color-text-sub-heading)']);
-        } else if (data.groupDeviationShipPerformance === 100) {
+        } else if (performance === 100) {
             color = d3.scaleOrdinal().range(['white']);
         } else {
             color = d3.scaleOrdinal().range(['orange', '#1b1e27']);
@@ -96,17 +97,41 @@ export class ProductGroupsRightComponent implements OnInit, OnChanges {
             .attr('viewBox', '0 -24 150 115');
 
         this.d3Circle(data, this.svgBlock);
+
+        const innerGauge = d3.arc()
+            .innerRadius(36)
+            .outerRadius(38)
+            .startAngle(0)
+            .endAngle(2 * Math.PI);
+
+        this.svgBlock.append('g')
+            .append('path')
+            .attr('d', innerGauge)
+            .attr('transform', 'translate(-80, 30)')
+            .attr('fill', 'var(--color-smp-days-unknown)');
+
+        const gaugeProgress = d3.arc()
+            .innerRadius(36)
+            .outerRadius(38)
+            .startAngle(0)
+            .endAngle(performance * 2 * Math.PI / 100);
+
+        this.svgBlock.append('g')
+            .append('path')
+            .attr('d', gaugeProgress )
+            .attr('transform', 'translate(-80, 30)')
+            .attr('fill', 'var(--color-smp-left-gauge)');
     }
 
-    d3Circle(data, el): void {
-        const newValue: string = this.spacePipe.transform(data.groupDeviationAllValue);
-        const deviationValue = this.spacePipe.transform(data.groupValue);
-        const deviationNotValue = this.spacePipe.transform(data.groupDeviationNotValue);
+    d3Circle(data: IProductGroups, el): void {
+        const newValue: string = this.spacePipe.transform(data.shipAll);
+        const deviationValue = this.spacePipe.transform(data.shipOf);
+        const deviationNotValue = this.spacePipe.transform(data.shipOf);
 
         const x = -80;
         const y = 30;
 
-        const indicatorRightPie = this.indicatorGauge(data.gaugePercent);
+        const indicatorRightPie = this.indicatorGauge(data.shipPlanPercent);
 
         this.d3Grauge(el, this.gaugemap, indicatorRightPie, x, y);
 
@@ -117,7 +142,7 @@ export class ProductGroupsRightComponent implements OnInit, OnChanges {
             .attr('x', '-15')
             .attr('y', '16')
             .attr('text-anchor', 'left')
-            .attr('font-family', "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
+            .attr('font-family', 'Tahoma, Geneva, Verdana, sans-serif;')
             .text('Оформлено');
 
         const bottomLabel = el
@@ -127,7 +152,7 @@ export class ProductGroupsRightComponent implements OnInit, OnChanges {
             .attr('x', '-15')
             .attr('y', '55')
             .attr('text-anchor', 'left')
-            .attr('font-family', "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
+            .attr('font-family', 'Tahoma, Geneva, Verdana, sans-serif;')
             .text('Не оформлено');
 
         const value = el
@@ -137,7 +162,7 @@ export class ProductGroupsRightComponent implements OnInit, OnChanges {
             .attr('x', '-79')
             .attr('y', '33')
             .attr('text-anchor', 'middle')
-            .attr('font-family', "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
+            .attr('font-family', 'Tahoma, Geneva, Verdana, sans-serif;')
             .text(newValue);
 
         const valueName = el
@@ -180,7 +205,7 @@ export class ProductGroupsRightComponent implements OnInit, OnChanges {
             .attr('x', '230')
             .attr('y', '20')
             .attr('text-anchor', 'middle')
-            .attr('font-family', "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
+            .attr('font-family', 'Tahoma, Geneva, Verdana, sans-serif;')
             .text(deviationValue);
 
         const groupDeviationNotValue = el
@@ -190,11 +215,11 @@ export class ProductGroupsRightComponent implements OnInit, OnChanges {
             .attr('x', '230')
             .attr('y', '63')
             .attr('text-anchor', 'middle')
-            .attr('font-family', "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
+            .attr('font-family', 'Tahoma, Geneva, Verdana, sans-serif;')
             .text(deviationNotValue);
 
-        const procentPrgoress1 = data.framedPecent;
-        const procentPrgoress2 = data.notFramedPercent;
+        const procentPrgoress1 = data.shipPlanPercent < 0 ? 0 : data.shipPlanPercent < 100 ? data.shipPlanPercent : 100;
+        const procentPrgoress2 = data.passPlanPercent < 0 ? 0 : data.passPlanPercent < 100 ? data.passPlanPercent : 100;
 
         const progressLine1 = el
             .append('rect')
@@ -270,7 +295,7 @@ export class ProductGroupsRightComponent implements OnInit, OnChanges {
         this.gauge(
             el,
             {
-                size: 100,
+                size: 104,
                 clipWidth: 300,
                 clipHeight: 300,
                 ringWidth: 58,

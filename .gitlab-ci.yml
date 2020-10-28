@@ -54,6 +54,7 @@ install_dependencies:
       - master
     changes:
       - package.json
+      - package-lock.json
 
 ng-build:
   extends: .ng-build
@@ -131,15 +132,15 @@ deploy-front-mr:
   extends: .deploy-to-k8s
   variables:
     NS: "evj-${CI_COMMIT_REF_SLUG}"
-    IMG_VERSION: "${CI_MERGE_REQUEST_SOURCE_BRANCH_NAME}"
+    IMG_VERSION: "${CI_COMMIT_REF_SLUG}"
     CHART: "./ci/front-chart"
     RELEASE: "front"
-    DEPLOY_DOMAIN: "https://evj-${CI_MERGE_REQUEST_SOURCE_BRANCH_NAME}.funcoff.club"
-    INGRESS_SITE: "evj-${CI_MERGE_REQUEST_SOURCE_BRANCH_NAME}"
+    DEPLOY_DOMAIN: "https://evj-${CI_COMMIT_REF_SLUG}.funcoff.club"
+    INGRESS_SITE: "evj-${CI_COMMIT_REF_SLUG}"
   dependencies: []
   environment:
     name: review/${CI_COMMIT_REF_SLUG}
-    url: "https://evj-${CI_MERGE_REQUEST_SOURCE_BRANCH_NAME}.funcoff.club"
+    url: "https://evj-${CI_COMMIT_REF_SLUG}.funcoff.club"
     on_stop: stop-k8s-review
   only:
     - merge_requests

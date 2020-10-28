@@ -6,7 +6,7 @@ import {
     SemicircleEnergy,
     CenterCoords,
     LimitLine,
-} from 'src/app/dashboard/models/semicircle-energy';
+} from 'src/app/dashboard/models/LCO/semicircle-energy';
 import { WidgetPlatform } from 'src/app/dashboard/models/@PLATFORM/widget-platform';
 
 @Component({

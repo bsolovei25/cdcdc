@@ -7,7 +7,7 @@ import {
     IEnergeticsGraph,
     IEnergeticsCard,
     IEnergeticsCircleDiagram,
-} from 'src/app/dashboard/models/energetics';
+} from 'src/app/dashboard/models/LCO/energetics';
 import { WidgetPlatform } from 'src/app/dashboard/models/@PLATFORM/widget-platform';
 
 @Component({

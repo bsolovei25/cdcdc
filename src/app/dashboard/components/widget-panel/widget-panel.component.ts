@@ -11,7 +11,7 @@ import { WidgetService } from '../../services/widget.service';
 import { UserSettingsService } from '../../services/user-settings.service';
 import { ClaimService, EnumClaimWidgets, EnumClaimScreens } from '../../services/claim.service';
 import { Subscription, BehaviorSubject } from 'rxjs';
-import { WIDGETS } from '../widgets-grid/widget-map';
+import { WIDGETS } from '../../../widgets/widget-map';
 import { IWidget } from '../../models/widget.model';
 import { trigger, transition, animate, style } from '@angular/animations';
 import { WidgetPlatform } from '../../models/@PLATFORM/widget-platform';

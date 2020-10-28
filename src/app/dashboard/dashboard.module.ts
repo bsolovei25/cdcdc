@@ -1,6 +1,6 @@
 import { UserEventsComponent } from './components/header-components/user-events/user-events.component';
 import { UserEventsItemComponent } from './components/header-components/user-events/components/user-events-item/user-events-item.component';
-import { SharedModule } from './../@shared/shared.module';
+import { SharedModule } from '@shared/shared.module';
 import { NgModule, LOCALE_ID } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HomeComponent } from './pages/home/home.component';
@@ -49,7 +49,7 @@ import { MatDialogModule, MatDialogRef, MAT_DIALOG_DATA } from '@angular/materia
 import { MatChipsModule } from '@angular/material/chips';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatIconModule } from '@angular/material/icon';
-import { TreeModule } from 'angular-tree-component';
+import { TreeModule } from '@circlon/angular-tree-component';
 import { NgxMaskModule } from 'ngx-mask';
 import { DevGraphComponent } from './pages/dev-graph/dev-graph.component';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
@@ -71,7 +71,6 @@ import { MenuButtonComponent } from './components/header-components/menu-button/
 import { MatBadgeModule } from '@angular/material/badge';
 import { TankFilterComponent } from '../widgets/NK/tank-information/components/tank-filter/tank-filter.component';
 import { ReportServerConfiguratorModule } from '../widgets/admin/report-server-configurator/report-server-configurator.module';
-import { DocumentCodingModule } from '../widgets/NK/document-coding/document-coding.module';
 
 @NgModule({
     declarations: [
@@ -124,7 +123,9 @@ import { DocumentCodingModule } from '../widgets/NK/document-coding/document-cod
         WidgetPreviewComponent,
         PowIndexPipe,
         TankFilterComponent,
-        TableGridInputComponent, ColumnGridComponent, TableGridComponent
+        TableGridInputComponent,
+        ColumnGridComponent,
+        TableGridComponent
     ],
     imports: [
         CommonModule,

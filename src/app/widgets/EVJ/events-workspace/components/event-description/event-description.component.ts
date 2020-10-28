@@ -8,7 +8,7 @@ import {
     Output,
     EventEmitter
 } from '@angular/core';
-import { EventsWorkspaceService } from '../../../../../dashboard/services/widgets/events-workspace.service';
+import { EventsWorkspaceService } from '../../../../../dashboard/services/widgets/EVJ/events-workspace.service';
 
 @Component({
     selector: 'evj-event-description',
@@ -17,6 +17,7 @@ import { EventsWorkspaceService } from '../../../../../dashboard/services/widget
 })
 export class EventDescriptionComponent implements OnInit, AfterViewInit {
     @Input() public description: string = '';
+    @Input() public disabled: boolean = false;
     @Input() public isRetrievalEvent: boolean = false;
     @Input() titleName: string = 'Краткое описание';
 

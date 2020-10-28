@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
-import { EventService } from '../../../../../dashboard/services/widgets/event.service';
+import { EventService } from '../../../../../dashboard/services/widgets/EVJ/event.service';
 
 @Component({
     selector: 'evj-event-preview',

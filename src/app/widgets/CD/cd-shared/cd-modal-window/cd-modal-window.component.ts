@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { IUser } from '../../../../dashboard/models/events-widget';
+import { IUser } from '../../../../dashboard/models/EVJ/events-widget';
 import { FormControl, Validators } from '@angular/forms';
 import * as moment from 'moment';
 import { CdMatBalanceService } from '../../../../dashboard/services/widgets/CD/cd-mat-balance.service';

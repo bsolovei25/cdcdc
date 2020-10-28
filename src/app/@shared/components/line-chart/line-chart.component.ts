@@ -12,7 +12,7 @@ import * as d3 from 'd3';
 import {
     IProductionTrend,
     ProductionTrendType
-} from '../../../dashboard/models/production-trends.model';
+} from '../../../dashboard/models/LCO/production-trends.model';
 import { IChartD3, IChartMini, IPointTank } from '../../models/smart-scroll.model';
 import { ChartStyleType, ChartStyle, IChartStyle } from '../../models/line-chart-style.model';
 import { IDatesInterval } from '../../../dashboard/services/widget.service';

@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { IButtonImgSrc } from '../../../dashboard/models/admin-panel';
+import { IButtonImgSrc } from '../../../dashboard/models/ADMIN/admin-panel';
 
 type ButtonType = 'default' | 'primary';
 
@@ -15,7 +15,6 @@ export class ButtonComponent implements OnInit {
     @Input() public isActive: boolean = false;
     @Input() public isChangingState: boolean = false;
     @Input() public disabled: boolean = false;
-    @Input() public isRounded: boolean = false;
     @Input() public type: ButtonType = 'default';
 
     public isButtonHover: boolean = false;

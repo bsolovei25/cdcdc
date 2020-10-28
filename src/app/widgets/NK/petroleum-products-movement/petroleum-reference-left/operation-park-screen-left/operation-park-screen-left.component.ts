@@ -3,7 +3,7 @@ import {
     ITankInfo,
     IFacilityInfo,
     IPetroleumObject,
-} from 'src/app/dashboard/models/petroleum-products-movement.model';
+} from 'src/app/dashboard/models/NK/petroleum-products-movement.model';
 import { PetroleumScreenService } from 'src/app/dashboard/services/widgets/petroleum-screen.service';
 
 @Component({

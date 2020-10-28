@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { IBlockDiagram, IBlockDiagramMock } from 'src/app/dashboard/models/circle-block-diagram';
+import { IBlockDiagram, IBlockDiagramMock } from 'src/app/dashboard/models/LCO/circle-block-diagram';
 import { WidgetPlatform } from 'src/app/dashboard/models/@PLATFORM/widget-platform';
 import { WidgetService } from 'src/app/dashboard/services/widget.service';
 
@@ -9,7 +9,7 @@ import { WidgetService } from 'src/app/dashboard/services/widget.service';
     templateUrl: './circle-block-diagram.component.html',
     styleUrls: ['./circle-block-diagram.component.scss'],
 })
-export class CircleBlockDiagramComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
+export class CircleBlockDiagramComponent extends WidgetPlatform implements OnInit, OnDestroy {
     public blockDiagram: IBlockDiagram = {
         improvement: 0, // улучшение в %
         disabled: 0, // отключенные блокировки в %

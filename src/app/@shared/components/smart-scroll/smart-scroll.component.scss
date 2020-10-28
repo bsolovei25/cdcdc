@@ -6,6 +6,7 @@
 .container {
   height: 100%;
   width: 100%;
+  z-index: 999;
 
   .scroll-bar {
     width: 100%;
@@ -20,6 +21,8 @@
         position: relative;
         width: 100%;
         height: 100%;
+        padding: 0 5px;
+        box-sizing: border-box;
         //background-color: var(--color-bg-main-dark);
         border-radius: 5px;
       }
@@ -179,7 +182,7 @@
 
     .resizer {
       position: absolute;
-      z-index: 2;
+      z-index: 3;
 
       height: 32px;
       width: 9px;
@@ -199,12 +202,12 @@
       }
 
       &_left {
-        left: -5px;
+        left: 0px;
         transform: rotate(180deg);
       }
 
       &_right {
-        right: -5px;
+        right: 0px;
       }
     }
   }

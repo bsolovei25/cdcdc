@@ -1,21 +1,27 @@
 import { Component, OnInit, OnDestroy, Inject } from '@angular/core';
 import { WidgetPlatform } from '../../../../../dashboard/models/@PLATFORM/widget-platform';
 import { IPlanningChart } from '../../../astue-onpz-planning-charts/astue-onpz-planning-charts.component';
-import { IProductionTrend } from '../../../../../dashboard/models/production-trends.model';
-import { WidgetService } from '../../../../../dashboard/services/widget.service';
+import { IProductionTrend } from '../../../../../dashboard/models/LCO/production-trends.model';
+import { IDatesInterval, WidgetService } from '../../../../../dashboard/services/widget.service';
 import { AstueOnpzService } from '../../../astue-onpz-shared/astue-onpz.service';
 import { fillDataShape } from '@shared/functions/common-functions';
+import { IChartMini } from '@shared/models/smart-scroll.model';
 
 @Component({
     selector: 'evj-astue-onpz-big-planning-chart',
     templateUrl: './astue-onpz-big-planning-chart.component.html',
     styleUrls: ['./astue-onpz-big-planning-chart.component.scss']
 })
-export class AstueOnpzBigPlanningChartComponent extends WidgetPlatform<unknown>
-    implements OnInit, OnDestroy {
+export class AstueOnpzBigPlanningChartComponent extends WidgetPlatform implements OnInit, OnDestroy {
+
+    public sbLeft: number = 0;
+    public sbWidth: number = 100;
+    public scrollData: IChartMini[] = [];
+    public scrollLimits: IDatesInterval = null;
+
     public info: IPlanningChart;
     public data: IProductionTrend[] = [];
-    colors: Map<string, number>;
+    public colors: Map<string, number>;
     public scaleCounter: number = 5;
     set scale(isMinus: boolean) {
         let counter = this.scaleCounter + (+isMinus || -1);
@@ -48,7 +54,8 @@ export class AstueOnpzBigPlanningChartComponent extends WidgetPlatform<unknown>
             }),
             this.astueService.colors$.subscribe((value) => {
                 this.colors = value;
-            })
+            }),
+            this.widgetService.currentDates$.subscribe((ref) => this.scrollLimits = ref),
         );
     }
 

@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { EventsWorkspaceService } from '../../../../../dashboard/services/widgets/events-workspace.service';
+import { Component, Input, OnInit } from '@angular/core';
+import { EventsWorkspaceService } from '../../../../../dashboard/services/widgets/EVJ/events-workspace.service';
 
 @Component({
     selector: 'evj-events-correct',
@@ -7,6 +7,7 @@ import { EventsWorkspaceService } from '../../../../../dashboard/services/widget
     styleUrls: ['./events-correct.component.scss']
 })
 export class EventsCorrectComponent implements OnInit {
+    @Input() disabled: boolean = false;
     public isSmotr: boolean = false;
 
     constructor(public ewService: EventsWorkspaceService) {
@@ -28,11 +29,14 @@ export class EventsCorrectComponent implements OnInit {
     }
 
     public addRetrieval(): void {
+        if (this.disabled) {
+            return;
+        }
         this.ewService.createEvent(this.ewService.event.id);
     }
 
     public openSearchRetrieval(): void {
-        if (!this.ewService.checkRetrievalCategory()) {
+        if (!this.ewService.checkRetrievalCategory() || this.disabled) {
             return;
         }
         const windowsParam = {
