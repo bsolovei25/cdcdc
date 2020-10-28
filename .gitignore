@@ -47,4 +47,4 @@ Thumbs.db
 /.vs
 
 # package-lock
-package-lock.json
+#package-lock.json

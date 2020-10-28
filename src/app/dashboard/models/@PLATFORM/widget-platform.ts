@@ -1,7 +1,9 @@
-import { Inject, OnDestroy } from '@angular/core';
+import { Directive, Inject, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { WidgetService } from '../../services/widget.service';
 
+@Directive()
+// tslint:disable-next-line:directive-class-suffix
 export abstract class WidgetPlatform<T = unknown> implements OnDestroy {
     public widgetCode?: string;
     public widgetTitle?: string;

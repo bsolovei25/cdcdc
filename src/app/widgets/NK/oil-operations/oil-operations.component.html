@@ -47,10 +47,10 @@
                             <evj-column-grid key="deviation" name="Отклонение" [width]="11"></evj-column-grid>
                             <evj-column-grid key="status" name="Статус" [width]="6" [template]="status">
                                 <ng-template #status let-data="data">
-                                    <div class="status">
+                                    <div class="status" [matTooltip]="getStatusDescription(data.status)">
                                         <div class="pasport__icon">
                                             <svg-icon
-                                                src="assets/icons/widgets/oil-control-all/oil-operations/libra-red.svg"
+                                                [src]="'assets/icons/widgets/oil-control-all/oil-operations/libra-' + data.status + '.svg'"
                                                 [svgStyle]="{ 'width.px':30, 'height.px':30, 'margin-top.px': 5 }">
                                             </svg-icon>
                                         </div>

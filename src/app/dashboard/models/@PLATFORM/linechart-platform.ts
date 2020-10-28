@@ -1,12 +1,14 @@
 import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
 import { IDatesInterval, WidgetService } from '../../services/widget.service';
-import { OnDestroy, OnInit } from '@angular/core';
+import { Directive, OnDestroy, OnInit } from '@angular/core';
 import { IProductionTrend } from '../LCO/production-trends.model';
 import { IChartMini } from '@shared/models/smart-scroll.model';
 
 export type SmartGraphType = 'realtime' | 'rest';
 
+@Directive()
+// tslint:disable-next-line:directive-class-suffix
 export abstract class LineChartPlatform<T extends IProductionTrend> implements OnInit, OnDestroy {
     /// CONFIG
     // Отступ скролла в процентах от правой части для трансляции данных

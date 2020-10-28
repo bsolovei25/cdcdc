@@ -29,6 +29,7 @@ export class ChatComponent implements OnInit {
     @Input() public messages: IMessage[] = [];
     @Input() public dataTitle: string = '';
     @Input() public placeholder: string = '';
+    @Input() public disabled: boolean = false;
     @Input() public displayGraphImage: boolean = false;
     @Input() public displayMnemoImage: boolean = false;
     @Input() public onClickItem: () => void = () => {};

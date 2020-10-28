@@ -1,21 +1,22 @@
 import {Component, Input, OnInit} from '@angular/core';
 import { EventsWorkspaceService } from '../../../../dashboard/services/widgets/EVJ/events-workspace.service';
 import { IChatMessageWithAttachments } from '../components/chat/chat.component';
+import { map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 @Component({
     selector: 'evj-tasks-event',
     templateUrl: './tasks-event.component.html',
     styleUrls: ['./tasks-event.component.scss'],
 })
-export class TasksEventComponent implements OnInit {
-    @Input()
-    public noOverflow: boolean = false;
-    constructor(public ewService: EventsWorkspaceService) {}
+export class TasksEventComponent {
+    @Input() public noOverflow: boolean = false;
+    public isClosedObserver: Observable<boolean> =
+        this.ewService.event$.asObservable().pipe(
+            map((x) => x.status.name === 'closed'),
+        );
 
-    public ngOnInit(): void {
-        this.ewService.event.status =
-            this.ewService.status.find(value => value.name === 'new');
-    }
+    constructor(public ewService: EventsWorkspaceService) {}
 
     public openLineChart(): void {
         this.ewService.isOverlayChartOpen = true;
