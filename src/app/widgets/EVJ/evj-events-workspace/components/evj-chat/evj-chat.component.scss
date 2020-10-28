@@ -18,50 +18,8 @@
   font-size: 12px;
   line-height: 18px;
 
+  border: 1px solid var(--evj-events-workspace-color-border);
   background: var(--evj-events-workspace-bg-dark);
-
-  &__header {
-    position: relative;
-
-    width: 100%;
-    height: 18px;
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-
-    box-sizing: border-box;
-
-    font-size: 13px;
-    line-height: 16px;
-
-    background: var(--evj-events-workspace-bg-dark);
-
-    color: var(--color-text-sub);
-
-    &::before,
-    &::after {
-      content: "";
-      position: absolute;
-      z-index: 2;
-
-      width: 10px;
-      height: 10px;
-
-      top: -5px;
-      left: -5px;
-      right: auto;
-
-      background: var(--color-bg-main);
-
-      transform: rotate(45deg);
-    }
-
-    &::after {
-      top: -5px;
-      left: auto;
-      right: -5px;
-    }
-  }
 
   &__messages {
     width: 100%;
@@ -80,30 +38,6 @@
     font-size: 10px;
 
     background: transparent;
-
-    &::before,
-    &::after {
-      content: "";
-      position: absolute;
-      z-index: 2;
-
-      width: 10px;
-      height: 10px;
-
-      bottom: -5px;
-      left: -5px;
-      right: auto;
-
-      background: transparent;
-
-      transform: rotate(45deg);
-    }
-
-    &::after {
-      bottom: -5px;
-      left: auto;
-      right: -5px;
-    }
   }
 
   .messages {
@@ -122,6 +56,24 @@
 
       background: var(--evj-events-workspace-bg-dark);
     }
+  }
+  title {
+    position: relative;
+
+    width: 100%;
+    height: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+
+    box-sizing: border-box;
+
+    font-size: 13px;
+    line-height: 16px;
+
+    background: var(--evj-events-workspace-bg-dark);
+
+    color: var(--color-text-sub);
   }
 
   .message {
@@ -243,7 +195,7 @@
     align-items: center;
 
     box-sizing: border-box;
-    padding: 10px 15px 0px;
+    padding: 10px 15px 10px 15px;
   }
 
   .input {

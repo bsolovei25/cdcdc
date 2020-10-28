@@ -1,7 +1,7 @@
+<div class="title">
+  <span>{{dataTitle}}</span>
+</div>
 <div class="chat">
-  <div class="chat__header">
-    <span>{{dataTitle}}</span>
-  </div>
   <div class="chat__messages messages scroll scroll-bar" #scroll>
     <div class="messages__list">
       <div class="message__graph graph" *ngIf="displayGraphImage" (click)="onClickItem()">
