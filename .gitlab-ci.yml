@@ -210,6 +210,8 @@ get-factory-artifacts:
   artifacts:
     paths:
       - ./dist
+  script:
+    - "======= getting artifacts from previous stage ========"
   when:
       manual
   only:
