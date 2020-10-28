@@ -184,7 +184,7 @@ export to zyfra:
   extends: .deploy-to-zyfra
   variables:
     GIT_STRATEGY: none
-    SERVICE_NAME: "frontend"
+    SERVICE_NAME: "front"
     EXTERNAL_DOCKER_IMG: "onpz.local/evj/frontend"
   only:
     - devops-zyfra
