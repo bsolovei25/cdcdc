@@ -16,9 +16,9 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatIconModule } from '@angular/material/icon';
 import { NgxMatDatetimePickerModule } from '@angular-material-components/datetime-picker';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { DashboardComponent } from '../../../dashboard/pages/dashboard.component';
 import { DashboardModule } from '../../../dashboard/dashboard.module';
 import { ScrollingModule } from '@angular/cdk/scrolling';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 
 
@@ -44,7 +44,8 @@ import { ScrollingModule } from '@angular/cdk/scrolling';
         NgxMatDatetimePickerModule,
         MatFormFieldModule,
         DashboardModule,
-        ScrollingModule
+        ScrollingModule,
+        MatTooltipModule,
     ],
     exports: [
         OilOperationsFilterComponent

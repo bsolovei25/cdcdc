@@ -7,7 +7,6 @@
   </div>
   <!--TABLE-->
   <div class="grid-table__container" [class.left-container]="scrollLeft">
-    <!--<div id="scrollGridTable" class="scroll-block" #table [class.left-content]="scrollLeft">-->
     <cdk-virtual-scroll-viewport (scroll)="scrollHandler($event)" autosize class="scroll-block" #table [class.left-content]="scrollLeft">
       <ng-container  *cdkVirtualFor="let item of data">
         <div class="item-inline">
@@ -22,7 +21,6 @@
         </div>
       </ng-container>
     </cdk-virtual-scroll-viewport>
-    <!--</div>-->
   </div>
   <!--FOOTER-->
   <div class="grid-table__bottom" [class.left-title-footer]="scrollLeft">

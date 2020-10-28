@@ -140,7 +140,7 @@
   --color-smp-danger: #d00100;
   --color-smp-warning: #ff9700;
   --color-smp-active: #6ba4ef;
-  
+
   --color-smp-checkbox: rgba(95, 101, 128, 0.55);
   --color-smp-white: #ffffff;
 
@@ -497,6 +497,12 @@
   --color-event-card-gradient-warning: rgba(255, 140, 0, 0.29735644257703087);
   --color-event-card-font-sub: #8C99B2;
   --evj-events-preview: rgba(39, 42, 56, 0.5);
+
+  // events workspace
+  --evj-events-workspace-critical: #DB0000;
+  --evj-events-workspace-critical-bg: rgba(219, 0, 0, 0.15);
+  --evj-events-workspace-minor: #F8921C;
+  --evj-events-workspace-minor-bg: rgba(248, 146, 28, 0.15);
 
 }
 

@@ -430,7 +430,7 @@ export class WidgetService {
                 moment('03:29:59', timeFormat)
             )
         ) {
-            window.location.reload();
+            // window.location.reload(); // TODO: testing
         }
     }
 
