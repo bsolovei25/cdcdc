@@ -21,6 +21,7 @@ import { Subscription } from 'rxjs';
 import { IDatesInterval, WidgetService } from '../../../../../dashboard/services/widget.service';
 import { dateFormatLocale } from '@shared/functions/universal-time-fromat.function';
 import { findCursorPosition } from '@shared/functions/find-cursor-position.function';
+import { log } from 'util';
 
 export interface IMultiChartOptions {
     colors?: Map<string, number>;
@@ -107,6 +108,7 @@ export class AstueOnpzMultiChartComponent implements OnInit, OnChanges, OnDestro
     }
 
     public ngOnChanges(): void {
+        console.log(this.data);
         if (!!this.data.length) {
             this.startDrawChart();
         } else {
@@ -608,285 +610,7 @@ export class AstueOnpzMultiChartComponent implements OnInit, OnChanges, OnDestro
 
     // TODO clear on currentDates
     private drawFutureRect(): void {
-        const values = [];
-        let plan: IChartMini;
-        let fact: IChartMini;
-        const currentDatetime: Date = new Date();
-        currentDatetime.setMinutes(0, 0, 0);
-        const x: number = this.scaleFuncs.x(currentDatetime);
-        this.charts.forEach((chart) => {
-            const filterChart = chart.graph
-                .filter((item) => item.timeStamp.getTime() <= currentDatetime.getTime());
-            const statValue =
-                filterChart?.length > 0
-                    ? filterChart[filterChart.length - 1]
-                    : chart?.graph[0] ?? null;
-            if (chart.graphType === 'plan') {
-                plan = chart.graph[chart.graph.length - 1];
-            } else if (chart.graphType === 'fact') {
-                fact = chart.graph[chart.graph.length - 1];
-            } else if (chart.graphType === 'higherBorder') {
-                fact = chart.graph[chart.graph.length - 1];
-            } else if (chart.graphType === 'lowerBorder') {
-                fact = chart.graph[chart.graph.length - 1];
-            } else if (chart.graphType === 'forecast') {
-                // TODO add some
-            } else {
-                values.push({
-                    val: statValue,
-                    color: lineColors[this.colors?.get(chart.tagName)],
-                    units: chart.units ?? '',
-                    iconType: chart.graphType ?? 'volume'
-                });
-            }
-        });
-
         this.drawMouseGroup();
-
-        // const y = (this.padding.top - this.topMargin) * 0.7;
-        // const y2 = this.graphMaxY - this.padding.bottom;
-        // const width = this.graphMaxX - this.padding.right - x;
-        // const height = this.graphMaxY - this.padding.top - this.padding.bottom + this.topMargin;
-        // if (width > 0) {
-        const g = this.svg.append('g').attr('class', 'picker');
-        // g.append('rect')
-        //     .attr('x', x)
-        //     .attr('y', this.padding.top - this.topMargin)
-        //     .attr('width', width)
-        //     .attr('height', height)
-        //     .attr('class', 'future');
-        // // Линия
-        // g.append('line')
-        //     .attr('x1', x)
-        //     .attr('y1', y)
-        //     .attr('x2', x)
-        //     .attr('y2', y2)
-        //     .attr('class', 'future-line');
-        //
-        // g.append('line')
-        //     .attr('x1', x - this.topMargin / 2)
-        //     .attr('y1', y)
-        //     .attr('x2', x + this.topMargin / 2)
-        //     .attr('y2', y)
-        //     .attr('class', 'future-line future-line_hor');
-
-
-        // Иконки и значения возле линии
-        let start = this.padding.top - this.topMargin;
-        const step = 10;
-        const cardWidth = this.axisYWidth * 2;
-        const cardHeight = this.axisYWidth * 0.5;
-
-        values.forEach((val) => {
-            const rect = g.append('g').attr('class', 'val');
-            const bg = rect
-                .append('g')
-                .attr('class', 'bg')
-                .style('opacity', 0.25);
-
-            start += step + cardHeight;
-
-            bg.append('rect')
-                .attr('x', x + step)
-                .attr('y', start)
-                .attr('width', cardWidth)
-                .attr('height', cardHeight)
-                .attr('rx', 5);
-            bg.append('rect')
-                .attr('x', x + step * 1.5)
-                .attr('y', start + step * 0.5)
-                .attr('width', cardHeight - step)
-                .attr('height', cardHeight - step)
-                .attr('rx', 5)
-                .style('fill', val.color);
-
-            rect.append('text')
-                .attr('x', x + step * 1.5 + cardHeight)
-                .attr('y', start + cardHeight - step * 0.9)
-                .text(`${val.val.value?.toFixed(2)} ${val.units}`);
-
-            if (this.options.isIconsShowing) {
-                rect.append('image')
-                    .attr(
-                        'xlink:href',
-                        `assets/icons/widgets/ASTUE-ONPZ/astue-onpz-conventional-fuel/` +
-                        `${val.iconType}.svg`
-                    )
-                    .attr('x', x + step * 1.7)
-                    .attr('y', start + step * 0.7)
-                    .attr('width', cardHeight - step * 1.4)
-                    .attr('height', cardHeight - step * 1.4);
-            }
-        });
-
-
-        // if (!!this.currentDates) {
-        //     return;
-        // }
-        // const values = [];
-        // let plan: IChartMini;
-        // let fact: IChartMini;
-        // const currentDatetime: Date = new Date();
-        // currentDatetime.setMinutes(0, 0, 0);
-        // const x: number = this.scaleFuncs.x(currentDatetime);
-        // this.charts.forEach((chart) => {
-        //     const filterChart = chart.graph
-        //         .filter((item) => item.timeStamp.getTime() <= currentDatetime.getTime());
-        //     const statValue =
-        //         filterChart?.length > 0
-        //             ? filterChart[filterChart.length - 1]
-        //             : chart?.graph[0] ?? null;
-        //     if (chart.graphType === 'plan') {
-        //         plan = chart.graph[chart.graph.length - 1];
-        //     } else if (chart.graphType === 'fact') {
-        //         fact = chart.graph[chart.graph.length - 1];
-        //     } else if (chart.graphType === 'higherBorder') {
-        //         fact = chart.graph[chart.graph.length - 1];
-        //     } else if (chart.graphType === 'lowerBorder') {
-        //         fact = chart.graph[chart.graph.length - 1];
-        //     } else if (chart.graphType === 'forecast') {
-        //         // TODO add some
-        //     } else {
-        //         values.push({
-        //             val: statValue,
-        //             color: lineColors[this.colors?.get(chart.tagName)],
-        //             units: chart.units ?? '',
-        //             iconType: chart.graphType ?? 'volume'
-        //         });
-        //     }
-        // });
-
-        // const y = (this.padding.top - this.topMargin) * 0.7;
-        // const y2 = this.graphMaxY - this.padding.bottom;
-        // const width = this.graphMaxX - this.padding.right - x;
-        // const height = this.graphMaxY - this.padding.top - this.padding.bottom + this.topMargin;
-        // if (width > 0) {
-        //     const g = this.svg.append('g').attr('class', 'picker');
-        //     g.append('rect')
-        //         .attr('x', x)
-        //         .attr('y', this.padding.top - this.topMargin)
-        //         .attr('width', width)
-        //         .attr('height', height)
-        //         .attr('class', 'future');
-        //     g.append('line')
-        //         .attr('x1', x)
-        //         .attr('y1', y)
-        //         .attr('x2', x)
-        //         .attr('y2', y2)
-        //         .attr('class', 'future-line');
-        //     g.append('line')
-        //         .attr('x1', x - this.topMargin / 2)
-        //         .attr('y1', y)
-        //         .attr('x2', x + this.topMargin / 2)
-        //         .attr('y2', y)
-        //         .attr('class', 'future-line future-line_hor');
-        //     g.append('rect')
-        //         .attr('x', x - this.axisYWidth * 1.25)
-        //         .attr('y', y - this.axisYWidth * 0.5)
-        //         .attr('width', this.axisYWidth * 2.5)
-        //         .attr('height', this.axisYWidth * 0.5)
-        //         .attr('rx', 5)
-        //         .attr('class', 'data');
-        //     g.append('rect')
-        //         .attr('x', x - (this.axisYWidth * 0.3) / 2)
-        //         .attr('y', y - this.axisYWidth * 0.4)
-        //         .attr('width', this.axisYWidth * 0.3)
-        //         .attr('height', this.axisYWidth * 0.3)
-        //         .attr('rx', 5)
-        //         .attr('class', 'data-icon');
-        //     g.append('image')
-        //         .attr(
-        //             'xlink:href',
-        //             'assets/icons/widgets/ASTUE-ONPZ/astue-onpz-conventional-fuel/poly.svg'
-        //         )
-        //         .attr('x', x - (this.axisYWidth * 0.3) / 2 + 1)
-        //         .attr('y', y - this.axisYWidth * 0.4 + 3)
-        //         .attr('width', this.axisYWidth * 0.3 - 8)
-        //         .attr('height', this.axisYWidth * 0.3 - 8);
-        //     g.append('image')
-        //         .attr(
-        //             'xlink:href',
-        //             'assets/icons/widgets/ASTUE-ONPZ/astue-onpz-conventional-fuel/poly.svg'
-        //         )
-        //         .attr('x', x - (this.axisYWidth * 0.3) / 2 + 2)
-        //         .attr('y', y - this.axisYWidth * 0.4 + 2)
-        //         .attr('width', this.axisYWidth * 0.3 - 4)
-        //         .attr('height', this.axisYWidth * 0.3 - 4);
-        //     if (fact) {
-        //         g.append('text')
-        //             .attr('text-anchor', 'end')
-        //             .attr('x', x - this.axisYWidth * 0.3)
-        //             .attr('y', y - this.axisYWidth * 0.15)
-        //             .attr('class', 'data-fact')
-        //             .text(fact.value.toFixed(2));
-        //     }
-        //     if (plan) {
-        //         g.append('text')
-        //             .attr('text-anchor', 'start')
-        //             .attr('x', x + this.axisYWidth * 0.3)
-        //             .attr('y', y - this.axisYWidth * 0.15)
-        //             .attr('class', 'data-plan')
-        //             .text(plan.value.toFixed(2));
-        //     }
-
-        //     const formatDate = d3.timeFormat('%d.%m.%Y | %H:%M:%S');
-        //     const value = plan || fact || null;
-        //     if (value) {
-        //         g.append('text')
-        //             .attr('text-anchor', 'middle')
-        //             .attr('x', x)
-        //             .attr('y', y - this.axisYWidth * 0.6)
-        //             .attr('class', 'data-date')
-        //             .text(formatDate(currentDatetime));
-        //     }
-
-        //     let start = this.padding.top - this.topMargin;
-        //     const step = 10;
-        //     const cardWidth = this.axisYWidth * 2;
-        //     const cardHeight = this.axisYWidth * 0.5;
-
-        //     values.forEach((val) => {
-        //         const rect = g.append('g').attr('class', 'val');
-        //         const bg = rect
-        //             .append('g')
-        //             .attr('class', 'bg')
-        //             .style('opacity', 0.25);
-
-        //         start += step + cardHeight;
-
-        //         bg.append('rect')
-        //             .attr('x', x + step)
-        //             .attr('y', start)
-        //             .attr('width', cardWidth)
-        //             .attr('height', cardHeight)
-        //             .attr('rx', 5);
-        //         bg.append('rect')
-        //             .attr('x', x + step * 1.5)
-        //             .attr('y', start + step * 0.5)
-        //             .attr('width', cardHeight - step)
-        //             .attr('height', cardHeight - step)
-        //             .attr('rx', 5)
-        //             .style('fill', val.color);
-
-        //         rect.append('text')
-        //             .attr('x', x + step * 1.5 + cardHeight)
-        //             .attr('y', start + cardHeight - step * 0.9)
-        //             .text(`${val.val.value?.toFixed(2)} ${val.units}`);
-
-        //         if (this.options.isIconsShowing) {
-        //             rect.append('image')
-        //                 .attr(
-        //                     'xlink:href',
-        //                     `assets/icons/widgets/ASTUE-ONPZ/astue-onpz-conventional-fuel/` +
-        //                     `${val.iconType}.svg`
-        //                 )
-        //                 .attr('x', x + step * 1.7)
-        //                 .attr('y', start + step * 0.7)
-        //                 .attr('width', cardHeight - step * 1.4)
-        //                 .attr('height', cardHeight - step * 1.4);
-        //         }
-        //     });
-        // }
     }
 
     private get leftPadding(): number {
@@ -1018,6 +742,90 @@ export class AstueOnpzMultiChartComponent implements OnInit, OnChanges, OnDestro
             .attr('x', 0)
             .attr('y', -31)
             .attr('class', 'data-date mouse-graph-date');
+
+
+        const values = [];
+        let plan: IChartMini;
+        let fact: IChartMini;
+        const currentDatetime: Date = new Date();
+        currentDatetime.setMinutes(0, 0, 0);
+        this.charts.forEach((chart) => {
+            const filterChart = chart.graph
+                .filter((item) => item.timeStamp.getTime() <= currentDatetime.getTime());
+            const statValue = filterChart?.length > 0
+                ? filterChart[filterChart.length - 1]
+                : chart?.graph[0] ?? null;
+            if (chart.graphType === 'plan') {
+                plan = chart.graph[chart.graph.length - 1];
+            } else if (chart.graphType === 'fact') {
+                fact = chart.graph[chart.graph.length - 1];
+            } else if (chart.graphType === 'higherBorder') {
+                fact = chart.graph[chart.graph.length - 1];
+            } else if (chart.graphType === 'lowerBorder') {
+                fact = chart.graph[chart.graph.length - 1];
+            } else if (chart.graphType === 'forecast') {
+                // TODO add some
+            } else {
+                values.push({
+                    val: statValue,
+                    color: lineColors[this.colors?.get(chart.tagName)],
+                    units: chart.units ?? '',
+                    iconType: chart.graphType ?? 'volume'
+                });
+            }
+        });
+        // Иконки и значения возле линии
+        let start = this.padding.top - this.topMargin;
+        const step = 10;
+        const cardWidth = this.axisYWidth * 2.5;
+        const cardHeight = this.axisYWidth * 0.5;
+
+        values.forEach((val, idx) => {
+            const rect = g
+                .append('g')
+                .attr('class', 'val');
+            const bg = rect
+                .append('g')
+                .attr('class', 'bg bg-rect')
+                .style('opacity', 0.25);
+            start += step + cardHeight;
+
+            bg.append('rect')
+                .attr('x', 0)
+                .attr('y', start)
+                .attr('width', cardWidth)
+                .attr('height', cardHeight)
+                .attr('rx', 5)
+                .attr('class', `rect-val-1-${idx}`);
+            bg.append('rect')
+                .attr('x', 0)
+                .attr('y', start + step * 0.5)
+                .attr('width', cardHeight - step)
+                .attr('height', cardHeight - step)
+                .attr('rx', 5)
+                .attr('class', `rect-val-2-${idx}`)
+                .style('fill', val.color);
+
+            bg.append('text')
+                .attr('x', 0)
+                .attr('y', start + cardHeight - step * 0.9)
+                .attr('class', `rect-val-text-${idx}`)
+                .text(`${val.val.value?.toFixed(2)} ${val.units}`);
+
+            if (this.options.isIconsShowing) {
+                rect.append('image')
+                    .attr(
+                        'xlink:href',
+                        `assets/icons/widgets/ASTUE-ONPZ/astue-onpz-conventional-fuel/` +
+                        `${val.iconType}.svg`
+                    )
+                    .attr('x', 0)
+                    .attr('y', start + step * 0.7)
+                    .attr('width', cardHeight - step * 1.4)
+                    .attr('class', `rect-val-icon-${idx}`)
+                    .attr('height', cardHeight - step * 1.4);
+            }
+        });
 
     }
 
@@ -1161,6 +969,7 @@ export class AstueOnpzMultiChartComponent implements OnInit, OnChanges, OnDestro
     }
 
     private listenMouseEvents(element: HTMLElement): () => void {
+
         const eventListeners: (() => void)[] = [];
 
         eventListeners.push(
@@ -1171,50 +980,17 @@ export class AstueOnpzMultiChartComponent implements OnInit, OnChanges, OnDestro
             //     this.svg.select('.mouse-over').style('opacity', 1);
             // }),
             this.renderer.listen(element, 'mousemove', (event: MouseEvent) => {
-                const values = [];
-                let plan: IChartMini;
-                let fact: IChartMini;
-                // const currentDatetime: Date = new Date();
-                // currentDatetime.setMinutes(0, 0, 0);
-                this.charts.forEach((chart) => {
-                    // const filterChart = chart.graph
-                    //     .filter((item) => item.timeStamp.getTime() <= currentDatetime.getTime());
-                    // const statValue = filterChart?.length > 0
-                    //     ? filterChart[filterChart.length - 1]
-                    //     : chart?.graph[0] ?? null;
-                    if (chart.graphType === 'plan') {
-                        plan = chart.graph[chart.graph.length - 1];
-                    } else if (chart.graphType === 'fact') {
-                        fact = chart.graph[chart.graph.length - 1];
-                    } else if (chart.graphType === 'higherBorder') {
-                        fact = chart.graph[chart.graph.length - 1];
-                    } else if (chart.graphType === 'lowerBorder') {
-                        fact = chart.graph[chart.graph.length - 1];
-                    } else if (chart.graphType === 'forecast') {
-                        // TODO add some
-                    } else {
-                        // values.push({
-                        //     val: statValue,
-                        //     color: lineColors[this.colors?.get(chart.tagName)],
-                        //     units: chart.units ?? '',
-                        //     iconType: chart.graphType ?? 'volume'
-                        // });
-                    }
-                });
-
-
+                console.log('зашел');
                 const rect: DOMRect = element.getBoundingClientRect();
                 const x = event.clientX - rect.left;
-
                 const posFact = findCursorPosition(x, 'fact', this.svg, this.padding);
                 const posPlan = findCursorPosition(x, 'plan', this.svg, this.padding);
-
-                if (!posFact) {
-                    this.svg.select('.mouse-over').style('opacity', 0);
-                    return;
-                }
+                // if (!posFact) {
+                //     this.svg.select('.mouse-over').style('opacity', 0);
+                //     return;
+                // }
                 this.svg.select('.mouse-over').style('opacity', 1);
-                const factY = this.scaleFuncs?.y?.invert(posFact.y);
+                const factY = this.scaleFuncs?.y?.invert(posFact?.y);
                 const factX = this.scaleFuncs?.x?.invert(posFact.x);
                 const planY = posPlan ? this.scaleFuncs?.y?.invert(posPlan.y) : null;
 
@@ -1228,7 +1004,7 @@ export class AstueOnpzMultiChartComponent implements OnInit, OnChanges, OnDestro
                 this.svg
                     .select('.mouse-per-line')
                     .attr('cx', x)
-                    .attr('cy', posFact.y - this.padding.top + (this.padding.top / 2));
+                    .attr('cy', posFact?.y - this.padding.top + (this.padding.top / 2));
 
                 const infoFramePaddings = {
                     near: 20,
@@ -1268,6 +1044,65 @@ export class AstueOnpzMultiChartComponent implements OnInit, OnChanges, OnDestro
                     .selectAll('g.mouse-info .small-icon-rect')
                     .attr('x', x - 14);
 
+                const values = [];
+                let plan: IChartMini;
+                let fact: IChartMini;
+                const currentDatetime: Date = new Date(factX);
+                currentDatetime.setMinutes(0, 0, 0);
+                this.charts.forEach((chart) => {
+                    const filterChart = chart.graph
+                        .filter((item) => item.timeStamp.getTime() <= currentDatetime.getTime());
+                    const statValue = filterChart?.length > 0
+                        ? filterChart[filterChart.length - 1]
+                        : chart?.graph[0] ?? null;
+                    if (chart.graphType === 'plan') {
+                        plan = chart.graph[chart.graph.length - 1];
+                    } else if (chart.graphType === 'fact') {
+                        fact = chart.graph[chart.graph.length - 1];
+                    } else if (chart.graphType === 'higherBorder') {
+                        fact = chart.graph[chart.graph.length - 1];
+                    } else if (chart.graphType === 'lowerBorder') {
+                        fact = chart.graph[chart.graph.length - 1];
+                    } else if (chart.graphType === 'forecast') {
+                        // TODO add some
+                    } else {
+                        values.push({
+                            val: statValue,
+                            color: lineColors[this.colors?.get(chart.tagName)],
+                            units: chart.units ?? '',
+                            iconType: chart.graphType ?? 'volume'
+                        });
+                    }
+                });
+
+                values.forEach((val, idx) => {
+                    const step = 10;
+
+                    this.svg
+                        .selectAll(`g.mouse-info .val`)
+                        .attr('x', x + step);
+                    this.svg
+                        .selectAll(`g.mouse-info .rect-val-1-${idx}`)
+                        .attr('x', x + step);
+
+                    this.svg
+                        .selectAll(`g.mouse-info .rect-val-2-${idx}`)
+                        .attr('x', x + step * 1.5);
+
+                    const cardHeight = this.axisYWidth * 0.5;
+                    this.svg
+                        .selectAll(`g.mouse-info .rect-val-text-${idx}`)
+                        .attr('x', x + step * 1.5 + cardHeight)
+                        .text(`${val.val.value?.toFixed(2)} ${val.units}`);
+
+                    if (this.options.isIconsShowing) {
+                        this.svg
+                            .selectAll(`g.mouse-info .rect-val-icon-${idx}`)
+                            .attr('x', x + step * 1.7)
+                            .text(`${val.val.value?.toFixed(2)} ${val.units}`);
+                    }
+                });
+
 
                 this.svg
                     .selectAll('g.mouse-info .line-left-horizontal')
@@ -1287,12 +1122,12 @@ export class AstueOnpzMultiChartComponent implements OnInit, OnChanges, OnDestro
                 }
                 this.svg
                     .selectAll('g.mouse-info .data-fact')
-                    .attr('x', x - 23)
-                    .text(planY?.toFixed((2)));
+                    .attr('x', x - 18)
+                    .text(factY?.toFixed((2)));
                 this.svg
                     .selectAll('g.mouse-info .data-plan')
-                    .attr('x', x + 18)
-                    .text(factY?.toFixed((2)));
+                    .attr('x', x + 23)
+                    .text(planY?.toFixed((2)));
 
                 this.svg.select('g.mouse-over').style('color', 'white');
             })
