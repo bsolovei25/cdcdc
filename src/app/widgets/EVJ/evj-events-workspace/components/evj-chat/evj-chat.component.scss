@@ -23,7 +23,7 @@
 
   &__messages {
     width: 100%;
-    height: calc(100% - 100px);
+    height: 100%;
     min-height: 60px;
     flex: 2 1 160px;
     background-color: var(--evj-events-workspace-bg-dark);
@@ -37,7 +37,7 @@
 
     font-size: 10px;
 
-    background: transparent;
+    background-color: transparent;
   }
 
   .messages {
@@ -51,13 +51,13 @@
 
     &__list {
       width: 100%;
-      height: max-content;
+      height: 100%;
       min-height: inherit;
 
       background: var(--evj-events-workspace-bg-dark);
     }
   }
-  title {
+  .title {
     position: relative;
 
     width: 100%;
@@ -115,15 +115,11 @@
       right: 0px;
     }
 
-    &_odd {
-      background: var(--color-bg-card-sec);
-    }
-
     &_files {
       width: 100%;
 
       &__list {
-        width: calc(100% - 30px);
+        width: 100%;
         display: flex;
         flex-wrap: wrap;
         padding: 15px;
@@ -193,9 +189,17 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-
+    background-color: var(--evj-events-workspace-bg-dark);
     box-sizing: border-box;
     padding: 10px 15px 10px 15px;
+  }
+  .line {
+    position: absolute;
+    top: 0px;
+    left: 4%;
+    height: 1px;
+    width: 92%;
+    background-color: var(--evj-events-workspace-color-border);
   }
 
   .input {
