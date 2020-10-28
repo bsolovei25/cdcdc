@@ -56,8 +56,8 @@ $border-size: 4px;
 .container-widget {
   height: calc(100% - 56px);
   width: calc(100% - 2px);
-  border-right: 0.5px dashed var(--color-border-main-transparrent);
-  border-left: 0.5px dashed var(--color-border-main-transparrent);
+  background-color: var(--header-events-color-bg-main);
+  border: 1px solid var(--color-cd-bg-border);
 }
 
 .workspace {

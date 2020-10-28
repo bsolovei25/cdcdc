@@ -15,21 +15,26 @@
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
+  font-size: 12px;
+  line-height: 18px;
 
-  background: var(--color-bg-card);
+  background: var(--evj-events-workspace-bg-dark);
 
   &__header {
     position: relative;
 
     width: 100%;
-    height: 30px;
+    height: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
 
     box-sizing: border-box;
-    padding-left: 15px;
 
-    font-size: 10px;
+    font-size: 13px;
+    line-height: 16px;
 
-    background: var(--color-bg-card);
+    background: var(--evj-events-workspace-bg-dark);
 
     color: var(--color-text-sub);
 
@@ -63,17 +68,18 @@
     height: calc(100% - 100px);
     min-height: 60px;
     flex: 2 1 160px;
+    background-color: var(--evj-events-workspace-bg-dark);
   }
 
   &__input {
     position: relative;
 
     width: 100%;
-    height: 70px;
+    height: 59px;
 
     font-size: 10px;
 
-    background: var(--color-bg-card-sec);
+    background: transparent;
 
     &::before,
     &::after {
@@ -88,7 +94,7 @@
       left: -5px;
       right: auto;
 
-      background: var(--color-bg-main);
+      background: transparent;
 
       transform: rotate(45deg);
     }
@@ -114,7 +120,7 @@
       height: max-content;
       min-height: inherit;
 
-      background: var(--color-bg-card);
+      background: var(--evj-events-workspace-bg-dark);
     }
   }
 
@@ -175,7 +181,7 @@
           height: 28px;
           border-radius: 5px;
           margin: 0 8px 8px 0;
-          background: var(--color-aw-container-body-transparent);
+          background: var(--evj-events-workspace-bg-dark);
           position: relative;
           padding: 7px 7px 13px 7px;
           cursor: pointer;
@@ -230,17 +236,6 @@
     cursor: pointer;
   }
 
-  .empty-line {
-    position: absolute;
-    width: 100%;
-    height: 10px;
-
-    top: 0;
-    left: 0;
-
-    background: var(--color-bg-main);
-  }
-
   .input-line {
     display: flex;
     flex-direction: row;
@@ -260,7 +255,7 @@
     border: none;
     outline: none;
 
-    background: transparent;
+    background: var(--evj-events-workspace-bg-dark);
 
     font-size: 12px;
     color: var(--color-text-sub);
@@ -279,9 +274,9 @@
 
     box-sizing: border-box;
     border-radius: 50%;
-    border: 1px solid var(--color-text-sub);
+    border: 1px solid var(--evj-events-workspace-color-border);
 
-    background: transparent;
+    background: var(--evj-events-workspace-bg-dark);
 
     display: flex;
     flex-direction: column;
@@ -319,13 +314,13 @@
 
   .scroll-bar {
     &::-webkit-scrollbar-track-piece {
-      background: var(--color-bg-card);
+      background: var(--evj-events-workspace-bg-dark);
     }
   }
 }
 
 ::ng-deep .mat-tooltip {
   font-size: 12px;
-  background-color: var(--color-bg-main);
+  background-color: var(--evj-events-workspace-bg-dark);
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.349);
 }

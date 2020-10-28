@@ -33,6 +33,8 @@ import { EvjShiftPassComponent } from './evj-shift-pass/evj-shift-pass.component
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { EvjEventSearchWindowComponent } from './components/evj-event-search-window/evj-event-search-window.component';
 import { EvjMainToggleComponent } from './components/evj-main-toggle/evj-main-toggle.component';
+import { EvjEventsWorkspaceDatetimepickerComponent } from './components/evj-events-workspace-datetimepicker/evj-events-workspace-datetimepicker.component';
+import { EvjEventsWorkspaceSelectComponent } from './components/evj-events-workspace-select/evj-events-workspace-select.component';
 
 @NgModule({
     declarations: [
@@ -58,7 +60,9 @@ import { EvjMainToggleComponent } from './components/evj-main-toggle/evj-main-to
         EvjFileAttachMenuComponent,
         EvjTasksEventComponent,
         EvjShiftPassComponent,
-        EvjMainToggleComponent
+        EvjMainToggleComponent,
+        EvjEventsWorkspaceDatetimepickerComponent,
+        EvjEventsWorkspaceSelectComponent,
     ],
     imports: [
         CommonModule,

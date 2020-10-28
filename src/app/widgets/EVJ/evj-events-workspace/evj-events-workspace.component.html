@@ -4,27 +4,13 @@
   <evj-event-search-window [info]="ewService.searchWindow$ | async"></evj-event-search-window>
   <evj-alert-window [info]="this.ewService.ewAlertInfo$ | async"></evj-alert-window>
 
-  <ng-container *ngIf="displayContainer">
-    <evj-widget-header
-      [title]="widgetTitle"
-      [icon]="widgetIcon"
-      [units]="widgetUnits"
-      [code]="widgetCode"
-      [id]="widgetId"
-      [uniqId]="widgetUniqId"
-      [widgetType]="widgetType"
-      (eventCreated)="createdEvent($event)"
-      (eventBack)="backEvent()"
-      [isEventOpen]="!ewService.isEditEvent"
-      [blockWorkspaceButton]="canShowSaveButton()"
-      [eventProdTask]="eventProdButton"
-      (eventProdTaskChange)="onChangeStatus()"
-    >
-    </evj-widget-header>
-
-    <evj-frame-top></evj-frame-top>
-  </ng-container>
-
+  <evj-contemporary-widget-header
+    [uniqId]="uniqId"
+    [widgetTitle]="widgetTitle"
+    icon="letter"
+  >
+  </evj-contemporary-widget-header>
+  <evj-evj-main-toggle></evj-evj-main-toggle>
   <!-- EVENT -->
   <div
     [class.container-widget]="displayContainer"
@@ -69,10 +55,6 @@
 
     <div class="no-edit-shield" *ngIf="!displayContainer"></div>
   </div>
-
-  <ng-container *ngIf="displayContainer">
-    <evj-frame-bottom></evj-frame-bottom>
-  </ng-container>
 </div>
 
 <div

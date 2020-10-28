@@ -1,13 +1,13 @@
 <div class="main">
-  <div class="main__button">
-    <evj-button [textButton]="'Новое событие'"   (click)="createEvent(false)"
-                [isChangingState]="false">
-    </evj-button>
+  <div class="main__event button">
+    <div (click)="createEvent(false)">
+      <span>Новое событие</span>
+    </div>
   </div>
-  <div class="main__button">
-    <evj-button [textButton]="'Назад'" (click)="backEvent()"
-                [isChangingState]="false">
-    </evj-button>
+  <div class="main__back button">
+    <div (click)="backEvent()">
+      <span>Назад</span>
+    </div>
   </div>
 </div>
 

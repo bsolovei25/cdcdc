@@ -4,11 +4,29 @@
   background-color: var(--color-new-header-bg);
   display: flex;
   flex-direction: row;
-  justify-content: flex-end;
+  justify-content: space-between;
   align-items: center;
-  &__button {
-      width: 150px;
-      height: 30px;
-      margin: auto;
+  box-sizing: border-box;
+  padding-left: 23px;
+  padding-right: 23px;
+  font-size: 13px;
+  line-height: 16px;
+  &__event {
+    background: var(--evj-events-workspace-button);
+    color: var(--color-text-sub);
   }
+  &__back {
+    background: var(--evj-events-workspace-button-active);
+    color: var(--color-text-main);
+  }
+}
+.button {
+  width: 150px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border-radius: 1px;
+
 }

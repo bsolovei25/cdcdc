@@ -37,7 +37,7 @@ $main-border-color: rgba(96, 101, 128, 0.25);
 
   &__add {
     background-color: $add-button-color;
-    color: var(--color-event-card-font-sub)
+    color: var(--color-event-card-font-sub);
   }
 }
 
@@ -48,10 +48,7 @@ $main-border-color: rgba(96, 101, 128, 0.25);
   align-items: center;
   justify-content: center;
   cursor: pointer;
-
-  :hover {
-
-  }
+  border-radius: 1px;
 }
 
 .cards-list {

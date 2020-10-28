@@ -1,5 +1,7 @@
 <div class="chat">
-  <div class="chat__header">{{dataTitle}}</div>
+  <div class="chat__header">
+    <span>{{dataTitle}}</span>
+  </div>
   <div class="chat__messages messages scroll scroll-bar" #scroll>
     <div class="messages__list">
       <div class="message__graph graph" *ngIf="displayGraphImage" (click)="onClickItem()">
@@ -39,7 +41,6 @@
     </div>
   </div>
   <div class="chat__input input-line">
-    <div class="empty-line"></div>
     <input
       class="input"
       type="text"
