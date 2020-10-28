@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { slideInAnimation } from 'src/app/animations';
 import { RouterOutlet } from '@angular/router';
+import { DOCUMENT, registerLocaleData } from '@angular/common';
+import { ThemeConfigurator, ThemeConfiguratorService } from '@core/service/theme-configurator.service';
 import ru from '@angular/common/locales/ru';
-import { registerLocaleData } from '@angular/common';
-import { Title } from '@angular/platform-browser';
 registerLocaleData(ru);
 
 @Component({
@@ -12,11 +12,20 @@ registerLocaleData(ru);
     styleUrls: ['./app.component.scss'],
     animations: [slideInAnimation],
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
 
-    constructor() { }
+    constructor(
+        @Inject(DOCUMENT) private document: Document,
+        private themeService: ThemeConfiguratorService,
+    ) {
+    }
 
-    prepareRoute(outlet: RouterOutlet) {
+    ngOnInit(): void {
+        this.themeService.setThemeConfiguratorRoot(this.document);
+        this.themeService.theme = 5;
+    }
+
+    prepareRoute(outlet: RouterOutlet): boolean {
         return outlet && outlet.activatedRouteData && outlet.activatedRouteData['animation'];
     }
 }
