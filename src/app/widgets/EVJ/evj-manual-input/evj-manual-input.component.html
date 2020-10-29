@@ -232,10 +232,10 @@
             </div>
             <div class="historical-header__item units">Единицы иземерения</div>
             <div class="historical-header__item time">
-              <div class="time__item" *ngFor="let history of historicalDataValues">
-                <span class="day">{{history.day}}</span>
+              <div class="time__item" *ngFor="let history of historicalData.groups.params.historyValues">
+                <span class="day">{{history.day | date: 'dd.MM.yyyy'}}</span>
                 <div class="hours">
-                  <div class="hours__item" *ngFor="let hour of history.hours">{{hour.hour}}</div>
+                  <div class="hours__item" *ngFor="let hour of history.hourValues">{{hour.hour | date: 'HH:mm'}}</div>
                 </div> 
               </div>
             </div>
@@ -273,9 +273,9 @@
                   </div>
                   <div class="historical-header__item units">{{historicalData?.groups?.params?.unit}}</div>
                   <div class="historical-header__item time" #time>
-                    <div class="time__item" *ngFor="let history of historicalDataValues" (click)="activateEditMode()">
+                    <div class="time__item" *ngFor="let history of historicalData.groups.params.historyValues" (click)="activateEditMode()">
                       <div class="hours">
-                        <ng-container *ngFor="let hour of history.hours">
+                        <ng-container *ngFor="let hour of history.hourValues">
                           <div class="hours__item" *ngIf="!editMode">{{hour.value}}</div>
                           <input class="hours__item" *ngIf="editMode" placeholder={{hour.value}}>
                         </ng-container>

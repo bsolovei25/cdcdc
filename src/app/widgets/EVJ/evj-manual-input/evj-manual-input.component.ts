@@ -12,10 +12,10 @@ import {
 import { HttpClient } from '@angular/common/http';
 import { AppConfigService } from '@core/service/app-config.service';
 import { trigger, style, state, transition, animate, group } from '@angular/animations';
-import { ManualInputService } from './../../../dashboard/services/widgets/manual-input.service';
+import { ManualInputService } from './../../../dashboard/services/widgets/EVJ/manual-input.service';
 import { WidgetSettingsService } from './../../../dashboard/services/widget-settings.service';
 import { WidgetService } from 'src/app/dashboard/services/widget.service';
-import { IHistory, IMachine_MI, IGroup_MI } from './../../../dashboard/models/manual-input.model';
+import { IHistory, IMachine_MI, IGroup_MI, IChoosenHistorical} from './../../../dashboard/models/EVJ/manual-input.model';
 import { WidgetPlatform } from 'src/app/dashboard/models/@PLATFORM/widget-platform';
 
 @Component({
@@ -77,71 +77,9 @@ export class EvjManualInputComponent extends WidgetPlatform<unknown>
 
     data: IMachine_MI[] = [];
     filteredData: IMachine_MI[] = [];
-    historicalData: any;
+    historicalData: IChoosenHistorical;
     editMode: boolean = false;
-    historicalDataValues: IHistory[] = [
-        {
-            day: '01.09.2020',
-            hours: [{
-              hour: '08:00',
-              value: '100'
-            },
-            {
-                hour: '12:00',
-                value: '1200'
-            },
-            {
-                hour: '23:00',
-                value: '10'
-            }]
-        },
-        {
-            day: '02.09.2020',
-            hours: [{
-              hour: '08:00',
-              value: '12300'
-            },
-            {
-                hour: '10:00',
-                value: '110'
-            },
-            {
-                hour: '12:00',
-                value: '1540'
-            },
-            {
-                hour: '16:00',
-                value: '640'
-            },
-            {
-                hour: '23:00',
-                value: '100000'
-            }]
-        },
-        {
-            day: '03.09.2020',
-            hours: [{
-              hour: '12:00',
-              value: '12300'
-            },
-            {
-                hour: '10:00',
-                value: '10'
-            },
-            {
-                hour: '12:43',
-                value: '4430'
-            },
-            {
-                hour: '16:00',
-                value: '640'
-            },
-            {
-                hour: '23:59',
-                value: '870'
-            }]
-        }
-    ];
+    // historicalDataValues: IHistory[] = [];
 
     private isUserHasWriteClaims: boolean;
 
@@ -162,6 +100,7 @@ export class EvjManualInputComponent extends WidgetPlatform<unknown>
 
     ngOnInit(): void {
         super.widgetInit();
+        console.log(this.widgetId);
     }
 
     ngAfterViewInit(): void {
@@ -212,9 +151,10 @@ export class EvjManualInputComponent extends WidgetPlatform<unknown>
     }
 
     showHistorical(): void {
+        debugger;
+        console.log('day ' + this.historicalData.groups.params.historyValues[0].day)
         this.isHistorical = true;
         this.timeWidth = this.time?.nativeElement.clientWidth;
-        console.log('CHA ' + this.time?.nativeElement);
     }
 
     @Output()
@@ -263,7 +203,6 @@ export class EvjManualInputComponent extends WidgetPlatform<unknown>
             }
         }
         this.data = this.manualInputService.LoadData(this.data, data.machines);
-
         if (this.filteredData.length === 0) {
             if (!this.chooseSetting) {
                 this.filteredData = this.data;

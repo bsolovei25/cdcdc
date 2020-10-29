@@ -45,6 +45,7 @@ export interface Param_MI {
     isEdit?: boolean;
     openInput?: boolean;
     saveValue?: string;
+    historyValues?: IHistory[];
 }
 
 export interface IGroup_MI {
@@ -77,10 +78,23 @@ export interface IValue {
 
 export interface IHours {
     hour: string;
-    value: string;
+    value: number;
 }
 
 export interface IHistory {
     day: string;
-    hours: IHours[];
+    hourValues: IHours[];
 }
+
+export interface IChoosenHistorical {
+    name: string;
+    isUserHasWriteClaims?: boolean;
+    groups?: {
+        name: string;
+        params?: Param_MI;
+        open?: boolean;
+    }
+    active?: boolean;
+    open?: boolean;
+}
+
