@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatSelectChange } from '@angular/material/select';
 import { IPriority, IUnitEvents } from '../../../../../dashboard/models/EVJ/events-widget';
@@ -20,6 +20,19 @@ export class EvjEventFiltersComponent implements OnInit {
     units: IUnitEvents[] = [];
     priority: IPriority[] = [];
 
+    @Input() set inputUnits(value: IUnits) {
+        if (!!this.unitsSelect.value) {
+            return;
+        }
+        this.unitsSelect.setValue(value?.id);
+    }
+    @Input() set inputPriority(value: IPriority) {
+        console.log(value);
+        if (!!this.prioritySelect.value) {
+            return;
+        }
+        this.prioritySelect.setValue(value?.id);
+    }
     @Output() search: EventEmitter<string> = new EventEmitter<string>();
     @Output() outUnits: EventEmitter<IUnits> = new EventEmitter<IUnits>();
     @Output() outPriority: EventEmitter<IPriority> = new EventEmitter<IPriority>();
@@ -50,11 +63,17 @@ export class EvjEventFiltersComponent implements OnInit {
     }
 
     public onUnitsSelect(event: MatSelectChange): void {
-        this.outUnits.emit(event.value);
+        if (!this.units?.length) {
+            return;
+        }
+        this.outUnits.emit(this.units?.find((x) => event.value === x.id) as IUnits ?? null);
     }
 
     public onPrioritySelect(event: MatSelectChange): void {
-        this.outPriority.emit(event.value);
+        if (!this.priority?.length) {
+            return;
+        }
+        this.outPriority.emit(this.priority?.find((x) => event.value === x.id) ?? null);
     }
 
     async loadData(): Promise<void> {
