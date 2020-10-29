@@ -247,12 +247,12 @@ export class AstueOnpzService {
 
     public async getProductChannels(widgetId: string, options: IAstueOnpzMonitoringOptions): Promise<string[]> {
         try {
-            const response = await this.http
-                .get<{ id: string }[]>(`${this.restUrl}/api/widget-data/${widgetId}/sub-channels?UnitName=${options.unitName}&ManufactureName=${options.manufactureName}&Type=${options.type}&TypeValue=${options.indicatorType}`)
-                .toPromise();
-            return response?.map(x => x.id) ?? [];
-        } catch {
-        }
-
+        const response = await this.http
+            .get<{id: string, sortIndex: number}[]>(`${this.restUrl}/api/widget-data/${widgetId}/sub-channels?UnitName=${options.unitName}&ManufactureName=${options.manufactureName}&Type=${options.type}&TypeValue=${options.indicatorType}`)
+            .toPromise();
+        response.sort((a, b) => a.sortIndex > b.sortIndex ? 1 : -1);
+        console.log('sort', response);
+        return response?.map(x => x.id) ?? [];
+        } catch {}
     }
 }

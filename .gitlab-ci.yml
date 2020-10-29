@@ -54,7 +54,7 @@ install_dependencies:
       - master
     changes:
       - package.json
-      - package-lock.json
+        #- package-lock.json
 
 ng-build:
   extends: .ng-build
