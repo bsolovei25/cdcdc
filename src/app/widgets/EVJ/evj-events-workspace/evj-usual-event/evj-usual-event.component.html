@@ -5,36 +5,16 @@
   [style]="{overflow: noOverflow ? 'auto' : 'visible'}"
 >
   <div class="workspace__header">
-    <evj-ui-block class="workspace__header__block" status="normal">
-      <mat-form-field class="categories_selectbox">
-        <mat-label>Категория</mat-label>
-        <mat-select
-          panelClass="mat-select-custom"
-          [(ngModel)]="ewService.event.category"
-          [compareWith]="compareFn"
-          (selectionChange)="ewService.changeCategory()"
-          [disabled]="!ewService.isCategoryEdit"
-        >
-          <mat-option *ngFor="let cat of ewService.categoryPipe | async" [value]="cat">
-            {{ ewService.categories[cat.name] }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-    </evj-ui-block>
-    <evj-ui-block class="workspace__header__block" status="{{ewService.event.priority.name}}">
-      <mat-form-field class="{{ewService.event.priority.name}}">
-        <mat-label>Приоритет</mat-label>
-        <mat-select
-          panelClass="mat-select-custom"
-          [(ngModel)]="ewService.event.priority"
-          [compareWith]="compareFn"
-        >
-          <mat-option *ngFor="let p of ewService.priority" [value]="p"
-          >{{ ewService.priorities[p.name] }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-    </evj-ui-block>
+    <evj-events-workspace-select
+      [label]="'Категория'"
+      [dataType]="'categories'"
+    >
+    </evj-events-workspace-select>
+    <evj-events-workspace-select
+      [label]="'Приоритет'"
+      [dataType]="'priorities'"
+    >
+    </evj-events-workspace-select>
     <evj-ui-block class="workspace__header__block" status="{{ewService.event.isAcknowledged}}">
       <mat-form-field class="card-{{ewService.event.isAcknowledged}}">
         <mat-label>Событие</mat-label>
@@ -57,6 +37,7 @@
 
           <evj-events-workspace-select
             [label]="'Статус'"
+            [dataType]="'status'"
           ></evj-events-workspace-select>
           <div class="type">
             <evj-ui-block class="workspace__body__categories" status="normal">
@@ -79,20 +60,11 @@
         </div>
         <div class="second_block" *ngIf="ewService.event.category.name === 'equipmentStatus'">
           <div class="type_incident">
-            <evj-ui-block class="workspace__header__block" status="normal">
-              <mat-form-field>
-                <mat-label>Тип происшествия</mat-label>
-                <mat-select
-                  panelClass="mat-select-custom"
-                  [(ngModel)]="ewService.event.eventType"
-                  [compareWith]="compareFn"
-                >
-                  <mat-option *ngFor="let p of ewService.eventTypes" [value]="p"
-                  >{{ p.name }}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
-            </evj-ui-block>
+            <evj-events-workspace-select
+              [label]="'Тип происшествия'"
+              [dataType]="'eventTypes'"
+            >
+            </evj-events-workspace-select>
           </div>
           <div class="number_position">
             <evj-ui-block class="workspace__header__block" status="normal">
@@ -176,7 +148,7 @@
         </evj-ui-block>
       </div>
       <div class="responsible">
-        <evj-events-responsible-select></evj-events-responsible-select>
+        <evj-events-workspace-responsible-select></evj-events-workspace-responsible-select>
       </div>
       <div class="events-correct">
         <evj-events-correct></evj-events-correct>

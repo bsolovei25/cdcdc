@@ -7,10 +7,35 @@
       [value]="items[0]?.value"
       [disabled]="disabled"
     >
-      <ng-container *ngFor="let item of ewService.status">
-        <mat-option [value]="items[0].value">
-          {{ ewService.statuses[item.name] }}
+      <ng-container *ngIf = "dataType === 'categories'">
+            <mat-option
+              *ngFor="let item of ewService.categoryPipe | async; i as index"
+              [value]="items[0].value">
+              {{ ewService.categories[item.name] }}
+            </mat-option>
+      </ng-container>
+
+      <ng-container *ngIf = "dataType === 'status'">
+          <mat-option
+            *ngFor="let item of ewService.status; i as index"
+            [value]="items[0].value">
+            {{ ewService.statuses[item.name] }}
+          </mat-option>
+      </ng-container>
+
+      <ng-container *ngIf = "dataType === 'priorities'">
+        <mat-option *ngFor="let item of ewService.priority; i as index"
+                    [value]="items[0].value"
+        >{{ ewService.priorities[item.name] }}
         </mat-option>
+      </ng-container>
+
+      <ng-container *ngIf = "dataType === 'eventType'">
+          <mat-option
+            *ngFor="let item of ewService.eventTypes; i as index"
+            [value]="items[0].value">
+            {{ item.name }}
+          </mat-option>
       </ng-container>
     </mat-select>
   </mat-form-field>
