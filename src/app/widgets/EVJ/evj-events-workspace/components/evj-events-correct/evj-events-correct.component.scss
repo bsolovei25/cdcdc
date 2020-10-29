@@ -1,12 +1,12 @@
-$main-bg-color: #12151e;
 $add-button-color: #303549;
 $main-border-color: rgba(96, 101, 128, 0.25);
 
 .events-correct {
   width: 432px;
   height: 554px;
-  background-color: $main-bg-color;
+  background-color: var(--evj-events-workspace-bg-dark);
   border: 1px solid $main-border-color;
+  border-radius: 2px;
   box-sizing: border-box;
 
   &__header {

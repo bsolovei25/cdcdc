@@ -65,7 +65,7 @@
     font-size: 12px;
     line-height: 14px;
     background-color: var(--header-events-color-bg-hover);
-    color: var(--color-cd-text-sub-2);
+    color: var(--color-cd-text-sub);
   }
 
   .description {
@@ -103,8 +103,15 @@
     }
   }
 
-  .header__progress {
+  .status {
+    height: 48px;
+    width: 80px;
     margin-right: 9px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+
     color: var(--color-text-sub);
 
     &_danger {
@@ -126,12 +133,12 @@
   }
 }
 
-.progress {
+.header__progress {
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: flex-end;
-  width: 74px;
+  width: 100px;
   height: 100%;
 }
 

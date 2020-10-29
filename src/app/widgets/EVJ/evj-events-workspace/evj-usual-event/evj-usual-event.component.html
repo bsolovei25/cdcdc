@@ -54,22 +54,10 @@
     <div class="workspace__body__left">
       <div class="select__block">
         <div class="first_block">
-          <div class="categories">
-            <evj-ui-block class="workspace__body__categories" status="normal">
-              <mat-form-field class="status">
-                <mat-label>Статус</mat-label>
-                <mat-select
-                  panelClass="mat-select-custom"
-                  [(ngModel)]="ewService.event.status"
-                  [compareWith]="compareFn"
-                >
-                  <mat-option *ngFor="let p of ewService.status" [value]="p"
-                  >{{ ewService.statuses[p.name] }}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
-            </evj-ui-block>
-          </div>
+
+          <evj-events-workspace-select
+            [label]="'Статус'"
+          ></evj-events-workspace-select>
           <div class="type">
             <evj-ui-block class="workspace__body__categories" status="normal">
               <ng-container *ngIf="ewService.event.category.code!=='2' else subcategories">
@@ -114,15 +102,6 @@
                   [options]="inputOptions"
                   [(ngModel)]="ewService.event.positionNumber"
                 ></evj-input>
-                <!-- <mat-form-field class="example-full-width">
-                  <mat-label>Номер позиции</mat-label>
-                  <input
-                    matInput
-                    placeholder="Текст..."
-                    [value]="ewService.event.positionNumber"
-                    [(ngModel)]="ewService.event.positionNumber"
-                  />
-                </mat-form-field> -->
               </div>
               <div class="position_icon">
                 <svg-icon
@@ -178,16 +157,7 @@
                 'Система' : this.ewService.event.fixedBy?.displayName : 'Не установлен' }}
           </div>
         </div>
-        <div class="deadline">
-          <div class="date-info">
-            <div class="deadline-title">Срок выполнения</div>
-            <evj-time-data-picker
-              [data]="ewService.event.deadline"
-              (dateTimePicker)="dateTimePicker($event)"
-            ></evj-time-data-picker>
-          </div>
-          <div class="deadline_bottom_angles"></div>
-        </div>
+        <evj-events-workspace-datetimepicker></evj-events-workspace-datetimepicker>
       </div>
       <div class="place">
         <evj-ui-block class="workspace__body__categories" status="normal">

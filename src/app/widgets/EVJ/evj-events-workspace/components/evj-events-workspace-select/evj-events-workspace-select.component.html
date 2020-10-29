@@ -7,9 +7,9 @@
       [value]="items[0]?.value"
       [disabled]="disabled"
     >
-      <ng-container *ngFor="let item of items">
-        <mat-option [value]="item.value">
-          {{ item.label }}
+      <ng-container *ngFor="let item of ewService.status">
+        <mat-option [value]="items[0].value">
+          {{ ewService.statuses[item.name] }}
         </mat-option>
       </ng-container>
     </mat-select>

@@ -18,7 +18,8 @@
   font-size: 12px;
   line-height: 18px;
 
-  border: 1px solid var(--evj-events-workspace-color-border);
+  border: 1px solid rgba(96, 101, 128, 0.25);
+  border-radius: 2px;
   background: var(--evj-events-workspace-bg-dark);
 
   &__messages {
@@ -199,7 +200,7 @@
     left: 4%;
     height: 1px;
     width: 92%;
-    background-color: var(--evj-events-workspace-color-border);
+    background-color: rgba(96, 101, 128, 0.25);
   }
 
   .input {

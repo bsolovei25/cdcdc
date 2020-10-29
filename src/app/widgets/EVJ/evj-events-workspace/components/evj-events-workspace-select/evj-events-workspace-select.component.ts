@@ -5,6 +5,7 @@ import {
     OnInit,
     Output,
 } from '@angular/core';
+import { EventsWorkspaceService } from '../../../../../dashboard/services/widgets/EVJ/events-workspace.service';
 
 export interface IEventsWorkspaceSelectValue {
     value: string | number;
@@ -23,7 +24,7 @@ export class EvjEventsWorkspaceSelectComponent implements OnInit {
         {
             value: 0,
             label: 'Нет значений',
-        }
+        },
     ];
 
     @Input()
@@ -39,7 +40,7 @@ export class EvjEventsWorkspaceSelectComponent implements OnInit {
     public onValueChange: EventEmitter<string | number | IEventsWorkspaceSelectValue>
         = new EventEmitter<string | number | IEventsWorkspaceSelectValue>();
 
-    constructor() {
+    constructor(public ewService: EventsWorkspaceService) {
     }
 
     public ngOnInit(): void {

@@ -1,29 +1,10 @@
-<!--      <div class="info__buttons">-->
-<!--        <div class="button button__link" (click)="onClickUnlink()">-->
-<!--          <svg-icon-->
-<!--            src="assets/icons/chain-break.svg"-->
-<!--            [svgStyle]="{ 'width.px':18, 'height.px':18}">-->
-<!--          </svg-icon>-->
-<!--        </div>-->
-<!--        <div class="button button__delete" (click)="onClickDelete()">-->
-<!--          <svg-icon-->
-<!--            src="assets/icons/widgets/workspace/delete.svg"-->
-<!--            [svgStyle]="{ 'width.px':18, 'height.px':18 }"-->
-<!--          ></svg-icon>-->
-<!--        </div>-->
-<!--        <div class="button button__edit" (click)="onClickEdit()">-->
-<!--          <svg-icon-->
-<!--            src="assets/icons/widgets/workspace/edit.svg"-->
-<!--            [svgStyle]="{ 'position': 'absolute', 'width.px':25, 'height.px':25, 'left.px':-3, 'top.px':-3 }"-->
-<!--          ></svg-icon>-->
-<!--        </div>-->
-<!--      </div>-->
+<evj-ui-block>
   <div class="card" (click)="onClickCard()">
-    <div class="card__header" *ngIf="event.fixedByName">
-      <div class="header__text">{{event.fixedByName}}</div>
-      <div class="progress">
-        <div class="header__progress" *ngIf="event.status?.name">
-          {{event.status.name}}
+    <div class="card__header" *ngIf="event?.fixedByName">
+      <div class="header__text">{{event?.fixedByName}}</div>
+      <div class="header__progress">
+        <div class="status" *ngIf="event?.status?.description">
+          <span>{{event?.status?.description}}</span>
         </div>
         <div class="header__clock">
           <div class="image">
@@ -33,26 +14,26 @@
       </div>
     </div>
     <div class="card__info">
-      <div class="description__text">{{event.description}}</div>
+      <div class="description__text">{{event?.description}}</div>
     </div>
-    <div class="card__period">
+    <div class="card__period" *ngIf="event?.deadline">
       <div class="period__text">
         <span>Срок исполнения: {{event?.deadline|date:'dd.MM.yyyy | HH:mm'}}</span>
       </div>
       <div class="period__buttons">
-        <div class="button button__link" (click)="onClickUnlink()">
+        <div class="button button__link" (click)="onClickUnlink($event)">
           <svg-icon
             src="assets/icons/chain-break.svg"
             [svgStyle]="{ 'width.px':18, 'height.px':18}">
           </svg-icon>
         </div>
-        <div class="button button__delete" (click)="onClickDelete()">
+        <div class="button button__delete" (click)="onClickDelete($event)">
           <svg-icon
             src="assets/icons/widgets/workspace/delete.svg"
             [svgStyle]="{ 'width.px':18, 'height.px':18 }"
           ></svg-icon>
         </div>
-        <div class="button button__edit" (click)="onClickEdit()">
+        <div class="button button__edit" (click)="onClickEdit($event)">
           <svg-icon
             src="assets/icons/widgets/workspace/edit.svg"
             [svgStyle]="{ 'position': 'absolute', 'width.px':25, 'height.px':25, 'left.px':-3, 'top.px':-3 }"
@@ -61,3 +42,4 @@
       </div>
     </div>
   </div>
+</evj-ui-block>
