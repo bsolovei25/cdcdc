@@ -110,10 +110,11 @@
                   <p>{{ selectedDay.date | date:'d MMMM yyyy' }}</p>
                 </div>
                 <div
-                  *ngFor="let shift of selectedDay.items; let idx = index"
                   class="shift-today"
+                  *ngFor="let shift of selectedDay.items; let idx = index"
                   [class.shift-today--active]="selectedShift?.id === shift.id"
                   (click)="selectShift(shift)"
+                  [attr.auto-tests-shiftschedule-shift-item]="shift.id"
                 >
                   <p>{{ idx + 1 }} смена</p>
                   <p>
