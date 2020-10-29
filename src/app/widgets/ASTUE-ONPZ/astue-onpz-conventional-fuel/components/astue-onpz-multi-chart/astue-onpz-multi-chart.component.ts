@@ -983,7 +983,7 @@ export class AstueOnpzMultiChartComponent implements OnInit, OnChanges, OnDestro
                 // }
                 this.svg.select('.mouse-over').style('opacity', 1);
                 const factY = this.scaleFuncs?.y?.invert(posFact?.y);
-                const factX = this.scaleFuncs?.x?.invert(posFact?.x);
+                let factX = this.scaleFuncs?.x?.invert(posFact?.x);
                 const planX = this.scaleFuncs?.x?.invert(posPlan?.x);
                 const planY = posPlan ? this.scaleFuncs?.y?.invert(posPlan?.y) : null;
                 this.svg
@@ -1008,6 +1008,10 @@ export class AstueOnpzMultiChartComponent implements OnInit, OnChanges, OnDestro
                     bigRect: 80,
                     smallRect: 13
                 };
+
+                if (factX.toString() === 'Invalid Date' && planX.toString() === 'Invalid Date') {
+                    factX = new Date();
+                }
                 const formatDate = d3.timeFormat('%d.%m.%Y | %H:%M:%S');
                 this.svg
                     .select('g.mouse-info .mouse-graph-date')
