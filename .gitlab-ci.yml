@@ -3,6 +3,11 @@ include:
   - ci/build.yml
   - ci/deploy.yml
   - ci/other.yml
+    #  - ci/export-zyfra.yml
+
+.init_template: &init
+  tags:
+    - build2-cup-front
 
 variables:
   GIT_DEPTH: 8
@@ -19,24 +24,18 @@ variables:
   DYNAMIC_ENV: "/root/dynamic-environment-creator"
 
 stages:
-    - prebuild
-    - test
-    - build
-    - packing
-    - deploy-review
-    - staging
-    - export-images
-    - deploy
-    - alerting
-    - release
-    - clean-on-failure
-
-.init_template: &init
-    tags:
-        - build2-cup-front
+  - test
+  - build
+  - packing
+  - deploy-review
+  - staging
+  - deploy
+  - alerting
+  - release
+  - clean-on-failure
 
 install_dependencies:
-  stage: prebuild
+  stage: .pre
   image: registry.funcoff.club/libs/node:slim
   tags:
     - gl-docker-socket
@@ -75,6 +74,9 @@ docker-packing:
   extends: .packing
   variables:
     SERVICE_NAME: "front"
+  needs:
+    - job: ng-build
+      artifacts: true
   after_script:
     - echo "========= additional tagging for master branch ========"
     - > 
@@ -99,6 +101,8 @@ deploy-front:
     RELEASE: "front"
     DEPLOY_DOMAIN: "https://evj.funcoff.club"
     INGRESS_SITE: "evj"
+  needs:
+    - job: docker-packing
   dependencies: []
   environment:
     name: staging
@@ -118,6 +122,9 @@ deliver-to-deploy:
     GIT_STRATEGY: none
     DEPLOY_PATH: "/var/www/angular-staging.local/public"
     CMD_REPLACE: sed -i -E "s/(<title>Evj)(<\/title>)/\1 | ${CI_COMMIT_SHORT_SHA} \2/g" /var/www/angular.local/public/index.html
+  needs:
+    - job: ng-build
+      artifacts: true
   script:
     - ssh root@${DEPLOY_DOMAIN} rm -rf $DEPLOY_PATH
     - mv ./dist/evj public
@@ -138,6 +145,8 @@ deploy-front-mr:
     DEPLOY_DOMAIN: "https://evj-${CI_COMMIT_REF_SLUG}.funcoff.club"
     INGRESS_SITE: "evj-${CI_COMMIT_REF_SLUG}"
   dependencies: []
+  needs:
+    - job: docker-packing
   environment:
     name: review/${CI_COMMIT_REF_SLUG}
     url: "https://evj-${CI_COMMIT_REF_SLUG}.funcoff.club"
@@ -163,8 +172,14 @@ stop-k8s-review:
       
 success-pipelines:
   extends: .alerting-template
-  script:
-    - python $HOOKS
+  image:
+    name: registry.funcoff.club/devops/rockethooks:1.1.1
+  variables:
+    MESSAGE: "*New release coming*. Downtime around 1 min ->"
+    AUTH_TOKEN: "$ROCKETCHAT_PIPELINES"
+  needs:
+    - job: deploy-front
+  dependencies: []
   only:
     - develop
     - devops
@@ -172,30 +187,51 @@ success-pipelines:
 
 failed-pipelines:
   extends: .alerting-template
-  script:
-    - python $HOOKS failed
+  image:
+    name: registry.funcoff.club/devops/rockethooks:1.1.1
+  variables:
+    MESSAGE: "*PIPELINE FAILED*. See details below ->"
+    AUTH_TOKEN: "$ROCKETCHAT_TOKEN"
+  needs:
+    - job: deploy-front
+  dependencies: []
   when: on_failure
   only:
     - develop
     - devops
     - master
 
-export to zyfra:
+export-to-zyfra:
+  stage: release
+  variables:
+    GIT_STRATEGY: none
+  needs: []
+  trigger:
+    include: ci/export-images-child.yml
+  when: manual
+  only:
+    refs:
+      - devops
+      - develop
+      - master
+
+release-notes-maker:
+  extends: .release-notes
+  needs: []
+  dependencies: []
+  when: manual
+
+.export to zyfra:
   extends: .deploy-to-zyfra
   variables:
     GIT_STRATEGY: none
     SERVICE_NAME: "frontend"
     EXTERNAL_DOCKER_IMG: "onpz.local/evj/frontend"
   only:
-    - devops-zyfra
     - devops
     - develop
     - master
 
-release-notes-maker:
-  extends: .release-notes
-  when:
-      manual
 
 .docker build:
     <<: *init
