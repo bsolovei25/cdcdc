@@ -1,4 +1,5 @@
-<div class="container-employees">
+<div class="container-employees"
+     [attr.as-platform-testing]="'shiftschedule-brigadeId-{' + data.brigadeId + '}'">
   <div class="container-employees__title">
     <div class="icon-arrow" (click)="openList()">
       <svg-icon
