@@ -21,7 +21,6 @@ import { Subscription } from 'rxjs';
 import { IDatesInterval, WidgetService } from '../../../../../dashboard/services/widget.service';
 import { dateFormatLocale } from '@shared/functions/universal-time-fromat.function';
 import { findCursorPosition } from '@shared/functions/find-cursor-position.function';
-import { log } from 'util';
 
 export interface IMultiChartOptions {
     colors?: Map<string, number>;
@@ -80,6 +79,8 @@ export class AstueOnpzMultiChartComponent implements OnInit, OnChanges, OnDestro
     private readonly axisYWidth: number = 60;
     private readonly topMargin: number = 25;
 
+    positionMouse: number = null;
+
     private listeners: (() => void)[] = [];
 
     get currentDates(): IDatesInterval {
@@ -108,7 +109,6 @@ export class AstueOnpzMultiChartComponent implements OnInit, OnChanges, OnDestro
     }
 
     public ngOnChanges(): void {
-        console.log(this.data);
         if (!!this.data.length) {
             this.startDrawChart();
         } else {
@@ -139,8 +139,10 @@ export class AstueOnpzMultiChartComponent implements OnInit, OnChanges, OnDestro
 
     @HostListener('mouseleave') onMouseLeave(): void {
         if (this.eventListenerFn) {
-            this.svg?.select('g.mouse-over')?.remove();
+            this.positionMouse = null;
+            this.changePositionPicker();
             this.eventListenerFn();
+
         }
     }
 
@@ -158,6 +160,7 @@ export class AstueOnpzMultiChartComponent implements OnInit, OnChanges, OnDestro
         this.drawAxisXLabels();
         this.drawAxisYLabels();
         this.drawFutureRect();
+        this.changePositionPicker(this.positionMouse);
     }
 
     private destroySvg(): void {
@@ -970,163 +973,183 @@ export class AstueOnpzMultiChartComponent implements OnInit, OnChanges, OnDestro
 
     private listenMouseEvents(element: HTMLElement): () => void {
         const eventListeners: (() => void)[] = [];
-
         eventListeners.push(
             this.renderer.listen(element, 'mousemove', (event: MouseEvent) => {
+                let x: number = 0;
                 const rect: DOMRect = element.getBoundingClientRect();
-                const x = event.clientX - rect.left;
-                const posFact = findCursorPosition(x, 'fact', this.svg, this.padding);
-                const posPlan = findCursorPosition(x, 'plan', this.svg, this.padding);
-                // if (!posFact) {
-                //     this.svg.select('.mouse-over').style('opacity', 0);
-                //     return;
-                // }
-                this.svg.select('.mouse-over').style('opacity', 1);
-                const factY = this.scaleFuncs?.y?.invert(posFact?.y);
-                let factX = this.scaleFuncs?.x?.invert(posFact?.x);
-                const planX = this.scaleFuncs?.x?.invert(posPlan?.x);
-                const planY = posPlan ? this.scaleFuncs?.y?.invert(posPlan?.y) : null;
-                this.svg
-                    .select('.mouse-line')
-                    .attr('x1', x)
-                    .attr('x2', x);
-
-                this.svg.selectAll('.mouse-line-circle').attr('cx', x);
-
-                this.svg
-                    .select('.mouse-per-line')
-                    .attr('cx', x)
-                    .attr('cy', posFact?.y - this.padding.top + (this.padding.top / 2));
-
-                const infoFramePaddings = {
-                    near: 20,
-                    nearText: 15,
-                    longerAngle: 58,
-                    longer: 60
-                };
-                const infoBLockPaddings = {
-                    bigRect: 80,
-                    smallRect: 13
-                };
-
-                if (factX.toString() === 'Invalid Date' && planX.toString() === 'Invalid Date') {
-                    factX = new Date();
-                }
-                const formatDate = d3.timeFormat('%d.%m.%Y | %H:%M:%S');
-                this.svg
-                    .select('g.mouse-info .mouse-graph-date')
-                    .attr('x', x)
-                    .text(formatDate(factX.toString() === 'Invalid Date' ? planX : factX));
-                this.svg
-                    .selectAll('g.mouse-info .data-date')
-                    .attr('x', x);
-                // Большой многоугольник
-                this.svg
-                    .selectAll('g.mouse-info .big-rect')
-                    .attr('x', x - infoBLockPaddings.bigRect);
-                // Маленький под иконками
-                this.svg
-                    .selectAll('g.mouse-info .small-rect')
-                    .attr('x', x - infoBLockPaddings.smallRect);
-                this.svg
-                    .selectAll('g.mouse-info .future-line')
-                    .attr('x1', x - 13)
-                    .attr('x2', x + 13);
-                this.svg
-                    .selectAll('g.mouse-info .icon-rect')
-                    .attr('x', x - 10);
-                this.svg
-                    .selectAll('g.mouse-info .small-icon-rect')
-                    .attr('x', x - 14);
-
-                const values = [];
-                let plan: IChartMini;
-                let fact: IChartMini;
-                const currentDatetime: Date = factX.toString() !== 'Invalid Date' ? new Date(factX) : new Date(planX);
-                currentDatetime.setMinutes(0, 0, 0);
-                this.charts.forEach((chart) => {
-                    const filterChart = chart.graph
-                        .filter((item) => item.timeStamp.getTime() <= currentDatetime.getTime());
-                    const statValue = filterChart?.length > 0
-                        ? filterChart[filterChart.length - 1]
-                        : chart?.graph[0] ?? null;
-                    if (chart.graphType === 'plan') {
-                        plan = chart.graph[chart.graph.length - 1];
-                    } else if (chart.graphType === 'fact'
-                        || chart.graphType === 'higherBorder'
-                        || chart.graphType === 'lowerBorder') {
-                        fact = chart.graph[chart.graph.length - 1];
-                    } else if (chart.graphType === 'forecast') {
-                        // TODO add some
-                    } else {
-                        values.push({
-                            val: statValue,
-                            color: lineColors[this.colors?.get(chart.tagName)],
-                            units: chart.units ?? '',
-                            iconType: chart.graphType ?? 'volume'
-                        });
-                    }
-                });
-
-                values.forEach((val, idx) => {
-                    const step = 10;
-                    this.svg
-                        .selectAll(`g.mouse-info .val`)
-                        .attr('x', x + step);
-                    this.svg
-                        .selectAll(`g.mouse-info .rect-val-1-${idx}`)
-                        .attr('x', x + step);
-                    this.svg
-                        .selectAll(`g.mouse-info .rect-val-2-${idx}`)
-                        .attr('x', x + step * 1.5);
-
-                    const cardHeight = this.axisYWidth * 0.5;
-                    this.svg
-                        .selectAll(`g.mouse-info .rect-val-text-${idx}`)
-                        .attr('x', x + step * 1.5 + cardHeight)
-                        .text(`${val.val.value?.toFixed(2)} ${val.units}`);
-
-                    if (this.options.isIconsShowing) {
-                        this.svg
-                            .selectAll(`g.mouse-info .rect-val-icon-${idx}`)
-                            .attr('x', x + step * 1.7)
-                            .text(`${val.val.value?.toFixed(2)} ${val.units}`);
-                    }
-                });
-
-                this.svg
-                    .selectAll('g.mouse-info .line-left-horizontal')
-                    .attr('x1', x - infoFramePaddings.longerAngle)
-                    .attr('x2', x - infoFramePaddings.near);
-
-                this.svg
-                    .select('g.mouse-info .mouse-graph-value')
-                    .attr('x', x - infoFramePaddings.nearText)
-                    .text(factY?.toFixed(0));
-
-                if (planY && factY) {
-                    console.log();
-                    this.svg
-                        .select('g.mouse-info .mouse-graph-deviation')
-                        .attr('x', x + infoFramePaddings.nearText)
-                        .text((factY - planY)?.toFixed(0));
-                }
-                if (factY) {
-                    this.svg
-                        .selectAll('g.mouse-info .data-fact')
-                        .attr('x', x - 18)
-                        .text(factY?.toFixed((2)));
-                }
-                this.svg
-                    .selectAll('g.mouse-info .data-plan')
-                    .attr('x', x + 23)
-                    .text(planY?.toFixed((2)));
-
-                this.svg.select('g.mouse-over').style('color', 'white');
+                x = event.clientX - rect.left;
+                this.positionMouse = x;
+                this.changePositionPicker(x);
             })
         );
-
         return () => eventListeners.forEach((item) => item());
+    }
+
+    changePositionPicker(x?: number): void {
+        if (!x) {
+            const currentDatetime: Date = new Date();
+            currentDatetime.setMinutes(0, 0, 0);
+            x = this.scaleFuncs.x(currentDatetime);
+        }
+        const posFact = findCursorPosition(x, 'fact', this.svg, this.padding);
+        const posPlan = findCursorPosition(x, 'plan', this.svg, this.padding);
+
+        this.svg.select('.mouse-over').style('opacity', 1);
+        let factY = this.scaleFuncs?.y?.invert(posFact?.y);
+        let factX = this.scaleFuncs?.x?.invert(posFact?.x);
+        const planX = this.scaleFuncs?.x?.invert(posPlan?.x);
+        const planY = posPlan ? this.scaleFuncs?.y?.invert(posPlan?.y) : null;
+
+        factY = factY ? factY : null;
+
+        this.svg
+            .select('.mouse-line')
+            .attr('x1', x)
+            .attr('x2', x);
+
+        this.svg.selectAll('.mouse-line-circle').attr('cx', x);
+
+        if (posFact) {
+            this.svg
+                .select('.mouse-per-line')
+                .attr('cx', x)
+                .style('opacity', 1)
+                .attr('cy', posFact?.y - this.padding.top + (this.padding.top / 2));
+        } else {
+            this.svg
+                .select('.mouse-per-line')
+                .style('opacity', 0);
+        }
+
+        const infoFramePaddings = {
+            near: 20,
+            nearText: 15,
+            longerAngle: 58,
+            longer: 60
+        };
+        const infoBLockPaddings = {
+            bigRect: 80,
+            smallRect: 13
+        };
+
+        if (factX.toString() === 'Invalid Date' && planX.toString() === 'Invalid Date') {
+            factX = new Date();
+        }
+        const formatDate = d3.timeFormat('%d.%m.%Y | %H:%M:%S');
+        this.svg
+            .select('g.mouse-info .mouse-graph-date')
+            .attr('x', x)
+            .text(formatDate(factX.toString() === 'Invalid Date' ? planX : factX));
+        this.svg
+            .selectAll('g.mouse-info .data-date')
+            .attr('x', x);
+        // Большой многоугольник
+        this.svg
+            .selectAll('g.mouse-info .big-rect')
+            .attr('x', x - infoBLockPaddings.bigRect);
+        // Маленький под иконками
+        this.svg
+            .selectAll('g.mouse-info .small-rect')
+            .attr('x', x - infoBLockPaddings.smallRect);
+        this.svg
+            .selectAll('g.mouse-info .future-line')
+            .attr('x1', x - 13)
+            .attr('x2', x + 13);
+        this.svg
+            .selectAll('g.mouse-info .icon-rect')
+            .attr('x', x - 10);
+        this.svg
+            .selectAll('g.mouse-info .small-icon-rect')
+            .attr('x', x - 14);
+
+        const values = [];
+        let plan: IChartMini;
+        let fact: IChartMini;
+        const date: Date = factX.toString() !== 'Invalid Date' ? new Date(factX) : new Date(planX);
+        date.setMinutes(0, 0, 0);
+        this.charts.forEach((chart) => {
+            const filterChart = chart.graph
+                .filter((item) => item.timeStamp.getTime() <= date.getTime());
+            const xGragh = chart.transformedGraph[chart.transformedGraph.length - 1]?.x >= x;
+            const statValue = filterChart?.length > 0
+                ? filterChart[filterChart.length - 1]
+                : null;
+            console.log(this.charts);
+            if (chart.graphType === 'plan') {
+                plan = chart.graph[chart.graph.length - 1];
+            } else if (chart.graphType === 'fact'
+                || chart.graphType === 'higherBorder'
+                || chart.graphType === 'lowerBorder') {
+                fact = chart.graph[chart.graph.length - 1];
+            } else if (chart.graphType === 'forecast') {
+                // TODO add some
+            } else {
+                values.push({
+                    val: xGragh ? statValue : -1,
+                    color: lineColors[this.colors?.get(chart.tagName)],
+                    units: chart.units ?? '',
+                    iconType: chart.graphType ?? 'volume'
+                });
+            }
+        });
+
+        values.forEach((val, idx) => {
+            const step = 10;
+            this.svg
+                .selectAll(`g.mouse-info .val`)
+                .attr('opacity', val?.val < 0 ? 0 : 1)
+                .attr('x', x + step);
+            this.svg
+                .selectAll(`g.mouse-info .rect-val-1-${idx}`)
+                .attr('opacity', val?.val < 0 ? 0 : 1)
+                .attr('x', x + step);
+            this.svg
+                .selectAll(`g.mouse-info .rect-val-2-${idx}`)
+                .attr('opacity', val?.val < 0 ? 0 : 1)
+                .attr('opacity', val?.val < 0 ? 0 : 1)
+                .attr('x', x + step * 1.5);
+
+            const cardHeight = this.axisYWidth * 0.5;
+            this.svg
+                .selectAll(`g.mouse-info .rect-val-text-${idx}`)
+                .attr('x', x + step * 1.5 + cardHeight)
+                .attr('opacity', val?.val < 0 ? 0 : 1)
+                .text(`${val?.val?.value?.toFixed(2)} ${val.units}`);
+
+            if (this.options.isIconsShowing) {
+                this.svg
+                    .selectAll(`g.mouse-info .rect-val-icon-${idx}`)
+                    .attr('opacity', val?.val < 0 ? 0 : 1)
+                    .attr('x', x + step * 1.7);
+            }
+        });
+
+        this.svg
+            .selectAll('g.mouse-info .line-left-horizontal')
+            .attr('x1', x - infoFramePaddings.longerAngle)
+            .attr('x2', x - infoFramePaddings.near);
+
+        this.svg
+            .select('g.mouse-info .mouse-graph-value')
+            .attr('x', x - infoFramePaddings.nearText)
+            .text(factY?.toFixed(0));
+
+        this.svg
+            .select('g.mouse-info .mouse-graph-deviation')
+            .attr('x', x + infoFramePaddings.nearText)
+            .text((factY - planY)?.toFixed(0));
+
+        this.svg
+            .selectAll('g.mouse-info .data-fact')
+            .attr('x', x - 18)
+            .text(factY?.toFixed((2)));
+
+        this.svg
+            .selectAll('g.mouse-info .data-plan')
+            .attr('x', x + 23)
+            .text(planY?.toFixed((2)));
+
+        this.svg.select('g.mouse-over').style('color', 'white');
     }
 
 }
