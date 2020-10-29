@@ -15,19 +15,11 @@
       [dataType]="'priorities'"
     >
     </evj-events-workspace-select>
-    <evj-ui-block class="workspace__header__block" status="{{ewService.event.isAcknowledged}}">
-      <mat-form-field class="card-{{ewService.event.isAcknowledged}}">
-        <mat-label>Событие</mat-label>
-        <mat-select panelClass="mat-select-custom" [(ngModel)]="ewService.event.isAcknowledged">
-          <mat-option [value]="true">
-            Квитировано
-          </mat-option>
-          <mat-option [value]="false">
-            Не квитировано
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-    </evj-ui-block>
+    <evj-events-workspace-select
+      [label]="'Событие'"
+      [dataType]="'event'"
+    >
+    </evj-events-workspace-select>
   </div>
 
   <div class="workspace__body">
@@ -40,22 +32,12 @@
             [dataType]="'status'"
           ></evj-events-workspace-select>
           <div class="type">
-            <evj-ui-block class="workspace__body__categories" status="normal">
-              <ng-container *ngIf="ewService.event.category.code!=='2' else subcategories">
-                <mat-form-field class="categories_selectbox">
-                  <mat-label>Тип оборудования</mat-label>
-                  <mat-select
-                    panelClass="mat-select-custom"
-                    [(ngModel)]="ewService.event.equipmentCategory"
-                    [compareWith]="compareFn"
-                  >
-                    <mat-option *ngFor="let p of ewService.equipmentCategory" [value]="p"
-                    >{{ p.name }}
-                    </mat-option>
-                  </mat-select>
-                </mat-form-field>
-              </ng-container>
-            </evj-ui-block>
+            <ng-container *ngIf="ewService.event.category.code!=='2' else subcategories">
+              <evj-events-workspace-select
+                [label]="'Тип оборудования'"
+                [dataType]="'equipmentCategory'"
+              ></evj-events-workspace-select>
+            </ng-container>
           </div>
         </div>
         <div class="second_block" *ngIf="ewService.event.category.name === 'equipmentStatus'">
@@ -67,7 +49,7 @@
             </evj-events-workspace-select>
           </div>
           <div class="number_position">
-            <evj-ui-block class="workspace__header__block" status="normal">
+            <evj-ui-block class="workspace__header__block">
               <div class="input_position">
                 <evj-input
                   class="input"
@@ -132,20 +114,10 @@
         <evj-events-workspace-datetimepicker></evj-events-workspace-datetimepicker>
       </div>
       <div class="place">
-        <evj-ui-block class="workspace__body__categories" status="normal">
-          <mat-form-field class="categories_selectbox">
-            <mat-label>Место</mat-label>
-            <mat-select
-              panelClass="mat-select-custom"
-              [(ngModel)]="ewService.event.unit"
-              [compareWith]="compareFn"
-            >
-              <mat-option *ngFor="let cat of ewService.units" [value]="cat">
-                {{ cat.name }}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
-        </evj-ui-block>
+        <evj-events-workspace-select
+          [label]="'Место'"
+          [dataType]="'place'"
+        ></evj-events-workspace-select>
       </div>
       <div class="responsible">
         <evj-events-workspace-responsible-select></evj-events-workspace-responsible-select>
@@ -158,17 +130,8 @@
 </section>
 
 <ng-template #subcategories>
-  <mat-form-field class="categories_selectbox">
-    <mat-label>Подкатегория</mat-label>
-    <mat-select
-      panelClass="mat-select-custom"
-      [(ngModel)]="ewService.event.productionTasks.subCategory"
-      [compareWith]="compareFn"
-    >
-      <mat-option [value]="undefined">Не выбрана</mat-option>
-      <mat-option *ngFor="let p of ewService.subCategory" [value]="p"
-      >{{ p.description }}
-      </mat-option>
-    </mat-select>
-  </mat-form-field>
+  <evj-events-workspace-select
+    [label]="'Подкатегория'"
+    [dataType]="'subCategories'"
+  ></evj-events-workspace-select>
 </ng-template>

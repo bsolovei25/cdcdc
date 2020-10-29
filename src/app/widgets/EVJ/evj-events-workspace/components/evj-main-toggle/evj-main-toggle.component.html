@@ -1,13 +1,27 @@
 <div class="main">
   <div class="main__event button">
-    <div (click)="createEvent(false)">
-      <span>Новое событие</span>
-    </div>
+      <evj-rect-button
+        textButton="Cоздать событие"
+        (click)="createEvent(false)"
+        [isChangingState]="false"
+        [type]="'primary'"
+      ></evj-rect-button>
   </div>
   <div class="main__back button">
-    <div (click)="backEvent()">
-      <span>Назад</span>
-    </div>
+      <evj-rect-button
+        textButton="Назад"
+        (click)="backEvent()"
+        [isChangingState]="false"
+        [type]="'primary'"
+      ></evj-rect-button>
+  </div>
+  <div class="main__event button">
+    <evj-rect-button
+      textButton="Сохранить"
+      (click)="createEvent(true)"
+      [isChangingState]="false"
+      [type]="'primary'"
+    ></evj-rect-button>
   </div>
 </div>
 

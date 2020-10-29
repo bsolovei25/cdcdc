@@ -26,8 +26,15 @@ export class EvjEventsWorkspaceSelectComponent implements OnInit {
             label: 'Нет значений',
         },
     ];
-    @Input()
-    public dataType: 'status' | 'priorities' | 'categories' | 'subCategories' | 'eventType';
+    @Input() public dataType:
+        'status'
+        | 'priorities'
+        | 'categories'
+        | 'subCategories'
+        | 'eventType'
+        | 'place'
+        | 'equipmentCategory'
+        | 'event';
 
     @Input()
     public type: 'default' | 'minor' | 'critical' = 'default';

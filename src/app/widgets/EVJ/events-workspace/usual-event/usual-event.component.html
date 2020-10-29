@@ -190,20 +190,7 @@
         </div>
       </div>
       <div class="place">
-        <evj-ui-block class="workspace__body__categories" status="normal">
-          <mat-form-field class="categories_selectbox">
-            <mat-label>Место</mat-label>
-            <mat-select
-              panelClass="mat-select-custom"
-              [(ngModel)]="ewService.event.unit"
-              [compareWith]="compareFn"
-            >
-              <mat-option *ngFor="let cat of ewService.units" [value]="cat">
-                {{ cat.name }}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
-        </evj-ui-block>
+
       </div>
       <div class="responsible">
         <evj-events-responsible-select></evj-events-responsible-select>
