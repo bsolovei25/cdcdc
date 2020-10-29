@@ -969,18 +969,10 @@ export class AstueOnpzMultiChartComponent implements OnInit, OnChanges, OnDestro
     }
 
     private listenMouseEvents(element: HTMLElement): () => void {
-
         const eventListeners: (() => void)[] = [];
 
         eventListeners.push(
-            // this.renderer.listen(element, 'mouseout', () => {
-            //     this.svg.select('.mouse-over').style('opacity', 0);
-            // }),
-            // this.renderer.listen(element, 'mouseover', () => {
-            //     this.svg.select('.mouse-over').style('opacity', 1);
-            // }),
             this.renderer.listen(element, 'mousemove', (event: MouseEvent) => {
-                console.log('зашел');
                 const rect: DOMRect = element.getBoundingClientRect();
                 const x = event.clientX - rect.left;
                 const posFact = findCursorPosition(x, 'fact', this.svg, this.padding);
@@ -991,9 +983,9 @@ export class AstueOnpzMultiChartComponent implements OnInit, OnChanges, OnDestro
                 // }
                 this.svg.select('.mouse-over').style('opacity', 1);
                 const factY = this.scaleFuncs?.y?.invert(posFact?.y);
-                const factX = this.scaleFuncs?.x?.invert(posFact.x);
-                const planY = posPlan ? this.scaleFuncs?.y?.invert(posPlan.y) : null;
-
+                const factX = this.scaleFuncs?.x?.invert(posFact?.x);
+                const planX = this.scaleFuncs?.x?.invert(posPlan?.x);
+                const planY = posPlan ? this.scaleFuncs?.y?.invert(posPlan?.y) : null;
                 this.svg
                     .select('.mouse-line')
                     .attr('x1', x)
@@ -1016,12 +1008,11 @@ export class AstueOnpzMultiChartComponent implements OnInit, OnChanges, OnDestro
                     bigRect: 80,
                     smallRect: 13
                 };
-
                 const formatDate = d3.timeFormat('%d.%m.%Y | %H:%M:%S');
                 this.svg
                     .select('g.mouse-info .mouse-graph-date')
                     .attr('x', x)
-                    .text(formatDate(factX));
+                    .text(formatDate(factX.toString() === 'Invalid Date' ? planX : factX));
                 this.svg
                     .selectAll('g.mouse-info .data-date')
                     .attr('x', x);
@@ -1047,7 +1038,7 @@ export class AstueOnpzMultiChartComponent implements OnInit, OnChanges, OnDestro
                 const values = [];
                 let plan: IChartMini;
                 let fact: IChartMini;
-                const currentDatetime: Date = new Date(factX);
+                const currentDatetime: Date = factX.toString() !== 'Invalid Date' ? new Date(factX) : new Date(planX);
                 currentDatetime.setMinutes(0, 0, 0);
                 this.charts.forEach((chart) => {
                     const filterChart = chart.graph
@@ -1057,11 +1048,9 @@ export class AstueOnpzMultiChartComponent implements OnInit, OnChanges, OnDestro
                         : chart?.graph[0] ?? null;
                     if (chart.graphType === 'plan') {
                         plan = chart.graph[chart.graph.length - 1];
-                    } else if (chart.graphType === 'fact') {
-                        fact = chart.graph[chart.graph.length - 1];
-                    } else if (chart.graphType === 'higherBorder') {
-                        fact = chart.graph[chart.graph.length - 1];
-                    } else if (chart.graphType === 'lowerBorder') {
+                    } else if (chart.graphType === 'fact'
+                        || chart.graphType === 'higherBorder'
+                        || chart.graphType === 'lowerBorder') {
                         fact = chart.graph[chart.graph.length - 1];
                     } else if (chart.graphType === 'forecast') {
                         // TODO add some
@@ -1077,14 +1066,12 @@ export class AstueOnpzMultiChartComponent implements OnInit, OnChanges, OnDestro
 
                 values.forEach((val, idx) => {
                     const step = 10;
-
                     this.svg
                         .selectAll(`g.mouse-info .val`)
                         .attr('x', x + step);
                     this.svg
                         .selectAll(`g.mouse-info .rect-val-1-${idx}`)
                         .attr('x', x + step);
-
                     this.svg
                         .selectAll(`g.mouse-info .rect-val-2-${idx}`)
                         .attr('x', x + step * 1.5);
@@ -1103,7 +1090,6 @@ export class AstueOnpzMultiChartComponent implements OnInit, OnChanges, OnDestro
                     }
                 });
 
-
                 this.svg
                     .selectAll('g.mouse-info .line-left-horizontal')
                     .attr('x1', x - infoFramePaddings.longerAngle)
@@ -1114,16 +1100,19 @@ export class AstueOnpzMultiChartComponent implements OnInit, OnChanges, OnDestro
                     .attr('x', x - infoFramePaddings.nearText)
                     .text(factY?.toFixed(0));
 
-                if (planY) {
+                if (planY && factY) {
+                    console.log();
                     this.svg
                         .select('g.mouse-info .mouse-graph-deviation')
                         .attr('x', x + infoFramePaddings.nearText)
                         .text((factY - planY)?.toFixed(0));
                 }
-                this.svg
-                    .selectAll('g.mouse-info .data-fact')
-                    .attr('x', x - 18)
-                    .text(factY?.toFixed((2)));
+                if (factY) {
+                    this.svg
+                        .selectAll('g.mouse-info .data-fact')
+                        .attr('x', x - 18)
+                        .text(factY?.toFixed((2)));
+                }
                 this.svg
                     .selectAll('g.mouse-info .data-plan')
                     .attr('x', x + 23)

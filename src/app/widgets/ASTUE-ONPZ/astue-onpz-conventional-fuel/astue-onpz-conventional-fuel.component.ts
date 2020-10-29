@@ -7,7 +7,7 @@ import {
 } from '../../../dashboard/models/ASTUE-ONPZ/astue-onpz-multi-chart.model';
 import { UserSettingsService } from '../../../dashboard/services/user-settings.service';
 import {
-    AstueOnpzService,
+    AstueOnpzService
 } from '../astue-onpz-shared/astue-onpz.service';
 import { IMultiChartOptions } from './components/astue-onpz-multi-chart/astue-onpz-multi-chart.component';
 import { HttpClient } from '@angular/common/http';
@@ -295,18 +295,15 @@ export class AstueOnpzConventionalFuelComponent extends WidgetPlatform implement
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string,
         private astueOnpzService: AstueOnpzService,
-        private userSettingsService: UserSettingsService,
+        private userSettingsService: UserSettingsService
     ) {
         super(widgetService, isMock, id, uniqId);
     }
 
     public ngOnInit(): void {
         this.widgetInit();
-
-        this.data = !!a ? this.multilineDataMapper(a.graphs) : [];
-
         this.subscriptions.push(
-            this.widgetService.currentDates$.subscribe((ref) => this.scrollLimits = ref),
+            this.widgetService.currentDates$.subscribe((ref) => this.scrollLimits = ref)
         );
         // this.http
         //     .get('assets/mock/ASTUE-ONPZ/multiline-chart-plant.mock.json')
@@ -330,25 +327,25 @@ export class AstueOnpzConventionalFuelComponent extends WidgetPlatform implement
         this.isPredictors = this.widgetType === 'astue-onpz-conventional-fuel-predictors';
         this.options.isIconsShowing = !this.isPredictors;
         this.subscriptions.push(
-                this.astueOnpzService.multilineChartIndicatorTitle$.subscribe((title) => {
-                    if (this.isPredictors) {
-                        return;
-                    }
-                    this.widgetTitle = title;
-                }),
-                this.astueOnpzService.sharedIndicatorOptions.subscribe((options) => {
-                    if (this.isPredictors) {
-                        return;
-                    }
-                    this.unitName = options.unitName;
-                    this.widgetService.setChannelLiveDataFromWsOptions(this.widgetId, options);
-                }),
-                this.astueOnpzService.multiLinePredictors.subscribe((data) => {
-                    if (!this.isPredictors) {
-                        return;
-                    }
-                    this.data = !!data ? this.multilineDataMapper(data) : [];
-                }),
+            this.astueOnpzService.multilineChartIndicatorTitle$.subscribe((title) => {
+                if (this.isPredictors) {
+                    return;
+                }
+                this.widgetTitle = title;
+            }),
+            this.astueOnpzService.sharedIndicatorOptions.subscribe((options) => {
+                if (this.isPredictors) {
+                    return;
+                }
+                this.unitName = options.unitName;
+                this.widgetService.setChannelLiveDataFromWsOptions(this.widgetId, options);
+            }),
+            this.astueOnpzService.multiLinePredictors.subscribe((data) => {
+                if (!this.isPredictors) {
+                    return;
+                }
+                this.data = !!data ? this.multilineDataMapper(data) : [];
+            }),
             this.astueOnpzService.colors$.subscribe((value) => {
                 this.colors = value;
             })
