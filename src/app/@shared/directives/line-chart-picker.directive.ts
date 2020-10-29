@@ -340,7 +340,6 @@ export class LineChartPickerDirective implements OnDestroy {
                     .attr('x1', x - infoFramePaddings.longerAngle)
                     .attr('x2', x - infoFramePaddings.longer);
 
-                console.log(factY.toFixed(0));
                 this.svg
                     .select('g.mouse-info .mouse-graph-value')
                     .attr('x', x - infoFramePaddings.nearText)
