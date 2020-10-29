@@ -25,7 +25,8 @@ export class EventsCorrectCardComponent implements OnInit {
 
     ngOnInit(): void {}
 
-    public onClickDelete(): void {
+    public onClickDelete(event: MouseEvent): void {
+        event.stopPropagation();
         if (!this.isClickable) {
             return;
         }
@@ -40,7 +41,8 @@ export class EventsCorrectCardComponent implements OnInit {
         this.ewService.ewAlertInfo$.next(tempInfo);
     }
 
-    public onClickUnlink(): void {
+    public onClickUnlink(event: MouseEvent): void {
+        event.stopPropagation();
         if (!this.isClickable) {
             return;
         }
@@ -57,7 +59,8 @@ export class EventsCorrectCardComponent implements OnInit {
         this.ewService.ewAlertInfo$.next(tempInfo);
     }
 
-    public onClickEdit(): void {
+    public onClickEdit(event: MouseEvent): void {
+        event.stopPropagation();
         if (!this.isClickable) {
             return;
         }
@@ -70,14 +73,4 @@ export class EventsCorrectCardComponent implements OnInit {
         }
         this.ewService.editEvent(this.event.innerNotificationId);
     }
-
-    // private async setEventByInfo(value: EventsWidgetNotification | number): Promise<void> {
-    //     this.ewService.isLoading = true;
-    //
-    //     this.ewService.editEvent(value);
-    //
-    //     setTimeout(() => (this.ewService.isLoading = false), 500);
-    //
-    //     // this.progressLine();
-    // }
 }
