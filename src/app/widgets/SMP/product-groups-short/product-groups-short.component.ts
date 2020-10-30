@@ -28,13 +28,13 @@ export class ProductGroupsShortComponent extends WidgetPlatform<unknown> impleme
     ngOnInit(): void {
         super.widgetInit();
 
-        // this.getData();
+        this.getData();
 
-        this.http
-            .get('assets/mock/SMP/product-groups/product-groups.mock.json')
-            .subscribe((data: IDataProgressGroup) => {
-                this.data = data.data.items;
-            });
+        // this.http
+        //     .get('assets/mock/SMP/product-groups/product-groups.mock.json')
+        //     .subscribe((data: IDataProgressGroup) => {
+        //         this.data = data.data.items;
+        //     });
     }
 
     private async getData(): Promise<void> {

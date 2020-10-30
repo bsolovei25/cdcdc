@@ -32,9 +32,13 @@
   >
     <evj-evj-event-preview [isPreviewOpened]="isPreviewOpened" (close)="closeEventPreview()"></evj-evj-event-preview>
     <div class="cd-events">
-      <evj-evj-event-filters (outPriority)="priorityOfFilter($event)"
-                             (outUnits)="unitsOfFilter($event)"
-                             (description)="searchFilter($event)"></evj-evj-event-filters>
+      <evj-evj-event-filters
+        [inputUnits]="units"
+        [inputPriority]="priority"
+        (outPriority)="priorityOfFilter($event)"
+        (outUnits)="unitsOfFilter($event)"
+        (description)="searchFilter($event)">
+      </evj-evj-event-filters>
       <div
         class="notifications"
         #notifications

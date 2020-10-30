@@ -5,6 +5,7 @@ import { AuthService } from '@core/service/auth.service';
 import { IAlertPasswordModel } from '@shared/models/alert-password.model';
 import { IUser } from '../../../models/EVJ/events-widget';
 import { Subscription } from 'rxjs';
+import { ThemeConfiguratorService } from "@core/service/theme-configurator.service";
 
 interface IMenuItem {
     name: string;
@@ -27,7 +28,8 @@ export class MenuButtonComponent implements OnInit, OnDestroy {
     constructor(
         public overlayService: OverlayService,
         private router: Router,
-        private authService: AuthService
+        private authService: AuthService,
+        private themeService: ThemeConfiguratorService,
     ) {}
 
     public ngOnInit(): void {
@@ -58,10 +60,19 @@ export class MenuButtonComponent implements OnInit, OnDestroy {
                 action: this.resetPassword.bind(this),
             },
             {
+                name: 'Изменение темы',
+                action: this.themeService.changeTheme.bind(this.themeService),
+            },
+            {
                 name: 'Выйти',
                 action: this.logOut.bind(this),
             },
         ];
+    }
+
+    private switchTheme(): void {
+        // console.log(this.themeService.theme);
+        this.themeService.changeTheme();
     }
 
     private resetPassword(): void {

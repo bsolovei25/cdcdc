@@ -27,7 +27,7 @@ import { dateFormatLocale } from '@shared/functions/universal-time-fromat.functi
 })
 export class PlanningChartComponent implements OnChanges {
 
-    @Input() private scroll: { left: number, right: number } = { left: 0, right: 100 };
+    @Input() private scroll: { left: number, right: number } = { left: 0, right: 0 };
     @Input() private data: IProductionTrend[] = [];
     @Input() private isSpline: boolean = true;
     @Input() private isWithPicker: boolean = false;
