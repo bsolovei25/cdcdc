@@ -405,10 +405,12 @@
   --color-ejco-sub-border: #3C4053;
 
   // ozsm
+  --ozsm-color-bg-border: rgba(39, 42, 56, 0.5);
   --ozsm-color-circle-diagram-bg-arc-deviation: rgba(247, 147, 30, 0.2);
   --ozsm-color-tank-storage-bg: rgb(18, 48, 80);
   --ozsm-color-bg-dark: rgba(18, 21, 30, 0.5);
   --ozsm-color-border: rgba(96, 101, 128, 0.25);
+  --ozsm-color-bg-card: #272A38;
   --ozsm-color-circle-arc-bg: rgba(0, 137, 255, 0.25);
   --ozsm-color-active: #0089ff;
   --ozsm-color-white: #ffffff;
@@ -483,6 +485,11 @@
   --evj-events-workspace-critical-bg: rgba(219, 0, 0, 0.15);
   --evj-events-workspace-minor: #F8921C;
   --evj-events-workspace-minor-bg: rgba(248, 146, 28, 0.15);
+  --evj-events-workspace-responsible-bg: #171a24;
+  --evj-events-workspace-white: #ffffff;
+  --evj-events-workspace-item-border: rgba(96, 101, 128, 0.25);
+  --evj-events-workspace-text-sub: #616580;
+  --evj-events-workspace-item-title: #8A98B3;
 }
 
 $--color-active: #3fa9f5;
