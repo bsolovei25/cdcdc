@@ -1,0 +1,44 @@
+<div class="responsible">
+  <span class="main-tittle">Ответственный</span>
+  <div *ngIf="responsible?.login" class="choosenUser">
+    <div class="avatar_user">
+      <div class="avatar_user_img">
+        <img [src]="ewService.getUserAvatarUrl(responsible)" />
+        <svg-icon
+          class="avatar-mask"
+          src="assets/icons/widgets/EVJ/evj-events-workspace/avatar-mask.svg"
+          [svgStyle]="{'width.px': 74, 'height.px': 74}"
+        ></svg-icon>
+      </div>
+    </div>
+    <div class="name_user">
+      <div class="name_user_info">
+        <div class="name_user_info__name">
+          {{ responsible?.displayName }}
+        </div>
+        <div class="name_user_info__position">{{ responsible?.positionDescription }}</div>
+      </div>
+    </div>
+    <div class="brigade_user">
+      <div class="brigade_user_name">
+        Бригада
+      </div>
+      <div class="brigade_user_text">
+        {{ responsible?.brigade?.number }}
+      </div>
+    </div>
+  </div>
+  
+  <div class="responsible-item" (click)="clearFilter()">
+    <mat-form-field>
+      <mat-select panelClass="mat-select-custom" [disabled]="disabled" [(ngModel)]="responsible" disableOptionCentering>
+        <evj-mat-select-filter [formControl]="filter"></evj-mat-select-filter>
+        <ng-container *ngFor="let p of users">
+          <mat-option [value]="p" (click)="chooseRespons(p)">
+            {{ p.lastName }} {{ p.firstName }}
+          </mat-option>
+        </ng-container>
+      </mat-select>
+    </mat-form-field>
+  </div>
+</div>
