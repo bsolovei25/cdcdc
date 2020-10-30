@@ -18,8 +18,8 @@ export interface MI_ParamSend {
     Id: string;
     Value: string;
     TimeCode: Date;
-    Comment: string;
-    isEdit: boolean;
+    Comment?: string;
+    isEdit?: boolean;
 }
 
 export interface Param_MI {

@@ -15,7 +15,7 @@ import { trigger, style, state, transition, animate, group } from '@angular/anim
 import { ManualInputService } from './../../../dashboard/services/widgets/EVJ/manual-input.service';
 import { WidgetSettingsService } from './../../../dashboard/services/widget-settings.service';
 import { WidgetService } from 'src/app/dashboard/services/widget.service';
-import { IHistory, IMachine_MI, IGroup_MI, IChoosenHistorical} from './../../../dashboard/models/EVJ/manual-input.model';
+import { IHistory, IMachine_MI, IGroup_MI, IChoosenHistorical, MI_ParamSend} from './../../../dashboard/models/EVJ/manual-input.model';
 import { WidgetPlatform } from 'src/app/dashboard/models/@PLATFORM/widget-platform';
 
 @Component({
@@ -72,14 +72,23 @@ export class EvjManualInputComponent extends WidgetPlatform<unknown>
     openAllMachine: boolean = true;
 
     chooseSetting: IMachine_MI;
+    sendHistoryData: MI_ParamSend[] = [];
 
     private restUrl: string;
 
     data: IMachine_MI[] = [];
     filteredData: IMachine_MI[] = [];
+    historiclDataIndx: {
+        machineIdx: number;
+        groupIdx: number;
+        paramsIdx: number;
+    } = {
+        machineIdx: 0,
+        groupIdx: 0,
+        paramsIdx: 0
+    }
     historicalData: IChoosenHistorical;
     editMode: boolean = false;
-    // historicalDataValues: IHistory[] = [];
 
     private isUserHasWriteClaims: boolean;
 
@@ -139,6 +148,12 @@ export class EvjManualInputComponent extends WidgetPlatform<unknown>
     }
 
     onChooseGroup(machineIdx: number = 0, groupIdx: number = 0, paramsIdx: number = 0): void {
+        this.historiclDataIndx = {
+            machineIdx,
+            groupIdx,
+            paramsIdx
+        };
+
         this.historicalData = {
             ...this.filteredData[machineIdx],
             groups: {
@@ -151,8 +166,6 @@ export class EvjManualInputComponent extends WidgetPlatform<unknown>
     }
 
     showHistorical(): void {
-        debugger;
-        console.log('day ' + this.historicalData.groups.params.historyValues[0].day)
         this.isHistorical = true;
         this.timeWidth = this.time?.nativeElement.clientWidth;
     }
@@ -175,11 +188,20 @@ export class EvjManualInputComponent extends WidgetPlatform<unknown>
         if (!this.isSaveButton()) {
             return;
         }
-        this.manualInputService.BtnSaveValues(this.data, this.widgetId);
-        this.editMode = false;
+
+        if (this.isHistorical) {
+            this.manualInputService.SendHistoryData(this.sendHistoryData, this.data, this.widgetId);
+            this.sendHistoryData = [];
+            this.editMode = false;
+        } else {
+            this.manualInputService.BtnSaveValues(this.data, this.widgetId);
+        }
+
     }
 
-    onChangeValue(id: string): void {
+    onChangeValue(e: any, id: string): void {
+        const param = this.manualInputService.GetElementById(id, this.data);
+        param.saveValue = e.target.value;
         this.manualInputService.ChangeField(id, this.data);
     }
 
@@ -187,8 +209,22 @@ export class EvjManualInputComponent extends WidgetPlatform<unknown>
         this.manualInputService.CheckLastValue(id, this.data);
     }
 
+    onChangeHistoricalValue(e: any, id: string, time: Date, prevValue: number): void {
+        if (e.target.value.trim() !== '' &&  +e.target.value !== prevValue) {
+            if (this.sendHistoryData.find(item => item.Id === id && item.TimeCode === time)) {
+                this.sendHistoryData.find(item => item.Id === id && item.TimeCode === time).Value = e.target.value;
+            } else {
+                this.sendHistoryData.push({
+                    Id: id,
+                    Value: e.target.value,
+                    TimeCode: time
+                });
+            }
+        }
+    }
+
     async loadSaveData( data: { machines: IMachine_MI[]; isUserHasWriteClaims: boolean}): Promise<void> {
-        this.isUserHasWriteClaims = false; // data.isUserHasWriteClaims;
+        this.isUserHasWriteClaims = data.isUserHasWriteClaims;
         const settings: IMachine_MI[] = await this.widgetSettingsService.getSettings(this.uniqId);
         for (const itemDate of data.machines) {
             itemDate.open = settings?.find((el) => el.name === itemDate.name)?.open ?? true;
@@ -203,24 +239,15 @@ export class EvjManualInputComponent extends WidgetPlatform<unknown>
             }
         }
         this.data = this.manualInputService.LoadData(this.data, data.machines);
-        if (this.filteredData.length === 0) {
-            if (!this.chooseSetting) {
-                this.filteredData = this.data;
-            } else {
-                this.onSettings(this.chooseSetting);
-            }
+        if (!this.chooseSetting) {
+            this.filteredData = this.data;
+        } else {
+            this.filteredData = [];
+            this.filteredData.push(this.chooseSetting);
+            this.onSettings(this.chooseSetting);
         }
-
-        if (!this.historicalData) {
-            this.historicalData = {
-                ...this.filteredData[0],
-                groups: {
-                    ...this.filteredData[0]?.groups[0],
-                    params: {
-                        ...this.filteredData[0]?.groups[0]?.params[0]
-                    }
-                }
-            };
+        if (!this.editMode) {
+            this.onChooseGroup(this.historiclDataIndx.machineIdx, this.historiclDataIndx.groupIdx, this.historiclDataIndx.paramsIdx);
         }
     }
 

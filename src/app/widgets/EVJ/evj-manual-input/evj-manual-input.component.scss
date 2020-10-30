@@ -224,7 +224,7 @@ input {
       box-sizing: border-box;
 
       height: 30px;
-      width: 87px;
+      min-width: 87px;
       padding: 0 10px;
       margin: 0 3px;
 
@@ -252,6 +252,7 @@ input {
       padding-top: 5px;
       flex: 1;
       overflow-x: auto;
+      overflow-y: hidden;
 
       .set-buttons {
         height: 30px;
@@ -712,7 +713,6 @@ input.data {
           height: 34px;
           margin-bottom: 1px;
           margin-right: 1px;
-          padding: 0 20px;
 
           display: flex;
           align-items: center;

@@ -48,6 +48,7 @@
           </svg>
         </div>
       </div>
+      <div id="saveBar"></div>
       <div class="table__menu">
         <div class="set-button all-settings-button" (click)="onAllSettings()" [class.active]="allSettings" *ngIf="!isHistorical">
           Все установки
@@ -165,7 +166,7 @@
                                 [class.data_active__saving]="i.isActive && i.isSave"
                                 [class.data_active__warning]="i.isWarning && !i.isSave && i.isActive && !i.isError"
                                 [class.data_active__error]="i.isError && !i.isSave"
-                                (change)="onChangeValue(i.id)"
+                                (change)="onChangeValue($event, i.id)"
                                 (focusout)="onUnfocusValue(i.id)"
                                 (click)="onChooseGroup(machineIdx, groupsIdx, paramsIdx)"
                               />
@@ -232,10 +233,10 @@
             </div>
             <div class="historical-header__item units">Единицы иземерения</div>
             <div class="historical-header__item time">
-              <div class="time__item" *ngFor="let history of historicalData.groups.params.historyValues">
-                <span class="day">{{history.day | date: 'dd.MM.yyyy'}}</span>
+              <div class="time__item" *ngFor="let history of historicalData?.groups?.params?.historyValues">
+                <span class="day">{{history?.day | date: 'dd.MM.yyyy'}}</span>
                 <div class="hours">
-                  <div class="hours__item" *ngFor="let hour of history.hourValues">{{hour.hour | date: 'HH:mm'}}</div>
+                  <div class="hours__item" *ngFor="let hour of history?.hourValues">{{hour?.hour | date: 'HH:mm'}}</div>
                 </div> 
               </div>
             </div>
@@ -273,11 +274,15 @@
                   </div>
                   <div class="historical-header__item units">{{historicalData?.groups?.params?.unit}}</div>
                   <div class="historical-header__item time" #time>
-                    <div class="time__item" *ngFor="let history of historicalData.groups.params.historyValues" (click)="activateEditMode()">
+                    <div class="time__item" *ngFor="let history of historicalData?.groups?.params?.historyValues" (click)="activateEditMode()">
                       <div class="hours">
                         <ng-container *ngFor="let hour of history.hourValues">
                           <div class="hours__item" *ngIf="!editMode">{{hour.value}}</div>
-                          <input class="hours__item" *ngIf="editMode" placeholder={{hour.value}}>
+                          <input 
+                            (change)="onChangeHistoricalValue($event, historicalData.groups.params.id, hour.hour, hour.value)"
+                            class="hours__item" 
+                            *ngIf="editMode" placeholder={{hour.value}}
+                          >
                         </ng-container>
                       </div> 
                     </div>

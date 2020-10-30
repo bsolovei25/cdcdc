@@ -97,6 +97,38 @@ export class ManualInputService {
         this.SendData(elsToSave, data, widgetId);
     }
 
+    SendHistoryData(historyToSave: MI_ParamSend[], data: IMachine_MI[], widgetId: string): void {
+        this.saveBar('Сохранение', true);
+        this.statusLoading = true;
+
+        const req: MI_DataSend = {
+            Id: widgetId,
+            User: 'Username',
+            Params: historyToSave,
+        };
+        this.PostHistoryData(req, data);
+    }
+
+    PostHistoryData(Params: MI_DataSend, data: IMachine_MI[]): void {
+        this.http.post(this.restUrl + '/api/manualinput/post', Params).subscribe((ans: MI_DataGet) => {
+            this.saveBar('Не корректный ввод', false);
+            this.SaveHistoryValues(ans, data);
+        });
+    }
+
+    SaveHistoryValues(ids: MI_DataGet, data: IMachine_MI[]): void {
+        if (ids.trueValues.length > 0) {
+            if (ids.falseValues.length === 0) {
+                this.saveBar('Сохранено', false);
+            } else {
+                this.saveBar('Сохранено с ошибкой', false);
+            }
+        } else {
+            this.saveBar('Не сохранено', false);
+        }
+        this.statusLoading = false;
+    }
+
     SendData(elsToSave: Param_MI[], data: IMachine_MI[], widgetId: string): void {
         const params: MI_ParamSend[] = [];
         for (const param of elsToSave) {
@@ -189,4 +221,6 @@ export class ManualInputService {
             .get<{ machines: IMachine_MI[]; isUserHasWriteClaims: boolean}>(this.restUrl + '/api/manualinput/ManualInputData/' + id)
             .toPromise();
     }
+
+
 }
