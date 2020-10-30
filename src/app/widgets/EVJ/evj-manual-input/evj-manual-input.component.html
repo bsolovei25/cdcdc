@@ -201,8 +201,6 @@
                             <textarea
                               class="comment-input"
                               type="text"
-                              (change)="onChangeValue(i.id)"
-                              (focusout)="onUnfocusValue(i.id)"
                               placeholder="Напишите свой комментарий..."
                               [readOnly]="!isSaveButton()"
                               [class.data_notActive]="!i.isActive || !isSaveButton()"
