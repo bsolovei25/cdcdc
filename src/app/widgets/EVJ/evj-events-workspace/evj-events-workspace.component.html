@@ -10,7 +10,17 @@
     icon="letter"
   >
   </evj-contemporary-widget-header>
-  <evj-evj-main-toggle></evj-evj-main-toggle>
+  <ng-container *ngIf="displayContainer">
+    <evj-evj-main-toggle
+      (eventCreated)="createdEvent($event)"
+      (eventBack)="backEvent()"
+      [isEventOpen]="!ewService.isEditEvent"
+      [blockWorkspaceButton]="canShowSaveButton()"
+      [eventProdTask]="eventProdButton"
+      (eventProdTaskChange)="onChangeStatus()"
+    >
+    </evj-evj-main-toggle>
+  </ng-container>
   <!-- EVENT -->
   <div
     [class.container-widget]="displayContainer"

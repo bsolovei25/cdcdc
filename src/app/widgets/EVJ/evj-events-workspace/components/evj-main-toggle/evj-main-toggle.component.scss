@@ -1,7 +1,7 @@
 .main {
   width: 100%;
   height: 61px;
-  background-color: var(--color-new-header-bg);
+  background: var(--color-new-header-bg);
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -11,14 +11,6 @@
   padding-right: 23px;
   font-size: 13px;
   line-height: 16px;
-  &__event {
-    background: var(--evj-events-workspace-button);
-    color: var(--color-text-sub);
-  }
-  &__back {
-    background: var(--evj-events-workspace-button-active);
-    color: var(--color-text-main);
-  }
 }
 .button {
   width: 150px;
@@ -28,5 +20,19 @@
   justify-content: center;
   cursor: pointer;
   border-radius: 1px;
-
+  background-color: rgba(48, 53, 73, 0.5);
+}
+active-button {
+  width: 150px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border-radius: 1px;
+  background-color: var(--color-active);
+}
+evj-rect-button {
+  width: 100%;
+  height: 100%;
 }

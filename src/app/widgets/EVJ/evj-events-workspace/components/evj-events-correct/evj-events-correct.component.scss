@@ -2,7 +2,7 @@ $add-button-color: #303549;
 $main-border-color: rgba(96, 101, 128, 0.25);
 
 .events-correct {
-  width: 432px;
+  width: inherit;
   height: 554px;
   background-color: var(--evj-events-workspace-bg-dark);
   border: 1px solid $main-border-color;
@@ -57,7 +57,7 @@ $main-border-color: rgba(96, 101, 128, 0.25);
 }
 .card {
   height: 150px;
-  width: 391px;
+  width: 100%;
   margin-bottom: 14px;
 }
 
