@@ -205,10 +205,10 @@ export-to-zyfra:
   stage: release
   variables:
     GIT_STRATEGY: none
-  needs: []
   trigger:
     include: ci/export-images-child.yml
-  when: manual
+  needs:
+    - job: ng-build
   only:
     refs:
       - devops
@@ -225,13 +225,12 @@ release-notes-maker:
   extends: .deploy-to-zyfra
   variables:
     GIT_STRATEGY: none
-    SERVICE_NAME: "frontend"
+    SERVICE_NAME: "front"
     EXTERNAL_DOCKER_IMG: "onpz.local/evj/frontend"
   only:
     - devops
     - develop
     - master
-
 
 .docker build:
     <<: *init
