@@ -3,30 +3,36 @@
     width: 1px;
     height: 4px;
   }
+
   ::-webkit-scrollbar:vertical {
     width: 4px;
     height: 100%;
     border-radius: 40px;
   }
+
   ::-webkit-scrollbar-track {
     border-radius: 40px;
     margin-top: 5px;
     margin-bottom: 5px;
     background-color: var(--color-border-unactive);
   }
+
   ::-webkit-scrollbar-track-piece {
     border: 1px solid #8c99b2;
     border-radius: 40px;
     background-color: rgb(27, 30, 39);
   }
+
   ::-webkit-scrollbar-thumb {
     height: 50px;
     background-color: var(--color-border-unactive);
     border-radius: 40px;
   }
+
   ::-webkit-scrollbar-corner {
     background-color: var(--color-border-unactive);
   }
+
   ::-webkit-resizer {
     background-color: var(--color-border-unactive);
   }
@@ -100,91 +106,23 @@ $border-size: 4px;
         border: 2px solid var(--color-border-unactive);
         box-sizing: border-box;
         background: transparent;
+
         &-left {
           left: 0px;
           top: 0px;
           border-right: none;
 
-          &:before {
-            z-index: 1;
-            content: "";
-            position: absolute;
 
-            top: -2px;
-            left: -7px;
-
-            height: 7px;
-            width: 10px;
-
-            box-sizing: border-box;
-            transform-origin: 43% 0;
-            transform: rotate(-45deg);
-
-            border-bottom: 2px solid var(--color-border-unactive);
-            background: rgb(14, 16, 21);
-          }
-
-          &:after {
-            z-index: 1;
-            content: "";
-            position: absolute;
-
-            bottom: -4px;
-            left: -2px;
-
-            height: 7px;
-            width: 10px;
-
-            box-sizing: border-box;
-            transform-origin: 43% 0;
-            transform: rotate(45deg);
-
-            border-top: 2px solid var(--color-border-unactive);
-            background: rgb(14, 16, 21);
-          }
         }
+
         &-right {
           right: 0px;
           top: 0px;
           border-left: none;
 
-          &:before {
-            z-index: 1;
-            content: "";
-            position: absolute;
 
-            top: -3px;
-            right: -7px;
 
-            height: 7px;
-            width: 10px;
 
-            box-sizing: border-box;
-            transform-origin: 43% 0;
-            transform: rotate(45deg);
-
-            border-bottom: 2px solid var(--color-border-unactive);
-            background: rgb(14, 16, 21);
-          }
-
-          &:after {
-            z-index: 1;
-            content: "";
-            position: absolute;
-
-            bottom: -8px;
-            right: -2px;
-
-            height: 10px;
-            width: 10px;
-
-            box-sizing: border-box;
-            transform-origin: 43% 0;
-            transform: rotate(-45deg);
-
-            border-top: 2px solid var(--color-border-unactive);
-            background: rgb(14, 16, 21);
-          }
         }
       }
     }
@@ -206,95 +144,29 @@ $border-size: 4px;
           border: 2px solid var(--color-border-active);
           box-sizing: border-box;
           background: transparent;
+
           &-left {
             left: 0px;
             top: 0px;
             border-right: none;
 
-            &:before {
-              z-index: 1;
-              content: "";
-              position: absolute;
 
-              top: -2px;
-              left: -7px;
 
-              height: 7px;
-              width: 10px;
 
-              box-sizing: border-box;
-              transform-origin: 43% 0;
-              transform: rotate(-45deg);
-
-              border-bottom: 2px solid var(--color-border-active);
-              background: rgb(14, 16, 21);
-            }
-
-            &:after {
-              z-index: 1;
-              content: "";
-              position: absolute;
-
-              bottom: -4px;
-              left: -2px;
-
-              height: 7px;
-              width: 10px;
-
-              box-sizing: border-box;
-              transform-origin: 43% 0;
-              transform: rotate(45deg);
-
-              border-top: 2px solid var(--color-border-active);
-              background: rgb(14, 16, 21);
-            }
           }
+
           &-right {
             right: 0px;
             top: 0px;
             border-left: none;
 
-            &:before {
-              z-index: 1;
-              content: "";
-              position: absolute;
 
-              top: -3px;
-              right: -7px;
 
-              height: 7px;
-              width: 10px;
-
-              box-sizing: border-box;
-              transform-origin: 43% 0;
-              transform: rotate(45deg);
-
-              border-bottom: 2px solid var(--color-border-active);
-              background: rgb(14, 16, 21);
-            }
-
-            &:after {
-              z-index: 1;
-              content: "";
-              position: absolute;
-
-              bottom: -8px;
-              right: -2px;
-
-              height: 10px;
-              width: 10px;
-
-              box-sizing: border-box;
-              transform-origin: 43% 0;
-              transform: rotate(-45deg);
-
-              border-top: 2px solid var(--color-border-active);
-              background: rgb(14, 16, 21);
-            }
           }
         }
       }
     }
+
     button {
       width: 100%;
       height: 100%;
@@ -316,35 +188,6 @@ $border-size: 4px;
     .workspace__submit {
       margin: auto;
       width: 500px;
-    }
-  }
-
-  mat-form-field {
-    box-sizing: border-box;
-    width: 100%;
-    padding: 0px 15px;
-    padding-bottom: 0px;
-
-    mat-label {
-      color: var(--color-text-sub);
-    }
-  }
-
-  ::ng-deep {
-    .mat-form-field-underline {
-      height: 0 !important;
-    }
-    .mat-form-field-appearance-legacy .mat-form-field-ripple {
-      height: 0;
-    }
-
-    .mat-form-field-wrapper {
-      padding-bottom: 0px;
-      margin: 7px 0px;
-    }
-
-    .mat-select-value {
-      color: var(--color-text-main);
     }
   }
 
@@ -378,6 +221,7 @@ $border-size: 4px;
     display: flex;
     min-width: 715px;
     justify-content: space-between;
+
     &__left {
       width: 50%;
       height: 100%;
@@ -391,9 +235,11 @@ $border-size: 4px;
 
       .select__block {
         width: calc(100% - 24px);
+
         .first_block {
           display: flex;
           flex-wrap: wrap;
+
           .categories {
             margin-top: 10px;
             height: 55px;
@@ -415,6 +261,7 @@ $border-size: 4px;
           display: flex;
           flex-wrap: wrap;
           margin-bottom: 35px;
+
           .type_incident {
             margin-top: 10px;
             height: 55px;
@@ -428,6 +275,7 @@ $border-size: 4px;
             height: 55px;
             width: 40%;
             min-width: 90px;
+
             ::ng-deep .card-normal {
               display: flex;
               height: 100%;
@@ -517,6 +365,7 @@ $border-size: 4px;
         .creator {
           width: 50%;
           padding-left: 15px;
+
           .creator_title {
             color: var(--color-text-sub);
             font-size: 10px;
@@ -538,50 +387,14 @@ $border-size: 4px;
             color: white;
           }
 
-          &:after {
-            z-index: 1;
-            content: "";
-            position: absolute;
-
-            top: -4px;
-            right: -9px;
-
-            height: 10px;
-            width: 10px;
-
-            box-sizing: border-box;
-            transform-origin: 43% 0;
-            transform: rotate(45deg);
-
-            border-bottom: 0.5px solid var(--color-bg-card);
-            background: var(--color-bg-main);
-          }
-
-          &:before {
-            z-index: 1;
-            content: "";
-            position: absolute;
-
-            top: -3px;
-            left: -8px;
-
-            height: 10px;
-            width: 10px;
-
-            box-sizing: border-box;
-            transform-origin: 43% 0;
-            transform: rotate(-45deg);
-
-            border-bottom: 0.5px solid var(--color-bg-card);
-            background: var(--color-bg-main);
-          }
-
           .date-info {
             width: 80%;
             padding-left: 10px;
+
             .deadline-title {
               font-size: 10px;
             }
+
             .date-deadLine {
               color: white;
               width: 100%;
@@ -592,6 +405,7 @@ $border-size: 4px;
               .mat-form-field-wrapper {
                 padding-bottom: 0;
               }
+
               .mat-form-field-flex {
                 margin-top: 0px !important;
               }
@@ -617,6 +431,7 @@ $border-size: 4px;
           .date-block {
             display: none;
           }
+
           .date-block-open {
             display: block;
             background-color: var(--color-bg-card);
@@ -678,7 +493,7 @@ $border-size: 4px;
 
         width: 100%;
         height: 100px;
-        min-width: 350px;
+        min-width: 200px;
         min-height: 100px;
 
         margin-top: 10px;
@@ -697,6 +512,7 @@ $border-size: 4px;
       .place {
         width: 100%;
         margin-top: 15px;
+
         .place_title {
           color: var(--color-text-sub);
           font-size: 10px;
@@ -734,12 +550,14 @@ $border-size: 4px;
     background: inherit; /* Fallback for IE 8 */
     outline: none;
   }
+
   .overlay-retrieval {
     &__header {
       &__block {
         display: flex;
         flex-direction: row;
       }
+
       // @media screen and (max-width: 910px) {
       //   &__block {
       //     flex-direction: column;
@@ -784,6 +602,7 @@ $border-size: 4px;
 
         &__body {
           height: calc(100% - 160px);
+
           &__left {
             padding-left: 20px;
             background-color: var(--color-bg-main);
@@ -797,9 +616,11 @@ $border-size: 4px;
 
             .select__block {
               width: calc(100% - 23px);
+
               .first_block {
                 flex-wrap: nowrap;
               }
+
               .second_block {
                 flex-wrap: nowrap;
               }
@@ -807,6 +628,7 @@ $border-size: 4px;
 
             .fact_block {
               height: 100%;
+
               .fact_content_create_event {
                 height: calc(100% - 415px);
 
@@ -818,6 +640,7 @@ $border-size: 4px;
                   }
                 }
               }
+
               .fact_comment {
                 margin-top: 5px;
               }
@@ -896,9 +719,11 @@ $border-size: 4px;
                 .date-info {
                   width: 100%;
                   padding-left: 15px;
+
                   .deadline-title {
                     font-size: 10px;
                   }
+
                   .date-deadLine {
                     color: white;
                     width: 100%;
@@ -924,6 +749,7 @@ $border-size: 4px;
                 .date-block {
                   display: none;
                 }
+
                 .date-block-open {
                   display: block;
                   background-color: var(--color-bg-card);
@@ -1011,14 +837,17 @@ $border-size: 4px;
               margin-top: 8px;
               // width: calc(100% - 24px);
               position: relative;
+
               .title_comments_block {
                 .title_comments_block_text {
                   font-size: 10px;
                   width: 80%;
                   margin-left: 26px;
                 }
+
                 height: 30px;
                 background: var(--color-bg-card);
+
                 &:before {
                   z-index: 1;
                   content: "";
@@ -1035,6 +864,7 @@ $border-size: 4px;
                   border-bottom: 0.5px solid var(--color-bg-card);
                   background: var(--color-bg-main);
                 }
+
                 &:after {
                   z-index: 1;
                   content: "";
@@ -1052,10 +882,12 @@ $border-size: 4px;
                   background: var(--color-bg-main);
                 }
               }
+
               .comments_content_create_event {
                 height: calc(100% - 425px);
                 overflow: auto;
                 background: #1d202a;
+
                 .comment_new {
                   min-height: 18px;
                   position: relative;
@@ -1087,6 +919,7 @@ $border-size: 4px;
                     align-items: center;
                     justify-content: flex-end;
                     width: 100px;
+
                     .comment_button {
                       display: flex;
                       bottom: 3px;
@@ -1140,6 +973,7 @@ $border-size: 4px;
               .fact_comment {
                 // margin-top: 5px;
                 flex: 1;
+
                 .comment {
                   &__title {
                     background-color: var(--color-bg-main);
@@ -1204,6 +1038,7 @@ $border-size: 4px;
                     height: 100%;
                     display: flex;
                     flex-direction: column-reverse;
+
                     .messages {
                       position: relative;
                       width: 100%;
@@ -1215,6 +1050,7 @@ $border-size: 4px;
                       padding-right: 5px;
                       margin: 5px 0;
                     }
+
                     .message {
                       box-sizing: border-box;
                       padding: 10px 15px;
@@ -1300,6 +1136,7 @@ $border-size: 4px;
                     border: none;
                     outline: none;
                     color: var(--color-text-sub);
+
                     &::placeholder {
                       color: var(--color-text-sub);
                     }
@@ -1369,6 +1206,7 @@ $border-size: 4px;
         margin: 0 0 0 10px;
         color: var(--color-text-main);
       }
+
       &__body.select {
         margin: 0;
       }
@@ -1648,6 +1486,7 @@ textarea {
     background: transparent;
     width: 120px;
     pointer-events: all;
+
     &___disabled {
       pointer-events: none;
       color: var(--color-text-sub-heading);
@@ -1701,9 +1540,11 @@ textarea {
   &_active {
     border: 0.5px solid var(--color-border-active);
     color: var(--color-text-sub);
+
     &:before {
       border-left: 0.5px solid var(--color-border-active);
     }
+
     &:after {
       border-top: 0.5px solid var(--color-border-active);
     }
@@ -1758,16 +1599,16 @@ textarea {
 
 .activeFact {
   background-image: linear-gradient(
-    to left,
-    rgba(107, 166, 241, 0.7) 2%,
-    rgba(107, 166, 241, 0.63) 6%,
-    rgba(107, 166, 241, 0.46) 16%,
-    rgba(107, 166, 241, 0.32) 26%,
-    rgba(107, 166, 241, 0.2) 38%,
-    rgba(107, 166, 241, 0.11) 50%,
-    rgba(107, 166, 241, 0.05) 63%,
-    rgba(107, 166, 241, 0.01) 79%,
-    rgba(107, 166, 241, 0) 102%
+      to left,
+      rgba(107, 166, 241, 0.7) 2%,
+      rgba(107, 166, 241, 0.63) 6%,
+      rgba(107, 166, 241, 0.46) 16%,
+      rgba(107, 166, 241, 0.32) 26%,
+      rgba(107, 166, 241, 0.2) 38%,
+      rgba(107, 166, 241, 0.11) 50%,
+      rgba(107, 166, 241, 0.05) 63%,
+      rgba(107, 166, 241, 0.01) 79%,
+      rgba(107, 166, 241, 0) 102%
   ) !important;
 
   color: white;
@@ -1808,6 +1649,7 @@ textarea {
         background-color: var(--color-border-active);
       }
     }
+
     .mat-form-field-wrapper {
       padding-bottom: 1.04375em;
     }
@@ -1815,6 +1657,7 @@ textarea {
     .mat-form-field-flex {
       margin-top: 10px;
     }
+
     .cdk-overlay-pane {
       margin-top: 45px;
     }

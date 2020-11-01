@@ -1,15 +1,28 @@
-<div class="main">
-  <div class="button">
-      <evj-rect-button
-        textButton="Cоздать событие"
-        (click)="createEvent(false)"
-      ></evj-rect-button>
-  </div>
-  <div class="active-button">
-    <evj-rect-button
-      textButton="Сохранить"
-      (click)="createEvent(true)"
-    ></evj-rect-button>
+<div class="header-workspace">
+  <div
+    class="header-workspace__button"
+    (mousedown)="$event.stopPropagation()"
+    (touchstart)="$event.stopPropagation()"
+  >
+    <div class="header-workspace__container" *ngIf="!!eventProdTask" (click)="changeStatus()">
+      <div class="title">{{eventProdTask}}</div>
+    </div>
+    <div
+      class="header-workspace__container active-button"
+      *ngIf="!createIcon && blockWorkspaceButton"
+      (click)="createEvent(false)">
+      <div class="title">Сохранить</div>
+    </div>
+    <div class="right-side">
+      <div class="header-workspace__container" (click)="backEvent()">
+        <div class="title">Вернуться к событию</div>
+        <div class="icon-wrapper">
+        </div>
+      </div>
+      <div class="header-workspace__container" (click)="createEvent(true)">
+        <div class="title">Новое событие</div>
+      </div>
+    </div>
   </div>
 </div>
 
