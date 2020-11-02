@@ -58,6 +58,10 @@ export class EvjEventsWorkspaceSelectComponent implements OnInit {
     public onClick(): void {
     }
 
+    public compareFn(a, b): boolean {
+        return a && b && a.id === b.id;
+    }
+
     public onSelect(value: keyof IEventsWorkspaceSelectValue): void {
         this.onValueChange.emit(value);
     }
