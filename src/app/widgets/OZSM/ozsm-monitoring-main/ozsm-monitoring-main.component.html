@@ -44,7 +44,15 @@
             </div>
             <div class="widget-card__body">
               <ng-container *ngFor="let card of [1,2]">
-                <evj-ozsm-card-line-diagram></evj-ozsm-card-line-diagram>
+                <evj-ozsm-card-line-diagram
+                  [data] = "{
+                    'icon': 'railway',
+                    'title': 'Авто',
+                    'maxValue': 39227,
+                    'currentValue': 23456,
+                    'type': 'deviation-icon'
+                  }"
+                ></evj-ozsm-card-line-diagram>
               </ng-container>
             </div>
           </div>

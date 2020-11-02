@@ -4,30 +4,32 @@
       <ng-template ngSwitchCase="icon">
         <img src="assets/icons/widgets/OZSM/ozsm-card-line-diagram/{{data.icon}}.svg">
       </ng-template>
+      <ng-template ngSwitchCase="deviation-icon">
+        <img src="assets/icons/widgets/OZSM/ozsm-card-line-diagram/{{data.icon}}.svg">
+      </ng-template>
       <ng-template ngSwitchCase="number">
         {{data.num}}
       </ng-template>
       <ng-template ngSwitchCase="default">
       </ng-template>
     </div>
-    <div class="name" *ngIf="data.type === 'icon'; else otherTitle" [ngStyle]="iconStyleTitle">
+    <div class="name" [class.name__icon]="data.type === 'icon' || data.type === 'deviation-icon'">
       {{data.title}}
     </div>
   </div>
-  <div class="card__value" *ngIf="data.type === 'icon'; else otherValue" [ngStyle]="iconStyleValue">
-    <span>{{+data?.currentValue.toFixed(2) | spaceNumber}}</span>
+  <div *ngIf="data.type !== 'deviation-icon'; else deviationValue" class="value" [class.value__icon]="data.type === 'icon'">
+    <span>{{+data?.currentValue | spaceNumber : 2}}</span>
   </div>
-  <ng-template #otherTitle>
-    <div class="name">
-      {{data.title}}
-    </div>
-  </ng-template>
-  <ng-template #otherValue>
-    <div class="card__value">
-      <span>{{+data?.currentValue.toFixed(2) | spaceNumber}}</span>
+  <ng-template #deviationValue>
+    <div class="value value__deviation">
+      <span class="plan">{{+data?.maxValue | spaceNumber : 2}}</span>
+      <span class="disabled"> / </span>
+      <span class="fact">{{+data?.currentValue | spaceNumber : 2}}</span>
+      <span *ngIf="+data?.maxValue - +data?.currentValue != 0" class="deviation">{{+data?.maxValue - +data?.currentValue | spaceNumber : 2}}</span>
     </div>
   </ng-template>
   <div class="card__line">
-    <div class="line-active" [ngStyle]="{width: percentValue + '%'}"></div>
+    <div class="line line__bg" [ngClass]="'line__bg-' + bgLineClass"></div>
+    <div class="line line__active" [ngStyle]="{width: percentValue + '%'}"></div>
   </div>
 </div>
