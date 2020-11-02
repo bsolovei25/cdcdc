@@ -3,6 +3,8 @@
 }
 
 input {
+  width: 100%;
+
   outline: none;
   border: none;
   
@@ -114,6 +116,7 @@ input {
 
     background: var(--evj-color-item-bg-main);
 
+    cursor: pointer;
     span {
       padding: 0 14px;
     }

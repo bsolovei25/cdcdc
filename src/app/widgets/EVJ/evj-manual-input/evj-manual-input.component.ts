@@ -15,7 +15,7 @@ import { trigger, style, state, transition, animate, group } from '@angular/anim
 import { ManualInputService } from './../../../dashboard/services/widgets/EVJ/manual-input.service';
 import { WidgetSettingsService } from './../../../dashboard/services/widget-settings.service';
 import { WidgetService } from 'src/app/dashboard/services/widget.service';
-import { IHistory, IMachine_MI, IGroup_MI, IChoosenHistorical, MI_ParamSend} from './../../../dashboard/models/EVJ/manual-input.model';
+import { IHistory, IMachine_MI, IGroup_MI, IChoosenHistorical, MI_ParamSend, IHistoryIdx} from './../../../dashboard/models/EVJ/manual-input.model';
 import { WidgetPlatform } from 'src/app/dashboard/models/@PLATFORM/widget-platform';
 
 @Component({
@@ -65,7 +65,6 @@ export class EvjManualInputComponent extends WidgetPlatform<unknown>
     public previewTitle: string;
     public isHistorical: boolean = false;
 
-    public timeWidth: number = 0;
 
     allSettings: boolean = true;
     openAllSettings: boolean = true;
@@ -78,16 +77,11 @@ export class EvjManualInputComponent extends WidgetPlatform<unknown>
 
     data: IMachine_MI[] = [];
     filteredData: IMachine_MI[] = [];
-    historiclDataIndx: {
-        machineIdx: number;
-        groupIdx: number;
-        paramsIdx: number;
-    } = {
+    historicalDataIndx: IHistoryIdx = {
         machineIdx: 0,
         groupIdx: 0,
         paramsIdx: 0
     }
-    historicalData: IChoosenHistorical;
     editMode: boolean = false;
 
     isUserHasWriteClaims: boolean;
@@ -122,7 +116,6 @@ export class EvjManualInputComponent extends WidgetPlatform<unknown>
                     : (this.widthTruckScroll = this.scrollBlockWidth);
             }, 1000);
         }
-        this.timeWidth = this.time?.nativeElement.clientWidth;
     }
 
     ngOnChanges(): void {
@@ -141,33 +134,21 @@ export class EvjManualInputComponent extends WidgetPlatform<unknown>
         this.loadSaveData(ref);
     }
 
-    activateEditMode(): void {
-        if (this.isUserHasWriteClaims && this.editMode === false) {
-            this.editMode = true;
-        }
-    }
-
     onChooseGroup(machineIdx: number = 0, groupIdx: number = 0, paramsIdx: number = 0): void {
-        this.historiclDataIndx = {
+        this.historicalDataIndx = {
             machineIdx,
             groupIdx,
             paramsIdx
-        };
-
-        this.historicalData = {
-            ...this.filteredData[machineIdx],
-            groups: {
-                ...this.filteredData[machineIdx].groups[groupIdx],
-                params: {
-                    ...this.filteredData[machineIdx].groups[groupIdx].params[paramsIdx]
-                }
-            }
         };
     }
 
     showHistorical(): void {
         this.isHistorical = true;
-        this.timeWidth = this.time?.nativeElement.clientWidth;
+    }
+
+    getSendHistoryData(data: MI_ParamSend[]): void {
+        this.sendHistoryData = data;
+        debugger;
     }
 
     @Output()
@@ -215,19 +196,6 @@ export class EvjManualInputComponent extends WidgetPlatform<unknown>
         this.manualInputService.CheckLastValue(id, this.data);
     }
 
-    onChangeHistoricalValue(e: any, id: string, time: Date, prevValue: number): void {
-        if (e.target.value.trim() !== '' &&  +e.target.value !== prevValue) {
-            if (this.sendHistoryData.find(item => item.Id === id && item.TimeCode === time)) {
-                this.sendHistoryData.find(item => item.Id === id && item.TimeCode === time).Value = e.target.value;
-            } else {
-                this.sendHistoryData.push({
-                    Id: id,
-                    Value: e.target.value,
-                    TimeCode: time
-                });
-            }
-        }
-    }
 
     async loadSaveData( data: { machines: IMachine_MI[]; isUserHasWriteClaims: boolean}): Promise<void> {
         this.isUserHasWriteClaims = data.isUserHasWriteClaims;
@@ -252,14 +220,8 @@ export class EvjManualInputComponent extends WidgetPlatform<unknown>
             this.filteredData.push(this.chooseSetting);
             this.onSettings(this.chooseSetting);
         }
-        if (!this.editMode) {
-            this.onChooseGroup(this.historiclDataIndx.machineIdx, this.historiclDataIndx.groupIdx, this.historiclDataIndx.paramsIdx);
-        }
     }
 
-    getWidth(): void {
-        this.timeWidth = this.time?.nativeElement.clientWidth;
-    }
 
     onScroll(event): void {
         this.scroll.nativeElement.scrollLeft = event.currentTarget.scrollLeft;

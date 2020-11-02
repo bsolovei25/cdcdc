@@ -96,7 +96,6 @@ export class ManualInputService {
                 }
             }
         }
-        debugger;
         this.SendData(elsToSave, data, widgetId);
     }
 
@@ -114,14 +113,20 @@ export class ManualInputService {
 
     PostHistoryData(Params: MI_DataSend, data: IMachine_MI[]): void {
         this.http.post(this.restUrl + '/api/manualinput/post', Params).subscribe((ans: MI_DataGet) => {
-            debugger;
             this.saveBar('Не корректный ввод', false);
             this.SaveHistoryValues(ans, data);
         });
     }
 
     SaveHistoryValues(ids: MI_DataGet, data: IMachine_MI[]): void {
+        debugger;
         if (ids.trueValues.length > 0) {
+            /*ids.trueValues.forEach(item => {
+                let el = this.GetElementById(item.id, data);
+                el.historyValues.forEach(day => {
+                    if(day.hourValues.find(hour => hour === item.))
+                });
+            })*/
             if (ids.falseValues.length === 0) {
                 this.saveBar('Сохранено', false);
             } else {
@@ -150,12 +155,10 @@ export class ManualInputService {
             User: 'Username',
             Params: params,
         };
-        debugger;
         this.PostData(req, data);
     }
 
     PostData(Params: MI_DataSend, data: IMachine_MI[]): void {
-        debugger;
         this.http.post(this.restUrl + '/api/manualinput/post', Params).subscribe((ans: MI_DataGet) => {
             this.saveBar('Пустой ввод', false);
             this.SaveValues(ans, data);
@@ -163,7 +166,6 @@ export class ManualInputService {
     }
 
     SaveValues(ids: MI_DataGet, data: IMachine_MI[]): void {
-        debugger;
         for (const i in ids.trueValues) {
             let el = this.GetElementById(ids.trueValues[i].id, data);
             el.isEdit = true;
@@ -171,6 +173,7 @@ export class ManualInputService {
             el.isError = false;
             el.curComment = el.comment;
             el.saveValue = el.curValue;
+            el.lastValue = el.curValue;
             this.saveBar('Сохранено', false);
         }
         for (const i in ids.falseValues) {

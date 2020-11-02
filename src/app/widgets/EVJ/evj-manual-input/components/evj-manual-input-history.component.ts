@@ -2,7 +2,9 @@ import {
     Component,
     OnInit,
     OnChanges,
-    Input
+    Input,
+    EventEmitter,
+    Output
 } from '@angular/core';
 import { trigger, style, state, transition, animate } from '@angular/animations';
 import { IHistoryIdx, IMachine_MI, IGroup_MI, IChoosenHistorical, MI_ParamSend, Param_MI} from './../../../../dashboard/models/EVJ/manual-input.model';
@@ -38,6 +40,7 @@ import { ManualInputService } from '../../../../dashboard/services/widgets/EVJ/m
 export class EvjManualInputHistoryComponent implements OnInit, OnChanges {
     @Input() isUserHasWriteClaims: boolean;
     @Input() set edit(data: boolean) {
+        debugger;
         this.editMode = data;
     }
     @Input() set data(data: {
@@ -69,6 +72,8 @@ export class EvjManualInputHistoryComponent implements OnInit, OnChanges {
             });
         });
     }
+
+    @Output() onSendHistoryData: EventEmitter<MI_ParamSend[]> = new EventEmitter<MI_ParamSend[]>();
 
     sendHistoryData: MI_ParamSend[] = [];
 
@@ -106,6 +111,11 @@ export class EvjManualInputHistoryComponent implements OnInit, OnChanges {
         }
     }
 
+    deactivateEditMode(): void {
+        this.editMode = false;
+        debugger;
+    }
+
     onChangeHistoricalValue(e: any, i: number, prevValue: number): void {
         const id = this.paramsData.id;
         const time = this.hours[i];
@@ -120,6 +130,7 @@ export class EvjManualInputHistoryComponent implements OnInit, OnChanges {
                 });
             }
         }
+        this.onSendHistoryData.emit(this.sendHistoryData);
     }
 
     ngOnChanges(): void {}
