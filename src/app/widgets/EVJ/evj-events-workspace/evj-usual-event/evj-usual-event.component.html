@@ -5,49 +5,76 @@
   [style]="{overflow: noOverflow ? 'auto' : 'visible'}"
 >
   <div class="workspace__header">
-    <evj-events-workspace-select
-      [label]="'Категория'"
-      [dataType]="'categories'"
-    >
-    </evj-events-workspace-select>
-    <evj-events-workspace-select
-      [label]="'Приоритет'"
-      [dataType]="'priorities'"
-    >
-    </evj-events-workspace-select>
-    <evj-events-workspace-select
-      [label]="'Событие'"
-      [dataType]="'event'"
-    >
-    </evj-events-workspace-select>
+    <div class="workspace__select-container">
+      <evj-events-workspace-select
+        [label]="'Категория'"
+        [dataType]="'categories'"
+      >
+      </evj-events-workspace-select>
+    </div>
+
+    <div class="workspace__select-container">
+      <evj-events-workspace-select
+        [label]="'Приоритет'"
+        [dataType]="'priorities'"
+        [type]="'critical'"
+      >
+      </evj-events-workspace-select>
+    </div>
+
+    <div class="workspace__select-container">
+      <evj-events-workspace-select
+        [label]="'Событие'"
+        [dataType]="'event'"
+      >
+      </evj-events-workspace-select>
+    </div>
+  </div>
+  <div class="workspace__header">
+    <div class="workspace__select-container">
+      <ng-container *ngIf="ewService.event.category.code!=='2' else subcategories">
+        <evj-events-workspace-select
+          [label]="'Тип оборудования'"
+          [dataType]="'equipmentCategory'"
+        ></evj-events-workspace-select>
+      </ng-container>
+    </div>
+
+    <div class="workspace__select-container">
+      <evj-events-workspace-select
+        [label]="'Статус'"
+        [dataType]="'status'"
+      ></evj-events-workspace-select>
+    </div>
+    <div class="workspace__select-container">
+      <div class="creator">
+        <div class="creator__title">
+          <span>Автор</span>
+        </div>
+        <div class="creator__body">
+          <span>
+          {{
+            this.ewService.event.fixedBy?.displayName ?
+              this.ewService.event.fixedBy?.displayName === 'Synchronizable S. S.' ?
+                'Система' : this.ewService.event.fixedBy?.displayName : 'Не установлен' }}
+            </span>
+        </div>
+      </div>
+    </div>
+
+    <div class="workspace__select-container">
+      <evj-events-workspace-datetimepicker
+        [label]="'Начало события'"
+      >
+      </evj-events-workspace-datetimepicker>
+    </div>
   </div>
 
-  <div class="workspace__body">
-    <div class="workspace__body__left">
+  <div class="workspace__third">
+    <div class="workspace__third__left">
       <div class="select__block">
-        <div class="first_block">
 
-          <evj-events-workspace-select
-            [label]="'Статус'"
-            [dataType]="'status'"
-          ></evj-events-workspace-select>
-          <div class="type">
-            <ng-container *ngIf="ewService.event.category.code!=='2' else subcategories">
-              <evj-events-workspace-select
-                [label]="'Тип оборудования'"
-                [dataType]="'equipmentCategory'"
-              ></evj-events-workspace-select>
-            </ng-container>
-          </div>
-        </div>
         <div class="second_block" *ngIf="ewService.event.category.name === 'equipmentStatus'">
-          <div class="type_incident">
-            <evj-events-workspace-select
-              [label]="'Тип происшествия'"
-              [dataType]="'eventTypes'"
-            >
-            </evj-events-workspace-select>
-          </div>
           <div class="number_position">
             <evj-ui-block class="workspace__header__block">
               <div class="input_position">
@@ -98,29 +125,27 @@
       </div>
     </div>
 
-    <div class="workspace__body__right">
-      <div class="info_block">
-        <div class="creator">
-          <div class="creator_title">
-            Автор
-          </div>
-          <div class="creator_body">
-            {{
-            this.ewService.event.fixedBy?.displayName ?
-              this.ewService.event.fixedBy?.displayName === 'Synchronizable S. S.' ?
-                'Система' : this.ewService.event.fixedBy?.displayName : 'Не установлен' }}
-          </div>
+    <div class="workspace__third__right">
+
+      <div class="place-date">
+        <div class="workspace__select-container">
+          <evj-events-workspace-select
+            [label]="'Место'"
+            [dataType]="'place'"
+          ></evj-events-workspace-select>
         </div>
-        <evj-events-workspace-datetimepicker></evj-events-workspace-datetimepicker>
-      </div>
-      <div class="place">
-        <evj-events-workspace-select
-          [label]="'Место'"
-          [dataType]="'place'"
-        ></evj-events-workspace-select>
+        <div class="workspace__select-container">
+          <evj-events-workspace-datetimepicker
+            [label]="'Срок исполнения'"
+          >
+
+          </evj-events-workspace-datetimepicker>
+        </div>
       </div>
       <div class="responsible">
-        <evj-events-workspace-responsible-select></evj-events-workspace-responsible-select>
+        <evj-events-workspace-responsible-select>
+
+        </evj-events-workspace-responsible-select>
       </div>
       <div class="events-correct">
         <evj-events-correct></evj-events-correct>

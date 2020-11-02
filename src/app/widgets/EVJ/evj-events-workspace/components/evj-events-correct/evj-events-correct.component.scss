@@ -16,7 +16,7 @@ $main-border-color: rgba(96, 101, 128, 0.25);
     background-color: var(--header-events-color-bg-hover);
     display: flex;
     flex-direction: row;
-    justify-content: space-around;
+    justify-content: center;
     align-items: center;
   }
 
@@ -42,13 +42,16 @@ $main-border-color: rgba(96, 101, 128, 0.25);
 }
 
 .button {
-  width: 190px;
+  flex-grow: 1;
+  min-width: 120px;
   height: 30px;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   border-radius: 1px;
+  margin-right: 5px;
+  margin-left: 5px;
 }
 
 .cards-list {
