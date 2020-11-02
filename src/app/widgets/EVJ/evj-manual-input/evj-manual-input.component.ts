@@ -90,7 +90,7 @@ export class EvjManualInputComponent extends WidgetPlatform<unknown>
     historicalData: IChoosenHistorical;
     editMode: boolean = false;
 
-    private isUserHasWriteClaims: boolean;
+    isUserHasWriteClaims: boolean;
 
     constructor(
         public manualInputService: ManualInputService,
@@ -202,6 +202,12 @@ export class EvjManualInputComponent extends WidgetPlatform<unknown>
     onChangeValue(e: any, id: string): void {
         const param = this.manualInputService.GetElementById(id, this.data);
         param.saveValue = e.target.value;
+        this.manualInputService.ChangeField(id, this.data);
+    }
+
+    onChangeMessageValue(e: any, id: string): void {
+        const param = this.manualInputService.GetElementById(id, this.data);
+        param.comment = e.target.value;
         this.manualInputService.ChangeField(id, this.data);
     }
 

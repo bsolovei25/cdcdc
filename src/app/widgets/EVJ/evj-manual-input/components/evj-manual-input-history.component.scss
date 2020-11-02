@@ -1,0 +1,174 @@
+* {
+  box-sizing: border-box;
+}
+
+input {
+  outline: none;
+  border: none;
+  
+  height: 31px;
+  outline: none;
+  border: none;
+  background: transparent;
+  color: var(--evj-color-white);
+
+}
+
+::-webkit-scrollbar {
+  height: 4px;
+}
+
+::-webkit-scrollbar:vertical {
+  width: 4px;
+  height: 50%;
+}
+
+::-webkit-scrollbar-track {
+  margin-top: 1px;
+  background-color: var(--color-bg-main);
+}
+
+::-webkit-scrollbar-track-piece {
+  background: transparent;
+  border-radius: 0;
+}
+
+::-webkit-scrollbar-thumb {
+  height: 20px;
+  width: 4px;
+  background-color:  var(--evj-color-scrollbar-thumb);
+  border-radius: 0;
+}
+
+::-webkit-scrollbar-corner {
+  background-color: var(--evj-color-scrollbar-corner);
+}
+
+::-webkit-resizer {
+  background-color: var(--evj-color-scrollbar-resizer);
+}
+
+.container {
+  height: calc(100% - 40px);
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+.table {
+  min-width: 100%;
+  border: 1px solid var(--evj-color-bg-main);
+
+  font-size: 14px;
+  line-height: 17px;
+
+  td {
+    text-align: center;
+  }
+
+  .hour {
+    height: 30px;
+    min-width: 90px;
+
+    background-color: var(--evj-color-bg-hours);
+    color: var(--evj-color-item-text-filter);
+    
+    text-align: center;
+  }
+
+  tr:first-child {
+    color: var(--evj-color-item-text-filter);
+    background: var(--evj-color-bg-info);
+
+    td {
+      height: 35px;
+    }
+
+    .units {
+      min-width: 190px;
+    }
+
+    .titles {
+      min-width: 300px;
+      max-width: 400px;
+      padding-left: 40px;
+      text-align: left;
+      
+      cursor: pointer;
+      span {
+        padding: 0 14px;
+      }
+  
+      ::ng-deep {
+        svg-icon {
+          .cls-1 {
+            fill: var(--evj-color-item-text-filter);
+          }
+        }
+      }
+    }
+  }
+
+  .machine, .group, .params {
+    height: 40px;
+    text-align: left;
+
+    background: var(--evj-color-item-bg-main);
+
+    span {
+      padding: 0 14px;
+    }
+  }
+
+  .machine {
+    padding-left: 40px;
+    border-bottom: none;
+  }
+
+  .group {
+    padding-left: 71px;
+    border-bottom: none;
+  }
+
+  .params {
+    background: var(--evj-color-bg-machine-item);
+
+    td {
+      border-top: none;
+    }
+
+    &__title {
+      padding-left: 100px;
+      padding-right: 5px;
+
+      border-right: none;
+      white-space: nowrap;
+
+      color: var(--evj-color-item-text-filter);
+    }
+
+    &__unit {
+      border-left: none;
+      color: var(--evj-color-white);
+    }
+
+    .hour {
+      background-color: var(--evj-color-bg-machine-item);
+      color: var(--evj-color-white);
+    }
+  }
+}
+
+.container-footer {
+  height: 40px;
+  background: var(--evj-color-bg-footer);
+  border-radius: 2px 2px 0px 0px;
+}
+
+.machineClose {
+  ::ng-deep {
+    svg-icon {
+      transform: rotate(-90deg);
+    }
+  }
+
+}

@@ -203,9 +203,10 @@
                               type="text"
                               placeholder="Напишите свой комментарий..."
                               [readOnly]="!isSaveButton()"
+                              (change)="onChangeMessageValue($event, i.id)"
                               [class.data_notActive]="!i.isActive || !isSaveButton()"
                               [class.data_active__saving]="i.isActive"
-                            ></textarea>
+                            >{{i.comment}}</textarea>
                           </div>
                         </div>
                       </ng-container>
@@ -218,80 +219,16 @@
         <div class="container-footer"></div>
       </div>
 
-      <ng-container *ngIf="isHistorical">
-        <div class="historical-block" (mousemove)="getWidth()">
-          <div class="historical-header">
-            <div class="historical-header__item param" (click)="onShowMachine(historicalData)">
-              <svg-icon
-                src="assets/icons/widgets/manual-input/arrow_down.svg"
-                [svgStyle]="{ 'width.px':10, 'height.px':10, 'cursor':'pointer'}"
-                [style.transform]="historicalData?.open? 'rotate(0deg)':'rotate(-90deg)'">
-              </svg-icon>
-              <span>Параметры</span>
-            </div>
-            <div class="historical-header__item units">Единицы иземерения</div>
-            <div class="historical-header__item time">
-              <div class="time__item" *ngFor="let history of historicalData?.groups?.params?.historyValues">
-                <span class="day">{{history?.day | date: 'dd.MM.yyyy'}}</span>
-                <div class="hours">
-                  <div class="hours__item" *ngFor="let hour of history?.hourValues">{{hour?.hour | date: 'HH:mm'}}</div>
-                </div> 
-              </div>
-            </div>
-          </div>
-          <div>
-            <div class="machine-name" (click)="onShowMachine(historicalData)" [style.width]="timeWidth + 542 + 'px'">
-              <svg-icon
-                src="assets/icons/widgets/manual-input/arrow_down.svg"
-                [svgStyle]="{ 'width.px':10, 'height.px':10 }"
-                [style.transform]="historicalData?.open? 'rotate(0deg)':'rotate(-90deg)'">
-              ></svg-icon>
-              <div 
-                class="machine-name__title"
-              >
-                {{historicalData?.name}}
-              </div>
-            </div>
-            <div [@Branch]="(historicalData?.open) ? 'expanded' : 'collapsed'">
-              <div class="machine-name group-name" (click)="onShowMachine(historicalData?.groups)" [style.width]="timeWidth + 582 + 'px'">
-                <svg-icon
-                  src="assets/icons/widgets/manual-input/arrow_down.svg"
-                  [svgStyle]="{ 'width.px':10, 'height.px':10 }"
-                  [style.transform]="historicalData?.groups?.open? 'rotate(0deg)':'rotate(-90deg)'">
-                ></svg-icon>
-                <div class="machine-name__title">
-                  {{historicalData?.groups?.name}}
-                </div>
-              </div>
-              <div [@Branch]="(historicalData?.groups?.open) ? 'expanded' : 'collapsed'">
-                <div class="historical-body">
-                  <div 
-                    class="historical-header__item param"
-                  >
-                    <span>{{historicalData?.groups?.params?.name}}</span>
-                  </div>
-                  <div class="historical-header__item units">{{historicalData?.groups?.params?.unit}}</div>
-                  <div class="historical-header__item time" #time>
-                    <div class="time__item" *ngFor="let history of historicalData?.groups?.params?.historyValues" (click)="activateEditMode()">
-                      <div class="hours">
-                        <ng-container *ngFor="let hour of history.hourValues">
-                          <div class="hours__item" *ngIf="!editMode">{{hour.value}}</div>
-                          <input 
-                            (change)="onChangeHistoricalValue($event, historicalData.groups.params.id, hour.hour, hour.value)"
-                            class="hours__item" 
-                            *ngIf="editMode" placeholder={{hour.value}}
-                          >
-                        </ng-container>
-                      </div> 
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="container-footer"></div>
-      </ng-container>
+        <evj-manual-input-history
+          style="height: 100%"
+          *ngIf="isHistorical"
+          [isUserHasWriteClaims]="isUserHasWriteClaims"
+          [edit]="editMode"
+          [data]="{
+            machineData: data,
+            historyIdx: historiclDataIndx
+          }"
+        ></evj-manual-input-history>
 
     </div>
   </div>

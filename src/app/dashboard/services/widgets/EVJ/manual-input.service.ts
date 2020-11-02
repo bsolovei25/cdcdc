@@ -90,10 +90,13 @@ export class ManualInputService {
                     const param = data[i].groups[j].params[k];
                     if (param.curValue !== null && param.curValue !== '' && param.isActive) {
                         elsToSave.push(param);
+                    } else if (param.comment !== param.curComment) {
+                        elsToSave.push(param);
                     }
                 }
             }
         }
+        debugger;
         this.SendData(elsToSave, data, widgetId);
     }
 
@@ -111,6 +114,7 @@ export class ManualInputService {
 
     PostHistoryData(Params: MI_DataSend, data: IMachine_MI[]): void {
         this.http.post(this.restUrl + '/api/manualinput/post', Params).subscribe((ans: MI_DataGet) => {
+            debugger;
             this.saveBar('Не корректный ввод', false);
             this.SaveHistoryValues(ans, data);
         });
@@ -146,10 +150,12 @@ export class ManualInputService {
             User: 'Username',
             Params: params,
         };
+        debugger;
         this.PostData(req, data);
     }
 
     PostData(Params: MI_DataSend, data: IMachine_MI[]): void {
+        debugger;
         this.http.post(this.restUrl + '/api/manualinput/post', Params).subscribe((ans: MI_DataGet) => {
             this.saveBar('Пустой ввод', false);
             this.SaveValues(ans, data);
@@ -157,6 +163,7 @@ export class ManualInputService {
     }
 
     SaveValues(ids: MI_DataGet, data: IMachine_MI[]): void {
+        debugger;
         for (const i in ids.trueValues) {
             let el = this.GetElementById(ids.trueValues[i].id, data);
             el.isEdit = true;

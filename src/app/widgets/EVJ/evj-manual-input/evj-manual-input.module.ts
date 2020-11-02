@@ -5,9 +5,10 @@ import { AngularSvgIconModule } from 'angular-svg-icon';
 import { SharedModule } from '@shared/shared.module';
 import { EvjManualInputComponent } from './evj-manual-input.component';
 import { CommonModule } from '@angular/common';
+import { EvjManualInputHistoryComponent } from './components/evj-manual-input-history.component';
 
 @NgModule({
-  declarations: [EvjManualInputComponent],
+  declarations: [EvjManualInputComponent, EvjManualInputHistoryComponent],
   imports: [
     CommonModule,
     SharedModule,

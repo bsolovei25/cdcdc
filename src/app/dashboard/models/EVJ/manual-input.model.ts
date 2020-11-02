@@ -77,7 +77,7 @@ export interface IValue {
 }
 
 export interface IHours {
-    hour: string;
+    hour: Date;
     value: number;
 }
 
@@ -98,3 +98,8 @@ export interface IChoosenHistorical {
     open?: boolean;
 }
 
+export interface IHistoryIdx {
+    machineIdx: number;
+    groupIdx: number;
+    paramsIdx: number;
+}
