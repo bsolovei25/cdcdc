@@ -58,24 +58,6 @@
       background: transparent;
     }
   }
-  .title {
-    position: relative;
-
-    width: inherit;
-    height: 18px;
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-
-    box-sizing: border-box;
-
-    font-size: 13px;
-    line-height: 16px;
-
-    background: var(--evj-events-workspace-bg-dark);
-
-    color: var(--color-text-sub);
-  }
 
   .message {
     position: relative;

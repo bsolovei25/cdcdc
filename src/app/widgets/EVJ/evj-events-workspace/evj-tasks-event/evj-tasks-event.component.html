@@ -70,15 +70,17 @@
 
   <div class="workspace__third">
     <div class="workspace__third__left">
+      
       <div class="description">
+        <span>Распоряжения</span>
         <evj-event-description
-          titleName="Распоряжения"
           [description]="ewService.event?.description"
           (changedDescription)="onChangeEventDescription($event)"
         ></evj-event-description>
       </div>
 
       <div class="facts">
+        <span>Установленные факты</span>
         <evj-chat
           [messages]="ewService.event.facts"
           dataTitle="Установленные факты"
@@ -90,6 +92,7 @@
       </div>
 
       <div class="comments">
+        <span>Комментарии</span>
         <evj-chat
           [messages]="ewService.event.comments"
           dataTitle="Комментарии"
@@ -146,6 +149,7 @@
           </div>
         </div>
       </div>
+      <span>Корректирующие мероприятия</span>
       <evj-events-correct></evj-events-correct>
     </div>
   </div>

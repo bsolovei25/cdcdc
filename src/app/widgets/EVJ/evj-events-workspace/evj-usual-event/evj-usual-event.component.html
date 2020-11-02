@@ -63,7 +63,7 @@
         <div class="creator__title">
           <span>Автор</span>
         </div>
-        <div class="creator__body">
+        <div class="creator__field">
           <span>
           {{
             this.ewService.event.fixedBy?.displayName ?
@@ -107,6 +107,7 @@
         </div>
 
         <div class="description">
+          <span>Краткое описание</span>
           <evj-event-description
             [ngClass]="{'description_small':ewService.event.category.name === 'equipmentStatus'}"
             [description]="ewService.event.description"
@@ -116,6 +117,7 @@
         </div>
 
         <div class="facts">
+          <span>Установленные факты</span>
           <evj-chat
             [messages]="ewService.event.facts"
             dataTitle="Установленные факты"
@@ -127,6 +129,7 @@
         </div>
 
         <div class="comments">
+          <span>Комментарии</span>
           <evj-chat
             [messages]="ewService.event.comments"
             dataTitle="Комментарии"
@@ -140,6 +143,7 @@
       <div class="workspace__third__left">
 
         <div class="description">
+          <span>Краткое описание</span>
           <evj-event-description
             [ngClass]="{'description_small':ewService.event.category.name === 'equipmentStatus'}"
             [description]="ewService.event.description"
@@ -149,6 +153,7 @@
         </div>
 
         <div class="facts">
+          <span>Установленные факты</span>
           <evj-chat
             [messages]="ewService.event.facts"
             dataTitle="Установленные факты"
@@ -160,6 +165,7 @@
         </div>
 
         <div class="comments">
+          <span>Комментарии</span>
           <evj-chat
             [messages]="ewService.event.comments"
             dataTitle="Комментарии"
@@ -193,6 +199,7 @@
         </evj-events-workspace-responsible-select>
       </div>
       <div class="events-correct">
+        <span>Корректирующие мероприятия</span>
         <evj-events-correct></evj-events-correct>
       </div>
     </div>
