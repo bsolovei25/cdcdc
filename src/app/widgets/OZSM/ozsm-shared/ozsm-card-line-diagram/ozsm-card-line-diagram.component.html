@@ -25,7 +25,7 @@
       <span class="plan">{{+data?.maxValue | spaceNumber : 2}}</span>
       <span class="disabled"> / </span>
       <span class="fact">{{+data?.currentValue | spaceNumber : 2}}</span>
-      <span *ngIf="+data?.maxValue - +data?.currentValue != 0" class="deviation">{{+data?.maxValue - +data?.currentValue | spaceNumber : 2}}</span>
+      <span *ngIf="+data?.maxValue - +data?.currentValue != 0" class="deviation">{{+data?.currentValue - +data?.maxValue | spaceNumber : 2}}</span>
     </div>
   </ng-template>
   <div class="card__line">
