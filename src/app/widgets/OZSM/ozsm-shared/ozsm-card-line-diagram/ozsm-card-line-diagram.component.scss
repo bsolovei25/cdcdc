@@ -5,34 +5,27 @@
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-  gap: 10px;
+  gap: 8px;
+
   &__title {
     height: 20%;
     display: flex;
     flex-direction: row;
     font-size: 10px;
     line-height: 12px;
-    margin-top: 7%;
-    margin-left: 10%;
+    margin: 7% 0 0 10%;
   }
-  &__value {
-    width: 66%;
-    height: 20%;
-    font-size: 14px;
-    line-height: 17px;
-    margin-left: 10%;
-    gap: 5px;
-  }
+
   &__line {
+    position: relative;
     width: 80%;
     height: 4px;
-    background-color: var(--ozsm-color-bg-innage-diagram);
-    margin-left: 10%;
-    margin-right: 10%;
+    margin: 0 10% 12px 10%;
     border-radius: 1px;
-    margin-bottom: 8px;
+    overflow: hidden;
   }
 }
+
 .icon {
   height: 100%;
   color: var(--ozsm-color-marker-diagram);
@@ -41,6 +34,41 @@
   justify-content: center;
   align-items: center;
 }
+
+.value {
+  height: 20%;
+  font-size: 14px;
+  line-height: 17px;
+  margin: 0 10%;
+  gap: 5px;
+
+  &__icon {
+    line-height: 16px;
+    font-size: 16px;
+  }
+
+  &__deviation {
+    line-height: 14px;
+    font-size: 12px;
+
+    .fact {
+    }
+
+    .plan {
+      color: var(--ozsm-color-text-plan);
+    }
+
+    .deviation {
+      float: right;
+      color: var(--ozsm-color-warning);
+    }
+
+    .disabled {
+      color: var(--ozsm-resources-circle-diagram-color-font-sub);
+    }
+  }
+}
+
 .name {
   height: 100%;
   width: 100%;
@@ -50,12 +78,36 @@
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
+
+  &__icon {
+    line-height: 14px;
+    font-size: 12px;
+  }
 }
-.line-active {
+
+.line {
+  position: absolute;
   height: 100%;
-  width: 75%;
-  background-color: var(--ozsm-color-active);
+
+  &__active {
+    background-color: var(--ozsm-color-active);
+  }
+
+  &__bg {
+    width: 100%;
+
+    &-active {
+      background-color: var(--ozsm-color-bg-innage-diagram);
+    }
+    &-deviation {
+      background-color: var(--ozsm-color-warning);
+    }
+    &-deviation-opacity {
+      background-color: var(--ozsm-color-circle-diagram-bg-arc-deviation);
+    }
+  }
 }
+
 .container {
   display: flex;
   justify-content: flex-start;
