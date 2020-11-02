@@ -84,9 +84,9 @@
 
   <div class="workspace__third">
     <ng-container *ngIf="ewService.event.category.name === 'equipmentStatus' else other">
-      <div class="workspace__third__left">
+      <div class="workspace__third__right">
         <div class="event-input">
-          <div class="workspace__select-container">
+          <div class="workspace__select-different">
             <evj-events-workspace-select
               [label]="'Тип происшествия'"
               [dataType]="'eventType'"
@@ -106,8 +106,10 @@
           </div>
         </div>
 
-        <div class="description">
-          <span>Краткое описание</span>
+        <div class="description-equipment">
+          <div class="title">
+            <span>Краткое описание</span>
+          </div>
           <evj-event-description
             [ngClass]="{'description_small':ewService.event.category.name === 'equipmentStatus'}"
             [description]="ewService.event.description"
@@ -117,7 +119,9 @@
         </div>
 
         <div class="facts">
-          <span>Установленные факты</span>
+          <div class="title">
+            <span>Установленные факты</span>
+          </div>
           <evj-chat
             [messages]="ewService.event.facts"
             dataTitle="Установленные факты"
@@ -129,7 +133,9 @@
         </div>
 
         <div class="comments">
-          <span>Комментарии</span>
+          <div class="title">
+            <span>Комментарии</span>
+          </div>
           <evj-chat
             [messages]="ewService.event.comments"
             dataTitle="Комментарии"
@@ -140,10 +146,12 @@
       </div>
     </ng-container>
     <ng-template #other>
-      <div class="workspace__third__left">
+      <div class="workspace__third__right">
 
         <div class="description">
-          <span>Краткое описание</span>
+          <div class="title">
+            <span>Краткое описание</span>
+          </div>
           <evj-event-description
             [ngClass]="{'description_small':ewService.event.category.name === 'equipmentStatus'}"
             [description]="ewService.event.description"
@@ -153,7 +161,9 @@
         </div>
 
         <div class="facts">
-          <span>Установленные факты</span>
+          <div class="title">
+            <span>Установленные факты</span>
+          </div>
           <evj-chat
             [messages]="ewService.event.facts"
             dataTitle="Установленные факты"
@@ -165,7 +175,9 @@
         </div>
 
         <div class="comments">
-          <span>Комментарии</span>
+          <div class="title">
+            <span>Комментарии</span>
+          </div>
           <evj-chat
             [messages]="ewService.event.comments"
             dataTitle="Комментарии"
@@ -179,7 +191,7 @@
     <div class="workspace__third__right">
 
       <div class="place-date">
-        <div class="workspace__select-container">
+        <div class="workspace__select-different">
           <evj-events-workspace-select
             [label]="'Место'"
             [dataType]="'place'"
@@ -199,7 +211,9 @@
         </evj-events-workspace-responsible-select>
       </div>
       <div class="events-correct">
-        <span>Корректирующие мероприятия</span>
+        <div class="title">
+          <span>Корректирующие мероприятия</span>
+        </div>
         <evj-events-correct></evj-events-correct>
       </div>
     </div>
