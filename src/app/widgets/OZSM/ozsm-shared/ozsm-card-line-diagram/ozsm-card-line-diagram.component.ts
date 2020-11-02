@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnChanges } from '@angular/core';
 import { ICardLineDiagramModel } from '../../../../dashboard/models/card-line-diagram.model';
 import { mockData } from './ozsm-card-line-mock';
 
@@ -7,17 +7,9 @@ import { mockData } from './ozsm-card-line-mock';
     templateUrl: './ozsm-card-line-diagram.component.html',
     styleUrls: ['./ozsm-card-line-diagram.component.scss'],
 })
-export class OzsmCardLineDiagramComponent implements OnInit {
+export class OzsmCardLineDiagramComponent implements OnInit, OnChanges {
     @Input() data: ICardLineDiagramModel = mockData;
     public percentValue: number = 0;
-    public iconStyleTitle: { [key: string]: string } = {
-        'line-height': '14px',
-        'font-size': '12px',
-    };
-    public iconStyleValue: { [key: string]: string } = {
-        'line-height': '16px',
-        'font-size': '16px',
-    };
 
     public get bgLineClass(): 'active' | 'deviation' | 'deviation-opacity' {
         if (this.data.type !== 'deviation-icon') {
@@ -29,8 +21,12 @@ export class OzsmCardLineDiagramComponent implements OnInit {
 
     constructor() {}
 
+    // TODO: delete after mock
     ngOnInit(): void {
-        this.percentValue = (this.data.currentValue / this.data.maxValue) * 100;
-        console.log(this.data.type);
+        this.percentValue = (this.data?.currentValue / this.data?.maxValue) * 100;
+    }
+
+    ngOnChanges(): void {
+        this.percentValue = (this.data?.currentValue / this.data?.maxValue) * 100;
     }
 }
