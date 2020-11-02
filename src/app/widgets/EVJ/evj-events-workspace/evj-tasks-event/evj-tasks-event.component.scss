@@ -1,155 +1,136 @@
 .workspace {
-  position: relative;
-
   height: 100%;
-  width: calc(100% - 15px);
-
-  box-sizing: border-box;
-  padding: 0 8px;
-  margin: 0 auto;
-
-  display: grid;
-  gap: 10px;
-  grid-template-columns: repeat(2, 1fr);
-  grid-auto-rows: max-content;
-  grid-template-areas:
-    "select select"
-    "left right";
-
   font-family: Tahoma, sans-serif;
   font-size: 12px;
   font-weight: 100;
   color: var(--color-text-sub);
-
-  &__selects {
-    grid-area: select;
-  }
-
-  &__left {
-    grid-area: left;
-  }
-
-  &__right {
-    grid-area: right;
-  }
-}
-
-.selects {
-  display: grid;
-  gap: 10px;
-  grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: repeat(2, max-content);
-
-  &__item {
-    height: 50px;
-  }
-}
-
-.deadline {
-  position: relative;
   width: 100%;
-  height: 100%;
+  padding: 0 10px;
+  margin: 0 auto;
   box-sizing: border-box;
-  padding: 0 15px;
-
-  &__title {
-    position: absolute;
-    font-size: 9px;
-    color: var(--color-text-sub) !important;
-  }
-
-  &::ng-deep {
-    * {
-      color: var(--color-text-main);
-    }
-  }
-}
-
-.left {
-  display: grid;
-  gap: 10px;
-  grid-template-columns: 1fr;
-  grid-template-rows: 130px 1fr 1fr;
-
-  &__item {
-    height: 100%;
-  }
-}
-
-.right {
-  display: grid;
-  gap: 10px;
-  grid-template-columns: 1fr;
-  grid-template-rows: 100px 100px 1fr;
-
-  &__item {
-    height: 100%;
-  }
-}
-
-.labels {
-  width: 100%;
-  height: 100px;
-  box-sizing: border-box;
-  padding: 0 15px;
   display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
+  flex-direction: column;
+  position: relative;
 
-  &__item {
-    flex: 0 47%;
+  button {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    border: 0.5px solid var(--color-border-main-transparrent);
+    background-color: var(--color-bg-main);
+    color: var(--color-text-main);
+    outline: none;
   }
 
-  .label {
-    height: 28px;
+  &__select-container {
+    flex-grow: 1;
+    width: 100%;
+    height: 60px;
+    min-width: 160px;
+    margin-right: 5px;
+    margin-left: 5px;
     display: flex;
     flex-direction: column;
+    justify-content: flex-end;
+  }
+
+  &__header {
+    margin-top: 10px;
+    display: flex;
     justify-content: space-between;
 
-    &__name {
-      font-size: 10px;
-      line-height: 100%;
-      color: var(--color-text-sub);
+    .card-true {
+      cursor: pointer;
+      border: 1px solid var(--color-border-active);
+      background: rgba(63, 169, 245, 0.05);
     }
+  }
+  &__third {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: center;
+    &__left {
+      width: 50%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      padding-right: 10px;
 
-    &__value {
-      font-size: 12px;
-      line-height: 120%;
-      color: var(--color-text-main);
+      .description {
+        height: 160px;
+        width: 100%;
+        margin-top: 6px;
+        margin-bottom: 6px;
+      }
+
+      .facts {
+        height: 200px;
+        width: 100%;
+        margin-top: 6px;
+        margin-bottom: 6px;
+      }
+      .comments {
+        height: 300px;
+        width: 100%;
+        margin-top: 6px;
+        margin-bottom: 6px;
+      }
+    }
+    &__right {
+      width: 50%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      .table {
+        margin-top: 6px;
+        width: 100%;
+        height: 200px;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+        &__group {
+          width: 100%;
+          height: 33.33%;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+        }
+      }
+
+      .responsible {
+        width: 100%;
+        height: 100px;
+        min-width: 200px;
+        min-height: 100px;
+        padding-right: 5px;
+        padding-left: 5px;
+        margin-top: 6px;
+      }
+
+      .events-correct {
+        width: 100%;
+        height: 100%;
+        min-height: 200px;
+        padding-right: 5px;
+        padding-left: 5px;
+
+        margin-top: 6px;
+      }
     }
   }
 }
-
-// MAT-SELECT
-mat-form-field {
-  box-sizing: border-box;
+.value {
   width: 100%;
-  padding: 0px 15px;
-  padding-bottom: 0px;
-
-  mat-label {
-    color: var(--color-text-sub);
-  }
+  height: 38px;
+  border: 1px solid rgba(92, 101, 133, 0.25);
+  border-radius: 1px;
 }
-
-::ng-deep {
-  .mat-form-field-underline {
-    height: 0 !important;
-  }
-  .mat-form-field-appearance-legacy .mat-form-field-ripple {
-    height: 0;
-  }
-
-  .mat-form-field-wrapper {
-    padding-bottom: 0px;
-    margin: 7px 0px;
-  }
-
-  .mat-select-value {
-    color: var(--color-text-main);
-  }
-}
-// END-MAT-SELECT
 
 .standard {
   height: 100%;
@@ -212,4 +193,74 @@ mat-form-field {
     #21222d 53%,
     #20222d 86%
   );
+}
+
+.mat-form-category {
+  color: var(--header-events-color-font-main);
+  border: 1px solid var(--color-astue-mat-select-border);
+  background-color: var(--header-events-color-bg-main);
+
+  ::ng-deep {
+    .mat-select-arrow {
+      background-color: var(--header-events-color-font-main) !important;
+    }
+  }
+}
+.event-mat-select {
+  border-radius: 2px;
+  height: 36px;
+  min-width: 50px;
+
+  .mat-select {
+    width: calc(100% - 2px) !important;
+  }
+
+  mat-label {
+    font-size: 17px !important;
+    color: var(--color-text-sub);
+  }
+
+  ::ng-deep {
+    .mat-form-field {
+      width: 100%;
+    }
+
+    .mat-form-field-underline {
+      height: 0 !important;
+    }
+
+    .mat-form-field-appearance-legacy .mat-form-field-ripple {
+      height: 0;
+    }
+
+    .mat-form-field-appearance-legacy .mat-form-field-infix {
+      padding: 0;
+      display: flex;
+      padding-top: 5px;
+    }
+
+    .mat-form-field-wrapper {
+      padding-bottom: 0;
+      margin: 0;
+    }
+
+    .mat-form-field-infix {
+      border-top: none;
+    }
+
+    .mat-select-value-text {
+      margin-left: 10px;
+      font-size: 13px;
+      color: inherit;
+    }
+
+    .mat-select-arrow {
+      margin-right: 10px !important;
+      margin-top: 5px !important;
+    }
+
+    .mat-form-field-label-wrapper {
+      top: -20px;
+    }
+  }
 }
