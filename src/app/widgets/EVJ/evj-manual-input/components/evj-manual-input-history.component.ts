@@ -42,7 +42,12 @@ export class EvjManualInputHistoryComponent implements OnInit, OnChanges {
     @Input() set data(data: {
         machineData: IMachine_MI[];
         historyIdx: IHistoryIdx
+        edit: boolean
     }) {
+        if (!data.edit) {
+            this.editMode = false;
+        }
+
         this.hours = [];
         this.hoursValue = [];
         this.machineData = data.machineData;

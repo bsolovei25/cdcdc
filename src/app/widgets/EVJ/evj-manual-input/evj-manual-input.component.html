@@ -221,7 +221,8 @@
         [isUserHasWriteClaims]="isUserHasWriteClaims"
         [data]="{
           machineData: data,
-          historyIdx: historicalDataIndx
+          historyIdx: historicalDataIndx,
+          edit: editMode 
         }"
         (onSendHistoryData) = "getSendHistoryData($event)"
       ></evj-manual-input-history>

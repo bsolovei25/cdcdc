@@ -89,7 +89,7 @@ export class EvjManualInputComponent extends WidgetPlatform<unknown>
         groupIdx: 0,
         paramsIdx: 0,
     };
-    editMode: boolean = false;
+    editMode: boolean = true;
 
     isUserHasWriteClaims: boolean;
 
@@ -187,9 +187,9 @@ export class EvjManualInputComponent extends WidgetPlatform<unknown>
                 this.data,
                 this.widgetId
             );
+            this.editMode = false;
             this.data = { ...saveResult };
             this.sendHistoryData = [];
-            this.editMode = false;
         } else {
             this.manualInputService.BtnSaveValues(this.data, this.widgetId);
         }

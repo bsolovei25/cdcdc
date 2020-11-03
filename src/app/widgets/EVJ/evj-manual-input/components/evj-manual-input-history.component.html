@@ -91,7 +91,6 @@
         <span class="hours__item" *ngIf="!editMode">{{value}}</span>
         <input 
           (change)="onChangeHistoricalValue($event, i, value)"
-          (focusout)="deactivateEditMode()"
           class="hours__item"
           *ngIf="editMode" placeholder={{value}}
         >
