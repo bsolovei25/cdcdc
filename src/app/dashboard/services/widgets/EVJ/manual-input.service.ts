@@ -99,7 +99,11 @@ export class ManualInputService {
         this.SendData(elsToSave, data, widgetId);
     }
 
-    SendHistoryData(historyToSave: MI_ParamSend[], data: IMachine_MI[], widgetId: string): void {
+    async SendHistoryData(
+        historyToSave: MI_ParamSend[],
+        data: IMachine_MI[],
+        widgetId: string
+    ): Promise<IMachine_MI[]> {
         this.saveBar('Сохранение', true);
         this.statusLoading = true;
 
@@ -108,26 +112,32 @@ export class ManualInputService {
             User: 'Username',
             Params: historyToSave,
         };
-        this.PostHistoryData(req, data);
+        return await this.PostHistoryData(req, data);
     }
 
-    PostHistoryData(Params: MI_DataSend, data: IMachine_MI[]): void {
-        this.http.post(this.restUrl + '/api/manualinput/post', Params).subscribe((ans: MI_DataGet) => {
-            this.saveBar('Не корректный ввод', false);
-            this.SaveHistoryValues(ans, data);
-        });
+    async PostHistoryData(Params: MI_DataSend, data: IMachine_MI[]): Promise<IMachine_MI[]> {
+        const ans = await this.http
+            .post<MI_DataGet>(this.restUrl + '/api/manualinput/post', Params)
+            .toPromise();
+        // .subscribe((ans: MI_DataGet) => {
+        //
+        // });
+        this.saveBar('Не корректный ввод', false);
+        return this.SaveHistoryValues(ans, data);
     }
 
-    SaveHistoryValues(ids: MI_DataGet, data: IMachine_MI[]): void {
+    SaveHistoryValues(ids: MI_DataGet, data: IMachine_MI[]): IMachine_MI[] {
         if (ids.trueValues.length > 0) {
-            ids.trueValues.forEach(item => {
+            ids.trueValues.forEach((item) => {
                 let el: Param_MI = this.GetElementById(item.id, data);
-                el.historyValues.forEach(day => {
-                    if (day.hourValues.find(hour => hour.hour === item.timeCode)) {
-                        day.hourValues.find(hour => hour.hour === item.timeCode).value = +item.value;
+                el.historyValues.forEach((day) => {
+                    if (day.hourValues.find((hour) => hour.hour === item.timeCode)) {
+                        day.hourValues.find(
+                            (hour) => hour.hour === item.timeCode
+                        ).value = +item.value;
                     }
                 });
-            })
+            });
             if (ids.falseValues.length === 0) {
                 this.saveBar('Сохранено', false);
             } else {
@@ -137,6 +147,7 @@ export class ManualInputService {
             this.saveBar('Не сохранено', false);
         }
         this.statusLoading = false;
+        return data;
     }
 
     SendData(elsToSave: Param_MI[], data: IMachine_MI[], widgetId: string): void {
@@ -160,10 +171,12 @@ export class ManualInputService {
     }
 
     PostData(Params: MI_DataSend, data: IMachine_MI[]): void {
-        this.http.post(this.restUrl + '/api/manualinput/post', Params).subscribe((ans: MI_DataGet) => {
-            this.saveBar('Пустой ввод', false);
-            this.SaveValues(ans, data);
-        });
+        this.http
+            .post(this.restUrl + '/api/manualinput/post', Params)
+            .subscribe((ans: MI_DataGet) => {
+                this.saveBar('Пустой ввод', false);
+                this.SaveValues(ans, data);
+            });
     }
 
     SaveValues(ids: MI_DataGet, data: IMachine_MI[]): void {
@@ -227,11 +240,13 @@ export class ManualInputService {
         }
     }
 
-    async getManualInput(id: string): Promise<{ machines: IMachine_MI[]; isUserHasWriteClaims: boolean}> {
+    async getManualInput(
+        id: string
+    ): Promise<{ machines: IMachine_MI[]; isUserHasWriteClaims: boolean }> {
         return await this.http
-            .get<{ machines: IMachine_MI[]; isUserHasWriteClaims: boolean}>(this.restUrl + '/api/manualinput/ManualInputData/' + id)
+            .get<{ machines: IMachine_MI[]; isUserHasWriteClaims: boolean }>(
+                this.restUrl + '/api/manualinput/ManualInputData/' + id
+            )
             .toPromise();
     }
-
-
 }

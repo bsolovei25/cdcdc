@@ -7,7 +7,7 @@ import {
     OnDestroy,
     OnInit,
     AfterViewInit,
-    OnChanges
+    OnChanges,
 } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { AppConfigService } from '@core/service/app-config.service';
@@ -15,8 +15,16 @@ import { trigger, style, state, transition, animate, group } from '@angular/anim
 import { ManualInputService } from './../../../dashboard/services/widgets/EVJ/manual-input.service';
 import { WidgetSettingsService } from './../../../dashboard/services/widget-settings.service';
 import { WidgetService } from 'src/app/dashboard/services/widget.service';
-import { IHistory, IMachine_MI, IGroup_MI, IChoosenHistorical, MI_ParamSend, IHistoryIdx} from './../../../dashboard/models/EVJ/manual-input.model';
+import {
+    IHistory,
+    IMachine_MI,
+    IGroup_MI,
+    IChoosenHistorical,
+    MI_ParamSend,
+    IHistoryIdx,
+} from './../../../dashboard/models/EVJ/manual-input.model';
 import { WidgetPlatform } from 'src/app/dashboard/models/@PLATFORM/widget-platform';
+import { fillDataShape } from '@shared/functions/common-functions';
 
 @Component({
     selector: 'evj-evj-manual-input',
@@ -65,7 +73,6 @@ export class EvjManualInputComponent extends WidgetPlatform<unknown>
     public previewTitle: string;
     public isHistorical: boolean = false;
 
-
     allSettings: boolean = true;
     openAllSettings: boolean = true;
     openAllMachine: boolean = true;
@@ -80,8 +87,8 @@ export class EvjManualInputComponent extends WidgetPlatform<unknown>
     historicalDataIndx: IHistoryIdx = {
         machineIdx: 0,
         groupIdx: 0,
-        paramsIdx: 0
-    }
+        paramsIdx: 0,
+    };
     editMode: boolean = false;
 
     isUserHasWriteClaims: boolean;
@@ -118,8 +125,7 @@ export class EvjManualInputComponent extends WidgetPlatform<unknown>
         }
     }
 
-    ngOnChanges(): void {
-    }
+    ngOnChanges(): void {}
 
     ngOnDestroy(): void {
         super.ngOnDestroy();
@@ -130,7 +136,7 @@ export class EvjManualInputComponent extends WidgetPlatform<unknown>
         this.setInitData();
     }
 
-    protected dataHandler(ref: { machines: IMachine_MI[]; isUserHasWriteClaims: boolean}): void {
+    protected dataHandler(ref: { machines: IMachine_MI[]; isUserHasWriteClaims: boolean }): void {
         this.loadSaveData(ref);
     }
 
@@ -138,12 +144,12 @@ export class EvjManualInputComponent extends WidgetPlatform<unknown>
         this.historicalDataIndx = {
             machineIdx,
             groupIdx,
-            paramsIdx
+            paramsIdx,
         };
     }
 
     showHistorical(): void {
-        if(this.data.length > 0) {
+        if (this.data.length > 0) {
             this.isHistorical = true;
         }
     }
@@ -159,26 +165,34 @@ export class EvjManualInputComponent extends WidgetPlatform<unknown>
 
     async setInitData(): Promise<void> {
         try {
-            const data: { machines: IMachine_MI[]; isUserHasWriteClaims: boolean} = await this.manualInputService.getManualInput(this.id);
+            const data: {
+                machines: IMachine_MI[];
+                isUserHasWriteClaims: boolean;
+            } = await this.manualInputService.getManualInput(this.id);
             this.loadSaveData(data);
         } catch (error) {
             console.log(error);
         }
     }
 
-    onButtonSave(): void {
+    async onButtonSave(): Promise<void> {
         if (!this.isSaveButton()) {
             return;
         }
 
         if (this.isHistorical) {
-            this.manualInputService.SendHistoryData(this.sendHistoryData, this.data, this.widgetId);
+            console.log('old data', fillDataShape(this.data));
+            const saveResult = await this.manualInputService.SendHistoryData(
+                this.sendHistoryData,
+                this.data,
+                this.widgetId
+            );
+            this.data = { ...saveResult };
             this.sendHistoryData = [];
             this.editMode = false;
         } else {
             this.manualInputService.BtnSaveValues(this.data, this.widgetId);
         }
-
     }
 
     onChangeValue(e: any, id: string): void {
@@ -197,8 +211,10 @@ export class EvjManualInputComponent extends WidgetPlatform<unknown>
         this.manualInputService.CheckLastValue(id, this.data);
     }
 
-
-    async loadSaveData( data: { machines: IMachine_MI[]; isUserHasWriteClaims: boolean}): Promise<void> {
+    async loadSaveData(data: {
+        machines: IMachine_MI[];
+        isUserHasWriteClaims: boolean;
+    }): Promise<void> {
         this.isUserHasWriteClaims = data.isUserHasWriteClaims;
         const settings: IMachine_MI[] = await this.widgetSettingsService.getSettings(this.uniqId);
         for (const itemDate of data.machines) {
@@ -223,20 +239,19 @@ export class EvjManualInputComponent extends WidgetPlatform<unknown>
         }
     }
 
-
     onScroll(event): void {
         this.scroll.nativeElement.scrollLeft = event.currentTarget.scrollLeft;
     }
 
     onAllSettings(): void {
         this.allSettings = !this.allSettings;
-        this.data?.forEach((el) => el.active = false);
+        this.data?.forEach((el) => (el.active = false));
         this.filteredData = this.data;
         this.OnManualInputSendSettings(this.saveDataObj());
     }
 
     onSettings(item: IMachine_MI): void {
-        this.data?.forEach((el) => el.active = false);
+        this.data?.forEach((el) => (el.active = false));
         item.active = !item.active;
         this.chooseSetting = item;
         this.filteredData = [];
@@ -248,12 +263,13 @@ export class EvjManualInputComponent extends WidgetPlatform<unknown>
     onShowAllSettings(): void {
         if (this.allSettings === true) {
             this.openAllSettings = !this.openAllSettings;
-            this.filteredData?.forEach((item) => item.open = this.openAllSettings);
+            this.filteredData?.forEach((item) => (item.open = this.openAllSettings));
             this.OnManualInputSendSettings(this.saveDataObj());
         } else {
             this.openAllMachine = !this.openAllMachine;
-            this.filteredData?.find((el) => el.name === this.chooseSetting.name)
-                ?.groups.forEach((item) => item.open = this.openAllMachine);
+            this.filteredData
+                ?.find((el) => el.name === this.chooseSetting.name)
+                ?.groups.forEach((item) => (item.open = this.openAllMachine));
             this.OnManualInputSendSettings(this.saveDataObj());
         }
     }
