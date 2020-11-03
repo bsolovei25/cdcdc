@@ -18,8 +18,8 @@ export interface MI_ParamSend {
     Id: string;
     Value: string;
     TimeCode: Date;
-    Comment: string;
-    isEdit: boolean;
+    Comment?: string;
+    isEdit?: boolean;
 }
 
 export interface Param_MI {
@@ -45,6 +45,7 @@ export interface Param_MI {
     isEdit?: boolean;
     openInput?: boolean;
     saveValue?: string;
+    historyValues?: IHistory[];
 }
 
 export interface IGroup_MI {
@@ -72,5 +73,34 @@ export interface TestPostClass {
 
 export interface IValue {
     id: string;
+    timeCode: Date;
     value: string;
+}
+
+export interface IHours {
+    hour: Date;
+    value: number;
+}
+
+export interface IHistory {
+    day: string;
+    hourValues: IHours[];
+}
+
+export interface IChoosenHistorical {
+    name: string;
+    isUserHasWriteClaims?: boolean;
+    groups?: {
+        name: string;
+        params?: Param_MI;
+        open?: boolean;
+    }
+    active?: boolean;
+    open?: boolean;
+}
+
+export interface IHistoryIdx {
+    machineIdx: number;
+    groupIdx: number;
+    paramsIdx: number;
 }

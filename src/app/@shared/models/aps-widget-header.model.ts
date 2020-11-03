@@ -18,4 +18,6 @@ export type ApsHeaderIconType =
     | 'performance'
     | 'energy'
     | 'kpe-marker'
-    | 'sliders';
+    | 'sliders'
+    | 'keyboard'
+    | 'dots-triangle';

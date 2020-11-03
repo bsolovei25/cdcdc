@@ -33,13 +33,12 @@ export class ImplementationPlanComponent extends WidgetPlatform<unknown> impleme
 
   public ngOnInit(): void {
     super.widgetInit();
+    this.getData();
 
-    // this.getData();
-
-    this.http.get('assets/mock/SMP/implementation-plan/implementation-plan.mock.json')
-      .subscribe((data: IAllCrude) => {
-        this.data = data.data;
-    });
+    // this.http.get('assets/mock/SMP/implementation-plan/implementation-plan.mock.json')
+    //   .subscribe((data: IAllCrude) => {
+    //     this.data = data.data;
+    // });
   }
 
   public ngOnDestroy(): void {

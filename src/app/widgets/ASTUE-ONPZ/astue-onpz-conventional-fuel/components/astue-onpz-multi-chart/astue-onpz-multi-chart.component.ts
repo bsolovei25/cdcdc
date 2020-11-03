@@ -198,9 +198,7 @@ export class AstueOnpzMultiChartComponent implements OnInit, OnChanges, OnDestro
     private normalizeData(): void {
         if (!!this.currentDates) {
             // TODO do some
-            console.log('historical');
         } else {
-            console.log('realtime');
             this.data = this.data.filter((item) => item.graph?.length > 0);
             const currentDatetime = new Date();
             currentDatetime.setMinutes(0, 0, 0);
@@ -1074,7 +1072,6 @@ export class AstueOnpzMultiChartComponent implements OnInit, OnChanges, OnDestro
             const statValue = filterChart?.length > 0
                 ? filterChart[filterChart.length - 1]
                 : null;
-            console.log(this.charts);
             if (chart.graphType === 'plan') {
                 plan = chart.graph[chart.graph.length - 1];
             } else if (chart.graphType === 'fact'
