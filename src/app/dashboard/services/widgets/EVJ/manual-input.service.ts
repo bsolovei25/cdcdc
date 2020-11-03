@@ -120,12 +120,14 @@ export class ManualInputService {
 
     SaveHistoryValues(ids: MI_DataGet, data: IMachine_MI[]): void {
         if (ids.trueValues.length > 0) {
-            /*ids.trueValues.forEach(item => {
-                let el = this.GetElementById(item.id, data);
+            ids.trueValues.forEach(item => {
+                let el: Param_MI = this.GetElementById(item.id, data);
                 el.historyValues.forEach(day => {
-                    if(day.hourValues.find(hour => hour === item.))
+                    if (day.hourValues.find(hour => hour.hour === item.timeCode)) {
+                        day.hourValues.find(hour => hour.hour === item.timeCode).value = +item.value;
+                    }
                 });
-            })*/
+            })
             if (ids.falseValues.length === 0) {
                 this.saveBar('Сохранено', false);
             } else {

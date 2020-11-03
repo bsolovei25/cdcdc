@@ -73,6 +73,7 @@ export interface TestPostClass {
 
 export interface IValue {
     id: string;
+    timeCode: Date;
     value: string;
 }
 
