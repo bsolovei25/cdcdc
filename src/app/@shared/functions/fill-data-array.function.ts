@@ -9,6 +9,9 @@ export function fillDataArray(
     endTime: number = null,
 ): void {
     data.forEach((item) => {
+        if (!item.graph?.length) {
+            return;
+        }
         // обнуление значений милисекунд, секунд и минут
         item.graph.forEach((val) => val.timeStamp.setMinutes(0, 0, 0));
         // заполнение пропусков в массиве
@@ -93,6 +96,9 @@ export function fillDataArrayChart(
     endTime: number = null,
     isFutureFilling: boolean = false,
 ): IChartMini[] {
+    if (!points?.length) {
+        return points;
+    }
     points.forEach((val) => val.timeStamp.setMinutes(0, 0, 0));
     // заполнение пропусков в массиве
     const arr = points;

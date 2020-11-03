@@ -20,3 +20,4 @@ export type ApsHeaderIconType =
     | 'kpe-marker'
     | 'sliders'
     | 'keyboard';
+    | 'dots-triangle'

@@ -10,7 +10,7 @@
   dependencies: []
   stage: release
   script:
-    - cd $RELEASE_NOTE_PATH;
+    - cd $RELEASE_NOTE_PATH
     - python release-notes.py
     - bash upload_release.sh
   only:
@@ -26,11 +26,79 @@
   variables:
     DEPLOY_DOMAIN: deploy.funcoff.club
     GIT_STRATEGY: none
+    MESSAGE: "Place it here"
+    AUTH_TOKEN: "$ROCKETCHAT_TOKEN"
     HOOKS: "/app/rockethooks.py"
   dependencies: []
   script:
-    - python $HOOKS
+    - python $HOOKS -m "${CI_RELEASE_TAG} / ${MESSAGE}" -t $AUTH_TOKEN
   only:
     - develop
     - devops
     - master
+
+.export-image-to-ftp:
+  tags:
+    - gl-docker-socket
+  image:
+    name: registry.funcoff.club/devops/dind:1.0.1
+  stage: exporting
+  variables:
+    GIT_STRATEGY: none
+    SERVICE_NAME: "servicename"
+    EXTERNAL_DOCKER_IMG: "external.registry/example"
+    TAG: "$CI_RELEASE_TAG"
+    DOCKERHUB_URL: registry.funcoff.club
+    DOCKER_REPO: evj
+    DOCKER_BASE_NAME: ${DOCKERHUB_URL}/${DOCKER_REPO}/${SERVICE_NAME}
+    LATEST_IMG: ${DOCKERHUB_URL}/${DOCKER_REPO}/${SERVICE_NAME}:latest
+  dependencies: []
+  before_script:
+    - if [[ -z $TAG  ]]; then echo "Add \$CI_RELEASE_TAG variable to pipelines! Exiting (1)"; exit 1; fi
+    - echo "CI_RELEASE_TAG=$TAG" > ${ENV_STAGES_FILE}
+    - mc cp ${ENV_STAGES_FILE} ${S3_RELEASE_BUCKET}/
+  script:
+    - docker pull ${LATEST_IMG}
+    - docker tag ${LATEST_IMG} ${EXTERNAL_DOCKER_IMG}:${TAG}
+    - docker save -o ./${SERVICE_NAME}-${TAG}.img ${EXTERNAL_DOCKER_IMG}:${TAG}
+    - xz -T0 -9 ./${SERVICE_NAME}-${TAG}.img
+  after_script:
+    - echo "====== uploading to FTP (if $NO_FTP isn't set) ======"
+    - >
+      if [[ -z $NO_FTP  ]]; then
+        /usr/bin/put-file ${SERVICE_NAME}-${TAG}.img.xz || sleep 0.1;
+      fi
+  needs: []
+  when: manual
+  # artifacts:
+  #   reports:
+  #     dotenv: ${ENV_STAGES_FILE}
+  only:
+    refs:
+      - devops
+      - develop
+      - master
+
+.update-tags:
+  variables:
+    GIT_STRATEGY: none
+  tags:
+    - gl-docker-socket
+  image:
+    name: registry.funcoff.club/devops/gitlab-tags:1.0.5
+    entrypoint: [""]
+  stage: updating
+  needs:
+    - job: export-zyfra-ftp
+  # needs:
+  #   - job: export-zyfra-ftp
+  #     artifacts: true
+  before_script:
+    - echo "192.168.0.21 gitlab.funcoff.club" | tee -a /etc/hosts
+    - mc cp ${S3_RELEASE_BUCKET}/${ENV_STAGES_FILE} .
+    - export $(cat ${ENV_STAGES_FILE} | head -1)
+  script:
+    - cd /app; python ReleaseTags.py -c $CI_COMMIT_SHORT_SHA -t $CI_RELEASE_NEW_TAG -p $CI_PROJECT_NAME -b $CI_COMMIT_BRANCH || true
+  #allow_failure: false
+  only:
+    - devops

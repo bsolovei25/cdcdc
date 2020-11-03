@@ -7,4 +7,4 @@ export interface ICardLineDiagramModel {
     type?: CardLineDiagramType;
 }
 
-export type CardLineDiagramType = 'default' | 'number' | 'icon';
+export type CardLineDiagramType = 'default' | 'number' | 'icon' | 'deviation-icon';

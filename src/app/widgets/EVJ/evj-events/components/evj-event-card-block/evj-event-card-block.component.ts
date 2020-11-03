@@ -11,6 +11,7 @@ export class EvjEventCardBlockComponent implements OnInit {
 
     @Input() data: IEventsWidgetNotificationPreview;
     @Input() public cardActiveId: number = 0;
+    @Input() public isVideoWall: boolean = false;
     @Output()
     public cardDeleteClick: EventEmitter<number> = new EventEmitter<number>();
     @Output()

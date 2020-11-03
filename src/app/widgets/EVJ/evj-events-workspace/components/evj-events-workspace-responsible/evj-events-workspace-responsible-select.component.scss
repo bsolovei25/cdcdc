@@ -1,0 +1,137 @@
+@import "src/mixins";
+
+:host {
+  height: inherit;
+  width: inherit;
+}
+
+.main-tittle {
+  font-size: 13px;
+  line-height: 16px;
+  color: var(--evj-events-workspace-item-title);
+
+  position: absolute;
+  top: -1.5em;
+  left: 0;
+}
+
+.responsible {
+  height: inherit;
+  width: inherit;
+  position: relative;
+  min-height: 100px;
+
+  display: flex;
+  align-items: center;
+
+  margin-top: 15px;
+  margin-bottom: 10px;
+  background: var(--evj-events-workspace-responsible-bg);
+  border: 1px solid var(--evj-events-workspace-item-border);
+  border-radius: 2px;
+
+
+  ::ng-deep {
+    .card-normal {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .mat-form-field {
+      width: 100%;
+      box-sizing: border-box;
+      padding: 0px 15px 0px 17px;
+    }
+
+    .mat-select-arrow {
+      background: var(--evj-events-workspace-white);
+    }
+
+  }
+
+  .choosenUser {
+    display: flex;
+    justify-content: space-between;
+    position: absolute;
+    background: var(--evj-events-workspace-responsible-bg);
+    height: 100%;
+    width: 88%;
+    z-index: 1;
+
+    .name_user {
+      height: 100%;
+
+      .name_user_info {
+        margin-left: 15px;
+        min-width: 150px;
+        height: 100%;
+
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+
+        font-size: 12px;
+        line-height: 14px;
+
+        &__name {
+          color: var(--evj-events-workspace-white);
+        }
+
+        &__position {
+          color: var(--evj-events-workspace-text-sub);
+        }
+
+      }
+    }
+
+    .brigade_user {
+      min-width: 75px;
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+
+      .brigade_user_name {
+        width: 100%;
+        font-size: 12px;
+        line-height: 14px;
+        color: var(--evj-events-workspace-white);
+      }
+
+      .brigade_user_text {
+        color: var(--evj-events-workspace-white);
+        font-size: 11px;
+        width: 100%;
+        @include text-overflow;
+        -webkit-line-clamp: 1;
+      }
+    }
+
+    .avatar_user {
+      min-width: 75px;
+      padding-left: 15px;
+      height: 100%;
+
+      .avatar_user_img {
+        height: 100%;
+        display: flex;
+        align-items: center;
+
+        img {
+          border-radius: 60px;
+          height: 65%;
+        }
+
+        .avatar-mask {
+          position: absolute;
+          transform: translate(-5px,3px);
+        }
+      }
+    }
+  }
+}
+
+.responsible-item {
+  flex-grow: 1;
+}

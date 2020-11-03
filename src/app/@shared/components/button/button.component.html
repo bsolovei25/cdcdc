@@ -1,4 +1,4 @@
-<ng-container>
+<ng-container *ngIf="!isRounded; else roundedButtonTemplate;">
   <button
     class="button button__normal"
     [ngClass]="changeButtonStyle()"
@@ -8,6 +8,8 @@
     (mouseleave)="isButtonHover=false"
     (click)="onClick()"
   >
+    <div class="button__frame-normal button__frame-normal-left"></div>
+    <div class="button__frame-normal button__frame-normal-right"></div>
     <ng-container *ngIf="textButton; else image">
       {{textButton}}
     </ng-container>
@@ -18,3 +20,13 @@
     </ng-template>
   </button>
 </ng-container>
+
+<ng-template #roundedButtonTemplate>
+  <button
+    [disabled]="disabled"
+    (click)="onClick()"
+    [class]="'button-rounded' + ' ' + type"
+  >
+    {{ textButton }}
+  </button>
+</ng-template>

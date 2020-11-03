@@ -1,0 +1,20 @@
+<ng-container>
+  <button
+    class="button button__normal"
+    [ngClass]="changeButtonStyle()"
+    [ngClass]="{'button-active':isActive}"
+    [disabled]="disabled"
+    (mouseover)="isButtonHover=true"
+    (mouseleave)="isButtonHover=false"
+    (click)="onClick()"
+  >
+    <ng-container *ngIf="textButton; else image">
+      {{textButton}}
+    </ng-container>
+    <ng-template #image>
+      <div class="button__icon">
+        <img [src]="changeButtonIcon()" alt="" />
+      </div>
+    </ng-template>
+  </button>
+</ng-container>

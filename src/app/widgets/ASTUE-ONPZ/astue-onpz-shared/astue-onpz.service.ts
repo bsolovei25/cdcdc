@@ -50,7 +50,7 @@ export class AstueOnpzService {
         itemId: null,
         filterValues: null,
         type: null,
-        indicatorType: null,
+        indicatorType: null
     });
 
     private restUrl: string;
@@ -88,7 +88,7 @@ export class AstueOnpzService {
 
     constructor(
         private http: HttpClient,
-        private configService: AppConfigService,
+        private configService: AppConfigService
     ) {
         this.restUrl = configService.restUrl;
     }
@@ -232,11 +232,11 @@ export class AstueOnpzService {
         this.colors$.next(new Map());
     }
 
-    public async predict(unitIdValue: number): Promise<void>  {
+    public async predict(unitIdValue: number): Promise<void> {
         try {
             return await this.http
                 .post<void>(`${this.restUrl}/api/predictor/predict`, {
-                    unitId: unitIdValue,
+                    unitId: unitIdValue
                 })
                 .toPromise();
         } catch (e) {
@@ -246,9 +246,13 @@ export class AstueOnpzService {
     }
 
     public async getProductChannels(widgetId: string, options: IAstueOnpzMonitoringOptions): Promise<string[]> {
+        try {
         const response = await this.http
-            .get<{id: string}[]>(`${this.restUrl}/api/widget-data/${widgetId}/sub-channels?UnitName=${options.unitName}&ManufactureName=${options.manufactureName}&Type=${options.type}&TypeValue=${options.indicatorType}`)
+            .get<{id: string, sortIndex: number}[]>(`${this.restUrl}/api/widget-data/${widgetId}/sub-channels?UnitName=${options.unitName}&ManufactureName=${options.manufactureName}&Type=${options.type}&TypeValue=${options.indicatorType}`)
             .toPromise();
+        response.sort((a, b) => a.sortIndex > b.sortIndex ? 1 : -1);
+        console.log('sort', response);
         return response?.map(x => x.id) ?? [];
+        } catch {}
     }
 }

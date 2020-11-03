@@ -1,12 +1,16 @@
-<div class="card-block" (click)="eventClick(data?.id)">
-  <div class="card-block__header header">
+<div
+  class="card-block"
+  (click)="eventClick(data?.id)"
+  [class.sizes]="!isVideoWall"
+  [class.sizes--wall]="isVideoWall"
+>
+  <div class="card-block__header header header-size">
     <div class="header__left-block">
-      <div class="header__id">{{ data?.id }}</div>
-      <div class="header__unit">{{ data?.unit?.name }}</div>
-
+      <div class="header__id header-size__id">{{ data?.id }}</div>
+      <div class="header__unit header-size__unit">{{ data?.unit?.name }}</div>
     </div>
     <div class="header__right-block">
-      <div class="header__status"
+      <div class="header__status header-size__status"
            [ngClass]="'header__status_' + data?.priority?.name">
         {{ data?.statusName }}</div>
       <div class="header__icons">
@@ -15,43 +19,46 @@
             [applyCss]="true"
             [src]="data?.iconUrlStatus"
             [ngClass]="'icon__status_' + data?.priority?.name"
+            [svgStyle]="{ 'width.px': isVideoWall ? 24 : 14, 'height.px': isVideoWall ? 24 : 14 }"
           >
           </svg-icon>
           <svg-icon
             class="icon__category"
             [applyCss]="true"
-            [src]="data?.iconUrl">
+            [src]="data?.iconUrl"
+            [svgStyle]="{ 'width.px': isVideoWall ? 24 : 14, 'height.px': isVideoWall ? 24 : 14 }"
+          >
           </svg-icon>
         </div>
       </div>
     </div>
   </div>
 
-  <div class="card-block__body" [class.card-block__body--active]="data?.id === cardActiveId">
-    <div class="body__description">
+  <div class="card-block__body body-size" [class.card-block__body--active]="data?.id === cardActiveId">
+    <div class="body__description body-size__description">
       {{ data?.description }}
     </div>
-    <div class="body__facts">
+    <div class="body__facts body-size__facts">
       {{ data?.facts[0] ? data?.facts[0].comment : '-' }}
     </div>
   </div>
-  <div class="card-block__footer footer">
+  <div class="card-block__footer footer footer-size">
     <div class="footer__left-block">
-      <div class="footer__time-title">Начало события:</div>
-      <div class="footer__time">{{ data?.eventDateTime | date:"dd.MM.yyyy HH:mm" }}</div>
+      <div class="footer__time-title footer-size__time">Начало события:</div>
+      <div class="footer__time footer-size__time">{{ data?.eventDateTime | date:"dd.MM.yyyy HH:mm" }}</div>
     </div>
     <div class="footer__right-block">
       <div matRipple
            [matRippleColor]="'white'"
-           class="footer__critical" (click)="changeIsAcknowledged($event, data)">
+           class="footer__critical footer-size__critical" (click)="changeIsAcknowledged($event, data)">
         {{ data?.isAcknowledged ? 'Квитировано' : 'Не квитировано' }}
       </div>
       <svg-icon
-        class="footer__remove"
+        class="footer__remove footer-size__remove"
         [applyCss]="true"
         src="assets/icons/remove.svg"
         (click)="deleteClick($event, data?.id)"
-        [svgStyle]="{ 'width.px':10, 'height.px':13 }"
+        [svgStyle]="{ 'width.px': isVideoWall ? 24 : 10, 'height.px': isVideoWall ? 24 : 13 }"
       >
       </svg-icon>
     </div>

@@ -352,7 +352,7 @@ export class WidgetService {
             (msg) => {
                 console.log('message received');
                 if (msg?.error) {
-                    this.materialController.openSnackBar(msg.error.message.message);
+                    this.materialController.openSnackBar(msg.error.message.message, 'snackbar-red');
                 }
                 if (this.reconnectWsTimer) {
                     clearInterval(this.reconnectWsTimer);
@@ -430,7 +430,7 @@ export class WidgetService {
                 moment('03:29:59', timeFormat)
             )
         ) {
-            window.location.reload();
+            // window.location.reload(); // TODO: testing
         }
     }
 

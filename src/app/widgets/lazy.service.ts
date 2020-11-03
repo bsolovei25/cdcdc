@@ -5,7 +5,7 @@ import {
     ComponentFactoryResolver,
     ViewContainerRef,
     NgModuleRef,
-    StaticProvider
+    StaticProvider,
 } from '@angular/core';
 import { WIDGETS_LAZY } from './widget-map';
 
@@ -14,15 +14,14 @@ interface IInjectParameters {
 }
 
 @Injectable({
-    providedIn: 'root'
+    providedIn: 'root',
 })
 export class LazyService {
     constructor(
         private injector: Injector,
         private compiler: Compiler,
         private cfr: ComponentFactoryResolver
-    ) {
-    }
+    ) {}
 
     public async loadWidget(
         widgetType: string,
@@ -32,13 +31,13 @@ export class LazyService {
         try {
             const module = (await WIDGETS_LAZY[widgetType].import())[
                 WIDGETS_LAZY[widgetType].module
-                ];
+            ];
 
             const moduleFactory = await this.compiler.compileModuleAsync(module);
 
             const injector: Injector = Injector.create({
                 providers: this.injectionProvidersConstructor(injectParams),
-                parent: this.injector
+                parent: this.injector,
             });
 
             const moduleRef: NgModuleRef<any> = moduleFactory.create(injector);
@@ -64,7 +63,7 @@ export class LazyService {
         Object.keys(params).forEach((key) => {
             providers.push({
                 provide: key,
-                useValue: params[key]
+                useValue: params[key],
             });
         });
         return providers;

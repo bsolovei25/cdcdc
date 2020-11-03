@@ -33,9 +33,11 @@ import {
     EnumClaimGlobal,
     EnumClaimWidgets
 } from '../../../dashboard/services/claim.service';
+import set = Reflect.set;
 
 export interface IEventSettings {
     viewType: 'list' | 'cards';
+    options?: IEventsWidgetOptions;
 }
 
 @Component({
@@ -310,7 +312,6 @@ export class EventsComponent extends WidgetPlatform<IEventsWidgetAttributes> imp
             return cat.categoryType === filterCondition;
         });
 
-        console.log(this.attributes);
         this.filters = this.filters.filter((x) => {
             if (!this.attributes?.Acknowledgment && x.code === 'isNotAcknowledged') {
                 return false;
@@ -319,6 +320,8 @@ export class EventsComponent extends WidgetPlatform<IEventsWidgetAttributes> imp
         });
 
         this.placeNames = await this.eventService.getPlaces(this.id);
+        const settings = await this.getWidgetSettings();
+        this.setWidgetSettings(settings);
         this.subscriptions.push(
             this.widgetService.currentDates$.subscribe(() => {
                 this.getData();
@@ -332,7 +335,6 @@ export class EventsComponent extends WidgetPlatform<IEventsWidgetAttributes> imp
                 distinctUntilChanged()
             ).subscribe(this.getStats.bind(this))
         );
-        await this.getWidgetSettings();
     }
 
     protected dataHandler(ref: {
@@ -382,7 +384,9 @@ export class EventsComponent extends WidgetPlatform<IEventsWidgetAttributes> imp
         }
     }
 
-    private async setWidgetSettings(settings: IEventSettings): Promise<void> {
+    private async updateWidgetSettings(settingsKey: keyof  IEventSettings, value: IEventSettings[keyof IEventSettings]): Promise<void> {
+        const currentSettings = this.getCurrentWidgetSettings();
+        const settings = {...currentSettings, [settingsKey]: value};
         try {
             await this.widgetSettingsService.saveSettings<IEventSettings>(this.uniqId, settings);
         } catch (e) {
@@ -390,22 +394,48 @@ export class EventsComponent extends WidgetPlatform<IEventsWidgetAttributes> imp
         }
     }
 
-    private async getWidgetSettings(): Promise<void> {
-        const params = await this.widgetSettingsService.getSettings<IEventSettings>(this.uniqId);
-        if (!params?.viewType) {
-            return;
-        }
-        if (
-            (params.viewType === 'cards' && !this.isList) ||
-            (params.viewType === 'list' && this.isList)
+    private getCurrentWidgetSettings(): IEventSettings {
+        const viewType = this.isList ? 'list' : 'cards';
+        const options = this.getCurrentOptions();
+        return {
+            viewType,
+            options,
+        };
+    }
+
+    private async getWidgetSettings(): Promise<IEventSettings> {
+        return await this.widgetSettingsService.getSettings<IEventSettings>(this.uniqId);
+    }
+
+    private setWidgetSettings(options: IEventSettings): void {
+        this.setViewTypeSettings(options?.viewType);
+        this.setOptionsSettings(options?.options);
+    }
+
+    private setViewTypeSettings(viewType: 'cards' | 'list'): void {
+        if (!viewType ||
+            (viewType === 'cards' && !this.isList) ||
+            (viewType === 'list' && this.isList)
         ) {
             return;
         }
-        if (params.viewType === 'cards') {
+        if (viewType === 'cards') {
             this.viewChanger(false);
-        } else if (params.viewType === 'list') {
+        } else if (viewType === 'list') {
             this.viewChanger(true);
         }
+    }
+
+    private setOptionsSettings(options: IEventsWidgetOptions): void {
+        if (!options) {
+            return;
+        }
+        this.categories?.forEach((x) =>
+            x.isActive = options.categories.some((o) => o === x.id)
+        );
+        this.filters?.forEach((x) =>
+            x.isActive = options.filter === x.code
+        );
     }
 
     public onCategoryClick(category: EventsWidgetCategory): void {
@@ -422,8 +452,9 @@ export class EventsComponent extends WidgetPlatform<IEventsWidgetAttributes> imp
     }
 
     private countNotificationsDivCapacity(): void {
+        const width = !!this.attributes?.IsVideoWall ? 763 : 383;
         const notificationsDivCapacity = Math.trunc(
-            this.notificationsDiv?.nativeElement?.clientWidth / 383
+            this.notificationsDiv?.nativeElement?.clientWidth / width
         );
         this.notificationsGrouped = this.sortArray(
             this.notifications,
@@ -557,7 +588,7 @@ export class EventsComponent extends WidgetPlatform<IEventsWidgetAttributes> imp
     public viewChanger(list: boolean): void {
         this.isList = list;
         this.countNotificationsDivCapacity();
-        this.setWidgetSettings({ viewType: list ? 'list' : 'cards' });
+        this.updateWidgetSettings('viewType', this.isList ? 'list' : 'cards');
     }
 
     // Удаление виджета
@@ -657,6 +688,7 @@ export class EventsComponent extends WidgetPlatform<IEventsWidgetAttributes> imp
             this.clearNotifications();
         }
         const options = this.getCurrentOptions();
+        this.updateWidgetSettings('options', options);
         if (!options.placeNames) {
             this.isAllowScrollLoading = true;
             return;
