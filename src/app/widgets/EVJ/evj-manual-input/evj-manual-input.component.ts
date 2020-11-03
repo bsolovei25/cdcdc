@@ -231,21 +231,17 @@ export class EvjManualInputComponent extends WidgetPlatform<unknown>
                 item.open = setGroups?.groups?.find((el) => el.name === item.name)?.open ?? true;
             }
             if (itemDate.active) {
-                debugger;
                 if (!this.allSettings) {
-                    debugger;
                     this.chooseSetting = itemDate;
                     this.allSettings = false;
                 }
                 else {
-                    debugger;
                     this.chooseSetting = {
                         name: 'all'
                     };
                     itemDate.active = false;
                 }
             }else {
-                debugger;
                 this.chooseSetting = {
                     name: 'all'
                 };
