@@ -119,9 +119,6 @@ export class ManualInputService {
         const ans = await this.http
             .post<MI_DataGet>(this.restUrl + '/api/manualinput/post', Params)
             .toPromise();
-        // .subscribe((ans: MI_DataGet) => {
-        //
-        // });
         this.saveBar('Не корректный ввод', false);
         return this.SaveHistoryValues(ans, data);
     }
