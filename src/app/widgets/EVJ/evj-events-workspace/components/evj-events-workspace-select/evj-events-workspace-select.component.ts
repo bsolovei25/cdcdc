@@ -34,7 +34,8 @@ export class EvjEventsWorkspaceSelectComponent implements OnInit {
         | 'eventType'
         | 'place'
         | 'equipmentCategory'
-        | 'event';
+        | 'event'
+        | 'eoService';
 
     @Input()
     public type: 'default' | 'minor' | 'critical' = 'default';

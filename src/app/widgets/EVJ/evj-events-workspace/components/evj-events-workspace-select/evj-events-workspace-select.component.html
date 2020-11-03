@@ -63,6 +63,22 @@
         </mat-option>
       </ng-container>
 
+      <ng-container *ngIf="dataType === 'eoService'">
+        <mat-option
+          *ngFor="let eoService of ewService.asusEOServices"
+          [value]="eoService.codeSap"
+        >{{ eoService.name }}
+        </mat-option>
+      </ng-container>
+
+      <ng-container *ngIf="dataType === 'equipmentCategory'">
+        <mat-option
+          *ngFor="let item of ewService.equipmentCategory"
+          [value]="items[0].value">
+          {{ item.name }}
+        </mat-option>
+      </ng-container>
+
       <ng-container *ngIf="dataType === 'event'">
         <mat-option [value]="true">
           Квитировано
