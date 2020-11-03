@@ -37,7 +37,6 @@ export class EventCardComponent implements OnInit, OnDestroy {
 
     public ngOnInit(): void {
         console.log(this.isCdEvents);
-        this.isVideoWall = true;
     }
 
     public ngOnDestroy(): void {
