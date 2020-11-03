@@ -181,7 +181,6 @@ export class EvjManualInputComponent extends WidgetPlatform<unknown>
         }
 
         if (this.isHistorical) {
-            console.log('old data', fillDataShape(this.data));
             const saveResult = await this.manualInputService.SendHistoryData(
                 this.sendHistoryData,
                 this.data,
