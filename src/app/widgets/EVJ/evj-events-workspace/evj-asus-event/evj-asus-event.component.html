@@ -64,12 +64,23 @@
       </div>
     </div>
     <div class="workspace__select-container">
-      <evj-events-workspace-select
-        [label]="'Приоритет'"
-        [dataType]="'priorities'"
-        [type]="'critical'"
-      >
-      </evj-events-workspace-select>
+      <div class="mat-form-category">
+        <div class="event-mat-select">
+          <div class="{{ewService.event.priority.name}}">
+            <mat-form-field appearance="none">
+              <mat-label>Приоритет</mat-label>
+              <mat-select
+                [(ngModel)]="ewService.event.priority"
+                [compareWith]="compareFn"
+              >
+                <mat-option *ngFor="let p of ewService.priority" [value]="p"
+                >{{ ewService.priorities[p.name] }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 

@@ -1,93 +1,152 @@
 <div class="event-mat-select" [ngClass]="type">
   <mat-form-field appearance="none" [class.disabled]="disabled">
     <mat-label>{{ label }}</mat-label>
-    <mat-select
-      panelClass="mat-balance-select"
-      (valueChange)="onSelect($event)"
-      [value]="items[0]?.value"
-      [disabled]="disabled"
-    >
-      <ng-container *ngIf="dataType === 'categories'">
+
+    <ng-container *ngIf="dataType === 'categories'">
+      <mat-select
+        [(ngModel)]="ewService.event.category"
+        [compareWith]="compareFn"
+        (selectionChange)="ewService.changeCategory()"
+        [disabled]="!ewService.isCategoryEdit"
+      >
         <mat-option
           *ngFor="let item of ewService.categoryPipe | async; i as index"
-          [value]="items[0].value">
+          [value]="item">
           {{ ewService.categories[item.name] }}
         </mat-option>
-      </ng-container>
+      </mat-select>
+    </ng-container>
 
-      <ng-container *ngIf="dataType === 'status'">
+    <ng-container *ngIf="dataType === 'status'">
+      <mat-select
+        panelClass="mat-balance-select"
+        (valueChange)="onSelect($event)"
+        [(ngModel)]="ewService.event.status"
+        [compareWith]="compareFn"
+      >
         <mat-option
           *ngFor="let item of ewService.status; i as index"
-          [value]="items[0].value">
+          [value]="item">
           {{ ewService.statuses[item.name] }}
         </mat-option>
-      </ng-container>
+      </mat-select>
+    </ng-container>
 
-      <ng-container *ngIf="dataType === 'priorities'">
+    <ng-container *ngIf="dataType === 'priorities'">
+      <mat-select
+        panelClass="mat-balance-select"
+        [(ngModel)]="ewService.event.priority"
+        [compareWith]="compareFn"
+      >
         <mat-option
           *ngFor="let item of ewService.priority; i as index"
-          [value]="items[0].value"
+          [value]="item"
         >{{ ewService.priorities[item.name] }}
         </mat-option>
-      </ng-container>
+      </mat-select>
+    </ng-container>
 
-      <ng-container *ngIf="dataType === 'eventType'">
+    <ng-container *ngIf="dataType === 'eventType'">
+      <mat-select
+        panelClass="mat-balance-select"
+        (valueChange)="onSelect($event)"
+        [(ngModel)]="ewService.event.eventType"
+        [compareWith]="compareFn"
+      >
         <mat-option
           *ngFor="let item of ewService.eventTypes; i as index"
-          [value]="items[0].value">
+          [value]="item">
           {{ item.name }}
         </mat-option>
-      </ng-container>
+      </mat-select>
+    </ng-container>
 
-      <ng-container *ngIf="dataType === 'subCategories'">
+    <ng-container *ngIf="dataType === 'subCategories'">
+      <mat-select
+        panelClass="mat-balance-select"
+        (valueChange)="onSelect($event)"
+        [(ngModel)]="ewService.event.productionTasks.subCategory"
+        [compareWith]="compareFn"
+      >
         <mat-option
           *ngFor="let item of ewService.subCategory"
-          [value]="items[0].value">
+          [value]="item">
           {{ item.description }}
         </mat-option>
-      </ng-container>
+      </mat-select>
+    </ng-container>
 
-      <ng-container *ngIf="dataType === 'place'">
+    <ng-container *ngIf="dataType === 'place'">
+      <mat-select
+        panelClass="mat-balance-select"
+        (valueChange)="onSelect($event)"
+        [(ngModel)]="ewService.event.unit"
+        [compareWith]="compareFn"
+        [disabled]="!ewService.isCreateNewEvent"
+      >
         <mat-option
           *ngFor="let item of ewService.units"
-          [value]="items[0].value">
+          [value]="item">
           {{ item.name }}
         </mat-option>
-      </ng-container>
+      </mat-select>
+    </ng-container>
 
-      <ng-container *ngIf="dataType === 'equipmentCategory'">
+    <ng-container *ngIf="dataType === 'equipmentCategory'">
+      <mat-select
+        panelClass="mat-balance-select"
+        (valueChange)="onSelect($event)"
+      >
         <mat-option
           *ngFor="let item of ewService.equipmentCategory"
-          [value]="items[0].value">
+          [value]="item">
           {{ item.name }}
         </mat-option>
-      </ng-container>
+      </mat-select>
+    </ng-container>
 
-      <ng-container *ngIf="dataType === 'eoService'">
+    <ng-container *ngIf="dataType === 'eoService'">
+      <mat-select
+        panelClass="mat-balance-select"
+        (valueChange)="onSelect($event)"
+        [(ngModel)]="ewService.event.asusEvent.eoService"
+      >
         <mat-option
           *ngFor="let eoService of ewService.asusEOServices"
           [value]="eoService.codeSap"
         >{{ eoService.name }}
         </mat-option>
-      </ng-container>
+      </mat-select>
+    </ng-container>
 
-      <ng-container *ngIf="dataType === 'equipmentCategory'">
+    <ng-container *ngIf="dataType === 'equipmentCategory'">
+      <mat-select
+        panelClass="mat-balance-select"
+        (valueChange)="onSelect($event)"
+        [value]="items[0]?.value"
+        [disabled]="disabled"
+      >
         <mat-option
           *ngFor="let item of ewService.equipmentCategory"
           [value]="items[0].value">
           {{ item.name }}
         </mat-option>
-      </ng-container>
+      </mat-select>
+    </ng-container>
 
-      <ng-container *ngIf="dataType === 'event'">
+    <ng-container *ngIf="dataType === 'event'">
+      <mat-select
+        panelClass="mat-balance-select"
+        (valueChange)="onSelect($event)"
+        [(ngModel)]="ewService.event.isAcknowledged"
+      >
         <mat-option [value]="true">
           Квитировано
         </mat-option>
         <mat-option [value]="false">
           Не квитировано
         </mat-option>
-      </ng-container>
-
-    </mat-select>
+      </mat-select>
+    </ng-container>
   </mat-form-field>
 </div>
