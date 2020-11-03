@@ -28,15 +28,33 @@ interface IDiagrammOptions {
     styleUrls: ['./ozsm-diagrams-card.component.scss'],
 })
 export class OzsmDiagramsCardComponent implements OnInit, OnChanges {
-
+    // Различные случаи
     @Input()
-    public data: IOzsmCircleDiagram = {
-        fact: 6622,
-        plan: 6622,
+    /*public data: IOzsmCircleDiagram = {
+        fact: 1041,
+        plan: 1041,
         deviation: 0,
         percentage: 100,
         amount: 500,
-        title: '№1',
+        title: '№5',
+    };*/
+
+    /*public data: IOzsmCircleDiagram = {
+        fact: 6455,
+        plan: 7239,
+        deviation: -784,
+        percentage: 89,
+        amount: 500,
+        title: '№3',
+    };*/
+
+    public data: IOzsmCircleDiagram = {
+        fact: 5087,
+        plan: 4861,
+        deviation: 226,
+        percentage: 105,
+        amount: 500,
+        title: '№4',
     };
 
     private readonly diagramCounter: number = 160;
