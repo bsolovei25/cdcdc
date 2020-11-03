@@ -66,7 +66,7 @@ export class EvjManualInputHistoryComponent implements OnInit, OnChanges {
             .groups[data.historyIdx.groupIdx]
             .params[data.historyIdx.paramsIdx];
 
-        this.paramsData.historyValues.forEach(item => {
+        this.paramsData?.historyValues?.forEach(item => {
             item.hourValues.forEach(hour => {
                 this.hours.push(hour.hour);
                 this.hoursValue.push(hour.value);

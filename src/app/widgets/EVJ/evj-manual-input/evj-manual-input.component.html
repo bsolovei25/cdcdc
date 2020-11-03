@@ -165,7 +165,7 @@
                                 [class.data_active__error]="i.isError && !i.isSave"
                                 (change)="onChangeValue($event, i.id)"
                                 (focusout)="onUnfocusValue(i.id)"
-                                (click)="onChooseGroup(machineIdx, groupsIdx, paramsIdx)"
+                                (click)="onChooseGroup(machine.name, groupsIdx, paramsIdx)"
                               />
                             </div>
                             <div class="item-block__value">{{i.minValue}}</div>

@@ -25,6 +25,7 @@ import {
 } from './../../../dashboard/models/EVJ/manual-input.model';
 import { WidgetPlatform } from 'src/app/dashboard/models/@PLATFORM/widget-platform';
 import { fillDataShape } from '@shared/functions/common-functions';
+import { StringDecoder } from 'string_decoder';
 
 @Component({
     selector: 'evj-evj-manual-input',
@@ -140,7 +141,13 @@ export class EvjManualInputComponent extends WidgetPlatform<unknown>
         this.loadSaveData(ref);
     }
 
-    onChooseGroup(machineIdx: number = 0, groupIdx: number = 0, paramsIdx: number = 0): void {
+    onChooseGroup(name: string, groupIdx: number, paramsIdx: number): void {
+        let machineIdx: number;
+        this.data.forEach((item, i) => {
+            if (item.name === name) {
+                machineIdx = i;
+            }
+        });
         this.historicalDataIndx = {
             machineIdx,
             groupIdx,
@@ -224,12 +231,28 @@ export class EvjManualInputComponent extends WidgetPlatform<unknown>
                 item.open = setGroups?.groups?.find((el) => el.name === item.name)?.open ?? true;
             }
             if (itemDate.active) {
-                this.chooseSetting = itemDate;
-                this.allSettings = false;
+                debugger;
+                if (!this.allSettings) {
+                    debugger;
+                    this.chooseSetting = itemDate;
+                    this.allSettings = false;
+                }
+                else {
+                    debugger;
+                    this.chooseSetting = {
+                        name: 'all'
+                    };
+                    itemDate.active = false;
+                }
+            }else {
+                debugger;
+                this.chooseSetting = {
+                    name: 'all'
+                };
             }
         }
         this.data = this.manualInputService.LoadData(this.data, data.machines);
-        if (!this.chooseSetting) {
+        if (this.chooseSetting?.name === 'all') {
             this.filteredData = this.data;
         } else {
             this.filteredData = [];
@@ -243,7 +266,7 @@ export class EvjManualInputComponent extends WidgetPlatform<unknown>
     }
 
     onAllSettings(): void {
-        this.allSettings = !this.allSettings;
+        this.allSettings = true;
         this.data?.forEach((el) => (el.active = false));
         this.filteredData = this.data;
         this.OnManualInputSendSettings(this.saveDataObj());
