@@ -1,0 +1,230 @@
+<evj-contemporary-widget-header
+  [uniqId]="uniqId" 
+  [widgetTitle]="widgetTitle" 
+  icon="keyboard"
+  type="astue"
+>
+  <div class="historical" 
+    *ngIf="!isHistorical"
+  >
+    <div
+      class="historical__btn"
+      (mousedown)="$event.stopPropagation()"
+      (touchstart)="$event.stopPropagation()"
+      (click)="showHistorical()"
+      [style.opacity]="(data.length>0) ? '1' : '0.2'" 
+    >
+    Исторические данные
+    </div>
+  </div>
+
+  <div 
+    class="historical" 
+    *ngIf="isHistorical"
+  >
+    <div
+      class="historical__btn"
+      (mousedown)="$event.stopPropagation()"
+      (touchstart)="$event.stopPropagation()"
+      (click)="isHistorical=false"
+    >
+    Ручной ввод
+    </div>
+  </div>
+</evj-contemporary-widget-header>
+  <div
+    class="table-container"
+    (mousedown)="$event.stopPropagation()"
+    (touchstart)="$event.stopPropagation()"
+  >
+    <div class="table">
+      <div id="saveBarBlock">
+        <div class="loader">
+          <svg viewBox="25 25 50 50">
+            <circle cx="50" cy="50" r="20"></circle>
+          </svg>
+        </div>
+      </div>
+      <div id="saveBar"></div>
+      <div class="table__menu">
+        <div class="set-button all-settings-button" (click)="onAllSettings()" [class.active]="allSettings" *ngIf="!isHistorical">
+          Все установки
+        </div>
+        <div class="settings-button" #scroll >
+          <div class="set-buttons" #truckScroll *ngIf="!isHistorical">
+            <div
+              class="set-button"
+              *ngFor="let machine of data"
+              (click)="onSettings(machine)"
+              [ngClass]="{'active': machine?.active}"
+            >
+              {{machine?.name}}
+            </div>
+          </div>
+        </div>
+        <div
+          class="set-button save-button"
+          (click)="onButtonSave()"
+          [style.opacity]="isSaveButton() ? '1' : '0.2'"
+        >
+          Сохранить изменения
+        </div>
+      </div>
+      <div class="table__container" *ngIf="!isHistorical">
+        <div class="container-header">
+          <div class="container-header__info-blocks">
+            <div class="param" (click)="onShowAllSettings()">
+              <svg-icon
+                src="assets/icons/widgets/manual-input/arrow_down.svg"
+                [svgStyle]="{ 'width.px':10, 'height.px':10 }"
+                [style.transform]="openAllSettings? 'rotate(-180deg)':'rotate(0deg)'">
+              </svg-icon>
+              <span>Параметры</span>
+            </div>
+            <div class="block-param unit">
+              <span>Единица Измерения</span>
+            </div>
+            <div class="block-param">
+              <span>Предыдущая дата</span>
+            </div>
+            <div class="block-param lastValue">
+              <span>Предыдущее значение</span>
+            </div>
+            <div class="block-param">
+              <span>Текущая дата</span>
+            </div>
+            <div class="block-param curValue">
+              <span>Текущее значение</span>
+            </div>
+            <div class="block-param minValue">
+              <span>Минимальная граница</span>
+            </div>
+            <div class="block-param maxValue">
+              <span>Максимальная граница</span>
+            </div>
+            <div class="message">
+              <span>Комментарий</span>
+            </div>
+          </div>
+        </div>
+        <div class="container" id="container">
+            <ng-container *ngFor="let machine of filteredData; let machineIdx = index">
+              <div class="machine-name" (click)="onShowMachine(machine)">
+                <svg-icon
+                  src="assets/icons/widgets/manual-input/arrow_down.svg"
+                  [svgStyle]="{ 'width.px':10, 'height.px':10 }"
+                  [style.transform]="machine?.open? 'rotate(-180deg)':'rotate(0deg)'">
+                ></svg-icon>
+                <div class="machine-name__title">
+                  {{machine?.name}}
+                </div>
+              </div>
+              <div class="machines-container" [@Branch]="(machine?.open) ? 'expanded' : 'collapsed'">
+                <ng-container *ngFor="let item of machine.groups; let groupsIdx = index">
+                  <div class="machine-container">
+                    <div class="item-name" (click)="onShowItemMachine(item)">
+                      <svg-icon
+                        src="assets/icons/widgets/manual-input/arrow_down.svg"
+                        [svgStyle]="{ 'width.px':10, 'height.px':10 }"
+                        [style.transform]="item?.open? 'rotate(-180deg)':'rotate(0deg)'">
+                      ></svg-icon>
+                      <div class="item-name__title">{{item?.name}}</div>
+                    </div>
+                    <div class="item-container" [@Branch]="(item?.open) ? 'expanded' : 'collapsed'">
+                      <ng-container *ngFor="let i of item?.params; let paramsIdx = index">
+                        <div 
+                          class="items"
+                          [class.items_selected]="i.id === data[historicalDataIndx.machineIdx]?.groups[historicalDataIndx.groupIdx].params[historicalDataIndx.paramsIdx]?.id" 
+                        >
+                          <div 
+                            class="item-block"
+                          >
+                            <div 
+                              class="name"
+                            >
+                              <span>{{i?.name}}</span>
+                            </div>
+                            <div class="item-block__value">{{i.unit}}.</div>
+                            <div class="item-block__value">
+                              {{i.lastTime | date: 'dd.MM.yyyy HH:mm'}}
+                            </div>
+                            <div class="item-block__value lastValue">{{i.lastValue}}</div>
+                            <div class="item-block__value">
+                              {{i.curTime | date: 'dd.MM.yyyy HH:mm'}}
+                            </div>
+                            <div class="item-block__value input_value">
+                              <input
+                                class="data"
+                                type="text"
+                                placeholder="--------"
+                                [readOnly]="!isSaveButton()"
+                                [class.data_notActive]="!i.isActive || !isSaveButton()"
+                                [class.data_active]="i.isActive"
+                                [class.data_active__saving]="i.isActive && i.isSave"
+                                [class.data_active__warning]="i.isWarning && !i.isSave && i.isActive && !i.isError"
+                                [class.data_active__error]="i.isError && !i.isSave"
+                                (change)="onChangeValue($event, i.id)"
+                                (focusout)="onUnfocusValue(i.id)"
+                                (click)="onChooseGroup(machine.name, groupsIdx, paramsIdx)"
+                              />
+                            </div>
+                            <div class="item-block__value">{{i.minValue}}</div>
+                            <div class="item-block__value">{{i.maxValue}}</div>
+                          </div>
+                          <div
+                            class="message"
+                          >
+                            <svg-icon
+                              src="assets/icons/widgets/manual-input/message2.svg"
+                              class="message-icon"
+                              [ngClass]="{'activeIcon': i?.openInput}"
+                              [ngClass]="{'activeIcon': i?.comment}"
+                              (click)="onInputMessage(i)"
+                              [svgStyle]="{ 'width.px':29, 'height.px':20}"
+                            >
+                            </svg-icon>
+                          </div>
+                          <div
+                            class="input-message-none"
+                            [ngClass]="{'input-message': i?.openInput === true }"
+                          >
+                            <div class="input-header">
+                              <span>Комментарий</span>
+                              <svg-icon class="close-btn"
+                                (click)="onInputMessage(i)"
+                                src="assets/icons/widgets/manual-input/close.svg"
+                              ></svg-icon>
+                            </div>
+                            <textarea
+                              class="comment-input"
+                              type="text"
+                              placeholder="Напишите свой комментарий..."
+                              [readOnly]="!isSaveButton()"
+                              (change)="onChangeMessageValue($event, i.id)"
+                              [class.data_notActive]="!i.isActive || !isSaveButton()"
+                              [class.data_active__saving]="i.isActive"
+                            >{{i.comment}}</textarea>
+                          </div>
+                        </div>
+                      </ng-container>
+                    </div>
+                  </div>
+                </ng-container>
+              </div>
+            </ng-container>
+        </div>
+        <div class="container-footer"></div>
+      </div>
+      <evj-manual-input-history
+        style="height: 100%"
+        *ngIf="isHistorical"
+        [isUserHasWriteClaims]="isUserHasWriteClaims"
+        [data]="{
+          machineData: data,
+          historyIdx: historicalDataIndx,
+          edit: editMode 
+        }"
+        (onSendHistoryData) = "getSendHistoryData($event)"
+      ></evj-manual-input-history>
+  </div>
+</div>

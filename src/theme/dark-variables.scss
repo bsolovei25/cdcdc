@@ -287,13 +287,14 @@
   --nk-color-innage-axis: #E8E6DD;
   --nk-color-scroll-thumb: #272b35;
   --nk-color-bg-innage-min: #0C5395;
+
+  --nk-color-bg-selected: #282D3C;
   --nk-color-bg-lvl-last: #00549D;
   --nk-color-white: #ffffff;
   --nk-color-bg-body: #161922;
   --nk-color-bg-card-body: #1e212d;
   --nk-color-bg-filter-menu: rgba(39, 42, 56, 0.5);
 
-  // new
   --color-gray80: #272a38;
   --color-gray40: #8c99b2;
 
@@ -483,6 +484,30 @@
   --evj-events-icon-bg: #2A394A;
   --evj-events-icon: rgb(63, 168, 243);
 
+
+  // EVJ
+  --evj-color-bg-footer: #272A38;
+  --evj-color-bg-main: #12151E;
+  --evj-color-item-bg-main: #1C202C;
+  --evj-color-scrollbar-thumb: #282D3C;
+  --evj-color-white: #ffffff;
+  --evj-color-item-text-sub: #61657F;
+  --evj-color-item-text-filter: #8D99B2;
+
+  --evj-color-active: #0089FF;
+  --evj-color-bg-btn: rgba(48, 53, 73, 0.5);
+  --evj-color-bg-filter: rgba(39, 42, 56, 0.5);
+
+  --evj-color-message-stroke: #1A1E29;
+  --evj-color-scrollbar-corner: #999;
+  --evj-color-scrollbar-resizer: #666;
+  --evj-color-bg-info: rgba(32, 35, 51, 0.4);
+  --evj-color-bg-machine-item: rgba(28, 32, 44, 0.8);
+  --evj-color-bg-comment: rgba(23, 26, 36);
+  --evj-color-border-comment: rgba(96, 101, 128, 0.25);
+  --evj-color-bg-input: #161922;
+  --evj-color-bg-hours: rgba(32, 35, 51, 0.75);
+
   // events workspace
   --evj-events-workspace-critical: #DB0000;
   --evj-events-workspace-critical-bg: rgba(219, 0, 0, 0.15);
@@ -494,7 +519,6 @@
   --evj-events-workspace-text-sub: #616580;
   --evj-events-workspace-item-title: #8A98B3;
 }
-
 $--color-active: #3fa9f5;
 $--color-danger: #eb5757;
 $--color-warning: #f4a321;
