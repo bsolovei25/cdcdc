@@ -212,11 +212,13 @@
 </ng-template>
 
 <ng-template #block let-cardData="cardData">
-  <evj-evj-event-card-block style="flex: 1 1 340px"
-                            [data]="cardData"
+  <evj-evj-event-card-block [data]="cardData"
                             [cardActiveId]="cardActiveId"
                             (cardClick)="eventClick($event)"
                             (cardDeleteClick)="deleteClick(null, $event)"
+                            [isVideoWall]="isVideoWall"
+                            [class.block-container__item]="!isVideoWall"
+                            [class.block-container__item--wall]="isVideoWall"
   >
   </evj-evj-event-card-block>
 </ng-template>

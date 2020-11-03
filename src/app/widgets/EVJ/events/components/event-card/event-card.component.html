@@ -88,19 +88,25 @@
 
 <ng-template #block let-cardData="cardData">
   <div
-    class="notification__block notifications__block__item"
+    class="notification__block"
     [class.notification-event]="!isCdEvents" [class.notification-cd-event]="isCdEvents"
     [class.selected-block]="cardData?.id === cardActiveId"
+    [class.notification__block-size--wall]="isVideoWall"
+    [class.notification__block-size]="!isVideoWall"
+    [class.notifications__block__item--wall]="isVideoWall"
+    [class.notifications__block__item]="!isVideoWall"
     (click)="eventClick(cardData?.id)"
   >
     <div class="notification__block__header">
       <span
-        class="notification__block__number"
+        class="notification__block__number number"
         [ngClass]="'notification__number_' + cardData?.priority"
       >
         {{ cardData?.id }}
       </span>
-      <span class="notification__block__unit">
+      <span
+        class="notification__block__unit unit"
+      >
         {{ cardData?.unit?.name || '-' }}
       </span>
 
@@ -113,57 +119,55 @@
         {{cardData?.isAcknowledged ? 'Квитировано' : 'Не квитировано'}}
       </div>
 
-      <div class="notification__block__extra">
+      <div class="notification__block__extra extra">
         <span
-          class="notification__block__status"
+          class="notification__block__status status"
           [ngClass]="'notification__block__status_' + cardData?.priority?.name"
         >
           {{ cardData?.statusName }}
         </span>
-        <span class="notification__block__status">
+        <span class="notification__block__status status">
           <svg-icon
             [applyCss]="true"
             [src]="cardData?.iconUrlStatus"
             [ngClass]="'notification__block__icon_' + cardData?.priority?.name"
-            [svgStyle]="{'fill':'rgb(63, 168, 243)'}"
+            class="icon"
+            [svgStyle]="{ 'width.px': isVideoWall ? 20 : 14, 'height.px': isVideoWall ? 20 : 14 }"
           >
           </svg-icon>
         </span>
-        <span *ngIf="!cardData?.source" class="notification__block__status">
+        <span *ngIf="!cardData?.source" class="notification__block__status status">
           <svg-icon
-            class="notification__block__icon notification__block__icon_delete"
+            class="notification__block__icon notification__block__icon_delete icon"
             [applyCss]="true"
             src="assets/icons/remove.svg"
             (click)="deleteClick($event, cardData?.id)"
-            [svgStyle]="{ 'width.px':14, 'height.px':14 }"
+            [svgStyle]="{ 'width.px': isVideoWall ? 20 : 14, 'height.px': isVideoWall ? 20 : 14 }"
           >
           </svg-icon>
         </span>
-        <span class="notification__block__span__icon">
+        <span class="notification__block__extra__span-icon span-icon">
           <svg-icon
             [applyCss]="true"
-            class="notification__block__icon__right"
+            class="notification__block__icon__right icon-right"
             [src]="cardData?.iconUrl"
-            [ngClass]="'notification__block__icon_'"
-            [svgStyle]="{'fill':'rgb(63, 168, 243)'}"
+            [svgStyle]="{ 'width.px': isVideoWall ? 40 : 14, 'height.px': isVideoWall ? 40 : 14 }"
           >
           </svg-icon>
         </span>
       </div>
     </div>
-    <div class="notification__block__body">
-      <span class="notification__block__description">
+    <div class="notification__block__body body">
+      <span class="notification__block__description description">
         {{ cardData?.description }}
       </span>
-      <span class="notification__block__facts">
+      <span class="notification__block__facts facts">
         {{ cardData?.facts[0] ? cardData?.facts[0].comment : '-' }}
       </span>
     </div>
-    <div class="notification__block__footer">
-      <span class="notification__block__footer-text">Начало события:</span>
-      <span class="notification__block__footer-date-time"
-      >{{ cardData?.eventDateTime | date: 'dd.MM.yyyy HH:mm' }}</span
-      >
+    <div class="notification__block__footer footer">
+      <span class="notification__block__footer-text footer-text">Начало события:</span>
+      <span class="notification__block__footer-text footer-text">{{ cardData?.eventDateTime | date: 'dd.MM.yyyy HH:mm' }}</span>
     </div>
   </div>
 </ng-template>
