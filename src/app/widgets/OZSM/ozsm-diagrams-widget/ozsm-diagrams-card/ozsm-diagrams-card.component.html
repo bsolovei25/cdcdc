@@ -1,8 +1,14 @@
 <div class="wrapper">
   <div class="card-container">
     <div class="content">
-      <span>{{ data.fact }}</span>
-      <span *ngIf="data.deviation">{{ data.deviation }}</span>
+      <span 
+        class="fact"
+        [ngClass]="{zeroDeviation:!data.deviation}"
+      >{{ data.fact }}</span>
+      <div class="info">
+        <span *ngIf="data.deviation" class="deviation">{{ data.deviation}} </span>
+        <span *ngIf="data.deviation" class="plan">&#160;/ {{ data.plan }}</span>
+      </div>
     </div>
     <i class="card-container__circle">
       <div class="chart">
