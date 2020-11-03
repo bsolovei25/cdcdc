@@ -143,12 +143,13 @@ export class EvjManualInputComponent extends WidgetPlatform<unknown>
     }
 
     showHistorical(): void {
-        this.isHistorical = true;
+        if(this.data.length > 0) {
+            this.isHistorical = true;
+        }
     }
 
     getSendHistoryData(data: MI_ParamSend[]): void {
         this.sendHistoryData = data;
-        debugger;
     }
 
     @Output()

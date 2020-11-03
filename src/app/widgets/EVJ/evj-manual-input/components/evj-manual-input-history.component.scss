@@ -144,7 +144,10 @@ input {
       padding-right: 5px;
 
       border-right: none;
+      text-align: left;
       white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
 
       color: var(--evj-color-item-text-filter);
     }

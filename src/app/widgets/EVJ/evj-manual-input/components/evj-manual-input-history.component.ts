@@ -39,10 +39,6 @@ import { ManualInputService } from '../../../../dashboard/services/widgets/EVJ/m
 })
 export class EvjManualInputHistoryComponent implements OnInit, OnChanges {
     @Input() isUserHasWriteClaims: boolean;
-    @Input() set edit(data: boolean) {
-        debugger;
-        this.editMode = data;
-    }
     @Input() set data(data: {
         machineData: IMachine_MI[];
         historyIdx: IHistoryIdx
@@ -113,7 +109,6 @@ export class EvjManualInputHistoryComponent implements OnInit, OnChanges {
 
     deactivateEditMode(): void {
         this.editMode = false;
-        debugger;
     }
 
     onChangeHistoricalValue(e: any, i: number, prevValue: number): void {

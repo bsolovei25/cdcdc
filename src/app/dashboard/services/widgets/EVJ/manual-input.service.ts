@@ -119,7 +119,6 @@ export class ManualInputService {
     }
 
     SaveHistoryValues(ids: MI_DataGet, data: IMachine_MI[]): void {
-        debugger;
         if (ids.trueValues.length > 0) {
             /*ids.trueValues.forEach(item => {
                 let el = this.GetElementById(item.id, data);

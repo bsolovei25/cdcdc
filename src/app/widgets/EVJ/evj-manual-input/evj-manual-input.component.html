@@ -11,7 +11,8 @@
       class="historical__btn"
       (mousedown)="$event.stopPropagation()"
       (touchstart)="$event.stopPropagation()"
-      (click)="showHistorical()"  
+      (click)="showHistorical()"
+      [style.opacity]="(data.length>0) ? '1' : '0.2'" 
     >
     Исторические данные
     </div>
@@ -218,7 +219,6 @@
         style="height: 100%"
         *ngIf="isHistorical"
         [isUserHasWriteClaims]="isUserHasWriteClaims"
-        [edit]="editMode"
         [data]="{
           machineData: data,
           historyIdx: historicalDataIndx
