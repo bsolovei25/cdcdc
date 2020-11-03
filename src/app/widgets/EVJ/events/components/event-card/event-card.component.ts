@@ -15,6 +15,9 @@ export class EventCardComponent implements OnInit, OnDestroy {
     public viewType: 'block' | 'list';
 
     @Input()
+    public isVideoWall: boolean = false;
+
+    @Input()
     public cardActiveId: number = 0;
 
     @Input()
@@ -34,6 +37,7 @@ export class EventCardComponent implements OnInit, OnDestroy {
 
     public ngOnInit(): void {
         console.log(this.isCdEvents);
+        this.isVideoWall = true;
     }
 
     public ngOnDestroy(): void {

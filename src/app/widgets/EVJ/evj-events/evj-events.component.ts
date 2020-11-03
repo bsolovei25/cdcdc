@@ -481,8 +481,9 @@ export class EvjEventsComponent extends WidgetPlatform<IEventsWidgetAttributes> 
     }
 
     private countNotificationsDivCapacity(): void {
+        const width = !!this.attributes?.IsVideoWall ? 763 : 383;
         const notificationsDivCapacity = Math.trunc(
-            this.notificationsDiv?.nativeElement?.clientWidth / 383
+            this.notificationsDiv?.nativeElement?.clientWidth / width
         );
         this.notificationsGrouped = this.sortArray(
             this.notifications,
