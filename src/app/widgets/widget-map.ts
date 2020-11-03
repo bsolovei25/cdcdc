@@ -1538,10 +1538,10 @@ export const WIDGETS_LAZY = {
     'manual-input': {
         import: async () => {
             return await import(
-                'src/app/widgets/EVJ/manual-input/manual-input.module'
+                'src/app/widgets/EVJ/evj-manual-input/evj-manual-input.module'
                 );
         },
-        module: 'ManualInputModule',
+        module: 'EvjManualInputModule',
         itemCols: 45,
         itemRows: 20,
         minItemCols: 35,
