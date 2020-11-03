@@ -19,5 +19,5 @@ export type ApsHeaderIconType =
     | 'energy'
     | 'kpe-marker'
     | 'sliders'
-    | 'keyboard';
-    | 'dots-triangle'
+    | 'keyboard'
+    | 'dots-triangle';
