@@ -57,21 +57,27 @@
         <div class="block">
           <div class="block__items">
             <div class="item item_s">
-              <evj-astue-efficiency-items></evj-astue-efficiency-items>
+              <evj-astue-efficiency-items
+                [data]="data"
+                (selectProduct)="onSelectProduct($event)"
+              ></evj-astue-efficiency-items>
             </div>
             <div class="item item_s">
               <evj-astue-efficiency-units
                 [isInitialDataShow]="isInitialDataShow"
+                [units]="units"
+                *ngIf="selection.hasValue()"
               ></evj-astue-efficiency-units>
             </div>
           </div>
-          <div class="calculation">
-            <evj-astue-efficiency-calculation></evj-astue-efficiency-calculation>
-          </div>
+          <!--          <div class="calculation">-->
+          <!--            <evj-astue-efficiency-calculation></evj-astue-efficiency-calculation>-->
+          <!--          </div>-->
         </div>
         <div class="item item_xl">
           <evj-astue-efficiency-table-display
             [isInitialDataShow]="isInitialDataShow"
+            [planningTable]="tableDisplay"
           ></evj-astue-efficiency-table-display>
         </div>
       </ng-container>

@@ -3,7 +3,9 @@ import {
     IAsEfProduct,
     IAsEfUnitNew,
     IAsEfFlow,
-    IAsEfTable
+    IAsEfTable,
+    IAsEfTableBlock,
+    IAsPlanningTable,
 } from '../../../dashboard/models/ASTUE/astue-efficiency.model';
 import { SelectionModel } from '@angular/cdk/collections';
 import { WidgetService } from '../../../dashboard/services/widget.service';
@@ -13,9 +15,10 @@ import { WidgetPlatform } from '../../../dashboard/models/@PLATFORM/widget-platf
 @Component({
     selector: 'evj-astue-mnpz-efficiency',
     templateUrl: './astue-mnpz-efficiency.component.html',
-    styleUrls: ['./astue-mnpz-efficiency.component.scss']
+    styleUrls: ['./astue-mnpz-efficiency.component.scss'],
 })
-export class AstueMnpzEfficiencyComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
+export class AstueMnpzEfficiencyComponent extends WidgetPlatform<unknown>
+    implements OnInit, OnDestroy {
     public isLoading: boolean = true;
 
     public isGraphDisplay: boolean = true;
@@ -24,6 +27,7 @@ export class AstueMnpzEfficiencyComponent extends WidgetPlatform<unknown> implem
     public data: IAsEfProduct[] = [];
     public units: IAsEfUnitNew[] = [];
     public initialData: IAsEfTable[] = [];
+    public tableDisplay: IAsPlanningTable[] = [];
 
     public selection: SelectionModel<IAsEfProduct> = new SelectionModel<IAsEfProduct>();
     public selectionUnits: SelectionModel<IAsEfUnitNew> = new SelectionModel<IAsEfUnitNew>(false);
@@ -42,13 +46,16 @@ export class AstueMnpzEfficiencyComponent extends WidgetPlatform<unknown> implem
     public ngOnInit(): void {
         super.widgetInit();
         this.subscriptions.push(
-            this.AsEfService.selectionFlow$.subscribe(value => {
+            this.AsEfService.selectionFlow$.subscribe((value) => {
                 this.initialData = [];
-                value?.forEach(flow => {
+                value?.forEach((flow) => {
                     if (flow?.initialData) {
                         this.initialData = [...this.initialData, ...flow?.initialData];
                     }
                 });
+            }),
+            this.AsEfService.unitsTablePlanning$.subscribe((value) => {
+                this.tableDisplay = value;
             })
         );
     }

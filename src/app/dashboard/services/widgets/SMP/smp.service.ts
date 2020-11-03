@@ -18,12 +18,6 @@ export class SmpService {
 
     constructor( private configService: AppConfigService, private http: HttpClient) {
         this.smpUrl = configService.smpUrl;
-        console.log();
-        a;
-        async function a(): Promise<void> {
-            await this.getQualityOrdering();
-        }
-
     }
 
     async getQualityOrdering(): Promise<any[]> {

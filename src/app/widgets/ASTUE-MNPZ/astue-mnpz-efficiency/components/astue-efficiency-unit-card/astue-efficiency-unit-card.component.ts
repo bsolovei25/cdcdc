@@ -2,7 +2,7 @@ import { Component, Input, Output, EventEmitter, OnChanges, OnInit } from '@angu
 import { SelectionModel } from '@angular/cdk/collections';
 import {
     IAsEfUnitNew,
-    IAsEfFlow
+    IAsEfFlow,
 } from '../../../../../dashboard/models/ASTUE/astue-efficiency.model';
 import { AstueEfficiencyService } from '../../../../../dashboard/services/widgets/ASTUE/astue-efficiency.service';
 import { log } from 'util';
@@ -10,7 +10,7 @@ import { log } from 'util';
 @Component({
     selector: 'evj-astue-efficiency-unit-card',
     templateUrl: './astue-efficiency-unit-card.component.html',
-    styleUrls: ['./astue-efficiency-unit-card.component.scss']
+    styleUrls: ['./astue-efficiency-unit-card.component.scss'],
 })
 export class AstueEfficiencyUnitCardComponent implements OnChanges {
     @Input() public unit: IAsEfUnitNew;
@@ -22,8 +22,7 @@ export class AstueEfficiencyUnitCardComponent implements OnChanges {
 
     @Input() cardSelection: SelectionModel<IAsEfFlow> = this.AsEfService.cardSelection;
 
-    constructor(private AsEfService: AstueEfficiencyService) {
-    }
+    constructor(private AsEfService: AstueEfficiencyService) {}
 
     public ngOnChanges(): void {
         this.isOpen = this.AsEfService.isCardOpen(this.unit.name);
