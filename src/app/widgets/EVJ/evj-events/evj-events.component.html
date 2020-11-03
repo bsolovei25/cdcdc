@@ -23,7 +23,7 @@
       </div>
     </div>
   </evj-contemporary-widget-header>
-  <evj-frame-top class="frame-top" *ngIf="widgetIsVideoWall"></evj-frame-top>
+  <evj-frame-top class="frame-top" *ngIf="attributes?.IsVideoWall"></evj-frame-top>
   <evj-alert-window [info]="eventAlertInfo$ | async"></evj-alert-window>
   <div
     class="pointer-events"
@@ -42,7 +42,7 @@
       <div
         class="notifications"
         #notifications
-        [ngClass]="widgetIsVideoWall ? 'notifications--display-wall' : 'notifications--display-standart'"
+        [ngClass]="attributes?.IsVideoWall ? 'notifications--display-wall' : 'notifications--display-standart'"
       >
         <cdk-virtual-scroll-viewport
           [itemSize]="isList ? null : 111"
@@ -66,7 +66,7 @@
           </ng-container>
         </cdk-virtual-scroll-viewport>
       </div>
-      <ng-container *ngIf="!widgetIsVideoWall">
+      <ng-container *ngIf="!attributes?.IsVideoWall">
         <div class="controls">
           <div class="controls__line controls__line_left">
             <div class="controls__circle controls__circle_left"></div>
