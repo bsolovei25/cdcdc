@@ -74,6 +74,7 @@
         </div>
         <evj-event-description
           [description]="ewService.event?.description"
+          [disabled]="!ewService.isCreateNewEvent"
           (changedDescription)="onChangeEventDescription($event)"
         ></evj-event-description>
       </div>
