@@ -19,6 +19,9 @@ export class EvjEventDescriptionComponent implements OnInit, AfterViewInit {
     @Input() public description: string = '';
     @Input() public isRetrievalEvent: boolean = false;
     @Input() titleName: string = 'Краткое описание';
+    @Input() public reason: string = '';
+    @Input() public isAdder: boolean = true;
+    @Output() private addReason: EventEmitter<void> = new EventEmitter<void>();
 
     @Output() private changedDescription: EventEmitter<string> = new EventEmitter<string>();
 
@@ -45,5 +48,8 @@ export class EvjEventDescriptionComponent implements OnInit, AfterViewInit {
 
     public onChangeTextarea(): void {
         this.changedDescription.emit(this.description);
+    }
+    public onClickAdd(): void {
+        this.addReason.emit();
     }
 }

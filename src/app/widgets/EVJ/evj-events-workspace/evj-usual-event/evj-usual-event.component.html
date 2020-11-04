@@ -6,23 +6,11 @@
 >
   <div class="workspace__header">
     <div class="workspace__select-container-left">
-      <div class="mat-form-category">
-        <div class="event-mat-select">
-          <mat-form-field appearance="none">
-            <mat-label>Категория</mat-label>
-            <mat-select
-              [(ngModel)]="ewService.event.category"
-              [compareWith]="compareFn"
-              (selectionChange)="ewService.changeCategory()"
-              [disabled]="!ewService.isCategoryEdit"
-            >
-              <mat-option *ngFor="let item of ewService.categoryPipe | async" [value]="item">
-                {{ ewService.categories[item.name] }}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
-        </div>
-      </div>
+      <evj-events-workspace-select
+        [label]="'Категории'"
+        [dataType]="'categories'"
+      >
+      </evj-events-workspace-select>
     </div>
 
     <div class="workspace__select-container">

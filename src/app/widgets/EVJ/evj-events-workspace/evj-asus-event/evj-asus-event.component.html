@@ -118,7 +118,7 @@
       </evj-events-workspace-select>
     </div>
     <div class="workspace__select-container">
-      <div class="creator__title">
+      <div class="title">
         <span>ID в Системе-источник</span>
       </div>
       <div class="creator__field">
@@ -192,8 +192,9 @@
           <span>Решение</span>
         </div>
         <evj-event-description
-          [description]="ewService.event?.description"
-          (changedDescription)="onChangeEventDescription($event)"
+          [isAdder]="false"
+          [reason]="ewService?.event?.directReasons"
+          (addReason)="isReasonsPopupOpen=true"
         ></evj-event-description>
       </div>
     </div>
