@@ -120,12 +120,12 @@
     </div>
     <div class="workspace__select-container">
       <div class="creator">
-      <div class="creator__title">
-        <span>ID в Системе-источник</span>
-      </div>
-      <div class="creator__field">
-        {{this.ewService.event?.externalCode ? this.ewService.event?.externalCode : ''}}
-      </div>
+        <div class="creator__title">
+          <span>ID в Системе-источник</span>
+        </div>
+        <div class="creator__field">
+          {{this.ewService.event?.externalCode ? this.ewService.event?.externalCode : ''}}
+        </div>
       </div>
     </div>
   </div>
@@ -164,10 +164,17 @@
 
       <div class="place-date">
         <div class="workspace__select-different">
-          <evj-events-workspace-datetimepicker
-            [label]="'Дата регистрации'"
-          >
-          </evj-events-workspace-datetimepicker>
+          <div class="creator">
+            <div class="creator__title">
+              <span>Дата регистрации</span>
+            </div>
+            <div class="creator__field">
+            <span>
+              {{ registrationDate ? (registrationDate | date:"dd.MM.yyyy | HH:mm") : '-' }}
+            </span>
+            </div>
+          </div>
+
         </div>
         <div class="workspace__select-container">
           <div class="creator">

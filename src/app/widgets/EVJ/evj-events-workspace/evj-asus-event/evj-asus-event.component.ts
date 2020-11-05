@@ -26,8 +26,7 @@ export class EvjAsusEventComponent implements OnInit {
         public ewService: EventsWorkspaceService,
         public eventService: EventService,
         public snackBarService: SnackBarService
-    ) {
-    }
+    ) {}
 
     ngOnInit(): void {
         this.setDefaultResponsible();
@@ -54,9 +53,11 @@ export class EvjAsusEventComponent implements OnInit {
         if (this.ewService.isCreateNewEvent) {
             this.ewService.asusUnits$.subscribe((units) => {
                 const asusEvent = this.ewService.event.asusEvent;
-                asusEvent.tmPlace =
-                    units?.find((u) => u.name.toLowerCase().includes('гфу-2'))?.codeSap;
-                this.ewService.event = {...this.ewService.event, asusEvent };
+                asusEvent.tmPlace = units?.find((u) =>
+                    u.name.toLowerCase().includes('гфу-2')
+                )?.codeSap;
+                this.ewService.event = { ...this.ewService.event, asusEvent };
+                this.setUnit(asusEvent.tmPlace);
             });
         }
     }
@@ -81,7 +82,7 @@ export class EvjAsusEventComponent implements OnInit {
     }
 
     public async setUnit(event: string): Promise<void> {
-        if (!(!!event?.trim())) {
+        if (!event?.trim()) {
             return;
         }
         this.ewService.isLoading = true;
@@ -101,9 +102,9 @@ export class EvjAsusEventComponent implements OnInit {
     }
 
     public async setEquipment(event: string): Promise<void> {
-        if (!(!!event?.trim())) {
+        if (!event?.trim()) {
             event = this.ewService.event.asusEvent.tmPlace;
-            if (!(!!event?.trim())) {
+            if (!event?.trim()) {
                 return;
             }
         }
