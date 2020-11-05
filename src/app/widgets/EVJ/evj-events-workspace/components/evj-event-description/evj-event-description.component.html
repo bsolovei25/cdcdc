@@ -1,16 +1,9 @@
 <div class="description">
-  <div class="description_nav">
-    <div class="description_button_update" (click)="onEditShortInfo()">
-      <svg-icon src="assets/icons/edit.svg" [svgStyle]="{ 'width.px':20, 'height.px':20 }">
-      </svg-icon>
-    </div>
-  </div>
   <div class="description__content">
     <div class="description__content_text">
       <textarea
         required
         class="gridster-item-content"
-        placeholder="Введите значение..."
         minlength="3"
         [(ngModel)]="description"
         (input)="onChangeTextarea()"

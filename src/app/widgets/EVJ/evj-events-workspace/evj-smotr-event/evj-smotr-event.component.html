@@ -22,8 +22,27 @@
       </div>
     </div>
 
-    <div class="workspace__select-container">
-
+    <div class="workspace__circles">
+      <evj-events-smotr-icon
+        matTooltip="Уровень эскалации"
+        iconType="escalate"
+        [counter]="this.ewService.event.deviationData?.escalateLevelNumber"
+      ></evj-events-smotr-icon>
+      <evj-events-smotr-icon
+        matTooltip="Уровень критичности"
+        iconType="critical"
+        [isCritical]="this.ewService.event.deviationData?.isCritical"
+      ></evj-events-smotr-icon>
+      <evj-events-smotr-icon
+        matTooltip="Повторяемость за 6 месяцев"
+        iconType="repeat"
+        [counter]="this.ewService.event.deviationData?.iteration"
+      ></evj-events-smotr-icon>
+      <evj-events-smotr-icon
+        matTooltip="Системность"
+        iconType="systematic"
+        [isCritical]="this.ewService.event.deviationData?.systemic"
+      ></evj-events-smotr-icon>
     </div>
 
     <div class="workspace__select-container-right">
@@ -105,26 +124,30 @@
       </div>
 
       <div class="place-date">
-        <div class="workspace__select-container">
+        <div class="workspace__select-container-l">
           <evj-events-workspace-select
             [label]="'Место'"
             [dataType]="'place'"
           ></evj-events-workspace-select>
         </div>
         <div class="workspace__select-container">
-          <div class="title">
-            <span>Производство</span>
-          </div>
-          <div class="creator__field">
-            {{this.ewService.event?.branch ? this.ewService.event.branch : ''}}
+          <div class="creator">
+            <div class="creator__title">
+              <span>Производство</span>
+            </div>
+            <div class="creator__field">
+              {{this.ewService.event?.branch ? this.ewService.event.branch : ''}}
+            </div>
           </div>
         </div>
-        <div class="workspace__select-container">
-          <div class="title">
-            <span>ID в Системе-источник</span>
-          </div>
-          <div class="creator__field">
-            {{this.ewService.event?.externalCode ? this.ewService.event?.externalCode : ''}}
+        <div class="workspace__select-container-r">
+          <div class="creator">
+            <div class="creator__title">
+              <span>ID</span>
+            </div>
+            <div class="creator__field">
+              {{this.ewService.event?.externalCode ? this.ewService.event?.externalCode : ''}}
+            </div>
           </div>
         </div>
       </div>
