@@ -157,23 +157,21 @@ export class AstueEfficiencyTableDisplayComponent implements OnInit, OnChanges, 
     }
 
     private defineDates(): void {
-        this.displayData.forEach((item) => {
-            item.rows.forEach((row) => {
-                if (this.dates.length < row.values.length) {
-                    this.dates = row.values;
-                }
-            });
-        });
+        this.dates = this.displayData
+            .flatMap((x) => x.rows)
+            .sort(
+                (a, b) =>
+                    +(this.dates.length < b.values.length) - +(this.dates.length < a.values.length)
+            )[0]?.values;
     }
 
     private defineDatesPlanning(): void {
-        this.deviationsData.forEach((item) => {
-            item.children.forEach((row) => {
-                if (this.dates.length < row.data.length) {
-                    this.dates = row.data;
-                }
-            });
-        });
+        this.dates = this.deviationsData
+            .flatMap((x) => x.children)
+            .sort(
+                (a, b) =>
+                    +(this.dates.length < b.data.length) - +(this.dates.length < a.data.length)
+            )[0]?.data;
     }
 
     private defineSum(): void {
@@ -211,12 +209,9 @@ export class AstueEfficiencyTableDisplayComponent implements OnInit, OnChanges, 
     }
 
     getTable(): void {
-        const unts = this.AsEfService.selectionUnit$.getValue();
-        // const a = await this.AsEfService.getPlanningTableFile(unts[0].id);
-        const url = `${this.restUrl}/api/astue-service/Astue/unit/${unts[0].id}/export`;
+        const units = this.AsEfService.selectionUnit$.getValue();
+        const url = `${this.restUrl}/api/astue-service/Astue/unit/${units[0].id}/export`;
         this.fileSaver(url);
-        // const a = await this.reportsService.postTemplate(template.id, body);
-        // window.open(`${this.restUrl}/api/file-storage/${a.data.fileId}`);
     }
 
     private fileSaver(url: string): void {
@@ -226,6 +221,7 @@ export class AstueEfficiencyTableDisplayComponent implements OnInit, OnChanges, 
                 map((result: HttpResponse<Blob>) => {
                     const filename = result.headers
                         .get('Content-Disposition')
+
                         .split(';')[1]
                         .trim()
                         .split('=')[1];

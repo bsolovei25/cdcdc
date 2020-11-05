@@ -6,46 +6,6 @@
       </div>
       <div matRipple matRippleColor="white" class="button button_active">Табличное отображение</div>
     </div>
-    <!--    <ng-template #title>-->
-    <!--      <div class="header__title">-->
-    <!--        <img-->
-    <!--          class="arrow"-->
-    <!--          [ngClass]="{'arrow_open':isDropdownOpen}"-->
-    <!--          src="assets/icons/widgets/ASTUE/astue-efficiency/units/arrow.svg"-->
-    <!--        />-->
-    <!--        <div-->
-    <!--          class="title item"-->
-    <!--          *ngIf="scriptSelection.hasValue();else default"-->
-    <!--          (click)="toggleDropdown()"-->
-    <!--        >-->
-    <!--          <div class="item__name">{{scriptSelection.selected[0].name}}</div>-->
-    <!--          <div class="item__dates">-->
-    <!--            {{scriptSelection.selected[0].fromDateTime|date:"dd.mm.yyyy | hh:MM"}} - -->
-    <!--            {{scriptSelection.selected[0].toDateTime|date:"dd.mm.yyyy | hh:MM"}}-->
-    <!--          </div>-->
-    <!--        </div>-->
-    <!--        <ng-template #default>-->
-    <!--          <div class="title" (click)="toggleDropdown()">Выберите сценарий пользователя</div>-->
-    <!--        </ng-template>-->
-    <!--        <div-->
-    <!--          class="dropdown"-->
-    <!--          [ngClass]="{'dropdown_open': isDropdownOpen}"-->
-    <!--          (mouseleave)="toggleDropdown()"-->
-    <!--        >-->
-    <!--          <div-->
-    <!--            class="dropdown__item item"-->
-    <!--            (click)="selectScript(script)"-->
-    <!--            *ngFor="let script of scripts"-->
-    <!--          >-->
-    <!--            <div class="item__name">{{script.name}}</div>-->
-    <!--            <div class="item__dates">-->
-    <!--              {{script.fromDateTime|date:"dd.mm.yyyy | hh:MM"}} - -->
-    <!--              {{script.toDateTime|date:"dd.mm.yyyy | hh:MM"}}-->
-    <!--            </div>-->
-    <!--          </div>-->
-    <!--        </div>-->
-    <!--      </div>-->
-    <!--    </ng-template>-->
     <div class="header__right">
       <div class="button" (click)="getTable()">Сформировать отчет</div>
       <div class="button">Сохранить</div>
