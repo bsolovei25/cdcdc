@@ -14,7 +14,7 @@ export class OzsmCircleDiagramIconComponent implements OnInit, OnChanges {
   @Input() diagramValue: number = 360;
   @Input() titleText: string = '';
   @Input() innerValue: number = 0;
-
+  @Input() deviation: number = 0;
 
   ngOnInit(): void {
     this.draw();

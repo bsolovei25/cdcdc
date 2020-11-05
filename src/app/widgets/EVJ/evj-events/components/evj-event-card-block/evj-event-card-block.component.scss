@@ -13,7 +13,6 @@
     align-items: center;
     justify-content: space-between;
     width: 100%;
-    height: 45px;
     background-color: var(--color-event-card-bg-sub);
     padding: 0 24px;
     box-sizing: border-box;
@@ -30,7 +29,6 @@
       &__id {
         display: flex;
         align-items: center;
-        font-size: 14px;
       }
 
       &__unit {
@@ -40,7 +38,6 @@
 
       &__status {
         margin-right: 10px;
-        font-size: 14px;
 
         &_danger {
           color: var(--color-oil-danger);
@@ -81,7 +78,6 @@
   }
 
   &__body {
-    height: 115px;
     background-color: var(--color-event-card-bg-body);
     display: flex;
     flex-direction: column;
@@ -109,7 +105,6 @@
   &__footer {
     box-sizing: border-box;
     width: 100%;
-    height: 45px;
     background-color: var(--color-event-card-bg-sub);
     display: flex;
     justify-content: space-between;
@@ -125,7 +120,6 @@
       &__time {
 
         &-title {
-          font-size: 12px;
         }
       }
 
@@ -135,15 +129,93 @@
         padding: 5px 15px;
         border-radius: 2px;
         margin-right: 15px;
-        font-size: 12px;
       }
 
       &__remove {
-        height: 14px;
         fill: var(--color-border-unactive);
       }
     }
 
 
+  }
+}
+
+.sizes {
+  .header-size {
+    height: 45px;
+
+    &__id,
+    &__unit,
+    &__status
+    {
+      font-size: 14px;
+    }
+  }
+
+  .body-size {
+    height: 115px;
+
+    &__description {
+      @include text-overflow;
+      -webkit-line-clamp: 2;
+    }
+
+    &__facts {
+      @include text-overflow;
+      -webkit-line-clamp: 2;
+    }
+  }
+
+  .footer-size {
+    height: 45px;
+
+    &__time,
+    &__critical {
+      font-size: 12px;
+    }
+
+    &__remove {
+      height: 14px;
+    }
+  }
+}
+
+.sizes--wall {
+  .header-size {
+    height: 60px;
+
+    &__id,
+    &__unit,
+    &__status
+    {
+      font-size: 24px;
+    }
+  }
+
+  .body-size {
+    height: 250px;
+
+    &__description {
+      font-size: 36px;
+      @include text-overflow;
+      -webkit-line-clamp: 3;
+    }
+
+    &__facts {
+      font-size: 24px;
+      @include text-overflow;
+      -webkit-line-clamp: 3;
+    }
+  }
+
+  .footer-size {
+    height: 60px;
+
+    &__time,
+    &__critical,
+    &__remove
+    {
+      font-size: 24px;
+    }
   }
 }

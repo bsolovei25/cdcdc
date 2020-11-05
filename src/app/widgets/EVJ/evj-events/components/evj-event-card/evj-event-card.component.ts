@@ -29,6 +29,7 @@ export class EvjEventCardComponent implements OnInit {
     @Input() public cardDataArr: IEventsWidgetNotificationPreview[];
     @Input() public viewType: 'block' | 'list';
     @Input() public cardActiveId: number = 0;
+    @Input() public isVideoWall: boolean = false;
 
     @Output()
     public cardClick: EventEmitter<number> = new EventEmitter<number>();
