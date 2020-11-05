@@ -20,6 +20,7 @@ import { AngularSvgIconModule } from 'angular-svg-icon';
 import { OzsmListPackingDiagramsComponent } from './ozsm-list-packing-diagrams/ozsm-list-packing-diagrams.component';
 import { OzsmListPackingDiagramsItemComponent } from './ozsm-list-packing-diagrams/components/ozsm-list-packing-diagrams-item/ozsm-list-packing-diagrams-item.component';
 import { OzsmGraphCircleDiagramComponent } from "./ozsm-graph-circle-diagram/ozsm-graph-circle-diagram.component";
+import { OzsmSimpleCircleDiagramComponent } from './ozsm-simple-circle-diagram/ozsm-simple-circle-diagram.component';
 
 
 
@@ -44,7 +45,8 @@ import { OzsmGraphCircleDiagramComponent } from "./ozsm-graph-circle-diagram/ozs
         OzsmListPackingDiagramsItemComponent,
         OzsmCircleDiagramIconComponent,
         OzsmCircleDiagramIconComponent,
-        OzsmGraphCircleDiagramComponent
+        OzsmGraphCircleDiagramComponent,
+        OzsmSimpleCircleDiagramComponent
     ],
     exports: [
         OzsmTripleDiagramCardComponent,
@@ -66,7 +68,8 @@ import { OzsmGraphCircleDiagramComponent } from "./ozsm-graph-circle-diagram/ozs
         OzsmListPackingDiagramsItemComponent,
         OzsmCircleDiagramIconComponent,
         OzsmCircleDiagramIconComponent,
-        OzsmGraphCircleDiagramComponent
+        OzsmGraphCircleDiagramComponent,
+        OzsmSimpleCircleDiagramComponent
     ],
     imports: [
         CommonModule,
