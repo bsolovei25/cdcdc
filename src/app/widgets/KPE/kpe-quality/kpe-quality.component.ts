@@ -38,6 +38,8 @@ export class KpeQualityComponent extends WidgetPlatform<unknown> implements OnIn
 
     public cards: IKpeQualityCard[][] = [];
 
+    public displayedMonth: Date;
+
     constructor(
         private hostElement: ElementRef,
         protected widgetService: WidgetService,
@@ -91,6 +93,11 @@ export class KpeQualityComponent extends WidgetPlatform<unknown> implements OnIn
                 });
             });
         }
+        ref.deviationChart.forEach(data => {
+            if (data.graphType === 'fact') {
+                this.displayedMonth = new Date(data.graph[0].timeStamp);
+            }
+        });
     }
 
     private prepareEqualizerData(cardSet: IKpeQualityCard[]): IKpeQualityCard[] {

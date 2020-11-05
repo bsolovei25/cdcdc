@@ -36,7 +36,7 @@
           ></evj-kpe-gauge-chart>
         </div>
         <div class="quality__header__chart">
-          <evj-kpe-deviation-diagram [data]="deviationChartData"></evj-kpe-deviation-diagram>
+          <evj-kpe-deviation-diagram [data]="deviationChartData" [currentMonth]="displayedMonth"></evj-kpe-deviation-diagram>
         </div>
       </div>
       <ng-container *ngFor="let main of cards; trackBy: trackByFuncMain">

@@ -224,6 +224,11 @@ export class KpeDeviationDiagramComponent implements OnChanges {
     }
 
     private drawDayThreshold(): void {
+        const displayedMonth = new Date(this.currentMonth).getMonth();
+        const currentMonth = new Date().getMonth();
+        if (displayedMonth !== currentMonth) {
+            return;
+        }
         this.appendLine(
             this.day,
             this.day,
