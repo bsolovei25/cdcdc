@@ -1,235 +1,182 @@
 <div class="workspace" [style]="{overflow: noOverflow ? 'auto' : 'visible'}">
-  <div class="workspace__selects selects">
-    <div class="selects__item first-block">
-      <evj-ui-block class="selects__item_left" status="normal">
-        <mat-form-field class="categories_selectbox">
-          <mat-label>Категория</mat-label>
-          <mat-select
-            panelClass="mat-select-custom"
-            [(ngModel)]="ewService.event.category"
-            [compareWith]="compareFn"
-            (selectionChange)="ewService.changeCategory()"
-            [disabled]="!ewService.isCategoryEdit"
-          >
-            <mat-option *ngFor="let cat of ewService.category" [value]="cat">
-              {{ ewService.categories[cat.name] }}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
-      </evj-ui-block>
-      <div class="selects__item_right">
-        <div class="creator item_right_left">
-          <div class="creator_title">
-            Номер журнала
-          </div>
-          <div class="creator_body">
-            {{ ewService.event?.ejsData?.ejsFailCodeChr }}
-          </div>
-        </div>
-        <evj-ui-block class="item_right_right" status="normal" (click)="onClickEjs()">
-          <div class="creator creator_link">
-            <div class="creator_body creator_body-center">
-              Перейти к карточке ЭЖС
-            </div>
-            <svg-icon
-              class="creator_icon"
-              src="assets/icons/widgets/EVJ/event/ejs-event/link.svg"
-              [svgStyle]="{ 'width.px':28, 'height.px':28 }"
-            ></svg-icon>
-          </div>
-        </evj-ui-block>
+  <div class="workspace__third">
+    <div class="workspace__third__right">
+      <div class="workspace__select-container">
+        <evj-events-workspace-select
+          [label]="'Категории'"
+          [dataType]="'categories'"
+        >
+        </evj-events-workspace-select>
       </div>
-    </div>
-  </div>
-  <div class="workspace__selects-two selects--three">
-    <div class="selects__item">
-      <evj-ui-block status="normal">
-        <div class="deadline">
-          <div class="deadline__title">Дата и время обнаружения</div>
-          <evj-time-data-picker
-            [data]="ewService.event.deadline"
-            (dateTimePicker)="dateTimePicker($event)"
-          ></evj-time-data-picker>
-        </div>
-      </evj-ui-block>
-    </div>
-    <div class="selects__item">
-      <evj-ui-block status="normal">
+      <div class="workspace__select-container">
+        <evj-events-workspace-datetimepicker
+          [label]="'Срок выполнения'"
+        >
+        </evj-events-workspace-datetimepicker>
+      </div>
+      <div class="workspace__select-container">
         <div class="creator">
-          <div class="creator_title">
-            Метод обнаружения
+          <div class="creator__title">
+            <span>ID оборудования</span>
           </div>
-          <div class="creator_body">
-            {{ ewService.event?.ejsData?.ejsDeteMethChr }}
-          </div>
-        </div>
-      </evj-ui-block>
-    </div>
-    <div class="selects__item">
-      <evj-ui-block status="normal">
-        <div class="creator">
-          <div class="creator_title">
-            Влияние на производительность
-          </div>
-          <div class="creator_body">
-            {{ ewService.event?.ejsData?.ejsStopReduce }}
-          </div>
-        </div>
-      </evj-ui-block>
-    </div>
-  </div>
-  <div class="workspace__selects-three selects--three">
-    <div class="selects__item">
-      <evj-ui-block status="normal">
-        <div class="creator">
-          <div class="creator_title">
-            ID оборудования
-          </div>
-          <div class="creator_body">
+          <div class="creator__field">
             {{ ewService.event?.ejsData?.ejsEquiIdChr }}
           </div>
         </div>
-      </evj-ui-block>
-    </div>
-    <div class="selects__item">
-      <evj-ui-block status="normal">
+      </div>
+      <div class="workspace__select-container">
         <div class="creator">
-          <div class="creator_title">
-            Оборудование
+          <div class="creator__title">
+            <span>Техническое место</span>
           </div>
-          <div class="creator_body">
-            {{ ewService.event?.ejsData?.ejsEquiChr  }}
-          </div>
-        </div>
-      </evj-ui-block>
-    </div>
-    <div class="selects__item">
-      <evj-ui-block status="normal">
-        <div class="creator">
-          <div class="creator_title">
-            Вид технического объекта, тип ЕО
-          </div>
-          <div class="creator_body">
-            {{ ewService.event?.ejsData?.ejsEquiChrEO }}
-          </div>
-        </div>
-      </evj-ui-block>
-    </div>
-  </div>
-  <div class="workspace__selects-four selects--three">
-    <div class="selects__item">
-      <evj-ui-block status="normal">
-        <div class="creator">
-          <div class="creator_title">
-            Техническое место
-          </div>
-          <div class="creator_body">
+          <div class="creator__field">
             {{ ewService.event?.ejsData?.ejsFuncLocaChr }}
           </div>
         </div>
-      </evj-ui-block>
+      </div>
     </div>
-    <div class="selects__item">
-      <evj-ui-block status="normal">
+    <div class="workspace__third__right">
+      <div class="workspace__select-container">
         <div class="creator">
-          <div class="creator_title">
-            Описание технического места
+          <div class="creator__title">
+            <span>Номер журнала</span>
           </div>
-          <div class="creator_body">
+          <div class="creator__field">
+            {{ ewService.event?.ejsData?.ejsFailCodeChr }}
+          </div>
+        </div>
+      </div>
+      <div class="workspace__select-container">
+        <div class="creator">
+          <div class="creator__title">
+            <span>Метод обнаружения</span>
+          </div>
+          <div class="creator__field">
+            {{ ewService.event?.ejsData?.ejsDeteMethChr }}
+          </div>
+        </div>
+      </div>
+      <div class="workspace__select-container">
+        <div class="creator">
+          <div class="creator__title">
+            <span>Оборудование</span>
+          </div>
+          <div class="creator__field">
+            {{ ewService.event?.ejsData?.ejsEquiChr  }}
+          </div>
+        </div>
+      </div>
+      <div class="workspace__select-container">
+        <div class="creator">
+          <div class="creator__title">
+            <span>Описание технического места</span>
+          </div>
+          <div class="creator__field">
             {{ ewService.event?.ejsData?.ejsFuncLocaDescChr }}
           </div>
         </div>
-      </evj-ui-block>
+      </div>
     </div>
-    <div class="selects__item">
-      <evj-ui-block status="normal">
+    <div class="workspace__third__right">
+      <div class="workspace__select-container">
         <div class="creator">
-          <div class="creator_title">
-            Влияние на производительность, тип ТМ
+          <div class="creator__title">
+            <span>Влияние на производительность</span>
           </div>
-          <div class="creator_body">
+          <div class="creator__field">
+            {{ ewService.event?.ejsData?.ejsStopReduce }}
+          </div>
+        </div>
+      </div>
+      <div class="workspace__select-container">
+        <div class="creator">
+          <div class="creator__title">
+            <span>Вид технического объекта, тип ЕО</span>
+          </div>
+          <div class="creator__field">
+            {{ ewService.event?.ejsData?.ejsEquiChrEO }}
+          </div>
+        </div>
+      </div>
+      <div class="workspace__select-container">
+        <div class="creator">
+          <div class="creator__title">
+            <span>Влияние на производительность, тип ТМ</span>
+          </div>
+          <div class="creator__field">
             {{ ewService.event?.ejsData?.ejsStopReduceTM }}
           </div>
         </div>
-      </evj-ui-block>
+      </div>
     </div>
   </div>
-  <div class="workspace__selects-comment selects--one">
-    <evj-ui-block status="normal">
-      <div class="creator">
-        <div class="creator_title">
-          Комментарий оператора/инициатора
-        </div>
-        <div class="creator_body">
-          {{ ewService.event?.ejsData?.ejsOperInitCommTx }}
-        </div>
+  <div class="workspace__select-container">
+    <div class="creator">
+      <div class="creator__title">
+        <span>Комментарий оператора/инициатора</span>
       </div>
-    </evj-ui-block>
+      <div class="creator__field">
+        {{ ewService.event?.ejsData?.ejsOperInitCommTx }}
+      </div>
+    </div>
   </div>
-  <div class="workspace__selects-checkbox selects--two">
-    <evj-ui-block status="normal">
+  <div class="workspace__header">
+    <div class="workspace__select-container">
       <div class="creator">
-        <div class="creator_title">
-          Обращение в ЭНЕРГОСЕВРИС
+        <div class="creator__title">
+          <span>Обращение в ЭНЕРГОСЕРВИС</span>
+          <mat-checkbox class="creator_checkbox" color="primary"
+                        [checked]="ewService.event?.ejsData?.ejsEnerNotiFlg">
+          </mat-checkbox>
         </div>
-        <mat-checkbox class="creator_checkbox" color="primary"
-                      [checked]="ewService.event?.ejsData?.ejsEnerNotiFlg">
-        </mat-checkbox>
-        <div class="creator_body">
+        <div class="creator__field">
           {{ ewService.event?.ejsData?.ejsEnerNotiCommTx }}
         </div>
       </div>
-    </evj-ui-block>
-    <evj-ui-block status="normal">
+    </div>
+    <div class="workspace__select-container">
       <div class="creator">
-        <div class="creator_title">
-          Обращение в Автоматика-сервис
+        <div class="creator__title">
+          <span>Обращение в Автоматика-сервис</span>
+          <mat-checkbox class="creator_checkbox" color="primary"
+                        [checked]="ewService.event?.ejsData?.ejsAutoServNotiFlg">
+          </mat-checkbox>
         </div>
-        <mat-checkbox class="creator_checkbox" color="primary"
-                      [checked]="ewService.event?.ejsData?.ejsAutoServNotiFlg">
-        </mat-checkbox>
-        <div class="creator_body">
+        <div class="creator__field">
           {{ ewService.event?.ejsData?.ejsAutoServNotiCommTx }}
         </div>
       </div>
-    </evj-ui-block>
+    </div>
   </div>
-  <div class="workspace__selects-event selects--one">
-    <evj-ui-block status="normal">
+  <div class="workspace__header">
+    <div class="workspace__select-container">
       <div class="creator">
-        <div class="creator_title">
-          Компенсирующие мероприятия
+        <div class="creator__title">
+          <span>ФИО оператора</span>
         </div>
-        <div class="creator_body">
-          {{ ewService.event?.ejsData?.ejsMitiConsWorkTx }}
+        <div class="creator__field">
+          {{ ewService.event?.ejsData?.ejsNameOfOperChr }}
         </div>
-      </div>
-    </evj-ui-block>
-  </div>
-  <div class="workspace__selects-info selects--three margin">
-    <div class="info-text">Служебная информация</div>
-    <div class="creator">
-      <div class="creator_title">
-        ФИО оператора
-      </div>
-      <div class="creator_body">
-        {{ ewService.event?.ejsData?.ejsNameOfOperChr }}
       </div>
     </div>
-    <div class="creator">
-      <div class="creator_title">
-        Дата создания события
-      </div>
-      <div class="creator_body">
-        {{ ewService.event?.ejsData?.ejsDateOfCreaDt | date:"dd.MM.yyyy | HH:mm"  }}
+    <div class="workspace__select-container">
+      <div class="creator">
+        <div class="creator__title">
+          <span>Дата создания события</span>
+        </div>
+        <div class="creator__field">
+          {{ ewService.event?.ejsData?.ejsDateOfCreaDt | date:"dd.MM.yyyy | HH:mm"  }}
+        </div>
       </div>
     </div>
-    <div class="creator">
-      <div class="creator_title">
-        Дата изменения события
-      </div>
-      <div class="creator_body">
-        {{ ewService.event?.ejsData?.ejsDateOfUpdaDt | date:"dd.MM.yyyy | HH:mm"  }}
+    <div class="workspace__select-container">
+      <div class="creator">
+        <div class="creator__title">
+          <span>Дата изменения события</span>
+        </div>
+        <div class="creator__field">
+          {{ ewService.event?.ejsData?.ejsDateOfUpdaDt | date:"dd.MM.yyyy | HH:mm"  }}
+        </div>
       </div>
     </div>
   </div>
