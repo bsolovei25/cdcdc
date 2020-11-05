@@ -23,8 +23,6 @@ export class OzsmMainIndicatorComponent implements OnInit {
     constructor() {
     }
 
-    ngOnInit(): void {
-        console.log('sdf' + this.deviation);
-    }
+    ngOnInit(): void {}
 
 }
