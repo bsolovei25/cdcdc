@@ -58,6 +58,7 @@
     font-size: 12px;
     line-height: 14px;
     box-sizing: border-box;
+    color: var(--ozsm-color-active);
   }
 
   &__level-empty {
@@ -79,12 +80,13 @@
       background-color: var(--ozsm-color-active);
     }
 
-    .level-yellow {
+    .level-warning {
       height: 100%;
       box-sizing: border-box;
       border: 1px solid var(--ozsm-color-bg-main);
       border-radius: 2px;
-      background-color: var(--ozsm-color-warning);
+
+      position: relative;
     }
 
     .level-white {
@@ -92,6 +94,13 @@
       box-sizing: border-box;
       border-radius: 1px 0px 0px 1px;
       background-color: var(--ozsm-color-white);
+    }
+    .level-extra {
+      height: 100%;
+      position: absolute;
+      top: 0;
+      right: 0;
+      background: var(--ozsm-color-danger);
     }
   }
 }
@@ -101,10 +110,10 @@
   text-align: right;
   color: var(--ozsm-color-warning);
 }
-.text-blue {
+.text-white {
   font-size: 10px;
   line-height: 12px;
-  color: var(--ozsm-color-active);
+  color: var(--ozsm-color-white);
 }
 .text {
   overflow: hidden;

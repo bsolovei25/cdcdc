@@ -8,6 +8,7 @@ import { IOZSMMainIndicator } from '../../../../dashboard/models/OZSM/ozsm-main-
 })
 export class OzsmMainIndicatorComponent implements OnInit {
     item: IOZSMMainIndicator;
+    deviation: number;
     @Input() set data(value: IOZSMMainIndicator) {
         if (value) {
             if (value.fact < 0)  {
@@ -17,11 +18,11 @@ export class OzsmMainIndicatorComponent implements OnInit {
             }
             this.item = value;
         }
+        this.deviation = (Math.abs(value.plan - value.fact) / value.plan > 1) ? 100 : (value.plan - value.fact) / value.plan * 100;
     }
     constructor() {
     }
 
-    ngOnInit(): void {
-    }
+    ngOnInit(): void {}
 
 }
