@@ -30,7 +30,7 @@
           ></evj-kpe-gauge-chart>
         </div>
         <div class="readiness__header__chart">
-          <evj-kpe-deviation-diagram [data]="deviationChartData"></evj-kpe-deviation-diagram>
+          <evj-kpe-deviation-diagram [data]="deviationChartData" [currentMonth]="displayedMonth"></evj-kpe-deviation-diagram>
         </div>
       </div>
       <div class="readiness__middle" [style]="rowHeight(gauge)">

@@ -56,6 +56,8 @@ export class KpeReadinessComponent extends WidgetPlatform<unknown> implements On
 
     public margin = { top: 20, right: 20, bottom: 30, left: 40 };
 
+    public displayedMonth: Date;
+
     constructor(protected widgetService: WidgetService,
                 private kpeHelperService: KpeHelperService,
                 @Inject('isMock') public isMock: boolean,
@@ -82,6 +84,11 @@ export class KpeReadinessComponent extends WidgetPlatform<unknown> implements On
         this.chartCard = this.chartCards.shift();
         this.chartCards = this.kpeHelperService.sortArray<IKpeReadinessChartCard>(this.chartCards, 2) as IKpeReadinessChartCard[][];
         this.diagram = ref.deviationDiagram;
+        ref.deviationChart.forEach(data => {
+            if (data.graphType === 'fact') {
+                this.displayedMonth = new Date(data.graph[0].timeStamp);
+            }
+        });
     }
 
     public gaugeWidth(container: HTMLDivElement): string {

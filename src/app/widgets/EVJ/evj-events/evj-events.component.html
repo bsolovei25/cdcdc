@@ -45,7 +45,7 @@
         [ngClass]="attributes?.IsVideoWall ? 'notifications--display-wall' : 'notifications--display-standart'"
       >
         <cdk-virtual-scroll-viewport
-          [itemSize]="isList ? null : 111"
+          [itemSize]="isList ? attributes?.IsVideoWall ? 390 : 225 : 111"
           autosize
           class="scroll-bar"
           [ngClass]="isList ? 'notifications__block__list' : 'notifications__list'"
