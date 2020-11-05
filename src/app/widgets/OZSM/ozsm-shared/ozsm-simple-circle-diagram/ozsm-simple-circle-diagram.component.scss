@@ -1,0 +1,62 @@
+* {
+  box-sizing: border-box;
+}
+
+.container {
+  height: 100px;
+  width: 410px;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.diagram-container {
+  height: 400px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.diagram {
+  height: 70px;
+  width: 70px;
+  border-radius: 50%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background: var(--ozsm-resources-circle-diagram-color-bg-info-list);
+  border: 1px solid var(--ozsm-color-bg-border);
+}
+
+.diagram-value {
+  height: 60px;
+  width: 60px;
+  border-radius: 50%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  border: 2px solid var(--ozsm-color-active);
+}
+
+.custom {
+  height: 10px;
+  display: flex;
+  align-items: center;
+
+  .circle {
+    height: 7px;
+    width: 7px;
+
+    border: 1px solid var(--ozsm-color-bg-border);
+    border-radius: 50%;
+  }
+
+  .line {
+    height: 1px;
+    background: var(--ozsm-color-bg-border);
+    flex: 1;
+  }
+}
