@@ -22,8 +22,8 @@ export class EvjEventsWorkspaceSelectComponent implements OnInit {
     @Input()
     public items: IEventsWorkspaceSelectValue[] | null = [
         {
-            value: 0,
-            label: 'Нет значений',
+            value: 'Не Выбрано',
+            label: 'Не Выбрано',
         },
     ];
     @Input() public dataType:

@@ -1,14 +1,10 @@
-<div
-  class="workspace scroll scroll-bar"
-  [style]="{overflow: noOverflow ? 'auto' : 'visible'}"
-  (mousedown)="$event.stopPropagation()"
-  (touchstart)="$event.stopPropagation()"
->
-  <div class="workspace__column column column_left">
-    <div class="column__row row">
-      <div class="row__cell cell cell_left">
-        <evj-ui-block status="normal">
-          <mat-form-field class="categories_selectbox">
+<div class="workspace" [style]="{overflow: noOverflow ? 'auto' : 'visible'}">
+
+  <div class="workspace__header">
+    <div class="workspace__select-container-left">
+      <div class="mat-form-category">
+        <div class="event-mat-select">
+          <mat-form-field appearance="none">
             <mat-label>Категория</mat-label>
             <mat-select
               panelClass="mat-select-custom"
@@ -22,219 +18,377 @@
               </mat-option>
             </mat-select>
           </mat-form-field>
-        </evj-ui-block>
-      </div>
-      <div class="row__cell cell cell_right">
-        <evj-events-workspace-button
-          status="escalate"
-          (click)="isEscalatePopupOpen=true"
-        ></evj-events-workspace-button>
+        </div>
       </div>
     </div>
-    <div class="column__row row">
-      <div class="row__cell cell cell_left">
-        <evj-ui-block status="normal">
-          <mat-form-field class="status">
-            <mat-label>Статус</mat-label>
-            <mat-select
-              panelClass="mat-select-custom"
-              [(ngModel)]="ewService.event.status"
-              [compareWith]="compareFn"
-              [disabled]="true"
-            >
-              <mat-option *ngFor="let p of ewService.status" [value]="p"
-                >{{ ewService.statuses[p.name] }}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
-        </evj-ui-block>
-      </div>
-      <div class="row__cell cell cell_right">
-        <evj-events-workspace-button
-          [disabled]="isDisabledCloseButton()"
-          status="close"
-          (click)="openClosePopup()"
-        ></evj-events-workspace-button>
-      </div>
+
+    <div class="workspace__select-container">
+
     </div>
-    <div class="column__row row description">
-      <evj-event-description
-        [description]="ewService.event.description"
-        [isRetrievalEvent]="false"
-        (changedDescription)="onChangeEventDescription($event)"
-      ></evj-event-description>
-    </div>
-    <div class="column__row row chat">
-      <evj-chat
-        [displayGraphImage]="!!ewService.event.graphValues?.graphs[0]"
-        [onClickItem]="openLineChart.bind(this)"
-        [messages]="ewService.event.facts"
-        dataTitle="Установленные факты"
-        placeholder="Укажите факты..."
-        (addingMessage)="onSendMessage($event,'facts')"
-      ></evj-chat>
-    </div>
-    <div class="column__row row chat">
-      <evj-chat
-        [messages]="ewService.event.comments"
-        dataTitle="Комментарии"
-        placeholder="Напишите свой комментарий..."
-        (addingMessage)="onSendMessage($event,'comments')"
-      ></evj-chat>
+
+    <div class="workspace__select-container-right">
+      <evj-events-workspace-select
+        [label]="'Событие'"
+        [dataType]="'event'"
+      >
+      </evj-events-workspace-select>
     </div>
   </div>
-  <div class="workspace__column column column_right">
-    <div class="column__row row">
-      <div class="row__cell cell cell_left events-icons">
-        <evj-events-smotr-icon
-          matTooltip="Уровень эскалации"
-          iconType="escalate"
-          [counter]="this.ewService.event.deviationData?.escalateLevelNumber"
-        ></evj-events-smotr-icon>
-        <evj-events-smotr-icon
-          matTooltip="Уровень критичности"
-          iconType="critical"
-          [isCritical]="this.ewService.event.deviationData?.isCritical"
-        ></evj-events-smotr-icon>
-        <evj-events-smotr-icon
-          matTooltip="Повторяемость за 6 месяцев"
-          iconType="repeat"
-          [counter]="this.ewService.event.deviationData?.iteration"
-        ></evj-events-smotr-icon>
-        <evj-events-smotr-icon
-          matTooltip="Системность"
-          iconType="systematic"
-          [isCritical]="this.ewService.event.deviationData?.systemic"
-        ></evj-events-smotr-icon>
+
+  <div class="workspace__third">
+    <div class="workspace__third__right">
+      <div class="place-date">
+        <div class="workspace__select-container-left">
+          <evj-events-workspace-select
+            [label]="'Статус'"
+            [dataType]="'status'"
+          ></evj-events-workspace-select>
+        </div>
+
+        <div class="workspace__select-container-right">
+          <evj-events-workspace-datetimepicker
+            [label]="'Дата регистрации'"
+          >
+          </evj-events-workspace-datetimepicker>
+        </div>
       </div>
-      <div class="row__cell cell cell_right">
-<!--        <evj-ui-block status="{{ewService.event.priority.name}}">-->
-<!--          <mat-form-field class="{{ewService.event.priority.name}}">-->
-<!--            <mat-label>Приоритет</mat-label>-->
+      <div class="description">
+        <div class="title">
+          <span>Краткое описание</span>
+        </div>
+        <evj-event-description
+          [description]="ewService.event?.description"
+          (changedDescription)="onChangeEventDescription($event)"
+        ></evj-event-description>
+      </div>
+
+      <div class="facts">
+        <div class="title">
+          <span>Установленные факты</span>
+        </div>
+        <evj-chat
+          [messages]="ewService.event.facts"
+          [displayGraphImage]="!!ewService.event.graphValues?.graphs[0]"
+          [onClickItem]="openLineChart.bind(this)"
+          (addingMessage)="onSendMessage($event,'facts')"
+        ></evj-chat>
+      </div>
+
+      <div class="comments">
+        <div class="title">
+          <span>Комментарии</span>
+        </div>
+        <evj-chat
+          [messages]="ewService.event.comments"
+          dataTitle="Комментарии"
+          placeholder="Напишите свой комментарий..."
+          (addingMessage)="onSendMessage($event,'comments')"
+        ></evj-chat>
+      </div>
+    </div>
+
+    <div class="workspace__third__right">
+      <div class="place-date">
+        <div class="workspace__select-container-left">
+          <evj-events-workspace-datetimepicker
+            [label]="'Дата начала'"
+          >
+          </evj-events-workspace-datetimepicker>
+        </div>
+
+        <div class="workspace__select-container-right">
+          <evj-events-workspace-datetimepicker
+            [label]="'Дата окончания'"
+          >
+          </evj-events-workspace-datetimepicker>
+        </div>
+      </div>
+
+      <div class="place-date">
+        <div class="workspace__select-container">
+          <evj-events-workspace-select
+            [label]="'Место'"
+            [dataType]="'place'"
+          ></evj-events-workspace-select>
+        </div>
+        <div class="workspace__select-container">
+          <div class="title">
+            <span>Производство</span>
+          </div>
+          <div class="creator__field">
+            {{this.ewService.event?.branch ? this.ewService.event.branch : ''}}
+          </div>
+        </div>
+        <div class="workspace__select-container">
+          <div class="title">
+            <span>ID в Системе-источник</span>
+          </div>
+          <div class="creator__field">
+            {{this.ewService.event?.externalCode ? this.ewService.event?.externalCode : ''}}
+          </div>
+        </div>
+      </div>
+
+      <div class="responsible">
+        <evj-events-workspace-responsible-select>
+
+        </evj-events-workspace-responsible-select>
+      </div>
+      <div class="usual-text">
+        <div class="title">
+          <span>Причины</span>
+        </div>
+        <evj-event-description
+          [reason]="ewService.event.directReasons"
+          (addReason)="isReasonsPopupOpen=true"
+        ></evj-event-description>
+      </div>
+      <div class="event-correct">
+        <div class="title">
+          <span>Корректирующие мероприятия</span>
+        </div>
+        <evj-events-correct></evj-events-correct>
+      </div>
+    </div>
+  </div>
+</div>
+<!--<div-->
+<!--  class="workspace scroll scroll-bar"-->
+<!--  [style]="{overflow: noOverflow ? 'auto' : 'visible'}"-->
+<!--  (mousedown)="$event.stopPropagation()"-->
+<!--  (touchstart)="$event.stopPropagation()"-->
+<!--&gt;-->
+<!--  <div class="workspace__column column column_left">-->
+<!--    <div class="column__row row">-->
+<!--      <div class="row__cell cell cell_left">-->
+<!--        <evj-ui-block status="normal">-->
+<!--          <mat-form-field class="categories_selectbox">-->
+<!--            <mat-label>Категория</mat-label>-->
 <!--            <mat-select-->
 <!--              panelClass="mat-select-custom"-->
-<!--              [(ngModel)]="ewService.event.priority"-->
+<!--              [(ngModel)]="ewService.event.category"-->
 <!--              [compareWith]="compareFn"-->
+<!--              [disabled]="true"-->
+<!--              (selectionChange)="ewService.changeCategory()"-->
 <!--            >-->
-<!--              <mat-option *ngFor="let p of ewService.priority" [value]="p"-->
-<!--                >{{ ewService.priorities[p.name] }}-->
+<!--              <mat-option *ngFor="let cat of ewService.category" [value]="cat">-->
+<!--                {{ ewService.categories[cat.name] }}-->
 <!--              </mat-option>-->
 <!--            </mat-select>-->
 <!--          </mat-form-field>-->
 <!--        </evj-ui-block>-->
-      </div>
-    </div>
-    <div class="column__row row">
-      <div class="row__cell cell cell_left information">
-        <div class="information__label label">
-          <div class="label__title">Дата регистрации</div>
-          <div class="label__text">
-            {{this.ewService.event?.externalDate?(this.ewService.event.externalDate|date:"dd.MM.yyyy | HH:mm"):'-'}}
-          </div>
-        </div>
-        <div class="information__label label">
-          <div class="label__title">Дата начала</div>
-          <div class="label__text">
-            {{this.ewService.event?.eventDateTime?(this.ewService.event.eventDateTime|date:"dd.MM.yyyy | HH:mm"):'-'}}
-          </div>
-        </div>
-        <div class="information__label label">
-          <div class="label__title">Дата окончания</div>
-          <div class="label__text">
-            {{this.ewService.event?.eventEndDateTime?(this.ewService.event.eventEndDateTime|date:"dd.MM.yyyy | HH:mm"):'-'}}
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="column__row row">
-      <div class="row__cell cell cell_left information">
-        <div class="information__label label">
-          <div class="label__title">Место</div>
-          <div class="label__text">{{this.ewService.event.unitName}}</div>
-        </div>
-      </div>
-      <div class="row__cell cell cell_right information">
-        <div class="information__label label">
-          <div class="label__title">Производство</div>
-          <div class="label__text">
-            {{this.ewService.event?.branch?this.ewService.event.branch:''}}
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="column__row row">
-      <div class="row__cell cell cell_left information">
-        <div class="information__label label">
-          <div class="label__title">ID в Системе-источник</div>
-          <div class="label__text">
-            {{this.ewService.event?.externalCode?this.ewService.event.externalCode:''}}
-          </div>
-        </div>
-      </div>
-      <div class="row__cell cell cell_right">
-        <evj-events-workspace-button
-          status="tools"
-          (click)="onClickUrl()"
-          [disabled]="isDisabledUrlButton()"
-        >
-        </evj-events-workspace-button>
-      </div>
-    </div>
-    <div class="column__row row responsible">
-      <evj-events-responsible-select></evj-events-responsible-select>
-    </div>
-    <div class="column__row row reasons">
-      <evj-events-reasons-single
-        title="Причины"
-        [reason]="ewService.event.directReasons"
-        (addReason)="isReasonsPopupOpen=true"
-      ></evj-events-reasons-single>
-    </div>
-    <div class="column__row row events-correct">
-      <evj-events-correct></evj-events-correct>
-    </div>
-  </div>
+<!--      </div>-->
+<!--      <div class="row__cell cell cell_right">-->
+<!--        <evj-events-workspace-button-->
+<!--          status="escalate"-->
+<!--          (click)="isEscalatePopupOpen=true"-->
+<!--        ></evj-events-workspace-button>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--    <div class="column__row row">-->
+<!--      <div class="row__cell cell cell_left">-->
+<!--        <evj-ui-block status="normal">-->
+<!--          <mat-form-field class="status">-->
+<!--            <mat-label>Статус</mat-label>-->
+<!--            <mat-select-->
+<!--              panelClass="mat-select-custom"-->
+<!--              [(ngModel)]="ewService.event.status"-->
+<!--              [compareWith]="compareFn"-->
+<!--              [disabled]="true"-->
+<!--            >-->
+<!--              <mat-option *ngFor="let p of ewService.status" [value]="p"-->
+<!--                >{{ ewService.statuses[p.name] }}-->
+<!--              </mat-option>-->
+<!--            </mat-select>-->
+<!--          </mat-form-field>-->
+<!--        </evj-ui-block>-->
+<!--      </div>-->
+<!--      <div class="row__cell cell cell_right">-->
+<!--        <evj-events-workspace-button-->
+<!--          [disabled]="isDisabledCloseButton()"-->
+<!--          status="close"-->
+<!--          (click)="openClosePopup()"-->
+<!--        ></evj-events-workspace-button>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--    <div class="column__row row description">-->
+<!--      <evj-event-description-->
+<!--        [description]="ewService.event.description"-->
+<!--        [isRetrievalEvent]="false"-->
+<!--        (changedDescription)="onChangeEventDescription($event)"-->
+<!--      ></evj-event-description>-->
+<!--    </div>-->
+<!--    <div class="column__row row chat">-->
+<!--      <evj-chat-->
+<!--        [displayGraphImage]="!!ewService.event.graphValues?.graphs[0]"-->
+<!--        [onClickItem]="openLineChart.bind(this)"-->
+<!--        [messages]="ewService.event.facts"-->
+<!--        dataTitle="Установленные факты"-->
+<!--        placeholder="Укажите факты..."-->
+<!--        (addingMessage)="onSendMessage($event,'facts')"-->
+<!--      ></evj-chat>-->
+<!--    </div>-->
+<!--    <div class="column__row row chat">-->
+<!--      <evj-chat-->
+<!--        [messages]="ewService.event.comments"-->
+<!--        dataTitle="Комментарии"-->
+<!--        placeholder="Напишите свой комментарий..."-->
+<!--        (addingMessage)="onSendMessage($event,'comments')"-->
+<!--      ></evj-chat>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--  <div class="workspace__column column column_right">-->
+<!--    <div class="column__row row">-->
+<!--      <div class="row__cell cell cell_left events-icons">-->
+<!--        <evj-events-smotr-icon-->
+<!--          matTooltip="Уровень эскалации"-->
+<!--          iconType="escalate"-->
+<!--          [counter]="this.ewService.event.deviationData?.escalateLevelNumber"-->
+<!--        ></evj-events-smotr-icon>-->
+<!--        <evj-events-smotr-icon-->
+<!--          matTooltip="Уровень критичности"-->
+<!--          iconType="critical"-->
+<!--          [isCritical]="this.ewService.event.deviationData?.isCritical"-->
+<!--        ></evj-events-smotr-icon>-->
+<!--        <evj-events-smotr-icon-->
+<!--          matTooltip="Повторяемость за 6 месяцев"-->
+<!--          iconType="repeat"-->
+<!--          [counter]="this.ewService.event.deviationData?.iteration"-->
+<!--        ></evj-events-smotr-icon>-->
+<!--        <evj-events-smotr-icon-->
+<!--          matTooltip="Системность"-->
+<!--          iconType="systematic"-->
+<!--          [isCritical]="this.ewService.event.deviationData?.systemic"-->
+<!--        ></evj-events-smotr-icon>-->
+<!--      </div>-->
+<!--      <div class="row__cell cell cell_right">-->
+<!--&lt;!&ndash;        <evj-ui-block status="{{ewService.event.priority.name}}">&ndash;&gt;-->
+<!--&lt;!&ndash;          <mat-form-field class="{{ewService.event.priority.name}}">&ndash;&gt;-->
+<!--&lt;!&ndash;            <mat-label>Приоритет</mat-label>&ndash;&gt;-->
+<!--&lt;!&ndash;            <mat-select&ndash;&gt;-->
+<!--&lt;!&ndash;              panelClass="mat-select-custom"&ndash;&gt;-->
+<!--&lt;!&ndash;              [(ngModel)]="ewService.event.priority"&ndash;&gt;-->
+<!--&lt;!&ndash;              [compareWith]="compareFn"&ndash;&gt;-->
+<!--&lt;!&ndash;            >&ndash;&gt;-->
+<!--&lt;!&ndash;              <mat-option *ngFor="let p of ewService.priority" [value]="p"&ndash;&gt;-->
+<!--&lt;!&ndash;                >{{ ewService.priorities[p.name] }}&ndash;&gt;-->
+<!--&lt;!&ndash;              </mat-option>&ndash;&gt;-->
+<!--&lt;!&ndash;            </mat-select>&ndash;&gt;-->
+<!--&lt;!&ndash;          </mat-form-field>&ndash;&gt;-->
+<!--&lt;!&ndash;        </evj-ui-block>&ndash;&gt;-->
+<!--      </div>-->
+<!--    </div>-->
+<!--    <div class="column__row row">-->
+<!--      <div class="row__cell cell cell_left information">-->
+<!--        <div class="information__label label">-->
+<!--          <div class="label__title">Дата регистрации</div>-->
+<!--          <div class="label__text">-->
+<!--            {{this.ewService.event?.externalDate?(this.ewService.event.externalDate|date:"dd.MM.yyyy | HH:mm"):'-'}}-->
+<!--          </div>-->
+<!--        </div>-->
+<!--        <div class="information__label label">-->
+<!--          <div class="label__title">Дата начала</div>-->
+<!--          <div class="label__text">-->
+<!--            {{this.ewService.event?.eventDateTime?(this.ewService.event.eventDateTime|date:"dd.MM.yyyy | HH:mm"):'-'}}-->
+<!--          </div>-->
+<!--        </div>-->
+<!--        <div class="information__label label">-->
+<!--          <div class="label__title">Дата окончания</div>-->
+<!--          <div class="label__text">-->
+<!--            {{this.ewService.event?.eventEndDateTime?(this.ewService.event.eventEndDateTime|date:"dd.MM.yyyy | HH:mm"):'-'}}-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--    <div class="column__row row">-->
+<!--      <div class="row__cell cell cell_left information">-->
+<!--        <div class="information__label label">-->
+<!--          <div class="label__title">Место</div>-->
+<!--          <div class="label__text">{{this.ewService.event.unitName}}</div>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--      <div class="row__cell cell cell_right information">-->
+<!--        <div class="information__label label">-->
+<!--          <div class="label__title">Производство</div>-->
+<!--          <div class="label__text">-->
+<!--            {{this.ewService.event?.branch?this.ewService.event.branch:''}}-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--    <div class="column__row row">-->
+<!--      <div class="row__cell cell cell_left information">-->
+<!--        <div class="information__label label">-->
+<!--          <div class="label__title">ID в Системе-источник</div>-->
+<!--          <div class="label__text">-->
+<!--            {{this.ewService.event?.externalCode?this.ewService.event.externalCode:''}}-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--      <div class="row__cell cell cell_right">-->
+<!--        <evj-events-workspace-button-->
+<!--          status="tools"-->
+<!--          (click)="onClickUrl()"-->
+<!--          [disabled]="isDisabledUrlButton()"-->
+<!--        >-->
+<!--        </evj-events-workspace-button>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--    <div class="column__row row responsible">-->
+<!--      <evj-events-responsible-select></evj-events-responsible-select>-->
+<!--    </div>-->
+<!--    <div class="column__row row reasons">-->
+<!--      <evj-events-reasons-single-->
+<!--        title="Причины"-->
+<!--        [reason]="ewService.event.directReasons"-->
+<!--        (addReason)="isReasonsPopupOpen=true"-->
+<!--      ></evj-events-reasons-single>-->
+<!--    </div>-->
+<!--    <div class="column__row row events-correct">-->
+<!--      <evj-events-correct></evj-events-correct>-->
+<!--    </div>-->
+<!--  </div>-->
 
-  <div class="workspace__popup" [ngClass]="{'workspace__popup_active':isEscalatePopupOpen}">
-    <evj-events-comment-window
-      *ngIf="isEscalatePopupOpen"
-      title="Эскалировать выше"
-      (closeWindow)="onEscalateEvent($event)"
-    ></evj-events-comment-window>
-  </div>
+<!--  <div class="workspace__popup" [ngClass]="{'workspace__popup_active':isEscalatePopupOpen}">-->
+<!--    <evj-events-comment-window-->
+<!--      *ngIf="isEscalatePopupOpen"-->
+<!--      title="Эскалировать выше"-->
+<!--      (closeWindow)="onEscalateEvent($event)"-->
+<!--    ></evj-events-comment-window>-->
+<!--  </div>-->
 
-  <div class="workspace__popup" [ngClass]="{'workspace__popup_active':isClosePopupOpen}">
-    <evj-events-comment-window
-      *ngIf="isClosePopupOpen"
-      title="Закрыть карточку"
-      (closeWindow)="onCloseCard($event)"
-    ></evj-events-comment-window>
-  </div>
+<!--  <div class="workspace__popup" [ngClass]="{'workspace__popup_active':isClosePopupOpen}">-->
+<!--    <evj-events-comment-window-->
+<!--      *ngIf="isClosePopupOpen"-->
+<!--      title="Закрыть карточку"-->
+<!--      (closeWindow)="onCloseCard($event)"-->
+<!--    ></evj-events-comment-window>-->
+<!--  </div>-->
 
-  <div class="workspace__popup" [ngClass]="{'workspace__popup_active':isReasonsPopupOpen}">
-    <evj-events-list-window
-      *ngIf="isReasonsPopupOpen"
-      title="Выберите нужные причины"
-      [reasonsList]="this.ewService.event?.deviationData?.availableReasons"
-      (closeWindow)="setReason($event)"
-    ></evj-events-list-window>
-  </div>
-</div>
+<!--  <div class="workspace__popup" [ngClass]="{'workspace__popup_active':isReasonsPopupOpen}">-->
+<!--    <evj-events-list-window-->
+<!--      *ngIf="isReasonsPopupOpen"-->
+<!--      title="Выберите нужные причины"-->
+<!--      [reasonsList]="this.ewService.event?.deviationData?.availableReasons"-->
+<!--      (closeWindow)="setReason($event)"-->
+<!--    ></evj-events-list-window>-->
+<!--  </div>-->
+<!--</div>-->
 
-<div
-  (mousedown)="$event.stopPropagation()"
-  (touchstart)="$event.stopPropagation()"
-  id="overlay-chart"
-  *ngIf="ewService.isOverlayChartOpen && ewService.event.graphValues?.graphs[0]"
-  (click)="overlayChartClose()"
->
-  <div
-    class="overlay-chart__body"
-    (click)="$event.stopPropagation()"
-    *ngIf="ewService.event.graphValues"
-  >
-    <evj-line-chart-workspace
-      [dataChartAttribute]="ewService.event.graphValues"
-    ></evj-line-chart-workspace>
-  </div>
-</div>
+<!--<div-->
+<!--  (mousedown)="$event.stopPropagation()"-->
+<!--  (touchstart)="$event.stopPropagation()"-->
+<!--  id="overlay-chart"-->
+<!--  *ngIf="ewService.isOverlayChartOpen && ewService.event.graphValues?.graphs[0]"-->
+<!--  (click)="overlayChartClose()"-->
+<!--&gt;-->
+<!--  <div-->
+<!--    class="overlay-chart__body"-->
+<!--    (click)="$event.stopPropagation()"-->
+<!--    *ngIf="ewService.event.graphValues"-->
+<!--  >-->
+<!--    <evj-line-chart-workspace-->
+<!--      [dataChartAttribute]="ewService.event.graphValues"-->
+<!--    ></evj-line-chart-workspace>-->
+<!--  </div>-->
+<!--</div>-->

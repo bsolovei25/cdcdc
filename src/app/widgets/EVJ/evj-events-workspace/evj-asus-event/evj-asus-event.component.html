@@ -7,13 +7,14 @@
           <mat-form-field appearance="none">
             <mat-label>Категория</mat-label>
             <mat-select
-              [(ngModel)]="ewService.event.category.name"
+              panelClass="mat-select-custom"
+              [(ngModel)]="ewService.event.category"
               [compareWith]="compareFn"
+              [disabled]="!ewService.isCreateNewEvent"
               (selectionChange)="ewService.changeCategory()"
-              [disabled]="!ewService.isCategoryEdit"
             >
-              <mat-option *ngFor="let item of ewService.categoryPipe | async" [value]="item">
-                {{ ewService.categories[item.name] }}
+              <mat-option *ngFor="let cat of ewService.category" [value]="cat">
+                {{ ewService.categories[cat.name] }}
               </mat-option>
             </mat-select>
           </mat-form-field>
