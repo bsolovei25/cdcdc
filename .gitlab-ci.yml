@@ -151,6 +151,7 @@ deploy-front-mr:
     name: review/${CI_COMMIT_REF_SLUG}
     url: "https://evj-${CI_COMMIT_REF_SLUG}.funcoff.club"
     on_stop: stop-k8s-review
+    auto_stop_in: 1 day
   only:
     - merge_requests
 
