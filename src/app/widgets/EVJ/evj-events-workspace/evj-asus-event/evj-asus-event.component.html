@@ -95,8 +95,10 @@
 
   <div class="workspace__header">
     <div class="workspace__select-container">
+      <div class="title">
+        <span>Статус</span>
+      </div>
       <evj-events-workspace-select
-        [label]="'Статус'"
         [dataType]="'status'"
       ></evj-events-workspace-select>
     </div>
@@ -142,7 +144,7 @@
     </div>
     <div class="workspace__select-container">
       <div class="creator">
-        <div class="creator__title">
+        <div class="title">
           <span>ID в Системе-источник</span>
         </div>
         <div class="creator__field">
@@ -223,11 +225,11 @@
         <div class="title">
           <span>Решение</span>
         </div>
-        <evj-event-description
+        <evj-events-reasons-single
           [isAdder]="false"
           [reason]="ewService?.event?.directReasons"
           (addReason)="isReasonsPopupOpen=true"
-        ></evj-event-description>
+        ></evj-events-reasons-single>
       </div>
     </div>
   </div>

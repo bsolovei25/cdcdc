@@ -4,6 +4,9 @@
     (mousedown)="$event.stopPropagation()"
     (touchstart)="$event.stopPropagation()"
   >
+    <div class="header-workspace__container" (click)="createEvent(true)">
+      <div class="button-name">Новое событие</div>
+    </div>
     <div class="header-workspace__container"
          (click)="isEscalatePopupOpen=true"
     >
@@ -18,6 +21,11 @@
          (click)="openClosePopup()"
     >
       <div class="button-name">Закрыть карточку</div>
+    </div>
+    <div
+      class="header-workspace__container active-button"
+      (click)="createEvent(false)">
+      <div class="button-name">Сохранить</div>
     </div>
   </div>
 </div>
@@ -187,10 +195,10 @@
         <div class="title">
           <span>Причины</span>
         </div>
-        <evj-event-description
+        <evj-events-reasons-single
           [reason]="ewService.event.directReasons"
           (addReason)="isReasonsPopupOpen=true"
-        ></evj-event-description>
+        ></evj-events-reasons-single>
       </div>
       <div class="event-correct">
         <div class="title">
@@ -226,4 +234,22 @@
     ></evj-events-list-window>
   </div>
 
+</div>
+
+<div
+  (mousedown)="$event.stopPropagation()"
+  (touchstart)="$event.stopPropagation()"
+  id="overlay-chart"
+  *ngIf="ewService.isOverlayChartOpen && ewService.event.graphValues?.graphs[0]"
+  (click)="overlayChartClose()"
+>
+  <div
+    class="overlay-chart__body"
+    (click)="$event.stopPropagation()"
+    *ngIf="ewService.event.graphValues"
+  >
+    <evj-line-chart-workspace
+      [dataChartAttribute]="ewService.event.graphValues"
+    ></evj-line-chart-workspace>
+  </div>
 </div>

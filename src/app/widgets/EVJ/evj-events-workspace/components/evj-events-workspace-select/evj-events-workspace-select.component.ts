@@ -41,7 +41,7 @@ export class EvjEventsWorkspaceSelectComponent implements OnInit {
     public type: 'default' | 'minor' | 'critical' = 'default';
 
     @Input()
-    public label: string = 'Выпадающий список';
+    public label: string = '';
 
     @Input()
     public disabled: boolean = false;

@@ -10,19 +10,7 @@
       icon="document"
     >
     </evj-contemporary-widget-header>
-  <ng-container *ngIf="ewService?.event?.category?.code === '0'">
-    <ng-container *ngIf="displayContainer">
-      <evj-evj-main-toggle-smotr
-        (eventCreated)="createdEvent($event)"
-        (eventBack)="backEvent()"
-        [isEventOpen]="!ewService.isEditEvent"
-        [blockWorkspaceButton]="canShowSaveButton()"
-        [eventProdTask]="eventProdButton"
-        (eventProdTaskChange)="onChangeStatus()"
-      >
-      </evj-evj-main-toggle-smotr>
-    </ng-container>
-  </ng-container>
+
   <ng-container *ngIf="ewService?.event?.category?.code !== '0'">
     <ng-container *ngIf="displayContainer">
       <evj-evj-main-toggle
@@ -43,7 +31,17 @@
       (touchstart)="$event.stopPropagation()"
     >
       <ng-container *ngIf="ewService.event" [ngSwitch]="ewService?.event?.category?.code">
-      <evj-smotr-event *ngSwitchCase="0"></evj-smotr-event>
+        <ng-container  *ngSwitchCase="0">
+          <evj-smotr-event
+            (eventCreated)="createdEvent($event)"
+            (eventBack)="backEvent()"
+            [isEventOpen]="!ewService.isEditEvent"
+            [blockWorkspaceButton]="canShowSaveButton()"
+            [eventProdTask]="eventProdButton"
+            (eventProdTaskChange)="onChangeStatus()"
+          ></evj-smotr-event>
+        </ng-container>
+
       <ng-container *ngSwitchCase="2">
         <!-- Проверка на подкатегорию "Распоряжения" -->
         <evj-tasks-event

@@ -120,12 +120,5 @@ export class EvjMainToggleSmotrComponent implements OnInit, OnDestroy, OnChanges
         this.ejcoActiveTab = caption;
         this.ejcoTabClicked.emit(caption);
     }
-    public onEscalateEvent(message: IChatMessageWithAttachments): void {
-        this.isEscalatePopupOpen = false;
-        console.log(message);
-        if (message) {
-            this.ewService.escalateEvent(message);
-        }
-    }
 }
 
