@@ -29,7 +29,7 @@ export class OzsmEqualizerChartComponent implements OnChanges, OnInit {
 
     @HostListener('document:resize', ['$event'])
     public OnResize(): void {
-        if (this.data.length && this.chart) {
+        if (this.data?.length && this.chart) {
             this.drawSvg();
         }
     }
