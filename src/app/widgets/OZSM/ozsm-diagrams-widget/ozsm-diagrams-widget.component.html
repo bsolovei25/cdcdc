@@ -34,10 +34,28 @@
     </div>
     <div class="card__sub-charts-section">
       <div class="container">
-        <evj-ozsm-diagrams-card></evj-ozsm-diagrams-card>
+        <evj-ozsm-diagrams-card
+          [data]="{
+            fact: 6455,
+            plan: 7239,
+            deviation: -784,
+            percentage: 89,
+            amount: 500,
+            title: '№3'
+          }"
+        ></evj-ozsm-diagrams-card>
       </div>
       <div class="container">
-        <evj-ozsm-diagrams-card></evj-ozsm-diagrams-card>
+        <evj-ozsm-diagrams-card
+        [data]="{
+          fact: 5087,
+          plan: 4861,
+          deviation: 226,
+          percentage: 105,
+          amount: 500,
+          title: '№4'
+        }"
+        ></evj-ozsm-diagrams-card>
       </div>
       <div class="container">
         <evj-ozsm-diagrams-card></evj-ozsm-diagrams-card>

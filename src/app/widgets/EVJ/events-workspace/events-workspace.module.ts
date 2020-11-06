@@ -32,6 +32,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { TasksEventComponent } from './tasks-event/tasks-event.component';
 import { ShiftPassComponent } from './shift-pass/shift-pass.component';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { EventsPlaceComponent } from './components/events-place/events-place.component';
 
 @NgModule({
     declarations: [
@@ -56,7 +57,8 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
         EventsWorkspaceButtonComponent,
         FileAttachMenuComponent,
         TasksEventComponent,
-        ShiftPassComponent
+        ShiftPassComponent,
+        EventsPlaceComponent
     ],
     imports: [
         CommonModule,

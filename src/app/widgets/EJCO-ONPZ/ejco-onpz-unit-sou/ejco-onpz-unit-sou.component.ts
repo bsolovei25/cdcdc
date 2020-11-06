@@ -1,19 +1,15 @@
-import {
-    Component,
-    Inject,
-    OnDestroy,
-    AfterViewInit
-} from '@angular/core';
+import { Component, Inject, OnDestroy, AfterViewInit } from '@angular/core';
 import { WidgetPlatform } from '../../../dashboard/models/@PLATFORM/widget-platform';
 import { WidgetService } from '../../../dashboard/services/widget.service';
 import { EjcoOnpzHelperService } from '../ejco-onpz-shared/ejco-onpz-helper.service';
+import { UserSettingsService } from '../../../dashboard/services/user-settings.service';
 
 export interface IEjcoOnpzUnit {
     caption: string;
 }
 
 export interface IEjcoOnpzUnitSou {
-    chartData: { title: string, fact: number, plan: number, deviation?: number }[];
+    chartData: { title: string; fact: number; plan: number; deviation?: number }[];
     data: IEjcoOnpzUnitSouTableRow[];
 }
 
@@ -25,10 +21,10 @@ export interface IEjcoOnpzUnitSouTableRow {
 @Component({
     selector: 'evj-ejco-onpz-unit-sou',
     templateUrl: './ejco-onpz-unit-sou.component.html',
-    styleUrls: ['./ejco-onpz-unit-sou.component.scss']
+    styleUrls: ['./ejco-onpz-unit-sou.component.scss'],
 })
-export class EjcoOnpzUnitSouComponent extends WidgetPlatform<unknown> implements OnDestroy, AfterViewInit {
-
+export class EjcoOnpzUnitSouComponent extends WidgetPlatform<unknown>
+    implements OnDestroy, AfterViewInit {
     public tabs: IEjcoOnpzUnit[] = [];
 
     public data: IEjcoOnpzUnitSou = { chartData: null, data: null };
@@ -40,9 +36,10 @@ export class EjcoOnpzUnitSouComponent extends WidgetPlatform<unknown> implements
     constructor(
         public widgetService: WidgetService,
         public ejcoOnpzHelperService: EjcoOnpzHelperService,
+        private userSettingsService: UserSettingsService,
         @Inject('isMock') public isMock: boolean,
         @Inject('widgetId') public id: string,
-        @Inject('uniqId') public uniqId: string,
+        @Inject('uniqId') public uniqId: string
     ) {
         super(widgetService, isMock, id, uniqId);
     }
@@ -53,10 +50,10 @@ export class EjcoOnpzUnitSouComponent extends WidgetPlatform<unknown> implements
 
     public handleTabClick(unitCaption: string | null): void {
         if (!unitCaption) {
-            console.log('В источник');
+            this.userSettingsService.loadScreenByWidget('sou-operational-accounting-system');
             return;
         }
-        this.tableData = this.data.data.find(item => item.title === unitCaption).values;
+        this.tableData = this.data.data.find((item) => item.title === unitCaption).values;
     }
 
     public ngOnDestroy(): void {
@@ -68,7 +65,7 @@ export class EjcoOnpzUnitSouComponent extends WidgetPlatform<unknown> implements
             this.data.chartData = ref.chartData;
         }
         const tabs = [];
-        ref.data.forEach(item => tabs.push({ caption: item.title }));
+        ref.data.forEach((item) => tabs.push({ caption: item.title }));
         if (this.ejcoOnpzHelperService.compareArrayOfObjects(this.tabs, tabs)) {
             this.tabs = tabs.sort((a, b) => {
                 const textA = a.caption.toUpperCase();

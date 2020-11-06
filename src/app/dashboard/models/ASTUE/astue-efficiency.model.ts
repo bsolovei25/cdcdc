@@ -16,6 +16,7 @@ export interface IAsEfTable {
 }
 
 export interface IAsEfUnitNew extends IAsEfTable {
+    id: string;
     flows: IAsEfFlow[];
     currentDeviation: IAsEfLabel;
     currentValue: IAsEfLabel;
@@ -27,8 +28,8 @@ export interface IAsEfUnitNew extends IAsEfTable {
     periodPlanFact: IAsEfLabel;
     engUnits: string;
     initialData: IAsEfRow[];
-    planFact: { plan: number, fact: number };
-    planPlan: { plan: number, planProcessing: number };
+    planFact: { plan: number; fact: number };
+    planPlan: { plan: number; planProcessing: number };
 }
 
 export interface IAsEfFlow extends IAsEfTable {
@@ -109,7 +110,7 @@ export interface IAsEfTableBlock extends IAsEfTempl {
 
 export interface IAsEfTableRow extends IAsEfTempl {
     dataSummary?: string;
-    data: IAsEfTableCell[];
+    data: IAsEfCell[];
 }
 
 export interface IAsEfTableCell {
@@ -123,4 +124,26 @@ export interface IAsEfScript {
     name: string;
     fromDateTime: Date;
     toDateTime: Date;
+}
+
+export interface IAsPlanningTableServer {
+    groups: IAsPlanningTable[];
+    title: string;
+}
+
+export interface IAsPlanningTable {
+    data: {
+        title: string;
+        rows: IAsPlanningRows[];
+    }[];
+    title: 'Показатели' | 'Отклонения';
+}
+
+export interface IAsPlanningRows {
+    columns: {
+        editable: boolean;
+        timestamp: Date;
+        value: number;
+    }[];
+    title: string;
 }

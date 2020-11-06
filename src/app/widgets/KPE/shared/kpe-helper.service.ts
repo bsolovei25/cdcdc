@@ -3,7 +3,6 @@ import { IKpeLineChartData } from './kpe-charts.model';
 import { IBarDiagramData } from './kpe-equalizer-chart/kpe-equalizer-chart.component';
 import { IDeviationDiagramData } from './kpe-deviation-diagram/kpe-deviation-diagram.component';
 import { IProductionTrend } from '../../../dashboard/models/LCO/production-trends.model';
-import {consoleTestResultHandler} from "tslint/lib/test";
 
 @Injectable()
 export class KpeHelperService {
@@ -46,6 +45,27 @@ export class KpeHelperService {
             dataArray[idx] = el;
         });
         return dataArray;
+    }
+
+    private fillArrayTimestamp(array: {value: number, timeStamp: Date}[]): {value: number, timeStamp: Date}[] {
+        const firstDate = new Date(array[0].timeStamp);
+        const lastDate = new Date(array[array.length - 1].timeStamp);
+        const firstValue = array[0].value;
+        const lastValue = array[array.length - 1].value;
+        let result: {value: number, timeStamp: Date}[] = [];
+        for (let i = 1; i <= this.getNumOfDays(firstDate); i++) {
+            const arrayItemFiltered = array.find(arrayItem => new Date(arrayItem.timeStamp).getDate() === i);
+            if (arrayItemFiltered) {
+                result = [...result, {timeStamp: arrayItemFiltered.timeStamp, value: arrayItemFiltered.value}];
+            } else if (firstDate.getDate() > i) {
+                result = [...result, {timeStamp: new Date(firstDate.getFullYear(), firstDate.getMonth(), i), value: firstValue}];
+            } else if (lastDate.getDate() < i) {
+                result = [...result, {timeStamp: new Date(lastDate.getFullYear(), lastDate.getMonth(), i), value: lastValue}];
+            } else {
+                result = [...result, {timeStamp: new Date(firstDate.getFullYear(), firstDate.getMonth(), i), value: 0}];
+            }
+        }
+        return result;
     }
 
     public prepareKpeLineChartData(data: IKpeLineChartData[] | null): IDeviationDiagramData[] | IBarDiagramData[] {
@@ -100,7 +120,6 @@ export class KpeHelperService {
         });
 
         const resultData = [];
-
         planArray.forEach(item => {
             const factValue = factArray.find(factItem => factItem.x === item.x);
             resultData.push({
@@ -109,46 +128,53 @@ export class KpeHelperService {
                 factValue: factValue ? factValue.y : 0,
             });
         });
-
         return resultData;
     }
 
     public prepareKpeTrendChartData(data: IProductionTrend[]): IProductionTrend[] {
-        function fieldHandler(field: {value: number, timeStamp: Date}[]): {value: number, timeStamp: any}[] {
-            field.filter(el => new Date(el.timeStamp).getMonth() === new Date().getMonth());
-            return field?.map(el => {return {
-                timeStamp: new Date(el.timeStamp).setHours(0, 0, 0, 0),
-                value: el.value,
-            }; });
+        function fieldHandler(field: {value: number, timeStamp: Date}[]): {value: number, timeStamp: any}[][] {
+            let tempArr = [];
+            const resultArr = [];
+            let month: number = new Date(field[0].timeStamp).getMonth();
+            let day = 0;
+            for (let i = 0; i <= field.length; i++) {
+                const itemMonth = new Date(field[i]?.timeStamp).getMonth();
+                const nextDay = new Date(field[i]?.timeStamp).getDate();
+                if (field[i]?.timeStamp && (field[i]?.value || field[i]?.value === 0) && day < nextDay) {
+                    tempArr.push({
+                        timeStamp: new Date(field[i]?.timeStamp),
+                        value: field[i]?.value,
+                    });
+                }
+                if (month !== itemMonth || i === field.length) {
+                    resultArr.push(tempArr);
+                    tempArr = [];
+                }
+                day = nextDay;
+                month = new Date(field[i]?.timeStamp).getMonth();
+            }
+            return resultArr;
         }
 
         function distinct(array: {value: number, timeStamp: Date}[]): {value: number, timeStamp: Date}[] {
             return [...new Map(array.map(item => [item.timeStamp, item])).values()];
         }
 
-        function fill(array: {value: number, timeStamp: Date}[]): {value: number, timeStamp: Date}[] {
-            const now = new Date();
-            const n = new Date(now.getFullYear(), now.getMonth() + 1, 0).getDate();
-            let i = array.length - 1;
-            while (i <= n) {
-                const newDate = new Date(array[array.length - 1].timeStamp);
-                array.push({
-                    timeStamp: new Date(newDate.setDate(newDate.getDate() + 1)),
-                    value: array[array.length - 1].value,
-                });
-                i++;
+        const resultData: IProductionTrend[] = [];
+        data.forEach(item => {
+            item.graph = distinct(fieldHandler(item.graph)[0]);
+            let graphData;
+            if (item.graphType === 'fact') {
+                graphData = distinct(fieldHandler(item.graph)[0]);
+            } else {
+                graphData = this.fillArrayTimestamp(distinct(fieldHandler(item.graph)[0]));
             }
-            return array;
-        }
-
-        data.map(item => {
-            item.graph = distinct(fieldHandler(item.graph));
-            if (item.graphType === 'higherBorder' || item.graphType === 'lowerBorder') {
-                item.graph = fill(item.graph);
-            }
+            resultData.push({
+                graphType: item.graphType,
+                graph: graphData,
+            });
         });
-
-        return data;
+        return resultData;
     }
 
     public compare<T>(a: T[], b: T[]): boolean {

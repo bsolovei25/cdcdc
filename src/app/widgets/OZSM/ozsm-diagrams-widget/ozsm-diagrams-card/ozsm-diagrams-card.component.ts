@@ -28,15 +28,15 @@ interface IDiagrammOptions {
     styleUrls: ['./ozsm-diagrams-card.component.scss'],
 })
 export class OzsmDiagramsCardComponent implements OnInit, OnChanges {
-
+    // Различные случаи
     @Input()
     public data: IOzsmCircleDiagram = {
-        fact: 70,
-        plan: 100,
-        deviation: 100,
-        percentage: 70,
-        amount: 365,
-        title: '№8',
+        fact: 1041,
+        plan: 1041,
+        deviation: 0,
+        percentage: 100,
+        amount: 500,
+        title: '№5'
     };
 
     private readonly diagramCounter: number = 160;
@@ -119,7 +119,7 @@ export class OzsmDiagramsCardComponent implements OnInit, OnChanges {
     }
 
     private drawInnerSvg(): void {
-        const k = this.data.fact * 1.4 / this.data.plan;
+        const k = this.data.percentage / 100;
         const arcWidth = 2;
 
         this.appendCircle(this.diagramOptions.diameter, 'bg-diagram-card');
@@ -133,33 +133,33 @@ export class OzsmDiagramsCardComponent implements OnInit, OnChanges {
         this.g
             .append('path')
             .attr('d', arc)
-            .attr('class', this.data.fact === this.data.plan ? 'bg-arc-default' : 'bg-arc-deviation');
-
-        if (this.data.fact < this.data.plan) {
-            const arcDeviation = d3.arc()
-                .innerRadius(this.diagramOptions.diameter - 5)
-                .outerRadius(this.diagramOptions.diameter - 5 + arcWidth)
-                .cornerRadius(1)
-                .startAngle(0)
-                .endAngle(1.4 * Math.PI);
-
-            this.g
-                .append('path')
-                .attr('d', arcDeviation)
-                .attr('class', 'arc-deviation');
-        }
+            .attr('class', this.data.percentage === 100 ? 'bg-arc-default' : 'bg-arc-deviation');
 
         const arcValue = d3.arc()
             .innerRadius(this.diagramOptions.diameter - 5)
             .outerRadius(this.diagramOptions.diameter - 5 + arcWidth)
             .cornerRadius(1)
             .startAngle(0)
-            .endAngle(k * Math.PI);
+            .endAngle(2 * k * Math.PI);
 
         this.g
             .append('path')
             .attr('d', arcValue)
-            .attr('class', this.data.fact === this.data.plan ? 'arc-value-default' : 'arc-value-deviation');
+            .attr('class', this.data.percentage === 100 ? 'arc-value-default' : 'arc-value-deviation');
+
+        if (this.data.percentage > 100) {
+            const arcDeviation = d3.arc()
+                .innerRadius(this.diagramOptions.diameter - 5)
+                .outerRadius(this.diagramOptions.diameter - 5 + arcWidth)
+                .cornerRadius(1)
+                .startAngle(2 * Math.PI)
+                .endAngle(2 * Math.PI - (k - 1) * Math.PI);
+
+            this.g
+                .append('path')
+                .attr('d', arcDeviation)
+                .attr('class', 'arc-deviation');
+        }
 
         const outerArc = d3.arc()
             .innerRadius(this.diagramOptions.diameter)

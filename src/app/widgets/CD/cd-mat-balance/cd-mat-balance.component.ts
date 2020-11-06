@@ -149,7 +149,7 @@ export class CdMatBalanceComponent extends WidgetPlatform<unknown> implements On
             name: 'Вернуться к карточке события',
             value: 0,
             onClick: () => {
-                this.userService.LoadScreenByWidget('events-workspace');
+                this.userService.loadScreenByWidget('events-workspace');
                 this.ewtService.editEvent(this.cdMatBalanceService.isOpenEvent$.getValue()?.id);
                 this.cdMatBalanceService.isOpenEvent$.next(null);
             }

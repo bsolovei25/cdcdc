@@ -13,8 +13,13 @@
 
     </div>
     <div class="main-indicator__level-empty">
-      <div class="level-yellow" *ngIf="item.fact != item.plan; else full" [ngStyle]="{width: '100%'}">
+      <div class="level-warning" 
+        *ngIf="item.fact != item.plan; else full" 
+        [ngStyle]="{width: '100%'}"
+        [style.background]="deviation>0? 'var(--ozsm-color-warning)' : 'transparent'"
+      >
         <div class="level-white" [ngStyle]="{width: item?.percent + '%'}"></div>
+        <div class="level-extra" *ngIf=" deviation < 0" [ngStyle]="{width: -deviation + '%'}"></div>
       </div>
       <ng-template #full>
         <div class="level-full" [ngStyle]="{width: item?.percent + '%'}"></div>
@@ -23,7 +28,7 @@
   </div>
   <div class="main-indicator__value">
     <span>{{ +item?.plan.toFixed(2) | spaceNumber}}</span>
-    <div class="text-blue" *ngIf="item.fact != item.plan">
+    <div class="text-white" *ngIf="item.fact != item.plan">
         <span>{{ +item?.fact.toFixed(2) | spaceNumber}}</span>
     </div>
   </div>

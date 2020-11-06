@@ -2,14 +2,15 @@ import { Component, Input, OnChanges } from '@angular/core';
 import { SelectionModel } from '@angular/cdk/collections';
 import {
     IAsEfFlow,
-    IAsEfUnitNew
+    IAsEfUnitNew,
 } from '../../../../../dashboard/models/ASTUE/astue-efficiency.model';
 import { AstueEfficiencyService } from '../../../../../dashboard/services/widgets/ASTUE/astue-efficiency.service';
+import { log } from 'util';
 
 @Component({
     selector: 'evj-astue-efficiency-units',
     templateUrl: './astue-efficiency-units.component.html',
-    styleUrls: ['./astue-efficiency-units.component.scss']
+    styleUrls: ['./astue-efficiency-units.component.scss'],
 })
 export class AstueEfficiencyUnitsComponent implements OnChanges {
     @Input() public isInitialDataShow: boolean = true;
@@ -19,8 +20,7 @@ export class AstueEfficiencyUnitsComponent implements OnChanges {
     public unitSelection: SelectionModel<IAsEfUnitNew> = new SelectionModel<IAsEfUnitNew>(true);
     public cardSelection: SelectionModel<IAsEfFlow> = new SelectionModel<IAsEfFlow>(true);
 
-    constructor(private AsEfService: AstueEfficiencyService) {
-    }
+    constructor(private AsEfService: AstueEfficiencyService) {}
 
     public ngOnChanges(): void {
         this.unitSelection.clear();
@@ -31,8 +31,8 @@ export class AstueEfficiencyUnitsComponent implements OnChanges {
         });
         let flows = this.AsEfService.selectionFlow$.getValue();
         this.units?.forEach((unit) => {
-            unit?.flows.forEach(flow => {
-                flows = flows?.map(flowsS => ((flow?.id === flowsS?.id) ? flow : flowsS));
+            unit?.flows.forEach((flow) => {
+                flows = flows?.map((flowsS) => (flow?.id === flowsS?.id ? flow : flowsS));
             });
         });
         if (flows) {
@@ -43,10 +43,10 @@ export class AstueEfficiencyUnitsComponent implements OnChanges {
         }
     }
 
-    public onSelectUnit(unit: IAsEfUnitNew): void {
+    onSelectUnit(unit: IAsEfUnitNew): void {
         this.unitSelection.toggle(unit);
         if (!this.unitSelection.isSelected(unit)) {
-            unit.flows.forEach(flow => {
+            unit.flows.forEach((flow) => {
                 this.AsEfService.cardSelection.deselect(flow);
                 this.cardSelection = this.AsEfService.cardSelection;
             });
@@ -55,6 +55,21 @@ export class AstueEfficiencyUnitsComponent implements OnChanges {
         this.AsEfService.selectionUnit$.next(this.unitSelection.selected);
         this.AsEfService.toggleUnit(unit.name);
         this.AsEfService.currentUnit = unit;
+    }
+
+    onSelectUnitPlanning(unit: IAsEfUnitNew): void {
+        this.unitSelection.toggle(unit);
+        if (!this.unitSelection.isSelected(unit)) {
+            unit.flows.forEach((flow) => {
+                this.AsEfService.cardSelection.deselect(flow);
+                this.cardSelection = this.AsEfService.cardSelection;
+            });
+            this.AsEfService.selectionFlow$.next(this.AsEfService.cardSelection.selected);
+        }
+        this.AsEfService.selectionUnit$.next(this.unitSelection.selected);
+        this.AsEfService.toggleUnit(unit.name);
+        this.AsEfService.currentUnit = unit;
+        this.AsEfService.getPlanningUnits(this.unitSelection.selected);
     }
 
     public onClickSelectAll(): void {

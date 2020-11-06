@@ -61,14 +61,14 @@ export class GroupSelectorComponent implements OnInit, OnDestroy {
             queryParams: { userScreenGroupId: group.id ?? undefined },
             queryParamsHandling: 'merge',
         });
-        this.userSettingsService.GetScreens(group.id);
+        this.userSettingsService.getScreens(group.id);
     }
 
     public async onDelete(group: IGroupScreens): Promise<void> {
         if (!group) {
             return;
         }
-        if (!(await this.userSettingsService.DeleteGroup(group.id))) {
+        if (!(await this.userSettingsService.deleteGroup(group.id))) {
             return;
         }
         if (this.selector.selected[0] === group) {
@@ -83,12 +83,12 @@ export class GroupSelectorComponent implements OnInit, OnDestroy {
             return;
         }
         group.name = event;
-        group = await this.userSettingsService.UpdateGroup(group);
+        group = await this.userSettingsService.updateGroup(group);
     }
 
     public async onCreateGroup(): Promise<void> {
         if (!!this.formControl.value) {
-            const newGroup = await this.userSettingsService.AddGroup({
+            const newGroup = await this.userSettingsService.addGroup({
                 id: 0,
                 name: this.formControl.value.slice(),
             });
@@ -97,7 +97,7 @@ export class GroupSelectorComponent implements OnInit, OnDestroy {
             }
             this.groups.push(newGroup);
             this.onSelect(newGroup);
-            await this.userSettingsService.PushScreen(`Экран группы ${newGroup.name}`);
+            await this.userSettingsService.pushScreen(`Экран группы ${newGroup.name}`);
             this.formControl.setValue('');
         }
     }
@@ -135,7 +135,7 @@ export class GroupSelectorComponent implements OnInit, OnDestroy {
     }
 
     private async getGroups(): Promise<IGroupScreens[]> {
-        const groups = await this.userSettingsService.GetGroups();
+        const groups = await this.userSettingsService.getGroups();
         return groups;
     }
 }
