@@ -3,7 +3,6 @@ import { HttpClient } from '@angular/common/http';
 import { AppConfigService } from '@core/service/app-config.service';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { IAlertWindowModel } from '@shared/models/alert-window.model';
-import { IFolder } from '../../../models/ADMIN/report-server';
 import { IFolderReport } from '../../../components/report/reports.component';
 
 @Injectable({
@@ -67,7 +66,6 @@ export class ReportsService {
     public deleteCustomOptions(id: number): Observable<any> {
         return this.http.delete<any[]>(this.restUrl + '/api/report-options/custom/' + id);
     }
-
 
     public closeAlert(): void {
         this.alertWindow$.next(null);
