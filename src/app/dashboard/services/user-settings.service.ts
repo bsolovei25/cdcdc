@@ -16,7 +16,7 @@ import { IGroupScreens } from '../components/header-components/group-selector/gr
 import { Title } from '@angular/platform-browser';
 
 @Injectable({
-    providedIn: 'root'
+    providedIn: 'root',
 })
 export class UserSettingsService {
     private screens$: BehaviorSubject<IScreenSettings[]> = new BehaviorSubject(null);
@@ -29,9 +29,8 @@ export class UserSettingsService {
     public groupName: string;
 
     private restUrl: string;
-
-    public ScreenId: number;
-    public ScreenName: string;
+    public screenId: number;
+    public screenName$: BehaviorSubject<string> = new BehaviorSubject<string>(undefined);
     readonly projectName: string;
 
     private widgetsOnScreen: Map<string, string> = new Map<string, string>();
@@ -80,7 +79,7 @@ export class UserSettingsService {
             minItemRows,
             id: idWidget,
             uniqid: uniqId,
-            widgetType: nameWidget
+            widgetType: nameWidget,
         });
         this.addWidgetApi(uniqId);
     }
@@ -88,7 +87,7 @@ export class UserSettingsService {
     private addWidgetApi(uniqId: string): void {
         const updateWidget = this.save(uniqId);
         this.http
-            .post(this.restUrl + '/api/user-management/widget/' + this.ScreenId, updateWidget)
+            .post(this.restUrl + '/api/user-management/widget/' + this.screenId, updateWidget)
             .subscribe(
                 (ans: IUserGridItem) => {
                     this.setWidgetOnScreen(ans.widgetType, ans.uniqueId);
@@ -106,7 +105,7 @@ export class UserSettingsService {
             widgetType: item.widgetType,
             sizeX: item.cols,
             sizeY: item.rows,
-            uniqueId: item.uniqid
+            uniqueId: item.uniqid,
         };
     }
 
@@ -115,8 +114,7 @@ export class UserSettingsService {
         this.http
             .put(this.restUrl + '/api/user-management/widget/' + uniqId, updateWidget)
             .subscribe(
-                (ans) => {
-                },
+                (ans) => {},
                 (error) => console.log(error)
             );
     }
@@ -145,7 +143,7 @@ export class UserSettingsService {
         }
     }
 
-    public async GetGroups(): Promise<IGroupScreens[]> {
+    public async getGroups(): Promise<IGroupScreens[]> {
         try {
             return await this.http
                 .get<IGroupScreens[]>(`${this.restUrl}/api/user-management/screen-groups`)
@@ -156,7 +154,7 @@ export class UserSettingsService {
         }
     }
 
-    public async AddGroup(group: IGroupScreens): Promise<IGroupScreens> {
+    public async addGroup(group: IGroupScreens): Promise<IGroupScreens> {
         try {
             return await this.http
                 .post<IGroupScreens>(`${this.restUrl}/api/user-management/screen-group`, group)
@@ -167,7 +165,7 @@ export class UserSettingsService {
         }
     }
 
-    public async UpdateGroup(group: IGroupScreens): Promise<IGroupScreens> {
+    public async updateGroup(group: IGroupScreens): Promise<IGroupScreens> {
         try {
             return await this.http
                 .put<IGroupScreens>(`${this.restUrl}/api/user-management/screen-group`, group)
@@ -178,7 +176,7 @@ export class UserSettingsService {
         }
     }
 
-    public async DeleteGroup(groupId: number): Promise<boolean> {
+    public async deleteGroup(groupId: number): Promise<boolean> {
         try {
             await this.http
                 .delete<IGroupScreens>(
@@ -192,7 +190,7 @@ export class UserSettingsService {
         }
     }
 
-    public async GetScreens(id: number = null): Promise<void> {
+    public async getScreens(id: number = null): Promise<void> {
         // "запоминание" активной группы
         sessionStorage.setItem('userScreenGroupId', id ? id.toString() : undefined);
         localStorage.setItem('userScreenGroupId', id ? id.toString() : undefined);
@@ -204,16 +202,16 @@ export class UserSettingsService {
             }
             const data = await this.http
                 .get<IScreenSettings[]>(`${this.restUrl}/api/user-management/screens/group`, {
-                    params
+                    params,
                 })
                 .toPromise();
 
-            const search = data.find((item) => item.id === this.ScreenId);
+            const search = data.find((item) => item.id === this.screenId);
             if (!data.length) {
-                this.ScreenId = undefined;
-                this.ScreenName = undefined;
+                this.screenId = undefined;
+                this.screenName$.next(undefined);
             } else if (!search) {
-                this.ScreenId = data[0]?.id;
+                this.screenId = data[0]?.id;
             }
             this.screens$.next(data);
         } catch (e) {
@@ -221,13 +219,13 @@ export class UserSettingsService {
         }
     }
 
-    private LoadScreenAsync(id: number, loadDefault: boolean): Observable<any> {
+    private loadScreenAsync(id: number, loadDefault: boolean): Observable<any> {
         const dataScreen = this.screens$.getValue();
         if (dataScreen?.length > 0) {
             return this.http.get(this.restUrl + '/api/user-management/screen/' + id).pipe(
                 catchError((err) => {
                     if ((err.status === 404 || err.status === 403) && loadDefault) {
-                        return this.LoadScreenAsync(dataScreen[0].id, false);
+                        return this.loadScreenAsync(dataScreen[0].id, false);
                     }
                     return throwError(err);
                 })
@@ -237,20 +235,20 @@ export class UserSettingsService {
         }
     }
 
-    public LoadScreen(id: number): Subscription {
+    public loadScreen(id: number): Subscription {
         if (id) {
             localStorage.setItem('screenid', id.toString());
             sessionStorage.setItem('screenid', id.toString());
             this.widgetService.dashboard = [];
             this.claimService.setClaimsByScreen(null);
-            return this.LoadScreenAsync(id, true).subscribe((item: IScreenSettings) => {
+            return this.loadScreenAsync(id, true).subscribe((item: IScreenSettings) => {
                 this.router.navigate([], {
                     queryParams: { screenId: item.id },
-                    queryParamsHandling: 'merge'
+                    queryParamsHandling: 'merge',
                 });
                 this.claimService.setClaimsByScreen(item.claims);
-                this.ScreenId = item.id;
-                this.ScreenName = item.screenName;
+                this.screenId = item.id;
+                this.screenName$.next(item.screenName);
                 this.widgetService.dashboard = item.widgets.map((widget) => {
                     this.setWidgetOnScreen(widget.widgetType, widget.uniqueId);
                     const minItemCols = this.defWidgetSize(widget.widgetType)?.minItemCols ?? 6;
@@ -264,24 +262,24 @@ export class UserSettingsService {
                         minItemRows,
                         id: widget.widgetId,
                         widgetType: widget.widgetType,
-                        uniqid: widget.uniqueId
+                        uniqid: widget.uniqueId,
                     };
                 });
-                this.setTitle(`${this.projectName} - ${this.ScreenName}`);
+                this.setTitle(`${this.projectName} - ${this.screenName$.getValue()}`);
             });
         } else {
-            this.ScreenId = undefined;
-            this.ScreenName = undefined;
+            this.screenId = undefined;
+            this.screenName$.next(undefined);
             this.widgetService.dashboard = [];
             this.claimService.setClaimsByScreen(null);
             this.router.navigate([], {
                 queryParams: { screenId: undefined },
-                queryParamsHandling: 'merge'
+                queryParamsHandling: 'merge',
             });
         }
     }
 
-    public async PushScreen(screenName: string): Promise<void> {
+    public async pushScreen(screenName: string): Promise<void> {
         const userScreen: IScreenSettings = {
             id: null,
             screenName,
@@ -290,36 +288,36 @@ export class UserSettingsService {
             widgets: null,
             // экран создается в привязке к активной группе
             userScreenGroupName: this.groupName,
-            userScreenGroupId: this.groupId
+            userScreenGroupId: this.groupId,
         };
         try {
             const data: IScreenSettings = await this.http
                 .post<IScreenSettings>(this.restUrl + '/api/user-management/screen', userScreen)
                 .toPromise();
             console.log('screen id');
-            this.ScreenId = data?.id ?? this.ScreenId;
-            this.GetScreens(this.groupId);
+            this.screenId = data?.id ?? this.screenId;
+            this.getScreens(this.groupId);
         } catch (error) {
             console.log(error);
         }
     }
 
-    public async LoadScreenByWidget(widgetType: string): Promise<void> {
+    public async loadScreenByWidget(widgetType: string): Promise<void> {
         const screenId = await this.getScreenByWidgetType(widgetType);
         if (!screenId) {
             throwError('wrong screen id');
         }
-        this.LoadScreen(screenId);
+        this.loadScreen(screenId);
     }
 
     public deleteScreen(id: number): Subscription {
         return this.http.delete(this.restUrl + '/api/user-management/screen/' + id).subscribe(
             (ans) => {
-                if (this.ScreenId === Number(id)) {
-                    this.ScreenId = undefined;
+                if (this.screenId === Number(id)) {
+                    this.screenId = undefined;
                 }
                 this.snackBar.openSnackBar('Экран успешно удален');
-                this.GetScreens(this.groupId);
+                this.getScreens(this.groupId);
             },
             (error) => console.log(error)
         );
@@ -331,7 +329,7 @@ export class UserSettingsService {
             .subscribe(
                 (ans) => {
                     this.snackBar.openSnackBar('Экран успешно изменен');
-                    this.GetScreens(this.groupId);
+                    this.getScreens(this.groupId);
                 },
                 (error) => console.log(error)
             );
@@ -364,7 +362,7 @@ export class UserSettingsService {
 
     private defWidgetSize = (widgetType: string): any => {
         return WIDGETS_LAZY[widgetType] ?? WIDGETS[widgetType];
-    }
+    };
 
     public setTitle(newTitle: string): void {
         this.titleService.setTitle(newTitle);

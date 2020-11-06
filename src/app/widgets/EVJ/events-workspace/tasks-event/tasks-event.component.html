@@ -28,7 +28,7 @@
           [disabled]="!ewService.isCreateNewEvent"
         >
           <mat-option *ngFor="let p of ewService.priority" [value]="p"
-            >{{ ewService.priorities[p.name] }}
+          >{{ ewService.priorities[p.name] }}
           </mat-option>
         </mat-select>
       </mat-form-field>
@@ -44,7 +44,7 @@
             [disabled]="true"
           >
             <mat-option *ngFor="let p of ewService.status" [value]="p"
-              >{{ ewService.statuses[p.name] }}
+            >{{ ewService.statuses[p.name] }}
             </mat-option>
           </mat-select>
         </mat-form-field>
@@ -62,7 +62,7 @@
           >
             <mat-option [value]="undefined">Не выбрана</mat-option>
             <mat-option *ngFor="let p of ewService.subCategory" [value]="p"
-              >{{ p.description }}
+            >{{ p.description }}
             </mat-option>
           </mat-select>
         </mat-form-field>
@@ -81,21 +81,7 @@
       </evj-ui-block>
     </div>
     <div class="selects__item">
-      <evj-ui-block status="normal">
-        <mat-form-field class="status">
-          <mat-label>Место</mat-label>
-          <mat-select
-            panelClass="mat-select-custom"
-            [(ngModel)]="ewService.event.unit"
-            [compareWith]="compareFn"
-            [disabled]="!ewService.isCreateNewEvent"
-          >
-            <mat-option *ngFor="let cat of ewService.units" [value]="cat">
-              {{ cat.name }}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
-      </evj-ui-block>
+      <evj-events-place></evj-events-place>
     </div>
   </div>
   <div class="workspace__left left">
@@ -125,7 +111,8 @@
   </div>
   <div class="workspace__right right">
     <!--          TODO: set disabled-->
-    <evj-events-responsible-select class="right__item" [disabled]="!ewService.isCreateNewEvent"></evj-events-responsible-select>
+    <evj-events-responsible-select class="right__item"
+                                   [disabled]="!ewService.isCreateNewEvent"></evj-events-responsible-select>
     <div class="right__item labels">
       <div class="labels__item label">
         <div class="label__name">Создано:</div>

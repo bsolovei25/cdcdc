@@ -83,21 +83,7 @@
       </evj-ui-block>
     </div>
     <div class="selects__item" *ngIf="ewService.isEditEvent">
-      <evj-ui-block status="normal">
-        <mat-form-field class="status">
-          <mat-label>Место</mat-label>
-          <mat-select
-            panelClass="mat-select-custom"
-            [(ngModel)]="ewService.event.unit"
-            [compareWith]="compareFn"
-            [disabled]=""
-          >
-            <mat-option *ngFor="let cat of ewService.units" [value]="cat">
-              {{ cat.name }}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
-      </evj-ui-block>
+      <evj-events-place></evj-events-place>
     </div>
     <div class="creator" *ngIf="!ewService.isEditEvent">
       <div class="creator_title">

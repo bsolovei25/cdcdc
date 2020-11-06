@@ -40,7 +40,7 @@
         class="content__card card"
         *ngFor="let unit of units"
         [ngClass]="{'card_active':unitSelection.isSelected(unit)}"
-        (click)="onSelectUnit(unit)"
+        (click)="onSelectUnitPlanning(unit)"
       >
         {{unit.name}}
       </div>
