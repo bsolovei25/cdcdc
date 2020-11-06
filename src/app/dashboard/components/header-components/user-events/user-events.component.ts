@@ -18,7 +18,7 @@ export class UserEventsComponent implements OnInit {
   }
 
   public async openWorkspace(id: number): Promise<void> {
-     await this.userSettings.LoadScreenByWidget('events-workspace');
+     await this.userSettings.loadScreenByWidget('events-workspace');
      this.ewService.editEvent(+id);
   }
 

@@ -122,7 +122,7 @@ export class AstueOnpzConventionalFuelComponent extends WidgetPlatform implement
     }
 
     public goToMainScreen(): void {
-        this.userSettingsService.LoadScreenByWidget('astue-onpz-menu-structure');
+        this.userSettingsService.loadScreenByWidget('astue-onpz-menu-structure');
     }
 
     private multilineDataMapper(ref: IMultiChartLine[]): IMultiChartLine[] {

@@ -12,7 +12,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 @Component({
     selector: 'evj-indicator-selector',
     templateUrl: './indicator-selector.component.html',
-    styleUrls: ['./indicator-selector.component.scss']
+    styleUrls: ['./indicator-selector.component.scss'],
 })
 export class IndicatorSelectorComponent implements OnInit, OnDestroy {
     public dataScreen: IScreenSettings[] = [];
@@ -33,8 +33,8 @@ export class IndicatorSelectorComponent implements OnInit, OnDestroy {
         icon: {
             src: 'assets/icons/search-icon.svg',
             svgStyle: { 'width.px': 17, 'height.px': 17 },
-            isClickable: false
-        }
+            isClickable: false,
+        },
     };
 
     public searchScreen: string = '';
@@ -55,9 +55,8 @@ export class IndicatorSelectorComponent implements OnInit, OnDestroy {
         public overlayService: OverlayService,
         private snackBar: SnackBarService,
         public route: ActivatedRoute,
-        public router: Router,
-    ) {
-    }
+        public router: Router
+    ) {}
 
     ngOnInit(): void {
         // this.router.navigate([], { queryParams: {screenId: 1}});
@@ -70,8 +69,6 @@ export class IndicatorSelectorComponent implements OnInit, OnDestroy {
         });
     }
 
-
-
     private loadScreenInit(): void {
         const screenIdFromRoute = this.route.snapshot.queryParamMap.get('screenId');
         if (!screenIdFromRoute) {
@@ -80,26 +77,27 @@ export class IndicatorSelectorComponent implements OnInit, OnDestroy {
             if (!screenId) {
                 screenId = Number(localStorage.getItem('screenid'));
             }
-            this.userSettings.ScreenId = screenId;
+            this.userSettings.screenId = screenId;
         } else {
-            this.userSettings.ScreenId = Number(screenIdFromRoute);
+            this.userSettings.screenId = Number(screenIdFromRoute);
         }
         this.subscriptions.push(
             this.userSettings.screensShared.subscribe((screens) => {
+                console.log(screens);
                 if (!screens?.length) {
                     this.idScreen = undefined;
-                    this.nameScreen = 'СОЗДАЙТЕ ЭКРАН!';
+                    this.userSettings.screenName$.next('СОЗДАЙТЕ ЭКРАН!');
                     this.dataScreen = [];
                     this.loadScreen(this.idScreen);
                     return;
                 }
                 this.dataScreen = screens;
-                if (this.dataScreen.findIndex((s) => s.id === this.userSettings.ScreenId) === -1) {
-                    this.userSettings.ScreenId = this.dataScreen[0].id;
+                if (this.dataScreen.findIndex((s) => s.id === this.userSettings.screenId) === -1) {
+                    this.userSettings.screenId = this.dataScreen[0].id;
                 }
-                this.idScreen = this.userSettings.ScreenId;
+                this.idScreen = this.userSettings.screenId;
                 this.loadScreen(this.idScreen);
-                this.nameScreen = this.getActiveScreen();
+                this.userSettings.screenName$.next(this.getActiveScreen());
                 for (const item of this.dataScreen) {
                     item.updateScreen = false;
                     item.isFilter = true;
@@ -109,12 +107,15 @@ export class IndicatorSelectorComponent implements OnInit, OnDestroy {
             }),
             this.claimService.claimScreens$.subscribe((w) => {
                 this.claimScreens = w;
+            }),
+            this.userSettings.screenName$.subscribe((value) => {
+                this.nameScreen = value;
             })
         );
     }
 
     public loadScreen(id: number): void {
-        this.userSettings.LoadScreen(id);
+        this.userSettings.loadScreen(id);
     }
 
     screenActive(): void {
@@ -152,7 +153,7 @@ export class IndicatorSelectorComponent implements OnInit, OnDestroy {
     };
 
     setActiveScreen(screen: IScreenSettings): void {
-        this.nameScreen = screen.screenName;
+        this.userSettings.screenName$.next(screen.screenName);
         this.idScreen = screen.id;
         screen.isActive = true;
     }
@@ -164,9 +165,7 @@ export class IndicatorSelectorComponent implements OnInit, OnDestroy {
     public deleteScreenButton(screen: IScreenSettings): void {
         const windowsParam = {
             isShow: true,
-            questionText:
-                `Вы уверены, что хотите удалить экран '${screen.screenName}'?`
-            ,
+            questionText: `Вы уверены, что хотите удалить экран '${screen.screenName}'?`,
             acceptText: 'Да',
             cancelText: 'Отменить',
             acceptFunction: () => this.deleteScreen(screen.id),
@@ -174,7 +173,7 @@ export class IndicatorSelectorComponent implements OnInit, OnDestroy {
             cancelFunction: () =>
                 this.snackBar.openSnackBar(
                     `Экран '${screen.screenName}' не удален и доступен для работы`
-                )
+                ),
         };
         this.overlayService.dashboardAlert$.next(windowsParam);
     }
@@ -187,7 +186,7 @@ export class IndicatorSelectorComponent implements OnInit, OnDestroy {
             }
         }
         if (this.idScreen === Number(id)) {
-            this.nameScreen = this.dataScreen[0].screenName;
+            this.userSettings.screenName$.next(this.dataScreen[0].screenName);
             this.idScreen = this.dataScreen[0].id;
             this.loadScreen(this.idScreen);
         }
@@ -196,9 +195,7 @@ export class IndicatorSelectorComponent implements OnInit, OnDestroy {
     public updateScreenButton(screen: IScreenSettings, newName: string): void {
         const windowsParam: IAlertWindowModel = {
             isShow: true,
-            questionText:
-                `Вы уверены, что хотите изменить название экрана с '${screen.screenName}' на '${newName}'?`
-            ,
+            questionText: `Вы уверены, что хотите изменить название экрана с '${screen.screenName}' на '${newName}'?`,
             acceptText: 'Да',
             cancelText: 'Отменить',
             acceptFunction: () => this.updateScreen(screen, newName),
@@ -206,7 +203,7 @@ export class IndicatorSelectorComponent implements OnInit, OnDestroy {
             cancelFunction: () =>
                 this.snackBar.openSnackBar(
                     `Внесенные изменения для экрана '${screen.screenName}' не сохранены`
-                )
+                ),
         };
         this.overlayService.dashboardAlert$.next(windowsParam);
     }
@@ -218,7 +215,7 @@ export class IndicatorSelectorComponent implements OnInit, OnDestroy {
     }
 
     public addScreen(): void {
-        this.userSettings.PushScreen(this.tempScreen);
+        this.userSettings.pushScreen(this.tempScreen);
         this.tempScreen = '';
     }
 
@@ -239,8 +236,7 @@ export class IndicatorSelectorComponent implements OnInit, OnDestroy {
         // }
     }
 
-    isOverScreen(e): void {
-    }
+    isOverScreen(e): void {}
 
     public closeEdit(): void {
         this.dataScreen.forEach((el) => {
