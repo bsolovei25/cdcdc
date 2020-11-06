@@ -247,3 +247,43 @@
     }
   }
 }
+
+.events-workspace__scroll {
+  ::-webkit-scrollbar {
+    width: 1px;
+    height: 4px;
+  }
+
+  ::-webkit-scrollbar:vertical {
+    width: 4px;
+    height: 100%;
+    border-radius: 40px;
+  }
+
+  ::-webkit-scrollbar-track {
+    border-radius: 40px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    background-color: var(--color-border-unactive);
+  }
+
+  ::-webkit-scrollbar-track-piece {
+    border: 1px solid #8c99b2;
+    border-radius: 40px;
+    background-color: rgb(27, 30, 39);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    height: 50px;
+    background-color: var(--color-border-unactive);
+    border-radius: 40px;
+  }
+
+  ::-webkit-scrollbar-corner {
+    background-color: var(--color-border-unactive);
+  }
+
+  ::-webkit-resizer {
+    background-color: var(--color-border-unactive);
+  }
+}

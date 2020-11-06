@@ -23,7 +23,7 @@ $color-scroll: #282B38;
 
 .confirm-container {
   width: $width;
-  height: 721px;
+  height: 500px;
 
   background-color: var(--color-aw-container-body-transparent);
   box-shadow: 0 0 35px var(--color-aw-container-shadow-transparent);
@@ -68,7 +68,7 @@ $color-scroll: #282B38;
   }
 
   &-body__content {
-    height: 482px;
+    height: 261px;
     display: flex;
     justify-content: center;
 

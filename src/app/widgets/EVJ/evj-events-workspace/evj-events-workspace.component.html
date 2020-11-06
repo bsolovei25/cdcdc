@@ -10,6 +10,20 @@
       icon="document"
     >
     </evj-contemporary-widget-header>
+  <ng-container *ngIf="ewService?.event?.category?.code === '0'">
+    <ng-container *ngIf="displayContainer">
+      <evj-evj-main-toggle-smotr
+        (eventCreated)="createdEvent($event)"
+        (eventBack)="backEvent()"
+        [isEventOpen]="!ewService.isEditEvent"
+        [blockWorkspaceButton]="canShowSaveButton()"
+        [eventProdTask]="eventProdButton"
+        (eventProdTaskChange)="onChangeStatus()"
+      >
+      </evj-evj-main-toggle-smotr>
+    </ng-container>
+  </ng-container>
+  <ng-container *ngIf="ewService?.event?.category?.code !== '0'">
     <ng-container *ngIf="displayContainer">
       <evj-evj-main-toggle
         (eventCreated)="createdEvent($event)"
@@ -21,6 +35,7 @@
       >
       </evj-evj-main-toggle>
     </ng-container>
+  </ng-container>
     <!-- EVENT -->
     <div
       [class.container-widget]="displayContainer"

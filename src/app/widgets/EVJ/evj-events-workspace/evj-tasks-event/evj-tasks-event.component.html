@@ -1,11 +1,13 @@
-<div class="workspace" [style]="{overflow: noOverflow ? 'auto' : 'visible'}">
+<div class="workspace scroll scroll-bar" [style]="{overflow: noOverflow ? 'auto' : 'visible'}">
 
   <div class="workspace__header">
     <div class="workspace__select-container-left">
+      <div class="title">
+        <span>Категория</span>
+      </div>
       <div class="mat-form-category">
         <div class="event-mat-select">
           <mat-form-field appearance="none">
-            <mat-label>Категория</mat-label>
             <mat-select
               [(ngModel)]="ewService.event.category"
               [compareWith]="compareFn"
@@ -52,21 +54,34 @@
   <div class="workspace__third">
     <div class="workspace__third__right">
       <div class="place-date">
-      <div class="workspace__select-container-left">
-        <ng-container *ngIf="ewService.event.category.code!=='2' else subcategories">
-          <evj-events-workspace-select
-            [label]="'Тип оборудования'"
-            [dataType]="'equipmentCategory'"
-          ></evj-events-workspace-select>
-        </ng-container>
-      </div>
+        <div class="workspace__select-container-left">
+          <ng-container *ngIf="ewService.event.category.code!=='2' else subcategories">
+            <div class="title">
+              <span>Тип оборудования</span>
+            </div>
+            <div class="mat-form-category">
+              <div class="event-mat-select">
+                <mat-form-field appearance="none">
+                  <mat-select
+                    [(ngModel)]="ewService.event.equipmentCategory"
+                    [compareWith]="compareFn"
+                  >
+                    <mat-option *ngFor="let p of ewService.equipmentCategory" [value]="p"
+                    >{{ p.name }}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+            </div>
+          </ng-container>
+        </div>
 
-      <div class="workspace__select-container-right">
-        <evj-events-workspace-datetimepicker
-          [label]="'Срок выполнения'"
-        >
-        </evj-events-workspace-datetimepicker>
-      </div>
+        <div class="workspace__select-container-right">
+          <evj-events-workspace-datetimepicker
+            [label]="'Срок выполнения'"
+          >
+          </evj-events-workspace-datetimepicker>
+        </div>
       </div>
       <div class="description">
         <div class="title">
@@ -137,7 +152,7 @@
           <div class="workspace__select-container-right">
             <div class="name">Автор:</div>
             <div class="value">{{ewService.event.productionTasks?.createdBy?.displayName || '-'}}</div>
-            </div>
+          </div>
         </div>
 
         <div class="table__group">

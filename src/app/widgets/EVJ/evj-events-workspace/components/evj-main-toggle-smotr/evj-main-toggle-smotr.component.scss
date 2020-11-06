@@ -1,0 +1,51 @@
+.header-workspace {
+  width: 100%;
+  height: 61px;
+  background: var(--color-new-header-bg);
+  border: 1px solid var(--color-cd-bg-border);
+  box-sizing: border-box;
+  padding-left: 23px;
+  padding-right: 23px;
+  font-size: 13px;
+  line-height: 16px;
+  &__button {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+  &__container {
+    flex-grow: 1;
+    min-width: 100px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border-radius: 1px;
+    background-color: rgba(48, 53, 73, 0.5);
+    cursor: pointer;
+    color: var(--color-event-card-font-sub);
+  }
+  &__empty {
+    flex-grow: 3;
+    height: 100%;
+    min-width: 300px;
+  }
+}
+.right-side {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.active-button {
+  background-color: var(--color-new-header-active);
+  color: white;
+}
+evj-rect-button {
+  width: 100%;
+  height: 100%;
+}

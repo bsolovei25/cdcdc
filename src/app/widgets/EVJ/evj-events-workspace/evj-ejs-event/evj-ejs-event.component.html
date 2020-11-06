@@ -1,12 +1,26 @@
-<div class="workspace" [style]="{overflow: noOverflow ? 'auto' : 'visible'}">
+<div class="workspace scroll scroll-bar" [style]="{overflow: noOverflow ? 'auto' : 'visible'}">
   <div class="workspace__third">
     <div class="workspace__third__right">
       <div class="workspace__select-container">
-        <evj-events-workspace-select
-          [label]="'Категории'"
-          [dataType]="'categories'"
-        >
-        </evj-events-workspace-select>
+        <div class="title">
+          <span>Категория</span>
+        </div>
+        <div class="mat-form-category">
+          <div class="event-mat-select">
+            <mat-form-field appearance="none">
+              <mat-select
+                [(ngModel)]="ewService.event.category"
+                [compareWith]="compareFn"
+                (selectionChange)="ewService.changeCategory()"
+                [disabled]="!ewService.isCategoryEdit"
+              >
+                <mat-option *ngFor="let item of ewService.categoryPipe | async" [value]="item">
+                  {{ ewService.categories[item.name] }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
       </div>
       <div class="workspace__select-container">
         <evj-events-workspace-datetimepicker

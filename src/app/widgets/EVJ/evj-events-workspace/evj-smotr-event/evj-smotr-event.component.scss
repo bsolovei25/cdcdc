@@ -11,6 +11,7 @@
   display: flex;
   flex-direction: column;
   position: relative;
+  overflow: auto;
 
   button {
     width: 100%;
@@ -103,6 +104,29 @@
       cursor: pointer;
       border: 1px solid var(--color-border-active);
       background: rgba(63, 169, 245, 0.05);
+    }
+  }
+  &__popup {
+    position: absolute;
+    z-index: 5;
+
+    width: 100%;
+    height: 100%;
+
+    top: 0;
+    right: 0;
+    left: 0;
+    transform: scale(0);
+    transform-origin: top;
+
+    opacity: 0;
+    transition: opacity 0.5s;
+
+    background: var(--color-bg-main-opacity);
+
+    &_active {
+      opacity: 1;
+      transform: scale(1);
     }
   }
 
@@ -282,4 +306,98 @@
     justify-content: flex-start;
     align-items: center;
   }
+}
+
+.events-workspace__scroll {
+  ::-webkit-scrollbar {
+    width: 1px;
+    height: 4px;
+  }
+
+  ::-webkit-scrollbar:vertical {
+    width: 4px;
+    height: 100%;
+    border-radius: 40px;
+  }
+
+  ::-webkit-scrollbar-track {
+    border-radius: 40px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    background-color: var(--color-border-unactive);
+  }
+
+  ::-webkit-scrollbar-track-piece {
+    border: 1px solid #8c99b2;
+    border-radius: 40px;
+    background-color: rgb(27, 30, 39);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    height: 50px;
+    background-color: var(--color-border-unactive);
+    border-radius: 40px;
+  }
+
+  ::-webkit-scrollbar-corner {
+    background-color: var(--color-border-unactive);
+  }
+
+  ::-webkit-resizer {
+    background-color: var(--color-border-unactive);
+  }
+}
+
+.header-workspace {
+  width: 100%;
+  height: 61px;
+  background: var(--color-new-header-bg);
+  border-bottom: 1px solid var(--color-cd-bg-border);
+  box-sizing: border-box;
+  padding-left: 13px;
+  padding-right: 13px;
+  font-size: 13px;
+  line-height: 16px;
+  &__button {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+  }
+  &__container {
+    flex-grow: 1;
+    min-width: 100px;
+    height: 30px;
+    margin-right: 5px;
+    margin-left: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border-radius: 1px;
+    background-color: rgba(48, 53, 73, 0.5);
+    cursor: pointer;
+    color: var(--color-event-card-font-sub);
+  }
+}
+.right-side {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.active-button {
+  background-color: var(--color-new-header-active);
+  color: white;
+}
+evj-rect-button {
+  width: 100%;
+  height: 100%;
+}
+.button-name {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

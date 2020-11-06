@@ -1,4 +1,8 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {
+    Component,
+    Input,
+    OnInit,
+} from '@angular/core';
 import { IChatMessageWithAttachments } from '../components/evj-chat/evj-chat.component';
 import { EventsWorkspaceService } from '../../../../dashboard/services/widgets/EVJ/events-workspace.service';
 import { EventService } from '../../../../dashboard/services/widgets/EVJ/event.service';
@@ -15,12 +19,14 @@ export class EvjSmotrEventComponent implements OnInit {
     public isEscalatePopupOpen: boolean = false;
     public isClosePopupOpen: boolean = false;
     public isReasonsPopupOpen: boolean = false;
+    public createIcon: boolean = true;
 
     public graph: any;
 
     constructor(public ewService: EventsWorkspaceService, private eventService: EventService) {}
+    public ngOnInit(): void {
 
-    public ngOnInit(): void {}
+    }
 
     public isDisabledCloseButton(): boolean {
         return this.ewService.event.status.name === 'closed';
@@ -87,7 +93,4 @@ export class EvjSmotrEventComponent implements OnInit {
         document.dispatchEvent(event);
     }
 
-    public overlayChartClose(): void {
-        this.ewService.isOverlayChartOpen = false;
-    }
 }
