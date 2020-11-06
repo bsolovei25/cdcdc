@@ -1,4 +1,3 @@
-import { style } from '@angular/animations';
 import {
     Component,
     ViewChild,
@@ -14,8 +13,7 @@ import {
     IProductionTrend,
     ProductionTrendType,
 } from '../../../../dashboard/models/LCO/production-trends.model';
-import { IChartMini, IChartD3 } from '../../../../@shared/models/smart-scroll.model';
-import { AsyncRender } from '@shared/functions/async-render.function';
+import { IChartMini, IChartD3 } from '@shared/models/smart-scroll.model';
 
 @Component({
     selector: 'evj-kpe-line-chart',
