@@ -39,7 +39,7 @@ export class AstueOnpzProductCardComponent extends ChannelPlatform<IAstueProduct
     public switchToIndicatorScreen(): void {
         this.astueOnpzService.updateGraphId(this.data.itemId);
         this.astueOnpzService.multilineChartIndicatorTitle$.next(this.data?.productName ?? '');
-        this.userSettingsService.LoadScreenByWidget('astue-onpz-interactive-indicators');
+        this.userSettingsService.loadScreenByWidget('astue-onpz-interactive-indicators');
     }
 
     protected dataHandler(ref: IAstueProductChart): void {

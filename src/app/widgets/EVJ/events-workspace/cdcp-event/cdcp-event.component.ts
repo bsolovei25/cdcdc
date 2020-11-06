@@ -55,7 +55,7 @@ export class CdcpEventComponent implements OnInit {
     public openMnemo(): void {
         if (this.ewService.event.id) {
             this.cdMatBalanceService.isOpenEvent$.next(this.ewService.event);
-            this.userService.LoadScreenByWidget('cd-mat-balance');
+            this.userService.loadScreenByWidget('cd-mat-balance');
         } else {
             this.snackBar.openSnackBar(
                 'Для создания нового события, сохраните текущее!',
