@@ -29,7 +29,7 @@ $br-color: var(--ozsm-color-border);
 .graph-container {
   position: relative;
   width: 1220px;
-  height: 660px;
+  height: 800px;
 
   .arrow-container {
     position: absolute;
@@ -93,10 +93,54 @@ $br-color: var(--ozsm-color-border);
     position: absolute;
     display: flex;
     justify-content: space-between;
-    left: 851px;
+    left: 825px;
     top: 573px;
-    width: 384px;
+    width: 410px;
     height: 88px;
+  }
+
+  .simple-diagrams {
+    position: absolute;
+    left: 825px;
+    top: 677px;
+  }
+
+  .circle-diagram-full {
+    height: 100px;
+    width: 385px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    
+    position: absolute;
+    left: 60px;
+    top: 680px;
+
+    &__diagram {
+      width: 110px;
+    }
+
+    .custom {
+      height: 10px;
+      width: 25px;
+      display: flex;
+      align-items: center;
+    
+      .circle {
+        height: 5px;
+        width: 5px;
+    
+        border: 1px solid var(--ozsm-color-marker-diagram);
+        border-radius: 50%;
+      }
+    
+      .line {
+        height: 1px;
+        background: var(--ozsm-color-marker-diagram);
+        flex: 1;
+      }
+    }
   }
 
   .top-container {

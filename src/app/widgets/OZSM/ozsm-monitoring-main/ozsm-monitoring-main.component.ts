@@ -35,7 +35,7 @@ export class OzsmMonitoringMainComponent extends WidgetPlatform<unknown> impleme
     }
 
     private readonly staticWidth: number = 1220;
-    private readonly staticHeight: number = 660;
+    private readonly staticHeight: number = 800;
 
     constructor(
         public widgetService: WidgetService,

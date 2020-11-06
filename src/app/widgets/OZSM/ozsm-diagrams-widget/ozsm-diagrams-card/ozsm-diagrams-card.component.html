@@ -1,6 +1,6 @@
-<div class="wrapper">
+<div class="wrapper" [ngClass]="{mirror:mirrorize}">
   <div class="card-container">
-    <div class="content">
+    <div class="content" [ngClass]="{mirror:mirrorize}">
       <span 
         class="fact"
         [ngClass]="{zeroDeviation:!data.deviation}"
@@ -16,7 +16,7 @@
       </div>
     </i>
   </div>
-  <div class="additional-values">
+  <div class="additional-values" [ngClass]="{mirror:mirrorize}">
     <span>{{ data.percentage }}<span class="units">%</span></span>
     <span>{{ data.amount }}<span class="units">тн</span></span>
   </div>
