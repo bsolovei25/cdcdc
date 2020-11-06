@@ -54,13 +54,14 @@ $border-size: 4px;
 }
 
 .container-widget {
-  height: calc(100% - 105px);
+  height: 100%;
   width: calc(100% - 2px);
   padding-bottom: 3px;
   background-color: var(--header-events-color-bg-main);
   border-right: 1px solid var(--color-cd-bg-border);
   border-left: 1px solid var(--color-cd-bg-border);
   border-bottom: 1px solid var(--color-cd-bg-border);
+  overflow: auto;
 }
 
 .workspace {
