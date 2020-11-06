@@ -28,6 +28,8 @@ export class KpeEnergyComponent extends WidgetPlatform<unknown> implements OnIni
 
     public deviationChartData: IDeviationDiagramData[] = [];
 
+    public displayedMonth: Date;
+
     constructor(
         private http: HttpClient,
         protected widgetService: WidgetService,
@@ -53,6 +55,11 @@ export class KpeEnergyComponent extends WidgetPlatform<unknown> implements OnIni
         }
         this.data.diagram = ref.diagram;
         this.deviationChartData = this.kpeHelperService.prepareKpeLineChartData(this.data.chart);
+        ref.chart.forEach(data => {
+            if (data.graphType === 'fact') {
+                this.displayedMonth = new Date(data.graph[0].timeStamp);
+            }
+        });
     }
 
     get chartWidth(): string {

@@ -3,6 +3,7 @@ import { IKpeLineChartData } from './kpe-charts.model';
 import { IBarDiagramData } from './kpe-equalizer-chart/kpe-equalizer-chart.component';
 import { IDeviationDiagramData } from './kpe-deviation-diagram/kpe-deviation-diagram.component';
 import { IProductionTrend } from '../../../dashboard/models/LCO/production-trends.model';
+import {consoleTestResultHandler} from "tslint/lib/test";
 
 @Injectable()
 export class KpeHelperService {
@@ -49,12 +50,28 @@ export class KpeHelperService {
 
     public prepareKpeLineChartData(data: IKpeLineChartData[] | null): IDeviationDiagramData[] | IBarDiagramData[] {
         if (!data) { return; }
-        function fieldHandler(field: {value: number, timeStamp: string}[]): {x: number, y: number}[] {
-            field = field.filter(el => new Date(el.timeStamp).getMonth() === new Date().getMonth());
-            return field?.map(el => {return {
-                x: new Date(Date.parse(el.timeStamp)).getDate(),
-                y: el.value,
-            }; });
+        function fieldHandler(field: {value: number, timeStamp: string}[]): {x: number, y: number}[][] {
+            let tempArr = [];
+            const resultArr = [];
+            let month: number = new Date(field[0].timeStamp).getMonth();
+            let day = 0;
+            for (let i = 0; i <= field.length; i++) {
+                const itemMonth = new Date(field[i]?.timeStamp).getMonth();
+                const nextDay = new Date(field[i]?.timeStamp).getDate();
+                if (field[i]?.timeStamp && (field[i]?.value || field[i]?.value === 0) && day < nextDay) {
+                    tempArr.push({
+                        x: nextDay,
+                        y: field[i]?.value,
+                    });
+                    day = nextDay;
+                }
+                if (month !== itemMonth || i === field.length) {
+                    resultArr.push(tempArr);
+                    tempArr = [];
+                }
+                month = new Date(field[i]?.timeStamp).getMonth();
+            }
+            return resultArr;
         }
 
         function distinct(array: {x: number, y: number}[]): {x: number, y: number}[] {
@@ -64,12 +81,21 @@ export class KpeHelperService {
         let planArray = [];
         let factArray = [];
 
+        let displayedMonth = new Date();
+        data.forEach(item => {
+            if (item.graphType === 'fact') {
+                displayedMonth = new Date(item.graph[0].timeStamp);
+            }
+        });
+
+        const numOfDays = this.getNumOfDays(displayedMonth);
+
         data.forEach(item => {
             if (item.graphType === 'plan') {
-                planArray = this.fillArray(distinct(fieldHandler(item.graph)), 31);
+                planArray = this.fillArray(distinct(fieldHandler(item.graph)[0]), numOfDays);
             }
             if (item.graphType === 'fact') {
-                factArray = distinct(fieldHandler(item.graph));
+                factArray = distinct(fieldHandler(item.graph)[0]);
             }
         });
 
@@ -155,5 +181,9 @@ export class KpeHelperService {
             }
         }
         return result;
+    }
+
+    public getNumOfDays(timeStamp: Date): number {
+        return new Date((new Date(timeStamp)).getFullYear(), (new Date(timeStamp)).getMonth() + 1, 0).getDate();
     }
 }

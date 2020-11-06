@@ -93,15 +93,30 @@ span {
         @include text-overflow;
         float: right;
       }
-
-      :first-child {
-        font-size: 14px;
-        color: var(--ozsm-color-text-main);
+      .info {
+        display: flex;
       }
 
-      :last-child {
+      .fact {
+        font-size: 14px;
+        line-height: 17px;
+        color: var(--ozsm-color-white);
+      }
+
+      .plan {
         font-size: 10px;
+        line-height: 12px;
+        color: var(--ozsm-color-active);
+      }
+
+      .deviation {
+        font-size: 10px;
+        line-height: 12px;
         color: var(--ozsm-color-warning);
+      }
+
+      .zeroDeviation {
+        color: var(--ozsm-color-active);
       }
     }
 

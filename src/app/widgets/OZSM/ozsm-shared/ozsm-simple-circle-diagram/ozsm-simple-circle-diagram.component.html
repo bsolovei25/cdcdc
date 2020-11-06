@@ -1,0 +1,14 @@
+<div class="container">
+  <div class="custom">
+    <div class="circle"></div>
+    <div class="line"></div>
+    <div class="circle"></div>
+  </div>
+  <div class="diagram-container">
+    <div class="diagram" *ngFor="let item of innerIcon">
+      <div class="diagram-value">
+        <svg-icon [src]="'assets/icons/widgets/OZSM/ozsm-simple-circle-diagram/' + item + '.svg'"></svg-icon>
+      </div>
+    </div>
+  </div>
+</div>

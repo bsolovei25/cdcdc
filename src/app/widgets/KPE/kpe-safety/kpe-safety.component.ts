@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, Inject, OnInit, ViewChild } from "@angular/core";
+import { AfterViewInit, Component, ElementRef, Inject, OnInit, ViewChild } from '@angular/core';
 import { IDeviationDiagramData } from '../shared/kpe-deviation-diagram/kpe-deviation-diagram.component';
 import { WidgetPlatform } from '../../../dashboard/models/@PLATFORM/widget-platform';
 import { WidgetService } from '../../../dashboard/services/widget.service';
@@ -36,6 +36,8 @@ export class KpeSafetyComponent extends WidgetPlatform<unknown> implements OnIni
 
     private isRendered: boolean = false;
 
+    public displayedMonth: Date;
+
     constructor(protected widgetService: WidgetService,
                 private kpeHelperService: KpeHelperService,
                 @Inject('isMock') public isMock: boolean,
@@ -68,5 +70,10 @@ export class KpeSafetyComponent extends WidgetPlatform<unknown> implements OnIni
         this.deviationChartData = this.kpeHelperService.prepareKpeLineChartData(ref.deviationChart);
         this.gaugeCards = this.kpeHelperService.sortArray<IKpeSafetyCard>(ref.gaugeCards, 4);
         this.deviationDiagramData = ref.deviationDiagram;
+        ref.deviationChart.forEach(data => {
+            if (data.graphType === 'fact') {
+                this.displayedMonth = new Date(data.graph[0].timeStamp);
+            }
+        });
     }
 }
