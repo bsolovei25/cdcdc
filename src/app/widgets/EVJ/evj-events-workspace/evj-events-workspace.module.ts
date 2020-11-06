@@ -26,7 +26,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { AngularSvgIconModule } from 'angular-svg-icon';
-import { MAT_DATE_LOCALE } from '@angular/material/core';
+import { MAT_DATE_LOCALE, MatRippleModule } from '@angular/material/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { EvjTasksEventComponent } from './evj-tasks-event/evj-tasks-event.component';
 import { EvjShiftPassComponent } from './evj-shift-pass/evj-shift-pass.component';
@@ -76,7 +76,8 @@ import { EvjEventsWorkspaceResponsibleSelectComponent } from './components/evj-e
         MatInputModule,
         MatSelectModule,
         MatTooltipModule,
-        MatCheckboxModule
+        MatCheckboxModule,
+        MatRippleModule
     ],
     providers: [
         { provide: LOCALE_ID, useValue: 'ru-RU' },

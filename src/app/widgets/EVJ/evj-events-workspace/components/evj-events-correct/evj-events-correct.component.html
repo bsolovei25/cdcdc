@@ -1,9 +1,15 @@
 <div class="events-correct">
   <div class="events-correct__header">
-    <div class="events-correct__search button" (click)="openSearchRetrieval()">
+    <div class="events-correct__search button"
+         matRipple [matRippleColor]="'white'"
+         (click)="openSearchRetrieval()"
+    >
       <span>Привязать событие</span>
     </div>
-    <div class="events-correct__add button" (click)="addRetrieval()">
+    <div class="events-correct__add button"
+         matRipple [matRippleColor]="'white'"
+         (click)="addRetrieval()"
+    >
       <span>Добавить новое</span>
     </div>
   </div>
