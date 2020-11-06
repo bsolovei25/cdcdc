@@ -64,10 +64,8 @@ export class EvjSmotrEventComponent implements OnInit, OnDestroy, OnChanges {
     @Input()
     public noOverflow: boolean = false;
 
-    public isEscalatePopupOpen: boolean = false;
     public isClosePopupOpen: boolean = false;
     public isReasonsPopupOpen: boolean = false;
-    public createIcon: boolean = true;
 
     public graph: any;
 
@@ -131,10 +129,6 @@ export class EvjSmotrEventComponent implements OnInit, OnDestroy, OnChanges {
 
     public isDisabledCloseButton(): boolean {
         return this.ewService.event.status.name === 'closed';
-    }
-
-    public compareFn(a, b): boolean {
-        return a && b && a.id === b.id;
     }
 
     public onChangeEventDescription(description: string): void {

@@ -36,7 +36,6 @@ import { EvjMainToggleComponent } from './components/evj-main-toggle/evj-main-to
 import { EvjEventsWorkspaceDatetimepickerComponent } from './components/evj-events-workspace-datetimepicker/evj-events-workspace-datetimepicker.component';
 import { EvjEventsWorkspaceSelectComponent } from './components/evj-events-workspace-select/evj-events-workspace-select.component';
 import { EvjEventsWorkspaceResponsibleSelectComponent } from './components/evj-events-workspace-responsible/evj-events-workspace-responsible-select.component';
-import { EvjMainToggleSmotrComponent } from './components/evj-main-toggle-smotr/evj-main-toggle-smotr.component';
 
 @NgModule({
     declarations: [
@@ -66,7 +65,6 @@ import { EvjMainToggleSmotrComponent } from './components/evj-main-toggle-smotr/
         EvjEventsWorkspaceDatetimepickerComponent,
         EvjEventsWorkspaceSelectComponent,
         EvjEventsWorkspaceResponsibleSelectComponent,
-        EvjMainToggleSmotrComponent
     ],
     imports: [
         CommonModule,
