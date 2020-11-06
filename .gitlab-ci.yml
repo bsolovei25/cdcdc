@@ -60,6 +60,7 @@ ng-build:
   cache: 
     #key: $CI_COMMIT_REF_SLUG-$CI_PROJECT_DIR
     key: one-key-to-rule-them-all
+    policy: pull
     paths:
       - node_modules/
   after_script:
