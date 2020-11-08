@@ -1,16 +1,16 @@
 <div class="container pointer-event events-workspace__scroll">
-    <!-- loading data -->
-    <evj-loading-shade [isLoading]="ewService.isLoading"></evj-loading-shade>
-    <evj-event-search-window [info]="ewService.searchWindow$ | async"></evj-event-search-window>
-    <evj-alert-window [info]="this.ewService.ewAlertInfo$ | async"></evj-alert-window>
+  <!-- loading data -->
+  <evj-loading-shade [isLoading]="ewService.isLoading"></evj-loading-shade>
+  <evj-event-search-window [info]="ewService.searchWindow$ | async"></evj-event-search-window>
+  <evj-alert-window [info]="this.ewService.ewAlertInfo$ | async"></evj-alert-window>
 
-    <evj-contemporary-widget-header
-      [uniqId]="uniqId"
-      [widgetTitle]="widgetTitle"
-      icon="document"
-      type="astue"
-    >
-    </evj-contemporary-widget-header>
+  <evj-contemporary-widget-header
+    [uniqId]="uniqId"
+    [widgetTitle]="widgetTitle"
+    icon="document"
+    type="astue"
+  >
+  </evj-contemporary-widget-header>
 
   <ng-container *ngIf="ewService?.event?.category?.code !== '0'">
     <ng-container *ngIf="displayContainer">
@@ -25,23 +25,23 @@
       </evj-evj-main-toggle>
     </ng-container>
   </ng-container>
-    <!-- EVENT -->
-    <div
-      [class.container-widget]="displayContainer"
-      (mousedown)="$event.stopPropagation()"
-      (touchstart)="$event.stopPropagation()"
-    >
-      <ng-container *ngIf="ewService.event" [ngSwitch]="ewService?.event?.category?.code">
-        <ng-container  *ngSwitchCase="0">
-          <evj-smotr-event
-            (eventCreated)="createdEvent($event)"
-            (eventBack)="backEvent()"
-            [isEventOpen]="!ewService.isEditEvent"
-            [blockWorkspaceButton]="canShowSaveButton()"
-            [eventProdTask]="eventProdButton"
-            (eventProdTaskChange)="onChangeStatus()"
-          ></evj-smotr-event>
-        </ng-container>
+  <!-- EVENT -->
+  <div
+    [class.container-widget]="displayContainer"
+    (mousedown)="$event.stopPropagation()"
+    (touchstart)="$event.stopPropagation()"
+  >
+    <ng-container *ngIf="ewService.event" [ngSwitch]="ewService?.event?.category?.code">
+      <ng-container *ngSwitchCase="0">
+        <evj-smotr-event
+          (eventCreated)="createdEvent($event)"
+          (eventBack)="backEvent()"
+          [isEventOpen]="!ewService.isEditEvent"
+          [blockWorkspaceButton]="canShowSaveButton()"
+          [eventProdTask]="eventProdButton"
+          (eventProdTaskChange)="onChangeStatus()"
+        ></evj-smotr-event>
+      </ng-container>
 
       <ng-container *ngSwitchCase="2">
         <!-- Проверка на подкатегорию "Распоряжения" -->

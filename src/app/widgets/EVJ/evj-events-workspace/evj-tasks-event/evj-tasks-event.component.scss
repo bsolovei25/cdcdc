@@ -231,6 +231,7 @@
   color: var(--header-events-color-font-main);
   border: 1px solid var(--color-astue-mat-select-border);
   background-color: var(--header-events-color-bg-main);
+  border-radius: 2px;
 
   ::ng-deep {
     .mat-select-arrow {
