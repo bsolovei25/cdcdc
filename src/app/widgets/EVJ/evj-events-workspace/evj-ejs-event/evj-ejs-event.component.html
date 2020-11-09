@@ -1,3 +1,32 @@
+<div class="header-workspace">
+  <div
+    class="header-workspace__button"
+    (mousedown)="$event.stopPropagation()"
+    (touchstart)="$event.stopPropagation()"
+  >
+    <div class="header-workspace__container"
+         matRipple [matRippleColor]="'white'"
+         (click)="createEvent(true)"
+    >
+      <div class="button-name">Новое событие</div>
+    </div>
+    <div class="header-workspace__container"
+         (click)="onClickEjs()"
+         matRipple [matRippleColor]="'white'"
+    >
+      <div class="button-name">Перейти к карточке ЭЖС</div>
+    </div>
+    <div
+      class="header-workspace__container active-button"
+      (click)="createEvent(false)"
+      matRipple [matRippleColor]="'white'"
+    >
+      <div class="button-name">Сохранить</div>
+    </div>
+  </div>
+</div>
+
+
 <div class="workspace scroll scroll-bar" [style]="{overflow: noOverflow ? 'auto' : 'visible'}">
   <div class="workspace__third">
     <div class="workspace__third__right">
@@ -52,7 +81,7 @@
     <div class="workspace__third__right">
       <div class="workspace__select-container">
         <div class="creator">
-          <div class="creator">
+          <div class="title">
             <span>Номер журнала</span>
           </div>
           <div class="creator__field">
@@ -92,12 +121,12 @@
       </div>
     </div>
     <div class="workspace__third__right">
-      <div class="workspace__select-container">
+      <div class="workspace__select-container-big">
         <div class="creator">
           <div class="title">
             <span>Влияние на производительность</span>
           </div>
-          <div class="creator__field">
+          <div class="creator__field-big">
             {{ ewService.event?.ejsData?.ejsStopReduce }}
           </div>
         </div>
@@ -115,7 +144,7 @@
       <div class="workspace__select-container">
         <div class="creator">
           <div class="title">
-            <span>Влияние на производительность, тип ТМ</span>
+            <span>Влияние на произв-ть, тип ТМ</span>
           </div>
           <div class="creator__field">
             {{ ewService.event?.ejsData?.ejsStopReduceTM }}
@@ -124,18 +153,20 @@
       </div>
     </div>
   </div>
-  <div class="workspace__select-container">
-    <div class="creator">
-      <div class="title">
-        <span>Комментарий оператора/инициатора</span>
-      </div>
-      <div class="creator__field">
-        {{ ewService.event?.ejsData?.ejsOperInitCommTx }}
+  <div class="workspace__header">
+    <div class="workspace__select-container-biggest">
+      <div class="creator">
+        <div class="title">
+          <span>Комментарий оператора/инициатора</span>
+        </div>
+        <div class="creator__field-biggest">
+          {{ ewService.event?.ejsData?.ejsOperInitCommTx }}
+        </div>
       </div>
     </div>
   </div>
   <div class="workspace__header">
-    <div class="workspace__select-container">
+    <div class="workspace__select-container-biggest-l">
       <div class="creator">
         <div class="title">
           <span>Обращение в ЭНЕРГОСЕРВИС</span>
@@ -143,12 +174,12 @@
                         [checked]="ewService.event?.ejsData?.ejsEnerNotiFlg">
           </mat-checkbox>
         </div>
-        <div class="creator__field">
+        <div class="creator__field-biggest">
           {{ ewService.event?.ejsData?.ejsEnerNotiCommTx }}
         </div>
       </div>
     </div>
-    <div class="workspace__select-container">
+    <div class="workspace__select-container-biggest-r">
       <div class="creator">
         <div class="title">
           <span>Обращение в Автоматика-сервис</span>
@@ -156,7 +187,7 @@
                         [checked]="ewService.event?.ejsData?.ejsAutoServNotiFlg">
           </mat-checkbox>
         </div>
-        <div class="creator__field">
+        <div class="creator__field-biggest">
           {{ ewService.event?.ejsData?.ejsAutoServNotiCommTx }}
         </div>
       </div>

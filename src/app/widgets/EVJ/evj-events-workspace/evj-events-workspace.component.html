@@ -12,7 +12,7 @@
   >
   </evj-contemporary-widget-header>
 
-  <ng-container *ngIf="ewService?.event?.category?.code !== '0'">
+  <ng-container *ngIf="ewService?.event?.category?.code !== '0' && ewService?.event?.category?.code !== '6'">
     <ng-container *ngIf="displayContainer">
       <evj-evj-main-toggle
         (eventCreated)="createdEvent($event)"
@@ -59,7 +59,11 @@
         </ng-template>
       </ng-container>
       <evj-asus-event *ngSwitchCase="5" [noOverflow]="displayContainer"></evj-asus-event>
-      <evj-ejs-event *ngSwitchCase="6" [noOverflow]="displayContainer"></evj-ejs-event>
+      <evj-ejs-event *ngSwitchCase="6" [noOverflow]="displayContainer"
+                     (eventCreated)="createdEvent($event)"
+                     [isEventOpen]="!ewService.isEditEvent"
+                     [blockWorkspaceButton]="canShowSaveButton()"
+      ></evj-ejs-event>
       <evj-cdcp-event *ngSwitchCase="7" [noOverflow]="displayContainer"></evj-cdcp-event>
       <evj-usual-event *ngSwitchDefault [noOverflow]="displayContainer"></evj-usual-event>
     </ng-container>

@@ -1,4 +1,4 @@
-import {Component, Input, OnDestroy, OnInit} from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges } from '@angular/core';
 import { EventsWorkspaceService } from '../../../../dashboard/services/widgets/EVJ/events-workspace.service';
 import { IChatMessageWithAttachments } from '../components/evj-chat/evj-chat.component';
 
@@ -7,10 +7,15 @@ import { IChatMessageWithAttachments } from '../components/evj-chat/evj-chat.com
     templateUrl: './evj-ejs-event.component.html',
     styleUrls: ['./evj-ejs-event.component.scss']
 })
-export class EvjEjsEventComponent implements OnInit, OnDestroy {
+export class EvjEjsEventComponent implements OnInit, OnDestroy, OnChanges {
 
     @Input()
     public noOverflow: boolean = false;
+
+    public createIcon: boolean = true;
+    @Output() eventCreated: EventEmitter<boolean> = new EventEmitter<boolean>();
+    @Input() blockWorkspaceButton: boolean;
+    @Input() isEventOpen: boolean;
 
     constructor(public ewService: EventsWorkspaceService) {
     }
@@ -20,6 +25,9 @@ export class EvjEjsEventComponent implements OnInit, OnDestroy {
             this.onClickEjs();
             this.ewService.goBackEvent();
         }
+    }
+    public ngOnChanges(changes: SimpleChanges): void {
+        this.createIcon = this.isEventOpen;
     }
 
     ngOnDestroy(): void {
@@ -48,5 +56,10 @@ export class EvjEjsEventComponent implements OnInit, OnDestroy {
 
     onClickEjs(): void {
         window.open('http://spb99-t-merap01/meridium/');
+    }
+    public createEvent(event: boolean): void {
+        this.createIcon = false;
+        this.blockWorkspaceButton = true;
+        this.eventCreated.emit(event);
     }
 }
