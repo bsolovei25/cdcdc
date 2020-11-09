@@ -1,19 +1,17 @@
-import {Component, Input, OnDestroy, OnInit} from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { EventsWorkspaceService } from '../../../../dashboard/services/widgets/EVJ/events-workspace.service';
 import { IChatMessageWithAttachments } from '../components/chat/chat.component';
 
 @Component({
     selector: 'evj-ejs-event',
     templateUrl: './ejs-event.component.html',
-    styleUrls: ['./ejs-event.component.scss']
+    styleUrls: ['./ejs-event.component.scss'],
 })
 export class EjsEventComponent implements OnInit, OnDestroy {
-
     @Input()
     public noOverflow: boolean = false;
 
-    constructor(public ewService: EventsWorkspaceService) {
-    }
+    constructor(public ewService: EventsWorkspaceService) {}
 
     ngOnInit(): void {
         if (this.ewService.isCreateNewEvent) {
@@ -22,8 +20,7 @@ export class EjsEventComponent implements OnInit, OnDestroy {
         }
     }
 
-    ngOnDestroy(): void {
-    }
+    ngOnDestroy(): void {}
 
     public onChangeEventDescription(description: string, el?: string): void {
         if (el) {
@@ -47,6 +44,6 @@ export class EjsEventComponent implements OnInit, OnDestroy {
     }
 
     onClickEjs(): void {
-        window.open('http://spb99-t-merap01/meridium/');
+        window.open(`${this.ewService.event.ejsData.urlOriginalSystem}`);
     }
 }

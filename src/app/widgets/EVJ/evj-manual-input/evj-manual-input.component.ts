@@ -91,6 +91,7 @@ export class EvjManualInputComponent extends WidgetPlatform<unknown>
         paramsIdx: 0,
     };
     editMode: boolean = true;
+    editCurValueMode: boolean = false;
 
     isUserHasWriteClaims: boolean;
 
@@ -138,7 +139,9 @@ export class EvjManualInputComponent extends WidgetPlatform<unknown>
     }
 
     protected dataHandler(ref: { machines: IMachine_MI[]; isUserHasWriteClaims: boolean }): void {
-        this.loadSaveData(ref);
+        if (!this.editCurValueMode) {
+            this.loadSaveData(ref);
+        }
     }
 
     onChooseGroup(name: string, groupIdx: number, paramsIdx: number): void {
@@ -198,10 +201,12 @@ export class EvjManualInputComponent extends WidgetPlatform<unknown>
             this.sendHistoryData = [];
         } else {
             this.manualInputService.BtnSaveValues(this.data, this.widgetId);
+            this.editCurValueMode = false;
         }
     }
 
     onChangeValue(e: any, id: string): void {
+        this.editCurValueMode = true;
         const param = this.manualInputService.GetElementById(id, this.data);
         param.saveValue = e.target.value;
         this.manualInputService.ChangeField(id, this.data);
