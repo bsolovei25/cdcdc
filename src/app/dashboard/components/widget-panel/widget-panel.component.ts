@@ -14,7 +14,6 @@ import { Subscription, BehaviorSubject } from 'rxjs';
 import { WIDGETS } from '../../../widgets/widget-map';
 import { IWidget } from '../../models/widget.model';
 import { trigger, transition, animate, style } from '@angular/animations';
-import { WidgetPlatform } from '../../models/@PLATFORM/widget-platform';
 
 @Component({
     selector: 'evj-widget-panel',
@@ -135,7 +134,7 @@ export class WidgetPanelComponent implements OnInit, AfterContentChecked, OnDest
 
     searchWidgetsInput(event?: KeyboardEvent | string): void {
         if (typeof event !== 'string') {
-            this.search = (event?.target as HTMLInputElement)?.value.toLowerCase();
+            this.search = (event?.target as HTMLInputElement)?.value?.toLowerCase();
         } else {
             this.search = event;
         }
@@ -150,7 +149,7 @@ export class WidgetPanelComponent implements OnInit, AfterContentChecked, OnDest
                 let widgets = this.widgets$
                     .getValue()
                     .filter((value) =>
-                        value.title.toLowerCase().includes(this.search.trim().toLowerCase())
+                        value?.title?.toLowerCase().includes(this.search?.trim()?.toLowerCase())
                     );
                 widgets = widgets.filter((value) => {
                     return this.filters.find((val) => value.categories.includes(val));
@@ -161,7 +160,7 @@ export class WidgetPanelComponent implements OnInit, AfterContentChecked, OnDest
                     this.widgets$
                         .getValue()
                         .filter((value) =>
-                            value.title.toLowerCase().includes(this.search.trim().toLowerCase())
+                            value?.title?.toLowerCase().includes(this.search?.trim()?.toLowerCase())
                         )
                 );
             }

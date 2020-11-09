@@ -76,8 +76,7 @@ export interface IEventsWidgetNotification {
     asusEvent?: IEventAsus;
     shiftPassEvent?: IEventShiftPass;
     ejsData?: IEventsEjs;
-    externalId?:
-        number;
+    externalId?: number;
     externalCode?: string; // код внешней системы (ID в Системе-источник)
     externalDate?: Date; // дата регистрации во внешней системе
     cdData?: IEventCd;
@@ -104,6 +103,7 @@ export interface IEventsEjs {
     ejsOperInitCommTx: string;
     ejsMitiConsWorkTx: string;
     ejsNameOfOperChr: string;
+    urlOriginalSystem: string;
 }
 
 export interface IEventProductionTask {
