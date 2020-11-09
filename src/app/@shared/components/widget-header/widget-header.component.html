@@ -23,9 +23,18 @@
                 (selectionChange)="onSelected($event)"
                 [(ngModel)]="selectValue"
               >
-                <mat-option *ngFor="let value of localeSelect" [value]="value">
-                  {{value.name}}
-                </mat-option>
+                <ng-container *ngIf="shiftSchedule">
+                  <mat-option *ngFor="let value of localeSelect" [value]="value"
+                              [attr.as-platform-testing]="'shiftschedule-dropdown-unit-{' + value.id + '}'"
+                  >
+                    {{value.name}}
+                  </mat-option>
+                </ng-container>
+                <ng-container *ngIf="!shiftSchedule">
+                  <mat-option *ngFor="let value of localeSelect" [value]="value">
+                    {{value.name}}
+                  </mat-option>
+                </ng-container>
               </mat-select>
             </mat-form-field>
           </div>

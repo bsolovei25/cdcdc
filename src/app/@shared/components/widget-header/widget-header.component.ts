@@ -46,6 +46,7 @@ export class WidgetHeaderComponent implements OnInit, OnChanges, OnDestroy {
         }
     }
     @Input() public ejcoTabs?: IEjcoOnpzUnit[] = [];
+    @Input() public shiftSchedule: boolean = false;
     @Output() public eventProdTaskChange: EventEmitter<void> = new EventEmitter<void>();
     @Output() eventCreated: EventEmitter<boolean> = new EventEmitter<boolean>();
     @Output() eventBack: EventEmitter<null> = new EventEmitter<null>();

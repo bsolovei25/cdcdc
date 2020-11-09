@@ -111,8 +111,11 @@ export class AdminShiftScheduleComponent extends WidgetPlatform<unknown>
     isDutySchedule: boolean = true; // показать график дежурств или управление расписанием
     isOpenStartDate: boolean = false; // Открыть/закрыть overlay Начала смены
     timeStart: FormControl = new FormControl(
-        moment().second(0).minutes(0),
-        [Validators.required]);
+        moment()
+            .second(0)
+            .minutes(0),
+        [Validators.required]
+    );
     timeShift: { isSelected: boolean; value: number }[] = [
         // Длительность смены
         { isSelected: true, value: 6 },
@@ -125,7 +128,7 @@ export class AdminShiftScheduleComponent extends WidgetPlatform<unknown>
 
     //
     public alertWindow: IAlertWindowModel;
-    public inputControl: FormControl = new FormControl({value: '', disabled: false});
+    public inputControl: FormControl = new FormControl({ value: '', disabled: false });
 
     buttons: NodeListOf<HTMLElement>;
     nextAndPreviousMonthVar: (event: MouseEvent) => boolean | void;
@@ -204,7 +207,7 @@ export class AdminShiftScheduleComponent extends WidgetPlatform<unknown>
         });
     }
 
-    protected dataHandler(ref: any): void { }
+    protected dataHandler(ref: any): void {}
 
     ngAfterContentChecked(): void {
         this.listenBtn();
@@ -232,6 +235,16 @@ export class AdminShiftScheduleComponent extends WidgetPlatform<unknown>
                     button.getAttribute('aria-label') === 'Previous month' ||
                     button.getAttribute('aria-label') === 'Next month'
                 ) {
+                    this.buttons.forEach((value) => {
+                        this.renderer.setAttribute(
+                            value,
+                            'as-platform-testing',
+                            value.getAttribute('aria-label') === 'Previous month'
+                                ? 'shiftschedule-switch-month-previous'
+                                : 'shiftschedule-switch-month-next'
+                        );
+                        console.log(value);
+                    });
                     this.nextAndPreviousMonthVar = this.renderer.listen(button, 'click', () => {
                         if (this.calendar?.activeDate) {
                             this.nextAndPreviousMonth();
@@ -561,7 +574,7 @@ export class AdminShiftScheduleComponent extends WidgetPlatform<unknown>
         };
     }
 
-    drop(event: CdkDragDrop<string[]>): void { }
+    drop(event: CdkDragDrop<string[]>): void {}
 
     async moveToDropAdditionalShift(item: IDropItem): Promise<void> {
         if (item && item.container.id !== '0' && item.container.id !== item.previousContainer.id) {
@@ -683,7 +696,11 @@ export class AdminShiftScheduleComponent extends WidgetPlatform<unknown>
             unitId: this.selectedUnit.id,
             shiftLengthHours: this.timeShift.find((item) => item.isSelected).value,
             shiftStartOffset: this.timeStart.value.hours(),
-            applyFrom: `${this.saveIsDate.year()}-${(this.saveIsDate.month() + 1) < 10 ? 0 : ''}${this.saveIsDate.month() + 1}-${(this.saveIsDate.date() + 1) < 10 ? 0 : ''}${this.saveIsDate.date()}`,
+            applyFrom: `${this.saveIsDate.year()}-${
+                this.saveIsDate.month() + 1 < 10 ? 0 : ''
+            }${this.saveIsDate.month() + 1}-${
+                this.saveIsDate.date() + 1 < 10 ? 0 : ''
+            }${this.saveIsDate.date()}`,
         };
         try {
             await this.adminShiftScheduleService.checkUnitSettings(this.selectedUnit.id, body);
@@ -723,10 +740,12 @@ export class AdminShiftScheduleComponent extends WidgetPlatform<unknown>
         const data: IUnitSettings = await this.adminShiftScheduleService.getActualUnitSettings(
             this.selectedUnit.id
         );
-        this.timeStart.setValue(moment()
-            .hours(data.shiftStartOffset)
-            .minutes(0)
-            .seconds(0));
+        this.timeStart.setValue(
+            moment()
+                .hours(data.shiftStartOffset)
+                .minutes(0)
+                .seconds(0)
+        );
         this.timeShift.forEach((item) => (item.isSelected = false));
         this.timeShift.find((item) => item.value === data.shiftLengthHours).isSelected = true;
         this.saveIsDate = moment(data.applyFrom);
