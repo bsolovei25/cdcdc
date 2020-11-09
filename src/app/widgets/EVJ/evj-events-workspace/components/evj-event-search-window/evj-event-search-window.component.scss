@@ -25,14 +25,14 @@ $color-scroll: #282B38;
   width: $width;
   height: 500px;
 
-  background-color: var(--color-aw-container-body-transparent);
+  background-color: var(--color-bg-card);
   box-shadow: 0 0 35px var(--color-aw-container-shadow-transparent);
   border-radius: 4px 4px 0 0;
 
   &__body {
     width: $width;
 
-    background-color: var(--color-aw-container-body-transparent);
+    background-color: var(--color-bg-card);
     border-radius: 4px 4px 0 0;
   }
 
@@ -43,7 +43,7 @@ $color-scroll: #282B38;
     padding-right: 16px;
     box-sizing: border-box;
 
-    background-color: var(--color-aw-container-body-transparent);
+    background-color: var(--color-bg-card);
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
@@ -60,7 +60,7 @@ $color-scroll: #282B38;
     padding-bottom: 21px;
     box-sizing: border-box;
 
-    background-color: var(--color-aw-container-body-transparent);
+    background-color: var(--color-bg-card);
     display: flex;
     flex-direction: column;
     justify-content: flex-end;

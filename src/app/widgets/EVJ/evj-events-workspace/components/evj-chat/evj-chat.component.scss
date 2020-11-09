@@ -18,7 +18,7 @@
   font-size: 12px;
   line-height: 18px;
 
-  border: 1px solid rgba(96, 101, 128, 0.25);
+  border: 1px solid var(--color-astue-mat-select-border);
   border-radius: 2px;
   background-color: var(--header-events-color-bg-main);
 
@@ -80,7 +80,7 @@
       height: 100%;
 
       box-sizing: border-box;
-      padding: 0px 15px;
+      padding: 0px 10px;
 
       display: flex;
       flex-direction: column;
@@ -174,7 +174,7 @@
     align-items: center;
     background-color: var(--header-events-color-bg-main);
     box-sizing: border-box;
-    padding: 10px 15px 10px 15px;
+    padding: 10px;
   }
   .line {
     position: absolute;
@@ -182,7 +182,7 @@
     left: 4%;
     height: 1px;
     width: 92%;
-    background-color: rgba(96, 101, 128, 0.25);
+    background-color: var(--color-astue-mat-select-border);
   }
 
   .input {
@@ -213,7 +213,7 @@
 
     box-sizing: border-box;
     border-radius: 50%;
-    border: 1px solid rgba(96, 101, 128, 0.25);
+    border: 1px solid var(--color-astue-mat-select-border);
 
     background-color: var(--header-events-color-bg-main);
 
