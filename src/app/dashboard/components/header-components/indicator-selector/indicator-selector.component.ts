@@ -83,7 +83,6 @@ export class IndicatorSelectorComponent implements OnInit, OnDestroy {
         }
         this.subscriptions.push(
             this.userSettings.screensShared.subscribe((screens) => {
-                console.log(screens);
                 if (!screens?.length) {
                     this.idScreen = undefined;
                     this.userSettings.screenName$.next('СОЗДАЙТЕ ЭКРАН!');
