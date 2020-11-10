@@ -62,12 +62,12 @@ export class OzsmCircleDiagramFullComponent implements OnInit, OnChanges {
 
         this.g.append('text')
             .attr('class', 'plan-text')
-            .attr('y', 8)
+            .attr('y', 11)
             .text(this.data.plan);
 
         this.g.append('text')
             .attr('class', 'deviation-text')
-            .attr('y', 18)
+            .attr('y', 25)
             .text(this.data.fact - this.data.plan);
     }
 

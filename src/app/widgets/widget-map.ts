@@ -1458,7 +1458,7 @@ export const WIDGETS_LAZY = {
         itemCols: 11,
         itemRows: 3,
         minItemCols: 11,
-        minItemRows: 3,
+        minItemRows: 5,
         preview: 'ozsm-main-indicators'
     },
     'ozsm-circle-planning-diagram': {

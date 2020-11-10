@@ -67,9 +67,24 @@
               </span>
             </div>
             <div class="widget-card__body">
-              <ng-container *ngFor="let card of [1,2]">
-                <evj-ozsm-card-line-diagram></evj-ozsm-card-line-diagram>
-              </ng-container>
+                <evj-ozsm-card-line-diagram
+                [data] = "{
+                  'icon' : 'railway',
+                  'title': 'Отгрузка ЖД',
+                  'maxValue': 39227,
+                  'currentValue': 35227,
+                  'type': 'icon'
+                }"
+                ></evj-ozsm-card-line-diagram>
+                <evj-ozsm-card-line-diagram
+                [data] = "{
+                  'icon' : 'automobile',
+                  'title': 'Отгрузка Авто',
+                  'maxValue': 39227,
+                  'currentValue': 3227,
+                  'type': 'icon'
+                }"
+                ></evj-ozsm-card-line-diagram>
             </div>
           </div>
         </div>
