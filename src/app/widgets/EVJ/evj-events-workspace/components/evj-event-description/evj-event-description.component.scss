@@ -47,9 +47,10 @@
       font-size: 12px;
       box-sizing: border-box;
       padding-left: 10px;
+      padding-top: 10px;
       width: calc(100% - 10px);
       min-height: 50px;
-      height: 100%;
+      height: calc(100% - 10px);
 
       textarea {
         width: 100%;

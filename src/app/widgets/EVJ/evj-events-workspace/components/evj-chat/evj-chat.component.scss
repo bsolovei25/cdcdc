@@ -96,6 +96,8 @@
 
       bottom: 0px;
       right: 0px;
+      box-sizing: border-box;
+      padding-right: 10px;
     }
 
     &_files {
@@ -148,6 +150,7 @@
 
   .info {
     height: 22px;
+    width: 100%;
 
     display: flex;
     flex-direction: column;

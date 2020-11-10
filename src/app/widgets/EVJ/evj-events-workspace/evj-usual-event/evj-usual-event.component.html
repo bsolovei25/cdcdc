@@ -61,10 +61,10 @@
       <div class="workspace__third__right">
         <div class="place-date">
           <div class="workspace__select-container-left">
+            <ng-container *ngIf="ewService.event.category.code!=='2' else subcategories">
             <div class="title">
               <span>Тип оборудования</span>
             </div>
-            <ng-container *ngIf="ewService.event.category.code!=='2' else subcategories">
               <div class="mat-form-category">
                 <div class="event-mat-select">
                   <mat-form-field appearance="none">
@@ -157,10 +157,10 @@
       <div class="workspace__third__right">
         <div class="place-date">
           <div class="workspace__select-container-left">
+            <ng-container *ngIf="ewService.event.category.code!=='2' else subcategories">
             <div class="title">
               <span>Тип оборудования</span>
             </div>
-            <ng-container *ngIf="ewService.event.category.code!=='2' else subcategories">
               <div class="mat-form-category">
                 <div class="event-mat-select">
                   <mat-form-field appearance="none">
@@ -282,8 +282,10 @@
 </div>
 
 <ng-template #subcategories>
+  <div class="title">
+    <span>Подкатегория</span>
+  </div>
   <evj-events-workspace-select
-    [label]="'Подкатегория'"
     [dataType]="'subCategories'"
   ></evj-events-workspace-select>
 </ng-template>
