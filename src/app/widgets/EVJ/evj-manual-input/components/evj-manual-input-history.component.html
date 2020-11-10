@@ -88,7 +88,7 @@
       <td class="params__title">{{paramTitle}}</td>
       <td class="params__unit">{{paramsData?.unit}}</td>
       <td class="hour" *ngFor="let value of this.hoursValue; let i = index" (click)="activateEditMode()">
-        <span class="hours__item" *ngIf="!editMode">{{value}}</span>
+        <div class="hours__item" *ngIf="!editMode">{{value}}</div>
         <input 
           (change)="onChangeHistoricalValue($event, i, value)"
           class="hours__item"

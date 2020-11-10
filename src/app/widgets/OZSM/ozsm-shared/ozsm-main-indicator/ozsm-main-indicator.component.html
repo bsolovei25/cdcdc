@@ -1,6 +1,6 @@
 <div class="main-indicator">
   <div class="main-indicator__icon">
-    <img src="assets/icons/widgets/OZSM/ozsm-main-indicators/main-indicator-logo.svg">
+    <img [src]="'assets/icons/widgets/OZSM/ozsm-main-indicators/' + item.icon +  '.svg'">
   </div>
   <div class="main-indicator__info">
     <div class="main-indicator__title">
@@ -10,7 +10,6 @@
       <div class="text-yellow" *ngIf="item.fact != item.plan">
         <span>{{+item?.plan - item?.fact | spaceNumber}}</span>
       </div>
-
     </div>
     <div class="main-indicator__level-empty">
       <div class="level-warning" 
