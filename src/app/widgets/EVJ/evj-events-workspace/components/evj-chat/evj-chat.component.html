@@ -1,0 +1,71 @@
+<div class="chat">
+  <div class="chat__messages messages scroll scroll-bar" #scroll>
+    <div class="messages__list">
+      <div class="message__graph graph" *ngIf="displayGraphImage" (click)="onClickItem()">
+        <svg-icon
+          src="assets/icons/widgets/workspace/graph.svg"
+          [svgStyle]="{ 'width.px':250, 'height.px':70 }"
+        ></svg-icon>
+      </div>
+      <div class="message__graph graph" *ngIf="displayMnemoImage" (click)="onClickItem()">
+        <svg-icon
+          src="assets/icons/widgets/workspace/mnemo.svg"
+          [svgStyle]="{ 'width.px':250, 'height.px':70 }"
+        ></svg-icon>
+      </div>
+      <ng-container *ngFor="let message of messages; let i = index;">
+        <div class="message" [ngClass]="{'message_odd':i%2===0}">
+          <div class="message_files__list">
+            <ng-container *ngFor="let file of message.attachedFiles; let i = index">
+              <div class="list-item" (click)="openAttachmentBlank(file?.fileId)">
+                <svg-icon
+                  class="list-item__icon"
+                  [src]="'assets/icons/widgets/events/evj-file-attach-menu/' + file.type + '.svg'"
+                  [svgStyle]="{ 'width.px':15, 'height.px':15 }"
+                ></svg-icon>
+                <div class="list-item__size">{{ file.size }}</div>
+                <div class="list-item__name" [matTooltip]="file.name">{{ file.name }}</div>
+              </div>
+            </ng-container>
+          </div>
+          <div class="message__text">{{message.comment}}</div>
+          <div class="message__info info">
+            <div class="info__author">{{message.displayName}}</div>
+            <div class="info__date">{{message.createdAt | dateFormat:'DD-MM-YY hh:mm'}}</div>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+  <div class="chat__input input-line">
+     <div class="line"></div>
+    <input
+      class="input"
+      type="text"
+      [placeholder]="placeholder"
+      (keypress)="onEnterPush($event)"
+      #input
+    />
+    <button
+      #attachFileBtn
+      matTooltip="Добавить файл"
+      class="button"
+      [class.button--active]="isFilePopoverOpened"
+      (click)="openAttachFilePopover(attachFileBtn)"
+    >
+      <svg-icon
+        class="button__icon"
+        src="assets/icons/widgets/change-shift/add_file.svg"
+        [svgStyle]="{ 'width.px':15, 'height.px':15 }"
+      ></svg-icon>
+      <div class="button__files-flag" *ngIf="filesToUpload.length"></div>
+    </button>
+    <button matTooltip="Добавить сообщение" class="button" (click)="onSendMessage()">
+      <svg-icon
+        class="button__icon"
+        src="assets/icons/widgets/change-shift/send.svg"
+        [svgStyle]="{ 'width.px':15, 'height.px':15 }"
+      ></svg-icon>
+    </button>
+  </div>
+</div>

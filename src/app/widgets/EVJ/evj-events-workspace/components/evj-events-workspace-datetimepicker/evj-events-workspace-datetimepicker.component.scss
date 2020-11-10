@@ -8,7 +8,7 @@
 
     .title {
       font-size: 13px;
-      margin-bottom: 5px;
+      margin-bottom: 3px;
       color: var(--color-text-sub);
     }
 
@@ -20,7 +20,7 @@
       border-radius: 2px;
       background-color: var(--header-events-color-bg-main);
       border: 1px solid var(--color-astue-mat-select-border);
-      padding: 8px 10px;
+      padding: 0px 10px 15px 10px;
     }
 
     ::ng-deep {

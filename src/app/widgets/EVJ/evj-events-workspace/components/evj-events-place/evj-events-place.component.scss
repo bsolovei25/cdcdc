@@ -1,0 +1,142 @@
+@import "src/mixins";
+
+:host {
+  height: 38px;
+  width: 100%;
+}
+
+.responsible {
+  height: 30px;
+  width: 100%;
+  // min-width: 350px;
+  position: relative;
+  //min-height: 55px;
+  background-color: var(--header-events-color-bg-main);
+  border: 1px solid var(--color-astue-mat-select-border);
+  border-radius: 2px;
+
+  padding-top: 6px;
+
+  .mat-select {
+    width: calc(100% - 2px) !important;
+  }
+
+  ::ng-deep {
+    .card-normal {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    ::ng-deep {
+      .mat-form-field {
+        width: 100%;
+      }
+
+      .mat-form-field-underline {
+        height: 0 !important;
+      }
+
+      .mat-form-field-appearance-legacy .mat-form-field-ripple {
+        height: 0;
+      }
+
+      .mat-form-field-appearance-legacy .mat-form-field-infix {
+        padding: 0;
+        display: flex;
+        padding-top: 5px;
+      }
+
+      .mat-form-field-wrapper {
+        padding-bottom: 0;
+        margin: 0;
+      }
+
+      .mat-form-field-infix {
+        border-top: none;
+      }
+
+      .mat-select-value-text {
+        margin-left: 10px;
+        font-size: 13px;
+        color: inherit;
+      }
+
+      .mat-select-arrow {
+        margin-right: 10px !important;
+        margin-top: 3px !important;
+      }
+
+      .mat-form-field-label-wrapper {
+        top: -20px;
+      }
+    }
+  }
+
+  .choosenUser {
+    display: flex;
+    justify-content: space-between;
+    position: absolute;
+    background-color: var(--color-bg-card);
+    height: 100%;
+    width: 88%;
+    z-index: 1;
+
+    .name_user {
+      height: 100%;
+      //   min-width: 165px;
+      .name_user_responsible {
+        margin-left: 15px;
+        margin-top: 5px;
+        height: 30%;
+        color: var(--color-text-sub);
+        font-size: 11px;
+      }
+
+      .name_user_info {
+        margin-left: 15px;
+        min-width: 150px;
+        height: 100%;
+        color: white;
+        font-size: 11px;
+      }
+    }
+
+    .brigade_user {
+      min-width: 75px;
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+
+      .brigade_user_name {
+        color: white;
+        font-size: 11px;
+        width: 100%;
+      }
+
+      .brigade_user_text {
+        color: white;
+        font-size: 11px;
+        width: 100%;
+        @include text-overflow;
+        -webkit-line-clamp: 1;
+      }
+    }
+
+    .avatar_user {
+      min-width: 75px;
+      height: 100%;
+      .avatar_user_img {
+        // margin-left: 75px;
+        margin-top: 15px;
+        height: 100%;
+        img {
+          border: 3px solid white;
+          border-radius: 60px;
+          height: 65%;
+        }
+      }
+    }
+  }
+}
