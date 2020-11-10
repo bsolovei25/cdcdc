@@ -32,7 +32,7 @@
       <evj-alert-window [info]="shiftService.alertWindow$ | async"></evj-alert-window>
 
       <!--TODO-->
-      <ng-container *ngIf="widgetType === 'shift-pass'">
+      <ng-container *ngIf="widgetType === 'evj-shift-pass'">
         <evj-alert-window [info]="shiftService.alertWindowLeaveShift$ | async"></evj-alert-window>
       </ng-container>
 
@@ -170,7 +170,7 @@
           </div>
         </div>
         <ng-container
-          *ngIf="widgetType === 'shift-pass' && !this.shiftService.getIsCommentRequired(widgetType)"
+          *ngIf="widgetType === 'evj-shift-pass' && !this.shiftService.getIsCommentRequired(widgetType)"
         >
           <div class="buttons">
             <div class="change-shift__submit">
@@ -184,7 +184,7 @@
         </ng-container>
 
         <ng-container
-          *ngIf="widgetType !== 'shift-pass' && !this.shiftService.getIsCommentRequired(widgetType)"
+          *ngIf="widgetType !== 'evj-shift-pass' && !this.shiftService.getIsCommentRequired(widgetType)"
         >
           <div class="buttons">
             <div class="change-shift__submit">

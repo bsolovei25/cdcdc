@@ -1,0 +1,99 @@
+:host {
+  height: 100%;
+  width: 100%;
+}
+
+.description {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  margin-top: inherit;
+  background-color: var(--header-events-color-bg-main);
+  border: 1px solid var(--color-astue-mat-select-border);
+  border-radius: 2px;
+  box-sizing: border-box;
+
+  .description_nav {
+    display: flex;
+
+    .description_button_update {
+      position: absolute;
+      right: 6px;
+      top: 0;
+
+      svg-icon {
+        fill: var(--color-text-sub);
+        line-height: 40px;
+      }
+
+      &:hover svg-icon {
+        cursor: pointer;
+
+        ::ng-deep .st0 {
+          fill: white !important;
+        }
+      }
+    }
+  }
+
+  .description__content {
+    height: 100%;
+    background-color: var(--evj-events-workspace-bg-dark);
+
+    .description__content_text {
+      background-color: transparent;
+      word-wrap: break-word;
+      color: white;
+      font-size: 12px;
+      box-sizing: border-box;
+      padding-left: 10px;
+      padding-top: 10px;
+      width: calc(100% - 10px);
+      min-height: 50px;
+      height: calc(100% - 10px);
+
+      textarea {
+        width: 100%;
+        height: 100%;
+        overflow-y: auto;
+        overflow-x: hidden;
+        background-color: transparent;
+
+        padding: 0;
+
+        &::placeholder {
+          color: var(--color-text-sub-heading);
+        }
+      }
+    }
+  }
+}
+
+::-webkit-scrollbar-track-piece {
+  background: var(--color-bg-card);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgb(39, 43, 53);
+}
+
+.description_small {
+  height: 140px;
+}
+
+textarea {
+  font-family: "Tahoma";
+  font-size: 0.8rem;
+  letter-spacing: 1px;
+  background-color: var(--evj-events-workspace-bg-dark);
+  border: none;
+  color: inherit;
+  outline: none;
+  resize: none;
+
+  overflow: hidden;
+  // padding: 10px;
+  line-height: 1.5;
+  border-radius: 5px;
+  // border: 1px solid #ccc;
+}

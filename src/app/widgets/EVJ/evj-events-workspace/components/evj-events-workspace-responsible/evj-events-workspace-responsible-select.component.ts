@@ -6,7 +6,7 @@ import { IUser } from '../../../../../dashboard/models/EVJ/events-widget';
 import { EventsWorkspaceService } from '../../../../../dashboard/services/widgets/EVJ/events-workspace.service';
 
 @Component({
-    selector: 'evj-events-workspace-responsible-select.component',
+    selector: 'evj-events-workspace-responsible-select',
     templateUrl: './evj-events-workspace-responsible-select.component.html',
     styleUrls: ['./evj-events-workspace-responsible-select.component.scss'],
 })

@@ -1,0 +1,11 @@
+<evj-ui-block status="normal">
+  <div class="button">
+    <div class="button__text">
+      {{text[status]}}
+    </div>
+    <div class="button__icon">
+      <img [src]="iconSrc[status]" />
+    </div>
+  </div>
+  <div class="button__disable-overlay" *ngIf="disabled"></div>
+</evj-ui-block>
