@@ -140,6 +140,10 @@ span {
         }
       }
     }
+
+    .mirror {
+      align-items: flex-start;
+    }
   }
 
   .additional-values {
@@ -159,5 +163,9 @@ span {
       color: var(--ozsm-color-marker-diagram)
     }
   }
+}
+
+.mirror {
+  transform: scale(-1, 1);
 }
 

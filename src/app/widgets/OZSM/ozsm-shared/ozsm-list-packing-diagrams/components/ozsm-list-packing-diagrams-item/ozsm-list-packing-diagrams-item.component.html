@@ -1,4 +1,54 @@
-<div class="diagram">
+<div class="wrapper">
+    <div class="card-container">
+      <div class="content">
+        <div class="information-indicator">
+            <div class="indicator-values">
+                <span class="indicator-values__start">{{data.plan | spaceNumber:1}}</span>
+                <span 
+                    class="indicator-values__end"
+                    [style.color]="data.deviation!= 0 ? 'var(--ozsm-color-warning)' : 'var(--ozsm-color-marker-diagram)'"
+                >{{data.deviation | spaceNumber:1}}</span>
+            </div>
+            <div class="indicator-line">
+                <div class="indicator-line__inner"
+                    [style.background]="deviationPercent > 0 ? 'var(--ozsm-color-warning)' : 'var(--ozsm-color-danger)'"
+                >
+                    <div class="indicator-line__inner_value"
+                        [style.width.%]="percent"
+                    ></div>
+                </div>
+            </div>
+        </div>
+        <div class="information__text">
+            <span>46.6</span>
+            <span>45</span>
+        </div>
+        <div class="information-overboard">
+            <div class="information-overboard__item">
+                <span>{{data.percentage}}</span>
+                <span class = 'units'>%</span>
+            </div>
+            <div class="information-overboard__item">
+                <span>{{data.amount}}</span>
+                <span class = 'units'>тн/ч</span>
+            </div>
+        </div>
+      </div>
+      <i class="card-container__circle">
+        <div class="chart">
+          <svg class="svg" viewBox="0 0 80 80"></svg>
+        </div>
+      </i>
+    </div>
+</div>
+  
+
+
+
+
+
+
+<!-- <div class="diagram">
     <div class="diagram__number" #chart>
         <span>{{index}}</span>
     </div>
@@ -29,4 +79,4 @@
             </div>
         </div>
     </div>
-</div>
+</div> -->

@@ -4,4 +4,5 @@ export interface IOZSMMainIndicator {
     fact: number;
     plan: number;
     percent?: number;
+    icon?: string;
 }

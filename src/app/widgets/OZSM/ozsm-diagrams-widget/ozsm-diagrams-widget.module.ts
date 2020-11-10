@@ -6,7 +6,7 @@ import { OzsmSharedModule } from '../ozsm-shared/ozsm-shared.module';
 import { OzsmDiagramsCardComponent } from './ozsm-diagrams-card/ozsm-diagrams-card.component';
 
 @NgModule({
-  declarations: [OzsmDiagramsWidgetComponent, OzsmDiagramsCardComponent],
+  declarations: [OzsmDiagramsWidgetComponent],
   imports: [CommonModule, SharedModule, OzsmSharedModule],
   exports: [
       OzsmDiagramsCardComponent,

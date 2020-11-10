@@ -7,21 +7,7 @@
 </div>
 <div class="body">
   <evj-ozsm-list-packing-diagrams-item
-    [index]="'1'"
-  ></evj-ozsm-list-packing-diagrams-item>
-  <evj-ozsm-list-packing-diagrams-item
-    [index]="'2'"
-  ></evj-ozsm-list-packing-diagrams-item>
-  <evj-ozsm-list-packing-diagrams-item
-    [index]="'3'"
-  ></evj-ozsm-list-packing-diagrams-item>
-  <evj-ozsm-list-packing-diagrams-item
-    [index]="'4'"
-  ></evj-ozsm-list-packing-diagrams-item>
-  <evj-ozsm-list-packing-diagrams-item
-    [index]="'5'"
-  ></evj-ozsm-list-packing-diagrams-item>
-  <evj-ozsm-list-packing-diagrams-item
-    [index]="'6'"
+    *ngFor="let item of diagramData"
+    [data]="item"
   ></evj-ozsm-list-packing-diagrams-item>
 </div>
