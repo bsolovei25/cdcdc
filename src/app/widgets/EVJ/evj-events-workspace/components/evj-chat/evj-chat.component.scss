@@ -1,5 +1,6 @@
 @import "../../../../../../mixins";
 
+$file-color: rgba(39, 43, 53, 0.75);
 :host {
   height: 100%;
   width: 100%;
@@ -113,8 +114,8 @@
           width: 80px;
           height: 28px;
           border-radius: 5px;
-          margin: 0 8px 8px 0;
-          background-color: var(--header-events-color-bg-main);
+          margin: 10px;
+          background-color: $file-color;
           position: relative;
           padding: 7px 7px 13px 7px;
           cursor: pointer;
@@ -127,6 +128,7 @@
           &__name,
           &__size {
             font-size: 9px;
+            line-height: 16px;
             float: left;
             color: var(--color-text-main);
             line-height: normal;
