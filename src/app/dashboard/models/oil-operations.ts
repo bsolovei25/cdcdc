@@ -1,10 +1,35 @@
 export interface IOilOperations { /// ALL DATA
-    tableLeft: IOilOperationTransfer[];
-    received: IOilReceived[];
-    shipment: IOilShipment[];
-    tableRight: IRightOilTable[];
+    tableLeft: IOilTransfer[]; // operation
+    received: IOilRowActions[];
+    shipment: IOilRowActions[];
+    tableRight: IOilShipment[];
     filter: IOilFilter[];
     filterTanks: IOilFilterTanks[];
+}
+
+export interface IOilOperationsPassport {
+    id: number;
+    fileUid: string;
+    name: string;
+    date: Date;
+    tank?: IOilOperationsTank;
+}
+
+export interface IOilOperationsProduct {
+    id: number;
+    sapCode: number;
+    name: string;
+    gost: string;
+    okpd2Code: string;
+    isActual?: boolean;
+}
+
+export interface IOilOperationsTank {
+    enabled?: boolean;
+    id: string;
+    limitHours?: number;
+    name: string;
+    shortName: string;
 }
 
 export enum operationTransferStatus {
@@ -21,18 +46,19 @@ export const operationTransferStatusNameMap: {[key: string]: string} = {
     [operationTransferStatus.closedWithDebalance]: 'Операция завершена, дебаланс превышает нормы рассчитанных погрешностей. Величина указана в поле Отклонение',
 };
 
-export interface IOilOperationTransfer {
+export interface IOilTransfer {
     id: number;
     deviation: number;
     endTime: Date;
     mass: number;
     originalId: string;
-    product: string;
+    product: IOilOperationsProduct;
     published: boolean;
     startTime: Date;
     status: operationTransferStatus;
-    tankNumber: string;
+    tank: IOilOperationsTank;
     transferNumber: number;
+    passport?: IOilOperationsPassport;
 }
 
 export interface ILeftOilTable {
@@ -47,28 +73,26 @@ export interface ILeftOilTable {
     status: operationTransferStatus;
 }
 
-export interface IOilReceived {
+export interface IOilRowActions {
     id: number;
     name: string;
     type: string;
+    value?: number;
 }
 
 export interface IOilShipment {
     id: number;
-    name: string;
-    value?: number;
-    type: string;
-}
-
-export interface IRightOilTable {
-    id: number;
     direction: string;
-    rRRiser: number;
-    dok: number;
+    tankShortName: number;
+    documentName: number;
     mass: number;
-    pasport: number;
-    shipment: number;
+    passport: number;
+    shipped: number;
     note: string;
+    shipmentType?: {
+        id: number;
+        shipmentTypeName: string;
+    };
 }
 
 export interface IOilFilter {

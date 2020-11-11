@@ -1,5 +1,5 @@
 import { Component, OnInit, HostListener, Output, Input, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
-import { IDocumentsTank } from '../../../../../dashboard/models/oil-document.model';
+import { IOilOperationsTank } from '../../../../../dashboard/models/oil-operations';
 
 @Component({
   selector: 'evj-document-coding-tanks',
@@ -7,13 +7,13 @@ import { IDocumentsTank } from '../../../../../dashboard/models/oil-document.mod
   styleUrls: ['./document-coding-tanks.component.scss']
 })
 export class DocumentCodingTanksComponent implements OnInit, OnChanges {
-  @Output() public selectedTank: EventEmitter<IDocumentsTank | null> = new EventEmitter<IDocumentsTank | null>();
+  @Output() public selectedTank: EventEmitter<IOilOperationsTank | null> = new EventEmitter<IOilOperationsTank | null>();
   @Input() public isFilterTanks: boolean;
 
   @Input()
-  public data: IDocumentsTank[] = [];
+  public data: IOilOperationsTank[] = [];
 
-  public filteredData: IDocumentsTank[] = [];
+  public filteredData: IOilOperationsTank[] = [];
 
   public activeRecordId: string | null;
 
@@ -45,7 +45,7 @@ export class DocumentCodingTanksComponent implements OnInit, OnChanges {
     }
   }
 
-  public onClick(tank: IDocumentsTank): void {
+  public onClick(tank: IOilOperationsTank): void {
       this.activeRecordId = tank.id === this.activeRecordId ? null : tank.id;
       this.selectedTank.emit(this.activeRecordId ? tank : null);
   }

@@ -15,21 +15,31 @@
                           [filters]="availableFilters"
                           (clickFilter)="openFilter($event)"
                           (scrollReachedItemId)="appendOperations($event)"
+                          [itemFixed]="true"
+                          [rowBgColorType]="'dark'"
+                          (item)="selectItem($event)"
                         >
                             <evj-column-grid key="transferNumber" name="№" [width]="7"></evj-column-grid>
-                            <evj-column-grid key="tankNumber" name="Р-р" [width]="7"></evj-column-grid>
-                            <evj-column-grid key="product" name="Продукт" [width]="20">
+                            <evj-column-grid key="tankNumber" name="Р-р" [width]="7" [template]="tank">
+                              <ng-template #tank let-data="data">
+                                {{ data.tank.shortName }}
+                              </ng-template>
+                            </evj-column-grid>
+                            <evj-column-grid key="product" name="Продукт" [width]="20" [template]="product">
+                              <ng-template #product let-data="data">
+                                {{ data.product.name }}
+                              </ng-template>
                             </evj-column-grid>
                             <evj-column-grid key="passport" name="Паспорт" [width]="12" [template]="passport">
                                 <ng-template #passport let-data="data">
-                                    <div class="pasport">
-                                        <div class="pasport__icon">
+                                    <div class="passport">
+                                        <div class="passport__icon" (click)="selectPassport($event, data.passport)">
                                             <svg-icon
                                                 src="assets/icons/widgets/oil-control-all/quality-docs-panel/pdf.svg"
                                                 [svgStyle]="{ 'width.px':30, 'height.px':40, 'padding.px': 5 }">
                                             </svg-icon>
                                         </div>
-                                        <div class="pasport__name"> {{ data.pasport }} </div>
+                                        <div class="passport__name"> {{ data.passport.name }} </div>
                                     </div>
                                 </ng-template>
                             </evj-column-grid>
@@ -45,15 +55,21 @@
                             </evj-column-grid>
                             <evj-column-grid key="mass" name="Масса" [width]="7"></evj-column-grid>
                             <evj-column-grid key="deviation" name="Отклонение" [width]="11"></evj-column-grid>
-                            <evj-column-grid key="status" name="Статус" [width]="6" [template]="status">
+                            <evj-column-grid key="status" name="Статус" [width]="7" [template]="status">
                                 <ng-template #status let-data="data">
                                     <div class="status" [matTooltip]="getStatusDescription(data.status)">
-                                        <div class="pasport__icon">
+                                        <div class="status__icon">
                                             <svg-icon
                                                 [src]="'assets/icons/widgets/oil-control-all/oil-operations/libra-' + data.status + '.svg'"
                                                 [svgStyle]="{ 'width.px':30, 'height.px':30, 'margin-top.px': 5 }">
                                             </svg-icon>
                                         </div>
+                                      <div class="status__blps" matTooltip="Опубликовано в БЛПС">
+                                        <svg-icon *ngIf="data.published"
+                                          [src]="'assets/icons/widgets/oil-control-all/oil-operations/blps-flag.svg'"
+                                          [svgStyle]="{ 'width.px':12, 'height.px':12 }">
+                                        </svg-icon>
+                                      </div>
                                     </div>
                                 </ng-template>
                             </evj-column-grid>
@@ -91,28 +107,35 @@
                                             src="assets/icons/widgets/oil-control-all/oil-operations/background-pic.svg"
                                             [svgStyle]="{ 'width.px':65, 'height.px':40, 'margin-top.px': 5 }">
                                         </svg-icon>
-                                        <img src="../../../../assets/pic/Icons3D/Cistern.png" class="icon-cistern">
+                                        <img [src]="'assets/icons/widgets/oil-control-all/oil-shipments/directions/' + data.direction + '.png'" class="icon-cistern">
                                     </div>
-                                    <div class="direction__name"> {{ data.direction }} </div>
+                                    <div class="direction__name"> {{ data.shipmentType?.transportType?.name }} </div>
                                 </div>
                             </ng-template>
                         </evj-column-grid>
-                        <evj-column-grid key="rRRiser" name="Р-р/Стояк" [width]="11"></evj-column-grid>
-                        <evj-column-grid key="dok" name="Док. №" [width]="8">
+                        <evj-column-grid key="tank" name="Р-р/Стояк" [width]="11" [template]="tank">
+                          <ng-template #tank let-data="data">
+                             {{ data.tank?.shortName }}
+                          </ng-template>
+                        </evj-column-grid>
+                        <evj-column-grid key="dok" name="Док. №" [width]="8" [template]="dok">
+                          <ng-template #dok let-data="data">
+                            {{ data.documentName }}
+                          </ng-template>
                         </evj-column-grid>
                         <evj-column-grid key="mass" name="Масса" [width]="8"></evj-column-grid>
-                        <evj-column-grid key="pasport" name="Паспорт" [width]="13" [template]="passport">
+                        <evj-column-grid key="passport" name="Паспорт" [width]="12" [template]="passport">
                             <ng-template #passport let-data="data">
-                                <div class="pasport">
-                                    <div class="pasport__icon">
+                                <div class="passport">
+                                    <div class="passport__icon" (click)="selectPassport($event, data.passport)">
                                         <svg-icon src="assets/icons/widgets/oil-control-all/quality-docs-panel/pdf.svg"
                                             [svgStyle]="{ 'width.px':30, 'height.px':40, 'padding.px': 5 }"></svg-icon>
                                     </div>
-                                    <div class="pasport__name"> {{ data.pasport }} </div>
+                                    <div class="passport__name"> {{ data.passport.name }} </div>
                                 </div>
                             </ng-template>
                         </evj-column-grid>
-                        <evj-column-grid key="shipment" name="Отгружено" [width]="8"></evj-column-grid>
+                        <evj-column-grid key="shipped" name="Отгружено" [width]="8"></evj-column-grid>
                         <evj-column-grid key="note" name="Примечание" [width]="25"></evj-column-grid>
                     </evj-table-grid>
                 </div>
