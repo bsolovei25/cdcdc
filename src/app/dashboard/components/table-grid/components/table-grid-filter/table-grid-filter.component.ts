@@ -65,6 +65,7 @@ export class TableGridFilterComponent implements OnInit, OnChanges {
     }
 
     private openPopover(origin: HTMLElement): void {
+        console.log('open');
         const popoverRef = this.popoverOverlayService.open({
             content: OilOperationsFilterComponent,
             origin,
