@@ -19,7 +19,7 @@ import {
     IStatus,
     ISubcategory,
     IUnitEvents,
-    IUser
+    IUser,
 } from '../../../models/EVJ/events-widget';
 import { EventService } from './event.service';
 import { SnackBarService } from '../../snack-bar.service';
@@ -33,12 +33,15 @@ import { IMessage, IMessageFileAttachment } from '@shared/models/message.model';
 import { FileAttachMenuService } from '../../file-attach-menu.service';
 import { IChatMessageWithAttachments } from '../../../../widgets/EVJ/events-workspace/components/chat/chat.component';
 import { ClaimService, EnumClaimGlobal } from '../../claim.service';
+import { log } from 'util';
 
 @Injectable({
-    providedIn: 'root'
+    providedIn: 'root',
 })
 export class EventsWorkspaceService {
-    public event$: BehaviorSubject<IEventsWidgetNotification> = new BehaviorSubject<IEventsWidgetNotification>(null);
+    public event$: BehaviorSubject<IEventsWidgetNotification> = new BehaviorSubject<
+        IEventsWidgetNotification
+    >(null);
 
     public set event(value: IEventsWidgetNotification) {
         this.event$.next(value);
@@ -107,18 +110,18 @@ export class EventsWorkspaceService {
     public readonly statuses: { [id in EventsWidgetNotificationStatus]: string } = {
         new: 'Новое',
         inWork: 'В работе',
-        closed: 'Завершено'
+        closed: 'Завершено',
     };
 
     public readonly subCategories: { [id in number]: string } = {
         0: 'Распоряжения',
-        1: 'Прием/передача смены'
+        1: 'Прием/передача смены',
     };
 
     public readonly priorities: { [id in EventsWidgetNotificationPriority]: string } = {
         danger: 'Высокий',
         warning: 'Средний',
-        standard: 'Стандартный'
+        standard: 'Стандартный',
     };
 
     public readonly categories: { [id in EventsWidgetCategoryCode]: string } = {
@@ -131,17 +134,25 @@ export class EventsWorkspaceService {
         ejs: 'Электронный журнал событий',
         indicators: 'Производственные показатели',
         resources: 'Вспомогательные ресурсы',
-        modelCalculations: 'ЦД'
+        modelCalculations: 'ЦД',
     };
 
     private defaultEvent: IEventsWidgetNotification = null;
 
-    public searchWindow$: BehaviorSubject<ISearchRetrievalWindow> = new BehaviorSubject<ISearchRetrievalWindow>(null);
-    public ewAlertInfo$: BehaviorSubject<IAlertWindowModel> = new BehaviorSubject<IAlertWindowModel>(null);
+    public searchWindow$: BehaviorSubject<ISearchRetrievalWindow> = new BehaviorSubject<
+        ISearchRetrievalWindow
+    >(null);
+    public ewAlertInfo$: BehaviorSubject<IAlertWindowModel> = new BehaviorSubject<
+        IAlertWindowModel
+    >(null);
 
     get isCategoryEdit(): boolean {
-        return this.isCreateNewEvent
-            || this.claimService.claimGlobal$.value.some((x) => x === EnumClaimGlobal.EventsChangeCategory);
+        return (
+            this.isCreateNewEvent ||
+            this.claimService.claimGlobal$.value.some(
+                (x) => x === EnumClaimGlobal.EventsChangeCategory
+            )
+        );
     }
 
     constructor(
@@ -150,8 +161,7 @@ export class EventsWorkspaceService {
         private avatarConfiguratorService: AvatarConfiguratorService,
         private fileAttachMenuService: FileAttachMenuService,
         private claimService: ClaimService
-    ) {
-    }
+    ) {}
 
     public async loadItem(id: number = null): Promise<void> {
         this.isLoading = true;
@@ -232,7 +242,7 @@ export class EventsWorkspaceService {
             this.event.category = {
                 id: null,
                 name: null,
-                code: null
+                code: null,
             };
         }
         this.originalEvent = { ...this.event };
@@ -357,17 +367,18 @@ export class EventsWorkspaceService {
         }
     }
 
-    public sendMessageToEvent(
+    public async sendMessageToEvent(
         msg: IChatMessageWithAttachments,
         category: 'comments' | 'facts'
-    ): void {
+    ): Promise<void> {
         this.isLoading = true;
-        this.uploadNewlyAddedAttachments(msg.attachments).then((attachments) => {
+        console.log(msg);
+        await this.uploadNewlyAddedAttachments(msg.attachments).then((attachments) => {
             const fullComment = {
-                comment: msg.msg,
+                comment: msg?.msg ? msg?.msg : msg.toString(),
                 createdAt: new Date(),
                 displayName: this.currentAuthUser.displayName,
-                attachedFiles: attachments
+                attachedFiles: attachments,
             };
             this.event[category].push(fullComment);
             this.isLoading = false;
@@ -383,13 +394,19 @@ export class EventsWorkspaceService {
     }
 
     // TODO #SMOTR region start
-    public async escalateEvent(message: IChatMessageWithAttachments): Promise<void> {
+    public async escalateEvent(message: string): Promise<void> {
         if (!this.event.originalId) {
             return;
         }
         this.isLoading = true;
         try {
-            this.sendMessageToEvent(message, 'comments');
+            const fullComment = {
+                comment: message,
+                createdAt: new Date(),
+                displayName: this.currentAuthUser.displayName,
+                attachedFiles: null,
+            };
+            this.event.comments.push(fullComment);
             const saveMethod = await this.eventService.getSaveMethod(this.event);
             await this.eventService.escalateSmotrEvent(saveMethod, this.event);
         } catch (e) {
@@ -399,18 +416,23 @@ export class EventsWorkspaceService {
         this.isLoading = false;
     }
 
-    public async closeEvent(message: IChatMessageWithAttachments): Promise<void> {
+    public async closeEvent(message: string): Promise<void> {
         if (!this.event.originalId) {
             return;
         }
         this.isLoading = true;
         const tempStatus = { ...this.event.status };
         try {
-            this.sendMessageToEvent(message, 'comments');
+            const fullComment = {
+                comment: message,
+                createdAt: new Date(),
+                displayName: this.currentAuthUser.displayName,
+                attachedFiles: null,
+            };
+            this.event.comments.push(fullComment);
             const saveMethod = await this.eventService.getSaveMethod(this.event);
             await this.eventService.closeSmotrEvent(saveMethod, this.event);
             this.event.status = this.status.find((el) => el.name === 'closed');
-            this.sendMessageToEvent(message, 'comments');
         } catch (e) {
             console.log(e);
             this.event.comments.pop();
@@ -436,7 +458,7 @@ export class EventsWorkspaceService {
             category: {
                 id: 0,
                 name: null,
-                code: null
+                code: null,
             },
             description: '',
             deviationReason: '',
@@ -457,10 +479,10 @@ export class EventsWorkspaceService {
             status: this.status
                 ? this.status[0]
                 : {
-                    id: 0,
-                    name: null,
-                    code: null
-                },
+                      id: 0,
+                      name: null,
+                      code: null,
+                  },
             equipmentCategory: null,
             deadline: new Date(),
             graphValues: null,
@@ -486,7 +508,7 @@ export class EventsWorkspaceService {
                 shiftPropertyNotes: '',
                 shiftRepairWorks: '',
                 ventilationStatus: '',
-                safetyAndEmergencyProtectionStatus: ''
+                safetyAndEmergencyProtectionStatus: '',
             },
             asusEvent: {
                 category: '',
@@ -494,12 +516,12 @@ export class EventsWorkspaceService {
                 service: '',
                 eoService: null,
                 equipment: null,
-                tmPlace: null
+                tmPlace: null,
             },
             productionTasks: {
-                subCategory: null
+                subCategory: null,
             },
-            eventEndDateTime: null
+            eventEndDateTime: null,
         };
     }
 
@@ -509,7 +531,7 @@ export class EventsWorkspaceService {
             this.eventService.getCategory().then((data) => {
                 this.category = data;
                 // TODO Здесь костыль с ЦД
-                const idx = this.category.findIndex(value => value.name === 'modelCalculations');
+                const idx = this.category.findIndex((value) => value.name === 'modelCalculations');
                 this.category.splice(idx, 1);
                 this.category$.next(this.category);
             }),
@@ -576,8 +598,9 @@ export class EventsWorkspaceService {
 
     public async changeCategory(): Promise<void> {
         if (this.event.category.name === 'tasks') {
-            this.event.productionTasks.subCategory =
-                this.subCategory?.find(value => value.code === '0');
+            this.event.productionTasks.subCategory = this.subCategory?.find(
+                (value) => value.code === '0'
+            );
         }
         if (this.event.category.name === 'asus') {
             await this.asusReferencesLoad();
@@ -620,7 +643,7 @@ export class EventsWorkspaceService {
     private async uploadNewlyAddedAttachments(
         files: IMessageFileAttachment[]
     ): Promise<IMessageFileAttachment[]> {
-        files.map(async (file) => {
+        files?.map(async (file) => {
             if (!file.fileId && file._file) {
                 file.fileId = await this.uploadAttachment(file._file);
                 file._file = null;

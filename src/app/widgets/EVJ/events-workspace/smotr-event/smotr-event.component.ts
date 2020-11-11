@@ -41,17 +41,15 @@ export class SmotrEventComponent implements OnInit {
         this.ewService.sendMessageToEvent(message, msgType);
     }
 
-    public onEscalateEvent(message: IChatMessageWithAttachments): void {
+    public onEscalateEvent(message: string): void {
         this.isEscalatePopupOpen = false;
-        console.log(message);
         if (message) {
             this.ewService.escalateEvent(message);
         }
     }
 
-    public onCloseCard(message: IChatMessageWithAttachments): void {
+    public onCloseCard(message: string): void {
         this.isClosePopupOpen = false;
-        console.log(message);
         if (message) {
             this.ewService.closeEvent(message);
         }

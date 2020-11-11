@@ -8,14 +8,14 @@ import { mockData } from './ozsm-card-line-mock';
     styleUrls: ['./ozsm-card-line-diagram.component.scss'],
 })
 export class OzsmCardLineDiagramComponent implements OnInit, OnChanges {
-    @Input() data: ICardLineDiagramModel = mockData;
+    @Input() data: any;
     public percentValue: number = 0;
 
     public get bgLineClass(): 'active' | 'deviation' | 'deviation-opacity' {
-        if (this.data.type !== 'deviation-icon') {
+        if (this.data?.type !== 'deviation-icon') {
             return 'active';
         } else {
-            return this.data.currentValue > this.data.maxValue ? 'deviation' : 'deviation-opacity';
+            return this.data?.currentValue > this.data?.maxValue ? 'deviation' : 'deviation-opacity';
         }
     }
 

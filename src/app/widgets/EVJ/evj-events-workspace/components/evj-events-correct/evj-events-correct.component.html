@@ -1,0 +1,25 @@
+<div class="events-correct">
+  <div class="events-correct__header">
+    <div class="events-correct__search button"
+         matRipple [matRippleColor]="'white'"
+         (click)="openSearchRetrieval()"
+    >
+      <span>Привязать событие</span>
+    </div>
+    <div class="events-correct__add button"
+         matRipple [matRippleColor]="'white'"
+         (click)="addRetrieval()"
+    >
+      <span>Добавить новое</span>
+    </div>
+  </div>
+  <div class="events-correct__body scroll scroll-bar">
+    <div class="cards-list">
+      <ng-container *ngFor="let retrieval of ewService.event.retrievalEvents">
+        <div class="card">
+          <evj-events-correct-card [event]="retrieval" [isClickable]="true"></evj-events-correct-card>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+</div>

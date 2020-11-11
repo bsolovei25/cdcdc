@@ -37,22 +37,22 @@
   }
 
   .unit-text {
-    font-size: 6px;
-    fill: var(--ozsm-color-text-main);
-  }
-
-  .fact-text {
     font-size: 8px;
     fill: var(--ozsm-color-text-main);
   }
 
+  .fact-text {
+    font-size: 10px;
+    fill: var(--ozsm-color-text-main);
+  }
+
   .plan-text {
-    font-size: 6px;
+    font-size: 10px;
     fill: var(--ozsm-color-active);
   }
 
   .deviation-text {
-    font-size: 6px;
+    font-size: 10px;
     fill: var(--ozsm-color-warning);
   }
 

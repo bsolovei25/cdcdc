@@ -2,9 +2,9 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { IDatesInterval, WidgetService } from '../widget.service';
 import { AppConfigService } from '@core/service/app-config.service';
-import { IOilOperationTransfer } from '../../models/oil-operations';
+import { IOilTransfer } from '../../models/oil-operations';
 
-interface IOilShipmentRest {
+/*export interface IOilShipmentRest {
     id: number;
     direction: string;
     tank: {
@@ -12,35 +12,91 @@ interface IOilShipmentRest {
         omsUid: string;
         afUid: string;
         name: string;
-        enabled: boolean;
+        shortName: string;
+        enabled: true;
         limitHours: number;
-        deletedAt: Date;
     };
-    documentNumber: number;
+    product: {
+        id: number;
+        name: string;
+        shortName: string;
+        fullName: string;
+        sapCode: string;
+        okpd2Code: string;
+        gost: string;
+        shippingComplexId: number;
+        group?: {
+            id: number;
+            name: string;
+            shortName: string;
+            subGroupName: string;
+        };
+        groupId?: number;
+    };
+    documentNumber?: number;
+    documentName?: string;
+    sectionNumber: number;
+    transferId: number;
+    transferPrevId: number;
+    shipmentType: {
+        id: number;
+        shipmentTypeName: string;
+        errorSI: number;
+        flagManual: boolean;
+        measurerId: number;
+        measurer?: any;
+        transportTypeId: number;
+        transportType: {
+            id: number;
+            name: string;
+        };
+        originalId: string;
+        systemId: string;
+    };
+    shipmentTypeId: number;
     mass: number;
+    massDelta: number;
     passport: {
         id: number;
         name: string;
         fileUid: string;
-    },
-    shipped: string;
+        tank: {
+            id: string;
+            omsUid: string;
+            afUid: string;
+            name: string;
+            shortName: string;
+            enabled: boolean;
+            limitHours: number;
+        };
+        tankId: string;
+        product: {
+            id: number;
+            name: string;
+            shortName: string;
+            fullName: string;
+            sapCode: string;
+            okpd2Code: string;
+            gost: string;
+            isActual: boolean;
+            shippingComplexId: number;
+            group: {
+                id: number;
+                name: string;
+                shortName: string;
+                subGroupName: string;
+            };
+            groupId: number;
+        };
+        productId: number;
+        customId: number;
+        date: Date;
+    };
+    isManualRelation: boolean;
+    shipped: number;
     note: string;
-    document: string;
     dateFinish: Date;
-    productName: string;
-    resName: string;
-    passportNum: string;
-    productID: number;
-    massDelta: number;
-    transfer_ID: number;
-    carNumber: string;
-    trailerNumber: string;
-    dateStart: Date;
-    dateEnd: Date;
-    iD_Object: number;
-    massBegin: number;
-    massEnd: number;
-}
+}*/
 
 export interface IOilOperationsOptions {
     dates?: { startTime: Date; endTime: Date };
@@ -68,10 +124,10 @@ export class OilOperationsService {
     public async getTransferList(
         lastId: number,
         options: IOilOperationsOptions
-    ): Promise<IOilOperationTransfer[]> {
+    ): Promise<IOilTransfer[]> {
         try {
             return this.http
-                .get<IOilOperationTransfer[]>(
+                .get<IOilTransfer[]>(
                     this.restUrl +
                     `/api/oil-control/transfers?${this.getOptionString(lastId, options)}`
                 )
@@ -81,9 +137,23 @@ export class OilOperationsService {
         }
     }
 
-    public async getShipmentList(dates: IDatesInterval): Promise<IOilShipmentRest[]> {
+    public async getShipments<T>(dates: IDatesInterval): Promise<T> {
         const query = this.getFilterString(dates.fromDateTime, dates.toDateTime);
-        return await this.getShipmentListRequest(query);
+        try {
+            return await this.http.get<T>(`${this.restUrl}/api/oil-control/shipments/${query}`).toPromise();
+        } catch (e) {
+            console.error(e);
+            return new Promise<T>(resolve => []);
+        }
+    }
+
+    public async getShipmentsByTransferId<T>(transferId: number): Promise<T> {
+        try {
+            return await this.http.get<T>(`${this.restUrl}/api/oil-control/shipments/${transferId}/transfer`).toPromise();
+        } catch (e) {
+            console.error(e);
+            return new Promise<T>(resolve => []);
+        }
     }
 
     public async getFilterList<T>(filter: 'products' | 'groups'): Promise<T>  {
@@ -101,6 +171,24 @@ export class OilOperationsService {
         } catch (e) {
             console.error(e);
             return new Promise<T>(resolve => []);
+        }
+    }
+
+    public async operationToBlbs<T>(transferIdParam: number, transferUidParam: string): Promise<T>  {
+        try {
+            return await this.http.put<T>(`${this.restUrl}/api/oil-control/transfer/${transferUidParam}/toblps?transferId=${transferIdParam}`, null).toPromise();
+        } catch (e) {
+            console.error(e);
+            return new Promise<T>(resolve => false);
+        }
+    }
+
+    public async autoAssignShipments<T>(transferIdParam: number): Promise<T>  {
+        try {
+            return await this.http.put<T>(`${this.restUrl}/api/oil-control/transfer/${transferIdParam}/auto-relation`, null).toPromise();
+        } catch (e) {
+            console.error(e);
+            return new Promise<T>(resolve => false);
         }
     }
 
@@ -123,13 +211,6 @@ export class OilOperationsService {
             requestQuery += `&product=${product}`;
         }
         return requestQuery;
-    }
-
-    private async getShipmentListRequest(query: string): Promise<IOilShipmentRest[]> {
-        return this.http
-            // .get<IOilShipmentRest[]>(`${this.restUrl}/api/oil-control/shipment${query}`)
-            .get<IOilShipmentRest[]>(`assets/mock/OilOperationsMock/shipments.json`)
-            .toPromise();
     }
 
     private getOptionString(lastId: number, options: IOilOperationsOptions): string {

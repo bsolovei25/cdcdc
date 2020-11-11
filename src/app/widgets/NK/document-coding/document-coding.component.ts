@@ -3,8 +3,8 @@ import { WidgetPlatform } from '../../../dashboard/models/@PLATFORM/widget-platf
 import { WidgetService } from '../../../dashboard/services/widget.service';
 import { DocumentCodingService } from '../../../dashboard/services/oil-control-services/document-coding.service';
 import { DocumentsScansService } from 'src/app/dashboard/services/oil-control-services/documents-scans.service';
-import { IDocumentsScan, IDocumentsTank } from '../../../dashboard/models/oil-document.model';
-import { IDocumentCodingTableRecord } from './components/document-coding-table/document-coding-table.component';
+import { IDocumentsScan } from '../../../dashboard/models/oil-document.model';
+import { IOilOperationsProduct, IOilOperationsTank } from '../../../dashboard/models/oil-operations';
 
 export interface IDocumentFilter {
   isFilterGroup: boolean;
@@ -25,11 +25,11 @@ export class DocumentCodingComponent extends WidgetPlatform<unknown> implements 
     isFilterTanks: false,
   };
 
-  public tanks: IDocumentsTank[] = [];
+  public tanks: IOilOperationsTank[] = [];
 
-  public selectedTank: IDocumentsTank | null = null;
+  public selectedTank: IOilOperationsTank | null = null;
 
-  public selectedProduct: IDocumentCodingTableRecord | null = null;
+  public selectedProduct: IOilOperationsProduct | null = null;
 
   public file: IDocumentsScan | null = null;
 
@@ -63,7 +63,7 @@ export class DocumentCodingComponent extends WidgetPlatform<unknown> implements 
   }
 
   private async getTanks(): Promise<void> {
-      this.tanks = await this.oilService.getFilterList<IDocumentsTank>('tanks');
+      this.tanks = await this.oilService.getFilterList<IOilOperationsTank>('tanks');
   }
 
   public ngOnDestroy(): void {
@@ -74,15 +74,15 @@ export class DocumentCodingComponent extends WidgetPlatform<unknown> implements 
     this.active(name);
   }
 
-  public closeFilter(event: boolean): void {
+  public closeFilter(): void {
     this.disabled();
   }
 
-  public setTank(tank: IDocumentsTank): void {
+  public setTank(tank: IOilOperationsTank): void {
       this.selectedTank = tank;
   }
 
-  public setProduct(product: IDocumentCodingTableRecord): void {
+  public setProduct(product: IOilOperationsProduct): void {
       this.selectedProduct = product;
   }
 

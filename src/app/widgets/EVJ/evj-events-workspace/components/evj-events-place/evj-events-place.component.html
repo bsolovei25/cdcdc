@@ -1,0 +1,21 @@
+<div class="responsible">
+  <div *ngIf="!unit" class="choosenUser">
+    <div class="name_user">
+      <div class="name_user_responsible">
+        Место
+      </div>
+    </div>
+  </div>
+  <div (click)="clearFilter()">
+    <mat-form-field>
+      <mat-select panelClass="mat-select-custom" [disabled]="disabled" [(ngModel)]="unit" disableOptionCentering>
+        <evj-mat-select-filter [formControl]="filter"></evj-mat-select-filter>
+        <ng-container *ngFor="let p of units">
+          <mat-option [value]="p" (click)="chooseRespons(p)">
+            {{ p.name }}
+          </mat-option>
+        </ng-container>
+      </mat-select>
+    </mat-form-field>
+  </div>
+</div>

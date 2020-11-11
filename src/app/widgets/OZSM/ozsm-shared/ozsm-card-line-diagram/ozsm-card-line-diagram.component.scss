@@ -42,6 +42,20 @@
   margin: 0 10%;
   gap: 5px;
 
+  .fact {
+    font-size: 12px;
+  }
+
+  .plan {
+    font-size: 12px;
+    color: var(--ozsm-color-text-plan);
+  }
+
+  .disabled {
+    font-size: 12px;
+    color: var(--ozsm-resources-circle-diagram-color-font-sub);
+  }
+
   &__icon {
     line-height: 16px;
     font-size: 16px;
@@ -51,20 +65,9 @@
     line-height: 14px;
     font-size: 12px;
 
-    .fact {
-    }
-
-    .plan {
-      color: var(--ozsm-color-text-plan);
-    }
-
     .deviation {
       float: right;
       color: var(--ozsm-color-warning);
-    }
-
-    .disabled {
-      color: var(--ozsm-resources-circle-diagram-color-font-sub);
     }
   }
 }

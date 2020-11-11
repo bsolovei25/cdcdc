@@ -104,16 +104,19 @@
     }
   }
 }
+
 .text-yellow {
   font-size: 10px;
   line-height: 20px;
   text-align: right;
   color: var(--ozsm-color-warning);
+  white-space: nowrap;
 }
 .text-white {
   font-size: 10px;
   line-height: 12px;
   color: var(--ozsm-color-white);
+  white-space: nowrap;
 }
 .text {
   overflow: hidden;

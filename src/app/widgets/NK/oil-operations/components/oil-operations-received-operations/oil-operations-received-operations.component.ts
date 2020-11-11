@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter, OnChanges } from '@angular/core';
-import { IOilReceived } from 'src/app/dashboard/models/oil-operations';
+import { IOilRowActions } from 'src/app/dashboard/models/oil-operations';
 
 @Component({
   selector: 'evj-oil-operations-received-operations',
@@ -7,9 +7,9 @@ import { IOilReceived } from 'src/app/dashboard/models/oil-operations';
   styleUrls: ['./oil-operations-received-operations.component.scss']
 })
 export class OilOperationsReceivedOperationsComponent implements OnInit, OnChanges {
-  @Input() public data: IOilReceived[];
+  @Input() public data: IOilRowActions[];
   @Input() public isOpen: boolean;
-  @Output() public openItem: EventEmitter<any> = new EventEmitter<any>();
+  @Output() public openItem: EventEmitter<string> = new EventEmitter<string>();
 
   public activeItemId: number;
 
@@ -24,7 +24,7 @@ export class OilOperationsReceivedOperationsComponent implements OnInit, OnChang
     }
   }
 
-  active(item: IOilReceived): void {
+  active(item: IOilRowActions): void {
     this.activeItemId = item.id;
     this.openItem.emit(item.type);
   }
