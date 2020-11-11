@@ -16,7 +16,7 @@ import {
 } from '@angular/core';
 import { ColumnGridComponent } from './components/column-grid/column-grid.component';
 import { ITableGridFilter } from './components/table-grid-filter/table-grid-filter.component';
-import { IOilFilter, IOilOperationTransfer } from '../../models/oil-operations';
+import { IOilFilter, IOilTransfer } from '../../models/oil-operations';
 import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
 
 @Component({
@@ -28,12 +28,13 @@ export class TableGridComponent implements OnInit, AfterViewInit, OnChanges {
   @ViewChild('table') public table: ElementRef;
   @ContentChildren(ColumnGridComponent) columns: QueryList<ColumnGridComponent>;
   @ViewChild(CdkVirtualScrollViewport) viewport: CdkVirtualScrollViewport;
-  @Input() data: IOilOperationTransfer[];
+  @Input() data: IOilTransfer[];
   @Input() scrollLeft: boolean; // side scroll for contant
   @Input() search: boolean; // search-input in footer
   @Input() filters: ITableGridFilter<IOilFilter>[]; // filter-buttons in footer
   @Input() addButton: boolean; // add-button in footer
-  @Input() itemFixed: boolean; // Do active item
+  @Input() itemFixed: boolean = false; // Do active item
+  @Input() rowBgColorType: 'light' | 'dark' = 'light'; // Do active item
   @Input() saveButton: boolean; // Save button in footer
   @Input() templateFooter: TemplateRef<any>; // Template footer
   @Input() deleteButton: boolean; // in progress...

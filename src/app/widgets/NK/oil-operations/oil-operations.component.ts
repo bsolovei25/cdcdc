@@ -4,18 +4,25 @@ import { WidgetPlatform } from 'src/app/dashboard/models/@PLATFORM/widget-platfo
 import {
     IOilFilter,
     IOilOperations,
-    IOilOperationTransfer,
-    IRightOilTable,
+    IOilTransfer,
+    IOilShipment,
     operationTransferStatusNameMap,
+    IOilOperationsPassport,
 } from 'src/app/dashboard/models/oil-operations';
-import { IOilOperationsOptions, OilOperationsService } from 'src/app/dashboard/services/widgets/oil-operations.service';
+import {
+    IOilOperationsOptions,
+    OilOperationsService
+} from 'src/app/dashboard/services/widgets/oil-operations.service';
 import { ITableGridFilter } from 'src/app/dashboard/components/table-grid/components/table-grid-filter/table-grid-filter.component';
+import { DocumentsScansService } from '../../../dashboard/services/oil-control-services/documents-scans.service';
+import { SnackBarService } from '../../../dashboard/services/snack-bar.service';
 
 export interface IOilOperationsButton {
     isFilter: boolean;
     filter: boolean;
     line: boolean;
     adjust: boolean;
+    blps: boolean;
     free: boolean;
 }
 
@@ -54,7 +61,7 @@ export class OilOperationsComponent extends WidgetPlatform<unknown> implements O
             },
             {
                 id: 2,
-                name: 'Отредактировать ёмкости для отгрузки',
+                name: 'Редактировать ёмкости',
                 type: 'filter'
             },
             {
@@ -64,8 +71,8 @@ export class OilOperationsComponent extends WidgetPlatform<unknown> implements O
             },
             {
                 id: 4,
-                name: 'Публикации в БЛПС',
-                type: 'reference'
+                name: 'Публикация в БЛПС',
+                type: 'blps'
             }
         ],
         shipment: [
@@ -77,8 +84,8 @@ export class OilOperationsComponent extends WidgetPlatform<unknown> implements O
             },
             {
                 id: 2,
-                name: 'Привязать отгрузки автоматически',
-                type: 'filter'
+                name: 'Привязать отгрузки',
+                type: 'autoAssign'
             },
             {
                 id: 3,
@@ -117,15 +124,19 @@ export class OilOperationsComponent extends WidgetPlatform<unknown> implements O
         filter: false,
         line: false,
         adjust: false,
-        free: false
+        blps: false,
+        free: false,
     };
 
     public filterGroup: string | null = null;
     public filterProduct: string | null = null;
+    private selectedTransfer: IOilTransfer = null;
 
     constructor(
         protected widgetService: WidgetService,
         private oilOperationService: OilOperationsService,
+        public documentsScansService: DocumentsScansService,
+        public snackBar: SnackBarService,
         @Inject('isMock') public isMock: boolean,
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string
@@ -186,7 +197,7 @@ export class OilOperationsComponent extends WidgetPlatform<unknown> implements O
         await Promise.all(dataLoadQueue);
     }
 
-    public async getLeftTable(lastId: number = 0): Promise<IOilOperationTransfer[]> {
+    public async getLeftTable(lastId: number = 0): Promise<IOilTransfer[]> {
         const options = this.getOptions();
         return await this.oilOperationService.getTransferList(lastId, options);
     }
@@ -198,25 +209,18 @@ export class OilOperationsComponent extends WidgetPlatform<unknown> implements O
         }
     }
 
-    public async getRightTable(): Promise<IRightOilTable[]> {
-        const oilShipment = await this.oilOperationService.getShipmentList(this.currentDates);
-        console.log(oilShipment);
-        return oilShipment.map<IRightOilTable>((s) => {
-            return {
-                id: s.id,
-                direction: s.direction,
-                rRRiser: 0, // TODO
-                dok: s.documentNumber, // TODO
-                mass: s.mass,
-                pasport: s.passport.id,
-                shipment: 0, // TODO
-                note: s.note,
-            };
-        });
+    public async getRightTable(): Promise<IOilShipment[]> {
+        return await this.oilOperationService.getShipments<IOilShipment[]>(this.currentDates);
     }
 
     public getStatusDescription(status: string): string {
         return operationTransferStatusNameMap[status];
+    }
+
+    public async selectItem(item: IOilTransfer): Promise<void> {
+        this.selectedTransfer = item;
+        const shipments = await this.oilOperationService.getShipmentsByTransferId<IOilShipment[]>(item.id);
+        this.data.tableRight = shipments;
     }
 
     private getOptions(): IOilOperationsOptions {
@@ -255,6 +259,42 @@ export class OilOperationsComponent extends WidgetPlatform<unknown> implements O
         this.active('isFilter');
     }
 
+    public async selectPassport(event: Event, passport: IOilOperationsPassport | null): Promise<void> {
+        event.stopPropagation();
+        const document = await this.documentsScansService.getDocumentInfo(passport.id);
+        console.log(document, 'document');
+        // this.documentsScansService.currentDocument$.next(file);
+    }
+
+    public async sendToBlps(): Promise<void> {
+        let msg = 'Выберите Операцию из списка';
+        if (this.selectedTransfer && this.selectedTransfer.published) {
+            msg = 'Операция была опубликована прежде';
+        }
+        if (this.selectedTransfer && !this.selectedTransfer.published) {
+            const result = await this.oilOperationService.operationToBlbs(this.selectedTransfer.id, this.selectedTransfer.originalId);
+            msg = result ? 'Успешно' : 'Не отправлено';
+            if (result) {
+                this.data.tableLeft.forEach(item => {
+                    if (item.id === this.selectedTransfer.id) {
+                        item.published = true;
+                    }
+                });
+            }
+        }
+        this.snackBar.openSnackBar(msg);
+    }
+
+    public async autoAssignShipments(): Promise<void> {
+        let msg = 'Выберите Операцию из списка';
+        if (this.selectedTransfer) {
+            const result = await this.oilOperationService.autoAssignShipments(this.selectedTransfer.id);
+            msg = result['message'];
+            await this.selectItem(this.selectedTransfer);
+        }
+        this.snackBar.openSnackBar(msg);
+    }
+
     openShipment(name: string): void {
         this.isOpenShipment = false;
         this.isOpenReceived = true;
@@ -281,6 +321,16 @@ export class OilOperationsComponent extends WidgetPlatform<unknown> implements O
         Object.keys(this.filter).forEach(key => {
             this.filter[key] = key === itemActive;
         });
+        switch (itemActive) {
+            case 'blps':
+                this.sendToBlps();
+                break;
+            case 'autoAssign':
+                this.autoAssignShipments();
+                break;
+            default:
+                break;
+        }
     }
 
     disabled(): void {
