@@ -8,7 +8,8 @@
     [code]="widgetCode"
     [id]="widgetId"
     [uniqId]="widgetUniqId"
-    [(toggleAstue)]="isInitialDataShow"
+    [toggleAstue]="isInitialDataShow"
+    (toggleAstueChange)="toggleIsInitialDataShows()"
   ></evj-widget-header>
   <evj-frame-top></evj-frame-top>
 
