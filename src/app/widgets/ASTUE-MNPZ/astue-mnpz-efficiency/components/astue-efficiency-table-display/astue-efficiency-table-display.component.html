@@ -15,7 +15,7 @@
   <div class="table-display__container">
     <div
       class="table-display__table table"
-      *ngIf="!!dates.length || !!displayData.length; else nodata"
+      *ngIf="!!dates?.length || !!displayData?.length; else nodata"
     >
       <div class="table-header">
         <div class="table-header__item">{{ isInitialDataShow ? 'Наименование' : 'Показатели' }}</div>
