@@ -304,7 +304,7 @@ export class OilOperationsComponent extends WidgetPlatform<unknown> implements O
     public async handleManualAdjustment(data: IOilControlManualAdjEmitResponse): Promise<void> {
         const result = await this.oilOperationService.manualAdjustment<IOilShipment>(this.selectedTransfer.id, data);
         if (result) {
-            this.data.tableRight.push(result);
+            await this.selectTransfer(this.selectedTransfer);
             this.snackBar.openSnackBar('Успешно');
         }
     }
