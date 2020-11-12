@@ -307,11 +307,7 @@ export class OilOperationsComponent extends WidgetPlatform<unknown> implements O
             note: this.selectedShipment.note,
         });
         if (result) {
-            this.data.tableRight.map(item => {
-                if (item.id === result.id) {
-                    return result;
-                }
-            });
+            this.data.tableRight.push(result);
             this.snackBar.openSnackBar('Успешно');
         }
     }
