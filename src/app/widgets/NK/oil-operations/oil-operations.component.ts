@@ -131,6 +131,7 @@ export class OilOperationsComponent extends WidgetPlatform<unknown> implements O
     public filterGroup: string | null = null;
     public filterProduct: string | null = null;
     private selectedTransfer: IOilTransfer = null;
+    public selectedShipment: IOilShipment = null;
 
     constructor(
         protected widgetService: WidgetService,
@@ -217,10 +218,14 @@ export class OilOperationsComponent extends WidgetPlatform<unknown> implements O
         return operationTransferStatusNameMap[status];
     }
 
-    public async selectItem(item: IOilTransfer): Promise<void> {
+    public async selectTransfer(item: IOilTransfer): Promise<void> {
         this.selectedTransfer = item;
         const shipments = await this.oilOperationService.getShipmentsByTransferId<IOilShipment[]>(item.id);
         this.data.tableRight = shipments;
+    }
+
+    public selectShipment(item: IOilShipment): void {
+        this.selectedShipment = item;
     }
 
     private getOptions(): IOilOperationsOptions {
@@ -290,9 +295,33 @@ export class OilOperationsComponent extends WidgetPlatform<unknown> implements O
         if (this.selectedTransfer) {
             const result = await this.oilOperationService.autoAssignShipments(this.selectedTransfer.id);
             msg = result['message'];
-            await this.selectItem(this.selectedTransfer);
+            await this.selectTransfer(this.selectedTransfer);
         }
         this.snackBar.openSnackBar(msg);
+    }
+
+    public async handleManualAdjustment(): Promise<void> {
+        const result = await this.oilOperationService.manualAdjustment<IOilShipment>(this.selectedTransfer.id, {
+            shipmentTypeId: this.selectedShipment.shipmentType.id,
+            mass: this.selectedShipment.mass,
+            note: this.selectedShipment.note,
+        });
+        if (result) {
+            this.data.tableRight.map(item => {
+                if (item.id === result.id) {
+                    return result;
+                }
+            });
+            this.snackBar.openSnackBar('Успешно');
+        }
+    }
+
+    public manualAdjustment(): void {
+        if (this.selectedShipment && this.selectedTransfer) {
+            this.filter.adjust = true;
+        } else {
+            this.snackBar.openSnackBar('Выберите Операцию и Отгрузку из списков');
+        }
     }
 
     openShipment(name: string): void {
@@ -310,6 +339,7 @@ export class OilOperationsComponent extends WidgetPlatform<unknown> implements O
     closeShipment(event: boolean): void {
         this.disabled();
         this.isOpenShipment = true;
+        this.handleManualAdjustment();
     }
 
     closeReceived(event: boolean): void {
@@ -318,9 +348,6 @@ export class OilOperationsComponent extends WidgetPlatform<unknown> implements O
     }
 
     active(itemActive: string): void {
-        Object.keys(this.filter).forEach(key => {
-            this.filter[key] = key === itemActive;
-        });
         switch (itemActive) {
             case 'blps':
                 this.sendToBlps();
@@ -328,7 +355,13 @@ export class OilOperationsComponent extends WidgetPlatform<unknown> implements O
             case 'autoAssign':
                 this.autoAssignShipments();
                 break;
+            case 'adjust':
+                this.manualAdjustment();
+                break;
             default:
+                Object.keys(this.filter).forEach(key => {
+                    this.filter[key] = key === itemActive;
+                });
                 break;
         }
     }
