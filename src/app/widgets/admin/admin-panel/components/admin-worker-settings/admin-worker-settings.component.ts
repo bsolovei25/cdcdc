@@ -110,6 +110,7 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
                 }),
                 this.adminService.getWorkerSpecialClaims(this.worker.id).subscribe((claims) => {
                     this.workerSpecialClaims = claims.data;
+                    console.log(`worker Special Claims : ${this.workerSpecialClaims}`);
 
                     this.workerSpecialClaims.forEach((value) => {
                         if (value.claimValueType === 'widget') {
@@ -377,10 +378,10 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
         if (this.checkForRequiredFields()) {
             this.isDataLoading = true;
             try {
-                const newArray: IGlobalClaim[] = [];
+                // const newArray: IGlobalClaim[] = [];
                 this.workerSpecialClaims?.forEach(v => v?.widgets?.forEach(w => {
                     if (w?.isActive) {
-                        newArray?.push({
+                        this.workerSpecialClaims?.push({
                             claimType: v?.claimType,
                             value: w?.id,
                             claimValueType: v?.claimValueType,
@@ -396,7 +397,7 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
                 }));
                 this.workerSpecialClaims?.forEach(v => v?.units?.forEach(u => {
                     if (u?.isActive) {
-                        newArray.push({
+                        this.workerSpecialClaims?.push({
                             claimType: v?.claimType,
                             value: u?.id.toString(),
                             claimValueType: v?.claimValueType,
@@ -411,8 +412,7 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
                     }
                 }));
                 this.worker.displayName = this.adminService.generateDisplayName(this.worker);
-                const tmp = this.workerGeneralClaims.concat(newArray);
-                this.worker.claims = tmp.concat(this.workerSpecialClaims);
+                this.worker.claims = this.workerGeneralClaims.concat(this.workerSpecialClaims);
                 if (this.workerPhoto) {
                     this.worker.photoId = await this.adminService.pushWorkerPhoto(
                         base64ToFile(this.workerPhoto)
