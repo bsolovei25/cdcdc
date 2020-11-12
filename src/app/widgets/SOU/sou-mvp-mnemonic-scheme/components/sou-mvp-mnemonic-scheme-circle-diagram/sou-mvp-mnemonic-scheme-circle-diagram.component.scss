@@ -1,0 +1,128 @@
+*{
+  box-sizing: border-box;
+}
+
+.container{
+  margin-right: -2px;
+
+  display: flex;
+  align-items: center;
+
+  .circle {
+    height: 44px;
+    width: 44px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background: var(--sou-mvp-color-bg-title);
+
+    border-radius: 50%;
+    border: 1px solid var(--sou-mvp-color-border);
+    position: relative;
+
+    .diagram-values {
+      height: 34px;
+      width: 34px;
+  
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+
+      position: absolute;
+
+      .value {
+        font-size: 14px;
+        line-height: 17px;
+
+        color: var(--sou-mvp-color-text-diagram-main);
+      }
+
+      .percent {
+        font-size: 8px;
+        line-height: 10px;
+
+        color: var(--sou-mvp-color-text-diagram-sub);
+      }
+    }
+  }
+
+  .title {
+    height: 25px;
+    width: 60px;
+
+    padding-left: 9px;
+
+    font-size: 14px;
+    line-height: 17px;
+
+    display: flex;
+    align-items: center;
+
+    background: var(--sou-mvp-color-bg-title);
+    border: 1px solid var(--sou-mvp-color-border);
+    border-left: none;
+    border-radius: 2px;
+
+    transform: translate(-4.5px);
+
+    position: relative;
+
+    span {
+      color: var(--sou-mvp-color-text-diagram-main);
+
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+  }
+
+  .connection-circle {
+    height: 8px;
+    width: 8px;
+  
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  
+    border-radius: 50%;
+  
+    background: var(--sou-mvp-color-bg-main);
+    border: 1px solid var(--sou-mvp-color-border);
+
+    position: absolute;
+    right: -4px;
+    z-index: 999;
+  }
+}
+
+.warning{
+  .circle {
+    background: var(--sou-mvp-color-bg-warning);
+    border-color: var(--sou-mvp-color-warning);
+
+    .diagram-values {
+      .value {
+        color: var(--sou-mvp-color-white);
+      }
+  
+      .percent {
+        color: var(--sou-mvp-color-text-diagram-main);
+      }
+    }
+  }
+
+  .title {
+    background: var(--sou-mvp-color-bg-warning);
+    border-color: var(--sou-mvp-color-warning);
+    color: var(--sou-mvp-color-white);
+  }
+
+  .connection-circle {
+    background: var(--sou-mvp-color-bg-main);
+    border-color: var(--sou-mvp-color-warning);
+  }
+}
+

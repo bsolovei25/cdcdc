@@ -1,0 +1,126 @@
+<div class="container">
+  <div class="header">
+    <evj-contemporary-widget-header
+    [uniqId]="uniqId" 
+    [widgetTitle]="widgetTitle" 
+    icon="tank"
+    type="astue"
+>
+  <div class="header"       
+    (mousedown)="$event.stopPropagation()"
+    (touchstart)="$event.stopPropagation()"
+  >
+    <div class="option-select">
+    </div>
+    <div class="group-select">
+    </div>
+  </div>
+</evj-contemporary-widget-header>
+  </div>
+
+  <div class="container-body" 
+      (mousedown)="$event.stopPropagation()"
+      (touchstart)="$event.stopPropagation()"
+  >
+  <div class="main-content-container">
+    <div class="main-groups">
+      <div class="main-groups__item">
+        <div class="title">
+          <div class="arrow-btn">
+            <svg-icon
+              src="assets/icons/widgets/SOU/sou-mvp-mnemonic-scheme/doubleArrow.svg"
+              [svgStyle]="{ 'width.px':9, 'height.px':9 }"
+            ></svg-icon>
+          </div>
+          <span>ТП</span>
+          <div class="connection-circle"></div>
+        </div>
+        <div class="line"></div>
+        <evj-sou-mvp-mnemonic-scheme-circle-diagram
+          [title]="'FOIL'"
+          [percentage]="95"
+        ></evj-sou-mvp-mnemonic-scheme-circle-diagram>
+        <div class="line"></div>
+        <evj-sou-mvp-mnemonic-scheme-info
+          [title]="'Нефть обессоленная'"
+          [weight]="12345.123"
+        ></evj-sou-mvp-mnemonic-scheme-info>
+        <div class="line"></div>
+      </div>
+
+      <div class="main-groups__item">
+        <div class="title">
+          <div class="arrow-btn">
+            <svg-icon
+              src="assets/icons/widgets/SOU/sou-mvp-mnemonic-scheme/doubleArrow.svg"
+              [svgStyle]="{ 'width.px':9, 'height.px':9 }"
+            ></svg-icon>
+          </div>
+          <span>ФСБ</span>
+          <div class="connection-circle"></div>
+        </div>
+        <div class="line"></div>
+        <evj-sou-mvp-mnemonic-scheme-circle-diagram
+          [title]="'FFSB4'"
+          [percentage]="95"
+        ></evj-sou-mvp-mnemonic-scheme-circle-diagram>
+        <div class="line"></div>
+        <evj-sou-mvp-mnemonic-scheme-info
+          [title]="'НК-80'"
+          [weight]="12345.123"
+        ></evj-sou-mvp-mnemonic-scheme-info>
+        <div class="line"></div>
+      </div>
+
+      <div class="main-groups__item">
+        <div class="title">
+          <div class="arrow-btn">
+            <svg-icon
+              src="assets/icons/widgets/SOU/sou-mvp-mnemonic-scheme/doubleArrow.svg"
+              [svgStyle]="{ 'width.px':9, 'height.px':9 }"
+            ></svg-icon>
+          </div>
+          <span>АВТ</span>
+          <div class="connection-circle"></div>
+        </div>
+        <div class="line"></div>
+        <evj-sou-mvp-mnemonic-scheme-circle-diagram
+          [title]="'F80'"
+          [percentage]="95"
+        ></evj-sou-mvp-mnemonic-scheme-circle-diagram>
+        <div class="line"></div>
+        <evj-sou-mvp-mnemonic-scheme-info
+          [title]="'Бензин нестабильный'"
+          [weight]="12345.123"
+        ></evj-sou-mvp-mnemonic-scheme-info>
+        <div class="line"></div>
+      </div>
+    </div>
+    <div class="streams-groups">
+      <div class="main-collector">
+        <span>АВТ-10 АБ</span>
+      </div>
+      <div class="streams-container">
+        <div class="stream" *ngFor="let item of streamsCount">
+          <div class="line"></div>
+          <evj-sou-mvp-mnemonic-scheme-circle-diagram
+          ></evj-sou-mvp-mnemonic-scheme-circle-diagram>
+          <div class="line"></div>
+          <evj-sou-mvp-mnemonic-scheme-info
+          ></evj-sou-mvp-mnemonic-scheme-info>
+          <div class="line"></div>
+          <evj-sou-mvp-mnemonic-scheme-stream-diagram
+          ></evj-sou-mvp-mnemonic-scheme-stream-diagram>
+          <div class="line"></div>
+          <evj-sou-mvp-mnemonic-scheme-collector
+          ></evj-sou-mvp-mnemonic-scheme-collector>
+          <div class="line"></div>
+          <evj-sou-mvp-mnemonic-scheme-output
+          ></evj-sou-mvp-mnemonic-scheme-output>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+  <div class="footer"></div>
+</div>
