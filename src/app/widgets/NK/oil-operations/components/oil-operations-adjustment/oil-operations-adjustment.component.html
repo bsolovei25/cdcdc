@@ -29,7 +29,7 @@
                       <mat-form-field>
                         <mat-select [formControl]="reasonSelect"
                                     (selectionChange)="onReasonSelect($event)">
-                          <mat-option *ngFor="let reason of reasons" [value]="reason.name">
+                          <mat-option *ngFor="let reason of reasons" [value]="reason.id">
                             {{ reason.name }}
                           </mat-option>
                         </mat-select>

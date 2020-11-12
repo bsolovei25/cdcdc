@@ -1,11 +1,12 @@
-import {Component, OnInit, EventEmitter, Output, Input, OnChanges} from '@angular/core';
+import {Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatSelectChange } from '@angular/material/select';
-import { IOilShipment } from '../../../../../dashboard/models/oil-operations';
+import { OilOperationsService } from '../../../../../dashboard/services/widgets/oil-operations.service';
 
-interface IEmitResponse {
+export interface IOilControlManualAdjEmitResponse {
     mass: number;
     note: string;
+    shipmentTypeId: number;
 }
 
 @Component({
@@ -13,9 +14,9 @@ interface IEmitResponse {
     templateUrl: './oil-operations-adjustment.component.html',
     styleUrls: ['./oil-operations-adjustment.component.scss']
 })
-export class OilOperationsAdjustmentComponent implements OnInit, OnChanges {
-    @Input() public data: IOilShipment | null = null;
-    @Output() public closeAdjust: EventEmitter<IEmitResponse> = new EventEmitter<IEmitResponse>();
+export class OilOperationsAdjustmentComponent implements OnInit {
+
+    @Output() public closeAdjust: EventEmitter<IOilControlManualAdjEmitResponse> = new EventEmitter<IOilControlManualAdjEmitResponse>();
 
     public isActive: string;
 
@@ -25,27 +26,21 @@ export class OilOperationsAdjustmentComponent implements OnInit, OnChanges {
 
     public noteInput: FormControl = new FormControl();
 
-    public reasons: { id: number, name: string }[] = [
-        {
-            id: 1,
-            name: 'Причина корректировки'
-        },
-        {
-            id: 2,
-            name: 'Причина корректировки'
-        },
-    ];
+    public reasons: { id: number, name: string }[] = [];
 
-    constructor() {
+    constructor(
+        private oilOperationService: OilOperationsService,
+    ) {
     }
 
     public ngOnInit(): void {
-        this.reasonSelect.setValue(this.reasons[0].name);
+        this.getAdjustmentTypes();
+        this.massInput.setValue(0);
     }
 
-    public ngOnChanges(): void {
-        this.massInput.setValue(this.data.mass);
-        this.noteInput.setValue(this.data.note);
+    private async getAdjustmentTypes(): Promise<void> {
+        this.reasons = await this.oilOperationService.getManualAdjustmentTypes<{ id: number, name: string }[]>();
+        this.reasonSelect.setValue(this.reasons[0]?.id);
     }
 
     public onReasonSelect(event: MatSelectChange): void {
@@ -64,8 +59,9 @@ export class OilOperationsAdjustmentComponent implements OnInit, OnChanges {
 
     save(): void {
         this.closeAdjust.emit({
-            mass: this.massInput.value,
-            note: this.reasonSelect.value + ' ' + this.noteInput.value,
+            mass: parseInt(this.massInput.value, 0),
+            note: this.noteInput.value,
+            shipmentTypeId: this.reasonSelect.value,
         });
     }
 }
