@@ -1,10 +1,13 @@
 import { Component, OnInit, Inject, HostListener, OnDestroy } from '@angular/core';
 import { WidgetPlatform } from '../../../dashboard/models/@PLATFORM/widget-platform';
-import { WidgetService } from '../../../dashboard/services/widget.service';
+import { IDatesInterval, WidgetService } from '../../../dashboard/services/widget.service';
 import { ITableGridFilter } from '../../../dashboard/components/table-grid/components/table-grid-filter/table-grid-filter.component';
 import { IOilFilter } from '../../../dashboard/models/oil-operations';
 import { OilOperationsService } from '../../../dashboard/services/widgets/oil-operations.service';
-import { DocumentsScansService } from '../../../dashboard/services/oil-control-services/documents-scans.service';
+import {
+    DocumentsScansService,
+    IOilControlPassportOpts
+} from '../../../dashboard/services/oil-control-services/documents-scans.service';
 
 export interface IQualityDocsRecord {
     id: number;
@@ -67,6 +70,8 @@ export class QualityDocsPanelComponent extends WidgetPlatform<unknown> implement
     public isPasportInput: boolean = false;
     public isProductInput: boolean = false;
 
+    private currentDates: IDatesInterval;
+
     constructor(
         public widgetService: WidgetService,
         private oilOperationService: OilOperationsService,
@@ -89,6 +94,13 @@ export class QualityDocsPanelComponent extends WidgetPlatform<unknown> implement
         // this.data = ref;
     }
 
+    protected dataConnect(): void {
+        super.dataConnect();
+        this.subscriptions.push(
+            this.widgetService.currentDates$.subscribe(this.onDatesChange.bind(this))
+        );
+    }
+
     public ngOnDestroy(): void {
         super.ngOnDestroy();
     }
@@ -96,6 +108,32 @@ export class QualityDocsPanelComponent extends WidgetPlatform<unknown> implement
     @HostListener('document:resize', ['$event'])
     public OnResize(): void {
         this.setStyleScroll();
+    }
+
+    private getOptions(): IOilControlPassportOpts {
+        const options: IOilControlPassportOpts = {
+            StartTime: this.currentDates.fromDateTime,
+            EndTime: this.currentDates.toDateTime,
+        };
+        /*if (this.filterGroup) {
+            options.group = this.filterGroup;
+        }
+        if (this.filterProduct) {
+            options.product = this.filterProduct;
+        }*/
+        return options;
+    }
+
+    public async getList(lastId: number = 0): Promise<IQualityDocsRecord[]> {
+        const options = this.getOptions();
+        return await this.oilDocumentService.getPassportsByFilter(lastId, options);
+    }
+
+    public async appendPassports(lastId: number): Promise<void> {
+        const passports = await this.getList(lastId);
+        if (passports.length) {
+            this.data = this.data.concat(passports);
+        }
     }
 
     public setStyleScroll(): void {
@@ -124,5 +162,25 @@ export class QualityDocsPanelComponent extends WidgetPlatform<unknown> implement
 
     private async getFilterList(): Promise<void> {
         this.filterByProduct.data = await this.oilOperationService.getFilterList<IOilFilter[]>('products');
+    }
+
+    private async onDatesChange(dates: IDatesInterval): Promise<void> {
+        if (!dates) {
+            dates = {
+                fromDateTime: new Date(),
+                toDateTime: new Date()
+            };
+            dates.toDateTime.setHours(23, 59, 59);
+            dates.fromDateTime.setHours(0, 0, 0);
+        }
+        this.currentDates = dates;
+
+        const dataLoadQueue: Promise<void>[] = [];
+        dataLoadQueue.push(
+            this.getList().then((ref) => {
+                this.data = ref;
+            }),
+        );
+        await Promise.all(dataLoadQueue);
     }
 }

@@ -7,14 +7,14 @@ import { IDocumentsScan } from '../../models/oil-document.model';
 import { IQualityDocsRecord } from '../../../widgets/NK/quality-docs-panel/quality-docs-panel.component';
 
 export interface IOilControlPassportOpts {
-    StartTime: Date;
+    StartTime?: Date;
     EndTime?: Date;
     PassportName?: string;
     ProductIds?: number[];
     GroupIds?: number[];
     TankIds?: number[];
-    IsBlocked: boolean;
-    ArmName: string;
+    IsBlocked?: boolean;
+    ArmName?: string;
 }
 
 @Injectable({
