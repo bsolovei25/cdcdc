@@ -192,6 +192,22 @@ export class OilOperationsService {
         }
     }
 
+    public async manualAdjustment<T>(
+        transferIdParam: number,
+        body: {
+            shipmentTypeId: number;
+            mass: number;
+            note: string;
+        }
+        ): Promise<T>  {
+        try {
+            return await this.http.put<T>(`${this.restUrl}/api/oil-control/shipment/transfer/${transferIdParam}/add-manual`, body).toPromise();
+        } catch (e) {
+            console.error(e);
+            return new Promise<T>(resolve => null);
+        }
+    }
+
     private getFilterString(
         startTime: Date,
         endTime: Date,
