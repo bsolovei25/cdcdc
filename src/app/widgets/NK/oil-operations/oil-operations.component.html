@@ -17,7 +17,7 @@
                           (scrollReachedItemId)="appendOperations($event)"
                           [itemFixed]="true"
                           [rowBgColorType]="'dark'"
-                          (item)="selectItem($event)"
+                          (item)="selectTransfer($event)"
                         >
                             <evj-column-grid key="transferNumber" name="№" [width]="7"></evj-column-grid>
                             <evj-column-grid key="tankNumber" name="Р-р" [width]="7" [template]="tank">
@@ -43,13 +43,13 @@
                                     </div>
                                 </ng-template>
                             </evj-column-grid>
-                            <evj-column-grid key="startDate" name="Дата начала" [width]="14" [template]="date">
-                              <ng-template #date let-data="data">
+                            <evj-column-grid key="startDate" name="Дата начала" [width]="14" [template]="startTime">
+                              <ng-template #startTime let-data="data">
                                 {{ data.startTime | date:"dd.MM.yyyy | HH:mm" }}
                               </ng-template>
                             </evj-column-grid>
-                            <evj-column-grid key="endDate" name="Дата окончания" [width]="14" [template]="date">
-                              <ng-template #date let-data="data">
+                            <evj-column-grid key="endDate" name="Дата окончания" [width]="14" [template]="endTime">
+                              <ng-template #endTime let-data="data">
                                 {{ data.endTime | date:"dd.MM.yyyy | HH:mm" }}
                               </ng-template>
                             </evj-column-grid>
@@ -98,7 +98,11 @@
 
                 <!-- RIGHT-SIDE -->
                 <div class='right-side'>
-                    <evj-table-grid [data]="data.tableRight">
+                    <evj-table-grid
+                      [data]="data.tableRight"
+                      [itemFixed]="true"
+                      (item)="selectShipment($event)"
+                    >
                         <evj-column-grid key="direction" name="Направление" [width]="23" [template]="direction">
                             <ng-template #direction let-data="data">
                                 <div class="direction">
@@ -149,7 +153,9 @@
 
             <!-- RIGHT-SIDE -->
             <div *ngIf="filter.adjust">
-                <evj-oil-operations-adjustment (closeAdjust)="closeShipment($event)"></evj-oil-operations-adjustment>
+                <evj-oil-operations-adjustment
+                  (closeAdjust)="closeShipment($event)"
+                ></evj-oil-operations-adjustment>
             </div>
 
             <!-- RIGHT-SIDE -->

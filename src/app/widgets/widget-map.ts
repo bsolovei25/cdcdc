@@ -1,10 +1,3 @@
-import { DeviationsTableComponent } from './LCO/deviations-table/deviations-table.component';
-import { ProductStocksComponent } from './LCO/product-stocks/product-stocks.component';
-import { DeviationCircleDiagramComponent } from './LCO/deviation-circle-diagram/deviation-circle-diagram.component';
-import { ColumnChartStackedComponent } from './LCO/column-chart-stacked/column-chart-stacked.component';
-import { ReasonsDeviationsComponent } from './NK/reasons-deviations/reasons-deviations.component';
-import { QualityDocsPanelComponent } from './NK/quality-docs-panel/quality-docs-panel.component';
-import { DocumentCodingComponent } from './NK/document-coding/document-coding.component';
 import { WidgetContainerComponent } from '../dashboard/widget-container/widget-container.component';
 import { CdMatBalanceChartCardComponent } from './CD/cd-mat-balance/components/cd-mat-balance-chart-card/cd-mat-balance-chart-card.component';
 
@@ -1458,7 +1451,7 @@ export const WIDGETS_LAZY = {
         itemCols: 11,
         itemRows: 3,
         minItemCols: 11,
-        minItemRows: 5,
+        minItemRows: 3,
         preview: 'ozsm-main-indicators'
     },
     'ozsm-circle-planning-diagram': {

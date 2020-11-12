@@ -5,44 +5,57 @@
                 <svg-icon src="assets/icons/widgets/reports/close.svg" class="add_button_icon">
                 </svg-icon>
             </div>
-            <div class="title__name">Укажите параметры</div>
+            <div class="title__name">Ручная корректировка</div>
         </div>
         <div class="content">
             <div class="content__back">
-                <div class="content__block" (click)="active('idea')" [class.active]="isActive === 'idea'">
-                    <div class="icon">
-                        <svg-icon src="assets/icons/widgets/oil-control-all/oil-operations/idea.svg"
-                            [svgStyle]="{ 'width.px':30, 'height.px':30 }"></svg-icon>
+              <div class="row">
+                <div class="mass-container">
+                  <div class="input">
+                    <div class="input-label">Масса</div>
+                    <div class="oc-shipment-mc-mat-input">
+                      <mat-form-field>
+                        <label>
+                          <input matInput [formControl]="massInput">
+                        </label>
+                      </mat-form-field>
                     </div>
-                    <div class="info">
-                        <div class="info__title">
-                            Выберите причину
-                        </div>
-                        <div class="info__name">
-                            Прокачка на автотерминал
-                        </div>
-                    </div>
+                  </div>
                 </div>
-                <div class="content__block" (click)="active('filter')" [class.active]="isActive === 'filter'">
-                    <div class="icon">
-                        <svg-icon src="assets/icons/widgets/oil-control-all/oil-operations/filter-operation.svg"
-                            [svgStyle]="{ 'width.px':30, 'height.px':30 }"></svg-icon>
+                <div class="reason-container">
+                  <div class="select">
+                    <div class="select-label">Причина корректировки</div>
+                    <div class="oc-shipment-mc-mat-select">
+                      <mat-form-field>
+                        <mat-select [formControl]="reasonSelect"
+                                    (selectionChange)="onReasonSelect($event)">
+                          <mat-option *ngFor="let reason of reasons" [value]="reason.id">
+                            {{ reason.name }}
+                          </mat-option>
+                        </mat-select>
+                      </mat-form-field>
                     </div>
-                    <div class="info">
-                        <div class="info__title">
-                            Выберите резервуар
-                        </div>
-                        <div class="info__name">
-                            Резервуар №432
-                        </div>
-                    </div>
+                  </div>
                 </div>
+              </div>
+              <div class="row">
+                <div class="input">
+                  <div class="input-label">Примечание</div>
+                  <div class="oc-shipment-mc-mat-input">
+                    <mat-form-field>
+                      <label>
+                        <input matInput [formControl]="noteInput">
+                      </label>
+                    </mat-form-field>
+                  </div>
+                </div>
+              </div>
             </div>
         </div>
         <div class="bottom">
             <div class="bottom__block">
                 <div class="bottom__save-block" (click)="save()">
-                    <div class="bottom__button-save">Добавить</div>
+                    <div class="bottom__button-save">Сохранить</div>
                 </div>
             </div>
         </div>
