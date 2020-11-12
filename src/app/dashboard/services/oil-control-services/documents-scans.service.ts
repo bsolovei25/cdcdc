@@ -4,13 +4,25 @@ import { AppConfigService } from '@core/service/app-config.service';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { IAlertWindowModel } from '@shared/models/alert-window.model';
 import { IDocumentsScan } from '../../models/oil-document.model';
-import { filter } from 'rxjs/operators';
-import { IHeaderDate } from '../../models/i-header-date';
+import { IQualityDocsRecord } from '../../../widgets/NK/quality-docs-panel/quality-docs-panel.component';
+
+export interface IOilControlPassportOpts {
+    StartTime: Date;
+    EndTime?: Date;
+    PassportName?: string;
+    ProductIds?: number[];
+    GroupIds?: number[];
+    TankIds?: number[];
+    IsBlocked: boolean;
+    ArmName: string;
+}
 
 @Injectable({
     providedIn: 'root'
 })
 export class DocumentsScansService {
+
+    private readonly BATCH_SIZE: number = 50;
 
     private restUrl: string;
 
@@ -53,5 +65,56 @@ export class DocumentsScansService {
 
     public closeAlert(): void {
         this.alertWindow$.next(null);
+    }
+
+    public async getPassportsByFilter(
+        lastId: number,
+        options: IOilControlPassportOpts
+    ): Promise<IQualityDocsRecord[]> {
+        try {
+            return this.http
+                .get<IQualityDocsRecord[]>(
+                    this.restUrl +
+                    `/api/oil-control/transfers?${this.getOptionString(lastId, options)}`
+                )
+                .toPromise();
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+    private getOptionString(lastId: number, options: IOilControlPassportOpts): string {
+        let res = `take=${this.BATCH_SIZE}&lastId=${lastId}`;
+        if (options.StartTime) {
+            res += `&StartTime=${options.StartTime.toISOString()}`;
+        }
+        if (options.EndTime) {
+            res += `&EndTime=${options.EndTime.toISOString()}`;
+        }
+        if (options.PassportName) {
+            res += `&PassportName=${options.PassportName}`;
+        }
+        if (options.ProductIds?.length) {
+            options.ProductIds.forEach(id => {
+                res += `&ProductIds=${id}`;
+            });
+        }
+        if (options.GroupIds?.length) {
+            options.GroupIds.forEach(id => {
+                res += `&GroupIds=${id}`;
+            });
+        }
+        if (options.TankIds?.length) {
+            options.TankIds.forEach(id => {
+                res += `&TankIds=${id}`;
+            });
+        }
+        if (options.IsBlocked) {
+            res += `&IsBlocked=${options.IsBlocked}`;
+        }
+        if (options.ArmName) {
+            res += `&IsBlocked=${options.ArmName}`;
+        }
+        return res;
     }
 }

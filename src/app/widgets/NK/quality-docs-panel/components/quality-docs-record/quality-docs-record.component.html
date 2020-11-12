@@ -1,32 +1,30 @@
 <div class="docs-record-container">
   <div class="docs-record-container__block-info">
-    <div class="short">{{ data.numberR }}</div>
-    <div class="short">{{ data.rR }}</div>
+    <div class="short">{{ data.id }}</div>
+    <div class="short">{{ data.tank?.name }}</div>
     <div class="middle pasport">
       <div class="pasport__icon">
         <svg-icon src="assets/icons/widgets/oil-control-all/quality-docs-panel/pdf.svg"
           [svgStyle]="{ 'width.px':30, 'height.px':40, 'margin-top.px': 5 }"></svg-icon>
       </div>
       <div class="pasport__name">
-        {{ data.pasportId }}
+        {{ data.fileUid }}
       </div>
     </div>
     <div class="middle">{{ data.date }}</div>
-    <div class="middle">{{ data.codeSAP }}</div>
+    <div class="middle">{{ data.product?.sapCode }}</div>
     <div class="big">
-      <div *ngFor="let i of data.product">
-        {{ i }}
-      </div>
+      {{ data.product?.name }}
     </div>
-    <div class="short">{{ data.group }}</div>
-    <div class="middle">{{ data.park }}</div>
-    <div class="middle creator">{{ data.creator }}</div>
-    <div class="middle">{{ data.arm }}</div>
-    <div class="key" id="tooltipDocsRecord{{data.id}}" (click)="blocked()" [class.key-blocked]="data.blocked">
-      <svg-icon *ngIf="!data.blocked" src="assets/icons/widgets/oil-control-all/quality-docs-panel/key-open.svg"
+    <div class="short">{{ data.product?.group?.name }}</div>
+    <div class="middle">{{ data.tank?.group?.name }}</div>
+    <div class="middle creator">{{ data.user?.name }}  {{ data.user?.positionName }}</div>
+    <div class="middle">{{ data.armName }}</div>
+    <div class="key" id="tooltipDocsRecord{{data.id}}" (click)="blocked()" [class.key-blocked]="data.isBlocked">
+      <svg-icon *ngIf="!data.isBlocked" src="assets/icons/widgets/oil-control-all/quality-docs-panel/key-open.svg"
         [svgStyle]="{ 'width.px':15, 'height.px':15, 'margin-top.px': 5 }">
       </svg-icon>
-      <svg-icon *ngIf="data.blocked" src="assets/icons/widgets/oil-control-all/quality-docs-panel/key-close.svg"
+      <svg-icon *ngIf="data.isBlocked" src="assets/icons/widgets/oil-control-all/quality-docs-panel/key-close.svg"
       [svgStyle]="{ 'width.px':15, 'height.px':15, 'margin-top.px': 5 }">
     </svg-icon>
     </div>

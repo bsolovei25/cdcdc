@@ -4,20 +4,43 @@ import { WidgetService } from '../../../dashboard/services/widget.service';
 import { ITableGridFilter } from '../../../dashboard/components/table-grid/components/table-grid-filter/table-grid-filter.component';
 import { IOilFilter } from '../../../dashboard/models/oil-operations';
 import { OilOperationsService } from '../../../dashboard/services/widgets/oil-operations.service';
+import { DocumentsScansService } from '../../../dashboard/services/oil-control-services/documents-scans.service';
 
 export interface IQualityDocsRecord {
     id: number;
-    numberR: number;
-    rR: number;
-    pasportId: number;
-    date: string; /// DATE
-    codeSAP: number;
-    product: string[];
-    group: string;
-    park: string;
-    creator: string;
-    arm: number;
-    blocked?: boolean;
+    name: string;
+    fileUid: string;
+    tank: {
+        id: number;
+        name: string;
+        shortName: string;
+        enabled: boolean;
+        limitHours: number;
+        group: {
+            id: number;
+            name: string;
+        }
+    };
+    product: {
+        id: number;
+        name: string;
+        sapCode: string;
+        gost: string;
+        okpd2Code: string;
+        group: {
+            id: number;
+            name: string;
+        }
+    };
+    customId: number;
+    date: Date;
+    armName: string;
+    isBlocked: boolean;
+    user: {
+        id: number;
+        name: string;
+        positionName: string;
+    };
 }
 
 @Component({
@@ -31,79 +54,12 @@ export class QualityDocsPanelComponent extends WidgetPlatform<unknown> implement
         {
             name: 'Продукты',
             type: 'products-document-panel',
-            data: null,
+            data: [],
         };
 
     public filterByProductValue: any;
 
-    public data: IQualityDocsRecord[] = [
-        {
-            id: 1,
-            numberR: 4643,
-            rR: 422,
-            pasportId: 168,
-            date: '25.02.2019 12:23',
-            codeSAP: 4324325231268,
-            product: [
-                'ДТ EВРО сорт F, вид III(ДТ-Е-К5) ДТ ЕВРО',
-                'ДТ EВРО сорт F, вид III(ДТ-Е-К5) ДТ ЕВРО'
-            ],
-            group: 'СУГ',
-            park: 'СУГ',
-            creator: 'Иванов И.И. Оператор АСУ ТП',
-            arm: 3252516436117
-        },
-        {
-            id: 2,
-            numberR: 4643,
-            rR: 422,
-            pasportId: 168,
-            date: '25.02.2019 12:23',
-            codeSAP: 4324325231268,
-            product: [
-                'ДТ EВРО сорт F, вид III(ДТ-Е-К5) ДТ ЕВРО',
-                'ДТ EВРО сорт F, вид III(ДТ-Е-К5) ДТ ЕВРО',
-                'ДТ EВРО сорт F, вид III(ДТ-Е-К5) ДТ ЕВРО'
-            ],
-            group: 'СУГ',
-            park: 'СУГ',
-            creator: 'Иванов И.И. Оператор АСУ ТП',
-            arm: 3252516436117
-        },
-        {
-            id: 3,
-            numberR: 4643,
-            rR: 422,
-            pasportId: 168,
-            date: '25.02.2019 12:23',
-            codeSAP: 4324325231268,
-            product: [
-                'ДТ EВРО сорт F, вид III(ДТ-Е-К5) ДТ ЕВРО',
-                'ДТ EВРО сорт F, вид III(ДТ-Е-К5) ДТ ЕВРО'
-            ],
-            group: 'СУГ',
-            park: 'СУГ',
-            creator: 'Иванов И.И. Оператор АСУ ТП',
-            arm: 3252516436117
-        },
-        {
-            id: 4,
-            numberR: 4643,
-            rR: 422,
-            pasportId: 168,
-            date: '25.02.2019 12:23',
-            codeSAP: 4324325231268,
-            product: [
-                'ДТ EВРО сорт F, вид III(ДТ-Е-К5) ДТ ЕВРО',
-                'ДТ EВРО сорт F, вид III(ДТ-Е-К5) ДТ ЕВРО'
-            ],
-            group: 'СУГ',
-            park: 'СУГ',
-            creator: 'Иванов И.И. Оператор АСУ ТП',
-            arm: 3252516436117
-        },
-
-    ];
+    public data: IQualityDocsRecord[] = [];
 
     public isFilter: boolean = false;
 
@@ -116,7 +72,8 @@ export class QualityDocsPanelComponent extends WidgetPlatform<unknown> implement
         private oilOperationService: OilOperationsService,
         @Inject('isMock') public isMock: boolean,
         @Inject('widgetId') public id: string,
-        @Inject('uniqId') public uniqId: string
+        @Inject('uniqId') public uniqId: string,
+        public oilDocumentService: DocumentsScansService,
     ) {
         super(widgetService, isMock, id, uniqId);
         this.isRealtimeData = false;
@@ -156,16 +113,6 @@ export class QualityDocsPanelComponent extends WidgetPlatform<unknown> implement
 
     public openFilter(open: any): void {
         console.log(open);
-        /*const value = open.filter ? open.filter.name : null;
-        switch (open.type) {
-            case 'product':
-                this.filterByProductValue = value;
-                break;
-        }*/
-        /*this.getLeftTable().then((result) => {
-            this.data.tableLeft = result;
-        });
-        this.active('isFilter');*/
     }
 
     public searchRecords(event: Event): void {
