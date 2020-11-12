@@ -16,6 +16,7 @@ import {
 import { ITableGridFilter } from 'src/app/dashboard/components/table-grid/components/table-grid-filter/table-grid-filter.component';
 import { DocumentsScansService } from '../../../dashboard/services/oil-control-services/documents-scans.service';
 import { SnackBarService } from '../../../dashboard/services/snack-bar.service';
+import { IOilControlManualAdjEmitResponse } from './components/oil-operations-adjustment/oil-operations-adjustment.component';
 
 export interface IOilOperationsButton {
     isFilter: boolean;
@@ -300,27 +301,19 @@ export class OilOperationsComponent extends WidgetPlatform<unknown> implements O
         this.snackBar.openSnackBar(msg);
     }
 
-    public async handleManualAdjustment(): Promise<void> {
-        const result = await this.oilOperationService.manualAdjustment<IOilShipment>(this.selectedTransfer.id, {
-            shipmentTypeId: this.selectedShipment.shipmentType.id,
-            mass: this.selectedShipment.mass,
-            note: this.selectedShipment.note,
-        });
+    public async handleManualAdjustment(data: IOilControlManualAdjEmitResponse): Promise<void> {
+        const result = await this.oilOperationService.manualAdjustment<IOilShipment>(this.selectedTransfer.id, data);
         if (result) {
-            this.data.tableRight.map(item => {
-                if (item.id === result.id) {
-                    return result;
-                }
-            });
+            await this.selectTransfer(this.selectedTransfer);
             this.snackBar.openSnackBar('Успешно');
         }
     }
 
     public manualAdjustment(): void {
-        if (this.selectedShipment && this.selectedTransfer) {
+        if (this.selectedTransfer) {
             this.filter.adjust = true;
         } else {
-            this.snackBar.openSnackBar('Выберите Операцию и Отгрузку из списков');
+            this.snackBar.openSnackBar('Выберите Операцию из списка');
         }
     }
 
@@ -336,10 +329,10 @@ export class OilOperationsComponent extends WidgetPlatform<unknown> implements O
         this.active(name);
     }
 
-    closeShipment(event: boolean): void {
+    closeShipment(event: IOilControlManualAdjEmitResponse): void {
         this.disabled();
         this.isOpenShipment = true;
-        this.handleManualAdjustment();
+        this.handleManualAdjustment(event);
     }
 
     closeReceived(event: boolean): void {

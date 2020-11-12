@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { SharedModule } from '@shared/shared.module';
 import { OilOperationsComponent } from './oil-operations.component';
 import { OilOperationsAdjustmentComponent } from './components/oil-operations-adjustment/oil-operations-adjustment.component';
-import { OilOperationsFilterComponent } from './components/oil-operations-filter/oil-operations-filter.component';
 import { OilOperationsFreeShipmentComponent } from './components/oil-operations-free-shipment/oil-operations-free-shipment.component';
 import { OilOperationsLineComponent } from './components/oil-operations-line/oil-operations-line.component';
 import { OilOperationsLineChartComponent } from './components/oil-operations-line-chart/oil-operations-line-chart.component';
@@ -29,7 +28,6 @@ import { ReactiveFormsModule } from '@angular/forms';
   declarations: [
       OilOperationsComponent,
       OilOperationsAdjustmentComponent,
-      OilOperationsFilterComponent,
       OilOperationsFreeShipmentComponent,
       OilOperationsLineComponent,
       OilOperationsLineChartComponent,
@@ -53,9 +51,7 @@ import { ReactiveFormsModule } from '@angular/forms';
         ReactiveFormsModule,
         MatInputModule,
     ],
-    exports: [
-        OilOperationsFilterComponent
-    ]
+    exports: []
 })
 export class OilOperationsModule {
     enterComponent = OilOperationsComponent;

@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { IDatesInterval, WidgetService } from '../widget.service';
 import { AppConfigService } from '@core/service/app-config.service';
 import { IOilTransfer } from '../../models/oil-operations';
+import { IOilControlManualAdjEmitResponse } from '../../../widgets/NK/oil-operations/components/oil-operations-adjustment/oil-operations-adjustment.component';
 
 /*export interface IOilShipmentRest {
     id: number;
@@ -192,13 +193,18 @@ export class OilOperationsService {
         }
     }
 
+    public async getManualAdjustmentTypes<T>(): Promise<T>  {
+        try {
+            return await this.http.get<T>(`${this.restUrl}/api/oil-control/manual-adjustment-types`).toPromise();
+        } catch (e) {
+            console.error(e);
+            return new Promise<T>(resolve => []);
+        }
+    }
+
     public async manualAdjustment<T>(
         transferIdParam: number,
-        body: {
-            shipmentTypeId: number;
-            mass: number;
-            note: string;
-        }
+        body: IOilControlManualAdjEmitResponse
         ): Promise<T>  {
         try {
             return await this.http.put<T>(`${this.restUrl}/api/oil-control/shipment/transfer/${transferIdParam}/add-manual`, body).toPromise();

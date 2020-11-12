@@ -43,13 +43,13 @@
                                     </div>
                                 </ng-template>
                             </evj-column-grid>
-                            <evj-column-grid key="startDate" name="Дата начала" [width]="14" [template]="date">
-                              <ng-template #date let-data="data">
+                            <evj-column-grid key="startDate" name="Дата начала" [width]="14" [template]="startTime">
+                              <ng-template #startTime let-data="data">
                                 {{ data.startTime | date:"dd.MM.yyyy | HH:mm" }}
                               </ng-template>
                             </evj-column-grid>
-                            <evj-column-grid key="endDate" name="Дата окончания" [width]="14" [template]="date">
-                              <ng-template #date let-data="data">
+                            <evj-column-grid key="endDate" name="Дата окончания" [width]="14" [template]="endTime">
+                              <ng-template #endTime let-data="data">
                                 {{ data.endTime | date:"dd.MM.yyyy | HH:mm" }}
                               </ng-template>
                             </evj-column-grid>
@@ -155,7 +155,6 @@
             <div *ngIf="filter.adjust">
                 <evj-oil-operations-adjustment
                   (closeAdjust)="closeShipment($event)"
-                  [data]="selectedShipment"
                 ></evj-oil-operations-adjustment>
             </div>
 
