@@ -161,7 +161,7 @@ export class AstueEfficiencyTableDisplayComponent implements OnInit, OnChanges, 
             .flatMap((x) => x.rows)
             .sort(
                 (a, b) =>
-                    +(this.dates.length < b.values.length) - +(this.dates.length < a.values.length)
+                    +(this.dates?.length < b.values?.length) - +(this.dates?.length < a.values?.length)
             )[0]?.values;
     }
 
@@ -170,7 +170,7 @@ export class AstueEfficiencyTableDisplayComponent implements OnInit, OnChanges, 
             .flatMap((x) => x.children)
             .sort(
                 (a, b) =>
-                    +(this.dates.length < b.data.length) - +(this.dates.length < a.data.length)
+                    +(this.dates?.length < b.data.length) - +(this.dates?.length < a.data.length)
             )[0]?.data;
     }
 

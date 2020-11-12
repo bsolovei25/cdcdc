@@ -37,6 +37,7 @@ export class WidgetHeaderComponent implements OnInit, OnChanges, OnDestroy {
     @Input() blockWorkspaceButton: boolean;
     @Input() public toggleAstue: boolean = true;
     public localeSelect: { name: string; id: number }[];
+
     @Input() set select(data) {
         if (data) {
             this.localeSelect = data;
@@ -45,6 +46,7 @@ export class WidgetHeaderComponent implements OnInit, OnChanges, OnDestroy {
             this.chDet.detectChanges();
         }
     }
+
     @Input() public ejcoTabs?: IEjcoOnpzUnit[] = [];
     @Input() public shiftSchedule: boolean = false;
     @Output() public eventProdTaskChange: EventEmitter<void> = new EventEmitter<void>();
@@ -53,7 +55,9 @@ export class WidgetHeaderComponent implements OnInit, OnChanges, OnDestroy {
     @Output() public selected: EventEmitter<any> = new EventEmitter<any>();
     @Output() public selectedMenu: EventEmitter<any> = new EventEmitter<any>();
     @Output() private toggleAstueChange: EventEmitter<boolean> = new EventEmitter<boolean>();
-    @Output() public ejcoTabClicked?: EventEmitter<string | null> = new EventEmitter<string | null>();
+    @Output() public ejcoTabClicked?: EventEmitter<string | null> = new EventEmitter<
+        string | null
+    >();
     public readonly iconRoute: string = 'assets/icons/widget-title-icons/';
     private subscriptions: Subscription[] = [];
     claimWidgets: EnumClaimWidgets[] = [];
