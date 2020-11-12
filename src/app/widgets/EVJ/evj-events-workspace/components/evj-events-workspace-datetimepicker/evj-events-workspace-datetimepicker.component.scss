@@ -16,11 +16,14 @@
       color: var(--header-events-color-font-main) !important;
       font-size: 13px;
       width: calc(100% - 20px);
-      height: 20px;
+      height: 36px;
       border-radius: 2px;
       background-color: var(--header-events-color-bg-main);
       border: 1px solid var(--color-astue-mat-select-border);
-      padding: 0px 10px 15px 10px;
+      padding: 0px 10px 0px 10px;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
     }
 
     ::ng-deep {
@@ -51,8 +54,8 @@
   .date-button {
     width: 11%;
     height: 100%;
-    top: 14px;
-    right: 4px;
+    top: 12px;
+    right: 10px;
     position: absolute;
     cursor: pointer;
   }
