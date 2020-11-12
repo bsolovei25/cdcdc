@@ -332,7 +332,9 @@ export class OilOperationsComponent extends WidgetPlatform<unknown> implements O
     closeShipment(event: IOilControlManualAdjEmitResponse): void {
         this.disabled();
         this.isOpenShipment = true;
-        this.handleManualAdjustment(event);
+        if (event) {
+            this.handleManualAdjustment(event);
+        }
     }
 
     closeReceived(event: boolean): void {

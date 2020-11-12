@@ -16,7 +16,7 @@ export interface IOilControlManualAdjEmitResponse {
 })
 export class OilOperationsAdjustmentComponent implements OnInit {
 
-    @Output() public closeAdjust: EventEmitter<IOilControlManualAdjEmitResponse> = new EventEmitter<IOilControlManualAdjEmitResponse>();
+    @Output() public closeAdjust: EventEmitter<IOilControlManualAdjEmitResponse | null> = new EventEmitter<IOilControlManualAdjEmitResponse>();
 
     public isActive: string;
 
@@ -55,6 +55,7 @@ export class OilOperationsAdjustmentComponent implements OnInit {
     }
 
     exit(): void {
+        this.closeAdjust.emit(null);
     }
 
     save(): void {
