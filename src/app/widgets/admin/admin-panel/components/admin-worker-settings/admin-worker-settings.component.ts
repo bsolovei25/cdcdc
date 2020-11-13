@@ -223,7 +223,6 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
 
     public onCreateSpecialClaim(claims: IGlobalClaim[]): void {
         if (claims) {
-            this.workerSpecialClaims = [];
             claims.forEach((claim) => {
                 this.workerSpecialClaims.push(claim);
             });
