@@ -110,8 +110,6 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
                 }),
                 this.adminService.getWorkerSpecialClaims(this.worker.id).subscribe((claims) => {
                     this.workerSpecialClaims = claims.data;
-                    console.log(`worker Special Claims : ${this.workerSpecialClaims}`);
-
                     this.workerSpecialClaims.forEach((value) => {
                         if (value.claimValueType === 'widget') {
                             if (!value.widgets) {
