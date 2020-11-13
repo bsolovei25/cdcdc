@@ -50,7 +50,7 @@ export class AstueEfficiencyTableDisplayComponent implements OnInit, OnChanges, 
     public blockSelection: SelectionModel<IAsEfTableBlock> = new SelectionModel<IAsEfTableBlock>(
         true
     );
-    public newBlockSelection: SelectionModel<IAsEfTable> = new SelectionModel<IAsEfTable>(true);
+    public newBlockSelection: SelectionModel<string> = new SelectionModel<string>(true);
 
     public scriptSelection: SelectionModel<any> = new SelectionModel<any>();
 
@@ -161,7 +161,8 @@ export class AstueEfficiencyTableDisplayComponent implements OnInit, OnChanges, 
             .flatMap((x) => x.rows)
             .sort(
                 (a, b) =>
-                    +(this.dates?.length < b.values?.length) - +(this.dates?.length < a.values?.length)
+                    +(this.dates?.length < b.values?.length) -
+                    +(this.dates?.length < a.values?.length)
             )[0]?.values;
     }
 
