@@ -231,4 +231,20 @@ export class AstueEfficiencyTableDisplayComponent implements OnInit, OnChanges, 
             )
             .subscribe();
     }
+
+    toggleel(block: any): void {
+        if (block.parent) {
+            this.newBlockSelection.toggle(`${block.name} ${block.parent}`);
+        } else {
+            this.newBlockSelection.toggle(block.name);
+        }
+    }
+
+    isSelectEl(block: any): boolean {
+        if (block.parent) {
+            return this.newBlockSelection.isSelected(`${block.name} ${block.parent}`);
+        } else {
+            return this.newBlockSelection.isSelected(block.name);
+        }
+    }
 }
