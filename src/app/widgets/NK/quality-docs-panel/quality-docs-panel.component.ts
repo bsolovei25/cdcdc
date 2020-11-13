@@ -1,4 +1,13 @@
-import { Component, OnInit, Inject, HostListener, OnDestroy } from '@angular/core';
+import {
+    Component,
+    OnInit,
+    Inject,
+    HostListener,
+    OnDestroy,
+    ViewChild,
+    SimpleChanges,
+    OnChanges, ElementRef
+} from '@angular/core';
 import { WidgetPlatform } from '../../../dashboard/models/@PLATFORM/widget-platform';
 import { IDatesInterval, WidgetService } from '../../../dashboard/services/widget.service';
 import { ITableGridFilter } from '../../../dashboard/components/table-grid/components/table-grid-filter/table-grid-filter.component';
@@ -8,6 +17,7 @@ import {
     DocumentsScansService,
     IOilControlPassportOpts
 } from '../../../dashboard/services/oil-control-services/documents-scans.service';
+import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
 
 export interface IQualityDocsRecord {
     id: number;
@@ -51,7 +61,11 @@ export interface IQualityDocsRecord {
     templateUrl: './quality-docs-panel.component.html',
     styleUrls: ['./quality-docs-panel.component.scss']
 })
-export class QualityDocsPanelComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
+export class QualityDocsPanelComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy, OnChanges {
+
+    @ViewChild(CdkVirtualScrollViewport) viewport: CdkVirtualScrollViewport;
+
+    @ViewChild('table') public table: ElementRef;
 
     public filterByProduct: ITableGridFilter<IOilFilter> =
         {
@@ -90,6 +104,10 @@ export class QualityDocsPanelComponent extends WidgetPlatform<unknown> implement
         this.getFilterList();
     }
 
+    public ngOnChanges(changes: SimpleChanges): void {
+        this.viewportCheck();
+    }
+
     protected dataHandler(ref: any): void {
         // this.data = ref;
     }
@@ -108,6 +126,7 @@ export class QualityDocsPanelComponent extends WidgetPlatform<unknown> implement
     @HostListener('document:resize', ['$event'])
     public OnResize(): void {
         this.setStyleScroll();
+        this.viewportCheck();
     }
 
     private getOptions(): IOilControlPassportOpts {
@@ -137,7 +156,7 @@ export class QualityDocsPanelComponent extends WidgetPlatform<unknown> implement
     }
 
     public setStyleScroll(): void {
-        const scroll = document.getElementById('scrollQualityDocsPanel');
+        const scroll = this.table.nativeElement;
         if (scroll) {
             if (scroll.scrollHeight !== scroll.clientHeight) {
                 scroll.classList.remove('scrollON');
@@ -158,6 +177,21 @@ export class QualityDocsPanelComponent extends WidgetPlatform<unknown> implement
 
     public closeFilter(event: boolean): void {
         this.isFilter = event;
+    }
+
+    public async scrollHandler(event: { target: { offsetHeight: number, scrollTop: number, scrollHeight: number } }): Promise<void> {
+        if (
+            event.target.offsetHeight + event.target.scrollTop + 100 >= event.target.scrollHeight
+            && this.data.length
+        ) {
+            await this.appendPassports(this.data[this.data.length - 1].id);
+        }
+    }
+
+    private viewportCheck(): void {
+        if (this.data?.length > 0) {
+            this.viewport?.checkViewportSize();
+        }
     }
 
     private async getFilterList(): Promise<void> {

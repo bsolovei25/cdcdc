@@ -20,11 +20,11 @@
         <div class="key"></div>
       </div>
       <div class="quality-docs-panel__container">
-        <div id="scrollQualityDocsPanel" class="scroll-block">
-          <div *ngFor="let item of data">
+        <cdk-virtual-scroll-viewport (scroll)="scrollHandler($event)" autosize class="scroll-block" #table>
+          <ng-container *cdkVirtualFor="let item of data">
             <evj-quality-docs-record [data]="item"></evj-quality-docs-record>
-          </div>
-        </div>
+          </ng-container>
+        </cdk-virtual-scroll-viewport>
       </div>
       <div class="quality-docs-panel__bottom">
         <div class="bottom-block">

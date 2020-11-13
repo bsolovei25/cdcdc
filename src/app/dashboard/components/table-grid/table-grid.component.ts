@@ -147,7 +147,7 @@ export class TableGridComponent implements OnInit, AfterViewInit, OnChanges {
             event.target.offsetHeight + event.target.scrollTop + 100 >= event.target.scrollHeight
             && this.data.length
         ) {
-            this.scrollReachedItemId.emit(this.data[this.data.length - 1].id);
+            await this.scrollReachedItemId.emit(this.data[this.data.length - 1].id);
         }
     }
 }
