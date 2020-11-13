@@ -6,6 +6,8 @@ import { QualityDocsRecordComponent } from './components/quality-docs-record/qua
 import { AngularSvgIconModule } from 'angular-svg-icon';
 import { DocumentCodingModule } from '../document-coding/document-coding.module';
 import { DashboardModule } from '../../../dashboard/dashboard.module';
+import { ScrollingModule } from '@angular/cdk-experimental/scrolling';
+import { ScrollingModule as OldScrollingModule } from '@angular/cdk/scrolling';
 
 
 
@@ -17,6 +19,8 @@ import { DashboardModule } from '../../../dashboard/dashboard.module';
       AngularSvgIconModule,
       DocumentCodingModule,
       DashboardModule,
+      ScrollingModule,
+      OldScrollingModule,
   ]
 })
 export class QualityDocsPanelModule {
