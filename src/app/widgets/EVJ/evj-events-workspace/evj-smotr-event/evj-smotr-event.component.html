@@ -1,0 +1,263 @@
+<div class="header-workspace">
+  <div
+    class="header-workspace__button"
+    (mousedown)="$event.stopPropagation()"
+    (touchstart)="$event.stopPropagation()"
+  >
+    <div class="header-workspace__container"
+         matRipple [matRippleColor]="'white'"
+         (click)="createEvent(true)"
+    >
+      <div class="button-name">Новое событие</div>
+    </div>
+    <div class="header-workspace__container"
+         (click)="isEscalatePopupOpen=true"
+         matRipple [matRippleColor]="'white'"
+    >
+      <div class="button-name">Эскалировать</div>
+    </div>
+    <div class="header-workspace__container"
+         (click)="onClickUrl()"
+         matRipple [matRippleColor]="'white'"
+    >
+      <div class="button-name">Карточка</div>
+    </div>
+    <div class="header-workspace__container"
+         (click)="openClosePopup()"
+         matRipple [matRippleColor]="'white'"
+    >
+      <div class="button-name">Закрыть карточку</div>
+    </div>
+    <div
+      class="header-workspace__container active-button"
+      (click)="createEvent(false)"
+      matRipple [matRippleColor]="'white'"
+    >
+      <div class="button-name">Сохранить</div>
+    </div>
+  </div>
+</div>
+
+<div class="workspace scroll scroll-bar" [style]="{overflow: noOverflow ? 'auto' : 'visible'}">
+
+  <div class="workspace__header">
+    <div class="workspace__select-container-left">
+      <div class="title">
+        <span>Категория</span>
+      </div>
+      <div class="mat-form-category">
+        <div class="event-mat-select">
+          <mat-form-field appearance="none">
+            <mat-select
+              panelClass="mat-select-custom"
+              [(ngModel)]="ewService.event.category"
+              [compareWith]="compareFn"
+              [disabled]="true"
+              (selectionChange)="ewService.changeCategory()"
+            >
+              <mat-option *ngFor="let cat of ewService.category" [value]="cat">
+                {{ ewService.categories[cat.name] }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+
+    <div class="workspace__circles">
+      <evj-events-smotr-icon
+        matTooltip="Уровень эскалации"
+        iconType="escalate"
+        [counter]="this.ewService.event.deviationData?.escalateLevelNumber"
+      ></evj-events-smotr-icon>
+      <evj-events-smotr-icon
+        matTooltip="Уровень критичности"
+        iconType="critical"
+        [isCritical]="this.ewService.event.deviationData?.isCritical"
+      ></evj-events-smotr-icon>
+      <evj-events-smotr-icon
+        matTooltip="Повторяемость за 6 месяцев"
+        iconType="repeat"
+        [counter]="this.ewService.event.deviationData?.iteration"
+      ></evj-events-smotr-icon>
+      <evj-events-smotr-icon
+        matTooltip="Системность"
+        iconType="systematic"
+        [isCritical]="this.ewService.event.deviationData?.systemic"
+      ></evj-events-smotr-icon>
+    </div>
+
+    <div class="workspace__select-container-right">
+      <evj-events-workspace-select
+        [label]="'Событие'"
+        [dataType]="'event'"
+      >
+      </evj-events-workspace-select>
+    </div>
+  </div>
+
+  <div class="workspace__third">
+    <div class="workspace__third__right">
+      <div class="place-date">
+        <div class="workspace__select-container-left">
+          <evj-events-workspace-select
+            [label]="'Статус'"
+            [dataType]="'status'"
+          ></evj-events-workspace-select>
+        </div>
+
+        <div class="workspace__select-container-right">
+          <evj-events-workspace-datetimepicker
+            [label]="'Дата регистрации'"
+          >
+          </evj-events-workspace-datetimepicker>
+        </div>
+      </div>
+      <div class="description">
+        <div class="title">
+          <span>Краткое описание</span>
+        </div>
+        <evj-event-description
+          [description]="ewService.event?.description"
+          (changedDescription)="onChangeEventDescription($event)"
+        ></evj-event-description>
+      </div>
+
+      <div class="facts">
+        <div class="title">
+          <span>Установленные факты</span>
+        </div>
+        <evj-chat
+          [messages]="ewService.event.facts"
+          [displayGraphImage]="!!ewService.event.graphValues?.graphs[0]"
+          [onClickItem]="openLineChart.bind(this)"
+          (addingMessage)="onSendMessage($event,'facts')"
+        ></evj-chat>
+      </div>
+
+      <div class="comments">
+        <div class="title">
+          <span>Комментарии</span>
+        </div>
+        <evj-chat
+          [messages]="ewService.event.comments"
+          dataTitle="Комментарии"
+          placeholder="Напишите свой комментарий..."
+          (addingMessage)="onSendMessage($event,'comments')"
+        ></evj-chat>
+      </div>
+    </div>
+
+    <div class="workspace__third__right">
+      <div class="place-date">
+        <div class="workspace__select-container-left">
+          <evj-events-workspace-datetimepicker
+            [label]="'Дата начала'"
+          >
+          </evj-events-workspace-datetimepicker>
+        </div>
+
+        <div class="workspace__select-container-right">
+          <evj-events-workspace-datetimepicker
+            [label]="'Дата окончания'"
+          >
+          </evj-events-workspace-datetimepicker>
+        </div>
+      </div>
+
+      <div class="place-date">
+        <div class="workspace__select-container-l">
+          <div class="title">
+            <span>Место</span>
+          </div>
+          <evj-events-place></evj-events-place>
+        </div>
+        <div class="workspace__select-container">
+          <div class="creator">
+            <div class="creator__title">
+              <span>Производство</span>
+            </div>
+            <div class="creator__field">
+              {{this.ewService.event?.branch ? this.ewService.event.branch : ''}}
+            </div>
+          </div>
+        </div>
+        <div class="workspace__select-container-r">
+          <div class="creator">
+            <div class="creator__title">
+              <span>ID</span>
+            </div>
+            <div class="creator__field">
+              {{this.ewService.event?.externalCode ? this.ewService.event?.externalCode : ''}}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="responsible">
+        <evj-events-workspace-responsible-select>
+
+        </evj-events-workspace-responsible-select>
+      </div>
+      <div class="usual-text">
+        <div class="title">
+          <span>Причины</span>
+        </div>
+        <evj-events-reasons-single
+          [reason]="ewService.event.directReasons"
+          (addReason)="isReasonsPopupOpen=true"
+        ></evj-events-reasons-single>
+      </div>
+      <div class="event-correct">
+        <div class="title">
+          <span>Корректирующие мероприятия</span>
+        </div>
+        <evj-events-correct></evj-events-correct>
+      </div>
+    </div>
+  </div>
+
+  <div class="workspace__popup" [ngClass]="{'workspace__popup_active':isEscalatePopupOpen}">
+    <evj-events-comment-window
+      *ngIf="isEscalatePopupOpen"
+      title="Эскалировать выше"
+      (closeWindow)="onEscalateEvent($event)"
+    ></evj-events-comment-window>
+  </div>
+
+  <div class="workspace__popup" [ngClass]="{'workspace__popup_active':isClosePopupOpen}">
+    <evj-events-comment-window
+      *ngIf="isClosePopupOpen"
+      title="Закрыть карточку"
+      (closeWindow)="onCloseCard($event)"
+    ></evj-events-comment-window>
+  </div>
+
+  <div class="workspace__popup" [ngClass]="{'workspace__popup_active':isReasonsPopupOpen}">
+    <evj-events-list-window
+      *ngIf="isReasonsPopupOpen"
+      title="Выберите нужные причины"
+      [reasonsList]="this.ewService.event?.deviationData?.availableReasons"
+      (closeWindow)="setReason($event)"
+    ></evj-events-list-window>
+  </div>
+
+</div>
+
+<div
+  (mousedown)="$event.stopPropagation()"
+  (touchstart)="$event.stopPropagation()"
+  id="overlay-chart"
+  *ngIf="ewService.isOverlayChartOpen && ewService.event.graphValues?.graphs[0]"
+  (click)="overlayChartClose()"
+>
+  <div
+    class="overlay-chart__body"
+    (click)="$event.stopPropagation()"
+    *ngIf="ewService.event.graphValues"
+  >
+    <evj-line-chart-workspace
+      [dataChartAttribute]="ewService.event.graphValues"
+    ></evj-line-chart-workspace>
+  </div>
+</div>

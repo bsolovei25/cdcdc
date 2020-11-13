@@ -28,7 +28,7 @@ interface IDiagrammOptions {
     styleUrls: ['./ozsm-diagrams-card.component.scss'],
 })
 export class OzsmDiagramsCardComponent implements OnInit, OnChanges {
-    // Различные случаи
+    @Input() mirrorize: boolean = false;
     @Input()
     public data: IOzsmCircleDiagram = {
         fact: 1041,
@@ -60,8 +60,7 @@ export class OzsmDiagramsCardComponent implements OnInit, OnChanges {
         this.placeText();
     }
 
-    public ngOnChanges(changes: SimpleChanges): void {
-    }
+    public ngOnChanges(changes: SimpleChanges): void {}
 
     private getTick(percent: number): number {
         return this.tickDensity * percent;
@@ -83,7 +82,8 @@ export class OzsmDiagramsCardComponent implements OnInit, OnChanges {
         this.g.append('text')
             .attr('class', 'ozsm-title-text')
             .text(this.data.title)
-            .attr('y', 0);
+            .attr('y', 0)
+            .style('transform', this.mirrorize ? 'scale(-1, 1)' : '');
     }
 
     private appendCircle(r: number, className: string): void {
@@ -133,7 +133,8 @@ export class OzsmDiagramsCardComponent implements OnInit, OnChanges {
         this.g
             .append('path')
             .attr('d', arc)
-            .attr('class', this.data.percentage === 100 ? 'bg-arc-default' : 'bg-arc-deviation');
+            .attr('class', this.data.percentage === 100 ? 'bg-arc-default' : 'bg-arc-deviation')
+            .attr('transform', this.mirrorize ? 'scale(-1, 1)' : '');
 
         const arcValue = d3.arc()
             .innerRadius(this.diagramOptions.diameter - 5)
@@ -145,7 +146,8 @@ export class OzsmDiagramsCardComponent implements OnInit, OnChanges {
         this.g
             .append('path')
             .attr('d', arcValue)
-            .attr('class', this.data.percentage === 100 ? 'arc-value-default' : 'arc-value-deviation');
+            .attr('class', this.data.percentage === 100 ? 'arc-value-default' : 'arc-value-deviation')
+            .attr('transform', this.mirrorize ? 'scale(-1, 1)' : '');
 
         if (this.data.percentage > 100) {
             const arcDeviation = d3.arc()
@@ -158,7 +160,8 @@ export class OzsmDiagramsCardComponent implements OnInit, OnChanges {
             this.g
                 .append('path')
                 .attr('d', arcDeviation)
-                .attr('class', 'arc-deviation');
+                .attr('class', 'arc-deviation')
+                .attr('transform', this.mirrorize ? 'scale(-1, 1)' : '');
         }
 
         const outerArc = d3.arc()

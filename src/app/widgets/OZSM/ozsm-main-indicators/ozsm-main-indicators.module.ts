@@ -6,7 +6,7 @@ import { OzsmSharedModule } from "../ozsm-shared/ozsm-shared.module";
 import { OzsmMainIndicatorComponent } from "../ozsm-shared/ozsm-main-indicator/ozsm-main-indicator.component";
 
 @NgModule({
-    declarations: [OzsmMainIndicatorsComponent, OzsmMainIndicatorComponent],
+    declarations: [OzsmMainIndicatorsComponent],
     imports: [
         CommonModule,
         SharedModule,

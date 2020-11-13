@@ -1,205 +1,213 @@
 .grid-table {
+  width: calc(100% - 10px);
+  height: 100%;
+  padding: 10px;
+  padding-bottom: 0;
+  min-width: 390px;
+
+  &__title {
+    display: flex;
+    position: relative;
+    justify-content: center;
+    height: 40px;
     width: calc(100% - 10px);
-    height: 100%;
-    padding: 10px;
-    padding-bottom: 0;
-    min-width: 390px;
+    background-color: var(--color-oil-border);
+    color: var(--color-text-sub);
+    text-align: center;
+    line-height: 40px;
+    font-size: 12px;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    font-weight: bold;
+  }
 
-    &__title {
+  &__container {
+    height: calc(100% - 100px);
+    width: 100%;
+    overflow: auto;
+    overflow-x: hidden;
+    margin-bottom: 2px;
+    margin-top: 2px;
+    display: flex;
+
+    .scroll-block {
+      background-color: var(--color-oil-table-ref);
+      height: 100%;
+      min-height: 40px;
+
+      .item-inline {
         display: flex;
-        position: relative;
-        justify-content: center;
-        height: 40px;
-        width: calc(100% - 10px);
-        background-color: var(--color-oil-border);
-        color: var(--color-text-sub);
-        text-align: center;
-        line-height: 40px;
-        font-size: 12px;
-        border-top-left-radius: 15px;
-        border-top-right-radius: 15px;
-        font-weight: bold;
-    }
 
-    &__container {
-        height: calc(100% - 100px);
+        .record-table {
+          justify-content: center;
+          width: 100%;
+          cursor: pointer;
+          display: flex;
+          align-items: center;
+          text-align: center;
+          font-size: 12px;
+          min-height: 40px;
+          border-bottom: 2px solid var(--color-bg-main);
+          direction: ltr;
+
+          &:hover {
+            background: var(--color-bg-active);
+            border-radius: 25px;
+            margin: 0 auto;
+            margin-left: 0;
+            transition: 0.8s;
+          }
+        }
+
+        .light {
+          background-color: var(--color-oil-table-ref);
+        }
+
+        .dark {
+          background-color: var(--color-oil-table-2);
+        }
+      }
+    }
+  }
+
+  &__bottom {
+    position: relative;
+    height: 40px;
+    width: calc(100% - 10px);
+    background-color: var(--color-oil-border);
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+
+    .bottom-block {
+      display: flex;
+      padding-left: 20px;
+      position: relative;
+      height: 100%;
+
+      &__other-button {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
         width: 100%;
-        overflow: auto;
-        overflow-x: hidden;
-        margin-bottom: 2px;
-        margin-top: 2px;
-        display: flex;
 
-        .scroll-block {
-            background-color: var(--color-oil-table-ref);
-            height: 100%;
-            min-height: 40px;
-
-            .item-inline {
-                display: flex;
-
-                .record-table {
-                    justify-content: center;
-                    width: 100%;
-                    cursor: pointer;
-                    display: flex;
-                    align-items: center;
-                    text-align: center;
-                    font-size: 12px;
-                    min-height: 40px;
-                    background-color: var(--color-oil-table-ref);
-                    border-bottom: 2px solid var(--color-bg-main);
-                    direction: ltr;
-
-                    &:hover {
-                        background: var(--color-bg-active);
-                        border-radius: 25px;
-                        margin: 0 auto;
-                        margin-left: 0;
-                        transition: 0.8s;
-                    }
-                }
-            }
+        .search {
+          &__input {
+            height: 75%;
+          }
         }
+      }
+
+      &__save-button {
+        width: auto;
+      }
     }
+  }
 
-    &__bottom {
-        position: relative;
-        height: 40px;
-        width: calc(100% - 10px);
-        background-color: var(--color-oil-border);
-        border-bottom-left-radius: 15px;
-        border-bottom-right-radius: 15px;
+  .left-content {
+    margin: 0 auto;
+    margin-right: 0;
+    direction: rtl;
 
-        .bottom-block {
-            display: flex;
-            padding-left: 20px;
-            position: relative;
-            height: 100%;
-
-            &__other-button {
-                display: flex;
-                justify-content: flex-start;
-                align-items: center;
-                width: 100%;
-
-                .search{
-                    &__input{
-                        height: 75%;
-                    }
-                }
-            }
-
-            &__save-button {
-                width: auto;
-            }
+    ::ng-deep {
+      .record-table {
+        &:hover {
+          background: var(--color-bg-active) !important;
+          border-radius: 25px;
+          margin: 0 auto;
+          margin-left: 0;
+          transition: 0.8s;
         }
+      }
     }
+  }
 
-    .left-content {
-        margin: 0 auto;
-        margin-right: 0;
-        direction: rtl;
+  .left-title-footer {
+    margin: 0 auto;
+    margin-right: 0;
+    width: calc(100% - 10px);
+    padding-left: 2px;
+    padding-right: 2px;
+    font-size: 12px; //test
+    word-break: break-all;
+  }
 
-        ::ng-deep {
-            .record-table {
-                &:hover {
-                    background: var(--color-bg-active) !important;
-                    border-radius: 25px;
-                    margin: 0 auto;
-                    margin-left: 0;
-                    transition: 0.8s;
-                }
-            }
-        }
-    }
-
-    .left-title-footer {
-        margin: 0 auto;
-        margin-right: 0;
-        width: calc(100% - 10px);
-        padding-left: 2px;
-        padding-right: 2px;
-        font-size: 12px; //test
-        word-break: break-all;
-    }
-
-    .left-container {
-    }
+  .left-container {
+  }
 }
 
 .active {
-    background: var(--color-bg-active) !important;
-    border-radius: 25px;
+  background-color: var(--color-bg-active) !important;
+  border-radius: 25px;
 }
 
 .short {
-    width: 15%;
+  width: 15%;
 }
 
 .middle {
-    width: 20%;
+  width: 20%;
 }
 
 .big {
-    width: 50%;
+  width: 50%;
 }
 
 .scrollLeftON {
-    margin-right: 0px !important;
-    width: calc(100% - 10px) !important;
+  margin-right: 0px !important;
+  width: calc(100% - 10px) !important;
 }
 
 .scrollLeftOFF {
-    margin-right: 0px !important;
-    width: calc(100% - 5px) !important;
+  margin-right: 0px !important;
+  width: calc(100% - 5px) !important;
 
-    ::ng-deep .report-container {
-        width: 100%;
-    }
+  ::ng-deep .report-container {
+    width: 100%;
+  }
 }
 
 .scrollRightON {
-    width: calc(100% - 6px) !important;
+  width: calc(100% - 6px) !important;
 }
 
 .scrollRightOFF {
-    width: calc(100% - 10px) !important;
+  width: calc(100% - 10px) !important;
 }
 
 ::-webkit-scrollbar {
-    width: 4px;
-    height: 4px;
+  width: 4px;
+  height: 4px;
 }
 
 ::-webkit-scrollbar-track:vertical {
-    width: 4px;
-    height: 4px;
-    margin-top: 5px;
-    margin-bottom: 5px;
-    border-radius: 25px;
+  width: 4px;
+  height: 4px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  border-radius: 25px;
 }
 
 :hover::-webkit-scrollbar-thumb {
-    background-color: var(--color-border-active);
-    border-radius: 25px;
+  background-color: var(--color-border-active);
+  border-radius: 25px;
 }
 
 ::-webkit-scrollbar-thumb {
-    width: 10px;
-    border-radius: 25px;
-    background-color: var(--color-border-main);
+  width: 10px;
+  border-radius: 25px;
+  background-color: var(--color-border-main);
 }
 
 ::-webkit-scrollbar-track {
-    border-radius: 25px;
+  border-radius: 25px;
 }
+
 ::-webkit-scrollbar-track-piece {
-    border-radius: 25px;
+  border-radius: 25px;
 }
 
 ::-webkit-resizer {
-    background-color: var(--color-border-active);
+  background-color: var(--color-border-active);
 }
 
 .scroll-block {

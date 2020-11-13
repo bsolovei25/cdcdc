@@ -73,6 +73,12 @@ export class AstueMnpzEfficiencyComponent extends WidgetPlatform<unknown>
         this.isGraphDisplay = event;
     }
 
+    public toggleIsInitialDataShows(): void {
+        this.isInitialDataShow = !this.isInitialDataShow;
+        this.AsEfService.selectionFlow$.next([]);
+        this.AsEfService.selectionUnit$.next([]);
+    }
+
     public onSelectProduct(name: string): void {
         const product = this.data.find((item) => item.name === name);
         this.units = product.units;

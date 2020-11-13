@@ -5,6 +5,7 @@ import {
     OnInit,
     Output,
 } from '@angular/core';
+import { EventsWorkspaceService } from '../../../../../dashboard/services/widgets/EVJ/events-workspace.service';
 
 export interface IEventsWorkspaceSelectValue {
     value: string | number;
@@ -21,16 +22,26 @@ export class EvjEventsWorkspaceSelectComponent implements OnInit {
     @Input()
     public items: IEventsWorkspaceSelectValue[] | null = [
         {
-            value: 0,
-            label: 'Нет значений',
-        }
+            value: 'Не Выбрано',
+            label: 'Не Выбрано',
+        },
     ];
+    @Input() public dataType:
+        'status'
+        | 'priorities'
+        | 'categories'
+        | 'subCategories'
+        | 'eventType'
+        | 'place'
+        | 'equipmentCategory'
+        | 'event'
+        | 'eoService';
 
     @Input()
     public type: 'default' | 'minor' | 'critical' = 'default';
 
     @Input()
-    public label: string = 'Выпадающий список';
+    public label: string = '';
 
     @Input()
     public disabled: boolean = false;
@@ -39,13 +50,17 @@ export class EvjEventsWorkspaceSelectComponent implements OnInit {
     public onValueChange: EventEmitter<string | number | IEventsWorkspaceSelectValue>
         = new EventEmitter<string | number | IEventsWorkspaceSelectValue>();
 
-    constructor() {
+    constructor(public ewService: EventsWorkspaceService) {
     }
 
     public ngOnInit(): void {
     }
 
     public onClick(): void {
+    }
+
+    public compareFn(a, b): boolean {
+        return a && b && a.id === b.id;
     }
 
     public onSelect(value: keyof IEventsWorkspaceSelectValue): void {

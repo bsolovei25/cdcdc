@@ -7,9 +7,9 @@ import { AstueEfficiencyService } from '../../../../../dashboard/services/widget
 @Component({
     selector: 'evj-astue-efficiency-items',
     templateUrl: './astue-efficiency-items.component.html',
-    styleUrls: ['./astue-efficiency-items.component.scss']
+    styleUrls: ['./astue-efficiency-items.component.scss'],
 })
-export class AstueEfficiencyItemsComponent implements OnChanges, OnDestroy {
+export class AstueEfficiencyItemsComponent implements OnChanges {
     @Input() public data: IAsEfProduct[] = [];
 
     @Output() private selectProduct: EventEmitter<string> = new EventEmitter<string>();
@@ -18,30 +18,29 @@ export class AstueEfficiencyItemsComponent implements OnChanges, OnDestroy {
 
     public cardSelection: SelectionModel<IAsEfProduct> = new SelectionModel<IAsEfProduct>();
 
-    private subscriptions: Subscription[] = [];
-
-    constructor(private AsEfService: AstueEfficiencyService) {
-    }
+    constructor(private AsEfService: AstueEfficiencyService) {}
 
     public ngOnChanges(): void {
         this.iconMap();
         this.selectionOnChanges();
     }
 
-    public ngOnDestroy(): void {
-        this.subscriptions.forEach((subs) => subs.unsubscribe());
-    }
-
     private selectionOnChanges(): void {
-        const activeProduct = this.cardSelection.selected[0]?.name;
+        const activeProduct = this.cardSelection.selected[0]?.id;
         if (activeProduct) {
-            const product = this.data.find((item) => item.name === activeProduct);
+            const product = this.data.find((item) => item.id === activeProduct);
             this.cardSelection.select(product);
             this.selectProduct.emit(product.name);
         } else {
             if (this.data.length) {
-                this.cardSelection.select(this.data[0]);
-                this.selectProduct.emit(this.data[0].name);
+                this.data.forEach((value) => {
+                    if (!this.cardSelection.selected.length) {
+                        if (value.direction === this.direction) {
+                            this.cardSelection.select(this.data[0]);
+                            this.selectProduct.emit(this.data[0].name);
+                        }
+                    }
+                });
             }
         }
     }

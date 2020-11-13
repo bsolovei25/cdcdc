@@ -1,10 +1,4 @@
-import {
-    Component,
-    Inject,
-    OnDestroy,
-    OnInit, QueryList,
-    ViewChildren,
-} from '@angular/core';
+import { Component, Inject, OnDestroy, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { WidgetPlatform } from '../../../dashboard/models/@PLATFORM/widget-platform';
 import { WidgetService } from '../../../dashboard/services/widget.service';
 import { IProductionTrend } from '../../../dashboard/models/LCO/production-trends.model';
@@ -17,6 +11,7 @@ export interface IKpeReadinessData {
     deviationChart: IKpeLineChartData[] | null;
     deviationDiagram: IKpeGaugeChartData | null;
     gaugeCards: IKpeGaugeChartData[] | null;
+    displayMode: 'tiled' | 'line';
 }
 
 export interface IKpeReadinessChartCard {
@@ -35,10 +30,9 @@ export interface IKpeReadinessGauge {
 @Component({
     selector: 'evj-kpe-readiness',
     templateUrl: './kpe-readiness.component.html',
-    styleUrls: ['./kpe-readiness.component.scss']
+    styleUrls: ['./kpe-readiness.component.scss'],
 })
 export class KpeReadinessComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
-
     @ViewChildren('gauges')
     public gaugesElements: QueryList<HTMLDivElement>;
 
@@ -52,17 +46,20 @@ export class KpeReadinessComponent extends WidgetPlatform<unknown> implements On
 
     public chartCards: IKpeReadinessChartCard[] | IKpeReadinessChartCard[][];
 
-    public diagram: IKpeGaugeChartData = { plan: 100, fact: 100};
+    public diagram: IKpeGaugeChartData = { plan: 100, fact: 100 };
 
     public margin = { top: 20, right: 20, bottom: 30, left: 40 };
 
     public displayedMonth: Date;
 
-    constructor(protected widgetService: WidgetService,
-                private kpeHelperService: KpeHelperService,
-                @Inject('isMock') public isMock: boolean,
-                @Inject('widgetId') public id: string,
-                @Inject('uniqId') public uniqId: string
+    displayMode: 'tiled' | 'line';
+
+    constructor(
+        protected widgetService: WidgetService,
+        private kpeHelperService: KpeHelperService,
+        @Inject('isMock') public isMock: boolean,
+        @Inject('widgetId') public id: string,
+        @Inject('uniqId') public uniqId: string
     ) {
         super(widgetService, isMock, id, uniqId);
     }
@@ -76,15 +73,19 @@ export class KpeReadinessComponent extends WidgetPlatform<unknown> implements On
     }
 
     protected dataHandler(ref: IKpeReadinessData): void {
+        this.displayMode = ref.displayMode;
         this.deviationChartData = this.kpeHelperService.prepareKpeLineChartData(ref.deviationChart);
         if (this.kpeHelperService.compare<IKpeGaugeChartData>(this.gaugeCards, ref.gaugeCards)) {
             this.gaugeCards = ref.gaugeCards;
         }
         this.chartCards = ref.chartCards as IKpeReadinessChartCard[];
         this.chartCard = this.chartCards.shift();
-        this.chartCards = this.kpeHelperService.sortArray<IKpeReadinessChartCard>(this.chartCards, 2) as IKpeReadinessChartCard[][];
+        this.chartCards = this.kpeHelperService.sortArray<IKpeReadinessChartCard>(
+            this.chartCards,
+            2
+        ) as IKpeReadinessChartCard[][];
         this.diagram = ref.deviationDiagram;
-        ref.deviationChart.forEach(data => {
+        ref.deviationChart.forEach((data) => {
             if (data.graphType === 'fact') {
                 this.displayedMonth = new Date(data.graph[0].timeStamp);
             }
@@ -100,7 +101,9 @@ export class KpeReadinessComponent extends WidgetPlatform<unknown> implements On
     }
 
     public prepareTrendData(data: IProductionTrend[]): IProductionTrend[] | void {
-        if (!data) { return; }
+        if (!data) {
+            return;
+        }
         return this.kpeHelperService.prepareKpeTrendChartData(data);
     }
 

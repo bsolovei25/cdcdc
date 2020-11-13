@@ -41,16 +41,14 @@
 }
 
 .body {
-    max-height: 530px;
+    height: 638px;
     width: 100%;
-    padding: 0 15px 50px 30px;
-
+    padding: 30px 15px 30px 50px;
     display: flex;
     flex-direction: column;
     align-items: center;
-
+    justify-content: space-between;
     background: var(--ozsm-color-bg-dark);
-
     border: 1px solid var(--ozsm-color-border);
     border-top: none;
     border-radius: 0px 0px 2px 2px;

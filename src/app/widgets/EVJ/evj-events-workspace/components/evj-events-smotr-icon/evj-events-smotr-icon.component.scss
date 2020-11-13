@@ -1,0 +1,122 @@
+:host {
+  width: max-content;
+  height: max-content;
+}
+
+.circle-container {
+  background: #20222d;
+  border-radius: 50%;
+  display: flex;
+
+  svg-icon {
+    margin: auto;
+    width: 32px;
+    height: 35px;
+  }
+}
+
+.event-icon {
+  position: relative;
+
+  width: 40px;
+  height: 40px;
+  min-width: 40px;
+  max-width: 40px;
+  min-height: 40px;
+  max-height: 40px;
+
+  box-sizing: border-box;
+
+  cursor: default;
+
+  &__counter {
+    position: absolute;
+    z-index: 2;
+
+    width: max-content;
+    height: max-content;
+
+    top: 0px;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    margin: auto;
+
+    color: var(--color-text-main);
+    font-size: 12px;
+    line-height: 100%;
+  }
+}
+
+.escalate {
+  svg-icon {
+    ::ng-deep .cls-1 {
+      fill: var(--evj-color-active) !important;
+    }
+  }
+
+  &_2,
+  &_3,
+  &_4 {
+    svg-icon {
+      ::ng-deep .cls-2 {
+        fill: var(--evj-color-active) !important;
+      }
+    }
+  }
+
+  &_3,
+  &_4 {
+    svg-icon {
+      ::ng-deep .cls-3 {
+        fill: var(--evj-color-active) !important;
+      }
+    }
+  }
+
+  &_4 {
+    svg-icon {
+      ::ng-deep .cls-4 {
+        fill: var(--evj-color-active) !important;
+      }
+    }
+  }
+}
+
+.systematic {
+  svg-icon {
+    ::ng-deep {
+      color: #8C99B2;
+    }
+  }
+}
+
+.critical {
+  &__warning {
+    svg-icon {
+      ::ng-deep {
+        color: var(--color-deviation);
+      }
+    }
+  }
+
+  &_danger {
+    svg-icon {
+      ::ng-deep {
+        .cls-1 {
+          fill: var(--color-danger);
+        }
+
+        .cls-2 {
+          fill: var(--color-text-main);
+          stroke: var(--color-text-main);
+        }
+
+        .cls-3{
+          fill: var(--color-text-main);
+          stroke: none;
+        }
+      }
+    }
+  }
+}
