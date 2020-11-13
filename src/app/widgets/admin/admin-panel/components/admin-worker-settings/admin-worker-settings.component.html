@@ -115,7 +115,7 @@
                 <ng-container *ngIf="item.claimValueType === 'widget'">
                   <ng-container *ngFor="let nameCard of item.widgets">
                     <div class="claim__item" *ngIf="claim.claimType === item.claimType
-                  && nameCard.title !== ''">
+                && nameCard.title !== ''">
                       {{nameCard.title}}
                       <div
                         class="claim__button claim__button-delete"

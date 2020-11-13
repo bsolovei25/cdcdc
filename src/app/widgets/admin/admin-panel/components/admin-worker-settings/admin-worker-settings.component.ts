@@ -110,7 +110,6 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
                 }),
                 this.adminService.getWorkerSpecialClaims(this.worker.id).subscribe((claims) => {
                     this.workerSpecialClaims = claims.data;
-
                     this.workerSpecialClaims.forEach((value) => {
                         if (value.claimValueType === 'widget') {
                             if (!value.widgets) {
@@ -221,15 +220,18 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
     }
 
     public onCreateSpecialClaim(claims: IGlobalClaim[]): void {
+        claims.filter((v, index) => {
+            if (v.claimValueType !== 'screen') {
+                this.workerSpecialClaims.splice(index, 1);
+            }
+        });
         if (claims) {
-            this.workerSpecialClaims = [];
             claims.forEach((claim) => {
                 this.workerSpecialClaims.push(claim);
             });
             this.isDataChanged = true;
         }
         this.isCreateClaim = false;
-
     }
 
     public onRemoveSpecialClaim(claim: IWidget | IUnitEvents): void {
@@ -377,10 +379,9 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
         if (this.checkForRequiredFields()) {
             this.isDataLoading = true;
             try {
-                const newArray: IGlobalClaim[] = [];
                 this.workerSpecialClaims?.forEach(v => v?.widgets?.forEach(w => {
                     if (w?.isActive) {
-                        newArray?.push({
+                        this.workerSpecialClaims?.push({
                             claimType: v?.claimType,
                             value: w?.id,
                             claimValueType: v?.claimValueType,
@@ -396,7 +397,7 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
                 }));
                 this.workerSpecialClaims?.forEach(v => v?.units?.forEach(u => {
                     if (u?.isActive) {
-                        newArray.push({
+                        this.workerSpecialClaims?.push({
                             claimType: v?.claimType,
                             value: u?.id.toString(),
                             claimValueType: v?.claimValueType,
@@ -411,7 +412,7 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
                     }
                 }));
                 this.worker.displayName = this.adminService.generateDisplayName(this.worker);
-                this.worker.claims = this.workerGeneralClaims.concat(newArray);
+                this.worker.claims = this.workerGeneralClaims.concat(this.workerSpecialClaims);
                 if (this.workerPhoto) {
                     this.worker.photoId = await this.adminService.pushWorkerPhoto(
                         base64ToFile(this.workerPhoto)
