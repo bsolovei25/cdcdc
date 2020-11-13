@@ -222,6 +222,11 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
     }
 
     public onCreateSpecialClaim(claims: IGlobalClaim[]): void {
+        claims.filter((v, index) => {
+            if (v.claimValueType !== 'screen') {
+                this.workerSpecialClaims.splice(index, 1);
+            }
+        });
         if (claims) {
             claims.forEach((claim) => {
                 this.workerSpecialClaims.push(claim);
@@ -229,7 +234,6 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
             this.isDataChanged = true;
         }
         this.isCreateClaim = false;
-
     }
 
     public onRemoveSpecialClaim(claim: IWidget | IUnitEvents): void {
@@ -377,7 +381,6 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
         if (this.checkForRequiredFields()) {
             this.isDataLoading = true;
             try {
-                // const newArray: IGlobalClaim[] = [];
                 this.workerSpecialClaims?.forEach(v => v?.widgets?.forEach(w => {
                     if (w?.isActive) {
                         this.workerSpecialClaims?.push({
