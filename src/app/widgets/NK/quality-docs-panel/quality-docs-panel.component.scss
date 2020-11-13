@@ -113,7 +113,6 @@
 
         .bottom-block {
             display: flex;
-            padding-left: 20px;
             position: relative;
 
             .input-block {
@@ -211,7 +210,7 @@
                 }
             }
 
-            .filter-button {
+            .filter-product {
                 cursor: pointer;
                 position: absolute;
                 height: 28px;
@@ -219,44 +218,6 @@
                 width: 160px;
                 display: flex;
                 margin-top: 5px;
-
-                border: 1px solid;
-                border-image: linear-gradient(90deg, transparent 10%, var(--color-text-main) 100%);
-                border-image-slice: 1;
-                border-right: none;
-
-                &:after {
-                    content: "";
-                    position: absolute;
-                    height: 28px;
-                    width: 14px;
-                    top: -1px;
-                    right: -15px;
-                    border: 1px solid var(--color-text-main);
-                    border-left: none;
-                    border-top-right-radius: 25px;
-                    border-bottom-right-radius: 25px;
-                }
-
-                &__icon {
-                    width: 28px;
-                }
-
-                &__text {
-                    display: flex;
-                    width: calc(100% - 35px);
-                    justify-content: space-between;
-                    align-items: center;
-                    font-size: 12px;
-
-                    .icon {
-                        width: 10px;
-                    }
-
-                    .name {
-                        margin-left: 20px;
-                    }
-                }
             }
 
             .blocked-button {

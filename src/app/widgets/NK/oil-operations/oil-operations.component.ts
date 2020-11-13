@@ -16,6 +16,7 @@ import {
 import { ITableGridFilter } from 'src/app/dashboard/components/table-grid/components/table-grid-filter/table-grid-filter.component';
 import { DocumentsScansService } from '../../../dashboard/services/oil-control-services/documents-scans.service';
 import { SnackBarService } from '../../../dashboard/services/snack-bar.service';
+import { IOilControlManualAdjEmitResponse } from './components/oil-operations-adjustment/oil-operations-adjustment.component';
 
 export interface IOilOperationsButton {
     isFilter: boolean;
@@ -131,6 +132,7 @@ export class OilOperationsComponent extends WidgetPlatform<unknown> implements O
     public filterGroup: string | null = null;
     public filterProduct: string | null = null;
     private selectedTransfer: IOilTransfer = null;
+    public selectedShipment: IOilShipment = null;
 
     constructor(
         protected widgetService: WidgetService,
@@ -217,10 +219,14 @@ export class OilOperationsComponent extends WidgetPlatform<unknown> implements O
         return operationTransferStatusNameMap[status];
     }
 
-    public async selectItem(item: IOilTransfer): Promise<void> {
+    public async selectTransfer(item: IOilTransfer): Promise<void> {
         this.selectedTransfer = item;
         const shipments = await this.oilOperationService.getShipmentsByTransferId<IOilShipment[]>(item.id);
         this.data.tableRight = shipments;
+    }
+
+    public selectShipment(item: IOilShipment): void {
+        this.selectedShipment = item;
     }
 
     private getOptions(): IOilOperationsOptions {
@@ -290,9 +296,25 @@ export class OilOperationsComponent extends WidgetPlatform<unknown> implements O
         if (this.selectedTransfer) {
             const result = await this.oilOperationService.autoAssignShipments(this.selectedTransfer.id);
             msg = result['message'];
-            await this.selectItem(this.selectedTransfer);
+            await this.selectTransfer(this.selectedTransfer);
         }
         this.snackBar.openSnackBar(msg);
+    }
+
+    public async handleManualAdjustment(data: IOilControlManualAdjEmitResponse): Promise<void> {
+        const result = await this.oilOperationService.manualAdjustment<IOilShipment>(this.selectedTransfer.id, data);
+        if (result) {
+            await this.selectTransfer(this.selectedTransfer);
+            this.snackBar.openSnackBar('Успешно');
+        }
+    }
+
+    public manualAdjustment(): void {
+        if (this.selectedTransfer) {
+            this.filter.adjust = true;
+        } else {
+            this.snackBar.openSnackBar('Выберите Операцию из списка');
+        }
     }
 
     openShipment(name: string): void {
@@ -307,9 +329,12 @@ export class OilOperationsComponent extends WidgetPlatform<unknown> implements O
         this.active(name);
     }
 
-    closeShipment(event: boolean): void {
+    closeShipment(event: IOilControlManualAdjEmitResponse): void {
         this.disabled();
         this.isOpenShipment = true;
+        if (event) {
+            this.handleManualAdjustment(event);
+        }
     }
 
     closeReceived(event: boolean): void {
@@ -318,9 +343,6 @@ export class OilOperationsComponent extends WidgetPlatform<unknown> implements O
     }
 
     active(itemActive: string): void {
-        Object.keys(this.filter).forEach(key => {
-            this.filter[key] = key === itemActive;
-        });
         switch (itemActive) {
             case 'blps':
                 this.sendToBlps();
@@ -328,7 +350,13 @@ export class OilOperationsComponent extends WidgetPlatform<unknown> implements O
             case 'autoAssign':
                 this.autoAssignShipments();
                 break;
+            case 'adjust':
+                this.manualAdjustment();
+                break;
             default:
+                Object.keys(this.filter).forEach(key => {
+                    this.filter[key] = key === itemActive;
+                });
                 break;
         }
     }

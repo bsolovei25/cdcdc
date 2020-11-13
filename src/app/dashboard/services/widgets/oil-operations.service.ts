@@ -3,100 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { IDatesInterval, WidgetService } from '../widget.service';
 import { AppConfigService } from '@core/service/app-config.service';
 import { IOilTransfer } from '../../models/oil-operations';
-
-/*export interface IOilShipmentRest {
-    id: number;
-    direction: string;
-    tank: {
-        id: string;
-        omsUid: string;
-        afUid: string;
-        name: string;
-        shortName: string;
-        enabled: true;
-        limitHours: number;
-    };
-    product: {
-        id: number;
-        name: string;
-        shortName: string;
-        fullName: string;
-        sapCode: string;
-        okpd2Code: string;
-        gost: string;
-        shippingComplexId: number;
-        group?: {
-            id: number;
-            name: string;
-            shortName: string;
-            subGroupName: string;
-        };
-        groupId?: number;
-    };
-    documentNumber?: number;
-    documentName?: string;
-    sectionNumber: number;
-    transferId: number;
-    transferPrevId: number;
-    shipmentType: {
-        id: number;
-        shipmentTypeName: string;
-        errorSI: number;
-        flagManual: boolean;
-        measurerId: number;
-        measurer?: any;
-        transportTypeId: number;
-        transportType: {
-            id: number;
-            name: string;
-        };
-        originalId: string;
-        systemId: string;
-    };
-    shipmentTypeId: number;
-    mass: number;
-    massDelta: number;
-    passport: {
-        id: number;
-        name: string;
-        fileUid: string;
-        tank: {
-            id: string;
-            omsUid: string;
-            afUid: string;
-            name: string;
-            shortName: string;
-            enabled: boolean;
-            limitHours: number;
-        };
-        tankId: string;
-        product: {
-            id: number;
-            name: string;
-            shortName: string;
-            fullName: string;
-            sapCode: string;
-            okpd2Code: string;
-            gost: string;
-            isActual: boolean;
-            shippingComplexId: number;
-            group: {
-                id: number;
-                name: string;
-                shortName: string;
-                subGroupName: string;
-            };
-            groupId: number;
-        };
-        productId: number;
-        customId: number;
-        date: Date;
-    };
-    isManualRelation: boolean;
-    shipped: number;
-    note: string;
-    dateFinish: Date;
-}*/
+import { IOilControlManualAdjEmitResponse } from '../../../widgets/NK/oil-operations/components/oil-operations-adjustment/oil-operations-adjustment.component';
 
 export interface IOilOperationsOptions {
     dates?: { startTime: Date; endTime: Date };
@@ -189,6 +96,27 @@ export class OilOperationsService {
         } catch (e) {
             console.error(e);
             return new Promise<T>(resolve => false);
+        }
+    }
+
+    public async getManualAdjustmentTypes<T>(): Promise<T>  {
+        try {
+            return await this.http.get<T>(`${this.restUrl}/api/oil-control/manual-adjustment-types`).toPromise();
+        } catch (e) {
+            console.error(e);
+            return new Promise<T>(resolve => []);
+        }
+    }
+
+    public async manualAdjustment<T>(
+        transferIdParam: number,
+        body: IOilControlManualAdjEmitResponse
+        ): Promise<T>  {
+        try {
+            return await this.http.put<T>(`${this.restUrl}/api/oil-control/shipment/transfer/${transferIdParam}/add-manual`, body).toPromise();
+        } catch (e) {
+            console.error(e);
+            return new Promise<T>(resolve => null);
         }
     }
 
