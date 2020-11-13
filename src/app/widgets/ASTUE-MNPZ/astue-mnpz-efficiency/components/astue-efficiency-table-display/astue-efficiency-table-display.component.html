@@ -30,8 +30,8 @@
         <ng-container *ngFor="let block of displayData">
           <tr
             class="table__row block"
-            [ngClass]="{'block_open':newBlockSelection.isSelected(block)}"
-            (click)="newBlockSelection.toggle(block)"
+            [ngClass]="{'block_open':newBlockSelection.isSelected(block.name)}"
+            (click)="newBlockSelection.toggle(block.name)"
           >
             <td class="block__item" [ngClass]="{'block__item-status': block.header?.tagName}">
               <img
@@ -72,7 +72,7 @@
               </td>
             </ng-template>
           </tr>
-          <ng-container *ngIf="newBlockSelection.isSelected(block)">
+          <ng-container *ngIf="newBlockSelection.isSelected(block.name)">
             <tr class="table__row row" *ngFor="let child of block.rows">
               <td class="row__item">
                 {{child.name}}
