@@ -210,6 +210,13 @@
   border-radius: 2px;
   background: var(--color-kpe-bg-sub);
   box-sizing: border-box;
+  &-line {
+    position: relative;
+    border-radius: 2px;
+    background: var(--color-kpe-bg-sub);
+    box-sizing: border-box;
+    height: 170px;
+  }
 }
 
 .content-container {

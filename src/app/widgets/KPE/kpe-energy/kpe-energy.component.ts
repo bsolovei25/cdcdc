@@ -11,24 +11,26 @@ export interface IKpeEnergy {
     tabs: IKpeEnergyTab[] | null;
     chart: IKpeLineChartData[] | null;
     diagram: IKpeGaugeChartData | null;
+    displayMode: 'tiled' | 'line';
 }
 
 @Component({
     selector: 'evj-kpe-energy',
     templateUrl: './kpe-energy.component.html',
-    styleUrls: ['./kpe-energy.component.scss']
+    styleUrls: ['./kpe-energy.component.scss'],
 })
 export class KpeEnergyComponent extends WidgetPlatform<unknown> implements OnInit {
-
     // static true fix expression has been checked
-    @ViewChild('gauge', {static: true})
+    @ViewChild('gauge', { static: true })
     public gaugeElement: ElementRef;
 
-    public data: IKpeEnergy = { tabs: null, chart: null, diagram: null };
+    public data: IKpeEnergy = { tabs: null, chart: null, diagram: null, displayMode: 'tiled' };
 
     public deviationChartData: IDeviationDiagramData[] = [];
 
     public displayedMonth: Date;
+
+    displayMode: 'tiled' | 'line';
 
     constructor(
         private http: HttpClient,
@@ -47,6 +49,7 @@ export class KpeEnergyComponent extends WidgetPlatform<unknown> implements OnIni
 
     protected dataHandler(ref: IKpeEnergy): void {
         this.data = ref;
+        this.displayMode = ref.displayMode;
         if (this.kpeHelperService.compare<IKpeEnergyTab>(this.data.tabs, ref.tabs)) {
             this.data.tabs = ref.tabs;
         }
@@ -55,7 +58,7 @@ export class KpeEnergyComponent extends WidgetPlatform<unknown> implements OnIni
         }
         this.data.diagram = ref.diagram;
         this.deviationChartData = this.kpeHelperService.prepareKpeLineChartData(this.data.chart);
-        ref.chart.forEach(data => {
+        ref.chart.forEach((data) => {
             if (data.graphType === 'fact') {
                 this.displayedMonth = new Date(data.graph[0].timeStamp);
             }

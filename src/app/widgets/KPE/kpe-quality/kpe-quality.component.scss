@@ -54,6 +54,12 @@
       flex-grow: 1;
       height: 100%;
       max-width: 50%;
+
+      &__line {
+        flex-grow: 1;
+        height: 100%;
+        max-width: 100%;
+      }
     }
   }
 }
