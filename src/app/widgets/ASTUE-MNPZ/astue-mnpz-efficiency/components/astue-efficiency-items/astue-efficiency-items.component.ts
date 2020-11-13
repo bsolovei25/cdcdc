@@ -26,9 +26,9 @@ export class AstueEfficiencyItemsComponent implements OnChanges {
     }
 
     private selectionOnChanges(): void {
-        const activeProduct = this.cardSelection.selected[0]?.name;
+        const activeProduct = this.cardSelection.selected[0]?.id;
         if (activeProduct) {
-            const product = this.data.find((item) => item.name === activeProduct);
+            const product = this.data.find((item) => item.id === activeProduct);
             this.cardSelection.select(product);
             this.selectProduct.emit(product.name);
         } else {
