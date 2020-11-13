@@ -12,6 +12,7 @@ export class SouMvpMnemonicSchemeCircleDiagramComponent implements OnInit, After
   @Input() title: string = 'FC100';
   @Input() percentage: number = 96;
   @Input() warningStatus: boolean = false;
+  @Input() enableStatus: boolean = true;
 
   public svg: any;
 

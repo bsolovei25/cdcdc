@@ -2,70 +2,104 @@
   box-sizing: border-box;
 }
 
-.title {
-  height: 25px;
-  width: 200px;
-
-  padding-left: 14px;
-
-  font-size: 14px;
-  line-height: 17px;
+.container {
+  margin: 2px 0;
 
   display: flex;
   align-items: center;
 
-  background: var(--sou-mvp-color-bg-title);
-  border: 1px solid var(--sou-mvp-color-border);
-  border-radius: 2px;
+  .title {
+    height: 25px;
+    width: 200px;
 
-  position: relative;
+    padding-left: 14px;
 
-  span {
-    color: var(--sou-mvp-color-text-diagram-main);
+    font-size: 12px;
+    line-height: 14px;
 
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-  }
-
-  .connection-circle {
-    height: 8px;
-    width: 8px;
-  
     display: flex;
-    justify-content: center;
     align-items: center;
-  
-    border-radius: 50%;
-  
-    background: var(--sou-mvp-color-bg-main);
+
+    background: var(--sou-mvp-color-bg-title);
     border: 1px solid var(--sou-mvp-color-border);
+    border-radius: 2px;
+
+    position: relative;
+
+    span {
+      color: var(--sou-mvp-color-text-diagram-main);
+
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+
+    .connection-circle {
+      height: 8px;
+      width: 8px;
   
-    position: absolute;
-    left: -4px;
-    z-index: 999;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+  
+      border-radius: 50%;
+  
+      background: var(--sou-mvp-color-bg-main);
+      border: 1px solid var(--sou-mvp-color-border);
+  
+      position: absolute;
+      left: -4px;
+      z-index: 999;
+    }
+
+    .arrow-btn {
+      margin-top: 1px;
+      position: absolute;
+      right: -8px;
+      z-index: 999;
+
+      svg-icon {
+      }
+    }
   }
 
-  .arrow-btn {
-    height: 16px;
-    width: 16px;
+  .line {
+    height: 1px;
+    flex: 1;
+    border-top: 1px solid var(--sou-mvp-color-border);
+  }
+}
 
-    display: flex;
-    justify-content: center;
-    align-items: center;
 
-    border-radius: 50%;
+.disable {
+  .title {
+    background: var(--sou-mvp-color-bg-main);
+    border: 1px solid var(--sou-mvp-color-bg-title);
 
-    background: var(--sou-mvp-color-border);
-    position: absolute;
-    right: -8px;
-    z-index: 999;
-
-    transform: rotate(180deg);
-
-    svg-icon {
-      transform: translate(0px, -4.5px);
-      height: 9px;
+    span {
+      color: var(--sou-mvp-color-text-diagram-sub);
     }
+
+    .connection-circle {
+      background: var(--sou-mvp-color-bg-main);
+      border: 1px solid var(--sou-mvp-color-bg-title);
+    }
+
+    .arrow-btn {
+      svg-icon {
+        ::ng-deep {
+          .circleArrow {
+            fill: var(--sou-mvp-color-bg-title);
+          }
+          .pathArrow {
+            stroke: var(--sou-mvp-color-text-diagram-sub);
+          }
+        }
+      }
+    }
+  }
+
+  .line {
+    border-top: 1px solid var(--sou-mvp-color-bg-title);
   }
 }

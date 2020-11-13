@@ -10,6 +10,7 @@ import { SouMvpMnemonicSchemeInfoComponent } from './components/sou-mvp-mnemonic
 import { SouMvpMnemonicSchemeStreamDiagramComponent } from './components/sou-mvp-mnemonic-scheme-stream-diagram/sou-mvp-mnemonic-scheme-stream-diagram.component';
 import { SouMvpMnemonicSchemeCollectorComponent } from './components/sou-mvp-mnemonic-scheme-collector/sou-mvp-mnemonic-scheme-collector.component';
 import { SouMvpMnemonicSchemeOutputComponent } from './components/sou-mvp-mnemonic-scheme-output/sou-mvp-mnemonic-scheme-output.component';
+import { SouMvpMnemonicSchemeSectionComponent } from './components/sou-mvp-mnemonic-scheme-section/sou-mvp-mnemonic-scheme-section.component';
 
 @NgModule({
     declarations: [
@@ -18,7 +19,8 @@ import { SouMvpMnemonicSchemeOutputComponent } from './components/sou-mvp-mnemon
         SouMvpMnemonicSchemeInfoComponent,
         SouMvpMnemonicSchemeStreamDiagramComponent,
         SouMvpMnemonicSchemeCollectorComponent,
-        SouMvpMnemonicSchemeOutputComponent
+        SouMvpMnemonicSchemeOutputComponent,
+        SouMvpMnemonicSchemeSectionComponent
     ],
     imports: [
         CommonModule,

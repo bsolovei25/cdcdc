@@ -1,28 +1,49 @@
-<div class="container">
-  <div class="connection__left">
-    <div class="connection-circle"></div>
-  </div>
-  <div class="info">
-    <div class="title">
-      <span>{{title}}</span>
+<div class="main-container" [ngClass]="{off:!data.isEnable}">
+  <div class="container">
+    <div class="connection__left">
+      <div 
+        class="connection-circle"
+        *ngFor="let j of inputArr"
+      ></div>
     </div>
-    <div class="values">
-      <div class="values__item">
-        <span class="value">{{weight}}</span>
-        <span class="units">тн</span>
+    <div class="info">
+      <div class="title">
+        <span>{{data.productName}}</span>
       </div>
-      <div class="values__item">
-        <span class="value">12.85</span>
-        <span class="units">%</span>
+      <div class="values">
+        <div class="values__item">
+          <span [ngSwitch]="choosenSetting">
+            <ng-template ngSwitchCase="1">{{data.valueByHour | number:'0.0-0'}}</ng-template>
+            <ng-template ngSwitchCase="2">{{data.valueTank | number:'0.0-0'}}</ng-template>
+            <ng-template ngSwitchDefault>{{data.valueMoment | number:'0.0-0'}}</ng-template>
+          </span>
+          <span class="units">тн</span>
+        </div>
+        <div class="values__item">
+          <span [ngSwitch]="choosenSetting">
+            <ng-template ngSwitchCase="1">{{data.valueByHourPercent | number:'0.0-0'}}</ng-template>
+            <ng-template ngSwitchCase="2">{{data.valueTankPercent | number:'0.0-0'}}</ng-template>
+            <ng-template ngSwitchDefault>{{data.valueMomentPercent | number:'0.0-0'}}</ng-template>
+          </span>
+          <span class="units">%</span>
+        </div>
       </div>
     </div>
+    <div class="numbers">
+      <span class="numbers_item">0</span>
+      <span class="numbers_item">0</span>
+    </div>
+    <div class="connection__right">
+      <div 
+        class="connection-circle"
+        *ngFor="let i of outputArr"
+      ></div>
+    </div>
   </div>
-  <div class="numbers">
-    <span class="numbers_item">0</span>
-    <span class="numbers_item">0</span>
-  </div>
-  <div class="connection__right">
-    <div class="connection-circle"></div>
-    <div class="connection-circle"></div>
+  <div class="line-container">
+    <div 
+      class="line"
+      *ngFor="let i of outputArr"  
+    ></div>
   </div>
 </div>

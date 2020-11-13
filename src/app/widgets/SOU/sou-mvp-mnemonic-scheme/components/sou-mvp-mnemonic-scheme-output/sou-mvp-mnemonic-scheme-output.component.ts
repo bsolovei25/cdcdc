@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'evj-sou-mvp-mnemonic-scheme-output',
@@ -6,7 +6,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./sou-mvp-mnemonic-scheme-output.component.scss']
 })
 export class SouMvpMnemonicSchemeOutputComponent implements OnInit {
-
+  @Input() title: string = '';
+  @Input() status: boolean = true;
   constructor() { }
 
   ngOnInit(): void {

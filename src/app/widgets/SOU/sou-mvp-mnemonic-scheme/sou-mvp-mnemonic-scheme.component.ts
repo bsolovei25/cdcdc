@@ -1,6 +1,7 @@
 import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
 import { WidgetService } from '../../../dashboard/services/widget.service';
 import { WidgetPlatform } from '../../../dashboard/models/@PLATFORM/widget-platform';
+import { ISOUFlowIn, ISOUFlowOut } from '../../../dashboard/models/SOU/sou-operational-accounting-system';
 
 @Component({
     selector: 'evj-sou-mvp-mnemonic-scheme',
@@ -8,7 +9,16 @@ import { WidgetPlatform } from '../../../dashboard/models/@PLATFORM/widget-platf
     styleUrls: ['./sou-mvp-mnemonic-scheme.component.scss']
 })
 export class SouMvpMnemonicSchemeComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
-    streamsCount: number[] = new Array(30);
+    flowIn: ISOUFlowIn[];
+    flowOut: ISOUFlowOut[];
+
+    settings: string[] = [
+        'Мгновенное',
+        'За час',
+        'Накоплено'
+    ]
+
+    choosenSetting: number = 1;
 
     constructor(
         public widgetService: WidgetService,
@@ -25,5 +35,11 @@ export class SouMvpMnemonicSchemeComponent extends WidgetPlatform<unknown> imple
     }
 
     protected dataHandler(ref: any): void {
+        this.flowIn = ref.flowIn;
+        this.flowOut = ref.section[0].flowOut;
+    }
+
+    changeSetting(i: number): void {
+        this.choosenSetting = i;
     }
 }

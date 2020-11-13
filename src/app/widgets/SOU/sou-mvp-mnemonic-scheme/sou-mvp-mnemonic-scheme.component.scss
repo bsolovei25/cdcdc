@@ -28,6 +28,40 @@
   flex-grow: 1;
   display: flex;
   align-items: center;
+  justify-content: space-between;
+  
+  .filter-btn {
+    height: 24px;
+    width: 256px;
+
+    display: flex;
+    align-items: center;
+
+    border-radius: 2px;
+    border: 1px solid var(--sou-mvp-color-border);
+
+    &__item {
+      height: 24px;
+      padding: 0 10px;
+  
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex: 1;
+
+      font-size: 13px;
+      line-height: 16px;
+
+      color: var(--sou-mvp-color-white);
+      cursor: pointer;
+    }
+
+    .active {
+      background: var(--sou-mvp-color-bg-active);
+      border: 1px solid var(--sou-mvp-color-active);
+      border-radius: 2px;
+    }
+  }
 }
 
 .main-content-container {
@@ -50,24 +84,12 @@
       }
     
       .arrow-btn {
-        height: 16px;
-        width: 16px;
-    
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    
-        border-radius: 50%;
-    
-        background: var(--sou-mvp-color-border);
+        margin-top: -3px;
         position: absolute;
         left: -8px;
         z-index: 999;
 
-        svg-icon {
-          transform: translate(0px, -4.5px);
-          height: 9px;
-        }
+        transform: rotate(180deg);
       }
     
       .title {
@@ -127,29 +149,41 @@
 
 
 .streams-groups {
-  height: 100%;
-  padding-top: 14px;
-
-  display: flex;
-  flex: 1;
-
-  overflow-y: auto;
-  overflow-x: hidden;
+    width: 100%;
+    padding-top: 14px;
+    overflow-y: auto;
+    overflow-x: hidden;
 
   .streams-container {
+    min-height: 100%;
     padding: 10px 0;
+    padding-left: 90px;
+
+    position: relative;
   }
 
   .main-collector {
     height: 100%;
     width: 90px;
-    
+    padding: 0 20px;
+
     display: flex;
     justify-content: center;
     align-items: center;
-  
+
     border: 1px solid var(--sou-mvp-color-border);
     border-radius: 100px;
+
+    float: left;
+    position: absolute;
+    left: 0;
+
+    span {
+      text-align: center;
+
+      position: fixed;
+      top: 52%;
+    }
   }
 
   .stream {

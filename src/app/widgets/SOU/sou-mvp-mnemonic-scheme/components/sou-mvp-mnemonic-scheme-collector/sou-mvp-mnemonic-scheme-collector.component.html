@@ -1,15 +1,24 @@
-<div class="container" [ngClass]="{warning:warningStatus}">
-  <div class="connection__left">
-    <div 
-      class="connection-circle"
-      *ngFor="let item of inputArr"
-    ></div>
+<div class="main-container">
+  <div class="container" [ngClass]="{warning:warningStatus}">
+    <div class="connection__left">
+      <div 
+        class="connection-circle"
+        *ngFor="let item of inputArr"
+      ></div>
+    </div>
+    <span></span>
+    <div class="connection__right">
+      <div 
+        class="connection-circle"
+        *ngFor="let item of outputArr"
+      ></div>
+    </div>
   </div>
-  <span>PL62-85</span>
-  <div class="connection__right">
+  <div class="line-container">
     <div 
-      class="connection-circle"
+      class="line"
       *ngFor="let item of outputArr"
     ></div>
   </div>
 </div>
+

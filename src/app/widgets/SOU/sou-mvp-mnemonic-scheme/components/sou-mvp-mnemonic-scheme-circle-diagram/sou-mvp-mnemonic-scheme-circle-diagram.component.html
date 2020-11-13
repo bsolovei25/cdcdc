@@ -1,12 +1,25 @@
-<div class="container" [ngClass]="{warning:warningStatus}">
-  <div class="circle" #chart>
-    <div class="diagram-values">
-      <span class="value">{{percentage}}</span>
-      <span class="percent">%</span>
+<div class="main-container">
+  <div class="line"></div>
+  <div class="container"
+    [ngClass]="{
+      off:!enableStatus,
+      warning:warningStatus
+    }"
+  >
+    <div class="circle" #chart>
+      <div class="diagram-values">
+        <span class="value">{{percentage}}</span>
+        <span class="percent">%</span>
+      </div>
+    </div>
+    <div class="title">
+      <span>{{title}}</span>
+      <div class="connection-circle"></div>
     </div>
   </div>
-  <div class="title">
-    <span>{{title}}</span>
-    <div class="connection-circle"></div>
-  </div>
+  <div 
+    class="line"
+    [style.borderColor]="!enableStatus? 'var(--sou-mvp-color-bg-title)': 'var(--sou-mvp-color-border)'"
+  ></div>
 </div>
+
