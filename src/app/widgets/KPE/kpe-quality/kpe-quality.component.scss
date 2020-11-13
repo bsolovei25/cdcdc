@@ -6,7 +6,7 @@
 .container {
   display: flex;
   flex-flow: column;
-  background-color: var(--color-astue-onpz-bg-card);
+  background-color: var(-color-kpe-gaude-unactive);
   height: calc(100% - 40px);
   width: 100%;
 
@@ -54,6 +54,12 @@
       flex-grow: 1;
       height: 100%;
       max-width: 50%;
+
+      &__line {
+        flex-grow: 1;
+        height: 100%;
+        max-width: 100%;
+      }
     }
   }
 }
@@ -133,9 +139,8 @@
 
 .element-container {
   position: relative;
-  border: solid 1px var(--color-sou-border);
   border-radius: 2px;
-  background: var(--color-sou-bg);
+  background: var(--color-lines-bg-dia);
   box-sizing: border-box;
 }
 

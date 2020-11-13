@@ -36,45 +36,85 @@
           ></evj-kpe-gauge-chart>
         </div>
         <div class="quality__header__chart">
-          <evj-kpe-deviation-diagram [data]="deviationChartData" [currentMonth]="displayedMonth"></evj-kpe-deviation-diagram>
+          <evj-kpe-deviation-diagram [data]="deviationChartData"
+                                     [currentMonth]="displayedMonth"></evj-kpe-deviation-diagram>
         </div>
       </div>
       <ng-container *ngFor="let main of cards; trackBy: trackByFuncMain">
-        <div class="quality__main">
-          <ng-container *ngFor="let card of main; trackBy: trackByFuncCard">
-            <div class="quality__main__gauge element-container">
-              <div class="card">
-                <div class="card__content">
-                  <div class="card__gauge-diagram">
-                    <evj-kpe-gauge-chart background="dark"
-                                         [fact]="card.gaugeChart?.fact"
-                                         [plan]="card.gaugeChart?.plan"
-                                         [deviation]="card.gaugeChart?.deviation"
-                    ></evj-kpe-gauge-chart>
-                    <div class="units">
-                      <div class="units__unit"
-                           [class.units__unit_active]="card?.gaugeChart?.unit"
-                      >{{ card?.gaugeChart?.unit || 'ед.изм' }}</div>
-                      <div class="units__unit"
-                           [class.units__unit_active]="!card?.gaugeChart?.unit"
-                      >%
+        <ng-container *ngIf="displayMode === 'tiled'">
+          <div class="quality__main">
+            <ng-container *ngFor="let card of main; trackBy: trackByFuncCard">
+              <div class="quality__main__gauge element-container">
+                <div class="card">
+                  <div class="card__content">
+                    <div class="card__gauge-diagram">
+                      <evj-kpe-gauge-chart background="dark"
+                                           [fact]="card.gaugeChart?.fact"
+                                           [plan]="card.gaugeChart?.plan"
+                                           [deviation]="card.gaugeChart?.deviation"
+                      ></evj-kpe-gauge-chart>
+                      <div class="units">
+                        <div class="units__unit"
+                             [class.units__unit_active]="card?.gaugeChart?.unit"
+                        >{{ card?.gaugeChart?.unit || 'ед.изм' }}</div>
+                        <div class="units__unit"
+                             [class.units__unit_active]="!card?.gaugeChart?.unit"
+                        >%
+                        </div>
+                      </div>
+                    </div>
+                    <div class="card__eq-diagram">
+                      <div class="title-area">
+                        <span class="title-area__title">{{ card.gaugeChart.title }}</span>
+                        <span class="title-area__comment">{{ card.description }}</span>
+                      </div>
+                      <div class="diagram-area">
+                        <evj-kpe-equalizer-chart [data]="card.equalizerChartConverted"></evj-kpe-equalizer-chart>
                       </div>
                     </div>
                   </div>
-                  <div class="card__eq-diagram">
-                    <div class="title-area">
-                      <span class="title-area__title">{{ card.gaugeChart.title }}</span>
-                      <span class="title-area__comment">{{ card.description }}</span>
+                </div>
+              </div>
+            </ng-container>
+          </div>
+        </ng-container>
+        <ng-container *ngIf="displayMode === 'line'">
+          <ng-container *ngFor="let card of main; trackBy: trackByFuncCard">
+            <div class="quality__main">
+              <div class="quality__main__gauge__line element-container">
+                <div class="card">
+                  <div class="card__content">
+                    <div class="card__gauge-diagram">
+                      <evj-kpe-gauge-chart background="dark"
+                                           [fact]="card.gaugeChart?.fact"
+                                           [plan]="card.gaugeChart?.plan"
+                                           [deviation]="card.gaugeChart?.deviation"
+                      ></evj-kpe-gauge-chart>
+                      <div class="units">
+                        <div class="units__unit"
+                             [class.units__unit_active]="card?.gaugeChart?.unit"
+                        >{{ card?.gaugeChart?.unit || 'ед.изм' }}</div>
+                        <div class="units__unit"
+                             [class.units__unit_active]="!card?.gaugeChart?.unit"
+                        >%
+                        </div>
+                      </div>
                     </div>
-                    <div class="diagram-area">
-                      <evj-kpe-equalizer-chart [data]="card.equalizerChartConverted"></evj-kpe-equalizer-chart>
+                    <div class="card__eq-diagram">
+                      <div class="title-area">
+                        <span class="title-area__title">{{ card.gaugeChart.title }}</span>
+                        <span class="title-area__comment">{{ card.description }}</span>
+                      </div>
+                      <div class="diagram-area">
+                        <evj-kpe-equalizer-chart [data]="card.equalizerChartConverted"></evj-kpe-equalizer-chart>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
           </ng-container>
-        </div>
+        </ng-container>
       </ng-container>
     </div>
   </div>
