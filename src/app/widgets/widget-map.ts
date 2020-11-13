@@ -1193,6 +1193,20 @@ export const WIDGETS_LAZY = {
         preview: 'sou-operational-accounting-system'
     },*/
 
+    'sou-operational-accounting-system-old': {
+        import: async () => {
+            return await import(
+                'src/app/widgets/SOU/sou-operational-accounting-system/sou-operational-accounting-system.module'
+                );
+        },
+        module: 'SouOperationalAccountingSystemModule',
+        itemCols: 32,
+        itemRows: 30,
+        minItemCols: 32,
+        minItemRows: 30,
+        preview: 'sou-operational-accounting-system'
+    },
+
     'sou-operational-accounting-system': {
         import: async () => {
             return await import(
