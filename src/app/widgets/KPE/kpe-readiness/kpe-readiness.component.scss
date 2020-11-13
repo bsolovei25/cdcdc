@@ -1,7 +1,7 @@
 .container {
   display: flex;
   flex-flow: column;
-  background-color: var(--color-astue-onpz-bg-card);
+  background-color: var(--color-kpe-gaude-unactive);
   height: 100%;
   width: 100%;
 
@@ -207,10 +207,16 @@
 
 .element-container {
   position: relative;
-  border: solid 1px var(--color-sou-border);
   border-radius: 2px;
-  background: var(--color-sou-bg);
+  background: var(--color-kpe-bg-sub);
   box-sizing: border-box;
+  &-line {
+    position: relative;
+    border-radius: 2px;
+    background: var(--color-kpe-bg-sub);
+    box-sizing: border-box;
+    height: 170px;
+  }
 }
 
 .content-container {
