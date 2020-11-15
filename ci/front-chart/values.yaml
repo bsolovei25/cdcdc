@@ -25,3 +25,11 @@ microservice:
     port: 443
     domain: funcoff.club
     site: evj
+
+  resources:
+    requests:
+      memory: "52Mi"
+      cpu: "64m"
+    limits:
+      memory: "128Mi"
+      cpu: "128m"
