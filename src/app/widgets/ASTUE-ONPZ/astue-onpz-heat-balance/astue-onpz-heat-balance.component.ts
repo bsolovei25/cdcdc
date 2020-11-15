@@ -19,9 +19,9 @@ export class AstueOnpzHeatBalanceComponent extends WidgetPlatform<unknown> imple
     dataSourceQuality: IAPSRecipeDiagram[] = DATASOURCE;
     data: IParams[] = [];
     columnsToDisplay: IColumnsToDisplay[] = [
-        { name: 'Параметры', date: new Date() },
-        { name: 'Факт', date: new Date('2020-02-01T03:24:00') },
-        { name: 'Модель', date: new Date('2020-02-02T03:24:00') }
+        { name: 'Показатели, Дж', date: new Date() },
+        { name: 'Абсолютная величина', date: new Date('2020-02-01T03:24:00') },
+        { name: 'Относительная величина', date: new Date('2020-02-02T03:24:00') }
     ];
 
     expandedElement: SelectionModel<string> = new SelectionModel(true);
