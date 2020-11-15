@@ -1,16 +1,20 @@
 include:
-  - ci/other.yml
+  - project: 'oaovd/osspu/evj/infra/pipelines'
+    file: '/templates/_base.yml'
+  - project: 'oaovd/osspu/evj/infra/pipelines'
+    file: '/templates/export-to-external.yml'
+  - project: 'oaovd/osspu/evj/infra/pipelines'
+    file: '/templates/alerting.yml'
+  - project: 'oaovd/osspu/evj/infra/pipelines'
+    file: '/templates/k8s.yml'
 
 variables:
   GIT_DEPTH: 3
-  #DOCKER_HOST: tcp://docker:2375
-  ## This will instruct Docker not to start over TLS.
-  #DOCKER_TLS_CERTDIR: ""
   DOCKER_BUILDKIT: 1
-  ENV_STAGES_FILE: "evj-front.env"
   COMPOSE_DOCKER_CLI_BUILD: 1 
   DOCKER_DRIVER: overlay2
   GIT_SSL_NO_VERIFY: "1"
+  ENV_STAGES_FILE: "evj-front.env"
   S3_RELEASE_BUCKET: "gazgolder/release-tags/${CI_PROJECT_NAME}"
 
 stages:
@@ -19,56 +23,61 @@ stages:
   - alerting
 
 export-zyfra-ftp:
-  extends: .export-image-to-ftp
+  extends: .export-image-to-ftp-tpl
   stage: exporting
   variables:
+    DOCKERHUB_URL: "registry.funcoff.club"
+    DOCKER_REPO: "evj"
     SERVICE_NAME: "front"
     EXTERNAL_DOCKER_IMG: "onpz.local/evj/frontend"
     TAG: "$CI_RELEASE_TAG"
   needs: []
-  when: manual
-  only:
-    refs:
-      - devops
-      - develop
-      - master
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+      when: manual
+    - if: $CI_COMMIT_BRANCH == "master"
+      when: manual
+    - if: $CI_COMMIT_BRANCH == "devops"
+      when: manual
 
 update-tags-front:
-  extends: .update-tags
+  extends: .update-tags-tpl
   stage: updating
   needs:
     - job: export-zyfra-ftp
-  only:
-    - devops
-    - master
-    - develop
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+    - if: $CI_COMMIT_BRANCH == "master"
+    - if: $CI_COMMIT_BRANCH == "devops"
 
 success-pipelines:
-  extends: .alerting-template
-  image:
-    name: registry.funcoff.club/devops/rockethooks:1.1.1
+  extends: .rocketchat-alerting-tpl
+  stage: alerting
   needs:
     - job: export-zyfra-ftp
   variables:
     MESSAGE: "*New release coming*. Uploaded to gpn-ftp ->"
   before_script:
     - mc cp ${S3_RELEASE_BUCKET}/${ENV_STAGES_FILE} .
-    - export $(cat ${ENV_STAGES_FILE} | head -1)
-  only:
-    - develop
-    - devops
-    - master
+    - export CI_RELEASE_TAG=$(cat ${ENV_STAGES_FILE} | head -1)
+  script:
+    - python $HOOKS -m "${CI_RELEASE_TAG} / ${MESSAGE}" -t $AUTH_TOKEN
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+    - if: $CI_COMMIT_BRANCH == "master"
+    - if: $CI_COMMIT_BRANCH == "devops"
 
 failed-pipelines:
-  extends: .alerting-template
-  image:
-    name: registry.funcoff.club/devops/rockethooks:1.1.1
+  extends: .rocketchat-alerting-tpl
+  stage: alerting
   variables:
     MESSAGE: "*PIPELINE FAILED*. See details below ->"
   needs: 
     - job: update-tags-front
-  when: on_failure
-  only:
-    - develop
-    - devops
-    - master
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+      when: on_failure
+    - if: $CI_COMMIT_BRANCH == "master"
+      when: on_failure
+    - if: $CI_COMMIT_BRANCH == "devops"
+      when: on_failure
