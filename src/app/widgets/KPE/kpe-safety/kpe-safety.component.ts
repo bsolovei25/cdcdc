@@ -33,6 +33,7 @@ export class KpeSafetyComponent extends WidgetPlatform<unknown> implements OnIni
     public deviationDiagramData: IKpeGaugeChartData = { plan: 100, fact: 100 };
 
     public gaugeCards: IKpeSafetyCard[][] = [];
+    public cardsList: IKpeSafetyCard[] = [];
 
     private isRendered: boolean = false;
 
@@ -69,6 +70,12 @@ export class KpeSafetyComponent extends WidgetPlatform<unknown> implements OnIni
     protected dataHandler(ref: IKpeSafetyData): void {
         this.deviationChartData = this.kpeHelperService.prepareKpeLineChartData(ref.deviationChart);
         this.gaugeCards = this.kpeHelperService.sortArray<IKpeSafetyCard>(ref.gaugeCards, 4);
+
+        this.cardsList = [];
+        this.gaugeCards.forEach (card => {
+            this.cardsList = [...this.cardsList, ...card];
+        });
+
         this.deviationDiagramData = ref.deviationDiagram;
         ref.deviationChart.forEach(data => {
             if (data.graphType === 'fact') {

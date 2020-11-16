@@ -24,6 +24,7 @@
       <div class="readiness__header">
         <div #mainGauge class="readiness__header__gauge" [style]="gaugeWidth(mainGauge)">
           <evj-kpe-gauge-chart #gaugeChart isPercent="true"
+                               [background]="'dark'"
                                [fact]="deviationDiagramData?.fact"
                                [plan]="deviationDiagramData?.plan"
                                [deviation]="deviationDiagramData?.deviation"
@@ -33,9 +34,8 @@
           <evj-kpe-deviation-diagram [data]="deviationChartData" [currentMonth]="displayedMonth"></evj-kpe-deviation-diagram>
         </div>
       </div>
-      <ng-container *ngFor="let cards of gaugeCards">
         <div class="readiness__main">
-          <ng-container *ngFor="let card of cards">
+          <ng-container *ngFor="let card of cardsList">
             <div class="readiness__main__gauge element-container">
               <div class="gauge-card">
                 <div class="gauge-card__content">
@@ -62,7 +62,6 @@
             </div>
           </ng-container>
         </div>
-      </ng-container>
     </div>
   </div>
 </div>
