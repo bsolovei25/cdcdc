@@ -29,15 +29,19 @@
       <div class="quality-docs-panel__bottom">
         <div class="bottom-block">
           <ng-container *ngFor="let filter of filters">
-            <div class="edit-button" (click)="openFilter(filter)" [class.active-filter]="isPopoverOpened.get(filter.type)" [attr.id]="filter.type + '-qual-docs-panel'">
-              <div class="edit-button__icon">
-                <svg-icon *ngIf="isPopoverOpened.get(filter.type)" src="assets/icons/widgets/oil-control-all/document-coding/filter-blue.svg"></svg-icon>
+            <div class="input-block" [attr.id]="filter.type + '-qual-docs-panel'" (click)="openFilter(filter)">
+              <div class="input-block__button-search">
+                <svg-icon *ngIf="isPopoverOpened.get(filter.type)" src="assets/icons/widgets/oil-control-all/document-coding/filter-blue.svg">
+                </svg-icon>
                 <svg-icon *ngIf="!isPopoverOpened.get(filter.type)" src="assets/icons/widgets/oil-control-all/document-coding/filter.svg"></svg-icon>
               </div>
-              <div class="edit-button__text">
-                <div class="name">{{ filter.name }} {{ getFilterCountData(filter.type) || '' }}</div>
-                <div class="icon">
-                  <svg-icon src="assets/icons/widgets/oil-control-all/document-coding/arrow.svg"></svg-icon>
+              <div class="input-block__input" [class.input-block__input-active]="isPopoverOpened.get(filter.type)">
+                <div class="input-back">
+                  <div class="name">{{ filter.name }} {{ getFilterCountData(filter.type) || '' }}</div>
+                  <div class="icon">
+                    <svg-icon src="assets/icons/widgets/oil-control-all/document-coding/arrow.svg">
+                    </svg-icon>
+                  </div>
                 </div>
               </div>
             </div>
@@ -49,13 +53,14 @@
               <svg-icon *ngIf="isPasportInput" class="button_filter_icon"
                         src="assets/icons/widgets/references/search_blue.svg"></svg-icon>
             </div>
-            <div class="input-block__input" [class.input-block__input-active]="isPasportInput">
+            <!--<div class="input-block__input" [class.input-block__input-active]="isPasportInput">
               <input type="text"
                      (focus)="isPasportInput = true"
                      (blur)="isPasportInput = false"
                      [formControl]="passportFormControl"
                      placeholder="Паспорт" (keyup)="searchRecords($event)"/>
-            </div>
+            </div>-->
+            <evj-circle-input (searchChange)="searchRecords($event)" style="height: 100%;"></evj-circle-input>
           </div>
           <div class="blocked-button" (click)="blockFilterToggle()">
             <svg-icon
