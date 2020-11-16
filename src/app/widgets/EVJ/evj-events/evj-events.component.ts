@@ -365,7 +365,8 @@ export class EvjEventsComponent extends WidgetPlatform<IEventsWidgetAttributes>
         if (
             this.placeNames.length !== 0 &&
             !this.placeNames.find((place) => place === ref.notification?.unit?.name) &&
-            ref.action !== 'delete'
+            ref.action !== 'delete' &&
+            ref.action !== 'edit'
         ) {
             return;
         }
