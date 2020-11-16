@@ -1,17 +1,17 @@
-import {Component, OnInit, OnDestroy, Inject, HostListener, Input} from '@angular/core';
+import { Component, OnInit, OnDestroy, Inject, HostListener, Input } from '@angular/core';
 import { WidgetPlatform } from '../../../dashboard/models/@PLATFORM/widget-platform';
 import { EventsWorkspaceService } from '../../../dashboard/services/widgets/EVJ/events-workspace.service';
 import { EventService } from '../../../dashboard/services/widgets/EVJ/event.service';
 import { WidgetService } from '../../../dashboard/services/widget.service';
 import { DateAdapter, MAT_DATE_LOCALE } from '@angular/material/core';
-import { AuthService } from '../../../@core/service/auth.service';
+import { AuthService } from '@core/service/auth.service';
 import {
     IUser,
     EventsWidgetData,
     IEventsWidgetNotification,
     IStatus,
 } from '../../../dashboard/models/EVJ/events-widget';
-import { IAlertWindowModel } from '../../../@shared/models/alert-window.model';
+import { IAlertWindowModel } from '@shared/models/alert-window.model';
 import {
     MomentDateAdapter,
     MAT_MOMENT_DATE_ADAPTER_OPTIONS,
@@ -29,7 +29,8 @@ import {
         },
     ],
 })
-export class EvjEventsWorkspaceComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
+export class EvjEventsWorkspaceComponent extends WidgetPlatform<unknown>
+    implements OnInit, OnDestroy {
     get eventProdButton(): string {
         const flagCat: boolean = this.ewService.event?.category?.code === '2';
         const flagStat: boolean = this.ewService.event?.status?.name === 'closed';
@@ -84,12 +85,13 @@ export class EvjEventsWorkspaceComponent extends WidgetPlatform<unknown> impleme
         this.ewService.loadItem();
     }
 
-    protected dataHandler(ref: any): void {
+    protected dataHandler(ref: EventsWidgetData): void {
         this.wsHandler(ref);
     }
 
     ngOnDestroy(): void {
         super.ngOnDestroy();
+        this.ewService.event = null;
     }
 
     private wsHandler(data: EventsWidgetData): void {
