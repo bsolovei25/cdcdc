@@ -63,7 +63,7 @@ export class OilOperationsService {
         }
     }
 
-    public async getFilterList<T>(filter: 'products' | 'groups'): Promise<T>  {
+    public async getFilterList<T>(filter: 'products' | 'groups' | 'tanks'): Promise<T>  {
         try {
             return await this.http.get<T>(`${this.restUrl}/api/oil-control/${filter}`).toPromise();
         } catch (e) {

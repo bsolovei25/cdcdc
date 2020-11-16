@@ -18,6 +18,8 @@ import { DocumentsScansService } from '../../../dashboard/services/oil-control-s
 import { SnackBarService } from '../../../dashboard/services/snack-bar.service';
 import { IOilControlManualAdjEmitResponse } from './components/oil-operations-adjustment/oil-operations-adjustment.component';
 
+export type IDocumentOilOperationsFilterType = 'products' | 'groups';
+
 export interface IOilOperationsButton {
     isFilter: boolean;
     filter: boolean;
@@ -39,7 +41,7 @@ export class OilOperationsComponent extends WidgetPlatform<unknown> implements O
 
     private currentDates: IDatesInterval;
 
-    public availableFilters: ITableGridFilter<IOilFilter>[] = [
+    public availableFilters: ITableGridFilter<IOilFilter, IDocumentOilOperationsFilterType>[] = [
         {
             name: 'Продукты',
             type: 'products',
@@ -79,17 +81,22 @@ export class OilOperationsComponent extends WidgetPlatform<unknown> implements O
         shipment: [
             {
                 id: 1,
+                name: 'Автоматическая привязка отгрузок',
+                type: 'autoAssign'
+            },
+            {
+                id: 2,
                 name: 'Свободные отгрузки',
                 value: 2352,
                 type: 'free'
             },
             {
-                id: 2,
+                id: 3,
                 name: 'Привязать отгрузки',
-                type: 'autoAssign'
+                type: 'manualAssign'
             },
             {
-                id: 3,
+                id: 4,
                 name: 'Создать корректировку',
                 type: 'adjust'
             }

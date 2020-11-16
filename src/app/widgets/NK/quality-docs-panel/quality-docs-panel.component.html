@@ -22,27 +22,26 @@
       <div class="quality-docs-panel__container">
         <cdk-virtual-scroll-viewport (scroll)="scrollHandler($event)" autosize class="scroll-block" #table>
           <ng-container *cdkVirtualFor="let item of data">
-            <evj-quality-docs-record [data]="item"></evj-quality-docs-record>
+            <evj-quality-docs-record [data]="item" (emitBlockUnblock)="rowBlockUnblock($event)"></evj-quality-docs-record>
           </ng-container>
         </cdk-virtual-scroll-viewport>
       </div>
       <div class="quality-docs-panel__bottom">
         <div class="bottom-block">
-          <div class="filter-product">
-            <evj-table-grid-filter [filter]="filterByProduct" (filterSelect)="openFilter($event)"></evj-table-grid-filter>
-          </div>
-          <div class="input-block tanks">
-            <div class="input-block__button-search">
-              <svg-icon *ngIf="!isTanksInput" class="button_filter_icon"
-                        src="assets/icons/widgets/references/search_white.svg"></svg-icon>
-              <svg-icon *ngIf="isTanksInput" class="button_filter_icon"
-                        src="assets/icons/widgets/references/search_blue.svg"></svg-icon>
+          <ng-container *ngFor="let filter of filters">
+            <div class="edit-button" (click)="openFilter(filter)" [class.active-filter]="isPopoverOpened.get(filter.type)" [attr.id]="filter.type + '-qual-docs-panel'">
+              <div class="edit-button__icon">
+                <svg-icon *ngIf="isPopoverOpened.get(filter.type)" src="assets/icons/widgets/oil-control-all/document-coding/filter-blue.svg"></svg-icon>
+                <svg-icon *ngIf="!isPopoverOpened.get(filter.type)" src="assets/icons/widgets/oil-control-all/document-coding/filter.svg"></svg-icon>
+              </div>
+              <div class="edit-button__text">
+                <div class="name">{{ filter.name }} {{ getFilterCountData(filter.type) || '' }}</div>
+                <div class="icon">
+                  <svg-icon src="assets/icons/widgets/oil-control-all/document-coding/arrow.svg"></svg-icon>
+                </div>
+              </div>
             </div>
-            <div class="input-block__input" [class.input-block__input-active]="isTanksInput">
-              <input type="text" (focus)="isTanksInput = true" (blur)="isTanksInput = false"
-                     placeholder="Резервуар" (keyup)="searchRecords($event)"/>
-            </div>
-          </div>
+          </ng-container>
           <div class="input-block pasport">
             <div class="input-block__button-search">
               <svg-icon *ngIf="!isPasportInput" class="button_filter_icon"
@@ -51,23 +50,14 @@
                         src="assets/icons/widgets/references/search_blue.svg"></svg-icon>
             </div>
             <div class="input-block__input" [class.input-block__input-active]="isPasportInput">
-              <input type="text" (focus)="isPasportInput = true" (blur)="isPasportInput = false"
+              <input type="text"
+                     (focus)="isPasportInput = true"
+                     (blur)="isPasportInput = false"
+                     [formControl]="passportFormControl"
                      placeholder="Паспорт" (keyup)="searchRecords($event)"/>
             </div>
           </div>
-          <div class="input-block products">
-            <div class="input-block__button-search">
-              <svg-icon *ngIf="!isProductInput" class="button_filter_icon"
-                        src="assets/icons/widgets/references/search_white.svg"></svg-icon>
-              <svg-icon *ngIf="isProductInput" class="button_filter_icon"
-                        src="assets/icons/widgets/references/search_blue.svg"></svg-icon>
-            </div>
-            <div class="input-block__input" [class.input-block__input-active]="isProductInput">
-              <input type="text" (focus)="isProductInput = true" (blur)="isProductInput = false"
-                     placeholder="Продукт" (keyup)="searchRecords($event)"/>
-            </div>
-          </div>
-          <div class="blocked-button">
+          <div class="blocked-button" (click)="blockFilterToggle()">
             <svg-icon
               src="assets/icons/widgets/oil-control-all/quality-docs-panel/blocked.svg">
             </svg-icon>

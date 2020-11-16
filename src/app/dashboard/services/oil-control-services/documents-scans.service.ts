@@ -67,6 +67,10 @@ export class DocumentsScansService {
         this.alertWindow$.next(null);
     }
 
+    public async passportBlockUnblock(id: number, action: 'block' | 'unblock'): Promise<any> {
+        return this.http.get(`${this.restUrl}/api/oil-control/Passport/${action}/${id}`).toPromise();
+    }
+
     public async getPassportsByFilter(
         lastId: number,
         options: IOilControlPassportOpts
@@ -75,7 +79,7 @@ export class DocumentsScansService {
             return this.http
                 .get<IQualityDocsRecord[]>(
                     this.restUrl +
-                    `/api/oil-control/transfers?${this.getOptionString(lastId, options)}`
+                    `/api/oil-control/Passport/passportsbyfilter?${this.getOptionString(lastId, options)}`
                 )
                 .toPromise();
         } catch (error) {

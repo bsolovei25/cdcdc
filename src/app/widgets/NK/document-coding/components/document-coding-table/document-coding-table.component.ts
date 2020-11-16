@@ -3,20 +3,8 @@ import { PopoverOverlayService } from '@shared/components/popover-overlay/popove
 import { DocumentCodingFilterComponent } from '../document-coding-filter/document-coding-filter.component';
 import { DocumentCodingService } from '../../../../../dashboard/services/oil-control-services/document-coding.service';
 import { IDocumentsLaboratory } from '../../../../../dashboard/models/oil-document.model';
-import { IOilOperationsProduct } from '../../../../../dashboard/models/oil-operations';
-
-export interface IDocumentCodingFilter {
-    id: number;
-    name: string;
-    createdAt?: string;
-    isActual?: boolean;
-}
-
-export interface IDocumentCodingTableFilter<T> {
-    name: string;
-    type: IDocumentCodingFilterType;
-    data?: T[];
-}
+import { IOilFilter, IOilOperationsProduct } from '../../../../../dashboard/models/oil-operations';
+import { ITableGridFilter } from '../../../../../dashboard/components/table-grid/components/table-grid-filter/table-grid-filter.component';
 
 export type IDocumentCodingFilterType = 'groups' | 'laboratories';
 
@@ -38,9 +26,9 @@ export class DocumentCodingTableComponent implements OnInit {
 
     public isPopoverOpened: Map<IDocumentCodingFilterType, boolean> = new Map();
 
-    public activeFilters: Map<IDocumentCodingFilterType, IDocumentCodingFilter[]> = new Map();
+    public activeFilters: Map<IDocumentCodingFilterType, IOilFilter[]> = new Map();
 
-    public filters: IDocumentCodingTableFilter<IDocumentCodingFilter>[] = [
+    public filters: ITableGridFilter<IOilFilter, IDocumentCodingFilterType>[] = [
         {
             name: 'Лаборатория',
             type: 'laboratories',
@@ -106,12 +94,12 @@ export class DocumentCodingTableComponent implements OnInit {
         this.data = await this.documentCodingService.getProductListByFilter<IOilOperationsProduct>(labs, groups);
     }
 
-    public openFilter(filter: IDocumentCodingTableFilter<IDocumentCodingFilter>): void {
+    public openFilter(filter: ITableGridFilter<IOilFilter, IDocumentCodingFilterType>): void {
         const element = document.getElementById(filter.type + '-doc-coding');
         this.openPopover(element, filter);
     }
 
-    private openPopover(origin: HTMLElement, filter: IDocumentCodingTableFilter<IDocumentCodingFilter>): void {
+    private openPopover(origin: HTMLElement, filter: ITableGridFilter<IOilFilter, IDocumentCodingFilterType>): void {
         const popoverRef = this.popoverOverlayService.open({
             content: DocumentCodingFilterComponent,
             origin,
@@ -144,7 +132,7 @@ export class DocumentCodingTableComponent implements OnInit {
         return this.activeFilters.get(type)?.length;
     }
 
-    private getActiveFilterArrayByType(type: IDocumentCodingFilterType): IDocumentCodingFilter[] {
+    private getActiveFilterArrayByType(type: IDocumentCodingFilterType): IOilFilter[] {
         return this.activeFilters.has(type) ? Array.from(this.activeFilters.get(type).values()) : [];
     }
 }
