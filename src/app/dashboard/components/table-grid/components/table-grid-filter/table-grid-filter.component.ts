@@ -12,10 +12,11 @@ import {
 import { PopoverOverlayService } from '@shared/components/popover-overlay/popover-overlay.service';
 import { IOilFilter } from '../../../../models/oil-operations';
 import { IOilFilterInput} from 'src/app/widgets/NK/oil-operations/components/oil-operations-filter/oil-operations-filter.component';
+import { IDocumentCodingFilterType } from '../../../../../widgets/NK/document-coding/components/document-coding-table/document-coding-table.component';
 
-export interface ITableGridFilter<T> {
+export interface ITableGridFilter<T, R> {
     name: string;
-    type: string;
+    type: R;
     data?: T[];
 }
 
@@ -35,7 +36,7 @@ export class TableGridFilterComponent implements OnInit, OnChanges {
     public filterSelect: EventEmitter<ITableGridActiveFilter> = new EventEmitter<ITableGridActiveFilter>();
 
     @Input()
-    public filter: ITableGridFilter<IOilFilter>;
+    public filter: ITableGridFilter<IOilFilter, IDocumentCodingFilterType>;
 
     public isPopoverOpened: boolean = false;
 

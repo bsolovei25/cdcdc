@@ -18,6 +18,12 @@ import {
     IOilControlPassportOpts
 } from '../../../dashboard/services/oil-control-services/documents-scans.service';
 import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
+import { DocumentCodingFilterComponent } from '../document-coding/components/document-coding-filter/document-coding-filter.component';
+import { PopoverOverlayService } from '@shared/components/popover-overlay/popover-overlay.service';
+import { FormControl } from '@angular/forms';
+import { ArrayProperties} from '@shared/models/common.model';
+
+export type IDocumentOilQualityPanelFilterType = 'products-document-panel' | 'groups-document-panel' | 'tanks-document-panel';
 
 export interface IQualityDocsRecord {
     id: number;
@@ -67,24 +73,39 @@ export class QualityDocsPanelComponent extends WidgetPlatform<unknown> implement
 
     @ViewChild('table') public table: ElementRef;
 
-    public filterByProduct: ITableGridFilter<IOilFilter> =
+    public filters: ITableGridFilter<IOilFilter, IDocumentOilQualityPanelFilterType>[] = [
         {
             name: 'Продукты',
             type: 'products-document-panel',
             data: [],
-        };
+        },
+        {
+            name: 'Группы',
+            type: 'groups-document-panel',
+            data: [],
+        },
+        {
+            name: 'Резервуары',
+            type: 'tanks-document-panel',
+            data: [],
+        }
+    ];
 
     public filterByProductValue: any;
 
+    public blockFilter: boolean = false;
+
     public data: IQualityDocsRecord[] = [];
 
-    public isFilter: boolean = false;
+    public passportValue: string | null = null;
 
-    public isTanksInput: boolean = false;
     public isPasportInput: boolean = false;
-    public isProductInput: boolean = false;
 
     private currentDates: IDatesInterval;
+
+    public isPopoverOpened: Map<IDocumentOilQualityPanelFilterType, boolean> = new Map();
+
+    public activeFilters: Map<IDocumentOilQualityPanelFilterType, IOilFilter[]> = new Map();
 
     constructor(
         public widgetService: WidgetService,
@@ -93,6 +114,7 @@ export class QualityDocsPanelComponent extends WidgetPlatform<unknown> implement
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string,
         public oilDocumentService: DocumentsScansService,
+        private popoverOverlayService: PopoverOverlayService,
     ) {
         super(widgetService, isMock, id, uniqId);
         this.isRealtimeData = false;
@@ -101,7 +123,9 @@ export class QualityDocsPanelComponent extends WidgetPlatform<unknown> implement
 
     public ngOnInit(): void {
         super.widgetInit();
-        this.getFilterList();
+        this.getFilterList('products-document-panel');
+        this.getFilterList('groups-document-panel');
+        this.getFilterList('tanks-document-panel');
     }
 
     public ngOnChanges(changes: SimpleChanges): void {
@@ -109,7 +133,6 @@ export class QualityDocsPanelComponent extends WidgetPlatform<unknown> implement
     }
 
     protected dataHandler(ref: any): void {
-        // this.data = ref;
     }
 
     protected dataConnect(): void {
@@ -129,17 +152,45 @@ export class QualityDocsPanelComponent extends WidgetPlatform<unknown> implement
         this.viewportCheck();
     }
 
+    public async rowBlockUnblock(params: { id: number; action: 'block' | 'unblock' }): Promise<void> {
+        await this.oilDocumentService.passportBlockUnblock(params.id, params.action);
+        this.getData();
+    }
+
+    public blockFilterToggle(): void {
+        this.blockFilter = !this.blockFilter;
+        this.getData();
+    }
+
+    private getData(): void {
+        this.getList().then((ref) => {
+            this.data = ref;
+        });
+    }
+
     private getOptions(): IOilControlPassportOpts {
         const options: IOilControlPassportOpts = {
             StartTime: this.currentDates.fromDateTime,
             EndTime: this.currentDates.toDateTime,
         };
-        /*if (this.filterGroup) {
-            options.group = this.filterGroup;
+        const products = this.getActiveFilterArrayByType('products-document-panel');
+        const groups = this.getActiveFilterArrayByType('groups-document-panel');
+        const tanks = this.getActiveFilterArrayByType('tanks-document-panel');
+
+        function addFilters(arr: IOilFilter[], key: keyof ArrayProperties<IOilControlPassportOpts, number>): void {
+            if (!arr.length) { return; }
+            options[key] = [];
+            arr.forEach(item => { options[key].push(item.id); });
         }
-        if (this.filterProduct) {
-            options.product = this.filterProduct;
-        }*/
+
+        addFilters(products, 'ProductIds');
+        addFilters(groups, 'GroupIds');
+        addFilters(tanks, 'TankIds');
+
+        if (this.passportValue) {
+            options.PassportName = this.passportValue;
+        }
+        options.IsBlocked = this.blockFilter;
         return options;
     }
 
@@ -168,15 +219,9 @@ export class QualityDocsPanelComponent extends WidgetPlatform<unknown> implement
         }
     }
 
-    public openFilter(open: any): void {
-        console.log(open);
-    }
-
-    public searchRecords(event: Event): void {
-    }
-
-    public closeFilter(event: boolean): void {
-        this.isFilter = event;
+    public searchRecords(event: string): void {
+        this.passportValue = event;
+        this.getData();
     }
 
     public async scrollHandler(event: { target: { offsetHeight: number, scrollTop: number, scrollHeight: number } }): Promise<void> {
@@ -188,14 +233,64 @@ export class QualityDocsPanelComponent extends WidgetPlatform<unknown> implement
         }
     }
 
+    public getFilterCountData(type: IDocumentOilQualityPanelFilterType): number {
+        return this.activeFilters.get(type)?.length;
+    }
+
+    public openFilter(filter: ITableGridFilter<IOilFilter, IDocumentOilQualityPanelFilterType>): void {
+        const element = document.getElementById(filter.type + '-qual-docs-panel');
+        this.openPopover(element, filter);
+    }
+
+    private openPopover(origin: HTMLElement, filter: ITableGridFilter<IOilFilter, IDocumentOilQualityPanelFilterType>): void {
+        const popoverRef = this.popoverOverlayService.open({
+            content: DocumentCodingFilterComponent,
+            origin,
+            data: {
+                title: filter.name,
+                data: filter.data,
+                type: filter.type,
+                activeFilters: this.getActiveFilterArrayByType(filter.type),
+            },
+        });
+        this.isPopoverOpened.set(filter.type, true);
+
+        popoverRef.afterClosed$.subscribe(res => {
+            console.log(res);
+            this.isPopoverOpened.set(res?.data?.type, false);
+            if (res && res.data && res.type === 'close') {
+                this.activeFilters.set(res?.data?.type, res.data.activeFilters);
+                this.getData();
+            }
+        });
+    }
+
+    private getActiveFilterArrayByType(type: IDocumentOilQualityPanelFilterType): IOilFilter[] {
+        return this.activeFilters.has(type) ? Array.from(this.activeFilters.get(type).values()) : [];
+    }
+
     private viewportCheck(): void {
         if (this.data?.length > 0) {
             this.viewport?.checkViewportSize();
         }
     }
 
-    private async getFilterList(): Promise<void> {
-        this.filterByProduct.data = await this.oilOperationService.getFilterList<IOilFilter[]>('products');
+    private async getFilterList(filter: IDocumentOilQualityPanelFilterType): Promise<void> {
+        let filterParam: 'products' | 'groups' | 'tanks';
+        switch (filter) {
+            case 'products-document-panel':
+                filterParam = 'products';
+                break;
+            case 'groups-document-panel':
+                filterParam = 'groups';
+                break;
+            case 'tanks-document-panel':
+                filterParam = 'tanks';
+                break;
+        }
+        const values = await this.oilOperationService.getFilterList<IOilFilter[]>(filterParam);
+        const filterToReplace = this.filters.find(availableFilter => availableFilter.type === filter);
+        if (filterToReplace) { filterToReplace.data = values; }
     }
 
     private async onDatesChange(dates: IDatesInterval): Promise<void> {

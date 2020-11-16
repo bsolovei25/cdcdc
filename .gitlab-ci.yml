@@ -1,23 +1,25 @@
 ---
 include:
-  - ci/build.yml
-  - ci/deploy.yml
-  - ci/other.yml
-    #  - ci/export-zyfra.yml
-
-.init_template: &init
-  tags:
-    - build2-cup-front
+  - project: 'oaovd/osspu/evj/infra/pipelines'
+    file: '/templates/_base.yml'
+  - project: 'oaovd/osspu/evj/infra/pipelines'
+    file: '/templates/semantic-release.yml'
+  - project: 'oaovd/osspu/evj/infra/pipelines'
+    file: '/templates/alerting.yml'
+  - project: 'oaovd/osspu/evj/infra/pipelines'
+    file: '/templates/ng-build.yml'
+  - project: 'oaovd/osspu/evj/infra/pipelines'
+    file: '/templates/docker-packing.yml'
+  - project: 'oaovd/osspu/evj/infra/pipelines'
+    file: '/templates/k8s.yml'
+  - project: 'oaovd/osspu/evj/infra/pipelines'
+    file: '/templates/release-notes.yml'
 
 variables:
   GIT_DEPTH: 8
-  #DOCKER_HOST: tcp://docker:2375
-  ## This will instruct Docker not to start over TLS.
-  #DOCKER_TLS_CERTDIR: ""
   DOCKER_BUILDKIT: 1
   COMPOSE_DOCKER_CLI_BUILD: 1 
   DOCKER_DRIVER: overlay2
-  # Registry configs
   GIT_SSL_NO_VERIFY: "1"
   SCP_HOST: root@${DEPLOY_DOMAIN}
   ROCKETCHAT_HOOKS: "/home/gitlab-runner/rocket.integrations"
@@ -34,47 +36,52 @@ stages:
   - release
   - clean-on-failure
 
+    
+.default_rules_mr_anchor: &default_rules_mr
+  rules:
+    - if: $CI_MERGE_REQUEST_IID
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+    - if: $CI_COMMIT_BRANCH == "master"
+    - if: $CI_COMMIT_BRANCH == "devops"
+
+.default_rules_refs_anchor: &default_rules_refs
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+    - if: $CI_COMMIT_BRANCH == "master"
+    - if: $CI_COMMIT_BRANCH == "devops"
+
 install_dependencies:
+  extends: .ng-slim-base
   stage: .pre
-  image: registry.funcoff.club/libs/node:slim
-  tags:
-    - gl-docker-socket
   cache: 
     key: one-key-to-rule-them-all
     paths:
       - node_modules/
+    policy: pull-push
   script:
     - npm ci
-  only:
-    refs:
-      - merge_requests
-      - develop
-      - devops
-      - master
-    changes:
-      - package.json
+  rules:
+    - if: $CI_MERGE_REQUEST_IID
+      changes:
+        - package.json
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+      changes:
+        - package.json
         #- package-lock.json
 
 ng-build:
-  extends: .ng-build
+  extends: .ng-build-tpl
   cache: 
-    #key: $CI_COMMIT_REF_SLUG-$CI_PROJECT_DIR
     key: one-key-to-rule-them-all
-    policy: pull
-    paths:
-      - node_modules/
-  after_script:
-    - echo ${DOCKER_IMG}
-  only:
-    - merge_requests
-    - develop
-    - devops
-    - master
+  <<: *default_rules_mr
 
 docker-packing:
-  extends: .packing
+  extends: .docker-ng-packing-tpl
   variables:
+    DOCKERHUB_URL: "registry.funcoff.club"
+    DOCKER_REPO: "evj"
     SERVICE_NAME: "front"
+    DOCKERFILE_PACK: "./docker/Dockerfile.packing"
   needs:
     - job: ng-build
       artifacts: true
@@ -83,19 +90,14 @@ docker-packing:
     - > 
       if [[ $CI_COMMIT_REF_SLUG == "master" ]]; then
       docker tag ${DOCKER_BASE_NAME}:latest ${DOCKER_BASE_NAME}:$CI_COMMIT_REF_SLUG ;
-      docker tag ${DOCKER_BASE_NAME}:latest ${DOCKER_BASE_NAME}:$CI_COMMIT_REF_SLUG-${CI_COMMIT_SHORT_SHA} ;
       docker push ${DOCKER_BASE_NAME}:${CI_COMMIT_REF_SLUG}; 
-      docker push ${DOCKER_BASE_NAME}:${CI_COMMIT_REF_SLUG}-${CI_COMMIT_SHORT_SHA}; 
       fi
-  only:
-    - merge_requests
-    - devops
-    - develop
-    - master
+  <<: *default_rules_mr
 
 deploy-front:
-  extends: .deploy-to-k8s
+  extends: .deploy-chart-k8s-tpl
   variables:
+    GIT_SUBMODULE_STRATEGY: recursive
     NS: "evj"
     IMG_VERSION: "latest"
     CHART: "./ci/front-chart"
@@ -104,48 +106,44 @@ deploy-front:
     INGRESS_SITE: "evj"
   needs:
     - job: docker-packing
-  dependencies: []
   environment:
     name: staging
     url: "https://evj.funcoff.club"
-  only:
-    - devops
-    - develop
-    - master
+  <<: *default_rules_refs
 
 deliver-to-deploy:
-  extends: .packing 
+  extends: .alpine-ssh-base
   stage: deploy
-  image:
-    name: gitlab.funcoff.club:4567/oaovd/osspu/evj/back/runners:alpine
   variables:
-    DEPLOY_DOMAIN: deploy.funcoff.club
+    DEPLOY_DOMAIN: 192.168.0.23
     GIT_STRATEGY: none
     DEPLOY_PATH: "/var/www/angular-staging.local/public"
     CMD_REPLACE: sed -i -E "s/(<title>Evj)(<\/title>)/\1 | ${CI_COMMIT_SHORT_SHA} \2/g" /var/www/angular.local/public/index.html
   needs:
     - job: ng-build
       artifacts: true
+  before_script:
+    - cat /etc/hosts
   script:
     - ssh root@${DEPLOY_DOMAIN} rm -rf $DEPLOY_PATH
     - mv ./dist/evj public
     - scp -r ./public root@${DEPLOY_DOMAIN}:${DEPLOY_PATH//\/public}
     - ssh root@${DEPLOY_DOMAIN} $CMD_REPLACE
     - ssh root@${DEPLOY_DOMAIN} nginx -s reload
-  only:
-    - develop
-    - devops
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+    - if: $CI_COMMIT_BRANCH == "devops"
       
 deploy-front-mr:
-  extends: .deploy-to-k8s
+  extends: .deploy-chart-k8s-tpl
   variables:
+    GIT_SUBMODULE_STRATEGY: recursive
     NS: "evj-${CI_COMMIT_REF_SLUG}"
     IMG_VERSION: "${CI_COMMIT_REF_SLUG}"
     CHART: "./ci/front-chart"
     RELEASE: "front"
     DEPLOY_DOMAIN: "https://evj-${CI_COMMIT_REF_SLUG}.funcoff.club"
     INGRESS_SITE: "evj-${CI_COMMIT_REF_SLUG}"
-  dependencies: []
   needs:
     - job: docker-packing
   environment:
@@ -153,55 +151,50 @@ deploy-front-mr:
     url: "https://evj-${CI_COMMIT_REF_SLUG}.funcoff.club"
     on_stop: stop-k8s-review
     auto_stop_in: 1 day
-  only:
-    - merge_requests
+  rules:
+    - if: $CI_MERGE_REQUEST_IID
 
 stop-k8s-review:
-  extends: .deploy-to-k8s 
+  extends: .deploy-chart-k8s-tpl
   variables:
     GIT_STRATEGY: none
     NS: "evj-${CI_COMMIT_REF_SLUG}"
-  only:
-      - merge_requests
   script:
     - kubectl version
     - kubectl delete ns ${NS} || true
-  dependencies: []
-  when: manual
   environment:
     name: review/${CI_COMMIT_REF_SLUG}
     action: stop
+  when: manual
+  only:
+    - merge_requests
+  # rules:
+  #   - if: $CI_MERGE_REQUEST_IID
+  #     when: manual
       
 success-pipelines:
-  extends: .alerting-template
-  image:
-    name: registry.funcoff.club/devops/rockethooks:1.1.1
+  extends: .rocketchat-alerting-tpl
   variables:
     MESSAGE: "*New release coming*. Downtime around 1 min ->"
     AUTH_TOKEN: "$ROCKETCHAT_PIPELINES"
   needs:
     - job: deploy-front
-  dependencies: []
-  only:
-    - develop
-    - devops
-    - master
+  <<: *default_rules_refs
 
 failed-pipelines:
-  extends: .alerting-template
-  image:
-    name: registry.funcoff.club/devops/rockethooks:1.1.1
+  extends: .rocketchat-alerting-tpl
   variables:
     MESSAGE: "*PIPELINE FAILED*. See details below ->"
     AUTH_TOKEN: "$ROCKETCHAT_TOKEN"
   needs:
     - job: deploy-front
-  dependencies: []
-  when: on_failure
-  only:
-    - develop
-    - devops
-    - master
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+      when: on_failure
+    - if: $CI_COMMIT_BRANCH == "master"
+      when: on_failure
+    - if: $CI_COMMIT_BRANCH == "devops"
+      when: on_failure
 
 export-to-zyfra:
   stage: release
@@ -209,164 +202,10 @@ export-to-zyfra:
     GIT_STRATEGY: none
   trigger:
     include: ci/export-images-child.yml
-  needs:
-    - job: ng-build
-  only:
-    refs:
-      - devops
-      - develop
-      - master
+  <<: *default_rules_refs
 
 release-notes-maker:
-  extends: .release-notes
+  extends: .release-notes-tpl
   needs: []
   dependencies: []
   when: manual
-
-.export to zyfra:
-  extends: .deploy-to-zyfra
-  variables:
-    GIT_STRATEGY: none
-    SERVICE_NAME: "front"
-    EXTERNAL_DOCKER_IMG: "onpz.local/evj/frontend"
-  only:
-    - devops
-    - develop
-    - master
-
-.docker build:
-    <<: *init
-    stage: prebuild
-    script:
-        - echo "Prebuild checking... Getting docker container rdy."
-        - docker container stop ${CI_PROJECT_NAME} || sleep 0.1
-        - docker build . -t ${CI_PROJECT_NAME} -f Dockerfile.prod
-        - docker stop ${CI_PROJECT_NAME} || sleep 0.1
-        - docker container rm ${CI_PROJECT_NAME} || sleep 0.1
-        - docker run --rm --name ${CI_PROJECT_NAME} -d ${CI_PROJECT_NAME} ; docker exec ${CI_PROJECT_NAME} ng build
-        - docker cp ${CI_PROJECT_NAME}:/app/dist/evj ./public
-        - docker container stop ${CI_PROJECT_NAME} || sleep 0.1
-    artifacts:
-        paths:
-            - ./public
-    only:
-        - merge_requests
-
-
-.testing website:
-    <<: *init
-    stage: test
-    script:
-        - echo "Doing some tests... Someone should add unit tests or whatever here"
-        - ls
-    only:
-        - merge_requests
-
-.build artifact:
-    <<: *init
-    stage: build
-    script:
-        - docker build . -t ${CI_PROJECT_NAME}_prod -f Dockerfile.prod
-        - docker stop ${CI_PROJECT_NAME}_prod || sleep 0.1
-        - docker container rm ${CI_PROJECT_NAME}_prod || sleep 0.1
-        - docker run --rm --name ${CI_PROJECT_NAME}_prod  -d ${CI_PROJECT_NAME}_prod ; docker exec ${CI_PROJECT_NAME}_prod ng build --prod
-        - docker cp ${CI_PROJECT_NAME}_prod:/app/dist/evj ./public
-        - docker container stop ${CI_PROJECT_NAME}_prod
-    only:
-        - master
-        - develop
-    artifacts:
-        paths:
-            - ./public
-
-.deploy review:
-    <<: *init
-    stage: deploy-review
-    script:
-        - sed -i -E "s/(<title>Evj)(<\/title>)/\1  |  ${CI_COMMIT_SHORT_SHA}\2/g" ./public/index.html
-        - scp -r ./public root@${DEPLOY_DOMAIN}:/root/dynamic-environment-creator
-        - ssh ${SCP_HOST} "cd /root/dynamic-environment-creator ; git pull origin master --no-edit ; python3 main.py -d create -e $CI_COMMIT_REF_SLUG"
-        - scp ${SCP_HOST}:/root/dynamic-environment-creator/deploy.env .
-        - ssh ${SCP_HOST} "nginx -s reload"
-    artifacts:
-        reports:
-            dotenv: deploy.env 
-    only:
-        - merge_requests
-    environment:
-        name: review/${CI_COMMIT_REF_SLUG}
-        url: https://$DYNAMIC_ENVIRONMENT_URL
-        on_stop: stop-review
-
-.stop-review:
-    <<: *init
-    variables:
-        GIT_STRATEGY: none
-    stage: deploy-review
-    only:
-        - merge_requests
-    script:
-        - ssh ${SCP_HOST} "cd /root/dynamic-environment-creator ; python3 main.py -d destroy -e $CI_COMMIT_REF_SLUG"
-    when: manual
-    environment:
-        name: review/${CI_COMMIT_REF_SLUG}
-        action: stop
-
-.staging:
-    <<: *init
-    stage: staging
-    environment:
-        name: staging
-        url: http://${DEPLOY_DOMAIN}:88
-    variables:
-        CMD_REPLACE: sed -i -E "s/(<title>Evj)(<\/title>)/\1 | ${CI_COMMIT_SHORT_SHA} \2/g" /var/www/angular-staging.local/public/index.html
-    script:
-        - env
-        - ssh root@${DEPLOY_DOMAIN} rm -rf /var/www/angular-staging.local/public
-        - scp -r ./public root@${DEPLOY_DOMAIN}:/var/www/angular-staging.local
-        - ssh root@${DEPLOY_DOMAIN} $CMD_REPLACE
-        - ssh root@${DEPLOY_DOMAIN} "sed -i  's/:5555/:6555/g' /var/www/angular-staging.local/public/assets/config.json || sleep 0.1"
-        - ssh root@${DEPLOY_DOMAIN} nginx -s reload
-        - cd ${ROCKETCHAT_HOOKS} ; git pull origin master --no-edit ; python3 rockethooks.py
-    only:
-        - develop
-
-
-.prod:
-    <<: *init
-    stage: deploy
-    environment:
-        name: prod
-        url: http://${DEPLOY_DOMAIN}:80
-    variables:
-        CMD_REPLACE: sed -i -E "s/(<title>Evj)(<\/title>)/\1 | ${CI_COMMIT_SHORT_SHA} \2/g" /var/www/angular.local/public/index.html
-    script:
-        - ssh root@${DEPLOY_DOMAIN} rm -rf /var/www/angular.local/public
-        - scp -r ./public root@${DEPLOY_DOMAIN}:/var/www/angular.local
-        - ssh root@${DEPLOY_DOMAIN} $CMD_REPLACE
-        - ssh root@${DEPLOY_DOMAIN} "sed -i  's/:6555/:5555/g' /var/www/angular.local/public/assets/config.json || sleep 0.1"
-        - ssh root@${DEPLOY_DOMAIN} nginx -s reload
-    only:
-        - master
-
-.release maker:
-    <<: *init
-    stage: release
-    script:
-        - env
-        - cd ./ci/release_notes
-        - python3 release-notes.py
-        - bash upload_release.sh
-    only:
-        - master
-    when:
-        manual
-
-
-.clean on failure:
-    <<: *init
-    stage: clean-on-failure
-    script:
-        - docker container stop ${CI_PROJECT_NAME} || sleep 0.1
-          #- cd ${ROCKETCHAT_HOOKS} ; python3 rockethooks.py failed
-    when: on_failure

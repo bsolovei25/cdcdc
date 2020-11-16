@@ -23,6 +23,8 @@ spec:
         - name: {{ include "fullname" . }}
           image: {{ include  "image" . }}
           imagePullPolicy: Always
+          resources:
+            {{- toYaml .Values.microservice.resources | trim | nindent 12 }}
           env:
             - name: TITLE
               value: "EvjPlatform"

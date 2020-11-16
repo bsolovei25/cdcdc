@@ -18,6 +18,7 @@ import { ColumnGridComponent } from './components/column-grid/column-grid.compon
 import { ITableGridFilter } from './components/table-grid-filter/table-grid-filter.component';
 import { IOilFilter, IOilTransfer } from '../../models/oil-operations';
 import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
+import { IDocumentCodingFilterType } from '../../../widgets/NK/document-coding/components/document-coding-table/document-coding-table.component';
 
 @Component({
   selector: 'evj-table-grid',
@@ -31,7 +32,7 @@ export class TableGridComponent implements OnInit, AfterViewInit, OnChanges {
   @Input() data: IOilTransfer[];
   @Input() scrollLeft: boolean; // side scroll for contant
   @Input() search: boolean; // search-input in footer
-  @Input() filters: ITableGridFilter<IOilFilter>[]; // filter-buttons in footer
+  @Input() filters: ITableGridFilter<IOilFilter, IDocumentCodingFilterType>[]; // filter-buttons in footer
   @Input() addButton: boolean; // add-button in footer
   @Input() itemFixed: boolean = false; // Do active item
   @Input() rowBgColorType: 'light' | 'dark' = 'light'; // Do active item
