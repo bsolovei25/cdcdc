@@ -16,7 +16,7 @@ export class EvjEventsPlaceComponent implements OnInit {
 
     filter: FormControl = new FormControl({ value: '', disabled: true });
 
-    public unit: IUnitEvents = null;
+    public unit: number = null;
 
     private onDestroy: Subject<void> = new Subject<void>();
 
@@ -26,9 +26,7 @@ export class EvjEventsPlaceComponent implements OnInit {
 
     public ngOnInit(): void {
         this.ewService.event$.pipe(takeUntil(this.onDestroy)).subscribe((event) => {
-            if (event) {
-                this.unit = event.unit;
-            }
+            this.unit = event?.unit?.id;
         });
         this.filter.valueChanges.pipe(takeUntil(this.onDestroy)).subscribe(() => {
             this.filterPlace();
@@ -36,7 +34,7 @@ export class EvjEventsPlaceComponent implements OnInit {
         this.clearFilter();
     }
 
-    public chooseRespons(data: IUnitEvents): void {
+    public chooseUnit(data: IUnitEvents): void {
         this.ewService.event.unit = data;
     }
 
