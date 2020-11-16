@@ -200,7 +200,6 @@ export-to-zyfra:
   stage: release
   variables:
     GIT_STRATEGY: none
-  needs: []
   trigger:
     include: ci/export-images-child.yml
   <<: *default_rules_refs
@@ -209,7 +208,4 @@ release-notes-maker:
   extends: .release-notes-tpl
   needs: []
   dependencies: []
-  rules:
-    - if: $CI_COMMIT_BRANCH == "master"
-      when: manual
-
+  when: manual

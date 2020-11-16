@@ -1,4 +1,4 @@
-{{- $mbo :=  .Values.microservice.name -}}
+{{- $service :=  .Values.microservice.name -}}
 ---
 apiVersion: extensions/v1beta1
 kind: Ingress
@@ -15,6 +15,6 @@ spec:
       paths:
       - path: /
         backend:
-          serviceName: {{ $mbo }}
+          serviceName: {{ $service }}
           servicePort: 80
 
