@@ -9,8 +9,8 @@ import * as d3 from 'd3';
 })
 export class SouMvpMnemonicSchemeCircleDiagramComponent implements OnInit, AfterViewInit {
   @ViewChild('chart') chart: ElementRef;
-  @Input() title: string = 'FC100';
-  @Input() percentage: number = 96;
+  @Input() title: string = '';
+  @Input() percentage: number = 0;
   @Input() warningStatus: boolean = false;
   @Input() enableStatus: boolean = true;
 
@@ -22,6 +22,9 @@ export class SouMvpMnemonicSchemeCircleDiagramComponent implements OnInit, After
   }
 
   ngAfterViewInit(): void {
+    const innerR = 16;
+    const outerR = 17;
+
     this.svg = d3.select(this.chart.nativeElement)
       .append('svg')
       .attr('width', '40px')
@@ -34,8 +37,8 @@ export class SouMvpMnemonicSchemeCircleDiagramComponent implements OnInit, After
       .endAngle(2 * Math.PI * this.percentage / 100);
 
     const arcBg = d3.arc()
-      .innerRadius(16)
-      .outerRadius(17)
+      .innerRadius(innerR)
+      .outerRadius(outerR)
       .startAngle(0)
       .endAngle(2 * Math.PI);
 

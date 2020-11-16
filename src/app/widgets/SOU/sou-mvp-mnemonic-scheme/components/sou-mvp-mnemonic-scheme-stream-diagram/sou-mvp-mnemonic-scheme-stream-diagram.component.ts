@@ -20,14 +20,17 @@ export class SouMvpMnemonicSchemeStreamDiagramComponent implements OnInit, After
   }
 
   ngAfterViewInit(): void {
+    const innerR = 7;
+    const outerR = 8;
+  
     this.svg = d3.select(this.chart.nativeElement)
       .append('svg')
       .attr('width', '22px')
       .attr('height', '22px');
 
     const arc = d3.arc()
-      .innerRadius(7)
-      .outerRadius(8)
+      .innerRadius(innerR)
+      .outerRadius(outerR)
       .startAngle(0)
       .endAngle(2 * Math.PI * this.percentage / 100);
 

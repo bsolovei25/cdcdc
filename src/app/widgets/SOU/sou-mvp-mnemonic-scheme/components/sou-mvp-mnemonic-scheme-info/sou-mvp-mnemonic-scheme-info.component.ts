@@ -7,13 +7,17 @@ import { ISOUFlowIn, ISOUFlowOut } from '../../../../../dashboard/models/SOU/sou
   styleUrls: ['./sou-mvp-mnemonic-scheme-info.component.scss']
 })
 export class SouMvpMnemonicSchemeInfoComponent implements OnInit {
-  @Input() data: ISOUFlowIn | ISOUFlowOut;
+  @Input() set data(data: ISOUFlowOut) {
+    this.flowData = data;
+    this.outputEnable = data.dscFlow.length !== 1 ? true : data.dscFlow[0].isEnable;
+  }
   @Input() choosenSetting: number;
 
   @Input() inCount: number = 1;
   @Input() outCount: number = 1;
-  @Input() outputEnable: boolean = true;
 
+  flowData: ISOUFlowOut;
+  outputEnable: boolean = true;
   inputArr: number[] = new Array(this.inCount);
   outputArr: number[] = new Array(this.outCount);
 

@@ -35,6 +35,7 @@ export class SouMvpMnemonicSchemeComponent extends WidgetPlatform<unknown> imple
     }
 
     protected dataHandler(ref: any): void {
+        debugger;
         this.flowIn = ref.flowIn;
         this.flowOut = ref.section[0].flowOut;
     }

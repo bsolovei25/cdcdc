@@ -10,7 +10,6 @@
   <div class="stream__item">
     <evj-sou-mvp-mnemonic-scheme-info
       [data]="flowOutItem"
-      [outputEnable]="flowOutItem.dscFlow.length != 1 ? true: flowOutItem.dscFlow[0].isEnable"
     ></evj-sou-mvp-mnemonic-scheme-info>
   </div>
   <div class="stream__item">
@@ -18,11 +17,6 @@
       [style.borderColor]="!flowOutItem.isEnable? 'var(--sou-mvp-color-bg-title)': 'var(--sou-mvp-color-border)'"
       *ngIf="flowOutItem.dscFlow.length > 1"
     ></div>
-    <!-- <evj-sou-mvp-mnemonic-scheme-collector
-      [style.height.%]="100"
-      [inCount]="1"
-      [outCount]="flowOutItem.dscFlow.length"
-    ></evj-sou-mvp-mnemonic-scheme-collector> -->
   </div>
   <div class="stream__item output">
     <evj-sou-mvp-mnemonic-scheme-output
