@@ -18,17 +18,21 @@
     <div class="coding-table__bottom">
         <div class="bottom-block">
           <ng-container *ngFor="let filter of filters">
-            <div class="edit-button" (click)="openFilter(filter)" [class.active-filter]="isPopoverOpened.get(filter.type)" [attr.id]="filter.type + '-doc-coding'">
-                <div class="edit-button__icon">
-                    <svg-icon *ngIf="isPopoverOpened.get(filter.type)" src="assets/icons/widgets/oil-control-all/document-coding/filter-blue.svg"></svg-icon>
-                    <svg-icon *ngIf="!isPopoverOpened.get(filter.type)" src="assets/icons/widgets/oil-control-all/document-coding/filter.svg"></svg-icon>
+            <div class="input-block" [attr.id]="filter.type + '-doc-coding'" (click)="openFilter(filter)">
+              <div class="input-block__button-search">
+                <svg-icon *ngIf="isPopoverOpened.get(filter.type)" src="assets/icons/widgets/oil-control-all/document-coding/filter-blue.svg">
+                </svg-icon>
+                <svg-icon *ngIf="!isPopoverOpened.get(filter.type)" src="assets/icons/widgets/oil-control-all/document-coding/filter.svg"></svg-icon>
+              </div>
+              <div class="input-block__input" [class.input-block__input-active]="isPopoverOpened.get(filter.type)">
+                <div class="input-back">
+                  <div class="name">{{ filter.name }} {{ getFilterCountData(filter.type) || '' }}</div>
+                  <div class="icon">
+                    <svg-icon src="assets/icons/widgets/oil-control-all/document-coding/arrow.svg">
+                    </svg-icon>
+                  </div>
                 </div>
-                <div class="edit-button__text">
-                    <div class="name">{{ filter.name }} {{ getFilterCountData(filter.type) || '' }}</div>
-                    <div class="icon">
-                        <svg-icon src="assets/icons/widgets/oil-control-all/document-coding/arrow.svg"></svg-icon>
-                    </div>
-                </div>
+              </div>
             </div>
           </ng-container>
         </div>

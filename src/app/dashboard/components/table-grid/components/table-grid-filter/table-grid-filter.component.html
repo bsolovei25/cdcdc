@@ -1,14 +1,16 @@
-<div class="filter-button" (click)="onClick(filter.type)" [class.active-filter]="isPopoverOpened" [attr.id]="filter.type">
-    <div class="filter-button__icon">
-        <svg-icon *ngIf="isPopoverOpened" src="assets/icons/widgets/oil-control-all/document-coding/filter-blue.svg">
+<div class="input-block" [attr.id]="filter.type" (click)="onClick(filter.type)">
+  <div class="input-block__button-search">
+    <svg-icon *ngIf="isPopoverOpened" src="assets/icons/widgets/oil-control-all/document-coding/filter-blue.svg">
+    </svg-icon>
+    <svg-icon *ngIf="!isPopoverOpened" src="assets/icons/widgets/oil-control-all/document-coding/filter.svg"></svg-icon>
+  </div>
+  <div class="input-block__input" [class.input-block__input-active]="isPopoverOpened">
+    <div class="input-back">
+      <div class="name">{{ filterTitle }}</div>
+      <div class="icon">
+        <svg-icon src="assets/icons/widgets/oil-control-all/document-coding/arrow.svg">
         </svg-icon>
-        <svg-icon *ngIf="!isPopoverOpened" src="assets/icons/widgets/oil-control-all/document-coding/filter.svg"></svg-icon>
+      </div>
     </div>
-    <div class="filter-button__text">
-        <div class="name">{{ filterTitle }}</div>
-        <div class="icon">
-            <svg-icon src="assets/icons/widgets/oil-control-all/document-coding/arrow.svg">
-            </svg-icon>
-        </div>
-    </div>
+  </div>
 </div>

@@ -97,7 +97,7 @@ export class QualityDocsPanelComponent extends WidgetPlatform<unknown> implement
 
     public data: IQualityDocsRecord[] = [];
 
-    public passportFormControl: FormControl = new FormControl('');
+    public passportValue: string | null = null;
 
     public isPasportInput: boolean = false;
 
@@ -187,8 +187,8 @@ export class QualityDocsPanelComponent extends WidgetPlatform<unknown> implement
         addFilters(groups, 'GroupIds');
         addFilters(tanks, 'TankIds');
 
-        if (this.passportFormControl.value) {
-            options.PassportName = this.passportFormControl.value;
+        if (this.passportValue) {
+            options.PassportName = this.passportValue;
         }
         options.IsBlocked = this.blockFilter;
         return options;
@@ -219,7 +219,8 @@ export class QualityDocsPanelComponent extends WidgetPlatform<unknown> implement
         }
     }
 
-    public searchRecords(event: Event): void {
+    public searchRecords(event: string): void {
+        this.passportValue = event;
         this.getData();
     }
 

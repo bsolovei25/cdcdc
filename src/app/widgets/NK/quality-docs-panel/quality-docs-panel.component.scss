@@ -110,10 +110,14 @@
     background-color: var(--color-oil-border);
     border-bottom-left-radius: 15px;
     border-bottom-right-radius: 15px;
+    display: flex;
+    align-items: center;
 
     .bottom-block {
       display: flex;
       position: relative;
+      margin-left: 10px;
+      width: 100%;
 
       .edit-button {
         cursor: pointer;
@@ -166,64 +170,60 @@
       .input-block {
         display: flex;
         position: relative;
-        padding-left: 10px;
+        align-items: center;
+        width: 200px;
+        height: 30px;
+        margin-right: 5px;
+        cursor: pointer;
 
         &__button-search {
+          z-index: 999;
           cursor: pointer;
-          height: 30px;
-          width: 30px;
-          margin-top: 5px;
+          height: 100%;
+          position: absolute;
+
+          ::ng-deep {
+            svg {
+              height: 100%;
+            }
+          }
         }
 
         &__input {
-          border: 1px solid;
-          border-image: linear-gradient(90deg, transparent 10%, var(--color-text-main) 100%);
-          border-image-slice: 1;
-          border-left: none;
-          border-right: none;
-          left: 25px;
-          top: 5px;
-          height: 28px;
-          position: absolute;
-          width: 130px;
+          border-top-right-radius: 100px;
+          border-bottom-right-radius: 100px;
+          background: linear-gradient(90deg, transparent 10%, var(--color-text-main) 100%);
+          position: relative;
+          display: flex;
+          width: 100%;
+          height: 100%;
 
-          &:after {
-            content: "";
-            position: absolute;
-            height: 28px;
-            width: 14px;
-            top: -1px;
-            right: -15px;
-            border: 1px solid var(--color-text-main);
-            border-left: none;
-            border-top-right-radius: 25px;
-            border-bottom-right-radius: 25px;
-          }
+          .input-back {
+            position: relative;
+            width: calc(100% - 2px);
+            height: calc(100% - 2px);
+            margin: auto;
+            border-radius: inherit;
+            background: var(--color-bg-main);
+            display: flex;
+            align-items: center;
 
-          input {
-            border-bottom: none !important;
+            .name {
+              margin: 0 auto;
+              font-size: 12px;
+            }
+
+            .icon {
+              width: 10px;
+              margin-right: 10px;
+            }
           }
         }
 
         &__input-active {
-          border: 1px solid;
-          border-image: linear-gradient(to left, var(--color-active), transparent);
-          border-image-slice: 1;
-          border-right: none;
-
-          &:after {
-            content: "";
-            position: absolute;
-            height: 28px;
-            width: 14px;
-            top: -1px;
-            right: -15px;
-            border: 1px solid var(--color-border-active);
-            border-left: none;
-            border-top-right-radius: 25px;
-            border-bottom-right-radius: 25px;
-          }
+          background: linear-gradient(90deg, transparent 10%, var(--color-active) 100%);
         }
+
       }
 
       .pasport {
@@ -254,9 +254,9 @@
       .blocked-button {
         cursor: pointer;
         position: absolute;
-        right: 5px;
+        right: 10px;
         height: 100%;
-        top: 5px;
+        top: 0;
         width: 30px;
       }
     }
