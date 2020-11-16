@@ -68,7 +68,7 @@
     height: calc(100% - 43px);
 
     background-size: auto;
-    background-color: var(--color-aps-bg);
+    background-color: var(--color-kpe-line-diagram-bg-sub);
 
     overflow-y: auto;
 
@@ -228,13 +228,12 @@
       z-index: 100;
       color: var(--color-cd-text-sub-2);
 
-      background-color: var(--color-aps-bg-sub-2);
-      border-right: 1px solid var(--color-aps-border-main);
+      background-color: var(--color-kpe-bg-sub);
 
       &:first-of-type {
         font-size: 12px;
         color: var(--color-cd-text-sub-2);
-        background-color: var(--color-aps-bg-sub-2);
+        background-color: var(--color-kpe-bg-sub);
         position: sticky;
         left: 0;
         z-index: 101;
@@ -297,7 +296,9 @@
       font-size: 12px;
       height: 28px;
       transition: all 150ms;
-      background: linear-gradient(90deg, #202638 0%, rgba(53, 34, 43, 0) 15%);
+      color: var(--evj-color-white);
+      background: var(--color-gray80);
+
 
       &--stream-unit {
         height: 38px;
@@ -347,12 +348,12 @@
       //   background: url(../../../../../assets/icons/widgets/gantt-chart/bg-line.svg);
       background-size: cover;
 
-      border-top: 1px solid var(--color-aps-border-main);
-      border-bottom: 1px solid var(--color-aps-border-main);
-      border-right: 1px solid var(--color-aps-border-main);
+
+      border-right: 1px solid var(--color-kpe-gaude-unactive);
 
       &.expanded-column {
-        background-color: var(--color-cd-bg-row-table);
+        background-color: #272A38;
+        opacity: 0.5;
 
         &:first-of-type {
           max-width: 175px;

@@ -80,7 +80,7 @@
               [matTooltip]="elementChildren?.name"
             >
               <div
-                *ngIf="column.name === 'Параметры'"
+                *ngIf="column.name === 'Показатели, Дж'"
                 class="table__body__column__row-title table__body__column__row-title-children"
                 [class.opacity]="selectedRow.isSelected(element.unit.name) && this.selectedRowProduct"
               >
@@ -115,10 +115,10 @@
                 >{{elementChildren.engUnits}}</span
                 >
               </div>
-              <ng-container *ngIf="column.name === 'Факт'">
+              <ng-container *ngIf="column.name === 'Абсолютная величина'">
                 <span>{{elementChildren.value.toFixed(0) }}</span>
               </ng-container>
-              <ng-container *ngIf="column.name === 'Модель'">
+              <ng-container *ngIf="column.name === 'Относительная величина'">
                 <span>{{elementChildren.modelValue.toFixed(0) }}</span>
               </ng-container>
             </td>
