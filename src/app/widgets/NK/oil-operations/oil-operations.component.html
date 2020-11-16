@@ -111,7 +111,7 @@
                                             src="assets/icons/widgets/oil-control-all/oil-operations/background-pic.svg"
                                             [svgStyle]="{ 'width.px':65, 'height.px':40, 'margin-top.px': 5 }">
                                         </svg-icon>
-                                        <img [src]="'assets/icons/widgets/oil-control-all/oil-shipments/directions/' + data.direction + '.png'" class="icon-cistern">
+                                        <img [src]="'assets/icons/widgets/oil-control-all/oil-shipments/directions/' + data.direction + '.png'" class="icon-cistern" [class.manual]="data.direction === 'manual'">
                                     </div>
                                     <div class="direction__name"> {{ data.shipmentType?.transportType?.name }} </div>
                                 </div>
