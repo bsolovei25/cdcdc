@@ -6,16 +6,17 @@ import {
     AfterViewInit,
     Input,
     Output,
-    EventEmitter
+    EventEmitter,
 } from '@angular/core';
 import { EventsWorkspaceService } from '../../../../../dashboard/services/widgets/EVJ/events-workspace.service';
 
 @Component({
     selector: 'evj-event-description',
     templateUrl: './evj-event-description.component.html',
-    styleUrls: ['./evj-event-description.component.scss']
+    styleUrls: ['./evj-event-description.component.scss'],
 })
 export class EvjEventDescriptionComponent implements OnInit, AfterViewInit {
+    @Input() public disabled: boolean = false;
     @Input() public description: string = '';
     @Input() public isRetrievalEvent: boolean = false;
     @Input() titleName: string = 'Краткое описание';
@@ -27,11 +28,9 @@ export class EvjEventDescriptionComponent implements OnInit, AfterViewInit {
 
     @ViewChild('textarea') private textarea: ElementRef;
 
-    constructor(public ewService: EventsWorkspaceService) {
-    }
+    constructor(public ewService: EventsWorkspaceService) {}
 
-    public ngOnInit(): void {
-    }
+    public ngOnInit(): void {}
 
     public ngAfterViewInit(): void {
         this.disableTextarea();
