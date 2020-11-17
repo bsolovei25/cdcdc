@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import {
     EventsWidgetCategoryCode,
     EventsWidgetsStats,
@@ -20,7 +20,7 @@ import {
     IStatus,
     ISubcategory,
     IUnitEvents,
-    IUser
+    IUser,
 } from '../../../models/EVJ/events-widget';
 import { AppConfigService } from '@core/service/app-config.service';
 import { ClaimService, EnumClaimGlobal } from '../../claim.service';
@@ -33,7 +33,7 @@ export interface IEventsFilter {
 }
 
 @Injectable({
-    providedIn: 'root'
+    providedIn: 'root',
 })
 export class EventService {
     private readonly restUrl: string;
@@ -46,43 +46,51 @@ export class EventService {
     public currentEventId$: BehaviorSubject<number> = new BehaviorSubject<number>(null);
     public eventFilters$: BehaviorSubject<IEventsFilter> = new BehaviorSubject<IEventsFilter>(null);
 
-    constructor(
-        public http: HttpClient,
-        private configService: AppConfigService,
-    ) {
+    constructor(public http: HttpClient, private configService: AppConfigService) {
         this.restUrl = configService.restUrl;
         this.smotrUrl = configService.smotrUrl;
         this.isDomenAuth = configService.isDomenAuth;
     }
 
-    async getBatchData(
+    public async getBatchData(
         lastId: number,
         options: IEventsWidgetOptions
     ): Promise<IEventsWidgetNotificationPreview[]> {
-        const routeAdder = options.categoriesType === 'ed' ? '/ed' : '';
         try {
-            return this.http
-                .get<IEventsWidgetNotificationPreview[]>(
-                    this.restUrl +
-                    `/api/notifications/getbyfilter${routeAdder}?${this.getOptionString(lastId, options)}`
-                )
-                .toPromise();
+            return this.getBatchDataObserver(lastId, options).toPromise();
         } catch (error) {
             console.error(error);
         }
     }
 
-    public async getStats(options: IEventsWidgetOptions): Promise<EventsWidgetsStats> {
+    public getBatchDataObserver(
+        lastId: number,
+        options: IEventsWidgetOptions
+    ): Observable<IEventsWidgetNotificationPreview[]> {
         const routeAdder = options.categoriesType === 'ed' ? '/ed' : '';
+        return this.http.get<IEventsWidgetNotificationPreview[]>(
+            this.restUrl +
+                `/api/notifications/getbyfilter${routeAdder}?${this.getOptionString(
+                    lastId,
+                    options
+                )}`
+        );
+    }
+
+    public async getStats(options: IEventsWidgetOptions): Promise<EventsWidgetsStats> {
         try {
-            return this.http
-                .get<EventsWidgetsStats>(
-                    this.restUrl + `/api/notifications/stats${routeAdder}?${this.getOptionString(0, options)}`
-                )
-                .toPromise();
+            return await this.getStatsObserver(options).toPromise();
         } catch (error) {
             console.error(error);
         }
+    }
+
+    public getStatsObserver(options: IEventsWidgetOptions): Observable<EventsWidgetsStats> {
+        const routeAdder = options.categoriesType === 'ed' ? '/ed' : '';
+        return this.http.get<EventsWidgetsStats>(
+            this.restUrl +
+                `/api/notifications/stats${routeAdder}?${this.getOptionString(0, options)}`
+        );
     }
 
     public async getPlaces(widgetId: string): Promise<string[]> {
@@ -116,8 +124,8 @@ export class EventService {
                 .toPromise();
             saveMethod.options = {
                 headers: new HttpHeaders({
-                    AuthenticationType: saveMethod.data.authenticationType
-                })
+                    AuthenticationType: saveMethod.data.authenticationType,
+                }),
             };
             return saveMethod;
         } catch (error) {
@@ -404,7 +412,7 @@ export class EventService {
             return await this.http
                 .delete<any>(
                     this.restUrl +
-                    `/api/notification-retrieval/${idEvent}/retrievalevents/${idRetr}`
+                        `/api/notification-retrieval/${idEvent}/retrievalevents/${idRetr}`
                 )
                 .toPromise();
         } catch (error) {
@@ -418,8 +426,8 @@ export class EventService {
     ): Promise<any> {
         const options = {
             headers: new HttpHeaders({
-                AuthenticationType: saveMethod.data.authenticationType
-            })
+                AuthenticationType: saveMethod.data.authenticationType,
+            }),
         };
         const url: string = `${saveMethod.data.url}/api/monitoring/escalatedeviation`;
         return await this.http.post(url, body, options).toPromise();
@@ -431,8 +439,8 @@ export class EventService {
     ): Promise<any> {
         const options = {
             headers: new HttpHeaders({
-                AuthenticationType: saveMethod.data.authenticationType
-            })
+                AuthenticationType: saveMethod.data.authenticationType,
+            }),
         };
         const url: string = `${saveMethod.data.url}/api/monitoring/closedeviation`;
         return await this.http.post(url, body, options).toPromise();
@@ -506,7 +514,7 @@ export class EventService {
             res += `&priorityIds=${options.priority.id}`;
         }
         if (options.subCategory) {
-            options.subCategory.forEach(value => {
+            options.subCategory.forEach((value) => {
                 res += `&subcategoryIds=${value}`;
             });
         }
@@ -524,22 +532,23 @@ export class EventService {
             .toPromise();
     }
 
-    async getEventsFilter(unitNames?: string,
-                          categoryIds?: number[],
-                          statusIds?: number[],
-                          description?: string
+    async getEventsFilter(
+        unitNames?: string,
+        categoryIds?: number[],
+        statusIds?: number[],
+        description?: string
     ): Promise<IUnitEvents[]> {
         let searchString: string = '';
         if (this.filterEvent.unitNames) {
             searchString += `UnitName=${this.filterEvent.unitNames}`;
         }
         if (categoryIds) {
-            categoryIds.forEach(value => {
+            categoryIds.forEach((value) => {
                 searchString += `CategoryIds=${value}`;
             });
         }
         if (statusIds) {
-            statusIds.forEach(value => {
+            statusIds.forEach((value) => {
                 searchString += `StatusIds=${value}`;
             });
         }
