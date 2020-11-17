@@ -5,18 +5,17 @@ import {
     Inject,
     ViewChild,
     HostListener,
-    ElementRef
+    ElementRef,
 } from '@angular/core';
 import {
     EventsWidgetCategory,
-    EventsWidgetCategoryCode, IEventsWidgetAttributes,
+    EventsWidgetCategoryCode,
+    IEventsWidgetAttributes,
     IEventsWidgetNotificationPreview,
-    IEventsWidgetOptions
+    IEventsWidgetOptions,
 } from '../../../dashboard/models/EVJ/events-widget';
 import { EventsWidgetFilter } from '../../../dashboard/models/EVJ/events-widget';
-import {
-    EventsWidgetNotificationStatus
-} from '../../../dashboard/models/EVJ/events-widget';
+import { EventsWidgetNotificationStatus } from '../../../dashboard/models/EVJ/events-widget';
 import { WidgetService } from '../../../dashboard/services/widget.service';
 import { UserSettingsService } from '../../../dashboard/services/user-settings.service';
 import { EventService } from '../../../dashboard/services/widgets/EVJ/event.service';
@@ -26,14 +25,13 @@ import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { SnackBarService } from '../../../dashboard/services/snack-bar.service';
 import { EventsWorkspaceService } from '../../../dashboard/services/widgets/EVJ/events-workspace.service';
 import { IAlertWindowModel } from '@shared/models/alert-window.model';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Subscription } from 'rxjs';
 import { WidgetSettingsService } from '../../../dashboard/services/widget-settings.service';
 import {
     ClaimService,
     EnumClaimGlobal,
-    EnumClaimWidgets
+    EnumClaimWidgets,
 } from '../../../dashboard/services/claim.service';
-import set = Reflect.set;
 
 export interface IEventSettings {
     viewType: 'list' | 'cards';
@@ -43,9 +41,10 @@ export interface IEventSettings {
 @Component({
     selector: 'evj-events',
     templateUrl: './events.component.html',
-    styleUrls: ['./events.component.scss', './cd-events.component.scss']
+    styleUrls: ['./events.component.scss', './cd-events.component.scss'],
 })
-export class EventsComponent extends WidgetPlatform<IEventsWidgetAttributes> implements OnInit, OnDestroy {
+export class EventsComponent extends WidgetPlatform<IEventsWidgetAttributes>
+    implements OnInit, OnDestroy {
     @ViewChild(CdkVirtualScrollViewport) viewport: CdkVirtualScrollViewport;
 
     @ViewChild('notifications') notificationsDiv: ElementRef;
@@ -65,7 +64,9 @@ export class EventsComponent extends WidgetPlatform<IEventsWidgetAttributes> imp
     eventOverlayId: number;
     timeout: boolean = true;
 
-    public eventAlertInfo$: BehaviorSubject<IAlertWindowModel> = new BehaviorSubject<IAlertWindowModel>(null);
+    public eventAlertInfo$: BehaviorSubject<IAlertWindowModel> = new BehaviorSubject<
+        IAlertWindowModel
+    >(null);
 
     private isAllowScrollLoading: boolean = true;
 
@@ -84,12 +85,12 @@ export class EventsComponent extends WidgetPlatform<IEventsWidgetAttributes> imp
             iconUrl: 'assets/icons/widgets/events/smotr.svg',
             notificationsCounts: {
                 open: 0,
-                all: 0
+                all: 0,
             },
             name: 'СМОТР',
             isActive: false,
             url: 'https://spb25-cce-mo1.gazprom-neft.local/BLPS_MO/ru_RU/',
-            categoryType: 'default'
+            categoryType: 'default',
         },
         {
             id: 1002,
@@ -97,12 +98,12 @@ export class EventsComponent extends WidgetPlatform<IEventsWidgetAttributes> imp
             iconUrl: 'assets/icons/widgets/events/safety.svg',
             notificationsCounts: {
                 open: 0,
-                all: 0
+                all: 0,
             },
             name: 'Безопасность',
             isActive: false,
             url: '#',
-            categoryType: 'default'
+            categoryType: 'default',
         },
         {
             id: 1003,
@@ -110,12 +111,12 @@ export class EventsComponent extends WidgetPlatform<IEventsWidgetAttributes> imp
             iconUrl: 'assets/icons/widgets/events/tasks.svg',
             notificationsCounts: {
                 open: 0,
-                all: 0
+                all: 0,
             },
             name: 'Производственные задания',
             isActive: false,
             url: '#',
-            categoryType: 'default'
+            categoryType: 'default',
         },
         {
             id: 1004,
@@ -123,12 +124,12 @@ export class EventsComponent extends WidgetPlatform<IEventsWidgetAttributes> imp
             iconUrl: 'assets/icons/widgets/events/status.svg',
             notificationsCounts: {
                 open: 0,
-                all: 0
+                all: 0,
             },
             name: 'Состояния оборудования',
             isActive: false,
             url: 'http://spb99-t-merap01/meridium',
-            categoryType: 'default'
+            categoryType: 'default',
         },
         {
             id: 1005,
@@ -136,12 +137,12 @@ export class EventsComponent extends WidgetPlatform<IEventsWidgetAttributes> imp
             iconUrl: 'assets/icons/widgets/events/drops.svg',
             notificationsCounts: {
                 open: 0,
-                all: 0
+                all: 0,
             },
             name: 'Сбросы',
             isActive: false,
             url: '#',
-            categoryType: 'default'
+            categoryType: 'default',
         },
         {
             id: 6001,
@@ -149,12 +150,12 @@ export class EventsComponent extends WidgetPlatform<IEventsWidgetAttributes> imp
             iconUrl: 'assets/icons/widgets/events/safety.svg',
             notificationsCounts: {
                 open: 0,
-                all: 0
+                all: 0,
             },
             name: 'Безопасность',
             isActive: false,
             url: '#',
-            categoryType: 'ed'
+            categoryType: 'ed',
         },
         {
             id: 6002,
@@ -162,12 +163,12 @@ export class EventsComponent extends WidgetPlatform<IEventsWidgetAttributes> imp
             iconUrl: 'assets/icons/widgets/events/indicators.svg',
             notificationsCounts: {
                 open: 0,
-                all: 0
+                all: 0,
             },
             name: 'Производственные показатели',
             isActive: false,
             url: '#',
-            categoryType: 'ed'
+            categoryType: 'ed',
         },
         {
             id: 6003,
@@ -175,12 +176,12 @@ export class EventsComponent extends WidgetPlatform<IEventsWidgetAttributes> imp
             iconUrl: 'assets/icons/widgets/events/resources.svg',
             notificationsCounts: {
                 open: 0,
-                all: 0
+                all: 0,
             },
             name: 'Вспомогательные ресурсы',
             isActive: false,
             url: '#',
-            categoryType: 'ed'
+            categoryType: 'ed',
         },
         {
             id: 9994,
@@ -188,13 +189,13 @@ export class EventsComponent extends WidgetPlatform<IEventsWidgetAttributes> imp
             iconUrl: 'assets/icons/widgets/events/tasks.svg',
             notificationsCounts: {
                 open: 0,
-                all: 0
+                all: 0,
             },
             name: 'Производственные задания',
             isActive: false,
             url: '#',
-            categoryType: 'ed'
-        }
+            categoryType: 'ed',
+        },
     ];
 
     public notifications: IEventsWidgetNotificationPreview[] = [];
@@ -205,64 +206,69 @@ export class EventsComponent extends WidgetPlatform<IEventsWidgetAttributes> imp
             code: 'all',
             name: 'Все',
             notificationsCount: 0,
-            isActive: true
+            isActive: true,
         },
         {
             id: 3002,
             code: 'closed',
             name: 'Отработано',
             notificationsCount: 0,
-            isActive: false
+            isActive: false,
         },
         {
             id: 3003,
             code: 'inWork',
             name: 'В работе',
             notificationsCount: 0,
-            isActive: false
+            isActive: false,
         },
         {
             id: -100,
             code: 'isNotAcknowledged',
             name: 'Не квитировано',
             notificationsCount: 0,
-            isActive: false
-        }
+            isActive: false,
+        },
     ];
 
     public iconStatus: { name: string; iconUrl: string }[] = [
         {
             name: 'inWork',
-            iconUrl: 'assets/icons/widgets/process/in-work.svg'
+            iconUrl: 'assets/icons/widgets/process/in-work.svg',
         },
         {
             name: 'closed',
-            iconUrl: 'assets/icons/widgets/process/closed.svg'
+            iconUrl: 'assets/icons/widgets/process/closed.svg',
         },
         {
             name: 'new',
-            iconUrl: 'assets/icons/widgets/process/in-work.svg'
-        }
+            iconUrl: 'assets/icons/widgets/process/in-work.svg',
+        },
     ];
 
     public statuses: { [id in EventsWidgetNotificationStatus]: string } = {
         new: 'Новое',
         inWork: 'В работе',
-        closed: 'Завершено'
+        closed: 'Завершено',
     };
 
     public isCDEvents: boolean = false;
 
-    public appendEventStream$: BehaviorSubject<IEventsWidgetNotificationPreview> =
-        new BehaviorSubject<IEventsWidgetNotificationPreview>(null);
+    public appendEventStream$: BehaviorSubject<
+        IEventsWidgetNotificationPreview
+    > = new BehaviorSubject<IEventsWidgetNotificationPreview>(null);
 
     public isPreviewOpened: boolean = false;
 
     private readonly defaultIconPath: string = 'assets/icons/widgets/events/smotr.svg';
 
+    /// For cancel request
+    private requestSubscription: { [key: number]: Subscription } = {};
+
     get isClaimDelete(): boolean {
-        return this.claimService.claimGlobal$?.value
-            ?.some((x) => x === EnumClaimGlobal.EventsDelete);
+        return this.claimService.claimGlobal$?.value?.some(
+            (x) => x === EnumClaimGlobal.EventsDelete
+        );
     }
 
     constructor(
@@ -313,10 +319,7 @@ export class EventsComponent extends WidgetPlatform<IEventsWidgetAttributes> imp
         });
 
         this.filters = this.filters.filter((x) => {
-            if (!this.attributes?.Acknowledgment && x.code === 'isNotAcknowledged') {
-                return false;
-            }
-            return true;
+            return !(!this.attributes?.Acknowledgment && x.code === 'isNotAcknowledged');
         });
 
         this.placeNames = await this.eventService.getPlaces(this.id);
@@ -330,10 +333,10 @@ export class EventsComponent extends WidgetPlatform<IEventsWidgetAttributes> imp
             this.eventService.currentEventId$.subscribe((ref) => {
                 this.selectedId = ref;
             }),
-            this.appendEventStream$.asObservable().pipe(
-                debounceTime(1000),
-                distinctUntilChanged()
-            ).subscribe(this.getStats.bind(this))
+            this.appendEventStream$
+                .asObservable()
+                .pipe(debounceTime(1000), distinctUntilChanged())
+                .subscribe(this.getStats.bind(this))
         );
     }
 
@@ -349,8 +352,8 @@ export class EventsComponent extends WidgetPlatform<IEventsWidgetAttributes> imp
             return;
         }
         const isCheckCategories: boolean =
-            this.categories.some((x) => x.isActive && x.id === ref.notification.category.id)
-            || !this.categories.filter((x) => x.isActive).length;
+            this.categories.some((x) => x.isActive && x.id === ref.notification.category.id) ||
+            !this.categories.filter((x) => x.isActive).length;
         let filtersIds: number[] = [];
         switch (this.filters.find((x) => x.isActive).code) {
             case 'all':
@@ -366,8 +369,10 @@ export class EventsComponent extends WidgetPlatform<IEventsWidgetAttributes> imp
                 filtersIds = [-100];
                 break;
         }
-        const isCheckFilters: boolean = ref.action !== 'add' || filtersIds.some((x) => x === ref.notification.status.id)
-            || (filtersIds.some((x) => x === -100) && !ref.notification.isAcknowledged);
+        const isCheckFilters: boolean =
+            ref.action !== 'add' ||
+            filtersIds.some((x) => x === ref.notification.status.id) ||
+            (filtersIds.some((x) => x === -100) && !ref.notification.isAcknowledged);
         if (!isCheckFilters || !isCheckCategories) {
             return;
         }
@@ -384,9 +389,12 @@ export class EventsComponent extends WidgetPlatform<IEventsWidgetAttributes> imp
         }
     }
 
-    private async updateWidgetSettings(settingsKey: keyof  IEventSettings, value: IEventSettings[keyof IEventSettings]): Promise<void> {
+    private async updateWidgetSettings(
+        settingsKey: keyof IEventSettings,
+        value: IEventSettings[keyof IEventSettings]
+    ): Promise<void> {
         const currentSettings = this.getCurrentWidgetSettings();
-        const settings = {...currentSettings, [settingsKey]: value};
+        const settings = { ...currentSettings, [settingsKey]: value };
         try {
             await this.widgetSettingsService.saveSettings<IEventSettings>(this.uniqId, settings);
         } catch (e) {
@@ -413,7 +421,8 @@ export class EventsComponent extends WidgetPlatform<IEventsWidgetAttributes> imp
     }
 
     private setViewTypeSettings(viewType: 'cards' | 'list'): void {
-        if (!viewType ||
+        if (
+            !viewType ||
             (viewType === 'cards' && !this.isList) ||
             (viewType === 'list' && this.isList)
         ) {
@@ -430,12 +439,8 @@ export class EventsComponent extends WidgetPlatform<IEventsWidgetAttributes> imp
         if (!options) {
             return;
         }
-        this.categories?.forEach((x) =>
-            x.isActive = options.categories.some((o) => o === x.id)
-        );
-        this.filters?.forEach((x) =>
-            x.isActive = options.filter === x.code
-        );
+        this.categories?.forEach((x) => (x.isActive = options.categories.some((o) => o === x.id)));
+        this.filters?.forEach((x) => (x.isActive = options.filter === x.code));
     }
 
     public onCategoryClick(category: EventsWidgetCategory): void {
@@ -470,7 +475,7 @@ export class EventsComponent extends WidgetPlatform<IEventsWidgetAttributes> imp
             placeNames: this.placeNames,
             isVideoWall: !!this.attributes?.IsVideoWall,
             sortType: this.attributes?.SortType ?? 'default',
-            categoriesType: this.widgetType === 'events-ed' ? 'ed' : 'default'
+            categoriesType: this.widgetType === 'events-ed' ? 'ed' : 'default',
         } as IEventsWidgetOptions;
     }
 
@@ -492,7 +497,7 @@ export class EventsComponent extends WidgetPlatform<IEventsWidgetAttributes> imp
             notification.iconUrl = this.getNotificationIcon(notification.category.name);
             notification.iconUrlStatus = this.getStatusIcon(notification.status.name);
             notification.statusName = this.statuses[notification.status.name]; // TODO add default
-            notification?.retrievalEvents.forEach(value => {
+            notification?.retrievalEvents.forEach((value) => {
                 value.iconUrl = this.getNotificationIcon(value.category.name);
                 value.iconUrlStatus = this.getStatusIcon(value.status.name);
             });
@@ -520,7 +525,7 @@ export class EventsComponent extends WidgetPlatform<IEventsWidgetAttributes> imp
             notification.iconUrl = this.getNotificationIcon(notification.category.name);
             notification.iconUrlStatus = this.getStatusIcon(notification.status.name);
             notification.statusName = this.statuses[notification.status.name]; // TODO check
-            notification?.retrievalEvents.forEach(value => {
+            notification?.retrievalEvents.forEach((value) => {
                 value.iconUrl = this.getNotificationIcon(value.category.name);
                 value.iconUrlStatus = this.getStatusIcon(value.status.name);
             });
@@ -566,7 +571,7 @@ export class EventsComponent extends WidgetPlatform<IEventsWidgetAttributes> imp
                     const iconUrl = this.getNotificationIcon(n.category.name);
                     const iconUrlStatus = this.getStatusIcon(n.status?.name);
                     const statusName = n.status?.name ? this.statuses[n.status.name] : ''; // TODO
-                    n?.retrievalEvents.forEach(value => {
+                    n?.retrievalEvents.forEach((value) => {
                         value.iconUrl = this.getNotificationIcon(value.category.name);
                         value.iconUrlStatus = this.getStatusIcon(value.status.name);
                     });
@@ -610,7 +615,10 @@ export class EventsComponent extends WidgetPlatform<IEventsWidgetAttributes> imp
 
     public deleteClick(id: number): void {
         if (!this.isClaimDelete) {
-            this.snackBarService.openSnackBar(`У вас недостаточно прав для удаления событий`, 'snackbar-red');
+            this.snackBarService.openSnackBar(
+                `У вас недостаточно прав для удаления событий`,
+                'snackbar-red'
+            );
             return;
         }
         const info: IAlertWindowModel = {
@@ -620,7 +628,7 @@ export class EventsComponent extends WidgetPlatform<IEventsWidgetAttributes> imp
             cancelText: 'Нет',
             acceptFunction: () => this.deleteNotification(id),
             closeFunction: () => this.eventAlertInfo$.next(null),
-            cancelFunction: () => this.snackBarService.openSnackBar(`Удаление отменено!`)
+            cancelFunction: () => this.snackBarService.openSnackBar(`Удаление отменено!`),
         };
         this.eventAlertInfo$.next(info);
     }
@@ -647,13 +655,15 @@ export class EventsComponent extends WidgetPlatform<IEventsWidgetAttributes> imp
         window.open(url);
     }
 
-    public async scrollHandler(event: { target: { offsetHeight: number, scrollTop: number, scrollHeight: number } }): Promise<void> {
+    public scrollHandler(event: {
+        target: { offsetHeight: number; scrollTop: number; scrollHeight: number };
+    }): void {
         if (
-            event.target.offsetHeight + event.target.scrollTop + 100 >= event.target.scrollHeight
-            && this.notifications.length
-            && this.isAllowScrollLoading
+            event.target.offsetHeight + event.target.scrollTop + 100 >= event.target.scrollHeight &&
+            this.notifications.length &&
+            this.isAllowScrollLoading
         ) {
-            await this.getData(this.notifications[this.notifications.length - 1].id);
+            this.getData(this.notifications[this.notifications.length - 1].id);
         }
     }
 
@@ -682,7 +692,8 @@ export class EventsComponent extends WidgetPlatform<IEventsWidgetAttributes> imp
         return result;
     }
 
-    private async getData(lastId: number = 0): Promise<void> {
+    private getData(lastId: number = 0): void {
+        const subKey: string = 'data';
         this.isAllowScrollLoading = false;
         if (lastId === 0) {
             this.clearNotifications();
@@ -693,67 +704,87 @@ export class EventsComponent extends WidgetPlatform<IEventsWidgetAttributes> imp
             this.isAllowScrollLoading = true;
             return;
         }
-        const ans = await this.eventService.getBatchData(lastId, options);
-        this.appendNotifications(ans);
-        this.isAllowScrollLoading = true;
-        if (ans?.length > 0) {
-            this.viewport?.checkViewportSize();
-        }
+        this.requestSubscription[subKey]?.unsubscribe();
+        this.requestSubscription[subKey] = this.eventService
+            .getBatchDataObserver(lastId, options)
+            .subscribe(
+                (data) => {
+                    const ans = data;
+                    this.appendNotifications(ans);
+                    if (ans?.length > 0) {
+                        this.viewport?.checkViewportSize();
+                    }
+                },
+                (err) => {},
+                () => {
+                    this.isAllowScrollLoading = true;
+                    this.requestSubscription[subKey] = null;
+                }
+            );
     }
 
-    private async getStats(): Promise<void> {
+    private getStats(): void {
+        const subKey: string = 'stats';
         const options = this.getCurrentOptions();
         if (!options.placeNames) {
             return;
         }
-        const stats = await this.eventService.getStats(options);
-        this.categories.forEach((c) => {
-            switch (options.categoriesType) {
-                case 'default':
-                    c.notificationsCounts.all = stats.statsByCategory.find(
-                        (sc) => sc.category.id === c.id
-                    )?.totalCount;
-                    c.notificationsCounts.open = stats.statsByCategory.find(
-                        (sc) => sc.category.id === c.id
-                    )?.unclosedCount;
-                    break;
-                case 'ed':
-                    c.notificationsCounts.all = stats.statsByDispatcherScreenCategory.find(
-                        (sc) => sc.category.id === c.id
-                    )?.totalCount;
-                    c.notificationsCounts.open = stats.statsByDispatcherScreenCategory.find(
-                        (sc) => sc.category.id === c.id
-                    )?.unclosedCount;
-                    break;
+        this.requestSubscription[subKey]?.unsubscribe();
+        this.requestSubscription[subKey] = this.eventService.getStatsObserver(options).subscribe(
+            (stats) => {
+                this.categories.forEach((c) => {
+                    switch (options.categoriesType) {
+                        case 'default':
+                            c.notificationsCounts.all = stats.statsByCategory.find(
+                                (sc) => sc.category.id === c.id
+                            )?.totalCount;
+                            c.notificationsCounts.open = stats.statsByCategory.find(
+                                (sc) => sc.category.id === c.id
+                            )?.unclosedCount;
+                            break;
+                        case 'ed':
+                            c.notificationsCounts.all = stats.statsByDispatcherScreenCategory.find(
+                                (sc) => sc.category.id === c.id
+                            )?.totalCount;
+                            c.notificationsCounts.open = stats.statsByDispatcherScreenCategory.find(
+                                (sc) => sc.category.id === c.id
+                            )?.unclosedCount;
+                            break;
+                    }
+                });
+                this.filters.forEach((f) => {
+                    switch (f.code) {
+                        case 'all':
+                            f.notificationsCount = stats.statsByStatus.find(
+                                (sf) => sf.status.id === 3001
+                            ).count;
+                            f.notificationsCount += stats.statsByStatus.find(
+                                (sf) => sf.status.id === 3002
+                            ).count;
+                            break;
+                        case 'closed':
+                            f.notificationsCount = stats.statsByStatus.find(
+                                (sf) => sf.status.id === 3003
+                            ).count;
+                            break;
+                        case 'inWork':
+                            f.notificationsCount = stats.statsByStatus.find(
+                                (sf) => sf.status.id === 3002
+                            ).count;
+                            break;
+                        case 'isNotAcknowledged':
+                            f.notificationsCount = stats.statsByStatus.find(
+                                (sf) => sf.status.id === -100
+                            ).count;
+                            break;
+                    }
+                });
+            },
+            () => {},
+            () => {
+                this.requestSubscription[subKey] = null;
             }
-        });
-        this.filters.forEach((f) => {
-            switch (f.code) {
-                case 'all':
-                    f.notificationsCount = stats.statsByStatus.find(
-                        (sf) => sf.status.id === 3001
-                    ).count;
-                    f.notificationsCount += stats.statsByStatus.find(
-                        (sf) => sf.status.id === 3002
-                    ).count;
-                    break;
-                case 'closed':
-                    f.notificationsCount = stats.statsByStatus.find(
-                        (sf) => sf.status.id === 3003
-                    ).count;
-                    break;
-                case 'inWork':
-                    f.notificationsCount = stats.statsByStatus.find(
-                        (sf) => sf.status.id === 3002
-                    ).count;
-                    break;
-                case 'isNotAcknowledged':
-                    f.notificationsCount = stats.statsByStatus.find(
-                        (sf) => sf.status.id === -100
-                    ).count;
-                    break;
-            }
-        });
+        );
     }
 
     soundSwitch(event: MouseEvent, isSound: boolean): void {
