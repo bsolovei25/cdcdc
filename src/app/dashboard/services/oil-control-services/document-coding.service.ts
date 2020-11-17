@@ -3,10 +3,8 @@ import { HttpClient } from '@angular/common/http';
 import { AppConfigService } from '@core/service/app-config.service';
 import { IAlertWindowModel } from '@shared/models/alert-window.model';
 import { BehaviorSubject } from 'rxjs';
-import {
-    IDocumentCodingFilter,
-} from '../../../widgets/NK/document-coding/components/document-coding-table/document-coding-table.component';
 import { IEncodedFileToSave } from '../../../widgets/NK/document-coding/components/document-coding-menu/document-coding-menu.component';
+import { IOilFilter } from '../../models/oil-operations';
 
 @Injectable({
     providedIn: 'root'
@@ -35,8 +33,8 @@ export class DocumentCodingService {
     }
 
     public async getProductListByFilter<T>(
-        labs: IDocumentCodingFilter[] | null = null,
-        groups: IDocumentCodingFilter[] | null = null,
+        labs: IOilFilter[] | null = null,
+        groups: IOilFilter[] | null = null,
         ): Promise<T[]> {
         const filterQuery = this.combineMultiFilterRequest(labs, groups);
         try {
@@ -58,7 +56,7 @@ export class DocumentCodingService {
         }
     }
 
-    private combineMultiFilterRequest(labs: IDocumentCodingFilter[] | null, groups: IDocumentCodingFilter[] | null): string {
+    private combineMultiFilterRequest(labs: IOilFilter[] | null, groups: IOilFilter[] | null): string {
         if (!labs || !groups) { return; }
         let result = '?';
         labs.forEach(filter => {

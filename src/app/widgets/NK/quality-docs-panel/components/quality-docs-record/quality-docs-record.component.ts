@@ -1,5 +1,6 @@
-import {Component, OnInit, Input, AfterViewInit} from '@angular/core';
+import {Component, OnInit, Input, AfterViewInit, Output, EventEmitter} from '@angular/core';
 import { IQualityDocsRecord } from '../../quality-docs-panel.component';
+import {IOilControlManualAdjEmitResponse} from "../../../oil-operations/components/oil-operations-adjustment/oil-operations-adjustment.component";
 
 @Component({
   selector: 'evj-quality-docs-record',
@@ -8,6 +9,8 @@ import { IQualityDocsRecord } from '../../quality-docs-panel.component';
 })
 export class QualityDocsRecordComponent implements OnInit, AfterViewInit {
   @Input() public data: IQualityDocsRecord;
+
+  @Output() public emitBlockUnblock: EventEmitter<{ id: number; action: 'block' | 'unblock' }> = new EventEmitter<{ id: number; action: 'block' | 'unblock' }>();
 
   constructor() { }
 
@@ -18,8 +21,12 @@ export class QualityDocsRecordComponent implements OnInit, AfterViewInit {
     this.changeTooltip();
   }
 
-  blocked(): void {
+  public blocked(idParam: number): void {
     this.data.isBlocked = !this.data.isBlocked;
+    this.emitBlockUnblock.emit({
+        id: idParam,
+        action: this.data.isBlocked ? 'block' : 'unblock',
+    });
     this.changeTooltip();
   }
 

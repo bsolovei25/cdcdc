@@ -11,9 +11,9 @@
       <mat-label>Место</mat-label>
       <mat-select panelClass="mat-select-custom" [disabled]="disabled" [(ngModel)]="unit" disableOptionCentering>
         <evj-mat-select-filter [formControl]="filter"></evj-mat-select-filter>
-        <ng-container *ngFor="let p of units">
-          <mat-option [value]="p" (click)="chooseRespons(p)">
-            {{ p.name }}
+        <ng-container *ngFor="let u of units">
+          <mat-option [value]="u?.id" (click)="chooseUnit(u)">
+            {{ u?.name || "-" }}
           </mat-option>
         </ng-container>
       </mat-select>

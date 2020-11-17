@@ -6,6 +6,7 @@
         class="gridster-item-content"
         minlength="3"
         [(ngModel)]="description"
+        [disabled]="disabled"
         (input)="onChangeTextarea()"
         (blur)="disableTextarea()"
         #textarea

@@ -50,12 +50,12 @@ $container-padding: 5px;
     width: 16%;
 
     &__top {
-      height: calc(57% - 5px);
+      height: 50%;
       margin-bottom: 5px;
     }
 
     &__bottom {
-      height: 43%;
+      height: calc(50% - 5px);
     }
   }
 
@@ -100,6 +100,14 @@ $container-padding: 5px;
       width: 40px;
       position: absolute;
       left: 20px;
+    }
+
+    .manual {
+      width: 23px !important;
+      height: auto !important;
+      position: absolute;
+      left: 27px !important;
+      top: 10px !important;
     }
   }
 
