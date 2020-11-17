@@ -11,16 +11,14 @@
     (mousedown)="$event.stopPropagation()"
     (touchstart)="$event.stopPropagation()"
   >
-    <table class="table-head">
-    <thead class="table__header">
-    <tr class="table__header__row">
-      <th *ngFor="let column of columnsToDisplay" class="table__header__column">
-        <span>{{ column.name }}</span>
-      </th>
-    </tr>
-    </thead>
-    </table>
     <table class="table">
+      <thead class="table-head__header">
+      <tr class="table-head__header__row">
+        <th *ngFor="let column of columnsToDisplay" class="table__header__column">
+          <span>{{ column.name }}</span>
+        </th>
+      </tr>
+      </thead>
       <tbody class="table__body">
       <ng-container *ngFor="let element of data">
         <tr
@@ -58,14 +56,13 @@
                   <div class="table__body__column__row-title__text__name">
                     <span>{{ element.unit.name }}</span>
                   </div>
-                  <div class="table__body__column__row-title__text__value">
+                  <div class="table__body__column__row-title__text__val">
                     <span>1000</span>
                   </div>
-                  <div class="table__body__column__row-title__text__value">
+                  <div class="table__body__column__row-title__text__val">
                     <span>1000</span>
                   </div>
                 </div>
-
                 <ng-template #elseBlock></ng-template>
               </div>
             </td>

@@ -65,14 +65,12 @@
     height: calc(100% - 43px);
 
     background-size: auto;
-    background-color: var(--color-kpe-line-diagram-bg-sub);
     overflow-y: auto;
 
     &::before {
       content: "";
       position: absolute;
       z-index: 9999;
-      // background: url(../../../../../assets/icons/widgets/gantt-chart/border-left-top.svg) no-repeat;
       bottom: 3px;
       width: 90px;
       height: 15px;
@@ -86,7 +84,6 @@
       content: "";
       position: absolute;
       z-index: 9999;
-      // background: url(../../../../../assets/icons/widgets/gantt-chart/border-left-top.svg) no-repeat;
       width: 90px;
       height: 15px;
       bottom: 3px;
@@ -124,7 +121,6 @@
     font-size: 11px;
     margin-top: 5px;
     text-align: center;
-    // background: url(../../../../../assets/icons/widgets/gantt-chart/btn-right.svg) no-repeat;
   }
 
   &__button {
@@ -135,7 +131,6 @@
       font-size: 11px;
       text-align: center;
       z-index: 9999;
-      // background: url(../../../../../assets/icons/widgets/gantt-chart/button-left-top.svg) no-repeat;
     }
   }
 
@@ -154,8 +149,6 @@
   &__right {
     &__buttons {
       display: flex;
-      //   margin-left: 30px;
-      //   margin-top: 5px;
       min-height: 24px;
       min-width: 236px;
     }
@@ -177,7 +170,6 @@
     content: "";
     position: absolute;
     z-index: 9999;
-    // background: url(../../../../../assets/icons/widgets/gantt-chart/border-left-top.svg) no-repeat;
     width: 90px;
     height: 15px;
 
@@ -190,7 +182,6 @@
       content: "";
       position: absolute;
       z-index: 9999;
-      // background: url(../../../../../assets/icons/widgets/gantt-chart/border-left-top.svg) no-repeat;
       width: 94px;
       height: 15px;
       top: 3px;
@@ -264,7 +255,6 @@
 
         &-product {
           margin-top: -4px;
-          //   background: url(../../../../../assets/icons/widgets/gantt-chart/product-name.svg);
         }
 
         &-production {
@@ -400,7 +390,7 @@
 
       &__row-title {
         display: flex;
-        justify-content: space-between;
+        justify-content: flex-start;
         align-items: center;
         width: 100%;
 
@@ -432,7 +422,6 @@
             }
           }
         }
-
         &__text {
           margin-left: 10px;
           margin-right: 6px;
@@ -456,18 +445,15 @@
           }
 
           &__name {
-            flex-grow: 3.5;
+            width: 60%;
             text-align: left;
 
             &__value-right {
               text-align: left;
             }
           }
-          &__value {
-            flex-grow: 1;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+          &__val {
+            width: 24%;
           }
         }
 
@@ -626,11 +612,6 @@
   border-radius: 25px;
   margin-left: 268px;
   margin-right: 365px;
-}
-
-::-webkit-scrollbar-track-piece {
-  // border: solid 1px var(--color-aps-border-sub);
-  // border-radius: 25px;
 }
 
 ::-webkit-scrollbar-thumb {

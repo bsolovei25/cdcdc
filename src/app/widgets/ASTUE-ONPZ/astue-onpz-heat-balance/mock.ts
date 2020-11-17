@@ -3,7 +3,7 @@ import { IParams } from '../../CD/cd-mat-balance/cd-mat-balance.component';
 export const heatBalanceData: IParams[] = [
     {
         unit: {
-            name: 'Q общая',
+            name: 'Q общая ауцзшоацшзуаоуцзшоа',
             description: 'Q общая'
         },
         unitParams: [
