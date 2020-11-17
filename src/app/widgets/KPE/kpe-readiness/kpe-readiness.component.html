@@ -24,6 +24,7 @@
       <div class="readiness__header">
         <div #mainGauge class="readiness__header__gauge" [style]="gaugeWidth(mainGauge)">
           <evj-kpe-gauge-chart isPercent="true"
+                               [background]="'dark'"
                                [fact]="diagram?.fact"
                                [plan]="diagram?.plan"
                                [deviation]="diagram?.deviation"
@@ -51,7 +52,7 @@
                     </div>
                   </div>
                   <div class="gauge-card__gauge">
-                    <evj-kpe-gauge-chart background="dark"
+                    <evj-kpe-gauge-chart background="lite"
                                          [fact]="gaugeCards[0]?.fact"
                                          [plan]="gaugeCards[0]?.plan"
                                          [deviation]="gaugeCards[0]?.deviation"
@@ -77,7 +78,7 @@
                     </div>
                   </div>
                   <div class="gauge-card__gauge">
-                    <evj-kpe-gauge-chart background="dark"
+                    <evj-kpe-gauge-chart background="lite"
                                          [fact]="gaugeCards[1]?.fact"
                                          [plan]="gaugeCards[1]?.plan"
                                          [deviation]="gaugeCards[1]?.deviation"
