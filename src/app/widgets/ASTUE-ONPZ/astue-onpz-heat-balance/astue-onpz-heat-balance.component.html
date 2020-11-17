@@ -11,14 +11,16 @@
     (mousedown)="$event.stopPropagation()"
     (touchstart)="$event.stopPropagation()"
   >
+    <table class="table-head">
+    <thead class="table__header">
+    <tr class="table__header__row">
+      <th *ngFor="let column of columnsToDisplay" class="table__header__column">
+        <span>{{ column.name }}</span>
+      </th>
+    </tr>
+    </thead>
+    </table>
     <table class="table">
-      <thead class="table__header">
-      <tr class="table__header__row">
-        <th *ngFor="let column of columnsToDisplay" class="table__header__column">
-          {{ column.name }}
-        </th>
-      </tr>
-      </thead>
       <tbody class="table__body">
       <ng-container *ngFor="let element of data">
         <tr
@@ -52,16 +54,19 @@
                   src="assets/icons/widgets/APS/aps-recipe-diagram/gradient-blue.svg"
                 >
                 </svg-icon>
-                <span class="table__body__column__row-title">
-                    <span class="table__body__column__row-title__text__name"
-                    >{{ element.unit.name }}
-                    </span>
-                    <span class="table__body__column__row-title__text__name__value-right"
-                    >Отклонений {{ deviationCount(element) }}
-                    </span>
-                  </span>
+                <div class="table__body__column__row-title">
+                  <div class="table__body__column__row-title__text__name">
+                    <span>{{ element.unit.name }}</span>
+                  </div>
+                  <div class="table__body__column__row-title__text__value">
+                    <span>1000</span>
+                  </div>
+                  <div class="table__body__column__row-title__text__value">
+                    <span>1000</span>
+                  </div>
+                </div>
 
-                <ng-template #elseBlock> </ng-template>
+                <ng-template #elseBlock></ng-template>
               </div>
             </td>
           </ng-container>
