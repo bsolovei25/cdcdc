@@ -43,27 +43,98 @@
   &__icon {
     position: absolute;
     width: 30px;
+    z-index: 5;
   }
 
   &__text {
+    border-top-right-radius: 100px;
+    border-bottom-right-radius: 100px;
+    background: linear-gradient(90deg, transparent 10%, var(--color-text-main) 100%);
+    position: relative;
     display: flex;
-    width: calc(100% - 20px);
-    justify-content: space-between;
-    align-items: center;
-    font-size: 12px;
-    border: 1px solid;
-    border-image: linear-gradient(90deg, transparent 10%, var(--color-text-main) 100%);
-    border-image-slice: 1;
-    border-right: none;
+    width: 100%;
+    height: 100%;
 
-    .icon {
-      width: 10px;
-    }
+    &-back {
+      position: relative;
+      width: calc(100% - 35px);
+      height: calc(100% - 2px);
+      margin: auto;
+      border-radius: inherit;
+      border: none;
+      background: var(--color-input-backgroud-table);
+      margin-right: 1px;
+      z-index: 1;
 
-    .name {
-      margin-left: 35px;
-      @include text-overflow;
-      -webkit-line-clamp: 1;
+      .icon {
+        width: 10px;
+      }
+
+      .name {
+        margin-left: 35px;
+        @include text-overflow;
+        -webkit-line-clamp: 1;
+      }
     }
   }
+}
+
+
+.input-block {
+  display: flex;
+  position: relative;
+  align-items: center;
+  width: 180px;
+  height: 30px;
+  margin-right: 5px;
+  cursor: pointer;
+
+  &__button-search {
+    z-index: 999;
+    cursor: pointer;
+    height: 100%;
+    position: absolute;
+
+    ::ng-deep {
+      svg {
+        height: 100%;
+      }
+    }
+  }
+
+  &__input {
+    border-top-right-radius: 100px;
+    border-bottom-right-radius: 100px;
+    background: linear-gradient(90deg, transparent 10%, var(--color-text-main) 100%);
+    position: relative;
+    display: flex;
+    width: 100%;
+    height: 100%;
+
+    .input-back {
+      position: relative;
+      width: calc(100% - 2px);
+      height: calc(100% - 2px);
+      margin: auto;
+      border-radius: inherit;
+      background: var(--color-bg-main);
+      display: flex;
+      align-items: center;
+
+      .name {
+        margin: 0 auto;
+        font-size: 12px;
+      }
+
+      .icon {
+        width: 10px;
+        margin-right: 10px;
+      }
+    }
+  }
+
+  &__input-active {
+    background: linear-gradient(90deg, transparent 10%, var(--color-active) 100%);
+  }
+
 }

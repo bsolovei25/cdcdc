@@ -39,9 +39,6 @@ $container-padding: 5px;
       .scroll-block {
         background-color: var(--color-oil-table-2);
       }
-      .record-table {
-        background-color: var(--color-oil-table-2) !important;
-      }
       .input-back{
         background: var(--color-input-backgroud-table);
       }
@@ -53,12 +50,12 @@ $container-padding: 5px;
     width: 16%;
 
     &__top {
-      height: calc(57% - 5px);
+      height: 50%;
       margin-bottom: 5px;
     }
 
     &__bottom {
-      height: 43%;
+      height: calc(50% - 5px);
     }
   }
 
@@ -73,7 +70,18 @@ $container-padding: 5px;
   }
 }
 
-.pasport {
+.status {
+  display: flex;
+  align-items: center;
+
+  &__blps {
+    width: 12px;
+    height: 100%;
+    margin: -20px 5px 0 5px;
+  }
+}
+
+.passport {
   display: flex;
   align-items: center;
   justify-content: space-evenly;
@@ -92,6 +100,14 @@ $container-padding: 5px;
       width: 40px;
       position: absolute;
       left: 20px;
+    }
+
+    .manual {
+      width: 23px !important;
+      height: auto !important;
+      position: absolute;
+      left: 27px !important;
+      top: 10px !important;
     }
   }
 

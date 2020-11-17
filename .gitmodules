@@ -1,0 +1,3 @@
+[submodule "ci/asplatform-front-chart"]
+	path = ci/front-chart
+	url = ../../evj/infra/asplatform-front-chart.git

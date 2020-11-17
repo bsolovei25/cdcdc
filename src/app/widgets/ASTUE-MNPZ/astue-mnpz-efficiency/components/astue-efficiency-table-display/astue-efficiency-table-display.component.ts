@@ -50,7 +50,7 @@ export class AstueEfficiencyTableDisplayComponent implements OnInit, OnChanges, 
     public blockSelection: SelectionModel<IAsEfTableBlock> = new SelectionModel<IAsEfTableBlock>(
         true
     );
-    public newBlockSelection: SelectionModel<IAsEfTable> = new SelectionModel<IAsEfTable>(true);
+    public newBlockSelection: SelectionModel<string> = new SelectionModel<string>(true);
 
     public scriptSelection: SelectionModel<any> = new SelectionModel<any>();
 
@@ -161,7 +161,8 @@ export class AstueEfficiencyTableDisplayComponent implements OnInit, OnChanges, 
             .flatMap((x) => x.rows)
             .sort(
                 (a, b) =>
-                    +(this.dates.length < b.values.length) - +(this.dates.length < a.values.length)
+                    +(this.dates?.length < b.values?.length) -
+                    +(this.dates?.length < a.values?.length)
             )[0]?.values;
     }
 
@@ -170,7 +171,7 @@ export class AstueEfficiencyTableDisplayComponent implements OnInit, OnChanges, 
             .flatMap((x) => x.children)
             .sort(
                 (a, b) =>
-                    +(this.dates.length < b.data.length) - +(this.dates.length < a.data.length)
+                    +(this.dates?.length < b.data.length) - +(this.dates?.length < a.data.length)
             )[0]?.data;
     }
 
@@ -229,5 +230,21 @@ export class AstueEfficiencyTableDisplayComponent implements OnInit, OnChanges, 
                 })
             )
             .subscribe();
+    }
+
+    toggleel(block: any): void {
+        if (block.parent) {
+            this.newBlockSelection.toggle(`${block.name} ${block.parent}`);
+        } else {
+            this.newBlockSelection.toggle(block.name);
+        }
+    }
+
+    isSelectEl(block: any): boolean {
+        if (block.parent) {
+            return this.newBlockSelection.isSelected(`${block.name} ${block.parent}`);
+        } else {
+            return this.newBlockSelection.isSelected(block.name);
+        }
     }
 }

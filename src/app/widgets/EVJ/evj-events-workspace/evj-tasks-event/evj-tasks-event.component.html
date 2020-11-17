@@ -1,0 +1,202 @@
+<div class="workspace scroll scroll-bar" [style]="{overflow: noOverflow ? 'auto' : 'visible'}">
+
+  <div class="workspace__header">
+    <div class="workspace__select-container-left">
+      <div class="title">
+        <span>Категория</span>
+      </div>
+      <div class="mat-form-category">
+        <div class="event-mat-select">
+          <mat-form-field appearance="none">
+            <mat-select
+              [(ngModel)]="ewService.event.category"
+              [compareWith]="compareFn"
+              (selectionChange)="ewService.changeCategory()"
+              [disabled]="!ewService.isCategoryEdit"
+            >
+              <mat-option *ngFor="let item of ewService.categoryPipe | async" [value]="item">
+                {{ ewService.categories[item.name] }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+
+    <div class="workspace__select-container">
+      <div class="mat-form-category">
+        <div class="event-mat-select">
+          <div class="{{ewService.event.priority.name}}">
+            <mat-form-field appearance="none">
+              <mat-label>Приоритет</mat-label>
+              <mat-select
+                [(ngModel)]="ewService.event.priority"
+                [compareWith]="compareFn"
+              >
+                <mat-option *ngFor="let p of ewService.priority" [value]="p"
+                >{{ ewService.priorities[p.name] }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="workspace__select-container-right">
+      <evj-events-workspace-select
+        [label]="'Статус'"
+        [dataType]="'status'"
+      ></evj-events-workspace-select>
+    </div>
+  </div>
+
+  <div class="workspace__third">
+    <div class="workspace__third__right">
+      <div class="place-date">
+        <div class="workspace__select-container-left">
+          <ng-container *ngIf="ewService.event.category.code!=='2' else subcategories">
+            <div class="title">
+              <span>Тип оборудования</span>
+            </div>
+            <div class="mat-form-category">
+              <div class="event-mat-select">
+                <mat-form-field appearance="none">
+                  <mat-select
+                    [(ngModel)]="ewService.event.equipmentCategory"
+                    [compareWith]="compareFn"
+                  >
+                    <mat-option *ngFor="let p of ewService.equipmentCategory" [value]="p"
+                    >{{ p.name }}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+            </div>
+          </ng-container>
+        </div>
+
+        <div class="workspace__select-container-right">
+          <evj-events-workspace-datetimepicker
+            [label]="'Срок выполнения'"
+          >
+          </evj-events-workspace-datetimepicker>
+        </div>
+      </div>
+      <div class="description">
+        <div class="title">
+          <span>Распоряжения</span>
+        </div>
+        <evj-event-description
+          [description]="ewService.event?.description"
+          (changedDescription)="onChangeEventDescription($event)"
+          [disabled]="!ewService.isCreateNewEvent"
+        ></evj-event-description>
+      </div>
+
+      <div class="facts">
+        <div class="title">
+          <span>Установленные факты</span>
+        </div>
+        <evj-chat
+          [messages]="ewService.event.facts"
+          dataTitle="Установленные факты"
+          placeholder="Укажите факты..."
+          [displayGraphImage]="!!ewService.event.graphValues?.graphs[0]"
+          [onClickItem]="openLineChart.bind(this)"
+          (addingMessage)="onSendMessage($event,'facts')"
+        ></evj-chat>
+      </div>
+
+      <div class="comments">
+        <div class="title">
+          <span>Комментарии</span>
+        </div>
+        <evj-chat
+          [messages]="ewService.event.comments"
+          dataTitle="Комментарии"
+          placeholder="Напишите свой комментарий..."
+          (addingMessage)="onSendMessage($event,'comments')"
+        ></evj-chat>
+      </div>
+    </div>
+
+    <div class="workspace__third__right">
+      <div class="place-date">
+        <div class="workspace__select-container-left">
+          <evj-events-workspace-datetimepicker
+            [label]="'Начало события'"
+          >
+          </evj-events-workspace-datetimepicker>
+        </div>
+
+        <div class="workspace__select-container-right">
+          <div class="title">
+            <span>Место</span>
+          </div>
+          <evj-events-place></evj-events-place>
+        </div>
+      </div>
+      <div class="responsible">
+        <evj-events-workspace-responsible-select>
+
+        </evj-events-workspace-responsible-select>
+      </div>
+      <div class="table">
+        <div class="table__group">
+          <div class="workspace__select-container-left">
+            <div class="name">Создано:</div>
+            <div class="value">
+              {{(ewService.event.productionTasks.createdAt | date: "yyyy.MM.dd | HH:mm") || '-'}}
+            </div>
+          </div>
+          <div class="workspace__select-container-right">
+            <div class="name">Автор:</div>
+            <div class="value">{{ewService.event.productionTasks?.createdBy?.displayName || '-'}}</div>
+          </div>
+        </div>
+
+        <div class="table__group">
+          <div class="workspace__select-container-left">
+            <div class="name">Принято в работу:</div>
+            <div class="value">
+              {{(ewService.event.productionTasks.acceptedAt | date: "yyyy.MM.dd | HH:mm") || '-'}}
+            </div>
+          </div>
+
+          <div class="workspace__select-container-right">
+            <div class="name">Автор:</div>
+            <div class="value">{{ewService.event.productionTasks?.acceptedBy?.displayName || '-'}}</div>
+          </div>
+        </div>
+
+        <div class="table__group">
+          <div class="workspace__select-container-left">
+            <div class="name">Закрыто:</div>
+            <div class="value">
+              {{(ewService.event.productionTasks?.closedAt | date: "yyyy.MM.dd | HH:mm") || '-'}}
+            </div>
+          </div>
+          <div class="workspace__select-container-right">
+            <div class="name">Автор:</div>
+            <div class="value">{{ewService.event.productionTasks?.closedBy?.displayName || '-'}}</div>
+          </div>
+        </div>
+      </div>
+      <div class="event-correct">
+        <div class="title">
+          <span>Корректирующие мероприятия</span>
+        </div>
+        <evj-events-correct></evj-events-correct>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #subcategories>
+  <evj-events-workspace-select
+    [label]="'Подкатегория'"
+    [dataType]="'subCategories'"
+  ></evj-events-workspace-select>
+</ng-template>
+

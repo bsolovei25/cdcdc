@@ -1,9 +1,9 @@
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { DocumentCodingService } from 'src/app/dashboard/services/oil-control-services/document-coding.service';
 import { SnackBarService } from 'src/app/dashboard/services/snack-bar.service';
-import { IDocumentsScan, IDocumentsTank } from '../../../../../dashboard/models/oil-document.model';
-import { IDocumentCodingTableRecord } from '../document-coding-table/document-coding-table.component';
+import { IDocumentsScan } from '../../../../../dashboard/models/oil-document.model';
 import { FormControl } from '@angular/forms';
+import { IOilOperationsProduct, IOilOperationsTank } from '../../../../../dashboard/models/oil-operations';
 
 export interface IEncodedFileToSave {
     productId: number;
@@ -26,10 +26,10 @@ export class DocumentCodingMenuComponent implements OnInit, OnChanges {
     public document: IDocumentsScan | null = null;
 
     @Input()
-    public tank: IDocumentsTank | null = null;
+    public tank: IOilOperationsTank | null = null;
 
     @Input()
-    public product: IDocumentCodingTableRecord | null = null;
+    public product: IOilOperationsProduct | null = null;
 
     public passportId: FormControl = new FormControl();
 

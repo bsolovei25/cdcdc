@@ -67,9 +67,24 @@
               </span>
             </div>
             <div class="widget-card__body">
-              <ng-container *ngFor="let card of [1,2]">
-                <evj-ozsm-card-line-diagram></evj-ozsm-card-line-diagram>
-              </ng-container>
+                <evj-ozsm-card-line-diagram
+                [data] = "{
+                  'icon' : 'railway',
+                  'title': 'Отгрузка ЖД',
+                  'maxValue': 39227,
+                  'currentValue': 35227,
+                  'type': 'icon'
+                }"
+                ></evj-ozsm-card-line-diagram>
+                <evj-ozsm-card-line-diagram
+                [data] = "{
+                  'icon' : 'automobile',
+                  'title': 'Отгрузка Авто',
+                  'maxValue': 39227,
+                  'currentValue': 3227,
+                  'type': 'icon'
+                }"
+                ></evj-ozsm-card-line-diagram>
             </div>
           </div>
         </div>
@@ -92,6 +107,40 @@
               innerIcon='canister'
             ></evj-ozsm-cirle-diagram-icon>
           </div>
+        </div>
+        <div class="simple-diagrams">
+          <evj-ozsm-simple-circle-diagram>
+          </evj-ozsm-simple-circle-diagram>
+        </div>
+        <div class="circle-diagram-full">
+          <evj-ozsm-diagrams-card
+            [style.transform]="'translate(0px, 6px)'"
+          ></evj-ozsm-diagrams-card>
+          <div class="custom">
+            <div class="circle"></div>
+            <div class="line"></div>
+            <div class="circle"></div>
+          </div>
+          <div class="circle-diagram-full__diagram">
+            <evj-ozsm-circle-diagram-full [data]="circleDiagramData"></evj-ozsm-circle-diagram-full>
+          </div>
+          <div class="custom">
+            <div class="circle"></div>
+            <div class="line"></div>
+            <div class="circle"></div>
+          </div>
+          <evj-ozsm-diagrams-card
+            [style.transform]="'translate(0px, 6px)'"
+            [mirrorize]="true"
+            [data]="{
+              fact: 6805,
+              plan: 4861,
+              deviation: 1944,
+              percentage: 140,
+              amount: 500,
+              title: 'L&L'
+            }"
+          ></evj-ozsm-diagrams-card>
         </div>
         <div class="arrow-container">
           <svg-icon

@@ -1,0 +1,204 @@
+$border-radius: 21px;
+$width: 464px;
+$font-size: 14px;
+$color-scroll: #282B38;
+
+.loading-shade {
+  position: absolute;
+  top: 0;
+  left: 2px;
+  right: 2px;
+  bottom: 0;
+  background: var(--color-aw-shade-bg-transparent);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &__blur {
+    backdrop-filter: blur(1.5px);
+    transition: backdrop-filter 0.5s;
+  }
+}
+
+.confirm-container {
+  width: $width;
+  height: 500px;
+
+  background-color: var(--color-bg-card);
+  box-shadow: 0 0 35px var(--color-aw-container-shadow-transparent);
+  border-radius: 4px 4px 0 0;
+
+  &__body {
+    width: $width;
+
+    background-color: var(--color-bg-card);
+    border-radius: 4px 4px 0 0;
+  }
+
+  &-body__header {
+    width: $width;
+    height: 62px;
+    padding-left: 16px;
+    padding-right: 16px;
+    box-sizing: border-box;
+
+    background-color: var(--color-bg-card);
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 18px;
+    line-height: 16px;
+  }
+  &-body__input {
+    width: $width;
+    height: 71px;
+    padding-left: 35px;
+    padding-right: 35px;
+    padding-bottom: 21px;
+    box-sizing: border-box;
+
+    background-color: var(--color-bg-card);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+  }
+
+  &-body__content {
+    height: 261px;
+    display: flex;
+    justify-content: center;
+
+    .block {
+      height: 100%;
+      width: 85%;
+      overflow: auto;
+    }
+
+    /// Styling CARD-RETRIEVAL
+    .card {
+      margin-right: 2px;
+      margin-left: 2px;
+      margin-top: 5px;
+      margin-bottom: 14px;
+
+      ::ng-deep {
+        .card {
+          font-size: 10px;
+          .info {
+            line-height: 0 !important;
+          }
+        }
+        .card-normal {
+          cursor: pointer;
+          &:before {
+            display: none;
+          }
+
+          &:after {
+            display: none;
+          }
+        }
+
+        .card-normal__footer {
+          &:before {
+            display: none;
+          }
+
+          &:after {
+            display: none;
+          }
+        }
+
+        .card__progress {
+          display: none;
+        }
+
+        .info__buttons {
+          display: none !important;
+        }
+
+        .description__text {
+          line-height: 17px;
+        }
+      }
+    }
+  }
+
+  &-body-header__icon {
+    width: 66px;
+    height: 62px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  &-body-header__title {
+    width: 290px;
+    height: 62px;
+
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+  }
+  &-body-header__close {
+    width: 76px;
+    height: 62px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &__footer {
+    width: $width;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    box-sizing: border-box;
+    padding-top: 38px;
+    padding-left: 35px;
+
+    .button-container {
+      width: 186px;
+      height: 40px;
+      margin-right: 25px;
+    }
+  }
+}
+
+.active {
+  ::ng-deep {
+    .card-normal {
+      background: var(--color-bg-active-gradient);
+      border: 1px solid var(--color-active) !important;
+    }
+  }
+}
+.close-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+
+::-webkit-scrollbar-track {
+  width: 4px;
+  height: 4px;
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+  width: 10px;
+  border-radius: 5px;
+  background-color: $color-scroll;
+}

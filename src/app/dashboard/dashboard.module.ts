@@ -71,6 +71,7 @@ import { MenuButtonComponent } from './components/header-components/menu-button/
 import { MatBadgeModule } from '@angular/material/badge';
 import { TankFilterComponent } from '../widgets/NK/tank-information/components/tank-filter/tank-filter.component';
 import { ReportServerConfiguratorModule } from '../widgets/admin/report-server-configurator/report-server-configurator.module';
+import { OilOperationsFilterComponent } from '../widgets/NK/oil-operations/components/oil-operations-filter/oil-operations-filter.component';
 
 @NgModule({
     declarations: [
@@ -110,7 +111,8 @@ import { ReportServerConfiguratorModule } from '../widgets/admin/report-server-c
         MenuButtonComponent,
         UserEventsComponent,
         UserEventsItemComponent,
-        TankFilterComponent
+        TankFilterComponent,
+        OilOperationsFilterComponent,
     ],
     entryComponents: [
         ReportComponent,
@@ -125,7 +127,9 @@ import { ReportServerConfiguratorModule } from '../widgets/admin/report-server-c
         TankFilterComponent,
         TableGridInputComponent,
         ColumnGridComponent,
-        TableGridComponent
+        TableGridComponent,
+        TableGridFilterComponent,
+        OilOperationsFilterComponent,
     ],
     imports: [
         CommonModule,

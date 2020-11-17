@@ -64,7 +64,6 @@ export class AstueEfficiencyGraphDisplayComponent extends LineChartPlatform<IPro
     }
 
     protected async restGraphHandler(ref: IDatesInterval): Promise<IProductionTrend[]> {
-        console.log(ref);
         return;
     }
 

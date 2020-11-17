@@ -1,11 +1,4 @@
-import {
-    Component,
-    HostListener,
-    Inject,
-    OnDestroy,
-    OnInit,
-    ViewChild
-} from '@angular/core';
+import { Component, HostListener, Inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { IAlertWindowModel } from '@shared/models/alert-window.model';
@@ -15,8 +8,11 @@ import {
     EventsWidgetFilter,
     IEventsWidgetNotificationPreview,
     EventsWidgetNotificationStatus,
-    IEventsWidgetOptions, IPriority,
-    IRetrievalEventDto, ISubcategory, IEventsWidgetAttributes
+    IEventsWidgetOptions,
+    IPriority,
+    IRetrievalEventDto,
+    ISubcategory,
+    IEventsWidgetAttributes,
 } from '../../../dashboard/models/EVJ/events-widget';
 import { EventService } from '../../../dashboard/services/widgets/EVJ/event.service';
 import { EventsWorkspaceService } from '../../../dashboard/services/widgets/EVJ/events-workspace.service';
@@ -24,7 +20,7 @@ import { SnackBarService } from '../../../dashboard/services/snack-bar.service';
 import {
     ClaimService,
     EnumClaimGlobal,
-    EnumClaimWidgets
+    EnumClaimWidgets,
 } from '../../../dashboard/services/claim.service';
 import { UserSettingsService } from '../../../dashboard/services/user-settings.service';
 import { WidgetService } from '../../../dashboard/services/widget.service';
@@ -38,10 +34,10 @@ import { SelectionModel } from '@angular/cdk/collections';
 @Component({
     selector: 'evj-evj-events',
     templateUrl: './evj-events.component.html',
-    styleUrls: ['./evj-events.component.scss']
+    styleUrls: ['./evj-events.component.scss'],
 })
-export class EvjEventsComponent extends WidgetPlatform<IEventsWidgetAttributes> implements OnInit, OnDestroy {
-
+export class EvjEventsComponent extends WidgetPlatform<IEventsWidgetAttributes>
+    implements OnInit, OnDestroy {
     @ViewChild(CdkVirtualScrollViewport) viewport: CdkVirtualScrollViewport;
 
     @ViewChild('notifications') notificationsDiv: any;
@@ -67,7 +63,9 @@ export class EvjEventsComponent extends WidgetPlatform<IEventsWidgetAttributes> 
     eventOverlayId: number;
     timeout: boolean = true;
 
-    public eventAlertInfo$: BehaviorSubject<IAlertWindowModel> = new BehaviorSubject<IAlertWindowModel>(null);
+    public eventAlertInfo$: BehaviorSubject<IAlertWindowModel> = new BehaviorSubject<
+        IAlertWindowModel
+    >(null);
 
     private isAllowScrollLoading: boolean = true;
 
@@ -86,12 +84,12 @@ export class EvjEventsComponent extends WidgetPlatform<IEventsWidgetAttributes> 
             iconUrl: 'assets/icons/widgets/events/smotr.svg',
             notificationsCounts: {
                 open: 0,
-                all: 0
+                all: 0,
             },
             name: 'СМОТР',
             isActive: false,
             url: 'https://spb25-cce-mo1.gazprom-neft.local/BLPS_MO/ru_RU/',
-            categoryType: 'default'
+            categoryType: 'default',
         },
         {
             id: 1002,
@@ -99,12 +97,12 @@ export class EvjEventsComponent extends WidgetPlatform<IEventsWidgetAttributes> 
             iconUrl: 'assets/icons/widgets/events/safety.svg',
             notificationsCounts: {
                 open: 0,
-                all: 0
+                all: 0,
             },
             name: 'Безопасноть',
             isActive: false,
             url: '#',
-            categoryType: 'default'
+            categoryType: 'default',
         },
         {
             id: 1003,
@@ -112,12 +110,12 @@ export class EvjEventsComponent extends WidgetPlatform<IEventsWidgetAttributes> 
             iconUrl: 'assets/icons/widgets/events/tasks.svg',
             notificationsCounts: {
                 open: 0,
-                all: 0
+                all: 0,
             },
             name: 'Производственные задания',
             isActive: false,
             url: '#',
-            categoryType: 'default'
+            categoryType: 'default',
         },
         {
             id: 1004,
@@ -125,12 +123,12 @@ export class EvjEventsComponent extends WidgetPlatform<IEventsWidgetAttributes> 
             iconUrl: 'assets/icons/widgets/events/status.svg',
             notificationsCounts: {
                 open: 0,
-                all: 0
+                all: 0,
             },
             name: 'Состояния оборудования',
             isActive: false,
             url: 'http://spb99-t-merap01/meridium',
-            categoryType: 'default'
+            categoryType: 'default',
         },
         {
             id: 1005,
@@ -138,12 +136,12 @@ export class EvjEventsComponent extends WidgetPlatform<IEventsWidgetAttributes> 
             iconUrl: 'assets/icons/widgets/events/drops.svg',
             notificationsCounts: {
                 open: 0,
-                all: 0
+                all: 0,
             },
             name: 'Сбросы',
             isActive: false,
             url: '#',
-            categoryType: 'default'
+            categoryType: 'default',
         },
         {
             id: 9991,
@@ -151,12 +149,12 @@ export class EvjEventsComponent extends WidgetPlatform<IEventsWidgetAttributes> 
             iconUrl: 'assets/icons/widgets/events/safety.svg',
             notificationsCounts: {
                 open: 0,
-                all: 0
+                all: 0,
             },
             name: 'Безопасность',
             isActive: false,
             url: '#',
-            categoryType: 'ed'
+            categoryType: 'ed',
         },
         {
             id: 9992,
@@ -164,12 +162,12 @@ export class EvjEventsComponent extends WidgetPlatform<IEventsWidgetAttributes> 
             iconUrl: 'assets/icons/widgets/events/indicators.svg',
             notificationsCounts: {
                 open: 0,
-                all: 0
+                all: 0,
             },
             name: 'Производственные показатели',
             isActive: false,
             url: '#',
-            categoryType: 'ed'
+            categoryType: 'ed',
         },
         {
             id: 9993,
@@ -177,12 +175,12 @@ export class EvjEventsComponent extends WidgetPlatform<IEventsWidgetAttributes> 
             iconUrl: 'assets/icons/widgets/events/resources.svg',
             notificationsCounts: {
                 open: 0,
-                all: 0
+                all: 0,
             },
             name: 'Вспомогательные ресурсы',
             isActive: false,
             url: '#',
-            categoryType: 'ed'
+            categoryType: 'ed',
         },
         {
             id: 9994,
@@ -190,13 +188,13 @@ export class EvjEventsComponent extends WidgetPlatform<IEventsWidgetAttributes> 
             iconUrl: 'assets/icons/widgets/events/tasks.svg',
             notificationsCounts: {
                 open: 0,
-                all: 0
+                all: 0,
             },
             name: 'Производственные задания',
             isActive: false,
             url: '#',
-            categoryType: 'ed'
-        }
+            categoryType: 'ed',
+        },
     ];
 
     public notifications: IEventsWidgetNotificationPreview[] = [];
@@ -207,29 +205,29 @@ export class EvjEventsComponent extends WidgetPlatform<IEventsWidgetAttributes> 
             code: 'all',
             name: 'Все',
             notificationsCount: 0,
-            isActive: true
+            isActive: true,
         },
         {
             id: 3002,
             code: 'closed',
             name: 'Отработано',
             notificationsCount: 0,
-            isActive: false
+            isActive: false,
         },
         {
             id: 3003,
             code: 'inWork',
             name: 'В работе',
             notificationsCount: 0,
-            isActive: false
+            isActive: false,
         },
         {
             id: -100,
             code: 'isNotAcknowledged',
             name: 'Не квитировано',
             notificationsCount: 0,
-            isActive: false
-        }
+            isActive: false,
+        },
     ];
 
     public priority: IPriority;
@@ -239,36 +237,38 @@ export class EvjEventsComponent extends WidgetPlatform<IEventsWidgetAttributes> 
     public iconStatus: { name: string; iconUrl: string }[] = [
         {
             name: 'inWork',
-            iconUrl: 'assets/icons/widgets/process/in-work.svg'
+            iconUrl: 'assets/icons/widgets/process/in-work.svg',
         },
         {
             name: 'closed',
-            iconUrl: 'assets/icons/widgets/process/closed.svg'
+            iconUrl: 'assets/icons/widgets/process/closed.svg',
         },
         {
             name: 'new',
-            iconUrl: 'assets/icons/widgets/process/in-work.svg'
-        }
+            iconUrl: 'assets/icons/widgets/process/in-work.svg',
+        },
     ];
 
     public statuses: { [id in EventsWidgetNotificationStatus]: string } = {
         new: 'Новое',
         inWork: 'В работе',
-        closed: 'Завершено'
+        closed: 'Завершено',
     };
 
     isCDEvents: boolean = false;
 
-    public appendEventStream$: BehaviorSubject<IEventsWidgetNotificationPreview> =
-        new BehaviorSubject<IEventsWidgetNotificationPreview>(null);
+    public appendEventStream$: BehaviorSubject<
+        IEventsWidgetNotificationPreview
+    > = new BehaviorSubject<IEventsWidgetNotificationPreview>(null);
 
     public isPreviewOpened: boolean = false;
 
     private readonly defaultIconPath: string = 'assets/icons/widgets/events/smotr.svg';
 
     get isClaimDelete(): boolean {
-        return this.claimService.claimGlobal$?.value
-            ?.some((x) => x === EnumClaimGlobal.EventsDelete);
+        return this.claimService.claimGlobal$?.value?.some(
+            (x) => x === EnumClaimGlobal.EventsDelete
+        );
     }
 
     constructor(
@@ -321,21 +321,23 @@ export class EvjEventsComponent extends WidgetPlatform<IEventsWidgetAttributes> 
         this.subCategories.forEach((subCategory, index) => {
             this.categories.forEach((category) => {
                 if (!category?.subCategories) {
-                    category.subCategories = [{
-                        name: 'Показать все события',
-                        code: '100',
-                        description: 'Показать все события',
-                        id: this.idAllSubCategory,
-                        parentCategory: null,
-                        parentCategoryId: category.id
-                    }];
+                    category.subCategories = [
+                        {
+                            name: 'Показать все события',
+                            code: '100',
+                            description: 'Показать все события',
+                            id: this.idAllSubCategory,
+                            parentCategory: null,
+                            parentCategoryId: category.id,
+                        },
+                    ];
                 }
                 if (subCategory.parentCategoryId === category.id) {
                     category.subCategories.push(subCategory);
                 }
             });
         });
-        this.categories.forEach(value => {
+        this.categories.forEach((value) => {
             value.subCategories.reverse();
         });
         this.placeNames = await this.eventService.getPlaces(this.id);
@@ -349,10 +351,10 @@ export class EvjEventsComponent extends WidgetPlatform<IEventsWidgetAttributes> 
             this.eventService.currentEventId$.subscribe((ref) => {
                 this.selectedId = ref;
             }),
-            this.appendEventStream$.asObservable().pipe(
-                debounceTime(1000),
-                distinctUntilChanged()
-            ).subscribe(this.getStats.bind(this))
+            this.appendEventStream$
+                .asObservable()
+                .pipe(debounceTime(1000), distinctUntilChanged())
+                .subscribe(this.getStats.bind(this))
         );
     }
 
@@ -363,13 +365,14 @@ export class EvjEventsComponent extends WidgetPlatform<IEventsWidgetAttributes> 
         if (
             this.placeNames.length !== 0 &&
             !this.placeNames.find((place) => place === ref.notification?.unit?.name) &&
-            ref.action !== 'delete'
+            ref.action !== 'delete' &&
+            ref.action !== 'edit'
         ) {
             return;
         }
         const isCheckCategories: boolean =
-            this.categories.some((x) => x.isActive && x.id === ref.notification.category.id)
-            || !this.categories.filter((x) => x.isActive).length;
+            this.categories.some((x) => x.isActive && x.id === ref.notification.category.id) ||
+            !this.categories.filter((x) => x.isActive).length;
         let filtersIds: number[] = [];
         switch (this.filters.find((x) => x.isActive).code) {
             case 'all':
@@ -385,8 +388,9 @@ export class EvjEventsComponent extends WidgetPlatform<IEventsWidgetAttributes> 
                 filtersIds = [-100];
                 break;
         }
-        const isCheckFilters: boolean = filtersIds.some((x) => x === ref.notification.status.id)
-            || (filtersIds.some((x) => x === -100) && !ref.notification.isAcknowledged);
+        const isCheckFilters: boolean =
+            filtersIds.some((x) => x === ref.notification.status.id) ||
+            (filtersIds.some((x) => x === -100) && !ref.notification.isAcknowledged);
         if (!isCheckFilters || !isCheckCategories) {
             return;
         }
@@ -408,9 +412,12 @@ export class EvjEventsComponent extends WidgetPlatform<IEventsWidgetAttributes> 
         setTimeout(() => this.viewport?.checkViewportSize(), 0);
     }
 
-    private async updateWidgetSettings(settingsKey: keyof  IEventSettings, value: IEventSettings[keyof IEventSettings]): Promise<void> {
+    private async updateWidgetSettings(
+        settingsKey: keyof IEventSettings,
+        value: IEventSettings[keyof IEventSettings]
+    ): Promise<void> {
         const currentSettings = this.getCurrentWidgetSettings();
-        const settings = {...currentSettings, [settingsKey]: value};
+        const settings = { ...currentSettings, [settingsKey]: value };
         try {
             await this.widgetSettingsService.saveSettings<IEventSettings>(this.uniqId, settings);
         } catch (e) {
@@ -437,7 +444,8 @@ export class EvjEventsComponent extends WidgetPlatform<IEventsWidgetAttributes> 
     }
 
     private setViewTypeSettings(viewType: 'cards' | 'list'): void {
-        if (!viewType ||
+        if (
+            !viewType ||
             (viewType === 'cards' && !this.isList) ||
             (viewType === 'list' && this.isList)
         ) {
@@ -454,12 +462,8 @@ export class EvjEventsComponent extends WidgetPlatform<IEventsWidgetAttributes> 
         if (!options) {
             return;
         }
-        this.categories?.forEach((x) =>
-            x.isActive = options.categories.some((o) => o === x.id)
-        );
-        this.filters?.forEach((x) =>
-            x.isActive = options.filter === x.code
-        );
+        this.categories?.forEach((x) => (x.isActive = options.categories.some((o) => o === x.id)));
+        this.filters?.forEach((x) => (x.isActive = options.filter === x.code));
         this.priority = options.priority;
         this.units = options.units;
     }
@@ -503,7 +507,7 @@ export class EvjEventsComponent extends WidgetPlatform<IEventsWidgetAttributes> 
             priority: this.priority,
             units: this.units,
             description: this.description,
-            subCategory: this.subCategoriesSelected.selected.filter(value => value !== 12345)
+            subCategory: this.subCategoriesSelected.selected.filter((value) => value !== 12345),
         };
         return options;
     }
@@ -526,7 +530,7 @@ export class EvjEventsComponent extends WidgetPlatform<IEventsWidgetAttributes> 
             notification.iconUrl = this.getNotificationIcon(notification.category.name);
             notification.iconUrlStatus = this.getStatusIcon(notification.status.name);
             notification.statusName = this.statuses[notification.status.name]; // TODO check
-            notification?.retrievalEvents.forEach(value => {
+            notification?.retrievalEvents.forEach((value) => {
                 value.iconUrl = this.getNotificationIcon(value.category.name);
                 value.iconUrlStatus = this.getStatusIcon(value.status.name);
             });
@@ -554,7 +558,7 @@ export class EvjEventsComponent extends WidgetPlatform<IEventsWidgetAttributes> 
             notification.iconUrl = this.getNotificationIcon(notification.category.name);
             notification.iconUrlStatus = this.getStatusIcon(notification.status.name);
             notification.statusName = this.statuses[notification.status.name]; // TODO check
-            notification?.retrievalEvents.forEach(value => {
+            notification?.retrievalEvents.forEach((value) => {
                 value.iconUrl = this.getNotificationIcon(value.category.name);
                 value.iconUrlStatus = this.getStatusIcon(value.status.name);
             });
@@ -579,7 +583,7 @@ export class EvjEventsComponent extends WidgetPlatform<IEventsWidgetAttributes> 
                     const iconUrl = this.getNotificationIcon(n.category.name);
                     const iconUrlStatus = this.getStatusIcon(n.status?.name);
                     const statusName = n.status?.name ? this.statuses[n.status.name] : ''; // TODO
-                    n?.retrievalEvents.forEach(value => {
+                    n?.retrievalEvents.forEach((value) => {
                         value.iconUrl = this.getNotificationIcon(value.category.name);
                         value.iconUrlStatus = this.getStatusIcon(value.status.name);
                     });
@@ -611,7 +615,9 @@ export class EvjEventsComponent extends WidgetPlatform<IEventsWidgetAttributes> 
 
     public async eventClick(eventId?: number): Promise<void> {
         this.selectedId = eventId;
-        this.isPreviewOpened = !this.userSettings.isWidgetAvailableOnScreen('events-workspace');
+        this.isPreviewOpened =
+            !this.userSettings.isWidgetAvailableOnScreen('events-workspace') &&
+            !this.userSettings.isWidgetAvailableOnScreen('evj-events-workspace');
         await this.ewService.editEvent(eventId);
     }
 
@@ -623,7 +629,10 @@ export class EvjEventsComponent extends WidgetPlatform<IEventsWidgetAttributes> 
 
     public deleteClick(id: number): void {
         if (!this.isClaimDelete) {
-            this.snackBarService.openSnackBar(`У вас недостаточно прав для удаления событий`, 'snackbar-red');
+            this.snackBarService.openSnackBar(
+                `У вас недостаточно прав для удаления событий`,
+                'snackbar-red'
+            );
             return;
         }
         const info: IAlertWindowModel = {
@@ -633,7 +642,7 @@ export class EvjEventsComponent extends WidgetPlatform<IEventsWidgetAttributes> 
             cancelText: 'Нет',
             acceptFunction: () => this.deleteNotification(id),
             closeFunction: () => this.eventAlertInfo$.next(null),
-            cancelFunction: () => this.snackBarService.openSnackBar(`Удаление отменено!`)
+            cancelFunction: () => this.snackBarService.openSnackBar(`Удаление отменено!`),
         };
         this.eventAlertInfo$.next(info);
     }
@@ -786,13 +795,13 @@ export class EvjEventsComponent extends WidgetPlatform<IEventsWidgetAttributes> 
         }
     }
 
-    async sortByFilter(unitNames: string,
-                       categoryIds: number[],
-                       statusIds: number[],
-                       description: string
+    async sortByFilter(
+        unitNames: string,
+        categoryIds: number[],
+        statusIds: number[],
+        description: string
     ): Promise<void> {
-        await this.eventService.getEventsFilter(unitNames, categoryIds,
-            statusIds, description);
+        await this.eventService.getEventsFilter(unitNames, categoryIds, statusIds, description);
     }
 
     priorityOfFilter(priority: IPriority): void {
@@ -816,7 +825,7 @@ export class EvjEventsComponent extends WidgetPlatform<IEventsWidgetAttributes> 
     toggleSubcategory(id: number): void {
         if (id === this.idAllSubCategory) {
             if (!this.subCategoriesSelected.isSelected(id)) {
-                this.subCategories.forEach(value => {
+                this.subCategories.forEach((value) => {
                     this.subCategoriesSelected.select(value.id);
                 });
                 this.subCategoriesSelected.select(id);

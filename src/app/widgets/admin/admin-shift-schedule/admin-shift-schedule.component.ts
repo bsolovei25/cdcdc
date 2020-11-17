@@ -243,7 +243,6 @@ export class AdminShiftScheduleComponent extends WidgetPlatform<unknown>
                                 ? 'shiftschedule-switch-month-previous'
                                 : 'shiftschedule-switch-month-next'
                         );
-                        console.log(value);
                     });
                     this.nextAndPreviousMonthVar = this.renderer.listen(button, 'click', () => {
                         if (this.calendar?.activeDate) {

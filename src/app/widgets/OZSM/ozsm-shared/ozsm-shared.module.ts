@@ -21,6 +21,8 @@ import { OzsmListPackingDiagramsComponent } from './ozsm-list-packing-diagrams/o
 import { OzsmListPackingDiagramsItemComponent } from './ozsm-list-packing-diagrams/components/ozsm-list-packing-diagrams-item/ozsm-list-packing-diagrams-item.component';
 import { OzsmGraphCircleDiagramComponent } from "./ozsm-graph-circle-diagram/ozsm-graph-circle-diagram.component";
 import { OzsmSimpleCircleDiagramComponent } from './ozsm-simple-circle-diagram/ozsm-simple-circle-diagram.component';
+import { OzsmMainIndicatorComponent } from './ozsm-main-indicator/ozsm-main-indicator.component';
+import { OzsmDiagramsCardComponent } from '../ozsm-diagrams-widget/ozsm-diagrams-card/ozsm-diagrams-card.component';
 
 
 
@@ -46,7 +48,9 @@ import { OzsmSimpleCircleDiagramComponent } from './ozsm-simple-circle-diagram/o
         OzsmCircleDiagramIconComponent,
         OzsmCircleDiagramIconComponent,
         OzsmGraphCircleDiagramComponent,
-        OzsmSimpleCircleDiagramComponent
+        OzsmSimpleCircleDiagramComponent,
+        OzsmMainIndicatorComponent,
+        OzsmDiagramsCardComponent
     ],
     exports: [
         OzsmTripleDiagramCardComponent,
@@ -69,7 +73,9 @@ import { OzsmSimpleCircleDiagramComponent } from './ozsm-simple-circle-diagram/o
         OzsmCircleDiagramIconComponent,
         OzsmCircleDiagramIconComponent,
         OzsmGraphCircleDiagramComponent,
-        OzsmSimpleCircleDiagramComponent
+        OzsmSimpleCircleDiagramComponent,
+        OzsmMainIndicatorComponent,
+        OzsmDiagramsCardComponent
     ],
     imports: [
         CommonModule,

@@ -12,6 +12,7 @@ export interface IKpeQualityData {
     cards: IKpeQualityCard[] | null;
     deviationChart: IKpeLineChartData[] | null;
     deviationDiagram: IKpeGaugeChartData | null;
+    displayMode: 'tiled' | 'line';
 }
 
 export interface IKpeQualityCard {
@@ -39,6 +40,8 @@ export class KpeQualityComponent extends WidgetPlatform<unknown> implements OnIn
     public cards: IKpeQualityCard[][] = [];
 
     public displayedMonth: Date;
+
+    displayMode: 'tiled' | 'line';
 
     constructor(
         private hostElement: ElementRef,
@@ -77,6 +80,7 @@ export class KpeQualityComponent extends WidgetPlatform<unknown> implements OnIn
     }
 
     protected dataHandler(ref: IKpeQualityData): void {
+        this.displayMode = ref.displayMode;
         this.deviationDiagram = ref.deviationDiagram;
         this.deviationChartData = this.formatData(ref.deviationChart);
         const cards = this.kpeHelperService.sortArray<IKpeQualityCard>(ref.cards, 2);

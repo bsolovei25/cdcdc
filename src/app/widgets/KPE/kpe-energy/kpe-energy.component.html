@@ -29,7 +29,12 @@
                              [deviation]="data?.diagram?.deviation || 100"
         ></evj-kpe-gauge-chart>
       </div>
-      <evj-kpe-deviation-diagram style="min-width: 400px; width: calc(100% - 1400px);" [data]="deviationChartData" [currentMonth]="displayedMonth"></evj-kpe-deviation-diagram>
+      <ng-container *ngIf="displayMode === 'line'">
+      <evj-kpe-deviation-diagram style="min-width: 400px;" [data]="deviationChartData" [currentMonth]="displayedMonth"></evj-kpe-deviation-diagram>
+      </ng-container>
+      <ng-container *ngIf="displayMode === 'tiled'">
+        <evj-kpe-deviation-diagram style="min-width: 400px; width: calc(100% - 1400px);" [data]="deviationChartData" [currentMonth]="displayedMonth"></evj-kpe-deviation-diagram>
+      </ng-container>
       <evj-kpe-energy-tab *ngFor="let tab of data?.tabs" [data]="tab"></evj-kpe-energy-tab>
     </div>
   </div>

@@ -1,10 +1,3 @@
-import { DeviationsTableComponent } from './LCO/deviations-table/deviations-table.component';
-import { ProductStocksComponent } from './LCO/product-stocks/product-stocks.component';
-import { DeviationCircleDiagramComponent } from './LCO/deviation-circle-diagram/deviation-circle-diagram.component';
-import { ColumnChartStackedComponent } from './LCO/column-chart-stacked/column-chart-stacked.component';
-import { ReasonsDeviationsComponent } from './NK/reasons-deviations/reasons-deviations.component';
-import { QualityDocsPanelComponent } from './NK/quality-docs-panel/quality-docs-panel.component';
-import { DocumentCodingComponent } from './NK/document-coding/document-coding.component';
 import { WidgetContainerComponent } from '../dashboard/widget-container/widget-container.component';
 import { CdMatBalanceChartCardComponent } from './CD/cd-mat-balance/components/cd-mat-balance-chart-card/cd-mat-balance-chart-card.component';
 
@@ -127,6 +120,7 @@ export const WIDGETS = {
     'product-stocks': WidgetContainerComponent,
     'deviations-table': WidgetContainerComponent,
     'deviation-circle-diagram': WidgetContainerComponent,
+    'evj-events-workspace': WidgetContainerComponent,
 };
 
 export const WIDGETS_LAZY = {
@@ -663,6 +657,17 @@ export const WIDGETS_LAZY = {
         minItemCols: 32,
         minItemRows: 30,
         preview: 'cd-events'
+    },
+    'evj-events-workspace': {
+        import: async () => {
+            return await import('src/app/widgets/EVJ/evj-events-workspace/evj-events-workspace.module');
+        },
+        module: 'EvjEventsWorkspaceModule',
+        itemCols: 32,
+        itemRows: 20,
+        minItemCols: 32,
+        minItemRows: 20,
+        preview: 'events-workspace'
     },
     'shift-pass': {
         import: async () => {
@@ -1625,8 +1630,8 @@ export const WIDGETS_LAZY = {
     //     import: async () => await import('src/app/widgets/manual-input/manual-input.module'),
     // },
 
-    // 'shift-pass': {
-    //     import: async () => await import('src/app/widgets/shift-pass/shift-pass.module'),
+    // 'evj-shift-pass': {
+    //     import: async () => await import('src/app/widgets/evj-shift-pass/evj-shift-pass.module'),
     // },
     // 'shift-accept': {
     //     import: async () => await import('src/app/widgets/shift-accept/shift-accept.module'),

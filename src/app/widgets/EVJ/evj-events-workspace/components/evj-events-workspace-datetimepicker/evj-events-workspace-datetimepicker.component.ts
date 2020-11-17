@@ -17,7 +17,7 @@ export class EvjEventsWorkspaceDatetimepickerComponent implements OnInit {
     public date: Date = new Date();
 
     @Input()
-    public label: string = 'Календарь';
+    public label: string = 'Срок выполнения';
 
     @Input()
     public disabled: boolean = false;

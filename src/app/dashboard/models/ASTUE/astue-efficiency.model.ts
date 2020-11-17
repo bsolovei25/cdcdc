@@ -6,6 +6,7 @@ export interface IAsEfProduct {
     direction: 'in' | 'out';
     units: IAsEfUnitNew[];
     icon?: string;
+    id: string;
 }
 
 export interface IAsEfTable {
