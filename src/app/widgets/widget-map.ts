@@ -121,6 +121,7 @@ export const WIDGETS = {
     'deviations-table': WidgetContainerComponent,
     'deviation-circle-diagram': WidgetContainerComponent,
     'evj-events-workspace': WidgetContainerComponent,
+    'astue-onpz-table-indicators': WidgetContainerComponent
 };
 
 export const WIDGETS_LAZY = {
@@ -1370,6 +1371,19 @@ export const WIDGETS_LAZY = {
         minItemCols: 24,
         minItemRows: 10,
         preview: 'astue-onpz-interactive-indicators',
+    },
+    'astue-onpz-table-indicators': {
+        import: async () => {
+            return await import(
+                'src/app/widgets/ASTUE-ONPZ/astue-onpz-table-indicators/astue-onpz-table-indicators.module'
+                );
+        },
+        module: 'AstueOnpzTableIndicatorsModule',
+        itemCols: 24,
+        itemRows: 10,
+        minItemCols: 24,
+        minItemRows: 10,
+        preview: 'astue-onpz-table-indicators',
     },
     'ejco-onpz-unit-sou': {
         import: async () => {
