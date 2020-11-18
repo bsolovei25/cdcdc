@@ -116,10 +116,10 @@
                 >
               </div>
               <ng-container *ngIf="column.name === 'Абсолютная величина'">
-                <span>{{elementChildren.value.toFixed(0) }}</span>
+                <span>{{elementChildren.modelValue.toFixed(0) }}</span>
               </ng-container>
               <ng-container *ngIf="column.name === 'Относительная величина'">
-                <span>{{elementChildren.modelValue.toFixed(0) }}</span>
+                <span>{{elementChildren.value.toFixed(0) }}</span>
               </ng-container>
             </td>
           </tr>
