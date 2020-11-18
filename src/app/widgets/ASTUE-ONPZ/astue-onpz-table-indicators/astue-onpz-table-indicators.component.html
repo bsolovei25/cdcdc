@@ -4,9 +4,6 @@
   icon="parameter"
   type="astue"
 >
-  <div class="select">
-    <evj-astue-onpz-select></evj-astue-onpz-select>
-  </div>
 </evj-contemporary-widget-header>
 <div class="container">
   <div
@@ -16,10 +13,12 @@
   >
     <table class="table">
       <thead class="table__header">
-      <tr class="table__header__row">
-        <th *ngFor="let column of columnsToDisplay" class="table__header__column">
-          <span>{{ column.name }}</span>
-        </th>
+      <tr>
+        <ng-container *ngFor="let column of columnsToDisplay">
+          <th>
+            <span>{{ column.name }}</span>
+          </th>
+        </ng-container>
       </tr>
       </thead>
       <tbody class="table__body">
@@ -59,9 +58,9 @@
                   <div class="table__body__column__row-title__text__name">
                     <span>{{ element.unit.name }}</span>
                   </div>
-                  <div class="table__body__column__row-title__text__name__value-right">
-                    <span>Отклонений: {{ deviationCount(element) }}</span>
-                  </div>
+                  <span class="table__body__column__row-title__text__name__value-right"
+                  >Отклонений: {{ deviationCount(element) }}
+                    </span>
                 </div>
                 <ng-template #elseBlock></ng-template>
               </div>
@@ -107,22 +106,26 @@
                 >
                 </svg-icon>
                 <div
-                  class="table__body__column__row-title__text"
-                  [class.table__body__column__row-title--no-active]="selectedRow.isSelected(element.unit.name)"
-                >
+                  class="table__body__column__row-title__text__subname"
+                  [class.table__body__column__row-title--no-active]="selectedRow.isSelected(element.unit.name)">
                   <span>{{ elementChildren.name }}</span>
                 </div>
-              </div>
-              <ng-container *ngIf="column.name === 'Параметры'">
-                <div class="eng">
+                <div
+                  class="table__body__column__row-title__engUnit"
+                  [class.table__body__column__row-title--no-active]="selectedRow.isSelected(element.unit.name)"
+                >
                   <span>{{elementChildren.engUnits}}</span>
+                </div>
+              </div>
+              <ng-container *ngIf="column.name === 'Модель'">
+                <div class="value">
+                  <span>{{elementChildren.modelValue.toFixed(0) }}</span>
                 </div>
               </ng-container>
               <ng-container *ngIf="column.name === 'Факт'">
-                <span>{{elementChildren.modelValue.toFixed(0) }}</span>
-              </ng-container>
-              <ng-container *ngIf="column.name === 'Модель'">
-                <span>{{elementChildren.value.toFixed(0) }}</span>
+                <div class="value">
+                  <span>{{elementChildren.value.toFixed(0) }}</span>
+                </div>
               </ng-container>
             </td>
           </tr>

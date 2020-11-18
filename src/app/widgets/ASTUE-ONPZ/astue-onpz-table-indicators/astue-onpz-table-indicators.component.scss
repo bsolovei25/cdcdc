@@ -7,27 +7,24 @@
   box-sizing: border-box;
   position: relative;
   overflow: auto;
-
-  &-body {
-
+}
+thead th {
+  width: 100%;
+  position: sticky;
+  top: 0;
+  background-color: var(--color-kpe-line-diagram-bg-sub);
+  color: var(--color-cd-text-sub-2);
+  z-index: 9999;
+}
+th,  td {
+  text-align: center;
+  min-width: 60px;
+  height: 30px;
+  &:first-child {
+    text-align: left;
   }
 }
 
-thead th {
-  position: sticky;
-  top: 0;
-
-  z-index: 9999;
-}
-.select {
-  position: absolute;
-  right: 50px;
-}
-.eng {
-  position: absolute;
-  top: 7px;
-  right: 2px;
-}
 .table {
   width: 100%;
   font-family: Tahoma;
@@ -40,12 +37,14 @@ thead th {
   padding-left: 10px;
 
   &__header {
+    width: 100%;
     &__row {
+      width: 100%;
       height: 30px;
     }
 
     &__column {
-      width: 20%;
+      width: 60px;
       font-size: 12px;
       font-weight: normal;
       color: var(--color-cd-text-sub-2);
@@ -65,8 +64,10 @@ thead th {
   }
 
   &__body {
+    width: 100%;
 
     &__row {
+      width: 100%;
       font-size: 12px;
       height: 28px;
       transition: all 150ms;
@@ -79,8 +80,7 @@ thead th {
       cursor: pointer;
       position: relative;
       height: 24px;
-      width: 20%;
-      min-width: 60px;
+      max-width: 60px;
       margin-top: 5px;
       color: var(--color-cd-text-sub-2);
       text-align: center;
@@ -137,10 +137,11 @@ thead th {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        width: 100%;
+        width: calc(100% - 40px);
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
+
 
         &__icon {
           stroke: var(--color-aps-bg-icon);
@@ -169,11 +170,14 @@ thead th {
             }
           }
         }
-
+        &__engUnit {
+          position: absolute;
+          top: 7px;
+          right: 3px;
+        }
         &__text {
           max-height: 27px;
           min-width: 60px;
-          max-width: 130px;
           margin-left: 10px;
           margin-right: 10px;
           white-space: nowrap;
@@ -186,22 +190,31 @@ thead th {
 
           &__name {
             height: 100%;
-            width: 57.7%;
-            max-width: 130px;
+            width: calc(100% - 180px);
             text-align: left;
-            white-space: pre-line;
+            white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
-
             &__value-right {
+              position: absolute;
+              top: 7px;
+              right: 17px;
               text-align: left;
-              margin-right: 17px;
             }
+          }
+          &__subname {
+            height: calc(100% - 20px);
+            width: calc(100% - 30px);
+            padding-left: 7px;
+            text-align: left;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
           }
 
           &__val {
             height: 100%;
-            width: 42.3%;
+            width: 178px;
             display: flex;
             align-items: center;
             justify-content: space-around;
@@ -305,7 +318,6 @@ thead th {
         }
 
         &-children {
-          max-width: 250px;
           margin-left: 18px;
           justify-content: space-between;
 
