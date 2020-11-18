@@ -103,17 +103,18 @@
                   src="assets/icons/widgets/APS/aps-recipe-diagram/astue-left-row-block-active-recipe.svg"
                 >
                 </svg-icon>
-                <span
+                <div
                   class="table__body__column__row-title__text"
                   [class.table__body__column__row-title--no-active]="selectedRow.isSelected(element.unit.name)"
-                >{{ elementChildren.name }}</span
                 >
-                <span
-                  class="table__body__column__row-title__engUnit"
-                  [class.table__body__column__row-title--no-active]="selectedRow.isSelected(element.unit.name)"
-                >{{elementChildren.engUnits}}</span
-                >
+                  <span>{{ elementChildren.name }}</span>
+                </div>
               </div>
+              <ng-container *ngIf="column.name === 'Параметры'">
+                <div class="eng">
+                  <span>{{elementChildren.engUnits}}</span>
+                </div>
+              </ng-container>
               <ng-container *ngIf="column.name === 'Факт'">
                 <span>{{elementChildren.modelValue.toFixed(0) }}</span>
               </ng-container>

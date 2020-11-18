@@ -19,7 +19,11 @@ thead th {
 
   z-index: 9999;
 }
-
+.eng {
+  position: absolute;
+  top: 7px;
+  right: 2px;
+}
 .table {
   width: 100%;
   font-family: Tahoma;
@@ -165,6 +169,7 @@ thead th {
         &__text {
           max-height: 27px;
           min-width: 60px;
+          max-width: 130px;
           margin-left: 10px;
           margin-right: 10px;
           white-space: nowrap;
@@ -178,7 +183,7 @@ thead th {
           &__name {
             height: 100%;
             width: 57.7%;
-            max-width: 150px;
+            max-width: 130px;
             text-align: left;
             white-space: pre-line;
             overflow: hidden;
@@ -296,7 +301,7 @@ thead th {
         }
 
         &-children {
-          max-width: 270px;
+          max-width: 250px;
           margin-left: 18px;
           justify-content: space-between;
 
