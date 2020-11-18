@@ -4,6 +4,9 @@
   icon="parameter"
   type="astue"
 >
+  <div class="select">
+    <evj-astue-onpz-select></evj-astue-onpz-select>
+  </div>
 </evj-contemporary-widget-header>
 <div class="container">
   <div
@@ -57,7 +60,7 @@
                     <span>{{ element.unit.name }}</span>
                   </div>
                   <div class="table__body__column__row-title__text__name__value-right">
-                    <span>Отклонений {{ deviationCount(element) }}</span>
+                    <span>Отклонений: {{ deviationCount(element) }}</span>
                   </div>
                 </div>
                 <ng-template #elseBlock></ng-template>

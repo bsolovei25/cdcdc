@@ -87,9 +87,10 @@ import { EvjEventsPlaceComponent } from './components/evj-events-place/evj-event
         { provide: MatDialogRef, useValue: {} },
         { provide: MAT_DIALOG_DATA, useValue: [] }
     ],
-    exports: [
-        EvjEventsWorkspaceComponent
-    ]
+  exports: [
+    EvjEventsWorkspaceComponent,
+    EvjEventsWorkspaceSelectComponent
+  ]
 })
 export class EvjEventsWorkspaceModule {
     enterComponent = EvjEventsWorkspaceComponent;
