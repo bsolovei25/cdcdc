@@ -1379,9 +1379,9 @@ export const WIDGETS_LAZY = {
                 );
         },
         module: 'AstueOnpzHeatBalanceModule',
-        itemCols: 24,
+        itemCols: 13,
         itemRows: 10,
-        minItemCols: 24,
+        minItemCols: 13,
         minItemRows: 10,
         preview: 'astue-onpz-heat-balance',
     },

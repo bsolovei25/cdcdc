@@ -3,7 +3,8 @@ import { IParams } from '../../CD/cd-mat-balance/cd-mat-balance.component';
 export const heatBalanceData: IParams[] = [
     {
         unit: {
-            name: 'Q общая ауцзшоацшзуаоуцзшоа',
+            name: 'Q общая ауцзшоацшзуаоуцзшоа sdnfjkksjdfbjkdsbfjsdbfjdsbfjsdf fsdfsdfsdf' +
+                'sdfsdfsdfsdfsdfsd sdfsdfsdfsdf sdfsdfsdf',
             description: 'Q общая'
         },
         unitParams: [
@@ -15,7 +16,8 @@ export const heatBalanceData: IParams[] = [
                 engUnits: '',
                 min: -224.9,
                 max: 224.9,
-                name: 'Q1',
+                name: 'Q1 asdasdadadadeerwerwerwerew sdflksdmfkldsklfndklndlksfsklfnlsdfnn' +
+                    'isjfjisdjfiojidsjfi siodfniosdnfionsoifdnf sdfisaidfoijasdjf',
                 value: 150,
                 modelValue: 200
             },

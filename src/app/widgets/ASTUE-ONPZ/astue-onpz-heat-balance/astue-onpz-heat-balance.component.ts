@@ -6,7 +6,7 @@ import {
 } from '../../APS/aps-recipe-diagram/aps-recipe-diagram.component';
 import { SelectionModel } from '@angular/cdk/collections';
 import { IParams } from '../../CD/cd-mat-balance/cd-mat-balance.component';
-import { heatBalanceData } from './mock';
+import { heatBalanceData } from './astue-onpz-heat-balance-mock';
 
 @Component({
   selector: 'evj-astue-onpz-heat-balance',
