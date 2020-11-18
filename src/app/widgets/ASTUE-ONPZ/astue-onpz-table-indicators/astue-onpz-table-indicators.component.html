@@ -1,11 +1,11 @@
-<div class="container pointer-event">
-  <evj-contemporary-widget-header
-    [uniqId]="widgetUniqId"
-    [widgetTitle]="widgetTitle"
-    icon="parameter"
-    type="astue"
-  >
-  </evj-contemporary-widget-header>
+<evj-contemporary-widget-header
+  [uniqId]="widgetUniqId"
+  [widgetTitle]="widgetTitle"
+  icon="parameter"
+  type="astue"
+>
+</evj-contemporary-widget-header>
+<div class="container">
   <div
     class="container-body"
     (mousedown)="$event.stopPropagation()"
@@ -15,7 +15,7 @@
       <thead class="table__header">
       <tr class="table__header__row">
         <th *ngFor="let column of columnsToDisplay" class="table__header__column">
-          {{ column.name }}
+          <span>{{ column.name }}</span>
         </th>
       </tr>
       </thead>
@@ -52,16 +52,15 @@
                   src="assets/icons/widgets/APS/aps-recipe-diagram/gradient-blue.svg"
                 >
                 </svg-icon>
-                <span class="table__body__column__row-title">
-                    <span class="table__body__column__row-title__text__name"
-                    >{{ element.unit.name }}
-                    </span>
-                    <span class="table__body__column__row-title__text__name__value-right"
-                    >Отклонений {{ deviationCount(element) }}
-                    </span>
-                  </span>
-
-                <ng-template #elseBlock> </ng-template>
+                <div class="table__body__column__row-title">
+                  <div class="table__body__column__row-title__text__name">
+                    <span>{{ element.unit.name }}</span>
+                  </div>
+                  <div class="table__body__column__row-title__text__name__value-right">
+                    <span>Отклонений {{ deviationCount(element) }}</span>
+                  </div>
+                </div>
+                <ng-template #elseBlock></ng-template>
               </div>
             </td>
           </ng-container>
@@ -104,12 +103,10 @@
                   src="assets/icons/widgets/APS/aps-recipe-diagram/astue-left-row-block-active-recipe.svg"
                 >
                 </svg-icon>
-                <div
+                <span
                   class="table__body__column__row-title__text"
                   [class.table__body__column__row-title--no-active]="selectedRow.isSelected(element.unit.name)"
-                >
-                  <span>{{elementChildren.name}}</span>
-                </div
+                >{{ elementChildren.name }}</span
                 >
                 <span
                   class="table__body__column__row-title__engUnit"
@@ -118,10 +115,10 @@
                 >
               </div>
               <ng-container *ngIf="column.name === 'Факт'">
-                <span>{{elementChildren.value.toFixed(0) }}</span>
+                <span>{{elementChildren.modelValue.toFixed(0) }}</span>
               </ng-container>
               <ng-container *ngIf="column.name === 'Модель'">
-                <span>{{elementChildren.modelValue.toFixed(0) }}</span>
+                <span>{{elementChildren.value.toFixed(0) }}</span>
               </ng-container>
             </td>
           </tr>
@@ -131,4 +128,3 @@
     </table>
   </div>
 </div>
-

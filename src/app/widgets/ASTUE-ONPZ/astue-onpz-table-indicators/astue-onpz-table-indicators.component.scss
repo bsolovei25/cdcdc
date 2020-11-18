@@ -1,205 +1,23 @@
-.widget-container {
-  height: 100%;
-  width: 100%;
-  overflow: hidden;
-  padding-bottom: 10px;
-  box-sizing: border-box;
-}
-
-.outside-container {
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-  position: absolute;
-  display: block;
-  z-index: 10;
-}
-
-.content-container {
-  display: flex;
-  justify-content: space-between;
-  flex: 1;
-
-  &__button {
-  }
-
-  &__checkbox {
-    display: flex;
-    align-items: center;
-  }
-
-  &__svg {
-    cursor: pointer;
-    margin-left: 20px;
-    margin-right: 5px;
-  }
-
-  mat-checkbox {
-    font-family: "Tahoma";
-    font-size: 12px;
-    margin-left: 20px;
-    color: var(--color-aps-text-chart);
-  }
-}
-
 .container {
-  height: 100%;
   width: 100%;
-  border-bottom: 1px solid var(--color-border-new-mbo);
+  height: calc(100% - 40px);
+  background-color: var(--color-kpe-gaude-unactive);
+  border: 2px solid var(--color-aps-border);
 
-  z-index: 999;
+  box-sizing: border-box;
+  position: relative;
+  overflow: auto;
 
   &-body {
-    display: flex;
-    flex-direction: column;
 
-    border: 2px solid var(--color-aps-border);
-
-    box-sizing: border-box;
-    padding-bottom: 8px;
-    z-index: 999;
-    position: relative;
-    margin-left: 2px;
-
-    width: calc(100% - 3px);
-    height: calc(100% - 43px);
-
-    background-size: auto;
-    background-color: var(--color-kpe-line-diagram-bg-sub);
-    overflow-y: auto;
-
-    &::before {
-      content: "";
-      position: absolute;
-      z-index: 9999;
-      // background: url(../../../../../assets/icons/widgets/gantt-chart/border-left-top.svg) no-repeat;
-      bottom: 3px;
-      width: 90px;
-      height: 15px;
-      left: 7px;
-      margin-top: -6px;
-      margin-left: -2px;
-      transform: scaleY(-1);
-    }
-
-    &::after {
-      content: "";
-      position: absolute;
-      z-index: 9999;
-      // background: url(../../../../../assets/icons/widgets/gantt-chart/border-left-top.svg) no-repeat;
-      width: 90px;
-      height: 15px;
-      bottom: 3px;
-      right: 0;
-      margin-top: -6px;
-      margin-left: -2px;
-      transform: scale(-1, -1);
-    }
-  }
-
-  &-table {
-    position: sticky;
-    z-index: 10;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    z-index: 9999;
-    display: block;
-    height: 40%;
   }
 }
 
-.header {
-  min-height: 30px;
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  font-size: 10px;
-  overflow: hidden;
-  border-top: 1px solid var(--color-border-new-mbo);
-  padding-top: 1.5px;
+thead th {
+  position: sticky;
+  top: 0;
 
-  &__button {
-    min-width: 144px;
-    font-size: 11px;
-    margin-top: 5px;
-    text-align: center;
-    // background: url(../../../../../assets/icons/widgets/gantt-chart/btn-right.svg) no-repeat;
-  }
-
-  &__button {
-    &-left-top {
-      cursor: pointer;
-      min-width: 52px;
-      height: 24px;
-      font-size: 11px;
-      text-align: center;
-      z-index: 9999;
-      // background: url(../../../../../assets/icons/widgets/gantt-chart/button-left-top.svg) no-repeat;
-    }
-  }
-
-  &__title {
-    display: flex;
-    min-width: 325px;
-    font-weight: 500;
-    font-size: 14px;
-    color: var(--color-text-sub);
-
-    &_text {
-      padding-top: 4px;
-    }
-  }
-
-  &__right {
-    &__buttons {
-      display: flex;
-      //   margin-left: 30px;
-      //   margin-top: 5px;
-      min-height: 24px;
-      min-width: 236px;
-    }
-  }
-
-  &__right {
-    display: flex;
-
-    margin-left: 30px;
-    // min-width: 645px;
-    min-height: 24px;
-
-    &__button-date {
-      width: 645px;
-    }
-  }
-
-  &::before {
-    content: "";
-    position: absolute;
-    z-index: 9999;
-    // background: url(../../../../../assets/icons/widgets/gantt-chart/border-left-top.svg) no-repeat;
-    width: 90px;
-    height: 15px;
-
-    left: 4px;
-    top: 5px;
-  }
-
-  &__right {
-    &::before {
-      content: "";
-      position: absolute;
-      z-index: 9999;
-      // background: url(../../../../../assets/icons/widgets/gantt-chart/border-left-top.svg) no-repeat;
-      width: 94px;
-      height: 15px;
-      top: 3px;
-      right: -6px;
-      margin-top: 2px;
-      margin-right: 4px;
-      transform: scale(-1, 1);
-    }
-  }
+  z-index: 9999;
 }
 
 .table {
@@ -209,73 +27,31 @@
 
   border-spacing: 0px 5px;
   border-collapse: separate;
-
-  overflow-y: scroll;
-
   box-sizing: border-box;
   padding-right: 10px;
   padding-left: 10px;
 
   &__header {
-    width: 100%;
     &__row {
       height: 30px;
     }
 
     &__column {
+      width: 20%;
       font-size: 12px;
       font-weight: normal;
-      top: 0px;
-      position: sticky;
-      z-index: 100;
       color: var(--color-cd-text-sub-2);
       background-color: var(--color-bg-main);
-      min-width: 65px;
+
 
       &:first-of-type {
         font-size: 12px;
         color: var(--color-cd-text-sub-2);
         background-color: var(--color-bg-main);
-        position: sticky;
         left: 0;
-        z-index: 101;
         text-align: left;
-        padding-left: 15px;
-        background-repeat: no-repeat;
-        background-size: 78px 32px;
-        max-width: 60%;
-      }
+        width: 60%;
 
-      &__name {
-        &__pims {
-        }
-
-        &__text {
-          margin-left: 33px;
-        }
-
-        &__search {
-          margin-left: 74px;
-        }
-      }
-
-      &__title {
-        font-size: 8px;
-        padding: 0 3px;
-
-        &-product {
-          margin-top: -4px;
-          //   background: url(../../../../../assets/icons/widgets/gantt-chart/product-name.svg);
-        }
-
-        &-production {
-          padding-left: 37px;
-        }
-      }
-
-      &__titles {
-        display: flex;
-        padding-top: 10px;
       }
     }
   }
@@ -289,54 +65,17 @@
       color: var(--evj-color-white);
       background: var(--color-gray80);
       margin-bottom: 10px;
-
-      &--stream-unit {
-        height: 38px;
-      }
-
-      &.expanded-row {
-        background: none;
-        box-shadow: none;
-      }
-
-      &.last-tr {
-        height: 100%;
-        background: none;
-        box-shadow: none;
-
-        td {
-          &:first-of-type {
-
-            // background: var(--color-bg-mbo-sup);
-
-            position: sticky;
-            left: 0;
-            z-index: 1;
-            border-right: none;
-          }
-
-          &:nth-child(2) {
-            background-size: auto;
-          }
-        }
-
-        &:hover {
-          background: none;
-        }
-      }
     }
 
     &__column {
       cursor: pointer;
       position: relative;
       height: 24px;
+      width: 20%;
+      min-width: 60px;
+      margin-top: 5px;
       color: var(--color-cd-text-sub-2);
-
       text-align: center;
-      //   border-right: 1px solid #2d3344;
-      //   background: url(../../../../../assets/icons/widgets/gantt-chart/bg-line.svg);
-      background-size: cover;
-
 
       border-right: 1px solid var(--color-kpe-gaude-unactive);
 
@@ -344,15 +83,7 @@
         background-color: rgba(39, 42, 56, 0.5);
       }
 
-      &--unit {
-        color: var(--color-text-main);
-      }
-
       &__children {
-        &:first-child {
-          border-left: 2px solid transparent !important;
-        }
-
         &--active {
           border-top: 1px solid var(--color-aps-active);
           border-bottom: 1px solid var(--color-aps-active);
@@ -391,24 +122,21 @@
       }
 
       &:first-child {
-        padding: 0 !important;
         border-left: 2px solid var(--color-aps-border-sub);
-
-        position: sticky;
-        left: 0;
-        z-index: 20;
       }
 
       &__row-title {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        width: calc(100% - 18px);
+        width: 100%;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
 
         &__icon {
           stroke: var(--color-aps-bg-icon);
           margin-left: 9px;
-          z-index: 1;
           transition: all 200ms;
           margin-right: 10px;
 
@@ -435,46 +163,40 @@
         }
 
         &__text {
-          margin-left: 10px;
-          margin-right: 6px;
           max-height: 27px;
+          min-width: 60px;
+          margin-left: 10px;
+          margin-right: 10px;
           white-space: nowrap;
           overflow: hidden;
           text-overflow: ellipsis;
-          min-width: 13px;
 
           display: flex;
           flex-direction: row;
-          justify-content: flex-end;
-
-          &__pims {
-            margin-left: 13px;
-            width: 77px;
-            max-width: 77px;
-            text-align: left;
-          }
+          justify-content: flex-start;
 
           &__name {
-            flex-grow: 3.5;
+            height: 100%;
+            width: 57.7%;
+            max-width: 150px;
             text-align: left;
+            white-space: pre-line;
+            overflow: hidden;
+            text-overflow: ellipsis;
 
             &__value-right {
               text-align: left;
+              margin-right: 17px;
             }
           }
-          &__value {
-            flex-grow: 1;
+
+          &__val {
+            height: 100%;
+            width: 42.3%;
             display: flex;
             align-items: center;
-            justify-content: center;
+            justify-content: space-around;
           }
-        }
-
-        &__engUnit {
-          margin-left: 10px;
-          margin-right: 6px;
-          white-space: nowrap;
-          min-width: 13px;
         }
 
         &__value {
@@ -564,7 +286,6 @@
               width: 13px;
               left: 0px;
               top: -20px;
-              z-index: -1;
               position: absolute;
             }
           }
@@ -575,6 +296,7 @@
         }
 
         &-children {
+          max-width: 270px;
           margin-left: 18px;
           justify-content: space-between;
 
@@ -625,11 +347,6 @@
   border-radius: 25px;
   margin-left: 268px;
   margin-right: 365px;
-}
-
-::-webkit-scrollbar-track-piece {
-  // border: solid 1px var(--color-aps-border-sub);
-  // border-radius: 25px;
 }
 
 ::-webkit-scrollbar-thumb {
