@@ -80,7 +80,7 @@
               [matTooltip]="elementChildren?.name"
             >
               <div
-                *ngIf="column.name === 'Показатели, Дж'"
+                *ngIf="column.id === 0"
                 class="table__body__column__row-title table__body__column__row-title-children"
                 [class.opacity]="selectedRow.isSelected(element.unit.name) && this.selectedRowProduct"
               >
@@ -104,22 +104,21 @@
                   src="assets/icons/widgets/APS/aps-recipe-diagram/astue-left-row-block-active-recipe.svg"
                 >
                 </svg-icon>
-                <span
-                  class="table__body__column__row-title__text"
-                  [class.table__body__column__row-title--no-active]="selectedRow.isSelected(element.unit.name)"
-                >{{ elementChildren.name }}</span
-                >
-                <span
-                  class="table__body__column__row-title__engUnit"
-                  [class.table__body__column__row-title--no-active]="selectedRow.isSelected(element.unit.name)"
-                >{{elementChildren.engUnits}}</span
-                >
+                <div
+                  class="table__body__column__row-title__text__subname"
+                  [class.table__body__column__row-title--no-active]="selectedRow.isSelected(element.unit.name)">
+                  <span>{{ elementChildren.name }}</span>
+                </div>
               </div>
-              <ng-container *ngIf="column.name === 'Абсолютная величина'">
-                <span>{{elementChildren.modelValue.toFixed(0) }}</span>
+              <ng-container *ngIf="column.id === 1">
+                <div class="value">
+                  <span>{{elementChildren.modelValue.toFixed(0) }}</span>
+                </div>
               </ng-container>
-              <ng-container *ngIf="column.name === 'Относительная величина'">
-                <span>{{elementChildren.value.toFixed(0) }}</span>
+              <ng-container *ngIf="column.id === 2">
+                <div class="value">
+                  <span>{{elementChildren.value.toFixed(0) }}</span>
+                </div>
               </ng-container>
             </td>
           </tr>

@@ -16,9 +16,9 @@ import { heatBalanceData } from './astue-onpz-heat-balance-mock';
 export class AstueOnpzHeatBalanceComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
     data: IParams[] = heatBalanceData;
     columnsToDisplay: IColumnsToDisplay[] = [
-        { name: 'Показатели, Дж', date: new Date() },
-        { name: 'Абсолютная величина', date: new Date('2020-02-01T03:24:00') },
-        { name: 'Относительная величина', date: new Date('2020-02-02T03:24:00') }
+        { name: 'Показатели, Дж', id: 0, date: new Date() },
+        { name: 'Абсолютная величина', id: 1, date: new Date('2020-02-01T03:24:00') },
+        { name: 'Относительн величина', id: 2, date: new Date('2020-02-02T03:24:00') }
     ];
 
     expandedElement: SelectionModel<string> = new SelectionModel(true);
