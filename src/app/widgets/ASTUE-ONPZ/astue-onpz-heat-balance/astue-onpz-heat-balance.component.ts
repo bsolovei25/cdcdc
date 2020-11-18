@@ -18,7 +18,7 @@ export class AstueOnpzHeatBalanceComponent extends WidgetPlatform<unknown> imple
     columnsToDisplay: IColumnsToDisplay[] = [
         { name: 'Показатели, Дж', id: 0, date: new Date() },
         { name: 'Абсолютная величина', id: 1, date: new Date('2020-02-01T03:24:00') },
-        { name: 'Относительн величина', id: 2, date: new Date('2020-02-02T03:24:00') }
+        { name: 'Относительная величина', id: 2, date: new Date('2020-02-02T03:24:00') }
     ];
 
     expandedElement: SelectionModel<string> = new SelectionModel(true);

@@ -13,10 +13,12 @@
   >
     <table class="table">
       <thead class="table__header">
-      <tr class="table__header__row">
-        <th *ngFor="let column of columnsToDisplay" class="table__header__column">
-          <span>{{ column.name }}</span>
-        </th>
+      <tr>
+        <ng-container *ngFor="let column of columnsToDisplay">
+            <th>
+              <span>{{ column.name }}</span>
+            </th>
+        </ng-container>
       </tr>
       </thead>
       <tbody class="table__body">
