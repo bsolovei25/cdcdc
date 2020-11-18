@@ -6,14 +6,16 @@ import {
     HostListener,
     OnChanges,
     Renderer2,
-    OnDestroy, OnInit
+    OnDestroy,
+    OnInit,
 } from '@angular/core';
 import * as d3Selection from 'd3-selection';
 import * as d3 from 'd3';
 import { IChartD3, IChartMini } from '@shared/models/smart-scroll.model';
 import {
     IMultiChartLine,
-    IMultiChartData, IMultiChartTypes
+    IMultiChartData,
+    IMultiChartTypes,
 } from '../../../../../dashboard/models/ASTUE-ONPZ/astue-onpz-multi-chart.model';
 import { AsyncRender } from '@shared/functions/async-render.function';
 import { fillDataArrayChart } from '@shared/functions/fill-data-array.function';
@@ -33,13 +35,13 @@ const lineColors: { [key: string]: string } = {
     3: '#8090f0',
     4: '#0f62fe',
     5: '#0089ff',
-    6: '#039de0'
+    6: '#039de0',
 };
 
 @Component({
     selector: 'evj-astue-onpz-multi-chart',
     templateUrl: './astue-onpz-multi-chart.component.html',
-    styleUrls: ['./astue-onpz-multi-chart.component.scss']
+    styleUrls: ['./astue-onpz-multi-chart.component.scss'],
 })
 export class AstueOnpzMultiChartComponent implements OnInit, OnChanges, OnDestroy {
     private subscriptions: Subscription[] = [];
@@ -47,7 +49,7 @@ export class AstueOnpzMultiChartComponent implements OnInit, OnChanges, OnDestro
     @Input() private data: IMultiChartLine[] = [];
     @Input() private colors: Map<string, number>;
     @Input() private options: IMultiChartOptions;
-    @Input() private scroll: { left: number, right: number } = { left: 0, right: 100 };
+    @Input() private scroll: { left: number; right: number } = { left: 0, right: 100 };
 
     @ViewChild('chart', { static: true }) private chart: ElementRef;
 
@@ -73,7 +75,7 @@ export class AstueOnpzMultiChartComponent implements OnInit, OnChanges, OnDestro
         left: 0,
         right: 1,
         top: 120,
-        bottom: 40
+        bottom: 40,
     };
 
     private readonly axisYWidth: number = 60;
@@ -87,8 +89,7 @@ export class AstueOnpzMultiChartComponent implements OnInit, OnChanges, OnDestro
         return this.widgetService.currentDates$.getValue();
     }
 
-    constructor(private renderer: Renderer2, private widgetService: WidgetService) {
-    }
+    constructor(private renderer: Renderer2, private widgetService: WidgetService) {}
 
     private tempFunction(): void {
         // TODO: change scale function -> transform data -> draw chart ->
@@ -103,9 +104,7 @@ export class AstueOnpzMultiChartComponent implements OnInit, OnChanges, OnDestro
 
     // TODO think about it
     public ngOnInit(): void {
-        this.subscriptions.push(
-            this.widgetService.currentDates$.subscribe((ref) => !!ref)
-        );
+        this.subscriptions.push(this.widgetService.currentDates$.subscribe((ref) => !!ref));
     }
 
     public ngOnChanges(): void {
@@ -118,7 +117,8 @@ export class AstueOnpzMultiChartComponent implements OnInit, OnChanges, OnDestro
 
     public ngOnDestroy(): void {
         this.listeners.forEach((listener) => listener());
-        this.subscriptions.forEach(x => x.unsubscribe());
+        this.subscriptions.forEach((x) => x.unsubscribe());
+        this.eventListenerFn();
     }
 
     @HostListener('document:resize', ['$event'])
@@ -130,19 +130,20 @@ export class AstueOnpzMultiChartComponent implements OnInit, OnChanges, OnDestro
         }
     }
 
-    @HostListener('mouseenter') onMouseEnter(): void {
-        this.svg = d3Selection.select(this.chart.nativeElement).select('svg');
-        if (this.svg._groups[0][0]) {
-            this.drawMouseGroup();
-        }
-    }
+    // @HostListener('mouseenter')
+    // onMouseEnter(): void {
+    //     this.svg = d3Selection.select(this.chart.nativeElement).select('svg');
+    //     if (this.svg._groups[0][0]) {
+    //         this.drawMouseGroup();
+    //     }
+    // }
 
-    @HostListener('mouseleave') onMouseLeave(): void {
+    // @HostListener('mouseleave')
+    onMouseLeave(): void {
         if (this.eventListenerFn) {
             this.positionMouse = null;
             this.changePositionPicker();
-            this.eventListenerFn();
-
+            // this.eventListenerFn();
         }
     }
 
@@ -204,11 +205,17 @@ export class AstueOnpzMultiChartComponent implements OnInit, OnChanges, OnDestro
             currentDatetime.setMinutes(0, 0, 0);
             const domainDates = [
                 currentDatetime.getTime() - 16 * 1000 * 60 * 60,
-                currentDatetime.getTime() + 4 * 1000 * 60 * 60
+                currentDatetime.getTime() + 4 * 1000 * 60 * 60,
             ];
-            this.data.forEach((item) =>
-                item.graph = fillDataArrayChart(item.graph, domainDates[0], domainDates[1],
-                    item.graphType === 'plan'));
+            this.data.forEach(
+                (item) =>
+                    (item.graph = fillDataArrayChart(
+                        item.graph,
+                        domainDates[0],
+                        domainDates[1],
+                        item.graphType === 'plan'
+                    ))
+            );
         }
 
         const filterData = this.data.filter((x) => x?.graph?.length > 0);
@@ -221,15 +228,18 @@ export class AstueOnpzMultiChartComponent implements OnInit, OnChanges, OnDestro
     private findMinMax(): void {
         this.charts = [];
         this.data.forEach((graph) => {
-            const key: string = graph.graphType === 'fact'
-            || graph.graphType === 'plan'
-            || graph.graphType === 'forecast'
-            || graph.graphType === 'higherBorder'
-            || graph.graphType === 'lowerBorder' ? 'main' : graph.graphType;
+            const key: string =
+                graph.graphType === 'fact' ||
+                graph.graphType === 'plan' ||
+                graph.graphType === 'forecast' ||
+                graph.graphType === 'higherBorder' ||
+                graph.graphType === 'lowerBorder'
+                    ? 'main'
+                    : graph.graphType;
             if (!this.coefs[key]) {
                 this.coefs[key] = {
                     min: this.MIN_COEF,
-                    max: this.MAX_COEF
+                    max: this.MAX_COEF,
                 };
             }
             this.charts.push({ ...(graph as IMultiChartData) });
@@ -240,10 +250,11 @@ export class AstueOnpzMultiChartComponent implements OnInit, OnChanges, OnDestro
             currentChart.minValue = min - (max - min) * this.coefs[key].min;
         });
         const mainChartGroup = ['fact', 'plan', 'forecast', 'higherBorder', 'lowerBorder'];
-        const filterChartArray = this.charts.filter((x) =>
-            mainChartGroup.includes(x.graphType));
-        const domainMain = [d3.max(filterChartArray.map((x) => x.maxValue)),
-            d3.min(filterChartArray.map((x) => x.minValue))];
+        const filterChartArray = this.charts.filter((x) => mainChartGroup.includes(x.graphType));
+        const domainMain = [
+            d3.max(filterChartArray.map((x) => x.maxValue)),
+            d3.min(filterChartArray.map((x) => x.minValue)),
+        ];
         filterChartArray.forEach((x) => {
             x.minValue = domainMain[1];
             x.maxValue = domainMain[0];
@@ -255,11 +266,12 @@ export class AstueOnpzMultiChartComponent implements OnInit, OnChanges, OnDestro
         let max: number = -Infinity;
 
         this.charts.forEach((chart) => {
-            if (chart.graphType !== 'fact'
-                && chart.graphType !== 'plan'
-                && chart.graphType !== 'forecast'
-                && chart.graphType !== 'higherBorder'
-                && chart.graphType !== 'lowerBorder'
+            if (
+                chart.graphType !== 'fact' &&
+                chart.graphType !== 'plan' &&
+                chart.graphType !== 'forecast' &&
+                chart.graphType !== 'higherBorder' &&
+                chart.graphType !== 'lowerBorder'
             ) {
                 this.axisLabels[chart.graphType] = this.defineAxisYLabels(
                     chart.minValue,
@@ -310,22 +322,21 @@ export class AstueOnpzMultiChartComponent implements OnInit, OnChanges, OnDestro
             currentDatetime.setMinutes(0, 0, 0);
             domainDates = [
                 new Date(currentDatetime.getTime() - 16 * 1000 * 60 * 60),
-                new Date(currentDatetime.getTime() + 4 * 1000 * 60 * 60)
+                new Date(currentDatetime.getTime() + 4 * 1000 * 60 * 60),
             ];
         }
 
         // TODO: scroll
         const deltaDomainDates = domainDates[1].getTime() - domainDates[0].getTime();
         domainDates = [
-            new Date(domainDates[0].getTime() + this.scroll.left / 100 * deltaDomainDates),
-            new Date(domainDates[1].getTime() - this.scroll.right / 100 * deltaDomainDates)
+            new Date(domainDates[0].getTime() + (this.scroll.left / 100) * deltaDomainDates),
+            new Date(domainDates[1].getTime() - (this.scroll.right / 100) * deltaDomainDates),
         ];
 
         this.scaleFuncs.x = d3
             .scaleTime()
             .domain(domainDates)
             .rangeRound(rangeX);
-
 
         const rangeY = [this.padding.top, this.graphMaxY - this.padding.bottom];
         this.charts.forEach((item) => {
@@ -346,12 +357,14 @@ export class AstueOnpzMultiChartComponent implements OnInit, OnChanges, OnDestro
 
         // TODO delete time format for historical ++
         if (!!this.currentDates) {
-            this.axis.axisX = d3.axisBottom(this.scaleFuncs.x)
+            this.axis.axisX = d3
+                .axisBottom(this.scaleFuncs.x)
                 .ticks(24)
                 .tickFormat(dateFormatLocale())
                 .tickSizeOuter(0);
         } else {
-            this.axis.axisX = d3.axisBottom(this.scaleFuncs.x)
+            this.axis.axisX = d3
+                .axisBottom(this.scaleFuncs.x)
                 .ticks(24)
                 .tickFormat(d3.timeFormat('%H'))
                 .tickSizeOuter(0);
@@ -364,7 +377,7 @@ export class AstueOnpzMultiChartComponent implements OnInit, OnChanges, OnDestro
             item.graph.forEach((point) => {
                 item.transformedGraph.push({
                     x: this.scaleFuncs.x(point.timeStamp),
-                    y: item.scaleY(point.value)
+                    y: item.scaleY(point.value),
                 });
             });
         };
@@ -378,11 +391,12 @@ export class AstueOnpzMultiChartComponent implements OnInit, OnChanges, OnDestro
                 .x((item: IChartD3) => item.x)
                 .y((item: IChartD3) => item.y);
 
-            const flag = chart.graphType !== 'plan'
-                && chart.graphType !== 'fact'
-                && chart.graphType !== 'forecast'
-                && chart.graphType !== 'higherBorder'
-                && chart.graphType !== 'lowerBorder';
+            const flag =
+                chart.graphType !== 'plan' &&
+                chart.graphType !== 'fact' &&
+                chart.graphType !== 'forecast' &&
+                chart.graphType !== 'higherBorder' &&
+                chart.graphType !== 'lowerBorder';
             const lineType = flag ? 'other' : chart.graphType;
             const drawnLine = this.svg
                 .append('path')
@@ -453,11 +467,12 @@ export class AstueOnpzMultiChartComponent implements OnInit, OnChanges, OnDestro
         const SCALE_STEP: number = 0.05;
 
         this.charts.forEach((chart) => {
-            const flag = chart.graphType === 'fact'
-                || chart.graphType === 'plan'
-                || chart.graphType === 'forecast'
-                || chart.graphType === 'higherBorder'
-                || chart.graphType === 'lowerBorder';
+            const flag =
+                chart.graphType === 'fact' ||
+                chart.graphType === 'plan' ||
+                chart.graphType === 'forecast' ||
+                chart.graphType === 'higherBorder' ||
+                chart.graphType === 'lowerBorder';
             if (flag && isMainAxisDrawn) {
                 return;
             } else if (flag) {
@@ -483,27 +498,30 @@ export class AstueOnpzMultiChartComponent implements OnInit, OnChanges, OnDestro
             const labels = axisY.append('g').attr('class', 'labels');
             let y: number = this.padding.top - this.topMargin + height;
             const step: number = height / 10;
-            if (isMainLabelsDrawn && (
-                chart.graphType === 'plan'
-                || chart.graphType === 'fact'
-                || chart.graphType === 'forecast'
-                || chart.graphType === 'higherBorder'
-                || chart.graphType === 'lowerBorder')
+            if (
+                isMainLabelsDrawn &&
+                (chart.graphType === 'plan' ||
+                    chart.graphType === 'fact' ||
+                    chart.graphType === 'forecast' ||
+                    chart.graphType === 'higherBorder' ||
+                    chart.graphType === 'lowerBorder')
             ) {
                 return;
             }
             const currentKey: string =
-                chart.graphType === 'plan'
-                || chart.graphType === 'fact'
-                || chart.graphType === 'forecast'
-                || chart.graphType === 'higherBorder'
-                || chart.graphType === 'lowerBorder'
-                    ? 'main' : chart.graphType;
-            isMainLabelsDrawn = chart.graphType === 'plan'
-                || chart.graphType === 'fact'
-                || chart.graphType === 'forecast'
-                || chart.graphType === 'higherBorder'
-                || chart.graphType === 'lowerBorder';
+                chart.graphType === 'plan' ||
+                chart.graphType === 'fact' ||
+                chart.graphType === 'forecast' ||
+                chart.graphType === 'higherBorder' ||
+                chart.graphType === 'lowerBorder'
+                    ? 'main'
+                    : chart.graphType;
+            isMainLabelsDrawn =
+                chart.graphType === 'plan' ||
+                chart.graphType === 'fact' ||
+                chart.graphType === 'forecast' ||
+                chart.graphType === 'higherBorder' ||
+                chart.graphType === 'lowerBorder';
             this.axisLabels[currentKey].forEach((item) => {
                 y -= step;
                 labels
@@ -581,11 +599,13 @@ export class AstueOnpzMultiChartComponent implements OnInit, OnChanges, OnDestro
                 .attr('y2', (this.padding.top - this.topMargin) * 0.8);
 
             const key: string =
-                chart.graphType === 'fact'
-                || chart.graphType === 'plan'
-                || chart.graphType === 'forecast'
-                || chart.graphType === 'higherBorder'
-                || chart.graphType === 'lowerBorder' ? 'main' : chart.graphType;
+                chart.graphType === 'fact' ||
+                chart.graphType === 'plan' ||
+                chart.graphType === 'forecast' ||
+                chart.graphType === 'higherBorder' ||
+                chart.graphType === 'lowerBorder'
+                    ? 'main'
+                    : chart.graphType;
             const coefs = this.coefs[key];
 
             this.listeners.push(
@@ -615,18 +635,25 @@ export class AstueOnpzMultiChartComponent implements OnInit, OnChanges, OnDestro
     }
 
     private get leftPadding(): number {
-        const filterGraphTypes: IMultiChartTypes[] = ['plan', 'fact', 'forecast', 'higherBorder', 'lowerBorder'];
-        const padding = this.charts.map((item) =>
-            item.graphType).filter((x) => filterGraphTypes.includes(x))?.length ?? 0;
+        const filterGraphTypes: IMultiChartTypes[] = [
+            'plan',
+            'fact',
+            'forecast',
+            'higherBorder',
+            'lowerBorder',
+        ];
+        const padding =
+            this.charts.map((item) => item.graphType).filter((x) => filterGraphTypes.includes(x))
+                ?.length ?? 0;
         const cf = this.charts.length - (padding > 0 ? padding - 1 : 0);
         return this.padding.left + this.axisYWidth * cf;
     }
 
-
     private drawMouseGroup(): void {
-        const height = this.graphMaxY - this.padding.top + (this.padding.top / 2) - this.padding.bottom;
-        const width = this.graphMaxX - this.padding.left - this.padding.right;
-        const x = this.padding.left;
+        const height =
+            this.graphMaxY - this.padding.top + this.padding.top / 2 - this.padding.bottom;
+        const width = this.graphMaxX - this.leftPadding - this.padding.right;
+        const x = this.leftPadding;
         const y = this.padding.top / 2;
 
         // группа событий мыши
@@ -648,13 +675,14 @@ export class AstueOnpzMultiChartComponent implements OnInit, OnChanges, OnDestro
             .style('stroke', 'currentColor')
             .style('stroke-width', '1px');
 
+        // TODO check work
         // точка курсора на линии плановых значений
-        mouseG
-            .append('circle')
-            .attr('class', 'mouse-per-line')
-            .attr('r', '4')
-            .style('fill', 'currentColor')
-            .style('stroke-width', '1px');
+        // mouseG
+        //     .append('circle')
+        //     .attr('class', 'mouse-per-line')
+        //     .attr('r', '4')
+        //     .style('fill', 'currentColor')
+        //     .style('stroke-width', '1px');
 
         // функция отвечающая за отрисовку вверхнего блока
         // this.drawMouseInfoGroup();
@@ -666,12 +694,13 @@ export class AstueOnpzMultiChartComponent implements OnInit, OnChanges, OnDestro
             .attr('width', width)
             .attr('height', height)
             .attr('fill', 'none')
-            .attr('pointer-events', 'all')
-            ._groups;
+            .attr('pointer-events', 'all')._groups;
 
+        if (this.eventListenerFn) {
+            this.eventListenerFn();
+        }
         this.eventListenerFn = this.listenMouseEvents(mouseListenArea);
     }
-
 
     private newDrawMouseInfoGroup(): void {
         const g = this.svg
@@ -744,18 +773,19 @@ export class AstueOnpzMultiChartComponent implements OnInit, OnChanges, OnDestro
             .attr('y', -31)
             .attr('class', 'data-date mouse-graph-date');
 
-
         const values = [];
         let plan: IChartMini;
         let fact: IChartMini;
         const currentDatetime: Date = new Date();
         currentDatetime.setMinutes(0, 0, 0);
         this.charts.forEach((chart) => {
-            const filterChart = chart.graph
-                .filter((item) => item.timeStamp.getTime() <= currentDatetime.getTime());
-            const statValue = filterChart?.length > 0
-                ? filterChart[filterChart.length - 1]
-                : chart?.graph[0] ?? null;
+            const filterChart = chart.graph.filter(
+                (item) => item.timeStamp.getTime() <= currentDatetime.getTime()
+            );
+            const statValue =
+                filterChart?.length > 0
+                    ? filterChart[filterChart.length - 1]
+                    : chart?.graph[0] ?? null;
             if (chart.graphType === 'plan') {
                 plan = chart.graph[chart.graph.length - 1];
             } else if (chart.graphType === 'fact') {
@@ -771,7 +801,7 @@ export class AstueOnpzMultiChartComponent implements OnInit, OnChanges, OnDestro
                     val: statValue,
                     color: lineColors[this.colors?.get(chart.tagName)],
                     units: chart.units ?? '',
-                    iconType: chart.graphType ?? 'volume'
+                    iconType: chart.graphType ?? 'volume',
                 });
             }
         });
@@ -782,9 +812,7 @@ export class AstueOnpzMultiChartComponent implements OnInit, OnChanges, OnDestro
         const cardHeight = this.axisYWidth * 0.5;
 
         values.forEach((val, idx) => {
-            const rect = g
-                .append('g')
-                .attr('class', 'val');
+            const rect = g.append('g').attr('class', 'val');
             const bg = rect
                 .append('g')
                 .attr('class', 'bg bg-rect')
@@ -818,7 +846,7 @@ export class AstueOnpzMultiChartComponent implements OnInit, OnChanges, OnDestro
                     .attr(
                         'xlink:href',
                         `assets/icons/widgets/ASTUE-ONPZ/astue-onpz-conventional-fuel/` +
-                        `${val.iconType}.svg`
+                            `${val.iconType}.svg`
                     )
                     .attr('x', 0)
                     .attr('y', start + step * 0.7)
@@ -827,7 +855,6 @@ export class AstueOnpzMultiChartComponent implements OnInit, OnChanges, OnDestro
                     .attr('height', cardHeight - step * 1.4);
             }
         });
-
     }
 
     private drawMouseInfoGroup(): void {
@@ -972,6 +999,8 @@ export class AstueOnpzMultiChartComponent implements OnInit, OnChanges, OnDestro
     private listenMouseEvents(element: HTMLElement): () => void {
         const eventListeners: (() => void)[] = [];
         eventListeners.push(
+            // this.renderer.listen(element, 'mouseenter', () => this.onMouseEnter()),
+            this.renderer.listen(element, 'mouseleave', () => this.onMouseLeave()),
             this.renderer.listen(element, 'mousemove', (event: MouseEvent) => {
                 let x: number = 0;
                 const rect: DOMRect = element.getBoundingClientRect();
@@ -985,12 +1014,15 @@ export class AstueOnpzMultiChartComponent implements OnInit, OnChanges, OnDestro
 
     changePositionPicker(x?: number): void {
         if (!x) {
+            if (this.currentDates) {
+                return;
+            }
             const currentDatetime: Date = new Date();
-            currentDatetime.setMinutes(0, 0, 0);
-            x = this.scaleFuncs.x(currentDatetime);
+            x = this.scaleFuncs.x(currentDatetime) - this.leftPadding;
         }
-        const posFact = findCursorPosition(x, 'fact', this.svg, this.padding);
-        const posPlan = findCursorPosition(x, 'plan', this.svg, this.padding);
+        const padding = { ...this.padding, left: this.leftPadding };
+        const posFact = findCursorPosition(x, 'fact', this.svg, padding);
+        const posPlan = findCursorPosition(x, 'plan', this.svg, padding);
 
         this.svg.select('.mouse-over').style('opacity', 1);
         let factY = this.scaleFuncs?.y?.invert(posFact?.y);
@@ -1005,29 +1037,27 @@ export class AstueOnpzMultiChartComponent implements OnInit, OnChanges, OnDestro
             .attr('x1', x)
             .attr('x2', x);
 
-        this.svg.selectAll('.mouse-line-circle').attr('cx', x);
-
-        if (posFact) {
-            this.svg
-                .select('.mouse-per-line')
-                .attr('cx', x)
-                .style('opacity', 1)
-                .attr('cy', posFact?.y - this.padding.top + (this.padding.top / 2));
-        } else {
-            this.svg
-                .select('.mouse-per-line')
-                .style('opacity', 0);
-        }
+        // this.svg.selectAll('.mouse-line-circle').attr('cx', x);
+        //
+        // if (posFact) {
+        //     this.svg
+        //         .select('.mouse-per-line')
+        //         .attr('cx', x)
+        //         .style('opacity', 1)
+        //         .attr('cy', posFact?.y - this.padding.top + this.padding.top / 2);
+        // } else {
+        //     this.svg.select('.mouse-per-line').style('opacity', 0);
+        // }
 
         const infoFramePaddings = {
             near: 20,
             nearText: 15,
             longerAngle: 58,
-            longer: 60
+            longer: 60,
         };
         const infoBLockPaddings = {
             bigRect: 80,
-            smallRect: 13
+            smallRect: 13,
         };
 
         if (factX.toString() === 'Invalid Date' && planX.toString() === 'Invalid Date') {
@@ -1038,27 +1068,17 @@ export class AstueOnpzMultiChartComponent implements OnInit, OnChanges, OnDestro
             .select('g.mouse-info .mouse-graph-date')
             .attr('x', x)
             .text(formatDate(factX.toString() === 'Invalid Date' ? planX : factX));
-        this.svg
-            .selectAll('g.mouse-info .data-date')
-            .attr('x', x);
+        this.svg.selectAll('g.mouse-info .data-date').attr('x', x);
         // Большой многоугольник
-        this.svg
-            .selectAll('g.mouse-info .big-rect')
-            .attr('x', x - infoBLockPaddings.bigRect);
+        this.svg.selectAll('g.mouse-info .big-rect').attr('x', x - infoBLockPaddings.bigRect);
         // Маленький под иконками
-        this.svg
-            .selectAll('g.mouse-info .small-rect')
-            .attr('x', x - infoBLockPaddings.smallRect);
+        this.svg.selectAll('g.mouse-info .small-rect').attr('x', x - infoBLockPaddings.smallRect);
         this.svg
             .selectAll('g.mouse-info .future-line')
             .attr('x1', x - 13)
             .attr('x2', x + 13);
-        this.svg
-            .selectAll('g.mouse-info .icon-rect')
-            .attr('x', x - 10);
-        this.svg
-            .selectAll('g.mouse-info .small-icon-rect')
-            .attr('x', x - 14);
+        this.svg.selectAll('g.mouse-info .icon-rect').attr('x', x - 10);
+        this.svg.selectAll('g.mouse-info .small-icon-rect').attr('x', x - 14);
 
         const values = [];
         let plan: IChartMini;
@@ -1066,17 +1086,18 @@ export class AstueOnpzMultiChartComponent implements OnInit, OnChanges, OnDestro
         const date: Date = factX.toString() !== 'Invalid Date' ? new Date(factX) : new Date(planX);
         date.setMinutes(0, 0, 0);
         this.charts.forEach((chart) => {
-            const filterChart = chart.graph
-                .filter((item) => item.timeStamp.getTime() <= date.getTime());
+            const filterChart = chart.graph.filter(
+                (item) => item.timeStamp.getTime() <= date.getTime()
+            );
             const xGragh = chart.transformedGraph[chart.transformedGraph.length - 1]?.x >= x;
-            const statValue = filterChart?.length > 0
-                ? filterChart[filterChart.length - 1]
-                : null;
+            const statValue = filterChart?.length > 0 ? filterChart[filterChart.length - 1] : null;
             if (chart.graphType === 'plan') {
                 plan = chart.graph[chart.graph.length - 1];
-            } else if (chart.graphType === 'fact'
-                || chart.graphType === 'higherBorder'
-                || chart.graphType === 'lowerBorder') {
+            } else if (
+                chart.graphType === 'fact' ||
+                chart.graphType === 'higherBorder' ||
+                chart.graphType === 'lowerBorder'
+            ) {
                 fact = chart.graph[chart.graph.length - 1];
             } else if (chart.graphType === 'forecast') {
                 // TODO add some
@@ -1085,7 +1106,7 @@ export class AstueOnpzMultiChartComponent implements OnInit, OnChanges, OnDestro
                     val: xGragh ? statValue : -1,
                     color: lineColors[this.colors?.get(chart.tagName)],
                     units: chart.units ?? '',
-                    iconType: chart.graphType ?? 'volume'
+                    iconType: chart.graphType ?? 'volume',
                 });
             }
         });
@@ -1139,14 +1160,13 @@ export class AstueOnpzMultiChartComponent implements OnInit, OnChanges, OnDestro
         this.svg
             .selectAll('g.mouse-info .data-fact')
             .attr('x', x - 18)
-            .text(factY?.toFixed((2)));
+            .text(factY?.toFixed(2));
 
         this.svg
             .selectAll('g.mouse-info .data-plan')
             .attr('x', x + 23)
-            .text(planY?.toFixed((2)));
+            .text(planY?.toFixed(2));
 
         this.svg.select('g.mouse-over').style('color', 'white');
     }
-
 }
