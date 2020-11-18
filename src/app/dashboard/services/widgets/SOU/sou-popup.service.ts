@@ -5,7 +5,7 @@ import { SouMvpMnemonicSchemeModule } from '../../../../widgets/SOU/sou-mvp-mnem
     providedIn: 'root',
 })
 export class SouPopupService {
-    isPopupOpen: boolean = true;
+    isPopupOpen: boolean = false;
 
     constructor() {}
 
