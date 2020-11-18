@@ -1,0 +1,138 @@
+<div class="main-groups">
+  <div class="main-groups__item main-groups__item-modified">
+    <div class="main-groups__row">
+      <div class="title">
+        <div class="arrow-btn">
+          <svg-icon
+            src="assets/icons/widgets/SOU/sou-mvp-mnemonic-scheme/doubleArrow.svg"
+            [svgStyle]="{ 'width.px':16, 'height.px':16 }"
+          ></svg-icon>
+        </div>
+        <span>АБ АВТ-10 </span>
+        <div class="connection-circle"></div>
+      </div>
+      <evj-sou-mvp-mnemonic-scheme-circle-diagram
+        [title]="'FOIL'"
+        [percentage]="95"
+        [warningStatus]="false"
+      ></evj-sou-mvp-mnemonic-scheme-circle-diagram>
+      <evj-sou-mvp-mnemonic-scheme-info
+        [data]="{
+          productName: 'Мазут ВБ',
+          valueByHour: 12000,
+          valueTank: 13000,
+          valueMoment: 1000,
+          valueByHourPercent: 12.85,
+          valueTankPercent: 13.5,
+          valueMomentPercent: 1,
+          isEnable: true
+        }"
+        [outCount]="0"
+        [choosenSetting]="choosenSetting"
+      ></evj-sou-mvp-mnemonic-scheme-info>
+    </div>
+    <div class="main-groups__row">
+      <div class="vertical-custom-connection">
+        <div class="connection-circle"></div>
+        <div class="line-custom"></div>
+        <div class="connection-circle"></div>
+      </div>
+      <div class="main-groups__column">
+        <evj-sou-mvp-mnemonic-scheme-collector
+          [style.height.%]="100"
+          [title]="'PL110MVB'"
+          [warningStatus]="false"
+          [outCount]="6"
+          [inCount]="0"
+        ></evj-sou-mvp-mnemonic-scheme-collector>
+      </div>
+      <div class="main-groups__column">
+        <div class="main-groups__column-inner">
+          <evj-sou-mvp-mnemonic-scheme-stream-diagram
+            [title]="'F112'"
+            [weight]="120"
+            [status]="false"
+          ></evj-sou-mvp-mnemonic-scheme-stream-diagram>
+          <div class="line"></div>
+        </div>
+
+        <div class="main-groups__column-inner">
+          <evj-sou-mvp-mnemonic-scheme-stream-diagram
+            [title]="'F113'"
+            [weight]="120"
+            [status]="false"
+          ></evj-sou-mvp-mnemonic-scheme-stream-diagram>
+          <div class="line"></div>
+        </div>
+
+        <div class="main-groups__column-inner">
+          <evj-sou-mvp-mnemonic-scheme-stream-diagram
+            [title]="'F114'"
+            [weight]="120"
+            [status]="false"
+          ></evj-sou-mvp-mnemonic-scheme-stream-diagram>
+          <div class="line"></div>
+        </div>
+
+        <div class="main-groups__column-inner">
+          <evj-sou-mvp-mnemonic-scheme-stream-diagram
+            [title]="'F115'"
+            [weight]="120"
+            [status]="false"
+          ></evj-sou-mvp-mnemonic-scheme-stream-diagram>
+          <div class="line"></div>
+        </div>
+
+        <div class="main-groups__column-inner">
+          <evj-sou-mvp-mnemonic-scheme-stream-diagram
+            [title]="'F116'"
+            [weight]="120"
+            [status]="false"
+          ></evj-sou-mvp-mnemonic-scheme-stream-diagram>
+          <div class="line"></div>
+        </div>
+
+        <div class="main-groups__column-inner">
+          <evj-sou-mvp-mnemonic-scheme-stream-diagram
+            [title]="'F117'"
+            [weight]="120"
+            [status]="false"
+          ></evj-sou-mvp-mnemonic-scheme-stream-diagram>
+          <div class="line"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="main-groups__item">
+    <div class="title">
+      <div class="arrow-btn">
+        <svg-icon
+          src="assets/icons/widgets/SOU/sou-mvp-mnemonic-scheme/doubleArrow.svg"
+          [svgStyle]="{ 'width.px':16, 'height.px':16 }"
+        ></svg-icon>
+      </div>
+      <span>АБ АВТ-10 </span>
+      <div class="connection-circle"></div>
+    </div>
+    <evj-sou-mvp-mnemonic-scheme-circle-diagram
+      [title]="'FFSB4'"
+      [percentage]="95"
+      [warningStatus]="false"
+    ></evj-sou-mvp-mnemonic-scheme-circle-diagram>
+    <evj-sou-mvp-mnemonic-scheme-info
+      [data]="{
+        productName: 'ДТЛ К-9',
+        valueByHour: 12000,
+        valueTank: 13000,
+        valueMoment: 1000,
+        valueByHourPercent: 12.85,
+        valueTankPercent: 13.5,
+        valueMomentPercent: 1,
+        isEnable: true
+      }"
+      [choosenSetting]="choosenSetting"
+    ></evj-sou-mvp-mnemonic-scheme-info>
+    <div class="line"></div>
+  </div>
+</div>

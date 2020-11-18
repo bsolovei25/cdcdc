@@ -6,6 +6,7 @@ import { Component, Input, OnChanges, OnInit } from '@angular/core';
   styleUrls: ['./sou-mvp-mnemonic-scheme-collector.component.scss']
 })
 export class SouMvpMnemonicSchemeCollectorComponent implements OnInit, OnChanges {
+  @Input() title: string = '';
   @Input() warningStatus: boolean = false;
   @Input() inCount: number = 1;
   @Input() outCount: number = 3;

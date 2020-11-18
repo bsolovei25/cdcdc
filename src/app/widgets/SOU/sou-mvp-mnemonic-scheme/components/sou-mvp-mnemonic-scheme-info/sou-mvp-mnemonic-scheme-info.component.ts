@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ISOUFlowIn, ISOUFlowOut } from '../../../../../dashboard/models/SOU/sou-operational-accounting-system';
+import { SouPopupService } from '../../../../../dashboard/services/widgets/SOU/sou-popup.service';
 
 @Component({
   selector: 'evj-sou-mvp-mnemonic-scheme-info',
@@ -9,19 +10,23 @@ import { ISOUFlowIn, ISOUFlowOut } from '../../../../../dashboard/models/SOU/sou
 export class SouMvpMnemonicSchemeInfoComponent implements OnInit {
   @Input() set data(data: ISOUFlowOut) {
     this.flowData = data;
-    this.outputEnable = data.dscFlow.length !== 1 ? true : data.dscFlow[0].isEnable;
+    this.outputEnable = true;
   }
   @Input() choosenSetting: number;
 
-  @Input() inCount: number = 1;
-  @Input() outCount: number = 1;
+  @Input() set inCount(data: number) {
+    this.inputArr = new Array(data)
+  }
+  @Input() set outCount(data: number) {
+    this.outputArr = new Array(data)
+  }
 
   flowData: ISOUFlowOut;
   outputEnable: boolean = true;
-  inputArr: number[] = new Array(this.inCount);
-  outputArr: number[] = new Array(this.outCount);
+  inputArr: number[] = new Array(1);
+  outputArr: number[] = new Array(1);
 
-  constructor() { }
+  constructor(public popupService: SouPopupService) {}
 
   ngOnInit(): void {
   }

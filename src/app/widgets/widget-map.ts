@@ -1198,7 +1198,7 @@ export const WIDGETS_LAZY = {
         preview: 'sou-operational-accounting-system'
     },
 
-    'sou-operational-accounting-system': {
+    'sou-operational-accounting-system-new': {
         import: async () => {
             return await import(
                 'src/app/widgets/SOU/sou-mvp-mnemonic-scheme/sou-mvp-mnemonic-scheme.module'

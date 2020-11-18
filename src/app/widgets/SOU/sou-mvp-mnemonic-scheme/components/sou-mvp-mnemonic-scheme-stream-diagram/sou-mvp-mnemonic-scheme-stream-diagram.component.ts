@@ -9,6 +9,8 @@ import * as d3 from 'd3';
 export class SouMvpMnemonicSchemeStreamDiagramComponent implements OnInit, AfterViewInit {
 
   @ViewChild('chart') chart: ElementRef;
+  @Input() title: string = '';
+  @Input() weight: number = 0;
   @Input() percentage: number = 95;
   @Input() status: boolean = false;
 
