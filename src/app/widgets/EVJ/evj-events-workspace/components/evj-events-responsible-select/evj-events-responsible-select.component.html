@@ -30,9 +30,10 @@
       <mat-label>Отвественный</mat-label>
       <mat-select panelClass="mat-select-custom"
                   [(ngModel)]="responsible" disableOptionCentering
-                  [(value)]="selected"
+                  [value]="selected"
       >
         <evj-mat-select-filter [formControl]="filter"></evj-mat-select-filter>
+        <mat-option>Не выбрано</mat-option>
         <ng-container *ngFor="let p of users">
           <mat-option [value]="p" (click)="chooseRespons(p)">
             {{ p.lastName }} {{ p.firstName }}
