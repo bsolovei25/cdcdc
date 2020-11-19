@@ -264,37 +264,6 @@ export class KpeLineChartComponent implements OnChanges, AfterViewInit {
             r = r / 2;
             opacity = opacity * 4;
         }
-
-
-        // this.chartData.forEach((item) => {
-        //     if (item.graphType !== 'fact' && item.graphType !== 'plan') {
-        //         return;
-        //     }
-        //     if (item.graphType === 'plan') {
-        //         const x = fact[fact.length - 1].x;
-        //         const y = plan.find(corrdinate => corrdinate.x === x)?.y;
-        //         pointsG
-        //             .append('circle')
-        //             .attr('class', 'point point_plan')
-        //             .attr('cx', x)
-        //             .attr('cy', y)
-        //             .attr('r', 2);
-        //     } else {
-        //         const g = pointsG.append('g').attr('class', 'fact-point');
-        //         let r = 8;
-        //         let opacity = 0.05;
-        //         for (let i = 0; i < 4; i++) {
-        //             g.append('circle')
-        //                 .attr('class', this.lastPointColor)
-        //                 .attr('cx', item.graph[item.graph.length - 1].x)
-        //                 .attr('cy', item.graph[item.graph.length - 1].y)
-        //                 .attr('r', r)
-        //                 .style('opacity', opacity);
-        //             r = r / 2;
-        //             opacity = opacity * 4;
-        //         }
-        //     }
-        // });
     }
 
     private ColorizeDraw(ColorizeCoordinates: IChartD3[]): void {
