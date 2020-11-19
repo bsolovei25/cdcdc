@@ -11,6 +11,8 @@
   width: 100%;
   height: 100%;
 
+  background: var(--color-kpe-gaude-back);
+
   &::ng-deep {
 
     .graph-line {
@@ -53,7 +55,7 @@
       }
 
       &_warning {
-        opacity: 0.3;
+        opacity: 0.2;
         fill: var(--color-astue-onpz-warning);
       }
 
@@ -74,10 +76,12 @@
 
       &_plan {
         stroke: var(--color-astue-onpz-plan);
+        z-index: 4;
       }
 
       &_fact {
         fill: var(--color-astue-onpz-fact);
+        z-index: 3;
       }
     }
     .future {
