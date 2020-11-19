@@ -65,11 +65,15 @@
       flex-grow: 1;
       overflow: hidden;
       display: flex;
+
+      background: var(--color-kpe-bg-sub);
     }
 
     &__chart {
       height: 100%;
       flex-grow: 1;
+
+      background: var(--color-kpe-bg-sub-opacity);
     }
   }
 
@@ -83,11 +87,17 @@
       display: flex;
       gap: 10px;
       flex-grow: 1;
+
+      &-line {
+        flex-grow: 0;
+      }
     }
 
     &__chart {
       flex-grow: 1;
       height: 100%;
+
+      background: var(--color-kpe-bg-sub-opacity);
     }
   }
 }
@@ -208,7 +218,6 @@
 .element-container {
   position: relative;
   border-radius: 2px;
-  background: var(--color-kpe-bg-sub);
   box-sizing: border-box;
   &-line {
     position: relative;
