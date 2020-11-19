@@ -1,6 +1,6 @@
 import { Component, HostListener, Inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { IAlertWindowModel } from '@shared/models/alert-window.model';
 import {
     EventsWidgetCategory,
@@ -264,6 +264,9 @@ export class EvjEventsComponent extends WidgetPlatform<IEventsWidgetAttributes>
     public isPreviewOpened: boolean = false;
 
     private readonly defaultIconPath: string = 'assets/icons/widgets/events/smotr.svg';
+
+    /// For cancel request
+    private requestSubscription: { [key: number]: Subscription } = {};
 
     get isClaimDelete(): boolean {
         return this.claimService.claimGlobal$?.value?.some(
@@ -669,14 +672,15 @@ export class EvjEventsComponent extends WidgetPlatform<IEventsWidgetAttributes>
         window.open(url);
     }
 
-    public async scrollHandler(event: any): Promise<void> {
+    public scrollHandler(event: {
+        target: { offsetHeight: number; scrollTop: number; scrollHeight: number };
+    }): void {
         if (
             event.target.offsetHeight + event.target.scrollTop + 100 >= event.target.scrollHeight &&
             this.notifications.length &&
             this.isAllowScrollLoading
         ) {
-            console.log('end scroll');
-            throttle(await this.getData(this.notifications[this.notifications.length - 1].id));
+            this.getData(this.notifications[this.notifications.length - 1].id);
         }
     }
 
@@ -705,7 +709,8 @@ export class EvjEventsComponent extends WidgetPlatform<IEventsWidgetAttributes>
         return result;
     }
 
-    private async getData(lastId: number = 0): Promise<any> {
+    private getData(lastId: number = 0): void {
+        const subKey: string = 'data';
         this.isAllowScrollLoading = false;
         if (lastId === 0) {
             this.clearNotifications();
@@ -716,67 +721,89 @@ export class EvjEventsComponent extends WidgetPlatform<IEventsWidgetAttributes>
             this.isAllowScrollLoading = true;
             return;
         }
-        const ans = await this.eventService.getBatchData(lastId, options);
-        this.appendNotifications(ans);
-        this.isAllowScrollLoading = true;
-        if (ans?.length > 0) {
-            this.viewport?.checkViewportSize();
-        }
+        this.requestSubscription[subKey]?.unsubscribe();
+        this.requestSubscription[subKey] = this.eventService
+            .getBatchDataObserver(lastId, options)
+            .subscribe(
+                (ans) => {
+                    console.log(subKey);
+                    this.appendNotifications(ans);
+                    this.isAllowScrollLoading = true;
+                    if (ans?.length > 0) {
+                        this.viewport?.checkViewportSize();
+                    }
+                },
+                (err) => {},
+                () => {
+                    this.isAllowScrollLoading = true;
+                    this.requestSubscription[subKey] = null;
+                }
+            );
     }
 
     private async getStats(): Promise<void> {
+        const subKey: string = 'stats';
         const options = this.getCurrentOptions();
         if (!options.placeNames) {
             return;
         }
-        const stats = await this.eventService.getStats(options);
-        this.categories.forEach((c) => {
-            switch (options.categoriesType) {
-                case 'default':
-                    c.notificationsCounts.all = stats.statsByCategory.find(
-                        (sc) => sc.category.id === c.id
-                    )?.totalCount;
-                    c.notificationsCounts.open = stats.statsByCategory.find(
-                        (sc) => sc.category.id === c.id
-                    )?.unclosedCount;
-                    break;
-                case 'ed':
-                    c.notificationsCounts.all = stats.statsByDispatcherScreenCategory.find(
-                        (sc) => sc.category.id === c.id
-                    )?.totalCount;
-                    c.notificationsCounts.open = stats.statsByDispatcherScreenCategory.find(
-                        (sc) => sc.category.id === c.id
-                    )?.unclosedCount;
-                    break;
+        this.requestSubscription[subKey]?.unsubscribe();
+        this.requestSubscription[subKey] = this.eventService.getStatsObserver(options).subscribe(
+            (stats) => {
+                console.log(subKey);
+                this.categories.forEach((c) => {
+                    switch (options.categoriesType) {
+                        case 'default':
+                            c.notificationsCounts.all = stats.statsByCategory.find(
+                                (sc) => sc.category.id === c.id
+                            )?.totalCount;
+                            c.notificationsCounts.open = stats.statsByCategory.find(
+                                (sc) => sc.category.id === c.id
+                            )?.unclosedCount;
+                            break;
+                        case 'ed':
+                            c.notificationsCounts.all = stats.statsByDispatcherScreenCategory.find(
+                                (sc) => sc.category.id === c.id
+                            )?.totalCount;
+                            c.notificationsCounts.open = stats.statsByDispatcherScreenCategory.find(
+                                (sc) => sc.category.id === c.id
+                            )?.unclosedCount;
+                            break;
+                    }
+                });
+                this.filters.forEach((f) => {
+                    switch (f.code) {
+                        case 'all':
+                            f.notificationsCount = stats.statsByStatus.find(
+                                (sf) => sf.status.id === 3001
+                            ).count;
+                            f.notificationsCount += stats.statsByStatus.find(
+                                (sf) => sf.status.id === 3002
+                            ).count;
+                            break;
+                        case 'closed':
+                            f.notificationsCount = stats.statsByStatus.find(
+                                (sf) => sf.status.id === 3003
+                            ).count;
+                            break;
+                        case 'inWork':
+                            f.notificationsCount = stats.statsByStatus.find(
+                                (sf) => sf.status.id === 3002
+                            ).count;
+                            break;
+                        case 'isNotAcknowledged':
+                            f.notificationsCount = stats.statsByStatus.find(
+                                (sf) => sf.status.id === -100
+                            ).count;
+                            break;
+                    }
+                });
+            },
+            () => {},
+            () => {
+                this.requestSubscription[subKey] = null;
             }
-        });
-        this.filters.forEach((f) => {
-            switch (f.code) {
-                case 'all':
-                    f.notificationsCount = stats.statsByStatus.find(
-                        (sf) => sf.status.id === 3001
-                    ).count;
-                    f.notificationsCount += stats.statsByStatus.find(
-                        (sf) => sf.status.id === 3002
-                    ).count;
-                    break;
-                case 'closed':
-                    f.notificationsCount = stats.statsByStatus.find(
-                        (sf) => sf.status.id === 3003
-                    ).count;
-                    break;
-                case 'inWork':
-                    f.notificationsCount = stats.statsByStatus.find(
-                        (sf) => sf.status.id === 3002
-                    ).count;
-                    break;
-                case 'isNotAcknowledged':
-                    f.notificationsCount = stats.statsByStatus.find(
-                        (sf) => sf.status.id === -100
-                    ).count;
-                    break;
-            }
-        });
+        );
     }
 
     soundSwitch(event: MouseEvent, isSound: boolean): void {

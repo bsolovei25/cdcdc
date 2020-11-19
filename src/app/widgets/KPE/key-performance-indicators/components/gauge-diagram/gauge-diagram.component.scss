@@ -1,6 +1,6 @@
 .svg {
   border-radius: 50%;
-  background-color: var(--color-sou-bg);
+  background-color: var(--color-kpe-line-diagram-bg-sub);
   padding: 12px;
   border: 1px solid var(--color-kpe-gaude-lines);
   width: calc(100% - 24px);
@@ -41,7 +41,7 @@
   }
 
   .arc {
-    fill: var(--color-kpe-border-sub);
+    fill: var(--color-kpe-line-diagram-bg-sub);
   }
 
   .needle {
@@ -53,7 +53,7 @@
   }
 
   .fill-center-circle {
-    fill: var(--color-kpe-gauge-circle);
+    fill: var(--color-kpe-gaude-lines);
   }
 
   .fill-body-color {
@@ -61,7 +61,7 @@
   }
 
   .hide-down-sector {
-    fill: var(--color-kpe-key-p-d-bg);
+    fill: var(--color-kpe-line-diagram-bg-sub);
   }
 
   .needle-shadow-gradient-1 {

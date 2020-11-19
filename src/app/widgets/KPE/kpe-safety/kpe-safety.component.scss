@@ -41,11 +41,16 @@
 
   &__main {
     display: flex;
+    padding-bottom: 15px;
     gap: 12px;
     min-height: 165px;
     width: 100%;
 
+    overflow-x: auto;
+    overflow-y: hidden;
+
     &__gauge {
+      min-width: 140px;
       flex-grow: 1;
       height: 100%;
     }
