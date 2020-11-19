@@ -21,6 +21,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
 import { ReactiveFormsModule } from '@angular/forms';
+import { OilOperationsManualAssignComponent } from './components/oil-operations-manual-assign/oil-operations-manual-assign.component';
 
 
 
@@ -34,7 +35,8 @@ import { ReactiveFormsModule } from '@angular/forms';
       OilOperationsLineMenuComponent,
       OilOperationsReceivedOperationsComponent,
       OilOperationsShipmentFormationComponent,
-      OilOperationsTankFilterComponent
+      OilOperationsTankFilterComponent,
+      OilOperationsManualAssignComponent,
   ],
     imports: [
         CommonModule,
