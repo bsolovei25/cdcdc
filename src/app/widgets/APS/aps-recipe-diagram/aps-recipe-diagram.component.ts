@@ -26,6 +26,7 @@ export interface IAPSRecipeDiagramValue {
 export interface IColumnsToDisplay {
     date: Date;
     name: string;
+    id?: number;
 }
 
 @Component({
