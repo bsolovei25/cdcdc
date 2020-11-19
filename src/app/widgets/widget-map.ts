@@ -123,6 +123,7 @@ export const WIDGETS = {
     'evj-events-workspace': WidgetContainerComponent,
     'astue-onpz-factory-analysis': WidgetContainerComponent,
     'astue-onpz-heat-balance': WidgetContainerComponent,
+    'astue-onpz-table-indicators': WidgetContainerComponent,
 };
 
 export const WIDGETS_LAZY = {
@@ -1410,6 +1411,7 @@ export const WIDGETS_LAZY = {
         itemRows: 10,
         minItemCols: 9,
         minItemRows: 10,
+
         preview: 'astue-onpz-heat-balance',
     },
     'ejco-onpz-unit-sou': {
