@@ -96,6 +96,11 @@
                     </div>
                 </ng-container>
 
+                <!-- MANUAL SHIPMENT ASSIGN -->
+                <div *ngIf="filter.manualAssign">
+                  <evj-oil-operations-manual-assign (closeFree)="closeShipment($event)"></evj-oil-operations-manual-assign>
+                </div>
+
                 <!-- RIGHT-SIDE -->
                 <div class='right-side'>
                     <evj-table-grid
