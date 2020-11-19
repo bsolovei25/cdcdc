@@ -122,7 +122,7 @@ export const WIDGETS = {
     'deviation-circle-diagram': WidgetContainerComponent,
     'evj-events-workspace': WidgetContainerComponent,
     'astue-onpz-factory-analysis': WidgetContainerComponent,
-    'astue-onpz-heat-balance': WidgetContainerComponent
+    'astue-onpz-heat-balance': WidgetContainerComponent,
 };
 
 export const WIDGETS_LAZY = {
@@ -1398,11 +1398,12 @@ export const WIDGETS_LAZY = {
         minItemCols: 24,
         minItemRows: 7,
         preview: 'default',
+    },
     'astue-onpz-heat-balance': {
         import: async () => {
             return await import(
                 'src/app/widgets/ASTUE-ONPZ/astue-onpz-heat-balance/astue-onpz-heat-balance.module'
-                );
+            );
         },
         module: 'AstueOnpzHeatBalanceModule',
         itemCols: 9,
