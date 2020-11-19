@@ -121,6 +121,7 @@ export const WIDGETS = {
     'deviations-table': WidgetContainerComponent,
     'deviation-circle-diagram': WidgetContainerComponent,
     'evj-events-workspace': WidgetContainerComponent,
+    'astue-onpz-table-indicators': WidgetContainerComponent,
     'astue-onpz-heat-balance': WidgetContainerComponent
 };
 
@@ -1372,6 +1373,19 @@ export const WIDGETS_LAZY = {
         minItemRows: 10,
         preview: 'astue-onpz-interactive-indicators',
     },
+    'astue-onpz-table-indicators': {
+        import: async () => {
+            return await import(
+                'src/app/widgets/ASTUE-ONPZ/astue-onpz-table-indicators/astue-onpz-table-indicators.module'
+                );
+        },
+        module: 'AstueOnpzTableIndicatorsModule',
+        itemCols: 9,
+        itemRows: 10,
+        minItemCols: 9,
+        minItemRows: 10,
+        preview: 'astue-onpz-table-indicators',
+    },
     'astue-onpz-heat-balance': {
         import: async () => {
             return await import(
@@ -1383,6 +1397,7 @@ export const WIDGETS_LAZY = {
         itemRows: 10,
         minItemCols: 9,
         minItemRows: 10,
+
         preview: 'astue-onpz-heat-balance',
     },
     'ejco-onpz-unit-sou': {
