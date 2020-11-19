@@ -1,0 +1,34 @@
+@import "src/mixins";
+
+.container {
+  display: flex;
+  flex-flow: column;
+  width: 72px;
+  height: 100%;
+
+  .top {
+    display: flex;
+    height: 26px;
+    width: 100%;
+    margin-bottom: 9px;
+
+    &__title {
+      cursor: pointer;
+      margin: auto;
+      color: var(--astue-onpz-factory-analisys-label);
+      font-size: 11px;
+      text-align: center;
+      @include text-overflow;
+      -webkit-line-clamp: 2;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+
+  .main {
+    flex-grow: 1;
+    padding: 0 10px;
+  }
+}
