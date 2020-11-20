@@ -1,5 +1,6 @@
 import { AfterViewInit, Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import * as d3 from 'd3';
+import { AsyncRender } from '../../../../../@shared/functions/async-render.function';
 import { ISOUFlowOut } from '../../../../../dashboard/models/SOU/sou-operational-accounting-system';
 import { SouMvpMnemonicSchemeService } from '../../../../../dashboard/services/widgets/SOU/sou-mvp-mnemonic-scheme';
 
@@ -15,9 +16,9 @@ export class SouMvpMnemonicSchemeStreamDiagramComponent implements OnInit, After
     sections: any[],
     code: number
   }) {
-    if (data?.sections?.length > 0) {
+    if (data.sections) {
       this.flowData = this.mvpService.getElementByCode(data.sections, data.code) as ISOUFlowOut;
-      this.percentage = this.flowData?.tolerance ?? 0;
+      this.drawSvg();
     }
   }
 
@@ -26,16 +27,20 @@ export class SouMvpMnemonicSchemeStreamDiagramComponent implements OnInit, After
   flowData: ISOUFlowOut;
 
   public svg: any;
-  percentage: number = 0;
 
   constructor(public mvpService: SouMvpMnemonicSchemeService) { }
 
   ngOnInit(): void {
   }
 
-  ngAfterViewInit(): void {
+  @AsyncRender
+  drawSvg(): void{
     const innerR = 7;
     const outerR = 8;
+
+    if (this.svg) {
+      this.svg.remove();
+    }
 
     this.svg = d3.select(this.chart.nativeElement)
       .append('svg')
@@ -46,7 +51,7 @@ export class SouMvpMnemonicSchemeStreamDiagramComponent implements OnInit, After
       .innerRadius(innerR)
       .outerRadius(outerR)
       .startAngle(0)
-      .endAngle(2 * Math.PI * this.percentage / 100);
+      .endAngle(typeof(this.flowData?.tolerance) === 'number' ? 2 * Math.PI * this.flowData?.tolerance / 100 : 0);
 
     const arcBg = d3.arc()
       .innerRadius(7)
@@ -63,5 +68,8 @@ export class SouMvpMnemonicSchemeStreamDiagramComponent implements OnInit, After
     g.append('path')
       .attr('d', arc)
       .attr('fill', 'white');
+  }
+
+  ngAfterViewInit(): void {
   }
 }

@@ -1,6 +1,7 @@
 import { AfterViewInit, Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { MatHint } from '@angular/material/form-field';
 import * as d3 from 'd3';
+import { AsyncRender } from '../../../../../@shared/functions/async-render.function';
 import { ISOUFlowIn, ISOUFlowOut, ISOUObjects } from '../../../../../dashboard/models/SOU/sou-operational-accounting-system';
 import { SouMvpMnemonicSchemeService } from '../../../../../dashboard/services/widgets/SOU/sou-mvp-mnemonic-scheme';
 
@@ -17,6 +18,7 @@ export class SouMvpMnemonicSchemeCircleDiagramComponent implements OnInit, After
   }) {
     if (data.sections) {
       this.flowData = this.mvpService.getElementByCode(data.sections, data.code) as ISOUFlowOut;
+      this.drawSvg();
     }
   }
 
@@ -31,9 +33,14 @@ export class SouMvpMnemonicSchemeCircleDiagramComponent implements OnInit, After
   ngOnInit(): void {
   }
 
-  ngAfterViewInit(): void {
+  @AsyncRender
+  drawSvg(): void {
     const innerR = 16;
     const outerR = 17;
+
+    if (this.svg) {
+      this.svg.remove();
+    }
 
     this.svg = d3.select(this.chart.nativeElement)
       .append('svg')
@@ -44,7 +51,7 @@ export class SouMvpMnemonicSchemeCircleDiagramComponent implements OnInit, After
       .innerRadius(16)
       .outerRadius(17)
       .startAngle(0)
-      .endAngle(2 * Math.PI * this.flowData?.tolerance / 100);
+      .endAngle(typeof(this.flowData?.tolerance) === 'number' ? 2 * Math.PI * this.flowData?.tolerance / 100 : 0);
 
     const arcBg = d3.arc()
       .innerRadius(innerR)
@@ -61,5 +68,8 @@ export class SouMvpMnemonicSchemeCircleDiagramComponent implements OnInit, After
     g.append('path')
       .attr('d', arc)
       .attr('fill', this.flowData?.isExceedingConfInterval ? 'var(--sou-mvp-color-warning)' : 'white');
+  }
+
+  ngAfterViewInit(): void {
   }
 }

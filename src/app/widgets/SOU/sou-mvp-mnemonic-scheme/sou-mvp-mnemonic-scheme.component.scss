@@ -261,15 +261,15 @@
       justify-content: flex-end;
 
       .close-btn {
-        height: 14px;
-        width: 14px;
-        padding-left: 3.5px;
-        padding-top: 3.5px;
+        height: 19px;
+        width: 19px;
+        
+        display: flex;
+        justify-content: center;
+        align-items: center;
 
         border-radius: 50%;
         border: 1px solid var(--sou-mvp-color-white);
-
-        display: grid;
 
         cursor: pointer;
         transform: translate(0px, 7px);
