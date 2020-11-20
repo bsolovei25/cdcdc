@@ -55,7 +55,7 @@
             </td>
           </ng-container>
         </tr>
-        <ng-container *ngFor="let elementChildren of element.unitParams;  index as i;">
+        <ng-container *ngFor="let elementChildren of element.list;  index as i;">
           <tr
             *ngIf="expandedElement.isSelected(element.unit.name)"
             class="table__body__row expanded-row"
@@ -72,26 +72,24 @@
                 class="table__body__column__row-title table__body__column__row-title-children"
                 [class.opacity]="selectedRow.isSelected(element.unit.name) && this.selectedRowProduct"
               >
-                <svg-icon
-                  *ngIf="elementChildren.deviation === 1 && selectedRowProduct === elementChildren.name"
-                  class="table__body__column__row-title__icon__background--orange"
-                  src="assets/icons/widgets/APS/aps-recipe-diagram/gradient-orange.svg"
-                >
-                </svg-icon>
-                <svg-icon
-                  *ngIf="selectedRowProduct !== elementChildren.name"
-                  [svgStyle]="{'height.px':'43', 'width.px': '21.3'}"
-                  class="table__body__column__row-title-children__left-block--first"
-                  src="assets/icons/widgets/APS/aps-recipe-diagram/astue-left-row-block-recipe.svg"
-                >
-                </svg-icon>
-                <svg-icon
-                  *ngIf="selectedRowProduct === elementChildren.name"
-                  [svgStyle]="{'height.px':'43', 'width.px': '21.3'}"
-                  class="table__body__column__row-title-children__left-block--first"
-                  src="assets/icons/widgets/APS/aps-recipe-diagram/astue-left-row-block-active-recipe.svg"
-                >
-                </svg-icon>
+                <ng-container
+                  *ngIf="selectedRowProduct !== elementChildren.id">
+                  <svg-icon
+                    [svgStyle]="{'height.px':'43', 'width.px': '21.3'}"
+                    class="table__body__column__row-title-children__left-block--first"
+                    src="assets/icons/widgets/APS/aps-recipe-diagram/astue-left-row-block-recipe.svg"
+                  >
+                  </svg-icon>
+                </ng-container>
+                <ng-container
+                  *ngIf="selectedRowProduct === elementChildren.id">
+                  <svg-icon
+                    [svgStyle]="{'height.px':'43', 'width.px': '21.3'}"
+                    class="table__body__column__row-title-children__left-block--first"
+                    src="assets/icons/widgets/APS/aps-recipe-diagram/astue-left-row-block-active-recipe.svg"
+                  >
+                  </svg-icon>
+                </ng-container>
                 <div
                   class="table__body__column__row-title__text__subname"
                   [class.table__body__column__row-title--no-active]="selectedRow.isSelected(element.unit.name)">

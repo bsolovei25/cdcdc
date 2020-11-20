@@ -129,7 +129,7 @@ th,  td {
       }
 
       &:first-child {
-        border-left: 2px solid var(--color-aps-border-sub);
+        border-left: 2px solid var(--color-aps-bg-icon);
       }
 
       &__row-title {
@@ -185,7 +185,7 @@ th,  td {
 
           &__name {
             height: 100%;
-            width: calc(100% - 180px);
+            width: calc(100% - 17px);
             text-align: left;
             white-space: nowrap;
             overflow: hidden;
