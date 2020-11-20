@@ -27,23 +27,6 @@ export class SouMvpMnemonicSchemeService {
     }
 
     selectElement(sections: any[], code: number): any {
-        if (this.selectedCode >= 0) {
-            if (this.selectedCode !== code) {
-                debugger;
-                // Найти выделенный ранее если он есть и удалить флаг
-                this.getElementByCode(sections, this.selectedCode).selected = false;
-                // Выделить новый
-                this.getElementByCode(sections, code).selected = true;
-            } else {
-                debugger;
-                this.getElementByCode(sections, code).selected = true;
-            }
-        } else {
-            debugger;
-            // Выделить новый
-            this.getElementByCode(sections, code).selected = true;
-        }
-
         this.selectedCode = code;
 
         return sections.find((item: { code: number; }) => item.code === code);

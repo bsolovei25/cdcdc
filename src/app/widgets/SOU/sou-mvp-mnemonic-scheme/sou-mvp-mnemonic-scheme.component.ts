@@ -89,8 +89,6 @@ export class SouMvpMnemonicSchemeComponent extends WidgetPlatform<unknown> imple
         ref.section.forEach (item => {
             this.sectionsData = [...this.sectionsData, ...item.flowIn, ...item.flowOut, ...item.objects];
         });
-
-        this.mvpService.selectElement(this.sectionsData, this.mvpService.selectedCode);
     }
 
     changeSetting(i: number): void {
