@@ -5,28 +5,54 @@
   border-right: 2px solid var(--color-aps-border);
   border-left: 2px solid var(--color-aps-border);
   border-bottom: 2px solid var(--color-aps-border);
+  overflow-y: scroll;
 }
 table {
   postion: relative;
-  height: 100%;
   width: 100%;
   border-spacing: 2px 2px;
   border-collapse: separate;
-  overflow: scroll;
+
   background-color: var(--evj-color-bg-main);
 }
 
 th {
   position: sticky;
   top: 0;
-  background: var(--astue-onpz-factory-analisys-bg);
-  color: var(--color-text-sub);
-
   height: 70px;
+  font-size: 13px;
+  line-height: 16px;
+  color: var(--color-text-sub);
+  background: var(--astue-onpz-factory-analisys-bg);
 }
 
 td {
   text-align: center;
-  background: var(--color-aps-table-td);
+  height: 40px;
+  font-size: 14px;
+  line-height: 17px;
   color: var(--header-events-color-font-main);
+  min-width: 60px;
+  max-width: 100px;
+  background: var(--color-aps-table-td);
+}
+.text {
+  height: 100%;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 5px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  &__value {
+    width: 100%;
+    height: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+    display: flex;
+    align-items: center;
+  }
 }

@@ -4,7 +4,6 @@ import { SharedModule } from '@shared/shared.module';
 import { ApsOperatingModesComponent } from './aps-operating-modes.component';
 
 
-
 @NgModule({
   declarations: [ ApsOperatingModesComponent],
   imports: [

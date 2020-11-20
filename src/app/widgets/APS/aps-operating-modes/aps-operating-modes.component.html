@@ -1,7 +1,7 @@
 <evj-contemporary-widget-header
   [uniqId]="widgetUniqId"
   [widgetTitle]="'Режимы работы ТУ'"
-  icon="parameter"
+  icon="modes"
   type="astue"
 >
 </evj-contemporary-widget-header>
@@ -10,20 +10,52 @@
     <thead>
     <tr>
       <th *ngFor="let element of headerName">
-        {{element.header}}
+        <div class="text">{{element.header}}</div>
       </th>
     </tr>
     </thead>
     <tbody>
     <tr *ngFor="let element of tableToDisplay">
-      <td>{{element.name1}}</td>
-      <td>{{element.name2}}</td>
-      <td>{{element.name3}}</td>
-      <td>{{element.name4}}</td>
-      <td>{{element.name5}}</td>
-      <td>{{element.name6}}</td>
-      <td>{{element.name7}}</td>
-      <td>{{element.name8}}</td>
+      <td>
+        <div class="text">
+          <div class="text__value">{{element.name1}}</div>
+        </div>
+      </td>
+      <td>
+        <div class="text">
+          <div class="text__value">{{element.name2}}</div>
+        </div>
+      </td>
+      <td>
+        <div class="text">
+          <div class="text__value">{{element.name3}}</div>
+        </div>
+      </td>
+      <td>
+        <div class="text">
+          <div class="text__value">{{element.name4}}</div>
+        </div>
+      </td>
+      <td>
+        <div class="text">
+          <div class="text__value">{{element.name5}}</div>
+        </div>
+      </td>
+      <td>
+        <div class="text">
+          <div class="text__value">{{element.name6}}</div>
+        </div>
+      </td>
+      <td>
+        <div class="text">
+          <div class="text__value">{{element.name7}}</div>
+        </div>
+      </td>
+      <td>
+        <div class="text">
+          <div class="text__value">{{element.name8}}</div>
+        </div>
+      </td>
     </tr>
     </tbody>
   </table>

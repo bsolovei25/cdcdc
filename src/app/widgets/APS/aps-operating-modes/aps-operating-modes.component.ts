@@ -40,8 +40,8 @@ export class ApsOperatingModesComponent extends WidgetPlatform<unknown> implemen
         super.widgetInit();
         this.tableToDisplay = [
             {
-                name1: '1',
-                name2: '2',
+                name1: 'ldrow olleh hello world',
+                name2: 'Фзфзфзфзфзфззфзфзззфзфз',
                 name3: '3',
                 name4: '4',
                 name5: '5',
@@ -51,10 +51,10 @@ export class ApsOperatingModesComponent extends WidgetPlatform<unknown> implemen
             },
             {
                 name1: '9',
-                name2: '10',
+                name2: 'ldrow olleh hello world',
                 name3: '11',
                 name4: '12',
-                name5: '13',
+                name5: 'ldrow olleh hello world',
                 name6: '14',
                 name7: '15',
                 name8: '16',
@@ -63,21 +63,21 @@ export class ApsOperatingModesComponent extends WidgetPlatform<unknown> implemen
                 name1: '1',
                 name2: '2',
                 name3: '3',
-                name4: '4',
+                name4: 'ldrow olleh hello world',
                 name5: '5',
                 name6: '6',
                 name7: '7',
-                name8: '8',
+                name8: 'ldrow olleh hello world',
             },
             {
                 name1: '9',
                 name2: '10',
                 name3: '11',
-                name4: '12',
+                name4: 'ldrow olleh hello world',
                 name5: '13',
                 name6: '14',
                 name7: '15',
-                name8: '16',
+                name8: 'ldrow olleh hello world',
             }
         ];
         this.headerName = [
