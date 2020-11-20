@@ -1,0 +1,32 @@
+.container {
+  width: calc(100% - 4px);
+  height: calc(100% - 42px);
+  background-color: var(--color-kpe-gaude-unactive);
+  border-right: 2px solid var(--color-aps-border);
+  border-left: 2px solid var(--color-aps-border);
+  border-bottom: 2px solid var(--color-aps-border);
+}
+table {
+  postion: relative;
+  height: 100%;
+  width: 100%;
+  border-spacing: 2px 2px;
+  border-collapse: separate;
+  overflow: scroll;
+  background-color: var(--evj-color-bg-main);
+}
+
+th {
+  position: sticky;
+  top: 0;
+  background: var(--astue-onpz-factory-analisys-bg);
+  color: var(--color-text-sub);
+
+  height: 70px;
+}
+
+td {
+  text-align: center;
+  background: var(--color-aps-table-td);
+  color: var(--header-events-color-font-main);
+}

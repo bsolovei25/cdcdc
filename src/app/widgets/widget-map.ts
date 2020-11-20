@@ -124,6 +124,8 @@ export const WIDGETS = {
     'astue-onpz-factory-analysis': WidgetContainerComponent,
     'astue-onpz-heat-balance': WidgetContainerComponent,
     'astue-onpz-table-indicators': WidgetContainerComponent,
+    'aps-operating-modes': WidgetContainerComponent,
+    'aps-structure-id': WidgetContainerComponent
 };
 
 export const WIDGETS_LAZY = {
@@ -240,6 +242,32 @@ export const WIDGETS_LAZY = {
         minItemCols: 11,
         minItemRows: 11,
         preview: 'indicator-load-deviation',
+    },
+    'aps-operating-modes': {
+        import: async () => {
+            return await import(
+                'src/app/widgets/APS/aps-operating-modes/aps-operating-modes.module'
+                );
+        },
+        module: 'ApsOperatingModesModule',
+        itemCols: 10,
+        itemRows: 12,
+        minItemCols: 10,
+        minItemRows: 12,
+        preview: 'aps-operating-modes',
+    },
+    'aps-structure-id': {
+        import: async () => {
+            return await import(
+                'src/app/widgets/APS/aps-structure-id/aps-structure-id.module'
+                );
+        },
+        module: 'ApsStructureIdModule',
+        itemCols: 10,
+        itemRows: 12,
+        minItemCols: 10,
+        minItemRows: 12,
+        preview: 'aps-structure-id',
     },
 
     // #endregion APS
