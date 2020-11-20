@@ -45,8 +45,8 @@ export class EjcoOnpzUnitKpeComponent extends WidgetPlatform<unknown> implements
         super.widgetInit();
     }
 
-    public handleTabClick(unitCaption: string | null): void {
-        if (!unitCaption) {
+    public handleTabClick(unitCaption: string | 'to-source-redirect'): void {
+        if (unitCaption === 'to-source-redirect') {
             console.log('В источник');
             return;
         }

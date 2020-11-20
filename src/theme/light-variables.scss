@@ -232,6 +232,7 @@
   --color-kpe-line-diagram-bg-sub: #1c1f2b;
   --color-kpe-line-diagram-active: #1f3d60;
   --color-kpe-bg-sub: #272a38;
+  --color-kpe-bg-sub-opacity: rgba(39, 42, 56, 0.5);
 
   // KPE gauge-chart
   --color-kpe-gaude-main: #d7e2f2;
@@ -288,6 +289,7 @@
   --nk-color-scroll-thumb: #272b35;
   --nk-color-bg-innage-min: #0C5395;
   --nk-color-bg-correct: #121928;
+
   --nk-color-bg-dark: #0C1421;
   --nk-color-table-row-bg: rgba(29, 31, 43);
   --nk-color-table-header-text: #8799B3;
@@ -524,7 +526,7 @@
   --evj-color-bg-input: #161922;
   --evj-color-bg-hours: rgba(32, 35, 51, 0.75);
 
-  // events workspace
+  // events workspacef
   --evj-events-workspace-critical: #DB0000;
   --evj-events-workspace-critical-bg: rgba(219, 0, 0, 0.15);
   --evj-events-workspace-minor: #F8921C;
@@ -533,6 +535,7 @@
   --evj-events-workspace-button-active: #0089FF;
   --evj-events-workspace-bg-dark: rgba(18, 21, 30, 0.5);
   --evj-events-workspace-color-border: rgba(96, 101, 128, 0.25);
+
   --evj-events-workspace-responsible-bg: #171a24;
   --evj-events-workspace-white: #ffffff;
   --evj-events-workspace-item-border: rgba(96, 101, 128, 0.25);
