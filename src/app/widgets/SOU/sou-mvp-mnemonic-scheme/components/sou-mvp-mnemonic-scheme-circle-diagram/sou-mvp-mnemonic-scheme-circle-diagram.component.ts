@@ -1,6 +1,8 @@
 import { AfterViewInit, Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { MatHint } from '@angular/material/form-field';
 import * as d3 from 'd3';
+import { ISOUFlowIn, ISOUFlowOut, ISOUObjects } from '../../../../../dashboard/models/SOU/sou-operational-accounting-system';
+import { SouMvpMnemonicSchemeService } from '../../../../../dashboard/services/widgets/SOU/sou-mvp-mnemonic-scheme';
 
 @Component({
   selector: 'evj-sou-mvp-mnemonic-scheme-circle-diagram',
@@ -9,14 +11,22 @@ import * as d3 from 'd3';
 })
 export class SouMvpMnemonicSchemeCircleDiagramComponent implements OnInit, AfterViewInit {
   @ViewChild('chart') chart: ElementRef;
-  @Input() title: string = '';
-  @Input() percentage: number = 0;
-  @Input() warningStatus: boolean = false;
-  @Input() enableStatus: boolean = true;
+  @Input() set data(data: {
+    sections: any[],
+    code: number
+  }) {
+    if (data.sections) {
+      this.flowData = this.mvpService.getElementByCode(data.sections, data.code) as ISOUFlowOut;
+    }
+  }
+
+  flowData: ISOUFlowOut;
 
   public svg: any;
 
-  constructor() { }
+  constructor(
+    public mvpService: SouMvpMnemonicSchemeService
+  ) { }
 
   ngOnInit(): void {
   }
@@ -34,7 +44,7 @@ export class SouMvpMnemonicSchemeCircleDiagramComponent implements OnInit, After
       .innerRadius(16)
       .outerRadius(17)
       .startAngle(0)
-      .endAngle(2 * Math.PI * this.percentage / 100);
+      .endAngle(2 * Math.PI * this.flowData?.tolerance / 100);
 
     const arcBg = d3.arc()
       .innerRadius(innerR)
@@ -46,10 +56,10 @@ export class SouMvpMnemonicSchemeCircleDiagramComponent implements OnInit, After
 
     g.append('path')
       .attr('d', arcBg)
-      .attr('fill', this.warningStatus ? 'var(--sou-mvp-color-warning)' : 'var(--sou-mvp-color-border)');
+      .attr('fill', this.flowData?.isExceedingConfInterval ? 'var(--sou-mvp-color-warning)' : 'var(--sou-mvp-color-border)');
 
     g.append('path')
       .attr('d', arc)
-      .attr('fill', this.warningStatus ? 'var(--sou-mvp-color-warning)' : 'white');
+      .attr('fill', this.flowData?.isExceedingConfInterval ? 'var(--sou-mvp-color-warning)' : 'white');
   }
 }

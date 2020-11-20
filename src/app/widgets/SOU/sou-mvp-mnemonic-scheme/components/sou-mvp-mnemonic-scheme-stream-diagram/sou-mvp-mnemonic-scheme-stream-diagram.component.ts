@@ -1,5 +1,7 @@
 import { AfterViewInit, Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import * as d3 from 'd3';
+import { ISOUFlowOut } from '../../../../../dashboard/models/SOU/sou-operational-accounting-system';
+import { SouMvpMnemonicSchemeService } from '../../../../../dashboard/services/widgets/SOU/sou-mvp-mnemonic-scheme';
 
 @Component({
   selector: 'evj-sou-mvp-mnemonic-scheme-stream-diagram',
@@ -9,14 +11,24 @@ import * as d3 from 'd3';
 export class SouMvpMnemonicSchemeStreamDiagramComponent implements OnInit, AfterViewInit {
 
   @ViewChild('chart') chart: ElementRef;
-  @Input() title: string = '';
-  @Input() weight: number = 0;
-  @Input() percentage: number = 95;
-  @Input() status: boolean = false;
+  @Input() set data(data: {
+    sections: any[],
+    code: number
+  }) {
+    if (data?.sections?.length > 0) {
+      this.flowData = this.mvpService.getElementByCode(data.sections, data.code) as ISOUFlowOut;
+      this.percentage = this.flowData?.tolerance ?? 0;
+    }
+  }
+
+  @Input() choosenSetting: number;
+
+  flowData: ISOUFlowOut;
 
   public svg: any;
+  percentage: number = 0;
 
-  constructor() { }
+  constructor(public mvpService: SouMvpMnemonicSchemeService) { }
 
   ngOnInit(): void {
   }
@@ -24,7 +36,7 @@ export class SouMvpMnemonicSchemeStreamDiagramComponent implements OnInit, After
   ngAfterViewInit(): void {
     const innerR = 7;
     const outerR = 8;
-  
+
     this.svg = d3.select(this.chart.nativeElement)
       .append('svg')
       .attr('width', '22px')

@@ -7,9 +7,7 @@ import { ISOUFlowOut } from '../../../../../dashboard/models/SOU/sou-operational
   styleUrls: ['./sou-mvp-mnemonic-scheme-section.component.scss']
 })
 export class SouMvpMnemonicSchemeSectionComponent implements OnInit {
-  @Input() set data(data: ISOUFlowOut) {
-    this.flowOutItem = data;
-  }
+  @Input() sections: any[];
   @Input() choosenSetting: number;
 
   flowOutItem: ISOUFlowOut;

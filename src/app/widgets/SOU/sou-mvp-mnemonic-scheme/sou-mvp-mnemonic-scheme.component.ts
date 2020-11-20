@@ -1,8 +1,8 @@
 import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
 import { WidgetService } from '../../../dashboard/services/widget.service';
 import { WidgetPlatform } from '../../../dashboard/models/@PLATFORM/widget-platform';
-import { ISOUFlowIn, ISOUFlowOut } from '../../../dashboard/models/SOU/sou-operational-accounting-system';
-import { SouPopupService } from '../../../dashboard/services/widgets/SOU/sou-popup.service';
+import { ISOUFlowIn, ISOUFlowOut, ISOUOperationalAccountingSystem } from '../../../dashboard/models/SOU/sou-operational-accounting-system';
+import { SouMvpMnemonicSchemeService } from '../../../dashboard/services/widgets/SOU/sou-mvp-mnemonic-scheme';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 
 @Component({
@@ -22,7 +22,7 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
             state(
                 'opened',
                 style({
-                    height: '*',
+                    height: '110px',
                     opacity: 1,
                 })
             ),
@@ -33,14 +33,19 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 }
 )
 export class SouMvpMnemonicSchemeComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
-    flowIn: ISOUFlowIn[];
-    flowOut: ISOUFlowOut[];
+    flowInAb: ISOUFlowIn[];
+    flowInVb: ISOUFlowIn[];
+
+
+    mainData: ISOUOperationalAccountingSystem;
 
     settings: string[] = [
         'Мгновенное',
         'За час',
         'Накоплено'
     ];
+
+    sectionsData: any[] = []; // Массив всех элементов
 
     sections: {
         title: string;
@@ -61,7 +66,7 @@ export class SouMvpMnemonicSchemeComponent extends WidgetPlatform<unknown> imple
 
     constructor(
         public widgetService: WidgetService,
-        public popupService: SouPopupService,
+        public mvpService: SouMvpMnemonicSchemeService,
         @Inject('isMock') public isMock: boolean,
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string
@@ -74,10 +79,18 @@ export class SouMvpMnemonicSchemeComponent extends WidgetPlatform<unknown> imple
         super.widgetInit();
     }
 
-    protected dataHandler(ref: any): void {
-        /*debugger
-        this.flowIn = ref.flowIn;
-        this.flowOut = ref.section[0].flowOut;*/
+    protected dataHandler(ref: ISOUOperationalAccountingSystem): void {
+        this.mainData = ref;
+
+        this.flowInAb = ref.section[0].flowIn;
+        this.flowInVb = ref.section[1].flowIn;
+
+        this.sectionsData = [];
+        ref.section.forEach (item => {
+            this.sectionsData = [...this.sectionsData, ...item.flowIn, ...item.flowOut, ...item.objects];
+        });
+
+        this.mvpService.selectElement(this.sectionsData, this.mvpService.selectedCode);
     }
 
     changeSetting(i: number): void {

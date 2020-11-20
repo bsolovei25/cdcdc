@@ -175,3 +175,42 @@
     border-top: 1px solid var(--sou-mvp-color-bg-title);
   }
 }
+
+.selected {
+  .container {
+    border: 1px solid var(--sou-mvp-color-active);
+    background: var(--sou-mvp-color-bg-active);
+    
+    .info {
+      border-right: 1px solid var(--sou-mvp-color-active);
+  
+      .title {
+        border-bottom: 1px solid var(--sou-mvp-color-active);
+        span {
+          color: var(--sou-mvp-color-text-diagram-sub);
+        }
+      }
+    }
+  
+    .values {
+      background: var(--sou-mvp-color-bg-active);
+  
+      &__item {
+        color: var(--sou-mvp-color-text-diagram-sub);  
+      }
+    }
+    .numbers {
+      background: var(--sou-mvp-color-bg-active);
+      color: var(--sou-mvp-color-text-diagram-sub);
+    }
+  }
+  
+  .connection-circle {
+    background: var(--sou-mvp-color-bg-main);
+    border: 1px solid var(--sou-mvp-color-active);
+  }
+  
+  .line {
+    border-top: 1px solid var(--sou-mvp-color-bg-title);
+  }
+}

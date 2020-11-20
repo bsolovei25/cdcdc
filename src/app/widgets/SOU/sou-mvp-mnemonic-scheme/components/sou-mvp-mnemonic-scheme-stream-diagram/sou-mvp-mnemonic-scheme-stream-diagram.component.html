@@ -1,16 +1,20 @@
-<div class="container" [ngClass]="{off:status}">
+<div class="container" [ngClass]="{off:flowData?.isEnable}">
   <div class="diagram-container">
     <div class="diagram" #chart></div>
     <div class="diagram-values">
-      <span class="value">{{percentage}}</span>
+      <span class="value">{{flowData?.tolerance}}</span>
       <span class="unit">%</span>
     </div>
     <div class="diagram-title">
-      <span class="title">{{title}}</span>
+      <span class="title">{{flowData?.tag}}</span>
     </div>
   </div>
   <div class="weight">
-    <span>{{weight}}</span> тн
+    <span [ngSwitch]="choosenSetting">
+      <ng-template ngSwitchCase="1">{{flowData?.valueByHour | number:'0.0-0'}}</ng-template>
+      <ng-template ngSwitchCase="2">{{flowData?.valueTank | number:'0.0-0'}}</ng-template>
+      <ng-template ngSwitchDefault>{{flowData?.valueMoment | number:'0.0-0'}}</ng-template>
+    </span> тн
   </div>
   <div class="connection-circle"></div>
 </div>

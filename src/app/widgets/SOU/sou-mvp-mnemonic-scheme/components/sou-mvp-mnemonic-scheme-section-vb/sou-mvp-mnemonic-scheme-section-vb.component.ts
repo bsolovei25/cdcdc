@@ -10,6 +10,7 @@ export class SouMvpMnemonicSchemeSectionVbComponent implements OnInit {
   @Input() set data(data: ISOUFlowOut) {
     this.flowOutItem = data;
   }
+  @Input() sections: any[];
   @Input() choosenSetting: number;
 
   flowOutItem: ISOUFlowOut;

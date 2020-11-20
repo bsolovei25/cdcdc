@@ -1,4 +1,4 @@
-<div class="container" [ngClass]="{disable:!status}">
+<div class="container" [ngClass]="{disable:!flowData?.isEnable}">
   <div class="line"></div>
   <div class="title">
     <div class="arrow-btn">
@@ -7,7 +7,7 @@
         [svgStyle]="{ 'width.px':16, 'height.px':16 }"
       ></svg-icon>
     </div>
-    <span>{{title}}</span>
+    <span>{{flowData?.name}}</span>
     <div class="connection-circle"></div>
   </div>
 </div>

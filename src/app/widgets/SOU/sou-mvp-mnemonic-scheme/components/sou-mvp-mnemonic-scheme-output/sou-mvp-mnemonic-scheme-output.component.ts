@@ -1,4 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { ISOUObjects } from '../../../../../dashboard/models/SOU/sou-operational-accounting-system';
+import { SouMvpMnemonicSchemeService } from '../../../../../dashboard/services/widgets/SOU/sou-mvp-mnemonic-scheme';
 
 @Component({
   selector: 'evj-sou-mvp-mnemonic-scheme-output',
@@ -6,9 +8,19 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./sou-mvp-mnemonic-scheme-output.component.scss']
 })
 export class SouMvpMnemonicSchemeOutputComponent implements OnInit {
-  @Input() title: string = '';
-  @Input() status: boolean = true;
-  constructor() { }
+  @Input() set data(data: {
+    sections: any[],
+    code: number
+  }) {
+    if (data.sections) {
+      this.flowData = this.mvpService.getElementByCode(data.sections, data.code) as ISOUObjects;
+    }
+  }
+
+  flowData: ISOUObjects;
+  status: boolean = true;
+
+  constructor(public mvpService: SouMvpMnemonicSchemeService) { }
 
   ngOnInit(): void {
   }

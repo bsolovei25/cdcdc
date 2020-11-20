@@ -1,5 +1,9 @@
-<div class="main-container" [ngClass]="{off:!flowData.isEnable}">
-  <div class="container" (click)="popupService.openPopup()">
+<div class="main-container" 
+  [ngClass]="{
+    off:!flowData?.isEnable
+  }"
+>
+  <div class="container" (click)="mvpService.openPopup(sections, flowData?.code)">
     <div class="connection__left">
       <div 
         class="connection-circle"
@@ -8,22 +12,22 @@
     </div>
     <div class="info">
       <div class="title">
-        <span>{{flowData.productName}}</span>
+        <span>{{flowData?.productName}}</span>
       </div>
       <div class="values">
         <div class="values__item">
           <span [ngSwitch]="choosenSetting">
-            <ng-template ngSwitchCase="1">{{flowData.valueByHour | number:'0.0-0'}}</ng-template>
-            <ng-template ngSwitchCase="2">{{flowData.valueTank | number:'0.0-0'}}</ng-template>
-            <ng-template ngSwitchDefault>{{flowData.valueMoment | number:'0.0-0'}}</ng-template>
+            <ng-template ngSwitchCase="1">{{flowData?.valueByHour | number:'0.0-0'}}</ng-template>
+            <ng-template ngSwitchCase="2">{{flowData?.valueTank | number:'0.0-0'}}</ng-template>
+            <ng-template ngSwitchDefault>{{flowData?.valueMoment | number:'0.0-0'}}</ng-template>
           </span>
           <span class="units">тн</span>
         </div>
         <div class="values__item">
           <span [ngSwitch]="choosenSetting">
-            <ng-template ngSwitchCase="1">{{flowData.valueByHourPercent | number:'0.0-0'}}</ng-template>
-            <ng-template ngSwitchCase="2">{{flowData.valueTankPercent | number:'0.0-0'}}</ng-template>
-            <ng-template ngSwitchDefault>{{flowData.valueMomentPercent | number:'0.0-0'}}</ng-template>
+            <ng-template ngSwitchCase="1">{{flowData?.valueByHourPercent | number:'0.0-0'}}</ng-template>
+            <ng-template ngSwitchCase="2">{{flowData?.valueTankPercent | number:'0.0-0'}}</ng-template>
+            <ng-template ngSwitchDefault>{{flowData?.valueMomentPercent | number:'0.0-0'}}</ng-template>
           </span>
           <span class="units">%</span>
         </div>

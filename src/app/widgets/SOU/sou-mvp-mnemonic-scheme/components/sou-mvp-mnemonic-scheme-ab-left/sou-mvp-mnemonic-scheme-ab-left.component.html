@@ -7,24 +7,19 @@
           [svgStyle]="{ 'width.px':16, 'height.px':16 }"
         ></svg-icon>
       </div>
-      <span>ТП</span>
+      <span>{{mvpService.getElementByCode(sections, 151)?.name}}</span>
       <div class="connection-circle"></div>
     </div>
     <evj-sou-mvp-mnemonic-scheme-circle-diagram
-      [title]="'FOIL'"
-      [percentage]="95"
-      [warningStatus]="false"
+      [data]="{
+        sections: sections,
+        code: 150
+      }"
     ></evj-sou-mvp-mnemonic-scheme-circle-diagram>
     <evj-sou-mvp-mnemonic-scheme-info
       [data]="{
-        productName: 'Нефть обессоленная',
-        valueByHour: 12000,
-        valueTank: 13000,
-        valueMoment: 1000,
-        valueByHourPercent: 12.85,
-        valueTankPercent: 13.5,
-        valueMomentPercent: 1,
-        isEnable: true
+        sections: sections,
+        code: 150
       }"
       [choosenSetting]="choosenSetting"
     ></evj-sou-mvp-mnemonic-scheme-info>
@@ -38,24 +33,19 @@
           [svgStyle]="{ 'width.px':16, 'height.px':16 }"
         ></svg-icon>
       </div>
-      <span>ФСБ</span>
+      <span>{{mvpService.getElementByCode(sections, 148)?.name}}</span>
       <div class="connection-circle"></div>
     </div>
     <evj-sou-mvp-mnemonic-scheme-circle-diagram
-      [title]="'FFSB4'"
-      [percentage]="95"
-      [warningStatus]="false"
+      [data]="{
+        sections: sections,
+        code: 149
+      }"
     ></evj-sou-mvp-mnemonic-scheme-circle-diagram>
     <evj-sou-mvp-mnemonic-scheme-info
       [data]="{
-        productName: 'НК-80',
-        valueByHour: 12000,
-        valueTank: 13000,
-        valueMoment: 1000,
-        valueByHourPercent: 12.85,
-        valueTankPercent: 13.5,
-        valueMomentPercent: 1,
-        isEnable: true
+        sections: sections,
+        code: 149
       }"
       [choosenSetting]="choosenSetting"
     ></evj-sou-mvp-mnemonic-scheme-info>
@@ -69,24 +59,19 @@
           [svgStyle]="{ 'width.px':16, 'height.px':16 }"
         ></svg-icon>
       </div>
-      <span>АВТ</span>
+      <span>{{mvpService.getElementByCode(sections, 147)?.name}}</span>
       <div class="connection-circle"></div>
     </div>
     <evj-sou-mvp-mnemonic-scheme-circle-diagram
-      [title]="'F80'"
-      [percentage]="95"
-      [warningStatus]="false"
+      [data]="{
+        sections: sections,
+        code: 146
+      }"
     ></evj-sou-mvp-mnemonic-scheme-circle-diagram>
     <evj-sou-mvp-mnemonic-scheme-info
       [data]="{
-        productName: 'Бензин нестабильный',
-        valueByHour: 12000,
-        valueTank: 13000,
-        valueMoment: 1000,
-        valueByHourPercent: 12.85,
-        valueTankPercent: 13.5,
-        valueMomentPercent: 1,
-        isEnable: true
+        sections: sections,
+        code: 146
       }"
       [choosenSetting]="choosenSetting"
     ></evj-sou-mvp-mnemonic-scheme-info>

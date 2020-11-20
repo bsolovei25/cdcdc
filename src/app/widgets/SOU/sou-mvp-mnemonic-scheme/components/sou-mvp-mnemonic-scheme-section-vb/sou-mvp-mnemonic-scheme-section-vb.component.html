@@ -2,43 +2,32 @@
   <div class="stream__item">
     <evj-sou-mvp-mnemonic-scheme-circle-diagram
       [title]="'F118'"
-      [percentage]="95"
-      [warningStatus]="false"
-      [enableStatus]="true"
+      [data]="{
+        sections: sections,
+        code: 144
+      }"
     ></evj-sou-mvp-mnemonic-scheme-circle-diagram>
 
     <evj-sou-mvp-mnemonic-scheme-circle-diagram
-      [title]="'F119'"
-      [percentage]="95"
-      [warningStatus]="false"
-      [enableStatus]="true"
+      [data]="{
+        sections: sections,
+        code: 145
+      }"
     ></evj-sou-mvp-mnemonic-scheme-circle-diagram>
   </div>
   <div class="stream__item">
     <evj-sou-mvp-mnemonic-scheme-info
       [data]="{
-        productName: 'ДТЛ...',
-        valueByHour: 12000,
-        valueTank: 13000,
-        valueMoment: 1000,
-        valueByHourPercent: 12.85,
-        valueTankPercent: 13.5,
-        valueMomentPercent: 1,
-        isEnable: true
+        sections: sections,
+        code: 144
       }"
       [choosenSetting]="choosenSetting"
     ></evj-sou-mvp-mnemonic-scheme-info>
 
     <evj-sou-mvp-mnemonic-scheme-info
       [data]="{
-        productName: 'ДТЛ...',
-        valueByHour: 12000,
-        valueTank: 13000,
-        valueMoment: 1000,
-        valueByHourPercent: 12.85,
-        valueTankPercent: 13.5,
-        valueMomentPercent: 1,
-        isEnable: true
+        sections: sections,
+        code: 145
       }"
       [choosenSetting]="choosenSetting"
     ></evj-sou-mvp-mnemonic-scheme-info>
@@ -46,8 +35,10 @@
   <div class="stream__item">
     <evj-sou-mvp-mnemonic-scheme-collector
       [style.height.%]="100"
-      [title]="'PLDTvss10'"
-      [warningStatus]="false"
+      [data]="{
+        sections: sections,
+        code: 134
+      }"
       [outCount]="2"
       [inCount]="2"
     ></evj-sou-mvp-mnemonic-scheme-collector>
@@ -55,50 +46,50 @@
   <div class="stream__item">
     <evj-sou-mvp-mnemonic-scheme-stream-diagram
       [title]="'FVss2006-1'"
-      [percentage]="95"
-      [weight]="120"
-      [status]="false"
+      [data]="{
+        sections: sections,
+        code: 136
+      }"
     ></evj-sou-mvp-mnemonic-scheme-stream-diagram>
 
     <evj-sou-mvp-mnemonic-scheme-stream-diagram
-      [title]="'FVss2006-2'"
-      [weight]="120"
-      [status]="false"
+      [data]="{
+        sections: sections,
+        code: 138
+      }"
     ></evj-sou-mvp-mnemonic-scheme-stream-diagram>
   </div>
   <div class="stream__item output">
     <evj-sou-mvp-mnemonic-scheme-output
-      [title]="'1-й поток ДТЛ на г/о'"
-      [status]="true"
+      [data]="{
+        sections: sections,
+        code: 137
+      }"
     ></evj-sou-mvp-mnemonic-scheme-output>
 
     <evj-sou-mvp-mnemonic-scheme-output
-    [title]="'1-й поток ДТЛ на г/о'"
-    [status]="true"
-  ></evj-sou-mvp-mnemonic-scheme-output>
+      [data]="{
+        sections: sections,
+        code: 139
+      }"
+    ></evj-sou-mvp-mnemonic-scheme-output>
   </div>
 </div>
 
 <div class="stream">
   <div class="stream__item">
     <evj-sou-mvp-mnemonic-scheme-circle-diagram
-      [title]="'FC120'"
-      [percentage]="95"
-      [warningStatus]="false"
-      [enableStatus]="true"
+      [data]="{
+        sections: sections,
+        code: 91
+      }"
     ></evj-sou-mvp-mnemonic-scheme-circle-diagram>
   </div>
   <div class="stream__item">
     <evj-sou-mvp-mnemonic-scheme-info
       [data]="{
-        productName: '2-ой погон',
-        valueByHour: 12000,
-        valueTank: 13000,
-        valueMoment: 1000,
-        valueByHourPercent: 12.85,
-        valueTankPercent: 13.5,
-        valueMomentPercent: 1,
-        isEnable: true
+        sections: sections,
+        code: 91
       }"
       [choosenSetting]="choosenSetting"
     ></evj-sou-mvp-mnemonic-scheme-info>
@@ -106,35 +97,43 @@
   <div class="stream__item">
     <evj-sou-mvp-mnemonic-scheme-collector
       [style.height.%]="100"
-      [title]="'PL112POG2'"
-      [warningStatus]="false"
+      [data]="{
+        sections: sections,
+        code: 92
+      }"
       [outCount]="2"
       [inCount]="1"
     ></evj-sou-mvp-mnemonic-scheme-collector>
   </div>
   <div class="stream__item">
     <evj-sou-mvp-mnemonic-scheme-stream-diagram
-      [title]="'F1121'"
-      [weight]="120"
-      [status]="false"
+      [data]="{
+        sections: sections,
+        code: 93
+      }"
     ></evj-sou-mvp-mnemonic-scheme-stream-diagram>
 
     <evj-sou-mvp-mnemonic-scheme-stream-diagram
       [title]="'FC149'"
-      [percentage]="0"
-      [weight]="0"
-      [status]="true"
+      [data]="{
+        sections: sections,
+        code: 95
+      }"
     ></evj-sou-mvp-mnemonic-scheme-stream-diagram>
   </div>
   <div class="stream__item output">
     <evj-sou-mvp-mnemonic-scheme-output
-      [title]="'Коллектор вакуумного газойля'"
-      [status]="true"
+      [data]="{
+        sections: sections,
+        code: 94
+      }"
     ></evj-sou-mvp-mnemonic-scheme-output>
 
     <evj-sou-mvp-mnemonic-scheme-output
-      [title]="'Коллектор мазута'"
-      [status]="false"
+      [data]="{
+        sections: sections,
+        code: 96
+      }"
     ></evj-sou-mvp-mnemonic-scheme-output>
   </div>
 </div>
@@ -143,22 +142,17 @@
   <div class="stream__item">
     <evj-sou-mvp-mnemonic-scheme-circle-diagram
       [title]="'FC121'"
-      [percentage]="95"
-      [warningStatus]="false"
-      [enableStatus]="true"
+      [data]="{
+        sections: sections,
+        code: 97
+      }"
     ></evj-sou-mvp-mnemonic-scheme-circle-diagram>
   </div>
   <div class="stream__item">
     <evj-sou-mvp-mnemonic-scheme-info
       [data]="{
-        productName: '3-ий погон',
-        valueByHour: 12000,
-        valueTank: 13000,
-        valueMoment: 1000,
-        valueByHourPercent: 12.85,
-        valueTankPercent: 13.5,
-        valueMomentPercent: 1,
-        isEnable: true
+        sections: sections,
+        code: 97
       }"
       [choosenSetting]="choosenSetting"
     ></evj-sou-mvp-mnemonic-scheme-info>
@@ -166,8 +160,10 @@
   <div class="stream__item">
     <evj-sou-mvp-mnemonic-scheme-collector
       [style.height.%]="100"
-      [title]="'PL121POG3'"
-      [warningStatus]="false"
+      [data]="{
+        sections: sections,
+        code: 98
+      }"
       [outCount]="4"
       [inCount]="1"
     ></evj-sou-mvp-mnemonic-scheme-collector>
@@ -175,51 +171,63 @@
   <div class="stream__item">
     <evj-sou-mvp-mnemonic-scheme-stream-diagram
       [title]="'F101-1'"
-      [percentage]="95"
-      [weight]="120"
-      [status]="false"
+      [data]="{
+        sections: sections,
+        code: 99
+      }"
     ></evj-sou-mvp-mnemonic-scheme-stream-diagram>
 
     <evj-sou-mvp-mnemonic-scheme-stream-diagram
       [title]="'F102-1'"
-      [percentage]="0"
-      [weight]="0"
-      [status]="true"
+      [data]="{
+        sections: sections,
+        code: 101
+      }"
     ></evj-sou-mvp-mnemonic-scheme-stream-diagram>
 
     <evj-sou-mvp-mnemonic-scheme-stream-diagram
       [title]="'F201-1'"
-      [percentage]="0"
-      [weight]="0"
-      [status]="true"
+      [data]="{
+        sections: sections,
+        code: 103
+      }"
     ></evj-sou-mvp-mnemonic-scheme-stream-diagram>
 
     <evj-sou-mvp-mnemonic-scheme-stream-diagram
       [title]="'F202-1'"
-      [percentage]="0"
-      [weight]="0"
-      [status]="true"
+      [data]="{
+        sections: sections,
+        code: 105
+      }"
     ></evj-sou-mvp-mnemonic-scheme-stream-diagram>
   </div>
   <div class="stream__item output">
     <evj-sou-mvp-mnemonic-scheme-output
-      [title]="'Продажа ОЗСМ'"
-      [status]="true"
+      [data]="{
+        sections: sections,
+        code: 100
+      }"
     ></evj-sou-mvp-mnemonic-scheme-output>
 
     <evj-sou-mvp-mnemonic-scheme-output
-    [title]="'Мазут'"
-    [status]="false"
-  ></evj-sou-mvp-mnemonic-scheme-output>
-
-    <evj-sou-mvp-mnemonic-scheme-output
-      [title]="'Продажа ОЗСМ'"
-      [status]="false"
+      [data]="{
+        sections: sections,
+        code: 102
+      }"
     ></evj-sou-mvp-mnemonic-scheme-output>
 
     <evj-sou-mvp-mnemonic-scheme-output
-      [title]="'Мазут'"
-      [status]="false"
+      [data]="{
+        sections: sections,
+        code: 104
+      }"
+    ></evj-sou-mvp-mnemonic-scheme-output>
+
+    <evj-sou-mvp-mnemonic-scheme-output
+      [data]="{
+        sections: sections,
+        code: 106
+      }"
     ></evj-sou-mvp-mnemonic-scheme-output>
   </div>
 </div>
@@ -227,23 +235,17 @@
 <div class="stream">
   <div class="stream__item">
     <evj-sou-mvp-mnemonic-scheme-circle-diagram
-      [title]="'FC122'"
-      [percentage]="95"
-      [warningStatus]="false"
-      [enableStatus]="true"
+      [data]="{
+        sections: sections,
+        code: 107
+      }"
     ></evj-sou-mvp-mnemonic-scheme-circle-diagram>
   </div>
   <div class="stream__item">
     <evj-sou-mvp-mnemonic-scheme-info
       [data]="{
-        productName: '3-ий погон',
-        valueByHour: 12000,
-        valueTank: 13000,
-        valueMoment: 1000,
-        valueByHourPercent: 12.85,
-        valueTankPercent: 13.5,
-        valueMomentPercent: 1,
-        isEnable: true
+        sections: sections,
+        code: 107
       }"
       [choosenSetting]="choosenSetting"
     ></evj-sou-mvp-mnemonic-scheme-info>
@@ -251,35 +253,42 @@
   <div class="stream__item">
     <evj-sou-mvp-mnemonic-scheme-collector
       [style.height.%]="100"
-      [title]="'PL113POG3'"
-      [warningStatus]="false"
+      [data]="{
+        sections: sections,
+        code: 108
+      }"
       [outCount]="2"
       [inCount]="1"
     ></evj-sou-mvp-mnemonic-scheme-collector>
   </div>
   <div class="stream__item">
     <evj-sou-mvp-mnemonic-scheme-stream-diagram
-      [title]="'F1131'"
-      [weight]="120"
-      [status]="false"
+      [data]="{
+        sections: sections,
+        code: 109
+      }"
     ></evj-sou-mvp-mnemonic-scheme-stream-diagram>
 
     <evj-sou-mvp-mnemonic-scheme-stream-diagram
-      [title]="'F1133'"
-      [percentage]="0"
-      [weight]="0"
-      [status]="true"
+      [data]="{
+        sections: sections,
+        code: 111
+      }"
     ></evj-sou-mvp-mnemonic-scheme-stream-diagram>
   </div>
   <div class="stream__item output">
     <evj-sou-mvp-mnemonic-scheme-output
-      [title]="'Коллектор вакуумного газойля'"
-      [status]="true"
+      [data]="{
+        sections: sections,
+        code: 110
+      }"
     ></evj-sou-mvp-mnemonic-scheme-output>
 
     <evj-sou-mvp-mnemonic-scheme-output
-      [title]="'Коллектор мазута'"
-      [status]="false"
+      [data]="{
+        sections: sections,
+        code: 112
+      }"
     ></evj-sou-mvp-mnemonic-scheme-output>
   </div>
 </div>
@@ -287,23 +296,17 @@
 <div class="stream">
   <div class="stream__item">
     <evj-sou-mvp-mnemonic-scheme-circle-diagram
-      [title]="'FC124'"
-      [percentage]="95"
-      [warningStatus]="false"
-      [enableStatus]="true"
+      [data]="{
+        sections: sections,
+        code: 119
+      }"
     ></evj-sou-mvp-mnemonic-scheme-circle-diagram>
   </div>
   <div class="stream__item">
     <evj-sou-mvp-mnemonic-scheme-info
       [data]="{
-        productName: '4-ый погон',
-        valueByHour: 12000,
-        valueTank: 13000,
-        valueMoment: 1000,
-        valueByHourPercent: 12.85,
-        valueTankPercent: 13.5,
-        valueMomentPercent: 1,
-        isEnable: true
+        sections: sections,
+        code: 119
       }"
       [choosenSetting]="choosenSetting"
     ></evj-sou-mvp-mnemonic-scheme-info>
@@ -311,84 +314,98 @@
   <div class="stream__item">
     <evj-sou-mvp-mnemonic-scheme-collector
       [style.height.%]="100"
-      [title]="'PL113POG4'"
-      [warningStatus]="false"
+      [data]="{
+        sections: sections,
+        code: 120
+      }"
       [outCount]="6"
       [inCount]="1"
     ></evj-sou-mvp-mnemonic-scheme-collector>
   </div>
   <div class="stream__item">
     <evj-sou-mvp-mnemonic-scheme-stream-diagram
-      [title]="'F7'"
-      [percentage]="0"
-      [weight]="0"
-      [status]="true"
+      [data]="{
+        sections: sections,
+        code: 121
+      }"
     ></evj-sou-mvp-mnemonic-scheme-stream-diagram>
 
     <evj-sou-mvp-mnemonic-scheme-stream-diagram
-      [title]="'FR7'"
-      [percentage]="0"
-      [weight]="0"
-      [status]="true"
+      [data]="{
+        sections: sections,
+        code: 123
+      }"
     ></evj-sou-mvp-mnemonic-scheme-stream-diagram>
 
     <evj-sou-mvp-mnemonic-scheme-stream-diagram
-      [title]="'F101-2'"
-      [percentage]="0"
-      [weight]="0"
-      [status]="true"
+      [data]="{
+        sections: sections,
+        code: 125
+      }"
     ></evj-sou-mvp-mnemonic-scheme-stream-diagram>
 
     <evj-sou-mvp-mnemonic-scheme-stream-diagram
-      [title]="'F102-2'"
-      [percentage]="0"
-      [weight]="0"
-      [status]="true"
+      [data]="{
+        sections: sections,
+        code: 127
+      }"
     ></evj-sou-mvp-mnemonic-scheme-stream-diagram>
 
     <evj-sou-mvp-mnemonic-scheme-stream-diagram
-      [title]="'F201-2'"
-      [percentage]="95"
-      [weight]="120"
-      [status]="false"
+      [data]="{
+        sections: sections,
+        code: 129
+      }"
     ></evj-sou-mvp-mnemonic-scheme-stream-diagram>
 
     <evj-sou-mvp-mnemonic-scheme-stream-diagram
-      [title]="'F202-2'"
-      [percentage]="0"
-      [weight]="0"
-      [status]="true"
+      [data]="{
+        sections: sections,
+        code: 131
+      }"
     ></evj-sou-mvp-mnemonic-scheme-stream-diagram>
   </div>
   <div class="stream__item output">
     <evj-sou-mvp-mnemonic-scheme-output
-      [title]="'Коллектор вакуумного газойля'"
-      [status]="false"
+      [data]="{
+        sections: sections,
+        code: 122
+      }"
     ></evj-sou-mvp-mnemonic-scheme-output>
 
     <evj-sou-mvp-mnemonic-scheme-output
-      [title]="'Установка 19/3'"
-      [status]="false"
+      [data]="{
+        sections: sections,
+        code: 124
+      }"
     ></evj-sou-mvp-mnemonic-scheme-output>
 
     <evj-sou-mvp-mnemonic-scheme-output
-      [title]="'Продажа ОЗСМ'"
-      [status]="false"
+      [data]="{
+        sections: sections,
+        code: 125
+      }"
     ></evj-sou-mvp-mnemonic-scheme-output>
 
     <evj-sou-mvp-mnemonic-scheme-output
-      [title]="'Мазут'"
-      [status]="false"
+      [data]="{
+        sections: sections,
+        code: 126
+      }"
     ></evj-sou-mvp-mnemonic-scheme-output>
 
     <evj-sou-mvp-mnemonic-scheme-output
-      [title]="'Продада ОЗСМ'"
-      [status]="true"
+      [data]="{
+        sections: sections,
+        code: 127
+      }"
     ></evj-sou-mvp-mnemonic-scheme-output>
 
     <evj-sou-mvp-mnemonic-scheme-output
-      [title]="'Мазут'"
-      [status]="false"
+      [data]="{
+        sections: sections,
+        code: 128
+      }"
     ></evj-sou-mvp-mnemonic-scheme-output>
   </div>
 </div>
@@ -396,23 +413,17 @@
 <div class="stream">
   <div class="stream__item">
     <evj-sou-mvp-mnemonic-scheme-circle-diagram
-      [title]="'FC123'"
-      [percentage]="95"
-      [warningStatus]="false"
-      [enableStatus]="true"
+      [data]="{
+        sections: sections,
+        code: 113
+      }"
     ></evj-sou-mvp-mnemonic-scheme-circle-diagram>
   </div>
   <div class="stream__item">
     <evj-sou-mvp-mnemonic-scheme-info
       [data]="{
-        productName: '4-ый погон',
-        valueByHour: 12000,
-        valueTank: 13000,
-        valueMoment: 1000,
-        valueByHourPercent: 12.85,
-        valueTankPercent: 13.5,
-        valueMomentPercent: 1,
-        isEnable: true
+        sections: sections,
+        code: 113
       }"
       [choosenSetting]="choosenSetting"
     ></evj-sou-mvp-mnemonic-scheme-info>
@@ -420,36 +431,42 @@
   <div class="stream__item">
     <evj-sou-mvp-mnemonic-scheme-collector
       [style.height.%]="100"
-      [title]="'PL114POG4'"
-      [warningStatus]="false"
+      [data]="{
+        sections: sections,
+        code: 114
+      }"
       [outCount]="2"
       [inCount]="1"
     ></evj-sou-mvp-mnemonic-scheme-collector>
   </div>
   <div class="stream__item">
     <evj-sou-mvp-mnemonic-scheme-stream-diagram
-      [title]="'F1141'"
-      [percentage]="95"
-      [weight]="120"
-      [status]="false"
+      [data]="{
+        sections: sections,
+        code: 115
+      }"
     ></evj-sou-mvp-mnemonic-scheme-stream-diagram>
 
     <evj-sou-mvp-mnemonic-scheme-stream-diagram
-      [title]="'F1143'"
-      [percentage]="0"
-      [weight]="0"
-      [status]="true"
+      [data]="{
+        sections: sections,
+        code: 117
+      }"
     ></evj-sou-mvp-mnemonic-scheme-stream-diagram>
   </div>
   <div class="stream__item output">
     <evj-sou-mvp-mnemonic-scheme-output
-      [title]="'Коллектор вакуумного газойля'"
-      [status]="true"
+      [data]="{
+        sections: sections,
+        code: 116
+      }"
     ></evj-sou-mvp-mnemonic-scheme-output>
 
     <evj-sou-mvp-mnemonic-scheme-output
-      [title]="'Коллектор мазута'"
-      [status]="false"
+      [data]="{
+        sections: sections,
+        code: 118
+      }"
     ></evj-sou-mvp-mnemonic-scheme-output>
   </div>
 </div>
@@ -457,44 +474,32 @@
 <div class="stream">
   <div class="stream__item">
     <evj-sou-mvp-mnemonic-scheme-circle-diagram
-      [title]="'FI128'"
-      [percentage]="95"
-      [warningStatus]="false"
-      [enableStatus]="true"
+      [data]="{
+        sections: sections,
+        code: 81
+      }"
     ></evj-sou-mvp-mnemonic-scheme-circle-diagram>
 
     <evj-sou-mvp-mnemonic-scheme-circle-diagram
-      [title]="'F135'"
-      [percentage]="95"
-      [warningStatus]="false"
-      [enableStatus]="true"
+      [data]="{
+        sections: sections,
+        code: 70
+      }"
     ></evj-sou-mvp-mnemonic-scheme-circle-diagram>
   </div>
   <div class="stream__item">
     <evj-sou-mvp-mnemonic-scheme-info
       [data]="{
-        productName: '5-ый погон',
-        valueByHour: 12000,
-        valueTank: 13000,
-        valueMoment: 1000,
-        valueByHourPercent: 12.85,
-        valueTankPercent: 13.5,
-        valueMomentPercent: 1,
-        isEnable: true
+        sections: sections,
+        code: 81
       }"
       [choosenSetting]="choosenSetting"
     ></evj-sou-mvp-mnemonic-scheme-info>
 
     <evj-sou-mvp-mnemonic-scheme-info
       [data]="{
-        productName: 'ШМФ',
-        valueByHour: 12000,
-        valueTank: 13000,
-        valueMoment: 1000,
-        valueByHourPercent: 12.85,
-        valueTankPercent: 13.5,
-        valueMomentPercent: 1,
-        isEnable: true
+        sections: sections,
+        code: 70
       }"
       [choosenSetting]="choosenSetting"
     ></evj-sou-mvp-mnemonic-scheme-info>
@@ -502,60 +507,70 @@
   <div class="stream__item">
     <evj-sou-mvp-mnemonic-scheme-collector
       [style.height.%]="100"
-      [title]="'PL114POG5'"
-      [warningStatus]="false"
+      [data]="{
+        sections: sections,
+        code: 72
+      }"
       [outCount]="4"
       [inCount]="2"
     ></evj-sou-mvp-mnemonic-scheme-collector>
   </div>
   <div class="stream__item">
     <evj-sou-mvp-mnemonic-scheme-stream-diagram
-      [title]="'F11452'"
-      [percentage]="95"
-      [weight]="120"
-      [status]="false"
+      [data]="{
+        sections: sections,
+        code: 73
+      }"
     ></evj-sou-mvp-mnemonic-scheme-stream-diagram>
 
     <evj-sou-mvp-mnemonic-scheme-stream-diagram
-      [title]="'FC-148'"
-      [percentage]="0"
-      [weight]="0"
-      [status]="true"
+      [data]="{
+        sections: sections,
+        code: 75
+      }"
     ></evj-sou-mvp-mnemonic-scheme-stream-diagram>
 
     <evj-sou-mvp-mnemonic-scheme-stream-diagram
-      [title]="'FC-148.1'"
-      [percentage]="0"
-      [weight]="0"
-      [status]="true"
+      [data]="{
+        sections: sections,
+        code: 77
+      }"
     ></evj-sou-mvp-mnemonic-scheme-stream-diagram>
 
     <evj-sou-mvp-mnemonic-scheme-stream-diagram
-      [title]="'F1151'"
-      [percentage]="0"
-      [weight]="0"
-      [status]="true"
+      [data]="{
+        sections: sections,
+        code: 79
+      }"
     ></evj-sou-mvp-mnemonic-scheme-stream-diagram>
   </div>
   <div class="stream__item output">
     <evj-sou-mvp-mnemonic-scheme-output
-      [title]="'Коллектор вакуумного газойля'"
-      [status]="true"
+      [data]="{
+        sections: sections,
+        code: 74
+      }"
     ></evj-sou-mvp-mnemonic-scheme-output>
 
     <evj-sou-mvp-mnemonic-scheme-output
-    [title]="'Установка 19/3'"
-    [status]="false"
+      [data]="{
+        sections: sections,
+        code: 76
+      }"
     ></evj-sou-mvp-mnemonic-scheme-output>
 
     <evj-sou-mvp-mnemonic-scheme-output
-      [title]="'Мазут'"
-      [status]="false"
+      [data]="{
+        sections: sections,
+        code: 78
+      }"
     ></evj-sou-mvp-mnemonic-scheme-output>
 
     <evj-sou-mvp-mnemonic-scheme-output
-      [title]="'ТП'"
-      [status]="false"
+      [data]="{
+        sections: sections,
+        code: 80
+      }"
     ></evj-sou-mvp-mnemonic-scheme-output>
   </div>
 </div>
@@ -563,23 +578,17 @@
 <div class="stream">
   <div class="stream__item">
     <evj-sou-mvp-mnemonic-scheme-circle-diagram
-      [title]="'FC125'"
-      [percentage]="95"
-      [warningStatus]="false"
-      [enableStatus]="true"
+      [data]="{
+        sections: sections,
+        code: 71
+      }"
     ></evj-sou-mvp-mnemonic-scheme-circle-diagram>
   </div>
   <div class="stream__item">
     <evj-sou-mvp-mnemonic-scheme-info
       [data]="{
-        productName: 'Гудрон',
-        valueByHour: 12000,
-        valueTank: 13000,
-        valueMoment: 1000,
-        valueByHourPercent: 12.85,
-        valueTankPercent: 13.5,
-        valueMomentPercent: 1,
-        isEnable: true
+        sections: sections,
+        code: 71
       }"
       [choosenSetting]="choosenSetting"
     ></evj-sou-mvp-mnemonic-scheme-info>
@@ -587,60 +596,70 @@
   <div class="stream__item">
     <evj-sou-mvp-mnemonic-scheme-collector
       [style.height.%]="100"
-      [title]="'PL115GUD'"
-      [warningStatus]="false"
+      [data]="{
+        sections: sections,
+        code: 72
+      }"
       [outCount]="4"
       [inCount]="1"
     ></evj-sou-mvp-mnemonic-scheme-collector>
   </div>
   <div class="stream__item">
     <evj-sou-mvp-mnemonic-scheme-stream-diagram
-      [title]="'F1151'"
-      [percentage]="95"
-      [weight]="120"
-      [status]="false"
+      [data]="{
+        sections: sections,
+        code: 73
+      }"
     ></evj-sou-mvp-mnemonic-scheme-stream-diagram>
   
     <evj-sou-mvp-mnemonic-scheme-stream-diagram
-      [title]="'FC-145'"
-      [percentage]="95"
-      [weight]="120"
-      [status]="false"
+      [data]="{
+        sections: sections,
+        code: 75
+      }"
     ></evj-sou-mvp-mnemonic-scheme-stream-diagram>
 
     <evj-sou-mvp-mnemonic-scheme-stream-diagram
-      [title]="'FC-145.1'"
-      [percentage]="0"
-      [weight]="0"
-      [status]="true"
+      [data]="{
+        sections: sections,
+        code: 77
+      }"
     ></evj-sou-mvp-mnemonic-scheme-stream-diagram>
 
     <evj-sou-mvp-mnemonic-scheme-stream-diagram
-      [title]="'F1152'"
-      [percentage]="0"
-      [weight]="0"
-      [status]="true"
+      [data]="{
+        sections: sections,
+        code: 79
+      }"
     ></evj-sou-mvp-mnemonic-scheme-stream-diagram>
   </div>
   <div class="stream__item output">
     <evj-sou-mvp-mnemonic-scheme-output
-      [title]="'Коллектор гудрона'"
-      [status]="true"
+      [data]="{
+        sections: sections,
+        code: 74
+      }"
     ></evj-sou-mvp-mnemonic-scheme-output>
 
     <evj-sou-mvp-mnemonic-scheme-output
-    [title]="'Установка 19/3'"
-    [status]="true"
-  ></evj-sou-mvp-mnemonic-scheme-output>
-
-    <evj-sou-mvp-mnemonic-scheme-output
-      [title]="'Мазут по л.гудрона'"
-      [status]="false"
+      [data]="{
+        sections: sections,
+        code: 76
+      }"
     ></evj-sou-mvp-mnemonic-scheme-output>
 
     <evj-sou-mvp-mnemonic-scheme-output
-      [title]="'ТП'"
-      [status]="false"
+      [data]="{
+        sections: sections,
+        code: 78
+      }"
+    ></evj-sou-mvp-mnemonic-scheme-output>
+
+    <evj-sou-mvp-mnemonic-scheme-output
+      [data]="{
+        sections: sections,
+        code: 80
+      }"
     ></evj-sou-mvp-mnemonic-scheme-output>
   </div>
 </div>

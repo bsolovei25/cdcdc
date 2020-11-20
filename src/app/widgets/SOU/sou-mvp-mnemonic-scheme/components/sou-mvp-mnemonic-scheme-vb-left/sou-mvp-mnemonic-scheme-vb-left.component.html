@@ -8,24 +8,19 @@
             [svgStyle]="{ 'width.px':16, 'height.px':16 }"
           ></svg-icon>
         </div>
-        <span>АБ АВТ-10 </span>
+        <span>{{mvpService.getElementByCode(sections, 152)?.name}}</span>
         <div class="connection-circle"></div>
       </div>
       <evj-sou-mvp-mnemonic-scheme-circle-diagram
-        [title]="'FOIL'"
-        [percentage]="95"
-        [warningStatus]="false"
+        [data]="{
+          sections: sections,
+          code: 153
+        }"
       ></evj-sou-mvp-mnemonic-scheme-circle-diagram>
       <evj-sou-mvp-mnemonic-scheme-info
         [data]="{
-          productName: 'Мазут ВБ',
-          valueByHour: 12000,
-          valueTank: 13000,
-          valueMoment: 1000,
-          valueByHourPercent: 12.85,
-          valueTankPercent: 13.5,
-          valueMomentPercent: 1,
-          isEnable: true
+          sections: sections,
+          code: 153
         }"
         [outCount]="0"
         [choosenSetting]="choosenSetting"
@@ -40,8 +35,10 @@
       <div class="main-groups__column">
         <evj-sou-mvp-mnemonic-scheme-collector
           [style.height.%]="100"
-          [title]="'PL110MVB'"
-          [warningStatus]="false"
+          [data]="{
+            sections: sections,
+            code: 120
+          }"
           [outCount]="6"
           [inCount]="0"
         ></evj-sou-mvp-mnemonic-scheme-collector>
@@ -49,36 +46,40 @@
       <div class="main-groups__column">
         <div class="main-groups__column-inner">
           <evj-sou-mvp-mnemonic-scheme-stream-diagram
-            [title]="'F112'"
-            [weight]="120"
-            [status]="false"
+            [data]="{
+              sections: sections,
+              code: 155
+            }"
           ></evj-sou-mvp-mnemonic-scheme-stream-diagram>
           <div class="line"></div>
         </div>
 
         <div class="main-groups__column-inner">
           <evj-sou-mvp-mnemonic-scheme-stream-diagram
-            [title]="'F113'"
-            [weight]="120"
-            [status]="false"
+            [data]="{
+              sections: sections,
+              code: 156
+            }"
           ></evj-sou-mvp-mnemonic-scheme-stream-diagram>
           <div class="line"></div>
         </div>
 
         <div class="main-groups__column-inner">
           <evj-sou-mvp-mnemonic-scheme-stream-diagram
-            [title]="'F114'"
-            [weight]="120"
-            [status]="false"
+            [data]="{
+              sections: sections,
+              code: 140
+            }"
           ></evj-sou-mvp-mnemonic-scheme-stream-diagram>
           <div class="line"></div>
         </div>
 
         <div class="main-groups__column-inner">
           <evj-sou-mvp-mnemonic-scheme-stream-diagram
-            [title]="'F115'"
-            [weight]="120"
-            [status]="false"
+            [data]="{
+              sections: sections,
+              code: 157
+            }"
           ></evj-sou-mvp-mnemonic-scheme-stream-diagram>
           <div class="line"></div>
         </div>
@@ -86,8 +87,10 @@
         <div class="main-groups__column-inner">
           <evj-sou-mvp-mnemonic-scheme-stream-diagram
             [title]="'F116'"
-            [weight]="120"
-            [status]="false"
+            [data]="{
+              sections: sections,
+              code: 141
+            }"
           ></evj-sou-mvp-mnemonic-scheme-stream-diagram>
           <div class="line"></div>
         </div>
@@ -95,8 +98,10 @@
         <div class="main-groups__column-inner">
           <evj-sou-mvp-mnemonic-scheme-stream-diagram
             [title]="'F117'"
-            [weight]="120"
-            [status]="false"
+            [data]="{
+              sections: sections,
+              code: 142
+            }"
           ></evj-sou-mvp-mnemonic-scheme-stream-diagram>
           <div class="line"></div>
         </div>
@@ -112,24 +117,19 @@
           [svgStyle]="{ 'width.px':16, 'height.px':16 }"
         ></svg-icon>
       </div>
-      <span>АБ АВТ-10 </span>
+      <span>{{mvpService.getElementByCode(sections, 158)?.name}}</span>
       <div class="connection-circle"></div>
     </div>
     <evj-sou-mvp-mnemonic-scheme-circle-diagram
-      [title]="'FFSB4'"
-      [percentage]="95"
-      [warningStatus]="false"
+      [data]="{
+        sections: sections,
+        code: 159
+      }"
     ></evj-sou-mvp-mnemonic-scheme-circle-diagram>
     <evj-sou-mvp-mnemonic-scheme-info
       [data]="{
-        productName: 'ДТЛ К-9',
-        valueByHour: 12000,
-        valueTank: 13000,
-        valueMoment: 1000,
-        valueByHourPercent: 12.85,
-        valueTankPercent: 13.5,
-        valueMomentPercent: 1,
-        isEnable: true
+        sections: sections,
+        code: 159
       }"
       [choosenSetting]="choosenSetting"
     ></evj-sou-mvp-mnemonic-scheme-info>
