@@ -232,6 +232,7 @@
   --color-kpe-line-diagram-bg-sub: #1c1f2b;
   --color-kpe-line-diagram-active: #1f3d60;
   --color-kpe-bg-sub: #272a38;
+  --color-kpe-bg-sub-opacity: rgba(39, 42, 56, 0.5);
 
   // KPE gauge-chart
   --color-kpe-gaude-main: #d7e2f2;
@@ -287,6 +288,7 @@
   --nk-color-innage-axis: #E8E6DD;
   --nk-color-scroll-thumb: #272b35;
   --nk-color-bg-innage-min: #0C5395;
+  --nk-color-bg-correct: #121928;
 
   --nk-color-bg-selected: #282D3C;
   --nk-color-bg-lvl-last: #00549D;
@@ -294,7 +296,6 @@
   --nk-color-bg-body: #161922;
   --nk-color-bg-card-body: #1e212d;
   --nk-color-bg-filter-menu: rgba(39, 42, 56, 0.5);
-  --nk-color-bg-correct: #121928;
 
   --color-gray80: #272a38;
   --color-gray40: #8c99b2;
@@ -468,7 +469,7 @@
   --header-events-color-font-warning: #F7931E;
   --header-events-color-font-danger: #FF0000;
   --header-events-color-bg-active: #0089FF;
-  --header-events-color-bg-hover: #1F222E;
+  --header-events-color-bg-hover: #1f222e;
   --header-events-color-bg-thumb: rgb(40, 43, 56, 0.46);
 
   // event
@@ -485,6 +486,7 @@
   --evj-events-preview: rgba(39, 42, 56, 0.5);
   --evj-events-icon-bg: #2A394A;
   --evj-events-icon: rgb(63, 168, 243);
+  --evj-events-file-attachment: rgba(39, 43, 53, 0.75);
 
 
   // EVJ
@@ -510,11 +512,16 @@
   --evj-color-bg-input: #161922;
   --evj-color-bg-hours: rgba(32, 35, 51, 0.75);
 
-  // events workspace
+  // events workspacef
   --evj-events-workspace-critical: #DB0000;
   --evj-events-workspace-critical-bg: rgba(219, 0, 0, 0.15);
   --evj-events-workspace-minor: #F8921C;
   --evj-events-workspace-minor-bg: rgba(248, 146, 28, 0.15);
+  --evj-events-workspace-button: #303549;
+  --evj-events-workspace-button-active: #0089FF;
+  --evj-events-workspace-bg-dark: rgba(18, 21, 30, 0.5);
+  --evj-events-workspace-color-border: rgba(96, 101, 128, 0.25);
+  f: rgba(31, 34, 46, 0.5);
   --evj-events-workspace-responsible-bg: #171a24;
   --evj-events-workspace-white: #ffffff;
   --evj-events-workspace-item-border: rgba(96, 101, 128, 0.25);
