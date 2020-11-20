@@ -12,7 +12,7 @@ import { EventsWorkspaceService } from '../../../../../dashboard/services/widget
 })
 export class EvjEventsResponsibleSelectComponent implements OnInit {
     @Input() private isRetrieval: boolean = false;
-
+    public selected: string = 'Не выбрано';
     filter: FormControl = new FormControl({value: '', disabled: true});
 
     public responsible: IUser = null;
