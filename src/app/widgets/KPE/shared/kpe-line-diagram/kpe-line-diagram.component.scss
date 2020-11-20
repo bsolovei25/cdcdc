@@ -53,11 +53,11 @@
       margin-bottom: 7px;
 
       .percent__left {
-        color: var(--color-text-sub);
+        color: var(--color-kpe-gaude-active);
       }
 
       .percent__right {
-        color: var(--color-text-sub-heading);
+        color: var(--color-kpe-gaude-main);
 
         &__warning {
           color: var(--color-cd-warning);
@@ -78,8 +78,8 @@
         left: 2px;
         height: 4px;
 
-        background-image: linear-gradient(90deg, var(--color-aps-active), var(--color-aps-active) 33.33%, transparent 33.33%, transparent 100%);
-        background-size: 3px 100%;
+        background-image: linear-gradient(90deg, var(--color-aps-active), var(--color-aps-active) 50%, transparent 50%, transparent 100%);
+        background-size: 4px 100%;
 
         &--white {
           background-color: var(--color-kpe-eq-chart-title);
@@ -95,8 +95,8 @@
       .line__warning {
         position: absolute;
         height: 4px;
-        background-image: linear-gradient(90deg, var(--color-cd-warning), var(--color-cd-warning) 33.33%, transparent 33.33%, transparent 100%);
-        background-size: 3px 100%;
+        background-image: linear-gradient(90deg, var(--color-cd-warning), var(--color-cd-warning) 50%, transparent 50%, transparent 100%);
+        background-size: 4px 100%;
 
         &--line {
           background-color: var(--color-cd-warning);

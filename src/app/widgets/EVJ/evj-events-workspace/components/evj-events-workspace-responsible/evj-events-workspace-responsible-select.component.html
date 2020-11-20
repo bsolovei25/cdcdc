@@ -31,7 +31,11 @@
 
   <div class="responsible-item" (click)="clearFilter()">
     <mat-form-field>
-      <mat-select panelClass="mat-select-custom" [disabled]="disabled" [(ngModel)]="responsible" disableOptionCentering>
+      <mat-select panelClass="mat-select-custom"
+                  [disabled]="disabled"
+                  [(ngModel)]="responsible" disableOptionCentering
+                  placeholder="Выберите ответственного"
+      >
         <evj-mat-select-filter [formControl]="filter"></evj-mat-select-filter>
         <ng-container *ngFor="let p of users">
           <mat-option [value]="p" (click)="chooseRespons(p)">

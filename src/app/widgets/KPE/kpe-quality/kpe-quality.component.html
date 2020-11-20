@@ -29,6 +29,7 @@
       <div class="quality__header">
         <div #mainGauge class="quality__header__gauge" [style]="gaugeWidth(mainGauge)">
           <evj-kpe-gauge-chart
+            background="dark"
             [fact]="deviationDiagram?.fact"
             [plan]="deviationDiagram?.plan"
             [deviation]="deviationDiagram?.deviation"
@@ -48,7 +49,7 @@
                 <div class="card">
                   <div class="card__content">
                     <div class="card__gauge-diagram">
-                      <evj-kpe-gauge-chart background="dark"
+                      <evj-kpe-gauge-chart
                                            [fact]="card.gaugeChart?.fact"
                                            [plan]="card.gaugeChart?.plan"
                                            [deviation]="card.gaugeChart?.deviation"
@@ -85,7 +86,7 @@
                 <div class="card">
                   <div class="card__content">
                     <div class="card__gauge-diagram">
-                      <evj-kpe-gauge-chart background="dark"
+                      <evj-kpe-gauge-chart
                                            [fact]="card.gaugeChart?.fact"
                                            [plan]="card.gaugeChart?.plan"
                                            [deviation]="card.gaugeChart?.deviation"

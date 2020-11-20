@@ -4,32 +4,37 @@
     (mousedown)="$event.stopPropagation()"
     (touchstart)="$event.stopPropagation()"
   >
-    <div class="header-workspace__container"
-         matRipple [matRippleColor]="'white'"
-         (click)="createEvent(true)"
-    >
-      <div class="button-name">Новое событие</div>
+    <div class="right-side">
+      <div class="header-workspace__container"
+           matRipple [matRippleColor]="'white'"
+           (click)="createEvent(true)"
+      >
+        <div class="title">Новое событие</div>
+      </div>
     </div>
-    <div class="header-workspace__container"
-         (click)="onClickEjs()"
-         matRipple [matRippleColor]="'white'"
-    >
-      <div class="button-name">Перейти к карточке ЭЖС</div>
-    </div>
-    <div
-      class="header-workspace__container active-button"
-      (click)="createEvent(false)"
-      matRipple [matRippleColor]="'white'"
-    >
-      <div class="button-name">Сохранить</div>
+
+    <div class="right-side">
+      <div class="header-workspace__container"
+           (click)="onClickEjs()"
+           matRipple [matRippleColor]="'white'"
+      >
+        <div class="button-name">Перейти к карточке ЭЖС</div>
+      </div>
+      <div
+        class="header-workspace__container active-button"
+        matRipple [matRippleColor]="'white'"
+        *ngIf="!createIcon && blockWorkspaceButton"
+        (click)="createEvent(false)">
+        <div class="title">Сохранить</div>
+      </div>
     </div>
   </div>
 </div>
 
 
 <div class="workspace scroll scroll-bar" [style]="{overflow: noOverflow ? 'auto' : 'visible'}">
-  <div class="workspace__third">
-    <div class="workspace__third__right">
+  <div class="workspace__header">
+    <div class="group">
       <div class="workspace__select-container">
         <div class="title">
           <span>Категория</span>
@@ -52,33 +57,10 @@
         </div>
       </div>
       <div class="workspace__select-container">
-        <evj-events-workspace-datetimepicker
-          [label]="'Срок выполнения'"
-        >
-        </evj-events-workspace-datetimepicker>
-      </div>
-      <div class="workspace__select-container">
-        <div class="creator">
-          <div class="title">
-            <span>ID оборудования</span>
-          </div>
-          <div class="creator__field">
-            {{ ewService.event?.ejsData?.ejsEquiIdChr }}
-          </div>
-        </div>
-      </div>
-      <div class="workspace__select-container">
-        <div class="creator">
-          <div class="title">
-            <span>Техническое место</span>
-          </div>
-          <div class="creator__field">
-            {{ ewService.event?.ejsData?.ejsFuncLocaChr }}
-          </div>
-        </div>
+        <evj-events-workspace-datetimepicker></evj-events-workspace-datetimepicker>
       </div>
     </div>
-    <div class="workspace__third__right">
+    <div class="group">
       <div class="workspace__select-container">
         <div class="creator">
           <div class="title">
@@ -99,56 +81,79 @@
           </div>
         </div>
       </div>
-      <div class="workspace__select-container">
-        <div class="creator">
-          <div class="title">
-            <span>Оборудование</span>
-          </div>
-          <div class="creator__field">
-            {{ ewService.event?.ejsData?.ejsEquiChr  }}
-          </div>
+    </div>
+    <div class="workspace__select-container-big">
+      <div class="creator">
+        <div class="title">
+          <span>Влияние на производительность</span>
         </div>
-      </div>
-      <div class="workspace__select-container">
-        <div class="creator">
-          <div class="title">
-            <span>Описание технического места</span>
-          </div>
-          <div class="creator__field">
-            {{ ewService.event?.ejsData?.ejsFuncLocaDescChr }}
-          </div>
+        <div class="creator__field-big">
+          {{ ewService.event?.ejsData?.ejsStopReduce }}
         </div>
       </div>
     </div>
-    <div class="workspace__third__right">
-      <div class="workspace__select-container-big">
-        <div class="creator">
-          <div class="title">
-            <span>Влияние на производительность</span>
-          </div>
-          <div class="creator__field-big">
-            {{ ewService.event?.ejsData?.ejsStopReduce }}
-          </div>
+  </div>
+  <div class="workspace__header">
+    <div class="workspace__select-container">
+      <div class="creator">
+        <div class="title">
+          <span>ID оборудования</span>
+        </div>
+        <div class="creator__field">
+          {{ ewService.event?.ejsData?.ejsEquiIdChr }}
         </div>
       </div>
-      <div class="workspace__select-container">
-        <div class="creator">
-          <div class="title">
-            <span>Вид технического объекта, тип ЕО</span>
-          </div>
-          <div class="creator__field">
-            {{ ewService.event?.ejsData?.ejsEquiChrEO }}
-          </div>
+    </div>
+    <div class="workspace__select-container">
+      <div class="creator">
+        <div class="title">
+          <span>Оборудование</span>
+        </div>
+        <div class="creator__field">
+          {{ ewService.event?.ejsData?.ejsEquiChr  }}
         </div>
       </div>
-      <div class="workspace__select-container">
-        <div class="creator">
-          <div class="title">
-            <span>Влияние на произв-ть, тип ТМ</span>
-          </div>
-          <div class="creator__field">
-            {{ ewService.event?.ejsData?.ejsStopReduceTM }}
-          </div>
+    </div>
+    <div class="workspace__select-container">
+      <div class="creator">
+        <div class="title">
+          <span>Вид технического объекта, тип ЕО</span>
+        </div>
+        <div class="creator__field">
+          {{ ewService.event?.ejsData?.ejsEquiChrEO }}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="workspace__header">
+    <div class="workspace__select-container">
+      <div class="creator">
+        <div class="title">
+          <span>Техническое место</span>
+        </div>
+        <div class="creator__field">
+          {{ ewService.event?.ejsData?.ejsFuncLocaChr }}
+        </div>
+      </div>
+    </div>
+    <div class="workspace__select-container">
+      <div class="creator">
+        <div class="title">
+          <span>Описание технического места</span>
+        </div>
+        <div class="creator__field">
+          {{ ewService.event?.ejsData?.ejsFuncLocaDescChr }}
+        </div>
+      </div>
+    </div>
+    <div class="workspace__select-container">
+      <div class="creator">
+        <div class="title">
+          <span>Влияние на произв-ть, тип ТМ</span>
+        </div>
+        <div class="creator__field">
+          {{ ewService.event?.ejsData?.ejsStopReduceTM }}
         </div>
       </div>
     </div>
@@ -166,7 +171,7 @@
     </div>
   </div>
   <div class="workspace__header">
-    <div class="workspace__select-container-biggest-l">
+    <div class="workspace__select-container-biggest-double">
       <div class="creator">
         <div class="title">
           <span>Обращение в ЭНЕРГОСЕРВИС</span>
@@ -179,7 +184,7 @@
         </div>
       </div>
     </div>
-    <div class="workspace__select-container-biggest-r">
+    <div class="workspace__select-container-biggest-double">
       <div class="creator">
         <div class="title">
           <span>Обращение в Автоматика-сервис</span>

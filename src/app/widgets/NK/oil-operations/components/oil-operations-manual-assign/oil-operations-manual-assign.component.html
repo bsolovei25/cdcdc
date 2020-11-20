@@ -1,0 +1,251 @@
+<div class="container-operation-manual">
+  <div style="height: 100%;">
+    <div class="header">
+      <div class="header__button-close" (click)="close()">
+        <svg-icon src="assets/icons/widgets/reports/close.svg" class="add_button_icon">
+        </svg-icon>
+      </div>
+      <span>Форма привязки операции №: <span>4312</span></span>
+      <span>Резервуар №: <span>512</span></span>
+      <span>Продукт: <span>Бензин</span></span>
+      <span>Паспорт: <span>139</span></span>
+      <span>Период: <span>04.03.2019 02:45 - 04.03.2019 02:45</span></span>
+      <span>Масса операции: <span>2 334 т.</span></span>
+      <span>Отклонение: <span>2 000 т.</span></span>
+    </div>
+    <div class="content">
+      <div class="content__left">
+        <div class="table">
+          <svg-icon
+            src="assets/icons/widgets/oil-control-all/oil-shipments/shipment-list-table.svg"
+            class="table__icon"
+            [svgStyle]="{ 'width.px':40, 'height.px':20 }">
+          </svg-icon>
+          <div class="table__name">Отгрузки</div>
+          <div class="table__count">
+            <span>123</span>
+          </div>
+        </div>
+        <div class="table-header">
+          <div class="table-header__name extra-wide">Отгружено</div>
+          <div class="table-header__name normal">Р/р</div>
+          <div class="table-header__name normal">Паспорт</div>
+          <div class="table-header__name wide">Завершено</div>
+          <div class="table-header__name normal">Масса</div>
+          <div class="table-header__name normal">Операция</div>
+        </div>
+        <div class="table__shadow-block">
+          <!-- TODO ngFor -->
+          <ng-container *ngTemplateOutlet="leftTableRow"></ng-container>
+          <ng-container *ngTemplateOutlet="leftTableRow"></ng-container>
+          <ng-container *ngTemplateOutlet="leftTableRow"></ng-container>
+          <ng-container *ngTemplateOutlet="leftTableRow"></ng-container>
+          <ng-container *ngTemplateOutlet="leftTableRow"></ng-container>
+          <ng-container *ngTemplateOutlet="leftTableRow"></ng-container>
+          <ng-container *ngTemplateOutlet="leftTableRow"></ng-container>
+          <ng-container *ngTemplateOutlet="leftTableRow"></ng-container>
+          <ng-container *ngTemplateOutlet="leftTableRow"></ng-container>
+          <ng-container *ngTemplateOutlet="leftTableRow"></ng-container>
+          <ng-container *ngTemplateOutlet="leftTableRow"></ng-container>
+          <ng-container *ngTemplateOutlet="leftTableRow"></ng-container>
+          <ng-container *ngTemplateOutlet="leftTableRow"></ng-container>
+          <ng-container *ngTemplateOutlet="leftTableRow"></ng-container>
+          <ng-container *ngTemplateOutlet="leftTableRow"></ng-container>
+          <ng-container *ngTemplateOutlet="leftTableRow"></ng-container>
+        </div>
+        <div class="footer">
+          <div class="footer__section">
+            <div class="button">
+              <svg-icon [src]="'assets/icons/widgets/oil-control-all/oil-shipments/all-filter-icon.svg'"></svg-icon>
+            </div>
+            <div class="button">
+              <svg-icon [src]="'assets/icons/widgets/oil-control-all/oil-shipments/railway-filter-icon.svg'"></svg-icon>
+            </div>
+            <div class="button active">
+              <svg-icon [src]="'assets/icons/widgets/oil-control-all/oil-shipments/tankTruck-filter-icon-active.svg'"></svg-icon>
+            </div>
+            <div class="button">
+              <svg-icon [src]="'assets/icons/widgets/oil-control-all/oil-shipments/pipeline-filter-icon.svg'"></svg-icon>
+            </div>
+            <div class="button">
+              <svg-icon [src]="'assets/icons/widgets/oil-control-all/oil-shipments/manual-filter-icon.svg'"></svg-icon>
+            </div>
+            <div class="checkbox">
+              <label><input type="checkbox"></label>
+            </div>
+          </div>
+          <div class="footer__section">
+            <div class="input">
+              <div class="oc-shipment-ma-mat-input">
+                <mat-form-field floatLabel="never">
+                  <label>
+                    <input matInput placeholder="Продукт" >
+                  </label>
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="input">
+              <div class="oc-shipment-ma-mat-input">
+                <mat-form-field floatLabel="never">
+                  <label>
+                    <input matInput placeholder="Паспорт" >
+                  </label>
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="input">
+              <div class="oc-shipment-ma-mat-input">
+                <mat-form-field floatLabel="never">
+                  <label>
+                    <input matInput placeholder="Резервуар" >
+                  </label>
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="checkbox">
+              <label><input type="checkbox"></label>
+            </div>
+          </div>
+          <div class="footer__section">
+            <div class="button">
+              <svg-icon [src]="'assets/icons/widgets/oil-control-all/oil-shipments/assign-light.svg'"></svg-icon>
+              <span>Привязать</span>
+            </div>
+            <span>Всего: <span>139 т.</span></span>
+          </div>
+        </div>
+      </div>
+      <div class="content__right">
+        <div class="table">
+          <svg-icon
+            src="assets/icons/widgets/oil-control-all/oil-shipments/shipment-to-assign-table.svg"
+            class="table__icon"
+            [svgStyle]="{ 'width.px':40, 'height.px':20 }">
+          </svg-icon>
+          <div class="table__name">Отгрузки, привязанные к текущей операции</div>
+          <div class="table__count">
+            <span>123</span>
+          </div>
+        </div>
+        <div class="table-header">
+          <div class="table-header__name normal">Паспорт</div>
+          <div class="table-header__name wide">Отгружено</div>
+          <div class="table-header__name extra-wide">Продукты</div>
+          <div class="table-header__name normal">Масса</div>
+          <div class="table-header__name normal">
+            <svg-icon
+              src="assets/icons/widgets/oil-control-all/oil-shipments/remove-icon.svg"
+              class="table__icon"
+              [svgStyle]="{ 'width.px':11, 'height.px':13, 'margin-right.px': 6 }">
+            </svg-icon>
+          </div>
+        </div>
+        <div class="table__shadow-block">
+          <!-- TODO ngFor -->
+          <ng-container *ngTemplateOutlet="rightTableRow"></ng-container>
+          <ng-container *ngTemplateOutlet="rightTableRow"></ng-container>
+          <ng-container *ngTemplateOutlet="rightTableRow"></ng-container>
+          <ng-container *ngTemplateOutlet="rightTableRow"></ng-container>
+          <ng-container *ngTemplateOutlet="rightTableRow"></ng-container>
+          <ng-container *ngTemplateOutlet="rightTableRow"></ng-container>
+          <ng-container *ngTemplateOutlet="rightTableRow"></ng-container>
+          <ng-container *ngTemplateOutlet="rightTableRow"></ng-container>
+          <ng-container *ngTemplateOutlet="rightTableRow"></ng-container>
+          <ng-container *ngTemplateOutlet="rightTableRow"></ng-container>
+          <ng-container *ngTemplateOutlet="rightTableRow"></ng-container>
+          <ng-container *ngTemplateOutlet="rightTableRow"></ng-container>
+          <ng-container *ngTemplateOutlet="rightTableRow"></ng-container>
+          <ng-container *ngTemplateOutlet="rightTableRow"></ng-container>
+          <ng-container *ngTemplateOutlet="rightTableRow"></ng-container>
+          <ng-container *ngTemplateOutlet="rightTableRow"></ng-container>
+        </div>
+        <div class="footer">
+          <div class="footer__section">
+            <div class="button">
+              <svg-icon src="assets/icons/widgets/oil-control-all/oil-shipments/all-filter-icon.svg"></svg-icon>
+              <span>100 т.</span>
+            </div>
+            <div class="button">
+              <svg-icon src="assets/icons/widgets/oil-control-all/oil-shipments/railway-filter-icon.svg"></svg-icon>
+              <span>100 т.</span>
+            </div>
+            <div class="button">
+              <svg-icon src="assets/icons/widgets/oil-control-all/oil-shipments/tankTruck-filter-icon.svg"></svg-icon>
+              <span>100 т.</span>
+            </div>
+            <div class="button">
+              <svg-icon src="assets/icons/widgets/oil-control-all/oil-shipments/pipeline-filter-icon.svg"></svg-icon>
+              <span>100 т.</span>
+            </div>
+            <div class="button">
+              <svg-icon src="assets/icons/widgets/oil-control-all/oil-shipments/manual-filter-icon.svg"></svg-icon>
+              <span>100 т.</span>
+            </div>
+          </div>
+          <div class="footer__section">
+            <div class="button" style="margin-right: 27px;">
+              <svg-icon src="assets/icons/widgets/oil-control-all/oil-shipments/remove-icon.svg"></svg-icon>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #leftTableRow>
+  <div class="table__row">
+    <div class="extra-wide">
+      <div class="direction">
+        <div class="direction__icon">
+          <svg-icon
+            src="assets/icons/widgets/oil-control-all/oil-operations/background-pic.svg"
+            [svgStyle]="{ 'width.px':46, 'height.px':26, 'margin-top.px': 10 }">
+          </svg-icon>
+          <img src="assets/icons/widgets/oil-control-all/oil-shipments/directions/tankTruck.png" class="icon-cistern">
+        </div>
+        <div class="direction__name">АИ-92-К5. Бензин неотилированный</div>
+      </div>
+    </div>
+    <div class="normal">529</div>
+    <div class="normal">139</div>
+    <div class="wide">04.03.2019 02:45:00</div>
+    <div class="normal">5,15</div>
+    <div class="normal container">
+      <div class="button-assign">
+        <svg-icon
+          src="assets/icons/widgets/oil-control-all/oil-shipments/row-assign-icon.svg"
+          [svgStyle]="{ 'margin-top.px': 10 }"
+        ></svg-icon>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+
+<ng-template #rightTableRow>
+  <div class="table__row">
+    <div class="normal">
+      <div class="direction">
+        <div class="direction__icon">
+          <svg-icon
+            src="assets/icons/widgets/oil-control-all/oil-operations/background-pic.svg"
+            [svgStyle]="{ 'width.px':46, 'height.px':26, 'margin-top.px': 10 }">
+          </svg-icon>
+          <img src="assets/icons/widgets/oil-control-all/oil-shipments/directions/tankTruck.png" class="icon-cistern">
+        </div>
+        <div class="direction__name">139</div>
+      </div>
+    </div>
+    <div class="wide">04.03.2019 02:45:00</div>
+    <div class="extra-wide">АИ-92-К5. Бензин неотилированный</div>
+    <div class="normal">5,15</div>
+    <div class="normal">
+      <svg-icon
+        src="assets/icons/widgets/oil-control-all/oil-shipments/remove-icon.svg"
+        class="table__icon"
+        [svgStyle]="{ 'width.px':11, 'height.px':13 }">
+      </svg-icon>
+    </div>
+  </div>
+</ng-template>

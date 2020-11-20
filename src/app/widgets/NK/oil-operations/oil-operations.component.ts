@@ -27,6 +27,7 @@ export interface IOilOperationsButton {
     adjust: boolean;
     blps: boolean;
     free: boolean;
+    manualAssign: boolean;
 }
 
 @Component({
@@ -134,6 +135,7 @@ export class OilOperationsComponent extends WidgetPlatform<unknown> implements O
         adjust: false,
         blps: false,
         free: false,
+        manualAssign: false,
     };
 
     public filterGroup: string | null = null;

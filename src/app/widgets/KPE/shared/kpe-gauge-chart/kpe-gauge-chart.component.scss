@@ -1,7 +1,6 @@
 ::ng-deep .background {
   & > * {
-    fill: var(--color-sou-bg);
-    //fill: red;
+    fill: var(--color-kpe-gauge-bg);
   }
 }
 
@@ -58,19 +57,19 @@
   }
 
   .needle-hover-circle-back-d {
-    fill: transparent;
+    fill: var(--color-kpe-line-diagram-bg-sub);
   }
 
   .kpe-gauge-hide-down-sector-d {
-    fill: transparent;
+    fill: var(--color-kpe-line-diagram-bg-sub);
   }
 
   .needle-hover-circle-back {
-    fill: transparent;
+    fill: var(--color-kpe-gaude-lines);
   }
 
   .kpe-gauge-hide-down-sector {
-    fill: transparent;
+    fill: var(--color-kpe-gaude-lines);
   }
 
   .needle-shadow-gradient-1 {

@@ -16,8 +16,8 @@
       <span class="notification__number" [ngClass]="'notification__number_' + cardData?.priority">
         {{ cardData?.id }}
       </span>
-      <span class="notification__name" *ngIf="cardData?.eventType">
-        {{ cardData?.eventType?.name }}
+      <span class="notification__name" *ngIf="cardData?.subCategory?.description || cardData?.category?.description">
+        {{ cardData?.subCategory?.description || cardData?.category?.description }}
       </span>
       <div class="line notification__line notification__line_top notification__line_top-first">
         <div class="line__circle line__circle__left"></div>

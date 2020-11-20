@@ -232,6 +232,7 @@
   --color-kpe-line-diagram-bg-sub: #1c1f2b;
   --color-kpe-line-diagram-active: #1f3d60;
   --color-kpe-bg-sub: #272a38;
+  --color-kpe-bg-sub-opacity: rgba(39, 42, 56, 0.5);
 
   // KPE gauge-chart
   --color-kpe-gaude-main: #d7e2f2;
@@ -288,6 +289,10 @@
   --nk-color-scroll-thumb: #272b35;
   --nk-color-bg-innage-min: #0C5395;
   --nk-color-bg-correct: #121928;
+
+  --nk-color-bg-dark: #0C1421;
+  --nk-color-table-row-bg: rgba(29, 31, 43);
+  --nk-color-table-header-text: #8799B3;
 
   --nk-color-bg-selected: #282D3C;
   --nk-color-bg-lvl-last: #00549D;
@@ -388,6 +393,27 @@
   --color-astue-onpz-bg-data: #232737;
   --color-astue-onpz-bg-data-icon: #303549;
 
+  --color-astue-onpz-header-bg: rgb(34, 36, 50);
+  --color-astue-border-main: #1e212e;
+  --color-astue-bg-main: rgba(24, 26, 36);
+  --color-astue-mat-select-border: rgba(92, 101, 133, 0.25);
+  --color-astue-mat-select-bg: rgb(20, 24, 36);
+  --color-astue-value-gr-start: rgba(255, 140, 0, 0.2);
+  --color-astue-onpz-btn: rgba(37, 39, 54);
+  --color-contemporary-header-bg: rgb(34, 36, 47);
+
+  --astue-onpz-factory-analisys-bg: #1C1F2B;
+  --astue-onpz-factory-analisys-border: #272A38;
+  --astue-onpz-factory-analisys-grid: #4B5169;
+  --astue-onpz-factory-analisys-grid-opacity: rgba(75,81,105,0.5);
+  --astue-onpz-factory-analisys-grid-bg: #12151E;
+  --astue-onpz-factory-analisys-grid-bg-opacity: rgb(18,21,30,0.5);
+  --astue-onpz-factory-analisys-legend: #8C99B2;
+  --astue-onpz-factory-analisys-label: #606580;
+  --astue-onpz-factory-analisys-norm: 0,137,255;
+  --astue-onpz-factory-analisys-bad: 162,226,255;
+  --astue-onpz-factory-analisys-sum: 0,167,61;
+
   // @shared/alert-window (aw)
   --color-aw-container-shadow-transparent: rgba(0, 0, 0, 0.25);
   --color-aw-container-body-transparent: #1c1e2b;
@@ -399,17 +425,6 @@
   --color-btn-rounded-border: #3fa9f5;
   --color-btn-rounded-disabled-transparent: rgba(255, 255, 255, 0.1);
   --color-alert-button: #252939;
-
-  // astue-onpz
-  --color-astue-onpz-header-bg: rgb(34, 36, 50);
-  --color-astue-border-main: #1e212e;
-  --color-astue-bg-main: rgba(24, 26, 36);
-  --color-astue-mat-select-border: rgba(92, 101, 133, 0.25);
-  --color-astue-mat-select-bg: rgb(20, 24, 36);
-  --color-astue-value-gr-start: rgba(255, 140, 0, 0.2);
-  --color-astue-onpz-btn: rgba(37, 39, 54);
-
-  --color-contemporary-header-bg: rgb(34, 36, 47);
 
   // new-header-colors
   --color-new-header-bg: #272a38;

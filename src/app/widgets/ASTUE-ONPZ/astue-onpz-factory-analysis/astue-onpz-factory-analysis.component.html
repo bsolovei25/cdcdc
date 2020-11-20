@@ -1,0 +1,50 @@
+<div class="widget-container">
+  <evj-contemporary-widget-header
+    [uniqId]="uniqId"
+    [widgetTitle]="widgetTitle"
+    type="astue"
+  >
+    <div class="header-container">
+    </div>
+  </evj-contemporary-widget-header>
+
+  <div class="container">
+    <div #grid class="grid">
+      <div class="line"></div>
+      <div class="line"></div>
+      <div class="line"></div>
+      <div class="line"></div>
+    </div>
+    <div class="legend">
+      <ng-container *ngIf="legendValues$ | async">
+        <div class="legend__value-wrapper" *ngFor="let value of (legendValues$ | async)">
+          <div class="legend__value"> {{ value | number: "0.1-1" }} </div>
+        </div>
+      </ng-container>
+    </div>
+    <div class="scroll-wrapper" *ngIf="data">
+      <ng-container *ngFor="let group of data.groups">
+        <evj-astue-onpz-factory-analysis-group [data]="group">
+          <ng-container *ngFor="let bar of group.bars">
+            <evj-astue-onpz-factory-analysis-cell [data]="bar"></evj-astue-onpz-factory-analysis-cell>
+            <ng-container *ngIf="bar !== group.bars[group.bars.length - 1]">
+              <ng-container *ngTemplateOutlet="cellDivider"></ng-container>
+            </ng-container>
+          </ng-container>
+        </evj-astue-onpz-factory-analysis-group>
+        <ng-container *ngTemplateOutlet="groupDivider"></ng-container>
+      </ng-container>
+    </div>
+
+</div>
+
+<ng-template #groupDivider>
+  <div class="group-divider">
+    <div class="triangle triangle__left"></div>
+    <div class="triangle triangle__right"></div>
+  </div>
+</ng-template>
+
+<ng-template #cellDivider>
+  <div class="cell-divider"></div>
+</ng-template>
