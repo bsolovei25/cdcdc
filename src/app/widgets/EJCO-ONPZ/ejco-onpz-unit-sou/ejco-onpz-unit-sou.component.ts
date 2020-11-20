@@ -48,8 +48,8 @@ export class EjcoOnpzUnitSouComponent extends WidgetPlatform<unknown>
         super.widgetInit();
     }
 
-    public handleTabClick(unitCaption: string | null): void {
-        if (!unitCaption) {
+    public handleTabClick(unitCaption: string | 'to-source-redirect'): void {
+        if (unitCaption === 'to-source-redirect') {
             this.userSettingsService.loadScreenByWidget('sou-operational-accounting-system');
             return;
         }

@@ -55,9 +55,7 @@ export class WidgetHeaderComponent implements OnInit, OnChanges, OnDestroy {
     @Output() public selected: EventEmitter<any> = new EventEmitter<any>();
     @Output() public selectedMenu: EventEmitter<any> = new EventEmitter<any>();
     @Output() private toggleAstueChange: EventEmitter<boolean> = new EventEmitter<boolean>();
-    @Output() public ejcoTabClicked?: EventEmitter<string | null> = new EventEmitter<
-        string | null
-    >();
+    @Output() public ejcoTabClicked?: EventEmitter<string> = new EventEmitter<string>();
     public readonly iconRoute: string = 'assets/icons/widget-title-icons/';
     private subscriptions: Subscription[] = [];
     claimWidgets: EnumClaimWidgets[] = [];
@@ -151,9 +149,9 @@ export class WidgetHeaderComponent implements OnInit, OnChanges, OnDestroy {
         this.toggleAstueChange.emit(isInitialDataShow);
     }
 
-    public handleEjcoTabClick(caption: string | null = null): void {
-        if (!caption) {
-            this.ejcoTabClicked.emit();
+    public handleEjcoTabClick(caption: string): void {
+        if (caption === 'to-source-redirect') {
+            this.ejcoTabClicked.emit('to-source-redirect');
             return;
         }
         this.ejcoActiveTab = caption;
