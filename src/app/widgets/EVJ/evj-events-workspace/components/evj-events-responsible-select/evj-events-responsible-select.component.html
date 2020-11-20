@@ -28,7 +28,9 @@
   <evj-ui-block status="normal" (click)="clearFilter()">
     <mat-form-field>
       <mat-label>Отвественный</mat-label>
-      <mat-select panelClass="mat-select-custom" [(ngModel)]="responsible" disableOptionCentering>
+      <mat-select panelClass="mat-select-custom"
+                  [(ngModel)]="responsible" disableOptionCentering
+      >
         <evj-mat-select-filter [formControl]="filter"></evj-mat-select-filter>
         <ng-container *ngFor="let p of users">
           <mat-option [value]="p" (click)="chooseRespons(p)">

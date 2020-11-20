@@ -37,7 +37,7 @@ interface IWebSocketOptions<T> {
 }
 
 @Injectable({
-    providedIn: 'root'
+    providedIn: 'root',
 })
 export class WidgetService {
     private readonly wsUrl: string;
@@ -62,11 +62,15 @@ export class WidgetService {
     private reconnectWsTimer: ReturnType<typeof setTimeout>;
     private reconnectRestTimer: ReturnType<typeof setTimeout>;
 
-    public currentDates$: BehaviorSubject<IDatesInterval> = new BehaviorSubject<IDatesInterval>(null);
+    public currentDates$: BehaviorSubject<IDatesInterval> = new BehaviorSubject<IDatesInterval>(
+        null
+    );
     public filterWidgets$: BehaviorSubject<string[]> = new BehaviorSubject<string[]>([]);
 
     // открытые каналы ws на текущем экране
-    private openedWsChannels: { [key: string]: { count: number, options: IWebSocketOptions<any>, parentChannelId?: string } } = {};
+    private openedWsChannels: {
+        [key: string]: { count: number; options: IWebSocketOptions<any>; parentChannelId?: string };
+    } = {};
 
     constructor(
         public http: HttpClient,
@@ -88,7 +92,11 @@ export class WidgetService {
                         widgetId = this.openedWsChannels[channel].parentChannelId;
                         channelId = channel;
                     }
-                    this.wsAppendOptions(widgetId, this.openedWsChannels[channel]?.options, channelId);
+                    this.wsAppendOptions(
+                        widgetId,
+                        this.openedWsChannels[channel]?.options,
+                        channelId
+                    );
                 }
             });
         });
@@ -145,7 +153,7 @@ export class WidgetService {
                 isVideoWall: item.isVideoWall,
                 isHidden: item.isHidden,
                 sensorId: item.sensorId,
-                attributes: item.attributes
+                attributes: item.attributes,
             };
         });
     }
@@ -179,7 +187,7 @@ export class WidgetService {
         } else {
             this.openedWsChannels[widgetId] = {
                 count: 1,
-                options: null
+                options: null,
             };
         }
         return this.widgetsSocketObservable.pipe(
@@ -201,7 +209,7 @@ export class WidgetService {
             this.openedWsChannels[channelId] = {
                 count: 1,
                 parentChannelId: widgetId,
-                options: null
+                options: null,
             };
         }
         return this.widgetsSocketObservable.pipe(
@@ -211,26 +219,34 @@ export class WidgetService {
         );
     }
 
-    setChannelLiveDataFromWsOptions<T>(widgetId: string, options: T, channelId: string = null): void {
+    setChannelLiveDataFromWsOptions<T>(
+        widgetId: string,
+        options: T,
+        channelId: string = null
+    ): void {
         if (!widgetId) {
             return;
         }
         if (this.openedWsChannels[widgetId]) {
             this.openedWsChannels[widgetId].options = {
                 optionValues: options,
-                timeStamp: new Date().getTime()
+                timeStamp: new Date().getTime(),
             };
         }
         this.wsAppendOptions(widgetId, this.openedWsChannels[widgetId]?.options, channelId);
     }
 
-    private wsConnect(widgetId: string, options: IWebSocketOptions<any> = null, channelId: string = null): void {
+    private wsConnect(
+        widgetId: string,
+        options: IWebSocketOptions<any> = null,
+        channelId: string = null
+    ): void {
         this.ws.next({
             actionType: 'subscribe',
             channelId: widgetId,
             subChannelId: channelId,
             selectedPeriod: this.currentDates$.getValue(),
-            options
+            options,
         });
     }
 
@@ -240,7 +256,7 @@ export class WidgetService {
             channelId: widgetId,
             subChannelId: channelId,
             selectedPeriod: this.currentDates$.getValue(),
-            options
+            options,
         });
     }
 
@@ -248,7 +264,7 @@ export class WidgetService {
         this.ws.next({
             actionType: 'unsubscribe',
             channelId: widgetId,
-            subChannelId: channelId
+            subChannelId: channelId,
         });
     }
 
@@ -346,7 +362,7 @@ export class WidgetService {
         this.ws.next({
             actionType: 'authenticate',
             channelId: null,
-            token: this.authService.userSessionToken
+            token: this.authService.userSessionToken,
         });
         this.ws.subscribe(
             (msg) => {
@@ -355,7 +371,8 @@ export class WidgetService {
                     this.materialController.openSnackBar(msg.error.message.message, 'snackbar-red');
                 }
                 if (this.reconnectWsTimer) {
-                    clearInterval(this.reconnectWsTimer);
+                    clearTimeout(this.reconnectWsTimer);
+                    this.reconnectWsTimer = null;
                 }
             },
             (err) => {
@@ -369,9 +386,12 @@ export class WidgetService {
         );
         this.ws.asObservable().subscribe((data) => {
             if (
-                data?.data
-                && this.isMatchingPeriod(data?.data?.selectedPeriod, data?.data?.isHistoricalSupport)
-                && this.isMatchingOptions(data?.data?.subscriptionOptions?.timeStamp, data?.channelId)
+                data?.data &&
+                this.isMatchingPeriod(
+                    data?.data?.selectedPeriod,
+                    data?.data?.isHistoricalSupport
+                ) &&
+                this.isMatchingOptions(data?.data?.subscriptionOptions?.timeStamp, data?.channelId)
             ) {
                 this.widgetsSocketObservable.next(data);
             }
@@ -387,9 +407,9 @@ export class WidgetService {
         }
         return (
             new Date(incoming.fromDateTime).getTime() ===
-            new Date(this.currentDates$.getValue()?.fromDateTime).getTime() &&
+                new Date(this.currentDates$.getValue()?.fromDateTime).getTime() &&
             new Date(incoming.toDateTime).getTime() ===
-            new Date(this.currentDates$.getValue()?.toDateTime).getTime()
+                new Date(this.currentDates$.getValue()?.toDateTime).getTime()
         );
     }
 
@@ -397,16 +417,16 @@ export class WidgetService {
         if (!incoming) {
             return true;
         }
-        return (this.openedWsChannels[widgetId]?.options?.timeStamp === incoming);
+        return this.openedWsChannels[widgetId]?.options?.timeStamp === incoming;
     }
 
     private reconnectWs(): void {
-        if (this.reconnectWsTimer) {
-            console.warn('reconnect уже создан');
-            return;
-        }
+        // if (this.reconnectWsTimer) {
+        //     console.warn('reconnect уже создан');
+        //     return;
+        // }
         this.materialController.openSnackBar('Переподключение к данным реального времени');
-        this.reconnectWsTimer = setInterval(() => {
+        this.reconnectWsTimer = setTimeout(() => {
             this.initWS();
             // tslint:disable-next-line:forin
             for (const channel in this.openedWsChannels) {

@@ -38,11 +38,17 @@
       justify-content: center;
       align-items: center;
     }
+    .mat-form-field-underline {
+      height: 0px !important;
+    }
 
     .mat-form-field {
       width: 100%;
       box-sizing: border-box;
       padding: 0px 15px 0px 17px;
+      .mat-form-field-underline {
+        height: 0px !important;
+      }
     }
 
     .mat-select-arrow {
