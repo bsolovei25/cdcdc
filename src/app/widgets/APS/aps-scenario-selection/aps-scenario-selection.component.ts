@@ -30,6 +30,9 @@ export class ApsScenarioSelectionComponent extends WidgetPlatform<unknown> imple
     ngOnDestroy(): void {
         super.ngOnDestroy();
     }
+    clicked($event: MouseEvent): void {
+        console.log(`scenario button clicked!`);
+    }
 
     protected dataHandler(ref: any): void {
     }
