@@ -1,0 +1,13 @@
+<div class="container" [ngClass]="{disable:!flowData?.isEnable}">
+  <div class="line"></div>
+  <div class="title">
+    <div class="arrow-btn">
+      <svg-icon
+        src="assets/icons/widgets/SOU/sou-mvp-mnemonic-scheme/doubleArrow.svg"
+        [svgStyle]="{ 'width.px':16, 'height.px':16 }"
+      ></svg-icon>
+    </div>
+    <span>{{flowData?.name}}</span>
+    <div class="connection-circle"></div>
+  </div>
+</div>

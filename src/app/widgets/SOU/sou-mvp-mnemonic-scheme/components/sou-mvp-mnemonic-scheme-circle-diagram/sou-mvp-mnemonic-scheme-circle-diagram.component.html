@@ -1,0 +1,25 @@
+<div class="main-container">
+  <div class="line"></div>
+  <div class="container"
+    [ngClass]="{
+      off:!flowData?.isEnable,
+      warning:flowData?.isExceedingConfInterval
+    }"
+  >
+    <div class="circle" #chart>
+      <div class="diagram-values">
+        <span class="value">{{flowData?.tolerance | number:'0.0-0'}}</span>
+        <span class="percent">%</span>
+      </div>
+    </div>
+    <div class="title">
+      <span>{{flowData?.tag}}</span>
+      <div class="connection-circle"></div>
+    </div>
+  </div>
+  <div 
+    class="line"
+    [style.borderColor]="!flowData?.isEnable? 'var(--sou-mvp-color-bg-title)': 'var(--sou-mvp-color-border)'"
+  ></div>
+</div>
+

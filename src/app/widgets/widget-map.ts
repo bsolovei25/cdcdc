@@ -1244,7 +1244,7 @@ export const WIDGETS_LAZY = {
 
     // #region SOU
 
-    'sou-operational-accounting-system': {
+    'sou-operational-accounting-system-old': {
         import: async () => {
             return await import(
                 'src/app/widgets/SOU/sou-operational-accounting-system/sou-operational-accounting-system.module'
@@ -1256,6 +1256,20 @@ export const WIDGETS_LAZY = {
         minItemCols: 32,
         minItemRows: 30,
         preview: 'sou-operational-accounting-system',
+    },
+
+    'sou-operational-accounting-system-new': {
+        import: async () => {
+            return await import(
+                'src/app/widgets/SOU/sou-mvp-mnemonic-scheme/sou-mvp-mnemonic-scheme.module'
+                );
+        },
+        module: 'SouMvpMnemonicSchemeModule',
+        itemCols: 32,
+        itemRows: 30,
+        minItemCols: 32,
+        minItemRows: 30,
+        preview: 'sou-operational-accounting-system'
     },
 
     // #endregion SOU
