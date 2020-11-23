@@ -21,4 +21,5 @@ export type ApsHeaderIconType =
     | 'sliders'
     | 'document'
     | 'keyboard'
+    | 'factory'
     | 'dots-triangle';
