@@ -4,31 +4,30 @@
     (mousedown)="$event.stopPropagation()"
     (touchstart)="$event.stopPropagation()"
   >
-    <div class="right-side">
-      <div class="header-workspace__container"
-           matRipple [matRippleColor]="'white'"
-           (click)="createEvent(true)"
-      >
-        <div class="title">Новое событие</div>
-      </div>
+
+    <div class="header-workspace__container"
+         matRipple [matRippleColor]="'white'"
+         (click)="createEvent(true)"
+    >
+      <div class="button-name">Новое событие</div>
     </div>
 
-    <div class="right-side">
-      <div class="header-workspace__container"
-           (click)="onClickEjs()"
-           matRipple [matRippleColor]="'white'"
-      >
-        <div class="button-name">Перейти к карточке ЭЖС</div>
-      </div>
-      <div
-        class="header-workspace__container active-button"
-        matRipple [matRippleColor]="'white'"
-        *ngIf="!createIcon && blockWorkspaceButton"
-        (click)="createEvent(false)">
-        <div class="title">Сохранить</div>
-      </div>
+
+    <div class="header-workspace__container"
+         (click)="onClickEjs()"
+         matRipple [matRippleColor]="'white'"
+    >
+      <div class="button-name">Перейти к карточке ЭЖС</div>
+    </div>
+    <div
+      class="header-workspace__container active-button"
+      matRipple [matRippleColor]="'white'"
+      *ngIf="!createIcon && blockWorkspaceButton"
+      (click)="createEvent(false)">
+      <div class="title">Сохранить</div>
     </div>
   </div>
+
 </div>
 
 
@@ -57,7 +56,12 @@
         </div>
       </div>
       <div class="workspace__select-container">
-        <evj-events-workspace-datetimepicker></evj-events-workspace-datetimepicker>
+        <div class="title">
+          <span>Срок выполнения</span>
+        </div>
+        <evj-events-workspace-datetimepicker
+          [label]="''"
+        ></evj-events-workspace-datetimepicker>
       </div>
     </div>
     <div class="group">
