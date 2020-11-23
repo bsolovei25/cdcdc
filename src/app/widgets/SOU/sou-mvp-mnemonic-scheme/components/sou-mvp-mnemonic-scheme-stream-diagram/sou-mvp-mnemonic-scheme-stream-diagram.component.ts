@@ -54,8 +54,8 @@ export class SouMvpMnemonicSchemeStreamDiagramComponent implements OnInit, After
       .endAngle(typeof(this.flowData?.tolerance) === 'number' ? 2 * Math.PI * this.flowData?.tolerance / 100 : 0);
 
     const arcBg = d3.arc()
-      .innerRadius(7)
-      .outerRadius(8)
+      .innerRadius(innerR)
+      .outerRadius(outerR)
       .startAngle(0)
       .endAngle(2 * Math.PI);
 

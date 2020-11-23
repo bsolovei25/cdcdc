@@ -48,8 +48,8 @@ export class SouMvpMnemonicSchemeCircleDiagramComponent implements OnInit, After
       .attr('height', '40px');
 
     const arc = d3.arc()
-      .innerRadius(16)
-      .outerRadius(17)
+      .innerRadius(innerR)
+      .outerRadius(outerR)
       .startAngle(0)
       .endAngle(typeof(this.flowData?.tolerance) === 'number' ? 2 * Math.PI * this.flowData?.tolerance / 100 : 0);
 
