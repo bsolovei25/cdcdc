@@ -47,13 +47,6 @@
                   src="assets/icons/widgets/APS/aps-gantt-chart/plus.svg"
                 >
                 </svg-icon>
-
-                <svg-icon
-                  *ngIf="selectedRowProduct === element.unit.name; else elseBlock"
-                  class="table__body__column__row-title__icon__background"
-                  src="assets/icons/widgets/APS/aps-recipe-diagram/gradient-blue.svg"
-                >
-                </svg-icon>
                 <div class="table__body__column__row-title">
                   <div class="table__body__column__row-title__text__name">
                     <span>{{ element.unit.name }}</span>
@@ -85,12 +78,6 @@
                 class="table__body__column__row-title table__body__column__row-title-children"
                 [class.opacity]="selectedRow.isSelected(element.unit.name) && this.selectedRowProduct"
               >
-                <svg-icon
-                  *ngIf="elementChildren.deviation === 1 && selectedRowProduct === elementChildren.name"
-                  class="table__body__column__row-title__icon__background--orange"
-                  src="assets/icons/widgets/APS/aps-recipe-diagram/gradient-orange.svg"
-                >
-                </svg-icon>
                 <svg-icon
                   *ngIf="selectedRowProduct !== elementChildren.name"
                   [svgStyle]="{'height.px':'43', 'width.px': '21.3'}"
