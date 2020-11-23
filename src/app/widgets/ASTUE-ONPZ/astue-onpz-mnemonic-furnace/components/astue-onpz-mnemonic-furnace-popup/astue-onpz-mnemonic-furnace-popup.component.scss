@@ -1,0 +1,112 @@
+.container {
+  position: relative;
+  display: flex;
+  width: 268px;
+  height: 90px;
+  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, .3));
+
+  .line {
+    position: absolute;
+    background: var(--color-astue-onpz-mnemonic-furnace-active);
+
+    &__vertical {
+      left: -38px;
+      top: -31px;
+      height: 77px;
+      width: 1px;
+    }
+
+    &__horizontal {
+      left: -37px;
+      top: 50%;
+      height: 1px;
+      width: 37px;
+    }
+  }
+
+  .block {
+    display: flex;
+    flex-flow: column;
+    width: 219px;
+    height: 100%;
+    background: var(--color-astue-onpz-mnemonic-furnace-item-bg-dark);
+    border: 1px var(--color-astue-onpz-mnemonic-furnace-active);
+    border-radius: 2px;
+    border-style: solid none solid solid;
+    box-sizing: border-box;
+
+    .title {
+      width: 178px;
+      padding-left: 12px;
+      line-height: 16px;
+      font-size: 13px;
+      color: var(--color-astue-onpz-mnemonic-furnace-main-text);
+    }
+
+    .streams {
+      display: flex;
+      flex-grow: 1;
+      width: 175px;
+      padding: 0 8px 0 12px;
+      box-sizing: border-box;
+
+      .wrapper {
+        display: flex;
+        flex-flow: row wrap;
+        row-gap: 2px;
+        justify-content: space-between;
+        height: fit-content;
+        width: 100%;
+        margin: auto;
+      }
+    }
+  }
+
+  .circle {
+    position: relative;
+    display: flex;
+    margin-left: -45px;
+    width: 90px;
+    height: 90px;
+    background: var(--color-astue-onpz-mnemonic-furnace-item-bg-dark);
+    border-radius: 50%;
+    box-sizing: border-box;
+
+    .border {
+      color: var(--color-astue-onpz-mnemonic-furnace-active);
+      position: absolute;
+      left: 5px;
+
+      &__top {
+        top: 0;
+      }
+
+      &__bottom {
+        bottom: 0;
+        transform: rotateZ(180deg);
+      }
+    }
+
+    .inner-circle {
+      display: flex;
+      flex-flow: column;
+      justify-content: center;
+      gap: 2px;
+      width: 100%;
+      margin: 10px;
+      border: solid 1px var(--color-astue-onpz-mnemonic-furnace-active);
+      border-radius: 50%;
+      font-size: 14px;
+      line-height: 17px;
+      text-align: center;
+
+      .value {
+        color: var(--color-astue-onpz-mnemonic-furnace-main-text);
+      }
+
+      .unit {
+        color: var(--color-astue-onpz-mnemonic-furnace-unit-text);
+      }
+    }
+  }
+}

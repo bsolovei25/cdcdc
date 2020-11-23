@@ -124,9 +124,10 @@ export const WIDGETS = {
     'astue-onpz-factory-analysis': WidgetContainerComponent,
     'astue-onpz-heat-balance': WidgetContainerComponent,
     'astue-onpz-table-indicators': WidgetContainerComponent,
+    'astue-onpz-mnemonic-furnace': WidgetContainerComponent,
     'aps-operating-modes': WidgetContainerComponent,
     'aps-structure-id': WidgetContainerComponent,
-    'aps-scenario-selection': WidgetContainerComponent
+    'aps-scenario-selection': WidgetContainerComponent,
 };
 
 export const WIDGETS_LAZY = {
@@ -248,7 +249,7 @@ export const WIDGETS_LAZY = {
         import: async () => {
             return await import(
                 'src/app/widgets/APS/aps-operating-modes/aps-operating-modes.module'
-                );
+            );
         },
         module: 'ApsOperatingModesModule',
         itemCols: 25,
@@ -259,9 +260,7 @@ export const WIDGETS_LAZY = {
     },
     'aps-structure-id': {
         import: async () => {
-            return await import(
-                'src/app/widgets/APS/aps-structure-id/aps-structure-id.module'
-                );
+            return await import('src/app/widgets/APS/aps-structure-id/aps-structure-id.module');
         },
         module: 'ApsStructureIdModule',
         itemCols: 13,
@@ -274,7 +273,7 @@ export const WIDGETS_LAZY = {
         import: async () => {
             return await import(
                 'src/app/widgets/APS/aps-scenario-selection/aps-scenario-selection.module'
-                );
+            );
         },
         module: 'ApsScenarioSelectionModule',
         itemCols: 13,
@@ -1262,14 +1261,14 @@ export const WIDGETS_LAZY = {
         import: async () => {
             return await import(
                 'src/app/widgets/SOU/sou-mvp-mnemonic-scheme/sou-mvp-mnemonic-scheme.module'
-                );
+            );
         },
         module: 'SouMvpMnemonicSchemeModule',
         itemCols: 32,
         itemRows: 30,
         minItemCols: 32,
         minItemRows: 30,
-        preview: 'sou-operational-accounting-system'
+        preview: 'sou-operational-accounting-system',
     },
 
     // #endregion SOU
@@ -1456,6 +1455,19 @@ export const WIDGETS_LAZY = {
         minItemRows: 7,
         preview: 'default',
     },
+    'astue-onpz-mnemonic-furnace': {
+        import: async () => {
+            return await import(
+                'src/app/widgets/ASTUE-ONPZ/astue-onpz-mnemonic-furnace/astue-onpz-mnemonic-furnace.module'
+            );
+        },
+        module: 'AstueOnpzMnemonicFurnaceModule',
+        itemCols: 24,
+        itemRows: 9,
+        minItemCols: 24,
+        minItemRows: 7,
+        preview: 'default',
+    },
     'astue-onpz-heat-balance': {
         import: async () => {
             return await import(
@@ -1470,6 +1482,21 @@ export const WIDGETS_LAZY = {
 
         preview: 'astue-onpz-heat-balance',
     },
+    'astue-onpz-table-indicators': {
+        import: async () => {
+            return await import(
+                'src/app/widgets/ASTUE-ONPZ/astue-onpz-table-indicators/astue-onpz-table-indicators.module'
+            );
+        },
+        module: 'AstueOnpzTableIndicatorsModule',
+        itemCols: 9,
+        itemRows: 10,
+        minItemCols: 9,
+        minItemRows: 10,
+
+        preview: 'astue-onpz-table-indicators',
+    },
+
     'ejco-onpz-unit-sou': {
         import: async () => {
             return await import(

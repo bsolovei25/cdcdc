@@ -1,4 +1,4 @@
-import { IChartMini, IChartD3 } from '../../../@shared/models/smart-scroll.model';
+import { IChartMini, IChartD3 } from '@shared/models/smart-scroll.model';
 
 export interface IMultiChartLine {
     graphType: IMultiChartTypes;

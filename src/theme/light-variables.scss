@@ -163,6 +163,7 @@
   --color-aps-bg-window: #191c2a;
   --color-bg-row-header: #141928;
   --color-aps-table-td: #191c27;
+
   --color-aps-border-sup: #0e1320;
 
   --color-aps-border-main: rgba(94, 101, 130, 0.25);
@@ -289,10 +290,8 @@
   --nk-color-scroll-thumb: #272b35;
   --nk-color-bg-innage-min: #0C5395;
   --nk-color-bg-correct: #121928;
-
   --nk-color-bg-dark: #0C1421;
   --nk-color-table-row-bg: rgba(29, 31, 43);
-  --nk-color-table-header-text: #8799B3;
 
   --nk-color-bg-selected: #282D3C;
   --nk-color-bg-lvl-last: #00549D;
@@ -300,6 +299,7 @@
   --nk-color-bg-body: #161922;
   --nk-color-bg-card-body: #1e212d;
   --nk-color-bg-filter-menu: rgba(39, 42, 56, 0.5);
+  --nk-color-table-header-text: #8799B3;
 
   --color-gray80: #272a38;
   --color-gray40: #8c99b2;
@@ -402,8 +402,9 @@
   --color-astue-onpz-btn: rgba(37, 39, 54);
   --color-contemporary-header-bg: rgb(34, 36, 47);
 
-  --astue-onpz-factory-analisys-bg: #1c1f2b;
-  --astue-onpz-factory-analisys-border: #272A38;
+  --color-astue-onpz-widget-bg: #1C1F2B;
+  --color-astue-onpz-widget-border: #272A38;
+
   --astue-onpz-factory-analisys-grid: #4B5169;
   --astue-onpz-factory-analisys-grid-opacity: rgba(75,81,105,0.5);
   --astue-onpz-factory-analisys-grid-bg: #12151E;
@@ -413,6 +414,17 @@
   --astue-onpz-factory-analisys-norm: 0,137,255;
   --astue-onpz-factory-analisys-bad: 162,226,255;
   --astue-onpz-factory-analisys-sum: 0,167,61;
+
+  --color-astue-onpz-mnemonic-furnace-box-text: #606580;
+  --color-astue-onpz-mnemonic-furnace-main-text: #D7E2F2;
+  --color-astue-onpz-mnemonic-furnace-sub-text: #8C99B2;
+  --color-astue-onpz-mnemonic-furnace-unit-text: #606580;
+  --color-astue-onpz-mnemonic-furnace-lines: #4B5169;
+  --color-astue-onpz-mnemonic-furnace-warning: #F7931E;
+  --color-astue-onpz-mnemonic-furnace-active: #0089FF;
+  --color-astue-onpz-mnemonic-furnace-item-bg: #272A38;
+  --color-astue-onpz-mnemonic-furnace-item-bg-light: #303549;
+  --color-astue-onpz-mnemonic-furnace-item-bg-dark: #1C1F2B;
 
   // @shared/alert-window (aw)
   --color-aw-container-shadow-transparent: rgba(0, 0, 0, 0.25);
@@ -541,7 +553,7 @@
   --evj-color-bg-input: #161922;
   --evj-color-bg-hours: rgba(32, 35, 51, 0.75);
 
-  // events workspacef
+  // events workspace
   --evj-events-workspace-critical: #DB0000;
   --evj-events-workspace-critical-bg: rgba(219, 0, 0, 0.15);
   --evj-events-workspace-minor: #F8921C;

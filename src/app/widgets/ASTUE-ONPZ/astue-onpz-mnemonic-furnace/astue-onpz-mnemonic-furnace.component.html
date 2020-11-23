@@ -1,0 +1,90 @@
+<div class="widget-container">
+  <evj-contemporary-widget-header
+    [uniqId]="widgetUniqId"
+    [widgetTitle]="widgetTitle"
+    [icon]="'factory'"
+    type="astue"
+  >
+    <div class="header-container">
+    </div>
+  </evj-contemporary-widget-header>
+
+  <div (mousedown)="$event.stopPropagation()"
+       (touchstart)="$event.stopPropagation()" class="container">
+    <div #schema class="scale-container">
+      <div [style]="schemeStyle" class="abs-container">
+        <div class="schema">
+          <svg-icon class="schema__background" src="assets/icons/widgets/ASTUE-ONPZ/astue-onpz-mnemonic-furnace/mnemonic-furnace.svg"></svg-icon>
+          <div class="wrapper wrapper__left-top">
+            <div class="title"> {{ (data | async)?.inputOilBlock?.title || '' }} </div>
+            <div class="streams">
+              <evj-astue-onpz-mnemonic-furnace-line *ngFor="let line of (data | async)?.inputOilBlock?.lines || []" [data]="line"></evj-astue-onpz-mnemonic-furnace-line>
+            </div>
+          </div>
+          <div class="wrapper wrapper__left-bottom">
+            <div class="title"> {{ (data | async)?.inputGasBlock?.title || '' }} </div>
+            <div class="streams">
+              <evj-astue-onpz-mnemonic-furnace-line *ngFor="let line of (data | async)?.inputGasBlock?.lines || []" [data]="line"></evj-astue-onpz-mnemonic-furnace-line>
+            </div>
+          </div>
+          <div class="wrapper wrapper__middle">
+            <div class="streams">
+              <evj-astue-onpz-mnemonic-furnace-line *ngFor="let line of (data | async)?.inputLiquidBlock?.lines || []" [data]="line"></evj-astue-onpz-mnemonic-furnace-line>
+            </div>
+          </div>
+          <div class="wrapper wrapper__right">
+            <div class="title"> {{ (data | async)?.outputBlock?.title || '' }} </div>
+            <div class="streams">
+              <evj-astue-onpz-mnemonic-furnace-line *ngFor="let line of (data | async)?.outputBlock?.lines || []" [data]="line"></evj-astue-onpz-mnemonic-furnace-line>
+            </div>
+          </div>
+
+          <div class="wrapper-up wrapper-up__left">
+            <div class="title"> {{ (data | async)?.gasStats?.title }} </div>
+            <div class="arrow">
+              <div class="triangle"></div>
+              <div class="counter"> x{{ (data | async)?.gasStats?.streams?.length || 0 }} </div>
+            </div>
+            <evj-astue-onpz-mnemonic-furnace-circle
+              class="circle"
+              matRipple matRippleColor="white"
+              [data]="(data | async)?.gasStats?.main"
+              [isSelected]="(popupData$ | async)?.side === 'left'"
+              (click)="topCircleClick(data?.value?.gasStats, 'left')"
+            ></evj-astue-onpz-mnemonic-furnace-circle>
+          </div>
+          <div class="wrapper-up wrapper-up__right">
+            <div class="title"> {{ (data | async)?.dischargeStats?.title }} </div>
+            <div class="arrow" [ngClass]="'arrow__' + (data | async)?.dischargeStats?.main?.type">
+              <div class="triangle"></div>
+              <div class="counter"> x{{ (data | async)?.dischargeStats?.streams?.length || 0 }} </div>
+            </div>
+            <evj-astue-onpz-mnemonic-furnace-circle
+              class="circle"
+              matRipple matRippleColor="white"
+              [data]="(data | async)?.dischargeStats?.main"
+              [isSelected]="(popupData$ | async)?.side === 'right'"
+              (click)="topCircleClick(data?.value?.dischargeStats, 'right')"
+            ></evj-astue-onpz-mnemonic-furnace-circle>
+          </div>
+          <div class="wrapper-up wrapper-up__center">
+            <div class="title"> Кислород </div>
+            <evj-astue-onpz-mnemonic-furnace-arrow class="main-arrow"></evj-astue-onpz-mnemonic-furnace-arrow>
+          </div>
+
+          <div class="wrapper-title"> {{ (data | async)?.unitTitle || '-' }} </div>
+
+          <div class="wrapper-popup"
+               *ngIf="popupData$ | async"
+               [ngClass]="'wrapper-popup__' + (popupData$ | async)?.side"
+               [@inOutAnimation]
+          >
+            <evj-astue-onpz-mnemonic-furnace-popup
+              [data]="(popupData$ | async)"
+            ></evj-astue-onpz-mnemonic-furnace-popup>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

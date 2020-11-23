@@ -1,0 +1,30 @@
+.container {
+  display: flex;
+}
+
+.line {
+  position: relative;
+  margin: auto 0;
+  width: 25px;
+  height: 1px;
+  background: var(--color-astue-onpz-mnemonic-furnace-lines);
+
+  .circle {
+    position: absolute;
+    transform: translateY(-50%);
+    width: 6px;
+    height: 6px;
+    background: var(--color-astue-onpz-mnemonic-furnace-item-bg-dark);
+    border: 1px solid var(--color-astue-onpz-mnemonic-furnace-lines);
+    border-radius: 50%;
+    box-sizing: border-box;
+
+    &__left {
+      left: -3px;
+    }
+
+    &__right {
+      right: -3px;
+    }
+  }
+}

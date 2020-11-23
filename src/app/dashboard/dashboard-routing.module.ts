@@ -13,13 +13,12 @@ export const DashboardRoutes: Routes = [
     // {
     //     path: '',
     //     component: DevGraphComponent,
-    // }
+    // },
 ];
 
 @NgModule({
     imports: [RouterModule.forChild(DashboardRoutes)],
-    exports: [RouterModule]
+    exports: [RouterModule],
 })
-export class DashboardRoutingModule {
-}
+export class DashboardRoutingModule {}
 // export const DashboardRoutingModule = RouterModule.forChild(DashboardRoutes);
