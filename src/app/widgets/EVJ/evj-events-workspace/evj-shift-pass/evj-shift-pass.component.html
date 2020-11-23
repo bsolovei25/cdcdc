@@ -71,6 +71,7 @@
           <span>Состав бригады</span>
         </div>
         <evj-event-description
+          [disabled]="!ewService.isCreateNewEvent"
           [description]="ewService.event?.shiftPassEvent?.shiftMembers"
           (changedDescription)="onChangeEventDescription($event, 'shiftMembers')"
         ></evj-event-description>
