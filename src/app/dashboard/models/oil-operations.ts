@@ -83,16 +83,53 @@ export interface IOilRowActions {
 export interface IOilShipment {
     id: number;
     direction: string;
-    tankShortName: number;
-    documentName: number;
     mass: number;
-    passport: number;
+    passport?: {
+        armName: string;
+        createdBy: number;
+        date: Date;
+        fileUid: string;
+        id: number;
+        name: string;
+    };
+    product?: {
+        gost: string;
+        group?: {
+            id: number;
+            name: string;
+        }
+        id: number;
+        name: string;
+        okpd2Code: string;
+        sapCode: string;
+    };
+    tank?: {
+        enabled: boolean;
+        id: string;
+        limitHours: number;
+        name: string;
+        shortName: string;
+    };
+    dateFinish?: Date;
     shipped: number;
     note: string;
     shipmentType?: {
         id: number;
         shipmentTypeName: string;
     };
+    transferPrevId?: number;
+}
+
+export type OilOperationsShipmentType = 'manual' | 'pipeline' | 'railway' | 'tankLoad' | 'tankTruck' | 'work' | 'all';
+
+export interface IOilShipmentStatistics {
+    quantity: number;
+    weight: number;
+    transportTypeStatistics: {
+        type: OilOperationsShipmentType;
+        quantity: number;
+        weight: number;
+    }[];
 }
 
 export interface IOilFilter {

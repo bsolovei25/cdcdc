@@ -140,7 +140,7 @@ export class OilOperationsComponent extends WidgetPlatform<unknown> implements O
 
     public filterGroup: string | null = null;
     public filterProduct: string | null = null;
-    private selectedTransfer: IOilTransfer = null;
+    public selectedTransfer: IOilTransfer = null;
     public selectedShipment: IOilShipment = null;
 
     constructor(
@@ -326,6 +326,14 @@ export class OilOperationsComponent extends WidgetPlatform<unknown> implements O
         }
     }
 
+    public manualAssign(): void {
+        if (this.selectedTransfer) {
+            this.filter.manualAssign = true;
+        } else {
+            this.snackBar.openSnackBar('Выберите Операцию из списка');
+        }
+    }
+
     openShipment(name: string): void {
         this.isOpenShipment = false;
         this.isOpenReceived = true;
@@ -361,6 +369,9 @@ export class OilOperationsComponent extends WidgetPlatform<unknown> implements O
                 break;
             case 'adjust':
                 this.manualAdjustment();
+                break;
+            case 'manualAssign':
+                this.manualAssign();
                 break;
             default:
                 Object.keys(this.filter).forEach(key => {

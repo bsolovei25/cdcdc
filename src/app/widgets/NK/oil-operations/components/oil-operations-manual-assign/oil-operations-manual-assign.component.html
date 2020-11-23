@@ -5,13 +5,13 @@
         <svg-icon src="assets/icons/widgets/reports/close.svg" class="add_button_icon">
         </svg-icon>
       </div>
-      <span>Форма привязки операции №: <span>4312</span></span>
-      <span>Резервуар №: <span>512</span></span>
-      <span>Продукт: <span>Бензин</span></span>
-      <span>Паспорт: <span>139</span></span>
-      <span>Период: <span>04.03.2019 02:45 - 04.03.2019 02:45</span></span>
-      <span>Масса операции: <span>2 334 т.</span></span>
-      <span>Отклонение: <span>2 000 т.</span></span>
+      <span>Форма привязки операции №: <span>{{ selectedTransfer?.id || '000' }}</span></span>
+      <span>Резервуар №: <span>{{ selectedTransfer?.tank?.shortName  || '000' }}</span></span>
+      <span>Продукт: <span>{{ selectedTransfer?.product?.name  || '-' }}</span></span>
+      <span>Паспорт: <span>{{ selectedTransfer?.passport?.name  || '-' }}</span></span>
+      <span>Период: <span>{{ selectedTransfer?.startTime | date: 'dd.MM.yyyy HH:mm' }} - {{ selectedTransfer?.endTime | date: 'dd.MM.yyyy HH:mm' }}</span></span>
+      <span>Масса операции: <span>{{ selectedTransfer?.mass  || '0' }} т.</span></span>
+      <span>Отклонение: <span class="color-orange">{{ selectedTransfer?.deviation  || '0' }} т.</span></span>
     </div>
     <div class="content">
       <div class="content__left">
@@ -23,7 +23,7 @@
           </svg-icon>
           <div class="table__name">Отгрузки</div>
           <div class="table__count">
-            <span>123</span>
+            <span>{{ statistics?.leftTable?.quantity || '0' }}</span>
           </div>
         </div>
         <div class="table-header">
@@ -35,43 +35,79 @@
           <div class="table-header__name normal">Операция</div>
         </div>
         <div class="table__shadow-block">
-          <!-- TODO ngFor -->
-          <ng-container *ngTemplateOutlet="leftTableRow"></ng-container>
-          <ng-container *ngTemplateOutlet="leftTableRow"></ng-container>
-          <ng-container *ngTemplateOutlet="leftTableRow"></ng-container>
-          <ng-container *ngTemplateOutlet="leftTableRow"></ng-container>
-          <ng-container *ngTemplateOutlet="leftTableRow"></ng-container>
-          <ng-container *ngTemplateOutlet="leftTableRow"></ng-container>
-          <ng-container *ngTemplateOutlet="leftTableRow"></ng-container>
-          <ng-container *ngTemplateOutlet="leftTableRow"></ng-container>
-          <ng-container *ngTemplateOutlet="leftTableRow"></ng-container>
-          <ng-container *ngTemplateOutlet="leftTableRow"></ng-container>
-          <ng-container *ngTemplateOutlet="leftTableRow"></ng-container>
-          <ng-container *ngTemplateOutlet="leftTableRow"></ng-container>
-          <ng-container *ngTemplateOutlet="leftTableRow"></ng-container>
-          <ng-container *ngTemplateOutlet="leftTableRow"></ng-container>
-          <ng-container *ngTemplateOutlet="leftTableRow"></ng-container>
-          <ng-container *ngTemplateOutlet="leftTableRow"></ng-container>
+          <cdk-virtual-scroll-viewport (scroll)="scrollHandler($event)" [itemSize]="37" #tableLeft class="full-height">
+            <ng-container *cdkVirtualFor="let item of data.leftTable">
+              <div class="table__row">
+                <div class="extra-wide">
+                  <div class="direction">
+                    <div class="direction__icon">
+                      <svg-icon
+                        src="assets/icons/widgets/oil-control-all/oil-operations/background-pic.svg"
+                        [svgStyle]="{ 'width.px':46, 'height.px':26, 'margin-top.px': 10 }">
+                      </svg-icon>
+                      <img [src]="'assets/icons/widgets/oil-control-all/oil-shipments/directions/' + item.direction + '.png'" class="icon-cistern">
+                    </div>
+                    <div class="direction__name">{{ item.product?.name }}</div>
+                  </div>
+                </div>
+                <div class="normal">{{ item.tank?.shortName }}</div>
+                <div class="normal">{{ item.passport?.name }}</div>
+                <div class="wide">{{ item.dateFinish | date: "dd.MM.yyyy HH:MM" }}</div>
+                <div class="normal">{{ item.mass }}</div>
+                <div class="normal container">
+                  <div
+                    *ngIf="item.transferPrevId"
+                    class="button-recover"
+                    matRipple
+                    matRippleColor="white"
+                    (click)="handleRelation(item, 'recovery-relation')"
+                    matTooltip="Восстановить привязку"
+                  >
+                    <span>{{ item.transferPrevId }}</span>
+                    <svg-icon
+                      src="assets/icons/widgets/oil-control-all/oil-shipments/row-recover-icon.svg"
+                      [svgStyle]="{ 'margin-top.px': 10 }"
+                    ></svg-icon>
+                  </div>
+                  <div
+                    *ngIf="item.transferPrevId !== selectedTransfer.id"
+                    class="button-assign"
+                    matRipple
+                    matRippleColor="white"
+                    (click)="handleRelation(item, 'add-relation')"
+                    matTooltip="Привязать отгрузку"
+                  >
+                    <svg-icon
+                      src="assets/icons/widgets/oil-control-all/oil-shipments/row-assign-icon.svg"
+                      [svgStyle]="{ 'margin-top.px': 10 }"
+                    ></svg-icon>
+                  </div>
+                </div>
+              </div>
+            </ng-container>
+          </cdk-virtual-scroll-viewport>
         </div>
         <div class="footer">
           <div class="footer__section">
-            <div class="button">
-              <svg-icon [src]="'assets/icons/widgets/oil-control-all/oil-shipments/all-filter-icon.svg'"></svg-icon>
-            </div>
-            <div class="button">
-              <svg-icon [src]="'assets/icons/widgets/oil-control-all/oil-shipments/railway-filter-icon.svg'"></svg-icon>
-            </div>
-            <div class="button active">
-              <svg-icon [src]="'assets/icons/widgets/oil-control-all/oil-shipments/tankTruck-filter-icon-active.svg'"></svg-icon>
-            </div>
-            <div class="button">
-              <svg-icon [src]="'assets/icons/widgets/oil-control-all/oil-shipments/pipeline-filter-icon.svg'"></svg-icon>
-            </div>
-            <div class="button">
-              <svg-icon [src]="'assets/icons/widgets/oil-control-all/oil-shipments/manual-filter-icon.svg'"></svg-icon>
-            </div>
+            <ng-container *ngFor="let filter of typeFilters">
+              <div
+                class="button"
+                [class.active]="filter.isActive"
+                matRipple
+                matRippleColor="white"
+                (click)="handleTypeFilter(filter.type)"
+                style="width: 20px;"
+                [matTooltip]="'Фильтр по направлению (' + getDirectionCount(filter.type) + ')'"
+              >
+                <svg-icon
+                  class="icon-fill"
+                  [class.icon-active]="filter.isActive"
+                  [src]="'assets/icons/widgets/oil-control-all/oil-shipments/' + filter.type + '-filter-icon.svg'"
+                ></svg-icon>
+              </div>
+            </ng-container>
             <div class="checkbox">
-              <label><input type="checkbox"></label>
+              <label><input type="checkbox" [formControl]="typeFiltersCheckboxFormControl"></label>
             </div>
           </div>
           <div class="footer__section">
@@ -79,7 +115,7 @@
               <div class="oc-shipment-ma-mat-input">
                 <mat-form-field floatLabel="never">
                   <label>
-                    <input matInput placeholder="Продукт" >
+                    <input matInput placeholder="Продукт" [formControl]="productFormControl" (keyup)="keyupHandler()">
                   </label>
                 </mat-form-field>
               </div>
@@ -88,7 +124,7 @@
               <div class="oc-shipment-ma-mat-input">
                 <mat-form-field floatLabel="never">
                   <label>
-                    <input matInput placeholder="Паспорт" >
+                    <input matInput placeholder="Паспорт" [formControl]="passportFormControl" (keyup)="keyupHandler()">
                   </label>
                 </mat-form-field>
               </div>
@@ -97,21 +133,21 @@
               <div class="oc-shipment-ma-mat-input">
                 <mat-form-field floatLabel="never">
                   <label>
-                    <input matInput placeholder="Резервуар" >
+                    <input matInput placeholder="Резервуар" [formControl]="tankFormControl" (keyup)="keyupHandler()">
                   </label>
                 </mat-form-field>
               </div>
             </div>
             <div class="checkbox">
-              <label><input type="checkbox"></label>
+              <label><input type="checkbox" [formControl]="fieldFiltersCheckboxFormControl"></label>
             </div>
           </div>
           <div class="footer__section">
-            <div class="button">
+            <div class="button" matRipple matRippleColor="white" (click)="massRelationAdd()">
               <svg-icon [src]="'assets/icons/widgets/oil-control-all/oil-shipments/assign-light.svg'"></svg-icon>
               <span>Привязать</span>
             </div>
-            <span>Всего: <span>139 т.</span></span>
+            <span>Всего: <span>{{ statistics?.leftTable?.weight }} т.</span></span>
           </div>
         </div>
       </div>
@@ -124,7 +160,7 @@
           </svg-icon>
           <div class="table__name">Отгрузки, привязанные к текущей операции</div>
           <div class="table__count">
-            <span>123</span>
+            <span>{{ statistics?.rightTable?.quantity || '0' }}</span>
           </div>
         </div>
         <div class="table-header">
@@ -141,49 +177,60 @@
           </div>
         </div>
         <div class="table__shadow-block">
-          <!-- TODO ngFor -->
-          <ng-container *ngTemplateOutlet="rightTableRow"></ng-container>
-          <ng-container *ngTemplateOutlet="rightTableRow"></ng-container>
-          <ng-container *ngTemplateOutlet="rightTableRow"></ng-container>
-          <ng-container *ngTemplateOutlet="rightTableRow"></ng-container>
-          <ng-container *ngTemplateOutlet="rightTableRow"></ng-container>
-          <ng-container *ngTemplateOutlet="rightTableRow"></ng-container>
-          <ng-container *ngTemplateOutlet="rightTableRow"></ng-container>
-          <ng-container *ngTemplateOutlet="rightTableRow"></ng-container>
-          <ng-container *ngTemplateOutlet="rightTableRow"></ng-container>
-          <ng-container *ngTemplateOutlet="rightTableRow"></ng-container>
-          <ng-container *ngTemplateOutlet="rightTableRow"></ng-container>
-          <ng-container *ngTemplateOutlet="rightTableRow"></ng-container>
-          <ng-container *ngTemplateOutlet="rightTableRow"></ng-container>
-          <ng-container *ngTemplateOutlet="rightTableRow"></ng-container>
-          <ng-container *ngTemplateOutlet="rightTableRow"></ng-container>
-          <ng-container *ngTemplateOutlet="rightTableRow"></ng-container>
+          <ng-container *ngFor="let item of data.rightTable">
+            <div class="table__row">
+              <div class="normal">
+                <div class="direction">
+                  <div class="direction__icon">
+                    <svg-icon
+                      src="assets/icons/widgets/oil-control-all/oil-operations/background-pic.svg"
+                      [svgStyle]="{ 'width.px':46, 'height.px':26, 'margin-top.px': 10 }">
+                    </svg-icon>
+                    <img [src]="'assets/icons/widgets/oil-control-all/oil-shipments/directions/' + item.direction + '.png'" class="icon-cistern">
+                  </div>
+                  <div class="direction__name">{{ item.passport.name }}</div>
+                </div>
+              </div>
+              <div class="wide">{{ item.dateFinish | date: "dd.MM.yyyy HH:MM" }}</div>
+              <div class="extra-wide">{{ item.product.name }}</div>
+              <div class="normal">{{ item.mass }}</div>
+              <div class="normal">
+                <svg-icon
+                  matTooltip="Отвязать отгрузку"
+                  (click)="handleRelation(item, 'remove-relation')"
+                  src="assets/icons/widgets/oil-control-all/oil-shipments/remove-icon.svg"
+                  class="table__icon cursor-pointer"
+                  [svgStyle]="{ 'width.px':11, 'height.px':13 }">
+                </svg-icon>
+              </div>
+            </div>
+          </ng-container>
         </div>
         <div class="footer">
           <div class="footer__section">
             <div class="button">
-              <svg-icon src="assets/icons/widgets/oil-control-all/oil-shipments/all-filter-icon.svg"></svg-icon>
-              <span>100 т.</span>
+              <svg-icon class="icon-fill" src="assets/icons/widgets/oil-control-all/oil-shipments/all-filter-icon.svg"></svg-icon>
+              <span class="color-white">{{ getStatisticsWeightByTransferType('work') }} т.</span>
             </div>
             <div class="button">
-              <svg-icon src="assets/icons/widgets/oil-control-all/oil-shipments/railway-filter-icon.svg"></svg-icon>
-              <span>100 т.</span>
+              <svg-icon class="icon-fill" src="assets/icons/widgets/oil-control-all/oil-shipments/railway-filter-icon.svg"></svg-icon>
+              <span class="color-white">{{ getStatisticsWeightByTransferType('railway') }} т.</span>
             </div>
             <div class="button">
-              <svg-icon src="assets/icons/widgets/oil-control-all/oil-shipments/tankTruck-filter-icon.svg"></svg-icon>
-              <span>100 т.</span>
+              <svg-icon class="icon-fill" src="assets/icons/widgets/oil-control-all/oil-shipments/tankTruck-filter-icon.svg"></svg-icon>
+              <span class="color-white">{{ getStatisticsWeightByTransferType('tankTruck') }} т.</span>
             </div>
             <div class="button">
-              <svg-icon src="assets/icons/widgets/oil-control-all/oil-shipments/pipeline-filter-icon.svg"></svg-icon>
-              <span>100 т.</span>
+              <svg-icon class="icon-fill" src="assets/icons/widgets/oil-control-all/oil-shipments/pipeline-filter-icon.svg"></svg-icon>
+              <span class="color-white">{{ getStatisticsWeightByTransferType('pipeline') }} т.</span>
             </div>
             <div class="button">
-              <svg-icon src="assets/icons/widgets/oil-control-all/oil-shipments/manual-filter-icon.svg"></svg-icon>
-              <span>100 т.</span>
+              <svg-icon class="icon-fill" src="assets/icons/widgets/oil-control-all/oil-shipments/manual-filter-icon.svg"></svg-icon>
+              <span class="color-white">{{ getStatisticsWeightByTransferType('manual') }} т.</span>
             </div>
           </div>
           <div class="footer__section">
-            <div class="button" style="margin-right: 27px;">
+            <div class="button" style="margin-right: 27px;" matRipple matRippleColor="white" (click)="massRelationRemove()">
               <svg-icon src="assets/icons/widgets/oil-control-all/oil-shipments/remove-icon.svg"></svg-icon>
             </div>
           </div>
@@ -192,60 +239,3 @@
     </div>
   </div>
 </div>
-
-<ng-template #leftTableRow>
-  <div class="table__row">
-    <div class="extra-wide">
-      <div class="direction">
-        <div class="direction__icon">
-          <svg-icon
-            src="assets/icons/widgets/oil-control-all/oil-operations/background-pic.svg"
-            [svgStyle]="{ 'width.px':46, 'height.px':26, 'margin-top.px': 10 }">
-          </svg-icon>
-          <img src="assets/icons/widgets/oil-control-all/oil-shipments/directions/tankTruck.png" class="icon-cistern">
-        </div>
-        <div class="direction__name">АИ-92-К5. Бензин неотилированный</div>
-      </div>
-    </div>
-    <div class="normal">529</div>
-    <div class="normal">139</div>
-    <div class="wide">04.03.2019 02:45:00</div>
-    <div class="normal">5,15</div>
-    <div class="normal container">
-      <div class="button-assign">
-        <svg-icon
-          src="assets/icons/widgets/oil-control-all/oil-shipments/row-assign-icon.svg"
-          [svgStyle]="{ 'margin-top.px': 10 }"
-        ></svg-icon>
-      </div>
-    </div>
-  </div>
-</ng-template>
-
-
-<ng-template #rightTableRow>
-  <div class="table__row">
-    <div class="normal">
-      <div class="direction">
-        <div class="direction__icon">
-          <svg-icon
-            src="assets/icons/widgets/oil-control-all/oil-operations/background-pic.svg"
-            [svgStyle]="{ 'width.px':46, 'height.px':26, 'margin-top.px': 10 }">
-          </svg-icon>
-          <img src="assets/icons/widgets/oil-control-all/oil-shipments/directions/tankTruck.png" class="icon-cistern">
-        </div>
-        <div class="direction__name">139</div>
-      </div>
-    </div>
-    <div class="wide">04.03.2019 02:45:00</div>
-    <div class="extra-wide">АИ-92-К5. Бензин неотилированный</div>
-    <div class="normal">5,15</div>
-    <div class="normal">
-      <svg-icon
-        src="assets/icons/widgets/oil-control-all/oil-shipments/remove-icon.svg"
-        class="table__icon"
-        [svgStyle]="{ 'width.px':11, 'height.px':13 }">
-      </svg-icon>
-    </div>
-  </div>
-</ng-template>
