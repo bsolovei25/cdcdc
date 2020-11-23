@@ -1486,7 +1486,7 @@ export const WIDGETS_LAZY = {
         import: async () => {
             return await import(
                 'src/app/widgets/ASTUE-ONPZ/astue-onpz-table-indicators/astue-onpz-table-indicators.module'
-            );
+                );
         },
         module: 'AstueOnpzTableIndicatorsModule',
         itemCols: 9,
@@ -1496,7 +1496,6 @@ export const WIDGETS_LAZY = {
 
         preview: 'astue-onpz-table-indicators',
     },
-
     'ejco-onpz-unit-sou': {
         import: async () => {
             return await import(
