@@ -46,7 +46,7 @@ export class KpeReadinessComponent extends WidgetPlatform<unknown> implements On
 
     public chartCards: IKpeReadinessChartCard[] | IKpeReadinessChartCard[][];
 
-    public diagram: IKpeGaugeChartData = { plan: 100, fact: 100 };
+    public diagram: IKpeGaugeChartData;
 
     public margin = { top: 20, right: 20, bottom: 30, left: 40 };
 
@@ -115,7 +115,13 @@ export class KpeReadinessComponent extends WidgetPlatform<unknown> implements On
         if (!(container?.offsetWidth > 0)) {
             return;
         }
-        const width = container?.offsetWidth;
+
+        let width: number;
+        if (this.gaugeCards.length > 0) {
+            width = container?.offsetWidth / this.gaugeCards.length;
+        } else {
+            width = container?.offsetWidth / 4;
+        }
         return `min-height: ${width * 0.93}px; height: ${width * 0.93}px`;
     }
 }

@@ -22,7 +22,7 @@
   >
     <div class="readiness">
       <div class="readiness__header">
-        <div #mainGauge class="readiness__header__gauge" [style]="gaugeWidth(mainGauge)">
+        <div #mainGauge class="readiness__header__gauge" [style]="gaugeWidth(mainGauge)" *ngIf="!!diagram">
           <evj-kpe-gauge-chart isPercent="true"
                                [background]="'dark'"
                                [fact]="diagram?.fact"
@@ -36,63 +36,40 @@
         </div>
       </div>
       <div class="readiness__middle" [style]="rowHeight(gauge)" *ngIf="displayMode === 'tiled'">
-        <div class="readiness__middle__gauges-container">
+        <div 
+          class="readiness__middle__gauges-container"
+          [ngClass]="{none:(gaugeCards.length < 1)}"
+        >
           <div class="container">
-            <div #gauge class="readiness__middle__gauge element-container">
+            <div class="readiness__middle__gauge element-container" *ngFor="let cardsItem of gaugeCards">
               <div class="gauge-card">
                 <div class="gauge-card__content">
                   <div class="gauge-card__units">
                     <div class="gauge-card__units__unit"
-                         [class.gauge-card__units__unit_active]="gaugeCards[0]?.unit"
+                         [class.gauge-card__units__unit_active]="cardsItem?.unit"
                     >
-                      {{ gaugeCards[0]?.unit || 'ед.изм'}}</div>
+                      {{ cardsItem?.unit || 'ед.изм'}}</div>
                     <div class="gauge-card__units__unit"
-                         [class.gauge-card__units__unit_active]="!gaugeCards[0]?.unit"
+                         [class.gauge-card__units__unit_active]="!cardsItem?.unit"
                     >%
                     </div>
                   </div>
                   <div class="gauge-card__gauge">
                     <evj-kpe-gauge-chart background="lite"
-                                         [fact]="gaugeCards[0]?.fact"
-                                         [plan]="gaugeCards[0]?.plan"
-                                         [deviation]="gaugeCards[0]?.deviation"
+                                         [fact]="cardsItem?.fact"
+                                         [plan]="cardsItem?.plan"
+                                         [deviation]="cardsItem?.deviation"
                     ></evj-kpe-gauge-chart>
                   </div>
                   <div class="gauge-card__title">
-                    {{ gaugeCards[0]?.title }}
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="readiness__middle__gauge element-container">
-              <div class="gauge-card">
-                <div class="gauge-card__content">
-                  <div class="gauge-card__units">
-                    <div class="gauge-card__units__unit"
-                         [class.gauge-card__units__unit_active]="gaugeCards[1]?.unit"
-                    >
-                      {{ gaugeCards[1]?.unit || 'ед.изм'}}</div>
-                    <div class="gauge-card__units__unit"
-                         [class.gauge-card__units__unit_active]="!gaugeCards[1]?.unit"
-                    >%
-                    </div>
-                  </div>
-                  <div class="gauge-card__gauge">
-                    <evj-kpe-gauge-chart background="lite"
-                                         [fact]="gaugeCards[1]?.fact"
-                                         [plan]="gaugeCards[1]?.plan"
-                                         [deviation]="gaugeCards[1]?.deviation"
-                    ></evj-kpe-gauge-chart>
-                  </div>
-                  <div class="gauge-card__title">
-                    {{ gaugeCards[1]?.title }}
+                    {{ cardsItem?.title }}
                   </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-        <div class="readiness__middle__chart element-container">
+        <div #gauge class="readiness__middle__chart element-container">
           <div class="chart-card">
             <div class="chart-card__content">
               <div class="chart-card__title">
