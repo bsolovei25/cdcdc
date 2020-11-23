@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
 import { WidgetService } from '../../../dashboard/services/widget.service';
 import { WidgetPlatform } from '../../../dashboard/models/@PLATFORM/widget-platform';
-import { ISOUFlowIn, ISOUFlowOut, ISOUOperationalAccountingSystem } from '../../../dashboard/models/SOU/sou-operational-accounting-system';
+import { ISOUFlowIn, ISOUFlowOut, ISOUObjects, ISOUOperationalAccountingSystem } from '../../../dashboard/models/SOU/sou-operational-accounting-system';
 import { SouMvpMnemonicSchemeService } from '../../../dashboard/services/widgets/SOU/sou-mvp-mnemonic-scheme';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 
@@ -36,7 +36,6 @@ export class SouMvpMnemonicSchemeComponent extends WidgetPlatform<unknown> imple
     flowInAb: ISOUFlowIn[];
     flowInVb: ISOUFlowIn[];
 
-
     mainData: ISOUOperationalAccountingSystem;
 
     settings: string[] = [
@@ -45,7 +44,7 @@ export class SouMvpMnemonicSchemeComponent extends WidgetPlatform<unknown> imple
         'Накоплено'
     ];
 
-    sectionsData: any[] = []; // Массив всех элементов
+    sectionsData: (ISOUFlowOut | ISOUFlowIn | ISOUObjects)[] = []; // Массив всех элементов
 
     sections: {
         title: string;

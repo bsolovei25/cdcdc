@@ -13,7 +13,7 @@ import { SouMvpMnemonicSchemeService } from '../../../../../dashboard/services/w
 export class SouMvpMnemonicSchemeCircleDiagramComponent implements OnInit, AfterViewInit {
   @ViewChild('chart') chart: ElementRef;
   @Input() set data(data: {
-    sections: any[],
+    sections: (ISOUFlowOut | ISOUFlowIn | ISOUObjects)[],
     code: number
   }) {
     if (data.sections) {

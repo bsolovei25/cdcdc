@@ -1,5 +1,5 @@
 import { Component, Input, OnChanges, OnInit } from '@angular/core';
-import { ISOUObjects } from '../../../../../dashboard/models/SOU/sou-operational-accounting-system';
+import { ISOUFlowIn, ISOUFlowOut, ISOUObjects } from '../../../../../dashboard/models/SOU/sou-operational-accounting-system';
 import { SouMvpMnemonicSchemeService } from '../../../../../dashboard/services/widgets/SOU/sou-mvp-mnemonic-scheme';
 
 @Component({
@@ -9,7 +9,7 @@ import { SouMvpMnemonicSchemeService } from '../../../../../dashboard/services/w
 })
 export class SouMvpMnemonicSchemeCollectorComponent implements OnInit, OnChanges {
   @Input() set data(data: {
-    sections: any[],
+    sections: (ISOUFlowOut | ISOUFlowIn | ISOUObjects)[],
     code: number
   }) {
     if (data.sections) {

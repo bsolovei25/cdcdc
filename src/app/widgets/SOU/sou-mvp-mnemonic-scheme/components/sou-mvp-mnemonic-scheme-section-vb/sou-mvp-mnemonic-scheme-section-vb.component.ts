@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ISOUFlowOut } from '../../../../../dashboard/models/SOU/sou-operational-accounting-system';
+import { ISOUFlowIn, ISOUFlowOut, ISOUObjects } from '../../../../../dashboard/models/SOU/sou-operational-accounting-system';
 
 @Component({
   selector: 'evj-sou-mvp-mnemonic-scheme-section-vb',
@@ -10,7 +10,7 @@ export class SouMvpMnemonicSchemeSectionVbComponent implements OnInit {
   @Input() set data(data: ISOUFlowOut) {
     this.flowOutItem = data;
   }
-  @Input() sections: any[];
+  @Input() sections: (ISOUFlowOut | ISOUFlowIn | ISOUObjects)[][];
   @Input() choosenSetting: number;
 
   flowOutItem: ISOUFlowOut;

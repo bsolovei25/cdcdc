@@ -1,7 +1,7 @@
 import { AfterViewInit, Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import * as d3 from 'd3';
 import { AsyncRender } from '../../../../../@shared/functions/async-render.function';
-import { ISOUFlowOut } from '../../../../../dashboard/models/SOU/sou-operational-accounting-system';
+import { ISOUFlowIn, ISOUFlowOut, ISOUObjects } from '../../../../../dashboard/models/SOU/sou-operational-accounting-system';
 import { SouMvpMnemonicSchemeService } from '../../../../../dashboard/services/widgets/SOU/sou-mvp-mnemonic-scheme';
 
 @Component({
@@ -13,7 +13,7 @@ export class SouMvpMnemonicSchemeStreamDiagramComponent implements OnInit, After
 
   @ViewChild('chart') chart: ElementRef;
   @Input() set data(data: {
-    sections: any[],
+    sections: (ISOUFlowOut | ISOUFlowIn | ISOUObjects)[],
     code: number
   }) {
     if (data.sections) {
