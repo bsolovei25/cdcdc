@@ -26,7 +26,7 @@
     (touchstart)="$event.stopPropagation()"
   >
     <div class="quality">
-      <div class="quality__header">
+      <div class="quality__header" *ngIf="!!deviationDiagram">
         <div #mainGauge class="quality__header__gauge" [style]="gaugeWidth(mainGauge)">
           <evj-kpe-gauge-chart
             background="dark"
