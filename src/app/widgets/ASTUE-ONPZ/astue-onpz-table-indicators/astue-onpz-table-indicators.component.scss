@@ -14,7 +14,7 @@ thead th {
   top: 0;
   background-color: var(--color-kpe-line-diagram-bg-sub);
   color: var(--color-cd-text-sub-2);
-  z-index: 9999;
+  z-index: 1;
 }
 th,  td {
   text-align: center;
@@ -30,7 +30,7 @@ th,  td {
   font-family: Tahoma;
   font-size: 12px;
 
-  border-spacing: 0px 5px;
+  border-spacing: 0px 3px;
   border-collapse: separate;
   box-sizing: border-box;
   padding-right: 10px;
@@ -85,16 +85,45 @@ th,  td {
       color: var(--color-cd-text-sub-2);
       text-align: center;
 
-      border-right: 1px solid var(--color-kpe-gaude-unactive);
+      border-top: 1px solid var(--color-kpe-gaude-unactive);
+      border-bottom: 1px solid var(--color-kpe-gaude-unactive);
+      border-right: 1px solid var(--color-gray80);
+      border-left: 2px solid var(--color-aps-bg-icon);
+
+      &--warning-border {
+        z-index: 1;
+        position: absolute;
+        top: 0px;
+        left: -2px;
+        height: 100%;
+        width: 2px;
+        background-color: var(--color-aps-orange);
+      }
 
       &.expanded-column {
         background-color: rgba(39, 42, 56, 0.5);
       }
 
       &__children {
+        border-left: 2px solid var(--color-kpe-gaude-unactive)!important;
+
         &--active {
           border-top: 1px solid var(--color-aps-active);
           border-bottom: 1px solid var(--color-aps-active);
+          color: var(--color-text-main);
+
+          &:first-child {
+            border-left: 2px solid var(--color-aps-active) !important;
+          }
+
+          &:last-of-type {
+            padding: 0 !important;
+            border-right: 1px solid var(--color-aps-active) !important;
+          }
+        }
+        &--warning {
+          border-top: 1px solid var(--color-aps-orange);
+          border-bottom: 1px solid var(--color-aps-orange);
           color: var(--color-text-main);
 
           &:first-child {
@@ -103,12 +132,12 @@ th,  td {
 
           &:last-of-type {
             padding: 0 !important;
-            border-right: 1px solid var(--color-aps-active) !important;
+            border-right: 1px solid var(--color-aps-orange) !important;
           }
         }
       }
-
       &--active {
+        z-index: 1;
         border-top: 1px solid var(--color-aps-active);
         border-bottom: 1px solid var(--color-aps-active);
         color: var(--color-text-main);
@@ -122,6 +151,21 @@ th,  td {
           border-right: 1px solid var(--color-aps-active) !important;
         }
       }
+      &--warning {
+        z-index: 1;
+        border-top: 1px solid var(--color-aps-orange);
+        border-bottom: 1px solid var(--color-aps-orange);
+        color: var(--color-text-main);
+
+        &:first-child {
+          border-left: 2px solid var(--color-aps-orange) !important;
+        }
+
+        &:last-of-type {
+          padding: 0 !important;
+          border-right: 1px solid var(--color-aps-orange) !important;
+        }
+      }
 
       &--expand {
         &:first-child {
@@ -130,7 +174,7 @@ th,  td {
       }
 
       &:first-child {
-        border-left: 2px solid var(--color-aps-border-sub);
+        border-left: 2px solid var(--color-aps-bg-icon);
       }
 
       &__row-title {
@@ -151,6 +195,10 @@ th,  td {
 
           &--active {
             stroke: var(--color-aps-active);
+            transform: rotateZ(45deg);
+          }
+          &--warning {
+            stroke: var(--color-aps-orange);
             transform: rotateZ(45deg);
           }
 
@@ -334,6 +382,20 @@ th,  td {
               position: absolute;
               left: -2px;
               top: -14.6px;
+              &__default {
+                color: var(--color-aps-bg-icon);
+              }
+
+              &__warning {
+                color: var(--color-aps-orange);
+              }
+
+              &__active {
+                color: var(--color-aps-active);
+              }
+              &__active-warning {
+                color: var(--color-aps-orange);
+              }
             }
           }
 
@@ -373,4 +435,9 @@ th,  td {
 ::-webkit-scrollbar-thumb {
   background-color: var(--color-aps-border-sub);
   border-radius: 25px;
+}
+.warning {
+  height: 100%;
+  width: 2px;
+  background-color: orange;
 }

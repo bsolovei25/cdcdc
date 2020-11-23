@@ -14,7 +14,7 @@ thead th {
   top: 0;
   background-color: var(--color-kpe-line-diagram-bg-sub);
   color: var(--color-cd-text-sub-2);
-  z-index: 9999;
+  z-index: 1;
 }
 th,  td {
   text-align: center;
@@ -29,7 +29,7 @@ th,  td {
   font-family: Tahoma;
   font-size: 12px;
 
-  border-spacing: 0px 5px;
+  border-spacing: 0px 3px;
   border-collapse: separate;
   box-sizing: border-box;
   padding-right: 10px;
@@ -84,20 +84,24 @@ th,  td {
       color: var(--color-cd-text-sub-2);
       text-align: center;
 
-      border-right: 1px solid var(--color-kpe-gaude-unactive);
+      border-top: 1px solid var(--color-kpe-gaude-unactive);
+      border-bottom: 1px solid var(--color-kpe-gaude-unactive);
+      border-right: 1px solid var(--color-gray80);
+      border-left: 2px solid var(--color-aps-bg-icon);
 
       &.expanded-column {
         background-color: rgba(39, 42, 56, 0.5);
       }
 
       &__children {
+        border-left: 2px solid var(--color-kpe-gaude-unactive)!important;
+
         &--active {
           border-top: 1px solid var(--color-aps-active);
           border-bottom: 1px solid var(--color-aps-active);
           color: var(--color-text-main);
 
           &:first-child {
-            border-left: 2px solid transparent !important;
           }
 
           &:last-of-type {
@@ -124,12 +128,10 @@ th,  td {
 
       &--expand {
         &:first-child {
-          border-left: 2px solid var(--color-aps-active) !important;
         }
       }
 
       &:first-child {
-        border-left: 2px solid var(--color-aps-border-sub);
       }
 
       &__row-title {
