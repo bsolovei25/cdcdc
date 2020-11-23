@@ -1,0 +1,38 @@
+<div class="container">
+  <evj-contemporary-widget-header
+    [uniqId]="widgetUniqId"
+    [widgetTitle]="widgetTitle"
+    icon="scenario"
+    type="astue"
+  >
+  </evj-contemporary-widget-header>
+
+  <div class="container-body"
+       (mousedown)="$event.stopPropagation()"
+       (touchstart)="$event.stopPropagation()"
+  >
+    <div class="select-menu">
+      <div class="dropdown">
+        <div class="dropdown__marker">
+        </div>
+        <mat-select class="dropdown__select" [value]="scenarios[0]">
+          <ng-container *ngFor="let scenario of scenarios">
+            <mat-option [value]="scenario">
+              {{ scenario }}
+            </mat-option>
+          </ng-container>
+        </mat-select>
+      </div>
+      <button
+        class="button button-icon"
+        matRipple [matRippleColor]="'white'"
+        (click)="clicked($event)"
+      >
+      <svg-icon
+          src="assets/icons/widgets/APS/scenarios/play-button.svg"
+          [svgStyle]="{ 'width.px':14, 'height.px':14 }">
+        </svg-icon>
+      </button>
+    </div>
+  </div>
+</div>

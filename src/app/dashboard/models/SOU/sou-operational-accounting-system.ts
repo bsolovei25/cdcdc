@@ -1,4 +1,5 @@
 export interface ISOUFlowIn {
+    code: number;
     srcName: string;
     productName: string;
     valueMeasuring: number;
@@ -15,9 +16,12 @@ export interface ISOUFlowIn {
     isExceedingConfInterval: boolean;
     accuracy: number;
     order: number;
+
+    selected?: boolean;
 }
 
 export interface ISOUFlowOut {
+    code: number;
     dscFlow: {
         isEnable: boolean,
         name: string
@@ -37,13 +41,28 @@ export interface ISOUFlowOut {
     isEnable: boolean;
     accuracy: number;
     order: number;
+
+    selected?: boolean;
 }
 
 export interface ISOUSection {
     name: string;
+    flowIn: ISOUFlowIn[];
     flowOut: ISOUFlowOut[];
+    objects: ISOUObjects[]
     isEnable?: boolean;
     order: number;
+}
+
+
+export interface ISOUObjects {
+    code: number;
+    id: string;
+    name: string;
+    isExceedingConfInterval: boolean;
+    isEnable: boolean;
+    type: 'internal' | 'out';
+    selected?: boolean;
 }
 
 export interface ISOUIdent {

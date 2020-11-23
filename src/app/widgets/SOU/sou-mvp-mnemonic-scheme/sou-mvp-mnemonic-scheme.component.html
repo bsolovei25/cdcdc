@@ -1,0 +1,196 @@
+<div class="container">
+  <div>
+    <evj-contemporary-widget-header
+      [uniqId]="uniqId" 
+      [widgetTitle]="widgetTitle" 
+      icon="drop"
+      type="astue"
+    >
+      <div class="header"
+    (mousedown)="$event.stopPropagation()"
+    (touchstart)="$event.stopPropagation()"
+  > 
+    <svg-icon
+      class="arrow-circle"
+      src="assets/icons/widgets/SOU/sou-mvp-mnemonic-scheme/arrowCircle.svg"
+      [ngStyle]="{ 'width.px':14, 'height.px':14 }"
+    ></svg-icon>  
+
+    <div class="option-select">
+      <div class="dropdown">
+        <div class="dropdown__marker">
+        </div>
+        <mat-select class="dropdown__select" [value]="'Производство 1'">
+          <ng-container>
+            <mat-option [value]="'Производство 1'">
+              Производство 1
+            </mat-option>
+          </ng-container>
+        </mat-select>
+      </div>
+    </div>
+
+    <svg-icon
+      class="arrow-circle"
+      src="assets/icons/widgets/SOU/sou-mvp-mnemonic-scheme/arrowCircle.svg"
+      [ngStyle]="{ 'width.px':14, 'height.px':14 }"
+    ></svg-icon> 
+
+    <div class="option-select">
+      <div class="dropdown">
+        <div class="dropdown__marker">
+        </div>
+        <mat-select class="dropdown__select" [value]="'АВТ-10'">
+          <ng-container>
+            <mat-option [value]="'АВТ-10'">
+              АВТ-10
+            </mat-option>
+          </ng-container>
+        </mat-select>
+      </div>
+    </div>
+
+    <div class="section-select">
+      <div class="custom-border"></div>
+      <div class="section-select__item"
+        *ngFor="let section of sections; let i = index"
+        [ngClass]="{active: i===choosenSection}"
+        (click)="changeSection(i)"
+      >
+        <span class="title">{{section.title}}</span>
+        <div class="value">{{section.value}}</div>
+      </div>
+    </div>
+
+    <div class="filter-btn">
+      <div class="filter-btn__item"
+        *ngFor="let setting of settings; let i = index"
+        [ngClass]="{active: i===choosenSetting}"
+        (click)="changeSetting(i)"
+      >{{setting}}</div>
+    </div>
+      </div>
+    </evj-contemporary-widget-header>
+  </div>
+
+  <div class="container-body" 
+      (mousedown)="$event.stopPropagation()"
+      (touchstart)="$event.stopPropagation()"
+  >
+    <div class="main-content-container">
+      <evj-sou-mvp-mnemonic-scheme-ab-left
+        *ngIf="choosenSection === 0"
+        [sections]="sectionsData"
+        [choosenSetting]="choosenSetting"
+        [flowIn]="flowInAb"
+      ></evj-sou-mvp-mnemonic-scheme-ab-left>
+
+      <evj-sou-mvp-mnemonic-scheme-vb-left
+        *ngIf="choosenSection === 1"
+        [sections]="sectionsData"
+        [choosenSetting]="choosenSetting"
+        [flowIn]="flowInVb"
+      ></evj-sou-mvp-mnemonic-scheme-vb-left>
+
+      <div class="streams-groups">
+      <div class="streams-container"
+        (mousedown)="$event.stopPropagation()"
+        (touchstart)="$event.stopPropagation()"
+      >
+        <div class="main-collector">
+          <span>АВТ-10 <br> {{sections[choosenSection].title}}</span>
+        </div>
+        <evj-sou-mvp-mnemonic-scheme-section
+          *ngIf="choosenSection === 0"
+          [choosenSetting]="choosenSetting"
+          [sections]="sectionsData"
+        ></evj-sou-mvp-mnemonic-scheme-section>
+
+        <evj-sou-mvp-mnemonic-scheme-section-vb
+          *ngIf="choosenSection === 1"
+          [choosenSetting]="choosenSetting"
+          [sections]="sectionsData"
+        ></evj-sou-mvp-mnemonic-scheme-section-vb>
+      </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="popup-container"
+    (mousedown)="$event.stopPropagation()"
+    (touchstart)="$event.stopPropagation()"
+  >
+    <div class="popup" 
+      [@Branch]="mvpService.isPopupOpen ? 'opened' : 'closed'"
+    >
+      <div class="popup__header" (click)="mvpService.closePopup()">
+        <div class="close-btn">
+          <img src="assets/icons/widgets/SOU/sou-mvp-mnemonic-scheme/popupClose.svg">
+        </div>
+      </div>
+      <div class="popup__content">
+        <div class="title">
+          <div class="marker"></div>
+          <span class="source-name">{{mvpService.popupData?.tag}}</span>
+          <span class="product-name">{{mvpService.popupData?.productName}}</span>
+        </div>
+        <div class="information">
+          Уровень доверия:&nbsp;<span>{{mvpService.popupData?.tolerance}}</span>
+          Измеренное:&nbsp;<span>1234.567 т</span>
+          Скорректированное:&nbsp;<span>1234.567 т</span>
+          Согласованное:&nbsp;<span>1234.567 т</span>
+          Погрешность:&nbsp; <span>1234.567 т</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <div class="footer__item">
+      <svg-icon
+        src="assets/icons/widgets/SOU/sou-mvp-mnemonic-scheme/factoryIn.svg"
+        [ngStyle]="{ 'width.px':16, 'height.px':17 }"
+      ></svg-icon>
+      <span class="title">Сумма входа, тн</span>
+      <div class="information">
+        Накопленное:&nbsp;<span class="information__main">{{mainData?.sumInByDay}}</span>
+        За час:&nbsp;<span class="information__sub">{{mainData?.sumInByHour}}</span>
+      </div>
+    </div>
+    <div class="footer__item">
+      <svg-icon
+        src="assets/icons/widgets/SOU/sou-mvp-mnemonic-scheme/factoryOut.svg"
+        [ngStyle]="{ 'width.px':16, 'height.px':11 }"
+      ></svg-icon>
+      <span class="title">Сумма выхода, тн</span>
+      <div class="information">
+        Накопленное:&nbsp;<span class="information__main">{{mainData?.sumOutByDay}}</span>
+        За час:&nbsp;<span class="information__sub">{{mainData?.sumOutByHour}}</span>
+      </div>
+    </div>
+    <div class="footer__item delta">
+      <svg-icon
+        src="assets/icons/widgets/SOU/sou-mvp-mnemonic-scheme/delta.svg"
+        [ngStyle]="{ 'width.px':14, 'height.px':15 }"
+      ></svg-icon>
+      <span class="title">Дельта</span>
+      <div class="information">
+        <span class="information__main"
+          [style.color]="mainData?.lampOn ?'var(--sou-mvp-color-warning)':'var(--sou-mvp-color-text-diagram-main)'"
+        >{{mainData?.delta}} тн</span>
+        <span class="information__sub">{{mainData?.deltaByPersent}}%</span>
+      </div>
+    </div>
+    <div class="footer__item">
+      <svg-icon
+        src="assets/icons/widgets/SOU/sou-mvp-mnemonic-scheme/balance.svg"
+        [ngStyle]="{ 'width.px':16, 'height.px':17 }"
+      ></svg-icon>
+      <span class="title">Дебаланс</span>
+      <div class="information">
+        <span class="information__main">{{mainData?.balanceAllow}} тн</span>
+        <span class="information__sub">{{mainData?.balanceAllowByPercent}}%</span>
+      </div>
+    </div>
+  </div>
+</div>

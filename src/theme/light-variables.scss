@@ -162,6 +162,7 @@
   --color-aps-bg-light: #1d2131;
   --color-aps-bg-window: #191c2a;
   --color-bg-row-header: #141928;
+  --color-aps-table-td: #191c27;
 
   --color-aps-border-sup: #0e1320;
 
@@ -232,6 +233,7 @@
   --color-kpe-line-diagram-bg-sub: #1c1f2b;
   --color-kpe-line-diagram-active: #1f3d60;
   --color-kpe-bg-sub: #272a38;
+  --color-kpe-bg-sub-opacity: rgba(39, 42, 56, 0.5);
 
   // KPE gauge-chart
   --color-kpe-gaude-main: #d7e2f2;
@@ -290,7 +292,6 @@
   --nk-color-bg-correct: #121928;
   --nk-color-bg-dark: #0C1421;
   --nk-color-table-row-bg: rgba(29, 31, 43);
-  --nk-color-table-header-text: #8799B3;
 
   --nk-color-bg-selected: #282D3C;
   --nk-color-bg-lvl-last: #00549D;
@@ -298,6 +299,7 @@
   --nk-color-bg-body: #161922;
   --nk-color-bg-card-body: #1e212d;
   --nk-color-bg-filter-menu: rgba(39, 42, 56, 0.5);
+  --nk-color-table-header-text: #8799B3;
 
   --color-gray80: #272a38;
   --color-gray40: #8c99b2;
@@ -351,6 +353,21 @@
   --color-sou-bg-sup: #252836;
   --color-sou-text-sub: #41435f;
 
+  // SOU MVP
+  --sou-mvp-color-bg-main: #1C1F2B;
+  --sou-mvp-color-border: #4B5169;
+  --sou-mvp-color-bg-title: #272A38;
+  --sou-mvp-color-text-diagram-main: #d7e2f2;
+  --sou-mvp-color-text-diagram-sub: #606580;
+  --sou-mvp-color-text-info: #8C99B2;
+  --sou-mvp-color-warning: #F7931E;
+  --sou-mvp-color-bg-warning: #483628;
+  --sou-mvp-color-white: #ffffff;
+  --sou-mvp-color-active: #0089FF;
+  --sou-mvp-color-bg-active: rgba(0, 137, 255, 0.2);
+  --sou-mvp-color-bg-select: #12151E;
+  --sou-mvp-color-bg-select-custom-border: rgba(25, 28, 44, 0);
+
   // ASTUE-ONPZ
   --color-astue-onpz-bg-header: #222431;
   --color-astue-onpz-bg-card: rgba(18, 21, 30, 0.5);
@@ -385,8 +402,9 @@
   --color-astue-onpz-btn: rgba(37, 39, 54);
   --color-contemporary-header-bg: rgb(34, 36, 47);
 
-  --astue-onpz-factory-analisys-bg: #1C1F2B;
-  --astue-onpz-factory-analisys-border: #272A38;
+  --color-astue-onpz-widget-bg: #1C1F2B;
+  --color-astue-onpz-widget-border: #272A38;
+
   --astue-onpz-factory-analisys-grid: #4B5169;
   --astue-onpz-factory-analisys-grid-opacity: rgba(75,81,105,0.5);
   --astue-onpz-factory-analisys-grid-bg: #12151E;
@@ -396,6 +414,17 @@
   --astue-onpz-factory-analisys-norm: 0,137,255;
   --astue-onpz-factory-analisys-bad: 162,226,255;
   --astue-onpz-factory-analisys-sum: 0,167,61;
+
+  --color-astue-onpz-mnemonic-furnace-box-text: #606580;
+  --color-astue-onpz-mnemonic-furnace-main-text: #D7E2F2;
+  --color-astue-onpz-mnemonic-furnace-sub-text: #8C99B2;
+  --color-astue-onpz-mnemonic-furnace-unit-text: #606580;
+  --color-astue-onpz-mnemonic-furnace-lines: #4B5169;
+  --color-astue-onpz-mnemonic-furnace-warning: #F7931E;
+  --color-astue-onpz-mnemonic-furnace-active: #0089FF;
+  --color-astue-onpz-mnemonic-furnace-item-bg: #272A38;
+  --color-astue-onpz-mnemonic-furnace-item-bg-light: #303549;
+  --color-astue-onpz-mnemonic-furnace-item-bg-dark: #1C1F2B;
 
   // @shared/alert-window (aw)
   --color-aw-container-shadow-transparent: rgba(0, 0, 0, 0.25);

@@ -109,14 +109,14 @@
               {{claim.claimName}}
               <div class="claim__button claim__button-toggle"></div>
             </div>
-            <div class="claim__items" *ngIf="claim.claimName">
+            <div class="claim__items" *ngIf="claim?.claimName">
               <ng-container *ngFor="let item of workerSpecialClaims">
 
                 <ng-container *ngIf="item.claimValueType === 'widget'">
                   <ng-container *ngFor="let nameCard of item.widgets">
                     <div class="claim__item" *ngIf="claim.claimType === item.claimType
-                && nameCard.title !== ''">
-                      {{nameCard.title}}
+                && nameCard?.title">
+                      {{nameCard?.title}}
                       <div
                         class="claim__button claim__button-delete"
                         (click)="onRemoveSpecialClaim(nameCard)"
