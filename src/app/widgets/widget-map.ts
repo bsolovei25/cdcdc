@@ -124,6 +124,9 @@ export const WIDGETS = {
     'astue-onpz-factory-analysis': WidgetContainerComponent,
     'astue-onpz-heat-balance': WidgetContainerComponent,
     'astue-onpz-table-indicators': WidgetContainerComponent,
+    'aps-operating-modes': WidgetContainerComponent,
+    'aps-structure-id': WidgetContainerComponent,
+    'aps-scenario-selection': WidgetContainerComponent
 };
 
 export const WIDGETS_LAZY = {
@@ -240,6 +243,45 @@ export const WIDGETS_LAZY = {
         minItemCols: 11,
         minItemRows: 11,
         preview: 'indicator-load-deviation',
+    },
+    'aps-operating-modes': {
+        import: async () => {
+            return await import(
+                'src/app/widgets/APS/aps-operating-modes/aps-operating-modes.module'
+                );
+        },
+        module: 'ApsOperatingModesModule',
+        itemCols: 25,
+        itemRows: 5,
+        minItemCols: 25,
+        minItemRows: 5,
+        preview: 'default',
+    },
+    'aps-structure-id': {
+        import: async () => {
+            return await import(
+                'src/app/widgets/APS/aps-structure-id/aps-structure-id.module'
+                );
+        },
+        module: 'ApsStructureIdModule',
+        itemCols: 13,
+        itemRows: 12,
+        minItemCols: 13,
+        minItemRows: 13,
+        preview: 'default',
+    },
+    'aps-scenario-selection': {
+        import: async () => {
+            return await import(
+                'src/app/widgets/APS/aps-scenario-selection/aps-scenario-selection.module'
+                );
+        },
+        module: 'ApsScenarioSelectionModule',
+        itemCols: 13,
+        itemRows: 5,
+        minItemCols: 13,
+        minItemRows: 5,
+        preview: 'default',
     },
 
     // #endregion APS
