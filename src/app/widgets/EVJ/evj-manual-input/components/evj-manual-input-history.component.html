@@ -90,7 +90,7 @@
       <td class="hour" *ngFor="let value of this.hoursValue; let i = index" (click)="activateEditMode()">
         <div class="hours__item" *ngIf="!editMode">{{value}}</div>
         <input 
-          (change)="onChangeHistoricalValue($event, i, j)"
+          (change)="onChangeHistoricalValue($event, i, value)"
           class="hours__item"
           *ngIf="editMode" placeholder={{value}}
         >
