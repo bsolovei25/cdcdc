@@ -47,13 +47,6 @@
                   src="assets/icons/widgets/APS/aps-gantt-chart/plus.svg"
                 >
                 </svg-icon>
-
-                <svg-icon
-                  *ngIf="selectedRowProduct === element.unit.name; else elseBlock"
-                  class="table__body__column__row-title__icon__background"
-                  src="assets/icons/widgets/APS/aps-recipe-diagram/gradient-blue.svg"
-                >
-                </svg-icon>
                 <div class="table__body__column__row-title">
                   <div class="table__body__column__row-title__text__name">
                     <span>{{ element.unit.name }}</span>
@@ -63,7 +56,6 @@
                     <span>1000</span>
                   </div>
                 </div>
-                <ng-template #elseBlock></ng-template>
               </div>
             </td>
           </ng-container>
@@ -96,14 +88,14 @@
                   *ngIf="selectedRowProduct !== elementChildren.name"
                   [svgStyle]="{'height.px':'43', 'width.px': '21'}"
                   class="table__body__column__row-title-children__left-block--first"
-                  src="assets/icons/widgets/APS/aps-recipe-diagram/astue-table-left-row-block-recipe.svg"
+                  src="assets/icons/widgets/APS/aps-recipe-diagram/astue-left-row-block-recipe.svg"
                 >
                 </svg-icon>
                 <svg-icon
                   *ngIf="selectedRowProduct === elementChildren.name"
                   [svgStyle]="{'height.px':'43', 'width.px': '21'}"
                   class="table__body__column__row-title-children__left-block--first"
-                  src="assets/icons/widgets/APS/aps-recipe-diagram/astue-table-left-row-block-active-recipe.svg"
+                  src="assets/icons/widgets/APS/aps-recipe-diagram/astue-left-row-block-active-recipe.svg"
                 >
                 </svg-icon>
                 <div
