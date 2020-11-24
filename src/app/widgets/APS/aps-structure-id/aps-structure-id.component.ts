@@ -13,7 +13,7 @@ export interface IStructure {
 
 export interface IStructureList {
     title: string;
-    name: string;
+    id: string;
 }
 
 @Component({
@@ -23,23 +23,23 @@ export interface IStructureList {
 })
 export class ApsStructureIdComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
     public data: IStructure[] = [{
-        unit: { name: 'Технологическая устрановка' },
+        unit: { name: 'Технологическая установка' },
         list: [
             {
-                name: '0',
+                id: '0',
                 title: 'Справочник'
             },
             {
-                name: '1',
+                id: '1',
                 title: 'Режимы работы ТУ'
             },
             {
-                name: '2',
+                id: '2',
                 title: 'Скорость изменнеия загрузки'
             }
             ,
             {
-                name: '3',
+                id: '3',
                 title: 'Диапазон производительности по регламенту'
             }
             ]
@@ -48,20 +48,20 @@ export class ApsStructureIdComponent extends WidgetPlatform<unknown> implements 
             unit: { name: 'Материальный поток' },
             list: [
                 {
-                    name: '00',
+                    id: '00',
                     title: 'Справочник'
                 },
                 {
-                    name: '11',
+                    id: '11',
                     title: 'Режимы работы ТУ'
                 },
                 {
-                    name: '22',
+                    id: '22',
                     title: 'Скорость изменнеия загрузки'
                 }
                 ,
                 {
-                    name: '33',
+                    id: '33',
                     title: 'Диапазон производительности по регламенту'
                 }
             ]
@@ -108,6 +108,14 @@ export class ApsStructureIdComponent extends WidgetPlatform<unknown> implements 
         event.stopPropagation();
         if (!this.selectedRowProduct || element.name !== this.selectedRowProduct) {
             this.selectedRowProduct = element.name;
+        } else {
+            this.selectedRowProduct = null;
+        }
+    }
+    onClickRowChildren(event: MouseEvent, element?: any): void {
+        event.stopPropagation();
+        if (!this.selectedRowProduct || element.id !== this.selectedRowProduct) {
+            this.selectedRowProduct = element.id;
         } else {
             this.selectedRowProduct = null;
         }
