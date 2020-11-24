@@ -34,6 +34,7 @@
     display: flex;
     width: 1483px;
     height: 655px;
+    transform: perspective(1px) translateZ(0);
 
     &__background {
       margin: auto;
@@ -166,9 +167,8 @@
       }
 
       .circle {
-        cursor: pointer;
-        user-select: none;
         border-radius: 50%;
+        background: var(--color-astue-onpz-widget-bg);
         overflow: hidden;
       }
     }

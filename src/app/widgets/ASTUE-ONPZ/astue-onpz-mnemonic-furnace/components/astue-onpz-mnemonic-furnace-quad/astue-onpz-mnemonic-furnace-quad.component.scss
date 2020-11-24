@@ -8,6 +8,8 @@
   border-radius: 2px;
   box-sizing: border-box;
   background: var(--color-astue-onpz-mnemonic-furnace-item-bg);
+  cursor: pointer;
+  user-select: none;
 
   & > * {
     margin: 0 auto;
