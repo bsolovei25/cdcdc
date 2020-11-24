@@ -11,7 +11,6 @@ import { IScenario } from '../../../dashboard/models/APS/aps-tables.model';
 })
 export class ApsScenarioSelectionComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
     public scenarios: IScenario[] = [null];
-    public calculation: any;
     constructor(
         private apsService: ApsService,
         protected widgetService: WidgetService,
@@ -25,7 +24,6 @@ export class ApsScenarioSelectionComponent extends WidgetPlatform<unknown> imple
     ngOnInit(): void {
         super.widgetInit();
         this.getScenarios();
-        setTimeout(() => console.log(this.scenarios), 5000);
     }
 
     ngOnDestroy(): void {
@@ -36,12 +34,10 @@ export class ApsScenarioSelectionComponent extends WidgetPlatform<unknown> imple
         this.scenarios = data;
     }
     private async getCalculations(): Promise<void> {
-        const data = await this.apsService.getCalculate();
-        this.calculation = data;
+        await this.apsService.getCalculate();
     }
     calculate($event: MouseEvent): void {
         this.getCalculations();
-        console.log(`scenario button clicked! ${this.getCalculations()}`);
     }
 
     protected dataHandler(ref: any): void {
