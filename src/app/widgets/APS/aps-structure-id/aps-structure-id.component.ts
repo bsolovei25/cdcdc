@@ -5,6 +5,9 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { IParams } from '../../CD/cd-mat-balance/cd-mat-balance.component';
 import { heatBalanceData } from '../../ASTUE-ONPZ/astue-onpz-heat-balance/astue-onpz-heat-balance-mock';
 import { IColumnsToDisplay } from '../aps-recipe-diagram/aps-recipe-diagram.component';
+import { structureList } from './aps-structure-id-mock';
+import { ApsService } from '../../../dashboard/services/widgets/APS/aps.service';
+import { ITable } from '../aps-operating-modes/aps-operating-modes.component';
 
 export interface IStructure {
     unit: { name: string };
@@ -12,8 +15,9 @@ export interface IStructure {
 }
 
 export interface IStructureList {
+    title: string;
     id: string;
-    name: string;
+    unitType?: number;
 }
 
 @Component({
@@ -22,51 +26,7 @@ export interface IStructureList {
     styleUrls: ['./aps-structure-id.component.scss']
 })
 export class ApsStructureIdComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
-    public data: IStructure[] = [{
-        unit: { name: 'Технологическая устрановка' },
-        list: [
-            {
-                id: '0',
-                name: 'Справочник'
-            },
-            {
-                id: '1',
-                name: 'Режимы работы ТУ'
-            },
-            {
-                id: '2',
-                name: 'Скорость изменнеия загрузки'
-            }
-            ,
-            {
-                id: '3',
-                name: 'Диапазон производительности по регламенту'
-            }
-            ]
-    },
-        {
-            unit: { name: 'Материальный поток' },
-            list: [
-                {
-                    id: '00',
-                    name: 'Справочник'
-                },
-                {
-                    id: '11',
-                    name: 'Режимы работы ТУ'
-                },
-                {
-                    id: '22',
-                    name: 'Скорость изменнеия загрузки'
-                }
-                ,
-                {
-                    id: '33',
-                    name: 'Диапазон производительности по регламенту'
-                }
-            ]
-        }
-    ];
+    public data: IStructure[] = structureList;
     columnsToDisplay: IColumnsToDisplay[] = [
         { name: 'Показатели, Дж', id: 0, date: new Date() }
     ];
@@ -75,7 +35,9 @@ export class ApsStructureIdComponent extends WidgetPlatform<unknown> implements 
     selectedRowProduct: string;
     selectedRow: SelectionModel<string> = new SelectionModel(true);
 
+    public tables: ITable;
     constructor(
+        private apsService: ApsService,
         protected widgetService: WidgetService,
         @Inject('isMock') public isMock: boolean,
         @Inject('widgetId') public id: string,
@@ -94,6 +56,10 @@ export class ApsStructureIdComponent extends WidgetPlatform<unknown> implements 
 
     protected dataHandler(ref: any): void {
     }
+    private async getTables(table: number): Promise<void> {
+        const data = await this.apsService.getReferenceBook(table);
+        this.apsService.showTable$.next(data);
+    }
 
     onClickTr(event: MouseEvent, element: any): void {
         event.stopPropagation();
@@ -111,5 +77,14 @@ export class ApsStructureIdComponent extends WidgetPlatform<unknown> implements 
         } else {
             this.selectedRowProduct = null;
         }
+    }
+    onClickRowChildren(event: MouseEvent, element?: any): void {
+        event.stopPropagation();
+        if (!this.selectedRowProduct || element.id !== this.selectedRowProduct) {
+            this.selectedRowProduct = element.id;
+        } else {
+            this.selectedRowProduct = null;
+        }
+        this.getTables(element.unitType);
     }
 }

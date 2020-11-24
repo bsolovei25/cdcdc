@@ -59,14 +59,13 @@
           <tr
             *ngIf="expandedElement.isSelected(element.unit.name)"
             class="table__body__row expanded-row"
-            (click)="onClickRow($event, elementChildren)"
+            (click)="onClickRowChildren($event, elementChildren)"
           >
             <td
               *ngFor="let column of columnsToDisplay"
               class="expanded-column table__body__column table__body__column__children"
-              [class.table__body__column__children--active]="selectedRowProduct === elementChildren.name"
-              [class.table__body__column__children--deviation]="selectedRowProduct === elementChildren.name && selectedRowProduct === elementChildren.name"
-              [matTooltip]="elementChildren?.name"
+              [class.table__body__column__children--active]="selectedRowProduct === elementChildren.id"
+              [matTooltip]="elementChildren?.title"
             >
               <div
                 class="table__body__column__row-title table__body__column__row-title-children"
@@ -75,14 +74,14 @@
 
               >
                 <svg-icon
-                  *ngIf="selectedRowProduct !== elementChildren.name"
+                  *ngIf="selectedRowProduct !== elementChildren.id"
                   [svgStyle]="{'height.px':'43', 'width.px': '21.3'}"
                   class="table__body__column__row-title-children__left-block--first"
                   src="assets/icons/widgets/APS/aps-recipe-diagram/astue-left-row-block-recipe.svg"
                 >
                 </svg-icon>
                 <svg-icon
-                  *ngIf="selectedRowProduct === elementChildren.name"
+                  *ngIf="selectedRowProduct === elementChildren.id"
                   [svgStyle]="{'height.px':'43', 'width.px': '21.3'}"
                   class="table__body__column__row-title-children__left-block--first"
                   src="assets/icons/widgets/APS/aps-recipe-diagram/astue-left-row-block-active-recipe.svg"
@@ -91,7 +90,7 @@
                 <div
                   class="table__body__column__row-title__text__subname"
                   [class.table__body__column__row-title--no-active]="selectedRow.isSelected(element.unit.name)">
-                  <span>{{ elementChildren.name }}</span>
+                  <span>{{ elementChildren.title }}</span>
                 </div>
               </div>
             </td>
