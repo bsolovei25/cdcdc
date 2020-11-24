@@ -47,6 +47,7 @@ export const WIDGETS = {
     'cd-deviation-mat': WidgetContainerComponent,
     'cd-reactor-parameters': WidgetContainerComponent,
     'sou-operational-accounting-system': WidgetContainerComponent,
+    'sou-operational-accounting-system-new': WidgetContainerComponent,
     'astue-onpz-conventional-fuel': WidgetContainerComponent,
     'astue-onpz-conventional-fuel-predictors': WidgetContainerComponent,
     'astue-onpz-predictors': WidgetContainerComponent,
@@ -1243,7 +1244,7 @@ export const WIDGETS_LAZY = {
 
     // #region SOU
 
-    'sou-operational-accounting-system-old': {
+    'sou-operational-accounting-system': {
         import: async () => {
             return await import(
                 'src/app/widgets/SOU/sou-operational-accounting-system/sou-operational-accounting-system.module'
