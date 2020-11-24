@@ -24,7 +24,6 @@ export class ApsScenarioSelectionComponent extends WidgetPlatform<unknown> imple
     ngOnInit(): void {
         super.widgetInit();
         this.getScenarios();
-        setTimeout(() => console.log(this.scenarios), 5000);
     }
 
     ngOnDestroy(): void {
@@ -34,8 +33,11 @@ export class ApsScenarioSelectionComponent extends WidgetPlatform<unknown> imple
         const data = await this.apsService.getAllScenario();
         this.scenarios = data;
     }
+    private async getCalculations(): Promise<void> {
+        await this.apsService.getCalculate();
+    }
     calculate($event: MouseEvent): void {
-        console.log(`scenario button clicked!`);
+        this.getCalculations();
     }
 
     protected dataHandler(ref: any): void {
