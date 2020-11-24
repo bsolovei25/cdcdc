@@ -10,18 +10,18 @@
     width: 177px;
     margin: 0 5px;
     padding: 0 10px;
-  
+
     display: flex;
     justify-content: center;
     align-items: center;
-  
+
     border-radius: 2px;
     background-color: var(--color-aps-bg-btns);
     color: var(--color-aps-white);
 
     outline: none;
     border: none;
-  
+
     &:hover {
       cursor: pointer;
       background-color: var(--color-aps-active);
@@ -38,7 +38,7 @@
   border-bottom: 2px solid var(--color-aps-border);
   overflow-y: scroll;
 
-  input {    
+  input {
     height: 30px;
     width: calc(100% - 5px);
     padding: 0;
@@ -70,7 +70,7 @@ th {
   font-size: 13px;
   line-height: 16px;
   color: var(--color-text-sub);
-  background: var(--astue-onpz-factory-analisys-bg);
+  background: var(--color-kpe-gaude-unactive);
 }
 
 td {
