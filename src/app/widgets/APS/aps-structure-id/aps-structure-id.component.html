@@ -65,8 +65,7 @@
               *ngFor="let column of columnsToDisplay"
               class="expanded-column table__body__column table__body__column__children"
               [class.table__body__column__children--active]="selectedRowProduct === elementChildren.name"
-              [class.table__body__column__children--deviation]="selectedRowProduct === elementChildren.name && selectedRowProduct === elementChildren.name"
-              [matTooltip]="elementChildren?.name"
+              [matTooltip]="elementChildren?.title"
             >
               <div
                 class="table__body__column__row-title table__body__column__row-title-children"
@@ -91,7 +90,7 @@
                 <div
                   class="table__body__column__row-title__text__subname"
                   [class.table__body__column__row-title--no-active]="selectedRow.isSelected(element.unit.name)">
-                  <span>{{ elementChildren.name }}</span>
+                  <span>{{ elementChildren.title }}</span>
                 </div>
               </div>
             </td>

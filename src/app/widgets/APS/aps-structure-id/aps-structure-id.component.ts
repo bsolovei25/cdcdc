@@ -12,7 +12,7 @@ export interface IStructure {
 }
 
 export interface IStructureList {
-    id: string;
+    title: string;
     name: string;
 }
 
@@ -26,21 +26,21 @@ export class ApsStructureIdComponent extends WidgetPlatform<unknown> implements 
         unit: { name: 'Технологическая устрановка' },
         list: [
             {
-                id: '0',
-                name: 'Справочник'
+                name: '0',
+                title: 'Справочник'
             },
             {
-                id: '1',
-                name: 'Режимы работы ТУ'
+                name: '1',
+                title: 'Режимы работы ТУ'
             },
             {
-                id: '2',
-                name: 'Скорость изменнеия загрузки'
+                name: '2',
+                title: 'Скорость изменнеия загрузки'
             }
             ,
             {
-                id: '3',
-                name: 'Диапазон производительности по регламенту'
+                name: '3',
+                title: 'Диапазон производительности по регламенту'
             }
             ]
     },
@@ -48,21 +48,21 @@ export class ApsStructureIdComponent extends WidgetPlatform<unknown> implements 
             unit: { name: 'Материальный поток' },
             list: [
                 {
-                    id: '00',
-                    name: 'Справочник'
+                    name: '00',
+                    title: 'Справочник'
                 },
                 {
-                    id: '11',
-                    name: 'Режимы работы ТУ'
+                    name: '11',
+                    title: 'Режимы работы ТУ'
                 },
                 {
-                    id: '22',
-                    name: 'Скорость изменнеия загрузки'
+                    name: '22',
+                    title: 'Скорость изменнеия загрузки'
                 }
                 ,
                 {
-                    id: '33',
-                    name: 'Диапазон производительности по регламенту'
+                    name: '33',
+                    title: 'Диапазон производительности по регламенту'
                 }
             ]
         }
