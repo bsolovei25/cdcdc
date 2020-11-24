@@ -110,6 +110,7 @@
       class="left__item"
       titleName="Состав бригады:"
       [description]="ewService.event?.shiftPassEvent?.shiftMembers"
+      [disabled]="!ewService.isCreateNewEvent"
       (changedDescription)="onChangeEventDescription($event, 'shiftMembers')"
     ></evj-event-description>
     <evj-event-description

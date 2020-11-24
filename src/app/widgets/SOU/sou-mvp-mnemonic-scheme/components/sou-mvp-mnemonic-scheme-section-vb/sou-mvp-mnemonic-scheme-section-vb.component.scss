@@ -1,0 +1,26 @@
+* {
+  box-sizing: border-box;
+}
+
+.stream {
+  margin: 10px 0;
+  display: flex;
+
+  &__item {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+  }
+}
+
+.line {
+  height: 1px;
+  width: 23px;
+  border-top: 1px solid var(--sou-mvp-color-border);
+}
+
+.output {
+  padding: 3px 0;
+  padding-right: 25px;
+  flex: 1;
+}

@@ -1,0 +1,62 @@
+<evj-contemporary-widget-header
+  [uniqId]="widgetUniqId"
+  [widgetTitle]="'Режимы работы ТУ'"
+  icon="modes"
+  type="astue"
+>
+</evj-contemporary-widget-header>
+<div class="container">
+  <table>
+    <thead>
+    <tr>
+      <th *ngFor="let element of headerName">
+        <div class="text">{{element.header}}</div>
+      </th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let element of tableToDisplay">
+      <td>
+        <div class="text">
+          <div class="text__value">{{element.name1}}</div>
+        </div>
+      </td>
+      <td>
+        <div class="text">
+          <div class="text__value">{{element.name2}}</div>
+        </div>
+      </td>
+      <td>
+        <div class="text">
+          <div class="text__value">{{element.name3}}</div>
+        </div>
+      </td>
+      <td>
+        <div class="text">
+          <div class="text__value">{{element.name4}}</div>
+        </div>
+      </td>
+      <td>
+        <div class="text">
+          <div class="text__value">{{element.name5}}</div>
+        </div>
+      </td>
+      <td>
+        <div class="text">
+          <div class="text__value">{{element.name6}}</div>
+        </div>
+      </td>
+      <td>
+        <div class="text">
+          <div class="text__value">{{element.name7}}</div>
+        </div>
+      </td>
+      <td>
+        <div class="text">
+          <div class="text__value">{{element.name8}}</div>
+        </div>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>

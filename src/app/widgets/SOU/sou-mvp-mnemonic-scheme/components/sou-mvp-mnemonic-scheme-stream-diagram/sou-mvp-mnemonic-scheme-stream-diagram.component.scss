@@ -1,0 +1,137 @@
+* {
+  box-sizing: border-box;
+}
+
+span {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.container {
+  height: 24px;
+  width: 180px;
+  margin: 3px 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  border-radius: 24px 2px 2px 24px;
+  border: 1px solid var(--sou-mvp-color-border);
+  background: var(--sou-mvp-color-bg-title);
+
+  position: relative;
+
+  .diagram-container {
+    height: 100%;
+
+    flex: 1;
+    display: flex;
+
+    border-right: 1px solid var(--sou-mvp-color-border);
+  } 
+
+  .diagram {
+    height: 24px;
+    width: 24px;
+  }
+
+  .diagram-values {
+    .value {
+      font-size: 14px;
+      line-height: 17px;
+      color: var(--sou-mvp-color-text-info);
+    }
+
+    .unit {
+      font-size: 10px;
+      line-height: 12px;
+      color: var(--sou-mvp-color-text-diagram-sub);
+    }
+  }
+
+  .weight {
+    height: 100%;
+    width: 56px;
+    padding: 0 10px;
+
+    display: flex;
+    align-items: center;
+
+    font-size: 12px;
+    line-height: 14px;
+    color: var(--sou-mvp-color-text-info);
+
+    background: var(--sou-mvp-color-bg-main);
+  }
+
+  .diagram-title {
+    max-width: 70px;
+    display: flex;
+    align-items: center;
+
+    padding-left: 11px;
+    .title {
+      font-size: 14px;
+      line-height: 17px;
+  
+      color: var(--sou-mvp-color-text-diagram-main);
+    }
+  }
+
+  .connection-circle {
+    height: 8px;
+    width: 8px;
+  
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  
+    border-radius: 50%;
+  
+    background: var(--sou-mvp-color-bg-main);
+    border: 1px solid var(--sou-mvp-color-border);
+  
+    position: absolute;
+    right: -4px;
+    z-index: 999;
+  }
+}
+
+
+.off {
+
+  border: 1px solid var(--sou-mvp-color-bg-title);
+  background: var(--sou-mvp-color-bg-main);
+
+  .diagram-container {
+    border-right: 1px solid var(--sou-mvp-color-bg-title);
+  }
+
+  .diagram-values {
+    .value {
+      color: var(--sou-mvp-color-text-diagram-sub);
+    }
+
+    .unit {
+      color: var(--sou-mvp-color-text-diagram-sub);
+    }
+  }
+
+  .weight {
+
+    color: var(--sou-mvp-color-text-diagram-sub);
+    background: var(--sou-mvp-color-bg-main);
+  }
+
+  .diagram-title {
+    .title {
+      color: var(--sou-mvp-color-text-diagram-sub);
+    }
+  }
+
+  .connection-circle {
+    border: 1px solid var(--sou-mvp-color-bg-title);
+  }
+}

@@ -172,6 +172,7 @@ export interface IRetrievalEventDto {
     deadline: Date;
     fixedByName: string;
     timerPercentage: number;
+    responsibleName?: string;
 }
 
 export interface IEventDeviationData {

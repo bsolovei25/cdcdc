@@ -47,6 +47,7 @@ export const WIDGETS = {
     'cd-deviation-mat': WidgetContainerComponent,
     'cd-reactor-parameters': WidgetContainerComponent,
     'sou-operational-accounting-system': WidgetContainerComponent,
+    'sou-operational-accounting-system-new': WidgetContainerComponent,
     'astue-onpz-conventional-fuel': WidgetContainerComponent,
     'astue-onpz-conventional-fuel-predictors': WidgetContainerComponent,
     'astue-onpz-predictors': WidgetContainerComponent,
@@ -124,6 +125,10 @@ export const WIDGETS = {
     'astue-onpz-factory-analysis': WidgetContainerComponent,
     'astue-onpz-heat-balance': WidgetContainerComponent,
     'astue-onpz-table-indicators': WidgetContainerComponent,
+    'astue-onpz-mnemonic-furnace': WidgetContainerComponent,
+    'aps-operating-modes': WidgetContainerComponent,
+    'aps-structure-id': WidgetContainerComponent,
+    'aps-scenario-selection': WidgetContainerComponent,
 };
 
 export const WIDGETS_LAZY = {
@@ -240,6 +245,43 @@ export const WIDGETS_LAZY = {
         minItemCols: 11,
         minItemRows: 11,
         preview: 'indicator-load-deviation',
+    },
+    'aps-operating-modes': {
+        import: async () => {
+            return await import(
+                'src/app/widgets/APS/aps-operating-modes/aps-operating-modes.module'
+            );
+        },
+        module: 'ApsOperatingModesModule',
+        itemCols: 25,
+        itemRows: 5,
+        minItemCols: 25,
+        minItemRows: 5,
+        preview: 'default',
+    },
+    'aps-structure-id': {
+        import: async () => {
+            return await import('src/app/widgets/APS/aps-structure-id/aps-structure-id.module');
+        },
+        module: 'ApsStructureIdModule',
+        itemCols: 13,
+        itemRows: 12,
+        minItemCols: 13,
+        minItemRows: 13,
+        preview: 'default',
+    },
+    'aps-scenario-selection': {
+        import: async () => {
+            return await import(
+                'src/app/widgets/APS/aps-scenario-selection/aps-scenario-selection.module'
+            );
+        },
+        module: 'ApsScenarioSelectionModule',
+        itemCols: 13,
+        itemRows: 5,
+        minItemCols: 13,
+        minItemRows: 5,
+        preview: 'default',
     },
 
     // #endregion APS
@@ -1216,6 +1258,20 @@ export const WIDGETS_LAZY = {
         preview: 'sou-operational-accounting-system',
     },
 
+    'sou-operational-accounting-system-new': {
+        import: async () => {
+            return await import(
+                'src/app/widgets/SOU/sou-mvp-mnemonic-scheme/sou-mvp-mnemonic-scheme.module'
+            );
+        },
+        module: 'SouMvpMnemonicSchemeModule',
+        itemCols: 32,
+        itemRows: 30,
+        minItemCols: 32,
+        minItemRows: 30,
+        preview: 'sou-operational-accounting-system',
+    },
+
     // #endregion SOU
 
     //#region ASTUE-MNPZ
@@ -1400,6 +1456,19 @@ export const WIDGETS_LAZY = {
         minItemRows: 7,
         preview: 'default',
     },
+    'astue-onpz-mnemonic-furnace': {
+        import: async () => {
+            return await import(
+                'src/app/widgets/ASTUE-ONPZ/astue-onpz-mnemonic-furnace/astue-onpz-mnemonic-furnace.module'
+            );
+        },
+        module: 'AstueOnpzMnemonicFurnaceModule',
+        itemCols: 24,
+        itemRows: 9,
+        minItemCols: 24,
+        minItemRows: 7,
+        preview: 'default',
+    },
     'astue-onpz-heat-balance': {
         import: async () => {
             return await import(
@@ -1413,6 +1482,20 @@ export const WIDGETS_LAZY = {
         minItemRows: 10,
 
         preview: 'astue-onpz-heat-balance',
+    },
+    'astue-onpz-table-indicators': {
+        import: async () => {
+            return await import(
+                'src/app/widgets/ASTUE-ONPZ/astue-onpz-table-indicators/astue-onpz-table-indicators.module'
+                );
+        },
+        module: 'AstueOnpzTableIndicatorsModule',
+        itemCols: 9,
+        itemRows: 10,
+        minItemCols: 9,
+        minItemRows: 10,
+
+        preview: 'astue-onpz-table-indicators',
     },
     'ejco-onpz-unit-sou': {
         import: async () => {
