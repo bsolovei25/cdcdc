@@ -28,6 +28,7 @@
             </div>
           </div>
           <div class="wrapper wrapper__middle">
+            <div class="title"> {{ (data | async)?.inputLiquidBlock?.title || '' }} </div>
             <div class="streams">
               <evj-astue-onpz-mnemonic-furnace-line *ngFor="let line of (data | async)?.inputLiquidBlock?.lines || []" [data]="line"></evj-astue-onpz-mnemonic-furnace-line>
             </div>
