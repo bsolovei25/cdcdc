@@ -37,7 +37,7 @@ export class AstueEfficiencyItemsComponent implements OnChanges {
                     if (!this.cardSelection.selected.length) {
                         if (value.direction === this.direction) {
                             this.cardSelection.select(this.data[0]);
-                            this.selectProduct.emit(this.data[0].name);
+                            this.selectProduct.emit(this.data[0].id);
                         }
                     }
                 });
@@ -45,11 +45,22 @@ export class AstueEfficiencyItemsComponent implements OnChanges {
         }
     }
 
+    public changeDirection(direction: 'in' | 'out'): void {
+        if (this.direction === direction) {
+            return;
+        }
+        this.direction = direction;
+        const defaultProduct = this.data.find((x) => x.direction === direction);
+        if (defaultProduct) {
+            this.onSelectProduct(defaultProduct);
+        }
+    }
+
     public onSelectProduct(product: IAsEfProduct): void {
         this.cardSelection.select(product);
         this.AsEfService.clearOpenedUnits();
         this.AsEfService.clearUnits();
-        this.selectProduct.emit(product.name);
+        this.selectProduct.emit(product.id);
         this.AsEfService.selectionUnit$.next([]);
         this.AsEfService.selectionFlow$.next([]);
     }
