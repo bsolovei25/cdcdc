@@ -1,7 +1,10 @@
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { WidgetService } from '../../../dashboard/services/widget.service';
 import { WidgetPlatform } from '../../../dashboard/models/@PLATFORM/widget-platform';
-
+export interface ITable {
+    header: IHeaderName[];
+    body: ITableToDisplay[];
+}
 export interface ITableToDisplay {
     name1: string;
     name2: string;
