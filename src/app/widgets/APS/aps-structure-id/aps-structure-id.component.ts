@@ -35,7 +35,7 @@ export class ApsStructureIdComponent extends WidgetPlatform<unknown> implements 
     selectedRowProduct: string;
     selectedRow: SelectionModel<string> = new SelectionModel(true);
 
-    public tables;
+    public tables: ITable;
     constructor(
         private apsService: ApsService,
         protected widgetService: WidgetService,
@@ -58,7 +58,7 @@ export class ApsStructureIdComponent extends WidgetPlatform<unknown> implements 
     }
     private async getTables(table: number): Promise<void> {
         const data = await this.apsService.getReferenceBook(table);
-        this.tables = data;
+        this.apsService.showTable$.next(data);
     }
 
     onClickTr(event: MouseEvent, element: any): void {
@@ -85,8 +85,6 @@ export class ApsStructureIdComponent extends WidgetPlatform<unknown> implements 
         } else {
             this.selectedRowProduct = null;
         }
-        this.tables = this.getTables(element.unitType);
-        this.apsService.showTable$.next(this.tables);
-        setTimeout(() => console.log(`table ${this.tables}`), 5000);
+        this.getTables(element.unitType);
     }
 }
