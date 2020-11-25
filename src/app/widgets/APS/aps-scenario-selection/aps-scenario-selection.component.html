@@ -18,7 +18,7 @@
         <mat-select class="dropdown__select" [value]="scenarios[0]">
           <ng-container *ngFor="let scenario of scenarios">
             <mat-option [value]="scenario">
-              {{ scenario }}
+              {{ scenario?.name }}
             </mat-option>
           </ng-container>
         </mat-select>
@@ -26,7 +26,7 @@
       <button
         class="button button-icon"
         matRipple [matRippleColor]="'white'"
-        (click)="clicked($event)"
+        (click)="calculate($event)"
       >
       <svg-icon
           src="assets/icons/widgets/APS/scenarios/play-button.svg"

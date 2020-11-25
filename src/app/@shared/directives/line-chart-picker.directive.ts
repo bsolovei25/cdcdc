@@ -344,6 +344,7 @@ export class LineChartPickerDirective implements OnDestroy {
                     .select('g.mouse-info .mouse-graph-value')
                     .attr('x', x - infoFramePaddings.nearText)
                     .text(factY.toFixed(1));
+                // .text(0.0);
 
                 if (planY) {
                     this.svg

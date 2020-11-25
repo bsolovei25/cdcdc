@@ -325,6 +325,12 @@ th,  td {
               position: absolute;
               left: -2px;
               top: -14.6px;
+              &__default {
+                color: var(--color-aps-bg-icon);
+              }
+              &__active {
+                color: var(--color-aps-active);
+              }
             }
           }
 
