@@ -5,11 +5,12 @@ import { ApsService } from '../../../dashboard/services/widgets/APS/aps.service'
 import { IScenario } from '../../../dashboard/models/APS/aps-tables.model';
 
 @Component({
-  selector: 'evj-aps-scenario-selection',
-  templateUrl: './aps-scenario-selection.component.html',
-  styleUrls: ['./aps-scenario-selection.component.scss']
+    selector: 'evj-aps-scenario-selection',
+    templateUrl: './aps-scenario-selection.component.html',
+    styleUrls: ['./aps-scenario-selection.component.scss'],
 })
-export class ApsScenarioSelectionComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
+export class ApsScenarioSelectionComponent extends WidgetPlatform<unknown>
+    implements OnInit, OnDestroy {
     public scenarios: IScenario[] = [null];
     constructor(
         private apsService: ApsService,
@@ -37,10 +38,8 @@ export class ApsScenarioSelectionComponent extends WidgetPlatform<unknown> imple
         await this.apsService.getCalculate();
     }
     calculate($event: MouseEvent): void {
-        this.getCalculations();
+        // this.getCalculations();
     }
 
-    protected dataHandler(ref: any): void {
-    }
-
+    protected dataHandler(ref: any): void {}
 }
