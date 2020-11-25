@@ -13,6 +13,7 @@ import {
     IEventsWidgetAttributes,
     IEventsWidgetNotificationPreview,
     IEventsWidgetOptions,
+    SortTypeEvents,
 } from '../../../dashboard/models/EVJ/events-widget';
 import { EventsWidgetFilter } from '../../../dashboard/models/EVJ/events-widget';
 import { EventsWidgetNotificationStatus } from '../../../dashboard/models/EVJ/events-widget';
@@ -488,7 +489,19 @@ export class EventsComponent extends WidgetPlatform<IEventsWidgetAttributes>
         if (this.isSound) {
             this.playAudio();
         }
-        const idx = this.notifications.findIndex((n) => notification.sortIndex <= n.sortIndex);
+        let sortType: SortTypeEvents | 'isVideoWall' = this.attributes?.SortType ?? 'default';
+        if (this.attributes.IsVideoWall) {
+            sortType = 'isVideoWall';
+        }
+        this.notifications = this.notifications.map((n) => {
+            return {
+                ...n,
+                sortIndex: n.sortIndexes?.find((x) => x?.type === sortType)?.value ?? 0,
+            };
+        });
+        const eventSortIndex: number =
+            notification.sortIndexes?.find((x) => x?.type === sortType)?.value ?? 0;
+        const idx = this.notifications.findIndex((n) => eventSortIndex >= n.sortIndex);
         if (this.notifications.length > 0 && idx === -1) {
             return;
         }
