@@ -16,12 +16,14 @@ import { MatIconModule } from '@angular/material/icon';
 import { NgxMatDatetimePickerModule } from '@angular-material-components/datetime-picker';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { DashboardModule } from '../../../dashboard/dashboard.module';
-import { ScrollingModule } from '@angular/cdk/scrolling';
+import { ScrollingModule } from '@angular/cdk-experimental/scrolling';
+import { ScrollingModule as OldScrollingModule } from '@angular/cdk/scrolling';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
 import { ReactiveFormsModule } from '@angular/forms';
 import { OilOperationsManualAssignComponent } from './components/oil-operations-manual-assign/oil-operations-manual-assign.component';
+import { MatRippleModule } from '@angular/material/core';
 
 
 
@@ -52,6 +54,8 @@ import { OilOperationsManualAssignComponent } from './components/oil-operations-
         MatSelectModule,
         ReactiveFormsModule,
         MatInputModule,
+        OldScrollingModule,
+        MatRippleModule,
     ],
     exports: []
 })

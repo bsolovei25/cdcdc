@@ -38,7 +38,7 @@
 
   .description__content {
     height: 100%;
-    background-color: var(--evj-events-workspace-bg-dark);
+    background-color: var(--header-events-color-bg-main);
 
     .description__content_text {
       background-color: transparent;
@@ -70,7 +70,7 @@
 }
 
 ::-webkit-scrollbar-track-piece {
-  background: var(--color-bg-card);
+  background-color: var(--header-events-color-bg-main);
 }
 
 ::-webkit-scrollbar-thumb {

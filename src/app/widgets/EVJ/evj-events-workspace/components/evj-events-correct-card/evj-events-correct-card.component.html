@@ -1,7 +1,7 @@
 <evj-ui-block status="normal">
   <div class="card" (click)="onClickCard()">
-    <div class="card__header" *ngIf="event?.fixedByName">
-      <div class="header__text">{{event?.fixedByName}}</div>
+    <div class="card__header" *ngIf="event?.responsibleName">
+      <div class="header__text">{{event?.responsibleName}}</div>
       <div class="header__progress">
         <div class="status" *ngIf="event?.status?.description">
           <span>{{event?.status?.description}}</span>

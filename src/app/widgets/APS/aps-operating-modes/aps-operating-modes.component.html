@@ -4,56 +4,52 @@
   icon="modes"
   type="astue"
 >
+  <div class="btn-container"
+    (mousedown)="$event.stopPropagation()"
+    (touchstart)="$event.stopPropagation()"
+  >
+    <button
+      class="discard"
+      (click)="discard()"
+    >Отменить</button>
+    <button
+      class="save"
+      (click)="saveValues()"
+    >Сохранить</button>
+  </div>
 </evj-contemporary-widget-header>
-<div class="container">
+<div class="container"
+  (mousedown)="$event.stopPropagation()"
+  (touchstart)="$event.stopPropagation()"
+>
   <table>
     <thead>
     <tr>
       <th *ngFor="let element of headerName">
-        <div class="text">{{element.header}}</div>
+        <div class="text">{{element?.title}}</div>
       </th>
     </tr>
     </thead>
     <tbody>
-    <tr *ngFor="let element of tableToDisplay">
-      <td>
+    <tr *ngFor="let element of data; let i = index">
+      <td
+        *ngFor="let item of headerName; let j = index"
+        (click)="editValue()"
+      >
         <div class="text">
-          <div class="text__value">{{element.name1}}</div>
-        </div>
-      </td>
-      <td>
-        <div class="text">
-          <div class="text__value">{{element.name2}}</div>
-        </div>
-      </td>
-      <td>
-        <div class="text">
-          <div class="text__value">{{element.name3}}</div>
-        </div>
-      </td>
-      <td>
-        <div class="text">
-          <div class="text__value">{{element.name4}}</div>
-        </div>
-      </td>
-      <td>
-        <div class="text">
-          <div class="text__value">{{element.name5}}</div>
-        </div>
-      </td>
-      <td>
-        <div class="text">
-          <div class="text__value">{{element.name6}}</div>
-        </div>
-      </td>
-      <td>
-        <div class="text">
-          <div class="text__value">{{element.name7}}</div>
-        </div>
-      </td>
-      <td>
-        <div class="text">
-          <div class="text__value">{{element.name8}}</div>
+          <input
+            type="text"
+            placeholder={{element[item?.key]}}
+            readonly
+            *ngIf="!editMode"
+          >
+          <input
+            type="text"
+            placeholder={{element[item?.key]}}
+            *ngIf="editMode"
+            (change)="onChangeValue($event, i, j)"
+            [readonly]="!item?.writable"
+          >
         </div>
       </td>
     </tr>
