@@ -14,6 +14,7 @@ export interface IKpeTable {
     parameters: IKpeTableBody[];
 }
 export interface IKpeTableBody {
+    id: number;
     name: string;
     plan: number;
     average: number;
@@ -57,9 +58,9 @@ export class KpeTableComponent extends WidgetPlatform<unknown> implements OnInit
 
     }
 
-    deviationCount(element: IParams): number {
+    deviationCount(element: IKpeTable): number {
         let i = 0;
-        element.unitParams.forEach((value) => (value.deviation > 0 ? (i += 1) : (i += 0)));
+        element.parameters.forEach((value) => (value.isDeviation > 0 ? (i += 1) : (i += 0)));
         return i;
     }
 
@@ -76,6 +77,14 @@ export class KpeTableComponent extends WidgetPlatform<unknown> implements OnInit
         event.stopPropagation();
         if (!this.selectedRowProduct || element.name !== this.selectedRowProduct) {
             this.selectedRowProduct = element.name;
+        } else {
+            this.selectedRowProduct = null;
+        }
+    }
+    onClickRowChildren(event: MouseEvent, element?: any): void {
+        event.stopPropagation();
+        if (!this.selectedRowProduct || element.id !== this.selectedRowProduct) {
+            this.selectedRowProduct = element.id;
         } else {
             this.selectedRowProduct = null;
         }

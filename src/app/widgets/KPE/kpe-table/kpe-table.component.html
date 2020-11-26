@@ -28,13 +28,17 @@
           [class.last-tr]="element.unit.name === 'last-row'"
           [class.table__body__row--active]="selectedRowProduct === element.unit.name"
         >
-          <ng-container *ngIf="element !== 'last-row'">
+          <ng-container *ngIf="element.unit.name !== 'last-row'">
             <td
               class="table__body__column"
               [class.table__body__column--active]="selectedRowProduct === element.unit.name"
+              [class.table__body__column--warning]="selectedRowProduct === element.unit.name && deviationCount(element) !== 0"
               (click)="onClickRow($event, element)"
               colspan="3"
             >
+              <ng-container *ngIf="deviationCount(element) !== 0">
+                <div class="table__body__column--warning-border"></div>
+              </ng-container>
               <div
                 (click)="onClickRow($event, element.unit)"
                 class="table__body__column__row-title"
@@ -43,7 +47,10 @@
                 <svg-icon
                   class="table__body__column__row-title__icon"
                   (click)="onClickTr($event, element.unit)"
-                  [class.table__body__column__row-title__icon--active]="expandedElement.isSelected(element.unit.name)"
+                  [ngClass]="{
+                  'table__body__column__row-title__icon--warning':expandedElement.isSelected(element.unit.name) && deviationCount(element) !== 0,
+                  'table__body__column__row-title__icon--active':expandedElement.isSelected(element.unit.name) && deviationCount(element) === 0
+                  }"
                   src="assets/icons/widgets/APS/aps-gantt-chart/plus.svg"
                 >
                 </svg-icon>
@@ -52,9 +59,10 @@
                     <span>{{ element.unit.name }}</span>
                   </div>
                   <span class="table__body__column__row-title__text__name__value-right"
-                  >Отклонений:
+                  >Отклонений: {{ deviationCount(element) }}
                     </span>
                 </div>
+                <ng-template #elseBlock></ng-template>
               </div>
             </td>
           </ng-container>
@@ -63,32 +71,31 @@
           <tr
             *ngIf="expandedElement.isSelected(element.unit.name)"
             class="table__body__row expanded-row"
-            (click)="onClickRow($event, elementChildren)"
+            (click)="onClickRowChildren($event, elementChildren)"
           >
             <td
               *ngFor="let column of columnsToDisplay"
               class="expanded-column table__body__column table__body__column__children"
-              [class.table__body__column__children--active]="selectedRowProduct === elementChildren.name"
-              [class.table__body__column__children--deviation]="selectedRowProduct === elementChildren.name && selectedRowProduct === elementChildren.name"
+
+              [class.table__body__column__children--active]="selectedRowProduct === elementChildren.id"
+              [class.table__body__column__children--warning]="selectedRowProduct === elementChildren.id && deviationCount(element) !== 0"
               [matTooltip]="elementChildren?.name"
             >
               <div
-                *ngIf="column.name === 'Параметры'"
+                *ngIf="column.id === '1'"
                 class="table__body__column__row-title table__body__column__row-title-children"
                 [class.opacity]="selectedRow.isSelected(element.unit.name) && this.selectedRowProduct"
               >
+
                 <svg-icon
-                  *ngIf="selectedRowProduct !== elementChildren.name"
-                  [svgStyle]="{'height.px':'43', 'width.px': '21.3'}"
+                  [svgStyle]="{'height.px':'43', 'width.px': '21'}"
                   class="table__body__column__row-title-children__left-block--first"
-                  src="assets/icons/widgets/APS/aps-recipe-diagram/astue-left-row-block-recipe.svg"
-                >
-                </svg-icon>
-                <svg-icon
-                  *ngIf="selectedRowProduct === elementChildren.name"
-                  [svgStyle]="{'height.px':'43', 'width.px': '21.3'}"
-                  class="table__body__column__row-title-children__left-block--first"
-                  src="assets/icons/widgets/APS/aps-recipe-diagram/astue-left-row-block-active-recipe.svg"
+                  [class.table__body__column__row-title-children__left-block--first__warning]="elementChildren.isDeviation !== 0"
+                  [class.table__body__column__row-title-children__left-block--first__default]="selectedRowProduct !== elementChildren.name"
+                  [class.table__body__column__row-title-children__left-block--first__active]="selectedRowProduct === elementChildren.name && elementChildren.isDeviation === 0"
+                  [class.table__body__column__row-title-children__left-block--first__active-warning]="selectedRowProduct === elementChildren.name && elementChildren.isDeviation !== 0"
+
+                  [src]="'assets/icons/widgets/APS/aps-recipe-diagram/astue-table-left-row-block-recipe.svg'"
                 >
                 </svg-icon>
                 <div
@@ -100,55 +107,49 @@
                   class="table__body__column__row-title__engUnit"
                   [class.table__body__column__row-title--no-active]="selectedRow.isSelected(element.unit.name)"
                 >
-                  <span>{{elementChildren.isCritical}}</span>
                 </div>
               </div>
-              <ng-container *ngIf="column.id === '1'">
-                <div class="value">
-                  <span>{{elementChildren.name }}</span>
-                </div>
-              </ng-container>
-              <ng-container *ngIf="column.name === '2'">
+              <ng-container *ngIf="column.id === '2'">
                 <div class="value">
                   <span>{{elementChildren.plan }}</span>
                 </div>
               </ng-container>
-              <ng-container *ngIf="column.name === '3'">
+              <ng-container *ngIf="column.id === '3'">
                 <div class="value">
                   <span>{{elementChildren.average }}</span>
                 </div>
               </ng-container>
-              <ng-container *ngIf="column.name === '4'">
+              <ng-container *ngIf="column.id === '4'">
                 <div class="value">
                   <span>{{elementChildren.instant }}</span>
                 </div>
               </ng-container>
-              <ng-container *ngIf="column.name === '5'">
+              <ng-container *ngIf="column.id === '5'">
                 <div class="value">
                   <span>{{elementChildren.accumulation }}</span>
                 </div>
               </ng-container>
-              <ng-container *ngIf="column.name === '6'">
+              <ng-container *ngIf="column.id === '6'">
                 <div class="value">
                   <span>{{elementChildren.percentPlan }}</span>
                 </div>
               </ng-container>
-              <ng-container *ngIf="column.name === '7'">
+              <ng-container *ngIf="column.id === '7'">
                 <div class="value">
                   <span>{{elementChildren.predictPercent }}</span>
                 </div>
               </ng-container>
-              <ng-container *ngIf="column.name === '8'">
+              <ng-container *ngIf="column.id === '8'">
                 <div class="value">
                   <span>{{elementChildren.deviationValue }}</span>
                 </div>
               </ng-container>
-              <ng-container *ngIf="column.name === '9'">
+              <ng-container *ngIf="column.id === '9'">
                 <div class="value">
                   <span>{{elementChildren.deviationPercent }}</span>
                 </div>
               </ng-container>
-              <ng-container *ngIf="column.name === '10'">
+              <ng-container *ngIf="column.id === '10'">
                 <div class="value">
                   <span>{{elementChildren.recommended }}</span>
                 </div>

@@ -19,6 +19,7 @@ export const table: IKpeTable[] = [{
     },
     parameters: [
         {
+            id: 123,
             name: 'АВТ-6',
             plan: 2277.7,
             average: 2277.7,
@@ -33,6 +34,7 @@ export const table: IKpeTable[] = [{
             isCritical: 0
         },
         {
+            id: 2534,
             name: 'АВТ-7',
             plan: 2277.7,
             average: 2277.7,
@@ -47,6 +49,52 @@ export const table: IKpeTable[] = [{
             isCritical: 0
         },
         {
+            id: 3345,
+            name: 'АВТ-8',
+            plan: 2277.7,
+            average: 2277.7,
+            instant: 94.4,
+            accumulation: 1169.6,
+            percentPlan: '52%',
+            predictPercent: 2274.4,
+            deviationValue: 44,
+            deviationPercent: '1.2%',
+            recommended: 2274.4,
+            isDeviation: 0,
+            isCritical: 1
+        },
+        {
+            id: 1345,
+            name: 'АВТ-6',
+            plan: 2277.7,
+            average: 2277.7,
+            instant: 94.4,
+            accumulation: 1169.6,
+            percentPlan: '52%',
+            predictPercent: 2274.4,
+            deviationValue: 44,
+            deviationPercent: '1.2%',
+            recommended: 2274.4,
+            isDeviation: 0,
+            isCritical: 0
+        },
+        {
+            id: 2234,
+            name: 'АВТ-7',
+            plan: 2277.7,
+            average: 2277.7,
+            instant: 94.4,
+            accumulation: 1169.6,
+            percentPlan: '52%',
+            predictPercent: 2274.4,
+            deviationValue: 44,
+            deviationPercent: '1.2%',
+            recommended: 2274.4,
+            isDeviation: 1,
+            isCritical: 0
+        },
+        {
+            id: 3242,
             name: 'АВТ-8',
             plan: 2277.7,
             average: 2277.7,
@@ -69,6 +117,7 @@ export const table: IKpeTable[] = [{
         },
         parameters: [
             {
+                id: 443242,
                 name: 'АВТ-6',
                 plan: 2277.7,
                 average: 2277.7,
@@ -83,6 +132,7 @@ export const table: IKpeTable[] = [{
                 isCritical: 0
             },
             {
+                id: 54234,
                 name: 'АВТ-7',
                 plan: 2277.7,
                 average: 2277.7,
@@ -97,6 +147,7 @@ export const table: IKpeTable[] = [{
                 isCritical: 0
             },
             {
+                id: 62342,
                 name: 'АВТ-8',
                 plan: 2277.7,
                 average: 2277.7,
