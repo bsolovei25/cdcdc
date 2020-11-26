@@ -13,8 +13,8 @@
        (touchstart)="$event.stopPropagation()"
   >
     <ng-container [ngSwitch]="pageType$ | async">
-      <evj-astue-onpz-factor-analysis-page *ngSwitchCase="'bar'" class="factor-analysis"></evj-astue-onpz-factor-analysis-page>
-      <evj-astue-onpz-factory-analysis-chart-page *ngSwitchCase="'chart'" class="factor-analysis"></evj-astue-onpz-factory-analysis-chart-page>
+      <evj-astue-onpz-factor-analysis-page *ngSwitchCase="'bar'" [@leftTrigger] class="factor-analysis"></evj-astue-onpz-factor-analysis-page>
+      <evj-astue-onpz-factory-analysis-chart-page *ngSwitchCase="'chart'" [@rightTrigger] class="factor-analysis"></evj-astue-onpz-factory-analysis-chart-page>
     </ng-container>
   </div>
 </div>

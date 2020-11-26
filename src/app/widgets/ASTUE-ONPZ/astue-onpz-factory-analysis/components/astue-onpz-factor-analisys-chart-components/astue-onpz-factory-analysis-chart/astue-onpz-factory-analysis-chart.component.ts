@@ -67,29 +67,27 @@ export class AstueOnpzFactoryAnalysisChartComponent implements OnInit {
         this.drawSvg();
     }
 
-    private configChartArea(): void {
-        this.size = {
-            width: this.hostElement.nativeElement.clientWidth,
-            height: this.hostElement.nativeElement.clientHeight,
-        };
-    }
-
     @AsyncRender
     private drawSvg(): void {
         this.configChartArea();
-        // this.prepareData();
         // chart layout render
         this.initScale();
         this.initSvg();
         this.drawAxises();
         this.drawGrid();
+        this.drawDaysThreshold();
         // this.drawDayThreshold();
         // data render
         // this.drawCurve(this.factDataset, 'fact');
         // this.drawCurve(this.planDataset, 'plan');
     }
 
-    private prepareData(): void {}
+    private configChartArea(): void {
+        this.size = {
+            width: this.hostElement.nativeElement.clientWidth,
+            height: this.hostElement.nativeElement.clientHeight,
+        };
+    }
 
     private initScale(): void {
         this.scales.x = d3
@@ -113,57 +111,48 @@ export class AstueOnpzFactoryAnalysisChartComponent implements OnInit {
             .select(this.hostElement.nativeElement)
             .select('svg')
             .append('g');
-        console.log(this.hostElement.nativeElement.clientHeight);
         this.svg.attr('viewBox', `0 0 ${this.size.width} ${this.size.height}`);
     }
 
     private drawAxises(): void {
-        // y
-        const axisY = this.svg
-            .append('g')
-            .attr('transform', `translate(${this.margin.left}, 0)`)
-            .attr('class', 'y-axis')
-            .call(
-                d3
-                    .axisLeft(this.scales.y)
-                    .tickSize(0)
-                    .ticks(5)
-                    .tickFormat(d3.format('.1f'))
-            ) // форматирование до 1 знака после запятой
-            .call((g) => g.select('.domain').remove());
-        axisY
-            .selectAll('g.tick')
-            ._groups[0][axisY.selectAll('g.tick')._groups[0].length - 1].remove();
+        const drawAxis = (type: 'x' | 'y', axisTemplate) => {
+            const axis = this.svg
+                .append('g')
+                .attr(
+                    'transform',
+                    `translate(${this.margin.left},  ${
+                        type === 'x' ? this.size.height - this.margin.bottom : 0
+                    })`
+                )
+                .attr('class', 'y-axis')
+                .call(
+                    axisTemplate
+                        .tickSize(0)
+                        .tickSizeOuter(0)
+                        .ticks(type === 'x' ? 24 : 5)
+                        .tickFormat(type === 'x' ? dateFormatLocale() : d3.format('.1f'))
+                )
+                .call((g) => g.select('.domain').remove());
+            axis.select('path.domain').remove();
+            axis.selectAll('g.tick line').remove();
+            axis.selectAll('g.tick')._groups[0][
+                axis.selectAll('g.tick')._groups[0].length - 1
+            ].remove();
 
-        const axisX = this.svg
-            .append('g')
-            .attr(
-                'transform',
-                `translate(${this.margin.left}, ${this.size.height - this.margin.bottom})`
-            )
-            .attr('class', 'y-axis')
-            .call(
-                d3
-                    .axisBottom(this.scales.x)
-                    .ticks(24)
-                    .tickFormat(dateFormatLocale())
-                    .tickSizeOuter(0)
-            )
-            .call((g) => g.select('.domain').remove());
-        axisX.select('path.domain').remove();
-        axisX.selectAll('g.tick line').remove();
-        axisX
-            .selectAll('g.tick')
-            ._groups[0][axisX.selectAll('g.tick')._groups[0].length - 1].remove();
-        axisX.selectAll('g.tick')._groups[0][0].remove();
-        axisX.selectAll('g.tick')._groups[0].forEach((x) => {
-            shortMonths.forEach((m) => {
-                if (x.getElementsByTagName('text')[0].textContent.includes(m)) {
-                    console.log(x.getElementsByTagName('text')[0].textContent);
-                    x.getElementsByTagName('text')[0].style.fill = 'white';
-                }
-            });
-        });
+            if (type === 'x') {
+                axis.selectAll('g.tick')._groups[0][0].remove();
+                axis.selectAll('g.tick')._groups[0].forEach((x) => {
+                    shortMonths.forEach((m) => {
+                        if (x.getElementsByTagName('text')[0].textContent.includes(m)) {
+                            x.getElementsByTagName('text')[0].style.fill = 'white';
+                        }
+                    });
+                });
+            }
+        };
+
+        drawAxis('x', d3.axisBottom(this.scales.x));
+        drawAxis('y', d3.axisLeft(this.scales.y));
     }
 
     private drawGrid(): void {
@@ -173,7 +162,7 @@ export class AstueOnpzFactoryAnalysisChartComponent implements OnInit {
             .attr('width', this.size.width - this.margin.left - this.margin.right)
             .attr('height', this.size.height - this.margin.bottom - this.margin.top)
             .attr('transform', `translate(${this.margin.left}, 0)`)
-            .attr('opacity', '.35')
+            .attr('opacity', '.25')
             .attr('fill', '#12151');
 
         this.svg
@@ -243,13 +232,41 @@ export class AstueOnpzFactoryAnalysisChartComponent implements OnInit {
         });
     }
 
-    private drawDayThreshold(): void {
-        this.svg
-            .append('line')
-            .attr('class', 'line line__threshold')
-            .attr('x1', this.scales.x(this.currentHour))
-            .attr('x2', this.scales.x(this.currentHour))
-            .attr('y1', this.scales.y(this.sizeY.max))
-            .attr('y2', this.scales.y(this.sizeY.min));
+    private drawDaysThreshold(): void {
+        const xArr = this.getBorderCoords(
+            new Date(1606338000000),
+            new Date(1606338000000 + 345600000)
+        );
+        const topOffset = this.size.height - this.margin.bottom;
+        xArr.forEach((x) => {
+            this.svg
+                .append('line')
+                .attr('class', 'line line__threshold')
+                .attr('x1', x)
+                .attr('x2', x)
+                .attr('y1', this.scales.y(this.sizeY.max))
+                .attr('y2', this.scales.y(this.sizeY.min));
+            this.svg
+                .append('path')
+                .attr(
+                    'd',
+                    `M ${x - 4} ${topOffset} L ${x + 4} ${topOffset} L ${x} ${topOffset - 4} z`
+                )
+                .attr('fill', 'var(--color-cd-bg-border-sub)');
+        });
+    }
+
+    private getBorderCoords(minDate: Date, maxDate: Date): number[] {
+        const delta = 1000 * 60 * 60 * 24; // 1 day
+        const resultArr = [];
+        let checkValue = minDate.setHours(0, 0, 0, 0);
+
+        while (true) {
+            checkValue += delta;
+            if (checkValue >= maxDate.getTime()) {
+                return resultArr;
+            }
+            resultArr.push(this.scales.x(checkValue) + this.margin.left);
+        }
     }
 }

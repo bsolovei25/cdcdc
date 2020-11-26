@@ -15,9 +15,30 @@
     }
 
     .bottom {
-      height: 25px;
+      position: relative;
+      height: 28px;
       width: 100%;
-      border-top: 1px solid var(--color-astue-onpz-widget-border);
+      padding: 3px 0;
+      box-sizing: border-box;
+
+      .scroll {
+        height: 100%;
+        padding: 3px 0;
+        margin-left: 59px;
+        margin-right: 0;
+        border: 1px var(--color-astue-onpz-widget-border);
+        border-style: solid none none solid;
+        box-sizing: border-box;
+      }
+
+      .border {
+        position: absolute;
+        height: 35px;
+        width: 1px;
+        left: 59px;
+        top: -32px;
+        background: var(--color-astue-onpz-widget-border);
+      }
     }
   }
 
