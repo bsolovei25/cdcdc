@@ -1,85 +1,80 @@
 <div class="container-operation-free-shipment">
-    <div style="height: 100%;">
-        <div class="title">
-            <div class="title__button-close" (click)="close()">
-                <svg-icon src="assets/icons/widgets/reports/close.svg" class="add_button_icon">
-                </svg-icon>
-            </div>
-            <div class="title__block-name">
-                <div class="shipment-title">
-                    <div class="shipment-title__title">
-                        {{ dataFree.titleInfo.name }}
-                    </div>
-                    <div class="shipment-title__date">
-                        c {{ dataFree.titleInfo.dateFrom }} по {{ dataFree.titleInfo.dateTo }}
-                    </div>
-                </div>
-                <div class="shipment-value">
-                    <div class="shipment-value__block">
-                        {{ dataFree.titleInfo.value }} шт.
-                    </div>
-                </div>
-            </div>
+  <div style="height: 100%;">
+    <div class="title">
+      <div class="title__button-close" (click)="close()">
+        <svg-icon src="assets/icons/widgets/reports/close.svg" class="add_button_icon">
+        </svg-icon>
+      </div>
+      <div class="title__block-name">
+        <div class="shipment-title">
+          <div class="shipment-title__title">
+            Количество свободных отгрузок
+          </div>
+          <div class="shipment-title__date">
+            c {{ (currentDates?.fromDateTime | date: "yyyy.MM.dd | HH:mm") || '-' }}
+            по {{ (currentDates?.toDateTime | date: "yyyy.MM.dd | HH:mm") || '-' }}
+          </div>
         </div>
-        <div class="title-content">
-            <div class="title-content__name pasp">
-                Паспорт
-            </div>
-            <div class="title-content__name rr">
-                Р/р
-            </div>
-            <div class="title-content__name mass">
-                Масса
-            </div>
-            <div class="title-content__name point">
-                Точка отгрузки
-            </div>
+        <div class="shipment-value">
+          <div class="shipment-value__block">
+            {{ freeShipmentsNumber || 0 }} шт.
+          </div>
         </div>
-        <div class="content">
-            <ng-container *ngFor="let item of dataFree.content">
-                <div class="item" (click)="itemOpen(item)" [class.active]="item.open">
-                    <div class="item__title-button">
-                        <svg-icon *ngIf="item.open"
-                            src="assets/icons/widgets/oil-control-all/tank-information/arrow-up.svg"
-                            [svgStyle]="{ 'width.px':14, 'height.px':10 }"></svg-icon>
-
-                        <svg-icon *ngIf="!item.open"
-                            src="assets/icons/widgets/oil-control-all/tank-information/arrow-bottom.svg"
-                            [svgStyle]="{ 'width.px':14, 'height.px':10 }"></svg-icon>
-                    </div>
-                    <div class="item__name"> {{ item.name }}</div>
-                </div>
-                <div *ngIf="item.open" class="item__shadow-block">
-                    <ng-container *ngFor="let i of item.points">
-                        <div class="item__i" [class.active-block]='activeItemId === i.id' (click)="active(i)">
-                            <div class="name-param">
-                                {{ i.pasport }}
-                            </div>
-                            <div class="capacity-param">
-                                {{ i.rR }}
-                            </div>
-                            <div class="check-param">
-                                {{ i.mass }}
-                            </div>
-                            <div class="limit-param">
-                                <div class="limit-param__value">
-                                    {{ i.point }}
-                                </div>
-                            </div>
-                        </div>
-                    </ng-container>
-                </div>
-            </ng-container>
-        </div>
-        <!--<div class="bottom">
-            <div class="bottom__search">
-                <evj-circle-input></evj-circle-input>
-            </div>
-            <div class="bottom__save-block">
-                <div class="save-block" (click)="save()">
-                    <div class="button-save">Сохранить</div>
-                </div>
-            </div>
-        </div>-->
+      </div>
     </div>
+    <div class="title-content">
+      <div class="title-content__name pasp">
+        Паспорт
+      </div>
+      <div class="title-content__name rr">
+        Р/р
+      </div>
+      <div class="title-content__name mass">
+        Масса
+      </div>
+      <div class="title-content__name point">
+        Точка отгрузки
+      </div>
+    </div>
+    <div class="content">
+      <ng-container *ngFor="let item of dataFree">
+        <div class="item" (click)="productOpen(item)" [class.active]="isProductOpen(item)">
+          <div class="item__title-button">
+            <svg-icon *ngIf="isProductOpen(item)"
+                      src="assets/icons/widgets/oil-control-all/tank-information/arrow-up.svg"
+                      [svgStyle]="{ 'width.px':14, 'height.px':10 }"></svg-icon>
+
+            <svg-icon *ngIf="!isProductOpen(item)"
+                      src="assets/icons/widgets/oil-control-all/tank-information/arrow-bottom.svg"
+                      [svgStyle]="{ 'width.px':14, 'height.px':10 }"></svg-icon>
+          </div>
+          <div class="item__name"> {{ item.name || '-' }} ({{ item.quantity || '-' }})</div>
+        </div>
+        <ng-container *ngIf="isProductOpen(item)">
+          <cdk-virtual-scroll-viewport
+            [itemSize]="ROW_HEIGHT_PX" class="item__shadow-block"
+            [style.height.px]="item.quantity * ROW_HEIGHT_PX">
+            <ng-container *cdkVirtualFor="let i of item.data">
+              <div class="item__i" [class.active-block]='activeItemId === i.id'>
+                <div class="name-param">
+                  {{ i?.passport?.name || '-' }}
+                </div>
+                <div class="capacity-param">
+                  {{ i?.tank?.name || '-' }}
+                </div>
+                <div class="check-param">
+                  {{ i?.mass || '-' }}
+                </div>
+                <div class="limit-param">
+                  <div class="limit-param__value">
+                    {{ i?.shippingComplex?.name || '-' }}
+                  </div>
+                </div>
+              </div>
+            </ng-container>
+          </cdk-virtual-scroll-viewport>
+        </ng-container>
+      </ng-container>
+    </div>
+  </div>
 </div>

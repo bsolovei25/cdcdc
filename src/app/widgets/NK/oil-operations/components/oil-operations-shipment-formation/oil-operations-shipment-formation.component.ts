@@ -12,20 +12,17 @@ export class OilOperationsShipmentFormationComponent implements OnInit, OnChange
   @Input() public data: IOilRowActions[];
   public activeItemId: number;
 
-  constructor() { }
-
-  ngOnInit(): void {
+  public ngOnInit(): void {
   }
 
-  ngOnChanges(): void {
+  public ngOnChanges(): void {
     if (this.isOpen) {
       this.activeItemId = null;
     }
   }
 
-  active(item: IOilRowActions): void {
+  public active(item: IOilRowActions): void {
     this.activeItemId = item.id;
     this.openItem.emit(item.type);
   }
-
 }

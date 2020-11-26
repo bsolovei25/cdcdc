@@ -152,7 +152,7 @@
 
             <!-- RIGHT-SIDE -->
             <div *ngIf="filter.filter">
-                <evj-oil-operations-tank-filter [data]="data.filterTanks" (closeFilterTank)="closeReceived($event)">
+                <evj-oil-operations-tank-filter (closeFilterTank)="closeReceived($event)">
                 </evj-oil-operations-tank-filter>
             </div>
 
@@ -165,7 +165,11 @@
 
             <!-- RIGHT-SIDE -->
             <div *ngIf="filter.free">
-                <evj-oil-operations-free-shipment (closeFree)="closeShipment($event)">
+                <evj-oil-operations-free-shipment
+                  (closeFree)="closeShipment($event)"
+                  [currentDates]="currentDates"
+                  [freeShipmentsNumber]="freeShipmentsQuantity"
+                >
                 </evj-oil-operations-free-shipment>
             </div>
         </div>
