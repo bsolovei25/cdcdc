@@ -10,7 +10,7 @@ import { WidgetService } from '../../../dashboard/services/widget.service';
 })
 export class AstueOnpzFactoryAnalysisComponent extends WidgetPlatform implements OnInit {
     public pageType$: BehaviorSubject<'chart' | 'bar'> = new BehaviorSubject<'chart' | 'bar'>(
-        'bar'
+        'chart'
     );
 
     constructor(

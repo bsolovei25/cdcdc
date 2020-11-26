@@ -8,12 +8,13 @@
     </div>
   </evj-contemporary-widget-header>
 
-  <div class="container">
-<!--    <ng-container [ngSwitch]="pageType$ | async">-->
-<!--      <evj-astue-onpz-factor-analysis-page *ngSwitchCase="'bar'" class="factor-analysis"></evj-astue-onpz-factor-analysis-page>-->
-<!--      <evj-astue-onpz-factory-analysis-chart-page *ngSwitchCase="'chart'" class="factor-analysis"></evj-astue-onpz-factory-analysis-chart-page>-->
-<!--    </ng-container>-->
-    <evj-astue-onpz-factor-analysis-page *ngIf="(pageType$ | async) === 'bar'" class="factor-analysis"></evj-astue-onpz-factor-analysis-page>
-    <evj-astue-onpz-factory-analysis-chart-page *ngIf="(pageType$ | async) === 'chart'" class="factor-analysis"></evj-astue-onpz-factory-analysis-chart-page>
+  <div class="container"
+       (mousedown)="$event.stopPropagation()"
+       (touchstart)="$event.stopPropagation()"
+  >
+    <ng-container [ngSwitch]="pageType$ | async">
+      <evj-astue-onpz-factor-analysis-page *ngSwitchCase="'bar'" class="factor-analysis"></evj-astue-onpz-factor-analysis-page>
+      <evj-astue-onpz-factory-analysis-chart-page *ngSwitchCase="'chart'" class="factor-analysis"></evj-astue-onpz-factory-analysis-chart-page>
+    </ng-container>
   </div>
 </div>

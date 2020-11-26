@@ -1,6 +1,50 @@
 .container {
+  display: flex;
+  flex-flow: column;
+  justify-content: space-evenly;
   width: 122px;
-  height: 47px;
+  height: 55px;
+  padding-left: 10px;
+  box-sizing: border-box;
   background: #272A38;
   border-radius: 0 2px 2px 0;
+  border-left: solid 2px;
+
+  .title {
+    color: #8C99B2;
+    font-size: 12px;
+  }
+
+  .value {
+    font-size: 14px;
+  }
+
+  &__plan {
+    border-color: #0089FF;
+
+    .value {
+      color: #0089FF;
+    }
+  }
+
+  &__fact {
+    border-color: #FFFFFF;
+
+    .value {
+      color: #FFFFFF;
+    }
+  }
+
+  &__interval {
+    border-color: #4B5169;
+
+    .value {
+      color: #4B5169;
+
+      &::before {
+        content: '+-';
+        margin-right: -3px;
+      }
+    }
+  }
 }
