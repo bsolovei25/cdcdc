@@ -160,7 +160,7 @@ export const SOURCE_DATA: IAstueOnpzMnemonicFurnace = {
         ],
     },
     inputLiquidBlock: {
-        title: null,
+        title: 'Жидкое топливо',
         lines: [
             [
                 {

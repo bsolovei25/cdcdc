@@ -154,6 +154,7 @@
 
   // APS
   --color-aps-warning: #ff931e;
+  --color-aps-orange: #ff931e;
   --color-aps-bg: #161a28;
   --color-aps-bg-sub: #5e6582;
   --color-aps-bg-sub-2: #131827;
@@ -163,6 +164,8 @@
   --color-aps-bg-window: #191c2a;
   --color-bg-row-header: #141928;
   --color-aps-table-td: #191c27;
+  --color-aps-bg-btns: rgba(48, 53, 73, 0.5);
+
 
   --color-aps-border-sup: #0e1320;
 
@@ -178,8 +181,8 @@
   --color-aps-text-sub: #8d9eb8;
 
   --color-aps-active: #0089ff;
-  --color-aps-orange: #ff931e;
   --color-lco-trend-bg: rgb(28, 30, 39);
+  --color-aps-white: #ffffff;
 
   // APS Gantt
   --color-aps-timeLowerOrIncrease: 103, 58, 183;
@@ -278,6 +281,7 @@
   --nk-color-bg-component: rgba(48, 53, 73, 0.25);
   --nk-color-bg-card-body: rgba(39, 42, 56, 0.5);
   --nk-color-bg-component-title: #303549;
+  --nk-color-bg-component-title-dark: rgb(38, 42, 58);
   --nk-color-font-title-main: #D7E2F2;
   --nk-color-font-title-sub: #8c99b2;
   --nk-color-bg-innage-daigram: rgba(0, 137, 255, 0.2);
@@ -336,7 +340,7 @@
 
   --color-astue-tag-13: #FF1D25;
   --color-astue-onpz-bg-tag-13: #491F2A;
-  --color-astue-tag-14: #FF791F;
+  --color-astue-tag-14: #ff791f;
   --color-astue-onpz-bg-tag-14: #493129;
   --color-astue-tag-15: #FFB100;
   --color-astue-onpz-bg-tag-15: #493C22;
@@ -422,8 +426,11 @@
   --color-astue-onpz-mnemonic-furnace-sub-text: #8C99B2;
   --color-astue-onpz-mnemonic-furnace-unit-text: #606580;
   --color-astue-onpz-mnemonic-furnace-lines: #4B5169;
+  --color-astue-onpz-mnemonic-furnace-norm: #F7931E;
   --color-astue-onpz-mnemonic-furnace-warning: #F7931E;
+  --color-astue-onpz-mnemonic-furnace-warning-rgb: 247, 147, 30;
   --color-astue-onpz-mnemonic-furnace-active: #0089FF;
+  --color-astue-onpz-mnemonic-furnace-active-rgb: 0, 137, 255;
   --color-astue-onpz-mnemonic-furnace-item-bg: #272A38;
   --color-astue-onpz-mnemonic-furnace-item-bg-light: #303549;
   --color-astue-onpz-mnemonic-furnace-item-bg-dark: #1C1F2B;

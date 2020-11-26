@@ -5,13 +5,13 @@ import {
     OnChanges,
     HostListener,
     Input,
-    OnInit
+    OnInit,
 } from '@angular/core';
 import * as d3Selection from 'd3-selection';
 import * as d3 from 'd3';
 import {
     IProductionTrend,
-    ProductionTrendType
+    ProductionTrendType,
 } from '../../../dashboard/models/LCO/production-trends.model';
 import { IChartD3, IChartMini, IPointTank } from '../../models/smart-scroll.model';
 import { ChartStyleType, ChartStyle, IChartStyle } from '../../models/line-chart-style.model';
@@ -22,7 +22,7 @@ import { dateFormatLocale } from '@shared/functions/universal-time-fromat.functi
 @Component({
     selector: 'evj-line-chart-shared',
     templateUrl: './line-chart.component.html',
-    styleUrls: ['./line-chart.component.scss']
+    styleUrls: ['./line-chart.component.scss'],
 })
 export class LineChartComponent implements OnChanges, OnInit {
     @Input() public data: IProductionTrend[] = [];
@@ -38,7 +38,7 @@ export class LineChartComponent implements OnChanges, OnInit {
 
     private readonly chartStroke: { [key: string]: string } = {
         plan: '#ffffff',
-        fact: '#3fa9f5'
+        fact: '#3fa9f5',
     };
 
     private svg: any = null;
@@ -63,11 +63,10 @@ export class LineChartComponent implements OnChanges, OnInit {
         top: 20,
         right: 65,
         bottom: 30,
-        left: 65
+        left: 65,
     };
 
-    constructor() {
-    }
+    constructor() {}
 
     public ngOnChanges(): void {
         setTimeout(() => this.graphInit(), 0);
@@ -113,7 +112,10 @@ export class LineChartComponent implements OnChanges, OnInit {
         this.svg
             .attr('width', '100%')
             .attr('height', '100%')
-            .attr('viewBox', `0 0 ${this.graphMaxX} ${this.graphMaxY > 5 ? this.graphMaxY - 5 : 0}`);
+            .attr(
+                'viewBox',
+                `0 0 ${this.graphMaxX} ${this.graphMaxY > 5 ? this.graphMaxY - 5 : 0}`
+            );
     }
 
     private findMinMax(): void {
@@ -121,7 +123,9 @@ export class LineChartComponent implements OnChanges, OnInit {
             this.data.forEach((graph) => (graph.graph = setLimits(graph.graph, this.limits)));
         }
 
-        [this.dataMin, this.dataMax] = d3.extent(this.data.flatMap((x) => x.graph).map((x) => x.value));
+        [this.dataMin, this.dataMax] = d3.extent(
+            this.data.flatMap((x) => x.graph).map((x) => x.value)
+        );
         this.dataMin -= (this.dataMax - this.dataMin) * this.DELTA_CF;
         this.dataMax += (this.dataMax - this.dataMin) * this.DELTA_CF;
     }
@@ -168,13 +172,13 @@ export class LineChartComponent implements OnChanges, OnInit {
         } = {
             graphType: chart.graphType,
             graphStyle: chart.graphStyle,
-            graph: []
+            graph: [],
         };
 
         chart.graph.forEach((item) => {
             chartData.graph.push({
                 x: this.scaleFuncs.x(item.timeStamp),
-                y: this.scaleFuncs.y(item.value)
+                y: this.scaleFuncs.y(item.value),
             });
         });
 
@@ -334,5 +338,4 @@ export class LineChartComponent implements OnChanges, OnInit {
             .style('opacity', '0.2')
             .style('stroke', '#8c99b2');
     }
-
 }

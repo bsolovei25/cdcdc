@@ -32,9 +32,13 @@
             <td
               class="table__body__column"
               [class.table__body__column--active]="selectedRowProduct === element.unit.name"
+              [class.table__body__column--warning]="selectedRowProduct === element.unit.name && deviationCount(element) !== 0"
               (click)="onClickRow($event, element)"
               colspan="3"
             >
+              <ng-container *ngIf="deviationCount(element) !== 0">
+                <div class="table__body__column--warning-border"></div>
+              </ng-container>
               <div
                 (click)="onClickRow($event, element.unit)"
                 class="table__body__column__row-title"
@@ -43,7 +47,10 @@
                 <svg-icon
                   class="table__body__column__row-title__icon"
                   (click)="onClickTr($event, element.unit)"
-                  [class.table__body__column__row-title__icon--active]="expandedElement.isSelected(element.unit.name)"
+                  [ngClass]="{
+                  'table__body__column__row-title__icon--warning':expandedElement.isSelected(element.unit.name) && deviationCount(element) !== 0,
+                  'table__body__column__row-title__icon--active':expandedElement.isSelected(element.unit.name) && deviationCount(element) === 0
+                  }"
                   src="assets/icons/widgets/APS/aps-gantt-chart/plus.svg"
                 >
                 </svg-icon>
@@ -69,8 +76,9 @@
             <td
               *ngFor="let column of columnsToDisplay"
               class="expanded-column table__body__column table__body__column__children"
+
               [class.table__body__column__children--active]="selectedRowProduct === elementChildren.name"
-              [class.table__body__column__children--deviation]="selectedRowProduct === elementChildren.name && selectedRowProduct === elementChildren.name"
+              [class.table__body__column__children--warning]="selectedRowProduct === elementChildren.name && deviationCount(element) !== 0"
               [matTooltip]="elementChildren?.name"
             >
               <div
@@ -78,18 +86,16 @@
                 class="table__body__column__row-title table__body__column__row-title-children"
                 [class.opacity]="selectedRow.isSelected(element.unit.name) && this.selectedRowProduct"
               >
+
                 <svg-icon
-                  *ngIf="selectedRowProduct !== elementChildren.name"
-                  [svgStyle]="{'height.px':'43', 'width.px': '21.3'}"
+                  [svgStyle]="{'height.px':'43', 'width.px': '21'}"
                   class="table__body__column__row-title-children__left-block--first"
-                  src="assets/icons/widgets/APS/aps-recipe-diagram/astue-left-row-block-recipe.svg"
-                >
-                </svg-icon>
-                <svg-icon
-                  *ngIf="selectedRowProduct === elementChildren.name"
-                  [svgStyle]="{'height.px':'43', 'width.px': '21.3'}"
-                  class="table__body__column__row-title-children__left-block--first"
-                  src="assets/icons/widgets/APS/aps-recipe-diagram/astue-left-row-block-active-recipe.svg"
+                  [class.table__body__column__row-title-children__left-block--first__warning]="elementChildren.deviation !== 0"
+                  [class.table__body__column__row-title-children__left-block--first__default]="selectedRowProduct !== elementChildren.name"
+                  [class.table__body__column__row-title-children__left-block--first__active]="selectedRowProduct === elementChildren.name && elementChildren.deviation === 0"
+                  [class.table__body__column__row-title-children__left-block--first__active-warning]="selectedRowProduct === elementChildren.name && elementChildren.deviation !== 0"
+
+                  [src]="'assets/icons/widgets/APS/aps-recipe-diagram/astue-table-left-row-block-recipe.svg'"
                 >
                 </svg-icon>
                 <div

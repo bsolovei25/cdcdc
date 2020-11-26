@@ -2,13 +2,31 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { IDatesInterval, WidgetService } from '../widget.service';
 import { AppConfigService } from '@core/service/app-config.service';
-import { IOilTransfer } from '../../models/oil-operations';
+import {
+    IOilShipment,
+    IOilShipmentStatistics,
+    IOilTransfer,
+    OilOperationsShipmentType
+} from '../../models/oil-operations';
 import { IOilControlManualAdjEmitResponse } from '../../../widgets/NK/oil-operations/components/oil-operations-adjustment/oil-operations-adjustment.component';
 
 export interface IOilOperationsOptions {
     dates?: { startTime: Date; endTime: Date };
     product?: string;
     group?: string;
+    StartTime?: Date;
+    EndTime?: Date;
+    PassportId?: number;
+    PassportName?: string;
+    ProductId?: number;
+    IsNotTransfer?: boolean;
+    TransportTypesIds?: number[];
+    TransferId?: number;
+    TankId?: string;
+    Ids?: number[];
+    ProductName?: string;
+    TankName?: string;
+    Directions?: OilOperationsShipmentType[];
 }
 
 @Injectable({
@@ -41,6 +59,41 @@ export class OilOperationsService {
                 .toPromise();
         } catch (error) {
             console.error(error);
+            return new Promise<IOilTransfer[]>(resolve => []);
+        }
+    }
+
+    public async getShipmentListByFilter(
+        lastId: number,
+        options: IOilOperationsOptions
+    ): Promise<IOilShipment[]> {
+        try {
+            return this.http
+                .get<IOilShipment[]>(
+                    this.restUrl +
+                    `/api/oil-control/shipmentsbyfilter?${this.getOptionString(lastId, options)}`
+                )
+                .toPromise();
+        } catch (error) {
+            console.error(error);
+            return new Promise<IOilShipment[]>(resolve => []);
+        }
+    }
+
+    public async getShipmentStatistic(
+        options: IOilOperationsOptions
+    ): Promise<IOilShipmentStatistics> {
+
+        try {
+            return this.http
+                .get<IOilShipmentStatistics>(
+                    this.restUrl +
+                    `/api/oil-control/shipmentsbyfilter/statistics?${this.getOptionString(0, options)}`
+                )
+                .toPromise();
+        } catch (error) {
+            console.error(error);
+            return new Promise<IOilShipmentStatistics>(resolve => {});
         }
     }
 
@@ -90,9 +143,36 @@ export class OilOperationsService {
         }
     }
 
+    public async handleRelation(shipmentIdParam: number, transferIdParam: number, action: 'add-relation' | 'remove-relation' | 'recovery-relation'): Promise<IOilShipment | null>  {
+        try {
+            return await this.http.put<IOilShipment>(`${this.restUrl}/api/oil-control/shipment/${shipmentIdParam}/transfer/${transferIdParam}/${action}`, null).toPromise();
+        } catch (e) {
+            console.error(e);
+            return new Promise<IOilShipment>(resolve => null);
+        }
+    }
+
     public async autoAssignShipments<T>(transferIdParam: number): Promise<T>  {
         try {
+            return await this.http.put<T>(`${this.restUrl}/api/oil-control/shipments/transfer/${transferIdParam}/remove-relation-all`, null).toPromise();
+        } catch (e) {
+            console.error(e);
+            return new Promise<T>(resolve => null);
+        }
+    }
+
+    public async removeShipmentsRelationsByTransferId<T>(transferIdParam: number): Promise<T>  {
+        try {
             return await this.http.put<T>(`${this.restUrl}/api/oil-control/transfer/${transferIdParam}/auto-relation`, null).toPromise();
+        } catch (e) {
+            console.error(e);
+            return new Promise<T>(resolve => false);
+        }
+    }
+
+    public async addShipmentsRelationsFromList<T>(idList: number[], transferIdParam: number): Promise<T>  {
+        try {
+            return await this.http.put<T>(`${this.restUrl}/api/oil-control/shipments/transfer/${transferIdParam}/add-relation-list`, idList).toPromise();
         } catch (e) {
             console.error(e);
             return new Promise<T>(resolve => false);
@@ -153,6 +233,51 @@ export class OilOperationsService {
         }
         if (options.product) {
             res += `&product=${options.product}`;
+        }
+        if (options.StartTime) {
+            res += `&StartTime=${options.StartTime}`;
+        }
+        if (options.EndTime) {
+            res += `&EndTime=${options.EndTime}`;
+        }
+        if (options.PassportId) {
+            res += `&PassportId=${options.PassportId}`;
+        }
+        if (options.PassportName) {
+            res += `&PassportName=${options.PassportName}`;
+        }
+        if (options.ProductId) {
+            res += `&ProductId=${options.ProductId}`;
+        }
+        if (options.IsNotTransfer) {
+            res += `&IsNotTransfer=${options.IsNotTransfer}`;
+        }
+        if (options.TransferId) {
+            res += `&TransferId=${options.TransferId}`;
+        }
+        if (options.TankId) {
+            res += `&TankId=${options.TankId}`;
+        }
+        if (options.ProductName) {
+            res += `&ProductName=${options.ProductName}`;
+        }
+        if (options.TankName) {
+            res += `&TankName=${options.TankName}`;
+        }
+        if (options.TransportTypesIds?.length) {
+            options.TransportTypesIds.forEach(id => {
+                res += `&TransportTypesIds=${id}`;
+            });
+        }
+        if (options.Directions?.length) {
+            options.Directions.forEach(item => {
+                res += `&Directions=${item}`;
+            });
+        }
+        if (options.Ids?.length) {
+            options.Ids.forEach(id => {
+                res += `&Ids=${id}`;
+            });
         }
         return res;
     }
