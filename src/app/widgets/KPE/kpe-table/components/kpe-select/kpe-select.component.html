@@ -1,9 +1,10 @@
-<div class="event-mat-select" [ngClass]="type">
-  <mat-form-field appearance="none" [class.disabled]="disabled">
-    <mat-label>{{ label }}</mat-label>
-    <mat-select>
-      <mat-option>
-
+<div class="event-mat-select">
+  <mat-form-field appearance="none">
+    <mat-select
+      panelClass="mat-balance-select"
+    >
+      <mat-option *ngFor="let item of items" [value]="item.value">
+        {{item.viewValue}}
       </mat-option>
     </mat-select>
   </mat-form-field>

@@ -81,3 +81,6 @@
 .disabled {
   cursor: not-allowed;
 }
+::ng-deep .mat-input-element {
+  background-color: var(--header-events-color-bg-main);
+}

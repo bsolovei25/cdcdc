@@ -18,6 +18,7 @@
   width: 100%;
   min-width: 50px;
 
+
   .mat-select {
     width: calc(100% - 2px) !important;
   }
@@ -76,4 +77,7 @@
 
 .disabled {
   cursor: not-allowed;
+}
+::ng-deep .mat-form-field-infix {
+  background-color: var(--color-kpe-table-select);
 }
