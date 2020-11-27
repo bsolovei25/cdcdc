@@ -3,6 +3,11 @@ import { LineType } from '../../../../../CD/cd-shared/cd-line-chart/cd-line-char
 import * as d3 from 'd3';
 import { dateFormatLocale, shortMonths } from '@shared/functions/universal-time-fromat.function';
 import { AsyncRender } from '@shared/functions/async-render.function';
+import {
+    DATA_SOURCE_HIGHER_BORDER,
+    DATA_SOURCE_LOWER_BORDER,
+    DATA_SOURCE_PLAN,
+} from './astue-onpz-factory-analysis-chart.mock';
 
 @Component({
     selector: 'evj-astue-onpz-factory-analysis-chart',
@@ -21,17 +26,17 @@ export class AstueOnpzFactoryAnalysisChartComponent implements OnInit {
     }[] = [];
 
     public planDataset: {
-        x: number;
+        x: Date;
         y: number;
     }[] = [];
 
     public lowDataset: {
-        x: number;
+        x: Date;
         y: number;
     }[] = [];
 
     public highDataset: {
-        x: number;
+        x: Date;
         y: number;
     }[] = [];
 
@@ -48,13 +53,7 @@ export class AstueOnpzFactoryAnalysisChartComponent implements OnInit {
         left: 59,
     };
 
-    private currentHour: number = 0;
-
-    private plan: number = 0;
-
     private svg: any;
-
-    private g: any = null;
 
     @HostListener('document:resize', ['$event'])
     public OnResize(): void {
@@ -69,6 +68,7 @@ export class AstueOnpzFactoryAnalysisChartComponent implements OnInit {
 
     @AsyncRender
     private drawSvg(): void {
+        this.prepareData();
         this.configChartArea();
         // chart layout render
         this.initScale();
@@ -79,7 +79,15 @@ export class AstueOnpzFactoryAnalysisChartComponent implements OnInit {
         // this.drawDayThreshold();
         // data render
         // this.drawCurve(this.factDataset, 'fact');
-        // this.drawCurve(this.planDataset, 'plan');
+        this.drawCurve(this.planDataset, 'plan');
+        this.drawCurve(this.lowDataset, 'border');
+        this.drawCurve(this.highDataset, 'border');
+    }
+
+    private prepareData(): void {
+        this.planDataset = DATA_SOURCE_PLAN;
+        this.lowDataset = DATA_SOURCE_LOWER_BORDER;
+        this.highDataset = DATA_SOURCE_HIGHER_BORDER;
     }
 
     private configChartArea(): void {
@@ -204,7 +212,7 @@ export class AstueOnpzFactoryAnalysisChartComponent implements OnInit {
             .attr('cy', this.scales.y(y));
     }
 
-    private drawCurve(dataset: { x: number; y: number }[], type: LineType): void {
+    private drawCurve(dataset: { x: Date; y: number }[], type: LineType): void {
         const lineClass: string = `line line__${type}`;
 
         const line = d3
@@ -216,20 +224,8 @@ export class AstueOnpzFactoryAnalysisChartComponent implements OnInit {
             .append('path')
             .datum(dataset)
             .attr('class', lineClass)
-            .attr('d', line);
-
-        dataset.forEach((data, idx) => {
-            if (idx === 0) {
-                return;
-            }
-            const circleClass =
-                type === 'fact'
-                    ? data.y < this.planDataset[data.x - 1].y
-                        ? 'deviation'
-                        : 'fact'
-                    : 'plan';
-            this.appendCurveDataCircle(3, data.x, data.y, `circle circle_${circleClass}`);
-        });
+            .attr('d', line)
+            .attr('transform', `translate(${this.margin.left}, 0)`);
     }
 
     private drawDaysThreshold(): void {

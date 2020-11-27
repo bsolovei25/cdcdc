@@ -1,7 +1,7 @@
 import { Component, ElementRef, Input, OnChanges, SimpleChanges } from '@angular/core';
 import * as d3 from 'd3';
 
-export type LineType = 'fact' | 'plan';
+export type LineType = 'fact' | 'plan' | 'border';
 
 export interface ISplineDiagramSize {
     width: number | null;
@@ -126,7 +126,9 @@ export class CdLineChartComponent implements OnChanges {
         this.highDataset = this.data?.highBound ? this.data.highBound : [];
         this.plan = this.data && this.data.planValue ? this.data.planValue : 0;
 
-        const [minY, maxY] = d3.extent([...this.factDataset, ...this.planDataset].map(el => el.y));
+        const [minY, maxY] = d3.extent(
+            [...this.factDataset, ...this.planDataset].map((el) => el.y)
+        );
         this.sizeY.min = minY - (maxY - minY) * 0.1;
         this.sizeY.max = maxY + (maxY - minY) * 0.1;
     }

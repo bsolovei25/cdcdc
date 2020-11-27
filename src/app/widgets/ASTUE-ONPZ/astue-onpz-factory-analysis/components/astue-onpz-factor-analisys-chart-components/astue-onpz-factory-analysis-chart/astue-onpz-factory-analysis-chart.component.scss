@@ -42,6 +42,12 @@ svg {
     &__fact {
       stroke: var(--color-text-main);
     }
+    &__border {
+      stroke: #4B5169;
+      stroke-width: 2;
+      stroke-dasharray: 5 5;
+      fill: red;
+    }
     &__threshold {
       stroke: var(--color-cd-bg-border-sub);
     }
