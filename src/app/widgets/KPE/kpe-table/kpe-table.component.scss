@@ -465,6 +465,9 @@ th,  td {
   }
 }
 .button-add {
+  position: absolute;
+  top: 6px;
+  right: 75px;
   width: 28px;
   height: 28px;
   border-radius: 2px;
@@ -473,6 +476,22 @@ th,  td {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+.button-download {
+  position: absolute;
+  top: 6px;
+  right: 42px;
+  width: 28px;
+  height: 28px;
+  border-radius: 2px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.button-container {
+  width: 16px;
+  height: 16px;
 }
 
 ::ng-deep .mat-tooltip {
