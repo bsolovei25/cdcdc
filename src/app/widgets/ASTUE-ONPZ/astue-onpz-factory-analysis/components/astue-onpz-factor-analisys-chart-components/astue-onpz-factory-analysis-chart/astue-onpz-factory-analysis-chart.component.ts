@@ -4,10 +4,12 @@ import * as d3 from 'd3';
 import { dateFormatLocale, shortMonths } from '@shared/functions/universal-time-fromat.function';
 import { AsyncRender } from '@shared/functions/async-render.function';
 import {
+    DATA_SOURCE_FACT,
     DATA_SOURCE_HIGHER_BORDER,
     DATA_SOURCE_LOWER_BORDER,
     DATA_SOURCE_PLAN,
 } from './astue-onpz-factory-analysis-chart.mock';
+import { IChartD3 } from '@shared/models/smart-scroll.model';
 
 @Component({
     selector: 'evj-astue-onpz-factory-analysis-chart',
@@ -21,7 +23,7 @@ export class AstueOnpzFactoryAnalysisChartComponent implements OnInit {
     public isLoading: boolean = true;
 
     public factDataset: {
-        x: number;
+        x: Date;
         y: number;
     }[] = [];
 
@@ -80,12 +82,14 @@ export class AstueOnpzFactoryAnalysisChartComponent implements OnInit {
         // data render
         // this.drawCurve(this.factDataset, 'fact');
         this.drawCurve(this.planDataset, 'plan');
-        this.drawCurve(this.lowDataset, 'border');
-        this.drawCurve(this.highDataset, 'border');
+        this.drawCurve(this.lowDataset, 'lower-border');
+        this.drawCurve(this.highDataset, 'higher-border');
+        this.drawCurve(this.factDataset, 'fact');
     }
 
     private prepareData(): void {
         this.planDataset = DATA_SOURCE_PLAN;
+        this.factDataset = DATA_SOURCE_FACT;
         this.lowDataset = DATA_SOURCE_LOWER_BORDER;
         this.highDataset = DATA_SOURCE_HIGHER_BORDER;
     }
@@ -207,9 +211,11 @@ export class AstueOnpzFactoryAnalysisChartComponent implements OnInit {
         this.svg
             .append('circle')
             .attr('class', className)
+            .attr('fill', 'red')
+            .attr('transform', `translate(${this.margin.left}, 0)`)
             .attr('r', r)
-            .attr('cx', this.scales.x(x))
-            .attr('cy', this.scales.y(y));
+            .attr('cx', x)
+            .attr('cy', y);
     }
 
     private drawCurve(dataset: { x: Date; y: number }[], type: LineType): void {
@@ -226,6 +232,39 @@ export class AstueOnpzFactoryAnalysisChartComponent implements OnInit {
             .attr('class', lineClass)
             .attr('d', line)
             .attr('transform', `translate(${this.margin.left}, 0)`);
+
+        if (type === 'fact') {
+            dataset.forEach((d, idx) => {
+                if (idx === 0) {
+                    return;
+                }
+                this.appendCurveDataCircle(2, this.scales.x(d.x), this.scales.y(d.y), 'circle');
+            });
+        }
+
+        if (type === 'higher-border' || type === 'lower-border') {
+            const areaTop = d3
+                .area()
+                .x((d) => this.scales.x(d.x))
+                .y0(this.margin.top)
+                .y1((d) => this.scales.y(d.y))
+                .curve(d3.curveLinear);
+
+            const areaBottom = d3
+                .area()
+                .x((d) => this.scales.x(d.x))
+                .y1(this.size.height - this.margin.bottom)
+                .y0((d) => this.scales.y(d.y))
+                .curve(d3.curveLinear);
+
+            const areaFn = type === 'higher-border' ? areaTop : areaBottom;
+
+            this.svg
+                .append('path')
+                .attr('class', `graph-area`)
+                .attr('transform', `translate(${this.margin.left}, 0)`)
+                .attr('d', areaFn(dataset));
+        }
     }
 
     private drawDaysThreshold(): void {

@@ -42,15 +42,27 @@ svg {
     &__fact {
       stroke: var(--color-text-main);
     }
-    &__border {
+    &__higher-border {
       stroke: #4B5169;
       stroke-width: 2;
       stroke-dasharray: 5 5;
-      fill: red;
+    }
+    &__lower-border {
+      stroke: #4B5169;
+      stroke-width: 2;
+      stroke-dasharray: 5 5;
     }
     &__threshold {
       stroke: var(--color-cd-bg-border-sub);
     }
+  }
+
+  .graph-area {
+    fill: rgba(96, 101, 128, .1);
+  }
+
+  .circle {
+    stroke: var(--color-text-main);
   }
 
   .y-axis {
@@ -62,8 +74,8 @@ svg {
 
   .grid {
     color: #272A38 !important;
-    stroke-width: .6;
-    opacity: 1;
+    stroke-width: 1;
+    opacity: .5;
     fill: none;
 
     path {

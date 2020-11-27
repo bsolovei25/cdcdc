@@ -1,7 +1,7 @@
 import { Component, ElementRef, Input, OnChanges, SimpleChanges } from '@angular/core';
 import * as d3 from 'd3';
 
-export type LineType = 'fact' | 'plan' | 'border';
+export type LineType = 'fact' | 'plan' | 'lower-border' | 'higher-border';
 
 export interface ISplineDiagramSize {
     width: number | null;
