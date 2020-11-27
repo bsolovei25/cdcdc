@@ -6,12 +6,12 @@
   height: 55px;
   padding-left: 10px;
   box-sizing: border-box;
-  background: #272A38;
+  background: var(--color-astue-onpz-factory-analisys-chart-card-bg);
   border-radius: 0 2px 2px 0;
   border-left: solid 2px;
 
   .title {
-    color: #8C99B2;
+    color: var(--astue-onpz-factory-analisys-legend);
     font-size: 12px;
   }
 
@@ -20,26 +20,26 @@
   }
 
   &__plan {
-    border-color: #0089FF;
+    border-color: rgb(var(--astue-onpz-factory-analisys-norm));
 
     .value {
-      color: #0089FF;
+      color: rgb(var(--astue-onpz-factory-analisys-norm));;
     }
   }
 
   &__fact {
-    border-color: #FFFFFF;
+    border-color: var(--color-astue-onpz-factory-analisys-contrast);
 
     .value {
-      color: #FFFFFF;
+      color: var(--color-astue-onpz-factory-analisys-contrast);
     }
   }
 
   &__interval {
-    border-color: #4B5169;
+    border-color: var(--astue-onpz-factory-analisys-grid);
 
     .value {
-      color: #4B5169;
+      color: var(--astue-onpz-factory-analisys-grid);
 
       &::before {
         content: '+-';

@@ -17,7 +17,6 @@ import { IChartD3 } from '@shared/models/smart-scroll.model';
     styleUrls: ['./astue-onpz-factory-analysis-chart.component.scss'],
 })
 export class AstueOnpzFactoryAnalysisChartComponent implements OnInit {
-    data: any = null;
     size: { width: number; height: number } = null;
 
     public isLoading: boolean = true;
@@ -42,7 +41,7 @@ export class AstueOnpzFactoryAnalysisChartComponent implements OnInit {
         y: number;
     }[] = [];
 
-    public scales: { x: any; y: any } = { x: null, y: null };
+    public scales: { x: d3.sclaeDate; y: d3.sclaeLinear } = { x: null, y: null };
 
     public sizeX: { min: number; max: number } = { min: 1, max: 31 };
 
@@ -55,7 +54,7 @@ export class AstueOnpzFactoryAnalysisChartComponent implements OnInit {
         left: 59,
     };
 
-    private svg: any;
+    private svg: d3;
 
     @HostListener('document:resize', ['$event'])
     public OnResize(): void {
@@ -136,7 +135,7 @@ export class AstueOnpzFactoryAnalysisChartComponent implements OnInit {
                         type === 'x' ? this.size.height - this.margin.bottom : 0
                     })`
                 )
-                .attr('class', 'y-axis')
+                .attr('class', 'axis')
                 .call(
                     axisTemplate
                         .tickSize(0)
@@ -156,7 +155,7 @@ export class AstueOnpzFactoryAnalysisChartComponent implements OnInit {
                 axis.selectAll('g.tick')._groups[0].forEach((x) => {
                     shortMonths.forEach((m) => {
                         if (x.getElementsByTagName('text')[0].textContent.includes(m)) {
-                            x.getElementsByTagName('text')[0].style.fill = 'white';
+                            x.getElementsByTagName('text')[0].classList.add('month-text');
                         }
                     });
                 });
@@ -173,8 +172,7 @@ export class AstueOnpzFactoryAnalysisChartComponent implements OnInit {
             .attr('width', this.size.width - this.margin.left - this.margin.right)
             .attr('height', this.size.height - this.margin.bottom - this.margin.top)
             .attr('transform', `translate(${this.margin.left}, 0)`)
-            .attr('opacity', '.25')
-            .attr('fill', '#12151');
+            .attr('class', 'grid__background');
 
         this.svg
             .append('g')
@@ -210,7 +208,6 @@ export class AstueOnpzFactoryAnalysisChartComponent implements OnInit {
         this.svg
             .append('circle')
             .attr('class', className)
-            .attr('fill', 'red')
             .attr('transform', `translate(${this.margin.left}, 0)`)
             .attr('r', r)
             .attr('cx', x)
@@ -237,7 +234,12 @@ export class AstueOnpzFactoryAnalysisChartComponent implements OnInit {
                 if (idx === 0) {
                     return;
                 }
-                this.appendCurveDataCircle(2, this.scales.x(d.x), this.scales.y(d.y), 'circle');
+                this.appendCurveDataCircle(
+                    2,
+                    this.scales.x(d.x),
+                    this.scales.y(d.y),
+                    `circle circle_${type}`
+                );
             });
         }
 
@@ -286,7 +288,7 @@ export class AstueOnpzFactoryAnalysisChartComponent implements OnInit {
                     'd',
                     `M ${x - 4} ${topOffset} L ${x + 4} ${topOffset} L ${x} ${topOffset - 4} z`
                 )
-                .attr('fill', 'var(--color-cd-bg-border-sub)');
+                .attr('class', 'month-threshold');
         });
     }
 

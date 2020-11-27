@@ -28,27 +28,24 @@ svg {
     &_fact {
       stroke: white;
     }
-    &_deviation {
-      stroke: var(--color-cd-warning);
-    }
   }
 
   .line {
     fill: none;
     stroke-width: 1;
     &__plan {
-      stroke: $color-diagram-active;
+      stroke: rgb(var(--astue-onpz-factory-analisys-norm));
     }
     &__fact {
-      stroke: var(--color-text-main);
+      stroke: var(--color-astue-onpz-factory-analisys-contrast);
     }
     &__higher-border {
-      stroke: #4B5169;
+      stroke: var(--astue-onpz-factory-analisys-grid);
       stroke-width: 2;
       stroke-dasharray: 5 5;
     }
     &__lower-border {
-      stroke: #4B5169;
+      stroke: var(--astue-onpz-factory-analisys-grid);
       stroke-width: 2;
       stroke-dasharray: 5 5;
     }
@@ -62,24 +59,38 @@ svg {
   }
 
   .circle {
-    stroke: var(--color-text-main);
+    stroke: var(--color-astue-onpz-factory-analisys-contrast);
   }
 
-  .y-axis {
+  .axis {
+
+    .month-text {
+      fill: white;
+    }
+
     text {
-      fill: #606580;
+      fill: var(--astue-onpz-factory-analisys-label);
       font-size: 11px;
     }
   }
 
   .grid {
-    color: #272A38 !important;
+    color: var(--color-astue-onpz-widget-border) !important;
     stroke-width: 1;
     opacity: .5;
     fill: none;
 
+    &__background {
+      fill: #121510;
+      opacity: .25;
+    }
+
     path {
       fill: none;
     }
+  }
+
+  .month-threshold {
+    fill: var(--astue-onpz-factory-analisys-label);
   }
 }
