@@ -129,12 +129,6 @@
     flex-direction: column;
     justify-content: space-around;
   }
-  
-  .line {
-    height: 1px;
-    width: 30px;
-    border-top: 1px solid var(--sou-mvp-color-border);
-  }
 }
 
 .off {
@@ -170,38 +164,35 @@
     background: var(--sou-mvp-color-bg-main);
     border: 1px solid var(--sou-mvp-color-bg-title);
   }
-  
-  .line {
-    border-top: 1px solid var(--sou-mvp-color-bg-title);
-  }
 }
 
 .selected {
   .container {
     border: 1px solid var(--sou-mvp-color-active);
-    background: var(--sou-mvp-color-bg-active);
+    background: var(--sou-mvp-color-bg-active-spec);
     
     .info {
       border-right: 1px solid var(--sou-mvp-color-active);
   
       .title {
+        background: var(--sou-mvp-color-bg-active-spec);
         border-bottom: 1px solid var(--sou-mvp-color-active);
         span {
-          color: var(--sou-mvp-color-text-diagram-sub);
+          color: var(--sou-mvp-color-text-diagram-main);
         }
       }
     }
   
     .values {
-      background: var(--sou-mvp-color-bg-active);
+      background: var(--sou-mvp-color-bg-active-spec);
   
       &__item {
-        color: var(--sou-mvp-color-text-diagram-sub);  
+        color: var(--sou-mvp-color-text-diagram-main); 
       }
     }
     .numbers {
-      background: var(--sou-mvp-color-bg-active);
-      color: var(--sou-mvp-color-text-diagram-sub);
+      background: var(--sou-mvp-color-bg-active-spec);
+      color: var(--sou-mvp-color-text-diagram-main);
     }
   }
   
@@ -209,8 +200,18 @@
     background: var(--sou-mvp-color-bg-main);
     border: 1px solid var(--sou-mvp-color-active);
   }
-  
-  .line {
-    border-top: 1px solid var(--sou-mvp-color-bg-title);
-  }
+}
+
+.line {
+  height: 1px;
+  width: 30px;
+  border-top: 1px solid var(--sou-mvp-color-border);
+}
+
+.disable {
+  border-color: var(--sou-mvp-color-bg-title);
+}
+
+.selectedLine {
+  border-color: var(--sou-mvp-color-active);
 }

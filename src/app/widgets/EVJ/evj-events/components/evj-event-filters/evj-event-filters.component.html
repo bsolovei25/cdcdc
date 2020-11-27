@@ -14,16 +14,19 @@
       <!--        </mat-form-field>-->
       <!--      </div>-->
       <div class="event-mat-select">
+        <div (click)="clearFilter()">
         <mat-form-field>
           <mat-label>Установка</mat-label>
           <mat-select panelClass="mat-balance-select"
                       [formControl]="unitsSelect"
                       (selectionChange)="onUnitsSelect($event)">
+            <evj-mat-select-filter [formControl]="filter"></evj-mat-select-filter>
             <mat-option *ngFor="let item of units" [value]="item.id">
               {{ item.name }}
             </mat-option>
           </mat-select>
         </mat-form-field>
+        </div>
       </div>
       <div class="event-mat-select">
         <mat-form-field>

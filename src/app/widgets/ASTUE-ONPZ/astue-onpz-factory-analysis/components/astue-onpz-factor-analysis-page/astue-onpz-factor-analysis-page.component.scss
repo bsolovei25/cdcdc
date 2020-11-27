@@ -1,0 +1,101 @@
+.container {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  padding: 10px 2px 5px 14px;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.scroll-wrapper {
+  height: 100%;
+  padding: 0 5px 3px 5px;
+  display: flex;
+  overflow: overlay;
+
+  &::-webkit-scrollbar {
+    width: 5px;
+    height: 4px !important;
+  }
+}
+
+.grid {
+  position: absolute;
+  display: flex;
+  flex-flow: column;
+  justify-content: space-evenly;
+  top: 45px;
+  bottom: 32px;
+  left: 14px;
+  right: 2px;
+  border: 1px var(--astue-onpz-factory-analisys-grid);
+  border-style: solid none;
+  box-sizing: border-box;
+  background: var(--astue-onpz-factory-analisys-grid-bg-opacity);
+
+  .line {
+    width: 100%;
+    height: 1px;
+    background: var(--astue-onpz-factory-analisys-grid-opacity);
+  }
+}
+
+.legend {
+  display: flex;
+  flex-flow: column-reverse;
+  gap: 20%;
+  margin: 35px 0 27px 0;
+  padding: 0 16px 0 4px;
+  border-right: solid 1px var(--astue-onpz-factory-analisys-grid-opacity);
+  background: var(--astue-onpz-factory-analisys-grid-bg);
+
+  &__value-wrapper {
+    display: flex;
+    flex-flow: column-reverse;
+    height: 20%;
+  }
+
+  &__value {
+    font-size: 11px;
+    transform: translateY(-3px);
+    color: var(--astue-onpz-factory-analisys-legend);
+  }
+}
+
+.group-divider {
+  position: relative;
+  width: 1px;
+  min-width: 1px;
+  margin: 35px 0 28px 0;
+  z-index: 9;
+  background: var(--astue-onpz-factory-analisys-grid);
+
+  .triangle {
+    $size: 4px;
+    position: absolute;
+    width: 0;
+    height: 0;
+    bottom: 0;
+    border-style: solid;
+
+    &__left {
+      right: 1px;
+      border-width: 0 0 $size $size;
+      border-color: transparent transparent var(--astue-onpz-factory-analisys-grid) transparent;
+    }
+
+    &__right {
+      right: -$size;
+      border-width: $size 0 0 $size;
+      border-color: transparent transparent transparent var(--astue-onpz-factory-analisys-grid);
+    }
+  }
+}
+
+.cell-divider {
+  width: 1px;
+  min-width: 1px;
+  margin: 35px 0 0 0;
+  z-index: 9;
+  background: var(--astue-onpz-factory-analisys-grid-opacity);
+}

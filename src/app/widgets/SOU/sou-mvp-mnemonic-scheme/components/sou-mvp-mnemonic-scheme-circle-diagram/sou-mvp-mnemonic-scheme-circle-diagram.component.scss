@@ -64,8 +64,8 @@
       position: absolute;
 
       .value {
-        font-size: 14px;
-        line-height: 17px;
+        font-size: 12px;
+        line-height: 15px;
 
         color: var(--sou-mvp-color-text-diagram-main);
       }
@@ -95,6 +95,18 @@
     position: absolute;
     right: -4px;
     z-index: 999;
+  }
+
+  ::ng-deep {
+    svg {
+        .diagram-inner {
+          fill: var(--sou-mvp-color-border);
+        }
+  
+        .diagram-value {
+          fill: var(--sou-mvp-color-white);
+        }
+    }
   }
 }
 
@@ -127,6 +139,14 @@
     background: var(--sou-mvp-color-bg-main);
     border-color: var(--sou-mvp-color-bg-title);
   }
+
+  ::ng-deep {
+    svg {
+      .diagram-inner {
+        fill: var(--sou-mvp-color-bg-title);
+      }
+    }
+  }
 }
 
 .warning{
@@ -158,12 +178,41 @@
     background: var(--sou-mvp-color-bg-main);
     border-color: var(--sou-mvp-color-warning);
   }
+
+  ::ng-deep {
+    svg {
+      .diagram-inner {
+        fill: var(--sou-mvp-color-warning);
+      }
+    }
+  }
 }
 
 .line {
   height: 1px;
   width: 23px;
   border-top: 1px solid var(--sou-mvp-color-border);
+
+  position: relative;
+
+  .connection-circle {
+    height: 8px;
+    width: 8px;
+  
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  
+    border-radius: 50%;
+  
+    background: var(--sou-mvp-color-bg-main);
+    border: 1px solid var(--sou-mvp-color-border);
+
+    position: absolute;
+    top: -4px;
+    left: -4px;
+    z-index: 999;
+  }
 }
 
 .main-container {
@@ -171,4 +220,54 @@
 
   display: flex;
   align-items: center;
+}
+
+.selected{
+  .title {
+    background: var(--sou-mvp-color-bg-active-spec);
+    border-color: var(--sou-mvp-color-active);
+
+    span {
+      color: var(--sou-mvp-color-text-diagram-main);
+    }
+
+    .connection-circle {
+      border-color: var(--sou-mvp-color-active);
+    }
+  }
+
+  .circle {
+    background: var(--sou-mvp-color-bg-active-spec);
+    border-color: var(--sou-mvp-color-active);
+
+    .diagram-values {
+      .value {
+        color: var(--sou-mvp-color-text-diagram-main);
+      }
+  
+      .percent {
+        color: var(--sou-mvp-color-text-diagram-main);
+      }
+    }
+  }
+
+  ::ng-deep {
+    svg {
+      .diagram-inner {
+        fill: var(--sou-mvp-color-border);
+      }
+
+      .diagram-value {
+        fill: var(--sou-mvp-color-white);
+      }
+    }
+  }
+}
+
+.enableLine {
+  border-color: var(--sou-mvp-color-bg-title);
+}
+
+.selectedLine {
+  border-color: var(--sou-mvp-color-active);
 }

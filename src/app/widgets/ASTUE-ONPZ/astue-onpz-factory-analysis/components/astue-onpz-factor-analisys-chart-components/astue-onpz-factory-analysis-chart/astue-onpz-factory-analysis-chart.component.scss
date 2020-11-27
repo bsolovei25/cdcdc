@@ -1,0 +1,96 @@
+$color-bg-border: rgba(92, 101, 133, 0.25);
+$color-text-label: #D7E2F2;
+$color-text-value: #8A98B3;
+$color-diagram-bg: #0B1325;
+$color-diagram-active: #0089FF;
+$color-diagram-sub: rgba(92, 101, 133, .2);
+$color-header-bg: rgba(92, 101, 133, 0.1);
+
+:host {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  display: block;
+}
+
+svg {
+  width: 100%;
+  height: 100%;
+  margin-top: -2px;
+}
+
+::ng-deep {
+  .circle {
+    fill: var(--color-bg-main);
+    &_plan {
+      stroke: $color-diagram-active;
+    }
+    &_fact {
+      stroke: white;
+    }
+  }
+
+  .line {
+    fill: none;
+    stroke-width: 1;
+    &__plan {
+      stroke: rgb(var(--astue-onpz-factory-analisys-norm));
+    }
+    &__fact {
+      stroke: var(--color-astue-onpz-factory-analisys-contrast);
+    }
+    &__higher-border {
+      stroke: var(--astue-onpz-factory-analisys-grid);
+      stroke-width: 2;
+      stroke-dasharray: 5 5;
+    }
+    &__lower-border {
+      stroke: var(--astue-onpz-factory-analisys-grid);
+      stroke-width: 2;
+      stroke-dasharray: 5 5;
+    }
+    &__threshold {
+      stroke: var(--color-cd-bg-border-sub);
+    }
+  }
+
+  .graph-area {
+    fill: rgba(96, 101, 128, .1);
+  }
+
+  .circle {
+    stroke: var(--color-astue-onpz-factory-analisys-contrast);
+  }
+
+  .axis {
+
+    .month-text {
+      fill: white;
+    }
+
+    text {
+      fill: var(--astue-onpz-factory-analisys-label);
+      font-size: 11px;
+    }
+  }
+
+  .grid {
+    color: var(--color-astue-onpz-widget-border) !important;
+    stroke-width: 1;
+    opacity: .5;
+    fill: none;
+
+    &__background {
+      fill: #121510;
+      opacity: .25;
+    }
+
+    path {
+      fill: none;
+    }
+  }
+
+  .month-threshold {
+    fill: var(--astue-onpz-factory-analisys-label);
+  }
+}

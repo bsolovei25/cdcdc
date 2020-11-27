@@ -1,6 +1,7 @@
 <div class="main-container" 
   [ngClass]="{
-    off:!flowData?.isEnable
+    off:!flowData?.isEnable,
+    selected:flowData?.code === mvpService.selectedCode
   }"
 >
   <div class="container" (click)="mvpService.openPopup(sections, flowData?.code)">
@@ -44,9 +45,13 @@
       ></div>
     </div>
   </div>
-  <div class="line-container">
+  <div class="line-container" *ngIf='!noLine'>
     <div 
       class="line"
+      [ngClass]="{
+        disable:!flowData?.isEnable,
+        selectedLine: flowData?.code === mvpService?.selectedCode
+      }"
       *ngFor="let i of outputArr"  
     ></div>
   </div>

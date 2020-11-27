@@ -13,6 +13,7 @@ import {
     IEventsWidgetAttributes,
     IEventsWidgetNotificationPreview,
     IEventsWidgetOptions,
+    SortTypeEvents,
 } from '../../../dashboard/models/EVJ/events-widget';
 import { EventsWidgetFilter } from '../../../dashboard/models/EVJ/events-widget';
 import { EventsWidgetNotificationStatus } from '../../../dashboard/models/EVJ/events-widget';
@@ -488,7 +489,19 @@ export class EventsComponent extends WidgetPlatform<IEventsWidgetAttributes>
         if (this.isSound) {
             this.playAudio();
         }
-        const idx = this.notifications.findIndex((n) => notification.sortIndex <= n.sortIndex);
+        let sortType: SortTypeEvents | 'isVideoWall' = this.attributes?.SortType ?? 'default';
+        if (this.attributes.IsVideoWall) {
+            sortType = 'isVideoWall';
+        }
+        this.notifications = this.notifications.map((n) => {
+            return {
+                ...n,
+                sortIndex: n.sortIndexes?.find((x) => x?.type === sortType)?.value ?? 0,
+            };
+        });
+        const eventSortIndex: number =
+            notification.sortIndexes?.find((x) => x?.type === sortType)?.value ?? 0;
+        const idx = this.notifications.findIndex((n) => eventSortIndex >= n.sortIndex);
         if (this.notifications.length > 0 && idx === -1) {
             return;
         }
@@ -565,18 +578,16 @@ export class EventsComponent extends WidgetPlatform<IEventsWidgetAttributes>
 
     private appendNotifications(remoteNotifications: IEventsWidgetNotificationPreview[]): void {
         if (remoteNotifications?.length > 0) {
-            const notifications = remoteNotifications
-                .filter((n) => n.category && n.category.name)
-                .map((n) => {
-                    const iconUrl = this.getNotificationIcon(n.category.name);
-                    const iconUrlStatus = this.getStatusIcon(n.status?.name);
-                    const statusName = n.status?.name ? this.statuses[n.status.name] : ''; // TODO
-                    n?.retrievalEvents.forEach((value) => {
-                        value.iconUrl = this.getNotificationIcon(value.category.name);
-                        value.iconUrlStatus = this.getStatusIcon(value.status.name);
-                    });
-                    return { ...n, iconUrl, statusName, iconUrlStatus };
+            const notifications = remoteNotifications.map((n) => {
+                const iconUrl = this.getNotificationIcon(n.category?.name);
+                const iconUrlStatus = this.getStatusIcon(n.status?.name);
+                const statusName = n.status?.name ? this.statuses[n.status.name] : ''; // TODO
+                n?.retrievalEvents.forEach((value) => {
+                    value.iconUrl = this.getNotificationIcon(value.category.name);
+                    value.iconUrlStatus = this.getStatusIcon(value.status.name);
                 });
+                return { ...n, iconUrl, statusName, iconUrlStatus };
+            });
             this.notifications = this.notifications.concat(notifications);
             this.countNotificationsDivCapacity();
         }
