@@ -168,7 +168,6 @@ export class AstueOnpzFactoryAnalysisChartComponent implements OnInit {
     }
 
     private drawGrid(): void {
-        // chart background
         this.svg
             .append('rect')
             .attr('width', this.size.width - this.margin.left - this.margin.right)

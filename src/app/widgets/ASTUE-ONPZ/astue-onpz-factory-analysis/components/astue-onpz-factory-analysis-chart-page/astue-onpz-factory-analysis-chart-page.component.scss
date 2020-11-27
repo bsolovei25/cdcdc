@@ -10,8 +10,18 @@
     height: 100%;
 
     .top {
+      position: relative;
       flex-grow: 1;
       width: 100%;
+
+      .shadow {
+        position: absolute;
+        left: 59px;
+        bottom: 30px;
+        right: 0;
+        top: 0;
+        box-shadow: inset 6px -4px 10px 0 rgba(0, 0, 0, 0.4);
+      }
     }
 
     .bottom {
