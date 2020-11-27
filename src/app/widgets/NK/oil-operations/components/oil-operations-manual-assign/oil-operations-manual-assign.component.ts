@@ -1,4 +1,4 @@
-import {Component, OnInit, EventEmitter, Input, Output, OnChanges, ViewChild, ElementRef} from '@angular/core';
+import {Component, OnInit, EventEmitter, Input, Output, ViewChild, ElementRef} from '@angular/core';
 import {
     IOilShipment,
     IOilShipmentStatistics,
@@ -190,8 +190,8 @@ export class OilOperationsManualAssignComponent implements OnInit {
 
     private getOptions(): IOilOperationsOptions {
         const options: IOilOperationsOptions = {
-            StartTime: this.selectedTransfer.startTime,
-            EndTime: this.selectedTransfer.endTime,
+            StartTime: new Date(this.selectedTransfer.startTime),
+            EndTime: new Date(this.selectedTransfer.endTime),
             Directions: [],
         };
         if (this.productFormControl.value && this.fieldFiltersCheckboxFormControl.value) {

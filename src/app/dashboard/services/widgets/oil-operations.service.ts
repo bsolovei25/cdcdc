@@ -51,7 +51,7 @@ export class OilOperationsService {
         options: IOilOperationsOptions
     ): Promise<IOilTransfer[]> {
         try {
-            return this.http
+            return await this.http
                 .get<IOilTransfer[]>(
                     this.restUrl +
                     `/api/oil-control/transfers?${this.getOptionString(lastId, options)}`
@@ -65,13 +65,14 @@ export class OilOperationsService {
 
     public async getShipmentListByFilter(
         lastId: number,
-        options: IOilOperationsOptions
+        options: IOilOperationsOptions,
+        batchSize: number = this.BATCH_SIZE,
     ): Promise<IOilShipment[]> {
         try {
-            return this.http
+            return await this.http
                 .get<IOilShipment[]>(
                     this.restUrl +
-                    `/api/oil-control/shipmentsbyfilter?${this.getOptionString(lastId, options)}`
+                    `/api/oil-control/shipmentsbyfilter?${this.getOptionString(lastId, options, batchSize)}`
                 )
                 .toPromise();
         } catch (error) {
@@ -85,7 +86,7 @@ export class OilOperationsService {
     ): Promise<IOilShipmentStatistics> {
 
         try {
-            return this.http
+            return await this.http
                 .get<IOilShipmentStatistics>(
                     this.restUrl +
                     `/api/oil-control/shipmentsbyfilter/statistics?${this.getOptionString(0, options)}`
@@ -200,6 +201,94 @@ export class OilOperationsService {
         }
     }
 
+    public async getFreeShipmentsProducts<T>(
+        lastId: number,
+        options: IOilOperationsOptions,
+        batchSize: number,
+    ): Promise<T[]> {
+        try {
+            return await this.http
+                .get<T[]>(
+                    this.restUrl +
+                    `/api/oil-control/shipmentsbyfilter/products?StatisticType=product&${this.getOptionString(lastId, options, batchSize)}`
+                )
+                .toPromise();
+        } catch (error) {
+            console.error(error);
+            return new Promise<T[]>(resolve => []);
+        }
+    }
+
+    public async getGroupsOfTanks<T>(): Promise<T[]> {
+        try {
+            return await this.http
+                .get<T[]>(
+                    this.restUrl +
+                    `/api/oil-control/tanks/groups`
+                )
+                .toPromise();
+        } catch (error) {
+            console.error(error);
+            return new Promise<T[]>(resolve => []);
+        }
+    }
+
+    public async getTanksByGroup<T>(idParam: number): Promise<T[]> {
+        try {
+            return await this.http
+                .get<T[]>(
+                    this.restUrl +
+                    `/api/oil-control/tanks/${idParam}/bygroup`
+                )
+                .toPromise();
+        } catch (error) {
+            console.error(error);
+            return new Promise<T[]>(resolve => []);
+        }
+    }
+
+    public async editTanksById<T>(idParam: string, stateParam: boolean): Promise<T> {
+        try {
+            return await this.http
+                .put<T>(
+                    this.restUrl +
+                    `/api/oil-control/tank/${idParam}/enabled/${stateParam}`, null
+                )
+                .toPromise();
+        } catch (error) {
+            console.error(error);
+            return new Promise<T>(resolve => null);
+        }
+    }
+
+    public async getTankById<T>(idParam: string): Promise<T> {
+        try {
+            return await this.http
+                .get<T>(
+                    this.restUrl +
+                    `/api/oil-control/tank/${idParam}`
+                )
+                .toPromise();
+        } catch (error) {
+            console.error(error);
+            return new Promise<T>(resolve => null);
+        }
+    }
+
+    public async getTanksByFilter<T>(nameParam: string): Promise<T> {
+        try {
+            return await this.http
+                .get<T>(
+                    this.restUrl +
+                    `/api/oil-control/tanksbyfilter?NameLike=${nameParam}`
+                )
+                .toPromise();
+        } catch (error) {
+            console.error(error);
+            return new Promise<T>(resolve => null);
+        }
+    }
+
     private getFilterString(
         startTime: Date,
         endTime: Date,
@@ -221,8 +310,8 @@ export class OilOperationsService {
         return requestQuery;
     }
 
-    private getOptionString(lastId: number, options: IOilOperationsOptions): string {
-        let res = `take=${this.BATCH_SIZE}&lastId=${lastId}&`;
+    private getOptionString(lastId: number, options: IOilOperationsOptions, batchSize: number = this.BATCH_SIZE): string {
+        let res = `take=${batchSize}&lastId=${lastId}&`;
         if (options.dates) {
             res +=
                 `startTime=${options.dates?.startTime.toISOString()}&` +
@@ -235,10 +324,10 @@ export class OilOperationsService {
             res += `&product=${options.product}`;
         }
         if (options.StartTime) {
-            res += `&StartTime=${options.StartTime}`;
+            res += `&StartTime=${options.StartTime.toISOString()}`;
         }
         if (options.EndTime) {
-            res += `&EndTime=${options.EndTime}`;
+            res += `&EndTime=${options.EndTime.toISOString()}`;
         }
         if (options.PassportId) {
             res += `&PassportId=${options.PassportId}`;
