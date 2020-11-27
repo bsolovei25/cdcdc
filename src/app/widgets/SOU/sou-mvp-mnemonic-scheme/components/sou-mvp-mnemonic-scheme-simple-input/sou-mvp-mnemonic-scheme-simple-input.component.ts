@@ -13,11 +13,11 @@ export class SouMvpMnemonicSchemeSimpleInputComponent implements OnInit {
     code: number
   }) {
     if (data.sections) {
-      this.flowData = this.mvpService.getElementByCode(data.sections, data.code) as ISOUObjects;
+      this.flowData = this.mvpService.getElementByCode(data.sections, data.code) as ISOUFlowOut;
     }
   }
 
-  flowData: ISOUObjects;
+  flowData: ISOUFlowOut;
 
   constructor(public mvpService: SouMvpMnemonicSchemeService) { }
 
