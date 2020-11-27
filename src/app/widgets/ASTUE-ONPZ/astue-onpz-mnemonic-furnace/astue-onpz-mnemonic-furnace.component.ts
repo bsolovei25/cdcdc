@@ -1,4 +1,12 @@
-import { Component, ElementRef, HostListener, Inject, OnInit, ViewChild } from '@angular/core';
+import {
+    ChangeDetectorRef,
+    Component,
+    ElementRef,
+    HostListener,
+    Inject,
+    OnInit,
+    ViewChild,
+} from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import {
     IAstueOnpzMnemonicFurnace,
@@ -52,6 +60,7 @@ export class AstueOnpzMnemonicFurnaceComponent extends WidgetPlatform implements
     >(null);
 
     constructor(
+        private changeDetector: ChangeDetectorRef,
         public widgetService: WidgetService,
         @Inject('isMock') public isMock: boolean,
         @Inject('widgetId') public id: string,
@@ -89,6 +98,7 @@ export class AstueOnpzMnemonicFurnaceComponent extends WidgetPlatform implements
             this.defaultSchemaSize.x;
         const scale: number = scaleX < scaleY ? scaleX : scaleY;
         this.schemeStyle = `transform: translate(-50%, -50%) scale(${scale})`;
+        this.changeDetector.detectChanges();
     }
 
     protected dataHandler(ref: unknown): void {}

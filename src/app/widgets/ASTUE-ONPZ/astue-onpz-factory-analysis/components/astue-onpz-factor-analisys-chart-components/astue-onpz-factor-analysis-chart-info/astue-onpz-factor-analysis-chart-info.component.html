@@ -1,0 +1,4 @@
+<div class="container" [ngClass]="'container__' + type">
+  <div class="title"> {{ type === 'plan' ? 'План' : type === 'fact' ? 'Факт' : 'Доверительный интервал' }} </div>
+  <div class="value"> 61 </div>
+</div>
