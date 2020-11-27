@@ -230,6 +230,25 @@ export class AstueOnpzFactoryAnalysisChartComponent implements OnInit {
             .attr('transform', `translate(${this.margin.left}, 0)`);
 
         if (type === 'fact') {
+            const lastCord = this.scales.x(dataset[dataset.length - 1].x);
+            this.svg
+                .append('line')
+                .attr('class', 'line line__fact')
+                .attr('x1', lastCord)
+                .attr('x2', lastCord)
+                .attr('y1', this.scales.y(this.sizeY.max))
+                .attr('y2', this.scales.y(this.sizeY.min))
+                .attr('transform', `translate(${this.margin.left}, 0)`);
+
+            this.svg
+                .append('text')
+                .attr('transform', `translate(${this.margin.left + 5}, 0)`)
+                .attr('font-size', '12px')
+                .attr('x', lastCord)
+                .attr('y', this.size.height - this.margin.bottom - 5)
+                .attr('fill', '#D7E2F2')
+                .text('18:00');
+
             dataset.forEach((d, idx) => {
                 if (idx === 0) {
                     return;
