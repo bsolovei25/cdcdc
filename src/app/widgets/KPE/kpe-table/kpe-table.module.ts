@@ -11,10 +11,13 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatOptionModule, MatRippleModule } from '@angular/material/core';
 import { FormsModule } from '@angular/forms';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import { KpeTableHeaderComponent } from './components/kpe-table-header/kpe-table-header.component';
+import { KpeTableDevelopmentComponentComponent } from './components/kpe-table-development-component/kpe-table-development-component.component';
+import { KpeTableLoadingComponentComponent } from './components/kpe-table-loading-component/kpe-table-loading-component.component';
 
 
 @NgModule({
-    declarations: [KpeTableComponent, KpeDatetimepickerComponent, KpeSelectComponent],
+    declarations: [KpeTableComponent, KpeDatetimepickerComponent, KpeSelectComponent, KpeTableHeaderComponent, KpeTableDevelopmentComponentComponent, KpeTableLoadingComponentComponent],
     imports: [
         CommonModule,
         SharedModule,

@@ -1,9 +1,7 @@
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { WidgetPlatform } from '../../../dashboard/models/@PLATFORM/widget-platform';
 import { WidgetService } from '../../../dashboard/services/widget.service';
-import { IParams } from '../../CD/cd-mat-balance/cd-mat-balance.component';
-import { SelectionModel } from '@angular/cdk/collections';
-import { table, tableHeader } from './components/kpe-table-mock';
+import { BehaviorSubject } from 'rxjs';
 
 export interface IKpeTableHeader {
     name: string;
@@ -35,12 +33,10 @@ export interface IKpeTableBody {
   styleUrls: ['./kpe-table.component.scss']
 })
 export class KpeTableComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
-    data: IKpeTable[] = table;
-    columnsToDisplay: IKpeTableHeader[] = tableHeader;
+    public pageType$: BehaviorSubject<'development' | 'loading'> = new BehaviorSubject<'development' | 'loading'>(
+        'development'
+    );
 
-    expandedElement: SelectionModel<string> = new SelectionModel(true);
-    selectedRowProduct: string;
-    selectedRow: SelectionModel<string> = new SelectionModel(true);
 
     constructor(
         public widgetService: WidgetService,
@@ -58,46 +54,11 @@ export class KpeTableComponent extends WidgetPlatform<unknown> implements OnInit
     protected dataHandler(ref: any): void {
 
     }
-
-    notCriticalCount(element: IKpeTable): number {
-        let i = 0;
-        element.parameters.forEach((value) => (value.isNotCritical > 0 ? (i += 1) : (i += 0)));
-        return i;
-    }
-    criticalCount(element: IKpeTable): number {
-        let i = 0;
-        element.parameters.forEach((value) => (value.isCritical > 0 ? (i += 1) : (i += 0)));
-        return i;
-    }
-    deviationCount(element: IKpeTable): number {
-        let i = 0;
-        element.parameters.forEach((value) => (value.isDeviation > 0 ? (i += 1) : (i += 0)));
-        return i;
+    public changePage(type: 'development' | 'loading'): void {
+        if (this.pageType$.getValue() === type) {
+            return;
+        }
+        this.pageType$.next(type);
     }
 
-    onClickTr(event: MouseEvent, element: any): void {
-        event.stopPropagation();
-        if (this.expandedElement.isSelected(element.name)) {
-            this.expandedElement.deselect(element.name);
-        } else {
-            this.expandedElement.select(element.name);
-        }
-    }
-
-    onClickRow(event: MouseEvent, element?: any): void {
-        event.stopPropagation();
-        if (!this.selectedRowProduct || element.name !== this.selectedRowProduct) {
-            this.selectedRowProduct = element.name;
-        } else {
-            this.selectedRowProduct = null;
-        }
-    }
-    onClickRowChildren(event: MouseEvent, element?: any): void {
-        event.stopPropagation();
-        if (!this.selectedRowProduct || element.id !== this.selectedRowProduct) {
-            this.selectedRowProduct = element.id;
-        } else {
-            this.selectedRowProduct = null;
-        }
-    }
 }
