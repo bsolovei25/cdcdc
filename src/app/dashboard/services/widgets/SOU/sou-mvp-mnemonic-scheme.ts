@@ -23,7 +23,9 @@ export class SouMvpMnemonicSchemeService {
 
     // Ищет элемент по коду в массиве всех элементов
     getElementByCode(sections: (ISOUFlowOut | ISOUFlowIn | ISOUObjects)[], code: number): ISOUFlowOut | ISOUFlowIn | ISOUObjects {
-        return sections.find(item => item.code === code);
+        if (sections?.length > 0) {
+            return sections.find(item => item.code === code);
+        }
     }
 
     selectElement(sections: (ISOUFlowOut | ISOUFlowIn | ISOUObjects)[], code: number): ISOUFlowOut | ISOUFlowIn | ISOUObjects {

@@ -21,6 +21,8 @@ span {
   border: 1px solid var(--sou-mvp-color-border);
   background: var(--sou-mvp-color-bg-title);
 
+  cursor: pointer;
+
   position: relative;
 
   .diagram-container {
@@ -30,6 +32,7 @@ span {
     display: flex;
 
     border-right: 1px solid var(--sou-mvp-color-border);
+    border-radius: 14px 0 0 14px;
   } 
 
   .diagram {
@@ -95,7 +98,7 @@ span {
   
     position: absolute;
     right: -4px;
-    z-index: 999;
+    z-index: 9999;
   }
 }
 
@@ -133,5 +136,40 @@ span {
 
   .connection-circle {
     border: 1px solid var(--sou-mvp-color-bg-title);
+  }
+}
+
+.selected {
+  border: 1px solid var(--sou-mvp-color-active);
+  background: var(--sou-mvp-color-bg-active-spec);
+
+  .diagram-container {
+    background: var(--sou-mvp-color-bg-active-spec);
+    border-right: 1px solid var(--sou-mvp-color-active);
+  }
+
+  .diagram-values {
+    .value {
+      color: var(--sou-mvp-color-text-diagram-main);
+    }
+
+    .unit {
+      color: var(--sou-mvp-color-text-diagram-main);
+    }
+  }
+
+  .weight {
+    color: var(--sou-mvp-color-text-diagram-main);
+    background: var(--sou-mvp-color-bg-active-spec);
+  }
+
+  .diagram-title {
+    .title {
+      color: var(--sou-mvp-color-text-diagram-main);
+    }
+  }
+
+  .connection-circle {
+    border: 1px solid var(--sou-mvp-color-active);
   }
 }

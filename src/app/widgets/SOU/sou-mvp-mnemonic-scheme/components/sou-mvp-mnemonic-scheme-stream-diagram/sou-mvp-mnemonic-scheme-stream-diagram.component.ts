@@ -17,6 +17,7 @@ export class SouMvpMnemonicSchemeStreamDiagramComponent implements OnInit, After
     code: number
   }) {
     if (data.sections) {
+      this.sections = data.sections;
       this.flowData = this.mvpService.getElementByCode(data.sections, data.code) as ISOUFlowOut;
       this.drawSvg();
     }
@@ -25,6 +26,7 @@ export class SouMvpMnemonicSchemeStreamDiagramComponent implements OnInit, After
   @Input() choosenSetting: number;
 
   flowData: ISOUFlowOut;
+  sections: (ISOUFlowOut | ISOUFlowIn | ISOUObjects)[];
 
   public svg: any;
 

@@ -14,6 +14,10 @@ import { SouMvpMnemonicSchemeSectionComponent } from './components/sou-mvp-mnemo
 import { SouMvpMnemonicSchemeSectionVbComponent } from './components/sou-mvp-mnemonic-scheme-section-vb/sou-mvp-mnemonic-scheme-section-vb.component';
 import { SouMvpMnemonicSchemeAbLeftComponent } from './components/sou-mvp-mnemonic-scheme-ab-left/sou-mvp-mnemonic-scheme-ab-left.component';
 import { SouMvpMnemonicSchemeVbLeftComponent } from './components/sou-mvp-mnemonic-scheme-vb-left/sou-mvp-mnemonic-scheme-vb-left.component';
+import { SouMvpMnemonicSchemeIzomalkLeftComponent } from './components/sou-mvp-mnemonic-scheme-izomalk-left/sou-mvp-mnemonic-scheme-izomalk-left.component';
+import { SouMvpMnemonicSchemeSectionIzomalkComponent } from './components/sou-mvp-mnemonic-scheme-section-izomalk/sou-mvp-mnemonic-scheme-section-izomalk.component';
+import { SouMvpMnemonicSchemeSimpleInputComponent } from './components/sou-mvp-mnemonic-scheme-simple-input/sou-mvp-mnemonic-scheme-simple-input.component';
+import { SouMvpMnemonicSchemeSimpleOutputComponent } from './components/sou-mvp-mnemonic-scheme-simple-output/sou-mvp-mnemonic-scheme-simple-output.component';
 
 @NgModule({
     declarations: [
@@ -26,7 +30,11 @@ import { SouMvpMnemonicSchemeVbLeftComponent } from './components/sou-mvp-mnemon
         SouMvpMnemonicSchemeSectionComponent,
         SouMvpMnemonicSchemeSectionVbComponent,
         SouMvpMnemonicSchemeAbLeftComponent,
-        SouMvpMnemonicSchemeVbLeftComponent
+        SouMvpMnemonicSchemeVbLeftComponent,
+        SouMvpMnemonicSchemeIzomalkLeftComponent,
+        SouMvpMnemonicSchemeSectionIzomalkComponent,
+        SouMvpMnemonicSchemeSimpleInputComponent,
+        SouMvpMnemonicSchemeSimpleOutputComponent
     ],
     imports: [
         CommonModule,

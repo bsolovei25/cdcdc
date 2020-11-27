@@ -45,6 +45,7 @@ export class SouMvpMnemonicSchemeComponent extends WidgetPlatform<unknown> imple
     ];
 
     sectionsData: (ISOUFlowOut | ISOUFlowIn | ISOUObjects)[] = []; // Массив всех элементов
+    sectionsDataIzo: (ISOUFlowOut | ISOUFlowIn | ISOUObjects)[] = []; // Массив всех элементов Изомалка
 
     sections: {
         title: string;
@@ -57,6 +58,10 @@ export class SouMvpMnemonicSchemeComponent extends WidgetPlatform<unknown> imple
         {
             title: 'BБ',
             value: 0
+        },
+        {
+            title: 'Изомалк 2',
+            value: 14
         }
     ]
 
@@ -80,13 +85,18 @@ export class SouMvpMnemonicSchemeComponent extends WidgetPlatform<unknown> imple
 
     protected dataHandler(ref: ISOUOperationalAccountingSystem): void {
         this.mainData = ref;
-
         this.flowInAb = ref.section[0].flowIn;
         this.flowInVb = ref.section[1].flowIn;
 
         this.sectionsData = [];
-        ref.section.forEach (item => {
-            this.sectionsData = [...this.sectionsData, ...item.flowIn, ...item.flowOut, ...item.objects];
+        this.sectionsDataIzo = [];
+        ref.section.forEach ((item, i) => {
+            if (i !== 2) {
+                this.sectionsData = [...this.sectionsData, ...item.flowIn, ...item.flowOut, ...item.objects];
+            } else {
+                this.sectionsDataIzo = [...this.sectionsDataIzo, ...item.flowIn, ...item.flowOut, ...item.objects];
+            }
+            let sum = 0;
         });
     }
 
