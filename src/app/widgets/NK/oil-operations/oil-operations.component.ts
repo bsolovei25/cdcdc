@@ -40,7 +40,7 @@ export class OilOperationsComponent extends WidgetPlatform<unknown> implements O
     public isOpenReceived: boolean = false;
     public isOpenShipment: boolean = false;
 
-    private currentDates: IDatesInterval;
+    public currentDates: IDatesInterval;
 
     public availableFilters: ITableGridFilter<IOilFilter, IDocumentOilOperationsFilterType>[] = [
         {
@@ -69,11 +69,6 @@ export class OilOperationsComponent extends WidgetPlatform<unknown> implements O
                 type: 'filter'
             },
             {
-                id: 3,
-                name: 'Список паспортов LIMS',
-                type: 'reference'
-            },
-            {
                 id: 4,
                 name: 'Публикация в БЛПС',
                 type: 'blps'
@@ -88,7 +83,7 @@ export class OilOperationsComponent extends WidgetPlatform<unknown> implements O
             {
                 id: 2,
                 name: 'Свободные отгрузки',
-                value: 2352,
+                value: 0,
                 type: 'free'
             },
             {
@@ -104,31 +99,9 @@ export class OilOperationsComponent extends WidgetPlatform<unknown> implements O
         ],
         tableRight: [],
         filter: [],
-        filterTanks: [
-            {
-                id: 1,
-                name: 'Керосины',
-                valuesTank: [
-                    {
-                        id: 1,
-                        number: 1,
-                        work: true,
-                        limit: 60,
-                        valueCap: 521
-                    },
-                    {
-                        id: 2,
-                        number: 1,
-                        work: true,
-                        limit: 60,
-                        valueCap: 521
-                    }
-                ]
-            }
-        ]
     };
 
-    filter: IOilOperationsButton = {
+    public filter: IOilOperationsButton = {
         isFilter: false,
         filter: false,
         line: false,
@@ -142,6 +115,7 @@ export class OilOperationsComponent extends WidgetPlatform<unknown> implements O
     public filterProduct: string | null = null;
     public selectedTransfer: IOilTransfer = null;
     public selectedShipment: IOilShipment = null;
+    public freeShipmentsQuantity: number = 0;
 
     constructor(
         protected widgetService: WidgetService,
@@ -195,6 +169,7 @@ export class OilOperationsComponent extends WidgetPlatform<unknown> implements O
             dates.fromDateTime.setHours(0, 0, 0);
         }
         this.currentDates = dates;
+        await this.getFreeShipmentsQuantity(this.currentDates);
 
         const dataLoadQueue: Promise<void>[] = [];
         dataLoadQueue.push(
@@ -276,9 +251,9 @@ export class OilOperationsComponent extends WidgetPlatform<unknown> implements O
 
     public async selectPassport(event: Event, passport: IOilOperationsPassport | null): Promise<void> {
         event.stopPropagation();
+        if (!passport) return;
         const document = await this.documentsScansService.getDocumentInfo(passport.id);
-        console.log(document, 'document');
-        // this.documentsScansService.currentDocument$.next(file);
+        this.documentsScansService.currentDocument$.next(document);
     }
 
     public async sendToBlps(): Promise<void> {
@@ -332,6 +307,18 @@ export class OilOperationsComponent extends WidgetPlatform<unknown> implements O
         } else {
             this.snackBar.openSnackBar('Выберите Операцию из списка');
         }
+    }
+
+    private async getFreeShipmentsQuantity(dates: IDatesInterval): Promise<void> {
+        const options: IOilOperationsOptions = {
+            StartTime: dates?.fromDateTime,
+            EndTime: dates?.toDateTime,
+        };
+        const stat = await this.oilOperationService.getShipmentStatistic(options);
+        this.data.shipment.filter(item => item.type === 'free').forEach(item => {
+            item.value = stat.quantity;
+            this.freeShipmentsQuantity = stat.quantity;
+        });
     }
 
     openShipment(name: string): void {

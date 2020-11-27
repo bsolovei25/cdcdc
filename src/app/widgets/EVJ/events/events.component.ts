@@ -578,18 +578,16 @@ export class EventsComponent extends WidgetPlatform<IEventsWidgetAttributes>
 
     private appendNotifications(remoteNotifications: IEventsWidgetNotificationPreview[]): void {
         if (remoteNotifications?.length > 0) {
-            const notifications = remoteNotifications
-                .filter((n) => n.category && n.category.name)
-                .map((n) => {
-                    const iconUrl = this.getNotificationIcon(n.category.name);
-                    const iconUrlStatus = this.getStatusIcon(n.status?.name);
-                    const statusName = n.status?.name ? this.statuses[n.status.name] : ''; // TODO
-                    n?.retrievalEvents.forEach((value) => {
-                        value.iconUrl = this.getNotificationIcon(value.category.name);
-                        value.iconUrlStatus = this.getStatusIcon(value.status.name);
-                    });
-                    return { ...n, iconUrl, statusName, iconUrlStatus };
+            const notifications = remoteNotifications.map((n) => {
+                const iconUrl = this.getNotificationIcon(n.category?.name);
+                const iconUrlStatus = this.getStatusIcon(n.status?.name);
+                const statusName = n.status?.name ? this.statuses[n.status.name] : ''; // TODO
+                n?.retrievalEvents.forEach((value) => {
+                    value.iconUrl = this.getNotificationIcon(value.category.name);
+                    value.iconUrlStatus = this.getStatusIcon(value.status.name);
                 });
+                return { ...n, iconUrl, statusName, iconUrlStatus };
+            });
             this.notifications = this.notifications.concat(notifications);
             this.countNotificationsDivCapacity();
         }
