@@ -30,8 +30,9 @@ export const table: IKpeTable[] = [{
             deviationValue: 44,
             deviationPercent: '1.2%',
             recommended: 2274.4,
-            isDeviation: 0,
-            isCritical: 0
+            isNotCritical: 0,
+            isCritical: 0,
+            isDeviation: 0
         },
         {
             id: 2534,
@@ -45,8 +46,9 @@ export const table: IKpeTable[] = [{
             deviationValue: 44,
             deviationPercent: '1.2%',
             recommended: 2274.4,
-            isDeviation: 1,
-            isCritical: 0
+            isNotCritical: 0,
+            isCritical: 0,
+            isDeviation: 0
         },
         {
             id: 3345,
@@ -60,8 +62,9 @@ export const table: IKpeTable[] = [{
             deviationValue: 44,
             deviationPercent: '1.2%',
             recommended: 2274.4,
-            isDeviation: 0,
-            isCritical: 1
+            isNotCritical: 0,
+            isCritical: 1,
+            isDeviation: 0
         },
         {
             id: 1345,
@@ -75,8 +78,9 @@ export const table: IKpeTable[] = [{
             deviationValue: 44,
             deviationPercent: '1.2%',
             recommended: 2274.4,
-            isDeviation: 0,
-            isCritical: 0
+            isNotCritical: 0,
+            isCritical: 0,
+            isDeviation: 1
         },
         {
             id: 2234,
@@ -90,8 +94,9 @@ export const table: IKpeTable[] = [{
             deviationValue: 44,
             deviationPercent: '1.2%',
             recommended: 2274.4,
-            isDeviation: 1,
-            isCritical: 0
+            isNotCritical: 2,
+            isCritical: 0,
+            isDeviation: 0
         },
         {
             id: 3242,
@@ -105,8 +110,9 @@ export const table: IKpeTable[] = [{
             deviationValue: 44,
             deviationPercent: '1.2%',
             recommended: 2274.4,
-            isDeviation: 0,
-            isCritical: 1
+            isNotCritical: 0,
+            isCritical: 1,
+            isDeviation: 0
         }
     ]
 },
@@ -128,8 +134,9 @@ export const table: IKpeTable[] = [{
                 deviationValue: 44,
                 deviationPercent: '1.2%',
                 recommended: 2274.4,
-                isDeviation: 0,
-                isCritical: 0
+                isNotCritical: 0,
+                isCritical: 0,
+                isDeviation: 0
             },
             {
                 id: 54234,
@@ -143,8 +150,9 @@ export const table: IKpeTable[] = [{
                 deviationValue: 44,
                 deviationPercent: '1.2%',
                 recommended: 2274.4,
-                isDeviation: 1,
-                isCritical: 0
+                isNotCritical: 0,
+                isCritical: 0,
+                isDeviation: 0
             },
             {
                 id: 62342,
@@ -158,8 +166,9 @@ export const table: IKpeTable[] = [{
                 deviationValue: 44,
                 deviationPercent: '1.2%',
                 recommended: 2274.4,
-                isDeviation: 0,
-                isCritical: 1
+                isNotCritical: 0,
+                isCritical: 1,
+                isDeviation: 0
             }
         ]
     }

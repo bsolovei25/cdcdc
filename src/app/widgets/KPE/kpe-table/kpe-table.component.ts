@@ -25,8 +25,9 @@ export interface IKpeTableBody {
     deviationValue: number;
     deviationPercent: string;
     recommended: number;
-    isDeviation?: number;
+    isNotCritical?: number;
     isCritical?: number;
+    isDeviation?: number;
 }
 @Component({
   selector: 'evj-kpe-table',
@@ -58,6 +59,16 @@ export class KpeTableComponent extends WidgetPlatform<unknown> implements OnInit
 
     }
 
+    notCriticalCount(element: IKpeTable): number {
+        let i = 0;
+        element.parameters.forEach((value) => (value.isNotCritical > 0 ? (i += 1) : (i += 0)));
+        return i;
+    }
+    criticalCount(element: IKpeTable): number {
+        let i = 0;
+        element.parameters.forEach((value) => (value.isCritical > 0 ? (i += 1) : (i += 0)));
+        return i;
+    }
     deviationCount(element: IKpeTable): number {
         let i = 0;
         element.parameters.forEach((value) => (value.isDeviation > 0 ? (i += 1) : (i += 0)));

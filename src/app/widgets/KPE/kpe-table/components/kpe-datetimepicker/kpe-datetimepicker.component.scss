@@ -16,7 +16,7 @@
       color: var(--header-events-color-font-main) !important;
       font-size: 13px;
       width: calc(100% - 20px);
-      height: 32px;
+      height: 30px;
       border-radius: 2px;
       background-color: var(--header-events-color-bg-main);
       border: 1px solid var(--color-astue-mat-select-border);
@@ -42,7 +42,7 @@
         padding: 0;
         border-top: none;
         width: 100%;
-        min-width: 100px;
+        min-width: 130px;
       }
 
       .mat-datepicker-toggle {

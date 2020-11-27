@@ -6,6 +6,7 @@
 >
 </evj-contemporary-widget-header>
 <div class="container">
+
   <div
     class="container-body"
     (mousedown)="$event.stopPropagation()"
@@ -14,10 +15,20 @@
     <table class="table">
       <thead class="table__header">
       <tr>
+
         <ng-container *ngFor="let column of columnsToDisplay">
-          <th>
-            <span>{{ column.name }}</span>
-          </th>
+          <ng-container *ngIf="column.id === '1'; else names">
+            <th>
+              <div class="input">
+                <evj-rectangle-input placeholder="Поиск по компонентам"></evj-rectangle-input>
+              </div>
+            </th>
+          </ng-container>
+          <ng-template #names>
+            <th>
+              <span>{{ column.name }}</span>
+            </th>
+          </ng-template>
         </ng-container>
       </tr>
       </thead>
@@ -32,13 +43,9 @@
             <td
               class="table__body__column"
               [class.table__body__column--active]="selectedRowProduct === element.unit.name"
-              [class.table__body__column--warning]="selectedRowProduct === element.unit.name && deviationCount(element) !== 0"
               (click)="onClickRow($event, element)"
-              colspan="3"
+              colspan="10"
             >
-              <ng-container *ngIf="deviationCount(element) !== 0">
-                <div class="table__body__column--warning-border"></div>
-              </ng-container>
               <div
                 (click)="onClickRow($event, element.unit)"
                 class="table__body__column__row-title"
@@ -48,8 +55,7 @@
                   class="table__body__column__row-title__icon"
                   (click)="onClickTr($event, element.unit)"
                   [ngClass]="{
-                  'table__body__column__row-title__icon--warning':expandedElement.isSelected(element.unit.name) && deviationCount(element) !== 0,
-                  'table__body__column__row-title__icon--active':expandedElement.isSelected(element.unit.name) && deviationCount(element) === 0
+                  'table__body__column__row-title__icon--active':expandedElement.isSelected(element.unit.name)
                   }"
                   src="assets/icons/widgets/APS/aps-gantt-chart/plus.svg"
                 >
@@ -58,11 +64,13 @@
                   <div class="table__body__column__row-title__text__name">
                     <span>{{ element.unit.name }}</span>
                   </div>
-                  <span class="table__body__column__row-title__text__name__value-right"
-                  >Отклонений: {{ deviationCount(element) }}
-                    </span>
+                  <div class="table__body__column__row-title__text__name__value-right"
+                  >
+                    <span>Отклонений: {{ deviationCount(element) }}</span>
+                    <span>Некритичные: {{ notCriticalCount(element) }}</span>
+                    <span>Критичные: {{ criticalCount(element) }}</span>
+                  </div>
                 </div>
-                <ng-template #elseBlock></ng-template>
               </div>
             </td>
           </ng-container>
@@ -78,7 +86,9 @@
               class="expanded-column table__body__column table__body__column__children"
 
               [class.table__body__column__children--active]="selectedRowProduct === elementChildren.id"
-              [class.table__body__column__children--warning]="selectedRowProduct === elementChildren.id && deviationCount(element) !== 0"
+              [class.table__body__column__children--warning]="selectedRowProduct === elementChildren.id && elementChildren.isNotCritical !== 0"
+              [class.table__body__column__children--danger]="selectedRowProduct === elementChildren.id && elementChildren.isCritical !== 0"
+
               [matTooltip]="elementChildren?.name"
             >
               <div
@@ -90,10 +100,11 @@
                 <svg-icon
                   [svgStyle]="{'height.px':'43', 'width.px': '21'}"
                   class="table__body__column__row-title-children__left-block--first"
-                  [class.table__body__column__row-title-children__left-block--first__warning]="elementChildren.isDeviation !== 0"
+                  [class.table__body__column__row-title-children__left-block--first__warning]="elementChildren.isNotCritical !== 0"
+                  [class.table__body__column__row-title-children__left-block--first__danger]="elementChildren.isCritical !== 0"
                   [class.table__body__column__row-title-children__left-block--first__default]="selectedRowProduct !== elementChildren.name"
-                  [class.table__body__column__row-title-children__left-block--first__active]="selectedRowProduct === elementChildren.name && elementChildren.isDeviation === 0"
-                  [class.table__body__column__row-title-children__left-block--first__active-warning]="selectedRowProduct === elementChildren.name && elementChildren.isDeviation !== 0"
+                  [class.table__body__column__row-title-children__left-block--first__active]="selectedRowProduct === elementChildren.name && elementChildren.isNotCritical === 0"
+                  [class.table__body__column__row-title-children__left-block--first__active-warning]="selectedRowProduct === elementChildren.name && elementChildren.isNotCritical !== 0"
 
                   [src]="'assets/icons/widgets/APS/aps-recipe-diagram/astue-table-left-row-block-recipe.svg'"
                 >
@@ -164,12 +175,10 @@
 
 
   <div class="container__footer">
-    <div class="button-container">
-      <evj-rect-button
-        textButton="Загрузить данные"
-        [isChangingState]="false"
-        [type]="'primary'"
-      ></evj-rect-button>
+    <div class="button"
+         matRipple [matRippleColor]="'white'"
+    >
+      <span>Загрузить данные</span>
     </div>
     <div class="container__date">
       <div class="container__date__title">
@@ -188,7 +197,6 @@
       </div>
       <div class="container__date__element">
         <evj-kpe-select></evj-kpe-select>
-
       </div>
       <div class="container__date__element">
         <evj-kpe-datetimepicker></evj-kpe-datetimepicker>
@@ -205,12 +213,10 @@
         <evj-kpe-datetimepicker></evj-kpe-datetimepicker>
       </div>
     </div>
-    <div class="button-container">
-      <evj-rect-button
-        textButton="Рассчитать"
-        [isChangingState]="false"
-        [type]="'primary'"
-      ></evj-rect-button>
+    <div class="button"
+         matRipple [matRippleColor]="'white'"
+    >
+      <span>Рассчитать</span>
     </div>
   </div>
 </div>

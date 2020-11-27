@@ -490,9 +490,9 @@ export const WIDGETS_LAZY = {
             return await import('src/app/widgets/KPE/kpe-table/kpe-table.module');
         },
         module: 'KpeTableModule',
-        itemCols: 30,
+        itemCols: 60,
         itemRows: 15,
-        minItemCols: 30,
+        minItemCols: 60,
         minItemRows: 15,
         preview: 'default'
     },

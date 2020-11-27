@@ -8,6 +8,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { AngularSvgIconModule } from 'angular-svg-icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatRippleModule } from '@angular/material/core';
 
 
 @NgModule({
@@ -18,7 +19,8 @@ import { MatTooltipModule } from '@angular/material/tooltip';
         MatFormFieldModule,
         MatSelectModule,
         AngularSvgIconModule,
-        MatTooltipModule
+        MatTooltipModule,
+        MatRippleModule
     ]
 })
 export class KpeTableModule {
