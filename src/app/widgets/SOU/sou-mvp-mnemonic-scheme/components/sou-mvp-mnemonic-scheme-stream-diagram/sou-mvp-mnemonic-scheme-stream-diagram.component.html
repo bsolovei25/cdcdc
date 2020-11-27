@@ -1,6 +1,7 @@
 <div class="container" 
   [ngClass]="{
     off:flowData?.isEnable,
+    warning: flowData?.isExceedingConfInterval,
     selected:flowData?.code === mvpService.selectedCode
   }"
   (click)="mvpService.openPopup(sections, flowData?.code)"

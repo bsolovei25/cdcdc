@@ -65,11 +65,11 @@ export class SouMvpMnemonicSchemeStreamDiagramComponent implements OnInit, After
 
     g.append('path')
       .attr('d', arcBg)
-      .attr('fill', 'var(--sou-mvp-color-border)');
+      .attr('class', 'diagram-inner');
 
     g.append('path')
       .attr('d', arc)
-      .attr('fill', 'white');
+      .attr('class', 'diagram-value');
   }
 
   ngAfterViewInit(): void {

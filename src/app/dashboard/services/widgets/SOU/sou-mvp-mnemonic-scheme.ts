@@ -19,6 +19,7 @@ export class SouMvpMnemonicSchemeService {
 
     closePopup(): void {
         this.isPopupOpen = false;
+        this.selectedCode = -1;
     }
 
     // Ищет элемент по коду в массиве всех элементов

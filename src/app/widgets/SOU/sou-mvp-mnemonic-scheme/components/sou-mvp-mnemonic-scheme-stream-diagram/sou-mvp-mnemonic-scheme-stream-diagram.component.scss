@@ -100,11 +100,22 @@ span {
     right: -4px;
     z-index: 9999;
   }
+
+  ::ng-deep {
+    svg {
+        .diagram-inner {
+          fill: var(--sou-mvp-color-border);
+        }
+  
+        .diagram-value {
+          fill: var(--sou-mvp-color-white);
+        }
+    }
+  }
 }
 
 
 .off {
-
   border: 1px solid var(--sou-mvp-color-bg-title);
   background: var(--sou-mvp-color-bg-main);
 
@@ -137,6 +148,57 @@ span {
   .connection-circle {
     border: 1px solid var(--sou-mvp-color-bg-title);
   }
+
+  ::ng-deep {
+    svg {
+      .diagram-inner {
+        fill: var(--sou-mvp-color-bg-title);
+      }
+    }
+  }
+}
+
+.warning {
+  border: 1px solid var(--sou-mvp-color-warning);
+  background: var(--sou-mvp-color-bg-warning);
+
+  .diagram-container {
+    border-right: 1px solid var(--sou-mvp-color-warning);
+  }
+
+  .diagram-values {
+    .value {
+      color: var(--sou-mvp-color-text-diagram-main);
+    }
+
+    .unit {
+      color: var(--sou-mvp-color-text-diagram-main);
+    }
+  }
+
+  .weight {
+    color: var(--sou-mvp-color-text-diagram-main);
+    background: var(--sou-mvp-color-bg-warning);
+  }
+
+  .diagram-title {
+    .title {
+      color: var(--sou-mvp-color-text-diagram-main);
+    }
+  }
+
+  .connection-circle {
+    border: 1px solid var(--sou-mvp-color-warning);
+  }
+
+  ::ng-deep {
+    svg {
+      .diagram-inner {
+        fill: var(--sou-mvp-color-warning);
+      }
+    }
+  }
+
 }
 
 .selected {
@@ -171,5 +233,17 @@ span {
 
   .connection-circle {
     border: 1px solid var(--sou-mvp-color-active);
+  }
+
+  ::ng-deep {
+    svg {
+      .diagram-inner {
+        fill: var(--sou-mvp-color-border);
+      }
+
+      .diagram-value {
+        fill: var(--sou-mvp-color-white);
+      }
+    }
   }
 }

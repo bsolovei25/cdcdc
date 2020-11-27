@@ -53,7 +53,7 @@ export class SouMvpMnemonicSchemeComponent extends WidgetPlatform<unknown> imple
     }[] = [
         {
             title: 'АБ',
-            value: 2
+            value: 0
         },
         {
             title: 'BБ',
@@ -61,9 +61,9 @@ export class SouMvpMnemonicSchemeComponent extends WidgetPlatform<unknown> imple
         },
         {
             title: 'Изомалк 2',
-            value: 14
+            value: 0
         }
-    ]
+    ];
 
     choosenSetting: number = 1;
     choosenSection: number = 0;
@@ -85,6 +85,7 @@ export class SouMvpMnemonicSchemeComponent extends WidgetPlatform<unknown> imple
 
     protected dataHandler(ref: ISOUOperationalAccountingSystem): void {
         this.mainData = ref;
+        debugger;
         this.flowInAb = ref.section[0].flowIn;
         this.flowInVb = ref.section[1].flowIn;
 
@@ -96,7 +97,18 @@ export class SouMvpMnemonicSchemeComponent extends WidgetPlatform<unknown> imple
             } else {
                 this.sectionsDataIzo = [...this.sectionsDataIzo, ...item.flowIn, ...item.flowOut, ...item.objects];
             }
+
             let sum = 0;
+            for (const element in item) {
+                if (element === 'flowIn' || element === 'flowOut') {
+                    item[element].forEach(el => {
+                        if (el.isExceedingConfInterval) {
+                            sum++;
+                        }
+                    });
+                }
+            }
+            this.sections[i].value = sum;
         });
     }
 
