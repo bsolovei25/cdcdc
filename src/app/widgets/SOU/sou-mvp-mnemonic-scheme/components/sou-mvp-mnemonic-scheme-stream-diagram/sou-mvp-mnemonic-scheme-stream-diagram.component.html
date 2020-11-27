@@ -1,4 +1,11 @@
-<div class="container" [ngClass]="{off:flowData?.isEnable}">
+<div class="container" 
+  [ngClass]="{
+    off:flowData?.isEnable,
+    warning: flowData?.isExceedingConfInterval,
+    selected:flowData?.code === mvpService.selectedCode
+  }"
+  (click)="mvpService.openPopup(sections, flowData?.code)"
+>
   <div class="diagram-container">
     <div class="diagram" #chart></div>
     <div class="diagram-values">

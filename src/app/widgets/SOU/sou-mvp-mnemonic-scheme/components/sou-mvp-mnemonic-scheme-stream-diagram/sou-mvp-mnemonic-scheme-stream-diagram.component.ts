@@ -17,6 +17,7 @@ export class SouMvpMnemonicSchemeStreamDiagramComponent implements OnInit, After
     code: number
   }) {
     if (data.sections) {
+      this.sections = data.sections;
       this.flowData = this.mvpService.getElementByCode(data.sections, data.code) as ISOUFlowOut;
       this.drawSvg();
     }
@@ -25,6 +26,7 @@ export class SouMvpMnemonicSchemeStreamDiagramComponent implements OnInit, After
   @Input() choosenSetting: number;
 
   flowData: ISOUFlowOut;
+  sections: (ISOUFlowOut | ISOUFlowIn | ISOUObjects)[];
 
   public svg: any;
 
@@ -63,11 +65,11 @@ export class SouMvpMnemonicSchemeStreamDiagramComponent implements OnInit, After
 
     g.append('path')
       .attr('d', arcBg)
-      .attr('fill', 'var(--sou-mvp-color-border)');
+      .attr('class', 'diagram-inner');
 
     g.append('path')
       .attr('d', arc)
-      .attr('fill', 'white');
+      .attr('class', 'diagram-value');
   }
 
   ngAfterViewInit(): void {

@@ -1,24 +1,32 @@
 <div class="stream">
-  <div class="stream__item">
+  <div class="stream__item padding">
     <evj-sou-mvp-mnemonic-scheme-circle-diagram
       [data]="{
         sections: sections,
-        code: 65
+        code: 36
       }"
     ></evj-sou-mvp-mnemonic-scheme-circle-diagram>
 
     <evj-sou-mvp-mnemonic-scheme-circle-diagram
       [data]="{
         sections: sections,
-        code: 54
+        code: 38
       }"
     ></evj-sou-mvp-mnemonic-scheme-circle-diagram>
   </div>
-  <div class="stream__item">
+  <div class="stream__item end">
+    <evj-sou-mvp-mnemonic-scheme-simple-input
+      [style.marginRight]="'-2px'"
+      [data]="{
+        sections: sections,
+        code: 36
+      }"
+    ></evj-sou-mvp-mnemonic-scheme-simple-input>
+
     <evj-sou-mvp-mnemonic-scheme-info
       [data]="{
         sections: sections,
-        code: 65
+        code: 36
       }"
       [choosenSetting]="choosenSetting"
     ></evj-sou-mvp-mnemonic-scheme-info>
@@ -26,193 +34,349 @@
     <evj-sou-mvp-mnemonic-scheme-info
       [data]="{
         sections: sections,
-        code: 54
+        code: 38
       }"
       [choosenSetting]="choosenSetting"
     ></evj-sou-mvp-mnemonic-scheme-info>
+
+    <evj-sou-mvp-mnemonic-scheme-simple-input
+      [style.opacity]="0"
+      [data]="{
+        sections: sections,
+        code: 36
+      }"
+    ></evj-sou-mvp-mnemonic-scheme-simple-input>
   </div>
-  <div class="stream__item">
+  <div class="stream__item row">
+    <div class="special-dot-container">
+        <div class="connection-circle"></div>
+        <div class="connection-circle"></div>
+    </div>
     <evj-sou-mvp-mnemonic-scheme-collector
       [style.height.%]="100"
-      [data]="{
-        sections: sections,
-        code: 66
-      }"
-      [outCount]="1"
-      [inCount]="2"
-    ></evj-sou-mvp-mnemonic-scheme-collector>
-  </div>
-  <div class="stream__item">
-    <evj-sou-mvp-mnemonic-scheme-stream-diagram
-      [data]="{
-        sections: sections,
-        code: 67
-      }"
-      [choosenSetting]="choosenSetting"
-    ></evj-sou-mvp-mnemonic-scheme-stream-diagram>
-  </div>
-  <div class="stream__item output">
-    <evj-sou-mvp-mnemonic-scheme-output
-      [data]="{
-        sections: sections,
-        code: 68
-      }"
-    ></evj-sou-mvp-mnemonic-scheme-output>
-  </div>
-</div>
-
-<div class="stream">
-  <div class="stream__item">
-    <evj-sou-mvp-mnemonic-scheme-circle-diagram
-      [data]="{
-        sections: sections,
-        code: 55
-      }"
-    ></evj-sou-mvp-mnemonic-scheme-circle-diagram>
-  </div>
-  <div class="stream__item">
-    <evj-sou-mvp-mnemonic-scheme-info
-      [data]="{
-        sections: sections,
-        code: 55
-      }"
-      noLine = true
-      [choosenSetting]="choosenSetting"
-    ></evj-sou-mvp-mnemonic-scheme-info>
-  </div>
-  <div class="stream__item output">
-    <evj-sou-mvp-mnemonic-scheme-output
-      [data]="{
-        sections: sections,
-        code: 56
-      }"
-    ></evj-sou-mvp-mnemonic-scheme-output>
-  </div>
-</div>
-
-<div class="stream">
-  <div class="stream__item">
-    <evj-sou-mvp-mnemonic-scheme-circle-diagram
-      [data]="{
-        sections: sections,
-        code: 40
-      }"
-    ></evj-sou-mvp-mnemonic-scheme-circle-diagram>
-  </div>
-  <div class="stream__item">
-    <evj-sou-mvp-mnemonic-scheme-info
-      [data]="{
-        sections: sections,
-        code: 40
-      }"
-      [choosenSetting]="choosenSetting"
-    ></evj-sou-mvp-mnemonic-scheme-info>
-  </div>
-  <div class="stream__item">
-    <evj-sou-mvp-mnemonic-scheme-collector
-      [style.height.%]="100"
-      [outCount]="4"
-      [inCount]="1"
-      [data]="{
-        sections: sections,
-        code: 41
-      }"
-    ></evj-sou-mvp-mnemonic-scheme-collector>
-  </div>
-  <div class="stream__item">
-    <evj-sou-mvp-mnemonic-scheme-stream-diagram
-      [data]="{
-        sections: sections,
-        code: 42
-      }"
-    ></evj-sou-mvp-mnemonic-scheme-stream-diagram>
-
-    <evj-sou-mvp-mnemonic-scheme-stream-diagram
-      [data]="{
-        sections: sections,
-        code: 52
-      }"
-    ></evj-sou-mvp-mnemonic-scheme-stream-diagram>
-
-    <evj-sou-mvp-mnemonic-scheme-stream-diagram
-      [data]="{
-        sections: sections,
-        code: 50
-      }"
-    ></evj-sou-mvp-mnemonic-scheme-stream-diagram>
-
-    <evj-sou-mvp-mnemonic-scheme-stream-diagram
-      [data]="{
-        sections: sections,
-        code: 44
-      }"
-    ></evj-sou-mvp-mnemonic-scheme-stream-diagram>
-  </div>
-  <div class="stream__item output">
-    <evj-sou-mvp-mnemonic-scheme-output
+      [outCount]="0"
+      [inCount]="0"
       [data]="{
         sections: sections,
         code: 43
       }"
-    ></evj-sou-mvp-mnemonic-scheme-output>
+    ></evj-sou-mvp-mnemonic-scheme-collector>
+    <div class="special-line-container">
+      <div class="line">
+        <div class="connection-circle"></div>
+      </div>
+      <div class="line">
+        <div class="connection-circle"></div>
+      </div>
+      <div class="line">
+        <div class="connection-circle"></div>
+      </div>
+      <div class="line">
+        <div class="connection-circle"></div>
+      </div>
+      <div class="line">
+        <div class="connection-circle"></div>
+      </div>
+    </div>
+  </div>
+  <div class="stream__item full">
+    <div class="center-flex">
+      <evj-sou-mvp-mnemonic-scheme-stream-diagram
+        [data]="{
+          sections: sections,
+          code: 44
+        }"
+      ></evj-sou-mvp-mnemonic-scheme-stream-diagram>
+      <div class="line"></div>
+      <evj-sou-mvp-mnemonic-scheme-output
+        [data]="{
+          sections: sections,
+          code: 51
+        }"
+      ></evj-sou-mvp-mnemonic-scheme-output>
+    </div>
 
-    <evj-sou-mvp-mnemonic-scheme-output
-      [data]="{
-        sections: sections,
-        code: 53
-      }"
-  ></evj-sou-mvp-mnemonic-scheme-output>
+    <div class="center-flex">
+      <evj-sou-mvp-mnemonic-scheme-stream-diagram
+        [data]="{
+          sections: sections,
+          code: 42
+        }"
+      ></evj-sou-mvp-mnemonic-scheme-stream-diagram>
+      <div class="line"></div>
+      <evj-sou-mvp-mnemonic-scheme-output
+        [data]="{
+          sections: sections,
+          code: 77
+        }"
+      ></evj-sou-mvp-mnemonic-scheme-output>
+    </div>
 
-    <evj-sou-mvp-mnemonic-scheme-output
-      [data]="{
-        sections: sections,
-        code: 51
-      }"
-    ></evj-sou-mvp-mnemonic-scheme-output>
+    <div class="center-flex">
+      <evj-sou-mvp-mnemonic-scheme-stream-diagram
+        [data]="{
+          sections: sections,
+          code: 86
+        }"
+      ></evj-sou-mvp-mnemonic-scheme-stream-diagram>
+      <div class="line"></div>
+      <evj-sou-mvp-mnemonic-scheme-output
+        [data]="{
+          sections: sections,
+          code: 78
+        }"
+      ></evj-sou-mvp-mnemonic-scheme-output>
+    </div>
 
-    <evj-sou-mvp-mnemonic-scheme-output
-      [style.opacity]="0"
-    ></evj-sou-mvp-mnemonic-scheme-output>
+    <div class="center-flex">
+      <evj-sou-mvp-mnemonic-scheme-stream-diagram
+        [data]="{
+          sections: sections,
+          code: 94
+        }"
+      ></evj-sou-mvp-mnemonic-scheme-stream-diagram>
+    </div>
+
+    <div class="stream specificAB">
+      <div class="stream__item">
+        <div class="vertical-custom-connection">
+          <div class="connection-circle"></div>
+          <div class="line"></div>
+        </div>
+        <evj-sou-mvp-mnemonic-scheme-collector
+          [style.height.%]="100"
+          [data]="{
+            sections: sections,
+            code: 45
+          }"
+          [outCount]="1"
+          [inCount]="0"
+        ></evj-sou-mvp-mnemonic-scheme-collector>
+      </div>
+      <div class="stream__item">
+        <evj-sou-mvp-mnemonic-scheme-stream-diagram
+          [data]="{
+            sections: sections,
+            code: 0
+          }"
+        ></evj-sou-mvp-mnemonic-scheme-stream-diagram>
+      </div>
+      <div class="stream__item output">
+    
+        <evj-sou-mvp-mnemonic-scheme-output
+          [data]="{
+            sections: sections,
+            code: 79
+          }"
+        ></evj-sou-mvp-mnemonic-scheme-output>
+      </div>
+    </div>
+
+    <div class="center-flex">
+      <evj-sou-mvp-mnemonic-scheme-stream-diagram
+        [data]="{
+          sections: sections,
+          code: 68
+        }"
+      ></evj-sou-mvp-mnemonic-scheme-stream-diagram>
+      <div class="line"></div>
+      <evj-sou-mvp-mnemonic-scheme-simple-output
+        [data]="{
+          sections: sections,
+          code: 47
+        }"
+      ></evj-sou-mvp-mnemonic-scheme-simple-output>
+    </div>
   </div>
 </div>
-<div class="stream specificAB">
+
+<div class="stream">
   <div class="stream__item">
-    <div class="vertical-custom-connection">
-      <div class="connection-circle"></div>
-      <div class="line"></div>
-    </div>
+    <evj-sou-mvp-mnemonic-scheme-circle-diagram
+      [data]="{
+        sections: sections,
+        code: 52
+      }"
+    ></evj-sou-mvp-mnemonic-scheme-circle-diagram>
+  </div>
+  <div class="stream__item end">
+    <evj-sou-mvp-mnemonic-scheme-simple-input
+      [data]="{
+        sections: sections,
+        code: 62
+      }"
+    ></evj-sou-mvp-mnemonic-scheme-simple-input>
+    <evj-sou-mvp-mnemonic-scheme-info
+      [data]="{
+        sections: sections,
+        code: 52
+      }"
+      [choosenSetting]="choosenSetting"
+    ></evj-sou-mvp-mnemonic-scheme-info>
+    <evj-sou-mvp-mnemonic-scheme-simple-input
+      [data]="{
+        sections: sections,
+        code: 68
+      }"
+    ></evj-sou-mvp-mnemonic-scheme-simple-input>
+  </div>
+  <div class="stream__item">
     <evj-sou-mvp-mnemonic-scheme-collector
       [style.height.%]="100"
       [data]="{
         sections: sections,
-        code: 45
+        code: 47
       }"
-      [outCount]="2"
-      [inCount]="0"
+      [outCount]="4"
+      [inCount]="1"
+    ></evj-sou-mvp-mnemonic-scheme-collector>
+  </div>
+  <div class="stream__item relative">
+    <svg-icon
+      src="assets/icons/widgets/SOU/sou-mvp-mnemonic-scheme/path.svg"
+      [svgStyle]="{'width.px':302}"
+      class="path"
+    ></svg-icon>
+    <evj-sou-mvp-mnemonic-scheme-stream-diagram
+      [data]="{
+        sections: sections,
+        code: 38
+      }"
+    ></evj-sou-mvp-mnemonic-scheme-stream-diagram>
+
+    <evj-sou-mvp-mnemonic-scheme-stream-diagram
+      [data]="{
+        sections: sections,
+        code: 58
+      }"
+    ></evj-sou-mvp-mnemonic-scheme-stream-diagram>
+
+    <evj-sou-mvp-mnemonic-scheme-stream-diagram
+      [data]="{
+        sections: sections,
+        code: 26
+      }"
+    ></evj-sou-mvp-mnemonic-scheme-stream-diagram>
+
+    <evj-sou-mvp-mnemonic-scheme-stream-diagram
+      [data]="{
+        sections: sections,
+        code: 97
+      }"
+    ></evj-sou-mvp-mnemonic-scheme-stream-diagram>
+  </div>
+  <div class="stream__item output">
+    <evj-sou-mvp-mnemonic-scheme-output
+      [style.opacity]="0"
+      [data]="{
+        sections: sections,
+        code: 80
+      }"
+    ></evj-sou-mvp-mnemonic-scheme-output>
+
+    <evj-sou-mvp-mnemonic-scheme-output
+      [data]="{
+        sections: sections,
+        code: 80
+      }"
+    ></evj-sou-mvp-mnemonic-scheme-output>
+
+    <evj-sou-mvp-mnemonic-scheme-output
+      [data]="{
+        sections: sections,
+        code: 81
+      }"
+    ></evj-sou-mvp-mnemonic-scheme-output>
+
+    <evj-sou-mvp-mnemonic-scheme-output
+      [data]="{
+        sections: sections,
+        code: 75
+      }"
+    ></evj-sou-mvp-mnemonic-scheme-output>
+  </div>
+</div>
+
+<div class="stream">
+  <div class="stream__item">
+    <evj-sou-mvp-mnemonic-scheme-circle-diagram
+      [data]="{
+        sections: sections,
+        code: 14
+      }"
+    ></evj-sou-mvp-mnemonic-scheme-circle-diagram>
+
+    <evj-sou-mvp-mnemonic-scheme-circle-diagram
+      [data]="{
+        sections: sections,
+        code: 93
+      }"
+    ></evj-sou-mvp-mnemonic-scheme-circle-diagram>
+  </div>
+  <div class="stream__item">
+    <evj-sou-mvp-mnemonic-scheme-info
+      [data]="{
+        sections: sections,
+        code: 14
+      }"
+      [choosenSetting]="choosenSetting"
+    ></evj-sou-mvp-mnemonic-scheme-info>
+
+    <evj-sou-mvp-mnemonic-scheme-info
+      [data]="{
+        sections: sections,
+        code: 93
+      }"
+      [choosenSetting]="choosenSetting"
+    ></evj-sou-mvp-mnemonic-scheme-info>
+  </div>
+  <div class="stream__item">
+    <evj-sou-mvp-mnemonic-scheme-collector
+      [style.height.%]="100"
+      [outCount]="3"
+      [inCount]="2"
+      [data]="{
+        sections: sections,
+        code: 21
+      }"
     ></evj-sou-mvp-mnemonic-scheme-collector>
   </div>
   <div class="stream__item">
     <evj-sou-mvp-mnemonic-scheme-stream-diagram
       [data]="{
         sections: sections,
-        code: 46
+        code: 36
       }"
     ></evj-sou-mvp-mnemonic-scheme-stream-diagram>
 
     <evj-sou-mvp-mnemonic-scheme-stream-diagram
       [data]="{
         sections: sections,
-        code: 48
+        code: 62
+      }"
+    ></evj-sou-mvp-mnemonic-scheme-stream-diagram>
+
+    <evj-sou-mvp-mnemonic-scheme-stream-diagram
+      [data]="{
+        sections: sections,
+        code: 16
       }"
     ></evj-sou-mvp-mnemonic-scheme-stream-diagram>
   </div>
   <div class="stream__item output">
-    <evj-sou-mvp-mnemonic-scheme-output
+    <evj-sou-mvp-mnemonic-scheme-simple-output
+      [data]="{
+        sections: sections,
+        code: 43
+      }"
+    ></evj-sou-mvp-mnemonic-scheme-simple-output>
+
+    <evj-sou-mvp-mnemonic-scheme-simple-output
       [data]="{
         sections: sections,
         code: 47
       }"
-    ></evj-sou-mvp-mnemonic-scheme-output>
+    ></evj-sou-mvp-mnemonic-scheme-simple-output>
 
     <evj-sou-mvp-mnemonic-scheme-output
       [data]="{
@@ -228,7 +392,14 @@
     <evj-sou-mvp-mnemonic-scheme-circle-diagram
       [data]="{
         sections: sections,
-        code: 5
+        code: 28
+      }"
+    ></evj-sou-mvp-mnemonic-scheme-circle-diagram>
+
+    <evj-sou-mvp-mnemonic-scheme-circle-diagram
+      [data]="{
+        sections: sections,
+        code: 34
       }"
     ></evj-sou-mvp-mnemonic-scheme-circle-diagram>
   </div>
@@ -236,7 +407,15 @@
     <evj-sou-mvp-mnemonic-scheme-info
       [data]="{
         sections: sections,
-        code: 5
+        code: 28
+      }"
+      [choosenSetting]="choosenSetting"
+    ></evj-sou-mvp-mnemonic-scheme-info>
+
+    <evj-sou-mvp-mnemonic-scheme-info
+      [data]="{
+        sections: sections,
+        code: 34
       }"
       [choosenSetting]="choosenSetting"
     ></evj-sou-mvp-mnemonic-scheme-info>
@@ -246,53 +425,41 @@
       [style.height.%]="100"
       [data]="{
         sections: sections,
-        code: 6
+        code: 25
       }"
-      [outCount]="3"
-      [inCount]="1"
+      [outCount]="2"
+      [inCount]="2"
     ></evj-sou-mvp-mnemonic-scheme-collector>
   </div>
   <div class="stream__item">
     <evj-sou-mvp-mnemonic-scheme-stream-diagram
       [data]="{
         sections: sections,
-        code: 7
+        code: 50
       }"
+      [choosenSetting]="choosenSetting"
     ></evj-sou-mvp-mnemonic-scheme-stream-diagram>
 
     <evj-sou-mvp-mnemonic-scheme-stream-diagram
       [data]="{
         sections: sections,
-        code: 9
+        code: 60
       }"
-    ></evj-sou-mvp-mnemonic-scheme-stream-diagram>
-
-    <evj-sou-mvp-mnemonic-scheme-stream-diagram
-      [data]="{
-        sections: sections,
-        code: 11
-      }"
+      [choosenSetting]="choosenSetting"
     ></evj-sou-mvp-mnemonic-scheme-stream-diagram>
   </div>
   <div class="stream__item output">
     <evj-sou-mvp-mnemonic-scheme-output
       [data]="{
         sections: sections,
-        code: 8
+        code: 51
       }"
     ></evj-sou-mvp-mnemonic-scheme-output>
 
     <evj-sou-mvp-mnemonic-scheme-output
       [data]="{
         sections: sections,
-        code: 10
-      }"
-    ></evj-sou-mvp-mnemonic-scheme-output>
-
-    <evj-sou-mvp-mnemonic-scheme-output
-      [data]="{
-        sections: sections,
-        code: 12
+        code: 82
       }"
     ></evj-sou-mvp-mnemonic-scheme-output>
   </div>
@@ -303,7 +470,7 @@
     <evj-sou-mvp-mnemonic-scheme-circle-diagram
       [data]="{
         sections: sections,
-        code: 30
+        code: 32
       }"
     ></evj-sou-mvp-mnemonic-scheme-circle-diagram>
   </div>
@@ -311,13 +478,87 @@
     <evj-sou-mvp-mnemonic-scheme-info
       [data]="{
         sections: sections,
-        code: 30
+        code: 32
       }"
-      noLine = true
       [choosenSetting]="choosenSetting"
     ></evj-sou-mvp-mnemonic-scheme-info>
   </div>
+  <div class="stream__item">
+    <evj-sou-mvp-mnemonic-scheme-collector
+      [style.height.%]="100"
+      [data]="{
+        sections: sections,
+        code: 27
+      }"
+      [outCount]="5"
+      [inCount]="1"
+    ></evj-sou-mvp-mnemonic-scheme-collector>
+  </div>
+  <div class="stream__item">
+    <evj-sou-mvp-mnemonic-scheme-stream-diagram
+      [data]="{
+        sections: sections,
+        code: 72
+      }"
+    ></evj-sou-mvp-mnemonic-scheme-stream-diagram>
+
+    <evj-sou-mvp-mnemonic-scheme-stream-diagram
+      [data]="{
+        sections: sections,
+        code: 22
+      }"
+    ></evj-sou-mvp-mnemonic-scheme-stream-diagram>
+
+    <evj-sou-mvp-mnemonic-scheme-stream-diagram
+      [data]="{
+        sections: sections,
+        code: 6
+      }"
+    ></evj-sou-mvp-mnemonic-scheme-stream-diagram>
+
+    <evj-sou-mvp-mnemonic-scheme-stream-diagram
+      [data]="{
+        sections: sections,
+        code: 1
+      }"
+    ></evj-sou-mvp-mnemonic-scheme-stream-diagram>
+
+    <evj-sou-mvp-mnemonic-scheme-stream-diagram
+      [data]="{
+        sections: sections,
+        code: 64
+      }"
+    ></evj-sou-mvp-mnemonic-scheme-stream-diagram>
+  </div>
   <div class="stream__item output">
+    <evj-sou-mvp-mnemonic-scheme-output
+      [data]="{
+        sections: sections,
+        code: 55
+      }"
+    ></evj-sou-mvp-mnemonic-scheme-output>
+
+    <evj-sou-mvp-mnemonic-scheme-output
+      [data]="{
+        sections: sections,
+        code: 49
+      }"
+    ></evj-sou-mvp-mnemonic-scheme-output>
+
+    <evj-sou-mvp-mnemonic-scheme-output
+      [data]="{
+        sections: sections,
+        code: 41
+      }"
+    ></evj-sou-mvp-mnemonic-scheme-output>
+
+    <evj-sou-mvp-mnemonic-scheme-output
+      [data]="{
+        sections: sections,
+        code: 63
+      }"
+    ></evj-sou-mvp-mnemonic-scheme-output>
+
     <evj-sou-mvp-mnemonic-scheme-output
       [data]="{
         sections: sections,
@@ -332,7 +573,7 @@
     <evj-sou-mvp-mnemonic-scheme-circle-diagram
       [data]="{
         sections: sections,
-        code: 32
+        code: 91
       }"
     ></evj-sou-mvp-mnemonic-scheme-circle-diagram>
   </div>
@@ -340,7 +581,7 @@
     <evj-sou-mvp-mnemonic-scheme-info
       [data]="{
         sections: sections,
-        code: 32
+        code: 91
       }"
       [choosenSetting]="choosenSetting"
     ></evj-sou-mvp-mnemonic-scheme-info>
@@ -350,7 +591,7 @@
       [style.height.%]="100"
       [data]="{
         sections: sections,
-        code: 33
+        code: 61
       }"
       [outCount]="2"
       [inCount]="1"
@@ -360,109 +601,10 @@
     <evj-sou-mvp-mnemonic-scheme-stream-diagram
       [data]="{
         sections: sections,
-        code: 34
+        code: 12
       }"
     ></evj-sou-mvp-mnemonic-scheme-stream-diagram>
 
-    <evj-sou-mvp-mnemonic-scheme-stream-diagram
-      [data]="{
-        sections: sections,
-        code: 36
-      }"
-    ></evj-sou-mvp-mnemonic-scheme-stream-diagram>
-  </div>
-  <div class="stream__item output">
-    <evj-sou-mvp-mnemonic-scheme-output
-      [data]="{
-        sections: sections,
-        code: 35
-      }"
-    ></evj-sou-mvp-mnemonic-scheme-output>
-
-    <evj-sou-mvp-mnemonic-scheme-output
-      [data]="{
-        sections: sections,
-        code: 37
-      }"
-    ></evj-sou-mvp-mnemonic-scheme-output>
-  </div>
-</div>
-
-<div class="stream">
-  <div class="stream__item">
-    <evj-sou-mvp-mnemonic-scheme-circle-diagram
-      [data]="{
-        sections: sections,
-        code: 38
-      }"
-    ></evj-sou-mvp-mnemonic-scheme-circle-diagram>
-  </div>
-  <div class="stream__item">
-    <evj-sou-mvp-mnemonic-scheme-info
-      [data]="{
-        sections: sections,
-        code: 38
-      }"
-      noLine = true
-      [choosenSetting]="choosenSetting"
-    ></evj-sou-mvp-mnemonic-scheme-info>
-  </div>
-  <div class="stream__item output">
-    <evj-sou-mvp-mnemonic-scheme-output
-      [data]="{
-        sections: sections,
-        code: 39
-      }"
-    ></evj-sou-mvp-mnemonic-scheme-output>
-  </div>
-</div>
-
-<div class="stream">
-  <div class="stream__item">
-    <evj-sou-mvp-mnemonic-scheme-circle-diagram
-      [title]="'FC63'"
-      [data]="{
-        sections: sections,
-        code: 16
-      }"
-    ></evj-sou-mvp-mnemonic-scheme-circle-diagram>
-
-    <evj-sou-mvp-mnemonic-scheme-circle-diagram
-      [data]="{
-        sections: sections,
-        code: 13
-      }"
-    ></evj-sou-mvp-mnemonic-scheme-circle-diagram>
-  </div>
-  <div class="stream__item">
-    <evj-sou-mvp-mnemonic-scheme-info
-      [data]="{
-        sections: sections,
-        code: 16
-      }"
-      [choosenSetting]="choosenSetting"
-    ></evj-sou-mvp-mnemonic-scheme-info>
-
-    <evj-sou-mvp-mnemonic-scheme-info
-      [data]="{
-        sections: sections,
-        code: 13
-      }"
-      [choosenSetting]="choosenSetting"
-    ></evj-sou-mvp-mnemonic-scheme-info>
-  </div>
-  <div class="stream__item">
-    <evj-sou-mvp-mnemonic-scheme-collector
-      [style.height.%]="100"
-      [data]="{
-        sections: sections,
-        code: 17
-      }"
-      [outCount]="1"
-      [inCount]="2"
-    ></evj-sou-mvp-mnemonic-scheme-collector>
-  </div>
-  <div class="stream__item">
     <evj-sou-mvp-mnemonic-scheme-stream-diagram
       [data]="{
         sections: sections,
@@ -474,88 +616,6 @@
     <evj-sou-mvp-mnemonic-scheme-output
       [data]="{
         sections: sections,
-        code: 19
-      }"
-    ></evj-sou-mvp-mnemonic-scheme-output>
-  </div>
-</div>
-
-<div class="stream">
-  <div class="stream__item">
-    <evj-sou-mvp-mnemonic-scheme-circle-diagram
-      [data]="{
-        sections: sections,
-        code: 20
-      }"
-    ></evj-sou-mvp-mnemonic-scheme-circle-diagram>
-  </div>
-  <div class="stream__item">
-    <evj-sou-mvp-mnemonic-scheme-info
-      [data]="{
-        sections: sections,
-        code: 20
-      }"
-      [choosenSetting]="choosenSetting"
-    ></evj-sou-mvp-mnemonic-scheme-info>
-  </div>
-  <div class="stream__item">
-    <evj-sou-mvp-mnemonic-scheme-collector
-      [style.height.%]="100"
-      [data]="{
-        sections: sections,
-        code: 21
-      }"
-      [outCount]="4"
-      [inCount]="1"
-    ></evj-sou-mvp-mnemonic-scheme-collector>
-  </div>
-  <div class="stream__item">
-    <evj-sou-mvp-mnemonic-scheme-stream-diagram
-      [data]="{
-        sections: sections,
-        code: 22
-      }"
-    ></evj-sou-mvp-mnemonic-scheme-stream-diagram>
-
-    <evj-sou-mvp-mnemonic-scheme-stream-diagram
-      [data]="{
-        sections: sections,
-        code: 24
-      }"
-    ></evj-sou-mvp-mnemonic-scheme-stream-diagram>
-
-    <evj-sou-mvp-mnemonic-scheme-stream-diagram
-      [data]="{
-        sections: sections,
-        code: 26
-      }"
-    ></evj-sou-mvp-mnemonic-scheme-stream-diagram>
-
-    <evj-sou-mvp-mnemonic-scheme-stream-diagram
-      [data]="{
-        sections: sections,
-        code: 28
-      }"
-    ></evj-sou-mvp-mnemonic-scheme-stream-diagram>
-  </div>
-  <div class="stream__item output">
-    <evj-sou-mvp-mnemonic-scheme-output
-      [data]="{
-        sections: sections,
-        code: 23
-      }"
-    ></evj-sou-mvp-mnemonic-scheme-output>
-
-    <evj-sou-mvp-mnemonic-scheme-output
-      [data]="{
-        sections: sections,
-        code: 25
-      }"
-    ></evj-sou-mvp-mnemonic-scheme-output>
-
-    <evj-sou-mvp-mnemonic-scheme-output
-      [data]="{
-        sections: sections,
         code: 27
       }"
     ></evj-sou-mvp-mnemonic-scheme-output>
@@ -563,7 +623,7 @@
     <evj-sou-mvp-mnemonic-scheme-output
       [data]="{
         sections: sections,
-        code: 29
+        code: 83
       }"
     ></evj-sou-mvp-mnemonic-scheme-output>
   </div>
@@ -572,162 +632,28 @@
 <div class="stream">
   <div class="stream__item">
     <evj-sou-mvp-mnemonic-scheme-circle-diagram
-      [data]="{
-        sections: sections,
-        code: 57
-      }"
-    ></evj-sou-mvp-mnemonic-scheme-circle-diagram>
-  </div>
-  <div class="stream__item">
-    <evj-sou-mvp-mnemonic-scheme-info
-      [data]="{
-        sections: sections,
-        code: 57
-      }"
-      [choosenSetting]="choosenSetting"
-    ></evj-sou-mvp-mnemonic-scheme-info>
-  </div>
-  <div class="stream__item">
-    <evj-sou-mvp-mnemonic-scheme-collector
-      [style.height.%]="100"
-      [data]="{
-        sections: sections,
-        code: 58
-      }"
-      [outCount]="3"
-      [inCount]="1"
-    ></evj-sou-mvp-mnemonic-scheme-collector>
-  </div>
-  <div class="stream__item">
-    <evj-sou-mvp-mnemonic-scheme-stream-diagram
-      [data]="{
-        sections: sections,
-        code: 59
-      }"
-    ></evj-sou-mvp-mnemonic-scheme-stream-diagram>
-
-    <evj-sou-mvp-mnemonic-scheme-stream-diagram
-      [data]="{
-        sections: sections,
-       code: 61
-      }"
-    ></evj-sou-mvp-mnemonic-scheme-stream-diagram>
-
-    <evj-sou-mvp-mnemonic-scheme-stream-diagram
-      [data]="{
-        sections: sections,
-        code: 63
-      }"
-    ></evj-sou-mvp-mnemonic-scheme-stream-diagram>
-  </div>
-  <div class="stream__item output">
-    <evj-sou-mvp-mnemonic-scheme-output
-      [data]="{
-        sections: sections,
-        code: 60
-      }"
-    ></evj-sou-mvp-mnemonic-scheme-output>
-
-    <evj-sou-mvp-mnemonic-scheme-output
-      [data]="{
-        sections: sections,
-        code: 62
-      }"
-    ></evj-sou-mvp-mnemonic-scheme-output>
-
-    <evj-sou-mvp-mnemonic-scheme-output
-      [data]="{
-        sections: sections,
-        code: 64
-      }"
-    ></evj-sou-mvp-mnemonic-scheme-output>
-  </div>
-</div>
-
-<div class="stream">
-  <div class="stream__item">
-    <evj-sou-mvp-mnemonic-scheme-circle-diagram
-      [data]="{
-        sections: sections,
-        code: 160
-      }"
-    ></evj-sou-mvp-mnemonic-scheme-circle-diagram>
-  </div>
-  <div class="stream__item">
-    <evj-sou-mvp-mnemonic-scheme-info
-      [data]="{
-        sections: sections,
-        code: 160
-      }"
-      [choosenSetting]="choosenSetting"
-      noLine = true
-    ></evj-sou-mvp-mnemonic-scheme-info>
-  </div>
-  <div class="stream__item output">
-    <evj-sou-mvp-mnemonic-scheme-output
-      [data]="{
-        sections: sections,
-        code: 161
-      }"
-    ></evj-sou-mvp-mnemonic-scheme-output>
-  </div>
-</div>
-
-<div class="stream">
-  <div class="stream__item">
-    <evj-sou-mvp-mnemonic-scheme-circle-diagram
-      [data]="{
-        sections: sections,
-        code: 3
-      }"
-    ></evj-sou-mvp-mnemonic-scheme-circle-diagram>
-  </div>
-  <div class="stream__item">
-    <evj-sou-mvp-mnemonic-scheme-info
-      [data]="{
-        sections: sections,
-        code: 3
-      }"
-      noLine = true
-      [choosenSetting]="choosenSetting"
-    ></evj-sou-mvp-mnemonic-scheme-info>
-  </div>
-  <div class="stream__item output">
-    <evj-sou-mvp-mnemonic-scheme-output
-      [data]="{
-        sections: sections,
-        code: 4
-      }"
-    ></evj-sou-mvp-mnemonic-scheme-output>
-  </div>
-</div>
-
-<div class="stream">
-  <div class="stream__item">
-    <evj-sou-mvp-mnemonic-scheme-circle-diagram
-      [title]="'F37'"
-      [data]="{
-        sections: sections,
-        code: 1
-      }"
-    ></evj-sou-mvp-mnemonic-scheme-circle-diagram>
-  </div>
-  <div class="stream__item">
-    <evj-sou-mvp-mnemonic-scheme-info
-      [data]="{
-        sections: sections,
-        code: 1
-      }"
-      noLine = true
-      [choosenSetting]="choosenSetting"
-    ></evj-sou-mvp-mnemonic-scheme-info>
-  </div>
-  <div class="stream__item output">
-    <evj-sou-mvp-mnemonic-scheme-output
       [data]="{
         sections: sections,
         code: 2
       }"
+    ></evj-sou-mvp-mnemonic-scheme-circle-diagram>
+  </div>
+  <div class="stream__item">
+    <evj-sou-mvp-mnemonic-scheme-info
+      [data]="{
+        sections: sections,
+        code: 2
+      }"
+      noLine = true
+      [choosenSetting]="choosenSetting"
+    ></evj-sou-mvp-mnemonic-scheme-info>
+  </div>
+  <div class="stream__item output">
+    <evj-sou-mvp-mnemonic-scheme-output
+      [data]="{
+        sections: sections,
+        code: 63
+      }"
     ></evj-sou-mvp-mnemonic-scheme-output>
   </div>
 </div>
@@ -737,7 +663,7 @@
     <evj-sou-mvp-mnemonic-scheme-circle-diagram
       [data]="{
         sections: sections,
-        code: 14
+        code: 92
       }"
     ></evj-sou-mvp-mnemonic-scheme-circle-diagram>
   </div>
@@ -745,10 +671,10 @@
     <evj-sou-mvp-mnemonic-scheme-info
       [data]="{
         sections: sections,
-        code: 14
+        code: 92
       }"
-      noLine = true
       [choosenSetting]="choosenSetting"
+      noLine = true
     ></evj-sou-mvp-mnemonic-scheme-info>
   </div>
   <div class="stream__item output">
@@ -756,35 +682,6 @@
       [data]="{
         sections: sections,
         code: 15
-      }"
-    ></evj-sou-mvp-mnemonic-scheme-output>
-  </div>
-</div>
-
-<div class="stream">
-  <div class="stream__item">
-    <evj-sou-mvp-mnemonic-scheme-circle-diagram
-      [data]="{
-        sections: sections,
-        code: 153
-      }"
-    ></evj-sou-mvp-mnemonic-scheme-circle-diagram>
-  </div>
-  <div class="stream__item">
-    <evj-sou-mvp-mnemonic-scheme-info
-      [data]="{
-        sections: sections,
-        code: 153
-      }"
-      noLine = true
-      [choosenSetting]="choosenSetting"
-    ></evj-sou-mvp-mnemonic-scheme-info>
-  </div>
-  <div class="stream__item output">
-    <evj-sou-mvp-mnemonic-scheme-output
-      [data]="{
-        sections: sections,
-        code: 154
       }"
     ></evj-sou-mvp-mnemonic-scheme-output>
   </div>

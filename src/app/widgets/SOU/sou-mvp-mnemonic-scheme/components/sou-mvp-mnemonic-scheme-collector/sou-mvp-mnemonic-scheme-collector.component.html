@@ -1,5 +1,8 @@
 <div class="main-container">
-  <div class="container" [ngClass]="{off:!flowData?.isEnable}">
+  <div class="container" [ngClass]="{
+    off:!flowData?.isEnable,
+    warning: flowData?.isExceedingConfInterval
+  }">
     <div class="connection__left">
       <div 
         class="connection-circle"
