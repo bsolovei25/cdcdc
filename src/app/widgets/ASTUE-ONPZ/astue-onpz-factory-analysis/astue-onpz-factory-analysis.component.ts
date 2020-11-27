@@ -11,9 +11,9 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
     animations: [
         trigger('leftTrigger', [
             transition('void => *', [
-                style({ opacity: 0.5, transform: 'translateX(100%)' }),
+                style({ position: 'absolute', opacity: 0.5, transform: 'translateX(100%)' }),
                 animate(
-                    '200ms',
+                    '300ms',
                     style({
                         opacity: 1,
                         transform: 'translateX(0%)',
@@ -22,14 +22,17 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
             ]),
             transition('* => void', [
                 style({ opacity: 1 }),
-                animate('200ms', style({ opacity: 0.5, transform: 'translateX(100%)' })),
+                animate(
+                    '300ms',
+                    style({ position: 'absolute', opacity: 0.5, transform: 'translateX(100%)' })
+                ),
             ]),
         ]),
         trigger('rightTrigger', [
             transition('void => *', [
                 style({ position: 'absolute', opacity: 0.5, transform: 'translateX(-100%)' }),
                 animate(
-                    '200ms',
+                    '300ms',
                     style({
                         opacity: 1,
                         transform: 'translateX(0%)',
@@ -39,7 +42,7 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
             transition('* => void', [
                 style({ opacity: 1 }),
                 animate(
-                    '200ms',
+                    '300ms',
                     style({ position: 'absolute', opacity: 0.5, transform: 'translateX(-100%)' })
                 ),
             ]),
