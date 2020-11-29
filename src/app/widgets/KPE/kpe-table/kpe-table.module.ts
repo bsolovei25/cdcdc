@@ -14,10 +14,18 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { KpeTableHeaderComponent } from './components/kpe-table-header/kpe-table-header.component';
 import { KpeTableDevelopmentComponentComponent } from './components/kpe-table-development-component/kpe-table-development-component.component';
 import { KpeTableLoadingComponentComponent } from './components/kpe-table-loading-component/kpe-table-loading-component.component';
-
+import { KpeComponentsSearchPipe } from './components/kpe-components-search.pipe';
 
 @NgModule({
-    declarations: [KpeTableComponent, KpeDatetimepickerComponent, KpeSelectComponent, KpeTableHeaderComponent, KpeTableDevelopmentComponentComponent, KpeTableLoadingComponentComponent],
+    declarations: [
+        KpeTableComponent,
+        KpeDatetimepickerComponent,
+        KpeSelectComponent,
+        KpeTableHeaderComponent,
+        KpeTableDevelopmentComponentComponent,
+        KpeTableLoadingComponentComponent,
+        KpeComponentsSearchPipe
+    ],
     imports: [
         CommonModule,
         SharedModule,

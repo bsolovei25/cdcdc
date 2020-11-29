@@ -11,6 +11,7 @@ import { SelectionModel } from '@angular/cdk/collections';
 export class KpeTableDevelopmentComponentComponent implements OnInit {
     data: IKpeTable[] = table;
     columnsToDisplay: IKpeTableHeader[] = tableHeader;
+    search: string = '';
 
     expandedElement: SelectionModel<string> = new SelectionModel(true);
     selectedRowProduct: string;

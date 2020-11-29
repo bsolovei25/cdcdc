@@ -49,6 +49,7 @@
       margin-right: 5px;
       margin-left: 5px;
     }
+
     &__element {
       height: 100%;
       width: 180px;
@@ -71,6 +72,7 @@
     margin-right: 20px;
     margin-left: 20px;
   }
+
   .input {
     height: 50px;
     box-sizing: border-box;
@@ -78,6 +80,7 @@
     padding: 5px 0;
   }
 }
+
 thead th {
   height: 50px;
   width: 100%;
@@ -87,11 +90,13 @@ thead th {
   color: var(--color-cd-text-sub-2);
   z-index: 3;
 }
-th,  td {
+
+th, td {
   text-align: center;
   min-width: 120px;
   width: 100%;
   height: 40px;
+
   &:first-child {
     text-align: left;
   }
@@ -110,6 +115,7 @@ th,  td {
 
   &__header {
     width: 100%;
+
     &__row {
       width: 100%;
       height: 60px;
@@ -173,10 +179,12 @@ th,  td {
 
       &.expanded-column {
         background-color: rgba(39, 42, 56, 0.5);
+
         &__warning {
           background-color: var(--color-kpe-deviation-warning);
           color: var(--color-aps-orange);
         }
+
         &__danger {
           background-color: var(--color-kpe-deviation-danger);
           color: var(--color-kpe-table-danger);
@@ -184,8 +192,9 @@ th,  td {
       }
 
       &__children {
-        border-left: 2px solid var(--color-gray80)!important;
+        border-left: 2px solid var(--color-gray80) !important;
       }
+
       &--active {
         z-index: 1;
         border-top: 1px solid var(--color-aps-active);
@@ -250,11 +259,13 @@ th,  td {
             }
           }
         }
+
         &__engUnit {
           position: absolute;
           top: 7px;
           right: 3px;
         }
+
         &__text {
           max-height: 27px;
           min-width: 60px;
@@ -275,6 +286,7 @@ th,  td {
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
+
             &__value-right {
               width: 300px;
               height: 100%;
@@ -283,22 +295,27 @@ th,  td {
               display: flex;
               justify-content: space-between;
               align-items: center;
+
               .deviations {
                 flex-grow: 1;
                 display: flex;
                 justify-content: space-around;
+
                 default-text {
                   color: var(--color-kpe-text-main);
                 }
+
                 .danger-text {
                   color: var(--color-kpe-table-danger);
                 }
+
                 .warning-text {
                   color: var(--color-aps-orange);
                 }
               }
             }
           }
+
           &__subname {
             height: calc(100% - 20px);
             width: calc(100% - 30px);
@@ -431,6 +448,7 @@ th,  td {
               position: absolute;
               left: -2px;
               top: -14.6px;
+
               &__default {
                 color: var(--color-aps-bg-icon);
               }
@@ -442,9 +460,11 @@ th,  td {
               &__active {
                 color: var(--color-aps-active);
               }
+
               &__danger {
                 color: var(--color-kpe-table-danger);
               }
+
               &__active-warning {
                 color: var(--color-aps-orange);
               }
@@ -491,4 +511,76 @@ th,  td {
 
 .container-body {
   width: 100%;
+}
+
+input {
+  width: 393px;
+  height: 36px;
+  outline: none;
+  padding-left: 15px;
+  background: var(--color-input);
+  font-size: 12px;
+  color: var(--color-text-main);
+  border: 1px solid var(--color-text-main-transparent);
+
+  box-sizing: border-box;
+
+  &:hover {
+    border: 1px solid var(--color-border-active);
+    color: var(--color-text-main);
+
+    &::placeholder {
+      color: var(--color-cd-text-sub-2);
+    }
+  }
+}
+
+input:focus::-webkit-input-placeholder {
+  color: transparent;
+}
+
+::-webkit-input-placeholder {
+  color: var(--color-cd-text-sub-2);
+  font-size: 12px;
+  text-align: left;
+  vertical-align: middle;
+}
+
+.input-block {
+  display: flex;
+  position: relative;
+  align-items: center;
+  width: calc(100% - 2px);
+  height: calc(100% - 2px);
+
+  &__input {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+
+    .input-back {
+      width: 100%;
+      height: 100%;
+      background: var(--color-kpe-gaude-unactive);
+    }
+  }
+
+  .search-icon {
+    position: absolute;
+    top: 10px;
+    right: 30px;
+    &:hover {
+      color: var(--color-border-active);
+    }
+  }
+}
+.value {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.icon {
+  width: 16px;
+  height: 16px;
 }

@@ -6,7 +6,20 @@
         <ng-container *ngIf="column.id === '1'; else names">
           <th>
             <div class="input">
-              <evj-rectangle-input placeholder="Поиск по компонентам"></evj-rectangle-input>
+              <div class="input-block">
+                <div class="search-icon">
+                  <svg-icon
+                    [svgStyle]="{'height.px':'16', 'width.px': '16'}"
+                    [src]="'assets/icons/search-icon.svg'"
+                  >
+                  </svg-icon>
+                </div>
+                <div class="input-block__input">
+                  <div class="input-back">
+                    <input type="text" placeholder="Поиск по компонентам" [(ngModel)]="search">
+                  </div>
+                </div>
+              </div>
             </div>
           </th>
         </ng-container>
@@ -30,7 +43,7 @@
             class="table__body__column"
             [class.table__body__column--active]="selectedRowProduct === element.unit.name"
             (click)="onClickRow($event, element)"
-            colspan="10"
+            colspan="11"
           >
             <div
               (click)="onClickRow($event, element.unit)"
@@ -54,7 +67,7 @@
                 >
                   <div class="deviations">
                     Отклонений:
-                    <div class="default-text">{{ deviationCount(element) }}</div>
+                    <div class="default-text">{{ notCriticalCount(element) + criticalCount(element) }}</div>
                   </div>
                   <div class="deviations">
                     Некритичные:
@@ -70,7 +83,7 @@
           </td>
         </ng-container>
       </tr>
-      <ng-container *ngFor="let elementChildren of element.parameters;  index as i;">
+      <ng-container *ngFor="let elementChildren of element.parameters | kpeComponentsSearch: search">
         <tr
           *ngIf="expandedElement.isSelected(element.unit.name)"
           class="table__body__row expanded-row"
@@ -102,7 +115,6 @@
                 [class.table__body__column__row-title-children__left-block--first__default]="selectedRowProduct !== elementChildren.name"
                 [class.table__body__column__row-title-children__left-block--first__active]="selectedRowProduct === elementChildren.name && elementChildren.isNotCritical === 0"
                 [class.table__body__column__row-title-children__left-block--first__active-warning]="selectedRowProduct === elementChildren.name && elementChildren.isNotCritical !== 0"
-
                 [src]="'assets/icons/widgets/APS/aps-recipe-diagram/astue-table-left-row-block-recipe.svg'"
               >
               </svg-icon>
@@ -160,6 +172,17 @@
             <ng-container *ngIf="column.id === '10'">
               <div class="value">
                 <span>{{elementChildren.recommended }}</span>
+              </div>
+            </ng-container>
+            <ng-container *ngIf="column.id === '11'">
+              <div class="value">
+                <div class="icon">
+                  <svg-icon
+                    [svgStyle]="{'height.px':'16', 'width.px': '16'}"
+                    [src]="'assets/icons/widgets/KPE/kpe-table/comment.svg'"
+                  >
+                  </svg-icon>
+                </div>
               </div>
             </ng-container>
           </td>

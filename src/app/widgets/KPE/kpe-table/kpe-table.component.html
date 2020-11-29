@@ -29,8 +29,8 @@
 >
 
   <ng-container [ngSwitch]="pageType$ | async">
-    <evj-kpe-table-development-component *ngSwitchCase="'development'" [@rightTrigger] class="tables"></evj-kpe-table-development-component>
-    <evj-kpe-table-loading-component *ngSwitchCase="'loading'" [@leftTrigger] class="tables"></evj-kpe-table-loading-component>
+    <evj-kpe-table-development-component *ngSwitchCase="'development'"></evj-kpe-table-development-component>
+    <evj-kpe-table-loading-component *ngSwitchCase="'loading'"></evj-kpe-table-loading-component>
   </ng-container>
 
 
