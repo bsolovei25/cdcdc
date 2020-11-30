@@ -10,16 +10,17 @@
     </div>
   </div>
   <div class="content">
-    <div class="chart">
+    <div class="chart" *ngIf="data?.length && points?.length">
       <evj-line-chart-shared
       [data]="data"
       [points]="points"
       chartType='oil-operations'
     ></evj-line-chart-shared>
     </div>
-    <div class="chart-scroll">
+    <!-- TODO smart scroll пока не поддерживаем -->
+    <!--<div class="chart-scroll">
       <evj-smart-scroll [(sbThumbWidth)]="sbWidth" [(sbThumbLeft)]="sbLeft"></evj-smart-scroll>
-    </div>
+    </div>-->
   </div>
   <div class="bottom"></div>
 </div>

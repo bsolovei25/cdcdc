@@ -309,6 +309,14 @@ export class OilOperationsComponent extends WidgetPlatform<unknown> implements O
         }
     }
 
+    public openTankLineChart(): void {
+        if (this.selectedTransfer) {
+            this.filter.line = true;
+        } else {
+            this.snackBar.openSnackBar('Выберите Операцию из списка');
+        }
+    }
+
     private async getFreeShipmentsQuantity(dates: IDatesInterval): Promise<void> {
         const options: IOilOperationsOptions = {
             StartTime: dates?.fromDateTime,
@@ -359,6 +367,9 @@ export class OilOperationsComponent extends WidgetPlatform<unknown> implements O
                 break;
             case 'manualAssign':
                 this.manualAssign();
+                break;
+            case 'line':
+                this.openTankLineChart();
                 break;
             default:
                 Object.keys(this.filter).forEach(key => {
