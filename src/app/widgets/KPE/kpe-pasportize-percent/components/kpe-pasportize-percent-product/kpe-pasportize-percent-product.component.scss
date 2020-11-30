@@ -1,0 +1,83 @@
+* {
+  box-sizing: border-box;
+}
+
+.container {
+  width: 100%;
+
+  display: flex;
+
+  .product {
+    height: 40px;
+    padding: 6px 10px;
+
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    background: var(--color-kpe-gaude-lines);
+
+    border-left: 2px solid var(--color-kpe-gaude-additional);
+    border-right: 1px solid var(--color-kpe-gaude-unactive);
+
+    &__title {
+      font-size: 12px;
+      line-height: 14px;
+
+      color: var(--color-kpe-gaude-main);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .line-diagram {
+      height: 8px;
+      padding: 0 1px;
+
+      display: flex;
+      align-items: center;
+
+      border-radius: 2px;
+      border: 1px solid var(--color-kpe-gauge-tab-unactive);
+
+      &-bg {
+        height: 4px;
+        flex-grow: 1;
+
+        background: var(--color-kpe-line-diagram-bg);
+
+        border: 1px solid transparent;
+
+        position: relative;
+
+        .line-diagram-inner {
+          height: 4px;
+
+          background: var(--color-kpe-gaude-active);
+  
+          position: absolute;
+          left: 0px;
+          top: -1px;
+        }
+      }
+    }
+  }
+
+  .count {
+    height: 40px;
+    width: 40px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+
+    background: var(--color-kpe-gaude-lines);
+    border-radius: 0px 2px 2px 0px;
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
