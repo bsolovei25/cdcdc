@@ -15,7 +15,12 @@
       <div class="dropdown">
         <div class="dropdown__marker">
         </div>
-        <mat-select class="dropdown__select" [value]="scenarios[0]">
+        <mat-select
+          class="dropdown__select"
+          [value]="scenarios[0]"
+          [(ngModel)]="scenarios"
+          [compareWith]="compareFn"
+        >
           <ng-container *ngFor="let scenario of scenarios">
             <mat-option [value]="scenario">
               {{ scenario?.name }}

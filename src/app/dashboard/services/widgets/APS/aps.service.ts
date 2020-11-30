@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject } from 'rxjs';
 import { IScenario } from '../../../models/APS/aps-tables.model';
 import { ITable } from '../../../../widgets/APS/aps-operating-modes/aps-operating-modes.component';
+import { IEventsWidgetNotification } from '../../../models/EVJ/events-widget';
 
 export const scenarioId: number = 186;
 
@@ -14,6 +15,15 @@ export const scenarioId: number = 186;
 export class ApsService {
     private readonly restUrl: string;
     showTable$: BehaviorSubject<ITable> = new BehaviorSubject<ITable>(null);
+    selectScenario$: BehaviorSubject<IScenario> = new BehaviorSubject<IScenario>(null);
+
+    public set scenario(value: IScenario) {
+        this.selectScenario$.next(value);
+    }
+
+    public get scenario(): IScenario {
+        return this.selectScenario$.getValue();
+    }
 
     constructor(public http: HttpClient, configService: AppConfigService) {
         this.restUrl = configService.restUrl;
@@ -35,7 +45,7 @@ export class ApsService {
     async getCalculate(): Promise<any> {
         return this.http
             .get<any>(
-                this.restUrl + `/api/debugging-service-ApsService/Json/unload/{scenarioId}/folder`
+                this.restUrl + `/api/debugging-service-ApsService/Json/unload/${scenarioId}/folder`
             )
             .toPromise();
     }

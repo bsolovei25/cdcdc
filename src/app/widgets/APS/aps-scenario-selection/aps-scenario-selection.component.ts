@@ -13,7 +13,7 @@ export class ApsScenarioSelectionComponent extends WidgetPlatform<unknown>
     implements OnInit, OnDestroy {
     public scenarios: IScenario[] = [null];
     constructor(
-        private apsService: ApsService,
+        public apsService: ApsService,
         protected widgetService: WidgetService,
         @Inject('isMock') public isMock: boolean,
         @Inject('widgetId') public id: string,
@@ -39,6 +39,9 @@ export class ApsScenarioSelectionComponent extends WidgetPlatform<unknown>
     }
     calculate($event: MouseEvent): void {
         // this.getCalculations();
+    }
+    compareFn(c1, c2): boolean {
+        return c1 && c2 ? c1.id === c2.id : c1 === c2;
     }
 
     protected dataHandler(ref: any): void {}
