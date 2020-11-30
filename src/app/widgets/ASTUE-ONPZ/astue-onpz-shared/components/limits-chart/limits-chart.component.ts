@@ -10,6 +10,7 @@ import { AsyncRender } from '@shared/functions/async-render.function';
 import { fillDataArray } from '@shared/functions/fill-data-array.function';
 import { IDatesInterval, WidgetService } from '../../../../../dashboard/services/widget.service';
 import { dateFormatLocale } from '@shared/functions/universal-time-fromat.function';
+import { findCursorPosition } from '@shared/functions/find-cursor-position.function';
 
 @Component({
     selector: 'evj-limits-chart',
@@ -340,25 +341,38 @@ export class LimitsChartComponent implements OnChanges {
 
     private customizeAreas(): void {
         const fact = this.data.find((item) => item.graphType === 'fact')?.graph ?? [];
-        const higher = this.data.find((item) => item.graphType === 'higherBorder')?.graph ?? [];
-        const lower = this.data.find((item) => item.graphType === 'lowerBorder')?.graph ?? [];
-        fact.forEach((val, idx) => {
-            if (higher[idx] && higher[idx].value < val.value) {
-                this.svg
-                    .select('path.graph-line-higherBorder')
-                    .attr('class', 'graph-line-higherBorder graph-line_warning');
-                this.svg
-                    .select('path.graph-area-higherBorder')
-                    .attr('class', 'graph-area-higherBorder graph-area_warning');
-            } else if (lower[idx] && lower[idx].value > val.value) {
-                this.svg
-                    .select('path.graph-line-lowerBorder')
-                    .attr('class', 'graph-line-lowerBorder graph-line_normal');
-                this.svg
-                    .select('path.graph-area-lowerBorder')
-                    .attr('class', 'graph-area-lowerBorder graph-area_normal');
-            }
-        });
+
+        const getBorderValue = (type: 'higherBorder' | 'lowerBorder'): number => {
+            return this.scaleFuncs.y.invert(
+                findCursorPosition(
+                    this.scaleFuncs.x(fact[fact.length - 1]?.timeStamp),
+                    type,
+                    this.svg,
+                    this.padding
+                ).y
+            );
+        };
+
+        const hbValue = getBorderValue('higherBorder');
+        const lbValue = getBorderValue('lowerBorder');
+
+        let deviationType: 'warning' | 'normal' = null;
+        const eps = 0.00001;
+        if (hbValue && fact[fact.length - 1].value - hbValue > eps) {
+            deviationType = 'warning';
+        } else if (lbValue && lbValue - fact[fact.length - 1].value > eps) {
+            deviationType = 'normal';
+        }
+
+        if (deviationType) {
+            const border = deviationType === 'warning' ? 'higher' : 'lower';
+            this.svg
+                .select(`path.graph-line-${border}Border`)
+                ?.attr('class', `graph-line-${border}Border graph-line_${deviationType}`);
+            this.svg
+                .select(`path.graph-area-${border}Border`)
+                ?.attr('class', `graph-area-${border}Border graph-area_${deviationType}`);
+        }
     }
 
     private drawFutureRect(): void {

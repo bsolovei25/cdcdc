@@ -289,6 +289,20 @@ export class OilOperationsService {
         }
     }
 
+    public async getTankMassChartData<T>(tankIdParam: string, startTime: Date, endTime: Date): Promise<T> {
+        try {
+            return await this.http
+                .get<T>(
+                    this.restUrl +
+                    `/api/oil-control/tank/${tankIdParam}/graph/${startTime.toISOString()}/${endTime.toISOString()}`
+                )
+                .toPromise();
+        } catch (error) {
+            console.error(error);
+            return new Promise<T>(resolve => null);
+        }
+    }
+
     private getFilterString(
         startTime: Date,
         endTime: Date,

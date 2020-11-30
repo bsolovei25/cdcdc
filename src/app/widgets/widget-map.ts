@@ -130,6 +130,7 @@ export const WIDGETS = {
     'aps-structure-id': WidgetContainerComponent,
     'aps-scenario-selection': WidgetContainerComponent,
     'kpe-table-data': WidgetContainerComponent
+    'kpe-pasportize-percent': WidgetContainerComponent
 };
 
 export const WIDGETS_LAZY = {
@@ -495,6 +496,18 @@ export const WIDGETS_LAZY = {
         minItemCols: 60,
         minItemRows: 15,
         preview: 'default'
+    },
+
+    'kpe-pasportize-percent': {
+        import: async () => {
+            return await import('src/app/widgets/KPE/kpe-pasportize-percent/kpe-pasportize-percent.module');
+        },
+        module: 'KpePasportizePercentModule',
+        itemCols: 17,
+        itemRows: 16,
+        minItemCols: 17,
+        minItemRows: 25,
+        preview: 'default',
     },
 
     // #endregion KPE

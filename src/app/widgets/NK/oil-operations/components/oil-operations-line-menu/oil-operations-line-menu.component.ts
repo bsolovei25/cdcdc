@@ -1,17 +1,53 @@
-import { Component, OnInit } from '@angular/core';
-import { NGX_MAT_DATE_FORMATS } from '@angular-material-components/datetime-picker';
-import { CUSTOM_DATE_FORMATS } from '@shared/components/time-data-picker/time-data-picker.component';
+import {
+    AfterViewInit,
+    Component,
+    EventEmitter,
+    Input,
+    OnInit,
+    Output
+} from '@angular/core';
+import { IDatesInterval } from '../../../../../dashboard/services/widget.service';
+import { FormControl } from '@angular/forms';
+import { merge } from 'rxjs';
 
 @Component({
     selector: 'evj-oil-operations-line-menu',
     templateUrl: './oil-operations-line-menu.component.html',
     styleUrls: ['./oil-operations-line-menu.component.scss'],
-    providers: [{ provide: NGX_MAT_DATE_FORMATS, useValue: CUSTOM_DATE_FORMATS }],
 })
-export class OilOperationsLineMenuComponent implements OnInit {
-    public dateNow: Date = new Date();
+export class OilOperationsLineMenuComponent implements OnInit, AfterViewInit {
 
-    constructor() {}
+    public dateFrom: FormControl = new FormControl();
 
-    ngOnInit(): void {}
+    public dateTo: FormControl = new FormControl();
+
+    @Input()
+    public currentDates: IDatesInterval;
+
+    @Output()
+    public emitDates: EventEmitter<IDatesInterval> = new EventEmitter<IDatesInterval>();
+
+    constructor() {
+    }
+
+    public ngOnInit(): void {
+        this.dateFrom.setValue(this.currentDates.fromDateTime);
+        this.dateTo.setValue(this.currentDates.toDateTime);
+    }
+
+    public ngAfterViewInit(): void {
+        if (this.dateFrom && this.dateTo) {
+            const datesFormControls = merge(
+                this.dateFrom.valueChanges,
+                this.dateTo.valueChanges,
+            );
+
+            datesFormControls.subscribe(() => {
+                this.emitDates.emit({
+                    fromDateTime: new Date(this.dateFrom.value),
+                    toDateTime: new Date(this.dateTo.value),
+                });
+            });
+        }
+    }
 }
