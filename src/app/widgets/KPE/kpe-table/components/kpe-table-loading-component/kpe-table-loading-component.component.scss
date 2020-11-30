@@ -6,18 +6,18 @@
 
   box-sizing: border-box;
   position: relative;
-  overflow-y: auto;
+  overflow: auto;
 
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  align-items: center;
   color: var(--color-text-sub);
   font-size: 13px;
   line-height: 16px;
 
   &__footer {
     position: sticky;
+    left: 0px;
     bottom: 0px;
     z-index: 1;
     width: 100%;
@@ -26,13 +26,13 @@
     background-color: var(--color-kpe-gaude-unactive);
 
     display: flex;
-    justify-content: space-around;
+    justify-content: flex-start;
     align-items: center;
   }
 
   &__date {
     height: 60px;
-    width: 530px;
+    width: 33%;
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
@@ -42,9 +42,9 @@
 
     &__title {
       height: 100%;
-      width: 140px;
+      width: 20%;
       display: flex;
-      justify-content: flex-end;
+      justify-content: flex-start;
       align-items: center;
       margin-right: 5px;
       margin-left: 5px;
@@ -52,7 +52,7 @@
 
     &__element {
       height: 100%;
-      width: 180px;
+      width: 40%;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -93,7 +93,7 @@ thead th {
 
 th, td {
   text-align: center;
-  min-width: 115px;
+  min-width: 90px;
   width: 100%;
   height: 40px;
 
@@ -560,7 +560,6 @@ input:focus::-webkit-input-placeholder {
     box-sizing: border-box;
 
     .input-back {
-      position: relative;
       width: 100%;
       height: 100%;
       background: var(--color-kpe-gaude-unactive);
@@ -575,4 +574,13 @@ input:focus::-webkit-input-placeholder {
       color: var(--color-border-active);
     }
   }
+}
+.value {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.icon {
+  width: 16px;
+  height: 16px;
 }
