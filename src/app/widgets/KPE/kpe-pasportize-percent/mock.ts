@@ -1,5 +1,4 @@
-import { IKpePasportizeProduct } from './components/kpe-pasportize-percent-product/kpe-pasportize-percent-product.component';
-import { IKpePasportizeGauge } from './kpe-pasportize-percent.component';
+import { IKpePasportizeGauge, IKpePasportizeProduct } from './kpe-pasportize-percent.component';
 
 export const productData: IKpePasportizeProduct[] = [
     {
