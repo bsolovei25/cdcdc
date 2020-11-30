@@ -79,7 +79,6 @@ export class KpeReadinessComponent extends WidgetPlatform<unknown> implements On
             this.gaugeCards = ref.gaugeCards;
         }
         this.chartCards = ref.chartCards as IKpeReadinessChartCard[];
-        this.chartCard = this.chartCards.shift();
         this.chartCards = this.kpeHelperService.sortArray<IKpeReadinessChartCard>(
             this.chartCards,
             2
