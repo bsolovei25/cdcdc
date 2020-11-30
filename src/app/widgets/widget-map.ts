@@ -129,7 +129,7 @@ export const WIDGETS = {
     'aps-operating-modes': WidgetContainerComponent,
     'aps-structure-id': WidgetContainerComponent,
     'aps-scenario-selection': WidgetContainerComponent,
-    'kpe-table-data': WidgetContainerComponent
+    'kpe-table-data': WidgetContainerComponent,
     'kpe-pasportize-percent': WidgetContainerComponent
 };
 
