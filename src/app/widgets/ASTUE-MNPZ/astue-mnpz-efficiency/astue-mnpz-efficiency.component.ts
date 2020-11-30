@@ -66,7 +66,6 @@ export class AstueMnpzEfficiencyComponent extends WidgetPlatform<unknown>
 
     protected dataHandler(ref: { products: IAsEfProduct[] }): void {
         this.data = ref.products;
-        console.log(ref.products);
         this.isLoading = false;
     }
 
