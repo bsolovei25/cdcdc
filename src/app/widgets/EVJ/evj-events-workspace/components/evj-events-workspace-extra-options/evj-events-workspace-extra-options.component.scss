@@ -1,0 +1,26 @@
+.loading-shade {
+  position: absolute;
+  top: 0;
+  left: 2px;
+  right: 2px;
+  bottom: 0;
+  background: var(--color-aw-shade-bg-transparent);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &__blur {
+    backdrop-filter: blur(1.5px);
+    transition: backdrop-filter 0.5s;
+  }
+}
+
+.confirm-container {
+  width: 400px;
+  height: 500px;
+
+  background-color: var(--color-bg-card);
+  box-shadow: 0 0 35px var(--color-aw-container-shadow-transparent);
+  border-radius: 4px 4px 0 0;
+}

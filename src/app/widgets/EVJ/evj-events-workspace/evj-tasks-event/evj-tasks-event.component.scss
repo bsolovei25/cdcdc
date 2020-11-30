@@ -147,6 +147,12 @@
         height: 160px;
         width: 100%;
         margin-bottom: 24px;
+        .extra-options {
+          width: 100%;
+          height: 18px;
+          display: flex;
+          justify-content: space-between;
+        }
       }
 
       .facts {

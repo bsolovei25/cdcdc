@@ -46,4 +46,12 @@ export class EvjTasksEventComponent implements OnInit {
     public onChangeEventDescription(description: string): void {
         this.ewService.event.description = description;
     }
+
+    openExtraOptions(): void {
+        const popupWindow = {
+            isShow: true,
+        };
+        this.ewService.extraOptionsWindow$.next(popupWindow);
+        console.log('extra options opened');
+    }
 }
