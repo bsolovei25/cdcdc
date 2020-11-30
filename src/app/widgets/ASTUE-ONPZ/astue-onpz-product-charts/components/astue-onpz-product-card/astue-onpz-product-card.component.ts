@@ -11,7 +11,8 @@ import { ChannelPlatform } from '../../../../../dashboard/models/@PLATFORM/chann
     templateUrl: './astue-onpz-product-card.component.html',
     styleUrls: ['./astue-onpz-product-card.component.scss'],
 })
-export class AstueOnpzProductCardComponent extends ChannelPlatform<IAstueProductChart> implements OnInit, OnDestroy {
+export class AstueOnpzProductCardComponent extends ChannelPlatform<IAstueProductChart>
+    implements OnInit, OnDestroy {
     public data: IAstueProductChart;
 
     constructor(
@@ -21,7 +22,7 @@ export class AstueOnpzProductCardComponent extends ChannelPlatform<IAstueProduct
         protected widgetService: WidgetService,
         @Inject('widgetId') public widgetId: string,
         @Inject('channelId') public channelId: string,
-        @Inject('isDeviation') public isDeviationChart: string,
+        @Inject('isDeviation') public isDeviationChart: string
     ) {
         super(widgetId, channelId, widgetService);
     }
@@ -32,11 +33,21 @@ export class AstueOnpzProductCardComponent extends ChannelPlatform<IAstueProduct
 
     // for test
     private async getMockData(): Promise<void> {
-        const ref = await this.http.get<IAstueProductChart>('assets/mock/ASTUE-ONPZ/product-charts.mock.json').toPromise();
+        const ref = await this.http
+            .get<IAstueProductChart>('assets/mock/ASTUE-ONPZ/product-charts.mock.json')
+            .toPromise();
         setTimeout(() => this.dataHandler(ref), 5000);
     }
 
     public switchToIndicatorScreen(): void {
+        const multilineChartTransferType =
+            this.astueOnpzService.monitoringOptions$.getValue().type === 'Deviation'
+                ? 'deviation'
+                : 'limit';
+        this.astueOnpzService.multilineChartTransfer.next({
+            type: multilineChartTransferType,
+            isEconomy: this.data.isEconomy,
+        });
         this.astueOnpzService.updateGraphId(this.data.itemId);
         this.astueOnpzService.multilineChartIndicatorTitle$.next(this.data?.productName ?? '');
         this.userSettingsService.loadScreenByWidget('astue-onpz-interactive-indicators');
@@ -52,9 +63,13 @@ export class AstueOnpzProductCardComponent extends ChannelPlatform<IAstueProduct
                 val.timeStamp = new Date(val.timeStamp);
             });
         });
-        this.data?.labels?.forEach((x) =>
-            x.value = x?.type === 'economy' || x?.type === 'exceed'
-                ? Math.abs(x?.value ?? 0) : x?.value ?? 0);
+        this.data?.labels?.forEach(
+            (x) =>
+                (x.value =
+                    x?.type === 'economy' || x?.type === 'exceed'
+                        ? Math.abs(x?.value ?? 0)
+                        : x?.value ?? 0)
+        );
     }
 
     ngOnDestroy(): void {
