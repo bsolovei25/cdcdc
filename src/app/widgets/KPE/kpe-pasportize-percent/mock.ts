@@ -79,5 +79,5 @@ export const gaugeData: IKpePasportizeGauge = {
     planDescription: 'Зафиксированных случаев паспортизации',
     fact: 715,
     factDescription: 'Паспортизаций с первого предъявления',
-    percentage: 0.935863
+    percentage: 93.5863
 };
