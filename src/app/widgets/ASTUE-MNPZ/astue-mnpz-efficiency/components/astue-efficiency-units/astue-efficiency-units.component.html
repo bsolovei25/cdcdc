@@ -3,7 +3,7 @@
     Установки
     <div
       class="header__button button"
-      [ngClass]="{'button_active':unitSelection.selected.length === units?.length && units?.length!==0}"
+      [ngClass]="{'button_active':unitSelection.selected.length === units.length && units.length!==0}"
       (click)="onClickSelectAll()"
       *ngIf="isInitialDataShow"
     >
