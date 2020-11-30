@@ -92,7 +92,7 @@
                 <!-- LINE CHART -->
                 <ng-container *ngIf="filter.line">
                     <div class="line-side">
-                        <evj-oil-operations-line (closeLineChart)="closeReceived($event)"></evj-oil-operations-line>
+                        <evj-oil-operations-line [selectedTank]="selectedTransfer?.tank" (closeLineChart)="closeReceived($event)" [currentDates]="currentDates"></evj-oil-operations-line>
                     </div>
                 </ng-container>
 

@@ -10,6 +10,7 @@ import { AsyncRender } from '@shared/functions/async-render.function';
 import { fillDataArray } from '@shared/functions/fill-data-array.function';
 import { IDatesInterval, WidgetService } from '../../../../../dashboard/services/widget.service';
 import { dateFormatLocale } from '@shared/functions/universal-time-fromat.function';
+import { findCursorPosition } from '@shared/functions/find-cursor-position.function';
 
 @Component({
     selector: 'evj-limits-chart',
@@ -100,10 +101,14 @@ export class LimitsChartComponent implements OnChanges {
     // TODO add dt interval historical ++
     private getOxArea(): void {
         if (this.currentDates) {
-            [this.dateMin, this.dateMax] = d3.extent(this.data.flatMap((x) => x.graph).map((x) => x.timeStamp));
+            [this.dateMin, this.dateMax] = d3.extent(
+                this.data.flatMap((x) => x.graph).map((x) => x.timeStamp)
+            );
         } else {
-            const isFilterData = this.data.find((item) => item.graphType === 'fact').graph
-                .filter((x) => x.timeStamp.getTime() < new Date().getTime()).length > 0;
+            const isFilterData =
+                this.data
+                    .find((item) => item.graphType === 'fact')
+                    .graph.filter((x) => x.timeStamp.getTime() < new Date().getTime()).length > 0;
             let factChart = this.data.find((g) => g.graphType === 'fact').graph;
             if (isFilterData) {
                 factChart = factChart.filter((x) => x.timeStamp.getTime() < new Date().getTime());
@@ -142,7 +147,9 @@ export class LimitsChartComponent implements OnChanges {
     }
 
     private findMinMax(): void {
-        [this.dataMin, this.dataMax] = d3.extent(this.data.flatMap((x) => x.graph).map((x) => x.value));
+        [this.dataMin, this.dataMax] = d3.extent(
+            this.data.flatMap((x) => x.graph).map((x) => x.value)
+        );
         this.dataMin -= (this.dataMax - this.dataMin) * LimitsChartComponent.DELTA_CF;
         this.dataMax += (this.dataMax - this.dataMin) * LimitsChartComponent.DELTA_CF;
     }
@@ -321,7 +328,7 @@ export class LimitsChartComponent implements OnChanges {
         };
 
         const translateX: string = `translate(0,${this.graphMaxY - this.padding.bottom})`;
-        const translateY: string = `translate(${this.padding.left},0)`;
+        const translateY: string = `translate(${this.padding.left}, 0)`;
         drawLabels('axisX', translateX);
         drawLabels('axisY', translateY);
 
@@ -334,25 +341,38 @@ export class LimitsChartComponent implements OnChanges {
 
     private customizeAreas(): void {
         const fact = this.data.find((item) => item.graphType === 'fact')?.graph ?? [];
-        const higher = this.data.find((item) => item.graphType === 'higherBorder')?.graph ?? [];
-        const lower = this.data.find((item) => item.graphType === 'lowerBorder')?.graph ?? [];
-        fact.forEach((val, idx) => {
-            if (higher[idx] && higher[idx].value < val.value) {
-                this.svg
-                    .select('path.graph-line-higherBorder')
-                    .attr('class', 'graph-line-higherBorder graph-line_warning');
-                this.svg
-                    .select('path.graph-area-higherBorder')
-                    .attr('class', 'graph-area-higherBorder graph-area_warning');
-            } else if (lower[idx] && lower[idx].value > val.value) {
-                this.svg
-                    .select('path.graph-line-lowerBorder')
-                    .attr('class', 'graph-line-lowerBorder graph-line_normal');
-                this.svg
-                    .select('path.graph-area-lowerBorder')
-                    .attr('class', 'graph-area-lowerBorder graph-area_normal');
-            }
-        });
+
+        const getBorderValue = (type: 'higherBorder' | 'lowerBorder'): number => {
+            return this.scaleFuncs.y.invert(
+                findCursorPosition(
+                    this.scaleFuncs.x(fact[fact.length - 1]?.timeStamp),
+                    type,
+                    this.svg,
+                    this.padding
+                ).y
+            );
+        };
+
+        const hbValue = getBorderValue('higherBorder');
+        const lbValue = getBorderValue('lowerBorder');
+
+        let deviationType: 'warning' | 'normal' = null;
+        const eps = 0.00001;
+        if (hbValue && fact[fact.length - 1].value - hbValue > eps) {
+            deviationType = 'warning';
+        } else if (lbValue && lbValue - fact[fact.length - 1].value > eps) {
+            deviationType = 'normal';
+        }
+
+        if (deviationType) {
+            const border = deviationType === 'warning' ? 'higher' : 'lower';
+            this.svg
+                .select(`path.graph-line-${border}Border`)
+                ?.attr('class', `graph-line-${border}Border graph-line_${deviationType}`);
+            this.svg
+                .select(`path.graph-area-${border}Border`)
+                ?.attr('class', `graph-area-${border}Border graph-area_${deviationType}`);
+        }
     }
 
     private drawFutureRect(): void {

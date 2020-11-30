@@ -50,7 +50,7 @@ export class LazyService {
                 moduleRef.injector
             );
         } catch (error) {
-            console.error(error);
+            console.error(widgetType, error);
         }
     }
 

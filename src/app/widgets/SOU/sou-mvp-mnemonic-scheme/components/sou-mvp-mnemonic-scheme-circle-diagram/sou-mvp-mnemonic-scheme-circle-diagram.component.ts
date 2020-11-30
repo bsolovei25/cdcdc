@@ -12,6 +12,7 @@ import { SouMvpMnemonicSchemeService } from '../../../../../dashboard/services/w
 })
 export class SouMvpMnemonicSchemeCircleDiagramComponent implements OnInit, AfterViewInit {
   @ViewChild('chart') chart: ElementRef;
+  @Input() noConnection: false;
   @Input() set data(data: {
     sections: (ISOUFlowOut | ISOUFlowIn | ISOUObjects)[],
     code: number
@@ -59,15 +60,15 @@ export class SouMvpMnemonicSchemeCircleDiagramComponent implements OnInit, After
       .startAngle(0)
       .endAngle(2 * Math.PI);
 
-    const g: any = this.svg.append('g').style('transform', 'translate(20px, 20px)')
+    const g: any = this.svg.append('g').style('transform', 'translate(20px, 20px)');
 
     g.append('path')
       .attr('d', arcBg)
-      .attr('fill', this.flowData?.isExceedingConfInterval ? 'var(--sou-mvp-color-warning)' : 'var(--sou-mvp-color-border)');
+      .attr('class', 'diagram-inner');
 
     g.append('path')
       .attr('d', arc)
-      .attr('fill', this.flowData?.isExceedingConfInterval ? 'var(--sou-mvp-color-warning)' : 'white');
+      .attr('class', 'diagram-value');
   }
 
   ngAfterViewInit(): void {
