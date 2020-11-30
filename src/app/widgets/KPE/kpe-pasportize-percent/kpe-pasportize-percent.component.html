@@ -5,7 +5,10 @@
     type="kpe"
     icon="sliders"
   ></evj-contemporary-widget-header>
-  <div class="content">
+  <div class="content"
+    (mousedown)="$event.stopPropagation()"
+    (touchstart)="$event.stopPropagation()"
+  >
     <div class="diagram">
       <span class="diagram__header">
         Каждая &nbsp;<span> 12-ая </span>&nbsp; паспортизация является некондицией
