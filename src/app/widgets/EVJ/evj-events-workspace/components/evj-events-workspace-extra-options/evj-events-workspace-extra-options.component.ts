@@ -16,6 +16,24 @@ export class EvjEventsWorkspaceExtraOptionsComponent implements OnInit {
     }
 
     ngOnInit(): void {
+        this.info.isShow = true;
+    }
+    public accept(): void {
+        try {
+            this.info.acceptFunction();
+        } catch (err) {
+            console.error(err);
+        } finally {
+            this.info.closeFunction();
+        }
+    }
+
+    public cancel(): void {
+        try {
+            this.info.closeFunction();
+        } catch (err) {
+            console.error(err);
+        }
     }
 
 }

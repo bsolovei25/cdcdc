@@ -3,6 +3,7 @@
   <evj-loading-shade [isLoading]="ewService.isLoading"></evj-loading-shade>
   <evj-event-search-window [info]="ewService.searchWindow$ | async"></evj-event-search-window>
   <evj-alert-window [info]="this.ewService.ewAlertInfo$ | async"></evj-alert-window>
+  <evj-evj-events-workspace-extra-options [info]="ewService.extraOptionsWindow$ | async"></evj-evj-events-workspace-extra-options>
 
   <evj-contemporary-widget-header
     [uniqId]="uniqId"
