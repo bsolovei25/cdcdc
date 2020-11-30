@@ -23,7 +23,7 @@ export class AstueEfficiencyUnitsComponent implements OnChanges {
 
     public ngOnChanges(): void {
         this.unitSelection.clear();
-        this.units.forEach((unit) => {
+        this.units?.forEach((unit) => {
             if (!!this.AsEfService.isUnitSelected(unit)) {
                 this.unitSelection.select(unit);
             }
