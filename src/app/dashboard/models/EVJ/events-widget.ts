@@ -22,6 +22,7 @@ export interface IEventsWidgetNotificationPreview {
     severity: 'nonCritical' | 'critical';
     description: string;
     sortIndex: number;
+    sortIndexes: { type: string; value: number }[];
     iconUrl?: string;
     statusName?: string;
     iconUrlStatus?: string;

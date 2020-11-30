@@ -30,15 +30,13 @@ export class AstueEfficiencyItemsComponent implements OnChanges {
         if (activeProduct) {
             const product = this.data.find((item) => item.id === activeProduct);
             this.cardSelection.select(product);
-            this.selectProduct.emit(product.name);
+            this.selectProduct.emit(product.id);
         } else {
             if (this.data.length) {
                 this.data.forEach((value) => {
-                    if (!this.cardSelection.selected.length) {
-                        if (value.direction === this.direction) {
-                            this.cardSelection.select(this.data[0]);
-                            this.selectProduct.emit(this.data[0].id);
-                        }
+                    if (value.direction === 'in') {
+                        this.cardSelection.select(this.data[0]);
+                        this.selectProduct.emit(this.data[0].id);
                     }
                 });
             }

@@ -100,10 +100,14 @@ export class LimitsChartComponent implements OnChanges {
     // TODO add dt interval historical ++
     private getOxArea(): void {
         if (this.currentDates) {
-            [this.dateMin, this.dateMax] = d3.extent(this.data.flatMap((x) => x.graph).map((x) => x.timeStamp));
+            [this.dateMin, this.dateMax] = d3.extent(
+                this.data.flatMap((x) => x.graph).map((x) => x.timeStamp)
+            );
         } else {
-            const isFilterData = this.data.find((item) => item.graphType === 'fact').graph
-                .filter((x) => x.timeStamp.getTime() < new Date().getTime()).length > 0;
+            const isFilterData =
+                this.data
+                    .find((item) => item.graphType === 'fact')
+                    .graph.filter((x) => x.timeStamp.getTime() < new Date().getTime()).length > 0;
             let factChart = this.data.find((g) => g.graphType === 'fact').graph;
             if (isFilterData) {
                 factChart = factChart.filter((x) => x.timeStamp.getTime() < new Date().getTime());
@@ -142,7 +146,9 @@ export class LimitsChartComponent implements OnChanges {
     }
 
     private findMinMax(): void {
-        [this.dataMin, this.dataMax] = d3.extent(this.data.flatMap((x) => x.graph).map((x) => x.value));
+        [this.dataMin, this.dataMax] = d3.extent(
+            this.data.flatMap((x) => x.graph).map((x) => x.value)
+        );
         this.dataMin -= (this.dataMax - this.dataMin) * LimitsChartComponent.DELTA_CF;
         this.dataMax += (this.dataMax - this.dataMin) * LimitsChartComponent.DELTA_CF;
     }
@@ -321,7 +327,7 @@ export class LimitsChartComponent implements OnChanges {
         };
 
         const translateX: string = `translate(0,${this.graphMaxY - this.padding.bottom})`;
-        const translateY: string = `translate(${this.padding.left},0)`;
+        const translateY: string = `translate(${this.padding.left}, 0)`;
         drawLabels('axisX', translateX);
         drawLabels('axisY', translateY);
 

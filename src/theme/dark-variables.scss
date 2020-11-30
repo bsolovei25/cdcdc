@@ -368,9 +368,11 @@
   --sou-mvp-color-bg-warning: #483628;
   --sou-mvp-color-white: #ffffff;
   --sou-mvp-color-active: #0089FF;
+  --sou-mvp-color-bg-active-spec: #163455;
   --sou-mvp-color-bg-active: rgba(0, 137, 255, 0.2);
   --sou-mvp-color-bg-select: #12151E;
   --sou-mvp-color-bg-select-custom-border: rgba(25, 28, 44, 0);
+  --sou-mvp-color-popup-shadow: rgba(0, 0, 0, 0.3);
 
   // ASTUE-ONPZ
   --color-astue-onpz-bg-header: #222431;
@@ -418,6 +420,9 @@
   --astue-onpz-factory-analisys-norm: 0,137,255;
   --astue-onpz-factory-analisys-bad: 162,226,255;
   --astue-onpz-factory-analisys-sum: 0,167,61;
+
+  --color-astue-onpz-factory-analisys-contrast: #FFFFFF;
+  --color-astue-onpz-factory-analisys-chart-card-bg: #272A38;
 
   --color-astue-onpz-mnemonic-furnace-box-text: #606580;
   --color-astue-onpz-mnemonic-furnace-main-text: #D7E2F2;

@@ -10,18 +10,18 @@
     width: 177px;
     margin: 0 5px;
     padding: 0 10px;
-  
+
     display: flex;
     justify-content: center;
     align-items: center;
-  
+
     border-radius: 2px;
     background-color: var(--color-aps-bg-btns);
     color: var(--color-aps-white);
 
     outline: none;
     border: none;
-  
+
     &:hover {
       cursor: pointer;
       background-color: var(--color-aps-active);
@@ -38,11 +38,9 @@
   border-bottom: 2px solid var(--color-aps-border);
   overflow-y: scroll;
 
-  input {    
+  input {
     height: 30px;
-    width: calc(100% - 5px);
-    padding: 0;
-    padding-right: 5px;
+    padding: 0 5px 0 0;
     background: transparent;
     outline: none;
     border: none;
@@ -70,13 +68,13 @@ th {
   font-size: 13px;
   line-height: 16px;
   color: var(--color-text-sub);
-  background: var(--astue-onpz-factory-analisys-bg);
+  background: var(--color-kpe-gaude-unactive);
 }
 
 td {
   text-align: center;
   height: 40px;
-  width: 12%;
+  //width: 12%;
   font-size: 14px;
   line-height: 17px;
   color: var(--header-events-color-font-main);

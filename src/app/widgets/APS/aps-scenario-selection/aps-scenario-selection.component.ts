@@ -5,13 +5,13 @@ import { ApsService } from '../../../dashboard/services/widgets/APS/aps.service'
 import { IScenario } from '../../../dashboard/models/APS/aps-tables.model';
 
 @Component({
-  selector: 'evj-aps-scenario-selection',
-  templateUrl: './aps-scenario-selection.component.html',
-  styleUrls: ['./aps-scenario-selection.component.scss']
+    selector: 'evj-aps-scenario-selection',
+    templateUrl: './aps-scenario-selection.component.html',
+    styleUrls: ['./aps-scenario-selection.component.scss'],
 })
-export class ApsScenarioSelectionComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
+export class ApsScenarioSelectionComponent extends WidgetPlatform<unknown>
+    implements OnInit, OnDestroy {
     public scenarios: IScenario[] = [null];
-    public calculation: any;
     constructor(
         private apsService: ApsService,
         protected widgetService: WidgetService,
@@ -25,7 +25,6 @@ export class ApsScenarioSelectionComponent extends WidgetPlatform<unknown> imple
     ngOnInit(): void {
         super.widgetInit();
         this.getScenarios();
-        setTimeout(() => console.log(this.scenarios), 5000);
     }
 
     ngOnDestroy(): void {
@@ -36,15 +35,11 @@ export class ApsScenarioSelectionComponent extends WidgetPlatform<unknown> imple
         this.scenarios = data;
     }
     private async getCalculations(): Promise<void> {
-        const data = await this.apsService.getCalculate();
-        this.calculation = data;
+        await this.apsService.getCalculate();
     }
     calculate($event: MouseEvent): void {
-        this.getCalculations();
-        console.log(`scenario button clicked! ${this.getCalculations()}`);
+        // this.getCalculations();
     }
 
-    protected dataHandler(ref: any): void {
-    }
-
+    protected dataHandler(ref: any): void {}
 }

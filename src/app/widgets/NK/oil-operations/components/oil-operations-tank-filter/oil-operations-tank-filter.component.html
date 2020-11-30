@@ -1,80 +1,84 @@
 <div class="container-operation-tank-filter">
-    <div style="height: 100%;">
-        <div class="title">
-            <div class="title__button-close" (click)="close()">
-                <svg-icon src="assets/icons/widgets/reports/close.svg" class="add_button_icon">
-                </svg-icon>
-            </div>
-            <div class="title__name">Ёмкости используемые в качестве отгрузки</div>
-        </div>
-        <div class="title-content">
-            <div class="title-content__name">
-                Номер
-            </div>
-            <div class="title-content__name">
-                Р-р/Ёмкость
-            </div>
-            <div class="title-content__name">
-                В работе
-            </div>
-            <div class="title-content__name">
-                Лимит (ч)
-            </div>
-        </div>
-        <div class="content">
-            <ng-container *ngFor="let item of data">
-                <div class="item" (click)="itemOpen(item)" [class.active]="item.open">
-                    <div class="item__title-button">
-                        <svg-icon *ngIf="item.open"
-                            src="assets/icons/widgets/oil-control-all/tank-information/arrow-up.svg"
-                            [svgStyle]="{ 'width.px':14, 'height.px':10 }"></svg-icon>
-
-                        <svg-icon *ngIf="!item.open"
-                            src="assets/icons/widgets/oil-control-all/tank-information/arrow-bottom.svg"
-                            [svgStyle]="{ 'width.px':14, 'height.px':10 }"></svg-icon>
-                    </div>
-                    <div class="item__name"> {{ item.name }}</div>
-                </div>
-                <div *ngIf="item.open" class="item__shadow-block">
-                    <ng-container *ngFor="let i of item.valuesTank">
-                        <div class="item__i" [class.active-block]='activeItemId === i.id' (click)="active(i)">
-                            <div class="name-param">
-                                {{ i.number }}
-                            </div>
-                            <div class="capacity-param">
-                                {{ i.valueCap }}
-                            </div>
-                            <div class="check-param">
-                                <label class="mycheckbox">
-                                    <input type="checkbox" id="checkBoxValue" class="mycheckbox__default"
-                                        (click)="changeSwap(i)" [checked]="i.work" />
-                                    <div class="mycheckbox__new" [class.mycheckbox__checked]="i.work"></div>
-                                </label>
-                            </div>
-                            <div class="limit-param">
-                                <div class="limit-param__value">
-                                    {{ i.limit }}
-                                </div>
-                                <div class="limit-param__icon">
-                                    <svg-icon src="assets/icons/widgets/oil-control-all/oil-operations/update.svg"
-                                        [svgStyle]="{ 'width.px':30, 'height.px':30 }">
-                                    </svg-icon>
-                                </div>
-                            </div>
-                        </div>
-                    </ng-container>
-                </div>
-            </ng-container>
-        </div>
-        <div class="bottom">
-            <div class="bottom__search">
-                <evj-table-grid-input></evj-table-grid-input>
-            </div>
-            <div class="bottom__save-block">
-                <div class="save-block" (click)="save()">
-                    <div class="button-save">Сохранить</div>
-                </div>
-            </div>
-        </div>
+  <div style="height: 100%;">
+    <div class="title">
+      <div class="title__button-close" (click)="close()">
+        <svg-icon src="assets/icons/widgets/reports/close.svg" class="add_button_icon">
+        </svg-icon>
+      </div>
+      <div class="title__name">Ёмкости используемые в качестве отгрузки</div>
     </div>
+    <div class="title-content">
+      <div class="title-content__name">
+        Номер
+      </div>
+      <div class="title-content__name">
+        Р-р/Ёмкость
+      </div>
+      <div class="title-content__name">
+        В работе
+      </div>
+      <div class="title-content__name">
+        Лимит (ч)
+      </div>
+    </div>
+    <div class="content">
+      <ng-container *ngFor="let item of data">
+        <div class="item" (click)="productOpen(item.id)" [class.active]="isProductOpen(item)">
+          <div class="item__title-button">
+            <svg-icon *ngIf="isProductOpen(item)"
+                      src="assets/icons/widgets/oil-control-all/tank-information/arrow-up.svg"
+                      [svgStyle]="{ 'width.px':14, 'height.px':10 }"></svg-icon>
+
+            <svg-icon *ngIf="!isProductOpen(item)"
+                      src="assets/icons/widgets/oil-control-all/tank-information/arrow-bottom.svg"
+                      [svgStyle]="{ 'width.px':14, 'height.px':10 }"></svg-icon>
+          </div>
+          <div class="item__name"> {{ item.name }}</div>
+        </div>
+        <ng-container *ngIf="isProductOpen(item)">
+          <cdk-virtual-scroll-viewport
+            [itemSize]="ROW_HEIGHT_PX" class="item__shadow-block"
+            [style.height.px]="item.quantity * ROW_HEIGHT_PX">
+            <ng-container *cdkVirtualFor="let i of item.data">
+              <div class="item__i" [class.active-block]='activeItemId === i?.id' (click)="active(i)">
+                <div class="name-param">
+                  {{ i?.shortName }}
+                </div>
+                <div class="capacity-param">
+                  {{ i?.name }}
+                </div>
+                <div class="check-param">
+                  <label class="mycheckbox">
+                    <input type="checkbox" id="checkBoxValue" class="mycheckbox__default"
+                           (click)="changeSwap(i)" [checked]="i?.enabled"/>
+                    <div class="mycheckbox__new" [class.mycheckbox__checked]="i?.enabled"></div>
+                  </label>
+                </div>
+                <div class="limit-param">
+                  <div class="limit-param__value">
+                    {{ i?.limitHours }}
+                  </div>
+                  <div class="limit-param__icon" (click)="update(i)">
+                    <svg-icon src="assets/icons/widgets/oil-control-all/oil-operations/update.svg"
+                              [svgStyle]="{ 'width.px':30, 'height.px':30 }">
+                    </svg-icon>
+                  </div>
+                </div>
+              </div>
+            </ng-container>
+          </cdk-virtual-scroll-viewport>
+        </ng-container>
+      </ng-container>
+    </div>
+    <div class="bottom">
+      <div class="bottom__search">
+        <evj-circle-input (searchChange)="search($event)"></evj-circle-input>
+      </div>
+      <!--<div class="bottom__save-block">
+        <div class="save-block" (click)="save()">
+          <div class="button-save">Сохранить</div>
+        </div>
+      </div>-->
+    </div>
+  </div>
 </div>

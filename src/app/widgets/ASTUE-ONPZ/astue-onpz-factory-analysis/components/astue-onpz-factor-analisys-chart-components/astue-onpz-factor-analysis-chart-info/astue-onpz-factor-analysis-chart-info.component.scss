@@ -1,0 +1,50 @@
+.container {
+  display: flex;
+  flex-flow: column;
+  justify-content: space-evenly;
+  width: 122px;
+  height: 55px;
+  padding-left: 10px;
+  box-sizing: border-box;
+  background: var(--color-astue-onpz-factory-analisys-chart-card-bg);
+  border-radius: 0 2px 2px 0;
+  border-left: solid 2px;
+
+  .title {
+    color: var(--astue-onpz-factory-analisys-legend);
+    font-size: 12px;
+  }
+
+  .value {
+    font-size: 14px;
+  }
+
+  &__plan {
+    border-color: rgb(var(--astue-onpz-factory-analisys-norm));
+
+    .value {
+      color: rgb(var(--astue-onpz-factory-analisys-norm));;
+    }
+  }
+
+  &__fact {
+    border-color: var(--color-astue-onpz-factory-analisys-contrast);
+
+    .value {
+      color: var(--color-astue-onpz-factory-analisys-contrast);
+    }
+  }
+
+  &__interval {
+    border-color: var(--astue-onpz-factory-analisys-grid);
+
+    .value {
+      color: var(--astue-onpz-factory-analisys-grid);
+
+      &::before {
+        content: '+-';
+        margin-right: -3px;
+      }
+    }
+  }
+}

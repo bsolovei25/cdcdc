@@ -18,6 +18,7 @@ export class SouMvpMnemonicSchemeInfoComponent implements OnInit {
     }
   }
   @Input() choosenSetting: number;
+  @Input() noLine: boolean = false;
 
   @Input() set inCount(data: number) {
     this.inputArr = new Array(data);

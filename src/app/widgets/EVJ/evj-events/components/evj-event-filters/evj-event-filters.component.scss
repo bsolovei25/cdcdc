@@ -119,6 +119,7 @@
       width: 100% !important;
     }
 
+
     .mat-select-value-text {
       margin-left: 15px;
       font-size: 13px;
@@ -142,6 +143,12 @@
       margin-top: 4px;
     }
   }
+}
+::ng-deep .mat-select-filter-inner {
+  width: calc(100% + 20px) !important;
+}
+::ng-deep .mat-select-filter-no-entries-found {
+  background: var(--color-bg-main) !important;
 }
 
 

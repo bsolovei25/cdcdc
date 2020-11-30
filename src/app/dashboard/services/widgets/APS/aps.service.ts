@@ -35,7 +35,7 @@ export class ApsService {
     async getCalculate(): Promise<any> {
         return this.http
             .get<any>(
-                this.restUrl + `/api/debugging-service-ApsService/Json/unload/${scenarioId}/folder`
+                this.restUrl + `/api/debugging-service-ApsService/Json/unload/{scenarioId}/folder`
             )
             .toPromise();
     }

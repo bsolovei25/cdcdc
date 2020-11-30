@@ -58,14 +58,20 @@
         (click)="changeSection(i)"
       >
         <span class="title">{{section.title}}</span>
-        <div class="value">{{section.value}}</div>
+        <div class="value"
+          [ngClass]="{
+            noTrust: section.value > 0
+          }"
+        >{{section.value}}</div>
       </div>
     </div>
 
     <div class="filter-btn">
       <div class="filter-btn__item"
         *ngFor="let setting of settings; let i = index"
-        [ngClass]="{active: i===choosenSetting}"
+        [ngClass]="{
+          active: i === choosenSetting
+        }"
         (click)="changeSetting(i)"
       >{{setting}}</div>
     </div>
@@ -92,13 +98,22 @@
         [flowIn]="flowInVb"
       ></evj-sou-mvp-mnemonic-scheme-vb-left>
 
+      <evj-sou-mvp-mnemonic-scheme-izomalk-left
+        *ngIf="choosenSection === 2"
+        [sections]="sectionsDataIzo"
+        [choosenSetting]="choosenSetting"
+      ></evj-sou-mvp-mnemonic-scheme-izomalk-left>
+
       <div class="streams-groups">
       <div class="streams-container"
         (mousedown)="$event.stopPropagation()"
         (touchstart)="$event.stopPropagation()"
       >
         <div class="main-collector">
-          <span>АВТ-10 <br> {{sections[choosenSection].title}}</span>
+          <div class="main-collector-title">
+            <span *ngIf="choosenSection !== 2">АВТ-10 <br></span>
+            <span>{{sections[choosenSection].title}}</span>
+          </div>
         </div>
         <evj-sou-mvp-mnemonic-scheme-section
           *ngIf="choosenSection === 0"
@@ -111,6 +126,12 @@
           [choosenSetting]="choosenSetting"
           [sections]="sectionsData"
         ></evj-sou-mvp-mnemonic-scheme-section-vb>
+
+        <evj-sou-mvp-mnemonic-scheme-section-izomalk
+          *ngIf="choosenSection === 2"
+          [choosenSetting]="choosenSetting"
+          [sections]="sectionsDataIzo"
+        ></evj-sou-mvp-mnemonic-scheme-section-izomalk>
       </div>
       </div>
     </div>
