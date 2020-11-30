@@ -4,7 +4,6 @@ export interface IOilOperations { /// ALL DATA
     shipment: IOilRowActions[];
     tableRight: IOilShipment[];
     filter: IOilFilter[];
-    filterTanks: IOilFilterTanks[];
 }
 
 export interface IOilOperationsPassport {
@@ -12,6 +11,8 @@ export interface IOilOperationsPassport {
     fileUid: string;
     name: string;
     date: Date;
+    armName?: string;
+    createdBy?: number;
     tank?: IOilOperationsTank;
 }
 
@@ -22,6 +23,10 @@ export interface IOilOperationsProduct {
     gost: string;
     okpd2Code: string;
     isActual?: boolean;
+    group?: {
+        id: number;
+        name: string;
+    };
 }
 
 export interface IOilOperationsTank {
@@ -30,6 +35,10 @@ export interface IOilOperationsTank {
     limitHours?: number;
     name: string;
     shortName: string;
+    group?: {
+        id: number;
+        name: string;
+    };
 }
 
 export enum operationTransferStatus {
@@ -84,38 +93,19 @@ export interface IOilShipment {
     id: number;
     direction: string;
     mass: number;
-    passport?: {
-        armName: string;
-        createdBy: number;
-        date: Date;
-        fileUid: string;
-        id: number;
-        name: string;
-    };
-    product?: {
-        gost: string;
-        group?: {
-            id: number;
-            name: string;
-        }
-        id: number;
-        name: string;
-        okpd2Code: string;
-        sapCode: string;
-    };
-    tank?: {
-        enabled: boolean;
-        id: string;
-        limitHours: number;
-        name: string;
-        shortName: string;
-    };
+    passport?: IOilOperationsPassport;
+    product?: IOilOperationsProduct;
+    tank?: IOilOperationsTank;
     dateFinish?: Date;
     shipped: number;
     note: string;
     shipmentType?: {
         id: number;
         shipmentTypeName: string;
+    };
+    shippingComplex?: {
+        id: number;
+        name: string,
     };
     transferPrevId?: number;
 }
@@ -142,14 +132,6 @@ export interface IOilFilter {
 export interface IOilFilterTanks {
     id: number;
     name: string;
-    valuesTank: IOilValuesTank[];
-    open?: boolean;
-}
-
-export interface IOilValuesTank {
-    id: number;
-    number: number;
-    work: boolean;
-    limit: number;
-    valueCap: number;
+    quantity: number;
+    data: IOilOperationsTank[];
 }

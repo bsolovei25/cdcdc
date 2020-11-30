@@ -5,7 +5,8 @@ import { IPriority, IUnitEvents } from '../../../../../dashboard/models/EVJ/even
 import { EventService } from '../../../../../dashboard/services/widgets/EVJ/event.service';
 import { EventsWorkspaceService } from '../../../../../dashboard/services/widgets/EVJ/events-workspace.service';
 import { IUnits } from '../../../../../dashboard/models/ADMIN/admin-shift-schedule';
-import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import { debounceTime, distinctUntilChanged, takeUntil } from 'rxjs/operators';
+import { Subject } from 'rxjs';
 
 @Component({
     selector: 'evj-evj-event-filters',
@@ -19,6 +20,9 @@ export class EvjEventFiltersComponent implements OnInit {
     searchControl: FormControl = new FormControl();
     units: IUnitEvents[] = [];
     priority: IPriority[] = [];
+    filter: FormControl = new FormControl({ value: '', disabled: true });
+    private onDestroy: Subject<void> = new Subject<void>();
+
 
     @Input() set inputUnits(value: IUnits) {
         if (!!this.unitsSelect.value) {
@@ -53,6 +57,9 @@ export class EvjEventFiltersComponent implements OnInit {
                 this.description.emit(value);
             });
         this.loadData();
+        this.filter.valueChanges.pipe(takeUntil(this.onDestroy)).subscribe(() => {
+            this.filterPlant();
+        });
     }
 
     resetFilters(): void {
@@ -79,6 +86,24 @@ export class EvjEventFiltersComponent implements OnInit {
     async loadData(): Promise<void> {
         this.units = await this.eventService.getUnits();
         this.priority = await this.eventService.getPriority();
+    }
+    public clearFilter(): void {
+        this.filter.setValue('');
+    }
+    private filterPlant(): void {
+        if (!this.ewService.units) {
+            return;
+        }
+        let value = this.filter.value.trim();
+        if (!value || value === '') {
+            this.units = this.ewService.units;
+            return;
+        } else {
+            value = value.toLowerCase();
+        }
+        this.units = this.ewService.units.filter(
+            (unit) => unit.name.toLowerCase().indexOf(value) > -1
+        );
     }
 
 }

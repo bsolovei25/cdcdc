@@ -1,0 +1,107 @@
+<div class="main-groups">
+  <div class="main-groups__item">
+    <div class="title">
+      <div class="arrow-btn">
+        <svg-icon
+          src="assets/icons/widgets/SOU/sou-mvp-mnemonic-scheme/doubleArrow.svg"
+          [svgStyle]="{ 'width.px':16, 'height.px':16 }"
+        ></svg-icon>
+      </div>
+      <span>{{mvpService.getElementByCode(sections, 29)?.name}}</span>
+    </div>
+    <evj-sou-mvp-mnemonic-scheme-circle-diagram
+      [data]="{
+        sections: sections,
+        code: 89
+      }"
+    ></evj-sou-mvp-mnemonic-scheme-circle-diagram>
+    <evj-sou-mvp-mnemonic-scheme-info
+      [data]="{
+        sections: sections,
+        code: 89
+      }"
+      [choosenSetting]="choosenSetting"
+    ></evj-sou-mvp-mnemonic-scheme-info>
+  </div>
+
+  <div class="main-groups__item">
+    <div class="main-groups-column">
+      <div class="main-groups-column-block-1">
+        <div class="stream-container">
+          <div class="title">
+            <div class="arrow-btn">
+              <svg-icon
+                src="assets/icons/widgets/SOU/sou-mvp-mnemonic-scheme/doubleArrow.svg"
+                [svgStyle]="{ 'width.px':16, 'height.px':16 }"
+              ></svg-icon>
+            </div>
+            <span>{{mvpService.getElementByCode(sections, 5)?.name}}</span>
+          </div>
+
+          <div class="title">
+            <div class="arrow-btn">
+              <svg-icon
+                src="assets/icons/widgets/SOU/sou-mvp-mnemonic-scheme/doubleArrow.svg"
+                [svgStyle]="{ 'width.px':16, 'height.px':16 }"
+              ></svg-icon>
+            </div>
+            <span>{{mvpService.getElementByCode(sections, 7)?.name}}</span>
+          </div>
+        </div>
+        <div class="stream-container">
+          <evj-sou-mvp-mnemonic-scheme-circle-diagram
+            [data]="{
+              sections: sections,
+              code: 74
+            }"
+          ></evj-sou-mvp-mnemonic-scheme-circle-diagram>
+          <div class="stream-title">
+            <div class="line"></div>
+            <div class="name-container">
+              <span>{{mvpService.getElementByCode(sections, 54)?.tag}}</span>
+              <div class="connection-circle"></div>
+            </div>
+            <div class="line"></div>
+          </div>
+        </div>
+        <evj-sou-mvp-mnemonic-scheme-collector
+          [style.height.%]="100"
+          [data]="{
+            sections: sections,
+            code: 11
+          }"
+          [outCount]="0"
+          [inCount]="2"
+        ></evj-sou-mvp-mnemonic-scheme-collector>
+        <evj-sou-mvp-mnemonic-scheme-circle-diagram
+          [data]="{
+            sections: sections,
+            code: 66
+          }"
+          noConnection=true
+        ></evj-sou-mvp-mnemonic-scheme-circle-diagram>
+      </div>
+      <div class="main-groups-column-block-2">
+        <div 
+          class="vertical-line-container"
+          [ngClass]="{
+            selectedLine: mvpService?.selectedCode === 66
+          }"
+        >
+          <div class="connection-circle"></div>
+          <div class="vertical-line"></div>
+          <div class="connection-circle"></div>
+        </div>
+        <evj-sou-mvp-mnemonic-scheme-info
+          [data]="{
+            sections: sections,
+            code: 66
+          }"
+          [choosenSetting]="choosenSetting"
+          [inCount]="0"
+        ></evj-sou-mvp-mnemonic-scheme-info>
+      </div>
+    </div>
+  </div>
+</div>
+

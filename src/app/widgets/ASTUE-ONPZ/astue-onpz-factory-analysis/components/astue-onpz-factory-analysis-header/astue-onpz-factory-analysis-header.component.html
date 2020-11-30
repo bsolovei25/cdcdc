@@ -1,0 +1,40 @@
+<div class="container">
+  <div
+    class="toggle-container"
+    [class.toggle-container__active]="page === 'bar'"
+    (click)="changePage.emit('bar')"
+    (mousedown)="$event.stopPropagation()"
+    (touchstart)="$event.stopPropagation()"
+  >
+    <div class="gradient"></div>
+    <svg-icon src="assets/icons/widgets/ASTUE-ONPZ/astue-onpz-factory-analysis/header/chart_squares.svg"></svg-icon>
+    <span> Факторный анализ </span>
+  </div>
+  <div
+    class="toggle-container"
+    [class.toggle-container__active]="page === 'chart'"
+    (click)="changePage.emit('chart')"
+    (mousedown)="$event.stopPropagation()"
+    (touchstart)="$event.stopPropagation()"
+  >
+    <div class="gradient"></div>
+    <svg-icon src="assets/icons/widgets/ASTUE-ONPZ/astue-onpz-factory-analysis/header/chart_dots.svg"></svg-icon>
+    <span> Расчет показателей </span>
+  </div>
+  <div class="flex-spacer"></div>
+  <div
+    class="option-select"
+    (mousedown)="$event.stopPropagation()"
+    (touchstart)="$event.stopPropagation()"
+  >
+    <div class="dropdown">
+      <mat-select class="dropdown__select" [value]="'Производство 1'">
+        <ng-container>
+          <mat-option [value]="'Производство 1'">
+            Температура воздуха на горение в печи, °С
+          </mat-option>
+        </ng-container>
+      </mat-select>
+    </div>
+  </div>
+</div>

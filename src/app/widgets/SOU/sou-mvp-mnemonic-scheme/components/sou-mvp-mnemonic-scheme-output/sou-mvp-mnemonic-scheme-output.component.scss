@@ -103,3 +103,35 @@
     border-top: 1px solid var(--sou-mvp-color-bg-title);
   }
 }
+
+.selected {
+  .title {
+    background: var(--sou-mvp-color-bg-active-spec);
+    border: 1px solid var(--sou-mvp-color-active);
+
+    span {
+      color: var(--sou-mvp-color-text-diagram-main);
+    }
+
+    .connection-circle {
+      border: 1px solid var(--sou-mvp-color-active);
+    }
+
+    .arrow-btn {
+      svg-icon {
+        ::ng-deep {
+          .circleArrow {
+            fill: var(--sou-mvp-color-bg-active-spec);
+          }
+          .pathArrow {
+            stroke: var(--sou-mvp-color-text-diagram-main);
+          }
+        }
+      }
+    }
+  }
+
+  .line {
+    border-top: 1px solid var(--sou-mvp-color-active);
+  }
+}

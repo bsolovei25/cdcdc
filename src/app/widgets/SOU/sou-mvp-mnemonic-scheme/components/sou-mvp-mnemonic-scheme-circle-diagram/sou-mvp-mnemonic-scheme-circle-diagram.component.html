@@ -1,9 +1,15 @@
 <div class="main-container">
-  <div class="line"></div>
+  <div class="line"
+  [ngClass]="{
+    selectedLine:flowData?.code === mvpService.selectedCode
+  }">
+    <div class="connection-circle"></div>
+  </div>
   <div class="container"
     [ngClass]="{
       off:!flowData?.isEnable,
-      warning:flowData?.isExceedingConfInterval
+      warning:flowData?.isExceedingConfInterval,
+      selected:flowData?.code === mvpService.selectedCode
     }"
   >
     <div class="circle" #chart>
@@ -14,12 +20,16 @@
     </div>
     <div class="title">
       <span>{{flowData?.tag}}</span>
-      <div class="connection-circle"></div>
+      <div class="connection-circle" *ngIf="!noConnection"></div>
     </div>
   </div>
   <div 
+    *ngIf="!noConnection"
     class="line"
-    [style.borderColor]="!flowData?.isEnable? 'var(--sou-mvp-color-bg-title)': 'var(--sou-mvp-color-border)'"
+    [ngClass]="{
+      enableLine: !flowData?.isEnable,
+      selectedLine:flowData?.code === mvpService.selectedCode
+    }"
   ></div>
 </div>
 
