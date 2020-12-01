@@ -129,6 +129,7 @@ export const WIDGETS = {
     'aps-operating-modes': WidgetContainerComponent,
     'aps-structure-id': WidgetContainerComponent,
     'aps-scenario-selection': WidgetContainerComponent,
+    'kpe-plan-enforceability': WidgetContainerComponent
 };
 
 export const WIDGETS_LAZY = {
@@ -483,6 +484,18 @@ export const WIDGETS_LAZY = {
         minItemCols: 15,
         minItemRows: 6,
         preview: 'kpe-safety',
+    },
+
+    'kpe-plan-enforceability': {
+        import: async () => {
+            return await import('src/app/widgets/KPE/kpe-plan-enforceability/kpe-plan-enforceability.module');
+        },
+        module: 'KpePlanEnforceabilityModule',
+        itemCols: 25,
+        itemRows: 20,
+        minItemCols: 25,
+        minItemRows: 20,
+        preview: 'default',
     },
 
     // #endregion KPE

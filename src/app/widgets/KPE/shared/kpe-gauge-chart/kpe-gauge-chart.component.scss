@@ -43,6 +43,11 @@
     fill: var(--color-astue-onpz-units);
     font-size: 7px;
   }
+
+  &__unit {
+    fill: var(--color-kpe-text-sub);
+    font-size: 7px;
+  } 
 }
 
 ::ng-deep .line {
