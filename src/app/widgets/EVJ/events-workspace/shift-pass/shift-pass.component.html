@@ -75,7 +75,7 @@
             [compareWith]="compareFn"
           >
             <mat-option [value]="undefined">Не выбрана</mat-option>
-            <mat-option *ngFor="let p of ewService.subCategory" [value]="p"
+            <mat-option *ngFor="let p of ewService.subCategoryFilter | async" [value]="p"
             >{{ p.description }}
             </mat-option>
           </mat-select>
