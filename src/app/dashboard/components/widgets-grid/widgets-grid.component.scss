@@ -32,6 +32,29 @@ gridster-item div.button-holder {
   align-items: center;
 }
 
+gridster-item {
+  &::ng-deep {
+    .gridster-item-resizable-handler.handle-s,
+    .gridster-item-resizable-handler.handle-n {
+      height: 5px;
+    }
+
+    .gridster-item-resizable-handler.handle-e,
+    .gridster-item-resizable-handler.handle-w {
+      width: 5px;
+    }
+
+    .gridster-item-resizable-handler.handle-se,
+    .gridster-item-resizable-handler.handle-ne,
+    .gridster-item-resizable-handler.handle-nw,
+    .gridster-item-resizable-handler.handle-sw {
+      width: 5px;
+      height: 5px;
+    }
+  }
+
+}
+
 .options {
   padding: 10px;
   display: grid;
