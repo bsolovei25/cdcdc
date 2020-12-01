@@ -503,9 +503,9 @@ export const WIDGETS_LAZY = {
             return await import('src/app/widgets/KPE/kpe-pasportize-percent/kpe-pasportize-percent.module');
         },
         module: 'KpePasportizePercentModule',
-        itemCols: 17,
-        itemRows: 16,
-        minItemCols: 17,
+        itemCols: 16,
+        itemRows: 25,
+        minItemCols: 16,
         minItemRows: 25,
         preview: 'default',
     },
