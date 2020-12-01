@@ -1,6 +1,6 @@
 ---
 include:
-  - ci/pipelines/release.yml
+  # - ci/pipelines/release.yml
   - project: 'oaovd/osspu/evj/infra/pipelines'
     file: '/templates/_base.yml'
   - project: 'oaovd/osspu/evj/infra/pipelines'
@@ -80,7 +80,11 @@ ng-build:
   extends: .ng-build-tpl
   cache: 
     key: one-key-to-rule-them-all
-  <<: *default_rules_mr
+  rules:
+    - if: $CI_MERGE_REQUEST_IID
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+    - if: $CI_COMMIT_BRANCH == "master"
+    - if: $CI_COMMIT_BRANCH == "devops"
 
 docker-packing:
   extends: .docker-ng-packing-tpl
