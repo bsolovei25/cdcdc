@@ -353,6 +353,9 @@
   margin-bottom: 2px;
   font-size: 13px;
   line-height: 16px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .value {
