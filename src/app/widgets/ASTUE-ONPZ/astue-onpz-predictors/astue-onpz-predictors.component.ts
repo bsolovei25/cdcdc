@@ -56,9 +56,6 @@ export class AstueOnpzPredictorsComponent extends WidgetPlatform<unknown>
     }
 
     protected dataHandler(ref: { predictors: IPredictors[] }): void {
-        if (this.data.length) {
-            return;
-        }
         this.data = ref.predictors;
         if (ref.predictors[0]?.id === '0') {
             console.log('ID предиктора равна 0'); // проверка данных с backend
