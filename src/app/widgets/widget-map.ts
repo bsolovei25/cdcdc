@@ -47,6 +47,8 @@ export const WIDGETS = {
     'cd-deviation-mat': WidgetContainerComponent,
     'cd-reactor-parameters': WidgetContainerComponent,
     'sou-operational-accounting-system': WidgetContainerComponent,
+    'sou-operational-accounting-system-new': WidgetContainerComponent,
+    'sou-operational-accounting-system-old': WidgetContainerComponent,
     'astue-onpz-conventional-fuel': WidgetContainerComponent,
     'astue-onpz-conventional-fuel-predictors': WidgetContainerComponent,
     'astue-onpz-predictors': WidgetContainerComponent,
