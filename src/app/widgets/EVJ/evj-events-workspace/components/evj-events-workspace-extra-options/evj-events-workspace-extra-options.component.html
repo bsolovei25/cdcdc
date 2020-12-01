@@ -3,7 +3,40 @@
        (touchstart)="$event.stopPropagation()">
     <div class="container">
       <div class="container__header">
-        <span>Дополнительные параметры</span>
+        <div class="title">
+          <span>Дополнительные параметры</span>
+        </div>
+        <div class="close">
+          <div class="close__button" matRipple matRippleColor="white" (click)="cancel()">
+            <svg-icon
+              [svgStyle]="{'height.px':'21', 'width.px': '21'}"
+              [src]="'assets/icons/widgets/alert-window/close.svg'"
+            >
+            </svg-icon>
+          </div>
+        </div>
+      </div>
+      <div class="container__body">
+        <div class="container__body__kpe-parameters">
+          <div class="dropdown"></div>
+          <div class="value"></div>
+        </div>
+        <div class="container__body__dependent-parameters">
+          <div class="dropdown">
+            <div class="add-button">
+              <span>Добавить зависимые параметр</span>
+            </div>
+          </div>
+          <div class="value">
+            <div class="delete-button">
+              Удалить параметр
+            </div>
+          </div>
+        </div>
+        <ng-container>
+          <div class="container__body__dependent-parameters"></div>
+        </ng-container>
+        <div class="container__body__buttons"></div>
       </div>
     </div>
   </div>
