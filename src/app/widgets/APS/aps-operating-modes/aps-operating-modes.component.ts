@@ -1,34 +1,39 @@
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { WidgetService } from '../../../dashboard/services/widget.service';
 import { WidgetPlatform } from '../../../dashboard/models/@PLATFORM/widget-platform';
+export interface ITable {
+    header: IHeaderName[];
+    body: ITableToDisplay[];
+}
+import { ApsService } from '../../../dashboard/services/widgets/APS/aps.service';
+import { DatePipe, formatDate } from '@angular/common';
 
 export interface ITableToDisplay {
-    name1: string;
-    name2: string;
-    name3: string;
-    name4: string;
-    name5: string;
-    name6: string;
-    name7: string;
-    name8: string;
+    index?: number;
+    edit?: boolean;
 }
 export interface IHeaderName {
-    header: string;
-    id?: string;
+    key: number;
+    title: string;
+    writable?: boolean;
 }
 
 @Component({
     selector: 'evj-aps-operating-modes',
     templateUrl: './aps-operating-modes.component.html',
-    styleUrls: ['./aps-operating-modes.component.scss']
+    styleUrls: ['./aps-operating-modes.component.scss'],
 })
-
-export class ApsOperatingModesComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
+export class ApsOperatingModesComponent extends WidgetPlatform<unknown>
+    implements OnInit, OnDestroy {
     public tableToDisplay: ITableToDisplay[] = [];
+    data: ITableToDisplay[];
+    editedData: ITableToDisplay[] = [];
+    editMode: boolean = false;
     public headerName: IHeaderName[] = [];
 
     constructor(
         protected widgetService: WidgetService,
+        public apsService: ApsService,
         @Inject('isMock') public isMock: boolean,
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string
@@ -38,75 +43,65 @@ export class ApsOperatingModesComponent extends WidgetPlatform<unknown> implemen
 
     ngOnInit(): void {
         super.widgetInit();
-        this.tableToDisplay = [
-            {
-                name1: 'PoolAS6DZ_W1',
-                name2: '<W1',
-                name3: 'ФР.БЕН.НК-195',
-                name4: 'SPG15',
-                name5: 'Плот. при 15 °С',
-                name6: '43 966.0',
-                name7: '43 966.0',
-                name8: '0',
-            },
-            {
-                name1: 'PoolAS6DZ_W1',
-                name2: '<W1',
-                name3: 'ФР.БЕН.НК-195',
-                name4: 'SPG15',
-                name5: 'Плот. при 15 °С',
-                name6: '43 966.0',
-                name7: '43 966.0',
-                name8: '0',
-            },
-            {
-                name1: 'PoolAS6DZ_W1',
-                name2: '<W1',
-                name3: 'ФР.БЕН.НК-195',
-                name4: 'SPG15',
-                name5: 'Плот. при 15 °С',
-                name6: '43 966.0',
-                name7: '43 966.0',
-                name8: '0',
-            },
-            {
-                name1: 'PoolAS6DZ_W1',
-                name2: '<W1',
-                name3: 'ФР.БЕН.НК-195',
-                name4: 'SPG15',
-                name5: 'Плот. при 15 °С',
-                name6: '43 966.0',
-                name7: '43 966.0',
-                name8: '0',
-            },
-            {
-                name1: 'PoolAS6DZ_W1',
-                name2: '<W1',
-                name3: 'ФР.БЕН.НК-195',
-                name4: 'SPG15',
-                name5: 'Плот. при 15 °С',
-                name6: '43 966.0',
-                name7: '43 966.0',
-                name8: '0',
+
+        this.apsService.showTable$.subscribe((res) => {
+            if (res !== null) {
+                res.body.forEach((str) => {
+                    Object.keys(str).forEach((x) => {
+                        str[x] = this.getParseValue(str[x]);
+                    });
+                });
+                this.data = res.body;
+                this.headerName = res.header;
+            } else {
+                this.data = [];
+                this.headerName = [];
             }
-        ];
-        this.headerName = [
-            {header: 'Название', id: '1'},
-            {header: 'Название', id: '2'},
-            {header: 'Название', id: '3'},
-            {header: 'Название', id: '4'},
-            {header: 'Название', id: '5'},
-            {header: 'Название', id: '6'},
-            {header: 'Название', id: '7'},
-            {header: 'Название', id: '8'},
-        ];
+        });
     }
 
     ngOnDestroy(): void {
         super.ngOnDestroy();
     }
 
-    protected dataHandler(ref: any): void {
-        // this.data = ref.chartItems;
+    protected dataHandler(ref: any): void {}
+
+    saveValues(): void {
+        // Должна быть отправка editedData, но пока просто очищается массив изменений
+        this.editedData = [];
+    }
+
+    discard(): void {
+        this.editMode = false;
+        this.editedData = [];
+    }
+
+    editValue(): void {
+        this.editMode = true;
+    }
+
+    onChangeValue(e: any, i: number, j: number): void {
+        if (this.editedData.find((item) => item.index === i)) {
+            this.editedData.find((item) => item.index === i)[j + 1] = e.target.value;
+        } else {
+            this.editedData.push({
+                index: i,
+            });
+            this.editedData.find((item) => item.index === i)[j + 1] = e.target.value;
+        }
+    }
+
+    getParseValue(value: string): string {
+        if (!isNaN(+value)) {
+            if (+value % 0.00001 !== 0) {
+                return (+value).toFixed(5);
+            }
+            return value;
+        }
+        const date = Date.parse(value);
+        if (isNaN(date)) {
+            return value;
+        }
+        return formatDate(date, 'yyyy-MM-dd | hh:mm', 'en');
     }
 }

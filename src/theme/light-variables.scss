@@ -164,6 +164,7 @@
   --color-aps-bg-window: #191c2a;
   --color-bg-row-header: #141928;
   --color-aps-table-td: #191c27;
+  --color-aps-bg-btns: rgba(48, 53, 73, 0.5);
 
 
   --color-aps-border-sup: #0e1320;
@@ -181,6 +182,7 @@
 
   --color-aps-active: #0089ff;
   --color-lco-trend-bg: rgb(28, 30, 39);
+  --color-aps-white: #ffffff;
 
   // APS Gantt
   --color-aps-timeLowerOrIncrease: 103, 58, 183;
@@ -221,6 +223,8 @@
   --color-kpe-text-main: #d7e2f2;
   --color-kpe-text-sub: #606580;
   --color-kpe-border-sub: #262a39;
+  --color-kpe-pasportize-text: #8c99b2;
+  --color-kpe-white: #ffffff;
 
   // KPE equalizer-chart
 
@@ -250,11 +254,23 @@
   --color-kpe-key-p-d-bg: rgb(23, 25, 37);
   --color-kpe-key-p-d-bg-d: rgb(20, 22, 33);
 
+  --color-kpe-table-select: #303549;
+  --color-kpe-table-danger: #FF1D25;
+  --color-kpe-deviation-warning: rgba(247, 147, 30, 0.2);
+  --color-kpe-deviation-danger: rgba(255, 29, 37, 0.2);
+
+
+
   // KPE energy
   --color-kpe-energy-diagram-bg: rgb(21, 23, 33);
 
   // KPE readiness
   --color-kpe-deviation-diagram-circle-bg: rgb(20, 22, 33);
+
+  // KPE pasportize
+  --color-kpe-shadow-1: rgba(0, 0, 0, 0.5);
+  --color-kpe-shadow-2: rgba(25, 28, 44, 0);
+  --color-kpe-line-diagram-bg: rgba(96, 101, 128, 0.25);
 
   // CD
   --color-cd-bg-component: #151a29;
@@ -419,13 +435,19 @@
   --astue-onpz-factory-analisys-bad: 162,226,255;
   --astue-onpz-factory-analisys-sum: 0,167,61;
 
+  --color-astue-onpz-factory-analisys-contrast: #FFFFFF;
+  --color-astue-onpz-factory-analisys-chart-card-bg: #272A38;
+
   --color-astue-onpz-mnemonic-furnace-box-text: #606580;
   --color-astue-onpz-mnemonic-furnace-main-text: #D7E2F2;
   --color-astue-onpz-mnemonic-furnace-sub-text: #8C99B2;
   --color-astue-onpz-mnemonic-furnace-unit-text: #606580;
   --color-astue-onpz-mnemonic-furnace-lines: #4B5169;
+  --color-astue-onpz-mnemonic-furnace-norm: #F7931E;
   --color-astue-onpz-mnemonic-furnace-warning: #F7931E;
+  --color-astue-onpz-mnemonic-furnace-warning-rgb: 247, 147, 30;
   --color-astue-onpz-mnemonic-furnace-active: #0089FF;
+  --color-astue-onpz-mnemonic-furnace-active-rgb: 0, 137, 255;
   --color-astue-onpz-mnemonic-furnace-item-bg: #272A38;
   --color-astue-onpz-mnemonic-furnace-item-bg-light: #303549;
   --color-astue-onpz-mnemonic-furnace-item-bg-dark: #1C1F2B;

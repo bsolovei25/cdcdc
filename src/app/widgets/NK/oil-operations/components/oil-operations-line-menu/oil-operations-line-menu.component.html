@@ -1,57 +1,58 @@
 <div style="height: 100%;">
-    <div class="title">
-        <div class="title__name">Работа с графиком</div>
+  <div class="title">
+    <div class="title__name">Работа с графиком</div>
+  </div>
+  <div class="content">
+    <div id="leftScrollLineMenu" class="scroll-block">
+      <div class="scroll-block__date">
+        <mat-form-field>
+          <label>Начало</label>
+          <input matInput [ngxMatDatetimePicker]="pickerD" [formControl]="dateFrom">
+          <mat-datepicker-toggle matSuffix [for]="pickerD">
+            <mat-icon matDatepickerToggleIcon>
+              <svg-icon src="assets/icons/widgets/reports/calend.svg"
+                        [svgStyle]="{ 'width.px':25, 'height.px':25}">
+              </svg-icon>
+            </mat-icon>
+          </mat-datepicker-toggle>
+          <ngx-mat-datetime-picker #pickerD>
+          </ngx-mat-datetime-picker>
+        </mat-form-field>
+      </div>
+      <div class="scroll-block__date">
+        <mat-form-field>
+          <label>Окончание</label>
+          <input matInput [ngxMatDatetimePicker]="pickerT" [formControl]="dateTo">
+          <mat-datepicker-toggle matSuffix [for]="pickerT">
+            <mat-icon matDatepickerToggleIcon>
+              <svg-icon src="assets/icons/widgets/reports/calend.svg"
+                        [svgStyle]="{ 'width.px':25, 'height.px':25}">
+              </svg-icon>
+            </mat-icon>
+          </mat-datepicker-toggle>
+          <ngx-mat-datetime-picker #pickerT>
+          </ngx-mat-datetime-picker>
+        </mat-form-field>
+      </div>
+      <!-- TODO нет понимания, какие файлы должны быть размещены -->
+      <!--<div class="scroll-block__file">
+          <div class="title-file">Файл</div>
+          <div class="pdf">
+              <svg-icon src="assets/icons/widgets/oil-control-all/oil-operations/pdf.svg"
+                  [svgStyle]="{ 'width.px':50, 'height.px':50, 'padding.px': 5 }"></svg-icon>
+          </div>
+          <div class="xls">
+              <svg-icon src="assets/icons/widgets/oil-control-all/oil-operations/xls.svg"
+                  [svgStyle]="{ 'width.px':50, 'height.px':50, 'padding.px': 5 }"></svg-icon>
+          </div>
+      </div>-->
     </div>
-    <div class="content">
-        <div id="leftScrollLineMenu" class="scroll-block">
-            <div class="scroll-block__date">
-                <mat-form-field>
-                    <label>Начало</label>
-                    <input matInput [ngxMatDatetimePicker]="pickerD" [value]="dateNow">
-                    <mat-datepicker-toggle matSuffix [for]="pickerD">
-                        <mat-icon matDatepickerToggleIcon>
-                            <svg-icon src="assets/icons/widgets/reports/calend.svg"
-                                [svgStyle]="{ 'width.px':25, 'height.px':25}">
-                            </svg-icon>
-                        </mat-icon>
-                    </mat-datepicker-toggle>
-                    <ngx-mat-datetime-picker #pickerD>
-                    </ngx-mat-datetime-picker>
-                </mat-form-field>
-            </div>
-            <div class="scroll-block__date">
-                <mat-form-field>
-                    <label>Окончание</label>
-                    <input matInput [ngxMatDatetimePicker]="pickerT" [value]="dateNow">
-                    <mat-datepicker-toggle matSuffix [for]="pickerT">
-                        <mat-icon matDatepickerToggleIcon >
-                            <svg-icon src="assets/icons/widgets/reports/calend.svg"
-                                [svgStyle]="{ 'width.px':25, 'height.px':25}">
-                            </svg-icon>
-                        </mat-icon>
-                    </mat-datepicker-toggle>
-                    <ngx-mat-datetime-picker #pickerT>
-                    </ngx-mat-datetime-picker>
-                </mat-form-field>
-            </div>
-            <div class="scroll-block__file">
-                <div class="title-file">Файл</div>
-                <div class="pdf">
-                    <svg-icon src="assets/icons/widgets/oil-control-all/oil-operations/pdf.svg"
-                        [svgStyle]="{ 'width.px':50, 'height.px':50, 'padding.px': 5 }"></svg-icon>
-                </div>
-                <div class="xls">
-                    <svg-icon src="assets/icons/widgets/oil-control-all/oil-operations/xls.svg"
-                        [svgStyle]="{ 'width.px':50, 'height.px':50, 'padding.px': 5 }"></svg-icon>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="bottom">
-        <div class="bottom__block">
-            <svg-icon src="assets/icons/widgets/oil-control-all/oil-operations/full-screen.svg"
+  </div>
+  <div class="bottom">
+    <div class="bottom__block">
+      <svg-icon src="assets/icons/widgets/oil-control-all/oil-operations/full-screen.svg"
                 class="add_button_icon" [svgStyle]="{ 'width.px':20, 'height.px':20 }">
-            </svg-icon>
-        </div>
+      </svg-icon>
     </div>
+  </div>
 </div>

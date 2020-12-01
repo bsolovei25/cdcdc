@@ -2,10 +2,14 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import {
     AstueOnpzConsumptionIndicatorsWidgetType,
-    AstueOnpzConsumptionIndicatorType
+    AstueOnpzConsumptionIndicatorType,
 } from '../astue-onpz-consumption-indicators/astue-onpz-consumption-indicators.component';
 import { IPlanningChart } from '../astue-onpz-planning-charts/astue-onpz-planning-charts.component';
-import { IMultiChartLine } from '../../../dashboard/models/ASTUE-ONPZ/astue-onpz-multi-chart.model';
+import {
+    IMultiChartData,
+    IMultiChartLine,
+    IMultiChartTransfer,
+} from '../../../dashboard/models/ASTUE-ONPZ/astue-onpz-multi-chart.model';
 import { HttpClient } from '@angular/common/http';
 import { AppConfigService } from '@core/service/app-config.service';
 
@@ -41,16 +45,18 @@ export interface IAstueOnpzColors {
 }
 
 @Injectable({
-    providedIn: 'root'
+    providedIn: 'root',
 })
 export class AstueOnpzService {
-    private indicatorOptions$: BehaviorSubject<IAstueOnpzMonitoringCarrierOptions> = new BehaviorSubject({
+    private indicatorOptions$: BehaviorSubject<
+        IAstueOnpzMonitoringCarrierOptions
+    > = new BehaviorSubject({
         manufactureName: null,
         unitName: null,
         itemId: null,
         filterValues: null,
         type: null,
-        indicatorType: null
+        indicatorType: null,
     });
 
     private restUrl: string;
@@ -59,37 +65,43 @@ export class AstueOnpzService {
         manufactureName: null,
         unitName: null,
         type: null,
-        indicatorType: null
+        indicatorType: null,
     });
 
-    public multilineChartIndicatorTitle$: BehaviorSubject<string> =
-        new BehaviorSubject<string>('');
+    public multilineChartIndicatorTitle$: BehaviorSubject<string> = new BehaviorSubject<string>('');
 
-    public predictorsOptions$: BehaviorSubject<IAstueOnpzPredictorsOptions> = new BehaviorSubject(null);
+    public predictorsOptions$: BehaviorSubject<IAstueOnpzPredictorsOptions> = new BehaviorSubject(
+        null
+    );
 
-    public colors$: BehaviorSubject<Map<string, number>> =
-        new BehaviorSubject<Map<string, number>>(new Map());
+    public colors$: BehaviorSubject<Map<string, number>> = new BehaviorSubject<Map<string, number>>(
+        new Map()
+    );
     private colors: number = 6;
 
-    public sharedMonitoringOptions: Observable<IAstueOnpzMonitoringOptions> =
-        this.monitoringOptions$.asObservable();
+    public sharedMonitoringOptions: Observable<
+        IAstueOnpzMonitoringOptions
+    > = this.monitoringOptions$.asObservable();
 
-    public sharedIndicatorOptions: Observable<IAstueOnpzMonitoringCarrierOptions> =
-        this.indicatorOptions$.asObservable();
+    public sharedIndicatorOptions: Observable<
+        IAstueOnpzMonitoringCarrierOptions
+    > = this.indicatorOptions$.asObservable();
 
     public sharedPlanningGraph$: BehaviorSubject<IPlanningChart> = new BehaviorSubject(null);
 
-    private multiLinePredictorsChart$: BehaviorSubject<IMultiChartLine[]> =
-        new BehaviorSubject<IMultiChartLine[]>(null);
+    private multiLinePredictorsChart$: BehaviorSubject<IMultiChartLine[]> = new BehaviorSubject<
+        IMultiChartLine[]
+    >(null);
+
+    public multilineChartTransfer: BehaviorSubject<IMultiChartTransfer> = new BehaviorSubject<
+        IMultiChartTransfer
+    >(null);
 
     get multiLinePredictors(): Observable<IMultiChartLine[]> {
         return this.multiLinePredictorsChart$.asObservable();
     }
 
-    constructor(
-        private http: HttpClient,
-        private configService: AppConfigService
-    ) {
+    constructor(private http: HttpClient, private configService: AppConfigService) {
         this.restUrl = configService.restUrl;
     }
 
@@ -162,7 +174,10 @@ export class AstueOnpzService {
 
     public updateType(typeParam: AstueOnpzConsumptionIndicatorsWidgetType): void {
         this.nextMonitoringOptions<AstueOnpzConsumptionIndicatorsWidgetType>('type', typeParam);
-        this.nextMonitoringCarrierOptions<AstueOnpzConsumptionIndicatorsWidgetType>('type', typeParam);
+        this.nextMonitoringCarrierOptions<AstueOnpzConsumptionIndicatorsWidgetType>(
+            'type',
+            typeParam
+        );
     }
 
     public updateIndicator(
@@ -181,15 +196,15 @@ export class AstueOnpzService {
             ...this.monitoringOptions$.value,
             ...{
                 indicatorType: indicatorTypeParam,
-                type: typeParam
-            }
+                type: typeParam,
+            },
         });
         this.indicatorOptions$.next({
             ...this.indicatorOptions$.value,
             ...{
                 indicatorType: indicatorTypeParam,
-                type: typeParam
-            }
+                type: typeParam,
+            },
         });
     }
 
@@ -236,7 +251,7 @@ export class AstueOnpzService {
         try {
             return await this.http
                 .post<void>(`${this.restUrl}/api/predictor/predict`, {
-                    unitId: unitIdValue
+                    unitId: unitIdValue,
                 })
                 .toPromise();
         } catch (e) {
@@ -245,14 +260,19 @@ export class AstueOnpzService {
         }
     }
 
-    public async getProductChannels(widgetId: string, options: IAstueOnpzMonitoringOptions): Promise<string[]> {
+    public async getProductChannels(
+        widgetId: string,
+        options: IAstueOnpzMonitoringOptions
+    ): Promise<string[]> {
         try {
-        const response = await this.http
-            .get<{id: string, sortIndex: number}[]>(`${this.restUrl}/api/widget-data/${widgetId}/sub-channels?UnitName=${options.unitName}&ManufactureName=${options.manufactureName}&Type=${options.type}&TypeValue=${options.indicatorType}`)
-            .toPromise();
-        response.sort((a, b) => a.sortIndex > b.sortIndex ? 1 : -1);
-        console.log('sort', response);
-        return response?.map(x => x.id) ?? [];
+            const response = await this.http
+                .get<{ id: string; sortIndex: number }[]>(
+                    `${this.restUrl}/api/widget-data/${widgetId}/sub-channels?UnitName=${options.unitName}&ManufactureName=${options.manufactureName}&Type=${options.type}&TypeValue=${options.indicatorType}`
+                )
+                .toPromise();
+            response.sort((a, b) => (a.sortIndex > b.sortIndex ? 1 : -1));
+            console.log('sort', response);
+            return response?.map((x) => x.id) ?? [];
         } catch {}
     }
 }

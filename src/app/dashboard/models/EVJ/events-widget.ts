@@ -22,6 +22,7 @@ export interface IEventsWidgetNotificationPreview {
     severity: 'nonCritical' | 'critical';
     description: string;
     sortIndex: number;
+    sortIndexes: { type: string; value: number }[];
     iconUrl?: string;
     statusName?: string;
     iconUrlStatus?: string;
@@ -305,6 +306,7 @@ export interface ISubcategory {
     name?: string;
     code?: string;
     description?: string;
+    isCanBeManuallySelected?: boolean;
     parentCategory: EventsWidgetCategory;
     parentCategoryId: number;
 }

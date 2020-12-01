@@ -1,5 +1,12 @@
 import { IChartMini, IChartD3 } from '@shared/models/smart-scroll.model';
 
+export interface IMultiChartTransfer {
+    type: IMultiChartTransferType;
+    isEconomy: boolean;
+}
+
+export type IMultiChartTransferType = 'deviation' | 'limit';
+
 export interface IMultiChartLine {
     graphType: IMultiChartTypes;
     units?: string;
@@ -23,5 +30,6 @@ export type IMultiChartTypes =
     | 'heatExchanger'
     | 'volume'
     | 'pressure'
+    | 'border'
     | 'higherBorder'
     | 'lowerBorder';

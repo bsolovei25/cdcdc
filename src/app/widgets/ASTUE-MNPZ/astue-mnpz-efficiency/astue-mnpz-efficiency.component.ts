@@ -35,7 +35,7 @@ export class AstueMnpzEfficiencyComponent extends WidgetPlatform<unknown>
 
     constructor(
         protected widgetService: WidgetService,
-        private AsEfService: AstueEfficiencyService,
+        private astueEfficiencyService: AstueEfficiencyService,
         @Inject('isMock') public isMock: boolean,
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string
@@ -46,7 +46,7 @@ export class AstueMnpzEfficiencyComponent extends WidgetPlatform<unknown>
     public ngOnInit(): void {
         super.widgetInit();
         this.subscriptions.push(
-            this.AsEfService.selectionFlow$.subscribe((value) => {
+            this.astueEfficiencyService.selectionFlow$.subscribe((value) => {
                 this.initialData = [];
                 value?.forEach((flow) => {
                     if (flow?.initialData) {
@@ -54,7 +54,7 @@ export class AstueMnpzEfficiencyComponent extends WidgetPlatform<unknown>
                     }
                 });
             }),
-            this.AsEfService.unitsTablePlanning$.subscribe((value) => {
+            this.astueEfficiencyService.unitsTablePlanning$.subscribe((value) => {
                 this.tableDisplay = value;
             })
         );
@@ -64,7 +64,7 @@ export class AstueMnpzEfficiencyComponent extends WidgetPlatform<unknown>
         super.ngOnDestroy();
     }
 
-    protected dataHandler(ref: any): void {
+    protected dataHandler(ref: { products: IAsEfProduct[] }): void {
         this.data = ref.products;
         this.isLoading = false;
     }
@@ -75,13 +75,13 @@ export class AstueMnpzEfficiencyComponent extends WidgetPlatform<unknown>
 
     public toggleIsInitialDataShows(): void {
         this.isInitialDataShow = !this.isInitialDataShow;
-        this.AsEfService.selectionFlow$.next([]);
-        this.AsEfService.selectionUnit$.next([]);
+        this.astueEfficiencyService.selectionFlow$.next([]);
+        this.astueEfficiencyService.selectionUnit$.next([]);
     }
 
-    public onSelectProduct(name: string): void {
-        const product = this.data.find((item) => item.name === name);
-        this.units = product.units;
+    public onSelectProduct(id: string): void {
+        const product = this.data.find((item) => item.id === id);
+        this.units = product?.units;
         this.selection.select(product);
     }
 }

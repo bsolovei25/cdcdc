@@ -1,0 +1,22 @@
+<div class="container">
+  <div
+    class="toggle-container"
+    [class.toggle-container__active]="page === 'loading'"
+    (click)="changePage.emit('loading')"
+    (mousedown)="$event.stopPropagation()"
+    (touchstart)="$event.stopPropagation()"
+  >
+    <svg-icon src="assets/icons/widgets/KPE/kpe-table/chart_dots.svg"></svg-icon>
+    <span> Загрузки установок </span>
+  </div>
+  <div
+    class="toggle-container"
+    [class.toggle-container__active]="page === 'development'"
+    (click)="changePage.emit('development')"
+    (mousedown)="$event.stopPropagation()"
+    (touchstart)="$event.stopPropagation()"
+  >
+    <svg-icon src="assets/icons/widgets/KPE/kpe-table/chart_squares.svg"></svg-icon>
+    <span> Выработка компонентов </span>
+  </div>
+</div>

@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { IAstueOnpzFactoryAnalysisGroup } from '../../../../../dashboard/models/ASTUE-ONPZ/astue-onpz-factory-analysis.model';
+import { IAstueOnpzFactoryAnalysisGroup } from '../../../../../../dashboard/models/ASTUE-ONPZ/astue-onpz-factory-analysis.model';
 
 @Component({
     selector: 'evj-astue-onpz-factory-analysis-group',

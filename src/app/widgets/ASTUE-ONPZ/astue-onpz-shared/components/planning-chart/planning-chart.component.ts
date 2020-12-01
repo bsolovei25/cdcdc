@@ -1,11 +1,12 @@
 import {
     Component,
-    ElementRef, EventEmitter,
+    ElementRef,
+    EventEmitter,
     HostListener,
     Input,
     OnChanges,
     Output,
-    ViewChild
+    ViewChild,
 } from '@angular/core';
 import * as d3Selection from 'd3-selection';
 import * as d3 from 'd3';
@@ -19,6 +20,7 @@ import { fillDataArrayChart } from '@shared/functions/fill-data-array.function';
 import { newArray } from '@angular/compiler/src/util';
 import { IDatesInterval, WidgetService } from '../../../../../dashboard/services/widget.service';
 import { dateFormatLocale } from '@shared/functions/universal-time-fromat.function';
+import { findCursorPosition } from '@shared/functions/find-cursor-position.function';
 
 @Component({
     selector: 'evj-planning-chart',
@@ -26,8 +28,7 @@ import { dateFormatLocale } from '@shared/functions/universal-time-fromat.functi
     styleUrls: ['./planning-chart.component.scss'],
 })
 export class PlanningChartComponent implements OnChanges {
-
-    @Input() private scroll: { left: number, right: number } = { left: 0, right: 0 };
+    @Input() private scroll: { left: number; right: number } = { left: 0, right: 0 };
     @Input() private data: IProductionTrend[] = [];
     @Input() private isSpline: boolean = true;
     @Input() private isWithPicker: boolean = false;
@@ -84,7 +85,7 @@ export class PlanningChartComponent implements OnChanges {
         } else {
             this.dropChart();
         }
-        this.scrollData.emit(this.data?.find(x => x.graphType === 'fact')?.graph ?? []);
+        this.scrollData.emit(this.data?.find((x) => x.graphType === 'fact')?.graph ?? []);
     }
 
     public changeScale(isPlus: boolean): void {
@@ -120,10 +121,12 @@ export class PlanningChartComponent implements OnChanges {
         const currentDatetime = new Date();
         currentDatetime.setMinutes(0, 0, 0);
         this.dateTimeInterval = newArray(2);
-        this.dateTimeInterval[0] = new Date(currentDatetime.getTime() -
-            1000 * 60 * 60 * this.intervalHours[0]);
-        this.dateTimeInterval[1] = new Date(currentDatetime.getTime() +
-            1000 * 60 * 60 * this.intervalHours[1]);
+        this.dateTimeInterval[0] = new Date(
+            currentDatetime.getTime() - 1000 * 60 * 60 * this.intervalHours[0]
+        );
+        this.dateTimeInterval[1] = new Date(
+            currentDatetime.getTime() + 1000 * 60 * 60 * this.intervalHours[1]
+        );
     }
 
     private initData(): void {
@@ -162,7 +165,7 @@ export class PlanningChartComponent implements OnChanges {
             item.graph = fillDataArrayChart(
                 item.graph,
                 this.dateTimeInterval[0].getTime(),
-                this.dateTimeInterval[1].getTime(),
+                this.dateTimeInterval[1].getTime()
             );
         });
     }
@@ -176,7 +179,9 @@ export class PlanningChartComponent implements OnChanges {
             minDate.push(d3.min(graph.graph, (item: IChartMini) => item.timeStamp));
         });
 
-        [this.dataMin, this.dataMax] = d3.extent(this.data.flatMap((x) => x.graph).map((x) => x.value));
+        [this.dataMin, this.dataMax] = d3.extent(
+            this.data.flatMap((x) => x.graph).map((x) => x.value)
+        );
         this.dataMin -= (this.dataMax - this.dataMin) * this.deltaCf;
         this.dataMax += (this.dataMax - this.dataMin) * this.deltaCf;
         this.dateMax = d3.max(maxDate);
@@ -188,8 +193,8 @@ export class PlanningChartComponent implements OnChanges {
         const rangeX = [this.padding.left, this.graphMaxX - this.padding.right];
         const deltaDomainDates = domainDates[1].getTime() - domainDates[0].getTime();
         domainDates = [
-            new Date(domainDates[0].getTime() + this.scroll.left / 100 * deltaDomainDates),
-            new Date(domainDates[1].getTime() - this.scroll.right / 100 * deltaDomainDates),
+            new Date(domainDates[0].getTime() + (this.scroll.left / 100) * deltaDomainDates),
+            new Date(domainDates[1].getTime() - (this.scroll.right / 100) * deltaDomainDates),
         ];
 
         this.scaleFuncs.x = d3
@@ -324,7 +329,8 @@ export class PlanningChartComponent implements OnChanges {
         const pointsG = this.svg.append('g').attr('class', 'chart-points');
         const item = this.chartData
             .find((x) => x.graphType === 'fact')
-            ?.graph.filter((x) => x.x < this.scaleFuncs.x(new Date())).slice(-1)[0];
+            ?.graph.filter((x) => x.x < this.scaleFuncs.x(new Date()))
+            .slice(-1)[0];
         if (item) {
             const g = pointsG.append('g').attr('class', 'fact-point');
             let r = 9;
@@ -404,25 +410,37 @@ export class PlanningChartComponent implements OnChanges {
 
     private customizeAreas(): void {
         const fact = this.data.find((item) => item.graphType === 'fact')?.graph ?? [];
-        const higher = this.data.find((item) => item.graphType === 'higherBorder')?.graph ?? [];
-        const lower = this.data.find((item) => item.graphType === 'lowerBorder')?.graph ?? [];
-        fact.forEach((val, idx) => {
-            if (higher[idx] && higher[idx].value < val.value) {
-                this.svg
-                    .select('path.graph-line-higherBorder')
-                    .attr('class', 'graph-line-higherBorder graph-line_warning');
-                this.svg
-                    .select('path.graph-area-higherBorder')
-                    .attr('class', 'graph-area-higherBorder graph-area_warning');
-            } else if (lower[idx] && lower[idx].value > val.value) {
-                this.svg
-                    .select('path.graph-line-lowerBorder')
-                    .attr('class', 'graph-line-lowerBorder graph-line_normal');
-                this.svg
-                    .select('path.graph-area-lowerBorder')
-                    .attr('class', 'graph-area-lowerBorder graph-area_normal');
-            }
-        });
+        const getBorderValue = (type: 'higherBorder' | 'lowerBorder'): number => {
+            return this.scaleFuncs.y.invert(
+                findCursorPosition(
+                    this.scaleFuncs.x(fact[fact.length - 1]?.timeStamp),
+                    type,
+                    this.svg,
+                    this.padding
+                )?.y
+            );
+        };
+
+        const hbValue = getBorderValue('higherBorder');
+        const lbValue = getBorderValue('lowerBorder');
+
+        let deviationType: 'warning' | 'normal' = null;
+        const eps = 0.001;
+        if (fact[fact.length - 1].value - hbValue > eps) {
+            deviationType = 'warning';
+        } else if (lbValue - fact[fact.length - 1].value > eps) {
+            deviationType = 'normal';
+        }
+
+        if (deviationType) {
+            const border = deviationType === 'warning' ? 'higher' : 'lower';
+            this.svg
+                .select(`path.graph-line-${border}Border`)
+                .attr('class', `graph-line-${border}Border graph-line_${deviationType}`);
+            this.svg
+                .select(`path.graph-area-${border}Border`)
+                .attr('class', `graph-area-${border}Border graph-area_${deviationType}`);
+        }
     }
 
     private drawFutureRect(): void {
@@ -431,9 +449,10 @@ export class PlanningChartComponent implements OnChanges {
         }
         const currentDatetime: Date = new Date();
         currentDatetime.setMinutes(0, 0, 0);
-        const fact = this.chartData
-            .find((chart) => chart.graphType === 'fact')
-            ?.graph.filter((f) => f.x <= this.scaleFuncs.x(new Date())) ?? [];
+        const fact =
+            this.chartData
+                .find((chart) => chart.graphType === 'fact')
+                ?.graph.filter((f) => f.x <= this.scaleFuncs.x(new Date())) ?? [];
         const x = fact[fact.length - 1]?.x;
         const y = this.padding.top;
         const y2 = this.graphMaxY - this.padding.bottom;
