@@ -34,6 +34,7 @@ import { FileAttachMenuService } from '../../file-attach-menu.service';
 import { IChatMessageWithAttachments } from '../../../../widgets/EVJ/events-workspace/components/chat/chat.component';
 import { ClaimService, EnumClaimGlobal } from '../../claim.service';
 import { log } from 'util';
+import { B } from '@angular/cdk/keycodes';
 
 @Injectable({
     providedIn: 'root',
@@ -65,7 +66,11 @@ export class EventsWorkspaceService {
     //#region REFERENCES
     public priority: IPriority[] = [];
     public status: IStatus[] = [];
-    public subCategory: ISubcategory[] = [];
+    public subCategory$: BehaviorSubject<ISubcategory[]> = new BehaviorSubject<ISubcategory[]>([]);
+    public subCategoryFilter: Observable<ISubcategory[]> = this.subCategory$.asObservable().pipe(
+        filter((item) => item !== null),
+        map((cs) => cs.filter((c) => c.isCanBeManuallySelected))
+    );
     public users: IUser[] = [];
     public category: ICategory[] = [];
     public equipmentCategory: ICategory[] = [];
@@ -156,6 +161,14 @@ export class EventsWorkspaceService {
                 (x) => x === EnumClaimGlobal.EventsChangeCategory
             )
         );
+    }
+
+    get subCategory(): ISubcategory[] {
+        return this.subCategory$.getValue();
+    }
+
+    set subCategory(value: ISubcategory[]) {
+        this.subCategory$.next([...value]);
     }
 
     constructor(

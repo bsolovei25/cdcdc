@@ -20,77 +20,80 @@ svg {
 }
 
 ::ng-deep {
-  .circle {
-    fill: var(--color-bg-main);
-    &_plan {
-      stroke: $color-diagram-active;
-    }
-    &_fact {
-      stroke: white;
-    }
-  }
 
-  .line {
-    fill: none;
-    stroke-width: 1;
-    &__plan {
-      stroke: rgb(var(--astue-onpz-factory-analisys-norm));
+  .astue-onpz-factory-analysis-chart-svg {
+    .circle {
+      fill: var(--color-bg-main);
+      &_plan {
+        stroke: $color-diagram-active;
+      }
+      &_fact {
+        stroke: white;
+      }
     }
-    &__fact {
+
+    .month-threshold {
+      fill: var(--astue-onpz-factory-analisys-label);
+    }
+
+    .line {
+      fill: none;
+      stroke-width: 1;
+      &__plan {
+        stroke: rgb(var(--astue-onpz-factory-analisys-norm));
+      }
+      &__fact {
+        stroke: var(--color-astue-onpz-factory-analisys-contrast);
+      }
+      &__higher-border {
+        stroke: var(--astue-onpz-factory-analisys-grid);
+        stroke-width: 2;
+        stroke-dasharray: 5 5;
+      }
+      &__lower-border {
+        stroke: var(--astue-onpz-factory-analisys-grid);
+        stroke-width: 2;
+        stroke-dasharray: 5 5;
+      }
+      &__threshold {
+        stroke: var(--color-cd-bg-border-sub);
+      }
+    }
+
+    .graph-area {
+      fill: rgba(96, 101, 128, .1);
+    }
+
+    .circle {
       stroke: var(--color-astue-onpz-factory-analisys-contrast);
     }
-    &__higher-border {
-      stroke: var(--astue-onpz-factory-analisys-grid);
-      stroke-width: 2;
-      stroke-dasharray: 5 5;
-    }
-    &__lower-border {
-      stroke: var(--astue-onpz-factory-analisys-grid);
-      stroke-width: 2;
-      stroke-dasharray: 5 5;
-    }
-    &__threshold {
-      stroke: var(--color-cd-bg-border-sub);
-    }
-  }
 
-  .graph-area {
-    fill: rgba(96, 101, 128, .1);
-  }
+    .axis {
 
-  .circle {
-    stroke: var(--color-astue-onpz-factory-analisys-contrast);
-  }
+      .month-text {
+        fill: white;
+      }
 
-  .axis {
-
-    .month-text {
-      fill: white;
+      text {
+        fill: var(--astue-onpz-factory-analisys-label);
+        font-size: 11px;
+      }
     }
 
-    text {
-      fill: var(--astue-onpz-factory-analisys-label);
-      font-size: 11px;
-    }
-  }
-
-  .grid {
-    color: var(--color-astue-onpz-widget-border) !important;
-    stroke-width: 1;
-    opacity: .5;
-    fill: none;
-
-    &__background {
-      fill: #121510;
-      opacity: .25;
-    }
-
-    path {
+    .grid {
+      color: var(--color-astue-onpz-widget-border) !important;
+      stroke-width: 1;
+      opacity: .5;
       fill: none;
-    }
-  }
 
-  .month-threshold {
-    fill: var(--astue-onpz-factory-analisys-label);
+      &__background {
+        fill: #121510;
+        opacity: .25;
+      }
+
+      path {
+        fill: none;
+      }
+    }
   }
 }

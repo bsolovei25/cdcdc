@@ -66,7 +66,6 @@ export class AstueMnpzEfficiencyComponent extends WidgetPlatform<unknown>
 
     protected dataHandler(ref: { products: IAsEfProduct[] }): void {
         this.data = ref.products;
-        console.log(ref.products);
         this.isLoading = false;
     }
 
@@ -82,7 +81,7 @@ export class AstueMnpzEfficiencyComponent extends WidgetPlatform<unknown>
 
     public onSelectProduct(id: string): void {
         const product = this.data.find((item) => item.id === id);
-        this.units = product.units;
+        this.units = product?.units;
         this.selection.select(product);
     }
 }
