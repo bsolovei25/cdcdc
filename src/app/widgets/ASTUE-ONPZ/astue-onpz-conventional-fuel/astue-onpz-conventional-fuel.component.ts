@@ -1,32 +1,26 @@
 import { Component, OnInit, OnDestroy, Inject } from '@angular/core';
 import { WidgetPlatform } from '../../../dashboard/models/@PLATFORM/widget-platform';
 import { IDatesInterval, WidgetService } from '../../../dashboard/services/widget.service';
-import {
-    IMultiChartLine,
-    IMultiChartTypes
-} from '../../../dashboard/models/ASTUE-ONPZ/astue-onpz-multi-chart.model';
+import { IMultiChartLine } from '../../../dashboard/models/ASTUE-ONPZ/astue-onpz-multi-chart.model';
 import { UserSettingsService } from '../../../dashboard/services/user-settings.service';
-import {
-    AstueOnpzService
-} from '../astue-onpz-shared/astue-onpz.service';
+import { AstueOnpzService } from '../astue-onpz-shared/astue-onpz.service';
 import { IMultiChartOptions } from './components/astue-onpz-multi-chart/astue-onpz-multi-chart.component';
-import { HttpClient } from '@angular/common/http';
 import { IChartMini } from '@shared/models/smart-scroll.model';
 
 @Component({
     selector: 'evj-astue-onpz-conventional-fuel',
     templateUrl: './astue-onpz-conventional-fuel.component.html',
-    styleUrls: ['./astue-onpz-conventional-fuel.component.scss']
+    styleUrls: ['./astue-onpz-conventional-fuel.component.scss'],
 })
-export class AstueOnpzConventionalFuelComponent extends WidgetPlatform implements OnInit, OnDestroy {
-
+export class AstueOnpzConventionalFuelComponent extends WidgetPlatform
+    implements OnInit, OnDestroy {
     public data: IMultiChartLine[] = [];
     public colors: Map<string, number>;
     public unitName: string = '';
 
     public isPredictors: boolean = false;
     public options: IMultiChartOptions = {
-        isIconsShowing: false
+        isIconsShowing: false,
     };
 
     public sbWidth: number = 100;
@@ -55,23 +49,8 @@ export class AstueOnpzConventionalFuelComponent extends WidgetPlatform implement
     public ngOnInit(): void {
         this.widgetInit();
         this.subscriptions.push(
-            this.widgetService.currentDates$.subscribe((ref) => this.scrollLimits = ref)
+            this.widgetService.currentDates$.subscribe((ref) => (this.scrollLimits = ref))
         );
-        // this.http
-        //     .get('assets/mock/ASTUE-ONPZ/multiline-chart-plant.mock.json')
-        //     .subscribe((data: any) => {
-        //         data.data.graphs.forEach((item: IMultiChartLine) => {
-        //             item.graphType = (item as any).multiChartTypes;
-        //             item.graph.forEach((val) => {
-        //                 val.timeStamp = new Date(val.timeStamp);
-        //             });
-        //         });
-        //         // data.data.graphs = data.data.graphs.filter(
-        //         //     (item: IMultiChartLine) => item.graphType === 'fact'
-        //         // );
-        //         this.data = data.data.graphs;
-        //         console.log('mock-data:', data.data);
-        //     });
     }
 
     protected dataConnect(): void {
@@ -109,6 +88,7 @@ export class AstueOnpzConventionalFuelComponent extends WidgetPlatform implement
         this.astueOnpzService.dropDataStream();
         this.astueOnpzService.sharedPlanningGraph$.next(null);
         this.astueOnpzService.multilineChartIndicatorTitle$.next('');
+        this.astueOnpzService.multilineChartTransfer.next(null);
     }
 
     protected dataHandler(ref: { graphs: IMultiChartLine[] }): void {

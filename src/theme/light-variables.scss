@@ -167,7 +167,6 @@
   --color-aps-bg-btns: rgba(48, 53, 73, 0.5);
 
 
-
   --color-aps-border-sup: #0e1320;
 
   --color-aps-border-main: rgba(94, 101, 130, 0.25);
@@ -224,6 +223,8 @@
   --color-kpe-text-main: #d7e2f2;
   --color-kpe-text-sub: #606580;
   --color-kpe-border-sub: #262a39;
+  --color-kpe-pasportize-text: #8c99b2;
+  --color-kpe-white: #ffffff;
 
   // KPE equalizer-chart
 
@@ -253,11 +254,23 @@
   --color-kpe-key-p-d-bg: rgb(23, 25, 37);
   --color-kpe-key-p-d-bg-d: rgb(20, 22, 33);
 
+  --color-kpe-table-select: #303549;
+  --color-kpe-table-danger: #FF1D25;
+  --color-kpe-deviation-warning: rgba(247, 147, 30, 0.2);
+  --color-kpe-deviation-danger: rgba(255, 29, 37, 0.2);
+
+
+
   // KPE energy
   --color-kpe-energy-diagram-bg: rgb(21, 23, 33);
 
   // KPE readiness
   --color-kpe-deviation-diagram-circle-bg: rgb(20, 22, 33);
+
+  // KPE pasportize
+  --color-kpe-shadow-1: rgba(0, 0, 0, 0.5);
+  --color-kpe-shadow-2: rgba(25, 28, 44, 0);
+  --color-kpe-line-diagram-bg: rgba(96, 101, 128, 0.25);
 
   // CD
   --color-cd-bg-component: #151a29;
