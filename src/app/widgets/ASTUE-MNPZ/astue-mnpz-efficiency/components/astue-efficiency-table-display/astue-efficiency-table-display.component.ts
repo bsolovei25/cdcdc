@@ -161,8 +161,8 @@ export class AstueEfficiencyTableDisplayComponent implements OnInit, OnChanges, 
             .flatMap((x) => x.rows)
             .sort(
                 (a, b) =>
-                    +(this.dates?.length < b.values?.length) -
-                    +(this.dates?.length < a.values?.length)
+                    +(this.dates?.length < b?.values?.length) -
+                    +(this.dates?.length < a?.values?.length)
             )[0]?.values;
     }
 
@@ -178,13 +178,15 @@ export class AstueEfficiencyTableDisplayComponent implements OnInit, OnChanges, 
     private defineSum(): void {
         this.displayData.forEach((item) => {
             if (item.header?.values) {
-                item.header.dataSummary = item.header.values.reduce(
-                    (acc, val) => acc + val.value,
+                item.header.dataSummary = item.header?.values.reduce(
+                    (acc, val) => acc + val?.value,
                     0
                 );
             }
-            item.rows.forEach((row) => {
-                row.dataSummary = row.values.reduce((acc, val) => acc + val.value, 0);
+            item?.rows?.forEach((row) => {
+                if (row?.dataSummary) {
+                    row.dataSummary = row?.values.reduce((acc, val) => acc + val?.value, 0);
+                }
             });
         });
     }
