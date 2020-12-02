@@ -3,8 +3,8 @@ import { WidgetPlatform } from '../../../dashboard/models/@PLATFORM/widget-platf
 import { WidgetService } from '../../../dashboard/services/widget.service';
 import { ApsService } from '../../../dashboard/services/widgets/APS/aps.service';
 import { IScenario } from '../../../dashboard/models/APS/aps-tables.model';
-
-export let sId: number = 186;
+import { IStructure } from '../aps-structure-id/aps-structure-id.component';
+import { structureList } from '../aps-structure-id/aps-structure-id-mock';
 
 @Component({
     selector: 'evj-aps-scenario-selection',
@@ -13,7 +13,9 @@ export let sId: number = 186;
 })
 export class ApsScenarioSelectionComponent extends WidgetPlatform<unknown>
     implements OnInit, OnDestroy {
-    public scenarios: IScenario[] = [null];
+    public scenarios: IScenario[] = [];
+    public data: IStructure[] = [];
+
     constructor(
         public apsService: ApsService,
         protected widgetService: WidgetService,
@@ -36,6 +38,7 @@ export class ApsScenarioSelectionComponent extends WidgetPlatform<unknown>
         const data = await this.apsService.getAllScenario();
         this.scenarios = data;
     }
+
     private async getCalculations(): Promise<void> {
         await this.apsService.getCalculate();
     }
@@ -43,7 +46,7 @@ export class ApsScenarioSelectionComponent extends WidgetPlatform<unknown>
         // this.getCalculations();
     }
     public getScenarioId(event: any): void {
-        sId = event.value.scenarioId;
+        this.apsService.selectScenario$.next(event.value);
     }
 
     protected dataHandler(ref: any): void {}

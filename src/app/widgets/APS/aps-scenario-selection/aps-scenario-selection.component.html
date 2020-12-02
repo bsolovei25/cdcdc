@@ -17,11 +17,12 @@
         </div>
         <mat-select
           class="dropdown__select"
-          [value]="scenarios[0]"
           (selectionChange)="getScenarioId($event)"
+          [value]="apsService.selectScenario$ | async"
         >
           <ng-container *ngFor="let scenario of scenarios">
-            <mat-option [value]="scenario">
+            <mat-option [value]="scenario"
+            >
               {{ scenario?.name }}
             </mat-option>
           </ng-container>
