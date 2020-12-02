@@ -20,11 +20,9 @@ export interface IHeaderName {
 }
 
 export interface IEditedData {
-    tableId: number;
+    tableId: string;
     columnId: number;
     value: number | string;
-    tableStruct: number;
-    scenarioId: number;
 }
 
 @Component({
@@ -86,6 +84,10 @@ export class ApsOperatingModesComponent extends WidgetPlatform<unknown>
 
     async saveValues(): Promise<any> {
        const res = await this.apsService.postReferenceBook(this.editedData, this.data);
+       this.editedData = [];
+       const newData = await this.apsService.getReferenceBook(this.apsService.tableStruct);
+       this.apsService.showTable$.next(newData);
+       this.editMode = false;
     }
 
     discard(): void {
@@ -98,15 +100,13 @@ export class ApsOperatingModesComponent extends WidgetPlatform<unknown>
     }
 
     onChangeValue(e: any, tableId: number, columnId: number): void {
-        if (this.editedData.find((item) => item.columnId === columnId && item.tableId === tableId)) {
-            this.editedData.find((item) => item.columnId === columnId && item.tableId === tableId).value = e.target.value;
+        if (this.editedData.find((item) => item.columnId === columnId && item.tableId === (+tableId).toFixed(0))) {
+            this.editedData.find((item) => item.columnId === columnId && item.tableId === (+tableId).toFixed(0)).value = e.target.value;
         } else {
             this.editedData.push({
-                tableId: +(+tableId).toFixed(0),
+                tableId: (+tableId).toFixed(0),
                 columnId,
                 value: e.target.value,
-                tableStruct: this.apsService.tableStruct,
-                scenarioId: this.apsService.scenarioId
             });
         }
     }
