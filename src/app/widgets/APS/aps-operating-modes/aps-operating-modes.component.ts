@@ -15,7 +15,16 @@ export interface ITableToDisplay {
 export interface IHeaderName {
     key: number;
     title: string;
+    isId?: boolean;
     writable?: boolean;
+}
+
+export interface IEditedData {
+    tableId: number;
+    columnId: number;
+    value: number | string;
+    tableStruct: number;
+    scenarioId: number;
 }
 
 @Component({
@@ -27,8 +36,9 @@ export class ApsOperatingModesComponent extends WidgetPlatform<unknown>
     implements OnInit, OnDestroy {
     public tableToDisplay: ITableToDisplay[] = [];
     data: ITableToDisplay[];
-    editedData: ITableToDisplay[] = [];
+    editedData: IEditedData[] = [];
     editMode: boolean = false;
+    idIndex: number;
     public headerName: IHeaderName[] = [];
 
     constructor(
@@ -45,6 +55,8 @@ export class ApsOperatingModesComponent extends WidgetPlatform<unknown>
         super.widgetInit();
 
         this.apsService.showTable$.subscribe((res) => {
+            this.data = [];
+            this.headerName = [];
             if (res !== null) {
                 res.body.forEach((str) => {
                     Object.keys(str).forEach((x) => {
@@ -52,7 +64,13 @@ export class ApsOperatingModesComponent extends WidgetPlatform<unknown>
                     });
                 });
                 this.data = res.body;
-                this.headerName = res.header;
+                res.header.forEach(item => {
+                    if (item?.isId) {
+                        this.idIndex = item.key;
+                    } else {
+                        this.headerName.push(item);
+                    }
+                });
             } else {
                 this.data = [];
                 this.headerName = [];
@@ -66,9 +84,8 @@ export class ApsOperatingModesComponent extends WidgetPlatform<unknown>
 
     protected dataHandler(ref: any): void {}
 
-    saveValues(): void {
-        // Должна быть отправка editedData, но пока просто очищается массив изменений
-        this.editedData = [];
+    async saveValues(): Promise<any> {
+       const res = await this.apsService.postReferenceBook(this.editedData, this.data);
     }
 
     discard(): void {
@@ -80,14 +97,17 @@ export class ApsOperatingModesComponent extends WidgetPlatform<unknown>
         this.editMode = true;
     }
 
-    onChangeValue(e: any, i: number, j: number): void {
-        if (this.editedData.find((item) => item.index === i)) {
-            this.editedData.find((item) => item.index === i)[j + 1] = e.target.value;
+    onChangeValue(e: any, tableId: number, columnId: number): void {
+        if (this.editedData.find((item) => item.columnId === columnId && item.tableId === tableId)) {
+            this.editedData.find((item) => item.columnId === columnId && item.tableId === tableId).value = e.target.value;
         } else {
             this.editedData.push({
-                index: i,
+                tableId: +(+tableId).toFixed(0),
+                columnId,
+                value: e.target.value,
+                tableStruct: this.apsService.tableStruct,
+                scenarioId: this.apsService.scenarioId
             });
-            this.editedData.find((item) => item.index === i)[j + 1] = e.target.value;
         }
     }
 

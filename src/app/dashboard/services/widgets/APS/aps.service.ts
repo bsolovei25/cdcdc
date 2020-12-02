@@ -3,9 +3,9 @@ import { AppConfigService } from '@core/service/app-config.service';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject } from 'rxjs';
 import { IScenario } from '../../../models/APS/aps-tables.model';
-import { ITable } from '../../../../widgets/APS/aps-operating-modes/aps-operating-modes.component';
+import { IEditedData, ITable, ITableToDisplay } from '../../../../widgets/APS/aps-operating-modes/aps-operating-modes.component';
 
-export const scenarioId: number = 186;
+
 
 @Injectable({
     providedIn: 'root'
@@ -13,6 +13,8 @@ export const scenarioId: number = 186;
 
 export class ApsService {
     private readonly restUrl: string;
+    public scenarioId: number = 186;
+    public tableStruct: number = 0;
     showTable$: BehaviorSubject<ITable> = new BehaviorSubject<ITable>(null);
 
     constructor(public http: HttpClient, configService: AppConfigService) {
@@ -28,14 +30,21 @@ export class ApsService {
     async getReferenceBook(table: number): Promise<ITable> {
         return this.http
             .get<ITable>(
-                this.restUrl + `/api/debugging-service-ApsService/ReferenceBook/${scenarioId}/${table}`
+                this.restUrl + `/api/debugging-service-ApsService/ReferenceBook/${this.scenarioId}/${table}`
             )
             .toPromise();
     }
+
+    async postReferenceBook(params: IEditedData[], data: ITableToDisplay[]): Promise<any> {
+        return await this.http
+            .post<IEditedData>(this.restUrl + `/api/debugging-service-ApsService/ReferenceBook/${this.scenarioId}/${this.tableStruct}`, params)
+            .toPromise();
+    }
+
     async getCalculate(): Promise<any> {
         return this.http
             .get<any>(
-                this.restUrl + `/api/debugging-service-ApsService/Json/unload/{scenarioId}/folder`
+                this.restUrl + `/api/debugging-service-ApsService/Json/unload/${this.scenarioId}/folder`
             )
             .toPromise();
     }
