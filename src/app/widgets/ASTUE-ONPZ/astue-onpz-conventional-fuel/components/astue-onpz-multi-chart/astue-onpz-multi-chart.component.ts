@@ -573,7 +573,6 @@ export class AstueOnpzMultiChartComponent implements OnInit, OnChanges, OnDestro
         const translateX: string = `translate(0,${this.graphMaxY - this.padding.bottom})`;
         drawLabels('axisX', translateX);
         const lastG = this.svg.selectAll('g.axisX g.tick')._groups[0].length - 1;
-        console.log(this.svg.selectAll('g.axisX g.tick')._groups[0]);
         this.svg.selectAll('g.axisX g.tick')._groups[0].forEach((g, idx) => {
             if (idx % 2) {
                 g.remove();
@@ -793,11 +792,10 @@ export class AstueOnpzMultiChartComponent implements OnInit, OnChanges, OnDestro
     }
 
     private drawMouseGroup(): void {
-        const height =
-            this.graphMaxY - this.padding.top + this.padding.top / 2 - this.padding.bottom - 2;
+        const height = this.graphMaxY - this.padding.top - this.padding.bottom;
         const width = this.graphMaxX - this.leftPadding - this.padding.right;
         const x = this.leftPadding;
-        const y = this.padding.top / 2;
+        const y = this.padding.top;
 
         // группа событий мыши
         const mouseG = this.svg
@@ -811,7 +809,7 @@ export class AstueOnpzMultiChartComponent implements OnInit, OnChanges, OnDestro
         mouseG
             .append('line')
             .attr('class', 'mouse-line')
-            .attr('y1', 5)
+            .attr('y1', 0)
             .attr('x1', 0)
             .attr('y2', height)
             .attr('x2', 0)
@@ -829,7 +827,7 @@ export class AstueOnpzMultiChartComponent implements OnInit, OnChanges, OnDestro
 
         // функция отвечающая за отрисовку вверхнего блока
         // this.drawMouseInfoGroup();
-        // this.newDrawMouseInfoGroup();
+        this.newDrawMouseInfoGroup();
 
         // область для прослушивания событий мыши
         const [[mouseListenArea]] = mouseG
@@ -846,75 +844,75 @@ export class AstueOnpzMultiChartComponent implements OnInit, OnChanges, OnDestro
     }
 
     private newDrawMouseInfoGroup(): void {
-        const g = this.svg
-            .select('g.mouse-over')
-            .append('g')
-            .attr('class', 'mouse-info');
-        // Прямоугольник вверху
-        g.append('rect')
-            .attr('x', 0)
-            .attr('y', -27)
-            .attr('width', 157)
-            .attr('height', 31)
-            .attr('rx', 5)
-            .attr('class', 'big-rect');
-        // Прямоугольник вверху над большим
-        g.append('rect')
-            .attr('x', 0)
-            .attr('y', -23)
-            .attr('width', 26)
-            .attr('height', 23)
-            .attr('rx', 5)
-            .attr('class', 'small-rect');
-        // Линия
-        g.append('line')
-            .attr('x1', 0)
-            .attr('y1', 5)
-            .attr('x2', 26)
-            .attr('y2', 5)
-            .attr('class', 'future-line future-line_hor');
-        // иконка на вверхнем блоке
-        g.append('image')
-            .attr(
-                'xlink:href',
-                'assets/icons/widgets/ASTUE-ONPZ/astue-onpz-conventional-fuel/poly.svg'
-            )
-            .attr('x', 0)
-            .attr('y', -20)
-            .attr('width', 20)
-            .attr('height', 18)
-            .attr('class', 'icon-rect');
-        // иконка на вверхнем блоке
-        g.append('image')
-            .attr(
-                'xlink:href',
-                'assets/icons/widgets/ASTUE-ONPZ/astue-onpz-conventional-fuel/poly.svg'
-            )
-            .attr('x', 0)
-            .attr('y', -18)
-            .attr('width', 20)
-            .attr('height', 14)
-            .attr('class', 'small-icon-rect');
-
-        // Значение Факта на вверхнем блоке
-        g.append('text')
-            .attr('text-anchor', 'end')
-            .attr('x', 0)
-            .attr('y', -7)
-            .attr('class', 'data-fact');
-
-        // Значение Плана на вверхнем блоке
-        g.append('text')
-            .attr('text-anchor', 'start')
-            .attr('x', 0)
-            .attr('y', -7)
-            .attr('class', 'data-plan');
-
-        g.append('text')
-            .attr('text-anchor', 'middle')
-            .attr('x', 0)
-            .attr('y', -31)
-            .attr('class', 'data-date mouse-graph-date');
+        // const g = this.svg
+        //     .select('g.mouse-over')
+        //     .append('g')
+        //     .attr('class', 'mouse-info');
+        // // Прямоугольник вверху
+        // g.append('rect')
+        //     .attr('x', 0)
+        //     .attr('y', -27)
+        //     .attr('width', 157)
+        //     .attr('height', 31)
+        //     .attr('rx', 5)
+        //     .attr('class', 'big-rect');
+        // // Прямоугольник вверху над большим
+        // g.append('rect')
+        //     .attr('x', 0)
+        //     .attr('y', -23)
+        //     .attr('width', 26)
+        //     .attr('height', 23)
+        //     .attr('rx', 5)
+        //     .attr('class', 'small-rect');
+        // // Линия
+        // g.append('line')
+        //     .attr('x1', 0)
+        //     .attr('y1', 5)
+        //     .attr('x2', 26)
+        //     .attr('y2', 5)
+        //     .attr('class', 'future-line future-line_hor');
+        // // иконка на вверхнем блоке
+        // g.append('image')
+        //     .attr(
+        //         'xlink:href',
+        //         'assets/icons/widgets/ASTUE-ONPZ/astue-onpz-conventional-fuel/poly.svg'
+        //     )
+        //     .attr('x', 0)
+        //     .attr('y', -20)
+        //     .attr('width', 20)
+        //     .attr('height', 18)
+        //     .attr('class', 'icon-rect');
+        // // иконка на вверхнем блоке
+        // g.append('image')
+        //     .attr(
+        //         'xlink:href',
+        //         'assets/icons/widgets/ASTUE-ONPZ/astue-onpz-conventional-fuel/poly.svg'
+        //     )
+        //     .attr('x', 0)
+        //     .attr('y', -18)
+        //     .attr('width', 20)
+        //     .attr('height', 14)
+        //     .attr('class', 'small-icon-rect');
+        //
+        // // Значение Факта на вверхнем блоке
+        // g.append('text')
+        //     .attr('text-anchor', 'end')
+        //     .attr('x', 0)
+        //     .attr('y', -7)
+        //     .attr('class', 'data-fact');
+        //
+        // // Значение Плана на вверхнем блоке
+        // g.append('text')
+        //     .attr('text-anchor', 'start')
+        //     .attr('x', 0)
+        //     .attr('y', -7)
+        //     .attr('class', 'data-plan');
+        //
+        // g.append('text')
+        //     .attr('text-anchor', 'middle')
+        //     .attr('x', 0)
+        //     .attr('y', -31)
+        //     .attr('class', 'data-date mouse-graph-date');
 
         const values = [];
         let plan: IChartMini;
@@ -948,56 +946,58 @@ export class AstueOnpzMultiChartComponent implements OnInit, OnChanges, OnDestro
                 });
             }
         });
+        console.log('set values');
+        this.astueOnpzConventionalFuelService.predictorsInfo$.next(values);
         // Иконки и значения возле линии
-        let start = this.padding.top - this.topMargin;
-        const step = 10;
-        const cardWidth = this.axisYWidth * 2.5;
-        const cardHeight = this.axisYWidth * 0.5;
-
-        values.forEach((val, idx) => {
-            const rect = g.append('g').attr('class', 'val');
-            const bg = rect
-                .append('g')
-                .attr('class', 'bg bg-rect')
-                .style('opacity', 0.25);
-            start += step + cardHeight;
-
-            bg.append('rect')
-                .attr('x', 0)
-                .attr('y', start)
-                .attr('width', cardWidth)
-                .attr('height', cardHeight)
-                .attr('rx', 5)
-                .attr('class', `rect-val-1-${idx}`);
-            bg.append('rect')
-                .attr('x', 0)
-                .attr('y', start + step * 0.5)
-                .attr('width', cardHeight - step)
-                .attr('height', cardHeight - step)
-                .attr('rx', 5)
-                .attr('class', `rect-val-2-${idx}`)
-                .style('fill', val.color);
-
-            bg.append('text')
-                .attr('x', 0)
-                .attr('y', start + cardHeight - step * 0.9)
-                .attr('class', `rect-val-text-${idx}`)
-                .text(`${val.val.value?.toFixed(2)} ${val.units}`);
-
-            if (this.options.isIconsShowing) {
-                rect.append('image')
-                    .attr(
-                        'xlink:href',
-                        `assets/icons/widgets/ASTUE-ONPZ/astue-onpz-conventional-fuel/` +
-                            `${val.iconType}.svg`
-                    )
-                    .attr('x', 0)
-                    .attr('y', start + step * 0.7)
-                    .attr('width', cardHeight - step * 1.4)
-                    .attr('class', `rect-val-icon-${idx}`)
-                    .attr('height', cardHeight - step * 1.4);
-            }
-        });
+        // let start = this.padding.top - this.topMargin;
+        // const step = 10;
+        // const cardWidth = this.axisYWidth * 2.5;
+        // const cardHeight = this.axisYWidth * 0.5;
+        //
+        // values.forEach((val, idx) => {
+        //     const rect = g.append('g').attr('class', 'val');
+        //     const bg = rect
+        //         .append('g')
+        //         .attr('class', 'bg bg-rect')
+        //         .style('opacity', 0.25);
+        //     start += step + cardHeight;
+        //
+        //     bg.append('rect')
+        //         .attr('x', 0)
+        //         .attr('y', start)
+        //         .attr('width', cardWidth)
+        //         .attr('height', cardHeight)
+        //         .attr('rx', 5)
+        //         .attr('class', `rect-val-1-${idx}`);
+        //     bg.append('rect')
+        //         .attr('x', 0)
+        //         .attr('y', start + step * 0.5)
+        //         .attr('width', cardHeight - step)
+        //         .attr('height', cardHeight - step)
+        //         .attr('rx', 5)
+        //         .attr('class', `rect-val-2-${idx}`)
+        //         .style('fill', val.color);
+        //
+        //     bg.append('text')
+        //         .attr('x', 0)
+        //         .attr('y', start + cardHeight - step * 0.9)
+        //         .attr('class', `rect-val-text-${idx}`)
+        //         .text(`${val.val.value?.toFixed(2)} ${val.units}`);
+        //
+        //     if (this.options.isIconsShowing) {
+        //         rect.append('image')
+        //             .attr(
+        //                 'xlink:href',
+        //                 `assets/icons/widgets/ASTUE-ONPZ/astue-onpz-conventional-fuel/` +
+        //                     `${val.iconType}.svg`
+        //             )
+        //             .attr('x', 0)
+        //             .attr('y', start + step * 0.7)
+        //             .attr('width', cardHeight - step * 1.4)
+        //             .attr('class', `rect-val-icon-${idx}`)
+        //             .attr('height', cardHeight - step * 1.4);
+        //     }
+        // });
     }
 
     private drawMouseInfoGroup(): void {

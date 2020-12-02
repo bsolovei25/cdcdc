@@ -6,5 +6,7 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class AstueOnpzConventionalFuelService {
     public paddingLegend$: BehaviorSubject<number> = new BehaviorSubject<number>(0);
+    public predictorsInfo$: BehaviorSubject<any[]> = new BehaviorSubject<any[]>([]);
+
     constructor() {}
 }

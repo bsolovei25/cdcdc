@@ -55,7 +55,10 @@ export class AstueOnpzConventionalFuelComponent extends WidgetPlatform
     public ngOnInit(): void {
         this.widgetInit();
         this.subscriptions.push(
-            this.widgetService.currentDates$.subscribe((ref) => (this.scrollLimits = ref))
+            this.widgetService.currentDates$.subscribe((ref) => (this.scrollLimits = ref)),
+            this.astueOnpzConventionalFuelService.predictorsInfo$?.subscribe((ref) =>
+                console.log(ref)
+            )
         );
     }
 
