@@ -3,8 +3,8 @@
     <thead class="table__header">
     <tr>
       <ng-container *ngFor="let column of columnsToDisplay">
-        <ng-container *ngIf="column.id === '1'; else names">
-          <th>
+        <ng-container [ngSwitch]="column.id">
+          <th *ngSwitchCase="'1'">
             <div class="input">
               <div class="input-block">
                 <div class="search-icon">
@@ -22,12 +22,22 @@
               </div>
             </div>
           </th>
-        </ng-container>
-        <ng-template #names>
-          <th>
+          <th *ngSwitchCase="'8'">
+            <div class="deviation-header">
+              <pre><span>  Откл. прогноза от плана  </span></pre>
+              <div class="deviation-header__value-left">
+                <span>т</span>
+              </div>
+              <div class="deviation-header__value-right">
+                <span>%</span>
+              </div>
+            </div>
+          </th>
+          <th *ngSwitchDefault>
             <span>{{ column.name }}</span>
           </th>
-        </ng-template>
+        </ng-container>
+
       </ng-container>
     </tr>
     </thead>
@@ -162,10 +172,6 @@
             <ng-container *ngIf="column.id === '8'">
               <div class="value">
                 <span>{{elementChildren.deviationValue }}</span>
-              </div>
-            </ng-container>
-            <ng-container *ngIf="column.id === '9'">
-              <div class="value">
                 <span>{{elementChildren.deviationPercent }}</span>
               </div>
             </ng-container>

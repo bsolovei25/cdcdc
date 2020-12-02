@@ -88,7 +88,13 @@ thead th {
   top: 0;
   background-color: var(--color-kpe-gaude-unactive);
   color: var(--color-cd-text-sub-2);
+  border-bottom: 1px solid var(--color-aps-border);
   z-index: 3;
+
+  font-style: normal;
+  font-weight: normal;
+  font-size: 12px;
+  line-height: 14px;
 }
 
 th, td {
@@ -100,6 +106,12 @@ th, td {
   &:first-child {
     text-align: left;
   }
+}
+pre {
+  font-style: normal;
+  font-weight: normal;
+  font-size: 12px;
+  line-height: 14px;
 }
 
 .table {
@@ -113,8 +125,16 @@ th, td {
   padding-right: 10px;
   padding-left: 10px;
 
+  font-style: normal;
+  font-weight: normal;
+  font-size: 12px;
+  line-height: 14px;
+
   &__header {
+
     width: 100%;
+    margin-bottom: 5px;
+    border-bottom: 1px solid var(--color-aps-border);
 
     &__row {
       width: 100%;
@@ -122,22 +142,8 @@ th, td {
     }
 
     &__column {
-      width: 60px;
-      font-size: 12px;
-      font-weight: normal;
       color: var(--color-cd-text-sub-2);
       background-color: var(--color-bg-main);
-
-
-      &:first-of-type {
-        font-size: 12px;
-        color: var(--color-cd-text-sub-2);
-        background-color: var(--color-bg-main);
-        left: 0;
-        text-align: left;
-        width: 60%;
-
-      }
     }
   }
 
@@ -578,7 +584,41 @@ input:focus::-webkit-input-placeholder {
 .value {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-around;
+}
+.deviation-header {
+  position: relative;
+  height: 100%;
+  width: calc(100% - 2px);
+  border-right: 1px solid var(--color-aps-border);
+  border-left: 1px solid var(--color-aps-border);
+  font-style: normal;
+  font-weight: normal;
+  font-size: 12px;
+  line-height: 14px;
+  &__value-left {
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    height: 50%;
+    width: 50%;
+    border-top: 1px solid var(--color-aps-border);
+    border-right: 1px solid var(--color-aps-border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  &__value-right {
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
+    height: 50%;
+    width: 50%;
+    border-top: 1px solid var(--color-aps-border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 }
 .icon {
   width: 16px;
