@@ -225,7 +225,7 @@ export class AstueOnpzMultiChartComponent implements OnInit, OnChanges, OnDestro
             return;
         }
 
-        if (this.astueOnpzService.multilineChartTransfer.getValue().type === 'deviation') {
+        if (this.astueOnpzService.multilineChartTransfer.getValue()?.type === 'deviation') {
             this.data.push({
                 graphType: 'border',
                 graph: [
@@ -453,7 +453,7 @@ export class AstueOnpzMultiChartComponent implements OnInit, OnChanges, OnDestro
                     .curve(d3.curveLinear);
                 const areaFn =
                     chart.graphType === 'border'
-                        ? this.astueOnpzService.multilineChartTransfer.getValue().isEconomy
+                        ? this.astueOnpzService.multilineChartTransfer.getValue()?.isEconomy
                             ? areaBottom
                             : areaTop
                         : chart.graphType === 'lowerBorder'
