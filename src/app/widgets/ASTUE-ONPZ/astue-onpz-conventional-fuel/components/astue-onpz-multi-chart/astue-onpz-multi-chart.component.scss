@@ -92,17 +92,18 @@
     .axisY {
       .legend {
         &-line {
-          stroke-width: 3;
+          stroke-width: 2;
+          stroke-linecap: round;
         }
       }
     }
 
     .axisY-bg_1 {
-      fill: var(--color-astue-onpz-bg-axis-1);
+      fill: var(--color-astue-onpz-widget-bg);
     }
 
     .axisY-bg_2 {
-      fill: var(--color-astue-onpz-bg-axis-2);
+      fill: var(--color-astue-onpz-widget-border);
     }
 
     .legend-text {
@@ -112,14 +113,15 @@
 
     .button {
       circle {
-        stroke-width: 2;
+        stroke-width: 1;
         stroke: var(--color-astue-onpz-button);
         fill: transparent;
       }
 
       line {
-        stroke-width: 2;
+        stroke-width: 1;
         stroke: var(--color-astue-onpz-button);
+        stroke-linecap: round;
       }
 
       &:hover {

@@ -24,6 +24,7 @@ import { IDatesInterval, WidgetService } from '../../../../../dashboard/services
 import { dateFormatLocale } from '@shared/functions/universal-time-fromat.function';
 import { findCursorPosition } from '@shared/functions/find-cursor-position.function';
 import { AstueOnpzService } from '../../../astue-onpz-shared/astue-onpz.service';
+import { AstueOnpzConventionalFuelService } from '../../astue-onpz-conventional-fuel.service';
 
 export interface IMultiChartOptions {
     colors?: Map<string, number>;
@@ -75,12 +76,12 @@ export class AstueOnpzMultiChartComponent implements OnInit, OnChanges, OnDestro
     public readonly padding: { left: number; right: number; top: number; bottom: number } = {
         left: 0,
         right: 1,
-        top: 120,
+        top: 55,
         bottom: 40,
     };
 
     private readonly axisYWidth: number = 60;
-    private readonly topMargin: number = 25;
+    private readonly topMargin: number = 0;
 
     positionMouse: number = null;
 
@@ -93,7 +94,8 @@ export class AstueOnpzMultiChartComponent implements OnInit, OnChanges, OnDestro
     constructor(
         private renderer: Renderer2,
         private widgetService: WidgetService,
-        private astueOnpzService: AstueOnpzService
+        private astueOnpzService: AstueOnpzService,
+        private astueOnpzConventionalFuelService: AstueOnpzConventionalFuelService
     ) {}
 
     private tempFunction(): void {
@@ -336,6 +338,7 @@ export class AstueOnpzMultiChartComponent implements OnInit, OnChanges, OnDestro
 
     private defineScale(): void {
         const left = this.leftPadding;
+        this.astueOnpzConventionalFuelService.paddingLegend$.next(this.leftPadding);
 
         // TODO add historical domain dates region ++
         const rangeX = [left, this.graphMaxX - this.padding.right];
@@ -569,9 +572,24 @@ export class AstueOnpzMultiChartComponent implements OnInit, OnChanges, OnDestro
 
         const translateX: string = `translate(0,${this.graphMaxY - this.padding.bottom})`;
         drawLabels('axisX', translateX);
+        const lastG = this.svg.selectAll('g.axisX g.tick')._groups[0].length - 1;
+        console.log(this.svg.selectAll('g.axisX g.tick')._groups[0]);
         this.svg.selectAll('g.axisX g.tick')._groups[0].forEach((g, idx) => {
             if (idx % 2) {
                 g.remove();
+            }
+            if (idx === 0) {
+                const t = g.getElementsByTagName('text')[0];
+                t.setAttribute(
+                    'style',
+                    `transform: translate(${(1 / 2) * g.getBoundingClientRect().width + 5}px, 0);`
+                );
+            } else if (idx === lastG) {
+                const t = g.getElementsByTagName('text')[0];
+                t.setAttribute(
+                    'style',
+                    `transform: translate(-${(1 / 2) * g.getBoundingClientRect().width + 5}px, 0);`
+                );
             }
         });
     }
@@ -658,33 +676,34 @@ export class AstueOnpzMultiChartComponent implements OnInit, OnChanges, OnDestro
             const legend = axisY.append('g').attr('class', 'legend');
             const stroke = flag ? '#FFFFFF' : lineColors[this.colors?.get(chart.tagName)];
             const padding = 5;
+            const topMargin = 23;
             legend
                 .append('line')
                 .attr('class', 'legend-line')
-                .attr('x1', -this.axisYWidth + padding)
-                .attr('y1', this.padding.top)
+                .attr('x1', -this.axisYWidth + 2 * padding)
+                .attr('y1', this.padding.top - 2 * padding + 2 + topMargin)
                 .attr('x2', -padding)
-                .attr('y2', this.padding.top)
+                .attr('y2', this.padding.top - 2 * padding + 2 + topMargin)
                 .attr('stroke', stroke);
 
             if (flag) {
                 legend
                     .append('line')
                     .attr('class', 'legend-line')
-                    .attr('x1', -this.axisYWidth + padding)
-                    .attr('y1', this.padding.top)
+                    .attr('x1', -this.axisYWidth + 2 * padding)
+                    .attr('y1', this.padding.top - 2 * padding + 2 + topMargin)
                     .attr('x2', -padding)
-                    .attr('y2', this.padding.top)
+                    .attr('y2', this.padding.top - 2 * padding + 2 + topMargin)
                     .attr('stroke', '#0089ff')
-                    .attr('stroke-dasharray', (this.axisYWidth - 2 * padding) / 2);
+                    .attr('stroke-dasharray', (this.axisYWidth - 3 * padding) / 2);
             }
 
             legend
                 .append('text')
-                .attr('class', 'legend-text')
+                .attr('class', 'label')
                 .attr('text-anchor', 'end')
                 .attr('x', -padding)
-                .attr('y', this.padding.top - 1.2 * padding)
+                .attr('y', this.padding.top - 3 * padding + topMargin)
                 .text(chart.units);
 
             const buttons = axisY.append('g').attr('class', 'scale-buttons');
@@ -692,33 +711,33 @@ export class AstueOnpzMultiChartComponent implements OnInit, OnChanges, OnDestro
             buttonMinus
                 .append('circle')
                 .attr('cx', -this.axisYWidth / 3)
-                .attr('cy', (this.padding.top - this.topMargin) * 0.8)
-                .attr('r', 7);
+                .attr('cy', (this.padding.top - this.topMargin) * 0.5)
+                .attr('r', 6);
             buttonMinus
                 .append('line')
-                .attr('x1', -this.axisYWidth / 3 - 4)
-                .attr('y1', (this.padding.top - this.topMargin) * 0.8)
-                .attr('x2', -this.axisYWidth / 3 + 4)
-                .attr('y2', (this.padding.top - this.topMargin) * 0.8);
+                .attr('x1', -this.axisYWidth / 3 - 3)
+                .attr('y1', (this.padding.top - this.topMargin) * 0.5)
+                .attr('x2', -this.axisYWidth / 3 + 3)
+                .attr('y2', (this.padding.top - this.topMargin) * 0.5);
 
             const buttonPlus = buttons.append('g').attr('class', 'button');
             buttonPlus
                 .append('circle')
                 .attr('cx', (-this.axisYWidth * 2) / 3)
-                .attr('cy', (this.padding.top - this.topMargin) * 0.8)
-                .attr('r', 7);
+                .attr('cy', (this.padding.top - this.topMargin) * 0.5)
+                .attr('r', 6);
             buttonPlus
                 .append('line')
                 .attr('x1', (-this.axisYWidth * 2) / 3)
-                .attr('y1', (this.padding.top - this.topMargin) * 0.8 - 4)
+                .attr('y1', (this.padding.top - this.topMargin) * 0.5 - 3)
                 .attr('x2', (-this.axisYWidth * 2) / 3)
-                .attr('y2', (this.padding.top - this.topMargin) * 0.8 + 4);
+                .attr('y2', (this.padding.top - this.topMargin) * 0.5 + 3);
             buttonPlus
                 .append('line')
-                .attr('x1', (-this.axisYWidth * 2) / 3 - 4)
-                .attr('y1', (this.padding.top - this.topMargin) * 0.8)
-                .attr('x2', (-this.axisYWidth * 2) / 3 + 4)
-                .attr('y2', (this.padding.top - this.topMargin) * 0.8);
+                .attr('x1', (-this.axisYWidth * 2) / 3 - 3)
+                .attr('y1', (this.padding.top - this.topMargin) * 0.5)
+                .attr('x2', (-this.axisYWidth * 2) / 3 + 3)
+                .attr('y2', (this.padding.top - this.topMargin) * 0.5);
 
             const key: string =
                 chart.graphType === 'fact' ||
@@ -775,7 +794,7 @@ export class AstueOnpzMultiChartComponent implements OnInit, OnChanges, OnDestro
 
     private drawMouseGroup(): void {
         const height =
-            this.graphMaxY - this.padding.top + this.padding.top / 2 - this.padding.bottom;
+            this.graphMaxY - this.padding.top + this.padding.top / 2 - this.padding.bottom - 2;
         const width = this.graphMaxX - this.leftPadding - this.padding.right;
         const x = this.leftPadding;
         const y = this.padding.top / 2;
@@ -792,7 +811,7 @@ export class AstueOnpzMultiChartComponent implements OnInit, OnChanges, OnDestro
         mouseG
             .append('line')
             .attr('class', 'mouse-line')
-            .attr('y1', 0)
+            .attr('y1', 5)
             .attr('x1', 0)
             .attr('y2', height)
             .attr('x2', 0)
@@ -810,7 +829,7 @@ export class AstueOnpzMultiChartComponent implements OnInit, OnChanges, OnDestro
 
         // функция отвечающая за отрисовку вверхнего блока
         // this.drawMouseInfoGroup();
-        this.newDrawMouseInfoGroup();
+        // this.newDrawMouseInfoGroup();
 
         // область для прослушивания событий мыши
         const [[mouseListenArea]] = mouseG

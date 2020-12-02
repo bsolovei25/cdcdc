@@ -6,6 +6,8 @@ import { UserSettingsService } from '../../../dashboard/services/user-settings.s
 import { AstueOnpzService } from '../astue-onpz-shared/astue-onpz.service';
 import { IMultiChartOptions } from './components/astue-onpz-multi-chart/astue-onpz-multi-chart.component';
 import { IChartMini } from '@shared/models/smart-scroll.model';
+import { AstueOnpzConventionalFuelService } from './astue-onpz-conventional-fuel.service';
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
     selector: 'evj-astue-onpz-conventional-fuel',
@@ -35,13 +37,17 @@ export class AstueOnpzConventionalFuelComponent extends WidgetPlatform
         return this.data?.find((x) => x.graphType === 'plan')?.graph ?? [];
     }
 
+    public paddingLeft$: BehaviorSubject<number> = this.astueOnpzConventionalFuelService
+        .paddingLegend$;
+
     constructor(
         protected widgetService: WidgetService,
         @Inject('isMock') public isMock: boolean,
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string,
         private astueOnpzService: AstueOnpzService,
-        private userSettingsService: UserSettingsService
+        private userSettingsService: UserSettingsService,
+        private astueOnpzConventionalFuelService: AstueOnpzConventionalFuelService
     ) {
         super(widgetService, isMock, id, uniqId);
     }
