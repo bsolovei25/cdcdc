@@ -4,9 +4,8 @@ import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject } from 'rxjs';
 import { IScenario } from '../../../models/APS/aps-tables.model';
 import { ITable } from '../../../../widgets/APS/aps-operating-modes/aps-operating-modes.component';
-import { IEventsWidgetNotification } from '../../../models/EVJ/events-widget';
+import { sId } from '../../../../widgets/APS/aps-scenario-selection/aps-scenario-selection.component';
 
-export const scenarioId: number = 186;
 
 @Injectable({
     providedIn: 'root'
@@ -38,14 +37,14 @@ export class ApsService {
     async getReferenceBook(table: number): Promise<ITable> {
         return this.http
             .get<ITable>(
-                this.restUrl + `/api/debugging-service-ApsService/ReferenceBook/${scenarioId}/${table}`
+                this.restUrl + `/api/debugging-service-ApsService/ReferenceBook/${sId}/${table}`
             )
             .toPromise();
     }
     async getCalculate(): Promise<any> {
         return this.http
             .get<any>(
-                this.restUrl + `/api/debugging-service-ApsService/Json/unload/${scenarioId}/folder`
+                this.restUrl + `/api/debugging-service-ApsService/Json/unload/${sId}/folder`
             )
             .toPromise();
     }

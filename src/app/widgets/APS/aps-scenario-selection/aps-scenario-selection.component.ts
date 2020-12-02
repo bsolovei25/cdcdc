@@ -4,6 +4,8 @@ import { WidgetService } from '../../../dashboard/services/widget.service';
 import { ApsService } from '../../../dashboard/services/widgets/APS/aps.service';
 import { IScenario } from '../../../dashboard/models/APS/aps-tables.model';
 
+export let sId: number = 186;
+
 @Component({
     selector: 'evj-aps-scenario-selection',
     templateUrl: './aps-scenario-selection.component.html',
@@ -40,8 +42,8 @@ export class ApsScenarioSelectionComponent extends WidgetPlatform<unknown>
     calculate($event: MouseEvent): void {
         // this.getCalculations();
     }
-    compareFn(c1, c2): boolean {
-        return c1 && c2 ? c1.id === c2.id : c1 === c2;
+    public getScenarioId(event: any): void {
+        sId = event.value.scenarioId;
     }
 
     protected dataHandler(ref: any): void {}

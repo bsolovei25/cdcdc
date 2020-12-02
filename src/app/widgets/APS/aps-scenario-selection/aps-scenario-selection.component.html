@@ -18,8 +18,7 @@
         <mat-select
           class="dropdown__select"
           [value]="scenarios[0]"
-          [(ngModel)]="scenarios"
-          [compareWith]="compareFn"
+          (selectionChange)="getScenarioId($event)"
         >
           <ng-container *ngFor="let scenario of scenarios">
             <mat-option [value]="scenario">
