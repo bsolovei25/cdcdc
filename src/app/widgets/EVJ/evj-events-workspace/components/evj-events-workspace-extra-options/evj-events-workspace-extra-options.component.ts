@@ -8,7 +8,11 @@ import { EventsWorkspaceService } from '../../../../../dashboard/services/widget
     styleUrls: ['./evj-events-workspace-extra-options.component.scss']
 })
 export class EvjEventsWorkspaceExtraOptionsComponent implements OnInit {
-    @Input() public info: IExtraOptionsWindow;
+    @Input() public info: IExtraOptionsWindow = {
+        isShow: false,
+        acceptFunction: () => null,
+        closeFunction: () => null,
+    };
 
     constructor(
         public ewService: EventsWorkspaceService
@@ -16,7 +20,6 @@ export class EvjEventsWorkspaceExtraOptionsComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.info.isShow = true;
     }
     public accept(): void {
         try {
@@ -29,11 +32,10 @@ export class EvjEventsWorkspaceExtraOptionsComponent implements OnInit {
     }
 
     public cancel(): void {
-        try {
-            this.info.closeFunction();
-        } catch (err) {
-            console.error(err);
-        }
+        const popupWindow = {
+            isShow: false,
+        };
+        this.ewService.extraOptionsWindow$.next(popupWindow);
     }
 
 }

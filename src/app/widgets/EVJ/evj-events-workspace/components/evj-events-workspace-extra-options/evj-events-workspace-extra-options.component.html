@@ -50,10 +50,12 @@
               </div>
             </div>
           </div>
-          <ng-container>
+          <ng-container *ngFor="let item of [1, 2]">
             <div class="container__body__parameters">
               <div class="dropdown">
-                <evj-events-workspace-select></evj-events-workspace-select>
+                <evj-events-workspace-select
+                  [dataType]="'eventType'"
+                ></evj-events-workspace-select>
               </div>
               <div class="value">
                 <div class="value__text">
@@ -65,12 +67,12 @@
           <div class="save-buttons">
             <div class="container__body__parameters">
               <div class="dropdown">
-                <div class="add-button" matRipple matRippleColor="white">
+                <div class="add-button" matRipple matRippleColor="white" (click)="cancel()">
                   <span>Сбросить</span>
                 </div>
               </div>
               <div class="value">
-                <div class="add-button" matRipple matRippleColor="white">
+                <div class="add-button" matRipple matRippleColor="white" (click)="accept()">
                   <span>Сохранить</span>
                 </div>
               </div>

@@ -10,6 +10,8 @@ import { IChatMessageWithAttachments } from '../components/evj-chat/evj-chat.com
 export class EvjTasksEventComponent implements OnInit {
     @Input()
     public noOverflow: boolean = false;
+
+    public isChecked: boolean = false;
     constructor(public ewService: EventsWorkspaceService) {}
 
     public ngOnInit(): void {
@@ -48,6 +50,7 @@ export class EvjTasksEventComponent implements OnInit {
     }
 
     openExtraOptions(): void {
+        this.isChecked = !this.isChecked;
         const popupWindow = {
             isShow: true,
         };

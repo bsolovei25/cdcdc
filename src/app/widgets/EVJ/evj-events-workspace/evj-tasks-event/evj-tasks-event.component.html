@@ -93,7 +93,8 @@
           <mat-checkbox
             class="checkbox"
             color="primary"
-          (change)="openExtraOptions()"
+            [(ngModel)]="isChecked"
+            (click)="openExtraOptions()"
           >
           </mat-checkbox>
         </div>
