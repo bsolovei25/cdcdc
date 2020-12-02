@@ -1,10 +1,4 @@
-import {
-    Component,
-    EventEmitter,
-    Input,
-    OnInit,
-    Output,
-} from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { EventsWorkspaceService } from '../../../../../dashboard/services/widgets/EVJ/events-workspace.service';
 
 export interface IEventsWorkspaceSelectValue {
@@ -18,7 +12,6 @@ export interface IEventsWorkspaceSelectValue {
     styleUrls: ['./evj-events-workspace-select.component.scss'],
 })
 export class EvjEventsWorkspaceSelectComponent implements OnInit {
-
     @Input()
     public items: IEventsWorkspaceSelectValue[] | null = [
         {
@@ -27,10 +20,11 @@ export class EvjEventsWorkspaceSelectComponent implements OnInit {
         },
     ];
     @Input() public dataType:
-        'status'
+        | 'status'
         | 'priorities'
         | 'categories'
         | 'subCategories'
+        | 'subCategoriesFilter'
         | 'eventType'
         | 'place'
         | 'equipmentCategory'
@@ -47,17 +41,15 @@ export class EvjEventsWorkspaceSelectComponent implements OnInit {
     public disabled: boolean = false;
 
     @Output()
-    public onValueChange: EventEmitter<string | number | IEventsWorkspaceSelectValue>
-        = new EventEmitter<string | number | IEventsWorkspaceSelectValue>();
+    public onValueChange: EventEmitter<
+        string | number | IEventsWorkspaceSelectValue
+    > = new EventEmitter<string | number | IEventsWorkspaceSelectValue>();
 
-    constructor(public ewService: EventsWorkspaceService) {
-    }
+    constructor(public ewService: EventsWorkspaceService) {}
 
-    public ngOnInit(): void {
-    }
+    public ngOnInit(): void {}
 
-    public onClick(): void {
-    }
+    public onClick(): void {}
 
     public compareFn(a, b): boolean {
         return a && b && a.id === b.id;

@@ -40,7 +40,7 @@
       margin-top: -3px;
       position: absolute;
       left: -8px;
-      z-index: 999;
+      z-index: 1;
 
       transform: rotate(180deg);
 
@@ -55,8 +55,8 @@
   
       padding-left: 14px;
   
-      font-size: 14px;
-      line-height: 17px;
+      font-size: 12px;
+      line-height: 14px;
   
       display: flex;
       align-items: center;
@@ -126,6 +126,7 @@
 .stream-title {
   display: flex;
   align-items: center;
+  font-size: 14px;
 
   .name-container {
     display: flex;

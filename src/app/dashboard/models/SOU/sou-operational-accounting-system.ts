@@ -41,6 +41,8 @@ export interface ISOUFlowOut {
     isEnable: boolean;
     accuracy: number;
     order: number;
+    valueEdit: number;
+    error: number;
 
     selected?: boolean;
 }
