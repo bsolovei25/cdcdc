@@ -1,0 +1,38 @@
+<evj-contemporary-widget-header
+  [uniqId]="widgetUniqId"
+  type="astue"
+>
+  <evj-kpe-table-header [page]="pageType$ | async" (changePage)="changePage($event)"></evj-kpe-table-header>
+  <div class="button-add" matRipple [matRippleColor]="'white'"
+  >
+    <div class="button-container">
+      <svg-icon
+        [svgStyle]="{'height.px':'16', 'width.px': '16'}"
+        src="assets/icons/add_button.svg"
+      ></svg-icon>
+    </div>
+  </div>
+  <div class="button-download" matRipple [matRippleColor]="'white'"
+  >
+    <div class="button-container">
+      <svg-icon
+        [svgStyle]="{'height.px':'16', 'width.px': '16'}"
+        src="assets/icons/download_button.svg"
+      ></svg-icon>
+    </div>
+  </div>
+</evj-contemporary-widget-header>
+<div
+  class="container"
+  (mousedown)="$event.stopPropagation()"
+  (touchstart)="$event.stopPropagation()"
+>
+
+  <ng-container [ngSwitch]="pageType$ | async">
+    <evj-kpe-table-development-component *ngSwitchCase="'development'"></evj-kpe-table-development-component>
+    <evj-kpe-table-loading-component *ngSwitchCase="'loading'"></evj-kpe-table-loading-component>
+  </ng-container>
+
+
+</div>
+

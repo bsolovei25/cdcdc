@@ -23,6 +23,7 @@ import { Subscription } from 'rxjs';
 import { IDatesInterval, WidgetService } from '../../../../../dashboard/services/widget.service';
 import { dateFormatLocale } from '@shared/functions/universal-time-fromat.function';
 import { findCursorPosition } from '@shared/functions/find-cursor-position.function';
+import { AstueOnpzService } from '../../../astue-onpz-shared/astue-onpz.service';
 
 export interface IMultiChartOptions {
     colors?: Map<string, number>;
@@ -89,7 +90,11 @@ export class AstueOnpzMultiChartComponent implements OnInit, OnChanges, OnDestro
         return this.widgetService.currentDates$.getValue();
     }
 
-    constructor(private renderer: Renderer2, private widgetService: WidgetService) {}
+    constructor(
+        private renderer: Renderer2,
+        private widgetService: WidgetService,
+        private astueOnpzService: AstueOnpzService
+    ) {}
 
     private tempFunction(): void {
         // TODO: change scale function -> transform data -> draw chart ->
@@ -130,20 +135,10 @@ export class AstueOnpzMultiChartComponent implements OnInit, OnChanges, OnDestro
         }
     }
 
-    // @HostListener('mouseenter')
-    // onMouseEnter(): void {
-    //     this.svg = d3Selection.select(this.chart.nativeElement).select('svg');
-    //     if (this.svg._groups[0][0]) {
-    //         this.drawMouseGroup();
-    //     }
-    // }
-
-    // @HostListener('mouseleave')
     onMouseLeave(): void {
         if (this.eventListenerFn) {
             this.positionMouse = null;
             this.changePositionPicker();
-            // this.eventListenerFn();
         }
     }
 
@@ -158,6 +153,7 @@ export class AstueOnpzMultiChartComponent implements OnInit, OnChanges, OnDestro
         this.transformData();
         this.drawGridlines();
         this.drawChart();
+        this.drawAreas();
         this.drawAxisXLabels();
         this.drawAxisYLabels();
         this.drawFutureRect();
@@ -223,6 +219,28 @@ export class AstueOnpzMultiChartComponent implements OnInit, OnChanges, OnDestro
             console.error('BACK ERROR: Timeline is not in interval!!!');
         }
         this.data = filterData;
+
+        const fact = this.data.find((x) => x.graphType === 'fact')?.graph;
+        if (!fact) {
+            return;
+        }
+
+        if (this.astueOnpzService.multilineChartTransfer.getValue().type === 'deviation') {
+            this.data.push({
+                graphType: 'border',
+                graph: [
+                    {
+                        value: 0,
+                        timeStamp: fact[0].timeStamp,
+                    },
+                    {
+                        value: 0,
+                        timeStamp: fact[fact.length - 1].timeStamp,
+                    },
+                ],
+                tagName: 'border',
+            });
+        }
     }
 
     private findMinMax(): void {
@@ -232,6 +250,7 @@ export class AstueOnpzMultiChartComponent implements OnInit, OnChanges, OnDestro
                 graph.graphType === 'fact' ||
                 graph.graphType === 'plan' ||
                 graph.graphType === 'forecast' ||
+                graph.graphType === 'border' ||
                 graph.graphType === 'higherBorder' ||
                 graph.graphType === 'lowerBorder'
                     ? 'main'
@@ -249,7 +268,14 @@ export class AstueOnpzMultiChartComponent implements OnInit, OnChanges, OnDestro
             currentChart.maxValue = max + (max - min) * this.coefs[key].max;
             currentChart.minValue = min - (max - min) * this.coefs[key].min;
         });
-        const mainChartGroup = ['fact', 'plan', 'forecast', 'higherBorder', 'lowerBorder'];
+        const mainChartGroup = [
+            'fact',
+            'plan',
+            'forecast',
+            'border',
+            'higherBorder',
+            'lowerBorder',
+        ];
         const filterChartArray = this.charts.filter((x) => mainChartGroup.includes(x.graphType));
         const domainMain = [
             d3.max(filterChartArray.map((x) => x.maxValue)),
@@ -270,6 +296,7 @@ export class AstueOnpzMultiChartComponent implements OnInit, OnChanges, OnDestro
                 chart.graphType !== 'fact' &&
                 chart.graphType !== 'plan' &&
                 chart.graphType !== 'forecast' &&
+                chart.graphType !== 'border' &&
                 chart.graphType !== 'higherBorder' &&
                 chart.graphType !== 'lowerBorder'
             ) {
@@ -395,6 +422,7 @@ export class AstueOnpzMultiChartComponent implements OnInit, OnChanges, OnDestro
                 chart.graphType !== 'plan' &&
                 chart.graphType !== 'fact' &&
                 chart.graphType !== 'forecast' &&
+                chart.graphType !== 'border' &&
                 chart.graphType !== 'higherBorder' &&
                 chart.graphType !== 'lowerBorder';
             const lineType = flag ? 'other' : chart.graphType;
@@ -405,7 +433,97 @@ export class AstueOnpzMultiChartComponent implements OnInit, OnChanges, OnDestro
             if (flag) {
                 drawnLine.style('stroke', lineColors[this.colors?.get(chart.tagName)]);
             }
+            if (
+                chart?.transformedGraph &&
+                (chart.graphType === 'higherBorder' ||
+                    chart.graphType === 'lowerBorder' ||
+                    chart.graphType === 'border')
+            ) {
+                const areaBottom = d3
+                    .area()
+                    .x((item: IChartD3) => item.x)
+                    .y0(this.graphMaxY - this.padding.bottom)
+                    .y1((item: IChartD3) => item.y)
+                    .curve(d3.curveLinear);
+                const areaTop = d3
+                    .area()
+                    .x((item: IChartD3) => item.x)
+                    .y0((item: IChartD3) => item.y)
+                    .y1(this.padding.top - this.topMargin)
+                    .curve(d3.curveLinear);
+                const areaFn =
+                    chart.graphType === 'border'
+                        ? this.astueOnpzService.multilineChartTransfer.getValue().isEconomy
+                            ? areaBottom
+                            : areaTop
+                        : chart.graphType === 'lowerBorder'
+                        ? areaBottom
+                        : areaTop;
+                this.svg
+                    .append('path')
+                    .attr('class', `graph-area-${chart.graphType}`)
+                    .attr('d', areaFn(chart.transformedGraph));
+            }
         });
+    }
+
+    private drawAreas(): void {
+        const transfer = this.astueOnpzService.multilineChartTransfer.getValue();
+        if (!transfer) {
+            return;
+        }
+        if (transfer.type === 'limit') {
+            this.drawAreasLimit();
+        } else {
+            this.drawAreasDeviation();
+        }
+    }
+
+    private drawAreasDeviation(): void {
+        const deviationType = this.astueOnpzService.multilineChartTransfer.getValue().isEconomy
+            ? 'normal'
+            : 'warning';
+        if (deviationType) {
+            this.svg
+                .select(`path.graph-area-border`)
+                ?.attr('class', `graph-area-border graph-area_${deviationType}`);
+        }
+    }
+
+    private drawAreasLimit(): void {
+        const fact = this.charts.find((item) => item.graphType === 'fact')?.graph ?? [];
+
+        const getBorderValue = (type: 'higherBorder' | 'lowerBorder'): number => {
+            return this.scaleFuncs.y?.invert(
+                findCursorPosition(
+                    this.scaleFuncs.x(fact[fact.length - 1]?.timeStamp),
+                    type,
+                    this.svg,
+                    this.padding
+                )?.y
+            );
+        };
+
+        const hbValue = getBorderValue('higherBorder');
+        const lbValue = getBorderValue('lowerBorder');
+
+        let deviationType: 'warning' | 'normal' = null;
+        const eps = 0.00001;
+        if (hbValue && fact[fact.length - 1].value - hbValue > eps) {
+            deviationType = 'warning';
+        } else if (lbValue && lbValue - fact[fact.length - 1].value > eps) {
+            deviationType = 'normal';
+        }
+
+        if (deviationType) {
+            const border = deviationType === 'warning' ? 'higher' : 'lower';
+            this.svg
+                .select(`path.graph-line-${border}Border`)
+                ?.attr('class', `graph-line-${border}Border graph-line_${deviationType}`);
+            this.svg
+                .select(`path.graph-area-${border}Border`)
+                ?.attr('class', `graph-area-${border}Border graph-area_${deviationType}`);
+        }
     }
 
     private drawGridlines(): void {
@@ -471,6 +589,7 @@ export class AstueOnpzMultiChartComponent implements OnInit, OnChanges, OnDestro
                 chart.graphType === 'fact' ||
                 chart.graphType === 'plan' ||
                 chart.graphType === 'forecast' ||
+                chart.graphType === 'border' ||
                 chart.graphType === 'higherBorder' ||
                 chart.graphType === 'lowerBorder';
             if (flag && isMainAxisDrawn) {
@@ -503,6 +622,7 @@ export class AstueOnpzMultiChartComponent implements OnInit, OnChanges, OnDestro
                 (chart.graphType === 'plan' ||
                     chart.graphType === 'fact' ||
                     chart.graphType === 'forecast' ||
+                    chart.graphType === 'border' ||
                     chart.graphType === 'higherBorder' ||
                     chart.graphType === 'lowerBorder')
             ) {
@@ -512,6 +632,7 @@ export class AstueOnpzMultiChartComponent implements OnInit, OnChanges, OnDestro
                 chart.graphType === 'plan' ||
                 chart.graphType === 'fact' ||
                 chart.graphType === 'forecast' ||
+                chart.graphType === 'border' ||
                 chart.graphType === 'higherBorder' ||
                 chart.graphType === 'lowerBorder'
                     ? 'main'
@@ -520,6 +641,7 @@ export class AstueOnpzMultiChartComponent implements OnInit, OnChanges, OnDestro
                 chart.graphType === 'plan' ||
                 chart.graphType === 'fact' ||
                 chart.graphType === 'forecast' ||
+                chart.graphType === 'border' ||
                 chart.graphType === 'higherBorder' ||
                 chart.graphType === 'lowerBorder';
             this.axisLabels[currentKey].forEach((item) => {
@@ -602,6 +724,7 @@ export class AstueOnpzMultiChartComponent implements OnInit, OnChanges, OnDestro
                 chart.graphType === 'fact' ||
                 chart.graphType === 'plan' ||
                 chart.graphType === 'forecast' ||
+                chart.graphType === 'border' ||
                 chart.graphType === 'higherBorder' ||
                 chart.graphType === 'lowerBorder'
                     ? 'main'
@@ -639,6 +762,7 @@ export class AstueOnpzMultiChartComponent implements OnInit, OnChanges, OnDestro
             'plan',
             'fact',
             'forecast',
+            'border',
             'higherBorder',
             'lowerBorder',
         ];
@@ -794,7 +918,7 @@ export class AstueOnpzMultiChartComponent implements OnInit, OnChanges, OnDestro
                 fact = chart.graph[chart.graph.length - 1];
             } else if (chart.graphType === 'lowerBorder') {
                 fact = chart.graph[chart.graph.length - 1];
-            } else if (chart.graphType === 'forecast') {
+            } else if (chart.graphType === 'forecast' || chart.graphType === 'border') {
                 // TODO add some
             } else {
                 values.push({
@@ -999,7 +1123,6 @@ export class AstueOnpzMultiChartComponent implements OnInit, OnChanges, OnDestro
     private listenMouseEvents(element: HTMLElement): () => void {
         const eventListeners: (() => void)[] = [];
         eventListeners.push(
-            // this.renderer.listen(element, 'mouseenter', () => this.onMouseEnter()),
             this.renderer.listen(element, 'mouseleave', () => this.onMouseLeave()),
             this.renderer.listen(element, 'mousemove', (event: MouseEvent) => {
                 let x: number = 0;
@@ -1009,7 +1132,7 @@ export class AstueOnpzMultiChartComponent implements OnInit, OnChanges, OnDestro
                 this.changePositionPicker(x);
             })
         );
-        return () => eventListeners.forEach((item) => item());
+        return () => eventListeners?.forEach((item) => item());
     }
 
     changePositionPicker(x?: number): void {

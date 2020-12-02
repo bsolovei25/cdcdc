@@ -16,12 +16,30 @@
       user-select: none;
     }
 
+    .graph-area {
+      &-border,
+      &-higherBorder,
+      &-lowerBorder {
+        fill: var(--color-astue-onpz-area);
+        opacity: 0.2;
+      }
+
+      &_warning {
+        fill: var(--color-astue-onpz-warning);
+      }
+
+      &_normal {
+        fill: var(--color-astue-onpz-normal);
+      }
+    }
+
     .graph-line {
       &-fact,
       &-plan,
       &-forecast,
       &-higherBorder,
       &-lowerBorder,
+      &-border,
       &-other {
         fill: none;
         opacity: 1;
@@ -45,6 +63,7 @@
         stroke: var(--color-astue-onpz-plan);
       }
 
+      &-border,
       &-higherBorder,
       &-lowerBorder {
         stroke-dasharray: 2 2;

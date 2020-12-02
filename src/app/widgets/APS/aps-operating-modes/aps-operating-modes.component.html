@@ -22,37 +22,39 @@
   (mousedown)="$event.stopPropagation()"
   (touchstart)="$event.stopPropagation()"
 >
-  <table>
-    <thead>
-    <tr>
-      <th *ngFor="let element of headerName">
-        <div class="text">{{element?.title}}</div>
-      </th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr *ngFor="let element of data; let i = index">
-      <td
-        *ngFor="let item of headerName; let j = index"
-        (click)="editValue()"
-      >
-        <div class="text">
-          <input
-            type="text"
-            placeholder={{element[item?.key]}}
-            readonly
-            *ngIf="!editMode"
-          >
-          <input
-            type="text"
-            placeholder={{element[item?.key]}}
-            *ngIf="editMode"
-            (change)="onChangeValue($event, i, j)"
-            [readonly]="!item?.writable"
-          >
-        </div>
-      </td>
-    </tr>
-    </tbody>
-  </table>
+  <div class="table-container">
+    <table>
+      <thead>
+      <tr>
+        <th *ngFor="let element of headerName">
+          <div class="text">{{element?.title}}</div>
+        </th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let element of data; let i = index">
+        <td
+          *ngFor="let item of headerName; let j = index"
+          (click)="editValue()"
+        >
+          <div class="text">
+            <input
+              type="text"
+              placeholder={{element[item?.key]}}
+              readonly
+              *ngIf="!editMode"
+            >
+            <input
+              type="text"
+              placeholder={{element[item?.key]}}
+              *ngIf="editMode"
+              (change)="onChangeValue($event, i, j)"
+              [readonly]="!item?.writable"
+            >
+          </div>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
 </div>
