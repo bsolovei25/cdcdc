@@ -80,6 +80,7 @@ export class AstueMnpzEfficiencyComponent extends WidgetPlatform<unknown>
     }
 
     public onSelectProduct(id: string): void {
+        this.data = this.data.sort((a, b) => a.name.localeCompare(b.name));
         const product = this.data.find((item) => item.id === id);
         this.units = product?.units;
         this.selection.select(product);
