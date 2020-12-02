@@ -85,7 +85,6 @@ export class SouMvpMnemonicSchemeComponent extends WidgetPlatform<unknown> imple
 
     protected dataHandler(ref: ISOUOperationalAccountingSystem): void {
         this.mainData = ref;
-        debugger;
         this.flowInAb = ref.section[0].flowIn;
         this.flowInVb = ref.section[1].flowIn;
 
