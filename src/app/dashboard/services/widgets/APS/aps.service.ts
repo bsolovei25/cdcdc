@@ -31,10 +31,10 @@ export class ApsService {
             )
             .toPromise();
     }
-    async getCalculate(): Promise<any> {
+    async getCalculate(id: number): Promise<any> {
         return this.http
             .get<any>(
-                this.restUrl + `/api/debugging-service-ApsService/Json/unload/${sId}/folder`
+                this.restUrl + `/api/debugging-service-ApsService/Json/unload/${id}/folder`
             )
             .toPromise();
     }

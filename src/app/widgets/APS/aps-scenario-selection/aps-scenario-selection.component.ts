@@ -40,7 +40,7 @@ export class ApsScenarioSelectionComponent extends WidgetPlatform<unknown>
     }
 
     private async getCalculations(): Promise<void> {
-        await this.apsService.getCalculate();
+        await this.apsService.getCalculate(0);
     }
     calculate($event: MouseEvent): void {
         // this.getCalculations();
