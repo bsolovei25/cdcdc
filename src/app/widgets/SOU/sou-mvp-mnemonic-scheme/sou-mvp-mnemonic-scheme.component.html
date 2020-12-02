@@ -157,10 +157,10 @@
         </div>
         <div class="information">
           Уровень доверия:&nbsp;<span>{{mvpService.popupData?.tolerance}}</span>
-          Измеренное:&nbsp;<span>1234.567 т</span>
-          Скорректированное:&nbsp;<span>1234.567 т</span>
-          Согласованное:&nbsp;<span>1234.567 т</span>
-          Погрешность:&nbsp; <span>1234.567 т</span>
+          Измеренное:&nbsp;<span>{{mvpService.popupData?.valueMeasuring}} т</span>
+          Скорректированное:&nbsp;<span>{{mvpService.popupData?.valueEdit}} т</span>
+          Согласованное:&nbsp;<span>{{mvpService.popupData?.valueCalculate}} т</span>
+          Погрешность:&nbsp; <span>{{mvpService.popupData?.error}} т</span>
         </div>
       </div>
     </div>

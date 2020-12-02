@@ -67,9 +67,35 @@
         (valueChange)="onSelect($event)"
         [(ngModel)]="ewService.event.productionTasks.subCategory"
         [compareWith]="compareFn"
+        [disabled]="!ewService.isCreateNewEvent"
       >
+        <mat-option [value]="null"> Не выбрано </mat-option>
+        <ng-container *ngIf="ewService.isCreateNewEvent">
+          <mat-option
+            *ngFor="let item of ewService.subCategoryFilter | async"
+            [value]="item"> {{ item.description }}
+          </mat-option>
+        </ng-container>
+        <ng-container *ngIf="!ewService.isCreateNewEvent">
+          <mat-option
+            *ngFor="let item of ewService.subCategory"
+            [value]="item">
+            {{ item.description }}
+          </mat-option>
+        </ng-container>
+      </mat-select>
+    </ng-container>
+
+    <ng-container *ngIf="dataType === 'subCategoriesFilter'">
+      <mat-select
+        panelClass="mat-balance-select"
+        (valueChange)="onSelect($event)"
+        [(ngModel)]="ewService.event.productionTasks.subCategory"
+        [compareWith]="compareFn"
+      >
+        <mat-option [value]="null"> Не выбрано </mat-option>
         <mat-option
-          *ngFor="let item of ewService.subCategory"
+          *ngFor="let item of ewService.subCategoryFilter | async"
           [value]="item">
           {{ item.description }}
         </mat-option>

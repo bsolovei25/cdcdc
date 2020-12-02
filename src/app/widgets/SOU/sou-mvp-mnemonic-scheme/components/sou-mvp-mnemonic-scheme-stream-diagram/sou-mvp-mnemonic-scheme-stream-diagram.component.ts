@@ -22,7 +22,7 @@ export class SouMvpMnemonicSchemeStreamDiagramComponent implements OnInit, After
       this.drawSvg();
     }
   }
-
+  @Input() noPoint: boolean = false;
   @Input() choosenSetting: number;
 
   flowData: ISOUFlowOut;

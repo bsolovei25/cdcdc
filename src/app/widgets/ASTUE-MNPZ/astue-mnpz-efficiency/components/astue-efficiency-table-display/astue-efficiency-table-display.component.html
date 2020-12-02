@@ -78,7 +78,7 @@
                 {{child.name}}
                 <div class="status" *ngIf="child.tagName">{{child.tagName}}</div>
               </td>
-              <td class="row__item">{{child.dataSummary | number:'1.0-2'}}</td>
+              <td class="row__item">{{child?.dataSummary | number:'1.0-2'}}</td>
               <td class="row__item" *ngFor="let value of child.values">
                 <input
                   type="text"
@@ -127,7 +127,7 @@
                   {{child.name}}
                   <div class="status" *ngIf="deviation.status">{{deviation.status}}</div>
                 </td>
-                <td class="row__item">{{child.dataSummary}}</td>
+                <td class="row__item">{{child?.dataSummary}}</td>
                 <td class="row__item" *ngFor="let value of child.data">
                   <input
                     type="text"

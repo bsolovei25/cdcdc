@@ -1,0 +1,28 @@
+.container {
+  display: flex;
+  height: 100%;
+
+  .flex-spacer {
+    flex-grow: 1;
+  }
+
+  .toggle-container {
+    position: relative;
+    display: flex;
+    gap: 15px;
+    padding: 0 13px;
+    height: 40px;
+    color: #606580;
+    border-bottom: solid 1px #606580;
+    cursor: pointer;
+
+    &__active {
+      color: #FFFFFF;
+      border-color: #0089FF;
+    }
+
+    & > * {
+      margin: auto 0;
+    }
+  }
+}

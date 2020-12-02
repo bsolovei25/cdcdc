@@ -94,7 +94,7 @@
 
     position: absolute;
     right: -4px;
-    z-index: 999;
+    z-index: 1;
   }
 
   ::ng-deep {
@@ -211,7 +211,7 @@
     position: absolute;
     top: -4px;
     left: -4px;
-    z-index: 999;
+    z-index: 1;
   }
 }
 
