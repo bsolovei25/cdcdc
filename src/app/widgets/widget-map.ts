@@ -131,7 +131,8 @@ export const WIDGETS = {
     'aps-structure-id': WidgetContainerComponent,
     'aps-scenario-selection': WidgetContainerComponent,
     'kpe-table-data': WidgetContainerComponent,
-    'kpe-pasportize-percent': WidgetContainerComponent
+    'kpe-pasportize-percent': WidgetContainerComponent,
+    'kpe-plan-readiness-trend': WidgetContainerComponent,
 };
 
 export const WIDGETS_LAZY = {
@@ -508,6 +509,17 @@ export const WIDGETS_LAZY = {
         itemRows: 25,
         minItemCols: 13,
         minItemRows: 25,
+        preview: 'default',
+    },
+    'kpe-plan-readiness-trend': {
+        import: async () => {
+            return await import('src/app/widgets/KPE/kpe-plan-readiness-trend/kpe-plan-readiness-trend.module');
+        },
+        module: 'KpePlanReadinessTrendModule',
+        itemCols: 17,
+        itemRows: 16,
+        minItemCols: 17,
+        minItemRows: 16,
         preview: 'default',
     },
 
