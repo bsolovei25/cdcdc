@@ -64,7 +64,7 @@ export class ApsOperatingModesComponent extends WidgetPlatform<unknown>
                     });
                 });
                 this.data = res.body;
-                res.header.forEach(item => {
+                res.header.forEach((item) => {
                     if (item?.isId) {
                         this.idIndex = item.key;
                     } else {
@@ -75,7 +75,6 @@ export class ApsOperatingModesComponent extends WidgetPlatform<unknown>
                 this.data = [];
                 this.headerName = [];
             }
-            debugger;
         });
     }
 
@@ -86,11 +85,14 @@ export class ApsOperatingModesComponent extends WidgetPlatform<unknown>
     protected dataHandler(ref: any): void {}
 
     async saveValues(): Promise<any> {
-       const res = await this.apsService.postReferenceBook(this.editedData, this.data);
-       this.editedData = [];
-       const newData = await this.apsService.getReferenceBook(this.apsService.tableStruct);
-       this.apsService.showTable$.next(newData);
-       this.editMode = false;
+        const res = await this.apsService.postReferenceBook(this.editedData, this.data);
+        this.editedData = [];
+        const newData = await this.apsService.getReferenceBook(
+            this.apsService.tableStruct,
+            this.apsService.selectScenario$.getValue().scenarioId
+        );
+        this.apsService.showTable$.next(newData);
+        this.editMode = false;
     }
 
     discard(): void {
@@ -107,8 +109,14 @@ export class ApsOperatingModesComponent extends WidgetPlatform<unknown>
     }
 
     onChangeValue(e: any, tableId: number, columnId: number): void {
-        if (this.editedData.find((item) => item.columnId === columnId && item.tableId === (+tableId).toFixed(0))) {
-            this.editedData.find((item) => item.columnId === columnId && item.tableId === (+tableId).toFixed(0)).value = e.target.value;
+        if (
+            this.editedData.find(
+                (item) => item.columnId === columnId && item.tableId === (+tableId).toFixed(0)
+            )
+        ) {
+            this.editedData.find(
+                (item) => item.columnId === columnId && item.tableId === (+tableId).toFixed(0)
+            ).value = e.target.value;
         } else {
             this.editedData.push({
                 tableId: (+tableId).toFixed(0),
