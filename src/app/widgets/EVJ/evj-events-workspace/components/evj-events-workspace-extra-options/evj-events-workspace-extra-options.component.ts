@@ -2,6 +2,10 @@ import { Component, Input, OnInit } from '@angular/core';
 import { IExtraOptionsWindow } from '../../../../../dashboard/models/EVJ/events-widget';
 import { EventsWorkspaceService } from '../../../../../dashboard/services/widgets/EVJ/events-workspace.service';
 
+export interface IExtraOptions {
+    id: number;
+    name: string;
+}
 @Component({
     selector: 'evj-evj-events-workspace-extra-options',
     templateUrl: './evj-events-workspace-extra-options.component.html',
@@ -13,6 +17,25 @@ export class EvjEventsWorkspaceExtraOptionsComponent implements OnInit {
         acceptFunction: () => null,
         closeFunction: () => null,
     };
+    public parameters: IExtraOptions[] = [
+        {
+            id: 0,
+            name: 'Список зависимых параметров'
+        },
+        {
+            id: 1,
+            name: 'Исполнимость по ДТЛ'
+        },
+    ];
+    public facts: IExtraOptions[] = [
+        {
+            id: 99,
+            name: 'Параметр КПЭ'
+        },
+    ];
+    public data: number[] = [];
+    public disableAdd: boolean;
+    public disableRemove: boolean;
 
     constructor(
         public ewService: EventsWorkspaceService
@@ -36,6 +59,17 @@ export class EvjEventsWorkspaceExtraOptionsComponent implements OnInit {
             isShow: false,
         };
         this.ewService.extraOptionsWindow$.next(popupWindow);
+    }
+    public addParameters(): void {
+        if (this.data.length > 4) {
+            this.disableAdd = false;
+        } else {
+            this.disableAdd = false;
+            this.data.push(1);
+        }
+    }
+    public removeParameters(): void {
+        this.data.pop();
     }
 
 }

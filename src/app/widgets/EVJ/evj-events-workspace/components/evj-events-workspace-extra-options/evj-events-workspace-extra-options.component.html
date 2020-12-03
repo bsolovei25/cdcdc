@@ -25,9 +25,18 @@
           </div>
           <div class="container__body__parameters">
             <div class="dropdown">
-              <evj-events-workspace-select
-                [dataType]="'eventType'"
-              ></evj-events-workspace-select>
+              <div class="event-mat-select">
+                <mat-form-field appearance="none">
+                  <mat-select>
+                    <mat-option
+                      *ngFor="let p of facts"
+                      [value]="p"
+                    >
+                      {{p.name}}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
             </div>
             <div class="value">
 
@@ -40,22 +49,38 @@
           </div>
           <div class="container__body__parameters">
             <div class="dropdown">
-              <div class="add-button" matRipple matRippleColor="white">
-                <span>Добавить зависимые параметры</span>
-              </div>
+              <evj-rect-button class="add-button" matRipple matRippleColor="white"
+                               (click)="addParameters()"
+                               textButton="Добавить зависимые параметры"
+                               [isChangingState]="false"
+                               [type]="'primary'">
+                >
+              </evj-rect-button>
             </div>
             <div class="value">
-              <div class="add-button" matRipple matRippleColor="white">
-                <span>Удалить параметр</span>
-              </div>
+              <evj-rect-button class="add-button" matRipple matRippleColor="white"
+                               (click)="removeParameters()"
+                               textButton="Удалить параметр"
+                               [isChangingState]="false"
+                               [type]="'primary'">
+              </evj-rect-button>
             </div>
           </div>
-          <ng-container *ngFor="let item of [1, 2]">
+          <ng-container *ngFor="let item of data">
             <div class="container__body__parameters">
               <div class="dropdown">
-                <evj-events-workspace-select
-                  [dataType]="'eventType'"
-                ></evj-events-workspace-select>
+                <div class="event-mat-select">
+                  <mat-form-field appearance="none">
+                    <mat-select>
+                      <mat-option
+                        *ngFor="let p of parameters"
+                        [value]="p"
+                      >
+                        {{p.name}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
               </div>
               <div class="value">
                 <div class="value__text">
@@ -67,14 +92,20 @@
           <div class="save-buttons">
             <div class="container__body__parameters">
               <div class="dropdown">
-                <div class="add-button" matRipple matRippleColor="white" (click)="cancel()">
-                  <span>Сбросить</span>
-                </div>
+                <evj-rect-button class="add-button" matRipple matRippleColor="white"
+                                 textButton="Cбросить"
+                                 (click)="cancel()"
+                                 [isChangingState]="false"
+                                 [type]="'primary'">
+                </evj-rect-button>
               </div>
               <div class="value">
-                <div class="add-button" matRipple matRippleColor="white" (click)="accept()">
-                  <span>Сохранить</span>
-                </div>
+                <evj-rect-button class="add-button" matRipple matRippleColor="white"
+                                 textButton="Cохранить"
+                                 (click)="cancel()"
+                                 [isChangingState]="false"
+                                 [type]="'primary'">
+                </evj-rect-button>
               </div>
             </div>
           </div>
