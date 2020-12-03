@@ -124,7 +124,9 @@ export class AstueOnpzMultiChartComponent implements OnInit, OnChanges, OnDestro
     public ngOnDestroy(): void {
         this.listeners.forEach((listener) => listener());
         this.subscriptions.forEach((x) => x.unsubscribe());
-        this.eventListenerFn();
+        if (this.eventListenerFn) {
+            this.eventListenerFn();
+        }
     }
 
     @HostListener('document:resize', ['$event'])
@@ -955,7 +957,7 @@ export class AstueOnpzMultiChartComponent implements OnInit, OnChanges, OnDestro
             ) {
                 units = units ? units : chart.units;
                 fact = xGragh ? statValue.value : 0;
-            } else if (chart.graphType === 'forecast') {
+            } else if (chart.graphType === 'forecast' || chart.graphType === 'border') {
                 // TODO add some
             } else {
                 values.push({
