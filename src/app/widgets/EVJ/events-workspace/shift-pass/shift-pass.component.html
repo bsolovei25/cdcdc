@@ -35,13 +35,13 @@
     <div class="selects__item">
       <evj-ui-block class="workspace__header__block" status="{{ewService.event.isAcknowledged}}">
         <mat-form-field class="card-{{ewService.event.isAcknowledged}}">
-          <mat-label>Событие</mat-label>
+          <mat-label> Ознакомление </mat-label>
           <mat-select panelClass="mat-select-custom" [(ngModel)]="ewService.event.isAcknowledged">
             <mat-option [value]="true">
-              Квитировано
+              Ознакомлен
             </mat-option>
             <mat-option [value]="false">
-              Не квитировано
+              Не ознакомлен
             </mat-option>
           </mat-select>
         </mat-form-field>
