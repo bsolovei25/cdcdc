@@ -2,13 +2,10 @@ import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { WidgetPlatform } from '../../../dashboard/models/@PLATFORM/widget-platform';
 import { WidgetService } from '../../../dashboard/services/widget.service';
 import { SelectionModel } from '@angular/cdk/collections';
-import { IParams } from '../../CD/cd-mat-balance/cd-mat-balance.component';
-import { heatBalanceData } from '../../ASTUE-ONPZ/astue-onpz-heat-balance/astue-onpz-heat-balance-mock';
 import { IColumnsToDisplay } from '../aps-recipe-diagram/aps-recipe-diagram.component';
 import { structureList } from './aps-structure-id-mock';
 import { ApsService } from '../../../dashboard/services/widgets/APS/aps.service';
-import { ITable } from '../aps-operating-modes/aps-operating-modes.component';
-import { element } from 'protractor';
+
 
 export interface IStructure {
     unit: { name: string };
@@ -68,7 +65,7 @@ export class ApsStructureIdComponent extends WidgetPlatform<unknown> implements 
         this.apsService.showTable$.next(data);
     }
 
-    onClickTr(event: MouseEvent, element: any): void {
+    onClickTr(event: MouseEvent, element?: any): void {
         event.stopPropagation();
         if (this.expandedElement.isSelected(element.name)) {
             this.expandedElement.deselect(element.name);
