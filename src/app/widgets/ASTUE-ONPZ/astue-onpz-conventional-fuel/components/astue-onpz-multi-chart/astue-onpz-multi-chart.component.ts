@@ -843,8 +843,8 @@ export class AstueOnpzMultiChartComponent implements OnInit, OnChanges, OnDestro
 
     private newDrawMouseInfoGroup(): void {
         const values = [];
-        let plan: IChartMini;
-        let fact: IChartMini;
+        let plan: number;
+        let fact: number;
         let units: string = null;
         const currentDatetime: Date = new Date();
         currentDatetime.setMinutes(0, 0, 0);
@@ -858,14 +858,12 @@ export class AstueOnpzMultiChartComponent implements OnInit, OnChanges, OnDestro
                     : chart?.graph[0] ?? null;
             if (chart.graphType === 'plan') {
                 units = units ? units : chart.units;
-                plan = chart.graph[chart.graph.length - 1];
+                plan = statValue.value;
             } else if (chart.graphType === 'fact') {
                 units = units ? units : chart.units;
-                fact = chart.graph[chart.graph.length - 1];
+                fact = statValue.value;
             } else if (chart.graphType === 'higherBorder') {
-                fact = chart.graph[chart.graph.length - 1];
             } else if (chart.graphType === 'lowerBorder') {
-                fact = chart.graph[chart.graph.length - 1];
             } else if (chart.graphType === 'forecast' || chart.graphType === 'border') {
                 // TODO add some
             } else {
@@ -937,8 +935,8 @@ export class AstueOnpzMultiChartComponent implements OnInit, OnChanges, OnDestro
 
         const values = [];
         let units: string = null;
-        let plan: IChartMini = null;
-        let fact: IChartMini = null;
+        let plan: number = null;
+        let fact: number = null;
         const date: Date = factX.toString() !== 'Invalid Date' ? new Date(factX) : new Date(planX);
         date.setMinutes(0, 0, 0);
         this.charts.forEach((chart) => {
@@ -949,14 +947,14 @@ export class AstueOnpzMultiChartComponent implements OnInit, OnChanges, OnDestro
             const statValue = filterChart?.length > 0 ? filterChart[filterChart.length - 1] : null;
             if (chart.graphType === 'plan') {
                 units = units ? units : chart.units;
-                plan = chart.graph[chart.graph.length - 1];
+                plan = xGragh ? statValue.value : 0;
             } else if (
                 chart.graphType === 'fact' ||
                 chart.graphType === 'higherBorder' ||
                 chart.graphType === 'lowerBorder'
             ) {
                 units = units ? units : chart.units;
-                fact = chart.graph[chart.graph.length - 1];
+                fact = xGragh ? statValue.value : 0;
             } else if (chart.graphType === 'forecast') {
                 // TODO add some
             } else {

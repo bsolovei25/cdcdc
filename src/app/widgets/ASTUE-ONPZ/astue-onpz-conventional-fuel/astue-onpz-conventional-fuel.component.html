@@ -95,12 +95,12 @@
       <div [style.left]="(paddingLeft$ | async) + 'px'" class="info-container">
         <div class="label"> Факт </div>
         <div class="card card__fact">
-          <span class="value"> {{ (predictors$ | async)?.fact?.value || '---' }} </span>
+          <span class="value"> {{ ((predictors$ | async)?.fact | number:'0.0-2') || '---' }} </span>
           <span class="unit"> {{ (predictors$ | async)?.units }} </span>
         </div>
         <div class="label"> План </div>
         <div class="card card__plan">
-          <span class="value"> {{ (predictors$ | async)?.plan?.value || '---' }} </span>
+          <span class="value"> {{ ((predictors$ | async)?.plan | number:'0.0-2') || '---' }} </span>
           <span class="unit"> {{ (predictors$ | async)?.units }} </span>
         </div>
         <div class="label"> План на следующий час </div>
