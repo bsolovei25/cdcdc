@@ -33,9 +33,8 @@ export class EvjEventsWorkspaceExtraOptionsComponent implements OnInit {
             name: 'Параметр КПЭ'
         },
     ];
-    public data: number[] = [];
+    public data: number[] = []; // Нужно будет реализовать нормальный массив с данными по модели с бэка
     public disableAdd: boolean;
-    public disableRemove: boolean;
 
     constructor(
         public ewService: EventsWorkspaceService
