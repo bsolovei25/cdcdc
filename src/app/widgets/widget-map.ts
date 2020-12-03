@@ -130,6 +130,7 @@ export const WIDGETS = {
     'aps-operating-modes': WidgetContainerComponent,
     'aps-structure-id': WidgetContainerComponent,
     'aps-scenario-selection': WidgetContainerComponent,
+    'kpe-plan-enforceability': WidgetContainerComponent,
     'kpe-table-data': WidgetContainerComponent,
     'kpe-pasportize-percent': WidgetContainerComponent,
     'kpe-plan-readiness-trend': WidgetContainerComponent,
@@ -522,6 +523,18 @@ export const WIDGETS_LAZY = {
         itemRows: 16,
         minItemCols: 17,
         minItemRows: 16,
+        preview: 'default',
+    },
+
+    'kpe-plan-enforceability': {
+        import: async () => {
+            return await import('src/app/widgets/KPE/kpe-plan-enforceability/kpe-plan-enforceability.module');
+        },
+        module: 'KpePlanEnforceabilityModule',
+        itemCols: 25,
+        itemRows: 20,
+        minItemCols: 25,
+        minItemRows: 20,
         preview: 'default',
     },
 
