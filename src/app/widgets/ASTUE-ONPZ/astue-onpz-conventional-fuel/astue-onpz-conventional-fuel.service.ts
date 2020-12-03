@@ -6,7 +6,11 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class AstueOnpzConventionalFuelService {
     public paddingLegend$: BehaviorSubject<number> = new BehaviorSubject<number>(0);
-    public predictorsInfo$: BehaviorSubject<any[]> = new BehaviorSubject<any[]>([]);
+    public predictorsInfo$: BehaviorSubject<{
+        predictors: any[];
+        plan: any;
+        fact: any;
+    }> = new BehaviorSubject<{ predictors: any[]; plan: any; fact: any }>(null);
 
     constructor() {}
 }

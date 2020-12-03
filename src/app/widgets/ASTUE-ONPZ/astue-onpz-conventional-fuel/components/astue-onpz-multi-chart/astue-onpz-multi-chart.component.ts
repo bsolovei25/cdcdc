@@ -25,6 +25,7 @@ import { dateFormatLocale } from '@shared/functions/universal-time-fromat.functi
 import { findCursorPosition } from '@shared/functions/find-cursor-position.function';
 import { AstueOnpzService } from '../../../astue-onpz-shared/astue-onpz.service';
 import { AstueOnpzConventionalFuelService } from '../../astue-onpz-conventional-fuel.service';
+import { fillDataShape } from '@shared/functions/common-functions';
 
 export interface IMultiChartOptions {
     colors?: Map<string, number>;
@@ -817,16 +818,6 @@ export class AstueOnpzMultiChartComponent implements OnInit, OnChanges, OnDestro
             .style('stroke-width', '1px');
 
         // TODO check work
-        // точка курсора на линии плановых значений
-        // mouseG
-        //     .append('circle')
-        //     .attr('class', 'mouse-per-line')
-        //     .attr('r', '4')
-        //     .style('fill', 'currentColor')
-        //     .style('stroke-width', '1px');
-
-        // функция отвечающая за отрисовку вверхнего блока
-        // this.drawMouseInfoGroup();
         this.newDrawMouseInfoGroup();
 
         // область для прослушивания событий мыши
@@ -844,76 +835,6 @@ export class AstueOnpzMultiChartComponent implements OnInit, OnChanges, OnDestro
     }
 
     private newDrawMouseInfoGroup(): void {
-        // const g = this.svg
-        //     .select('g.mouse-over')
-        //     .append('g')
-        //     .attr('class', 'mouse-info');
-        // // Прямоугольник вверху
-        // g.append('rect')
-        //     .attr('x', 0)
-        //     .attr('y', -27)
-        //     .attr('width', 157)
-        //     .attr('height', 31)
-        //     .attr('rx', 5)
-        //     .attr('class', 'big-rect');
-        // // Прямоугольник вверху над большим
-        // g.append('rect')
-        //     .attr('x', 0)
-        //     .attr('y', -23)
-        //     .attr('width', 26)
-        //     .attr('height', 23)
-        //     .attr('rx', 5)
-        //     .attr('class', 'small-rect');
-        // // Линия
-        // g.append('line')
-        //     .attr('x1', 0)
-        //     .attr('y1', 5)
-        //     .attr('x2', 26)
-        //     .attr('y2', 5)
-        //     .attr('class', 'future-line future-line_hor');
-        // // иконка на вверхнем блоке
-        // g.append('image')
-        //     .attr(
-        //         'xlink:href',
-        //         'assets/icons/widgets/ASTUE-ONPZ/astue-onpz-conventional-fuel/poly.svg'
-        //     )
-        //     .attr('x', 0)
-        //     .attr('y', -20)
-        //     .attr('width', 20)
-        //     .attr('height', 18)
-        //     .attr('class', 'icon-rect');
-        // // иконка на вверхнем блоке
-        // g.append('image')
-        //     .attr(
-        //         'xlink:href',
-        //         'assets/icons/widgets/ASTUE-ONPZ/astue-onpz-conventional-fuel/poly.svg'
-        //     )
-        //     .attr('x', 0)
-        //     .attr('y', -18)
-        //     .attr('width', 20)
-        //     .attr('height', 14)
-        //     .attr('class', 'small-icon-rect');
-        //
-        // // Значение Факта на вверхнем блоке
-        // g.append('text')
-        //     .attr('text-anchor', 'end')
-        //     .attr('x', 0)
-        //     .attr('y', -7)
-        //     .attr('class', 'data-fact');
-        //
-        // // Значение Плана на вверхнем блоке
-        // g.append('text')
-        //     .attr('text-anchor', 'start')
-        //     .attr('x', 0)
-        //     .attr('y', -7)
-        //     .attr('class', 'data-plan');
-        //
-        // g.append('text')
-        //     .attr('text-anchor', 'middle')
-        //     .attr('x', 0)
-        //     .attr('y', -31)
-        //     .attr('class', 'data-date mouse-graph-date');
-
         const values = [];
         let plan: IChartMini;
         let fact: IChartMini;
@@ -946,197 +867,11 @@ export class AstueOnpzMultiChartComponent implements OnInit, OnChanges, OnDestro
                 });
             }
         });
-        console.log('set values');
-        this.astueOnpzConventionalFuelService.predictorsInfo$.next(values);
-        // Иконки и значения возле линии
-        // let start = this.padding.top - this.topMargin;
-        // const step = 10;
-        // const cardWidth = this.axisYWidth * 2.5;
-        // const cardHeight = this.axisYWidth * 0.5;
-        //
-        // values.forEach((val, idx) => {
-        //     const rect = g.append('g').attr('class', 'val');
-        //     const bg = rect
-        //         .append('g')
-        //         .attr('class', 'bg bg-rect')
-        //         .style('opacity', 0.25);
-        //     start += step + cardHeight;
-        //
-        //     bg.append('rect')
-        //         .attr('x', 0)
-        //         .attr('y', start)
-        //         .attr('width', cardWidth)
-        //         .attr('height', cardHeight)
-        //         .attr('rx', 5)
-        //         .attr('class', `rect-val-1-${idx}`);
-        //     bg.append('rect')
-        //         .attr('x', 0)
-        //         .attr('y', start + step * 0.5)
-        //         .attr('width', cardHeight - step)
-        //         .attr('height', cardHeight - step)
-        //         .attr('rx', 5)
-        //         .attr('class', `rect-val-2-${idx}`)
-        //         .style('fill', val.color);
-        //
-        //     bg.append('text')
-        //         .attr('x', 0)
-        //         .attr('y', start + cardHeight - step * 0.9)
-        //         .attr('class', `rect-val-text-${idx}`)
-        //         .text(`${val.val.value?.toFixed(2)} ${val.units}`);
-        //
-        //     if (this.options.isIconsShowing) {
-        //         rect.append('image')
-        //             .attr(
-        //                 'xlink:href',
-        //                 `assets/icons/widgets/ASTUE-ONPZ/astue-onpz-conventional-fuel/` +
-        //                     `${val.iconType}.svg`
-        //             )
-        //             .attr('x', 0)
-        //             .attr('y', start + step * 0.7)
-        //             .attr('width', cardHeight - step * 1.4)
-        //             .attr('class', `rect-val-icon-${idx}`)
-        //             .attr('height', cardHeight - step * 1.4);
-        //     }
-        // });
-    }
-
-    private drawMouseInfoGroup(): void {
-        const infoG = this.svg
-            .select('g.mouse-over')
-            .append('g')
-            .attr('class', 'mouse-info');
-
-        // отрисовка левой части плашки
-        infoG
-            .append('line')
-            .attr('class', 'line-left-horizontal')
-            .attr('x1', 0)
-            .attr('y1', -8)
-            .attr('x2', 0)
-            .attr('y2', -8)
-            .attr('stroke-width', 1)
-            .attr('stroke', 'currentColor');
-
-        infoG
-            .append('line')
-            .attr('class', 'line-left-horizontal')
-            .attr('x1', 0)
-            .attr('y1', 15)
-            .attr('x2', 0)
-            .attr('y2', 15)
-            .attr('stroke-width', 1)
-            .attr('stroke', 'currentColor');
-
-        infoG
-            .append('line')
-            .attr('class', 'line-left-vertical')
-            .attr('x1', 0)
-            .attr('y1', -6)
-            .attr('x2', 0)
-            .attr('y2', 13)
-            .attr('stroke-width', 1)
-            .attr('stroke', 'currentColor');
-
-        infoG
-            .append('line')
-            .attr('class', 'line-left-incline')
-            .attr('x1', 0)
-            .attr('y1', 15)
-            .attr('x2', 0)
-            .attr('y2', 13)
-            .attr('stroke-width', 1)
-            .attr('stroke', 'currentColor');
-
-        infoG
-            .append('line')
-            .attr('class', 'line-left-incline')
-            .attr('x1', 0)
-            .attr('y1', -8)
-            .attr('x2', 0)
-            .attr('y2', -6)
-            .attr('stroke-width', 1)
-            .attr('stroke', 'currentColor');
-
-        // отрисовка правой части плашки
-        infoG
-            .append('line')
-            .attr('class', 'line-right-horizontal')
-            .attr('x1', 0)
-            .attr('y1', -8)
-            .attr('x2', 0)
-            .attr('y2', -8)
-            .attr('stroke-width', 1)
-            .attr('stroke', 'currentColor');
-
-        infoG
-            .append('line')
-            .attr('class', 'line-right-horizontal')
-            .attr('x1', 0)
-            .attr('y1', 15)
-            .attr('x2', 0)
-            .attr('y2', 15)
-            .attr('stroke-width', 1)
-            .attr('stroke', 'currentColor');
-
-        infoG
-            .append('line')
-            .attr('class', 'line-right-vertical')
-            .attr('x1', 0)
-            .attr('y1', -6)
-            .attr('x2', 0)
-            .attr('y2', 13)
-            .attr('stroke-width', 1)
-            .attr('stroke', 'currentColor');
-
-        infoG
-            .append('line')
-            .attr('class', 'line-right-incline')
-            .attr('x1', 0)
-            .attr('y1', 15)
-            .attr('x2', 0)
-            .attr('y2', 13)
-            .attr('stroke-width', 1)
-            .attr('stroke', 'currentColor');
-
-        infoG
-            .append('line')
-            .attr('class', 'line-right-incline')
-            .attr('x1', 0)
-            .attr('y1', -8)
-            .attr('x2', 0)
-            .attr('y2', -6)
-            .attr('stroke-width', 1)
-            .attr('stroke', 'currentColor');
-
-        // значение на кривой факт
-        infoG
-            .append('text')
-            .attr('text-anchor', 'end')
-            .attr('class', 'mouse-graph-value')
-            .attr('x', 0)
-            .attr('y', 8)
-            .style('font-size', '13')
-            .style('fill', 'white');
-
-        // отклонение от плана
-        infoG
-            .append('text')
-            .attr('text-anchor', 'start')
-            .attr('class', 'mouse-graph-deviation')
-            .attr('x', 0)
-            .attr('y', 8)
-            .style('font-size', '13')
-            .style('fill', 'currentColor');
-
-        // текущая дата
-        infoG
-            .append('text')
-            .attr('text-anchor', 'middle')
-            .attr('class', 'mouse-graph-date')
-            .attr('x', 0)
-            .attr('y', -14)
-            .style('font-size', '11')
-            .style('fill', 'white');
+        this.astueOnpzConventionalFuelService.predictorsInfo$.next({
+            fact,
+            plan,
+            predictors: [...values],
+        });
     }
 
     private listenMouseEvents(element: HTMLElement): () => void {
@@ -1179,18 +914,6 @@ export class AstueOnpzMultiChartComponent implements OnInit, OnChanges, OnDestro
             .attr('x1', x)
             .attr('x2', x);
 
-        // this.svg.selectAll('.mouse-line-circle').attr('cx', x);
-        //
-        // if (posFact) {
-        //     this.svg
-        //         .select('.mouse-per-line')
-        //         .attr('cx', x)
-        //         .style('opacity', 1)
-        //         .attr('cy', posFact?.y - this.padding.top + this.padding.top / 2);
-        // } else {
-        //     this.svg.select('.mouse-per-line').style('opacity', 0);
-        // }
-
         const infoFramePaddings = {
             near: 20,
             nearText: 15,
@@ -1223,8 +946,8 @@ export class AstueOnpzMultiChartComponent implements OnInit, OnChanges, OnDestro
         this.svg.selectAll('g.mouse-info .small-icon-rect').attr('x', x - 14);
 
         const values = [];
-        let plan: IChartMini;
-        let fact: IChartMini;
+        let plan: IChartMini = null;
+        let fact: IChartMini = null;
         const date: Date = factX.toString() !== 'Invalid Date' ? new Date(factX) : new Date(planX);
         date.setMinutes(0, 0, 0);
         this.charts.forEach((chart) => {
@@ -1251,6 +974,11 @@ export class AstueOnpzMultiChartComponent implements OnInit, OnChanges, OnDestro
                     iconType: chart.graphType ?? 'volume',
                 });
             }
+        });
+        this.astueOnpzConventionalFuelService.predictorsInfo$.next({
+            fact,
+            plan,
+            predictors: [...values],
         });
 
         values.forEach((val, idx) => {
