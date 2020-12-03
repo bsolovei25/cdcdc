@@ -1,5 +1,5 @@
 import { Component, ElementRef, Inject, Input, OnInit, ViewChild } from '@angular/core';
-import { AsyncRender } from '../../../@shared/functions/async-render.function';
+import { AsyncRender } from '@shared/functions/async-render.function';
 import { WidgetPlatform } from '../../../dashboard/models/@PLATFORM/widget-platform';
 import { WidgetService } from '../../../dashboard/services/widget.service';
 import * as d3 from 'd3';

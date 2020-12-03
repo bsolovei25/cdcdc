@@ -8,9 +8,8 @@ export const tableHeader: IKpeTableHeader[] = [
     { name: 'Накопление, т', id: '5' },
     { name: '% от Плана', id: '6' },
     { name: 'Прогноз на 03:00, т', id: '7' },
-    { name: 'т', id: '8' },
-    { name: '%', id: '9' },
-    { name: 'Рек. расход,м3/ч', id: '10' },
+    { name: 'т %', id: '8' },
+    { name: 'Рек. расход, м3/ч', id: '10' },
     { name: 'Комментарий', id: '11' }
 ];
 export const table: IKpeTable[] = [{
