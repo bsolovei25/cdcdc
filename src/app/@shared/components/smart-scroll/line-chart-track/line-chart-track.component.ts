@@ -127,7 +127,7 @@ export class LineChartTrackComponent implements OnChanges, AfterViewInit {
             .append('path')
             .attr('d', line(this.chartData))
             .style('fill', 'none')
-            .style('stroke', '#ffffff')
+            .style('stroke', '#4B5169')
             .style('stroke-width', 1);
     }
 }

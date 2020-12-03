@@ -16,7 +16,7 @@
           <mat-slide-toggle
             (change)="changeToggle(item, colors?.get(item.tag))"
             [checked]="selectPredictors.isSelected(item.id)"
-            [disabled]="selectPredictors.selected.length > 5 && !selectPredictors.isSelected(item.id)"
+            [disabled]="selectPredictors.selected.length > 3 && !selectPredictors.isSelected(item.id)"
             disableRipple="true"></mat-slide-toggle>
           </span>
             <span class="list__item__name">{{ item.name }}</span>

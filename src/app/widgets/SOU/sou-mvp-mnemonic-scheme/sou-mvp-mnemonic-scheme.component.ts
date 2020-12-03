@@ -1,7 +1,12 @@
 import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
 import { WidgetService } from '../../../dashboard/services/widget.service';
 import { WidgetPlatform } from '../../../dashboard/models/@PLATFORM/widget-platform';
-import { ISOUFlowIn, ISOUFlowOut, ISOUObjects, ISOUOperationalAccountingSystem } from '../../../dashboard/models/SOU/sou-operational-accounting-system';
+import {
+    ISOUFlowIn,
+    ISOUFlowOut,
+    ISOUObjects,
+    ISOUOperationalAccountingSystem,
+} from '../../../dashboard/models/SOU/sou-operational-accounting-system';
 import { SouMvpMnemonicSchemeService } from '../../../dashboard/services/widgets/SOU/sou-mvp-mnemonic-scheme';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 
@@ -29,40 +34,36 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
             transition('closed => opened', animate('200ms ease-in')),
             transition('opened => closed', animate('200ms ease-out')),
         ]),
-    ]
-}
-)
-export class SouMvpMnemonicSchemeComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
+    ],
+})
+export class SouMvpMnemonicSchemeComponent extends WidgetPlatform<unknown>
+    implements OnInit, OnDestroy {
     flowInAb: ISOUFlowIn[];
     flowInVb: ISOUFlowIn[];
 
     mainData: ISOUOperationalAccountingSystem;
 
-    settings: string[] = [
-        'Мгновенное',
-        'За час',
-        'Накоплено'
-    ];
+    settings: string[] = ['Мгновенное', 'За час', 'Накоплено'];
 
     sectionsData: (ISOUFlowOut | ISOUFlowIn | ISOUObjects)[] = []; // Массив всех элементов
     sectionsDataIzo: (ISOUFlowOut | ISOUFlowIn | ISOUObjects)[] = []; // Массив всех элементов Изомалка
 
     sections: {
         title: string;
-        value: number
+        value: number;
     }[] = [
         {
             title: 'АБ',
-            value: 0
+            value: 0,
         },
         {
             title: 'BБ',
-            value: 0
+            value: 0,
         },
         {
             title: 'Изомалк 2',
-            value: 0
-        }
+            value: 0,
+        },
     ];
 
     choosenSetting: number = 1;
@@ -90,17 +91,27 @@ export class SouMvpMnemonicSchemeComponent extends WidgetPlatform<unknown> imple
 
         this.sectionsData = [];
         this.sectionsDataIzo = [];
-        ref.section.forEach ((item, i) => {
+        ref.section.forEach((item, i) => {
             if (i !== 2) {
-                this.sectionsData = [...this.sectionsData, ...item.flowIn, ...item.flowOut, ...item.objects];
+                this.sectionsData = [
+                    ...this.sectionsData,
+                    ...item.flowIn,
+                    ...item.flowOut,
+                    ...item.objects,
+                ];
             } else {
-                this.sectionsDataIzo = [...this.sectionsDataIzo, ...item.flowIn, ...item.flowOut, ...item.objects];
+                this.sectionsDataIzo = [
+                    ...this.sectionsDataIzo,
+                    ...item.flowIn,
+                    ...item.flowOut,
+                    ...item.objects,
+                ];
             }
 
             let sum = 0;
             for (const element in item) {
                 if (element === 'flowIn' || element === 'flowOut') {
-                    item[element].forEach(el => {
+                    item[element].forEach((el) => {
                         if (el.isExceedingConfInterval) {
                             sum++;
                         }
