@@ -7,6 +7,49 @@
       type="astue"
     >
       <span style="margin-left: 20px">{{unitName}}</span>
+
+      <div *ngIf="isPredictors" class="selects">
+        <svg-icon
+          class="arrow-circle"
+          src="assets/icons/widgets/SOU/sou-mvp-mnemonic-scheme/arrowCircle.svg"
+          [ngStyle]="{ 'width.px':14, 'height.px':14 }"
+        ></svg-icon>
+
+        <div class="option-select">
+          <div class="dropdown">
+            <div class="dropdown__marker">
+            </div>
+            <mat-select class="dropdown__select" [value]="'Производство 1'">
+              <ng-container>
+                <mat-option [value]="'Производство 1'">
+                  Производство 1
+                </mat-option>
+              </ng-container>
+            </mat-select>
+          </div>
+        </div>
+
+        <svg-icon
+          class="arrow-circle"
+          src="assets/icons/widgets/SOU/sou-mvp-mnemonic-scheme/arrowCircle.svg"
+          [ngStyle]="{ 'width.px':14, 'height.px':14 }"
+        ></svg-icon>
+
+        <div class="option-select">
+          <div class="dropdown">
+            <div class="dropdown__marker">
+            </div>
+            <mat-select class="dropdown__select" [value]="'АВТ-10'">
+              <ng-container>
+                <mat-option [value]="'АВТ-10'">
+                  АВТ-10
+                </mat-option>
+              </ng-container>
+            </mat-select>
+          </div>
+        </div>
+      </div>
+
       <div class="header-buttons" *ngIf="!isPredictors">
         <div
           (mousedown)="$event.stopPropagation()"
@@ -38,6 +81,7 @@
           </div>
           <div class="label">Главный экран</div>
         </div>
+
       </div>
     </evj-contemporary-widget-header>
     <div
