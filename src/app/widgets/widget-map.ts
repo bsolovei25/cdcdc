@@ -48,6 +48,7 @@ export const WIDGETS = {
     'cd-reactor-parameters': WidgetContainerComponent,
     'sou-operational-accounting-system': WidgetContainerComponent,
     'sou-operational-accounting-system-new': WidgetContainerComponent,
+    'sou-operational-accounting-system-old': WidgetContainerComponent,
     'astue-onpz-conventional-fuel': WidgetContainerComponent,
     'astue-onpz-conventional-fuel-predictors': WidgetContainerComponent,
     'astue-onpz-predictors': WidgetContainerComponent,
@@ -131,6 +132,7 @@ export const WIDGETS = {
     'aps-scenario-selection': WidgetContainerComponent,
     'kpe-table-data': WidgetContainerComponent,
     'kpe-pasportize-percent': WidgetContainerComponent,
+    'kpe-plan-readiness-trend': WidgetContainerComponent,
 };
 
 export const WIDGETS_LAZY = {
@@ -505,10 +507,21 @@ export const WIDGETS_LAZY = {
             );
         },
         module: 'KpePasportizePercentModule',
+        itemCols: 13,
+        itemRows: 25,
+        minItemCols: 13,
+        minItemRows: 25,
+        preview: 'default',
+    },
+    'kpe-plan-readiness-trend': {
+        import: async () => {
+            return await import('src/app/widgets/KPE/kpe-plan-readiness-trend/kpe-plan-readiness-trend.module');
+        },
+        module: 'KpePlanReadinessTrendModule',
         itemCols: 17,
         itemRows: 16,
         minItemCols: 17,
-        minItemRows: 25,
+        minItemRows: 16,
         preview: 'default',
     },
 

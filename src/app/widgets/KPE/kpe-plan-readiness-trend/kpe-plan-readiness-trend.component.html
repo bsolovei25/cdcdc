@@ -1,0 +1,27 @@
+<div class="container">
+  <evj-contemporary-widget-header
+    [uniqId]="uniqId"
+    [widgetTitle]="widgetTitle"
+    type="kpe"
+    icon="sliders"
+  ></evj-contemporary-widget-header>
+  <div class="content"
+    (mousedown)="$event.stopPropagation()"
+    (touchstart)="$event.stopPropagation()"
+  >
+    <ng-container *ngFor="let row of data">
+      <div class="content__row">
+        <div class="chart-container">
+          <evj-kpe-deviation-diagram [currentMonth]="displayedMonth" [data]="row?.data" [bottomCalendarFull]="true"></evj-kpe-deviation-diagram>
+        </div>
+        <div class="value-container">
+          <span>{{ row?.name }}</span>
+          <div class="value-container__value">
+            <span class="value">{{ row?.value }}</span>
+            <span class="measurement">{{ row?.measurement }}</span>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+</div>

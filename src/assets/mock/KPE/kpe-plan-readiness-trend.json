@@ -1,0 +1,128 @@
+[
+  {
+    "name": "Исполнимость по тоннажу",
+    "value": 81,
+    "measurement": "%",
+    "data": [
+      {
+        "graphType": "fact",
+        "graph": [
+          {
+            "value": 73.24089813232422,
+            "timeStamp": "2020-11-30T21:00:00Z"
+          },
+          {
+            "value": 85.53994750976562,
+            "timeStamp": "2020-11-30T21:30:36Z"
+          },
+          {
+            "value": 99.20977020263672,
+            "timeStamp": "2020-11-30T22:39:36Z"
+          },
+          {
+            "value": 96.2605209350586,
+            "timeStamp": "2020-11-30T23:44:36Z"
+          },
+          {
+            "value": 91.96559143066406,
+            "timeStamp": "2020-12-01T00:00:00Z"
+          }
+        ],
+        "graphStyle": "main"
+      },
+      {
+        "graphType": "plan",
+        "graph": [
+          {
+            "value": 80,
+            "timeStamp": "2020-11-30T21:00:00Z"
+          }
+        ],
+        "graphStyle": "common"
+      },
+      {
+        "graphType": "lowerBorder",
+        "graph": [
+          {
+            "value": 75,
+            "timeStamp": "2020-11-30T21:00:00Z"
+          }
+        ],
+        "graphStyle": "additional"
+      },
+      {
+        "graphType": "higherBorder",
+        "graph": [
+          {
+            "value": 85,
+            "timeStamp": "2020-11-30T21:00:00Z"
+          }
+        ],
+        "graphStyle": "additional"
+      }
+    ]
+  },
+  {
+    "name": "Почасовой график приготовления и паспортизации",
+    "value": 3.79,
+    "measurement": "час",
+    "data": [
+      {
+        "graphType": "fact",
+        "graph": [
+          {
+            "value": 73.24089813232422,
+            "timeStamp": "2020-11-30T21:00:00Z"
+          },
+          {
+            "value": 85.53994750976562,
+            "timeStamp": "2020-11-30T21:30:36Z"
+          },
+          {
+            "value": 99.20977020263672,
+            "timeStamp": "2020-11-30T22:39:36Z"
+          },
+          {
+            "value": 96.2605209350586,
+            "timeStamp": "2020-11-30T23:44:36Z"
+          },
+          {
+            "value": 91.96559143066406,
+            "timeStamp": "2020-12-01T00:00:00Z"
+          }
+        ],
+        "graphStyle": "main"
+      },
+      {
+        "graphType": "plan",
+        "graph": [
+          {
+            "value": 80,
+            "timeStamp": "2020-11-30T21:00:00Z"
+          }
+        ],
+        "graphStyle": "common"
+      },
+      {
+        "graphType": "lowerBorder",
+        "graph": [
+          {
+            "value": 75,
+            "timeStamp": "2020-11-30T21:00:00Z"
+          }
+        ],
+        "graphStyle": "additional"
+      },
+      {
+        "graphType": "higherBorder",
+        "graph": [
+          {
+            "value": 85,
+            "timeStamp": "2020-11-30T21:00:00Z"
+          }
+        ],
+        "graphStyle": "additional"
+      }
+    ]
+  }
+]
