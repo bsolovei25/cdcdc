@@ -87,7 +87,7 @@
           <div class="title">
             <span>Распоряжения</span>
           </div>
-          <div class="title">
+          <div class="extra-options__name">
             <span>Дополнительные параметры</span>
           </div>
           <mat-checkbox
@@ -210,4 +210,10 @@
     [dataType]="'subCategories'"
   ></evj-events-workspace-select>
 </ng-template>
+
+<evj-evj-events-workspace-extra-options
+  [info]="ewService.extraOptionsWindow$ | async"
+  (checked)="openExtraOptions()"
+></evj-evj-events-workspace-extra-options>
+
 

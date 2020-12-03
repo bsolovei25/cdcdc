@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { IExtraOptionsWindow } from '../../../../../dashboard/models/EVJ/events-widget';
 import { EventsWorkspaceService } from '../../../../../dashboard/services/widgets/EVJ/events-workspace.service';
 
@@ -17,6 +17,7 @@ export class EvjEventsWorkspaceExtraOptionsComponent implements OnInit {
         acceptFunction: () => null,
         closeFunction: () => null,
     };
+    @Output() checked = new EventEmitter<boolean>();
     public parameters: IExtraOptions[] = [
         {
             id: 0,
@@ -54,6 +55,13 @@ export class EvjEventsWorkspaceExtraOptionsComponent implements OnInit {
     }
 
     public cancel(): void {
+        const popupWindow = {
+            isShow: false,
+        };
+        this.ewService.extraOptionsWindow$.next(popupWindow);
+    }
+    public discard(checkbox: boolean): void {
+        this.checked.emit(checkbox);
         const popupWindow = {
             isShow: false,
         };

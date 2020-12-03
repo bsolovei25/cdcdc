@@ -1,18 +1,21 @@
-import {Component, Input, OnInit} from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { EventsWorkspaceService } from '../../../../dashboard/services/widgets/EVJ/events-workspace.service';
 import { IChatMessageWithAttachments } from '../components/evj-chat/evj-chat.component';
 
 @Component({
     selector: 'evj-tasks-event',
     templateUrl: './evj-tasks-event.component.html',
-    styleUrls: ['./evj-tasks-event.component.scss'],
+    styleUrls: ['./evj-tasks-event.component.scss']
 })
+
 export class EvjTasksEventComponent implements OnInit {
+    public isChecked: boolean = false;
+
     @Input()
     public noOverflow: boolean = false;
 
-    public isChecked: boolean = false;
-    constructor(public ewService: EventsWorkspaceService) {}
+    constructor(public ewService: EventsWorkspaceService) {
+    }
 
     public ngOnInit(): void {
         this.ewService.event.status =
@@ -50,11 +53,10 @@ export class EvjTasksEventComponent implements OnInit {
     }
 
     openExtraOptions(): void {
-        this.isChecked = !this.isChecked;
+        this.isChecked = false;
         const popupWindow = {
-            isShow: true,
+            isShow: true
         };
         this.ewService.extraOptionsWindow$.next(popupWindow);
-        console.log('extra options opened');
     }
 }
