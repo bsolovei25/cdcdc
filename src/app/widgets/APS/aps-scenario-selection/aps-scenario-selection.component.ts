@@ -11,9 +11,10 @@ import { IScenario } from '../../../dashboard/models/APS/aps-tables.model';
 })
 export class ApsScenarioSelectionComponent extends WidgetPlatform<unknown>
     implements OnInit, OnDestroy {
-    public scenarios: IScenario[] = [null];
+    public scenarios: IScenario[] = [];
+
     constructor(
-        private apsService: ApsService,
+        public apsService: ApsService,
         protected widgetService: WidgetService,
         @Inject('isMock') public isMock: boolean,
         @Inject('widgetId') public id: string,
@@ -31,14 +32,17 @@ export class ApsScenarioSelectionComponent extends WidgetPlatform<unknown>
         super.ngOnDestroy();
     }
     private async getScenarios(): Promise<void> {
-        const data = await this.apsService.getAllScenario();
-        this.scenarios = data;
+        this.scenarios = await this.apsService.getAllScenario();
     }
+
     private async getCalculations(): Promise<void> {
-        await this.apsService.getCalculate();
+        await this.apsService.getCalculate(0);
     }
     calculate($event: MouseEvent): void {
         // this.getCalculations();
+    }
+    public getScenarioId(event: any): void {
+        this.apsService.selectScenario$.next(event.value);
     }
 
     protected dataHandler(ref: any): void {}

@@ -25,7 +25,6 @@ export interface IHeaderName {
 })
 export class ApsOperatingModesComponent extends WidgetPlatform<unknown>
     implements OnInit, OnDestroy {
-    public tableToDisplay: ITableToDisplay[] = [];
     data: ITableToDisplay[];
     editedData: ITableToDisplay[] = [];
     editMode: boolean = false;
