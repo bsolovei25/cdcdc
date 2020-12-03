@@ -16,6 +16,11 @@
       user-select: none;
     }
 
+    .label-mouse {
+      font-size: 12px;
+      fill: #D7E2F2;
+    }
+
     .graph-area {
       &-border,
       &-higherBorder,
@@ -52,8 +57,7 @@
         stroke-width: 2;
       }
 
-      &-forecast,
-      &-other {
+      &-forecast {
         stroke-dasharray: 5 5;
       }
 

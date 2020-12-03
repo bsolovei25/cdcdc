@@ -47,24 +47,32 @@
       (mousedown)="$event.stopPropagation()"
       (touchstart)="$event.stopPropagation()"
     >
-      <div class="shadow-area"></div>
+      <div [style.left]="((paddingLeft$ | async) / 60 * 58.8) + 'px'" class="shadow-area"></div>
       <div [style.left]="(paddingLeft$ | async) + 'px'" class="info-container">
         <div class="label"> Факт </div>
         <div class="card card__fact">
-          <span class="value"> 1410 </span>
-          <span class="unit"> тонн </span>
+          <span class="value"> {{ (predictors$ | async)?.fact?.value || '---' }} </span>
+          <span class="unit"> {{ (predictors$ | async)?.units }} </span>
         </div>
         <div class="label"> План </div>
-        <div class="card card__plan"></div>
+        <div class="card card__plan">
+          <span class="value"> {{ (predictors$ | async)?.plan?.value || '---' }} </span>
+          <span class="unit"> {{ (predictors$ | async)?.units }} </span>
+        </div>
         <div class="label"> План на следующий час </div>
         <div class="card card__plan"></div>
         <div class="flex-spacer"></div>
         <div class="tag-divider">
           <svg-icon [src]="'assets/icons/widgets/ASTUE-ONPZ/astue-onpz-conventional-fuel/tag.svg'"></svg-icon>
         </div>
-        <div class="card card__tag"></div>
-        <div class="card card__tag"></div>
-        <div class="card card__tag"></div>
+        <div
+          class="card card__tag"
+          *ngFor="let card of (predictors$ | async)?.predictors"
+          [style.border-color]="card.color"
+        >
+          <span class="value"> {{ card.val | number:'0.0-2' }} </span>
+          <span class="unit"> {{ card.units }} </span>
+        </div>
       </div>
       <evj-astue-onpz-multi-chart
         class="chart"

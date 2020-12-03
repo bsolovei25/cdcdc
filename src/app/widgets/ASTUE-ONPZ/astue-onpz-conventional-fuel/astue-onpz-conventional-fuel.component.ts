@@ -1,4 +1,11 @@
-import { Component, OnInit, OnDestroy, Inject } from '@angular/core';
+import {
+    ChangeDetectionStrategy,
+    ChangeDetectorRef,
+    Component,
+    Inject,
+    OnDestroy,
+    OnInit,
+} from '@angular/core';
 import { WidgetPlatform } from '../../../dashboard/models/@PLATFORM/widget-platform';
 import { IDatesInterval, WidgetService } from '../../../dashboard/services/widget.service';
 import { IMultiChartLine } from '../../../dashboard/models/ASTUE-ONPZ/astue-onpz-multi-chart.model';
@@ -6,7 +13,10 @@ import { UserSettingsService } from '../../../dashboard/services/user-settings.s
 import { AstueOnpzService } from '../astue-onpz-shared/astue-onpz.service';
 import { IMultiChartOptions } from './components/astue-onpz-multi-chart/astue-onpz-multi-chart.component';
 import { IChartMini } from '@shared/models/smart-scroll.model';
-import { AstueOnpzConventionalFuelService } from './astue-onpz-conventional-fuel.service';
+import {
+    AstueOnpzConventionalFuelService,
+    IAstueOnpzConventionalFuelTransfer,
+} from './astue-onpz-conventional-fuel.service';
 import { BehaviorSubject } from 'rxjs';
 
 @Component({
@@ -40,6 +50,10 @@ export class AstueOnpzConventionalFuelComponent extends WidgetPlatform
     public paddingLeft$: BehaviorSubject<number> = this.astueOnpzConventionalFuelService
         .paddingLegend$;
 
+    public predictors$: BehaviorSubject<IAstueOnpzConventionalFuelTransfer> = new BehaviorSubject<
+        IAstueOnpzConventionalFuelTransfer
+    >(null);
+
     constructor(
         protected widgetService: WidgetService,
         @Inject('isMock') public isMock: boolean,
@@ -47,7 +61,8 @@ export class AstueOnpzConventionalFuelComponent extends WidgetPlatform
         @Inject('uniqId') public uniqId: string,
         private astueOnpzService: AstueOnpzService,
         private userSettingsService: UserSettingsService,
-        private astueOnpzConventionalFuelService: AstueOnpzConventionalFuelService
+        private astueOnpzConventionalFuelService: AstueOnpzConventionalFuelService,
+        private changeDetection: ChangeDetectorRef
     ) {
         super(widgetService, isMock, id, uniqId);
     }
@@ -56,9 +71,12 @@ export class AstueOnpzConventionalFuelComponent extends WidgetPlatform
         this.widgetInit();
         this.subscriptions.push(
             this.widgetService.currentDates$.subscribe((ref) => (this.scrollLimits = ref)),
-            this.astueOnpzConventionalFuelService.predictorsInfo$?.subscribe((ref) =>
-                console.log(ref)
-            )
+            this.astueOnpzConventionalFuelService.predictorsInfo$.subscribe((x) => {
+                setTimeout(() => {
+                    this.predictors$.next(x);
+                    this.changeDetection.detectChanges();
+                });
+            })
         );
     }
 

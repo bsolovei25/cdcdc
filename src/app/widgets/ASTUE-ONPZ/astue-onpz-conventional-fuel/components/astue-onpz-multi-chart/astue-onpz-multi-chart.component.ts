@@ -25,8 +25,6 @@ import { dateFormatLocale } from '@shared/functions/universal-time-fromat.functi
 import { findCursorPosition } from '@shared/functions/find-cursor-position.function';
 import { AstueOnpzService } from '../../../astue-onpz-shared/astue-onpz.service';
 import { AstueOnpzConventionalFuelService } from '../../astue-onpz-conventional-fuel.service';
-import { fillDataShape } from '@shared/functions/common-functions';
-
 export interface IMultiChartOptions {
     colors?: Map<string, number>;
     isIconsShowing?: boolean;
@@ -534,6 +532,7 @@ export class AstueOnpzMultiChartComponent implements OnInit, OnChanges, OnDestro
         const grid = this.svg
             .append('g')
             .attr('class', 'grid')
+            .attr('fill', 'rgba(18, 21, 30, 0.5)')
             .attr('transform', `translate(0,${this.graphMaxY - this.padding.bottom})`)
             .call(
                 d3
@@ -807,7 +806,7 @@ export class AstueOnpzMultiChartComponent implements OnInit, OnChanges, OnDestro
             .style('color', 'white');
 
         // линия курсора
-        mouseG
+        const mouseLine = mouseG
             .append('line')
             .attr('class', 'mouse-line')
             .attr('y1', 0)
@@ -817,6 +816,14 @@ export class AstueOnpzMultiChartComponent implements OnInit, OnChanges, OnDestro
             .style('stroke', 'currentColor')
             .style('stroke-width', '1px');
 
+        mouseG
+            .append('text')
+            .attr('class', 'label-mouse')
+            .attr('text-anchor', 'start')
+            .attr('x', 0)
+            .attr('y', height - 20)
+            .text('');
+
         // TODO check work
         this.newDrawMouseInfoGroup();
 
@@ -825,7 +832,7 @@ export class AstueOnpzMultiChartComponent implements OnInit, OnChanges, OnDestro
             .append('svg:rect')
             .attr('width', width)
             .attr('height', height)
-            .attr('fill', 'none')
+            .attr('fill', 'rgba(18, 21, 30, 0.3)')
             .attr('pointer-events', 'all')._groups;
 
         if (this.eventListenerFn) {
@@ -838,6 +845,7 @@ export class AstueOnpzMultiChartComponent implements OnInit, OnChanges, OnDestro
         const values = [];
         let plan: IChartMini;
         let fact: IChartMini;
+        let units: string = null;
         const currentDatetime: Date = new Date();
         currentDatetime.setMinutes(0, 0, 0);
         this.charts.forEach((chart) => {
@@ -849,8 +857,10 @@ export class AstueOnpzMultiChartComponent implements OnInit, OnChanges, OnDestro
                     ? filterChart[filterChart.length - 1]
                     : chart?.graph[0] ?? null;
             if (chart.graphType === 'plan') {
+                units = units ? units : chart.units;
                 plan = chart.graph[chart.graph.length - 1];
             } else if (chart.graphType === 'fact') {
+                units = units ? units : chart.units;
                 fact = chart.graph[chart.graph.length - 1];
             } else if (chart.graphType === 'higherBorder') {
                 fact = chart.graph[chart.graph.length - 1];
@@ -860,7 +870,7 @@ export class AstueOnpzMultiChartComponent implements OnInit, OnChanges, OnDestro
                 // TODO add some
             } else {
                 values.push({
-                    val: statValue,
+                    val: statValue.value,
                     color: lineColors[this.colors?.get(chart.tagName)],
                     units: chart.units ?? '',
                     iconType: chart.graphType ?? 'volume',
@@ -871,6 +881,7 @@ export class AstueOnpzMultiChartComponent implements OnInit, OnChanges, OnDestro
             fact,
             plan,
             predictors: [...values],
+            units,
         });
     }
 
@@ -914,38 +925,18 @@ export class AstueOnpzMultiChartComponent implements OnInit, OnChanges, OnDestro
             .attr('x1', x)
             .attr('x2', x);
 
-        const infoFramePaddings = {
-            near: 20,
-            nearText: 15,
-            longerAngle: 58,
-            longer: 60,
-        };
-        const infoBLockPaddings = {
-            bigRect: 80,
-            smallRect: 13,
-        };
-
         if (factX.toString() === 'Invalid Date' && planX.toString() === 'Invalid Date') {
             factX = new Date();
         }
-        const formatDate = d3.timeFormat('%d.%m.%Y | %H:%M:%S');
+
+        const formatDate = d3.timeFormat('%H:%M');
         this.svg
-            .select('g.mouse-info .mouse-graph-date')
-            .attr('x', x)
+            .select('.label-mouse')
+            .attr('x', x + 7)
             .text(formatDate(factX.toString() === 'Invalid Date' ? planX : factX));
-        this.svg.selectAll('g.mouse-info .data-date').attr('x', x);
-        // Большой многоугольник
-        this.svg.selectAll('g.mouse-info .big-rect').attr('x', x - infoBLockPaddings.bigRect);
-        // Маленький под иконками
-        this.svg.selectAll('g.mouse-info .small-rect').attr('x', x - infoBLockPaddings.smallRect);
-        this.svg
-            .selectAll('g.mouse-info .future-line')
-            .attr('x1', x - 13)
-            .attr('x2', x + 13);
-        this.svg.selectAll('g.mouse-info .icon-rect').attr('x', x - 10);
-        this.svg.selectAll('g.mouse-info .small-icon-rect').attr('x', x - 14);
 
         const values = [];
+        let units: string = null;
         let plan: IChartMini = null;
         let fact: IChartMini = null;
         const date: Date = factX.toString() !== 'Invalid Date' ? new Date(factX) : new Date(planX);
@@ -957,86 +948,33 @@ export class AstueOnpzMultiChartComponent implements OnInit, OnChanges, OnDestro
             const xGragh = chart.transformedGraph[chart.transformedGraph.length - 1]?.x >= x;
             const statValue = filterChart?.length > 0 ? filterChart[filterChart.length - 1] : null;
             if (chart.graphType === 'plan') {
+                units = units ? units : chart.units;
                 plan = chart.graph[chart.graph.length - 1];
             } else if (
                 chart.graphType === 'fact' ||
                 chart.graphType === 'higherBorder' ||
                 chart.graphType === 'lowerBorder'
             ) {
+                units = units ? units : chart.units;
                 fact = chart.graph[chart.graph.length - 1];
             } else if (chart.graphType === 'forecast') {
                 // TODO add some
             } else {
                 values.push({
-                    val: xGragh ? statValue : -1,
+                    val: xGragh ? statValue.value : 0,
                     color: lineColors[this.colors?.get(chart.tagName)],
                     units: chart.units ?? '',
                     iconType: chart.graphType ?? 'volume',
                 });
             }
         });
-        this.astueOnpzConventionalFuelService.predictorsInfo$.next({
-            fact,
-            plan,
-            predictors: [...values],
-        });
-
-        values.forEach((val, idx) => {
-            const step = 10;
-            this.svg
-                .selectAll(`g.mouse-info .val`)
-                .attr('opacity', val?.val < 0 ? 0 : 1)
-                .attr('x', x + step);
-            this.svg
-                .selectAll(`g.mouse-info .rect-val-1-${idx}`)
-                .attr('opacity', val?.val < 0 ? 0 : 1)
-                .attr('x', x + step);
-            this.svg
-                .selectAll(`g.mouse-info .rect-val-2-${idx}`)
-                .attr('opacity', val?.val < 0 ? 0 : 1)
-                .attr('opacity', val?.val < 0 ? 0 : 1)
-                .attr('x', x + step * 1.5);
-
-            const cardHeight = this.axisYWidth * 0.5;
-            this.svg
-                .selectAll(`g.mouse-info .rect-val-text-${idx}`)
-                .attr('x', x + step * 1.5 + cardHeight)
-                .attr('opacity', val?.val < 0 ? 0 : 1)
-                .text(`${val?.val?.value?.toFixed(2)} ${val.units}`);
-
-            if (this.options.isIconsShowing) {
-                this.svg
-                    .selectAll(`g.mouse-info .rect-val-icon-${idx}`)
-                    .attr('opacity', val?.val < 0 ? 0 : 1)
-                    .attr('x', x + step * 1.7);
-            }
-        });
-
-        this.svg
-            .selectAll('g.mouse-info .line-left-horizontal')
-            .attr('x1', x - infoFramePaddings.longerAngle)
-            .attr('x2', x - infoFramePaddings.near);
-
-        this.svg
-            .select('g.mouse-info .mouse-graph-value')
-            .attr('x', x - infoFramePaddings.nearText)
-            .text(factY?.toFixed(0));
-
-        this.svg
-            .select('g.mouse-info .mouse-graph-deviation')
-            .attr('x', x + infoFramePaddings.nearText)
-            .text((factY - planY)?.toFixed(0));
-
-        this.svg
-            .selectAll('g.mouse-info .data-fact')
-            .attr('x', x - 18)
-            .text(factY?.toFixed(2));
-
-        this.svg
-            .selectAll('g.mouse-info .data-plan')
-            .attr('x', x + 23)
-            .text(planY?.toFixed(2));
-
-        this.svg.select('g.mouse-over').style('color', 'white');
+        setTimeout(() =>
+            this.astueOnpzConventionalFuelService.predictorsInfo$.next({
+                fact,
+                plan,
+                predictors: [...values],
+                units,
+            })
+        );
     }
 }
