@@ -4,6 +4,7 @@ import { SharedModule } from '@shared/shared.module';
 import { ApsOperatingModesComponent } from './aps-operating-modes.component';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { NgxMatDatetimePickerModule } from '@angular-material-components/datetime-picker';
+import { AngularSvgIconModule } from 'angular-svg-icon';
 
 
 @NgModule({
@@ -12,7 +13,8 @@ import { NgxMatDatetimePickerModule } from '@angular-material-components/datetim
     CommonModule,
     SharedModule,
     MatDatepickerModule,
-    NgxMatDatetimePickerModule
+    NgxMatDatetimePickerModule,
+    AngularSvgIconModule
   ]
 })
 export class ApsOperatingModesModule {

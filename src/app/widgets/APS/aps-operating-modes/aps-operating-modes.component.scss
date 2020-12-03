@@ -11,6 +11,7 @@
   padding: 0 5px 5px 0;
   border: 1px var(--color-aps-border);
   border-style: none solid solid solid;
+  background: var(--color-aps-structure-bg-main);
   box-sizing: border-box;
   overflow: hidden;
 }
@@ -51,68 +52,165 @@
   width: 100%;
   box-sizing: border-box;
   overflow-y: scroll;
-
-  input {
-    height: 30px;
-    padding: 0 5px 0 0;
-    background: transparent;
-    outline: none;
-    border: none;
-    color: var(--header-events-color-font-main);
-
-    &::-webkit-input-placeholder {
-      color: var(--header-events-color-font-main);
-    }
-  }
 }
 
 table {
   position: relative;
   width: 100%;
-  border-spacing: 2px 2px;
+  border-spacing: 1px 1px;
   border-collapse: separate;
 
-  background-color: var(--evj-color-bg-main);
-}
-
-th {
-  position: sticky;
-  top: 0;
-  height: 70px;
-  font-size: 13px;
-  line-height: 16px;
-  color: var(--color-text-sub);
-  background: var(--color-kpe-gaude-unactive);
-}
-
-td {
-  text-align: center;
-  height: 40px;
-  //width: 12%;
-  font-size: 14px;
-  line-height: 17px;
-  color: var(--header-events-color-font-main);
-  background: var(--color-aps-table-td);
-}
-
-.text {
-  height: 100%;
-  width: 100%;
-  box-sizing: border-box;
-  padding: 5px;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  &__value {
-    width: 100%;
+  .text {
     height: 100%;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-
+    width: 100%;
+    box-sizing: border-box;
+    padding: 5px;
+  
     display: flex;
     align-items: center;
+    justify-content: center;
+
+    position: relative;
+  
+    &__value {
+      width: 100%;
+      height: 100%;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+  
+      display: flex;
+      align-items: center;
+    }
+
+    .shadow {
+      display: none;
+    }
+  }
+
+  tr {
+    background: var(--color-aps-table-bg-main);
+
+    td {
+      text-align: center;
+      height: 40px;
+      font-size: 14px;
+      line-height: 17px;
+      color: var(--color-aps-table-text-sub);
+
+      .text {
+        border: 1px solid var(--color-aps-main-axis);
+        border-right: none;
+        border-left: none;
+      }
+
+      &:first-child {
+        .text {
+          border-left: 2px solid var(--color-aps-bg-icon);
+          .shadow {
+            display: block;
+
+            height: 40px;
+            width: 60%;
+
+            background: linear-gradient(90deg, var(--color-border-main) 0%, transparent 83.8%);
+            opacity: 0.3;
+            position: absolute;
+            left: 0;
+          }
+        }
+      }
+      &:last-child {
+        .text {
+          border-right: 2px solid var(--color-aps-bg-icon);
+        }
+      }
+    }
+
+    input {
+      height: 30px;
+      width: 100%;
+      padding: 0 5px 0 0;
+      background: transparent;
+      outline: none;
+      border: none;
+      color: var(--color-aps-table-text-sub);
+      z-index: 1;
+      &::-webkit-input-placeholder {
+        color: var(--color-aps-table-text-sub);
+      }
+    }
+  }
+
+  .active-row {
+    background: var(--color-aps-table-bg-main-active);
+
+    td {
+      color: var(--color-aps-active-line);
+
+      .text {
+        border: 1px solid var(--color-aps-active);
+        border-right: none;
+        border-left: none;
+      }
+
+      &:first-child {
+        .text {
+          border-left: 2px solid var(--color-aps-active);
+          .shadow {
+            background: linear-gradient(90deg, var(--color-aps-active) 0%, transparent 83.8%);
+            opacity: 0.4;
+          }
+        }
+      }
+      &:last-child {
+        .text {
+          border-right: 2px solid var(--color-aps-active);
+        }
+      }
+    }
+
+    input {
+      color: var(--color-aps-active-line);
+      &::-webkit-input-placeholder {
+        color: var(--color-aps-active-line);
+      }
+    }
+
+    .active-col {
+      background: var(--color-aps-bg-active-col);
+    }
+  }
+
+  thead {
+    tr {
+      th {
+        position: sticky;
+        top: 0;
+        height: 70px;
+        font-size: 13px;
+        line-height: 16px;
+        color: var(--color-aps-table-text-sub);
+
+        .text {
+          border: none;
+          svg-icon {
+            display: none;
+          }
+        }
+      }
+
+      .active-col-title {
+        .text {
+          color: var(--color-aps-active-line);
+          svg-icon {
+            display: block;
+            position: absolute;
+  
+            top: 5px;
+          }
+        }
+      }
+    }
   }
 }

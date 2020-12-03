@@ -37,6 +37,9 @@ export class ApsOperatingModesComponent extends WidgetPlatform<unknown>
     editedData: IEditedData[] = [];
     editMode: boolean = false;
     idIndex: number;
+
+    selectedRow: number = -1;
+    selectedColumn: number = -1;
     public headerName: IHeaderName[] = [];
 
     constructor(
@@ -73,6 +76,7 @@ export class ApsOperatingModesComponent extends WidgetPlatform<unknown>
                 this.data = [];
                 this.headerName = [];
             }
+            debugger;
         });
     }
 
@@ -91,11 +95,15 @@ export class ApsOperatingModesComponent extends WidgetPlatform<unknown>
     }
 
     discard(): void {
+        this.selectedRow = -1;
+        this.selectedColumn = -1;
         this.editMode = false;
         this.editedData = [];
     }
 
-    editValue(): void {
+    editValue(rowNumber: number, columnNumber: number): void {
+        this.selectedRow = rowNumber;
+        this.selectedColumn = columnNumber;
         this.editMode = true;
     }
 

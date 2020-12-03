@@ -12,6 +12,20 @@ import { IScenario } from '../../../dashboard/models/APS/aps-tables.model';
 export class ApsScenarioSelectionComponent extends WidgetPlatform<unknown>
     implements OnInit, OnDestroy {
     public scenarios: IScenario[] = [null];
+    public factorys: {
+        name: string
+    }[] = [
+        {
+            name: 'ОНПЗ'
+        }
+    ];
+    public factorysInfo: {
+        name: string
+    }[] = [
+        {
+            name: 'План производства'
+        }
+    ];;
     constructor(
         private apsService: ApsService,
         protected widgetService: WidgetService,
