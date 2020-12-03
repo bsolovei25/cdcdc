@@ -39,6 +39,7 @@ export class AstueEfficiencyUnitsComponent implements OnChanges {
             this.AsEfService.cardSelection.select(...flows);
             this.cardSelection = this.AsEfService.cardSelection;
             this.AsEfService.selectionFlow$.next(flows);
+            this.AsEfService.selection$.next();
         }
     }
 
