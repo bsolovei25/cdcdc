@@ -6,7 +6,6 @@ import { IColumnsToDisplay } from '../aps-recipe-diagram/aps-recipe-diagram.comp
 import { structureList } from './aps-structure-id-mock';
 import { ApsService } from '../../../dashboard/services/widgets/APS/aps.service';
 
-
 export interface IStructure {
     unit: { name: string };
     list: IStructureList[];
@@ -21,13 +20,11 @@ export interface IStructureList {
 @Component({
     selector: 'evj-aps-structure-id',
     templateUrl: './aps-structure-id.component.html',
-    styleUrls: ['./aps-structure-id.component.scss']
+    styleUrls: ['./aps-structure-id.component.scss'],
 })
 export class ApsStructureIdComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
     public data: IStructure[] = structureList;
-    columnsToDisplay: IColumnsToDisplay[] = [
-        { name: 'Показатели, Дж', id: 0, date: new Date() }
-    ];
+    columnsToDisplay: IColumnsToDisplay[] = [{ name: 'Показатели, Дж', id: 0, date: new Date() }];
 
     expandedElement: SelectionModel<string> = new SelectionModel(true);
     selectedRowProduct: string;
@@ -58,8 +55,7 @@ export class ApsStructureIdComponent extends WidgetPlatform<unknown> implements 
         super.ngOnDestroy();
     }
 
-    protected dataHandler(ref: any): void {
-    }
+    protected dataHandler(ref: any): void {}
     private async getTables(table: number, id: number): Promise<void> {
         const data = await this.apsService.getReferenceBook(table, id);
         this.apsService.showTable$.next(data);
@@ -87,7 +83,10 @@ export class ApsStructureIdComponent extends WidgetPlatform<unknown> implements 
         if (!this.selectedRowProduct || element.id !== this.selectedRowProduct) {
             this.selectUnitType = element.unitType;
             this.selectedRowProduct = element.id;
-            this.getTables(element.unitType, this.apsService.selectScenario$.getValue().scenarioId);
+            this.getTables(
+                element.unitType,
+                this.apsService.selectScenario$?.getValue().scenarioId
+            );
         } else {
             this.selectedRowProduct = null;
             this.selectUnitType = null;

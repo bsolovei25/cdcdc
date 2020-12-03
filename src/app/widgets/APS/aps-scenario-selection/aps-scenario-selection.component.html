@@ -11,33 +11,69 @@
        (mousedown)="$event.stopPropagation()"
        (touchstart)="$event.stopPropagation()"
   >
-    <div class="select-menu">
-      <div class="dropdown">
-        <div class="dropdown__marker">
-        </div>
-        <mat-select
-          class="dropdown__select"
-          (selectionChange)="getScenarioId($event)"
-          [value]="apsService.selectScenario$ | async"
-        >
-          <ng-container *ngFor="let scenario of scenarios">
-            <mat-option [value]="scenario"
-            >
-              {{ scenario?.name }}
-            </mat-option>
-          </ng-container>
-        </mat-select>
-      </div>
-      <button
-        class="button button-icon"
-        matRipple [matRippleColor]="'white'"
-        (click)="calculate($event)"
+    <div class="content-item">
+      <div class="select-menu"
+        [style.opacity]="0.5"
       >
+        <div class="dropdown">
+          <div class="dropdown__marker">
+          </div>
+          <mat-select class="dropdown__select" [value]="factorys[0]" disabled>
+            <ng-container *ngFor="let factory of factorys">
+              <mat-option [value]="factory">
+                {{ factory?.name }}
+              </mat-option>
+            </ng-container>
+          </mat-select>
+        </div>
+      </div>
+
       <svg-icon
-          src="assets/icons/widgets/APS/scenarios/play-button.svg"
-          [svgStyle]="{ 'width.px':14, 'height.px':14 }">
-        </svg-icon>
-      </button>
+        src="assets/icons/widgets/APS/scenarios/circleArrow.svg"
+        [svgStyle]="{ 'width.px':14, 'height.px':14 }"
+      ></svg-icon>
+
+      <div class="select-menu"
+        [style.opacity]="0.5"
+      >
+        <div class="dropdown">
+          <div class="dropdown__marker">
+          </div>
+          <mat-select class="dropdown__select" [value]="factorysInfo[0]" disabled>
+            <ng-container *ngFor="let info of factorysInfo">
+              <mat-option [value]="info">
+                {{ info?.name }}
+              </mat-option>
+            </ng-container>
+          </mat-select>
+        </div>
+      </div>
+    </div>
+    <div class="content-item">
+      <div class="select-menu">
+        <div class="dropdown">
+          <div class="dropdown__marker">
+          </div>
+          <mat-select class="dropdown__select" (selectionChange)="getScenarioId($event)"
+                      [value]="apsService.selectScenario$ | async">
+            <ng-container *ngFor="let scenario of scenarios">
+              <mat-option [value]="scenario">
+                {{ scenario?.name }}
+              </mat-option>
+            </ng-container>
+          </mat-select>
+        </div>
+        <button
+          class="button button-icon"
+          matRipple [matRippleColor]="'white'"
+          (click)="calculate($event)"
+        >
+        <svg-icon
+            src="assets/icons/widgets/APS/scenarios/play-button.svg"
+            [svgStyle]="{ 'width.px':14, 'height.px':14 }">
+          </svg-icon>
+        </button>
+      </div>
     </div>
   </div>
 </div>
