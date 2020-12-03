@@ -1,16 +1,8 @@
-import {
-    ChangeDetectorRef,
-    Component,
-    Inject,
-    OnDestroy,
-    OnInit
-} from '@angular/core';
+import { ChangeDetectorRef, Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { WidgetPlatform } from '../../../dashboard/models/@PLATFORM/widget-platform';
 import { WidgetService } from '../../../dashboard/services/widget.service';
 import { SelectionModel } from '@angular/cdk/collections';
-import {
-    AstueOnpzService, IAstueOnpzPredictor
-} from '../astue-onpz-shared/astue-onpz.service';
+import { AstueOnpzService, IAstueOnpzPredictor } from '../astue-onpz-shared/astue-onpz.service';
 
 interface IPredictors {
     id: string;
@@ -26,9 +18,10 @@ interface IPredictors {
 @Component({
     selector: 'evj-astue-onpz-predictors',
     templateUrl: './astue-onpz-predictors.component.html',
-    styleUrls: ['./astue-onpz-predictors.component.scss']
+    styleUrls: ['./astue-onpz-predictors.component.scss'],
 })
-export class AstueOnpzPredictorsComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
+export class AstueOnpzPredictorsComponent extends WidgetPlatform<unknown>
+    implements OnInit, OnDestroy {
     selectPredictors: SelectionModel<string> = new SelectionModel<string>(true);
     data: IPredictors[] = [];
     colors: Map<string, number>;
@@ -65,7 +58,7 @@ export class AstueOnpzPredictorsComponent extends WidgetPlatform<unknown> implem
     protected dataHandler(ref: { predictors: IPredictors[] }): void {
         this.data = ref.predictors;
         if (ref.predictors[0]?.id === '0') {
-            console.log('ID предиктора равна 0');  // проверка данных с backend
+            console.log('ID предиктора равна 0'); // проверка данных с backend
         }
         this.subscriptions.push(
             this.astueOnpzService.colors$.subscribe((value) => {

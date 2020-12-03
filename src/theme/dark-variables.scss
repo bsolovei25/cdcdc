@@ -1,5 +1,5 @@
 @mixin variables-dark() {
-  --color-bg-main: #1b1e27;
+  --color-bg-main: #12151E;
   --color-bg-main-opacity: rgba(27, 30, 39, 0.4);
   --color-bg-main-dark: #181b23;
   --color-bg-sub: #272b35;
@@ -436,6 +436,9 @@
 
   --color-astue-onpz-widget-bg: #1C1F2B;
   --color-astue-onpz-widget-border: #272A38;
+
+  --color-astue-onpz-predictors-slider-border: #4B5169;
+  --astue-onpz-factorypredictors-slider-bg: #12151E;
 
   --astue-onpz-factory-analisys-grid: #4B5169;
   --astue-onpz-factory-analisys-grid-opacity: rgba(75,81,105,0.5);

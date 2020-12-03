@@ -18,12 +18,16 @@
 
 .content {
   position: relative;
-  width: calc(100% - 2px);
+  width: 100%;
   height: 100%;
-  padding-right: 5px;
-  overflow: scroll;
-  display: grid;
-  gap: 20px;
-  grid-template-columns: repeat(3, 1fr);
-  grid-auto-rows: calc(50% - 10px);
+  gap: 1%;
+  overflow-y: hidden;
+  display: flex;
+  justify-content: flex-start;
+  box-sizing: border-box;
+
+  &__item {
+    height: 100%;
+    width: 25%;
+  }
 }

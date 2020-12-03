@@ -33,7 +33,7 @@ import { map } from 'rxjs/operators';
 export class AstueEfficiencyTableDisplayComponent implements OnInit, OnChanges, OnDestroy {
     @Input() public isInitialDataShow: boolean = true;
     @Input() public allData: IAsEfUnitNew[] = [];
-    @Input() planningTable: IAsPlanningTable[] = [];
+    @Input() planningTable: IAsPlanningTable[] = []; // Только для вкладки планирования
     @Output() private toggleDisplay: EventEmitter<true> = new EventEmitter<true>();
 
     public displayData: IAsEfTable[] = [];
@@ -161,8 +161,8 @@ export class AstueEfficiencyTableDisplayComponent implements OnInit, OnChanges, 
             .flatMap((x) => x.rows)
             .sort(
                 (a, b) =>
-                    +(this.dates?.length < b.values?.length) -
-                    +(this.dates?.length < a.values?.length)
+                    +(this.dates?.length < b?.values?.length) -
+                    +(this.dates?.length < a?.values?.length)
             )[0]?.values;
     }
 
@@ -178,13 +178,15 @@ export class AstueEfficiencyTableDisplayComponent implements OnInit, OnChanges, 
     private defineSum(): void {
         this.displayData.forEach((item) => {
             if (item.header?.values) {
-                item.header.dataSummary = item.header.values.reduce(
-                    (acc, val) => acc + val.value,
+                item.header.dataSummary = item.header?.values.reduce(
+                    (acc, val) => acc + val?.value,
                     0
                 );
             }
-            item.rows.forEach((row) => {
-                row.dataSummary = row.values.reduce((acc, val) => acc + val.value, 0);
+            item?.rows?.forEach((row) => {
+                if (row?.dataSummary) {
+                    row.dataSummary = row?.values.reduce((acc, val) => acc + val?.value, 0);
+                }
             });
         });
     }
@@ -232,7 +234,7 @@ export class AstueEfficiencyTableDisplayComponent implements OnInit, OnChanges, 
             .subscribe();
     }
 
-    toggleel(block: any): void {
+    toggleEl(block: any): void {
         if (block.parent) {
             this.newBlockSelection.toggle(`${block.name} ${block.parent}`);
         } else {
