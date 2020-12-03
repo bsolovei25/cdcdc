@@ -2,12 +2,10 @@ import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { WidgetPlatform } from '../../../dashboard/models/@PLATFORM/widget-platform';
 import { WidgetService } from '../../../dashboard/services/widget.service';
 import { SelectionModel } from '@angular/cdk/collections';
-import { IParams } from '../../CD/cd-mat-balance/cd-mat-balance.component';
-import { heatBalanceData } from '../../ASTUE-ONPZ/astue-onpz-heat-balance/astue-onpz-heat-balance-mock';
 import { IColumnsToDisplay } from '../aps-recipe-diagram/aps-recipe-diagram.component';
 import { structureList } from './aps-structure-id-mock';
 import { ApsService } from '../../../dashboard/services/widgets/APS/aps.service';
-import { ITable } from '../aps-operating-modes/aps-operating-modes.component';
+
 
 export interface IStructure {
     unit: { name: string };
@@ -33,9 +31,8 @@ export class ApsStructureIdComponent extends WidgetPlatform<unknown> implements 
 
     expandedElement: SelectionModel<string> = new SelectionModel(true);
     selectedRowProduct: string;
+    selectUnitType: number;
     selectedRow: SelectionModel<string> = new SelectionModel(true);
-
-    public tables: ITable;
     constructor(
         private apsService: ApsService,
         protected widgetService: WidgetService,
@@ -48,6 +45,13 @@ export class ApsStructureIdComponent extends WidgetPlatform<unknown> implements 
 
     ngOnInit(): void {
         super.widgetInit();
+        this.subscriptions.push(
+            this.apsService.selectScenario$.subscribe((res) => {
+                if (res && this.selectUnitType) {
+                    this.getTables(this.selectUnitType, res.scenarioId);
+                }
+            })
+        );
     }
 
     ngOnDestroy(): void {
@@ -56,12 +60,12 @@ export class ApsStructureIdComponent extends WidgetPlatform<unknown> implements 
 
     protected dataHandler(ref: any): void {
     }
-    private async getTables(table: number): Promise<void> {
-        const data = await this.apsService.getReferenceBook(table);
+    private async getTables(table: number, id: number): Promise<void> {
+        const data = await this.apsService.getReferenceBook(table, id);
         this.apsService.showTable$.next(data);
     }
 
-    onClickTr(event: MouseEvent, element: any): void {
+    onClickTr(event: MouseEvent, element?: any): void {
         event.stopPropagation();
         if (this.expandedElement.isSelected(element.name)) {
             this.expandedElement.deselect(element.name);
@@ -81,10 +85,12 @@ export class ApsStructureIdComponent extends WidgetPlatform<unknown> implements 
     onClickRowChildren(event: MouseEvent, element?: any): void {
         event.stopPropagation();
         if (!this.selectedRowProduct || element.id !== this.selectedRowProduct) {
+            this.selectUnitType = element.unitType;
             this.selectedRowProduct = element.id;
+            this.getTables(element.unitType, this.apsService.selectScenario$.getValue().scenarioId);
         } else {
             this.selectedRowProduct = null;
+            this.selectUnitType = null;
         }
-        this.getTables(element.unitType);
     }
 }

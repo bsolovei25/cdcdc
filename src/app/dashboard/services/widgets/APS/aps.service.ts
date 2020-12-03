@@ -5,8 +5,6 @@ import { BehaviorSubject } from 'rxjs';
 import { IScenario } from '../../../models/APS/aps-tables.model';
 import { ITable } from '../../../../widgets/APS/aps-operating-modes/aps-operating-modes.component';
 
-export const scenarioId: number = 186;
-
 @Injectable({
     providedIn: 'root'
 })
@@ -14,6 +12,7 @@ export const scenarioId: number = 186;
 export class ApsService {
     private readonly restUrl: string;
     showTable$: BehaviorSubject<ITable> = new BehaviorSubject<ITable>(null);
+    selectScenario$: BehaviorSubject<IScenario> = new BehaviorSubject<IScenario>(null);
 
     constructor(public http: HttpClient, configService: AppConfigService) {
         this.restUrl = configService.restUrl;
@@ -25,17 +24,17 @@ export class ApsService {
             )
             .toPromise();
     }
-    async getReferenceBook(table: number): Promise<ITable> {
+    async getReferenceBook(table: number, id: number): Promise<ITable> {
         return this.http
             .get<ITable>(
-                this.restUrl + `/api/debugging-service-ApsService/ReferenceBook/${scenarioId}/${table}`
+                this.restUrl + `/api/debugging-service-ApsService/ReferenceBook/${id}/${table}`
             )
             .toPromise();
     }
-    async getCalculate(): Promise<any> {
+    async getCalculate(id: number): Promise<any> {
         return this.http
             .get<any>(
-                this.restUrl + `/api/debugging-service-ApsService/Json/unload/{scenarioId}/folder`
+                this.restUrl + `/api/debugging-service-ApsService/Json/unload/${id}/folder`
             )
             .toPromise();
     }
