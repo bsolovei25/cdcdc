@@ -65,20 +65,20 @@ table {
     width: 100%;
     box-sizing: border-box;
     padding: 5px;
-  
+
     display: flex;
     align-items: center;
     justify-content: center;
 
     position: relative;
-  
+
     &__value {
       width: 100%;
       height: 100%;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
-  
+
       display: flex;
       align-items: center;
     }
@@ -191,6 +191,8 @@ table {
         font-size: 13px;
         line-height: 16px;
         color: var(--color-aps-table-text-sub);
+        background: var(--color-aps-table-bg-main);
+        z-index: 9;
 
         .text {
           border: none;
@@ -206,7 +208,7 @@ table {
           svg-icon {
             display: block;
             position: absolute;
-  
+
             top: 5px;
           }
         }

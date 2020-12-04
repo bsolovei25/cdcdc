@@ -16,7 +16,7 @@ export const structureList: IStructure[] = [
             },
             {
                 id: '2',
-                title: 'Скорость изменнеия загрузки',
+                title: 'Скорость изменения загрузки',
                 unitType: 3,
             },
             {
