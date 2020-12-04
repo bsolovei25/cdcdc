@@ -1,4 +1,6 @@
-<div class="events-correct">
+<div class="events-correct"
+  [ngClass]="ewService.event.retrievalEvents.length === 0 ? 'small' : 'big'"
+>
   <div class="events-correct__header">
     <div class="events-correct__search button"
          matRipple [matRippleColor]="'white'"

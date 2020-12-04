@@ -1,9 +1,13 @@
 $add-button-color: #303549;
 $main-border-color: rgba(96, 101, 128, 0.25);
-
+.big {
+  height: 525px;
+}
+.small {
+  height: 300px;
+}
 .events-correct {
   width: inherit;
-  height: 525px;
   background-color: var(--header-events-color-bg-main);
   border: 1px solid $main-border-color;
   border-radius: 2px;
