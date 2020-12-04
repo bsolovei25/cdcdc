@@ -40,10 +40,14 @@
       <div class="dropdown">
         <div class="dropdown__marker">
         </div>
-        <mat-select class="dropdown__select" [value]="'АВТ-10'">
-          <ng-container>
-            <mat-option [value]="'АВТ-10'">
-              АВТ-10
+        <mat-select 
+          class="dropdown__select" 
+          [value]="0"
+          [(ngModel)]="selectedInstallation"
+        >
+          <ng-container *ngFor="let installation of installations; let i = index">
+            <mat-option [value]="i">
+              {{installation}}
             </mat-option>
           </ng-container>
         </mat-select>
@@ -53,16 +57,31 @@
     <div class="section-select">
       <div class="custom-border"></div>
       <div class="section-select__item"
-        *ngFor="let section of sections; let i = index"
+        *ngFor="let section of sections[selectedInstallation]; let i = index"
         [ngClass]="{active: i===choosenSection}"
         (click)="changeSection(i)"
       >
-        <span class="title">{{section.title}}</span>
+        <span class="title">{{section?.title}}</span>
         <div class="value"
           [ngClass]="{
-            noTrust: section.value > 0
+            noTrust: section?.value > 0
           }"
         >{{section.value}}</div>
+      </div>
+    </div>
+
+    <div class="option-select" *ngIf="selectedInstallation === 1">
+      <span>Отображаемые значения: </span>
+      <div class="dropdown">
+        <div class="dropdown__marker">
+        </div>
+        <mat-select class="dropdown__select" [value]="'измеренные'">
+          <ng-container>
+            <mat-option [value]="'измеренные'">
+              измеренные
+            </mat-option>
+          </ng-container>
+        </mat-select>
       </div>
     </div>
 
@@ -85,21 +104,21 @@
   >
     <div class="main-content-container">
       <evj-sou-mvp-mnemonic-scheme-ab-left
-        *ngIf="choosenSection === 0"
+      *ngIf="selectedInstallation === 0 && choosenSection === 0"
         [sections]="sectionsData"
         [choosenSetting]="choosenSetting"
         [flowIn]="flowInAb"
       ></evj-sou-mvp-mnemonic-scheme-ab-left>
 
       <evj-sou-mvp-mnemonic-scheme-vb-left
-        *ngIf="choosenSection === 1"
+      *ngIf="selectedInstallation === 0 && choosenSection === 1"
         [sections]="sectionsData"
         [choosenSetting]="choosenSetting"
         [flowIn]="flowInVb"
       ></evj-sou-mvp-mnemonic-scheme-vb-left>
 
       <evj-sou-mvp-mnemonic-scheme-izomalk-left
-        *ngIf="choosenSection === 2"
+      *ngIf="selectedInstallation === 1"
         [sections]="sectionsDataIzo"
         [choosenSetting]="choosenSetting"
       ></evj-sou-mvp-mnemonic-scheme-izomalk-left>
@@ -111,24 +130,24 @@
       >
         <div class="main-collector">
           <div class="main-collector-title">
-            <span *ngIf="choosenSection !== 2">АВТ-10 <br></span>
-            <span>{{sections[choosenSection].title}}</span>
+            <span *ngIf="choosenSection !== 2">{{installations[selectedInstallation]}}<br></span>
+            <span>{{sections[selectedInstallation][choosenSection]?.title}}</span>
           </div>
         </div>
         <evj-sou-mvp-mnemonic-scheme-section
-          *ngIf="choosenSection === 0"
+          *ngIf="selectedInstallation === 0 && choosenSection === 0"
           [choosenSetting]="choosenSetting"
           [sections]="sectionsData"
         ></evj-sou-mvp-mnemonic-scheme-section>
 
         <evj-sou-mvp-mnemonic-scheme-section-vb
-          *ngIf="choosenSection === 1"
+          *ngIf="selectedInstallation === 0 && choosenSection === 1"
           [choosenSetting]="choosenSetting"
           [sections]="sectionsData"
         ></evj-sou-mvp-mnemonic-scheme-section-vb>
 
         <evj-sou-mvp-mnemonic-scheme-section-izomalk
-          *ngIf="choosenSection === 2"
+          *ngIf="selectedInstallation === 1"
           [choosenSetting]="choosenSetting"
           [sections]="sectionsDataIzo"
         ></evj-sou-mvp-mnemonic-scheme-section-izomalk>
