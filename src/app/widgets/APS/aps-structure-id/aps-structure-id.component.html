@@ -23,9 +23,18 @@
             <td
               class="table__body__column"
               [class.table__body__column--active]="selectedRowProduct === element.unit.name"
+              [ngClass]="{
+                'actve-row': expandedElement.isSelected(element.unit.name)
+              }"
               (click)="onClickRow($event, element)"
               colspan="3"
+              [style.position]="'relative'"
             >
+              <div class="shadow"
+                [ngClass]="{
+                  'shadow-active': expandedElement.isSelected(element.unit.name)
+                }"
+                ></div>
               <div
                 (click)="onClickRow($event, element.unit)"
                 class="table__body__column__row-title"

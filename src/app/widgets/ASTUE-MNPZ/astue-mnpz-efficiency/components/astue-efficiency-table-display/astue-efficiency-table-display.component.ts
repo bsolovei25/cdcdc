@@ -33,7 +33,7 @@ import { map } from 'rxjs/operators';
 export class AstueEfficiencyTableDisplayComponent implements OnInit, OnChanges, OnDestroy {
     @Input() public isInitialDataShow: boolean = true;
     @Input() public allData: IAsEfUnitNew[] = [];
-    @Input() planningTable: IAsPlanningTable[] = [];
+    @Input() planningTable: IAsPlanningTable[] = []; // Только для вкладки планирования
     @Output() private toggleDisplay: EventEmitter<true> = new EventEmitter<true>();
 
     public displayData: IAsEfTable[] = [];
@@ -234,7 +234,7 @@ export class AstueEfficiencyTableDisplayComponent implements OnInit, OnChanges, 
             .subscribe();
     }
 
-    toggleel(block: any): void {
+    toggleEl(block: any): void {
         if (block.parent) {
             this.newBlockSelection.toggle(`${block.name} ${block.parent}`);
         } else {

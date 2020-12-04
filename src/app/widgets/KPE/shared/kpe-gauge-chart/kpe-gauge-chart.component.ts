@@ -19,6 +19,7 @@ export class KpeGaugeChartComponent implements OnInit, OnChanges {
     @Input() fact: number = 0 ;
     @Input() plan: number = 0;
     @Input() deviation: number = 0;
+    @Input() noDeviation: boolean = false;
     @Input() img: string = this.defaultImg;
     @Input() background: 'lite' | 'dark' = 'lite';
     @Input() isPercent: boolean = false;
@@ -180,15 +181,21 @@ export class KpeGaugeChartComponent implements OnInit, OnChanges {
 
         const g = svg.append('g').attr('class', 'text');
 
-        g.append('line')
-            .attr('class', 'line')
-            .attr('x1', -14)
-            .attr('y1', 3)
-            .attr('x2', 14)
-            .attr('y2', 3);
-        addText(`${this.fact}`, 'text text__value', -2);
-        addText(`\u0394 ${this.deviation}`, 'text text__deviation', 13);
-        addText(`${this.plan}${this.isPercent ? '%' : ''}`, 'text text__plan', 28);
+        if (!this.noDeviation) {
+            g.append('line')
+                .attr('class', 'line')
+                .attr('x1', -14)
+                .attr('y1', 3)
+                .attr('x2', 14)
+                .attr('y2', 3);
+            addText(`${this.fact}`, 'text text__value', -2);
+            addText(`\u0394 ${this.deviation}`, 'text text__deviation', 13);
+            addText(`${this.plan}${this.isPercent ? '%' : ''}`, 'text text__plan', 28);
+        } else {
+            addText(`${this.fact}`, 'text text__value', -2);
+            addText(`%`, 'text text__unit', 9);
+            addText(`${this.plan}${this.isPercent ? '%' : ''}`, 'text text__plan', 28);
+        }
 
         function addText(text: string, cls: string, yCord: number): void {
             g.append('text')

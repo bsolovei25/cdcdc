@@ -25,7 +25,7 @@ button {
   border: 1px solid var(--ozsm-color-border);
   border-radius: 2px;
 
-  background: var(--ozsm-color-bg-main);
+  background: var(--color-aps-structure-bg-main);
 }
 
 .container-body{
@@ -39,82 +39,80 @@ button {
   display: flex;
   flex-direction: column;
   flex-grow: 1;
-}
 
-.select-menu {
-  display: flex;
-  align-items: center;
-
-  .dropdown {
-    height: 49px;
-    margin: 12px 0;
-
-    border: 1px solid var(--ozsm-color-border-select);
-    border-radius: 2px;
-    background: var(--ozsm-color-loading-space-bg-sub);
-
-    flex: 1;
-
-    display: flex;
-    align-items: center;
-
-    font-size: 13px;
-
-    &__marker {
-      height: 33px;
-      width: 2.5px;
-      margin-left: 4px;
-      margin-right: 8px;
-
-      background: var(--ozsm-color-active);
+  .content-item {
+    .select-menu {
+      display: flex;
+      align-items: center;
+    
+      .dropdown {
+        height: 49px;
+        margin: 12px 0;
+    
+        border: 1px solid var(--ozsm-color-border-select);
+        border-radius: 2px;
+        background: var(--color-aps-dropdown-bg);
+    
+        flex: 1;
+    
+        display: flex;
+        align-items: center;
+    
+        font-size: 13px;
+    
+        &__marker {
+          height: 33px;
+          width: 2.5px;
+          margin-left: 4px;
+          margin-right: 8px;
+    
+          background: var(--ozsm-color-active);
+        }
+      }
+    
+      .button-icon {
+        width: 49px;
+        height: 49px;
+        margin-left: 9px;
+    
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    
+        background: var(--ozsm-color-bg-btn);
+        border-radius: 2px;
+      }
+    
+      &__select {
+        margin-right: 10px;
+      }
     }
-  }
+  
+    &:first-child {
+      height: 25px;
 
-  .button-icon {
-    width: 49px;
-    height: 49px;
-    margin-left: 9px;
+      display: flex;
+      align-items: center;
 
-    display: flex;
-    justify-content: center;
-    align-items: center;
+      svg-icon {
+        margin: 0 7px;
+      }
 
-    background: var(--ozsm-color-bg-btn);
-    border-radius: 2px;
-  }
+      .select-menu {
+        flex: 1;
+        &:last-child {
+          flex: 2;
+        }
 
-  &__select {
-    margin-right: 10px;
-  }
-}
-
-.btn-container {
-  width: 100%;
-  display: flex;
-  flex: 1;
-  align-items: flex-end;
-
-  .btn-inner {
-    padding-top: 12px;
-
-    display: flex;
-    flex: 1;
-    justify-content: space-between;
-
-    border-top: 1px solid var(--ozsm-color-border);
-  }
-
-  button {
-    height: 49px;
-    width: 49px;
-
-    text-align: center;
-    vertical-align: middle;
-    font-size: 13px;
-    line-height: 16px;
-    color: var(--ozsm-color-text-main);
-
-    background: var(--ozsm-color-bg-btn);
-    border-radius: 2px;
+        .dropdown {
+          height: 24px;
+          padding-left: 5px;
+      
+          &__marker {
+            display: none;
+          }
+        }
+      }
+    }
   }
 }
