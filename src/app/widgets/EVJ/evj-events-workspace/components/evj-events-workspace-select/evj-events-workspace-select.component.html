@@ -160,17 +160,17 @@
       </mat-select>
     </ng-container>
 
-    <ng-container *ngIf="dataType === 'event'">
+    <ng-container *ngIf="dataType === 'event' || dataType === 'event-shift'">
       <mat-select
         panelClass="mat-balance-select"
         (valueChange)="onSelect($event)"
         [(ngModel)]="ewService.event.isAcknowledged"
       >
         <mat-option [value]="true">
-          Квитировано
+          {{dataType === 'event' ? 'Квитировано' : 'Ознакомлен'}}
         </mat-option>
         <mat-option [value]="false">
-          Не квитировано
+          {{dataType === 'event' ? 'Не квитировано' : 'Не ознакомлен'}}
         </mat-option>
       </mat-select>
     </ng-container>

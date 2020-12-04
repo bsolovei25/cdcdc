@@ -1,5 +1,6 @@
 <div class="container">
   <div class="scroll-bar">
+    <div class="scroll-bar__bg"></div>
     <div class="sb__button sb__button_left" #btnLeft></div>
     <div class="sb__track" #sbTrack>
       <evj-line-chart-track *ngIf="data?.length" [data]="data" [limits]="limits"></evj-line-chart-track>

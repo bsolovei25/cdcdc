@@ -1,7 +1,7 @@
 .container {
   width: 100%;
   height: calc(100% - 40px);
-  background-color: var(--color-kpe-gaude-unactive);
+  background-color: var(--color-aps-structure-bg-main);
   border: 2px solid var(--color-aps-border);
 
   box-sizing: border-box;
@@ -71,7 +71,7 @@ th,  td {
       height: 28px;
       transition: all 150ms;
       color: var(--evj-color-white);
-      background: var(--color-gray80);
+      background: var(--color-aps-structure-bg-main);
       margin-bottom: 10px;
     }
 
@@ -83,18 +83,18 @@ th,  td {
       margin-top: 5px;
       color: var(--color-cd-text-sub-2);
       text-align: center;
-      border-top: 1px solid var(--color-kpe-gaude-unactive);
-      border-bottom: 1px solid var(--color-kpe-gaude-unactive);
-      border-right: 1px solid var(--color-kpe-gaude-unactive);
+      border-top: 1px solid var(--color-aps-structure-border);
+      border-bottom: 1px solid var(--color-aps-structure-border);
+      border-right: 1px solid var(--color-aps-structure-border);
       border-left: 2px solid var(--color-aps-bg-icon);
 
 
       &.expanded-column {
-        background-color: rgba(39, 42, 56, 0.5);
+        background-color: var(--color-aps-structure-item);
       }
 
       &__children {
-        border-left: 2px solid var(--color-kpe-gaude-unactive)!important;
+        border-left: 2px solid var(--color-aps-structure-border)!important;
 
         &--active {
           border-top: 1px solid var(--color-aps-active);
@@ -279,7 +279,7 @@ th,  td {
               width: 2px;
               max-width: 2px;
               height: 13px;
-              fill: var(--color-border-main);
+              fill: var(--color-aps-structure-border);
 
               &-warning {
                 fill: var(--color-warning);
@@ -341,6 +341,30 @@ th,  td {
       }
     }
   }
+}
+
+svg-icon {
+  z-index: 1;
+}
+
+.shadow {
+  height: 26px;
+  width: 20%;
+
+  background: linear-gradient(90deg, var(--color-border-main) 0%, transparent 83.8%);
+  opacity: 0.3;
+  position: absolute;
+  top: 0;
+  left: 0px;
+}
+
+.shadow-active {
+  background: linear-gradient(90deg, var(--color-aps-active) 0%, transparent 83.8%);
+  opacity: 0.4;
+}
+
+.actve-row {
+  background: var(--color-aps-structure-bg-main);
 }
 
 ::ng-deep .mat-tooltip {

@@ -1,11 +1,15 @@
 <div class="card" *ngIf="!!transformedData">
   <div class="card__header header">
+<!--    <div class="header__tag"-->
+<!--         style.backgroundColor="var(&#45;&#45;color-astue-onpz-bg-tag-{{ color }})"-->
+<!--         style.color="var(&#45;&#45;color-astue-tag-{{ color }})"-->
+<!--    >{{transformedData.tag}}</div>-->
     <div class="header__tag"
-         style.backgroundColor="var(--color-astue-onpz-bg-tag-{{ color }})"
-         style.color="var(--color-astue-tag-{{ color }})"
-    >{{transformedData.tag}}</div>
-    <div class="header__title">{{transformedData.title}}</div>
-    <div class="header__unit">{{transformedData.unitName}}</div>
+       style.backgroundColor="var(--color-astue-tag-{{ color }})"
+    ></div>
+    <div class="header__title"
+         style.color="var(--color-astue-tag-{{ color }})">{{transformedData.title}}</div>
+<!--    <div class="header__unit">{{transformedData.unitName}}</div>-->
     <svg-icon
       class="header__icon"
       [class.header__icon__active]="(sharedGraph | async)?.title === transformedData?.title"
@@ -18,25 +22,25 @@
   <div class="card-border">
     <div class="card__legend legend">
       <div class="legend__units">{{transformedData.units}}</div>
-      <div class="legend__buttons">
-        <svg-icon
-          (click)="scale = false"
-          class="button"
-          src="assets/icons/widgets/ASTUE-ONPZ/astue-onpz-planning-charts/plus.svg"
-        ></svg-icon>
-        <svg-icon
-          (click)="scale = true"
-          class="button"
-          src="assets/icons/widgets/ASTUE-ONPZ/astue-onpz-planning-charts/minus.svg"
-        ></svg-icon>
-      </div>
+<!--      <div class="legend__buttons">-->
+<!--        <svg-icon-->
+<!--          (click)="scale = false"-->
+<!--          class="button"-->
+<!--          src="assets/icons/widgets/ASTUE-ONPZ/astue-onpz-planning-charts/plus.svg"-->
+<!--        ></svg-icon>-->
+<!--        <svg-icon-->
+<!--          (click)="scale = true"-->
+<!--          class="button"-->
+<!--          src="assets/icons/widgets/ASTUE-ONPZ/astue-onpz-planning-charts/minus.svg"-->
+<!--        ></svg-icon>-->
+<!--      </div>-->
       <div class="legend__value value">
-        <div class="value__title">Факт</div>
         <div class="value__card">{{transformedData.currentFactValue}}</div>
       </div>
     </div>
     <div class="card__chart">
       <evj-planning-chart
+        [isSpline]="false"
         [data]="transformedData.graph"
         [intervalHours]="[12, 12]"
         [size]="scaleCounter"

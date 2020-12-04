@@ -30,6 +30,9 @@ export class KpeDeviationDiagramComponent implements OnChanges {
     @Input()
     public currentMonth: Date = new Date();
 
+    @Input()
+    public bottomCalendarFull: boolean = false;
+
     @ViewChild('chart')
     private chart: ElementRef;
 
@@ -157,12 +160,17 @@ export class KpeDeviationDiagramComponent implements OnChanges {
             .attr('transform', `translate(0, ${this.size.height - this.padding.bottom + 5})`) // 5 - дополнительный отступ
             .attr('class', 'x-axis')
             .call(
-                d3.axisBottom(this.scales.x)
-                    .tickSize(0)
-                    .ticks(8)
-                    .tickValues([
-                        1, 5, 10, 15, 20, 25, this.sizeX.max
-                    ])
+                this.bottomCalendarFull ?
+                    d3.axisBottom(this.scales.x)
+                        .tickSize(0)
+                        .ticks(this.sizeX.max)
+                    :
+                    d3.axisBottom(this.scales.x)
+                        .tickSize(0)
+                        .ticks(8)
+                        .tickValues([
+                            1, 5, 10, 15, 20, 25, this.sizeX.max
+                        ])
             )
             .call(g => g.select('.domain').remove());
 
