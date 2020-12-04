@@ -455,3 +455,8 @@ export interface ISearchRetrievalWindow {
     acceptFunction?: () => void;
     closeFunction?: () => void;
 }
+export interface IExtraOptionsWindow {
+    isShow: boolean;
+    acceptFunction?: () => void;
+    closeFunction?: () => void;
+}
