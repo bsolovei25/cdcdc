@@ -135,7 +135,6 @@ table {
       outline: none;
       border: none;
       color: var(--color-aps-table-text-sub);
-      z-index: 1;
       &::-webkit-input-placeholder {
         color: var(--color-aps-table-text-sub);
       }
@@ -186,14 +185,16 @@ table {
     tr {
       th {
         position: sticky;
-        top: 0;
+        top: -2px;
         height: 70px;
         font-size: 13px;
         line-height: 16px;
         color: var(--color-aps-table-text-sub);
-
+        z-index: 1;
         .text {
+          background: var(--color-aps-table-bg-main);
           border: none;
+          z-index: 900;
           svg-icon {
             display: none;
           }
