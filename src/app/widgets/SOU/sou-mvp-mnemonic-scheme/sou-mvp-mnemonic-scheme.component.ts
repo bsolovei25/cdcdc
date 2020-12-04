@@ -48,22 +48,28 @@ export class SouMvpMnemonicSchemeComponent extends WidgetPlatform<unknown>
     sectionsData: (ISOUFlowOut | ISOUFlowIn | ISOUObjects)[] = []; // Массив всех элементов
     sectionsDataIzo: (ISOUFlowOut | ISOUFlowIn | ISOUObjects)[] = []; // Массив всех элементов Изомалка
 
+    installations: string[] = [
+        'АВТ-10',
+        'Изомалк-2'
+    ];
+
+    selectedInstallation: number = 0;
+
     sections: {
         title: string;
-        value: number;
-    }[] = [
-        {
-            title: 'АБ',
-            value: 0,
-        },
-        {
-            title: 'BБ',
-            value: 0,
-        },
-        {
-            title: 'Изомалк 2',
-            value: 0,
-        },
+        value: number
+    }[][] = [
+        [
+            {
+                title: 'АБ',
+                value: 0
+            },
+            {
+                title: 'BБ',
+                value: 0
+            }
+        ],
+        []
     ];
 
     choosenSetting: number = 1;
@@ -118,7 +124,9 @@ export class SouMvpMnemonicSchemeComponent extends WidgetPlatform<unknown>
                     });
                 }
             }
-            this.sections[i].value = sum;
+            if (i !== 2) {
+                this.sections[0][i].value = sum;
+            }
         });
     }
 
