@@ -67,7 +67,6 @@ export class AstueOnpzMnemonicFurnaceComponent extends WidgetPlatform implements
         @Inject('uniqId') public uniqId: string
     ) {
         super(widgetService, isMock, id, uniqId);
-        this.isRealtimeData = false;
     }
 
     ngOnInit(): void {
@@ -101,5 +100,7 @@ export class AstueOnpzMnemonicFurnaceComponent extends WidgetPlatform implements
         this.changeDetector.detectChanges();
     }
 
-    protected dataHandler(ref: unknown): void {}
+    protected dataHandler(ref: unknown): void {
+        console.log(ref);
+    }
 }
