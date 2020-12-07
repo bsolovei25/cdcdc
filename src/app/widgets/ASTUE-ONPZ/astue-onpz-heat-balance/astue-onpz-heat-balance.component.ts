@@ -14,7 +14,7 @@ import { IAstueOnpzHeatBalanceItem } from '../../../dashboard/models/ASTUE-ONPZ/
 })
 export class AstueOnpzHeatBalanceComponent extends WidgetPlatform<unknown>
     implements OnInit, OnDestroy {
-    data: IParams[] = heatBalanceData;
+    data: IAstueOnpzHeatBalanceItem[] = heatBalanceData;
     columnsToDisplay: IColumnsToDisplay[] = [
         { name: 'Показатели, Дж', id: 0, date: new Date() },
         { name: 'Абсолютная величина', id: 1, date: new Date('2020-02-01T03:24:00') },
@@ -38,8 +38,8 @@ export class AstueOnpzHeatBalanceComponent extends WidgetPlatform<unknown>
         super.widgetInit();
     }
 
-    protected dataHandler(ref: IAstueOnpzHeatBalanceItem[]): void {
-        console.log(ref);
+    protected dataHandler(ref: { item: IAstueOnpzHeatBalanceItem[] }): void {
+        this.data = [...ref.item];
     }
 
     deviationCount(element: IParams): number {
