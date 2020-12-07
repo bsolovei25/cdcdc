@@ -25,51 +25,47 @@
       <ng-container *ngFor="let element of data">
         <tr
           class="table__body__row"
-          [class.last-tr]="element.unit.name === 'last-row'"
-          [class.table__body__row--active]="selectedRowProduct === element.unit.name"
+          [class.table__body__row--active]="selectedRowProduct === element.name"
         >
-          <ng-container *ngIf="element.unit.name !== 'last-row'">
-            <td
-              class="table__body__column"
-              [class.table__body__column--active]="selectedRowProduct === element.unit.name"
-              [class.table__body__column--warning]="selectedRowProduct === element.unit.name && deviationCount(element) !== 0"
+          <td
+            class="table__body__column"
+            [class.table__body__column--active]="selectedRowProduct === element.name"
+            [class.table__body__column--warning]="selectedRowProduct === element.name && element.countExceeding !== 0"
+            (click)="onClickRow($event, element)"
+            colspan="3"
+          >
+            <ng-container *ngIf="element.countExceeding !== 0">
+              <div class="table__body__column--warning-border"></div>
+            </ng-container>
+            <div
               (click)="onClickRow($event, element)"
-              colspan="3"
+              class="table__body__column__row-title"
+              [class.table__body__column__row-title__border-active]="selectedRowProduct === element.name"
             >
-              <ng-container *ngIf="deviationCount(element) !== 0">
-                <div class="table__body__column--warning-border"></div>
-              </ng-container>
-              <div
-                (click)="onClickRow($event, element.unit)"
-                class="table__body__column__row-title"
-                [class.table__body__column__row-title__border-active]="selectedRowProduct === element.unit.name"
+              <svg-icon
+                class="table__body__column__row-title__icon"
+                (click)="onClickTr($event, element)"
+                [ngClass]="{
+                'table__body__column__row-title__icon--warning':expandedElement.isSelected(element.name) && element.countExceeding !== 0,
+                'table__body__column__row-title__icon--active':expandedElement.isSelected(element.name) && element.countExceeding === 0
+                }"
+                src="assets/icons/widgets/APS/aps-gantt-chart/plus.svg"
               >
-                <svg-icon
-                  class="table__body__column__row-title__icon"
-                  (click)="onClickTr($event, element.unit)"
-                  [ngClass]="{
-                  'table__body__column__row-title__icon--warning':expandedElement.isSelected(element.unit.name) && deviationCount(element) !== 0,
-                  'table__body__column__row-title__icon--active':expandedElement.isSelected(element.unit.name) && deviationCount(element) === 0
-                  }"
-                  src="assets/icons/widgets/APS/aps-gantt-chart/plus.svg"
-                >
-                </svg-icon>
-                <div class="table__body__column__row-title">
-                  <div class="table__body__column__row-title__text__name">
-                    <span>{{ element.unit.name }}</span>
-                  </div>
-                  <span class="table__body__column__row-title__text__name__value-right"
-                  >Отклонений: {{ deviationCount(element) }}
-                    </span>
+              </svg-icon>
+              <div class="table__body__column__row-title">
+                <div class="table__body__column__row-title__text__name">
+                  <span>{{ element.name }}</span>
                 </div>
-                <ng-template #elseBlock></ng-template>
+                <span class="table__body__column__row-title__text__name__value-right"
+                >Отклонений: {{ element.countExceeding }}
+                  </span>
               </div>
-            </td>
-          </ng-container>
+            </div>
+          </td>
         </tr>
-        <ng-container *ngFor="let elementChildren of element.unitParams;  index as i;">
+        <ng-container *ngFor="let elementChildren of element.items;  index as i;">
           <tr
-            *ngIf="expandedElement.isSelected(element.unit.name)"
+            *ngIf="expandedElement.isSelected(element.name)"
             class="table__body__row expanded-row"
             (click)="onClickRow($event, elementChildren)"
           >
@@ -78,46 +74,46 @@
               class="expanded-column table__body__column table__body__column__children"
 
               [class.table__body__column__children--active]="selectedRowProduct === elementChildren.name"
-              [class.table__body__column__children--warning]="selectedRowProduct === elementChildren.name && deviationCount(element) !== 0"
+              [class.table__body__column__children--warning]="selectedRowProduct === elementChildren.name && element.countExceeding !== 0"
               [matTooltip]="elementChildren?.name"
             >
               <div
                 *ngIf="column.name === 'Параметры'"
                 class="table__body__column__row-title table__body__column__row-title-children"
-                [class.opacity]="selectedRow.isSelected(element.unit.name) && this.selectedRowProduct"
+                [class.opacity]="selectedRow.isSelected(element.name) && this.selectedRowProduct"
               >
 
                 <svg-icon
                   [svgStyle]="{'height.px':'43', 'width.px': '21'}"
                   class="table__body__column__row-title-children__left-block--first"
-                  [class.table__body__column__row-title-children__left-block--first__warning]="elementChildren.deviation !== 0"
+                  [class.table__body__column__row-title-children__left-block--first__warning]="elementChildren.isDeviation"
                   [class.table__body__column__row-title-children__left-block--first__default]="selectedRowProduct !== elementChildren.name"
-                  [class.table__body__column__row-title-children__left-block--first__active]="selectedRowProduct === elementChildren.name && elementChildren.deviation === 0"
-                  [class.table__body__column__row-title-children__left-block--first__active-warning]="selectedRowProduct === elementChildren.name && elementChildren.deviation !== 0"
+                  [class.table__body__column__row-title-children__left-block--first__active]="selectedRowProduct === elementChildren.name && !elementChildren.isDeviation"
+                  [class.table__body__column__row-title-children__left-block--first__active-warning]="selectedRowProduct === elementChildren.name && elementChildren.isDeviation"
 
                   [src]="'assets/icons/widgets/APS/aps-recipe-diagram/astue-table-left-row-block-recipe.svg'"
                 >
                 </svg-icon>
                 <div
                   class="table__body__column__row-title__text__subname"
-                  [class.table__body__column__row-title--no-active]="selectedRow.isSelected(element.unit.name)">
+                  [class.table__body__column__row-title--no-active]="selectedRow.isSelected(element.name)">
                   <span>{{ elementChildren.name }}</span>
                 </div>
                 <div
                   class="table__body__column__row-title__engUnit"
-                  [class.table__body__column__row-title--no-active]="selectedRow.isSelected(element.unit.name)"
+                  [class.table__body__column__row-title--no-active]="selectedRow.isSelected(element.name)"
                 >
-                  <span>{{elementChildren.engUnits}}</span>
+                  <span>{{elementChildren.unitsOfMeasure}}</span>
                 </div>
               </div>
               <ng-container *ngIf="column.name === 'Модель'">
                 <div class="value">
-                  <span>{{elementChildren.modelValue.toFixed(0) }}</span>
+                  <span>{{elementChildren.plan.toFixed(0) }}</span>
                 </div>
               </ng-container>
               <ng-container *ngIf="column.name === 'Факт'">
                 <div class="value">
-                  <span>{{elementChildren.value.toFixed(0) }}</span>
+                  <span>{{elementChildren.fact.toFixed(0) }}</span>
                 </div>
               </ng-container>
             </td>
