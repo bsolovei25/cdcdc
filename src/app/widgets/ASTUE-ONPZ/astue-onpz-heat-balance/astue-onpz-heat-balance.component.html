@@ -51,8 +51,8 @@
                   <span>{{ element.name }}</span>
                 </div>
                 <div class="table__body__column__row-title__text__val">
-                  <span> {{ element.relativeValue | number: "0.0" }} </span>
                   <span> {{ element.absoluteValue | number: "0.0" }} </span>
+                  <span> {{ element.relativeValue | number: "0.0" }} </span>
                 </div>
               </div>
             </div>
@@ -93,12 +93,12 @@
               </div>
               <ng-container *ngIf="column.id === 1">
                 <div class="value">
-                  <span>{{elementChildren.relativeValue| number: "0.0" }}</span>
+                  <span>{{elementChildren.absoluteValue| number: "0.0" }}</span>
                 </div>
               </ng-container>
               <ng-container *ngIf="column.id === 2">
                 <div class="value">
-                  <span>{{elementChildren.absoluteValue | number: "0.0" }}</span>
+                  <span>{{elementChildren.relativeValue | number: "0.0" }}</span>
                 </div>
               </ng-container>
             </td>
