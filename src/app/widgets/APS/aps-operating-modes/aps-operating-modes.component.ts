@@ -19,12 +19,6 @@ export interface IHeaderName {
     writable?: boolean;
 }
 
-export interface IEditedData {
-    tableId: string;
-    columnId: number;
-    value: number | string;
-}
-
 @Component({
     selector: 'evj-aps-operating-modes',
     templateUrl: './aps-operating-modes.component.html',
@@ -33,13 +27,14 @@ export interface IEditedData {
 export class ApsOperatingModesComponent extends WidgetPlatform<unknown>
     implements OnInit, OnDestroy {
     data: ITableToDisplay[];
-    editedData: IEditedData[] = [];
+    editedData: ITableToDisplay[] = [];
     editMode: boolean = false;
     idIndex: number;
 
     selectedRow: number = -1;
     selectedColumn: number = -1;
     public headerName: IHeaderName[] = [];
+    public headerNameFullData: IHeaderName[] = [];
 
     constructor(
         protected widgetService: WidgetService,
@@ -58,12 +53,7 @@ export class ApsOperatingModesComponent extends WidgetPlatform<unknown>
             this.data = [];
             this.headerName = [];
             if (res !== null) {
-                res.body.forEach((str) => {
-                    Object.keys(str).forEach((x) => {
-                        str[x] = this.getParseValue(str[x]);
-                    });
-                });
-                this.data = res.body;
+                this.headerNameFullData = res.header;
                 res.header.forEach((item) => {
                     if (item?.isId) {
                         this.idIndex = item.key;
@@ -71,10 +61,19 @@ export class ApsOperatingModesComponent extends WidgetPlatform<unknown>
                         this.headerName.push(item);
                     }
                 });
+                res.body.forEach((str) => {
+                    Object.keys(str).forEach((x) => {
+                        if (!this.headerNameFullData.find(item => item.key === +x)?.isId) {
+                            str[x] = this.getParseValue(str[x]);
+                        }
+                    });
+                });
+                this.data = res.body;
             } else {
                 this.data = [];
                 this.headerName = [];
             }
+            debugger;
         });
     }
 
@@ -85,6 +84,7 @@ export class ApsOperatingModesComponent extends WidgetPlatform<unknown>
     protected dataHandler(ref: any): void {}
 
     async saveValues(): Promise<any> {
+        this.editedData = Array.from(new Set(this.editedData));
         const res = await this.apsService.postReferenceBook(this.editedData, this.data);
         this.editedData = [];
         const newData = await this.apsService.getReferenceBook(
@@ -108,22 +108,9 @@ export class ApsOperatingModesComponent extends WidgetPlatform<unknown>
         this.editMode = true;
     }
 
-    onChangeValue(e: any, tableId: number, columnId: number): void {
-        if (
-            this.editedData.find(
-                (item) => item.columnId === columnId && item.tableId === (+tableId).toFixed(0)
-            )
-        ) {
-            this.editedData.find(
-                (item) => item.columnId === columnId && item.tableId === (+tableId).toFixed(0)
-            ).value = e.target.value;
-        } else {
-            this.editedData.push({
-                tableId: (+tableId).toFixed(0),
-                columnId,
-                value: e.target.value,
-            });
-        }
+    onChangeValue(e: any, key: number, rowNumber: number): void {
+            this.editedData.push(this.data[rowNumber]);
+            this.editedData[this.editedData.length - 1][key] = e.target.value;
     }
 
     getParseValue(value: string): string {
