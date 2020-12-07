@@ -28,12 +28,4 @@ export class KpePlanEnforceabilityComponent extends WidgetPlatform<unknown> impl
 
   protected dataHandler(ref: any): void {
   }
-
-  public chartHeight(container: HTMLDivElement): string {
-    if (!(container?.offsetHeight > 0)) {
-      return;
-    }
-    const height = container.offsetHeight;
-    return `height: ${height * 0.6}px`;
-}
 }

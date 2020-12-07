@@ -23,15 +23,17 @@
 
     .diagram-item {
       display: flex;
+      height: 160px;
       .gauge {
-        width: 28%;
-        padding-top: 10px;
+        width: 160px;
+        padding-top: 15px;
         padding-right: 15px;
         display: flex;
         align-items: center;
         justify-content: center;
       }
       .graph {
+        height: 160px;
         flex: 1;
         display: flex;
         flex-direction: column;
@@ -52,7 +54,8 @@
         }
 
         &__chart {
-          flex: 1;
+          height: 120px;
+          flex-shrink: 1;
         }
       }
     }
