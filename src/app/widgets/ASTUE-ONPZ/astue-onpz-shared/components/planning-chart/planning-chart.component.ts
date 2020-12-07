@@ -168,6 +168,9 @@ export class PlanningChartComponent implements OnChanges {
                 this.dateTimeInterval[1].getTime()
             );
         });
+        // TODO: for check
+        // const fact = this.data.find((x) => x.graphType === 'fact').graph;
+        // fact[fact.length - 1].value += 50000;
     }
 
     private findMinMax(): void {
@@ -411,24 +414,32 @@ export class PlanningChartComponent implements OnChanges {
     private customizeAreas(): void {
         const fact = this.data.find((item) => item.graphType === 'fact')?.graph ?? [];
         const getBorderValue = (type: 'higherBorder' | 'lowerBorder'): number => {
-            return this.scaleFuncs.y.invert(
-                findCursorPosition(
-                    this.scaleFuncs.x(fact[fact.length - 1]?.timeStamp),
-                    type,
-                    this.svg,
-                    this.padding
-                )?.y
+            let border = this.data.find((item) => item.graphType === type)?.graph ?? [];
+            const filterBorder = border.filter(
+                (x) => x.timeStamp.getTime() <= fact[fact.length - 1]?.timeStamp.getTime()
             );
+            border = !!filterBorder?.length ? filterBorder : border;
+            const cursorPosition = findCursorPosition(
+                this.scaleFuncs.x(fact[fact.length - 1]?.timeStamp),
+                type,
+                this.svg,
+                this.padding
+            )?.y;
+            const borderPosition = border[border.length - 1].value;
+            return cursorPosition ? this.scaleFuncs.y.invert(cursorPosition) : borderPosition;
         };
 
         const hbValue = getBorderValue('higherBorder');
         const lbValue = getBorderValue('lowerBorder');
+        console.log('hbValue', hbValue);
+        console.log('lbValue', lbValue);
+        console.log('fact', fact[fact.length - 1].value);
 
         let deviationType: 'warning' | 'normal' = null;
         const eps = 0.001;
-        if (fact[fact.length - 1].value - hbValue > eps) {
+        if (fact[fact.length - 1].value > hbValue) {
             deviationType = 'warning';
-        } else if (lbValue - fact[fact.length - 1].value > eps) {
+        } else if (lbValue > fact[fact.length - 1].value) {
             deviationType = 'normal';
         }
 

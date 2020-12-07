@@ -1406,9 +1406,9 @@ export const WIDGETS_LAZY = {
             );
         },
         module: 'AstueOnpzMainIndicatorsModule',
-        itemCols: 13,
+        itemCols: 12,
         itemRows: 8,
-        minItemCols: 13,
+        minItemCols: 12,
         minItemRows: 8,
         preview: 'astue-onpz-main-indicators',
     },

@@ -14,19 +14,19 @@
          (click)="isEscalatePopupOpen=true"
          matRipple [matRippleColor]="'white'"
     >
-      <div class="button-name">Эскалировать</div>
+      <div class="button-name">Эскалировать выше</div>
     </div>
     <div class="header-workspace__container"
          (click)="onClickUrl()"
          matRipple [matRippleColor]="'white'"
     >
-      <div class="button-name">Карточка</div>
+      <div class="button-name">Карточка отклонения</div>
     </div>
     <div class="header-workspace__container"
          (click)="openClosePopup()"
          matRipple [matRippleColor]="'white'"
     >
-      <div class="button-name">Закрыть карточку</div>
+      <div class="button-name">Закрыть отклонение</div>
     </div>
     <div
       class="header-workspace__container active-button"
@@ -107,16 +107,19 @@
         </div>
 
         <div class="workspace__select-container-right">
-          <evj-events-workspace-datetimepicker
-            [label]="'Дата регистрации'"
-            [date]="ewService?.event?.externalDate"
-          >
-          </evj-events-workspace-datetimepicker>
+          <div class="creator">
+            <div class="creator__title">
+              <span>ID в системе-источник</span>
+            </div>
+            <div class="creator__field">
+              {{this.ewService.event?.externalCode ? this.ewService.event?.externalCode : ''}}
+            </div>
+          </div>
         </div>
       </div>
       <div class="description">
         <div class="title">
-          <span>Краткое описание</span>
+          <span>Показатель</span>
         </div>
         <evj-event-description
           [description]="ewService.event?.description"
@@ -169,7 +172,7 @@
       <div class="place-date">
         <div class="workspace__select-container-l">
           <div class="title">
-            <span>Место</span>
+            <span>Установка</span>
           </div>
           <evj-events-place></evj-events-place>
         </div>
@@ -183,26 +186,17 @@
             </div>
           </div>
         </div>
-        <div class="workspace__select-container-r">
-          <div class="creator">
-            <div class="creator__title">
-              <span>ID</span>
-            </div>
-            <div class="creator__field">
-              {{this.ewService.event?.externalCode ? this.ewService.event?.externalCode : ''}}
-            </div>
-          </div>
-        </div>
       </div>
-
-      <div class="responsible">
-        <evj-events-workspace-responsible-select>
-
-        </evj-events-workspace-responsible-select>
+      <div class="creator">
+        <div class="creator__title">
+          <span>Оборудование</span>
+        </div>
+        <div class="creator__field">
+        </div>
       </div>
       <div class="usual-text">
         <div class="title">
-          <span>Причины</span>
+          <span>Причина</span>
         </div>
         <evj-events-reasons-single
           [reason]="ewService.event.directReasons"
