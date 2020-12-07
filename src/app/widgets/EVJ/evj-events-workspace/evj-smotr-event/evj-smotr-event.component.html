@@ -115,10 +115,6 @@
               {{this.ewService.event?.externalCode ? this.ewService.event?.externalCode : ''}}
             </div>
           </div>
-<!--          <evj-events-workspace-datetimepicker-->
-<!--            [label]="'Дата регистрации'"-->
-<!--          >-->
-<!--          </evj-events-workspace-datetimepicker>-->
         </div>
       </div>
       <div class="description">
@@ -189,6 +185,14 @@
               {{this.ewService.event?.branch ? this.ewService.event.branch : ''}}
             </div>
           </div>
+        </div>
+      </div>
+      <div class="creator">
+        <div class="creator__title">
+          <span>ID в системе-источник</span>
+        </div>
+        <div class="creator__field">
+          {{this.ewService.event?.externalCode ? this.ewService.event?.externalCode : ''}}
         </div>
       </div>
       <div class="usual-text">
