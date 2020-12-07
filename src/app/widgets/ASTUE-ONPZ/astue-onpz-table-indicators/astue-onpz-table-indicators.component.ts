@@ -16,9 +16,9 @@ export class AstueOnpzTableIndicatorsComponent extends WidgetPlatform<unknown>
     implements OnInit, OnDestroy {
     public data: IAstueOnpzTableIndicatorsItem[] = [];
     public columnsToDisplay: IColumnsToDisplay[] = [
-        { name: 'Параметры', date: new Date() },
-        { name: 'Факт', date: new Date('2020-02-01T03:24:00') },
-        { name: 'Модель', date: new Date('2020-02-02T03:24:00') },
+        { name: 'Параметры', date: null },
+        { name: 'Факт', date: null },
+        { name: 'Модель', date: null },
     ];
 
     public expandedElement: SelectionModel<string> = new SelectionModel(true);
@@ -39,17 +39,10 @@ export class AstueOnpzTableIndicatorsComponent extends WidgetPlatform<unknown>
     }
 
     protected dataHandler(ref: { groups: IAstueOnpzTableIndicatorsItem[] }): void {
-        console.log(ref);
         this.data = ref.groups;
     }
 
-    deviationCount(element: IParams): number {
-        let i = 0;
-        element.unitParams.forEach((value) => (value.deviation > 0 ? (i += 1) : (i += 0)));
-        return i;
-    }
-
-    onClickTr(event: MouseEvent, element: any): void {
+    public onClickTr(event: MouseEvent, element: any): void {
         event.stopPropagation();
         if (this.expandedElement.isSelected(element.name)) {
             this.expandedElement.deselect(element.name);
@@ -58,7 +51,7 @@ export class AstueOnpzTableIndicatorsComponent extends WidgetPlatform<unknown>
         }
     }
 
-    onClickRow(event: MouseEvent, element?: any): void {
+    public onClickRow(event: MouseEvent, element?: any): void {
         event.stopPropagation();
         if (!this.selectedRowProduct || element.name !== this.selectedRowProduct) {
             this.selectedRowProduct = element.name;
