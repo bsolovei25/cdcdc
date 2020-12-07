@@ -5,6 +5,7 @@ import { IColumnsToDisplay } from '../../APS/aps-recipe-diagram/aps-recipe-diagr
 import { SelectionModel } from '@angular/cdk/collections';
 import { IParams } from '../../CD/cd-mat-balance/cd-mat-balance.component';
 import { heatBalanceData } from './astue-onpz-heat-balance-mock';
+import { IAstueOnpzHeatBalanceItem } from '../../../dashboard/models/ASTUE-ONPZ/astue-onpz-heat-balance.model';
 
 @Component({
     selector: 'evj-astue-onpz-heat-balance',
@@ -13,7 +14,7 @@ import { heatBalanceData } from './astue-onpz-heat-balance-mock';
 })
 export class AstueOnpzHeatBalanceComponent extends WidgetPlatform<unknown>
     implements OnInit, OnDestroy {
-    data: IParams[] = heatBalanceData;
+    data: IAstueOnpzHeatBalanceItem[] = heatBalanceData;
     columnsToDisplay: IColumnsToDisplay[] = [
         { name: 'Показатели, Дж', id: 0, date: new Date() },
         { name: 'Абсолютная величина', id: 1, date: new Date('2020-02-01T03:24:00') },
@@ -37,7 +38,9 @@ export class AstueOnpzHeatBalanceComponent extends WidgetPlatform<unknown>
         super.widgetInit();
     }
 
-    protected dataHandler(ref: any): void {}
+    protected dataHandler(ref: { item: IAstueOnpzHeatBalanceItem[] }): void {
+        this.data = [...ref.item];
+    }
 
     deviationCount(element: IParams): number {
         let i = 0;
