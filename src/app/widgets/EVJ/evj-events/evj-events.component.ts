@@ -99,7 +99,7 @@ export class EvjEventsComponent extends WidgetPlatform<IEventsWidgetAttributes>
                 open: 0,
                 all: 0,
             },
-            name: 'Безопасноть',
+            name: 'Безопасность',
             isActive: false,
             url: '#',
             categoryType: 'default',
