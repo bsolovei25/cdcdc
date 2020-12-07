@@ -249,6 +249,7 @@ export class UserSettingsService {
                 this.claimService.setClaimsByScreen(item.claims);
                 this.screenId = item.id;
                 this.screenName$.next(item.screenName);
+                this.clearWidgetsOnScreen();
                 this.widgetService.dashboard = item.widgets.map((widget) => {
                     this.setWidgetOnScreen(widget.widgetType, widget.uniqueId);
                     const minItemCols = this.defWidgetSize(widget.widgetType)?.minItemCols ?? 6;
@@ -349,6 +350,10 @@ export class UserSettingsService {
 
     private unsetWidgetOnScreen(widgetType: string): void {
         this.widgetsOnScreen.delete(widgetType);
+    }
+
+    private clearWidgetsOnScreen(): void {
+        this.widgetsOnScreen.clear();
     }
 
     private async getScreenByWidgetType(widgetType: string): Promise<number> {
