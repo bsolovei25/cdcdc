@@ -57,6 +57,8 @@ export class ApsStructureIdComponent extends WidgetPlatform<unknown> implements 
 
     protected dataHandler(ref: any): void {}
     private async getTables(table: number, id: number): Promise<void> {
+        this.apsService.tableStruct = table;
+        this.apsService.scenarioId = id;
         const data = await this.apsService.getReferenceBook(table, id);
         this.apsService.showTable$.next(data);
     }

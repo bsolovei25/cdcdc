@@ -68,7 +68,7 @@
               type="text"
               placeholder={{element[item?.key]}}
               *ngIf="editMode"
-              (change)="onChangeValue($event, element[idIndex], j+1)"
+              (change)="onChangeValue($event, item?.key, i)"
               [readonly]="!item?.writable"
             >
           </div>
