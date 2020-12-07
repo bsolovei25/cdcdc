@@ -3,8 +3,6 @@ import { WidgetPlatform } from '../../../dashboard/models/@PLATFORM/widget-platf
 import { WidgetService } from '../../../dashboard/services/widget.service';
 import { IColumnsToDisplay } from '../../APS/aps-recipe-diagram/aps-recipe-diagram.component';
 import { SelectionModel } from '@angular/cdk/collections';
-import { IParams } from '../../CD/cd-mat-balance/cd-mat-balance.component';
-import { heatBalanceData } from './astue-onpz-table-indicators-mock';
 import { IAstueOnpzTableIndicatorsItem } from '../../../dashboard/models/ASTUE-ONPZ/astue-onpz-table-indicators.model';
 
 @Component({
