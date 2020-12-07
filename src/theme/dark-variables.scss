@@ -1,5 +1,5 @@
 @mixin variables-dark() {
-  --color-bg-main: #1b1e27;
+  --color-bg-main: #12151E;
   --color-bg-main-opacity: rgba(27, 30, 39, 0.4);
   --color-bg-main-dark: #181b23;
   --color-bg-sub: #272b35;
@@ -219,6 +219,18 @@
   --color-aps-gaude-line: #3c4257;
   --color-aps-gaude-back-line: #111626;
 
+  // APS table
+  --color-aps-table-bg-main: #131725;
+  --color-aps-table-bg-main-active: rgba(12, 19, 36, 1);
+  --color-aps-table-text-sub: #61657F;
+  --color-aps-structure-item: #1d2131;
+  --color-aps-structure-bg-main: #161a28;
+  --color-aps-structure-border: #2d3246;
+  --color-aps-dropdown-bg: #181c2a;
+  --color-aps-bg-active-col: rgba(0, 137, 255, 0.2);
+
+
+
   // KPE font-color
   --color-kpe-text-main: #d7e2f2;
   --color-kpe-text-sub: #606580;
@@ -425,6 +437,9 @@
   --color-astue-onpz-widget-bg: #1C1F2B;
   --color-astue-onpz-widget-border: #272A38;
 
+  --color-astue-onpz-predictors-slider-border: #4B5169;
+  --astue-onpz-factorypredictors-slider-bg: #12151E;
+
   --astue-onpz-factory-analisys-grid: #4B5169;
   --astue-onpz-factory-analisys-grid-opacity: rgba(75,81,105,0.5);
   --astue-onpz-factory-analisys-grid-bg: #12151E;
@@ -593,6 +608,8 @@
   --evj-events-workspace-item-border: rgba(96, 101, 128, 0.25);
   --evj-events-workspace-text-sub: #616580;
   --evj-events-workspace-item-title: #8A98B3;
+  --evj-events-workspace-color-button-extra: rgba(48, 53, 73, 0.5);
+  --evj-events-workspace-color-border-extra: rgba(92, 101, 133, 0.25)
 }
 $--color-active: #3fa9f5;
 $--color-danger: #eb5757;

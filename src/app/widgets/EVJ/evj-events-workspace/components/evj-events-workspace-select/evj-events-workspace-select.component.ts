@@ -29,6 +29,7 @@ export class EvjEventsWorkspaceSelectComponent implements OnInit {
         | 'place'
         | 'equipmentCategory'
         | 'event'
+        | 'event-shift'
         | 'eoService';
 
     @Input()

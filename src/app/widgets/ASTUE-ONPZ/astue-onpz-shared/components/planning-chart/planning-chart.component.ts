@@ -61,9 +61,9 @@ export class PlanningChartComponent implements OnChanges {
 
     private padding: { left: number; right: number; top: number; bottom: number } = {
         left: 50,
-        right: 30,
+        right: 20,
         top: 0,
-        bottom: 40,
+        bottom: 25,
     };
 
     private deltaCf: number = 0.1;

@@ -22,4 +22,5 @@ export type ApsHeaderIconType =
     | 'document'
     | 'keyboard'
     | 'factory'
+    | 'squares'
     | 'dots-triangle';

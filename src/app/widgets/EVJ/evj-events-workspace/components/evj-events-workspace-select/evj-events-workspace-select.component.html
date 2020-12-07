@@ -69,7 +69,7 @@
         [compareWith]="compareFn"
         [disabled]="!ewService.isCreateNewEvent"
       >
-        <mat-option [value]="null"> Не выбрано </mat-option>
+        <mat-option [value]="null"> Не выбрано</mat-option>
         <ng-container *ngIf="ewService.isCreateNewEvent">
           <mat-option
             *ngFor="let item of ewService.subCategoryFilter | async"
@@ -93,7 +93,7 @@
         [(ngModel)]="ewService.event.productionTasks.subCategory"
         [compareWith]="compareFn"
       >
-        <mat-option [value]="null"> Не выбрано </mat-option>
+        <mat-option [value]="null"> Не выбрано</mat-option>
         <mat-option
           *ngFor="let item of ewService.subCategoryFilter | async"
           [value]="item">
@@ -160,17 +160,17 @@
       </mat-select>
     </ng-container>
 
-    <ng-container *ngIf="dataType === 'event'">
+    <ng-container *ngIf="dataType === 'event' || dataType === 'event-shift'">
       <mat-select
         panelClass="mat-balance-select"
         (valueChange)="onSelect($event)"
         [(ngModel)]="ewService.event.isAcknowledged"
       >
         <mat-option [value]="true">
-          Квитировано
+          {{dataType === 'event' ? 'Квитировано' : 'Ознакомлен'}}
         </mat-option>
         <mat-option [value]="false">
-          Не квитировано
+          {{dataType === 'event' ? 'Не квитировано' : 'Не ознакомлен'}}
         </mat-option>
       </mat-select>
     </ng-container>

@@ -26,18 +26,38 @@
     <table>
       <thead>
       <tr>
-        <th *ngFor="let element of headerName">
-          <div class="text">{{element?.title}}</div>
+        <th 
+          *ngFor="let element of headerName; let k = index"
+          [ngClass]="{
+            'active-col-title': element?.writable
+          }"
+        >
+          <div class="text">
+            <svg-icon
+              src="assets/icons/widgets/APS/aps-operating-modes/editIcon.svg"
+              [svgStyle]="{ 'width.px':10, 'height.px':10 }"
+            ></svg-icon>
+            {{element?.title}}
+          </div>
         </th>
       </tr>
       </thead>
       <tbody>
-      <tr *ngFor="let element of data; let i = index">
+      <tr 
+        *ngFor="let element of data; let i = index"
+        [ngClass]="{
+          'active-row': i === selectedRow
+        }"
+      >
         <td
           *ngFor="let item of headerName; let j = index"
-          (click)="editValue()"
+          (click)="editValue(i, j)"
+          [ngClass]="{
+            'active-col': j === selectedColumn && item?.writable
+          }"
         >
           <div class="text">
+            <div class="shadow"></div>
             <input
               type="text"
               placeholder={{element[item?.key]}}
@@ -48,7 +68,7 @@
               type="text"
               placeholder={{element[item?.key]}}
               *ngIf="editMode"
-              (change)="onChangeValue($event, i, j)"
+              (change)="onChangeValue($event, element[idIndex], j+1)"
               [readonly]="!item?.writable"
             >
           </div>
