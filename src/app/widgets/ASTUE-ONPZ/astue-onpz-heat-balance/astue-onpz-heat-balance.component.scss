@@ -114,6 +114,7 @@ th,  td {
       &--active {
         border-top: 1px solid var(--color-aps-active);
         border-bottom: 1px solid var(--color-aps-active);
+        box-sizing: border-box;
         color: var(--color-text-main);
 
         &:first-child {
@@ -147,7 +148,6 @@ th,  td {
           stroke: var(--color-aps-bg-icon);
           margin-left: 9px;
           transition: all 200ms;
-          margin-right: 10px;
 
           &--active {
             stroke: var(--color-aps-active);
@@ -192,6 +192,7 @@ th,  td {
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
+            margin-left: 10px;
           }
           &__subname {
             height: calc(100% - 20px);

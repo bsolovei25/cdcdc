@@ -10,7 +10,7 @@ import {
     IAsusTpPlace,
     IAsusWorkgroup,
     ICategory,
-    IEventsWidgetNotification,
+    IEventsWidgetNotification, IExtraOptionsWindow,
     IPriority,
     IRetrievalEventDto,
     ISaveMethodEvent,
@@ -19,7 +19,7 @@ import {
     IStatus,
     ISubcategory,
     IUnitEvents,
-    IUser,
+    IUser
 } from '../../../models/EVJ/events-widget';
 import { EventService } from './event.service';
 import { SnackBarService } from '../../snack-bar.service';
@@ -150,6 +150,9 @@ export class EventsWorkspaceService {
     public ewAlertInfo$: BehaviorSubject<IAlertWindowModel> = new BehaviorSubject<
         IAlertWindowModel
     >(null);
+    public extraOptionsWindow$: BehaviorSubject<IExtraOptionsWindow> = new BehaviorSubject<
+        IExtraOptionsWindow
+        >(null);
 
     get isCategoryEdit(): boolean {
         return (
@@ -583,6 +586,9 @@ export class EventsWorkspaceService {
 
     public closeSearchWindow(): void {
         this.searchWindow$.next(null);
+    }
+    public closeExtraOptionsWindow(): void {
+        this.extraOptionsWindow$.next(null);
     }
 
     private async asusReferencesLoad(): Promise<void> {
