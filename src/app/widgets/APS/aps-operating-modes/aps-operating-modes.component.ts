@@ -73,7 +73,6 @@ export class ApsOperatingModesComponent extends WidgetPlatform<unknown>
                 this.data = [];
                 this.headerName = [];
             }
-            debugger;
         });
     }
 
