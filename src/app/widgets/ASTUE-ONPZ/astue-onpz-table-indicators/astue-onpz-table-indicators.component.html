@@ -74,7 +74,7 @@
               class="expanded-column table__body__column table__body__column__children"
 
               [class.table__body__column__children--active]="selectedRowProduct === elementChildren.name"
-              [class.table__body__column__children--warning]="selectedRowProduct === elementChildren.name && element.countExceeding !== 0"
+              [class.table__body__column__children--warning]="selectedRowProduct === elementChildren.name && elementChildren.isExceeding"
               [matTooltip]="elementChildren?.name"
             >
               <div
@@ -86,10 +86,10 @@
                 <svg-icon
                   [svgStyle]="{'height.px':'43', 'width.px': '21'}"
                   class="table__body__column__row-title-children__left-block--first"
-                  [class.table__body__column__row-title-children__left-block--first__warning]="elementChildren.isDeviation"
+                  [class.table__body__column__row-title-children__left-block--first__warning]="elementChildren.isExceeding"
                   [class.table__body__column__row-title-children__left-block--first__default]="selectedRowProduct !== elementChildren.name"
-                  [class.table__body__column__row-title-children__left-block--first__active]="selectedRowProduct === elementChildren.name && !elementChildren.isDeviation"
-                  [class.table__body__column__row-title-children__left-block--first__active-warning]="selectedRowProduct === elementChildren.name && elementChildren.isDeviation"
+                  [class.table__body__column__row-title-children__left-block--first__active]="selectedRowProduct === elementChildren.name && !elementChildren.isExceeding"
+                  [class.table__body__column__row-title-children__left-block--first__active-warning]="selectedRowProduct === elementChildren.name && elementChildren.isExceeding"
 
                   [src]="'assets/icons/widgets/APS/aps-recipe-diagram/astue-table-left-row-block-recipe.svg'"
                 >

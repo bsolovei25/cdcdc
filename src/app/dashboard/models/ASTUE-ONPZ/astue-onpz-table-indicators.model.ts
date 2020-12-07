@@ -9,5 +9,5 @@ export interface IAstueOnpzTableIndicatorsItemChild {
     unitsOfMeasure: string;
     fact: number;
     plan: number;
-    isDeviation?: boolean;
+    isExceeding?: boolean;
 }
