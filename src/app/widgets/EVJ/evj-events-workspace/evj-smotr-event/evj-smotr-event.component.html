@@ -155,17 +155,25 @@
     <div class="workspace__third__right">
       <div class="place-date">
         <div class="workspace__select-container-left">
-          <evj-events-workspace-datetimepicker
-            [label]="'Дата начала'"
-          >
-          </evj-events-workspace-datetimepicker>
+          <div class="creator">
+            <div class="creator__title">
+              <span>Дата начала</span>
+            </div>
+            <div class="creator__field">
+              {{this.ewService.event?.eventDateTime?(this.ewService.event.eventDateTime|date:"dd.MM.yyyy | HH:mm"):'-'}}
+            </div>
+          </div>
         </div>
 
         <div class="workspace__select-container-right">
-          <evj-events-workspace-datetimepicker
-            [label]="'Дата окончания'"
-          >
-          </evj-events-workspace-datetimepicker>
+          <div class="creator">
+            <div class="creator__title">
+              <span>Дата окончания</span>
+            </div>
+            <div class="creator__field">
+              {{this.ewService.event?.eventEndDateTime?(this.ewService.event.eventEndDateTime|date:"dd.MM.yyyy | HH:mm"):'-'}}
+            </div>
+          </div>
         </div>
       </div>
 
