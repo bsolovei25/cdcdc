@@ -14,7 +14,7 @@
          (click)="isEscalatePopupOpen=true"
          matRipple [matRippleColor]="'white'"
     >
-      <div class="button-name">Эскалировать выше</div>
+      <div class="button-name">Эскалировать</div>
     </div>
     <div class="header-workspace__container"
          (click)="onClickUrl()"
@@ -171,12 +171,6 @@
 
       <div class="place-date">
         <div class="workspace__select-container-l">
-          <div class="title">
-            <span>Установка</span>
-          </div>
-          <evj-events-place></evj-events-place>
-        </div>
-        <div class="workspace__select-container">
           <div class="creator">
             <div class="creator__title">
               <span>Производство</span>
@@ -185,6 +179,12 @@
               {{this.ewService.event?.branch ? this.ewService.event.branch : ''}}
             </div>
           </div>
+        </div>
+        <div class="workspace__select-container">
+          <div class="title">
+            <span>Установка</span>
+          </div>
+          <evj-events-place></evj-events-place>
         </div>
       </div>
       <div class="creator">
