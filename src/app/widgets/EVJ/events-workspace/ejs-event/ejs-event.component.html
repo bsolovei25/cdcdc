@@ -45,9 +45,9 @@
     <div class="selects__item">
       <evj-ui-block status="normal">
         <div class="deadline">
-          <div class="deadline__title">Дата и время обнаружения</div>
+          <div class="deadline__title">Срок выполнения</div>
           <evj-time-data-picker
-            [data]="ewService.event.deadline"
+            [data]="ewService.event.eventDateTime"
             (dateTimePicker)="dateTimePicker($event)"
           ></evj-time-data-picker>
         </div>
