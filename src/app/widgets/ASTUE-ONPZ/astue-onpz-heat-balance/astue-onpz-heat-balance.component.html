@@ -69,7 +69,7 @@
               class="expanded-column table__body__column table__body__column__children"
               [class.table__body__column__children--active]="selectedRowProduct === elementChildren.name"
               [class.table__body__column__children--deviation]="selectedRowProduct === elementChildren.name && selectedRowProduct === elementChildren.name"
-              [matTooltip]="elementChildren?.name"
+              [matTooltip]="elementChildren?.description"
             >
               <div
                 *ngIf="column.id === 0"
