@@ -8,6 +8,7 @@ export interface IKpePasportize {
   total: number;
   first: number;
   percentage?: number;
+  noncondition?: number;
   products: IKpePasportizeProduct[];
 }
 export interface IKpePasportizeProduct {
