@@ -1,0 +1,55 @@
+<div class="container">
+    <evj-contemporary-widget-header
+      [uniqId]="uniqId"
+      [widgetTitle]=""
+      type="kpe"
+      icon=""
+    >
+        <div class="settings"
+            (mousedown)="$event.stopPropagation()"
+            (touchstart)="$event.stopPropagation()"
+        >
+            <span
+                *ngFor="let setting of data; let i = index"
+                class="settings__item"
+                [ngClass]="{'active': choosenItem === i}"
+                (click)="changeSettinge(i)"
+            >{{setting?.title}}</span>
+        </div>
+        <div class="header-unit">
+            <span class="unit">%</span>
+            <span class="description">ед.изм</span>
+        </div>
+    </evj-contemporary-widget-header>
+    <div class="content"
+      (mousedown)="$event.stopPropagation()"
+      (touchstart)="$event.stopPropagation()"
+    >
+        <div class="title-container">
+            <span class="title">{{data[choosenItem]?.title}}</span>
+            <span class="value">{{data[choosenItem]?.value}} <span class="unit">%</span></span>
+        </div>
+        <div class="products-container">
+            <div 
+                class="products"
+                *ngFor="let item of data[choosenItem]?.products"
+            >
+                <div class="products__name">
+                    <span class="name">{{item?.productTitle}}</span>
+                    <span class="value">{{item?.value}} <span class="unit">%</span></span>
+                </div>
+                <div class="shadow"></div>
+                <div class="products__list">
+                    <div 
+                        class="product"
+                        *ngFor="let product of item.items"
+                    >
+                        <span class="product__name">{{product?.name}}</span>
+                        <span class="product__value">{{product?.value}} <span class="unit">%</span></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
+  
