@@ -1,6 +1,12 @@
 * {
     box-sizing: border-box;
 }
+
+span {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
   
 .container {
     height: 100%;
@@ -25,10 +31,6 @@
             font-size: 13px;
             line-height: 16px;
             color: var(--color-kpe-pasportize-text);
-
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
 
             cursor: pointer;
         }
@@ -136,7 +138,9 @@
             display: flex;
             gap: 20px;
 
+
             .products {
+                max-width: 33%;
                 flex: 1;
                 display: flex;
                 flex-direction: column;
