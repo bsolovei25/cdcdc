@@ -1,3 +1,30 @@
+export interface IAstueOnpzMnemonicFurnaceResponse {
+    description: string;
+    units: IAstueOnpzMnemonicFurnaceResponseOvenUnit[];
+}
+
+export interface IAstueOnpzMnemonicFurnaceResponseOvenUnit {
+    description: string;
+    ovens: IAstueOnpzMnemonicFurnaceResponseOven[];
+}
+
+export interface IAstueOnpzMnemonicFurnaceResponseOven {
+    inputOil: IAstueOnpzMnemonicFurnaceResponseGroupData[];
+    inputGaz: IAstueOnpzMnemonicFurnaceResponseGroupData[];
+    liquidFuel: IAstueOnpzMnemonicFurnaceResponseGroupData[];
+    rarefaction: IAstueOnpzMnemonicFurnaceResponseGroupData[];
+    outputRaw: IAstueOnpzMnemonicFurnaceResponseGroupData[];
+    outputGaz: IAstueOnpzMnemonicFurnaceResponseGroupData[];
+}
+
+export interface IAstueOnpzMnemonicFurnaceResponseGroupData {
+    name: string;
+    description: string;
+    order: number;
+    value: number;
+    type: string;
+}
+
 export interface IAstueOnpzMnemonicFurnace {
     unitTitle: string;
     inputOilBlock: IAstueOnpzMnemonicFurnaceBlock;

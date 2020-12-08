@@ -9,7 +9,11 @@ import {
 } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import {
+    AstueOnpzMnemonicFurnaceElementType,
+    AstueOnpzMnemonicFurnaceRectType,
     IAstueOnpzMnemonicFurnace,
+    IAstueOnpzMnemonicFurnaceBlock,
+    IAstueOnpzMnemonicFurnaceResponse,
     IAstueOnpzMnemonicFurnaceStreamStats,
 } from '../../../dashboard/models/ASTUE-ONPZ/astue-onpz-mnemonic-furnace.model';
 import { SOURCE_DATA } from './astue-onpz-mnemonic-furnace.mock';
@@ -100,7 +104,98 @@ export class AstueOnpzMnemonicFurnaceComponent extends WidgetPlatform implements
         this.changeDetector.detectChanges();
     }
 
-    protected dataHandler(ref: unknown): void {
+    protected dataHandler(ref: { manufactures: IAstueOnpzMnemonicFurnaceResponse[] }): void {
         console.log(ref);
+        // return;
+        const response = ref.manufactures[0];
+        const currentData = response.units[0].ovens[0];
+        const inputOilBlock: IAstueOnpzMnemonicFurnaceBlock = {
+            title: 'Входящая отбензиненная нефть',
+            lines: [],
+        };
+        const inputGasBlock: IAstueOnpzMnemonicFurnaceBlock = {
+            title: 'Входящий толивный газ',
+            lines: [],
+        };
+        const inputLiquidBlock: IAstueOnpzMnemonicFurnaceBlock = {
+            title: 'Жидкое топливо',
+            lines: [],
+        };
+        const outputBlock: IAstueOnpzMnemonicFurnaceBlock = {
+            title: 'Выходящее сырье',
+            lines: [],
+        };
+        inputOilBlock.lines.push([
+            {
+                type: AstueOnpzMnemonicFurnaceElementType.Rect,
+                data: {
+                    count: 'Σ',
+                    title: 'потоков',
+                    value: currentData.inputOil.map((x) => x.value).reduce((a, b) => a + b),
+                    unit: 'м/с',
+                    type: AstueOnpzMnemonicFurnaceRectType.Full,
+                },
+            },
+        ]);
+        currentData.inputOil.forEach((x, i) => {
+            inputOilBlock.lines.push([
+                {
+                    type: AstueOnpzMnemonicFurnaceElementType.Rect,
+                    data: {
+                        count: (i + 1).toString(),
+                        title: 'поток',
+                        value: x.value,
+                        unit: 'м/с',
+                        type: AstueOnpzMnemonicFurnaceRectType.Full,
+                    },
+                },
+            ]);
+        });
+        currentData.inputGaz.forEach((x, i) => {
+            inputGasBlock.lines.push([
+                {
+                    type: AstueOnpzMnemonicFurnaceElementType.Rect,
+                    data: {
+                        title: x.name,
+                        value: x.value,
+                        unit: 'м³/с',
+                        type: AstueOnpzMnemonicFurnaceRectType.Value,
+                    },
+                },
+            ]);
+        });
+        currentData.liquidFuel.forEach((x, i) => {
+            inputLiquidBlock.lines.push([
+                {
+                    type: AstueOnpzMnemonicFurnaceElementType.Rect,
+                    data: {
+                        title: x.name,
+                        value: x.value,
+                        unit: 'м³/с',
+                        type: AstueOnpzMnemonicFurnaceRectType.Value,
+                    },
+                },
+            ]);
+        });
+        currentData.outputRaw.forEach((x, i) => {
+            outputBlock.lines.push([
+                {
+                    type: AstueOnpzMnemonicFurnaceElementType.Rect,
+                    data: {
+                        count: (i + 1).toString(),
+                        title: 'поток',
+                        type: AstueOnpzMnemonicFurnaceRectType.Stream,
+                    },
+                },
+            ]);
+        });
+
+        this.data.next({
+            ...this.data.value,
+            inputOilBlock,
+            inputGasBlock,
+            inputLiquidBlock,
+            outputBlock,
+        });
     }
 }
