@@ -1,4 +1,5 @@
 import {
+    ChangeDetectionStrategy,
     ChangeDetectorRef,
     Component,
     ElementRef,
@@ -7,20 +8,27 @@ import {
     OnInit,
     ViewChild,
 } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, combineLatest, Observable, Subject } from 'rxjs';
 import {
     AstueOnpzMnemonicFurnaceElementType,
     AstueOnpzMnemonicFurnaceRectType,
+    AstueOnpzMnemonicFurnaceStreamStatsType,
     IAstueOnpzMnemonicFurnace,
     IAstueOnpzMnemonicFurnaceBlock,
+    IAstueOnpzMnemonicFurnaceLine,
     IAstueOnpzMnemonicFurnaceResponse,
+    IAstueOnpzMnemonicFurnaceResponseGroupData,
+    IAstueOnpzMnemonicFurnaceResponseOven,
+    IAstueOnpzMnemonicFurnaceSelectReferences,
     IAstueOnpzMnemonicFurnaceStreamStats,
 } from '../../../dashboard/models/ASTUE-ONPZ/astue-onpz-mnemonic-furnace.model';
-import { SOURCE_DATA } from './astue-onpz-mnemonic-furnace.mock';
 import { animate, style, transition, trigger } from '@angular/animations';
 import { AsyncRender } from '@shared/functions/async-render.function';
 import { WidgetPlatform } from '../../../dashboard/models/@PLATFORM/widget-platform';
 import { WidgetService } from '../../../dashboard/services/widget.service';
+import { FormControl } from '@angular/forms';
+import { filter, map, takeUntil } from 'rxjs/operators';
+import { SOURCE_DATA } from './astue-onpz-mnemonic-furnace.mock';
 
 interface IAstueOnpzMnemonicFurnacePopup extends IAstueOnpzMnemonicFurnaceStreamStats {
     side: 'left' | 'right';
@@ -42,6 +50,7 @@ interface IAstueOnpzMnemonicFurnacePopup extends IAstueOnpzMnemonicFurnaceStream
             ]),
         ]),
     ],
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AstueOnpzMnemonicFurnaceComponent extends WidgetPlatform implements OnInit {
     @ViewChild('schema') public schemaContainer: ElementRef;
@@ -50,6 +59,16 @@ export class AstueOnpzMnemonicFurnaceComponent extends WidgetPlatform implements
         y: 655,
     };
     public schemeStyle: string = '';
+
+    public selectReferences: BehaviorSubject<
+        IAstueOnpzMnemonicFurnaceSelectReferences
+    > = new BehaviorSubject<IAstueOnpzMnemonicFurnaceSelectReferences>(null);
+
+    public selectManufacture: FormControl = new FormControl({ value: '', disabled: false });
+    public selectUnit: FormControl = new FormControl({ value: '', disabled: false });
+    public selectOven: FormControl = new FormControl({ value: '', disabled: false });
+
+    private onDestroy: Subject<void> = new Subject<void>();
 
     @HostListener('document:resize', ['$event'])
     public onResize(): void {
@@ -62,6 +81,7 @@ export class AstueOnpzMnemonicFurnaceComponent extends WidgetPlatform implements
     public data: BehaviorSubject<IAstueOnpzMnemonicFurnace> = new BehaviorSubject<
         IAstueOnpzMnemonicFurnace
     >(null);
+    private responseData: { manufactures: IAstueOnpzMnemonicFurnaceResponse[] } = null;
 
     constructor(
         private changeDetector: ChangeDetectorRef,
@@ -75,8 +95,20 @@ export class AstueOnpzMnemonicFurnaceComponent extends WidgetPlatform implements
 
     ngOnInit(): void {
         super.widgetInit();
-        this.data.next(SOURCE_DATA);
-        this.resize();
+
+        // TODO: for next develop
+        // this.data.next(SOURCE_DATA);
+        // this.resize();
+
+        this.selectManufacture.valueChanges.pipe(takeUntil(this.onDestroy)).subscribe((value) => {
+            this.selectUnit.setValue('');
+        });
+        this.selectUnit.valueChanges.pipe(takeUntil(this.onDestroy)).subscribe((value) => {
+            this.selectOven.setValue('');
+        });
+        this.selectOven.valueChanges.pipe(takeUntil(this.onDestroy)).subscribe((value) => {
+            this.setData();
+        });
     }
 
     public topCircleClick(
@@ -88,7 +120,6 @@ export class AstueOnpzMnemonicFurnaceComponent extends WidgetPlatform implements
             return;
         }
         this.popupData$.next({ ...data, side });
-        console.log(this.popupData$.getValue());
     }
 
     @AsyncRender
@@ -104,11 +135,165 @@ export class AstueOnpzMnemonicFurnaceComponent extends WidgetPlatform implements
         this.changeDetector.detectChanges();
     }
 
+    public manufacturesSelects$: Observable<string[]> = this.selectReferences.pipe(
+        filter((x) => x != null),
+        map((x) => x.manufactures?.map((m) => m.title) ?? [])
+    );
+
+    public unitsSelects$: Observable<string[]> = combineLatest([
+        this.selectReferences.asObservable(),
+        this.selectManufacture.valueChanges,
+    ]).pipe(
+        filter((x) => x[0] !== null),
+        map((x) => {
+            if (x[1] === '') {
+                return [];
+            }
+            return (
+                x[0]?.manufactures.find((m) => m?.title === x[1])?.units?.map((u) => u?.title) ?? []
+            );
+        })
+    );
+
+    public ovensSelects$: Observable<string[]> = combineLatest([
+        this.selectReferences.asObservable(),
+        this.selectManufacture.valueChanges,
+        this.selectUnit.valueChanges,
+    ]).pipe(
+        filter((x) => x[0] !== null),
+        map((x) => {
+            if (x[2] === '' || x[1] === '') {
+                return [];
+            }
+            return (
+                x[0].manufactures
+                    .find((m) => m.title === x[1])
+                    .units.find((u) => u.title === x[2])
+                    ?.ovens?.map((o) => o?.title) ?? []
+            );
+        })
+    );
+
     protected dataHandler(ref: { manufactures: IAstueOnpzMnemonicFurnaceResponse[] }): void {
-        console.log(ref);
-        // return;
-        const response = ref.manufactures[0];
-        const currentData = response.units[0].ovens[0];
+        this.selectReferences.next(this.referenceMapping(ref));
+        this.responseData = ref;
+        this.setData();
+    }
+
+    private setData(): void {
+        if (!this.selectOven.value) {
+            this.data.next(null);
+            return;
+        }
+        const currentData = this.responseData.manufactures
+            .find((x) => x.description === this.selectManufacture.value)
+            .units.find((x) => x.description === this.selectUnit.value)
+            .ovens.find((x) => x.name === this.selectOven.value);
+        this.data.next(this.ovenMapping(currentData));
+        this.resize();
+    }
+
+    private referenceMapping = (ref: {
+        manufactures: IAstueOnpzMnemonicFurnaceResponse[];
+    }): IAstueOnpzMnemonicFurnaceSelectReferences => {
+        return {
+            manufactures: ref.manufactures.map((m) => {
+                return {
+                    title: m.description,
+                    units: m.units.map((u) => {
+                        return {
+                            title: u.description,
+                            ovens: u.ovens.map((o) => {
+                                return {
+                                    title: o.name,
+                                };
+                            }),
+                        };
+                    }),
+                };
+            }),
+        };
+    };
+
+    private ovenMapping(
+        currentData: IAstueOnpzMnemonicFurnaceResponseOven
+    ): IAstueOnpzMnemonicFurnace {
+        const lineConstructor = (
+            x: IAstueOnpzMnemonicFurnaceResponseGroupData,
+            type: 'inputOilBlock' | 'inputGasBlock' | 'inputLiquidBlock' | 'outputBlock',
+            i: number
+        ): IAstueOnpzMnemonicFurnaceLine[] => {
+            const line: IAstueOnpzMnemonicFurnaceLine[] = [];
+            switch (type) {
+                case 'inputOilBlock':
+                    line.push({
+                        type: AstueOnpzMnemonicFurnaceElementType.Rect,
+                        data: {
+                            count: (i + 1).toString(),
+                            title: 'поток',
+                            value: x.value,
+                            unit: x.units,
+                            type: AstueOnpzMnemonicFurnaceRectType.Full,
+                        },
+                    });
+                    break;
+                case 'inputGasBlock':
+                case 'inputLiquidBlock':
+                    line.push({
+                        type: AstueOnpzMnemonicFurnaceElementType.Rect,
+                        data: {
+                            title: x.name,
+                            value: x.value,
+                            unit: x.units,
+                            type: AstueOnpzMnemonicFurnaceRectType.Value,
+                        },
+                    });
+                    break;
+                case 'outputBlock':
+                    line.push(
+                        {
+                            type: AstueOnpzMnemonicFurnaceElementType.Rect,
+                            data: {
+                                count: (i + 1).toString(),
+                                title: 'поток',
+                                type: AstueOnpzMnemonicFurnaceRectType.Stream,
+                            },
+                        },
+                        {
+                            type: AstueOnpzMnemonicFurnaceElementType.Circle,
+                            data: {
+                                value: x.value,
+                                unit: x.units,
+                            },
+                        }
+                    );
+                    break;
+            }
+            if (x.temp && type !== 'outputBlock') {
+                line.push({
+                    type: AstueOnpzMnemonicFurnaceElementType.Circle,
+                    data: {
+                        value: x.temp.value,
+                        unit: x.temp.units,
+                    },
+                });
+            }
+            if (x.pressure) {
+                line.push({
+                    type: AstueOnpzMnemonicFurnaceElementType.Quad,
+                    data: {
+                        value: x.temp.value,
+                        unit: x.temp.units,
+                    },
+                });
+            }
+            return line;
+        };
+
+        if (!currentData) {
+            return null;
+        }
+
         const inputOilBlock: IAstueOnpzMnemonicFurnaceBlock = {
             title: 'Входящая отбензиненная нефть',
             lines: [],
@@ -125,77 +310,76 @@ export class AstueOnpzMnemonicFurnaceComponent extends WidgetPlatform implements
             title: 'Выходящее сырье',
             lines: [],
         };
+        const unitTitle: string = currentData.name;
         inputOilBlock.lines.push([
             {
                 type: AstueOnpzMnemonicFurnaceElementType.Rect,
                 data: {
                     count: 'Σ',
                     title: 'потоков',
-                    value: currentData.inputOil.map((x) => x.value).reduce((a, b) => a + b),
-                    unit: 'м/с',
+                    value: currentData.inputOil?.value,
+                    unit: currentData.inputOil?.unit,
                     type: AstueOnpzMnemonicFurnaceRectType.Full,
                 },
             },
         ]);
-        currentData.inputOil.forEach((x, i) => {
-            inputOilBlock.lines.push([
-                {
-                    type: AstueOnpzMnemonicFurnaceElementType.Rect,
-                    data: {
-                        count: (i + 1).toString(),
-                        title: 'поток',
-                        value: x.value,
-                        unit: 'м/с',
-                        type: AstueOnpzMnemonicFurnaceRectType.Full,
-                    },
+        outputBlock.lines.push([
+            {
+                type: AstueOnpzMnemonicFurnaceElementType.Rect,
+                data: {
+                    count: 'Σ',
+                    title: 'потоков',
+                    type: AstueOnpzMnemonicFurnaceRectType.Stream,
                 },
-            ]);
+            },
+            {
+                type: AstueOnpzMnemonicFurnaceElementType.Circle,
+                data: {
+                    value: currentData.outputRaw?.value,
+                    unit: currentData.outputRaw?.unit,
+                },
+            },
+        ]);
+        currentData.inputOil.item.forEach((x, i) => {
+            inputOilBlock.lines.push(lineConstructor(x, 'inputOilBlock', i));
         });
-        currentData.inputGaz.forEach((x, i) => {
-            inputGasBlock.lines.push([
-                {
-                    type: AstueOnpzMnemonicFurnaceElementType.Rect,
-                    data: {
-                        title: x.name,
-                        value: x.value,
-                        unit: 'м³/с',
-                        type: AstueOnpzMnemonicFurnaceRectType.Value,
-                    },
-                },
-            ]);
+        currentData.inputGaz.item.forEach((x, i) => {
+            inputGasBlock.lines.push(lineConstructor(x, 'inputGasBlock', i));
         });
-        currentData.liquidFuel.forEach((x, i) => {
-            inputLiquidBlock.lines.push([
-                {
-                    type: AstueOnpzMnemonicFurnaceElementType.Rect,
-                    data: {
-                        title: x.name,
-                        value: x.value,
-                        unit: 'м³/с',
-                        type: AstueOnpzMnemonicFurnaceRectType.Value,
-                    },
-                },
-            ]);
+        currentData.liquidFuel.item.forEach((x, i) => {
+            inputLiquidBlock.lines.push(lineConstructor(x, 'inputLiquidBlock', i));
         });
-        currentData.outputRaw.forEach((x, i) => {
-            outputBlock.lines.push([
-                {
-                    type: AstueOnpzMnemonicFurnaceElementType.Rect,
-                    data: {
-                        count: (i + 1).toString(),
-                        title: 'поток',
-                        type: AstueOnpzMnemonicFurnaceRectType.Stream,
-                    },
-                },
-            ]);
+        currentData.outputRaw.item.forEach((x, i) => {
+            outputBlock.lines.push(lineConstructor(x, 'outputBlock', i));
         });
 
-        this.data.next({
-            ...this.data.value,
+        const dischargeStats = {
+            title: 'Разряжение',
+            main: {
+                value: currentData.rarefaction.value,
+                unit: currentData.rarefaction.unit,
+                streamType: AstueOnpzMnemonicFurnaceStreamStatsType.Norm, // TODO: add logic
+            },
+            streams: currentData.rarefaction.item.map((x) => x.value),
+        };
+        const gasStats = {
+            title: 'Уходящие газы',
+            main: {
+                value: currentData.outputGaz.value,
+                unit: currentData.outputGaz.unit,
+                streamType: AstueOnpzMnemonicFurnaceStreamStatsType.Norm, // TODO: add logic
+            },
+            streams: currentData.outputGaz.item.map((x) => x.value),
+        };
+
+        return {
             inputOilBlock,
             inputGasBlock,
             inputLiquidBlock,
             outputBlock,
-        });
+            unitTitle,
+            gasStats,
+            dischargeStats,
+        };
     }
 }

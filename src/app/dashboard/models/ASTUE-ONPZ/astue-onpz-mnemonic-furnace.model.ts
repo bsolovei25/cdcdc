@@ -9,12 +9,19 @@ export interface IAstueOnpzMnemonicFurnaceResponseOvenUnit {
 }
 
 export interface IAstueOnpzMnemonicFurnaceResponseOven {
-    inputOil: IAstueOnpzMnemonicFurnaceResponseGroupData[];
-    inputGaz: IAstueOnpzMnemonicFurnaceResponseGroupData[];
-    liquidFuel: IAstueOnpzMnemonicFurnaceResponseGroupData[];
-    rarefaction: IAstueOnpzMnemonicFurnaceResponseGroupData[];
-    outputRaw: IAstueOnpzMnemonicFurnaceResponseGroupData[];
-    outputGaz: IAstueOnpzMnemonicFurnaceResponseGroupData[];
+    name: string;
+    inputOil: IAstueOnpzMnemonicFurnaceResponseGroup;
+    inputGaz: IAstueOnpzMnemonicFurnaceResponseGroup;
+    liquidFuel: IAstueOnpzMnemonicFurnaceResponseGroup;
+    rarefaction: IAstueOnpzMnemonicFurnaceResponseGroup;
+    outputRaw: IAstueOnpzMnemonicFurnaceResponseGroup;
+    outputGaz: IAstueOnpzMnemonicFurnaceResponseGroup;
+}
+
+export interface IAstueOnpzMnemonicFurnaceResponseGroup {
+    item: IAstueOnpzMnemonicFurnaceResponseGroupData[];
+    value: number;
+    unit: string;
 }
 
 export interface IAstueOnpzMnemonicFurnaceResponseGroupData {
@@ -22,7 +29,27 @@ export interface IAstueOnpzMnemonicFurnaceResponseGroupData {
     description: string;
     order: number;
     value: number;
+    units: string;
     type: string;
+    temp: IAstueOnpzMnemonicFurnaceResponseExtendAttribute;
+    pressure: IAstueOnpzMnemonicFurnaceResponseExtendAttribute;
+}
+
+export interface IAstueOnpzMnemonicFurnaceResponseExtendAttribute {
+    value: number;
+    units: string;
+}
+
+export interface IAstueOnpzMnemonicFurnaceSelectReferences {
+    manufactures: {
+        title: string;
+        units: {
+            title: string;
+            ovens: {
+                title: string;
+            }[];
+        }[];
+    }[];
 }
 
 export interface IAstueOnpzMnemonicFurnace {
@@ -60,12 +87,13 @@ export interface IAstueOnpzMnemonicFurnaceRect {
     value?: number;
     unit?: string;
     type: AstueOnpzMnemonicFurnaceRectType;
+    streamType?: AstueOnpzMnemonicFurnaceStreamStatsType;
 }
 
 export interface IAstueOnpzMnemonicFurnaceCircle {
     value: number;
     unit: string;
-    type?: AstueOnpzMnemonicFurnaceStreamStatsType;
+    streamType?: AstueOnpzMnemonicFurnaceStreamStatsType;
 }
 
 export interface IAstueOnpzMnemonicFurnaceQuad {

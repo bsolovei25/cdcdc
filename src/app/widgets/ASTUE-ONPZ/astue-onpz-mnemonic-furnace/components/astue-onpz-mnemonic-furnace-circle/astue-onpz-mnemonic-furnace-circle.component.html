@@ -1,6 +1,6 @@
 <div
   class="container"
-  [ngClass]="'container__' + (data?.type || 'norm') + ' ' + 'container__' + (data?.type || 'norm') + (isSelected ? '__selected' : '')"
+  [ngClass]="'container__' + (data?.streamType || 'norm') + ' ' + 'container__' + (data?.streamType || 'norm') + (isSelected ? '__selected' : '')"
 >
   <ng-container *ngIf="data">
     <div class="value"> {{ data?.value || '-' }} </div>

@@ -11,6 +11,10 @@ import { AstueOnpzMnemonicFurnacePopupComponent } from './components/astue-onpz-
 import { AstueOnpzMnemonicFurnacePopupStreamComponent } from './components/astue-onpz-mnemonic-furnace-popup/astue-onpz-mnemonic-furnace-popup-stream/astue-onpz-mnemonic-furnace-popup-stream.component';
 import { MatRippleModule } from '@angular/material/core';
 import { AstueOnpzMnemonicFurnaceArrowComponent } from './components/astue-onpz-mnemonic-furnace-arrow/astue-onpz-mnemonic-furnace-arrow.component';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSelectModule } from '@angular/material/select';
+import { AstueOnpzSharedModule } from '../astue-onpz-shared/astue-onpz-shared.module';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
     declarations: [
@@ -23,7 +27,17 @@ import { AstueOnpzMnemonicFurnaceArrowComponent } from './components/astue-onpz-
         AstueOnpzMnemonicFurnacePopupStreamComponent,
         AstueOnpzMnemonicFurnaceArrowComponent,
     ],
-    imports: [CommonModule, SharedModule, AngularSvgIconModule, MatRippleModule],
+    imports: [
+        CommonModule,
+        SharedModule,
+        AngularSvgIconModule,
+        MatRippleModule,
+        MatFormFieldModule,
+        MatSelectModule,
+        MatRippleModule,
+        AstueOnpzSharedModule,
+        ReactiveFormsModule,
+    ],
     exports: [AstueOnpzMnemonicFurnaceComponent],
 })
 export class AstueOnpzMnemonicFurnaceModule {
