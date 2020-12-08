@@ -1,0 +1,12 @@
+.element-3 {
+  cursor: pointer;
+
+}
+
+.active {
+  stroke: #0089FF;
+
+  &-text {
+    fill: #fff;
+  }
+}

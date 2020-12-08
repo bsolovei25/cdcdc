@@ -1,21 +1,20 @@
 <div class="container">
   <div>
     <evj-contemporary-widget-header
-      [uniqId]="uniqId" 
-      [widgetTitle]="widgetTitle" 
+      [uniqId]="uniqId"
+      [widgetTitle]="widgetTitle"
       icon="drop"
       type="astue"
     >
       <div class="header"
     (mousedown)="$event.stopPropagation()"
     (touchstart)="$event.stopPropagation()"
-  > 
+  >
     <svg-icon
       class="arrow-circle"
       src="assets/icons/widgets/SOU/sou-mvp-mnemonic-scheme/arrowCircle.svg"
       [ngStyle]="{ 'width.px':14, 'height.px':14 }"
-    ></svg-icon>  
-
+    ></svg-icon>
     <div class="option-select">
       <div class="dropdown">
         <div class="dropdown__marker">
@@ -34,7 +33,7 @@
       class="arrow-circle"
       src="assets/icons/widgets/SOU/sou-mvp-mnemonic-scheme/arrowCircle.svg"
       [ngStyle]="{ 'width.px':14, 'height.px':14 }"
-    ></svg-icon> 
+    ></svg-icon>
 
     <div class="option-select">
       <div class="dropdown">
@@ -79,10 +78,12 @@
     </evj-contemporary-widget-header>
   </div>
 
-  <div class="container-body" 
+  <div class="container-body"
       (mousedown)="$event.stopPropagation()"
       (touchstart)="$event.stopPropagation()"
   >
+    <evj-sou-schema></evj-sou-schema>
+
     <div class="main-content-container">
       <evj-sou-mvp-mnemonic-scheme-ab-left
         *ngIf="choosenSection === 0"
@@ -141,7 +142,7 @@
     (mousedown)="$event.stopPropagation()"
     (touchstart)="$event.stopPropagation()"
   >
-    <div class="popup" 
+    <div class="popup"
       [@Branch]="mvpService.isPopupOpen ? 'opened' : 'closed'"
     >
       <div class="popup__header" (click)="mvpService.closePopup()">
