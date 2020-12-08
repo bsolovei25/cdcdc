@@ -21,12 +21,12 @@
         </div>
         <div class="info">
           <div class="info__item">
-            <span class="values values-fact">&bull; {{data?.fact}}</span>
-            <span class="description">{{data?.factDescription}}</span>
+            <span class="values values-fact">&bull; {{data?.total}}</span>
+            <span class="description">Паспортизаций с первого предъявления</span>
           </div>
           <div class="info__item">
-            <span class="values">&bull; {{data?.plan}}</span>
-            <span class="description">{{data?.planDescription}}</span>
+            <span class="values">&bull; {{data?.first}}</span>
+            <span class="description">Зафиксированных случаев паспортизации</span>
           </div>
         </div>
       </div>
@@ -36,7 +36,7 @@
     <div class="product-list-container">
       <div class="product-list">
         <evj-kpe-pasportize-percent-product
-          *ngFor="let item of productsList"
+          *ngFor="let item of data?.products"
           [data]="item"
           [style.width.%]=100
         ></evj-kpe-pasportize-percent-product>

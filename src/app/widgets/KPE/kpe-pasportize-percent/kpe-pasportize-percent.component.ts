@@ -3,19 +3,17 @@ import { AsyncRender } from '@shared/functions/async-render.function';
 import { WidgetPlatform } from '../../../dashboard/models/@PLATFORM/widget-platform';
 import { WidgetService } from '../../../dashboard/services/widget.service';
 import * as d3 from 'd3';
-import { gaugeData, productData } from './mock';
 
-export interface IKpePasportizeGauge {
-  plan: number;
-  planDescription: string;
-  fact: number;
-  factDescription: string;
-  percentage: number;
+export interface IKpePasportize {
+  total: number;
+  first: number;
+  percentage?: number;
+  products: IKpePasportizeProduct[];
 }
 export interface IKpePasportizeProduct {
-  title: string;
-  percentage: number;
-  count: number;
+  name: string;
+  badCount: number;
+  badCountPercent: number;
 }
 
 @Component({
@@ -27,8 +25,9 @@ export class KpePasportizePercentComponent extends WidgetPlatform<unknown> imple
   @ViewChild('chart') chart: ElementRef;
 
   public svg: any;
-  data: IKpePasportizeGauge;
+  data: IKpePasportize;
   productsList: IKpePasportizeProduct[];
+  percent: number = 0;
 
   @AsyncRender
   drawSvg(): void {
@@ -48,7 +47,7 @@ export class KpePasportizePercentComponent extends WidgetPlatform<unknown> imple
       .innerRadius(innerR)
       .outerRadius(outerR)
       .startAngle(0)
-      .endAngle(2 * Math.PI * this.data.percentage / 100);
+      .endAngle(2 * Math.PI * this.percent);
 
     const arcBg = d3.arc()
       .innerRadius(innerR)
@@ -82,10 +81,13 @@ export class KpePasportizePercentComponent extends WidgetPlatform<unknown> imple
 
   public ngOnInit(): void {
     super.widgetInit();
-    this.data = gaugeData;
-    this.productsList = productData;
     this.drawSvg();
   }
 
-  protected dataHandler(ref: any): void {}
+  protected dataHandler(ref: IKpePasportize): void {
+    this.data = ref;
+    this.data.percentage = this.data.first / this.data.total * 100;
+    this.percent = this.data.percentage > 100 ? 1 / this.data.percentage * 100 : this.data.percentage / 100;
+    this.drawSvg();
+  }
 }
