@@ -12,7 +12,7 @@
 
   .content {
     height: calc(100% - 40px);
-    padding: 5px 10px;
+    padding: 10px;
     gap: 10px;
     display: flex;
     flex-direction: column;
@@ -23,9 +23,8 @@
 
     .diagram-item {
       display: flex;
-      height: 160px;
+      height: 50%;
       .gauge {
-        width: 160px;
         padding-top: 15px;
         padding-right: 15px;
         display: flex;
@@ -33,7 +32,6 @@
         justify-content: center;
       }
       .graph {
-        height: 160px;
         flex: 1;
         display: flex;
         flex-direction: column;
@@ -54,7 +52,6 @@
         }
 
         &__chart {
-          height: 120px;
           flex-shrink: 1;
         }
       }

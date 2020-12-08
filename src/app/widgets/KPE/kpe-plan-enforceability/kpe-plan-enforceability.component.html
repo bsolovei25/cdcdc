@@ -11,7 +11,11 @@
     (touchstart)="$event.stopPropagation()"
   >
     <div class="diagram-item">
-      <div class="gauge" #gauge>
+      <div 
+        class="gauge" 
+        #gauge
+        [style]="chartWidth(gauge)"
+      >
         <evj-kpe-gauge-chart
           [fact]="70"
           [plan]="100"
@@ -26,6 +30,7 @@
         </div>
         <div 
           class="graph__chart"
+          [style]="chartHeight(gauge)"
         >
           <evj-kpe-equalizer-chart
             [data]="graphData"
@@ -36,7 +41,10 @@
     </div>
 
     <div class="diagram-item">
-      <div class="gauge">
+      <div 
+        class="gauge"
+        [style]="chartWidth(gauge)"
+      >
         <evj-kpe-gauge-chart
           [fact]="80"
           [plan]="120"
@@ -51,6 +59,7 @@
         </div>
         <div 
           class="graph__chart"
+          [style]="chartHeight(gauge)"
         >
           <evj-kpe-equalizer-chart
             [data]="graphData"
