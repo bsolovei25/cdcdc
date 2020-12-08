@@ -523,9 +523,9 @@ export const WIDGETS_LAZY = {
         },
         module: 'KpeTotalReserveModule',
         itemCols: 25,
-        itemRows: 13,
+        itemRows: 14,
         minItemCols: 25,
-        minItemRows: 13,
+        minItemRows: 14,
         preview: 'default',
     },
     'kpe-plan-readiness-trend': {
