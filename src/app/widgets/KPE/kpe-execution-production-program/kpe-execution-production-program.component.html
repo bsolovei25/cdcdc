@@ -1,0 +1,20 @@
+<div class="container">
+  <evj-contemporary-widget-header
+    [uniqId]="uniqId"
+    [widgetTitle]="widgetTitle"
+    type="astue"
+    icon="parameter"
+  ></evj-contemporary-widget-header>
+  <div class="container-body">
+    <div class="plan">
+      <div class="plan__value"></div>
+      <div class="plan__diagram">
+        <div class="plan__diagram__lines">
+          <ng-container *ngFor="let line of cells">
+            <div class="line"></div>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

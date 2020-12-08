@@ -134,6 +134,7 @@ export const WIDGETS = {
     'kpe-table-data': WidgetContainerComponent,
     'kpe-pasportize-percent': WidgetContainerComponent,
     'kpe-plan-readiness-trend': WidgetContainerComponent,
+    'kpe-execution-production-program': WidgetContainerComponent,
 };
 
 export const WIDGETS_LAZY = {
@@ -537,6 +538,19 @@ export const WIDGETS_LAZY = {
         minItemRows: 14,
         preview: 'default',
     },
+    'kpe-execution-production-program': {
+    import: async () => {
+        return await import(
+            'src/app/widgets/KPE/kpe-execution-production-program/kpe-execution-production-program.module'
+            );
+    },
+        module: 'KpeExecutionProductionProgramModule',
+        itemCols: 21,
+        itemRows: 14,
+        minItemCols: 21,
+        minItemRows: 14,
+        preview: 'default',
+},
 
     // #endregion KPE
 
