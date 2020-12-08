@@ -278,7 +278,7 @@ export const SOURCE_DATA: IAstueOnpzMnemonicFurnace = {
         main: {
             value: 44.6,
             unit: 'ºС',
-            type: AstueOnpzMnemonicFurnaceStreamStatsType.Deviation,
+            streamType: AstueOnpzMnemonicFurnaceStreamStatsType.Deviation,
         },
         streams: [44.6, 44.6, 44.6, 44.6, 44.6, 44.6],
     },
@@ -287,7 +287,7 @@ export const SOURCE_DATA: IAstueOnpzMnemonicFurnace = {
         main: {
             value: 44.6,
             unit: 'ºС',
-            type: AstueOnpzMnemonicFurnaceStreamStatsType.Norm,
+            streamType: AstueOnpzMnemonicFurnaceStreamStatsType.Norm,
         },
         streams: [44.6, 44.6, 44.6, 44.6],
     },

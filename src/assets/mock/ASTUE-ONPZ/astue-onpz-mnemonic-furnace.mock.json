@@ -1,0 +1,740 @@
+{
+  "manufactures": [
+    {
+      "description": "Производство №1",
+      "units": [
+        {
+          "description": "АВТ-10",
+          "evens": [
+            {
+              "order": 1,
+              "description": "Печь П 1/1",
+              "in": [
+                {
+                  "name": "Воздух",
+                  "type": "air",
+                  "order": 4,
+                  "parameters": [
+                    {
+                      "calcValue": 0,
+                      "fact": 0,
+                      "plan": 1.3,
+                      "lab": [],
+                      "name": "aмакс",
+                      "energyUnits": "ед.",
+                      "description": "Коэффициент избытка воздуха максимальный",
+                      "type": "air_exc_coef_max_norm",
+                      "order": 1
+                    },
+                    {
+                      "calcValue": 0,
+                      "fact": 0,
+                      "plan": 1.1,
+                      "lab": [],
+                      "name": "aнорм",
+                      "energyUnits": "ед.",
+                      "description": "Коэффициент избытка воздуха нормативный",
+                      "type": "air_exc_coef_norm_norm",
+                      "order": 1
+                    },
+                    {
+                      "calcValue": 0,
+                      "fact": -1,
+                      "plan": 30,
+                      "lab": [],
+                      "name": "tв.г.факт/норм",
+                      "energyUnits": "°С",
+                      "description": "Температура воздуха на горение в печи",
+                      "type": "air_burn_temp_furn",
+                      "order": 1
+                    }
+                  ]
+                },
+                {
+                  "name": "Конструкция печи",
+                  "type": "constraction",
+                  "order": 6,
+                  "parameters": [
+                    {
+                      "calcValue": 0,
+                      "fact": 23,
+                      "plan": 0,
+                      "lab": [],
+                      "name": "aизол",
+                      "energyUnits": "Вт/м2·К",
+                      "description": "Коэффициент теплоотдачи на поверхности обмуровки печи",
+                      "type": "heat_transfer_coef_lining",
+                      "order": 1
+                    },
+                    {
+                      "calcValue": 0,
+                      "fact": 152,
+                      "plan": 0,
+                      "lab": [],
+                      "name": "dк",
+                      "energyUnits": "мм",
+                      "description": "Наружный диаметр труб конвективной части",
+                      "type": "outer_diam_pipes_conv",
+                      "order": 1
+                    },
+                    {
+                      "calcValue": 0,
+                      "fact": 219,
+                      "plan": 0,
+                      "lab": [],
+                      "name": "dр",
+                      "energyUnits": "мм",
+                      "description": "Наружный диаметр труб радиантной части",
+                      "type": "outer_diam_pipes_rad",
+                      "order": 1
+                    },
+                    {
+                      "calcValue": 0,
+                      "fact": 723,
+                      "plan": 0,
+                      "lab": [],
+                      "name": "Hк",
+                      "energyUnits": "м2",
+                      "description": "Площадь нагрева труб конвективной части",
+                      "type": "square_heat_pipes_conv",
+                      "order": 1
+                    },
+                    {
+                      "calcValue": 0,
+                      "fact": 1000.1,
+                      "plan": 0,
+                      "lab": [],
+                      "name": "Hp",
+                      "energyUnits": "м2",
+                      "description": "Площадь нагрева труб радиантной части",
+                      "type": "square_heat_pipes_rad",
+                      "order": 1
+                    },
+                    {
+                      "calcValue": 0,
+                      "fact": 700,
+                      "plan": 0,
+                      "lab": [],
+                      "name": "Sизол",
+                      "energyUnits": "м2",
+                      "description": "Площадь обмуровки печи",
+                      "type": "lining_square_furn",
+                      "order": 1
+                    },
+                    {
+                      "calcValue": 0,
+                      "fact": 150,
+                      "plan": 0,
+                      "lab": [],
+                      "name": "Тизол",
+                      "energyUnits": "°С",
+                      "description": "Температура на поверхности обмуровки средняя",
+                      "type": "avg_temp_lining",
+                      "order": 1
+                    },
+                    {
+                      "calcValue": 0,
+                      "fact": 8,
+                      "plan": 0,
+                      "lab": [],
+                      "name": "dк",
+                      "energyUnits": "мм",
+                      "description": "Толщина стенки труб конвективной части",
+                      "type": "wall_thickness_pipes_conv",
+                      "order": 1
+                    },
+                    {
+                      "calcValue": 0,
+                      "fact": 10,
+                      "plan": 0,
+                      "lab": [],
+                      "name": "dр",
+                      "energyUnits": "мм",
+                      "description": "Толщина стенки труб радиантной части",
+                      "type": "wall_thickness_pipes_rad",
+                      "order": 1
+                    },
+                    {
+                      "calcValue": 0,
+                      "fact": 4,
+                      "plan": 0,
+                      "lab": [],
+                      "name": "N",
+                      "energyUnits": "ед.",
+                      "description": "Число потоков в печи",
+                      "type": "stream_quant_furn",
+                      "order": 1
+                    }
+                  ]
+                },
+                {
+                  "name": "Параметры окружающей среды",
+                  "type": "weather",
+                  "order": 1,
+                  "parameters": [
+                    {
+                      "calcValue": 0,
+                      "fact": -16,
+                      "plan": 0,
+                      "lab": [],
+                      "name": "Токр",
+                      "energyUnits": "°С",
+                      "description": "Температура окружающего воздуха",
+                      "type": "air_temp",
+                      "order": 1
+                    }
+                  ]
+                },
+                {
+                  "name": "Продукт",
+                  "type": "product",
+                  "order": 3,
+                  "parameters": [
+                    {
+                      "calcValue": 0,
+                      "fact": 6.7,
+                      "plan": 3,
+                      "lab": [],
+                      "name": "рвх_П1/3",
+                      "energyUnits": "кгс/см2",
+                      "description": "Давление продукта на входе в печь",
+                      "type": "prod_press_in",
+                      "order": 1
+                    },
+                    {
+                      "calcValue": 0,
+                      "fact": 324455,
+                      "plan": 480000,
+                      "lab": [
+                        {
+                          "type": "mass_frac_raw_oil",
+                          "order": 1,
+                          "parameters": [
+                            {
+                              "value": 5.9,
+                              "name": "140_180",
+                              "energyUnits": "%",
+                              "description": "Массовая доля w фракции 140_180",
+                              "type": "140_180",
+                              "order": 0
+                            },
+                            {
+                              "value": 9.5,
+                              "name": "180_240",
+                              "energyUnits": "%",
+                              "description": "Массовая доля w фракции 180_240",
+                              "type": "180_240",
+                              "order": 0
+                            },
+                            {
+                              "value": 7.3,
+                              "name": "240_280",
+                              "energyUnits": "%",
+                              "description": "Массовая доля w фракции 240_280",
+                              "type": "240_280",
+                              "order": 0
+                            },
+                            {
+                              "value": 2.6,
+                              "name": "28_62",
+                              "energyUnits": "%",
+                              "description": "Массовая доля w фракции 28_62",
+                              "type": "28_62",
+                              "order": 0
+                            },
+                            {
+                              "value": 8.2,
+                              "name": "280_320",
+                              "energyUnits": "%",
+                              "description": "Массовая доля w фракции 280_320",
+                              "type": "280_320",
+                              "order": 0
+                            },
+                            {
+                              "value": 7.6,
+                              "name": "320_360",
+                              "energyUnits": "%",
+                              "description": "Массовая доля w фракции 320_360",
+                              "type": "320_360",
+                              "order": 0
+                            },
+                            {
+                              "value": 7.5,
+                              "name": "360_400",
+                              "energyUnits": "%",
+                              "description": "Массовая доля w фракции 360_400",
+                              "type": "360_400",
+                              "order": 0
+                            },
+                            {
+                              "value": 1.3,
+                              "name": "400_420",
+                              "energyUnits": "%",
+                              "description": "Массовая доля w фракции 400_420",
+                              "type": "400_420",
+                              "order": 0
+                            },
+                            {
+                              "value": 13.8,
+                              "name": "420_480",
+                              "energyUnits": "%",
+                              "description": "Массовая доля w фракции 420_480",
+                              "type": "420_480",
+                              "order": 0
+                            },
+                            {
+                              "value": 6.2,
+                              "name": "480_530",
+                              "energyUnits": "%",
+                              "description": "Массовая доля w фракции 480_530",
+                              "type": "480_530",
+                              "order": 0
+                            },
+                            {
+                              "value": 18.3,
+                              "name": "530_КК",
+                              "energyUnits": "%",
+                              "description": "Массовая доля w фракции 530_КК",
+                              "type": "530_КК",
+                              "order": 0
+                            },
+                            {
+                              "value": 2.6,
+                              "name": "62_85",
+                              "energyUnits": "%",
+                              "description": "Массовая доля w фракции 62_85",
+                              "type": "62_85",
+                              "order": 0
+                            },
+                            {
+                              "value": 7.5,
+                              "name": "85_140",
+                              "energyUnits": "%",
+                              "description": "Массовая доля w фракции 85_140",
+                              "type": "85_140",
+                              "order": 0
+                            },
+                            {
+                              "value": 1.7,
+                              "name": "НК_28",
+                              "energyUnits": "%",
+                              "description": "Массовая доля w фракции НК_28",
+                              "type": "НК_28",
+                              "order": 0
+                            }
+                          ]
+                        }
+                      ],
+                      "name": "Gп",
+                      "energyUnits": "кг/ч",
+                      "description": "Загрузка печи по продукту",
+                      "type": "furn_load",
+                      "order": 1
+                    },
+                    {
+                      "calcValue": 0,
+                      "fact": 1168,
+                      "plan": 0,
+                      "lab": [],
+                      "name": "Vобсн",
+                      "energyUnits": "м3/ч",
+                      "description": "Расход обессоленной нефти + СГК на АВТ-10",
+                      "type": "demin_oil_sgk_cons",
+                      "order": 1
+                    },
+                    {
+                      "calcValue": 0,
+                      "fact": 77,
+                      "plan": 0,
+                      "lab": [
+                        {
+                          "type": "mass_frac_sgk",
+                          "order": 1,
+                          "parameters": [
+                            {
+                              "value": 11.4,
+                              "name": "140_180",
+                              "energyUnits": "%",
+                              "description": "Массовая доля w фракции 140_180",
+                              "type": "140_180",
+                              "order": 0
+                            },
+                            {
+                              "value": 10.5,
+                              "name": "180_240",
+                              "energyUnits": "%",
+                              "description": "Массовая доля w фракции 180_240",
+                              "type": "180_240",
+                              "order": 0
+                            },
+                            {
+                              "value": 5.5,
+                              "name": "240_280",
+                              "energyUnits": "%",
+                              "description": "Массовая доля w фракции 240_280",
+                              "type": "240_280",
+                              "order": 0
+                            },
+                            {
+                              "value": 12.5,
+                              "name": "28_62",
+                              "energyUnits": "%",
+                              "description": "Массовая доля w фракции 28_62",
+                              "type": "28_62",
+                              "order": 0
+                            },
+                            {
+                              "value": 4.4,
+                              "name": "280_320",
+                              "energyUnits": "%",
+                              "description": "Массовая доля w фракции 280_320",
+                              "type": "280_320",
+                              "order": 0
+                            },
+                            {
+                              "value": 2.8,
+                              "name": "320_360",
+                              "energyUnits": "%",
+                              "description": "Массовая доля w фракции 320_360",
+                              "type": "320_360",
+                              "order": 0
+                            },
+                            {
+                              "value": 2.3,
+                              "name": "360_400",
+                              "energyUnits": "%",
+                              "description": "Массовая доля w фракции 360_400",
+                              "type": "360_400",
+                              "order": 0
+                            },
+                            {
+                              "value": 4.2,
+                              "name": "400_420",
+                              "energyUnits": "%",
+                              "description": "Массовая доля w фракции 400_420",
+                              "type": "400_420",
+                              "order": 0
+                            },
+                            {
+                              "value": 0,
+                              "name": "420_480",
+                              "energyUnits": "%",
+                              "description": "Массовая доля w фракции 420_480",
+                              "type": "420_480",
+                              "order": 0
+                            },
+                            {
+                              "value": 0,
+                              "name": "480_530",
+                              "energyUnits": "%",
+                              "description": "Массовая доля w фракции 480_530",
+                              "type": "480_530",
+                              "order": 0
+                            },
+                            {
+                              "value": 0,
+                              "name": "530_КК",
+                              "energyUnits": "%",
+                              "description": "Массовая доля w фракции 530_КК",
+                              "type": "530_КК",
+                              "order": 0
+                            },
+                            {
+                              "value": 11.1,
+                              "name": "62_85",
+                              "energyUnits": "%",
+                              "description": "Массовая доля w фракции 62_85",
+                              "type": "62_85",
+                              "order": 0
+                            },
+                            {
+                              "value": 28.5,
+                              "name": "85_140",
+                              "energyUnits": "%",
+                              "description": "Массовая доля w фракции 85_140",
+                              "type": "85_140",
+                              "order": 0
+                            },
+                            {
+                              "value": 6.8,
+                              "name": "НК_28",
+                              "energyUnits": "%",
+                              "description": "Массовая доля w фракции НК_28",
+                              "type": "НК_28",
+                              "order": 0
+                            }
+                          ]
+                        }
+                      ],
+                      "name": "Wсгк",
+                      "energyUnits": "т/ч",
+                      "description": "Расход СГК на АВТ-10",
+                      "type": "sgk_cons",
+                      "order": 1
+                    },
+                    {
+                      "calcValue": 0,
+                      "fact": 3.2,
+                      "plan": 5,
+                      "lab": [],
+                      "name": "рК1",
+                      "energyUnits": "кгс/см2",
+                      "description": "Среднее давление в колонне К-1",
+                      "type": "avg_press_col_k1",
+                      "order": 1
+                    },
+                    {
+                      "calcValue": 0,
+                      "fact": 250,
+                      "plan": 255,
+                      "lab": [],
+                      "name": "tпр1",
+                      "energyUnits": "°С",
+                      "description": "Температура продукта на входе в печь",
+                      "type": "prod_temp_in",
+                      "order": 1
+                    },
+                    {
+                      "calcValue": 0,
+                      "fact": 355.72,
+                      "plan": 370,
+                      "lab": [],
+                      "name": "tпр2",
+                      "energyUnits": "°С",
+                      "description": "Температура продукта на выходе из печи",
+                      "type": "prod_temp_out",
+                      "order": 1
+                    }
+                  ]
+                },
+                {
+                  "name": "Топливо",
+                  "type": "fuel",
+                  "order": 2,
+                  "parameters": [
+                    {
+                      "calcValue": 0,
+                      "fact": 0.41,
+                      "plan": 2,
+                      "lab": [],
+                      "name": "ртопл_вх",
+                      "energyUnits": "кгс/см2",
+                      "description": "Давление топлива на входе в печь",
+                      "type": "fuel_press_furn_in",
+                      "order": 1
+                    },
+                    {
+                      "calcValue": 0,
+                      "fact": 0,
+                      "plan": 300,
+                      "lab": [],
+                      "name": "Gрас_пар(факт/норм)",
+                      "energyUnits": "кг/ч",
+                      "description": "Количество пара, вводимого для распыления жидкого топлива",
+                      "type": "steam_quant_liq_fuel",
+                      "order": 1
+                    },
+                    {
+                      "calcValue": 0,
+                      "fact": 15745.34,
+                      "plan": 0,
+                      "lab": [],
+                      "name": "Bтф(г1) ",
+                      "energyUnits": "м3/ч",
+                      "description": "Расход газообразного топлива №1 в Е-23",
+                      "type": "gas_fuel_cons_1e23",
+                      "order": 1
+                    },
+                    {
+                      "calcValue": 0,
+                      "fact": 1099.91,
+                      "plan": 0,
+                      "lab": [],
+                      "name": "Bтф(г2) ",
+                      "energyUnits": "м3/ч",
+                      "description": "Расход газообразного топлива №2 в Е-23",
+                      "type": "gas_fuel_cons_2e23",
+                      "order": 1
+                    },
+                    {
+                      "calcValue": 0,
+                      "fact": 2807.5,
+                      "plan": 0,
+                      "lab": [],
+                      "name": "nф_ж",
+                      "energyUnits": "м3/ч",
+                      "description": "Расход газообразного топлива печь",
+                      "type": "gas_fuel_cons_furn",
+                      "order": 1
+                    },
+                    {
+                      "calcValue": 0,
+                      "fact": 0,
+                      "plan": 0,
+                      "lab": [],
+                      "name": "Bтф(ж) ",
+                      "energyUnits": "кг/ч",
+                      "description": "Расход жидкого топлива на печь",
+                      "type": "liq_fuel_cons_furn",
+                      "order": 1
+                    },
+                    {
+                      "calcValue": 0,
+                      "fact": 106,
+                      "plan": 150,
+                      "lab": [],
+                      "name": "tт_г_вх",
+                      "energyUnits": "°С",
+                      "description": "Температура газообразного топлива на входе в печь",
+                      "type": "gas_fuel_temp_furn_in",
+                      "order": 1
+                    },
+                    {
+                      "calcValue": 0,
+                      "fact": 110,
+                      "plan": 150,
+                      "lab": [],
+                      "name": "tт_ж_вх",
+                      "energyUnits": "°С",
+                      "description": "Температура жидкого топлива на входе в печь",
+                      "type": "liq_fuel_temp_furn_in",
+                      "order": 1
+                    },
+                    {
+                      "calcValue": 0,
+                      "fact": 0,
+                      "plan": 150,
+                      "lab": [],
+                      "name": "tф_пар",
+                      "energyUnits": "°С",
+                      "description": "Температура форсуночного пара",
+                      "type": "nozzle_steam_temp",
+                      "order": 1
+                    }
+                  ]
+                },
+                {
+                  "name": "Уходящие газы",
+                  "type": "gas",
+                  "order": 5,
+                  "parameters": [
+                    {
+                      "calcValue": 0,
+                      "fact": -12.5,
+                      "plan": -50,
+                      "lab": [],
+                      "name": "pпод",
+                      "energyUnits": "Па",
+                      "description": "Давление в поду печи",
+                      "type": "furn_hearth_press",
+                      "order": 1
+                    },
+                    {
+                      "calcValue": 0,
+                      "fact": 5,
+                      "plan": 0,
+                      "lab": [],
+                      "name": "a",
+                      "energyUnits": "%",
+                      "description": "Доля присосов воздуха в дымовых газах",
+                      "type": "air_suc_prop",
+                      "order": 1
+                    },
+                    {
+                      "calcValue": 0,
+                      "fact": -2.6,
+                      "plan": 0,
+                      "lab": [],
+                      "name": "pразр",
+                      "energyUnits": "Па",
+                      "description": "Разряжение в печи",
+                      "type": "furn_underpress",
+                      "order": 1
+                    },
+                    {
+                      "calcValue": 0,
+                      "fact": 4.37,
+                      "plan": 2,
+                      "lab": [],
+                      "name": "%O2_дг",
+                      "energyUnits": "%",
+                      "description": "Содержание O2 в уходящих газах после печи ",
+                      "type": "O2_quant_out",
+                      "order": 1
+                    },
+                    {
+                      "calcValue": 0,
+                      "fact": 0,
+                      "plan": 0,
+                      "lab": [],
+                      "name": "%СO_дг",
+                      "energyUnits": "%",
+                      "description": "Содержание СO в уходящих газах после печи",
+                      "type": "CO_quant_out",
+                      "order": 1
+                    },
+                    {
+                      "calcValue": 0,
+                      "fact": 0,
+                      "plan": 0,
+                      "lab": [],
+                      "name": "tпод",
+                      "energyUnits": "°С",
+                      "description": "Температура в поду печи",
+                      "type": "furn_hearth_temp",
+                      "order": 1
+                    },
+                    {
+                      "calcValue": 0,
+                      "fact": 770,
+                      "plan": 810,
+                      "lab": [],
+                      "name": "tперевал",
+                      "energyUnits": "°С",
+                      "description": "Температура на перевале печи",
+                      "type": "furn_pass_temp",
+                      "order": 1
+                    },
+                    {
+                      "calcValue": 0,
+                      "fact": 400,
+                      "plan": 385,
+                      "lab": [],
+                      "name": "tу.г.факт/норм",
+                      "energyUnits": "°С",
+                      "description": "Температура уходящих газов после печи",
+                      "type": "out_gaz_temp",
+                      "order": 1
+                    }
+                  ]
+                }
+              ],
+              "out": [
+                {
+                  "name": "Расчет режима работы печи",
+                  "type": "operatin mode",
+                  "order": 1,
+                  "parameters": [
+                    {
+                      "calcValue": 0,
+                      "fact": 100,
+                      "plan": 0,
+                      "lab": [],
+                      "name": "аг",
+                      "energyUnits": "ед.",
+                      "description": "Доля газообразного топлива",
+                      "type": "operatin mode",
+                      "order": 1
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "widgetType": "Energy_oven_main",
+  "isHistoricalDataSupported": true
+}
