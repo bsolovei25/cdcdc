@@ -50,6 +50,7 @@ export class ApsOperatingModesComponent extends WidgetPlatform<unknown>
         super.widgetInit();
 
         this.apsService.showTable$.subscribe((res) => {
+            this.editedData = [];
             this.data = [];
             this.headerName = [];
             if (res !== null) {
