@@ -192,6 +192,7 @@ export class OilOperationsManualAssignComponent implements OnInit {
         const options: IOilOperationsOptions = {
             StartTime: new Date(this.selectedTransfer.startTime),
             EndTime: new Date(this.selectedTransfer.endTime),
+            TankId: this.selectedTransfer.tank.id,
             Directions: [],
         };
         if (this.productFormControl.value && this.fieldFiltersCheckboxFormControl.value) {
