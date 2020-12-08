@@ -42,8 +42,10 @@ export class KpeGaugeChartComponent implements OnInit, OnChanges {
     private chartInit(): void {
         this.dataHandler();
         const mainValue =
-            this.fact > this.plan ? (this.plan / this.fact) * 100 : (this.fact / this.plan) * 100;
-        const subValue = 100 - mainValue;
+            this.fact > this.plan
+                ? (this.plan / this.fact) * this.diagramCounter
+                : (this.fact / this.plan) * this.diagramCounter;
+        const subValue = this.diagramCounter - mainValue;
         this.bindChart(mainValue, subValue);
     }
 
