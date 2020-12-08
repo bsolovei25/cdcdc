@@ -83,7 +83,7 @@ export class SouSchemaComponent implements OnInit, AfterViewInit {
         this.elementsNode.forEach((element) => {
             const id = element.getAttribute('node-id');
             if (id) {
-                this.dataAttribute.set(+id, element); // Заполнение Map атрибутом и элементов
+                this.dataAttribute.set(+id, element); // Заполнение Map атрибутом и элементовd
             }
         });
     }
