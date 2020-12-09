@@ -42,13 +42,6 @@ export class ApsStructureIdComponent extends WidgetPlatform<unknown> implements 
 
     ngOnInit(): void {
         super.widgetInit();
-        this.subscriptions.push(
-            this.apsService.selectScenario$.subscribe((res) => {
-                if (res && this.selectUnitType) {
-                    this.getTables(this.selectUnitType, res.scenarioId);
-                }
-            })
-        );
     }
 
     ngOnDestroy(): void {
@@ -56,12 +49,6 @@ export class ApsStructureIdComponent extends WidgetPlatform<unknown> implements 
     }
 
     protected dataHandler(ref: any): void {}
-    private async getTables(table: number, id: number): Promise<void> {
-        this.apsService.tableStruct = table;
-        this.apsService.scenarioId = id;
-        const data = await this.apsService.getReferenceBook(table, id);
-        this.apsService.showTable$.next(data);
-    }
 
     onClickTr(event: MouseEvent, element?: any): void {
         event.stopPropagation();
@@ -85,10 +72,7 @@ export class ApsStructureIdComponent extends WidgetPlatform<unknown> implements 
         if (!this.selectedRowProduct || element.id !== this.selectedRowProduct) {
             this.selectUnitType = element.unitType;
             this.selectedRowProduct = element.id;
-            this.getTables(
-                element.unitType,
-                this.apsService.selectScenario$?.getValue().scenarioId
-            );
+            this.apsService.selectTable$.next(element.unitType);
         } else {
             this.selectedRowProduct = null;
             this.selectUnitType = null;
