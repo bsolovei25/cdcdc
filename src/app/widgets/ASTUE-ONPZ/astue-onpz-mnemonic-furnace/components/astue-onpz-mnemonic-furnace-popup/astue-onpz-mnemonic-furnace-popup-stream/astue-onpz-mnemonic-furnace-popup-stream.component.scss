@@ -33,4 +33,12 @@
       color: var(--color-astue-onpz-mnemonic-furnace-main-text);
     }
   }
+
+  &__deviation {
+    border-color: var(--color-astue-onpz-mnemonic-furnace-warning);
+
+    .text {
+      color: var(--color-astue-onpz-mnemonic-furnace-warning);
+    }
+  }
 }

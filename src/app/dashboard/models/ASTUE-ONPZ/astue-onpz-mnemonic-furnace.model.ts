@@ -25,6 +25,7 @@ export interface IAstueOnpzMnemonicFurnaceResponseGroup {
 }
 
 export interface IAstueOnpzMnemonicFurnaceResponseGroupData {
+    id: string;
     name: string;
     description: string;
     order: number;
@@ -33,11 +34,13 @@ export interface IAstueOnpzMnemonicFurnaceResponseGroupData {
     type: string;
     temp: IAstueOnpzMnemonicFurnaceResponseExtendAttribute;
     pressure: IAstueOnpzMnemonicFurnaceResponseExtendAttribute;
+    isDeviation: boolean;
 }
 
 export interface IAstueOnpzMnemonicFurnaceResponseExtendAttribute {
     value: number;
     units: string;
+    isDeviation: boolean;
 }
 
 export interface IAstueOnpzMnemonicFurnaceSelectReferences {
@@ -78,7 +81,12 @@ export interface IAstueOnpzMnemonicFurnaceLine {
 export interface IAstueOnpzMnemonicFurnaceStreamStats {
     title: string;
     main: IAstueOnpzMnemonicFurnaceCircle;
-    streams: number[];
+    streams: IAstueOnpzMnemonicFurnaceStreamStatsMini[];
+}
+
+export interface IAstueOnpzMnemonicFurnaceStreamStatsMini {
+    value: number;
+    streamType?: AstueOnpzMnemonicFurnaceStreamStatsType;
 }
 
 export interface IAstueOnpzMnemonicFurnaceRect {
@@ -91,6 +99,7 @@ export interface IAstueOnpzMnemonicFurnaceRect {
 }
 
 export interface IAstueOnpzMnemonicFurnaceCircle {
+    id?: string;
     value: number;
     unit: string;
     streamType?: AstueOnpzMnemonicFurnaceStreamStatsType;
@@ -99,6 +108,7 @@ export interface IAstueOnpzMnemonicFurnaceCircle {
 export interface IAstueOnpzMnemonicFurnaceQuad {
     value: number;
     unit: string;
+    streamType?: AstueOnpzMnemonicFurnaceStreamStatsType;
 }
 
 export enum AstueOnpzMnemonicFurnaceElementType {
