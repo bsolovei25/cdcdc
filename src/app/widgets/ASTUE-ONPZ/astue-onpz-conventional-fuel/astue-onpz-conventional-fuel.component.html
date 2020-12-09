@@ -105,7 +105,10 @@
         </div>
         <ng-container *ngIf="isPredictors">
           <div class="label"> План на след. час </div>
-          <div class="card card__plan"></div>
+          <div class="card card__plan">
+            <span class="value"> {{ nextHourPlan | number:'0.0-2' || '---' }} </span>
+            <span class="unit"> {{ (predictors$ | async)?.units }} </span>
+          </div>
         </ng-container>
         <div class="flex-spacer"></div>
         <div class="tag-divider">
