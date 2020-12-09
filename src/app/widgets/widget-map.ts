@@ -134,6 +134,7 @@ export const WIDGETS = {
     'kpe-table-data': WidgetContainerComponent,
     'kpe-pasportize-percent': WidgetContainerComponent,
     'kpe-plan-readiness-trend': WidgetContainerComponent,
+    'kpe-total-reserve': WidgetContainerComponent,
 };
 
 export const WIDGETS_LAZY = {
@@ -512,6 +513,19 @@ export const WIDGETS_LAZY = {
         itemRows: 25,
         minItemCols: 13,
         minItemRows: 25,
+        preview: 'default',
+    },
+    'kpe-total-reserve': {
+        import: async () => {
+            return await import(
+                'src/app/widgets/KPE/kpe-total-reserve/kpe-total-reserve.module'
+            );
+        },
+        module: 'KpeTotalReserveModule',
+        itemCols: 25,
+        itemRows: 14,
+        minItemCols: 25,
+        minItemRows: 14,
         preview: 'default',
     },
     'kpe-plan-readiness-trend': {
