@@ -4,7 +4,6 @@ import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject } from 'rxjs';
 import { IScenario } from '../../../models/APS/aps-tables.model';
 import {
-    IEditedData,
     ITable,
     ITableToDisplay,
 } from '../../../../widgets/APS/aps-operating-modes/aps-operating-modes.component';
@@ -45,9 +44,9 @@ export class ApsService {
             .get<any>(this.restUrl + `/api/debugging-service-ApsService/Json/unload/${id}/folder`)
             .toPromise();
     }
-    async postReferenceBook(params: IEditedData[], data: ITableToDisplay[]): Promise<any> {
+    async postReferenceBook(params: ITableToDisplay[], data: ITableToDisplay[]): Promise<any> {
         return await this.http
-            .post<IEditedData>(
+            .post<ITableToDisplay>(
                 this.restUrl +
                     `/api/debugging-service-ApsService/ReferenceBook/${this.scenarioId}/${this.tableStruct}`,
                 params

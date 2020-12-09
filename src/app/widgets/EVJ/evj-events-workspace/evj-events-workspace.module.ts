@@ -37,6 +37,7 @@ import { EvjEventsWorkspaceDatetimepickerComponent } from './components/evj-even
 import { EvjEventsWorkspaceSelectComponent } from './components/evj-events-workspace-select/evj-events-workspace-select.component';
 import { EvjEventsWorkspaceResponsibleSelectComponent } from './components/evj-events-workspace-responsible/evj-events-workspace-responsible-select.component';
 import { EvjEventsPlaceComponent } from './components/evj-events-place/evj-events-place.component';
+import { EvjEventsWorkspaceExtraOptionsComponent } from './components/evj-events-workspace-extra-options/evj-events-workspace-extra-options.component';
 
 @NgModule({
     declarations: [
@@ -66,7 +67,8 @@ import { EvjEventsPlaceComponent } from './components/evj-events-place/evj-event
         EvjEventsWorkspaceDatetimepickerComponent,
         EvjEventsWorkspaceSelectComponent,
         EvjEventsWorkspaceResponsibleSelectComponent,
-        EvjEventsPlaceComponent
+        EvjEventsPlaceComponent,
+        EvjEventsWorkspaceExtraOptionsComponent
     ],
     imports: [
         CommonModule,

@@ -1,39 +1,41 @@
 <div class="container">
-  <evj-contemporary-widget-header [uniqId]="uniqId" [widgetTitle]="widgetTitle" icon="astue-indicators" type="astue">
-    <div class="container__header">
-      <div class="header__btn"
-           (mousedown)="$event.stopPropagation()"
-           (touchstart)="$event.stopPropagation()"
-           (click)="onPredictClick()"
-           [style]="{ cursor: !!this.uniqId ? 'pointer' : 'not-allowed' }"
-           matRipple
-           [matRippleColor]="'black'">
-        <svg-icon class="header__icon"
-                  src="assets/icons/widgets/ASTUE-ONPZ/calc.svg">
-        </svg-icon>
-        Рассчитать
+  <evj-contemporary-widget-header
+    [uniqId]="uniqId"
+    [widgetTitle]="widgetTitle"
+    icon="astue-indicators" 
+    type="astue"
+  ></evj-contemporary-widget-header>
+  <div class="content"
+    (mousedown)="$event.stopPropagation()"
+    (touchstart)="$event.stopPropagation()"
+  >
+    <div class="diagram">
+      <div class="diagram__container">
+        <svg-icon 
+          src="assets/icons/widgets/ASTUE-ONPZ/astue-onpz-main-indicators/customBg.svg"
+          class="custom-bg"
+        ></svg-icon>
+        <div class="diagram-circle" #chart></div>
+        <div class="diagram-inner-text">
+          <span 
+            class="percent"
+            [ngClass]="{
+              'percent-warning': data?.deviationValue < 0
+            }"
+          >{{ data?.deviationValue | spaceNumber : 1}}</span>
+          <span class="unit">тонн</span>
+        </div>
+        <div class="info">
+          <div class="info__item">
+            <span class="description">Факт</span>
+            <span class="values">&bull; {{data?.factValue | spaceNumber : 1}} <span class="unit">тонн</span></span>
+          </div>
+          <div class="info__item">
+            <span class="description">План</span>
+            <span class="values values-plan">&bull; {{data?.planValue | spaceNumber : 1}} <span class="unit">тонн</span></span>
+          </div>
+        </div>
       </div>
     </div>
-  </evj-contemporary-widget-header>
-
-  <div class="container-body"
-       (mousedown)="$event.stopPropagation()"
-       (touchstart)="$event.stopPropagation()">
-
-    <div class="main-indicators">
-      <table class="main-indicators__table">
-        <tbody>
-        <tr class="table__row" *ngFor="let item of data">
-          <td class="table__column table__column__name">
-            {{ item.name }}
-          </td>
-          <td class="table__column table__column__value">
-            {{ item.value }}
-          </td>
-        </tr>
-        </tbody>
-      </table>
-    </div>
-
   </div>
 </div>

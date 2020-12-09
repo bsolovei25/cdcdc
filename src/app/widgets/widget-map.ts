@@ -531,10 +531,10 @@ export const WIDGETS_LAZY = {
             return await import('src/app/widgets/KPE/kpe-plan-enforceability/kpe-plan-enforceability.module');
         },
         module: 'KpePlanEnforceabilityModule',
-        itemCols: 25,
-        itemRows: 20,
-        minItemCols: 25,
-        minItemRows: 20,
+        itemCols: 21,
+        itemRows: 14,
+        minItemCols: 21,
+        minItemRows: 14,
         preview: 'default',
     },
 
@@ -1406,9 +1406,9 @@ export const WIDGETS_LAZY = {
             );
         },
         module: 'AstueOnpzMainIndicatorsModule',
-        itemCols: 13,
+        itemCols: 12,
         itemRows: 8,
-        minItemCols: 13,
+        minItemCols: 12,
         minItemRows: 8,
         preview: 'astue-onpz-main-indicators',
     },

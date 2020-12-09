@@ -112,15 +112,6 @@
                   [options]="inputOptions"
                   [(ngModel)]="ewService.event.positionNumber"
                 ></evj-input>
-                <!-- <mat-form-field class="example-full-width">
-                  <mat-label>Номер позиции</mat-label>
-                  <input
-                    matInput
-                    placeholder="Текст..."
-                    [value]="ewService.event.positionNumber"
-                    [(ngModel)]="ewService.event.positionNumber"
-                  />
-                </mat-form-field> -->
               </div>
               <div class="position_icon">
                 <svg-icon
@@ -181,7 +172,7 @@
           <div class="date-info">
             <div class="deadline-title">Срок выполнения</div>
             <evj-time-data-picker
-              [data]="ewService.event.deadline"
+              [data]="ewService?.event?.deadline"
               (dateTimePicker)="dateTimePicker($event)"
             ></evj-time-data-picker>
           </div>

@@ -19,6 +19,7 @@ import { SouMvpMnemonicSchemeSectionIzomalkComponent } from './components/sou-mv
 import { SouMvpMnemonicSchemeSimpleInputComponent } from './components/sou-mvp-mnemonic-scheme-simple-input/sou-mvp-mnemonic-scheme-simple-input.component';
 import { SouMvpMnemonicSchemeSimpleOutputComponent } from './components/sou-mvp-mnemonic-scheme-simple-output/sou-mvp-mnemonic-scheme-simple-output.component';
 import { SouSchemaComponent } from './components/sou-schema/sou-schema.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
     declarations: [
@@ -43,7 +44,8 @@ import { SouSchemaComponent } from './components/sou-schema/sou-schema.component
         SharedModule,
         AngularSvgIconModule,
         MatRippleModule,
-        MatSelectModule
+        MatSelectModule,
+        FormsModule
     ]
 })
 export class SouMvpMnemonicSchemeModule {

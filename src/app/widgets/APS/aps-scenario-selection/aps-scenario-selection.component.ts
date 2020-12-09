@@ -13,19 +13,19 @@ export class ApsScenarioSelectionComponent extends WidgetPlatform<unknown>
     implements OnInit, OnDestroy {
     public scenarios: IScenario[] = [];
     public factorys: {
-        name: string
+        name: string;
     }[] = [
         {
-            name: 'ОНПЗ'
-        }
+            name: 'ОНПЗ',
+        },
     ];
     public factorysInfo: {
-        name: string
+        name: string;
     }[] = [
         {
-            name: 'План производства'
-        }
-    ];;
+            name: 'План производства',
+        },
+    ];
     constructor(
         public apsService: ApsService,
         protected widgetService: WidgetService,

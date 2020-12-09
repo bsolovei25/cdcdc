@@ -3,7 +3,7 @@ import { IDatesInterval } from '../../../../../dashboard/services/widget.service
 import { OilOperationsService } from '../../../../../dashboard/services/widgets/oil-operations.service';
 import { IProductionTrend } from '../../../../../dashboard/models/LCO/production-trends.model';
 import { IOilOperationsTank } from '../../../../../dashboard/models/oil-operations';
-import {IPointTank} from "@shared/models/smart-scroll.model";
+import { IPointTank } from '@shared/models/smart-scroll.model';
 
 interface ITankMassChartDataResponse {
     name: 'string';

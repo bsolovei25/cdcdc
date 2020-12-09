@@ -1,98 +1,78 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { IProductionTrend } from '../../../../../dashboard/models/LCO/production-trends.model';
 import { IPointTank } from '@shared/models/smart-scroll.model';
+import { ReasonsDeviationsService } from '../../reasons-deviations.service';
+import { IOilTransfer } from '../../../../../dashboard/models/oil-operations';
+
+export interface IReasonsDeviationsRawData {
+    name: string;
+    graph: {
+        date: Date,
+        value: number,
+        direction: 'in' | 'out',
+        state: 'start' | 'end',
+    }[];
+}
 
 @Component({
     selector: 'evj-reasons-deviations-line-chart',
     templateUrl: './reasons-deviations-line-chart.component.html',
     styleUrls: ['./reasons-deviations-line-chart.component.scss'],
 })
-export class ReasonsDeviationsLineChartComponent implements OnInit {
+export class ReasonsDeviationsLineChartComponent implements OnChanges {
+
+    @Input()
+    private transfer: IOilTransfer | null = null;
+
     public data: IProductionTrend[] = [
         {
             graphType: 'fact',
             graphStyle: 'main',
             graph: [
-                {
-                    value: 1000,
-                    timeStamp: new Date(2020, 2, 1),
-                },
-                {
-                    value: 6000,
-                    timeStamp: new Date(2020, 2, 2),
-                },
-                {
-                    value: 4500,
-                    timeStamp: new Date(2020, 2, 3),
-                },
-                {
-                    value: 900,
-                    timeStamp: new Date(2020, 2, 4),
-                },
-                {
-                    value: 1300,
-                    timeStamp: new Date(2020, 2, 5),
-                },
-                {
-                    value: 5800,
-                    timeStamp: new Date(2020, 2, 6),
-                },
-                {
-                    value: 900,
-                    timeStamp: new Date(2020, 2, 7),
-                },
             ],
         },
     ];
 
-    public points: IPointTank[] = [
-        {
-            value: 6000,
-            timestamp: new Date(2020, 2, 2),
-            additional: {
-                card: {
-                    objectType: 'tank',
-                    title: 'ЭЛОУАВТ6ЭОУАБВ6',
-                    direction: 'Приемник',
-                },
-            },
-        },
-        {
-            value: 900,
-            timestamp: new Date(2020, 2, 4),
-            additional: {
-                card: {
-                    objectType: 'tank',
-                    title: 'АВТ-6.ЭЛО/У-А6ЭЛ ОУА',
-                    direction: 'Приемник',
-                },
-            },
-        },
-        {
-            value: 5800,
-            timestamp: new Date(2020, 2, 6),
-            additional: {
-                card: {
-                    objectType: 'tank',
-                    title: 'ЭЛОУ-6',
-                    direction: 'Источник',
-                },
-            },
-        },
-        {
-            value: 900,
-            timestamp: new Date(2020, 2, 7),
-            additional: {
-                card: {
-                    objectType: 'tank',
-                    title: 'ЭЛОУ-АВТ-6',
-                    direction: 'Источник',
-                },
-            },
-        },
-    ];
+    public points: IPointTank[] = [];
 
-    constructor() {}
+    constructor(
+        private reasonsDeviationsService: ReasonsDeviationsService,
+    ) {}
 
-    ngOnInit(): void {}
+    public ngOnChanges(changes: SimpleChanges): void {
+        this.getData();
+    }
+
+    private async getData(): Promise<void> {
+        this.data[0].graph = [];
+        this.points = [];
+        const rawData = await this.getRawData();
+        rawData?.graph.forEach(item => {
+            this.data[0].graph.push({ value: item.value, timeStamp: new Date(item.date) });
+            this.points.push({
+                value: item.value,
+                timestamp: new Date(item.date),
+                additional: {
+                    card: {
+                        title: '',
+                        objectType: 'tank',
+                        direction: item.direction === 'in' ? 'Приемник' : 'Источник',
+                    },
+                },
+            });
+        });
+        console.log(this.data, 'this.data');
+        console.log(this.points, 'this.points');
+    }
+
+    private async getRawData(): Promise<IReasonsDeviationsRawData | null> {
+        if (this.transfer) {
+            return await this.reasonsDeviationsService.getChartData<IReasonsDeviationsRawData>(
+                this.transfer.id,
+                this.transfer.startTime,
+                this.transfer.endTime,
+            );
+        }
+        return null;
+    }
 }

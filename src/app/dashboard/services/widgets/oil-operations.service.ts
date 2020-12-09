@@ -153,21 +153,30 @@ export class OilOperationsService {
         }
     }
 
-    public async autoAssignShipments<T>(transferIdParam: number): Promise<T>  {
+    public async removeShipmentsRelationsByTransferId<T>(transferIdParam: number): Promise<T>  {
         try {
             return await this.http.put<T>(`${this.restUrl}/api/oil-control/shipments/transfer/${transferIdParam}/remove-relation-all`, null).toPromise();
         } catch (e) {
             console.error(e);
-            return new Promise<T>(resolve => null);
+            return new Promise<T>(resolve => []);
         }
     }
 
-    public async removeShipmentsRelationsByTransferId<T>(transferIdParam: number): Promise<T>  {
+    public async autoAssignShipments<T>(transferIdParam: number): Promise<T>  {
         try {
             return await this.http.put<T>(`${this.restUrl}/api/oil-control/transfer/${transferIdParam}/auto-relation`, null).toPromise();
         } catch (e) {
             console.error(e);
-            return new Promise<T>(resolve => false);
+            return new Promise<T>(resolve => []);
+        }
+    }
+
+    public async recalcDeviation<T>(transferIdParam: number): Promise<T>  {
+        try {
+            return await this.http.put<T>(`${this.restUrl}/api/oil-control/transfer/${transferIdParam}/recalc-deviation`, null).toPromise();
+        } catch (e) {
+            console.error(e);
+            return new Promise<T>(resolve => null);
         }
     }
 
