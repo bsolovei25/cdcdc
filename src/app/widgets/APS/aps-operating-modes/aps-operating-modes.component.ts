@@ -143,7 +143,6 @@ export class ApsOperatingModesComponent extends WidgetPlatform<unknown>
             this.data.length &&
             this.isAllowScrollLoading
         ) {
-            console.log('end');
             this.isAllowScrollLoading = false;
             this.getNextData().then();
         }
