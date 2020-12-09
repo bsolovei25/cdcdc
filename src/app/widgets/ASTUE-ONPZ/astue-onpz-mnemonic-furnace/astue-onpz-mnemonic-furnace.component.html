@@ -97,28 +97,26 @@
             <div class="title"> {{ (data | async)?.gasStats?.title }} </div>
             <div class="arrow" [ngClass]="'arrow__' + (data | async)?.gasStats?.main?.streamType">
               <div class="triangle"></div>
-              <div class="counter"> x{{ (data | async)?.gasStats?.streams?.length || 0 }} </div>
+<!--              TODO: временно-->
+<!--              <div class="counter"> x{{ (data | async)?.gasStats?.streams?.length || 0 }} </div>-->
             </div>
             <evj-astue-onpz-mnemonic-furnace-circle
               class="circle"
               matRipple matRippleColor="white"
               [data]="(data | async)?.gasStats?.main"
-              [isSelected]="(popupData$ | async)?.side === 'left'"
-              (click)="topCircleClick(data?.value?.gasStats, 'left')"
             ></evj-astue-onpz-mnemonic-furnace-circle>
           </div>
           <div class="wrapper-up wrapper-up__right">
             <div class="title"> {{ (data | async)?.dischargeStats?.title }} </div>
             <div class="arrow" [ngClass]="'arrow__' + (data | async)?.dischargeStats?.main?.streamType">
               <div class="triangle"></div>
-              <div class="counter"> x{{ (data | async)?.dischargeStats?.streams?.length || 0 }} </div>
+<!--              TODO: временно-->
+<!--              <div class="counter"> x{{ (data | async)?.dischargeStats?.streams?.length || 0 }} </div>-->
             </div>
             <evj-astue-onpz-mnemonic-furnace-circle
               class="circle"
               matRipple matRippleColor="white"
               [data]="(data | async)?.dischargeStats?.main"
-              [isSelected]="(popupData$ | async)?.side === 'right'"
-              (click)="topCircleClick(data?.value?.dischargeStats, 'right')"
             ></evj-astue-onpz-mnemonic-furnace-circle>
           </div>
           <div class="wrapper-up wrapper-up__center">

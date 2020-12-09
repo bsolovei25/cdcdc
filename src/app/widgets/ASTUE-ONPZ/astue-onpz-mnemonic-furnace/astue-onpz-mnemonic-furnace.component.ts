@@ -15,6 +15,7 @@ import {
     AstueOnpzMnemonicFurnaceStreamStatsType,
     IAstueOnpzMnemonicFurnace,
     IAstueOnpzMnemonicFurnaceBlock,
+    IAstueOnpzMnemonicFurnaceCircle,
     IAstueOnpzMnemonicFurnaceLine,
     IAstueOnpzMnemonicFurnaceResponse,
     IAstueOnpzMnemonicFurnaceResponseGroupData,
@@ -29,6 +30,7 @@ import { WidgetService } from '../../../dashboard/services/widget.service';
 import { FormControl } from '@angular/forms';
 import { filter, map, takeUntil } from 'rxjs/operators';
 import { SOURCE_DATA } from './astue-onpz-mnemonic-furnace.mock';
+import { AstueOnpzMnemonicFurnaceService } from './astue-onpz-mnemonic-furnace.service';
 
 interface IAstueOnpzMnemonicFurnacePopup extends IAstueOnpzMnemonicFurnaceStreamStats {
     side: 'left' | 'right';
@@ -84,6 +86,7 @@ export class AstueOnpzMnemonicFurnaceComponent extends WidgetPlatform implements
     private responseData: { manufactures: IAstueOnpzMnemonicFurnaceResponse[] } = null;
 
     constructor(
+        private mnemonicFurnaceService: AstueOnpzMnemonicFurnaceService,
         private changeDetector: ChangeDetectorRef,
         public widgetService: WidgetService,
         @Inject('isMock') public isMock: boolean,
@@ -109,17 +112,26 @@ export class AstueOnpzMnemonicFurnaceComponent extends WidgetPlatform implements
         this.selectOven.valueChanges.pipe(takeUntil(this.onDestroy)).subscribe((value) => {
             this.setData();
         });
-    }
 
-    public topCircleClick(
-        data: IAstueOnpzMnemonicFurnaceStreamStats,
-        side: 'left' | 'right'
-    ): void {
-        if (this.popupData$.getValue()?.side === side) {
-            this.popupData$.next(null);
-            return;
-        }
-        this.popupData$.next({ ...data, side });
+        this.mnemonicFurnaceService.selectedItem$
+            .pipe(takeUntil(this.onDestroy))
+            .subscribe((ref) => {
+                const data = this.data.getValue();
+                if (!data) {
+                    return;
+                }
+                switch (ref) {
+                    case data.dischargeStats?.main.id:
+                        this.popupData$.next({ ...data.dischargeStats, side: 'right' });
+                        break;
+                    case data.gasStats?.main.id:
+                        this.popupData$.next({ ...data.gasStats, side: 'left' });
+                        break;
+                    default:
+                        this.popupData$.next(null);
+                        break;
+                }
+            });
     }
 
     @AsyncRender
@@ -181,6 +193,7 @@ export class AstueOnpzMnemonicFurnaceComponent extends WidgetPlatform implements
     }
 
     private setData(): void {
+        // return;
         if (!this.selectOven.value) {
             this.data.next(null);
             return;
@@ -234,6 +247,9 @@ export class AstueOnpzMnemonicFurnaceComponent extends WidgetPlatform implements
                             value: x.value,
                             unit: x.units,
                             type: AstueOnpzMnemonicFurnaceRectType.Full,
+                            streamType: x.isDeviation
+                                ? AstueOnpzMnemonicFurnaceStreamStatsType.Deviation
+                                : AstueOnpzMnemonicFurnaceStreamStatsType.Norm,
                         },
                     });
                     break;
@@ -246,6 +262,9 @@ export class AstueOnpzMnemonicFurnaceComponent extends WidgetPlatform implements
                             value: x.value,
                             unit: x.units,
                             type: AstueOnpzMnemonicFurnaceRectType.Value,
+                            streamType: x.isDeviation
+                                ? AstueOnpzMnemonicFurnaceStreamStatsType.Deviation
+                                : AstueOnpzMnemonicFurnaceStreamStatsType.Norm,
                         },
                     });
                     break;
@@ -257,13 +276,20 @@ export class AstueOnpzMnemonicFurnaceComponent extends WidgetPlatform implements
                                 count: (i + 1).toString(),
                                 title: 'поток',
                                 type: AstueOnpzMnemonicFurnaceRectType.Stream,
+                                streamType: x.isDeviation
+                                    ? AstueOnpzMnemonicFurnaceStreamStatsType.Deviation
+                                    : AstueOnpzMnemonicFurnaceStreamStatsType.Norm,
                             },
                         },
                         {
                             type: AstueOnpzMnemonicFurnaceElementType.Circle,
                             data: {
+                                id: x.id,
                                 value: x.value,
                                 unit: x.units,
+                                streamType: x.temp?.isDeviation
+                                    ? AstueOnpzMnemonicFurnaceStreamStatsType.Deviation
+                                    : AstueOnpzMnemonicFurnaceStreamStatsType.Norm,
                             },
                         }
                     );
@@ -273,9 +299,13 @@ export class AstueOnpzMnemonicFurnaceComponent extends WidgetPlatform implements
                 line.push({
                     type: AstueOnpzMnemonicFurnaceElementType.Circle,
                     data: {
+                        id: x.id,
                         value: x.temp.value,
                         unit: x.temp.units,
-                    },
+                        streamType: x.temp?.isDeviation
+                            ? AstueOnpzMnemonicFurnaceStreamStatsType.Deviation
+                            : AstueOnpzMnemonicFurnaceStreamStatsType.Norm,
+                    } as IAstueOnpzMnemonicFurnaceCircle,
                 });
             }
             if (x.pressure) {
@@ -284,6 +314,9 @@ export class AstueOnpzMnemonicFurnaceComponent extends WidgetPlatform implements
                     data: {
                         value: x.temp.value,
                         unit: x.temp.units,
+                        streamType: x.pressure?.isDeviation
+                            ? AstueOnpzMnemonicFurnaceStreamStatsType.Deviation
+                            : AstueOnpzMnemonicFurnaceStreamStatsType.Norm,
                     },
                 });
             }
@@ -356,20 +389,40 @@ export class AstueOnpzMnemonicFurnaceComponent extends WidgetPlatform implements
         const dischargeStats = {
             title: 'Разряжение',
             main: {
+                id: currentData.rarefaction.item[0]?.id ?? null, // TODO: add normal id
                 value: currentData.rarefaction.value,
                 unit: currentData.rarefaction.unit,
-                streamType: AstueOnpzMnemonicFurnaceStreamStatsType.Norm, // TODO: add logic
+                streamType: !!currentData.rarefaction.item.find((x) => x.isDeviation)
+                    ? AstueOnpzMnemonicFurnaceStreamStatsType.Deviation
+                    : AstueOnpzMnemonicFurnaceStreamStatsType.Norm,
             },
-            streams: currentData.rarefaction.item.map((x) => x.value),
+            streams: currentData.rarefaction.item.map((x) => {
+                return {
+                    value: x.value,
+                    streamType: x.isDeviation
+                        ? AstueOnpzMnemonicFurnaceStreamStatsType.Deviation
+                        : AstueOnpzMnemonicFurnaceStreamStatsType.Norm,
+                };
+            }),
         };
         const gasStats = {
             title: 'Уходящие газы',
             main: {
+                id: currentData.outputGaz.item[0]?.id ?? null, // TODO: add normal id
                 value: currentData.outputGaz.value,
                 unit: currentData.outputGaz.unit,
-                streamType: AstueOnpzMnemonicFurnaceStreamStatsType.Norm, // TODO: add logic
+                streamType: !!currentData.outputGaz.item.find((x) => x.isDeviation)
+                    ? AstueOnpzMnemonicFurnaceStreamStatsType.Deviation
+                    : AstueOnpzMnemonicFurnaceStreamStatsType.Norm,
             },
-            streams: currentData.outputGaz.item.map((x) => x.value),
+            streams: currentData.outputGaz.item.map((x) => {
+                return {
+                    value: x.value,
+                    streamType: x.isDeviation
+                        ? AstueOnpzMnemonicFurnaceStreamStatsType.Deviation
+                        : AstueOnpzMnemonicFurnaceStreamStatsType.Norm,
+                };
+            }),
         };
 
         return {
