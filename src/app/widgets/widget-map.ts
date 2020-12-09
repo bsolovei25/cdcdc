@@ -49,6 +49,7 @@ export const WIDGETS = {
     'sou-operational-accounting-system': WidgetContainerComponent,
     'sou-operational-accounting-system-new': WidgetContainerComponent,
     'sou-operational-accounting-system-old': WidgetContainerComponent,
+    'sou-main-indicators': WidgetContainerComponent,
     'astue-onpz-conventional-fuel': WidgetContainerComponent,
     'astue-onpz-conventional-fuel-predictors': WidgetContainerComponent,
     'astue-onpz-predictors': WidgetContainerComponent,
@@ -1323,6 +1324,19 @@ export const WIDGETS_LAZY = {
         minItemCols: 32,
         minItemRows: 30,
         preview: 'sou-operational-accounting-system',
+    },
+    'sou-main-indicators': {
+        import: async () => {
+            return await import(
+                'src/app/widgets/SOU/sou-main-indicators/sou-main-indicators.module'
+            );
+        },
+        module: 'SouMainIndicatorsModule',
+        itemCols: 13,
+        itemRows: 29,
+        minItemCols: 13,
+        minItemRows: 29,
+        preview: 'default',
     },
 
     // #endregion SOU
