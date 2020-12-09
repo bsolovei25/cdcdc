@@ -41,9 +41,7 @@
           </div>
           <mat-select class="dropdown__select" [value]="factorysInfo[0]" disabled>
             <ng-container *ngFor="let info of factorysInfo">
-              <mat-option [value]="info">
-                {{ info?.name }}
-              </mat-option>
+              <mat-option [value]="info">{{ info?.name }}</mat-option>
             </ng-container>
           </mat-select>
         </div>
@@ -54,13 +52,10 @@
         <div class="dropdown">
           <div class="dropdown__marker">
           </div>
+          <span>{{(apsService.selectScenario$ | async) === null ? 'null' : 'hz'}}</span>
           <mat-select class="dropdown__select" (selectionChange)="getScenarioId($event)"
                       [value]="apsService.selectScenario$ | async">
-            <ng-container *ngFor="let scenario of scenarios">
-              <mat-option [value]="scenario">
-                {{ scenario?.name }}
-              </mat-option>
-            </ng-container>
+            <mat-option *ngFor="let scenario of scenarios" [value]="scenario">{{ scenario?.name }}</mat-option>
           </mat-select>
         </div>
         <button
