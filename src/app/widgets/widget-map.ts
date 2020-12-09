@@ -498,7 +498,7 @@ export const WIDGETS_LAZY = {
         itemRows: 15,
         minItemCols: 60,
         minItemRows: 15,
-        preview: 'default',
+        preview: 'kpe-table-data',
     },
 
     'kpe-pasportize-percent': {
@@ -1507,7 +1507,7 @@ export const WIDGETS_LAZY = {
         itemRows: 9,
         minItemCols: 24,
         minItemRows: 7,
-        preview: 'default',
+        preview: 'astue-onpz-factory-analysis',
     },
     'astue-onpz-mnemonic-furnace': {
         import: async () => {
@@ -1520,7 +1520,7 @@ export const WIDGETS_LAZY = {
         itemRows: 9,
         minItemCols: 24,
         minItemRows: 7,
-        preview: 'default',
+        preview: 'astue-onpz-mnemonic-furnace',
     },
     'astue-onpz-heat-balance': {
         import: async () => {
