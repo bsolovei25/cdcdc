@@ -27,9 +27,11 @@
             <div class="dropdown">
               <div class="event-mat-select">
                 <mat-form-field appearance="none">
-                  <mat-select>
+                  <mat-select
+                    (selectionChange)="getParameterId($event)"
+                    [value]="kpeWorkspaceService.selectParameter$ | async">
                     <mat-option
-                      *ngFor="let p of facts"
+                      *ngFor="let p of allParameters"
                       [value]="p"
                     >
                       {{p.name}}
@@ -72,9 +74,10 @@
               <div class="dropdown">
                 <div class="event-mat-select">
                   <mat-form-field appearance="none">
-                    <mat-select>
-                      <mat-option
-                        *ngFor="let p of parameters"
+                    <mat-select
+                      [value]="kpeWorkspaceService.showSelectParameters$ | async">
+                    <mat-option
+                        *ngFor="let p of extraParameters"
                         [value]="p"
                       >
                         {{p.name}}
@@ -85,7 +88,8 @@
               </div>
               <div class="value">
                 <div class="value__text">
-
+                  <span>
+                  </span>
                 </div>
               </div>
             </div>
