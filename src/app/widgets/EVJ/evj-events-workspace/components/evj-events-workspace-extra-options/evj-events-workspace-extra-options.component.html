@@ -35,7 +35,7 @@
                       *ngFor="let p of allParameters"
                       [value]="p"
                     >
-                      {{p.name}}
+                      {{p?.name}}
                     </mat-option>
                   </mat-select>
                 </mat-form-field>
@@ -76,12 +76,13 @@
                 <div class="event-mat-select">
                   <mat-form-field appearance="none">
                     <mat-select
+                      [(ngModel)]="item.name"
                       [value]="kpeWorkspaceService.showSelectParameters$ | async">
                       <mat-option
                         *ngFor="let p of extraParameters"
                         [value]="p"
                       >
-                        {{p.name}}
+                        {{p?.name}}
                       </mat-option>
                     </mat-select>
                   </mat-form-field>
@@ -89,7 +90,7 @@
               </div>
               <div class="value">
                 <div class="value__text">
-                    <input type="text" [(ngModel)]="item.numericValue">
+                    <input type="text" [(ngModel)]="item.numericValue" value="{{item.numericValue}}">
                 </div>
               </div>
             </div>

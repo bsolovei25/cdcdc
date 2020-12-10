@@ -7,10 +7,6 @@ import {
 } from '../../../../../dashboard/models/EVJ/kpe-workspace.model';
 import { KpeWorkspaceService } from '../../../../../dashboard/services/widgets/EVJ/kpe-workspace.service';
 
-export interface IExtraOptions {
-    id: number;
-    name: string;
-}
 
 @Component({
     selector: 'evj-evj-events-workspace-extra-options',
@@ -39,7 +35,6 @@ export class EvjEventsWorkspaceExtraOptionsComponent implements OnInit {
 
     ngOnInit(): void {
         this.getParametersByNotification();
-        console.log(`this.getParametersByNotification() ${this.notificationParametersData}`);
         this.getParameters();
         this.kpeWorkspaceService.showSelectParameters$.subscribe((res) => {
             this.extraParameters = res;
@@ -49,6 +44,11 @@ export class EvjEventsWorkspaceExtraOptionsComponent implements OnInit {
                 this.getExtraParameters(res.id);
             }
         });
+        setTimeout(() => {
+            console.log(`this.getParametersByNotification()
+            ${this.notificationParametersData}
+            `);
+        }, 5000);
     }
 
     private async getParameters(): Promise<void> {
@@ -64,7 +64,8 @@ export class EvjEventsWorkspaceExtraOptionsComponent implements OnInit {
         this.kpeWorkspaceService.selectParameter$.next(event.value);
     }
     private async getParametersByNotification(): Promise<void> {
-        this.notificationParametersData = await this.kpeWorkspaceService.getKpeNotificationParameters(this.ewService.event);
+        const data = await this.kpeWorkspaceService.getKpeNotificationParameters(this.ewService.event);
+        this.notificationParametersData = data;
     }
 
     private async accept(): Promise<void> {
