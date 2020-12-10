@@ -78,6 +78,7 @@
         <div class="workspace__select-container-right">
           <evj-events-workspace-datetimepicker
             [label]="'Срок выполнения'"
+            [date]="ewService.event.deadline"
           >
           </evj-events-workspace-datetimepicker>
         </div>
@@ -85,7 +86,7 @@
       <div class="description">
         <div class="extra-options">
           <div class="title">
-            <span>Распоряжения</span>
+            <span>Распоряжение</span>
           </div>
           <div class="extra-options__name">
             <span>Дополнительные параметры</span>

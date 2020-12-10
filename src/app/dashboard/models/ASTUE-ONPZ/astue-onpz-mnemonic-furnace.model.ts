@@ -1,3 +1,60 @@
+export interface IAstueOnpzMnemonicFurnaceResponse {
+    description: string;
+    units: IAstueOnpzMnemonicFurnaceResponseOvenUnit[];
+}
+
+export interface IAstueOnpzMnemonicFurnaceResponseOvenUnit {
+    description: string;
+    ovens: IAstueOnpzMnemonicFurnaceResponseOven[];
+}
+
+export interface IAstueOnpzMnemonicFurnaceResponseOven {
+    name: string;
+    inputOil: IAstueOnpzMnemonicFurnaceResponseGroup;
+    inputGaz: IAstueOnpzMnemonicFurnaceResponseGroup;
+    liquidFuel: IAstueOnpzMnemonicFurnaceResponseGroup;
+    rarefaction: IAstueOnpzMnemonicFurnaceResponseGroup;
+    outputRaw: IAstueOnpzMnemonicFurnaceResponseGroup;
+    outputGaz: IAstueOnpzMnemonicFurnaceResponseGroup;
+}
+
+export interface IAstueOnpzMnemonicFurnaceResponseGroup {
+    item: IAstueOnpzMnemonicFurnaceResponseGroupData[];
+    value: number;
+    unit: string;
+}
+
+export interface IAstueOnpzMnemonicFurnaceResponseGroupData {
+    id: string;
+    name: string;
+    description: string;
+    order: number;
+    value: number;
+    units: string;
+    type: string;
+    temp: IAstueOnpzMnemonicFurnaceResponseExtendAttribute;
+    pressure: IAstueOnpzMnemonicFurnaceResponseExtendAttribute;
+    isDeviation: boolean;
+}
+
+export interface IAstueOnpzMnemonicFurnaceResponseExtendAttribute {
+    value: number;
+    units: string;
+    isDeviation: boolean;
+}
+
+export interface IAstueOnpzMnemonicFurnaceSelectReferences {
+    manufactures: {
+        title: string;
+        units: {
+            title: string;
+            ovens: {
+                title: string;
+            }[];
+        }[];
+    }[];
+}
+
 export interface IAstueOnpzMnemonicFurnace {
     unitTitle: string;
     inputOilBlock: IAstueOnpzMnemonicFurnaceBlock;
@@ -24,7 +81,12 @@ export interface IAstueOnpzMnemonicFurnaceLine {
 export interface IAstueOnpzMnemonicFurnaceStreamStats {
     title: string;
     main: IAstueOnpzMnemonicFurnaceCircle;
-    streams: number[];
+    streams: IAstueOnpzMnemonicFurnaceStreamStatsMini[];
+}
+
+export interface IAstueOnpzMnemonicFurnaceStreamStatsMini {
+    value: number;
+    streamType?: AstueOnpzMnemonicFurnaceStreamStatsType;
 }
 
 export interface IAstueOnpzMnemonicFurnaceRect {
@@ -33,17 +95,20 @@ export interface IAstueOnpzMnemonicFurnaceRect {
     value?: number;
     unit?: string;
     type: AstueOnpzMnemonicFurnaceRectType;
+    streamType?: AstueOnpzMnemonicFurnaceStreamStatsType;
 }
 
 export interface IAstueOnpzMnemonicFurnaceCircle {
+    id?: string;
     value: number;
     unit: string;
-    type?: AstueOnpzMnemonicFurnaceStreamStatsType;
+    streamType?: AstueOnpzMnemonicFurnaceStreamStatsType;
 }
 
 export interface IAstueOnpzMnemonicFurnaceQuad {
     value: number;
     unit: string;
+    streamType?: AstueOnpzMnemonicFurnaceStreamStatsType;
 }
 
 export enum AstueOnpzMnemonicFurnaceElementType {

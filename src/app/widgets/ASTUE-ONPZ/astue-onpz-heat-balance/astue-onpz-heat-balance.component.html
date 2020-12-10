@@ -25,44 +25,42 @@
       <ng-container *ngFor="let element of data">
         <tr
           class="table__body__row"
-          [class.last-tr]="element.unit.name === 'last-row'"
-          [class.table__body__row--active]="selectedRowProduct === element.unit.name"
+          [class.table__body__row--active]="selectedRowProduct === element.name"
         >
-          <ng-container *ngIf="element.unit.name !== 'last-row'">
-            <td
-              class="table__body__column"
-              [class.table__body__column--active]="selectedRowProduct === element.unit.name"
+          <td
+            class="table__body__column"
+            [class.table__body__column--active]="selectedRowProduct === element.name"
+            (click)="onClickRow($event, element)"
+            colspan="3"
+          >
+            <div
               (click)="onClickRow($event, element)"
-              colspan="3"
+              class="table__body__column__row-title"
+              [class.table__body__column__row-title__border-active]="selectedRowProduct === element.name"
             >
-              <div
-                (click)="onClickRow($event, element.unit)"
-                class="table__body__column__row-title"
-                [class.table__body__column__row-title__border-active]="selectedRowProduct === element.unit.name"
+              <svg-icon
+                *ngIf="!!element.items?.length"
+                class="table__body__column__row-title__icon"
+                (click)="onClickTr($event, element)"
+                [class.table__body__column__row-title__icon--active]="expandedElement.isSelected(element.name)"
+                src="assets/icons/widgets/APS/aps-gantt-chart/plus.svg"
               >
-                <svg-icon
-                  class="table__body__column__row-title__icon"
-                  (click)="onClickTr($event, element.unit)"
-                  [class.table__body__column__row-title__icon--active]="expandedElement.isSelected(element.unit.name)"
-                  src="assets/icons/widgets/APS/aps-gantt-chart/plus.svg"
-                >
-                </svg-icon>
-                <div class="table__body__column__row-title">
-                  <div class="table__body__column__row-title__text__name">
-                    <span>{{ element.unit.name }}</span>
-                  </div>
-                  <div class="table__body__column__row-title__text__val">
-                    <span>1000</span>
-                    <span>1000</span>
-                  </div>
+              </svg-icon>
+              <div class="table__body__column__row-title">
+                <div class="table__body__column__row-title__text__name">
+                  <span>{{ element.name }}</span>
+                </div>
+                <div class="table__body__column__row-title__text__val">
+                  <span> {{ element.absoluteValue | number: "0.0" }} </span>
+                  <span> {{ element.relativeValue | number: "0.0" }} </span>
                 </div>
               </div>
-            </td>
-          </ng-container>
+            </div>
+          </td>
         </tr>
-        <ng-container *ngFor="let elementChildren of element.unitParams;  index as i;">
+        <ng-container *ngFor="let elementChildren of element.items;  index as i;">
           <tr
-            *ngIf="expandedElement.isSelected(element.unit.name)"
+            *ngIf="expandedElement.isSelected(element.name)"
             class="table__body__row expanded-row"
             (click)="onClickRow($event, elementChildren)"
           >
@@ -71,19 +69,13 @@
               class="expanded-column table__body__column table__body__column__children"
               [class.table__body__column__children--active]="selectedRowProduct === elementChildren.name"
               [class.table__body__column__children--deviation]="selectedRowProduct === elementChildren.name && selectedRowProduct === elementChildren.name"
-              [matTooltip]="elementChildren?.name"
+              [matTooltip]="elementChildren?.description"
             >
               <div
                 *ngIf="column.id === 0"
                 class="table__body__column__row-title table__body__column__row-title-children"
-                [class.opacity]="selectedRow.isSelected(element.unit.name) && this.selectedRowProduct"
+                [class.opacity]="selectedRow.isSelected(element.name) && this.selectedRowProduct"
               >
-                <svg-icon
-                  *ngIf="elementChildren.deviation === 1 && selectedRowProduct === elementChildren.name"
-                  class="table__body__column__row-title__icon__background--orange"
-                  src="assets/icons/widgets/APS/aps-recipe-diagram/gradient-orange.svg"
-                >
-                </svg-icon>
                 <svg-icon
                   [svgStyle]="{'height.px':'43', 'width.px': '21'}"
                   class="table__body__column__row-title-children__left-block--first"
@@ -95,18 +87,18 @@
                 </svg-icon>
                 <div
                   class="table__body__column__row-title__text__subname"
-                  [class.table__body__column__row-title--no-active]="selectedRow.isSelected(element.unit.name)">
+                  [class.table__body__column__row-title--no-active]="selectedRow.isSelected(element.name)">
                   <span>{{ elementChildren.name }}</span>
                 </div>
               </div>
               <ng-container *ngIf="column.id === 1">
                 <div class="value">
-                  <span>{{elementChildren.modelValue.toFixed(0) }}</span>
+                  <span>{{elementChildren.absoluteValue| number: "0.0" }}</span>
                 </div>
               </ng-container>
               <ng-container *ngIf="column.id === 2">
                 <div class="value">
-                  <span>{{elementChildren.value.toFixed(0) }}</span>
+                  <span>{{elementChildren.relativeValue | number: "0.0" }}</span>
                 </div>
               </ng-container>
             </td>

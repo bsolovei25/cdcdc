@@ -6,12 +6,65 @@
     type="astue"
   >
     <div class="header-container">
+      <div class="selects">
+        <svg-icon
+          class="arrow-circle"
+          src="assets/icons/widgets/SOU/sou-mvp-mnemonic-scheme/arrowCircle.svg"
+          [ngStyle]="{ 'width.px':14, 'height.px':14 }"
+        ></svg-icon>
+
+        <div (mousedown)="$event.stopPropagation()"
+             (touchstart)="$event.stopPropagation()" class="option-select">
+          <div class="dropdown">
+<!--            <div class="dropdown__marker"></div>-->
+            <mat-select class="dropdown__select" [formControl]="selectManufacture">
+              <mat-option [value]="''"> Не выбрано </mat-option>
+              <mat-option *ngFor="let select of (manufacturesSelects$ | async)" [value]="select">{{select}}</mat-option>
+            </mat-select>
+          </div>
+        </div>
+
+        <svg-icon
+          class="arrow-circle"
+          src="assets/icons/widgets/SOU/sou-mvp-mnemonic-scheme/arrowCircle.svg"
+          [ngStyle]="{ 'width.px':14, 'height.px':14 }"
+        ></svg-icon>
+
+        <div (mousedown)="$event.stopPropagation()"
+             (touchstart)="$event.stopPropagation()" class="option-select">
+          <div class="dropdown">
+            <!--            <div class="dropdown__marker"></div>-->
+            <mat-select class="dropdown__select" [formControl]="selectUnit">
+              <mat-option [value]="''"> Не выбрано </mat-option>
+              <mat-option *ngFor="let select of (unitsSelects$ | async)" [value]="select">{{select}}</mat-option>
+            </mat-select>
+          </div>
+        </div>
+
+        <svg-icon
+          class="arrow-circle"
+          src="assets/icons/widgets/SOU/sou-mvp-mnemonic-scheme/arrowCircle.svg"
+          [ngStyle]="{ 'width.px':14, 'height.px':14 }"
+        ></svg-icon>
+
+        <div (mousedown)="$event.stopPropagation()"
+             (touchstart)="$event.stopPropagation()" class="option-select">
+          <div class="dropdown">
+            <!--            <div class="dropdown__marker"></div>-->
+            <mat-select class="dropdown__select" [formControl]="selectOven">
+              <mat-option [value]="''"> Не выбрано </mat-option>
+              <mat-option *ngFor="let select of (ovensSelects$ | async)" [value]="select">{{select}}</mat-option>
+            </mat-select>
+          </div>
+        </div>
+      </div>
+
     </div>
   </evj-contemporary-widget-header>
 
   <div (mousedown)="$event.stopPropagation()"
        (touchstart)="$event.stopPropagation()" class="container">
-    <div #schema class="scale-container">
+    <div #schema class="scale-container" *ngIf="data | async">
       <div [style]="schemeStyle" class="abs-container">
         <div class="schema">
           <svg-icon class="schema__background" src="assets/icons/widgets/ASTUE-ONPZ/astue-onpz-mnemonic-furnace/mnemonic-furnace.svg"></svg-icon>
@@ -42,30 +95,28 @@
 
           <div class="wrapper-up wrapper-up__left">
             <div class="title"> {{ (data | async)?.gasStats?.title }} </div>
-            <div class="arrow">
+            <div class="arrow" [ngClass]="'arrow__' + (data | async)?.gasStats?.main?.streamType">
               <div class="triangle"></div>
-              <div class="counter"> x{{ (data | async)?.gasStats?.streams?.length || 0 }} </div>
+<!--              TODO: временно-->
+<!--              <div class="counter"> x{{ (data | async)?.gasStats?.streams?.length || 0 }} </div>-->
             </div>
             <evj-astue-onpz-mnemonic-furnace-circle
               class="circle"
               matRipple matRippleColor="white"
               [data]="(data | async)?.gasStats?.main"
-              [isSelected]="(popupData$ | async)?.side === 'left'"
-              (click)="topCircleClick(data?.value?.gasStats, 'left')"
             ></evj-astue-onpz-mnemonic-furnace-circle>
           </div>
           <div class="wrapper-up wrapper-up__right">
             <div class="title"> {{ (data | async)?.dischargeStats?.title }} </div>
-            <div class="arrow" [ngClass]="'arrow__' + (data | async)?.dischargeStats?.main?.type">
+            <div class="arrow" [ngClass]="'arrow__' + (data | async)?.dischargeStats?.main?.streamType">
               <div class="triangle"></div>
-              <div class="counter"> x{{ (data | async)?.dischargeStats?.streams?.length || 0 }} </div>
+<!--              TODO: временно-->
+<!--              <div class="counter"> x{{ (data | async)?.dischargeStats?.streams?.length || 0 }} </div>-->
             </div>
             <evj-astue-onpz-mnemonic-furnace-circle
               class="circle"
               matRipple matRippleColor="white"
               [data]="(data | async)?.dischargeStats?.main"
-              [isSelected]="(popupData$ | async)?.side === 'right'"
-              (click)="topCircleClick(data?.value?.dischargeStats, 'right')"
             ></evj-astue-onpz-mnemonic-furnace-circle>
           </div>
           <div class="wrapper-up wrapper-up__center">

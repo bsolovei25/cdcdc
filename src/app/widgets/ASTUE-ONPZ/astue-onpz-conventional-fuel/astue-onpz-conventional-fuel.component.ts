@@ -110,6 +110,10 @@ export class AstueOnpzConventionalFuelComponent extends WidgetPlatform
         );
     }
 
+    get nextHourPlan(): number {
+        return this.data?.find((x) => !!x?.nextPlanValue)?.nextPlanValue ?? null;
+    }
+
     public ngOnDestroy(): void {
         super.ngOnDestroy();
         this.astueOnpzService.dropDataStream();

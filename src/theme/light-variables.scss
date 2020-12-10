@@ -283,6 +283,8 @@
   --color-kpe-shadow-1: rgba(0, 0, 0, 0.5);
   --color-kpe-shadow-2: rgba(25, 28, 44, 0);
   --color-kpe-line-diagram-bg: rgba(96, 101, 128, 0.25);
+  // kpe reserve 
+  --color-kpe-bg-active-col: rgba(0, 137, 255, 0.2);
 
   // CD
   --color-cd-bg-component: #151a29;
@@ -436,6 +438,9 @@
 
   --color-astue-onpz-widget-bg: #1C1F2B;
   --color-astue-onpz-widget-border: #272A38;
+
+  --color-astue-onpz-predictors-slider-border: #4B5169;
+  --astue-onpz-factorypredictors-slider-bg: #12151E;
 
   --astue-onpz-factory-analisys-grid: #4B5169;
   --astue-onpz-factory-analisys-grid-opacity: rgba(75,81,105,0.5);
@@ -607,8 +612,6 @@
   --evj-events-workspace-item-title: #8A98B3;
   --evj-events-workspace-color-button-extra: rgba(48, 53, 73, 0.5);
   --evj-events-workspace-color-border-extra: rgba(92, 101, 133, 0.25)
-
-
 }
 $--color-active: #3fa9f5;
 $--color-danger: #eb5757;

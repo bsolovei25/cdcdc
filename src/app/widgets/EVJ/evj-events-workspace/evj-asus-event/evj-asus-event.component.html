@@ -172,12 +172,14 @@
         <div class="workspace__select-different">
           <evj-events-workspace-datetimepicker
             [label]="'Крайний срок'"
+            [date]="ewService.event.asusEvent?.datetimeDeadline"
           >
           </evj-events-workspace-datetimepicker>
         </div>
         <div class="workspace__select-container">
           <evj-events-workspace-datetimepicker
             [label]="'Дата завершения'"
+            [date]="ewService.event.asusEvent?.datetimeEnd"
           >
           </evj-events-workspace-datetimepicker>
         </div>

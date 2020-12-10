@@ -134,6 +134,7 @@ export const WIDGETS = {
     'kpe-table-data': WidgetContainerComponent,
     'kpe-pasportize-percent': WidgetContainerComponent,
     'kpe-plan-readiness-trend': WidgetContainerComponent,
+    'kpe-total-reserve': WidgetContainerComponent,
 };
 
 export const WIDGETS_LAZY = {
@@ -498,7 +499,7 @@ export const WIDGETS_LAZY = {
         itemRows: 15,
         minItemCols: 60,
         minItemRows: 15,
-        preview: 'default',
+        preview: 'kpe-table-data',
     },
 
     'kpe-pasportize-percent': {
@@ -512,6 +513,19 @@ export const WIDGETS_LAZY = {
         itemRows: 25,
         minItemCols: 13,
         minItemRows: 25,
+        preview: 'default',
+    },
+    'kpe-total-reserve': {
+        import: async () => {
+            return await import(
+                'src/app/widgets/KPE/kpe-total-reserve/kpe-total-reserve.module'
+            );
+        },
+        module: 'KpeTotalReserveModule',
+        itemCols: 25,
+        itemRows: 14,
+        minItemCols: 25,
+        minItemRows: 14,
         preview: 'default',
     },
     'kpe-plan-readiness-trend': {
@@ -1406,9 +1420,9 @@ export const WIDGETS_LAZY = {
             );
         },
         module: 'AstueOnpzMainIndicatorsModule',
-        itemCols: 13,
+        itemCols: 12,
         itemRows: 8,
-        minItemCols: 13,
+        minItemCols: 12,
         minItemRows: 8,
         preview: 'astue-onpz-main-indicators',
     },
@@ -1507,7 +1521,7 @@ export const WIDGETS_LAZY = {
         itemRows: 9,
         minItemCols: 24,
         minItemRows: 7,
-        preview: 'default',
+        preview: 'astue-onpz-factory-analysis',
     },
     'astue-onpz-mnemonic-furnace': {
         import: async () => {
@@ -1520,7 +1534,7 @@ export const WIDGETS_LAZY = {
         itemRows: 9,
         minItemCols: 24,
         minItemRows: 7,
-        preview: 'default',
+        preview: 'astue-onpz-mnemonic-furnace',
     },
     'astue-onpz-heat-balance': {
         import: async () => {

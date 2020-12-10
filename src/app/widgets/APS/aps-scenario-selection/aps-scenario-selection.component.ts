@@ -3,6 +3,7 @@ import { WidgetPlatform } from '../../../dashboard/models/@PLATFORM/widget-platf
 import { WidgetService } from '../../../dashboard/services/widget.service';
 import { ApsService } from '../../../dashboard/services/widgets/APS/aps.service';
 import { IScenario } from '../../../dashboard/models/APS/aps-tables.model';
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
     selector: 'evj-aps-scenario-selection',
@@ -11,21 +12,22 @@ import { IScenario } from '../../../dashboard/models/APS/aps-tables.model';
 })
 export class ApsScenarioSelectionComponent extends WidgetPlatform<unknown>
     implements OnInit, OnDestroy {
-    public scenarios: IScenario[] = [];
+    public scenarios: BehaviorSubject<IScenario[]> = new BehaviorSubject<IScenario[]>([]);
     public factorys: {
-        name: string
+        name: string;
     }[] = [
         {
-            name: 'ОНПЗ'
-        }
+            name: 'ОНПЗ',
+        },
     ];
     public factorysInfo: {
-        name: string
+        name: string;
     }[] = [
         {
-            name: 'План производства'
-        }
-    ];;
+            name: 'План производства',
+        },
+    ];
+
     constructor(
         public apsService: ApsService,
         protected widgetService: WidgetService,
@@ -38,25 +40,21 @@ export class ApsScenarioSelectionComponent extends WidgetPlatform<unknown>
 
     ngOnInit(): void {
         super.widgetInit();
-        this.getScenarios();
+        this.getScenarios().then();
     }
 
     ngOnDestroy(): void {
         super.ngOnDestroy();
     }
     private async getScenarios(): Promise<void> {
-        this.scenarios = await this.apsService.getAllScenario();
-    }
-
-    private async getCalculations(): Promise<void> {
-        await this.apsService.getCalculate(0);
+        this.scenarios.next(await this.apsService.getAllScenario());
+        this.apsService.selectScenario$.next(this.scenarios?.value[0] ?? null);
     }
     calculate($event: MouseEvent): void {
-        // this.getCalculations();
+        this.apsService.calculateScenario(this.apsService.selectScenario$.value);
     }
     public getScenarioId(event: any): void {
         this.apsService.selectScenario$.next(event.value);
     }
-
     protected dataHandler(ref: any): void {}
 }
