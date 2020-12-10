@@ -41,19 +41,19 @@ export class KpeWorkspaceService {
     async getKpeNotificationParameters(body: IEventsWidgetNotification): Promise<IKpeNotification> {
         return this.http
             .get<IKpeNotification>(
-                this.restUrl + `/api​/notification-kpe​/notification​/${body.id}​/parameters`)
+                this.restUrl + `/api/notification-kpe/notification/${body.id}/parameters`)
             .toPromise();
     }
     async postKpeNotificationParameters(body: IEventsWidgetNotification, notification: IKpeNotification): Promise<IKpeNotification> {
         return this.http
             .post<IKpeNotification>(
-                this.restUrl + `/api​/notification-kpe​/notification​/${body.id}​/parameters/save`, notification)
+                this.restUrl + `/api/notification-kpe/notification/${body.id}/parameters/save`, notification)
             .toPromise();
     }
     async deleteKpeNotificationParameters(body: IEventsWidgetNotification): Promise<IKpeNotification> {
         return this.http
             .delete<IKpeNotification>(
-                this.restUrl + `/api​/notification-kpe​/notification​/${body.id}​/parameters`)
+                this.restUrl + `/api/notification-kpe/notification/${body.id}/parameters`)
             .toPromise();
     }
 }

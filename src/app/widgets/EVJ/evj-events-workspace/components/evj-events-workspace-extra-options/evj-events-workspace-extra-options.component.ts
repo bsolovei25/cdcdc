@@ -1,11 +1,11 @@
 import { Component, Input, OnInit, Output, EventEmitter, OnChanges } from '@angular/core';
 import { IExtraOptionsWindow } from '../../../../../dashboard/models/EVJ/events-widget';
 import { EventsWorkspaceService } from '../../../../../dashboard/services/widgets/EVJ/events-workspace.service';
-import { KpeWorkspaceService } from '../../../../../dashboard/services/widgets/EVJ/kpe-workspace.service';
 import {
-    IKpeAllDependentParameters, IKpeNotification,
+    IKpeAllDependentParameters, IKpeDependentParameter, IKpeNotification,
     IKpeWorkspaceParameter
 } from '../../../../../dashboard/models/EVJ/kpe-workspace.model';
+import { KpeWorkspaceService } from '../../../../../dashboard/services/widgets/EVJ/kpe-workspace.service';
 
 export interface IExtraOptions {
     id: number;
@@ -25,15 +25,15 @@ export class EvjEventsWorkspaceExtraOptionsComponent implements OnInit {
     };
     @Output() checked: any = new EventEmitter<boolean>();
 
-    public array: number[] = [];
     public disableAdd: boolean;
     public allParameters: IKpeWorkspaceParameter[] = [];
     public extraParameters: IKpeAllDependentParameters[] = [];
     public notificationParametersData: IKpeNotification;
 
+
     constructor(
         public ewService: EventsWorkspaceService,
-        public kpeWorkspaceService: KpeWorkspaceService
+        public kpeWorkspaceService: KpeWorkspaceService,
     ) {
     }
 
@@ -66,18 +66,19 @@ export class EvjEventsWorkspaceExtraOptionsComponent implements OnInit {
     private async getParametersByNotification(): Promise<void> {
         this.notificationParametersData = await this.kpeWorkspaceService.getKpeNotificationParameters(this.ewService.event);
     }
-    public compareFn(a, b): boolean {
-        return a && b && a.id === b.id;
-    }
 
-    public accept(): void {
+    private async accept(): Promise<void> {
         try {
-            this.info.acceptFunction();
-        } catch (err) {
-            console.error(err);
-        } finally {
-            this.info.closeFunction();
+            await this.kpeWorkspaceService.postKpeNotificationParameters(
+                this.ewService.event, this.notificationParametersData);
         }
+        catch (error) {
+            console.error(error);
+        }
+        const popupWindow = {
+            isShow: false
+        };
+        this.ewService.extraOptionsWindow$.next(popupWindow);
     }
 
     public cancel(): void {
@@ -87,7 +88,13 @@ export class EvjEventsWorkspaceExtraOptionsComponent implements OnInit {
         this.ewService.extraOptionsWindow$.next(popupWindow);
     }
 
-    public discard(checkbox: boolean): void {
+    private async discard(checkbox: boolean): Promise<void> {
+        try {
+            await this.kpeWorkspaceService.deleteKpeNotificationParameters(this.ewService.event);
+        }
+        catch (error) {
+            console.error(error);
+        }
         this.checked.emit(checkbox);
         const popupWindow = {
             isShow: false
@@ -96,16 +103,18 @@ export class EvjEventsWorkspaceExtraOptionsComponent implements OnInit {
     }
 
     public addParameters(): void {
-        if (this.array.length > 4) {
             this.disableAdd = false;
-        } else {
-            this.disableAdd = false;
-            this.array.push(1);
-        }
+            this.notificationParametersData.dependentParameters.push(
+                {
+                    name: 'n a m e',
+                    dependentParameterId: 20,
+                    numericValue: 23,
+                }
+            );
     }
 
     public removeParameters(): void {
-        this.array.pop();
+        this.notificationParametersData.dependentParameters.pop();
     }
 
 }

@@ -27,13 +27,9 @@
             <div class="dropdown">
               <div class="event-mat-select">
                 <mat-form-field appearance="none">
-<!--                  <mat-select-->
-<!--                    [compareWith]="compareFn"-->
-<!--                    [(ngModel)]="kpeWorkspaceService.notification.selectedParameter.name"-->
-<!--                    (selectionChange)="getParameterId($event)"-->
-<!--                    [value]="kpeWorkspaceService.selectParameter$ | async">-->
                   <mat-select
                     (selectionChange)="getParameterId($event)"
+                    [(ngModel)]="notificationParametersData.selectedParameter.name"
                     [value]="kpeWorkspaceService.selectParameter$ | async">
                     <mat-option
                       *ngFor="let p of allParameters"
@@ -74,14 +70,14 @@
               </evj-rect-button>
             </div>
           </div>
-          <ng-container *ngFor="let item of array">
+          <ng-container *ngFor="let item of notificationParametersData.dependentParameters">
             <div class="container__body__parameters">
               <div class="dropdown">
                 <div class="event-mat-select">
                   <mat-form-field appearance="none">
                     <mat-select
                       [value]="kpeWorkspaceService.showSelectParameters$ | async">
-                    <mat-option
+                      <mat-option
                         *ngFor="let p of extraParameters"
                         [value]="p"
                       >
@@ -93,8 +89,7 @@
               </div>
               <div class="value">
                 <div class="value__text">
-                  <span>
-                  </span>
+                    <input type="text" [(ngModel)]="item.numericValue">
                 </div>
               </div>
             </div>
@@ -112,7 +107,7 @@
               <div class="value">
                 <evj-rect-button class="add-button" matRipple matRippleColor="white"
                                  textButton="Cохранить"
-                                 (click)="cancel()"
+                                 (click)="accept()"
                                  [isChangingState]="false"
                                  [type]="'primary'">
                 </evj-rect-button>

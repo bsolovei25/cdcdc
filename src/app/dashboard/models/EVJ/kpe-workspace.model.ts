@@ -12,8 +12,8 @@ export interface IKpeDependentParameter {
     name: string;
     dependentParameterId: number;
     numericValue: number;
-    createdAt: Date;
-    createdBy: number;
+    createdAt?: Date;
+    createdBy?: number;
 }
 export interface IKpeNotification {
     selectedParameter: IKpeWorkspaceParameter;
