@@ -3,7 +3,7 @@ import { IExtraOptionsWindow } from '../../../../../dashboard/models/EVJ/events-
 import { EventsWorkspaceService } from '../../../../../dashboard/services/widgets/EVJ/events-workspace.service';
 import { KpeWorkspaceService } from '../../../../../dashboard/services/widgets/EVJ/kpe-workspace.service';
 import {
-    IKpeAllDependentParameters,
+    IKpeAllDependentParameters, IKpeNotification,
     IKpeWorkspaceParameter
 } from '../../../../../dashboard/models/EVJ/kpe-workspace.model';
 
@@ -24,27 +24,12 @@ export class EvjEventsWorkspaceExtraOptionsComponent implements OnInit {
         closeFunction: () => null
     };
     @Output() checked: any = new EventEmitter<boolean>();
-    public parameters: IExtraOptions[] = [
-        {
-            id: 0,
-            name: 'Список зависимых параметров'
-        },
-        {
-            id: 1,
-            name: 'Исполнимость по ДТЛ'
-        }
-    ];
-    public facts: IExtraOptions[] = [
-        {
-            id: 99,
-            name: 'Параметр КПЭ'
-        }
-    ];
-    public data: number[] = []; // Нужно будет реализовать нормальный массив с данными по модели с бэка
+
+    public array: number[] = [];
     public disableAdd: boolean;
     public allParameters: IKpeWorkspaceParameter[] = [];
     public extraParameters: IKpeAllDependentParameters[] = [];
-
+    public notificationParametersData: IKpeNotification;
 
     constructor(
         public ewService: EventsWorkspaceService,
@@ -53,6 +38,8 @@ export class EvjEventsWorkspaceExtraOptionsComponent implements OnInit {
     }
 
     ngOnInit(): void {
+        this.getParametersByNotification();
+        console.log(`this.getParametersByNotification() ${this.notificationParametersData}`);
         this.getParameters();
         this.kpeWorkspaceService.showSelectParameters$.subscribe((res) => {
             this.extraParameters = res;
@@ -75,6 +62,12 @@ export class EvjEventsWorkspaceExtraOptionsComponent implements OnInit {
 
     public getParameterId(event: any): void {
         this.kpeWorkspaceService.selectParameter$.next(event.value);
+    }
+    private async getParametersByNotification(): Promise<void> {
+        this.notificationParametersData = await this.kpeWorkspaceService.getKpeNotificationParameters(this.ewService.event);
+    }
+    public compareFn(a, b): boolean {
+        return a && b && a.id === b.id;
     }
 
     public accept(): void {
@@ -103,16 +96,16 @@ export class EvjEventsWorkspaceExtraOptionsComponent implements OnInit {
     }
 
     public addParameters(): void {
-        if (this.data.length > 4) {
+        if (this.array.length > 4) {
             this.disableAdd = false;
         } else {
             this.disableAdd = false;
-            this.data.push(1);
+            this.array.push(1);
         }
     }
 
     public removeParameters(): void {
-        this.data.pop();
+        this.array.pop();
     }
 
 }

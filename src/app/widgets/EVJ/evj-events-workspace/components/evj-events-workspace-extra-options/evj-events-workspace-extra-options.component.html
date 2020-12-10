@@ -27,6 +27,11 @@
             <div class="dropdown">
               <div class="event-mat-select">
                 <mat-form-field appearance="none">
+<!--                  <mat-select-->
+<!--                    [compareWith]="compareFn"-->
+<!--                    [(ngModel)]="kpeWorkspaceService.notification.selectedParameter.name"-->
+<!--                    (selectionChange)="getParameterId($event)"-->
+<!--                    [value]="kpeWorkspaceService.selectParameter$ | async">-->
                   <mat-select
                     (selectionChange)="getParameterId($event)"
                     [value]="kpeWorkspaceService.selectParameter$ | async">
@@ -69,7 +74,7 @@
               </evj-rect-button>
             </div>
           </div>
-          <ng-container *ngFor="let item of data">
+          <ng-container *ngFor="let item of array">
             <div class="container__body__parameters">
               <div class="dropdown">
                 <div class="event-mat-select">
