@@ -28,7 +28,7 @@ interface ITotalReserveProduct {
 export class KpeTotalReserveComponent extends WidgetPlatform<unknown> implements OnInit {
   data: ITotalReserve[] = [
     {
-      title: 'Общий запаос по качеству от PIMS',
+      title: 'Общий запас по качеству от PIMS',
       value: 9,
       products: [
         {

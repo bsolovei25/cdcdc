@@ -18,11 +18,11 @@ span {
     .settings {
         display: flex;
         margin-left: -20px;
+        min-width: 85%;
         &__item {
             height: 40px;
             padding: 12px 20px;
-
-            flex: 1;
+            min-width: 240px;
 
             border-bottom: 2px solid var(--color-kpe-table-select);
 
@@ -32,6 +32,10 @@ span {
             text-align: center;
 
             cursor: pointer;
+
+            &:first-child {
+                min-width: 260px;
+            }
         }
         .active {
             color: var(--color-kpe-white);
