@@ -92,17 +92,19 @@ export class ApsOperatingModesComponent extends WidgetPlatform<unknown>
 
     async saveValues(): Promise<void> {
         this.editedData = Array.from(new Set(this.editedData));
-        this.headerName.filter(item => item.headerType.toLowerCase() === 'boolean').forEach(boolItem => {
+        this.headerName.filter(item => item.headerType === 'bool').forEach(boolItem => {
             this.editedData.map(el => el[boolItem.key] = !!el[boolItem.key]);
         });
-        const res = await this.apsService.postReferenceBook(this.editedData, this.data);
-        this.editedData = [];
-        const newData = await this.apsService.getReferenceBook(
-            this.apsService.selectTable$.getValue(),
-            this.apsService.selectScenario$.getValue().scenarioId
-        );
-        this.apsService.showTable$.next(newData);
-        this.editMode = false;
+        try {
+            const res = await this.apsService.postReferenceBook(this.editedData, this.data);
+            const newData = await this.apsService.getReferenceBook(
+                this.apsService.selectTable$.getValue(),
+                this.apsService.selectScenario$.getValue().scenarioId
+            );
+            this.apsService.showTable$.next(newData);
+        } finally {
+            this.discard();
+        }
     }
 
     discard(): void {
@@ -124,19 +126,19 @@ export class ApsOperatingModesComponent extends WidgetPlatform<unknown>
     }
 
     getParseValue(value: string, type: string = 'text'): string | number {
-        if (type?.toLowerCase() === 'number') {
+        if (type === 'double') {
             if (+value % 0.00001 !== 0) {
                 return (+value).toFixed(5);
             }
             return value;
-        } else if (type.toLowerCase() === 'date') {
+        } else if (type === 'date') {
             const date = Date.parse(value);
             if (isNaN(date)) {
                 return value;
             }
             return formatDate(date, 'yyyy-MM-dd | hh:mm', 'en');
-        } else if (type.toLowerCase() === 'boolean') {
-            return +value;
+        } else if (type === 'bool') {
+            return value === 'true' ? 1 : 0;
         }
         return value;
     }
