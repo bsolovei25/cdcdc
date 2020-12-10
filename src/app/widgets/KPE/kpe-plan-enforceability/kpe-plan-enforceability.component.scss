@@ -12,11 +12,10 @@
 
   .content {
     height: calc(100% - 40px);
-    padding: 5px 10px;
+    padding: 10px;
     gap: 10px;
     display: flex;
     flex-direction: column;
-
     background: var(--color-kpe-line-diagram-bg-sub);
 
     border: 1px solid var(--color-kpe-bg-sub);
@@ -24,9 +23,9 @@
 
     .diagram-item {
       display: flex;
+      height: 50%;
       .gauge {
-        width: 30%;
-        padding-top: 10px;
+        padding-top: 15px;
         padding-right: 15px;
         display: flex;
         align-items: center;
@@ -53,7 +52,8 @@
         }
 
         &__chart {
-          flex: 1;
+          height: calc(100% - 52px);
+          flex-shrink: 1;
         }
       }
     }
