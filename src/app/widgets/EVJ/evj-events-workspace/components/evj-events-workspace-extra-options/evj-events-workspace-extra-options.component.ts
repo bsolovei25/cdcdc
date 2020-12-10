@@ -68,7 +68,7 @@ export class EvjEventsWorkspaceExtraOptionsComponent implements OnInit {
         this.notificationParametersData = data;
     }
 
-    private async accept(): Promise<void> {
+    public async accept(): Promise<void> {
         try {
             await this.kpeWorkspaceService.postKpeNotificationParameters(
                 this.ewService.event, this.notificationParametersData);
@@ -89,7 +89,7 @@ export class EvjEventsWorkspaceExtraOptionsComponent implements OnInit {
         this.ewService.extraOptionsWindow$.next(popupWindow);
     }
 
-    private async discard(checkbox: boolean): Promise<void> {
+    public async discard(checkbox: boolean): Promise<void> {
         try {
             await this.kpeWorkspaceService.deleteKpeNotificationParameters(this.ewService.event);
         }
@@ -104,14 +104,18 @@ export class EvjEventsWorkspaceExtraOptionsComponent implements OnInit {
     }
 
     public addParameters(): void {
+        if (this.notificationParametersData.dependentParameters.length > 4) {
+            this.disableAdd = false;
+        } else {
             this.disableAdd = false;
             this.notificationParametersData.dependentParameters.push(
                 {
-                    name: 'n a m e',
+                    name: 'name',
                     dependentParameterId: 20,
                     numericValue: 23,
                 }
             );
+        }
     }
 
     public removeParameters(): void {
