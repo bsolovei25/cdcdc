@@ -7,7 +7,7 @@ import {
     ISOUObjects,
     ISOUOperationalAccountingSystem,
 } from '../../../dashboard/models/SOU/sou-operational-accounting-system';
-import { SouMvpMnemonicSchemeService } from '../../../dashboard/services/widgets/SOU/sou-mvp-mnemonic-scheme';
+import { SouMvpMnemonicSchemeService } from '../../../dashboard/services/widgets/SOU/sou-mvp-mnemonic-scheme.service';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 
 @Component({

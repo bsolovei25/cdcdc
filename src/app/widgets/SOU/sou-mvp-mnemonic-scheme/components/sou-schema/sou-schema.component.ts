@@ -1,4 +1,5 @@
-import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { AfterViewChecked, AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
+import { SouMvpMnemonicSchemeService } from '../../../../../dashboard/services/widgets/SOU/sou-mvp-mnemonic-scheme.service';
 
 interface IDataSou {
     id: number;
@@ -9,15 +10,22 @@ interface IDataSou {
     percent?: number;
 }
 
+interface IDataMetaFile {
+    elementId: number;
+    id: number;
+    related: number[];
+}
+
 @Component({
     selector: 'evj-sou-schema',
     templateUrl: './sou-schema.component.html',
     styleUrls: ['./sou-schema.component.scss'],
 })
-export class SouSchemaComponent implements AfterViewInit {
+export class SouSchemaComponent implements AfterViewChecked {
     elementsNode: Element[] = []; // все элементы
     dataAttribute: Map<number, Element> = new Map(); // id элемента, элемент
-    nameAttribute: string = 'node-id';
+    flag: boolean = true;
+    metaFile: IDataMetaFile[] = [];
 
     data: IDataSou[] = [
         {
@@ -38,9 +46,23 @@ export class SouSchemaComponent implements AfterViewInit {
         },
     ];
 
-    ngAfterViewInit(): void {
-        this.loadSchema();
-        this.loadData();
+    @ViewChild('svg_sou') svgSou: ElementRef;
+
+    constructor(private souService: SouMvpMnemonicSchemeService) {}
+
+    ngAfterViewChecked(): void {
+        if (document.querySelector(`#element-1_1`) && this.flag) {
+            this.flag = false;
+            this.loadMetaFile();
+            this.loadSchema();
+            this.loadData();
+        }
+    }
+
+    async loadMetaFile(): Promise<void> {
+        const a = await this.souService.getMockFile();
+        this.metaFile = a.data;
+        console.log(this.metaFile);
     }
 
     loadData(): void {
@@ -68,7 +90,6 @@ export class SouSchemaComponent implements AfterViewInit {
             }
             i++;
         }
-        this.searchAttribute();
         console.log(`Блоков: ${this.elementsNode.length}`);
         console.log(`Атрибутов: ${this.dataAttribute.size}`);
     }
@@ -161,10 +182,8 @@ export class SouSchemaComponent implements AfterViewInit {
                 'reset-text'
             );
             textValue?.classList.add(`${mode}-text`);
-            console.log('1');
             if (mode === 'reset') {
                 element.addEventListener('click', () => {
-                    console.log('2');
                     rects.forEach((item) => {
                         item.classList.toggle('active');
                     });
@@ -216,34 +235,15 @@ export class SouSchemaComponent implements AfterViewInit {
         return arrow;
     }
 
-    searchAttribute(): void {
-        this.elementsNode.forEach((element) => {
-            const id = element.getAttribute(this.nameAttribute);
-            if (id) {
-                this.dataAttribute.set(+id, element); // Заполнение Map атрибутом и элементов
-            }
-        });
-    }
-
-    searchElements(elementName: number): Element[] {
-        let i = 2; // счетчик элементов
+    searchElements(elementIndex: number): Element[] {
+        let i = 1; // счетчик элементов
         const localElements: Element[] = [];
         while (i < 100) {
-            if (i === 2) {
-                // только для первого элемента - id=element-2
-                const element = document.querySelector(`#element-${elementName}`);
-                if (element) {
-                    this.element_3('reset', element);
-                    localElements.push(element);
-                }
-            }
             // поиск по id  - id=element-1_2
-            const element1 = document.querySelector(`#element-${elementName}_${i}`);
-            if (element1) {
-                this.element_3('reset', element1);
-                localElements.push(element1);
-            } else {
-                break;
+            const element = document.querySelector(`#element-${elementIndex}_${i}`);
+            if (element) {
+                this.element_3('reset', element);
+                this.dataAttribute.set(i, element);
             }
             i++;
         }

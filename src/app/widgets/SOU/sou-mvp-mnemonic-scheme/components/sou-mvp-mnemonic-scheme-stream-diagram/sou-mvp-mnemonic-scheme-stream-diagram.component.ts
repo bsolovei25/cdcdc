@@ -2,7 +2,7 @@ import { AfterViewInit, Component, ElementRef, Input, OnInit, ViewChild } from '
 import * as d3 from 'd3';
 import { AsyncRender } from '../../../../../@shared/functions/async-render.function';
 import { ISOUFlowIn, ISOUFlowOut, ISOUObjects } from '../../../../../dashboard/models/SOU/sou-operational-accounting-system';
-import { SouMvpMnemonicSchemeService } from '../../../../../dashboard/services/widgets/SOU/sou-mvp-mnemonic-scheme';
+import { SouMvpMnemonicSchemeService } from '../../../../../dashboard/services/widgets/SOU/sou-mvp-mnemonic-scheme.service';
 
 @Component({
   selector: 'evj-sou-mvp-mnemonic-scheme-stream-diagram',

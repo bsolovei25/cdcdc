@@ -1,54 +1,60 @@
-.element {
-  cursor: pointer;
+.svg_sou {
+  &::ng-deep {
+    .element {
+      cursor: pointer;
+    }
+
+    .disabled {
+      stroke: #272A38;
+
+      &-text {
+        fill: #606580;
+      }
+
+      &-arrow {
+        stroke: #606580;
+      }
+    }
+
+    .standard {
+      stroke: #4B5169;
+      fill: #272A38;
+
+      &-text {
+        fill: #D7E2F2;
+      }
+
+      &-arrow {
+        stroke: #D7E2F2;
+      }
+    }
+
+    .deviation {
+      stroke: #F7931E;
+      fill: #483628;
+
+      &-text {
+        fill: #D7E2F2;
+      }
+
+      &-arrow {
+        stroke: #D7E2F2;
+      }
+    }
+
+    .active {
+      stroke: #0089FF;
+      fill: #163455;
+
+      &-text {
+        fill: #D7E2F2;
+      }
+
+      &-arrow {
+        stroke: #D7E2F2;
+      }
+    }
+  }
+
 }
 
-.disabled {
-  stroke: #272A38;
-
-  &-text {
-    fill: #606580;
-  }
-
-  &-arrow {
-    stroke: #606580;
-  }
-}
-
-.standard {
-  stroke: #4B5169;
-  fill: #272A38;
-
-  &-text {
-    fill: #D7E2F2;
-  }
-
-  &-arrow {
-    stroke: #D7E2F2;
-  }
-}
-
-.deviation {
-  stroke: #F7931E;
-  fill: #483628;
-
-  &-text {
-    fill: #D7E2F2;
-  }
-
-  &-arrow {
-    stroke: #D7E2F2;
-  }
-}
-
-.active {
-  stroke: #0089FF;
-  fill: #163455;
-
-  &-text {
-    fill: #D7E2F2;
-  }
-
-  &-arrow {
-    stroke: #D7E2F2;
-  }
-}

@@ -23,8 +23,8 @@ export interface ISOUFlowIn {
 export interface ISOUFlowOut {
     code: number;
     dscFlow: {
-        isEnable: boolean,
-        name: string
+        isEnable: boolean;
+        name: string;
     }[];
     isExceedingConfInterval: boolean;
     valueByHourPercent: number;
@@ -51,11 +51,10 @@ export interface ISOUSection {
     name: string;
     flowIn: ISOUFlowIn[];
     flowOut: ISOUFlowOut[];
-    objects: ISOUObjects[]
+    objects: ISOUObjects[];
     isEnable?: boolean;
     order: number;
 }
-
 
 export interface ISOUObjects {
     code: number;
@@ -78,7 +77,7 @@ export interface ISOULosses {
         name: string;
         persent: number;
         value: number;
-        isButton?: boolean;  // only front
+        isButton?: boolean; // only front
     }[];
 }
 
