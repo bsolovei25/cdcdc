@@ -10,14 +10,21 @@ import { formatDate } from '@angular/common';
 import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
 
 export interface ITableToDisplay {
-    index?: number;
-    edit?: boolean;
+    1?: any;
+    2?: any;
+    3?: any;
+    4?: any;
+    5?: any;
+    6?: any;
+    7?: any;
+    8?: any;
 }
 export interface IHeaderName {
     key: number;
     title: string;
     isId?: boolean;
     writable?: boolean;
+    headerType?: string;
 }
 
 @Component({
@@ -85,6 +92,9 @@ export class ApsOperatingModesComponent extends WidgetPlatform<unknown>
 
     async saveValues(): Promise<void> {
         this.editedData = Array.from(new Set(this.editedData));
+        this.headerName.filter(item => item.headerType.toLowerCase() === 'boolean').forEach(boolItem => {
+            this.editedData.map(el => el[boolItem.key] = !!el[boolItem.key]);
+        });
         const res = await this.apsService.postReferenceBook(this.editedData, this.data);
         this.editedData = [];
         const newData = await this.apsService.getReferenceBook(
@@ -113,18 +123,22 @@ export class ApsOperatingModesComponent extends WidgetPlatform<unknown>
         this.editedData[this.editedData.length - 1][key] = e.target.value;
     }
 
-    getParseValue(value: string): string {
-        if (!isNaN(+value)) {
+    getParseValue(value: string, type: string = 'text'): string | number {
+        if (type?.toLowerCase() === 'number') {
             if (+value % 0.00001 !== 0) {
                 return (+value).toFixed(5);
             }
             return value;
+        } else if (type.toLowerCase() === 'date') {
+            const date = Date.parse(value);
+            if (isNaN(date)) {
+                return value;
+            }
+            return formatDate(date, 'yyyy-MM-dd | hh:mm', 'en');
+        } else if (type.toLowerCase() === 'boolean') {
+            return +value;
         }
-        const date = Date.parse(value);
-        if (isNaN(date)) {
-            return value;
-        }
-        return formatDate(date, 'yyyy-MM-dd | hh:mm', 'en');
+        return value;
     }
 
     public get inverseOfTranslation(): string {
@@ -161,9 +175,7 @@ export class ApsOperatingModesComponent extends WidgetPlatform<unknown>
     private mapTableBody(table: ITable): ITableToDisplay[] {
         table.body.forEach((str) => {
             Object.keys(str).forEach((x) => {
-                if (!this.headerNameFullData.find((item) => item.key === +x)?.isId) {
-                    str[x] = this.getParseValue(str[x]);
-                }
+                    str[x] = this.getParseValue(str[x], this.headerNameFullData.find(item => item.key === +x)?.headerType);
             });
         });
         return table.body;

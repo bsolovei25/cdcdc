@@ -24,7 +24,7 @@ export class ApsScenarioSelectionComponent extends WidgetPlatform<unknown>
         name: string;
     }[] = [
         {
-            name: 'План производства',
+            name: '2019_ОНПЗ_УП_на Апрель',
         },
     ];
 
