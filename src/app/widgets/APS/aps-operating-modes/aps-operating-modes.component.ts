@@ -93,7 +93,7 @@ export class ApsOperatingModesComponent extends WidgetPlatform<unknown>
     async saveValues(): Promise<void> {
         this.editedData = Array.from(new Set(this.editedData));
         this.headerName.filter(item => item.headerType === 'bool').forEach(boolItem => {
-            this.editedData.map(el => el[boolItem.key] = !!el[boolItem.key]);
+            this.editedData.map(el => el[boolItem.key] = '' + !!el[boolItem.key]);
         });
         try {
             const res = await this.apsService.postReferenceBook(this.editedData, this.data);
