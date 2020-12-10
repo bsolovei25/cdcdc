@@ -52,6 +52,7 @@
         }
 
         &__chart {
+          height: calc(100% - 52px);
           flex-shrink: 1;
         }
       }
