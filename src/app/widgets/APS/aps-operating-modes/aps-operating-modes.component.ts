@@ -93,7 +93,7 @@ export class ApsOperatingModesComponent extends WidgetPlatform<unknown>
     async saveValues(): Promise<void> {
         this.editedData = Array.from(new Set(this.editedData));
         this.headerName.filter(item => item.headerType === 'bool').forEach(boolItem => {
-            this.editedData.map(el => el[boolItem.key] = '' + !!el[boolItem.key]);
+            this.editedData.forEach(el => el[boolItem.key] = ('' + !!el[boolItem.key]).charAt(0).toUpperCase() +('' + !!el[boolItem.key]).slice(1));
         });
         try {
             const res = await this.apsService.postReferenceBook(this.editedData, this.data);
@@ -138,7 +138,7 @@ export class ApsOperatingModesComponent extends WidgetPlatform<unknown>
             }
             return formatDate(date, 'yyyy-MM-dd | hh:mm', 'en');
         } else if (type === 'bool') {
-            return value === 'true' ? 1 : 0;
+            return value.toLowerCase() === 'true' ? 1 : 0;
         }
         return value;
     }
