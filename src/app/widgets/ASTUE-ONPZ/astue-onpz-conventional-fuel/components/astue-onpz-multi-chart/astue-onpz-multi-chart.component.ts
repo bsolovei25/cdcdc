@@ -228,7 +228,7 @@ export class AstueOnpzMultiChartComponent implements OnInit, OnChanges, OnDestro
             return;
         }
 
-        if (this.astueOnpzService.multilineChartTransfer.getValue().type === 'deviation') {
+        if (this.astueOnpzService.multilineChartTransfer.getValue()?.type === 'deviation') {
             this.data.push({
                 graphType: 'border',
                 graph: [
