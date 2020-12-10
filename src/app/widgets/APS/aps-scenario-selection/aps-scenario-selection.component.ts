@@ -51,7 +51,7 @@ export class ApsScenarioSelectionComponent extends WidgetPlatform<unknown>
         this.apsService.selectScenario$.next(this.scenarios?.value[0] ?? null);
     }
     calculate($event: MouseEvent): void {
-        this.apsService.getCalculate(0).then();
+        this.apsService.calculateScenario(this.apsService.selectScenario$.value);
     }
     public getScenarioId(event: any): void {
         this.apsService.selectScenario$.next(event.value);

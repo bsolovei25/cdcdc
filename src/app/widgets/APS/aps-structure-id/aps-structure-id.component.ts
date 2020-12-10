@@ -5,6 +5,7 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { IColumnsToDisplay } from '../aps-recipe-diagram/aps-recipe-diagram.component';
 import { structureList } from './aps-structure-id-mock';
 import { ApsService } from '../../../dashboard/services/widgets/APS/aps.service';
+import { animate, style, transition, trigger } from '@angular/animations';
 
 export interface IStructure {
     unit: { name: string };
@@ -21,6 +22,24 @@ export interface IStructureList {
     selector: 'evj-aps-structure-id',
     templateUrl: './aps-structure-id.component.html',
     styleUrls: ['./aps-structure-id.component.scss'],
+    animations: [
+        trigger('rows', [
+            transition('void => *', [
+                style({ opacity: 1, transform: 'scaleY(0)' }),
+                animate(
+                    '200ms',
+                    style({
+                        opacity: 1,
+                        transform: 'scaleY(1)',
+                    })
+                ),
+            ]),
+            transition('* => void', [
+                style({ opacity: 1 }),
+                animate('200ms', style({ opacity: 1, transform: 'scaleY(0)' })),
+            ]),
+        ]),
+    ],
 })
 export class ApsStructureIdComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
     public data: IStructure[] = structureList;
