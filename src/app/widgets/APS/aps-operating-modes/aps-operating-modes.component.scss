@@ -201,6 +201,7 @@ table {
         font-size: 13px;
         line-height: 16px;
         color: var(--color-aps-table-text-sub);
+        z-index: 1;
         .text {
           justify-content: center;
           background: var(--color-aps-table-bg-main);
