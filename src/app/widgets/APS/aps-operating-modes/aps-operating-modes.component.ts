@@ -10,14 +10,14 @@ import { formatDate } from '@angular/common';
 import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
 
 export interface ITableToDisplay {
-    1?: any;
-    2?: any;
-    3?: any;
-    4?: any;
-    5?: any;
-    6?: any;
-    7?: any;
-    8?: any;
+    1?: string;
+    2?: string;
+    3?: string;
+    4?: string;
+    5?: string;
+    6?: string;
+    7?: string;
+    8?: string;
 }
 export interface IHeaderName {
     key: number;
