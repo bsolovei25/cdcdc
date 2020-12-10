@@ -8,6 +8,7 @@ import {
     ITableToDisplay,
 } from '../../../../widgets/APS/aps-operating-modes/aps-operating-modes.component';
 import { filter, map } from 'rxjs/operators';
+import { SnackBarService } from '../../snack-bar.service';
 
 @Injectable({
     providedIn: 'root',
@@ -19,7 +20,11 @@ export class ApsService {
     selectScenario$: BehaviorSubject<IScenario> = new BehaviorSubject<IScenario>(null);
     selectTable$: BehaviorSubject<number> = new BehaviorSubject<number>(null);
 
-    constructor(public http: HttpClient, configService: AppConfigService) {
+    constructor(
+        public http: HttpClient,
+        configService: AppConfigService,
+        private snackBarService: SnackBarService
+    ) {
         this.restUrl = configService.restUrl;
         combineLatest([this.selectScenario$, this.selectTable$])
             .pipe(
@@ -29,6 +34,17 @@ export class ApsService {
                 })
             )
             .subscribe((ref) => this.getTables(ref.table, ref.scenario));
+    }
+
+    public calculateScenario(scenario: IScenario): void {
+        if (!scenario) {
+            return;
+        }
+        this.snackBarService.openSnackBar(`Запуск расчета сценария "${scenario.name}"`);
+        setTimeout(
+            () => this.snackBarService.openSnackBar(`Расчет сценария "${scenario.name}" завершен`),
+            10 * 1000
+        );
     }
 
     async getAllScenario(): Promise<IScenario[]> {
@@ -63,17 +79,19 @@ export class ApsService {
             )
             .toPromise();
     }
-    async getCalculate(id: number): Promise<any> {
-        return this.http
-            .get<any>(this.restUrl + `/api/debugging-service-ApsService/Json/unload/${id}/folder`)
-            .toPromise();
-    }
     async postReferenceBook(params: ITableToDisplay[], data: ITableToDisplay[]): Promise<any> {
         return await this.http
             .post<ITableToDisplay>(
                 this.restUrl +
                     `/api/debugging-service-ApsService/ReferenceBook/${this.selectScenario$.value}/${this.selectTable$.value}`,
                 params
+            )
+            .toPromise();
+    }
+    private async getCalculate(id: number): Promise<unknown> {
+        return await this.http
+            .get<unknown>(
+                this.restUrl + `/api/debugging-service-ApsService/Json/unload/${id}/folder`
             )
             .toPromise();
     }

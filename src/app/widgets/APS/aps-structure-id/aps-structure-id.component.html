@@ -69,6 +69,7 @@
             *ngIf="expandedElement.isSelected(element.unit.name)"
             class="table__body__row expanded-row"
             (click)="onClickRowChildren($event, elementChildren)"
+            [@rows]
           >
             <td
               *ngFor="let column of columnsToDisplay"
