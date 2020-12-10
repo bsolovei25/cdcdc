@@ -72,7 +72,7 @@ export class ApsService {
         return await this.http
             .post<ITableToDisplay>(
                 this.restUrl +
-                    `/api/debugging-service-ApsService/ReferenceBook/${this.selectScenario$.value}/${this.selectTable$.value}`,
+                    `/api/debugging-service-ApsService/ReferenceBook/${this.selectScenario$.value.scenarioId}/${this.selectTable$.value}`,
                 params
             )
             .toPromise();

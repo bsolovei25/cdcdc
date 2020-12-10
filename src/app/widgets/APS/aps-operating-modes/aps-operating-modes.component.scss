@@ -74,7 +74,6 @@ table {
 
     display: flex;
     align-items: center;
-    justify-content: center;
 
     position: relative;
 
@@ -135,7 +134,7 @@ table {
 
     input {
       height: 30px;
-      width: 100%;
+      
       padding: 0 5px 0 5px;
       background: transparent;
       outline: none;
@@ -198,6 +197,7 @@ table {
         color: var(--color-aps-table-text-sub);
         z-index: 1;
         .text {
+          justify-content: center;
           background: var(--color-aps-table-bg-main);
           border: none;
           z-index: 900;

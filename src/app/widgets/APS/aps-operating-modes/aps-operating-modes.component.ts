@@ -8,6 +8,7 @@ export interface ITable {
 import { ApsService } from '../../../dashboard/services/widgets/APS/aps.service';
 import { formatDate } from '@angular/common';
 import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
+import { fillDataShape } from '@shared/functions/common-functions';
 
 export interface ITableToDisplay {
     1?: string;
@@ -91,12 +92,13 @@ export class ApsOperatingModesComponent extends WidgetPlatform<unknown>
     protected dataHandler(ref: unknown): void {}
 
     async saveValues(): Promise<void> {
-        this.editedData = Array.from(new Set(this.editedData));
+        this.editedData = Array.from(new Set(this.editedData)).map((x) => fillDataShape(x));
         this.headerName.filter(item => item.headerType === 'bool').forEach(boolItem => {
-            this.editedData.forEach(el => el[boolItem.key] = ('' + !!el[boolItem.key]).charAt(0).toUpperCase() +('' + !!el[boolItem.key]).slice(1));
+            this.editedData.forEach(el => el[boolItem.key] = ('' + !!(+el[boolItem.key])).charAt(0).toUpperCase() + ('' + !!(+el[boolItem.key])).slice(1));
         });
         try {
             const res = await this.apsService.postReferenceBook(this.editedData, this.data);
+        } catch {
             const newData = await this.apsService.getReferenceBook(
                 this.apsService.selectTable$.getValue(),
                 this.apsService.selectScenario$.getValue().scenarioId
