@@ -176,10 +176,14 @@
         </div>
         <div class="information">
           Уровень доверия:&nbsp;<span>{{mvpService.popupData?.tolerance}}</span>
-          Измеренное:&nbsp;<span>{{mvpService.popupData?.valueMeasuring}} т</span>
+          Измеренное:&nbsp;<span [ngSwitch]="choosenSetting">
+            <ng-template ngSwitchCase="1">{{mvpService.popupData?.valueByHour | number:'0.0-0'}}</ng-template>
+            <ng-template ngSwitchCase="2">{{mvpService.popupData?.valueTank | number:'0.0-0'}}</ng-template>
+            <ng-template ngSwitchDefault>{{mvpService.popupData?.valueMoment | number:'0.0-0'}}</ng-template>
+           т</span>
           Скорректированное:&nbsp;<span>{{mvpService.popupData?.valueEdit}} т</span>
           Согласованное:&nbsp;<span>{{mvpService.popupData?.valueCalculate}} т</span>
-          Погрешность:&nbsp; <span>{{mvpService.popupData?.error}} т</span>
+          Погрешность:&nbsp; <span>{{mvpService.popupData?.error}} %</span>
         </div>
       </div>
     </div>
