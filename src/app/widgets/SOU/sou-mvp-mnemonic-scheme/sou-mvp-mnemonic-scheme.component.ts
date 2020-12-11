@@ -118,7 +118,7 @@ export class SouMvpMnemonicSchemeComponent extends WidgetPlatform<unknown>
             for (const element in item) {
                 if (element === 'flowIn' || element === 'flowOut') {
                     item[element].forEach((el) => {
-                        if (el.isExceedingConfInterval) {
+                        if (el.isExceedingConfInterval && el.isEnable) {
                             sum++;
                         }
                     });
