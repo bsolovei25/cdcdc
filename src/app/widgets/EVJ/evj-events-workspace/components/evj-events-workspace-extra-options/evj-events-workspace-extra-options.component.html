@@ -29,8 +29,8 @@
                 <mat-form-field appearance="none">
                   <mat-select
                     (selectionChange)="getParameterId($event)"
-                    [(ngModel)]="notificationParametersData.selectedParameter.name"
-                    [value]="kpeWorkspaceService.selectParameter$ | async">
+
+                  >
                     <mat-option
                       *ngFor="let p of allParameters"
                       [value]="p"

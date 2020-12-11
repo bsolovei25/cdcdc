@@ -2,7 +2,8 @@ import { Component, Input, OnInit, Output, EventEmitter, OnChanges } from '@angu
 import { IExtraOptionsWindow } from '../../../../../dashboard/models/EVJ/events-widget';
 import { EventsWorkspaceService } from '../../../../../dashboard/services/widgets/EVJ/events-workspace.service';
 import {
-    IKpeAllDependentParameters, IKpeDependentParameter, IKpeNotification,
+    IKpeAllDependentParameters,
+    IKpeNotification,
     IKpeWorkspaceParameter
 } from '../../../../../dashboard/models/EVJ/kpe-workspace.model';
 import { KpeWorkspaceService } from '../../../../../dashboard/services/widgets/EVJ/kpe-workspace.service';
@@ -26,7 +27,6 @@ export class EvjEventsWorkspaceExtraOptionsComponent implements OnInit {
     public extraParameters: IKpeAllDependentParameters[] = [];
     public notificationParametersData: IKpeNotification;
 
-
     constructor(
         public ewService: EventsWorkspaceService,
         public kpeWorkspaceService: KpeWorkspaceService,
@@ -45,9 +45,9 @@ export class EvjEventsWorkspaceExtraOptionsComponent implements OnInit {
             }
         });
         setTimeout(() => {
-            console.log(`this.getParametersByNotification()
-            ${this.notificationParametersData}
-            `);
+            console.log(
+            this.notificationParametersData
+            );
         }, 5000);
     }
 
