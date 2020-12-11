@@ -93,9 +93,16 @@ export class ApsOperatingModesComponent extends WidgetPlatform<unknown>
 
     async saveValues(): Promise<void> {
         this.editedData = Array.from(new Set(this.editedData)).map((x) => fillDataShape(x));
-        this.headerName.filter(item => item.headerType === 'bool').forEach(boolItem => {
-            this.editedData.forEach(el => el[boolItem.key] = ('' + !!(+el[boolItem.key])).charAt(0).toUpperCase() + ('' + !!(+el[boolItem.key])).slice(1));
-        });
+        this.headerName
+            .filter((item) => item.headerType === 'bool')
+            .forEach((boolItem) => {
+                this.editedData.forEach(
+                    (el) =>
+                        (el[boolItem.key] =
+                            ('' + !!+el[boolItem.key]).charAt(0).toUpperCase() +
+                            ('' + !!+el[boolItem.key]).slice(1))
+                );
+            });
         try {
             const res = await this.apsService.postReferenceBook(this.editedData, this.data);
         } catch {
@@ -138,7 +145,8 @@ export class ApsOperatingModesComponent extends WidgetPlatform<unknown>
             if (isNaN(date)) {
                 return value;
             }
-            return formatDate(date, 'yyyy-MM-dd | hh:mm', 'en');
+            return formatDate(date, 'yyyy-MM-dd', 'en');
+            // return formatDate(date, 'yyyy-MM-dd | hh:mm', 'en');
         } else if (type === 'bool') {
             return value.toLowerCase() === 'true' ? 1 : 0;
         }
@@ -179,7 +187,10 @@ export class ApsOperatingModesComponent extends WidgetPlatform<unknown>
     private mapTableBody(table: ITable): ITableToDisplay[] {
         table.body.forEach((str) => {
             Object.keys(str).forEach((x) => {
-                    str[x] = this.getParseValue(str[x], this.headerNameFullData.find(item => item.key === +x)?.headerType);
+                str[x] = this.getParseValue(
+                    str[x],
+                    this.headerNameFullData.find((item) => item.key === +x)?.headerType
+                );
             });
         });
         return table.body;
