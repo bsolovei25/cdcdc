@@ -264,7 +264,7 @@ export const WIDGETS_LAZY = {
         itemRows: 5,
         minItemCols: 25,
         minItemRows: 5,
-        preview: 'default',
+        preview: 'aps-operating-modes',
     },
     'aps-structure-id': {
         import: async () => {
@@ -275,7 +275,7 @@ export const WIDGETS_LAZY = {
         itemRows: 12,
         minItemCols: 13,
         minItemRows: 13,
-        preview: 'default',
+        preview: 'aps-structure-id',
     },
     'aps-scenario-selection': {
         import: async () => {
@@ -288,7 +288,7 @@ export const WIDGETS_LAZY = {
         itemRows: 5,
         minItemCols: 13,
         minItemRows: 5,
-        preview: 'default',
+        preview: 'aps-scenario-selection',
     },
 
     // #endregion APS
@@ -514,7 +514,7 @@ export const WIDGETS_LAZY = {
         itemRows: 25,
         minItemCols: 13,
         minItemRows: 25,
-        preview: 'default',
+        preview: 'kpe-pasportize-percent',
     },
     'kpe-total-reserve': {
         import: async () => {
@@ -538,7 +538,7 @@ export const WIDGETS_LAZY = {
         itemRows: 16,
         minItemCols: 17,
         minItemRows: 16,
-        preview: 'default',
+        preview: 'kpe-plan-readiness-trend',
     },
 
     'kpe-plan-enforceability': {
@@ -550,7 +550,7 @@ export const WIDGETS_LAZY = {
         itemRows: 14,
         minItemCols: 21,
         minItemRows: 14,
-        preview: 'default',
+        preview: 'kpe-plan-enforceability',
     },
 
     // #endregion KPE
