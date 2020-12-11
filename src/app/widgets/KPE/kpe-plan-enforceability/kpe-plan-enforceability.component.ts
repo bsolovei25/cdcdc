@@ -26,7 +26,14 @@ export class KpePlanEnforceabilityComponent extends WidgetPlatform<unknown> impl
     this.graphData = enforceabilityGraphData;
   }
 
-  protected dataHandler(ref: any): void {
+  public chartWidth(container: HTMLDivElement): string {
+    if (!(container?.offsetHeight > 0)) {
+      return;
+    }
+    const height = container.offsetHeight;
+    return `width: ${height}px`;
   }
 
+  protected dataHandler(ref: any): void {
+  }
 }

@@ -2,7 +2,9 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { WidgetPlatform } from '../../../dashboard/models/@PLATFORM/widget-platform';
 import { WidgetService } from '../../../dashboard/services/widget.service';
-import { animate, state, style, transition, trigger } from '@angular/animations';
+import { animate, style, transition, trigger } from '@angular/animations';
+
+type AstueOnpzFactoryAnalysisType = 'Unit' | 'Furnace';
 
 @Component({
     selector: 'evj-astue-onpz-factory-analysis',
@@ -51,8 +53,11 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 })
 export class AstueOnpzFactoryAnalysisComponent extends WidgetPlatform implements OnInit {
     public pageType$: BehaviorSubject<'chart' | 'bar'> = new BehaviorSubject<'chart' | 'bar'>(
-        'chart'
+        'bar'
     );
+    public viewType$: BehaviorSubject<AstueOnpzFactoryAnalysisType> = new BehaviorSubject<
+        AstueOnpzFactoryAnalysisType
+    >(null);
 
     constructor(
         protected widgetService: WidgetService,
@@ -66,6 +71,11 @@ export class AstueOnpzFactoryAnalysisComponent extends WidgetPlatform implements
 
     ngOnInit(): void {
         super.widgetInit();
+    }
+
+    protected dataConnect(): void {
+        super.dataConnect();
+        this.viewType$.next((this.attributes as any)?.Type === 'Unit' ? 'Unit' : 'Furnace');
     }
 
     public changePage(type: 'chart' | 'bar'): void {

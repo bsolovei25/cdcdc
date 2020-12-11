@@ -1,8 +1,8 @@
-<div class="container" 
+<div class="container"
   [ngClass]="{
-    off:flowData?.isEnable,
-    warning: flowData?.isExceedingConfInterval,
-    selected:flowData?.code === mvpService.selectedCode
+    off: !flowData?.isEnable,
+    warning: flowData?.isExceedingConfInterval && !!flowData?.isEnable,
+    selected: flowData?.code === mvpService.selectedCode
   }"
   (click)="mvpService.openPopup(sections, flowData?.code)"
 >
@@ -23,7 +23,7 @@
       <ng-template ngSwitchDefault>{{flowData?.valueMoment | number:'0.0-0'}}</ng-template>
     </span> тн
   </div>
-  <div 
+  <div
     class="connection-circle"
     *ngIf="!noPoint"
   ></div>
