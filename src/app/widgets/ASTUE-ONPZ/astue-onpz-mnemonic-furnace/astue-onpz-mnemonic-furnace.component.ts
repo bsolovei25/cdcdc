@@ -356,23 +356,23 @@ export class AstueOnpzMnemonicFurnaceComponent extends WidgetPlatform implements
                 },
             },
         ]);
-        outputBlock.lines.push([
-            {
-                type: AstueOnpzMnemonicFurnaceElementType.Rect,
-                data: {
-                    count: 'Σ',
-                    title: 'потоков',
-                    type: AstueOnpzMnemonicFurnaceRectType.Stream,
-                },
-            },
-            {
-                type: AstueOnpzMnemonicFurnaceElementType.Circle,
-                data: {
-                    value: currentData.outputRaw?.value,
-                    unit: currentData.outputRaw?.unit,
-                },
-            },
-        ]);
+        // outputBlock.lines.push([
+        //     {
+        //         type: AstueOnpzMnemonicFurnaceElementType.Rect,
+        //         data: {
+        //             count: 'Σ',
+        //             title: 'потоков',
+        //             type: AstueOnpzMnemonicFurnaceRectType.Stream,
+        //         },
+        //     },
+        //     {
+        //         type: AstueOnpzMnemonicFurnaceElementType.Circle,
+        //         data: {
+        //             value: currentData.outputRaw?.value,
+        //             unit: currentData.outputRaw?.unit,
+        //         },
+        //     },
+        // ]);
         currentData.inputOil.item.forEach((x, i) => {
             inputOilBlock.lines.push(lineConstructor(x, 'inputOilBlock', i));
         });
