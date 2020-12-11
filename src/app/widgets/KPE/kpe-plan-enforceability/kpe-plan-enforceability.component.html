@@ -5,9 +5,17 @@
     type="kpe"
     icon="sliders"
   ></evj-contemporary-widget-header>
-  <div class="content">
+  <div 
+    class="content"
+    (mousedown)="$event.stopPropagation()"
+    (touchstart)="$event.stopPropagation()"
+  >
     <div class="diagram-item">
-      <div class="gauge">
+      <div 
+        class="gauge" 
+        #gauge
+        [style]="chartWidth(gauge)"
+      >
         <evj-kpe-gauge-chart
           [fact]="70"
           [plan]="100"
@@ -20,16 +28,22 @@
         <div class="graph__title">
           План паспортизации относительно нормативного графика
         </div>
-        <div class="graph__chart">
+        <div 
+          class="graph__chart"
+        >
           <evj-kpe-equalizer-chart
             [data]="graphData"
+            #equalizer
           ></evj-kpe-equalizer-chart>
         </div>
       </div>
     </div>
 
     <div class="diagram-item">
-      <div class="gauge">
+      <div 
+        class="gauge"
+        [style]="chartWidth(gauge)"
+      >
         <evj-kpe-gauge-chart
           [fact]="80"
           [plan]="120"
@@ -42,7 +56,9 @@
         <div class="graph__title">
           План приготовления
         </div>
-        <div class="graph__chart">
+        <div 
+          class="graph__chart"
+        >
           <evj-kpe-equalizer-chart
             [data]="graphData"
           ></evj-kpe-equalizer-chart>

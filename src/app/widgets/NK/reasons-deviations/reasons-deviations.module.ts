@@ -8,6 +8,7 @@ import { ReasonsDeviationsPicTankComponent } from './components/reasons-deviatio
 import { ReasonsDeviationsTankLevelComponent } from './components/reasons-deviations-tank-level/reasons-deviations-tank-level.component';
 import { SharedModule } from '@shared/shared.module';
 import { AngularSvgIconModule } from 'angular-svg-icon';
+import { ReasonsDeviationsService } from './reasons-deviations.service';
 
 
 
@@ -23,7 +24,10 @@ import { AngularSvgIconModule } from 'angular-svg-icon';
   imports: [
     CommonModule, SharedModule,
       AngularSvgIconModule
-  ]
+  ],
+  providers: [
+    ReasonsDeviationsService,
+  ],
 })
 export class ReasonsDeviationsModule {
     enterComponent = ReasonsDeviationsComponent;

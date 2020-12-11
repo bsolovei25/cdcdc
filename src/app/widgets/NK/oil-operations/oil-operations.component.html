@@ -98,7 +98,7 @@
 
                 <!-- MANUAL SHIPMENT ASSIGN -->
                 <div *ngIf="filter.manualAssign">
-                  <evj-oil-operations-manual-assign (closeFree)="closeShipment($event)" [selectedTransfer]="selectedTransfer"></evj-oil-operations-manual-assign>
+                  <evj-oil-operations-manual-assign (closeFree)="closeManualAssign($event)" [selectedTransfer]="selectedTransfer"></evj-oil-operations-manual-assign>
                 </div>
 
                 <!-- RIGHT-SIDE -->
@@ -144,7 +144,11 @@
                                 </div>
                             </ng-template>
                         </evj-column-grid>
-                        <evj-column-grid key="shipped" name="Отгружено" [width]="8"></evj-column-grid>
+                        <evj-column-grid key="shipped" name="Отгружено" [width]="8" [template]="dateFinish">
+                          <ng-template #dateFinish let-data="data">
+                            {{ (data?.dateFinish | dateFormat: 'DD-MM-YY hh:mm') || '-' }}
+                          </ng-template>
+                        </evj-column-grid>
                         <evj-column-grid key="note" name="Примечание" [width]="25"></evj-column-grid>
                     </evj-table-grid>
                 </div>

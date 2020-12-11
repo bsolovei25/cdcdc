@@ -27,4 +27,16 @@
   .unit {
     color: var(--color-astue-onpz-mnemonic-furnace-unit-text);
   }
+
+  &__deviation {
+    border-color: var(--color-astue-onpz-mnemonic-furnace-warning);
+
+    .value {
+      color: var(--color-astue-onpz-mnemonic-furnace-warning);
+    }
+
+    .unit {
+      color: var(--color-astue-onpz-mnemonic-furnace-warning);
+    }
+  }
 }

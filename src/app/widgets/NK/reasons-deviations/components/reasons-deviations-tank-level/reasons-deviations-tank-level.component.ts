@@ -1,30 +1,31 @@
-import { Component, OnInit } from '@angular/core';
-import { IReasonsTankerCard } from 'src/app/dashboard/models/LCO/reasons-deviations';
+import { Component, Input, OnInit } from '@angular/core';
+import { IOilReasonsDeviations } from '../../reasons-deviations.component';
+import { IOilTransfer } from '../../../../../dashboard/models/oil-operations';
 
 @Component({
-  selector: 'evj-reasons-deviations-tank-level',
-  templateUrl: './reasons-deviations-tank-level.component.html',
-  styleUrls: ['./reasons-deviations-tank-level.component.scss']
+    selector: 'evj-reasons-deviations-tank-level',
+    templateUrl: './reasons-deviations-tank-level.component.html',
+    styleUrls: ['./reasons-deviations-tank-level.component.scss']
 })
 export class ReasonsDeviationsTankLevelComponent implements OnInit {
 
-  public data: IReasonsTankerCard = {
-    name: "Резервуар №514",
-    percent: 45,
-    shipped: 1400,
-    capacity: 2720,
-    valueLevel: 720,
-    type: "Бензин АИ-92-К2",
-  }
+    @Input()
+    public data: IOilReasonsDeviations | null = null;
 
-  public textLevel: number;
+    @Input()
+    public transfer: IOilTransfer | null = null;
 
-  constructor() { }
+    public textLevel: number;
 
-  ngOnInit(): void {
-    (this.data.percent > 70) ? this.textLevel = 50 :
-    (this.data.percent < 20) ? this.textLevel = 20 :
-    this.textLevel = this.data.percent - 5;
-  }
+    constructor() {
+    }
 
+    public ngOnInit(): void {
+    }
+
+    public getPercent(): number {
+        return (this.data?.shipmentsMassPercent > 70) ? this.textLevel = 50 :
+            (this.data?.shipmentsMassPercent < 20) ? this.textLevel = 20 :
+                this.textLevel = this.data?.shipmentsMassPercent - 5;
+    }
 }
