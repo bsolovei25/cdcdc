@@ -1,0 +1,199 @@
+<div class="container">
+    <evj-contemporary-widget-header
+      [uniqId]="uniqId"
+      [widgetTitle]="widgetTitle"
+      type="kpe"
+      icon="pie"
+    ></evj-contemporary-widget-header>
+    <div class="content"
+      (mousedown)="$event.stopPropagation()"
+      (touchstart)="$event.stopPropagation()"
+    >
+        <div class="block">
+            <div class="block__header">
+                <div class="title">
+                    <span class="title__item">Скорость сведения МБ,</span>
+                    <span class="title__item">%</span>
+                </div>
+            </div>
+            <div class="block__body">
+                <div class="main main_gauge">
+                    <evj-kpe-gauge-chart
+                        [fact]="70"
+                        [plan]="100"
+                        background=sou
+                        [style.width.%]="100"
+                    ></evj-kpe-gauge-chart>
+                </div>
+                <div class="props-list">
+                    <div class="property">
+                        <span class="property__name">Июн.20</span>
+                        <div class="property__value">
+                            <svg-icon
+                                src="assets/icons/widgets/SOU/sou-main-indicators/dec.svg"
+                            ></svg-icon>
+                            <span class="dec">1</span>
+                        </div>
+                    </div>
+                    <div class="property">
+                        <span class="property__name">Июн.20</span>
+                        <div class="property__value">
+                            <svg-icon
+                                src="assets/icons/widgets/SOU/sou-main-indicators/dec.svg"
+                            ></svg-icon>
+                            <span class="dec">3</span>
+                        </div>
+                    </div>
+                    <div class="property">
+                        <span class="property__name">Июн.20</span>
+                        <div class="property__value">
+                            <svg-icon
+                                src="assets/icons/widgets/SOU/sou-main-indicators/inc.svg"
+                            ></svg-icon>
+                            <span class="inc">1</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="block">
+            <div class="block__header">
+                <div class="title">
+                    <span class="title__item">Скорость сведения МБ,</span>
+                    <span class="title__item">%</span>
+                </div>
+                <div class="menu">
+                    <div 
+                        class="menu__item"
+                        *ngFor="let item of menu; let i = index"
+                        [ngClass]="{'menu__item_active': i === choosenItem}"
+                        (click)="changeMenuItem(i)"
+                    >{{item}}</div>
+                </div>
+            </div>
+            <div class="block__body">
+                <div class="main">
+                    <span>9</span>
+                </div>
+                <div class="props-list">
+                    <div class="property">
+                        <span class="property__name">Июн.20</span>
+                        <div class="property__value">
+                            <span>21</span>
+                        </div>
+                    </div>
+                    <div class="property">
+                        <span class="property__name">Июль.20</span>
+                        <div class="property__value">
+                            <span>21</span>
+                        </div>
+                    </div>
+                    <div class="property">
+                        <span class="property__name">Авг.20</span>
+                        <div class="property__value">
+                            <span>21</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="block">
+            <div class="block__header">
+                <div class="title">
+                    <span class="title__item">Скорость сведения МБ,</span>
+                    <span class="title__item">%</span>
+                </div>
+            </div>
+            <div class="block__body">
+                <div class="main main_gauge">
+                    <evj-kpe-gauge-chart
+                        [fact]="100"
+                        [plan]="100"
+                        background=sou
+                        [style.width.%]="100"
+                    ></evj-kpe-gauge-chart>
+                </div>
+                <div class="props-list">
+                    <div class="property">
+                        <span class="property__name">Июн 2020</span>
+                        <div class="property__value">
+                            <span>100</span>
+                        </div>
+                    </div>
+                    <div class="property">
+                        <span class="property__name">Июль 2020</span>
+                        <div class="property__value">
+                            <span>21</span>
+                        </div>
+                    </div>
+                    <div class="property">
+                        <span class="property__name">Август 2020</span>
+                        <div class="property__value">
+                            <span>100</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="split">
+            <div class="block">
+                <div class="block__header">
+                    <div class="title">
+                        <span class="title__item">Кол-во ошибок рег. операций, <span class="unit">шт</span> </span>
+                    </div>
+                </div>
+                <div class="block__body">
+                    <div class="main">
+                        <span><span>8</span>/9</span>
+                    </div>
+                </div>
+            </div>
+            <div class="block">
+                <div class="block__header">
+                    <div class="title">
+                        <span class="title__item">Количество грубых ошибок,<span class="unit">шт</span></span>
+                    </div>
+                </div>
+                <div class="block__body">
+                    <div class="main">
+                        <span>19</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="block">
+            <div class="block__header">
+                <div class="title">
+                    <span class="title__item">Потери,</span>
+                    <span class="title__item">шт</span>
+                </div>
+            </div>
+            <div class="block__body">
+                <div class="main main_gauge" #chart>
+                    <div class="diagram-info">
+                        <div class="title">Суммарные</div>
+                        <div class="count">7 974</div>
+                        <div class="percent">0.51%</div>
+                    </div>
+                </div>
+                <div class="props-list">
+                    <div class="property-custom">
+                        <div class="title">Неидентифицированные</div>
+                        <div class="info-block">
+                            <div class="count">4 599</div>
+                            <div class="percent">0.29%</div>
+                        </div>
+                    </div>
+                    <div class="property-custom">
+                        <div class="title">Идентифицированные</div>
+                        <div class="info-block">
+                            <div class="count">3 375</div>
+                            <div class="percent">0.215%</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+  
