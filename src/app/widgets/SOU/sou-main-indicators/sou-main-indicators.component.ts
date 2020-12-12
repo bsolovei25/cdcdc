@@ -3,6 +3,9 @@ import { AsyncRender } from '@shared/functions/async-render.function';
 import { WidgetPlatform } from 'src/app/dashboard/models/@PLATFORM/widget-platform';
 import { WidgetService } from 'src/app/dashboard/services/widget.service';
 import * as d3 from 'd3';
+import { BehaviorSubject } from 'rxjs';
+import { ISouMainIndicators } from '../../../dashboard/models/SOU/sou-main-indicators.model';
+import { SOURCE_DATA } from './sou-main-indicators.mock';
 
 @Component({
     selector: 'evj-sou-main-indicators',
@@ -10,6 +13,9 @@ import * as d3 from 'd3';
     styleUrls: ['./sou-main-indicators.component.scss'],
 })
 export class SouMainIndicatorsComponent extends WidgetPlatform<unknown> implements OnInit {
+    public data$: BehaviorSubject<ISouMainIndicators> = new BehaviorSubject<ISouMainIndicators>(
+        null
+    );
     menu: string[] = ['Месяц', 'Вклад'];
     choosenItem: number = 0;
 
@@ -27,7 +33,9 @@ export class SouMainIndicatorsComponent extends WidgetPlatform<unknown> implemen
     }
 
     @AsyncRender
-    drawSvg(): void {
+    drawSvg(plan: number, fact: number): void {
+        const value = (fact / plan) * 2;
+
         const innerR = 50;
         const outerR = 42;
 
@@ -53,16 +61,16 @@ export class SouMainIndicatorsComponent extends WidgetPlatform<unknown> implemen
             .innerRadius(innerR - 2)
             .outerRadius(outerR + 2)
             .startAngle(2 * Math.PI)
-            .endAngle(1.6 * Math.PI + (4 * Math.PI) / 180);
+            .endAngle(value * Math.PI + (4 * Math.PI) / 180);
 
         const mainPie = d3
             .arc()
             .innerRadius(innerR - 2)
             .outerRadius(outerR + 2)
             .startAngle((4 * Math.PI) / 180)
-            .endAngle(1.6 * Math.PI);
+            .endAngle(value * Math.PI);
 
-        const g: any = this.svg
+        const g = this.svg
             .append('g')
             .attr('width', '100px')
             .attr('height', '100px')
@@ -83,11 +91,18 @@ export class SouMainIndicatorsComponent extends WidgetPlatform<unknown> implemen
 
     public ngOnInit(): void {
         super.widgetInit();
-        this.drawSvg();
+        this.data$.next(SOURCE_DATA);
+        this.drawSvg(this.data$.value.losses.sum.value, this.data$.value.losses.identified.value);
     }
 
     public changeMenuItem(i: number): void {
         this.choosenItem = i;
+    }
+
+    public getFormattedData(date: Date): string {
+        const options = { month: 'long', year: 'numeric' };
+        const str = new Date(date).toLocaleDateString('ru-RU', options);
+        return str[0].toUpperCase() + str.slice(1);
     }
 
     protected dataHandler(ref: any): void {}
