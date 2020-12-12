@@ -9,6 +9,7 @@ import {
 } from '../../../dashboard/models/SOU/sou-operational-accounting-system';
 import { SouMvpMnemonicSchemeService } from '../../../dashboard/services/widgets/SOU/sou-mvp-mnemonic-scheme';
 import { animate, state, style, transition, trigger } from '@angular/animations';
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
     selector: 'evj-sou-mvp-mnemonic-scheme',
@@ -51,7 +52,13 @@ export class SouMvpMnemonicSchemeComponent extends WidgetPlatform<unknown>
     factories: string[] = ['Производство 1', 'Производство 4'];
     installations: string[] = ['АВТ-10', 'Изомалк-2'];
 
-    selectedInstallation: number = 0;
+    selectedInstallation$: BehaviorSubject<number> = new BehaviorSubject<number>(0);
+    set selectedInstallation(value: number) {
+        this.selectedInstallation$.next(value);
+    }
+    get selectedInstallation(): number {
+        return this.selectedInstallation$.getValue();
+    }
 
     sections: {
         title: string;
@@ -86,6 +93,11 @@ export class SouMvpMnemonicSchemeComponent extends WidgetPlatform<unknown>
 
     ngOnInit(): void {
         super.widgetInit();
+        this.subscriptions.push(
+            this.selectedInstallation$.asObservable().subscribe((ref) => {
+                this.mvpService.closePopup();
+            })
+        );
     }
 
     protected dataHandler(ref: ISOUOperationalAccountingSystem): void {
