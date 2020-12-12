@@ -48,28 +48,26 @@ export class SouMvpMnemonicSchemeComponent extends WidgetPlatform<unknown>
     sectionsData: (ISOUFlowOut | ISOUFlowIn | ISOUObjects)[] = []; // Массив всех элементов
     sectionsDataIzo: (ISOUFlowOut | ISOUFlowIn | ISOUObjects)[] = []; // Массив всех элементов Изомалка
 
-    installations: string[] = [
-        'АВТ-10',
-        'Изомалк-2'
-    ];
+    factories: string[] = ['Производство 1', 'Производство 4'];
+    installations: string[] = ['АВТ-10', 'Изомалк-2'];
 
     selectedInstallation: number = 0;
 
     sections: {
         title: string;
-        value: number
+        value: number;
     }[][] = [
         [
             {
                 title: 'АБ',
-                value: 0
+                value: 0,
             },
             {
                 title: 'BБ',
-                value: 0
-            }
+                value: 0,
+            },
         ],
-        []
+        [],
     ];
 
     choosenSetting: number = 1;
@@ -113,21 +111,11 @@ export class SouMvpMnemonicSchemeComponent extends WidgetPlatform<unknown>
                     ...item.objects,
                 ];
             }
-
-            let sum = 0;
-            for (const element in item) {
-                if (element === 'flowIn' || element === 'flowOut') {
-                    item[element].forEach((el) => {
-                        if (el.isExceedingConfInterval && el.isEnable) {
-                            sum++;
-                        }
-                    });
-                }
-            }
             if (i !== 2) {
-                this.sections[0][i].value = sum;
+                this.sections[0][i].value = item.countFlowExceedingConfInterval;
             }
         });
+        console.log(ref.section);
     }
 
     changeSetting(i: number): void {
