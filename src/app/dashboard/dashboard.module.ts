@@ -72,7 +72,6 @@ import { MatBadgeModule } from '@angular/material/badge';
 import { TankFilterComponent } from '../widgets/NK/tank-information/components/tank-filter/tank-filter.component';
 import { ReportServerConfiguratorModule } from '../widgets/admin/report-server-configurator/report-server-configurator.module';
 import { OilOperationsFilterComponent } from '../widgets/NK/oil-operations/components/oil-operations-filter/oil-operations-filter.component';
-import { AstueOnpzFactoryAnalysisModule } from '../widgets/ASTUE-ONPZ/astue-onpz-factory-analysis/astue-onpz-factory-analysis.module';
 import { AstueOnpzMnemonicFurnaceModule } from '../widgets/ASTUE-ONPZ/astue-onpz-mnemonic-furnace/astue-onpz-mnemonic-furnace.module';
 
 @NgModule({

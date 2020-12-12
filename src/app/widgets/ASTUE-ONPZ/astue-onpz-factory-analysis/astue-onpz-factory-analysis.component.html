@@ -14,9 +14,20 @@
        (mousedown)="$event.stopPropagation()"
        (touchstart)="$event.stopPropagation()"
   >
-    <ng-container [ngSwitch]="pageType$ | async">
-      <evj-astue-onpz-factor-analysis-page *ngSwitchCase="'bar'" [@rightTrigger] class="factor-analysis"></evj-astue-onpz-factor-analysis-page>
-      <evj-astue-onpz-factory-analysis-chart-page *ngSwitchCase="'chart'" [@leftTrigger] class="factor-analysis"></evj-astue-onpz-factory-analysis-chart-page>
+   <ng-container [ngSwitch]="pageType$ | async">
+      <evj-astue-onpz-factor-analysis-page
+        *ngSwitchCase="'bar'"
+        [@rightTrigger]
+        class="factor-analysis"
+        [data]="data?.sections"
+      ></evj-astue-onpz-factor-analysis-page>
+      <evj-astue-onpz-factory-analysis-chart-page
+        *ngSwitchCase="'chart'"
+        [@leftTrigger]
+        [graphData]="data?.graph"
+        [selectedPeriod]="data?.selectedPeriod"
+        class="factor-analysis"
+      ></evj-astue-onpz-factory-analysis-chart-page>
     </ng-container>
   </div>
 </div>

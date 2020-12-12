@@ -2,12 +2,22 @@
   <div class="left-wrapper">
     <div class="top">
       <div class="shadow"></div>
-      <evj-astue-onpz-factory-analysis-chart></evj-astue-onpz-factory-analysis-chart>
+      <evj-astue-onpz-factory-analysis-chart
+        [graphData]="graphData"
+        [selectedPeriod]="selectedPeriod"
+      ></evj-astue-onpz-factory-analysis-chart>
     </div>
     <div class="bottom">
       <div class="border"></div>
       <div class="scroll">
-        <evj-smart-scroll></evj-smart-scroll>
+        <evj-smart-scroll
+          [limits]="selectedPeriod"
+          [data]="scrollData"
+          [(sbThumbLeft)]="sbLeft"
+          [(sbThumbWidth)]="sbWidth"
+          (sbThumbLeftChange)="scrollHandler()"
+          (sbThumbWidthChange)="scrollHandler()"
+        ></evj-smart-scroll>
       </div>
     </div>
   </div>
