@@ -1,0 +1,26 @@
+.container {
+  position: relative;
+  width: inherit;
+  height: inherit;
+  border-radius: 50%;
+  background: var(--color-bg-main);
+
+  .border {
+    $border-padding: 7%;
+    position: absolute;
+    top: $border-padding;
+    bottom: $border-padding;
+    left: $border-padding;
+    right: $border-padding;
+    border: solid 2px #0089FF;
+    border-radius: 50%;
+  }
+
+  .icon {
+    width: 100%;
+    height: 100%;
+    padding: 29%;
+    color: red;
+    box-sizing: border-box;
+  }
+}
