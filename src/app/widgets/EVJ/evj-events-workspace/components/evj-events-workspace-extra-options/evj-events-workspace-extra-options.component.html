@@ -29,7 +29,6 @@
                 <mat-form-field appearance="none">
                   <mat-select
                     (selectionChange)="getParameterId($event)"
-                    [(ngModel)]="notificationParametersData.selectedParameter"
                     [(value)]="notificationParametersData.selectedParameter"
                   >
                     <mat-option
@@ -71,14 +70,13 @@
               </evj-rect-button>
             </div>
           </div>
-          <ng-container *ngFor="let item of notificationParametersData.dependentParameters">
+          <ng-container *ngFor="let dependentParameter of notificationParametersData.dependentParameters; idx as index">
             <div class="container__body__parameters">
               <div class="dropdown">
                 <div class="event-mat-select">
                   <mat-form-field appearance="none">
                     <mat-select
-                      [ngModel]="item"
-                      [value]="item">
+                      [value]="dependentParameter">
                       <mat-option
                         *ngFor="let p of extraParameters"
                         [value]="p"
@@ -91,7 +89,7 @@
               </div>
               <div class="value">
                 <div class="value__text">
-                    <input type="number" [(ngModel)]="item.numericValue" name="numericValue">
+                    <input type="number" [(ngModel)]="dependentParameter.numericValue" name="numericValue">
                 </div>
               </div>
             </div>

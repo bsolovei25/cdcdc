@@ -67,6 +67,7 @@ export class EvjEventsWorkspaceExtraOptionsComponent implements OnInit, OnChange
         this.kpeWorkspaceService.selectParameter$.next(event.value);
     }
 
+
     private async getParametersByNotification(): Promise<void> {
         try {
             const data = await this.kpeWorkspaceService.getKpeNotificationParameters(this.ewService.event);
@@ -116,9 +117,9 @@ export class EvjEventsWorkspaceExtraOptionsComponent implements OnInit, OnChange
             this.disableAdd = false;
             this.notificationParametersData.dependentParameters.push(
                 {
-                    name: '',
-                    dependentParameterId: 0,
-                    numericValue: 0
+                    name: 'Исполнимость (План по отбору)',
+                    dependentParameterId: 10,
+                    numericValue: 23
                 }
             );
         }
@@ -127,5 +128,4 @@ export class EvjEventsWorkspaceExtraOptionsComponent implements OnInit, OnChange
     public removeParameters(): void {
         this.notificationParametersData.dependentParameters.pop();
     }
-
 }
