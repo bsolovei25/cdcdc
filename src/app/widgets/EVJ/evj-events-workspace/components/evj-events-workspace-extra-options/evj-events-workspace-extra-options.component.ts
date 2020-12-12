@@ -1,20 +1,19 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { IExtraOptionsWindow } from '../../../../../dashboard/models/EVJ/events-widget';
 import { EventsWorkspaceService } from '../../../../../dashboard/services/widgets/EVJ/events-workspace.service';
-import {
-    IKpeAllDependentParameters,
-    IKpeNotification,
-    IKpeWorkspaceParameter,
-} from '../../../../../dashboard/models/EVJ/kpe-workspace.model';
-import { KpeWorkspaceService } from '../../../../../dashboard/services/widgets/EVJ/kpe-workspace.service';
 import { AuthService } from '@core/service/auth.service';
+import { KpeWorkspaceService } from '../../../../../dashboard/services/widgets/EVJ/kpe-workspace.service';
+import {
+    IKpeAllDependentParameters, IKpeNotification,
+    IKpeWorkspaceParameter
+} from '../../../../../dashboard/models/EVJ/kpe-workspace.model';
 
 @Component({
     selector: 'evj-evj-events-workspace-extra-options',
     templateUrl: './evj-events-workspace-extra-options.component.html',
     styleUrls: ['./evj-events-workspace-extra-options.component.scss'],
 })
-export class EvjEventsWorkspaceExtraOptionsComponent implements OnInit, OnChanges {
+export class EvjEventsWorkspaceExtraOptionsComponent implements OnInit {
     @Input() public info: IExtraOptionsWindow = {
         isShow: false,
         acceptFunction: () => null,
@@ -51,9 +50,6 @@ export class EvjEventsWorkspaceExtraOptionsComponent implements OnInit, OnChange
                 this.notificationParametersData
             );
         }, 5000);
-    }
-
-    ngOnChanges(): void {
     }
 
     private async getParameters(): Promise<void> {
