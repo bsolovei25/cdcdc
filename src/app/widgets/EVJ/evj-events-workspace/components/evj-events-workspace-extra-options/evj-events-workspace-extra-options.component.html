@@ -31,12 +31,12 @@
                     (selectionChange)="getParameterId($event)"
                     [(value)]="notificationParametersData.selectedParameter"
                   >
-                    <mat-option F
-                      *ngFor="let p of allParameters"
-                      [value]="p"
-                    >
-                      {{p?.name}}
-                    </mat-option>
+                    <ng-container *ngFor="let p of allParameters">
+                      <mat-option [value]="p"
+                      >
+                        {{p?.name}}
+                      </mat-option>
+                    </ng-container>
                   </mat-select>
                 </mat-form-field>
               </div>
@@ -70,27 +70,29 @@
               </evj-rect-button>
             </div>
           </div>
-          <ng-container *ngFor="let item23 of notificationParametersData.dependentParameters; idx as index">
+          <ng-container *ngFor="let item of notificationParametersData.dependentParameters; idx as index">
             <div class="container__body__parameters">
               <div class="dropdown">
                 <div class="event-mat-select">
                   <mat-form-field appearance="none">
                     <mat-select
-                      [value]="item23"
-                    >
+                      [value]="item">
+                      <ng-container *ngFor="let p of extraParameters">
                       <mat-option
-                        *ngFor="let p of extraParameters"
                         [value]="p"
                       >
                         {{p?.name}}
                       </mat-option>
+                      </ng-container>
                     </mat-select>
                   </mat-form-field>
                 </div>
               </div>
               <div class="value">
                 <div class="value__text">
-                  <input type="text" [(ngModel)]="item23.numericValue" name="numericValue">
+                  <input type="text"
+                         [(ngModel)]="item.numericValue"
+                  >
                 </div>
               </div>
             </div>
@@ -101,7 +103,7 @@
                 <evj-rect-button class="add-button" matRipple matRippleColor="white"
                                  textButton="Cбросить"
                                  [isChangingState]="false"
-                                 (click)="discard(true)"
+                                 (click)="discard()"
                                  [type]="'primary'">
                 </evj-rect-button>
               </div>
