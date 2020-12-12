@@ -1,3 +1,25 @@
+/// region response start
+export interface IAstueOnpzFactoryAnalysisBarResponse {
+    sections: IAstueOnpzFactoryAnalysisBarResponseSection[];
+    info: string;
+}
+
+export interface IAstueOnpzFactoryAnalysisBarResponseSection {
+    mainDiagram: IAstueOnpzFactoryAnalysisBarResponseDiagram;
+    groups: IAstueOnpzFactoryAnalysisBarResponseGroup[];
+}
+
+export interface IAstueOnpzFactoryAnalysisBarResponseGroup {
+    title: string;
+    diagrams: IAstueOnpzFactoryAnalysisBarResponseDiagram[];
+}
+
+export interface IAstueOnpzFactoryAnalysisBarResponseDiagram {
+    title: string;
+    value: number;
+}
+/// region response end
+
 export interface IAstueOnpzFactoryAnalysis {
     groups: IAstueOnpzFactoryAnalysisGroup[];
     legend: number[];

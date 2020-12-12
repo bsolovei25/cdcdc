@@ -3,6 +3,7 @@ import { BehaviorSubject } from 'rxjs';
 import { WidgetPlatform } from '../../../dashboard/models/@PLATFORM/widget-platform';
 import { WidgetService } from '../../../dashboard/services/widget.service';
 import { animate, state, style, transition, trigger } from '@angular/animations';
+import { minMaxFinder } from './functions/astue-onpz-factory-analysis.function';
 
 @Component({
     selector: 'evj-astue-onpz-factory-analysis',
@@ -61,11 +62,15 @@ export class AstueOnpzFactoryAnalysisComponent extends WidgetPlatform implements
         @Inject('uniqId') public uniqId: string
     ) {
         super(widgetService, isMock, id, uniqId);
-        this.isRealtimeData = false;
     }
 
     ngOnInit(): void {
         super.widgetInit();
+    }
+
+    protected dataConnect(): void {
+        super.dataConnect();
+        this.setWsOptions({ manufactureName: 'Производство 1', unitName: 'АВТ-10' });
     }
 
     public changePage(type: 'chart' | 'bar'): void {
@@ -75,5 +80,12 @@ export class AstueOnpzFactoryAnalysisComponent extends WidgetPlatform implements
         this.pageType$.next(type);
     }
 
-    protected dataHandler(ref: unknown): void {}
+    protected dataHandler(ref: any): void {
+        if (!ref.sections) {
+            return;
+        }
+        console.log(ref.sections);
+        const res = minMaxFinder(ref.sections);
+        console.log(res);
+    }
 }

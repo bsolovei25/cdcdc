@@ -59,9 +59,9 @@ export class AstueOnpzFactorAnalysisPageComponent implements OnInit {
                     bars: [
                         {
                             value: -7,
-                            title: 'Bar title 1',
+                            title: 'Bar title 11',
                             lowLevel: ((100 - minValue) / trueDelta) * 100,
-                            topLevel: ((110 - minValue) / trueDelta) * 100,
+                            topLevel: ((120 - minValue) / trueDelta) * 100,
                             type: IAstueOnpzFactoryAnalysisBarType.Deviation,
                         },
                         {
