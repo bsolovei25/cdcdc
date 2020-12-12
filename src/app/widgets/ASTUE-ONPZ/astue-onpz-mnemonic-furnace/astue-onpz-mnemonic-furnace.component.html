@@ -19,7 +19,7 @@
 <!--            <div class="dropdown__marker"></div>-->
             <mat-select class="dropdown__select" [formControl]="selectManufacture">
               <mat-option [value]="''"> Не выбрано </mat-option>
-              <mat-option *ngFor="let select of (manufacturesSelects$ | async)" [value]="select">{{select}}</mat-option>
+              <mat-option *ngFor="let select of (manufacturesSelects$ | async)" [value]="select.id">{{select.title}}</mat-option>
             </mat-select>
           </div>
         </div>
@@ -36,7 +36,7 @@
             <!--            <div class="dropdown__marker"></div>-->
             <mat-select class="dropdown__select" [formControl]="selectUnit">
               <mat-option [value]="''"> Не выбрано </mat-option>
-              <mat-option *ngFor="let select of (unitsSelects$ | async)" [value]="select">{{select}}</mat-option>
+              <mat-option *ngFor="let select of (unitsSelects$ | async)" [value]="select.id">{{select.title}}</mat-option>
             </mat-select>
           </div>
         </div>
@@ -53,7 +53,7 @@
             <!--            <div class="dropdown__marker"></div>-->
             <mat-select class="dropdown__select" [formControl]="selectOven">
               <mat-option [value]="''"> Не выбрано </mat-option>
-              <mat-option *ngFor="let select of (ovensSelects$ | async)" [value]="select">{{select}}</mat-option>
+              <mat-option *ngFor="let select of (ovensSelects$ | async)" [value]="select.id">{{select.title}}</mat-option>
             </mat-select>
           </div>
         </div>
