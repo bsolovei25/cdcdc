@@ -117,4 +117,8 @@ export interface ISOUOperationalAccountingSystem {
     balanceAllowByPercent: number;
     notificationCards: ISOUNotificationCards[];
     lampOn: boolean;
+    balanceAllowHourByPercent: number;
+    balanceAllowHour: number;
+    deltaHour: number;
+    deltaHourByPercent: number;
 }
