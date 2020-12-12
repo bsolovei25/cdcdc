@@ -1,5 +1,4 @@
 import {
-    AfterViewInit,
     ChangeDetectorRef,
     Component,
     ElementRef,
@@ -9,8 +8,8 @@ import {
 } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import {
-    IAstueOnpzFactoryAnalysis,
-    IAstueOnpzFactoryAnalysisBarType,
+  IAstueOnpzFactoryAnalysis,
+  IAstueOnpzFactoryAnalysisBarType, IAstueOnpzFactoryAnalysisGroup, IAstueOnpzFactoryAnalysisSection,
 } from '../../../../../dashboard/models/ASTUE-ONPZ/astue-onpz-factory-analysis.model';
 import { AsyncRender } from '@shared/functions/async-render.function';
 
@@ -25,7 +24,7 @@ export class AstueOnpzFactorAnalysisPageComponent implements OnInit {
     private readonly infoPaddingPx: number = 13;
     public legendValues$: BehaviorSubject<number[]> = new BehaviorSubject<number[]>(null);
 
-    @Input() public data: IAstueOnpzFactoryAnalysis = null;
+    @Input() public data: IAstueOnpzFactoryAnalysisSection[] | null = null;
 
     constructor(private changeDetector: ChangeDetectorRef) {}
 
@@ -39,42 +38,39 @@ export class AstueOnpzFactorAnalysisPageComponent implements OnInit {
         const minValue: number = 80;
         const trueDelta: number = this.getTrueDelta(maxValue, minValue);
         this.setLegendArray(trueDelta, minValue);
-        this.data = {
-            legend: null,
-            groups: [
-                {
-                    title: '',
-                    bars: [
-                        {
-                            value: 97.7,
-                            title: 'Bar title',
-                            lowLevel: ((80 - minValue) / trueDelta) * 100,
-                            topLevel: ((97.7 - minValue) / trueDelta) * 100,
-                            type: IAstueOnpzFactoryAnalysisBarType.Summary,
-                        },
-                    ],
-                },
-                {
-                    title: 'Group title',
-                    bars: [
-                        {
-                            value: -7,
-                            title: 'Bar title 1',
-                            lowLevel: ((100 - minValue) / trueDelta) * 100,
-                            topLevel: ((110 - minValue) / trueDelta) * 100,
-                            type: IAstueOnpzFactoryAnalysisBarType.Deviation,
-                        },
-                        {
-                            value: 10,
-                            title: 'Bar title 2',
-                            lowLevel: ((90 - minValue) / trueDelta) * 100,
-                            topLevel: ((100 - minValue) / trueDelta) * 100,
-                            type: IAstueOnpzFactoryAnalysisBarType.Normal,
-                        },
-                    ],
-                },
-            ],
-        };
+        this.data = [
+            /*{
+                title: '',
+                diagrams: [
+                    {
+                        value: 97.7,
+                        title: 'Bar title',
+                        lowLevel: ((80 - minValue) / trueDelta) * 100,
+                        topLevel: ((97.7 - minValue) / trueDelta) * 100,
+                        type: IAstueOnpzFactoryAnalysisBarType.Summary,
+                    },
+                ],
+            },
+            {
+                title: 'Group title',
+                diagrams: [
+                    {
+                        value: -7,
+                        title: 'Bar title 1',
+                        lowLevel: ((100 - minValue) / trueDelta) * 100,
+                        topLevel: ((110 - minValue) / trueDelta) * 100,
+                        type: IAstueOnpzFactoryAnalysisBarType.Deviation,
+                    },
+                    {
+                        value: 10,
+                        title: 'Bar title 2',
+                        lowLevel: ((90 - minValue) / trueDelta) * 100,
+                        topLevel: ((100 - minValue) / trueDelta) * 100,
+                        type: IAstueOnpzFactoryAnalysisBarType.Normal,
+                    },
+                ],
+            },*/
+        ];
         this.changeDetector.detectChanges();
     }
 

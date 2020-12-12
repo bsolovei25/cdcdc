@@ -3,6 +3,10 @@ import { BehaviorSubject } from 'rxjs';
 import { WidgetPlatform } from '../../../dashboard/models/@PLATFORM/widget-platform';
 import { WidgetService } from '../../../dashboard/services/widget.service';
 import { animate, style, transition, trigger } from '@angular/animations';
+import {
+  IAstueOnpzFactoryAnalysis,
+  IAstueOnpzFactoryAnalysisWsOptions
+} from '../../../dashboard/models/ASTUE-ONPZ/astue-onpz-factory-analysis.model';
 
 type AstueOnpzFactoryAnalysisType = 'Unit' | 'Furnace';
 
@@ -51,13 +55,15 @@ type AstueOnpzFactoryAnalysisType = 'Unit' | 'Furnace';
         ]),
     ],
 })
-export class AstueOnpzFactoryAnalysisComponent extends WidgetPlatform implements OnInit {
+export class AstueOnpzFactoryAnalysisComponent extends WidgetPlatform<unknown> implements OnInit {
     public pageType$: BehaviorSubject<'chart' | 'bar'> = new BehaviorSubject<'chart' | 'bar'>(
         'bar'
     );
     public viewType$: BehaviorSubject<AstueOnpzFactoryAnalysisType> = new BehaviorSubject<
         AstueOnpzFactoryAnalysisType
     >(null);
+
+    public data: IAstueOnpzFactoryAnalysis | null = null;
 
     constructor(
         protected widgetService: WidgetService,
@@ -66,16 +72,11 @@ export class AstueOnpzFactoryAnalysisComponent extends WidgetPlatform implements
         @Inject('uniqId') public uniqId: string
     ) {
         super(widgetService, isMock, id, uniqId);
-        this.isRealtimeData = false;
+        this.isRealtimeData = true;
     }
 
     ngOnInit(): void {
         super.widgetInit();
-    }
-
-    protected dataConnect(): void {
-        super.dataConnect();
-        this.viewType$.next((this.attributes as any)?.Type === 'Unit' ? 'Unit' : 'Furnace');
     }
 
     public changePage(type: 'chart' | 'bar'): void {
@@ -85,5 +86,25 @@ export class AstueOnpzFactoryAnalysisComponent extends WidgetPlatform implements
         this.pageType$.next(type);
     }
 
-    protected dataHandler(ref: unknown): void {}
+    protected dataConnect(): void {
+        super.dataConnect();
+        this.viewType$.next((this.attributes as any)?.Type === 'Unit' ? 'Unit' : 'Furnace');
+        // TODO подписка на сервис получения опций
+        this.subscriptions.push();
+        const options = {
+          ManufactureName: 'Производство №1',
+          UnitName: 'АВТ-10',
+          OvenName: '',
+        };
+        this.setWsOptions(options);
+    }
+
+    protected dataHandler(ref: IAstueOnpzFactoryAnalysis): void {
+        this.data = ref;
+        console.log(ref, 'astue-onpz-factory-analysis');
+    }
+
+    private setWsOptions(options: IAstueOnpzFactoryAnalysisWsOptions): void {
+        this.widgetService.setChannelLiveDataFromWsOptions(this.id, options);
+    }
 }
