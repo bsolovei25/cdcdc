@@ -1,0 +1,10 @@
+<div class="container">
+  <div class="border">
+  </div>
+  <div class="icon">
+<!--    <svg-icon src="assets/icons/widgets/SOU/sou-energetic/h2o.svg"></svg-icon>-->
+    <object *ngIf="iconUrl" [data]="iconUrl | safeUrl"></object>
+  </div>
+</div>
+
+

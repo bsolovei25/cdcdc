@@ -65,8 +65,7 @@ export class KpeWorkspaceService {
     ): Promise<IKpeNotification> {
         return this.http
             .delete<IKpeNotification>(
-                this.restUrl + `/api/notification-kpe/notification/${body.id}/parameters`
-            )
+                this.restUrl + `/api/notification-kpe/notification/${body.id}/parameters/remove`)
             .toPromise();
     }
 }

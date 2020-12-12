@@ -20,6 +20,8 @@ export class ApsService {
     selectScenario$: BehaviorSubject<IScenario> = new BehaviorSubject<IScenario>(null);
     selectTable$: BehaviorSubject<number> = new BehaviorSubject<number>(null);
 
+    private readonly calculateTimeInSec: number = 270;
+
     constructor(
         public http: HttpClient,
         configService: AppConfigService,
@@ -43,7 +45,7 @@ export class ApsService {
         this.snackBarService.openSnackBar(`Запуск расчета сценария "${scenario.name}"`);
         setTimeout(
             () => this.snackBarService.openSnackBar(`Расчет сценария "${scenario.name}" завершен`),
-            10 * 1000
+            this.calculateTimeInSec * 1000
         );
     }
 
@@ -83,7 +85,7 @@ export class ApsService {
         return await this.http
             .post<ITableToDisplay>(
                 this.restUrl +
-                    `/api/debugging-service-ApsService/ReferenceBook/${this.selectScenario$.value}/${this.selectTable$.value}`,
+                    `/api/debugging-service-ApsService/ReferenceBook/${this.selectScenario$.value.scenarioId}/${this.selectTable$.value}`,
                 params
             )
             .toPromise();

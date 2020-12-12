@@ -14,7 +14,7 @@ import { AuthService } from '@core/service/auth.service';
     templateUrl: './evj-events-workspace-extra-options.component.html',
     styleUrls: ['./evj-events-workspace-extra-options.component.scss'],
 })
-export class EvjEventsWorkspaceExtraOptionsComponent implements OnInit {
+export class EvjEventsWorkspaceExtraOptionsComponent implements OnInit, OnChanges {
     @Input() public info: IExtraOptionsWindow = {
         isShow: false,
         acceptFunction: () => null,
@@ -47,10 +47,13 @@ export class EvjEventsWorkspaceExtraOptionsComponent implements OnInit {
             }
         });
         setTimeout(() => {
-            console.log(`this.getParametersByNotification()
-            ${this.notificationParametersData}
-            `);
+            console.log(
+                this.notificationParametersData
+            );
         }, 5000);
+    }
+
+    ngOnChanges(): void {
     }
 
     private async getParameters(): Promise<void> {

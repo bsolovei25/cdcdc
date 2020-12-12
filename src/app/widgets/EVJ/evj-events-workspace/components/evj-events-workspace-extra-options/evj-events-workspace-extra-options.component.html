@@ -29,8 +29,9 @@
                 <mat-form-field appearance="none">
                   <mat-select
                     (selectionChange)="getParameterId($event)"
-                    [(value)]="notificationParametersData.selectedParameter">
-                    <mat-option
+                    [(value)]="notificationParametersData.selectedParameter"
+                  >
+                    <mat-option F
                       *ngFor="let p of allParameters"
                       [value]="p"
                     >

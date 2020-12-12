@@ -1,0 +1,14 @@
+<div class="widget-container">
+  <evj-contemporary-widget-header
+    icon="energy"
+    widgetTitle="{{ widgetTitle }}"
+    type="astue"
+  >
+    <span class="unit"> {{(data$ | async)?.engUnits }} </span>
+  </evj-contemporary-widget-header>
+  <div class="container">
+    <div class="content-wrapper">
+      <evj-sou-energetic-card *ngFor="let el of (data$ | async)?.elements || []" [data]="el" class="card"></evj-sou-energetic-card>
+    </div>
+  </div>
+</div>

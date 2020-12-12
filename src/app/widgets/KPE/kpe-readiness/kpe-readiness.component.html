@@ -1,5 +1,5 @@
 <div class="container">
-  <evj-contemporary-widget-header type="kpe" icon="performance" [uniqId]="uniqId" [widgetTitle]="widgetTitle">
+  <evj-contemporary-widget-header type="astue" icon="performance" [uniqId]="uniqId" [widgetTitle]="widgetTitle">
     <div class="content-container">
       <div class="header">
         <ul class="header__info">
@@ -36,7 +36,7 @@
         </div>
       </div>
       <div class="readiness__middle" [style]="rowHeight(gauge)" *ngIf="displayMode === 'tiled'">
-        <div 
+        <div
           class="readiness__middle__gauges-container"
           [ngClass]="{none:(gaugeCards.length < 1)}"
         >

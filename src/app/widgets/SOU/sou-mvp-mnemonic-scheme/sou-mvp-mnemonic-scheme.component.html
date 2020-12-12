@@ -1,167 +1,158 @@
 <div class="container">
   <div>
     <evj-contemporary-widget-header
-      [uniqId]="uniqId" 
-      [widgetTitle]="widgetTitle" 
+      [uniqId]="uniqId"
+      [widgetTitle]="widgetTitle"
       icon="drop"
       type="astue"
     >
       <div class="header"
-    (mousedown)="$event.stopPropagation()"
-    (touchstart)="$event.stopPropagation()"
-  > 
-    <svg-icon
-      class="arrow-circle"
-      src="assets/icons/widgets/SOU/sou-mvp-mnemonic-scheme/arrowCircle.svg"
-      [ngStyle]="{ 'width.px':14, 'height.px':14 }"
-    ></svg-icon>  
-
-    <div class="option-select">
-      <div class="dropdown">
-        <div class="dropdown__marker">
-        </div>
-        <mat-select class="dropdown__select" [value]="'Производство 1'">
-          <ng-container>
-            <mat-option [value]="'Производство 1'">
-              Производство 1
-            </mat-option>
-          </ng-container>
-        </mat-select>
-      </div>
-    </div>
-
-    <svg-icon
-      class="arrow-circle"
-      src="assets/icons/widgets/SOU/sou-mvp-mnemonic-scheme/arrowCircle.svg"
-      [ngStyle]="{ 'width.px':14, 'height.px':14 }"
-    ></svg-icon> 
-
-    <div class="option-select">
-      <div class="dropdown">
-        <div class="dropdown__marker">
-        </div>
-        <mat-select 
-          class="dropdown__select" 
-          [value]="0"
-          [(ngModel)]="selectedInstallation"
-        >
-          <ng-container *ngFor="let installation of installations; let i = index">
-            <mat-option [value]="i">
-              {{installation}}
-            </mat-option>
-          </ng-container>
-        </mat-select>
-      </div>
-    </div>
-
-    <div class="section-select">
-      <div class="custom-border"></div>
-      <div class="section-select__item"
-        *ngFor="let section of sections[selectedInstallation]; let i = index"
-        [ngClass]="{active: i===choosenSection}"
-        (click)="changeSection(i)"
+           (mousedown)="$event.stopPropagation()"
+           (touchstart)="$event.stopPropagation()"
       >
-        <span class="title">{{section?.title}}</span>
-        <div class="value"
-          [ngClass]="{
+        <svg-icon
+          class="arrow-circle"
+          src="assets/icons/widgets/SOU/sou-mvp-mnemonic-scheme/arrowCircle.svg"
+          [ngStyle]="{ 'width.px':14, 'height.px':14 }"
+        ></svg-icon>
+
+        <div class="option-select">
+          <div class="dropdown">
+            <div class="dropdown__marker">
+            </div>
+            <mat-select class="dropdown__select" [(ngModel)]="selectedInstallation">
+              <mat-option *ngFor="let factory of factories; index as i" [value]="i">{{factory}}</mat-option>
+            </mat-select>
+          </div>
+        </div>
+
+        <svg-icon
+          class="arrow-circle"
+          src="assets/icons/widgets/SOU/sou-mvp-mnemonic-scheme/arrowCircle.svg"
+          [ngStyle]="{ 'width.px':14, 'height.px':14 }"
+        ></svg-icon>
+
+        <div class="option-select">
+          <div class="dropdown">
+            <div class="dropdown__marker">
+            </div>
+            <mat-select
+              class="dropdown__select"
+              [value]="0"
+            >
+              <mat-option [value]="0">{{installations[selectedInstallation]}}</mat-option>
+            </mat-select>
+          </div>
+        </div>
+
+        <div class="section-select">
+          <div class="custom-border"></div>
+          <div class="section-select__item"
+               *ngFor="let section of sections[selectedInstallation]; let i = index"
+               [ngClass]="{active: i === choosenSection}"
+               (click)="changeSection(i)"
+          >
+            <span class="title">{{section?.title}}</span>
+            <div class="value"
+                 [ngClass]="{
             noTrust: section?.value > 0
           }"
-        >{{section.value}}</div>
-      </div>
-    </div>
-
-    <div class="option-select">
-      <span>Отображаемые значения: </span>
-      <div class="dropdown">
-        <div class="dropdown__marker">
+            >{{section.value}}</div>
+          </div>
         </div>
-        <mat-select class="dropdown__select" [value]="'измеренные'">
-          <ng-container>
-            <mat-option [value]="'измеренные'">
-              измеренные
-            </mat-option>
-          </ng-container>
-        </mat-select>
-      </div>
-    </div>
 
-    <div class="filter-btn">
-      <div class="filter-btn__item"
-        *ngFor="let setting of settings; let i = index"
-        [ngClass]="{
+        <div class="option-select">
+          <span>Отображаемые значения: </span>
+          <div class="dropdown">
+            <div class="dropdown__marker">
+            </div>
+            <mat-select class="dropdown__select" [value]="'измеренные'">
+              <ng-container>
+                <mat-option [value]="'измеренные'">
+                  измеренные
+                </mat-option>
+              </ng-container>
+            </mat-select>
+          </div>
+        </div>
+
+        <div class="filter-btn">
+          <div class="filter-btn__item"
+               *ngFor="let setting of settings; let i = index"
+               [ngClass]="{
           active: i === choosenSetting
         }"
-        (click)="changeSetting(i)"
-      >{{setting}}</div>
-    </div>
+               (click)="changeSetting(i)"
+          >{{setting}}</div>
+        </div>
       </div>
     </evj-contemporary-widget-header>
   </div>
 
-  <div class="container-body" 
-      (mousedown)="$event.stopPropagation()"
-      (touchstart)="$event.stopPropagation()"
+  <div class="container-body"
+       (mousedown)="$event.stopPropagation()"
+       (touchstart)="$event.stopPropagation()"
   >
     <div class="main-content-container">
       <evj-sou-mvp-mnemonic-scheme-ab-left
-      *ngIf="selectedInstallation === 0 && choosenSection === 0"
+        *ngIf="selectedInstallation === 0 && choosenSection === 0"
         [sections]="sectionsData"
         [choosenSetting]="choosenSetting"
         [flowIn]="flowInAb"
       ></evj-sou-mvp-mnemonic-scheme-ab-left>
 
       <evj-sou-mvp-mnemonic-scheme-vb-left
-      *ngIf="selectedInstallation === 0 && choosenSection === 1"
+        *ngIf="selectedInstallation === 0 && choosenSection === 1"
         [sections]="sectionsData"
         [choosenSetting]="choosenSetting"
         [flowIn]="flowInVb"
       ></evj-sou-mvp-mnemonic-scheme-vb-left>
 
       <evj-sou-mvp-mnemonic-scheme-izomalk-left
-      *ngIf="selectedInstallation === 1"
+        *ngIf="selectedInstallation === 1"
         [sections]="sectionsDataIzo"
         [choosenSetting]="choosenSetting"
       ></evj-sou-mvp-mnemonic-scheme-izomalk-left>
 
       <div class="streams-groups">
-      <div class="streams-container"
-        (mousedown)="$event.stopPropagation()"
-        (touchstart)="$event.stopPropagation()"
-      >
-        <div class="main-collector">
-          <div class="main-collector-title">
-            <span *ngIf="choosenSection !== 2">{{installations[selectedInstallation]}}<br></span>
-            <span>{{sections[selectedInstallation][choosenSection]?.title}}</span>
+        <div class="streams-container"
+             (mousedown)="$event.stopPropagation()"
+             (touchstart)="$event.stopPropagation()"
+        >
+          <div class="main-collector">
+            <div class="main-collector-title">
+              <span *ngIf="choosenSection !== 2">{{installations[selectedInstallation]}}<br></span>
+              <span>{{sections[selectedInstallation][choosenSection]?.title}}</span>
+            </div>
           </div>
+          <evj-sou-mvp-mnemonic-scheme-section
+            *ngIf="selectedInstallation === 0 && choosenSection === 0"
+            [choosenSetting]="choosenSetting"
+            [sections]="sectionsData"
+          ></evj-sou-mvp-mnemonic-scheme-section>
+
+          <evj-sou-mvp-mnemonic-scheme-section-vb
+            *ngIf="selectedInstallation === 0 && choosenSection === 1"
+            [choosenSetting]="choosenSetting"
+            [sections]="sectionsData"
+          ></evj-sou-mvp-mnemonic-scheme-section-vb>
+
+          <evj-sou-mvp-mnemonic-scheme-section-izomalk
+            *ngIf="selectedInstallation === 1"
+            [choosenSetting]="choosenSetting"
+            [sections]="sectionsDataIzo"
+          ></evj-sou-mvp-mnemonic-scheme-section-izomalk>
         </div>
-        <evj-sou-mvp-mnemonic-scheme-section
-          *ngIf="selectedInstallation === 0 && choosenSection === 0"
-          [choosenSetting]="choosenSetting"
-          [sections]="sectionsData"
-        ></evj-sou-mvp-mnemonic-scheme-section>
-
-        <evj-sou-mvp-mnemonic-scheme-section-vb
-          *ngIf="selectedInstallation === 0 && choosenSection === 1"
-          [choosenSetting]="choosenSetting"
-          [sections]="sectionsData"
-        ></evj-sou-mvp-mnemonic-scheme-section-vb>
-
-        <evj-sou-mvp-mnemonic-scheme-section-izomalk
-          *ngIf="selectedInstallation === 1"
-          [choosenSetting]="choosenSetting"
-          [sections]="sectionsDataIzo"
-        ></evj-sou-mvp-mnemonic-scheme-section-izomalk>
-      </div>
       </div>
     </div>
   </div>
 
   <div class="popup-container"
-    (mousedown)="$event.stopPropagation()"
-    (touchstart)="$event.stopPropagation()"
+       (mousedown)="$event.stopPropagation()"
+       (touchstart)="$event.stopPropagation()"
   >
-    <div class="popup" 
-      [@Branch]="mvpService.isPopupOpen ? 'opened' : 'closed'"
+    <div class="popup"
+         [@Branch]="mvpService.isPopupOpen ? 'opened' : 'closed'"
     >
       <div class="popup__header" (click)="mvpService.closePopup()">
         <div class="close-btn">
@@ -176,10 +167,14 @@
         </div>
         <div class="information">
           Уровень доверия:&nbsp;<span>{{mvpService.popupData?.tolerance}}</span>
-          Измеренное:&nbsp;<span>{{mvpService.popupData?.valueMeasuring}} т</span>
+          Измеренное:&nbsp;<span [ngSwitch]="choosenSetting">
+            <ng-template ngSwitchCase="1">{{mvpService.popupData?.valueByHour | number:'0.0-0'}}</ng-template>
+            <ng-template ngSwitchCase="2">{{mvpService.popupData?.valueTank | number:'0.0-0'}}</ng-template>
+            <ng-template ngSwitchDefault>{{mvpService.popupData?.valueMoment | number:'0.0-0'}}</ng-template>
+           т</span>
           Скорректированное:&nbsp;<span>{{mvpService.popupData?.valueEdit}} т</span>
           Согласованное:&nbsp;<span>{{mvpService.popupData?.valueCalculate}} т</span>
-          Погрешность:&nbsp; <span>{{mvpService.popupData?.error}} т</span>
+          Погрешность:&nbsp; <span>{{mvpService.popupData?.error}} %</span>
         </div>
       </div>
     </div>
@@ -216,7 +211,7 @@
       <span class="title">Дельта</span>
       <div class="information">
         <span class="information__main"
-          [style.color]="mainData?.lampOn ?'var(--sou-mvp-color-warning)':'var(--sou-mvp-color-text-diagram-main)'"
+              [style.color]="mainData?.lampOn ?'var(--sou-mvp-color-warning)':'var(--sou-mvp-color-text-diagram-main)'"
         >{{mainData?.delta}} тн</span>
         <span class="information__sub">{{mainData?.deltaByPersent}}%</span>
       </div>
@@ -226,7 +221,7 @@
         src="assets/icons/widgets/SOU/sou-mvp-mnemonic-scheme/balance.svg"
         [ngStyle]="{ 'width.px':16, 'height.px':17 }"
       ></svg-icon>
-      <span class="title">Дебаланс</span>
+      <span class="title">Допустимый дебаланс</span>
       <div class="information">
         <span class="information__main">{{mainData?.balanceAllow}} тн</span>
         <span class="information__sub">{{mainData?.balanceAllowByPercent}}%</span>

@@ -228,6 +228,7 @@
   --color-aps-structure-border: #2d3246;
   --color-aps-dropdown-bg: #181c2a;
   --color-aps-bg-active-col: rgba(0, 137, 255, 0.2);
+  --color-aps-good-rgb: 0, 167, 61;
 
 
 
@@ -283,7 +284,7 @@
   --color-kpe-shadow-1: rgba(0, 0, 0, 0.5);
   --color-kpe-shadow-2: rgba(25, 28, 44, 0);
   --color-kpe-line-diagram-bg: rgba(96, 101, 128, 0.25);
-  // kpe reserve 
+  // kpe reserve
   --color-kpe-bg-active-col: rgba(0, 137, 255, 0.2);
 
   // CD
@@ -401,6 +402,9 @@
   --sou-mvp-color-bg-select: #12151E;
   --sou-mvp-color-bg-select-custom-border: rgba(25, 28, 44, 0);
   --sou-mvp-color-popup-shadow: rgba(0, 0, 0, 0.3);
+
+  // sou main indictors
+  --color-sou-bg-indicators-opacity: rgba(39, 42, 56, 0.5);
 
   // ASTUE-ONPZ
   --color-astue-onpz-bg-header: #222431;
