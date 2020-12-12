@@ -1,5 +1,6 @@
-import { AfterViewChecked, AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
+import { AfterViewChecked, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { SouMvpMnemonicSchemeService } from '../../../../../dashboard/services/widgets/SOU/sou-mvp-mnemonic-scheme.service';
+import { log } from 'util';
 
 interface IDataSou {
     id: number;
@@ -16,12 +17,23 @@ interface IDataMetaFile {
     related: number[];
 }
 
+interface IElementFull {
+    metaFile: IDataMetaFile;
+    rects: Element[];
+    points: Element[];
+    arrows: Element[];
+    texts: Element[];
+    circle: Element;
+    textValue: Element;
+    textPercent: Element;
+}
+
 @Component({
     selector: 'evj-sou-schema',
     templateUrl: './sou-schema.component.html',
     styleUrls: ['./sou-schema.component.scss'],
 })
-export class SouSchemaComponent implements AfterViewChecked {
+export class SouSchemaComponent implements OnInit, AfterViewChecked {
     elementsNode: Element[] = []; // все элементы
     dataAttribute: Map<number, Element> = new Map(); // id элемента, элемент
     flag: boolean = true;
@@ -29,7 +41,7 @@ export class SouSchemaComponent implements AfterViewChecked {
 
     data: IDataSou[] = [
         {
-            id: 14,
+            id: 1,
             text: 'FR-92',
             value: 10,
             percent: 20,
@@ -37,11 +49,35 @@ export class SouSchemaComponent implements AfterViewChecked {
             active: true,
         },
         {
+            id: 2,
+            text: 'FR-92',
+            value: 10,
+            percent: 20,
+            deviation: false,
+            active: true,
+        },
+        {
+            id: 3,
+            text: 'FR-92',
+            value: 10,
+            percent: 20,
+            deviation: false,
+            active: true,
+        },
+        {
+            id: 10,
+            text: 'FR-92',
+            value: 10,
+            percent: 20,
+            deviation: false,
+            active: true,
+        },
+        {
             id: 15,
             text: 'FR-92',
             value: 10,
             percent: 20,
-            deviation: true,
+            deviation: false,
             active: true,
         },
     ];
@@ -50,10 +86,13 @@ export class SouSchemaComponent implements AfterViewChecked {
 
     constructor(private souService: SouMvpMnemonicSchemeService) {}
 
+    ngOnInit(): void {
+        this.loadMetaFile();
+    }
+
     ngAfterViewChecked(): void {
         if (document.querySelector(`#element-1_1`) && this.flag) {
             this.flag = false;
-            this.loadMetaFile();
             this.loadSchema();
             this.loadData();
         }
@@ -67,11 +106,14 @@ export class SouSchemaComponent implements AfterViewChecked {
 
     loadData(): void {
         this.data.forEach((value) => {
-            const element = this.dataAttribute.get(value.id);
+            const metaElement: IDataMetaFile = this.metaFile.find((meta) => meta.id === value.id);
+            const element = this.dataAttribute.get(metaElement?.elementId);
             const mode = value.deviation ? 'deviation' : value.active ? 'standard' : 'disabled';
-            this.element_3(
+            this.elementEdit(
                 mode,
                 element,
+                metaElement,
+                value.id,
                 value.percent,
                 value.value,
                 value.text,
@@ -94,9 +136,11 @@ export class SouSchemaComponent implements AfterViewChecked {
         console.log(`Атрибутов: ${this.dataAttribute.size}`);
     }
 
-    element_3(
+    elementEdit(
         mode: 'standard' | 'deviation' | 'disabled' | 'reset',
         element: Element,
+        metaFile?: IDataMetaFile,
+        idBack?: number,
         percent?: number,
         value?: number,
         text?: string,
@@ -111,97 +155,138 @@ export class SouSchemaComponent implements AfterViewChecked {
                 active = false;
                 deviation = false;
             }
-            const el = Array.from(element?.children);
-            const rects: Element[] = [];
-            const points: Element[] = [];
-            const arrows: Element[] = [];
-            const texts: Element[] = [];
-
-            let circle: Element;
-            let textValue: Element;
-            let textPercent: Element;
+            const elements = Array.from(element?.children);
+            let elementFull: IElementFull = {
+                metaFile,
+                rects: [],
+                points: [],
+                arrows: [],
+                texts: [],
+                circle: null,
+                textValue: null,
+                textPercent: null,
+            };
 
             // Search
-            el?.forEach((elem) => {
-                const name = elem.getAttribute('id');
-                if (name.includes('rect')) {
-                    rects.push(elem);
-                }
-                if (name.includes('point')) {
-                    points.push(elem);
-                }
-                if (name.includes('text')) {
-                    if (name.includes('text_value')) {
-                        textValue = elem;
-                    } else if (name.includes('text_percent')) {
-                        textPercent = elem;
-                    } else {
-                        texts.push(elem);
-                    }
-                }
-                if (name.includes('arrow-group')) {
-                    arrows.push(...this.searchArrow(elem?.children));
-                }
-                if (name.includes('circle')) {
-                    circle = elem;
-                }
+            elements?.forEach((elem) => {
+                elementFull = this.searchElementsInElement(elem, elementFull);
             });
-            element.setAttribute('class', 'element');
-            // Event
 
-            rects.forEach((item) => {
-                item.classList.remove('standard', 'deviation', 'disabled', 'reset');
-                item.classList.add(mode);
-            });
-            points.forEach((item) => {
-                item.classList.remove('standard', 'deviation', 'disabled', 'reset');
-                item.classList.add(mode);
-            });
-            texts.forEach((item) => {
-                item.classList.toggle(`${mode}-text`);
-                this.addTextToTspan(item, String(text));
-            });
-            arrows.forEach((item) => {
-                item.classList.toggle(`${mode}-arrow`);
-            });
-            circle?.classList.remove();
-            circle?.classList.add(mode);
-            this.addTextToTspan(textPercent, `${String(percent)}%`);
-            textPercent?.classList.remove(
-                'standard-text',
-                'deviation-text',
-                'disabled-text',
-                'reset-text'
-            );
-            textPercent?.classList.add(`${mode}-text`);
-            this.addTextToTspan(textValue, `${String(value)} тн`);
-            textValue?.classList.remove(
-                'standard-text',
-                'deviation-text',
-                'disabled-text',
-                'reset-text'
-            );
-            textValue?.classList.add(`${mode}-text`);
-            if (mode === 'reset') {
-                element.addEventListener('click', () => {
-                    rects.forEach((item) => {
-                        item.classList.toggle('active');
-                    });
-                    points.forEach((item) => {
-                        item.classList.toggle('active');
-                    });
-                    texts.forEach((item) => {
-                        item.classList.toggle('active-text');
-                    });
-                    arrows.forEach((item) => {
-                        item.classList.toggle('active-arrow');
-                    });
-                    circle?.classList.toggle('active');
-                    textPercent?.classList.toggle('active-text');
-                    textValue?.classList.toggle('active-text');
-                });
+            // add class and text to element
+            this.addClassAndTextToElement(element, elementFull, mode, text, percent, value);
+
+            // Event
+            if (metaFile) {
+                this.eventClick(element, elementFull);
             }
         }
+    }
+
+    addClassAndTextToElement(
+        element: Element,
+        elementFull: IElementFull,
+        mode: 'standard' | 'deviation' | 'disabled' | 'reset',
+        text: string,
+        percent: number,
+        value: number
+    ): void {
+        element.setAttribute('class', 'element');
+
+        elementFull.rects.forEach((item) => {
+            item.classList.remove('standard', 'deviation', 'disabled', 'reset');
+            item.classList.add(mode);
+        });
+        elementFull.points.forEach((item) => {
+            item.classList.remove('standard', 'deviation', 'disabled', 'reset');
+            item.classList.add(mode);
+        });
+        elementFull.texts.forEach((item) => {
+            item.classList.remove('standard-text', 'deviation-text', 'disabled-text', 'reset-text');
+            item.classList.add(`${mode}-text`);
+            this.addTextToTspan(item, String(text));
+        });
+        elementFull.arrows.forEach((item) => {
+            item.classList.remove(
+                'standard-arrow',
+                'deviation-arrow',
+                'disabled-arrow',
+                'reset-arrow'
+            );
+            item.classList.toggle(`${mode}-arrow`);
+        });
+        if (elementFull.circle) {
+            elementFull.circle.classList.remove('standard', 'deviation', 'disabled', 'reset');
+            elementFull.circle?.classList.add(mode);
+        }
+
+        if (elementFull.textPercent) {
+            this.addTextToTspan(elementFull.textPercent, `${String(percent)}%`);
+            elementFull.textPercent?.classList.remove(
+                'standard-text',
+                'deviation-text',
+                'disabled-text',
+                'reset-text'
+            );
+            elementFull.textPercent?.classList.add(`${mode}-text`);
+        }
+        if (elementFull.textValue) {
+            this.addTextToTspan(elementFull.textValue, `${String(value)} тн`);
+            elementFull.textValue?.classList.remove(
+                'standard-text',
+                'deviation-text',
+                'disabled-text',
+                'reset-text'
+            );
+            elementFull.textValue?.classList.add(`${mode}-text`);
+        }
+    }
+
+    searchElementsInElement(element: Element, elementFull: IElementFull): IElementFull {
+        const name = element.getAttribute('id');
+        if (name.includes('rect')) {
+            elementFull.rects.push(element);
+        }
+        if (name.includes('point')) {
+            elementFull.points.push(element);
+        }
+        if (name.includes('text')) {
+            if (name.includes('text_value')) {
+                elementFull.textValue = element;
+            } else if (name.includes('text_percent')) {
+                elementFull.textPercent = element;
+            } else {
+                elementFull.texts.push(element);
+            }
+        }
+        if (name.includes('arrow-group')) {
+            elementFull.arrows.push(...this.searchArrow(element?.children));
+        }
+        if (name.includes('circle')) {
+            elementFull.circle = element;
+        }
+        return elementFull;
+    }
+
+    eventClick(element: Element, elementFull: IElementFull): void {
+        element.addEventListener('click', () => {
+            console.log(elementFull);
+            elementFull.rects.forEach((item) => {
+                console.log(item);
+                item.classList.toggle('active');
+            });
+            elementFull.points.forEach((item) => {
+                item.classList.toggle('active');
+            });
+            elementFull.texts.forEach((item) => {
+                item.classList.toggle('active-text');
+            });
+            elementFull.arrows.forEach((item) => {
+                item.classList.toggle('active-arrow');
+            });
+            elementFull.circle?.classList.toggle('active');
+            elementFull.textPercent?.classList.toggle('active-text');
+            elementFull.textValue?.classList.toggle('active-text');
+        });
     }
 
     addTextToTspan(element: Element, text: string): void {
@@ -241,12 +326,14 @@ export class SouSchemaComponent implements AfterViewChecked {
         while (i < 100) {
             // поиск по id  - id=element-1_2
             const element = document.querySelector(`#element-${elementIndex}_${i}`);
+            const line = document.querySelector(`#line_${i}`);
             if (element) {
-                this.element_3('reset', element);
-                this.dataAttribute.set(i, element);
+                this.elementEdit('reset', element);
+                this.dataAttribute.set(i, element ?? line);
             }
             i++;
         }
+        console.log(this.dataAttribute);
         return localElements;
     }
 }
