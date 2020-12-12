@@ -14,7 +14,7 @@ import { KpeWorkspaceService } from '../../../../../dashboard/services/widgets/E
     templateUrl: './evj-events-workspace-extra-options.component.html',
     styleUrls: ['./evj-events-workspace-extra-options.component.scss']
 })
-export class EvjEventsWorkspaceExtraOptionsComponent implements OnInit {
+export class EvjEventsWorkspaceExtraOptionsComponent implements OnInit, OnChanges {
     @Input() public info: IExtraOptionsWindow = {
         isShow: false,
         acceptFunction: () => null,
@@ -29,7 +29,7 @@ export class EvjEventsWorkspaceExtraOptionsComponent implements OnInit {
 
     constructor(
         public ewService: EventsWorkspaceService,
-        public kpeWorkspaceService: KpeWorkspaceService,
+        public kpeWorkspaceService: KpeWorkspaceService
     ) {
     }
 
@@ -46,9 +46,12 @@ export class EvjEventsWorkspaceExtraOptionsComponent implements OnInit {
         });
         setTimeout(() => {
             console.log(
-            this.notificationParametersData
+                this.notificationParametersData
             );
         }, 5000);
+    }
+
+    ngOnChanges(): void {
     }
 
     private async getParameters(): Promise<void> {
@@ -63,17 +66,21 @@ export class EvjEventsWorkspaceExtraOptionsComponent implements OnInit {
     public getParameterId(event: any): void {
         this.kpeWorkspaceService.selectParameter$.next(event.value);
     }
+
     private async getParametersByNotification(): Promise<void> {
-        const data = await this.kpeWorkspaceService.getKpeNotificationParameters(this.ewService.event);
-        this.notificationParametersData = data;
+        try {
+            const data = await this.kpeWorkspaceService.getKpeNotificationParameters(this.ewService.event);
+            this.notificationParametersData = data;
+        } catch (error) {
+            console.error(error);
+        }
     }
 
     public async accept(): Promise<void> {
         try {
             await this.kpeWorkspaceService.postKpeNotificationParameters(
                 this.ewService.event, this.notificationParametersData);
-        }
-        catch (error) {
+        } catch (error) {
             console.error(error);
         }
         const popupWindow = {
@@ -92,8 +99,7 @@ export class EvjEventsWorkspaceExtraOptionsComponent implements OnInit {
     public async discard(checkbox: boolean): Promise<void> {
         try {
             await this.kpeWorkspaceService.deleteKpeNotificationParameters(this.ewService.event);
-        }
-        catch (error) {
+        } catch (error) {
             console.error(error);
         }
         this.checked.emit(checkbox);
@@ -110,9 +116,9 @@ export class EvjEventsWorkspaceExtraOptionsComponent implements OnInit {
             this.disableAdd = false;
             this.notificationParametersData.dependentParameters.push(
                 {
-                    name: 'name',
-                    dependentParameterId: 20,
-                    numericValue: 23,
+                    name: '',
+                    dependentParameterId: 0,
+                    numericValue: 0
                 }
             );
         }

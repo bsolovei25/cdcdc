@@ -29,7 +29,8 @@
                 <mat-form-field appearance="none">
                   <mat-select
                     (selectionChange)="getParameterId($event)"
-
+                    [(ngModel)]="notificationParametersData.selectedParameter"
+                    [(value)]="notificationParametersData.selectedParameter"
                   >
                     <mat-option
                       *ngFor="let p of allParameters"
@@ -76,8 +77,8 @@
                 <div class="event-mat-select">
                   <mat-form-field appearance="none">
                     <mat-select
-                      [(ngModel)]="item.name"
-                      [value]="kpeWorkspaceService.showSelectParameters$ | async">
+                      [ngModel]="item"
+                      [value]="item">
                       <mat-option
                         *ngFor="let p of extraParameters"
                         [value]="p"
@@ -90,7 +91,7 @@
               </div>
               <div class="value">
                 <div class="value__text">
-                    <input type="text" [(ngModel)]="item.numericValue" name="numericValue">
+                    <input type="number" [(ngModel)]="item.numericValue" name="numericValue">
                 </div>
               </div>
             </div>
