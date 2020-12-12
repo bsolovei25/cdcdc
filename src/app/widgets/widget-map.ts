@@ -137,6 +137,7 @@ export const WIDGETS = {
     'kpe-plan-readiness-trend': WidgetContainerComponent,
     'kpe-total-reserve': WidgetContainerComponent,
     'cvtr-izomalk': WidgetContainerComponent,
+    'sou-energetic': WidgetContainerComponent,
 };
 
 export const WIDGETS_LAZY = {
@@ -1352,7 +1353,19 @@ export const WIDGETS_LAZY = {
         itemCols: 13,
         itemRows: 29,
         minItemCols: 13,
-        minItemRows: 29,
+        minItemRows: 20,
+        preview: 'default',
+    },
+
+    'sou-energetic': {
+        import: async () => {
+            return await import('src/app/widgets/SOU/sou-energetic/sou-energetic.module');
+        },
+        module: 'SouEnergeticModule',
+        itemCols: 13,
+        itemRows: 5,
+        minItemCols: 13,
+        minItemRows: 5,
         preview: 'default',
     },
 

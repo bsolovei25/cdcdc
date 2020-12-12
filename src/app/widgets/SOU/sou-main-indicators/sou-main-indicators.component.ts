@@ -5,89 +5,90 @@ import { WidgetService } from 'src/app/dashboard/services/widget.service';
 import * as d3 from 'd3';
 
 @Component({
-  selector: 'evj-sou-main-indicators',
-  templateUrl: './sou-main-indicators.component.html',
-  styleUrls: ['./sou-main-indicators.component.scss']
+    selector: 'evj-sou-main-indicators',
+    templateUrl: './sou-main-indicators.component.html',
+    styleUrls: ['./sou-main-indicators.component.scss'],
 })
 export class SouMainIndicatorsComponent extends WidgetPlatform<unknown> implements OnInit {
-  menu: string[] = [
-    'Месяц',
-    'Вклад'
-  ];
-  choosenItem: number = 0;
+    menu: string[] = ['Месяц', 'Вклад'];
+    choosenItem: number = 0;
 
-  @ViewChild('chart') chart: ElementRef;
+    @ViewChild('chart') chart: ElementRef;
 
-  public svg: any;
+    public svg: any;
 
-  @AsyncRender
-  drawSvg(): void {
-    const innerR = 50;
-    const outerR = 42;
-
-    if (this.svg) {
-      this.svg.remove();
+    constructor(
+        protected widgetService: WidgetService,
+        @Inject('isMock') public isMock: boolean,
+        @Inject('widgetId') public id: string,
+        @Inject('uniqId') public uniqId: string
+    ) {
+        super(widgetService, isMock, id, uniqId);
     }
 
-    this.svg = d3.select(this.chart.nativeElement)
-      .append('svg')
-      .attr('width', '100px')
-      .attr('height', '100px');
+    @AsyncRender
+    drawSvg(): void {
+        const innerR = 50;
+        const outerR = 42;
 
-    const arcBg = d3.arc()
-      .innerRadius(innerR)
-      .outerRadius(outerR)
-      .startAngle(0)
-      .endAngle(2 * Math.PI);
+        if (this.svg) {
+            this.svg.remove();
+        }
 
-    const arc = d3.arc()
-      .innerRadius(innerR - 2)
-      .outerRadius(outerR + 2)
-      .startAngle(2 * Math.PI)
-      .endAngle(1.6 * Math.PI + 4 * Math.PI / 180);
+        this.svg = d3
+            .select(this.chart.nativeElement)
+            .append('svg')
+            .attr('width', '100px')
+            .attr('height', '100px');
 
-    const mainPie = d3.arc()
-      .innerRadius(innerR - 2)
-      .outerRadius(outerR + 2)
-      .startAngle(4 * Math.PI / 180)
-      .endAngle(1.6 * Math.PI);
+        const arcBg = d3
+            .arc()
+            .innerRadius(innerR)
+            .outerRadius(outerR)
+            .startAngle(0)
+            .endAngle(2 * Math.PI);
 
+        const arc = d3
+            .arc()
+            .innerRadius(innerR - 2)
+            .outerRadius(outerR + 2)
+            .startAngle(2 * Math.PI)
+            .endAngle(1.6 * Math.PI + (4 * Math.PI) / 180);
 
-    const g: any = this.svg.append('g')
-      .attr('width', '100px')
-      .attr('height', '100px')
-      .style('transform', 'translate(50px, 50px)');
+        const mainPie = d3
+            .arc()
+            .innerRadius(innerR - 2)
+            .outerRadius(outerR + 2)
+            .startAngle((4 * Math.PI) / 180)
+            .endAngle(1.6 * Math.PI);
 
-    g.append('path')
-      .attr('d', arcBg)
-      .style('fill', 'var(--sou-mvp-color-bg-title)');
+        const g: any = this.svg
+            .append('g')
+            .attr('width', '100px')
+            .attr('height', '100px')
+            .style('transform', 'translate(50px, 50px)');
 
-    g.append('path')
-      .attr('d', mainPie)
-      .style('fill', 'var(--sou-mvp-color-white)');
+        g.append('path')
+            .attr('d', arcBg)
+            .style('fill', 'var(--sou-mvp-color-bg-title)');
 
-    g.append('path')
-      .attr('d', arc)
-      .style('fill', 'var(--sou-mvp-color-warning)');
-  }
+        g.append('path')
+            .attr('d', mainPie)
+            .style('fill', 'var(--sou-mvp-color-white)');
 
-  constructor(
-    protected widgetService: WidgetService,
-    @Inject('isMock') public isMock: boolean,
-    @Inject('widgetId') public id: string,
-    @Inject('uniqId') public uniqId: string
-  ) {
-    super(widgetService, isMock, id, uniqId);
-  }
+        g.append('path')
+            .attr('d', arc)
+            .style('fill', 'var(--sou-mvp-color-warning)');
+    }
 
-  public ngOnInit(): void {
-    super.widgetInit();
-    this.drawSvg();
-  }
+    public ngOnInit(): void {
+        super.widgetInit();
+        this.drawSvg();
+    }
 
-  public changeMenuItem(i: number): void {
-    this.choosenItem = i;
-  }
+    public changeMenuItem(i: number): void {
+        this.choosenItem = i;
+    }
 
-  protected dataHandler(ref: any): void {}
+    protected dataHandler(ref: any): void {}
 }
