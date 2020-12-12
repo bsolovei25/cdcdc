@@ -29,8 +29,7 @@
                 <mat-form-field appearance="none">
                   <mat-select
                     (selectionChange)="getParameterId($event)"
-                    [(ngModel)]="notificationParametersData.selectedParameter.name"
-                    [value]="kpeWorkspaceService.selectParameter$ | async">
+                    [(value)]="notificationParametersData.selectedParameter">
                     <mat-option
                       *ngFor="let p of allParameters"
                       [value]="p"
@@ -70,14 +69,14 @@
               </evj-rect-button>
             </div>
           </div>
-          <ng-container *ngFor="let item of notificationParametersData.dependentParameters">
+          <ng-container *ngFor="let item23 of notificationParametersData.dependentParameters; idx as index">
             <div class="container__body__parameters">
               <div class="dropdown">
                 <div class="event-mat-select">
                   <mat-form-field appearance="none">
                     <mat-select
-                      [(ngModel)]="item.name"
-                      [value]="kpeWorkspaceService.showSelectParameters$ | async">
+                      [value]="item23"
+                    >
                       <mat-option
                         *ngFor="let p of extraParameters"
                         [value]="p"
@@ -90,7 +89,7 @@
               </div>
               <div class="value">
                 <div class="value__text">
-                    <input type="text" [(ngModel)]="item.numericValue" name="numericValue">
+                  <input type="text" [(ngModel)]="item23.numericValue" name="numericValue">
                 </div>
               </div>
             </div>

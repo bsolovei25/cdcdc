@@ -7,17 +7,15 @@ export interface IKpeAllDependentParameters {
     name: string;
     unit: string;
     parentId: string;
-}
-export interface IKpeDependentParameter {
-    name: string;
     dependentParameterId: number;
-    numericValue: number;
+    numericValue?: number;
     createdAt?: Date;
     createdBy?: number;
 }
+
 export interface IKpeNotification {
     selectedParameter: IKpeWorkspaceParameter;
-    dependentParameters: IKpeDependentParameter[];
+    dependentParameters: IKpeAllDependentParameters[];
     createdAt: Date;
     createdBy: number;
 }
