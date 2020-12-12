@@ -182,49 +182,67 @@
 
   <div class="footer">
     <div class="footer__item">
-      <svg-icon
-        src="assets/icons/widgets/SOU/sou-mvp-mnemonic-scheme/factoryIn.svg"
-        [ngStyle]="{ 'width.px':16, 'height.px':17 }"
-      ></svg-icon>
-      <span class="title">Сумма входа, тн</span>
-      <div class="information">
-        Накопленное:&nbsp;<span class="information__main">{{mainData?.sumInByDay}}</span>
-        За час:&nbsp;<span class="information__sub">{{mainData?.sumInByHour}}</span>
+      <div class="row-container">
+        <svg-icon
+          src="assets/icons/widgets/SOU/sou-mvp-mnemonic-scheme/factoryIn.svg"
+          [ngStyle]="{ 'width.px':16, 'height.px':17 }"
+        ></svg-icon>
+        <span class="title">Сумма входа, тн</span>
+      </div>
+      <div class="row-container">
+        <div class="information">
+          Накопленное:&nbsp;<span class="information__main">{{mainData?.sumInByDay}}</span>
+          За час:&nbsp;<span class="information__sub">{{mainData?.sumInByHour}}</span>
+        </div>
       </div>
     </div>
     <div class="footer__item">
-      <svg-icon
-        src="assets/icons/widgets/SOU/sou-mvp-mnemonic-scheme/factoryOut.svg"
-        [ngStyle]="{ 'width.px':16, 'height.px':11 }"
-      ></svg-icon>
-      <span class="title">Сумма выхода, тн</span>
-      <div class="information">
-        Накопленное:&nbsp;<span class="information__main">{{mainData?.sumOutByDay}}</span>
-        За час:&nbsp;<span class="information__sub">{{mainData?.sumOutByHour}}</span>
+      <div class="row-container">
+        <svg-icon
+          src="assets/icons/widgets/SOU/sou-mvp-mnemonic-scheme/factoryOut.svg"
+          [ngStyle]="{ 'width.px':16, 'height.px':11 }"
+        ></svg-icon>
+        <span class="title">Сумма выхода, тн</span>
       </div>
-    </div>
-    <div class="footer__item delta">
-      <svg-icon
-        src="assets/icons/widgets/SOU/sou-mvp-mnemonic-scheme/delta.svg"
-        [ngStyle]="{ 'width.px':14, 'height.px':15 }"
-      ></svg-icon>
-      <span class="title">Дельта</span>
-      <div class="information">
-        <span class="information__main"
-              [style.color]="mainData?.lampOn ?'var(--sou-mvp-color-warning)':'var(--sou-mvp-color-text-diagram-main)'"
-        >{{mainData?.delta}} тн</span>
-        <span class="information__sub">{{mainData?.deltaByPersent}}%</span>
+      <div class="row-container">
+        <div class="information">
+          Накопленное:&nbsp;<span class="information__main">{{mainData?.sumOutByDay}}</span>
+          За час:&nbsp;<span class="information__sub">{{mainData?.sumOutByHour}}</span>
+        </div>
       </div>
     </div>
     <div class="footer__item">
-      <svg-icon
+      <div class="row-container">
+        <svg-icon
+          src="assets/icons/widgets/SOU/sou-mvp-mnemonic-scheme/delta.svg"
+          [ngStyle]="{ 'width.px':14, 'height.px':15 }"
+        ></svg-icon>
+        <span class="title">Дельта</span>
+      </div>
+      <div class="row-container">
+        <div class="information">
+          Накопленное:&nbsp;<span class="information__sub">{{mainData?.delta}}т</span>&nbsp;|&nbsp;<span class="information__main">{{mainData?.deltaByPersent}}%</span>
+          За час:&nbsp;<span class="information__sub">{{mainData?.deltaHour}}т</span>&nbsp;|&nbsp;<span class="information__main">{{mainData?.deltaHourByPercent}}%</span>
+        </div>
+<!--        <div class="information">-->
+<!--        <span class="information__main"-->
+<!--              [style.color]="mainData?.lampOn ?'var(&#45;&#45;sou-mvp-color-warning)':'var(&#45;&#45;sou-mvp-color-text-diagram-main)'"-->
+<!--        >{{mainData?.delta}} тн</span>-->
+<!--          <span class="information__sub">{{mainData?.deltaByPersent}}%</span>-->
+<!--        </div>-->
+      </div>
+    </div>
+    <div class="footer__item">
+      <div class="row-container"><svg-icon
         src="assets/icons/widgets/SOU/sou-mvp-mnemonic-scheme/balance.svg"
         [ngStyle]="{ 'width.px':16, 'height.px':17 }"
       ></svg-icon>
-      <span class="title">Допустимый дебаланс</span>
-      <div class="information">
-        <span class="information__main">{{mainData?.balanceAllow}} тн</span>
-        <span class="information__sub">{{mainData?.balanceAllowByPercent}}%</span>
+        <span class="title">Допустимый дебаланс</span></div>
+      <div class="row-container">
+        <div class="information">
+          Накопленное:&nbsp;<span class="information__sub">{{mainData?.balanceAllow}}т</span>&nbsp;|&nbsp;<span class="information__main">{{mainData?.balanceAllowByPercent}}%</span>
+          За час:&nbsp;<span class="information__sub">{{mainData?.balanceAllowHour}}т</span>&nbsp;|&nbsp;<span class="information__main">{{mainData?.balanceAllowHourByPercent}}%</span>
+        </div>
       </div>
     </div>
   </div>
