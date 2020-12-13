@@ -2,11 +2,8 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { WidgetPlatform } from '../../../dashboard/models/@PLATFORM/widget-platform';
 import { WidgetService } from '../../../dashboard/services/widget.service';
-import { animate, state, style, transition, trigger } from '@angular/animations';
-import {
-    astueOnpzFactoryAnalysisBarMapper,
-    minMaxFinder,
-} from './functions/astue-onpz-factory-analysis.function';
+import { animate, style, transition, trigger } from '@angular/animations';
+import { astueOnpzFactoryAnalysisBarMapper } from './functions/astue-onpz-factory-analysis.function';
 import {
     IAstueOnpzFactoryAnalysis,
     IAstueOnpzFactoryAnalysisBarResponse,
@@ -97,7 +94,6 @@ export class AstueOnpzFactoryAnalysisComponent extends WidgetPlatform implements
         if (!ref.sections) {
             return;
         }
-        const res = astueOnpzFactoryAnalysisBarMapper(ref);
-        this.barData = res;
+        this.barData = astueOnpzFactoryAnalysisBarMapper(ref);
     }
 }
