@@ -3,7 +3,14 @@ import { BehaviorSubject } from 'rxjs';
 import { WidgetPlatform } from '../../../dashboard/models/@PLATFORM/widget-platform';
 import { WidgetService } from '../../../dashboard/services/widget.service';
 import { animate, state, style, transition, trigger } from '@angular/animations';
-import { minMaxFinder } from './functions/astue-onpz-factory-analysis.function';
+import {
+    astueOnpzFactoryAnalysisBarMapper,
+    minMaxFinder,
+} from './functions/astue-onpz-factory-analysis.function';
+import {
+    IAstueOnpzFactoryAnalysis,
+    IAstueOnpzFactoryAnalysisBarResponse,
+} from '../../../dashboard/models/ASTUE-ONPZ/astue-onpz-factory-analysis.model';
 
 @Component({
     selector: 'evj-astue-onpz-factory-analysis',
@@ -55,6 +62,8 @@ export class AstueOnpzFactoryAnalysisComponent extends WidgetPlatform implements
         'chart'
     );
 
+    public barData: IAstueOnpzFactoryAnalysis = null;
+
     constructor(
         protected widgetService: WidgetService,
         @Inject('isMock') public isMock: boolean,
@@ -70,7 +79,7 @@ export class AstueOnpzFactoryAnalysisComponent extends WidgetPlatform implements
 
     protected dataConnect(): void {
         super.dataConnect();
-        this.setWsOptions({ manufactureName: 'Производство 1', unitName: 'АВТ-10' });
+        this.setWsOptions({ manufactureName: 'Производство №1', unitName: 'АВТ-10' });
     }
 
     public changePage(type: 'chart' | 'bar'): void {
@@ -80,12 +89,11 @@ export class AstueOnpzFactoryAnalysisComponent extends WidgetPlatform implements
         this.pageType$.next(type);
     }
 
-    protected dataHandler(ref: any): void {
+    protected dataHandler(ref: IAstueOnpzFactoryAnalysisBarResponse): void {
         if (!ref.sections) {
             return;
         }
-        console.log(ref.sections);
-        const res = minMaxFinder(ref.sections);
-        console.log(res);
+        const res = astueOnpzFactoryAnalysisBarMapper(ref);
+        this.barData = res;
     }
 }

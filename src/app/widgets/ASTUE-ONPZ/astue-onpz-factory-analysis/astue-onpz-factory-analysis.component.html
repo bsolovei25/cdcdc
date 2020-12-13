@@ -14,7 +14,7 @@
        (mousedown)="$event.stopPropagation()"
        (touchstart)="$event.stopPropagation()"
   >
-    <evj-astue-onpz-factor-analysis-page [@rightTrigger] class="factor-analysis"></evj-astue-onpz-factor-analysis-page>
+    <evj-astue-onpz-factor-analysis-page [@rightTrigger] [dataTemp]="barData" class="factor-analysis"></evj-astue-onpz-factor-analysis-page>
 <!--    <ng-container [ngSwitch]="pageType$ | async">-->
 <!--      <evj-astue-onpz-factor-analysis-page *ngSwitchCase="'bar'" [@rightTrigger] class="factor-analysis"></evj-astue-onpz-factor-analysis-page>-->
 <!--      <evj-astue-onpz-factory-analysis-chart-page *ngSwitchCase="'chart'" [@leftTrigger] class="factor-analysis"></evj-astue-onpz-factory-analysis-chart-page>-->

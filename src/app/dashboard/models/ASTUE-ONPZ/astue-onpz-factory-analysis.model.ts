@@ -23,6 +23,7 @@ export interface IAstueOnpzFactoryAnalysisBarResponseDiagram {
 export interface IAstueOnpzFactoryAnalysis {
     groups: IAstueOnpzFactoryAnalysisGroup[];
     legend: number[];
+    minmax: number[];
 }
 
 export interface IAstueOnpzFactoryAnalysisGroup {

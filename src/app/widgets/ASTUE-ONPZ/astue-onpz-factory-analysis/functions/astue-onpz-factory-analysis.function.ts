@@ -13,7 +13,10 @@ export function astueOnpzFactoryAnalysisBarMapper(
     const result = {
         legend: [],
         groups: [],
+        minmax: [],
     };
+    const trueMinValue = min - (max - min) * 0.1;
+    result.minmax = [trueMinValue, max];
     response.sections.forEach(x => {
         const values = [];
         values.push(x.mainDiagram.value);
@@ -22,8 +25,8 @@ export function astueOnpzFactoryAnalysisBarMapper(
             bars: [{
                 value: x.mainDiagram.value,
                 type: IAstueOnpzFactoryAnalysisBarType.Summary,
-                lowLevel: min,
-                highLevel: x.mainDiagram.value,
+                lowLevel: trueMinValue,
+                topLevel: x.mainDiagram.value,
             }],
         });
         x.groups.filter(fGroup => !!fGroup.diagrams).forEach((group) => {
@@ -34,10 +37,11 @@ export function astueOnpzFactoryAnalysisBarMapper(
                     const curValue = values[values.length - 1] + d.value;
                     values.push(curValue);
                     return {
+                        title: d.title,
                         value: d.value,
                         type: d.value > 0 ? IAstueOnpzFactoryAnalysisBarType.Normal : IAstueOnpzFactoryAnalysisBarType.Deviation,
                         lowLevel: d.value > 0 ? prevValue : curValue,
-                        highLevel: d.value > 0 ? curValue : prevValue,
+                        topLevel: d.value > 0 ? curValue : prevValue,
                     };
                 })
             });
@@ -50,11 +54,11 @@ export function minMaxFinder(sections: IAstueOnpzFactoryAnalysisBarResponseSecti
     let values: number[] = [];
     sections.forEach(s => {
         values.push(s.mainDiagram.value);
-        console.log(s?.groups.filter(x => !!x.diagrams));
         s?.groups.filter(x => !!x.diagrams).flatMap(f => f.diagrams).forEach((g, i) => {
             values.push(values[values.length - 1] + g.value);
         });
     });
     values = values.sort((a, b) => a - b);
+    console.log(values);
     return [values[0], values[values.length - 1]];
 }
