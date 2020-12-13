@@ -2,7 +2,7 @@
 <g id="&#208;&#162;&#208;&#159; &#208;&#145;&#208;&#181;&#208;&#189;&#208;&#183;&#208;&#184;&#208;&#189;&#208;&#190;&#208;&#178; - &#208;&#144;&#208;&#161;&#208;&#161;&#208;&#145; &#208;&#144;&#208;&#178;&#208;&#184;&#208;&#176;&#209;&#129;&#208;&#188;&#208;&#181;&#209;&#129;&#208;&#184;">
 <rect width="1510" height="907" fill="#1C1F2B"/>
 <g id="element-4_13">
-<rect id="rect" x="499" y="210" width="88" height="242" rx="5" fill="#272A38" stroke="#4B5169" stroke-width="2"/>
+<rect id="rect" x="499" y="210" width="88" height="242" rx="5" fill="#272A38" stroke="#272A38" stroke-width="2"/>
 <path id="rect_volume" d="M502 289H584V445C584 447.209 582.209 449 580 449H506C503.791 449 502 447.209 502 445V289Z" fill="#0089FF" fill-opacity="0.2"/>
 <line id="line_bottom" x1="498" y1="436.5" x2="588" y2="436.5" stroke="#4B5169" stroke-dasharray="2 2"/>
 <line id="line_top" x1="498" y1="224.5" x2="588" y2="224.5" stroke="#4B5169" stroke-dasharray="2 2"/>
@@ -16,7 +16,7 @@
 <circle id="point_5" cx="587.5" cy="307" r="3.5" fill="#1C1F2B" stroke="#272A38"/>
 </g>
 <g id="element-4_14">
-<rect id="rect_2" x="499" y="506" width="88" height="204" rx="5" fill="#272A38" stroke="#4B5169" stroke-width="2"/>
+<rect id="rect_2" x="499" y="506" width="88" height="204" rx="5" fill="#272A38" stroke="#272A38" stroke-width="2"/>
 <path id="rect_volume_2" d="M502 623H584V703C584 705.209 582.209 707 580 707H506C503.791 707 502 705.209 502 703V623Z" fill="#0089FF" fill-opacity="0.2"/>
 <line id="line_bottom_2" x1="498" y1="694.5" x2="588" y2="694.5" stroke="#4B5169" stroke-dasharray="2 2"/>
 <line id="line_top_2" x1="498" y1="520.5" x2="588" y2="520.5" stroke="#4B5169" stroke-dasharray="2 2"/>
@@ -395,7 +395,7 @@
 </g>
 </g>
 </g>
-<text id="text_27" fill="#606580" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="12" letter-spacing="0em"><tspan x="856" y="625.764">Fr92benz</tspan></text>
+<text id="text_27" fill="#606580" xml:space="preserve" style="white-space: pre" font-family="Tahoma" font-size="12" letter-spacing="0em"><tspan x="851" y="625.764">FRaviRET91</tspan></text>
 <circle id="point_30" cx="921" cy="622" r="3.5" fill="#1C1F2B" stroke="#272A38"/>
 </g>
 <path id="line_57" d="M591 307.5L603 307.5L603 306.5L591 306.5L591 307.5Z" fill="#272A38"/>

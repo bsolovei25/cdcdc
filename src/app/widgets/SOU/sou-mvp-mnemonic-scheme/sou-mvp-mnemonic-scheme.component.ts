@@ -49,12 +49,26 @@ export class SouMvpMnemonicSchemeComponent extends WidgetPlatform<unknown>
     sectionsData: (ISOUFlowOut | ISOUFlowIn | ISOUObjects)[] = []; // Массив всех элементов
     sectionsDataIzo: (ISOUFlowOut | ISOUFlowIn | ISOUObjects)[] = []; // Массив всех элементов Изомалка
 
-    factories: string[] = ['Производство 1', 'Производство 4'];
-    installations: string[] = ['АВТ-10', 'Изомалк-2'];
+    factories: string[] = ['Производство 1', 'Производство 4', 'Товарное производство'];
+    installations: string[][] = [
+        ['АВТ-10'],
+        ['Изомалк-2'],
+        [
+            'АССБ Авиасмеси',
+            'АССБ А-95',
+            'АССБ А-98',
+            'Насосная т.1163-1164 парк БГС',
+            'Насосная т.1163-1164 парк А-95',
+            'Насосная т.1163-1164 парк А-92',
+        ],
+    ];
+
+    twoSelection: string[] = [];
 
     set selectedInstallation(value: number) {
         this.mvpService.selectedInstallation$.next(value);
     }
+
     get selectedInstallation(): number {
         return this.mvpService.selectedInstallation$.getValue();
     }
@@ -74,10 +88,11 @@ export class SouMvpMnemonicSchemeComponent extends WidgetPlatform<unknown>
             },
         ],
         [],
+        [],
     ];
 
-    choosenSetting: number = 1;
-    choosenSection: number = 0;
+    chosenSetting: number = 1;
+    chosenSection: number = 0;
 
     constructor(
         public widgetService: WidgetService,
@@ -126,14 +141,13 @@ export class SouMvpMnemonicSchemeComponent extends WidgetPlatform<unknown>
                 this.sections[0][i].value = item.countFlowExceedingConfInterval;
             }
         });
-        console.log(ref.section);
     }
 
     changeSetting(i: number): void {
-        this.choosenSetting = i;
+        this.chosenSetting = i;
     }
 
     changeSection(i: number): void {
-        this.choosenSection = i;
+        this.chosenSection = i;
     }
 }

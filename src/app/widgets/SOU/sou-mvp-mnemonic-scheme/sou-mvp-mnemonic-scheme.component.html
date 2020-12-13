@@ -40,7 +40,8 @@
               class="dropdown__select"
               [value]="0"
             >
-              <mat-option [value]="0">{{installations[selectedInstallation]}}</mat-option>
+              <mat-option [value]="0"
+                          *ngFor="let install of installations[selectedInstallation]">{{install}}</mat-option>
             </mat-select>
           </div>
         </div>
@@ -49,7 +50,7 @@
           <div class="custom-border"></div>
           <div class="section-select__item"
                *ngFor="let section of sections[selectedInstallation]; let i = index"
-               [ngClass]="{active: i === choosenSection}"
+               [ngClass]="{active: i === chosenSection}"
                (click)="changeSection(i)"
           >
             <span class="title">{{section?.title}}</span>
@@ -80,7 +81,7 @@
           <div class="filter-btn__item"
                *ngFor="let setting of settings; let i = index"
                [ngClass]="{
-          active: i === choosenSetting
+          active: i === chosenSetting
         }"
                (click)="changeSetting(i)"
           >{{setting}}</div>
@@ -93,26 +94,25 @@
        (mousedown)="$event.stopPropagation()"
        (touchstart)="$event.stopPropagation()"
   >
-    <evj-sou-schema></evj-sou-schema>
     <div class="main-content-container">
       <evj-sou-mvp-mnemonic-scheme-ab-left
-        *ngIf="selectedInstallation === 0 && choosenSection === 0"
+        *ngIf="selectedInstallation === 0 && chosenSection === 0"
         [sections]="sectionsData"
-        [choosenSetting]="choosenSetting"
+        [choosenSetting]="chosenSetting"
         [flowIn]="flowInAb"
       ></evj-sou-mvp-mnemonic-scheme-ab-left>
 
       <evj-sou-mvp-mnemonic-scheme-vb-left
-        *ngIf="selectedInstallation === 0 && choosenSection === 1"
+        *ngIf="selectedInstallation === 0 && chosenSection === 1"
         [sections]="sectionsData"
-        [choosenSetting]="choosenSetting"
+        [choosenSetting]="chosenSetting"
         [flowIn]="flowInVb"
       ></evj-sou-mvp-mnemonic-scheme-vb-left>
 
       <evj-sou-mvp-mnemonic-scheme-izomalk-left
         *ngIf="selectedInstallation === 1"
         [sections]="sectionsDataIzo"
-        [choosenSetting]="choosenSetting"
+        [choosenSetting]="chosenSetting"
       ></evj-sou-mvp-mnemonic-scheme-izomalk-left>
 
       <div class="streams-groups">
@@ -120,29 +120,31 @@
              (mousedown)="$event.stopPropagation()"
              (touchstart)="$event.stopPropagation()"
         >
-          <div class="main-collector">
+          <div class="main-collector" *ngIf="selectedInstallation <= 1">
             <div class="main-collector-title">
-              <span *ngIf="choosenSection !== 2">{{installations[selectedInstallation]}}<br></span>
-              <span>{{sections[selectedInstallation][choosenSection]?.title}}</span>
+              <span *ngIf="chosenSection !== 2">{{ installations[selectedInstallation] }}<br></span>
+              <span *ngIf="chosenSection !== 0"> {{ sections[selectedInstallation][chosenSection]?.title }}</span>
             </div>
           </div>
           <evj-sou-mvp-mnemonic-scheme-section
-            *ngIf="selectedInstallation === 0 && choosenSection === 0"
-            [choosenSetting]="choosenSetting"
+            *ngIf="selectedInstallation === 0 && chosenSection === 0"
+            [choosenSetting]="chosenSetting"
             [sections]="sectionsData"
           ></evj-sou-mvp-mnemonic-scheme-section>
 
           <evj-sou-mvp-mnemonic-scheme-section-vb
-            *ngIf="selectedInstallation === 0 && choosenSection === 1"
-            [choosenSetting]="choosenSetting"
+            *ngIf="selectedInstallation === 0 && chosenSection === 1"
+            [choosenSetting]="chosenSetting"
             [sections]="sectionsData"
           ></evj-sou-mvp-mnemonic-scheme-section-vb>
 
           <evj-sou-mvp-mnemonic-scheme-section-izomalk
             *ngIf="selectedInstallation === 1"
-            [choosenSetting]="choosenSetting"
+            [choosenSetting]="chosenSetting"
             [sections]="sectionsDataIzo"
           ></evj-sou-mvp-mnemonic-scheme-section-izomalk>
+
+          <evj-sou-schema *ngIf="selectedInstallation === 2 && chosenSection === 0"></evj-sou-schema>
         </div>
       </div>
     </div>
@@ -168,7 +170,7 @@
         </div>
         <div class="information">
           Уровень доверия:&nbsp;<span>{{mvpService.popupData?.tolerance}}</span>
-          Измеренное:&nbsp;<span [ngSwitch]="choosenSetting">
+          Измеренное:&nbsp;<span [ngSwitch]="chosenSetting">
             <ng-template ngSwitchCase="1">{{mvpService.popupData?.valueByHour | number:'0.0-0'}}</ng-template>
             <ng-template ngSwitchCase="2">{{mvpService.popupData?.valueTank | number:'0.0-0'}}</ng-template>
             <ng-template ngSwitchDefault>{{mvpService.popupData?.valueMoment | number:'0.0-0'}}</ng-template>
@@ -222,27 +224,32 @@
       </div>
       <div class="row-container">
         <div class="information">
-          Накопленное:&nbsp;<span class="information__sub">{{mainData?.delta}}т</span>&nbsp;|&nbsp;<span class="information__main">{{mainData?.deltaByPersent}}%</span>
-          За час:&nbsp;<span class="information__sub">{{mainData?.deltaHour}}т</span>&nbsp;|&nbsp;<span class="information__main">{{mainData?.deltaHourByPercent}}%</span>
+          Накопленное:&nbsp;<span class="information__sub">{{mainData?.delta}}т</span>&nbsp;|&nbsp;<span
+          class="information__main">{{mainData?.deltaByPersent}}%</span>
+          За час:&nbsp;<span class="information__sub">{{mainData?.deltaHour}}т</span>&nbsp;|&nbsp;<span
+          class="information__main">{{mainData?.deltaHourByPercent}}%</span>
         </div>
-<!--        <div class="information">-->
-<!--        <span class="information__main"-->
-<!--              [style.color]="mainData?.lampOn ?'var(&#45;&#45;sou-mvp-color-warning)':'var(&#45;&#45;sou-mvp-color-text-diagram-main)'"-->
-<!--        >{{mainData?.delta}} тн</span>-->
-<!--          <span class="information__sub">{{mainData?.deltaByPersent}}%</span>-->
-<!--        </div>-->
+        <!--        <div class="information">-->
+        <!--        <span class="information__main"-->
+        <!--              [style.color]="mainData?.lampOn ?'var(&#45;&#45;sou-mvp-color-warning)':'var(&#45;&#45;sou-mvp-color-text-diagram-main)'"-->
+        <!--        >{{mainData?.delta}} тн</span>-->
+        <!--          <span class="information__sub">{{mainData?.deltaByPersent}}%</span>-->
+        <!--        </div>-->
       </div>
     </div>
     <div class="footer__item">
-      <div class="row-container"><svg-icon
-        src="assets/icons/widgets/SOU/sou-mvp-mnemonic-scheme/balance.svg"
-        [ngStyle]="{ 'width.px':16, 'height.px':17 }"
-      ></svg-icon>
+      <div class="row-container">
+        <svg-icon
+          src="assets/icons/widgets/SOU/sou-mvp-mnemonic-scheme/balance.svg"
+          [ngStyle]="{ 'width.px':16, 'height.px':17 }"
+        ></svg-icon>
         <span class="title">Допустимый дебаланс</span></div>
       <div class="row-container">
         <div class="information">
-          Накопленное:&nbsp;<span class="information__sub">{{mainData?.balanceAllow}}т</span>&nbsp;|&nbsp;<span class="information__main">{{mainData?.balanceAllowByPercent}}%</span>
-          За час:&nbsp;<span class="information__sub">{{mainData?.balanceAllowHour}}т</span>&nbsp;|&nbsp;<span class="information__main">{{mainData?.balanceAllowHourByPercent}}%</span>
+          Накопленное:&nbsp;<span class="information__sub">{{mainData?.balanceAllow}}т</span>&nbsp;|&nbsp;<span
+          class="information__main">{{mainData?.balanceAllowByPercent}}%</span>
+          За час:&nbsp;<span class="information__sub">{{mainData?.balanceAllowHour}}т</span>&nbsp;|&nbsp;<span
+          class="information__main">{{mainData?.balanceAllowHourByPercent}}%</span>
         </div>
       </div>
     </div>

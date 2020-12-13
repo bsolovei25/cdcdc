@@ -1,4 +1,11 @@
-import { AfterViewChecked, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import {
+    AfterViewChecked,
+    Component,
+    ElementRef,
+    OnChanges,
+    OnInit,
+    ViewChild,
+} from '@angular/core';
 import { SouMvpMnemonicSchemeService } from '../../../../../dashboard/services/widgets/SOU/sou-mvp-mnemonic-scheme.service';
 import { log } from 'util';
 
@@ -33,7 +40,7 @@ interface IElementFull {
     templateUrl: './sou-schema.component.html',
     styleUrls: ['./sou-schema.component.scss'],
 })
-export class SouSchemaComponent implements OnInit, AfterViewChecked {
+export class SouSchemaComponent implements OnInit, OnChanges, AfterViewChecked {
     elementsNode: Element[] = []; // все элементы
     dataAttribute: Map<number, Element> = new Map(); // id элемента, элемент
     flag: boolean = true;
@@ -65,6 +72,14 @@ export class SouSchemaComponent implements OnInit, AfterViewChecked {
             active: true,
         },
         {
+            id: 29,
+            text: 'FR-92',
+            value: 10,
+            percent: 20,
+            deviation: false,
+            active: true,
+        },
+        {
             id: 10,
             text: 'FR-92',
             value: 10,
@@ -88,6 +103,16 @@ export class SouSchemaComponent implements OnInit, AfterViewChecked {
 
     ngOnInit(): void {
         this.loadMetaFile();
+    }
+
+    ngOnChanges(): void {
+        console.log('aaaaaa');
+        this.loadMetaFile();
+        if (document.querySelector(`#element-1_1`) && this.flag) {
+            this.flag = false;
+            this.loadSchema();
+            this.loadData();
+        }
     }
 
     ngAfterViewChecked(): void {
@@ -244,7 +269,19 @@ export class SouSchemaComponent implements OnInit, AfterViewChecked {
     searchElementsInElement(element: Element, elementFull: IElementFull): IElementFull {
         const name = element.getAttribute('id');
         if (name.includes('rect')) {
-            elementFull.rects.push(element);
+            if (element.children.length) {
+                let path: Element;
+                Array.from(element.children).forEach((value) => {
+                    if (value.tagName === 'path') {
+                        path = path ?? value;
+                    }
+                });
+                if (path) {
+                    elementFull.rects.push(path);
+                }
+            } else {
+                elementFull.rects.push(element);
+            }
         }
         if (name.includes('point')) {
             elementFull.points.push(element);
@@ -333,7 +370,6 @@ export class SouSchemaComponent implements OnInit, AfterViewChecked {
             }
             i++;
         }
-        console.log(this.dataAttribute);
         return localElements;
     }
 }
