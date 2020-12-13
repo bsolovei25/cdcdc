@@ -24,6 +24,7 @@ export abstract class ChannelPlatform<T, O = null> implements OnInit, OnDestroy 
     ngOnDestroy(): void {
         this.subscriptions.forEach((s) => s.unsubscribe());
         this.subscriptions = [];
+        this.disconnectWs();
     }
 
     protected appendWsOptions(options: O): void {
