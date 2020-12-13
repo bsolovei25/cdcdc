@@ -37,18 +37,18 @@ export class EvjEventsWorkspaceExtraOptionsComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        // this.getParametersByNotification();
-        // this.getParameters();
-        // this.kpeWorkspaceService.showSelectParameters$.subscribe((res) => {
-        //     if (res) {
-        //         this.extraParameters = res;
-        //     }
-        // });
-        // this.kpeWorkspaceService.selectParameter$.subscribe((res) => {
-        //     if (res) {
-        //         this.getExtraParameters(res.id);
-        //     }
-        // });
+        this.getParametersByNotification();
+        this.getParameters();
+        this.kpeWorkspaceService.showSelectParameters$.subscribe((res) => {
+            if (res) {
+                this.extraParameters = res;
+            }
+        });
+        this.kpeWorkspaceService.selectParameter$.subscribe((res) => {
+            if (res) {
+                this.getExtraParameters(res.id);
+            }
+        });
     }
 
     private async getParameters(): Promise<void> {
