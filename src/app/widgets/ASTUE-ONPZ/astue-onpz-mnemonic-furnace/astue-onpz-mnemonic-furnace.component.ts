@@ -29,7 +29,6 @@ import { WidgetPlatform } from '../../../dashboard/models/@PLATFORM/widget-platf
 import { WidgetService } from '../../../dashboard/services/widget.service';
 import { FormControl } from '@angular/forms';
 import { filter, map, takeUntil } from 'rxjs/operators';
-import { SOURCE_DATA } from './astue-onpz-mnemonic-furnace.mock';
 import { AstueOnpzMnemonicFurnaceService } from './astue-onpz-mnemonic-furnace.service';
 
 interface IAstueOnpzMnemonicFurnacePopup extends IAstueOnpzMnemonicFurnaceStreamStats {
@@ -113,6 +112,12 @@ export class AstueOnpzMnemonicFurnaceComponent extends WidgetPlatform implements
             this.setData();
         });
 
+        this.mnemonicFurnaceService.furnaceOptions$ = combineLatest([
+            this.selectManufacture.valueChanges,
+            this.selectUnit.valueChanges,
+            this.selectOven.valueChanges,
+        ]).pipe(map((x) => ({ manufactureId: x[0], unitId: x[1], ovenId: x[2] })));
+
         this.mnemonicFurnaceService.selectedItem$
             .pipe(takeUntil(this.onDestroy))
             .subscribe((ref) => {
@@ -147,12 +152,14 @@ export class AstueOnpzMnemonicFurnaceComponent extends WidgetPlatform implements
         this.changeDetector.detectChanges();
     }
 
-    public manufacturesSelects$: Observable<string[]> = this.selectReferences.pipe(
+    public manufacturesSelects$: Observable<
+        { id: string; title: string }[]
+    > = this.selectReferences.pipe(
         filter((x) => x != null),
-        map((x) => x.manufactures?.map((m) => m.title) ?? [])
+        map((x) => x.manufactures?.map((m) => ({ id: m.id, title: m.title })) ?? [])
     );
 
-    public unitsSelects$: Observable<string[]> = combineLatest([
+    public unitsSelects$: Observable<{ id: string; title: string }[]> = combineLatest([
         this.selectReferences.asObservable(),
         this.selectManufacture.valueChanges,
     ]).pipe(
@@ -162,12 +169,14 @@ export class AstueOnpzMnemonicFurnaceComponent extends WidgetPlatform implements
                 return [];
             }
             return (
-                x[0]?.manufactures.find((m) => m?.title === x[1])?.units?.map((u) => u?.title) ?? []
+                x[0]?.manufactures
+                    .find((m) => m?.id === x[1])
+                    ?.units?.map((u) => ({ id: u.id, title: u.title })) ?? []
             );
         })
     );
 
-    public ovensSelects$: Observable<string[]> = combineLatest([
+    public ovensSelects$: Observable<{ id: string; title: string }[]> = combineLatest([
         this.selectReferences.asObservable(),
         this.selectManufacture.valueChanges,
         this.selectUnit.valueChanges,
@@ -179,9 +188,9 @@ export class AstueOnpzMnemonicFurnaceComponent extends WidgetPlatform implements
             }
             return (
                 x[0].manufactures
-                    .find((m) => m.title === x[1])
-                    .units.find((u) => u.title === x[2])
-                    ?.ovens?.map((o) => o?.title) ?? []
+                    .find((m) => m.id === x[1])
+                    .units.find((u) => u.id === x[2])
+                    ?.ovens?.map((o) => ({ id: o.id, title: o.title })) ?? []
             );
         })
     );
@@ -199,9 +208,9 @@ export class AstueOnpzMnemonicFurnaceComponent extends WidgetPlatform implements
             return;
         }
         const currentData = this.responseData.manufactures
-            .find((x) => x.description === this.selectManufacture.value)
-            .units.find((x) => x.description === this.selectUnit.value)
-            .ovens.find((x) => x.name === this.selectOven.value);
+            .find((x) => x.id === this.selectManufacture.value)
+            .units.find((x) => x.id === this.selectUnit.value)
+            .ovens.find((x) => x.id === this.selectOven.value);
         this.data.next(this.ovenMapping(currentData));
         this.resize();
     }
@@ -210,21 +219,30 @@ export class AstueOnpzMnemonicFurnaceComponent extends WidgetPlatform implements
         manufactures: IAstueOnpzMnemonicFurnaceResponse[];
     }): IAstueOnpzMnemonicFurnaceSelectReferences => {
         return {
-            manufactures: ref.manufactures.map((m) => {
-                return {
-                    title: m.description,
-                    units: m.units.map((u) => {
-                        return {
-                            title: u.description,
-                            ovens: u.ovens.map((o) => {
+            manufactures: ref.manufactures
+                .filter((m) => !!m.id)
+                .map((m) => {
+                    return {
+                        id: m.id,
+                        title: m.description,
+                        units: m.units
+                            .filter((u) => !!u.id)
+                            .map((u) => {
                                 return {
-                                    title: o.name,
+                                    id: u.id,
+                                    title: u.description,
+                                    ovens: u.ovens
+                                        .filter((o) => !!o.id)
+                                        .map((o) => {
+                                            return {
+                                                id: o.id,
+                                                title: o.name,
+                                            };
+                                        }),
                                 };
                             }),
-                        };
-                    }),
-                };
-            }),
+                    };
+                }),
         };
     };
 

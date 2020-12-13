@@ -4,6 +4,8 @@ import { WidgetService } from '../../../dashboard/services/widget.service';
 import { IColumnsToDisplay } from '../../APS/aps-recipe-diagram/aps-recipe-diagram.component';
 import { SelectionModel } from '@angular/cdk/collections';
 import { IAstueOnpzTableIndicatorsItem } from '../../../dashboard/models/ASTUE-ONPZ/astue-onpz-table-indicators.model';
+import { AstueOnpzMnemonicFurnaceService } from '../astue-onpz-mnemonic-furnace/astue-onpz-mnemonic-furnace.service';
+import { IAstueOnpzMnemonicFurnaceOptions } from '../../../dashboard/models/ASTUE-ONPZ/astue-onpz-mnemonic-furnace.model';
 
 @Component({
     selector: 'evj-astue-onpz-table-indicators',
@@ -24,6 +26,7 @@ export class AstueOnpzTableIndicatorsComponent extends WidgetPlatform<unknown>
     public selectedRowProduct: string;
 
     constructor(
+        private mnemonicFurnaceService: AstueOnpzMnemonicFurnaceService,
         public widgetService: WidgetService,
         @Inject('isMock') public isMock: boolean,
         @Inject('widgetId') public id: string,
@@ -34,6 +37,19 @@ export class AstueOnpzTableIndicatorsComponent extends WidgetPlatform<unknown>
 
     ngOnInit(): void {
         super.widgetInit();
+    }
+
+    protected dataConnect(): void {
+        super.dataConnect();
+        this.subscriptions.push(
+            this.mnemonicFurnaceService.furnaceOptions$.subscribe((x) => {
+                if (!x.ovenId) {
+                    this.data = [];
+                    return;
+                }
+                this.setWsOptions(x);
+            })
+        );
     }
 
     protected dataHandler(ref: { groups: IAstueOnpzTableIndicatorsItem[] }): void {
@@ -56,5 +72,9 @@ export class AstueOnpzTableIndicatorsComponent extends WidgetPlatform<unknown>
         } else {
             this.selectedRowProduct = null;
         }
+    }
+
+    private setWsOptions(options: IAstueOnpzMnemonicFurnaceOptions): void {
+        this.widgetService.setChannelLiveDataFromWsOptions(this.id, options);
     }
 }
