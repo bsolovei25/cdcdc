@@ -3,7 +3,7 @@
   </div>
   <div class="icon">
 <!--    <svg-icon src="assets/icons/widgets/SOU/sou-energetic/h2o.svg"></svg-icon>-->
-    <object *ngIf="iconUrl" [data]="iconUrl | safeUrl"></object>
+    <img *ngIf="iconUrl" [src]="iconUrl | safeUrl"/>
   </div>
 </div>
 

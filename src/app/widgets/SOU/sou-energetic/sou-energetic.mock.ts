@@ -10,7 +10,7 @@ export const DATA_SOURCE: ISouEnergetic = {
         },
         {
             title: 'Тепло-гия',
-            type: 'energy-heat',
+            type: 'energyHeat',
             value: 180,
         },
         {

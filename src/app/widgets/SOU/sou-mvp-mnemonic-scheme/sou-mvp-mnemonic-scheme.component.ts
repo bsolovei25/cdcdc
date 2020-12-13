@@ -7,7 +7,7 @@ import {
     ISOUObjects,
     ISOUOperationalAccountingSystem,
 } from '../../../dashboard/models/SOU/sou-operational-accounting-system';
-import { SouMvpMnemonicSchemeService } from '../../../dashboard/services/widgets/SOU/sou-mvp-mnemonic-scheme';
+import { SouMvpMnemonicSchemeService } from '../../../dashboard/services/widgets/SOU/sou-mvp-mnemonic-scheme.service';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { BehaviorSubject } from 'rxjs';
 
@@ -52,12 +52,11 @@ export class SouMvpMnemonicSchemeComponent extends WidgetPlatform<unknown>
     factories: string[] = ['Производство 1', 'Производство 4'];
     installations: string[] = ['АВТ-10', 'Изомалк-2'];
 
-    selectedInstallation$: BehaviorSubject<number> = new BehaviorSubject<number>(0);
     set selectedInstallation(value: number) {
-        this.selectedInstallation$.next(value);
+        this.mvpService.selectedInstallation$.next(value);
     }
     get selectedInstallation(): number {
-        return this.selectedInstallation$.getValue();
+        return this.mvpService.selectedInstallation$.getValue();
     }
 
     sections: {
@@ -94,7 +93,7 @@ export class SouMvpMnemonicSchemeComponent extends WidgetPlatform<unknown>
     ngOnInit(): void {
         super.widgetInit();
         this.subscriptions.push(
-            this.selectedInstallation$.asObservable().subscribe((ref) => {
+            this.mvpService.selectedInstallation$.asObservable().subscribe((ref) => {
                 this.mvpService.closePopup();
             })
         );
