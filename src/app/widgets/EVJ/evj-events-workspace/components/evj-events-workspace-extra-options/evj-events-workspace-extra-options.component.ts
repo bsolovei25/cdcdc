@@ -2,12 +2,12 @@ import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { IExtraOptionsWindow } from '../../../../../dashboard/models/EVJ/events-widget';
 import { EventsWorkspaceService } from '../../../../../dashboard/services/widgets/EVJ/events-workspace.service';
 import { AuthService } from '@core/service/auth.service';
+import { IAlertWindowModel } from '@shared/models/alert-window.model';
 import { KpeWorkspaceService } from '../../../../../dashboard/services/widgets/EVJ/kpe-workspace.service';
 import {
     IKpeAllDependentParameters, IKpeNotification,
     IKpeWorkspaceParameter
 } from '../../../../../dashboard/models/EVJ/kpe-workspace.model';
-import { IAlertWindowModel } from '@shared/models/alert-window.model';
 
 @Component({
     selector: 'evj-evj-events-workspace-extra-options',
