@@ -8,7 +8,7 @@
   <div class="legend">
     <ng-container *ngIf="legendValues$ | async">
       <div class="legend__value-wrapper" *ngFor="let value of (legendValues$ | async)">
-        <div class="legend__value"> {{ value | number: "0.1-1" }} </div>
+        <div class="legend__value"> {{ (value | number: "0.1-1") || 0 }} </div>
       </div>
     </ng-container>
   </div>

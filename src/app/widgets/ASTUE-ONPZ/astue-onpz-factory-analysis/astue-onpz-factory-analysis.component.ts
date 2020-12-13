@@ -7,7 +7,11 @@ import { astueOnpzFactoryAnalysisBarMapper } from './functions/astue-onpz-factor
 import {
     IAstueOnpzFactoryAnalysis,
     IAstueOnpzFactoryAnalysisBarResponse,
+    IAstueOnpzFactoryAnalysisDiagram,
+    IAstueOnpzFactoryAnalysisWsOptions,
 } from '../../../dashboard/models/ASTUE-ONPZ/astue-onpz-factory-analysis.model';
+
+type AstueOnpzFactoryAnalysisType = 'Unit' | 'Furnace';
 
 @Component({
     selector: 'evj-astue-onpz-factory-analysis',
@@ -54,12 +58,17 @@ import {
         ]),
     ],
 })
-export class AstueOnpzFactoryAnalysisComponent extends WidgetPlatform implements OnInit {
+export class AstueOnpzFactoryAnalysisComponent extends WidgetPlatform<unknown> implements OnInit {
     public pageType$: BehaviorSubject<'chart' | 'bar'> = new BehaviorSubject<'chart' | 'bar'>(
-        'chart'
+        'bar'
     );
+    public viewType$: BehaviorSubject<AstueOnpzFactoryAnalysisType> = new BehaviorSubject<
+        AstueOnpzFactoryAnalysisType
+    >(null);
 
-    public barData: IAstueOnpzFactoryAnalysis = null;
+    public data: IAstueOnpzFactoryAnalysis | null = null;
+
+    public barData: IAstueOnpzFactoryAnalysisDiagram = null;
 
     constructor(
         protected widgetService: WidgetService,
@@ -74,15 +83,6 @@ export class AstueOnpzFactoryAnalysisComponent extends WidgetPlatform implements
         super.widgetInit();
     }
 
-    protected dataConnect(): void {
-        super.dataConnect();
-        this.setWsOptions({
-            manufactureName: 'Производство №1',
-            unitName: 'АВТ-10',
-            ovenName: 'Печь П 1/1',
-        });
-    }
-
     public changePage(type: 'chart' | 'bar'): void {
         if (this.pageType$.getValue() === type) {
             return;
@@ -90,7 +90,21 @@ export class AstueOnpzFactoryAnalysisComponent extends WidgetPlatform implements
         this.pageType$.next(type);
     }
 
+    protected dataConnect(): void {
+        super.dataConnect();
+        this.viewType$.next((this.attributes as any)?.Type === 'Unit' ? 'Unit' : 'Furnace');
+        // TODO подписка на сервис получения опций
+        this.subscriptions.push();
+        const options = {
+            ManufactureName: 'Производство №1',
+            UnitName: 'АВТ-10',
+            OvenName: 'Печь П 1/1',
+        };
+        this.setWsOptions(options);
+    }
+
     protected dataHandler(ref: IAstueOnpzFactoryAnalysisBarResponse): void {
+        console.log(ref, 'astue-onpz-factory-analysis');
         if (!ref.sections) {
             return;
         }

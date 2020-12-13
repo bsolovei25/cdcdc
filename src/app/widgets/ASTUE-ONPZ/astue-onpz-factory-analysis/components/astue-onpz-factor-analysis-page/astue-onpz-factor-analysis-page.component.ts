@@ -1,5 +1,4 @@
 import {
-    AfterViewInit,
     ChangeDetectorRef,
     Component,
     ElementRef,
@@ -9,7 +8,13 @@ import {
     ViewChild,
 } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { IAstueOnpzFactoryAnalysis } from '../../../../../dashboard/models/ASTUE-ONPZ/astue-onpz-factory-analysis.model';
+import {
+    IAstueOnpzFactoryAnalysis,
+    IAstueOnpzFactoryAnalysisBarType,
+    IAstueOnpzFactoryAnalysisDiagram,
+    IAstueOnpzFactoryAnalysisGroup,
+    IAstueOnpzFactoryAnalysisSection,
+} from '../../../../../dashboard/models/ASTUE-ONPZ/astue-onpz-factory-analysis.model';
 import { AsyncRender } from '@shared/functions/async-render.function';
 import { fillDataShape } from '@shared/functions/common-functions';
 
@@ -24,8 +29,8 @@ export class AstueOnpzFactorAnalysisPageComponent implements OnInit, OnChanges {
     private readonly infoPaddingPx: number = 13;
     public legendValues$: BehaviorSubject<number[]> = new BehaviorSubject<number[]>(null);
 
-    @Input() public dataTemp: IAstueOnpzFactoryAnalysis = null;
-    public data: IAstueOnpzFactoryAnalysis = null;
+    @Input() public dataTemp: IAstueOnpzFactoryAnalysisDiagram = null;
+    public data: IAstueOnpzFactoryAnalysisDiagram = null;
 
     constructor(private changeDetector: ChangeDetectorRef) {}
 

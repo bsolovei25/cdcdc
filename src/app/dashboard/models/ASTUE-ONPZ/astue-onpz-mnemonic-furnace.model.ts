@@ -1,14 +1,17 @@
 export interface IAstueOnpzMnemonicFurnaceResponse {
+    id: string;
     description: string;
     units: IAstueOnpzMnemonicFurnaceResponseOvenUnit[];
 }
 
 export interface IAstueOnpzMnemonicFurnaceResponseOvenUnit {
+    id: string;
     description: string;
     ovens: IAstueOnpzMnemonicFurnaceResponseOven[];
 }
 
 export interface IAstueOnpzMnemonicFurnaceResponseOven {
+    id: string;
     name: string;
     inputOil: IAstueOnpzMnemonicFurnaceResponseGroup;
     inputGaz: IAstueOnpzMnemonicFurnaceResponseGroup;
@@ -19,9 +22,11 @@ export interface IAstueOnpzMnemonicFurnaceResponseOven {
 }
 
 export interface IAstueOnpzMnemonicFurnaceResponseGroup {
-    item: IAstueOnpzMnemonicFurnaceResponseGroupData[];
+    id?: string;
     value: number;
     unit: string;
+    temp: IAstueOnpzMnemonicFurnaceResponseExtendAttribute;
+    item: IAstueOnpzMnemonicFurnaceResponseGroupData[];
 }
 
 export interface IAstueOnpzMnemonicFurnaceResponseGroupData {
@@ -38,6 +43,7 @@ export interface IAstueOnpzMnemonicFurnaceResponseGroupData {
 }
 
 export interface IAstueOnpzMnemonicFurnaceResponseExtendAttribute {
+    id?: string;
     value: number;
     units: string;
     isDeviation: boolean;
@@ -45,10 +51,13 @@ export interface IAstueOnpzMnemonicFurnaceResponseExtendAttribute {
 
 export interface IAstueOnpzMnemonicFurnaceSelectReferences {
     manufactures: {
+        id: string;
         title: string;
         units: {
+            id: string;
             title: string;
             ovens: {
+                id: string;
                 title: string;
             }[];
         }[];
@@ -115,6 +124,12 @@ export enum AstueOnpzMnemonicFurnaceElementType {
     Rect = 'rect',
     Circle = 'circle',
     Quad = 'quad',
+}
+
+export interface IAstueOnpzMnemonicFurnaceOptions {
+    manufactureId: string;
+    unitId: string;
+    ovenId: string;
 }
 
 export enum AstueOnpzMnemonicFurnaceStreamStatsType {

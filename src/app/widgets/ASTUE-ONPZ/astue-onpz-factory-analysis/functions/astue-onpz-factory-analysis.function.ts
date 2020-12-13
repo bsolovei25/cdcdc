@@ -1,18 +1,22 @@
 import {
     IAstueOnpzFactoryAnalysis,
-    IAstueOnpzFactoryAnalysisBarResponse, IAstueOnpzFactoryAnalysisBarResponseDiagram,
-    IAstueOnpzFactoryAnalysisBarResponseSection, IAstueOnpzFactoryAnalysisBarType,
+    IAstueOnpzFactoryAnalysisBar,
+    IAstueOnpzFactoryAnalysisBarResponse,
+    IAstueOnpzFactoryAnalysisBarResponseDiagram,
+    IAstueOnpzFactoryAnalysisBarResponseSection,
+    IAstueOnpzFactoryAnalysisBarType,
+    IAstueOnpzFactoryAnalysisDiagram,
     IAstueOnpzFactoryAnalysisGroup
 } from '../../../../dashboard/models/ASTUE-ONPZ/astue-onpz-factory-analysis.model';
 import { group } from '@angular/animations';
 
 export function astueOnpzFactoryAnalysisBarMapper(
     response: IAstueOnpzFactoryAnalysisBarResponse
-): IAstueOnpzFactoryAnalysis {
+): IAstueOnpzFactoryAnalysisDiagram {
     const [min, max] = minMaxFinder(response.sections);
     const result = {
-        legend: [],
         groups: [],
+        legend: [],
         minmax: [],
     };
     const trueMinValue = min - (max - min) * 0.1;
@@ -59,6 +63,5 @@ export function minMaxFinder(sections: IAstueOnpzFactoryAnalysisBarResponseSecti
         });
     });
     values = values.sort((a, b) => a - b);
-    console.log(values);
     return [values[0], values[values.length - 1]];
 }
