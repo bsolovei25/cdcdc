@@ -1,6 +1,9 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { IAstueOnpzMnemonicFurnaceOptions } from '../../../dashboard/models/ASTUE-ONPZ/astue-onpz-mnemonic-furnace.model';
+import {
+    IAstueOnpzMnemonicFurnaceOptions,
+    IAstueOnpzMnemonicFurnaceSelectReferences,
+} from '../../../dashboard/models/ASTUE-ONPZ/astue-onpz-mnemonic-furnace.model';
 
 @Injectable({
     providedIn: 'root',
@@ -8,6 +11,7 @@ import { IAstueOnpzMnemonicFurnaceOptions } from '../../../dashboard/models/ASTU
 export class AstueOnpzMnemonicFurnaceService {
     selectedItem$: BehaviorSubject<string> = new BehaviorSubject<string>(null);
     furnaceOptions$: Observable<IAstueOnpzMnemonicFurnaceOptions>;
+    furnaceOptionsReferences: BehaviorSubject<IAstueOnpzMnemonicFurnaceSelectReferences>;
 
     constructor() {}
 

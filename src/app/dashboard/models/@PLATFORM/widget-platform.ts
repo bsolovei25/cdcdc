@@ -100,4 +100,8 @@ export abstract class WidgetPlatform<T = unknown> implements OnDestroy {
     public onMouseExit(): void {
         this.hoverTimer = setTimeout(() => (this.isHover = false), 200);
     }
+
+    protected setWsOptions<O>(options: O): void {
+        this.widgetService.setChannelLiveDataFromWsOptions(this.widgetId, options);
+    }
 }
