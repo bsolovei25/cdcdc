@@ -79,7 +79,11 @@ export class AstueOnpzFactoryAnalysisComponent extends WidgetPlatform implements
 
     protected dataConnect(): void {
         super.dataConnect();
-        this.setWsOptions({ manufactureName: 'Производство №1', unitName: 'АВТ-10' });
+        this.setWsOptions({
+            manufactureName: 'Производство №1',
+            unitName: 'АВТ-10',
+            ovenName: 'Печь П 1/1',
+        });
     }
 
     public changePage(type: 'chart' | 'bar'): void {
