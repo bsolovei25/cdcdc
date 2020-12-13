@@ -1,0 +1,5 @@
+<div *ngIf="!!data" class="container">
+  <div class="text"> {{ data.title || '---' }} </div>
+  <evj-sou-energetic-circle-icon [iconType]="data.type" class="icon"></evj-sou-energetic-circle-icon>
+  <div class="text"> {{ data.value || '---' }} </div>
+</div>

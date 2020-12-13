@@ -2,7 +2,7 @@
     <evj-contemporary-widget-header
       [uniqId]="uniqId"
       [widgetTitle]=""
-      type="kpe"
+      type="astue"
       icon=""
     >
         <div class="settings"
@@ -30,7 +30,7 @@
             <span class="value">{{data[choosenItem]?.value}} <span class="unit">%</span></span>
         </div>
         <div class="products-container">
-            <div 
+            <div
                 class="products"
                 *ngFor="let item of data[choosenItem]?.products"
             >
@@ -40,7 +40,7 @@
                 </div>
                 <div class="shadow"></div>
                 <div class="products__list">
-                    <div 
+                    <div
                         class="product"
                         *ngFor="let product of item.items"
                     >
@@ -52,4 +52,3 @@
         </div>
     </div>
   </div>
-  

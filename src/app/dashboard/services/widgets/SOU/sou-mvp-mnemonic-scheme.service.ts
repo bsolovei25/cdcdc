@@ -4,13 +4,14 @@ import {
     ISOUFlowOut,
     ISOUObjects,
 } from '../../../models/SOU/sou-operational-accounting-system';
-import { IApsLoad } from '../../../models/APS/load-chart.model';
 import { HttpClient } from '@angular/common/http';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
     providedIn: 'root',
 })
 export class SouMvpMnemonicSchemeService {
+    selectedInstallation$: BehaviorSubject<number> = new BehaviorSubject<number>(0);
     isPopupOpen: boolean = false;
     selectedCode: number = -1; // Код выделенного элемента
     popupData: ISOUFlowOut;

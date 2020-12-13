@@ -54,6 +54,7 @@ export interface ISOUSection {
     objects: ISOUObjects[];
     isEnable?: boolean;
     order: number;
+    countFlowExceedingConfInterval?: number;
 }
 
 export interface ISOUObjects {
@@ -116,4 +117,8 @@ export interface ISOUOperationalAccountingSystem {
     balanceAllowByPercent: number;
     notificationCards: ISOUNotificationCards[];
     lampOn: boolean;
+    balanceAllowHourByPercent: number;
+    balanceAllowHour: number;
+    deltaHour: number;
+    deltaHourByPercent: number;
 }
