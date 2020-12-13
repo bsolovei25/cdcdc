@@ -38,9 +38,9 @@ export interface IAstueOnpzFactoryAnalysisDiagram {
 }
 
 export interface IAstueOnpzFactoryAnalysisWsOptions {
-    ManufactureName: string;
-    UnitName: string;
-    OvenName?: string;
+    manufactureName: string;
+    unitName: string;
+    ovenName?: string;
 }
 
 export interface IAstueOnpzFactoryAnalysisSection {

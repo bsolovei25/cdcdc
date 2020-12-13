@@ -93,6 +93,7 @@ export class AstueOnpzMnemonicFurnaceComponent extends WidgetPlatform implements
         @Inject('uniqId') public uniqId: string
     ) {
         super(widgetService, isMock, id, uniqId);
+        mnemonicFurnaceService.furnaceOptionsReferences = this.selectReferences;
     }
 
     ngOnInit(): void {

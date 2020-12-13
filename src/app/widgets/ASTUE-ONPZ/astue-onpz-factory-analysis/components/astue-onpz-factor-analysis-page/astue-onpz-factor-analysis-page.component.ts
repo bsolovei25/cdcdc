@@ -37,12 +37,15 @@ export class AstueOnpzFactorAnalysisPageComponent implements OnInit, OnChanges {
     ngOnInit(): void {}
 
     ngOnChanges(): void {
-        console.log(this.dataTemp);
         this.setData();
     }
 
     @AsyncRender
     public setData(): void {
+        if (!this.dataTemp) {
+            this.data = null;
+            return;
+        }
         const minValue = this.dataTemp.minmax[0];
         const maxValue = this.dataTemp.minmax[1];
         const trueDelta: number = this.getTrueDelta(maxValue, minValue);
