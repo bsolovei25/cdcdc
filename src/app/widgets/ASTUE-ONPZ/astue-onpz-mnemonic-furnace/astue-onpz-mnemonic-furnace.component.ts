@@ -305,7 +305,7 @@ export class AstueOnpzMnemonicFurnaceComponent extends WidgetPlatform implements
                                 id: x.id,
                                 value: x.value,
                                 unit: x.units,
-                                streamType: x.temp?.isDeviation
+                                streamType: x?.isDeviation
                                     ? AstueOnpzMnemonicFurnaceStreamStatsType.Deviation
                                     : AstueOnpzMnemonicFurnaceStreamStatsType.Norm,
                             },
@@ -317,7 +317,7 @@ export class AstueOnpzMnemonicFurnaceComponent extends WidgetPlatform implements
                 line.push({
                     type: AstueOnpzMnemonicFurnaceElementType.Circle,
                     data: {
-                        id: x.id,
+                        id: x.temp.id,
                         value: x.temp.value,
                         unit: x.temp.units,
                         streamType: x.temp?.isDeviation
@@ -373,6 +373,17 @@ export class AstueOnpzMnemonicFurnaceComponent extends WidgetPlatform implements
                     type: AstueOnpzMnemonicFurnaceRectType.Full,
                 },
             },
+            {
+                type: AstueOnpzMnemonicFurnaceElementType.Circle,
+                data: {
+                    id: currentData.inputOil?.temp?.id,
+                    value: currentData.inputOil?.temp?.value,
+                    unit: currentData.inputOil?.temp?.units,
+                    streamType: currentData.inputOil?.temp?.isDeviation
+                        ? AstueOnpzMnemonicFurnaceStreamStatsType.Deviation
+                        : AstueOnpzMnemonicFurnaceStreamStatsType.Norm,
+                },
+            },
         ]);
         // outputBlock.lines.push([
         //     {
@@ -407,7 +418,7 @@ export class AstueOnpzMnemonicFurnaceComponent extends WidgetPlatform implements
         const dischargeStats = {
             title: 'Разряжение',
             main: {
-                id: currentData.rarefaction.item[0]?.id ?? null, // TODO: add normal id
+                id: currentData.rarefaction.id ?? null,
                 value: currentData.rarefaction.value,
                 unit: currentData.rarefaction.unit,
                 streamType: !!currentData.rarefaction.item.find((x) => x.isDeviation)
@@ -426,7 +437,7 @@ export class AstueOnpzMnemonicFurnaceComponent extends WidgetPlatform implements
         const gasStats = {
             title: 'Уходящие газы',
             main: {
-                id: currentData.outputGaz.item[0]?.id ?? null, // TODO: add normal id
+                id: currentData.outputGaz.id ?? null,
                 value: currentData.outputGaz.value,
                 unit: currentData.outputGaz.unit,
                 streamType: !!currentData.outputGaz.item.find((x) => x.isDeviation)
