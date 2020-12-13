@@ -22,6 +22,7 @@ export interface IAstueOnpzMnemonicFurnaceResponseOven {
 }
 
 export interface IAstueOnpzMnemonicFurnaceResponseGroup {
+    id?: string;
     value: number;
     unit: string;
     temp: IAstueOnpzMnemonicFurnaceResponseExtendAttribute;

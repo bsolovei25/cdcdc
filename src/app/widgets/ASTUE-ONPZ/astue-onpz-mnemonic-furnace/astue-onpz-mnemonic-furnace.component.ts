@@ -418,7 +418,7 @@ export class AstueOnpzMnemonicFurnaceComponent extends WidgetPlatform implements
         const dischargeStats = {
             title: 'Разряжение',
             main: {
-                id: currentData.rarefaction.item[0]?.id ?? null, // TODO: add normal id
+                id: currentData.rarefaction.id ?? null,
                 value: currentData.rarefaction.value,
                 unit: currentData.rarefaction.unit,
                 streamType: !!currentData.rarefaction.item.find((x) => x.isDeviation)
@@ -437,7 +437,7 @@ export class AstueOnpzMnemonicFurnaceComponent extends WidgetPlatform implements
         const gasStats = {
             title: 'Уходящие газы',
             main: {
-                id: currentData.outputGaz.item[0]?.id ?? null, // TODO: add normal id
+                id: currentData.outputGaz.id ?? null,
                 value: currentData.outputGaz.value,
                 unit: currentData.outputGaz.unit,
                 streamType: !!currentData.outputGaz.item.find((x) => x.isDeviation)
