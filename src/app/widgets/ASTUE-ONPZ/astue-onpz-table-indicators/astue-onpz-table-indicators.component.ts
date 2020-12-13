@@ -75,11 +75,6 @@ export class AstueOnpzTableIndicatorsComponent extends WidgetPlatform<unknown>
 
     public onClickRow(event: MouseEvent, element: IAstueOnpzTableIndicatorsItemChild): void {
         event.stopPropagation();
-        // if (!this.selectedRowProduct || element.name !== this.selectedRowProduct) {
-        //     this.selectedRowProduct = element.name;
-        // } else {
-        //     this.selectedRowProduct = null;
-        // }
         this.mnemonicFurnaceService.selectItem(element?.id);
     }
 
