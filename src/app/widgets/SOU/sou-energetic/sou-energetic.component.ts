@@ -48,6 +48,7 @@ export class SouEnergeticComponent extends WidgetPlatform implements OnInit {
         super.dataConnect();
         this.subscriptions.push(
             this.mnemonicSchemeService.selectedInstallation$.asObservable().subscribe((ref) => {
+                this.data = null;
                 this.setWsOptions(this.options[ref]);
             })
         );
