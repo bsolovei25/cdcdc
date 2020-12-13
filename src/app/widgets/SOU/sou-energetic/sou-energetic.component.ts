@@ -26,7 +26,7 @@ export class SouEnergeticComponent extends WidgetPlatform implements OnInit {
         },
         {
             manufacture: 'Производство №4',
-            unit: 'Изомалк',
+            unit: 'Изомалк-2',
         },
     ];
 
