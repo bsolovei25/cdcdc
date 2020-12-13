@@ -25,29 +25,25 @@
       <ng-container *ngFor="let element of data">
         <tr
           class="table__body__row"
-          [class.table__body__row--active]="selectedRowProduct === element.name"
         >
           <td
             class="table__body__column"
-            [class.table__body__column--active]="selectedRowProduct === element.name"
-            [class.table__body__column--warning]="selectedRowProduct === element.name && element.countExceeding !== 0"
-            (click)="onClickRow($event, element)"
+            (click)="onClickTr($event, element)"
             colspan="3"
           >
             <ng-container *ngIf="element.countExceeding !== 0">
               <div class="table__body__column--warning-border"></div>
             </ng-container>
             <div
-              (click)="onClickRow($event, element)"
+              (click)="onClickTr($event, element)"
               class="table__body__column__row-title"
-              [class.table__body__column__row-title__border-active]="selectedRowProduct === element.name"
             >
               <svg-icon
                 class="table__body__column__row-title__icon"
                 (click)="onClickTr($event, element)"
                 [ngClass]="{
-                'table__body__column__row-title__icon--warning':expandedElement.isSelected(element.name) && element.countExceeding !== 0,
-                'table__body__column__row-title__icon--active':expandedElement.isSelected(element.name) && element.countExceeding === 0
+                  'table__body__column__row-title__icon--warning':expandedElement.isSelected(element.name) && element.countExceeding !== 0,
+                  'table__body__column__row-title__icon--active':expandedElement.isSelected(element.name) && element.countExceeding === 0
                 }"
                 src="assets/icons/widgets/APS/aps-gantt-chart/plus.svg"
               >
@@ -73,36 +69,32 @@
               *ngFor="let column of columnsToDisplay"
               class="expanded-column table__body__column table__body__column__children"
 
-              [class.table__body__column__children--active]="selectedRowProduct === elementChildren.name"
-              [class.table__body__column__children--warning]="selectedRowProduct === elementChildren.name && elementChildren.isExceeding"
+              [class.table__body__column__children--active]="selectedProduct$(elementChildren) | async"
+              [class.table__body__column__children--warning]="(selectedProduct$(elementChildren) | async) && !!elementChildren.isExceeding"
               [matTooltip]="elementChildren?.name"
             >
               <div
                 *ngIf="column.name === 'Параметры'"
                 class="table__body__column__row-title table__body__column__row-title-children"
-                [class.opacity]="selectedRow.isSelected(element.name) && this.selectedRowProduct"
               >
 
                 <svg-icon
                   [svgStyle]="{'height.px':'43', 'width.px': '21'}"
                   class="table__body__column__row-title-children__left-block--first"
                   [class.table__body__column__row-title-children__left-block--first__warning]="elementChildren.isExceeding"
-                  [class.table__body__column__row-title-children__left-block--first__default]="selectedRowProduct !== elementChildren.name"
-                  [class.table__body__column__row-title-children__left-block--first__active]="selectedRowProduct === elementChildren.name && !elementChildren.isExceeding"
-                  [class.table__body__column__row-title-children__left-block--first__active-warning]="selectedRowProduct === elementChildren.name && elementChildren.isExceeding"
+                  [class.table__body__column__row-title-children__left-block--first__default]="!(selectedProduct$(elementChildren) | async)"
+                  [class.table__body__column__row-title-children__left-block--first__active]="(selectedProduct$(elementChildren) | async) && !elementChildren.isExceeding"
+                  [class.table__body__column__row-title-children__left-block--first__active-warning]="(selectedProduct$(elementChildren) | async) && !!elementChildren.isExceeding"
 
                   [src]="'assets/icons/widgets/APS/aps-recipe-diagram/astue-table-left-row-block-recipe.svg'"
                 >
                 </svg-icon>
                 <div
-                  class="table__body__column__row-title__text__subname"
-                  [class.table__body__column__row-title--no-active]="selectedRow.isSelected(element.name)">
+                  class="table__body__column__row-title__text__subname">
                   <span>{{ elementChildren.name }}</span>
                 </div>
                 <div
-                  class="table__body__column__row-title__engUnit"
-                  [class.table__body__column__row-title--no-active]="selectedRow.isSelected(element.name)"
-                >
+                  class="table__body__column__row-title__engUnit">
                   <span>{{elementChildren.unitsOfMeasure}}</span>
                 </div>
               </div>

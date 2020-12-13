@@ -22,9 +22,10 @@ export interface IAstueOnpzMnemonicFurnaceResponseOven {
 }
 
 export interface IAstueOnpzMnemonicFurnaceResponseGroup {
-    item: IAstueOnpzMnemonicFurnaceResponseGroupData[];
     value: number;
     unit: string;
+    temp: IAstueOnpzMnemonicFurnaceResponseExtendAttribute;
+    item: IAstueOnpzMnemonicFurnaceResponseGroupData[];
 }
 
 export interface IAstueOnpzMnemonicFurnaceResponseGroupData {
@@ -41,6 +42,7 @@ export interface IAstueOnpzMnemonicFurnaceResponseGroupData {
 }
 
 export interface IAstueOnpzMnemonicFurnaceResponseExtendAttribute {
+    id?: string;
     value: number;
     units: string;
     isDeviation: boolean;

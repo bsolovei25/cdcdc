@@ -305,7 +305,7 @@ export class AstueOnpzMnemonicFurnaceComponent extends WidgetPlatform implements
                                 id: x.id,
                                 value: x.value,
                                 unit: x.units,
-                                streamType: x.temp?.isDeviation
+                                streamType: x?.isDeviation
                                     ? AstueOnpzMnemonicFurnaceStreamStatsType.Deviation
                                     : AstueOnpzMnemonicFurnaceStreamStatsType.Norm,
                             },
@@ -317,7 +317,7 @@ export class AstueOnpzMnemonicFurnaceComponent extends WidgetPlatform implements
                 line.push({
                     type: AstueOnpzMnemonicFurnaceElementType.Circle,
                     data: {
-                        id: x.id,
+                        id: x.temp.id,
                         value: x.temp.value,
                         unit: x.temp.units,
                         streamType: x.temp?.isDeviation
@@ -371,6 +371,17 @@ export class AstueOnpzMnemonicFurnaceComponent extends WidgetPlatform implements
                     value: currentData.inputOil?.value,
                     unit: currentData.inputOil?.unit,
                     type: AstueOnpzMnemonicFurnaceRectType.Full,
+                },
+            },
+            {
+                type: AstueOnpzMnemonicFurnaceElementType.Circle,
+                data: {
+                    id: currentData.inputOil?.temp?.id,
+                    value: currentData.inputOil?.temp?.value,
+                    unit: currentData.inputOil?.temp?.units,
+                    streamType: currentData.inputOil?.temp?.isDeviation
+                        ? AstueOnpzMnemonicFurnaceStreamStatsType.Deviation
+                        : AstueOnpzMnemonicFurnaceStreamStatsType.Norm,
                 },
             },
         ]);
