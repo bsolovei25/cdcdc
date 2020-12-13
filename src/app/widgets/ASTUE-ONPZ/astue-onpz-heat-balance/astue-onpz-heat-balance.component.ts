@@ -4,10 +4,8 @@ import { WidgetService } from '../../../dashboard/services/widget.service';
 import { IColumnsToDisplay } from '../../APS/aps-recipe-diagram/aps-recipe-diagram.component';
 import { SelectionModel } from '@angular/cdk/collections';
 import { IParams } from '../../CD/cd-mat-balance/cd-mat-balance.component';
-import { heatBalanceData } from './astue-onpz-heat-balance-mock';
 import { IAstueOnpzHeatBalanceItem } from '../../../dashboard/models/ASTUE-ONPZ/astue-onpz-heat-balance.model';
 import { AstueOnpzMnemonicFurnaceService } from '../astue-onpz-mnemonic-furnace/astue-onpz-mnemonic-furnace.service';
-import { IAstueOnpzFactoryAnalysisWsOptions } from '../../../dashboard/models/ASTUE-ONPZ/astue-onpz-factory-analysis.model';
 import { IAstueOnpzMnemonicFurnaceOptions } from '../../../dashboard/models/ASTUE-ONPZ/astue-onpz-mnemonic-furnace.model';
 
 @Component({
