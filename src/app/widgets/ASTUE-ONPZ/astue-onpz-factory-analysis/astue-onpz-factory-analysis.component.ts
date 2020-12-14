@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, Injector, OnInit } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { WidgetPlatform } from '../../../dashboard/models/@PLATFORM/widget-platform';
 import { WidgetService } from '../../../dashboard/services/widget.service';
@@ -10,6 +10,7 @@ import {
     IAstueOnpzFactoryAnalysisDiagram,
     IAstueOnpzFactoryAnalysisWsOptions,
 } from '../../../dashboard/models/ASTUE-ONPZ/astue-onpz-factory-analysis.model';
+import { AstueOnpzFactoryAnalysisChartPageComponent } from './components/astue-onpz-factory-analysis-chart-page/astue-onpz-factory-analysis-chart-page.component';
 import { AstueOnpzMnemonicFurnaceService } from '../astue-onpz-mnemonic-furnace/astue-onpz-mnemonic-furnace.service';
 import { IAstueOnpzMnemonicFurnaceOptions } from '../../../dashboard/models/ASTUE-ONPZ/astue-onpz-mnemonic-furnace.model';
 
@@ -70,6 +71,10 @@ export class AstueOnpzFactoryAnalysisComponent extends WidgetPlatform<unknown> i
 
     public data: IAstueOnpzFactoryAnalysis | null = null;
 
+    public selectedChannelId: string | null = null;
+
+    public readonly chartPageComponent: typeof AstueOnpzFactoryAnalysisChartPageComponent = AstueOnpzFactoryAnalysisChartPageComponent;
+
     public barData: IAstueOnpzFactoryAnalysisDiagram = null;
 
     constructor(
@@ -77,13 +82,17 @@ export class AstueOnpzFactoryAnalysisComponent extends WidgetPlatform<unknown> i
         protected widgetService: WidgetService,
         @Inject('isMock') public isMock: boolean,
         @Inject('widgetId') public id: string,
-        @Inject('uniqId') public uniqId: string
+        @Inject('uniqId') public uniqId: string,
+        private injector: Injector,
     ) {
         super(widgetService, isMock, id, uniqId);
     }
 
     ngOnInit(): void {
         super.widgetInit();
+        this.mnemonicFurnaceService.selectedItem$.subscribe(item => {
+            this.selectedChannelId = item;
+        });
     }
 
     public changePage(type: 'chart' | 'bar'): void {
@@ -91,6 +100,16 @@ export class AstueOnpzFactoryAnalysisComponent extends WidgetPlatform<unknown> i
             return;
         }
         this.pageType$.next(type);
+    }
+
+    public getInjector = (widgetId: string): Injector => {
+        return Injector.create({
+            providers: [
+                { provide: 'widgetId', useValue: widgetId },
+                { provide: 'channelId', useValue: '' },
+            ],
+            parent: this.injector,
+        });
     }
 
     protected dataConnect(): void {

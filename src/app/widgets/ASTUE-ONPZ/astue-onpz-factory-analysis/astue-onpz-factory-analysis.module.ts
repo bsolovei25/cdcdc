@@ -13,7 +13,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { AstueOnpzFactoryAnalysisChartPageComponent } from './components/astue-onpz-factory-analysis-chart-page/astue-onpz-factory-analysis-chart-page.component';
 import { AstueOnpzFactorAnalysisChartInfoComponent } from './components/astue-onpz-factor-analisys-chart-components/astue-onpz-factor-analysis-chart-info/astue-onpz-factor-analysis-chart-info.component';
 import { AstueOnpzFactoryAnalysisChartComponent } from './components/astue-onpz-factor-analisys-chart-components/astue-onpz-factory-analysis-chart/astue-onpz-factory-analysis-chart.component';
-
+import { AstueOnpzSharedModule } from "../astue-onpz-shared/astue-onpz-shared.module";
 @NgModule({
     declarations: [
         AstueOnpzFactoryAnalysisComponent,
@@ -26,7 +26,7 @@ import { AstueOnpzFactoryAnalysisChartComponent } from './components/astue-onpz-
         AstueOnpzFactorAnalysisChartInfoComponent,
         AstueOnpzFactoryAnalysisChartComponent,
     ],
-    imports: [CommonModule, SharedModule, MatTooltipModule, AngularSvgIconModule, MatSelectModule],
+    imports: [CommonModule, SharedModule, MatTooltipModule, AngularSvgIconModule, MatSelectModule, AstueOnpzSharedModule],
     exports: [AstueOnpzFactoryAnalysisComponent],
 })
 export class AstueOnpzFactoryAnalysisModule {
