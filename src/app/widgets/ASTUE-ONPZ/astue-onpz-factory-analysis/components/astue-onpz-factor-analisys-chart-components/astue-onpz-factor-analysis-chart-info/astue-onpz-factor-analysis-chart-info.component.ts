@@ -9,6 +9,9 @@ export class AstueOnpzFactorAnalysisChartInfoComponent implements OnInit {
     // TODO: temp to test
     @Input() type: 'plan' | 'fact' | 'interval' = 'plan';
 
+    @Input()
+    public value: number = 0;
+
     constructor() {}
 
     ngOnInit(): void {}

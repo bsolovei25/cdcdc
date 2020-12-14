@@ -12,6 +12,8 @@ export interface IMultiChartLine {
     units?: string;
     graph: IChartMini[];
     tagName: string;
+    graphStyle?: string;
+    nextPlanValue?: number; // только для плана
 }
 
 export interface IMultiChartData extends IMultiChartLine {

@@ -1,104 +1,130 @@
+* {
+  box-sizing: border-box;
+}
+
 .container {
   height: 100%;
   width: 100%;
-  overflow: auto;
-  border-bottom: 1px solid var(--color-border-new-mbo);
 
-  z-index: 1;
+  display: flex;
+  flex-direction: column;
 
-  &__header {
-    display: flex;
-    justify-content: flex-end;
+  .content {
     flex: 1;
-    margin-right: 10px;
-
-    .header {
-      &__btn {
-        font-size: 13px;
-        color: var(--color-kpe-gaude-main);
-
-        width: 106px;
-        height: 24px;
-        border-radius: 2px;
-
-        display: flex;
-        align-items: center;
-        justify-content: center;
-
-        background-color: var(--color-kpe-eq-chart-row-default);
-      }
-
-      &__icon {
-        padding-right: 7px;
-      }
-
-    }
-  }
-
-  &-body {
     display: flex;
     flex-direction: column;
 
-    border: 2px solid var(--color-aps-border);
+    background: var(--color-astue-onpz-widget-bg);
 
-    box-sizing: border-box;
-    z-index: 1;
-    position: relative;
+    border: 1px solid var(--color-astue-onpz-widget-border);
+    border-radius: 0px 0px 2px 2px;
 
-    width: calc(100% - 5px);
-    height: calc(100% - 40px);
+    .diagram {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      padding: 0 30px;
+  
+      &__container {
+        flex: 1;
+        padding: 30px 15px;
+  
+        display: flex;
+        align-items: center;
+  
+        position: relative;
+  
+        .diagram-circle {
+          ::ng-deep {
+            svg {
+                .diagram-inner {
+                  fill: var(--color-astue-onpz-plan);
+                }
+          
+                .diagram-value {
+                  fill: var(--color-astue-onpz-fact);
+                }
 
-    background-size: auto;
-    background-color: var(--color-sou-bg);
-
-    .main-indicators {
-      margin: 10px;
-      margin-left: 15px;
-      padding-right: 5px;
-
-      &__table {
-        width: 100%;
-        border-collapse: separate;
-        border-spacing: 0 5px;
-        font-size: 13px;
-
-        .table {
-          &__row {
-            border: 1px solid var(--color-aps-border-sub);
-            border-left: 2px solid var(--color-aps-border-sub);
-          }
-
-          &__column {
-            &:first-of-type {
-              border-left: 2px solid var(--color-kpe-gaude-deviation);
-              background: linear-gradient(90deg, rgba(35, 38, 52, 1) 0%, rgba(96, 100, 127, 0) 35%);
-            }
-
-            &:last-of-type {
-              font-size: 14px;
-              min-width: 50px;
-              text-align: left;
-              border-right: 2px solid var(--color-aps-border-main);
-              color: var(--color-text-main);
-            }
-
-            position: relative;
-            height: 26px;
-            color: var(--color-cd-text-sub-2);
-            text-align: center;
-            background-size: cover;
-            border-top: 1px solid var(--color-aps-border-main);
-            border-bottom: 1px solid var(--color-aps-border-main);
-
-            &__name {
-              min-width: 230px;
-              text-align: left;
-              padding-left: 15px;
+                .diagram-deviation {
+                  fill: var(--color-astue-onpz-warning);
+                }
             }
           }
         }
+
+        .info {
+          height: 140px;
+          min-width: 190px;
+          padding: 15px 10px;
+          margin-left: 20px;
+
+          flex-grow: 1;
+          display: flex;
+          flex-direction: column;
+
+          &__item {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+          }
+
+          .values {
+            font-size: 13px;
+            line-height: 16px;
+
+            color: var(--color-astue-onpz-mnemonic-furnace-main-text);
+            .unit {
+              margin-left: 5px;
+              color: var(--astue-onpz-factory-analisys-label);
+            }
+          }
+
+          .values-plan {
+            color: var(--color-astue-onpz-plan);
+          }
+
+          .description {
+            font-size: 13px;
+            line-height: 16px;
+
+            color: var(--astue-onpz-factory-analisys-legend);
+          }
+        }
+  
+        .diagram-inner-text {
+          height: 140px;
+          width: 140px;
+  
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+  
+          position: absolute;
+          left: 15px;
+  
+          .percent {
+            font-size: 26px;
+            line-height: 31px;
+
+            &-warning {
+              color: var(--color-astue-onpz-warning);
+            }
+          }
+  
+          .unit {
+            font-size: 12px;
+            line-height: 14px;
+            color: var(--astue-onpz-factory-analisys-legend);
+          }
+        }
+        
+        .custom-bg {
+          position: absolute;
+          left: 3px;
+        }
       }
     }
-
   }
 }

@@ -1,4 +1,5 @@
 export interface IAstueOnpzHeatBalanceItem {
+    id: string;
     name: string;
     description: string;
     relativeValue: number;

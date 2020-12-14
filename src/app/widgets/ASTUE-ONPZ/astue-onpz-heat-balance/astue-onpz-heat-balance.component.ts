@@ -4,8 +4,11 @@ import { WidgetService } from '../../../dashboard/services/widget.service';
 import { IColumnsToDisplay } from '../../APS/aps-recipe-diagram/aps-recipe-diagram.component';
 import { SelectionModel } from '@angular/cdk/collections';
 import { IParams } from '../../CD/cd-mat-balance/cd-mat-balance.component';
-import { heatBalanceData } from './astue-onpz-heat-balance-mock';
 import { IAstueOnpzHeatBalanceItem } from '../../../dashboard/models/ASTUE-ONPZ/astue-onpz-heat-balance.model';
+import { AstueOnpzMnemonicFurnaceService } from '../astue-onpz-mnemonic-furnace/astue-onpz-mnemonic-furnace.service';
+import { IAstueOnpzMnemonicFurnaceOptions } from '../../../dashboard/models/ASTUE-ONPZ/astue-onpz-mnemonic-furnace.model';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Component({
     selector: 'evj-astue-onpz-heat-balance',
@@ -14,7 +17,7 @@ import { IAstueOnpzHeatBalanceItem } from '../../../dashboard/models/ASTUE-ONPZ/
 })
 export class AstueOnpzHeatBalanceComponent extends WidgetPlatform<unknown>
     implements OnInit, OnDestroy {
-    data: IAstueOnpzHeatBalanceItem[] = heatBalanceData;
+    data: IAstueOnpzHeatBalanceItem[] = [];
     columnsToDisplay: IColumnsToDisplay[] = [
         { name: 'Показатели, Дж', id: 0, date: new Date() },
         { name: 'Абсолютная величина', id: 1, date: new Date('2020-02-01T03:24:00') },
@@ -22,10 +25,10 @@ export class AstueOnpzHeatBalanceComponent extends WidgetPlatform<unknown>
     ];
 
     expandedElement: SelectionModel<string> = new SelectionModel(true);
-    selectedRowProduct: string;
     selectedRow: SelectionModel<string> = new SelectionModel(true);
 
     constructor(
+        private mnemonicFurnaceService: AstueOnpzMnemonicFurnaceService,
         public widgetService: WidgetService,
         @Inject('isMock') public isMock: boolean,
         @Inject('widgetId') public id: string,
@@ -38,17 +41,28 @@ export class AstueOnpzHeatBalanceComponent extends WidgetPlatform<unknown>
         super.widgetInit();
     }
 
+    protected dataConnect(): void {
+        super.dataConnect();
+        this.subscriptions.push(
+            this.mnemonicFurnaceService.furnaceOptions$.subscribe((x) => {
+                if (!x.ovenId) {
+                    this.data = [];
+                    return;
+                }
+                this.setWsOptions(x);
+            })
+        );
+    }
+
     protected dataHandler(ref: { item: IAstueOnpzHeatBalanceItem[] }): void {
+        ref.item
+            .flatMap((x) => x.items)
+            .filter((x) => !!x)
+            .forEach((x) => (x.id = x.name));
         this.data = [...ref.item];
     }
 
-    deviationCount(element: IParams): number {
-        let i = 0;
-        element.unitParams.forEach((value) => (value.deviation > 0 ? (i += 1) : (i += 0)));
-        return i;
-    }
-
-    onClickTr(event: MouseEvent, element: any): void {
+    onClickTr(event: MouseEvent, element: IAstueOnpzHeatBalanceItem): void {
         event.stopPropagation();
         if (this.expandedElement.isSelected(element.name)) {
             this.expandedElement.deselect(element.name);
@@ -57,12 +71,14 @@ export class AstueOnpzHeatBalanceComponent extends WidgetPlatform<unknown>
         }
     }
 
-    onClickRow(event: MouseEvent, element?: any): void {
+    onClickRow(event: MouseEvent, element?: IAstueOnpzHeatBalanceItem): void {
         event.stopPropagation();
-        if (!this.selectedRowProduct || element.name !== this.selectedRowProduct) {
-            this.selectedRowProduct = element.name;
-        } else {
-            this.selectedRowProduct = null;
-        }
+        this.mnemonicFurnaceService.selectItem(element.id);
+    }
+
+    public selectedProduct$(element: IAstueOnpzHeatBalanceItem): Observable<boolean> {
+        return this.mnemonicFurnaceService.selectedItem$
+            .asObservable()
+            .pipe(map((x) => x === element?.id));
     }
 }

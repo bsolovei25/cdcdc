@@ -23,58 +23,64 @@
   (touchstart)="$event.stopPropagation()"
 >
   <div class="table-container">
-    <table>
-      <thead>
-      <tr>
-        <th 
-          *ngFor="let element of headerName; let k = index"
-          [ngClass]="{
-            'active-col-title': element?.writable
-          }"
-        >
-          <div class="text">
-            <svg-icon
-              src="assets/icons/widgets/APS/aps-operating-modes/editIcon.svg"
-              [svgStyle]="{ 'width.px':10, 'height.px':10 }"
-            ></svg-icon>
-            {{element?.title}}
-          </div>
-        </th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr 
-        *ngFor="let element of data; let i = index"
-        [ngClass]="{
-          'active-row': i === selectedRow
-        }"
-      >
-        <td
-          *ngFor="let item of headerName; let j = index"
-          (click)="editValue(i, j)"
-          [ngClass]="{
-            'active-col': j === selectedColumn && item?.writable
-          }"
-        >
-          <div class="text">
-            <div class="shadow"></div>
-            <input
-              type="text"
-              placeholder={{element[item?.key]}}
-              readonly
-              *ngIf="!editMode"
+    <cdk-virtual-scroll-viewport
+      [itemSize]="44"
+      (scroll)="scrollHandler($event)"
+    >
+      <table>
+        <thead>
+        <tr>
+          <th
+            *ngFor="let element of headerName; let k = index"
+            [ngClass]="{
+              'active-col-title': element?.writable
+            }"
+            [style.top]="inverseOfTranslation"
+          >
+            <div class="text">
+              <svg-icon
+                src="assets/icons/widgets/APS/aps-operating-modes/editIcon.svg"
+                [svgStyle]="{ 'width.px':10, 'height.px':10 }"
+              ></svg-icon>
+              {{element?.title}}
+            </div>
+          </th>
+        </tr>
+        </thead>
+          <tbody>
+            <tr
+              *cdkVirtualFor="let element of data; let i = index"
+              [ngClass]="{
+                'active-row': i === selectedRow
+              }"
             >
-            <input
-              type="text"
-              placeholder={{element[item?.key]}}
-              *ngIf="editMode"
-              (change)="onChangeValue($event, element[idIndex], j+1)"
-              [readonly]="!item?.writable"
-            >
-          </div>
-        </td>
-      </tr>
-      </tbody>
-    </table>
+              <td
+                *ngFor="let item of headerName; let j = index"
+                (click)="editValue(i, j)"
+                [ngClass]="{
+                  'active-col': j === selectedColumn && item?.writable
+                }"
+              >
+                <div class="text">
+                  <div class="shadow"></div>
+                  <input
+                    type="text"
+                    placeholder={{element[item?.key]}}
+                    readonly
+                    *ngIf="!editMode"
+                  >
+                  <input
+                    type="text"
+                    placeholder={{element[item?.key]}}
+                    *ngIf="editMode"
+                    (change)="onChangeValue($event, item?.key, i)"
+                    [readonly]="!item?.writable"
+                  >
+                </div>
+              </td>
+            </tr>
+          </tbody>
+      </table>
+    </cdk-virtual-scroll-viewport>
   </div>
 </div>

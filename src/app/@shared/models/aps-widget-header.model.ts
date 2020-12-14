@@ -7,6 +7,8 @@ export type ApsHeaderIconType =
     | 'drop'
     | 'book'
     | 'gantt'
+    | 'document'
+    | 'pen'
     | 'map'
     | 'menu'
     | 'periods'
@@ -23,4 +25,5 @@ export type ApsHeaderIconType =
     | 'keyboard'
     | 'factory'
     | 'squares'
-    | 'dots-triangle';
+    | 'dots-triangle'
+    | 'pie';

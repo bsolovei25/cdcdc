@@ -1,24 +1,24 @@
 <div class="main-container">
   <div class="container" [ngClass]="{
     off:!flowData?.isEnable,
-    warning: flowData?.isExceedingConfInterval
+    warning: flowData?.isExceedingConfInterval && !!flowData?.isEnable
   }">
     <div class="connection__left">
-      <div 
+      <div
         class="connection-circle"
         *ngFor="let item of inputArr"
       ></div>
     </div>
     <span>{{flowData?.name}}</span>
     <div class="connection__right">
-      <div 
+      <div
         class="connection-circle"
         *ngFor="let item of outputArr"
       ></div>
     </div>
   </div>
   <div class="line-container">
-    <div 
+    <div
       class="line"
       [style.borderColor]="flowData?.isEnable? 'var(--sou-mvp-color-border)' : 'var(--sou-mvp-color-bg-title)'"
       *ngFor="let item of outputArr"

@@ -7,8 +7,10 @@ import {
     ISOUObjects,
     ISOUOperationalAccountingSystem,
 } from '../../../dashboard/models/SOU/sou-operational-accounting-system';
-import { SouMvpMnemonicSchemeService } from '../../../dashboard/services/widgets/SOU/sou-mvp-mnemonic-scheme';
+import { SouMvpMnemonicSchemeService } from '../../../dashboard/services/widgets/SOU/sou-mvp-mnemonic-scheme.service';
 import { animate, state, style, transition, trigger } from '@angular/animations';
+import { BehaviorSubject } from 'rxjs';
+import { NULL_EXPR } from '@angular/compiler/src/output/output_ast';
 
 @Component({
     selector: 'evj-sou-mvp-mnemonic-scheme',
@@ -48,28 +50,31 @@ export class SouMvpMnemonicSchemeComponent extends WidgetPlatform<unknown>
     sectionsData: (ISOUFlowOut | ISOUFlowIn | ISOUObjects)[] = []; // Массив всех элементов
     sectionsDataIzo: (ISOUFlowOut | ISOUFlowIn | ISOUObjects)[] = []; // Массив всех элементов Изомалка
 
-    installations: string[] = [
-        'АВТ-10',
-        'Изомалк-2'
-    ];
+    factories: string[] = ['Производство 1', 'Производство 4'];
+    installations: string[] = ['АВТ-10', 'Изомалк-2'];
 
-    selectedInstallation: number = 0;
+    set selectedInstallation(value: number) {
+        this.mvpService.selectedInstallation$.next(value);
+    }
+    get selectedInstallation(): number {
+        return this.mvpService.selectedInstallation$.getValue();
+    }
 
     sections: {
         title: string;
-        value: number
+        value: number;
     }[][] = [
         [
             {
                 title: 'АБ',
-                value: 0
+                value: 0,
             },
             {
-                title: 'BБ',
-                value: 0
-            }
+                title: 'ВБ',
+                value: 0,
+            },
         ],
-        []
+        [],
     ];
 
     choosenSetting: number = 1;
@@ -88,6 +93,11 @@ export class SouMvpMnemonicSchemeComponent extends WidgetPlatform<unknown>
 
     ngOnInit(): void {
         super.widgetInit();
+        this.subscriptions.push(
+            this.mvpService.selectedInstallation$.asObservable().subscribe((ref) => {
+                this.mvpService.closePopup();
+            })
+        );
     }
 
     protected dataHandler(ref: ISOUOperationalAccountingSystem): void {
@@ -98,7 +108,7 @@ export class SouMvpMnemonicSchemeComponent extends WidgetPlatform<unknown>
         this.sectionsData = [];
         this.sectionsDataIzo = [];
         ref.section.forEach((item, i) => {
-            if (i !== 2) {
+            if (item.name !== 'Изомалк-2') {
                 this.sectionsData = [
                     ...this.sectionsData,
                     ...item.flowIn,
@@ -114,18 +124,10 @@ export class SouMvpMnemonicSchemeComponent extends WidgetPlatform<unknown>
                 ];
             }
 
-            let sum = 0;
-            for (const element in item) {
-                if (element === 'flowIn' || element === 'flowOut') {
-                    item[element].forEach((el) => {
-                        if (el.isExceedingConfInterval) {
-                            sum++;
-                        }
-                    });
-                }
-            }
-            if (i !== 2) {
-                this.sections[0][i].value = sum;
+            const sec = this.sections[0].find(section => item.name.indexOf(section.title) !== -1);
+
+            if (!!sec) {
+                sec.value = item.countFlowExceedingConfInterval;
             }
         });
     }

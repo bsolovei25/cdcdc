@@ -19,13 +19,16 @@ export const SOURCE_DATA: IAstueOnpzMnemonicFurnace = {
                         value: 4000,
                         unit: 'м/с',
                         type: AstueOnpzMnemonicFurnaceRectType.Full,
+                        streamType: AstueOnpzMnemonicFurnaceStreamStatsType.Deviation,
                     },
                 },
                 {
                     type: AstueOnpzMnemonicFurnaceElementType.Circle,
                     data: {
+                        id: '1',
                         value: 44.6,
                         unit: 'ºС',
+                        streamType: AstueOnpzMnemonicFurnaceStreamStatsType.Deviation,
                     },
                 },
             ],
@@ -43,6 +46,7 @@ export const SOURCE_DATA: IAstueOnpzMnemonicFurnace = {
                 {
                     type: AstueOnpzMnemonicFurnaceElementType.Circle,
                     data: {
+                        id: '2',
                         value: 44.6,
                         unit: 'ºС',
                     },
@@ -62,6 +66,7 @@ export const SOURCE_DATA: IAstueOnpzMnemonicFurnace = {
                 {
                     type: AstueOnpzMnemonicFurnaceElementType.Circle,
                     data: {
+                        id: '3',
                         value: 44.6,
                         unit: 'ºС',
                     },
@@ -81,6 +86,7 @@ export const SOURCE_DATA: IAstueOnpzMnemonicFurnace = {
                 {
                     type: AstueOnpzMnemonicFurnaceElementType.Circle,
                     data: {
+                        id: '4',
                         value: 44.6,
                         unit: 'ºС',
                     },
@@ -100,6 +106,7 @@ export const SOURCE_DATA: IAstueOnpzMnemonicFurnace = {
                 {
                     type: AstueOnpzMnemonicFurnaceElementType.Circle,
                     data: {
+                        id: '5',
                         value: 44.6,
                         unit: 'ºС',
                     },
@@ -134,6 +141,7 @@ export const SOURCE_DATA: IAstueOnpzMnemonicFurnace = {
                 {
                     type: AstueOnpzMnemonicFurnaceElementType.Circle,
                     data: {
+                        id: '6',
                         value: 44.6,
                         unit: 'ºС',
                     },
@@ -143,6 +151,7 @@ export const SOURCE_DATA: IAstueOnpzMnemonicFurnace = {
                     data: {
                         value: 44.6,
                         unit: 'кг/см²',
+                        streamType: AstueOnpzMnemonicFurnaceStreamStatsType.Deviation,
                     },
                 },
             ],
@@ -175,6 +184,7 @@ export const SOURCE_DATA: IAstueOnpzMnemonicFurnace = {
                 {
                     type: AstueOnpzMnemonicFurnaceElementType.Circle,
                     data: {
+                        id: '7',
                         value: 44.6,
                         unit: 'ºС',
                     },
@@ -193,6 +203,7 @@ export const SOURCE_DATA: IAstueOnpzMnemonicFurnace = {
                 {
                     type: AstueOnpzMnemonicFurnaceElementType.Circle,
                     data: {
+                        id: '8',
                         value: 44.6,
                         unit: 'ºС',
                     },
@@ -215,6 +226,7 @@ export const SOURCE_DATA: IAstueOnpzMnemonicFurnace = {
                 {
                     type: AstueOnpzMnemonicFurnaceElementType.Circle,
                     data: {
+                        id: '9',
                         value: 44.6,
                         unit: 'ºС',
                     },
@@ -232,6 +244,7 @@ export const SOURCE_DATA: IAstueOnpzMnemonicFurnace = {
                 {
                     type: AstueOnpzMnemonicFurnaceElementType.Circle,
                     data: {
+                        id: '10',
                         value: 44.6,
                         unit: 'ºС',
                     },
@@ -249,6 +262,7 @@ export const SOURCE_DATA: IAstueOnpzMnemonicFurnace = {
                 {
                     type: AstueOnpzMnemonicFurnaceElementType.Circle,
                     data: {
+                        id: '11',
                         value: 44.6,
                         unit: 'ºС',
                     },
@@ -266,6 +280,7 @@ export const SOURCE_DATA: IAstueOnpzMnemonicFurnace = {
                 {
                     type: AstueOnpzMnemonicFurnaceElementType.Circle,
                     data: {
+                        id: '12',
                         value: 44.6,
                         unit: 'ºС',
                     },
@@ -276,19 +291,21 @@ export const SOURCE_DATA: IAstueOnpzMnemonicFurnace = {
     dischargeStats: {
         title: 'Разряжение',
         main: {
+            id: '13',
             value: 44.6,
             unit: 'ºС',
-            type: AstueOnpzMnemonicFurnaceStreamStatsType.Deviation,
+            streamType: AstueOnpzMnemonicFurnaceStreamStatsType.Deviation,
         },
-        streams: [44.6, 44.6, 44.6, 44.6, 44.6, 44.6],
+        streams: [{ value: 44.6, streamType: AstueOnpzMnemonicFurnaceStreamStatsType.Deviation }],
     },
     gasStats: {
         title: 'Уходящие газы',
         main: {
+            id: '14',
             value: 44.6,
             unit: 'ºС',
-            type: AstueOnpzMnemonicFurnaceStreamStatsType.Norm,
+            streamType: AstueOnpzMnemonicFurnaceStreamStatsType.Norm,
         },
-        streams: [44.6, 44.6, 44.6, 44.6],
+        streams: [{ value: 44.6, streamType: AstueOnpzMnemonicFurnaceStreamStatsType.Norm }],
     },
 };

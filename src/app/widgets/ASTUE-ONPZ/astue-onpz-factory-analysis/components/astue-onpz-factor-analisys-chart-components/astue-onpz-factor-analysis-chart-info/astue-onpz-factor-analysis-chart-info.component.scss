@@ -1,3 +1,5 @@
+@import "src/mixins";
+
 .container {
   display: flex;
   flex-flow: column;
@@ -17,6 +19,8 @@
 
   .value {
     font-size: 14px;
+    @include text-overflow;
+    -webkit-line-clamp: 1;
   }
 
   &__plan {

@@ -1,27 +1,34 @@
-import {Component, ElementRef, Input, OnChanges, OnInit, SimpleChanges, ViewChild} from '@angular/core';
+import {
+    Component,
+    ElementRef,
+    Input,
+    OnChanges,
+    OnInit,
+    SimpleChanges,
+    ViewChild,
+} from '@angular/core';
 import { newArray } from '@angular/compiler/src/util';
 import * as d3 from 'd3';
 import { AsyncRender } from '@shared/functions/async-render.function';
 
 @Component({
-  selector: 'evj-kpe-gauge-chart',
-  templateUrl: './kpe-gauge-chart.component.html',
-  styleUrls: ['./kpe-gauge-chart.component.scss']
+    selector: 'evj-kpe-gauge-chart',
+    templateUrl: './kpe-gauge-chart.component.html',
+    styleUrls: ['./kpe-gauge-chart.component.scss'],
 })
 export class KpeGaugeChartComponent implements OnInit, OnChanges {
-
     private readonly defaultImg: string = '';
     private readonly diagramCounter: number = 100;
     private readonly tickDensity: number = 80 / this.diagramCounter;
 
     @ViewChild('chart') chart: ElementRef;
 
-    @Input() fact: number = 0 ;
+    @Input() fact: number = 0;
     @Input() plan: number = 0;
     @Input() deviation: number = 0;
     @Input() noDeviation: boolean = false;
     @Input() img: string = this.defaultImg;
-    @Input() background: 'lite' | 'dark' = 'lite';
+    @Input() background: 'lite' | 'dark' | 'sou' = 'lite';
     @Input() isPercent: boolean = false;
 
     public ngOnInit(): void {
@@ -34,10 +41,11 @@ export class KpeGaugeChartComponent implements OnInit, OnChanges {
 
     private chartInit(): void {
         this.dataHandler();
-        const mainValue = this.fact > this.plan
-            ? this.plan / this.fact * 100
-            : this.fact / this.plan * 100;
-        const subValue = Math.abs(this.fact - this.plan);
+        const mainValue =
+            this.fact > this.plan
+                ? (this.plan / this.fact) * this.diagramCounter
+                : (this.fact / this.plan) * this.diagramCounter;
+        const subValue = this.diagramCounter - mainValue;
         this.bindChart(mainValue, subValue);
     }
 
@@ -62,28 +70,41 @@ export class KpeGaugeChartComponent implements OnInit, OnChanges {
         const innerRadius = outerRadius - diagramWidth;
 
         function createPie(startAngel: number, endAngel: number): d3.Pie {
-            return d3.pie()
+            return d3
+                .pie()
                 .startAngle(startAngel)
                 .endAngle(endAngel)
                 .value(1);
         }
 
-        const backPie = createPie(-3 * Math.PI / 4, 3 * Math.PI / 4);
-        const mainPie = createPie(-3 * Math.PI / 4, 1.5 * Math.PI * mainValue / this.diagramCounter - 3 * Math.PI / 4);
-        const subPie = createPie(1.5 * Math.PI * mainValue / this.diagramCounter - 3 * Math.PI / 4, 3 * Math.PI / 4);
+        const backPie = createPie((-3 * Math.PI) / 4, (3 * Math.PI) / 4);
+        const mainPie = createPie(
+            (-3 * Math.PI) / 4,
+            (1.5 * Math.PI * mainValue) / this.diagramCounter - (3 * Math.PI) / 4
+        );
+        const subPie = createPie(
+            (1.5 * Math.PI * mainValue) / this.diagramCounter - (3 * Math.PI) / 4,
+            (3 * Math.PI) / 4
+        );
 
-        const arc: d3.Arc = d3.arc()
+        const arc: d3.Arc = d3
+            .arc()
             .outerRadius(outerRadius)
             .innerRadius(innerRadius)
             .padAngle(0.025);
 
-        const backArc: d3.Arc = d3.arc()
+        const backArc: d3.Arc = d3
+            .arc()
             .outerRadius(outerRadius + 1.5)
             .innerRadius(innerRadius - 1.5);
 
-        d3.select(this.chart.nativeElement).selectAll('*').remove();
+        d3.select(this.chart.nativeElement)
+            .selectAll('*')
+            .remove();
 
-        const svg = d3.select(this.chart.nativeElement).append('svg')
+        const svg = d3
+            .select(this.chart.nativeElement)
+            .append('svg')
             .attr('viewBox', `0 0 75 75`)
             .append('g')
             .attr('transform', 'translate(' + width / 2 + ',' + height / 2 + ')');
@@ -122,14 +143,19 @@ export class KpeGaugeChartComponent implements OnInit, OnChanges {
                 .style('stroke-width', lineWidth);
         }
 
-        addSerif(3 * Math.PI / 4, 'serif-active');
-        addSerif(Math.PI / 4, this.fact > this. plan ?  'serif-warning' : 'serif-active');
+        addSerif((3 * Math.PI) / 4, 'serif-active');
+        addSerif(Math.PI / 4, this.fact > this.plan ? 'serif-warning' : 'serif-active');
 
-        addSerif(1.5 * Math.PI * mainValue / this.diagramCounter + 3 * Math.PI / 4, this.fact >= this.plan ? 'serif-active' : 'serif-warning');
+        addSerif(
+            (1.5 * Math.PI * mainValue) / this.diagramCounter + (3 * Math.PI) / 4,
+            this.fact >= this.plan ? 'serif-active' : 'serif-warning'
+        );
 
         const circleRad = 16;
 
-        const shadowGradient = svg.append('defs').append('linearGradient')
+        const shadowGradient = svg
+            .append('defs')
+            .append('linearGradient')
             .attr('id', 'gradient')
             .attr('x1', '0%')
             .attr('x2', '0%')
@@ -137,23 +163,25 @@ export class KpeGaugeChartComponent implements OnInit, OnChanges {
             .attr('y2', '100%')
             .attr('spreadMethod', 'pad');
 
-        shadowGradient.append('svg:stop')
+        shadowGradient
+            .append('svg:stop')
             .attr('offset', '0%')
             .attr('class', 'needle-shadow-gradient-1');
 
-        shadowGradient.append('svg:stop')
+        shadowGradient
+            .append('svg:stop')
             .attr('offset', '100%')
             .attr('class', 'needle-shadow-gradient-2');
 
-        const shadow = d3.arc()
+        const shadow = d3
+            .arc()
             .innerRadius(circleRad)
             .outerRadius(innerRadius - 3)
             .startAngle(-0.5 * Math.PI)
             .endAngle(-0.008 * Math.PI);
 
-        const arrowAngle = this.fact > this.plan
-            ? 135
-            : (-135 + 270 * mainValue / this.diagramCounter);
+        const arrowAngle =
+            this.fact > this.plan ? 135 : -135 + (270 * mainValue) / this.diagramCounter;
 
         const needleShadow = svg
             .append('path')
@@ -161,7 +189,8 @@ export class KpeGaugeChartComponent implements OnInit, OnChanges {
             .attr(`transform`, `rotate(${isNaN(arrowAngle) ? 0 : arrowAngle})`)
             .style('fill', 'url(#gradient)');
 
-        const hideDownSector = d3.arc()
+        const hideDownSector = d3
+            .arc()
             .innerRadius(circleRad)
             .outerRadius(outerRadius)
             .startAngle(-0.24 * Math.PI)
@@ -170,14 +199,22 @@ export class KpeGaugeChartComponent implements OnInit, OnChanges {
         svg.append('path')
             .attr('d', hideDownSector)
             .attr(`transform`, `rotate(180)`)
-            .attr('class', this.background === 'lite' ? 'kpe-gauge-hide-down-sector' : 'kpe-gauge-hide-down-sector-d');
+            .attr(
+                'class',
+                this.background === 'lite'
+                    ? 'kpe-gauge-hide-down-sector'
+                    : this.background === 'dark' ? 'kpe-gauge-hide-down-sector-d' : 'kpe-gauge-hide-down-sector-sou'
+            );
 
         svg.append('path')
             .attr('class', 'needle')
             .attr('d', 'M-3 0 L-1 -30 L1 0 S3 5 0 5 S-3 5 -3 0 Z') // стрелка
             .attr(`transform`, `rotate(${isNaN(arrowAngle) ? 0 : arrowAngle}) scale(0.87)`);
 
-        drawCircle(circleRad, this.background === 'lite' ? 'needle-hover-circle-back' : 'needle-hover-circle-back-d');
+        drawCircle(
+            circleRad,
+            this.background === 'lite' ? 'needle-hover-circle-back' : this.background === 'dark' ? 'needle-hover-circle-back-d' : 'needle-hover-circle-back-sou'
+        );
 
         const g = svg.append('g').attr('class', 'text');
 
