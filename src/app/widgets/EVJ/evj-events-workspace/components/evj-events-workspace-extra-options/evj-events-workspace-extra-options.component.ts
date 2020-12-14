@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter, OnDestroy } from '@angular/core';
 import { IExtraOptionsWindow } from '../../../../../dashboard/models/EVJ/events-widget';
 import { EventsWorkspaceService } from '../../../../../dashboard/services/widgets/EVJ/events-workspace.service';
 import { AuthService } from '@core/service/auth.service';
@@ -8,13 +8,15 @@ import {
     IKpeAllDependentParameters, IKpeNotification,
     IKpeWorkspaceParameter
 } from '../../../../../dashboard/models/EVJ/kpe-workspace.model';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Subscription } from 'rxjs';
 
 @Component({
     selector: 'evj-evj-events-workspace-extra-options',
     templateUrl: './evj-events-workspace-extra-options.component.html',
     styleUrls: ['./evj-events-workspace-extra-options.component.scss']
 })
-export class EvjEventsWorkspaceExtraOptionsComponent implements OnInit {
+export class EvjEventsWorkspaceExtraOptionsComponent implements OnInit, OnDestroy {
     @Input() public info: IExtraOptionsWindow = {
         isShow: false,
         acceptFunction: () => null,
@@ -22,48 +24,66 @@ export class EvjEventsWorkspaceExtraOptionsComponent implements OnInit {
     };
     @Output() checked: any = new EventEmitter<boolean>();
 
+    private subscriptions: Subscription[] = [];
     public disableAdd: boolean;
     public allParameters: IKpeWorkspaceParameter[] = [];
-    public extraParameters: IKpeAllDependentParameters[] = [];
+    public dependentParameters: IKpeAllDependentParameters[] = [];
     public notificationParametersData: IKpeNotification;
-
-    public indexOfDependentParameters: number = 0;
+    public form: FormGroup;
 
     constructor(
         private ewService: EventsWorkspaceService,
         private kpeWorkspaceService: KpeWorkspaceService,
-        private authService: AuthService
+        private authService: AuthService,
+        private formBuild: FormBuilder
     ) {
     }
 
     ngOnInit(): void {
+        this.form = this.formBuild.group({
+                parameters: this.formBuild.control('', Validators.required),
+                dependentParameters: this.formBuild.array([
+                    this.formBuild.group({
+                        name: this.formBuild.control(''),
+                        numericValue: this.formBuild.control('')
+                    })
+                ])
+            }
+        );
         this.getParametersByNotification();
         this.getParameters();
-        this.kpeWorkspaceService.showSelectParameters$.subscribe((res) => {
-            if (res) {
-                this.extraParameters = res;
-            }
-        });
-        this.kpeWorkspaceService.selectParameter$.subscribe((res) => {
-            if (res) {
-                this.getExtraParameters(res.id);
-            }
-        });
+        this.subscriptions.push(
+            this.kpeWorkspaceService.showSelectParameters$.subscribe((res) => {
+                if (res) {
+                    this.dependentParameters = res;
+                }
+            }),
+            this.kpeWorkspaceService.selectParameter$.subscribe((res) => {
+                if (res) {
+                    this.getExtraParameters(res.id);
+                }
+            })
+        );
+        console.log(this.form);
+    }
+    ngOnDestroy(): void {
+        this.subscriptions.forEach((subs: Subscription) => subs.unsubscribe());
     }
 
+    // Список с Установленными фактами
     private async getParameters(): Promise<void> {
         this.allParameters = await this.kpeWorkspaceService.getAllKpeParameters();
     }
 
+    // Список с Зависимыми параметтрами
     private async getExtraParameters(id: number): Promise<void> {
-        const extraParametersData = await this.kpeWorkspaceService.getKpeAllDependentParameters(id);
-        this.kpeWorkspaceService.showSelectParameters$.next(extraParametersData);
+        const dependentParametersData = await this.kpeWorkspaceService.getKpeAllDependentParameters(id);
+        this.kpeWorkspaceService.showSelectParameters$.next(dependentParametersData);
     }
 
     public getParameterId(event: any): void {
         this.kpeWorkspaceService.selectParameter$.next(event.value);
         this.notificationParametersData.dependentParameters = [];
-        this.indexOfDependentParameters = 0;
     }
 
     private async getParametersByNotification(): Promise<void> {
@@ -71,6 +91,10 @@ export class EvjEventsWorkspaceExtraOptionsComponent implements OnInit {
             this.ewService.event
         );
         this.notificationParametersData = data;
+        this.form = this.formBuild.group({
+            parameters: this.formBuild.control(data.selectedParameter),
+            dependentParameters: this.formBuild.array(data.dependentParameters)
+        });
     }
 
     private async deleteParametersByNotification(checkbox: boolean): Promise<void> {
@@ -80,13 +104,39 @@ export class EvjEventsWorkspaceExtraOptionsComponent implements OnInit {
         this.checked.emit(checkbox);
     }
 
+    // Закрыть всплывающее окно с Дополнительными параметры
+    public cancel(): void {
+        const popupWindow = {
+            isShow: false
+        };
+        this.ewService.extraOptionsWindow$.next(popupWindow);
+    }
+
+    // Добавить зависимый параметр
+    public addParameters(): void {
+        const depends = this.form.controls.dependentParameters as FormArray;
+        depends.push(
+            this.formBuild.group({
+                    name: this.formBuild.control(''),
+                    numericValue: this.formBuild.control(0)
+                }
+            )
+        );
+    }
+    // Удалить зависимый параметр
+    public removeParameters(): void {
+        const depends = this.form.controls.dependentParameters as FormArray;
+        depends.removeAt(depends.length - 1);
+    }
+
+    // POST Сохранить данные
     public async accept(): Promise<void> {
-        this.notificationParametersData.dependentParameters.map((value) => {
-            value.createdBy = this.authService.user$.getValue().id;
-            value.createdAt = new Date();
-            value.dependentParameterId = value.id;
-            value.numericValue = +value.numericValue;
-        });
+        this.notificationParametersData = {
+            selectedParameter: this.form.value.parameters,
+            dependentParameters: this.form.value.dependentParameters,
+            createdAt: new Date(),
+            createdBy: this.authService.user$.getValue().id
+        };
         try {
             await this.kpeWorkspaceService.postKpeNotificationParameters(
                 this.ewService.event,
@@ -99,15 +149,10 @@ export class EvjEventsWorkspaceExtraOptionsComponent implements OnInit {
             isShow: false
         };
         this.ewService.extraOptionsWindow$.next(popupWindow);
-    }
 
-    public cancel(): void {
-        const popupWindow = {
-            isShow: false
-        };
-        this.ewService.extraOptionsWindow$.next(popupWindow);
+        console.log(this.form);
     }
-
+    //  DELETE Удалить данные
     public discard(): void {
         const alertWindow: IAlertWindowModel = {
             isShow: true,
@@ -122,23 +167,5 @@ export class EvjEventsWorkspaceExtraOptionsComponent implements OnInit {
             isShow: false
         };
         this.ewService.extraOptionsWindow$.next(popupWindow);
-    }
-
-    public addParameters(): void {
-        if (this.notificationParametersData.dependentParameters.length > 4) {
-            this.disableAdd = false;
-        } else {
-            this.disableAdd = false;
-            if (this.extraParameters.length) {
-                this.notificationParametersData.dependentParameters.push(
-                    this.extraParameters[this.indexOfDependentParameters]
-                );
-            }
-        }
-        this.indexOfDependentParameters++;
-    }
-
-    public removeParameters(): void {
-        this.notificationParametersData.dependentParameters.pop();
     }
 }

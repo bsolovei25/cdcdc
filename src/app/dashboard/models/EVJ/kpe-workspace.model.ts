@@ -3,11 +3,11 @@ export interface IKpeWorkspaceParameter {
     name: string;
 }
 export interface IKpeAllDependentParameters {
-    id: number;
+    id?: number;
     name: string;
-    unit: string;
-    parentId: string;
-    dependentParameterId: number;
+    unit?: string;
+    parentId?: string;
+    dependentParameterId?: number;
     numericValue?: number;
     createdAt?: Date;
     createdBy?: number;
