@@ -9,7 +9,6 @@ import {
 } from '../../../dashboard/models/SOU/sou-operational-accounting-system';
 import { SouMvpMnemonicSchemeService } from '../../../dashboard/services/widgets/SOU/sou-mvp-mnemonic-scheme.service';
 import { animate, state, style, transition, trigger } from '@angular/animations';
-import { BehaviorSubject } from 'rxjs';
 
 @Component({
     selector: 'evj-sou-mvp-mnemonic-scheme',
@@ -50,18 +49,19 @@ export class SouMvpMnemonicSchemeComponent extends WidgetPlatform<unknown>
     sectionsDataIzo: (ISOUFlowOut | ISOUFlowIn | ISOUObjects)[] = []; // Массив всех элементов Изомалка
 
     factories: string[] = ['Производство 1', 'Производство 4', 'Товарное производство'];
-    installations: string[][] = [
-        ['АВТ-10'],
-        ['Изомалк-2'],
-        [
-            'АССБ Авиасмеси',
-            'АССБ А-95',
-            'АССБ А-98',
-            'Насосная т.1163-1164 парк БГС',
-            'Насосная т.1163-1164 парк А-95',
-            'Насосная т.1163-1164 парк А-92',
-        ],
-    ];
+    installations: string[][] = [['АВТ-10'], ['Изомалк-2'], ['АССБ Авиасмеси']];
+    // installations: string[][] = [
+    //     ['АВТ-10'],
+    //     ['Изомалк-2'],
+    //     [
+    //         'АССБ Авиасмеси',
+    //         'АССБ А-95',
+    //         'АССБ А-98',
+    //         'Насосная т.1163-1164 парк БГС',
+    //         'Насосная т.1163-1164 парк А-95',
+    //         'Насосная т.1163-1164 парк А-92',
+    //     ],
+    // ];
 
     twoSelection: string[] = [];
 

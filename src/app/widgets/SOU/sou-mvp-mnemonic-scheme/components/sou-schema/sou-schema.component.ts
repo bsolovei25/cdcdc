@@ -1,13 +1,6 @@
-import {
-    AfterViewChecked,
-    Component,
-    ElementRef,
-    OnChanges,
-    OnInit,
-    ViewChild,
-} from '@angular/core';
+import { AfterViewChecked, Component, OnInit } from '@angular/core';
 import { SouMvpMnemonicSchemeService } from '../../../../../dashboard/services/widgets/SOU/sou-mvp-mnemonic-scheme.service';
-import { log } from 'util';
+import { DATASOURCE } from './mock';
 
 interface IDataSou {
     id: number;
@@ -40,64 +33,13 @@ interface IElementFull {
     templateUrl: './sou-schema.component.html',
     styleUrls: ['./sou-schema.component.scss'],
 })
-export class SouSchemaComponent implements OnInit, OnChanges, AfterViewChecked {
+export class SouSchemaComponent implements OnInit, AfterViewChecked {
     elementsNode: Element[] = []; // все элементы
     dataAttribute: Map<number, Element> = new Map(); // id элемента, элемент
-    flag: boolean = true;
-    metaFile: IDataMetaFile[] = [];
+    flag: boolean = true; // флаг для одного входа в ngAfterViewChecked
+    metaFile: IDataMetaFile[] = []; // файл с мета данными
 
-    data: IDataSou[] = [
-        {
-            id: 1,
-            text: 'FR-92',
-            value: 10,
-            percent: 20,
-            deviation: true,
-            active: true,
-        },
-        {
-            id: 2,
-            text: 'FR-92',
-            value: 10,
-            percent: 20,
-            deviation: false,
-            active: true,
-        },
-        {
-            id: 3,
-            text: 'FR-92',
-            value: 10,
-            percent: 20,
-            deviation: false,
-            active: true,
-        },
-        {
-            id: 29,
-            text: 'FR-92',
-            value: 10,
-            percent: 20,
-            deviation: false,
-            active: true,
-        },
-        {
-            id: 10,
-            text: 'FR-92',
-            value: 10,
-            percent: 20,
-            deviation: false,
-            active: true,
-        },
-        {
-            id: 15,
-            text: 'FR-92',
-            value: 10,
-            percent: 20,
-            deviation: false,
-            active: true,
-        },
-    ];
-
-    @ViewChild('svg_sou') svgSou: ElementRef;
+    data: IDataSou[] = DATASOURCE;  // данные с бэка
 
     constructor(private souService: SouMvpMnemonicSchemeService) {}
 
@@ -105,18 +47,8 @@ export class SouSchemaComponent implements OnInit, OnChanges, AfterViewChecked {
         this.loadMetaFile();
     }
 
-    ngOnChanges(): void {
-        console.log('aaaaaa');
-        this.loadMetaFile();
-        if (document.querySelector(`#element-1_1`) && this.flag) {
-            this.flag = false;
-            this.loadSchema();
-            this.loadData();
-        }
-    }
-
     ngAfterViewChecked(): void {
-        if (document.querySelector(`#element-1_1`) && this.flag) {
+        if (document.querySelector(`#element-1_1`) && this.flag && this.metaFile.length) {
             this.flag = false;
             this.loadSchema();
             this.loadData();
@@ -362,6 +294,7 @@ export class SouSchemaComponent implements OnInit, OnChanges, AfterViewChecked {
         const localElements: Element[] = [];
         while (i < 100) {
             // поиск по id  - id=element-1_2
+
             const element = document.querySelector(`#element-${elementIndex}_${i}`);
             const line = document.querySelector(`#line_${i}`);
             if (element) {
