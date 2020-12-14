@@ -4,7 +4,6 @@ import { WidgetService } from '../../../dashboard/services/widget.service';
 import { FormControl } from '@angular/forms';
 import { MatSelectChange } from '@angular/material/select';
 import { AstueOnpzService } from '../astue-onpz-shared/astue-onpz.service';
-import { deepEqual } from 'assert';
 import { ObjectDeepEqual } from '@shared/functions/deep-equal.function';
 
 interface IAstueOnpzMenuStructure {
@@ -25,10 +24,10 @@ export interface IAstueOnpzMenuUnit {
 @Component({
     selector: 'evj-astue-onpz-menu-structure',
     templateUrl: './astue-onpz-menu-structure.component.html',
-    styleUrls: ['./astue-onpz-menu-structure.component.scss']
+    styleUrls: ['./astue-onpz-menu-structure.component.scss'],
 })
-export class AstueOnpzMenuStructureComponent extends WidgetPlatform<IAstueOnpzMenuStructure> implements OnInit, OnDestroy, AfterViewInit {
-
+export class AstueOnpzMenuStructureComponent extends WidgetPlatform<IAstueOnpzMenuStructure>
+    implements OnInit, OnDestroy, AfterViewInit {
     public manufactures: IAstueOnpzMenuManufacture[];
 
     public units: IAstueOnpzMenuUnit[];
@@ -47,8 +46,7 @@ export class AstueOnpzMenuStructureComponent extends WidgetPlatform<IAstueOnpzMe
         super(widgetService, isMock, id, uniqId);
     }
 
-    public ngOnInit(): void {
-    }
+    public ngOnInit(): void {}
 
     public ngAfterViewInit(): void {
         super.widgetInit();
@@ -66,17 +64,17 @@ export class AstueOnpzMenuStructureComponent extends WidgetPlatform<IAstueOnpzMe
     protected dataConnect(): void {
         super.dataConnect();
         this.subscriptions.push(
-            this.astueOnpzService.sharedMonitoringOptions.subscribe(options => {
+            this.astueOnpzService.sharedMonitoringOptions.subscribe((options) => {
                 if (options) {
                     this.manufactureSelect.setValue(options.manufactureName);
-                    this.manufactures?.forEach(manufacture => {
+                    this.manufactures?.forEach((manufacture) => {
                         if (manufacture.name === options.manufactureName) {
                             this.units = manufacture.units;
                             this.unitSelect.setValue(options.unitName);
                         }
                     });
                 }
-            }),
+            })
         );
     }
 
@@ -94,7 +92,9 @@ export class AstueOnpzMenuStructureComponent extends WidgetPlatform<IAstueOnpzMe
     }
 
     private setManufactureSelectValue(): void {
-        const value = this.manufactureSelect.value ? this.manufactureSelect.value : this.manufactures[0].name;
+        const value = this.manufactureSelect.value
+            ? this.manufactureSelect.value
+            : this.manufactures[0].name;
         this.manufactureSelect.setValue(value);
         this.astueOnpzService.updateManufactureName(value);
     }
@@ -104,7 +104,7 @@ export class AstueOnpzMenuStructureComponent extends WidgetPlatform<IAstueOnpzMe
             return;
         }
         const value = this.manufactureSelect.value;
-        this.manufactures.forEach(manufacture => {
+        this.manufactures.forEach((manufacture) => {
             if (manufacture.name === value) {
                 this.units = manufacture.units;
                 this.unitSelect.setValue(this.units[0].name);

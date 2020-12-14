@@ -57,8 +57,4 @@ export class SouEnergeticComponent extends WidgetPlatform implements OnInit {
     protected dataHandler(ref: ISouEnergetic): void {
         this.data = ref;
     }
-
-    private setWsOptions(options: ISouEnergeticOptions): void {
-        this.widgetService.setChannelLiveDataFromWsOptions(this.id, options);
-    }
 }

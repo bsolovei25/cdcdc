@@ -78,10 +78,6 @@ export class AstueOnpzTableIndicatorsComponent extends WidgetPlatform<unknown>
         this.mnemonicFurnaceService.selectItem(element?.id);
     }
 
-    private setWsOptions(options: IAstueOnpzMnemonicFurnaceOptions): void {
-        this.widgetService.setChannelLiveDataFromWsOptions(this.id, options);
-    }
-
     public selectedProduct$(element: IAstueOnpzTableIndicatorsItemChild): Observable<boolean> {
         return this.mnemonicFurnaceService.selectedItem$
             .asObservable()

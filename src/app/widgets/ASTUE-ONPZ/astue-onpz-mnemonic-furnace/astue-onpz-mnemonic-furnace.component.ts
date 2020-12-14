@@ -93,6 +93,12 @@ export class AstueOnpzMnemonicFurnaceComponent extends WidgetPlatform implements
         @Inject('uniqId') public uniqId: string
     ) {
         super(widgetService, isMock, id, uniqId);
+        mnemonicFurnaceService.furnaceOptionsReferences = this.selectReferences;
+        this.mnemonicFurnaceService.furnaceOptions$ = combineLatest([
+            this.selectManufacture.valueChanges,
+            this.selectUnit.valueChanges,
+            this.selectOven.valueChanges,
+        ]).pipe(map((x) => ({ manufactureId: x[0], unitId: x[1], ovenId: x[2] })));
     }
 
     ngOnInit(): void {
@@ -111,12 +117,6 @@ export class AstueOnpzMnemonicFurnaceComponent extends WidgetPlatform implements
         this.selectOven.valueChanges.pipe(takeUntil(this.onDestroy)).subscribe((value) => {
             this.setData();
         });
-
-        this.mnemonicFurnaceService.furnaceOptions$ = combineLatest([
-            this.selectManufacture.valueChanges,
-            this.selectUnit.valueChanges,
-            this.selectOven.valueChanges,
-        ]).pipe(map((x) => ({ manufactureId: x[0], unitId: x[1], ovenId: x[2] })));
 
         this.mnemonicFurnaceService.selectedItem$
             .pipe(takeUntil(this.onDestroy))
