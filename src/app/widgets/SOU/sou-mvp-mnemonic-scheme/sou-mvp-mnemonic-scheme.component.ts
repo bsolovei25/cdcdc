@@ -124,11 +124,9 @@ export class SouMvpMnemonicSchemeComponent extends WidgetPlatform<unknown>
                 ];
             }
 
-            const sec = this.sections[0].find(section => {
-                item.name.indexOf(section.title) !== -1
-            });
+            const sec = this.sections[0].find(section => item.name.indexOf(section.title) !== -1);
 
-            if (sec != undefined) {
+            if (!!sec) {
                 sec.value = item.countFlowExceedingConfInterval;
             }
         });
