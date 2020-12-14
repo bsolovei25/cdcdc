@@ -31,6 +31,7 @@ export interface IOilOperationsProduct {
 
 export interface IOilOperationsTank {
     enabled?: boolean;
+    capacity?: number;
     id: string;
     limitHours?: number;
     name: string;

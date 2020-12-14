@@ -28,7 +28,7 @@ export class KpeGaugeChartComponent implements OnInit, OnChanges {
     @Input() deviation: number = 0;
     @Input() noDeviation: boolean = false;
     @Input() img: string = this.defaultImg;
-    @Input() background: 'lite' | 'dark' = 'lite';
+    @Input() background: 'lite' | 'dark' | 'sou' = 'lite';
     @Input() isPercent: boolean = false;
 
     public ngOnInit(): void {
@@ -203,7 +203,7 @@ export class KpeGaugeChartComponent implements OnInit, OnChanges {
                 'class',
                 this.background === 'lite'
                     ? 'kpe-gauge-hide-down-sector'
-                    : 'kpe-gauge-hide-down-sector-d'
+                    : this.background === 'dark' ? 'kpe-gauge-hide-down-sector-d' : 'kpe-gauge-hide-down-sector-sou'
             );
 
         svg.append('path')
@@ -213,7 +213,7 @@ export class KpeGaugeChartComponent implements OnInit, OnChanges {
 
         drawCircle(
             circleRad,
-            this.background === 'lite' ? 'needle-hover-circle-back' : 'needle-hover-circle-back-d'
+            this.background === 'lite' ? 'needle-hover-circle-back' : this.background === 'dark' ? 'needle-hover-circle-back-d' : 'needle-hover-circle-back-sou'
         );
 
         const g = svg.append('g').attr('class', 'text');

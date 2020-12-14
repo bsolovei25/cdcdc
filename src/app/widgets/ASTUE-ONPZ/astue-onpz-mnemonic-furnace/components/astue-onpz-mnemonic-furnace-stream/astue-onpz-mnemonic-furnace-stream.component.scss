@@ -89,4 +89,20 @@
       display: none;
     }
   }
+
+  &__deviation {
+    border-color: var(--color-astue-onpz-mnemonic-furnace-warning);
+
+    .label__text {
+      color: var(--color-astue-onpz-mnemonic-furnace-warning);
+    }
+
+    .value__text {
+      color: var(--color-astue-onpz-mnemonic-furnace-warning);
+    }
+
+    .number__text {
+      color: var(--color-astue-onpz-mnemonic-furnace-warning);
+    }
+  }
 }

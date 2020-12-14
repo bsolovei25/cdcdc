@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { IAstueOnpzMnemonicFurnaceStreamStatsMini } from '../../../../../../dashboard/models/ASTUE-ONPZ/astue-onpz-mnemonic-furnace.model';
 
 @Component({
     selector: 'evj-astue-onpz-mnemonic-furnace-popup-stream',
@@ -6,7 +7,7 @@ import { Component, Input, OnInit } from '@angular/core';
     styleUrls: ['./astue-onpz-mnemonic-furnace-popup-stream.component.scss'],
 })
 export class AstueOnpzMnemonicFurnacePopupStreamComponent implements OnInit {
-    @Input() data: { idx: number; value: number } = null;
+    @Input() data: { idx: number; data: IAstueOnpzMnemonicFurnaceStreamStatsMini } = null;
 
     constructor() {}
 

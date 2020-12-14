@@ -8,13 +8,13 @@
   <div class="legend">
     <ng-container *ngIf="legendValues$ | async">
       <div class="legend__value-wrapper" *ngFor="let value of (legendValues$ | async)">
-        <div class="legend__value"> {{ value | number: "0.1-1" }} </div>
+        <div class="legend__value"> {{ (value | number: "0.1-1") || 0 }} </div>
       </div>
     </ng-container>
   </div>
   <div class="scroll-wrapper" *ngIf="data">
     <ng-container *ngFor="let group of data.groups">
-      <evj-astue-onpz-factory-analysis-group [data]="group">
+      <evj-astue-onpz-factory-analysis-group style="width: min-content" [data]="group">
         <ng-container *ngFor="let bar of group.bars">
           <evj-astue-onpz-factory-analysis-cell [data]="bar"></evj-astue-onpz-factory-analysis-cell>
           <ng-container *ngIf="bar !== group.bars[group.bars.length - 1]">

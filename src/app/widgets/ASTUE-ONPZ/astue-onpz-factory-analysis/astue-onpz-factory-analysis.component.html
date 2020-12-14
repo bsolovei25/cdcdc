@@ -1,23 +1,33 @@
 <div class="widget-container">
   <evj-contemporary-widget-header
     [uniqId]="uniqId"
-    [widgetTitle]="widgetTitle"
+    [widgetTitle]="(viewType$ | async) === 'Furnace' ? null : widgetTitle"
     icon="squares"
     type="astue"
   >
-<!--    <div class="header-container">-->
-<!--      <evj-astue-onpz-factory-analysis-header [page]="pageType$ | async" (changePage)="changePage($event)"></evj-astue-onpz-factory-analysis-header>-->
-<!--    </div>-->
+    <div *ngIf="(viewType$ | async) === 'Furnace'" class="header-container">
+      <evj-astue-onpz-factory-analysis-header [page]="pageType$ | async" (changePage)="changePage($event)"></evj-astue-onpz-factory-analysis-header>
+    </div>
   </evj-contemporary-widget-header>
 
   <div class="container"
        (mousedown)="$event.stopPropagation()"
        (touchstart)="$event.stopPropagation()"
   >
-    <evj-astue-onpz-factor-analysis-page [@rightTrigger] class="factor-analysis"></evj-astue-onpz-factor-analysis-page>
-<!--    <ng-container [ngSwitch]="pageType$ | async">-->
-<!--      <evj-astue-onpz-factor-analysis-page *ngSwitchCase="'bar'" [@rightTrigger] class="factor-analysis"></evj-astue-onpz-factor-analysis-page>-->
-<!--      <evj-astue-onpz-factory-analysis-chart-page *ngSwitchCase="'chart'" [@leftTrigger] class="factor-analysis"></evj-astue-onpz-factory-analysis-chart-page>-->
-<!--    </ng-container>-->
+   <ng-container [ngSwitch]="pageType$ | async">
+      <evj-astue-onpz-factor-analysis-page
+        *ngSwitchCase="'bar'"
+        [@rightTrigger]
+        class="factor-analysis"
+        [dataTemp]="barData"
+      ></evj-astue-onpz-factor-analysis-page>
+      <div *ngSwitchCase="'chart'" [@leftTrigger] class="factor-analysis">
+       <ng-container *ngIf="selectedChannelId">
+         <ng-container
+           *ngComponentOutlet="chartPageComponent; injector: (widgetId | fn:getInjector );"
+         ></ng-container>
+       </ng-container>
+      </div>
+   </ng-container>
   </div>
 </div>

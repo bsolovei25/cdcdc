@@ -1,26 +1,26 @@
 <div class="container-tank-level">
-    <div class="container-tank-level__title"> {{ data.name }} </div>
+    <div class="container-tank-level__title"> {{ data?.tank?.name || '-' }} </div>
     <div class="container-tank-level__content">
         <div class="values">
             <div class="values__block">
                 <div class="title">Вместимость</div>
-                <div class="value"> {{ data.capacity | spaceNumber }} тонн</div>
+                <div class="value"> {{ (data?.tank?.capacity | spaceNumber) || '-' }} т</div>
             </div>
             <div class="values__block">
                 <div class="title">Отгружено</div>
-                <div class="value"> {{ data.shipped | spaceNumber }} тонн</div>
+                <div class="value"> {{ (transfer?.mass | spaceNumber) || '-' }} т</div>
             </div>
         </div>
         <div class="tank">
             <div class="first-circle">
-                <div class="first-circle__level" [style.height.%]="data.percent">
+                <div class="first-circle__level" [style.height.%]="getPercent()">
 
                 </div>
             </div>
             <div class="second-circle">
             </div>
-            <div class="tank__value" [style.bottom.%]="textLevel">{{ data.valueLevel }}</div>
+            <div class="tank__value" [style.bottom.%]="textLevel"></div>
         </div>
     </div>
-    <div class="container-tank-level__type-title">{{ data.type }}</div>
+    <div class="container-tank-level__type-title">{{ data?.tank?.group?.name || '-' }}</div>
 </div>
