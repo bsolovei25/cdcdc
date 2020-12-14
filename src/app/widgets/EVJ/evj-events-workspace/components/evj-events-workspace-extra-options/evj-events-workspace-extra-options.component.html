@@ -72,9 +72,9 @@
               </div>
             </div>
             <div formArrayName="dependentParameters"
-                 *ngFor="let d of form.controls.dependentParameters?.value; let i = index"
+                 *ngFor="let d of form.controls.dependentParameters?.value; idx as index"
             >
-              <div formGroupName="{{i}}">
+              <div formGroupName="{{index}}">
                 <div class="container__body__parameters">
                   <div class="dropdown">
                     <div class="event-mat-select">

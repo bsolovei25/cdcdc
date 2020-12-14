@@ -42,15 +42,12 @@ export class EvjEventsWorkspaceExtraOptionsComponent implements OnInit, OnDestro
     ngOnInit(): void {
         this.form = this.formBuild.group({
                 parameters: this.formBuild.control('', Validators.required),
-                dependentParameters: this.formBuild.array([
-                    this.formBuild.group({
-                        name: this.formBuild.control(''),
-                        numericValue: this.formBuild.control('')
-                    })
-                ])
+                dependentParameters: this.formBuild.array([])
             }
         );
-        this.getParametersByNotification();
+        if (this.ewService.event.id) {
+            this.getParametersByNotification();
+        }
         this.getParameters();
         this.subscriptions.push(
             this.kpeWorkspaceService.showSelectParameters$.subscribe((res) => {
