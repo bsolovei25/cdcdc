@@ -8,11 +8,13 @@ import { IBarDiagramData } from '../shared/kpe-equalizer-chart/kpe-equalizer-cha
 import { KpeHelperService } from '../shared/kpe-helper.service';
 import { IKpeGaugeChartData, IKpeLineChartData } from '../shared/kpe-charts.model';
 
+type DisplayModeType = 'tiled' | 'line' | 'planFeasibility';
+
 export interface IKpeQualityData {
     cards: IKpeQualityCard[] | null;
     deviationChart: IKpeLineChartData[] | null;
     deviationDiagram: IKpeGaugeChartData | null;
-    displayMode: 'tiled' | 'line';
+    displayMode: DisplayModeType;
 }
 
 export interface IKpeQualityCard {
@@ -28,10 +30,14 @@ export interface IKpeQualityCard {
     styleUrls: ['./kpe-quality.component.scss'],
 })
 export class KpeQualityComponent extends WidgetPlatform<unknown> implements OnInit, OnDestroy {
-
     public lineChartData: IProductionTrend[] = [];
 
-    public margin = { top: 20, right: 20, bottom: 30, left: 40 };
+    public margin: { top: number; right: number; bottom: number; left: number } = {
+        top: 20,
+        right: 20,
+        bottom: 30,
+        left: 40,
+    };
 
     public deviationChartData: IDeviationDiagramData[] = [];
 
@@ -41,7 +47,7 @@ export class KpeQualityComponent extends WidgetPlatform<unknown> implements OnIn
 
     public displayedMonth: Date;
 
-    displayMode: 'tiled' | 'line';
+    public displayMode: DisplayModeType;
 
     constructor(
         private hostElement: ElementRef,
@@ -79,25 +85,35 @@ export class KpeQualityComponent extends WidgetPlatform<unknown> implements OnIn
         return `min-width: ${height * 1.136}px`;
     }
 
+    public chartWidth(container: HTMLDivElement): string {
+        if (!(container?.offsetHeight > 0)) {
+            return;
+        }
+        const height = container.offsetHeight;
+        return `width: ${height}px`;
+    }
+
     protected dataHandler(ref: IKpeQualityData): void {
         this.displayMode = ref.displayMode;
         this.deviationDiagram = ref.deviationDiagram;
         this.deviationChartData = this.formatData(ref.deviationChart);
         const cards = this.kpeHelperService.sortArray<IKpeQualityCard>(ref.cards, 2);
         if (!this.cards.length) {
-            cards.forEach(cardsSetNew => {
+            cards.forEach((cardsSetNew) => {
                 this.cards.push(this.prepareEqualizerData(cardsSetNew));
             });
         } else {
-            cards.forEach(cardsSetNew => {
-                this.cards.forEach(cardsSetExist => {
-                    if (this.kpeHelperService.compare<IKpeQualityCard>(cardsSetNew, cardsSetExist)) {
+            cards.forEach((cardsSetNew) => {
+                this.cards.forEach((cardsSetExist) => {
+                    if (
+                        this.kpeHelperService.compare<IKpeQualityCard>(cardsSetNew, cardsSetExist)
+                    ) {
                         this.cards.push(this.prepareEqualizerData(cardsSetNew));
                     }
                 });
             });
         }
-        ref.deviationChart.forEach(data => {
+        ref.deviationChart.forEach((data) => {
             if (data.graphType === 'fact') {
                 this.displayedMonth = new Date(data.graph[0].timeStamp);
             }
@@ -105,7 +121,7 @@ export class KpeQualityComponent extends WidgetPlatform<unknown> implements OnIn
     }
 
     private prepareEqualizerData(cardSet: IKpeQualityCard[]): IKpeQualityCard[] {
-        cardSet.map(card => {
+        cardSet.map((card) => {
             card.equalizerChartConverted = this.formatData(card.equalizerChart);
         });
         return cardSet;

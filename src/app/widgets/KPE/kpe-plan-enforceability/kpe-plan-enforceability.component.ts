@@ -2,7 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { WidgetPlatform } from '../../../dashboard/models/@PLATFORM/widget-platform';
 import { WidgetService } from '../../../dashboard/services/widget.service';
 import { IBarDiagramData } from '../shared/kpe-equalizer-chart/kpe-equalizer-chart.component';
-import { enforceabilityGraphData } from '../kpe-plan-enforceability/mock';
+import { enforceabilityGraphData } from './mock';
 @Component({
   selector: 'evj-kpe-plan-enforceability',
   templateUrl: './kpe-plan-enforceability.component.html',
