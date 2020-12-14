@@ -107,7 +107,7 @@ export class SouMvpMnemonicSchemeComponent extends WidgetPlatform<unknown>
         this.sectionsData = [];
         this.sectionsDataIzo = [];
         ref.section.forEach((item, i) => {
-            if (i !== 2) {
+            if (item.name !== 'Изомалк-2') {
                 this.sectionsData = [
                     ...this.sectionsData,
                     ...item.flowIn,
