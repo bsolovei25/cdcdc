@@ -35,7 +35,7 @@ import { KpeExecutionProductionProgramEditPlaneComponent } from './components/kp
 })
 export class KpeExecutionProductionProgramComponent extends WidgetPlatform<unknown> implements OnInit {
     public cells: number [] = new Array(100);
-    public percent: number = 78;
+    public percent: number = 97;
     public isExpanded = true;
 
     constructor(
