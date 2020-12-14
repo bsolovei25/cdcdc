@@ -52,6 +52,9 @@ body {
   .mat-simple-snackbar {
     justify-content: center;
   }
+  mat-dialog-container {
+    padding: 0;
+  }
 }
 
 input:-webkit-autofill,

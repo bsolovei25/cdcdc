@@ -1,0 +1,83 @@
+<div class="container">
+  <evj-contemporary-widget-header
+    [uniqId]="uniqId"
+    [widgetTitle]="widgetTitle"
+    type="astue"
+    icon="parameter"
+  >
+    <div class="btn-container"     
+      (mousedown)="$event.stopPropagation()"
+      (touchstart)="$event.stopPropagation()"
+    >
+      <div class="btn" matRipple matRippleColor="white" (click)="openAdd()">Добавить событие</div>
+    </div>
+  </evj-contemporary-widget-header>
+  <div 
+    class="container-body"
+    (mousedown)="$event.stopPropagation()"
+    (touchstart)="$event.stopPropagation()"
+  >
+    <div class="plan">
+      <div class="plan__value">
+        <span>{{percent | number:'0.0-0'}} <span class="unit">%</span> </span>
+      </div>
+      <div class="plan__diagram">
+        <div class="plan__diagram__lines">
+          <ng-container *ngFor="let line of cells; let i = index">
+            <div 
+              class="line"
+              [ngClass]="{
+                'line_active': i < percent
+              }"
+            ></div>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+    <div class="main-content">
+      <div class="info-block">
+        <svg-icon
+          src='assets/icons/widgets/KPE/kpe-execution-production-program/x.svg'
+          class="expand"
+          (click)="toggleBlock()"
+        ></svg-icon>
+        <div class="title">Передача плановых данных</div>
+        <div class="date">Декабрь 2020</div>
+        <div class="timer-btn">
+          <svg-icon
+            src='assets/icons/widgets/KPE/kpe-execution-production-program/timer.svg'
+          ></svg-icon>
+          30.10.2020
+        </div>
+        <div class="influence">Влияние 3%</div>
+        <div class="plus-btn" matRipple matRippleColor="white">
+          <svg-icon
+            src='assets/icons/widgets/KPE/kpe-execution-production-program/plus.svg'
+            (click)="openEdit()"
+          ></svg-icon>
+        </div>
+      </div>
+      <div class="expand-block" [@Branch]="(isExpanded) ? 'expanded' : 'collapsed'">
+        <div class="expand-block__item">
+          <div class="line"></div>
+          <div class="description">
+            <div class="description__title">
+              Уточнения объемов прокачек и потребления топливного и природного газа на ПНР КГПН 
+            </div>
+            <div class="custom-block"></div>
+            <div class="description__btn">
+              <div class="timer-btn">
+                <svg-icon
+                  src='assets/icons/widgets/KPE/kpe-execution-production-program/timer.svg'
+                ></svg-icon>
+                30.10.2020
+              </div>
+              <div class="influence">Влияние 3%</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
