@@ -1,16 +1,13 @@
-<div style="height: 100%; width: 100%;" *ngIf="!isMock">
-  <evj-widget-header
-    [title]="widgetTitle"
-    [units]="widgetUnits"
-    [code]="widgetCode"
-    [id]="widgetId"
-    [icon]="widgetIcon"
+<div class="widget-container">
+  <evj-contemporary-widget-header
+    type="astue"
+    [widgetTitle]="widgetTitle"
     [uniqId]="widgetUniqId"
-    [widgetType]="widgetType"
-    (ejcoTabClicked)="handleTabClick($event)"
-  ></evj-widget-header>
-
-  <evj-ejco-onpz-frame-top></evj-ejco-onpz-frame-top>
+  >
+    <div class="header-container">
+      <div class="button" (click)="handleTabClick()" matRipple matRippleColor="white"> В источник </div>
+    </div>
+  </evj-contemporary-widget-header>
 
   <div
     class="content_block"
@@ -56,5 +53,4 @@
       </div>
     </div>
   </div>
-  <evj-ejco-onpz-frame-bottom></evj-ejco-onpz-frame-bottom>
 </div>
