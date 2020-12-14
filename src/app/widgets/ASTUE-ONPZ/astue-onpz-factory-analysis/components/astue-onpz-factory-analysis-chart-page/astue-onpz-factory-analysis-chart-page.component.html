@@ -5,6 +5,7 @@
       <evj-astue-onpz-factory-analysis-chart
         [graphData]="graphData"
         [selectedPeriod]="selectedPeriod"
+        [scroll]="{left: sbLeft, right: 100 - sbLeft - sbWidth}"
       ></evj-astue-onpz-factory-analysis-chart>
     </div>
     <div class="bottom">
@@ -15,15 +16,13 @@
           [data]="scrollData"
           [(sbThumbLeft)]="sbLeft"
           [(sbThumbWidth)]="sbWidth"
-          (sbThumbLeftChange)="scrollHandler()"
-          (sbThumbWidthChange)="scrollHandler()"
         ></evj-smart-scroll>
       </div>
     </div>
   </div>
   <div class="right-wrapper">
-    <evj-astue-onpz-factor-analysis-chart-info type="fact"></evj-astue-onpz-factor-analysis-chart-info>
-    <evj-astue-onpz-factor-analysis-chart-info type="plan"></evj-astue-onpz-factor-analysis-chart-info>
+    <evj-astue-onpz-factor-analysis-chart-info type="fact" [value]="graphData.currentFact"></evj-astue-onpz-factor-analysis-chart-info>
+    <evj-astue-onpz-factor-analysis-chart-info type="plan" [value]="graphData.currentPlan"></evj-astue-onpz-factor-analysis-chart-info>
     <evj-astue-onpz-factor-analysis-chart-info type="interval"></evj-astue-onpz-factor-analysis-chart-info>
   </div>
 </div>

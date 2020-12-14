@@ -1,4 +1,12 @@
-import { Component, ElementRef, HostListener, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import {
+    Component,
+    ElementRef,
+    HostListener,
+    Input,
+    OnChanges,
+    OnInit,
+    SimpleChanges,
+} from '@angular/core';
 import { LineType } from '../../../../../CD/cd-shared/cd-line-chart/cd-line-chart.component';
 import * as d3 from 'd3';
 import { dateFormatLocale, shortMonths } from '@shared/functions/universal-time-fromat.function';
@@ -9,7 +17,6 @@ import {
     DATA_SOURCE_LOWER_BORDER,
     DATA_SOURCE_PLAN,
 } from './astue-onpz-factory-analysis-chart.mock';
-import { IChartD3 } from '@shared/models/smart-scroll.model';
 import { IDatesInterval } from '../../../../../../dashboard/services/widget.service';
 import { IMultiChartLine } from '../../../../../../dashboard/models/ASTUE-ONPZ/astue-onpz-multi-chart.model';
 
@@ -24,6 +31,9 @@ export class AstueOnpzFactoryAnalysisChartComponent implements OnInit, OnChanges
     public isLoading: boolean = true;
 
     private readonly isMockEnabled: boolean = false;
+
+    @Input()
+    private scroll: { left: number; right: number } = { left: 0, right: 0 };
 
     @Input()
     public graphData: { name: string; graph: IMultiChartLine[]; } = { name: '', graph: [], };
@@ -53,7 +63,7 @@ export class AstueOnpzFactoryAnalysisChartComponent implements OnInit, OnChanges
 
     public scales: { x: d3.sclaeDate; y: d3.sclaeLinear } = { x: null, y: null };
 
-    public sizeX: { min: number; max: number } = { min: 1, max: 31 };
+    public sizeX: { min: Date | null; max: Date | null } = { min: null, max: null };
 
     public sizeY: { min: number; max: number } = { min: 0, max: 100 };
 
@@ -81,7 +91,7 @@ export class AstueOnpzFactoryAnalysisChartComponent implements OnInit, OnChanges
 
     ngOnChanges(changes: SimpleChanges): void {
         // if (changes.selectedPeriod) {
-            this.initSvgDraw();
+        this.initSvgDraw();
         // }
     }
 
@@ -148,15 +158,44 @@ export class AstueOnpzFactoryAnalysisChartComponent implements OnInit, OnChanges
     }
 
     private initScale(): void {
+        let domainDates = [this.selectedPeriod.fromDateTime, this.selectedPeriod.toDateTime];
+        const deltaDomainDates = domainDates[1].getTime() - domainDates[0].getTime();
+        domainDates = [
+            new Date(domainDates[0].getTime() + (this.scroll.left / 100) * deltaDomainDates),
+            new Date(domainDates[1].getTime() - (this.scroll.right / 100) * deltaDomainDates),
+        ];
+
         this.scales.x = d3
             .scaleTime()
-            .domain([this.selectedPeriod.fromDateTime, this.selectedPeriod.toDateTime])
+            .domain(domainDates)
             .range([0, this.size.width - this.margin.right - this.margin.left]);
 
         this.scales.y = d3
             .scaleLinear()
             .domain([this.sizeY.min, this.sizeY.max])
             .range([this.size.height - this.margin.top - this.margin.bottom, 0]);
+    }
+
+    private defineScale(): void {
+        let domainDates = [this.selectedPeriod.fromDateTime, this.selectedPeriod.toDateTime];
+        const rangeX = [this.margin.left, this.margin.right];
+        const deltaDomainDates = domainDates[1].getTime() - domainDates[0].getTime();
+        domainDates = [
+            new Date(domainDates[0].getTime() + (this.scroll.left / 100) * deltaDomainDates),
+            new Date(domainDates[1].getTime() - (this.scroll.right / 100) * deltaDomainDates),
+        ];
+
+        this.scales.x = d3
+            .scaleTime()
+            .domain(domainDates)
+            .rangeRound(rangeX);
+
+        const domainValues = [this.sizeY.max, this.sizeY.min];
+        const rangeY = [this.margin.top, this.margin.bottom];
+        this.scales.y = d3
+            .scaleLinear()
+            .domain(domainValues)
+            .range(rangeY);
     }
 
     private initSvg(): void {
@@ -277,8 +316,8 @@ export class AstueOnpzFactoryAnalysisChartComponent implements OnInit, OnChanges
             .attr('transform', `translate(${this.margin.left}, 0)`);
 
         if (type === 'fact') {
-            const lastCord = this.scales.x(dataset[dataset.length - 1].x);
-            const lastDate = dataset[dataset.length - 1].x;
+            const lastCord = this.scales.x(dataset[dataset.length - 1]?.x);
+            const lastDate = dataset[dataset.length - 1]?.x;
             this.svg
                 .append('line')
                 .attr('class', 'line line__fact')
@@ -288,14 +327,16 @@ export class AstueOnpzFactoryAnalysisChartComponent implements OnInit, OnChanges
                 .attr('y2', this.scales.y(this.sizeY.min))
                 .attr('transform', `translate(${this.margin.left}, 0)`);
 
-            this.svg
-                .append('text')
-                .attr('transform', `translate(${this.margin.left + 5}, 0)`)
-                .attr('font-size', '12px')
-                .attr('x', lastCord)
-                .attr('y', this.size.height - this.margin.bottom - 5)
-                .attr('fill', '#D7E2F2')
-                .text(lastDate.getHours() + ':' + lastDate.getMinutes());
+            if (!!lastDate) {
+                this.svg
+                    .append('text')
+                    .attr('transform', `translate(${this.margin.left + 5}, 0)`)
+                    .attr('font-size', '12px')
+                    .attr('x', lastCord)
+                    .attr('y', this.size.height - this.margin.bottom - 5)
+                    .attr('fill', '#D7E2F2')
+                    .text(lastDate.getHours() + ':' + lastDate.getMinutes());
+            }
 
             dataset.forEach((d, idx) => {
                 if (idx === 0) {
