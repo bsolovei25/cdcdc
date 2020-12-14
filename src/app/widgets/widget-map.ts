@@ -527,7 +527,7 @@ export const WIDGETS_LAZY = {
         itemRows: 14,
         minItemCols: 25,
         minItemRows: 14,
-        preview: 'default',
+        preview: 'kpe-total-reserve',
     },
     'kpe-plan-readiness-trend': {
         import: async () => {
@@ -1354,7 +1354,7 @@ export const WIDGETS_LAZY = {
         itemRows: 29,
         minItemCols: 13,
         minItemRows: 20,
-        preview: 'default',
+        preview: 'sou-main-indicators',
     },
 
     'sou-energetic': {

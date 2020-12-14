@@ -23,10 +23,7 @@ export interface IAstueOnpzFactoryAnalysisBarResponseDiagram {
 /// region response end
 
 export interface IAstueOnpzFactoryAnalysis {
-    graph: {
-        name: string;
-        graph: IMultiChartLine[];
-    };
+    sections: IAstueOnpzFactoryAnalysisSection[];
     selectedPeriod?: IDatesInterval;
     subscriptionOptions?: IAstueOnpzFactoryAnalysisWsOptions;
 }
