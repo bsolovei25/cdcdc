@@ -41,7 +41,7 @@ export class KpeWorkspaceService {
     }
 
     async getKpeNotificationParameters(body: IEventsWidgetNotification): Promise<IKpeNotification> {
-        return this.http
+        return await this.http
             .get<IKpeNotification>(
                 this.restUrl + `/api/notification-kpe/notification/${body.id}/parameters`
             )
@@ -65,7 +65,8 @@ export class KpeWorkspaceService {
     ): Promise<IKpeNotification> {
         return this.http
             .delete<IKpeNotification>(
-                this.restUrl + `/api/notification-kpe/notification/${body.id}/parameters/remove`)
+                this.restUrl + `/api/notification-kpe/notification/${body.id}/parameters/remove`
+            )
             .toPromise();
     }
 }

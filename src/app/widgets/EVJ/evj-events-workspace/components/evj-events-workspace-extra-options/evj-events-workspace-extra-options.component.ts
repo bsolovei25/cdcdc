@@ -5,8 +5,9 @@ import { AuthService } from '@core/service/auth.service';
 import { IAlertWindowModel } from '@shared/models/alert-window.model';
 import { KpeWorkspaceService } from '../../../../../dashboard/services/widgets/EVJ/kpe-workspace.service';
 import {
-    IKpeAllDependentParameters, IKpeNotification,
-    IKpeWorkspaceParameter
+    IKpeAllDependentParameters,
+    IKpeNotification,
+    IKpeWorkspaceParameter,
 } from '../../../../../dashboard/models/EVJ/kpe-workspace.model';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
@@ -14,13 +15,13 @@ import { Subscription } from 'rxjs';
 @Component({
     selector: 'evj-evj-events-workspace-extra-options',
     templateUrl: './evj-events-workspace-extra-options.component.html',
-    styleUrls: ['./evj-events-workspace-extra-options.component.scss']
+    styleUrls: ['./evj-events-workspace-extra-options.component.scss'],
 })
 export class EvjEventsWorkspaceExtraOptionsComponent implements OnInit, OnDestroy {
     @Input() public info: IExtraOptionsWindow = {
         isShow: false,
         acceptFunction: () => null,
-        closeFunction: () => null
+        closeFunction: () => null,
     };
     @Output() checked: any = new EventEmitter<boolean>();
 
@@ -36,15 +37,13 @@ export class EvjEventsWorkspaceExtraOptionsComponent implements OnInit, OnDestro
         private kpeWorkspaceService: KpeWorkspaceService,
         private authService: AuthService,
         private formBuild: FormBuilder
-    ) {
-    }
+    ) {}
 
     ngOnInit(): void {
         this.form = this.formBuild.group({
-                parameters: this.formBuild.control('', Validators.required),
-                dependentParameters: this.formBuild.array([])
-            }
-        );
+            parameters: this.formBuild.control('', Validators.required),
+            dependentParameters: this.formBuild.array([]),
+        });
         if (this.ewService.event.id) {
             this.getParametersByNotification();
         }
@@ -61,7 +60,7 @@ export class EvjEventsWorkspaceExtraOptionsComponent implements OnInit, OnDestro
                 }
             })
         );
-        console.log(this.form);
+        console.log('form', this.form);
     }
     ngOnDestroy(): void {
         this.subscriptions.forEach((subs: Subscription) => subs.unsubscribe());
@@ -74,12 +73,17 @@ export class EvjEventsWorkspaceExtraOptionsComponent implements OnInit, OnDestro
 
     // Список с Зависимыми параметтрами
     private async getExtraParameters(id: number): Promise<void> {
-        const dependentParametersData = await this.kpeWorkspaceService.getKpeAllDependentParameters(id);
+        const dependentParametersData = await this.kpeWorkspaceService.getKpeAllDependentParameters(
+            id
+        );
         this.kpeWorkspaceService.showSelectParameters$.next(dependentParametersData);
     }
 
     public getParameterId(event: any): void {
         this.kpeWorkspaceService.selectParameter$.next(event.value);
+        if (!this.notificationParametersData) {
+            return;
+        }
         this.notificationParametersData.dependentParameters = [];
     }
 
@@ -87,24 +91,25 @@ export class EvjEventsWorkspaceExtraOptionsComponent implements OnInit, OnDestro
         const data = await this.kpeWorkspaceService.getKpeNotificationParameters(
             this.ewService.event
         );
+        if (!data) {
+            return;
+        }
         this.notificationParametersData = data;
-        this.form = this.formBuild.group({
-            parameters: this.formBuild.control(data.selectedParameter),
-            dependentParameters: this.formBuild.array(data.dependentParameters)
-        });
+        // this.form = this.formBuild.group({
+        //     parameters: this.formBuild.control(data.selectedParameter),
+        //     dependentParameters: this.formBuild.array(data.dependentParameters),
+        // });
     }
 
     private async deleteParametersByNotification(checkbox: boolean): Promise<void> {
-        await this.kpeWorkspaceService.deleteKpeNotificationParameters(
-            this.ewService.event
-        );
+        await this.kpeWorkspaceService.deleteKpeNotificationParameters(this.ewService.event);
         this.checked.emit(checkbox);
     }
 
     // Закрыть всплывающее окно с Дополнительными параметры
     public cancel(): void {
         const popupWindow = {
-            isShow: false
+            isShow: false,
         };
         this.ewService.extraOptionsWindow$.next(popupWindow);
     }
@@ -112,13 +117,14 @@ export class EvjEventsWorkspaceExtraOptionsComponent implements OnInit, OnDestro
     // Добавить зависимый параметр
     public addParameters(): void {
         const depends = this.form.controls.dependentParameters as FormArray;
+
         depends.push(
             this.formBuild.group({
-                    name: this.formBuild.control(''),
-                    numericValue: this.formBuild.control(0)
-                }
-            )
+                selectName: '',
+                numericValue: 0,
+            })
         );
+        console.log('form', this.form);
     }
     // Удалить зависимый параметр
     public removeParameters(): void {
@@ -132,7 +138,7 @@ export class EvjEventsWorkspaceExtraOptionsComponent implements OnInit, OnDestro
             selectedParameter: this.form.value.parameters,
             dependentParameters: this.form.value.dependentParameters,
             createdAt: new Date(),
-            createdBy: this.authService.user$.getValue().id
+            createdBy: this.authService.user$.getValue().id,
         };
         try {
             await this.kpeWorkspaceService.postKpeNotificationParameters(
@@ -143,7 +149,7 @@ export class EvjEventsWorkspaceExtraOptionsComponent implements OnInit, OnDestro
             console.error(error);
         }
         const popupWindow = {
-            isShow: false
+            isShow: false,
         };
         this.ewService.extraOptionsWindow$.next(popupWindow);
 
@@ -157,11 +163,11 @@ export class EvjEventsWorkspaceExtraOptionsComponent implements OnInit, OnDestro
             acceptText: 'Да',
             cancelText: 'Нет',
             acceptFunction: () => this.deleteParametersByNotification(false),
-            closeFunction: () => this.ewService.ewAlertInfo$.next(null)
+            closeFunction: () => this.ewService.ewAlertInfo$.next(null),
         };
         this.ewService.ewAlertInfo$.next(alertWindow);
         const popupWindow = {
-            isShow: false
+            isShow: false,
         };
         this.ewService.extraOptionsWindow$.next(popupWindow);
     }
