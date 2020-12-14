@@ -99,7 +99,10 @@ export class AstueOnpzPredictorsComponent extends WidgetPlatform<unknown>
     }
 
     private async optionsHandler(options: IAstueOnpzConventionalFuelSelectOptions): Promise<void> {
-        const channels = await this.widgetService.getAvailableChannels(this.widgetId);
+        const channels = await this.widgetService.getAvailableChannels<{
+            name: string;
+            id: string;
+        }>(this.widgetId);
         const subchannelId = channels.find((x) => x.name === options.fuel).id;
         this.setWsOptions({ subchannelId });
     }
