@@ -1,13 +1,59 @@
 @import "../../../../mixins";
 
+.widget-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-flow: column;
+}
+
 .content_block {
+  flex-grow: 1;
   overflow: hidden;
   position: relative;
-  height: calc(100% - 37px);
-  border: 0.35px solid var(--color-axis);
-  border-style: none solid none solid;
   pointer-events: fill;
-  font-family: Tahoma;
+  border: 1px solid var(--color-astue-onpz-widget-border);
+  background: var(--color-astue-onpz-widget-bg);
+}
+
+.header-container {
+  display: flex;
+  flex-grow: 1;
+  gap: 22px;
+
+  .tabs-container{
+    display: flex;
+    height: 30px;
+    margin-left: auto;
+    border: 1px solid #4B5169;
+    box-sizing: border-box;
+    border-radius: 2px;
+
+    .tab {
+      height: 28px;
+      line-height: 26px;
+      padding: 0 10px;
+      cursor: pointer;
+
+      &__active {
+        background: rgba(0, 137, 255, 0.2);
+        border: 1px solid #0089FF;
+        box-sizing: border-box;
+        border-radius: 2px;
+      }
+    }
+  }
+
+  .button {
+    padding: 0 17px;
+    height: 30px;
+    line-height: 30px;
+    font-size: 13px;
+    cursor: pointer;
+    border-radius: 2px;
+    color: #D7E2F2;
+    background: #303549;
+  }
 }
 
 .wrapper {

@@ -760,7 +760,7 @@ export const WIDGETS_LAZY = {
         itemCols: 32,
         itemRows: 30,
         minItemCols: 32,
-        minItemRows: 30,
+        minItemRows: 20,
         preview: 'cd-events',
     },
     'evj-events-workspace': {

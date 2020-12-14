@@ -1,9 +1,4 @@
-import {
-    Component,
-    Inject,
-    OnDestroy,
-    AfterViewInit
-} from '@angular/core';
+import { Component, Inject, OnDestroy, AfterViewInit } from '@angular/core';
 import { WidgetPlatform } from '../../../dashboard/models/@PLATFORM/widget-platform';
 import { WidgetService } from '../../../dashboard/services/widget.service';
 import { EjcoOnpzHelperService } from '../ejco-onpz-shared/ejco-onpz-helper.service';
@@ -23,10 +18,10 @@ export interface IEjcoOnpzUnitKpe {
 @Component({
     selector: 'evj-ejco-onpz-unit-kpe',
     templateUrl: './ejco-onpz-unit-kpe.component.html',
-    styleUrls: ['./ejco-onpz-unit-kpe.component.scss']
+    styleUrls: ['./ejco-onpz-unit-kpe.component.scss'],
 })
-export class EjcoOnpzUnitKpeComponent extends WidgetPlatform<unknown> implements OnDestroy, AfterViewInit {
-
+export class EjcoOnpzUnitKpeComponent extends WidgetPlatform<unknown>
+    implements OnDestroy, AfterViewInit {
     public data: IEjcoOnpzUnitKpe = { chartData: null, chartCards: null };
 
     public widgetIcon: string = 'ejco';
@@ -36,7 +31,7 @@ export class EjcoOnpzUnitKpeComponent extends WidgetPlatform<unknown> implements
         public ejcoOnpzHelperService: EjcoOnpzHelperService,
         @Inject('isMock') public isMock: boolean,
         @Inject('widgetId') public id: string,
-        @Inject('uniqId') public uniqId: string,
+        @Inject('uniqId') public uniqId: string
     ) {
         super(widgetService, isMock, id, uniqId);
     }
@@ -45,12 +40,8 @@ export class EjcoOnpzUnitKpeComponent extends WidgetPlatform<unknown> implements
         super.widgetInit();
     }
 
-    public handleTabClick(unitCaption: string | 'to-source-redirect'): void {
-        if (unitCaption === 'to-source-redirect') {
-            console.log('В источник');
-            return;
-        }
-        console.log(unitCaption);
+    public handleTabClick(): void {
+        console.log('В источник');
     }
 
     public ngOnDestroy(): void {
@@ -58,10 +49,12 @@ export class EjcoOnpzUnitKpeComponent extends WidgetPlatform<unknown> implements
     }
 
     protected dataHandler(ref: IEjcoOnpzUnitKpe): void {
-        if (this.ejcoOnpzHelperService.compareArrayOfObjects<IChart>(
-            this.data.chartCards,
-            ref.chartCards,
-        )) {
+        if (
+            this.ejcoOnpzHelperService.compareArrayOfObjects<IChart>(
+                this.data.chartCards,
+                ref.chartCards
+            )
+        ) {
             this.data.chartCards = ref.chartCards;
         }
         this.data.chartData = ref.chartData;
