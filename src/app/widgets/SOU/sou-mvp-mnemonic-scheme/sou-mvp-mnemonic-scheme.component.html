@@ -41,7 +41,9 @@
               [value]="0"
             >
               <mat-option [value]="0"
-                          *ngFor="let install of installations[selectedInstallation]">{{install}}</mat-option>
+                          *ngFor="let install of installations[selectedInstallation]"
+                          (click)="changeInstall(install)"
+              >{{install}}</mat-option>
             </mat-select>
           </div>
         </div>

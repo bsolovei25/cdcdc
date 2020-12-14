@@ -28,6 +28,11 @@ interface IElementFull {
     textPercent: Element;
 }
 
+interface IElementFullAndUI {
+    element: Element;
+    elementFull: IElementFull;
+}
+
 @Component({
     selector: 'evj-sou-schema',
     templateUrl: './sou-schema.component.html',
@@ -39,7 +44,9 @@ export class SouSchemaComponent implements OnInit, AfterViewChecked {
     flag: boolean = true; // флаг для одного входа в ngAfterViewChecked
     metaFile: IDataMetaFile[] = []; // файл с мета данными
 
-    data: IDataSou[] = DATASOURCE;  // данные с бэка
+    fullElement: Map<number, IElementFullAndUI> = new Map();
+
+    data: IDataSou[] = DATASOURCE; // данные с бэка
 
     constructor(private souService: SouMvpMnemonicSchemeService) {}
 
@@ -94,7 +101,7 @@ export class SouSchemaComponent implements OnInit, AfterViewChecked {
     }
 
     elementEdit(
-        mode: 'standard' | 'deviation' | 'disabled' | 'reset',
+        mode: 'standard' | 'deviation' | 'disabled' | 'reset' | 'active',
         element: Element,
         metaFile?: IDataMetaFile,
         idBack?: number,
@@ -112,7 +119,6 @@ export class SouSchemaComponent implements OnInit, AfterViewChecked {
                 active = false;
                 deviation = false;
             }
-            const elements = Array.from(element?.children);
             let elementFull: IElementFull = {
                 metaFile,
                 rects: [],
@@ -124,17 +130,21 @@ export class SouSchemaComponent implements OnInit, AfterViewChecked {
                 textPercent: null,
             };
 
+            const elements = Array.from(element?.children);
             // Search
             elements?.forEach((elem) => {
                 elementFull = this.searchElementsInElement(elem, elementFull);
             });
-
             // add class and text to element
             this.addClassAndTextToElement(element, elementFull, mode, text, percent, value);
-
             // Event
             if (metaFile) {
                 this.eventClick(element, elementFull);
+                const elementFullAndUI: IElementFullAndUI = {
+                    element,
+                    elementFull,
+                };
+                this.fullElement.set(metaFile.id, elementFullAndUI);
             }
         }
     }
@@ -142,7 +152,7 @@ export class SouSchemaComponent implements OnInit, AfterViewChecked {
     addClassAndTextToElement(
         element: Element,
         elementFull: IElementFull,
-        mode: 'standard' | 'deviation' | 'disabled' | 'reset',
+        mode: 'standard' | 'deviation' | 'disabled' | 'reset' | 'active',
         text: string,
         percent: number,
         value: number
@@ -238,24 +248,46 @@ export class SouSchemaComponent implements OnInit, AfterViewChecked {
 
     eventClick(element: Element, elementFull: IElementFull): void {
         element.addEventListener('click', () => {
-            console.log(elementFull);
-            elementFull.rects.forEach((item) => {
-                console.log(item);
-                item.classList.toggle('active');
+            this.elementActive(elementFull);
+            elementFull.metaFile.related.forEach((value) => {
+                const line = this.dataAttribute.get(value);
+                if (line.getAttribute('id').includes('line')) {
+                    if (!line?.classList.contains(`${elementFull.metaFile.id}`)) {
+                        line?.classList.add(`${elementFull.metaFile.id}`);
+                        line?.classList.add('active');
+                    } else {
+                        if (line?.classList.length >= 3) {
+                            line?.classList.remove(`${elementFull.metaFile.id}`);
+                        } else {
+                            line?.classList.remove(`${elementFull.metaFile.id}`, 'active');
+                        }
+                    }
+                } else {
+                    const el = this.fullElement.get(value);
+                    if (el) {
+                        this.elementActive(el?.elementFull);
+                    }
+                }
             });
-            elementFull.points.forEach((item) => {
-                item.classList.toggle('active');
-            });
-            elementFull.texts.forEach((item) => {
-                item.classList.toggle('active-text');
-            });
-            elementFull.arrows.forEach((item) => {
-                item.classList.toggle('active-arrow');
-            });
-            elementFull.circle?.classList.toggle('active');
-            elementFull.textPercent?.classList.toggle('active-text');
-            elementFull.textValue?.classList.toggle('active-text');
         });
+    }
+
+    elementActive(elementFull: IElementFull): void {
+        elementFull.rects.forEach((item) => {
+            item.classList.toggle('active');
+        });
+        elementFull.points.forEach((item) => {
+            item.classList.toggle('active');
+        });
+        elementFull.texts.forEach((item) => {
+            item.classList.toggle('active-text');
+        });
+        elementFull.arrows.forEach((item) => {
+            item.classList.toggle('active-arrow');
+        });
+        elementFull.circle?.classList.toggle('active');
+        elementFull.textPercent?.classList.toggle('active-text');
+        elementFull.textValue?.classList.toggle('active-text');
     }
 
     addTextToTspan(element: Element, text: string): void {
@@ -299,7 +331,10 @@ export class SouSchemaComponent implements OnInit, AfterViewChecked {
             const line = document.querySelector(`#line_${i}`);
             if (element) {
                 this.elementEdit('reset', element);
-                this.dataAttribute.set(i, element ?? line);
+                this.dataAttribute.set(i, element);
+            }
+            if (line) {
+                this.dataAttribute.set(i, line);
             }
             i++;
         }

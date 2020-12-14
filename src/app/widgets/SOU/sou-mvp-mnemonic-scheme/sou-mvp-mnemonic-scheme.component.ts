@@ -150,4 +150,16 @@ export class SouMvpMnemonicSchemeComponent extends WidgetPlatform<unknown>
     changeSection(i: number): void {
         this.chosenSection = i;
     }
+
+    changeInstall(value: string) {
+        const a = {
+            manufacture: 'Производство 1',
+            name: value,
+        };
+        this.setWs(a);
+    }
+
+    setWs(a): void {
+        this.setWsOptions(a);
+    }
 }
