@@ -69,7 +69,7 @@ export class SouMvpMnemonicSchemeComponent extends WidgetPlatform<unknown>
                 value: 0,
             },
             {
-                title: 'BБ',
+                title: 'ВБ',
                 value: 0,
             },
         ],
@@ -122,10 +122,10 @@ export class SouMvpMnemonicSchemeComponent extends WidgetPlatform<unknown>
                     ...item.objects,
                 ];
             }
-            if (item.name !== 'Изомалк-2') {
-                if (this.sections[0].find(section => section.title === item.name.split('-')[2])) {
-                    this.sections[0].find(section => section.title === item.name.split('-')[2]).value = item.countFlowExceedingConfInterval;
-                }
+
+            let sec = this.sections[0].find(section => item.name.indexOf(section.title) !== -1);
+            if (sec) {
+                sec.value = item.countFlowExceedingConfInterval;
             }
         });
     }
