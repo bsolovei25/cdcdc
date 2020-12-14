@@ -1,4 +1,6 @@
 import {
+    AfterViewChecked,
+    AfterViewInit,
     ChangeDetectorRef,
     Component,
     ElementRef,
@@ -46,17 +48,18 @@ export class AstueOnpzFactorAnalysisPageComponent implements OnInit, OnChanges {
             this.data = null;
             return;
         }
-        const minValue = this.dataTemp.minmax[0];
-        const maxValue = this.dataTemp.minmax[1];
+        const temp = fillDataShape(this.dataTemp);
+        const minValue = temp.minmax[0];
+        const maxValue = temp.minmax[1];
         const trueDelta: number = this.getTrueDelta(maxValue, minValue);
         this.setLegendArray(trueDelta, minValue);
-        this.dataTemp.groups
+        temp.groups
             .flatMap((x) => x.bars)
             .forEach((x) => {
                 x.lowLevel = ((x.lowLevel - minValue) / trueDelta) * 100;
                 x.topLevel = ((x.topLevel - minValue) / trueDelta) * 100;
             });
-        this.data = fillDataShape(this.dataTemp);
+        this.data = temp;
         this.changeDetector.detectChanges();
     }
 
