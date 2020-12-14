@@ -10,6 +10,7 @@ import {
 import { SouMvpMnemonicSchemeService } from '../../../dashboard/services/widgets/SOU/sou-mvp-mnemonic-scheme.service';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { BehaviorSubject } from 'rxjs';
+import { NULL_EXPR } from '@angular/compiler/src/output/output_ast';
 
 @Component({
     selector: 'evj-sou-mvp-mnemonic-scheme',
@@ -123,8 +124,11 @@ export class SouMvpMnemonicSchemeComponent extends WidgetPlatform<unknown>
                 ];
             }
 
-            let sec = this.sections[0].find(section => item.name.indexOf(section.title) !== -1);
-            if (sec) {
+            const sec = this.sections[0].find(section => {
+                item.name.indexOf(section.title) !== -1
+            });
+
+            if (sec != undefined) {
                 sec.value = item.countFlowExceedingConfInterval;
             }
         });
