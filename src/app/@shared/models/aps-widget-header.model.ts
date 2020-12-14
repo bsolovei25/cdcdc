@@ -7,6 +7,8 @@ export type ApsHeaderIconType =
     | 'drop'
     | 'book'
     | 'gantt'
+    | 'document'
+    | 'pen'
     | 'map'
     | 'menu'
     | 'periods'

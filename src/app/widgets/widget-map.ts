@@ -546,10 +546,10 @@ export const WIDGETS_LAZY = {
     },
         module: 'KpeExecutionProductionProgramModule',
         itemCols: 21,
-        itemRows: 14,
+        itemRows: 19,
         minItemCols: 21,
-        minItemRows: 14,
-        preview: 'default',
+        minItemRows: 19,
+        preview: 'kpe-execution-production-program',
 },
 
     // #endregion KPE
