@@ -52,8 +52,11 @@
         </div>
         <ng-container *ngIf="isProductOpen(item)">
           <cdk-virtual-scroll-viewport
-            [itemSize]="ROW_HEIGHT_PX" class="item__shadow-block"
-            [style.height.px]="item.quantity * ROW_HEIGHT_PX">
+            (scroll)="scrollHandler($event, item.id)"
+            [itemSize]="ROW_HEIGHT_PX"
+            class="item__shadow-block"
+            [style.height.px]="item.quantity > 5 ? 5 * ROW_HEIGHT_PX : item.quantity * ROW_HEIGHT_PX"
+          >
             <ng-container *cdkVirtualFor="let i of item.data">
               <div class="item__i" [class.active-block]='activeItemId === i.id'>
                 <div class="name-param">

@@ -13,11 +13,11 @@
     </ng-container>
   </div>
   <div class="scroll-wrapper" *ngIf="data">
-    <ng-container *ngFor="let group of data">
-      <evj-astue-onpz-factory-analysis-group [data]="group">
-        <ng-container *ngFor="let bar of group.diagrams">
+    <ng-container *ngFor="let group of data.groups">
+      <evj-astue-onpz-factory-analysis-group style="width: min-content" [data]="group">
+        <ng-container *ngFor="let bar of group.bars">
           <evj-astue-onpz-factory-analysis-cell [data]="bar"></evj-astue-onpz-factory-analysis-cell>
-          <ng-container *ngIf="bar !== group.diagrams[group.diagrams.length - 1]">
+          <ng-container *ngIf="bar !== group.bars[group.bars.length - 1]">
             <ng-container *ngTemplateOutlet="cellDivider"></ng-container>
           </ng-container>
         </ng-container>

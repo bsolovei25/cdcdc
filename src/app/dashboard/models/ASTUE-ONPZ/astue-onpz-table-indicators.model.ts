@@ -5,6 +5,7 @@ export interface IAstueOnpzTableIndicatorsItem {
 }
 
 export interface IAstueOnpzTableIndicatorsItemChild {
+    id: string;
     name: string;
     unitsOfMeasure: string;
     fact: number;

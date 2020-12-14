@@ -25,18 +25,15 @@
       <ng-container *ngFor="let element of data">
         <tr
           class="table__body__row"
-          [class.table__body__row--active]="selectedRowProduct === element.name"
         >
           <td
             class="table__body__column"
-            [class.table__body__column--active]="selectedRowProduct === element.name"
-            (click)="onClickRow($event, element)"
+            (click)="onClickTr($event, element)"
             colspan="3"
           >
             <div
-              (click)="onClickRow($event, element)"
+              (click)="onClickTr($event, element)"
               class="table__body__column__row-title"
-              [class.table__body__column__row-title__border-active]="selectedRowProduct === element.name"
             >
               <svg-icon
                 *ngIf="!!element.items?.length"
@@ -67,33 +64,31 @@
             <td
               *ngFor="let column of columnsToDisplay"
               class="expanded-column table__body__column table__body__column__children"
-              [class.table__body__column__children--active]="selectedRowProduct === elementChildren.name"
-              [class.table__body__column__children--deviation]="selectedRowProduct === elementChildren.name && selectedRowProduct === elementChildren.name"
+              [class.table__body__column__children--active]="selectedProduct$(elementChildren) | async"
               [matTooltip]="elementChildren?.description"
             >
               <div
                 *ngIf="column.id === 0"
                 class="table__body__column__row-title table__body__column__row-title-children"
-                [class.opacity]="selectedRow.isSelected(element.name) && this.selectedRowProduct"
+                [class.opacity]="selectedProduct$(elementChildren) | async"
               >
                 <svg-icon
                   [svgStyle]="{'height.px':'43', 'width.px': '21'}"
                   class="table__body__column__row-title-children__left-block--first"
-                  [ngClass]="selectedRowProduct === elementChildren.name
-                  ? 'table__body__column__row-title-children__left-block--first__active'
-                  :'table__body__column__row-title-children__left-block--first__default'"
+                  [ngClass]="'table__body__column__row-title-children__left-block--first__' +
+                    ((selectedProduct$(elementChildren) | async) ? 'active' : 'default')"
                   [src]="'assets/icons/widgets/APS/aps-recipe-diagram/astue-table-left-row-block-recipe.svg'"
                 >
                 </svg-icon>
                 <div
                   class="table__body__column__row-title__text__subname"
-                  [class.table__body__column__row-title--no-active]="selectedRow.isSelected(element.name)">
-                  <span>{{ elementChildren.name }}</span>
+                  [class.table__body__column__row-title--no-active]="selectedProduct$(elementChildren) | async">
+                  <span>{{ elementChildren.name }}{{elementChildren.id}}</span>
                 </div>
               </div>
               <ng-container *ngIf="column.id === 1">
                 <div class="value">
-                  <span>{{elementChildren.absoluteValue| number: "0.0" }}</span>
+                  <span>{{elementChildren.absoluteValue| number: "0.0" }}{{selectedProduct$(elementChildren) | async}}</span>
                 </div>
               </ng-container>
               <ng-container *ngIf="column.id === 2">
