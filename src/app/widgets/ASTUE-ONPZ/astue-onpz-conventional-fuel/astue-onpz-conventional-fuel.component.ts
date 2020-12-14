@@ -42,7 +42,7 @@ export class AstueOnpzConventionalFuelComponent extends WidgetPlatform
     public scrollLimits: IDatesInterval = null;
 
     public selectFuel: FormControl = new FormControl({
-        value: this.astueOnpzConventionalFuelService.selectFuelReference[0],
+        value: '',
         disabled: false,
     });
 
@@ -88,6 +88,7 @@ export class AstueOnpzConventionalFuelComponent extends WidgetPlatform
                 });
             })
         );
+        this.selectFuel.setValue(this.astueOnpzConventionalFuelService.selectFuelReference[0]);
     }
 
     protected dataConnect(): void {
