@@ -122,11 +122,12 @@ export class SouMvpMnemonicSchemeComponent extends WidgetPlatform<unknown>
                     ...item.objects,
                 ];
             }
-            if (i !== 2) {
-                this.sections[0][i].value = item.countFlowExceedingConfInterval;
+            if (item.name !== 'Изомалк-2') {
+                if (this.sections[0].find(section => section.title === item.name.split('-')[2])) {
+                    this.sections[0].find(section => section.title === item.name.split('-')[2]).value = item.countFlowExceedingConfInterval;
+                }
             }
         });
-        console.log(ref.section);
     }
 
     changeSetting(i: number): void {
