@@ -414,26 +414,31 @@ export class PlanningChartComponent implements OnChanges {
     private customizeAreas(): void {
         const fact = this.data.find((item) => item.graphType === 'fact')?.graph ?? [];
         const getBorderValue = (type: 'higherBorder' | 'lowerBorder'): number => {
-            let border = this.data.find((item) => item.graphType === type)?.graph ?? [];
-            const filterBorder = border.filter(
-                (x) => x.timeStamp.getTime() <= fact[fact.length - 1]?.timeStamp.getTime()
-            );
-            border = !!filterBorder?.length ? filterBorder : border;
-            const cursorPosition = findCursorPosition(
-                this.scaleFuncs.x(fact[fact.length - 1]?.timeStamp),
-                type,
-                this.svg,
-                this.padding
-            )?.y;
-            const borderPosition = border[border.length - 1].value;
-            return cursorPosition ? this.scaleFuncs.y.invert(cursorPosition) : borderPosition;
+            try {
+                let border = this.data.find((item) => item.graphType === type)?.graph ?? [];
+                const filterBorder = border.filter(
+                    (x) => x.timeStamp.getTime() <= fact[fact.length - 1]?.timeStamp.getTime()
+                );
+                border = !!filterBorder?.length ? filterBorder : border;
+                const cursorPosition = findCursorPosition(
+                    this.scaleFuncs.x(fact[fact.length - 1]?.timeStamp),
+                    type,
+                    this.svg,
+                    this.padding
+                )?.y;
+                const borderPosition = border[border.length - 1].value;
+                return cursorPosition ? this.scaleFuncs.y.invert(cursorPosition) : borderPosition;
+            } catch (e) {
+                return null;
+            }
         };
 
         const hbValue = getBorderValue('higherBorder');
         const lbValue = getBorderValue('lowerBorder');
-        console.log('hbValue', hbValue);
-        console.log('lbValue', lbValue);
-        console.log('fact', fact[fact.length - 1].value);
+
+        if (!hbValue || !lbValue) {
+            return;
+        }
 
         let deviationType: 'warning' | 'normal' = null;
         const eps = 0.001;
