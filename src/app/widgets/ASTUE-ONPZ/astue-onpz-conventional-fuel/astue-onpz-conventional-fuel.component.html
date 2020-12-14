@@ -17,14 +17,9 @@
 
         <div class="option-select">
           <div class="dropdown">
-            <div class="dropdown__marker">
-            </div>
+<!--            <div class="dropdown__marker"></div>-->
             <mat-select class="dropdown__select" [value]="'Производство 1'">
-              <ng-container>
-                <mat-option [value]="'Производство 1'">
-                  Производство 1
-                </mat-option>
-              </ng-container>
+              <mat-option [value]="'Производство 1'">Производство 1</mat-option>
             </mat-select>
           </div>
         </div>
@@ -37,14 +32,25 @@
 
         <div class="option-select">
           <div class="dropdown">
-            <div class="dropdown__marker">
-            </div>
+<!--            <div class="dropdown__marker"></div>-->
             <mat-select class="dropdown__select" [value]="'АВТ-10'">
-              <ng-container>
-                <mat-option [value]="'АВТ-10'">
-                  АВТ-10
-                </mat-option>
-              </ng-container>
+              <mat-option [value]="'АВТ-10'">АВТ-10</mat-option>
+            </mat-select>
+          </div>
+        </div>
+
+        <svg-icon
+          class="arrow-circle"
+          src="assets/icons/widgets/SOU/sou-mvp-mnemonic-scheme/arrowCircle.svg"
+          [ngStyle]="{ 'width.px':14, 'height.px':14 }"
+        ></svg-icon>
+
+        <div class="option-select" (mousedown)="$event.stopPropagation()"
+             (touchstart)="$event.stopPropagation()">
+          <div class="dropdown">
+<!--            <div class="dropdown__marker"></div>-->
+            <mat-select class="dropdown__select" [formControl]="selectFuel">
+                <mat-option *ngFor="let fuel of astueOnpzConventionalFuelService.selectFuelReference" [value]="fuel">{{fuel}}</mat-option>
             </mat-select>
           </div>
         </div>

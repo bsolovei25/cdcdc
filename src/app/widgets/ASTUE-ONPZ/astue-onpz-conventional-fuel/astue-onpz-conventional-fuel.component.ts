@@ -18,6 +18,8 @@ import {
     IAstueOnpzConventionalFuelTransfer,
 } from './astue-onpz-conventional-fuel.service';
 import { BehaviorSubject } from 'rxjs';
+import { FormControl } from '@angular/forms';
+import { map } from 'rxjs/operators';
 
 @Component({
     selector: 'evj-astue-onpz-conventional-fuel',
@@ -38,6 +40,11 @@ export class AstueOnpzConventionalFuelComponent extends WidgetPlatform
     public sbWidth: number = 100;
     public sbLeft: number = 0;
     public scrollLimits: IDatesInterval = null;
+
+    public selectFuel: FormControl = new FormControl({
+        value: this.astueOnpzConventionalFuelService.selectFuelReference[0],
+        disabled: false,
+    });
 
     get planningChart(): boolean {
         return !!this.astueOnpzService.sharedPlanningGraph$.getValue();
@@ -61,10 +68,13 @@ export class AstueOnpzConventionalFuelComponent extends WidgetPlatform
         @Inject('uniqId') public uniqId: string,
         private astueOnpzService: AstueOnpzService,
         private userSettingsService: UserSettingsService,
-        private astueOnpzConventionalFuelService: AstueOnpzConventionalFuelService,
+        public astueOnpzConventionalFuelService: AstueOnpzConventionalFuelService,
         private changeDetection: ChangeDetectorRef
     ) {
         super(widgetService, isMock, id, uniqId);
+        astueOnpzConventionalFuelService.selectedOptions$ = this.selectFuel.valueChanges.pipe(
+            map((x) => ({ ...astueOnpzConventionalFuelService.defaultSelectOptions, fuel: x }))
+        );
     }
 
     public ngOnInit(): void {

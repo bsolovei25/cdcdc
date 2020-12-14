@@ -10,26 +10,27 @@ import { MatRippleModule } from '@angular/material/core';
 import { AstueOnpzBigPlanningChartComponent } from './components/astue-onpz-big-planning-chart/astue-onpz-big-planning-chart.component';
 import { AstueOnpzSharedModule } from '../astue-onpz-shared/astue-onpz-shared.module';
 import { AstueOnpzSelectComponent } from './components/astue-onpz-select/astue-onpz-select.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
-  declarations: [
-    AstueOnpzConventionalFuelComponent,
-    AstueOnpzMultiChartComponent,
-    AstueOnpzBigPlanningChartComponent,
-    AstueOnpzSelectComponent
-  ],
-  imports: [
-    CommonModule,
-    AngularSvgIconModule,
-    SharedModule,
-    MatFormFieldModule,
-    MatSelectModule,
-    MatRippleModule,
-    AstueOnpzSharedModule
-  ],
-  exports: [
-    AstueOnpzSelectComponent
-  ]
+    declarations: [
+        AstueOnpzConventionalFuelComponent,
+        AstueOnpzMultiChartComponent,
+        AstueOnpzBigPlanningChartComponent,
+        AstueOnpzSelectComponent,
+    ],
+    imports: [
+        CommonModule,
+        AngularSvgIconModule,
+        SharedModule,
+        MatFormFieldModule,
+        MatSelectModule,
+        MatRippleModule,
+        AstueOnpzSharedModule,
+
+        ReactiveFormsModule,
+    ],
+    exports: [AstueOnpzSelectComponent],
 })
 export class AstueOnpzConventionalFuelModule {
     enterComponent = AstueOnpzConventionalFuelComponent;
