@@ -86,12 +86,14 @@
       <div class="description">
         <div class="extra-options">
           <div class="title">
-            <span>Распоряжение</span>
+            <span>Краткое описание</span>
           </div>
-          <div class="extra-options__name">
+          <div class="extra-options__name"
+               *ngIf="ewService.event?.productionTasks.subCategory.id === 1000">
             <span>Дополнительные параметры</span>
           </div>
           <mat-checkbox
+            *ngIf="ewService.event?.productionTasks.subCategory.id === 1000"
             class="checkbox"
             color="primary"
             [(ngModel)]="isChecked"
