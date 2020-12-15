@@ -5,7 +5,8 @@ import { WidgetService } from 'src/app/dashboard/services/widget.service';
 import * as d3 from 'd3';
 import { BehaviorSubject } from 'rxjs';
 import { ISouMainIndicators } from '../../../dashboard/models/SOU/sou-main-indicators.model';
-import { SOURCE_DATA } from './sou-main-indicators.mock';
+import { ISouEnergeticOptions } from 'src/app/dashboard/models/SOU/sou-energetic.model';
+import { SouMvpMnemonicSchemeService } from 'src/app/dashboard/services/widgets/SOU/sou-mvp-mnemonic-scheme.service';
 
 @Component({
     selector: 'evj-sou-main-indicators',
@@ -16,15 +17,31 @@ export class SouMainIndicatorsComponent extends WidgetPlatform<unknown> implemen
     public data$: BehaviorSubject<ISouMainIndicators> = new BehaviorSubject<ISouMainIndicators>(
         null
     );
+    private set data(value: ISouMainIndicators) {
+        if(!!value){
+            this.data$.next(value);
+        }
+    }
     menu: string[] = ['Месяц', 'Вклад'];
     choosenItem: number = 0;
 
     @ViewChild('chart') chart: ElementRef;
 
     public svg: any;
+    private readonly options: ISouEnergeticOptions[] = [
+        {
+            manufacture: 'Производство №1',
+            unit: 'АВТ-10',
+        },
+        {
+            manufacture: 'Производство №4',
+            unit: 'Изомалк-2',
+        },
+    ];
 
     constructor(
         protected widgetService: WidgetService,
+        private mnemonicSchemeService: SouMvpMnemonicSchemeService,
         @Inject('isMock') public isMock: boolean,
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string
@@ -91,8 +108,6 @@ export class SouMainIndicatorsComponent extends WidgetPlatform<unknown> implemen
 
     public ngOnInit(): void {
         super.widgetInit();
-        this.data$.next(SOURCE_DATA);
-        this.drawSvg(this.data$.value.losses.sum.value, this.data$.value.losses.identified.value);
     }
 
     public changeMenuItem(i: number): void {
@@ -105,5 +120,18 @@ export class SouMainIndicatorsComponent extends WidgetPlatform<unknown> implemen
         return str[0].toUpperCase() + str.slice(1);
     }
 
-    protected dataHandler(ref: any): void {}
+    protected dataConnect(): void {
+        super.dataConnect();
+        this.subscriptions.push(
+            this.mnemonicSchemeService.selectedInstallation$.asObservable().subscribe((ref) => {
+                this.data = null;
+                this.setWsOptions(this.options[ref]);
+            })
+        );
+    }
+
+    protected dataHandler(ref: any): void {
+        this.data = ref;
+        this.drawSvg(this.data$.value.losses.sum.value, this.data$.value.losses.identified.value);
+    }
 }
