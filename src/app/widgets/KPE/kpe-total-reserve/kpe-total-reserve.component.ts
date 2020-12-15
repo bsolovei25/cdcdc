@@ -49,7 +49,6 @@ export class KpeTotalReserveComponent extends WidgetPlatform<unknown> implements
     this.data = ref.productGroup;
     this.data[0].title = 'Общий запас по качеству от PIMS'
     this.data[1].title = 'Общий запас по качеству ГОСТ'
-    debugger;
   }
 
 }
