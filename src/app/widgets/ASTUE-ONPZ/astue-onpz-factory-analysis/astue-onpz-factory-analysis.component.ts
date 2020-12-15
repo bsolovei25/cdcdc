@@ -92,6 +92,9 @@ export class AstueOnpzFactoryAnalysisComponent extends WidgetPlatform<unknown> i
         super.widgetInit();
         this.mnemonicFurnaceService.selectedItem$.subscribe((item) => {
             this.selectedChannelId = item;
+            if (!!item) {
+                this.changePage('chart');
+            }
         });
     }
 
