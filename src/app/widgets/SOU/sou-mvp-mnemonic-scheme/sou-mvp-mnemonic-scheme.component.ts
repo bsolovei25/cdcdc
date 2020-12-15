@@ -67,6 +67,7 @@ export class SouMvpMnemonicSchemeComponent extends WidgetPlatform<unknown>
 
     set selectedInstallation(value: number) {
         this.mvpService.selectedInstallation$.next(value);
+        this.changeInstall(this.installations[this.selectedInstallation][0]);
     }
 
     get selectedInstallation(): number {
@@ -114,6 +115,11 @@ export class SouMvpMnemonicSchemeComponent extends WidgetPlatform<unknown>
         );
     }
 
+    protected dataConnect(): void {
+        super.dataConnect();
+        this.changeInstall(null);
+    }
+
     protected dataHandler(ref: ISOUOperationalAccountingSystem): void {
         this.mainData = ref;
         this.flowInAb = ref.section[0].flowIn;
@@ -151,15 +157,17 @@ export class SouMvpMnemonicSchemeComponent extends WidgetPlatform<unknown>
         this.chosenSection = i;
     }
 
-    changeInstall(value: string) {
-        const a = {
+    changeInstall(value: string): void {
+        let a = {
             manufacture: 'Производство 1',
-            name: value,
+            name: 'АВТ-10',
         };
-        this.setWs(a);
-    }
-
-    setWs(a): void {
+        if (value) {
+            a = {
+                manufacture: this.factories[this.selectedInstallation],
+                name: value,
+            };
+        }
         this.setWsOptions(a);
     }
 }
