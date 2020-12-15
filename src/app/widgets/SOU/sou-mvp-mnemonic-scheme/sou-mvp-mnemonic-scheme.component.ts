@@ -9,6 +9,8 @@ import {
 } from '../../../dashboard/models/SOU/sou-operational-accounting-system';
 import { SouMvpMnemonicSchemeService } from '../../../dashboard/services/widgets/SOU/sou-mvp-mnemonic-scheme.service';
 import { animate, state, style, transition, trigger } from '@angular/animations';
+import { BehaviorSubject } from 'rxjs';
+import { NULL_EXPR } from '@angular/compiler/src/output/output_ast';
 
 @Component({
     selector: 'evj-sou-mvp-mnemonic-scheme',
@@ -84,7 +86,7 @@ export class SouMvpMnemonicSchemeComponent extends WidgetPlatform<unknown>
                 value: 0,
             },
             {
-                title: 'BБ',
+                title: 'ВБ',
                 value: 0,
             },
         ],
@@ -128,7 +130,7 @@ export class SouMvpMnemonicSchemeComponent extends WidgetPlatform<unknown>
         this.sectionsData = [];
         this.sectionsDataIzo = [];
         ref.section.forEach((item, i) => {
-            if (i !== 2) {
+            if (item.name !== 'Изомалк-2') {
                 this.sectionsData = [
                     ...this.sectionsData,
                     ...item.flowIn,
@@ -143,8 +145,11 @@ export class SouMvpMnemonicSchemeComponent extends WidgetPlatform<unknown>
                     ...item.objects,
                 ];
             }
-            if (i !== 2) {
-                this.sections[0][i].value = item.countFlowExceedingConfInterval;
+
+            const sec = this.sections[0].find(section => item.name.indexOf(section.title) !== -1);
+
+            if (!!sec) {
+                sec.value = item.countFlowExceedingConfInterval;
             }
         });
     }

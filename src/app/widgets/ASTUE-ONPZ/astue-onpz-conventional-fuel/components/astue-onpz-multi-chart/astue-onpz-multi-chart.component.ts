@@ -498,14 +498,18 @@ export class AstueOnpzMultiChartComponent implements OnInit, OnChanges, OnDestro
         const fact = this.charts.find((item) => item.graphType === 'fact')?.graph ?? [];
 
         const getBorderValue = (type: 'higherBorder' | 'lowerBorder'): number => {
-            return this.scaleFuncs.y?.invert(
-                findCursorPosition(
-                    this.scaleFuncs.x(fact[fact.length - 1]?.timeStamp),
-                    type,
-                    this.svg,
-                    this.padding
-                )?.y
-            );
+            try {
+                return this.scaleFuncs.y?.invert(
+                    findCursorPosition(
+                        this.scaleFuncs.x(fact[fact.length - 1]?.timeStamp),
+                        type,
+                        this.svg,
+                        this.padding
+                    )?.y
+                );
+            } catch (e) {
+                return null;
+            }
         };
 
         const hbValue = getBorderValue('higherBorder');
@@ -949,19 +953,19 @@ export class AstueOnpzMultiChartComponent implements OnInit, OnChanges, OnDestro
             const statValue = filterChart?.length > 0 ? filterChart[filterChart.length - 1] : null;
             if (chart.graphType === 'plan') {
                 units = units ? units : chart.units;
-                plan = xGragh ? statValue.value : 0;
+                plan = xGragh ? statValue?.value : 0;
             } else if (
                 chart.graphType === 'fact' ||
                 chart.graphType === 'higherBorder' ||
                 chart.graphType === 'lowerBorder'
             ) {
                 units = units ? units : chart.units;
-                fact = xGragh ? statValue.value : 0;
+                fact = xGragh ? statValue?.value : 0;
             } else if (chart.graphType === 'forecast' || chart.graphType === 'border') {
                 // TODO add some
             } else {
                 values.push({
-                    val: xGragh ? statValue.value : 0,
+                    val: xGragh ? statValue?.value : 0,
                     color: lineColors[this.colors?.get(chart.tagName)],
                     units: chart.units ?? '',
                     iconType: chart.graphType ?? 'volume',

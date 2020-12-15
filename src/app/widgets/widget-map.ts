@@ -135,6 +135,7 @@ export const WIDGETS = {
     'kpe-table-data': WidgetContainerComponent,
     'kpe-pasportize-percent': WidgetContainerComponent,
     'kpe-plan-readiness-trend': WidgetContainerComponent,
+    'kpe-execution-production-program': WidgetContainerComponent,
     'kpe-total-reserve': WidgetContainerComponent,
     'cvtr-izomalk': WidgetContainerComponent,
     'sou-energetic': WidgetContainerComponent,
@@ -455,7 +456,7 @@ export const WIDGETS_LAZY = {
         itemCols: 21,
         itemRows: 22,
         minItemCols: 21,
-        minItemRows: 22,
+        minItemRows: 13,
         preview: 'kpe-quality',
     },
     'kpe-readiness': {
@@ -556,6 +557,19 @@ export const WIDGETS_LAZY = {
         minItemRows: 14,
         preview: 'kpe-plan-enforceability',
     },
+    'kpe-execution-production-program': {
+    import: async () => {
+        return await import(
+            'src/app/widgets/KPE/kpe-execution-production-program/kpe-execution-production-program.module'
+            );
+    },
+        module: 'KpeExecutionProductionProgramModule',
+        itemCols: 21,
+        itemRows: 19,
+        minItemCols: 21,
+        minItemRows: 19,
+        preview: 'kpe-execution-production-program',
+},
 
     // #endregion KPE
 
@@ -760,7 +774,7 @@ export const WIDGETS_LAZY = {
         itemCols: 32,
         itemRows: 30,
         minItemCols: 32,
-        minItemRows: 30,
+        minItemRows: 20,
         preview: 'cd-events',
     },
     'evj-events-workspace': {

@@ -158,6 +158,16 @@ export class WidgetService {
         });
     }
 
+    public async getAvailableChannels<T>(widgetId: string): Promise<T[]> {
+        try {
+            return await this.http
+                .get<T[]>(`${this.restUrl}/api/widget-data/${widgetId}/sub-channels`)
+                .toPromise();
+        } catch (e) {
+            return [];
+        }
+    }
+
     getName(widgetId: string): string {
         const widgetNames: IWidget = this.widgets$.getValue().find((x) => x.id === widgetId);
         if (widgetNames) {

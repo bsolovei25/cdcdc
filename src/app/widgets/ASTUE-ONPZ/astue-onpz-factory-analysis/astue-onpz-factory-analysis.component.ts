@@ -83,14 +83,14 @@ export class AstueOnpzFactoryAnalysisComponent extends WidgetPlatform<unknown> i
         @Inject('isMock') public isMock: boolean,
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string,
-        private injector: Injector,
+        private injector: Injector
     ) {
         super(widgetService, isMock, id, uniqId);
     }
 
     ngOnInit(): void {
         super.widgetInit();
-        this.mnemonicFurnaceService.selectedItem$.subscribe(item => {
+        this.mnemonicFurnaceService.selectedItem$.subscribe((item) => {
             this.selectedChannelId = item;
         });
     }
@@ -110,7 +110,7 @@ export class AstueOnpzFactoryAnalysisComponent extends WidgetPlatform<unknown> i
             ],
             parent: this.injector,
         });
-    }
+    };
 
     protected dataConnect(): void {
         super.dataConnect();
@@ -131,7 +131,6 @@ export class AstueOnpzFactoryAnalysisComponent extends WidgetPlatform<unknown> i
     }
 
     protected dataHandler(ref: IAstueOnpzFactoryAnalysisBarResponse): void {
-        console.log(ref, 'astue-onpz-factory-analysis');
         if (!ref.sections) {
             this.barData = null;
             return;
