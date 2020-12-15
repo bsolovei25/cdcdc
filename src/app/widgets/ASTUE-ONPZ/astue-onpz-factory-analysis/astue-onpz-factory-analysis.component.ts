@@ -13,6 +13,7 @@ import {
 import { AstueOnpzFactoryAnalysisChartPageComponent } from './components/astue-onpz-factory-analysis-chart-page/astue-onpz-factory-analysis-chart-page.component';
 import { AstueOnpzMnemonicFurnaceService } from '../astue-onpz-mnemonic-furnace/astue-onpz-mnemonic-furnace.service';
 import { IAstueOnpzMnemonicFurnaceOptions } from '../../../dashboard/models/ASTUE-ONPZ/astue-onpz-mnemonic-furnace.model';
+import { AstueOnpzConventionalFuelService } from '../astue-onpz-conventional-fuel/astue-onpz-conventional-fuel.service';
 
 type AstueOnpzFactoryAnalysisType = 'Unit' | 'Furnace';
 
@@ -78,6 +79,7 @@ export class AstueOnpzFactoryAnalysisComponent extends WidgetPlatform<unknown> i
     public barData: IAstueOnpzFactoryAnalysisDiagram = null;
 
     constructor(
+        private conventionalFuelService: AstueOnpzConventionalFuelService,
         private mnemonicFurnaceService: AstueOnpzMnemonicFurnaceService,
         protected widgetService: WidgetService,
         @Inject('isMock') public isMock: boolean,
@@ -123,6 +125,16 @@ export class AstueOnpzFactoryAnalysisComponent extends WidgetPlatform<unknown> i
                 manufactureName: 'Производство №1',
                 unitName: 'АВТ-10',
                 ovenName: '',
+                resourceName: 'Топливо',
+            });
+            this.conventionalFuelService.selectedOptions$.subscribe((ref) => {
+                console.log(ref);
+                this.setWsOptions({
+                    manufactureName: ref.manufacture,
+                    unitName: ref.unit,
+                    ovenName: '',
+                    resourceName: ref.fuel,
+                });
             });
             return;
         }
