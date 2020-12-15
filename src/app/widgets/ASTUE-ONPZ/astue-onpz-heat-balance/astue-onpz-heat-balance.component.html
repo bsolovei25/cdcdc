@@ -83,12 +83,12 @@
                 <div
                   class="table__body__column__row-title__text__subname"
                   [class.table__body__column__row-title--no-active]="selectedProduct$(elementChildren) | async">
-                  <span>{{ elementChildren.name }}{{elementChildren.id}}</span>
+                  <span>{{ elementChildren.name }}</span>
                 </div>
               </div>
               <ng-container *ngIf="column.id === 1">
                 <div class="value">
-                  <span>{{elementChildren.absoluteValue| number: "0.0" }}{{selectedProduct$(elementChildren) | async}}</span>
+                  <span>{{elementChildren.absoluteValue| number: "0.0" }}</span>
                 </div>
               </ng-container>
               <ng-container *ngIf="column.id === 2">
