@@ -558,18 +558,18 @@ export const WIDGETS_LAZY = {
         preview: 'kpe-plan-enforceability',
     },
     'kpe-execution-production-program': {
-    import: async () => {
-        return await import(
-            'src/app/widgets/KPE/kpe-execution-production-program/kpe-execution-production-program.module'
+        import: async () => {
+            return await import(
+                'src/app/widgets/KPE/kpe-execution-production-program/kpe-execution-production-program.module'
             );
-    },
+        },
         module: 'KpeExecutionProductionProgramModule',
         itemCols: 21,
         itemRows: 19,
-        minItemCols: 21,
-        minItemRows: 19,
+        minItemCols: 19,
+        minItemRows: 14,
         preview: 'kpe-execution-production-program',
-},
+    },
 
     // #endregion KPE
 

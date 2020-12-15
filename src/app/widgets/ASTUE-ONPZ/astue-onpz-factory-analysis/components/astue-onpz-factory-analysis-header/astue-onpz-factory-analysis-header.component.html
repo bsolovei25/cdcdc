@@ -27,7 +27,7 @@
     (mousedown)="$event.stopPropagation()"
     (touchstart)="$event.stopPropagation()"
   >
-    <div class="dropdown">
+    <div class="dropdown" *ngIf="page === 'chart'">
       <mat-select class="dropdown__select" [value]="'Производство 1'">
         <ng-container>
           <mat-option [value]="'Производство 1'">
