@@ -18,6 +18,7 @@ import {
     IAstueOnpzMnemonicFurnaceCircle,
     IAstueOnpzMnemonicFurnaceLine,
     IAstueOnpzMnemonicFurnaceResponse,
+    IAstueOnpzMnemonicFurnaceResponseGroup,
     IAstueOnpzMnemonicFurnaceResponseGroupData,
     IAstueOnpzMnemonicFurnaceResponseOven,
     IAstueOnpzMnemonicFurnaceSelectReferences,
@@ -344,6 +345,19 @@ export class AstueOnpzMnemonicFurnaceComponent extends WidgetPlatform implements
         if (!currentData) {
             return null;
         }
+
+        const sortedProperty: (keyof IAstueOnpzMnemonicFurnaceResponseOven)[] = [
+            'inputOil',
+            'inputGaz',
+            'liquidFuel',
+            'outputGaz',
+            'outputRaw',
+        ];
+        sortedProperty.forEach((x) => {
+            (currentData[x] as IAstueOnpzMnemonicFurnaceResponseGroup).item.sort(
+                (a, b) => +a.code - +b.code
+            );
+        });
 
         const inputOilBlock: IAstueOnpzMnemonicFurnaceBlock = {
             title: 'Входящая отбензиненная нефть',

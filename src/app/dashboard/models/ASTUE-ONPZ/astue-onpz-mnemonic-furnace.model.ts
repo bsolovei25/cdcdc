@@ -37,6 +37,7 @@ export interface IAstueOnpzMnemonicFurnaceResponseGroupData {
     value: number;
     units: string;
     type: string;
+    code: number;
     temp: IAstueOnpzMnemonicFurnaceResponseExtendAttribute;
     pressure: IAstueOnpzMnemonicFurnaceResponseExtendAttribute;
     isDeviation: boolean;
