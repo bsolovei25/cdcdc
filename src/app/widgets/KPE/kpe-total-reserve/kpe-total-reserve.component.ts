@@ -4,9 +4,9 @@ import { WidgetPlatform } from 'src/app/dashboard/models/@PLATFORM/widget-platfo
 import { WidgetService } from 'src/app/dashboard/services/widget.service';
 
 interface ITotalReserve {
-  title: string;
-  value: number;
-  products: ITotalReserveProductsList[];
+  title?: string;
+  values: number;
+  product: ITotalReserveProductsList[];
 }
 interface ITotalReserveProductsList {
   productTitle: string;
@@ -26,152 +26,7 @@ interface ITotalReserveProduct {
 
 
 export class KpeTotalReserveComponent extends WidgetPlatform<unknown> implements OnInit {
-  data: ITotalReserve[] = [
-    {
-      title: 'Общий запас по качеству от PIMS',
-      value: 9,
-      products: [
-        {
-          productTitle: 'Бензин',
-          value: 2.5,
-          items: [
-            {
-              name: 'Плотность',
-              value: 1.9
-            },
-            {
-              name: 'ОЧ ИМ',
-              value: 0.7
-            },
-            {
-              name: 'ОЧ ИМ',
-              value: 0.7
-            },
-            {
-              name: 'ДНП',
-              value: 6.5
-            }
-          ]
-        },
-        {
-          productTitle: 'ДТ',
-          value: 17,
-          items: [
-            {
-              name: 'Плотность',
-              value: 0.5
-            },
-            {
-              name: 'Цет. число',
-              value: 1.3
-            },
-            {
-              name: 'МД серы',
-              value: 29
-            },
-            {
-              name: 'Смаз. сп-ть',
-              value: 11
-            },
-            {
-              name: 'ПТФ',
-              value: 76
-            }
-          ]
-        },
-        {
-          productTitle: 'Темные',
-          value: 2.5,
-          items: [
-            {
-              name: 'Вяз.кин.80',
-              value: 27
-            },
-            {
-              name: 'Вяз.кин.80',
-              value: 10
-            },
-            {
-              name: 'МД серы',
-              value: 6
-            }
-          ]
-        },
-      ]
-    },
-    {
-      title: 'Общий запас по качеству ГОСТ',
-      value: 14,
-      products: [
-        {
-          productTitle: 'Мазут',
-          value: 2.5,
-          items: [
-            {
-              name: 'Плотность',
-              value: 19
-            },
-            {
-              name: 'ОЧ ИМ',
-              value: 20
-            },
-            {
-              name: 'ОЧ ИМ',
-              value: 40
-            },
-            {
-              name: 'ДНП',
-              value: 0
-            }
-          ]
-        },
-        {
-          productTitle: 'ДТ',
-          value: 17,
-          items: [
-            {
-              name: 'Плотность',
-              value: 0.5
-            },
-            {
-              name: 'Цет. число',
-              value: 1.3
-            },
-            {
-              name: 'МД серы',
-              value: 29
-            },
-            {
-              name: 'Смаз. сп-ть',
-              value: 11
-            },
-            {
-              name: 'ПТФ',
-              value: 76
-            }
-          ]
-        },
-        {
-          productTitle: 'Темные',
-          value: 2.5,
-          items: [
-            {
-              name: 'Вяз.кин.80',
-              value: 27
-            },
-            {
-              name: 'Вяз.кин.80',
-              value: 10
-            },
-            {
-              name: 'МД серы',
-              value: 6
-            }
-          ]
-        },
-      ]
-    }
-  ];
+  data: ITotalReserve[] = [];
   choosenItem: number = 0;
   constructor(
     protected widgetService: WidgetService,
@@ -190,6 +45,11 @@ export class KpeTotalReserveComponent extends WidgetPlatform<unknown> implements
     this.choosenItem = i;
   }
 
-  protected dataHandler(ref: any): void {}
+  protected dataHandler(ref: any): void {
+    this.data = ref.productGroup;
+    this.data[0].title = 'Общий запас по качеству от PIMS'
+    this.data[1].title = 'Общий запас по качеству ГОСТ'
+    debugger;
+  }
 
 }
