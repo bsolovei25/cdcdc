@@ -4,6 +4,7 @@ import {
     ISOUFlowOut,
     ISOUObjects,
 } from '../../../models/SOU/sou-operational-accounting-system';
+import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
@@ -15,7 +16,7 @@ export class SouMvpMnemonicSchemeService {
     selectedCode: number = -1; // Код выделенного элемента
     popupData: ISOUFlowOut;
 
-    constructor() {}
+    constructor(private http: HttpClient) {}
 
     openPopup(sections: (ISOUFlowOut | ISOUFlowIn | ISOUObjects)[], code: number): void {
         this.popupData = this.getElementByCode(sections, code) as ISOUFlowOut;
@@ -43,7 +44,10 @@ export class SouMvpMnemonicSchemeService {
         code: number
     ): ISOUFlowOut | ISOUFlowIn | ISOUObjects {
         this.selectedCode = code;
-
         return sections.find((item) => item.code === code);
+    }
+
+    async getMockFile(): Promise<any> {
+        return await this.http.get('assets/mock/SOU/metaDataSou.json').toPromise();
     }
 }

@@ -50,12 +50,28 @@ export class SouMvpMnemonicSchemeComponent extends WidgetPlatform<unknown>
     sectionsData: (ISOUFlowOut | ISOUFlowIn | ISOUObjects)[] = []; // Массив всех элементов
     sectionsDataIzo: (ISOUFlowOut | ISOUFlowIn | ISOUObjects)[] = []; // Массив всех элементов Изомалка
 
-    factories: string[] = ['Производство 1', 'Производство 4'];
-    installations: string[] = ['АВТ-10', 'Изомалк-2'];
+    factories: string[] = ['Производство 1', 'Производство 4', 'Товарное производство'];
+    installations: string[][] = [['АВТ-10'], ['Изомалк-2'], ['АССБ Авиасмеси']];
+    // installations: string[][] = [
+    //     ['АВТ-10'],
+    //     ['Изомалк-2'],
+    //     [
+    //         'АССБ Авиасмеси',
+    //         'АССБ А-95',
+    //         'АССБ А-98',
+    //         'Насосная т.1163-1164 парк БГС',
+    //         'Насосная т.1163-1164 парк А-95',
+    //         'Насосная т.1163-1164 парк А-92',
+    //     ],
+    // ];
+
+    twoSelection: string[] = [];
 
     set selectedInstallation(value: number) {
         this.mvpService.selectedInstallation$.next(value);
+        this.changeInstall(this.installations[this.selectedInstallation][0]);
     }
+
     get selectedInstallation(): number {
         return this.mvpService.selectedInstallation$.getValue();
     }
@@ -75,10 +91,11 @@ export class SouMvpMnemonicSchemeComponent extends WidgetPlatform<unknown>
             },
         ],
         [],
+        [],
     ];
 
-    choosenSetting: number = 1;
-    choosenSection: number = 0;
+    chosenSetting: number = 1;
+    chosenSection: number = 0;
 
     constructor(
         public widgetService: WidgetService,
@@ -98,6 +115,11 @@ export class SouMvpMnemonicSchemeComponent extends WidgetPlatform<unknown>
                 this.mvpService.closePopup();
             })
         );
+    }
+
+    protected dataConnect(): void {
+        super.dataConnect();
+        this.changeInstall(null);
     }
 
     protected dataHandler(ref: ISOUOperationalAccountingSystem): void {
@@ -133,10 +155,24 @@ export class SouMvpMnemonicSchemeComponent extends WidgetPlatform<unknown>
     }
 
     changeSetting(i: number): void {
-        this.choosenSetting = i;
+        this.chosenSetting = i;
     }
 
     changeSection(i: number): void {
-        this.choosenSection = i;
+        this.chosenSection = i;
+    }
+
+    changeInstall(value: string): void {
+        let a = {
+            manufacture: 'Производство 1',
+            name: 'АВТ-10',
+        };
+        if (value) {
+            a = {
+                manufacture: this.factories[this.selectedInstallation],
+                name: value,
+            };
+        }
+        this.setWsOptions(a);
     }
 }

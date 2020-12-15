@@ -18,6 +18,7 @@ import { SouMvpMnemonicSchemeIzomalkLeftComponent } from './components/sou-mvp-m
 import { SouMvpMnemonicSchemeSectionIzomalkComponent } from './components/sou-mvp-mnemonic-scheme-section-izomalk/sou-mvp-mnemonic-scheme-section-izomalk.component';
 import { SouMvpMnemonicSchemeSimpleInputComponent } from './components/sou-mvp-mnemonic-scheme-simple-input/sou-mvp-mnemonic-scheme-simple-input.component';
 import { SouMvpMnemonicSchemeSimpleOutputComponent } from './components/sou-mvp-mnemonic-scheme-simple-output/sou-mvp-mnemonic-scheme-simple-output.component';
+import { SouSchemaComponent } from './components/sou-schema/sou-schema.component';
 import { FormsModule } from '@angular/forms';
 
 @NgModule({
@@ -35,7 +36,8 @@ import { FormsModule } from '@angular/forms';
         SouMvpMnemonicSchemeIzomalkLeftComponent,
         SouMvpMnemonicSchemeSectionIzomalkComponent,
         SouMvpMnemonicSchemeSimpleInputComponent,
-        SouMvpMnemonicSchemeSimpleOutputComponent
+        SouMvpMnemonicSchemeSimpleOutputComponent,
+        SouSchemaComponent
     ],
     imports: [
         CommonModule,
