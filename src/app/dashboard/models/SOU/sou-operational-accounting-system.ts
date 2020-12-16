@@ -71,13 +71,14 @@ export interface ISOUObjects {
 }
 
 export interface ISOUIdent {
-    name: string;
+    title: string;
     value: number;
-    percent: number;
+    percentage: number;
 }
 
 export interface ISOULosses {
     ident: ISOUIdent[];
+    identifiedList: ISOUIdent[];
     lossesType: {
         name: string;
         persent: number;
