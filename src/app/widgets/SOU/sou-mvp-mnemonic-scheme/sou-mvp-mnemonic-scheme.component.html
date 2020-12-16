@@ -119,6 +119,7 @@
 
       <div class="streams-groups">
         <div class="streams-container"
+             [class.streams-container_park]="this.factories[this.selectedInstallation] === 'Товарное производство'"
              (mousedown)="$event.stopPropagation()"
              (touchstart)="$event.stopPropagation()"
         >
@@ -146,7 +147,8 @@
             [sections]="sectionsDataIzo"
           ></evj-sou-mvp-mnemonic-scheme-section-izomalk>
 
-          <evj-sou-schema *ngIf="selectedInstallation === 2 && chosenSection === 0"></evj-sou-schema>
+          <evj-sou-schema *ngIf="selectedInstallation === 2" [sectionsDataPark]="sectionsDataPark"
+                          [chosenSetting]="chosenSetting"></evj-sou-schema>
         </div>
       </div>
     </div>

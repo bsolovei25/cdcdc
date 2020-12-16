@@ -1,6 +1,11 @@
-import { AfterViewChecked, Component, OnInit } from '@angular/core';
+import { AfterViewChecked, Component, Input, OnChanges, OnInit } from '@angular/core';
 import { SouMvpMnemonicSchemeService } from '../../../../../dashboard/services/widgets/SOU/sou-mvp-mnemonic-scheme.service';
 import { DATASOURCE } from './mock';
+import {
+    ISOUFlowIn,
+    ISOUFlowOut,
+    ISOUObjects,
+} from '../../../../../dashboard/models/SOU/sou-operational-accounting-system';
 
 interface IDataSou {
     id: number;
@@ -18,7 +23,7 @@ interface IDataMetaFile {
 }
 
 interface IElementFull {
-    metaFile: IDataMetaFile;
+    metaFile?: ISOUFlowOut | ISOUFlowIn | ISOUObjects;
     rects: Element[];
     points: Element[];
     arrows: Element[];
@@ -26,6 +31,7 @@ interface IElementFull {
     circle: Element;
     textValue: Element;
     textPercent: Element;
+    flag: boolean;
 }
 
 interface IElementFullAndUI {
@@ -38,7 +44,7 @@ interface IElementFullAndUI {
     templateUrl: './sou-schema.component.html',
     styleUrls: ['./sou-schema.component.scss'],
 })
-export class SouSchemaComponent implements OnInit, AfterViewChecked {
+export class SouSchemaComponent implements OnInit, OnChanges, AfterViewChecked {
     elementsNode: Element[] = []; // все элементы
     dataAttribute: Map<number, Element> = new Map(); // id элемента, элемент
     flag: boolean = true; // флаг для одного входа в ngAfterViewChecked
@@ -48,42 +54,83 @@ export class SouSchemaComponent implements OnInit, AfterViewChecked {
 
     data: IDataSou[] = DATASOURCE; // данные с бэка
 
-    constructor(private souService: SouMvpMnemonicSchemeService) {}
+    dataPark: (ISOUFlowOut | ISOUFlowIn | ISOUObjects)[] = [];
 
-    ngOnInit(): void {
-        this.loadMetaFile();
+    @Input() sectionsDataPark: (ISOUFlowOut | ISOUFlowIn | ISOUObjects)[];
+    @Input() chosenSetting: number = 1;
+
+    constructor(
+        private souService: SouMvpMnemonicSchemeService,
+        public mvpService: SouMvpMnemonicSchemeService
+    ) {}
+
+    ngOnInit(): void {}
+
+    ngOnChanges(): void {
+        if (this.dataPark.length) {
+            const newArray = [];
+            this.sectionsDataPark.forEach((value) => {
+                this.dataPark.forEach((park) => {
+                    if (value.code === park.code) {
+                        park.isExceedingConfInterval = value.isExceedingConfInterval;
+                        park.isEnable = value.isEnable;
+                        park.related = value.related;
+
+                        if ('productName' in value && 'productName' in park) {
+                            park.productName = value.productName;
+                            park.valueTank = value.valueTank;
+                            park.valueMoment = value.valueMoment;
+                            park.valueByHour = value.valueByHour;
+                        }
+                        if ('name' in value && 'name' in park) {
+                            park.name = value.name;
+                        }
+                    } else {
+                        newArray.push(value);
+                    }
+                });
+            });
+            this.loadData(true);
+        } else {
+            this.dataPark = this.sectionsDataPark;
+            this.loadData(false);
+        }
+
+        console.log(`Данные: ${this.dataPark.length}`);
     }
 
     ngAfterViewChecked(): void {
-        if (document.querySelector(`#element-1_1`) && this.flag && this.metaFile.length) {
+        if (document.querySelector(`#element-1_1`) && this.flag) {
             this.flag = false;
             this.loadSchema();
-            this.loadData();
         }
     }
 
     async loadMetaFile(): Promise<void> {
         const a = await this.souService.getMockFile();
         this.metaFile = a.data;
-        console.log(this.metaFile);
     }
 
-    loadData(): void {
-        this.data.forEach((value) => {
-            const metaElement: IDataMetaFile = this.metaFile.find((meta) => meta.id === value.id);
-            const element = this.dataAttribute.get(metaElement?.elementId);
-            const mode = value.deviation ? 'deviation' : value.active ? 'standard' : 'disabled';
-            this.elementEdit(
-                mode,
-                element,
-                metaElement,
-                value.id,
-                value.percent,
-                value.value,
-                value.text,
-                value.active,
-                value.deviation
-            );
+    loadData(reload: boolean): void {
+        this.dataPark.forEach((data) => {
+            data.related =
+                typeof data.related === 'string'
+                    ? data.related
+                          .split(';')
+                          .map((value) => +value)
+                          .filter((value) => !isNaN(value))
+                    : data.related;
+            const element = reload
+                ? this.fullElement.get(data.code)?.element
+                : this.dataAttribute.get(data?.code);
+            if (element) {
+                const mode = data.isExceedingConfInterval
+                    ? 'deviation'
+                    : data.isEnable
+                    ? 'standard'
+                    : 'disabled';
+                this.elementEdit(reload, mode, element, data, data.code);
+            }
         });
     }
 
@@ -101,50 +148,53 @@ export class SouSchemaComponent implements OnInit, AfterViewChecked {
     }
 
     elementEdit(
+        reload: boolean,
         mode: 'standard' | 'deviation' | 'disabled' | 'reset' | 'active',
         element: Element,
-        metaFile?: IDataMetaFile,
+        metaFile?: ISOUFlowOut | ISOUFlowIn | ISOUObjects,
         idBack?: number,
-        percent?: number,
-        value?: number,
-        text?: string,
-        active?: boolean,
-        deviation?: boolean
+        percent: number = 0,
+        value: number = 0,
+        text: string = ''
     ): void {
         if (element?.children) {
-            if (mode === 'reset') {
-                value = 0;
-                percent = 0;
-                text = '';
-                active = false;
-                deviation = false;
-            }
-            let elementFull: IElementFull = {
-                metaFile,
-                rects: [],
-                points: [],
-                arrows: [],
-                texts: [],
-                circle: null,
-                textValue: null,
-                textPercent: null,
-            };
-
-            const elements = Array.from(element?.children);
-            // Search
-            elements?.forEach((elem) => {
-                elementFull = this.searchElementsInElement(elem, elementFull);
-            });
-            // add class and text to element
-            this.addClassAndTextToElement(element, elementFull, mode, text, percent, value);
-            // Event
-            if (metaFile) {
-                this.eventClick(element, elementFull);
-                const elementFullAndUI: IElementFullAndUI = {
+            if (reload) {
+                this.addClassAndTextToElement(
                     element,
-                    elementFull,
+                    this.fullElement.get(metaFile.code).elementFull,
+                    mode,
+                    text,
+                    percent,
+                    value
+                );
+            } else {
+                let elementFull: IElementFull = {
+                    metaFile,
+                    rects: [],
+                    points: [],
+                    arrows: [],
+                    texts: [],
+                    circle: null,
+                    textValue: null,
+                    textPercent: null,
+                    flag: true,
                 };
-                this.fullElement.set(metaFile.id, elementFullAndUI);
+                const elements = Array.from(element?.children);
+                // Search
+                elements?.forEach((elem) => {
+                    elementFull = this.searchElementsInElement(elem, elementFull);
+                });
+                // add class and text to element
+                this.addClassAndTextToElement(element, elementFull, mode, text, percent, value);
+                // Event
+                if (metaFile) {
+                    this.eventClick(element, elementFull);
+                    const elementFullAndUI: IElementFullAndUI = {
+                        element,
+                        elementFull,
+                    };
+                    this.fullElement.set(metaFile.code, elementFullAndUI);
+                }
             }
         }
     }
@@ -160,43 +210,69 @@ export class SouSchemaComponent implements OnInit, AfterViewChecked {
         element.setAttribute('class', 'element');
 
         elementFull.rects.forEach((item) => {
-            item.classList.remove('standard', 'deviation', 'disabled', 'reset');
             item.classList.add(mode);
         });
         elementFull.points.forEach((item) => {
-            item.classList.remove('standard', 'deviation', 'disabled', 'reset');
             item.classList.add(mode);
         });
         elementFull.texts.forEach((item) => {
-            item.classList.remove('standard-text', 'deviation-text', 'disabled-text', 'reset-text');
             item.classList.add(`${mode}-text`);
-            this.addTextToTspan(item, String(text));
+            if (elementFull?.metaFile) {
+                if ('productName' in elementFull?.metaFile) {
+                    this.addTextToTspan(item, String(elementFull.metaFile.productName));
+                } else {
+                    this.addTextToTspan(item, String(elementFull.metaFile.name));
+                }
+            } else {
+                this.addTextToTspan(item, String(name));
+            }
         });
         elementFull.arrows.forEach((item) => {
-            item.classList.remove(
-                'standard-arrow',
-                'deviation-arrow',
-                'disabled-arrow',
-                'reset-arrow'
-            );
             item.classList.toggle(`${mode}-arrow`);
         });
         if (elementFull.circle) {
-            elementFull.circle.classList.remove('standard', 'deviation', 'disabled', 'reset');
             elementFull.circle?.classList.add(mode);
         }
 
-        if (elementFull.textPercent) {
+        // Percent
+        if (elementFull?.metaFile) {
+            if ('valueMomentPercent' in elementFull?.metaFile) {
+                this.addTextToTspan(
+                    elementFull.textPercent,
+                    `${String(elementFull?.metaFile?.valueMomentPercent)}%`
+                );
+                elementFull.textPercent?.classList.remove(
+                    'standard-text',
+                    'deviation-text',
+                    'disabled-text',
+                    'reset-text'
+                );
+                elementFull.textPercent?.classList.add(`${mode}-text`);
+            }
+        } else {
             this.addTextToTspan(elementFull.textPercent, `${String(percent)}%`);
-            elementFull.textPercent?.classList.remove(
-                'standard-text',
-                'deviation-text',
-                'disabled-text',
-                'reset-text'
-            );
             elementFull.textPercent?.classList.add(`${mode}-text`);
         }
-        if (elementFull.textValue) {
+
+        // Value
+        if (elementFull?.metaFile) {
+            if ('valueByHour' in elementFull?.metaFile) {
+                let valueMet: number = 0;
+                switch (this.chosenSetting) {
+                    case 0:
+                        valueMet = elementFull?.metaFile?.valueMoment;
+                        break;
+                    case 1:
+                        valueMet = elementFull?.metaFile?.valueByHour;
+                        break;
+                    case 2:
+                        valueMet = elementFull?.metaFile?.valueTank;
+                        break;
+                }
+                this.addTextToTspan(elementFull.textValue, `${String(valueMet)} тн`);
+                elementFull.textValue?.classList.add(`${mode}-text`);
+            }
+        } else {
             this.addTextToTspan(elementFull.textValue, `${String(value)} тн`);
             elementFull.textValue?.classList.remove(
                 'standard-text',
@@ -205,6 +281,47 @@ export class SouSchemaComponent implements OnInit, AfterViewChecked {
                 'reset-text'
             );
             elementFull.textValue?.classList.add(`${mode}-text`);
+        }
+        // related elements
+        if (typeof elementFull?.metaFile?.related === 'object') {
+            elementFull.metaFile.related.forEach((id) => {
+                const elementRelated = this.dataAttribute.get(id);
+
+                const elementsRelated = Array.from(elementRelated?.children);
+                let elementFullRelated: IElementFull = {
+                    rects: [],
+                    points: [],
+                    arrows: [],
+                    texts: [],
+                    circle: null,
+                    textValue: null,
+                    textPercent: null,
+                    flag: true,
+                };
+                // Search
+                elementsRelated?.forEach((elem) => {
+                    elementFullRelated = this.searchElementsInElement(elem, elementFullRelated);
+                });
+                elementFullRelated?.rects.forEach((item) => {
+                    item.classList.add(mode);
+                });
+                elementFullRelated?.points.forEach((item) => {
+                    item.classList.add(mode);
+                });
+                elementFullRelated?.texts.forEach((item) => {
+                    item.classList.add(`${mode}-text`);
+                });
+                elementFullRelated?.arrows.forEach((item) => {
+                    item.classList.add(`${mode}-arrow`);
+                });
+                if (elementFullRelated?.circle) {
+                    elementFullRelated?.circle?.classList.add(mode);
+                }
+
+                if (elementRelated.getAttribute('id').includes('line')) {
+                    elementRelated?.classList.add(mode);
+                }
+            });
         }
     }
 
@@ -247,45 +364,128 @@ export class SouSchemaComponent implements OnInit, AfterViewChecked {
     }
 
     eventClick(element: Element, elementFull: IElementFull): void {
-        element.addEventListener('click', () => {
+        if (elementFull.flag) {
+            elementFull.flag = false;
+            if ('productName' in elementFull.metaFile) {
+                const handler = this.eventListenerClick(elementFull);
+                element.removeEventListener('click', handler);
+                element.addEventListener('click', handler);
+            }
+        }
+    }
+
+    eventListenerClick(elementFull: IElementFull): any {
+        return () => {
             this.elementActive(elementFull);
-            elementFull.metaFile.related.forEach((value) => {
-                const line = this.dataAttribute.get(value);
-                if (line.getAttribute('id').includes('line')) {
-                    if (!line?.classList.contains(`${elementFull.metaFile.id}`)) {
-                        line?.classList.add(`${elementFull.metaFile.id}`);
-                        line?.classList.add('active');
-                    } else {
-                        if (line?.classList.length >= 3) {
-                            line?.classList.remove(`${elementFull.metaFile.id}`);
+            if (typeof elementFull.metaFile.related === 'object') {
+                elementFull.metaFile?.related?.forEach((value) => {
+                    const line = this.dataAttribute.get(value);
+                    if (line.getAttribute('id').includes('line')) {
+                        if (!line?.classList.contains(`${elementFull.metaFile.code}`)) {
+                            line?.classList.add(`${elementFull.metaFile.code}`, 'active');
                         } else {
-                            line?.classList.remove(`${elementFull.metaFile.id}`, 'active');
+                            const count = this.countElementsInClassList(line);
+                            if (count > 1) {
+                                line?.classList.remove(`${elementFull.metaFile.code}`);
+                            } else {
+                                line?.classList.remove(`${elementFull.metaFile.code}`, 'active');
+                            }
+                        }
+                    } else {
+                        const el = this.fullElement.get(value);
+                        if (el) {
+                            this.elementActive(el?.elementFull);
                         }
                     }
-                } else {
-                    const el = this.fullElement.get(value);
-                    if (el) {
-                        this.elementActive(el?.elementFull);
-                    }
-                }
-            });
+                });
+            }
+        };
+    }
+
+    countElementsInClassList(element: Element): number {
+        let count = 0;
+        element?.classList.forEach((list) => {
+            if (list.length <= 3) {
+                count++;
+            }
         });
+        return count;
     }
 
     elementActive(elementFull: IElementFull): void {
+        const name = 'active';
         elementFull.rects.forEach((item) => {
-            item.classList.toggle('active');
+            if (!item?.classList.contains(`${elementFull.metaFile.code}`)) {
+                item?.classList.add(`${elementFull.metaFile.code}`);
+                item?.classList.add(name);
+                if ('productName' in elementFull.metaFile) {
+                    this.mvpService.openPopup(this.dataPark, elementFull?.metaFile?.code);
+                }
+            } else {
+                const count = this.countElementsInClassList(item);
+                if (count > 1) {
+                    item?.classList.remove(`${elementFull.metaFile.code}`);
+                } else {
+                    item?.classList.remove(`${elementFull.metaFile.code}`, name);
+                }
+                if ('productName' in elementFull.metaFile) {
+                    if (this.mvpService.isOpenPopup) {
+                        this.mvpService.closePopup();
+                    }
+                }
+            }
         });
         elementFull.points.forEach((item) => {
-            item.classList.toggle('active');
+            if (!item?.classList.contains(`${elementFull.metaFile.code}`)) {
+                item?.classList.add(`${elementFull.metaFile.code}`);
+                item?.classList.add(name);
+            } else {
+                const count = this.countElementsInClassList(item);
+                if (count > 1) {
+                    item?.classList.remove(`${elementFull.metaFile.code}`);
+                } else {
+                    item?.classList.remove(`${elementFull.metaFile.code}`, name);
+                }
+            }
         });
         elementFull.texts.forEach((item) => {
-            item.classList.toggle('active-text');
+            if (!item?.classList.contains(`${elementFull.metaFile.code}`)) {
+                item?.classList.add(`${elementFull.metaFile.code}`);
+                item?.classList.add(`${name}-text`);
+            } else {
+                const count = this.countElementsInClassList(item);
+                if (count > 1) {
+                    item?.classList.remove(`${elementFull.metaFile.code}`);
+                } else {
+                    item?.classList.remove(`${elementFull.metaFile.code}`, `${name}-text`);
+                }
+            }
         });
         elementFull.arrows.forEach((item) => {
-            item.classList.toggle('active-arrow');
+            if (!item?.classList.contains(`${elementFull.metaFile.code}`)) {
+                item?.classList.add(`${elementFull.metaFile.code}`);
+                item?.classList.add(`${name}-arrow`);
+            } else {
+                const count = this.countElementsInClassList(item);
+                if (count > 1) {
+                    item?.classList.remove(`${elementFull.metaFile.code}`);
+                } else {
+                    item?.classList.remove(`${elementFull.metaFile.code}`, `${name}-arrow`);
+                }
+            }
         });
-        elementFull.circle?.classList.toggle('active');
+
+        if (!elementFull.circle?.classList.contains(`${elementFull.metaFile.code}`)) {
+            elementFull.circle?.classList.add(`${elementFull.metaFile.code}`);
+            elementFull.circle?.classList.add(name);
+        } else {
+            const count = this.countElementsInClassList(elementFull.circle);
+            if (count > 1) {
+                elementFull.circle?.classList.remove(`${elementFull.metaFile.code}`);
+            } else {
+                elementFull.circle?.classList.remove(`${elementFull.metaFile.code}`, name);
+            }
+        }
         elementFull.textPercent?.classList.toggle('active-text');
         elementFull.textValue?.classList.toggle('active-text');
     }
@@ -293,9 +493,21 @@ export class SouSchemaComponent implements OnInit, AfterViewChecked {
     addTextToTspan(element: Element, text: string): void {
         if (element?.children) {
             const children = Array.from(element?.children);
-            children?.forEach((child) => {
-                child.textContent = text;
-            });
+            if (text === '') {
+                children?.forEach((value) => {
+                    value.textContent = text;
+                });
+            }
+            if (text.length > 23) {
+                if (children.length > 1) {
+                    children[0].textContent = text.slice(0, 23);
+                    children[1].textContent = text.slice(23);
+                } else {
+                    children[0].textContent = text;
+                }
+            } else {
+                children[0].textContent = text;
+            }
         }
     }
 
@@ -324,13 +536,14 @@ export class SouSchemaComponent implements OnInit, AfterViewChecked {
     searchElements(elementIndex: number): Element[] {
         let i = 1; // счетчик элементов
         const localElements: Element[] = [];
+
         while (i < 100) {
             // поиск по id  - id=element-1_2
 
             const element = document.querySelector(`#element-${elementIndex}_${i}`);
             const line = document.querySelector(`#line_${i}`);
             if (element) {
-                this.elementEdit('reset', element);
+                this.elementEdit(false, 'reset', element);
                 this.dataAttribute.set(i, element);
             }
             if (line) {

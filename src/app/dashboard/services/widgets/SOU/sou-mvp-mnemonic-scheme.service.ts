@@ -29,6 +29,10 @@ export class SouMvpMnemonicSchemeService {
         this.selectedCode = -1;
     }
 
+    get isOpenPopup(): boolean {
+        return this.isPopupOpen;
+    }
+
     // Ищет элемент по коду в массиве всех элементов
     getElementByCode(
         sections: (ISOUFlowOut | ISOUFlowIn | ISOUObjects)[],
