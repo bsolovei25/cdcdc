@@ -6,7 +6,7 @@
     type="astue"
   >
     <div *ngIf="(viewType$ | async) === 'Furnace'" class="header-container">
-      <evj-astue-onpz-factory-analysis-header [page]="pageType$ | async" (changePage)="changePage($event)"></evj-astue-onpz-factory-analysis-header>
+      <evj-astue-onpz-factory-analysis-header [reference]="selectionReference" [page]="pageType$ | async" (changePage)="changePage($event)"></evj-astue-onpz-factory-analysis-header>
     </div>
   </evj-contemporary-widget-header>
 

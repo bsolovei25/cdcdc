@@ -8,8 +8,6 @@ import {
     IAstueOnpzTableIndicatorsItemChild,
 } from '../../../dashboard/models/ASTUE-ONPZ/astue-onpz-table-indicators.model';
 import { AstueOnpzMnemonicFurnaceService } from '../astue-onpz-mnemonic-furnace/astue-onpz-mnemonic-furnace.service';
-import { IAstueOnpzMnemonicFurnaceOptions } from '../../../dashboard/models/ASTUE-ONPZ/astue-onpz-mnemonic-furnace.model';
-import { IAstueOnpzHeatBalanceItem } from '../../../dashboard/models/ASTUE-ONPZ/astue-onpz-heat-balance.model';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
@@ -57,10 +55,10 @@ export class AstueOnpzTableIndicatorsComponent extends WidgetPlatform<unknown>
     }
 
     protected dataHandler(ref: { groups: IAstueOnpzTableIndicatorsItem[] }): void {
-        ref.groups
-            .flatMap((x) => x.items)
-            .filter((x) => !!x)
-            .forEach((x) => (x.id = x.name));
+        // ref.groups
+        //     .flatMap((x) => x.items)
+        //     .filter((x) => !!x)
+        //     .forEach((x) => (x.id = x.name));
         this.data = ref.groups;
     }
 
