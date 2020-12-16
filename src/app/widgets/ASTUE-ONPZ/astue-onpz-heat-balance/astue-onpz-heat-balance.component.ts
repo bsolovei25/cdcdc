@@ -55,10 +55,10 @@ export class AstueOnpzHeatBalanceComponent extends WidgetPlatform<unknown>
     }
 
     protected dataHandler(ref: { item: IAstueOnpzHeatBalanceItem[] }): void {
-        ref.item
-            .flatMap((x) => x.items)
-            .filter((x) => !!x)
-            .forEach((x) => (x.id = x.name));
+        // ref.item
+        //     .flatMap((x) => x.items)
+        //     .filter((x) => !!x)
+        //     .forEach((x) => (x.id = x.name));
         this.data = [...ref.item];
     }
 

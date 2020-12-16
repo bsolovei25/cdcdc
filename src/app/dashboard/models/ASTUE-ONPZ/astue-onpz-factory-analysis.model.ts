@@ -4,6 +4,7 @@ import { IMultiChartLine } from './astue-onpz-multi-chart.model';
 export interface IAstueOnpzFactoryAnalysisBarResponse {
     sections: IAstueOnpzFactoryAnalysisBarResponseSection[];
     info: string;
+    parameters: { id: string; name: string }[];
 }
 
 export interface IAstueOnpzFactoryAnalysisBarResponseSection {

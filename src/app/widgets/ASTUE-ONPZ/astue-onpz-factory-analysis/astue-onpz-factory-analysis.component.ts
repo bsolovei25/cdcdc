@@ -78,6 +78,8 @@ export class AstueOnpzFactoryAnalysisComponent extends WidgetPlatform<unknown> i
 
     public barData: IAstueOnpzFactoryAnalysisDiagram = null;
 
+    public selectionReference: { id: string; name: string }[] = [];
+
     constructor(
         private conventionalFuelService: AstueOnpzConventionalFuelService,
         private mnemonicFurnaceService: AstueOnpzMnemonicFurnaceService,
@@ -146,10 +148,12 @@ export class AstueOnpzFactoryAnalysisComponent extends WidgetPlatform<unknown> i
     }
 
     protected dataHandler(ref: IAstueOnpzFactoryAnalysisBarResponse): void {
+        this.selectionReference = ref?.parameters ?? [];
         if (!ref.sections) {
             this.barData = null;
             return;
         }
+        console.log(ref);
         this.barData = astueOnpzFactoryAnalysisBarMapper(ref);
     }
 
