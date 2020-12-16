@@ -139,6 +139,7 @@ export const WIDGETS = {
     'kpe-total-reserve': WidgetContainerComponent,
     'cvtr-izomalk': WidgetContainerComponent,
     'sou-energetic': WidgetContainerComponent,
+    sou_general: WidgetContainerComponent,
 };
 
 export const WIDGETS_LAZY = {
@@ -1329,6 +1330,17 @@ export const WIDGETS_LAZY = {
     //#endregion SMP
 
     // #region SOU
+    sou_general: {
+        import: async () => {
+            return await import('src/app/widgets/SOU/sou-fake/sou-fake.module');
+        },
+        module: 'SouFakeModule',
+        itemCols: 32,
+        itemRows: 30,
+        minItemCols: 20,
+        minItemRows: 20,
+        preview: 'default',
+    },
 
     'sou-operational-accounting-system': {
         import: async () => {
