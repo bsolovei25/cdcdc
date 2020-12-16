@@ -41,7 +41,9 @@
     border: 1px var(--color-sou-border);
     border-style: none solid none solid;
     box-sizing: border-box;
-    background: var(--color-sou-bg);;
+    background: var(--color-sou-bg);
+    max-height: 500px;
+    overflow-y: auto;
 
     .row {
       display: flex;
@@ -62,7 +64,14 @@
 
       .value {
         flex-grow: 1;
-        padding: 10px 0 14px 38px;
+        padding: 10px 10px 14px 25px;
+        box-sizing: border-box;
+        box-shadow: inset 5px 0 12px -10px black;
+      }
+
+      .percent {
+        flex-grow: 1;
+        padding: 10px 10px 14px 25px;
         box-sizing: border-box;
         box-shadow: inset 5px 0 12px -10px black;
       }

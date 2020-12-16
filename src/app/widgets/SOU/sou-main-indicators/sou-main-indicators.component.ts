@@ -7,6 +7,9 @@ import { BehaviorSubject } from 'rxjs';
 import { ISouMainIndicators } from '../../../dashboard/models/SOU/sou-main-indicators.model';
 import { ISouEnergeticOptions } from 'src/app/dashboard/models/SOU/sou-energetic.model';
 import { SouMvpMnemonicSchemeService } from 'src/app/dashboard/services/widgets/SOU/sou-mvp-mnemonic-scheme.service';
+import { MatDialog } from '@angular/material/dialog';
+import { SouDetailTableComponent } from '../sou-operational-accounting-system/components/sou-detail-table/sou-detail-table.component';
+import { ISOUIdent } from '../../../dashboard/models/SOU/sou-operational-accounting-system';
 
 @Component({
     selector: 'evj-sou-main-indicators',
@@ -17,13 +20,16 @@ export class SouMainIndicatorsComponent extends WidgetPlatform<unknown> implemen
     public data$: BehaviorSubject<ISouMainIndicators> = new BehaviorSubject<ISouMainIndicators>(
         null
     );
+
     private set data(value: ISouMainIndicators) {
-        if(!!value){
+        if (!!value) {
             this.data$.next(value);
         }
     }
+
     menu: string[] = ['Месяц', 'Вклад'];
     choosenItem: number = 0;
+    active: number = 0;
 
     @ViewChild('chart') chart: ElementRef;
 
@@ -42,6 +48,7 @@ export class SouMainIndicatorsComponent extends WidgetPlatform<unknown> implemen
     constructor(
         protected widgetService: WidgetService,
         private mnemonicSchemeService: SouMvpMnemonicSchemeService,
+        public dialog: MatDialog,
         @Inject('isMock') public isMock: boolean,
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string
@@ -133,5 +140,20 @@ export class SouMainIndicatorsComponent extends WidgetPlatform<unknown> implemen
     protected dataHandler(ref: any): void {
         this.data = ref;
         this.drawSvg(this.data$.value.losses.sum.value, this.data$.value.losses.identified.value);
+    }
+
+    openTable(value: number): void {
+        this.active = value;
+        const dialogRef = this.dialog.open(SouDetailTableComponent, {
+            data: [
+                {
+                    name: '223123',
+                    value: 0,
+                    percent: 23,
+                },
+            ] as ISOUIdent[],
+        });
+
+        dialogRef.afterClosed().subscribe((result) => {});
     }
 }

@@ -15,7 +15,7 @@ import { SouBalanceCardComponent } from './components/sou-balance-card/sou-balan
 import { SouFacilityInfoComponent } from './components/sou-facility-info/sou-facility-info.component';
 import { SouDetailTableComponent } from './components/sou-detail-table/sou-detail-table.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
-
+import { MatDialogModule } from "@angular/material/dialog";
 
 @NgModule({
     declarations: [
@@ -27,8 +27,9 @@ import { MatTooltipModule } from '@angular/material/tooltip';
         SouLossesTableComponent,
         SouBalanceCardComponent,
         SouFacilityInfoComponent,
-        SouDetailTableComponent
+        SouDetailTableComponent,
     ],
+    exports: [SouDetailTableComponent],
     imports: [
         CommonModule,
         AngularSvgIconModule,
@@ -36,8 +37,9 @@ import { MatTooltipModule } from '@angular/material/tooltip';
         MatRippleModule,
         FormsModule,
         SharedModule,
-        MatTooltipModule
-    ]
+        MatTooltipModule,
+        MatDialogModule,
+    ],
 })
 export class SouOperationalAccountingSystemModule {
     enterComponent = SouOperationalAccountingSystemComponent;
