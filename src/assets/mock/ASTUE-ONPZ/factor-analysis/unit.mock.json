@@ -1,0 +1,149 @@
+[
+  {
+    "type": "Plan72",
+    "name": "План на 72 часа,(т.у.т)",
+    "order": 1,
+    "mainDiagram": {
+      "title": "План на 72 часа,(т.у.т)",
+      "value": 26.2,
+      "order": 0
+    },
+    "groups": [
+      {
+        "title": "Неуправляемые производственные факторы",
+        "type": "UncontrollableNonProductionFactors",
+        "order": 2,
+        "diagrams": [
+          {
+            "title": "П1/1",
+            "type": "AirHumidity",
+            "value": 1.2,
+            "order": 1
+          },
+          {
+            "title": "П1/2",
+            "type": "AirHumidity",
+            "value": 0.7,
+            "order": 1
+          },
+          {
+            "title": "П1/3",
+            "type": "AirHumidity",
+            "value": -0.9,
+            "order": 1
+          },
+          {
+            "title": "П101",
+            "type": "AirHumidity",
+            "value": -0.5,
+            "order": 1
+          },
+          {
+            "title": "П102",
+            "type": "AirHumidity",
+            "value": 0.3,
+            "order": 1
+          },
+          {
+            "title": "П3",
+            "type": "AirHumidity",
+            "value": -1,
+            "order": 1
+          }
+        ]
+      },
+      {
+        "title": "Неуправ. не производственные факторы",
+        "type": "UncontrollableProductionFactors",
+        "order": 3,
+        "diagrams": [
+          {
+            "title": "П1/1",
+            "type": "AirHumidity",
+            "value": -0.3,
+            "order": 1
+          },
+          {
+            "title": "П1/2",
+            "type": "AirHumidity",
+            "value": 0.5,
+            "order": 1
+          },
+          {
+            "title": "П1/3",
+            "type": "AirHumidity",
+            "value": 0.3,
+            "order": 1
+          },
+          {
+            "title": "П101",
+            "type": "AirHumidity",
+            "value": -0.2,
+            "order": 1
+          },
+          {
+            "title": "П102",
+            "type": "AirHumidity",
+            "value": -0.7,
+            "order": 1
+          },
+          {
+            "title": "П3",
+            "type": "AirHumidity",
+            "value": 0.5,
+            "order": 1
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "type": "Count",
+    "name": "Цел. / расч.,(т.у.т)",
+    "order": 10,
+    "mainDiagram": {
+      "title": "Цел. / расч.,(т.у.т)",
+      "value": 26.1,
+      "order": 0
+    },
+    "groups": [
+      {
+        "title": "Управ. производ.фаткоры",
+        "type": "ControlledNonProductiveFactors",
+        "order": 2,
+        "diagrams": [
+          {
+            "title": "Работаоборудования",
+            "type": "ThicknessOfDeposits",
+            "value": -3.2,
+            "order": 17
+          }
+        ]
+      },
+      {
+        "title": "Управ. не производ.фаткоры",
+        "type": "ControlledNonProductiveFactors",
+        "order": 2,
+        "diagrams": [
+          {
+            "title": "δ отложений",
+            "type": "ThicknessOfDeposits",
+            "value": -3.2,
+            "order": 17
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "type": "Fact",
+    "name": "Факт,(т.у.т)",
+    "order": 20,
+    "mainDiagram": {
+      "title": "Факт,(т.у.т)",
+      "value": 90.6,
+      "order": 0
+    },
+    "groups": []
+  }
+]
