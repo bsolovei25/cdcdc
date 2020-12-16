@@ -127,7 +127,7 @@ export class AstueOnpzFactoryAnalysisComponent extends WidgetPlatform<unknown> i
                 ovenName: '',
                 resourceName: 'Топливо',
             });
-            this.conventionalFuelService.selectedOptions$.subscribe((ref) => {
+            this.conventionalFuelService.selectedOptions.subscribe((ref) => {
                 console.log(ref);
                 this.setWsOptions({
                     manufactureName: ref.manufacture,

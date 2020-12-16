@@ -125,8 +125,8 @@
     <div class="block" (click)="openTable(5)" [class.block_active]="active === 5">
       <div class="block__header">
         <div class="title">
-          <span class="title__item">{{(data$ | async)?.losses?.title || '---------'}},</span>
-          <span class="title__item">{{(data$ | async)?.losses?.units || '--'}}</span>
+          <span class="title__item">{{(data$ | async)?.losses?.title}},</span>
+          <span class="title__item">{{(data$ | async)?.losses?.units}}</span>
         </div>
       </div>
       <div class="block__body">
