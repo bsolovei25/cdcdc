@@ -5,6 +5,7 @@ import {
     Input,
     OnChanges,
     OnInit,
+    Renderer2,
     SimpleChanges,
 } from '@angular/core';
 import { LineType } from '../../../../../CD/cd-shared/cd-line-chart/cd-line-chart.component';
@@ -74,16 +75,23 @@ export class AstueOnpzFactoryAnalysisChartComponent implements OnInit, OnChanges
         left: 59,
     };
 
+    private positionMouse: number | null = null;
+
     private svg: d3;
 
     private readonly DELTA: number = 0.05;
+
+    private eventListenerFn: () => void = null;
 
     @HostListener('document:resize', ['$event'])
     public OnResize(): void {
         this.initSvgDraw();
     }
 
-    constructor(private hostElement: ElementRef) {}
+    constructor(
+        private hostElement: ElementRef,
+        private renderer: Renderer2,
+        ) {}
 
     ngOnInit(): void {
         this.initSvgDraw();
@@ -118,6 +126,7 @@ export class AstueOnpzFactoryAnalysisChartComponent implements OnInit, OnChanges
         this.drawCurve(this.lowDataset, 'lower-border');
         this.drawCurve(this.highDataset, 'higher-border');
         this.drawCurve(this.factDataset, 'fact');
+        this.drawMouseGroup();
     }
 
     private prepareData(): void {
@@ -176,26 +185,51 @@ export class AstueOnpzFactoryAnalysisChartComponent implements OnInit, OnChanges
             .range([this.size.height - this.margin.top - this.margin.bottom, 0]);
     }
 
-    private defineScale(): void {
-        let domainDates = [this.selectedPeriod.fromDateTime, this.selectedPeriod.toDateTime];
-        const rangeX = [this.margin.left, this.margin.right];
-        const deltaDomainDates = domainDates[1].getTime() - domainDates[0].getTime();
-        domainDates = [
-            new Date(domainDates[0].getTime() + (this.scroll.left / 100) * deltaDomainDates),
-            new Date(domainDates[1].getTime() - (this.scroll.right / 100) * deltaDomainDates),
-        ];
+    private drawMouseGroup(): void {
+        // группа событий мыши
+        const mouseG = this.svg
+            .append('g')
+            .attr('class', 'mouse-over')
+            .attr('transform', `translate(${this.margin.left}, ${this.margin.top})`)
+            .attr('opacity', 1)
+            .style('color', 'white');
 
-        this.scales.x = d3
-            .scaleTime()
-            .domain(domainDates)
-            .rangeRound(rangeX);
+        const lastCord = this.scales.x(this.factDataset[this.factDataset.length - 1]?.x);
+        // линия курсора
+        mouseG
+            .append('line')
+            .attr('class', 'mouse-line')
+            .attr('x1', lastCord)
+            .attr('x2', lastCord)
+            .attr('y1', this.scales.y(this.sizeY.max))
+            .attr('y2', this.scales.y(this.sizeY.min))
+            .style('stroke', 'currentColor')
+            .style('stroke-width', '1px');
 
-        const domainValues = [this.sizeY.max, this.sizeY.min];
-        const rangeY = [this.margin.top, this.margin.bottom];
-        this.scales.y = d3
-            .scaleLinear()
-            .domain(domainValues)
-            .range(rangeY);
+        const width = this.size.width - this.margin.left - this.margin.right;
+        const height = this.size.height - this.margin.bottom - this.margin.top;
+        mouseG
+            .append('text')
+            .attr('class', 'label-mouse')
+            .attr('text-anchor', 'start')
+            .attr('font-size', '12px')
+            .attr('x', 0)
+            .attr('y', this.size.height - this.margin.bottom - 5)
+            .attr('fill', '#D7E2F2')
+            .text('');
+
+        // область для прослушивания событий мыши
+        const [[mouseListenArea]] = mouseG
+            .append('svg:rect')
+            .attr('width', width)
+            .attr('height', height)
+            .attr('fill', 'none')
+            .attr('pointer-events', 'all')._groups;
+
+        if (this.eventListenerFn) {
+            this.eventListenerFn();
+        }
+        this.eventListenerFn = this.listenMouseEvents(mouseListenArea);
     }
 
     private initSvg(): void {
@@ -320,7 +354,7 @@ export class AstueOnpzFactoryAnalysisChartComponent implements OnInit, OnChanges
             const lastDate = dataset[dataset.length - 1]?.x;
             this.svg
                 .append('line')
-                .attr('class', 'line line__fact')
+                .attr('class', 'line__last-threshold')
                 .attr('x1', lastCord)
                 .attr('x2', lastCord)
                 .attr('y1', this.scales.y(this.sizeY.max))
@@ -332,6 +366,7 @@ export class AstueOnpzFactoryAnalysisChartComponent implements OnInit, OnChanges
                     .append('text')
                     .attr('transform', `translate(${this.margin.left + 5}, 0)`)
                     .attr('font-size', '12px')
+                    .attr('class', 'last-threshold__label')
                     .attr('x', lastCord)
                     .attr('y', this.size.height - this.margin.bottom - 5)
                     .attr('fill', '#D7E2F2')
@@ -412,5 +447,38 @@ export class AstueOnpzFactoryAnalysisChartComponent implements OnInit, OnChanges
             }
             resultArr.push(this.scales.x(checkValue) + this.margin.left);
         }
+    }
+
+    private listenMouseEvents(element: HTMLElement): () => void {
+        const eventListeners: (() => void)[] = [];
+        eventListeners.push(
+            this.renderer.listen(element, 'mouseleave', () => {
+                this.toggleFloatingDayThreshold('disable');
+                if (this.eventListenerFn) {
+                    this.positionMouse = null;
+                }
+            }),
+            this.renderer.listen(element, 'mousemove', (event: MouseEvent) => {
+                this.toggleFloatingDayThreshold('enable');
+                const rect: DOMRect = element.getBoundingClientRect();
+                this.positionMouse = event.clientX - rect.left;
+                this.svg.select('.mouse-line')
+                    .attr('x1', this.positionMouse)
+                    .attr('x2', this.positionMouse);
+                const formatDate = d3.timeFormat('%H:%M');
+                this.svg
+                    .select('.label-mouse')
+                    .attr('x', this.positionMouse + 7)
+                    .text(formatDate(this.scales.x.invert(this.positionMouse)));
+            })
+        );
+        return () => eventListeners?.forEach((item) => item());
+    }
+
+    private toggleFloatingDayThreshold(actionType: 'enable' | 'disable'): void {
+        this.svg.select('.line__last-threshold').style('opacity', actionType === 'enable' ? 0 : 1);
+        this.svg.select('.last-threshold__label').style('opacity', actionType === 'enable' ? 0 : 1);
+        this.svg.select('.mouse-line').style('opacity', actionType === 'enable' ? 1 : 0);
+        this.svg.select('.label-mouse').style('opacity', actionType === 'enable' ? 1 : 0);
     }
 }
