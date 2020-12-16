@@ -8,7 +8,7 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
     styleUrls: ['./sou-detail-table.component.scss'],
 })
 export class SouDetailTableComponent implements OnInit {
-    data: ISOUIdent[] = [];
+    @Input() data: ISOUIdent[] = [];
     @Output() closeTable: EventEmitter<boolean> = new EventEmitter<boolean>();
 
     constructor(@Inject(MAT_DIALOG_DATA) public dataDialog: ISOUIdent) {}
