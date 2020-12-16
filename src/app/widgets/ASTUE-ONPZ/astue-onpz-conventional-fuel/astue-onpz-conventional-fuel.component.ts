@@ -72,7 +72,7 @@ export class AstueOnpzConventionalFuelComponent extends WidgetPlatform
         private changeDetection: ChangeDetectorRef
     ) {
         super(widgetService, isMock, id, uniqId);
-        astueOnpzConventionalFuelService.selectedOptions$ = this.selectFuel.valueChanges.pipe(
+        astueOnpzConventionalFuelService.selectedOptions = this.selectFuel.valueChanges.pipe(
             map((x) => ({ ...astueOnpzConventionalFuelService.defaultSelectOptions, fuel: x }))
         );
     }
@@ -85,6 +85,12 @@ export class AstueOnpzConventionalFuelComponent extends WidgetPlatform
                 setTimeout(() => {
                     this.predictors$.next(x);
                     this.changeDetection.detectChanges();
+                });
+            }),
+            this.selectFuel.valueChanges.subscribe((x) => {
+                this.astueOnpzConventionalFuelService.setSelectedOptions({
+                    ...this.astueOnpzConventionalFuelService.defaultSelectOptions,
+                    fuel: x,
                 });
             })
         );

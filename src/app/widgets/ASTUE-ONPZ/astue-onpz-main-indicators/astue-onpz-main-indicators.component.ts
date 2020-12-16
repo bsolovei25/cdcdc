@@ -106,7 +106,7 @@ export class AstueOnpzMainIndicatorsComponent extends WidgetPlatform<unknown>
     protected dataConnect(): void {
         super.dataConnect();
         this.subscriptions.push(
-            this.conventionalFuelService.selectedOptions$.subscribe((ref) => {
+            this.conventionalFuelService.selectedOptions.subscribe((ref) => {
                 this.optionsHandler(ref).then();
             })
         );

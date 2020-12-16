@@ -913,8 +913,17 @@ export class AstueOnpzMultiChartComponent implements OnInit, OnChanges, OnDestro
             x = this.scaleFuncs.x(currentDatetime) - this.leftPadding;
         }
         const padding = { ...this.padding, left: this.leftPadding };
-        const posFact = findCursorPosition(x, 'fact', this.svg, padding);
-        const posPlan = findCursorPosition(x, 'plan', this.svg, padding);
+        let posFact = null;
+        let posPlan = null;
+        try {
+            posFact = findCursorPosition(x, 'fact', this.svg, padding);
+            posPlan = findCursorPosition(x, 'plan', this.svg, padding);
+        } catch (e) {
+            // console.warn(e);
+        }
+        // if (!posFact || !posPlan) {
+        //     return;
+        // }
 
         this.svg.select('.mouse-over').style('opacity', 1);
         let factY = this.scaleFuncs?.y?.invert(posFact?.y);
