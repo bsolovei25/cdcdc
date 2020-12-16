@@ -49,7 +49,7 @@ export class SouMvpMnemonicSchemeComponent extends WidgetPlatform<unknown>
     sectionsDataIzo: (ISOUFlowOut | ISOUFlowIn | ISOUObjects)[] = []; // Массив всех элементов Изомалка
     sectionsDataPark: (ISOUFlowOut | ISOUFlowIn | ISOUObjects)[] = [];
 
-    factories: string[] = ['Производство 1', 'Производство 4', 'Товарное производство'];
+    factories: string[] = ['Производство №1', 'Производство №4', 'Товарное производство'];
     installations: string[][] = [['АВТ-10'], ['Изомалк-2'], ['АССБ Авиасмеси']];
     // installations: string[][] = [
     //     ['АВТ-10'],
@@ -170,7 +170,7 @@ export class SouMvpMnemonicSchemeComponent extends WidgetPlatform<unknown>
 
     changeInstall(value: string): void {
         let a = {
-            manufacture: 'Производство 1',
+            manufacture: 'Производство №1',
             name: 'АВТ-10',
         };
         if (value) {
