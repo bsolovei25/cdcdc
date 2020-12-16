@@ -80,6 +80,8 @@ export class AstueOnpzFactoryAnalysisComponent extends WidgetPlatform<unknown> i
 
     public barData: IAstueOnpzFactoryAnalysisDiagram = null;
 
+    public selectionReference: { id: string; name: string }[] = [];
+
     constructor(
         private http: HttpClient,
         private conventionalFuelService: AstueOnpzConventionalFuelService,
@@ -156,6 +158,7 @@ export class AstueOnpzFactoryAnalysisComponent extends WidgetPlatform<unknown> i
         // }
         // console.log(ref.sections);
         // this.barData = astueOnpzFactoryAnalysisBarMapper(ref);
+        this.selectionReference = ref?.parameters ?? [];
     }
 
     private async getMockData(route: string): Promise<void> {
