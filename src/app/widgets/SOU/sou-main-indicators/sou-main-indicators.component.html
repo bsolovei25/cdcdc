@@ -9,7 +9,7 @@
        (mousedown)="$event.stopPropagation()"
        (touchstart)="$event.stopPropagation()"
   >
-    <div *ngIf="!!(data$ | async)" class="block" (click)="openTable(1)" [class.block_active]="active === 1">
+    <div *ngIf="!!(data$ | async)" class="block">
       <div class="block__header">
         <div class="title">
           <span class="title__item"> {{ (data$ | async).reductionSpeed?.title + ',' }} </span>
@@ -37,7 +37,7 @@
         </div>
       </div>
     </div>
-    <div class="block" (click)="openTable(2)" [class.block_active]="active === 2">
+    <div class="block">
       <div class="block__header">
         <div class="title">
           <span class="title__item">{{(data$ | async)?.reductionQuality?.title}}</span>
@@ -68,7 +68,7 @@
         </div>
       </div>
     </div>
-    <div class="block" (click)="openTable(3)" [class.block_active]="active === 3">
+    <div class="block" >
       <div class="block__header">
         <div class="title">
           <span class="title__item">{{(data$ | async)?.formationSpeed?.title + ','}}</span>
@@ -94,7 +94,7 @@
         </div>
       </div>
     </div>
-    <div class="split" (click)="openTable(4)" [class.block_active]="active === 4">
+    <div class="split">
       <div class="block">
         <div class="block__header">
           <div class="title">

@@ -154,6 +154,8 @@ export class SouMainIndicatorsComponent extends WidgetPlatform<unknown> implemen
             ] as ISOUIdent[],
         });
 
-        dialogRef.afterClosed().subscribe((result) => {});
+        dialogRef.afterClosed().subscribe((result) => {
+            this.active = 0;
+        });
     }
 }
