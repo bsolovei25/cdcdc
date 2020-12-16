@@ -18,7 +18,7 @@ import { ISOUIdent } from '../../../dashboard/models/SOU/sou-operational-account
 })
 export class SouMainIndicatorsComponent extends WidgetPlatform<unknown> implements OnInit {
     public data$: BehaviorSubject<ISouMainIndicators> = new BehaviorSubject<ISouMainIndicators>(
-        null
+        {}
     );
 
     private set data(value: ISouMainIndicators) {
@@ -59,6 +59,7 @@ export class SouMainIndicatorsComponent extends WidgetPlatform<unknown> implemen
     @AsyncRender
     drawSvg(plan: number, fact: number): void {
         const value = (fact / plan) * 2;
+        let dev: number = (value === 2 || value === 0) ? 0 : (4 * Math.PI) / 180; 
 
         const innerR = 50;
         const outerR = 42;
@@ -85,13 +86,13 @@ export class SouMainIndicatorsComponent extends WidgetPlatform<unknown> implemen
             .innerRadius(innerR - 2)
             .outerRadius(outerR + 2)
             .startAngle(2 * Math.PI)
-            .endAngle(value * Math.PI + (4 * Math.PI) / 180);
+            .endAngle(value * Math.PI + dev);
 
         const mainPie = d3
             .arc()
             .innerRadius(innerR - 2)
             .outerRadius(outerR + 2)
-            .startAngle((4 * Math.PI) / 180)
+            .startAngle(dev)
             .endAngle(value * Math.PI);
 
         const g = this.svg
@@ -131,7 +132,7 @@ export class SouMainIndicatorsComponent extends WidgetPlatform<unknown> implemen
         super.dataConnect();
         this.subscriptions.push(
             this.mnemonicSchemeService.selectedInstallation$.asObservable().subscribe((ref) => {
-                this.data = null;
+                this.data = {};
                 this.setWsOptions(this.options[ref]);
             })
         );
