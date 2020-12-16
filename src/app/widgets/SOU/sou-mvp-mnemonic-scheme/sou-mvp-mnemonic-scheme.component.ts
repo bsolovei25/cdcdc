@@ -7,10 +7,8 @@ import {
     ISOUObjects,
     ISOUOperationalAccountingSystem,
 } from '../../../dashboard/models/SOU/sou-operational-accounting-system';
-import { SouMvpMnemonicSchemeService } from '../../../dashboard/services/widgets/SOU/sou-mvp-mnemonic-scheme.service';
 import { animate, state, style, transition, trigger } from '@angular/animations';
-import { BehaviorSubject } from 'rxjs';
-import { NULL_EXPR } from '@angular/compiler/src/output/output_ast';
+import { SouMvpMnemonicSchemeService } from '../../../dashboard/services/widgets/SOU/sou-mvp-mnemonic-scheme.service';
 
 @Component({
     selector: 'evj-sou-mvp-mnemonic-scheme',
@@ -49,8 +47,9 @@ export class SouMvpMnemonicSchemeComponent extends WidgetPlatform<unknown>
 
     sectionsData: (ISOUFlowOut | ISOUFlowIn | ISOUObjects)[] = []; // Массив всех элементов
     sectionsDataIzo: (ISOUFlowOut | ISOUFlowIn | ISOUObjects)[] = []; // Массив всех элементов Изомалка
+    sectionsDataPark: (ISOUFlowOut | ISOUFlowIn | ISOUObjects)[] = [];
 
-    factories: string[] = ['Производство 1', 'Производство 4', 'Товарное производство'];
+    factories: string[] = ['Производство №1', 'Производство №4', 'Товарное производство'];
     installations: string[][] = [['АВТ-10'], ['Изомалк-2'], ['АССБ Авиасмеси']];
     // installations: string[][] = [
     //     ['АВТ-10'],
@@ -124,9 +123,10 @@ export class SouMvpMnemonicSchemeComponent extends WidgetPlatform<unknown>
 
     protected dataHandler(ref: ISOUOperationalAccountingSystem): void {
         this.mainData = ref;
-        this.flowInAb = ref.section[0].flowIn;
-        this.flowInVb = ref.section[1].flowIn;
-
+        if (ref.section[0].name === 'АВТ-10-АБ' || ref.section[0].name === 'АВТ-10-ВБ') {
+            this.flowInAb = ref.section[0].flowIn;
+            this.flowInVb = ref.section[1].flowIn;
+        }
         this.sectionsData = [];
         this.sectionsDataIzo = [];
         ref.section.forEach((item, i) => {
@@ -138,15 +138,21 @@ export class SouMvpMnemonicSchemeComponent extends WidgetPlatform<unknown>
                     ...item.objects,
                 ];
             } else {
-                this.sectionsDataIzo = [
-                    ...this.sectionsDataIzo,
-                    ...item.flowIn,
-                    ...item.flowOut,
-                    ...item.objects,
-                ];
+                if (this.sectionsDataIzo && item?.flowIn && item?.flowOut && item?.objects) {
+                    this.sectionsDataIzo = [
+                        ...this.sectionsDataIzo,
+                        ...item.flowIn,
+                        ...item.flowOut,
+                        ...item.objects,
+                    ];
+                }
             }
 
-            const sec = this.sections[0].find(section => item.name.indexOf(section.title) !== -1);
+            if (this.selectedInstallation === 2) {
+                this.sectionsDataPark = [...item.flowIn, ...item.flowOut, ...item.objects];
+            }
+
+            const sec = this.sections[0].find((section) => item.name.indexOf(section.title) !== -1);
 
             if (!!sec) {
                 sec.value = item.countFlowExceedingConfInterval;
@@ -164,7 +170,7 @@ export class SouMvpMnemonicSchemeComponent extends WidgetPlatform<unknown>
 
     changeInstall(value: string): void {
         let a = {
-            manufacture: 'Производство 1',
+            manufacture: 'Производство №1',
             name: 'АВТ-10',
         };
         if (value) {

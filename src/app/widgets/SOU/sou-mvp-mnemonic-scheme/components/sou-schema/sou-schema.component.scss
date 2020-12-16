@@ -20,6 +20,22 @@
       }
     }
 
+    .standard {
+      stroke: #4B5169;
+      fill: #272A38;
+
+      &-text {
+        fill: #D7E2F2;
+      }
+
+      &-arrow {
+        stroke: #D7E2F2;
+      }
+
+      &-line {
+        fill: #4B5169;
+      }
+    }
 
     .deviation {
       stroke: #F7931E;
@@ -35,23 +51,6 @@
 
       &-line {
         fill: #F7931E;
-      }
-    }
-
-    .standard {
-      stroke: #4B5169;
-      fill: #272A38;
-
-      &-text {
-        fill: #D7E2F2;
-      }
-
-      &-arrow {
-        stroke: #D7E2F2;
-      }
-
-      &-line {
-        fill: #4B5169;
       }
     }
 

@@ -16,6 +16,7 @@ export interface ISOUFlowIn {
     isExceedingConfInterval: boolean;
     accuracy: number;
     order: number;
+    related?: string | number[];
 
     selected?: boolean;
 }
@@ -43,6 +44,7 @@ export interface ISOUFlowOut {
     order: number;
     valueEdit: number;
     error: number;
+    related?: string | number[];
 
     selected?: boolean;
 }
@@ -62,6 +64,7 @@ export interface ISOUObjects {
     id: string;
     name: string;
     isExceedingConfInterval: boolean;
+    related?: string | number[];
     isEnable: boolean;
     type: 'internal' | 'out';
     selected?: boolean;
