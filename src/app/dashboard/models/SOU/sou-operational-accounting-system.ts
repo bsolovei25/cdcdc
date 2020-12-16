@@ -73,6 +73,7 @@ export interface ISOUObjects {
 export interface ISOUIdent {
     name: string;
     value: number;
+    percent: number;
 }
 
 export interface ISOULosses {

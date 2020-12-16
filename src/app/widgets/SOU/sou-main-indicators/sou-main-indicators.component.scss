@@ -35,6 +35,10 @@ span {
       background: var(--color-astue-onpz-widget-border);
       border-radius: 2px;
 
+      &_active {
+        border: 1px solid var(--color-aps-active);
+      }
+
       &__header {
         height: 40px;
         padding: 0 12px;
