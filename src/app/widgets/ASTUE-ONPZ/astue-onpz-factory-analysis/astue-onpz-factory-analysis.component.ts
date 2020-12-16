@@ -170,6 +170,9 @@ export class AstueOnpzFactoryAnalysisComponent extends WidgetPlatform<unknown> i
             manufactureName,
             unitName,
             ovenName,
+            manufactureId: ref.manufactureId,
+            unitId: ref.unitId,
+            ovenId: ref.ovenId,
         };
     }
 }
