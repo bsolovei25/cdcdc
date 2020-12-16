@@ -120,8 +120,8 @@
     <div class="block">
       <div class="block__header">
         <div class="title">
-          <span class="title__item">{{(data$ | async).losses?.title}},</span>
-          <span class="title__item">{{(data$ | async).losses?.units}}</span>
+          <span class="title__item">{{(data$ | async).losses?.title || '---------'}},</span>
+          <span class="title__item">{{(data$ | async).losses?.units || '--'}}</span>
         </div>
       </div>
       <div class="block__body">

@@ -10,7 +10,7 @@ span {
 
 .container {
   height: 24px;
-  width: 180px;
+  width: 200px;
   margin: 3px 0;
 
   display: flex;
@@ -42,14 +42,14 @@ span {
 
   .diagram-values {
     .value {
-      font-size: 14px;
-      line-height: 17px;
+      font-size: 12px;
+      line-height: 14px;
       color: var(--sou-mvp-color-text-info);
     }
 
     .unit {
-      font-size: 10px;
-      line-height: 12px;
+      font-size: 8px;
+      line-height: 10px;
       color: var(--sou-mvp-color-text-diagram-sub);
     }
   }
@@ -70,14 +70,14 @@ span {
   }
 
   .diagram-title {
-    max-width: 70px;
+    max-width: 90px;
     display: flex;
     align-items: center;
 
-    padding-left: 11px;
+    padding-left: 5px;
     .title {
-      font-size: 14px;
-      line-height: 17px;
+      font-size: 12px;
+      line-height: 14px;
   
       color: var(--sou-mvp-color-text-diagram-main);
     }
