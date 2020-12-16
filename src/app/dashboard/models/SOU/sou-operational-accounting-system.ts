@@ -17,8 +17,11 @@ export interface ISOUFlowIn {
     accuracy: number;
     order: number;
     related?: string | number[];
-
+    valueEdit?: number;
     selected?: boolean;
+    error?: number;
+    codeIn?: string;
+    codeOut?: string;
 }
 
 export interface ISOUFlowOut {
@@ -47,6 +50,8 @@ export interface ISOUFlowOut {
     related?: string | number[];
 
     selected?: boolean;
+    codeIn?: string;
+    codeOut?: string;
 }
 
 export interface ISOUSection {
@@ -57,6 +62,24 @@ export interface ISOUSection {
     isEnable?: boolean;
     order: number;
     countFlowExceedingConfInterval?: number;
+    codeIn: string;
+    codeOut: string;
+    deltaHour: number;
+
+    deltaHourByPercent: number;
+    balanceAllowHour: number;
+    balanceAllowHourByPercent: number;
+    massIn: number;
+    massInDay: number;
+    massInDayDev: number;
+    massInHour: number;
+    massInHourDev: number;
+    massOut: number;
+    massOutDay: number;
+    massOutDayDev: number;
+    massOutHour: number;
+    massOutHourDev: number;
+    value: number;
 }
 
 export interface ISOUObjects {

@@ -149,7 +149,13 @@ export class SouMvpMnemonicSchemeComponent extends WidgetPlatform<unknown>
             }
 
             if (this.selectedInstallation === 2) {
-                this.sectionsDataPark = [...item.flowIn, ...item.flowOut, ...item.objects];
+                this.sectionsDataPark = [];
+                this.sectionsDataPark = [
+                    ...this.sectionsDataPark,
+                    ...item?.flowIn,
+                    ...item?.flowOut,
+                    ...item?.objects,
+                ];
             }
 
             const sec = this.sections[0].find((section) => item.name.indexOf(section.title) !== -1);
