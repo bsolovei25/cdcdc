@@ -7,6 +7,7 @@ import { astueOnpzFactoryAnalysisBarMapper } from './functions/astue-onpz-factor
 import {
     IAstueOnpzFactoryAnalysis,
     IAstueOnpzFactoryAnalysisBarResponse,
+    IAstueOnpzFactoryAnalysisBarResponseSection,
     IAstueOnpzFactoryAnalysisDiagram,
     IAstueOnpzFactoryAnalysisWsOptions,
 } from '../../../dashboard/models/ASTUE-ONPZ/astue-onpz-factory-analysis.model';
@@ -14,6 +15,7 @@ import { AstueOnpzFactoryAnalysisChartPageComponent } from './components/astue-o
 import { AstueOnpzMnemonicFurnaceService } from '../astue-onpz-mnemonic-furnace/astue-onpz-mnemonic-furnace.service';
 import { IAstueOnpzMnemonicFurnaceOptions } from '../../../dashboard/models/ASTUE-ONPZ/astue-onpz-mnemonic-furnace.model';
 import { AstueOnpzConventionalFuelService } from '../astue-onpz-conventional-fuel/astue-onpz-conventional-fuel.service';
+import { HttpClient } from '@angular/common/http';
 
 type AstueOnpzFactoryAnalysisType = 'Unit' | 'Furnace';
 
@@ -79,6 +81,7 @@ export class AstueOnpzFactoryAnalysisComponent extends WidgetPlatform<unknown> i
     public barData: IAstueOnpzFactoryAnalysisDiagram = null;
 
     constructor(
+        private http: HttpClient,
         private conventionalFuelService: AstueOnpzConventionalFuelService,
         private mnemonicFurnaceService: AstueOnpzMnemonicFurnaceService,
         protected widgetService: WidgetService,
@@ -120,6 +123,7 @@ export class AstueOnpzFactoryAnalysisComponent extends WidgetPlatform<unknown> i
     protected dataConnect(): void {
         super.dataConnect();
         this.viewType$.next((this.attributes as any)?.Type === 'Unit' ? 'Unit' : 'Furnace');
+        this.getMockData((this.attributes as any)?.Type === 'Unit' ? 'unit' : 'oven').then();
         if (this.viewType$.value === 'Unit') {
             this.setWsOptions({
                 manufactureName: 'Производство №1',
@@ -146,11 +150,23 @@ export class AstueOnpzFactoryAnalysisComponent extends WidgetPlatform<unknown> i
     }
 
     protected dataHandler(ref: IAstueOnpzFactoryAnalysisBarResponse): void {
-        if (!ref.sections) {
-            this.barData = null;
-            return;
-        }
-        this.barData = astueOnpzFactoryAnalysisBarMapper(ref);
+        // if (!ref.sections) {
+        //     this.barData = null;
+        //     return;
+        // }
+        // console.log(ref.sections);
+        // this.barData = astueOnpzFactoryAnalysisBarMapper(ref);
+    }
+
+    private async getMockData(route: string): Promise<void> {
+        const sourceData = {
+            sections: await this.http
+                .get<IAstueOnpzFactoryAnalysisBarResponseSection[]>(
+                    `assets/mock/ASTUE-ONPZ/factor-analysis/${route}.mock.json`
+                )
+                .toPromise(),
+        } as IAstueOnpzFactoryAnalysisBarResponse;
+        this.barData = astueOnpzFactoryAnalysisBarMapper(sourceData);
     }
 
     private optionsMapper(

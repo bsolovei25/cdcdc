@@ -1,0 +1,172 @@
+[
+  {
+    "type": "Plan72",
+    "name": "План на 72 часа",
+    "order": 1,
+    "mainDiagram": {
+      "title": "План на 72 часа, (т.у.т)",
+      "value": 4.1,
+      "order": 0
+    },
+    "groups": [
+      {
+        "title": "Неуправляемые непроизводственные факторы",
+        "type": "UncontrollableNonProductionFactors",
+        "order": 2,
+        "diagrams": [
+          {
+            "title": "Загрузка печи, кг/ч",
+            "type": "AirHumidity",
+            "value": 0.9,
+            "order": 1
+          },
+          {
+            "title": "Q сгорания, ккал/кг",
+            "type": "AirTemperatureInFurnace",
+            "value": 0.1,
+            "order": 1
+          },
+          {
+            "title": "ρ подогр. продукта",
+            "type": "AirHumidity",
+            "value": 0.7,
+            "order": 1
+          }
+        ]
+      },
+      {
+        "title": "Неуправ. не производ. факторы",
+        "type": "UncontrollableNonProductionFactors",
+        "order": 2,
+        "diagrams": [
+          {
+            "title": "t воздуха в печи, °C",
+            "type": "AirHumidity",
+            "value": -0.7,
+            "order": 1
+          },
+          {
+            "title": "φ воздуха, %",
+            "type": "AirHumidity",
+            "value": -0.05,
+            "order": 1
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "type": "Count",
+    "name": "Цел. / расч., (т.у.т)",
+    "order": 10,
+    "mainDiagram": {
+      "title": "Цел. / расч., (т.у.т)",
+      "value": 4.95,
+      "order": 0
+    },
+    "groups": [
+      {
+        "title": "Управляемые производственные факторы",
+        "type": "ControlledNonProductiveFactors",
+        "order": 2,
+        "diagrams": [
+          {
+            "title": "t продукта вход, °C",
+            "type": "ThicknessOfDeposits",
+            "value": -0.25,
+            "order": 1
+          },
+          {
+            "title": "t продукта выход, °C",
+            "type": "ThicknessOfDeposits",
+            "value": -0.1,
+            "order": 1
+          },
+          {
+            "title": "t топлива вход, °C",
+            "type": "ThicknessOfDeposits",
+            "value": -0.2,
+            "order": 1
+          },
+          {
+            "title": "t уходящ.\nгазов, °C\n",
+            "type": "ThicknessOfDeposits",
+            "value": 0.3,
+            "order": 1
+          },
+          {
+            "title": "t в поду\nпечи, °C",
+            "type": "ThicknessOfDeposits",
+            "value": 0.1,
+            "order": 1
+          },
+          {
+            "title": "Содержание\nO2, %",
+            "type": "ThicknessOfDeposits",
+            "value": 0.2,
+            "order": 1
+          },
+          {
+            "title": "Содержание\nСO, %\n",
+            "type": "ThicknessOfDeposits",
+            "value": -0.1,
+            "order": 1
+          },
+          {
+            "title": "Доля\nприсосов, %\n",
+            "type": "ThicknessOfDeposits",
+            "value": 0.1,
+            "order": 1
+          },
+          {
+            "title": "t форсун.\nпара, °C\n",
+            "type": "ThicknessOfDeposits",
+            "value": 0.1,
+            "order": 1
+          },
+          {
+            "title": "p топлива, кг/см²\n",
+            "type": "ThicknessOfDeposits",
+            "value": 0.2,
+            "order": 1
+          }
+        ]
+      },
+      {
+        "title": "Управляемые\n непроиз. ф.",
+        "type": "ControlledProductionFactors",
+        "order": 1,
+        "diagrams": [
+          {
+            "title": "δ отложений",
+            "type": "ThicknessOfDeposits",
+            "value": -0.3,
+            "order": 1
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "type": "Fact",
+    "name": "Факт,\n(т.у.т)",
+    "order": 20,
+    "mainDiagram": {
+      "title": "Факт,\n(т.у.т)",
+      "value": 5,
+      "order": 0
+    },
+    "groups": []
+  },
+  {
+    "type": "FactReal",
+    "name": "Факт по \nприб., (т.у.т)",
+    "order": 30,
+    "mainDiagram": {
+      "title": "Факт по \nприб., (т.у.т)",
+      "value": 4.6,
+      "order": 0
+    },
+    "groups": []
+  }
+]
