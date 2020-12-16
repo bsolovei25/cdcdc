@@ -21,13 +21,13 @@
 <ng-template #tableRow let-row="row">
   <div class="row">
     <div class="label">
-      <span>{{row.name}}</span>
+      <span>{{row.title}}</span>
     </div>
     <div class="value">
       <span>{{row.value}} т.</span>
     </div>
     <div class="percent">
-      <span>{{row.percent}}%</span>
+      <span>{{row?.percentage}}%</span>
     </div>
   </div>
 </ng-template>

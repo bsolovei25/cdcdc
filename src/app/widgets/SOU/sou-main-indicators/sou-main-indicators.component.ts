@@ -30,6 +30,7 @@ export class SouMainIndicatorsComponent extends WidgetPlatform<unknown> implemen
     menu: string[] = ['Месяц', 'Вклад'];
     choosenItem: number = 0;
     active: number = 0;
+    identifiedList: ISOUIdent[] = [];
 
     @ViewChild('chart') chart: ElementRef;
 
@@ -139,19 +140,16 @@ export class SouMainIndicatorsComponent extends WidgetPlatform<unknown> implemen
 
     protected dataHandler(ref: any): void {
         this.data = ref;
+        if (ref?.losses?.identifiedList.length) {
+            this.identifiedList = ref.losses.identifiedList;
+        }
         this.drawSvg(this.data$.value.losses.sum.value, this.data$.value.losses.identified.value);
     }
 
     openTable(value: number): void {
         this.active = value;
         const dialogRef = this.dialog.open(SouDetailTableComponent, {
-            data: [
-                {
-                    name: '223123',
-                    value: 0,
-                    percent: 23,
-                },
-            ] as ISOUIdent[],
+            data: [...this.identifiedList] as ISOUIdent[],
         });
 
         dialogRef.afterClosed().subscribe((result) => {
