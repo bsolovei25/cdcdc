@@ -32,6 +32,10 @@ export-zyfra-ftp:
     EXTERNAL_DOCKER_IMG: "onpz.local/evj/frontend"
     TAG: "$CI_RELEASE_TAG"
   needs: []
+  artifacts:
+    expire_in: 3 hrs
+    paths:
+      - ./${SERVICE_NAME}-*
   rules:
     - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
       when: manual
