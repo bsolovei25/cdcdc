@@ -96,6 +96,8 @@ export class SouMvpMnemonicSchemeComponent extends WidgetPlatform<unknown>
     chosenSetting: number = 1;
     chosenSection: number = 0;
 
+    flag: boolean = true;
+
     constructor(
         public widgetService: WidgetService,
         public mvpService: SouMvpMnemonicSchemeService,
@@ -129,7 +131,8 @@ export class SouMvpMnemonicSchemeComponent extends WidgetPlatform<unknown>
         }
         this.sectionsData = [];
         this.sectionsDataIzo = [];
-        ref.section.forEach((item, i) => {
+        this.flag = true;
+        ref?.section?.forEach((item, i) => {
             if (item.name !== 'Изомалк-2') {
                 this.sectionsData = [
                     ...this.sectionsData,
@@ -149,7 +152,10 @@ export class SouMvpMnemonicSchemeComponent extends WidgetPlatform<unknown>
             }
 
             if (this.selectedInstallation === 2) {
-                this.sectionsDataPark = [];
+                if (this.flag) {
+                    this.sectionsDataPark = [];
+                    this.flag = false;
+                }
                 this.sectionsDataPark = [
                     ...this.sectionsDataPark,
                     ...item?.flowIn,

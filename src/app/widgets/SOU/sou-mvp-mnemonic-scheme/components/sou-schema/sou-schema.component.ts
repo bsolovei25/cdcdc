@@ -1,6 +1,5 @@
 import { AfterViewChecked, Component, Input, OnChanges, OnInit } from '@angular/core';
 import { SouMvpMnemonicSchemeService } from '../../../../../dashboard/services/widgets/SOU/sou-mvp-mnemonic-scheme.service';
-import { DATASOURCE } from './mock';
 import {
     ISOUFlowIn,
     ISOUFlowOut,
@@ -101,11 +100,29 @@ export class SouSchemaComponent implements OnInit, OnChanges, AfterViewChecked {
     }
 
     loadData(reload: boolean): void {
+        // tests
         const countZeroId = this.dataPark?.filter((value) => value?.code === 0)?.length;
         const countIsActive = this.dataPark?.filter((value) => value?.isEnable === true)?.length;
+        let countRepeat: number = 0;
+        const arrayRepeat: number[] = [];
+        this.dataPark.forEach((value) => {
+            let idx = 0;
+            this.dataPark.forEach((value2) => {
+                if (value.code === value2.code) {
+                    idx++;
+                }
+            });
+            if (idx > 1) {
+                countRepeat++;
+                arrayRepeat.push(value.code);
+            }
+        });
         console.log(`Данные: ${this.dataPark?.length}`);
         console.log(`Данных (code = 0) - ${countZeroId}`);
         console.log(`Данных (isActive = true) - ${countIsActive}`);
+        console.log(`Данных с одинаковым code - ${countRepeat} (${arrayRepeat.join(',')})`);
+        // end tests
+
         this.dataPark?.forEach((data) => {
             data.related =
                 typeof data?.related === 'string'
@@ -264,6 +281,12 @@ export class SouSchemaComponent implements OnInit, OnChanges, AfterViewChecked {
                 }
                 this.addTextToTspan(elementFull?.textValue, `${String(valueMet)} тн`);
                 elementFull?.textValue?.classList.add(`${mode}-text`);
+            }
+            if ('value' in elementFull?.metaFile) {
+                this.addTextToTspan(
+                    elementFull?.textValue,
+                    `${String(elementFull?.metaFile?.value)} т`
+                );
             }
         } else {
             this.addTextToTspan(elementFull?.textValue, `${String(value)} тн`);
