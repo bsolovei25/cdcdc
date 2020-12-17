@@ -5,7 +5,7 @@ import { WidgetService } from 'src/app/dashboard/services/widget.service';
 
 interface ITotalReserve {
   title?: string;
-  values: number;
+  value: number;
   product: ITotalReserveProductsList[];
 }
 interface ITotalReserveProductsList {
