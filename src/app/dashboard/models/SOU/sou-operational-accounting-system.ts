@@ -91,6 +91,7 @@ export interface ISOUObjects {
     isEnable: boolean;
     type: 'internal' | 'out';
     selected?: boolean;
+    value: number;
 }
 
 export interface ISOUIdent {
