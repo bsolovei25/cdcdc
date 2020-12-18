@@ -121,7 +121,14 @@
           </div>
           <div class="wrapper-up wrapper-up__center">
             <div class="title"> Кислород </div>
-            <evj-astue-onpz-mnemonic-furnace-arrow class="main-arrow"></evj-astue-onpz-mnemonic-furnace-arrow>
+            <evj-astue-onpz-mnemonic-furnace-arrow
+              class="main-arrow"></evj-astue-onpz-mnemonic-furnace-arrow>
+            <evj-astue-onpz-mnemonic-furnace-circle
+              style="position: absolute; top: 48px"
+              class="circle"
+              matRipple matRippleColor="white"
+              [data]="(data | async)?.oxygenStats?.main"
+            ></evj-astue-onpz-mnemonic-furnace-circle>
           </div>
 
           <div class="wrapper-title"> {{ (data | async)?.unitTitle || '-' }} </div>

@@ -308,4 +308,14 @@ export const SOURCE_DATA: IAstueOnpzMnemonicFurnace = {
         },
         streams: [{ value: 44.6, streamType: AstueOnpzMnemonicFurnaceStreamStatsType.Norm }],
     },
+    oxygenStats: {
+        title: 'Кислород',
+        main: {
+            id: '15',
+            value: 44.6,
+            unit: 'ºС',
+            streamType: AstueOnpzMnemonicFurnaceStreamStatsType.Norm,
+        },
+        streams: [{ value: 44.6, streamType: AstueOnpzMnemonicFurnaceStreamStatsType.Norm }],
+    },
 };
