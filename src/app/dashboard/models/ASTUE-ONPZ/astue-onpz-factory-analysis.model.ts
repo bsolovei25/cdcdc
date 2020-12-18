@@ -4,6 +4,7 @@ import { IMultiChartLine } from './astue-onpz-multi-chart.model';
 export interface IAstueOnpzFactoryAnalysisBarResponse {
     sections: IAstueOnpzFactoryAnalysisBarResponseSection[];
     info: string;
+    parameters: { id: string; name: string }[];
 }
 
 export interface IAstueOnpzFactoryAnalysisBarResponseSection {
@@ -38,6 +39,9 @@ export interface IAstueOnpzFactoryAnalysisWsOptions {
     manufactureName: string;
     unitName: string;
     ovenName?: string;
+    manufactureId?: string;
+    unitId?: string;
+    ovenId?: string;
 }
 
 export interface IAstueOnpzFactoryAnalysisSection {

@@ -33,10 +33,11 @@ import { KpeExecutionProductionProgramEditPlaneComponent } from './components/kp
         ]),
     ],
 })
-export class KpeExecutionProductionProgramComponent extends WidgetPlatform<unknown> implements OnInit {
-    public cells: number [] = new Array(100);
+export class KpeExecutionProductionProgramComponent extends WidgetPlatform<unknown>
+    implements OnInit {
+    public cells: number[] = new Array(100);
     public percent: number = 97;
-    public isExpanded = true;
+    public isExpanded: boolean = true;
 
     constructor(
         protected widgetService: WidgetService,
@@ -52,17 +53,16 @@ export class KpeExecutionProductionProgramComponent extends WidgetPlatform<unkno
         super.widgetInit();
     }
 
-    protected dataHandler(ref: any): void {
-    }
+    protected dataHandler(ref: unknown): void {}
 
     public toggleBlock(): void {
         this.isExpanded = !this.isExpanded;
     }
 
-    public openEdit() {
-        this.dialog.open(KpeExecutionProductionProgramEditPlaneComponent)
+    public openEdit(): void {
+        this.dialog.open(KpeExecutionProductionProgramEditPlaneComponent);
     }
-    public openAdd() {
-        this.dialog.open(KpeExecutionProductionProgramAddPlanComponent)
+    public openAdd(): void {
+        this.dialog.open(KpeExecutionProductionProgramAddPlanComponent);
     }
 }

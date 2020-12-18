@@ -7,12 +7,15 @@ import { astueOnpzFactoryAnalysisBarMapper } from './functions/astue-onpz-factor
 import {
     IAstueOnpzFactoryAnalysis,
     IAstueOnpzFactoryAnalysisBarResponse,
+    IAstueOnpzFactoryAnalysisBarResponseSection,
     IAstueOnpzFactoryAnalysisDiagram,
     IAstueOnpzFactoryAnalysisWsOptions,
 } from '../../../dashboard/models/ASTUE-ONPZ/astue-onpz-factory-analysis.model';
 import { AstueOnpzFactoryAnalysisChartPageComponent } from './components/astue-onpz-factory-analysis-chart-page/astue-onpz-factory-analysis-chart-page.component';
 import { AstueOnpzMnemonicFurnaceService } from '../astue-onpz-mnemonic-furnace/astue-onpz-mnemonic-furnace.service';
 import { IAstueOnpzMnemonicFurnaceOptions } from '../../../dashboard/models/ASTUE-ONPZ/astue-onpz-mnemonic-furnace.model';
+import { AstueOnpzConventionalFuelService } from '../astue-onpz-conventional-fuel/astue-onpz-conventional-fuel.service';
+import { HttpClient } from '@angular/common/http';
 
 type AstueOnpzFactoryAnalysisType = 'Unit' | 'Furnace';
 
@@ -77,7 +80,11 @@ export class AstueOnpzFactoryAnalysisComponent extends WidgetPlatform<unknown> i
 
     public barData: IAstueOnpzFactoryAnalysisDiagram = null;
 
+    public selectionReference: { id: string; name: string }[] = [];
+
     constructor(
+        private http: HttpClient,
+        private conventionalFuelService: AstueOnpzConventionalFuelService,
         private mnemonicFurnaceService: AstueOnpzMnemonicFurnaceService,
         protected widgetService: WidgetService,
         @Inject('isMock') public isMock: boolean,
@@ -92,6 +99,9 @@ export class AstueOnpzFactoryAnalysisComponent extends WidgetPlatform<unknown> i
         super.widgetInit();
         this.mnemonicFurnaceService.selectedItem$.subscribe((item) => {
             this.selectedChannelId = item;
+            if (!!item) {
+                this.changePage('chart');
+            }
         });
     }
 
@@ -115,11 +125,22 @@ export class AstueOnpzFactoryAnalysisComponent extends WidgetPlatform<unknown> i
     protected dataConnect(): void {
         super.dataConnect();
         this.viewType$.next((this.attributes as any)?.Type === 'Unit' ? 'Unit' : 'Furnace');
+        this.getMockData((this.attributes as any)?.Type === 'Unit' ? 'unit' : 'oven').then();
         if (this.viewType$.value === 'Unit') {
             this.setWsOptions({
                 manufactureName: 'Производство №1',
                 unitName: 'АВТ-10',
                 ovenName: '',
+                resourceName: 'Топливо',
+            });
+            this.conventionalFuelService.selectedOptions.subscribe((ref) => {
+                console.log(ref);
+                this.setWsOptions({
+                    manufactureName: ref.manufacture,
+                    unitName: ref.unit,
+                    ovenName: '',
+                    resourceName: ref.fuel,
+                });
             });
             return;
         }
@@ -131,11 +152,24 @@ export class AstueOnpzFactoryAnalysisComponent extends WidgetPlatform<unknown> i
     }
 
     protected dataHandler(ref: IAstueOnpzFactoryAnalysisBarResponse): void {
-        if (!ref.sections) {
-            this.barData = null;
-            return;
-        }
-        this.barData = astueOnpzFactoryAnalysisBarMapper(ref);
+        // if (!ref.sections) {
+        //     this.barData = null;
+        //     return;
+        // }
+        // console.log(ref.sections);
+        // this.barData = astueOnpzFactoryAnalysisBarMapper(ref);
+        this.selectionReference = ref?.parameters ?? [];
+    }
+
+    private async getMockData(route: string): Promise<void> {
+        const sourceData = {
+            sections: await this.http
+                .get<IAstueOnpzFactoryAnalysisBarResponseSection[]>(
+                    `assets/mock/ASTUE-ONPZ/factor-analysis/${route}.mock.json`
+                )
+                .toPromise(),
+        } as IAstueOnpzFactoryAnalysisBarResponse;
+        this.barData = astueOnpzFactoryAnalysisBarMapper(sourceData);
     }
 
     private optionsMapper(
@@ -155,6 +189,9 @@ export class AstueOnpzFactoryAnalysisComponent extends WidgetPlatform<unknown> i
             manufactureName,
             unitName,
             ovenName,
+            manufactureId: ref.manufactureId,
+            unitId: ref.unitId,
+            ovenId: ref.ovenId,
         };
     }
 }

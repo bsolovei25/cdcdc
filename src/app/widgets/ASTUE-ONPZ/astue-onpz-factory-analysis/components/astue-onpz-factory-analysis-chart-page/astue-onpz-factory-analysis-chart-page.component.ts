@@ -1,4 +1,4 @@
-import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
+import { Component, EventEmitter, Inject, OnDestroy, OnInit, Output } from '@angular/core';
 import { IDatesInterval, WidgetService } from '../../../../../dashboard/services/widget.service';
 import { IChartMini } from '@shared/models/smart-scroll.model';
 import { IMultiChartLine } from '../../../../../dashboard/models/ASTUE-ONPZ/astue-onpz-multi-chart.model';
@@ -20,10 +20,10 @@ interface IGraphData {
 @Component({
     selector: 'evj-astue-onpz-factory-analysis-chart-page',
     templateUrl: './astue-onpz-factory-analysis-chart-page.component.html',
-    styleUrls: ['./astue-onpz-factory-analysis-chart-page.component.scss']
+    styleUrls: ['./astue-onpz-factory-analysis-chart-page.component.scss'],
 })
-export class AstueOnpzFactoryAnalysisChartPageComponent extends ChannelPlatform<IGraphData> implements OnInit, OnDestroy {
-
+export class AstueOnpzFactoryAnalysisChartPageComponent extends ChannelPlatform<IGraphData>
+    implements OnInit, OnDestroy {
     public graphData: IGraph = {
         name: '',
         graph: [],
@@ -43,7 +43,7 @@ export class AstueOnpzFactoryAnalysisChartPageComponent extends ChannelPlatform<
         protected widgetService: WidgetService,
         private mnemonicFurnaceService: AstueOnpzMnemonicFurnaceService,
         @Inject('widgetId') public widgetId: string,
-        @Inject('channelId') public channelId: string,
+        @Inject('channelId') public channelId: string
     ) {
         super(widgetId, channelId, widgetService);
     }
@@ -67,7 +67,7 @@ export class AstueOnpzFactoryAnalysisChartPageComponent extends ChannelPlatform<
             })
         );
 
-        this.mnemonicFurnaceService.selectedItem$.subscribe(item => {
+        this.mnemonicFurnaceService.selectedItem$.subscribe((item) => {
             this.channelId = item;
             super.disconnectWs();
             super.connectWs();
@@ -78,12 +78,14 @@ export class AstueOnpzFactoryAnalysisChartPageComponent extends ChannelPlatform<
         this.graphData = ref.graph;
         console.log(this.graphData, 'this.graphData');
 
-        this.scrollData = this.graphData?.graph?.find((item) => item.graphType === 'plan')?.graph.map(item => {
-            return {
-                value: item.value,
-                timeStamp: new Date(item.timeStamp),
-            };
-        });
+        this.scrollData = this.graphData?.graph
+            ?.find((item) => item.graphType === 'plan')
+            ?.graph.map((item) => {
+                return {
+                    value: item.value,
+                    timeStamp: new Date(item.timeStamp),
+                };
+            });
     }
 
     ngOnDestroy(): void {

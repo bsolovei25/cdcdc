@@ -27,13 +27,9 @@
     (mousedown)="$event.stopPropagation()"
     (touchstart)="$event.stopPropagation()"
   >
-    <div class="dropdown">
-      <mat-select class="dropdown__select" [value]="'Производство 1'">
-        <ng-container>
-          <mat-option [value]="'Производство 1'">
-            Температура воздуха на горение в печи, °С
-          </mat-option>
-        </ng-container>
+    <div class="dropdown" *ngIf="page === 'chart'">
+      <mat-select class="dropdown__select" (selectionChange)="selectionChange($event.value)" [value]="mnemonicFurnaceService.selectedItem$ | async">
+        <mat-option *ngFor="let ref of reference" [value]="ref.id">{{ref.name}}</mat-option>
       </mat-select>
     </div>
   </div>

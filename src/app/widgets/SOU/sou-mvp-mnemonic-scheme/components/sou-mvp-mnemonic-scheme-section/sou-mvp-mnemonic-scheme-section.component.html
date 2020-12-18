@@ -469,7 +469,7 @@
         sections: sections,
         code: 17
       }"
-      [outCount]="1"
+      [outCount]="2"
       [inCount]="2"
     ></evj-sou-mvp-mnemonic-scheme-collector>
   </div>
@@ -481,12 +481,27 @@
       }"
       [choosenSetting]="choosenSetting"
     ></evj-sou-mvp-mnemonic-scheme-stream-diagram>
+
+    <evj-sou-mvp-mnemonic-scheme-stream-diagram
+      [data]="{
+        sections: sections,
+        code: 180
+      }"
+      [choosenSetting]="choosenSetting"
+    ></evj-sou-mvp-mnemonic-scheme-stream-diagram>
   </div>
   <div class="stream__item output">
     <evj-sou-mvp-mnemonic-scheme-output
       [data]="{
         sections: sections,
         code: 19
+      }"
+    ></evj-sou-mvp-mnemonic-scheme-output>
+
+    <evj-sou-mvp-mnemonic-scheme-output
+      [data]="{
+        sections: sections,
+        code: 181
       }"
     ></evj-sou-mvp-mnemonic-scheme-output>
   </div>

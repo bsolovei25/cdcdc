@@ -55,7 +55,7 @@ export class AstueOnpzPredictorsComponent extends WidgetPlatform<unknown>
         super.dataConnect();
         this.setOptionsWs(this.id);
         this.subscriptions.push(
-            this.conventionalFuelService.selectedOptions$.subscribe((ref) => {
+            this.conventionalFuelService.selectedOptions.subscribe((ref) => {
                 this.selectPredictors.clear();
                 this.astueOnpzService.setPredictors(this.id, []);
                 this.data = [];

@@ -7,10 +7,8 @@ import {
     ISOUObjects,
     ISOUOperationalAccountingSystem,
 } from '../../../dashboard/models/SOU/sou-operational-accounting-system';
-import { SouMvpMnemonicSchemeService } from '../../../dashboard/services/widgets/SOU/sou-mvp-mnemonic-scheme.service';
 import { animate, state, style, transition, trigger } from '@angular/animations';
-import { BehaviorSubject } from 'rxjs';
-import { NULL_EXPR } from '@angular/compiler/src/output/output_ast';
+import { SouMvpMnemonicSchemeService } from '../../../dashboard/services/widgets/SOU/sou-mvp-mnemonic-scheme.service';
 
 @Component({
     selector: 'evj-sou-mvp-mnemonic-scheme',
@@ -49,13 +47,30 @@ export class SouMvpMnemonicSchemeComponent extends WidgetPlatform<unknown>
 
     sectionsData: (ISOUFlowOut | ISOUFlowIn | ISOUObjects)[] = []; // Массив всех элементов
     sectionsDataIzo: (ISOUFlowOut | ISOUFlowIn | ISOUObjects)[] = []; // Массив всех элементов Изомалка
+    sectionsDataPark: (ISOUFlowOut | ISOUFlowIn | ISOUObjects)[] = [];
 
-    factories: string[] = ['Производство 1', 'Производство 4'];
-    installations: string[] = ['АВТ-10', 'Изомалк-2'];
+    factories: string[] = ['Производство №1', 'Производство №4', 'Товарное производство'];
+    installations: string[][] = [['АВТ-10'], ['Изомалк-2'], ['АССБ Авиасмеси']];
+    // installations: string[][] = [
+    //     ['АВТ-10'],
+    //     ['Изомалк-2'],
+    //     [
+    //         'АССБ Авиасмеси',
+    //         'АССБ А-95',
+    //         'АССБ А-98',
+    //         'Насосная т.1163-1164 парк БГС',
+    //         'Насосная т.1163-1164 парк А-95',
+    //         'Насосная т.1163-1164 парк А-92',
+    //     ],
+    // ];
+
+    twoSelection: string[] = [];
 
     set selectedInstallation(value: number) {
         this.mvpService.selectedInstallation$.next(value);
+        this.changeInstall(this.installations[this.selectedInstallation][0]);
     }
+
     get selectedInstallation(): number {
         return this.mvpService.selectedInstallation$.getValue();
     }
@@ -75,10 +90,13 @@ export class SouMvpMnemonicSchemeComponent extends WidgetPlatform<unknown>
             },
         ],
         [],
+        [],
     ];
 
-    choosenSetting: number = 1;
-    choosenSection: number = 0;
+    chosenSetting: number = 1;
+    chosenSection: number = 0;
+
+    flag: boolean = true;
 
     constructor(
         public widgetService: WidgetService,
@@ -100,14 +118,21 @@ export class SouMvpMnemonicSchemeComponent extends WidgetPlatform<unknown>
         );
     }
 
+    protected dataConnect(): void {
+        super.dataConnect();
+        this.changeInstall(null);
+    }
+
     protected dataHandler(ref: ISOUOperationalAccountingSystem): void {
         this.mainData = ref;
-        this.flowInAb = ref.section[0].flowIn;
-        this.flowInVb = ref.section[1].flowIn;
-
+        if (ref.section[0].name === 'АВТ-10-АБ' || ref.section[0].name === 'АВТ-10-ВБ') {
+            this.flowInAb = ref.section[0].flowIn;
+            this.flowInVb = ref.section[1].flowIn;
+        }
         this.sectionsData = [];
         this.sectionsDataIzo = [];
-        ref.section.forEach((item, i) => {
+        this.flag = true;
+        ref?.section?.forEach((item, i) => {
             if (item.name !== 'Изомалк-2') {
                 this.sectionsData = [
                     ...this.sectionsData,
@@ -116,15 +141,30 @@ export class SouMvpMnemonicSchemeComponent extends WidgetPlatform<unknown>
                     ...item.objects,
                 ];
             } else {
-                this.sectionsDataIzo = [
-                    ...this.sectionsDataIzo,
-                    ...item.flowIn,
-                    ...item.flowOut,
-                    ...item.objects,
+                if (this.sectionsDataIzo && item?.flowIn && item?.flowOut && item?.objects) {
+                    this.sectionsDataIzo = [
+                        ...this.sectionsDataIzo,
+                        ...item.flowIn,
+                        ...item.flowOut,
+                        ...item.objects,
+                    ];
+                }
+            }
+
+            if (this.selectedInstallation === 2) {
+                if (this.flag) {
+                    this.sectionsDataPark = [];
+                    this.flag = false;
+                }
+                this.sectionsDataPark = [
+                    ...this.sectionsDataPark,
+                    ...item?.flowIn,
+                    ...item?.flowOut,
+                    ...item?.objects,
                 ];
             }
 
-            const sec = this.sections[0].find(section => item.name.indexOf(section.title) !== -1);
+            const sec = this.sections[0].find((section) => item.name.indexOf(section.title) !== -1);
 
             if (!!sec) {
                 sec.value = item.countFlowExceedingConfInterval;
@@ -133,10 +173,24 @@ export class SouMvpMnemonicSchemeComponent extends WidgetPlatform<unknown>
     }
 
     changeSetting(i: number): void {
-        this.choosenSetting = i;
+        this.chosenSetting = i;
     }
 
     changeSection(i: number): void {
-        this.choosenSection = i;
+        this.chosenSection = i;
+    }
+
+    changeInstall(value: string): void {
+        let a = {
+            manufacture: 'Производство №1',
+            name: 'АВТ-10',
+        };
+        if (value) {
+            a = {
+                manufacture: this.factories[this.selectedInstallation],
+                name: value,
+            };
+        }
+        this.setWsOptions(a);
     }
 }

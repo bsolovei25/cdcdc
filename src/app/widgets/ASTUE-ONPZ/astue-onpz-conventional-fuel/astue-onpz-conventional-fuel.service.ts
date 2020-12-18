@@ -29,7 +29,10 @@ export class AstueOnpzConventionalFuelService {
         'Выработка тепла',
         'Потребление электроэнергии',
     ];
-    public selectedOptions$: Observable<IAstueOnpzConventionalFuelSelectOptions>;
+    public selectedOptions: Observable<IAstueOnpzConventionalFuelSelectOptions>;
+    public selectedOptions$: BehaviorSubject<
+        IAstueOnpzConventionalFuelSelectOptions
+    > = new BehaviorSubject<IAstueOnpzConventionalFuelSelectOptions>(this.defaultSelectOptions);
 
     public paddingLegend$: BehaviorSubject<number> = new BehaviorSubject<number>(0);
     public predictorsInfo$: BehaviorSubject<
@@ -37,4 +40,8 @@ export class AstueOnpzConventionalFuelService {
     > = new BehaviorSubject<IAstueOnpzConventionalFuelTransfer>(null);
 
     constructor() {}
+
+    setSelectedOptions(options: IAstueOnpzConventionalFuelSelectOptions): void {
+        this.selectedOptions$.next({ ...options });
+    }
 }
