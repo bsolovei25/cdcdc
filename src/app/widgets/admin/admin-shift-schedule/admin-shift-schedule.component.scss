@@ -768,38 +768,37 @@ p {
 }
 
 .color-1 {
-  background-color: rgba(147, 98, 208, 0.2);
-  color: #9362D0;
+  background-color: var(--color-admin-shift-brigade-1);
+  color: var(--color-admin-shift-brigade-1-text);
 }
 
 .color-2 {
-  background-color:  rgba(120, 169, 255, 0.2);
-  color: #78A9FF;
-  
+  background-color: var(--color-admin-shift-brigade-2);
+  color: var(--color-admin-shift-brigade-2-text);
 }
 
 .color-3 {
-  background-color:  rgba(8, 189, 186, 0.2);
-  color: #08BDBA;
+  background-color: var(--color-admin-shift-brigade-3);
+  color: var(--color-admin-shift-brigade-3-text);
 }
 
 .color-4 {
-  background-color:  rgba(255, 125, 150, 0.2);
-  color: #FF7D96;
+  background-color: var(--color-admin-shift-brigade-4);
+  color: var(--color-admin-shift-brigade-4-text);
 }
 
 .color-5 {
-  background-color:  rgba(253, 209, 58, 0.2);
-  color: #FDD13A;
+  background-color: var(--color-admin-shift-brigade-5);
+  color: var(--color-admin-shift-brigade-5-text);
 }
 
 .color-6 {
-  background-color:  rgba(69, 197, 250, 0.2);
-  color: #45C5FA;
+  background-color: var(--color-admin-shift-brigade-6);
+  color: var(--color-admin-shift-brigade-6-text);
 }
 
 .color-delete {
-  background-color: #F7931E;
+  background-color: var(--color-admin-shift-brigade-delete);
 }
 
 ::ng-deep .customize-menu {
