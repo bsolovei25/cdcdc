@@ -68,6 +68,8 @@ export class AstueOnpzMultiChartComponent implements OnInit, OnChanges, OnDestro
 
     private readonly MAX_COEF: number = 0.3;
     private readonly MIN_COEF: number = 0.3;
+    private readonly timeOffsetLeft: number = 24;
+    private readonly timeOffsetRight: number = 72;
 
     private coefs: { [key: string]: { min: number; max: number } } = {};
     private axisLabels: { [key: string]: number[] } = {};
@@ -203,8 +205,8 @@ export class AstueOnpzMultiChartComponent implements OnInit, OnChanges, OnDestro
             const currentDatetime = new Date();
             currentDatetime.setMinutes(0, 0, 0);
             const domainDates = [
-                currentDatetime.getTime() - 16 * 1000 * 60 * 60,
-                currentDatetime.getTime() + 4 * 1000 * 60 * 60,
+                currentDatetime.getTime() - this.timeOffsetLeft * 1000 * 60 * 60,
+                currentDatetime.getTime() + this.timeOffsetRight * 1000 * 60 * 60,
             ];
             this.data.forEach(
                 (item) =>
@@ -352,8 +354,8 @@ export class AstueOnpzMultiChartComponent implements OnInit, OnChanges, OnDestro
             const currentDatetime = new Date();
             currentDatetime.setMinutes(0, 0, 0);
             domainDates = [
-                new Date(currentDatetime.getTime() - 16 * 1000 * 60 * 60),
-                new Date(currentDatetime.getTime() + 4 * 1000 * 60 * 60),
+                new Date(currentDatetime.getTime() - this.timeOffsetLeft * 1000 * 60 * 60),
+                new Date(currentDatetime.getTime() + this.timeOffsetRight * 1000 * 60 * 60),
             ];
         }
 
