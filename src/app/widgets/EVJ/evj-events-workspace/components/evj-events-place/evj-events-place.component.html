@@ -4,8 +4,8 @@
       <mat-select panelClass="mat-select-custom" [disabled]="disabled" [(ngModel)]="unit" disableOptionCentering>
         <evj-mat-select-filter [formControl]="filter"></evj-mat-select-filter>
         <ng-container *ngFor="let u of units">
-          <mat-option [value]="ewService.event.unitName ? u.id : '-'" (click)="chooseUnit(u)">
-            {{ u?.name }}
+          <mat-option [value]="u" (click)="chooseUnit(u)">
+            {{ u.name }}
           </mat-option>
         </ng-container>
       </mat-select>
