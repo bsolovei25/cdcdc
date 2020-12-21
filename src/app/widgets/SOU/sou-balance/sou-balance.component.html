@@ -1,0 +1,37 @@
+<div class="container">
+  <evj-contemporary-widget-header
+    [uniqId]="uniqId"
+    [widgetTitle]="widgetTitle"
+    type="astue"
+    icon="balance"
+  ></evj-contemporary-widget-header>
+  <div class="menu">
+    <span
+      *ngFor="let menu of menuData; let i = index"
+      class="menu__item"
+      [ngClass]="{'active': choosenItem === i}"
+      (click)="changeSettinge(i)"
+    >{{menu}}</span>
+  </div>
+
+  <div class="titles">
+    <div class="titles__item">
+      <span>Материал</span>
+    </div>
+    <div class="titles__item">
+      <span>Масса тн</span>
+    </div>
+    <div class="shadow"></div>
+  </div>
+  <div class="content"
+    (mousedown)="$event.stopPropagation()"
+    (touchstart)="$event.stopPropagation()"
+  >
+    <evj-sou-balance-group
+      *ngFor="let item of data"
+      [data]="item"
+    ></evj-sou-balance-group>
+  </div>
+</div>
+  
+  

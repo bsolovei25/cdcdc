@@ -1,0 +1,24 @@
+<div class="container">
+    <div class="header">
+        <div class="header__title">
+            <svg-icon
+                src="assets/icons/widgets/SOU/sou-balance/{{data?.icon}}.svg"
+            ></svg-icon>
+            <span class="name">
+                {{data?.title}}
+            </span>
+            <span class="mass">
+                {{data?.mass | spaceNumber}}
+            </span>
+        </div>
+        <div class="header__value">
+            <span>{{data?.percent | spaceNumber:2}}</span> %
+        </div>
+    </div>
+    <div class="content">
+        <evj-sou-balance-group-item
+            *ngFor="let product of data?.products"
+            [data]=product
+        ></evj-sou-balance-group-item>
+    </div>
+</div>
