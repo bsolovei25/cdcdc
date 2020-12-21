@@ -8,6 +8,7 @@ import { ISouBalance } from 'src/app/dashboard/models/SOU/sou-balance.model';
 })
 export class SouBalanceGroupComponent implements OnInit {
   @Input() data: ISouBalance;
+  @Input() menu: number;
 
   constructor() { }
 

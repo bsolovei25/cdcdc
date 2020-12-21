@@ -5,7 +5,10 @@
     type="astue"
     icon="balance"
   ></evj-contemporary-widget-header>
-  <div class="menu">
+  <div class="menu"
+    (mousedown)="$event.stopPropagation()"
+    (touchstart)="$event.stopPropagation()"
+  >
     <span
       *ngFor="let menu of menuData; let i = index"
       class="menu__item"
@@ -29,6 +32,7 @@
   >
     <evj-sou-balance-group
       *ngFor="let item of data"
+      [menu]=choosenItem
       [data]="item"
     ></evj-sou-balance-group>
   </div>

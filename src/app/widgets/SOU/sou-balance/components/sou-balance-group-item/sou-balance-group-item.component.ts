@@ -8,6 +8,7 @@ import { ISouBalanceProducts } from 'src/app/dashboard/models/SOU/sou-balance.mo
 })
 export class SouBalanceGroupItemComponent implements OnInit {
   @Input() data: ISouBalanceProducts;
+  @Input() menu: number;
   constructor() { }
 
   ngOnInit(): void {

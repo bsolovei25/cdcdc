@@ -11,4 +11,6 @@ export interface ISouBalanceProducts {
     title: string;
     percent: number;
     mass: number;
+    percentAgree: number;
+    massAgree: number;
 }
