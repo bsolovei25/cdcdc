@@ -1,0 +1,112 @@
+<evj-contemporary-widget-header
+  [uniqId]="widgetUniqId"
+  [widgetTitle]="widgetTitle"
+  icon="scenario"
+  type="astue"
+>
+</evj-contemporary-widget-header>
+<div class="container"
+  (mousedown)="$event.stopPropagation()"
+  (touchstart)="$event.stopPropagation()"
+>
+  <div class="column wide">
+    <div class="column__production">
+      <div class="title">Производство 1</div>
+    </div>
+    <div class="column__other-production"></div>
+    <div class="column__other-production"></div>
+    <div class="column__other-production"></div>
+  </div>
+
+  <div class="arrows">
+    <div class="arrow">
+      <svg-icon
+      [svgStyle]="{'height.px':'16', 'width.px': '16'}"
+      [src]="'assets/icons/widgets/SOU/sou-main-screen/sou-main-screen-arrow.svg'"
+      ></svg-icon>
+    </div>
+    <div class="arrow">
+      <svg-icon
+      [svgStyle]="{'height.px':'16', 'width.px': '16'}"
+      [src]="'assets/icons/widgets/SOU/sou-main-screen/sou-main-screen-arrow.svg'"
+      ></svg-icon>
+    </div>
+  </div>
+
+  <div class="column">
+    <div class="column__production">
+      <div class="title">Производство 2</div>
+      <div class="installation">
+        <div class="installation__npz">
+          <svg-icon
+          [svgStyle]="{'height.px':'16', 'width.px': '16'}"
+          [src]="'assets/icons/widgets/SOU/sou-main-screen/npz-logo.svg'"
+          ></svg-icon>
+        </div>
+        <div class="installation__name">КТ</div>
+        <div class="installation__deviation">0</div>
+        <div class="installation__arrow">
+          <svg-icon
+          [svgStyle]="{'height.px':'16', 'width.px': '16'}"
+          [src]="'assets/icons/widgets/SOU/sou-main-screen/arrow-to-instalation.svg'"
+          ></svg-icon>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="arrows">
+    <div class="arrow">
+      <svg-icon
+      [svgStyle]="{'height.px':'16', 'width.px': '16'}"
+      [src]="'assets/icons/widgets/SOU/sou-main-screen/sou-main-screen-arrow.svg'"
+      ></svg-icon>
+    </div>
+    <div class="arrow">
+      <svg-icon
+      [svgStyle]="{'height.px':'16', 'width.px': '16'}"
+      [src]="'assets/icons/widgets/SOU/sou-main-screen/sou-main-screen-arrow.svg'"
+      ></svg-icon>
+    </div>
+    <div class="arrow">
+      <svg-icon
+      [svgStyle]="{'height.px':'16', 'width.px': '16'}"
+      [src]="'assets/icons/widgets/SOU/sou-main-screen/sou-main-screen-arrow.svg'"
+      ></svg-icon>
+    </div>
+  </div>
+
+  <div class="column">
+    <div class="column__production">
+      <div class="title">Производство 4</div>
+    </div>
+    <div class="column__other-production"></div>
+  </div>
+
+  <div class="arrows">
+    <div class="arrow">
+      <svg-icon
+      [svgStyle]="{'height.px':'16', 'width.px': '16'}"
+      [src]="'assets/icons/widgets/SOU/sou-main-screen/sou-main-screen-arrow.svg'"
+      ></svg-icon>
+    </div>
+    <div class="arrow">
+      <svg-icon
+      [svgStyle]="{'height.px':'16', 'width.px': '16'}"
+      [src]="'assets/icons/widgets/SOU/sou-main-screen/sou-main-screen-arrow.svg'"
+      ></svg-icon>
+    </div>
+    <div class="arrow">
+      <svg-icon
+      [svgStyle]="{'height.px':'16', 'width.px': '16'}"
+      [src]="'assets/icons/widgets/SOU/sou-main-screen/sou-main-screen-arrow.svg'"
+      ></svg-icon>
+    </div>
+  </div>
+
+  <div class="column">
+    <div class="column__production">
+      <div class="title">Товарное производство</div>
+    </div>
+  </div>
+</div>

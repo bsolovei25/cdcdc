@@ -140,6 +140,7 @@ export const WIDGETS = {
     'cvtr-izomalk': WidgetContainerComponent,
     'sou-energetic': WidgetContainerComponent,
     sou_general: WidgetContainerComponent,
+    'sou-main-screen': WidgetContainerComponent,
 };
 
 export const WIDGETS_LAZY = {
@@ -1394,6 +1395,18 @@ export const WIDGETS_LAZY = {
         minItemRows: 5,
         preview: 'default',
     },
+    'sou-main-screen': {
+        import: async () => {
+            return await import('src/app/widgets/SOU/sou-main-screen/sou-main-screen.module');
+        },
+        module: 'SouMainScreenModule',
+        itemCols: 13,
+        itemRows: 5,
+        minItemCols: 13,
+        minItemRows: 5,
+        preview: 'default',
+    },
+    
 
     // #endregion SOU
 
