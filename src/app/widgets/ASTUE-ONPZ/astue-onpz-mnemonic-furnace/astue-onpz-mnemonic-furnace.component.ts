@@ -31,9 +31,10 @@ import { WidgetService } from '../../../dashboard/services/widget.service';
 import { FormControl } from '@angular/forms';
 import { filter, map, takeUntil } from 'rxjs/operators';
 import { AstueOnpzMnemonicFurnaceService } from './astue-onpz-mnemonic-furnace.service';
+import { SOURCE_DATA } from './astue-onpz-mnemonic-furnace.mock';
 
 interface IAstueOnpzMnemonicFurnacePopup extends IAstueOnpzMnemonicFurnaceStreamStats {
-    side: 'left' | 'right';
+    side: 'left' | 'right' | 'center';
 }
 
 @Component({
@@ -127,11 +128,14 @@ export class AstueOnpzMnemonicFurnaceComponent extends WidgetPlatform implements
                     return;
                 }
                 switch (ref) {
-                    case data.dischargeStats?.main.id:
+                    case data.dischargeStats?.main?.id ?? -1:
                         this.popupData$.next({ ...data.dischargeStats, side: 'right' });
                         break;
-                    case data.gasStats?.main.id:
+                    case data.gasStats?.main?.id ?? -1:
                         this.popupData$.next({ ...data.gasStats, side: 'left' });
+                        break;
+                    case data.oxygenStats?.main?.id ?? -1:
+                        this.popupData$.next({ ...data.oxygenStats, side: 'center' });
                         break;
                     default:
                         this.popupData$.next(null);
@@ -468,6 +472,26 @@ export class AstueOnpzMnemonicFurnaceComponent extends WidgetPlatform implements
             }),
         };
 
+        const oxygenStats = {
+            title: 'Уходящие газы',
+            main: {
+                id: currentData.outputOxygen?.id ?? null,
+                value: currentData.outputOxygen?.value,
+                unit: currentData.outputOxygen?.unit,
+                streamType: !!currentData.outputOxygen?.item?.find((x) => x.isDeviation)
+                    ? AstueOnpzMnemonicFurnaceStreamStatsType.Deviation
+                    : AstueOnpzMnemonicFurnaceStreamStatsType.Norm,
+            },
+            streams: currentData.outputOxygen?.item?.map((x) => {
+                return {
+                    value: x.value,
+                    streamType: x.isDeviation
+                        ? AstueOnpzMnemonicFurnaceStreamStatsType.Deviation
+                        : AstueOnpzMnemonicFurnaceStreamStatsType.Norm,
+                };
+            }),
+        };
+
         return {
             inputOilBlock,
             inputGasBlock,
@@ -476,6 +500,7 @@ export class AstueOnpzMnemonicFurnaceComponent extends WidgetPlatform implements
             unitTitle,
             gasStats,
             dischargeStats,
+            oxygenStats,
         };
     }
 }

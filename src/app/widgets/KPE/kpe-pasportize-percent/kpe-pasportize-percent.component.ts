@@ -87,6 +87,9 @@ export class KpePasportizePercentComponent extends WidgetPlatform<unknown> imple
 
   protected dataHandler(ref: IKpePasportize): void {
     this.data = ref;
+    this.data.products = this.data.products
+      .filter(item => item.badCount !== 0)
+      .sort((item1:IKpePasportizeProduct, item2:IKpePasportizeProduct) => item2.badCount - item1.badCount);
     this.data.percentage = this.data.first / this.data.total * 100;
     this.percent = this.data.percentage > 100 ? 1 / this.data.percentage * 100 : this.data.percentage / 100;
     this.drawSvg();
