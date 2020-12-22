@@ -1,0 +1,20 @@
+<div class="installation">
+    <div class="installation__npz">
+      <svg-icon
+      [svgStyle]="{'height.px':'16', 'width.px': '16'}"
+      [src]="'assets/icons/widgets/SOU/sou-main-screen/npz-logo.svg'"
+      ></svg-icon>
+    </div>
+    <div class="installation__name"
+    [ngClass] = "installation.active ? 'installation__name__active' : 'installation__name__default'"
+    >{{installation.name}}</div>
+    <div class="installation__deviation"
+    [ngClass] = "installation.deviation > 0 ? 'installation__deviation__warning' : 'installation__deviation__default'"
+    >{{installation.deviation}}</div>
+    <div class="installation__arrow">
+      <svg-icon
+      [svgStyle]="{'height.px':'16', 'width.px': '16'}"
+      [src]="'assets/icons/widgets/SOU/sou-main-screen/arrow-to-instalation.svg'"
+      ></svg-icon>
+    </div>
+</div>

@@ -12,10 +12,57 @@
   <div class="column wide">
     <div class="column__production">
       <div class="title">Производство 1</div>
+      <div class="column__production__row">
+        <div class="left">
+          <ng-container *ngFor="let item of productionOneLeftData">
+            <div class="installation-container">
+              <evj-sou-installation-card
+              [installation]="item"
+              ></evj-sou-installation-card>
+            </div>
+          </ng-container>
+        </div>
+        <div class="right">
+          <ng-container *ngFor="let item of productionOneRightData">
+            <div class="installation-container">
+              <evj-sou-installation-card
+              [installation]="item"
+              ></evj-sou-installation-card>
+            </div>
+          </ng-container>
+        </div>
+      </div>
     </div>
-    <div class="column__other-production"></div>
-    <div class="column__other-production"></div>
-    <div class="column__other-production"></div>
+    <div class="column__other-production">
+      <div class="column__other-production__title">
+        <span>Общезаводские коллекторы</span>
+      </div>
+      <div class="column__other-production__value">
+      <evj-sou-installation-card
+      [installation]="offSiteCollectorsData"
+      ></evj-sou-installation-card>
+      </div>
+    </div>
+    <div class="column__other-production">
+      <div class="column__other-production__title">
+        <span>Общезаводское хозяйство</span>
+      </div>
+      <div class="column__other-production__value">
+      <evj-sou-installation-card
+      [installation]="offSiteFacilitiesData"
+      ></evj-sou-installation-card>
+      </div>
+    </div>
+    <div class="column__other-production">
+      <div class="column__other-production__title">
+        <span>Прочие обЪекты</span>
+      </div>
+      <div class="column__other-production__value">
+      <evj-sou-installation-card
+      [installation]="catalystProductionData"
+      ></evj-sou-installation-card>
+      </div>
+    </div>
   </div>
 
   <div class="arrows">
@@ -31,27 +78,24 @@
       [src]="'assets/icons/widgets/SOU/sou-main-screen/sou-main-screen-arrow.svg'"
       ></svg-icon>
     </div>
+    <div class="arrow invisible">
+      <svg-icon
+      [svgStyle]="{'height.px':'16', 'width.px': '16'}"
+      [src]="'assets/icons/widgets/SOU/sou-main-screen/sou-main-screen-arrow.svg'"
+      ></svg-icon>
+    </div>
   </div>
 
   <div class="column">
     <div class="column__production">
       <div class="title">Производство 2</div>
-      <div class="installation">
-        <div class="installation__npz">
-          <svg-icon
-          [svgStyle]="{'height.px':'16', 'width.px': '16'}"
-          [src]="'assets/icons/widgets/SOU/sou-main-screen/npz-logo.svg'"
-          ></svg-icon>
+      <ng-container *ngFor="let item of productionTwoData">
+        <div class="installation-container">
+        <evj-sou-installation-card
+        [installation]="item"
+        ></evj-sou-installation-card>
         </div>
-        <div class="installation__name">КТ</div>
-        <div class="installation__deviation">0</div>
-        <div class="installation__arrow">
-          <svg-icon
-          [svgStyle]="{'height.px':'16', 'width.px': '16'}"
-          [src]="'assets/icons/widgets/SOU/sou-main-screen/arrow-to-instalation.svg'"
-          ></svg-icon>
-        </div>
-      </div>
+      </ng-container>
     </div>
   </div>
 
@@ -79,8 +123,24 @@
   <div class="column">
     <div class="column__production">
       <div class="title">Производство 4</div>
+      <ng-container *ngFor="let item of productionFourData">
+        <div class="installation-container">
+        <evj-sou-installation-card
+        [installation]="item"
+        ></evj-sou-installation-card>
+        </div>
+      </ng-container>
     </div>
-    <div class="column__other-production"></div>
+    <div class="column__catalyst-production">
+      <div class="column__catalyst-production__title">
+        <span>Катализаторное производство</span>
+      </div>
+      <div class="installation-container">
+      <evj-sou-installation-card
+      [installation]="catalystProductionData"
+      ></evj-sou-installation-card>
+      </div>
+    </div>
   </div>
 
   <div class="arrows">
@@ -107,6 +167,13 @@
   <div class="column">
     <div class="column__production">
       <div class="title">Товарное производство</div>
+      <ng-container *ngFor="let item of productionTradeData">
+        <div class="installation-container">
+        <evj-sou-installation-card
+        [installation]="item"
+        ></evj-sou-installation-card>
+        </div>
+      </ng-container>
     </div>
   </div>
 </div>

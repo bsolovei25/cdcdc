@@ -1400,10 +1400,10 @@ export const WIDGETS_LAZY = {
             return await import('src/app/widgets/SOU/sou-main-screen/sou-main-screen.module');
         },
         module: 'SouMainScreenModule',
-        itemCols: 13,
-        itemRows: 5,
-        minItemCols: 13,
-        minItemRows: 5,
+        itemCols: 30,
+        itemRows: 30,
+        minItemCols: 30,
+        minItemRows: 30,
         preview: 'default',
     },
     
