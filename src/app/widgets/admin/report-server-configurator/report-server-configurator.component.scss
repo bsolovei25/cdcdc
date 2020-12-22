@@ -234,6 +234,7 @@ input {
   }
 }
 
+
 .references {
   position: relative;
   display: flex;
@@ -852,9 +853,8 @@ input {
 
       &__edit-button {
         position: absolute;
-        top: 5px;
         width: 16px;
-        right: 5px;
+        right: 10px;
       }
 
       &__type {
@@ -1166,4 +1166,8 @@ input {
   opacity: 1;
   left: -8em;
   top: 3px;
+}
+
+.special {
+  border-bottom: 1px solid var(--color-bg-main);
 }
