@@ -125,7 +125,7 @@ export class AstueOnpzFactoryAnalysisComponent extends WidgetPlatform<unknown> i
     protected dataConnect(): void {
         super.dataConnect();
         this.viewType$.next((this.attributes as any)?.Type === 'Unit' ? 'Unit' : 'Furnace');
-        this.getMockData((this.attributes as any)?.Type === 'Unit' ? 'unit' : 'oven').then();
+        // this.getMockData((this.attributes as any)?.Type === 'Unit' ? 'unit' : 'oven').then();
         if (this.viewType$.value === 'Unit') {
             this.setWsOptions({
                 manufactureName: 'Производство №1',
@@ -152,12 +152,11 @@ export class AstueOnpzFactoryAnalysisComponent extends WidgetPlatform<unknown> i
     }
 
     protected dataHandler(ref: IAstueOnpzFactoryAnalysisBarResponse): void {
-        // if (!ref.sections) {
-        //     this.barData = null;
-        //     return;
-        // }
-        // console.log(ref.sections);
-        // this.barData = astueOnpzFactoryAnalysisBarMapper(ref);
+        if (!ref.sections) {
+            this.barData = null;
+            return;
+        }
+        this.barData = astueOnpzFactoryAnalysisBarMapper(ref);
         this.selectionReference = ref?.parameters ?? [];
     }
 
