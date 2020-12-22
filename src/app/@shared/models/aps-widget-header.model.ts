@@ -26,4 +26,5 @@ export type ApsHeaderIconType =
     | 'factory'
     | 'squares'
     | 'dots-triangle'
-    | 'pie';
+    | 'pie'
+    | 'setting';
