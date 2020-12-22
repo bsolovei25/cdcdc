@@ -48,6 +48,7 @@ export const productionOneLeft: IInstallation[] = [
         name: 'АВТ-10',
         deviation: 2,
         active: false,
+        widgetName: 'sou-operational-accounting-system-new'
     },
     {
         id: 8,
@@ -231,6 +232,7 @@ export const productionFour: IInstallation[] = [
         name: 'Изомалк-2',
         deviation: 1,
         active: false,
+        widgetName: 'sou-operational-accounting-system'
     },
     {
         id: 37,

@@ -18,6 +18,9 @@
     display: flex;
     justify-content: flex-start;
     align-items: center;
+    &:hover {
+        color: var(--sou-mvp-color-white);
+      }
     &__npz {
       height: 16px;
       width: 16px;
@@ -27,7 +30,6 @@
       &__default {
         color: var(--sou-mvp-color-text-diagram-sub);
       }
-    
     }
     &__name {
       padding: 0 10px;
@@ -45,7 +47,6 @@
         color: var(--sou-mvp-color-white);
       }
       &__default {
-        color: var(--sou-mvp-color-text-diagram-sub);
       }
     }
     &__deviation {

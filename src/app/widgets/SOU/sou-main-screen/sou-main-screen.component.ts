@@ -8,6 +8,7 @@ export interface IInstallation {
   name: string;
   deviation: number;
   active: boolean;
+  widgetName?: string;
 }
 
 @Component({

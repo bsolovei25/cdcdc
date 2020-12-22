@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { UserSettingsService } from 'src/app/dashboard/services/user-settings.service';
 import { IInstallation } from '../../sou-main-screen.component';
 
 @Component({
@@ -9,9 +10,17 @@ import { IInstallation } from '../../sou-main-screen.component';
 export class SouInstallationCardComponent implements OnInit {
 
   @Input() installation: IInstallation;
-  constructor() { }
+  constructor(
+    private userSettingsService: UserSettingsService,
+  ) { }
 
   ngOnInit(): void {
+  }
+  public openInstallation(event: MouseEvent): void {
+    if (this.installation.widgetName) {
+    this.userSettingsService.loadScreenByWidget(this.installation.widgetName);
+    return;
+    }
   }
 
 }
