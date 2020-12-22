@@ -1,25 +1,26 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { EventsWorkspaceService } from '../../../../dashboard/services/widgets/EVJ/events-workspace.service';
 import { IChatMessageWithAttachments } from '../components/evj-chat/evj-chat.component';
+import { IExtraOptionsWindow } from "../../../../dashboard/models/EVJ/events-widget";
 
 @Component({
     selector: 'evj-tasks-event',
     templateUrl: './evj-tasks-event.component.html',
-    styleUrls: ['./evj-tasks-event.component.scss']
+    styleUrls: ['./evj-tasks-event.component.scss'],
 })
-
 export class EvjTasksEventComponent implements OnInit {
     public isChecked: boolean = false;
 
     @Input()
     public noOverflow: boolean = false;
 
-    constructor(public ewService: EventsWorkspaceService) {
-    }
+    constructor(public ewService: EventsWorkspaceService) {}
 
     public ngOnInit(): void {
-        this.ewService.event.status =
-            this.ewService.status.find(value => value.name === 'new');
+        this.ewService.event.status = this.ewService.status.find((value) => value.name === 'new');
+        if (this.ewService.event.kpeAdditionalParameter) {
+            this.isChecked = true;
+        }
     }
 
     public openLineChart(): void {
@@ -54,7 +55,8 @@ export class EvjTasksEventComponent implements OnInit {
 
     openExtraOptions(): void {
         this.isChecked = false;
-        const popupWindow = {
+        const popupWindow: IExtraOptionsWindow = {
+            data: this.ewService.event?.kpeAdditionalParameter,
             isShow: true
         };
         this.ewService.extraOptionsWindow$.next(popupWindow);

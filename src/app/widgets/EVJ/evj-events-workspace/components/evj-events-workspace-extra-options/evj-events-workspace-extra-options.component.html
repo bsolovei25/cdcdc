@@ -31,6 +31,7 @@
                     <mat-select
                       (selectionChange)="getParameterId($event)"
                       formControlName="parameters"
+                      [compareWith]="compareFn"
                     >
                       <ng-container *ngFor="let p of allParameters">
                         <mat-option [value]="p"
@@ -72,15 +73,16 @@
               </div>
             </div>
             <div formArrayName="dependentParameters"
-                 *ngFor="let d of form.controls.dependentParameters?.value; let idx = index"
+                 *ngFor="let d of dependParameters.controls; let idx = index"
             >
-              <div [formGroupName]="idx">
+              <ng-container [formGroupName]="idx">
                 <div class="container__body__parameters">
                   <div class="dropdown">
                     <div class="event-mat-select">
-                      <mat-form-field formControlName="selectName" appearance="none">
-                        <mat-select>
-                          <mat-option *ngFor="let p of dependentParameters" [value]="p">{{p?.name}}</mat-option>
+                      <mat-form-field class="example-full-width">
+                        <mat-select formControlName="dependentParameterId"  [compareWith]="compareFn">
+                          <mat-option *ngFor="let p of dependentParameters"
+                                      [value]="p">{{p?.name}}</mat-option>
                         </mat-select>
                       </mat-form-field>
                     </div>
@@ -91,7 +93,7 @@
                     </div>
                   </div>
                 </div>
-              </div>
+              </ng-container>
             </div>
             <div class="save-buttons">
               <div class="container__body__parameters">

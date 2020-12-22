@@ -1,4 +1,12 @@
-import { Component, Input, OnInit, Output, EventEmitter, OnDestroy } from '@angular/core';
+import {
+    Component,
+    Input,
+    OnInit,
+    Output,
+    EventEmitter,
+    OnDestroy,
+    OnChanges,
+} from '@angular/core';
 import { IExtraOptionsWindow } from '../../../../../dashboard/models/EVJ/events-widget';
 import { EventsWorkspaceService } from '../../../../../dashboard/services/widgets/EVJ/events-workspace.service';
 import { AuthService } from '@core/service/auth.service';
@@ -11,14 +19,16 @@ import {
 } from '../../../../../dashboard/models/EVJ/kpe-workspace.model';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
+import { log } from 'util';
 
 @Component({
     selector: 'evj-evj-events-workspace-extra-options',
     templateUrl: './evj-events-workspace-extra-options.component.html',
     styleUrls: ['./evj-events-workspace-extra-options.component.scss'],
 })
-export class EvjEventsWorkspaceExtraOptionsComponent implements OnInit, OnDestroy {
+export class EvjEventsWorkspaceExtraOptionsComponent implements OnInit, OnChanges, OnDestroy {
     @Input() public info: IExtraOptionsWindow = {
+        data: null,
         isShow: false,
         acceptFunction: () => null,
         closeFunction: () => null,
@@ -31,6 +41,7 @@ export class EvjEventsWorkspaceExtraOptionsComponent implements OnInit, OnDestro
     public dependentParameters: IKpeAllDependentParameters[] = [];
     public notificationParametersData: IKpeNotification;
     public form: FormGroup;
+    formArray: FormArray;
 
     constructor(
         private ewService: EventsWorkspaceService,
@@ -40,14 +51,10 @@ export class EvjEventsWorkspaceExtraOptionsComponent implements OnInit, OnDestro
     ) {}
 
     ngOnInit(): void {
-        this.form = this.formBuild.group({
-            parameters: this.formBuild.control('', Validators.required),
-            dependentParameters: this.formBuild.array([]),
-        });
         if (this.ewService.event.id) {
             this.getParametersByNotification();
         }
-        this.getParameters();
+        this.loadData();
         this.subscriptions.push(
             this.kpeWorkspaceService.showSelectParameters$.subscribe((res) => {
                 if (res) {
@@ -57,13 +64,54 @@ export class EvjEventsWorkspaceExtraOptionsComponent implements OnInit, OnDestro
             this.kpeWorkspaceService.selectParameter$.subscribe((res) => {
                 if (res) {
                     this.getExtraParameters(res.id);
+                    this.setDependentParameters(this.dependentParameters);
                 }
             })
         );
         console.log('form', this.form);
     }
+
+    ngOnChanges(): void {
+        if (this.info?.data) {
+            setTimeout((value) => {
+                console.log(this.info?.data);
+                this.form.get('parameters').setValue(this.info.data?.selectedParameter);
+                this.setDependentParameters(this.info.data?.dependentParameters);
+                console.log(this.form);
+            }, 3000);
+        }
+    }
+
     ngOnDestroy(): void {
         this.subscriptions.forEach((subs: Subscription) => subs.unsubscribe());
+    }
+
+    loadData(): void {
+        this.getParameters();
+        this.form = this.formBuild.group({
+            parameters: this.formBuild.control(null, Validators.required),
+            dependentParameters: this.formBuild.array([]),
+        });
+    }
+
+    get dependParameters(): FormArray {
+        return this.form.get('dependentParameters') as FormArray;
+    }
+
+    setDependentParameters(dependentParameters: IKpeAllDependentParameters[]): void {
+        dependentParameters.forEach((param) => {
+            this.formArray = this.form.get('dependentParameters') as FormArray;
+            this.formArray.push(
+                this.createFormGroup(param?.dependentParameterId, param?.numericValue)
+            );
+        });
+    }
+
+    createFormGroup(dependentParameterId: number = null, numericValue: number = null): FormGroup {
+        return this.formBuild.group({
+            dependentParameterId,
+            numericValue,
+        });
     }
 
     // Список с Установленными фактами
@@ -116,16 +164,9 @@ export class EvjEventsWorkspaceExtraOptionsComponent implements OnInit, OnDestro
 
     // Добавить зависимый параметр
     public addParameters(): void {
-        const depends = this.form.controls.dependentParameters as FormArray;
-
-        depends.push(
-            this.formBuild.group({
-                selectName: '',
-                numericValue: 0,
-            })
-        );
-        console.log('form', this.form);
+        this.createFormGroup();
     }
+
     // Удалить зависимый параметр
     public removeParameters(): void {
         const depends = this.form.controls.dependentParameters as FormArray;
@@ -155,6 +196,7 @@ export class EvjEventsWorkspaceExtraOptionsComponent implements OnInit, OnDestro
 
         console.log(this.form);
     }
+
     //  DELETE Удалить данные
     public discard(): void {
         const alertWindow: IAlertWindowModel = {
@@ -170,5 +212,9 @@ export class EvjEventsWorkspaceExtraOptionsComponent implements OnInit, OnDestro
             isShow: false,
         };
         this.ewService.extraOptionsWindow$.next(popupWindow);
+    }
+
+    public compareFn(a, b): boolean {
+        return a?.dependentParameterId === b?.dependentParameterId;
     }
 }
