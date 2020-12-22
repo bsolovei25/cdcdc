@@ -27,4 +27,5 @@ export type ApsHeaderIconType =
     | 'squares'
     | 'dots-triangle'
     | 'balance'
-    | 'pie';
+    | 'pie'
+    | 'setting';

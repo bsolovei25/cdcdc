@@ -68,6 +68,26 @@ const CUSTOM_DATE_FORMATS: NgxMatDateFormats = {
 })
 export class AdminShiftScheduleComponent extends WidgetPlatform<unknown>
     implements OnInit, OnDestroy, AfterContentChecked {
+    public readonly iconRoute: string = 'assets/icons/widget-title-icons/';
+
+    compareFn(o1: any, o2: any): boolean {
+        return o1.name === o2.name && o1.id === o2.id;
+    }
+
+    selected: any;
+
+    public onSelected(event): void {
+        if (event) {
+            this.selected = event.value;
+            this.selectedUnits(this.selected);
+        }
+    }
+
+    public onSelectedMenu(event: boolean): void {
+        this.isSelectMenu = event;
+        this.selectedMenu(event);
+    }   
+
     defaultLocale: string = 'ru-RU';
 
     isLoading: boolean = true;

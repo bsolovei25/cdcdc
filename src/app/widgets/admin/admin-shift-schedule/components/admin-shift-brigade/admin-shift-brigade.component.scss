@@ -9,9 +9,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: var(--color-aw-header-bg);
+    background-color: var(--color-admin-title-bg);
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-    border-radius: 12px 12px 0px 0px;
 
     .icon-arrow {
       cursor: pointer;
@@ -36,12 +35,12 @@
 
       .brigade {
         height: 20px;
-        border-radius: 19px;
         width: auto;
         min-width: 60px;
         line-height: 20px;
         padding-left: 5px;
         padding-right: 5px;
+        border-radius: 4px;
       }
     }
 
@@ -79,14 +78,8 @@
   }
 
   &__content {
-    height: calc(100% - 51px);
-    background: var(--color-aw-container-body-transparent);
-  }
-
-  &__bottom {
-    height: 11px;
-    background: var(--color-aw-container-body-transparent);
-    border-radius: 0px 0px 12px 12px;
+    height: calc(100% - 40px);
+    background: var(--color-admin-main-bg);
   }
 }
 
