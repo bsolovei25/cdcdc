@@ -6,7 +6,29 @@
         code: 65
       }"
     ></evj-sou-mvp-mnemonic-scheme-circle-diagram>
+  </div>
+  <div class="stream__item">
+    <evj-sou-mvp-mnemonic-scheme-info
+      [data]="{
+        sections: sections,
+        code: 65
+      }"
+      noLine = true
+      [choosenSetting]="choosenSetting"
+    ></evj-sou-mvp-mnemonic-scheme-info>
+  </div>
+  <div class="stream__item output">
+    <evj-sou-mvp-mnemonic-scheme-output
+      [data]="{
+        sections: sections,
+        code: 68
+      }"
+    ></evj-sou-mvp-mnemonic-scheme-output>
+  </div>
+</div>
 
+<div class="stream">
+  <div class="stream__item">
     <evj-sou-mvp-mnemonic-scheme-circle-diagram
       [data]="{
         sections: sections,
@@ -18,38 +40,11 @@
     <evj-sou-mvp-mnemonic-scheme-info
       [data]="{
         sections: sections,
-        code: 65
-      }"
-      [choosenSetting]="choosenSetting"
-    ></evj-sou-mvp-mnemonic-scheme-info>
-
-    <evj-sou-mvp-mnemonic-scheme-info
-      [data]="{
-        sections: sections,
         code: 54
       }"
+      noLine = true
       [choosenSetting]="choosenSetting"
     ></evj-sou-mvp-mnemonic-scheme-info>
-  </div>
-  <div class="stream__item">
-    <evj-sou-mvp-mnemonic-scheme-collector
-      [style.height.%]="100"
-      [data]="{
-        sections: sections,
-        code: 66
-      }"
-      [outCount]="1"
-      [inCount]="2"
-    ></evj-sou-mvp-mnemonic-scheme-collector>
-  </div>
-  <div class="stream__item">
-    <evj-sou-mvp-mnemonic-scheme-stream-diagram
-      [data]="{
-        sections: sections,
-        code: 67
-      }"
-      [choosenSetting]="choosenSetting"
-    ></evj-sou-mvp-mnemonic-scheme-stream-diagram>
   </div>
   <div class="stream__item output">
     <evj-sou-mvp-mnemonic-scheme-output
