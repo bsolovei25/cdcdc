@@ -216,7 +216,7 @@
 
 input {
   width: calc(100% - 20px);
-  height: 30px;
+  height: 29px;
   outline: none;
   padding-left: 20px;
   background: rgb(33, 36, 45, 0.1);
@@ -829,6 +829,7 @@ input {
       }
 
       &__fio-block {
+        height: 43px;
         position: relative;
         display: flex;
         align-items: center;
@@ -1169,5 +1170,5 @@ input {
 }
 
 .special {
-  border-bottom: 1px solid var(--color-bg-main);
+  border-bottom: none;
 }
