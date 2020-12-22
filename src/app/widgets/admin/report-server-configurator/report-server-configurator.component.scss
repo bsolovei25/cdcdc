@@ -216,7 +216,7 @@
 
 input {
   width: calc(100% - 20px);
-  height: 30px;
+  height: 29px;
   outline: none;
   padding-left: 20px;
   background: rgb(33, 36, 45, 0.1);
@@ -233,6 +233,7 @@ input {
     }
   }
 }
+
 
 .references {
   position: relative;
@@ -828,6 +829,7 @@ input {
       }
 
       &__fio-block {
+        height: 43px;
         position: relative;
         display: flex;
         align-items: center;
@@ -852,9 +854,8 @@ input {
 
       &__edit-button {
         position: absolute;
-        top: 5px;
         width: 16px;
-        right: 5px;
+        right: 10px;
       }
 
       &__type {
@@ -1166,4 +1167,8 @@ input {
   opacity: 1;
   left: -8em;
   top: 3px;
+}
+
+.special {
+  border-bottom: none;
 }
