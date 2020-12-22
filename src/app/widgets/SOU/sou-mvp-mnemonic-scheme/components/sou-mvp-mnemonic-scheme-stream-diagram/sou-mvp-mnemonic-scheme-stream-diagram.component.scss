@@ -56,11 +56,12 @@ span {
 
   .weight {
     height: 100%;
-    width: 56px;
+    width: 63px;
     padding: 0 10px;
 
     display: flex;
     align-items: center;
+    justify-content: center;
 
     font-size: 12px;
     line-height: 14px;
@@ -116,11 +117,11 @@ span {
 
 
 .off {
-  border: 1px solid var(--sou-mvp-color-bg-title);
+  border: 1px solid var(--sou-mvp-color-border-unactive);
   background: var(--sou-mvp-color-bg-main);
 
   .diagram-container {
-    border-right: 1px solid var(--sou-mvp-color-bg-title);
+    border-right: 1px solid var(--sou-mvp-color-border-unactive);
   }
 
   .diagram-values {
@@ -146,7 +147,7 @@ span {
   }
 
   .connection-circle {
-    border: 1px solid var(--sou-mvp-color-bg-title);
+    border: 1px solid var(--sou-mvp-color-border-unactive);
   }
 
   ::ng-deep {
