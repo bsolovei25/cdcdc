@@ -89,8 +89,6 @@ export class SouMvpMnemonicSchemeComponent extends WidgetPlatform<unknown>
                 value: 0,
             },
         ],
-        [],
-        [],
     ];
 
     chosenSetting: number = 1;
@@ -125,6 +123,7 @@ export class SouMvpMnemonicSchemeComponent extends WidgetPlatform<unknown>
 
     protected dataHandler(ref: ISOUOperationalAccountingSystem): void {
         this.mainData = ref;
+        this.mvpService.deviationToMainScreen = ref?.section[0]?.countFlowExceedingConfInterval;
         if (ref.section[0].name === 'АВТ-10-АБ' || ref.section[0].name === 'АВТ-10-ВБ') {
             this.flowInAb = ref.section[0].flowIn;
             this.flowInVb = ref.section[1].flowIn;

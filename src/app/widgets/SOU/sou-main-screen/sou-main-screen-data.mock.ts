@@ -1,4 +1,4 @@
-import { IInstallation } from "./sou-main-screen.component";
+import { IInstallation } from './sou-main-screen.component';
 
 export const productionOneLeft: IInstallation[] = [
     {
@@ -48,7 +48,8 @@ export const productionOneLeft: IInstallation[] = [
         name: 'АВТ-10',
         deviation: 2,
         active: false,
-        widgetName: 'sou-operational-accounting-system-new'
+        widgetName: 'sou-operational-accounting-system-new',
+        installationId: 0
     },
     {
         id: 8,
@@ -232,7 +233,8 @@ export const productionFour: IInstallation[] = [
         name: 'Изомалк-2',
         deviation: 1,
         active: false,
-        widgetName: 'sou-operational-accounting-system'
+        widgetName: 'sou-operational-accounting-system-new',
+        installationId: 1
     },
     {
         id: 37,
@@ -263,29 +265,29 @@ export const productionTrade: IInstallation[] = [
     },
 ]
 
-export const offSiteCollectors: IInstallation = 
+export const offSiteCollectors: IInstallation =
     {
         id: 41,
         name: 'ОЗК',
         deviation: 0,
         active: false,
     }
-    
-export const offSiteFacilities: IInstallation = 
+
+export const offSiteFacilities: IInstallation =
     {
         id: 42,
         name: 'ОЗХ',
         deviation: 0,
         active: false,
     }
-export const other: IInstallation = 
+export const other: IInstallation =
     {
         id: 43,
         name: 'Прочие',
         deviation: 0,
         active: false,
     }
-export const catalystProduction: IInstallation = 
+export const catalystProduction: IInstallation =
     {
         id: 44,
         name: 'Г-43-6',
