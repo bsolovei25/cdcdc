@@ -1,0 +1,76 @@
+.installation {
+    box-sizing: border-box;
+    width: 172.5px;
+    height: 40px;
+    background-color: var(--sou-mvp-color-bg-title);
+    border: 1px solid var(--sou-mvp-color-border);
+    border-radius: 2px;
+    padding: 10px;
+    position: relative;
+
+    color: var(--sou-mvp-color-text-diagram-sub);
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 17px;
+
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    &__npz {
+      height: 16px;
+      width: 16px;
+      &__active {
+        color: var(--sou-mvp-color-white);
+      }
+      &__default {
+        color: var(--sou-mvp-color-text-diagram-sub);
+      }
+    }
+    &__name {
+      padding: 0 10px;
+      height: 100%;
+      min-width: 40px;
+      flex-grow: 1;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+
+      &__active {
+        color: var(--sou-mvp-color-white);
+      }
+      &__default {
+      }
+    }
+    &__deviation {
+      height: 18px;
+      width: 18px;
+      margin: 5px;
+      background-color: var(--sou-mvp-color-border);
+      border-radius: 1px;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      &__warning {
+        color: var(--sou-mvp-color-white);
+        background-color: var(--sou-mvp-color-warning);
+      }
+      &__default {
+        background-color: var(--sou-mvp-color-border);
+      }
+    }
+    &__arrow {
+      height: 16px;
+      width: 16px;
+      &__active {
+        color: var(--sou-mvp-color-white);
+      }
+      &__default {
+      }
+    }
+  }
