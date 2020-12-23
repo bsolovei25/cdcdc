@@ -10,28 +10,8 @@ import {
     productionTrade,
     productionTwo
 } from './sou-main-screen-data.mock';
-import { ISOUOperationalAccountingSystem } from '../../../dashboard/models/SOU/sou-operational-accounting-system';
 import { SouMvpMnemonicSchemeService } from '../../../dashboard/services/widgets/SOU/sou-mvp-mnemonic-scheme.service';
-
-export interface IInstallation {
-    id: number;
-    name: string;
-    deviation: number;
-    active: boolean;
-    widgetName?: string;
-    installationId?: number;
-}
-
-export interface IInstallations {
-    productionOneData: IInstallation[];
-    productionTwoData: IInstallation[];
-    productionFourData: IInstallation[];
-    productionTradeData: IInstallation[];
-    offSiteCollectorsData: IInstallation;
-    offSiteFacilitiesData: IInstallation;
-    catalystProductionData: IInstallation;
-    otherData: IInstallation;
-}
+import { IInstallations } from '../../../dashboard/models/SOU/sou-main-screen.model';
 
 @Component({
     selector: 'evj-sou-main-screen',
@@ -64,11 +44,9 @@ public data: IInstallations =  {
 
     public ngOnInit(): void {
         super.widgetInit();
-        console.log(this.mvpService.deviationToMainScreen);
     }
 
-    protected dataHandler(ref: ISOUOperationalAccountingSystem): void {
-        this.mvpService.deviationToMainScreen = ref?.section[0]?.countFlowExceedingConfInterval;
+    protected dataHandler(ref: any): void {
     }
 
 }

@@ -1,4 +1,4 @@
-import { IInstallation } from './sou-main-screen.component';
+import { IInstallation } from '../../../dashboard/models/SOU/sou-main-screen.model';
 
 export const productionOne: IInstallation[] = [
     {
@@ -46,7 +46,7 @@ export const productionOne: IInstallation[] = [
     {
         id: 7,
         name: 'АВТ-10',
-        deviation: 0,
+        deviation: 1,
         active: false,
         widgetName: 'sou-operational-accounting-system-new',
         installationId: 0
@@ -228,7 +228,7 @@ export const productionFour: IInstallation[] = [
     {
         id: 36,
         name: 'Изомалк-2',
-        deviation: 0,
+        deviation: 1,
         active: false,
         widgetName: 'sou-operational-accounting-system-new',
         installationId: 1

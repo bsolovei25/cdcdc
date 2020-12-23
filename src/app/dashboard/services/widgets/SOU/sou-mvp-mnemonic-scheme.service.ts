@@ -16,7 +16,6 @@ export class SouMvpMnemonicSchemeService {
     isPopupOpen: boolean = false;
     selectedCode: number = -1; // Код выделенного элемента
     popupData: ISOUFlowOut;
-    public deviationToMainScreen: number = 0;
 
     constructor(private http: HttpClient) {}
 

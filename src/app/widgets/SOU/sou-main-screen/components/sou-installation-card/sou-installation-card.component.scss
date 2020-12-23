@@ -17,9 +17,6 @@
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    &:hover {
-        color: var(--sou-mvp-color-white);
-      }
     &__npz {
       height: 16px;
       width: 16px;
@@ -70,5 +67,10 @@
     &__arrow {
       height: 16px;
       width: 16px;
+      &__active {
+        color: var(--sou-mvp-color-white);
+      }
+      &__default {
+      }
     }
   }

@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { UserSettingsService } from 'src/app/dashboard/services/user-settings.service';
 import { SouMvpMnemonicSchemeService } from 'src/app/dashboard/services/widgets/SOU/sou-mvp-mnemonic-scheme.service';
-import { IInstallation } from '../../sou-main-screen.component';
+import { IInstallation } from '../../../../../dashboard/models/SOU/sou-main-screen.model';
 
 @Component({
     selector: 'evj-sou-installation-card',
@@ -19,9 +19,7 @@ export class SouInstallationCardComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        if (this.installation.installationId === 0) {
-            this.installation.deviation = this.mvpService.deviationToMainScreen;
-        }
+
     }
 
     public openInstallation(event: MouseEvent): void {
