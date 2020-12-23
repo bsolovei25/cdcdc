@@ -120,12 +120,12 @@
 
 .off {
   .container {
-    border: 1px solid var(--sou-mvp-color-bg-title);
+    border: 1px solid var(--sou-mvp-color-border-unactive);
     background: var(--sou-mvp-color-bg-main);
     
     .info {
       .title {
-        border-bottom: 1px solid var(--sou-mvp-color-bg-title);
+        border-bottom: 1px solid var(--sou-mvp-color-border-unactive);
         span {
           color: var(--sou-mvp-color-text-diagram-sub);
         }
@@ -143,7 +143,7 @@
   
   .connection-circle {
     background: var(--sou-mvp-color-bg-main);
-    border: 1px solid var(--sou-mvp-color-bg-title);
+    border: 1px solid var(--sou-mvp-color-border-unactive);
   }
 }
 
@@ -184,7 +184,7 @@
 }
 
 .disable {
-  border-color: var(--sou-mvp-color-bg-title);
+  border-color: var(--sou-mvp-color-border-unactive);
 }
 
 .selectedLine {

@@ -87,7 +87,7 @@
 .off {
   .circle {
     background: var(--sou-mvp-color-bg-main);
-    border: 1px solid var(--sou-mvp-color-bg-title);
+    border: 1px solid var(--sou-mvp-color-border-unactive);
 
     svg-icon {
       color: var(--sou-mvp-color-text-diagram-sub);
@@ -95,7 +95,7 @@
   }
 
   .title {
-    border: 1px solid var(--sou-mvp-color-bg-title);
+    border: 1px solid var(--sou-mvp-color-border-unactive);
     background: var(--sou-mvp-color-bg-main);
 
     span {
@@ -104,11 +104,11 @@
   }
 
   .line {
-    border-top: 1px solid var(--sou-mvp-color-bg-title);
+    border-top: 1px solid var(--sou-mvp-color-border-unactive);
 
     .connection-circle {
       background: var(--sou-mvp-color-bg-main);
-      border: 1px solid var(--sou-mvp-color-bg-title);
+      border: 1px solid var(--sou-mvp-color-border-unactive);
 
       &:first-child {
       }

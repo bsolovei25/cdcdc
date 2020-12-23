@@ -109,7 +109,6 @@ $colors: (
   }
   .mat-calendar-body-today {
     border: none;
-    background: url('../../assets/icons/widgets/admin-shift-schedule/calendar-today-blue.svg') center;
     background-size: 87%;
     background-repeat: no-repeat;
   }
@@ -132,8 +131,7 @@ $colors: (
   }
   .mat-calendar-body-today.mat-calendar-body-selected {
     box-shadow: none;
-    background: url('../../assets/icons/widgets/admin-shift-schedule/calendar-today-blue.svg'),
-      url('../../assets/icons/widgets/admin-shift-schedule/active-board.svg');
+    background:url('../../assets/icons/widgets/admin-shift-schedule/active-board.svg');
     background-position: center, center;
     background-repeat: no-repeat, no-repeat;
     background-size: 87%, 100%;
@@ -148,8 +146,7 @@ $colors: (
   }
   .mat-calendar-body-today:hover {
     box-shadow: none;
-    background: url('../../assets/icons/widgets/admin-shift-schedule/calendar-today-blue.svg'),
-      url('../../assets/icons/widgets/admin-shift-schedule/border-hover.svg');
+    background: url('../../assets/icons/widgets/admin-shift-schedule/border-hover.svg');
     background-position: center, center;
     background-repeat: no-repeat, no-repeat;
     background-size: 87%, 100%;
