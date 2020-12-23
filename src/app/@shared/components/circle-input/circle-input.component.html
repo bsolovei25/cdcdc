@@ -1,9 +1,17 @@
 <div class="input-block">
     <div class="input-block__button-search">
-        <img *ngIf="!isInput && !adminShift" src="assets/icons/search_white.svg" height="100%" alt="image description">
-        <img *ngIf="isInput && !adminShift" src="assets/icons/search_blue.svg" height="100%" alt="image description">
-        <img *ngIf="adminShift" src="assets/icons/search_white_new.svg" height="100%" alt="image description">
-
+        <svg-icon
+            *ngIf="!adminShift"
+            class="search_white"
+            src="assets/icons/search_white.svg"
+            [ngClass]="{
+                'search_blue': isInput
+            }"
+        ></svg-icon>
+        <svg-icon
+            *ngIf="adminShift"
+            src="assets/icons/search_white_new.svg"
+        ></svg-icon>
     </div>
     <div class="input-block__input" [class.input-block__input-active]="isInput">
         <div class="input-back">
