@@ -10,6 +10,7 @@ import { BehaviorSubject } from 'rxjs';
 @Injectable({
     providedIn: 'root',
 })
+
 export class SouMvpMnemonicSchemeService {
     selectedInstallation$: BehaviorSubject<number> = new BehaviorSubject<number>(0);
     isPopupOpen: boolean = false;
