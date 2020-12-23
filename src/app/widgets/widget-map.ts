@@ -139,7 +139,9 @@ export const WIDGETS = {
     'kpe-total-reserve': WidgetContainerComponent,
     'cvtr-izomalk': WidgetContainerComponent,
     'sou-energetic': WidgetContainerComponent,
+    'sou-balance': WidgetContainerComponent,
     sou_general: WidgetContainerComponent,
+    'sou-main-screen': WidgetContainerComponent,
 };
 
 export const WIDGETS_LAZY = {
@@ -1383,6 +1385,18 @@ export const WIDGETS_LAZY = {
         preview: 'sou-main-indicators',
     },
 
+    'sou-balance': {
+        import: async () => {
+            return await import('src/app/widgets/SOU/sou-balance/sou-balance.module');
+        },
+        module: 'SouBalanceModule',
+        itemCols: 13,
+        itemRows: 13,
+        minItemCols: 13,
+        minItemRows: 13,
+        preview: 'default',
+    },
+
     'sou-energetic': {
         import: async () => {
             return await import('src/app/widgets/SOU/sou-energetic/sou-energetic.module');
@@ -1394,6 +1408,18 @@ export const WIDGETS_LAZY = {
         minItemRows: 5,
         preview: 'default',
     },
+    'sou-main-screen': {
+        import: async () => {
+            return await import('src/app/widgets/SOU/sou-main-screen/sou-main-screen.module');
+        },
+        module: 'SouMainScreenModule',
+        itemCols: 30,
+        itemRows: 30,
+        minItemCols: 30,
+        minItemRows: 30,
+        preview: 'default',
+    },
+    
 
     // #endregion SOU
 

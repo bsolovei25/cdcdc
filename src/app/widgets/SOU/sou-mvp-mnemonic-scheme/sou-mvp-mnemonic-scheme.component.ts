@@ -89,8 +89,6 @@ export class SouMvpMnemonicSchemeComponent extends WidgetPlatform<unknown>
                 value: 0,
             },
         ],
-        [],
-        [],
     ];
 
     chosenSetting: number = 1;

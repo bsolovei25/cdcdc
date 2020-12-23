@@ -1,0 +1,30 @@
+<div class="arrows">
+  <div class="arrow">
+    <svg-icon
+      [svgStyle]="{'height.px':'16', 'width.px': '16'}"
+      [src]="'assets/icons/widgets/SOU/sou-main-screen/sou-main-screen-arrow.svg'"
+    ></svg-icon>
+  </div>
+  <div class="arrow">
+    <svg-icon
+      [svgStyle]="{'height.px':'16', 'width.px': '16'}"
+      [src]="'assets/icons/widgets/SOU/sou-main-screen/sou-main-screen-arrow.svg'"
+    ></svg-icon>
+  </div>
+  <ng-container *ngIf="type === 'two'; else three">
+    <div class="arrow invisible">
+      <svg-icon
+        [svgStyle]="{'height.px':'16', 'width.px': '16'}"
+        [src]="'assets/icons/widgets/SOU/sou-main-screen/sou-main-screen-arrow.svg'"
+      ></svg-icon>
+    </div>
+  </ng-container>
+  <ng-template #three>
+    <div class="arrow">
+      <svg-icon
+        [svgStyle]="{'height.px':'16', 'width.px': '16'}"
+        [src]="'assets/icons/widgets/SOU/sou-main-screen/sou-main-screen-arrow.svg'"
+      ></svg-icon>
+    </div>
+  </ng-template>
+</div>

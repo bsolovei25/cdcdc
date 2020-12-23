@@ -320,10 +320,13 @@
                       <ng-container *ngIf="item.templateSystemOption.type === 'comboBox'">
                       </ng-container>
                       <ng-container *ngIf="item.templateSystemOption.type === 'textBox'">
-                        <div class="reference-container-value__fio">{{item.value}}</div>
+                        <input 
+                          class="reference-container-value__fio special"
+                          [(ngModel)]="item.value" 
+                          placeholder={{item.value}}
+                        >
                         <div class="reference-container-value__edit-button">
                           <svg-icon
-                            *ngIf="item.open"
                             class="indicator-selector__collapse"
                             src="assets/icons/widgets/references/edit_white.svg"
                           ></svg-icon>
