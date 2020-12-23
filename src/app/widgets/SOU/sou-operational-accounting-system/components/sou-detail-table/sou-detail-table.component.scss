@@ -64,7 +64,9 @@
 
       .value {
         flex-grow: 1;
-        padding: 10px 10px 14px 25px;
+        display: flex;
+        min-width: 50px;
+        justify-content: flex-end;
         box-sizing: border-box;
         box-shadow: inset 5px 0 12px -10px black;
       }
