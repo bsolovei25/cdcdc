@@ -94,7 +94,7 @@
           <mat-checkbox
             class="checkbox"
             color="primary"
-            [(ngModel)]="isChecked"
+            [ngModel]="ewService.event.kpeAdditionalParameter"
             (click)="openExtraOptions()"
           >
           </mat-checkbox>
@@ -214,7 +214,6 @@
 
 <evj-evj-events-workspace-extra-options
   [info]="ewService.extraOptionsWindow$ | async"
-  (checked)="openExtraOptions()"
 ></evj-evj-events-workspace-extra-options>
 
 

@@ -51,9 +51,8 @@ export class EvjEventsWorkspaceExtraOptionsComponent implements OnInit, OnChange
     ) {}
 
     ngOnInit(): void {
-        if (this.ewService.event.id) {
-            this.getParametersByNotification();
-        }
+        console.log('onInit');
+
         this.loadData();
         this.subscriptions.push(
             this.kpeWorkspaceService.showSelectParameters$.subscribe((res) => {
@@ -64,7 +63,6 @@ export class EvjEventsWorkspaceExtraOptionsComponent implements OnInit, OnChange
             this.kpeWorkspaceService.selectParameter$.subscribe((res) => {
                 if (res) {
                     this.getExtraParameters(res.id);
-                    this.setDependentParameters(this.dependentParameters);
                 }
             })
         );
@@ -73,12 +71,10 @@ export class EvjEventsWorkspaceExtraOptionsComponent implements OnInit, OnChange
 
     ngOnChanges(): void {
         if (this.info?.data) {
-            setTimeout((value) => {
-                console.log(this.info?.data);
-                this.form.get('parameters').setValue(this.info.data?.selectedParameter);
-                this.setDependentParameters(this.info.data?.dependentParameters);
-                console.log(this.form);
-            }, 3000);
+            this.loadData();
+            this.kpeWorkspaceService.selectParameter$.next(this.info.data.selectedParameter);
+            this.form.get('parameters').setValue(this.info.data?.selectedParameter);
+            this.setDependentParameters(this.info.data?.dependentParameters);
         }
     }
 
@@ -87,6 +83,9 @@ export class EvjEventsWorkspaceExtraOptionsComponent implements OnInit, OnChange
     }
 
     loadData(): void {
+        if (this.ewService.event.id) {
+            this.getParametersByNotification();
+        }
         this.getParameters();
         this.form = this.formBuild.group({
             parameters: this.formBuild.control(null, Validators.required),
@@ -99,7 +98,7 @@ export class EvjEventsWorkspaceExtraOptionsComponent implements OnInit, OnChange
     }
 
     setDependentParameters(dependentParameters: IKpeAllDependentParameters[]): void {
-        dependentParameters.forEach((param) => {
+        dependentParameters?.forEach((param) => {
             this.formArray = this.form.get('dependentParameters') as FormArray;
             this.formArray.push(
                 this.createFormGroup(param?.dependentParameterId, param?.numericValue)
@@ -107,7 +106,10 @@ export class EvjEventsWorkspaceExtraOptionsComponent implements OnInit, OnChange
         });
     }
 
-    createFormGroup(dependentParameterId: number = null, numericValue: number = null): FormGroup {
+    createFormGroup(
+        dependentParameterId: number = this.dependentParameters[0]?.id,
+        numericValue: number = 0
+    ): FormGroup {
         return this.formBuild.group({
             dependentParameterId,
             numericValue,
@@ -133,6 +135,8 @@ export class EvjEventsWorkspaceExtraOptionsComponent implements OnInit, OnChange
             return;
         }
         this.notificationParametersData.dependentParameters = [];
+        this.formArray = this.form.get('dependentParameters') as FormArray;
+        this.formArray?.clear();
     }
 
     private async getParametersByNotification(): Promise<void> {
@@ -151,7 +155,8 @@ export class EvjEventsWorkspaceExtraOptionsComponent implements OnInit, OnChange
 
     private async deleteParametersByNotification(checkbox: boolean): Promise<void> {
         await this.kpeWorkspaceService.deleteKpeNotificationParameters(this.ewService.event);
-        this.checked.emit(checkbox);
+        this.cancel();
+        this.ewService.event.kpeAdditionalParameter = null;
     }
 
     // Закрыть всплывающее окно с Дополнительными параметры
@@ -160,11 +165,15 @@ export class EvjEventsWorkspaceExtraOptionsComponent implements OnInit, OnChange
             isShow: false,
         };
         this.ewService.extraOptionsWindow$.next(popupWindow);
+        this.formArray?.clear();
+        this.dependentParameters = null;
+        this.allParameters = null;
     }
 
     // Добавить зависимый параметр
     public addParameters(): void {
-        this.createFormGroup();
+        this.formArray = this.form.get('dependentParameters') as FormArray;
+        this.formArray.push(this.createFormGroup());
     }
 
     // Удалить зависимый параметр
@@ -175,17 +184,27 @@ export class EvjEventsWorkspaceExtraOptionsComponent implements OnInit, OnChange
 
     // POST Сохранить данные
     public async accept(): Promise<void> {
+        console.log(this.form.value.dependentParameters);
+        const dependentParameters: IKpeAllDependentParameters[] = this.form.value.dependentParameters.map(
+            (value) => {
+                return {
+                    numericValue: value.numericValue,
+                    dependentParameterId: value.dependentParameterId.id,
+                };
+            }
+        );
         this.notificationParametersData = {
             selectedParameter: this.form.value.parameters,
-            dependentParameters: this.form.value.dependentParameters,
+            dependentParameters,
             createdAt: new Date(),
             createdBy: this.authService.user$.getValue().id,
         };
         try {
-            await this.kpeWorkspaceService.postKpeNotificationParameters(
+            const res = await this.kpeWorkspaceService.postKpeNotificationParameters(
                 this.ewService.event,
                 this.notificationParametersData
             );
+            this.ewService.event.kpeAdditionalParameter = res;
         } catch (error) {
             console.error(error);
         }
@@ -193,8 +212,6 @@ export class EvjEventsWorkspaceExtraOptionsComponent implements OnInit, OnChange
             isShow: false,
         };
         this.ewService.extraOptionsWindow$.next(popupWindow);
-
-        console.log(this.form);
     }
 
     //  DELETE Удалить данные
@@ -214,7 +231,11 @@ export class EvjEventsWorkspaceExtraOptionsComponent implements OnInit, OnChange
         this.ewService.extraOptionsWindow$.next(popupWindow);
     }
 
-    public compareFn(a, b): boolean {
+    public compareFnDependent(a, b): boolean {
         return a?.dependentParameterId === b?.dependentParameterId;
+    }
+
+    public compareFn(a, b): boolean {
+        return a?.id === b?.id;
     }
 }
