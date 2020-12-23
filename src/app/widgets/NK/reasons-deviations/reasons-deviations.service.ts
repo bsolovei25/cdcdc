@@ -4,7 +4,6 @@ import { AppConfigService } from '@core/service/app-config.service';
 
 @Injectable()
 export class ReasonsDeviationsService {
-
     private restUrl: string;
 
     constructor(private http: HttpClient, configService: AppConfigService) {
@@ -13,23 +12,32 @@ export class ReasonsDeviationsService {
 
     public async getData<T>(transferIdParam: number): Promise<T> {
         try {
-            return await this.http.get<T>(`${this.restUrl}/api/oil-control/transfer/${transferIdParam}/deviation`).toPromise();
+            return await this.http
+                .get<T>(`${this.restUrl}/api/oil-control/transfer/${transferIdParam}/deviation`)
+                .toPromise();
         } catch (e) {
             console.error(e);
-            return new Promise<T>(resolve => null);
+            return new Promise<T>((resolve) => null);
         }
     }
 
     public async getChartData<T>(
         transferIdParam: number,
         startDateParam: Date,
-        endDateParam: Date,
+        endDateParam: Date
     ): Promise<T> {
         try {
-            return await this.http.get<T>(`${this.restUrl}/api/oil-control/transfer/${transferIdParam}/graph/${startDateParam}/${endDateParam}`).toPromise();
+            return await this.http
+                .get<T>(
+                    `${
+                        this.restUrl
+                    }/api/oil-control/transfer/${transferIdParam}/graph/${startDateParam}/${endDateParam ??
+                        new Date().toISOString()}`
+                )
+                .toPromise();
         } catch (e) {
             console.error(e);
-            return new Promise<T>(resolve => null);
+            return new Promise<T>((resolve) => null);
         }
     }
 }

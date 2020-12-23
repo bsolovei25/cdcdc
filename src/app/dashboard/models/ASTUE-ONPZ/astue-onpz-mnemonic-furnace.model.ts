@@ -19,6 +19,7 @@ export interface IAstueOnpzMnemonicFurnaceResponseOven {
     rarefaction: IAstueOnpzMnemonicFurnaceResponseGroup;
     outputRaw: IAstueOnpzMnemonicFurnaceResponseGroup;
     outputGaz: IAstueOnpzMnemonicFurnaceResponseGroup;
+    outputOxygen: IAstueOnpzMnemonicFurnaceResponseGroup;
 }
 
 export interface IAstueOnpzMnemonicFurnaceResponseGroup {
@@ -73,6 +74,7 @@ export interface IAstueOnpzMnemonicFurnace {
     outputBlock: IAstueOnpzMnemonicFurnaceBlock;
     dischargeStats: IAstueOnpzMnemonicFurnaceStreamStats;
     gasStats: IAstueOnpzMnemonicFurnaceStreamStats;
+    oxygenStats: IAstueOnpzMnemonicFurnaceStreamStats;
 }
 
 export interface IAstueOnpzMnemonicFurnaceBlock {

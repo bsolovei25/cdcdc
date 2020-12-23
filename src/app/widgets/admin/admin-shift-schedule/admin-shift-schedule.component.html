@@ -1,19 +1,67 @@
 <div class="container pointer-event">
-  <evj-widget-header
-    [title]="widgetTitle"
-    [units]="widgetUnits"
-    [code]="widgetCode"
-    [id]="id"
-    [uniqId]="uniqId"
-    [icon]="widgetIcon"
-    [widgetType]="widgetType"
-    [isEventOpen]="isSelectMenu"
-    [select]="allUnits"
-    (selected)="selectedUnits($event)"
-    (selectedMenu)="selectedMenu($event)"
-    [shiftSchedule]="true"
-  ></evj-widget-header>
-  <evj-frame-top></evj-frame-top>
+  <evj-contemporary-widget-header
+    [uniqId]="uniqId" 
+    [widgetTitle]="widgetTitle" 
+    icon=setting
+    type="astue"
+  >
+    <div class="header-schedule">
+      <div
+        class="header-schedule__button"
+        (mousedown)="$event.stopPropagation()"
+        (touchstart)="$event.stopPropagation()"
+      >
+        <svg-icon
+          class="arrow-circle"
+          src="assets/icons/widgets/SOU/sou-mvp-mnemonic-scheme/arrowCircle.svg"
+          [ngStyle]="{ 'width.px':14, 'height.px':14 }"
+        ></svg-icon>
+
+        <div class="option-select">
+      <div class="dropdown">
+        <mat-form-field>
+          <mat-select
+            class="dropdown_select"
+            [compareWith]="compareFn"
+            (selectionChange)="onSelected($event)"
+            [(ngModel)]="selectedUnit"
+          >
+            <ng-container>
+              <mat-option *ngFor="let value of allUnits" [value]="value"
+                  [attr.as-platform-testing]="'shiftschedule-dropdown-unit-{' + value.id + '}'"
+              >
+                {{value.name}}
+              </mat-option>
+            </ng-container>
+          </mat-select>
+        </mat-form-field>
+      </div>
+        </div>
+      </div>
+      <span class="header-schedule__units">{{widgetUnits}}</span>
+    </div>
+    <div
+      class="admin-btns"
+      (mousedown)="$event.stopPropagation()"
+      (touchstart)="$event.stopPropagation()"
+    >
+      <div
+        class="admin-btns__item"
+        [class.active]="isSelectMenu === true"
+        (click)="onSelectedMenu(true)"
+      >
+        Назначение дежурства
+      </div>
+      <div
+        class="admin-btns__item"
+        [class.active]="isSelectMenu === false"
+        (click)="onSelectedMenu(false)"
+      >
+        Управление бригадами
+      </div>
+    </div>
+  </evj-contemporary-widget-header>
+
   <evj-alert-window [info]="alertWindow"></evj-alert-window>
 
   <div
@@ -242,12 +290,7 @@
                     </mat-form-field>
                   </div>
                   <div class="office-schedule__action">
-                    <evj-button
-                      class="office-schedule__action__btn"
-                      textButton="Сохранить"
-                      [isChangingState]="false"
-                      (click)="scheduleManagement()"
-                    ></evj-button>
+                    <div matRipple [matRippleColor]="'white'" class="save-btn" (click)="scheduleManagement()">Сохранить</div>
                   </div>
                 </div>
               </section>
@@ -331,6 +374,4 @@
       </div>
     </ng-container>
   </div>
-
-  <evj-frame-bottom></evj-frame-bottom>
 </div>
