@@ -6,9 +6,7 @@ import {
     offSiteCollectors,
     offSiteFacilities,
     other,
-    productionFour,
-    productionOneLeft,
-    productionOneRight,
+    productionFour, productionOne,
     productionTrade,
     productionTwo
 } from './sou-main-screen-data.mock';
@@ -24,6 +22,17 @@ export interface IInstallation {
     installationId?: number;
 }
 
+export interface IInstallations {
+    productionOneData: IInstallation[];
+    productionTwoData: IInstallation[];
+    productionFourData: IInstallation[];
+    productionTradeData: IInstallation[];
+    offSiteCollectorsData: IInstallation;
+    offSiteFacilitiesData: IInstallation;
+    catalystProductionData: IInstallation;
+    otherData: IInstallation;
+}
+
 @Component({
     selector: 'evj-sou-main-screen',
     templateUrl: './sou-main-screen.component.html',
@@ -31,16 +40,17 @@ export interface IInstallation {
 })
 export class SouMainScreenComponent extends WidgetPlatform<unknown> implements OnInit {
 
-    public productionOneLeftData: IInstallation[] = productionOneLeft;
-    public productionOneRightData: IInstallation[] = productionOneRight;
-    public productionTwoData: IInstallation[] = productionTwo;
-    public productionFourData: IInstallation[] = productionFour;
+public data: IInstallations =  {
+    productionOneData: productionOne,
+    productionTwoData: productionTwo,
+    productionFourData: productionFour,
+    productionTradeData: productionTrade,
+    offSiteCollectorsData: offSiteCollectors,
+    offSiteFacilitiesData: offSiteFacilities,
+    catalystProductionData: catalystProduction,
+    otherData: other,
+};
 
-    public productionTradeData: IInstallation[] = productionTrade;
-    public offSiteCollectorsData: IInstallation = offSiteCollectors;
-    public offSiteFacilitiesData: IInstallation = offSiteFacilities;
-    public catalystProductionData: IInstallation = catalystProduction;
-    public otherData: IInstallation = other;
 
     constructor(
         protected widgetService: WidgetService,
@@ -58,7 +68,7 @@ export class SouMainScreenComponent extends WidgetPlatform<unknown> implements O
     }
 
     protected dataHandler(ref: ISOUOperationalAccountingSystem): void {
-        this.mvpService.deviationToMainScreen.push(ref?.section[0]?.countFlowExceedingConfInterval);
+        this.mvpService.deviationToMainScreen = ref?.section[0]?.countFlowExceedingConfInterval;
     }
 
 }

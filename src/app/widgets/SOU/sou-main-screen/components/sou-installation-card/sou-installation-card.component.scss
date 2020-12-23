@@ -1,11 +1,10 @@
 .installation {
     box-sizing: border-box;
-    width: 100%;
+    width: 172.5px;
     height: 40px;
     background-color: var(--sou-mvp-color-bg-title);
     border: 1px solid var(--sou-mvp-color-border);
     border-radius: 2px;
-    margin: 10px 0;
     padding: 10px;
     position: relative;
 
@@ -66,7 +65,7 @@
       }
       &__default {
         background-color: var(--sou-mvp-color-border);
-      } 
+      }
     }
     &__arrow {
       height: 16px;

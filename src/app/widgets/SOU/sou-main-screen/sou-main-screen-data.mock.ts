@@ -1,6 +1,6 @@
 import { IInstallation } from './sou-main-screen.component';
 
-export const productionOneLeft: IInstallation[] = [
+export const productionOne: IInstallation[] = [
     {
         id: 0,
         name: 'ЭЛОУ-7',
@@ -46,7 +46,7 @@ export const productionOneLeft: IInstallation[] = [
     {
         id: 7,
         name: 'АВТ-10',
-        deviation: 2,
+        deviation: 0,
         active: false,
         widgetName: 'sou-operational-accounting-system-new',
         installationId: 0
@@ -57,9 +57,6 @@ export const productionOneLeft: IInstallation[] = [
         deviation: 0,
         active: false,
     },
-]
-
-export const productionOneRight: IInstallation[] = [
     {
         id: 9,
         name: '21-103М',
@@ -96,7 +93,7 @@ export const productionOneRight: IInstallation[] = [
         deviation: 0,
         active: false,
     },
-]
+];
 
 export const productionTwo: IInstallation[] = [
     {
@@ -183,7 +180,7 @@ export const productionTwo: IInstallation[] = [
         deviation: 0,
         active: false,
     },
-]
+];
 
 export const productionFour: IInstallation[] = [
     {
@@ -231,7 +228,7 @@ export const productionFour: IInstallation[] = [
     {
         id: 36,
         name: 'Изомалк-2',
-        deviation: 1,
+        deviation: 0,
         active: false,
         widgetName: 'sou-operational-accounting-system-new',
         installationId: 1
@@ -242,7 +239,7 @@ export const productionFour: IInstallation[] = [
         deviation: 0,
         active: false,
     },
-]
+];
 
 export const productionTrade: IInstallation[] = [
     {
@@ -263,7 +260,7 @@ export const productionTrade: IInstallation[] = [
         deviation: 0,
         active: false,
     },
-]
+];
 
 export const offSiteCollectors: IInstallation =
     {
@@ -271,7 +268,7 @@ export const offSiteCollectors: IInstallation =
         name: 'ОЗК',
         deviation: 0,
         active: false,
-    }
+    };
 
 export const offSiteFacilities: IInstallation =
     {
@@ -279,18 +276,18 @@ export const offSiteFacilities: IInstallation =
         name: 'ОЗХ',
         deviation: 0,
         active: false,
-    }
+    };
 export const other: IInstallation =
     {
         id: 43,
         name: 'Прочие',
         deviation: 0,
         active: false,
-    }
+    };
 export const catalystProduction: IInstallation =
     {
         id: 44,
         name: 'Г-43-6',
         deviation: 0,
         active: false,
-    }
+    };
