@@ -61,6 +61,7 @@ export const WIDGETS = {
     'astue-onpz-planning-charts': WidgetContainerComponent,
     'astue-onpz-interactive-indicators': WidgetContainerComponent,
     'nk-tank-information': WidgetContainerComponent,
+    'tank-information': WidgetContainerComponent,
     'ozsm-resources-circle-diagram': WidgetContainerComponent,
     // TODO
     'cd-mat-balance-sensor': CdMatBalanceChartCardComponent,
@@ -1419,7 +1420,6 @@ export const WIDGETS_LAZY = {
         minItemRows: 30,
         preview: 'default',
     },
-    
 
     // #endregion SOU
 
