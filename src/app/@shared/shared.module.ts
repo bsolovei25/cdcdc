@@ -7,7 +7,7 @@ import { DateFormatPipe } from './pipes/data-format.pipe';
 import { PreLoaderComponent } from './components/preloader/preloader.component';
 import { UiElementsComponent } from './layout/ui-elements.component';
 import { ButtonComponent } from './components/button/button.component';
-import { WorkerCardComponent } from './components/worker-card/worker-card.component';
+import { WorkerCardComponent } from '../widgets/admin/admin-panel/components/worker-card/worker-card.component';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { UiBlockComponent } from './layout/ui-block/ui-block.component';
@@ -55,10 +55,10 @@ import { ContemporaryWidgetHeaderComponent } from './components/contemporary-wid
 import { WidgetHeaderSmpComponent } from './components/widget-header-smp/widget-header-smp.component';
 import { SafeUrlPipe } from './pipes/safe-url.pipe';
 import { ApsProgressBarComponent } from './components/aps-progress-bar/aps-progress-bar.component';
-import { ProductGroupsLeftComponent } from './components/SMP/product-group/product-groups-left/product-groups-left.component';
-import { ProductGroupsTableComponent } from './components/SMP/product-group/product-groups-table/product-groups-table.component';
-import { ProductGroupsMiddleComponent } from './components/SMP/product-group/product-groups-middle/product-groups-middle.component';
-import { ProductGroupsRightComponent } from './components/SMP/product-group/product-groups-right/product-groups-right.component';
+import { ProductGroupsLeftComponent } from '../widgets/SMP/smp-shared/product-group/product-groups-left/product-groups-left.component';
+import { ProductGroupsTableComponent } from '../widgets/SMP/smp-shared/product-group/product-groups-table/product-groups-table.component';
+import { ProductGroupsMiddleComponent } from '../widgets/SMP/smp-shared/product-group/product-groups-middle/product-groups-middle.component';
+import { ProductGroupsRightComponent } from '../widgets/SMP/smp-shared/product-group/product-groups-right/product-groups-right.component';
 import { TimeDataPickerComponent } from './components/time-data-picker/time-data-picker.component';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import {

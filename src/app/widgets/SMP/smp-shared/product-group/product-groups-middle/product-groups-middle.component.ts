@@ -1,4 +1,4 @@
-import { IDayGroup } from './../../../../../dashboard/models/SMP/product-groups.model';
+import { IDayGroup } from '../../../../../dashboard/models/SMP/product-groups.model';
 import {
     Component,
     OnInit,
@@ -312,7 +312,7 @@ export class ProductGroupsMiddleComponent implements OnInit, OnChanges {
         for (prop in configuration) {
             this.config[prop] = configuration[prop];
         }
-        
+
         this.range = this.config.maxAngle - this.config.minAngle;
         this.r = this.config.size / 2;
         this.pointerHeadLength = Math.round(this.r * this.config.pointerHeadLengthPercent);
