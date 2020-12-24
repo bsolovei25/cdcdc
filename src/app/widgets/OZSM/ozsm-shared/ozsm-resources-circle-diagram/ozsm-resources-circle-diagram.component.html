@@ -22,22 +22,8 @@
             </div>
         </div>
         <div class="diagram-list__items" #scrollContainer>
-            <evj-ozsm-resources-circle-diagram-visual
-                [percentage] = "99"
-                [title] = "'Вода'"
-            ></evj-ozsm-resources-circle-diagram-visual>
-            <evj-ozsm-resources-circle-diagram-visual
-                [percentage] = "99"
-                [title] = "'Теплоэнергия'"
-            ></evj-ozsm-resources-circle-diagram-visual>
-            <evj-ozsm-resources-circle-diagram-visual
-                [percentage] = "99"
-                [title] = "'Топливо'"
-            ></evj-ozsm-resources-circle-diagram-visual>
-            <evj-ozsm-resources-circle-diagram-visual
-                [percentage] = "99"
-                [title] = "'Электроэнергия'"
-            ></evj-ozsm-resources-circle-diagram-visual>
+            <evj-ozsm-resources-circle-diagram-visual [data]="diagram" *ngFor="let diagram of data | async">
+            </evj-ozsm-resources-circle-diagram-visual>
         </div>
     </div>
 </div>

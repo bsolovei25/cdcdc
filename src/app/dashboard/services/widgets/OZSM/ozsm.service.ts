@@ -10,6 +10,7 @@ import { BehaviorSubject } from 'rxjs';
 import { filter } from 'rxjs/operators';
 import { IOzsmScenarioResponse } from '../../../models/OZSM/ozsm-scenarios.model';
 import { IOzsmCirclePlanningDiagramResponse } from '../../../models/OZSM/ozsm-circle-planning-diagram.model';
+import { IOzsmResourcesCircleDiagram } from '../../../models/OZSM/ozsm-resources-circle-diagram.model';
 
 @Injectable({
     providedIn: 'root',
@@ -63,6 +64,16 @@ export class OzsmService {
         try {
             return await this.http
                 .get<IOzsmCirclePlanningDiagramResponse>(`${this.restUrl}`)
+                .toPromise();
+        } catch (e) {
+            return null;
+        }
+    }
+
+    public async getResourcesDiagram(scenarioId: string): Promise<IOzsmResourcesCircleDiagram[]> {
+        try {
+            return await this.http
+                .get<IOzsmResourcesCircleDiagram[]>(`${this.restUrl}`)
                 .toPromise();
         } catch (e) {
             return null;
