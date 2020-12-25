@@ -1,17 +1,17 @@
 <div class="diagram">
-    <div class="diagram__custom">
-        <div class="diagram__main">
-            <div class="current-value">
-                <div class="current-value__inner">
-                    <span>{{ data.value }}</span>
-                </div>
-            </div>
-            <div class="lower-value"></div>
-            <div class="due-value"></div>
+  <div class="diagram__custom">
+    <div class="diagram__main">
+      <div class="current-value">
+        <span>{{ data.value }}</span>
+        <div class="current-value__inner" [style.height.%]="data?.percent">
         </div>
+      </div>
+      <div class="lower-value"></div>
+      <div class="due-value"></div>
     </div>
-    <div class="diagram-information">
-        <span class="diagram-information__title">Доступно</span>
-        <span class="diagram-information__value">{{ data.available }}</span>
-    </div>
+  </div>
+  <div class="diagram-information">
+    <span class="diagram-information__title">Доступно</span>
+    <span class="diagram-information__value">{{ data.available }}</span>
+  </div>
 </div>
