@@ -1,43 +1,38 @@
-import { Component, ElementRef, Input, OnInit, SimpleChanges } from '@angular/core';
+import { Component, ElementRef, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import * as d3 from 'd3';
+import { IOzsmPlanningMainItem } from '../../../../dashboard/models/OZSM/ozsm-planning-main.model';
 
 @Component({
-  selector: 'evj-ozsm-graph-circle-diagram',
-  templateUrl: './ozsm-graph-circle-diagram.component.html',
-  styleUrls: ['./ozsm-graph-circle-diagram.component.scss']
+    selector: 'evj-ozsm-graph-circle-diagram',
+    templateUrl: './ozsm-graph-circle-diagram.component.html',
+    styleUrls: ['./ozsm-graph-circle-diagram.component.scss'],
 })
-export class OzsmGraphCircleDiagramComponent implements OnInit {
-
-    @Input()
-    public data: {
-        current: number,
-        max: number,
-        title: string
-    };
+export class OzsmGraphCircleDiagramComponent implements OnChanges {
+    @Input() public data: IOzsmPlanningMainItem = null;
 
     private svg: any;
     private g: any;
     public percent: number;
 
-    constructor(private hostElement: ElementRef) {
-    }
+    constructor(private hostElement: ElementRef) {}
 
-    public ngOnInit(): void {
+    public ngOnChanges(): void {
+        if (!this.data) {
+            return;
+        }
         this.initSvg();
         this.drawSvg();
     }
 
     private initSvg(): void {
         if (this.svg) {
-            this.svg.remove();
+            this.svg.select('g').remove();
             this.svg = undefined;
         }
 
         this.svg = d3.select(this.hostElement.nativeElement).select('svg');
-        this.g = this.svg.append('g')
-            .attr('transform', 'translate(47,47)');
+        this.g = this.svg.append('g').attr('transform', 'translate(47,47)');
     }
-
 
     private appendCircle(r: number, className: string): void {
         this.g
@@ -46,15 +41,15 @@ export class OzsmGraphCircleDiagramComponent implements OnInit {
             .attr('class', className);
     }
 
-
     private drawSvg(): void {
-        const k = 2 * this.data.current / this.data.max;
+        const k = (2 * this.data.percent) / 100;
         const chartD = 48;
         const arcWidth = 2;
 
         this.appendCircle(chartD, 'bg');
 
-        const arc = d3.arc()
+        const arc = d3
+            .arc()
             .innerRadius(chartD - 5)
             .outerRadius(chartD - 5 + arcWidth)
             .startAngle(-Math.PI)
@@ -65,8 +60,8 @@ export class OzsmGraphCircleDiagramComponent implements OnInit {
             .attr('d', arc)
             .attr('class', 'bg-arc-default');
 
-
-        const arcValue = d3.arc()
+        const arcValue = d3
+            .arc()
             .innerRadius(chartD - 5)
             .outerRadius(chartD - 5 + arcWidth)
             .cornerRadius(1)
@@ -78,5 +73,4 @@ export class OzsmGraphCircleDiagramComponent implements OnInit {
             .attr('d', arcValue)
             .attr('class', 'arc-value-default');
     }
-
 }

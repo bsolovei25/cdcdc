@@ -9,9 +9,13 @@ import {
 } from '@angular/core';
 import { WidgetPlatform } from '../../../dashboard/models/@PLATFORM/widget-platform';
 import { WidgetService } from '../../../dashboard/services/widget.service';
-import { BehaviorSubject } from 'rxjs';
-import { IOzsmPlanningMain } from '../../../dashboard/models/OZSM/ozsm-planning-main.model';
+import { BehaviorSubject, Observable } from 'rxjs';
+import {
+    IOzsmPlanningMain,
+    IOzsmPlanningMainItem,
+} from '../../../dashboard/models/OZSM/ozsm-planning-main.model';
 import { OzsmService } from '../../../dashboard/services/widgets/OZSM/ozsm.service';
+import { filter, map } from 'rxjs/operators';
 
 @Component({
     selector: 'evj-ozsm-planning-main',
@@ -55,9 +59,18 @@ export class OzsmPlanningMainComponent extends WidgetPlatform<unknown>
         super.ngOnDestroy();
     }
 
+    public itemData$(id: number): Observable<IOzsmPlanningMainItem> {
+        return this.data$.pipe(
+            filter((x) => !!x?.items?.length),
+            map((x) => x.items.find((k) => k.id === id)),
+            filter((x) => !!x)
+        );
+    }
+
     private async getData(scenarioId: string): Promise<void> {
         const storageStats = await this.ozsmService.getStorageStats(scenarioId);
-        console.log(storageStats);
+        const planningItems = await this.ozsmService.getProductionAllocation(scenarioId);
+        console.log('planningItems', planningItems);
         this.data$.next({
             storagePercent: storageStats.storagePercent,
             loadingPark: {
@@ -65,7 +78,13 @@ export class OzsmPlanningMainComponent extends WidgetPlatform<unknown>
                 deathValue: storageStats.parkDeathValue,
                 storages: storageStats.storageStats,
             },
+            items: planningItems.map((x, i) => ({
+                id: i + 1,
+                plan: (100 * x.value) / x.percent,
+                ...x,
+            })),
         });
+        console.log(this.data$.getValue());
     }
 
     private resize(): void {

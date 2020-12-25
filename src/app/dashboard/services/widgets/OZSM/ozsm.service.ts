@@ -12,6 +12,7 @@ import { IOzsmScenarioResponse } from '../../../models/OZSM/ozsm-scenarios.model
 import { IOzsmCirclePlanningDiagramResponse } from '../../../models/OZSM/ozsm-circle-planning-diagram.model';
 import { IOzsmResourcesCircleDiagram } from '../../../models/OZSM/ozsm-resources-circle-diagram.model';
 import { IOzsmStorageStatsResponse } from '../../../models/OZSM/ozsm-shared.model';
+import { IOzsmPlanningMainItemResponse } from '../../../models/OZSM/ozsm-planning-main.model';
 
 @Injectable({
     providedIn: 'root',
@@ -110,6 +111,24 @@ export class OzsmService {
                 .toPromise();
         } catch (e) {
             return null;
+        }
+    }
+
+    public async getProductionAllocation(
+        scenarioId: string
+    ): Promise<IOzsmPlanningMainItemResponse[]> {
+        try {
+            return (
+                (
+                    await this.http
+                        .get<{ unitsSupplyAllocation: IOzsmPlanningMainItemResponse[] }>(
+                            `${this.restUrl}/api/ozsm/Ozsm/${scenarioId}/ProductionAllocations`
+                        )
+                        .toPromise()
+                )?.unitsSupplyAllocation ?? []
+            );
+        } catch (e) {
+            return [];
         }
     }
 }
