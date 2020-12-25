@@ -6,11 +6,12 @@ import {
 import { HttpClient } from '@angular/common/http';
 import { AppConfigService } from '@core/service/app-config.service';
 import { tryCatch } from 'rxjs/internal-compatibility';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { filter } from 'rxjs/operators';
 import { IOzsmScenarioResponse } from '../../../models/OZSM/ozsm-scenarios.model';
 import { IOzsmCirclePlanningDiagramResponse } from '../../../models/OZSM/ozsm-circle-planning-diagram.model';
 import { IOzsmResourcesCircleDiagram } from '../../../models/OZSM/ozsm-resources-circle-diagram.model';
+import { IOzsmStorageStatsResponse } from '../../../models/OZSM/ozsm-shared.model';
 
 @Injectable({
     providedIn: 'root',
@@ -19,20 +20,28 @@ export class OzsmService {
     private readonly restUrl: string;
 
     public scenarioId$: BehaviorSubject<string> = new BehaviorSubject<string>(null);
+    public scenarioIdFilter$: Observable<string> = this.scenarioId$
+        .asObservable()
+        .pipe(filter((x) => !!x));
     public lineDiagrams$: BehaviorSubject<IOzsmLineDiagramResponse[]> = new BehaviorSubject<
         IOzsmLineDiagramResponse[]
     >([]);
 
     constructor(private http: HttpClient, private appConfigService: AppConfigService) {
         this.restUrl = this.appConfigService.restUrl;
-        this.initialSubscriptions();
     }
 
     public async getScenarios(): Promise<IOzsmScenarioResponse[]> {
         try {
-            return await this.http
-                .get<IOzsmScenarioResponse[]>(`${this.restUrl}/api/Ozsm/GetScenarioInfo`)
-                .toPromise();
+            return (
+                (
+                    await this.http
+                        .get<{ scenarioInfo: IOzsmScenarioResponse[] }>(
+                            `${this.restUrl}/api/ozsm/Ozsm/ScenarioInfo`
+                        )
+                        .toPromise()
+                )?.scenarioInfo ?? []
+            );
         } catch (e) {
             return [];
         }
@@ -44,7 +53,9 @@ export class OzsmService {
     ): Promise<IOzsmLineDiagramResponse> {
         try {
             const res = await this.http
-                .get<IOzsmLineDiagramResponse>(`${this.restUrl}`)
+                .get<IOzsmLineDiagramResponse>(
+                    `${this.restUrl}/api/ozsm/Ozsm/${scenarioId}/${type}`
+                )
                 .toPromise();
             res.type = type;
             return res;
@@ -62,9 +73,13 @@ export class OzsmService {
         scenarioId: string
     ): Promise<IOzsmCirclePlanningDiagramResponse> {
         try {
-            return await this.http
-                .get<IOzsmCirclePlanningDiagramResponse>(`${this.restUrl}`)
-                .toPromise();
+            return (
+                await this.http
+                    .get<{ planSummary: IOzsmCirclePlanningDiagramResponse }>(
+                        `${this.restUrl}/api/ozsm/Ozsm/${scenarioId}/PlanSummaries`
+                    )
+                    .toPromise()
+            )?.planSummary;
         } catch (e) {
             return null;
         }
@@ -72,34 +87,29 @@ export class OzsmService {
 
     public async getResourcesDiagram(scenarioId: string): Promise<IOzsmResourcesCircleDiagram[]> {
         try {
+            return (
+                (
+                    await this.http
+                        .get<{ utilityUsing: IOzsmResourcesCircleDiagram[] }>(
+                            `${this.restUrl}/api/ozsm/Ozsm/${scenarioId}/UtilityUsing`
+                        )
+                        .toPromise()
+                )?.utilityUsing ?? []
+            );
+        } catch (e) {
+            return [];
+        }
+    }
+
+    public async getStorageStats(scenarioId: string): Promise<IOzsmStorageStatsResponse> {
+        try {
             return await this.http
-                .get<IOzsmResourcesCircleDiagram[]>(`${this.restUrl}`)
+                .get<IOzsmStorageStatsResponse>(
+                    `${this.restUrl}/api/ozsm/Ozsm/${scenarioId}/StorageStats`
+                )
                 .toPromise();
         } catch (e) {
             return null;
         }
-    }
-
-    private async changeScenarioId(scenarioId: string): Promise<void> {
-        const types: IOzsmLineDiagramType[] = [
-            'blendProducts',
-            'packedProducts',
-            'componentSupply',
-            'crudeSupply',
-        ];
-        const result: IOzsmLineDiagramResponse[] = [];
-        const loadQueue: Promise<void>[] = [];
-        types.forEach((x) =>
-            loadQueue.push(
-                this.getLineDiagrams(scenarioId, x).then((res) => result.push(res)) as Promise<void>
-            )
-        );
-        await Promise.all(loadQueue);
-        console.log(result);
-        this.lineDiagrams$.next(result);
-    }
-
-    private initialSubscriptions(): void {
-        this.scenarioId$.pipe(filter((x) => !!x)).subscribe(this.changeScenarioId.bind(this));
     }
 }

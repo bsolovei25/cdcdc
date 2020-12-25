@@ -1,5 +1,5 @@
 export interface IOzsmScenarioResponse {
-    scenarioId: string;
+    scenarioID: string;
     planName: string;
     dateGraph: Date;
     planPeriod: Date;

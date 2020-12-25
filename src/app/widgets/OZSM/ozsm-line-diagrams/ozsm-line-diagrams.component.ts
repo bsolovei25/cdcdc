@@ -40,13 +40,13 @@ export class OzsmLineDiagramsComponent extends WidgetPlatform<unknown>
     protected dataConnect(): void {
         super.dataConnect();
         const type: IOzsmLineDiagramType = 'blendProducts';
-        this.ozsmService.lineDiagrams$
-            .asObservable()
-            .pipe(map((x) => x.find((el) => el.type === type)))
-            .subscribe((res) => {
-                console.log(res);
-                this.data = this.dataMapper(res);
-            });
+        // const type: IOzsmLineDiagramType = (this.attributes as any).type;
+        this.ozsmService.scenarioIdFilter$.subscribe((res) => this.getData(res, type));
+    }
+
+    private async getData(scenarioId: string, type: IOzsmLineDiagramType): Promise<void> {
+        const data = await this.ozsmService.getLineDiagrams(scenarioId, type);
+        this.data = this.dataMapper(data);
     }
 
     private dataMapper = (res: IOzsmLineDiagramResponse): IOZSMLineDiagram[] => {

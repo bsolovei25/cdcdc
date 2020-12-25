@@ -4,12 +4,10 @@
       <div class="graph-container">
         <div class="top-container">
           <div class="top-card top-card__left">
-            <evj-ozsm-loading-space
-            ></evj-ozsm-loading-space>
+            <evj-ozsm-loading-space [percentage]="(this.data$ | async)?.storagePercent || 0"></evj-ozsm-loading-space>
           </div>
           <div class="top-card top-card__right">
-            <evj-ozsm-loading-parks
-            ></evj-ozsm-loading-parks>
+            <evj-ozsm-loading-parks [data]="(data$ | async)?.loadingPark"></evj-ozsm-loading-parks>
           </div>
         </div>
         <div class="circle-container circle-container__group-h">

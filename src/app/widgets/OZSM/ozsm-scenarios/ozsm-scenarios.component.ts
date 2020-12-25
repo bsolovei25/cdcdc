@@ -1,5 +1,4 @@
 import { WidgetService } from 'src/app/dashboard/services/widget.service';
-
 import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
 import { WidgetPlatform } from 'src/app/dashboard/models/@PLATFORM/widget-platform';
 import { OzsmService } from '../../../dashboard/services/widgets/OZSM/ozsm.service';
@@ -20,6 +19,8 @@ export class OzsmScenariosComponent extends WidgetPlatform<unknown> implements O
         null
     );
 
+    public tempLevel: number = 3;
+
     constructor(
         private ozsmService: OzsmService,
         protected widgetService: WidgetService,
@@ -33,19 +34,31 @@ export class OzsmScenariosComponent extends WidgetPlatform<unknown> implements O
     public ngOnInit(): void {
         super.widgetInit();
         this.getScenarios().then();
+        this.scenarios$.subscribe((res) => {
+            if (!!this.currentScenario$.getValue() && !res?.length) {
+                return;
+            }
+            this.currentScenario$.next(res[0]);
+        });
+        this.currentScenario$.subscribe((res) =>
+            this.ozsmService.scenarioId$.next(res?.scenarioId)
+        );
     }
 
     public ngOnDestroy(): void {
         super.ngOnDestroy();
     }
 
+    public scenarioChange(scenario: IOzsmScenario): void {
+        this.currentScenario$.next(scenario);
+    }
+
     private async getScenarios(): Promise<void> {
         const res = await this.ozsmService.getScenarios();
-        console.log(res);
         this.scenarios$.next(
             res?.map((x) => ({
                 name: x.planName,
-                scenarioId: x.scenarioId,
+                scenarioId: x.scenarioID,
                 status: this.statusMapper(x.agreementStatus),
             }))
         );

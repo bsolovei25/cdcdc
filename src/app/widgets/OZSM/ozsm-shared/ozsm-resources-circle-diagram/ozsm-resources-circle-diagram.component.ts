@@ -25,7 +25,7 @@ export class OzsmResourcesCircleDiagramComponent extends WidgetPlatform<unknown>
     implements OnInit, AfterViewInit, OnDestroy, OnChanges {
     listen: any;
 
-    public data: BehaviorSubject<IOzsmResourcesCircleDiagram[]> = new BehaviorSubject<
+    public data$: BehaviorSubject<IOzsmResourcesCircleDiagram[]> = new BehaviorSubject<
         IOzsmResourcesCircleDiagram[]
     >([]);
     @ViewChild('scrollContainer') scrollContainer: ElementRef;
@@ -54,8 +54,12 @@ export class OzsmResourcesCircleDiagramComponent extends WidgetPlatform<unknown>
 
     ngOnInit(): void {
         this.widgetInit();
-        this.data.next(SOURCE_DATA);
-        this.ozsmService.scenarioId$.subscribe((res) => this.ozsmService.getResourcesDiagram(res));
+        this.ozsmService.scenarioIdFilter$.subscribe((res) => this.getData(res));
+    }
+
+    private async getData(scenarioId: string): Promise<void> {
+        const data = await this.ozsmService.getResourcesDiagram(scenarioId);
+        this.data$.next(data);
     }
 
     ngOnChanges(): void {}

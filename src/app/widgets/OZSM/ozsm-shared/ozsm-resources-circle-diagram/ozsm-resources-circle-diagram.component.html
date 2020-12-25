@@ -22,7 +22,7 @@
             </div>
         </div>
         <div class="diagram-list__items" #scrollContainer>
-            <evj-ozsm-resources-circle-diagram-visual [data]="diagram" *ngFor="let diagram of data | async">
+            <evj-ozsm-resources-circle-diagram-visual [data]="diagram" *ngFor="let diagram of data$ | async">
             </evj-ozsm-resources-circle-diagram-visual>
         </div>
     </div>

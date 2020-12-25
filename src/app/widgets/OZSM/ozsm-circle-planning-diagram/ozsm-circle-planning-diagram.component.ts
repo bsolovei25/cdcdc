@@ -16,7 +16,7 @@ import { OzsmService } from '../../../dashboard/services/widgets/OZSM/ozsm.servi
 export class OzsmCirclePlanningDiagramComponent extends WidgetPlatform<unknown>
     implements OnInit, OnDestroy {
     public cData: ICircleData[] = cardData;
-    public pData: ICircleData[] = planData;
+    public pData: ICircleData[] = [];
     constructor(
         private ozsmService: OzsmService,
         protected widgetService: WidgetService,
@@ -30,7 +30,7 @@ export class OzsmCirclePlanningDiagramComponent extends WidgetPlatform<unknown>
 
     ngOnInit(): void {
         super.widgetInit();
-        this.ozsmService.scenarioId$.subscribe((res) => this.getData(res));
+        this.ozsmService.scenarioIdFilter$.subscribe((res) => this.getData(res));
     }
 
     ngOnDestroy(): void {
@@ -43,21 +43,26 @@ export class OzsmCirclePlanningDiagramComponent extends WidgetPlatform<unknown>
     }
 
     private dataMapper(res: IOzsmCirclePlanningDiagramResponse): void {
-        this.cData = [];
-        this.cData.push({
-            name: 'производства',
-            value: res.ship.value,
-            deviation: res.ship.deviation,
-            percentValue: res.ship.percent,
-        });
-        this.cData.push({
-            name: 'отгрузки',
-            value: res.summary.value,
-            deviation: res.summary.deviation,
-            percentValue: res.summary.percent,
-        });
+        console.log('pd', res);
+        res = res[0];
         this.pData = [];
         this.pData.push(
+            {
+                name: 'производства',
+                value: res.ship.value,
+                deviation: res.ship.deviation,
+                percentValue: res.ship.percent,
+            },
+            {
+                name: 'отгрузки',
+                value: res.summary.value,
+                deviation: res.summary.deviation,
+                percentValue: res.summary.percent,
+            }
+        );
+        console.log(this.pData);
+        this.cData = [];
+        this.cData.push(
             {
                 name: 'Выработка',
                 value: res.supply.value,

@@ -15,7 +15,7 @@
   >
         <img src="assets/icons/widgets/OZSM/ozsm-circle-planning-diagram/arrow-top.svg" class="arrow-top">
       <div class="diagrams">
-        <evj-ozsm-circle-planning-diagram-plan [plan]="pData[0]"></evj-ozsm-circle-planning-diagram-plan>
+        <evj-ozsm-circle-planning-diagram-plan *ngIf="!!pData[0]" [plan]="pData[0]"></evj-ozsm-circle-planning-diagram-plan>
         <img src="assets/icons/widgets/OZSM/ozsm-circle-planning-diagram/arrow-tail.svg">
         <ng-container *ngFor="let item of cData; let idx = index">
           <div class="arrow__line" *ngIf="idx === 0"></div>
@@ -25,7 +25,7 @@
           <div class="arrow__line"></div>
         </ng-container>
         <img src="assets/icons/widgets/OZSM/ozsm-circle-planning-diagram/tip.svg">
-        <evj-ozsm-circle-planning-diagram-plan [plan]="pData[1]"></evj-ozsm-circle-planning-diagram-plan>
+        <evj-ozsm-circle-planning-diagram-plan *ngIf="!!pData[1]" [plan]="pData[1]"></evj-ozsm-circle-planning-diagram-plan>
       </div>
         <img src="assets/icons/widgets/OZSM/ozsm-circle-planning-diagram/arrow-bottom.svg" class="arrow-bottom">
 </div>
