@@ -50,7 +50,7 @@ export class SouMvpMnemonicSchemeComponent extends WidgetPlatform<unknown>
     sectionsDataPark: (ISOUFlowOut | ISOUFlowIn | ISOUObjects)[] = [];
 
     factories: string[] = ['Производство №1', 'Производство №4', 'Товарное производство'];
-    installations: string[][] = [['АВТ-10'], ['Изомалк-2'], ['АССБ Авиасмеси']];
+    installations: string[][] = [['АВТ-10'], ['Изомалк-2'], ['АССБ Авиасмеси', 'АССБ А-95']];
     // installations: string[][] = [
     //     ['АВТ-10'],
     //     ['Изомалк-2'],
@@ -93,6 +93,7 @@ export class SouMvpMnemonicSchemeComponent extends WidgetPlatform<unknown>
 
     chosenSetting: number = 1;
     chosenSection: number = 0;
+    chosenInstall: string = '';
 
     flag: boolean = true;
 
@@ -179,6 +180,7 @@ export class SouMvpMnemonicSchemeComponent extends WidgetPlatform<unknown>
     }
 
     changeInstall(value: string): void {
+        this.chosenInstall = value;
         let a = {
             manufacture: 'Производство №1',
             name: 'АВТ-10',
