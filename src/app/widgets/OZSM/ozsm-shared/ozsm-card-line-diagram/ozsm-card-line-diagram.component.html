@@ -1,33 +1,33 @@
 <div class="card">
   <div class="card__title">
-    <div class="icon" [ngSwitch]="data?.type">
+    <div class="icon" [ngSwitch]="type">
       <ng-template ngSwitchCase="icon">
-        <img src="assets/icons/widgets/OZSM/ozsm-card-line-diagram/{{data?.icon}}.svg">
+        <img src="assets/icons/widgets/OZSM/ozsm-card-line-diagram/{{icon}}.svg">
       </ng-template>
       <ng-template ngSwitchCase="deviation-icon">
-        <img src="assets/icons/widgets/OZSM/ozsm-card-line-diagram/{{data?.icon}}.svg">
+        <img src="assets/icons/widgets/OZSM/ozsm-card-line-diagram/{{icon}}.svg">
       </ng-template>
       <ng-template ngSwitchCase="number">
-        {{data?.num}}
+        {{index}}
       </ng-template>
       <ng-template ngSwitchCase="default">
       </ng-template>
     </div>
-    <div class="name" [class.name__icon]="data?.type === 'icon' || data?.type === 'deviation-icon'">
-      {{data?.title}}
+    <div class="name" [class.name__icon]="type === 'icon' || type === 'deviation-icon'">
+      {{type === 'number' ? 'Линия' : data?.name}}
     </div>
   </div>
-  <div *ngIf="data?.type !== 'deviation-icon'; else deviationValue" class="value" [class.value__icon]="data?.type === 'icon'">
-    <span class="plan">{{+data?.maxValue | spaceNumber : 2}}</span>
+  <div *ngIf="type !== 'deviation-icon'; else deviationValue" class="value" [class.value__icon]="type === 'icon'">
+    <span class="plan">{{+data?.plan | spaceNumber : 2}}</span>
     <span class="disabled"> / </span>
-    <span class="fact">{{+data?.currentValue | spaceNumber : 2}}</span>
+    <span class="fact">{{+data?.value | spaceNumber : 2}}</span>
   </div>
   <ng-template #deviationValue>
     <div class="value value__deviation">
-      <span class="plan">{{+data?.maxValue | spaceNumber : 2}}</span>
+      <span class="plan">{{+data?.plan | spaceNumber : 2}}</span>
       <span class="disabled"> / </span>
-      <span class="fact">{{+data?.currentValue | spaceNumber : 2}}</span>
-      <span *ngIf="+data?.maxValue - +data?.currentValue != 0" class="deviation">{{+data?.currentValue - +data?.maxValue | spaceNumber : 2}}</span>
+      <span class="fact">{{+data?.value | spaceNumber : 2}}</span>
+      <span *ngIf="+data?.plan - +data?.value != 0" class="deviation">{{+data?.value - +data?.plan | spaceNumber : 2}}</span>
     </div>
   </ng-template>
   <div class="card__line">

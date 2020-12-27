@@ -58,154 +58,104 @@
         <div class="line-card-container line-card-container__group-clear">
           <div class="line-card line-card__clear">
             <evj-ozsm-card-line-diagram
-              [data] = "{
-                                    'title': 'АССМ',
-                                    'maxValue': 50000,
-                                    'currentValue': 39227,
-                                    'type': 'default'
-                                }"
+              [data]="itemData$(12) | async"
+              type="default"
             ></evj-ozsm-card-line-diagram>
           </div>
           <div class="line-card line-card__clear">
             <evj-ozsm-card-line-diagram
-              [data] = "{
-                                    'title': 'ТГ',
-                                    'maxValue': 50000,
-                                    'currentValue': 39227,
-                                    'type': 'default'
-                                }"
+              [data]="itemData$(13) | async"
+              type="default"
             ></evj-ozsm-card-line-diagram>
           </div>
           <div class="line-card line-card__clear">
             <evj-ozsm-card-line-diagram
-              [data] = "{
-                                    'title': 'Н-152',
-                                    'maxValue': 50000,
-                                    'currentValue': 39227,
-                                    'type': 'default'
-                                }"
+              [data]="itemData$(14) | async"
+              type="default"
             ></evj-ozsm-card-line-diagram>
           </div>
         </div>
         <div class="line-card-container line-card-container__group-icon">
           <div class="line-card line-card__icon">
             <evj-ozsm-card-line-diagram
-              [data] = "{
-                                    'icon' : 'railway',
-                                    'title': 'Отгрузка ЖД',
-                                    'maxValue': 39227,
-                                    'currentValue': 39227,
-                                    'type': 'icon'
-                                }"
+              [data]="itemData$(15) | async"
+              type="icon"
+              icon="railway"
             ></evj-ozsm-card-line-diagram>
           </div>
           <div class="line-card line-card__icon">
             <evj-ozsm-card-line-diagram
-              [data] = "{
-                                    'icon' : 'automobile',
-                                    'title': 'Отгрузка Авто',
-                                    'maxValue': 39227,
-                                    'currentValue': 39227,
-                                    'type': 'icon'
-                                }"
+              [data]="itemData$(17) | async"
+              type="icon"
+              icon="automobile"
             ></evj-ozsm-card-line-diagram>
           </div>
         </div>
         <div class="line-card-container line-card-container__group-number">
           <div class="line-card line-card__number">
             <evj-ozsm-card-line-diagram
-              [data] = "{
-                                'num': 1,
-                                'title': 'Линия',
-                                'maxValue': 50000,
-                                'currentValue': 39227,
-                                'type': 'number'
-                            }"
+              [data]="itemData$(20) | async"
+              index="1"
+              type="number"
             ></evj-ozsm-card-line-diagram>
           </div>
           <div class="line-card line-card__number">
             <evj-ozsm-card-line-diagram
-              [data] = "{
-                                'num': 2,
-                                'title': 'Линия',
-                                'maxValue': 50000,
-                                'currentValue': 39227,
-                                'type': 'number'
-                            }"
+              [data]="itemData$(21) | async"
+              index="2"
+              type="number"
             ></evj-ozsm-card-line-diagram>
           </div>
           <div class="line-card line-card__number">
             <evj-ozsm-card-line-diagram
-              [data] = "{
-                                'num': 3,
-                                'title': 'Линия',
-                                'maxValue': 50000,
-                                'currentValue': 39227,
-                                'type': 'number'
-                            }"
+              [data]="itemData$(22) | async"
+              index="3"
+              type="number"
             ></evj-ozsm-card-line-diagram>
           </div>
           <div class="line-card line-card__number">
             <evj-ozsm-card-line-diagram
-              [data] = "{
-                                'num': 4,
-                                'title': 'Линия',
-                                'maxValue': 50000,
-                                'currentValue': 39227,
-                                'type': 'number'
-                            }"
+              [data]="itemData$(23) | async"
+              index="4"
+              type="number"
             ></evj-ozsm-card-line-diagram>
           </div>
           <div class="line-card line-card__number">
             <evj-ozsm-card-line-diagram
-              [data] = "{
-                                'num': 5,
-                                'title': 'Линия',
-                                'maxValue': 50000,
-                                'currentValue': 39227,
-                                'type': 'number'
-                            }"
+              [data]="itemData$(24) | async"
+              index="5"
+              type="number"
             ></evj-ozsm-card-line-diagram>
           </div>
           <div class="line-card line-card__number">
             <evj-ozsm-card-line-diagram
-              [data] = "{
-                                'num': 6,
-                                'title': 'Линия',
-                                'maxValue': 50000,
-                                'currentValue': 39227,
-                                'type': 'number'
-                            }"
+              [data]="itemData$(25) | async"
+              index="6"
+              type="number"
             ></evj-ozsm-card-line-diagram>
           </div>
         </div>
         <div class="diagram-container">
           <div class="diagram-card">
             <evj-ozsm-cirle-diagram-icon
-              diagramValue = 360
-              deviation = 0
-              innerValue = 35658
-              titleText = 'Изговоление крышек'
+              [data]="itemData$(26) | async"
               innerIcon='cap'
             ></evj-ozsm-cirle-diagram-icon>
           </div>
           <div class="diagram-card">
             <evj-ozsm-cirle-diagram-icon
-              diagramValue = 0
-              deviation = 35658
-              innerValue = 35658
-              titleText = 'Изготовление канистр'
+              [data]="itemData$(27) | async"
               innerIcon='canister'
             ></evj-ozsm-cirle-diagram-icon>
           </div>
           <div class="diagram-card">
-            <evj-ozsm-cirle-diagram-icon
-              diagramValue = 120
-              deviation = 23772
-              innerValue = 35658
-              titleText = 'Производство сжат. воздуха'
-              innerIcon='oxygen'
-            ></evj-ozsm-cirle-diagram-icon>
+<!--            <evj-ozsm-cirle-diagram-icon-->
+<!--              diagramValue = 120-->
+<!--              deviation = 23772-->
+<!--              innerValue = 35658-->
+<!--              titleText = 'Производство сжат. воздуха'-->
+<!--              innerIcon='oxygen'-->
+<!--            ></evj-ozsm-cirle-diagram-icon>-->
           </div>
         </div>
         <div class="arrow-container">
