@@ -12,6 +12,7 @@ import {
 } from './sou-main-screen-data.mock';
 import { SouMvpMnemonicSchemeService } from '../../../dashboard/services/widgets/SOU/sou-mvp-mnemonic-scheme.service';
 import { IInstallations } from '../../../dashboard/models/SOU/sou-main-screen.model';
+import { SouMainScreenService } from '../../../dashboard/services/widgets/SOU/sou-main-screen.service';
 
 @Component({
     selector: 'evj-sou-main-screen',
@@ -20,21 +21,23 @@ import { IInstallations } from '../../../dashboard/models/SOU/sou-main-screen.mo
 })
 export class SouMainScreenComponent extends WidgetPlatform<unknown> implements OnInit {
 
-public data: IInstallations =  {
-    productionOneData: productionOne,
-    productionTwoData: productionTwo,
-    productionFourData: productionFour,
-    productionTradeData: productionTrade,
-    offSiteCollectorsData: offSiteCollectors,
-    offSiteFacilitiesData: offSiteFacilities,
-    catalystProductionData: catalystProduction,
-    otherData: other,
-};
+    public data: IInstallations = {
+        productionOneData: productionOne,
+        productionTwoData: productionTwo,
+        productionFourData: productionFour,
+        productionTradeData: productionTrade,
+        offSiteCollectorsData: offSiteCollectors,
+        offSiteFacilitiesData: offSiteFacilities,
+        catalystProductionData: catalystProduction,
+        otherData: other
+    };
+    public allInstallations: any;
 
 
     constructor(
         protected widgetService: WidgetService,
         public mvpService: SouMvpMnemonicSchemeService,
+        public souMainScreenService: SouMainScreenService,
         @Inject('isMock') public isMock: boolean,
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string
@@ -44,6 +47,12 @@ public data: IInstallations =  {
 
     public ngOnInit(): void {
         super.widgetInit();
+        this.getAllInstallations();
+    }
+
+    async getAllInstallations(): Promise<void> {
+        const data = await this.souMainScreenService.getAllInstallations('sou-main-screen');
+        this.allInstallations = data[1];
     }
 
     protected dataHandler(ref: any): void {
