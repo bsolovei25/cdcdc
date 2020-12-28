@@ -13,6 +13,7 @@ import {
 import { SouMvpMnemonicSchemeService } from '../../../dashboard/services/widgets/SOU/sou-mvp-mnemonic-scheme.service';
 import { IInstallations } from '../../../dashboard/models/SOU/sou-main-screen.model';
 import { SouMainScreenService } from '../../../dashboard/services/widgets/SOU/sou-main-screen.service';
+import set = Reflect.set;
 
 @Component({
     selector: 'evj-sou-main-screen',
@@ -48,11 +49,14 @@ export class SouMainScreenComponent extends WidgetPlatform<unknown> implements O
     public ngOnInit(): void {
         super.widgetInit();
         this.getAllInstallations();
+        setTimeout(() => {
+            console.log(this.allInstallations);
+        }, 5000);
     }
 
     async getAllInstallations(): Promise<void> {
-        const data = await this.souMainScreenService.getAllInstallations('sou-main-screen');
-        this.allInstallations = data[1];
+        const d = await this.souMainScreenService.getAllInstallations('sou-main-screen');
+        this.allInstallations = d[1].data.group;
     }
 
     protected dataHandler(ref: any): void {

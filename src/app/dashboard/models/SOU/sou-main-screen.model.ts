@@ -17,3 +17,7 @@ export interface IInstallations {
     catalystProductionData: IInstallation;
     otherData: IInstallation;
 }
+
+export interface IdataInstallations {
+    
+}

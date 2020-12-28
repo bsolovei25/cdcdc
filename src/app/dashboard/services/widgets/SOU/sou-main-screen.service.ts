@@ -17,9 +17,9 @@ export class SouMainScreenService {
     ) {
         this.restUrl = configService.restUrl;
     }
-    async getAllInstallations(WidgetType: string): Promise<IInstallations[]> {
+    async getAllInstallations(WidgetType: string): Promise<any> {
         return this.http
-            .get<IInstallations[]>(
+            .get<any>(
                 this.restUrl + `/api/debugging-service-RealtimeWidgetService/Start/realtimedata/${WidgetType}`
             )
             .toPromise();
