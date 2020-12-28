@@ -25,6 +25,7 @@
   <div
     *ngIf="allStatus.length"
     class="employee-container__status"
+    [ngClass]="{'employee-container__status_danger': absentReason}"
     [matTooltip]="absentReason?.name"
     matTooltipPosition="right"
   >
@@ -34,7 +35,6 @@
       [matMenuTriggerFor]="menu"
       matTooltip="Сменить статус участника смены"
       src="assets/icons/widgets/admin-shift-schedule/status.svg"
-      [svgStyle]="{ 'width.px':12, 'height.px':20 }"
     ></svg-icon>
     <svg-icon
       *ngIf="absentReason"
@@ -42,7 +42,6 @@
       matTooltip="Сменить статус участника смены"
       [matMenuTriggerFor]="menuDelete"
       src="assets/icons/widgets/admin-shift-schedule/status__danger.svg"
-      [svgStyle]="{ 'width.px':12, 'height.px':20 }"
     ></svg-icon>
     <mat-menu #menu="matMenu" class="customize-menu">
       <button mat-menu-item *ngFor="let status of allStatus" (click)="onChooseStatus(status)">

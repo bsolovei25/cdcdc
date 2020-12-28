@@ -1,1 +1,9 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 28 28"><defs><style>.a9ea6375-6d08-4611-9662-23eaa83cc816{fill:none;stroke:#fff;stroke-miterlimit:10;}.e0e0ca18-a735-4152-ae4e-759ca71a23d0,.fccdd2e9-ab6e-47ff-a4ef-69f4951480a6{fill:#fff;}.fccdd2e9-ab6e-47ff-a4ef-69f4951480a6{opacity:0.1;}</style></defs><title>Поиск</title><g id="b45faf48-831b-47ba-9ad5-8df8a350dbd4" data-name="Слой 2"><g id="f4d12d4e-443c-458e-8f2f-0015fa5da4f3" data-name="Слой 1"><circle class="a9ea6375-6d08-4611-9662-23eaa83cc816" cx="14" cy="14" r="13.5"/><circle class="fccdd2e9-ab6e-47ff-a4ef-69f4951480a6" cx="14" cy="14" r="12.03"/><circle class="fccdd2e9-ab6e-47ff-a4ef-69f4951480a6" cx="14" cy="14" r="10.69"/><circle class="fccdd2e9-ab6e-47ff-a4ef-69f4951480a6" cx="14" cy="14" r="9.36"/><circle class="fccdd2e9-ab6e-47ff-a4ef-69f4951480a6" cx="14" cy="14" r="8.02"/><circle class="a9ea6375-6d08-4611-9662-23eaa83cc816" cx="15.35" cy="12.64" r="4.14"/><rect class="e0e0ca18-a735-4152-ae4e-759ca71a23d0" x="10.6" y="14.64" width="0.73" height="4.74" rx="0.37" transform="translate(6.7 36.8) rotate(-135)"/></g></g></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 28 28">
+<circle fill="none" stroke="currentColor" stroke-miterlimit="10" cx="14" cy="14" r="13.5"/>
+<circle opacity="0.1" fill="currentColor" cx="14" cy="14" r="12.03"/>
+<circle opacity="0.1" fill="currentColor" cx="14" cy="14" r="10.69"/>
+<circle opacity="0.1" fill="currentColor" cx="14" cy="14" r="9.36"/>
+<circle opacity="0.1" fill="currentColor" cx="14" cy="14" r="8.02"/>
+<circle fill="none" stroke="#fff" stroke-miterlimit="10" cx="15.35" cy="12.64" r="4.14"/>
+<rect fill="#fff" x="10.6" y="14.64" width="0.73" height="4.74" rx="0.37" transform="translate(6.7 36.8) rotate(-135)"/>
+</svg>
