@@ -134,9 +134,6 @@ export class AstueOnpzMnemonicFurnaceComponent extends WidgetPlatform implements
                     case data.gasStats?.main?.id ?? -1:
                         this.popupData$.next({ ...data.gasStats, side: 'left' });
                         break;
-                    case data.oxygenStats?.main?.id ?? -1:
-                        this.popupData$.next({ ...data.oxygenStats, side: 'center' });
-                        break;
                     default:
                         this.popupData$.next(null);
                         break;
