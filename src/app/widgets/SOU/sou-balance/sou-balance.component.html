@@ -12,8 +12,8 @@
     <span
       *ngFor="let menu of menuData; let i = index"
       class="menu__item"
-      [ngClass]="{'active': choosenItem === i}"
-      (click)="changeSettinge(i)"
+      [ngClass]="{'active': chosenItem === i}"
+      (click)="changeSetting(i)"
     >{{menu}}</span>
   </div>
 
@@ -32,10 +32,8 @@
   >
     <evj-sou-balance-group
       *ngFor="let item of data"
-      [menu]=choosenItem
+      [menu]=chosenItem
       [data]="item"
     ></evj-sou-balance-group>
   </div>
 </div>
-  
-  
