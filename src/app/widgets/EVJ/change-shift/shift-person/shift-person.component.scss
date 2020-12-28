@@ -21,15 +21,16 @@
 }
 
 .onShift__person {
-  width: 170px;
+  box-sizing: border-box;
+  width: 180px;
   height: 75px;
   display: inline-flex;
   position: relative;
-  border-top: 0.5px dashed var(--color-border-main-transparrent);
+  border: 1px solid var(--color-border-main-transparrent);
   font-size: 10px;
   box-sizing: border-box;
   padding-top: 5px;
-  margin: 0 5px 0 20px;
+  margin: 0 8px 0 0px;
 
   .person {
     display: flex;
@@ -39,7 +40,6 @@
       display: flex;
       flex-direction: column;
       justify-content: center;
-      align-items: left;
       box-sizing: border-box;
       position: relative;
 
@@ -62,7 +62,7 @@
     &__img {
       position: absolute;
       top: 5px;
-      left: -4px;
+      left: 4px;
       width: 52px;
       height: 52px;
       border-radius: 50%;
@@ -99,7 +99,6 @@
       justify-content: space-between;
       box-sizing: border-box;
       padding-top: 3px;
-      border-top: 0.5px dashed var(--color-border-main-transparrent);
       position: relative;
 
       &:before {
@@ -117,7 +116,6 @@
         transform-origin: 43% 0;
         transform: rotate(-40deg);
 
-        border-bottom: 0.5px dashed var(--color-border-main-transparrent);
         background: transparent;
       }
 
@@ -183,9 +181,6 @@
 
 .isOnShift {
   .person {
-    &__avatar {
-      border-bottom: 0.5px dashed var(--color-border-main-transparrent);
-    }
     &__info {
       justify-content: space-between;
     }
@@ -197,7 +192,6 @@
 }
 
 .allPeople {
-  border-bottom: 0.5px dashed var(--color-border-main-transparrent);
   .person {
     &__info {
       justify-content: space-around;
@@ -223,7 +217,6 @@
   right: 0px;
 
   &__item {
-    border: 0.5px dashed var(--color-border-main-transparrent);
     border-top: none;
     height: 20px;
     box-sizing: border-box;

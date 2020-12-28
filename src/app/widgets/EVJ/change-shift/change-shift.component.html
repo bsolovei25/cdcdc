@@ -36,11 +36,13 @@
       (touchstart)="$event.stopPropagation()"
     >
       <div class="change-shift__mainWorker">
-        <div class="circle circle__left circle__left-top"></div>
-        <div class="circle circle__right circle__right-top"></div>
+        <svg-icon
+          class="mainWorker__frame"
+          src="assets/icons/change-shift-main-avatar-frame.svg"
+        >
+        </svg-icon>
         <div class="mainWorker__avatar">
           <img class="mainWorker__img" [src]="photoPathMain">
-          <div class="circle circle__left circle__left-bottom"></div>
         </div>
         <div class="mainWorker__info">
           <div class="mainWorker__row">
@@ -64,8 +66,10 @@
             ></div>
           </div>
           <div class="mainWorker__row">
-            <div class="circle circle__right circle__right-top"></div>
             <div class="mainWorker__squad">
+              <div class="mainWorker__number">
+                Бригада
+              </div>
               <div class="mainWorker__number">
                 {{ currentShift?.brigade?.number }}
               </div>
@@ -168,8 +172,6 @@
       >
         <div class="buttons">
           <div class="change-shift__submit">
-            <div class="submit__frame submit__frame-left"></div>
-            <div class="submit__frame submit__frame-right"></div>
             <button type="submit" (click)="shiftApply()">
               Передать смену
             </button>
@@ -182,16 +184,12 @@
       >
         <div class="buttons">
           <div class="change-shift__submit">
-            <div class="submit__frame submit__frame-left"></div>
-            <div class="submit__frame submit__frame-right"></div>
             <button type="submit" (click)="shiftApply()">
               Принять смену
             </button>
           </div>
           <div style="margin: 5px"></div>
           <div class="change-shift__submit">
-            <div class="submit__frame submit__frame-left"></div>
-            <div class="submit__frame submit__frame-right"></div>
             <button (click)="this.shiftCancel()">
               Отказаться
             </button>

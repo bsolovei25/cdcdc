@@ -8,10 +8,7 @@
   (mouseover)="onMouseOver()"
   (mouseout)="onMouseOut()"
 >
-  <div class="circle circle__left circle__left-top"></div>
-  <div class="circle circle__right circle__right-top"></div>
   <div class="person__avatar">
-    <div class="circle circle__left circle__left-bottom"></div>
     <img class="person__img" [src]="photoPathUser">
   </div>
   <div class="person__info" *ngIf="person">
@@ -23,7 +20,6 @@
     </div>
     <div class="person__place">{{ person.employee.positionDescription }}</div>
     <div class="person__status" *ngIf="onShift">
-      <div class="circle circle__right circle__right-top"></div>
       <div
         class="status__name"
         [class.status__name__success]="(person.status === 'passed' || person.status === 'accepted')"
