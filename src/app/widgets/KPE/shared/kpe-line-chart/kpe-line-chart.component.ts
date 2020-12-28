@@ -341,6 +341,7 @@ export class KpeLineChartComponent implements OnChanges, AfterViewInit {
                     });
                 } else {
                     this.ColorizeDraw(ColorizeCoordinates);
+                    ColorizeCoordinates = [];
                 }
             }
         });
