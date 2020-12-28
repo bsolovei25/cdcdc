@@ -81,8 +81,7 @@
         <div class="onShift__label">На смене</div>
         <ng-container *ngIf="currentShift">
           <div class="onShift__add" #addShift (click)="showPeople()">
-            <span class="onShift__add-verical"></span>
-            <span class="onShift__add-horizontal"></span>
+            Добавить
           </div>
           <div class="onShift__people scroll-bar">
             <div *ngFor="let person of this.presentMembers; let i = index">
@@ -200,16 +199,12 @@
       <ng-container *ngIf="this.shiftService.getIsCommentRequired(widgetType)">
         <div class="buttons">
           <div class="change-shift__submit">
-            <div class="submit__frame submit__frame-left"></div>
-            <div class="submit__frame submit__frame-right"></div>
             <button type="submit" (click)="onSendMessage()">
               Подтвердить (оставить комментарий)
             </button>
           </div>
           <div style="margin: 5px"></div>
           <div class="change-shift__submit">
-            <div class="submit__frame submit__frame-left"></div>
-            <div class="submit__frame submit__frame-right"></div>
             <button (click)="unsetRequireComment()">
               Отмена
             </button>

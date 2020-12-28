@@ -10,6 +10,11 @@
 >
   <div class="person__avatar">
     <img class="person__img" [src]="photoPathUser">
+    <svg-icon
+      class="person__frame"
+      src="assets/icons/change-shift-avatar-frame.svg"
+    >
+    </svg-icon>
   </div>
   <div class="person__info" *ngIf="person">
     <div class="person__name" *ngIf="isPersonExist()">

@@ -61,7 +61,7 @@
     position: relative;
     height: 120px;
     min-height: 120px;
-    margin-bottom: 25px;
+    margin-bottom: 10px;
     background-color: var(--evj-events-preview);
     border: 1px solid var(--evj-color-bg-footer);
 
@@ -193,7 +193,7 @@
     box-sizing: border-box;
     padding-top: 15px;
     margin-bottom: 5px;
-    min-height: 200px;
+    min-height: 80px;
 
     .onShift {
       &__label {
@@ -206,9 +206,6 @@
 
       &__add {
         position: absolute;
-        width: 20px;
-        height: 20px;
-        border-radius: 10px;
         box-sizing: border-box;
 
         top: -10px;
@@ -217,9 +214,6 @@
         display: flex;
         justify-content: center;
         align-items: center;
-
-        background-color: var(--color-astue-onpz-widget-bg);
-        border: 0.5px solid var(--color-border-main-transparrent);
 
         line-height: 100%;
 
@@ -231,14 +225,14 @@
         &:hover {
           transition: 0.2s;
           cursor: pointer;
-          box-shadow: 0px 0px 2px var(--color-border-active);
+          color: var(--color-border-active);
           font-weight: bold;
         }
       }
 
       &__people {
         width: 100%;
-        height: 180px;
+        height: 80px;
         display: inline-flex;
         flex-wrap: wrap;
         justify-content: flex-start;
@@ -258,7 +252,7 @@
         padding: 15px 5px 15px 3px;
 
         background-color: var(--color-astue-onpz-widget-bg);
-        border: 0.5px solid var(--color-border-main-transparrent);
+        border: 1px solid var(--color-border-main-transparrent);
         border-radius: 8px;
 
         top: 15px;
@@ -350,9 +344,7 @@
             display: flex;
             flex-direction: column;
             justify-content: center;
-            align-items: left;
             box-sizing: border-box;
-            border-bottom: 0.5px dashed var(--color-border-main-transparrent);
             position: relative;
 
             &::before {
@@ -404,7 +396,6 @@
             justify-content: space-between;
             box-sizing: border-box;
             padding-top: 3px;
-            border-top: 0.5px dashed var(--color-border-main-transparrent);
             position: relative;
 
             &::before {
@@ -422,7 +413,6 @@
               transform-origin: 43% 0;
               transform: rotate(-40deg);
 
-              border-bottom: 0.5px dashed var(--color-border-main-transparrent);
               background: transparent;
             }
 
@@ -446,13 +436,13 @@
   &__comment {
     display: flex;
     flex-flow: column;
-    justify-content: flex-end;
     margin-top: 10px;
     margin-bottom: 15px;
-    min-height: 70px;
-    flex-grow: 1;
+    height: 150px;
     .comment {
       &__title {
+        width: 100%;
+        height: 15px;
         background-color: var(--color-astue-onpz-widget-bg);
         margin-bottom: 10px;
       }
@@ -471,22 +461,23 @@
       }
 
       &__display {
-        border-bottom: 1px solid var(--evj-color-border-comment);
+        min-height: 30px;
+        flex: 1;
+        border-bottom: 0.5px solid var(--color-border-main-transparrent);
         margin-bottom: 5px;
         height: 100%;
         display: flex;
         flex-direction: column-reverse;
-
         .messages {
           position: relative;
           width: 100%;
           height: 100%;
           display: flex;
           flex-direction: column;
+          overflow-y: scroll;
           box-sizing: border-box;
           padding-right: 5px;
           margin: 5px 0;
-          overflow: auto;
         }
         .message {
           box-sizing: border-box;
@@ -498,7 +489,10 @@
         }
       }
 
+
       &__new {
+        height: 40px;
+        width: 100%;
         display: inline-flex;
         justify-content: space-between;
         align-items: center;
@@ -605,6 +599,7 @@
 }
 
 .buttons {
+  margin-top: 20px;
   display: flex;
 }
 
