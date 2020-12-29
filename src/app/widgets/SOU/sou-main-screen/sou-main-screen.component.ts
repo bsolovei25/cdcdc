@@ -2,9 +2,9 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { WidgetPlatform } from 'src/app/dashboard/models/@PLATFORM/widget-platform';
 import { WidgetService } from 'src/app/dashboard/services/widget.service';
 import { SouMvpMnemonicSchemeService } from '../../../dashboard/services/widgets/SOU/sou-mvp-mnemonic-scheme.service';
-import { IInstallationsObj
+import {
+    IAllInstallations, IInstallationsObj
 } from '../../../dashboard/models/SOU/sou-main-screen.model';
-import { SouMainScreenService } from '../../../dashboard/services/widgets/SOU/sou-main-screen.service';
 
 @Component({
     selector: 'evj-sou-main-screen',
@@ -18,7 +18,6 @@ export class SouMainScreenComponent extends WidgetPlatform<unknown> implements O
     constructor(
         protected widgetService: WidgetService,
         public mvpService: SouMvpMnemonicSchemeService,
-        public souMainScreenService: SouMainScreenService,
         @Inject('isMock') public isMock: boolean,
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string
@@ -28,19 +27,12 @@ export class SouMainScreenComponent extends WidgetPlatform<unknown> implements O
 
     public ngOnInit(): void {
         super.widgetInit();
-        this.getAllInstallations();
     }
 
-    async getAllInstallations(): Promise<void> {
-        try {
-            const d = await this.souMainScreenService.getAllInstallations('sou-main-screen');
-            this.allInstallations = d[1].data.group.reduce((p, c) => { p[c.type] = c; return p; }, {});
-        } catch (e) {
-            console.error(e);
-        }
+    protected dataHandler(ref: { group: IAllInstallations[] }): void {
+        this.allInstallations = ref.group.reduce((gr, inst) => {
+            gr[inst.type] = inst;
+            return gr;
+        }, {});
     }
-
-    protected dataHandler(ref: any): void {
-    }
-
 }
