@@ -25,7 +25,7 @@ import {
 export class SouMainScreenComponent extends WidgetPlatform<unknown> implements OnInit {
 
     public allInstallations: IAllInstallations[];
-    public p: {} = {};
+    public p: IInstallationsObj = {};
 
     public data: IInstallations = {
         productionOneData: productionOne,
