@@ -24,3 +24,14 @@ export interface IAllInstallations {
     type: string;
     items: IInstallation[];
 }
+
+export interface IInstallationsObj {
+    ProductionOne: IAllInstallations;
+    ProductionTwo: IAllInstallations;
+    ProductionFour: IAllInstallations;
+    ProductionTrade: IAllInstallations;
+    OffSiteCollectors: IAllInstallations;
+    OffSiteFacilities: IAllInstallations;
+    CatalystProduction: IAllInstallations;
+    Other: IAllInstallations;
+}
