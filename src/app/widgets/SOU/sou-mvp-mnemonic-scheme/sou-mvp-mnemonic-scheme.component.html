@@ -55,7 +55,7 @@
                [ngClass]="{active: i === chosenSection}"
                (click)="changeSection(i)"
           >
-            <span class="title">{{section?.title}}</span>
+            <span class="title" *ngIf="!!section?.title">{{section?.title}}</span>
             <div class="value"
                  [ngClass]="{
             noTrust: section?.value > 0
@@ -175,9 +175,9 @@
         <div class="information">
           Уровень доверия:&nbsp;<span>{{mvpService.popupData?.tolerance}}</span>
           Измеренное:&nbsp;<span [ngSwitch]="chosenSetting">
-            <ng-template ngSwitchCase="1">{{mvpService.popupData?.valueByHour | number:'0.0-0'}}</ng-template>
-            <ng-template ngSwitchCase="2">{{mvpService.popupData?.valueTank | number:'0.0-0'}}</ng-template>
-            <ng-template ngSwitchDefault>{{mvpService.popupData?.valueMoment | number:'0.0-0'}}</ng-template>
+            <ng-template ngSwitchCase="1">{{mvpService.popupData?.valueByHour}}</ng-template>
+            <ng-template ngSwitchCase="2">{{mvpService.popupData?.valueTank}}</ng-template>
+            <ng-template ngSwitchDefault>{{mvpService.popupData?.valueMoment}}</ng-template>
            т</span>
           Скорректированное:&nbsp;<span>{{mvpService.popupData?.valueEdit}} т</span>
           Согласованное:&nbsp;<span>{{mvpService.popupData?.valueCalculate}} т</span>
