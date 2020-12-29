@@ -89,6 +89,12 @@ export class SouMvpMnemonicSchemeComponent extends WidgetPlatform<unknown>
                 value: 0,
             },
         ],
+        [
+            {
+                title: '',
+                value: 0,
+            },
+        ],
     ];
 
     chosenSetting: number = 1;
@@ -162,12 +168,13 @@ export class SouMvpMnemonicSchemeComponent extends WidgetPlatform<unknown>
                     ...item?.objects,
                 ];
             }
+            this.sections.forEach(section => {
+                const sec = section.find((sectionItem) => item.name.indexOf(sectionItem.title) !== -1);
 
-            const sec = this.sections[0].find((section) => item.name.indexOf(section.title) !== -1);
-
-            if (!!sec) {
-                sec.value = item.countFlowExceedingConfInterval;
-            }
+                if (!!sec) {
+                    sec.value = item.countFlowExceedingConfInterval;
+                }
+            });
         });
     }
 
@@ -181,6 +188,7 @@ export class SouMvpMnemonicSchemeComponent extends WidgetPlatform<unknown>
 
     changeInstall(value: string): void {
         this.chosenInstall = value;
+        this.chosenSection = 0;
         let a = {
             manufacture: 'Производство №1',
             name: 'АВТ-10',
