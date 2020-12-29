@@ -5,7 +5,7 @@ import {
     HostListener,
     Input,
     OnChanges,
-    AfterViewInit
+    AfterViewInit,
 } from '@angular/core';
 import * as d3Selection from 'd3-selection';
 import * as d3 from 'd3';
@@ -209,22 +209,23 @@ export class KpeLineChartComponent implements OnChanges, AfterViewInit {
                 .attr('class', `graph-line-${chart.graphType}`)
                 .attr('d', line(chart.graph));
 
-
             let className: string;
-            const fact = this.chartData.find(
-                (factChart) => factChart.graphType === 'fact'
-            )?.graph ?? [];
+            const fact =
+                this.chartData.find((factChart) => factChart.graphType === 'fact')?.graph ?? [];
 
             const lastPoint: IChartD3 = fact[fact.length - 1];
 
             if (chart.graphType === 'higherBorder' || chart.graphType === 'lowerBorder') {
                 const areaFn = chart.graphType === 'lowerBorder' ? areaBottom : areaTop;
 
-                if ( areaFn === areaBottom && chart.graph.find(item => item.x === lastPoint.x)?.y < lastPoint.y
-                || areaFn === areaTop && chart.graph.find(item => item.x === lastPoint.x)?.y >= lastPoint.y) {
+                if (
+                    (areaFn === areaBottom &&
+                        chart.graph.find((item) => item.x === lastPoint.x)?.y < lastPoint.y) ||
+                    (areaFn === areaTop &&
+                        chart.graph.find((item) => item.x === lastPoint.x)?.y >= lastPoint.y)
+                ) {
                     className = 'graph-area-border graph-area_warning';
                     this.lastPointColor = 'graph-area_warning';
-
                 } else {
                     className = 'graph-area-border';
                 }
@@ -243,7 +244,7 @@ export class KpeLineChartComponent implements OnChanges, AfterViewInit {
         const plan = this.chartData.find((chart) => chart.graphType === 'plan')?.graph ?? [];
 
         const x = fact[fact.length - 1].x;
-        const y = plan.find(corrdinate => corrdinate.x === x)?.y;
+        const y = plan.find((corrdinate) => corrdinate.x === x)?.y;
         pointsG
             .append('circle')
             .attr('class', 'point point_plan')
@@ -266,7 +267,7 @@ export class KpeLineChartComponent implements OnChanges, AfterViewInit {
         }
     }
 
-    private ColorizeDraw(colorizeCoordinates: IChartD3[]): void {
+    private colorizeDraw(colorizeCoordinates: IChartD3[]): void {
         const curve = d3.curveMonotoneX;
         const line = d3
             .line()
@@ -294,11 +295,12 @@ export class KpeLineChartComponent implements OnChanges, AfterViewInit {
             border = this.chartData.find((chart) => chart.graphType === 'lowerBorder')?.graph ?? [];
             coeff = 1;
         } else {
-            border = this.chartData.find((chart) => chart.graphType === 'higherBorder')?.graph ?? [];
+            border =
+                this.chartData.find((chart) => chart.graphType === 'higherBorder')?.graph ?? [];
             coeff = -1;
         }
 
-        fact.forEach( (item, i) => {
+        fact.forEach((item, i) => {
             if (i > 0) {
                 // Уравнение участка нижней границы
                 const k1 = (border[i].y - border[i - 1].y) / (border[i].x - border[i - 1].x);
@@ -306,49 +308,55 @@ export class KpeLineChartComponent implements OnChanges, AfterViewInit {
                 // Уравнение участка фактической кривой
                 const k2 = (item.y - fact[i - 1].y) / (item.x - fact[i - 1].x);
                 const b2 = -k2 * fact[i - 1].x + fact[i - 1].y;
-
+                // Точка пересечения границы с кривой факта
                 const x = (b2 - b1) / (k1 - k2);
                 if (!!x && x <= item.x && x >= fact[i - 1].x) {
                     if (coeff * k1 >= k2 * coeff) {
-                        colorizeCoordinates.push({
-                            x: fact[i - 1].x,
-                            y: fact[i - 1].y
-                        }, {
-                            x,
-                            y: k2 * x + b2
-                        });
-
+                        colorizeCoordinates.push(
+                            {
+                                x: fact[i - 1].x,
+                                y: fact[i - 1].y,
+                            },
+                            {
+                                x,
+                                y: k2 * x + b2,
+                            }
+                        );
                     } else {
-                        this.ColorizeDraw(colorizeCoordinates);
+                        this.colorizeDraw(colorizeCoordinates);
                         colorizeCoordinates = [];
 
-                        colorizeCoordinates.push({
-                            x,
-                            y: k2 * x + b2
-                        }, {
-                            x: item.x,
-                            y: item.y
-                        });
+                        colorizeCoordinates.push(
+                            {
+                                x,
+                                y: k2 * x + b2,
+                            },
+                            {
+                                x: item.x,
+                                y: item.y,
+                            }
+                        );
                     }
-
                 } else if (coeff * item.y >= border[i].y * coeff) {
-                    colorizeCoordinates.push({
-                        x: fact[i - 1].x,
-                        y: fact[i - 1].y
-                    }, {
-                        x: item.x,
-                        y: item.y
-                    });
+                    colorizeCoordinates.push(
+                        {
+                            x: fact[i - 1].x,
+                            y: fact[i - 1].y,
+                        },
+                        {
+                            x: item.x,
+                            y: item.y,
+                        }
+                    );
                 } else {
-                    this.ColorizeDraw(colorizeCoordinates);
+                    this.colorizeDraw(colorizeCoordinates);
                     colorizeCoordinates = [];
                 }
             }
         });
 
-        this.ColorizeDraw(colorizeCoordinates);
+        this.colorizeDraw(colorizeCoordinates);
     }
-
 
     private drawFutureRect(): void {
         const fact = this.chartData.find((chart) => chart.graphType === 'fact')?.graph ?? [];
@@ -382,5 +390,4 @@ export class KpeLineChartComponent implements OnChanges, AfterViewInit {
             .attr('height', this.graphMaxY - this.padding.top - this.padding.bottom)
             .attr('class', 'border-rect');
     }
-
 }
