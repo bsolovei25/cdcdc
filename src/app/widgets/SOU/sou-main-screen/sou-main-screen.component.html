@@ -15,7 +15,6 @@
     <div class="column wide">
       <div class="column__production-wide">
         <div class="title">Производство 1</div>
-
         <ng-container *ngFor="let item of data.productionOneData">
           <div class="installation-container">
             <evj-sou-installation-card
@@ -31,7 +30,7 @@
         </div>
         <div class="column__other-production__value">
           <evj-sou-installation-card
-            [installation]="data.offSiteCollectorsData"
+            [installation]="data.offSiteCollectorsData[0]"
           ></evj-sou-installation-card>
         </div>
       </div>
@@ -41,7 +40,7 @@
         </div>
         <div class="column__other-production__value">
           <evj-sou-installation-card
-            [installation]="data.offSiteFacilitiesData"
+            [installation]="data.offSiteFacilitiesData[0]"
           ></evj-sou-installation-card>
         </div>
       </div>
@@ -51,7 +50,7 @@
         </div>
         <div class="column__other-production__value">
           <evj-sou-installation-card
-            [installation]="data.otherData"
+            [installation]="data.otherData[0]"
           ></evj-sou-installation-card>
         </div>
       </div>
@@ -96,7 +95,7 @@
         </div>
         <div class="installation-container">
           <evj-sou-installation-card
-            [installation]="data.catalystProductionData"
+            [installation]="data.catalystProductionData[0]"
           ></evj-sou-installation-card>
         </div>
       </div>

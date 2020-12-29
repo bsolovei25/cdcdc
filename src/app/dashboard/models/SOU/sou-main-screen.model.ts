@@ -1,10 +1,11 @@
 export interface IInstallation {
-    id: number;
-    name: string;
-    deviation: number;
     active: boolean;
+    deviation: number;
+    id: number | string;
+    name: string;
     widgetName?: string;
     installationId?: number;
+    order?: number;
 }
 
 export interface IInstallations {
@@ -12,12 +13,14 @@ export interface IInstallations {
     productionTwoData: IInstallation[];
     productionFourData: IInstallation[];
     productionTradeData: IInstallation[];
-    offSiteCollectorsData: IInstallation;
-    offSiteFacilitiesData: IInstallation;
-    catalystProductionData: IInstallation;
-    otherData: IInstallation;
+    offSiteCollectorsData: IInstallation[];
+    offSiteFacilitiesData: IInstallation[];
+    catalystProductionData: IInstallation[];
+    otherData: IInstallation[];
 }
 
-export interface IdataInstallations {
-    
+export interface IAllInstallations {
+    id: string;
+    type: string;
+    items: IInstallation[];
 }
