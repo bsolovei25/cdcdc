@@ -15,7 +15,7 @@
     <div class="column wide">
       <div class="column__production-wide">
         <div class="title">Производство 1</div>
-        <ng-container *ngFor="let item of data.productionOneData">
+        <ng-container *ngFor="let item of allInstallations?.ProductionOne?.items">
           <div class="installation-container">
             <evj-sou-installation-card
               [installation]="item"
@@ -30,7 +30,7 @@
         </div>
         <div class="column__other-production__value">
           <evj-sou-installation-card
-            [installation]="data.offSiteCollectorsData[0]"
+            [installation]="allInstallations?.OffSiteCollectors?.items[0]"
           ></evj-sou-installation-card>
         </div>
       </div>
@@ -40,7 +40,7 @@
         </div>
         <div class="column__other-production__value">
           <evj-sou-installation-card
-            [installation]="data.offSiteFacilitiesData[0]"
+            [installation]="allInstallations?.OffSiteFacilities?.items[0]"
           ></evj-sou-installation-card>
         </div>
       </div>
@@ -50,7 +50,7 @@
         </div>
         <div class="column__other-production__value">
           <evj-sou-installation-card
-            [installation]="data.otherData[0]"
+            [installation]="allInstallations?.Other?.items[0]"
           ></evj-sou-installation-card>
         </div>
       </div>
@@ -64,7 +64,7 @@
     <div class="column">
       <div class="column__production">
         <div class="title">Производство 2</div>
-        <ng-container *ngFor="let item of data.productionTwoData">
+        <ng-container *ngFor="let item of allInstallations?.ProductionTwo?.items">
           <div class="installation-container">
             <evj-sou-installation-card
               [installation]="item"
@@ -81,7 +81,7 @@
     <div class="column">
       <div class="column__production">
         <div class="title">Производство 4</div>
-        <ng-container *ngFor="let item of data.productionFourData">
+        <ng-container *ngFor="let item of allInstallations?.ProductionFour?.items">
           <div class="installation-container">
             <evj-sou-installation-card
               [installation]="item"
@@ -95,7 +95,7 @@
         </div>
         <div class="installation-container">
           <evj-sou-installation-card
-            [installation]="data.catalystProductionData[0]"
+            [installation]="allInstallations?.CatalystProduction?.items[0]"
           ></evj-sou-installation-card>
         </div>
       </div>
@@ -108,7 +108,7 @@
     <div class="column">
       <div class="column__production">
         <div class="title">Товарное производство</div>
-        <ng-container *ngFor="let item of data.productionTradeData">
+        <ng-container *ngFor="let item of allInstallations?.ProductionTrade?.items">
           <div class="installation-container">
             <evj-sou-installation-card
               [installation]="item"

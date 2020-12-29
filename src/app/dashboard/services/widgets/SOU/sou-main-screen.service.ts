@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { AppConfigService } from '@core/service/app-config.service';
-import { IScenario } from '../../../models/APS/aps-tables.model';
-import { IInstallations } from '../../../models/SOU/sou-main-screen.model';
 
 @Injectable({
     providedIn: 'root',

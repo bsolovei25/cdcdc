@@ -8,17 +8,6 @@ export interface IInstallation {
     order?: number;
 }
 
-export interface IInstallations {
-    productionOneData: IInstallation[];
-    productionTwoData: IInstallation[];
-    productionFourData: IInstallation[];
-    productionTradeData: IInstallation[];
-    offSiteCollectorsData: IInstallation[];
-    offSiteFacilitiesData: IInstallation[];
-    catalystProductionData: IInstallation[];
-    otherData: IInstallation[];
-}
-
 export interface IAllInstallations {
     id: string;
     type: string;
