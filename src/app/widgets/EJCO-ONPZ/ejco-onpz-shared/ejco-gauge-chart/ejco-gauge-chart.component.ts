@@ -36,7 +36,7 @@ export class EjcoGaugeChartComponent implements OnInit, OnChanges {
         const mainValue = this.fact > this.plan
             ? this.plan / this.fact * 100
             : this.fact / this.plan * 100;
-        const subValue = Math.abs(this.fact - this.plan);
+        const subValue = Math.abs(this.fact - this.plan) / Math.max(this.fact, this.plan) * 100;
         this.bindChart(mainValue, subValue);
     }
 
