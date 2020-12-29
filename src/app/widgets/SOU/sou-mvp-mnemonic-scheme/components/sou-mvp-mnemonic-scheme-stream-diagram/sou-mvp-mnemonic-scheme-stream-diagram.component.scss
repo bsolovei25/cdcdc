@@ -33,7 +33,7 @@ span {
 
     border-right: 1px solid var(--sou-mvp-color-border);
     border-radius: 14px 0 0 14px;
-  } 
+  }
 
   .diagram {
     height: 24px;
@@ -57,7 +57,7 @@ span {
   .weight {
     height: 100%;
     width: 63px;
-    padding: 0 10px;
+    padding: 0 5px;
 
     display: flex;
     align-items: center;
@@ -79,7 +79,7 @@ span {
     .title {
       font-size: 12px;
       line-height: 14px;
-  
+
       color: var(--sou-mvp-color-text-diagram-main);
     }
   }
@@ -87,16 +87,16 @@ span {
   .connection-circle {
     height: 8px;
     width: 8px;
-  
+
     display: flex;
     justify-content: center;
     align-items: center;
-  
+
     border-radius: 50%;
-  
+
     background: var(--sou-mvp-color-bg-main);
     border: 1px solid var(--sou-mvp-color-border);
-  
+
     position: absolute;
     right: -4px;
     z-index: 9999;
@@ -107,7 +107,7 @@ span {
         .diagram-inner {
           fill: var(--sou-mvp-color-border);
         }
-  
+
         .diagram-value {
           fill: var(--sou-mvp-color-white);
         }

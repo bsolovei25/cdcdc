@@ -1,19 +1,15 @@
 <div class="body">
     <div class="parks-list">
-        <evj-ozsm-loading-parks-diagram></evj-ozsm-loading-parks-diagram>
-        <evj-ozsm-loading-parks-diagram></evj-ozsm-loading-parks-diagram>
-        <evj-ozsm-loading-parks-diagram></evj-ozsm-loading-parks-diagram>
-        <evj-ozsm-loading-parks-diagram></evj-ozsm-loading-parks-diagram>
-        <evj-ozsm-loading-parks-diagram></evj-ozsm-loading-parks-diagram>
+        <evj-ozsm-loading-parks-diagram [data]="storage" *ngFor="let storage of data?.storages"></evj-ozsm-loading-parks-diagram>
     </div>
     <div class="info-container">
         <div class="info">
             <span class="info__title">Текущий уровень</span>
-            <span class="info__value">627 920</span>
+            <span class="info__value">{{data?.currentValue || 0}}</span>
         </div>
         <div class="info">
             <span class="info__title">Страховой уровень</span>
-            <span class="info__value">127 920</span>
+            <span class="info__value">{{data?.deathValue || 0}}</span>
         </div>
     </div>
 </div>

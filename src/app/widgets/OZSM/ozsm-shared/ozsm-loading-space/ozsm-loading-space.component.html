@@ -7,14 +7,14 @@
     <div class="space__value">
       <ng-container *ngFor="let i of arrayOfCells; index as idx">
         <div class="cell">
-          <div class="full" *ngIf="data.percentageValue >= idx+1"></div>
-          <div class="not-full" *ngIf="data.percentageValue >= idx"
-               [ngStyle]="{width: data.percentageValue % 1 * 100 + '%'}"></div>
+          <div class="full" *ngIf="level >= idx+1"></div>
+          <div class="not-full" *ngIf="level >= idx"
+               [ngStyle]="{width: level % 1 * 100 + '%'}"></div>
         </div>
       </ng-container>
     </div>
   </div>
-  <div class="space__percent"><span>{{data.percentageValue * 10 + '%'}}</span></div>
+  <div class="space__percent"><span>{{level * 10 + '%'}}</span></div>
 </div>
 
 

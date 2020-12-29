@@ -129,7 +129,6 @@
 
     &__item {
       height: 40px;
-      width: 120px;
       padding: 0 18px;
 
       display: flex;
@@ -139,6 +138,10 @@
       border-bottom: 1px solid var(--sou-mvp-color-border);
       color: var(--sou-mvp-color-text-diagram-sub);
       cursor: pointer;
+
+      .title {
+        margin-right: 30px;
+      }
 
       .value {
         height: 18px;

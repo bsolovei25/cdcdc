@@ -2,7 +2,6 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { WidgetPlatform } from 'src/app/dashboard/models/@PLATFORM/widget-platform';
 import { ISouBalance } from 'src/app/dashboard/models/SOU/sou-balance.model';
 import { WidgetService } from 'src/app/dashboard/services/widget.service';
-import { souBalanceData } from './sou-balance.mock';
 
 @Component({
   selector: 'evj-sou-balance',
@@ -11,11 +10,11 @@ import { souBalanceData } from './sou-balance.mock';
 })
 export class SouBalanceComponent extends WidgetPlatform implements OnInit {
   menuData: string[] = ['Измеренное', 'Согласованное'];
-  data: ISouBalance[] = souBalanceData;
+  data: ISouBalance[] = [];
 
-  choosenItem: number = 0;
-  public changeSettinge(i: number) {
-    this.choosenItem = i;
+  chosenItem: number = 0;
+  public changeSetting(i: number): void {
+    this.chosenItem = i;
   }
 
   constructor(
@@ -31,5 +30,7 @@ export class SouBalanceComponent extends WidgetPlatform implements OnInit {
       this.widgetInit();
   }
 
-  protected dataHandler(ref: any): void {}
+  protected dataHandler(ref: {groups: ISouBalance[]}): void {
+      this.data = ref.groups;
+  }
 }
