@@ -266,7 +266,7 @@ export class KpeLineChartComponent implements OnChanges, AfterViewInit {
         }
     }
 
-    private ColorizeDraw(ColorizeCoordinates: IChartD3[]): void {
+    private ColorizeDraw(colorizeCoordinates: IChartD3[]): void {
         const curve = d3.curveMonotoneX;
         const line = d3
             .line()
@@ -276,7 +276,7 @@ export class KpeLineChartComponent implements OnChanges, AfterViewInit {
 
         this.svg
             .append('path')
-            .attr('d', line(ColorizeCoordinates))
+            .attr('d', line(colorizeCoordinates))
             .style('fill', 'none')
             .style('stroke-width', 2)
             .style('stroke', 'var(--color-astue-onpz-warning)');
@@ -284,7 +284,7 @@ export class KpeLineChartComponent implements OnChanges, AfterViewInit {
 
     private customizeAreas(borderType: string): void {
         // borderType это тип границы, чтобы узнать нижнюю рассматриваем или верхнюю
-        let ColorizeCoordinates: IChartD3[] = []; // Координаты кторые надо закрасить
+        let colorizeCoordinates: IChartD3[] = []; // Координаты кторые надо закрасить
         let coeff: number; // Принимает значения 1 или -1, это чтоб не переписывать неравенства
         let border: IChartD3[]; // Координаты границы
 
@@ -310,7 +310,7 @@ export class KpeLineChartComponent implements OnChanges, AfterViewInit {
                 const x = (b2 - b1) / (k1 - k2);
                 if (!!x && x <= item.x && x >= fact[i - 1].x) {
                     if (coeff * k1 >= k2 * coeff) {
-                        ColorizeCoordinates.push({
+                        colorizeCoordinates.push({
                             x: fact[i - 1].x,
                             y: fact[i - 1].y
                         }, {
@@ -319,10 +319,10 @@ export class KpeLineChartComponent implements OnChanges, AfterViewInit {
                         });
 
                     } else {
-                        this.ColorizeDraw(ColorizeCoordinates);
-                        ColorizeCoordinates = [];
+                        this.ColorizeDraw(colorizeCoordinates);
+                        colorizeCoordinates = [];
 
-                        ColorizeCoordinates.push({
+                        colorizeCoordinates.push({
                             x,
                             y: k2 * x + b2
                         }, {
@@ -332,7 +332,7 @@ export class KpeLineChartComponent implements OnChanges, AfterViewInit {
                     }
 
                 } else if (coeff * item.y >= border[i].y * coeff) {
-                    ColorizeCoordinates.push({
+                    colorizeCoordinates.push({
                         x: fact[i - 1].x,
                         y: fact[i - 1].y
                     }, {
@@ -340,13 +340,13 @@ export class KpeLineChartComponent implements OnChanges, AfterViewInit {
                         y: item.y
                     });
                 } else {
-                    this.ColorizeDraw(ColorizeCoordinates);
-                    ColorizeCoordinates = [];
+                    this.ColorizeDraw(colorizeCoordinates);
+                    colorizeCoordinates = [];
                 }
             }
         });
 
-        this.ColorizeDraw(ColorizeCoordinates);
+        this.ColorizeDraw(colorizeCoordinates);
     }
 
 
