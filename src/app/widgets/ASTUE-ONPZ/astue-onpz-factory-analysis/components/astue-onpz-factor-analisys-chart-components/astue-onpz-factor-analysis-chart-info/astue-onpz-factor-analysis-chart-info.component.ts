@@ -7,12 +7,15 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class AstueOnpzFactorAnalysisChartInfoComponent implements OnInit {
     // TODO: temp to test
-    @Input() type: 'plan' | 'fact' | 'interval' = 'plan';
+    @Input()
+    public type: 'plan' | 'fact' | 'interval' = 'plan';
 
     @Input()
     public value: number = 0;
 
-    constructor() {}
+    constructor(
+    ) {}
 
-    ngOnInit(): void {}
+    ngOnInit(): void {
+    }
 }

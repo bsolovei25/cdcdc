@@ -6,6 +6,7 @@
         [graphData]="graphData"
         [selectedPeriod]="selectedPeriod"
         [scroll]="{left: sbLeft, right: 100 - sbLeft - sbWidth}"
+        (planFactValues)="setPlanFactValues($event)"
       ></evj-astue-onpz-factory-analysis-chart>
     </div>
     <div class="bottom">
@@ -21,8 +22,8 @@
     </div>
   </div>
   <div class="right-wrapper">
-    <evj-astue-onpz-factor-analysis-chart-info type="fact" [value]="graphData.currentFact"></evj-astue-onpz-factor-analysis-chart-info>
-    <evj-astue-onpz-factor-analysis-chart-info type="plan" [value]="graphData.currentPlan"></evj-astue-onpz-factor-analysis-chart-info>
+    <evj-astue-onpz-factor-analysis-chart-info type="fact" [value]="countedValues.fact !== 0 ? countedValues.fact : graphData.currentFact"></evj-astue-onpz-factor-analysis-chart-info>
+    <evj-astue-onpz-factor-analysis-chart-info type="plan" [value]="countedValues.plan !== 0 ? countedValues.plan : graphData.currentPlan"></evj-astue-onpz-factor-analysis-chart-info>
     <evj-astue-onpz-factor-analysis-chart-info type="interval"></evj-astue-onpz-factor-analysis-chart-info>
   </div>
 </div>
