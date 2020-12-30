@@ -18,6 +18,7 @@ interface IAstueOnpzMainIndicatorsRaw {
     planName: string;
     planValue: number;
     unitId?: number;
+    engUnits: string;
 }
 
 @Component({
