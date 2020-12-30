@@ -6,9 +6,10 @@
       icon="drop"
       type="astue"
     >
-      <div class="header"
-           (mousedown)="$event.stopPropagation()"
-           (touchstart)="$event.stopPropagation()"
+      <div
+        class="header"
+        (mousedown)="$event.stopPropagation()"
+        (touchstart)="$event.stopPropagation()"
       >
         <svg-icon
           class="arrow-circle"
@@ -18,10 +19,11 @@
 
         <div class="option-select">
           <div class="dropdown">
-            <div class="dropdown__marker">
-            </div>
+            <div class="dropdown__marker"></div>
             <mat-select class="dropdown__select" [(ngModel)]="selectedInstallation">
-              <mat-option *ngFor="let factory of factories; index as i" [value]="i">{{factory}}</mat-option>
+              <mat-option *ngFor="let factory of factories; index as i" [value]="i"
+                >{{factory}}</mat-option
+              >
             </mat-select>
           </div>
         </div>
@@ -34,41 +36,42 @@
 
         <div class="option-select">
           <div class="dropdown">
-            <div class="dropdown__marker">
-            </div>
-            <mat-select
-              class="dropdown__select"
-              [value]="0"
-            >
-              <mat-option [value]="0"
-                          *ngFor="let install of installations[selectedInstallation]"
-                          (click)="changeInstall(install)"
-              >{{install}}</mat-option>
+            <div class="dropdown__marker"></div>
+            <mat-select class="dropdown__select" [value]="0">
+              <mat-option
+                [value]="0"
+                *ngFor="let install of installations[selectedInstallation]"
+                (click)="changeInstall(install)"
+                >{{install}}</mat-option
+              >
             </mat-select>
           </div>
         </div>
 
         <div class="section-select">
           <div class="custom-border"></div>
-          <div class="section-select__item"
-               *ngFor="let section of sections[selectedInstallation]; let i = index"
-               [ngClass]="{active: i === chosenSection}"
-               (click)="changeSection(i)"
+          <div
+            class="section-select__item"
+            *ngFor="let section of sections[selectedInstallation]; let i = index"
+            [ngClass]="{active: i === chosenSection}"
+            (click)="changeSection(i)"
           >
             <span class="title" *ngIf="!!section?.title">{{section?.title}}</span>
-            <div class="value"
-                 [ngClass]="{
+            <div
+              class="value"
+              [ngClass]="{
             noTrust: section?.value > 0
           }"
-            >{{section.value}}</div>
+            >
+              {{section.value}}
+            </div>
           </div>
         </div>
 
         <div class="option-select">
           <span>Отображаемые значения: </span>
           <div class="dropdown">
-            <div class="dropdown__marker">
-            </div>
+            <div class="dropdown__marker"></div>
             <mat-select class="dropdown__select" [value]="'измеренные'">
               <ng-container>
                 <mat-option [value]="'измеренные'">
@@ -80,21 +83,25 @@
         </div>
 
         <div class="filter-btn">
-          <div class="filter-btn__item"
-               *ngFor="let setting of settings; let i = index"
-               [ngClass]="{
+          <div
+            class="filter-btn__item"
+            *ngFor="let setting of settings; let i = index"
+            [ngClass]="{
           active: i === chosenSetting
         }"
-               (click)="changeSetting(i)"
-          >{{setting}}</div>
+            (click)="changeSetting(i)"
+          >
+            {{setting}}
+          </div>
         </div>
       </div>
     </evj-contemporary-widget-header>
   </div>
 
-  <div class="container-body"
-       (mousedown)="$event.stopPropagation()"
-       (touchstart)="$event.stopPropagation()"
+  <div
+    class="container-body"
+    (mousedown)="$event.stopPropagation()"
+    (touchstart)="$event.stopPropagation()"
   >
     <div class="main-content-container">
       <evj-sou-mvp-mnemonic-scheme-ab-left
@@ -118,15 +125,20 @@
       ></evj-sou-mvp-mnemonic-scheme-izomalk-left>
 
       <div class="streams-groups">
-        <div class="streams-container"
-             [class.streams-container_park]="this.factories[this.selectedInstallation] === 'Товарное производство'"
-             (mousedown)="$event.stopPropagation()"
-             (touchstart)="$event.stopPropagation()"
+        <div
+          class="streams-container"
+          [class.streams-container_park]="this.factories[this.selectedInstallation] === 'Товарное производство'"
+          (mousedown)="$event.stopPropagation()"
+          (touchstart)="$event.stopPropagation()"
         >
           <div class="main-collector" *ngIf="selectedInstallation <= 1">
             <div class="main-collector-title">
-              <span *ngIf="chosenSection !== 2">{{ installations[selectedInstallation] }}<br></span>
-              <span *ngIf="chosenSection !== 0"> {{ sections[selectedInstallation][chosenSection]?.title }}</span>
+              <span *ngIf="chosenSection !== 2"
+                >{{ installations[selectedInstallation] }}<br
+              /></span>
+              <span *ngIf="chosenSection !== 0">
+                {{ sections[selectedInstallation][chosenSection]?.title }}</span
+              >
             </div>
           </div>
           <evj-sou-mvp-mnemonic-scheme-section
@@ -147,23 +159,26 @@
             [sections]="sectionsDataIzo"
           ></evj-sou-mvp-mnemonic-scheme-section-izomalk>
 
-          <evj-sou-schema *ngIf="selectedInstallation === 2" [sectionsDataPark]="sectionsDataPark"
-                          [chosenSetting]="chosenSetting" [chosenInstall]="chosenInstall"></evj-sou-schema>
+          <evj-sou-schema
+            *ngIf="selectedInstallation === 2"
+            [sectionsDataPark]="sectionsDataPark"
+            [chosenSetting]="chosenSetting"
+            [chosenInstall]="chosenInstall"
+          ></evj-sou-schema>
         </div>
       </div>
     </div>
   </div>
 
-  <div class="popup-container"
-       (mousedown)="$event.stopPropagation()"
-       (touchstart)="$event.stopPropagation()"
+  <div
+    class="popup-container"
+    (mousedown)="$event.stopPropagation()"
+    (touchstart)="$event.stopPropagation()"
   >
-    <div class="popup"
-         [@Branch]="mvpService.isPopupOpen ? 'opened' : 'closed'"
-    >
+    <div class="popup" [@Branch]="mvpService.isPopupOpen ? 'opened' : 'closed'">
       <div class="popup__header" (click)="mvpService.closePopup()">
         <div class="close-btn">
-          <img src="assets/icons/widgets/SOU/sou-mvp-mnemonic-scheme/popupClose.svg">
+          <img src="assets/icons/widgets/SOU/sou-mvp-mnemonic-scheme/popupClose.svg" />
         </div>
       </div>
       <div class="popup__content">
@@ -178,7 +193,8 @@
             <ng-template ngSwitchCase="1">{{mvpService.popupData?.valueByHour}}</ng-template>
             <ng-template ngSwitchCase="2">{{mvpService.popupData?.valueTank}}</ng-template>
             <ng-template ngSwitchDefault>{{mvpService.popupData?.valueMoment}}</ng-template>
-           т</span>
+            т</span
+          >
           Скорректированное:&nbsp;<span>{{mvpService.popupData?.valueEdit}} т</span>
           Согласованное:&nbsp;<span>{{mvpService.popupData?.valueCalculate}} т</span>
           Погрешность:&nbsp; <span>{{mvpService.popupData?.error}} %</span>
@@ -198,8 +214,8 @@
       </div>
       <div class="row-container">
         <div class="information">
-          Накопленное:&nbsp;<span class="information__main">{{mainData?.sumInByDay}}</span>
-          За час:&nbsp;<span class="information__sub">{{mainData?.sumInByHour}}</span>
+          Накопленное:&nbsp;<span class="information__main">{{mainData?.sumInByDay}}</span> За
+          час:&nbsp;<span class="information__sub">{{mainData?.sumInByHour}}</span>
         </div>
       </div>
     </div>
@@ -213,8 +229,8 @@
       </div>
       <div class="row-container">
         <div class="information">
-          Накопленное:&nbsp;<span class="information__main">{{mainData?.sumOutByDay}}</span>
-          За час:&nbsp;<span class="information__sub">{{mainData?.sumOutByHour}}</span>
+          Накопленное:&nbsp;<span class="information__main">{{mainData?.sumOutByDay}}</span> За
+          час:&nbsp;<span class="information__sub">{{mainData?.sumOutByHour}}</span>
         </div>
       </div>
     </div>
@@ -228,10 +244,16 @@
       </div>
       <div class="row-container">
         <div class="information">
-          Накопленное:&nbsp;<span class="information__sub">{{mainData?.delta}}т</span>&nbsp;|&nbsp;<span
-          class="information__main">{{mainData?.deltaByPersent}}%</span>
-          За час:&nbsp;<span class="information__sub">{{mainData?.deltaHour}}т</span>&nbsp;|&nbsp;<span
-          class="information__main">{{mainData?.deltaHourByPercent}}%</span>
+          Накопленное:&nbsp;<span
+            class="information__sub"
+            [style.color]="mainData?.lampOn ?'var(--sou-mvp-color-warning)':'var(--sou-mvp-color-text-diagram-main)'"
+            >{{mainData?.delta}}т</span
+          >&nbsp;|&nbsp;<span class="information__main">{{mainData?.deltaByPersent}}%</span> За
+          час:&nbsp;<span
+            class="information__sub"
+            [style.color]="mainData?.lampOn ?'var(--sou-mvp-color-warning)':'var(--sou-mvp-color-text-diagram-main)'"
+            >{{mainData?.deltaHour}}т</span
+          >&nbsp;|&nbsp;<span class="information__main">{{mainData?.deltaHourByPercent}}%</span>
         </div>
         <!--        <div class="information">-->
         <!--        <span class="information__main"-->
@@ -247,13 +269,16 @@
           src="assets/icons/widgets/SOU/sou-mvp-mnemonic-scheme/balance.svg"
           [ngStyle]="{ 'width.px':16, 'height.px':17 }"
         ></svg-icon>
-        <span class="title">Допустимый дебаланс</span></div>
+        <span class="title">Допустимый дебаланс</span>
+      </div>
       <div class="row-container">
         <div class="information">
-          Накопленное:&nbsp;<span class="information__sub">{{mainData?.balanceAllow}}т</span>&nbsp;|&nbsp;<span
-          class="information__main">{{mainData?.balanceAllowByPercent}}%</span>
-          За час:&nbsp;<span class="information__sub">{{mainData?.balanceAllowHour}}т</span>&nbsp;|&nbsp;<span
-          class="information__main">{{mainData?.balanceAllowHourByPercent}}%</span>
+          Накопленное:&nbsp;<span class="information__sub">{{mainData?.balanceAllow}}т</span
+          >&nbsp;|&nbsp;<span class="information__main">{{mainData?.balanceAllowByPercent}}%</span>
+          За час:&nbsp;<span class="information__sub">{{mainData?.balanceAllowHour}}т</span
+          >&nbsp;|&nbsp;<span class="information__main"
+            >{{mainData?.balanceAllowHourByPercent}}%</span
+          >
         </div>
       </div>
     </div>
