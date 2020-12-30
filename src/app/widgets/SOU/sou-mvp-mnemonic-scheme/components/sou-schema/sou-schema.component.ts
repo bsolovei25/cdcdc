@@ -52,6 +52,7 @@ export class SouSchemaComponent implements OnInit, OnChanges, AfterViewChecked {
 
     @Input() sectionsDataPark: (ISOUFlowOut | ISOUFlowIn | ISOUObjects)[];
     @Input() chosenSetting: number = 1;
+    @Input() chosenInstall: string = 'АССБ Авиасмеси' || 'АССБ А-95';
 
     constructor(public mvpService: SouMvpMnemonicSchemeService) {}
 

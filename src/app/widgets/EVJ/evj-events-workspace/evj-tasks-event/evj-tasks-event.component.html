@@ -1,6 +1,6 @@
 <div class="workspace scroll scroll-bar" [style]="{overflow: noOverflow ? 'auto' : 'visible'}">
   <div class="workspace__header">
-    <div class="workspace__select-container-left">
+    <div class="workspace__select-container">
       <div class="title">
         <span>Категория</span>
       </div>
@@ -42,7 +42,7 @@
       </div>
     </div>
 
-    <div class="workspace__select-container-right">
+    <div class="workspace__select-container">
       <evj-events-workspace-select
         [label]="'Статус'"
         [dataType]="'status'"
@@ -224,5 +224,3 @@
   [info]="ewService.extraOptionsWindow$ | async"
   (checked)="openExtraOptions()"
 ></evj-evj-events-workspace-extra-options>
-
-

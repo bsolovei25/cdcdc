@@ -1,10 +1,10 @@
 import {
     Component,
-    ElementRef,
+    ElementRef, EventEmitter,
     HostListener,
     Input,
     OnChanges,
-    OnInit,
+    OnInit, Output,
     Renderer2,
     SimpleChanges,
 } from '@angular/core';
@@ -42,6 +42,9 @@ export class AstueOnpzFactoryAnalysisChartComponent implements OnInit, OnChanges
     @Input()
     public selectedPeriod: IDatesInterval | null = null;
 
+    @Output()
+    public planFactValues: EventEmitter<{ fact: number; plan: number }> = new EventEmitter<{ fact: number; plan: number }>();
+
     public factDataset: {
         x: Date;
         y: number;
@@ -66,6 +69,8 @@ export class AstueOnpzFactoryAnalysisChartComponent implements OnInit, OnChanges
 
     public sizeX: { min: Date | null; max: Date | null } = { min: null, max: null };
 
+    public sizeXCoord: { min: number | null; max: number | null } = { min: null, max: null };
+
     public sizeY: { min: number; max: number } = { min: 0, max: 100 };
 
     public margin: { top: number; right: number; bottom: number; left: number } = {
@@ -82,6 +87,8 @@ export class AstueOnpzFactoryAnalysisChartComponent implements OnInit, OnChanges
     private readonly DELTA: number = 0.05;
 
     private eventListenerFn: () => void = null;
+
+    private curves: {type: LineType, curve: Selection}[] = [];
 
     @HostListener('document:resize', ['$event'])
     public OnResize(): void {
@@ -284,6 +291,8 @@ export class AstueOnpzFactoryAnalysisChartComponent implements OnInit, OnChanges
 
         drawAxis('x', d3.axisBottom(this.scales.x));
         drawAxis('y', d3.axisLeft(this.scales.y));
+
+        [this.sizeXCoord.min, this.sizeXCoord.max] = d3.extent([...this.factDataset, ...this.planDataset, ...this.lowDataset, ...this.highDataset].map(item => this.scales.x(item.x)));
     }
 
     private drawGrid(): void {
@@ -342,7 +351,7 @@ export class AstueOnpzFactoryAnalysisChartComponent implements OnInit, OnChanges
             .x((d) => this.scales.x(d.x))
             .y((d) => this.scales.y(d.y));
 
-        this.svg
+        this.curves[type] = this.svg
             .append('path')
             .datum(dataset)
             .attr('class', lineClass)
@@ -454,6 +463,7 @@ export class AstueOnpzFactoryAnalysisChartComponent implements OnInit, OnChanges
         eventListeners.push(
             this.renderer.listen(element, 'mouseleave', () => {
                 this.toggleFloatingDayThreshold('disable');
+                this.setChartInfoValues({ fact: 0, plan: 0 });
                 if (this.eventListenerFn) {
                     this.positionMouse = null;
                 }
@@ -466,6 +476,9 @@ export class AstueOnpzFactoryAnalysisChartComponent implements OnInit, OnChanges
                     .attr('x1', this.positionMouse)
                     .attr('x2', this.positionMouse);
                 const formatDate = d3.timeFormat('%H:%M');
+                if (this.positionMouse >= this.sizeXCoord.min && this.positionMouse <= this.sizeXCoord.max) {
+                    this.setChartInfoValues(this.getValuesAtX(this.positionMouse));
+                }
                 this.svg
                     .select('.label-mouse')
                     .attr('x', this.positionMouse + 7)
@@ -473,6 +486,40 @@ export class AstueOnpzFactoryAnalysisChartComponent implements OnInit, OnChanges
             })
         );
         return () => eventListeners?.forEach((item) => item());
+    }
+
+    private getValuesAtX(xParam: number): { fact: number; plan: number } {
+        return {
+            fact: this.yValueForX(xParam, this.curves['fact']),
+            plan: this.yValueForX(xParam, this.curves['plan']),
+        };
+    }
+
+    private yValueForX(x: number, path: any): number {
+        const node = path.node();
+        const pathLength = node.getTotalLength();
+        let start = 0;
+        let end = pathLength;
+        let target = (start + end) / 2;
+
+        x = Math.max(x, node.getPointAtLength(0).x);
+        x = Math.min(x, node.getPointAtLength(pathLength).x);
+
+        while (target >= start && target <= pathLength) {
+            const pos = node.getPointAtLength(target);
+            if (Math.abs(pos.x - x) < 0.001) {
+                return this.scales.y.invert(pos.y);
+            } else if (pos.x > x) {
+                end = target;
+            } else {
+                start = target;
+            }
+            target = (start + end) / 2;
+        }
+    }
+
+    private setChartInfoValues(values: { fact: number; plan: number }): void {
+        this.planFactValues.emit(values);
     }
 
     private toggleFloatingDayThreshold(actionType: 'enable' | 'disable'): void {

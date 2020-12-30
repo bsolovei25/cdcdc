@@ -91,7 +91,9 @@
         flex-direction: column;
         justify-content: center;
         align-items: flex-start;
-
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
         font-size: 11px;
         color: var(--color-text-main);
       }

@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, OnChanges } from '@angular/core';
-import { IUser } from '../../../dashboard/models/EVJ/events-widget';
-import { AdminPanelService } from '../../../dashboard/services/widgets/admin-panel/admin-panel.service';
+import { IUser } from '../../../../../dashboard/models/EVJ/events-widget';
+import { AdminPanelService } from '../../../../../dashboard/services/widgets/admin-panel/admin-panel.service';
 import { AvatarConfiguratorService } from '@core/service/avatar-configurator.service';
 
 @Component({

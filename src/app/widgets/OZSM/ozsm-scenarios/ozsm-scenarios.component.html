@@ -11,54 +11,27 @@
         (touchstart)="$event.stopPropagation()"
     >
         <div class="diagram">
-            <div class="diagram__circle diagram__circle_passed">
-                <svg-icon
-                    src = 'assets/icons/widgets/OZSM/ozsm-scenarios/passed.svg'
-                    [svgStyle]="{ 'width.px':6, 'height.px':4 }"
-                ></svg-icon>
-                <div class="inner-circle"></div>
+          <ng-container *ngFor="let idx of [1,2,3,4,5]">
+            <div class="diagram__circle diagram__circle_passed"
+                 [class.diagram__circle_passed]="(currentScenario$ | async)?.status > idx"
+                 [class.diagram__circle_active]="(currentScenario$ | async)?.status === idx"
+            >
+              <svg-icon
+                src = 'assets/icons/widgets/OZSM/ozsm-scenarios/passed.svg'
+                [svgStyle]="{ 'width.px':6, 'height.px':4 }"
+              ></svg-icon>
+              <div class="inner-circle"></div>
             </div>
-            <div class="diagram__dashed diagram__dashed_active"></div>
-            <div class="diagram__circle diagram__circle_active">
-                <svg-icon
-                    src = 'assets/icons/widgets/OZSM/ozsm-scenarios/passed.svg'
-                    [svgStyle]="{ 'width.px':6, 'height.px':4 }"
-                ></svg-icon>
-                <div class="inner-circle"></div>
-            </div>
-            <div class="diagram__dashed"></div>
-            <div class="diagram__circle">
-                <svg-icon
-                    src = 'assets/icons/widgets/OZSM/ozsm-scenarios/passed.svg'
-                    [svgStyle]="{ 'width.px':6, 'height.px':4 }"
-                ></svg-icon>
-                <div class="inner-circle"></div>
-            </div>
-            <div class="diagram__dashed"></div>
-            <div class="diagram__circle">
-                <svg-icon
-                    src = 'assets/icons/widgets/OZSM/ozsm-scenarios/passed.svg'
-                    [svgStyle]="{ 'width.px':6, 'height.px':4 }"
-                ></svg-icon>
-                <div class="inner-circle"></div>
-            </div>
-            <div class="diagram__dashed"></div>
-            <div class="diagram__circle">
-                <svg-icon
-                    src = 'assets/icons/widgets/OZSM/ozsm-scenarios/passed.svg'
-                    [svgStyle]="{ 'width.px':6, 'height.px':4 }"
-                ></svg-icon>
-            </div>
+            <div *ngIf="idx !== 5" [class.diagram__dashed_active]="(currentScenario$ | async)?.status > idx" class="diagram__dashed"></div>
+          </ng-container>
         </div>
         <div class="select-menu">
             <div class="dropdown">
                 <div class="dropdown__marker">
                 </div>
-                <mat-select class="dropdown__select" [value]="scenarios[0]">
-                  <ng-container *ngFor="let scenario of scenarios">
-                    <mat-option [value]="scenario">
-                      {{ scenario }}
-                    </mat-option>
+                <mat-select class="dropdown__select" [value]="(currentScenario$ | async)?.scenarioId">
+                  <ng-container *ngFor="let scenario of scenarios$ | async">
+                    <mat-option [value]="scenario.scenarioId">{{ scenario.name }}</mat-option>
                   </ng-container>
                 </mat-select>
               </div>

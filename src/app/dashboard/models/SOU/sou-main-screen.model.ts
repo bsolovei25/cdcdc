@@ -1,19 +1,26 @@
 export interface IInstallation {
-    id: number;
-    name: string;
-    deviation: number;
     active: boolean;
+    deviation: number;
+    id: number | string;
+    name: string;
     widgetName?: string;
     installationId?: number;
+    order?: number;
 }
 
-export interface IInstallations {
-    productionOneData: IInstallation[];
-    productionTwoData: IInstallation[];
-    productionFourData: IInstallation[];
-    productionTradeData: IInstallation[];
-    offSiteCollectorsData: IInstallation;
-    offSiteFacilitiesData: IInstallation;
-    catalystProductionData: IInstallation;
-    otherData: IInstallation;
+export interface IAllInstallations {
+    id: string;
+    type: string;
+    items: IInstallation[];
+}
+
+export interface IInstallationsObj {
+    ProductionOne?: IAllInstallations;
+    ProductionTwo?: IAllInstallations;
+    ProductionFour?: IAllInstallations;
+    ProductionTrade?: IAllInstallations;
+    OffSiteCollectors?: IAllInstallations;
+    OffSiteFacilities?: IAllInstallations;
+    CatalystProduction?: IAllInstallations;
+    Other?: IAllInstallations;
 }

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Inject, OnDestroy, OnInit, Output } from '@angular/core';
+import {ChangeDetectorRef, Component, EventEmitter, Inject, OnDestroy, OnInit, Output} from '@angular/core';
 import { IDatesInterval, WidgetService } from '../../../../../dashboard/services/widget.service';
 import { IChartMini } from '@shared/models/smart-scroll.model';
 import { IMultiChartLine } from '../../../../../dashboard/models/ASTUE-ONPZ/astue-onpz-multi-chart.model';
@@ -39,9 +39,12 @@ export class AstueOnpzFactoryAnalysisChartPageComponent extends ChannelPlatform<
 
     public selectedPeriod: IDatesInterval;
 
+    public countedValues: { fact: number; plan: number } = { fact: 0, plan: 0 };
+
     constructor(
         protected widgetService: WidgetService,
         private mnemonicFurnaceService: AstueOnpzMnemonicFurnaceService,
+        private changeDetectorRef: ChangeDetectorRef,
         @Inject('widgetId') public widgetId: string,
         @Inject('channelId') public channelId: string
     ) {
@@ -74,9 +77,13 @@ export class AstueOnpzFactoryAnalysisChartPageComponent extends ChannelPlatform<
         });
     }
 
+    public setPlanFactValues(values: { fact: number; plan: number }): void {
+        this.countedValues = values;
+        this.changeDetectorRef.detectChanges();
+    }
+
     protected dataHandler(ref: IGraphData): void {
         this.graphData = ref.graph;
-        console.log(this.graphData, 'this.graphData');
 
         this.scrollData = this.graphData?.graph
             ?.find((item) => item.graphType === 'plan')

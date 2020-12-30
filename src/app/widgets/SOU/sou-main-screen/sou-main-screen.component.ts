@@ -1,17 +1,10 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { WidgetPlatform } from 'src/app/dashboard/models/@PLATFORM/widget-platform';
 import { WidgetService } from 'src/app/dashboard/services/widget.service';
-import {
-    catalystProduction,
-    offSiteCollectors,
-    offSiteFacilities,
-    other,
-    productionFour, productionOne,
-    productionTrade,
-    productionTwo
-} from './sou-main-screen-data.mock';
 import { SouMvpMnemonicSchemeService } from '../../../dashboard/services/widgets/SOU/sou-mvp-mnemonic-scheme.service';
-import { IInstallations } from '../../../dashboard/models/SOU/sou-main-screen.model';
+import {
+    IAllInstallations, IInstallationsObj
+} from '../../../dashboard/models/SOU/sou-main-screen.model';
 
 @Component({
     selector: 'evj-sou-main-screen',
@@ -20,17 +13,7 @@ import { IInstallations } from '../../../dashboard/models/SOU/sou-main-screen.mo
 })
 export class SouMainScreenComponent extends WidgetPlatform<unknown> implements OnInit {
 
-public data: IInstallations =  {
-    productionOneData: productionOne,
-    productionTwoData: productionTwo,
-    productionFourData: productionFour,
-    productionTradeData: productionTrade,
-    offSiteCollectorsData: offSiteCollectors,
-    offSiteFacilitiesData: offSiteFacilities,
-    catalystProductionData: catalystProduction,
-    otherData: other,
-};
-
+    public allInstallations: IInstallationsObj = {};
 
     constructor(
         protected widgetService: WidgetService,
@@ -46,7 +29,10 @@ public data: IInstallations =  {
         super.widgetInit();
     }
 
-    protected dataHandler(ref: any): void {
+    protected dataHandler(ref: { group: IAllInstallations[] }): void {
+        this.allInstallations = ref.group.reduce((gr, inst) => {
+            gr[inst.type] = inst;
+            return gr;
+        }, {});
     }
-
 }
