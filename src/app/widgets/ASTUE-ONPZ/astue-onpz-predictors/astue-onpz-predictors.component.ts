@@ -9,6 +9,7 @@ import {
 } from '../astue-onpz-conventional-fuel/astue-onpz-conventional-fuel.service';
 
 interface IPredictors {
+    isHidden: boolean;
     id: string;
     name: string;
     label: string;
@@ -55,7 +56,7 @@ export class AstueOnpzPredictorsComponent extends WidgetPlatform<unknown>
         super.dataConnect();
         this.setOptionsWs(this.id);
         this.subscriptions.push(
-            this.conventionalFuelService.selectedOptions.subscribe((ref) => {
+            this.conventionalFuelService.selectedOptions?.subscribe((ref) => {
                 this.selectPredictors.clear();
                 this.astueOnpzService.setPredictors(this.id, []);
                 this.data = [];
@@ -69,7 +70,7 @@ export class AstueOnpzPredictorsComponent extends WidgetPlatform<unknown>
     }
 
     protected dataHandler(ref: { predictors: IPredictors[] }): void {
-        this.data = ref.predictors;
+        this.data = ref.predictors.filter(item => !item.isHidden);
         if (ref.predictors[0]?.id === '0') {
             console.log('ID предиктора равна 0'); // проверка данных с backend
         }
