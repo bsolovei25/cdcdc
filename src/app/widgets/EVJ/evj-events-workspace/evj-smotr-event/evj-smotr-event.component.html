@@ -4,37 +4,38 @@
     (mousedown)="$event.stopPropagation()"
     (touchstart)="$event.stopPropagation()"
   >
-    <div class="header-workspace__container"
+    <button class="header-workspace__container"
          matRipple [matRippleColor]="'white'"
          (click)="createEvent(true)"
     >
       <div class="button-name">Новое событие</div>
-    </div>
-    <div class="header-workspace__container"
+    </button>
+    <button class="header-workspace__container"
          (click)="isEscalatePopupOpen=true"
          matRipple [matRippleColor]="'white'"
     >
       <div class="button-name">Эскалировать</div>
-    </div>
-    <div class="header-workspace__container"
+    </button>
+    <button class="header-workspace__container"
          (click)="onClickUrl()"
          matRipple [matRippleColor]="'white'"
     >
       <div class="button-name">Карточка отклонения</div>
-    </div>
-    <div class="header-workspace__container"
+    </button>
+    <button class="header-workspace__container"
          (click)="openClosePopup()"
          matRipple [matRippleColor]="'white'"
+         [disabled]="true"
     >
       <div class="button-name">Закрыть отклонение</div>
-    </div>
-    <div
+    </button>
+    <button
       class="header-workspace__container active-button"
       (click)="createEvent(false)"
       matRipple [matRippleColor]="'white'"
     >
       <div class="button-name">Сохранить</div>
-    </div>
+    </button>
   </div>
 </div>
 
