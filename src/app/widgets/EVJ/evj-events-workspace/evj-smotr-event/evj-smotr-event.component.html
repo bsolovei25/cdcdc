@@ -4,19 +4,19 @@
     (mousedown)="$event.stopPropagation()"
     (touchstart)="$event.stopPropagation()"
   >
-    <button class="header-workspace__container"
+    <button class="header-workspace__container hover-effect"
          matRipple [matRippleColor]="'white'"
          (click)="createEvent(true)"
     >
       <div class="button-name">Новое событие</div>
     </button>
-    <button class="header-workspace__container"
+    <button class="header-workspace__container hover-effect"
          (click)="isEscalatePopupOpen=true"
          matRipple [matRippleColor]="'white'"
     >
       <div class="button-name">Эскалировать</div>
     </button>
-    <button class="header-workspace__container"
+    <button class="header-workspace__container hover-effect"
          (click)="onClickUrl()"
          matRipple [matRippleColor]="'white'"
     >
