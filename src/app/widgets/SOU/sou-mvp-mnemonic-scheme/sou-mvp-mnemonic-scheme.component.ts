@@ -67,6 +67,7 @@ export class SouMvpMnemonicSchemeComponent extends WidgetPlatform<unknown>
     twoSelection: string[] = [];
 
     set selectedInstallation(value: number) {
+        this.stateController().save({ installation: value });
         this.mvpService.selectedInstallation$.next(value);
         this.changeInstall(this.installations[this.selectedInstallation][0]);
     }
@@ -126,6 +127,7 @@ export class SouMvpMnemonicSchemeComponent extends WidgetPlatform<unknown>
     protected dataConnect(): void {
         super.dataConnect();
         this.changeInstall(null);
+        this.loadState();
     }
 
     protected dataHandler(ref: ISOUOperationalAccountingSystem): void {
@@ -168,8 +170,10 @@ export class SouMvpMnemonicSchemeComponent extends WidgetPlatform<unknown>
                     ...item?.objects,
                 ];
             }
-            this.sections.forEach(section => {
-                const sec = section.find((sectionItem) => item.name.indexOf(sectionItem.title) !== -1);
+            this.sections.forEach((section) => {
+                const sec = section.find(
+                    (sectionItem) => item.name.indexOf(sectionItem.title) !== -1
+                );
 
                 if (!!sec) {
                     sec.value = item.countFlowExceedingConfInterval;
@@ -200,5 +204,30 @@ export class SouMvpMnemonicSchemeComponent extends WidgetPlatform<unknown>
             };
         }
         this.setWsOptions(a);
+    }
+
+    stateController(): { save; load } {
+        const key: string = 'sou-scheme-state';
+        // tslint:disable-next-line:no-shadowed-variable
+        const saveState = (state: { installation: number }): void => {
+            const saveValue = JSON.stringify(state);
+            localStorage.setItem(key, saveValue);
+        };
+        const loadState = (): { installation: number } => {
+            const loadData = JSON.parse(localStorage.getItem(key));
+            return loadData;
+        };
+        return {
+            save: saveState,
+            load: loadState,
+        };
+    }
+
+    private loadState(): void {
+        const res = this.stateController().load();
+        if (!res) {
+            return;
+        }
+        this.selectedInstallation = res.installation;
     }
 }
