@@ -31,9 +31,7 @@
     color: var(--color-event-card-font-sub);
 
     &:hover {
-      color: var(--color-text-main);
-      background-color: var(--color-cd-bg-btn-active);
-      border: 1px solid var(--color-kpe-gaude-active);
+      background-color: var(--color-bg-sub-workflow);
     }
     &:focus {
       outline: none;
@@ -49,6 +47,11 @@
 .active-button {
   background-color: var(--color-new-header-active);
   color: white;
+}
+.hover-effect {
+  &:hover {
+    background-color: var(--color-bg-sub-workflow);
+  }
 }
 evj-rect-button {
   width: 100%;

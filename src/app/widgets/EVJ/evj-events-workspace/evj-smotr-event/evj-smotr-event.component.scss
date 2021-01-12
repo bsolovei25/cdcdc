@@ -383,11 +383,6 @@ $border-color: rgba(63, 169, 245, 0.05);
     cursor: pointer;
     color: var(--color-event-card-font-sub);
 
-    &:hover {
-      color: var(--color-text-main);
-      background-color: var(--color-cd-bg-btn-active);
-      border: 1px solid var(--color-kpe-gaude-active);
-    }
     &:focus {
       outline: none;
     }
@@ -411,4 +406,9 @@ evj-rect-button {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+.hover-effect {
+  &:hover {
+    background-color: var(--color-bg-sub-workflow);
+  }
 }
