@@ -193,25 +193,16 @@
 }
 
 ::ng-deep .customize-menu {
-  background-color: var(--color-bg-additional);
+  background-color: var(--color-astue-onpz-widget-bg);
   .mat-menu-item {
     color: var(--color-text-main);
-    background-color: var(--color-bg-sub);
+    background-color: var(--color-new-header-bg);
     margin-bottom: 2px;
     height: 45px;
-    min-width: 150px;
+    min-width: 200px;
     &:hover {
-      background-color: var(--color-bg-active);
-      &::before {
-        content: "";
-        left: 0px;
-        top: 0;
-        position: absolute;
-        width: 4px;
-        height: 45px;
-        border-radius: 11px;
-        background-color: var(--color-bg-active-bright);
-      }
+      background-color: var(--color-admin-shift-active-bright);
+      border-left: 2px solid var(--color-admin-shift-active);
     }
   }
 }

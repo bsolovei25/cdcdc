@@ -88,7 +88,7 @@ export class EvjEventsComponent extends WidgetPlatform<IEventsWidgetAttributes>
             },
             name: 'СМОТР',
             isActive: false,
-            url: 'https://spb25-cce-mo1.gazprom-neft.local/BLPS_MO/ru_RU/',
+            url: 'https://spb25-cce-mo1/BLPS_MO/ru_RU/',
             categoryType: 'default',
         },
         {

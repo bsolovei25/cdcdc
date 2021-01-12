@@ -21,11 +21,11 @@ export type ApsHeaderIconType =
     | 'energy'
     | 'kpe-marker'
     | 'sliders'
-    | 'document'
     | 'keyboard'
     | 'factory'
     | 'squares'
     | 'dots-triangle'
     | 'balance'
     | 'pie'
-    | 'setting';
+    | 'setting'
+    | 'people';

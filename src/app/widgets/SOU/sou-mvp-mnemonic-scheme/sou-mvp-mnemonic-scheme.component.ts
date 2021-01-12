@@ -52,6 +52,7 @@ export class SouMvpMnemonicSchemeComponent extends WidgetPlatform<unknown>
     twoSelection: string[] = [];
 
     set selectedManufacture(index: number) {
+        this.stateController().save({ manufacture: index });
         this.mvpService.selectedManufactures$.next({ name: this.manufacture[index], index });
         this.changeUnit(this.unit[index][0]);
     }
@@ -114,6 +115,7 @@ export class SouMvpMnemonicSchemeComponent extends WidgetPlatform<unknown>
     protected dataConnect(): void {
         super.dataConnect();
         this.changeUnit(null);
+        this.loadState();
     }
 
     protected dataHandler(ref: ISOUOperationalAccountingSystem): void {
@@ -171,10 +173,6 @@ export class SouMvpMnemonicSchemeComponent extends WidgetPlatform<unknown>
         });
     }
 
-    selectedManufactureFn(name: string, index: number): void {
-
-    }
-
     changeSetting(i: number): void {
         this.chosenSetting = i;
     }
@@ -197,5 +195,30 @@ export class SouMvpMnemonicSchemeComponent extends WidgetPlatform<unknown>
             };
         }
         this.setWsOptions(a);
+    }
+
+    stateController(): { save; load } {
+        const key: string = 'sou-scheme-state';
+        // tslint:disable-next-line:no-shadowed-variable
+        const saveState = (state: { manufacture: number }): void => {
+            const saveValue = JSON.stringify(state);
+            localStorage.setItem(key, saveValue);
+        };
+        const loadState = (): { manufacture: number } => {
+            const loadData = JSON.parse(localStorage.getItem(key));
+            return loadData;
+        };
+        return {
+            save: saveState,
+            load: loadState,
+        };
+    }
+
+    private loadState(): void {
+        const res = this.stateController().load();
+        if (!res) {
+            return;
+        }
+        this.selectedManufacture = res.installation;
     }
 }

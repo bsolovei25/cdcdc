@@ -1,28 +1,28 @@
-$color-smp-blue-1: "003b64";
-$color-bg-active-sub-workflow-2: "3f587c";
-$color-active-3: "3fa9f5";
-$color-marker-diagram-4: "606580";
-$color-smp-ev-ws-grad2-5: "285c85";
-$color-bg-active-gradient-6: "2d3f51";
+$color-smp-blue-1: "9362D0";
+$color-bg-active-sub-workflow-2: "78A9FF";
+$color-active-3: "08BDBA";
+$color-marker-diagram-4: "FF7D96";
+$color-smp-ev-ws-grad2-5: "FDD13A";
+$color-bg-active-gradient-6: "45C5FA";
 
-$color-1: "003b64";
-$color-2: "3f587c";
-$color-3: "3fa9f5";
-$color-4: "606580";
-$color-5: "285c85";
-$color-6: "2d3f51";
-$color-7: "f28b4a";
+$color-1: "9362D0";
+$color-2: "78A9FF";
+$color-3: "08BDBA";
+$color-4: "FF7D96";
+$color-5: "FDD13A";
+$color-6: "45C5FA";
+$color-7: "F7931E";
 
 $color-bg: "272b35";
 
 $colors: (
-  color-1: "003b64",
-  color-2: "3f587c",
-  color-3: "3fa9f5",
-  color-4: "606580",
-  color-5: "285c85",
-  color-6: "2d3f51",
-  color-7: "f28b4a",
+  color-1: "9362D0",
+  color-2: "78A9FF",
+  color-3: "08BDBA",
+  color-4: "FF7D96",
+  color-5: "FDD13A",
+  color-6: "45C5FA",
+  color-7: "F7931E",
 );
 
 @mixin element-color($color1, $color2, $color3, $color4, $color5, $color6) {
@@ -83,7 +83,7 @@ $colors: (
 
 .special-date {
   background: url('../../assets/icons/widgets/admin-shift-schedule/calendar-active-orange.svg') no-repeat center;
-  background-size: 77%;
+  background-size: 73%;
 }
 
 .calendar-red {
@@ -134,7 +134,7 @@ $colors: (
     background:url('../../assets/icons/widgets/admin-shift-schedule/active-board.svg');
     background-position: center, center;
     background-repeat: no-repeat, no-repeat;
-    background-size: 87%, 100%;
+    background-size: 90%, 100%;
     color: var(--color-text-main);
   }
   .mat-calendar-body-cell-content:hover {

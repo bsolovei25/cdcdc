@@ -6,9 +6,10 @@
       icon="drop"
       type="astue"
     >
-      <div class="header"
-           (mousedown)="$event.stopPropagation()"
-           (touchstart)="$event.stopPropagation()"
+      <div
+        class="header"
+        (mousedown)="$event.stopPropagation()"
+        (touchstart)="$event.stopPropagation()"
       >
         <svg-icon
           class="arrow-circle"
@@ -70,8 +71,7 @@
         <div class="option-select">
           <span>Отображаемые значения: </span>
           <div class="dropdown">
-            <div class="dropdown__marker">
-            </div>
+            <div class="dropdown__marker"></div>
             <mat-select class="dropdown__select" [value]="'измеренные'">
               <ng-container>
                 <mat-option [value]="'измеренные'">
@@ -93,9 +93,10 @@
     </evj-contemporary-widget-header>
   </div>
 
-  <div class="container-body"
-       (mousedown)="$event.stopPropagation()"
-       (touchstart)="$event.stopPropagation()"
+  <div
+    class="container-body"
+    (mousedown)="$event.stopPropagation()"
+    (touchstart)="$event.stopPropagation()"
   >
     <div class="main-content-container">
       <evj-sou-mvp-mnemonic-scheme-ab-left
@@ -158,16 +159,15 @@
     </div>
   </div>
 
-  <div class="popup-container"
-       (mousedown)="$event.stopPropagation()"
-       (touchstart)="$event.stopPropagation()"
+  <div
+    class="popup-container"
+    (mousedown)="$event.stopPropagation()"
+    (touchstart)="$event.stopPropagation()"
   >
-    <div class="popup"
-         [@Branch]="mvpService.isPopupOpen ? 'opened' : 'closed'"
-    >
+    <div class="popup" [@Branch]="mvpService.isPopupOpen ? 'opened' : 'closed'">
       <div class="popup__header" (click)="mvpService.closePopup()">
         <div class="close-btn">
-          <img src="assets/icons/widgets/SOU/sou-mvp-mnemonic-scheme/popupClose.svg">
+          <img src="assets/icons/widgets/SOU/sou-mvp-mnemonic-scheme/popupClose.svg" />
         </div>
       </div>
       <div class="popup__content">
@@ -179,10 +179,11 @@
         <div class="information">
           Уровень доверия:&nbsp;<span>{{mvpService.popupData?.tolerance}}</span>
           Измеренное:&nbsp;<span [ngSwitch]="chosenSetting">
-            <ng-template ngSwitchCase="1">{{mvpService.popupData?.valueByHour | number:'0.0-0'}}</ng-template>
-            <ng-template ngSwitchCase="2">{{mvpService.popupData?.valueTank | number:'0.0-0'}}</ng-template>
-            <ng-template ngSwitchDefault>{{mvpService.popupData?.valueMoment | number:'0.0-0'}}</ng-template>
-           т</span>
+            <ng-template ngSwitchCase="1">{{mvpService.popupData?.valueByHour}}</ng-template>
+            <ng-template ngSwitchCase="2">{{mvpService.popupData?.valueTank}}</ng-template>
+            <ng-template ngSwitchDefault>{{mvpService.popupData?.valueMoment}}</ng-template>
+            т</span
+          >
           Скорректированное:&nbsp;<span>{{mvpService.popupData?.valueEdit}} т</span>
           Согласованное:&nbsp;<span>{{mvpService.popupData?.valueCalculate}} т</span>
           Погрешность:&nbsp; <span>{{mvpService.popupData?.error}} %</span>
@@ -202,8 +203,8 @@
       </div>
       <div class="row-container">
         <div class="information">
-          Накопленное:&nbsp;<span class="information__main">{{mainData?.sumInByDay}}</span>
-          За час:&nbsp;<span class="information__sub">{{mainData?.sumInByHour}}</span>
+          Накопленное:&nbsp;<span class="information__main">{{mainData?.sumInByDay}}</span> За
+          час:&nbsp;<span class="information__sub">{{mainData?.sumInByHour}}</span>
         </div>
       </div>
     </div>
@@ -217,8 +218,8 @@
       </div>
       <div class="row-container">
         <div class="information">
-          Накопленное:&nbsp;<span class="information__main">{{mainData?.sumOutByDay}}</span>
-          За час:&nbsp;<span class="information__sub">{{mainData?.sumOutByHour}}</span>
+          Накопленное:&nbsp;<span class="information__main">{{mainData?.sumOutByDay}}</span> За
+          час:&nbsp;<span class="information__sub">{{mainData?.sumOutByHour}}</span>
         </div>
       </div>
     </div>
@@ -232,10 +233,16 @@
       </div>
       <div class="row-container">
         <div class="information">
-          Накопленное:&nbsp;<span class="information__sub">{{mainData?.delta}}т</span>&nbsp;|&nbsp;<span
-          class="information__main">{{mainData?.deltaByPersent}}%</span>
-          За час:&nbsp;<span class="information__sub">{{mainData?.deltaHour}}т</span>&nbsp;|&nbsp;<span
-          class="information__main">{{mainData?.deltaHourByPercent}}%</span>
+          Накопленное:&nbsp;<span
+            class="information__sub"
+            [style.color]="mainData?.lampOn ?'var(--sou-mvp-color-warning)':'var(--sou-mvp-color-text-diagram-main)'"
+            >{{mainData?.delta}}т</span
+          >&nbsp;|&nbsp;<span class="information__main">{{mainData?.deltaByPersent}}%</span> За
+          час:&nbsp;<span
+            class="information__sub"
+            [style.color]="mainData?.lampOn ?'var(--sou-mvp-color-warning)':'var(--sou-mvp-color-text-diagram-main)'"
+            >{{mainData?.deltaHour}}т</span
+          >&nbsp;|&nbsp;<span class="information__main">{{mainData?.deltaHourByPercent}}%</span>
         </div>
         <!--        <div class="information">-->
         <!--        <span class="information__main"-->
@@ -251,13 +258,16 @@
           src="assets/icons/widgets/SOU/sou-mvp-mnemonic-scheme/balance.svg"
           [ngStyle]="{ 'width.px':16, 'height.px':17 }"
         ></svg-icon>
-        <span class="title">Допустимый дебаланс</span></div>
+        <span class="title">Допустимый дебаланс</span>
+      </div>
       <div class="row-container">
         <div class="information">
-          Накопленное:&nbsp;<span class="information__sub">{{mainData?.balanceAllow}}т</span>&nbsp;|&nbsp;<span
-          class="information__main">{{mainData?.balanceAllowByPercent}}%</span>
-          За час:&nbsp;<span class="information__sub">{{mainData?.balanceAllowHour}}т</span>&nbsp;|&nbsp;<span
-          class="information__main">{{mainData?.balanceAllowHourByPercent}}%</span>
+          Накопленное:&nbsp;<span class="information__sub">{{mainData?.balanceAllow}}т</span
+          >&nbsp;|&nbsp;<span class="information__main">{{mainData?.balanceAllowByPercent}}%</span>
+          За час:&nbsp;<span class="information__sub">{{mainData?.balanceAllowHour}}т</span
+          >&nbsp;|&nbsp;<span class="information__main"
+            >{{mainData?.balanceAllowHourByPercent}}%</span
+          >
         </div>
       </div>
     </div>
