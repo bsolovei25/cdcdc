@@ -123,7 +123,7 @@ export class SouMvpMnemonicSchemeComponent extends WidgetPlatform<unknown>
         if (this.manufacture.length === 0) {
             this.manufacture = ref.referenceBook.manufacture;
             this.unit = ref.referenceBook.unit;
-            this.selectedManufacture = 0;
+            this.loadState();
         }
 
         if (ref.section[0].name === 'АВТ-10-АБ' || ref.section[0].name === 'АВТ-10-ВБ') {
@@ -219,6 +219,6 @@ export class SouMvpMnemonicSchemeComponent extends WidgetPlatform<unknown>
         if (!res) {
             return;
         }
-        this.selectedManufacture = res.installation;
+        this.selectedManufacture = res.manufacture;
     }
 }
