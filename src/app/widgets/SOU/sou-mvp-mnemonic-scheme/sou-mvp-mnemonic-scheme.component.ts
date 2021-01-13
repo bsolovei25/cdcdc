@@ -52,9 +52,13 @@ export class SouMvpMnemonicSchemeComponent extends WidgetPlatform<unknown>
     twoSelection: string[] = [];
 
     set selectedManufacture(index: number) {
-        this.stateController().save({ manufacture: index });
-        this.mvpService.selectedManufactures$.next({ name: this.manufacture[index], index });
-        this.changeUnit(this.unit[index][0]);
+        if (index !== undefined) {
+            this.stateController().save({ manufacture: index });
+            this.mvpService.selectedManufactures$.next({ name: this.manufacture[index], index });
+            if (this.unit.length) {
+                this.changeUnit(this.unit[index][0]);
+            }
+        }
     }
 
     get selectedManufacture(): number {
