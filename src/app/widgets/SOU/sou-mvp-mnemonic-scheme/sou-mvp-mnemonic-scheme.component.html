@@ -19,11 +19,11 @@
 
         <div class="option-select">
           <div class="dropdown">
-            <div class="dropdown__marker"></div>
-            <mat-select class="dropdown__select" [(ngModel)]="selectedInstallation">
-              <mat-option *ngFor="let factory of factories; index as i" [value]="i"
-                >{{factory}}</mat-option
-              >
+            <div class="dropdown__marker">
+            </div>
+            <mat-select class="dropdown__select" [(ngModel)]="selectedManufacture">
+              <mat-option *ngFor="let manufuct of manufacture; index as i" [value]="i"
+              >{{manufuct}}</mat-option>
             </mat-select>
           </div>
         </div>
@@ -36,36 +36,36 @@
 
         <div class="option-select">
           <div class="dropdown">
-            <div class="dropdown__marker"></div>
-            <mat-select class="dropdown__select" [value]="0">
-              <mat-option
-                [value]="0"
-                *ngFor="let install of installations[selectedInstallation]"
-                (click)="changeInstall(install)"
-                >{{install}}</mat-option
-              >
+            <div class="dropdown__marker">
+            </div>
+            <mat-select
+              class="dropdown__select"
+              [value]="0"
+            >
+              <mat-option [value]="0"
+                          *ngFor="let install of unit[selectedManufacture]"
+                          (click)="changeUnit(install)"
+              >{{install}}</mat-option>
             </mat-select>
           </div>
         </div>
 
         <div class="section-select">
           <div class="custom-border"></div>
-          <div
-            class="section-select__item"
-            *ngFor="let section of sections[selectedInstallation]; let i = index"
-            [ngClass]="{active: i === chosenSection}"
-            (click)="changeSection(i)"
-          >
-            <span class="title" *ngIf="!!section?.title">{{section?.title}}</span>
-            <div
-              class="value"
-              [ngClass]="{
+          <ng-container *ngIf="chosenUnit === 'АВТ-10'">
+            <div class="section-select__item"
+                 *ngFor="let section of sections; let i = index"
+                 [ngClass]="{active: i === chosenSection}"
+                 (click)="changeSection(i)"
+            >
+              <span class="title">{{section?.title}}</span>
+              <div class="value"
+                   [ngClass]="{
             noTrust: section?.value > 0
           }"
-            >
-              {{section.value}}
+              >{{section.value}}</div>
             </div>
-          </div>
+          </ng-container>
         </div>
 
         <div class="option-select">
@@ -83,16 +83,11 @@
         </div>
 
         <div class="filter-btn">
-          <div
-            class="filter-btn__item"
-            *ngFor="let setting of settings; let i = index"
-            [ngClass]="{
-          active: i === chosenSetting
-        }"
-            (click)="changeSetting(i)"
-          >
-            {{setting}}
-          </div>
+          <div class="filter-btn__item"
+               *ngFor="let setting of settings; let i = index"
+               [ngClass]="{ active: i === chosenSetting }"
+               (click)="changeSetting(i)"
+          >{{setting}}</div>
         </div>
       </div>
     </evj-contemporary-widget-header>
@@ -105,66 +100,60 @@
   >
     <div class="main-content-container">
       <evj-sou-mvp-mnemonic-scheme-ab-left
-        *ngIf="selectedInstallation === 0 && chosenSection === 0"
+        *ngIf="chosenUnit === 'АВТ-10' && chosenSection === 0"
         [sections]="sectionsData"
         [choosenSetting]="chosenSetting"
         [flowIn]="flowInAb"
       ></evj-sou-mvp-mnemonic-scheme-ab-left>
 
       <evj-sou-mvp-mnemonic-scheme-vb-left
-        *ngIf="selectedInstallation === 0 && chosenSection === 1"
+        *ngIf="chosenUnit === 'АВТ-10' && chosenSection === 1"
         [sections]="sectionsData"
         [choosenSetting]="chosenSetting"
         [flowIn]="flowInVb"
       ></evj-sou-mvp-mnemonic-scheme-vb-left>
 
       <evj-sou-mvp-mnemonic-scheme-izomalk-left
-        *ngIf="selectedInstallation === 1"
+        *ngIf="chosenUnit === 'Изомалк-2'"
         [sections]="sectionsDataIzo"
         [choosenSetting]="chosenSetting"
       ></evj-sou-mvp-mnemonic-scheme-izomalk-left>
 
       <div class="streams-groups">
-        <div
-          class="streams-container"
-          [class.streams-container_park]="this.factories[this.selectedInstallation] === 'Товарное производство'"
-          (mousedown)="$event.stopPropagation()"
-          (touchstart)="$event.stopPropagation()"
+        <div class="streams-container"
+             [class.streams-container_park]="manufacture[selectedManufacture] === 'Товарное производство'"
+             (mousedown)="$event.stopPropagation()"
+             (touchstart)="$event.stopPropagation()"
         >
-          <div class="main-collector" *ngIf="selectedInstallation <= 1">
+          <div class="main-collector" *ngIf="chosenUnit === 'АВТ-10' || chosenUnit === 'Изомалк-2'">
             <div class="main-collector-title">
-              <span *ngIf="chosenSection !== 2"
-                >{{ installations[selectedInstallation] }}<br
-              /></span>
-              <span *ngIf="chosenSection !== 0">
-                {{ sections[selectedInstallation][chosenSection]?.title }}</span
-              >
+              <span *ngIf="chosenSection !== 2">{{ unit[selectedManufacture] }}<br></span>
+              <span *ngIf="chosenSection !== 0"> {{ sections[chosenSection]?.title }}</span>
             </div>
           </div>
           <evj-sou-mvp-mnemonic-scheme-section
-            *ngIf="selectedInstallation === 0 && chosenSection === 0"
+            *ngIf="chosenUnit === 'АВТ-10' && chosenSection === 0"
             [choosenSetting]="chosenSetting"
             [sections]="sectionsData"
           ></evj-sou-mvp-mnemonic-scheme-section>
 
           <evj-sou-mvp-mnemonic-scheme-section-vb
-            *ngIf="selectedInstallation === 0 && chosenSection === 1"
+            *ngIf="chosenUnit === 'АВТ-10' && chosenSection === 1"
             [choosenSetting]="chosenSetting"
             [sections]="sectionsData"
           ></evj-sou-mvp-mnemonic-scheme-section-vb>
 
           <evj-sou-mvp-mnemonic-scheme-section-izomalk
-            *ngIf="selectedInstallation === 1"
+            *ngIf="chosenUnit === 'Изомалк-2'"
             [choosenSetting]="chosenSetting"
             [sections]="sectionsDataIzo"
           ></evj-sou-mvp-mnemonic-scheme-section-izomalk>
 
-          <evj-sou-schema
-            *ngIf="selectedInstallation === 2"
-            [sectionsDataPark]="sectionsDataPark"
-            [chosenSetting]="chosenSetting"
-            [chosenInstall]="chosenInstall"
-          ></evj-sou-schema>
+          <evj-sou-schema *ngIf="manufacture[selectedManufacture] === 'Товарное производство'"
+                          [sectionsDataPark]="sectionsDataPark"
+                          [chosenSetting]="chosenSetting"
+                          [chosenInstall]="chosenUnit">
+          </evj-sou-schema>
         </div>
       </div>
     </div>

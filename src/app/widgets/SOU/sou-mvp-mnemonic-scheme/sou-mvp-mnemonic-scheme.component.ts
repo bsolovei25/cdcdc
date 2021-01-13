@@ -49,58 +49,42 @@ export class SouMvpMnemonicSchemeComponent extends WidgetPlatform<unknown>
     sectionsDataIzo: (ISOUFlowOut | ISOUFlowIn | ISOUObjects)[] = []; // Массив всех элементов Изомалка
     sectionsDataPark: (ISOUFlowOut | ISOUFlowIn | ISOUObjects)[] = [];
 
-    factories: string[] = ['Производство №1', 'Производство №4', 'Товарное производство'];
-    installations: string[][] = [['АВТ-10'], ['Изомалк-2'], ['АССБ Авиасмеси', 'АССБ А-95']];
-    // installations: string[][] = [
-    //     ['АВТ-10'],
-    //     ['Изомалк-2'],
-    //     [
-    //         'АССБ Авиасмеси',
-    //         'АССБ А-95',
-    //         'АССБ А-98',
-    //         'Насосная т.1163-1164 парк БГС',
-    //         'Насосная т.1163-1164 парк А-95',
-    //         'Насосная т.1163-1164 парк А-92',
-    //     ],
-    // ];
-
     twoSelection: string[] = [];
 
-    set selectedInstallation(value: number) {
-        this.stateController().save({ installation: value });
-        this.mvpService.selectedInstallation$.next(value);
-        this.changeInstall(this.installations[this.selectedInstallation][0]);
+    set selectedManufacture(index: number) {
+        if (index !== undefined) {
+            this.stateController().save({ manufacture: index });
+            this.mvpService.selectedManufactures$.next({ name: this.manufacture[index], index });
+            if (this.unit.length) {
+                this.changeUnit(this.unit[index][0]);
+            }
+        }
     }
 
-    get selectedInstallation(): number {
-        return this.mvpService.selectedInstallation$.getValue();
+    get selectedManufacture(): number {
+        return this.mvpService.selectedManufactures$.getValue()?.index;
     }
 
     sections: {
         title: string;
         value: number;
-    }[][] = [
-        [
-            {
-                title: 'АБ',
-                value: 0,
-            },
-            {
-                title: 'ВБ',
-                value: 0,
-            },
-        ],
-        [
-            {
-                title: '',
-                value: 0,
-            },
-        ],
+    }[] = [
+        {
+            title: 'АБ',
+            value: 0,
+        },
+        {
+            title: 'ВБ',
+            value: 0,
+        },
     ];
+
+    manufacture: string[] = [];
+    unit: string[][] = [];
 
     chosenSetting: number = 1;
     chosenSection: number = 0;
-    chosenInstall: string = '';
+    chosenUnit: string = '';
 
     flag: boolean = true;
 
@@ -118,20 +102,36 @@ export class SouMvpMnemonicSchemeComponent extends WidgetPlatform<unknown>
     ngOnInit(): void {
         super.widgetInit();
         this.subscriptions.push(
-            this.mvpService.selectedInstallation$.asObservable().subscribe((ref) => {
+            this.mvpService.selectedManufactures$.asObservable().subscribe((ref) => {
                 this.mvpService.closePopup();
             })
         );
     }
 
+    resetData(): void {
+        this.mainData = null;
+        this.flowInAb = null;
+        this.flowInVb = null;
+        this.sectionsData = [];
+        this.sectionsDataIzo = [];
+    }
+
     protected dataConnect(): void {
         super.dataConnect();
-        this.changeInstall(null);
         this.loadState();
     }
 
     protected dataHandler(ref: ISOUOperationalAccountingSystem): void {
         this.mainData = ref;
+        if (this.manufacture.length === 0) {
+            this.manufacture = ref.referenceBook.manufacture;
+            this.unit = ref.referenceBook.unit;
+            this.loadState();
+            if (this.selectedManufacture === undefined) {
+                this.selectedManufacture = 0;
+            }
+        }
+
         if (ref.section[0].name === 'АВТ-10-АБ' || ref.section[0].name === 'АВТ-10-ВБ') {
             this.flowInAb = ref.section[0].flowIn;
             this.flowInVb = ref.section[1].flowIn;
@@ -158,7 +158,7 @@ export class SouMvpMnemonicSchemeComponent extends WidgetPlatform<unknown>
                 }
             }
 
-            if (this.selectedInstallation === 2) {
+            if (this.manufacture[this.selectedManufacture] === 'Товарное производство') {
                 if (this.flag) {
                     this.sectionsDataPark = [];
                     this.flag = false;
@@ -170,15 +170,12 @@ export class SouMvpMnemonicSchemeComponent extends WidgetPlatform<unknown>
                     ...item?.objects,
                 ];
             }
-            this.sections.forEach((section) => {
-                const sec = section.find(
-                    (sectionItem) => item.name.indexOf(sectionItem.title) !== -1
-                );
 
-                if (!!sec) {
-                    sec.value = item.countFlowExceedingConfInterval;
-                }
-            });
+            const sec = this.sections.find((section) => item.name.indexOf(section.title) !== -1);
+
+            if (!!sec) {
+                sec.value = item.countFlowExceedingConfInterval;
+            }
         });
     }
 
@@ -190,16 +187,16 @@ export class SouMvpMnemonicSchemeComponent extends WidgetPlatform<unknown>
         this.chosenSection = i;
     }
 
-    changeInstall(value: string): void {
-        this.chosenInstall = value;
-        this.chosenSection = 0;
+    changeUnit(value: string): void {
+        this.resetData();
+        this.chosenUnit = value;
         let a = {
             manufacture: 'Производство №1',
             name: 'АВТ-10',
         };
         if (value) {
             a = {
-                manufacture: this.factories[this.selectedInstallation],
+                manufacture: this.manufacture[this.selectedManufacture],
                 name: value,
             };
         }
@@ -209,11 +206,11 @@ export class SouMvpMnemonicSchemeComponent extends WidgetPlatform<unknown>
     stateController(): { save; load } {
         const key: string = 'sou-scheme-state';
         // tslint:disable-next-line:no-shadowed-variable
-        const saveState = (state: { installation: number }): void => {
+        const saveState = (state: { manufacture: number }): void => {
             const saveValue = JSON.stringify(state);
             localStorage.setItem(key, saveValue);
         };
-        const loadState = (): { installation: number } => {
+        const loadState = (): { manufacture: number } => {
             const loadData = JSON.parse(localStorage.getItem(key));
             return loadData;
         };
@@ -228,6 +225,6 @@ export class SouMvpMnemonicSchemeComponent extends WidgetPlatform<unknown>
         if (!res) {
             return;
         }
-        this.selectedInstallation = res.installation;
+        this.selectedManufacture = res.manufacture;
     }
 }
