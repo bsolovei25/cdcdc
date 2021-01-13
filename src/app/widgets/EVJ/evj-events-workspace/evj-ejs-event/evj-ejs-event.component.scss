@@ -397,6 +397,7 @@ $border-color: rgba(63, 169, 245, 0.05);
     font-size: 13px;
     border: 1px solid var(--color-astue-mat-select-border);
     border-radius: 2px;
+    overflow: auto;
 
     display: flex;
     justify-content: flex-start;
