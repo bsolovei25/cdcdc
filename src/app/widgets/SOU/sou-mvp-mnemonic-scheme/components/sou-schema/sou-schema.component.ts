@@ -49,16 +49,34 @@ export class SouSchemaComponent implements OnInit, OnChanges, AfterViewChecked {
     flag: boolean = true; // флаг для одного входа в ngAfterViewChecked
     fullElement: Map<number, IElementFullAndUI> = new Map();
     dataPark: (ISOUFlowOut | ISOUFlowIn | ISOUObjects)[] = [];
+    localChosenInstall: 'АССБ Авиасмеси' | 'АССБ А-95';
 
     @Input() sectionsDataPark: (ISOUFlowOut | ISOUFlowIn | ISOUObjects)[];
     @Input() chosenSetting: number = 1;
-    @Input() chosenInstall: string = 'АССБ Авиасмеси' || 'АССБ А-95';
+    @Input() chosenInstall: 'АССБ Авиасмеси' | 'АССБ А-95';
 
     constructor(public mvpService: SouMvpMnemonicSchemeService) {}
 
     ngOnInit(): void {}
 
     ngOnChanges(): void {
+        console.log('23323');
+        if (!this.localChosenInstall || this.chosenInstall !== this.localChosenInstall) {
+            this.localChosenInstall = this.chosenInstall;
+            console.log('reset');
+            this.flag = true;
+            this.dataPark = [];
+            this.elementsNode = [];
+            this.dataAttribute.clear();
+            this.fullElement.clear();
+
+            setTimeout((value) => {
+                this.loadSchema();
+                if (this.dataPark.length) {
+                    this.loadData(false);
+                }
+            }, 1000);
+        }
         if (this.dataPark?.length) {
             const newArray = [];
             this.sectionsDataPark?.forEach((value) => {
@@ -84,6 +102,7 @@ export class SouSchemaComponent implements OnInit, OnChanges, AfterViewChecked {
             this.loadData(true);
         } else {
             if (this.dataAttribute?.size) {
+                console.log(' 1111111111111');
                 this.dataPark = this.sectionsDataPark;
                 this.loadData(false);
             }
@@ -92,6 +111,7 @@ export class SouSchemaComponent implements OnInit, OnChanges, AfterViewChecked {
 
     ngAfterViewChecked(): void {
         if (document.querySelector(`#element-1_1`) && this.flag) {
+            console.log('flag 1111111111111');
             this.flag = false;
             this.loadSchema();
             if (this.dataPark.length) {
@@ -118,10 +138,10 @@ export class SouSchemaComponent implements OnInit, OnChanges, AfterViewChecked {
                 arrayRepeat.push(value.code);
             }
         });
-        console.log(`Данные: ${this.dataPark?.length}`);
-        console.log(`Данных (code = 0) - ${countZeroId}`);
-        console.log(`Данных (isActive = true) - ${countIsActive}`);
-        console.log(`Данных с одинаковым code - ${countRepeat} (${arrayRepeat.join(',')})`);
+        // console.log(`Данные: ${this.dataPark?.length}`);
+        // console.log(`Данных (code = 0) - ${countZeroId}`);
+        // console.log(`Данных (isActive = true) - ${countIsActive}`);
+        // console.log(`Данных с одинаковым code - ${countRepeat} (${arrayRepeat.join(',')})`);
         // end tests
 
         this.dataPark?.forEach((data) => {
@@ -553,11 +573,11 @@ export class SouSchemaComponent implements OnInit, OnChanges, AfterViewChecked {
 
     searchElements(elementIndex: number): Element[] {
         let i = 1; // счетчик элементов
+
         const localElements: Element[] = [];
 
-        while (i < 100) {
+        while (i < 150) {
             // поиск по id  - id=element-1_2
-
             const element = document.querySelector(`#element-${elementIndex}_${i}`);
             const line = document.querySelector(`#line_${i}`);
             if (element) {
