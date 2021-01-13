@@ -14,10 +14,7 @@ export class SouMvpMnemonicSchemeService {
     selectedManufactures$: BehaviorSubject<{ index: number; name: string }> = new BehaviorSubject<{
         index: number;
         name: string;
-    }>({
-        index: 0,
-        name: '',
-    });
+    }>(null);
     isPopupOpen: boolean = false;
     selectedCode: number = -1; // Код выделенного элемента
     popupData: ISOUFlowOut;

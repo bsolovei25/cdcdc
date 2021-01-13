@@ -62,7 +62,7 @@ export class SouMvpMnemonicSchemeComponent extends WidgetPlatform<unknown>
     }
 
     get selectedManufacture(): number {
-        return this.mvpService.selectedManufactures$.getValue().index;
+        return this.mvpService.selectedManufactures$.getValue()?.index;
     }
 
     sections: {
@@ -118,7 +118,6 @@ export class SouMvpMnemonicSchemeComponent extends WidgetPlatform<unknown>
 
     protected dataConnect(): void {
         super.dataConnect();
-        this.changeUnit(null);
         this.loadState();
     }
 
@@ -128,6 +127,9 @@ export class SouMvpMnemonicSchemeComponent extends WidgetPlatform<unknown>
             this.manufacture = ref.referenceBook.manufacture;
             this.unit = ref.referenceBook.unit;
             this.loadState();
+            if (this.selectedManufacture === undefined) {
+                this.selectedManufacture = 0;
+            }
         }
 
         if (ref.section[0].name === 'АВТ-10-АБ' || ref.section[0].name === 'АВТ-10-ВБ') {

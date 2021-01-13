@@ -136,7 +136,7 @@ export class SouMainIndicatorsComponent extends WidgetPlatform<unknown> implemen
         this.subscriptions.push(
             this.mnemonicSchemeService.selectedManufactures$.asObservable().subscribe((ref) => {
                 this.data = {};
-                const el = this.options.find((value) => value.manufacture === ref.name);
+                const el = this.options.find((value) => value.manufacture === ref?.name);
                 this.setWsOptions(el);
             })
         );
