@@ -19,10 +19,10 @@
       <div class="block__title">
         <span>{{ indicator.caption }}</span>
       </div>
-      <div class="block__value" *ngIf="indicator.value || indicator.value === 0">
+      <div class="block__value" *ngIf="indicator.caption !== 'Значение в процентах' && (indicator.value || indicator.value === 0); else emptyValue">
         <span>{{ indicator.value | spaceNumber }}</span>
       </div>
-      <div class="empty-value" *ngIf="!indicator.value && indicator.value !== 0"></div>
+      <ng-template #emptyValue><div class="empty-value"></div></ng-template>
     </div>
   </ng-container>
 
