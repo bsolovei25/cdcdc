@@ -5,6 +5,105 @@ $color-marker-diagram: "606580";
 $color-smp-ev-ws-grad2: "285c85";
 $color-bg-active-gradient: "2d3f51";
 
+.admin-btns {
+  height: 40px;
+  flex: 1;
+
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+
+  &__item{
+    height: 24px;
+    padding: 0 12px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border: 1px solid var(--color-admin-shift-border);
+    border-radius: 0 2px 2px 0;
+
+    font-size: 13px;
+    line-height: 16px;
+    color: var(--color-admin-shift-text-sub);
+
+    cursor: pointer;
+
+    &:first-child {
+      border-radius: 2px 0 0 2px;
+    }
+  }
+
+  .active {
+    border: 1px solid var(--color-admin-shift-active);
+    background: var(--color-admin-shift-active-bright);
+    color: var(--color-admin-shift-white);
+  }
+}
+
+.header-schedule {
+  margin-top: 2px;
+  margin-left: 10px;
+
+  ::ng-deep {
+    mat-form-field {
+      margin-top: -14px;
+      height: 30px;
+    }
+  }
+
+  &__button {
+    display: flex;
+    align-items: center;
+
+    svg-icon {
+      margin: 0px 22px;
+    }
+  }
+
+  .option-select {
+    height: 40px;
+    display: flex;
+    align-items: center;
+
+    span {
+      margin-right: 5px;
+      font-size: 13px;
+      line-height: 16px;
+      color: var(--sou-mvp-color-text-info);
+      white-space: nowrap;
+    }
+
+    .dropdown {
+      height: 12px;
+      width: 190px;
+      padding: 5px;
+
+      display: flex;
+      align-items: center;
+
+      overflow: hidden;
+
+      background: var(--sou-mvp-color-bg-select);
+
+      border: 1px solid var(--sou-mvp-color-border);
+      border-radius: 3px;
+
+      &__select {
+        margin-right: 10px;
+      }
+
+      &__marker {
+        height: 16px;
+        width: 3.5px;
+        background-color: var(--sou-mvp-color-warning);
+        margin: 4px;
+      }
+    }
+  }
+}
+
 .container {
   position: relative;
   height: 100%;
@@ -14,47 +113,19 @@ $color-bg-active-gradient: "2d3f51";
   flex-direction: column;
   justify-content: flex-start;
   min-width: 430px;
+
+  --tooltip-color: blue;
 }
 
 .content {
-  height: calc(100% - 57px);
-
-  border-left: dashed 0.5px var(--color-border-main);
-  border-right: dashed 0.5px var(--color-border-main);
+  height: calc(100% - 40px);
 
   display: flex;
-  // overflow: auto;
   flex-direction: column;
 
   &__blocks {
     display: flex;
     justify-content: space-between;
-    margin: 0 10px;
-    overflow: auto;
-
-    .block-left {
-    }
-
-    .block-right {
-      width: 100%;
-    }
-  }
-}
-
-.content {
-  height: calc(100% - 57px);
-
-  border-left: dashed 0.5px var(--color-border-main);
-  border-right: dashed 0.5px var(--color-border-main);
-
-  display: flex;
-  // overflow: auto;
-  flex-direction: column;
-
-  &__blocks {
-    display: flex;
-    justify-content: space-between;
-    margin: 0 10px;
     height: 100%;
     overflow: hidden;
 
@@ -62,11 +133,14 @@ $color-bg-active-gradient: "2d3f51";
       overflow: auto;
       width: 65%;
       height: 100%;
+
+      display: flex;
+      flex-direction: column;
     }
 
     .block-right {
       width: 35%;
-      margin-left: 5px;
+      margin-left: -7px;
       height: calc(100% - 25px);
     }
   }
@@ -79,10 +153,8 @@ $color-bg-active-gradient: "2d3f51";
 
   &__left-side {
     width: 70%;
-    padding: 0 10px;
-    padding-right: 5px;
-    height: calc(100% - 10px);
-    margin-right: 5px;
+    height: 100%;
+    margin-right: 2px;
 
     .content-menu {
       font-size: 14px;
@@ -91,9 +163,8 @@ $color-bg-active-gradient: "2d3f51";
       display: flex;
       justify-content: center;
       align-items: center;
-      background-color: var(--color-aw-header-bg);
+      background-color: var(--color-admin-title-bg);
       box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-      border-radius: 12px;
 
       width: calc(100% - 9px);
       margin: auto;
@@ -126,9 +197,9 @@ $color-bg-active-gradient: "2d3f51";
       &__left {
         display: flex;
         flex-direction: column;
-        width: calc(50% - 5px);
+        width: 50%;
         min-width: 300px;
-        margin-right: 5px;
+        margin-right: 2px;
       }
 
       &__right {
@@ -140,7 +211,7 @@ $color-bg-active-gradient: "2d3f51";
 
       &__block {
         height: auto;
-        margin-top: 8px;
+        margin-top: 2px;
 
         ::ng-deep .employee-container {
           &:hover ::ng-deep .employee-container__star {
@@ -176,16 +247,13 @@ $color-bg-active-gradient: "2d3f51";
 
   &__right-side {
     width: 30%;
-    padding-right: 10px;
-    height: calc(100% - 10px);
+    height: 100%;
   }
 }
 
 .mock {
   display: block;
   height: 200px;
-  border-left: dashed 0.5px var(--color-border-main);
-  border-right: dashed 0.5px var(--color-border-main);
 
   .line {
     color: var(--color-text-sub-heading);
@@ -221,11 +289,12 @@ p {
     max-height: 100%;
     min-width: 350px;
     max-width: 350px;
-    margin-right: 10px;
+    margin-right: 2px;
 
     &__footer {
       margin-left: 10px;
       margin-top: 20px;
+      padding-bottom: 12px;
 
       &__title {
         font-size: 14px;
@@ -245,7 +314,6 @@ p {
       &__list-item {
         font-size: 11px;
         height: 20px;
-        border-radius: 19px;
         width: auto;
         line-height: 20px;
         padding: 0 10px;
@@ -253,6 +321,7 @@ p {
         white-space: nowrap;
         text-overflow: ellipsis;
         margin-bottom: 10px;
+        border-radius: 4px;
       }
 
       &__info-items {
@@ -277,7 +346,7 @@ p {
     min-height: 270px;
     max-height: 100%;
     min-width: 250px;
-    margin-right: 5px;
+    margin-right: 2px;
 
     .title {
       font-size: 12px;
@@ -313,14 +382,14 @@ p {
 
 .block-bottom {
   display: flex;
-  margin-top: 10px;
+  flex: 1;
 
   .duty-schedule {
     width: 100%;
     min-height: 200px;
     min-width: 350px;
     max-width: 350px;
-    margin-right: 10px;
+    margin-right: 2px;
 
     position: relative;
 
@@ -348,13 +417,17 @@ p {
     }
 
     .shift-today {
+      height: 45px;
       display: flex;
+      align-items: center;
 
-      padding: 8px 10px;
+      padding: 0px 10px;
       padding-right: 0;
-      margin: 0 9px;
       cursor: pointer;
       margin-top: 2px;
+
+      font-size: 14px;
+      line-height: 17px;
 
       &-item {
         position: relative;
@@ -385,36 +458,12 @@ p {
 
       &--active {
         position: relative;
-        border-radius: 5px;
-
-        background-color: var(--color-bg-active);
-
-        &::before {
-          content: "";
-          left: -9px;
-          top: 0;
-          position: absolute;
-          width: 4px;
-          height: 33px;
-          border-radius: 11px;
-          background-color: var(--color-bg-active-bright);
-        }
-
-        &::after {
-          content: "";
-          right: -9px;
-          top: 0;
-          position: absolute;
-          width: 4px;
-          height: 33px;
-          border-radius: 11px;
-          background-color: var(--color-bg-active-bright);
-        }
+        background-color: var(--color-admin-shift-active-bright);
+        border-left: 2px solid var(--color-admin-shift-active);
       }
 
       &:hover {
-        background-color: var(--color-bg-active);
-        border-radius: 5px;
+        background-color: var(--color-admin-shift-active-bright);
       }
     }
 
@@ -483,18 +532,7 @@ p {
           position: relative;
 
           &:hover {
-            background-color: var(--color-bg-active);
-
-            &::before {
-              content: "";
-              left: 0px;
-              top: 0;
-              position: absolute;
-              width: 4px;
-              height: 38px;
-              border-radius: 11px;
-              background-color: var(--color-bg-active-bright);
-            }
+            background-color: var(--color-admin-shift-active-bright);
           }
 
           // &:first-child {
@@ -572,11 +610,32 @@ p {
       &__action {
         display: flex;
         justify-content: flex-end;
-        min-width: 140px;
-        &__btn {
-          min-width: 130px;
-          height: 30px;
-          padding-right: 20px;
+        min-width: 130px;
+        margin-bottom: 25px;
+        padding-right: 10px;
+
+        .save-btn {
+          height: 32px;
+          width: 136px;
+          
+          box-sizing: border-box;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+
+          font-size: 13px;
+          line-height: 16px;
+          
+          color: var(--color-admin-shift-text-sub);
+
+          background: var(--evj-events-workspace-button);
+          border-radius: 2px;
+
+          cursor: pointer;
+
+          &:hover {
+            background: var(--color-admin-shift-active);
+          }
         }
       }
     }
@@ -586,7 +645,7 @@ p {
     width: 100%;
     min-height: 200px;
     min-width: 250px;
-    margin-right: 5px;
+    margin-right: 2px;
 
     .title {
       font-size: 15px;
@@ -674,71 +733,77 @@ p {
 }
 
 ::ng-deep .mat-tooltip {
+  box-sizing: border-box;
+  height: 40px;
+  width: 140px;
+  
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
   font-size: 12px;
-  background-color: var(--color-bg-main);
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.349);
+  background: var(--color-astue-onpz-widget-bg);
+  border: 1px solid var(--tooltip-color);
+  border-radius: 20px !important;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
 .color-1 {
-  background-color: var(--color-smp-blue);
+  background-color: var(--color-admin-shift-brigade-1);
+  color: var(--color-admin-shift-brigade-1-text);
 }
 
 .color-2 {
-  background-color: var(--color-bg-active-sub-workflow);
+  background-color: var(--color-admin-shift-brigade-2);
+  color: var(--color-admin-shift-brigade-2-text);
 }
 
 .color-3 {
-  background-color: var(--color-active);
+  background-color: var(--color-admin-shift-brigade-3);
+  color: var(--color-admin-shift-brigade-3-text);
 }
 
 .color-4 {
-  background-color: var(--color-marker-diagram);
+  background-color: var(--color-admin-shift-brigade-4);
+  color: var(--color-admin-shift-brigade-4-text);
 }
 
 .color-5 {
-  background-color: var(--color-smp-ev-ws-grad2);
+  background-color: var(--color-admin-shift-brigade-5);
+  color: var(--color-admin-shift-brigade-5-text);
 }
 
 .color-6 {
-  background-color: var(--color-bg-active-gradient);
+  background-color: var(--color-admin-shift-brigade-6);
+  color: var(--color-admin-shift-brigade-6-text);
 }
 
 .color-delete {
-  background-color: var(--color-orange);
+  background-color: var(--color-admin-shift-brigade-delete);
 }
 
 ::ng-deep .customize-menu {
-  background-color: var(--color-bg-additional);
+  background-color: var(--color-astue-onpz-widget-bg);
   .mat-menu-item {
     color: var(--color-text-main);
-    background-color: var(--color-bg-sub);
+    background-color: var(--color-new-header-bg);
     margin-bottom: 2px;
     height: 45px;
-    min-width: 150px;
+    min-width: 200px;
     &:hover {
-      background-color: var(--color-bg-active);
-      &::before {
-        content: "";
-        left: 0px;
-        top: 0;
-        position: absolute;
-        width: 4px;
-        height: 45px;
-        border-radius: 11px;
-        background-color: var(--color-bg-active-bright);
-      }
+      background-color: var(--color-admin-shift-active-bright);
     }
   }
 }
 
 ::ng-deep .customize-menu2 {
-  background-color: var(--color-bg-additional);
+  background-color: var(--color-astue-onpz-widget-bg);
   .mat-menu-item {
     color: var(--color-text-main);
-    background-color: var(--color-bg-sub);
+    background-color: var(--color-new-header-bg);
     margin-bottom: 2px;
     height: 160px;
-    min-width: 150px;
+    min-width: 200px;
   }
 }
 

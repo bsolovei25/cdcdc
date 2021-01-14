@@ -5,7 +5,11 @@ import { WidgetService } from 'src/app/dashboard/services/widget.service';
 import * as d3 from 'd3';
 import { BehaviorSubject } from 'rxjs';
 import { ISouMainIndicators } from '../../../dashboard/models/SOU/sou-main-indicators.model';
-import { SOURCE_DATA } from './sou-main-indicators.mock';
+import { ISouEnergeticOptions } from 'src/app/dashboard/models/SOU/sou-energetic.model';
+import { SouMvpMnemonicSchemeService } from 'src/app/dashboard/services/widgets/SOU/sou-mvp-mnemonic-scheme.service';
+import { MatDialog } from '@angular/material/dialog';
+import { SouDetailTableComponent } from '../sou-operational-accounting-system/components/sou-detail-table/sou-detail-table.component';
+import { ISOUIdent } from '../../../dashboard/models/SOU/sou-operational-accounting-system';
 
 @Component({
     selector: 'evj-sou-main-indicators',
@@ -13,18 +17,41 @@ import { SOURCE_DATA } from './sou-main-indicators.mock';
     styleUrls: ['./sou-main-indicators.component.scss'],
 })
 export class SouMainIndicatorsComponent extends WidgetPlatform<unknown> implements OnInit {
-    public data$: BehaviorSubject<ISouMainIndicators> = new BehaviorSubject<ISouMainIndicators>(
-        null
-    );
+    public data$: BehaviorSubject<ISouMainIndicators> = new BehaviorSubject<ISouMainIndicators>({});
+
+    private set data(value: ISouMainIndicators) {
+        if (!!value) {
+            this.data$.next(value);
+        }
+    }
+
     menu: string[] = ['Месяц', 'Вклад'];
     choosenItem: number = 0;
+    active: number = 0;
+    identifiedList: ISOUIdent[] = [];
 
     @ViewChild('chart') chart: ElementRef;
 
     public svg: any;
+    private readonly options: ISouEnergeticOptions[] = [
+        {
+            manufacture: 'Производство №1',
+            unit: 'АВТ-10',
+        },
+        {
+            manufacture: 'Производство №4',
+            unit: 'Изомалк-2',
+        },
+        {
+            manufacture: 'Товарное производство',
+            unit: 'АССБ Авиасмеси',
+        },
+    ];
 
     constructor(
         protected widgetService: WidgetService,
+        private mnemonicSchemeService: SouMvpMnemonicSchemeService,
+        public dialog: MatDialog,
         @Inject('isMock') public isMock: boolean,
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string
@@ -35,6 +62,7 @@ export class SouMainIndicatorsComponent extends WidgetPlatform<unknown> implemen
     @AsyncRender
     drawSvg(plan: number, fact: number): void {
         const value = (fact / plan) * 2;
+        let dev: number = value === 2 || value === 0 ? 0 : (4 * Math.PI) / 180;
 
         const innerR = 50;
         const outerR = 42;
@@ -61,13 +89,13 @@ export class SouMainIndicatorsComponent extends WidgetPlatform<unknown> implemen
             .innerRadius(innerR - 2)
             .outerRadius(outerR + 2)
             .startAngle(2 * Math.PI)
-            .endAngle(value * Math.PI + (4 * Math.PI) / 180);
+            .endAngle(value * Math.PI + dev);
 
         const mainPie = d3
             .arc()
             .innerRadius(innerR - 2)
             .outerRadius(outerR + 2)
-            .startAngle((4 * Math.PI) / 180)
+            .startAngle(dev)
             .endAngle(value * Math.PI);
 
         const g = this.svg
@@ -91,8 +119,6 @@ export class SouMainIndicatorsComponent extends WidgetPlatform<unknown> implemen
 
     public ngOnInit(): void {
         super.widgetInit();
-        this.data$.next(SOURCE_DATA);
-        this.drawSvg(this.data$.value.losses.sum.value, this.data$.value.losses.identified.value);
     }
 
     public changeMenuItem(i: number): void {
@@ -105,5 +131,33 @@ export class SouMainIndicatorsComponent extends WidgetPlatform<unknown> implemen
         return str[0].toUpperCase() + str.slice(1);
     }
 
-    protected dataHandler(ref: any): void {}
+    protected dataConnect(): void {
+        super.dataConnect();
+        this.subscriptions.push(
+            this.mnemonicSchemeService.selectedManufactures$.asObservable().subscribe((ref) => {
+                this.data = {};
+                const el = this.options.find((value) => value.manufacture === ref?.name);
+                this.setWsOptions(el);
+            })
+        );
+    }
+
+    protected dataHandler(ref: any): void {
+        this.data = ref;
+        if (ref?.losses?.identifiedList.length) {
+            this.identifiedList = ref.losses.identifiedList;
+        }
+        this.drawSvg(this.data$.value.losses.sum.value, this.data$.value.losses.identified.value);
+    }
+
+    openTable(value: number): void {
+        this.active = value;
+        const dialogRef = this.dialog.open(SouDetailTableComponent, {
+            data: [...this.identifiedList] as ISOUIdent[],
+        });
+
+        dialogRef.afterClosed().subscribe((result) => {
+            this.active = 0;
+        });
+    }
 }

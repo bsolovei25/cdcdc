@@ -29,6 +29,7 @@ import { ImageCropperModule } from 'ngx-image-cropper';
 import { MatInputModule } from '@angular/material/input';
 import { SearchWidgetPipe } from './components/admin-worker-settings/aws-create-claim/searchWidget.pipe';
 import { SearchUnitPipe } from './components/admin-worker-settings/aws-create-claim/searchUnit.pipe';
+import { WorkerCardComponent } from './components/worker-card/worker-card.component';
 
 @NgModule({
     declarations: [
@@ -53,7 +54,8 @@ import { SearchUnitPipe } from './components/admin-worker-settings/aws-create-cl
         AgGroupCardComponent,
         AgGroupWorkerCardComponent,
         SearchWidgetPipe,
-        SearchUnitPipe
+        SearchUnitPipe,
+        WorkerCardComponent
     ],
     imports: [
         CommonModule,

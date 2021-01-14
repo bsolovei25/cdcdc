@@ -1,6 +1,6 @@
 <div class="workspace scroll scroll-bar" [style]="{overflow: noOverflow ? 'auto' : 'visible'}">
   <div class="workspace__header">
-    <div class="workspace__select-container-left">
+    <div class="workspace__select-container">
       <div class="title">
         <span>Категория</span>
       </div>
@@ -42,7 +42,7 @@
       </div>
     </div>
 
-    <div class="workspace__select-container-right">
+    <div class="workspace__select-container">
       <evj-events-workspace-select
         [label]="'Статус'"
         [dataType]="'status'"
@@ -85,13 +85,21 @@
       </div>
       <div class="description">
         <div class="extra-options">
-          <div class="title">
+          <div class="title" *ngIf="ewService.event?.productionTasks.subCategory.id === 1000">
             <span>Распоряжение</span>
           </div>
-          <div class="extra-options__name">
+          <div class="title" *ngIf="ewService.event?.productionTasks.subCategory.id === 1020 ||
+              ewService.event?.productionTasks.subCategory.id === 1030 ||
+              ewService.event?.productionTasks.subCategory.id === 1040">
+            <span
+            >Краткое описание</span>
+          </div>
+          <div class="extra-options__name"
+               *ngIf="ewService.event?.productionTasks.subCategory.id === 1000">
             <span>Дополнительные параметры</span>
           </div>
           <mat-checkbox
+            *ngIf="ewService.event?.productionTasks.subCategory.id === 1000"
             class="checkbox"
             color="primary"
             [ngModel]="ewService.event.kpeAdditionalParameter"
@@ -215,5 +223,3 @@
 <evj-evj-events-workspace-extra-options
   [info]="ewService.extraOptionsWindow$ | async"
 ></evj-evj-events-workspace-extra-options>
-
-

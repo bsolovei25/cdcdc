@@ -106,7 +106,7 @@
 
 .off{
   background: var(--sou-mvp-color-bg-main);
-  border: 1px solid var(--sou-mvp-color-bg-title);
+  border: 1px solid var(--sou-mvp-color-border-unactive);
 
   span {
     color: var(--sou-mvp-color-text-diagram-sub);
@@ -114,6 +114,6 @@
   
   .connection-circle {
     background: var(--sou-mvp-color-bg-main);
-    border: 1px solid var(--sou-mvp-color-bg-title);
+    border: 1px solid var(--sou-mvp-color-border-unactive);
   }
 }

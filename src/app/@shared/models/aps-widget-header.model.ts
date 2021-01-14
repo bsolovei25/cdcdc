@@ -7,6 +7,8 @@ export type ApsHeaderIconType =
     | 'drop'
     | 'book'
     | 'gantt'
+    | 'document'
+    | 'pen'
     | 'map'
     | 'menu'
     | 'periods'
@@ -19,9 +21,11 @@ export type ApsHeaderIconType =
     | 'energy'
     | 'kpe-marker'
     | 'sliders'
-    | 'document'
     | 'keyboard'
     | 'factory'
     | 'squares'
     | 'dots-triangle'
-    | 'pie';
+    | 'balance'
+    | 'pie'
+    | 'setting'
+    | 'people';

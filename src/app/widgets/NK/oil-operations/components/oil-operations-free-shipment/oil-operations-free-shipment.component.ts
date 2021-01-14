@@ -35,6 +35,8 @@ export class OilOperationsFreeShipmentComponent implements OnInit {
 
     public readonly ROW_HEIGHT_PX: number = 41;
 
+    public readonly BATCH_SIZE: number = 50;
+
     constructor(
         private oilOperationService: OilOperationsService,
     ) {
@@ -45,10 +47,13 @@ export class OilOperationsFreeShipmentComponent implements OnInit {
     }
 
     public productOpen(itemParam: IOilControlFreeShipmentData): void {
-        this.accordionMap.set(itemParam.id, !this.accordionMap.get(itemParam.id));
+        [...this.accordionMap.keys()].forEach((key: number) => {
+            this.accordionMap.set(key, false);
+        });
+        this.accordionMap.set(itemParam.id, true);
         if (!this.dataFree.find(item => item.id === itemParam.id)?.data?.length && this.accordionMap.get(itemParam.id)) {
-            this.getShipmentsByProductId(itemParam.id, 0, itemParam.quantity).then(result => {
-                this.dataFree.map(item => {
+            this.getShipmentsByProductId(itemParam.id, 0, this.BATCH_SIZE).then(result => {
+                this.dataFree.forEach(item => {
                     if (item.id === itemParam.id) {
                         item.data = result;
                     }
@@ -77,25 +82,26 @@ export class OilOperationsFreeShipmentComponent implements OnInit {
 
     }
 
-    public async scrollHandler(event: { target: { offsetHeight: number, scrollTop: number, scrollHeight: number } }, idParam: number): Promise<void> {
+    public scrollHandler(event: { target: { offsetHeight: number, scrollTop: number, scrollHeight: number } }, idParam: number): void {
         const data = this.dataFree.find(item => item.id === idParam)?.data;
         if (
             event.target.offsetHeight + event.target.scrollTop + 100 >= event.target.scrollHeight
             && data.length
         ) {
-            await this.appendTable(data[data?.length - 1]?.id, idParam);
+            this.appendTable(data[data?.length - 1]?.id, idParam);
         }
     }
 
-    private async appendTable(lastId: number, idParam: number): Promise<void> {
-        const data = await this.getShipmentsByProductId(idParam, lastId);
-        if (data.length) {
-            this.dataFree.map(item => {
-                if (item.id === idParam) {
-                    item.data = item.data.concat(data);
-                }
-            });
-        }
+    private appendTable(lastId: number, idParam: number): void {
+        this.getShipmentsByProductId(idParam, lastId, this.BATCH_SIZE).then(data => {
+            if (data.length) {
+                this.dataFree.forEach(item => {
+                    if (item.id === idParam) {
+                        item.data = item.data.concat(data);
+                    }
+                });
+            }
+        });
     }
 
     private async getProducts(): Promise<void> {

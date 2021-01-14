@@ -28,6 +28,10 @@ export class SouEnergeticComponent extends WidgetPlatform implements OnInit {
             manufacture: 'Производство №4',
             unit: 'Изомалк-2',
         },
+        {
+            manufacture: 'Товарное производство',
+            unit: 'АССБ Авиасмеси',
+        },
     ];
 
     constructor(
@@ -47,18 +51,15 @@ export class SouEnergeticComponent extends WidgetPlatform implements OnInit {
     protected dataConnect(): void {
         super.dataConnect();
         this.subscriptions.push(
-            this.mnemonicSchemeService.selectedInstallation$.asObservable().subscribe((ref) => {
+            this.mnemonicSchemeService.selectedManufactures$.asObservable().subscribe((ref) => {
                 this.data = null;
-                this.setWsOptions(this.options[ref]);
+                const el = this.options.find((value) => value.manufacture === ref.name);
+                this.setWsOptions(el);
             })
         );
     }
 
     protected dataHandler(ref: ISouEnergetic): void {
         this.data = ref;
-    }
-
-    private setWsOptions(options: ISouEnergeticOptions): void {
-        this.widgetService.setChannelLiveDataFromWsOptions(this.id, options);
     }
 }

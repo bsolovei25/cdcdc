@@ -146,7 +146,7 @@
                         </evj-column-grid>
                         <evj-column-grid key="shipped" name="Отгружено" [width]="8" [template]="dateFinish">
                           <ng-template #dateFinish let-data="data">
-                            {{ (data?.dateFinish | dateFormat: 'DD-MM-YY hh:mm') || '-' }}
+                            {{ (data?.dateFinish | date:"dd.MM.yyyy | HH:mm") || '-' }}
                           </ng-template>
                         </evj-column-grid>
                         <evj-column-grid key="note" name="Примечание" [width]="25"></evj-column-grid>

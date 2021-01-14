@@ -24,7 +24,6 @@ span {
     padding: 6px 10px;
     background: var(--color-astue-onpz-widget-bg);
     border: solid 1px var(--color-astue-onpz-widget-border);
-    box-sizing: border-box;
     overflow: auto;
 
     .block {
@@ -35,6 +34,10 @@ span {
 
       background: var(--color-astue-onpz-widget-border);
       border-radius: 2px;
+
+      &_active {
+        border: 1px solid var(--color-aps-active);
+      }
 
       &__header {
         height: 40px;

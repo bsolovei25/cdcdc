@@ -1,7 +1,7 @@
 <div class="container">
   <ng-container *ngIf="data">
-    <div class="top">
-      <div class="top__title" matTooltip="Cell title extension"> {{ data.title }} </div>
+    <div class="top" [matTooltip]="data.title">
+      <div class="top__title"> {{ data.title }} </div>
     </div>
     <div class="main">
       <evj-astue-onpz-factory-analysis-bar [data]="data"></evj-astue-onpz-factory-analysis-bar>

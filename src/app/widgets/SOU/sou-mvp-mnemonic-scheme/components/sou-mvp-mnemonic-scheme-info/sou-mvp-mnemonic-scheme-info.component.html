@@ -1,4 +1,4 @@
-<div class="main-container" 
+<div class="main-container"
   [ngClass]="{
     off:!flowData?.isEnable,
     selected:flowData?.code === mvpService.selectedCode
@@ -6,7 +6,7 @@
 >
   <div class="container" (click)="mvpService.openPopup(sections, flowData?.code)">
     <div class="connection__left">
-      <div 
+      <div
         class="connection-circle"
         *ngFor="let j of inputArr"
       ></div>
@@ -18,41 +18,37 @@
       <div class="values">
         <div class="values__item">
           <span [ngSwitch]="choosenSetting">
-            <ng-template ngSwitchCase="1">{{flowData?.valueByHour | number:'0.0-0'}}</ng-template>
-            <ng-template ngSwitchCase="2">{{flowData?.valueTank | number:'0.0-0'}}</ng-template>
-            <ng-template ngSwitchDefault>{{flowData?.valueMoment | number:'0.0-0'}}</ng-template>
+            <ng-template ngSwitchCase="1">{{flowData?.valueByHour}}</ng-template>
+            <ng-template ngSwitchCase="2">{{flowData?.valueTank}}</ng-template>
+            <ng-template ngSwitchDefault>{{flowData?.valueMoment}}</ng-template>
           </span>
           <span class="units">тн</span>
         </div>
         <div class="values__item">
           <span [ngSwitch]="choosenSetting">
-            <ng-template ngSwitchCase="1">{{flowData?.valueByHourPercent | number:'0.0-0'}}</ng-template>
-            <ng-template ngSwitchCase="2">{{flowData?.valueTankPercent | number:'0.0-0'}}</ng-template>
-            <ng-template ngSwitchDefault>{{flowData?.valueMomentPercent | number:'0.0-0'}}</ng-template>
+            <ng-template ngSwitchCase="1">{{flowData?.valueByHourPercent}}</ng-template>
+            <ng-template ngSwitchCase="2">{{flowData?.valueTankPercent}}</ng-template>
+            <ng-template ngSwitchDefault>{{flowData?.valueMomentPercent}}</ng-template>
           </span>
           <span class="units">%</span>
         </div>
       </div>
     </div>
-    <div class="numbers">
-      <span class="numbers_item">0</span>
-      <span class="numbers_item">0</span>
-    </div>
     <div class="connection__right">
-      <div 
+      <div
         class="connection-circle"
         *ngFor="let i of outputArr"
       ></div>
     </div>
   </div>
   <div class="line-container" *ngIf='!noLine'>
-    <div 
+    <div
       class="line"
       [ngClass]="{
         disable:!flowData?.isEnable,
         selectedLine: flowData?.code === mvpService?.selectedCode
       }"
-      *ngFor="let i of outputArr"  
+      *ngFor="let i of outputArr"
     ></div>
   </div>
 </div>

@@ -37,12 +37,10 @@
   
   .info {
     height: 47px;
-    width: 150px;
+    width: 100%;
 
     display: flex;
     flex-direction: column;
-  
-    border-right: 1px solid var(--sou-mvp-color-border);
 
     .title {
       height: 23px;
@@ -85,17 +83,6 @@
       }
     }
   }
-
-  .numbers {
-    width: 30px;
-
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    align-items: center;
-
-    color: var(--sou-mvp-color-text-diagram-sub);
-  }
 }
 
 .connection-circle {
@@ -133,14 +120,12 @@
 
 .off {
   .container {
-    border: 1px solid var(--sou-mvp-color-bg-title);
+    border: 1px solid var(--sou-mvp-color-border-unactive);
     background: var(--sou-mvp-color-bg-main);
     
     .info {
-      border-right: 1px solid var(--sou-mvp-color-bg-title);
-  
       .title {
-        border-bottom: 1px solid var(--sou-mvp-color-bg-title);
+        border-bottom: 1px solid var(--sou-mvp-color-border-unactive);
         span {
           color: var(--sou-mvp-color-text-diagram-sub);
         }
@@ -154,15 +139,11 @@
         color: var(--sou-mvp-color-text-diagram-sub);  
       }
     }
-    .numbers {
-      background: var(--sou-mvp-color-bg-main);
-      color: var(--sou-mvp-color-text-diagram-sub);
-    }
   }
   
   .connection-circle {
     background: var(--sou-mvp-color-bg-main);
-    border: 1px solid var(--sou-mvp-color-bg-title);
+    border: 1px solid var(--sou-mvp-color-border-unactive);
   }
 }
 
@@ -172,8 +153,6 @@
     background: var(--sou-mvp-color-bg-active-spec);
     
     .info {
-      border-right: 1px solid var(--sou-mvp-color-active);
-  
       .title {
         background: var(--sou-mvp-color-bg-active-spec);
         border-bottom: 1px solid var(--sou-mvp-color-active);
@@ -190,10 +169,6 @@
         color: var(--sou-mvp-color-text-diagram-main); 
       }
     }
-    .numbers {
-      background: var(--sou-mvp-color-bg-active-spec);
-      color: var(--sou-mvp-color-text-diagram-main);
-    }
   }
   
   .connection-circle {
@@ -209,7 +184,7 @@
 }
 
 .disable {
-  border-color: var(--sou-mvp-color-bg-title);
+  border-color: var(--sou-mvp-color-border-unactive);
 }
 
 .selectedLine {

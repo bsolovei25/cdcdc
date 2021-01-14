@@ -1,20 +1,35 @@
-import { Component, Input, OnChanges, OnInit } from '@angular/core';
-import { IDatesInterval } from '../../../../../dashboard/services/widget.service';
+import {ChangeDetectorRef, Component, EventEmitter, Inject, OnDestroy, OnInit, Output} from '@angular/core';
+import { IDatesInterval, WidgetService } from '../../../../../dashboard/services/widget.service';
 import { IChartMini } from '@shared/models/smart-scroll.model';
 import { IMultiChartLine } from '../../../../../dashboard/models/ASTUE-ONPZ/astue-onpz-multi-chart.model';
+import { ChannelPlatform } from '../../../../../dashboard/models/@PLATFORM/channel-platform';
+import { AstueOnpzMnemonicFurnaceService } from '../../../astue-onpz-mnemonic-furnace/astue-onpz-mnemonic-furnace.service';
+
+interface IGraph {
+    name: string;
+    graph: IMultiChartLine[];
+    currentFact: number;
+    currentPlan: number;
+}
+
+interface IGraphData {
+    graph: IGraph;
+    selectedPeriod?: IDatesInterval;
+}
 
 @Component({
     selector: 'evj-astue-onpz-factory-analysis-chart-page',
     templateUrl: './astue-onpz-factory-analysis-chart-page.component.html',
-    styleUrls: ['./astue-onpz-factory-analysis-chart-page.component.scss']
+    styleUrls: ['./astue-onpz-factory-analysis-chart-page.component.scss'],
 })
-export class AstueOnpzFactoryAnalysisChartPageComponent implements OnInit, OnChanges {
-
-    @Input()
-    public graphData: { name: string; graph: IMultiChartLine[]; } = {name: '', graph: [],};
-
-    @Input()
-    public selectedPeriod: IDatesInterval | null = null;
+export class AstueOnpzFactoryAnalysisChartPageComponent extends ChannelPlatform<IGraphData>
+    implements OnInit, OnDestroy {
+    public graphData: IGraph = {
+        name: '',
+        graph: [],
+        currentFact: 0,
+        currentPlan: 0,
+    };
 
     public sbLeft: number = 0;
 
@@ -22,64 +37,65 @@ export class AstueOnpzFactoryAnalysisChartPageComponent implements OnInit, OnCha
 
     public scrollData: IChartMini[] = [];
 
-    ngOnChanges(): void {
-        if (!this.selectedPeriod) {
-            const now = new Date();
-            now.setMinutes(0, 0, 0);
-            this.selectedPeriod = {
-                fromDateTime: new Date(now.getTime() - 24 * 1000 * 60 * 60),
-                toDateTime: new Date(now.getTime() + 72 * 1000 * 60 * 60),
-            };
-        } else {
-            this.selectedPeriod.fromDateTime = new Date(this.selectedPeriod.fromDateTime);
-            this.selectedPeriod.toDateTime = new Date(this.selectedPeriod.toDateTime);
-        }
+    public selectedPeriod: IDatesInterval;
 
-        this.scrollData = this.graphData?.graph?.find((item) => item.graphType === 'plan')?.graph.map(item => {
-            return {
-                value: item.value,
-                timeStamp: new Date(item.timeStamp),
-            };
-        });
-    }
+    public countedValues: { fact: number; plan: number } = { fact: 0, plan: 0 };
 
-    constructor() {
+    constructor(
+        protected widgetService: WidgetService,
+        private mnemonicFurnaceService: AstueOnpzMnemonicFurnaceService,
+        private changeDetectorRef: ChangeDetectorRef,
+        @Inject('widgetId') public widgetId: string,
+        @Inject('channelId') public channelId: string
+    ) {
+        super(widgetId, channelId, widgetService);
     }
 
     ngOnInit(): void {
-    }
-
-
-    public scrollHandler(): void {
-        const reqDateTimeInterval = this.extractScrollDateTimes(
-            this.selectedPeriod,
-            this.sbWidth,
-            this.sbLeft
+        super.ngOnInit();
+        this.subscriptions.push(
+            this.widgetService.currentDates$.subscribe((ref) => {
+                this.selectedPeriod = ref;
+                if (!this.selectedPeriod) {
+                    const now = new Date();
+                    now.setMinutes(0, 0, 0);
+                    this.selectedPeriod = {
+                        fromDateTime: new Date(now.getTime() - 24 * 1000 * 60 * 60),
+                        toDateTime: new Date(now.getTime() + 72 * 1000 * 60 * 60),
+                    };
+                } else {
+                    this.selectedPeriod.fromDateTime = new Date(this.selectedPeriod.fromDateTime);
+                    this.selectedPeriod.toDateTime = new Date(this.selectedPeriod.toDateTime);
+                }
+            })
         );
-        // this.selectedPeriod = reqDateTimeInterval;
+
+        this.mnemonicFurnaceService.selectedItem$.subscribe((item) => {
+            this.channelId = item;
+            super.disconnectWs();
+            super.connectWs();
+        });
     }
 
-    private extractScrollDateTimes(
-        dateTimeInterval: IDatesInterval,
-        width: number,
-        left: number
-    ): IDatesInterval {
-        if (!dateTimeInterval || width === null || left === null) {
-            console.error('extractScrollDateTimes: No valid params');
-            return null;
-        }
-        const timeInterval = {
-            from: dateTimeInterval.fromDateTime.getTime(),
-            to: dateTimeInterval.toDateTime.getTime(),
-        };
+    public setPlanFactValues(values: { fact: number; plan: number }): void {
+        this.countedValues = values;
+        this.changeDetectorRef.detectChanges();
+    }
 
-        function getByPercent(value: number): number {
-            return ((timeInterval.to - timeInterval.from) * value) / 100;
-        }
+    protected dataHandler(ref: IGraphData): void {
+        this.graphData = ref.graph;
 
-        return {
-            fromDateTime: new Date(timeInterval.from + getByPercent(left)),
-            toDateTime: new Date(timeInterval.from + getByPercent(width + left)),
-        };
+        this.scrollData = this.graphData?.graph
+            ?.find((item) => item.graphType === 'plan')
+            ?.graph.map((item) => {
+                return {
+                    value: item.value,
+                    timeStamp: new Date(item.timeStamp),
+                };
+            });
+    }
+
+    ngOnDestroy(): void {
+        super.ngOnDestroy();
     }
 }

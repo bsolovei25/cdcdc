@@ -1,0 +1,21 @@
+<div class="widget-container">
+<!--  <evj-contemporary-widget-header-->
+<!--    icon="structure"-->
+<!--    [widgetTitle]="widgetTitle"-->
+<!--    [uniqId]="widgetUniqId"-->
+<!--    type="astue"-->
+<!--  ></evj-contemporary-widget-header>-->
+  <evj-widget-header-smp
+    [uniqId]="uniqId"
+    (mouseenter)="onMouseEnter()"
+    (mouseleave)="onMouseExit()"
+    *ngIf="isHover"
+  ></evj-widget-header-smp>
+  <div class="container"
+    (mouseenter)="onMouseEnter()"
+    (mouseleave)="onMouseExit()"
+    (mousedown)="$event.stopPropagation()"
+    (touchstart)="$event.stopPropagation()">
+    <img alt="" src="assets/icons/widgets/SOU/sou-fake.svg"/>
+  </div>
+</div>

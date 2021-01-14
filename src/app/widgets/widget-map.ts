@@ -61,6 +61,7 @@ export const WIDGETS = {
     'astue-onpz-planning-charts': WidgetContainerComponent,
     'astue-onpz-interactive-indicators': WidgetContainerComponent,
     'nk-tank-information': WidgetContainerComponent,
+    'tank-information': WidgetContainerComponent,
     'ozsm-resources-circle-diagram': WidgetContainerComponent,
     // TODO
     'cd-mat-balance-sensor': CdMatBalanceChartCardComponent,
@@ -135,9 +136,13 @@ export const WIDGETS = {
     'kpe-table-data': WidgetContainerComponent,
     'kpe-pasportize-percent': WidgetContainerComponent,
     'kpe-plan-readiness-trend': WidgetContainerComponent,
+    'kpe-execution-production-program': WidgetContainerComponent,
     'kpe-total-reserve': WidgetContainerComponent,
     'cvtr-izomalk': WidgetContainerComponent,
     'sou-energetic': WidgetContainerComponent,
+    'sou-balance': WidgetContainerComponent,
+    sou_general: WidgetContainerComponent,
+    'sou-main-screen': WidgetContainerComponent,
 };
 
 export const WIDGETS_LAZY = {
@@ -455,7 +460,7 @@ export const WIDGETS_LAZY = {
         itemCols: 21,
         itemRows: 22,
         minItemCols: 21,
-        minItemRows: 22,
+        minItemRows: 13,
         preview: 'kpe-quality',
     },
     'kpe-readiness': {
@@ -527,7 +532,7 @@ export const WIDGETS_LAZY = {
         itemRows: 14,
         minItemCols: 25,
         minItemRows: 14,
-        preview: 'default',
+        preview: 'kpe-total-reserve',
     },
     'kpe-plan-readiness-trend': {
         import: async () => {
@@ -555,6 +560,19 @@ export const WIDGETS_LAZY = {
         minItemCols: 21,
         minItemRows: 14,
         preview: 'kpe-plan-enforceability',
+    },
+    'kpe-execution-production-program': {
+        import: async () => {
+            return await import(
+                'src/app/widgets/KPE/kpe-execution-production-program/kpe-execution-production-program.module'
+            );
+        },
+        module: 'KpeExecutionProductionProgramModule',
+        itemCols: 21,
+        itemRows: 19,
+        minItemCols: 19,
+        minItemRows: 14,
+        preview: 'kpe-execution-production-program',
     },
 
     // #endregion KPE
@@ -760,7 +778,7 @@ export const WIDGETS_LAZY = {
         itemCols: 32,
         itemRows: 30,
         minItemCols: 32,
-        minItemRows: 30,
+        minItemRows: 20,
         preview: 'cd-events',
     },
     'evj-events-workspace': {
@@ -1315,6 +1333,17 @@ export const WIDGETS_LAZY = {
     //#endregion SMP
 
     // #region SOU
+    sou_general: {
+        import: async () => {
+            return await import('src/app/widgets/SOU/sou-fake/sou-fake.module');
+        },
+        module: 'SouFakeModule',
+        itemCols: 32,
+        itemRows: 30,
+        minItemCols: 20,
+        minItemRows: 20,
+        preview: 'default',
+    },
 
     'sou-operational-accounting-system': {
         import: async () => {
@@ -1354,6 +1383,18 @@ export const WIDGETS_LAZY = {
         itemRows: 29,
         minItemCols: 13,
         minItemRows: 20,
+        preview: 'sou-main-indicators',
+    },
+
+    'sou-balance': {
+        import: async () => {
+            return await import('src/app/widgets/SOU/sou-balance/sou-balance.module');
+        },
+        module: 'SouBalanceModule',
+        itemCols: 13,
+        itemRows: 13,
+        minItemCols: 13,
+        minItemRows: 13,
         preview: 'default',
     },
 
@@ -1366,6 +1407,17 @@ export const WIDGETS_LAZY = {
         itemRows: 5,
         minItemCols: 13,
         minItemRows: 5,
+        preview: 'default',
+    },
+    'sou-main-screen': {
+        import: async () => {
+            return await import('src/app/widgets/SOU/sou-main-screen/sou-main-screen.module');
+        },
+        module: 'SouMainScreenModule',
+        itemCols: 30,
+        itemRows: 30,
+        minItemCols: 30,
+        minItemRows: 30,
         preview: 'default',
     },
 

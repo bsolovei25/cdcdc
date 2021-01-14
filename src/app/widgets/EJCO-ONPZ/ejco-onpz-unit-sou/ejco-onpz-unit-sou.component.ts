@@ -33,6 +33,8 @@ export class EjcoOnpzUnitSouComponent extends WidgetPlatform<unknown>
 
     public widgetIcon: string = 'ejco';
 
+    public currentTab: string;
+
     constructor(
         public widgetService: WidgetService,
         public ejcoOnpzHelperService: EjcoOnpzHelperService,
@@ -48,12 +50,14 @@ export class EjcoOnpzUnitSouComponent extends WidgetPlatform<unknown>
         super.widgetInit();
     }
 
-    public handleTabClick(unitCaption: string | 'to-source-redirect'): void {
-        if (unitCaption === 'to-source-redirect') {
-            this.userSettingsService.loadScreenByWidget('sou-operational-accounting-system');
-            return;
-        }
-        this.tableData = this.data.data.find((item) => item.title === unitCaption).values;
+    public handleTabClick(): void {
+        this.userSettingsService.loadScreenByWidget('sou-operational-accounting-system');
+        return;
+    }
+
+    public toggleTab(unitCaption: string): void {
+        this.tableData = this.data.data.find((item) => item.title === unitCaption)?.values;
+        this.currentTab = unitCaption;
     }
 
     public ngOnDestroy(): void {
@@ -74,5 +78,6 @@ export class EjcoOnpzUnitSouComponent extends WidgetPlatform<unknown>
             });
         }
         this.data.data = ref.data;
+        this.toggleTab(this.tabs[0]?.caption);
     }
 }

@@ -68,6 +68,8 @@ export class AstueOnpzMultiChartComponent implements OnInit, OnChanges, OnDestro
 
     private readonly MAX_COEF: number = 0.3;
     private readonly MIN_COEF: number = 0.3;
+    private readonly timeOffsetLeft: number = 24;
+    private readonly timeOffsetRight: number = 72;
 
     private coefs: { [key: string]: { min: number; max: number } } = {};
     private axisLabels: { [key: string]: number[] } = {};
@@ -203,8 +205,8 @@ export class AstueOnpzMultiChartComponent implements OnInit, OnChanges, OnDestro
             const currentDatetime = new Date();
             currentDatetime.setMinutes(0, 0, 0);
             const domainDates = [
-                currentDatetime.getTime() - 16 * 1000 * 60 * 60,
-                currentDatetime.getTime() + 4 * 1000 * 60 * 60,
+                currentDatetime.getTime() - this.timeOffsetLeft * 1000 * 60 * 60,
+                currentDatetime.getTime() + this.timeOffsetRight * 1000 * 60 * 60,
             ];
             this.data.forEach(
                 (item) =>
@@ -352,8 +354,8 @@ export class AstueOnpzMultiChartComponent implements OnInit, OnChanges, OnDestro
             const currentDatetime = new Date();
             currentDatetime.setMinutes(0, 0, 0);
             domainDates = [
-                new Date(currentDatetime.getTime() - 16 * 1000 * 60 * 60),
-                new Date(currentDatetime.getTime() + 4 * 1000 * 60 * 60),
+                new Date(currentDatetime.getTime() - this.timeOffsetLeft * 1000 * 60 * 60),
+                new Date(currentDatetime.getTime() + this.timeOffsetRight * 1000 * 60 * 60),
             ];
         }
 
@@ -498,14 +500,18 @@ export class AstueOnpzMultiChartComponent implements OnInit, OnChanges, OnDestro
         const fact = this.charts.find((item) => item.graphType === 'fact')?.graph ?? [];
 
         const getBorderValue = (type: 'higherBorder' | 'lowerBorder'): number => {
-            return this.scaleFuncs.y?.invert(
-                findCursorPosition(
-                    this.scaleFuncs.x(fact[fact.length - 1]?.timeStamp),
-                    type,
-                    this.svg,
-                    this.padding
-                )?.y
-            );
+            try {
+                return this.scaleFuncs.y?.invert(
+                    findCursorPosition(
+                        this.scaleFuncs.x(fact[fact.length - 1]?.timeStamp),
+                        type,
+                        this.svg,
+                        this.padding
+                    )?.y
+                );
+            } catch (e) {
+                return null;
+            }
         };
 
         const hbValue = getBorderValue('higherBorder');
@@ -909,8 +915,17 @@ export class AstueOnpzMultiChartComponent implements OnInit, OnChanges, OnDestro
             x = this.scaleFuncs.x(currentDatetime) - this.leftPadding;
         }
         const padding = { ...this.padding, left: this.leftPadding };
-        const posFact = findCursorPosition(x, 'fact', this.svg, padding);
-        const posPlan = findCursorPosition(x, 'plan', this.svg, padding);
+        let posFact = null;
+        let posPlan = null;
+        try {
+            posFact = findCursorPosition(x, 'fact', this.svg, padding);
+            posPlan = findCursorPosition(x, 'plan', this.svg, padding);
+        } catch (e) {
+            // console.warn(e);
+        }
+        // if (!posFact || !posPlan) {
+        //     return;
+        // }
 
         this.svg.select('.mouse-over').style('opacity', 1);
         let factY = this.scaleFuncs?.y?.invert(posFact?.y);
@@ -949,19 +964,19 @@ export class AstueOnpzMultiChartComponent implements OnInit, OnChanges, OnDestro
             const statValue = filterChart?.length > 0 ? filterChart[filterChart.length - 1] : null;
             if (chart.graphType === 'plan') {
                 units = units ? units : chart.units;
-                plan = xGragh ? statValue.value : 0;
+                plan = xGragh ? statValue?.value : 0;
             } else if (
                 chart.graphType === 'fact' ||
                 chart.graphType === 'higherBorder' ||
                 chart.graphType === 'lowerBorder'
             ) {
                 units = units ? units : chart.units;
-                fact = xGragh ? statValue.value : 0;
+                fact = xGragh ? statValue?.value : 0;
             } else if (chart.graphType === 'forecast' || chart.graphType === 'border') {
                 // TODO add some
             } else {
                 values.push({
-                    val: xGragh ? statValue.value : 0,
+                    val: xGragh ? statValue?.value : 0,
                     color: lineColors[this.colors?.get(chart.tagName)],
                     units: chart.units ?? '',
                     iconType: chart.graphType ?? 'volume',

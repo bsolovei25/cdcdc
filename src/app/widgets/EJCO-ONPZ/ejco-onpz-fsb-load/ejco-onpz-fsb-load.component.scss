@@ -1,13 +1,19 @@
 @import "../../../../mixins";
 
+.widget-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-flow: column;
+}
+
 .content_block {
+  flex-grow: 1;
   overflow: hidden;
   position: relative;
-  height: calc(100% - 37px);
-  border: 0.35px solid var(--color-axis);
-  border-style: none solid none solid;
   pointer-events: fill;
-  font-family: Tahoma;
+  border: 0.35px solid var(--color-astue-onpz-widget-border);
+  background: var(--color-astue-onpz-widget-bg);
 }
 
 .wrapper {

@@ -6,7 +6,7 @@
     type="astue"
   >
     <div *ngIf="(viewType$ | async) === 'Furnace'" class="header-container">
-      <evj-astue-onpz-factory-analysis-header [page]="pageType$ | async" (changePage)="changePage($event)"></evj-astue-onpz-factory-analysis-header>
+      <evj-astue-onpz-factory-analysis-header [reference]="selectionReference" [page]="pageType$ | async" (changePage)="changePage($event)"></evj-astue-onpz-factory-analysis-header>
     </div>
   </evj-contemporary-widget-header>
 
@@ -19,15 +19,15 @@
         *ngSwitchCase="'bar'"
         [@rightTrigger]
         class="factor-analysis"
-        [data]="data?.sections"
+        [dataTemp]="barData"
       ></evj-astue-onpz-factor-analysis-page>
-      <evj-astue-onpz-factory-analysis-chart-page
-        *ngSwitchCase="'chart'"
-        [@leftTrigger]
-        [graphData]="data?.graph"
-        [selectedPeriod]="data?.selectedPeriod"
-        class="factor-analysis"
-      ></evj-astue-onpz-factory-analysis-chart-page>
-    </ng-container>
+      <div *ngSwitchCase="'chart'" [@leftTrigger] class="factor-analysis">
+       <ng-container *ngIf="selectedChannelId">
+         <ng-container
+           *ngComponentOutlet="chartPageComponent; injector: (widgetId | fn:getInjector );"
+         ></ng-container>
+       </ng-container>
+      </div>
+   </ng-container>
   </div>
 </div>

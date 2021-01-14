@@ -1,10 +1,10 @@
 export interface ISouMainIndicators {
-    reductionSpeed: ISouMainIndicatorsSpeed;
-    reductionQuality: ISouMainIndicatorsQuality;
-    formationSpeed: ISouMainIndicatorsSpeed;
-    errorsOperations: ISouMainIndicatorsErrors;
-    errorsRude: ISouMainIndicatorsErrors;
-    losses: ISouMainIndicatorsLosses;
+    reductionSpeed?: ISouMainIndicatorsSpeed;
+    reductionQuality?: ISouMainIndicatorsQuality;
+    formationSpeed?: ISouMainIndicatorsSpeed;
+    errorsOperations?: ISouMainIndicatorsErrors;
+    errorsRude?: ISouMainIndicatorsErrors;
+    losses?: ISouMainIndicatorsLosses;
 }
 
 export interface ISouMainIndicatorsBlock {

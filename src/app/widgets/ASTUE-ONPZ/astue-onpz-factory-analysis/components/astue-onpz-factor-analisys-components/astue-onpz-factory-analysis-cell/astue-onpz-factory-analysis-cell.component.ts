@@ -5,7 +5,7 @@ import { IAstueOnpzFactoryAnalysisBar } from '../../../../../../dashboard/models
     selector: 'evj-astue-onpz-factory-analysis-cell',
     templateUrl: './astue-onpz-factory-analysis-cell.component.html',
     styleUrls: ['./astue-onpz-factory-analysis-cell.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
+    // changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AstueOnpzFactoryAnalysisCellComponent implements OnInit {
     @Input() data: IAstueOnpzFactoryAnalysisBar = null;

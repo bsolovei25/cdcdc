@@ -22,7 +22,7 @@
       left: -8px;
       z-index: 1;
 
-      transform: rotate(180deg);
+      ;
     }
   
     .title {
@@ -68,7 +68,7 @@
         position: relative;
 
         &:last-child {
-          padding-left: 248px
+          padding-left: 260px
         }
 
         .vertical-custom-connection {
@@ -77,7 +77,7 @@
           align-items: center;
       
           position: absolute;
-          left: 258px;
+          left: 270px;
           top: -17px;
           
           .connection-circle {

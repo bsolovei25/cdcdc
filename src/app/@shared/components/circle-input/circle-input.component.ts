@@ -20,4 +20,5 @@ export class CircleInputComponent {
     @Input() placeholder: string = 'Поиск...';
     // end region: two way binding area
     public isInput: boolean = false;
+    @Input() adminShift:boolean =  false;
 }

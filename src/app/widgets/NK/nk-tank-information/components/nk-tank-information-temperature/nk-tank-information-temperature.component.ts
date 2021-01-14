@@ -6,14 +6,18 @@ import { Component, OnInit, Input, OnChanges } from '@angular/core';
   styleUrls: ['./nk-tank-information-temperature.component.scss']
 })
 export class NkTankInformationTemperatureComponent implements OnInit, OnChanges {
-  @Input() temperature: number;
-  @Input() maxTemperature: number;
-  @Input() isRepair: boolean;
+  @Input() temperature: number = 0;
+  @Input() maxTemperature: number = 1;
+  @Input() isRepair: boolean = false;
 
   constructor() { }
 
   ngOnInit(): void {
   }
 
-  ngOnChanges(): void {}
+  ngOnChanges(): void {
+    this.temperature = this.temperature > 0 ? this.temperature : 0;
+    this.maxTemperature = this.maxTemperature > this.temperature? this.maxTemperature : this.temperature;
+    this.maxTemperature = this.maxTemperature > 0? this.maxTemperature : 0.0001;
+  }
 }

@@ -19,12 +19,15 @@ export interface IAstueOnpzMnemonicFurnaceResponseOven {
     rarefaction: IAstueOnpzMnemonicFurnaceResponseGroup;
     outputRaw: IAstueOnpzMnemonicFurnaceResponseGroup;
     outputGaz: IAstueOnpzMnemonicFurnaceResponseGroup;
+    outputOxygen: IAstueOnpzMnemonicFurnaceResponseGroup;
 }
 
 export interface IAstueOnpzMnemonicFurnaceResponseGroup {
-    item: IAstueOnpzMnemonicFurnaceResponseGroupData[];
+    id?: string;
     value: number;
     unit: string;
+    temp: IAstueOnpzMnemonicFurnaceResponseExtendAttribute;
+    item: IAstueOnpzMnemonicFurnaceResponseGroupData[];
 }
 
 export interface IAstueOnpzMnemonicFurnaceResponseGroupData {
@@ -35,12 +38,14 @@ export interface IAstueOnpzMnemonicFurnaceResponseGroupData {
     value: number;
     units: string;
     type: string;
+    code: number;
     temp: IAstueOnpzMnemonicFurnaceResponseExtendAttribute;
     pressure: IAstueOnpzMnemonicFurnaceResponseExtendAttribute;
     isDeviation: boolean;
 }
 
 export interface IAstueOnpzMnemonicFurnaceResponseExtendAttribute {
+    id?: string;
     value: number;
     units: string;
     isDeviation: boolean;
@@ -69,6 +74,7 @@ export interface IAstueOnpzMnemonicFurnace {
     outputBlock: IAstueOnpzMnemonicFurnaceBlock;
     dischargeStats: IAstueOnpzMnemonicFurnaceStreamStats;
     gasStats: IAstueOnpzMnemonicFurnaceStreamStats;
+    oxygenStats: IAstueOnpzMnemonicFurnaceStreamStats;
 }
 
 export interface IAstueOnpzMnemonicFurnaceBlock {

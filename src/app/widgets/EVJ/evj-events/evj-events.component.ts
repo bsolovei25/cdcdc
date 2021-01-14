@@ -88,7 +88,7 @@ export class EvjEventsComponent extends WidgetPlatform<IEventsWidgetAttributes>
             },
             name: 'СМОТР',
             isActive: false,
-            url: 'https://spb25-cce-mo1.gazprom-neft.local/BLPS_MO/ru_RU/',
+            url: 'https://spb25-cce-mo1/BLPS_MO/ru_RU/',
             categoryType: 'default',
         },
         {
@@ -127,7 +127,7 @@ export class EvjEventsComponent extends WidgetPlatform<IEventsWidgetAttributes>
             },
             name: 'Состояния оборудования',
             isActive: false,
-            url: 'http://spb99-t-merap01/meridium',
+            url: 'http://10.80.128.41/meridium',
             categoryType: 'default',
         },
         {

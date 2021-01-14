@@ -7,6 +7,8 @@ import { IParams } from '../../CD/cd-mat-balance/cd-mat-balance.component';
 import { IAstueOnpzHeatBalanceItem } from '../../../dashboard/models/ASTUE-ONPZ/astue-onpz-heat-balance.model';
 import { AstueOnpzMnemonicFurnaceService } from '../astue-onpz-mnemonic-furnace/astue-onpz-mnemonic-furnace.service';
 import { IAstueOnpzMnemonicFurnaceOptions } from '../../../dashboard/models/ASTUE-ONPZ/astue-onpz-mnemonic-furnace.model';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Component({
     selector: 'evj-astue-onpz-heat-balance',
@@ -23,7 +25,6 @@ export class AstueOnpzHeatBalanceComponent extends WidgetPlatform<unknown>
     ];
 
     expandedElement: SelectionModel<string> = new SelectionModel(true);
-    selectedRowProduct: string;
     selectedRow: SelectionModel<string> = new SelectionModel(true);
 
     constructor(
@@ -54,16 +55,14 @@ export class AstueOnpzHeatBalanceComponent extends WidgetPlatform<unknown>
     }
 
     protected dataHandler(ref: { item: IAstueOnpzHeatBalanceItem[] }): void {
+        // ref.item
+        //     .flatMap((x) => x.items)
+        //     .filter((x) => !!x)
+        //     .forEach((x) => (x.id = x.name));
         this.data = [...ref.item];
     }
 
-    deviationCount(element: IParams): number {
-        let i = 0;
-        element.unitParams.forEach((value) => (value.deviation > 0 ? (i += 1) : (i += 0)));
-        return i;
-    }
-
-    onClickTr(event: MouseEvent, element: any): void {
+    onClickTr(event: MouseEvent, element: IAstueOnpzHeatBalanceItem): void {
         event.stopPropagation();
         if (this.expandedElement.isSelected(element.name)) {
             this.expandedElement.deselect(element.name);
@@ -72,16 +71,14 @@ export class AstueOnpzHeatBalanceComponent extends WidgetPlatform<unknown>
         }
     }
 
-    onClickRow(event: MouseEvent, element?: any): void {
+    onClickRow(event: MouseEvent, element?: IAstueOnpzHeatBalanceItem): void {
         event.stopPropagation();
-        if (!this.selectedRowProduct || element.name !== this.selectedRowProduct) {
-            this.selectedRowProduct = element.name;
-        } else {
-            this.selectedRowProduct = null;
-        }
+        this.mnemonicFurnaceService.selectItem(element.id);
     }
 
-    private setWsOptions(options: IAstueOnpzMnemonicFurnaceOptions): void {
-        this.widgetService.setChannelLiveDataFromWsOptions(this.id, options);
+    public selectedProduct$(element: IAstueOnpzHeatBalanceItem): Observable<boolean> {
+        return this.mnemonicFurnaceService.selectedItem$
+            .asObservable()
+            .pipe(map((x) => x === element?.id));
     }
 }

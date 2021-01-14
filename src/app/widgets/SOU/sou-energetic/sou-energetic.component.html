@@ -2,6 +2,7 @@
   <evj-contemporary-widget-header
     icon="energy"
     widgetTitle="{{ widgetTitle }}"
+    [uniqId]="widgetUniqId"
     type="astue"
   >
     <span class="unit"> {{(data$ | async)?.engUnits }} </span>

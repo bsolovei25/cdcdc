@@ -42,7 +42,7 @@
       left: -8px;
       z-index: 1;
 
-      transform: rotate(180deg);
+      ;
 
       .connection-circle {
         transform: translateX(8px);
@@ -93,7 +93,7 @@
     .main-groups-column-block-2 {
       display: flex;
       margin-top: 10px;
-      margin-left: 270px;
+      margin-left: 280px;
       position: relative;
 
       .vertical-line-container {
@@ -156,11 +156,11 @@
 
 .enableLine {
   .connection-circle {
-    border-color: var(--sou-mvp-color-bg-title);
+    border-color: var(--sou-mvp-color-border-unactive);
   }
 
   .vertical-line {
-    border-color: var(--sou-mvp-color-bg-title);
+    border-color: var(--sou-mvp-color-border-unactive);
   }
 }
 

@@ -3,8 +3,13 @@ import { WidgetPlatform } from '../../../dashboard/models/@PLATFORM/widget-platf
 import { WidgetService } from '../../../dashboard/services/widget.service';
 import { SelectionModel } from '@angular/cdk/collections';
 import { AstueOnpzService, IAstueOnpzPredictor } from '../astue-onpz-shared/astue-onpz.service';
+import {
+    AstueOnpzConventionalFuelService,
+    IAstueOnpzConventionalFuelSelectOptions,
+} from '../astue-onpz-conventional-fuel/astue-onpz-conventional-fuel.service';
 
 interface IPredictors {
+    isHidden: boolean;
     id: string;
     name: string;
     label: string;
@@ -27,6 +32,7 @@ export class AstueOnpzPredictorsComponent extends WidgetPlatform<unknown>
     colors: Map<string, number>;
 
     constructor(
+        private conventionalFuelService: AstueOnpzConventionalFuelService,
         protected widgetService: WidgetService,
         private astueOnpzService: AstueOnpzService,
         private cdRef: ChangeDetectorRef,
@@ -46,9 +52,17 @@ export class AstueOnpzPredictorsComponent extends WidgetPlatform<unknown>
         this.astueOnpzService.clearColors();
     }
 
-    protected async dataConnect(): Promise<void> {
+    protected dataConnect(): void {
         super.dataConnect();
         this.setOptionsWs(this.id);
+        this.subscriptions.push(
+            this.conventionalFuelService.selectedOptions?.subscribe((ref) => {
+                this.selectPredictors.clear();
+                this.astueOnpzService.setPredictors(this.id, []);
+                this.data = [];
+                this.optionsHandler(ref).then();
+            })
+        );
     }
 
     setOptionsWs(predictorWidgetId: string): void {
@@ -56,7 +70,7 @@ export class AstueOnpzPredictorsComponent extends WidgetPlatform<unknown>
     }
 
     protected dataHandler(ref: { predictors: IPredictors[] }): void {
-        this.data = ref.predictors;
+        this.data = ref.predictors.filter(item => !item.isHidden);
         if (ref.predictors[0]?.id === '0') {
             console.log('ID предиктора равна 0'); // проверка данных с backend
         }
@@ -83,5 +97,14 @@ export class AstueOnpzPredictorsComponent extends WidgetPlatform<unknown>
 
         this.astueOnpzService.setPredictors(this.id, arr);
         this.cdRef.detectChanges();
+    }
+
+    private async optionsHandler(options: IAstueOnpzConventionalFuelSelectOptions): Promise<void> {
+        const channels = await this.widgetService.getAvailableChannels<{
+            name: string;
+            id: string;
+        }>(this.widgetId);
+        const subchannelId = channels.find((x) => x.name === options.fuel).id;
+        this.setWsOptions({ subchannelId });
     }
 }

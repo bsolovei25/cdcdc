@@ -55,7 +55,7 @@ export class EvjEjsEventComponent implements OnInit, OnDestroy, OnChanges {
     }
 
     onClickEjs(): void {
-        window.open('http://spb99-t-merap01/meridium/');
+        window.open('http://10.80.128.41/meridium');
     }
     public createEvent(event: boolean): void {
         this.createIcon = false;

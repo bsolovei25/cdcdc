@@ -63,20 +63,26 @@
 
         flex-shrink: 1;
 
-        &__inner {
-            height: 70%;
+        position: relative;
 
+        span {
+          width: 100%;
+
+          text-align: center;
+          font-size: 14px;
+          line-height: 17px;
+          color: var(--ozsm-color-white);
+
+          position: absolute;
+          bottom: 2px;
+        }
+
+        &__inner {
             display: flex;
             justify-content: center;
             align-items: center;
 
             background: var(--ozsm-color-active);
-
-            span {
-                font-size: 14px;
-                line-height: 17px;
-                color: var(--ozsm-color-white);
-            }
         }
     }
 }

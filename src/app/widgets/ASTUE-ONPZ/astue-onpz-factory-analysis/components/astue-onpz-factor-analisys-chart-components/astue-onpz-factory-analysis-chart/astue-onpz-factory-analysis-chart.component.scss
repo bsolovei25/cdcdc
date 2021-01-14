@@ -42,7 +42,8 @@ svg {
       &__plan {
         stroke: rgb(var(--astue-onpz-factory-analisys-norm));
       }
-      &__fact {
+      &__fact,
+      &__last-threshold {
         stroke: var(--color-astue-onpz-factory-analisys-contrast);
       }
       &__higher-border {

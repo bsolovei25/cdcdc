@@ -29,6 +29,13 @@
     background-color: var(--evj-color-bg-btn);
     cursor: pointer;
     color: var(--color-event-card-font-sub);
+
+    &:hover {
+      background-color: var(--color-bg-sub-workflow);
+    }
+    &:focus {
+      outline: none;
+    }
   }
 }
 .right-side {
@@ -40,6 +47,11 @@
 .active-button {
   background-color: var(--color-new-header-active);
   color: white;
+}
+.hover-effect {
+  &:hover {
+    background-color: var(--color-bg-sub-workflow);
+  }
 }
 evj-rect-button {
   width: 100%;

@@ -1,4 +1,4 @@
-*{
+* {
   box-sizing: border-box;
 }
 
@@ -13,7 +13,7 @@
   background: var(--sou-mvp-color-bg-main);
 }
 
-.container-body{
+.container-body {
   height: calc(100% - 100px);
   width: 100%;
 
@@ -129,7 +129,6 @@
 
     &__item {
       height: 40px;
-      width: 120px;
       padding: 0 18px;
 
       display: flex;
@@ -139,6 +138,10 @@
       border-bottom: 1px solid var(--sou-mvp-color-border);
       color: var(--sou-mvp-color-text-diagram-sub);
       cursor: pointer;
+
+      .title {
+        margin-right: 30px;
+      }
 
       .value {
         height: 18px;
@@ -198,10 +201,10 @@
 }
 
 .streams-groups {
-    width: 100%;
-    padding-top: 14px;
-    overflow-y: auto;
-    overflow-x: hidden;
+  width: 100%;
+  padding-top: 14px;
+  overflow-y: auto;
+  overflow-x: hidden;
 
   .streams-container {
     min-height: 100%;
@@ -209,6 +212,11 @@
     padding-left: 90px;
 
     position: relative;
+
+    &_park {
+      padding: 0px;
+      padding-left: 0px;
+    }
   }
 
   .main-collector {
@@ -259,6 +267,7 @@
   z-index: 9999;
 
   overflow: hidden;
+
   .popup {
     flex: 1;
     display: flex;
