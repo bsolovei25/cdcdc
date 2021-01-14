@@ -22,8 +22,9 @@
             <div class="dropdown__marker">
             </div>
             <mat-select class="dropdown__select" [(ngModel)]="selectedManufacture">
-              <mat-option *ngFor="let manufuct of manufacture; index as i" [value]="i"
-              >{{manufuct}}</mat-option>
+              <mat-option *ngFor="let manufuct of manufacture; index as i" [value]="i">
+                {{manufuct}}
+              </mat-option>
             </mat-select>
           </div>
         </div>
@@ -52,20 +53,19 @@
 
         <div class="section-select">
           <div class="custom-border"></div>
-          <ng-container *ngIf="chosenUnit === 'АВТ-10'">
-            <div class="section-select__item"
-                 *ngFor="let section of sections; let i = index"
-                 [ngClass]="{active: i === chosenSection}"
-                 (click)="changeSection(i)"
-            >
-              <span class="title">{{section?.title}}</span>
+          <div
+            class="section-select__item"
+            *ngFor="let section of findSection(selectedManufacture); let i = index"
+            [ngClass]="{active: i === chosenSection}"
+            (click)="changeSection(i)"
+          >
+            <ng-container>
+              <span class="title" *ngIf="!!section?.title">{{section?.title}}</span>
               <div class="value"
-                   [ngClass]="{
-            noTrust: section?.value > 0
-          }"
+                   [ngClass]="{noTrust: section?.value > 0}"
               >{{section.value}}</div>
-            </div>
-          </ng-container>
+            </ng-container>
+          </div>
         </div>
 
         <div class="option-select">
@@ -128,7 +128,7 @@
           <div class="main-collector" *ngIf="chosenUnit === 'АВТ-10' || chosenUnit === 'Изомалк-2'">
             <div class="main-collector-title">
               <span *ngIf="chosenSection !== 2">{{ unit[selectedManufacture] }}<br></span>
-              <span *ngIf="chosenSection !== 0"> {{ sections[chosenSection]?.title }}</span>
+              <span *ngIf="chosenSection !== 0"> {{ findSection(selectedManufacture)[chosenSection]?.title }}</span>
             </div>
           </div>
           <evj-sou-mvp-mnemonic-scheme-section
@@ -183,7 +183,7 @@
             <ng-template ngSwitchCase="2">{{mvpService.popupData?.valueTank}}</ng-template>
             <ng-template ngSwitchDefault>{{mvpService.popupData?.valueMoment}}</ng-template>
             т</span
-          >
+        >
           Скорректированное:&nbsp;<span>{{mvpService.popupData?.valueEdit}} т</span>
           Согласованное:&nbsp;<span>{{mvpService.popupData?.valueCalculate}} т</span>
           Погрешность:&nbsp; <span>{{mvpService.popupData?.error}} %</span>
@@ -234,15 +234,15 @@
       <div class="row-container">
         <div class="information">
           Накопленное:&nbsp;<span
-            class="information__sub"
-            [style.color]="mainData?.lampOn ?'var(--sou-mvp-color-warning)':'var(--sou-mvp-color-text-diagram-main)'"
-            >{{mainData?.delta}}т</span
-          >&nbsp;|&nbsp;<span class="information__main">{{mainData?.deltaByPersent}}%</span> За
+          class="information__sub"
+          [style.color]="mainData?.lampOn ?'var(--sou-mvp-color-warning)':'var(--sou-mvp-color-text-diagram-main)'"
+        >{{mainData?.delta}}т</span
+        >&nbsp;|&nbsp;<span class="information__main">{{mainData?.deltaByPersent}}%</span> За
           час:&nbsp;<span
-            class="information__sub"
-            [style.color]="mainData?.lampOn ?'var(--sou-mvp-color-warning)':'var(--sou-mvp-color-text-diagram-main)'"
-            >{{mainData?.deltaHour}}т</span
-          >&nbsp;|&nbsp;<span class="information__main">{{mainData?.deltaHourByPercent}}%</span>
+          class="information__sub"
+          [style.color]="mainData?.lampOn ?'var(--sou-mvp-color-warning)':'var(--sou-mvp-color-text-diagram-main)'"
+        >{{mainData?.deltaHour}}т</span
+        >&nbsp;|&nbsp;<span class="information__main">{{mainData?.deltaHourByPercent}}%</span>
         </div>
         <!--        <div class="information">-->
         <!--        <span class="information__main"-->
@@ -263,11 +263,11 @@
       <div class="row-container">
         <div class="information">
           Накопленное:&nbsp;<span class="information__sub">{{mainData?.balanceAllow}}т</span
-          >&nbsp;|&nbsp;<span class="information__main">{{mainData?.balanceAllowByPercent}}%</span>
+        >&nbsp;|&nbsp;<span class="information__main">{{mainData?.balanceAllowByPercent}}%</span>
           За час:&nbsp;<span class="information__sub">{{mainData?.balanceAllowHour}}т</span
-          >&nbsp;|&nbsp;<span class="information__main"
-            >{{mainData?.balanceAllowHourByPercent}}%</span
-          >
+        >&nbsp;|&nbsp;<span class="information__main"
+        >{{mainData?.balanceAllowHourByPercent}}%</span
+        >
         </div>
       </div>
     </div>
