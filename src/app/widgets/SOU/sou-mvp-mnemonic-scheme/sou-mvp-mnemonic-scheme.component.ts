@@ -10,6 +10,12 @@ import {
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { SouMvpMnemonicSchemeService } from '../../../dashboard/services/widgets/SOU/sou-mvp-mnemonic-scheme.service';
 
+interface ISouSectionUI {
+    manufacture: string;
+    title: string;
+    value: number;
+}
+
 @Component({
     selector: 'evj-sou-mvp-mnemonic-scheme',
     templateUrl: './sou-mvp-mnemonic-scheme.component.html',
@@ -65,18 +71,26 @@ export class SouMvpMnemonicSchemeComponent extends WidgetPlatform<unknown>
         return this.mvpService.selectedManufactures$.getValue()?.index;
     }
 
-    sections: {
-        title: string;
-        value: number;
-    }[] = [
-        {
-            title: 'АБ',
-            value: 0,
-        },
-        {
-            title: 'ВБ',
-            value: 0,
-        },
+    sections: ISouSectionUI[][] = [
+        [
+            {
+                manufacture: 'Производство №1',
+                title: 'АБ',
+                value: 0,
+            },
+            {
+                manufacture: 'Производство №1',
+                title: 'ВБ',
+                value: 0,
+            },
+        ],
+        [
+            {
+                manufacture: 'Производство №4',
+                title: '',
+                value: 0,
+            },
+        ],
     ];
 
     manufacture: string[] = [];
@@ -171,11 +185,15 @@ export class SouMvpMnemonicSchemeComponent extends WidgetPlatform<unknown>
                 ];
             }
 
-            const sec = this.sections.find((section) => item.name.indexOf(section.title) !== -1);
+            this.sections.forEach((section) => {
+                const sec = section.find(
+                    (sectionItem) => item.name.indexOf(sectionItem.title) !== -1
+                );
 
-            if (!!sec) {
-                sec.value = item.countFlowExceedingConfInterval;
-            }
+                if (!!sec) {
+                    sec.value = item.countFlowExceedingConfInterval;
+                }
+            });
         });
     }
 
@@ -226,5 +244,19 @@ export class SouMvpMnemonicSchemeComponent extends WidgetPlatform<unknown>
             return;
         }
         this.selectedManufacture = res.manufacture;
+    }
+
+    findSection(
+        selected: number
+    ): ISouSectionUI[] {
+        let array: ISouSectionUI[];
+        this.sections.forEach((value) => {
+            value.find((el) => {
+                if (el.manufacture === this.manufacture[selected]) {
+                    array = value;
+                }
+            });
+        });
+        return array;
     }
 }
