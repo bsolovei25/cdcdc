@@ -3,6 +3,7 @@ import { IGlobalClaim } from '../ADMIN/admin-panel';
 import { IMessage } from '@shared/models/message.model';
 import { HttpHeaders } from '@angular/common/http';
 import { IUnits } from '../ADMIN/admin-shift-schedule';
+import { IKpeAllDependentParameters, IKpeWorkspaceParameter } from './kpe-workspace.model';
 
 export interface IEventsWidgetAttributes {
     Acknowledgment: boolean;
@@ -82,6 +83,7 @@ export interface IEventsWidgetNotification {
     externalDate?: Date; // дата регистрации во внешней системе
     cdData?: IEventCd;
     productionTasks?: IEventProductionTask;
+    kpeAdditionalParameter?: IKpeAdditionalParameter;
 }
 
 export interface IEventsEjs {
@@ -455,8 +457,18 @@ export interface ISearchRetrievalWindow {
     acceptFunction?: () => void;
     closeFunction?: () => void;
 }
+
 export interface IExtraOptionsWindow {
+    type?: 'reset' | 'save' | 'cancel';
+    data?: IKpeAdditionalParameter;
     isShow: boolean;
     acceptFunction?: () => void;
     closeFunction?: () => void;
+}
+
+export interface IKpeAdditionalParameter {
+    createdAt: Date;
+    createdBy: number;
+    dependentParameters: IKpeAllDependentParameters[];
+    selectedParameter: IKpeWorkspaceParameter;
 }

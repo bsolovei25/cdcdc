@@ -39,7 +39,7 @@
     line-height: 16px;
     color: #D7E2F2;
 
-    box-shadow: 0 0 30px rgba(0,0,0,0.5);
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
 
     display: flex;
     flex-display: row;
@@ -51,19 +51,23 @@
       align-items: center;
       justify-content: center;
     }
+
     .close {
+      cursor: pointer;
       width: 20%;
       height: 100%;
       display: flex;
       align-items: center;
       justify-content: center;
       position: relative;
+
       &__button {
         width: 21px;
         height: 21px;
       }
     }
   }
+
   &__body {
     position: absolute;
     top: 100px;
@@ -75,11 +79,13 @@
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
+
     &__kpe-parameters {
       width: 100%;
       height: 80px;
       padding-bottom: 20px;
     }
+
     &__parameters {
       width: 100%;
       height: 38px;
@@ -89,18 +95,22 @@
       align-items: center;
       justify-content: space-between;
     }
+
     .dropdown {
       height: 100%;
       width: 60%;
       margin-right: 9px;
+
       &__select {
         height: 100%;
         width: 100%;
       }
     }
+
     .value {
       height: 100%;
       width: 40%;
+
       &__text {
         height: calc(100% - 2px);
         width: calc(100% - 2px);
@@ -109,6 +119,7 @@
         border: 1px solid var(--evj-events-workspace-color-border-extra);
       }
     }
+
     .add-button {
       height: 100%;
       width: 100%;
@@ -122,6 +133,7 @@
       align-items: center;
       cursor: pointer;
     }
+
     .title {
       width: 100%;
       height: 16px;
@@ -131,6 +143,7 @@
       color: var(--color-text-sub);
     }
   }
+
   .save-buttons {
     position: absolute;
     bottom: 0px;
@@ -138,6 +151,17 @@
     height: 70px;
   }
 }
+
+input {
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  padding: 2px;
+  border: 0px;
+  background: var(--header-events-color-bg-main);
+  color: white;
+}
+
 .event-mat-select {
   display: flex;
   align-items: center;

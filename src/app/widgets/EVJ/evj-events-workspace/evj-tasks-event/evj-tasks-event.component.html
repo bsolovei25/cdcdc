@@ -102,7 +102,7 @@
             *ngIf="ewService.event?.productionTasks.subCategory.id === 1000"
             class="checkbox"
             color="primary"
-            [(ngModel)]="isChecked"
+            [formControl]="kpeAdditionalParameter"
             (click)="openExtraOptions()"
           >
           </mat-checkbox>
@@ -222,5 +222,4 @@
 
 <evj-evj-events-workspace-extra-options
   [info]="ewService.extraOptionsWindow$ | async"
-  (checked)="openExtraOptions()"
 ></evj-evj-events-workspace-extra-options>
