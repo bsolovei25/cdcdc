@@ -187,9 +187,12 @@ export class EvjEventsWorkspaceExtraOptionsComponent implements OnInit, OnChange
         console.log(this.form.value.dependentParameters);
         const dependentParameters: IKpeAllDependentParameters[] = this.form.value.dependentParameters.map(
             (value) => {
+                const id = value.dependentParameterId?.id
+                    ? value.dependentParameterId?.id
+                    : value.dependentParameterId;
                 return {
                     numericValue: value.numericValue,
-                    dependentParameterId: value.dependentParameterId.id,
+                    dependentParameterId: id,
                 };
             }
         );
