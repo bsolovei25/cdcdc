@@ -459,6 +459,7 @@ export interface ISearchRetrievalWindow {
 }
 
 export interface IExtraOptionsWindow {
+    type?: 'reset' | 'save' | 'cancel';
     data?: IKpeAdditionalParameter;
     isShow: boolean;
     acceptFunction?: () => void;

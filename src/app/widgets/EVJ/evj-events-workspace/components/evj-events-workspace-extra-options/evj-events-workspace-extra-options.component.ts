@@ -66,7 +66,6 @@ export class EvjEventsWorkspaceExtraOptionsComponent implements OnInit, OnChange
                 }
             })
         );
-        console.log('form', this.form);
     }
 
     ngOnChanges(): void {
@@ -154,20 +153,33 @@ export class EvjEventsWorkspaceExtraOptionsComponent implements OnInit, OnChange
     }
 
     private async deleteParametersByNotification(checkbox: boolean): Promise<void> {
-        await this.kpeWorkspaceService.deleteKpeNotificationParameters(this.ewService.event);
-        this.cancel();
-        this.ewService.event.kpeAdditionalParameter = null;
+        try {
+            await this.kpeWorkspaceService.deleteKpeNotificationParameters(this.ewService.event);
+            this.ewService.event.kpeAdditionalParameter = null;
+
+            const popupWindow: IExtraOptionsWindow  = {
+                isShow: false,
+                type: 'reset',
+            };
+            this.ewService.extraOptionsWindow$.next(popupWindow);
+        } catch {
+            const popupWindow: IExtraOptionsWindow  = {
+                isShow: false,
+                type: 'save',
+            };
+            this.ewService.extraOptionsWindow$.next(popupWindow);
+        }
     }
 
     // Закрыть всплывающее окно с Дополнительными параметры
     public cancel(): void {
-        const popupWindow = {
+        const popupWindow: IExtraOptionsWindow  = {
             isShow: false,
+            type: 'cancel',
         };
         this.ewService.extraOptionsWindow$.next(popupWindow);
         this.formArray?.clear();
         this.dependentParameters = null;
-        this.allParameters = null;
     }
 
     // Добавить зависимый параметр
@@ -184,7 +196,6 @@ export class EvjEventsWorkspaceExtraOptionsComponent implements OnInit, OnChange
 
     // POST Сохранить данные
     public async accept(): Promise<void> {
-        console.log(this.form.value.dependentParameters);
         const dependentParameters: IKpeAllDependentParameters[] = this.form.value.dependentParameters.map(
             (value) => {
                 const id = value.dependentParameterId?.id
@@ -211,7 +222,8 @@ export class EvjEventsWorkspaceExtraOptionsComponent implements OnInit, OnChange
         } catch (error) {
             console.error(error);
         }
-        const popupWindow = {
+        const popupWindow: IExtraOptionsWindow = {
+            type: 'save',
             isShow: false,
         };
         this.ewService.extraOptionsWindow$.next(popupWindow);
@@ -228,8 +240,9 @@ export class EvjEventsWorkspaceExtraOptionsComponent implements OnInit, OnChange
             closeFunction: () => this.ewService.ewAlertInfo$.next(null),
         };
         this.ewService.ewAlertInfo$.next(alertWindow);
-        const popupWindow = {
+        const popupWindow: IExtraOptionsWindow  = {
             isShow: false,
+            type: 'reset',
         };
         this.ewService.extraOptionsWindow$.next(popupWindow);
     }

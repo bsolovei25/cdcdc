@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { EventsWorkspaceService } from '../../../../dashboard/services/widgets/EVJ/events-workspace.service';
 import { IChatMessageWithAttachments } from '../components/evj-chat/evj-chat.component';
 import { IExtraOptionsWindow } from '../../../../dashboard/models/EVJ/events-widget';
+import { FormControl } from '@angular/forms';
 
 @Component({
     selector: 'evj-tasks-event',
@@ -11,11 +12,26 @@ import { IExtraOptionsWindow } from '../../../../dashboard/models/EVJ/events-wid
 export class EvjTasksEventComponent implements OnInit {
     @Input()
     public noOverflow: boolean = false;
+    kpeAdditionalParameter: FormControl = new FormControl(
+        !!this.ewService.event.kpeAdditionalParameter
+    );
 
     constructor(public ewService: EventsWorkspaceService) {}
 
     public ngOnInit(): void {
         this.ewService.event.status = this.ewService.status.find((value) => value.name === 'new');
+        this.ewService.extraOptionsWindow$.subscribe((value) => {
+            console.log(value, this.ewService.event.kpeAdditionalParameter);
+            if (
+                value?.type === 'save' ||
+                (value?.type === 'cancel' && this.ewService.event.kpeAdditionalParameter)
+            ) {
+                this.kpeAdditionalParameter.setValue(true);
+            }
+            if (value?.type === 'reset' || (value?.type === 'cancel' && !this.ewService.event.kpeAdditionalParameter)) {
+                this.kpeAdditionalParameter.setValue(false);
+            }
+        });
     }
 
     public openLineChart(): void {
