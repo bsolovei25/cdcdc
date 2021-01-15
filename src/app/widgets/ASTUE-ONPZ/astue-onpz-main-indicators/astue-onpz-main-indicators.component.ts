@@ -88,7 +88,7 @@ export class AstueOnpzMainIndicatorsComponent extends WidgetPlatform<unknown>
 
         g.append('path')
             .attr('d', arcBg)
-            .attr('class', this.data?.deviationValue < 0 ? 'diagram-deviation' : 'diagram-inner');
+            .attr('class', (this.data?.factValue - this.data?.planValue) < 0 ? 'diagram-deviation' : 'diagram-inner');
 
         g.append('path')
             .attr('d', arc)
