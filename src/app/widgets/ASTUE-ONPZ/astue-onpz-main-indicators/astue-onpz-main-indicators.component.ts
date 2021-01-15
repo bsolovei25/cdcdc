@@ -88,7 +88,7 @@ export class AstueOnpzMainIndicatorsComponent extends WidgetPlatform<unknown>
 
         g.append('path')
             .attr('d', arcBg)
-            .attr('class', (this.data?.factValue - this.data?.planValue) < 0 ? 'diagram-deviation' : 'diagram-inner');
+            .attr('class', (this.data?.factValue - this.data?.planValue) !== 0 ? 'diagram-deviation' : 'diagram-value');
 
         g.append('path')
             .attr('d', arc)
@@ -119,9 +119,6 @@ export class AstueOnpzMainIndicatorsComponent extends WidgetPlatform<unknown>
         this.percent = this.data.factValue / this.data.planValue;
         this.percent = this.percent > 0 ? (this.percent > 1 ? 1 / this.percent : this.percent) : 0;
 
-        if (this.data.factValue < this.data.planValue) {
-            this.data.deviationValue = -this.data.deviationValue;
-        }
         this.drawSvg();
     }
 
