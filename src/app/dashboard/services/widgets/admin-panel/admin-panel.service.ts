@@ -52,6 +52,7 @@ export class AdminPanelService {
     public workers: IUser[] = [];
 
     public units: IUnitEvents[] = [];
+    public eventsCategories: ICategory[] = [];
 
     public screenClaims: IClaim[] = [];
     public screenSpecialClaims: IGlobalClaim[] = [];
@@ -152,12 +153,12 @@ export class AdminPanelService {
     //#region Events
     public getAllEventsSubcategories(): Observable<ICategory[]> {
         const url: string = `${this.restUrlApi}/notification-reference/subcategory`;
-        return this.http.get<any[]>(url);
+        return this.http.get<ICategory[]>(url);
     }
 
     public getAllEventsCategories(): Observable<ICategory[]> {
         const url: string = `${this.restUrlApi}/notification-reference/category`;
-        return this.http.get<any[]>(url);
+        return this.http.get<ICategory[]>(url);
     }
     //#endregion
 

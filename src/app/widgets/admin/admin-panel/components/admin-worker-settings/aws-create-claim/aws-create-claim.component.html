@@ -40,6 +40,15 @@
               {{unit.name}}
             </div>
         </ng-container>
+        <ng-container *ngFor="let category of selectClaim?.selected[0]?.notificationCategory">
+          <div
+            class="card"
+            [ngClass]="{'card_active': category.isActive}"
+            (click)="category.isActive = !category.isActive"
+          >
+            {{ category.description }}
+          </div>
+        </ng-container>
       </div>
     </div>
     <div class="alert__buttons">

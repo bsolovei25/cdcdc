@@ -119,14 +119,11 @@ export class AdminPanelComponent extends WidgetPlatform<unknown> implements OnIn
             this.adminService
                 .getAllGeneralClaims()
                 .subscribe((claims) => (this.adminService.generalClaims = claims.data)),
-            this.adminService.getAllSpecialClaims().subscribe((claims) => {
-                console.log(claims);
-                this.adminService.specialClaims = claims.data ?? [];
-            }),
+            this.adminService.getAllSpecialClaims().subscribe((claims) => this.adminService.specialClaims = claims.data ?? []),
             forkJoin([
                 this.adminService.getAllEventsCategories(),
                 this.adminService.getAllEventsSubcategories(),
-            ]).subscribe((claims) => console.log(claims.flat().map((x) => x.description))),
+            ]).subscribe((claims) => this.adminService.eventsCategories = claims.flat()),
             this.adminService
                 .getAllWidgets()
                 .subscribe((widgets) => (this.adminService.allWidgets = widgets.data)),

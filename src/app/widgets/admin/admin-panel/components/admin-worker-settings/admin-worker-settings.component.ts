@@ -1,5 +1,5 @@
 import { Component, OnInit, Output, EventEmitter, OnDestroy, Input } from '@angular/core';
-import { IUser, IUnitEvents } from '../../../../../dashboard/models/EVJ/events-widget';
+import { IUser, IUnitEvents, ICategory } from "../../../../../dashboard/models/EVJ/events-widget";
 import { IAlertWindowModel } from '../../../../../@shared/models/alert-window.model';
 import { IInputOptions } from '../../../../../@shared/models/input.model';
 import { IAlertPasswordModel } from '../../../../../@shared/models/alert-password.model';
@@ -106,6 +106,7 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
             this.subscriptions.push(
                 this.adminService.getWorkerGeneralClaims(this.worker.id).subscribe((claims) => {
                     this.workerGeneralClaims = claims.data;
+                    console.log('workerSpecialClaims', this.workerSpecialClaims);
                 }),
                 this.adminService.getWorkerSpecialClaims(this.worker.id).subscribe((claims) => {
                     console.log(claims);
@@ -116,11 +117,19 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
                                 value.widgets = [];
                             }
                             value.widgets.push(this.findEntityByClaimValueWidget(value));
-                        } else {
+                        } else if (value.claimValueType === 'unit') {
                             if (!value.units) {
                                 value.units = [];
                             }
                             value.units.push(this.findEntityByClaimValueUnit(value));
+                        } else if (value.claimValueType === 'notificationCategory') {
+                            if (!value.notificationCategory) {
+                                value.notificationCategory = [];
+                            }
+                            const res = this.findEntityByClaimValueEventCategory(value);
+                            if (res) {
+                                value.notificationCategory.push(this.findEntityByClaimValueEventCategory(value));
+                            }
                         }
                     });
                 })
@@ -205,6 +214,10 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
         }
     }
 
+    public findEntityByClaimValueEventCategory(claim: IGlobalClaim): ICategory {
+        return this.adminService.eventsCategories.find((item) => item.id === +claim.value);
+    }
+
     public findEntityByClaimValueWidget(claim: IGlobalClaim): IWidget {
         let entity: IUnitEvents | IWidget;
         switch (claim.claimValueType) {
@@ -219,6 +232,7 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
     }
 
     public onCreateSpecialClaim(claims: IGlobalClaim[]): void {
+        console.log('claims', claims);
         if (claims) {
             claims.filter((v, index) => {
                 if (v.claimValueType !== 'screen') {
@@ -233,9 +247,10 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
         this.isCreateClaim = false;
     }
 
-    public onRemoveSpecialClaim(claim: IWidget | IUnitEvents): void {
+    public onRemoveSpecialClaim(claim: IWidget | IUnitEvents | ICategory): void {
         let index: number;
-        this.workerSpecialClaims.forEach((workerClaim) => {
+        let workerClaimIndexes: number;
+        this.workerSpecialClaims.forEach((workerClaim, workerClaimIndex) => {
             index = -1;
             workerClaim?.units?.forEach((unit, i) => {
                 if (unit.id === claim.id) {
@@ -247,13 +262,21 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
                     index = i;
                 }
             });
+            workerClaim?.notificationCategory?.findIndex((category, i) => {
+                if (category.id === claim.id) {
+                    index = i;
+                }
+            });
             if (index > -1) {
                 workerClaim?.widgets?.splice(index, 1);
                 workerClaim?.units?.splice(index, 1);
+                workerClaim?.notificationCategory?.splice(index, 1);
+                workerClaimIndexes = workerClaimIndex;
             }
             index = -1;
         });
-        // this.workerSpecialClaims.splice(index, 1);
+        // workerClaimIndexes =
+        this.workerSpecialClaims.splice(workerClaimIndexes, 1);
         this.isDataChanged = true;
     }
 
@@ -375,10 +398,11 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
     }
 
     public async onSave(): Promise<void> {
+        console.log('workerSpecialClaims', this.workerSpecialClaims)
         if (this.checkForRequiredFields()) {
             this.isDataLoading = true;
             try {
-                this.workerSpecialClaims?.forEach((v) =>
+                this.workerSpecialClaims?.forEach((v) => {
                     v?.widgets?.forEach((w) => {
                         if (w?.isActive) {
                             this.workerSpecialClaims?.push({
@@ -394,9 +418,7 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
                                 specification: v?.specification,
                             });
                         }
-                    })
-                );
-                this.workerSpecialClaims?.forEach((v) =>
+                    });
                     v?.units?.forEach((u) => {
                         if (u?.isActive) {
                             this.workerSpecialClaims?.push({
@@ -412,8 +434,24 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
                                 specification: v?.specification,
                             });
                         }
-                    })
-                );
+                    });
+                    v?.notificationCategory?.forEach((n) => {
+                        if (n?.isActive) {
+                            this.workerSpecialClaims?.push({
+                                claimType: v?.claimType,
+                                value: n?.id.toString(),
+                                claimValueType: v?.claimValueType,
+                                claimName: v?.claimName,
+                                additionalType: v?.additionalType,
+                                claimCategory: v?.claimCategory,
+                                claimCategoryName: v?.claimCategoryName,
+                                claimValueTypeName: v?.claimValueTypeName,
+                                description: v?.description,
+                                specification: v?.specification,
+                            });
+                        }
+                    });
+                });
                 this.worker.displayName = this.adminService.generateDisplayName(this.worker);
                 this.worker.claims = this.workerGeneralClaims.concat(this.workerSpecialClaims);
                 if (this.workerPhoto) {
