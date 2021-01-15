@@ -105,6 +105,9 @@
       align-items: center;
       color: var(--color-kpe-text-main);
       font-size: 12px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
 
       span {
         -webkit-line-clamp: 3;
