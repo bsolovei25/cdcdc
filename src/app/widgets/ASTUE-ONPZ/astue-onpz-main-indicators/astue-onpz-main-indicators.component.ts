@@ -64,15 +64,7 @@ export class AstueOnpzMainIndicatorsComponent extends WidgetPlatform<unknown>
             .innerRadius(innerR)
             .outerRadius(outerR)
             .startAngle(0)
-            .endAngle(2 * Math.PI * this.percent);
-
-        const arcExceeding = d3
-            .arc()
-            .innerRadius(innerR)
-            .outerRadius(outerR)
-            .startAngle(0)
-            .endAngle(-2 * Math.PI * this.percent);
-
+            .endAngle(this.data.deviationValue < 0 ? 2 * Math.PI * this.percent : -2 * Math.PI * this.percent);
 
         const arcBg = d3
             .arc()
@@ -99,7 +91,7 @@ export class AstueOnpzMainIndicatorsComponent extends WidgetPlatform<unknown>
             .attr('class', this.data?.deviationValue !== 0 ? 'diagram-deviation' : 'diagram-value');
 
         g.append('path')
-            .attr('d', (this.data?.deviationValue) > 0 ? arcExceeding : arc)
+            .attr('d', arc)
             .attr('class', 'diagram-value');
 
         g.append('path')
