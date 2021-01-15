@@ -13,12 +13,12 @@ interface ICreateClaim extends IWidget {
 @Component({
     selector: 'evj-aws-create-claim',
     templateUrl: './aws-create-claim.component.html',
-    styleUrls: ['./aws-create-claim.component.scss']
+    styleUrls: ['./aws-create-claim.component.scss'],
 })
 export class AwsCreateClaimComponent implements OnInit {
-
-    @Output() private createdClaim: EventEmitter<IGlobalClaim[]>
-        = new EventEmitter<IGlobalClaim[]>();
+    @Output() private createdClaim: EventEmitter<IGlobalClaim[]> = new EventEmitter<
+        IGlobalClaim[]
+    >();
     @Input() workerSpecialClaims: IGlobalClaim[] = [];
 
     public allClaims: IGlobalClaim[] = [];
@@ -32,8 +32,7 @@ export class AwsCreateClaimComponent implements OnInit {
     search: string = '';
     public selectCounter: boolean;
 
-    constructor(private adminService: AdminPanelService) {
-    }
+    constructor(private adminService: AdminPanelService) {}
 
     ngOnInit(): void {
         this.allClaims = this.adminService.specialClaims;
@@ -41,12 +40,15 @@ export class AwsCreateClaimComponent implements OnInit {
         this.allUnits = this.adminService.units;
         this.allClaims.forEach((value) => {
             if (value.claimValueType === 'widget') {
-                const copyWidgets: IWidget[] = this.allWidgets.map(v => fillDataShape(v));
-                this.workerSpecialClaims.forEach(workerClaim => {
-                    if (workerClaim.claimType === value.claimType && workerClaim.claimValueType === 'widget') {
-                        copyWidgets.forEach(valueW => {
-                            workerClaim.widgets.forEach(widget => {
-                                if (valueW.id === widget.id) {
+                const copyWidgets: IWidget[] = this.allWidgets.map((v) => fillDataShape(v));
+                this.workerSpecialClaims.forEach((workerClaim) => {
+                    if (
+                        workerClaim.claimType === value.claimType &&
+                        workerClaim.claimValueType === 'widget'
+                    ) {
+                        copyWidgets.forEach((valueW) => {
+                            workerClaim.widgets.forEach((widget) => {
+                                if (valueW?.id === widget?.id) {
                                     valueW.isActive = true;
                                 }
                             });
@@ -55,11 +57,14 @@ export class AwsCreateClaimComponent implements OnInit {
                 });
                 value.widgets = copyWidgets;
             } else {
-                const copyUnits: IUnitEvents[] = this.allUnits.map(v => fillDataShape(v));
-                this.workerSpecialClaims.forEach(workerClaim => {
-                    if (workerClaim.claimType === value.claimType && workerClaim.claimValueType === 'unit') {
-                        copyUnits.forEach(valueW => {
-                            workerClaim.units.forEach(unit => {
+                const copyUnits: IUnitEvents[] = this.allUnits.map((v) => fillDataShape(v));
+                this.workerSpecialClaims.forEach((workerClaim) => {
+                    if (
+                        workerClaim.claimType === value.claimType &&
+                        workerClaim.claimValueType === 'unit'
+                    ) {
+                        copyUnits.forEach((valueW) => {
+                            workerClaim.units.forEach((unit) => {
                                 if (valueW.id === unit.id) {
                                     valueW.isActive = true;
                                 }
@@ -88,12 +93,12 @@ export class AwsCreateClaimComponent implements OnInit {
 
     // start Выбрать все
     public checkIsAllSelected(): boolean {
-        this.selectClaim.selected[0].widgets?.forEach(v => {
+        this.selectClaim.selected[0].widgets?.forEach((v) => {
             if (v.isActive) {
                 this.selectCounter = true;
             }
         });
-        this.selectClaim.selected[0].units?.forEach(v => {
+        this.selectClaim.selected[0].units?.forEach((v) => {
             if (v.isActive) {
                 this.selectCounter = true;
             }
@@ -103,8 +108,10 @@ export class AwsCreateClaimComponent implements OnInit {
 
     public onClickListButton(): void {
         const selectedClaim: IGlobalClaim = this.selectClaim.selected[0];
-        if (selectedClaim.widgets?.find(v => v.isActive)
-            || selectedClaim.units?.find(v => v.isActive)) {
+        if (
+            selectedClaim.widgets?.find((v) => v.isActive) ||
+            selectedClaim.units?.find((v) => v.isActive)
+        ) {
             selectedClaim?.widgets?.forEach((value) => {
                 value.isActive = false;
             });
@@ -142,14 +149,14 @@ export class AwsCreateClaimComponent implements OnInit {
         });
         claims.forEach((v) => {
             if (v.claimValueType === 'widget') {
-                v.widgets?.forEach(w => {
+                v.widgets?.forEach((w) => {
                     if (w.isActive !== true) {
                         w.title = '';
                     }
                 });
             }
             if (v.claimValueType === 'unit') {
-                v.units?.forEach(u => {
+                v.units?.forEach((u) => {
                     if (u.isActive !== true) {
                         u.name = '';
                     }

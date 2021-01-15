@@ -5,7 +5,7 @@ import { IInputOptions } from '../../../@shared/models/input.model';
 import { IUser, IUnitEvents } from '../../../dashboard/models/EVJ/events-widget';
 import { WidgetService } from '../../../dashboard/services/widget.service';
 import { AdminPanelService } from '../../../dashboard/services/widgets/admin-panel/admin-panel.service';
-import { combineLatest } from 'rxjs';
+import { combineLatest, forkJoin } from 'rxjs';
 
 @Component({
     selector: 'evj-admin-panel',
@@ -119,9 +119,14 @@ export class AdminPanelComponent extends WidgetPlatform<unknown> implements OnIn
             this.adminService
                 .getAllGeneralClaims()
                 .subscribe((claims) => (this.adminService.generalClaims = claims.data)),
-            this.adminService
-                .getAllSpecialClaims()
-                .subscribe((claims) => (this.adminService.specialClaims = claims.data)),
+            this.adminService.getAllSpecialClaims().subscribe((claims) => {
+                console.log(claims);
+                this.adminService.specialClaims = claims.data ?? [];
+            }),
+            forkJoin([
+                this.adminService.getAllEventsCategories(),
+                this.adminService.getAllEventsSubcategories(),
+            ]).subscribe((claims) => console.log(claims.flat().map((x) => x.description))),
             this.adminService
                 .getAllWidgets()
                 .subscribe((widgets) => (this.adminService.allWidgets = widgets.data)),

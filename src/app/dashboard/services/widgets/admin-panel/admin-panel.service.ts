@@ -11,12 +11,13 @@ import {
     IUserLdap,
     IUserImported,
 } from '../../../models/ADMIN/admin-panel';
-import { IUser, IUnitEvents } from '../../../models/EVJ/events-widget';
+import { IUser, IUnitEvents, ICategory } from '../../../models/EVJ/events-widget';
 import { IWidget } from '../../../models/widget.model';
 import { fillDataShape } from '@shared/functions/common-functions';
 import { AuthService } from '@core/service/auth.service';
 import { AvatarConfiguratorService } from '@core/service/avatar-configurator.service';
 import { IAlertWindowModel } from '@shared/models/alert-window.model';
+import { mergeMap } from 'rxjs/operators';
 
 @Injectable({
     providedIn: 'root',
@@ -145,6 +146,18 @@ export class AdminPanelService {
     public getAllUnits(): Observable<IUnitEvents[]> {
         const url: string = `${this.restUrlApi}/ref-book/Unit`;
         return this.http.get<IUnitEvents[]>(url);
+    }
+    //#endregion
+
+    //#region Events
+    public getAllEventsSubcategories(): Observable<ICategory[]> {
+        const url: string = `${this.restUrlApi}/notification-reference/subcategory`;
+        return this.http.get<any[]>(url);
+    }
+
+    public getAllEventsCategories(): Observable<ICategory[]> {
+        const url: string = `${this.restUrlApi}/notification-reference/category`;
+        return this.http.get<any[]>(url);
     }
     //#endregion
 
