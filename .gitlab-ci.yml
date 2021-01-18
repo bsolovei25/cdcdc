@@ -1,5 +1,6 @@
 ---
 include:
+  # - ci/pipelines/release.yml
   - project: 'oaovd/osspu/evj/infra/pipelines'
     file: '/pipelines/angular-docker-helm-main.yml'
 
@@ -7,18 +8,18 @@ variables:
   # legacy
   ENV_STAGES_FILE: "evj-front.env"
   S3_RELEASE_BUCKET: "gazgolder/release-tags/${CI_PROJECT_NAME}"
-  
+
   # global lvl
   GIT_DEPTH: 3
   DOCKER_BUILDKIT: 1
-  COMPOSE_DOCKER_CLI_BUILD: 1 
+  COMPOSE_DOCKER_CLI_BUILD: 1
   DOCKER_DRIVER: overlay2
   GIT_SSL_NO_VERIFY: "1"
   PROJECT_NAME: "front"
 
   # semantic lvl
   RELEASE_BRANCH: "devops"
-  
+
   # build lvl
   DOCKERHUB_URL: "registry.funcoff.club"
   DOCKERFILE_PACK: "./docker/Dockerfile.packing"
@@ -30,10 +31,10 @@ variables:
   SERVICE_NAME: "front"
   EXTERNAL_DOCKER_IMG: "onpz.local/evj/front"
   TAG: "$CI_RELEASE_TAG"
-  
+
   # deploy lvl
   RELEASE: "front"
-  IMG_VERSION: "latest" 
+  IMG_VERSION: "latest"
   NS: "evj"
   CHART: "./ci/front-chart"
   DOMAIN: "funcoff.club"
@@ -48,13 +49,17 @@ stages:
 
 workflow:
   rules:
+    - if: $CI_PIPELINE_SOURCE == "pipeline"
+      when: never
     - if: $CI_MERGE_REQUEST_IID
     - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
     - if: $CI_COMMIT_BRANCH == "master"
     - if: $CI_COMMIT_BRANCH == "devops"
-    
+
 .default_rules_refs_anchor: &default_rules_refs
   rules:
+    - if: $CI_PIPELINE_SOURCE == "pipeline"
+      when: never
     - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
     - if: $CI_COMMIT_BRANCH == "master"
     - if: $CI_COMMIT_BRANCH == "devops"
@@ -87,9 +92,8 @@ export-to-zyfra:
   stage: release
   variables:
     GIT_STRATEGY: none
-  needs: []
   trigger:
-    include: ci/export-images-child.yml
+    include: ci/pipelines/export-images-child.yml
   <<: *default_rules_refs
 
 export-to-zyfra-semantic:
@@ -113,7 +117,4 @@ release-notes-maker:
   stage: release
   needs: []
   dependencies: []
-  rules:
-    - if: $CI_COMMIT_BRANCH == "master"
-      when: manual
-
+  when: manual
