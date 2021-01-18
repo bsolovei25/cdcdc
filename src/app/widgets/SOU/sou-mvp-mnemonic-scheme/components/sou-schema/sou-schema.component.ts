@@ -60,10 +60,8 @@ export class SouSchemaComponent implements OnInit, OnChanges, AfterViewChecked {
     ngOnInit(): void {}
 
     ngOnChanges(): void {
-        console.log('23323');
         if (!this.localChosenInstall || this.chosenInstall !== this.localChosenInstall) {
             this.localChosenInstall = this.chosenInstall;
-            console.log('reset');
             this.flag = true;
             this.dataPark = [];
             this.elementsNode = [];
@@ -102,7 +100,6 @@ export class SouSchemaComponent implements OnInit, OnChanges, AfterViewChecked {
             this.loadData(true);
         } else {
             if (this.dataAttribute?.size) {
-                console.log(' 1111111111111');
                 this.dataPark = this.sectionsDataPark;
                 this.loadData(false);
             }
@@ -111,7 +108,6 @@ export class SouSchemaComponent implements OnInit, OnChanges, AfterViewChecked {
 
     ngAfterViewChecked(): void {
         if (document.querySelector(`#element-1_1`) && this.flag) {
-            console.log('flag 1111111111111');
             this.flag = false;
             this.loadSchema();
             if (this.dataPark.length) {
@@ -138,10 +134,10 @@ export class SouSchemaComponent implements OnInit, OnChanges, AfterViewChecked {
                 arrayRepeat.push(value.code);
             }
         });
-        // console.log(`Данные: ${this.dataPark?.length}`);
-        // console.log(`Данных (code = 0) - ${countZeroId}`);
-        // console.log(`Данных (isActive = true) - ${countIsActive}`);
-        // console.log(`Данных с одинаковым code - ${countRepeat} (${arrayRepeat.join(',')})`);
+        console.log(`Данные: ${this.dataPark?.length}`);
+        console.log(`Данных (code = 0) - ${countZeroId}`);
+        console.log(`Данных (isActive = true) - ${countIsActive}`);
+        console.log(`Данных с одинаковым code - ${countRepeat} (${arrayRepeat.join(',')})`);
         // end tests
 
         this.dataPark?.forEach((data) => {
