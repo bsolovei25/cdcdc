@@ -3,12 +3,12 @@ import { WidgetPlatform } from '../../../dashboard/models/@PLATFORM/widget-platf
 import { WidgetService } from '../../../dashboard/services/widget.service';
 import { IColumnsToDisplay } from '../../APS/aps-recipe-diagram/aps-recipe-diagram.component';
 import { SelectionModel } from '@angular/cdk/collections';
-import { IParams } from '../../CD/cd-mat-balance/cd-mat-balance.component';
 import { IAstueOnpzHeatBalanceItem } from '../../../dashboard/models/ASTUE-ONPZ/astue-onpz-heat-balance.model';
 import { AstueOnpzMnemonicFurnaceService } from '../astue-onpz-mnemonic-furnace/astue-onpz-mnemonic-furnace.service';
-import { IAstueOnpzMnemonicFurnaceOptions } from '../../../dashboard/models/ASTUE-ONPZ/astue-onpz-mnemonic-furnace.model';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+
+type AstueHeatBalanceDataType = 'oven' | 'group';
 
 @Component({
     selector: 'evj-astue-onpz-heat-balance',
@@ -26,6 +26,9 @@ export class AstueOnpzHeatBalanceComponent extends WidgetPlatform<unknown>
 
     expandedElement: SelectionModel<string> = new SelectionModel(true);
     selectedRow: SelectionModel<string> = new SelectionModel(true);
+    selectedType$: BehaviorSubject<AstueHeatBalanceDataType> = new BehaviorSubject<
+        AstueHeatBalanceDataType
+    >('oven');
 
     constructor(
         private mnemonicFurnaceService: AstueOnpzMnemonicFurnaceService,
@@ -55,11 +58,14 @@ export class AstueOnpzHeatBalanceComponent extends WidgetPlatform<unknown>
     }
 
     protected dataHandler(ref: { item: IAstueOnpzHeatBalanceItem[] }): void {
-        // ref.item
-        //     .flatMap((x) => x.items)
-        //     .filter((x) => !!x)
-        //     .forEach((x) => (x.id = x.name));
         this.data = [...ref.item];
+    }
+
+    changeDataType(type: AstueHeatBalanceDataType): void {
+        if (this.selectedType$.value === type) {
+            return;
+        }
+        this.selectedType$.next(type);
     }
 
     onClickTr(event: MouseEvent, element: IAstueOnpzHeatBalanceItem): void {

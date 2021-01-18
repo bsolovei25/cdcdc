@@ -4,6 +4,14 @@
   icon="parameter"
   type="astue"
 >
+  <div class="header-container">
+    <div class="header-chips"
+         (mousedown)="$event.stopPropagation()"
+         (touchstart)="$event.stopPropagation()">
+      <div class="chip" [class.chip__active]="(selectedType$ | async) === 'oven'" (click)="changeDataType('oven')"> Печи </div>
+      <div class="chip" [class.chip__active]="(selectedType$ | async) === 'group'" (click)="changeDataType('group')"> Секции </div>
+    </div>
+  </div>
 </evj-contemporary-widget-header>
 <div class="container">
   <div
