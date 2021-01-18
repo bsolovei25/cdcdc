@@ -49,16 +49,32 @@ export class SouSchemaComponent implements OnInit, OnChanges, AfterViewChecked {
     flag: boolean = true; // флаг для одного входа в ngAfterViewChecked
     fullElement: Map<number, IElementFullAndUI> = new Map();
     dataPark: (ISOUFlowOut | ISOUFlowIn | ISOUObjects)[] = [];
+    localChosenInstall: 'АССБ Авиасмеси' | 'АССБ А-95';
 
     @Input() sectionsDataPark: (ISOUFlowOut | ISOUFlowIn | ISOUObjects)[];
     @Input() chosenSetting: number = 1;
-    @Input() chosenInstall: string = 'АССБ Авиасмеси' || 'АССБ А-95';
+    @Input() chosenInstall: 'АССБ Авиасмеси' | 'АССБ А-95';
 
     constructor(public mvpService: SouMvpMnemonicSchemeService) {}
 
     ngOnInit(): void {}
 
     ngOnChanges(): void {
+        if (!this.localChosenInstall || this.chosenInstall !== this.localChosenInstall) {
+            this.localChosenInstall = this.chosenInstall;
+            this.flag = true;
+            this.dataPark = [];
+            this.elementsNode = [];
+            this.dataAttribute.clear();
+            this.fullElement.clear();
+
+            setTimeout((value) => {
+                this.loadSchema();
+                if (this.dataPark.length) {
+                    this.loadData(false);
+                }
+            }, 1000);
+        }
         if (this.dataPark?.length) {
             const newArray = [];
             this.sectionsDataPark?.forEach((value) => {
@@ -553,11 +569,11 @@ export class SouSchemaComponent implements OnInit, OnChanges, AfterViewChecked {
 
     searchElements(elementIndex: number): Element[] {
         let i = 1; // счетчик элементов
+
         const localElements: Element[] = [];
 
-        while (i < 100) {
+        while (i < 150) {
             // поиск по id  - id=element-1_2
-
             const element = document.querySelector(`#element-${elementIndex}_${i}`);
             const line = document.querySelector(`#line_${i}`);
             if (element) {

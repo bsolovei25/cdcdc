@@ -2,45 +2,52 @@
 include:
   # - ci/pipelines/release.yml
   - project: 'oaovd/osspu/evj/infra/pipelines'
-    file: '/templates/_base.yml'
-  - project: 'oaovd/osspu/evj/infra/pipelines'
-    file: '/templates/semantic-release.yml'
-  - project: 'oaovd/osspu/evj/infra/pipelines'
-    file: '/templates/alerting.yml'
-  - project: 'oaovd/osspu/evj/infra/pipelines'
-    file: '/templates/ng-build.yml'
-  - project: 'oaovd/osspu/evj/infra/pipelines'
-    file: '/templates/docker-packing.yml'
-  - project: 'oaovd/osspu/evj/infra/pipelines'
-    file: '/templates/k8s.yml'
-  - project: 'oaovd/osspu/evj/infra/pipelines'
-    file: '/templates/release-notes.yml'
-  - project: 'oaovd/osspu/evj/infra/pipelines'
-    file: '/templates/ci-configs.yml'
+    file: '/pipelines/angular-docker-helm-main.yml'
 
 variables:
-  GIT_DEPTH: 8
+  # legacy
+  ENV_STAGES_FILE: "evj-front.env"
+  S3_RELEASE_BUCKET: "gazgolder/release-tags/${CI_PROJECT_NAME}"
+
+  # global lvl
+  GIT_DEPTH: 3
   DOCKER_BUILDKIT: 1
-  COMPOSE_DOCKER_CLI_BUILD: 1 
+  COMPOSE_DOCKER_CLI_BUILD: 1
   DOCKER_DRIVER: overlay2
   GIT_SSL_NO_VERIFY: "1"
-  SCP_HOST: root@${DEPLOY_DOMAIN}
-  ROCKETCHAT_HOOKS: "/home/gitlab-runner/rocket.integrations"
-  DYNAMIC_ENV: "/root/dynamic-environment-creator"
+  PROJECT_NAME: "front"
+
+  # semantic lvl
+  RELEASE_BRANCH: "devops"
+
+  # build lvl
+  DOCKERHUB_URL: "registry.funcoff.club"
+  DOCKERFILE_PACK: "./docker/Dockerfile.packing"
+  DOCKER_REPO: "evj"
+  DOCKER_EXPORT_PULL_TAG: "latest"
+  CACHE_KEY: "$CI_PROJECT_NAME-$CI_PROJECT_ID-cache"
+
+  # service lvl
+  SERVICE_NAME: "front"
+  EXTERNAL_DOCKER_IMG: "onpz.local/evj/front"
+  TAG: "$CI_RELEASE_TAG"
+
+  # deploy lvl
+  RELEASE: "front"
+  IMG_VERSION: "latest"
+  NS: "evj"
+  CHART: "./ci/front-chart"
+  DOMAIN: "funcoff.club"
+  INGRESS_PREFIX: "evj"
 
 stages:
-  - test
   - build
   - packing
-  - deploy-review
-  - staging
   - deploy
   - alerting
   - release
-  - clean-on-failure
 
-    
-.default_rules_mr_anchor: &default_rules_mr
+workflow:
   rules:
     - if: $CI_PIPELINE_SOURCE == "pipeline"
       when: never
@@ -57,70 +64,6 @@ stages:
     - if: $CI_COMMIT_BRANCH == "master"
     - if: $CI_COMMIT_BRANCH == "devops"
 
-install_dependencies:
-  extends: .ng-slim-base
-  stage: .pre
-  cache: 
-    key: one-key-to-rule-them-all
-    paths:
-      - node_modules/
-    policy: pull-push
-  script:
-    - npm ci
-  rules:
-    - if: $CI_MERGE_REQUEST_IID
-      changes:
-        - package.json
-    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
-      changes:
-        - package.json
-        #- package-lock.json
-
-ng-build:
-  extends: .ng-build-tpl
-  cache: 
-    key: one-key-to-rule-them-all
-  rules:
-    - if: $CI_MERGE_REQUEST_IID
-    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
-    - if: $CI_COMMIT_BRANCH == "master"
-    - if: $CI_COMMIT_BRANCH == "devops"
-
-docker-packing:
-  extends: .docker-ng-packing-tpl
-  variables:
-    DOCKERHUB_URL: "registry.funcoff.club"
-    DOCKER_REPO: "evj"
-    SERVICE_NAME: "front"
-    DOCKERFILE_PACK: "./docker/Dockerfile.packing"
-  needs:
-    - job: ng-build
-      artifacts: true
-  after_script:
-    - echo "========= additional tagging for master branch ========"
-    - > 
-      if [[ $CI_COMMIT_REF_SLUG == "master" ]]; then
-      docker tag ${DOCKER_BASE_NAME}:latest ${DOCKER_BASE_NAME}:$CI_COMMIT_REF_SLUG ;
-      docker push ${DOCKER_BASE_NAME}:${CI_COMMIT_REF_SLUG}; 
-      fi
-  <<: *default_rules_mr
-
-deploy-front:
-  extends: .deploy-chart-k8s-tpl
-  variables:
-    GIT_SUBMODULE_STRATEGY: recursive
-    NS: "evj"
-    IMG_VERSION: "latest"
-    CHART: "./ci/front-chart"
-    RELEASE: "front"
-    DEPLOY_DOMAIN: "https://evj.funcoff.club"
-    INGRESS_SITE: "evj"
-  needs:
-    - job: docker-packing
-  environment:
-    name: staging
-    url: "https://evj.funcoff.club"
-  <<: *default_rules_refs
 
 deliver-to-deploy:
   extends: .alpine-ssh-base
@@ -144,70 +87,6 @@ deliver-to-deploy:
   rules:
     - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
     - if: $CI_COMMIT_BRANCH == "devops"
-      
-deploy-front-mr:
-  extends: .deploy-chart-k8s-tpl
-  variables:
-    GIT_SUBMODULE_STRATEGY: recursive
-    NS: "evj-${CI_COMMIT_REF_SLUG}"
-    IMG_VERSION: "${CI_COMMIT_REF_SLUG}"
-    CHART: "./ci/front-chart"
-    RELEASE: "front"
-    DEPLOY_DOMAIN: "https://evj-${CI_COMMIT_REF_SLUG}.funcoff.club"
-    INGRESS_SITE: "evj-${CI_COMMIT_REF_SLUG}"
-  needs:
-    - job: docker-packing
-  environment:
-    name: review/${CI_COMMIT_REF_SLUG}
-    url: "https://evj-${CI_COMMIT_REF_SLUG}.funcoff.club"
-    on_stop: stop-k8s-review
-    auto_stop_in: 1 day
-  rules:
-    - if: $CI_MERGE_REQUEST_IID
-
-stop-k8s-review:
-  extends: .deploy-chart-k8s-tpl
-  variables:
-    GIT_STRATEGY: none
-    NS: "evj-${CI_COMMIT_REF_SLUG}"
-  script:
-    - kubectl version
-    - kubectl delete ns ${NS} || true
-  environment:
-    name: review/${CI_COMMIT_REF_SLUG}
-    action: stop
-  when: manual
-  only:
-    - merge_requests
-  # rules:
-  #   - if: $CI_MERGE_REQUEST_IID
-  #     when: manual
-      
-success-pipelines:
-  extends: .rocketchat-alerting-tpl
-  variables:
-    MESSAGE: "*New release coming*. Downtime around 1 min ->"
-    AUTH_TOKEN: "$ROCKETCHAT_PIPELINES"
-  needs:
-    - job: deploy-front
-  <<: *default_rules_refs
-
-failed-pipelines:
-  extends: .rocketchat-alerting-tpl
-  variables:
-    MESSAGE: "*PIPELINE FAILED*. See details below ->"
-    AUTH_TOKEN: "$ROCKETCHAT_TOKEN"
-  needs:
-    - job: deploy-front
-  rules:
-    - if: $CI_PIPELINE_SOURCE == "pipeline"
-      when: never
-    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
-      when: on_failure
-    - if: $CI_COMMIT_BRANCH == "master"
-      when: on_failure
-    - if: $CI_COMMIT_BRANCH == "devops"
-      when: on_failure
 
 export-to-zyfra:
   stage: release
@@ -217,8 +96,25 @@ export-to-zyfra:
     include: ci/pipelines/export-images-child.yml
   <<: *default_rules_refs
 
+export-to-zyfra-semantic:
+  stage: release
+  needs: []
+  trigger:
+    include:
+      - project: 'oaovd/osspu/evj/infra/pipelines'
+        file: '/pipelines/semantic-release-to-zyfra-tst.yml'
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "pipeline" && $RELEASE == "ZYFRA_FRONT"
+    # - if: $CI_COMMIT_BRANCH == "master"
+    #   when: manual
+    # - if: $CI_COMMIT_BRANCH == "devops"
+    #   when: manual
+    # - if: $CI_COMMIT_BRANCH == "alpha"
+    #   when: manual
+
 release-notes-maker:
   extends: .release-notes-tpl
+  stage: release
   needs: []
   dependencies: []
   when: manual

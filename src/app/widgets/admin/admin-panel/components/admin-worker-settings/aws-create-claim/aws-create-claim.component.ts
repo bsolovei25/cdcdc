@@ -1,7 +1,7 @@
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { IWidget } from '../../../../../../dashboard/models/widget.model';
 import { IGlobalClaim } from '../../../../../../dashboard/models/ADMIN/admin-panel';
-import { IUnitEvents } from '../../../../../../dashboard/models/EVJ/events-widget';
+import { ICategory, IUnitEvents } from "../../../../../../dashboard/models/EVJ/events-widget";
 import { SelectionModel } from '@angular/cdk/collections';
 import { AdminPanelService } from '../../../../../../dashboard/services/widgets/admin-panel/admin-panel.service';
 import { fillDataShape } from '@shared/functions/common-functions';
@@ -13,17 +13,18 @@ interface ICreateClaim extends IWidget {
 @Component({
     selector: 'evj-aws-create-claim',
     templateUrl: './aws-create-claim.component.html',
-    styleUrls: ['./aws-create-claim.component.scss']
+    styleUrls: ['./aws-create-claim.component.scss'],
 })
 export class AwsCreateClaimComponent implements OnInit {
-
-    @Output() private createdClaim: EventEmitter<IGlobalClaim[]>
-        = new EventEmitter<IGlobalClaim[]>();
+    @Output() private createdClaim: EventEmitter<IGlobalClaim[]> = new EventEmitter<
+        IGlobalClaim[]
+    >();
     @Input() workerSpecialClaims: IGlobalClaim[] = [];
 
     public allClaims: IGlobalClaim[] = [];
     public allWidgets: IWidget[] = [];
     public allUnits: IUnitEvents[] = [];
+    public allEventsCategories: ICategory[] = [];
 
     public selectClaim: SelectionModel<IGlobalClaim> = new SelectionModel<IGlobalClaim>();
     public selectWidget: SelectionModel<IWidget> = new SelectionModel<IWidget>(true);
@@ -32,21 +33,30 @@ export class AwsCreateClaimComponent implements OnInit {
     search: string = '';
     public selectCounter: boolean;
 
-    constructor(private adminService: AdminPanelService) {
-    }
+    constructor(private adminService: AdminPanelService) {}
 
     ngOnInit(): void {
         this.allClaims = this.adminService.specialClaims;
+        console.log('all claims', this.allClaims);
         this.allWidgets = this.adminService.allWidgets.filter((value) => !value.isHidden);
         this.allUnits = this.adminService.units;
-        this.allClaims.forEach((value) => {
-            if (value.claimValueType === 'widget') {
-                const copyWidgets: IWidget[] = this.allWidgets.map(v => fillDataShape(v));
-                this.workerSpecialClaims.forEach(workerClaim => {
-                    if (workerClaim.claimType === value.claimType && workerClaim.claimValueType === 'widget') {
-                        copyWidgets.forEach(valueW => {
-                            workerClaim.widgets.forEach(widget => {
-                                if (valueW.id === widget.id) {
+        this.allEventsCategories = this.adminService.eventsCategories;
+        console.log('this.allEventsCategories', this.allEventsCategories);
+        this.allClaims.forEach((value) => this.allClaimsMapper(value));
+    }
+
+    private allClaimsMapper(value: IGlobalClaim): void {
+        switch (value.claimValueType) {
+            case 'widget':
+                const copyWidgets: IWidget[] = this.allWidgets.map((v) => fillDataShape(v));
+                this.workerSpecialClaims.forEach((workerClaim) => {
+                    if (
+                        workerClaim.claimType === value.claimType &&
+                        workerClaim.claimValueType === 'widget'
+                    ) {
+                        copyWidgets.forEach((valueW) => {
+                            workerClaim.widgets.forEach((widget) => {
+                                if (valueW?.id === widget?.id) {
                                     valueW.isActive = true;
                                 }
                             });
@@ -54,22 +64,40 @@ export class AwsCreateClaimComponent implements OnInit {
                     }
                 });
                 value.widgets = copyWidgets;
-            } else {
-                const copyUnits: IUnitEvents[] = this.allUnits.map(v => fillDataShape(v));
-                this.workerSpecialClaims.forEach(workerClaim => {
-                    if (workerClaim.claimType === value.claimType && workerClaim.claimValueType === 'unit') {
-                        copyUnits.forEach(valueW => {
-                            workerClaim.units.forEach(unit => {
-                                if (valueW.id === unit.id) {
-                                    valueW.isActive = true;
-                                }
+                break;
+            case 'unit':
+                const copyUnits: IUnitEvents[] = this.allUnits.map((v) => fillDataShape(v));
+                this.workerSpecialClaims.forEach((workerClaim) => {
+                    if (
+                        workerClaim.claimType === value.claimType &&
+                        workerClaim.claimValueType === 'unit'
+                    ) {
+                        copyUnits.forEach((valueW) => {
+                            workerClaim.units.forEach((unit) => {
+                                valueW.isActive = valueW.id === unit.id;
                             });
                         });
                     }
                 });
                 value.units = copyUnits;
-            }
-        });
+                break;
+            case 'notificationCategory':
+                const copyCategories: ICategory[] = this.allEventsCategories.map((v) => fillDataShape(v));
+                this.workerSpecialClaims.forEach((workerClaim) => {
+                    if (
+                        workerClaim.claimType === value.claimType &&
+                        workerClaim.claimValueType === 'notificationCategory'
+                    ) {
+                        copyCategories.forEach((valueW) => {
+                            workerClaim.notificationCategory?.forEach((c) => {
+                                valueW.isActive = valueW.id === c.id;
+                            });
+                        });
+                    }
+                });
+                value.notificationCategory = copyCategories;
+                break;
+        }
     }
 
     public changeActiveWidget(widget: IWidget): void {
@@ -88,12 +116,12 @@ export class AwsCreateClaimComponent implements OnInit {
 
     // start Выбрать все
     public checkIsAllSelected(): boolean {
-        this.selectClaim.selected[0].widgets?.forEach(v => {
+        this.selectClaim.selected[0].widgets?.forEach((v) => {
             if (v.isActive) {
                 this.selectCounter = true;
             }
         });
-        this.selectClaim.selected[0].units?.forEach(v => {
+        this.selectClaim.selected[0].units?.forEach((v) => {
             if (v.isActive) {
                 this.selectCounter = true;
             }
@@ -103,8 +131,10 @@ export class AwsCreateClaimComponent implements OnInit {
 
     public onClickListButton(): void {
         const selectedClaim: IGlobalClaim = this.selectClaim.selected[0];
-        if (selectedClaim.widgets?.find(v => v.isActive)
-            || selectedClaim.units?.find(v => v.isActive)) {
+        if (
+            selectedClaim.widgets?.find((v) => v.isActive) ||
+            selectedClaim.units?.find((v) => v.isActive)
+        ) {
             selectedClaim?.widgets?.forEach((value) => {
                 value.isActive = false;
             });
@@ -139,21 +169,27 @@ export class AwsCreateClaimComponent implements OnInit {
             if (value?.units?.filter((v) => v.isActive).length) {
                 claims.push(value);
             }
+            if (value?.notificationCategory?.filter((v) => v.isActive).length) {
+                claims.push(value);
+            }
         });
         claims.forEach((v) => {
             if (v.claimValueType === 'widget') {
-                v.widgets?.forEach(w => {
+                v.widgets?.forEach((w) => {
                     if (w.isActive !== true) {
                         w.title = '';
                     }
                 });
             }
             if (v.claimValueType === 'unit') {
-                v.units?.forEach(u => {
+                v.units?.forEach((u) => {
                     if (u.isActive !== true) {
                         u.name = '';
                     }
                 });
+            }
+            if (v.claimValueType === 'notificationCategory') {
+                v.notificationCategory = v.notificationCategory?.filter((u) => u.isActive);
             }
         });
         this.createdClaim.emit(claims);

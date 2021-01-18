@@ -17,9 +17,7 @@ import { ISOUIdent } from '../../../dashboard/models/SOU/sou-operational-account
     styleUrls: ['./sou-main-indicators.component.scss'],
 })
 export class SouMainIndicatorsComponent extends WidgetPlatform<unknown> implements OnInit {
-    public data$: BehaviorSubject<ISouMainIndicators> = new BehaviorSubject<ISouMainIndicators>(
-        {}
-    );
+    public data$: BehaviorSubject<ISouMainIndicators> = new BehaviorSubject<ISouMainIndicators>({});
 
     private set data(value: ISouMainIndicators) {
         if (!!value) {
@@ -44,6 +42,10 @@ export class SouMainIndicatorsComponent extends WidgetPlatform<unknown> implemen
             manufacture: 'Производство №4',
             unit: 'Изомалк-2',
         },
+        {
+            manufacture: 'Товарное производство',
+            unit: 'АССБ Авиасмеси',
+        },
     ];
 
     constructor(
@@ -60,7 +62,7 @@ export class SouMainIndicatorsComponent extends WidgetPlatform<unknown> implemen
     @AsyncRender
     drawSvg(plan: number, fact: number): void {
         const value = (fact / plan) * 2;
-        let dev: number = (value === 2 || value === 0) ? 0 : (4 * Math.PI) / 180; 
+        let dev: number = value === 2 || value === 0 ? 0 : (4 * Math.PI) / 180;
 
         const innerR = 50;
         const outerR = 42;
@@ -132,9 +134,10 @@ export class SouMainIndicatorsComponent extends WidgetPlatform<unknown> implemen
     protected dataConnect(): void {
         super.dataConnect();
         this.subscriptions.push(
-            this.mnemonicSchemeService.selectedInstallation$.asObservable().subscribe((ref) => {
+            this.mnemonicSchemeService.selectedManufactures$.asObservable().subscribe((ref) => {
                 this.data = {};
-                this.setWsOptions(this.options[ref]);
+                const el = this.options.find((value) => value.manufacture === ref?.name);
+                this.setWsOptions(el);
             })
         );
     }

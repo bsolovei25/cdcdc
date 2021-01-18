@@ -45,7 +45,7 @@
     <div class="selects__item">
       <evj-ui-block status="normal">
         <div class="deadline">
-          <div class="deadline__title">Срок выполнения</div>
+          <div class="deadline__title">Дата и время обнаружения</div>
           <evj-time-data-picker
             [data]="ewService.event.eventDateTime"
             (dateTimePicker)="dateTimePicker($event)"
@@ -145,7 +145,7 @@
       <evj-ui-block status="normal">
         <div class="creator">
           <div class="creator_title">
-            Влияние на производительность, тип ТМ
+            Вид технического объекта, тип ТМ
           </div>
           <div class="creator_body">
             {{ ewService.event?.ejsData?.ejsStopReduceTM }}

@@ -4,37 +4,38 @@
     (mousedown)="$event.stopPropagation()"
     (touchstart)="$event.stopPropagation()"
   >
-    <div class="header-workspace__container"
+    <button class="header-workspace__container hover-effect"
          matRipple [matRippleColor]="'white'"
          (click)="createEvent(true)"
     >
       <div class="button-name">Новое событие</div>
-    </div>
-    <div class="header-workspace__container"
+    </button>
+    <button class="header-workspace__container hover-effect"
          (click)="isEscalatePopupOpen=true"
          matRipple [matRippleColor]="'white'"
     >
       <div class="button-name">Эскалировать</div>
-    </div>
-    <div class="header-workspace__container"
+    </button>
+    <button class="header-workspace__container hover-effect"
          (click)="onClickUrl()"
          matRipple [matRippleColor]="'white'"
     >
       <div class="button-name">Карточка отклонения</div>
-    </div>
-    <div class="header-workspace__container"
+    </button>
+    <button class="header-workspace__container"
          (click)="openClosePopup()"
          matRipple [matRippleColor]="'white'"
+         [disabled]="true"
     >
       <div class="button-name">Закрыть отклонение</div>
-    </div>
-    <div
+    </button>
+    <button
       class="header-workspace__container active-button"
       (click)="createEvent(false)"
       matRipple [matRippleColor]="'white'"
     >
       <div class="button-name">Сохранить</div>
-    </div>
+    </button>
   </div>
 </div>
 
@@ -168,7 +169,7 @@
         <div class="workspace__select-container-right">
           <div class="creator">
             <div class="creator__title">
-              <span>Дата окончания</span>
+              <span>Дата закрытия</span>
             </div>
             <div class="creator__field">
               {{this.ewService.event?.eventEndDateTime?(this.ewService.event.eventEndDateTime|date:"dd.MM.yyyy | HH:mm"):'-'}}

@@ -10,9 +10,11 @@ import { BehaviorSubject } from 'rxjs';
 @Injectable({
     providedIn: 'root',
 })
-
 export class SouMvpMnemonicSchemeService {
-    selectedInstallation$: BehaviorSubject<number> = new BehaviorSubject<number>(0);
+    selectedManufactures$: BehaviorSubject<{ index: number; name: string }> = new BehaviorSubject<{
+        index: number;
+        name: string;
+    }>(null);
     isPopupOpen: boolean = false;
     selectedCode: number = -1; // Код выделенного элемента
     popupData: ISOUFlowOut;

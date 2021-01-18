@@ -19,7 +19,7 @@ $border-color: rgba(63, 169, 245, 0.05);
     width: 100%;
     height: 100%;
     position: relative;
-    border: 0.5px solid var(--color-border-main-transparrent);
+    border: 1px solid var(--color-border-main-transparrent);
     background-color: var(--color-bg-main);
     color: var(--color-text-main);
     outline: none;
@@ -370,7 +370,7 @@ $border-color: rgba(63, 169, 245, 0.05);
   &__container {
     flex-grow: 1;
     min-width: 100px;
-    height: 30px;
+    height: 34px;
     margin-right: 5px;
     margin-left: 5px;
     display: flex;
@@ -379,8 +379,13 @@ $border-color: rgba(63, 169, 245, 0.05);
     cursor: pointer;
     border-radius: 1px;
     background-color: var(--evj-color-bg-btn);
+    border: 2px solid var(--color-events-bg-filters);
     cursor: pointer;
     color: var(--color-event-card-font-sub);
+
+    &:focus {
+      outline: none;
+    }
   }
 }
 .right-side {
@@ -401,4 +406,9 @@ evj-rect-button {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+.hover-effect {
+  &:hover {
+    background-color: var(--color-bg-sub-workflow);
+  }
 }

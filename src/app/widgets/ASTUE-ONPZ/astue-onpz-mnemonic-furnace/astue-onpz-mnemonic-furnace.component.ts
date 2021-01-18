@@ -332,8 +332,8 @@ export class AstueOnpzMnemonicFurnaceComponent extends WidgetPlatform implements
                 line.push({
                     type: AstueOnpzMnemonicFurnaceElementType.Quad,
                     data: {
-                        value: x.temp.value,
-                        unit: x.temp.units,
+                        value: x.pressure.value,
+                        unit: x.pressure.units,
                         streamType: x.pressure?.isDeviation
                             ? AstueOnpzMnemonicFurnaceStreamStatsType.Deviation
                             : AstueOnpzMnemonicFurnaceStreamStatsType.Norm,

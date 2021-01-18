@@ -127,6 +127,11 @@ export interface ISOUNotificationCards {
     tag: string;
 }
 
+export interface IReferenceBook {
+    manufacture: string[];
+    unit: string[][];
+}
+
 export interface ISOUOperationalAccountingSystem {
     name: string;
     flowIn: ISOUFlowIn[];
@@ -150,4 +155,5 @@ export interface ISOUOperationalAccountingSystem {
     balanceAllowHour: number;
     deltaHour: number;
     deltaHourByPercent: number;
+    referenceBook: IReferenceBook;
 }
