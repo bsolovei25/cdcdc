@@ -294,6 +294,7 @@ export interface ICategory {
     name: EventsWidgetCategoryCode;
     code: string;
     description?: string;
+    isActive?: boolean;
 }
 
 export interface IStatus {
