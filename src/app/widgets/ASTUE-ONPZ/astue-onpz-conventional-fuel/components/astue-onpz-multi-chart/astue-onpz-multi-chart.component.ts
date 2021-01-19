@@ -965,11 +965,7 @@ export class AstueOnpzMultiChartComponent implements OnInit, OnChanges, OnDestro
             if (chart.graphType === 'plan') {
                 units = units ? units : chart.units;
                 plan = xGragh ? statValue?.value : 0;
-            } else if (
-                chart.graphType === 'fact' ||
-                chart.graphType === 'higherBorder' ||
-                chart.graphType === 'lowerBorder'
-            ) {
+            } else if (chart.graphType === 'fact') {
                 units = units ? units : chart.units;
                 fact = xGragh ? statValue?.value : 0;
             } else if (chart.graphType === 'forecast' || chart.graphType === 'border') {
