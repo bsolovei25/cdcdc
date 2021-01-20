@@ -84,7 +84,6 @@ export class AstueOnpzMnemonicFurnaceComponent extends WidgetPlatform implements
     public data: BehaviorSubject<IAstueOnpzMnemonicFurnace> = new BehaviorSubject<
         IAstueOnpzMnemonicFurnace
     >(null);
-    private responseData: { manufactures: IAstueOnpzMnemonicFurnaceResponse[] } = null;
 
     constructor(
         private mnemonicFurnaceService: AstueOnpzMnemonicFurnaceService,
@@ -117,7 +116,7 @@ export class AstueOnpzMnemonicFurnaceComponent extends WidgetPlatform implements
             this.selectOven.setValue('');
         });
         this.selectOven.valueChanges.pipe(takeUntil(this.onDestroy)).subscribe((value) => {
-            this.setData();
+            this.setOptions(value);
         });
 
         this.mnemonicFurnaceService.selectedItem$
@@ -197,25 +196,39 @@ export class AstueOnpzMnemonicFurnaceComponent extends WidgetPlatform implements
         })
     );
 
-    protected dataHandler(ref: { manufactures: IAstueOnpzMnemonicFurnaceResponse[] }): void {
-        this.selectReferences.next(this.referenceMapping(ref));
-        this.responseData = ref;
-        this.setData();
+    protected dataHandler(ref: unknown): void {
+        if (!ref.hasOwnProperty('id')) {
+            this.selectReferences.next(
+                this.referenceMapping(ref as { manufactures: IAstueOnpzMnemonicFurnaceResponse[] })
+            );
+            this.setData();
+        } else {
+            this.setData(ref as IAstueOnpzMnemonicFurnaceResponseOven);
+        }
     }
 
-    private setData(): void {
-        // return;
-        if (!this.selectOven.value) {
-            this.data.next(null);
-            return;
-        }
-        const currentData = this.responseData.manufactures
-            .find((x) => x.id === this.selectManufacture.value)
-            .units.find((x) => x.id === this.selectUnit.value)
-            .ovens.find((x) => x.id === this.selectOven.value);
-        this.data.next(this.ovenMapping(currentData));
+    private setOptions(ovenId: string): void {
+        this.setWsOptions({ ovenId });
+    }
+
+    private setData(ref: IAstueOnpzMnemonicFurnaceResponseOven = null): void {
+        this.data.next(this.ovenMapping(ref));
         this.resize();
     }
+
+    // private setData(responseData: { manufactures: IAstueOnpzMnemonicFurnaceResponse[] }): void {
+    //     // return;
+    //     if (!this.selectOven.value) {
+    //         this.data.next(null);
+    //         return;
+    //     }
+    //     const currentData = responseData.manufactures
+    //         .find((x) => x.id === this.selectManufacture.value)
+    //         .units.find((x) => x.id === this.selectUnit.value)
+    //         .ovens.find((x) => x.id === this.selectOven.value);
+    //     this.data.next(this.ovenMapping(currentData));
+    //     this.resize();
+    // }
 
     private referenceMapping = (ref: {
         manufactures: IAstueOnpzMnemonicFurnaceResponse[];
@@ -400,23 +413,6 @@ export class AstueOnpzMnemonicFurnaceComponent extends WidgetPlatform implements
                 },
             },
         ]);
-        // outputBlock.lines.push([
-        //     {
-        //         type: AstueOnpzMnemonicFurnaceElementType.Rect,
-        //         data: {
-        //             count: 'Σ',
-        //             title: 'потоков',
-        //             type: AstueOnpzMnemonicFurnaceRectType.Stream,
-        //         },
-        //     },
-        //     {
-        //         type: AstueOnpzMnemonicFurnaceElementType.Circle,
-        //         data: {
-        //             value: currentData.outputRaw?.value,
-        //             unit: currentData.outputRaw?.unit,
-        //         },
-        //     },
-        // ]);
         currentData.inputOil.item.forEach((x, i) => {
             inputOilBlock.lines.push(lineConstructor(x, 'inputOilBlock', i));
         });
