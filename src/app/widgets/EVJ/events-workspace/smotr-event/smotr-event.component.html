@@ -214,7 +214,7 @@
   <div class="workspace__popup" [ngClass]="{'workspace__popup_active':isReasonsPopupOpen}">
     <evj-events-list-window
       *ngIf="isReasonsPopupOpen"
-      title="Выберите нужные причины"
+      title="Выберите нужную причину"
       [reasonsList]="this.ewService.event?.deviationData?.availableReasons"
       (closeWindow)="setReason($event)"
     ></evj-events-list-window>
