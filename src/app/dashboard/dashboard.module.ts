@@ -73,7 +73,6 @@ import { TankFilterComponent } from '../widgets/NK/tank-information/components/t
 import { ReportServerConfiguratorModule } from '../widgets/admin/report-server-configurator/report-server-configurator.module';
 import { OilOperationsFilterComponent } from '../widgets/NK/oil-operations/components/oil-operations-filter/oil-operations-filter.component';
 import { AstueOnpzMnemonicFurnaceModule } from '../widgets/ASTUE-ONPZ/astue-onpz-mnemonic-furnace/astue-onpz-mnemonic-furnace.module';
-import { KpeChartsAnalyticModule } from '../widgets/KPE/kpe-charts-analytic/kpe-charts-analytic.module';
 
 @NgModule({
     declarations: [
@@ -171,7 +170,6 @@ import { KpeChartsAnalyticModule } from '../widgets/KPE/kpe-charts-analytic/kpe-
         MatBadgeModule,
         ReportServerConfiguratorModule,
         AstueOnpzMnemonicFurnaceModule,
-        KpeChartsAnalyticModule,
     ],
     bootstrap: [],
     providers: [

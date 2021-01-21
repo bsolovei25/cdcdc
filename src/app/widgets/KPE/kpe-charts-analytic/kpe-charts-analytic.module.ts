@@ -10,6 +10,7 @@ import { KpeChartsAnalyticCardComponent } from './components/kpe-charts-analytic
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { ReactiveFormsModule } from '@angular/forms';
 import { KpeChartsAnalyticDatesPickerComponent } from './components/kpe-charts-analytic-dates-picker/kpe-charts-analytic-dates-picker.component';
+import { MatNativeDateModule } from '@angular/material/core';
 
 @NgModule({
     declarations: [
@@ -26,7 +27,10 @@ import { KpeChartsAnalyticDatesPickerComponent } from './components/kpe-charts-a
         AngularSvgIconModule,
         MatDatepickerModule,
         ReactiveFormsModule,
+        MatNativeDateModule,
     ],
     exports: [KpeChartsAnalyticComponent],
 })
-export class KpeChartsAnalyticModule {}
+export class KpeChartsAnalyticModule {
+    enterComponent = KpeChartsAnalyticComponent;
+}

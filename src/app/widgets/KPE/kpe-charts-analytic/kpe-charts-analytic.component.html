@@ -1,6 +1,8 @@
 <div class="widget-container">
   <evj-contemporary-widget-header
     type="astue"
+    [widgetTitle]="widgetTitle"
+    [uniqId]="widgetUniqId"
   >
     <div class="header-container">
       <evj-kpe-charts-analytic-header-select></evj-kpe-charts-analytic-header-select>
@@ -8,7 +10,9 @@
     </div>
   </evj-contemporary-widget-header>
 
-  <div class="container">
+  <div class="container"
+       (mousedown)="$event.stopPropagation()"
+       (touchstart)="$event.stopPropagation()">
     <div class="area area__chart"></div>
 
     <div class="area area__stats">

@@ -6,14 +6,14 @@ import { NgModule } from '@angular/core';
 // Local modules
 
 export const DashboardRoutes: Routes = [
-    // {
-    //     path: '',
-    //     component: HomeComponent,
-    // },
     {
         path: '',
-        component: DevGraphComponent,
+        component: HomeComponent,
     },
+    // {
+    //     path: '',
+    //     component: DevGraphComponent,
+    // },
 ];
 
 @NgModule({
