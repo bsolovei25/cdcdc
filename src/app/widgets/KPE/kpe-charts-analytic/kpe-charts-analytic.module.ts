@@ -7,6 +7,9 @@ import { KpeChartsAnalyticHeaderSelectComponent } from './components/kpe-charts-
 import { MatSelectModule } from '@angular/material/select';
 import { AngularSvgIconModule } from 'angular-svg-icon';
 import { KpeChartsAnalyticCardComponent } from './components/kpe-charts-analytic-card/kpe-charts-analytic-card.component';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { ReactiveFormsModule } from '@angular/forms';
+import { KpeChartsAnalyticDatesPickerComponent } from './components/kpe-charts-analytic-dates-picker/kpe-charts-analytic-dates-picker.component';
 
 @NgModule({
     declarations: [
@@ -14,8 +17,16 @@ import { KpeChartsAnalyticCardComponent } from './components/kpe-charts-analytic
         KpeChartsAnalyticHeaderToggleComponent,
         KpeChartsAnalyticHeaderSelectComponent,
         KpeChartsAnalyticCardComponent,
+        KpeChartsAnalyticDatesPickerComponent,
     ],
-    imports: [CommonModule, SharedModule, MatSelectModule, AngularSvgIconModule],
+    imports: [
+        CommonModule,
+        SharedModule,
+        MatSelectModule,
+        AngularSvgIconModule,
+        MatDatepickerModule,
+        ReactiveFormsModule,
+    ],
     exports: [KpeChartsAnalyticComponent],
 })
 export class KpeChartsAnalyticModule {}
