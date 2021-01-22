@@ -28,6 +28,7 @@ export type IMultiChartTypes =
     | 'plan'
     | 'fact'
     | 'forecast'
+    | 'factModel'
     | 'temperature'
     | 'heatExchanger'
     | 'volume'
