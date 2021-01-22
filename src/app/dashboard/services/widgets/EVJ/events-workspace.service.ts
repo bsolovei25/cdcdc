@@ -503,8 +503,7 @@ export class EventsWorkspaceService {
             deadline: new Date(),
             graphValues: null,
             isAcknowledged: false,
-            unit: this.isCreateNewEvent ? this.units.find((u) => u.id === 22) :
-                this.units.find((u) => u.id === this.currentAuthUser?.unitId) ?? null,
+            unit: this.units.find((u) => u.id === this.attributes$.getValue().unitId) ?? null,
             unitName: null,
             facts: [],
             comments: [],
