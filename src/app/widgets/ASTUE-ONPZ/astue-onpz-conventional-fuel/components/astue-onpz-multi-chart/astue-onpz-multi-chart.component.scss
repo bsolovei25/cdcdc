@@ -42,6 +42,7 @@
       &-fact,
       &-plan,
       &-forecast,
+      &-factModel,
       &-higherBorder,
       &-lowerBorder,
       &-border,
@@ -53,12 +54,17 @@
 
       &-fact,
       &-forecast,
+      &-factModel,
       &-plan {
         stroke-width: 2;
       }
 
       &-forecast {
         stroke-dasharray: 5 5;
+      }
+
+      &-factModel {
+        stroke: #5B607D;
       }
 
       fill: none;
