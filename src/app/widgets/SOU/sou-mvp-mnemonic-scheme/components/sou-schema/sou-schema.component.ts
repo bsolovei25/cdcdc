@@ -572,7 +572,7 @@ export class SouSchemaComponent implements OnInit, OnChanges, AfterViewChecked {
 
         const localElements: Element[] = [];
 
-        while (i < 150) {
+        while (i < 300) {
             // поиск по id  - id=element-1_2
             const element = document.querySelector(`#element-${elementIndex}_${i}`);
             const line = document.querySelector(`#line_${i}`);
@@ -586,5 +586,22 @@ export class SouSchemaComponent implements OnInit, OnChanges, AfterViewChecked {
             i++;
         }
         return localElements;
+    }
+
+    getSvgName(chosenInstall: string): string {
+        switch (chosenInstall) {
+            case 'АССБ Авиасмеси':
+                return chosenInstall;
+            case 'АССБ А-95':
+                return chosenInstall;
+            case 'АССБ А-98':
+                return chosenInstall;
+            case 'Насосная т.1163-1164 парк БГС':
+                return 'Насосная-парк-БГС';
+            case 'Насосная т.1163-1164 парк А-95':
+                return 'Насосная-парк-А-95';
+            case 'Насосная т.1163-1164 парк А-92':
+                return 'Насосная-парк-А-92';
+        }
     }
 }
