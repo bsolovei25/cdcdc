@@ -5,8 +5,8 @@
     [uniqId]="widgetUniqId"
   >
     <div class="header-container">
-      <evj-kpe-charts-analytic-header-select></evj-kpe-charts-analytic-header-select>
-      <evj-kpe-charts-analytic-header-toggle></evj-kpe-charts-analytic-header-toggle>
+      <evj-kpe-charts-analytic-header-select [formGroup]="entryStates"></evj-kpe-charts-analytic-header-select>
+      <evj-kpe-charts-analytic-header-toggle [formGroup]="entryStates"></evj-kpe-charts-analytic-header-toggle>
     </div>
   </evj-contemporary-widget-header>
 
@@ -16,21 +16,21 @@
     <div class="area area__chart"></div>
 
     <div class="area area__stats">
-      <div class="selects">
+      <div class="selects" [formGroup]="entryStates">
         <div class="dropdown">
-          <mat-select class="dropdown__select" placeholder="График">
+          <mat-select class="dropdown__select" placeholder="График" formControlName="chartType">
             <mat-option> Не выбрано </mat-option>
           </mat-select>
         </div>
         <div class="dropdown">
           <div class="dropdown__label"> <span> Y </span> </div>
-          <mat-select class="dropdown__select" placeholder="Ед. измерения">
+          <mat-select class="dropdown__select" placeholder="Ед. измерения" formControlName="engUnit">
             <mat-option> Не выбрано </mat-option>
           </mat-select>
         </div>
         <div class="dropdown">
           <div class="dropdown__label"> <span> X </span> </div>
-          <mat-select class="dropdown__select" placeholder="Временной интервал">
+          <mat-select class="dropdown__select" placeholder="Временной интервал" formControlName="dateInterval">
             <mat-option> Не выбрано </mat-option>
           </mat-select>
         </div>
@@ -41,8 +41,8 @@
         <evj-kpe-charts-analytic-card type="plan" value="76.009"></evj-kpe-charts-analytic-card>
         <evj-kpe-charts-analytic-card type="interval" value="0.3"></evj-kpe-charts-analytic-card>
       </div>
-      <evj-checker class="checker"></evj-checker>
-      <evj-kpe-charts-analytic-dates-picker></evj-kpe-charts-analytic-dates-picker>
+      <evj-checker (changeValue)="syncChange($event)" class="checker"></evj-checker>
+      <evj-kpe-charts-analytic-dates-picker [formGroup]="sharedStates"></evj-kpe-charts-analytic-dates-picker>
     </div>
   </div>
 </div>

@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 
 @Component({
     selector: 'evj-kpe-charts-analytic-dates-picker',
@@ -7,10 +8,7 @@ import { FormControl, FormGroup } from '@angular/forms';
     styleUrls: ['./kpe-charts-analytic-dates-picker.component.scss'],
 })
 export class KpeChartsAnalyticDatesPickerComponent implements OnInit {
-    public range: FormGroup = new FormGroup({
-        start: new FormControl(),
-        end: new FormControl(),
-    });
+    @Input() public formGroup: FormGroup;
 
     constructor() {}
 

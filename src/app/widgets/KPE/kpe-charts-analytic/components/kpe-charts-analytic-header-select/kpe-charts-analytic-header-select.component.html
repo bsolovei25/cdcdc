@@ -1,4 +1,4 @@
-<div class="selects">
+<div class="selects" [formGroup]="formGroup">
   <svg-icon
     class="arrow-circle"
     src="assets/icons/widgets/SOU/sou-mvp-mnemonic-scheme/arrowCircle.svg"
@@ -8,8 +8,10 @@
   <div (mousedown)="$event.stopPropagation()"
        (touchstart)="$event.stopPropagation()" class="option-select">
     <div class="dropdown">
-      <mat-select class="dropdown__select" placeholder="Производство">
+      <mat-select formControlName="manufacture" class="dropdown__select" placeholder="Производство">
         <mat-option> Не выбрано </mat-option>
+        <mat-option [value]="1"> 1 </mat-option>
+        <mat-option [value]="2"> 2 </mat-option>
       </mat-select>
     </div>
   </div>
