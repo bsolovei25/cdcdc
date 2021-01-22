@@ -114,6 +114,8 @@ export-to-zyfra-semantic:
 
 release-notes-maker:
   extends: .release-notes-tpl
+  variables:
+    GROUP_PROJECT_ID: 55
   stage: release
   needs: []
   dependencies: []
