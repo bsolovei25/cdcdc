@@ -9,7 +9,7 @@ import {
     IAsusTmPlace,
     IAsusTpPlace,
     IAsusWorkgroup,
-    ICategory,
+    ICategory, IEventsWidgetAttributes,
     IEventsWidgetNotification, IExtraOptionsWindow,
     IPriority,
     IRetrievalEventDto,
@@ -33,8 +33,6 @@ import { IMessage, IMessageFileAttachment } from '@shared/models/message.model';
 import { FileAttachMenuService } from '../../file-attach-menu.service';
 import { IChatMessageWithAttachments } from '../../../../widgets/EVJ/events-workspace/components/chat/chat.component';
 import { ClaimService, EnumClaimGlobal } from '../../claim.service';
-import { log } from 'util';
-import { B } from '@angular/cdk/keycodes';
 
 @Injectable({
     providedIn: 'root',
@@ -62,6 +60,8 @@ export class EventsWorkspaceService {
     public isCreateNewEvent: boolean = false;
     public isOverlayChartOpen: boolean = false;
     //#endregion
+
+    public attributes$: BehaviorSubject<IEventsWidgetAttributes> = new BehaviorSubject<IEventsWidgetAttributes>(null);
 
     //#region REFERENCES
     public priority: IPriority[] = [];
@@ -503,7 +503,8 @@ export class EventsWorkspaceService {
             deadline: new Date(),
             graphValues: null,
             isAcknowledged: false,
-            unit: this.units.find((u) => u.id === this.currentAuthUser?.unitId) ?? null,
+            unit: this.isCreateNewEvent ? this.units.find((u) => u.id === 22) :
+                this.units.find((u) => u.id === this.currentAuthUser?.unitId) ?? null,
             unitName: null,
             facts: [],
             comments: [],
