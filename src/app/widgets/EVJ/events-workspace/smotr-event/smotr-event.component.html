@@ -51,9 +51,9 @@
       </div>
       <div class="row__cell cell cell_right">
         <evj-events-workspace-button
-          [disabled]="isDisabledCloseButton()"
+          [disabled]="true"
           status="close"
-          (click)="openClosePopup()"
+          (click)="openClosePopup(true)"
         ></evj-events-workspace-button>
       </div>
     </div>
