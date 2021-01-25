@@ -16,7 +16,7 @@ import { Subscription } from 'rxjs';
 @Component({
     selector: 'evj-smotr-event',
     templateUrl: './evj-smotr-event.component.html',
-    styleUrls: ['./evj-smotr-event.component.scss']
+    styleUrls: ['./evj-smotr-event.component.scss'],
 })
 export class EvjSmotrEventComponent implements OnInit, OnDestroy, OnChanges {
     @Input() isPreview: boolean;
@@ -34,7 +34,6 @@ export class EvjSmotrEventComponent implements OnInit, OnDestroy, OnChanges {
     @Input() blockWorkspaceButton: boolean;
     @Input() public toggleAstue: boolean = true;
     public localeSelect: { name: string; id: number }[];
-
     @Input() set select(data) {
         if (data) {
             this.localeSelect = data;
@@ -43,7 +42,6 @@ export class EvjSmotrEventComponent implements OnInit, OnDestroy, OnChanges {
             this.chDet.detectChanges();
         }
     }
-
     @Input() public ejcoTabs?: IEjcoOnpzUnit[] = [];
     @Output() public eventProdTaskChange: EventEmitter<void> = new EventEmitter<void>();
     @Output() eventCreated: EventEmitter<boolean> = new EventEmitter<boolean>();
@@ -77,8 +75,7 @@ export class EvjSmotrEventComponent implements OnInit, OnDestroy, OnChanges {
         private claimService: ClaimService,
         private chDet: ChangeDetectorRef,
         public ewService: EventsWorkspaceService
-    ) {
-    }
+    ) {}
 
     public ngOnChanges(changes: SimpleChanges): void {
         this.filterTankInfo = this.tankInfo;
@@ -121,7 +118,6 @@ export class EvjSmotrEventComponent implements OnInit, OnDestroy, OnChanges {
     compareFn(o1: any, o2: any): boolean {
         return o1.name === o2.name && o1.id === o2.id;
     }
-
     public handleEjcoTabClick(caption: string | null = null): void {
         if (!caption) {
             this.ejcoTabClicked.emit();
@@ -167,7 +163,6 @@ export class EvjSmotrEventComponent implements OnInit, OnDestroy, OnChanges {
         }
         this.ewService.event.directReasons = reason.name;
     }
-
     public openClosePopup(): void {
         if (this.isDisabledCloseButton()) {
             return;
@@ -176,7 +171,13 @@ export class EvjSmotrEventComponent implements OnInit, OnDestroy, OnChanges {
     }
 
     public onClickUrl(): void {
-        window.open('https://spb25-cce-mo1/BLPS_MO/ru_RU/');
+        if (!this.isDisabledUrlButton()) {
+            window.open(this.ewService.event.deviationData.urlOriginalSystem);
+        }
+    }
+
+    public isDisabledUrlButton(): boolean {
+        return !this.ewService.event.deviationData?.urlOriginalSystem;
     }
 
     public openLineChart(): void {
