@@ -57,7 +57,7 @@ export class TimeDataPickerComponent implements OnInit, OnChanges {
 
     @ViewChild('picker') picker: any;
 
-    // public showSpinners: boolean = true;
+    public showSpinners: boolean = true;
     public showSeconds: boolean = false;
     public touchUi: boolean = false;
     public enableMeridian: boolean = false;
