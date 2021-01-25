@@ -136,6 +136,7 @@
         panelClass="mat-balance-select"
         (valueChange)="onSelect($event)"
         [(ngModel)]="ewService.event.asusEvent.eoService"
+        [disabled]="!ewService.event.isUserCanEditAcknowledged"
       >
         <mat-option
           *ngFor="let eoService of ewService.asusEOServices"
@@ -165,6 +166,7 @@
         panelClass="mat-balance-select"
         (valueChange)="onSelect($event)"
         [(ngModel)]="ewService.event.isAcknowledged"
+        [disabled]="ewService.event.isUserCanEditAcknowledged"
       >
         <mat-option [value]="true">
           {{dataType === 'event' ? 'Квитировано' : 'Ознакомлен'}}

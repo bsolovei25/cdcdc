@@ -72,6 +72,7 @@ export interface IEventsWidgetNotification {
     deadline?: Date;
     graphValues?: LineChartData;
     isAcknowledged: boolean;
+    isUserCanEditAcknowledged?: boolean;
     source?: any;
     unit?: IUnitEvents;
     unitName?: string;
