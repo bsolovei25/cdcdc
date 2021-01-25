@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { IChatMessageWithAttachments } from '../components/chat/chat.component';
 import { EventsWorkspaceService } from '../../../../dashboard/services/widgets/EVJ/events-workspace.service';
 import { EventService } from '../../../../dashboard/services/widgets/EVJ/event.service';
@@ -6,7 +6,7 @@ import { EventService } from '../../../../dashboard/services/widgets/EVJ/event.s
 @Component({
     selector: 'evj-smotr-event',
     templateUrl: './smotr-event.component.html',
-    styleUrls: ['./smotr-event.component.scss'],
+    styleUrls: ['./smotr-event.component.scss']
 })
 export class SmotrEventComponent implements OnInit {
     @Input()
@@ -18,9 +18,11 @@ export class SmotrEventComponent implements OnInit {
 
     public graph: any;
 
-    constructor(public ewService: EventsWorkspaceService, private eventService: EventService) {}
+    constructor(public ewService: EventsWorkspaceService, private eventService: EventService) {
+    }
 
-    public ngOnInit(): void {}
+    public ngOnInit(): void {
+    }
 
     public isDisabledCloseButton(): boolean {
         return this.ewService.event.status.name === 'closed';
@@ -62,6 +64,7 @@ export class SmotrEventComponent implements OnInit {
         }
         this.ewService.event.directReasons = reason.name;
     }
+
     public openClosePopup(): void {
         if (this.isDisabledCloseButton()) {
             return;
@@ -70,13 +73,7 @@ export class SmotrEventComponent implements OnInit {
     }
 
     public onClickUrl(): void {
-        if (!this.isDisabledUrlButton()) {
-            window.open(this.ewService.event.deviationData.urlOriginalSystem);
-        }
-    }
-
-    public isDisabledUrlButton(): boolean {
-        return !this.ewService.event.deviationData?.urlOriginalSystem;
+        window.open('https://spb25-cce-mo1/BLPS_MO/ru_RU/');
     }
 
     public openLineChart(): void {
