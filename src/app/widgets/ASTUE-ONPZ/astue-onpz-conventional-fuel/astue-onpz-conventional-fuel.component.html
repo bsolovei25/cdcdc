@@ -119,7 +119,8 @@
         <ng-container *ngIf="isPredictors">
           <div class="label"> Факт по <br> модели </div>
           <div class="card card__model">
-            <span class="value"> {{ nextPlanValue | number:'0.0-2' || '---' }} </span>
+<!--            <span class="value"> {{ nextPlanValue | number:'0.0-2' || '-&#45;&#45;' }} </span>-->
+            <span class="value"> {{ ((predictors$ | async)?.factModel | number:'0.0-2') || '---' }} </span>
             <span class="unit"> {{ (predictors$ | async)?.units }} </span>
           </div>
         </ng-container>
