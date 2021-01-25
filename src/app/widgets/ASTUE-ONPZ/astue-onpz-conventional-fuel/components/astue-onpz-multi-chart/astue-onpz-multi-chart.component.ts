@@ -863,6 +863,7 @@ export class AstueOnpzMultiChartComponent implements OnInit, OnChanges, OnDestro
         const values = [];
         let plan: number;
         let fact: number;
+        let factModel: number;
         let units: string = null;
         const currentDatetime: Date = new Date();
         currentDatetime.setMinutes(0, 0, 0);
@@ -880,13 +881,12 @@ export class AstueOnpzMultiChartComponent implements OnInit, OnChanges, OnDestro
             } else if (chart.graphType === 'fact') {
                 units = units ? units : chart.units;
                 fact = statValue.value;
+            } else if (chart.graphType === 'factModel') {
+                units = units ? units : chart.units;
+                factModel = statValue.value;
             } else if (chart.graphType === 'higherBorder') {
             } else if (chart.graphType === 'lowerBorder') {
-            } else if (
-                chart.graphType === 'forecast' ||
-                chart.graphType === 'factModel' ||
-                chart.graphType === 'border'
-            ) {
+            } else if (chart.graphType === 'forecast' || chart.graphType === 'border') {
                 // TODO add some
             } else {
                 values.push({
@@ -900,6 +900,7 @@ export class AstueOnpzMultiChartComponent implements OnInit, OnChanges, OnDestro
         this.astueOnpzConventionalFuelService.predictorsInfo$.next({
             fact,
             plan,
+            factModel,
             predictors: [...values],
             units,
         });
@@ -968,6 +969,7 @@ export class AstueOnpzMultiChartComponent implements OnInit, OnChanges, OnDestro
         let units: string = null;
         let plan: number = null;
         let fact: number = null;
+        let factModel: number = null;
         const date: Date = factX.toString() !== 'Invalid Date' ? new Date(factX) : new Date(planX);
         date.setMinutes(0, 0, 0);
         this.charts.forEach((chart) => {
@@ -982,11 +984,10 @@ export class AstueOnpzMultiChartComponent implements OnInit, OnChanges, OnDestro
             } else if (chart.graphType === 'fact') {
                 units = units ? units : chart.units;
                 fact = xGragh ? statValue?.value : 0;
-            } else if (
-                chart.graphType === 'forecast' ||
-                chart.graphType === 'border' ||
-                chart.graphType === 'factModel'
-            ) {
+            } else if (chart.graphType === 'factModel') {
+                units = units ? units : chart.units;
+                factModel = xGragh ? statValue?.value : 0;
+            } else if (chart.graphType === 'forecast' || chart.graphType === 'border') {
                 // TODO add some
             } else {
                 values.push({
@@ -1001,6 +1002,7 @@ export class AstueOnpzMultiChartComponent implements OnInit, OnChanges, OnDestro
             this.astueOnpzConventionalFuelService.predictorsInfo$.next({
                 fact,
                 plan,
+                factModel,
                 predictors: [...values],
                 units,
             })
