@@ -111,13 +111,13 @@
         </div>
         <ng-container *ngIf="isPredictors">
           <div class="label"> План на <br> след. час </div>
-          <div class="card card__plan">
+          <div class="card card__predict">
             <span class="value"> {{ nextHourPlan | number:'0.0-2' || '---' }} </span>
             <span class="unit"> {{ (predictors$ | async)?.units }} </span>
           </div>
         </ng-container>
         <ng-container *ngIf="isPredictors">
-          <div class="label"> Факт. по <br> модели </div>
+          <div class="label"> Факт по <br> модели </div>
           <div class="card card__model">
             <span class="value"> {{ nextPlanValue | number:'0.0-2' || '---' }} </span>
             <span class="unit"> {{ (predictors$ | async)?.units }} </span>
