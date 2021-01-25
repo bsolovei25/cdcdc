@@ -1,0 +1,40 @@
+.selects {
+  display: flex;
+  gap: 15px;
+  margin-left: 15px;
+
+  & > * {
+    margin: auto 0;
+  }
+
+  .option-select {
+    height: 40px;
+    display: flex;
+    align-items: center;
+    margin-left: 2px;
+
+    .dropdown {
+      height: 24px;
+      width: 150px;
+
+      display: flex;
+      align-items: center;
+
+      background: var(--sou-mvp-color-bg-select);
+
+      border: 1px solid var(--sou-mvp-color-border);
+      border-radius: 3px;
+
+      &__select {
+        margin-right: 10px;
+        margin-left: 4px;
+
+        ::ng-deep {
+          .mat-select-placeholder{
+            color: #D7E2F2;
+          }
+        }
+      }
+    }
+  }
+}

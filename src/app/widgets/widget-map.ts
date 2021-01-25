@@ -36,6 +36,7 @@ export const WIDGETS = {
     'production-details': WidgetContainerComponent,
     'kpe-quality': WidgetContainerComponent,
     'kpe-energetic': WidgetContainerComponent,
+    'kpe-charts-analytic': WidgetContainerComponent,
     'key-performance-indicators': WidgetContainerComponent,
     'kpe-readiness': WidgetContainerComponent,
     'kpe-safety': WidgetContainerComponent,
@@ -573,6 +574,19 @@ export const WIDGETS_LAZY = {
         minItemCols: 19,
         minItemRows: 14,
         preview: 'kpe-execution-production-program',
+    },
+    'kpe-charts-analytic': {
+        import: async () => {
+            return await import(
+                'src/app/widgets/KPE/kpe-charts-analytic/kpe-charts-analytic.module'
+            );
+        },
+        module: 'KpeChartsAnalyticModule',
+        itemCols: 21,
+        itemRows: 19,
+        minItemCols: 19,
+        minItemRows: 14,
+        preview: 'default',
     },
 
     // #endregion KPE

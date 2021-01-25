@@ -1,0 +1,29 @@
+.chips {
+  display: flex;
+  height: 23px;
+  background: #303549;
+  border-radius: 2px 0 0 2px;
+
+  .chip {
+    padding: 0 10px;
+    color: #D7E2F2;
+    line-height: 21px;
+    font-size: 8px;
+    box-sizing: border-box;
+    border: solid 1px transparent;
+    cursor: pointer;
+
+    &__left {
+      border-radius: 2px 0 0 2px;
+    }
+
+    &__right {
+      border-radius: 0 2px 2px 0;
+    }
+
+    &__active {
+      background: rgba(#0089FF, .2);
+      border-color: #0089FF;
+    }
+  }
+}

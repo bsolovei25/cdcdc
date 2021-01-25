@@ -1,0 +1,108 @@
+.widget-container {
+  display: flex;
+  flex-flow: column;
+  flex-grow: 1;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+
+  .header-container {
+    display: flex;
+    justify-content: space-between;
+    flex-grow: 1;
+
+    evj-kpe-charts-analytic-header-toggle {
+      height: max-content;
+      margin: auto 0;
+    }
+  }
+
+  .container {
+    display: flex;
+    flex-grow: 1;
+    width: 100%;
+    gap: 17px;
+    padding: 16px 18px 18px 16px;
+    border: 1px solid rgba(39, 42, 56, 0.5);
+    border-radius: 2px;
+    background: #1C1F2B;
+    box-sizing: border-box;
+  }
+}
+
+.area {
+  display: flex;
+  height: 100%;
+  flex-flow: column;
+  //background: red;
+
+  &__chart {
+    flex-grow: 1;
+  }
+
+  &__stats {
+    width: 190px;
+  }
+
+  .selects {
+    font-size: 12px;
+    display: flex;
+    flex-flow: column;
+    gap: 8px;
+    margin-bottom: 16px;
+
+    .dropdown {
+      height: 24px;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      background: #12151E;
+      border: 1px solid #272A38;
+      box-sizing: border-box;
+      border-radius: 2px;
+      overflow: hidden;
+
+      &__label {
+        display: flex;
+        height: 100%;
+        width: 27px;
+        background: #272A38;
+
+        span {
+          margin: auto;
+          font-size: 14px;
+          line-height: 17px;
+          color: #8C99B2;
+        }
+      }
+
+      &__select {
+        margin-right: 10px;
+        margin-left: 8px;
+
+        ::ng-deep {
+          .mat-select-placeholder{
+            color: #D7E2F2;
+          }
+        }
+      }
+    }
+  }
+
+  .cards {
+    width: 100%;
+    height: 112px;
+    margin-bottom: auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 16px 16px;
+    grid-template-areas:
+    ". ."
+    ". .";
+  }
+
+  .checker {
+    margin-bottom: 9px;
+  }
+}
