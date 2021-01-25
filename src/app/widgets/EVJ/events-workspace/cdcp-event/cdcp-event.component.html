@@ -38,7 +38,7 @@
     <evj-ui-block class="workspace__header__block" status="{{ewService.event.isAcknowledged}}">
       <mat-form-field class="card-{{ewService.event.isAcknowledged}}">
         <mat-label>Событие</mat-label>
-        <mat-select panelClass="mat-select-custom" [(ngModel)]="ewService.event.isAcknowledged">
+        <mat-select panelClass="mat-select-custom" [(ngModel)]="ewService.event.isAcknowledged" [disabled]="!ewService.event.isUserCanEditAcknowledged">
           <mat-option [value]="true">
             Квитировано
           </mat-option>
