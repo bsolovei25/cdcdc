@@ -13,7 +13,7 @@
                 *ngFor="let setting of data; let i = index"
                 class="settings__item"
                 [ngClass]="{'active': choosenItem === i}"
-                (click)="changeSettinge(i)"
+                (click)="changeSettings(i)"
             >{{setting?.title}}</span>
         </div>
         <div class="header-unit">
