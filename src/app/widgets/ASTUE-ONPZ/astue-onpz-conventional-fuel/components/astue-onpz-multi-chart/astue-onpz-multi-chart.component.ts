@@ -255,6 +255,7 @@ export class AstueOnpzMultiChartComponent implements OnInit, OnChanges, OnDestro
                 graph.graphType === 'fact' ||
                 graph.graphType === 'plan' ||
                 graph.graphType === 'forecast' ||
+                graph.graphType === 'factModel' ||
                 graph.graphType === 'border' ||
                 graph.graphType === 'higherBorder' ||
                 graph.graphType === 'lowerBorder'
@@ -277,6 +278,7 @@ export class AstueOnpzMultiChartComponent implements OnInit, OnChanges, OnDestro
             'fact',
             'plan',
             'forecast',
+            'factModel',
             'border',
             'higherBorder',
             'lowerBorder',
@@ -301,6 +303,7 @@ export class AstueOnpzMultiChartComponent implements OnInit, OnChanges, OnDestro
                 chart.graphType !== 'fact' &&
                 chart.graphType !== 'plan' &&
                 chart.graphType !== 'forecast' &&
+                chart.graphType !== 'factModel' &&
                 chart.graphType !== 'border' &&
                 chart.graphType !== 'higherBorder' &&
                 chart.graphType !== 'lowerBorder'
@@ -428,6 +431,7 @@ export class AstueOnpzMultiChartComponent implements OnInit, OnChanges, OnDestro
                 chart.graphType !== 'plan' &&
                 chart.graphType !== 'fact' &&
                 chart.graphType !== 'forecast' &&
+                chart.graphType !== 'factModel' &&
                 chart.graphType !== 'border' &&
                 chart.graphType !== 'higherBorder' &&
                 chart.graphType !== 'lowerBorder';
@@ -614,6 +618,7 @@ export class AstueOnpzMultiChartComponent implements OnInit, OnChanges, OnDestro
                 chart.graphType === 'fact' ||
                 chart.graphType === 'plan' ||
                 chart.graphType === 'forecast' ||
+                chart.graphType === 'factModel' ||
                 chart.graphType === 'border' ||
                 chart.graphType === 'higherBorder' ||
                 chart.graphType === 'lowerBorder';
@@ -647,6 +652,7 @@ export class AstueOnpzMultiChartComponent implements OnInit, OnChanges, OnDestro
                 (chart.graphType === 'plan' ||
                     chart.graphType === 'fact' ||
                     chart.graphType === 'forecast' ||
+                    chart.graphType === 'factModel' ||
                     chart.graphType === 'border' ||
                     chart.graphType === 'higherBorder' ||
                     chart.graphType === 'lowerBorder')
@@ -657,6 +663,7 @@ export class AstueOnpzMultiChartComponent implements OnInit, OnChanges, OnDestro
                 chart.graphType === 'plan' ||
                 chart.graphType === 'fact' ||
                 chart.graphType === 'forecast' ||
+                chart.graphType === 'factModel' ||
                 chart.graphType === 'border' ||
                 chart.graphType === 'higherBorder' ||
                 chart.graphType === 'lowerBorder'
@@ -666,6 +673,7 @@ export class AstueOnpzMultiChartComponent implements OnInit, OnChanges, OnDestro
                 chart.graphType === 'plan' ||
                 chart.graphType === 'fact' ||
                 chart.graphType === 'forecast' ||
+                chart.graphType === 'factModel' ||
                 chart.graphType === 'border' ||
                 chart.graphType === 'higherBorder' ||
                 chart.graphType === 'lowerBorder';
@@ -750,6 +758,7 @@ export class AstueOnpzMultiChartComponent implements OnInit, OnChanges, OnDestro
                 chart.graphType === 'fact' ||
                 chart.graphType === 'plan' ||
                 chart.graphType === 'forecast' ||
+                chart.graphType === 'factModel' ||
                 chart.graphType === 'border' ||
                 chart.graphType === 'higherBorder' ||
                 chart.graphType === 'lowerBorder'
@@ -788,6 +797,7 @@ export class AstueOnpzMultiChartComponent implements OnInit, OnChanges, OnDestro
             'plan',
             'fact',
             'forecast',
+            'factModel',
             'border',
             'higherBorder',
             'lowerBorder',
@@ -872,7 +882,11 @@ export class AstueOnpzMultiChartComponent implements OnInit, OnChanges, OnDestro
                 fact = statValue.value;
             } else if (chart.graphType === 'higherBorder') {
             } else if (chart.graphType === 'lowerBorder') {
-            } else if (chart.graphType === 'forecast' || chart.graphType === 'border') {
+            } else if (
+                chart.graphType === 'forecast' ||
+                chart.graphType === 'factModel' ||
+                chart.graphType === 'border'
+            ) {
                 // TODO add some
             } else {
                 values.push({
@@ -965,14 +979,14 @@ export class AstueOnpzMultiChartComponent implements OnInit, OnChanges, OnDestro
             if (chart.graphType === 'plan') {
                 units = units ? units : chart.units;
                 plan = xGragh ? statValue?.value : 0;
-            } else if (
-                chart.graphType === 'fact'
-                // chart.graphType === 'higherBorder' ||
-                // chart.graphType === 'lowerBorder'
-            ) {
+            } else if (chart.graphType === 'fact') {
                 units = units ? units : chart.units;
                 fact = xGragh ? statValue?.value : 0;
-            } else if (chart.graphType === 'forecast' || chart.graphType === 'border') {
+            } else if (
+                chart.graphType === 'forecast' ||
+                chart.graphType === 'border' ||
+                chart.graphType === 'factModel'
+            ) {
                 // TODO add some
             } else {
                 values.push({

@@ -5,4 +5,7 @@ export interface IAstueOnpzHeatBalanceItem {
     relativeValue: number;
     absoluteValue: number;
     items?: IAstueOnpzHeatBalanceItem[];
+    typeData: AstueHeatBalanceDataType;
 }
+
+export type AstueHeatBalanceDataType = 'oven' | 'section';

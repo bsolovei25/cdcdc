@@ -20,9 +20,9 @@
           <span
             class="percent"
             [ngClass]="{
-              'percent-warning': data?.deviationValue < 0
+              'percent-warning': data?.deviationValue !== 0
             }"
-          >{{ data?.deviationValue | spaceNumber : 1}}</span>
+          >{{data?.deviationValue > 0 ? '+' : ''}}{{data?.deviationValue | spaceNumber : 1}}</span>
           <span class="unit">{{data?.engUnits}}</span>
         </div>
         <div class="info">

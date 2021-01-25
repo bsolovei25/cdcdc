@@ -99,20 +99,27 @@
     >
       <div [style.left]="((paddingLeft$ | async) / 60 * 58.8) + 'px'" class="shadow-area"></div>
       <div [style.left]="(paddingLeft$ | async) + 'px'" class="info-container">
-        <div class="label"> Факт </div>
+        <div class="label"> Факт <br> по приб. </div>
         <div class="card card__fact">
           <span class="value"> {{ ((predictors$ | async)?.fact | number:'0.0-2') || '---' }} </span>
           <span class="unit"> {{ (predictors$ | async)?.units }} </span>
         </div>
-        <div class="label"> План </div>
+        <div class="label"> Опер <br> план. </div>
         <div class="card card__plan">
           <span class="value"> {{ ((predictors$ | async)?.plan | number:'0.0-2') || '---' }} </span>
           <span class="unit"> {{ (predictors$ | async)?.units }} </span>
         </div>
         <ng-container *ngIf="isPredictors">
-          <div class="label"> План на след. час </div>
+          <div class="label"> План на <br> след. час </div>
           <div class="card card__plan">
             <span class="value"> {{ nextHourPlan | number:'0.0-2' || '---' }} </span>
+            <span class="unit"> {{ (predictors$ | async)?.units }} </span>
+          </div>
+        </ng-container>
+        <ng-container *ngIf="isPredictors">
+          <div class="label"> Факт. по <br> модели </div>
+          <div class="card card__model">
+            <span class="value"> {{ nextPlanValue | number:'0.0-2' || '---' }} </span>
             <span class="unit"> {{ (predictors$ | async)?.units }} </span>
           </div>
         </ng-container>

@@ -1,5 +1,5 @@
 import { Component, OnInit, Output, EventEmitter, OnDestroy, Input } from '@angular/core';
-import { IUser, IUnitEvents } from '../../../../../dashboard/models/EVJ/events-widget';
+import { IUser, IUnitEvents, ICategory } from '../../../../../dashboard/models/EVJ/events-widget';
 import { IAlertWindowModel } from '../../../../../@shared/models/alert-window.model';
 import { IInputOptions } from '../../../../../@shared/models/input.model';
 import { IAlertPasswordModel } from '../../../../../@shared/models/alert-password.model';
@@ -16,7 +16,7 @@ import { IUnits } from '../../../../../dashboard/models/ADMIN/admin-shift-schedu
 @Component({
     selector: 'evj-admin-worker-settings',
     templateUrl: './admin-worker-settings.component.html',
-    styleUrls: ['./admin-worker-settings.component.scss']
+    styleUrls: ['./admin-worker-settings.component.scss'],
 })
 export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
     @Input() public isCreateNewUser: boolean = false;
@@ -47,8 +47,8 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
         icon: {
             src: 'assets/icons/search-icon.svg',
             svgStyle: { 'width.px': 17, 'height.px': 17 },
-            isClickable: false
-        }
+            isClickable: false,
+        },
     };
 
     public searchingFieldName: string = '';
@@ -59,7 +59,7 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
         isShow: false,
         isCreatePassword: true,
         acceptFunction: this.onSetWorkerPassword.bind(this),
-        closeFunction: () => (this.passwordOptions.isShow = false)
+        closeFunction: () => (this.passwordOptions.isShow = false),
     };
     //#endregion
 
@@ -85,8 +85,7 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
     constructor(
         private adminService: AdminPanelService,
         private materialController: SnackBarService
-    ) {
-    }
+    ) {}
 
     public ngOnInit(): void {
         if (this.isCreateNewUser) {
@@ -109,20 +108,12 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
                     this.workerGeneralClaims = claims.data;
                 }),
                 this.adminService.getWorkerSpecialClaims(this.worker.id).subscribe((claims) => {
-                    this.workerSpecialClaims = claims.data;
-                    this.workerSpecialClaims.forEach((value) => {
-                        if (value.claimValueType === 'widget') {
-                            if (!value.widgets) {
-                                value.widgets = [];
-                            }
-                            value.widgets.push(this.findEntityByClaimValueWidget(value));
-                        } else {
-                            if (!value.units) {
-                                value.units = [];
-                            }
-                            value.units.push(this.findEntityByClaimValueUnit(value));
-                        }
-                    });
+                    this.workerSpecialClaims = [...claims.data]
+                        .filter((x) => !!x.value)
+                        .map((value) => ({
+                            ...value,
+                            description: this.getClaimTitleByValue(value),
+                        }));
                 })
             );
         }
@@ -188,6 +179,29 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
         }
     }
 
+    public getSelectedSpecialClaims(claim: IGlobalClaim): IGlobalClaim[] {
+        return this.workerSpecialClaims?.filter((x) => x.claimType === claim.claimType) ?? [];
+    }
+
+    public getClaimTitleByValue(claim: IGlobalClaim): string {
+        switch (claim.claimValueType) {
+            case 'widget':
+                return (
+                    this.adminService.allWidgets.find((item) => item.id === claim.value)?.title ??
+                    ''
+                );
+            case 'unit':
+                return this.adminService.units.find((item) => item.id === +claim.value)?.name ?? '';
+            case 'notificationCategory':
+                return (
+                    this.adminService.eventsCategories.find((item) => item.name === claim.value)
+                        ?.description ?? ''
+                );
+            default:
+                return '';
+        }
+    }
+
     public canShowSpecialClaim(claim: IGlobalClaim): boolean {
         const isWorkerHasClaim: boolean = !!this.workerSpecialClaims.find(
             (item) => item.claimType === claim.claimType
@@ -196,65 +210,24 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
         return isWorkerHasClaim && isClaimNotForScreen;
     }
 
-    public findEntityByClaimValueUnit(claim: IGlobalClaim): IUnitEvents {
-        let entity: IUnitEvents | IWidget;
-        switch (claim.claimValueType) {
-            case 'unit':
-                entity = this.adminService.units.find((item) => item.id === +claim.value);
-                return entity;
-        }
-    }
-
-    public findEntityByClaimValueWidget(claim: IGlobalClaim): IWidget {
-        let entity: IUnitEvents | IWidget;
-        switch (claim.claimValueType) {
-            case 'widget':
-                entity = this.adminService.allWidgets.find((item) => item.id === claim.value);
-                return entity;
-        }
-    }
-
-
     public createSpecialClaim(): void {
         this.isCreateClaim = true;
     }
 
     public onCreateSpecialClaim(claims: IGlobalClaim[]): void {
-        claims.filter((v, index) => {
-            if (v.claimValueType !== 'screen') {
-                this.workerSpecialClaims.splice(index, 1);
-            }
-        });
         if (claims) {
-            claims.forEach((claim) => {
-                this.workerSpecialClaims.push(claim);
-            });
+            this.workerSpecialClaims = [...claims].map((value) => ({
+                ...value,
+                description: this.getClaimTitleByValue(value),
+            }));
             this.isDataChanged = true;
         }
         this.isCreateClaim = false;
     }
 
-    public onRemoveSpecialClaim(claim: IWidget | IUnitEvents): void {
-        let index: number;
-        this.workerSpecialClaims.forEach(workerClaim => {
-            index = -1;
-            workerClaim?.units?.forEach((unit, i) => {
-                if (unit.id === claim.id) {
-                    index = i;
-                }
-            });
-            workerClaim?.widgets?.findIndex((widget, i) => {
-                if (widget.id === claim.id) {
-                    index = i;
-                }
-            });
-            if (index > -1) {
-                workerClaim?.widgets?.splice(index, 1);
-                workerClaim?.units?.splice(index, 1);
-            }
-            index = -1;
-        });
-        // this.workerSpecialClaims.splice(index, 1);
+    public onRemoveSpecialClaim(claim: IGlobalClaim): void {
+        const index = this.workerSpecialClaims.findIndex((x) => x === claim);
+        this.workerSpecialClaims.splice(index, 1);
         this.isDataChanged = true;
     }
 
@@ -338,7 +311,7 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
             firstName: 'Имя',
             lastName: 'Фамилия',
             login: 'Логин',
-            email: 'Эл.почта'
+            email: 'Эл.почта',
         };
 
         let snackbarMessage: string = '';
@@ -379,38 +352,6 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
         if (this.checkForRequiredFields()) {
             this.isDataLoading = true;
             try {
-                this.workerSpecialClaims?.forEach(v => v?.widgets?.forEach(w => {
-                    if (w?.isActive) {
-                        this.workerSpecialClaims?.push({
-                            claimType: v?.claimType,
-                            value: w?.id,
-                            claimValueType: v?.claimValueType,
-                            claimName: v?.claimName,
-                            additionalType: v?.additionalType,
-                            claimCategory: v?.claimCategory,
-                            claimCategoryName: v?.claimCategoryName,
-                            claimValueTypeName: v?.claimValueTypeName,
-                            description: v?.description,
-                            specification: v?.specification
-                        });
-                    }
-                }));
-                this.workerSpecialClaims?.forEach(v => v?.units?.forEach(u => {
-                    if (u?.isActive) {
-                        this.workerSpecialClaims?.push({
-                            claimType: v?.claimType,
-                            value: u?.id.toString(),
-                            claimValueType: v?.claimValueType,
-                            claimName: v?.claimName,
-                            additionalType: v?.additionalType,
-                            claimCategory: v?.claimCategory,
-                            claimCategoryName: v?.claimCategoryName,
-                            claimValueTypeName: v?.claimValueTypeName,
-                            description: v?.description,
-                            specification: v?.specification
-                        });
-                    }
-                }));
                 this.worker.displayName = this.adminService.generateDisplayName(this.worker);
                 this.worker.claims = this.workerGeneralClaims.concat(this.workerSpecialClaims);
                 if (this.workerPhoto) {
@@ -442,7 +383,7 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
                 this.materialController.openSnackBar('Данные сохранены');
                 this.isDataChanged = false;
             } catch (error) {
-                console.log(error);
+                console.error(error);
             } finally {
                 this.isDataLoading = false;
             }

@@ -9,6 +9,7 @@ export interface IEventsWidgetAttributes {
     Acknowledgment: boolean;
     IsVideoWall: boolean;
     SortType: SortTypeEvents;
+    unitId?: number;
 }
 
 export interface IEventsWidgetNotificationPreview {
@@ -294,6 +295,7 @@ export interface ICategory {
     name: EventsWidgetCategoryCode;
     code: string;
     description?: string;
+    isActive?: boolean;
 }
 
 export interface IStatus {

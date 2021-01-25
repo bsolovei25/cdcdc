@@ -110,37 +110,15 @@
               <div class="claim__button claim__button-toggle"></div>
             </div>
             <div class="claim__items" *ngIf="claim?.claimName">
-              <ng-container *ngFor="let item of workerSpecialClaims">
-
-                <ng-container *ngIf="item.claimValueType === 'widget'">
-                  <ng-container *ngFor="let nameCard of item.widgets">
-                    <div class="claim__item" *ngIf="claim.claimType === item.claimType
-                && nameCard?.title">
-                      {{nameCard?.title}}
-                      <div
-                        class="claim__button claim__button-delete"
-                        (click)="onRemoveSpecialClaim(nameCard)"
-                      >
-                        <img src="assets/icons/widgets/admin/admin-groups/delete-icon.svg" />
-                      </div>
-                    </div>
-                  </ng-container>
-                </ng-container>
-
-                <ng-container *ngIf="item.claimValueType === 'unit'">
-                  <ng-container *ngFor="let nameCard of item.units">
-                    <div class="claim__item" *ngIf="claim.claimType === item.claimType
-                    && nameCard.name !== ''">
-                      {{nameCard.name}}
-                      <div
-                        class="claim__button claim__button-delete"
-                        (click)="onRemoveSpecialClaim(nameCard)"
-                      >
-                        <img src="assets/icons/widgets/admin/admin-groups/delete-icon.svg" />
-                      </div>
-                    </div>
-                  </ng-container>
-                </ng-container>
+              <ng-container *ngFor="let item of getSelectedSpecialClaims(claim)">
+                <div class="claim__item"> {{ item.description }}
+                  <div
+                    class="claim__button claim__button-delete"
+                    (click)="onRemoveSpecialClaim(item)"
+                  >
+                    <img alt="" src="assets/icons/widgets/admin/admin-groups/delete-icon.svg" />
+                  </div>
+                </div>
               </ng-container>
             </div>
           </div>
