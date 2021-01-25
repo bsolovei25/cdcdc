@@ -9,6 +9,7 @@ import {
 } from '../../../dashboard/models/KPE/kpe-charts-analytic.model';
 import { debounceTime, distinctUntilChanged, map, withLatestFrom } from 'rxjs/operators';
 import { KpeChartsAnalyticService } from '../../../dashboard/services/widgets/KPE/kpe-charts-analytic.service';
+import { KpeHelperService } from "../shared/kpe-helper.service";
 
 @Component({
     selector: 'evj-kpe-charts-analytic',
@@ -39,6 +40,7 @@ export class KpeChartsAnalyticComponent extends WidgetPlatform implements OnInit
 
     constructor(
         private chartsAnalyticService: KpeChartsAnalyticService,
+        private kpeHelperService: KpeHelperService,
         protected widgetService: WidgetService,
         @Inject('isMock') public isMock: boolean,
         @Inject('widgetId') public id: string,

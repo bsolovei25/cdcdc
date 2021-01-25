@@ -1,0 +1,96 @@
+:host {
+  width: 100%;
+  height: 100%;
+
+  * {
+    box-sizing: border-box;
+  }
+}
+
+.chart {
+  width: 100%;
+  height: 100%;
+}
+
+::ng-deep {
+  .grid {
+    color: var(--color-lines-bg-dia);
+    stroke-width: 1;
+    fill: var(--color-sou-bg);
+
+    path {
+      fill: var(--color-sou-bg);
+    }
+  }
+
+  .y-axis {
+    text {
+      fill: var(--color-marker-diagram);
+      font-size: 10px;
+    }
+  }
+
+  .x-axis {
+    text {
+      fill: var(--color-marker-diagram);
+      font-size: 10px;
+    }
+  }
+
+  .fact-curve,
+  .plan-curve {
+    stroke-width: 1;
+    fill: none;
+  }
+
+  .fact-curve {
+    stroke: var(--color-text-main);
+  }
+
+  .plan-curve {
+    stroke: var(--color-kpe-gaude-active);
+  }
+
+  .day-threshold-line {
+    stroke: var(--color-marker-diagram);
+    stroke-width: 1px;
+  }
+
+  .deviation-line {
+    stroke: var(--color-astue-onpz-warning);
+    stroke-width: 1px;
+  }
+
+  .deviation-circle {
+    stroke: var(--color-astue-onpz-warning);
+    fill: var(--color-kpe-deviation-diagram-circle-bg);
+  }
+
+  .day-circle-1,
+  .day-circle-2,
+  .day-circle-3,
+  .day-circle-4 {
+    fill: var(--color-text-main);
+  }
+
+  .day-circle-1 {
+    opacity: 0.05;
+  }
+
+  .day-circle-2 {
+    opacity: 0.2;
+  }
+
+  .day-circle-3 {
+    opacity: 0.5;
+  }
+
+  .day-circle-4 {
+    opacity: 1;
+  }
+
+  .rect-left {
+    fill: var(--color-sou-bg);
+  }
+}
+
