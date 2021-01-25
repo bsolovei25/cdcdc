@@ -44,6 +44,6 @@ export class EjsEventComponent implements OnInit, OnDestroy {
     }
 
     onClickEjs(): void {
-        window.open(`${this.ewService.event.ejsData.urlOriginalSystem}`);
+        window.open(`http://10.80.128.41/meridium`);
     }
 }
